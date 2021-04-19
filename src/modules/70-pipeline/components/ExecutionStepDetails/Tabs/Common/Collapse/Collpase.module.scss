@@ -1,0 +1,27 @@
+.collapse {
+  .title {
+    font-weight: bold;
+    line-height: 2;
+    position: relative;
+    padding: var(--spacing-xsmall) var(--spacing-xlarge) var(--spacing-xsmall) 0;
+  }
+
+  .toggle {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%) rotate(0deg);
+    min-height: auto !important;
+    height: 16px !important;
+    padding: 0;
+    transition-property: background-color, color, border-color, transform !important;
+
+    &.open {
+      transform: translateY(-50%) rotate(-180deg);
+    }
+  }
+
+  .content {
+    padding: var(--spacing-xsmall);
+  }
+}

@@ -75,7 +75,7 @@ export default function ExecutionStepDetails(props: ExecutionStepDetailsProps): 
 
   return (
     <div className={css.main}>
-      <div className={cx(css.header, { [css.isApproval]: isApproval && isWaiting })}>
+      <div className={cx(css.header, { [css.isApproval]: isHarnessApproval(selectedStep.stepType) && isWaiting })}>
         <div className={css.title}>
           {getString('pipeline.execution.stepTitlePrefix')}
           {selectedStep.name}

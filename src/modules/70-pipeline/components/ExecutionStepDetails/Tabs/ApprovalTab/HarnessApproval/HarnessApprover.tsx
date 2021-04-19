@@ -1,10 +1,10 @@
 import React from 'react'
-import { Button, Icon } from '@wings-software/uicore'
-import { Collapse, IconName } from '@blueprintjs/core'
-import cx from 'classnames'
+import { Icon, IconName } from '@wings-software/uicore'
+import moment from 'moment'
 
 import type { HarnessApprovalActivity } from 'services/pipeline-ng'
 import { String, StringKeys } from 'framework/exports'
+import { Collapse } from '../../Common/Collapse/Collapse'
 
 import css from '../ApprovalStepDetails.module.scss'
 
@@ -13,53 +13,52 @@ const iconMap: Record<HarnessApprovalActivity['action'], IconName> = {
   REJECT: 'cross'
 }
 
+const statusStringMap: Record<HarnessApprovalActivity['action'], StringKeys> = {
+  APPROVE: 'pipeline.approvalStep.status.APPROVE',
+  REJECT: 'pipeline.approvalStep.status.REJECT'
+}
+
 export interface HarnessApproverProps {
   approvalActivity: HarnessApprovalActivity
 }
 
 export function HarnessApprover(props: HarnessApproverProps): React.ReactElement {
   const { approvalActivity } = props
-  const [expanded, setExpanded] = React.useState(false)
-
-  function toggle(): void {
-    setExpanded(status => !status)
-  }
 
   return (
     <div className={css.approver}>
-      <div className={css.summary}>
-        <div className={css.approverName}>{approvalActivity.user?.name}</div>
-        <div className={css.status} data-status={approvalActivity.action}>
-          <Icon name={iconMap[approvalActivity.action]} size={12} />
-          <String
-            stringID={
-              `pipeline.approvalStep.status.${approvalActivity.action}` as StringKeys /* TODO: fix this properly */
-            }
-          />
-        </div>
-        <div>{approvalActivity.approvedAt ? new Date(approvalActivity.approvedAt).toLocaleString() : '-'}</div>
-        <Button
-          icon="chevron-down"
-          minimal
-          small
-          className={cx(css.toggle, { [css.open]: expanded })}
-          onClick={toggle}
-        />
-      </div>
-      <Collapse isOpen={expanded}>
-        <div className={css.details}>
+      <Collapse
+        title={
+          <React.Fragment>
+            <div className={css.approverName}>{approvalActivity.user?.name}</div>
+            <div className={css.status} data-status={approvalActivity.action}>
+              <Icon name={iconMap[approvalActivity.action]} size={12} />
+              <String stringID={statusStringMap[approvalActivity.action]} />
+            </div>
+            <div className={css.time}>
+              {approvalActivity.approvedAt ? moment(approvalActivity.approvedAt).fromNow() : '-'}
+            </div>
+          </React.Fragment>
+        }
+        titleContentClassName={css.summary}
+      >
+        <React.Fragment>
           <String tagName="div" className={css.label} stringID="inputs" />
           <ul className={css.approverInputs}>
-            {(approvalActivity.approverInputs || []).map((row, i) => (
-              <li key={i}>
-                <span>{row.name}:</span>
-                <span>{row.value}</span>
-              </li>
-            ))}
+            {Array.isArray(approvalActivity.approverInputs) && approvalActivity.approverInputs.length > 0 ? (
+              (approvalActivity.approverInputs || []).map((row, i) => (
+                <li key={i}>
+                  <span>{row.name}:</span>
+                  <span>{row.value}</span>
+                </li>
+              ))
+            ) : (
+              <String stringID="pipeline.execution.noInputsText" />
+            )}
           </ul>
           <String tagName="div" className={css.label} stringID="common.comments" />
           <div className={css.comments}>{approvalActivity.comments || '-'}</div>
-        </div>
+        </React.Fragment>
       </Collapse>
     </div>
   )

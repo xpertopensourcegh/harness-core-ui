@@ -1,0 +1,118 @@
+[
+  [
+    "TAGvdMNVT8OuKifLftVepg",
+    {
+      "nodeType": "Deployment",
+      "nodeGroup": "STAGE",
+      "nodeIdentifier": "stage_1",
+      "name": "stage_1",
+      "nodeUuid": "TAGvdMNVT8OuKifLftVepg",
+      "status": "Success",
+      "module": "cd",
+      "moduleInfo": {
+        "cd": {
+          "nodeExecutionId": null,
+          "serviceInfo": {
+            "identifier": "dummysvc",
+            "displayName": "dummy-svc",
+            "deploymentType": "Kubernetes",
+            "artifacts": {
+              "primary": {
+                "imagePath": "library/nginx",
+                "tag": "latest"
+              },
+              "sidecars": [
+                {
+                  "imagePath": "library/nginx",
+                  "tag": "latest"
+                }
+              ]
+            }
+          },
+          "infraExecutionSummary": { "identifier": "dev", "name": "dev" }
+        },
+        "pmsInternal": {}
+      },
+      "startTs": 1618482394994,
+      "endTs": 1618482433131,
+      "edgeLayoutList": { "currentNodeChildren": [], "nextIds": ["JWY4mKLkQoCYQyL6FMn2tQ"] }
+    }
+  ],
+  [
+    "JWY4mKLkQoCYQyL6FMn2tQ",
+    {
+      "nodeType": "Deployment",
+      "nodeGroup": "STAGE",
+      "nodeIdentifier": "stage_2",
+      "name": "stage_2",
+      "nodeUuid": "JWY4mKLkQoCYQyL6FMn2tQ",
+      "status": "Success",
+      "module": "cd",
+      "moduleInfo": {
+        "cd": {
+          "nodeExecutionId": null,
+          "serviceInfo": {
+            "identifier": "dummysvc",
+            "displayName": "dummy-svc",
+            "deploymentType": "Kubernetes",
+            "artifacts": { "sidecars": [] }
+          },
+          "infraExecutionSummary": { "identifier": "dev", "name": "dev" }
+        },
+        "pmsInternal": {}
+      },
+      "startTs": 1618482434150,
+      "endTs": 1618482473229,
+      "edgeLayoutList": { "currentNodeChildren": [], "nextIds": ["pPx_FvRDSFC2J-b1MWcHHg"] }
+    }
+  ],
+  [
+    "pPx_FvRDSFC2J-b1MWcHHg",
+    {
+      "nodeType": "Approval",
+      "nodeGroup": "STAGE",
+      "nodeIdentifier": "approval",
+      "name": "approval",
+      "nodeUuid": "pPx_FvRDSFC2J-b1MWcHHg",
+      "status": "Failed",
+      "module": "pmsInternal",
+      "moduleInfo": { "pmsInternal": {} },
+      "startTs": 1618482474245,
+      "endTs": 1618482989061,
+      "edgeLayoutList": { "currentNodeChildren": [], "nextIds": ["_V5bf7pIQ2CX6fjpPu04ew"] },
+      "failureInfo": {}
+    }
+  ],
+  [
+    "_V5bf7pIQ2CX6fjpPu04ew",
+    {
+      "nodeType": "Deployment",
+      "nodeGroup": "STAGE",
+      "nodeIdentifier": "stage_3",
+      "name": "stage_3",
+      "nodeUuid": "_V5bf7pIQ2CX6fjpPu04ew",
+      "status": "Skipped",
+      "module": "cd",
+      "moduleInfo": { "cd": { "nodeExecutionId": null }, "pmsInternal": {} },
+      "endTs": 1618482991063,
+      "edgeLayoutList": { "currentNodeChildren": [], "nextIds": ["Qj1NLGavT2qdxtUQyjhe8A"] },
+      "nodeRunInfo": { "whenCondition": "<+OnPipelineSuccess>" }
+    }
+  ],
+  [
+    "Qj1NLGavT2qdxtUQyjhe8A",
+    {
+      "nodeType": "Deployment",
+      "nodeGroup": "STAGE",
+      "nodeIdentifier": "stage_4",
+      "name": "stage_4",
+      "nodeUuid": "Qj1NLGavT2qdxtUQyjhe8A",
+      "status": "Skipped",
+      "module": "cd",
+      "moduleInfo": { "cd": { "nodeExecutionId": null }, "pmsInternal": {} },
+      "endTs": 1618482991204,
+      "edgeLayoutList": { "currentNodeChildren": [], "nextIds": [] },
+      "nodeRunInfo": { "whenCondition": "<+OnPipelineSuccess>" }
+    }
+  ]
+]

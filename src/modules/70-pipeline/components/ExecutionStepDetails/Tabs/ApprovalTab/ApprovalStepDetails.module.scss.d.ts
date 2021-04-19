@@ -2,6 +2,7 @@
 // this is an auto-generated file
 declare const styles: {
   readonly approvalTab: string
+  readonly error: string
   readonly label: string
   readonly info: string
   readonly timer: string
@@ -14,19 +15,16 @@ declare const styles: {
   readonly heading: string
   readonly formRow: string
   readonly labels: string
-  readonly status: string
   readonly actions: string
   readonly approver: string
   readonly approverName: string
   readonly summary: string
-  readonly details: string
-  readonly toggle: string
-  readonly open: string
+  readonly time: string
+  readonly status: string
   readonly approverInputs: string
   readonly comments: string
   readonly jiraApproval: string
   readonly jiraCriteria: string
-  readonly title: string
   readonly conditions: string
   readonly collapseContainer: string
   readonly key: string

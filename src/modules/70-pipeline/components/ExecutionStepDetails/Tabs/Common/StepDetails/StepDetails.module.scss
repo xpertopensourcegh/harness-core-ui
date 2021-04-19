@@ -1,0 +1,34 @@
+.detailsTable {
+  border-collapse: collapse;
+  margin: var(--spacing-large) var(--spacing-xsmall);
+
+  th,
+  td {
+    padding: var(--spacing-xsmall) var(--spacing-large);
+    font-weight: 600;
+    font-size: var(--font-size-small);
+    line-height: var(--font-size-small);
+    text-align: left;
+  }
+
+  tr.delegateRow {
+    vertical-align: baseline;
+    p {
+      display: inline;
+    }
+  }
+  & th {
+    color: var(--grey-400);
+    width: 100px;
+  }
+
+  & td {
+    color: var(--grey-500);
+  }
+}
+
+.timer {
+  font-size: var(--font-size-small) !important;
+  color: var(--grey-500) !important;
+  font-weight: 600 !important;
+}

@@ -130,10 +130,10 @@ export default function ExecutionMetadata(): React.ReactElement {
       label: getString('servicesWithCount', { count: services.length }),
       value: (
         <div className={css.servicesWrapper}>
-          {services.slice(0, 2).map(service => {
+          {services.slice(0, 2).map((service, i) => {
             return (
               <Popover
-                key={service.identifier}
+                key={`${service.identifier}-${i}`}
                 wrapperTagName="div"
                 targetTagName="div"
                 interactionKind="hover"
@@ -164,8 +164,8 @@ export default function ExecutionMetadata(): React.ReactElement {
                     </tr>
                   </thead>
                   <tbody>
-                    {services.slice(2).map(service => (
-                      <tr key={service.identifier}>
+                    {services.slice(2).map((service, i) => (
+                      <tr key={`${service.identifier}-${i}`}>
                         <td>{service.displayName}</td>
                         <td>
                           {service.artifacts?.primary

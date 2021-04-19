@@ -2,26 +2,38 @@
 
 exports[`<HarnessApproval /> tests Non-Waiting Status form is not shown 1`] = `
 <div>
-  <div
-    class="Layout--vertical Layout--layout-spacing-large StyledProps--main harnessApproval StyledProps--padding-large"
+  <table
+    class="detailsTable"
   >
-    <div
-      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
-    >
-      <p
-        class="StyledProps--font StyledProps--main"
-      >
-        <span>
+    <tbody>
+      <tr>
+        <th>
           startedAt
-        </span>
-      </p>
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100"
-      >
-        XX:YY
-      </p>
-    </div>
-  </div>
+        </th>
+        <td>
+          -
+        </td>
+      </tr>
+      <tr>
+        <th>
+          endedAt
+        </th>
+        <td>
+          -
+        </td>
+      </tr>
+      <tr>
+        <th>
+          duration
+        </th>
+        <td>
+          <div>
+            MOCK DURATION
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
   <div
     class="harnessApproval"
   >
@@ -37,152 +49,174 @@ exports[`<HarnessApproval /> tests Non-Waiting Status form is not shown 1`] = `
       class="approver"
     >
       <div
-        class="summary"
+        class="collapse"
       >
         <div
-          class="approverName"
+          class="title"
         >
-          User 1
+          <div
+            class="summary"
+          >
+            <div
+              class="approverName"
+            >
+              User 1
+            </div>
+            <div
+              class="status"
+              data-status="APPROVE"
+            >
+              <span
+                class="bp3-icon bp3-icon-tick StyledProps--main"
+                icon="tick"
+              >
+                <svg
+                  data-icon="tick"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    tick
+                  </desc>
+                  <path
+                    d="M14 3c-.28 0-.53.11-.71.29L6 10.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l8-8A1.003 1.003 0 0014 3z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span>
+                pipeline.approvalStep.status.APPROVE
+              </span>
+            </div>
+            <div
+              class="time"
+            >
+              a month ago
+            </div>
+          </div>
+          <button
+            class="bp3-button bp3-minimal bp3-small toggle"
+            data-testid="toggle-collapse"
+            type="button"
+          >
+            <span
+              class="bp3-icon bp3-icon-chevron-down"
+              icon="chevron-down"
+            >
+              <svg
+                data-icon="chevron-down"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  chevron-down
+                </desc>
+                <path
+                  d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
         </div>
         <div
-          class="status"
-          data-status="APPROVE"
+          class="bp3-collapse"
         >
-          <span
-            class="bp3-icon bp3-icon-tick StyledProps--main"
-            icon="tick"
-          >
-            <svg
-              data-icon="tick"
-              height="12"
-              viewBox="0 0 16 16"
-              width="12"
-            >
-              <desc>
-                tick
-              </desc>
-              <path
-                d="M14 3c-.28 0-.53.11-.71.29L6 10.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l8-8A1.003 1.003 0 0014 3z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-          <span>
-            pipeline.approvalStep.status.APPROVE
-          </span>
+          <div
+            aria-hidden="false"
+            class="bp3-collapse-body"
+            style="transform: translateY(-undefinedpx);"
+          />
         </div>
-        <div>
-          DUMMY DATE
-        </div>
-        <button
-          class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main toggle"
-          type="button"
-        >
-          <span
-            class="bp3-icon bp3-icon-chevron-down StyledProps--main"
-            icon="chevron-down"
-          >
-            <svg
-              data-icon="chevron-down"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <desc>
-                chevron-down
-              </desc>
-              <path
-                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-        </button>
-      </div>
-      <div
-        class="bp3-collapse"
-      >
-        <div
-          aria-hidden="false"
-          class="bp3-collapse-body"
-          style="transform: translateY(-undefinedpx);"
-        />
       </div>
     </div>
     <div
       class="approver"
     >
       <div
-        class="summary"
+        class="collapse"
       >
         <div
-          class="approverName"
+          class="title"
         >
-          User 2
+          <div
+            class="summary"
+          >
+            <div
+              class="approverName"
+            >
+              User 2
+            </div>
+            <div
+              class="status"
+              data-status="REJECT"
+            >
+              <span
+                class="bp3-icon bp3-icon-cross StyledProps--main"
+                icon="cross"
+              >
+                <svg
+                  data-icon="cross"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    cross
+                  </desc>
+                  <path
+                    d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span>
+                pipeline.approvalStep.status.REJECT
+              </span>
+            </div>
+            <div
+              class="time"
+            >
+              a month ago
+            </div>
+          </div>
+          <button
+            class="bp3-button bp3-minimal bp3-small toggle"
+            data-testid="toggle-collapse"
+            type="button"
+          >
+            <span
+              class="bp3-icon bp3-icon-chevron-down"
+              icon="chevron-down"
+            >
+              <svg
+                data-icon="chevron-down"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  chevron-down
+                </desc>
+                <path
+                  d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
         </div>
         <div
-          class="status"
-          data-status="REJECT"
+          class="bp3-collapse"
         >
-          <span
-            class="bp3-icon bp3-icon-cross StyledProps--main"
-            icon="cross"
-          >
-            <svg
-              data-icon="cross"
-              height="12"
-              viewBox="0 0 16 16"
-              width="12"
-            >
-              <desc>
-                cross
-              </desc>
-              <path
-                d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-          <span>
-            pipeline.approvalStep.status.REJECT
-          </span>
+          <div
+            aria-hidden="false"
+            class="bp3-collapse-body"
+            style="transform: translateY(-undefinedpx);"
+          />
         </div>
-        <div>
-          DUMMY DATE
-        </div>
-        <button
-          class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main toggle"
-          type="button"
-        >
-          <span
-            class="bp3-icon bp3-icon-chevron-down StyledProps--main"
-            icon="chevron-down"
-          >
-            <svg
-              data-icon="chevron-down"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <desc>
-                chevron-down
-              </desc>
-              <path
-                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-        </button>
-      </div>
-      <div
-        class="bp3-collapse"
-      >
-        <div
-          aria-hidden="false"
-          class="bp3-collapse-body"
-          style="transform: translateY(-undefinedpx);"
-        />
       </div>
     </div>
   </div>
@@ -229,152 +263,174 @@ exports[`<HarnessApproval /> tests Waiting Status does not shows form if user is
       class="approver"
     >
       <div
-        class="summary"
+        class="collapse"
       >
         <div
-          class="approverName"
+          class="title"
         >
-          User 1
+          <div
+            class="summary"
+          >
+            <div
+              class="approverName"
+            >
+              User 1
+            </div>
+            <div
+              class="status"
+              data-status="APPROVE"
+            >
+              <span
+                class="bp3-icon bp3-icon-tick StyledProps--main"
+                icon="tick"
+              >
+                <svg
+                  data-icon="tick"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    tick
+                  </desc>
+                  <path
+                    d="M14 3c-.28 0-.53.11-.71.29L6 10.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l8-8A1.003 1.003 0 0014 3z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span>
+                pipeline.approvalStep.status.APPROVE
+              </span>
+            </div>
+            <div
+              class="time"
+            >
+              a month ago
+            </div>
+          </div>
+          <button
+            class="bp3-button bp3-minimal bp3-small toggle"
+            data-testid="toggle-collapse"
+            type="button"
+          >
+            <span
+              class="bp3-icon bp3-icon-chevron-down"
+              icon="chevron-down"
+            >
+              <svg
+                data-icon="chevron-down"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  chevron-down
+                </desc>
+                <path
+                  d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
         </div>
         <div
-          class="status"
-          data-status="APPROVE"
+          class="bp3-collapse"
         >
-          <span
-            class="bp3-icon bp3-icon-tick StyledProps--main"
-            icon="tick"
-          >
-            <svg
-              data-icon="tick"
-              height="12"
-              viewBox="0 0 16 16"
-              width="12"
-            >
-              <desc>
-                tick
-              </desc>
-              <path
-                d="M14 3c-.28 0-.53.11-.71.29L6 10.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l8-8A1.003 1.003 0 0014 3z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-          <span>
-            pipeline.approvalStep.status.APPROVE
-          </span>
+          <div
+            aria-hidden="false"
+            class="bp3-collapse-body"
+            style="transform: translateY(-undefinedpx);"
+          />
         </div>
-        <div>
-          DUMMY DATE
-        </div>
-        <button
-          class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main toggle"
-          type="button"
-        >
-          <span
-            class="bp3-icon bp3-icon-chevron-down StyledProps--main"
-            icon="chevron-down"
-          >
-            <svg
-              data-icon="chevron-down"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <desc>
-                chevron-down
-              </desc>
-              <path
-                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-        </button>
-      </div>
-      <div
-        class="bp3-collapse"
-      >
-        <div
-          aria-hidden="false"
-          class="bp3-collapse-body"
-          style="transform: translateY(-undefinedpx);"
-        />
       </div>
     </div>
     <div
       class="approver"
     >
       <div
-        class="summary"
+        class="collapse"
       >
         <div
-          class="approverName"
+          class="title"
         >
-          User 2
+          <div
+            class="summary"
+          >
+            <div
+              class="approverName"
+            >
+              User 2
+            </div>
+            <div
+              class="status"
+              data-status="REJECT"
+            >
+              <span
+                class="bp3-icon bp3-icon-cross StyledProps--main"
+                icon="cross"
+              >
+                <svg
+                  data-icon="cross"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    cross
+                  </desc>
+                  <path
+                    d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span>
+                pipeline.approvalStep.status.REJECT
+              </span>
+            </div>
+            <div
+              class="time"
+            >
+              a month ago
+            </div>
+          </div>
+          <button
+            class="bp3-button bp3-minimal bp3-small toggle"
+            data-testid="toggle-collapse"
+            type="button"
+          >
+            <span
+              class="bp3-icon bp3-icon-chevron-down"
+              icon="chevron-down"
+            >
+              <svg
+                data-icon="chevron-down"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  chevron-down
+                </desc>
+                <path
+                  d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
         </div>
         <div
-          class="status"
-          data-status="REJECT"
+          class="bp3-collapse"
         >
-          <span
-            class="bp3-icon bp3-icon-cross StyledProps--main"
-            icon="cross"
-          >
-            <svg
-              data-icon="cross"
-              height="12"
-              viewBox="0 0 16 16"
-              width="12"
-            >
-              <desc>
-                cross
-              </desc>
-              <path
-                d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-          <span>
-            pipeline.approvalStep.status.REJECT
-          </span>
+          <div
+            aria-hidden="false"
+            class="bp3-collapse-body"
+            style="transform: translateY(-undefinedpx);"
+          />
         </div>
-        <div>
-          DUMMY DATE
-        </div>
-        <button
-          class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main toggle"
-          type="button"
-        >
-          <span
-            class="bp3-icon bp3-icon-chevron-down StyledProps--main"
-            icon="chevron-down"
-          >
-            <svg
-              data-icon="chevron-down"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <desc>
-                chevron-down
-              </desc>
-              <path
-                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-        </button>
-      </div>
-      <div
-        class="bp3-collapse"
-      >
-        <div
-          aria-hidden="false"
-          class="bp3-collapse-body"
-          style="transform: translateY(-undefinedpx);"
-        />
       </div>
     </div>
   </div>
@@ -421,246 +477,266 @@ exports[`<HarnessApproval /> tests Waiting Status shows form if user is authoriz
       class="approver"
     >
       <div
-        class="summary"
+        class="collapse"
       >
         <div
-          class="approverName"
+          class="title"
         >
-          User 1
+          <div
+            class="summary"
+          >
+            <div
+              class="approverName"
+            >
+              User 1
+            </div>
+            <div
+              class="status"
+              data-status="APPROVE"
+            >
+              <span
+                class="bp3-icon bp3-icon-tick StyledProps--main"
+                icon="tick"
+              >
+                <svg
+                  data-icon="tick"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    tick
+                  </desc>
+                  <path
+                    d="M14 3c-.28 0-.53.11-.71.29L6 10.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l8-8A1.003 1.003 0 0014 3z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span>
+                pipeline.approvalStep.status.APPROVE
+              </span>
+            </div>
+            <div
+              class="time"
+            >
+              a month ago
+            </div>
+          </div>
+          <button
+            class="bp3-button bp3-minimal bp3-small toggle"
+            data-testid="toggle-collapse"
+            type="button"
+          >
+            <span
+              class="bp3-icon bp3-icon-chevron-down"
+              icon="chevron-down"
+            >
+              <svg
+                data-icon="chevron-down"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  chevron-down
+                </desc>
+                <path
+                  d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
         </div>
         <div
-          class="status"
-          data-status="APPROVE"
+          class="bp3-collapse"
         >
-          <span
-            class="bp3-icon bp3-icon-tick StyledProps--main"
-            icon="tick"
-          >
-            <svg
-              data-icon="tick"
-              height="12"
-              viewBox="0 0 16 16"
-              width="12"
-            >
-              <desc>
-                tick
-              </desc>
-              <path
-                d="M14 3c-.28 0-.53.11-.71.29L6 10.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l8-8A1.003 1.003 0 0014 3z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-          <span>
-            pipeline.approvalStep.status.APPROVE
-          </span>
+          <div
+            aria-hidden="false"
+            class="bp3-collapse-body"
+            style="transform: translateY(-undefinedpx);"
+          />
         </div>
-        <div>
-          DUMMY DATE
-        </div>
-        <button
-          class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main toggle"
-          type="button"
-        >
-          <span
-            class="bp3-icon bp3-icon-chevron-down StyledProps--main"
-            icon="chevron-down"
-          >
-            <svg
-              data-icon="chevron-down"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <desc>
-                chevron-down
-              </desc>
-              <path
-                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-        </button>
-      </div>
-      <div
-        class="bp3-collapse"
-      >
-        <div
-          aria-hidden="false"
-          class="bp3-collapse-body"
-          style="transform: translateY(-undefinedpx);"
-        />
       </div>
     </div>
     <div
       class="approver"
     >
       <div
-        class="summary"
+        class="collapse"
       >
         <div
-          class="approverName"
+          class="title"
         >
-          User 2
+          <div
+            class="summary"
+          >
+            <div
+              class="approverName"
+            >
+              User 2
+            </div>
+            <div
+              class="status"
+              data-status="REJECT"
+            >
+              <span
+                class="bp3-icon bp3-icon-cross StyledProps--main"
+                icon="cross"
+              >
+                <svg
+                  data-icon="cross"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    cross
+                  </desc>
+                  <path
+                    d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span>
+                pipeline.approvalStep.status.REJECT
+              </span>
+            </div>
+            <div
+              class="time"
+            >
+              a month ago
+            </div>
+          </div>
+          <button
+            class="bp3-button bp3-minimal bp3-small toggle"
+            data-testid="toggle-collapse"
+            type="button"
+          >
+            <span
+              class="bp3-icon bp3-icon-chevron-down"
+              icon="chevron-down"
+            >
+              <svg
+                data-icon="chevron-down"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  chevron-down
+                </desc>
+                <path
+                  d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
         </div>
         <div
-          class="status"
-          data-status="REJECT"
+          class="bp3-collapse"
         >
-          <span
-            class="bp3-icon bp3-icon-cross StyledProps--main"
-            icon="cross"
-          >
-            <svg
-              data-icon="cross"
-              height="12"
-              viewBox="0 0 16 16"
-              width="12"
-            >
-              <desc>
-                cross
-              </desc>
-              <path
-                d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-          <span>
-            pipeline.approvalStep.status.REJECT
-          </span>
+          <div
+            aria-hidden="false"
+            class="bp3-collapse-body"
+            style="transform: translateY(-undefinedpx);"
+          />
         </div>
-        <div>
-          DUMMY DATE
-        </div>
-        <button
-          class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main toggle"
-          type="button"
-        >
-          <span
-            class="bp3-icon bp3-icon-chevron-down StyledProps--main"
-            icon="chevron-down"
-          >
-            <svg
-              data-icon="chevron-down"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <desc>
-                chevron-down
-              </desc>
-              <path
-                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-        </button>
-      </div>
-      <div
-        class="bp3-collapse"
-      >
-        <div
-          aria-hidden="false"
-          class="bp3-collapse-body"
-          style="transform: translateY(-undefinedpx);"
-        />
       </div>
     </div>
     <div
       class="inputs"
     >
-      <div>
+      <div
+        class="heading"
+      >
+        execution.approvals.inputsTitle
+      </div>
+      <div
+        class="formRow labels"
+      >
+        <span>
+          variableNameLabel
+        </span>
+        <span>
+          configureOptions.defaultValue
+        </span>
+      </div>
+      <div
+        class="formRow"
+      >
         <div
-          class="heading"
-        >
-          execution.approvals.inputsTitle
-        </div>
-        <div
-          class="formRow labels"
-        >
-          <span>
-            variableNameLabel
-          </span>
-          <span>
-            configureOptions.defaultValue
-          </span>
-        </div>
-        <div
-          class="formRow"
+          class="TextInput--main"
         >
           <div
-            class="TextInput--main"
+            class="bp3-input-group bp3-disabled"
+          >
+            <input
+              class="bp3-input"
+              disabled=""
+              name="approverInputs[0].name"
+              type="text"
+              value="var1"
+            />
+          </div>
+        </div>
+        <div
+          class="bp3-form-group"
+        >
+          <div
+            class="bp3-form-content"
           >
             <div
-              class="bp3-input-group bp3-disabled"
+              class="bp3-input-group"
             >
               <input
+                autocomplete="off"
                 class="bp3-input"
-                disabled=""
-                name="approverInputs[0].name"
+                name="approverInputs[0].value"
                 type="text"
-                value="var1"
+                value="val10"
               />
             </div>
           </div>
+        </div>
+      </div>
+      <div
+        class="formRow"
+      >
+        <div
+          class="TextInput--main"
+        >
           <div
-            class="bp3-form-group"
+            class="bp3-input-group bp3-disabled"
           >
-            <div
-              class="bp3-form-content"
-            >
-              <div
-                class="bp3-input-group"
-              >
-                <input
-                  autocomplete="off"
-                  class="bp3-input"
-                  name="approverInputs[0].value"
-                  type="text"
-                  value="val10"
-                />
-              </div>
-            </div>
+            <input
+              class="bp3-input"
+              disabled=""
+              name="approverInputs[1].name"
+              type="text"
+              value="var2"
+            />
           </div>
         </div>
         <div
-          class="formRow"
+          class="bp3-form-group"
         >
           <div
-            class="TextInput--main"
+            class="bp3-form-content"
           >
             <div
-              class="bp3-input-group bp3-disabled"
+              class="bp3-input-group"
             >
               <input
+                autocomplete="off"
                 class="bp3-input"
-                disabled=""
-                name="approverInputs[1].name"
+                name="approverInputs[1].value"
                 type="text"
-                value="var2"
+                value="val20"
               />
-            </div>
-          </div>
-          <div
-            class="bp3-form-group"
-          >
-            <div
-              class="bp3-form-content"
-            >
-              <div
-                class="bp3-input-group"
-              >
-                <input
-                  autocomplete="off"
-                  class="bp3-input"
-                  name="approverInputs[1].value"
-                  type="text"
-                  value="val20"
-                />
-              </div>
             </div>
           </div>
         </div>
@@ -672,7 +748,7 @@ exports[`<HarnessApproval /> tests Waiting Status shows form if user is authoriz
           class="bp3-label"
           for="comments"
         >
-          common.comments
+          comments
            
           <span
             class="bp3-text-muted"

@@ -171,9 +171,14 @@ createPipeline:
 selectOrCreateForm:
   description: Define pipelines that enable you to improve your deployment times, manage your integrations and view your services all in one place.
 execution:
+  stagesExecuted: Stages executed (most recent first)
+  upcomingStagesPrefix: 'Upcoming stages: '
   stepTitlePrefix: 'Step: '
+  stageTitlePrefix: 'Stage: '
+  noInputsText: No inputs found
   retryStepCount: 'Retry #{{ num }}'
   currentExecution: Current Execution
+  timePrefix: 'Execution Time: '
   actions:
     resumePipeline: Resume Pipeline
     rerunPipeline: Re-run Pipeline

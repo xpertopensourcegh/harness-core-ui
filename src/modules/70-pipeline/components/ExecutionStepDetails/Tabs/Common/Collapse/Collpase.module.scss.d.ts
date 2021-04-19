@@ -1,10 +1,10 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly detailsTab: string
-  readonly errorMsg: string
+  readonly collapse: string
   readonly title: string
-  readonly error: string
-  readonly warn: string
+  readonly toggle: string
+  readonly open: string
+  readonly content: string
 }
 export default styles

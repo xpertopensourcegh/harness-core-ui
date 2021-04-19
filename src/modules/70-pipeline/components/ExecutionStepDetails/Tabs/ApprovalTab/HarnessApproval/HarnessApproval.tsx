@@ -1,7 +1,5 @@
 import React from 'react'
-import moment from 'moment'
-import { isEmpty } from 'lodash-es'
-import { Button, Color, FormInput, Layout, Text, TextInput } from '@wings-software/uicore'
+import { Button, FormInput, Text, TextInput } from '@wings-software/uicore'
 import { Formik } from 'formik'
 import cx from 'classnames'
 import { Spinner } from '@blueprintjs/core'
@@ -15,10 +13,10 @@ import {
   ResponseHarnessApprovalInstanceAuthorization,
   ResponseApprovalInstanceResponse
 } from 'services/pipeline-ng'
-import { String, useStrings } from 'framework/exports'
+import { String } from 'framework/exports'
 import { Duration } from '@common/exports'
 import { isExecutionWaiting } from '@pipeline/utils/statusHelpers'
-import { DEFAULT_DATE_FORMAT } from '@common/utils/StringUtils'
+import { StepDetails } from '../../Common/StepDetails/StepDetails'
 import { HarnessApprover } from './HarnessApprover'
 import css from '../ApprovalStepDetails.module.scss'
 
@@ -52,7 +50,6 @@ export function HarnessApproval(props: HarnessApprovalProps): React.ReactElement
     const newState = await submitApproval({ ...data, action: action.current })
     updateState(newState)
   }
-  const { getString } = useStrings()
 
   if (loading || showSpinner) return <Spinner />
 
@@ -83,33 +80,20 @@ export function HarnessApproval(props: HarnessApprovalProps): React.ReactElement
           />
         </div>
       ) : (
-        <Layout.Vertical className={css.harnessApproval} spacing="large" padding="large">
-          <Layout.Horizontal spacing="large">
-            <Text>
-              <String stringID="startedAt" />
-            </Text>
-            <Text color={Color.BLACK_100}>{moment(approvalData.createdAt).format(DEFAULT_DATE_FORMAT)}</Text>
-          </Layout.Horizontal>
-
-          {approvalData.status === 'APPROVED' || approvalData.status === 'REJECTED' ? (
-            <Layout.Horizontal spacing="large">
-              <Text>
-                <String stringID="endedAt" />
-              </Text>
-              <Text color={Color.BLACK_100}>{moment(approvalData.lastModifiedAt).format(DEFAULT_DATE_FORMAT)}</Text>
-            </Layout.Horizontal>
-          ) : null}
-        </Layout.Vertical>
+        <StepDetails step={{ startTs: approvalData.createdAt, endTs: approvalData.lastModifiedAt }} />
       )}
       <div className={css.harnessApproval}>
-        {isEmpty(approvalData.details.approvalActivities) ? null : (
-          <Text>
-            <String stringID="pipeline.approvalStep.approvers" />:
-          </Text>
-        )}
-        {(approvalData.details.approvalActivities || []).map((row, i) => (
-          <HarnessApprover key={i} approvalActivity={row} />
-        ))}
+        {Array.isArray(approvalData.details.approvalActivities) &&
+        approvalData.details.approvalActivities.length > 0 ? (
+          <React.Fragment>
+            <Text>
+              <String stringID="pipeline.approvalStep.approvers" />:
+            </Text>
+            {approvalData.details.approvalActivities.map((row, i) => (
+              <HarnessApprover key={i} approvalActivity={row} />
+            ))}
+          </React.Fragment>
+        ) : null}
         {isWaiting && isExecutionWaiting(approvalData.status) && isCurrentUserAuthorized ? (
           <Formik<HarnessApprovalActivityRequest>
             initialValues={{
@@ -136,9 +120,10 @@ export function HarnessApproval(props: HarnessApprovalProps): React.ReactElement
 
               return (
                 <div className={css.inputs}>
-                  {isEmpty(values.approverInputs) ? null : (
-                    <div>
-                      <String tagName="div" className={css.heading} stringID="execution.approvals.inputsTitle" />
+                  <String tagName="div" className={css.heading} stringID="execution.approvals.inputsTitle" />
+
+                  {Array.isArray(values.approverInputs) && values.approverInputs.length > 0 ? (
+                    <React.Fragment>
                       <div className={cx(css.formRow, css.labels)}>
                         <String stringID="variableNameLabel" />
                         <String stringID="configureOptions.defaultValue" />
@@ -149,9 +134,9 @@ export function HarnessApproval(props: HarnessApprovalProps): React.ReactElement
                           <FormInput.Text name={`approverInputs[${i}].value`} disabled={submitting} />
                         </div>
                       ))}
-                    </div>
-                  )}
-                  <FormInput.TextArea name="comments" disabled={submitting} label={getString('common.comments')} />
+                    </React.Fragment>
+                  ) : null}
+                  <FormInput.TextArea label="comments" name="comments" disabled={submitting} />
                   <div className={css.actions}>
                     <Button intent="primary" onClick={handleApproveClick} disabled={submitting}>
                       <String stringID="common.approve" />

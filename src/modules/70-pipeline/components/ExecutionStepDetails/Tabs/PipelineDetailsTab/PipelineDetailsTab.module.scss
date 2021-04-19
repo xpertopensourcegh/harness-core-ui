@@ -1,0 +1,40 @@
+.main {
+  padding: var(--spacing-medium) var(--spacing-large);
+  font-size: var(--font-size-small);
+
+  .collapseTitle {
+    border-bottom: 1px solid var(--grey-200);
+  }
+
+  .title {
+    font-weight: 600;
+    font-size: var(--font-size-normal);
+    margin: var(--spacing-small) 0;
+  }
+
+  .summary {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .stageInfo {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin: var(--spacing-small) 0;
+  }
+
+  .upcoming {
+    line-height: 2;
+    color: var(--grey-400);
+    border-bottom: 1px dashed var(--grey-800);
+    padding: var(--spacing-small) 0;
+    font-size: var(--font-size-normal);
+    margin-bottom: var(--spacing-medium);
+  }
+
+  .heading {
+    color: var(--grey-400);
+    font-size: var(--font-size-xsmall);
+    margin-bottom: var(--spacing-xsmall);
+  }
+}

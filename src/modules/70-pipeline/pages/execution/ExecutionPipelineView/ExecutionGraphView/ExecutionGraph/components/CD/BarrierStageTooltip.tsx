@@ -40,7 +40,7 @@ export default function BarrierStageTooltip(props: BarrierStageTooltipProps): Re
                   <Text width={50} inline>
                     {barrier.identifier}
                   </Text>{' '}
-                  | <String stringID="stage" /> {props?.stageName}
+                  | <String stringID="pipeline.execution.stageTitlePrefix" /> {props?.stageName}
                 </div>
               </div>
             </div>

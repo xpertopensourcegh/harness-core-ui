@@ -35,20 +35,23 @@ exports[`<JiraApproval/> tests isWaiting test 1`] = `
     class="jiraApproval"
   >
     <div
-      class="jiraCriteria"
+      class="collapse jiraCriteria"
     >
       <div
         class="title"
       >
-        <span>
-          pipeline.jiraApprovalStep.approvalCriteria
-        </span>
+        <div>
+          <span>
+            pipeline.jiraApprovalStep.approvalCriteria
+          </span>
+        </div>
         <button
-          class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main toggle open"
+          class="bp3-button bp3-minimal bp3-small toggle open"
+          data-testid="toggle-collapse"
           type="button"
         >
           <span
-            class="bp3-icon bp3-icon-chevron-down StyledProps--main"
+            class="bp3-icon bp3-icon-chevron-down"
             icon="chevron-down"
           >
             <svg
@@ -78,59 +81,66 @@ exports[`<JiraApproval/> tests isWaiting test 1`] = `
           style="transform: translateY(0); transition: none;"
         >
           <div
-            class="collapseContainer"
+            class="content"
           >
-            <div>
-              execution.approvals.allConditionsMsg
-            </div>
-            <ul
-              class="conditions"
+            <div
+              class="collapseContainer"
             >
-              <li>
-                <span>
-                  execution.approvals.conditions.equals
-                </span>
-                <span
-                  class="key"
-                >
-                  Resolved
-                </span>
-              </li>
-              <li>
-                <span>
-                  execution.approvals.conditions.not_in
-                </span>
-                <span
-                  class="key"
-                >
-                  In-progress
-                </span>
-                <span
-                  class="key"
-                >
-                  Open
-                </span>
-              </li>
-            </ul>
+              <div>
+                execution.approvals.allConditionsMsg
+              </div>
+              <ul
+                class="conditions"
+              >
+                <li>
+                  <span>
+                    execution.approvals.conditions.equals
+                  </span>
+                  <span
+                    class="key"
+                  >
+                    Resolved
+                  </span>
+                </li>
+                <li>
+                  <span>
+                    execution.approvals.conditions.not_in
+                  </span>
+                  <span
+                    class="key"
+                  >
+                    In-progress
+                  </span>
+                  <span
+                    class="key"
+                  >
+                    Open
+                  </span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </div>
     <div
-      class="jiraCriteria"
+      class="collapse jiraCriteria"
     >
       <div
         class="title"
       >
-        <span>
-          pipeline.jiraApprovalStep.rejectionCriteria
-        </span>
+        <div>
+          <span>
+            pipeline.jiraApprovalStep.rejectionCriteria
+          </span>
+        </div>
         <button
-          class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main toggle open"
+          class="bp3-button bp3-minimal bp3-small toggle open"
+          data-testid="toggle-collapse"
           type="button"
         >
           <span
-            class="bp3-icon bp3-icon-chevron-down StyledProps--main"
+            class="bp3-icon bp3-icon-chevron-down"
             icon="chevron-down"
           >
             <svg
@@ -160,15 +170,19 @@ exports[`<JiraApproval/> tests isWaiting test 1`] = `
           style="transform: translateY(0); transition: none;"
         >
           <div
-            class="collapseContainer"
+            class="content"
           >
-            <span>
-              common.jexlExpression
-            </span>
             <div
-              class="jexl"
+              class="collapseContainer"
             >
-              \${changes[0].ref.displayId}-\${repository.name.substring(\${repository.name.indexOf('-')+1})}
+              <span>
+                common.jexlExpression
+              </span>
+              <div
+                class="jexl"
+              >
+                \${changes[0].ref.displayId}-\${repository.name.substring(\${repository.name.indexOf('-')+1})}
+              </div>
             </div>
           </div>
         </div>
@@ -203,20 +217,23 @@ exports[`<JiraApproval/> tests not isWaiting test 1`] = `
     class="jiraApproval"
   >
     <div
-      class="jiraCriteria"
+      class="collapse jiraCriteria"
     >
       <div
         class="title"
       >
-        <span>
-          pipeline.jiraApprovalStep.approvalCriteria
-        </span>
+        <div>
+          <span>
+            pipeline.jiraApprovalStep.approvalCriteria
+          </span>
+        </div>
         <button
-          class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main toggle open"
+          class="bp3-button bp3-minimal bp3-small toggle open"
+          data-testid="toggle-collapse"
           type="button"
         >
           <span
-            class="bp3-icon bp3-icon-chevron-down StyledProps--main"
+            class="bp3-icon bp3-icon-chevron-down"
             icon="chevron-down"
           >
             <svg
@@ -246,59 +263,66 @@ exports[`<JiraApproval/> tests not isWaiting test 1`] = `
           style="transform: translateY(0); transition: none;"
         >
           <div
-            class="collapseContainer"
+            class="content"
           >
-            <div>
-              execution.approvals.allConditionsMsg
-            </div>
-            <ul
-              class="conditions"
+            <div
+              class="collapseContainer"
             >
-              <li>
-                <span>
-                  execution.approvals.conditions.equals
-                </span>
-                <span
-                  class="key"
-                >
-                  Resolved
-                </span>
-              </li>
-              <li>
-                <span>
-                  execution.approvals.conditions.not_in
-                </span>
-                <span
-                  class="key"
-                >
-                  In-progress
-                </span>
-                <span
-                  class="key"
-                >
-                  Open
-                </span>
-              </li>
-            </ul>
+              <div>
+                execution.approvals.allConditionsMsg
+              </div>
+              <ul
+                class="conditions"
+              >
+                <li>
+                  <span>
+                    execution.approvals.conditions.equals
+                  </span>
+                  <span
+                    class="key"
+                  >
+                    Resolved
+                  </span>
+                </li>
+                <li>
+                  <span>
+                    execution.approvals.conditions.not_in
+                  </span>
+                  <span
+                    class="key"
+                  >
+                    In-progress
+                  </span>
+                  <span
+                    class="key"
+                  >
+                    Open
+                  </span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </div>
     <div
-      class="jiraCriteria"
+      class="collapse jiraCriteria"
     >
       <div
         class="title"
       >
-        <span>
-          pipeline.jiraApprovalStep.rejectionCriteria
-        </span>
+        <div>
+          <span>
+            pipeline.jiraApprovalStep.rejectionCriteria
+          </span>
+        </div>
         <button
-          class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main toggle open"
+          class="bp3-button bp3-minimal bp3-small toggle open"
+          data-testid="toggle-collapse"
           type="button"
         >
           <span
-            class="bp3-icon bp3-icon-chevron-down StyledProps--main"
+            class="bp3-icon bp3-icon-chevron-down"
             icon="chevron-down"
           >
             <svg
@@ -328,15 +352,19 @@ exports[`<JiraApproval/> tests not isWaiting test 1`] = `
           style="transform: translateY(0); transition: none;"
         >
           <div
-            class="collapseContainer"
+            class="content"
           >
-            <span>
-              common.jexlExpression
-            </span>
             <div
-              class="jexl"
+              class="collapseContainer"
             >
-              \${changes[0].ref.displayId}-\${repository.name.substring(\${repository.name.indexOf('-')+1})}
+              <span>
+                common.jexlExpression
+              </span>
+              <div
+                class="jexl"
+              >
+                \${changes[0].ref.displayId}-\${repository.name.substring(\${repository.name.indexOf('-')+1})}
+              </div>
             </div>
           </div>
         </div>

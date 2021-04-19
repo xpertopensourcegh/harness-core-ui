@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Collapse /> tests toggle works 1`] = `
+<div>
+  <div
+    class="collapse"
+  >
+    <div
+      class="title"
+    >
+      <div>
+        Hello World!
+      </div>
+      <button
+        class="bp3-button bp3-minimal bp3-small toggle"
+        data-testid="toggle-collapse"
+        type="button"
+      >
+        <span
+          class="bp3-icon bp3-icon-chevron-down"
+          icon="chevron-down"
+        >
+          <svg
+            data-icon="chevron-down"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <desc>
+              chevron-down
+            </desc>
+            <path
+              d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <div
+      class="bp3-collapse"
+    >
+      <div
+        aria-hidden="false"
+        class="bp3-collapse-body"
+        style="transform: translateY(-undefinedpx);"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<Collapse /> tests toggle works 2`] = `
+<div>
+  <div
+    class="collapse"
+  >
+    <div
+      class="title"
+    >
+      <div>
+        Hello World!
+      </div>
+      <button
+        class="bp3-button bp3-minimal bp3-small toggle open"
+        data-testid="toggle-collapse"
+        type="button"
+      >
+        <span
+          class="bp3-icon bp3-icon-chevron-down"
+          icon="chevron-down"
+        >
+          <svg
+            data-icon="chevron-down"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <desc>
+              chevron-down
+            </desc>
+            <path
+              d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <div
+      class="bp3-collapse"
+      style="height: 0px;"
+    >
+      <div
+        aria-hidden="false"
+        class="bp3-collapse-body"
+        style="transform: translateY(0);"
+      >
+        <div
+          class="content"
+        >
+          <div
+            data-testid="content"
+          >
+            Lorem Ipsum
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

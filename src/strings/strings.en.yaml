@@ -349,7 +349,6 @@ stageDetails: Stage Details
 stageOverview: Stage Overview
 stageNameLabel: Stage Name
 stageName: 'Stage: {{ name }}'
-stage: 'Stage: '
 tagsLabel: Tags
 tagLabel: Tag
 tagsInfo: Specify one or more tags for the Docker image

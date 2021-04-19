@@ -1,16 +1,16 @@
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import cx from 'classnames'
-import { Text, Layout, Color } from '@wings-software/uicore'
-import { Duration } from '@common/exports'
+
 import type { ExecutionNode } from 'services/pipeline-ng'
 import { String, useStrings } from 'framework/exports'
 import routes from '@common/RouteDefinitions'
 import type { PipelineType, ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 import { LogsContent } from '@pipeline/components/LogsContent/LogsContent'
-import { isExecutionFailed, isExecutionSkipped } from '@pipeline/utils/statusHelpers'
-import { useDelegateSelectionLogsModal } from '@common/components/DelegateSelectionLogs/DelegateSelectionLogs'
+import { isExecutionSkipped, isExecutionCompletedWithBadState } from '@pipeline/utils/statusHelpers'
 import LogsContentOld from '@pipeline/pages/execution/ExecutionPipelineView/ExecutionLogView/LogsContent'
+
+import { StepDetails } from '../Common/StepDetails/StepDetails'
 
 import css from './ExecutionStepDetailsTab.module.scss'
 
@@ -41,9 +41,8 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
   }
 
   const errorMessage = step?.failureInfo?.message || step.executableResponses?.[0]?.skipTask?.message
-  const isFailed = isExecutionFailed(step.status)
+  const isFailed = isExecutionCompletedWithBadState(step.status)
   const isSkipped = isExecutionSkipped(step.status)
-  const { openDelegateSelectionLogsModal } = useDelegateSelectionLogsModal()
 
   return (
     <div className={css.detailsTab}>
@@ -53,63 +52,7 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
           <p>{errorMessage}</p>
         </div>
       ) : null}
-      <table className={css.detailsTable}>
-        <tbody>
-          <tr>
-            <th>{getString('startedAt')}</th>
-            <td>{step?.startTs ? new Date(step.startTs).toLocaleString() : '-'}</td>
-          </tr>
-          <tr>
-            <th>{getString('endedAt')}</th>
-            <td>{step?.endTs ? new Date(step.endTs).toLocaleString() : '-'}</td>
-          </tr>
-
-          <tr>
-            <th>{getString('duration')}</th>
-            <td>
-              <Duration className={css.timer} durationText="" startTime={step?.startTs} endTime={step?.endTs} />
-            </td>
-          </tr>
-          {step.delegateInfoList && step.delegateInfoList.length > 0 ? (
-            <tr className={css.delegateRow}>
-              <th>{getString('delegateLabel')}</th>
-              <td>
-                <Layout.Vertical spacing="xsmall">
-                  {step.delegateInfoList.map((item, index) => (
-                    <div key={`${item.id}-${index}`}>
-                      <Text font={{ size: 'small', weight: 'semi-bold' }}>
-                        <String
-                          stringID="common.delegateForTask"
-                          vars={{ delegate: item.name, taskName: item.taskName }}
-                          useRichText
-                        />
-                      </Text>{' '}
-                      (
-                      <Text
-                        font={{ size: 'small' }}
-                        onClick={() =>
-                          openDelegateSelectionLogsModal([
-                            {
-                              taskId: item.taskId as string,
-                              taskName: item.taskName as string,
-                              delegateName: item.name as string
-                            }
-                          ])
-                        }
-                        style={{ cursor: 'pointer' }}
-                        color={Color.BLUE_500}
-                      >
-                        {getString('common.logs.delegateSelectionLogs')}
-                      </Text>
-                      )
-                    </div>
-                  ))}
-                </Layout.Vertical>
-              </td>
-            </tr>
-          ) : null}
-        </tbody>
-      </table>
+      <StepDetails step={step} />
       {module === 'cd' ? (
         <LogsContent mode="step-details" toConsoleView={`${logUrl}?view=log`} />
       ) : (

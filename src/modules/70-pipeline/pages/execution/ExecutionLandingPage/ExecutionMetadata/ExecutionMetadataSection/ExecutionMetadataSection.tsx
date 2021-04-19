@@ -8,7 +8,7 @@ export interface ExecutionMetadataSectionProps {
   delimiter?: boolean
 }
 
-export const isEmptyValue = (entryValue: JSX.Element) => !!isEmpty(entryValue.props?.children?.[0])
+export const isEmptyValue = (entryValue: JSX.Element): boolean => !!isEmpty(entryValue.props?.children?.[0])
 
 export default function ExecutionMetadataSection(props: ExecutionMetadataSectionProps): React.ReactElement {
   const { title, entries, delimiter = false } = props

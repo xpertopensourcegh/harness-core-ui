@@ -505,8 +505,13 @@ export interface StringsMap {
   'pipeline.execution.actions.resumePipeline': string
   'pipeline.execution.actions.resumeStage': string
   'pipeline.execution.currentExecution': string
+  'pipeline.execution.noInputsText': string
   'pipeline.execution.retryStepCount': string
+  'pipeline.execution.stageTitlePrefix': string
+  'pipeline.execution.stagesExecuted': string
   'pipeline.execution.stepTitlePrefix': string
+  'pipeline.execution.timePrefix': string
+  'pipeline.execution.upcomingStagesPrefix': string
   'pipeline.failureStrategies.defaultStageText': string
   'pipeline.failureStrategies.errorTypeLabels.AnyOther': string
   'pipeline.failureStrategies.errorTypeLabels.Application': string
@@ -6549,10 +6554,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   sshConnector: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  stage: string
   /**
    * @deprecated migrate this string to module level file
    */
