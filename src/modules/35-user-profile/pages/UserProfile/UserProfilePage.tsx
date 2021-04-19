@@ -1,9 +1,10 @@
 import React from 'react'
-import { Text, Layout, Container, Avatar, Color, Switch, Button } from '@wings-software/uicore'
+import { Text, Layout, Container, Avatar, Color, Button } from '@wings-software/uicore'
 import { useChangePassword } from '@user-profile/modals/useChangePassword/useChangePassword'
 import { useUserProfile } from '@user-profile/modals/UserProfile/useUserProfile'
 import { useAppStore, useStrings } from 'framework/exports'
 import { Page } from '@common/components'
+import TwoFactorAuthentication from '@user-profile/components/TwoFactorAuthentication/TwoFactorAuthentication'
 import UserOverView from './views/UserOverView'
 import css from './UserProfile.module.scss'
 
@@ -45,14 +46,9 @@ const UserProfilePage: React.FC = () => {
                 </Text>
               ) : null}
             </Layout.Vertical>
-            {__DEV__ ? (
-              <Layout.Horizontal spacing="huge" padding="large" className={css.authentication} flex>
-                <Text color={Color.BLACK} font={{ weight: 'semi-bold' }}>
-                  {getString('userProfile.twofactorAuth')}
-                </Text>
-                <Switch />
-              </Layout.Horizontal>
-            ) : null}
+            <Layout.Horizontal spacing="huge" padding="large" className={css.authentication} flex>
+              <TwoFactorAuthentication />
+            </Layout.Horizontal>
           </Layout.Vertical>
         </Container>
         <Container width="70%" className={css.overview}>

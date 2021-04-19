@@ -13,7 +13,14 @@ import UserProfilePage from '@user-profile/pages/UserProfile/UserProfilePage'
 import { TestWrapper, findDialogContainer } from '@common/utils/testUtils'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import { InputTypes, setFieldValue, clickSubmit } from '@common/utils/JestFormHelper'
-import { connectorMockData, mockResponse, mockSecretList, sourceCodeManagers, userMockData } from './mock'
+import {
+  connectorMockData,
+  mockResponse,
+  mockSecretList,
+  sourceCodeManagers,
+  twoFactorAuthSettings,
+  userMockData
+} from './mock'
 
 const createSCM = jest.fn()
 
@@ -35,6 +42,15 @@ jest.mock('services/cd-ng', () => ({
   }),
   useGetConnectorList: jest.fn().mockImplementation(() => {
     return { ...connectorMockData, refetch: jest.fn(), error: null, loading: false }
+  }),
+  useGetTwoFactorAuthSettings: jest.fn().mockImplementation(() => {
+    return { data: twoFactorAuthSettings, refetch: jest.fn() }
+  }),
+  useEnableTwoFactorAuth: jest.fn().mockImplementation(() => {
+    return { mutate: () => Promise.resolve(mockResponse) }
+  }),
+  useDisableTwoFactorAuth: jest.fn().mockImplementation(() => {
+    return { mutate: () => Promise.resolve(mockResponse) }
   }),
   listSecretsV2Promise: jest.fn().mockImplementation(() => Promise.resolve(mockSecretList)),
   useGetSecretV2: jest.fn().mockImplementation(() => {
@@ -182,5 +198,22 @@ describe('User Profile Page', () => {
       })
 
       expect(createSCM).toHaveBeenCalled()
+    }),
+    test('Enable Two Factor Auth', async () => {
+      const twoFactorSwitch = getByTestId('TwoFactorAuthSwitch')
+      expect(twoFactorSwitch).toBeTruthy()
+
+      act(() => {
+        fireEvent.click(twoFactorSwitch!)
+      })
+      await waitFor(() => getAllByText(document.body, 'userProfile.qrCode')[0])
+
+      const form = findDialogContainer()
+      expect(form).toBeTruthy()
+
+      const enable = getAllByText(form!, 'enable')[0]
+      await act(async () => {
+        fireEvent.click(enable!)
+      })
     })
 })

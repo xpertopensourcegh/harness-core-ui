@@ -163,3 +163,17 @@ export const connectorMockData = {
   metaData: undefined,
   correlationId: ''
 }
+
+export const twoFactorAuthSettings = {
+  status: 'SUCCESS',
+  data: {
+    userId: 'abc',
+    email: 'abc@harness.io',
+    twoFactorAuthenticationEnabled: true,
+    mechanism: 'TOTP',
+    totpSecretKey: '123',
+    totpqrurl: 'abc.io'
+  },
+  metaData: null,
+  correlationId: 'a65457f2-be0c-4040-a78f-760f09b726c2'
+}

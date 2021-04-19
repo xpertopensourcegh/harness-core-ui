@@ -25,6 +25,7 @@ export interface StringsMap {
   'common.datePickerShortcuts.Today': string
   'common.datePickerShortcuts.Yesterday': string
   'common.delegateForTask': string
+  'common.disable': string
   'common.durationPrefix': string
   'common.editVariable': string
   'common.editVariableType': string
@@ -432,6 +433,7 @@ export interface StringsMap {
   'userProfile.passwordMatch': string
   'userProfile.passwordReqs': string
   'userProfile.plusSCM': string
+  'userProfile.qrCode': string
   'userProfile.requiredField': string
   'userProfile.scmCreateFail': string
   'userProfile.scmCreateSuccess': string
@@ -440,6 +442,10 @@ export interface StringsMap {
   'userProfile.scmValidation.accessKey': string
   'userProfile.scmValidation.secretKey': string
   'userProfile.selectSCM': string
+  'userProfile.twoFactor.disableSuccess': string
+  'userProfile.twoFactor.disableText': string
+  'userProfile.twoFactor.disableTitle': string
+  'userProfile.twoFactor.enableSuccess': string
   'userProfile.twofactorAuth': string
   'userProfile.userEditFail': string
   'userProfile.userEditSuccess': string

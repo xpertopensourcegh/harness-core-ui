@@ -120,7 +120,7 @@ co:
       disableDialogText: 'Are you sure you want to disable?'
       enableTitle: 'Enable Rule {{name}}'
       enableDialogText: 'Are you sure you want to enable?'
-      disable: 'Disable'
+      disable: '{{ $.common.disable }}'
       deleteServiceTitle: 'Delete Rule {{name}}'
       deleteDialogText: 'Are you sure you want to delete?'
 

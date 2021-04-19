@@ -11,6 +11,7 @@ pipelineDetails: Pipeline Details
 comments: Comments
 approve: Approve
 reject: Reject
+disable: Disable
 PermissibleActions: Permissible Actions
 My: My
 ID: ID

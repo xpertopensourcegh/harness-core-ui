@@ -8,6 +8,7 @@ requiredField: 'is a required field.'
 newPassword: 'New Password'
 confirmPassword: 'Confirm Password'
 twofactorAuth: Two-Factor Authentication
+qrCode: QR Code
 myProjects: My Projects
 myGroups: My Groups
 myTools: My Collaboration Tools
@@ -27,3 +28,8 @@ awsCredentials: AWS Credentials
 scmValidation:
   accessKey: Access Key is a required field
   secretKey: Secret Key is a required field
+twoFactor:
+  disableTitle: Disable Two Factor Authentication
+  disableText: Are you sure you want to disable Two Factor Authentication?
+  disableSuccess: Two Factor Authentication disabled successfully
+  enableSuccess: Two Factor Authentication enabled successfully
