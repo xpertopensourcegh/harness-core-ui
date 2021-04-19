@@ -1,13 +1,13 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import classNames from 'classnames'
-import { noop } from 'lodash-es'
+import { noop, find } from 'lodash-es'
 import type { NodeModelListener } from '@projectstorm/react-diagrams-core'
 import type { BaseModelListener } from '@projectstorm/react-canvas-core'
 import { Button, Layout, Icon } from '@wings-software/uicore'
 import { Select } from '@blueprintjs/select'
 import { Tooltip } from '@blueprintjs/core'
-import ExecutionContext, { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
+import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import type { ExecutionPathParams } from '@pipeline/utils/executionUtils'
 import { usePermission } from '@rbac/hooks/usePermission'
@@ -111,7 +111,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
     PipelineType<ExecutionPathParams>
   >()
 
-  const { pipelineStagesMap } = useExecutionContext()
+  const { pipelineStagesMap, refetch, pipelineExecutionDetail, allNodeMap } = useExecutionContext()
   const [autoPosition, setAutoPosition] = React.useState(true)
 
   const [groupStage, setGroupStage] = React.useState<Map<string, GroupState<T>>>()
@@ -182,6 +182,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
   React.useEffect(() => {
     model.clearAllNodesAndLinks()
     engine.repaintCanvas()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data.identifier])
 
   React.useEffect(() => {
@@ -227,6 +228,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
   //Load model into engine
   engine.setModel(model)
   autoPosition && focusRunningNode(engine, data)
+  const stageNode = find(allNodeMap, node => node.setupId === selectedStage?.value)
 
   return (
     <div className={classNames(css.main, { [css.whiteBackground]: isWhiteBackground }, className)}>
@@ -269,27 +271,22 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
                 rightIcon="caret-down"
               />
             </StageSelection>
-
-            <ExecutionContext.Consumer>
-              {context => (
-                <ExecutionActions
-                  executionStatus={context.pipelineExecutionDetail?.pipelineExecutionSummary?.status}
-                  refetch={context.refetch}
-                  params={{
-                    orgIdentifier,
-                    pipelineIdentifier,
-                    projectIdentifier,
-                    accountId,
-                    executionIdentifier,
-                    module
-                  }}
-                  noMenu
-                  stageId={selectedStage.value}
-                  canEdit={canEdit}
-                  canExecute={canExecute}
-                />
-              )}
-            </ExecutionContext.Consumer>
+            <ExecutionActions
+              executionStatus={pipelineExecutionDetail?.pipelineExecutionSummary?.status}
+              refetch={refetch}
+              params={{
+                orgIdentifier,
+                pipelineIdentifier,
+                projectIdentifier,
+                accountId,
+                executionIdentifier,
+                module
+              }}
+              noMenu
+              stageId={stageNode?.uuid}
+              canEdit={canEdit}
+              canExecute={canExecute}
+            />
           </div>
           {groupStage && groupStage.size > 1 && (
             // Do not render groupStage if the size is less than 1
