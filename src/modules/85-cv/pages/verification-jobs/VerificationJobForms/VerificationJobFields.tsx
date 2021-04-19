@@ -20,7 +20,7 @@ import {
   useGetMonitoringSources,
   useListBaselineExecutions
 } from 'services/cv'
-import type { ContinousVerificationFormData } from '@cv/components/PipelineSteps/ContinousVerification/continousVerificationTypes'
+import type { ContinousVerificationData } from '@cv/components/PipelineSteps/ContinousVerification/types'
 import i18n from './VerificationJobForms.i18n'
 import css from './VerificationJobFields.module.scss'
 
@@ -29,7 +29,7 @@ interface BaseFieldProps {
   label?: string
   name?: string
   disabled?: boolean
-  formik?: FormikProps<ContinousVerificationFormData>
+  formik?: FormikProps<ContinousVerificationData>
   expressions?: string[]
 }
 
@@ -115,7 +115,7 @@ export function VerificationSensitivity(props: BaseFieldProps): JSX.Element {
         label={label ? label : i18n.fieldLabels.sensitivity}
         style={style}
         items={VerificationSensitivityOptions}
-        value={(formik?.values as ContinousVerificationFormData).spec?.spec?.sensitivity as SelectOption}
+        value={(formik?.values as ContinousVerificationData).spec?.spec?.sensitivity as SelectOption}
         disabled={true}
       />
     )
@@ -189,7 +189,7 @@ export function Duration(props: BaseFieldProps): JSX.Element {
         style={style}
         label={label ? label : i18n.fieldLabels.duration}
         items={selectProps.items}
-        value={(formik?.values as ContinousVerificationFormData).spec?.spec?.duration as SelectOption}
+        value={(formik?.values as ContinousVerificationData).spec?.spec?.duration as SelectOption}
         disabled={true}
       />
     )
@@ -261,7 +261,7 @@ export function TrafficSplit(props: BaseFieldProps): JSX.Element {
         label={label ? label : i18n.fieldLabels.trafficSplit}
         style={style}
         items={selectProps.items}
-        value={(formik?.values as ContinousVerificationFormData).spec?.spec?.trafficsplit as SelectOption}
+        value={(formik?.values as ContinousVerificationData).spec?.spec?.trafficsplit as SelectOption}
         disabled={true}
       />
     )
@@ -342,7 +342,7 @@ export function BaselineSelect(props: BaseFieldProps): JSX.Element {
         style={style}
         label={label ? label : i18n.fieldLabels.baseline}
         items={baselineOption}
-        value={(formik?.values as ContinousVerificationFormData).spec?.spec?.baseline as SelectOption}
+        value={(formik?.values as ContinousVerificationData).spec?.spec?.baseline as SelectOption}
         disabled={true}
       />
     )

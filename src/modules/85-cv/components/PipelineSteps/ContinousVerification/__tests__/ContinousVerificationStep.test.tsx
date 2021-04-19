@@ -134,20 +134,6 @@ describe('Test ContinousVerificationStep Step', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('renders empty input sets', () => {
-    const { container } = render(
-      <TestStepWidget
-        initialValues={{}}
-        type={StepType.Verify}
-        stepViewType={StepViewType.InputSet}
-        template={{}}
-        path=""
-      />
-    )
-
-    expect(container).toMatchSnapshot()
-  })
-
   test('shows different interface when the api call to fetch CV jobs is completed', async () => {
     const onUpdate = jest.fn()
     const ref = React.createRef<StepFormikRef<unknown>>()

@@ -7,12 +7,12 @@ import { useStrings } from 'framework/exports'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
-import type { ContinousVerificationFormData } from './continousVerificationTypes'
+import type { ContinousVerificationData } from '../../../types'
 
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export default function BaseContinousVerification(props: {
-  formik: FormikProps<ContinousVerificationFormData>
+  formik: FormikProps<ContinousVerificationData>
   isNewStep?: boolean
 }): React.ReactElement {
   const {

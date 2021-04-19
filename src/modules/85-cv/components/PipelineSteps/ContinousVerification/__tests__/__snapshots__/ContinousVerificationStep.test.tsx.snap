@@ -1,37 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Test ContinousVerificationStep Step renders empty input sets 1`] = `
-<div>
-  <div
-    class="OverlaySpinner--overlaySpinner"
-  >
-    <form
-      class="FormikForm--main"
-    >
-      <div />
-    </form>
-    <p
-      class="StyledProps--font StyledProps--main"
-    >
-      Errors
-    </p>
-    <pre>
-      {}
-    </pre>
-    <button
-      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
-      type="button"
-    >
-      <span
-        class="bp3-button-text"
-      >
-        Submit
-      </span>
-    </button>
-  </div>
-</div>
-`;
-
 exports[`Test ContinousVerificationStep Step renders input sets 1`] = `
 <div>
   <div
@@ -43,7 +11,7 @@ exports[`Test ContinousVerificationStep Step renders input sets 1`] = `
       <div>
         <div
           class="bp3-form-group"
-          data-id="spec.sensitivity-0"
+          data-id="spec.spec.sensitivity-0"
         >
           <label
             class="bp3-label"
@@ -59,7 +27,7 @@ exports[`Test ContinousVerificationStep Step renders input sets 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="spec.sensitivity-1"
+              data-id="spec.spec.sensitivity-1"
             >
               <div
                 class="bp3-form-content"
@@ -70,7 +38,7 @@ exports[`Test ContinousVerificationStep Step renders input sets 1`] = `
                   <input
                     autocomplete="off"
                     class="bp3-input"
-                    name="spec.sensitivity"
+                    name="spec.spec.sensitivity"
                     type="text"
                     value=""
                   />
@@ -81,12 +49,12 @@ exports[`Test ContinousVerificationStep Step renders input sets 1`] = `
         </div>
         <div
           class="bp3-form-group"
-          data-id="spec.duration-2"
+          data-id="spec.spec.duration-2"
         >
           <label
             class="bp3-label"
           >
-            cv.verificationJobs.validation.duration
+            connectors.cdng.duration
              
             <span
               class="bp3-text-muted"
@@ -97,7 +65,7 @@ exports[`Test ContinousVerificationStep Step renders input sets 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="spec.duration-3"
+              data-id="spec.spec.duration-3"
             >
               <div
                 class="bp3-form-content"
@@ -108,7 +76,7 @@ exports[`Test ContinousVerificationStep Step renders input sets 1`] = `
                   <input
                     autocomplete="off"
                     class="bp3-input"
-                    name="spec.duration"
+                    name="spec.spec.duration"
                     type="text"
                     value=""
                   />
@@ -119,12 +87,12 @@ exports[`Test ContinousVerificationStep Step renders input sets 1`] = `
         </div>
         <div
           class="bp3-form-group"
-          data-id="spec.baseline-4"
+          data-id="spec.spec.baseline-4"
         >
           <label
             class="bp3-label"
           >
-            cv.verificationJobs.validation.baseline
+            connectors.cdng.baseline
              
             <span
               class="bp3-text-muted"
@@ -135,7 +103,7 @@ exports[`Test ContinousVerificationStep Step renders input sets 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="spec.baseline-5"
+              data-id="spec.spec.baseline-5"
             >
               <div
                 class="bp3-form-content"
@@ -146,7 +114,83 @@ exports[`Test ContinousVerificationStep Step renders input sets 1`] = `
                   <input
                     autocomplete="off"
                     class="bp3-input"
-                    name="spec.baseline"
+                    name="spec.spec.baseline"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bp3-form-group"
+          data-id="spec.spec.trafficsplit-6"
+        >
+          <label
+            class="bp3-label"
+          >
+            connectors.cdng.trafficsplit
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="bp3-form-group"
+              data-id="spec.spec.trafficsplit-7"
+            >
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="spec.spec.trafficsplit"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bp3-form-group"
+          data-id="spec.spec.deploymentTag-8"
+        >
+          <label
+            class="bp3-label"
+          >
+            connectors.cdng.deploymentTag
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="bp3-form-group"
+              data-id="spec.spec.deploymentTag-9"
+            >
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="spec.spec.deploymentTag"
                     type="text"
                     value=""
                   />

@@ -10,11 +10,11 @@ import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/Rout
 import routes from '@common/RouteDefinitions'
 import type { Failure, VerificationJobDTO } from 'services/cv'
 import { useStrings } from 'framework/exports'
-import type { ContinousVerificationFormData } from './continousVerificationTypes'
+import type { ContinousVerificationData } from '../../../types'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export default function DefineVerificationJob(props: {
-  formik: FormikProps<ContinousVerificationFormData>
+  formik: FormikProps<ContinousVerificationData>
   jobContents: VerificationJobDTO[] | undefined
   loading: boolean
   error: GetDataError<Failure | Error> | null
@@ -62,7 +62,7 @@ export default function DefineVerificationJob(props: {
             name="spec.verificationJobRef"
             label={getString('connectors.cdng.jobName')}
             items={cvJobNames}
-            value={(formValues as ContinousVerificationFormData).spec?.verificationJobRef as SelectOption}
+            value={(formValues as ContinousVerificationData).spec?.verificationJobRef as SelectOption}
             onChange={el => {
               //whenever selectedJob is changed then resetting the specs, so that jobConfig data can be fetched from selected job
               const updatedSpecs = { verificationJobRef: el, spec: {} }

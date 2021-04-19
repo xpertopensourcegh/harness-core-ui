@@ -13,10 +13,10 @@ import { IdentifierValidation } from '@pipeline/components/PipelineStudio/Pipeli
 
 import { useCDNGVerificationJobs, VerificationJobDTO } from 'services/cv'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import type { ContinousVerificationFormData } from './continousVerificationTypes'
-import BaseContinousVerification from './BaseContinousVerification'
-import DefineVerificationJob from './DefineVerificationJob'
-import ConfigureVerificationJob from './ConfigureVerificationJob'
+import type { ContinousVerificationData } from '../../types'
+import BaseContinousVerification from './components/BaseContinousVerification'
+import DefineVerificationJob from './components/DefineVerificationJob'
+import ConfigureVerificationJob from './components/ConfigureVerificationJob/ConfigureVerificationJob'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 /**
@@ -25,9 +25,9 @@ import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
  */
 
 interface ContinousVerificationWidgetProps {
-  initialValues: ContinousVerificationFormData
+  initialValues: ContinousVerificationData
   isNewStep?: boolean
-  onUpdate?: (data: ContinousVerificationFormData) => void
+  onUpdate?: (data: ContinousVerificationData) => void
   stepViewType?: StepViewType
 }
 
@@ -64,7 +64,6 @@ export function ContinousVerificationWidget(
   const selectedStage = getStageFromPipeline(selectedStageId as string)?.stage
   const envIdentifier = selectedStage?.stage?.spec?.infrastructure?.environmentRef
   const serviceIdentifier = selectedStage?.stage?.spec?.serviceConfig.serviceRef
-
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps & AccountPathProps>()
 
   //passing service and env identifier only when they are fixed inputs
@@ -87,40 +86,38 @@ export function ContinousVerificationWidget(
   }, [content, error, loading])
 
   return (
-    <>
-      <Formik<ContinousVerificationFormData>
-        onSubmit={submit => {
-          onUpdate?.(submit)
-        }}
-        initialValues={values}
-        validationSchema={validationSchema}
-      >
-        {(formik: FormikProps<ContinousVerificationFormData>) => {
-          setFormikRef(formikRef, formik)
-          return (
-            <Accordion activeId="step-1" className={stepCss.accordion}>
-              <Accordion.Panel
-                id="step-1"
-                summary={getString('basic')}
-                details={<BaseContinousVerification formik={formik} isNewStep={isNewStep} />}
-              />
-              <Accordion.Panel
-                id="step-2"
-                summary={getString('connectors.cdng.defineVerificationJob')}
-                details={
-                  <DefineVerificationJob formik={formik} jobContents={jobContents} loading={loading} error={error} />
-                }
-              />
-              <Accordion.Panel
-                id="step-3"
-                summary={getString('connectors.cdng.configureVerificationJob')}
-                details={<ConfigureVerificationJob formik={formik} jobContents={jobContents} />}
-              />
-            </Accordion>
-          )
-        }}
-      </Formik>
-    </>
+    <Formik<ContinousVerificationData>
+      onSubmit={submit => {
+        onUpdate?.(submit)
+      }}
+      initialValues={values}
+      validationSchema={validationSchema}
+    >
+      {(formik: FormikProps<ContinousVerificationData>) => {
+        setFormikRef(formikRef, formik)
+        return (
+          <Accordion activeId="step-1" className={stepCss.accordion}>
+            <Accordion.Panel
+              id="step-1"
+              summary={getString('basic')}
+              details={<BaseContinousVerification formik={formik} isNewStep={isNewStep} />}
+            />
+            <Accordion.Panel
+              id="step-2"
+              summary={getString('connectors.cdng.defineVerificationJob')}
+              details={
+                <DefineVerificationJob formik={formik} jobContents={jobContents} loading={loading} error={error} />
+              }
+            />
+            <Accordion.Panel
+              id="step-3"
+              summary={getString('connectors.cdng.configureVerificationJob')}
+              details={<ConfigureVerificationJob formik={formik} jobContents={jobContents} />}
+            />
+          </Accordion>
+        )
+      }}
+    </Formik>
   )
 }
 

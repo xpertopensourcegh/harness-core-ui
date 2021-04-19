@@ -3,7 +3,7 @@ import { pick } from 'lodash-es'
 import type { VariableResponseMapValue } from 'services/pipeline-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 
-import type { ContinousVerificationData } from './continousVerificationTypes'
+import type { ContinousVerificationData } from '../types'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export interface ContinousVerificationVariableStepProps {

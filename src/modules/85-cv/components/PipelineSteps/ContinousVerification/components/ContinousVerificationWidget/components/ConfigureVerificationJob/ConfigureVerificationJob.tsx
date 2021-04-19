@@ -10,22 +10,23 @@ import {
   VerificationSensitivity,
   Duration,
   BaselineSelect,
-  TrafficSplit
+  TrafficSplit,
+  VerificationSensitivityOptions
 } from '@cv/pages/verification-jobs/VerificationJobForms/VerificationJobFields'
 import { useStrings } from 'framework/exports'
-import type { ContinousVerificationFormData } from './continousVerificationTypes'
+import type { ContinousVerificationData } from '@cv/components/PipelineSteps/ContinousVerification/types'
 import {
-  baseLineOptions,
   durationOptions,
-  IdentifierTypes,
-  JobTypes,
   trafficSplitPercentageOptions,
-  VerificationSensitivityOptions
-} from './constants'
+  baseLineOptions,
+  IdentifierTypes,
+  JobTypes
+} from '@cv/components/PipelineSteps/ContinousVerification/constants'
+import { getFieldDataFromForm, isFieldDisabled } from './utils'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export default function ConfigureVerificationJob(props: {
-  formik: FormikProps<ContinousVerificationFormData>
+  formik: FormikProps<ContinousVerificationData>
   jobContents: VerificationJobDTO[] | undefined
 }): React.ReactElement {
   const {
@@ -41,14 +42,6 @@ export default function ConfigureVerificationJob(props: {
     ? jobContents?.find((el: VerificationJobDTO) => el.identifier === selectedJobValue)
     : null
   const specInfo = formValues?.spec?.spec
-
-  const isFieldDisabled = (
-    formField: SelectOption | string | undefined,
-    selectedJobField: string | undefined
-  ): boolean => {
-    const isFormNotModified = (formField as SelectOption)?.value?.toString() === selectedJobField
-    return isFormNotModified
-  }
 
   const renderConfigOptions = (): JSX.Element => {
     switch (selectedJob?.type) {
@@ -133,48 +126,17 @@ export default function ConfigureVerificationJob(props: {
     }
   }
 
-  const getFieldDataFromSelectedJob = (
-    selectedJobField: string,
-    options: SelectOption[]
-  ): SelectOption | string | undefined => {
-    let field: SelectOption | string | undefined
-    if (selectedJob) {
-      // if selected job is configured with run time param then user should be able to select anything
-      if (selectedJob[selectedJobField]?.toString() === RUNTIME_INPUT_VALUE) {
-        field = ''
-      } else {
-        field = options.find((el: SelectOption) => el.value === selectedJob[selectedJobField])
-      }
-    }
-    return field
-  }
-
-  const getFieldDataFromForm = (
-    selectedJobField: string,
-    options: SelectOption[]
-  ): SelectOption | string | undefined => {
-    let completeFieldData: SelectOption | string | undefined
-    if (specInfo) {
-      // If form is modified then getting values from FORM
-      if (specInfo[selectedJobField]) {
-        if (specInfo[selectedJobField] === RUNTIME_INPUT_VALUE || specInfo[selectedJobField].value) {
-          //if the user selects a fixed or run time value
-          completeFieldData = specInfo[selectedJobField]
-        }
-      } else {
-        // if form is not modified , then fetching info from the selected job
-        completeFieldData = getFieldDataFromSelectedJob(selectedJobField, options)
-      }
-    }
-    return completeFieldData
-  }
-
   useEffect(() => {
     if (selectedJob) {
-      const sensitivity = getFieldDataFromForm('sensitivity', VerificationSensitivityOptions)
-      const duration = getFieldDataFromForm('duration', durationOptions)
-      const trafficsplit = getFieldDataFromForm('trafficSplitPercentage', trafficSplitPercentageOptions)
-      const baseline = getFieldDataFromForm('baselineVerificationJobInstanceId', baseLineOptions)
+      const sensitivity = getFieldDataFromForm('sensitivity', VerificationSensitivityOptions, specInfo, selectedJob)
+      const duration = getFieldDataFromForm('duration', durationOptions, specInfo, selectedJob)
+      const trafficsplit = getFieldDataFromForm(
+        'trafficSplitPercentage',
+        trafficSplitPercentageOptions,
+        specInfo,
+        selectedJob
+      )
+      const baseline = getFieldDataFromForm('baselineVerificationJobInstanceId', baseLineOptions, specInfo, selectedJob)
       const serviceRef =
         selectedJob.serviceIdentifier === RUNTIME_INPUT_VALUE
           ? IdentifierTypes.serviceIdentifier

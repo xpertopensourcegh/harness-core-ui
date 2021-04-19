@@ -1,12 +1,12 @@
 import type { SelectOption } from '@wings-software/uicore'
 import type { StepElementConfig } from 'services/cd-ng'
+import type { VariableResponseMapValue } from 'services/pipeline-ng'
 
-export interface ContinousVerificationData extends StepElementConfig {
-  spec: {
-    verificationJobRef?: SelectOption | string
-    type?: string
-    spec?: spec
-  }
+export interface ContinousVerificationVariableStepProps {
+  metadataMap: Record<string, VariableResponseMapValue>
+  stageIdentifier: string
+  variablesData: ContinousVerificationData
+  originalData: ContinousVerificationData
 }
 
 // eslint-disable-next-line @typescript-eslint/class-name-casing
@@ -21,7 +21,7 @@ export interface spec {
   [x: string]: any
 }
 
-export interface ContinousVerificationFormData extends StepElementConfig {
+export interface ContinousVerificationData extends StepElementConfig {
   spec: {
     verificationJobRef?: SelectOption | string
     type?: string

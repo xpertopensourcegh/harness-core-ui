@@ -1,38 +1,53 @@
 import React from 'react'
 import type { IconName, SelectOption } from '@wings-software/uicore'
-import { omitBy, isNil } from 'lodash-es'
 import { StepViewType, StepProps } from '@pipeline/exports'
+
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
-import type { VariableResponseMapValue } from 'services/pipeline-ng'
 
-import type { ContinousVerificationData, ContinousVerificationFormData, spec } from './continousVerificationTypes'
-import { ContinousVerificationWidgetWithRef } from './ContinousVerificationWidget'
-import { ContinousVerificationInputSetStep } from './ContinousVerificationInputSetStep'
-import { ContinousVerificationVariableStep } from './ContinousVerificationVariableStep'
-import {
-  baseLineOptions,
-  durationOptions,
-  trafficSplitPercentageOptions,
-  VerificationSensitivityOptions
-} from './constants'
+import type { UseStringsReturn } from 'framework/exports'
+import type { ContinousVerificationData, ContinousVerificationVariableStepProps, spec } from './types'
+import { ContinousVerificationWidgetWithRef } from './components/ContinousVerificationWidget/ContinousVerificationWidget'
+import { ContinousVerificationInputSetStep } from './components/ContinousVerificationInputSetStep/ContinousVerificationInputSetStep'
+import { ContinousVerificationVariableStep } from './components/ContinousVerificationVariableStep'
+import { getSpecFormData, getSpecYamlData, validateField, validateTimeout } from './utils'
 
 const ConnectorRefRegex = /^.+step\.spec\.executionTarget\.connectorRef$/
-
-export interface ContinousVerificationVariableStepProps {
-  metadataMap: Record<string, VariableResponseMapValue>
-  stageIdentifier: string
-  variablesData: ContinousVerificationData
-  originalData: ContinousVerificationData
-}
 
 export class ContinousVerificationStep extends PipelineStep<ContinousVerificationData> {
   constructor() {
     super()
     this.invocationMap.set(ConnectorRefRegex, this.getSecretsListForYaml.bind(this))
-    //TODO will be turned true when variables view story is picked up
-    this._hasStepVariables = false
+    //TODO implement variabes screen
+    this._hasStepVariables = true
+  }
+
+  protected type = StepType.Verify
+  protected stepName = 'CV Step'
+  protected stepIcon: IconName = 'cv-main'
+  protected isHarnessSpecific = true
+  protected invocationMap: Map<
+    RegExp,
+    (path: string, yaml: string, params: Record<string, unknown>) => Promise<CompletionItemInterface[]>
+  > = new Map()
+
+  protected defaultValues: ContinousVerificationData = {
+    identifier: '',
+    timeout: '10m',
+    spec: {
+      verificationJobRef: '',
+      type: '',
+      spec: {
+        sensitivity: '',
+        duration: '',
+        baseline: '',
+        trafficsplit: '',
+        serviceRef: '',
+        envRef: '',
+        deploymentTag: ''
+      }
+    }
   }
 
   renderStep(props: StepProps<ContinousVerificationData>): JSX.Element {
@@ -68,39 +83,23 @@ export class ContinousVerificationStep extends PipelineStep<ContinousVerificatio
     )
   }
 
-  validateInputSet(): object {
-    const errors = {} as any
-    //TODO implement this once story is picked up
+  validateInputSet(
+    data: ContinousVerificationData,
+    template: ContinousVerificationData,
+    getString: UseStringsReturn['getString']
+  ): object {
+    const errors = { spec: {} } as any
+    const { sensitivity, duration, baseline, trafficsplit, deploymentTag } = template?.spec?.spec as spec
+
+    validateField(sensitivity as string, 'sensitivity', data, errors, getString)
+    validateField(duration as string, 'duration', data, errors, getString)
+    validateField(baseline as string, 'baseline', data, errors, getString)
+    validateField(trafficsplit as string, 'trafficsplit', data, errors, getString)
+    validateField(deploymentTag as string, 'deploymentTag', data, errors, getString)
+    validateTimeout(template, getString, data, errors)
+    //TODO - check running of pipeline
 
     return errors
-  }
-
-  protected type = StepType.Verify
-  protected stepName = 'CV Step'
-  protected stepIcon: IconName = 'cv-main'
-  //TODO - to be asked from PM
-  protected isHarnessSpecific = true
-  protected invocationMap: Map<
-    RegExp,
-    (path: string, yaml: string, params: Record<string, unknown>) => Promise<CompletionItemInterface[]>
-  > = new Map()
-
-  protected defaultValues: ContinousVerificationData = {
-    identifier: '',
-    timeout: '10m',
-    spec: {
-      verificationJobRef: '',
-      type: '',
-      spec: {
-        sensitivity: '',
-        duration: '',
-        baseline: '',
-        trafficsplit: '',
-        serviceRef: '',
-        envRef: '',
-        deploymentTag: ''
-      }
-    }
   }
 
   protected async getSecretsListForYaml(): Promise<CompletionItemInterface[]> {
@@ -110,67 +109,27 @@ export class ContinousVerificationStep extends PipelineStep<ContinousVerificatio
     })
   }
 
-  private getInitialValues(initialValues: ContinousVerificationData): ContinousVerificationFormData {
+  private getInitialValues(initialValues: ContinousVerificationData): ContinousVerificationData {
     return {
       ...initialValues,
       spec: {
         ...initialValues.spec,
         verificationJobRef: initialValues?.spec?.verificationJobRef,
         type: initialValues.spec?.type,
-        spec: this.getspecFormData(initialValues?.spec?.spec)
+        spec: getSpecFormData(initialValues?.spec?.spec)
       }
     }
   }
 
-  processFormData(data: ContinousVerificationFormData): ContinousVerificationData {
+  processFormData(data: ContinousVerificationData): ContinousVerificationData {
     return {
       ...data,
       spec: {
         ...data.spec,
         verificationJobRef: (data.spec.verificationJobRef as SelectOption)?.value as string,
         type: data.spec?.type,
-        spec: this.getspecYamlData(data.spec.spec)
+        spec: getSpecYamlData(data.spec.spec)
       }
-    }
-  }
-
-  private getspecYamlData(specInfo: spec | undefined): spec {
-    const validspec = omitBy(specInfo, isNil)
-
-    Object.keys(validspec).map((key: string) => {
-      validspec[key] = validspec[key].value ? validspec[key].value : validspec[key]
-    })
-
-    return validspec
-  }
-
-  private getspecFormData(specInfo: spec | undefined): spec {
-    const validspec: spec | undefined = { ...specInfo }
-    if (specInfo) {
-      Object.keys(specInfo).map((key: string) => {
-        switch (key) {
-          case 'sensitivity':
-            this.setFieldData(validspec, 'sensitivity', VerificationSensitivityOptions)
-            break
-          case 'duration':
-            this.setFieldData(validspec, 'duration', durationOptions)
-            break
-          case 'baseline':
-            this.setFieldData(validspec, 'baseline', baseLineOptions)
-            break
-          case 'trafficsplit':
-            this.setFieldData(validspec, 'trafficsplit', trafficSplitPercentageOptions)
-            break
-          default:
-        }
-      })
-    }
-    return validspec
-  }
-
-  private setFieldData(validspec: spec | undefined, field: string, options: SelectOption[]): void {
-    if (validspec && validspec[field]) {
-      validspec[field] = options.find((el: SelectOption) => el.value === (validspec && validspec[field]))
     }
   }
 }
