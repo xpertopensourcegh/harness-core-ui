@@ -39,7 +39,9 @@ const TEST_PATH = routes.toTriggersWizardPage({ ...accountPathProps, ...triggerP
 
 jest.mock('clipboard-copy', () => jest.fn())
 
-const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => <TestWrapper>{children}</TestWrapper>
+const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
+  <TestWrapper>{children}</TestWrapper>
+)
 const { result } = renderHook(() => useStrings(), { wrapper })
 
 function WrapperComponent(props: { initialValues: any; isEdit?: boolean; enableSecureToken?: boolean }): JSX.Element {

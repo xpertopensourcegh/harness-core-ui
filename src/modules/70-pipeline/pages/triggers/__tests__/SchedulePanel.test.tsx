@@ -12,7 +12,9 @@ import SchedulePanel from '../views/SchedulePanel'
 import { scheduleTabsId } from '../views/subviews/ScheduleUtils'
 const defaultTriggerConfigDefaultProps = getTriggerConfigDefaultProps({})
 
-const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => <TestWrapper>{children}</TestWrapper>
+const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
+  <TestWrapper>{children}</TestWrapper>
+)
 const { result } = renderHook(() => useStrings(), { wrapper })
 
 const fillTimeSelect = async ({

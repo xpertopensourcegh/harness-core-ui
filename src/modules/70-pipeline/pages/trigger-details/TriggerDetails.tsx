@@ -131,7 +131,7 @@ const GetTriggerRightNav = (): JSX.Element => {
   )
 }
 
-export default function TriggerDetails({ children }: React.PropsWithChildren<{}>): React.ReactElement {
+export default function TriggerDetails({ children }: React.PropsWithChildren<unknown>): React.ReactElement {
   const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, triggerIdentifier } = useParams<
     PipelineType<{
       projectIdentifier: string

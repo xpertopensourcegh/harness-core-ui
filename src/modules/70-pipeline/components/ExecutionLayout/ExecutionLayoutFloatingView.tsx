@@ -12,7 +12,7 @@ import css from './ExecutionLayout.module.scss'
 /**
  * This component will only be rendered when layout === 'FLOATING'
  */
-export default function ExecutionLayoutFloatingView(props: React.PropsWithChildren<{}>): React.ReactElement {
+export default function ExecutionLayoutFloatingView(props: React.PropsWithChildren<unknown>): React.ReactElement {
   const { layout } = useExecutionLayoutContext()
   const [position, setPosition] = useLocalStorage('execution_layout_float_position', { x: -40, y: -30 })
   const [isOpen, setIsOpen] = React.useState(true)

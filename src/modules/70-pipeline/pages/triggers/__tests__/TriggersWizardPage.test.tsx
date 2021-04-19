@@ -40,7 +40,9 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { c
 
 const mockUpdate = jest.fn().mockReturnValue(Promise.resolve({ data: {}, status: {} }))
 
-const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => <TestWrapper>{children}</TestWrapper>
+const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
+  <TestWrapper>{children}</TestWrapper>
+)
 const { result } = renderHook(() => useStrings(), { wrapper })
 
 function WrapperComponent(): JSX.Element {

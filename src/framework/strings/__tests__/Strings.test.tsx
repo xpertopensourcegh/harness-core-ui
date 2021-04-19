@@ -98,7 +98,7 @@ describe('String tests', () => {
 describe('useString tests', () => {
   describe('getString', () => {
     test('works with simple id', () => {
-      const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => (
+      const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
         <StringsContext.Provider value={value as any}>{children}</StringsContext.Provider>
       )
       const { result } = renderHook(() => useStrings(), { wrapper })
@@ -107,7 +107,7 @@ describe('useString tests', () => {
     })
 
     test('works with nested values', () => {
-      const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => (
+      const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
         <StringsContext.Provider value={value as any}>{children}</StringsContext.Provider>
       )
       const { result } = renderHook(() => useStrings(), { wrapper })
@@ -116,7 +116,7 @@ describe('useString tests', () => {
     })
 
     test('works with self reference values', () => {
-      const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => (
+      const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
         <StringsContext.Provider value={value as any}>{children}</StringsContext.Provider>
       )
       const { result } = renderHook(() => useStrings(), { wrapper })
@@ -125,7 +125,7 @@ describe('useString tests', () => {
     })
 
     test('self reference works foor only one level', () => {
-      const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => (
+      const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
         <StringsContext.Provider value={value as any}>{children}</StringsContext.Provider>
       )
       const { result } = renderHook(() => useStrings(), { wrapper })
@@ -134,7 +134,7 @@ describe('useString tests', () => {
     })
 
     test('throws when key not found', () => {
-      const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => (
+      const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
         <StringsContext.Provider value={value as any}>{children}</StringsContext.Provider>
       )
       const { result } = renderHook(() => useStrings(), { wrapper })

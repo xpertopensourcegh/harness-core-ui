@@ -7,7 +7,9 @@ import { useStrings } from 'framework/exports'
 import { NameIdDescriptionTags } from '@common/components'
 import type { FormikForNameIdDescriptionTags } from '../NameIdDescriptionTagsConstants'
 
-const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => <TestWrapper>{children}</TestWrapper>
+const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
+  <TestWrapper>{children}</TestWrapper>
+)
 const { result } = renderHook(() => useStrings(), { wrapper })
 
 const onEditInitialValues: FormikForNameIdDescriptionTags = {

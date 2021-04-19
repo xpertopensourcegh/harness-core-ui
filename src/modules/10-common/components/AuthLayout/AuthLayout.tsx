@@ -4,7 +4,7 @@ import { Container } from '@wings-software/uicore'
 import SignupIllustration from './images/SignupIllustration.png'
 import css from './AuthLayout.module.scss'
 
-const AuthLayout: React.FC<React.PropsWithChildren<{}>> = props => {
+const AuthLayout: React.FC<React.PropsWithChildren<unknown>> = props => {
   return (
     <div className={css.layout}>
       <div className={css.cardColumn}>

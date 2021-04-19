@@ -10,7 +10,9 @@ import { getValidationSchema, TriggerTypes } from '../utils/TriggersWizardPageUt
 import TriggerOverviewPanel from '../views/TriggerOverviewPanel'
 const defaultTriggerConfigDefaultProps = getTriggerConfigDefaultProps({})
 
-const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => <TestWrapper>{children}</TestWrapper>
+const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
+  <TestWrapper>{children}</TestWrapper>
+)
 const { result } = renderHook(() => useStrings(), { wrapper })
 
 function WrapperComponent(props: { initialValues: any }): JSX.Element {

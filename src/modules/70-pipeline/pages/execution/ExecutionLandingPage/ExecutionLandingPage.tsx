@@ -62,7 +62,7 @@ const addServiceDependenciesFromLiteTaskEngine = (nodeMap: { [key: string]: any 
   }
 }
 
-export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>): React.ReactElement {
+export default function ExecutionLandingPage(props: React.PropsWithChildren<unknown>): React.ReactElement {
   const { orgIdentifier, projectIdentifier, executionIdentifier, accountId, pipelineIdentifier, module } = useParams<
     PipelineType<ExecutionPathParams>
   >()

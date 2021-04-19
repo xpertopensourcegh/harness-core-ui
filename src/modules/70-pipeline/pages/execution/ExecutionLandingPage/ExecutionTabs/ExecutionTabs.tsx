@@ -14,7 +14,7 @@ import { String, useStrings } from 'framework/exports'
 
 import css from './ExecutionTabs.module.scss'
 
-export default function ExecutionTabs(props: React.PropsWithChildren<{}>): React.ReactElement {
+export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): React.ReactElement {
   const { children } = props
   const { getString } = useStrings()
   const { pipelineExecutionDetail } = useExecutionContext()

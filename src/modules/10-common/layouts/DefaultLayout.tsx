@@ -7,7 +7,7 @@ import { useSidebar } from '@common/navigation/SidebarProvider'
 
 import css from './layouts.module.scss'
 
-export function DefaultLayout(props: React.PropsWithChildren<{}>): React.ReactElement {
+export function DefaultLayout(props: React.PropsWithChildren<unknown>): React.ReactElement {
   const { title, subtitle, icon, navComponent: NavComponent } = useSidebar()
 
   return (

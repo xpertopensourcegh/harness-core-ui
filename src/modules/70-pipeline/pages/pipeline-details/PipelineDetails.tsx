@@ -19,7 +19,7 @@ declare global {
   }
 }
 
-export default function PipelineDetails({ children }: React.PropsWithChildren<{}>): React.ReactElement {
+export default function PipelineDetails({ children }: React.PropsWithChildren<unknown>): React.ReactElement {
   const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module } = useParams<
     PipelineType<PipelinePathProps>
   >()

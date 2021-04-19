@@ -9,7 +9,9 @@ import { useStrings } from 'framework/exports'
 import { TestWrapper } from '@common/utils/testUtils'
 import { CVAnalysisTabs } from '../CVAnalysisTabs'
 
-const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => <TestWrapper>{children}</TestWrapper>
+const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
+  <TestWrapper>{children}</TestWrapper>
+)
 const { result } = renderHook(() => useStrings(), { wrapper })
 
 const metricAnalysisView = <Container className="metricAnalysisView" />
