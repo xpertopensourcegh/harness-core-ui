@@ -1044,7 +1044,7 @@ pipeline-triggers:
     attribute: 'Attribute'
     operator: 'Operator'
     matchesValue: 'Matches Value'
-    jexlConditions: 'JEXL Conditions'
+    jexlCondition: 'JEXL Condition'
   pipelineInputPanel:
     noRuntimeInputs: 'No Runtime Inputs'
   triggerOverviewPanel:

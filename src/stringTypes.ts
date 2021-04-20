@@ -4330,7 +4330,7 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipeline-triggers.conditionsPanel.jexlConditions': string
+  'pipeline-triggers.conditionsPanel.jexlCondition': string
   /**
    * @deprecated migrate this string to module level file
    */

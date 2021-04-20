@@ -127,6 +127,7 @@ export default function TriggersDetailPage(): JSX.Element {
     : []
   conditionsArr = conditionsArr.concat(headerConditionsArr)
   conditionsArr = conditionsArr.concat(payloadConditionsArr)
+  const jexlCondition = triggerObj?.source?.spec?.spec?.jexlCondition
   const cronExpression = triggerObj?.source?.spec?.spec?.expression
   return (
     <>
@@ -248,6 +249,14 @@ export default function TriggersDetailPage(): JSX.Element {
                             {conditionStr}
                           </Text>
                         ))}
+                      </>
+                    ) : null}
+                    {jexlCondition ? (
+                      <>
+                        <Text>{getString('pipeline-triggers.conditionsPanel.jexlCondition')}</Text>
+                        <Text font={{ weight: 'bold' }} lineClamp={1}>
+                          {jexlCondition}
+                        </Text>
                       </>
                     ) : null}
                     {cronExpression ? (

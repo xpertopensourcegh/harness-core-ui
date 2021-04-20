@@ -297,6 +297,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       tagConditionValue,
       headerConditions = [],
       payloadConditions = [],
+      jexlCondition,
       secureToken
     } = val
 
@@ -381,6 +382,10 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       triggerYaml.source.spec.spec.headerConditions = headerConditions
     }
 
+    if (jexlCondition && triggerYaml.source?.spec) {
+      triggerYaml.source.spec.spec.jexlCondition = jexlCondition
+    }
+
     return triggerYaml
   }
 
@@ -404,7 +409,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           tags,
           source: {
             spec: {
-              spec: { actions, event, gitRepoSpec, payloadConditions, headerConditions, authToken },
+              spec: { actions, event, gitRepoSpec, payloadConditions, headerConditions, authToken, jexlCondition },
               type: sourceRepo
             }
           },
@@ -460,7 +465,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
             payloadCondition.key !== PayloadConditionTypes.SOURCE_BRANCH &&
             payloadCondition.key !== PayloadConditionTypes.TARGET_BRANCH &&
             payloadCondition.key !== PayloadConditionTypes.TAG
-        )
+        ),
+        jexlCondition
       }
       gitRepoSpecCopy = gitRepoSpec
     } catch (e) {
