@@ -7,9 +7,9 @@ import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { RestResponseSortedSetLogDataByTag, useGetTagCount, useGetTagCountForActivity } from 'services/cv'
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useStrings, UseStringsReturn } from 'framework/exports'
 import getLogViewcolumnChartConfig from './LogViewColumnChartConfig'
 import { categoryNameToCategoryType } from '../../../CVServicePageUtils'
-import i18n from './LogAnalysisFrequencyChart.i18n'
 import css from './LogAnalysisFrequencyChart.module.scss'
 
 interface LogAnalysisFrequencyChartProps {
@@ -38,7 +38,12 @@ interface LogAnalysisFrequencyViewProps {
 
 const FIVE_MINUTES_IN_MILLISECONDS = 1000 * 60 * 5
 
-function generatePointsForLogChart(data: RestResponseSortedSetLogDataByTag, startTime: number, endTime: number): any {
+function generatePointsForLogChart(
+  data: RestResponseSortedSetLogDataByTag,
+  startTime: number,
+  endTime: number,
+  getString: UseStringsReturn['getString']
+): any {
   if (!data?.resource) {
     return data
   }
@@ -47,13 +52,13 @@ function generatePointsForLogChart(data: RestResponseSortedSetLogDataByTag, star
   const columnChartData = [
     {
       type: 'column',
-      name: i18n.dataCategoryNames.notAnomalous,
+      name: getString('cv.nonAnomalous'),
       data: [],
       color: 'var(--blue-500)'
     },
     {
       type: 'column',
-      name: i18n.dataCategoryNames.anomalous,
+      name: getString('cv.anomalous'),
       data: [],
       color: 'var(--red-600)'
     }
@@ -113,8 +118,8 @@ export default function LogAnalysisFrequencyChart(props: LogAnalysisFrequencyCha
     refetch({
       queryParams: {
         accountId,
-        orgIdentifier: orgIdentifier as string,
-        projectIdentifier: projectIdentifier as string,
+        orgIdentifier,
+        projectIdentifier,
         monitoringCategory: (categoryName ? categoryNameToCategoryType(categoryName) : undefined) as string,
         startTime,
         endTime,
@@ -152,9 +157,10 @@ export function ActivityLogAnalysisFrequencyChart({
 }
 
 function LogAnalysisFrequencyView({ data, startTime, endTime }: LogAnalysisFrequencyViewProps): React.ReactElement {
+  const { getString } = useStrings()
   const columnChartOptions: Highcharts.Options | undefined = useMemo(() => {
     if (data) {
-      const { categories, columnChartData } = generatePointsForLogChart(data, startTime, endTime)
+      const { categories, columnChartData } = generatePointsForLogChart(data, startTime, endTime, getString)
       return getLogViewcolumnChartConfig(columnChartData, categories, startTime, endTime)
     }
   }, [data])

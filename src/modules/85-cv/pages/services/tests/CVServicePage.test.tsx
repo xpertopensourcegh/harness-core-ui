@@ -201,9 +201,11 @@ describe('Unit tests for CV service page', () => {
       expect(twelveHourOptions).not.toBeNull()
     })
 
-    fireEvent.click(getByText('7 Days'))
+    fireEvent.click(getByText('cv.serviceDashboardPage.sevenDays'))
     await waitFor(() =>
-      expect(container.querySelector('[class*="rangeSelector"] input')?.getAttribute('value')).toEqual('7 Days')
+      expect(container.querySelector('[class*="rangeSelector"] input')?.getAttribute('value')).toEqual(
+        'cv.serviceDashboardPage.sevenDays'
+      )
     )
 
     const heatMap = container.querySelector('[class*="service-heatmap"]')

@@ -30,7 +30,7 @@ describe('SelectProduct', () => {
         <SelectProduct type="AppDynamics" onCompleteStep={() => noop} />
       </TestWrapper>
     )
-    await waitFor(() => queryByText(container, 'Monitoring Source'))
+    await waitFor(() => queryByText(container, 'monitoringSource'))
     expect(getByText('AppDynamics')).toBeDefined()
     expect(getByText('cv.monitoringSources.appD.createConnectorText')).toBeDefined()
     expect(container).toMatchSnapshot()
@@ -54,7 +54,7 @@ describe('SelectProduct', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(queryByText(container, 'Monitoring Source')).not.toBeNull())
+    await waitFor(() => expect(queryByText(container, 'monitoringSource')).not.toBeNull())
     fireEvent.click(getByText('cv.monitoringSources.gco.createConnectorText'))
     await waitFor(() => expect(document.body.querySelector('[class*="StepWizard"]')).not.toBeNull())
 
@@ -65,7 +65,7 @@ describe('SelectProduct', () => {
     fireEvent.click(closeModalButton)
     await waitFor(() => expect(document.body.querySelector('[class*="StepWizard"]')).toBeNull())
 
-    fireEvent.click(getByText('Next'))
+    fireEvent.click(getByText('next'))
     await waitFor(() => expect(container.querySelectorAll(`[class*="${Classes.FORM_HELPER_TEXT}"]`).length).toBe(2))
     getByText('cv.onboarding.selectProductScreen.validationText.connectorRef')
     getByText('Product is required.')
@@ -89,8 +89,8 @@ describe('SelectProduct', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(queryByText(container, 'Monitoring Source')).not.toBeNull())
-    fireEvent.click(getByText('Previous'))
+    await waitFor(() => expect(queryByText(container, 'monitoringSource')).not.toBeNull())
+    fireEvent.click(getByText('previous'))
 
     await waitFor(() =>
       expect(mockHistoryPush).toHaveBeenCalledWith(

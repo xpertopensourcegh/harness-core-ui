@@ -11,7 +11,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
       <a
         href="/account/undefined/cv/orgs/org1/projects/project1/dashboard"
       >
-        Dashboard /
+        dashboardLabel /
       </a>
       <div
         class="StyledProps--font StyledProps--main headerWrap"
@@ -24,7 +24,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small"
         >
-          Environments
+          environments
           :
         </p>
         <p
@@ -33,7 +33,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small"
         >
-          Service
+          service
           :
         </p>
         <p
@@ -74,7 +74,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--margin-left-small StyledProps--font-weight-light"
               >
-                Pre Production Tests
+                cv.preProductionTests
               </p>
             </div>
             <div
@@ -122,7 +122,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--margin-left-small StyledProps--font-weight-bold"
               >
-                Production Deployment
+                cv.activityChanges.productionDeployment
               </p>
             </div>
             <div
@@ -215,7 +215,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--margin-left-small StyledProps--font-weight-light"
               >
-                Post Deployment
+                cv.postDeployment
               </p>
             </div>
             <div
@@ -318,7 +318,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
                   role="tab"
                   tabindex="0"
                 >
-                  Metrics
+                  cv.analysisScreens.analysisTab.metrics
                 </div>
                 <div
                   aria-controls="bp3-tab-panel_tabs1_LOGS_TAB"
@@ -331,7 +331,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
                   role="tab"
                   tabindex="0"
                 >
-                  Logs
+                  cv.analysisScreens.analysisTab.logs
                 </div>
               </div>
             </div>

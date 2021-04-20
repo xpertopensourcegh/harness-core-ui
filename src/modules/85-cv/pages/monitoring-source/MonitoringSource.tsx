@@ -7,11 +7,11 @@ import { MonitoringSourceSetupRoutePaths } from '@cv/utils/routeUtils'
 import { DSConfig, useGetDSConfig } from 'services/cv'
 import { Page } from '@common/exports'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
+import { useStrings } from 'framework/exports'
 import AppDMonitoringSource from './app-dynamics/AppDMonitoringSource'
 import { NewRelicMonitoringSource } from './new-relic/NewRelicMonitoringSource'
 import { GoogleCloudOperationsMonitoringSource } from './google-cloud-operations/GoogleCloudOperationsMonitoringSource'
 import { OnBoardingPageHeader } from '../onboarding/OnBoardingPageHeader/OnBoardingPageHeader'
-import i18n from './MonitoringSource.i18n'
 import css from './MonitoringSource.module.scss'
 
 const getContentByType = (type: string, dsConfig?: DSConfig | null): JSX.Element => {
@@ -41,6 +41,7 @@ const MonitoringSource = (): JSX.Element => {
     },
     lazy: true
   })
+  const { getString } = useStrings()
 
   useEffect(() => {
     if (identifier) fetchDSConfig()
@@ -57,7 +58,7 @@ const MonitoringSource = (): JSX.Element => {
       <OnBoardingPageHeader
         breadCrumbs={[
           {
-            label: i18n.breadCrumb,
+            label: getString('cv.navLinks.adminSideNavLinks.monitoringSources'),
             url: routes.toCVAdminSetupMonitoringSource({
               projectIdentifier,
               orgIdentifier,

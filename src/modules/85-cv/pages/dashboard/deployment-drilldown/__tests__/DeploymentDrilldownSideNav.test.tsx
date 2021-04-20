@@ -1,6 +1,7 @@
 import React from 'react'
 import { render, waitFor, fireEvent } from '@testing-library/react'
 import { act } from 'react-test-renderer'
+import { TestWrapper } from '@common/utils/testUtils'
 import DeploymentDrilldownSideNav from '../DeploymentDrilldownSideNav'
 
 jest.mock('moment', () => {
@@ -19,11 +20,13 @@ describe('DeploymentDrilldownSideNav', () => {
       status: 'VERIFICATION_PASSED'
     }
     const { container } = render(
-      <DeploymentDrilldownSideNav
-        selectedInstance={mockedItem}
-        postDeploymentInstances={[mockedItem]}
-        onSelect={onSelect}
-      />
+      <TestWrapper>
+        <DeploymentDrilldownSideNav
+          selectedInstance={mockedItem}
+          postDeploymentInstances={[mockedItem]}
+          onSelect={onSelect}
+        />
+      </TestWrapper>
     )
     expect(container).toMatchSnapshot()
     await waitFor(() => container.querySelector('.item'))

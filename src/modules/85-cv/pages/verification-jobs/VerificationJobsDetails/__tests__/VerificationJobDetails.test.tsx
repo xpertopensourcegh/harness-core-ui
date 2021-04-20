@@ -641,7 +641,7 @@ describe('VerificationJobsDetails', () => {
     )
 
     await waitFor(() => expect(queryByText(container, 'cv.verificationJobs.details.heading')).not.toBeNull())
-    fireEvent.click(getByText('Previous'))
+    fireEvent.click(getByText('previous'))
 
     await waitFor(() =>
       expect(mockHistoryPush).toHaveBeenCalledWith(

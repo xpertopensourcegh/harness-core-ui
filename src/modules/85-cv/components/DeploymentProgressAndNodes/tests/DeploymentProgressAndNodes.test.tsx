@@ -135,7 +135,7 @@ describe('Deployment progress and nodes unit tests', () => {
         <DeploymentProgressAndNodes {...BaselineDeploymentMockData} />
       </TestWrapper>
     )
-    await waitFor(() => getByText('Baseline test'))
+    await waitFor(() => getByText('cv.baselineTest'))
 
     expect(container.querySelector('[class*="bp3-intent-success"]'))
     expect(container.querySelector(`.${Classes.PROGRESS_METER}`)?.getAttribute('style')).toEqual('width: 100%;')

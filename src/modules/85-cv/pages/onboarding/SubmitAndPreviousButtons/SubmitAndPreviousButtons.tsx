@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Layout, ButtonProps } from '@wings-software/uicore'
-import i18n from './SubmitAndPreviousButtons.i18n'
+import { useStrings } from 'framework/exports'
 import css from './SubmitAndPreviousButtons.module.scss'
 
 export interface SubmitAndPreviousButtonProps {
@@ -11,16 +11,17 @@ export interface SubmitAndPreviousButtonProps {
 
 export function SubmitAndPreviousButtons(props: SubmitAndPreviousButtonProps): JSX.Element {
   const { onNextClick, onPreviousClick } = props
+  const { getString } = useStrings()
   return (
     <Layout.Horizontal className={css.main}>
       <Button
-        text={i18n.previousLabel}
+        text={getString('previous')}
         style={{ marginRight: 'var(--spacing-small)' }}
         icon="chevron-left"
         onClick={() => onPreviousClick?.()}
       />
       <Button
-        text={i18n.nextLabel}
+        text={getString('next')}
         intent="primary"
         type="submit"
         rightIcon="chevron-right"

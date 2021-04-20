@@ -162,7 +162,7 @@ describe('SelectGCODashboards unit tests', () => {
     fireEvent.click(getByText('2'))
     await waitFor(() => expect(container.querySelectorAll('div[role="row"]').length).toBe(3))
 
-    fireEvent.click(getByText('Next'))
+    fireEvent.click(getByText('next'))
     await waitFor(() =>
       expect(onSubmitFunc).toHaveBeenCalledWith({
         accountId: '1234_account',

@@ -4,7 +4,6 @@ import { Classes } from '@blueprintjs/core'
 import { TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
-import i18n from '../SelectActivitySource.i18n'
 import { SelectActivitySource } from '../SelectActivitySource'
 
 describe('Unit tests for SelectActivitySource', () => {
@@ -22,24 +21,27 @@ describe('Unit tests for SelectActivitySource', () => {
       </TestWrapper>
     )
     await waitFor(() => expect(container.querySelector('[class*="main"]')))
-    expect(getByText(i18n.productSelectionCategory.directConnection)).not.toBeNull()
+    expect(getByText('pipelineSteps.deploy.infrastructure.directConnection'.toLocaleUpperCase())).not.toBeNull()
 
     const kubernetesDirectConnection = container.querySelector('[class*="bp3-card"]')
     if (!kubernetesDirectConnection) {
       throw Error('Direct connection option was not renderd.')
     }
 
-    expect(container.querySelector('[class*="cardIconSelected"]')).not.toBeNull()
-    fireEvent.click(kubernetesDirectConnection)
-    await waitFor(() => expect(container.querySelector('[class*="cardIconSelected"]')).toBeNull())
-
     const submitButton = container.querySelector('button[type="submit"]')
     if (!submitButton) throw Error('Submit button was not rendered.')
 
     fireEvent.click(submitButton)
     await waitFor(() => expect(container.querySelector(`[class*="${Classes.FORM_HELPER_TEXT}"]`)).not.toBeNull())
-    for (const validationString of Object.values(i18n.validationStrings)) {
-      expect(getByText(validationString)).not.toBeNull()
-    }
+    await waitFor(() =>
+      expect(
+        getByText('cv.activitySources.kubernetes.selectKubernetesSource.nameActivitySourceValidation')
+      ).not.toBeNull()
+    )
+    expect(container).toMatchSnapshot()
+
+    expect(container.querySelector('[class*="selectedCard"]')).toBeNull()
+    fireEvent.click(kubernetesDirectConnection)
+    await waitFor(() => expect(container.querySelector('[class*="selectedCard"]')).not.toBeNull())
   })
 })

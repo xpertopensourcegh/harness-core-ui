@@ -4,7 +4,7 @@ import cx from 'classnames'
 import type { DatasourceTypeDTO } from 'services/cv'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { CVAnalysisTabs } from '@cv/components/CVAnalysisTabs/CVAnalysisTabs'
-import i18n from './AnalysisDrillDownView.i18n'
+import { useStrings } from 'framework/exports'
 import { MetricAnalysisView, MetricAnalysisViewProps } from './MetricAnalysisView/MetricAnalysisView'
 import LogAnalysisView from './LogAnalysisView/LogAnalysisView'
 import css from './AnalysisDrillDownView.module.scss'
@@ -34,12 +34,13 @@ export function AnalysisDrillDownView(props: AnalysisDrillDownViewProps): JSX.El
     shadedRegionForMetricProps
   } = props
 
+  const { getString } = useStrings()
   const [selectedMetric, setSelectedMetric] = useState<DatasourceTypeDTO['dataSourceType'] | undefined>()
 
   if (!startTime || !endTime) {
     return (
       <Container height={200}>
-        <NoDataCard icon="warning-sign" iconSize={30} message={i18n.noDataText} />
+        <NoDataCard icon="warning-sign" iconSize={30} message={getString('cv.noAnalysis')} />
       </Container>
     )
   }

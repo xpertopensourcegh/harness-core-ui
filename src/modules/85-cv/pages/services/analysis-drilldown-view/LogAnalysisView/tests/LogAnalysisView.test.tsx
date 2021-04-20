@@ -26,7 +26,7 @@ describe('Unit tests for log analysis view', () => {
     await waitFor(() => expect(container.querySelector('[class*="noDataCard"]')).not.toBeNull)
 
     // click retry button
-    fireEvent.click(getByText('Retry'))
+    fireEvent.click(getByText('retry'))
     await waitFor(() => expect(refetchMock).toHaveBeenCalledTimes(2))
   })
 

@@ -2,7 +2,7 @@ import React from 'react'
 import { Container, Text } from '@wings-software/uicore'
 import moment from 'moment'
 import type { FontProps } from '@wings-software/uicore/dist/styled-props/font/FontProps'
-import i18n from './DeploymentDrilldownView.i18n'
+import { useStrings } from 'framework/exports'
 import styles from './TestsSummaryView.module.scss'
 
 export interface TestsSummaryViewProps {
@@ -23,25 +23,27 @@ export default function TestsSummaryView({
   currentTestName,
   currentTestDate
 }: TestsSummaryViewProps) {
+  const { getString } = useStrings()
   return (
     <Container className={styles.testsSummaryView}>
       <Container className={styles.baselineTest}>
         <Text font={primaryFontProps} className={styles.mainLabel}>
-          {i18n.baselineTest}
+          {getString('cv.baselineTest')}
         </Text>
         <Text font={secondaryFontProps}>{baselineTestName || 'none'}</Text>
         <Text font={secondaryFontProps}>
-          {i18n.testsRan}: {(baselineTestDate && moment(baselineTestDate).format(defaultDateFormat)) || 'none'}
+          {getString('cv.testsRan')}:{' '}
+          {(baselineTestDate && moment(baselineTestDate).format(defaultDateFormat)) || 'none'}
         </Text>
       </Container>
       <Container className={styles.separator} />
       <Container>
         <Text font={primaryFontProps} className={styles.mainLabel}>
-          {i18n.currentTest}
+          {getString('cv.currentTest')}
         </Text>
         <Text font={secondaryFontProps}>{currentTestName || 'none'}</Text>
         <Text font={secondaryFontProps}>
-          {i18n.testsRan}: {(currentTestDate && moment(currentTestDate).format(defaultDateFormat)) || 'none'}
+          {getString('cv.testsRan')}: {(currentTestDate && moment(currentTestDate).format(defaultDateFormat)) || 'none'}
         </Text>
       </Container>
     </Container>

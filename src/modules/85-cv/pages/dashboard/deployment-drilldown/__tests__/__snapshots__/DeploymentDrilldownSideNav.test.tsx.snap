@@ -32,7 +32,7 @@ exports[`DeploymentDrilldownSideNav renders correctly and fires onSelect callbac
           <p
             class="StyledProps--font StyledProps--main StyledProps--margin-left-small StyledProps--font-weight-light"
           >
-            Pre Production Tests
+            cv.preProductionTests
           </p>
         </div>
         <div
@@ -80,7 +80,7 @@ exports[`DeploymentDrilldownSideNav renders correctly and fires onSelect callbac
           <p
             class="StyledProps--font StyledProps--main StyledProps--margin-left-small StyledProps--font-weight-light"
           >
-            Production Deployment
+            cv.activityChanges.productionDeployment
           </p>
         </div>
         <div
@@ -128,7 +128,7 @@ exports[`DeploymentDrilldownSideNav renders correctly and fires onSelect callbac
           <p
             class="StyledProps--font StyledProps--main StyledProps--margin-left-small StyledProps--font-weight-bold"
           >
-            Post Deployment
+            cv.postDeployment
           </p>
         </div>
         <div

@@ -301,7 +301,7 @@ describe('VerificationJobsSetup', () => {
     )
 
     await waitFor(() => expect(queryByText(container, 'verificationJobs')).not.toBeNull())
-    fireEvent.click(getByText('Next'))
+    fireEvent.click(getByText('next'))
     await waitFor(() => expect(getByText('cv.verificationJobs.configure.heading')).not.toBeNull())
     await waitFor(() => expect(getByText('health')).not.toBeNull())
   })
@@ -349,7 +349,7 @@ describe('VerificationJobsSetup', () => {
     )
 
     await waitFor(() => expect(queryByText(container, 'verificationJobs')).not.toBeNull())
-    fireEvent.click(getByText('Next'))
+    fireEvent.click(getByText('next'))
     await waitFor(() => expect(getByText('cv.verificationJobs.configure.heading')).not.toBeNull())
     await waitFor(() => expect(getByText('test')).not.toBeNull())
   })
@@ -391,7 +391,7 @@ describe('VerificationJobsSetup', () => {
     )
 
     await waitFor(() => expect(queryByText(container, 'verificationJobs')).not.toBeNull())
-    fireEvent.click(getByText('Next'))
+    fireEvent.click(getByText('next'))
     await waitFor(() => expect(getByText('cv.verificationJobs.configure.heading')).not.toBeNull())
     await waitFor(() => expect(getByText('blueGreen')).not.toBeNull())
   })
@@ -456,7 +456,7 @@ describe('VerificationJobsSetup', () => {
     )
 
     await waitFor(() => expect(queryByText(container, 'verificationJobs')).not.toBeNull())
-    fireEvent.click(getByText('Next'))
+    fireEvent.click(getByText('next'))
     await waitFor(() => expect(getByText('cv.verificationJobs.configure.heading')).not.toBeNull())
     const runTimeParams = container.querySelectorAll(`input[value="${RUNTIME_INPUT_VALUE}"]`)
     expect(container.querySelectorAll(`input[value="${RUNTIME_INPUT_VALUE}"]`).length).toBe(5)
@@ -533,7 +533,7 @@ describe('VerificationJobsSetup', () => {
     )
 
     await waitFor(() => expect(queryByText(container, 'verificationJobs')).not.toBeNull())
-    fireEvent.click(getByText('Next'))
+    fireEvent.click(getByText('next'))
     await waitFor(() => expect(getByText('cv.verificationJobs.configure.heading')).not.toBeNull())
     await waitFor(() => expect(container.querySelector(`input[value="${RUNTIME_INPUT_VALUE}"]`)).not.toBeNull())
     const dynamicFields = container.querySelectorAll(`input[value="${RUNTIME_INPUT_VALUE}"]`)
@@ -600,7 +600,7 @@ describe('VerificationJobsSetup', () => {
     )
 
     await waitFor(() => expect(queryByText(container, 'verificationJobs')).not.toBeNull())
-    fireEvent.click(getByText('Next'))
+    fireEvent.click(getByText('next'))
     await waitFor(() => expect(getByText('cv.verificationJobs.configure.heading')).not.toBeNull())
     const dynamicFields = container.querySelectorAll(`input[value="${RUNTIME_INPUT_VALUE}"]`)
     expect(dynamicFields.length).toBe(2)

@@ -4,8 +4,8 @@ import React, { useState } from 'react'
 import { isNumber, omit } from 'lodash-es'
 import moment from 'moment'
 import { RiskScoreTile } from '@cv/components/RiskScoreTile/RiskScoreTile'
+import { useStrings } from 'framework/exports'
 import { AnalysisDrillDownView, AnalysisDrillDownViewProps } from './AnalysisDrillDownView'
-import i18n from './AnalysisDrillDownView.i18n'
 import css from './useAnalysisDrillDownView.module.scss'
 
 interface UseAnalysisDrillDownViewProps {
@@ -39,6 +39,7 @@ const bpDialogProps: IDialogProps = {
 
 function CategoryAndRiskScore(props: CategoryAndRiskScoreProps): JSX.Element {
   const { riskScore, categoryName, startTime, endTime } = props
+  const { getString } = useStrings()
   return (
     <Container>
       <Container className={css.categoryAndRiskScore}>
@@ -47,11 +48,11 @@ function CategoryAndRiskScore(props: CategoryAndRiskScoreProps): JSX.Element {
           <Text color={Color.BLACK} font={{ weight: 'bold' }}>
             {categoryName}
           </Text>
-          <Text color={Color.GREY_300}>{i18n.riskScore}</Text>
+          <Text color={Color.GREY_300}>{getString('cv.riskScore')}</Text>
         </Layout.Vertical>
       </Container>
       {isNumber(endTime) && isNumber(startTime) && (
-        <Text className={css.timeRange}>{`${i18n.selectedTimeIntervalText} ${moment(startTime).format(
+        <Text className={css.timeRange}>{`${getString('cv.selectedTimeInterval')} ${moment(startTime).format(
           'MMM D, h:mm a'
         )} - ${moment(endTime).format('MMM D, h:mm a')}`}</Text>
       )}

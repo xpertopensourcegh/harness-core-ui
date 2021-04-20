@@ -7,8 +7,8 @@ import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPrevious
 import { CVSelectionCard, CVSelectionCardProps } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import { AddDescriptionAndTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useStrings, UseStringsReturn } from 'framework/exports'
 import SyncStepDataValues from '@cv/utils/SyncStepDataValues'
-import i18n from './SelectActivitySource.i18n'
 import type { KubernetesActivitySourceInfo } from '../KubernetesActivitySourceUtils'
 import { buildKubernetesActivitySourceInfo } from '../KubernetesActivitySourceUtils'
 import css from './SelectActivitySource.module.scss'
@@ -29,34 +29,44 @@ export const KubernetesActivitySourceFieldNames = {
   CONNECTOR_TYPE: 'connectorType'
 }
 
-const DirectConnectionsProductSelections: { category: string; products: CVSelectionCardProps[] } = {
-  category: i18n.productSelectionCategory.directConnection,
-  products: [
-    {
-      iconProps: {
-        name: 'service-kubernetes',
-        size: 25
-      },
-      cardLabel: i18n.productName.kubernetes,
-      className: css.productSelectionCard
-    }
-  ]
+function getProductSelections(
+  getString: UseStringsReturn['getString']
+): { category: string; products: CVSelectionCardProps[] } {
+  return {
+    category: getString('pipelineSteps.deploy.infrastructure.directConnection').toLocaleUpperCase(),
+    products: [
+      {
+        iconProps: {
+          name: 'service-kubernetes',
+          size: 25
+        },
+        cardLabel: getString('kubernetesText'),
+        className: css.productSelectionCard
+      }
+    ]
+  }
 }
 
-const ValidationSchema = yupObject().shape({
-  [KubernetesActivitySourceFieldNames.ACTIVITY_SOURCE_NAME]: yupString()
-    .trim()
-    .required(i18n.validationStrings.nameActivitySource),
-  [KubernetesActivitySourceFieldNames.CONNECTOR_TYPE]: yupString().trim().required(i18n.validationStrings.connectorType)
-})
+function getValidationSchema(getString: UseStringsReturn['getString']) {
+  return yupObject().shape({
+    [KubernetesActivitySourceFieldNames.ACTIVITY_SOURCE_NAME]: yupString()
+      .trim()
+      .required(getString('cv.activitySources.kubernetes.selectKubernetesSource.nameActivitySourceValidation')),
+    [KubernetesActivitySourceFieldNames.CONNECTOR_TYPE]: yupString()
+      .trim()
+      .required(getString('cv.activitySources.kubernetes.selectKubernetesSource.connectorTypeValidation'))
+  })
+}
 
 function ActivitySourceConnectorSelection(props: ActivitySourceConnectorSelectionProps): JSX.Element {
   const { onCardSelect, selectedCard } = props
+  const { getString } = useStrings()
+  const { category, products } = getProductSelections(getString)
   return (
     <Container className={css.connectorSelection}>
       <Container>
-        <Text className={css.category}>{DirectConnectionsProductSelections.category}</Text>
-        {DirectConnectionsProductSelections.products.map(cardProps => {
+        <Text className={css.category}>{category}</Text>
+        {products.map(cardProps => {
           return (
             <CVSelectionCard
               key={cardProps.cardLabel}
@@ -79,28 +89,32 @@ function ActivitySourceConnectorSelection(props: ActivitySourceConnectorSelectio
 
 export function SelectActivitySource(props: SelectActivitySourceProps): JSX.Element {
   const { onSubmit, data, isEditMode } = props
+  const { getString } = useStrings()
   const history = useHistory()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   return (
     <Formik
       initialValues={data || buildKubernetesActivitySourceInfo()}
       onSubmit={values => onSubmit?.(values)}
-      validationSchema={ValidationSchema}
+      validationSchema={getValidationSchema(getString)}
     >
       {formik => (
         <FormikForm>
           <Container className={css.main}>
             <Heading level="3" color={Color.BLACK} font={{ size: 'medium' }} className={css.heading}>
-              {i18n.selectActivitySource}
+              {getString('cv.activitySources.harnessCD.select')}
             </Heading>
             <AddDescriptionAndTagsWithIdentifier
-              identifierProps={{ inputLabel: i18n.fieldLabels.nameActivitySource, isIdentifierEditable: !isEditMode }}
+              identifierProps={{
+                inputLabel: getString('cv.activitySources.name'),
+                isIdentifierEditable: !isEditMode
+              }}
             />
             <Text color={Color.BLACK} className={css.infraSpecification}>
-              {i18n.infraSpecification}
+              {getString('cv.activitySources.kubernetes.selectKubernetesSource.infraSpecification')}
             </Text>
             <Text color={Color.BLACK} className={css.connectorOptionHeading}>
-              {i18n.connectorOptionHeading}
+              {getString('cv.activitySources.kubernetes.selectKubernetesSource.connectorOptionHeading')}
             </Text>
             <FormInput.CustomRender
               name={KubernetesActivitySourceFieldNames.CONNECTOR_TYPE}
@@ -116,8 +130,8 @@ export function SelectActivitySource(props: SelectActivitySourceProps): JSX.Elem
             onPreviousClick={() =>
               history.push(
                 routes.toCVAdminSetup({
-                  projectIdentifier: projectIdentifier as string,
-                  orgIdentifier: orgIdentifier as string,
+                  projectIdentifier,
+                  orgIdentifier,
                   accountId
                 })
               )

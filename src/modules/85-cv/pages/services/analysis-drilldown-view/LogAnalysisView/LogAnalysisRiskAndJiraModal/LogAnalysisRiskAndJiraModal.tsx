@@ -23,7 +23,7 @@ import {
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import { Formik } from 'formik'
-import i18n from './LogAnalysisRiskAndJiraModal.i18n'
+import { useStrings } from 'framework/exports'
 import css from './LogAnalysisRiskAndJiraModal.module.scss'
 
 interface LogAnalysisRiskAndJiraModalProps {
@@ -96,11 +96,12 @@ export function DataNameAndData(props: DataNameAndDataProps): JSX.Element {
 
 export function ActivityHeadingContent(props: ActivityHeadingContentProps): JSX.Element {
   const { count, trendData } = props
+  const { getString } = useStrings()
   return (
     <Container className={css.activityContainer}>
-      <DataNameAndData dataName={i18n.contentDescription.count} data={count} />
+      <DataNameAndData dataName={getString('instanceFieldOptions.instanceHolder')} data={count} />
       <Container className={css.trendChart}>
-        <Text color={Color.BLACK}>{i18n.contentDescription.trend}</Text>
+        <Text color={Color.BLACK}>{getString('cv.trend')}</Text>
         <Container className={css.chartContainer}>
           <HighchartsReact highchart={Highcharts} options={trendData} />
         </Container>
@@ -130,6 +131,7 @@ function ShareLinkPopoverContent(): JSX.Element {
     Utils.copy(window.location.href)
     setCopied(true)
   }, [])
+  const { getString } = useStrings()
   return (
     <Container className={css.sharePopoverContent}>
       <Container className={css.urlContent}>
@@ -137,12 +139,12 @@ function ShareLinkPopoverContent(): JSX.Element {
       </Container>
       {!copiedToClipboard ? (
         <Link withoutHref className={css.copyButton} onClick={onCopyURLCallback}>
-          {i18n.popoverContentCopyURL}
+          {getString('cv.copyURL')}
         </Link>
       ) : (
         <Container className={css.copySuccess}>
           <Icon name="deployment-success-new" size={11} />
-          <Text>URL Copied!</Text>
+          <Text>{getString('cv.urlCopied')}</Text>
         </Container>
       )}
     </Container>
@@ -151,17 +153,18 @@ function ShareLinkPopoverContent(): JSX.Element {
 
 function IconHeading(): JSX.Element {
   const popoverContent = <ShareLinkPopoverContent />
+  const { getString } = useStrings()
   return (
     <Container flex>
       <Container flex className={css.iconContainer}>
         <Icon name="service-jira" className={css.logo} />
-        <Text>{i18n.heading.jira}</Text>
+        <Text>{getString('connectors.title.jira')}</Text>
       </Container>
       <Container className={css.iconContainer}>
         <Popover {...ShareContentPopoverProps} content={popoverContent}>
           <Container flex>
             <Icon name="main-share" className={css.logo} />
-            <Text>{i18n.heading.share}</Text>
+            <Text>{getString('cv.share')}</Text>
           </Container>
         </Popover>
       </Container>
@@ -171,10 +174,11 @@ function IconHeading(): JSX.Element {
 
 export function SampleData(props: SampleDataProps): JSX.Element {
   const { logMessage } = props
+  const { getString } = useStrings()
   return (
     <Container className={css.logMessageContainer}>
       <Text color={Color.BLACK} className={css.sampleEvent}>
-        {i18n.sampleEvent}
+        {getString('cv.sampleEvent')}
       </Text>
       <Text className={css.logMessage} lineClamp={30} tooltipProps={{ isOpen: false }}>
         {logMessage}
@@ -187,6 +191,7 @@ export function LogAnalysisRiskAndJiraModal(props: LogAnalysisRiskAndJiraModalPr
   const { onHide, activityType, count, trendData, logMessage, feedback } = props
   const [isOpen, setOpen] = useState(true)
   const [hasSubmitted, setSubmit] = useState(false)
+  const { getString } = useStrings()
   const onHideCallback = useCallback(() => {
     setOpen(false)
     onHide()
@@ -217,9 +222,9 @@ export function LogAnalysisRiskAndJiraModal(props: LogAnalysisRiskAndJiraModalPr
           <SampleData logMessage={logMessage} />
         </Container>
         <Container className={css.buttonContainer}>
-          <Button onClick={() => onHide()}>{i18n.backButtonLabel}</Button>
+          <Button onClick={() => onHide()}>{getString('back')}</Button>
           <Button type="submit" intent="primary" onClick={() => setSubmit(true)}>
-            {i18n.saveButtonLabel}
+            {getString('save')}
           </Button>
         </Container>
       </Container>

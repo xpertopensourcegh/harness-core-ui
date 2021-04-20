@@ -72,7 +72,7 @@ exports[`Unit tests for SelectCVConnector Ensure that component renders with pas
                       <span
                         class="placeholder"
                       >
-                        Select connector
+                        cv.selectConnector
                       </span>
                     </span>
                     <span

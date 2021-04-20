@@ -239,7 +239,7 @@ exports[`HarnessCDActivitySourceDetails snapshot test initializes ok 1`] = `
               <span
                 class="bp3-button-text"
               >
-                Previous
+                previous
               </span>
             </button>
             <button
@@ -249,7 +249,7 @@ exports[`HarnessCDActivitySourceDetails snapshot test initializes ok 1`] = `
               <span
                 class="bp3-button-text"
               >
-                Next
+                next
               </span>
               <span
                 class="bp3-icon bp3-icon-chevron-right StyledProps--main"

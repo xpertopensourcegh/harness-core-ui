@@ -258,7 +258,7 @@ exports[`Unit tests for ReviewMonitoringSource Ensure payload is correct dependi
         <span
           class="bp3-button-text"
         >
-          Previous
+          previous
         </span>
       </button>
       <button

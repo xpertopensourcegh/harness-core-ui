@@ -11,7 +11,6 @@ import { useStrings } from 'framework/exports'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { useGetNamespaces } from 'services/cv'
 import { PageSpinner, Table } from '@common/components'
-import i18n from './SelectKubernetesNamespaces.i18n'
 import type { KubernetesActivitySourceInfo } from '../KubernetesActivitySourceUtils'
 import css from './SelectKubernetesNamespaces.module.scss'
 
@@ -91,7 +90,7 @@ export function SelectKubernetesNamespaces(props: SelectKubernetesNamespacesProp
     <Container>
       <Container className={css.main}>
         <Heading level="3" color={Color.BLACK}>
-          {i18n.headingText}
+          {getString('cv.activitySources.kubernetes.namespaceMapping.headingText')}
         </Heading>
         <TableFilter
           appliedFilter={filteredNamespace}
@@ -128,7 +127,7 @@ export function SelectKubernetesNamespaces(props: SelectKubernetesNamespacesProp
               disableSortBy: true
             },
             {
-              Header: i18n.tableColumnName.kubernetesNamespace,
+              Header: getString('cv.activitySources.kubernetes.reviewPage.reviewTableColumns.namespace'),
               accessor: 'namespace',
               width: '95%',
               Cell: NamespaceValue,
@@ -160,15 +159,15 @@ export function SelectKubernetesNamespaces(props: SelectKubernetesNamespacesProp
           <Container className={css.noDataError}>
             <NoDataCard
               icon="warning-sign"
-              message={i18n.noDataMessage}
-              buttonText={i18n.retry}
+              message={getString('cv.activitySources.kubernetes.namespaceMapping.noNamespaces')}
+              buttonText={getString('retry')}
               onClick={() => refetchNamespaces()}
             />
           </Container>
         )}
         {!isValid ? (
           <Text data-name="validation" intent="danger">
-            {i18n.validationText.namespace}
+            {getString('cv.activitySources.kubernetes.namespaceMapping.validateNamespace')}
           </Text>
         ) : null}
       </Container>

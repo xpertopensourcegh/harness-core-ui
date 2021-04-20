@@ -1311,15 +1311,28 @@ export interface StringsMap {
   'cv.activitySources.harnessCD.validation.applicationValidation': string
   'cv.activitySources.harnessCD.validation.environmentValidation': string
   'cv.activitySources.harnessCD.validation.serviceValidation': string
+  'cv.activitySources.kubernetes.defaultName': string
   'cv.activitySources.kubernetes.mapWorkloadsToServices': string
   'cv.activitySources.kubernetes.missingWorkloadMapping': string
+  'cv.activitySources.kubernetes.namespaceMapping.headingText': string
+  'cv.activitySources.kubernetes.namespaceMapping.noNamespaces': string
   'cv.activitySources.kubernetes.namespaceMapping.searchNamespacePlaceholder': string
+  'cv.activitySources.kubernetes.namespaceMapping.validateNamespace': string
   'cv.activitySources.kubernetes.noWorkloads': string
   'cv.activitySources.kubernetes.reviewPage.heading': string
   'cv.activitySources.kubernetes.reviewPage.reviewTableColumns.namespace': string
   'cv.activitySources.kubernetes.reviewPage.reviewTableColumns.service': string
   'cv.activitySources.kubernetes.reviewPage.reviewTableColumns.workload': string
   'cv.activitySources.kubernetes.searchWorkloadPlaceholder': string
+  'cv.activitySources.kubernetes.selectKubernetesSource.connectorOptionHeading': string
+  'cv.activitySources.kubernetes.selectKubernetesSource.connectorTypeValidation': string
+  'cv.activitySources.kubernetes.selectKubernetesSource.createConnectorText': string
+  'cv.activitySources.kubernetes.selectKubernetesSource.firstTimeSetupText': string
+  'cv.activitySources.kubernetes.selectKubernetesSource.infraSpecification': string
+  'cv.activitySources.kubernetes.selectKubernetesSource.infraType': string
+  'cv.activitySources.kubernetes.selectKubernetesSource.nameActivitySourceValidation': string
+  'cv.activitySources.kubernetes.selectKubernetesSource.nameValidation': string
+  'cv.activitySources.kubernetes.selectKubernetesSource.selectConnectorHeading': string
   'cv.activitySources.kubernetes.tabNames.tab1': string
   'cv.activitySources.kubernetes.tabNames.tab2': string
   'cv.activitySources.kubernetes.tabNames.tab3': string
@@ -1383,12 +1396,18 @@ export interface StringsMap {
   'cv.admin.verificationJobs.noDataMessage': string
   'cv.analysisScreens.analysisTab.logs': string
   'cv.analysisScreens.analysisTab.metrics': string
+  'cv.analysisScreens.totalClusters': string
+  'cv.anomalous': string
+  'cv.baselineTest': string
+  'cv.changeTimeline': string
   'cv.changesPage.changeSourceDetails': string
   'cv.changesPage.changeSummary': string
   'cv.changesPage.eventCount': string
   'cv.changesPage.viewKubernetesEvents': string
   'cv.continuous': string
+  'cv.copyURL': string
   'cv.currentProductionRisk': string
+  'cv.currentTest': string
   'cv.dashboard.createProject': string
   'cv.dashboard.learnMore': string
   'cv.dashboard.notStarted': string
@@ -1400,6 +1419,8 @@ export interface StringsMap {
   'cv.harnessService': string
   'cv.hostNamePlaceholder': string
   'cv.initiated': string
+  'cv.logCluster': string
+  'cv.logsCluster': string
   'cv.methodLabel': string
   'cv.metricVerificationModal.modalTitle': string
   'cv.metricVerificationModal.viewCalls': string
@@ -1489,6 +1510,7 @@ export interface StringsMap {
   'cv.monitoringSources.gco.tabName.selectDashboards': string
   'cv.monitoringSources.mapMetricsToServices': string
   'cv.monitoringSources.metricPackValidation': string
+  'cv.monitoringSources.nameYourMonitoringSource': string
   'cv.monitoringSources.newRelic.mapNewRelicAppsToServicesAndEnvs': string
   'cv.monitoringSources.newRelic.mappingServiceAndEnvSubheading': string
   'cv.monitoringSources.newRelic.newRelicAppColumn': string
@@ -1505,6 +1527,7 @@ export interface StringsMap {
   'cv.navLinks.adminSideNavLinks.monitoringSources': string
   'cv.navLinks.adminSideNavLinks.setup': string
   'cv.noAnalysis': string
+  'cv.nonAnomalous': string
   'cv.onboarding.activitySources.addMoreSources': string
   'cv.onboarding.activitySources.addedStatus': string
   'cv.onboarding.activitySources.changeSourceInfo': string
@@ -1550,21 +1573,43 @@ export interface StringsMap {
   'cv.onboarding.verificationJobs.subHeading': string
   'cv.overall': string
   'cv.overviewPage.recentChangeVerifications': string
+  'cv.postDeployment': string
+  'cv.preProductionTests': string
   'cv.request': string
   'cv.response': string
   'cv.responseBody': string
   'cv.riskCardTooltip.allServicesGreen': string
   'cv.riskCardTooltip.header': string
   'cv.riskScore': string
+  'cv.sampleEvent': string
+  'cv.selectConnector': string
   'cv.selectCreateService': string
   'cv.selectOrCreateEnv': string
+  'cv.selectedTimeInterval': string
+  'cv.serviceDashboardPage.fifteenMinutes': string
+  'cv.serviceDashboardPage.fiveMinutes': string
+  'cv.serviceDashboardPage.fourHours': string
+  'cv.serviceDashboardPage.goToMonitoringSources': string
+  'cv.serviceDashboardPage.noServicesConfigured': string
+  'cv.serviceDashboardPage.oneDay': string
+  'cv.serviceDashboardPage.oneHour': string
+  'cv.serviceDashboardPage.sevenDays': string
+  'cv.serviceDashboardPage.thirtyDays': string
+  'cv.serviceDashboardPage.twelveHours': string
   'cv.setup': string
+  'cv.share': string
+  'cv.showLess': string
+  'cv.showMore': string
   'cv.startedOn': string
   'cv.statusCode': string
+  'cv.testsRan': string
   'cv.thirdPartyCalls.modalTitle': string
   'cv.thirdPartyCalls.noCallsWereMade': string
   'cv.thirdPartyCalls.requestMade': string
   'cv.thirdPartyCalls.timeTaken': string
+  'cv.timeline': string
+  'cv.trend': string
+  'cv.urlCopied': string
   'cv.verificationErrored': string
   'cv.verificationJobs.configure.heading': string
   'cv.verificationJobs.configure.postDepText': string

@@ -7,7 +7,6 @@ import { useGetActivitySource, ResponseActivitySourceDTO } from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import useCVTabsHook from '@cv/hooks/CVTabsHook/useCVTabsHook'
 import { useStrings } from 'framework/exports'
-import i18n from './KubernetesActivitySource.i18n'
 import { SelectActivitySource } from './SelectActivitySource/SelectActivitySource'
 import { SelectKubernetesConnector } from './SelectKubernetesConnector/SelectKubernetesConnector'
 import { SelectKubernetesNamespaces } from './SelectKubernetesNamespaces/SelectKubernetesNamespaces'
@@ -94,7 +93,7 @@ export function KubernetesActivitySource(): JSX.Element {
     <Page.Body loading={loading} key={loading?.toString()} error={error?.message}>
       <CVOnboardingTabs
         iconName="service-kubernetes"
-        defaultEntityName={currentData?.name || i18n.defaultActivitySourceName}
+        defaultEntityName={currentData?.name || getString('cv.activitySources.kubernetes.defaultName')}
         {...tabInfo}
         onNext={onNext}
         setName={val => setCurrentData({ ...currentData, name: val } as KubernetesActivitySourceInfo)}

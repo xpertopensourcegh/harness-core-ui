@@ -10,11 +10,11 @@ import {
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useToaster } from '@common/exports'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { useStrings } from 'framework/exports'
 import { DeploymentProgressAndNodes } from '@cv/components/DeploymentProgressAndNodes/DeploymentProgressAndNodes'
 import type { NodeData } from '../../services/BlueGreenVerificationChart'
 import DeploymentMetricsTab from './DeploymentMetricsTab'
 import DeploymentLogsTab from './DeploymentLogsTab'
-import i18n from './DeploymentDrilldownView.i18n'
 import styles from './DeploymentDrilldownView.module.scss'
 
 export enum TabIdentifier {
@@ -39,7 +39,7 @@ export default function VerificationInstanceView({
 }: VerificationInstanceViewProps): React.ReactElement {
   const prevProps = useRef<any>({})
   const [selectedNode, setSelectedNode] = useState<NodeData | undefined>()
-
+  const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
   const { showError } = useToaster()
 
@@ -165,8 +165,8 @@ export default function VerificationInstanceView({
       />
       <Container className={styles.filters}>
         <Tabs id="tabs1" onChange={onTabChange} selectedTabId={selectedTab}>
-          <Tab title={i18n.metrics} id={TabIdentifier.METRICS_TAB} />
-          <Tab title={i18n.logs} id={TabIdentifier.LOGS_TAB} />
+          <Tab title={getString('cv.analysisScreens.analysisTab.metrics')} id={TabIdentifier.METRICS_TAB} />
+          <Tab title={getString('cv.analysisScreens.analysisTab.logs')} id={TabIdentifier.LOGS_TAB} />
         </Tabs>
       </Container>
       {selectedTab === TabIdentifier.METRICS_TAB && (

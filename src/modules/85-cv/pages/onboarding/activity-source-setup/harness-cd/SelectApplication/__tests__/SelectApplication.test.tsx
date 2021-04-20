@@ -908,7 +908,7 @@ describe('SelectApplication', () => {
 
     await waitFor(() => expect(tableRows[1].querySelector('input[checked=""]')).not.toBeNull())
 
-    fireEvent.click(getByText('Next'))
+    fireEvent.click(getByText('next'))
     await waitFor(() =>
       expect(onSubmitMock).toHaveBeenCalledWith({
         applications: {

@@ -5,7 +5,6 @@ import { Container } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as cvService from 'services/cv'
 import { AnalysisDrillDownView } from '../AnalysisDrillDownView'
-import i18n from '../AnalysisDrillDownView.i18n'
 
 jest.mock('../MetricAnalysisView/MetricAnalysisView', () => ({
   MetricAnalysisView: function MockComponent() {
@@ -21,7 +20,7 @@ describe('Unit tests for Analysis Drill down view', () => {
         <AnalysisDrillDownView startTime={0} endTime={0} />
       </TestWrapper>
     )
-    await waitFor(() => expect(getByText(i18n.noDataText)).not.toBeNull())
+    await waitFor(() => expect(getByText('cv.noAnalysis')).not.toBeNull())
   })
 
   test('Ensure correct tab is rendered when clicking on a tab', async () => {

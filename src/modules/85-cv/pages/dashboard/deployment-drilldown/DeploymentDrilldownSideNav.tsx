@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container } from '@wings-software/uicore'
-import i18n from './DeploymentDrilldownView.i18n'
+import { useStrings } from 'framework/exports'
 import DeploymentGroupList from './DeploymentGroupList'
 import styles from './DeploymentDrilldownView.module.scss'
 
@@ -19,7 +19,12 @@ export enum InstancePhase {
 }
 
 export default function DeploymentDrilldownSideNav(props: DeploymentDrilldownSideNavProps) {
-  const labels = [i18n.preProductionTests, i18n.productionDeployment, i18n.postDeployment]
+  const { getString } = useStrings()
+  const labels = [
+    getString('cv.preProductionTests'),
+    getString('cv.activityChanges.productionDeployment'),
+    getString('cv.postDeployment')
+  ]
   const phases = [InstancePhase.PRE_PRODUCTION, InstancePhase.PRODUCTION, InstancePhase.POST_DEPLOYMENT]
   return (
     <Container className={styles.sideNav}>

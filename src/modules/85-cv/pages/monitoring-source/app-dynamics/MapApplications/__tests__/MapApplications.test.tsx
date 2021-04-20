@@ -172,7 +172,7 @@ describe('MapApplications', () => {
     await waitFor(() => Promise.resolve())
     fireEvent.click(container.querySelector('.select-tier')!)
     fireEvent.click(container.querySelectorAll('.metricPacks input[type=checkbox]').item(1))
-    fireEvent.click(getByText('Next'))
+    fireEvent.click(getByText('next'))
     expect(onCompleteStep).toHaveBeenCalled()
     const applications: any = onCompleteStep.mock.calls[0][0].applications
     expect(applications['app1']).toBeDefined()

@@ -8,7 +8,7 @@ import {
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import { buildConnectorRef } from '@cv/pages/onboarding/CVOnBoardingUtils'
-import i18n from './SelectKubernetesConnector.i18n'
+import { useStrings } from 'framework/exports'
 import type { KubernetesActivitySourceInfo } from '../KubernetesActivitySourceUtils'
 import { buildKubernetesActivitySourceInfo } from '../KubernetesActivitySourceUtils'
 import css from './SelectKubernetesConnector.module.scss'
@@ -26,6 +26,7 @@ const ValidationSchema = yupObject().shape({
 
 export function SelectKubernetesConnector(props: SelectKubernetesConnectorProps): JSX.Element {
   const { onPrevious, onSubmit, data, isEditMode } = props
+  const { getString } = useStrings()
   return (
     <Formik
       initialValues={data || buildKubernetesActivitySourceInfo()}
@@ -36,7 +37,7 @@ export function SelectKubernetesConnector(props: SelectKubernetesConnectorProps)
         <FormikForm id="onBoardingForm">
           <Container className={css.main}>
             <Text font={{ size: 'medium' }} margin={{ top: 'large', bottom: 'large' }}>
-              {i18n.selectConnectorHeading}
+              {getString('cv.activitySources.kubernetes.selectKubernetesSource.selectConnectorHeading')}
             </Text>
             <CVSelectionCard
               isSelected={true}
@@ -45,16 +46,18 @@ export function SelectKubernetesConnector(props: SelectKubernetesConnectorProps)
                 name: 'service-kubernetes',
                 size: 40
               }}
-              cardLabel={i18n.iconLabel}
+              cardLabel={getString('kubernetesText')}
               renderLabelOutsideCard={true}
             />
             <ConnectorSelection
               connectorType="K8sCluster"
               value={formikProps.values.connectorRef}
-              createConnectorText={i18n.createConnectorText}
-              firstTimeSetupText={i18n.firstTimeSetupText}
+              createConnectorText={getString(
+                'cv.activitySources.kubernetes.selectKubernetesSource.createConnectorText'
+              )}
+              firstTimeSetupText={getString('cv.activitySources.kubernetes.selectKubernetesSource.firstTimeSetupText')}
               disableConnector={isEditMode}
-              connectToMonitoringSourceText={i18n.kubernetesConnectionText}
+              connectToMonitoringSourceText={getString('pipelineSteps.kubernetesInfraStep.stepName')}
               onSuccess={connectorInfo => {
                 formikProps.setFieldValue(
                   SelectOrCreateConnectorFieldNames.CONNECTOR_REF,

@@ -5,7 +5,7 @@ import { PageError } from '@common/components/Page/PageError'
 import { Frequency, useGetAllLogs } from 'services/cv'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import i18n from './LogAnalysisView.i18n'
+import { useStrings } from 'framework/exports'
 import { LogAnalysisRow, LogAnalysisRowData } from './LogAnalysisRow/LogAnalysisRow'
 import LogAnalysisFrequencyChart from './LogAnalysisFrequencyChart/LogAnalysisFrequencyChart'
 import { categoryNameToCategoryType } from '../../CVServicePageUtils'
@@ -73,6 +73,7 @@ function generatePointsForLogFrequency(
 export default function LogAnalysisView(props: LogAnalysisViewProps): JSX.Element {
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { environmentIdentifier, serviceIdentifier, startTime, endTime, categoryName, historyStartTime } = props
+  const { getString } = useStrings()
   const finalStartTime = historyStartTime ?? startTime
   const { error, data: logAnalysisResponse, refetch: refetchLogAnalysis, loading } = useGetAllLogs({ lazy: true })
   const logAnalysisData = logAnalysisResponse?.resource?.content
@@ -127,8 +128,8 @@ export default function LogAnalysisView(props: LogAnalysisViewProps): JSX.Elemen
   if (!logAnalysisResponse?.resource?.content?.length) {
     return (
       <NoDataCard
-        message={i18n.noDataText}
-        buttonText={i18n.retryButtonText}
+        message={getString('cv.noAnalysis')}
+        buttonText={getString('retry')}
         icon="warning-sign"
         onClick={() => refetchLogAnalysis({ queryParams })}
         className={css.noDataCard}
@@ -141,10 +142,9 @@ export default function LogAnalysisView(props: LogAnalysisViewProps): JSX.Elemen
   return (
     <Container className={css.main}>
       <Container className={css.heading}>
-        <Text
-          color={Color.BLACK}
-          className={css.clusterHeading}
-        >{`${i18n.clusterHeading.firstHalf}${logAnalysisData?.length}${i18n.clusterHeading.secondHalf}`}</Text>
+        <Text color={Color.BLACK} className={css.clusterHeading}>{`${getString('cv.analysisScreens.totalClusters')}${
+          logAnalysisData?.length
+        }`}</Text>
       </Container>
       <LogAnalysisFrequencyChart
         startTime={finalStartTime}

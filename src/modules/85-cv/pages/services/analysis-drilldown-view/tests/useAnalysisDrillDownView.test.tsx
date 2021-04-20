@@ -50,7 +50,7 @@ describe('Unit tests for useAnalysisDrillDownView', () => {
 
     expect(categoriesAndRisk.children[0]?.getAttribute('class')).toContain('heatmapColor4')
     expect(document.body.querySelector('[class*="timeRange"]')?.innerHTML).toEqual(
-      'Selected time interval:  Nov 4, 1:00 am - Nov 4, 6:30 am'
+      'cv.selectedTimeInterval Nov 4, 1:00 am - Nov 4, 6:30 am'
     )
 
     const closeModal = container.querySelector('.closeModal')

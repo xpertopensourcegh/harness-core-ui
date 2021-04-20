@@ -283,7 +283,7 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
     await waitFor(() => expect(getByText(MockSelectedMetricInfo.metric)).not.toBeNull())
     expect(getByText(MockSelectedMetricInfo.widgetName)).not.toBeNull()
 
-    fireEvent.click(getByText('Next'))
+    fireEvent.click(getByText('next'))
     await waitFor(() => getByText('cv.monitoringSources.gco.mapMetricsToServicesPage.validation.mainSetupValidation'))
   })
 

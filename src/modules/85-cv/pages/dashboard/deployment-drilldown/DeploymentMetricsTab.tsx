@@ -6,13 +6,13 @@ import { TimelineBar } from '@cv/components/TimelineView/TimelineBar'
 import type { RestResponseTransactionMetricInfoSummaryPageDTO, HostData, TimeRange } from 'services/cv'
 import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
+import { useStrings } from 'framework/exports'
 import {
   FILTER_OPTIONS,
   MetricAnalysisFilter,
   MetricAnalysisFilterType
 } from '../../services/analysis-drilldown-view/MetricAnalysisView/MetricAnalysisFilter/MetricAnalysisFilter'
 import TimeseriesRow, { SeriesConfig } from '../../../components/TimeseriesRow/TimeseriesRow'
-import i18n from './DeploymentDrilldownView.i18n'
 import styles from './DeploymentDrilldownView.module.scss'
 
 const moment = extendMoment(require('moment')) // eslint-disable-line
@@ -40,6 +40,7 @@ export default function DeploymentMetricsTab({
   onAnomalousMetricsOnly,
   isLoading
 }: DeploymentMetricsTabProps) {
+  const { getString } = useStrings()
   return (
     <div className={classnames(styles.metricsTab, styles.panel)}>
       <Container className={styles.timeFilterAndBar}>
@@ -56,7 +57,7 @@ export default function DeploymentMetricsTab({
         )}
       </Container>
       {data?.resource?.pageResponse?.content?.length === 0 && !isLoading && (
-        <NoDataCard className={styles.noDataCard} message={i18n.nothingToDisplay} icon="warning-sign" />
+        <NoDataCard className={styles.noDataCard} message={getString('cv.noAnalysis')} icon="warning-sign" />
       )}
       <Container className={styles.timeseriesList}>
         {data?.resource?.pageResponse?.content?.map(value => (
@@ -86,6 +87,7 @@ const DEFAULT_ROW_SIZE = 3
 
 function TransactionRow({ transactionName, metricName, nodes = [], timeRange }: TransactionRowProps) {
   const [showMax, setShowMax] = useState<number>(DEFAULT_ROW_SIZE)
+  const { getString } = useStrings()
   const range = moment.range(moment(timeRange?.startTime), moment(timeRange?.endTime))
   const mapSeriesData = (items?: number[]) => {
     items = items || []
@@ -198,12 +200,12 @@ function TransactionRow({ transactionName, metricName, nodes = [], timeRange }: 
       <Container className={styles.showMore}>
         {nodes.length > showMax && (
           <Link minimal font={{ size: 'small' }} onClick={() => setShowMax(Infinity)}>
-            {i18n.showMore}
+            {getString('cv.showMore')}
           </Link>
         )}
         {showMax > DEFAULT_ROW_SIZE && (
           <Link minimal font={{ size: 'small' }} onClick={() => setShowMax(DEFAULT_ROW_SIZE)}>
-            {i18n.showLess}
+            {getString('cv.showLess')}
           </Link>
         )}
       </Container>

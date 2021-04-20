@@ -19,7 +19,7 @@ exports[`SelectProduct Render for AppD monitoring source 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--margin-top-large StyledProps--margin-bottom-large"
             >
-              Monitoring Source
+              monitoringSource
             </p>
             <div
               class="Layout--vertical Layout--layout-spacing-small StyledProps--main monitoringCard"
@@ -150,7 +150,7 @@ exports[`SelectProduct Render for AppD monitoring source 1`] = `
                         class="bp3-label"
                         for="name"
                       >
-                        Name your Monitoring Source
+                        cv.monitoringSources.nameYourMonitoringSource
                          
                         <span
                           class="bp3-text-muted"
@@ -236,7 +236,7 @@ exports[`SelectProduct Render for AppD monitoring source 1`] = `
                             <span
                               class="placeholder"
                             >
-                              Select connector
+                              cv.selectConnector
                             </span>
                           </span>
                           <span
@@ -396,7 +396,7 @@ exports[`SelectProduct Render for AppD monitoring source 1`] = `
             <span
               class="bp3-button-text"
             >
-              Previous
+              previous
             </span>
           </button>
           <button
@@ -406,7 +406,7 @@ exports[`SelectProduct Render for AppD monitoring source 1`] = `
             <span
               class="bp3-button-text"
             >
-              Next
+              next
             </span>
             <span
               class="bp3-icon bp3-icon-chevron-right StyledProps--main"

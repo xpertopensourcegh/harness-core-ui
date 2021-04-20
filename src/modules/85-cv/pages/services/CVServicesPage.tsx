@@ -6,22 +6,14 @@ import { Page } from '@common/exports'
 import ActivitesTimelineViewSection from '@cv/components/ActivitiesTimelineView/ActivitiesTimelineViewSection'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useStrings } from 'framework/exports'
+import { useStrings, UseStringsReturn } from 'framework/exports'
 import { RestResponseCategoryRisksDTO, useGetCategoryRiskMap } from 'services/cv'
 import ServiceSelector from './ServiceSelector/ServiceSelector'
-import i18n from './CVServicesPage.i18n'
 import { CategoryRiskCards } from '../dashboard/CategoryRiskCards/CategoryRiskCards'
 import { AnalysisDrillDownView, AnalysisDrillDownViewProps } from './analysis-drilldown-view/AnalysisDrillDownView'
 import ServiceHeatMap from './ServiceHeatMap/ServiceHeatMap'
 import styles from './CVServicesPage.module.scss'
 
-const RangeOptions = [
-  { label: i18n.timeRangeLabels.twelveHours, value: 12 * 60 },
-  { label: i18n.timeRangeLabels.oneDay, value: 24 * 60 },
-  { label: i18n.timeRangeLabels.sevenDays, value: 7 * 24 * 60 },
-  { label: i18n.timeRangeLabels.thirtyDays, value: 30 * 24 * 60 }
-]
-const DEFAULT_RANGE = RangeOptions[0]
 const FIVE_MINUTES_IN_MILLISECONDS = 1000 * 60 * 5
 const TimelineViewProps = {
   labelsWidth: 210,
@@ -29,6 +21,15 @@ const TimelineViewProps = {
     columnWidth: 65,
     className: styles.timelineBarStyle
   }
+}
+
+function getRangeOptions(getString: UseStringsReturn['getString']): SelectOption[] {
+  return [
+    { label: getString('cv.serviceDashboardPage.twelveHours'), value: 12 * 60 },
+    { label: getString('cv.serviceDashboardPage.oneDay'), value: 24 * 60 },
+    { label: getString('cv.serviceDashboardPage.sevenDays'), value: 7 * 24 * 60 },
+    { label: getString('cv.serviceDashboardPage.thirtyDays'), value: 30 * 24 * 60 }
+  ]
 }
 
 const getRangeDates = (val: number, endTime?: number) => {
@@ -47,12 +48,13 @@ export default function CVServicesPage(): JSX.Element {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const [serviceIsEmpty, setIsServiceEmpty] = useState<boolean>(false)
+  const rangeOptions = getRangeOptions(getString)
   const [{ selectedValue, startTime, endTime }, setRange] = useState<{
     selectedValue: number
     endTime?: number
     startTime?: number
   }>({
-    selectedValue: DEFAULT_RANGE.value,
+    selectedValue: rangeOptions[0].value as number,
     endTime: undefined,
     startTime: undefined
   })
@@ -105,8 +107,8 @@ export default function CVServicesPage(): JSX.Element {
         loading={loading}
         noData={{
           when: () => !loading && serviceIsEmpty === true,
-          message: i18n.noDataText.noServicesConfigured,
-          buttonText: i18n.noDataText.goBackToDataSourcePage,
+          message: getString('cv.serviceDashboardPage.noServicesConfigured'),
+          buttonText: getString('cv.serviceDashboardPage.goToMonitoringSources'),
           onClick: () => {
             history.push({
               pathname: routes.toCVAdminSetup({
@@ -134,8 +136,8 @@ export default function CVServicesPage(): JSX.Element {
             <Container className={styles.serviceBody}>
               <Container>
                 <Select
-                  defaultSelectedItem={DEFAULT_RANGE}
-                  items={RangeOptions}
+                  defaultSelectedItem={rangeOptions[0]}
+                  items={rangeOptions}
                   className={styles.rangeSelector}
                   size={'small' as SelectProps['size']}
                   onChange={({ value }: SelectOption) => {
@@ -170,7 +172,7 @@ export default function CVServicesPage(): JSX.Element {
                 />
               </Container>
               <Text margin={{ bottom: 'xsmall' }} font={{ size: 'small' }} color={Color.BLACK}>
-                {i18n.activityTimeline}
+                {getString('cv.changeTimeline')}
               </Text>
               <ActivitesTimelineViewSection
                 startTime={timeSeriesAndActivityTimelineInput?.startTime || heatMapAndActivityTimelineInput.startTime}

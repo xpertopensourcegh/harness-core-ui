@@ -7,7 +7,6 @@ import { TestWrapperProps, TestWrapper } from '@common/utils/testUtils'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import routes from '@common/RouteDefinitions'
 import { SelectKubernetesNamespaces } from '../SelectKubernetesNamespaces'
-import i18n from '../SelectKubernetesNamespaces.i18n'
 
 const testWrapperProps: TestWrapperProps = {
   path: routes.toCVProjectOverview({ ...accountPathProps, ...projectPathProps }),
@@ -78,9 +77,9 @@ describe('Unit tests for SelectKubernetesNamespaces', () => {
       </TestWrapper>
     )
     await waitFor(() => expect(container.querySelector('[class*="noDataError"]')).not.toBeNull())
-    expect(getByText(i18n.noDataMessage)).not.toBeNull()
+    expect(getByText('cv.activitySources.kubernetes.namespaceMapping.noNamespaces')).not.toBeNull()
 
-    fireEvent.click(getByText(i18n.retry))
+    fireEvent.click(getByText('retry'))
     await waitFor(() => expect(useGetNamespaces).toHaveBeenCalledTimes(3))
   })
 
@@ -108,7 +107,9 @@ describe('Unit tests for SelectKubernetesNamespaces', () => {
     }
 
     fireEvent.click(submitButton)
-    await waitFor(() => expect(getByText(i18n.validationText.namespace)).not.toBeNull())
+    await waitFor(() =>
+      expect(getByText('cv.activitySources.kubernetes.namespaceMapping.validateNamespace')).not.toBeNull()
+    )
 
     for (const namespace of mockData) {
       expect(getByText(namespace)).not.toBeNull()

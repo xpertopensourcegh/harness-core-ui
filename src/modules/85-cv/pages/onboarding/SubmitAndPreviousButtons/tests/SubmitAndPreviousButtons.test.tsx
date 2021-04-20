@@ -1,13 +1,16 @@
+import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { Container } from '@wings-software/uicore'
-import React from 'react'
+import { TestWrapper } from '@common/utils/testUtils'
 import { SubmitAndPreviousButtonProps, SubmitAndPreviousButtons } from '../SubmitAndPreviousButtons'
 
 function WrappedComponent(props: SubmitAndPreviousButtonProps): JSX.Element {
   return (
-    <Container>
-      <SubmitAndPreviousButtons {...props} />
-    </Container>
+    <TestWrapper>
+      <Container>
+        <SubmitAndPreviousButtons {...props} />
+      </Container>
+    </TestWrapper>
   )
 }
 

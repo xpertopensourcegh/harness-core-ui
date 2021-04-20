@@ -23,7 +23,6 @@ import useCreateConnectorModal, {
 import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
-import i18n from './SelectOrCreateConnector.i18n'
 import css from './SelectOrCreateConnector.module.scss'
 
 export interface ConnectorSelectionProps {
@@ -121,7 +120,7 @@ export function ConnectorSelection(props: ConnectorSelectionProps): JSX.Element 
         <FormMultiTypeConnectorField
           name={SelectOrCreateConnectorFieldNames.CONNECTOR_REF}
           label=""
-          placeholder={i18n.selectConnector}
+          placeholder={getString('cv.selectConnector')}
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
@@ -157,11 +156,12 @@ export function ConnectorSelection(props: ConnectorSelectionProps): JSX.Element 
 
 export function SelectOrCreateConnector(props: SelectOrCreateConnectorProps): JSX.Element {
   const { iconName, iconLabel, iconSize, ...connectorSelectionProps } = props
+  const { getString } = useStrings()
 
   return (
     <Container className={css.main}>
       <Text font={{ size: 'medium' }} margin={{ top: 'large', bottom: 'large' }}>
-        {i18n.heading}
+        {getString('monitoringSource')}
       </Text>
       <CVSelectionCard
         isSelected={true}
@@ -175,7 +175,7 @@ export function SelectOrCreateConnector(props: SelectOrCreateConnectorProps): JS
       />
       <AddDescriptionAndKVTagsWithIdentifier
         identifierProps={{
-          inputLabel: i18n.name,
+          inputLabel: getString('cv.monitoringSources.nameYourMonitoringSource'),
           inputName: SelectOrCreateConnectorFieldNames.NAME,
           isIdentifierEditable: !props.identifierDisabled
         }}

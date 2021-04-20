@@ -13,6 +13,7 @@ import { EventDetailsForChange } from '@cv/components/EventDetailsForChange/Even
 import { VerificationActivityRiskCard } from '@cv/components/VerificationActivityRiskCard/VerificationActivityRiskCard'
 import { TimeBasedShadedRegion } from '@cv/components/TimeBasedShadedRegion/TimeBasedShadedRegion'
 import { transformAnalysisDataToChartSeries } from '@cv/components/TimeseriesRow/TimeSeriesRowUtils'
+import { useStrings } from 'framework/exports'
 import { TabIdentifier } from './VerificationInstanceView'
 import {
   FILTER_OPTIONS,
@@ -24,7 +25,6 @@ import {
   LogAnalysisRow,
   LogAnalysisRowData
 } from '../../services/analysis-drilldown-view/LogAnalysisView/LogAnalysisRow/LogAnalysisRow'
-import i18n from './DeploymentDrilldownView.i18n'
 import { ActivityLogAnalysisFrequencyChart } from '../../services/analysis-drilldown-view/LogAnalysisView/LogAnalysisFrequencyChart/LogAnalysisFrequencyChart'
 import styles from './DeploymentDrilldownView.module.scss'
 
@@ -64,6 +64,7 @@ export function VerificationInstancePostDeploymentView({
   const rangeStartTime = activityStartTime - 2 * 60 * 60000
   const rangeEndTime = activityStartTime + durationMs
   const { accountId } = useParams<ProjectPathProps>()
+  const { getString } = useStrings()
   const [showEventDetails, setShowEventDetails] = useState(false)
   const { data: activityWithRisks } = useGetActivityVerificationResult({
     activityId: selectedActivityId,
@@ -113,7 +114,7 @@ export function VerificationInstancePostDeploymentView({
           </Container>
           <Tabs id="tabs1">
             <Tab
-              title={i18n.metrics}
+              title={getString('cv.analysisScreens.analysisTab.metrics')}
               id={TabIdentifier.METRICS_TAB}
               panel={
                 <Container className={styles.panel}>
@@ -130,7 +131,7 @@ export function VerificationInstancePostDeploymentView({
               }
             />
             <Tab
-              title={i18n.logs}
+              title={getString('cv.analysisScreens.analysisTab.logs')}
               id={TabIdentifier.LOGS_TAB}
               panel={
                 <Container>
@@ -199,6 +200,7 @@ function MetricsTab({
 }: MetricsTabProps): JSX.Element {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const [timeSeriesRowRef, setTimeSeriesRowRef] = useState<HTMLDivElement | null>(null)
+  const { getString } = useStrings()
   const [metricsData, setMetricsData] = useState<Array<TimeseriesRowProps>>()
   const [anomalousOnly, setAnomalousOnly] = useState(false)
   const { data, refetch, loading } = useGetActivityMetrics({
@@ -244,7 +246,7 @@ function MetricsTab({
         <TimelineBar className={styles.timelineBar} startDate={startTime} endDate={endTime} />
       </Container>
       {!data?.resource?.content?.length && !loading && (
-        <NoDataCard className={styles.noDataCard} message={i18n.nothingToDisplay} icon="warning-sign" />
+        <NoDataCard className={styles.noDataCard} message={getString('cv.noAnalysis')} icon="warning-sign" />
       )}
       {metricsData?.map((mData: TimeseriesRowProps, index: number) => (
         <TimeseriesRow
@@ -283,6 +285,7 @@ function MetricsTab({
 
 function LogsTab({ activityId, environmentIdentifier, startTime, endTime }: LogsTabProps): JSX.Element {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { getString } = useStrings()
   const [logsData, setLogsData] = useState<LogAnalysisRowData[]>([])
   const { data, refetch, loading } = useGetActivityLogs({
     activityId,
@@ -339,7 +342,7 @@ function LogsTab({ activityId, environmentIdentifier, startTime, endTime }: Logs
     <Container>
       <Container className={classnames(styles.frequencyChart, styles.panel)}>
         <Container className={styles.frequencyChartContent}>
-          <Text font={{ weight: 'bold' }}>{`${i18n.logCluster} ${i18n.timeline}`}</Text>
+          <Text font={{ weight: 'bold' }}>{`${getString('cv.logCluster')} ${getString('cv.timeline')}`}</Text>
           <ActivityLogAnalysisFrequencyChart
             activityId={activityId}
             projectIdentifier={projectIdentifier}
@@ -352,7 +355,7 @@ function LogsTab({ activityId, environmentIdentifier, startTime, endTime }: Logs
       </Container>
       {logsData && <LogAnalysisRow data={logsData!} />}
       {!data?.resource?.content?.length && !loading && (
-        <NoDataCard className={styles.noDataCard} message={i18n.nothingToDisplay} icon="warning-sign" />
+        <NoDataCard className={styles.noDataCard} message={getString('cv.noAnalysis')} icon="warning-sign" />
       )}
       {(!!data?.resource && (data.resource.pageIndex ?? -1) >= 0 && (
         <Pagination

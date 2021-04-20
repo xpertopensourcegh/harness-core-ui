@@ -7,8 +7,8 @@ import type {
 } from 'services/cv'
 import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
+import { useStrings } from 'framework/exports'
 import ClusterChart from './ClusterChart'
-import i18n from './DeploymentDrilldownView.i18n'
 import {
   LogAnalysisRow,
   LogAnalysisRowData
@@ -34,6 +34,7 @@ const mapClusterType = (type: string): LogData['tag'] => {
 }
 
 export default function DeploymentLogsTab({ data, clusterChartData, goToPage, isLoading }: DeploymentLogsTabProps) {
+  const { getString } = useStrings()
   const logAnalysisData = useMemo((): LogAnalysisRowData[] => {
     return (
       data?.resource?.content?.map(d => ({
@@ -60,14 +61,16 @@ export default function DeploymentLogsTab({ data, clusterChartData, goToPage, is
   return (
     <Container className={styles.logsTab}>
       <Container className={styles.panel}>
-        <Text font={{ weight: 'bold' }}>{i18n.logCluster}</Text>
+        <Text font={{ weight: 'bold' }}>{getString('cv.logCluster')}</Text>
         <ClusterChart data={clusterChartData?.resource || []} />
       </Container>
       <Text font={{ weight: 'bold' }} margin={{ top: 'small', bottom: 'small' }}>
-        {i18n.logsCluster}
+        {getString('cv.logsCluster')}
       </Text>
       <Container className={styles.tableContent}>
-        {!logAnalysisData.length && !isLoading && <NoDataCard message={i18n.nothingToDisplay} icon="warning-sign" />}
+        {!logAnalysisData.length && !isLoading && (
+          <NoDataCard message={getString('cv.noAnalysis')} icon="warning-sign" />
+        )}
         {!!logAnalysisData.length && <LogAnalysisRow className={styles.logAnalysisRow} data={logAnalysisData} />}
       </Container>
       {!!data?.resource?.totalPages && (
