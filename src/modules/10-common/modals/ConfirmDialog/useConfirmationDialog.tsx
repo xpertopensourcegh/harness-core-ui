@@ -18,13 +18,13 @@ export interface UseConfirmationDialogReturn {
 
 const getIconForIntent = (intent: Intent): IconName => {
   switch (intent) {
-    case Intent.DANGER:
+    /* istanbul ignore next */ case Intent.DANGER:
       return 'error'
-    case Intent.WARNING:
+    /* istanbul ignore next */ case Intent.WARNING:
       return 'warning-sign'
-    case Intent.SUCCESS:
+    /* istanbul ignore next */ case Intent.SUCCESS:
       return 'small-tick'
-    case Intent.PRIMARY:
+    /* istanbul ignore next */ case Intent.PRIMARY:
       return 'info-sign'
     default:
       return 'info-sign'
@@ -65,7 +65,7 @@ export const useConfirmationDialog = (props: UseConfirmationDialogProps): UseCon
         </div>
       </Dialog>
     )
-  }, [titleText, contentText])
+  }, [props])
 
   const onClose = useCallback(
     isConfirmed => {

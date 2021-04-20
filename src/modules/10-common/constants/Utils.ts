@@ -71,3 +71,10 @@ export const PASSWORD_CHECKS_RGX = ({
 
   return new RegExp(result)
 }
+
+export enum AuthenticationMechanisms {
+  SAML = 'SAML',
+  OAUTH = 'OAUTH',
+  LDAP = 'LDAP',
+  USER_PASSWORD = 'USER_PASSWORD'
+}

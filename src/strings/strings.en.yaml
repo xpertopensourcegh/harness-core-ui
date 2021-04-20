@@ -650,36 +650,9 @@ cdDashboard:
   creatPipeline: + Create a pipeline
 hours: hours
 authenticationSettings:
-  accountOrOAuthLogin: Login via a Harness Account or Public OAuth Providers
-  usePublicOAuth: Use Public OAuth Providers
   allowUsersWIthEmails: 'Only allow users with the following email domains:'
-  useHarnessUsernameAndPassword: Use Harness username and password
-  enforcePasswordStrength: Enforce password strength
-  passwordMustFulfillReq: 'Passwords must fulfill the following requirements:'
-  atLeast8Chars: At least 8 characters
-  periodicallyExpirePassword: Periodically expire passwords
-  periodicallyExpirePasswordNote: Updated password expiration policy will only apply to newly created or changed user passwords.
-  enforceLockoutPolicy: Enforce lockout policy
-  failedLoginsBeforeLockedAccount: Failed logins before user is locked out of account
-  enforceTwoFA: Enforce Two Factor Authentication
-  passwordStrength: Password Strength
-  minLength: Minimum Length
-  haveOneUppercase: Have at least 1 uppercase letter (A-Z)
-  haveOneLowercase: Have at least 1 lowercase letter (a-z)
-  haveOneDigit: Have at least 1 digit (0-9)
-  haveOneSpecialChar: Have at least 1 special character
-  passwordExpiration: Password Expiration
-  daysBeforePasswordExpires: Days before password expires
-  daysBeforeUserNotified: Days before user is notified of expiration
-  lockoutPolicy: Lockout Policy
-  failedLoginsBeforeLocked: Failed logins before user is locked out
-  lockoutDuration: Lockout duration
-  notifyUsersWhenTheyLocked: Notify users when they are locked out
-  notifyUsersWHenUserLocked: Notify user groups when a user is locked out
-  selectUserGroup: Select User Group(s)
   allowLoginFromTheseDomains: Allow login from these domains
   domainNameRequired: At least one domain name is required
-
 gitFetchTypes:
   fromBranch: 'Latest from Branch'
   fromCommit: 'Specific Commit ID'

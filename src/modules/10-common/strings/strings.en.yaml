@@ -40,6 +40,9 @@ validation:
   valueIsRequired: Value is required
   fileIsRequired: File is required
   groupAttributeIsRequired: Group Attribute is required
+  valueMustBeGreaterThanOrEqualToN: Value must be greater than or equal to {{ n }}
+  valueMustBeLessThanOrEqualTo64: Value must be less than or equal to 64
+  valueMustBeANumber: Value must be number
 specify: Specify
 role: Role
 projectViewer: Project Viewer
@@ -149,7 +152,56 @@ samlProvider:
   okta: Okta
   oneLogin: OneLogin
 authSettings:
+  accountOrOAuthLogin: Login via a Harness Account or Public OAuth Providers
+  usePublicOAuth: Use Public OAuth Providers
+  useHarnessUsernameAndPassword: Use Harness username and password
+  enforcePasswordStrength: Enforce password strength
+  passwordMustFulfillReq: 'Passwords must fulfill the following requirements:'
+  atLeastNChars: At least {{ minNumberOfCharacters }} characters
+  periodicallyExpirePassword: Periodically expire passwords
+  periodicallyExpirePasswordNote: Updated password expiration policy will only apply to newly created or changed user passwords.
+  enforceLockoutPolicy: Enforce lockout policy
+  failedLoginsBeforeLockedAccount: Failed logins before user is locked out of account
+  enforceTwoFA: Enforce Two Factor Authentication
+  passwordStrength: Password Strength
+  minLength: Minimum Length
+  haveOneUppercase: Have at least 1 uppercase letter (A-Z)
+  haveOneLowercase: Have at least 1 lowercase letter (a-z)
+  haveOneDigit: Have at least 1 digit (0-9)
+  haveOneSpecialChar: Have at least 1 special character
+  passwordExpiration: Password Expiration
+  daysBeforePasswordExpires: Days before password expires
+  daysBeforeUserNotified: Days before user is notified of expiration
+  lockoutPolicy: Lockout Policy
+  failedLoginsBeforeLocked: Failed logins before user is locked out
+  lockoutDuration: Lockout duration
+  notifyUsersWhenTheyLocked: Notify users when they are locked out
+  notifyUsersWHenUserLocked: Notify user groups when a user is locked out
+  selectUserGroup: Select User Group(s)
+  publicOAuthLoginEnabled: Login via public OAuth providers has been enabled
+  publicOAuthLoginDisabled: Login via public OAuth providers has been disabled
+  keepAtLeastOneProviderEnabled: Please either keep at least one provider enabled, or entirely disable login via public OAuth
+  oauthSettingsHaveBeenUpdated: OAuth settings have been updated
+  disableOAuthLogin: Disable login via public OAuth providers
+  confirmDisableOAuthLogin: Are you sure you want to disable login via public OAuth providers?
+  enableAtLeastOneSSoBeforeDisablingUserPasswordLogin: You must enable at least one SSO provider before you can disable login via Harness username/password.
+  loginSettingsHaveBeenUpdated: Login settings have been updated
+  disableUserPasswordLogin: Disable login via Harness username/password
+  confirmDisableUserPasswordLogin: Are you sure you want to disable login via Harness username/password?
+  disablePasswordStrength: Disable password strength
+  confirmDisablePasswordStrength: Are you sure you want to disable password strength policy?
+  passwordStrengthEnabled: Password strength policy has been enabled successfully
+  passwordStrengthDisabled: Password strength policy has been disabled successfully
+  disablePasswordExpiration: Disable password expiration
+  confirmDisablePasswordExpiration: Are you sure you want to disable password expiration policy?
+  passwordExpirationEnabled: Password expiration policy has been enabled successfully
+  passwordExpirationDisabled: Password expiration policy has been disabled successfully
+  disableLockoutPolicy: Disable lockout policy
+  confirmDisableLockoutPolicy: Are you sure you want to disable lockout policy?
+  lockoutPolicyEnabled: Lockout policy has been enabled successfully
+  lockoutPolicyDisabled: Lockout policy has been disabled successfully
   authorizationEnabledFor: 'Authorization enabled for:'
   authorizationNotEnabled: Authorization not enabled
   SAMLProvider: SAML Provider
   loginViaSAML: Login via SAML
+  somethingWentWrong: Something went wrong, please try again.

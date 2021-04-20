@@ -11,9 +11,58 @@ export interface StringsMap {
   'common.addVariable': string
   'common.approve': string
   'common.authSettings.SAMLProvider': string
+  'common.authSettings.accountOrOAuthLogin': string
+  'common.authSettings.atLeastNChars': string
   'common.authSettings.authorizationEnabledFor': string
   'common.authSettings.authorizationNotEnabled': string
+  'common.authSettings.confirmDisableLockoutPolicy': string
+  'common.authSettings.confirmDisableOAuthLogin': string
+  'common.authSettings.confirmDisablePasswordExpiration': string
+  'common.authSettings.confirmDisablePasswordStrength': string
+  'common.authSettings.confirmDisableUserPasswordLogin': string
+  'common.authSettings.daysBeforePasswordExpires': string
+  'common.authSettings.daysBeforeUserNotified': string
+  'common.authSettings.disableLockoutPolicy': string
+  'common.authSettings.disableOAuthLogin': string
+  'common.authSettings.disablePasswordExpiration': string
+  'common.authSettings.disablePasswordStrength': string
+  'common.authSettings.disableUserPasswordLogin': string
+  'common.authSettings.enableAtLeastOneSSoBeforeDisablingUserPasswordLogin': string
+  'common.authSettings.enforceLockoutPolicy': string
+  'common.authSettings.enforcePasswordStrength': string
+  'common.authSettings.enforceTwoFA': string
+  'common.authSettings.failedLoginsBeforeLocked': string
+  'common.authSettings.failedLoginsBeforeLockedAccount': string
+  'common.authSettings.haveOneDigit': string
+  'common.authSettings.haveOneLowercase': string
+  'common.authSettings.haveOneSpecialChar': string
+  'common.authSettings.haveOneUppercase': string
+  'common.authSettings.keepAtLeastOneProviderEnabled': string
+  'common.authSettings.lockoutDuration': string
+  'common.authSettings.lockoutPolicy': string
+  'common.authSettings.lockoutPolicyDisabled': string
+  'common.authSettings.lockoutPolicyEnabled': string
+  'common.authSettings.loginSettingsHaveBeenUpdated': string
   'common.authSettings.loginViaSAML': string
+  'common.authSettings.minLength': string
+  'common.authSettings.notifyUsersWHenUserLocked': string
+  'common.authSettings.notifyUsersWhenTheyLocked': string
+  'common.authSettings.oauthSettingsHaveBeenUpdated': string
+  'common.authSettings.passwordExpiration': string
+  'common.authSettings.passwordExpirationDisabled': string
+  'common.authSettings.passwordExpirationEnabled': string
+  'common.authSettings.passwordMustFulfillReq': string
+  'common.authSettings.passwordStrength': string
+  'common.authSettings.passwordStrengthDisabled': string
+  'common.authSettings.passwordStrengthEnabled': string
+  'common.authSettings.periodicallyExpirePassword': string
+  'common.authSettings.periodicallyExpirePasswordNote': string
+  'common.authSettings.publicOAuthLoginDisabled': string
+  'common.authSettings.publicOAuthLoginEnabled': string
+  'common.authSettings.selectUserGroup': string
+  'common.authSettings.somethingWentWrong': string
+  'common.authSettings.useHarnessUsernameAndPassword': string
+  'common.authSettings.usePublicOAuth': string
   'common.changePlan': string
   'common.cluster': string
   'common.comments': string
@@ -139,6 +188,9 @@ export interface StringsMap {
   'common.validation.groupAttributeIsRequired': string
   'common.validation.nameIsRequired': string
   'common.validation.valueIsRequired': string
+  'common.validation.valueMustBeANumber': string
+  'common.validation.valueMustBeGreaterThanOrEqualToN': string
+  'common.validation.valueMustBeLessThanOrEqualTo64': string
   'notifications.buttonSend': string
   'notifications.emailRecipients': string
   'notifications.emailTestSuccess': string
@@ -1846,10 +1898,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'authenticationSettings.accountOrOAuthLogin': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'authenticationSettings.allowLoginFromTheseDomains': string
   /**
    * @deprecated migrate this string to module level file
@@ -1858,107 +1906,7 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'authenticationSettings.atLeast8Chars': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'authenticationSettings.daysBeforePasswordExpires': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'authenticationSettings.daysBeforeUserNotified': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'authenticationSettings.domainNameRequired': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'authenticationSettings.enforceLockoutPolicy': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'authenticationSettings.enforcePasswordStrength': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'authenticationSettings.enforceTwoFA': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'authenticationSettings.failedLoginsBeforeLocked': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'authenticationSettings.failedLoginsBeforeLockedAccount': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'authenticationSettings.haveOneDigit': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'authenticationSettings.haveOneLowercase': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'authenticationSettings.haveOneSpecialChar': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'authenticationSettings.haveOneUppercase': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'authenticationSettings.lockoutDuration': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'authenticationSettings.lockoutPolicy': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'authenticationSettings.minLength': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'authenticationSettings.notifyUsersWHenUserLocked': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'authenticationSettings.notifyUsersWhenTheyLocked': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'authenticationSettings.passwordExpiration': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'authenticationSettings.passwordMustFulfillReq': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'authenticationSettings.passwordStrength': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'authenticationSettings.periodicallyExpirePassword': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'authenticationSettings.periodicallyExpirePasswordNote': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'authenticationSettings.selectUserGroup': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'authenticationSettings.useHarnessUsernameAndPassword': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'authenticationSettings.usePublicOAuth': string
   /**
    * @deprecated migrate this string to module level file
    */

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Heading, Layout, Color } from '@wings-software/uicore'
+import { useGetAuthenticationSettings } from 'services/cd-ng'
 import { Page } from '@common/exports'
 import { useStrings } from 'framework/exports'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
@@ -13,7 +14,20 @@ import RestrictEmailDomains from '@common/pages/AuthenticationSettings/Configura
 
 const Configuration: React.FC = () => {
   const params = useParams<AccountPathProps>()
+  const { accountId } = params
   const { getString } = useStrings()
+
+  const {
+    data,
+    loading: fetchingAuthSettings,
+    error: errorWhileFetchingAuthSettings,
+    refetch: refetchAuthSettings
+  } = useGetAuthenticationSettings({
+    queryParams: {
+      accountIdentifier: accountId
+    }
+  })
+
   const title = (
     <Layout.Vertical>
       <Breadcrumbs
@@ -37,10 +51,21 @@ const Configuration: React.FC = () => {
   return (
     <React.Fragment>
       <Page.Header size="medium" title={title} content={<HeaderContent />} />
-      <Page.Body>
-        <AccountAndOAuth />
-        <SAMLProvider />
-        <RestrictEmailDomains />
+      <Page.Body
+        loading={fetchingAuthSettings}
+        error={
+          errorWhileFetchingAuthSettings?.message || data?.resource
+            ? undefined
+            : getString('common.authSettings.somethingWentWrong')
+        }
+      >
+        {data?.resource && (
+          <React.Fragment>
+            <AccountAndOAuth authSettings={data.resource} refetchAuthSettings={refetchAuthSettings} />
+            <SAMLProvider />
+            <RestrictEmailDomains />
+          </React.Fragment>
+        )}
       </Page.Body>
     </React.Fragment>
   )

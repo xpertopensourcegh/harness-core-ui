@@ -1,10 +1,11 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
+  readonly collapseHeaderClassName: string
+  readonly collapseClassName: string
+  readonly collapseBottomPadding: string
   readonly shadow: string
   readonly summary: string
   readonly details: string
-  readonly nestedSummary: string
-  readonly nestedDetails: string
 }
 export default styles

@@ -1,8 +1,10 @@
 import type { IconName } from '@wings-software/uicore'
 import { Color } from '@wings-software/uicore'
 
+export type Providers = 'AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN'
+
 export interface OAuthProviderType {
-  type: string
+  type: Providers
   name: string
   url: string
   iconName: IconName

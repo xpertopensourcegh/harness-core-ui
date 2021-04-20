@@ -2,7 +2,22 @@
   background-color: var(--grey-100) !important ;
   .editIcon {
     position: absolute;
-    right: var(--spacing-xxlarge);
+    right: var(--spacing-small);
     cursor: pointer;
+  }
+}
+
+.twoFactorAuthentication {
+  height: 53px;
+  box-shadow: var(--card-box-shadow);
+  margin-bottom: var(--spacing-large);
+}
+
+.collapseIcon {
+  :global {
+    .bp3-icon {
+      right: var(--spacing-large);
+      position: absolute;
+    }
   }
 }
