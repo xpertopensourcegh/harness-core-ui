@@ -1,4 +1,4 @@
-import type { ModuleName } from 'framework/exports'
+import type { ModuleName } from 'framework/types/ModuleName'
 
 declare global {
   interface Window {

@@ -12,7 +12,8 @@ import {
   ModalErrorHandler
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { useAppStore, useStrings } from 'framework/exports'
+import { useStrings } from 'framework/exports'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { UserInfo, useUpdateUserInfo } from 'services/cd-ng'
 import { useToaster } from '@common/exports'
 

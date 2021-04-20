@@ -5,7 +5,7 @@ import { TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import * as cvService from 'services/cv'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
-import type { UseStringsReturn } from 'framework/exports'
+import type { UseStringsReturn } from 'framework/strings/String'
 import VerificationItem, { mapTooltipItemStatus } from '../VerificationItem'
 
 const MockItem: cvService.DeploymentActivityVerificationResultDTO = {

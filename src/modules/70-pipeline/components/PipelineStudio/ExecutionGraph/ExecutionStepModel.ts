@@ -3,7 +3,7 @@ import type { ExecutionWrapper, ExecutionElement } from 'services/cd-ng'
 
 import { ExecutionPipelineNodeType } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
-import type { UseStringsReturn } from 'framework/exports'
+import type { UseStringsReturn } from 'framework/strings/String'
 import {
   DiagramModel,
   CreateNewModel,

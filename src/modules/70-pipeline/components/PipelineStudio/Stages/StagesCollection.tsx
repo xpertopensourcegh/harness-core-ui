@@ -1,4 +1,4 @@
-import type { UseStringsReturn } from 'framework/exports'
+import type { UseStringsReturn } from 'framework/strings/String'
 import type { StageAttributes, StagesMap } from '../PipelineContext/PipelineContext'
 
 class StagesCollection {

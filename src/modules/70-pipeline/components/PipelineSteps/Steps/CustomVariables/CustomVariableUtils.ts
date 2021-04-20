@@ -1,5 +1,5 @@
 import type { SelectOption } from '@wings-software/uicore'
-import type { StringKeys } from 'framework/exports'
+import type { StringKeys } from 'framework/strings/StringsContext'
 
 export enum VariableType {
   String = 'String',

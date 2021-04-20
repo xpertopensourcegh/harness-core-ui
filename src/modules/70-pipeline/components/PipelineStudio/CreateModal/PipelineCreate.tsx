@@ -3,7 +3,9 @@ import { Container, Formik, FormikForm, Button } from '@wings-software/uicore'
 import * as Yup from 'yup'
 
 import { useParams } from 'react-router-dom'
-import { loggerFor, ModuleName, useStrings } from 'framework/exports'
+import { useStrings } from 'framework/exports'
+import { loggerFor } from 'framework/logging/logging'
+import { ModuleName } from 'framework/types/ModuleName'
 import type { NgPipeline } from 'services/cd-ng'
 
 import { StringUtils } from '@common/exports'

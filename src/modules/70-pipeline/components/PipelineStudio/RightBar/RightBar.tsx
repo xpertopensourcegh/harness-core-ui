@@ -14,7 +14,8 @@ import {
 import { useParams } from 'react-router-dom'
 import { isEmpty, set } from 'lodash-es'
 import { Classes, Dialog } from '@blueprintjs/core'
-import { useAppStore, useStrings } from 'framework/exports'
+import { useStrings } from 'framework/exports'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import {
   ConnectorInfoDTO,
   getConnectorPromise,

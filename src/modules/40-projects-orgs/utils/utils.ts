@@ -1,5 +1,5 @@
 import type { IconName } from '@wings-software/uicore'
-import { ModuleName } from 'framework/exports'
+import { ModuleName } from 'framework/types/ModuleName'
 import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
 
 export const getModuleIcon = (module: ModuleName): IconName => {

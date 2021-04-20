@@ -19,7 +19,8 @@ import type { StepElementConfig } from 'services/cd-ng'
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
-import { useStrings, UseStringsReturn } from 'framework/exports'
+import { useStrings } from 'framework/exports'
+import type { UseStringsReturn } from 'framework/strings/String'
 import {
   DurationInputFieldForInputSet,
   FormMultiTypeDurationField,

@@ -1,11 +1,12 @@
 import React from 'react'
 import { Button, Color, Layout, Text } from '@wings-software/uicore'
 import { Switch } from '@blueprintjs/core'
-import { useAppStore, useStrings } from 'framework/exports'
+import { useStrings } from 'framework/exports'
 import { useDisableTwoFactorAuth } from 'services/cd-ng'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { useToaster } from '@common/exports'
 import { useEnableTwoFactorAuthModal } from '@user-profile/modals/EnableTwoFactorAuth/useEnableTwoFactorAuthModal'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import css from './TwoFactorAuthentication.module.scss'
 
 const TwoFactorAuthentication: React.FC = () => {

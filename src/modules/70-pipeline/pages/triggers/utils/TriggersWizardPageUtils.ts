@@ -5,7 +5,7 @@ import type { GetActionsListQueryParams, NGTriggerConfig, NGTriggerSource } from
 import { connectorUrlType } from '@connectors/constants'
 import type { PanelInterface } from '@common/components/Wizard/Wizard'
 import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
-import type { StringKeys } from 'framework/exports'
+import type { StringKeys } from 'framework/strings/StringsContext'
 import { isCronValid } from '../views/subviews/ScheduleUtils'
 import type { AddConditionInterface } from '../views/AddConditionsSection'
 

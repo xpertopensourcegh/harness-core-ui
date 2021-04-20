@@ -2,7 +2,7 @@ import React from 'react'
 import { fireEvent, render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import type { Project } from 'services/cd-ng'
-import { ModuleName } from 'framework/exports'
+import { ModuleName } from 'framework/types/ModuleName'
 import { createMockData } from '@projects-orgs/pages/projects/__tests__/ProjectPageMock'
 import ModuleEnableCard from '../ModuleEnableCard'
 

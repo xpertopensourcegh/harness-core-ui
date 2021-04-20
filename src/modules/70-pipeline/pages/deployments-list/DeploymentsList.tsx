@@ -3,7 +3,8 @@ import { useParams } from 'react-router-dom'
 import { useModalHook } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 
-import { useAppStore, useStrings } from 'framework/exports'
+import { useStrings } from 'framework/exports'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import PipelineDeploymentList from '@pipeline/pages/pipeline-deployment-list/PipelineDeploymentList'
 

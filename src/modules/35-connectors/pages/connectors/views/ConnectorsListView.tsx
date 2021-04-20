@@ -5,7 +5,8 @@ import { Menu, Classes, Position, Intent, PopoverInteractionKind } from '@bluepr
 import { useParams, useHistory, useLocation } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import classNames from 'classnames'
-import { String, StringKeys } from 'framework/exports'
+import { String } from 'framework/exports'
+import type { StringKeys } from 'framework/strings/StringsContext'
 import {
   ConnectorResponse,
   useDeleteConnector,

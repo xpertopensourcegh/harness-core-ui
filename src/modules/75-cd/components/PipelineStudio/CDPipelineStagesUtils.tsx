@@ -1,5 +1,5 @@
 import React from 'react'
-import type { UseStringsReturn } from 'framework/exports'
+import type { UseStringsReturn } from 'framework/strings/String'
 import { PipelineStages, PipelineStagesProps } from '@pipeline/components/PipelineStages/PipelineStages'
 import { stagesCollection } from '@pipeline/components/PipelineStudio/Stages/StagesCollection'
 import { StageTypes } from '@pipeline/components/PipelineStudio/Stages/StageTypes'

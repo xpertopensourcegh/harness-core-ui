@@ -14,7 +14,8 @@ import {
   ActivityVerificationResultDTO,
   useGetDeploymentActivitySummary
 } from 'services/cv'
-import { useStrings, UseStringsReturn } from 'framework/exports'
+import { useStrings } from 'framework/exports'
+import type { UseStringsReturn } from 'framework/strings/String'
 import VerificationStatusCard from '@cv/pages/dashboard/deployment-drilldown/VerificationStatusCard'
 import { VerificationActivityRiskCardWithApi } from '../VerificationActivityRiskCard/VerificationActivityRiskCard'
 import type { EventData } from '../ActivitiesTimelineView/ActivitiesTimelineView'

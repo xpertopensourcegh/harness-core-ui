@@ -1,5 +1,5 @@
 import { FeatureFlagActivationStatus } from '@cf/utils/CFUtils'
-import type { UseStringsReturn } from 'framework/exports'
+import type { UseStringsReturn } from 'framework/strings/String'
 import type { AuditTrail } from 'services/cf'
 
 export function translateEvents(

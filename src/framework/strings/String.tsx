@@ -2,10 +2,7 @@ import React from 'react'
 import { render } from 'mustache'
 import { get } from 'lodash-es'
 
-import type { StringsMap } from 'stringTypes'
-import { useStringsContext } from './StringsContext'
-
-export type StringKeys = keyof StringsMap
+import { useStringsContext, StringKeys } from './StringsContext'
 
 export interface UseStringsReturn {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -1,8 +1,9 @@
 import { openDB, IDBPDatabase } from 'idb'
 import { useEffect, useState } from 'react'
 import SessionToken from 'framework/utils/SessionToken'
-import { loggerFor, ModuleName } from 'framework/exports'
 import { useToaster } from '@common/exports'
+import { ModuleName } from 'framework/types/ModuleName'
+import { loggerFor } from 'framework/logging/logging'
 
 export const CVObjectStoreNames = {
   LIST_ENTITIES: 'datasourceListEntity',

@@ -1,5 +1,5 @@
+import { ModuleName } from 'framework/types/ModuleName'
 import { loggerFor } from '../logging'
-import { ModuleName } from '../../exports'
 
 describe('logging tests', () => {
   test('log test', () => {

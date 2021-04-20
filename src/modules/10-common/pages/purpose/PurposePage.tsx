@@ -14,7 +14,9 @@ import {
 import { Link, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import type { Project } from 'services/cd-ng'
-import { ModuleName, useStrings, String, StringsMap } from 'framework/exports'
+import { useStrings, String } from 'framework/exports'
+import type { StringKeys } from 'framework/strings/StringsContext'
+import { ModuleName } from 'framework/types/ModuleName'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './PurposePage.module.scss'
@@ -98,7 +100,7 @@ const PurposeList: React.FC = () => {
 
   const getModuleLink = (module: Required<Project>['modules'][number]): React.ReactElement => {
     const moduleName = module.toString().toLowerCase()
-    const title = getString(`${moduleName}.continuous` as keyof StringsMap)
+    const title = getString(`${moduleName}.continuous` as StringKeys)
     return (
       <Layout.Vertical key={module} spacing="large" padding={{ bottom: 'xxxlarge' }}>
         <Layout.Horizontal spacing="small">
@@ -107,7 +109,7 @@ const PurposeList: React.FC = () => {
         </Layout.Horizontal>
         <String
           style={{ lineHeight: 2, fontSize: 10 }}
-          stringID={`common.purpose.${moduleName}.description` as keyof StringsMap}
+          stringID={`common.purpose.${moduleName}.description` as StringKeys}
           useRichText={true}
         />
         <Link

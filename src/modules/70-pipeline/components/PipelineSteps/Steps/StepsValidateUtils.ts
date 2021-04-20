@@ -7,7 +7,7 @@ import type { UseStringsReturn } from 'framework/strings/String'
 import { StringUtils } from '@common/exports'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import type { ExecutionWrapperConfig, StepElementConfig } from 'services/cd-ng'
-import type { StringKeys } from 'framework/exports'
+import type { StringKeys } from 'framework/strings/StringsContext'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 
 export enum Types {

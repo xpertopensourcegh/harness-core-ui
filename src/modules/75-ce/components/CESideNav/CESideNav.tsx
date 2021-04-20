@@ -7,7 +7,8 @@ import routes from '@common/RouteDefinitions'
 import { ProjectSelector } from '@common/navigation/ProjectSelector/ProjectSelector'
 import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import { SidebarLink } from '@common/navigation/SideNav/SideNav'
-import { ModuleName, useAppStore } from 'framework/exports'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { ModuleName } from 'framework/types/ModuleName'
 import { useStrings } from 'framework/exports'
 
 export default function CESideNav(): React.ReactElement {

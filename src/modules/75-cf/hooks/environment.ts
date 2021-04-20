@@ -1,5 +1,6 @@
 import type { SelectOption } from '@wings-software/uicore'
-import { useStrings, StringKeys } from 'framework/exports'
+import { useStrings } from 'framework/exports'
+import type { StringKeys } from 'framework/strings/StringsContext'
 import { GetEnvironmentListForProjectQueryParams, useGetEnvironmentListForProject } from 'services/cd-ng'
 
 export const useEnvironments = (queryParams: GetEnvironmentListForProjectQueryParams) => {

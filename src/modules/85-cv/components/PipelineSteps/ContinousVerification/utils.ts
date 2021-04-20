@@ -2,7 +2,7 @@ import { getMultiTypeFromValue, MultiTypeInputType, RUNTIME_INPUT_VALUE, SelectO
 import { isEmpty, isNil, omitBy, set } from 'lodash-es'
 import { yupToFormErrors } from 'formik'
 import * as Yup from 'yup'
-import type { UseStringsReturn } from 'framework/exports'
+import type { UseStringsReturn } from 'framework/strings/String'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import type { ContinousVerificationData, spec } from './types'
 import {

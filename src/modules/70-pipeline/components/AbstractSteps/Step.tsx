@@ -1,7 +1,7 @@
 import type { IconName } from '@wings-software/uicore'
 import type { FormikErrors, FormikProps } from 'formik'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
-import type { UseStringsReturn } from 'framework/exports'
+import type { UseStringsReturn } from 'framework/strings/String'
 import type { AbstractStepFactory } from './AbstractStepFactory'
 import type { StepType } from '../PipelineSteps/PipelineStepInterface'
 

@@ -5,7 +5,8 @@ import { Classes } from '@blueprintjs/core'
 import { debounce, isEmpty } from 'lodash-es'
 import { PageError } from '@common/components/Page/PageError'
 import { Scope } from '@common/interfaces/SecretsInterface'
-import { useStrings, StringKeys } from 'framework/exports'
+import { useStrings } from 'framework/exports'
+import type { StringKeys } from 'framework/strings/StringsContext'
 import css from './EntityReference.module.scss'
 
 export interface ScopedObjectDTO {

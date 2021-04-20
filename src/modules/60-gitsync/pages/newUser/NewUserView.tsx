@@ -4,7 +4,8 @@ import { Button, Text, Container, Icon, Color } from '@wings-software/uicore'
 
 import { noop } from 'lodash-es'
 import useCreateGitSyncModal from '@gitsync/modals/useCreateGitSyncModal'
-import { useStrings, useAppStore } from 'framework/exports'
+import { useStrings } from 'framework/exports'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import css from './NewUserView.module.scss'
 

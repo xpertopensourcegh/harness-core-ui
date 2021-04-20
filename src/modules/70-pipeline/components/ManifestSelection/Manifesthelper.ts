@@ -1,7 +1,7 @@
 import type { IconName } from '@wings-software/uicore'
 import { Connectors } from '@connectors/constants'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
-import type { StringKeys } from 'framework/exports'
+import type { StringKeys } from 'framework/strings/StringsContext'
 import type { HelmVersionOptions, ManifestStores, ManifestTypes } from './ManifestInterface'
 
 export const ManifestDataType: { [key: string]: ManifestTypes } = {

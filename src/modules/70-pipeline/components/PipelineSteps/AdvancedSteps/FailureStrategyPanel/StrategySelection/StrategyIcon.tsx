@@ -2,7 +2,8 @@ import React from 'react'
 import { Icon } from '@wings-software/uicore'
 import type { IconName } from '@wings-software/uicore'
 
-import { String, StringKeys } from 'framework/exports'
+import { String } from 'framework/exports'
+import type { StringKeys } from 'framework/strings/StringsContext'
 
 import { Strategy, testIds } from './StrategyConfig'
 import css from './StrategySelection.module.scss'

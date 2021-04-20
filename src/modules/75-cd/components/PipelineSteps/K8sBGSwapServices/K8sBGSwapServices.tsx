@@ -17,7 +17,8 @@ import { VariablesListTable } from '@pipeline/components/VariablesListTable/Vari
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 
-import { useStrings, UseStringsReturn } from 'framework/exports'
+import { useStrings } from 'framework/exports'
+import type { UseStringsReturn } from 'framework/strings/String'
 
 import {
   DurationInputFieldForInputSet,

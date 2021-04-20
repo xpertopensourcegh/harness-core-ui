@@ -7,7 +7,8 @@ import type {
   CriteriaSpecWrapperDTO,
   CriteriaSpecDTO
 } from 'services/pipeline-ng'
-import { String, StringKeys } from 'framework/exports'
+import { String } from 'framework/exports'
+import type { StringKeys } from 'framework/strings/StringsContext'
 import { Collapse } from '../../Common/Collapse/Collapse'
 
 import css from '../ApprovalStepDetails.module.scss'

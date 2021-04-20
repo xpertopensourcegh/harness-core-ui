@@ -6,7 +6,7 @@ import { ProjectSelector } from '@common/navigation/ProjectSelector/ProjectSelec
 import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import { SidebarLink } from '@common/navigation/SideNav/SideNav'
 import { ModuleName } from 'framework/types/ModuleName'
-import { useAppStore } from 'framework/exports'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 
 export default function CFSideNav(): React.ReactElement {
   const params = useParams<PipelinePathProps>()

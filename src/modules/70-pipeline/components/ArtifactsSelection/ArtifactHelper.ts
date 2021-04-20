@@ -2,7 +2,7 @@ import type { IconName } from '@wings-software/uicore'
 import type { IOptionProps } from '@blueprintjs/core'
 import { Connectors } from '@connectors/constants'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
-import type { StringKeys } from 'framework/exports'
+import type { StringKeys } from 'framework/strings/StringsContext'
 
 export type CreationType = 'Dockerhub' | 'Gcr' | 'Ecr'
 

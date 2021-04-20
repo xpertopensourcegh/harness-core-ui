@@ -10,7 +10,8 @@ import type {
   StageElementWrapper,
   StageElementWrapperConfig
 } from 'services/cd-ng'
-import { ModuleName, loggerFor } from 'framework/exports'
+import { loggerFor } from 'framework/logging/logging'
+import { ModuleName } from 'framework/types/ModuleName'
 import SessionToken from 'framework/utils/SessionToken'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import {

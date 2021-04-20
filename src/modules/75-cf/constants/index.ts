@@ -1,4 +1,5 @@
-import { useStrings, StringKeys } from 'framework/exports'
+import { useStrings } from 'framework/exports'
+import type { StringKeys } from 'framework/strings/StringsContext'
 
 export type OperatorOption = {
   label: string

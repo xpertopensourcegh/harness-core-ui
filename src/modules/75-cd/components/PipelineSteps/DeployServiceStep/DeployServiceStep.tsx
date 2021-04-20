@@ -22,7 +22,10 @@ import {
   ServiceYaml,
   getServiceListForProjectPromise
 } from 'services/cd-ng'
-import { loggerFor, ModuleName, useStrings, UseStringsReturn } from 'framework/exports'
+import { useStrings } from 'framework/exports'
+import type { UseStringsReturn } from 'framework/strings/String'
+import { loggerFor } from 'framework/logging/logging'
+import { ModuleName } from 'framework/types/ModuleName'
 import { Step, StepProps, StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/exports'

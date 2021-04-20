@@ -11,7 +11,8 @@ import {
   SimpleTagInput
 } from '@wings-software/uicore'
 import { Radio, RadioGroup, Spinner, Dialog } from '@blueprintjs/core'
-import { useStrings, StringKeys } from 'framework/exports'
+import { useStrings } from 'framework/exports'
+import type { StringKeys } from 'framework/strings/StringsContext'
 import type { Target } from 'services/cf'
 import uploadImageUrl from './upload.svg'
 import css from './CFTargetsPage.module.scss'
