@@ -497,10 +497,13 @@ export interface StringsMap {
   'userProfile.scmValidation.accessKey': string
   'userProfile.scmValidation.secretKey': string
   'userProfile.selectSCM': string
+  'userProfile.twoFactor.description': string
   'userProfile.twoFactor.disableSuccess': string
   'userProfile.twoFactor.disableText': string
   'userProfile.twoFactor.disableTitle': string
   'userProfile.twoFactor.enableSuccess': string
+  'userProfile.twoFactor.enableTitle': string
+  'userProfile.twoFactor.resetTitle': string
   'userProfile.twofactorAuth': string
   'userProfile.userEditFail': string
   'userProfile.userEditSuccess': string

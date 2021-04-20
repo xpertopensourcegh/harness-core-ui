@@ -2,24 +2,16 @@ import React, { useCallback, useState } from 'react'
 import { useModalHook, Button } from '@wings-software/uicore'
 import { Dialog, Classes } from '@blueprintjs/core'
 import cx from 'classnames'
-import type { TwoFactorAuthSettingsInfo } from 'services/cd-ng'
 import EnableTwoFactorAuthView from '@user-profile/modals/EnableTwoFactorAuth/views/EnableTwoFactorView'
 import css from './useEnableTwoFactorAuthModal.module.scss'
 
-export interface UseEnableTwoFactorAuthModalProps {
-  onSuccess?: (authSettings: TwoFactorAuthSettingsInfo) => void
-  onCancel?: () => void
-}
-
 export interface UseEnableTwoFactorAuthModalReturn {
-  openEnableTwoFactorAuthModal: (authSettings?: TwoFactorAuthSettingsInfo) => void
+  openEnableTwoFactorAuthModal: (isReset: boolean) => void
   closeEnableTwoFactorAuthModal: () => void
 }
 
-export const useEnableTwoFactorAuthModal = ({
-  onSuccess
-}: UseEnableTwoFactorAuthModalProps): UseEnableTwoFactorAuthModalReturn => {
-  const [authSettings, setAuthSettings] = useState<TwoFactorAuthSettingsInfo>()
+export const useEnableTwoFactorAuthModal = (): UseEnableTwoFactorAuthModalReturn => {
+  const [isReset, setIsReset] = useState<boolean>(false)
 
   const [showModal, hideModal] = useModalHook(
     () => (
@@ -30,17 +22,7 @@ export const useEnableTwoFactorAuthModal = ({
         }}
         className={cx(css.dialog, Classes.DIALOG)}
       >
-        {authSettings && (
-          <EnableTwoFactorAuthView
-            authSettings={authSettings}
-            onEnable={() => {
-              onSuccess?.(authSettings)
-              hideModal()
-            }}
-            onCancel={hideModal}
-          />
-        )}
-
+        <EnableTwoFactorAuthView onEnable={hideModal} onCancel={hideModal} isReset={isReset} />
         <Button
           minimal
           icon="cross"
@@ -52,18 +34,18 @@ export const useEnableTwoFactorAuthModal = ({
         />
       </Dialog>
     ),
-    [authSettings]
+    [isReset]
   )
 
   const open = useCallback(
-    (_authSettings?: TwoFactorAuthSettingsInfo) => {
-      setAuthSettings(_authSettings)
+    (_isReset: boolean) => {
+      setIsReset(_isReset)
       showModal()
     },
     [showModal]
   )
   return {
-    openEnableTwoFactorAuthModal: (_authSettings?: TwoFactorAuthSettingsInfo) => open(_authSettings),
+    openEnableTwoFactorAuthModal: (_isReset: boolean) => open(_isReset),
     closeEnableTwoFactorAuthModal: hideModal
   }
 }

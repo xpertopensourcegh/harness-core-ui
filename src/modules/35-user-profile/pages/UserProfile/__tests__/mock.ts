@@ -1,3 +1,4 @@
+import type { AppStoreContextProps } from 'framework/AppStore/AppStoreContext'
 import type { ResponseBoolean, ResponseListSourceCodeManagerDTO } from 'services/cd-ng'
 
 export const userMockData = {
@@ -176,4 +177,21 @@ export const twoFactorAuthSettings = {
   },
   metaData: null,
   correlationId: 'a65457f2-be0c-4040-a78f-760f09b726c2'
+}
+
+export const enabledTwoFactorAuth: Pick<AppStoreContextProps, 'featureFlags' | 'currentUserInfo'> = {
+  featureFlags: {
+    CDNG_ENABLED: true,
+    CVNG_ENABLED: true,
+    CING_ENABLED: true,
+    CENG_ENABLED: true,
+    CFNG_ENABLED: true
+  },
+  currentUserInfo: {
+    uuid: 'dummyId',
+    name: 'dummyname',
+    email: 'dummy@harness.io',
+    admin: false,
+    twoFactorAuthenticationEnabled: true
+  }
 }

@@ -8,5 +8,20 @@
   border-radius: 11px;
   position: relative;
   padding-bottom: var(--spacing-none);
-  width: 600px;
+  width: 750px;
+}
+
+.qrCode {
+  border: 1px solid var(--grey-200) !important;
+}
+
+.description {
+  overflow-wrap: anywhere;
+  width: 350px !important;
+}
+
+.clone {
+  &:hover {
+    background: none !important;
+  }
 }

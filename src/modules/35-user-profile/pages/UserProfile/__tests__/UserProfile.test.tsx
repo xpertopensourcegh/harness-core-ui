@@ -13,8 +13,10 @@ import UserProfilePage from '@user-profile/pages/UserProfile/UserProfilePage'
 import { TestWrapper, findDialogContainer } from '@common/utils/testUtils'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import { InputTypes, setFieldValue, clickSubmit } from '@common/utils/JestFormHelper'
+import type { ResponseBoolean } from 'services/cd-ng'
 import {
   connectorMockData,
+  enabledTwoFactorAuth,
   mockResponse,
   mockSecretList,
   sourceCodeManagers,
@@ -23,6 +25,18 @@ import {
 } from './mock'
 
 const createSCM = jest.fn()
+
+const enableAuthfn = jest.fn()
+const enableAuthMock = (): ResponseBoolean => {
+  enableAuthfn()
+  return mockResponse
+}
+
+const disableAuthfn = jest.fn()
+const disableAuthMock = (): ResponseBoolean => {
+  disableAuthfn()
+  return mockResponse
+}
 
 jest.mock('services/cd-ng', () => ({
   useGetUserInfo: jest.fn().mockImplementation(() => {
@@ -47,10 +61,10 @@ jest.mock('services/cd-ng', () => ({
     return { data: twoFactorAuthSettings, refetch: jest.fn() }
   }),
   useEnableTwoFactorAuth: jest.fn().mockImplementation(() => {
-    return { mutate: () => Promise.resolve(mockResponse) }
+    return { mutate: enableAuthMock }
   }),
   useDisableTwoFactorAuth: jest.fn().mockImplementation(() => {
-    return { mutate: () => Promise.resolve(mockResponse) }
+    return { mutate: disableAuthMock }
   }),
   listSecretsV2Promise: jest.fn().mockImplementation(() => Promise.resolve(mockSecretList)),
   useGetSecretV2: jest.fn().mockImplementation(() => {
@@ -65,6 +79,8 @@ jest.mock('services/cd-ng', () => ({
   usePutSecretFileV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
 }))
 
+let enabledAuth = false
+
 describe('User Profile Page', () => {
   let container: HTMLElement
   let getByText: RenderResult['getByText']
@@ -75,7 +91,7 @@ describe('User Profile Page', () => {
       <TestWrapper
         path="/account/:accountId/projects"
         pathParams={{ accountId: 'testAcc' }}
-        defaultAppStoreValues={defaultAppStoreValues}
+        defaultAppStoreValues={enabledAuth ? enabledTwoFactorAuth : defaultAppStoreValues}
       >
         <UserProfilePage />
       </TestWrapper>
@@ -200,6 +216,7 @@ describe('User Profile Page', () => {
       expect(createSCM).toHaveBeenCalled()
     }),
     test('Enable Two Factor Auth', async () => {
+      enableAuthfn.mockReset()
       const twoFactorSwitch = getByTestId('TwoFactorAuthSwitch')
       expect(twoFactorSwitch).toBeTruthy()
 
@@ -215,5 +232,45 @@ describe('User Profile Page', () => {
       await act(async () => {
         fireEvent.click(enable!)
       })
+      expect(enableAuthfn).toBeCalled()
+      enabledAuth = true
+    }),
+    test('Refetch Two Factor Auth and Disable Two Factor Auth', async () => {
+      disableAuthfn.mockReset()
+
+      //Refetch Two Factor Auth
+      const reset = container.querySelector("[data-icon='reset']")
+      expect(reset).toBeTruthy()
+      act(() => {
+        fireEvent.click(reset!)
+      })
+      await waitFor(() => getAllByText(document.body, 'userProfile.qrCode')[0])
+
+      let form = findDialogContainer()
+      expect(form).toBeTruthy()
+
+      const cancel = getAllByText(form!, 'cancel')[0]
+      await act(async () => {
+        fireEvent.click(cancel!)
+      })
+      form = findDialogContainer()
+      expect(form).toBeFalsy()
+
+      //Disable Two Factor Auth
+      const twoFactorSwitch = getByTestId('TwoFactorAuthSwitch')
+      expect(twoFactorSwitch).toBeTruthy()
+
+      act(() => {
+        fireEvent.click(twoFactorSwitch!)
+      })
+      await waitFor(() => getAllByText(document.body, 'userProfile.twoFactor.disableTitle')[0])
+      form = findDialogContainer()
+      expect(form).toBeTruthy()
+      const disable = getAllByText(form!, 'common.disable')[0]
+      await act(async () => {
+        fireEvent.click(disable!)
+      })
+      expect(disableAuthfn).toBeCalled()
+      enabledAuth = false
     })
 })

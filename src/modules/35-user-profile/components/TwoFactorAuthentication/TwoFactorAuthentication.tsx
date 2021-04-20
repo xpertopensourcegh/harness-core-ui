@@ -1,44 +1,21 @@
 import React from 'react'
-import { Color, Text } from '@wings-software/uicore'
+import { Button, Color, Layout, Text } from '@wings-software/uicore'
 import { Switch } from '@blueprintjs/core'
 import { useAppStore, useStrings } from 'framework/exports'
-import {
-  TwoFactorAuthSettingsInfo,
-  useDisableTwoFactorAuth,
-  useEnableTwoFactorAuth,
-  useGetTwoFactorAuthSettings
-} from 'services/cd-ng'
+import { useDisableTwoFactorAuth } from 'services/cd-ng'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { useToaster } from '@common/exports'
 import { useEnableTwoFactorAuthModal } from '@user-profile/modals/EnableTwoFactorAuth/useEnableTwoFactorAuthModal'
+import css from './TwoFactorAuthentication.module.scss'
 
 const TwoFactorAuthentication: React.FC = () => {
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
   const { currentUserInfo, updateAppStore } = useAppStore()
-  const { data: authSettings } = useGetTwoFactorAuthSettings({ authMechanism: 'TOTP' })
 
-  const { mutate: enableTwoFactorAuth } = useEnableTwoFactorAuth({})
   const { mutate: disableTwoFactorAuth } = useDisableTwoFactorAuth({})
 
-  const handleEnableTwoFactorAuth = async (settings: TwoFactorAuthSettingsInfo): Promise<void> => {
-    try {
-      const enabled = await enableTwoFactorAuth({
-        ...settings,
-        twoFactorAuthenticationEnabled: true
-      })
-      if (enabled) {
-        showSuccess(getString('userProfile.twoFactor.enableSuccess'))
-        updateAppStore({ currentUserInfo: enabled.data })
-      }
-    } catch (e) {
-      showError(e.data.message || e.message)
-    }
-  }
-
-  const { openEnableTwoFactorAuthModal } = useEnableTwoFactorAuthModal({
-    onSuccess: settings => handleEnableTwoFactorAuth(settings)
-  })
+  const { openEnableTwoFactorAuthModal } = useEnableTwoFactorAuthModal()
 
   const { openDialog: disableTwoFactorAuthDialog } = useConfirmationDialog({
     titleText: getString('userProfile.twoFactor.disableTitle'),
@@ -62,21 +39,27 @@ const TwoFactorAuthentication: React.FC = () => {
 
   return (
     <>
-      <Text color={Color.BLACK} font={{ weight: 'semi-bold' }}>
-        {getString('userProfile.twofactorAuth')}
-      </Text>
+      <Layout.Horizontal spacing="small" className={css.twoFactorAuth}>
+        <Switch
+          className={css.switch}
+          data-testid={'TwoFactorAuthSwitch'}
+          checked={currentUserInfo.twoFactorAuthenticationEnabled}
+          onChange={event => {
+            if (event.currentTarget.checked) {
+              openEnableTwoFactorAuthModal(false)
+            } else {
+              disableTwoFactorAuthDialog()
+            }
+          }}
+        />
+        <Text color={Color.BLACK} font={{ weight: 'semi-bold' }}>
+          {getString('userProfile.twofactorAuth')}
+        </Text>
+      </Layout.Horizontal>
 
-      <Switch
-        data-testid={'TwoFactorAuthSwitch'}
-        checked={currentUserInfo.twoFactorAuthenticationEnabled}
-        onChange={event => {
-          if (event.currentTarget.checked) {
-            openEnableTwoFactorAuthModal(authSettings?.data)
-          } else {
-            disableTwoFactorAuthDialog()
-          }
-        }}
-      />
+      {currentUserInfo.twoFactorAuthenticationEnabled ? (
+        <Button icon="reset" minimal onClick={() => openEnableTwoFactorAuthModal(true)} />
+      ) : null}
     </>
   )
 }

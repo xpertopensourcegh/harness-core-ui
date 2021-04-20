@@ -33,3 +33,6 @@ twoFactor:
   disableText: Are you sure you want to disable Two Factor Authentication?
   disableSuccess: Two Factor Authentication disabled successfully
   enableSuccess: Two Factor Authentication enabled successfully
+  enableTitle: Enable Two Factor Authentication
+  resetTitle: Reset Two Factor Authentication
+  description: Using your smartphone's 2FA token generator app, scan the QRCode and add it to the list in your app. You may also enter the secret key if scanning is not supported.
