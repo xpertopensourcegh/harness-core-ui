@@ -1321,7 +1321,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                             <a
                               class="containerLink"
                               data-testid="oidcPassword"
-                              href="/account/dummy/resources/connectors"
+                              href="/account/dummyAccount/cd/orgs/dummyOrg/projects/dummyProject"
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
@@ -1416,7 +1416,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                             <a
                               class="containerLink"
                               data-testid="oidcCleintId"
-                              href="/account/dummy/resources/connectors"
+                              href="/account/dummyAccount/cd/orgs/dummyOrg/projects/dummyProject"
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
@@ -1506,7 +1506,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                             <a
                               class="containerLink"
                               data-testid="oidcCleintSecret"
-                              href="/account/dummy/resources/connectors"
+                              href="/account/dummyAccount/cd/orgs/dummyOrg/projects/dummyProject"
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
@@ -2022,7 +2022,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                           <a
                             class="containerLink"
                             data-testid="serviceAccountToken"
-                            href="/account/dummy/resources/connectors"
+                            href="/account/dummyAccount/cd/orgs/dummyOrg/projects/dummyProject"
                           >
                             <span
                               class="bp3-icon StyledProps--main"
@@ -2939,7 +2939,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                           <a
                             class="containerLink"
                             data-testid="password"
-                            href="/account/dummy/resources/connectors"
+                            href="/account/dummyAccount/cd/orgs/dummyOrg/projects/dummyProject"
                           >
                             <span
                               class="bp3-icon StyledProps--main"

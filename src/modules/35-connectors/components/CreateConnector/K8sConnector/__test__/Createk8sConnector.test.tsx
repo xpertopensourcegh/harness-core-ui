@@ -67,7 +67,10 @@ describe('Create k8 connector Wizard', () => {
   test('should form for edit authtype username', async () => {
     updateConnector.mockReset()
     const { container } = render(
-      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+      <TestWrapper
+        path="/account/:accountId/cd/orgs/:orgIdentifier/projects/:projectIdentifier"
+        pathParams={{ accountId: 'dummyAccount', projectIdentifier: 'dummyProject', orgIdentifier: 'dummyOrg' }}
+      >
         <CreateK8sConnector {...commonProps} isEditMode={true} connectorInfo={usernamePassword} mock={mockResponse} />
       </TestWrapper>
     )
@@ -100,7 +103,10 @@ describe('Create k8 connector Wizard', () => {
   test('should form for edit authtype serviceAccount', async () => {
     updateConnector.mockReset()
     const { container } = render(
-      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+      <TestWrapper
+        path="/account/:accountId/cd/orgs/:orgIdentifier/projects/:projectIdentifier"
+        pathParams={{ accountId: 'dummyAccount', projectIdentifier: 'dummyProject', orgIdentifier: 'dummyOrg' }}
+      >
         <CreateK8sConnector {...commonProps} isEditMode={true} connectorInfo={serviceAccount} mock={mockResponse} />
       </TestWrapper>
     )
@@ -132,7 +138,10 @@ describe('Create k8 connector Wizard', () => {
   test('should form for edit authtype OIDC', async () => {
     updateConnector.mockReset()
     const { container } = render(
-      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+      <TestWrapper
+        path="/account/:accountId/cd/orgs/:orgIdentifier/projects/:projectIdentifier"
+        pathParams={{ accountId: 'dummyAccount', projectIdentifier: 'dummyProject', orgIdentifier: 'dummyOrg' }}
+      >
         <CreateK8sConnector {...commonProps} isEditMode={true} connectorInfo={oidcMock} mock={mockResponse} />
       </TestWrapper>
     )

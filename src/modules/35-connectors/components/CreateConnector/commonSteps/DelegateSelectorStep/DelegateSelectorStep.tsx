@@ -70,8 +70,12 @@ const defaultInitialFormData: InitialFormData = {
 }
 
 const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSelectorProps> = props => {
-  const { prevStepData, nextStep, buildPayload, customHandleCreate, customHandleUpdate } = props
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<any>()
+  const { prevStepData, nextStep, buildPayload, customHandleCreate, customHandleUpdate, connectorInfo } = props
+  const { accountId, projectIdentifier: projectIdentifierFromUrl, orgIdentifier: orgIdentifierFromUrl } = useParams<
+    any
+  >()
+  const projectIdentifier = connectorInfo ? connectorInfo.projectIdentifier : projectIdentifierFromUrl
+  const orgIdentifier = connectorInfo ? connectorInfo.orgIdentifier : orgIdentifierFromUrl
   const { showSuccess } = useToaster()
   const { getString } = useStrings()
   const { isGitSyncEnabled } = useAppStore()

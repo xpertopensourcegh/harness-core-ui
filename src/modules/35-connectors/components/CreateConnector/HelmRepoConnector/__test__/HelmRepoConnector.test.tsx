@@ -70,10 +70,11 @@ describe('Create Helm Connector  Wizard', () => {
         />
       </TestWrapper>
     )
+    const dummyName = 'dummy name'
     // editing connector name
     await act(async () => {
       fireEvent.change(container.querySelector('input[name="name"]')!, {
-        target: { value: 'dummy name' }
+        target: { value: dummyName }
       })
     })
     expect(container).toMatchSnapshot()
@@ -96,16 +97,8 @@ describe('Create Helm Connector  Wizard', () => {
     expect(updateConnector).toBeCalledWith(
       {
         connector: {
-          description: 'devConnector description',
-          identifier: 'devConnector',
-          name: 'dummy name',
-          spec: {
-            delegateSelectors: [],
-            auth: { type: 'Anonymous' },
-            helmRepoUrl: 'https://index.docker.io/v2/'
-          },
-          tags: {},
-          type: 'HttpHelmRepo'
+          ...dockerMock,
+          name: dummyName
         }
       },
       { queryParams: {} }

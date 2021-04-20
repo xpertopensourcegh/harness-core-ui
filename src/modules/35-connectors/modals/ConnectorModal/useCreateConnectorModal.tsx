@@ -49,8 +49,8 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
       <Dialog {...modalProps}>
         <CreateConnectorWizard
           accountId={accountId}
-          orgIdentifier={connectorInfo?.orgIdentifier || orgIdentifier} //For create take scope from url else from entities
-          projectIdentifier={connectorInfo?.projectIdentifier || projectIdentifier}
+          orgIdentifier={(connectorInfo ? connectorInfo.orgIdentifier : orgIdentifier) as string} //For create take scope from url else from entities
+          projectIdentifier={(connectorInfo ? connectorInfo.projectIdentifier : projectIdentifier) as string}
           type={type}
           isEditMode={isEditMode}
           setIsEditMode={setIsEditMode}

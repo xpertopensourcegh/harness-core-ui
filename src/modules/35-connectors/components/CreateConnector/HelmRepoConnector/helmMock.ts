@@ -9,6 +9,7 @@ export const dockerMock: ConnectorInfoDTO = {
   tags: {},
   type: 'HttpHelmRepo',
   spec: {
+    delegateSelectors: [],
     helmRepoUrl: 'https://index.docker.io/v2/',
     auth: { type: 'Anonymous' }
   }
