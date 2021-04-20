@@ -19,13 +19,21 @@ export function ContinousVerificationVariableStep(props: ContinousVerificationVa
     originalData = {} as ContinousVerificationData,
     metadataMap
   } = props
-  const data: any = pick(variablesData.spec, ['service', 'env', 'sensitivity', 'duration', 'baseline'])
+  const data: any = pick(variablesData.spec.spec, [
+    'serviceRef',
+    'envRef',
+    'sensitivity',
+    'duration',
+    'baseline',
+    'deploymentTag',
+    'trafficsplit'
+  ])
 
   return (
     <VariablesListTable
       className={stepCss.topSpacingLarge}
       data={data}
-      originalData={originalData?.spec}
+      originalData={originalData?.spec?.spec}
       metadataMap={metadataMap}
     />
   )

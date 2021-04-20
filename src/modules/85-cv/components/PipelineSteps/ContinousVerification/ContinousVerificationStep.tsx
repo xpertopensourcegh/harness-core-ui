@@ -19,7 +19,6 @@ export class ContinousVerificationStep extends PipelineStep<ContinousVerificatio
   constructor() {
     super()
     this.invocationMap.set(ConnectorRefRegex, this.getSecretsListForYaml.bind(this))
-    //TODO implement variabes screen
     this._hasStepVariables = true
   }
 
