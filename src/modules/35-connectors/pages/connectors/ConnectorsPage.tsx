@@ -172,6 +172,8 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
         if (shouldShowError(e)) {
           showError(e.data?.message || e.message)
           setErrorWhileFetchingConnectors(e)
+        } else if (e?.data?.code === 'ACCESS_DENIED') {
+          setErrorWhileFetchingConnectors(e?.data)
         }
       }
       setIsFetchingConnectors(false)

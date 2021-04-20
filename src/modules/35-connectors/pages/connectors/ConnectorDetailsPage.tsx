@@ -11,6 +11,7 @@ import { useStrings } from 'framework/exports'
 import ActivityHistory from '@connectors/components/activityHistory/ActivityHistory/ActivityHistory'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import type { ProjectPathProps, ConnectorPathProps } from '@common/interfaces/RouteInterfaces'
+import { PageError } from '@common/components/Page/PageError'
 import ReferencedBy from './ReferencedBy/ReferencedBy'
 import ConnectorView from './ConnectorView'
 import { getIconByType } from './utils/ConnectorUtils'
@@ -27,7 +28,7 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
     ProjectPathProps & ConnectorPathProps
   >()
   const { pathname } = useLocation()
-  const { loading, data, refetch } = useGetConnector({
+  const { loading, data, refetch, error } = useGetConnector({
     identifier: connectorId as string,
     queryParams: {
       accountIdentifier: accountId,
@@ -108,6 +109,50 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
       </Layout.Vertical>
     )
   }
+
+  const getPageBody = (): React.ReactElement => {
+    if (loading) {
+      return <PageSpinner />
+    }
+    if (error) {
+      return (
+        <PageError
+          message={(error.data as Error)?.message || error.message}
+          onClick={/* istanbul ignore next */ () => refetch()}
+        />
+      )
+    }
+    if (activeCategory === 0) {
+      return data?.data?.connector?.type ? (
+        <ConnectorView
+          type={data.data.connector.type}
+          updateConnector={updateConnector}
+          response={data.data || ({} as ConnectorResponse)}
+          refetchConnector={refetch}
+        />
+      ) : (
+        <NoDataCard message={getString('connectors.connectorNotFound')} icon="question" />
+      )
+    }
+    if (activeCategory === 1 && data) {
+      return (
+        <ReferencedBy
+          accountId={accountId}
+          projectIdentifier={projectIdentifier}
+          orgIdentifier={orgIdentifier}
+          entityType={'Connectors'}
+          entityIdentifier={data.data?.connector?.identifier}
+        />
+      )
+    }
+    if (activeCategory === 2 && data) {
+      return (
+        <ActivityHistory referredEntityType="Connectors" entityIdentifier={data.data?.connector?.identifier || ''} />
+      )
+    }
+    return <></>
+  }
+
   return (
     <>
       <Page.Header
@@ -132,47 +177,7 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
           </Container>
         }
       />
-      <Page.Body>
-        {activeCategory === 0 ? (
-          !loading ? (
-            data?.data?.connector?.type ? (
-              <ConnectorView
-                type={data.data.connector.type}
-                updateConnector={updateConnector}
-                response={data.data || ({} as ConnectorResponse)}
-                refetchConnector={refetch}
-              />
-            ) : (
-              <NoDataCard message={getString('connectors.connectorNotFound')} icon="question" />
-            )
-          ) : (
-            <PageSpinner />
-          )
-        ) : null}
-        {activeCategory === 1 ? (
-          !loading && data ? (
-            <ReferencedBy
-              accountId={accountId}
-              projectIdentifier={projectIdentifier}
-              orgIdentifier={orgIdentifier}
-              entityType={'Connectors'}
-              entityIdentifier={data.data?.connector?.identifier}
-            />
-          ) : (
-            <PageSpinner />
-          )
-        ) : null}
-        {activeCategory === 2 ? (
-          !loading && data ? (
-            <ActivityHistory
-              referredEntityType="Connectors"
-              entityIdentifier={data.data?.connector?.identifier || ''}
-            />
-          ) : (
-            <PageSpinner />
-          )
-        ) : null}
-      </Page.Body>
+      <Page.Body>{getPageBody()}</Page.Body>
     </>
   )
 }

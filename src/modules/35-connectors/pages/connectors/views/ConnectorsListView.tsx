@@ -248,7 +248,14 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
         } catch (err) {
           setLastTestedAt(new Date().getTime())
           setStatus('FAILURE')
-          setErrorMessage(err.message)
+          if (err.code === 'ACCESS_DENIED') {
+            setErrorMessage({
+              errorSummary: err?.message,
+              errors: err?.responseMessages || []
+            })
+          } else {
+            setErrorMessage(err.message)
+          }
           setStepDetails({
             step: 1,
             intent: Intent.DANGER,
