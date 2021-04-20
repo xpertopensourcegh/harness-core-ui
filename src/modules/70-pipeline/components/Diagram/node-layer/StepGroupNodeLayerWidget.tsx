@@ -145,15 +145,18 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
           }}
         ></div>
         {options.showRollback && (
-          <RollbackToggleSwitch
-            disabled={options.inComplete}
-            large={false}
-            style={{ left: width - 60, top: 0 }}
-            {...rollBackProps}
-            onChange={type => props.layer.fireEvent({ type }, Event.RollbackClicked)}
-          />
+          <div onMouseDown={e => e.stopPropagation()}>
+            <RollbackToggleSwitch
+              disabled={options.inComplete}
+              large={false}
+              style={{ left: width - 60, top: 0 }}
+              {...rollBackProps}
+              onChange={type => props.layer.fireEvent({ type }, Event.RollbackClicked)}
+            />
+          </div>
         )}
-        {allowAdd && (
+        {/*NOTE: "!!nodeWidth"  is a workaround for CDNG-7023 */}
+        {allowAdd && !!nodeWidth && (
           <div
             onClick={e => {
               setAddClicked(true)

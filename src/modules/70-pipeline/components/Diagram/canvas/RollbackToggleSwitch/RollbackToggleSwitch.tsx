@@ -22,7 +22,7 @@ export const RollbackToggleSwitch: React.FC<RollbackToggleSwitchProps> = ({
 }): JSX.Element => {
   const { getString } = useStrings()
   return (
-    <div style={style} className={css.rollbackToggle}>
+    <div style={style} className={cx(css.rollbackToggle, { [css.rollbackToggleSmall]: !large })}>
       {large && (
         <Text
           onClick={e => {

@@ -213,12 +213,18 @@ const getStepFromIdInternal = (
                 stepResp = node.parallel
               }
               parent = stepData
+              parallelParent = _parallelParent
+              parallelParentParent = _parallelParentParent
+              parallelParentIdx = _parallelParentIdx
               return false
             } else {
               const response = getStepFromId(nodeP.stepGroup, id, isComplete, isFindParallelNode)
               if (response.node) {
                 parent = response.parent
                 stepResp = response.node
+                parallelParent = response.parallelParent
+                parallelParentIdx = response.parallelParentIdx
+                parallelParentParent = response.parallelParentParent
                 return false
               }
             }
@@ -247,12 +253,18 @@ const getStepFromIdInternal = (
           stepResp = node.stepGroup
         }
         parent = stepData
+        parallelParent = _parallelParent
+        parallelParentParent = _parallelParentParent
+        parallelParentIdx = _parallelParentIdx
         return false
       } else {
         const response = getStepFromId(node.stepGroup, id, isComplete, isFindParallelNode)
         if (response.node) {
           parent = response.parent
           stepResp = response.node
+          parallelParent = response.parallelParent
+          parallelParentIdx = response.parallelParentIdx
+          parallelParentParent = response.parallelParentParent
           return false
         }
       }

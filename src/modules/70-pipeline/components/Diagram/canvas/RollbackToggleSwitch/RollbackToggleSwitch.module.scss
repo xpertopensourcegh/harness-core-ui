@@ -7,6 +7,10 @@
   width: 200px !important;
   align-items: center;
 
+  &.rollbackToggleSmall {
+    width: 75px !important;
+  }
+
   .active-text {
     color: var(--blue-500) !important;
     cursor: pointer;
