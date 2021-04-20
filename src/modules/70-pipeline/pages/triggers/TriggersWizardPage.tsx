@@ -31,7 +31,7 @@ import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interf
 import { scheduleTabsId, getDefaultExpressionBreakdownValues } from './views/subviews/ScheduleUtils'
 import type { AddConditionInterface } from './views/AddConditionsSection'
 import { GitSourceProviders } from './utils/TriggersListUtils'
-import { eventTypes } from './utils/TriggersWizardPageUtils'
+import { eventTypes, isPipelineWithCiCodebase, ciCodebaseBuild } from './utils/TriggersWizardPageUtils'
 import {
   WebhookTriggerConfigPanel,
   WebhookConditionsPanel,
@@ -144,6 +144,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   const [getTriggerErrorMessage, setGetTriggerErrorMessage] = useState<string>('')
   const [currentPipeline, setCurrentPipeline] = useState<{ pipeline?: NgPipeline } | undefined>(undefined)
   const [wizardKey, setWizardKey] = useState<number>(0)
+
   const [onEditInitialValues, setOnEditInitialValues] = useState<
     | FlatOnEditValuesInterface
     | {
@@ -596,13 +597,19 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   }
 
   const getInitialValues = (triggerType: NGTriggerSource['type']): FlatInitialValuesInterface | undefined => {
-    if (triggerType === TriggerTypes.WEBHOOK) {
+    if (triggerType === TriggerTypes.WEBHOOK && !isEmpty(currentPipeline)) {
+      const newPipeline: any = { ...(currentPipeline?.pipeline || {}) }
+
+      if (isPipelineWithCiCodebase(newPipeline)) {
+        newPipeline.properties.ci.codebase.build = ciCodebaseBuild
+      }
+
       return {
         triggerType: triggerTypeOnNew,
         sourceRepo: sourceRepoOnNew,
         identifier: '',
         tags: {},
-        pipeline: currentPipeline?.pipeline,
+        pipeline: newPipeline,
         originalPipeline
       }
     } else if (triggerType === TriggerTypes.SCHEDULE) {

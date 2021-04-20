@@ -14,10 +14,10 @@ import {
 import { PipelineInputSetForm } from '@pipeline/components/PipelineInputSetForm/PipelineInputSetForm'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useStrings } from 'framework/exports'
-
 import { clearRuntimeInput } from '@pipeline/components/PipelineStudio/StepUtil'
 import StagesTree, { stagesTreeNodeClasses } from '@pipeline/components/StagesTree/StagesTree'
 import { getPipelineTree } from '@pipeline/components/PipelineStudio/PipelineUtils'
+import { isPipelineWithCiCodebase, ciCodebaseBuild } from '../utils/TriggersWizardPageUtils'
 import css from './WebhookPipelineInputPanel.module.scss'
 
 interface WebhookPipelineInputPanelPropsInterface {
@@ -63,7 +63,10 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
           })
           if (data?.data?.pipelineYaml) {
             const pipelineObject = parse(data.data.pipelineYaml) as {
-              pipeline: NgPipeline
+              pipeline: NgPipeline | any
+            }
+            if (isPipelineWithCiCodebase(pipelineObject?.pipeline)) {
+              pipelineObject.pipeline.properties.ci.codebase.build = ciCodebaseBuild
             }
             formikProps.setValues({
               ...values,
@@ -82,8 +85,13 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
           if (data?.data?.inputSetYaml) {
             if (selectedInputSets[0].type === 'INPUT_SET') {
               const pipelineObject = pick(parse(data.data.inputSetYaml)?.inputSet, 'pipeline') as {
-                pipeline: NgPipeline
+                pipeline: NgPipeline | any
               }
+
+              if (isPipelineWithCiCodebase(pipelineObject?.pipeline)) {
+                pipelineObject.pipeline.properties.ci.codebase.build = ciCodebaseBuild
+              }
+
               formikProps.setValues({
                 ...values,
                 inputSetSelected: selectedInputSets,

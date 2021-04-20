@@ -484,3 +484,13 @@ export const eventTypes = {
 export const scheduledTypes = {
   CRON: 'Cron'
 }
+
+export const isPipelineWithCiCodebase = (pipeline: any): boolean =>
+  Object.keys(pipeline?.properties?.ci?.codebase || {}).includes('build')
+
+export const ciCodebaseBuild = {
+  type: 'branch',
+  spec: {
+    branch: '<+ trigger.branch>'
+  }
+}

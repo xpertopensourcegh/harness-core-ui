@@ -3,6 +3,7 @@ import { get, isEmpty } from 'lodash-es'
 import { Card, FormInput } from '@wings-software/uicore'
 import { connect, FormikContext } from 'formik'
 import { useStrings } from 'framework/exports'
+import { TriggerTypes } from '../../pages/triggers/utils/TriggersWizardPageUtils'
 
 export interface CICodebaseInputSetFormProps {
   path: string
@@ -15,6 +16,7 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
     | 'branch'
     | 'tag'
   const { getString } = useStrings()
+  const disableOnWebhookTrigger = formik?.values?.triggerType === TriggerTypes.WEBHOOK
   const radioGroupItems = [
     {
       label: getString('gitBranch'),
@@ -39,6 +41,7 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
         name={`${isEmpty(path) ? '' : `${path}.`}properties.ci.codebase.build.type`}
         items={radioGroupItems}
         radioGroup={{ inline: true }}
+        disabled={disableOnWebhookTrigger}
         onChange={() => {
           formik?.setFieldValue(`${isEmpty(path) ? '' : `${path}.`}properties.ci.codebase.build.spec`, undefined)
         }}
@@ -48,7 +51,7 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
         <FormInput.Text
           label={inputLabels[type]}
           name={`${isEmpty(path) ? '' : `${path}.`}properties.ci.codebase.build.spec.${type}`}
-          disabled={readonly}
+          disabled={readonly || disableOnWebhookTrigger}
           style={{ marginBottom: 0 }}
         />
       )}
