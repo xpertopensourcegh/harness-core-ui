@@ -1,10 +1,12 @@
 import React from 'react'
-import { Container, Button, Heading, Text, Icon, Layout } from '@wings-software/uicore'
+import { Container, Heading, Text, Icon, Layout } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { useAppStore } from 'framework/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import RbacButton from '@rbac/components/Button/Button'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import i18n from './CIDashboardPage.i18n'
 
 export const CIDashboardPage: React.FC = () => {
@@ -20,7 +22,7 @@ export const CIDashboardPage: React.FC = () => {
           <Heading>{i18n.welcome}</Heading>
           <Text>{i18n.description}</Text>
           <Icon padding={'xxxlarge'} name="ci-main" size={100} />
-          <Button
+          <RbacButton
             width={200}
             text={i18n.creatPipeline}
             intent="primary"
@@ -35,6 +37,14 @@ export const CIDashboardPage: React.FC = () => {
                 })
               )
             }
+            permission={{
+              resourceScope: {
+                accountIdentifier: accountId,
+                orgIdentifier: project?.orgIdentifier,
+                projectIdentifier
+              },
+              permission: PermissionIdentifier.EDIT_PIPELINE
+            }}
           />
         </Layout.Vertical>
       </Container>
