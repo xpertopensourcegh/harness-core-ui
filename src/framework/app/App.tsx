@@ -57,8 +57,8 @@ function AppWithAuthentication(props: AppProps): React.ReactElement {
   }, [token])
 
   useEffect(() => {
-    if (refreshTokenResponse) {
-      AppStorage.set('token', refreshTokenResponse)
+    if (refreshTokenResponse?.resource) {
+      AppStorage.set('token', refreshTokenResponse.resource)
       AppStorage.set('lastTokenSetTime', +new Date())
     }
   }, [refreshTokenResponse])
