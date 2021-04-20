@@ -5,11 +5,16 @@ import routes from '@common/RouteDefinitions'
 import SessionToken from 'framework/utils/SessionToken'
 import LoginPage from '@common/pages/login/LoginPage'
 import SignupPage from '@common/pages/signup/SignupPage'
+import { getLoginPageURL } from 'framework/utils/SessionUtils'
 
-const RedirectToHome = (): React.ReactElement => {
+const RedirectToHome: React.FC = () => {
   const accountId = SessionToken.accountId()
-
-  return <Redirect to={routes.toProjects({ accountId })} />
+  if (accountId) {
+    return <Redirect to={routes.toProjects({ accountId })} />
+  } else {
+    window.location.href = getLoginPageURL(false)
+    return null
+  }
 }
 
 const RouteDestinationsWithoutAuth: React.FC = () => {
