@@ -335,7 +335,10 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
               icon: 'archive',
               text: getString('archive'),
               onClick: archiveFlag,
-              disabled: featureFlag.archived
+
+              // Disable for now per https://harness.atlassian.net/browse/FFM-772
+              disabled: true || featureFlag.archived,
+              title: getString('cf.featureNotReady')
             },
             MenuDivider,
             {
