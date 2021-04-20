@@ -156,9 +156,6 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
     e.stopPropagation()
   }
 
-  // TODO: disable not implemented features in ci module
-  const disableInCIModule = module === 'ci'
-
   const resumeText: StringKeys = stageId
     ? 'pipeline.execution.actions.resumeStage'
     : 'pipeline.execution.actions.resumePipeline'
@@ -174,7 +171,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
 
   return (
     <div className={css.main} onClick={killEvent}>
-      {!disableInCIModule && canResume ? (
+      {canResume ? (
         <Button
           icon="play"
           tooltip={getString(resumeText)}
@@ -192,7 +189,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
           disabled={!canExecute}
         />
       ) : null}
-      {!disableInCIModule && canPause ? (
+      {canPause ? (
         <Button
           icon="pause"
           tooltip={getString(pauseText)}
@@ -222,13 +219,9 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
               {getString('editPipeline')}
             </Link>
             {stageId ? null : <MenuItem text={getString(rerunText)} disabled={!canRerun} onClick={reRunPipeline} />}
-            <MenuItem text={getString(pauseText)} onClick={pausePipeline} disabled={disableInCIModule || !canPause} />
+            <MenuItem text={getString(pauseText)} onClick={pausePipeline} disabled={!canPause} />
             <MenuItem text={getString(abortText)} onClick={abortPipeline} disabled={!canAbort} />
-            <MenuItem
-              text={getString(resumeText)}
-              onClick={resumePipeline}
-              disabled={disableInCIModule || !canResume}
-            />
+            <MenuItem text={getString(resumeText)} onClick={resumePipeline} disabled={!canResume} />
             {stageId ? null : <MenuItem text={getString('pipeline.execution.actions.downloadLogs')} disabled />}
           </Menu>
         </Popover>
