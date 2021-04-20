@@ -5,7 +5,8 @@ import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import type { SeriesLineOptions } from 'highcharts'
 import type { LogData } from 'services/cv'
-import i18n from './LogAnalysisRow.i18n'
+import { useStrings } from 'framework/exports'
+import type { UseStringsReturn } from 'framework/strings/String'
 import getLogAnalysisLineChartOptions from './LogAnalysisLineChartConfig'
 import { LogAnalysisRiskAndJiraModal } from '../LogAnalysisRiskAndJiraModal/LogAnalysisRiskAndJiraModal'
 // import LogAnalysisCompareDrawer from '../LogAnalysisCompareDrawer/LogAnalysisCompareDrawer'
@@ -40,36 +41,37 @@ type CompareLogEventsInfo = {
   index: number
 }
 
-function getEventTypeFromClusterType(tag: LogData['tag']): string {
+function getEventTypeFromClusterType(tag: LogData['tag'], getString: UseStringsReturn['getString']): string {
   switch (tag) {
     case 'KNOWN':
-      return i18n.eventType.known
+      return getString('cv.known')
     case 'UNKNOWN':
-      return i18n.eventType.unknown
+      return getString('cv.unknown')
     case 'UNEXPECTED':
-      return i18n.eventType.unexpected
+      return getString('cv.unexpected')
     default:
       return ''
   }
 }
 
 function ColumnHeaderRow(): JSX.Element {
+  const { getString } = useStrings()
   return (
     <Container className={cx(css.mainRow, css.columnHeader)}>
       <Text color={Color.BLACK} className={css.logRowColumnHeader} margin={{ left: 'large' }}>
-        {i18n.logAnalaysisTableColumns.clusterType}
+        {getString('cv.clusterType')}
       </Text>
       <Text color={Color.BLACK} className={css.logRowColumnHeader}>
-        {i18n.logAnalaysisTableColumns.sampleMessage}
+        {getString('cv.sampleMessage')}
       </Text>
       <Text color={Color.BLACK} className={css.logRowColumnHeader}>
-        {i18n.logAnalaysisTableColumns.count}
+        {getString('instanceFieldOptions.instanceHolder')}
       </Text>
       <Text color={Color.BLACK} className={css.logRowColumnHeader}>
-        {i18n.logAnalaysisTableColumns.messageFrequency}
+        {getString('cv.messageFrequency')}
       </Text>
       <Text color={Color.BLACK} className={css.logRowColumnHeader}>
-        {i18n.logAnalaysisTableColumns.actions}
+        {getString('pipeline-triggers.triggerConfigurationPanel.actions')}
       </Text>
     </Container>
   )
@@ -80,6 +82,7 @@ function DataRow(props: LogAnalysisDataRowProps): JSX.Element {
   const chartOptions = useMemo(() => getLogAnalysisLineChartOptions(rowData?.messageFrequency || []), [
     rowData?.messageFrequency
   ])
+  const { getString } = useStrings()
   const [displayRiskEditModal, setDisplayRiskEditModal] = useState(false)
   const [feedbackGiven, setFeedbackGiven] = useState<{ risk: string; message: string } | undefined>(undefined)
   const logTextRef = useRef<HTMLParagraphElement>(null)
@@ -100,7 +103,9 @@ function DataRow(props: LogAnalysisDataRowProps): JSX.Element {
           }}
         />
         {rowData.clusterType && (
-          <Text onClick={onShowRiskEditModalCallback}>{getEventTypeFromClusterType(rowData.clusterType)}</Text>
+          <Text onClick={onShowRiskEditModalCallback}>
+            {getEventTypeFromClusterType(rowData.clusterType, getString)}
+          </Text>
         )}
       </Container>
       <Container className={cx(css.logText, css.dataColumn, css.openModalColumn)} onClick={onShowRiskEditModalCallback}>

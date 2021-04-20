@@ -25,8 +25,14 @@ selectedTimeInterval: Selected time interval
 anomalous: Anomalous
 nonAnomalous: Non-Anomalous
 share: Share
+clusterType: Cluster Type
+sampleMessage: Sample Message
 sampleEvent: Sample Event
+messageFrequency: Message Frequency
 trend: Trend
+known: Known
+unknown: Unknown
+unexpected: Unexpected
 copyURL: Copy URL
 urlCopied: URL Copied
 serviceDashboardPage:

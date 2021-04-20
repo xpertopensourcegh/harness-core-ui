@@ -1404,6 +1404,7 @@ export interface StringsMap {
   'cv.changesPage.changeSummary': string
   'cv.changesPage.eventCount': string
   'cv.changesPage.viewKubernetesEvents': string
+  'cv.clusterType': string
   'cv.continuous': string
   'cv.copyURL': string
   'cv.currentProductionRisk': string
@@ -1419,8 +1420,10 @@ export interface StringsMap {
   'cv.harnessService': string
   'cv.hostNamePlaceholder': string
   'cv.initiated': string
+  'cv.known': string
   'cv.logCluster': string
   'cv.logsCluster': string
+  'cv.messageFrequency': string
   'cv.methodLabel': string
   'cv.metricVerificationModal.modalTitle': string
   'cv.metricVerificationModal.viewCalls': string
@@ -1582,6 +1585,7 @@ export interface StringsMap {
   'cv.riskCardTooltip.header': string
   'cv.riskScore': string
   'cv.sampleEvent': string
+  'cv.sampleMessage': string
   'cv.selectConnector': string
   'cv.selectCreateService': string
   'cv.selectOrCreateEnv': string
@@ -1609,6 +1613,8 @@ export interface StringsMap {
   'cv.thirdPartyCalls.timeTaken': string
   'cv.timeline': string
   'cv.trend': string
+  'cv.unexpected': string
+  'cv.unknown': string
   'cv.urlCopied': string
   'cv.verificationErrored': string
   'cv.verificationJobs.configure.heading': string
