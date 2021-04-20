@@ -32,7 +32,7 @@ import {
   getIdentifierFromValue,
   getScopeFromValue
 } from '@common/components/EntityReference/EntityReference'
-import { getIconByType } from '@connectors/exports'
+import { getIconByType } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import {

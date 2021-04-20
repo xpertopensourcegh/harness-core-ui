@@ -27,7 +27,7 @@ import {
   getIdentifierFromValue,
   getScopeFromValue
 } from '@common/components/EntityReference/EntityReference'
-import { getIconByType } from '@connectors/exports'
+import { getIconByType } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import useCreateConnectorModal, {
   UseCreateConnectorModalReturn
 } from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
