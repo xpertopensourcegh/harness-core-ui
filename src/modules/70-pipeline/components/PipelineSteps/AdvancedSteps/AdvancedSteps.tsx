@@ -16,7 +16,6 @@ import { StepFormikFowardRef, setFormikRef } from '@pipeline/components/Abstract
 import type { ExecutionWrapper } from 'services/cd-ng'
 import DelegateSelectorPanel from './DelegateSelectorPanel/DelegateSelectorPanel'
 
-import PreRequisitesPanel from './PreRequisitesPanel/PreRequisitesPanel'
 import SkipConditionsPanel from './SkipConditionsPanel/SkipConditionsPanel'
 import FailureStrategyPanel from './FailureStrategyPanel/FailureStrategyPanel'
 import { getFailureStrategiesValidationSchema } from './FailureStrategyPanel/validation'
@@ -71,13 +70,6 @@ export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: Step
           <FormikForm className={css.form}>
             <div>
               <Accordion activeId={AdvancedPanels.SkipCondition}>
-                {hiddenPanels.indexOf(AdvancedPanels.PreRequisites) === -1 && (
-                  <Accordion.Panel
-                    id={AdvancedPanels.PreRequisites}
-                    summary={getString('preRequisitesTitle')}
-                    details={<PreRequisitesPanel />}
-                  />
-                )}
                 {hiddenPanels.indexOf(AdvancedPanels.SkipCondition) === -1 && (
                   <Accordion.Panel
                     id={AdvancedPanels.SkipCondition}

@@ -81,34 +81,6 @@ exports[`<StepCommands /> tests able to switch tab 1`] = `
                   >
                     <div
                       class="Accordion--panel"
-                      data-open="false"
-                      data-testid="preRequisites-panel"
-                    >
-                      <div
-                        class="Accordion--summary"
-                        data-testid="preRequisites-summary"
-                      >
-                        <div
-                          class="Accordion--label"
-                        >
-                          preRequisitesTitle
-                        </div>
-                        <div
-                          class="Accordion--chevron"
-                        />
-                      </div>
-                      <div
-                        class="bp3-collapse Accordion--collapse"
-                      >
-                        <div
-                          aria-hidden="false"
-                          class="bp3-collapse-body"
-                          style="transform: translateY(-undefinedpx);"
-                        />
-                      </div>
-                    </div>
-                    <div
-                      class="Accordion--panel"
                       data-open="true"
                       data-testid="skipCondition-panel"
                     >
@@ -315,34 +287,6 @@ exports[`<StepCommands /> tests renders ok 1`] = `
                   <div
                     class="Accordion--accordion"
                   >
-                    <div
-                      class="Accordion--panel"
-                      data-open="false"
-                      data-testid="preRequisites-panel"
-                    >
-                      <div
-                        class="Accordion--summary"
-                        data-testid="preRequisites-summary"
-                      >
-                        <div
-                          class="Accordion--label"
-                        >
-                          preRequisitesTitle
-                        </div>
-                        <div
-                          class="Accordion--chevron"
-                        />
-                      </div>
-                      <div
-                        class="bp3-collapse Accordion--collapse"
-                      >
-                        <div
-                          aria-hidden="false"
-                          class="bp3-collapse-body"
-                          style="transform: translateY(-undefinedpx);"
-                        />
-                      </div>
-                    </div>
                     <div
                       class="Accordion--panel"
                       data-open="true"
