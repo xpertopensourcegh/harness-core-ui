@@ -82,6 +82,17 @@
     overflow: hidden;
     opacity: 0;
   }
+
+  &.disabled {
+    cursor: not-allowed;
+    .icon {
+      --intent-color: var(--grey-350);
+    }
+
+    .checkMark {
+      opacity: 0.8;
+    }
+  }
 }
 
 .step {

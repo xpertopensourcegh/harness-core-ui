@@ -6,6 +6,7 @@ declare const styles: {
   readonly icon: string
   readonly iconText: string
   readonly checkMark: string
+  readonly disabled: string
   readonly step: string
   readonly retryStep: string
   readonly retryStepIntervals: string

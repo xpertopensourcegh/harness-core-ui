@@ -49,7 +49,10 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
   const uids = React.useRef<string[]>([])
 
   const isDefaultStageStrategy = mode === Modes.STAGE && domain === 'Deployment' && selectedStrategyNum === 0
-  const filterTypes = flatMap(formValues.failureStrategies || [], e => (e.onFailure?.errors as ErrorType[]) || [])
+  const filterTypes = flatMap(
+    formValues.failureStrategies || /* istanbul ignore next */ [],
+    e => (e.onFailure?.errors as ErrorType[]) || []
+  )
 
   const isAddBtnDisabled =
     domain === 'CI'
@@ -60,6 +63,7 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
     await submitForm()
 
     // only change tab if current tab has no errors
+    /* istanbul ignore else */
     if (isEmpty(get(errors, `failureStrategies[${selectedStrategyNum}]`))) {
       setSelectedStrategyNum(n)
     }
@@ -93,7 +97,7 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
                 <div className={css.tabs}>
                   {hasFailureStrategies ? (
                     <ul className={css.stepList}>
-                      {(formValues.failureStrategies || []).map((_, i) => {
+                      {(formValues.failureStrategies || /* istanbul ignore next */ []).map((_, i) => {
                         // generated uuid if they are not present
                         if (!uids.current[i]) {
                           uids.current[i] = uuid()
@@ -160,6 +164,7 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
               label={getString('pipeline.failureStrategies.onFailureOfType')}
               filterTypes={filterTypes}
               minimal={domain === 'CI'}
+              disabled={isReadonly}
             />
           )}
 
@@ -167,6 +172,7 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
             name={`failureStrategies[${selectedStrategyNum}].onFailure.action`}
             label={getString('pipeline.failureStrategies.performAction')}
             allowedStrategies={allowedStrategiesAsPerStep(domain)[mode]}
+            disabled={isReadonly}
           />
         </React.Fragment>
       ) : null}

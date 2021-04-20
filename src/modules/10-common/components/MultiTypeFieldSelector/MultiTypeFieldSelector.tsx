@@ -83,7 +83,8 @@ export function MultiTypeFieldSelector(props: ConnectedMultiTypeFieldSelectorPro
     expressionRender,
     ...restProps
   } = props
-  const hasError = errorCheck(name, formik)
+  const error = get(formik?.errors, name)
+  const hasError = errorCheck(name, formik) && typeof error === 'string'
 
   const {
     intent = hasError ? Intent.DANGER : Intent.NONE,

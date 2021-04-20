@@ -610,6 +610,7 @@ export interface StringsMap {
   'pipeline.failureStrategies.validation.retryCountMaximum': string
   'pipeline.failureStrategies.validation.retryCountMinimum': string
   'pipeline.failureStrategies.validation.retryCountRequired': string
+  'pipeline.failureStrategies.validation.retryIntervalMaxmimum': string
   'pipeline.failureStrategies.validation.retryIntervalMinimum': string
   'pipeline.failureStrategies.validation.retryIntervalRequired': string
   'pipeline.failureStrategies.validation.timeoutRequired': string

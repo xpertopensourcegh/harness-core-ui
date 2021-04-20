@@ -9,7 +9,9 @@ import { ErrorType, Strategy } from './StrategySelection/StrategyConfig'
 
 const MAX_RETRIES = 10000
 
-function getRetryActionBaseFields(getString: UseStringsReturn['getString']): Record<string, Yup.Schema<unknown>> {
+export function getRetryActionBaseFields(
+  getString: UseStringsReturn['getString']
+): Record<string, Yup.Schema<unknown>> {
   return {
     retryCount: Yup.mixed().test({
       name: 'failureStrategies-retryCount',
@@ -37,16 +39,46 @@ function getRetryActionBaseFields(getString: UseStringsReturn['getString']): Rec
         }
       }
     }),
-    retryIntervals: Yup.array()
-      .of(
-        getDurationValidationSchema().required(getString('pipeline.failureStrategies.validation.retryIntervalRequired'))
-      )
-      .min(1, getString('pipeline.failureStrategies.validation.retryIntervalMinimum'))
-      .required(getString('pipeline.failureStrategies.validation.retryIntervalRequired'))
+    retryIntervals: Yup.array().when(
+      'retryCount',
+      (retryCount: string | number, schema: Yup.NotRequiredArraySchema<unknown>) => {
+        if (typeof retryCount === 'string' && getMultiTypeFromValue(retryCount) !== MultiTypeInputType.FIXED) {
+          return schema
+            .of(
+              getDurationValidationSchema().required(
+                getString('pipeline.failureStrategies.validation.retryIntervalRequired')
+              )
+            )
+            .min(1, getString('pipeline.failureStrategies.validation.retryIntervalMinimum'))
+            .required(getString('pipeline.failureStrategies.validation.retryIntervalRequired'))
+        }
+
+        if (typeof retryCount === 'number') {
+          return schema
+            .of(
+              getDurationValidationSchema().required(
+                getString('pipeline.failureStrategies.validation.retryIntervalRequired')
+              )
+            )
+            .min(1, getString('pipeline.failureStrategies.validation.retryIntervalMinimum'))
+            .max(retryCount, getString('pipeline.failureStrategies.validation.retryIntervalMaxmimum'))
+            .required(getString('pipeline.failureStrategies.validation.retryIntervalRequired'))
+        }
+
+        return schema
+          .of(
+            getDurationValidationSchema().required(
+              getString('pipeline.failureStrategies.validation.retryIntervalRequired')
+            )
+          )
+          .min(1, getString('pipeline.failureStrategies.validation.retryIntervalMinimum'))
+          .required(getString('pipeline.failureStrategies.validation.retryIntervalRequired'))
+      }
+    )
   }
 }
 
-function getManualInterventionBaseFields(
+export function getManualInterventionBaseFields(
   getString: UseStringsReturn['getString']
 ): Record<string, Yup.Schema<unknown>> {
   return {

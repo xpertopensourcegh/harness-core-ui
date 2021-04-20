@@ -25,12 +25,13 @@ export function isValidTimeString(value: string): boolean {
 function MultiTypeDurationFixedTypeComponent(
   props: FixedTypeComponentProps & MultiTypeDurationProps['inputGroupProps']
 ): React.ReactElement {
-  const { onChange, value, ...inputGroupProps } = props
+  const { onChange, value, disabled, ...inputGroupProps } = props
 
   return (
     <InputGroup
       fill
       {...inputGroupProps}
+      disabled={disabled}
       value={value as string}
       onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
         onChange?.(event.target.value, MultiTypeInputValue.STRING, MultiTypeInputType.FIXED)
@@ -106,15 +107,16 @@ export interface FormMultiTypeDurationProps extends Omit<IFormGroupProps, 'label
   label: string | React.ReactElement
   name: string
   placeholder?: string
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  formik?: FormikContext<any>
+  formik?: FormikContext<unknown>
+  skipErrorsIf?(formik?: FormikContext<unknown>): boolean
   multiTypeDurationProps?: Omit<MultiTypeDurationProps, 'name' | 'onChange' | 'value'>
   onChange?: MultiTypeDurationProps['onChange']
 }
 
 export function FormMultiTypeDuration(props: FormMultiTypeDurationProps): React.ReactElement {
-  const { label, multiTypeDurationProps, formik, name, onChange, ...restProps } = props
-  const hasError = errorCheck(name, formik)
+  const { label, multiTypeDurationProps, formik, name, onChange, skipErrorsIf, ...restProps } = props
+  const hideErrors = typeof skipErrorsIf === 'function' ? skipErrorsIf(formik) : false
+  const hasError = !hideErrors && errorCheck(name, formik)
 
   const {
     intent = hasError ? Intent.DANGER : Intent.NONE,
@@ -163,7 +165,7 @@ export function FormMultiTypeDuration(props: FormMultiTypeDurationProps): React.
 
   return (
     <FormGroup {...rest} labelFor={name} helperText={helperText} intent={intent} disabled={disabled} label={label}>
-      <MultiTypeDuration {...customProps} value={value} onChange={handleChange} />
+      <MultiTypeDuration {...customProps} value={value} onChange={handleChange} disabled={disabled} />
     </FormGroup>
   )
 }

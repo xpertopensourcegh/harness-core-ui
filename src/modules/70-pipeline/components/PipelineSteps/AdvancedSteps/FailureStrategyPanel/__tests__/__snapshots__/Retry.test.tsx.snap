@@ -393,7 +393,7 @@ exports[`Failure Strategy: Retry strategy works with simple fallback 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  Add
+                  add
                 </span>
               </button>
             </div>

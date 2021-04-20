@@ -155,6 +155,7 @@ failureStrategies:
     retryCountMaximum: Retry Count cannot be more than {{ count }}
     retryIntervalRequired: Retry Interval is Required
     retryIntervalMinimum: At least one retry interval is Required
+    retryIntervalMaxmimum: Number of retry intervals cannot be more than the retry count
     timeoutRequired: Timeout is required
     onRetryFailureRequired: Retry failure action is required
     onTimeoutRequired: Timeout failure action is required

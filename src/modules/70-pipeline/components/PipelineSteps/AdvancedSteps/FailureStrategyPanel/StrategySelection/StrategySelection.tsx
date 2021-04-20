@@ -26,10 +26,11 @@ export interface BaseStepProps {
   specPath: string
   parentStrategy?: Strategy
   allowedStrategies: Strategy[]
+  disabled?: boolean
 }
 
 export function ManualInterventionStep(props: BaseStepProps): React.ReactElement {
-  const { name, formik, parentStrategy, allowedStrategies, specPath } = props
+  const { name, formik, parentStrategy, allowedStrategies, specPath, disabled } = props
 
   function handleChange(): void {
     formik.setFieldValue(name, undefined)
@@ -40,7 +41,7 @@ export function ManualInterventionStep(props: BaseStepProps): React.ReactElement
 
   return (
     <div className={css.step}>
-      <StrategyIcon strategy={Strategy.ManualIntervention} checked onChange={handleChange} />
+      <StrategyIcon disabled={disabled} strategy={Strategy.ManualIntervention} checked onChange={handleChange} />
       <FormMultiTypeDurationField
         name={`${specPath}.timeout`}
         label="Timeout"
@@ -48,6 +49,7 @@ export function ManualInterventionStep(props: BaseStepProps): React.ReactElement
           enableConfigureOptions: false,
           allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
         }}
+        disabled={disabled}
       />
       <StrategySelection
         label={getString('pipeline.failureStrategies.fieldLabels.onTimeoutLabel')}
@@ -58,13 +60,14 @@ export function ManualInterventionStep(props: BaseStepProps): React.ReactElement
           Strategy.ManualIntervention,
           parentStrategy || Strategy.ManualIntervention
         ])}
+        disabled={disabled}
       />
     </div>
   )
 }
 
 export function RetryStep(props: BaseStepProps): React.ReactElement {
-  const { name, formik, parentStrategy, allowedStrategies, specPath } = props
+  const { name, formik, parentStrategy, allowedStrategies, specPath, disabled } = props
   const { getString } = useStrings()
   const uids = React.useRef<string[]>([])
   const retryIntervalsFieldName = `${specPath}.retryIntervals`
@@ -89,7 +92,7 @@ export function RetryStep(props: BaseStepProps): React.ReactElement {
    */
   return (
     <div className={cx(css.step, css.retryStep)}>
-      <StrategyIcon strategy={Strategy.Retry} checked onChange={handleChange} />
+      <StrategyIcon disabled={disabled} strategy={Strategy.Retry} checked onChange={handleChange} />
       <FormGroup
         label={getString('pipeline.failureStrategies.fieldLabels.retryCountLabel')}
         labelFor={retryCountFieldName}
@@ -111,6 +114,7 @@ export function RetryStep(props: BaseStepProps): React.ReactElement {
             formik.setFieldValue(retryCountFieldName, Number.isNaN(parsedValue) ? newValue : parsedValue)
             formik.setFieldTouched(retryCountFieldName, true)
           }}
+          disabled={disabled}
         />
       </FormGroup>
       <MultiTypeFieldSelector
@@ -118,6 +122,7 @@ export function RetryStep(props: BaseStepProps): React.ReactElement {
         label={getString('pipeline.failureStrategies.fieldLabels.retryIntervalsLabel')}
         defaultValueToReset={['1d']}
         disableTypeSelection
+        disabled={disabled}
       >
         <FieldArray name={retryIntervalsFieldName}>
           {({ push, remove }) => {
@@ -147,11 +152,13 @@ export function RetryStep(props: BaseStepProps): React.ReactElement {
                         <FormMultiTypeDurationField
                           name={`${retryIntervalsFieldName}[${i}]`}
                           label=""
+                          skipErrorsIf={form => typeof get(form?.errors, retryIntervalsFieldName) === 'string'}
                           multiTypeDurationProps={{
                             enableConfigureOptions: false,
                             allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
                             defaultValueToReset: ''
                           }}
+                          disabled={disabled}
                         />
                         <Button
                           minimal
@@ -159,14 +166,24 @@ export function RetryStep(props: BaseStepProps): React.ReactElement {
                           icon="trash"
                           onClick={handleRemove}
                           data-testid={`remove-retry-interval-${i}`}
+                          disabled={disabled}
                         />
                       </div>
                     )
                   })}
                 </div>
-                <Button icon="plus" minimal intent="primary" data-testid="add-retry-interval" onClick={handleAdd}>
-                  Add
-                </Button>
+                {typeof retryCountValue !== 'number' || intervals.length < retryCountValue ? (
+                  <Button
+                    icon="plus"
+                    minimal
+                    intent="primary"
+                    data-testid="add-retry-interval"
+                    onClick={handleAdd}
+                    disabled={disabled}
+                  >
+                    {getString('add')}
+                  </Button>
+                ) : null}
               </div>
             )
           }}
@@ -176,6 +193,7 @@ export function RetryStep(props: BaseStepProps): React.ReactElement {
         label={getString('pipeline.failureStrategies.fieldLabels.onRetryFailureLabel')}
         name={`${specPath}.onRetryFailure.action`}
         formik={formik}
+        disabled={disabled}
         parentStrategy={Strategy.Retry}
         allowedStrategies={difference(allowedStrategies, [Strategy.Retry, parentStrategy || Strategy.Retry])}
       />
@@ -191,7 +209,7 @@ export function RollbackStageStep(props: BaseStepProps): React.ReactElement {
 
   return (
     <div className={css.step}>
-      <StrategyIcon strategy={Strategy.StageRollback} checked onChange={handleChange} />
+      <StrategyIcon disabled={props.disabled} strategy={Strategy.StageRollback} checked onChange={handleChange} />
     </div>
   )
 }
@@ -204,7 +222,7 @@ export function RollbackStepGroupStep(props: BaseStepProps): React.ReactElement 
 
   return (
     <div className={css.step}>
-      <StrategyIcon strategy={Strategy.StepGroupRollback} checked onChange={handleChange} />
+      <StrategyIcon disabled={props.disabled} strategy={Strategy.StepGroupRollback} checked onChange={handleChange} />
     </div>
   )
 }
@@ -216,7 +234,7 @@ export function IgnoreFailureStep(props: BaseStepProps): React.ReactElement {
 
   return (
     <div className={css.step}>
-      <StrategyIcon strategy={Strategy.Ignore} checked onChange={handleChange} />
+      <StrategyIcon disabled={props.disabled} strategy={Strategy.Ignore} checked onChange={handleChange} />
     </div>
   )
 }
@@ -229,7 +247,7 @@ export function MarkAsSuccessStep(props: BaseStepProps): React.ReactElement {
 
   return (
     <div className={css.step}>
-      <StrategyIcon strategy={Strategy.MarkAsSuccess} checked onChange={handleChange} />
+      <StrategyIcon disabled={props.disabled} strategy={Strategy.MarkAsSuccess} checked onChange={handleChange} />
     </div>
   )
 }
@@ -242,7 +260,7 @@ export function AbortStep(props: BaseStepProps): React.ReactElement {
 
   return (
     <div className={css.step}>
-      <StrategyIcon strategy={Strategy.Abort} checked onChange={handleChange} />
+      <StrategyIcon disabled={props.disabled} strategy={Strategy.Abort} checked onChange={handleChange} />
     </div>
   )
 }
@@ -279,6 +297,7 @@ export interface StrategySelectionProps {
   name: string
   allowedStrategies: Strategy[]
   parentStrategy?: Strategy
+  disabled?: boolean
 }
 
 export interface ConnectedStrategySelectionProps extends StrategySelectionProps {
@@ -286,7 +305,7 @@ export interface ConnectedStrategySelectionProps extends StrategySelectionProps 
 }
 
 export function StrategySelection(props: ConnectedStrategySelectionProps): React.ReactElement {
-  const { name, label, formik, allowedStrategies, parentStrategy } = props
+  const { name, label, formik, allowedStrategies, parentStrategy, disabled } = props
 
   const fieldName = `${name}.type`
   const value = get(formik.values, fieldName)
@@ -304,9 +323,10 @@ export function StrategySelection(props: ConnectedStrategySelectionProps): React
           formik={formik}
           parentStrategy={parentStrategy}
           allowedStrategies={allowedStrategies}
+          disabled={disabled}
         />
       ) : (
-        <StrategyStepsList allowedStrategies={allowedStrategies} name={fieldName} formik={formik} />
+        <StrategyStepsList allowedStrategies={allowedStrategies} name={fieldName} formik={formik} disabled={disabled} />
       )}
     </FormGroup>
   )
@@ -316,10 +336,11 @@ export interface StrategyStepsListProps {
   allowedStrategies: Strategy[]
   name: string
   formik: FormikContext<{}>
+  disabled?: boolean
 }
 
 export function StrategyStepsList(props: StrategyStepsListProps): React.ReactElement {
-  const { name, formik, allowedStrategies } = props
+  const { name, formik, allowedStrategies, disabled } = props
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
     formik.setFieldValue(name, e.target.value as Strategy)
@@ -331,7 +352,7 @@ export function StrategyStepsList(props: StrategyStepsListProps): React.ReactEle
       {allowedStrategies.map(strategy => {
         return (
           <li key={strategy}>
-            <StrategyIcon strategy={strategy} onChange={handleChange} />
+            <StrategyIcon strategy={strategy} onChange={handleChange} disabled={disabled} />
           </li>
         )
       })}

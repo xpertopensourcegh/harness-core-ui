@@ -43,6 +43,7 @@ export interface FailureTypeMultiSelectProps {
   name: string
   filterTypes?: ErrorType[]
   minimal?: boolean
+  disabled?: boolean
 }
 
 export interface ConnectedFailureTypeMultiSelectProps extends FailureTypeMultiSelectProps {
@@ -50,7 +51,7 @@ export interface ConnectedFailureTypeMultiSelectProps extends FailureTypeMultiSe
 }
 
 export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectProps): React.ReactElement {
-  const { name, label, formik, minimal, filterTypes = [] } = props
+  const { name, label, formik, minimal, filterTypes, disabled } = props
   const { getString } = useStrings()
 
   const hasError = errorCheck(name, formik)
@@ -118,7 +119,7 @@ export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectPro
         popoverProps={{ minimal: true }}
         itemRenderer={itemRenderer}
         tagRenderer={tagRenderer}
-        tagInputProps={{ onRemove, tagProps: { className: css.tag }, inputProps: { name } }}
+        tagInputProps={{ onRemove, tagProps: { className: css.tag }, inputProps: { name }, disabled }}
         itemsEqual="value"
         resetOnSelect
       />

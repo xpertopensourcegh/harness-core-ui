@@ -64,7 +64,14 @@ export const allowedStrategiesAsPerStep: (domain: Domain) => Record<Modes, Strat
           Strategy.MarkAsSuccess,
           Strategy.Abort
         ],
-        [Modes.STAGE]: [Strategy.StageRollback, Strategy.Ignore, Strategy.Retry, Strategy.MarkAsSuccess, Strategy.Abort]
+        [Modes.STAGE]: [
+          Strategy.ManualIntervention,
+          Strategy.StageRollback,
+          Strategy.Ignore,
+          Strategy.Retry,
+          Strategy.MarkAsSuccess,
+          Strategy.Abort
+        ]
       }
   }
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Icon } from '@wings-software/uicore'
 import type { IconName } from '@wings-software/uicore'
+import cx from 'classnames'
 
 import { String } from 'framework/exports'
 import type { StringKeys } from 'framework/strings/StringsContext'
@@ -22,6 +23,7 @@ export interface StrategyIconProps {
   strategy: Strategy
   onChange?(e: React.ChangeEvent<HTMLInputElement>): void
   checked?: boolean
+  disabled?: boolean
 }
 
 const stringsMap: Record<Strategy, StringKeys> = {
@@ -34,9 +36,9 @@ const stringsMap: Record<Strategy, StringKeys> = {
   [Strategy.ManualIntervention]: 'pipeline.failureStrategies.strategiesLabel.ManualIntervention'
 }
 
-export function StrategyIcon({ strategy, onChange, checked }: StrategyIconProps): React.ReactElement {
+export function StrategyIcon({ strategy, onChange, checked, disabled }: StrategyIconProps): React.ReactElement {
   return (
-    <label className={css.strategyIcon}>
+    <label className={cx(css.strategyIcon, { [css.disabled]: disabled })}>
       <div className={css.icon}>
         {checked ? <div className={css.checkMark} /> : null}
         <Icon name={strategyIconMap[strategy]} size={22} />
@@ -49,6 +51,7 @@ export function StrategyIcon({ strategy, onChange, checked }: StrategyIconProps)
         value={strategy}
         onChange={onChange}
         checked={checked}
+        disabled={disabled}
       />
     </label>
   )
