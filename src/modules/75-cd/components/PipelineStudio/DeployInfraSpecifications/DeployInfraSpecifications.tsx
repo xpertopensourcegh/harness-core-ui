@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import YAML from 'yaml'
 import { Layout, Card, Icon, Text, Accordion, Button } from '@wings-software/uicore'
 import type { IconName } from '@wings-software/uicore'
-import { debounce, get, isEmpty, isNil, omit, set } from 'lodash-es'
+import { debounce, get, isEmpty, isNil, omit } from 'lodash-es'
 import cx from 'classnames'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import {
@@ -284,26 +284,32 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
     }
   }, [provisionerEnabled])
 
+  const cleanUpEmptyProvisioner = () => {
+    const provisioner = stage?.stage.spec.infrastructure.infrastructureDefinition.provisioner
+    let isChanged = false
+
+    if (!isNil(provisioner?.steps) && provisioner?.steps.length === 0) {
+      delete provisioner.steps
+      isChanged = true
+    }
+    if (!isNil(provisioner?.rollbackSteps) && provisioner?.rollbackSteps.length === 0) {
+      delete provisioner.rollbackSteps
+      isChanged = true
+    }
+
+    if (!provisioner?.steps && !provisioner?.rollbackSteps) {
+      delete stage?.stage.spec.infrastructure.infrastructureDefinition.provisioner
+      isChanged = true
+    }
+
+    return isChanged
+  }
+
   useEffect(() => {
     setProvisionerEnabled(!isProvisionerEmpty(stage || {}))
 
     return () => {
-      const provisioner = stage?.stage.spec.infrastructure.infrastructureDefinition.provisioner
-      let isChanged = false
-
-      if (!isNil(provisioner?.steps) && provisioner?.steps.length === 0) {
-        delete provisioner.steps
-        isChanged = true
-      }
-      if (!isNil(provisioner?.rollbackSteps) && provisioner?.rollbackSteps.length === 0) {
-        delete provisioner.rollbackSteps
-        isChanged = true
-      }
-
-      if (!isNil(provisioner) && isEmpty(provisioner)) {
-        delete stage?.stage.spec.infrastructure.infrastructureDefinition.provisioner
-        isChanged = true
-      }
+      const isChanged = cleanUpEmptyProvisioner()
 
       if (isChanged) {
         updatePipeline(pipeline)
@@ -327,8 +333,6 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
     if (isNil(provisioner.rollbackSteps)) {
       provisioner.rollbackSteps = []
     }
-
-    set(stageData, 'stage.spec.infrastructure.infrastructureDefinition.provisioner', provisioner)
 
     return { provisioner, provisionerEnabled, provisionerSnippetLoading, originalProvisioner }
   }
@@ -488,6 +492,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
                   onUpdate={(value: InfraProvisioningData) => {
                     if (stage) {
                       stage.stage.spec.infrastructure.infrastructureDefinition.provisioner = value.provisioner
+                      cleanUpEmptyProvisioner()
                     }
                     debounceUpdatePipeline(pipeline)
                     setProvisionerEnabled(value.provisionerEnabled)

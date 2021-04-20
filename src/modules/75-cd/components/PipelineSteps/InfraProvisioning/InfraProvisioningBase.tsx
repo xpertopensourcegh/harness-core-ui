@@ -55,6 +55,7 @@ export const InfraProvisioningBase = (
           <FormikForm>
             <FormInput.CheckBox
               name={`provisionerEnabled`}
+              disabled={formik.values.provisionerSnippetLoading}
               className={css.provisionerEnabledCheckbox}
               label={getString('pipelineSteps.deploy.provisioner.enableProvisionerLabel')}
               onChange={(event: React.FormEvent<HTMLInputElement>) => {
