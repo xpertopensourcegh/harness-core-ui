@@ -54,7 +54,7 @@ export const TestsReportOverview: React.FC<TestsReportOverviewProps> = ({ totalT
             <span className={cx(css.statsNumber)}>{failedTests}</span>
           </Text>
           <Text className={css.stats} width="30%" background={Color.RED_200} padding="small" color={Color.RED_800}>
-            {getString('ci.testsReports.failureRate')}
+            {getString('common.failureRate')}
             <span className={cx(css.statsNumber)}>{failureRateDisplay}</span>
           </Text>
         </Layout.Horizontal>

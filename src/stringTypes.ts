@@ -80,6 +80,7 @@ export interface StringsMap {
   'common.editVariable': string
   'common.editVariableType': string
   'common.execute': string
+  'common.failureRate': string
   'common.git.APIAccessDescriptipn': string
   'common.git.APIAuthentication': string
   'common.git.applicationId': string
@@ -523,6 +524,8 @@ export interface StringsMap {
   'dashboards.homePage.title': string
   'dashboards.serviceDashboard.activeServiceInstancesLabel': string
   'dashboards.serviceDashboard.day': string
+  'dashboards.serviceDashboard.frequency': string
+  'dashboards.serviceDashboard.in': string
   'dashboards.serviceDashboard.month': string
   'dashboards.serviceDashboard.months': string
   'dashboards.serviceDashboard.nonProd': string
@@ -1238,7 +1241,6 @@ export interface StringsMap {
   'ci.testsReports.failedTests': string
   'ci.testsReports.failedWithColon': string
   'ci.testsReports.failureMessage': string
-  'ci.testsReports.failureRate': string
   'ci.testsReports.filename': string
   'ci.testsReports.hangTight': string
   'ci.testsReports.learnMore': string

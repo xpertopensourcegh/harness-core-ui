@@ -1,0 +1,20 @@
+.card {
+  height: 280px;
+  flex-grow: 1;
+  overflow: hidden;
+  padding: var(--spacing-small) var(--spacing-large);
+  .text {
+    font-size: 40px !important;
+  }
+  .deploymentsTicker {
+    margin-right: 140px !important;
+  }
+  .tickerCard {
+    width: 100px !important;
+    background: var(--grey-100) !important;
+    margin-left: 140px !important;
+  }
+  .tickerContainerStyles {
+    width: fit-content;
+  }
+}

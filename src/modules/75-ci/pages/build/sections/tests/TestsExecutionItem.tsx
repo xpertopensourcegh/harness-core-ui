@@ -204,7 +204,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
           font={{ size: 'small' }}
           padding={{ left: 'small', right: 'small' }}
         >
-          <span style={{ whiteSpace: 'nowrap' }}>{getString('ci.testsReports.failureRate')}</span>
+          <span style={{ whiteSpace: 'nowrap' }}>{getString('common.failureRate')}</span>
           <span>{renderFailureRate(failureRate)}%</span>
         </Text>
         <Layout.Vertical spacing="xsmall" style={{ marginRight: 'var(--spacing-large)' }} flex>

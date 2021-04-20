@@ -80,7 +80,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
               class="StyledProps--font StyledProps--main stats StyledProps--background-red200 StyledProps--padding-small StyledProps--color StyledProps--color-red800"
               style="width: 30%;"
             >
-              ci.testsReports.failureRate
+              common.failureRate
               <span
                 class="statsNumber"
               >
@@ -34313,7 +34313,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       placeholder="Search..."
                       style="padding-right: 0px;"
                       type="text"
-                      value="ci.testsReports.failureRate"
+                      value="common.failureRate"
                     />
                     <span
                       class="bp3-input-action"
@@ -34427,7 +34427,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failureRate
+                    common.failureRate
                   </span>
                   <span>
                     5
@@ -36715,7 +36715,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failureRate
+                    common.failureRate
                   </span>
                   <span>
                     13
@@ -36843,7 +36843,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failureRate
+                    common.failureRate
                   </span>
                   <span>
                     0
@@ -36971,7 +36971,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failureRate
+                    common.failureRate
                   </span>
                   <span>
                     0
@@ -37099,7 +37099,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failureRate
+                    common.failureRate
                   </span>
                   <span>
                     0
@@ -37227,7 +37227,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failureRate
+                    common.failureRate
                   </span>
                   <span>
                     0
@@ -37355,7 +37355,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failureRate
+                    common.failureRate
                   </span>
                   <span>
                     0
@@ -37483,7 +37483,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failureRate
+                    common.failureRate
                   </span>
                   <span>
                     0
@@ -37611,7 +37611,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failureRate
+                    common.failureRate
                   </span>
                   <span>
                     100
@@ -37739,7 +37739,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failureRate
+                    common.failureRate
                   </span>
                   <span>
                     0
@@ -37867,7 +37867,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failureRate
+                    common.failureRate
                   </span>
                   <span>
                     0
@@ -37995,7 +37995,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failureRate
+                    common.failureRate
                   </span>
                   <span>
                     0
@@ -38123,7 +38123,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failureRate
+                    common.failureRate
                   </span>
                   <span>
                     0
@@ -38251,7 +38251,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failureRate
+                    common.failureRate
                   </span>
                   <span>
                     0
@@ -38379,7 +38379,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failureRate
+                    common.failureRate
                   </span>
                   <span>
                     20
@@ -73340,7 +73340,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       placeholder="Search..."
                       style="padding-right: 0px;"
                       type="text"
-                      value="ci.testsReports.failureRate"
+                      value="common.failureRate"
                     />
                     <span
                       class="bp3-input-action"
@@ -73454,7 +73454,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failureRate
+                    common.failureRate
                   </span>
                   <span>
                     5
@@ -75742,7 +75742,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failureRate
+                    common.failureRate
                   </span>
                   <span>
                     13
@@ -75870,7 +75870,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failureRate
+                    common.failureRate
                   </span>
                   <span>
                     0
@@ -75998,7 +75998,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failureRate
+                    common.failureRate
                   </span>
                   <span>
                     0
@@ -76126,7 +76126,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failureRate
+                    common.failureRate
                   </span>
                   <span>
                     0
@@ -76254,7 +76254,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failureRate
+                    common.failureRate
                   </span>
                   <span>
                     0
@@ -76382,7 +76382,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failureRate
+                    common.failureRate
                   </span>
                   <span>
                     0
@@ -76510,7 +76510,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failureRate
+                    common.failureRate
                   </span>
                   <span>
                     0
@@ -76638,7 +76638,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failureRate
+                    common.failureRate
                   </span>
                   <span>
                     100
@@ -76766,7 +76766,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failureRate
+                    common.failureRate
                   </span>
                   <span>
                     0
@@ -76894,7 +76894,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failureRate
+                    common.failureRate
                   </span>
                   <span>
                     0
@@ -77022,7 +77022,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failureRate
+                    common.failureRate
                   </span>
                   <span>
                     0
@@ -77150,7 +77150,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failureRate
+                    common.failureRate
                   </span>
                   <span>
                     0
@@ -77278,7 +77278,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failureRate
+                    common.failureRate
                   </span>
                   <span>
                     0
@@ -77406,7 +77406,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   <span
                     style="white-space: nowrap;"
                   >
-                    ci.testsReports.failureRate
+                    common.failureRate
                   </span>
                   <span>
                     20

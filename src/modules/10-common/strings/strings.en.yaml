@@ -52,6 +52,7 @@ accViewer: Account Viewer
 plusNumber: + {{number}}
 userGroup: User Group
 userGroups: User Groups
+failureRate: Failure Rate
 purpose:
   welcome: 'Welcome {{userName}}, Let’s get you started!'
   continuous: CONTINUOUS

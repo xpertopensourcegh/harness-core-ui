@@ -4,7 +4,8 @@ import { Page } from '@common/exports'
 import { useServiceStore, Views } from '@dashboards/components/Services/common'
 import { ServiceInstancesWidget } from '@dashboards/components/Services/ServiceInstancesWidget/ServiceInstancesWidget'
 import { MostActiveServicesWidget } from '@dashboards/components/Services/MostActiveServicesWidget/MostActiveServicesWidget'
-import { ServiceInstancesWidgetMock, MostActiveServicesWidgetMock } from '@dashboards/mock'
+import { ServiceInstancesWidgetMock, MostActiveServicesWidgetMock, DeploymentsWidgetMock } from '@dashboards/mock'
+import { DeploymentsWidget } from '../DeploymentsWidget/DeploymentsWidget'
 
 export const ServicesContent: React.FC = () => {
   const { view } = useServiceStore()
@@ -15,6 +16,7 @@ export const ServicesContent: React.FC = () => {
           <Layout.Horizontal>
             <ServiceInstancesWidget {...ServiceInstancesWidgetMock} />
             <MostActiveServicesWidget {...MostActiveServicesWidgetMock} />
+            <DeploymentsWidget {...DeploymentsWidgetMock} />
           </Layout.Horizontal>
         )}
       </Layout.Vertical>

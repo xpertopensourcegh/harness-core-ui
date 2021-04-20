@@ -18,6 +18,7 @@ export interface TickerProps {
   value: string | React.ReactElement
   verticalAlign?: TickerVerticalAlignment
   size?: number
+  tickerContainerStyles?: string
 }
 
 export const Ticker: React.FC<TickerProps> = props => {
@@ -29,11 +30,12 @@ export const Ticker: React.FC<TickerProps> = props => {
     color = Color.GREEN_500,
     size = 6,
     value,
+    tickerContainerStyles = '',
     children
   } = props
   const iconName = decreaseMode ? 'main-caret-down' : 'main-caret-up'
   return (
-    <div className={cx(css.tickerContainer, { [css.reverseAlignment]: leftAlign })}>
+    <div className={cx(css.tickerContainer, { [css.reverseAlignment]: leftAlign }, tickerContainerStyles)}>
       {children ? <>{children}</> : <></>}
       <div
         className={cx(

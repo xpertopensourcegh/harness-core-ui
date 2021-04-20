@@ -37,7 +37,6 @@ testsReports:
   filename: FILENAME
   commitId: COMMIT ID
   failedTests: Failed Tests
-  failureRate: Failure Rate
   failureMessage: Failure Message
   stackTrace: Stack Trace
   consoleOutput: Console Output

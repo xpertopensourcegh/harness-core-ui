@@ -57,3 +57,42 @@ export const MostActiveServicesWidgetMock = {
     }
   ]
 }
+
+export const DeploymentsWidgetMock = {
+  deployments: {
+    value: '211',
+    change: 5
+  },
+  failureRate: {
+    value: '15%',
+    change: 5
+  },
+  frequency: {
+    value: '3',
+    change: 5
+  },
+  data: [
+    {
+      name: 'Failed',
+      data: [30, 10, 20, 10, 20, 30, 20, 15, 16, 28],
+      color: Colors.RED5
+    },
+    {
+      name: 'Successful',
+      data: [20, 30, 60, 70, 20, 10, 60, 85, 58, 72],
+      color: Colors.BLUE5
+    }
+  ],
+  dateLabels: [
+    '01/02/2020',
+    '02/02/2020',
+    '01/02/2020',
+    '02/02/2020',
+    '01/02/2020',
+    '02/02/2020',
+    '01/02/2020',
+    '02/02/2020',
+    '01/02/2020',
+    '02/02/2020'
+  ]
+}

@@ -29,3 +29,5 @@ serviceDashboard:
   serviceInstances: 'Service Instances'
   nonProd: 'Non Prod'
   prod: 'Prod'
+  in: 'in {{timeRange}}'
+  frequency: 'Frequency'
