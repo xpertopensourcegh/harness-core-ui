@@ -57,10 +57,10 @@ export const roleMockData = {
             'core_secret_view',
             'core_secret_access',
             'core_connector_view',
-            'core_connector_runtimeAccess',
-            'core_environment_runtimeAccess',
+            'core_connector_access',
+            'core_environment_access',
             'core_service_view',
-            'core_service_runtimeAccess',
+            'core_service_access',
             'core_environment_edit',
             'core_connector_delete',
             'core_environment_delete'

@@ -22,9 +22,9 @@ export enum PermissionIdentifier {
   VIEW_SERVICE = 'core_service_view',
   EDIT_SERVICE = 'core_service_edit',
   DELETE_SERVICE = 'core_service_delete',
-  RUNTIMEACCESS_SERVICE = 'core_service_runtimeAccess',
+  RUNTIMEACCESS_SERVICE = 'core_service_access',
   VIEW_ENVIRONMENT = 'core_environment_view',
   EDIT_ENVIRONMENT = 'core_environment_edit',
   DELETE_ENVIRONMENT = 'core_environment_delete',
-  RUNTIMEACCESS_ENVIRONMENT = 'core_environment_runtimeAccess'
+  RUNTIMEACCESS_ENVIRONMENT = 'core_environment_access'
 }
