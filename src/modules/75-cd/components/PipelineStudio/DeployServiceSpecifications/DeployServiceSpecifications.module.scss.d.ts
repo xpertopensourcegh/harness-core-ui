@@ -10,6 +10,7 @@ declare const styles: {
   readonly alignCenter: string
   readonly contentSection: string
   readonly tabHeading: string
+  readonly tabSubHeading: string
   readonly sectionCard: string
   readonly nopadleft: string
   readonly propagatedropdown: string

@@ -15,7 +15,6 @@ import { usePipelineVariables } from '@pipeline/components/PipelineVariablesCont
 import { useStrings } from 'framework/exports'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
-import Timeline from '@common/components/Timeline/Timeline'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { skipConditionsNgDocsLink } from '@pipeline/components/PipelineSteps/AdvancedSteps/SkipConditionsPanel/SkipConditionsPanel'
@@ -33,25 +32,6 @@ export interface Variable {
   type: string
   value?: string
 }
-
-const TimelineNodes = [
-  {
-    label: 'Stage Details',
-    id: 'stageDetails'
-  },
-  {
-    label: 'Shared Paths',
-    id: 'sharedPaths'
-  },
-  {
-    label: 'Variables',
-    id: 'variables-panel'
-  },
-  {
-    label: 'Skip Conditions',
-    id: 'skipConditions-panel'
-  }
-]
 
 export default function BuildStageSpecifications({ children }: React.PropsWithChildren<unknown>): JSX.Element {
   const [isDescriptionVisible, setDescriptionVisible] = React.useState(false)
@@ -74,15 +54,6 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
 
   const { stage = {} } = getStageFromPipeline(selectedStageId || '')
-
-  const onTimelineItemClick = (id: string) => {
-    const element = document.querySelector(`#${id}`)
-    if (scrollRef.current && element) {
-      const elementTop = element.getBoundingClientRect().top
-      const parentTop = scrollRef.current.getBoundingClientRect().top
-      scrollRef.current.scrollTo({ top: elementTop - parentTop, behavior: 'smooth' })
-    }
-  }
 
   const getInitialValues = (): {
     identifier: string
@@ -192,8 +163,6 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
 
   return (
     <div className={css.wrapper}>
-      <Timeline onNodeClick={onTimelineItemClick} nodes={TimelineNodes} />
-
       <div className={css.contentSection} ref={scrollRef}>
         <Formik
           initialValues={getInitialValues()}

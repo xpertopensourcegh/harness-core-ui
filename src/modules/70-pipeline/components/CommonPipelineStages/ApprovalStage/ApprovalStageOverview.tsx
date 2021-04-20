@@ -4,7 +4,6 @@ import * as Yup from 'yup'
 import { Formik } from 'formik'
 import { cloneDeep, debounce } from 'lodash-es'
 import { Accordion, Card, Container, FormikForm } from '@wings-software/uicore'
-import Timeline from '@common/components/Timeline/Timeline'
 import { NameIdDescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { useStrings } from 'framework/exports'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
@@ -39,15 +38,6 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
 
   const { getString } = useStrings()
   const scrollRef = useRef<HTMLDivElement | null>(null)
-  const onTimelineItemClick = (id: string): void => {
-    const element = document.querySelector(`#${id}`)
-    if (scrollRef.current && typeof scrollRef.current.scrollTo === 'function' && element) {
-      const elementTop = element.getBoundingClientRect().top
-      const parentTop = scrollRef.current.getBoundingClientRect().top
-      scrollRef.current.scrollTo({ top: elementTop - parentTop, behavior: 'smooth' })
-    }
-  }
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const updateStageDebounced = useCallback(
     debounce((values: StageElementWrapper): void => {
@@ -56,27 +46,8 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
     [stage?.stage, updateStage]
   )
 
-  const getTimelineNodes = useCallback(
-    () => [
-      {
-        label: 'Stage Overview',
-        id: 'stageOverview'
-      },
-      {
-        label: 'Stage Variables',
-        id: 'variables-panel'
-      },
-      {
-        label: 'Skip Condition',
-        id: 'skipCondition-panel'
-      }
-    ],
-    []
-  )
-
   return (
     <div className={cx(css.approvalStageOverviewWrapper, css.stageSection)}>
-      <Timeline onNodeClick={onTimelineItemClick} nodes={getTimelineNodes()} />
       <div className={css.content} ref={scrollRef}>
         <div className={css.tabHeading} id="stageOverview">
           {getString('stageOverview')}

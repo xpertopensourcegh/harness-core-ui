@@ -25,8 +25,10 @@ declare const styles: {
   readonly editStageGrid: string
   readonly contentSection: string
   readonly tabHeading: string
+  readonly tabSubHeading: string
   readonly sectionCard: string
   readonly shadow: string
+  readonly notwide: string
   readonly nopadleft: string
   readonly subheading: string
 }

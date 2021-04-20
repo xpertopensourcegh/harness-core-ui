@@ -1,16 +1,5 @@
 import React from 'react'
-import {
-  Layout,
-  Card,
-  Icon,
-  Text,
-  SelectOption,
-  IconName,
-  Accordion,
-  Radio,
-  Select,
-  Checkbox
-} from '@wings-software/uicore'
+import { Layout, Card, Icon, Text, SelectOption, IconName, Radio, Select, Checkbox } from '@wings-software/uicore'
 
 import isEmpty from 'lodash-es/isEmpty'
 import cx from 'classnames'
@@ -20,7 +9,6 @@ import { useStrings } from 'framework/exports'
 
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { NgPipeline, ServiceConfig } from 'services/cd-ng'
-import Timeline from '@common/components/Timeline/Timeline'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import {
@@ -315,54 +303,6 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       updatePipeline(pipeline)
     }
   }
-  const onTimelineItemClick = (id: string): void => {
-    const element = document.querySelector(`#${id}`)
-    if (scrollRef.current && element) {
-      const elementTop = element.getBoundingClientRect().top
-      const parentTop = scrollRef.current.getBoundingClientRect().top
-      scrollRef.current.scrollTo({ top: elementTop - parentTop, behavior: 'smooth' })
-    }
-  }
-
-  const getTimelineNodes = React.useCallback(
-    (forOverrideSet = false) =>
-      !forOverrideSet
-        ? [
-            {
-              label: 'About the Service',
-              id: 'aboutService'
-            },
-            {
-              label: 'Service Definition',
-              id: 'serviceDefinition',
-              childItems: [
-                { label: 'Deployment Type', id: 'deploymentType-panel' },
-                {
-                  label: 'Artifacts',
-                  id: `${getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')}-panel`
-                },
-                {
-                  label: 'Manifests',
-                  id: `${getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}-panel`
-                },
-                { label: 'Variables', id: `${getString('variablesText')}-panel` }
-              ]
-            }
-          ]
-        : [
-            {
-              label: 'Artifacts',
-              id: `${getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')}-panel`
-            },
-            {
-              label: 'Manifests',
-              id: `${getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}-panel`
-            },
-            { label: 'Variables', id: `${getString('variablesText')}-panel` }
-          ],
-    []
-  )
-
   const initWithServiceDefinition = () => {
     setDefaultServiceSchema().then(() => {
       setSelectedPropagatedState({ label: '', value: '' })
@@ -417,7 +357,6 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       )}
       {setupModeType === setupMode.DIFFERENT ? (
         <div className={cx(css.serviceOverrides, { [css.heightStageOverrides2]: stageIndex > 0 })}>
-          <Timeline onNodeClick={onTimelineItemClick} nodes={getTimelineNodes()} />
           <div className={css.overFlowScroll} ref={scrollRef}>
             <div className={css.contentSection}>
               <div className={css.tabHeading}>{getString('pipelineSteps.serviceTab.aboutYourService')}</div>
@@ -445,39 +384,34 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
               <div className={css.tabHeading} id="serviceDefinition">
                 {getString('pipelineSteps.deploy.serviceSpecifications.serviceDefinition')}
               </div>
-              <Accordion className={css.sectionCard} activeId="deploymentType">
-                <Accordion.Panel
-                  id="deploymentType"
-                  addDomId={true}
-                  summary={'Deployment Type'}
-                  details={
-                    <Layout.Horizontal>
-                      {supportedDeploymentTypes.map((type: { name: string; icon: IconName; enabled: boolean }) => (
-                        <div key={type.name} className={css.squareCardContainer}>
-                          <Card
-                            disabled={!type.enabled}
-                            interactive={true}
-                            selected={type.name === getString('serviceDeploymentTypes.kubernetes') ? true : false}
-                            cornerSelected={type.name === getString('serviceDeploymentTypes.kubernetes') ? true : false}
-                            className={cx({ [css.disabled]: !type.enabled }, css.squareCard)}
-                          >
-                            <Icon name={type.icon as IconName} size={26} height={26} />
-                          </Card>
-                          <Text
-                            style={{
-                              fontSize: '12px',
-                              color: type.enabled ? 'var(--grey-900)' : 'var(--grey-350)',
-                              textAlign: 'center'
-                            }}
-                          >
-                            {type.name}
-                          </Text>
-                        </div>
-                      ))}
-                    </Layout.Horizontal>
-                  }
-                />
-              </Accordion>
+
+              <Card className={css.sectionCard} id="deploymentType">
+                <div className={css.tabSubHeading}>Deployment Type</div>
+                <Layout.Horizontal>
+                  {supportedDeploymentTypes.map((type: { name: string; icon: IconName; enabled: boolean }) => (
+                    <div key={type.name} className={css.squareCardContainer}>
+                      <Card
+                        disabled={!type.enabled}
+                        interactive={true}
+                        selected={type.name === getString('serviceDeploymentTypes.kubernetes') ? true : false}
+                        cornerSelected={type.name === getString('serviceDeploymentTypes.kubernetes') ? true : false}
+                        className={cx({ [css.disabled]: !type.enabled }, css.squareCard)}
+                      >
+                        <Icon name={type.icon as IconName} size={26} height={26} />
+                      </Card>
+                      <Text
+                        style={{
+                          fontSize: '12px',
+                          color: type.enabled ? 'var(--grey-900)' : 'var(--grey-350)',
+                          textAlign: 'center'
+                        }}
+                      >
+                        {type.name}
+                      </Text>
+                    </div>
+                  ))}
+                </Layout.Horizontal>
+              </Card>
               <Layout.Horizontal>
                 <StepWidget<K8SDirectServiceStep>
                   factory={factory}
@@ -496,7 +430,6 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
         selectedPropagatedState?.value && (
           <>
             <div className={cx(css.serviceOverrides, css.heightStageOverrides)}>
-              <Timeline onNodeClick={onTimelineItemClick} nodes={getTimelineNodes(true)} />
               <div className={cx(css.overFlowScroll, css.alignCenter)} ref={scrollRef}>
                 <Layout.Horizontal>
                   <StepWidget<K8SDirectServiceStep>

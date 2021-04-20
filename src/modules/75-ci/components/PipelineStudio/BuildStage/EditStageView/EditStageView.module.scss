@@ -19,7 +19,7 @@
   grid-auto-rows: auto;
   grid-gap: var(--spacing-small);
   padding-top: var(--spacing-small);
-  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  // grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
 
   :global(.bp3-card) {
     padding: var(--spacing-large);

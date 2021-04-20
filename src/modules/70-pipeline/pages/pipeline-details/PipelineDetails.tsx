@@ -11,6 +11,7 @@ import { useStrings } from 'framework/exports'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { DefaultNewPipelineId } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
+import { String } from 'framework/exports'
 import css from './PipelineDetails.module.scss'
 
 // add custom event to the global scope
@@ -73,9 +74,12 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
     <>
       <Page.Header
         title={
-          <Layout.Vertical spacing="xsmall">
-            <Breadcrumbs links={getBreadCrumbs()} />
-          </Layout.Vertical>
+          <>
+            <Layout.Vertical spacing="xsmall">
+              <Breadcrumbs links={getBreadCrumbs()} />
+            </Layout.Vertical>
+            <String tagName="div" className={css.pipelineStudioTitle} stringID="pipelineStudio" />
+          </>
         }
         toolbar={
           <Container>

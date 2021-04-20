@@ -6,37 +6,6 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
     class="wrapper"
   >
     <div
-      class="timelineSidebar"
-    >
-      <div
-        class="timeline timeline-sidebar-main"
-      >
-        <ul>
-          <li
-            class="timelineItem active"
-            data-id="infrastructureDefinition"
-            id="timeline--infrastructureDefinition"
-          >
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-              style="--text-line-clamp: 1;"
-            >
-              Infrastructure Definition
-            </p>
-          </li>
-        </ul>
-      </div>
-      <div
-        class="sidebarToggle"
-      >
-        <span
-          class="sidebarToggleContent"
-        >
-          &lt;
-        </span>
-      </div>
-    </div>
-    <div
       class="contentSection"
     >
       <div
@@ -250,37 +219,6 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
   <div
     class="wrapper"
   >
-    <div
-      class="timelineSidebar"
-    >
-      <div
-        class="timeline timeline-sidebar-main"
-      >
-        <ul>
-          <li
-            class="timelineItem active"
-            data-id="infrastructureDefinition"
-            id="timeline--infrastructureDefinition"
-          >
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-              style="--text-line-clamp: 1;"
-            >
-              Infrastructure Definition
-            </p>
-          </li>
-        </ul>
-      </div>
-      <div
-        class="sidebarToggle"
-      >
-        <span
-          class="sidebarToggleContent"
-        >
-          &lt;
-        </span>
-      </div>
-    </div>
     <div
       class="contentSection"
     >

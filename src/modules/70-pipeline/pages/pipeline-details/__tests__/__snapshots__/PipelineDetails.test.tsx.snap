@@ -67,6 +67,11 @@ exports[`Pipeline Details tests render snapshot view 1`] = `
       </div>
     </div>
     <div
+      class="pipelineStudioTitle"
+    >
+      pipelineStudio
+    </div>
+    <div
       class="StyledProps--font StyledProps--main"
     >
       <div

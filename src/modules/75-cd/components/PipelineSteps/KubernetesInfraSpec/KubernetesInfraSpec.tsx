@@ -2,7 +2,6 @@ import React from 'react'
 import {
   IconName,
   Text,
-  Color,
   Layout,
   Formik,
   FormikForm,
@@ -94,9 +93,6 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
   const { getString } = useStrings()
   return (
     <Layout.Vertical spacing="medium">
-      <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15 }}>
-        {getString('pipelineSteps.kubernetesInfraStep.stepName')}
-      </Text>
       <Formik
         enableReinitialize
         initialValues={initialValues}

@@ -15,6 +15,7 @@ import { useStrings } from 'framework/exports'
 import DeployInfraSpecifications from '../DeployInfraSpecifications/DeployInfraSpecifications'
 import DeployServiceSpecifications from '../DeployServiceSpecifications/DeployServiceSpecifications'
 import DeployStageSpecifications from '../DeployStageSpecifications/DeployStageSpecifications'
+import DeployAdvancedSpecifications from '../DeployAdvancedSpecifications/DeployAdvancedSpecifications'
 import css from './DeployStageSetupShell.module.scss'
 
 export const MapStepTypeToIcon: { [key: string]: HarnessIconName } = {
@@ -61,26 +62,6 @@ export default function DeployStageSetupShell(): JSX.Element {
 
   const handleTabChange = (data: string): void => {
     setSelectedTabId(data)
-  }
-
-  function openFailureStrategyPanel(): void {
-    updatePipelineView({
-      ...pipelineView,
-      isDrawerOpened: true,
-      drawerData: {
-        type: DrawerTypes.FailureStrategy
-      }
-    })
-  }
-
-  function openSkipConditionPanel(): void {
-    updatePipelineView({
-      ...pipelineView,
-      isDrawerOpened: true,
-      drawerData: {
-        type: DrawerTypes.SkipCondition
-      }
-    })
   }
 
   React.useEffect(() => {
@@ -137,7 +118,9 @@ export default function DeployStageSetupShell(): JSX.Element {
         onClick={() => {
           updatePipeline(pipeline)
           setSelectedTabId(
-            selectedTabId === getString('executionText')
+            selectedTabId === 'advanced'
+              ? getString('executionText')
+              : selectedTabId === getString('executionText')
               ? getString('infrastructureText')
               : selectedTabId === getString('infrastructureText')
               ? getString('service')
@@ -145,26 +128,35 @@ export default function DeployStageSetupShell(): JSX.Element {
           )
         }}
       />
-
-      <Button
-        text={selectedTabId === getString('executionText') ? getString('save') : getString('next')}
-        intent="primary"
-        rightIcon="chevron-right"
-        onClick={() => {
-          updatePipeline(pipeline)
-          if (selectedTabId === getString('executionText')) {
-            updatePipelineView({ ...pipelineView, isSplitViewOpen: false, splitViewData: {} })
-          } else {
-            setSelectedTabId(
-              selectedTabId === 'default'
-                ? getString('service')
-                : selectedTabId === getString('service')
-                ? getString('infrastructureText')
-                : getString('executionText')
-            )
-          }
-        }}
-      />
+      {selectedTabId === 'advanced' ? (
+        <Button
+          text="Done"
+          intent="primary"
+          onClick={() => {
+            updatePipelineView({ ...pipelineView, isSplitViewOpen: false })
+          }}
+        />
+      ) : (
+        <Button
+          text={selectedTabId === getString('executionText') ? getString('save') : getString('next')}
+          intent="primary"
+          rightIcon="chevron-right"
+          onClick={() => {
+            updatePipeline(pipeline)
+            if (selectedTabId === getString('executionText')) {
+              updatePipelineView({ ...pipelineView, isSplitViewOpen: false, splitViewData: {} })
+            } else {
+              setSelectedTabId(
+                selectedTabId === 'default'
+                  ? getString('service')
+                  : selectedTabId === getString('service')
+                  ? getString('infrastructureText')
+                  : getString('executionText')
+              )
+            }
+          }}
+        />
+      )}
     </Layout.Horizontal>
   )
 
@@ -183,7 +175,7 @@ export default function DeployStageSetupShell(): JSX.Element {
           title={
             <span className={css.tab}>
               <Icon name="cd-main" height={20} size={20} />
-              Stage Overview
+              Overview
             </span>
           }
         />
@@ -199,7 +191,7 @@ export default function DeployStageSetupShell(): JSX.Element {
           id={getString('service')}
           title={
             <span className={css.tab}>
-              <Icon name="service" height={20} size={20} />
+              <Icon name="services" height={20} size={20} />
               {getString('service')}
             </span>
           }
@@ -217,7 +209,7 @@ export default function DeployStageSetupShell(): JSX.Element {
           id={getString('infrastructureText')}
           title={
             <span className={css.tab}>
-              <Icon name="yaml-builder-stages" height={20} size={20} />
+              <Icon name="infrastructure" height={20} size={20} />
               {getString('infrastructureText')}
             </span>
           }
@@ -235,7 +227,7 @@ export default function DeployStageSetupShell(): JSX.Element {
           id={getString('executionText')}
           title={
             <span className={css.tab}>
-              <Icon name="yaml-builder-steps" height={20} size={20} />
+              <Icon name="execution" height={20} size={20} />
               {getString('executionText')}
             </span>
           }
@@ -301,27 +293,25 @@ export default function DeployStageSetupShell(): JSX.Element {
             />
           }
         />
-        <React.Fragment>
-          <div className={css.spacer} />
-          <Button
-            minimal
-            onClick={openSkipConditionPanel}
-            iconProps={{ margin: 'xsmall' }}
-            className={css.failureStrategy}
-            icon="conditional-skip"
-          >
-            {getString('skipConditionTitle')}
-          </Button>
-          <Button
-            minimal
-            iconProps={{ size: 28, margin: 'xsmall' }}
-            className={css.failureStrategy}
-            onClick={openFailureStrategyPanel}
-            icon="failure-strategy"
-          >
-            {getString('pipeline.failureStrategies.title')}
-          </Button>
-        </React.Fragment>
+        <Icon
+          name="chevron-right"
+          height={20}
+          size={20}
+          margin={{ right: 'small', left: 'small' }}
+          color={'grey400'}
+          style={{ alignSelf: 'center' }}
+        />
+        <Tab
+          id="advanced"
+          title={
+            <span className={css.tab}>
+              <Icon name="advanced" height={20} size={20} />
+              Advanced
+            </span>
+          }
+          className={css.fullHeight}
+          panel={<DeployAdvancedSpecifications>{navBtns}</DeployAdvancedSpecifications>}
+        />
       </Tabs>
     </section>
   )

@@ -18,7 +18,7 @@ $dot-space: 10px;
     position: absolute;
     z-index: 1;
     left: 50%;
-    top: 2px;
+    top: 0px;
     transform: translate(-50%);
     width: 210px;
     height: 30px;
@@ -30,6 +30,8 @@ $dot-space: 10px;
     color: var(--blue-800);
     clip-path: polygon(0 0, 100% 0, calc(100% - var(--spacing-xlarge)) 100%, var(--spacing-xlarge) 100%);
     letter-spacing: 2px;
+    font-size: 10px;
+    border-top: 1px solid var(--blue-300);
 
     &::before {
       content: '';
@@ -41,14 +43,13 @@ $dot-space: 10px;
       color: inherit;
       z-index: -1;
       clip-path: polygon(
-        1px 0,
-        calc(100% - 1px) 0,
+        2px 0,
+        calc(100% - 2px) 0,
         calc(100% - var(--spacing-xlarge) - 1px) calc(100% - 1px),
         calc(var(--spacing-xlarge) + 1px) calc(100% - 1px)
       );
     }
   }
-
   .canvas-wrapper {
     width: 100%;
 

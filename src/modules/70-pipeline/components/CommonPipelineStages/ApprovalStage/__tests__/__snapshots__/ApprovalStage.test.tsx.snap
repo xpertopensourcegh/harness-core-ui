@@ -236,61 +236,6 @@ exports[`Approval Stage readonly view if readonly view works: readonly view appr
           class="approvalStageOverviewWrapper stageSection"
         >
           <div
-            class="timelineSidebar"
-          >
-            <div
-              class="timeline timeline-sidebar-main"
-            >
-              <ul>
-                <li
-                  class="timelineItem active"
-                  data-id="stageOverview"
-                  id="timeline--stageOverview"
-                >
-                  <p
-                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                    style="--text-line-clamp: 1;"
-                  >
-                    Stage Overview
-                  </p>
-                </li>
-                <li
-                  class="timelineItem"
-                  data-id="variables-panel"
-                  id="timeline--variables-panel"
-                >
-                  <p
-                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                    style="--text-line-clamp: 1;"
-                  >
-                    Stage Variables
-                  </p>
-                </li>
-                <li
-                  class="timelineItem"
-                  data-id="skipCondition-panel"
-                  id="timeline--skipCondition-panel"
-                >
-                  <p
-                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                    style="--text-line-clamp: 1;"
-                  >
-                    Skip Condition
-                  </p>
-                </li>
-              </ul>
-            </div>
-            <div
-              class="sidebarToggle"
-            >
-              <span
-                class="sidebarToggleContent"
-              >
-                &lt;
-              </span>
-            </div>
-          </div>
-          <div
             class="content"
           >
             <div

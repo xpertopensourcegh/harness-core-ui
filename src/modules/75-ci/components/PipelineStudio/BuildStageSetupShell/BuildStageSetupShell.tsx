@@ -178,7 +178,7 @@ export default function BuildStageSetupShell(): JSX.Element {
           title={
             <span className={css.tab}>
               <Icon name="ci-main" height={20} size={20} />
-              Stage Overview
+              Overview
             </span>
           }
         />

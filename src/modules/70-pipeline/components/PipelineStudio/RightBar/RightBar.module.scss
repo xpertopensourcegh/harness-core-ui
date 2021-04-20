@@ -1,9 +1,10 @@
 .right-bar {
   background-color: var(--grey-100);
   border-left: 1px solid var(--grey-300);
-  display: grid;
-  padding-top: 30px;
-  grid-template-rows: 60px 60px 60px 1fr;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   z-index: 2;
   .icon-button {
     padding: 0px !important;

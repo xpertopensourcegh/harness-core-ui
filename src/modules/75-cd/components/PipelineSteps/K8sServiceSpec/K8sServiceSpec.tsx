@@ -14,7 +14,8 @@ import {
   Icon,
   NestedAccordionPanel,
   SelectOption,
-  Accordion
+  Accordion,
+  Card
 } from '@wings-software/uicore'
 
 import { parse } from 'yaml'
@@ -123,36 +124,42 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
   const isPropagating = stageIndex > 0 && setupModeType === setupMode.PROPAGATE
   return (
     <div className={css.serviceDefinition}>
-      <Accordion
-        className={css.cardSection}
-        activeId={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
+      <Card
+        className={css.sectionCard}
+        id={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
       >
-        <Accordion.Panel
-          id={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
-          addDomId={true}
-          summary={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
-          details={<ManifestSelection isPropagating={isPropagating} />}
-        />
-      </Accordion>
-
-      <Accordion
-        className={css.cardSection}
-        activeId={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')}
+        <div className={css.tabSubHeading}>
+          {getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
+        </div>
+        <Layout.Horizontal>
+          <ManifestSelection isPropagating={isPropagating} />
+        </Layout.Horizontal>
+      </Card>
+      <Card
+        className={css.sectionCard}
+        id={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')}
       >
-        <Accordion.Panel
-          id={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')}
-          addDomId={true}
-          summary={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')}
-          details={<ArtifactsSelection isPropagating={isPropagating} />}
-        />
-      </Accordion>
+        <div className={css.tabSubHeading}>
+          {getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')}
+        </div>
+        <Layout.Horizontal>
+          <ArtifactsSelection isPropagating={isPropagating} />
+        </Layout.Horizontal>
+      </Card>
 
-      <Accordion className={css.cardSection} activeId={getString('variablesText')}>
+      <Accordion className={css.accordionTitle} activeId="advanced">
         <Accordion.Panel
-          id={getString('variablesText')}
+          id="advanced"
           addDomId={true}
-          summary={getString('variablesText')}
-          details={<WorkflowVariables factory={factory as any} isPropagating={isPropagating} readonly={readonly} />}
+          summary={'Advanced'}
+          details={
+            <Card className={css.sectionCard} id={getString('variablesText')}>
+              <div className={css.tabSubHeading}>{getString('variablesText')}</div>
+              <Layout.Horizontal>
+                <WorkflowVariables factory={factory as any} isPropagating={isPropagating} readonly={readonly} />
+              </Layout.Horizontal>
+            </Card>
+          }
         />
       </Accordion>
     </div>

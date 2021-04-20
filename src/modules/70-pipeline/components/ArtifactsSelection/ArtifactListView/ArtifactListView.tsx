@@ -28,10 +28,10 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
   const { getString } = useStrings()
   const { color } = getStatus(primaryArtifact?.spec?.connectorRef, fetchedConnectorResponse, accountId)
   return (
-    <Layout.Vertical>
+    <Layout.Vertical style={{ flexShrink: 'initial' }}>
       {/* {props.isForPredefinedSets && <PredefinedOverrideSets context="ARTIFACT" currentStage={props.stage} />} */}
 
-      <Layout.Vertical spacing="small">
+      <Layout.Vertical spacing="small" style={{ flexShrink: 'initial' }}>
         <div className={cx(css.artifactList, css.listHeader)}>
           <span></span>
           <span>{getString('artifactRepository')}</span>
@@ -40,7 +40,7 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
           <span></span>
         </div>
 
-        <Layout.Vertical>
+        <Layout.Vertical style={{ flexShrink: 'initial' }}>
           <section>
             {primaryArtifact && (
               <section className={cx(css.artifactList, css.rowItem)} key={'Dockerhub'}>

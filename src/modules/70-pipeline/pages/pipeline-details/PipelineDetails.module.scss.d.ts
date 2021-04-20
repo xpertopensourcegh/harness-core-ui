@@ -5,5 +5,6 @@ declare const styles: {
   readonly tags: string
   readonly disabled: string
   readonly activeTag: string
+  readonly pipelineStudioTitle: string
 }
 export default styles

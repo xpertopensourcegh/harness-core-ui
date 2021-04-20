@@ -54,24 +54,34 @@
       height: 100%;
     }
     .bp3-tab[aria-selected='true'] {
-      color: var(--grey-400);
+      color: var(--grey-800);
+      font-weight: 500;
+      :global {
+        span.bp3-icon {
+          margin-right: var(--spacing-small);
+          path {
+            fill: var(--grey-900);
+          }
+        }
+      }
     }
     .bp3-tab[aria-selected='false'] {
-      color: var(--grey-400);
+      color: var(--grey-800);
+      font-weight: 400;
+      :global {
+        span.bp3-icon {
+          margin-right: var(--spacing-small);
+          path {
+            fill: var(--grey-800);
+          }
+        }
+      }
     }
   }
   .tab {
     display: flex;
     align-items: center;
     justify-content: center;
-    :global {
-      span.bp3-icon {
-        margin-right: var(--spacing-small);
-        path {
-          fill: var(--grey-400);
-        }
-      }
-    }
   }
 
   .spacer {

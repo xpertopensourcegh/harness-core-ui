@@ -13,6 +13,10 @@ declare const styles: {
   readonly nestedAccordions: string
   readonly nopadLeft: string
   readonly selectPopover: string
+  readonly tabHeading: string
+  readonly tabSubHeading: string
+  readonly sectionCard: string
+  readonly accordionTitle: string
   readonly cardSection: string
   readonly serviceDefinition: string
   readonly accordionSummary: string

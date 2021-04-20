@@ -621,48 +621,50 @@ export function RunPipelineFormWrapper(props: RunPipelineFormWrapperProps): Reac
     <React.Fragment>
       <PageHeader
         title={
-          <Layout.Vertical spacing="xsmall">
-            <Breadcrumbs
-              links={[
-                {
-                  url: routes.toCDProjectOverview({ orgIdentifier, projectIdentifier, accountId }),
-                  label: project?.name as string
-                },
-                {
-                  url: routes.toPipelines({ orgIdentifier, projectIdentifier, accountId, module }),
-                  label: getString('pipelines')
-                },
-                {
-                  url: routes.toPipelineDetail({
-                    orgIdentifier,
-                    projectIdentifier,
-                    accountId,
-                    pipelineIdentifier,
-                    module
-                  }),
-                  label: pipeline?.name || ''
-                },
-                { url: '#', label: getString('runPipeline') }
-              ]}
-            />
-            <Layout.Horizontal>
-              <Text font="medium">{`${getString('runPipeline')}: ${pipeline?.name}`}</Text>
-              <div className={css.optionBtns}>
-                <div
-                  className={cx(css.item, { [css.selected]: selectedView === SelectedView.VISUAL })}
-                  onClick={() => handleModeSwitch(SelectedView.VISUAL)}
-                >
-                  {getString('visual')}
+          <>
+            <Layout.Vertical spacing="xsmall">
+              <Breadcrumbs
+                links={[
+                  {
+                    url: routes.toCDProjectOverview({ orgIdentifier, projectIdentifier, accountId }),
+                    label: project?.name as string
+                  },
+                  {
+                    url: routes.toPipelines({ orgIdentifier, projectIdentifier, accountId, module }),
+                    label: getString('pipelines')
+                  },
+                  {
+                    url: routes.toPipelineDetail({
+                      orgIdentifier,
+                      projectIdentifier,
+                      accountId,
+                      pipelineIdentifier,
+                      module
+                    }),
+                    label: pipeline?.name || ''
+                  },
+                  { url: '#', label: getString('runPipeline') }
+                ]}
+              />
+              <Layout.Horizontal>
+                <Text font="medium">{`${getString('runPipeline')}: ${pipeline?.name}`}</Text>
+                <div className={css.optionBtns}>
+                  <div
+                    className={cx(css.item, { [css.selected]: selectedView === SelectedView.VISUAL })}
+                    onClick={() => handleModeSwitch(SelectedView.VISUAL)}
+                  >
+                    {getString('visual')}
+                  </div>
+                  <div
+                    className={cx(css.item, { [css.selected]: selectedView === SelectedView.YAML })}
+                    onClick={() => handleModeSwitch(SelectedView.YAML)}
+                  >
+                    {getString('yaml')}
+                  </div>
                 </div>
-                <div
-                  className={cx(css.item, { [css.selected]: selectedView === SelectedView.YAML })}
-                  onClick={() => handleModeSwitch(SelectedView.YAML)}
-                >
-                  {getString('yaml')}
-                </div>
-              </div>
-            </Layout.Horizontal>
-          </Layout.Vertical>
+              </Layout.Horizontal>
+            </Layout.Vertical>
+          </>
         }
       />
       <PageBody className={css.runForm}>{children}</PageBody>

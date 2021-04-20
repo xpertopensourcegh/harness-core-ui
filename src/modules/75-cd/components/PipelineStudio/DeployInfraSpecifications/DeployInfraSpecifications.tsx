@@ -19,7 +19,6 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import type { InfraProvisioningData } from '@cd/components/PipelineSteps/InfraProvisioning/InfraProvisioning'
 import type { GcpInfrastructureSpec } from '@cd/components/PipelineSteps/GcpInfrastructureSpec/GcpInfrastructureSpec'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
-import Timeline from '@common/components/Timeline/Timeline'
 import { String, useStrings } from 'framework/exports'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
@@ -36,35 +35,6 @@ interface DeploymentTypeGroup {
   name: string
   items: DeploymentTypeItem[]
 }
-
-const getTimelineNodes = (clusterEnabled: boolean, provisionerEnabled: boolean) => [
-  {
-    label: 'Environment',
-    id: 'environment'
-  },
-  {
-    label: 'Infrastructure definition',
-    id: 'infrastructureDefinition',
-    childItems: [
-      ...(clusterEnabled && provisionerEnabled
-        ? [
-            {
-              label: 'Dynamic provisioning',
-              id: 'dynamicProvisioning-panel'
-            }
-          ]
-        : []),
-      ...(clusterEnabled
-        ? [
-            {
-              label: 'Cluster details',
-              id: 'clusterDetails-panel'
-            }
-          ]
-        : [])
-    ]
-  }
-]
 
 export default function DeployInfraSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
   const isProvisionerEnabled = useFeatureFlag('NG_PROVISIONERS')
@@ -170,15 +140,6 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
       }
       infrastructure.allowSimultaneousDeployments = extendedSpec.allowSimultaneousDeployments || false
       debounceUpdatePipeline(pipeline)
-    }
-  }
-
-  const onTimelineItemClick = (id: string) => {
-    const element = document.querySelector(`#${id}`)
-    if (scrollRef.current && element) {
-      const elementTop = element.getBoundingClientRect().top
-      const parentTop = scrollRef.current.getBoundingClientRect().top
-      scrollRef.current.scrollTo({ top: elementTop - parentTop, behavior: 'smooth' })
     }
   }
 
@@ -433,11 +394,6 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
   }
   return (
     <div className={css.serviceOverrides}>
-      <Timeline
-        onNodeClick={onTimelineItemClick}
-        nodes={getTimelineNodes(!!selectedDeploymentType, isProvisionerEnabled)}
-      />
-
       <div className={css.contentSection} ref={scrollRef}>
         <Layout.Vertical>
           <div className={css.tabHeading} id="environment">
@@ -504,14 +460,10 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
         ) : null}
 
         {selectedDeploymentType ? (
-          <Accordion className={css.sectionCard} activeId="clusterDetails">
-            <Accordion.Panel
-              id="clusterDetails"
-              addDomId={true}
-              summary={'Cluster details'}
-              details={getClusterConfigurationStep(selectedDeploymentType)}
-            />
-          </Accordion>
+          <Card className={css.sectionCard} id="clusterDetails">
+            <div className={css.tabSubHeading}>Cluster details</div>
+            <Layout.Horizontal>{getClusterConfigurationStep(selectedDeploymentType)}</Layout.Horizontal>
+          </Card>
         ) : null}
 
         <div className={css.navigationButtons}> {props.children}</div>

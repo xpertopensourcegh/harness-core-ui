@@ -19,7 +19,10 @@ import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
-import Timeline from '@common/components/Timeline/Timeline'
+import {
+  getStageIndexFromPipeline,
+  getFlattenedStages
+} from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import {
@@ -32,10 +35,6 @@ import {
   getScopeFromDTO,
   getScopeFromValue
 } from '@common/components/EntityReference/EntityReference'
-import {
-  getStageIndexFromPipeline,
-  getFlattenedStages
-} from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import css from './BuildInfraSpecifications.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
@@ -44,13 +43,6 @@ const validationSchema = yup.object().shape({
   connectorRef: yup.mixed().required(),
   namespace: yup.string().trim().required()
 })
-
-const TimelineNodes = [
-  {
-    label: 'Infrastructure Definition',
-    id: 'infrastructureDefinition'
-  }
-]
 
 interface Values {
   connectorRef?: ConnectorReferenceFieldProps['selected'] | string
@@ -159,15 +151,6 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
     }
   }, [stage?.stage?.spec?.infrastructure?.spec?.connectorRef])
 
-  const onTimelineItemClick = (id: string) => {
-    const element = document.querySelector(`#${id}`)
-    if (scrollRef.current && element) {
-      const elementTop = element.getBoundingClientRect().top
-      const parentTop = scrollRef.current.getBoundingClientRect().top
-      scrollRef.current.scrollTo({ top: elementTop - parentTop, behavior: 'smooth' })
-    }
-  }
-
   const handleValidate = (values: any): void => {
     if (stage) {
       if (currentMode === Modes.Propagate && values.useFromStage) {
@@ -190,8 +173,6 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
 
   return (
     <div className={css.wrapper}>
-      <Timeline onNodeClick={onTimelineItemClick} nodes={TimelineNodes} />
-
       <div className={css.contentSection} ref={scrollRef}>
         <Formik
           enableReinitialize

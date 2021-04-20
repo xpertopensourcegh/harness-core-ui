@@ -27,7 +27,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({ title, content, toolbar,
           {title}
         </Heading>
       ) : (
-        title
+        <>{title}</>
       )}
       {content}
       {toolbar}

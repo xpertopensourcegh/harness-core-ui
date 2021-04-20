@@ -7,7 +7,7 @@ import SplitPane from 'react-split-pane'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
-import { String, useStrings } from 'framework/exports'
+import { useStrings } from 'framework/exports'
 import { useConfirmationDialog } from '@common/exports'
 import { CanvasButtons } from '@pipeline/components/CanvasButtons/CanvasButtons'
 import { moveStageToFocusDelayed } from '@pipeline/components/ExecutionStageDiagram/ExecutionStageDiagramUtils'
@@ -592,14 +592,15 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
 
   return (
     <Layout.Horizontal className={cx(css.canvasContainer)} padding="medium">
-      <String tagName="div" className={css.pipelineStudioTitle} stringID="pipelineStudio" />
       <div className={css.canvasWrapper}>
         <SplitPane
           size={openSplitView ? splitPaneSize : '100%'}
           split="horizontal"
           minSize={MinimumSplitPaneSize}
           maxSize={MaximumSplitPaneSize}
-          pane2Style={{ overflow: 'hidden' }}
+          style={{ overflow: 'scroll' }}
+          pane2Style={{ overflow: 'initial', zIndex: 2 }}
+          resizerStyle={{ display: 'inline-table' }}
           onChange={handleStageResize}
           allowResize={openSplitView}
         >
