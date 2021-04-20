@@ -198,6 +198,7 @@ const FormContent = ({
                 }
                 className={css.md}
                 disabled={fetchingProjects}
+                isOptional={true}
                 multiTypeInputProps={{
                   allowableTypes: [MultiTypeInputType.FIXED],
                   onChange: _unused => {
@@ -214,6 +215,7 @@ const FormContent = ({
                 }
                 label={getString('pipeline.jiraApprovalStep.issueType')}
                 name="spec.issueType"
+                isOptional={true}
                 placeholder={
                   fetchingProjectMetadata
                     ? getString('pipeline.jiraApprovalStep.fetchingIssueTypePlaceholder')

@@ -6,7 +6,7 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="bp3-form-group approvalMessage sm"
+      class="bp3-form-group approvalMessage deploymentViewMedium"
     >
       <label
         class="bp3-label"
@@ -28,8 +28,41 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
         />
       </div>
     </div>
+    <div>
+      <label
+        class="ugLabel"
+      >
+        common.userGroups
+      </label>
+      <div
+        class="bp3-popover-wrapper multiSelectDeploymentMode deploymentViewMedium MultiSelect--main bp3-fill"
+      >
+        <div
+          class="bp3-popover-target"
+        >
+          <div
+            class=""
+          >
+            <div
+              class="bp3-input bp3-tag-input bp3-multi-select"
+            >
+              <div
+                class="bp3-tag-input-values"
+              >
+                <input
+                  class="bp3-input-ghost bp3-multi-select-tag-input-input"
+                  name="spec.approvers.userGroups"
+                  placeholder="pipeline.approvalStep.addUserGroups"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div
-      class="bp3-form-group sm"
+      class="bp3-form-group deploymentViewMedium"
     >
       <label
         class="bp3-label"
@@ -168,7 +201,7 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: input set with e
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="bp3-form-group bp3-intent-danger approvalMessage sm"
+      class="bp3-form-group bp3-intent-danger approvalMessage deploymentViewMedium"
     >
       <label
         class="bp3-label"
@@ -195,8 +228,41 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: input set with e
         </div>
       </div>
     </div>
+    <div>
+      <label
+        class="ugLabel"
+      >
+        common.userGroups
+      </label>
+      <div
+        class="bp3-popover-wrapper multiSelectDeploymentMode deploymentViewMedium MultiSelect--main bp3-fill"
+      >
+        <div
+          class="bp3-popover-target"
+        >
+          <div
+            class=""
+          >
+            <div
+              class="bp3-input bp3-tag-input bp3-multi-select"
+            >
+              <div
+                class="bp3-tag-input-values"
+              >
+                <input
+                  class="bp3-input-ghost bp3-multi-select-tag-input-input"
+                  name="spec.approvers.userGroups"
+                  placeholder="pipeline.approvalStep.addUserGroups"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div
-      class="bp3-form-group bp3-intent-danger sm"
+      class="bp3-form-group bp3-intent-danger deploymentViewMedium"
     >
       <label
         class="bp3-label"

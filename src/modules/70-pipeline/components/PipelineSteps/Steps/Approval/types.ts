@@ -56,3 +56,12 @@ export interface HarnessApprovalFormContentProps {
   fetchingUserGroups: boolean
   isNewStep?: boolean
 }
+
+export interface UGMUltiSelectProps {
+  initialValues: HarnessApprovalData
+  onUpdate?: (data: HarnessApprovalData) => void
+  inputSetData?: InputSetData<HarnessApprovalData>
+  userGroupsResponse: ResponsePageUserGroupDTO | null
+  userGroupsFetchError: GetDataError<Failure | Error> | null
+  fetchingUserGroups: boolean
+}

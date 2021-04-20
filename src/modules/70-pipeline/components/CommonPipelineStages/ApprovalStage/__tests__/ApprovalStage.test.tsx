@@ -73,7 +73,7 @@ describe('Approval Stage minimal view', () => {
     act(() => {
       fireEvent.change(nameInput!, { target: { value: 'stagename' } })
     })
-    expect(props.stageProps?.onChange).toBeCalledTimes(5)
+    expect(props.stageProps?.onChange).toBeCalledTimes(4)
     expect(props.stageProps?.onChange).toBeCalledWith({
       name: 'stagename',
       identifier: 'stagename',
@@ -131,7 +131,7 @@ describe('Jira Approval Stage minimal view', () => {
     act(() => {
       fireEvent.change(nameInput!, { target: { value: 'stagename' } })
     })
-    expect(props.stageProps?.onChange).toBeCalledTimes(5)
+    expect(props.stageProps?.onChange).toBeCalledTimes(4)
     act(() => {
       fireEvent.click(getByText('Jira'))
     })

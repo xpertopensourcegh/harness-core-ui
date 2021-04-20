@@ -63,3 +63,19 @@
 .sm {
   width: 50%;
 }
+
+.deploymentViewMedium {
+  width: 44% !important;
+}
+
+.ugLabel {
+  margin-bottom: 8px;
+}
+
+.multiSelectDeploymentMode {
+  :global {
+    .bp3-input {
+      border: 1px solid var(--grey-300) !important;
+    }
+  }
+}

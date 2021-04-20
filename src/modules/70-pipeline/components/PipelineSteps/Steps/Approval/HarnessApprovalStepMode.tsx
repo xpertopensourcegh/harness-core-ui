@@ -113,8 +113,6 @@ const FormContent = ({
                     : userGroupOptions
                 }
                 multiSelectTypeInputProps={{
-                  // Getting problems in runtime view of user groups for now. Will fix it separately
-                  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
                   expressions,
                   multiSelectProps: {
                     allowCreatingNewItems: true,

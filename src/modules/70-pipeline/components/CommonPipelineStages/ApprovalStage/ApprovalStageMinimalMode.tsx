@@ -91,7 +91,6 @@ export const ApprovalStageMinimalMode: React.FC<ApprovalStageMinimalModeProps> =
               type="submit"
               intent="primary"
               text={getString('pipelineSteps.build.create.setupStage')}
-              onClick={() => formikProps.submitForm()}
               margin={{ top: 'small' }}
               className={css.button}
             />
