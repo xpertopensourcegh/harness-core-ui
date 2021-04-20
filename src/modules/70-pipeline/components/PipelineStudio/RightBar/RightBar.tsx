@@ -314,7 +314,7 @@ export const RightBar = (): JSX.Element => {
           font={{ weight: 'semi-bold', size: 'xsmall' }}
           icon="settings"
           iconProps={{ size: 20 }}
-          text={getString('barriers.flowControl')}
+          text={getString('pipeline.barriers.flowControl')}
         />
       )}
 

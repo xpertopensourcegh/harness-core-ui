@@ -236,14 +236,6 @@ const ManifestListView = ({
       } else {
         listOfManifests.push(manifestObj)
       }
-
-      if (stage) {
-        updateStage(
-          produce(stage, draft => {
-            set(draft, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', listOfManifests)
-          }).stage as StageElementConfig
-        )
-      }
       hideConnectorModal()
       return
     }

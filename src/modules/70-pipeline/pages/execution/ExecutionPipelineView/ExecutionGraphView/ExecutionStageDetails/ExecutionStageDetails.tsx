@@ -74,12 +74,12 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
     if (resourceUnit.id) {
       fetchResourceConstraints()
     }
-  }, [barrierSetupId, resourceUnit])
+  }, [barrierSetupId, resourceUnit, fetchResourceConstraints, fetchData])
   // open details view when a step is selected
   React.useEffect(() => {
     setStepDetailsVisibility(!!props.selectedStep)
   }, [props.selectedStep, setStepDetailsVisibility])
-  const onMouseEnter = (event: any) => {
+  const onMouseEnter = (event: any): void => {
     const currentStage = event.stage
     const isFinished = currentStage?.data?.endTs
     const hasStarted = currentStage?.data?.startTs

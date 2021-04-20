@@ -75,6 +75,7 @@ export interface StringsMap {
   'common.datePickerShortcuts.Yesterday': string
   'common.delegateForTask': string
   'common.disable': string
+  'common.duplicateId': string
   'common.durationPrefix': string
   'common.editVariable': string
   'common.editVariableType': string
@@ -553,6 +554,12 @@ export interface StringsMap {
   'pipeline.approvalStep.validation.minimumCountOne': string
   'pipeline.approvalStep.validation.minimumCountRequired': string
   'pipeline.approvalStep.validation.userGroups': string
+  'pipeline.barriers.addBarrier': string
+  'pipeline.barriers.flowControl': string
+  'pipeline.barriers.syncBarriers': string
+  'pipeline.barriers.tooltips.barrierWaiting': string
+  'pipeline.barriers.tooltips.timeout': string
+  'pipeline.barriers.validation.barrierNamerequired': string
   'pipeline.createANewPipeline': string
   'pipeline.createPipeline.learnMore': string
   'pipeline.createPipeline.setupHeader': string
@@ -1915,26 +1922,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   back: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'barriers.addBarrier': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'barriers.flowControl': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'barriers.syncBarriers': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'barriers.tooltips.barrierWaiting': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'barriers.tooltips.timeout': string
   /**
    * @deprecated migrate this string to module level file
    */

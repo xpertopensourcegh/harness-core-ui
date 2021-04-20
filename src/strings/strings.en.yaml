@@ -718,13 +718,6 @@ roleDetails:
   permissionUpdatedSuccess: Permissions updated succesfully
   updateRolePermissions: Update Role permissions
   noDataText: You have no Roles. Click the button below to create a new one.
-barriers:
-  syncBarriers: Synchronization Barriers
-  flowControl: Flow Control
-  addBarrier: + Add Barrier
-  tooltips:
-    barrierWaiting: 'Waiting for another barrier '
-    timeout: 'to Timeout'
 roleCard:
   confirmDelete: Are you sure you want to delete the Role '{{name}}'?
   confirmDeleteTitle: 'Delete Role'

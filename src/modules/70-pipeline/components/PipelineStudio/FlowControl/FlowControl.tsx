@@ -9,27 +9,34 @@ import { set, debounce, cloneDeep } from 'lodash-es'
 import { FieldArray } from 'formik'
 import type { PipelineInfoConfig } from 'services/cd-ng'
 import { String, useStrings } from 'framework/exports'
+import type { UseStringsReturn } from 'framework/strings/String'
 import { useGetBarriersSetupInfoList, StageDetail } from 'services/pipeline-ng'
 import { useMutateAsGet } from '@common/hooks'
 import { NameId } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import css from './FlowControl.module.scss'
 
-const getErrors = (barriers: Barrier[], errorText: string): Barrier[] => {
-  const errors: any[] = []
+const getErrors = (barriers: Barrier[], getString: UseStringsReturn['getString']): Barrier[] => {
+  const errors: unknown[] = []
   const barrierValueMap: { [key: string]: { indexes: number[] } } = {}
   for (let index = 0; index < barriers.length; index++) {
     const barrierId = barriers[index].identifier
     if (barrierValueMap[barrierId]) {
       barrierValueMap[barrierId].indexes.push(index)
     } else {
-      barrierValueMap[barrierId] = { indexes: [] }
+      barrierValueMap[barrierId] = { indexes: barrierId === '' ? [index] : [] }
     }
   }
   Object.values(barrierValueMap).map(({ indexes }: { indexes: number[] }) => {
-    indexes.map((errIndex: number) => set(errors, `[${errIndex}].name`, errorText))
+    indexes.map((errIndex: number) => {
+      if (barriers[errIndex].identifier === '') {
+        set(errors, `[${errIndex}].name`, getString('secret.validationIdentifier'))
+      } else {
+        set(errors, `[${errIndex}].name`, getString('common.duplicateId'))
+      }
+    })
   })
-  return errors
+  return errors as Barrier[]
 }
 
 const getValidBarriers = (barriers: Barrier[]): Barrier[] =>
@@ -49,6 +56,7 @@ interface BarrierListProps {
   deleteItem: (index: number, remove: (a: number) => void) => void
   commitItem: (data: Barrier, index: number) => void
   updatePipeline: (pipeline: PipelineInfoConfig) => Promise<void>
+  getString: UseStringsReturn['getString']
 }
 export const FlowControl: React.FC = (): JSX.Element => {
   const {
@@ -82,7 +90,7 @@ export const FlowControl: React.FC = (): JSX.Element => {
     }
   }, [data?.data])
   const debouncedUpdatePipeline = React.useCallback(debounce(updatePipeline, 300), [updatePipeline])
-  const addBarrier = (push: (data: Barrier) => void) => {
+  const addBarrier = (push: (data: Barrier) => void): void => {
     const newBarrier: Barrier = {
       name: '',
       identifier: '',
@@ -94,7 +102,7 @@ export const FlowControl: React.FC = (): JSX.Element => {
     updateBarriers(updatedState)
   }
 
-  const commitBarrier = (barrierData: Barrier, index: number) => {
+  const commitBarrier = (barrierData: Barrier, index: number): void => {
     if (!barrierData?.name?.length || !barrierData?.identifier?.length) {
       return
     }
@@ -116,7 +124,7 @@ export const FlowControl: React.FC = (): JSX.Element => {
     })
   }
 
-  const deleteBarrier = (index: number, remove: (index: number) => void) => {
+  const deleteBarrier = (index: number, remove: (index: number) => void): void => {
     const updatedBarriers: Barrier[] = produce(barriers, draft => {
       draft.splice(index, 1)
     })
@@ -140,7 +148,7 @@ export const FlowControl: React.FC = (): JSX.Element => {
         <Icon name="settings" size={14} className={css.headerIcon} />
 
         <div className={css.gridColumn}>
-          <String stringID="barriers.flowControl" className={css.title} />
+          <String stringID="pipeline.barriers.flowControl" className={css.title} />
           <span>
             {getString('total')} : {barriers.length}
           </span>
@@ -150,7 +158,7 @@ export const FlowControl: React.FC = (): JSX.Element => {
         <Accordion activeId="syncBarriers">
           <Accordion.Panel
             id="syncBarriers"
-            summary={getString('barriers.syncBarriers')}
+            summary={getString('pipeline.barriers.syncBarriers')}
             details={
               <BarrierList
                 list={barriers}
@@ -159,6 +167,7 @@ export const FlowControl: React.FC = (): JSX.Element => {
                 deleteItem={deleteBarrier}
                 commitItem={commitBarrier}
                 updatePipeline={debouncedUpdatePipeline}
+                getString={getString}
               />
             }
           />
@@ -174,6 +183,7 @@ const BarrierList: React.FC<BarrierListProps> = ({
   deleteItem,
   commitItem,
   updatePipeline,
+  getString,
   pipeline
 }): JSX.Element => {
   return (
@@ -184,7 +194,7 @@ const BarrierList: React.FC<BarrierListProps> = ({
       }}
       validate={({ barriers }: { barriers: Barrier[] }) => {
         const errors: any = { barriers: [] }
-        const identifierErrors = getErrors(barriers, 'Duplicate Identifier')
+        const identifierErrors = getErrors(barriers, getString)
         const validBarriers = getValidBarriers(barriers)
         if (identifierErrors.length) {
           errors.barriers = identifierErrors
@@ -204,8 +214,8 @@ const BarrierList: React.FC<BarrierListProps> = ({
       validationSchema={Yup.object().shape({
         barriers: Yup.array().of(
           Yup.object().shape({
-            name: Yup.string().required('Enter name of barrier'),
-            identifier: Yup.string().required('Duplicate  identifier')
+            name: Yup.string().required(getString('pipeline.barriers.validation.barrierNamerequired')),
+            identifier: Yup.string().min(1).required(getString('common.duplicateId'))
           })
         )
       })}
@@ -229,7 +239,9 @@ const BarrierList: React.FC<BarrierListProps> = ({
                         <div>
                           {barrier.stages?.map((stage: StageDetail) => (
                             <Tag className={cx(css.tag, css.spaceRight)} key={stage.name}>
-                              {stage.name}
+                              <Text lineClamp={1} width={50}>
+                                {stage.name}
+                              </Text>
                             </Tag>
                           ))}
                         </div>
@@ -274,7 +286,7 @@ const BarrierList: React.FC<BarrierListProps> = ({
                   )}
                 </div>
                 <span className={css.addLink} onClick={() => createItem(push)}>
-                  <String stringID="barriers.addBarrier" />
+                  <String stringID="pipeline.barriers.addBarrier" />
                 </span>
               </div>
             )

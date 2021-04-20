@@ -197,3 +197,12 @@ resourceConstraints:
   yourPipeline: ' ( you execution )'
 targets:
   title: Targets
+barriers:
+  syncBarriers: Synchronization Barriers
+  flowControl: Flow Control
+  addBarrier: + Add Barrier
+  tooltips:
+    barrierWaiting: 'Waiting for another barrier '
+    timeout: 'to Timeout'
+  validation:
+    barrierNamerequired: 'Enter name of barrier'

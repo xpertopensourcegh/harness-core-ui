@@ -36,7 +36,7 @@ export default function BarrierStageTooltip(props: BarrierStageTooltipProps): Re
               <div className={css.row}>
                 <div>{barrier.name}</div>
                 <div className={classNames(css.subheading, css.barrierData)}>
-                  <String stringID="barriers.tooltips.barrierWaiting" />
+                  <String stringID="pipeline.barriers.tooltips.barrierWaiting" />
                   <Text width={50} inline>
                     {barrier.identifier}
                   </Text>{' '}

@@ -231,7 +231,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
           <Text font="small" color={Color.GREY_400} className={css.serviceLabel}>
             {getString('stages')}
           </Text>
-          <Text color={Color.GREY_500} className={css.serviceName} lineClamp={1}>
+          <Text color={Color.GREY_500} className={css.serviceName} width={100} lineClamp={1}>
             {pipeline.stageNames?.join(', ')}
           </Text>
         </Layout.Horizontal>

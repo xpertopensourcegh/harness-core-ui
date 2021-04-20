@@ -72,6 +72,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   const [checkedItems, setCheckedItems] = React.useState({ overrideSetCheckbox: false })
   const [isConfigVisible, setConfigVisibility] = React.useState(false)
   const [selectedPropagatedState, setSelectedPropagatedState] = React.useState<SelectOption>()
+  const [canPropagate, setCanPropagate] = React.useState(false)
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
 
   const previousStageList: { label: string; value: string }[] = []
@@ -225,6 +226,16 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       set(stage as {}, 'stage.spec.serviceConfig.serviceDefinition', {})
       debounceUpdatePipeline(pipeline)
     }
+    let hasStageOfSameType = false
+    const currentStageType = stage?.stage?.type
+
+    for (let index = 0; index < stageIndex; index++) {
+      if (stages[index]?.stage?.type === currentStageType) {
+        hasStageOfSameType = true
+      }
+    }
+
+    setCanPropagate(hasStageOfSameType)
   }, [])
 
   React.useEffect(() => {
@@ -312,7 +323,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
 
   return (
     <>
-      {stageIndex > 0 && (
+      {stageIndex > 0 && canPropagate && (
         <div className={css.stageSelection}>
           <section className={cx(css.stageSelectionGrid)}>
             <div className={css.radioColumn}>
@@ -340,7 +351,6 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
               onClick={() => initWithServiceDefinition()}
             />
             <Text style={{ fontSize: 14, color: 'var(-grey-300)' }}>
-              {' '}
               {getString('serviceDeploymentTypes.deployDifferentLabel')}
             </Text>
           </section>

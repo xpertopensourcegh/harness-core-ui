@@ -31,7 +31,7 @@ export default function BarrierStepTooltip(props: BarrierStepTooltipProps): Reac
       <div className={css.barrierDetails}>
         <div>{props.data?.name}</div>
         <div>
-          <String stringID="barriers.tooltips.barrierWaiting" />
+          <String stringID="pipeline.barriers.tooltips.barrierWaiting" />
           {props.data?.stepParameters?.identifier}
         </div>
       </div>
@@ -43,7 +43,7 @@ export default function BarrierStepTooltip(props: BarrierStepTooltipProps): Reac
           </div>
         </div>
         <div>
-          <String stringID="barriers.tooltips.timeout" />
+          <String stringID="pipeline.barriers.tooltips.timeout" />
         </div>
       </div>
     </div>

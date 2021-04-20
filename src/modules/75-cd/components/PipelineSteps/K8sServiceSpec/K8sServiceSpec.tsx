@@ -50,6 +50,7 @@ import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
 import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
+import { useDeepCompareEffect } from '@common/hooks'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { useToaster } from '@common/exports'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
@@ -176,7 +177,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
   stageIdentifier
 }) => {
   const { getString } = useStrings()
-  const { showError } = useToaster()
+  const { showError, clear } = useToaster()
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier } = useParams<
     PipelineType<InputSetPathProps> & { accountId: string }
   >()
@@ -246,8 +247,9 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
     }
   }, [pipelineResponse?.data?.yamlPipeline])
 
-  React.useEffect(() => {
+  useDeepCompareEffect(() => {
     if (gcrError || dockerError) {
+      clear()
       showError(getString('errorTag'))
       return
     }
@@ -282,7 +284,12 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
     gcrdata?.data?.buildDetailsList,
     gcrError,
     ecrdata?.data?.buildDetailsList,
-    ecrError
+    ecrError,
+    getString,
+    lastQueryData.path,
+    showError,
+    tagListMap,
+    clear
   ])
   React.useEffect(() => {
     if (lastQueryData.connectorRef) {
@@ -408,6 +415,9 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
     value: region.value,
     label: region.name
   }))
+  // const manifests =
+  //   template?.manifests ||
+  //   template.
   return (
     <Layout.Vertical spacing="medium">
       {get(template, 'artifacts', false) && (
@@ -764,7 +774,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
           }
         />
       )}
-      {template?.manifests?.length && (
+      {!!template?.manifests?.length && (
         <NestedAccordionPanel
           isDefaultOpen
           addDomId
@@ -881,7 +891,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
           }
         />
       )}
-      {initialValues?.variables?.length && (
+      {!!initialValues?.variables?.length && (
         <NestedAccordionPanel
           isDefaultOpen
           addDomId

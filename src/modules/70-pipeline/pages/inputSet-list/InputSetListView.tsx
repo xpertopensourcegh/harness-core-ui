@@ -227,12 +227,6 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
         disableSortBy: true
       },
       {
-        Header: getString('inputSets.inputFieldSummary').toUpperCase(),
-        accessor: 'inputFieldSummary',
-        width: '10%',
-        disableSortBy: true
-      },
-      {
         Header: getString('lastUpdatedBy').toUpperCase(),
         accessor: 'lastUpdatedBy',
         width: '10%',
@@ -256,7 +250,7 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
       {
         Header: '',
         accessor: 'action',
-        width: '5%',
+        width: '20%',
         Cell: RenderColumnMenu,
         disableSortBy: true,
         goToInputSetDetail,

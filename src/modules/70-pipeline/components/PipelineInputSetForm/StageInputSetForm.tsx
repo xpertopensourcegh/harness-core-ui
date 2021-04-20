@@ -180,6 +180,8 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
 }) => {
   const deploymentStageInputSet = get(formik?.values, path, {})
   const { getString } = useStrings()
+  const isPropagating = deploymentStage?.serviceConfig?.useFromStage
+
   return (
     <>
       {deploymentStageTemplate.serviceConfig && (
@@ -208,19 +210,35 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                   customStepProps={{ stageIdentifier }}
                 />
               )}
-              {deploymentStage?.serviceConfig?.serviceDefinition?.type === 'Kubernetes' && (
+              {(deploymentStage?.serviceConfig?.serviceDefinition?.type === 'Kubernetes' || isPropagating) && (
                 <StepWidget<ServiceSpec>
                   factory={factory}
-                  initialValues={deploymentStageInputSet?.serviceConfig?.serviceDefinition?.spec || {}}
-                  template={deploymentStageTemplate?.serviceConfig?.serviceDefinition?.spec || {}}
+                  initialValues={
+                    isPropagating
+                      ? deploymentStageInputSet?.serviceConfig.stageOverrides
+                      : deploymentStageInputSet?.serviceConfig?.serviceDefinition?.spec || {}
+                  }
+                  template={
+                    isPropagating
+                      ? deploymentStageTemplate?.serviceConfig.stageOverrides
+                      : deploymentStageTemplate?.serviceConfig?.serviceDefinition?.spec || {}
+                  }
                   type={StepType.K8sServiceSpec}
                   stepViewType={StepViewType.InputSet}
-                  path={`${path}.serviceConfig.serviceDefinition.spec`}
+                  path={
+                    isPropagating
+                      ? `${path}.serviceConfig.stageOverrides`
+                      : `${path}.serviceConfig.serviceDefinition.spec`
+                  }
                   readonly={readonly}
                   customStepProps={{ stageIdentifier }}
                   onUpdate={(data: any) => {
                     if (deploymentStageInputSet?.serviceConfig?.serviceDefinition?.spec) {
                       deploymentStageInputSet.serviceConfig.serviceDefinition.spec = data
+                      formik?.setValues(set(formik?.values, path, deploymentStageInputSet))
+                    }
+                    if (deploymentStageInputSet?.serviceConfig?.stageOverrides && isPropagating) {
+                      deploymentStageInputSet.serviceConfig.stageOverrides = data
                       formik?.setValues(set(formik?.values, path, deploymentStageInputSet))
                     }
                   }}
