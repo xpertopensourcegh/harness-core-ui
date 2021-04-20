@@ -1,9 +1,8 @@
 import React from 'react'
 import { render, fireEvent, waitFor } from '@testing-library/react'
-import type { ExecutionStageDiagramProps } from '@pipeline/exports'
 import { TestWrapper } from '@common/utils/testUtils'
 import { ExecutionPipelineItemStatus, ExecutionPipelineNodeType } from '../ExecutionPipelineModel'
-import ExecutionStageDiagram from '../ExecutionStageDiagram'
+import ExecutionStageDiagram, { ExecutionStageDiagramProps } from '../ExecutionStageDiagram'
 
 interface Data {
   label: string

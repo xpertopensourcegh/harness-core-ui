@@ -4,7 +4,7 @@ import { Formik, FormikForm } from '@wings-software/uicore'
 import type { UseGetReturn, UseMutateReturn } from 'restful-react'
 import * as pipelineNg from 'services/pipeline-ng'
 import strings from 'strings/strings.en.yaml'
-import { PipelineContext } from '@pipeline/exports'
+import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { TestWrapper } from '@common/utils/testUtils'
 import {
   GetTemplateFromPipelineResponse,

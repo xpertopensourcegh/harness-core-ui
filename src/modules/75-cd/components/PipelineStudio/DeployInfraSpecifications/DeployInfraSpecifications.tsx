@@ -4,7 +4,7 @@ import { Layout, Card, Icon, Text, Accordion, Button } from '@wings-software/uic
 import type { IconName } from '@wings-software/uicore'
 import { debounce, get, isEmpty, isNil, omit, set } from 'lodash-es'
 import cx from 'classnames'
-import { StepWidget, StepViewType, PipelineContext } from '@pipeline/exports'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import {
   ExecutionWrapper,
   getProvisionerExecutionStrategyYamlPromise,
@@ -21,6 +21,8 @@ import type { GcpInfrastructureSpec } from '@cd/components/PipelineSteps/GcpInfr
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import Timeline from '@common/components/Timeline/Timeline'
 import { String, useStrings } from 'framework/exports'
+import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import css from './DeployInfraSpecifications.module.scss'
 
 interface DeploymentTypeItem {

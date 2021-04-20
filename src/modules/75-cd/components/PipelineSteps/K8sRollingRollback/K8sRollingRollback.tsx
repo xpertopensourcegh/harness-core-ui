@@ -5,7 +5,7 @@ import cx from 'classnames'
 import { FormikProps, yupToFormErrors } from 'formik'
 
 import { isEmpty } from 'lodash-es'
-import { StepViewType, StepProps } from '@pipeline/exports'
+import { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { StepElementConfig, K8sRollingRollbackStepInfo } from 'services/cd-ng'

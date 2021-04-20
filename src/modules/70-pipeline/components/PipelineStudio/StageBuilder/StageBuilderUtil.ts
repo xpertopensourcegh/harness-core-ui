@@ -3,7 +3,7 @@ import { Color } from '@wings-software/uicore'
 import { v4 as uuid } from 'uuid'
 import type { NodeModelListener, LinkModelListener, DiagramEngine } from '@projectstorm/react-diagrams-core'
 import type { StageElementWrapper, NgPipeline, PageConnectorResponse } from 'services/cd-ng'
-import type { Diagram } from '@pipeline/exports'
+import type * as Diagram from '@pipeline/components/Diagram'
 import {
   getIdentifierFromValue,
   getScopeFromDTO,

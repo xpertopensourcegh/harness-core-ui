@@ -25,9 +25,8 @@ import {
   getEnvironmentListForProjectPromise
 } from 'services/cd-ng'
 import { NameIdDescriptionTags } from '@common/components'
-import { StepViewType } from '@pipeline/exports'
 import { loggerFor, ModuleName, useStrings, UseStringsReturn } from 'framework/exports'
-import { Step, StepProps } from '@pipeline/components/AbstractSteps/Step'
+import { Step, StepProps, StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/exports'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'

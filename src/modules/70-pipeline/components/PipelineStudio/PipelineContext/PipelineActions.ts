@@ -2,7 +2,7 @@ import { clone } from 'lodash-es'
 import type { IDrawerProps } from '@blueprintjs/core'
 import type { ExecutionWrapper, YamlSnippetMetaData, PipelineInfoConfig } from 'services/cd-ng'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
-import type { Diagram } from '@pipeline/exports'
+import type * as Diagram from '@pipeline/components/Diagram'
 import type { DependenciesWrapper, StepState } from '../ExecutionGraph/ExecutionGraphUtil'
 import type { AdvancedPanels } from '../StepCommands/StepCommandTypes'
 

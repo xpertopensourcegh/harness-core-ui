@@ -10,7 +10,7 @@ import { PipelineStep, StepProps } from '@pipeline/components/PipelineSteps/Pipe
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
-import { StepViewType } from '@pipeline/exports'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { StringKeys } from 'framework/exports'
 import TerraformInputStep from '../Common/Terraform/TerraformInputStep'
 import { TerraformVariableStep } from '../Common/Terraform/TerraformVariableView'

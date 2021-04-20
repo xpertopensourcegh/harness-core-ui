@@ -3,7 +3,7 @@ import { getMultiTypeFromValue, MultiTypeInputType, SelectOption, FormInput } fr
 import { isEmpty } from 'lodash-es'
 
 import { useStrings } from 'framework/exports'
-import type { StepViewType } from '@pipeline/exports'
+import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 
 import type { HttpStepFormData, HttpStepData } from './types'

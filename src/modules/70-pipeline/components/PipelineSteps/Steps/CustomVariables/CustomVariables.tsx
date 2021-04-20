@@ -3,11 +3,11 @@ import { IconName, getMultiTypeFromValue, MultiTypeInputType } from '@wings-soft
 import { get, set, isEmpty, isNil, isNaN } from 'lodash-es'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
-import { Step } from '@pipeline/exports'
 
 import { loggerFor, ModuleName, UseStringsReturn } from 'framework/exports'
 import { listSecretsV2Promise, SecretResponseWrapper } from 'services/cd-ng'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { Step } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { Scope } from '@common/interfaces/SecretsInterface'

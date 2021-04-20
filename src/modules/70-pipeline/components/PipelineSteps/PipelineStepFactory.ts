@@ -1,4 +1,4 @@
-import { AbstractStepFactory } from '@pipeline/exports'
+import { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 
 import { StepGroupStep } from './Steps/StepGroupStep/StepGroupStep'
 import { CustomVariables } from './Steps/CustomVariables/CustomVariables'

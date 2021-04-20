@@ -5,8 +5,8 @@ import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
 
 import { useParams } from 'react-router-dom'
-import { StepFormikFowardRef, setFormikRef } from '@pipeline/components/AbstractSteps/Step'
-import { PipelineContext, StepViewType } from '@pipeline/exports'
+import { StepFormikFowardRef, setFormikRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useStrings } from 'framework/exports'
 
 import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'

@@ -17,7 +17,7 @@ import { useStrings } from 'framework/exports'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { loggerFor, ModuleName } from 'framework/exports'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
-import { PipelineContext, getStageIndexFromPipeline, getFlattenedStages } from '@pipeline/exports'
+import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import Timeline from '@common/components/Timeline/Timeline'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
@@ -31,6 +31,10 @@ import {
   getScopeFromDTO,
   getScopeFromValue
 } from '@common/components/EntityReference/EntityReference'
+import {
+  getStageIndexFromPipeline,
+  getFlattenedStages
+} from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import css from './BuildInfraSpecifications.module.scss'
 
 const logger = loggerFor(ModuleName.CD)

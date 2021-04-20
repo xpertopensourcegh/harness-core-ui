@@ -1,6 +1,6 @@
 import React from 'react'
 import type { IconName, SelectOption } from '@wings-software/uicore'
-import { StepViewType, StepProps } from '@pipeline/exports'
+import { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
 
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'

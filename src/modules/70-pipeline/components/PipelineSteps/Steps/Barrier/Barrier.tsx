@@ -11,7 +11,7 @@ import {
 import * as Yup from 'yup'
 import { FormikProps, yupToFormErrors } from 'formik'
 import { isEmpty } from 'lodash-es'
-import { StepViewType } from '@pipeline/exports'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { StepElementConfig } from 'services/cd-ng'
@@ -27,7 +27,7 @@ import {
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
-import { PipelineStep, StepProps } from '../../PipelineStep'
+import { PipelineStep, StepProps } from '@pipeline/components/PipelineSteps/PipelineStep'
 import css from './Barrier.module.scss'
 type BarrierData = StepElementConfig
 

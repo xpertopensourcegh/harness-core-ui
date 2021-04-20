@@ -1,6 +1,6 @@
 import React from 'react'
 import type { IconName } from '@wings-software/uicore'
-import { StepViewType } from '@pipeline/exports'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
 import type { UseStringsReturn } from 'framework/exports'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'

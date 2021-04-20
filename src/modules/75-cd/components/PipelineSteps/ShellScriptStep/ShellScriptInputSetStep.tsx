@@ -4,7 +4,7 @@ import { FormGroup } from '@blueprintjs/core'
 import { isEmpty, get } from 'lodash-es'
 
 import { useStrings } from 'framework/exports'
-import type { StepViewType } from '@pipeline/exports'
+import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
 import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { ShellScriptMonacoField, ScriptType } from '@common/components/ShellScriptMonaco/ShellScriptMonaco'

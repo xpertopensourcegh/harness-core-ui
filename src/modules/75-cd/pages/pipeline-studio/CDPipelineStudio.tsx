@@ -2,12 +2,13 @@ import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { stagesCollection } from '@pipeline/components/PipelineStudio/Stages/StagesCollection'
-import { PipelineProvider, PipelineStudio } from '@pipeline/exports'
 import routes from '@common/RouteDefinitions'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { getCDPipelineStages } from '@cd/components/PipelineStudio/CDPipelineStagesUtils'
 import { useAppStore, useStrings } from 'framework/exports'
+import { PipelineProvider } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { PipelineStudio } from '@pipeline/components/PipelineStudio/PipelineStudio'
 import css from './CDPipelineStudio.module.scss'
 
 const CDPipelineStudio: React.FC = (): JSX.Element => {
@@ -54,7 +55,7 @@ const CDPipelineStudio: React.FC = (): JSX.Element => {
         routePipelineProject={routes.toDeployments}
         routePipelineDetail={routes.toPipelineDetail}
         routePipelineList={routes.toPipelines}
-      ></PipelineStudio>
+      />
     </PipelineProvider>
   )
 }

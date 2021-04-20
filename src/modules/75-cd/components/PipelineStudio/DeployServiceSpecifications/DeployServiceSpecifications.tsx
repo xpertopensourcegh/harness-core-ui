@@ -15,22 +15,21 @@ import {
 import isEmpty from 'lodash-es/isEmpty'
 import cx from 'classnames'
 import { debounce, get, set } from 'lodash-es'
-import {
-  PipelineContext,
-  getStageIndexFromPipeline,
-  getFlattenedStages,
-  StepWidget,
-  StepViewType
-} from '@pipeline/exports'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/exports'
 
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { NgPipeline, ServiceConfig } from 'services/cd-ng'
 import Timeline from '@common/components/Timeline/Timeline'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
+import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import {
+  getStageIndexFromPipeline,
+  getFlattenedStages
+} from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
+import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import type { K8SDirectServiceStep } from '../../PipelineSteps/K8sServiceSpec/K8sServiceSpec'
 import css from './DeployServiceSpecifications.module.scss'
-
 const setupMode = {
   PROPAGATE: 'PROPAGATE',
   DIFFERENT: 'DIFFERENT'

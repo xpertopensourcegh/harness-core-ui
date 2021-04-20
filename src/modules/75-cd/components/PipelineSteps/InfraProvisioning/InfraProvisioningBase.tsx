@@ -3,11 +3,11 @@ import { Spinner } from '@blueprintjs/core'
 import { Field, FormikProps } from 'formik'
 import { Container, Formik, FormikForm, FormInput } from '@wings-software/uicore'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
-import { ExecutionGraph, PipelineContext } from '@pipeline/exports'
+import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useStrings } from 'framework/exports'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
-import type {
+import ExecutionGraph, {
   ExecutionGraphAddStepEvent,
   ExecutionGraphEditStepEvent,
   ExecutionGraphRefObj

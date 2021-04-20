@@ -1,6 +1,6 @@
 import React from 'react'
 import { debounce } from 'lodash-es'
-import { PipelineContext } from '@pipeline/exports'
+import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import type { StageElementWrapper } from 'services/cd-ng'
 import { EditStageView } from '../DeployStage/EditStageView/EditStageView'
 

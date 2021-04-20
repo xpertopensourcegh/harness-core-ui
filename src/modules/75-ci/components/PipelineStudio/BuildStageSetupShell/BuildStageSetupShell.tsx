@@ -2,11 +2,11 @@ import React from 'react'
 import { set } from 'lodash-es'
 import { Tabs, Tab, Icon, Button, Layout } from '@wings-software/uicore'
 import type { HarnessIconName } from '@wings-software/uicore/dist/icons/HarnessIcons'
-import { PipelineContext, ExecutionGraph } from '@pipeline/exports'
+import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import type { StageElementWrapper } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
-import type {
+import ExecutionGraph, {
   ExecutionGraphAddStepEvent,
   ExecutionGraphEditStepEvent,
   ExecutionGraphRefObj

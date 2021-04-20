@@ -4,7 +4,7 @@ import { AbstractStepFactory } from '@pipeline/components/AbstractSteps/Abstract
 import { Step, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { PipelineContextInterface } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
-import type { PipelineStagesProps } from '@pipeline/exports'
+import type { PipelineStagesProps } from '@pipeline/components/PipelineStages/PipelineStages'
 import type { ApprovalStageMinimalModeProps } from '../types'
 
 export const getPropsForMinimalStage = (): PipelineStagesProps<ApprovalStageMinimalModeProps> => ({

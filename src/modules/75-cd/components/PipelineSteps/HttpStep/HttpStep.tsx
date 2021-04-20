@@ -5,7 +5,7 @@ import { yupToFormErrors } from 'formik'
 import { v4 as uuid } from 'uuid'
 import { isEmpty } from 'lodash-es'
 
-import { StepViewType, StepProps } from '@pipeline/exports'
+import { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import type { UseStringsReturn } from 'framework/exports'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import type { HttpHeaderConfig, StringNGVariable } from 'services/cd-ng'

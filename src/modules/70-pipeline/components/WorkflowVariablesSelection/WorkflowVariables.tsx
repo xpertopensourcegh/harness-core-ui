@@ -3,15 +3,8 @@ import { Layout, Text } from '@wings-software/uicore'
 import get from 'lodash-es/get'
 import isEmpty from 'lodash-es/isEmpty'
 
-import {
-  StepWidget,
-  StepViewType,
-  AbstractStepFactory,
-  getStageIndexFromPipeline,
-  getFlattenedStages
-} from '@pipeline/exports'
 import type { AllNGVariables as Variable } from '@pipeline/utils/types'
-import { PipelineContext } from '@pipeline/exports'
+import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PredefinedOverrideSets } from '@pipeline/components/PredefinedOverrideSets/PredefinedOverrideSets'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
@@ -21,6 +14,10 @@ import type {
 } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 
 import { useStrings } from 'framework/exports'
+import type { AbstractStepFactory } from '../AbstractSteps/AbstractStepFactory'
+import { getFlattenedStages, getStageIndexFromPipeline } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
+import { StepViewType } from '../AbstractSteps/Step'
+import { StepWidget } from '../AbstractSteps/StepWidget'
 import css from './WorkflowVariables.module.scss'
 
 export interface WorkflowVariablesProps {

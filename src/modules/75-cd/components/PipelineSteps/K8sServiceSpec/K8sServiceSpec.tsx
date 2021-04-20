@@ -28,7 +28,7 @@ import type { PipelineType, InputSetPathProps } from '@common/interfaces/RouteIn
 import WorkflowVariables from '@pipeline/components/WorkflowVariablesSelection/WorkflowVariables'
 import ArtifactsSelection from '@pipeline/components/ArtifactsSelection/ArtifactsSelection'
 import ManifestSelection from '@pipeline/components/ManifestSelection/ManifestSelection'
-import { StepViewType } from '@pipeline/exports'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import {
   ServiceSpec,
   NgPipeline,

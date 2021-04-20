@@ -11,7 +11,7 @@ import {
 } from '@common/utils/routeUtils'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
 import { OverlayInputSetForm } from '@pipeline/components/OverlayInputSetForm/OverlayInputSetForm'
-import { PipelineContext } from '@pipeline/exports'
+import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { EnhancedInputSetForm } from '../InputSetForm'
 import {
   TemplateResponse,

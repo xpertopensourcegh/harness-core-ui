@@ -1,8 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { isEmpty, debounce, get } from 'lodash-es'
-import { useExecutionLayoutContext, ExecutionStageDiagram } from '@pipeline/exports'
-import { ExecutionPipeline, ExecutionPipelineNode, ExecutionPipelineNodeType } from '@pipeline/exports'
 import { GraphLayoutNode, useGetBarriersExecutionInfo } from 'services/pipeline-ng'
 import {
   getIconFromStageModule,
@@ -15,6 +13,13 @@ import type { DynamicPopoverHandlerBinding } from '@common/components/DynamicPop
 import { DynamicPopover } from '@common/exports'
 import HoverCard from '@pipeline/components/HoverCard/HoverCard'
 import { StageTypes } from '@pipeline/components/PipelineStudio/Stages/StageTypes'
+import {
+  ExecutionPipelineNode,
+  ExecutionPipelineNodeType,
+  ExecutionPipeline
+} from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
+import { useExecutionLayoutContext } from '@pipeline/components/ExecutionLayout/ExecutionLayoutContext'
+import ExecutionStageDiagram from '@pipeline/components/ExecutionStageDiagram/ExecutionStageDiagram'
 import { useExecutionContext } from '../../../ExecutionContext/ExecutionContext'
 import CDInfo from './components/CD/CDInfo'
 import css from './ExecutionGraph.module.scss'

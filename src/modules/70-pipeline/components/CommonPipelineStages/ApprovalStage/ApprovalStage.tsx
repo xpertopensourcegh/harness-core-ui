@@ -1,5 +1,5 @@
 import React from 'react'
-import { PipelineStage } from '@pipeline/exports'
+import { PipelineStage } from '@pipeline/components/PipelineStages/PipelineStage'
 import { ApprovalStageMinimalMode } from './ApprovalStageMinimalMode'
 import { ApprovalStageSetupShellMode } from './ApprovalStageSetupShellMode'
 

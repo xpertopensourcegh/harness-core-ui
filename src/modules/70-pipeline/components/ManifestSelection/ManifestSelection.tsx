@@ -4,7 +4,7 @@ import { Layout, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { get } from 'lodash-es'
 import { useGetConnectorListV2, PageConnectorResponse } from 'services/cd-ng'
-import { PipelineContext } from '@pipeline/exports'
+import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 
 // import { PredefinedOverrideSets } from '@pipeline/components/PredefinedOverrideSets/PredefinedOverrideSets'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'

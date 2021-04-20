@@ -4,7 +4,6 @@ import { connect } from 'formik'
 import { get, set, isEmpty } from 'lodash-es'
 import cx from 'classnames'
 import List from '@common/components/List/List'
-import { StepViewType, StepWidget } from '@pipeline/exports'
 import type {
   DeploymentStageConfig,
   K8SDirectInfrastructure,
@@ -21,6 +20,8 @@ import { StepType } from '../PipelineSteps/PipelineStepInterface'
 
 import { CollapseForm } from './CollapseForm'
 import { getStepFromStage } from '../PipelineStudio/StepUtil'
+import { StepWidget } from '../AbstractSteps/StepWidget'
+import { StepViewType } from '../AbstractSteps/Step'
 import css from './PipelineInputSetForm.module.scss'
 function StepForm({
   template,

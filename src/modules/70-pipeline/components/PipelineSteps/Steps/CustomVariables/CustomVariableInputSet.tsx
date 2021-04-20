@@ -4,7 +4,7 @@ import cx from 'classnames'
 
 import { String } from 'framework/exports'
 import type { AllNGVariables } from '@pipeline/utils/types'
-import { StepViewType } from '@pipeline/exports'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
 import type { InputSetData } from '@pipeline/components/AbstractSteps/Step'
 

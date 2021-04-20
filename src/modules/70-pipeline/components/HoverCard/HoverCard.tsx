@@ -1,6 +1,6 @@
 import React from 'react'
 import { Icon, timeToDisplayText, Text } from '@wings-software/uicore'
-import { ExecutionStatusLabel } from '@pipeline/exports'
+import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
 import { ExecutionPipelineItemStatus } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
 import css from './HoverCard.module.scss'
 export interface HoverCardProps {

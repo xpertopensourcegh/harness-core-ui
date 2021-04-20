@@ -22,7 +22,7 @@ import { MultiTypeSelectField } from '@common/components/MultiTypeSelect/MultiTy
 import { FormMultiTypeCheckboxField } from '@common/components'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
-import { PipelineContext } from '@pipeline/exports'
+import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { useStrings } from 'framework/exports'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'

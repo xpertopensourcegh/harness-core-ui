@@ -1,7 +1,7 @@
 import React from 'react'
 import { Layout, Text, SelectOption } from '@wings-software/uicore'
 import { isArray } from 'lodash-es'
-import { PipelineContext } from '@pipeline/exports'
+import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import type { StageElementWrapper } from 'services/cd-ng'
 // eslint-disable-next-line no-restricted-imports
 import { OverrideSetsInputSelector } from '@cd/components/OverrideSetsInputSelector/OverrideSetsInputSelector'
