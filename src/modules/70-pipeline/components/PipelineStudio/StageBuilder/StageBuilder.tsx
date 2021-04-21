@@ -310,7 +310,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
               renderPipelineStage,
               stagesMap
             },
-            { useArrows: false, darkMode: true }
+            { useArrows: false, darkMode: false }
           )
         } else if (eventTemp.entity.getType() === DiagramType.GroupNode && selectedStageId) {
           const parent = getStageFromPipeline(eventTemp.entity.getIdentifier()).parent
@@ -335,7 +335,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
                 stagesMap,
                 renderPipelineStage
               },
-              { useArrows: false, darkMode: true }
+              { useArrows: false, darkMode: false }
             )
           }
         } /* istanbul ignore else */ else if (eventTemp.entity.getType() !== DiagramType.StartNode) {
@@ -456,7 +456,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
             stagesMap,
             renderPipelineStage
           },
-          { useArrows: false, darkMode: true },
+          { useArrows: false, darkMode: false },
           eventTemp.callback
         )
       }
@@ -515,7 +515,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
             stagesMap,
             renderPipelineStage
           },
-          { useArrows: false, darkMode: true }
+          { useArrows: false, darkMode: false }
         )
       }
     },
@@ -577,7 +577,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
     >
       <CanvasWidget engine={engine} />
       <DynamicPopover
-        darkMode={true}
+        darkMode={false}
         className={css.renderPopover}
         render={renderPopover}
         bind={setDynamicPopoverHandler}
