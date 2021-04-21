@@ -9,8 +9,11 @@ import { useQueryParams, useMutateAsGet } from '@common/hooks'
 import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
-
 import { UNSAVED_FILTER } from '@common/components/Filter/utils/FilterUtils'
+import { usePermission } from '@rbac/hooks/usePermission'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+
 import ExecutionsList from './ExecutionsList/ExecutionsList'
 import ExecutionsPagination from './ExecutionsPagination/ExecutionsPagination'
 import { PipelineDeploymentListHeader } from './PipelineDeploymentListHeader/PipelineDeploymentListHeader'
@@ -115,6 +118,26 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, loading])
 
+  const [canExecute] = usePermission(
+    {
+      resourceScope: {
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier
+      },
+      resource:
+        pipelineIdentifier || queryParams.pipelineIdentifier
+          ? {
+              resourceType: ResourceType.PIPELINE,
+              resourceIdentifier: (pipelineIdentifier || queryParams.pipelineIdentifier) as string
+            }
+          : undefined,
+      permissions: [PermissionIdentifier.EXECUTE_PIPELINE]
+    },
+    [accountId, orgIdentifier, projectIdentifier, pipelineIdentifier || queryParams.pipelineIdentifier]
+  )
+  const disableRun = !canExecute
+
   return (
     <Page.Body
       className={css.main}
@@ -128,7 +151,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
         refetchFilters={refetchFilters}
         queryParams={queryParams}
       >
-        <PipelineDeploymentListHeader onRunPipeline={props.onRunPipeline} />
+        <PipelineDeploymentListHeader onRunPipeline={props.onRunPipeline} disableRun={disableRun} />
         {loading && !pollingRequest ? (
           <OverlaySpinner show={true} className={css.loading}>
             <div />
@@ -144,7 +167,12 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
               <Text padding={{ top: 'small', bottom: 'small' }} font="medium">
                 {getString(isCIModule ? 'noBuildsText' : 'noDeploymentText')}
               </Text>
-              <Button intent="primary" onClick={props.onRunPipeline} text={getString('runPipelineText')}></Button>
+              <Button
+                intent="primary"
+                onClick={props.onRunPipeline}
+                text={getString('runPipelineText')}
+                disabled={disableRun}
+              ></Button>
             </div>
           )
         ) : (

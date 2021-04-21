@@ -454,10 +454,13 @@ export const PipelineProvider: React.FC<{
       resourceScope: {
         ...queryParams
       },
-      resource: {
-        resourceType: ResourceType.PIPELINE,
-        resourceIdentifier: pipelineIdentifier
-      },
+      resource:
+        pipelineIdentifier !== '-1'
+          ? {
+              resourceType: ResourceType.PIPELINE,
+              resourceIdentifier: pipelineIdentifier
+            }
+          : undefined,
       permissions: [PermissionIdentifier.EDIT_PIPELINE],
       options: {
         skipCache: true

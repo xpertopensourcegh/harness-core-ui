@@ -409,6 +409,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                               })
                             }}
                             text={getString('save')}
+                            disabled={!isEditable}
                           />
                           &nbsp; &nbsp;
                           <Button

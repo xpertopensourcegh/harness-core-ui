@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import type { Column, CellProps, Renderer } from 'react-table'
-import { Layout, Color, Text, Button } from '@wings-software/uicore'
+import { Layout, Color, Text } from '@wings-software/uicore'
 import Table from '@common/components/Table/Table'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
 import type { PagePMSPipelineSummaryResponse, PMSPipelineSummaryResponse } from 'services/pipeline-ng'
@@ -9,6 +9,9 @@ import { String, useStrings } from 'framework/strings'
 
 import routes from '@common/RouteDefinitions'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
+import RbacButton from '@rbac/components/Button/Button'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
 import css from './PipelineModalListView.module.scss'
 
 type CustomColumn<T extends object> = Column<T> & {
@@ -87,11 +90,23 @@ export default function RunPipelineListView({
   const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row }): JSX.Element => {
     const rowdata = row.original
     return (
-      <Button
+      <RbacButton
         icon="run-pipeline"
         intent="primary"
         text={<String stringID="runPipelineText" />}
         onClick={() => routeToPipelinesPage(rowdata.identifier || '')}
+        permission={{
+          resourceScope: {
+            accountIdentifier: accountId,
+            orgIdentifier,
+            projectIdentifier
+          },
+          resource: {
+            resourceType: ResourceType.PIPELINE,
+            resourceIdentifier: rowdata.identifier as string
+          },
+          permission: PermissionIdentifier.EXECUTE_PIPELINE
+        }}
       />
     )
   }

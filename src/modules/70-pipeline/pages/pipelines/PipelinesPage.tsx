@@ -591,11 +591,19 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
                   {getString('pipeline-list.aboutPipeline')}
                 </Text>
 
-                <Button
+                <RbacButton
                   intent="primary"
                   onClick={() => goToPipeline()}
                   text={getString('pipeline-list.createPipeline')}
-                ></Button>
+                  permission={{
+                    resourceScope: {
+                      accountIdentifier: accountId,
+                      orgIdentifier,
+                      projectIdentifier
+                    },
+                    permission: PermissionIdentifier.EDIT_PIPELINE
+                  }}
+                />
               </div>
             </div>
           )

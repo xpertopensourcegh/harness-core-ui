@@ -24,6 +24,7 @@ export interface FilterQueryParams {
 }
 export interface PipelineDeploymentListHeaderProps {
   onRunPipeline(): void
+  disableRun?: boolean
 }
 
 export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeaderProps): React.ReactElement {
@@ -62,7 +63,7 @@ export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeader
   return (
     <div className={css.main}>
       <div className={css.lhs}>
-        <Button icon="run-pipeline" intent="primary" onClick={props.onRunPipeline}>
+        <Button icon="run-pipeline" intent="primary" onClick={props.onRunPipeline} disabled={props.disableRun || false}>
           <String className={css.runText} stringID="runPipelineText" />
         </Button>
         <div className={cx(css.filterGroup, css.btnGroup)}>
