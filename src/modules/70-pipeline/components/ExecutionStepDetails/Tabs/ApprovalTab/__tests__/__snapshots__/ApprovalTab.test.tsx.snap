@@ -38,16 +38,13 @@ exports[`<ApprovalTab /> tests renders harness approval step 1`] = `
       </tbody>
     </table>
     <div
-      class="harnessApproval"
+      class="harnessApproval completed"
     >
-      <p
-        class="StyledProps--font StyledProps--main"
+      <div
+        class="approversHeading"
       >
-        <span>
-          pipeline.approvalStep.approvers
-        </span>
-        :
-      </p>
+        pipeline.approvalStep.approversWithColon
+      </div>
       <div
         class="approver"
       >

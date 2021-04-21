@@ -10,12 +10,15 @@ declare const styles: {
   readonly reviewMsg: string
   readonly jiraTicket: string
   readonly criteriaMsg: string
+  readonly statusMsg: string
   readonly harnessApproval: string
+  readonly completed: string
   readonly inputs: string
   readonly heading: string
   readonly formRow: string
   readonly labels: string
   readonly actions: string
+  readonly approversHeading: string
   readonly approver: string
   readonly approverName: string
   readonly summary: string

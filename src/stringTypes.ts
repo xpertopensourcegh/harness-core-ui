@@ -551,6 +551,7 @@ export interface StringsMap {
   'pipeline.approvalStep.addUserGroups': string
   'pipeline.approvalStep.approverInputs': string
   'pipeline.approvalStep.approvers': string
+  'pipeline.approvalStep.approversWithColon': string
   'pipeline.approvalStep.disallowPipelineExecutor': string
   'pipeline.approvalStep.fetchUserGroupsFailed': string
   'pipeline.approvalStep.fetchingUserGroups': string

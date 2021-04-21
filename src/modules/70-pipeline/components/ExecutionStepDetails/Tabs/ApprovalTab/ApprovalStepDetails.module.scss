@@ -34,7 +34,7 @@
     }
 
     .review-msg {
-      margin-bottom: var(--spacing-large);
+      margin-bottom: var(--spacing-xsmall);
     }
 
     .jira-ticket {
@@ -50,10 +50,20 @@
       font-weight: bold;
     }
   }
+
+  .status-msg {
+    padding: var(--spacing-large);
+    font-weight: bold;
+  }
 }
 
 .harness-approval {
-  padding: var(--spacing-medium) var(--spacing-large);
+  padding: 0 var(--spacing-large);
+
+  &.completed {
+    margin-top: -18px;
+    margin-left: var(--spacing-xsmall);
+  }
 
   .inputs {
     padding: var(--spacing-medium) 0;
@@ -79,7 +89,17 @@
     :global(.bp3-button + .bp3-button) {
       margin-left: var(--spacing-small);
     }
+
+    :global(.bp3-icon + .bp3-button-text) {
+      margin-left: var(--spacing-xsmall);
+    }
   }
+}
+
+.approversHeading {
+  font-size: var(--font-size-small);
+  color: var(--grey-400);
+  font-weight: bold;
 }
 
 .approver {

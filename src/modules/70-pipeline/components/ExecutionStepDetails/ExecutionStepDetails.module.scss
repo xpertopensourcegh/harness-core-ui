@@ -4,6 +4,10 @@
   flex-direction: column;
   height: 100%;
 
+  & > :global(.bp3-spinner) {
+    flex: 1;
+  }
+
   .header {
     padding: var(--spacing-large);
     display: grid;

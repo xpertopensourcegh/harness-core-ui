@@ -3,7 +3,7 @@ import moment from 'moment'
 import { partition } from 'lodash-es'
 
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
-import { isExecutionComplete } from '@pipeline/utils/statusHelpers'
+import { isExecutionComplete, isExecutionSkipped } from '@pipeline/utils/statusHelpers'
 import { String, useStrings } from 'framework/strings'
 import { Collapse } from '../Common/Collapse/Collapse'
 
@@ -13,8 +13,9 @@ export function PipelineDetailsTab(): React.ReactElement {
   const { pipelineStagesMap, queryParams } = useExecutionContext()
   const { getString } = useStrings()
 
-  const [completedStages, upcomingStages] = partition([...pipelineStagesMap.values()], stage =>
-    isExecutionComplete(stage.status)
+  const [completedStages, upcomingStages] = partition(
+    [...pipelineStagesMap.values()].filter(stage => isExecutionSkipped(stage.status)),
+    stage => isExecutionComplete(stage.status)
   )
   const filteredCompletedStages = completedStages.reverse().filter(stage => queryParams.stage !== stage.nodeUuid)
   const filteredUpcomingStages = upcomingStages.filter(stage => queryParams.stage !== stage.nodeUuid)

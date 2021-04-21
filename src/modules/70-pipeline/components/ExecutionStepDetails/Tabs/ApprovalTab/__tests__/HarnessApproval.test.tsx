@@ -2,7 +2,7 @@ import React from 'react'
 import { render, fireEvent, waitFor, queryByAttribute } from '@testing-library/react'
 
 import { TestWrapper } from '@common/utils/testUtils'
-import { useGetHarnessApprovalInstanceAuthorization, useAddHarnessApprovalActivity } from 'services/pipeline-ng'
+import { useAddHarnessApprovalActivity } from 'services/pipeline-ng'
 import { HarnessApproval, HarnessApprovalProps } from '../HarnessApproval/HarnessApproval'
 import approvalData from './HarnessApprovalData.json'
 
@@ -20,7 +20,6 @@ jest.mock('moment', () => {
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => () => null)
 jest.mock('services/pipeline-ng', () => ({
-  useGetHarnessApprovalInstanceAuthorization: jest.fn(() => ({ data: {}, loading: false })),
   useAddHarnessApprovalActivity: jest.fn(() => ({ mutate: jest.fn() }))
 }))
 
@@ -39,7 +38,8 @@ describe('<HarnessApproval /> tests', () => {
       isWaiting: true,
       approvalInstanceId: 'TEST_ID',
       approvalData: approvalData as any,
-      updateState: jest.fn()
+      updateState: jest.fn(),
+      authData: null
     }
 
     beforeEach(() => {
@@ -47,12 +47,9 @@ describe('<HarnessApproval /> tests', () => {
     })
 
     test('shows form if user is authorized', async () => {
-      ;(useGetHarnessApprovalInstanceAuthorization as jest.Mock).mockImplementation(() => ({
-        data: { data: { authorized: true } }
-      }))
       const { container, findByText } = render(
         <TestWrapper>
-          <HarnessApproval {...commonProps} />
+          <HarnessApproval {...commonProps} authData={{ data: { authorized: true } }} />
         </TestWrapper>
       )
 
@@ -62,12 +59,9 @@ describe('<HarnessApproval /> tests', () => {
     })
 
     test('does not shows form if user is authorized', async () => {
-      ;(useGetHarnessApprovalInstanceAuthorization as jest.Mock).mockImplementation(() => ({
-        data: { data: { authorized: false } }
-      }))
       const { container, getByText } = render(
         <TestWrapper>
-          <HarnessApproval {...commonProps} />
+          <HarnessApproval {...commonProps} authData={{ data: { authorized: false } }} />
         </TestWrapper>
       )
 
@@ -78,13 +72,10 @@ describe('<HarnessApproval /> tests', () => {
 
     test('Approving works', async () => {
       const mutate = jest.fn()
-      ;(useGetHarnessApprovalInstanceAuthorization as jest.Mock).mockImplementation(() => ({
-        data: { data: { authorized: true } }
-      }))
       ;(useAddHarnessApprovalActivity as jest.Mock).mockImplementation(() => ({ mutate }))
       const { findByText, container } = render(
         <TestWrapper>
-          <HarnessApproval {...commonProps} />
+          <HarnessApproval {...commonProps} authData={{ data: { authorized: true } }} />
         </TestWrapper>
       )
 
@@ -114,13 +105,10 @@ describe('<HarnessApproval /> tests', () => {
 
     test('Rejecting works', async () => {
       const mutate = jest.fn()
-      ;(useGetHarnessApprovalInstanceAuthorization as jest.Mock).mockImplementation(() => ({
-        data: { data: { authorized: true } }
-      }))
       ;(useAddHarnessApprovalActivity as jest.Mock).mockImplementation(() => ({ mutate }))
       const { findByText, container } = render(
         <TestWrapper>
-          <HarnessApproval {...commonProps} />
+          <HarnessApproval {...commonProps} authData={{ data: { authorized: true } }} />
         </TestWrapper>
       )
 
@@ -153,7 +141,8 @@ describe('<HarnessApproval /> tests', () => {
       isWaiting: false,
       approvalInstanceId: 'TEST_ID',
       approvalData: approvalData as any,
-      updateState: jest.fn()
+      updateState: jest.fn(),
+      authData: { data: { authorized: false } }
     }
     test('form is not shown', async () => {
       const { container, getByText } = render(

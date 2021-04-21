@@ -1,11 +1,9 @@
 import React from 'react'
-import { Button, FormInput, Text, TextInput } from '@wings-software/uicore'
+import { Button, FormInput, TextInput } from '@wings-software/uicore'
 import { Formik } from 'formik'
 import cx from 'classnames'
-import { Spinner } from '@blueprintjs/core'
 
 import {
-  useGetHarnessApprovalInstanceAuthorization,
   useAddHarnessApprovalActivity,
   ApprovalInstanceResponse,
   HarnessApprovalActivityRequest,
@@ -27,68 +25,63 @@ export interface HarnessApprovalProps {
   }
   isWaiting: boolean
   updateState(data: ResponseApprovalInstanceResponse): void
-  getApprovalAuthorizationMock?: {
-    loading: boolean
-    data: ResponseHarnessApprovalInstanceAuthorization
-  }
-  showSpinner?: boolean
+  authData: ResponseHarnessApprovalInstanceAuthorization | null
 }
 
 export function HarnessApproval(props: HarnessApprovalProps): React.ReactElement {
-  const { approvalData, approvalInstanceId, isWaiting, updateState, getApprovalAuthorizationMock, showSpinner } = props
+  const { approvalData, approvalInstanceId, isWaiting, updateState, authData } = props
 
-  const { data: authData, loading } = useGetHarnessApprovalInstanceAuthorization({
-    approvalInstanceId,
-    lazy: !isWaiting,
-    mock: getApprovalAuthorizationMock
-  })
   const { mutate: submitApproval, loading: submitting } = useAddHarnessApprovalActivity({ approvalInstanceId })
   const action = React.useRef<HarnessApprovalActivityRequest['action']>('APPROVE')
   const isCurrentUserAuthorized = !!authData?.data?.authorized
+  const isWaitingAll = isWaiting && isExecutionWaiting(approvalData.status)
 
   async function handleSubmit(data: HarnessApprovalActivityRequest): Promise<void> {
     const newState = await submitApproval({ ...data, action: action.current })
     updateState(newState)
   }
 
-  if (loading || showSpinner) return <Spinner />
-
   return (
     <React.Fragment>
-      {isWaiting && isExecutionWaiting(approvalData.status) ? (
-        <div className={css.info} data-type="harness">
-          {isWaiting ? (
-            <div className={css.timer}>
-              <Duration
-                className={css.duration}
-                durationText=""
-                icon="hourglass"
-                startTime={approvalData.deadline}
-                iconProps={{ size: 8 }}
-              />
-              <String stringID="execution.approvals.timeRemainingSuffix" />
-            </div>
-          ) : null}
-          <div className={css.reviewMsg}>{approvalData.details.approvalMessage}</div>
+      {isWaitingAll ? (
+        <React.Fragment>
+          <div className={css.info} data-type="harness">
+            {isWaiting ? (
+              <div className={css.timer}>
+                <Duration
+                  className={css.duration}
+                  durationText=""
+                  icon="hourglass"
+                  startTime={approvalData.deadline}
+                  iconProps={{ size: 8 }}
+                />
+                <String stringID="execution.approvals.timeRemainingSuffix" />
+              </div>
+            ) : null}
+            <div className={css.reviewMsg}>{approvalData.details.approvalMessage}</div>
+          </div>
           <String
             tagName="div"
+            className={css.statusMsg}
             stringID="execution.approvals.statusMsg"
             vars={{
               count: approvalData.details.approvalActivities?.length || 0,
               total: approvalData.details.approvers?.minimumCount || 1
             }}
           />
-        </div>
+        </React.Fragment>
       ) : (
         <StepDetails step={{ startTs: approvalData.createdAt, endTs: approvalData.lastModifiedAt }} />
       )}
-      <div className={css.harnessApproval}>
+      <div className={cx(css.harnessApproval, { [css.completed]: !isWaitingAll })}>
         {Array.isArray(approvalData.details.approvalActivities) &&
         approvalData.details.approvalActivities.length > 0 ? (
           <React.Fragment>
-            <Text>
-              <String stringID="pipeline.approvalStep.approvers" />:
-            </Text>
+            <String
+              className={css.approversHeading}
+              tagName="div"
+              stringID="pipeline.approvalStep.approversWithColon"
+            />
             {approvalData.details.approvalActivities.map((row, i) => (
               <HarnessApprover key={i} approvalActivity={row} />
             ))}
@@ -138,7 +131,7 @@ export function HarnessApproval(props: HarnessApprovalProps): React.ReactElement
                   ) : null}
                   <FormInput.TextArea label="comments" name="comments" disabled={submitting} />
                   <div className={css.actions}>
-                    <Button intent="primary" onClick={handleApproveClick} disabled={submitting}>
+                    <Button icon="tick" intent="primary" onClick={handleApproveClick} disabled={submitting}>
                       <String stringID="common.approve" />
                     </Button>
                     <Button icon="cross" onClick={handleRejectClick} disabled={submitting}>

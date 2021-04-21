@@ -4,12 +4,17 @@ import { Spinner } from '@blueprintjs/core'
 import cx from 'classnames'
 import { Layout } from '@wings-software/uicore'
 
-import type { ExecutionNode } from 'services/pipeline-ng'
-import { useGetApprovalInstance, ResponseApprovalInstanceResponse } from 'services/pipeline-ng'
+import type { ExecutionNode, ResponseHarnessApprovalInstanceAuthorization } from 'services/pipeline-ng'
+import {
+  useGetApprovalInstance,
+  useGetHarnessApprovalInstanceAuthorization,
+  ResponseApprovalInstanceResponse
+} from 'services/pipeline-ng'
 import { isExecutionWaiting } from '@pipeline/utils/statusHelpers'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { useGlobalEventListener, useDeepCompareEffect } from '@common/hooks'
 import { PageError } from '@common/components/Page/PageError'
+import { isHarnessApproval } from '@pipeline/utils/stepUtils'
 
 import { HarnessApproval, HarnessApprovalProps } from './HarnessApproval/HarnessApproval'
 import { JiraApproval, JiraApprovalProps } from './JiraApproval/JiraApproval'
@@ -31,7 +36,10 @@ export interface ApprovalTabProps {
     data?: ResponseApprovalInstanceResponse
     loading?: boolean
   }
-  getApprovalAuthorizationMock?: HarnessApprovalProps['getApprovalAuthorizationMock']
+  getApprovalAuthorizationMock?: {
+    loading: boolean
+    data: ResponseHarnessApprovalInstanceAuthorization
+  }
 }
 
 export function ApprovalTab(props: ApprovalTabProps): React.ReactElement | null {
@@ -43,9 +51,15 @@ export function ApprovalTab(props: ApprovalTabProps): React.ReactElement | null 
   // hence we can save one additional call to the server
   const [approvalData, setApprovalData] = React.useState<ResponseApprovalInstanceResponse | null>(null)
 
-  const { data, refetch, loading, error } = useGetApprovalInstance({
+  const { data, refetch, loading: loadingApprovalData, error } = useGetApprovalInstance({
     approvalInstanceId,
     mock
+  })
+
+  const { data: authData, loading: loadingAuthData } = useGetHarnessApprovalInstanceAuthorization({
+    approvalInstanceId,
+    lazy: !(isHarnessApproval(step.stepType) && isWaiting),
+    mock: getApprovalAuthorizationMock
   })
 
   useDeepCompareEffect(() => {
@@ -56,7 +70,7 @@ export function ApprovalTab(props: ApprovalTabProps): React.ReactElement | null 
     refetch()
   })
 
-  if (loading)
+  if (loadingApprovalData || loadingAuthData)
     return (
       <Layout.Vertical height="100%" flex={{ alignItems: 'center', justifyContent: 'center' }}>
         <Spinner />
@@ -75,8 +89,7 @@ export function ApprovalTab(props: ApprovalTabProps): React.ReactElement | null 
               approvalInstanceId={approvalInstanceId}
               isWaiting={isWaiting}
               updateState={setApprovalData}
-              getApprovalAuthorizationMock={getApprovalAuthorizationMock}
-              showSpinner={loading}
+              authData={authData}
             />
           ) : null}
           {approvalData?.data && step.stepType === StepType.JiraApproval ? (
