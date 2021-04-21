@@ -9,6 +9,7 @@ type Permissions = Map<string, boolean>
 
 export interface PermissionRequestOptions {
   skipCache?: boolean
+  skipCondition?: (permissionRequest: PermissionCheck) => boolean
 }
 
 export interface PermissionsContextProps {
@@ -71,11 +72,16 @@ export function PermissionsProvider(props: React.PropsWithChildren<PermissionsPr
   ): Promise<void> {
     if (!permissionRequest) return
 
-    const { skipCache = false } = options || {}
+    const { skipCache = false, skipCondition } = options || {}
 
     // exit early if we already fetched this permission before
     // disabling this will disable caching, because it will make a fresh request and update in the store
     if (!skipCache && permissions.has(getStringKeyFromObjectValues(permissionRequest, keysToCompare))) {
+      return
+    }
+
+    // exit early if user has defined a skipCondition and if it returns true
+    if (skipCondition && skipCondition(permissionRequest) === true) {
       return
     }
 

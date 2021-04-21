@@ -106,9 +106,14 @@ const SampleComponent = () => {
       }
       // The permissions you want to check
       permissions: [PermissionIdentifier.UPDATE_PROJECT, PermissionIdentifier.DELETE_PROJECT],
-      // connfiguration options
+      // configuration options
       options: {
-        skipCache: true
+        // if true, in-memory cache will be skipped and
+        // api call will be made for each execution of hook
+        skipCache: true,
+        // a function from which you can return `true` to skip the api call conditionally
+        // you'll get the actual request body as the argument
+        skipCondition: (permissionRequest) => boolean
       }
     },
     // dependencies array, similar to useEffect's second parameter
