@@ -10,6 +10,7 @@ import type {
   StageElementWrapper,
   StageElementWrapperConfig
 } from 'services/cd-ng'
+import type { PermissionCheck } from 'services/rbac'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
 import SessionToken from 'framework/utils/SessionToken'
@@ -454,16 +455,14 @@ export const PipelineProvider: React.FC<{
       resourceScope: {
         ...queryParams
       },
-      resource:
-        pipelineIdentifier !== '-1'
-          ? {
-              resourceType: ResourceType.PIPELINE,
-              resourceIdentifier: pipelineIdentifier
-            }
-          : undefined,
+      resource: {
+        resourceType: ResourceType.PIPELINE,
+        resourceIdentifier: pipelineIdentifier
+      },
       permissions: [PermissionIdentifier.EDIT_PIPELINE],
       options: {
-        skipCache: true
+        skipCache: true,
+        skipCondition: (permissionCheck: PermissionCheck) => permissionCheck.resourceIdentifier !== '-1'
       }
     },
     [queryParams, pipelineIdentifier]

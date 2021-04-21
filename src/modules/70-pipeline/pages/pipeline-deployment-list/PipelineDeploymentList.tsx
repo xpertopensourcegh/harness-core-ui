@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { Button, Text, Icon, OverlaySpinner } from '@wings-software/uicore'
 
 import { useGetListOfExecutions, useGetFilterList } from 'services/pipeline-ng'
+import type { PermissionCheck } from 'services/rbac'
 import { useStrings } from 'framework/strings'
 import { Page, StringUtils } from '@common/exports'
 import { useQueryParams, useMutateAsGet } from '@common/hooks'
@@ -125,14 +126,14 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
         orgIdentifier,
         projectIdentifier
       },
-      resource:
-        pipelineIdentifier || queryParams.pipelineIdentifier
-          ? {
-              resourceType: ResourceType.PIPELINE,
-              resourceIdentifier: (pipelineIdentifier || queryParams.pipelineIdentifier) as string
-            }
-          : undefined,
-      permissions: [PermissionIdentifier.EXECUTE_PIPELINE]
+      resource: {
+        resourceType: ResourceType.PIPELINE,
+        resourceIdentifier: (pipelineIdentifier || queryParams.pipelineIdentifier) as string
+      },
+      permissions: [PermissionIdentifier.EXECUTE_PIPELINE],
+      options: {
+        skipCondition: (permissionCheck: PermissionCheck) => !permissionCheck.resourceIdentifier
+      }
     },
     [accountId, orgIdentifier, projectIdentifier, pipelineIdentifier || queryParams.pipelineIdentifier]
   )
