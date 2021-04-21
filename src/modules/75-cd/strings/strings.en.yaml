@@ -14,3 +14,5 @@ steps:
   kubernetesGcpStep:
     stepName: Specify your GCP Connector
 folderPath: Folder Path
+namespaceValidation: Namespace must consist of lower case alphanumeric characters or '-', and must start and end with an alphanumeric character (e.g. 'my-name',  or '123-abc')
+releaseNameValidation: Releasename must consist of lower case alphanumeric characters, '-' or '.', and must start and end with an alphanumeric character (e.g. 'example.com')

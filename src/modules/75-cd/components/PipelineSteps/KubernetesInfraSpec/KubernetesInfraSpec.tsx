@@ -10,6 +10,7 @@ import {
   MultiTypeInputType,
   Icon
 } from '@wings-software/uicore'
+import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
 import { debounce, noop, isEmpty, get } from 'lodash-es'
 import { parse } from 'yaml'
@@ -60,6 +61,9 @@ interface KubernetesInfraSpecEditableProps {
   variablesData: K8SDirectInfrastructure
 }
 
+const namespaceRegex = /^[a-z0-9]([-a-z0-9]*[a-z0-9])?$/
+const releaseNameRegex = /^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$/
+
 const getConnectorValue = (connector?: ConnectorResponse): string =>
   `${
     connector?.connector?.orgIdentifier && connector?.connector?.projectIdentifier
@@ -108,6 +112,10 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
           }
           delayedOnUpdate(data)
         }}
+        validationSchema={Yup.object().shape({
+          namespace: Yup.string().matches(namespaceRegex, getString('cd.namespaceValidation')),
+          releaseName: Yup.string().matches(releaseNameRegex, getString('cd.releaseNameValidation'))
+        })}
         onSubmit={noop}
       >
         {formik => {
