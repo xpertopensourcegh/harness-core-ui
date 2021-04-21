@@ -1,0 +1,362 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserGroupDetails Test render data 1`] = `
+<div>
+  <div
+    class="Layout--horizontal StyledProps--main container xlarge header StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+  >
+    <div
+      class="Layout--vertical StyledProps--main"
+    >
+      <div
+        class="breadcrumbs"
+      >
+        <div>
+          <a
+            class="breadcrumb"
+            href="/account/testAcc/admin/access-control"
+          >
+            accessControl
+          </a>
+          <span
+            class="bp3-icon StyledProps--main separator"
+            data-icon="main-chevron-right"
+          >
+            <svg
+              height="11"
+              viewBox="0 0 8 14"
+              width="11"
+            >
+              <path
+                d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                fill="#4d5969"
+              />
+            </svg>
+          </span>
+        </div>
+        <div>
+          <a
+            class="breadcrumb"
+            href="/account/testAcc/admin/access-control/user-groups"
+          >
+            common.userGroups
+          </a>
+          <span
+            class="bp3-icon StyledProps--main separator"
+            data-icon="main-chevron-right"
+          >
+            <svg
+              height="11"
+              viewBox="0 0 8 14"
+              width="11"
+            >
+              <path
+                d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                fill="#4d5969"
+              />
+            </svg>
+          </span>
+        </div>
+        <div>
+          <span
+            class="lastBreadcrumb"
+          >
+            New RG
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+      >
+        <div
+          class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-left-medium"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-medium"
+          >
+            New RG
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            
+          </p>
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--padding-top-small"
+          >
+            <div
+              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="Layout--horizontal StyledProps--main StyledProps--flex"
+    >
+      <div
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-left-small"
+      >
+        <p
+          class="StyledProps--font StyledProps--main"
+        >
+          lastUpdated
+        </p>
+        dummy date
+      </div>
+    </div>
+  </div>
+  <div
+    class="StyledProps--font StyledProps--main pageBody body"
+  >
+    <div
+      class="StyledProps--font StyledProps--main membersContainer"
+      style="width: 50%;"
+    >
+      <div
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-bottom-large"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
+        >
+          members
+        </p>
+        <div
+          class="StyledProps--font StyledProps--main memberList"
+        >
+          <div
+            class="table"
+          >
+            <div
+              class="row card"
+              role="row"
+            >
+              <div
+                class="cell"
+                role="cell"
+                style="width: 45%;"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+                >
+                  <div
+                    class="Avatar--Avatar Avatar--contentStyle"
+                  >
+                    <span
+                      class="bp3-popover-wrapper Avatar--avatarPopOver"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class="Avatar--AvatarInner"
+                          style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                          tabindex="0"
+                        >
+                          A
+                        </div>
+                      </span>
+                    </span>
+                  </div>
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    Admin
+                  </p>
+                </div>
+              </div>
+              <div
+                class="cell"
+                role="cell"
+                style="width: 50%;"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main"
+                >
+                  admin@harness.io
+                </p>
+              </div>
+              <div
+                class="cell"
+                role="cell"
+                style="width: 5%;"
+              >
+                <div
+                  class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end"
+                >
+                  <span
+                    class="bp3-popover-wrapper bp3-dark"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <button
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                        data-testid="menu-lv0euRhKRCyiXWzS7pOg6g"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-icon StyledProps--main"
+                          data-icon="Options"
+                        >
+                          <svg
+                            fill="none"
+                            height="16"
+                            viewBox="0 0 4 16"
+                            width="16"
+                          >
+                            <path
+                              clip-rule="evenodd"
+                              d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                              fill="currentColor"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              class="row card"
+              role="row"
+            >
+              <div
+                class="cell"
+                role="cell"
+                style="width: 45%;"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+                >
+                  <div
+                    class="Avatar--Avatar Avatar--contentStyle"
+                  >
+                    <span
+                      class="bp3-popover-wrapper Avatar--avatarPopOver"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class="Avatar--AvatarInner"
+                          style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                          tabindex="0"
+                        >
+                          D
+                        </div>
+                      </span>
+                    </span>
+                  </div>
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    default2fa
+                  </p>
+                </div>
+              </div>
+              <div
+                class="cell"
+                role="cell"
+                style="width: 50%;"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main"
+                >
+                  default2fa@harness.io
+                </p>
+              </div>
+              <div
+                class="cell"
+                role="cell"
+                style="width: 5%;"
+              >
+                <div
+                  class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end"
+                >
+                  <span
+                    class="bp3-popover-wrapper bp3-dark"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <button
+                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                        data-testid="menu-ZqXNvYmURnO46PX7HwgEtQ"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-icon StyledProps--main"
+                          data-icon="Options"
+                        >
+                          <svg
+                            fill="none"
+                            height="16"
+                            viewBox="0 0 4 16"
+                            width="16"
+                          >
+                            <path
+                              clip-rule="evenodd"
+                              d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                              fill="currentColor"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main detailsContainer"
+      style="width: 50%;"
+    >
+      <div
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-bottom-large"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
+        >
+          rbac.roleBinding
+        </p>
+        <div
+          class="bp3-card bp3-elevation-0 Card--card card"
+        >
+          <span
+            class="bp3-tag harnesstag"
+          >
+            <span
+              class="bp3-text-overflow-ellipsis bp3-fill"
+            >
+              Account Viewer - All Resources
+            </span>
+          </span>
+        </div>
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--padding-top-medium"
+        >
+          <button
+            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main addButton"
+            data-testid="addRole-UserGroup"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              common.plusNumber
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

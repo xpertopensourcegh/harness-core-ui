@@ -119,6 +119,7 @@ export interface StringsMap {
   'common.letsGetYouStarted': string
   'common.logs.delegateSelectionLogs': string
   'common.logs.noLogsText': string
+  'common.member': string
   'common.namespace': string
   'common.options': string
   'common.orgViewer': string
@@ -153,6 +154,7 @@ export interface StringsMap {
   'common.refresh': string
   'common.reject': string
   'common.releaseName': string
+  'common.remove': string
   'common.removeThisVariable': string
   'common.repo_provider.awscodecommit': string
   'common.repo_provider.azureDev': string
@@ -254,6 +256,10 @@ export interface StringsMap {
   'rbac.userGroupPage.noUserGroups': string
   'rbac.userGroupPage.search': string
   'rbac.userGroupPage.successMessage': string
+  'rbac.userGroupPage.userList.deleteConfirmation': string
+  'rbac.userGroupPage.userList.deleteFailureMessage': string
+  'rbac.userGroupPage.userList.deleteSuccessMessage': string
+  'rbac.userGroupPage.userList.deleteTitle': string
   'rbac.usersPage.assignRoles': string
   'rbac.usersPage.deleteConfirmation': string
   'rbac.usersPage.deleteSuccessMessage': string

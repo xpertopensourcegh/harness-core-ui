@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react'
 import { Text, Layout, Button, Popover, AvatarGroup } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position, Menu, Intent } from '@blueprintjs/core'
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import {
   UserGroupAggregateDTO,
   useDeleteUserGroup,
@@ -17,7 +17,7 @@ import { useConfirmationDialog, useToaster } from '@common/exports'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
 import { PrincipalType } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-// import routes from '@common/RouteDefinitions'
+import routes from '@common/RouteDefinitions'
 import css from './UserGroupsListView.module.scss'
 
 interface UserGroupsListViewProps {
@@ -49,6 +49,7 @@ const RenderColumnMembers: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row }
 
   return <AvatarGroup avatars={avatars} restrictLengthTo={6} />
 }
+
 const RenderColumnRoleAssignments: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, column }) => {
   const data = row.original.roleAssignmentsMetadataDTO?.map(item => ({
     item: `${item.roleName} - ${item.resourceGroupName}`,
@@ -148,9 +149,9 @@ const RenderColumnMenu: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, col
 
 const UserGroupsListView: React.FC<UserGroupsListViewProps> = props => {
   const { data, gotoPage, reload, openRoleAssignmentModal } = props
-  // const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const { getString } = useStrings()
-  // const history = useHistory()
+  const history = useHistory()
 
   const columns: Column<UserGroupAggregateDTO>[] = useMemo(
     () => [
@@ -194,16 +195,16 @@ const UserGroupsListView: React.FC<UserGroupsListViewProps> = props => {
       columns={columns}
       data={data?.data?.content || []}
       // TODO: enable when page is ready
-      // onRowClick={userGroup => {
-      //   history.push(
-      //     routes.toUserGroupDetails({
-      //       accountId,
-      //       orgIdentifier,
-      //       projectIdentifier,
-      //       userGroupIdentifier: userGroup.userGroupDTO.identifier
-      //     })
-      //   )
-      // }}
+      onRowClick={userGroup => {
+        history.push(
+          routes.toUserGroupDetails({
+            accountId,
+            orgIdentifier,
+            projectIdentifier,
+            userGroupIdentifier: userGroup.userGroupDTO.identifier
+          })
+        )
+      }}
       pagination={{
         itemCount: data?.data?.totalItems || 0,
         pageSize: data?.data?.pageSize || 10,

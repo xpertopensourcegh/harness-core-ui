@@ -603,7 +603,7 @@ exports[`UsersPage Test render data 1`] = `
         </div>
       </div>
       <div
-        class="row card"
+        class="row card clickable"
         role="row"
       >
         <div

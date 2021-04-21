@@ -13,6 +13,8 @@ comments: Comments
 approve: Approve
 reject: Reject
 disable: Disable
+remove: Remove
+member: Member
 PermissibleActions: Permissible Actions
 My: My
 ID: ID

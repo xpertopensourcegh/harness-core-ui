@@ -4,5 +4,9 @@ declare const styles: {
   readonly header: string
   readonly body: string
   readonly card: string
+  readonly membersContainer: string
+  readonly detailsContainer: string
+  readonly memberList: string
+  readonly addButton: string
 }
 export default styles

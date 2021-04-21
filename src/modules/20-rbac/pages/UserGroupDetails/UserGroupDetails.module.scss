@@ -3,11 +3,32 @@
 }
 
 .body {
-  padding: var(--spacing-large);
+  padding: var(--spacing-large) !important;
+  display: flex;
+  flex-direction: row;
 }
 
 .card {
   box-shadow: var(--card-box-shadow);
   align-items: center;
-  justify-content: center;
+  display: flex !important;
+  flex-wrap: wrap;
+  gap: var(--spacing-xsmall);
+}
+
+.membersContainer {
+  border-right: 1px solid var(--grey-250);
+  padding: var(--spacing-large) !important;
+}
+
+.detailsContainer {
+  padding: var(--spacing-large) !important;
+}
+
+.memberList {
+  overflow: scroll;
+}
+
+.addButton {
+  color: var(--blue-500) !important;
 }
