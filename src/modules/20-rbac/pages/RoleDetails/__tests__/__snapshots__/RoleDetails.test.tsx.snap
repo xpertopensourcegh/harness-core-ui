@@ -325,51 +325,15 @@ exports[`Role Details Page Click on Resource Type 1`] = `
                       >
                         <input
                           checked=""
-                          data-testid="checkBox-ORGANIZATION-edit"
-                          type="checkbox"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        edit
-                      </label>
-                      <label
-                        class="bp3-control bp3-checkbox checkbox"
-                      >
-                        <input
-                          checked=""
-                          data-testid="checkBox-ORGANIZATION-create"
-                          type="checkbox"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        create
-                      </label>
-                      <label
-                        class="bp3-control bp3-checkbox checkbox"
-                      >
-                        <input
-                          checked=""
-                          data-testid="checkBox-ORGANIZATION-delete"
-                          type="checkbox"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        delete
-                      </label>
-                      <label
-                        class="bp3-control bp3-checkbox checkbox"
-                      >
-                        <input
                           data-testid="checkBox-ORGANIZATION-view"
                           type="checkbox"
                         />
                         <span
                           class="bp3-control-indicator"
                         />
-                        view
+                        <span>
+                          rbac.permissionLabels.view
+                        </span>
                       </label>
                     </div>
                   </div>
@@ -383,60 +347,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
                     </p>
                     <div
                       class="permissionList"
-                    >
-                      <label
-                        class="bp3-control bp3-checkbox checkbox"
-                      >
-                        <input
-                          checked=""
-                          data-testid="checkBox-PROJECT-edit"
-                          type="checkbox"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        edit
-                      </label>
-                      <label
-                        class="bp3-control bp3-checkbox checkbox"
-                      >
-                        <input
-                          checked=""
-                          data-testid="checkBox-PROJECT-create"
-                          type="checkbox"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        create
-                      </label>
-                      <label
-                        class="bp3-control bp3-checkbox checkbox"
-                      >
-                        <input
-                          checked=""
-                          data-testid="checkBox-PROJECT-view"
-                          type="checkbox"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        view
-                      </label>
-                      <label
-                        class="bp3-control bp3-checkbox checkbox"
-                      >
-                        <input
-                          checked=""
-                          data-testid="checkBox-PROJECT-delete"
-                          type="checkbox"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        delete
-                      </label>
-                    </div>
+                    />
                   </div>
                 </div>
               </div>
@@ -490,22 +401,6 @@ exports[`Role Details Page Click on Resource Type 1`] = `
                     >
                       Secrets
                     </p>
-                    <div
-                      class="permissionList"
-                    >
-                      <label
-                        class="bp3-control bp3-checkbox checkbox"
-                      >
-                        <input
-                          data-testid="checkBox-SECRET-create"
-                          type="checkbox"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        create
-                      </label>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -842,52 +737,15 @@ exports[`Role Details Page render data 1`] = `
                         class="bp3-control bp3-checkbox checkbox"
                       >
                         <input
-                          checked=""
-                          data-testid="checkBox-ORGANIZATION-edit"
-                          type="checkbox"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        edit
-                      </label>
-                      <label
-                        class="bp3-control bp3-checkbox checkbox"
-                      >
-                        <input
-                          checked=""
-                          data-testid="checkBox-ORGANIZATION-create"
-                          type="checkbox"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        create
-                      </label>
-                      <label
-                        class="bp3-control bp3-checkbox checkbox"
-                      >
-                        <input
-                          data-testid="checkBox-ORGANIZATION-delete"
-                          type="checkbox"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        delete
-                      </label>
-                      <label
-                        class="bp3-control bp3-checkbox checkbox"
-                      >
-                        <input
-                          checked=""
                           data-testid="checkBox-ORGANIZATION-view"
                           type="checkbox"
                         />
                         <span
                           class="bp3-control-indicator"
                         />
-                        view
+                        <span>
+                          rbac.permissionLabels.view
+                        </span>
                       </label>
                     </div>
                   </div>
@@ -901,60 +759,7 @@ exports[`Role Details Page render data 1`] = `
                     </p>
                     <div
                       class="permissionList"
-                    >
-                      <label
-                        class="bp3-control bp3-checkbox checkbox"
-                      >
-                        <input
-                          checked=""
-                          data-testid="checkBox-PROJECT-edit"
-                          type="checkbox"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        edit
-                      </label>
-                      <label
-                        class="bp3-control bp3-checkbox checkbox"
-                      >
-                        <input
-                          checked=""
-                          data-testid="checkBox-PROJECT-create"
-                          type="checkbox"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        create
-                      </label>
-                      <label
-                        class="bp3-control bp3-checkbox checkbox"
-                      >
-                        <input
-                          checked=""
-                          data-testid="checkBox-PROJECT-view"
-                          type="checkbox"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        view
-                      </label>
-                      <label
-                        class="bp3-control bp3-checkbox checkbox"
-                      >
-                        <input
-                          checked=""
-                          data-testid="checkBox-PROJECT-delete"
-                          type="checkbox"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        delete
-                      </label>
-                    </div>
+                    />
                   </div>
                 </div>
               </div>
@@ -1008,22 +813,6 @@ exports[`Role Details Page render data 1`] = `
                     >
                       Secrets
                     </p>
-                    <div
-                      class="permissionList"
-                    >
-                      <label
-                        class="bp3-control bp3-checkbox checkbox"
-                      >
-                        <input
-                          data-testid="checkBox-SECRET-create"
-                          type="checkbox"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        create
-                      </label>
-                    </div>
                   </div>
                 </div>
               </div>

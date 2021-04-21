@@ -35,8 +35,8 @@ RbacFactory.registerResourceTypeHandler(ResourceType.CONNECTOR, {
   label: 'Connectors',
   category: ResourceCategory.PROJECT_RESOURCES,
   permissionLabels: {
-    [PermissionIdentifier.UPDATE_CONNECTOR]: <String stringID="rbac.permissionLabels.createEdit" />,
     [PermissionIdentifier.VIEW_CONNECTOR]: <String stringID="rbac.permissionLabels.view" />,
+    [PermissionIdentifier.UPDATE_CONNECTOR]: <String stringID="rbac.permissionLabels.createEdit" />,
     [PermissionIdentifier.DELETE_CONNECTOR]: <String stringID="rbac.permissionLabels.delete" />,
     [PermissionIdentifier.ACCESS_CONNECTOR]: <String stringID="rbac.permissionLabels.access" />
   },

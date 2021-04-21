@@ -13,15 +13,7 @@ export const roleMockData: ResponseRoleResponse = {
     role: {
       identifier: 'identifier',
       name: 'name',
-      permissions: [
-        'core.project.delete',
-        'core.organization.create',
-        'core.organization.edit',
-        'core.project.edit',
-        'core.project.view',
-        'core.organization.view',
-        'core.project.create'
-      ],
+      permissions: ['core_project_delete', 'core_organization_create', 'core_project_create'],
       allowedScopeLevels: ['account'],
       description: 'description',
       tags: { ui: '', dev: '' }
@@ -40,48 +32,18 @@ export const permissionListMockData = {
   data: [
     {
       permission: {
-        identifier: 'core.project.edit',
-        name: 'Edit Project',
+        identifier: 'core_secret_access',
+        name: 'Runtime Access on a secret',
         status: 'ACTIVE',
         allowedScopeLevels: ['organization', 'project', 'account'],
-        resourceType: 'PROJECT',
-        action: 'edit'
+        resourceType: 'SECRET',
+        action: 'access'
       }
     },
     {
       permission: {
-        identifier: 'core.project.create',
-        name: 'Create Project',
-        status: 'ACTIVE',
-        allowedScopeLevels: ['organization', 'account'],
-        resourceType: 'PROJECT',
-        action: 'create'
-      }
-    },
-    {
-      permission: {
-        identifier: 'core.project.view',
-        name: 'View Project',
-        status: 'ACTIVE',
-        allowedScopeLevels: ['organization', 'project', 'account'],
-        resourceType: 'PROJECT',
-        action: 'view'
-      }
-    },
-    {
-      permission: {
-        identifier: 'core.organization.edit',
-        name: 'Edit Organization',
-        status: 'ACTIVE',
-        allowedScopeLevels: ['organization', 'account'],
-        resourceType: 'ORGANIZATION',
-        action: 'edit'
-      }
-    },
-    {
-      permission: {
-        identifier: 'core.organization.create',
-        name: 'Create Organization',
+        identifier: 'core_organization_create',
+        name: 'Create an Organization',
         status: 'ACTIVE',
         allowedScopeLevels: ['account'],
         resourceType: 'ORGANIZATION',
@@ -90,17 +52,37 @@ export const permissionListMockData = {
     },
     {
       permission: {
-        identifier: 'core.organization.delete',
-        name: 'Delete Organization',
+        identifier: 'core_organization_create',
+        name: 'Create an Organization',
         status: 'ACTIVE',
-        allowedScopeLevels: ['organization', 'account'],
+        allowedScopeLevels: ['account'],
         resourceType: 'ORGANIZATION',
-        action: 'delete'
+        action: 'create'
       }
     },
     {
       permission: {
-        identifier: 'core.organization.view',
+        identifier: 'core_project_create',
+        name: 'Create a Project',
+        status: 'ACTIVE',
+        allowedScopeLevels: ['account', 'organization'],
+        resourceType: 'PROJECT',
+        action: 'create'
+      }
+    },
+    {
+      permission: {
+        identifier: 'core_secret_view',
+        name: 'View Secret',
+        status: 'ACTIVE',
+        allowedScopeLevels: ['organization', 'project', 'account'],
+        resourceType: 'SECRET',
+        action: 'view'
+      }
+    },
+    {
+      permission: {
+        identifier: 'core_organization_view',
         name: 'View Organization',
         status: 'ACTIVE',
         allowedScopeLevels: ['organization', 'account'],
@@ -110,45 +92,25 @@ export const permissionListMockData = {
     },
     {
       permission: {
-        identifier: 'core.project.delete',
-        name: 'Delete Project',
+        identifier: 'core_secret_edit',
+        name: 'Create or Edit a Secret',
         status: 'ACTIVE',
         allowedScopeLevels: ['organization', 'project', 'account'],
-        resourceType: 'PROJECT',
-        action: 'delete'
-      }
-    },
-    {
-      permission: {
-        identifier: 'core.account.edit',
-        name: 'Edit Account Settings',
-        status: 'ACTIVE',
-        allowedScopeLevels: ['account'],
-        resourceType: 'ACCOUNT',
+        resourceType: 'SECRET',
         action: 'edit'
       }
     },
     {
       permission: {
-        identifier: 'core.account.delete',
-        name: 'Delete Account',
-        status: 'ACTIVE',
-        allowedScopeLevels: ['account'],
-        resourceType: 'ACCOUNT',
-        action: 'delete'
-      }
-    },
-    {
-      permission: {
-        identifier: 'core.secret.create',
-        name: 'create secret',
+        identifier: 'core_secret_delete',
+        name: 'Delete Secret',
         status: 'ACTIVE',
         allowedScopeLevels: ['organization', 'project', 'account'],
         resourceType: 'SECRET',
-        action: 'create'
+        action: 'delete'
       }
     }
   ],
-  metaData: {},
-  correlationId: '9948d417-82e0-483c-a46d-ef24b659f433'
+  metaData: '',
+  correlationId: ''
 }

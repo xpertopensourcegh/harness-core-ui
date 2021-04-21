@@ -53,9 +53,6 @@ describe('Role Details Page', () => {
     expect(container).toMatchSnapshot()
   }),
     test('Add Permissions', async () => {
-      const organizationDelete = queryByAttribute('data-testid', container, 'checkBox-ORGANIZATION-delete')
-      expect(organizationDelete).toBeTruthy()
-      if (organizationDelete) fireEvent.click(organizationDelete)
       const organizationView = queryByAttribute('data-testid', container, 'checkBox-ORGANIZATION-view')
       expect(organizationView).toBeTruthy()
       if (organizationView) fireEvent.click(organizationView)
@@ -71,13 +68,10 @@ describe('Role Details Page', () => {
         identifier: 'identifier',
         name: 'name',
         permissions: [
-          'core.project.delete',
-          'core.organization.create',
-          'core.organization.edit',
-          'core.project.edit',
-          'core.project.view',
-          'core.project.create',
-          'core.organization.delete'
+          'core_project_delete',
+          'core_organization_create',
+          'core_project_create',
+          'core_organization_view'
         ],
         allowedScopeLevels: ['account'],
         description: 'description',

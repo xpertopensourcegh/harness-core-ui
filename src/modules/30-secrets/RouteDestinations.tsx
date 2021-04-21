@@ -28,8 +28,8 @@ RbacFactory.registerResourceTypeHandler(ResourceType.SECRET, {
   label: 'Secrets',
   category: ResourceCategory.PROJECT_RESOURCES,
   permissionLabels: {
-    [PermissionIdentifier.UPDATE_SECRET]: <String stringID="rbac.permissionLabels.createEdit" />,
     [PermissionIdentifier.VIEW_SECRET]: <String stringID="rbac.permissionLabels.view" />,
+    [PermissionIdentifier.UPDATE_SECRET]: <String stringID="rbac.permissionLabels.createEdit" />,
     [PermissionIdentifier.DELETE_SECRET]: <String stringID="rbac.permissionLabels.delete" />,
     [PermissionIdentifier.ACCESS_SECRET]: <String stringID="rbac.permissionLabels.access" />
   },
