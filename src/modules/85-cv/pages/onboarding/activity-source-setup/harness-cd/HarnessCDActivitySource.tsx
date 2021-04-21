@@ -75,7 +75,7 @@ const HarnessCDActivitySource: React.FC = () => {
   return (
     <Container>
       <CVOnboardingTabs
-        iconName="cd-main"
+        iconName="harness"
         defaultEntityName={currentData?.name || getString('cv.activitySources.harnessCD.defaultName')}
         {...tabInfo}
         onPrevious={onPrevious}

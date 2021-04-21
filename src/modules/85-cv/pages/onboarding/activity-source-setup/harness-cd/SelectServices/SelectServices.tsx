@@ -285,7 +285,7 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
 
               return (
                 <Layout.Horizontal spacing="small">
-                  <Icon name="cd-main" />
+                  <Icon name="harness" />
                   <Text color={Color.BLACK} lineClamp={1} width="95%">
                     {rowData.name}
                   </Text>

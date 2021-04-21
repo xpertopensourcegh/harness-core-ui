@@ -9,7 +9,7 @@ export enum JobTypes {
 
 export enum IdentifierTypes {
   serviceIdentifier = '<+service.identifier>',
-  envIdentifier = '<+environment.identifier>'
+  envIdentifier = '<+env.identifier>'
 }
 
 export const durationOptions: SelectOption[] = [

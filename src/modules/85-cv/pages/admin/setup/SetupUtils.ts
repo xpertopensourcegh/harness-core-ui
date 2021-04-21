@@ -5,7 +5,7 @@ export const getIconBySourceType = (type: string) => {
     case 'APP_DYNAMICS':
       return 'service-appdynamics'
     case 'HARNESS_CD10':
-      return 'cd-main'
+      return 'harness'
     case 'STACKDRIVER':
       return 'service-stackdriver'
     case 'NEW_RELIC':

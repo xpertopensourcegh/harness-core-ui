@@ -47,7 +47,7 @@ const HarnessCDActivitySourceDetails: React.FC<HarnessCDActivitySourceDetailsPro
               <ActivitySourceDetails
                 heading={getString('cv.activitySources.harnessCD.select')}
                 iconLabel={getString('cv.activitySources.harnessCD.iconLabel')}
-                iconName={'cd-main'}
+                iconName={'harness'}
                 isEditMode={!!activitySourceId}
               />
               <SubmitAndPreviousButtons

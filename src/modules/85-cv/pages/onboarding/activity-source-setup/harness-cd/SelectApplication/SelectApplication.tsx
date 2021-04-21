@@ -160,7 +160,7 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
                       onUpdateData({ ...rowData, selected: e.target.checked })
                     }}
                   />
-                  <Icon name="cd-main" />
+                  <Icon name="harness" />
                   <Text color={Color.BLACK} lineClamp={1} width="80%">
                     {rowData.name}
                   </Text>

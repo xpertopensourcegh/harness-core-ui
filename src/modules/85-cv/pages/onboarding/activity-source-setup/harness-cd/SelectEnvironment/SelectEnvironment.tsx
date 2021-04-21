@@ -205,7 +205,7 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
 
               return (
                 <Layout.Horizontal spacing="small">
-                  <Icon name="cd-main" />
+                  <Icon name="harness" />
                   <Text color={Color.BLACK}>{rowData.name}</Text>
                 </Layout.Horizontal>
               )
