@@ -32,7 +32,7 @@ import type { RestoreCacheS3StepData, RestoreCacheS3StepDataUI, RestoreCacheS3St
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const RestoreCacheS3StepBase = (
-  { initialValues, onUpdate }: RestoreCacheS3StepProps,
+  { initialValues, onUpdate, readonly }: RestoreCacheS3StepProps,
   formikRef: StepFormikFowardRef<RestoreCacheS3StepData>
 ): JSX.Element => {
   const {
@@ -93,6 +93,7 @@ export const RestoreCacheS3StepBase = (
                 idName="identifier"
                 isIdentifierEditable={isEmpty(initialValues.identifier)}
                 inputLabel={getString('pipelineSteps.stepNameLabel')}
+                inputGroupProps={{ disabled: readonly }}
               />
               <FormMultiTypeConnectorField
                 label={
@@ -115,7 +116,7 @@ export const RestoreCacheS3StepBase = (
                 accountIdentifier={accountId}
                 projectIdentifier={projectIdentifier}
                 orgIdentifier={orgIdentifier}
-                multiTypeProps={{ expressions }}
+                multiTypeProps={{ expressions, disabled: readonly }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
               <MultiTypeTextField
@@ -133,7 +134,8 @@ export const RestoreCacheS3StepBase = (
                 }
                 multiTextInputProps={{
                   placeholder: getString('pipelineSteps.regionPlaceholder'),
-                  multiTextInputProps: { expressions }
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
                 }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
@@ -151,7 +153,8 @@ export const RestoreCacheS3StepBase = (
                   </Text>
                 }
                 multiTextInputProps={{
-                  multiTextInputProps: { expressions }
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
                 }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
@@ -169,7 +172,8 @@ export const RestoreCacheS3StepBase = (
                   </Text>
                 }
                 multiTextInputProps={{
-                  multiTextInputProps: { expressions }
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
                 }}
               />
             </div>
@@ -192,7 +196,8 @@ export const RestoreCacheS3StepBase = (
                 }
                 multiTextInputProps={{
                   placeholder: getString('pipelineSteps.endpointPlaceholder'),
-                  multiTextInputProps: { expressions }
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
                 }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
@@ -206,23 +211,26 @@ export const RestoreCacheS3StepBase = (
                 }
                 multiTypeInputProps={{
                   selectItems: archiveFormatOptions,
-                  multiTypeInputProps: { expressions }
+                  multiTypeInputProps: { expressions },
+                  disabled: readonly
                 }}
                 style={{ marginBottom: 'var(--spacing-medium)' }}
               />
               <FormMultiTypeCheckboxField
                 name="spec.pathStyle"
                 label={getString('pathStyle')}
-                multiTypeTextbox={{ expressions }}
+                multiTypeTextbox={{ expressions, disabled: readonly }}
                 style={{ marginBottom: 'var(--spacing-medium)' }}
+                disabled={readonly}
               />
               <FormMultiTypeCheckboxField
                 name="spec.failIfKeyNotFound"
                 label={getString('failIfKeyNotFound')}
-                multiTypeTextbox={{ expressions }}
+                multiTypeTextbox={{ expressions, disabled: readonly }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
+                disabled={readonly}
               />
-              <StepCommonFields />
+              <StepCommonFields disabled={readonly} />
             </div>
           </FormikForm>
         )

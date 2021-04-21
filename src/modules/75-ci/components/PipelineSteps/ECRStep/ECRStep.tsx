@@ -106,7 +106,7 @@ export class ECRStep extends PipelineStep<ECRStepData> {
   }
 
   renderStep(props: StepProps<ECRStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, readonly } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -134,6 +134,7 @@ export class ECRStep extends PipelineStep<ECRStepData> {
         initialValues={initialValues}
         stepViewType={stepViewType}
         onUpdate={onUpdate}
+        readonly={readonly}
         ref={formikRef}
       />
     )

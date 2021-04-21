@@ -30,7 +30,7 @@ import type { S3StepData, S3StepDataUI, S3StepProps } from './S3Step'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const S3StepBase = (
-  { initialValues, onUpdate }: S3StepProps,
+  { initialValues, onUpdate, readonly }: S3StepProps,
   formikRef: StepFormikFowardRef<S3StepData>
 ): JSX.Element => {
   const {
@@ -93,6 +93,7 @@ export const S3StepBase = (
                 idName="identifier"
                 isIdentifierEditable={isEmpty(initialValues.identifier)}
                 inputLabel={getString('pipelineSteps.stepNameLabel')}
+                inputGroupProps={{ disabled: readonly }}
               />
               <FormMultiTypeConnectorField
                 label={
@@ -115,7 +116,7 @@ export const S3StepBase = (
                 accountIdentifier={accountId}
                 projectIdentifier={projectIdentifier}
                 orgIdentifier={orgIdentifier}
-                multiTypeProps={{ expressions }}
+                multiTypeProps={{ expressions, disabled: readonly }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
               <MultiTypeTextField
@@ -133,7 +134,8 @@ export const S3StepBase = (
                 }
                 multiTextInputProps={{
                   placeholder: getString('pipelineSteps.regionPlaceholder'),
-                  multiTextInputProps: { expressions }
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
                 }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
@@ -151,7 +153,8 @@ export const S3StepBase = (
                   </Text>
                 }
                 multiTextInputProps={{
-                  multiTextInputProps: { expressions }
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
                 }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
@@ -169,7 +172,8 @@ export const S3StepBase = (
                   </Text>
                 }
                 multiTextInputProps={{
-                  multiTextInputProps: { expressions }
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
                 }}
               />
             </div>
@@ -192,7 +196,8 @@ export const S3StepBase = (
                 }
                 multiTextInputProps={{
                   placeholder: getString('pipelineSteps.endpointPlaceholder'),
-                  multiTextInputProps: { expressions }
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
                 }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
@@ -211,11 +216,12 @@ export const S3StepBase = (
                 }
                 multiTextInputProps={{
                   placeholder: getString('pipelineSteps.artifactsTargetPlaceholder'),
-                  multiTextInputProps: { expressions }
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
                 }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
-              <StepCommonFields />
+              <StepCommonFields disabled={readonly} />
             </div>
           </FormikForm>
         )

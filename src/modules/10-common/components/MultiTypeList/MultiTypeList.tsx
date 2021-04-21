@@ -35,6 +35,7 @@ export interface MultiTypeListProps {
   configureOptionsProps?: MultiTypeListConfigureOptionsProps
   formik?: FormikContext<any>
   style?: React.CSSProperties
+  disabled?: boolean
 }
 
 export const MultiTypeList = (props: MultiTypeListProps): React.ReactElement => {
@@ -46,6 +47,7 @@ export const MultiTypeList = (props: MultiTypeListProps): React.ReactElement => 
     enableConfigureOptions = true,
     configureOptionsProps,
     formik,
+    disabled,
     ...restProps
   } = props
   const value = get(formik?.values, name, '') as MultiTypeListType
@@ -59,6 +61,7 @@ export const MultiTypeList = (props: MultiTypeListProps): React.ReactElement => 
         defaultValueToReset={[{ id: uuid('', nameSpace()), value: '' }]}
         style={{ flexGrow: 1, marginBottom: 0 }}
         {...multiTypeFieldSelectorProps}
+        disableTypeSelection={disabled}
       >
         <FieldArray
           name={name}
@@ -76,6 +79,7 @@ export const MultiTypeList = (props: MultiTypeListProps): React.ReactElement => 
                         ...multiTextInputProps
                       }}
                       style={{ flexGrow: 1 }}
+                      disabled={disabled}
                     />
                     <Button
                       icon="main-trash"
@@ -83,6 +87,7 @@ export const MultiTypeList = (props: MultiTypeListProps): React.ReactElement => 
                       minimal
                       onClick={() => remove(index)}
                       data-testid={`remove-${name}-[${index}]`}
+                      disabled={disabled}
                     />
                   </div>
                 ))}
@@ -92,6 +97,7 @@ export const MultiTypeList = (props: MultiTypeListProps): React.ReactElement => 
                 text={getString('plusAdd')}
                 data-testid={`add-${name}`}
                 onClick={() => push({ id: uuid('', nameSpace()), value: '' })}
+                disabled={disabled}
               />
             </Card>
           )}

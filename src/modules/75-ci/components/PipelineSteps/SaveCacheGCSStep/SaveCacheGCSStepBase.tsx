@@ -33,7 +33,7 @@ import type { SaveCacheGCSStepProps, SaveCacheGCSStepData, SaveCacheGCSStepDataU
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const SaveCacheGCSStepBase = (
-  { initialValues, onUpdate }: SaveCacheGCSStepProps,
+  { initialValues, onUpdate, readonly }: SaveCacheGCSStepProps,
   formikRef: StepFormikFowardRef<SaveCacheGCSStepData>
 ): JSX.Element => {
   const {
@@ -94,6 +94,9 @@ export const SaveCacheGCSStepBase = (
                 idName="identifier"
                 isIdentifierEditable={isEmpty(initialValues.identifier)}
                 inputLabel={getString('pipelineSteps.stepNameLabel')}
+                inputGroupProps={{
+                  disabled: readonly
+                }}
               />
               <FormMultiTypeConnectorField
                 label={
@@ -116,7 +119,7 @@ export const SaveCacheGCSStepBase = (
                 accountIdentifier={accountId}
                 projectIdentifier={projectIdentifier}
                 orgIdentifier={orgIdentifier}
-                multiTypeProps={{ expressions }}
+                multiTypeProps={{ expressions, disabled: readonly }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
               <MultiTypeTextField
@@ -133,7 +136,8 @@ export const SaveCacheGCSStepBase = (
                   </Text>
                 }
                 multiTextInputProps={{
-                  multiTextInputProps: { expressions }
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
                 }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
@@ -151,7 +155,8 @@ export const SaveCacheGCSStepBase = (
                   </Text>
                 }
                 multiTextInputProps={{
-                  multiTextInputProps: { expressions }
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
                 }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
@@ -171,6 +176,7 @@ export const SaveCacheGCSStepBase = (
                     </Text>
                   )
                 }}
+                disabled={readonly}
               />
             </div>
             <div className={css.fieldsSection}>
@@ -187,17 +193,19 @@ export const SaveCacheGCSStepBase = (
                 }
                 multiTypeInputProps={{
                   selectItems: archiveFormatOptions,
-                  multiTypeInputProps: { expressions }
+                  multiTypeInputProps: { expressions },
+                  disabled: readonly
                 }}
                 style={{ marginBottom: 'var(--spacing-medium)' }}
               />
               <FormMultiTypeCheckboxField
                 name="spec.override"
                 label={getString('override')}
-                multiTypeTextbox={{ expressions }}
+                multiTypeTextbox={{ expressions, disabled: readonly }}
                 style={{ marginBottom: 'var(--spacing-medium)' }}
+                disabled={readonly}
               />
-              <StepCommonFields />
+              <StepCommonFields disabled={readonly} />
             </div>
           </FormikForm>
         )

@@ -72,6 +72,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
       pipeline,
       selectionState: { selectedStageId }
     },
+    isReadonly,
     getStageFromPipeline,
     updatePipeline
   } = React.useContext(PipelineContext)
@@ -188,7 +189,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
               </div>
               <FormikForm>
                 {otherBuildStagesWithInfraConfigurationOptions.length ? (
-                  <Card className={cx(css.sectionCard, css.shadow)}>
+                  <Card disabled={isReadonly} className={cx(css.sectionCard, css.shadow)}>
                     <Layout.Horizontal spacing="xxlarge">
                       <div
                         className={cx(css.card, { [css.active]: currentMode === Modes.Propagate })}
@@ -198,7 +199,11 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                         <Text className={css.cardTitle} font="normal" color="black" margin={{ bottom: 'large' }}>
                           {getString('pipelineSteps.build.infraSpecifications.propagate')}
                         </Text>
-                        <FormInput.Select name="useFromStage" items={otherBuildStagesWithInfraConfigurationOptions} />
+                        <FormInput.Select
+                          name="useFromStage"
+                          items={otherBuildStagesWithInfraConfigurationOptions}
+                          disabled={isReadonly}
+                        />
                         {propagatedStage?.stage?.spec?.infrastructure?.spec?.connectorRef && (
                           <>
                             <Text font="small" margin={{ top: 'large', bottom: 'xsmall' }}>
@@ -254,7 +259,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                           selected={formValues.connectorRef as ConnectorReferenceFieldProps['selected']}
                           label={''}
                           placeholder={loading ? getString('loading') : getString('select')}
-                          disabled={loading}
+                          disabled={loading || isReadonly}
                           accountIdentifier={accountId}
                           projectIdentifier={projectIdentifier}
                           orgIdentifier={orgIdentifier}
@@ -270,7 +275,12 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                           {getString('pipelineSteps.build.infraSpecifications.namespace')}
                         </Text>
                         <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
-                          <FormInput.MultiTextInput label="" name={'namespace'} style={{ width: 300 }} />
+                          <FormInput.MultiTextInput
+                            label=""
+                            name={'namespace'}
+                            style={{ width: 300 }}
+                            multiTextInputProps={{ disabled: isReadonly }}
+                          />
                           {getMultiTypeFromValue(formValues.namespace) === MultiTypeInputType.RUNTIME && (
                             <ConfigureOptions
                               value={formValues.namespace as string}
@@ -291,14 +301,14 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                     </Layout.Horizontal>
                   </Card>
                 ) : (
-                  <Card className={cx(css.sectionCard, css.shadow)}>
+                  <Card disabled={isReadonly} className={cx(css.sectionCard, css.shadow)}>
                     <ConnectorReferenceField
                       width={300}
                       name="connectorRef"
                       selected={formValues.connectorRef as ConnectorReferenceFieldProps['selected']}
                       label={getString('pipelineSteps.build.infraSpecifications.newConfigurationConnectorLabel')}
                       placeholder={loading ? getString('loading') : getString('select')}
-                      disabled={loading}
+                      disabled={loading || isReadonly}
                       accountIdentifier={accountId}
                       projectIdentifier={projectIdentifier}
                       orgIdentifier={orgIdentifier}
@@ -319,7 +329,8 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                         name={'namespace'}
                         style={{ width: 300 }}
                         multiTextInputProps={{
-                          multiTextInputProps: { expressions }
+                          multiTextInputProps: { expressions },
+                          disabled: isReadonly
                         }}
                       />
                       {getMultiTypeFromValue(formValues.namespace) === MultiTypeInputType.RUNTIME && (

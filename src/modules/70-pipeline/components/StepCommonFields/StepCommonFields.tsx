@@ -23,9 +23,10 @@ export const usePullOptions: () => PullOptions = () => {
 
 interface StepCommonFieldsProps {
   withoutTimeout?: boolean
+  disabled?: boolean
 }
 
-const StepCommonFields = ({ withoutTimeout }: StepCommonFieldsProps): JSX.Element => {
+const StepCommonFields = ({ withoutTimeout, disabled }: StepCommonFieldsProps): JSX.Element => {
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
@@ -63,7 +64,8 @@ const StepCommonFields = ({ withoutTimeout }: StepCommonFieldsProps): JSX.Elemen
           label={<Text margin={{ bottom: 'xsmall' }}>{getString('pipelineSteps.limitMemoryLabel')}</Text>}
           multiTextInputProps={{
             placeholder: getString('pipelineSteps.limitMemoryPlaceholder'),
-            multiTextInputProps: { expressions }
+            multiTextInputProps: { expressions },
+            disabled
           }}
           configureOptionsProps={{ variableName: 'spec.limit.memory' }}
           style={{ flexGrow: 1, flexBasis: '50%' }}
@@ -73,7 +75,8 @@ const StepCommonFields = ({ withoutTimeout }: StepCommonFieldsProps): JSX.Elemen
           label={<Text margin={{ bottom: 'xsmall' }}>{getString('pipelineSteps.limitCPULabel')}</Text>}
           multiTextInputProps={{
             placeholder: getString('pipelineSteps.limitCPUPlaceholder'),
-            multiTextInputProps: { expressions }
+            multiTextInputProps: { expressions },
+            disabled
           }}
           configureOptionsProps={{ variableName: 'spec.limit.cpu' }}
           style={{ flexGrow: 1, flexBasis: '50%' }}
@@ -83,7 +86,7 @@ const StepCommonFields = ({ withoutTimeout }: StepCommonFieldsProps): JSX.Elemen
         <FormMultiTypeDurationField
           className={css.removeBpLabelMargin}
           name="timeout"
-          multiTypeDurationProps={{ expressions }}
+          multiTypeDurationProps={{ expressions, disabled }}
           label={
             <Text style={{ display: 'flex', alignItems: 'center' }}>
               {getString('pipelineSteps.timeoutLabel')}

@@ -48,7 +48,8 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
     getStageFromPipeline,
     updatePipeline,
     updateStage,
-    stepsFactory
+    stepsFactory,
+    isReadonly
   } = React.useContext(PipelineContext)
 
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
@@ -175,7 +176,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
               <div className={css.tabHeading} id="stageDetails">
                 {getString('stageDetails')}
               </div>
-              <Card className={cx(css.sectionCard, css.shadow)}>
+              <Card className={cx(css.sectionCard, css.shadow)} disabled={isReadonly}>
                 <FormikForm>
                   <Layout.Horizontal spacing="medium">
                     <FormInput.InputWithIdentifier
@@ -183,7 +184,8 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
                       inputLabel={getString('stageNameLabel')}
                       inputGroupProps={{
                         className: css.fields,
-                        placeholder: getString('pipelineSteps.build.stageSpecifications.stageNamePlaceholder')
+                        placeholder: getString('pipelineSteps.build.stageSpecifications.stageNamePlaceholder'),
+                        disabled: isReadonly
                       }}
                       isIdentifierEditable={false}
                     />
@@ -194,6 +196,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
                           text={getString('pipelineSteps.build.stageSpecifications.addDescription')}
                           icon="plus"
                           onClick={() => setDescriptionVisible(true)}
+                          disabled={isReadonly}
                         />
                       )}
                     </div>
@@ -201,16 +204,18 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
 
                   {(isDescriptionVisible || formValues.description) && (
                     <div className={css.fields}>
-                      <span
-                        onClick={() => {
-                          setDescriptionVisible(false)
-                          setFieldValue('description', '')
-                        }}
-                        className={css.removeLink}
-                      >
-                        {getString('removeLabel')}
-                      </span>
-                      <FormInput.TextArea name={'description'} label={getString('description')} />
+                      {!isReadonly && (
+                        <span
+                          onClick={() => {
+                            setDescriptionVisible(false)
+                            setFieldValue('description', '')
+                          }}
+                          className={css.removeLink}
+                        >
+                          {getString('removeLabel')}
+                        </span>
+                      )}
+                      <FormInput.TextArea name={'description'} label={getString('description')} disabled={isReadonly} />
                     </div>
                   )}
 
@@ -218,6 +223,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
                     checked={formValues.cloneCodebase}
                     label={getString('cloneCodebaseLabel')}
                     onChange={e => setFieldValue('cloneCodebase', e.currentTarget.checked)}
+                    disabled={isReadonly}
                   />
                 </FormikForm>
               </Card>
@@ -225,7 +231,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
               <div className={css.tabHeading} id="sharedPaths">
                 {getString('pipelineSteps.build.stageSpecifications.sharedPaths')}
               </div>
-              <Card className={cx(css.sectionCard, css.shadow)}>
+              <Card disabled={isReadonly} className={cx(css.sectionCard, css.shadow)}>
                 <FormikForm className={css.fields}>
                   <MultiTypeList
                     name="sharedPaths"
@@ -243,6 +249,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
                         </Text>
                       )
                     }}
+                    disabled={isReadonly}
                   />
                 </FormikForm>
               </Card>
@@ -256,6 +263,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
                       <div className={css.stageDetails}>
                         <StepWidget<CustomVariablesData>
                           factory={stepsFactory}
+                          readonly={isReadonly}
                           initialValues={{
                             variables: ((stage?.stage as StageElementConfig)?.variables || []) as AllNGVariables[],
                             canAddVariable: true
@@ -292,6 +300,8 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
                         items={expressions}
                         name="skipCondition"
                         label={getString('skipConditionStageLabel')}
+                        expressionInputProps={{ disabled: isReadonly }}
+                        disabled={isReadonly}
                       />
                       <Text font="small" style={{ whiteSpace: 'break-spaces' }}>
                         {getString('skipConditionText')}

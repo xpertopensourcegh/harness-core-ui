@@ -32,7 +32,7 @@ import type { GCRStepProps, GCRStepData, GCRStepDataUI } from './GCRStep'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const GCRStepBase = (
-  { initialValues, onUpdate }: GCRStepProps,
+  { initialValues, onUpdate, readonly }: GCRStepProps,
   formikRef: StepFormikFowardRef<GCRStepData>
 ): JSX.Element => {
   const {
@@ -95,6 +95,7 @@ export const GCRStepBase = (
                 idName="identifier"
                 isIdentifierEditable={isEmpty(initialValues.identifier)}
                 inputLabel={getString('pipelineSteps.stepNameLabel')}
+                inputGroupProps={{ disabled: readonly }}
               />
               <FormMultiTypeConnectorField
                 label={
@@ -117,7 +118,7 @@ export const GCRStepBase = (
                 accountIdentifier={accountId}
                 projectIdentifier={projectIdentifier}
                 orgIdentifier={orgIdentifier}
-                multiTypeProps={{ expressions }}
+                multiTypeProps={{ expressions, disabled: readonly }}
                 style={{ marginBottom: 0 }}
               />
               <MultiTypeTextField
@@ -135,7 +136,8 @@ export const GCRStepBase = (
                 }
                 multiTextInputProps={{
                   placeholder: getString('pipelineSteps.hostPlaceholder'),
-                  multiTextInputProps: { expressions }
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
                 }}
               />
               <MultiTypeTextField
@@ -152,7 +154,8 @@ export const GCRStepBase = (
                   </Text>
                 }
                 multiTextInputProps={{
-                  multiTextInputProps: { expressions }
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
                 }}
               />
               <MultiTypeTextField
@@ -164,7 +167,8 @@ export const GCRStepBase = (
                   </Text>
                 }
                 multiTextInputProps={{
-                  multiTextInputProps: { expressions }
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
                 }}
               />
               <MultiTypeList
@@ -179,6 +183,7 @@ export const GCRStepBase = (
                   )
                 }}
                 style={{ marginTop: 'var(--spacing-xsmall)' }}
+                disabled={readonly}
               />
             </div>
             <div className={css.fieldsSection}>
@@ -199,7 +204,8 @@ export const GCRStepBase = (
                   </Text>
                 }
                 multiTextInputProps={{
-                  multiTextInputProps: { expressions }
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
                 }}
               />
               <MultiTypeTextField
@@ -216,7 +222,8 @@ export const GCRStepBase = (
                   </Text>
                 }
                 multiTextInputProps={{
-                  multiTextInputProps: { expressions }
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
                 }}
               />
               <MultiTypeMap
@@ -236,6 +243,7 @@ export const GCRStepBase = (
                   )
                 }}
                 style={{ marginTop: 'var(--spacing-xsmall)', marginBottom: 'var(--spacing-small)' }}
+                disabled={readonly}
               />
               <MultiTypeMap
                 name="spec.buildArgs"
@@ -253,6 +261,7 @@ export const GCRStepBase = (
                     </Text>
                   )
                 }}
+                disabled={readonly}
               />
               <MultiTypeTextField
                 name="spec.target"
@@ -268,10 +277,11 @@ export const GCRStepBase = (
                   </Text>
                 }
                 multiTextInputProps={{
-                  multiTextInputProps: { expressions }
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
                 }}
               />
-              <StepCommonFields />
+              <StepCommonFields disabled={readonly} />
             </div>
           </FormikForm>
         )

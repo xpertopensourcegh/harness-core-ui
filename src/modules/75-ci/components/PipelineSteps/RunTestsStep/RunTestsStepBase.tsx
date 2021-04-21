@@ -40,7 +40,7 @@ import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './Run
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const RunTestsStepBase = (
-  { initialValues, onUpdate }: RunTestsStepProps,
+  { initialValues, onUpdate, readonly }: RunTestsStepProps,
   formikRef: StepFormikFowardRef<RunTestsStepData>
 ): JSX.Element => {
   const {
@@ -111,12 +111,13 @@ export const RunTestsStepBase = (
                 idName="identifier"
                 isIdentifierEditable={isEmpty(initialValues.identifier)}
                 inputLabel={getString('pipelineSteps.stepNameLabel')}
+                inputGroupProps={{ disabled: readonly }}
               />
               <FormMultiTypeTextAreaField
                 className={css.removeBpLabelMargin}
                 name="description"
                 label={<Text margin={{ bottom: 'xsmall' }}>{getString('description')}</Text>}
-                multiTypeTextArea={{ expressions }}
+                multiTypeTextArea={{ expressions, disabled: readonly }}
               />
               <FormMultiTypeConnectorField
                 label={
@@ -139,7 +140,7 @@ export const RunTestsStepBase = (
                 accountIdentifier={accountId}
                 projectIdentifier={projectIdentifier}
                 orgIdentifier={orgIdentifier}
-                multiTypeProps={{ expressions }}
+                multiTypeProps={{ expressions, disabled: readonly }}
                 style={{ marginBottom: 0, marginTop: 'var(--spacing-small)' }}
               />
               <MultiTypeTextField
@@ -152,7 +153,8 @@ export const RunTestsStepBase = (
                 }
                 multiTextInputProps={{
                   placeholder: getString('imagePlaceholder'),
-                  multiTextInputProps: { expressions }
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
                 }}
               />
               <MultiTypeTextField
@@ -164,7 +166,8 @@ export const RunTestsStepBase = (
                   </Text>
                 }
                 multiTextInputProps={{
-                  multiTextInputProps: { expressions }
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
                 }}
               />
               <MultiTypeSelectField
@@ -177,7 +180,8 @@ export const RunTestsStepBase = (
                 }
                 multiTypeInputProps={{
                   selectItems: buildToolOptions,
-                  multiTypeInputProps: { expressions }
+                  multiTypeInputProps: { expressions },
+                  disabled: readonly
                 }}
               />
               <MultiTypeSelectField
@@ -190,7 +194,8 @@ export const RunTestsStepBase = (
                 }
                 multiTypeInputProps={{
                   selectItems: languageOptions,
-                  multiTypeInputProps: { expressions }
+                  multiTypeInputProps: { expressions },
+                  disabled: readonly
                 }}
               />
               <MultiTypeTextField
@@ -202,7 +207,8 @@ export const RunTestsStepBase = (
                   </Text>
                 }
                 multiTextInputProps={{
-                  multiTextInputProps: { expressions }
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
                 }}
               />
             </div>
@@ -213,8 +219,9 @@ export const RunTestsStepBase = (
               <FormMultiTypeCheckboxField
                 name="spec.runOnlySelectedTests"
                 label={getString('runOnlySelectedTestsLabel')}
-                multiTypeTextbox={{ expressions }}
+                multiTypeTextbox={{ expressions, disabled: readonly }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
+                disabled={readonly}
               />
               <MultiTypeTextField
                 name="spec.testAnnotations"
@@ -230,7 +237,8 @@ export const RunTestsStepBase = (
                   </Text>
                 }
                 multiTextInputProps={{
-                  multiTextInputProps: { expressions }
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
                 }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
@@ -256,8 +264,9 @@ export const RunTestsStepBase = (
                     )
                   }}
                   style={{ flexGrow: 1, marginBottom: 0 }}
+                  disableTypeSelection={readonly}
                 >
-                  <ShellScriptMonacoField name="spec.preCommand" scriptType="Bash" />
+                  <ShellScriptMonacoField name="spec.preCommand" scriptType="Bash" disabled={readonly} />
                 </MultiTypeFieldSelector>
                 {getMultiTypeFromValue(formik?.values?.spec?.preCommand) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
@@ -293,8 +302,9 @@ export const RunTestsStepBase = (
                     )
                   }}
                   style={{ flexGrow: 1, marginBottom: 0 }}
+                  disableTypeSelection={readonly}
                 >
-                  <ShellScriptMonacoField name="spec.postCommand" scriptType="Bash" />
+                  <ShellScriptMonacoField name="spec.postCommand" scriptType="Bash" disabled={readonly} />
                 </MultiTypeFieldSelector>
                 {getMultiTypeFromValue(formik?.values?.spec?.postCommand) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
@@ -326,6 +336,7 @@ export const RunTestsStepBase = (
                 }}
                 multiTextInputProps={{ expressions }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
+                disabled={readonly}
               />
               <MultiTypeMap
                 name="spec.envVariables"
@@ -344,6 +355,7 @@ export const RunTestsStepBase = (
                 }}
                 valueMultiTextInputProps={{ expressions }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
+                disabled={readonly}
               />
               <MultiTypeList
                 name="spec.outputVariables"
@@ -361,8 +373,9 @@ export const RunTestsStepBase = (
                   )
                 }}
                 multiTextInputProps={{ expressions }}
+                disabled={readonly}
               />
-              <StepCommonFields />
+              <StepCommonFields disabled={readonly} />
             </div>
           </FormikForm>
         )

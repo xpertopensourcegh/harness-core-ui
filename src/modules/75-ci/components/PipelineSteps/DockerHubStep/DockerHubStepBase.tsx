@@ -32,7 +32,7 @@ import type { DockerHubStepProps, DockerHubStepData, DockerHubStepDataUI } from 
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const DockerHubStepBase = (
-  { initialValues, onUpdate }: DockerHubStepProps,
+  { initialValues, onUpdate, readonly }: DockerHubStepProps,
   formikRef: StepFormikFowardRef<DockerHubStepData>
 ): JSX.Element => {
   const {
@@ -95,6 +95,7 @@ export const DockerHubStepBase = (
                 idName="identifier"
                 isIdentifierEditable={isEmpty(initialValues.identifier)}
                 inputLabel={getString('pipelineSteps.stepNameLabel')}
+                inputGroupProps={{ disabled: readonly }}
               />
               <FormMultiTypeConnectorField
                 label={
@@ -117,7 +118,7 @@ export const DockerHubStepBase = (
                 accountIdentifier={accountId}
                 projectIdentifier={projectIdentifier}
                 orgIdentifier={orgIdentifier}
-                multiTypeProps={{ expressions }}
+                multiTypeProps={{ expressions, disabled: readonly }}
                 style={{ marginBottom: 0 }}
               />
               <MultiTypeTextField
@@ -134,7 +135,8 @@ export const DockerHubStepBase = (
                   </Text>
                 }
                 multiTextInputProps={{
-                  multiTextInputProps: { expressions }
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
                 }}
               />
               <MultiTypeList
@@ -149,6 +151,7 @@ export const DockerHubStepBase = (
                   )
                 }}
                 style={{ marginTop: 'var(--spacing-xsmall)' }}
+                disabled={readonly}
               />
             </div>
             <div className={css.fieldsSection}>
@@ -169,7 +172,8 @@ export const DockerHubStepBase = (
                   </Text>
                 }
                 multiTextInputProps={{
-                  multiTextInputProps: { expressions }
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
                 }}
               />
               <MultiTypeTextField
@@ -186,7 +190,8 @@ export const DockerHubStepBase = (
                   </Text>
                 }
                 multiTextInputProps={{
-                  multiTextInputProps: { expressions }
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
                 }}
               />
               <MultiTypeMap
@@ -206,6 +211,7 @@ export const DockerHubStepBase = (
                   )
                 }}
                 style={{ marginTop: 'var(--spacing-xsmall)', marginBottom: 'var(--spacing-small)' }}
+                disabled={readonly}
               />
               <MultiTypeMap
                 name="spec.buildArgs"
@@ -223,6 +229,7 @@ export const DockerHubStepBase = (
                     </Text>
                   )
                 }}
+                disabled={readonly}
               />
               <MultiTypeTextField
                 name="spec.target"
@@ -238,10 +245,11 @@ export const DockerHubStepBase = (
                   </Text>
                 }
                 multiTextInputProps={{
-                  multiTextInputProps: { expressions }
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
                 }}
               />
-              <StepCommonFields />
+              <StepCommonFields disabled={readonly} />
             </div>
           </FormikForm>
         )

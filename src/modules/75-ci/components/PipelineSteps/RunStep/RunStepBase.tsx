@@ -38,7 +38,7 @@ import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './Run
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const RunStepBase = (
-  { initialValues, onUpdate }: RunStepProps,
+  { initialValues, onUpdate, readonly }: RunStepProps,
   formikRef: StepFormikFowardRef<RunStepData>
 ): JSX.Element => {
   const {
@@ -101,12 +101,13 @@ export const RunStepBase = (
                 idName="identifier"
                 isIdentifierEditable={isEmpty(initialValues.identifier)}
                 inputLabel={getString('pipelineSteps.stepNameLabel')}
+                inputGroupProps={{ disabled: readonly }}
               />
               <FormMultiTypeTextAreaField
                 className={css.removeBpLabelMargin}
                 name="description"
                 label={<Text margin={{ bottom: 'xsmall' }}>{getString('description')}</Text>}
-                multiTypeTextArea={{ expressions }}
+                multiTypeTextArea={{ expressions, disabled: readonly }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
               <FormMultiTypeConnectorField
@@ -130,7 +131,7 @@ export const RunStepBase = (
                 accountIdentifier={accountId}
                 projectIdentifier={projectIdentifier}
                 orgIdentifier={orgIdentifier}
-                multiTypeProps={{ expressions }}
+                multiTypeProps={{ expressions, disabled: readonly }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
               <MultiTypeTextField
@@ -142,7 +143,8 @@ export const RunStepBase = (
                   </Text>
                 }
                 multiTextInputProps={{
-                  placeholder: getString('imagePlaceholder')
+                  placeholder: getString('imagePlaceholder'),
+                  disabled: readonly
                 }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
@@ -168,8 +170,9 @@ export const RunStepBase = (
                     )
                   }}
                   style={{ flexGrow: 1, marginBottom: 0 }}
+                  disableTypeSelection={readonly}
                 >
-                  <ShellScriptMonacoField name="spec.command" scriptType="Bash" />
+                  <ShellScriptMonacoField name="spec.command" scriptType="Bash" disabled={readonly} />
                 </MultiTypeFieldSelector>
                 {getMultiTypeFromValue(formik?.values?.spec?.command) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
@@ -206,6 +209,7 @@ export const RunStepBase = (
                   )
                 }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
+                disabled={readonly}
               />
               <MultiTypeMap
                 name="spec.envVariables"
@@ -224,6 +228,7 @@ export const RunStepBase = (
                   )
                 }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
+                disabled={readonly}
               />
               <MultiTypeList
                 name="spec.outputVariables"
@@ -241,8 +246,9 @@ export const RunStepBase = (
                     </Text>
                   )
                 }}
+                disabled={readonly}
               />
-              <StepCommonFields />
+              <StepCommonFields disabled={readonly} />
             </div>
           </FormikForm>
         )

@@ -35,6 +35,7 @@ export interface MultiTypeMapProps {
   configureOptionsProps?: MultiTypeMapConfigureOptionsProps
   formik?: FormikContext<any>
   style?: React.CSSProperties
+  disabled?: boolean
 }
 
 export const MultiTypeMap = (props: MultiTypeMapProps): React.ReactElement => {
@@ -45,6 +46,7 @@ export const MultiTypeMap = (props: MultiTypeMapProps): React.ReactElement => {
     enableConfigureOptions = true,
     configureOptionsProps,
     formik,
+    disabled,
     ...restProps
   } = props
   const value = get(formik?.values, name, '') as MultiTypeMapValue
@@ -58,6 +60,7 @@ export const MultiTypeMap = (props: MultiTypeMapProps): React.ReactElement => {
         defaultValueToReset={[{ id: uuid('', nameSpace()), key: '', value: '' }]}
         style={{ flexGrow: 1, marginBottom: 0 }}
         {...multiTypeFieldSelectorProps}
+        disableTypeSelection={disabled}
       >
         <FieldArray
           name={name}
@@ -68,7 +71,7 @@ export const MultiTypeMap = (props: MultiTypeMapProps): React.ReactElement => {
                   <div className={cx(css.group, css.withoutAligning)} key={id}>
                     <div style={{ flexGrow: 1 }}>
                       {index === 0 && <Text margin={{ bottom: 'xsmall' }}>{getString('keyLabel')}</Text>}
-                      <FormInput.Text name={`${name}[${index}].key`} style={{ margin: 0 }} />
+                      <FormInput.Text name={`${name}[${index}].key`} style={{ margin: 0 }} disabled={disabled} />
                     </div>
 
                     <div style={{ flexGrow: 1 }}>
@@ -82,6 +85,7 @@ export const MultiTypeMap = (props: MultiTypeMapProps): React.ReactElement => {
                             ...valueMultiTextInputProps
                           }}
                           style={{ flexGrow: 1 }}
+                          disabled={disabled}
                         />
                         <Button
                           icon="main-trash"
@@ -89,6 +93,7 @@ export const MultiTypeMap = (props: MultiTypeMapProps): React.ReactElement => {
                           minimal
                           data-testid={`remove-${name}-[${index}]`}
                           onClick={() => remove(index)}
+                          disabled={disabled}
                         />
                       </div>
                     </div>
@@ -101,6 +106,7 @@ export const MultiTypeMap = (props: MultiTypeMapProps): React.ReactElement => {
                 text={getString('plusAdd')}
                 data-testid={`add-${name}`}
                 onClick={() => push({ id: uuid('', nameSpace()), key: '', value: '' })}
+                disabled={disabled}
               />
             </Card>
           )}

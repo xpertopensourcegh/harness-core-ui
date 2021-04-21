@@ -36,7 +36,7 @@ import type {
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const RestoreCacheGCSStepBase = (
-  { initialValues, onUpdate }: RestoreCacheGCSStepProps,
+  { initialValues, onUpdate, readonly }: RestoreCacheGCSStepProps,
   formikRef: StepFormikFowardRef<RestoreCacheGCSStepData>
 ): JSX.Element => {
   const {
@@ -97,6 +97,7 @@ export const RestoreCacheGCSStepBase = (
                 idName="identifier"
                 isIdentifierEditable={isEmpty(initialValues.identifier)}
                 inputLabel={getString('pipelineSteps.stepNameLabel')}
+                inputGroupProps={{ disabled: readonly }}
               />
               <FormMultiTypeConnectorField
                 label={
@@ -119,7 +120,7 @@ export const RestoreCacheGCSStepBase = (
                 accountIdentifier={accountId}
                 projectIdentifier={projectIdentifier}
                 orgIdentifier={orgIdentifier}
-                multiTypeProps={{ expressions }}
+                multiTypeProps={{ expressions, disabled: readonly }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
               <MultiTypeTextField
@@ -136,7 +137,8 @@ export const RestoreCacheGCSStepBase = (
                   </Text>
                 }
                 multiTextInputProps={{
-                  multiTextInputProps: { expressions }
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
                 }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
@@ -154,7 +156,8 @@ export const RestoreCacheGCSStepBase = (
                   </Text>
                 }
                 multiTextInputProps={{
-                  multiTextInputProps: { expressions }
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
                 }}
               />
             </div>
@@ -172,17 +175,19 @@ export const RestoreCacheGCSStepBase = (
                 }
                 multiTypeInputProps={{
                   selectItems: archiveFormatOptions,
-                  multiTypeInputProps: { expressions }
+                  multiTypeInputProps: { expressions },
+                  disabled: readonly
                 }}
                 style={{ marginBottom: 'var(--spacing-medium)' }}
               />
               <FormMultiTypeCheckboxField
                 name="spec.failIfKeyNotFound"
                 label={getString('failIfKeyNotFound')}
-                multiTypeTextbox={{ expressions }}
+                multiTypeTextbox={{ expressions, disabled: readonly }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
+                disabled={readonly}
               />
-              <StepCommonFields />
+              <StepCommonFields disabled={readonly} />
             </div>
           </FormikForm>
         )

@@ -32,7 +32,7 @@ import type { PluginStepProps, PluginStepData, PluginStepDataUI } from './Plugin
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const PluginStepBase = (
-  { initialValues, onUpdate }: PluginStepProps,
+  { initialValues, onUpdate, readonly }: PluginStepProps,
   formikRef: StepFormikFowardRef<PluginStepData>
 ): JSX.Element => {
   const {
@@ -95,9 +95,10 @@ export const PluginStepBase = (
                 idName="identifier"
                 isIdentifierEditable={isEmpty(initialValues.identifier)}
                 inputLabel={getString('pipelineSteps.stepNameLabel')}
+                inputGroupProps={{ disabled: readonly }}
               />
               <FormMultiTypeTextAreaField
-                multiTypeTextArea={{ expressions }}
+                multiTypeTextArea={{ expressions, disabled: readonly }}
                 className={css.removeBpLabelMargin}
                 name="description"
                 label={<Text margin={{ bottom: 'xsmall' }}>{getString('description')}</Text>}
@@ -123,7 +124,7 @@ export const PluginStepBase = (
                 accountIdentifier={accountId}
                 projectIdentifier={projectIdentifier}
                 orgIdentifier={orgIdentifier}
-                multiTypeProps={{ expressions }}
+                multiTypeProps={{ expressions, disabled: readonly }}
                 style={{ marginBottom: 0 }}
               />
               <MultiTypeTextField
@@ -136,7 +137,8 @@ export const PluginStepBase = (
                 }
                 multiTextInputProps={{
                   placeholder: getString('pluginImagePlaceholder'),
-                  multiTextInputProps: { expressions }
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
                 }}
               />
             </div>
@@ -161,8 +163,9 @@ export const PluginStepBase = (
                   )
                 }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
+                disabled={readonly}
               />
-              <StepCommonFields />
+              <StepCommonFields disabled={readonly} />
             </div>
           </FormikForm>
         )

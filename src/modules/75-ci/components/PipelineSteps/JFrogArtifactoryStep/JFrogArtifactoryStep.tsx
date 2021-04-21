@@ -125,7 +125,7 @@ export class JFrogArtifactoryStep extends PipelineStep<JFrogArtifactoryStepData>
   }
 
   renderStep(props: StepProps<JFrogArtifactoryStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, readonly } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -153,6 +153,7 @@ export class JFrogArtifactoryStep extends PipelineStep<JFrogArtifactoryStepData>
         initialValues={initialValues}
         stepViewType={stepViewType}
         onUpdate={onUpdate}
+        readonly={readonly}
         ref={formikRef}
       />
     )

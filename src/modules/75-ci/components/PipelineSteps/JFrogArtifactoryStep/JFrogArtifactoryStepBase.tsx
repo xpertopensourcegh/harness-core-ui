@@ -35,7 +35,7 @@ import type {
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const JFrogArtifactoryStepBase = (
-  { initialValues, onUpdate }: JFrogArtifactoryStepProps,
+  { initialValues, onUpdate, readonly }: JFrogArtifactoryStepProps,
   formikRef: StepFormikFowardRef<JFrogArtifactoryStepData>
 ): JSX.Element => {
   const {
@@ -98,12 +98,13 @@ export const JFrogArtifactoryStepBase = (
                 idName="identifier"
                 isIdentifierEditable={isEmpty(initialValues.identifier)}
                 inputLabel={getString('pipelineSteps.stepNameLabel')}
+                inputGroupProps={{ disabled: readonly }}
               />
               <FormMultiTypeTextAreaField
                 className={css.removeBpLabelMargin}
                 name="description"
                 label={<Text margin={{ bottom: 'xsmall' }}>{getString('description')}</Text>}
-                multiTypeTextArea={{ expressions }}
+                multiTypeTextArea={{ expressions, disabled: readonly }}
               />
               <FormMultiTypeConnectorField
                 label={<Text margin={{ bottom: 'xsmall' }}>{getString('pipelineSteps.connectorLabel')}</Text>}
@@ -116,7 +117,7 @@ export const JFrogArtifactoryStepBase = (
                 accountIdentifier={accountId}
                 projectIdentifier={projectIdentifier}
                 orgIdentifier={orgIdentifier}
-                multiTypeProps={{ expressions }}
+                multiTypeProps={{ expressions, disabled: readonly }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
               <MultiTypeTextField
@@ -133,7 +134,8 @@ export const JFrogArtifactoryStepBase = (
                   </Text>
                 }
                 multiTextInputProps={{
-                  multiTextInputProps: { expressions }
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
                 }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
@@ -151,7 +153,8 @@ export const JFrogArtifactoryStepBase = (
                   </Text>
                 }
                 multiTextInputProps={{
-                  multiTextInputProps: { expressions }
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
                 }}
                 style={{ marginBottom: 0 }}
               />
@@ -160,7 +163,7 @@ export const JFrogArtifactoryStepBase = (
               <Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'small' }}>
                 {getString('pipelineSteps.optionalConfiguration')}
               </Text>
-              <StepCommonFields />
+              <StepCommonFields disabled={readonly} />
             </div>
           </FormikForm>
         )

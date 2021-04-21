@@ -128,7 +128,7 @@ export class RunTestsStep extends PipelineStep<RunTestsStepData> {
   }
 
   renderStep(props: StepProps<RunTestsStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, readonly } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -156,6 +156,7 @@ export class RunTestsStep extends PipelineStep<RunTestsStepData> {
         initialValues={initialValues}
         stepViewType={stepViewType}
         onUpdate={onUpdate}
+        readonly={readonly}
         ref={formikRef}
       />
     )

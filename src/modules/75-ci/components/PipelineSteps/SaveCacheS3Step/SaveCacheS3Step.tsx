@@ -103,7 +103,7 @@ export class SaveCacheS3Step extends PipelineStep<SaveCacheS3StepData> {
   }
 
   renderStep(props: StepProps<SaveCacheS3StepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, readonly } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -131,6 +131,7 @@ export class SaveCacheS3Step extends PipelineStep<SaveCacheS3StepData> {
         initialValues={initialValues}
         onUpdate={onUpdate}
         stepViewType={stepViewType}
+        readonly={readonly}
         ref={formikRef}
       />
     )

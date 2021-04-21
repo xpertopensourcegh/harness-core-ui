@@ -31,7 +31,7 @@ import type { DependencyProps, DependencyData, DependencyDataUI } from './Depend
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const DependencyBase = (
-  { initialValues, onUpdate }: DependencyProps,
+  { initialValues, onUpdate, readonly }: DependencyProps,
   formikRef: StepFormikFowardRef<DependencyData>
 ): JSX.Element => {
   const {
@@ -94,12 +94,16 @@ export const DependencyBase = (
                 idName="identifier"
                 isIdentifierEditable={isEmpty(initialValues.identifier)}
                 inputLabel={getString('dependencyNameLabel')}
+                inputGroupProps={{ disabled: readonly }}
               />
               <FormMultiTypeTextAreaField
                 className={css.removeBpLabelMargin}
                 name="description"
                 label={<Text margin={{ bottom: 'xsmall' }}>{getString('description')}</Text>}
                 style={{ marginBottom: 'var(--spacing-xsmall)' }}
+                multiTypeTextArea={{
+                  disabled: readonly
+                }}
               />
               <FormMultiTypeConnectorField
                 label={
@@ -123,6 +127,7 @@ export const DependencyBase = (
                 projectIdentifier={projectIdentifier}
                 orgIdentifier={orgIdentifier}
                 style={{ marginBottom: 0 }}
+                multiTypeProps={{ disabled: readonly }}
               />
               <MultiTypeTextField
                 name="spec.image"
@@ -133,7 +138,8 @@ export const DependencyBase = (
                   </Text>
                 }
                 multiTextInputProps={{
-                  placeholder: getString('dependencyImagePlaceholder')
+                  placeholder: getString('dependencyImagePlaceholder'),
+                  disabled: readonly
                 }}
               />
             </div>
@@ -156,6 +162,7 @@ export const DependencyBase = (
                     </Text>
                   )
                 }}
+                disabled={readonly}
               />
               <MultiTypeList
                 name="spec.entrypoint"
@@ -167,6 +174,7 @@ export const DependencyBase = (
                     </Text>
                   )
                 }}
+                disabled={readonly}
                 style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-small)' }}
               />
               <MultiTypeList
@@ -179,8 +187,9 @@ export const DependencyBase = (
                     </Text>
                   )
                 }}
+                disabled={readonly}
               />
-              <StepCommonFields withoutTimeout />
+              <StepCommonFields withoutTimeout disabled={readonly} />
             </div>
           </FormikForm>
         )

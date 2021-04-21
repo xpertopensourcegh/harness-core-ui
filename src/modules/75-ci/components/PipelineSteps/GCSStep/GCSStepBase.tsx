@@ -30,7 +30,7 @@ import type { GCSStepData, GCSStepDataUI, GCSStepProps } from './GCSStep'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const GCSStepBase = (
-  { initialValues, onUpdate }: GCSStepProps,
+  { initialValues, onUpdate, readonly }: GCSStepProps,
   formikRef: StepFormikFowardRef<GCSStepData>
 ): JSX.Element => {
   const {
@@ -93,6 +93,7 @@ export const GCSStepBase = (
                 idName="identifier"
                 isIdentifierEditable={isEmpty(initialValues.identifier)}
                 inputLabel={getString('pipelineSteps.stepNameLabel')}
+                inputGroupProps={{ disabled: readonly }}
               />
               <FormMultiTypeConnectorField
                 label={
@@ -115,7 +116,7 @@ export const GCSStepBase = (
                 accountIdentifier={accountId}
                 projectIdentifier={projectIdentifier}
                 orgIdentifier={orgIdentifier}
-                multiTypeProps={{ expressions }}
+                multiTypeProps={{ expressions, disabled: readonly }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
               <MultiTypeTextField
@@ -132,7 +133,8 @@ export const GCSStepBase = (
                   </Text>
                 }
                 multiTextInputProps={{
-                  multiTextInputProps: { expressions }
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
                 }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
@@ -150,7 +152,8 @@ export const GCSStepBase = (
                   </Text>
                 }
                 multiTextInputProps={{
-                  multiTextInputProps: { expressions }
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
                 }}
               />
             </div>
@@ -173,11 +176,12 @@ export const GCSStepBase = (
                 }
                 multiTextInputProps={{
                   placeholder: getString('pipelineSteps.artifactsTargetPlaceholder'),
-                  multiTextInputProps: { expressions }
+                  multiTextInputProps: { expressions },
+                  disabled: readonly
                 }}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
-              <StepCommonFields />
+              <StepCommonFields disabled={readonly} />
             </div>
           </FormikForm>
         )

@@ -86,7 +86,7 @@ export class GCSStep extends PipelineStep<GCSStepData> {
     return {}
   }
   renderStep(props: StepProps<GCSStepData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, readonly } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -114,6 +114,7 @@ export class GCSStep extends PipelineStep<GCSStepData> {
         initialValues={initialValues}
         onUpdate={onUpdate}
         stepViewType={stepViewType}
+        readonly={readonly}
         ref={formikRef}
       />
     )

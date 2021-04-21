@@ -56,7 +56,8 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
 
   const {
     state: { pipeline },
-    updatePipeline
+    updatePipeline,
+    isReadonly
   } = React.useContext(PipelineContext)
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
@@ -199,13 +200,16 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
               >
                 {getString('pipelineSteps.build.create.aboutYourStage')}
               </Text>
-              <FormInput.InputWithIdentifier inputLabel={getString('stageNameLabel')} />
+              <FormInput.InputWithIdentifier
+                inputLabel={getString('stageNameLabel')}
+                inputGroupProps={{ disabled: isReadonly }}
+              />
               <div className={css.collapseDiv}>
                 <Collapse
                   {...collapseProps}
                   isOpen={(formikProps.values.description && formikProps.values.description?.length > 0) || false}
                 >
-                  <FormInput.TextArea name="description" />
+                  <FormInput.TextArea name="description" disabled={isReadonly} />
                 </Collapse>
               </div>
               <Switch
@@ -213,6 +217,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                 onChange={e => formikProps.setFieldValue('cloneCodebase', e.currentTarget.checked)}
                 defaultChecked={formikProps.values.cloneCodebase}
                 margin={{ bottom: 'small' }}
+                disabled={isReadonly}
               />
               <div className={css.cloneCodebaseInfo}>
                 <Icon name="info" size={10} margin={{ right: 'small' }} />
@@ -243,7 +248,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                     selected={formikProps.values.connectorRef}
                     label={getString('connector')}
                     placeholder={loading ? getString('loading') : getString('select')}
-                    disabled={loading}
+                    disabled={loading || isReadonly}
                     accountIdentifier={accountId}
                     projectIdentifier={projectIdentifier}
                     orgIdentifier={orgIdentifier}
@@ -274,6 +279,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                         label={'Repository Name'}
                         name="repoName"
                         style={{ flexGrow: 1 }}
+                        disabled={isReadonly}
                       />
                       {connectorUrl.length > 0 ? (
                         <Text className={css.predefinedValue} width={380} lineClamp={1}>
