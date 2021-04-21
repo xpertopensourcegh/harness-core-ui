@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, fireEvent, act, findByText as findByTextContainer, queryByAttribute } from '@testing-library/react'
 
-import { TestWrapper, NotFound } from '@common/utils/testUtils'
+import { TestWrapper, CurrentLocation } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, executionPathProps, pipelineModuleParams } from '@common/utils/routeUtils'
 import { ResponsePipelineExecutionDetail, useGetExecutionDetail } from 'services/pipeline-ng'
@@ -103,7 +103,7 @@ describe('<ExecutionLandingPage /> tests', () => {
     const { container, getByTestId } = render(
       <TestWrapper path={TEST_EXECUTION_PIPELINE_PATH} pathParams={(pathParams as unknown) as Record<string, string>}>
         <ExecutionLandingPage>
-          <NotFound />
+          <CurrentLocation />
         </ExecutionLandingPage>
       </TestWrapper>
     )

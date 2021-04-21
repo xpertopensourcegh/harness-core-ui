@@ -3,18 +3,22 @@ import { render, waitFor, queryByText, fireEvent } from '@testing-library/react'
 import { noop } from 'lodash-es'
 import { Classes } from '@blueprintjs/core'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
-import { TestWrapper } from '@common/utils/testUtils'
+import { CurrentLocation, TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import { SelectProduct } from '../SelectProduct'
 
-const mockHistoryPush = jest.fn()
-
-jest.mock('react-router-dom', () => ({
-  ...(jest.requireActual('react-router-dom') as object),
-  useHistory: () => ({
-    push: mockHistoryPush
-  })
-}))
+function ComponentWrapper(): React.ReactElement {
+  return (
+    <React.Fragment>
+      <SelectProduct
+        type="GoogleCloudOperations"
+        onCompleteStep={() => noop}
+        productSelectValidationText="Product is required."
+      />
+      <CurrentLocation />
+    </React.Fragment>
+  )
+}
 
 describe('SelectProduct', () => {
   test('Render for AppD monitoring source', async () => {
@@ -72,7 +76,7 @@ describe('SelectProduct', () => {
   })
 
   test('Ensure that when user clicks previous, it takes them back to monitoring source page', async () => {
-    const { container, getByText } = render(
+    const { container, getByText, getByTestId } = render(
       <TestWrapper
         path={routes.toCVProjectOverview({ ...accountPathProps, ...projectPathProps })}
         pathParams={{
@@ -81,21 +85,19 @@ describe('SelectProduct', () => {
           orgIdentifier: '1234_ORG'
         }}
       >
-        <SelectProduct
-          type="GoogleCloudOperations"
-          onCompleteStep={() => noop}
-          productSelectValidationText="Product is required."
-        />
+        <ComponentWrapper />
       </TestWrapper>
     )
 
     await waitFor(() => expect(queryByText(container, 'monitoringSource')).not.toBeNull())
     fireEvent.click(getByText('previous'))
 
-    await waitFor(() =>
-      expect(mockHistoryPush).toHaveBeenCalledWith(
-        '/account/1234_account/cv/orgs/1234_ORG/projects/1234_project/admin/setup?step=2'
-      )
-    )
+    expect(getByTestId('location')).toMatchInlineSnapshot(`
+      <div
+        data-testid="location"
+      >
+        /account/1234_account/cv/orgs/1234_ORG/projects/1234_project/admin/setup?step=2
+      </div>
+    `)
   })
 })

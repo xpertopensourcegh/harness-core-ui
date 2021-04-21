@@ -2,17 +2,9 @@ import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import { accountPathProps, pipelineModuleParams, pipelinePathProps } from '@common/utils/routeUtils'
-import { TestWrapper } from '@common/utils/testUtils'
+import { CurrentLocation, TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import CIPipelineDeploymentList from '../CIPipelineDeploymentList'
-
-const historyPushMock = jest.fn()
-jest.mock('react-router-dom', () => ({
-  ...(jest.requireActual('react-router-dom') as object),
-  useHistory: () => ({
-    push: historyPushMock
-  })
-}))
 
 jest.mock('@pipeline/pages/pipeline-deployment-list/PipelineDeploymentList', () => {
   return function CIPipelineDeploymentListComp(props: any) {
@@ -20,13 +12,20 @@ jest.mock('@pipeline/pages/pipeline-deployment-list/PipelineDeploymentList', () 
   }
 })
 
+function ComponentWrapper(): React.ReactElement {
+  return (
+    <React.Fragment>
+      <CIPipelineDeploymentList />
+      <CurrentLocation />
+    </React.Fragment>
+  )
+}
+
 const TEST_PATH = routes.toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })
 
 describe('<CIPipelineDeploymentList /> tests', () => {
   test('call run pipeline', async () => {
-    const spyUseHistory = jest.spyOn({ historyPushMock }, 'historyPushMock')
-
-    const { container } = render(
+    const { container, getByTestId } = render(
       <TestWrapper
         path={TEST_PATH}
         pathParams={{
@@ -38,7 +37,7 @@ describe('<CIPipelineDeploymentList /> tests', () => {
         }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
-        <CIPipelineDeploymentList />
+        <ComponentWrapper />
       </TestWrapper>
     )
 
@@ -46,8 +45,12 @@ describe('<CIPipelineDeploymentList /> tests', () => {
     const projectButton = await waitFor(() => container.querySelector(projectButtonSel))
     fireEvent.click(projectButton!)
 
-    expect(spyUseHistory).toBeCalledWith('/account/testAcc/ci/orgs/testOrg/projects/test/pipelines/testPip/runpipeline')
-
-    spyUseHistory.mockClear()
+    expect(getByTestId('location')).toMatchInlineSnapshot(`
+      <div
+        data-testid="location"
+      >
+        /account/testAcc/ci/orgs/testOrg/projects/test/pipelines/testPip/runpipeline
+      </div>
+    `)
   })
 })

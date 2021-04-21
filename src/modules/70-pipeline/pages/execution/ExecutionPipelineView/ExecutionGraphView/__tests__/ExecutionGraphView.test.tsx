@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
-import { TestWrapper, NotFound } from '@common/utils/testUtils'
+import { TestWrapper, CurrentLocation } from '@common/utils/testUtils'
 import type { ExecutionNode } from 'services/cd-ng'
 
 import type { ExecutionPipelineNode } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
@@ -100,7 +100,7 @@ describe('<ExecutionGraphView /> tests', () => {
       <TestWrapper>
         <ExecutionContext.Provider value={contextValue()}>
           <ExecutionGraphView />
-          <NotFound />
+          <CurrentLocation />
         </ExecutionContext.Provider>
       </TestWrapper>
     )
@@ -112,7 +112,7 @@ describe('<ExecutionGraphView /> tests', () => {
       <TestWrapper>
         <ExecutionContext.Provider value={contextValue(mockCI)}>
           <ExecutionGraphView />
-          <NotFound />
+          <CurrentLocation />
         </ExecutionContext.Provider>
       </TestWrapper>
     )
@@ -124,7 +124,7 @@ describe('<ExecutionGraphView /> tests', () => {
       <TestWrapper>
         <ExecutionContext.Provider value={contextValue()}>
           <ExecutionGraphView />
-          <NotFound />
+          <CurrentLocation />
         </ExecutionContext.Provider>
       </TestWrapper>
     )
@@ -147,7 +147,7 @@ describe('<ExecutionGraphView /> tests', () => {
       <TestWrapper>
         <ExecutionContext.Provider value={contextValue()}>
           <ExecutionGraphView />
-          <NotFound />
+          <CurrentLocation />
         </ExecutionContext.Provider>
       </TestWrapper>
     )
@@ -170,7 +170,7 @@ describe('<ExecutionGraphView /> tests', () => {
       <TestWrapper>
         <ExecutionContext.Provider value={contextValue()}>
           <ExecutionGraphView />
-          <NotFound />
+          <CurrentLocation />
         </ExecutionContext.Provider>
       </TestWrapper>
     )
@@ -193,7 +193,7 @@ describe('<ExecutionGraphView /> tests', () => {
       <TestWrapper>
         <ExecutionContext.Provider value={contextValue()}>
           <ExecutionGraphView />
-          <NotFound />
+          <CurrentLocation />
         </ExecutionContext.Provider>
       </TestWrapper>
     )
@@ -224,7 +224,7 @@ describe('<ExecutionGraphView /> tests', () => {
           }}
         >
           <ExecutionGraphView />
-          <NotFound />
+          <CurrentLocation />
         </ExecutionContext.Provider>
       </TestWrapper>
     )

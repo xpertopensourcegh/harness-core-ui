@@ -42,7 +42,7 @@ export interface TestWrapperProps {
 
 export const prependAccountPath = (path: string): string => withAccountId(() => path)(accountPathProps)
 
-export const NotFound = (): JSX.Element => {
+export const CurrentLocation = (): JSX.Element => {
   const location = useLocation()
   return (
     <div>
@@ -119,7 +119,7 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
                     {props.children}
                   </Route>
                   <Route>
-                    <NotFound />
+                    <CurrentLocation />
                   </Route>
                 </Switch>
               </BrowserView>

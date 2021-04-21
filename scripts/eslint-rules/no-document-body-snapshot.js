@@ -7,7 +7,7 @@ module.exports = {
     }
   },
 
-  create: function(context) {
+  create: function (context) {
     return {
       CallExpression(node) {
         if (

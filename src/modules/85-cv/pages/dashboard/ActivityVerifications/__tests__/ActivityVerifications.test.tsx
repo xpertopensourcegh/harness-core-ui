@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
-import { TestWrapper, NotFound, TestWrapperProps } from '@common/utils/testUtils'
+import { TestWrapper, CurrentLocation, TestWrapperProps } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import ActivityVerifications from '../ActivityVerifications'
@@ -55,7 +55,7 @@ describe('ActivityVerifications', () => {
     const { container, getByTestId } = render(
       <TestWrapper {...testWrapperProps}>
         <ActivityVerifications />
-        <NotFound />
+        <CurrentLocation />
       </TestWrapper>
     )
     fireEvent.click(container.querySelector('.triger-navigation')!)

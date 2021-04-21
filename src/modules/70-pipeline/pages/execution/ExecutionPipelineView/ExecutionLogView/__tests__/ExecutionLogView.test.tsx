@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
-import { TestWrapper, NotFound } from '@common/utils/testUtils'
+import { TestWrapper, CurrentLocation } from '@common/utils/testUtils'
 import { getPipelineStagesMap } from '@pipeline/utils/executionUtils'
 import ExecutionContext from '../../../ExecutionContext/ExecutionContext'
 import ExecutionLogView from '../ExecutionLogView'
@@ -40,7 +40,7 @@ describe('<ExecutionLogView /> tests', () => {
       <TestWrapper>
         <ExecutionContext.Provider value={contextValue}>
           <ExecutionLogView />
-          <NotFound />
+          <CurrentLocation />
         </ExecutionContext.Provider>
       </TestWrapper>
     )
@@ -52,7 +52,7 @@ describe('<ExecutionLogView /> tests', () => {
       <TestWrapper>
         <ExecutionContext.Provider value={contextValue}>
           <ExecutionLogView />
-          <NotFound />
+          <CurrentLocation />
         </ExecutionContext.Provider>
       </TestWrapper>
     )

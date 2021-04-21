@@ -2,14 +2,12 @@ import React from 'react'
 import { render, waitFor, queryByText, fireEvent } from '@testing-library/react'
 import type { UseGetReturn } from 'restful-react'
 import { noop } from 'lodash-es'
-import { TestWrapper } from '@common/utils/testUtils'
+import { CurrentLocation, TestWrapper } from '@common/utils/testUtils'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import { fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
 import routes from '@common/RouteDefinitions'
 import * as cvService from 'services/cv'
 import VerificationJobsDetails from '../VerificationJobsDetails'
-
-const mockHistoryPush = jest.fn()
 
 const MockDataSources = {
   metaData: {},
@@ -99,12 +97,26 @@ const MockActivitySource = {
   responseMessages: []
 }
 
-jest.mock('react-router-dom', () => ({
-  ...(jest.requireActual('react-router-dom') as object),
-  useHistory: () => ({
-    push: mockHistoryPush
-  })
-}))
+function ComponentWrapper(): React.ReactElement {
+  return (
+    <React.Fragment>
+      <VerificationJobsDetails
+        onNext={jest.fn()}
+        stepData={{
+          dataSource: [{ label: 'All', value: 'All' }],
+          activitySource: [{ label: 'cdSource', value: 'cdSource' }],
+          identifier: 'sdfsfsdf',
+          serviceIdentifier: '1234_service',
+          environentIdentifier: '1234_environentIdentifier',
+          duration: '15m',
+          name: 'sdfsfsdf',
+          type: 'HEALTH'
+        }}
+      />
+      <CurrentLocation />
+    </React.Fragment>
+  )
+}
 
 describe('VerificationJobsDetails', () => {
   test('Render initiaaly', async () => {
@@ -613,9 +625,8 @@ describe('VerificationJobsDetails', () => {
     jest.spyOn(cvService, 'useListActivitySources').mockReturnValue({
       data: MockActivitySource
     } as UseGetReturn<any, any, any, any>)
-    const submitFuncMock = jest.fn()
 
-    const { container, getByText } = render(
+    const { container, getByText, getByTestId } = render(
       <TestWrapper
         path={routes.toCVAdminSetupVerificationJob({ ...accountPathProps, ...projectPathProps })}
         pathParams={{
@@ -624,29 +635,19 @@ describe('VerificationJobsDetails', () => {
           orgIdentifier: '1234_ORG'
         }}
       >
-        <VerificationJobsDetails
-          onNext={submitFuncMock}
-          stepData={{
-            dataSource: [{ label: 'All', value: 'All' }],
-            activitySource: [{ label: 'cdSource', value: 'cdSource' }],
-            identifier: 'sdfsfsdf',
-            serviceIdentifier: '1234_service',
-            environentIdentifier: '1234_environentIdentifier',
-            duration: '15m',
-            name: 'sdfsfsdf',
-            type: 'HEALTH'
-          }}
-        />
+        <ComponentWrapper />
       </TestWrapper>
     )
 
     await waitFor(() => expect(queryByText(container, 'cv.verificationJobs.details.heading')).not.toBeNull())
     fireEvent.click(getByText('previous'))
 
-    await waitFor(() =>
-      expect(mockHistoryPush).toHaveBeenCalledWith(
-        '/account/1234_account/cv/orgs/1234_ORG/projects/1234_project/admin/setup?step=3'
-      )
-    )
+    expect(getByTestId('location')).toMatchInlineSnapshot(`
+      <div
+        data-testid="location"
+      >
+        /account/1234_account/cv/orgs/1234_ORG/projects/1234_project/admin/setup?step=3
+      </div>
+    `)
   })
 })

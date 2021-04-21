@@ -39,6 +39,10 @@ rules:
   no-document-body-snapshot: 2
   aliased-module-imports: 2
   strings-restrict-modules: 2
+  jest-no-mock:
+    - 2
+    - module:
+        react-router-dom: 'react-router-dom should not be mocked. Wrap the component inside TestWrapper instead'
 
   # built-in
   no-console: 2

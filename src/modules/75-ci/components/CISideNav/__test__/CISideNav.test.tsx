@@ -1,15 +1,7 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
-import { TestWrapper } from '@common/utils/testUtils'
+import { CurrentLocation, TestWrapper } from '@common/utils/testUtils'
 import CISideNav from '../CISideNav'
-
-const historyPushMock = jest.fn()
-jest.mock('react-router-dom', () => ({
-  ...(jest.requireActual('react-router-dom') as object),
-  useHistory: () => ({
-    push: historyPushMock
-  })
-}))
 
 jest.mock('@common/navigation/ProjectSelector/ProjectSelector', () => ({
   ProjectSelector: function ProjectSelectorComp(props: any) {
@@ -21,6 +13,15 @@ jest.mock('@common/navigation/ProjectSelector/ProjectSelector', () => ({
     )
   }
 }))
+
+function ComponentWrapper(): React.ReactElement {
+  return (
+    <React.Fragment>
+      <CISideNav />
+      <CurrentLocation />
+    </React.Fragment>
+  )
+}
 
 describe('SideNav', () => {
   test('render properly', () => {
@@ -43,14 +44,12 @@ describe('SideNav', () => {
   })
 
   test('update route on project selection - if project is selected', async () => {
-    const spyUseHistory = jest.spyOn({ historyPushMock }, 'historyPushMock')
-
-    const { container } = render(
+    const { container, getByTestId } = render(
       <TestWrapper
         path="/account/:accountId/ci/dashboard/orgs/:orgIdentifier/projects/:projectIdentifier"
         pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}
       >
-        <CISideNav />
+        <ComponentWrapper />
       </TestWrapper>
     )
 
@@ -58,20 +57,22 @@ describe('SideNav', () => {
     const projectButton = await waitFor(() => container.querySelector(projectButtonSel))
     fireEvent.click(projectButton!)
 
-    expect(spyUseHistory).toBeCalledWith('/account/dummy/ci/dashboard/orgs/org/projects/project')
-
-    spyUseHistory.mockClear()
+    expect(getByTestId('location')).toMatchInlineSnapshot(`
+      <div
+        data-testid="location"
+      >
+        /account/dummy/ci/dashboard/orgs/org/projects/project
+      </div>
+    `)
   })
 
   test('update route on project selection - if project is NOT selected', async () => {
-    const spyUseHistory = jest.spyOn({ historyPushMock }, 'historyPushMock')
-
-    const { container } = render(
+    const { container, getByTestId } = render(
       <TestWrapper
         path="/account/:accountId/ci/dashboard/orgs/:orgIdentifier"
         pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy' }}
       >
-        <CISideNav />
+        <ComponentWrapper />
       </TestWrapper>
     )
 
@@ -79,8 +80,12 @@ describe('SideNav', () => {
     const projectButton = await waitFor(() => container.querySelector(projectButtonSel))
     fireEvent.click(projectButton!)
 
-    expect(spyUseHistory).toBeCalledWith('/account/dummy/ci/orgs/org/projects/project/dashboard')
-
-    spyUseHistory.mockClear()
+    expect(getByTestId('location')).toMatchInlineSnapshot(`
+      <div
+        data-testid="location"
+      >
+        /account/dummy/ci/orgs/org/projects/project/dashboard
+      </div>
+    `)
   })
 })

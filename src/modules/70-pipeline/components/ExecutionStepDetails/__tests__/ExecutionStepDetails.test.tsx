@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, fireEvent, waitFor, findAllByText as findAllByTextGlobal } from '@testing-library/react'
 
-import { TestWrapper, NotFound } from '@common/utils/testUtils'
+import { TestWrapper, CurrentLocation } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import ExecutionContext, { ExecutionContextParams } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import { accountPathProps, executionPathProps, pipelineModuleParams } from '@common/utils/routeUtils'
@@ -115,7 +115,7 @@ describe('<ExecutionStepDetails /> tests', () => {
     test('shows step selection', async () => {
       const { container, findByTestId } = render(
         <TestComponent selectedStep="retriedStep" closeDetails={jest.fn()}>
-          <NotFound />
+          <CurrentLocation />
         </TestComponent>
       )
       expect(container).toMatchSnapshot()
