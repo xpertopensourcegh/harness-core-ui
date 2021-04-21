@@ -11,7 +11,7 @@ import {
   Duration,
   BaselineSelect,
   TrafficSplit,
-  VerificationSensitivityOptions
+  getVerificationSensitivityOptions
 } from '@cv/pages/verification-jobs/VerificationJobForms/VerificationJobFields'
 import { useStrings } from 'framework/exports'
 import type { ContinousVerificationData } from '@cv/components/PipelineSteps/ContinousVerification/types'
@@ -35,6 +35,7 @@ export default function ConfigureVerificationJob(props: {
     jobContents
   } = props
   const { getString } = useStrings()
+  const verificationSensitivityOptions = getVerificationSensitivityOptions(getString)
   const { expressions } = useVariablesExpression()
   const selectedJobValue =
     (formValues?.spec?.verificationJobRef as SelectOption)?.value || formValues?.spec?.verificationJobRef
@@ -131,7 +132,7 @@ export default function ConfigureVerificationJob(props: {
 
   useEffect(() => {
     if (selectedJob) {
-      const sensitivity = getFieldDataFromForm('sensitivity', VerificationSensitivityOptions, specInfo, selectedJob)
+      const sensitivity = getFieldDataFromForm('sensitivity', verificationSensitivityOptions, specInfo, selectedJob)
       const duration = getFieldDataFromForm('duration', durationOptions, specInfo, selectedJob)
       const trafficsplit = getFieldDataFromForm(
         'trafficSplitPercentage',

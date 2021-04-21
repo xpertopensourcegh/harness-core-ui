@@ -14,6 +14,7 @@ import {
 import { useToaster } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/exports'
+import type { UseStringsReturn } from 'framework/strings/String'
 import {
   ActivitySourceDTO,
   useListActivitySources,
@@ -21,7 +22,6 @@ import {
   useListBaselineExecutions
 } from 'services/cv'
 import type { ContinousVerificationData } from '@cv/components/PipelineSteps/ContinousVerification/types'
-import i18n from './VerificationJobForms.i18n'
 import css from './VerificationJobFields.module.scss'
 
 interface BaseFieldProps {
@@ -68,37 +68,43 @@ export function iconNameToActivityType(icon?: IconProps['name']): ActivitySource
 export const VerificationJobNameFieldNames = {}
 
 export function JobName(): JSX.Element {
+  const { getString } = useStrings()
   return (
     <FormInput.InputWithIdentifier
       inputName="jobName"
       idLabel="Identifier"
-      inputGroupProps={{ placeholder: i18n.placeholders.jobName }}
-      inputLabel={i18n.fieldLabels.jobName}
+      inputGroupProps={{ placeholder: getString('cv.jobNamePlaceholder') }}
+      inputLabel={getString('connectors.cdng.jobName')}
     />
   )
 }
 
-export const VerificationSensitivityOptions: SelectOption[] = [
-  { label: i18n.verificationSensitivityLabel.high, value: 'HIGH' },
-  { label: i18n.verificationSensitivityLabel.medium, value: 'MEDIUM' },
-  { label: i18n.verificationSensitivityLabel.low, value: 'LOW' }
-]
+export function getDefaultBaselineOptions(getString: UseStringsReturn['getString']): SelectOption[] {
+  return [
+    { label: getString('cv.lastSuccessfulRun'), value: 'LAST' }
+    // { label: i18n.baselineDefaultLabel.pinBaseline, value: 'PIN' }
+  ]
+}
 
-export const DefaultBaselineOptions: SelectOption[] = [
-  { label: i18n.baselineDefaultLabel.lastSuccess, value: 'LAST' }
-  // { label: i18n.baselineDefaultLabel.pinBaseline, value: 'PIN' }
-]
+export function getVerificationSensitivityOptions(getString: UseStringsReturn['getString']): SelectOption[] {
+  return [
+    { label: getString('connectors.cdng.verificationSensitivityLabel.high'), value: 'HIGH' },
+    { label: getString('connectors.cdng.verificationSensitivityLabel.medium'), value: 'MEDIUM' },
+    { label: getString('connectors.cdng.verificationSensitivityLabel.low'), value: 'LOW' }
+  ]
+}
 
 export function VerificationSensitivity(props: BaseFieldProps): JSX.Element {
   const { zIndex, label, name, expressions, formik, isSimpleDropdown } = props
   const style: CSSProperties = useMemo(() => ({ zIndex: zIndex ?? 10 }), [zIndex]) as CSSProperties
+  const { getString } = useStrings()
   if (!isSimpleDropdown) {
     return (
       <FormInput.MultiTypeInput
         name={name ? name : 'sensitivity'}
         style={style}
-        label={label ? label : i18n.fieldLabels.sensitivity}
-        selectItems={VerificationSensitivityOptions}
+        label={label ? label : getString('sensitivity')}
+        selectItems={getVerificationSensitivityOptions(getString)}
         multiTypeInputProps={
           expressions
             ? { expressions }
@@ -112,9 +118,9 @@ export function VerificationSensitivity(props: BaseFieldProps): JSX.Element {
     return (
       <FormInput.Select
         name={name ? name : 'sensitivity'}
-        label={label ? label : i18n.fieldLabels.sensitivity}
+        label={label ? label : getString('sensitivity')}
         style={style}
-        items={VerificationSensitivityOptions}
+        items={getVerificationSensitivityOptions(getString)}
         value={(formik?.values as ContinousVerificationData).spec?.spec?.sensitivity as SelectOption}
         disabled={true}
       />
@@ -138,11 +144,12 @@ export function ServiceName(props: BaseFieldProps): JSX.Element {
   })
   const { zIndex } = props
   const style: CSSProperties = useMemo(() => ({ zIndex: zIndex ?? 9 }), [zIndex]) as CSSProperties
+  const { getString } = useStrings()
   return (
     <FormInput.MultiTypeInput
       name="service"
       style={style}
-      label={i18n.fieldLabels.service}
+      label={getString('service')}
       selectItems={serviceOptions as SelectOption[]}
       multiTypeInputProps={{
         allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
@@ -165,12 +172,13 @@ export function Duration(props: BaseFieldProps): JSX.Element {
   )
   const { zIndex, label, name, expressions, formik, isSimpleDropdown } = props
   const style: CSSProperties = useMemo(() => ({ zIndex: zIndex ?? 8 }), [zIndex]) as CSSProperties
+  const { getString } = useStrings()
   if (!isSimpleDropdown) {
     return (
       <FormInput.MultiTypeInput
         name={name ? name : 'duration'}
         style={style}
-        label={label ? label : i18n.fieldLabels.duration}
+        label={label ? label : getString('duration')}
         selectItems={selectProps.items}
         multiTypeInputProps={
           expressions
@@ -186,7 +194,7 @@ export function Duration(props: BaseFieldProps): JSX.Element {
       <FormInput.Select
         name={name ? name : 'duration'}
         style={style}
-        label={label ? label : i18n.fieldLabels.duration}
+        label={label ? label : getString('duration')}
         items={selectProps.items}
         value={(formik?.values as ContinousVerificationData).spec?.spec?.duration as SelectOption}
         disabled={true}
@@ -211,11 +219,12 @@ export function EnvironmentName(props: BaseFieldProps): JSX.Element {
   })
   const { zIndex } = props
   const style: CSSProperties = useMemo(() => ({ zIndex: zIndex ?? 7 }), [zIndex]) as CSSProperties
+  const { getString } = useStrings()
   return (
     <FormInput.MultiTypeInput
       name="environment"
       style={style}
-      label={i18n.fieldLabels.environment}
+      label={getString('environment')}
       selectItems={environmentOptions as SelectOption[]}
       multiTypeInputProps={{
         allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
@@ -237,12 +246,13 @@ export function TrafficSplit(props: BaseFieldProps): JSX.Element {
   )
   const { zIndex, label, name, expressions, formik, isSimpleDropdown } = props
   const style: CSSProperties = useMemo(() => ({ zIndex: zIndex ?? 6 }), [zIndex]) as CSSProperties
+  const { getString } = useStrings()
   if (!isSimpleDropdown) {
     return (
       <FormInput.MultiTypeInput
         name={name ? name : 'trafficSplit'}
         style={style}
-        label={label ? label : i18n.fieldLabels.trafficSplit}
+        label={label ? label : getString('cv.trafficSplit')}
         selectItems={selectProps.items}
         multiTypeInputProps={
           expressions
@@ -257,7 +267,7 @@ export function TrafficSplit(props: BaseFieldProps): JSX.Element {
     return (
       <FormInput.Select
         name={name ? name : 'trafficSplit'}
-        label={label ? label : i18n.fieldLabels.trafficSplit}
+        label={label ? label : getString('cv.trafficSplit')}
         style={style}
         items={selectProps.items}
         value={(formik?.values as ContinousVerificationData).spec?.spec?.trafficsplit as SelectOption}
@@ -268,11 +278,12 @@ export function TrafficSplit(props: BaseFieldProps): JSX.Element {
 }
 
 export function Baseline(props: BaseFieldProps): JSX.Element {
+  const { getString } = useStrings()
   const selectProps = useMemo(
     () => ({
       items: [
-        { label: i18n.baselineDefaultLabel.lastSuccess, value: 'LAST' },
-        { label: i18n.baselineDefaultLabel.pinBaseline, value: 'PIN' }
+        { label: getString('cv.lastSuccessfulRun'), value: 'LAST' },
+        { label: getString('cv.pinABaseline'), value: 'PIN' }
       ]
     }),
     []
@@ -283,7 +294,7 @@ export function Baseline(props: BaseFieldProps): JSX.Element {
     <FormInput.MultiTypeInput
       name="baseline"
       style={style}
-      label={i18n.fieldLabels.baseline}
+      label={getString('connectors.cdng.baseline')}
       selectItems={selectProps.items}
       multiTypeInputProps={{
         allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
@@ -294,7 +305,8 @@ export function Baseline(props: BaseFieldProps): JSX.Element {
 
 export function BaselineSelect(props: BaseFieldProps): JSX.Element {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
-  const [baselineOption, setBaselineOption] = useState([...DefaultBaselineOptions])
+  const { getString } = useStrings()
+  const [baselineOption, setBaselineOption] = useState([...getDefaultBaselineOptions(getString)])
   const { data } = useListBaselineExecutions({
     queryParams: {
       accountId,
@@ -322,7 +334,7 @@ export function BaselineSelect(props: BaseFieldProps): JSX.Element {
       <FormInput.MultiTypeInput
         name={name ? name : 'baseline'}
         style={style}
-        label={label ? label : i18n.fieldLabels.baseline}
+        label={label ? label : getString('connectors.cdng.baseline')}
         selectItems={baselineOption}
         multiTypeInputProps={
           expressions
@@ -338,42 +350,13 @@ export function BaselineSelect(props: BaseFieldProps): JSX.Element {
       <FormInput.Select
         name={name ? name : 'baseline'}
         style={style}
-        label={label ? label : i18n.fieldLabels.baseline}
+        label={label ? label : getString('connectors.cdng.baseline')}
         items={baselineOption}
         value={(formik?.values as ContinousVerificationData).spec?.spec?.baseline as SelectOption}
         disabled={true}
       />
     )
   }
-}
-
-// Remove this after old onboarding is removed
-export function DataSource(props: BaseFieldProps): JSX.Element {
-  const selectProps = useMemo(
-    () => ({
-      items: [
-        { label: 'App Dynamics', value: 'APP_DYNAMICS' },
-        { label: 'Splunk', value: 'SPLUNK' }
-      ]
-    }),
-    []
-  )
-  const { zIndex } = props
-  const style: CSSProperties = useMemo(() => ({ zIndex: zIndex ?? 4 }), [zIndex]) as CSSProperties
-  return (
-    <FormInput.MultiSelectTypeInput
-      name="dataSource"
-      style={style}
-      label={i18n.fieldLabels.monitoringSource}
-      selectItems={selectProps.items}
-      multiSelectTypeInputProps={{
-        multiSelectProps: {
-          items: selectProps.items
-        },
-        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
-      }}
-    />
-  )
 }
 
 export function DataSources(props: BaseFieldProps & { formik: FormikProps<any> }): JSX.Element {
@@ -411,7 +394,7 @@ export function DataSources(props: BaseFieldProps & { formik: FormikProps<any> }
       name="dataSource"
       style={style}
       key={monitoringOptions?.[0]?.label}
-      label={i18n.fieldLabels.monitoringSource}
+      label={getString('monitoringSource')}
       items={loading ? [{ label: getString('loading'), value: getString('loading') }] : monitoringOptions}
     />
   )

@@ -5,7 +5,8 @@ import { useParams } from 'react-router-dom'
 import { RiskScoreTile } from '@cv/components/RiskScoreTile/RiskScoreTile'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { EnvServiceRiskDTO, RestResponseListEnvServiceRiskDTO, useGetEnvServiceRisks } from 'services/cv'
-import i18n from './ServiceSelector.i18n'
+import { useStrings } from 'framework/exports'
+import type { UseStringsReturn } from 'framework/strings/String'
 import css from './ServiceSelector.module.scss'
 
 interface ServiceSelectorProps {
@@ -23,7 +24,10 @@ interface RowProps {
 
 const NO_DATA_RISK_SCORE = -1
 
-function generateOverallRiskScores(serviceData?: EnvServiceRiskDTO[]): Map<string, number> {
+function generateOverallRiskScores(
+  getString: UseStringsReturn['getString'],
+  serviceData?: EnvServiceRiskDTO[]
+): Map<string, number> {
   const riskScoreMap = new Map<string, number>()
   if (!serviceData) {
     return riskScoreMap
@@ -42,12 +46,13 @@ function generateOverallRiskScores(serviceData?: EnvServiceRiskDTO[]): Map<strin
     riskScoreMap.set(serviceInfo.envIdentifier, envScore)
   }
 
-  riskScoreMap.set(i18n.allServiceOptionText, maxOverallRiskScore)
+  riskScoreMap.set(getString('cv.allServices'), maxOverallRiskScore)
   return riskScoreMap
 }
 
 function EnvironmentRow(props: RowProps): JSX.Element {
   const { entityName, riskScore, onSelect, selected } = props
+  const { getString } = useStrings()
   return (
     <Container
       flex
@@ -58,7 +63,7 @@ function EnvironmentRow(props: RowProps): JSX.Element {
       }}
     >
       <Text color={Color.BLACK} font={{ weight: 'bold' }}>
-        {`${i18n.environmentLabelText} ${entityName}`}
+        {`${getString('environment')}: ${entityName}`}
       </Text>
       <RiskScoreTile riskScore={riskScore} isSmall />
     </Container>
@@ -67,11 +72,15 @@ function EnvironmentRow(props: RowProps): JSX.Element {
 
 function ServiceRow(props: RowProps): JSX.Element {
   const { entityName, riskScore, selected, onSelect } = props
+  const { getString } = useStrings()
   return (
     <Container
       flex
       data-selected={selected}
-      className={cx(css.entityRow, entityName === i18n.allServiceOptionText ? css.allServiceSelector : css.serviceRow)}
+      className={cx(
+        css.entityRow,
+        entityName === getString('cv.allServices') ? css.allServiceSelector : css.serviceRow
+      )}
       onClick={() => {
         onSelect(entityName)
       }}
@@ -84,6 +93,7 @@ function ServiceRow(props: RowProps): JSX.Element {
 
 export default function ServiceSelector(props: ServiceSelectorProps): JSX.Element {
   const { onSelect, className, isEmptyList } = props
+  const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
 
   const { refetch: refetchServices, data } = useGetEnvServiceRisks({
@@ -100,20 +110,20 @@ export default function ServiceSelector(props: ServiceSelectorProps): JSX.Elemen
 
   const serviceData = data?.resource
   const [selectedEntity, setSelectedEntity] = useState<{ envIdentifier?: string; serviceIdentifier?: string }>({
-    serviceIdentifier: i18n.allServiceOptionText,
+    serviceIdentifier: getString('cv.allServices'),
     envIdentifier: ''
   })
   const [filterText, setFilterText] = useState<string | undefined>()
-  const overallRiskScoresMap = useMemo(() => generateOverallRiskScores(serviceData), [serviceData])
+  const overallRiskScoresMap = useMemo(() => generateOverallRiskScores(getString, serviceData), [serviceData])
   const onSelectService = (envIdentifier?: string, serviceIdentifier?: string): void => {
     setSelectedEntity({ serviceIdentifier, envIdentifier })
-    onSelect?.(envIdentifier, serviceIdentifier === i18n.allServiceOptionText ? undefined : serviceIdentifier)
+    onSelect?.(envIdentifier, serviceIdentifier === getString('cv.allServices') ? undefined : serviceIdentifier)
     refetchServices()
   }
   return (
     <Container className={cx(css.main, className)} background={Color.GREY_100}>
       <input
-        placeholder={i18n.searchInputPlaceholder}
+        placeholder={getString('cv.searchForAService')}
         className={css.filterService}
         onChange={(e: ChangeEvent<HTMLInputElement>) => setFilterText(e.target.value)}
       />
@@ -130,12 +140,12 @@ export default function ServiceSelector(props: ServiceSelectorProps): JSX.Elemen
         return !filteredServiceRisks?.length ? null : (
           <Container key={envIdentifier}>
             {index === 0 &&
-              (!filterTextLowerCase?.length || filterTextLowerCase.includes(i18n.allServiceOptionText)) && (
+              (!filterTextLowerCase?.length || filterTextLowerCase.includes(getString('cv.allServices'))) && (
                 <ServiceRow
-                  entityName={i18n.allServiceOptionText}
-                  riskScore={overallRiskScoresMap.get(i18n.allServiceOptionText) || 0}
-                  selected={i18n.allServiceOptionText === selectedEntity.serviceIdentifier}
-                  onSelect={() => onSelectService(undefined, i18n.allServiceOptionText)}
+                  entityName={getString('cv.allServices')}
+                  riskScore={overallRiskScoresMap.get(getString('cv.allServices')) || 0}
+                  selected={getString('cv.allServices') === selectedEntity.serviceIdentifier}
+                  onSelect={() => onSelectService(undefined, getString('cv.allServices'))}
                 />
               )}
             <EnvironmentRow

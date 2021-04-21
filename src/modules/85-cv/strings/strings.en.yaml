@@ -35,6 +35,17 @@ unknown: Unknown
 unexpected: Unexpected
 copyURL: Copy URL
 urlCopied: URL Copied
+anomalousMetrics: Anomalous metrics
+filter: Filter
+allMetrics: All Metrics
+riskTimeline: Risk Timeline
+perHeatMapCell: per heat map cell
+allServices: All Services
+searchForAService: Search for a service
+trafficSplit: Traffic Split Percentage (optional)
+pinABaseline: Pin a baseline
+lastSuccessfulRun: Last Successful Job Run
+jobNamePlaceholder: Enter a Job Name
 serviceDashboardPage:
   fiveMinutes: 5 Minutes
   fifteenMinutes: 15 Minutes
@@ -88,6 +99,7 @@ getRiskAssessment: 'Get risk assessment'
 setup: Setup Continuous Verification
 riskScore: Risk Score
 noAnalysis: No Analysis
+noAnomalies: No anomalies detected
 overall: Overall
 currentProductionRisk: Current Production Risk
 evaluationPeriod: Evaluation period

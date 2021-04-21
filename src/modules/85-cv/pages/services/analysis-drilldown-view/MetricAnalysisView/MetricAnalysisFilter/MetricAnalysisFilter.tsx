@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Container, Text, Select, Color, SelectOption, SelectProps } from '@wings-software/uicore'
 import cx from 'classnames'
 import { debounce } from 'lodash-es'
-import i18n from './MetricAnalysisFilter.i18n'
+import { useStrings, UseStringsReturn } from 'framework/strings/String'
 import css from './MetricAnalysisFilter.module.scss'
 
 export const MetricAnalysisFilterType = {
@@ -10,16 +10,18 @@ export const MetricAnalysisFilterType = {
   ALL_METRICS: 'ALL_METRICS'
 }
 
-export const FILTER_OPTIONS: SelectOption[] = [
-  {
-    label: i18n.filterByDropdownOptionLabels.anomalous,
-    value: MetricAnalysisFilterType.ANOMALOUS
-  },
-  {
-    label: i18n.filterByDropdownOptionLabels.allMetrics,
-    value: MetricAnalysisFilterType.ALL_METRICS
-  }
-]
+export function getFilterOptions(getString: UseStringsReturn['getString']): SelectOption[] {
+  return [
+    {
+      label: getString('cv.anomalousMetrics'),
+      value: MetricAnalysisFilterType.ANOMALOUS
+    },
+    {
+      label: getString('cv.allMetrics'),
+      value: MetricAnalysisFilterType.ALL_METRICS
+    }
+  ]
+}
 
 interface MetricAnalysisFilterProps {
   onChangeFilter?: (updatedOption: string) => void
@@ -31,18 +33,19 @@ interface MetricAnalysisFilterProps {
 
 export function MetricAnalysisFilter(props: MetricAnalysisFilterProps): JSX.Element {
   const { onChangeFilter, defaultFilterValue, onFilter, onFilterDebounceTime, className } = props
-  const [selectedOption, setSelectedOption] = useState(defaultFilterValue || FILTER_OPTIONS[0])
+  const { getString } = useStrings()
+  const filterOptions = getFilterOptions(getString)
+  const [selectedOption, setSelectedOption] = useState(defaultFilterValue || filterOptions[0])
   const [, setDebouncedFunc] = useState<typeof debounce | undefined>()
   const [filterValue, setFilterValue] = useState<string | undefined>()
-
   return (
     <Container className={cx(css.main, className)}>
       <Container className={css.filterOptionContainer}>
         <Text color={Color.BLACK} font={{ size: 'small' }}>
-          {i18n.filterText}
+          {getString('cv.filter')}
         </Text>
         <Select
-          items={FILTER_OPTIONS}
+          items={filterOptions}
           value={selectedOption}
           className={css.filterByOptions}
           onChange={(selectedItem: SelectOption) => {
@@ -56,7 +59,7 @@ export function MetricAnalysisFilter(props: MetricAnalysisFilterProps): JSX.Elem
       </Container>
       <input
         className={css.filterInput}
-        placeholder={i18n.searchInputPlaceholderText}
+        placeholder={getString('search')}
         value={filterValue}
         onChange={e => {
           e.persist()

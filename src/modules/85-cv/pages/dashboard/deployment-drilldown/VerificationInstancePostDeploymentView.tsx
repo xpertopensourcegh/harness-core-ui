@@ -16,7 +16,7 @@ import { transformAnalysisDataToChartSeries } from '@cv/components/TimeseriesRow
 import { useStrings } from 'framework/exports'
 import { TabIdentifier } from './VerificationInstanceView'
 import {
-  FILTER_OPTIONS,
+  getFilterOptions,
   MetricAnalysisFilter,
   MetricAnalysisFilterType
 } from '../../services/analysis-drilldown-view/MetricAnalysisView/MetricAnalysisFilter/MetricAnalysisFilter'
@@ -235,11 +235,12 @@ function MetricsTab({
         page
       }
     })
+  const filterOptions = getFilterOptions(getString)
   return (
     <Container className={styles.postDeploymentMetrics}>
       <Container className={styles.filtersAndStatusBar}>
         <MetricAnalysisFilter
-          defaultFilterValue={anomalousOnly ? FILTER_OPTIONS[0] : FILTER_OPTIONS[1]}
+          defaultFilterValue={anomalousOnly ? filterOptions[0] : filterOptions[1]}
           onChangeFilter={val => setAnomalousOnly(val === MetricAnalysisFilterType.ANOMALOUS)}
           className={styles.filter}
         />

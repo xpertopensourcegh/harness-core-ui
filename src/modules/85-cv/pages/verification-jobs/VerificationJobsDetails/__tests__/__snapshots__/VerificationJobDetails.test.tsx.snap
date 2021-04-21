@@ -220,7 +220,7 @@ exports[`VerificationJobsDetails Render initiaaly 1`] = `
                     class="bp3-label"
                     for="dataSource"
                   >
-                    Monitoring Source
+                    monitoringSource
                      
                     <span
                       class="bp3-text-muted"

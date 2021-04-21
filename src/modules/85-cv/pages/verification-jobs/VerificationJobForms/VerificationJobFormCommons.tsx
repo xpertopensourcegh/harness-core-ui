@@ -9,7 +9,6 @@ import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { ONBOARDING_ENTITIES } from '@cv/pages/admin/setup/SetupUtils'
 import { useStrings } from 'framework/exports'
-import { DefaultBaselineOptions, VerificationSensitivityOptions } from './VerificationJobFields'
 import type { VerificationSensitivity } from '../VerificationJobsSetup'
 
 export const FormControlButtons = connect(({ formik }) => (
@@ -52,19 +51,19 @@ const mapType = (type: string) => {
 export function sensitivityEnunToLabel(sensitivity: VerificationSensitivity): string {
   switch (sensitivity) {
     case 'HIGH':
-      return VerificationSensitivityOptions[0].label
+      return 'High'
     case 'MEDIUM':
-      return VerificationSensitivityOptions[1].label
+      return 'Medium'
     case 'LOW':
     default:
-      return VerificationSensitivityOptions[2].label
+      return 'Low'
   }
 }
 
 export function baselineEnumToLabel(baselineValue: string | number): string {
   switch (baselineValue) {
-    case DefaultBaselineOptions[0].value:
-      return DefaultBaselineOptions[0].label
+    case 'LAST':
+      return 'Last Successful run'
     // case DefaultBaselineOptions[1].value:
     //   return DefaultBaselineOptions[1].label
     default:

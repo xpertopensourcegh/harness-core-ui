@@ -11,7 +11,6 @@ import {
   sensitivityEnunToLabel,
   baselineEnumToLabel
 } from '../VerificationJobFormCommons'
-import { DefaultBaselineOptions, VerificationSensitivityOptions } from '../VerificationJobFields'
 import type { VerificationSensitivity } from '../../VerificationJobsSetup'
 
 const testWrapperProps: TestWrapperProps = {
@@ -48,19 +47,13 @@ describe('VerificationJobFormCommons', () => {
   })
 
   test('Ensure sensitivity labels are correct', () => {
-    expect(sensitivityEnunToLabel(VerificationSensitivityOptions[0].value as VerificationSensitivity)).toEqual(
-      VerificationSensitivityOptions[0].label
-    )
-    expect(sensitivityEnunToLabel(VerificationSensitivityOptions[1].value as VerificationSensitivity)).toEqual(
-      VerificationSensitivityOptions[1].label
-    )
-    expect(sensitivityEnunToLabel(VerificationSensitivityOptions[2].value as VerificationSensitivity)).toEqual(
-      VerificationSensitivityOptions[2].label
-    )
+    expect(sensitivityEnunToLabel('HIGH' as VerificationSensitivity)).toEqual('High')
+    expect(sensitivityEnunToLabel('MEDIUM' as VerificationSensitivity)).toEqual('Medium')
+    expect(sensitivityEnunToLabel('LOW' as VerificationSensitivity)).toEqual('Low')
   })
 
   test('Ensure baseline labels are correct', () => {
-    expect(baselineEnumToLabel(DefaultBaselineOptions[0].value as string)).toEqual(DefaultBaselineOptions[0].label)
+    expect(baselineEnumToLabel('LAST' as string)).toEqual('Last Successful run')
     expect(baselineEnumToLabel(1612376957777))
   })
 

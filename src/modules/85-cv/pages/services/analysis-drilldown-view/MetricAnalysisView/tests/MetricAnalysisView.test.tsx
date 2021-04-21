@@ -6,7 +6,6 @@ import { projectPathProps, accountPathProps } from '@common/utils/routeUtils'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as cvService from 'services/cv'
 import { MetricAnalysisView, generatePointsForTimeSeries } from '../MetricAnalysisView'
-import { FILTER_OPTIONS } from '../MetricAnalysisFilter/MetricAnalysisFilter'
 
 const MockAnomalousData: cvService.RestResponsePageTimeSeriesMetricDataDTO = {
   metaData: {},
@@ -257,6 +256,6 @@ describe('Unit tests for Metric Analysis view', () => {
     )
 
     await waitFor(() => expect(container.querySelector('[class*="highcharts"]')).not.toBeNull())
-    expect(container.querySelector(`input[value="${FILTER_OPTIONS[0].label}"]`)).not.toBeNull()
+    expect(container.querySelector(`input[value="cv.anomalousMetrics"]`)).not.toBeNull()
   })
 })

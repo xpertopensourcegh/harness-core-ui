@@ -351,7 +351,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-small"
                   >
-                    FILTER
+                    cv.filter
                   </p>
                   <div
                     class="bp3-popover-wrapper filterByOptions Select--main bp3-fill"
@@ -368,7 +368,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
                           placeholder="Search..."
                           style="padding-right: 0px;"
                           type="text"
-                          value="All metrics"
+                          value="cv.allMetrics"
                         />
                         <span
                           class="bp3-input-action"
@@ -399,7 +399,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
                 </div>
                 <input
                   class="filterInput"
-                  placeholder="Search"
+                  placeholder="search"
                   value=""
                 />
               </div>

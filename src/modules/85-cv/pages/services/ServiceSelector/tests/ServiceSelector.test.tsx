@@ -70,7 +70,7 @@ describe('Unit tests for service selector', () => {
       throw Error('Environment row was not rendered.')
     }
 
-    expect(environmentRow.children[0]?.innerHTML).toEqual('Environment: Production')
+    expect(environmentRow.children[0]?.innerHTML).toEqual('environment: Production')
     expect(environmentRow.children[1]?.getAttribute('class')).toContain('noRiskScore')
 
     const serviceRow = container.querySelector('[class*="serviceRow"]')

@@ -1394,10 +1394,13 @@ export interface StringsMap {
   'cv.admin.verificationJobs.jobTypes.test': string
   'cv.admin.verificationJobs.newVerificationJob': string
   'cv.admin.verificationJobs.noDataMessage': string
+  'cv.allMetrics': string
+  'cv.allServices': string
   'cv.analysisScreens.analysisTab.logs': string
   'cv.analysisScreens.analysisTab.metrics': string
   'cv.analysisScreens.totalClusters': string
   'cv.anomalous': string
+  'cv.anomalousMetrics': string
   'cv.baselineTest': string
   'cv.changeTimeline': string
   'cv.changesPage.changeSourceDetails': string
@@ -1415,12 +1418,15 @@ export interface StringsMap {
   'cv.dashboard.subHeading': string
   'cv.evaluationPeriod': string
   'cv.failures': string
+  'cv.filter': string
   'cv.getRiskAssessment': string
   'cv.harnessEnvironment': string
   'cv.harnessService': string
   'cv.hostNamePlaceholder': string
   'cv.initiated': string
+  'cv.jobNamePlaceholder': string
   'cv.known': string
+  'cv.lastSuccessfulRun': string
   'cv.logCluster': string
   'cv.logsCluster': string
   'cv.messageFrequency': string
@@ -1530,6 +1536,7 @@ export interface StringsMap {
   'cv.navLinks.adminSideNavLinks.monitoringSources': string
   'cv.navLinks.adminSideNavLinks.setup': string
   'cv.noAnalysis': string
+  'cv.noAnomalies': string
   'cv.nonAnomalous': string
   'cv.onboarding.activitySources.addMoreSources': string
   'cv.onboarding.activitySources.addedStatus': string
@@ -1576,6 +1583,8 @@ export interface StringsMap {
   'cv.onboarding.verificationJobs.subHeading': string
   'cv.overall': string
   'cv.overviewPage.recentChangeVerifications': string
+  'cv.perHeatMapCell': string
+  'cv.pinABaseline': string
   'cv.postDeployment': string
   'cv.preProductionTests': string
   'cv.request': string
@@ -1584,8 +1593,10 @@ export interface StringsMap {
   'cv.riskCardTooltip.allServicesGreen': string
   'cv.riskCardTooltip.header': string
   'cv.riskScore': string
+  'cv.riskTimeline': string
   'cv.sampleEvent': string
   'cv.sampleMessage': string
+  'cv.searchForAService': string
   'cv.selectConnector': string
   'cv.selectCreateService': string
   'cv.selectOrCreateEnv': string
@@ -1612,6 +1623,7 @@ export interface StringsMap {
   'cv.thirdPartyCalls.requestMade': string
   'cv.thirdPartyCalls.timeTaken': string
   'cv.timeline': string
+  'cv.trafficSplit': string
   'cv.trend': string
   'cv.unexpected': string
   'cv.unknown': string

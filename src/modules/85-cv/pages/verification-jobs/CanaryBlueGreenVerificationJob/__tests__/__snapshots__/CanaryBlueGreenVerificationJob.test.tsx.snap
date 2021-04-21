@@ -204,7 +204,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                     class="bp3-label"
                     for="service"
                   >
-                    Service
+                    service
                      
                     <span
                       class="bp3-text-muted"
@@ -299,7 +299,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                     class="bp3-label"
                     for="environment"
                   >
-                    Environment
+                    environment
                      
                     <span
                       class="bp3-text-muted"
@@ -394,7 +394,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                     class="bp3-label"
                     for="sensitivity"
                   >
-                    Sensitivity
+                    sensitivity
                      
                     <span
                       class="bp3-text-muted"
@@ -494,7 +494,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                     class="bp3-label"
                     for="duration"
                   >
-                    Duration
+                    duration
                      
                     <span
                       class="bp3-text-muted"
@@ -589,7 +589,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                     class="bp3-label"
                     for="trafficSplit"
                   >
-                    Traffic Split Percentage (optional)
+                    cv.trafficSplit
                      
                     <span
                       class="bp3-text-muted"
@@ -847,7 +847,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                     class="bp3-label"
                     for="service"
                   >
-                    Service
+                    service
                      
                     <span
                       class="bp3-text-muted"
@@ -942,7 +942,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                     class="bp3-label"
                     for="environment"
                   >
-                    Environment
+                    environment
                      
                     <span
                       class="bp3-text-muted"
@@ -1037,7 +1037,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                     class="bp3-label"
                     for="sensitivity"
                   >
-                    Sensitivity
+                    sensitivity
                      
                     <span
                       class="bp3-text-muted"
@@ -1137,7 +1137,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                     class="bp3-label"
                     for="duration"
                   >
-                    Duration
+                    duration
                      
                     <span
                       class="bp3-text-muted"
@@ -1232,7 +1232,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                     class="bp3-label"
                     for="trafficSplit"
                   >
-                    Traffic Split Percentage (optional)
+                    cv.trafficSplit
                      
                     <span
                       class="bp3-text-muted"

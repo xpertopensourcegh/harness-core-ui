@@ -10,7 +10,7 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { RiskScoreTile } from '@cv/components/RiskScoreTile/RiskScoreTile'
 import { riskScoreToRiskLabel } from '@cv/pages/dashboard/CategoryRiskCards/CategoryRiskCards'
 import { useStrings } from 'framework/exports'
-import i18n from './ServiceHeatMap.i18n'
+import type { UseStringsReturn } from 'framework/strings/String'
 import css from './Service_Heatmap.module.scss'
 
 interface ServiceHeatMapProps {
@@ -78,7 +78,7 @@ function HeatMapTooltip({ cell, series, isSelected, onDismiss }: OnCellClick): J
     </Container>
   ) : (
     <Container className={css.heatmapTooltip}>
-      <Text className={css.overallScoreContent}>{i18n.heatMapTooltipText.noData}</Text>
+      <Text className={css.overallScoreContent}>{getString('na')}</Text>
     </Container>
   )
 }
@@ -87,15 +87,17 @@ function mapHeatmapValue(val: any): number | CellStatusValues {
   return val && typeof val.riskScore === 'number' ? val.riskScore : CellStatusValues.Missing
 }
 
-function getHeatmapCellTimeRange(heatmapData: HeatMapDTO[]): string {
+function getHeatmapCellTimeRange(heatmapData: HeatMapDTO[], getString: UseStringsReturn['getString']): string {
   if (!heatmapData?.length) return ''
   const timeDifference = moment(heatmapData[0]?.endTime).diff(heatmapData[0]?.startTime, 'minutes')
   if (timeDifference > 60) {
-    return `(${moment(heatmapData[0]?.endTime).diff(heatmapData[0]?.startTime, 'hours')} ${i18n.hours} ${
-      i18n.heatmapCellTimeRangeText
-    })`
+    return `(${moment(heatmapData[0]?.endTime).diff(heatmapData[0]?.startTime, 'hours')} ${getString(
+      'hours'
+    )} ${getString('cv.perHeatMapCell')})`
   }
-  return `(${timeDifference} ${i18n.minutes} ${i18n.heatmapCellTimeRangeText})`
+  return `(${timeDifference} ${getString(
+    'pipeline-triggers.schedulePanel.minutesLabel'
+  ).toLocaleLowerCase()} ${getString('cv.perHeatMapCell')})`
 }
 
 export default function ServiceHeatMap(props: ServiceHeatMapProps): JSX.Element {
@@ -144,7 +146,7 @@ export default function ServiceHeatMap(props: ServiceHeatMapProps): JSX.Element 
   return (
     <Container className={cx(css.main, className)}>
       <Text {...HeatMapTitleTextProps} color={Color.BLACK}>
-        {`${i18n.heatmapSectionTitleText} ${getHeatmapCellTimeRange(heatmapData?.[0]?.data)}`}
+        {`${getString('cv.riskTimeline')} ${getHeatmapCellTimeRange(heatmapData?.[0]?.data, getString)}`}
       </Text>
       <OverlaySpinner show={loadingHeatmap}>
         <HeatMap

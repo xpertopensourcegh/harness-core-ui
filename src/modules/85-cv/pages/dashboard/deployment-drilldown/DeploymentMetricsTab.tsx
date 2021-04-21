@@ -8,7 +8,7 @@ import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { useStrings } from 'framework/exports'
 import {
-  FILTER_OPTIONS,
+  getFilterOptions,
   MetricAnalysisFilter,
   MetricAnalysisFilterType
 } from '../../services/analysis-drilldown-view/MetricAnalysisView/MetricAnalysisFilter/MetricAnalysisFilter'
@@ -41,11 +41,12 @@ export default function DeploymentMetricsTab({
   isLoading
 }: DeploymentMetricsTabProps) {
   const { getString } = useStrings()
+  const filterOptions = getFilterOptions(getString)
   return (
     <div className={classnames(styles.metricsTab, styles.panel)}>
       <Container className={styles.timeFilterAndBar}>
         <MetricAnalysisFilter
-          defaultFilterValue={anomalousMetricsOnly ? FILTER_OPTIONS[0] : FILTER_OPTIONS[1]}
+          defaultFilterValue={anomalousMetricsOnly ? filterOptions[0] : filterOptions[1]}
           onChangeFilter={val => onAnomalousMetricsOnly(val === MetricAnalysisFilterType.ANOMALOUS)}
         />
         {data?.resource?.deploymentTimeRange && (

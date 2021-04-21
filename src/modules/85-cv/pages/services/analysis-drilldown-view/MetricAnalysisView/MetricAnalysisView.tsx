@@ -18,9 +18,9 @@ import {
   TimeBasedShadedRegion,
   TimeBasedShadedRegionProps
 } from '@cv/components/TimeBasedShadedRegion/TimeBasedShadedRegion'
+import { useStrings } from 'framework/exports'
 import MetricAnalysisRow from './MetricsAnalysisRow/MetricAnalysisRow'
-import { FILTER_OPTIONS, MetricAnalysisFilter } from './MetricAnalysisFilter/MetricAnalysisFilter'
-import i18n from './MetricAnalysisView.i18n'
+import { getFilterOptions, MetricAnalysisFilter } from './MetricAnalysisFilter/MetricAnalysisFilter'
 import { categoryNameToCategoryType } from '../../CVServicePageUtils'
 import css from './MetricAnalysisView.module.scss'
 
@@ -100,6 +100,7 @@ export function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.Element 
   const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps>()
   const [filter, setFilter] = useState<string | undefined>()
   const [timeSeriesRowRef, setTimeSeriesRowRef] = useState<HTMLDivElement | null>(null)
+  const { getString } = useStrings()
   const finalStartTime = historyStartTime ?? startTime
   const queryParams = useMemo(
     () => ({
@@ -180,12 +181,13 @@ export function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.Element 
 
   const data = isViewingAnomalousData ? anomalousMetricData : allMetricData
   const { pageSize, totalPages = 0, content, totalItems = 0, pageIndex } = (data?.resource as any) || {}
+  const filterOptions = getFilterOptions(getString)
 
   return (
     <Container className={cx(css.main, className)}>
       <Container className={css.header}>
         <MetricAnalysisFilter
-          defaultFilterValue={isViewingAnomalousData ? FILTER_OPTIONS[0] : FILTER_OPTIONS[1]}
+          defaultFilterValue={isViewingAnomalousData ? filterOptions[0] : filterOptions[1]}
           onFilter={filterValue => {
             cancelAllMetricDataCall()
             cancelAnomalousCall()
@@ -211,9 +213,9 @@ export function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.Element 
       </Container>
       {!totalItems && !loadingAllMetricData && !loadingAnomalousData && (
         <NoDataCard
-          message={isViewingAnomalousData ? i18n.noDataText.anomalous : i18n.noDataText.allMetricData}
+          message={isViewingAnomalousData ? getString('cv.noAnomalies') : getString('cv.noAnalysis')}
           icon="warning-sign"
-          buttonText={i18n.retryButtonText}
+          buttonText={getString('retry')}
           className={css.noDataCard}
           onClick={isViewingAnomalousData ? () => refetchAnomalousData() : () => refetchAllMetricData()}
         />
