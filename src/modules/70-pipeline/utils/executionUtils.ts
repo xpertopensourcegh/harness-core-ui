@@ -78,7 +78,9 @@ export const ExecutionStatusIconMap: Record<ExecutionStatus, IconName> = {
   NotStarted: 'pending',
   Paused: 'pause',
   Waiting: 'waiting',
-  Skipped: 'skipped'
+  Skipped: 'skipped',
+  ApprovalRejected: 'circle-cross',
+  Pausing: 'pause'
 }
 
 /**

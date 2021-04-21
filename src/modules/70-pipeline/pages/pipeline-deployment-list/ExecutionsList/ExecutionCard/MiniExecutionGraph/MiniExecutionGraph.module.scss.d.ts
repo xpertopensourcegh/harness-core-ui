@@ -19,10 +19,12 @@ declare const styles: {
   readonly expired: string
   readonly aborted: string
   readonly suspended: string
+  readonly approvalrejected: string
   readonly notstarted: string
   readonly waiting: string
   readonly queued: string
   readonly paused: string
+  readonly pausing: string
   readonly skipped: string
   readonly parallelNodes: string
   readonly ghostNodes: string

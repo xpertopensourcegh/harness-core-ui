@@ -5,7 +5,8 @@
   &.failed,
   &.aborted,
   &.error,
-  &.rejected {
+  &.rejected,
+  &.approvalrejected {
     --execution-status-color: var(--red-500);
   }
 

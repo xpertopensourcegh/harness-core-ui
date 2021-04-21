@@ -1084,23 +1084,6 @@ pipeline-triggers:
     SUN: 'SUN'
     expressionBreakdown: 'Expression Breakdown'
     cronExpression: 'Cron Expression'
-executionStatus:
-  Failed: FAILED
-  Success: SUCCESS
-  Aborted: ABORTED
-  Error: ERROR
-  Paused: PAUSED
-  Pausing: PAUSING
-  Waiting: WAITING
-  Aborting: ABORTING
-  Running: RUNNING
-  Queued: QUEUED
-  Skipped: SKIPPED
-  Starting: STARTING
-  Rejected: REJECTED
-  Expired: EXPIRED
-  Suspended: SUSPENDED
-  NotStarted: NOT STARTED
 executionList:
   servicesDeployedText: 'Services Deployed ({{size}})'
 moduleRenderer:

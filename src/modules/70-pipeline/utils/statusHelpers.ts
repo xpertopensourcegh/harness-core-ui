@@ -14,7 +14,9 @@ export const EXECUTION_STATUS: readonly ExecutionStatus[] = [
   'Success',
   'Suspended',
   'Waiting',
-  'Skipped'
+  'Skipped',
+  'ApprovalRejected',
+  'Pausing'
 ]
 
 const changeCase = (status?: string): string => {
@@ -63,6 +65,14 @@ export function isExecutionSuspended(status?: string): boolean {
   return changeCase(status) === 'Suspended'
 }
 
+export function isExecutionPausing(status?: string): boolean {
+  return changeCase(status) === 'Pausing'
+}
+
+export function isExecutionApprovalRejected(status?: string): boolean {
+  return changeCase(status) === 'ApprovalRejected'
+}
+
 export function isExecutionComplete(status?: string): boolean {
   return isExecutionSuccess(status) || isExecutionCompletedWithBadState(status)
 }
@@ -76,7 +86,8 @@ export function isExecutionCompletedWithBadState(status?: string): boolean {
     isExecutionAborted(status) ||
     isExecutionExpired(status) ||
     isExecutionFailed(status) ||
-    isExecutionSuspended(status)
+    isExecutionSuspended(status) ||
+    isExecutionApprovalRejected(status)
   )
 }
 

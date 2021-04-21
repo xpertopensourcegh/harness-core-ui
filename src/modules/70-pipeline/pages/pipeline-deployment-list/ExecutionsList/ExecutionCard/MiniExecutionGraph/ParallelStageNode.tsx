@@ -21,7 +21,9 @@ const StagePriority: Record<ExecutionStatus, number> = {
   NotStarted: 0,
   Paused: 24,
   Waiting: 25,
-  Skipped: 15
+  Skipped: 15,
+  ApprovalRejected: 22,
+  Pausing: 23
 }
 const STEP_DETAILS_LIMIT = 4
 

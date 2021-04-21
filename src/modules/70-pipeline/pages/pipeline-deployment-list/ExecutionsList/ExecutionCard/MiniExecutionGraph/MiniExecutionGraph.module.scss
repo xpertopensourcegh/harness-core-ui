@@ -149,7 +149,8 @@ $node-width: 40px;
   &.failed,
   &.expired,
   &.aborted,
-  &.suspended {
+  &.suspended,
+  &.approvalrejected {
     --stage-bg: linear-gradient(147.14deg, #ff8800 6.95%, #e63535 93.05%);
     --icon-color: var(--white);
     --stage-border: #ff8800;
@@ -171,6 +172,7 @@ $node-width: 40px;
 
   &.queued,
   &.paused,
+  &.pausing,
   &.skipped {
     --stage-bg: var(--grey-300);
     --icon-color: var(--grey-700);

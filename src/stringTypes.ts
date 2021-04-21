@@ -593,6 +593,22 @@ export interface StringsMap {
   'pipeline.execution.stepTitlePrefix': string
   'pipeline.execution.timePrefix': string
   'pipeline.execution.upcomingStagesPrefix': string
+  'pipeline.executionStatus.Aborted': string
+  'pipeline.executionStatus.Aborting': string
+  'pipeline.executionStatus.ApprovalRejected': string
+  'pipeline.executionStatus.Error': string
+  'pipeline.executionStatus.Expired': string
+  'pipeline.executionStatus.Failed': string
+  'pipeline.executionStatus.NotStarted': string
+  'pipeline.executionStatus.Paused': string
+  'pipeline.executionStatus.Pausing': string
+  'pipeline.executionStatus.Queued': string
+  'pipeline.executionStatus.Running': string
+  'pipeline.executionStatus.Skipped': string
+  'pipeline.executionStatus.Starting': string
+  'pipeline.executionStatus.Success': string
+  'pipeline.executionStatus.Suspended': string
+  'pipeline.executionStatus.Waiting': string
   'pipeline.failureStrategies.defaultStageText': string
   'pipeline.failureStrategies.errorTypeLabels.AnyOther': string
   'pipeline.failureStrategies.errorTypeLabels.Application': string
@@ -3214,70 +3230,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'executionList.servicesDeployedText': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'executionStatus.Aborted': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'executionStatus.Aborting': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'executionStatus.Error': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'executionStatus.Expired': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'executionStatus.Failed': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'executionStatus.NotStarted': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'executionStatus.Paused': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'executionStatus.Pausing': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'executionStatus.Queued': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'executionStatus.Rejected': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'executionStatus.Running': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'executionStatus.Skipped': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'executionStatus.Starting': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'executionStatus.Success': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'executionStatus.Suspended': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'executionStatus.Waiting': string
   /**
    * @deprecated migrate this string to module level file
    */

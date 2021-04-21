@@ -99,6 +99,6 @@ export function mapStatus(
     case 'ERROR':
       return getString('failed').toLocaleLowerCase()
     default:
-      return getString('executionStatus.NotStarted').toLocaleLowerCase()
+      return getString('pipeline.executionStatus.NotStarted').toLocaleLowerCase()
   }
 }

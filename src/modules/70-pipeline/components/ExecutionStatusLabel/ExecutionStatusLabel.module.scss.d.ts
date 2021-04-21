@@ -6,6 +6,7 @@ declare const styles: {
   readonly aborted: string
   readonly error: string
   readonly rejected: string
+  readonly approvalrejected: string
   readonly success: string
   readonly running: string
   readonly starting: string

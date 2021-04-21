@@ -8,6 +8,22 @@ import type { StringKeys } from 'framework/strings'
 
 import css from './ExecutionStatusLabel.module.scss'
 
+const stringsMap: Record<ExecutionStatus, StringKeys> = {
+  Aborted: 'pipeline.executionStatus.Aborted',
+  Running: 'pipeline.executionStatus.Running',
+  Failed: 'pipeline.executionStatus.Failed',
+  NotStarted: 'pipeline.executionStatus.NotStarted',
+  Expired: 'pipeline.executionStatus.Expired',
+  Queued: 'pipeline.executionStatus.Queued',
+  Paused: 'pipeline.executionStatus.Paused',
+  Waiting: 'pipeline.executionStatus.Waiting',
+  Skipped: 'pipeline.executionStatus.Skipped',
+  Success: 'pipeline.executionStatus.Success',
+  Suspended: 'pipeline.executionStatus.Suspended',
+  Pausing: 'pipeline.executionStatus.Pausing',
+  ApprovalRejected: 'pipeline.executionStatus.ApprovalRejected'
+}
+
 export interface ExecutionStatusLabelProps {
   status?: ExecutionStatus
   className?: string
@@ -26,7 +42,7 @@ export default function ExecutionStatusLabel({
       className={cx(css.status, css[status.toLowerCase() as keyof typeof css], className)}
       font={{ weight: 'bold', size: 'xsmall' }}
     >
-      {getString(`executionStatus.${status}` as StringKeys /* TODO: fix this by using a map */)}
+      {getString(stringsMap[status])}
     </Text>
   )
 }

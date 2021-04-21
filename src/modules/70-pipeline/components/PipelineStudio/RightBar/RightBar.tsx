@@ -157,7 +157,7 @@ export const RightBar = (): JSX.Element => {
     selectedProject.modules.indexOf?.('CI') > -1 &&
     ciStageExists
 
-  const atLeastOneCloneCodebaseEnabled = pipeline?.stages?.some?.(stage => stage?.stage?.spec?.cloneCodebase)
+  const atLeastOneCloneCodebaseEnabled = pipeline?.stages?.some?.(stage => (stage?.stage?.spec as any)?.cloneCodebase)
 
   React.useEffect(() => {
     if (atLeastOneCloneCodebaseEnabled) {

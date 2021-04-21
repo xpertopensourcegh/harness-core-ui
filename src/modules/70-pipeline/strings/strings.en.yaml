@@ -207,3 +207,20 @@ barriers:
     timeout: 'to Timeout'
   validation:
     barrierNamerequired: 'Enter name of barrier'
+executionStatus:
+  Failed: FAILED
+  Success: SUCCESS
+  Aborted: ABORTED
+  Error: ERROR
+  Paused: PAUSED
+  Pausing: PAUSING
+  Waiting: WAITING
+  Aborting: ABORTING
+  Running: RUNNING
+  Queued: QUEUED
+  Skipped: SKIPPED
+  Starting: STARTING
+  Expired: EXPIRED
+  Suspended: SUSPENDED
+  NotStarted: NOT STARTED
+  ApprovalRejected: REJECTED
