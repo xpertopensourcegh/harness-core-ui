@@ -65,6 +65,7 @@ const ResourceGroupDetails: React.FC = () => {
 
   useEffect(() => {
     setSelectedResourceMap(getSelectedResourcesMap(resourceGroupDetails?.data?.resourceGroup.resourceSelectors))
+    setIsUpdated(false)
   }, [resourceGroupDetails?.data?.resourceGroup])
 
   const { mutate: updateResourceGroup, loading: updating } = useUpdateResourceGroup({
