@@ -181,7 +181,7 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
         style={{
           top: config.minY - (childrenDistance * headerDepth - 5),
           left: config.minX + 10,
-          width,
+          width: width - 20 - (options.showRollback ? 50 : 0),
           alignItems: 'center'
         }}
       >

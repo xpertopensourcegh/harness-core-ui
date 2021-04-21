@@ -36,7 +36,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
         </div>
         <div
           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main header"
-          style="top: 13px; left: 1200px; width: 480px; align-items: center;"
+          style="top: 13px; left: 1200px; width: 460px; align-items: center;"
         >
           <button
             class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"
@@ -502,7 +502,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
         </div>
         <div
           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main header"
-          style="top: -29px; left: 920px; width: 1040px; align-items: center;"
+          style="top: -29px; left: 920px; width: 1020px; align-items: center;"
         >
           <button
             class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main"

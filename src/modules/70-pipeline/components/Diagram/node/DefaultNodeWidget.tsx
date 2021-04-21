@@ -230,7 +230,7 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
       </div>
       <Text
         font={{ size: 'normal', align: 'center' }}
-        style={{ cursor: 'pointer', lineHeight: '1.6' }}
+        style={{ cursor: 'pointer', lineHeight: '1.6', overflowWrap: 'break-word' }}
         padding="xsmall"
         width={125}
         lineClamp={2}
