@@ -460,6 +460,7 @@ function RunPipelineFormBasic({
                         schema={pipelineSchema?.data}
                         height="calc(100vh - 330px)"
                         width="calc(100vw - 300px)"
+                        showSnippetSection={false}
                       />
                     )}
                   </div>

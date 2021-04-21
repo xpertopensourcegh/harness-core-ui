@@ -116,11 +116,12 @@ const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<Respo
           fileName={getString('createSecretYAML.newSecret')}
           entityType={'Secrets'}
           bind={setYamlHandler}
-          height="calc(100vh - 200px)"
+          height="calc(100vh - 250px)"
           schema={secretSchema?.data}
           onSnippetCopy={onSnippetCopy}
           snippetFetchResponse={snippetFetchResponse}
           snippets={snippetData?.data?.yamlSnippets}
+          showSnippetSection={false}
         />
         <Button
           text={getString('createSecretYAML.create')}

@@ -437,6 +437,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                           schema={pipelineSchema?.data}
                           height="calc(100vh - 230px)"
                           width="calc(100vw - 300px)"
+                          showSnippetSection={false}
                         />
                       )}
                     </Layout.Vertical>

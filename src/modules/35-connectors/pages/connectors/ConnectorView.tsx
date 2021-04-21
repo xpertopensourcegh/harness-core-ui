@@ -465,7 +465,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
             ) : (
               <div className={css.fullWidth}>
                 <YamlBuilder
-                  {...Object.assign(yamlBuilderReadOnlyModeProps, { height: 'calc(100vh - 250px)' })}
+                  {...yamlBuilderReadOnlyModeProps}
                   snippets={snippetMetaData?.data?.yamlSnippets}
                   onSnippetCopy={onSnippetCopy}
                   snippetFetchResponse={snippetFetchResponse}
@@ -474,6 +474,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
                   bind={setYamlHandler}
                   invocationMap={invocationMap}
                   onChange={onConnectorChange}
+                  showSnippetSection={false}
                 />
                 <Layout.Horizontal spacing="small">
                   <Button

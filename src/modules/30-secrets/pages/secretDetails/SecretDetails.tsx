@@ -276,6 +276,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
                 schema={secretSchema?.data}
                 isReadOnlyMode={false}
                 snippets={snippetData?.data?.yamlSnippets}
+                showSnippetSection={false}
               />
             )}
             {!edit && (

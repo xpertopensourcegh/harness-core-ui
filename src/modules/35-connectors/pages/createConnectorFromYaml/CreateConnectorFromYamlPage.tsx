@@ -215,8 +215,9 @@ const CreateConnectorFromYamlPage: React.FC = () => {
               snippetFetchResponse={snippetFetchResponse}
               existingJSON={editorContent}
               invocationMap={invocationMap}
-              height="calc(100vh - 200px)"
+              height="calc(100vh - 250px)"
               onChange={onConnectorChange}
+              showSnippetSection={false}
             />
           )}
           <Layout.Horizontal spacing="small">

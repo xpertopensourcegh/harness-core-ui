@@ -76,7 +76,7 @@ const PipelineYamlView: React.FC = () => {
               return Promise.resolve(expressions.map(item => ({ label: item, insertText: `${item}>`, kind: 1 })))
             }}
             yamlSanityConfig={{ removeEmptyString: false, removeEmptyObject: false, removeEmptyArray: false }}
-            height={'calc(100vh - 150px)'}
+            height={'calc(100vh - 200px)'}
             width="calc(100vw - 400px)"
             invocationMap={stepsFactory.getInvocationMap()}
             schema={pipelineSchema?.data}

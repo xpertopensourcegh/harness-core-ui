@@ -462,7 +462,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
   const renderEditor = useCallback(
     (): JSX.Element => (
       <MonacoEditor
-        width={dynamicWidth ?? 2 * MIN_SNIPPET_SECTION_WIDTH}
+        width={showSnippetSection ? dynamicWidth ?? 2 * MIN_SNIPPET_SECTION_WIDTH : '100%'}
         height={height ?? DEFAULT_EDITOR_HEIGHT}
         language="yaml"
         value={currentYaml}
@@ -510,12 +510,10 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
           {showSnippetSection ? renderSnippetSection() : null}
         </SplitPane>
       ) : (
-        <>
-          <div className={css.editor}>
-            {renderHeader()}
-            {renderEditor()}
-          </div>
-        </>
+        <div className={css.editor}>
+          {renderHeader()}
+          {renderEditor()}
+        </div>
       )}
     </div>
   )
