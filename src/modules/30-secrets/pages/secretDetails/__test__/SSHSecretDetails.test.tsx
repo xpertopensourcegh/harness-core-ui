@@ -100,7 +100,7 @@ describe('Secret Details', () => {
     expect(container).toMatchSnapshot()
   }),
     test('Edit SSH', async () => {
-      const edit = getAllByText('Edit Details')[0]
+      const edit = getAllByText('editDetails')[0]
       expect(container).toMatchSnapshot()
       await act(async () => {
         fireEvent.click(edit)

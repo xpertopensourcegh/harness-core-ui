@@ -52,7 +52,7 @@ describe('Secret Details', () => {
     expect(container).toMatchSnapshot()
 
     await act(async () => {
-      const $editButton = await findByText(container, 'Edit Details')
+      const $editButton = await findByText(container, 'editDetails')
       fireEvent.click($editButton)
       await waitFor(() => getByText(document.body, 'secret.titleEditText'))
       const form = findDialogContainer()

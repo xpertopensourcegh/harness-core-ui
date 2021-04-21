@@ -32,6 +32,9 @@ import type { SecretIdentifiers } from '@secrets/components/CreateUpdateSecret/C
 import type { ProjectPathProps, SecretsPathProps } from '@common/interfaces/RouteInterfaces'
 import { getSnippetTags } from '@common/utils/SnippetUtils'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import RbacButton from '@rbac/components/Button/Button'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import ViewSecretDetails from './views/ViewSecretDetails'
 
 import i18n from './SecretDetails.i18n'
@@ -230,8 +233,8 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
                   {getString('yaml')}
                 </div>
               </div>
-              <Button
-                text={i18n.buttonEdit}
+              <RbacButton
+                text={getString('editDetails')}
                 icon="edit"
                 onClick={() => {
                   mode === Mode.VISUAL
@@ -243,6 +246,18 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
                           projectIdentifier: secretData.secret?.projectIdentifier
                         } as SecretIdentifiers)
                     : setEdit(true)
+                }}
+                permission={{
+                  permission: PermissionIdentifier.UPDATE_SECRET,
+                  resourceScope: {
+                    accountIdentifier: accountId,
+                    orgIdentifier,
+                    projectIdentifier
+                  },
+                  resource: {
+                    resourceType: ResourceType.SECRET,
+                    resourceIdentifier: secretData.secret.identifier
+                  }
                 }}
               />
             </Layout.Horizontal>
