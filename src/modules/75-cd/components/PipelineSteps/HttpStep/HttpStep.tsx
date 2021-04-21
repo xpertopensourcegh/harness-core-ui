@@ -1,9 +1,9 @@
 import React from 'react'
 import { IconName, getMultiTypeFromValue, MultiTypeInputType, SelectOption } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { yupToFormErrors } from 'formik'
+import { yupToFormErrors, FormikErrors } from 'formik'
 import { v4 as uuid } from 'uuid'
-import { isEmpty } from 'lodash-es'
+import { isEmpty, set } from 'lodash-es'
 
 import { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import type { UseStringsReturn } from 'framework/strings'
@@ -40,7 +40,7 @@ export class HttpStep extends PipelineStep<HttpStepData> {
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <HttpInputSetStep
-          initialValues={this.processInitialValues(initialValues)}
+          initialValues={this.processInitialValues(initialValues, true)}
           onUpdate={data => onUpdate?.(this.processFormData(data))}
           stepViewType={stepViewType}
           readonly={!!inputSetData?.readonly}
@@ -71,18 +71,21 @@ export class HttpStep extends PipelineStep<HttpStepData> {
   protected stepName = 'Http Step'
   protected stepIcon: IconName = 'http-step'
 
-  validateInputSet(data: HttpStepData, template: HttpStepData, getString?: UseStringsReturn['getString']): object {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const errors = { spec: {} } as any
+  validateInputSet(
+    data: HttpStepData,
+    template?: HttpStepData,
+    getString?: UseStringsReturn['getString']
+  ): FormikErrors<HttpStepData> {
+    const errors: FormikErrors<HttpStepData> = { spec: {} }
 
     /* istanbul ignore else */
     if (getMultiTypeFromValue(template?.spec?.url) === MultiTypeInputType.RUNTIME && isEmpty(data?.spec?.url)) {
-      errors.spec.url = getString?.('fieldRequired', { field: 'URL' })
+      set(errors, 'spec.url', getString?.('fieldRequired', { field: 'URL' }))
     }
 
     /* istanbul ignore else */
     if (getMultiTypeFromValue(template?.spec?.method) === MultiTypeInputType.RUNTIME && isEmpty(data?.spec?.method)) {
-      errors.spec.method = getString?.('fieldRequired', { field: 'Method' })
+      set(errors, 'spec.method', getString?.('fieldRequired', { field: 'Method' }))
     }
 
     /* istanbul ignore else */
@@ -90,7 +93,7 @@ export class HttpStep extends PipelineStep<HttpStepData> {
       getMultiTypeFromValue(template?.spec?.requestBody) === MultiTypeInputType.RUNTIME &&
       isEmpty(data?.spec?.requestBody)
     ) {
-      errors.spec.requestBody = getString?.('fieldRequired', { field: 'Request Body' })
+      set(errors, 'spec.requestBody', getString?.('fieldRequired', { field: 'Request Body' }))
     }
 
     /* istanbul ignore else */
@@ -118,6 +121,7 @@ export class HttpStep extends PipelineStep<HttpStepData> {
 
     return errors
   }
+
   protected defaultValues: HttpStepData = {
     identifier: '',
     timeout: '10s',
@@ -129,7 +133,7 @@ export class HttpStep extends PipelineStep<HttpStepData> {
 
   protected isHarnessSpecific = true
 
-  private processInitialValues(initialValues: HttpStepData): HttpStepFormData {
+  private processInitialValues(initialValues: HttpStepData, forInpuSet?: boolean): HttpStepFormData {
     return {
       ...initialValues,
       spec: {
@@ -149,6 +153,8 @@ export class HttpStep extends PipelineStep<HttpStepData> {
                   id: uuid()
                 })
               )
+            : forInpuSet
+            ? undefined
             : [],
         outputVariables:
           getMultiTypeFromValue(initialValues.spec?.outputVariables as string) === MultiTypeInputType.RUNTIME
@@ -158,6 +164,8 @@ export class HttpStep extends PipelineStep<HttpStepData> {
                 ...variable,
                 id: uuid()
               }))
+            : forInpuSet
+            ? undefined
             : []
       }
     }
