@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Utils } from '@wings-software/uicore'
 
-import { String } from 'framework/exports'
+import { String } from 'framework/strings'
 import css from './CopyText.module.scss'
 
 export interface CopyTextProps {

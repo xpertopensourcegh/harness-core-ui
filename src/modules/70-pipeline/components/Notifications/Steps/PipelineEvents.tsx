@@ -2,7 +2,7 @@ import { Button, Color, Formik, FormInput, Layout, MultiSelectOption, StepProps,
 import React from 'react'
 import { Form } from 'formik'
 import { startCase } from 'lodash-es'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { NotificationRules, PipelineEvent } from 'services/pipeline-ng'
 import css from '../useNotificationModal.module.scss'
 

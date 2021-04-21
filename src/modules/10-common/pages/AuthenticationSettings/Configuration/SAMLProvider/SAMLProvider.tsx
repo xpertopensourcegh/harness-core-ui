@@ -1,7 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
 import { Radio, Container, Accordion, Color, Card, Text, Button, Popover, IconName } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useSAMLProvider } from '@common/modals/SAMLProvider/useSAMLProvider'
 import configCss from '@common/pages/AuthenticationSettings/Configuration/Configuration.module.scss'
 import css from '@common/pages/AuthenticationSettings/Configuration/SAMLProvider/SAMLProvider.module.scss'

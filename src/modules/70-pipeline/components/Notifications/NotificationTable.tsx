@@ -16,7 +16,7 @@ import { Classes, Menu, PopoverInteractionKind, Position, Tag } from '@blueprint
 import { startCase } from 'lodash-es'
 import produce from 'immer'
 import Table from '@common/components/Table/Table'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { NotificationRules, PipelineEvent } from 'services/pipeline-ng'
 import { getIconByNotificationMethod } from '@notifications/Utils/Utils'
 import type { NotificationType } from '@notifications/interfaces/Notifications'

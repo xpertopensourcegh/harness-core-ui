@@ -4,7 +4,7 @@ import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
 
 import cx from 'classnames'
 import type { AppdynamicsValidationResponse, AppdynamicsMetricValueValidationResponse } from 'services/cv'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { ThirdPartyCallLogModal } from '../ThirdPartyCallLogs/ThirdPartyCallLogs'
 import css from './MetricsVerificationModal.module.scss'
 

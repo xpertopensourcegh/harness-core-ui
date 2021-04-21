@@ -14,7 +14,7 @@ import {
 } from 'services/cd-ng'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { UseGetMockData } from '@common/utils/testUtils'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { ActivityGraphDataType } from '../ActivityHistory/ActivityHistory'
 

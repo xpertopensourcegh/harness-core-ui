@@ -17,7 +17,7 @@ import {
 import { Form } from 'formik'
 import * as Yup from 'yup'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { ConnectorConfigDTO } from 'services/cd-ng'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 

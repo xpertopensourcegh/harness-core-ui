@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Text, Layout, Formik, FormikForm as Form, Button, Color, FormInput } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import PipelineSelect from '@pipeline/components/PipelineSelect/PipelineSelect'
 import css from './SelectOrCreatePipelineForm.module.scss'
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, Text, FlexExpander } from '@wings-software/uicore'
 import type { Delegate, DelegateProfile } from 'services/portal'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import {
   SectionContainer,
   SectionContainerTitle,

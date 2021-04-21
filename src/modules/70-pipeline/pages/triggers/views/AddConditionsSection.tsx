@@ -2,8 +2,8 @@ import React from 'react'
 import { FormInput, Text, Icon, Heading, Color } from '@wings-software/uicore'
 import cx from 'classnames'
 import { FieldArray } from 'formik'
-import { useStrings } from 'framework/exports'
-import type { UseStringsReturn } from 'framework/strings/String'
+import { useStrings } from 'framework/strings'
+import type { UseStringsReturn } from 'framework/strings'
 import css from './WebhookConditionsPanel.module.scss'
 
 export const mockOperators = [

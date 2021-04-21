@@ -19,7 +19,7 @@ import {
 import { Dialog, Intent } from '@blueprintjs/core'
 import { useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
 import { MenuDivider, OptionsMenuButton } from '@common/components'
 import { Feature, useDeleteFeatureFlag, usePatchFeature, Variation } from 'services/cf'

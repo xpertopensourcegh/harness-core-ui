@@ -3,7 +3,7 @@ import { IFormGroupProps, IInputGroupProps, HTMLInputProps, Popover, Menu } from
 import { FormInput, Button, Icon, Utils } from '@wings-software/uicore'
 import cx from 'classnames'
 
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { toVariableStr } from '@common/utils/StringUtils'
 
 import css from './TextInputWithCopyBtn.module.scss'

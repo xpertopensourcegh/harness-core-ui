@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Heading, Container, Layout, Checkbox, Icon, Tabs, Tab } from '@wings-software/uicore'
 import { isEmpty as _isEmpty } from 'lodash-es'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import COHelpSidebar from '@ce/components/COHelpSidebar/COHelpSidebar'
 import DNSLinkSetup from './DNSLinkSetup'
 import SSHSetup from './SSHSetup'

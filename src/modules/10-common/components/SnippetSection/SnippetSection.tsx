@@ -3,7 +3,7 @@ import { Icon, IconName } from '@wings-software/uicore'
 import cx from 'classnames'
 
 import type { YamlSnippetMetaData, GetYamlSchemaQueryParams } from 'services/cd-ng'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { getIconNameForTag } from '@common/utils/SnippetUtils'
 import type { SnippetFetchResponse } from '@common/interfaces/YAMLBuilderProps'
 import SnippetDetails from './SnippetDetails'

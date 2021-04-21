@@ -8,7 +8,7 @@ import { StackdriverDashboardDTO, useGetStackdriverDashboards } from 'services/c
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { Table } from '@common/components'
 import { TableFilter } from '@cv/components/TableFilter/TableFilter'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { PageError } from '@common/components/Page/PageError'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { getErrorMessage } from '@cv/utils/CommonUtils'

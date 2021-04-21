@@ -4,7 +4,7 @@ import { Text, Layout, Color } from '@wings-software/uicore'
 import { Duration } from '@common/exports'
 import { useDelegateSelectionLogsModal } from '@common/components/DelegateSelectionLogs/DelegateSelectionLogs'
 import type { ExecutionNode } from 'services/pipeline-ng'
-import { String, useStrings } from 'framework/exports'
+import { String, useStrings } from 'framework/strings'
 
 import css from './StepDetails.module.scss'
 

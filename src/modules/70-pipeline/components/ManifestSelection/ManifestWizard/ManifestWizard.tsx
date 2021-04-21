@@ -2,7 +2,7 @@ import React from 'react'
 import { Text, Icon, StepWizard, Color, StepProps } from '@wings-software/uicore'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { ConnectorConfigDTO } from 'services/cd-ng'
 import type { ConnectorRefLabelType } from '@pipeline/components/ArtifactsSelection/ArtifactInterface'
 import { ManifestRepoTypes } from '../ManifestWizardSteps/ManifestRepoTypes'

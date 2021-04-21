@@ -4,7 +4,7 @@ import { Button, Card, Color, Container, Icon, Layout, Text } from '@wings-softw
 import { useParams } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import produce from 'immer'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { Page, useToaster } from '@common/exports'
 import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'

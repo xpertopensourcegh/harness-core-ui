@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { DSConfig } from 'services/cv'
 import { SetupSourceTabs } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'

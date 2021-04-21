@@ -4,7 +4,7 @@ import { Layout, Button } from '@wings-software/uicore'
 import type { ResponseConnectorValidationResult, ConnectorInfoDTO } from 'services/cd-ng'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import useTestConnectionModal from '@connectors/common/useTestConnectionModal/useTestConnectionModal'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './TestConnection.module.scss'
 
 interface TestConnectionProps {

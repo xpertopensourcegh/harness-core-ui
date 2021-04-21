@@ -15,7 +15,7 @@ import * as Yup from 'yup'
 import { useToaster } from '@common/exports'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import {
   useCreateConnector,
   ConnectorConfigDTO,

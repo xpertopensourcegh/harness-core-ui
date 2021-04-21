@@ -4,7 +4,7 @@ import cx from 'classnames'
 import { FormInput, getMultiTypeFromValue, MultiTypeInputType, SelectOption } from '@wings-software/uicore'
 
 import type { FormikProps } from 'formik'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import type { TerraformData } from '../TerraformInterfaces'
 

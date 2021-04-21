@@ -9,7 +9,7 @@ import type { ExecutionNode } from 'services/cd-ng'
 import { Duration } from '@common/components/Duration/Duration'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
-import { String, useStrings } from 'framework/exports'
+import { String, useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'

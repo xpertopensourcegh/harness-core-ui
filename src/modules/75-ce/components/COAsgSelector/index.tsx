@@ -5,7 +5,7 @@ import { Radio } from '@blueprintjs/core'
 import { Text, Color, Container, ExpandingSearchInput, Layout, Button, Icon } from '@wings-software/uicore'
 import type { GatewayDetails } from '@ce/components/COCreateGateway/models'
 import Table from '@common/components/Table/Table'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { ASGMinimal, PortConfig, TargetGroupMinimal } from 'services/lw'
 import { Utils } from '@ce/common/Utils'
 

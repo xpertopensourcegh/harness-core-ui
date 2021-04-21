@@ -1,7 +1,7 @@
 import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
 
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import StepSSHDetails from './views/StepDetails'
 import StepAuthentication from './views/StepAuthentication'
 import StepVerify from './views/StepVerify'

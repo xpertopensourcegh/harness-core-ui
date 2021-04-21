@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { Container, Heading, Text } from '@wings-software/uicore'
 import { Classes } from '@blueprintjs/core'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { Table } from '@common/components'
 import type { TableProps } from '@common/components/Table/Table'
 import { TableFilter, TableFilterProps } from '@cv/components/TableFilter/TableFilter'

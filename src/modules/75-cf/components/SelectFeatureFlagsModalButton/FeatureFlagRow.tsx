@@ -4,7 +4,7 @@ import { ItemBriefInfo } from '@cf/components/ItemBriefInfo/ItemBriefInfo'
 import { CFVariationColors } from '@cf/constants'
 import type { Feature } from 'services/cf'
 import { useToaster } from '@common/exports'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { ItemContainer } from '../ItemContainer/ItemContainer'
 
 export interface FeatureRowProps {

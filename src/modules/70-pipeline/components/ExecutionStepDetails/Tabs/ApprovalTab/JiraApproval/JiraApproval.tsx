@@ -2,7 +2,7 @@ import React from 'react'
 
 import type { ApprovalInstanceResponse, JiraApprovalInstanceDetails } from 'services/pipeline-ng'
 import { Duration } from '@common/exports'
-import { String } from 'framework/exports'
+import { String } from 'framework/strings'
 
 export interface JiraApprovalProps {
   approvalData: ApprovalInstanceResponse & {

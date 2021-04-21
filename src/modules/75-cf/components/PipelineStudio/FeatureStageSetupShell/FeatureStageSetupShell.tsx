@@ -11,8 +11,8 @@ import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 
 import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
-import { useStrings } from 'framework/exports'
-//import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
+//import { useStrings } from 'framework/strings'
 import FeatureInfraSpecifications from '../FeatureInfraSpecifications/FeatureInfraSpecifications'
 import FeatureStageSpecifications from '../FeatureStageSpecifications/FeatureStageSpecifications'
 import css from './FeatureStageSetupShell.module.scss'

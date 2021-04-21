@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router'
 import { Layout, Button, Formik, FormInput, Text, FormikForm as Form, StepProps, Color } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import {
   DelegateTypes,
   SecretReferenceInterface,

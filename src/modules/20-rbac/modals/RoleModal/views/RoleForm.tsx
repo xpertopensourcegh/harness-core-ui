@@ -15,7 +15,7 @@ import { useParams } from 'react-router-dom'
 import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
 import { NameIdDescriptionTags, useToaster } from '@common/components'
 import { Role, useCreateRole, useUpdateRole } from 'services/rbac'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import css from '@rbac/modals/RoleModal/useRoleModal.module.scss'
 

@@ -2,7 +2,7 @@ import React from 'react'
 import { Tabs } from '@blueprintjs/core'
 
 import type { ExecutionNode } from 'services/pipeline-ng'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { isExecutionWaiting, isExecutionSuccess, isExecutionFailed } from '@pipeline/utils/statusHelpers'
 import { isApprovalStep } from '@pipeline/utils/stepUtils'
 

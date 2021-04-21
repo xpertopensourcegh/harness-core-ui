@@ -10,7 +10,7 @@ import { enableMapSet } from 'immer'
 import { AppStoreContext, AppStoreContextProps } from 'framework/AppStore/AppStoreContext'
 import { withAccountId, accountPathProps } from '@common/utils/routeUtils'
 import type { Project } from 'services/cd-ng'
-import { StringsContext } from 'framework/strings/StringsContext'
+import { StringsContext } from 'framework/strings'
 
 import './testUtils.scss'
 

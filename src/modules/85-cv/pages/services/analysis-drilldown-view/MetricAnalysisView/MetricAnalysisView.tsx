@@ -18,7 +18,7 @@ import {
   TimeBasedShadedRegion,
   TimeBasedShadedRegionProps
 } from '@cv/components/TimeBasedShadedRegion/TimeBasedShadedRegion'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import MetricAnalysisRow from './MetricsAnalysisRow/MetricAnalysisRow'
 import { getFilterOptions, MetricAnalysisFilter } from './MetricAnalysisFilter/MetricAnalysisFilter'
 import { categoryNameToCategoryType } from '../../CVServicePageUtils'

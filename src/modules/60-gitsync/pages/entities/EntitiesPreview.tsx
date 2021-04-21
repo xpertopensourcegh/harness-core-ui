@@ -13,7 +13,7 @@ import {
   ListGitSyncEntitiesByTypePathParams
 } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { Entities } from '@common/interfaces/GitSyncInterface'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getEntityHeaderText, getTableColumns } from './EntityHelper'

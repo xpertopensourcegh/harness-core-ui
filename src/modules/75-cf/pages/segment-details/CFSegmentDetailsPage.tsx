@@ -22,7 +22,7 @@ import {
 import { get, isEqual, omit } from 'lodash-es'
 import { Dialog, Divider, Spinner, Tab } from '@blueprintjs/core'
 import { useToaster } from '@common/exports'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { IsSingleValued, useOperatorsFromYaml } from '@cf/constants'
 import { AuditLogs } from '@cf/components/AuditLogs/AuditLogs'
 import { AuditLogObjectType } from '@cf/utils/CFUtils'

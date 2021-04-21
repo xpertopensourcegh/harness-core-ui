@@ -9,7 +9,7 @@ import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import { SidebarLink } from '@common/navigation/SideNav/SideNav'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { ModuleName } from 'framework/types/ModuleName'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 export default function CESideNav(): React.ReactElement {
   const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier } = useParams<PipelinePathProps>()

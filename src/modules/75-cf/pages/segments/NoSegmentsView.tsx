@@ -2,7 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Container } from '@wings-software/uicore'
 import { NoData } from '@cf/components/NoData/NoData'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { NewSegmentButton } from './NewSegmentButton'
 import imageURL from './segment.svg'
 

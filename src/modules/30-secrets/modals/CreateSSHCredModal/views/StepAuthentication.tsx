@@ -21,7 +21,7 @@ import SSHAuthFormFields from '@secrets/components/SSHAuthFormFields/SSHAuthForm
 import { buildAuthConfig } from '@secrets/utils/SSHAuthUtils'
 import { useToaster } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { SSHCredSharedObj } from '../CreateSSHCredWizard'
 
 import i18n from '../CreateSSHCredModal.i18n'

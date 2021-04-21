@@ -3,7 +3,7 @@ import { StepWizard } from '@wings-software/uicore'
 
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER } from '@connectors/constants'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
 
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'

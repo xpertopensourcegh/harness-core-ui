@@ -11,8 +11,8 @@ import {
   VerificationResult
 } from 'services/cv'
 import CVProgressBar from '@cv/components/CVProgressBar/CVProgressBar'
-import { useStrings } from 'framework/exports'
-import type { UseStringsReturn } from 'framework/strings/String'
+import { useStrings } from 'framework/strings'
+import type { UseStringsReturn } from 'framework/strings'
 import ActivityType from '../ActivityType/ActivityType'
 import ActivityProgressIndicator from '../ActivityProgressIndicator/ActivityProgressIndicator'
 import { InstancePhase } from '../deployment-drilldown/DeploymentDrilldownSideNav'

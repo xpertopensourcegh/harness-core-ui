@@ -14,7 +14,7 @@ import type {
   ServiceConfig,
   PipelineInfrastructure
 } from 'services/cd-ng'
-import { String, useStrings } from 'framework/exports'
+import { String, useStrings } from 'framework/strings'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
 

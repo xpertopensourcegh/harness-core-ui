@@ -7,11 +7,11 @@ import routes from '@common/RouteDefinitions'
 import { useGlobalEventListener } from '@common/hooks'
 import { useGetPipelineSummary } from 'services/pipeline-ng'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { DefaultNewPipelineId } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
-import { String } from 'framework/exports'
+import { String } from 'framework/strings'
 import css from './PipelineDetails.module.scss'
 
 // add custom event to the global scope

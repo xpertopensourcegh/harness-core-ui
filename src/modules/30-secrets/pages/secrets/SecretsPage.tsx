@@ -8,7 +8,7 @@ import useCreateUpdateSecretModal from '@secrets/modals/CreateSecretModal/useCre
 import useCreateSSHCredModal from '@secrets/modals/CreateSSHCredModal/useCreateSSHCredModal'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { PageError } from '@common/components/Page/PageError'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'

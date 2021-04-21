@@ -5,7 +5,7 @@ import { useCreateFeatureFlag, FeatureFlagRequestRequestBody } from 'services/cf
 import AppStorage from 'framework/utils/AppStorage'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { getErrorMessage, showToaster, FeatureFlagMutivariateKind } from '@cf/utils/CFUtils'
 import FlagElemAbout from './FlagElemAbout'
 import FlagElemBoolean from './FlagElemBoolean'

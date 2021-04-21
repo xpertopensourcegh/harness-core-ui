@@ -3,7 +3,7 @@ import { Text, Container, Color } from '@wings-software/uicore'
 import { PopoverInteractionKind, Position, Tooltip } from '@blueprintjs/core'
 import classnames from 'classnames'
 import { getRiskColorStyle } from '@common/components/HeatMap/ColorUtils'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import styles from './BlueGreenVerificationChart.module.scss'
 
 const MAX_SERIE_LENGTH = 16

@@ -1,7 +1,7 @@
 import React from 'react'
 import type { IconName } from '@wings-software/uicore'
 import type { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
-import type { UseStringsReturn } from 'framework/strings/String'
+import type { UseStringsReturn } from 'framework/strings'
 import type { ExecutionWrapper } from 'services/cd-ng'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'

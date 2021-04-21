@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
 import { Formik, Accordion, FormInput, MultiTypeInputType } from '@wings-software/uicore'
 import { setFormikRef, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import {
   FormMultiTypeDurationField,
   getDurationValidationSchema

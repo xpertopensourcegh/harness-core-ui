@@ -4,7 +4,7 @@ import { isEmpty as _isEmpty } from 'lodash-es'
 import { Text, Color, Container, ExpandingSearchInput, Layout, Checkbox, Button, Icon } from '@wings-software/uicore'
 import Table from '@common/components/Table/Table'
 import type { GatewayDetails, InstanceDetails } from '@ce/components/COCreateGateway/models'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './COInstanceSelector.module.scss'
 
 interface COInstanceSelectorprops {

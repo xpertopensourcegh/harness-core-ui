@@ -8,7 +8,7 @@ import { OverlayInputSetForm } from '@pipeline/components/OverlayInputSetForm/Ov
 import routes from '@common/RouteDefinitions'
 import type { PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'

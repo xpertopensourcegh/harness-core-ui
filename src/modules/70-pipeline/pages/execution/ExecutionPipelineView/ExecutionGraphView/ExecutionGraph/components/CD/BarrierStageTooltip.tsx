@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import moment from 'moment'
 import { Icon, Text } from '@wings-software/uicore'
 import { Spinner } from '@blueprintjs/core'
-import { String } from 'framework/exports'
+import { String } from 'framework/strings'
 import css from '../components.module.scss'
 export interface BarrierStageTooltipProps {
   loading: boolean

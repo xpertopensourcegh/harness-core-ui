@@ -1,7 +1,7 @@
 import { isEmpty as _isEmpty } from 'lodash-es'
 import { Intent } from '@blueprintjs/core'
 import { useConfirmationDialog } from '@common/exports'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useToggleAutostoppingRule, Service } from 'services/lw'
 
 interface UseToggleAutostoppingRuleProps {

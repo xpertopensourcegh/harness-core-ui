@@ -30,7 +30,7 @@ import {
   WeightedVariation,
   TargetMap
 } from 'services/cf'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { extraOperatorReference } from '@cf/constants'
 import { useToaster } from '@common/exports'
 import { useQueryParams } from '@common/hooks'

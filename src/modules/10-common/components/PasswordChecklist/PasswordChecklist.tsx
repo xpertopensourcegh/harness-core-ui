@@ -1,7 +1,7 @@
 import React from 'react'
 import * as yup from 'yup'
 import { Text, Color, Layout } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { SPECIAL_CHAR_RGX, UPPERCASE_RGX, LOWERCASE_RGX, DIGIT_RGX } from '@common/constants/Utils'
 import type { PasswordStrengthPolicy, PasswordStrength } from '@common/constants/Utils'
 

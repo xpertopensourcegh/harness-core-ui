@@ -1,6 +1,6 @@
 import React from 'react'
 import { FormInput, Text, Color, Layout } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import ExpressionBreakdown, { ActiveInputs } from './ExpressionBreakdown'
 import Expression from './Expression'
 import Spacer from './Spacer'

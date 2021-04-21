@@ -8,7 +8,7 @@ jest.mock('@wings-software/uicore', () => ({
   useModalHook: (callback: () => React.ReactNode) => [callback, jest.fn()]
 }))
 
-jest.mock('framework/exports', () => ({
+jest.mock('framework/strings', () => ({
   useStrings: () => ({
     getString: () => 'xx'
   })

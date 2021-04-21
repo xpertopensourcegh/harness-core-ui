@@ -4,7 +4,7 @@ import cx from 'classnames'
 
 import { ExpandingSearchInput, Icon } from '@wings-software/uicore'
 import { useGetToken, logBlobPromise } from 'services/logs'
-import { String } from 'framework/exports'
+import { String } from 'framework/strings'
 import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import SessionToken from 'framework/utils/SessionToken'

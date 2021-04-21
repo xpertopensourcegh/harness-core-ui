@@ -12,7 +12,7 @@ import {
 import { EntityReference } from '@common/exports'
 import type { EntityReferenceResponse } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './SecretReference.module.scss'
 
 export interface SecretRef extends SecretDTOV2 {

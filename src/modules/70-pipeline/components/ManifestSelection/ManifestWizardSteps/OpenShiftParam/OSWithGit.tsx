@@ -18,7 +18,7 @@ import * as Yup from 'yup'
 import { get } from 'lodash-es'
 import { StringUtils } from '@common/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'

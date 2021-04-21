@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, Container, Layout, Heading, Color } from '@wings-software/uicore'
 import cx from 'classnames'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { TestReportSummary } from 'services/ti-service'
 import { Duration } from '@common/exports'
 import { renderFailureRate, TestStatus } from './TestsUtils'

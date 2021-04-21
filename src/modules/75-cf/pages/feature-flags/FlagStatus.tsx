@@ -1,7 +1,7 @@
 import React from 'react'
 import { Layout, Text } from '@wings-software/uicore'
 import { TimeAgo } from '@common/exports'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 export enum FeatureFlagStatus {
   ACTIVE = 'active',

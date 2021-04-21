@@ -13,7 +13,7 @@ import {
   Pagination
 } from '@wings-software/uicore'
 import { CF_DEFAULT_PAGE_SIZE, getErrorMessage, SegmentsSortByField, SortOrder } from '@cf/utils/CFUtils'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { Segment, useGetTargetAvailableSegments } from 'services/cf'
 import { useToaster } from '@common/exports'
 import { PageError } from '@common/components/Page/PageError'

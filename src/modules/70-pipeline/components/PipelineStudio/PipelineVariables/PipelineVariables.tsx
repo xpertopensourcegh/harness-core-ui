@@ -6,7 +6,7 @@ import cx from 'classnames'
 
 import type { StageElementWrapper } from 'services/cd-ng'
 import { PageSpinner } from '@common/components'
-import { String, useStrings } from 'framework/exports'
+import { String, useStrings } from 'framework/strings'
 
 import { PageError } from '@common/components/Page/PageError'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'

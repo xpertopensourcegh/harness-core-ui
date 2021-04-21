@@ -11,7 +11,7 @@ import type { EmailNotificationConfiguration } from '@notifications/interfaces/N
 import { TestStatus } from '@notifications/interfaces/Notifications'
 import { NotificationType } from '@notifications/interfaces/Notifications'
 import { useTestNotificationSetting, EmailSettingDTO } from 'services/platform'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import css from '../../ConfigureNotificationsModal.module.scss'
 

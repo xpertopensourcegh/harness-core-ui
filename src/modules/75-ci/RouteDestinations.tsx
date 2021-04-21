@@ -54,7 +54,7 @@ import RunPipelinePage from '@pipeline/pages/RunPipeline/RunPipelinePage'
 import BuildTests from '@ci/pages/build/sections/tests/BuildTests'
 import BuildCommits from '@ci/pages/build/sections/commits/BuildCommits'
 import CreateSecretFromYamlPage from '@secrets/pages/createSecretFromYaml/CreateSecretFromYamlPage'
-import { String } from 'framework/exports'
+import { String } from 'framework/strings'
 
 import './components/PipelineSteps'
 import './components/PipelineStudio/BuildStage'

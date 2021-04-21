@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { Card, Color, Layout, Text, WeightedStack, LabelPosition } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { SparklineChart, SparklineChartProps } from '@common/components/SparklineChart/SparklineChart'
 import { TrendPopover, TrendPopoverProps } from '@dashboards/components/TrendPopover/TrendPopover'
 import css from './ServiceInstancesWidget.module.scss'

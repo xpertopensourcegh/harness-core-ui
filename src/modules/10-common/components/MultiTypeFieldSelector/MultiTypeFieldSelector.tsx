@@ -14,8 +14,8 @@ import cx from 'classnames'
 import { FormikContext, connect } from 'formik'
 import { get } from 'lodash-es'
 
-import { String } from 'framework/exports'
-import type { StringKeys } from 'framework/strings/StringsContext'
+import { String } from 'framework/strings'
+import type { StringKeys } from 'framework/strings'
 import { errorCheck } from '@common/utils/formikHelpers'
 
 import css from './MultiTypeFieldSelctor.module.scss'

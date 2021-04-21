@@ -5,7 +5,7 @@
 // import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 // import { useGetUserGroup, UserGroupDTO } from 'services/cd-ng'
 // import { Scope } from '@common/interfaces/SecretsInterface'
-// import { useStrings } from 'framework/exports'
+// import { useStrings } from 'framework/strings'
 // import { errorCheck } from '@common/utils/formikHelpers'
 // import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 // import { MultiTypeReferenceInput } from '@common/components/ReferenceSelect/ReferenceSelect'

@@ -5,7 +5,7 @@ import { PopoverInteractionKind, Tooltip } from '@blueprintjs/core'
 import { Container, Icon, Text, Color, Button, TextInput } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
 import { Page, useToaster } from '@common/exports'
-import { useStrings, String } from 'framework/exports'
+import { String, useStrings } from 'framework/strings'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import {
   useGetVerificationJobs,

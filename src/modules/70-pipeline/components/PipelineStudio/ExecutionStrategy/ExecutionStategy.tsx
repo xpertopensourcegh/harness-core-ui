@@ -12,7 +12,7 @@ import {
   useGetExecutionStrategyList,
   useGetExecutionStrategyYaml
 } from 'services/cd-ng'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import BlueGreen from './images/BlueGreen.png'

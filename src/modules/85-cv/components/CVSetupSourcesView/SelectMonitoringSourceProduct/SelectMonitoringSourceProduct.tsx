@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormInput, Layout, Container, Text, Color, Card, CardBody } from '@wings-software/uicore'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { StepLabelProps, StepLabel } from '../StepLabel/StepLabel'
 import { SetupSourceEmptyCardHeader } from '../SetupSourceCardHeader/SetupSourceCardHeader'
 import css from './SelectMonitoringSourceProduct.module.scss'

@@ -35,7 +35,7 @@ import {
 import { Page } from '@common/components/Page/Page'
 import Table from '@common/components/Table/Table'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
-import { String, useStrings } from 'framework/exports'
+import { String, useStrings } from 'framework/strings'
 import useDeleteServiceHook from '@ce/common/useDeleteService'
 import COGatewayAnalytics from './COGatewayAnalytics'
 import COGatewayCumulativeAnalytics from './COGatewayCumulativeAnalytics'

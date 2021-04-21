@@ -11,7 +11,7 @@ import type { ConnectorConfigDTO, ConnectorRequestBody, ConnectorInfoDTO } from 
 
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import TextReference, { TextReferenceInterface, ValueType } from '@secrets/components/TextReference/TextReference'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import css from './StepGitAuthentication.module.scss'
 

@@ -3,7 +3,7 @@ import { Button, Color, Container, ExpandingSearchInput, Layout, Text } from '@w
 import { useParams } from 'react-router-dom'
 import type { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacFactory from '@rbac/factories/RbacFactory'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './AddResourceModal.module.scss'
 

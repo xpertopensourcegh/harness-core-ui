@@ -3,7 +3,7 @@ import * as Yup from 'yup'
 import { Dialog, Classes } from '@blueprintjs/core'
 import { Button, Formik, FormikForm, FormInput } from '@wings-software/uicore'
 
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { AllNGVariables } from '@pipeline/utils/types'
 
 import { getVaribaleTypeOptions } from './CustomVariableUtils'

@@ -22,7 +22,7 @@ import {
   validateTheIdentifierIsUniquePromise,
   Failure
 } from 'services/cd-ng'
-import { String, useStrings } from 'framework/exports'
+import { String, useStrings } from 'framework/strings'
 import { GitUrlType, GitConnectionType } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { Connectors } from '@connectors/constants'

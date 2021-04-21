@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { DelegateTypes } from '@delegates/constants'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import CreateK8sDelegate from '@delegates/components/CreateDelegate/K8sDelegate/CreateK8sDelegate'
 import DelegateDetailsStep from '../CreateDelegate/commonSteps/DelegateDetailsStep'
 interface DelegateWizardProps {

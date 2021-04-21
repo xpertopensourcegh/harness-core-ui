@@ -7,7 +7,7 @@ import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 import type { PipelineVariablesData } from '../types'
 import css from '../PipelineVariables.module.scss'

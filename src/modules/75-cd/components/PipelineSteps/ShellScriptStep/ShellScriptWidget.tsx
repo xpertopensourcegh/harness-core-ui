@@ -6,7 +6,7 @@ import type { FormikProps } from 'formik'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { StepFormikFowardRef, setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import type { ShellScriptFormData } from './shellScriptTypes'

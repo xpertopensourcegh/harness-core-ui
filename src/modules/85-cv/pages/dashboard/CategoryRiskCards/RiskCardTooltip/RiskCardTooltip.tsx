@@ -7,7 +7,7 @@ import { useGetRiskSummaryPopover, RestResponseRiskSummaryPopoverDTO } from 'ser
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { RiskScoreTile } from '@cv/components/RiskScoreTile/RiskScoreTile'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import styles from './RiskCardTooltip.module.scss'
 
 export interface RiskCardTooltipProps {

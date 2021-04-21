@@ -8,7 +8,7 @@ import moment from 'moment'
 import merge from 'lodash-es/merge'
 import { Popover, Menu, MenuItem, Dialog } from '@blueprintjs/core'
 import { TimelineBar } from '@cv/components/TimelineView/TimelineBar'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import styles from './TimeseriesRow.module.scss'
 
 export interface SeriesConfig {

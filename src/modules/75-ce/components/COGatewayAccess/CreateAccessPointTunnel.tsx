@@ -25,7 +25,7 @@ import {
   useAllVPCs,
   useAccessPointResources
 } from 'services/lw'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import css from './COGatewayAccess.module.scss'
 

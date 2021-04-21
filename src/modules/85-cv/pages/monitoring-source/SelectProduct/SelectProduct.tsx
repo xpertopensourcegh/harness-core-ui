@@ -3,7 +3,7 @@ import { Layout, Container, FormikForm, Formik, FormInput, SelectOption } from '
 import * as Yup from 'yup'
 import { useParams, useHistory } from 'react-router-dom'
 import { StringUtils } from '@common/exports'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 import {
@@ -14,7 +14,7 @@ import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPrevious
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import { buildConnectorRef } from '@cv/pages/onboarding/CVOnBoardingUtils'
 import SyncStepDataValues from '@cv/utils/SyncStepDataValues'
-import type { UseStringsReturn } from 'framework/strings/String'
+import type { UseStringsReturn } from 'framework/strings'
 import css from './SelectProduct.module.scss'
 
 interface SelectProductFieldProps {

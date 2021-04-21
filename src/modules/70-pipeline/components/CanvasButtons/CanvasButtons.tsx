@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import { Layout, ButtonGroup, Button } from '@wings-software/uicore'
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
 import cx from 'classnames'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './CanvasButtons.module.scss'
 
 export enum CanvasButtonsActions {

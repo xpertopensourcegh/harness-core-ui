@@ -8,7 +8,7 @@ import { useSaveVerificationJob, VerificationJobDTO } from 'services/cv'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { ONBOARDING_ENTITIES } from '@cv/pages/admin/setup/SetupUtils'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { VerificationSensitivity } from '../VerificationJobsSetup'
 
 export const FormControlButtons = connect(({ formik }) => (

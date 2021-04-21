@@ -50,7 +50,7 @@ import {
   UNSAVED_FILTER,
   flattenObject
 } from '@common/components/Filter/utils/FilterUtils'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { FilterInterface, FilterDataInterface } from '@common/components/Filter/Constants'
 import type { CrudOperation } from '@common/components/Filter/FilterCRUD/FilterCRUD'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'

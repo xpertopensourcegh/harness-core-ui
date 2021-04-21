@@ -6,7 +6,7 @@ import { Button, Color, Icon, Container, Text, useIsMounted, Layout } from '@win
 import cx from 'classnames'
 import type { CellProps, Column, Renderer } from 'react-table'
 import { TestSuite, useTestCaseSummary, TestCase, TestCaseSummaryQueryParams } from 'services/ti-service'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { Duration } from '@common/exports'
 import Table from '@common/components/Table/Table'
 import { renderFailureRate } from './TestsUtils'

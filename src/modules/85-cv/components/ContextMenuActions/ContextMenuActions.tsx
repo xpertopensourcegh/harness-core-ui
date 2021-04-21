@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Classes, Menu, MenuItem, Popover, Position } from '@blueprintjs/core'
 import { Color, Button } from '@wings-software/uicore'
 import { useConfirmationDialog } from '@common/exports'
-import { useStrings, String } from 'framework/exports'
+import { String, useStrings } from 'framework/strings'
 
 export interface ContextMenuActionsProps {
   onEdit?(): void

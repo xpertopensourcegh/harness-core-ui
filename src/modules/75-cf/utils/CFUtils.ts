@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from 'react'
 import { Intent, IToaster, IToasterProps, Position, Toaster } from '@blueprintjs/core'
 import { get } from 'lodash-es'
 import { Utils } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { Feature, Variation } from 'services/cf'
 
 const LOCALE = 'en'

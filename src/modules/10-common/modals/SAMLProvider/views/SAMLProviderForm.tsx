@@ -18,7 +18,7 @@ import {
 } from '@wings-software/uicore'
 import { InputGroup } from '@blueprintjs/core'
 import CopyToClipboard from '@common/components/CopyToClipBoard/CopyToClipBoard'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { StringsMap } from 'stringTypes'
 import type { SAMLProvider } from '../useSAMLProvider'
 import css from '../useSAMLProvider.module.scss'

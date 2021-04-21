@@ -20,7 +20,7 @@ import { UserInviteRequestBody, useTrialSignup } from 'services/portal'
 import AuthLayout from '@common/components/AuthLayout/AuthLayout'
 
 import AuthFooter, { AuthPage } from '@common/components/AuthLayout/AuthFooter/AuthFooter'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 interface SignupForm {
   name: string

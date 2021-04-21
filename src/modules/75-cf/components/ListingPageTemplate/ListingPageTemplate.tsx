@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import cx from 'classnames'
 import { Container, Heading } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { getErrorMessage } from '@cf/utils/CFUtils'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { PageError } from '@common/components/Page/PageError'

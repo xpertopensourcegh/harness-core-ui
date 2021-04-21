@@ -7,7 +7,7 @@ import { isEmpty } from 'lodash-es'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { FieldArray } from 'formik'
 
-import { String, useStrings } from 'framework/exports'
+import { String, useStrings } from 'framework/strings'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import { FormMultiTypeCheckboxField } from '@common/components'
 import type { CommandFlags, HelmWithGITDataType, HelmWithHTTPDataType } from '../ManifestInterface'

@@ -2,7 +2,7 @@ import React from 'react'
 import { Position, PopoverInteractionKind } from '@blueprintjs/core'
 import { Popover } from '@blueprintjs/core'
 import { Icon } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 import css from './CopyToClipBoard.module.scss'
 

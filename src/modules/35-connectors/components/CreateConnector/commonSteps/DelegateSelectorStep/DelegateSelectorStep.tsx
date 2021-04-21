@@ -13,7 +13,7 @@ import {
 } from '@wings-software/uicore'
 // import * as Yup from 'yup'
 import { noop } from 'lodash-es'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { DelegateTypes } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { DelegateSelectors } from '@common/components'

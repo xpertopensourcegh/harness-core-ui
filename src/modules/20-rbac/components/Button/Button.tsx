@@ -2,7 +2,7 @@ import React from 'react'
 import { Button as CoreButton, ButtonProps as CoreButtonProps } from '@wings-software/uicore'
 
 import { usePermission, PermissionsRequest, PermissionRequest } from '@rbac/hooks/usePermission'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 interface ButtonProps extends CoreButtonProps {
   permission: PermissionRequest

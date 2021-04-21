@@ -1,7 +1,7 @@
 import type { IconName } from '@wings-software/uicore'
 import { Connectors } from '@connectors/constants'
 import { StringUtils } from '@common/exports'
-import type { StringKeys } from 'framework/strings/StringsContext'
+import type { StringKeys } from 'framework/strings'
 
 export const AuthTypes = {
   CLIENT_KEY_CERT: 'ClientKeyCert',

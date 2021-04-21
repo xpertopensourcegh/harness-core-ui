@@ -12,7 +12,7 @@ import {
   RoleBinding
 } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useConfirmationDialog, useToaster, Page } from '@common/exports'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
 import { PrincipalType, useRoleAssignmentModal } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'

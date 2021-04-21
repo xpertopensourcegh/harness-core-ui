@@ -3,7 +3,7 @@ import { Text, Layout, Tag } from '@wings-software/uicore'
 import TagsPopover from '@common/components/TagsPopover/TagsPopover'
 
 import type { tagsType } from '@common/utils/types'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 export interface ListTagsProps {
   tags: tagsType

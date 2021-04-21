@@ -3,7 +3,7 @@ import produce from 'immer'
 import { set } from 'lodash-es'
 import { NestedAccordionPanel } from '@wings-software/uicore'
 
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { ExecutionElementConfig, ExecutionWrapperConfig, StepElementConfig } from 'services/cd-ng'
 
 import type { PipelineVariablesData } from '../types'

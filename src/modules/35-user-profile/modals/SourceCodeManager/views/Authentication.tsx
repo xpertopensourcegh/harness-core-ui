@@ -1,7 +1,7 @@
 import React from 'react'
 import { Color, Layout, Text, Container, FormInput, SelectOption } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import TextReference, { ValueType } from '@secrets/components/TextReference/TextReference'
 import { AuthTypes } from '@user-profile/utils/utils'

@@ -2,7 +2,7 @@ import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { Layout, useModalHook } from '@wings-software/uicore'
 import { upperFirst } from 'lodash-es'
 import React from 'react'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { DelegateSelectionLogsTask } from './DelegateSelectionLogsTask'
 import css from './DelegateSelectionLogs.module.scss'
 

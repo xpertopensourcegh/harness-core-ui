@@ -11,7 +11,7 @@ import {
   SelectOption,
   Text
 } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { Feature, Target, useGetAllFeatures, Variation } from 'services/cf'
 import { ItemContainer } from '@cf/components/ItemContainer/ItemContainer'
 import routes from '@common/RouteDefinitions'

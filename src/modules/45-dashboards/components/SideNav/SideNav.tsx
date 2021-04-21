@@ -7,7 +7,7 @@ import routes from '@common/RouteDefinitions'
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { SidebarLink } from '@common/navigation/SideNav/SideNav'
 
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 export default function DashboardsSideNav(): React.ReactElement {
   const { accountId } = useParams<AccountPathProps & Partial<ProjectPathProps>>()

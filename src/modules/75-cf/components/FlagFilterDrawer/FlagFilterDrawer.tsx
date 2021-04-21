@@ -12,7 +12,7 @@ import {
   Color,
   DateInput
 } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './FlagFilterDrawer.module.scss'
 
 // TODO: Check these ...SelectOptions fields

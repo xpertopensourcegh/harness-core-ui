@@ -2,7 +2,7 @@ import React from 'react'
 import moment from 'moment'
 import { Spinner } from '@blueprintjs/core'
 import { Icon } from '@wings-software/uicore'
-import { String } from 'framework/exports'
+import { String } from 'framework/strings'
 import css from './components.module.scss'
 export interface BarrierStepTooltipProps {
   loading: boolean

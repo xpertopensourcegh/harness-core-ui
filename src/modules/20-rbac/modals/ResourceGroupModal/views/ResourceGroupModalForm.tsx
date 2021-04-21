@@ -19,7 +19,7 @@ import {
   ResourceGroupRequestRequestBody,
   useUpdateResourceGroup
 } from 'services/platform'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { DEFAULT_COLOR } from '@common/constants/Utils'
 import css from './ResourceGroupModal.module.scss'

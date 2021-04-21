@@ -5,7 +5,7 @@ import { FormikProps, connect } from 'formik'
 import { get } from 'lodash-es'
 import { Button } from '@wings-software/uicore'
 
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 import css from './ShellScriptMonaco.module.scss'
 

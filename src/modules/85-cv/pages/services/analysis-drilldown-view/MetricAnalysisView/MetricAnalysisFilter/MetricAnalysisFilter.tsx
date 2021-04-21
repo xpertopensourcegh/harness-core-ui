@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Container, Text, Select, Color, SelectOption, SelectProps } from '@wings-software/uicore'
 import cx from 'classnames'
 import { debounce } from 'lodash-es'
-import { useStrings, UseStringsReturn } from 'framework/strings/String'
+import { useStrings, UseStringsReturn } from 'framework/strings'
 import css from './MetricAnalysisFilter.module.scss'
 
 export const MetricAnalysisFilterType = {

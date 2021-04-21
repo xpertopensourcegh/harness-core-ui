@@ -2,7 +2,7 @@ import React from 'react'
 import { Container, Text, IconName } from '@wings-software/uicore'
 import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './ActivitySourceDetails.module.scss'
 
 interface ActivitySourceDetailsProps {

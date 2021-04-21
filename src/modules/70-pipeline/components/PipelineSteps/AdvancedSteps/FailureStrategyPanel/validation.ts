@@ -2,7 +2,7 @@ import * as Yup from 'yup'
 import { omit } from 'lodash-es'
 import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 
-import type { UseStringsReturn } from 'framework/strings/String'
+import type { UseStringsReturn } from 'framework/strings'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 
 import { ErrorType, Strategy } from './StrategySelection/StrategyConfig'

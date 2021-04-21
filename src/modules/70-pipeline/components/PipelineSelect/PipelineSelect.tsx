@@ -5,7 +5,7 @@ import { Button, Menu, Spinner } from '@blueprintjs/core'
 
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetPipelineList, PMSPipelineSummaryResponse, PagePMSPipelineSummaryResponse } from 'services/pipeline-ng'
-import { String } from 'framework/exports'
+import { String } from 'framework/strings'
 
 import css from './PipelineSelect.module.scss'
 

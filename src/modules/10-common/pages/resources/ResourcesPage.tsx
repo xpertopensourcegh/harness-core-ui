@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import { Container, Layout } from '@wings-software/uicore'
 
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'

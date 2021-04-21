@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { isNumber, omit } from 'lodash-es'
 import moment from 'moment'
 import { RiskScoreTile } from '@cv/components/RiskScoreTile/RiskScoreTile'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { AnalysisDrillDownView, AnalysisDrillDownViewProps } from './AnalysisDrillDownView'
 import css from './useAnalysisDrillDownView.module.scss'
 

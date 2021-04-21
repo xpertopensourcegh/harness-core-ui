@@ -4,7 +4,7 @@ import { renderHook } from '@testing-library/react-hooks'
 import { FormInput } from '@wings-software/uicore'
 import { Link } from 'react-router-dom'
 import { TestWrapper } from '@common/utils/testUtils'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 
 import { getDefaultProps } from './mockConstants'

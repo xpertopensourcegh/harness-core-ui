@@ -5,7 +5,7 @@ import { Layout, Color, Text, Button } from '@wings-software/uicore'
 import Table from '@common/components/Table/Table'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
 import type { PagePMSPipelineSummaryResponse, PMSPipelineSummaryResponse } from 'services/pipeline-ng'
-import { String, useStrings } from 'framework/exports'
+import { String, useStrings } from 'framework/strings'
 
 import routes from '@common/RouteDefinitions'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'

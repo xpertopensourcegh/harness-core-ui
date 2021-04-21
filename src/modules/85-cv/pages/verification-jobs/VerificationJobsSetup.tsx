@@ -6,7 +6,7 @@ import routes from '@common/RouteDefinitions'
 
 import type { AccountPathProps, ProjectPathProps, VerificationPathProps } from '@common/interfaces/RouteInterfaces'
 
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { Page } from '@common/exports'
 import { VerificationJobType } from '@cv/constants'
 import { GetVerificationJobQueryParams, useGetVerificationJob } from 'services/cv'

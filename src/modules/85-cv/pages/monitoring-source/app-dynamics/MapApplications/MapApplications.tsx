@@ -15,7 +15,7 @@ import {
   getAppDynamicsMetricDataPromise,
   GetAppDynamicsMetricDataQueryParams
 } from 'services/cv'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { useToaster } from '@common/exports'
 import { PageError } from '@common/components/Page/PageError'

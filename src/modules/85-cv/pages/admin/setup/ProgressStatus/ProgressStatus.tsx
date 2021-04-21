@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, Text, Layout, Icon, Color } from '@wings-software/uicore'
-import { String, useStrings } from 'framework/exports'
+import { String, useStrings } from 'framework/strings'
 import { pluralize } from '@common/utils/StringUtils'
 import css from '../CVSetupPage.module.scss'
 

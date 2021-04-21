@@ -1,6 +1,6 @@
 import React from 'react'
 import { Toothpick } from '@common/components'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { zeroFiftyNineDDOptions } from '@common/components/TimeSelect/TimeSelectUtils'
 import ExpressionBreakdown, { ActiveInputs } from './ExpressionBreakdown'
 import Expression from './Expression'

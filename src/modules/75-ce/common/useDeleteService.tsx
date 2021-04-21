@@ -1,6 +1,6 @@
 import { Intent } from '@blueprintjs/core'
 import { useConfirmationDialog } from '@common/exports'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { Service, useDeleteService } from 'services/lw'
 
 interface UseDeleteServiceHookProps {

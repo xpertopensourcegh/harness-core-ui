@@ -4,7 +4,7 @@ import { Drawer, IDrawerProps } from '@blueprintjs/core'
 import { Formik, FormikProps, FormikErrors } from 'formik'
 import { truncate } from 'lodash-es'
 import { FormikForm, Button, Layout, OverlaySpinner } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { CrudOperation, FilterCRUD, FilterCRUDRef } from './FilterCRUD/FilterCRUD'
 import type { FilterInterface, FilterDataInterface } from './Constants'
 

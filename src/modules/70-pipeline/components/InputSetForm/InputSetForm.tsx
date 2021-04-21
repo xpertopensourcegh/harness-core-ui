@@ -43,7 +43,7 @@ import { getScopeFromDTO } from '@common/components/EntityReference/EntityRefere
 import { PageSpinner, NameIdDescriptionTags } from '@common/components'
 import routes from '@common/RouteDefinitions'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import StagesTree, { stagesTreeNodeClasses } from '@pipeline/components/StagesTree/StagesTree'
 import { usePermission } from '@rbac/hooks/usePermission'

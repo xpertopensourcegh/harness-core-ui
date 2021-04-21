@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Color, Layout, Text } from '@wings-software/uicore'
 import { Switch } from '@blueprintjs/core'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useDisableTwoFactorAuth } from 'services/cd-ng'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { useToaster } from '@common/exports'

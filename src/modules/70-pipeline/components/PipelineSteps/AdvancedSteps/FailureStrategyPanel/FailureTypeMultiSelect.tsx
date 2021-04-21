@@ -5,8 +5,8 @@ import { connect, FormikContext } from 'formik'
 import { get } from 'lodash-es'
 
 import { errorCheck } from '@common/utils/formikHelpers'
-import { useStrings } from 'framework/exports'
-import type { StringKeys } from 'framework/strings/StringsContext'
+import { useStrings } from 'framework/strings'
+import type { StringKeys } from 'framework/strings'
 
 import { ErrorType, errorTypesOrderForCI, errorTypesOrderForCD } from './StrategySelection/StrategyConfig'
 import css from './FailureStrategyPanel.module.scss'

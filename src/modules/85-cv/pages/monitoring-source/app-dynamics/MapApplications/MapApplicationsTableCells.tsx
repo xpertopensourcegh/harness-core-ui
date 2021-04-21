@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, Color, Button, Layout, SelectOption } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { ServiceSelectOrCreate } from '@cv/components/ServiceSelectOrCreate/ServiceSelectOrCreate'
 import { ValidationStatus, TierRecord } from '../AppDOnboardingUtils'
 import css from './MapApplications.module.scss'

@@ -11,7 +11,7 @@ import { CF_LOCAL_STORAGE_ENV_KEY, DEFAULT_ENV, getErrorMessage } from '@cf/util
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { NoEnvironment } from '@cf/components/NoEnvironment/NoEnvironment'
 import { useLocalStorage } from '@common/hooks'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import FlagActivation from '../../components/FlagActivation/FlagActivation'
 import FlagActivationDetails from '../../components/FlagActivation/FlagActivationDetails'

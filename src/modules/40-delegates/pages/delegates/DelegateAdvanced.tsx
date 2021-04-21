@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Container, FlexExpander, Text, useToggle } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { Delegate, DelegateProfile } from 'services/portal'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
 import { SectionContainer } from '@delegates/components/SectionContainer/SectionContainer'

@@ -17,7 +17,7 @@ import {
 import { useLocalStorage } from '@common/hooks'
 import { PageError } from '@common/components/Page/PageError'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { AuditTrail, Feature, useGetOSById } from 'services/cf'
 import { translateEvents } from './AuditLogsUtils'

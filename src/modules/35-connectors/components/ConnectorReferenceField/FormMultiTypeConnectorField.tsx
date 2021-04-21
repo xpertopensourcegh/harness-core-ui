@@ -13,7 +13,7 @@ import useCreateConnectorMultiTypeModal from '@connectors/modals/ConnectorModal/
 import { ConnectorConfigDTO, ConnectorInfoDTO, ConnectorResponse, useGetConnector } from 'services/cd-ng'
 import { ConfigureOptions, ConfigureOptionsProps } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { Scope } from '@common/interfaces/SecretsInterface'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { errorCheck } from '@common/utils/formikHelpers'
 import {
   getIdentifierFromValue,

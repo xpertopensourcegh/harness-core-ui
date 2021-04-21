@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Prompt } from 'react-router-dom'
 import type * as History from 'history'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useConfirmationDialog } from '../../modals/ConfirmDialog/useConfirmationDialog'
 
 interface Props {

@@ -1,6 +1,6 @@
 /* global fail */
 import { yupToFormErrors } from 'formik'
-import type { StringKeys } from 'framework/strings/StringsContext'
+import type { StringKeys } from 'framework/strings'
 
 import { getFailureStrategiesValidationSchema } from '../validation'
 import { Strategy, ErrorType } from '../StrategySelection/StrategyConfig'

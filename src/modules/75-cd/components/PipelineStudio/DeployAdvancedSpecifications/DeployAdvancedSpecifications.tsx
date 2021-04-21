@@ -5,7 +5,7 @@ import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineCon
 import { FailureStrategyWithRef } from '@pipeline/components/PipelineStudio/FailureStrategy/FailureStrategy'
 import type { StepFormikRef } from '@pipeline/components/PipelineStudio/StepCommands/StepCommands'
 import SkipCondition from '@pipeline/components/PipelineStudio/SkipCondition/SkipCondition'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './DeployAdvancedSpecifications.module.scss'
 
 export interface AdvancedSpecifications {

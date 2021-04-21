@@ -14,7 +14,7 @@ import {
 } from '@wings-software/uicore'
 import { get } from 'lodash-es'
 import * as Yup from 'yup'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { ConfigureOptions, ConfigureOptionsProps } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { errorCheck } from '@common/utils/formikHelpers'
 

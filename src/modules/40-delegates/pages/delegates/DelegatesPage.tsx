@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, Tabs, Tab, Layout, Color } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useQueryParams } from '@common/hooks'
 import DelegateListing from './DelegateListing'
 import DelegateConfigurations from './DelegateConfigurations'

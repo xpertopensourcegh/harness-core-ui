@@ -7,7 +7,7 @@ import { Button, Container, Text, Layout, Popover, Color, FlexExpander } from '@
 import { Menu, Classes, Position } from '@blueprintjs/core'
 import { PageError } from '@common/components/Page/PageError'
 import { useToaster } from '@common/components/Toaster/useToaster'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import {
   GetDelegatesStatusV2QueryParams,
   useDeleteDelegate,

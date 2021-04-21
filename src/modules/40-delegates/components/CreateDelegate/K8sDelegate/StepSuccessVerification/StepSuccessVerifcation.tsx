@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Button, Layout, StepProps, Heading, Text, Container } from '@wings-software/uicore'
 
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { StepK8Data } from '@delegates/DelegateInterface'
 import CopyToClipboard from '@common/components/CopyToClipBoard/CopyToClipBoard'
 import StepProcessing from '../StepProcessing/StepProcessing'

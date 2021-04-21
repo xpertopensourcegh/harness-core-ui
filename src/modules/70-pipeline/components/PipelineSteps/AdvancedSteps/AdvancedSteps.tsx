@@ -4,7 +4,7 @@ import { Formik, FormikForm, Accordion } from '@wings-software/uicore'
 import * as Yup from 'yup'
 
 import { cloneDeep } from 'lodash-es'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import {
   AdvancedPanels,
   StepCommandsProps,

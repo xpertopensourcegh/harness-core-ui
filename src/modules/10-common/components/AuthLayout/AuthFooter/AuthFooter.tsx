@@ -3,7 +3,7 @@ import { Icon, Text, Container } from '@wings-software/uicore'
 
 import { OAuthProviderType, OAuthProviders, URLS } from '@common/constants/OAuthProviders'
 
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './AuthFooter.module.scss'
 
 export enum AuthPage {

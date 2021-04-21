@@ -12,7 +12,7 @@ import {
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import { RunPipelineModal } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
 import { TagsPopover } from '@common/components'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './InputSetList.module.scss'
 
 interface InputSetListViewProps {

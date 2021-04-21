@@ -1,6 +1,6 @@
 import React from 'react'
 import { HomePageTemplate } from '@common/components/HomePageTemplate/HomePageTemplate'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import bgImageURL from './images/homeIllustration.svg'
 
 const CVHomePage: React.FC = () => {

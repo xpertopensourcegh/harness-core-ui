@@ -16,7 +16,7 @@ These strings can be accessed either by using the `<String/>` component or using
 the `useStrings` hook.
 
 ```tsx
-import { useStrings, String } from 'framework/exports'
+import { String, useStrings } from 'framework/strings'
 
 // via component
 <String stringID="myKey" />

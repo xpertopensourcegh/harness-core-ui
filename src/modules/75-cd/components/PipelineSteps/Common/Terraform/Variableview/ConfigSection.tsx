@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import type { TerraformData, TerraformVariableStepProps } from '../TerraformInterfaces'

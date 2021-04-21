@@ -22,7 +22,7 @@ import {
   VaultConnectorDTO,
   VaultMetadataRequestSpecDTO
 } from 'services/cd-ng'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import VaultConnectorFormFields from './VaultConnectorFormFields'
 import type { CreateHashiCorpVaultProps, StepSecretManagerProps } from '../CreateHashiCorpVault'

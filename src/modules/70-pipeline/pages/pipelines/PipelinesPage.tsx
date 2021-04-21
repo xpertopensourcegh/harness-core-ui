@@ -32,7 +32,7 @@ import {
 import { useGetServiceListForProject, useGetEnvironmentListForProject } from 'services/cd-ng'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { Filter, FilterRef } from '@common/components/Filter/Filter'

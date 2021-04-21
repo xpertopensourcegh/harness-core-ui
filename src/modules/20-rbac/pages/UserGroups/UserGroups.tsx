@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Button, ExpandingSearchInput, Layout } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { Page } from '@common/exports'
 import { useGetUserGroupAggregateList } from 'services/cd-ng'

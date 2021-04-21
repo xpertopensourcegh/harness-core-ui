@@ -2,7 +2,7 @@ import React from 'react'
 import { get } from 'lodash-es'
 import classNames from 'classnames'
 import { Icon } from '@wings-software/uicore'
-import { String } from 'framework/exports'
+import { String } from 'framework/strings'
 import BarrierStageTooltip from './BarrierStageTooltip'
 import css from '../components.module.scss'
 export interface CDInfoProps {

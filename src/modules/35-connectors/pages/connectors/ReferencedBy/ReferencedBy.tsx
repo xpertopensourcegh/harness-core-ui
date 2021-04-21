@@ -13,7 +13,7 @@ import {
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { Page } from '@common/exports'
 import type { UseGetMockData } from '@common/utils/testUtils'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { getIconByEntityType, getReferredEntityLabelByType } from '../utils/ConnectorUtils'
 import css from './ReferencedBy.module.scss'
 

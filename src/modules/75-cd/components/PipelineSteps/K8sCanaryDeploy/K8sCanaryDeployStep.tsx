@@ -20,8 +20,8 @@ import {
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
-import { useStrings } from 'framework/exports'
-import type { UseStringsReturn } from 'framework/strings/String'
+import { useStrings } from 'framework/strings'
+import type { UseStringsReturn } from 'framework/strings'
 import { getInstanceDropdownSchema } from '@common/components/InstanceDropdownField/InstanceDropdownField'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, Tab, Tabs, Text } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { Target } from 'services/cf'
 import { DetailHeading } from '../DetailHeading'
 import { TabAttributes } from '../attributes/TabAtrributes'

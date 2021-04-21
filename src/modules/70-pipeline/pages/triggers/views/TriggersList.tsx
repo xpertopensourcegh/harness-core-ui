@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button, TextInput, useModalHook } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { useGetTriggerListForTarget } from 'services/pipeline-ng'

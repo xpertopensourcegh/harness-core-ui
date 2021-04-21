@@ -3,7 +3,7 @@ import { FieldArray } from 'formik'
 import type { FormikProps } from 'formik'
 import { Button, FormInput, MultiTextInput, MultiTypeInputType, SelectOption } from '@wings-software/uicore'
 import { v4 as uuid } from 'uuid'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { ShellScriptFormData, ShellScriptStepVariable } from './shellScriptTypes'
 

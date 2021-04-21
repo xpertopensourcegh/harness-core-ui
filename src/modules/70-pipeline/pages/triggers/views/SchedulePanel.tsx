@@ -1,7 +1,7 @@
 import React from 'react'
 import { Layout, Tabs, Tab } from '@wings-software/uicore'
 import cx from 'classnames'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { MinutesTab, HourlyTab, DailyTab, WeeklyTab, MonthlyTab, YearlyTab, CustomTab } from './subviews'
 import { scheduleTabsId, getDefaultExpressionBreakdownValues } from './subviews/ScheduleUtils'
 import css from './SchedulePanel.module.scss'

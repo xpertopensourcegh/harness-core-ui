@@ -5,7 +5,7 @@ import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDel
 import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER, CreateConnectorModalProps } from '@connectors/constants'
 import { getConnectorTitleIdByType, getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { buildKubPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'
 import Stepk8ClusterDetails from './StepAuth/Stepk8ClusterDetails'
 import DelegateSelectorStep from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'

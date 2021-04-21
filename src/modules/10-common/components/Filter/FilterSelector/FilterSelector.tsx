@@ -2,7 +2,7 @@ import React from 'react'
 import { MenuItem, PopoverInteractionKind, Position } from '@blueprintjs/core'
 import { truncate } from 'lodash-es'
 import { Select, SelectOption, Layout, Popover, Button } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { getFilterSummary, MAX_FILTER_NAME_LENGTH, getFilterSize } from '@common/components/Filter/utils/FilterUtils'
 import type { FilterInterface } from '../Constants'
 

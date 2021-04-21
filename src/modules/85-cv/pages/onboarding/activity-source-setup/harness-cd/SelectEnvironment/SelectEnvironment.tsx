@@ -10,7 +10,7 @@ import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { EnvironmentSelect } from '@cv/pages/monitoring-source/app-dynamics/SelectApplications/EnvironmentSelect'
 import {
   useGetEnvironmentListForProject,

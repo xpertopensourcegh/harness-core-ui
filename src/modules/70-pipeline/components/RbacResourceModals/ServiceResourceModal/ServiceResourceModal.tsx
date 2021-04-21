@@ -6,7 +6,7 @@ import ResourceHandlerTable, {
 } from '@rbac/components/ResourceHandlerTable/ResourceHandlerTable'
 import { PageSpinner } from '@common/components'
 import type { RbacResourceModalProps } from '@rbac/factories/RbacFactory'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { ServiceResponseDTO, useGetServiceList } from 'services/cd-ng'
 
 const RenderColumnPipeline: Renderer<CellProps<ServiceResponseDTO>> = ({ row }) => {

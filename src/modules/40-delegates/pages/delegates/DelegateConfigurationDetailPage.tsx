@@ -8,7 +8,7 @@ import {
   SectionContainerTitle,
   SectionLabelValuePair
 } from '@delegates/components/SectionContainer/SectionContainer'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { PageSpinner } from '@common/components'
 import { DelegateProfile, useGetDelegateConfigFromId } from 'services/portal'
 import { useUpdateDelegateProfileNg } from 'services/cd-ng'

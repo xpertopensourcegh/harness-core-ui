@@ -16,7 +16,7 @@ import {
   ModalErrorHandlerBinding
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { regexName } from '@common/utils/StringUtils'
 import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
 import { SourceCodeManagerDTO, useSaveSourceCodeManagers } from 'services/cd-ng'

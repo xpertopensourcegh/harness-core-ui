@@ -1,7 +1,7 @@
 import React from 'react'
 import { ButtonGroup, Button, Text } from '@wings-software/uicore'
 import cx from 'classnames'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { StepsType } from '../../Constants'
 import css from './RollbackToggleSwitch.module.scss'
 

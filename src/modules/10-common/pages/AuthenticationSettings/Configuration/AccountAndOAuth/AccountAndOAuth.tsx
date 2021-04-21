@@ -1,6 +1,6 @@
 import React from 'react'
 import { Radio, Container, Color, Layout, Collapse } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { AuthenticationSettingsResponse } from 'services/cd-ng'
 import { AuthenticationMechanisms } from '@common/constants/Utils'
 import HarnessAccount from '@common/pages/AuthenticationSettings/Configuration/AccountAndOAuth/HarnessAccount/HarnessAccount'

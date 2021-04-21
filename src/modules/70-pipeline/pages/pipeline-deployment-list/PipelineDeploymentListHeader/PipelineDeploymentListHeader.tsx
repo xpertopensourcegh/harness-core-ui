@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { Button, ButtonGroup } from '@wings-software/uicore'
 import cx from 'classnames'
 
-import { String } from 'framework/exports'
+import { String } from 'framework/strings'
 import type { PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 
 import StatusSelect from '@pipeline/components/StatusSelect/StatusSelect'

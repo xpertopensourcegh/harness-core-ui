@@ -14,7 +14,7 @@ import {
 import { illegalIdentifiers, regexIdentifier, regexName } from '@common/utils/StringUtils'
 import { OrganizationCard } from '@projects-orgs/components/OrganizationCard/OrganizationCard'
 import type { Organization } from 'services/cd-ng'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { NameIdDescriptionTags } from '@common/components'
 import css from './Steps.module.scss'
 

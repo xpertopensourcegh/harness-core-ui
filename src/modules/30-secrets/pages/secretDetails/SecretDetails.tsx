@@ -16,7 +16,7 @@ import {
   Error
 } from 'services/cd-ng'
 
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { PageError } from '@common/components/Page/PageError'
 import { PageHeader } from '@common/components/Page/PageHeader'

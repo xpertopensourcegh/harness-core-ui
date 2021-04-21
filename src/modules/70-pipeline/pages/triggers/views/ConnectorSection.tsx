@@ -3,7 +3,7 @@ import { FormInput, Text, Color, TextInput } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { ConnectorConfigDTO } from 'services/cd-ng'
 import { Connectors, connectorUrlType } from '@connectors/constants'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import {
   ConnectorReferenceField,
   ConnectorReferenceDTO

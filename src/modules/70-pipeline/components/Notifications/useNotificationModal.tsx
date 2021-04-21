@@ -4,7 +4,7 @@ import { useModalHook, StepWizard, Button, MultiSelectOption } from '@wings-soft
 import { Dialog, Classes } from '@blueprintjs/core'
 import cx from 'classnames'
 import type { NotificationRules } from 'services/pipeline-ng'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import Overview from './Steps/Overview'
 import PipelineEvents from './Steps/PipelineEvents'
 import NotificationMethods from './Steps/NotificationMethods'

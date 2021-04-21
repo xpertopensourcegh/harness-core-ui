@@ -7,7 +7,7 @@ import routes from '@common/RouteDefinitions'
 import { ProjectSelector } from '@common/navigation/ProjectSelector/ProjectSelector'
 import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import { SidebarLink } from '@common/navigation/SideNav/SideNav'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 
 export default function ProjectsSideNav(): React.ReactElement {

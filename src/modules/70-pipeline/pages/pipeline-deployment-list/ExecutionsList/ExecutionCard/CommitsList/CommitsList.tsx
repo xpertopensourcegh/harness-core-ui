@@ -1,7 +1,7 @@
 import React from 'react'
 import copy from 'copy-to-clipboard'
 import { Avatar, Color, Icon, Text } from '@wings-software/uicore'
-import { String, useStrings } from 'framework/exports'
+import { String, useStrings } from 'framework/strings'
 import type { CIBuildCommit } from 'services/ci'
 import { useToaster } from '@common/exports'
 

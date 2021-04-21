@@ -11,7 +11,7 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import type { StringKeys } from 'framework/strings/StringsContext'
+import type { StringKeys } from 'framework/strings'
 import TerraformInputStep from '../Common/Terraform/TerraformInputStep'
 import { TerraformVariableStep } from '../Common/Terraform/TerraformVariableView'
 import type { TerraformData, TerraformVariableStepProps } from '../Common/Terraform/TerraformInterfaces'

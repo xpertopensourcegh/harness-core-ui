@@ -11,7 +11,7 @@ import {
 import { connect } from 'formik'
 import { get } from 'lodash-es'
 import cx from 'classnames'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { ConfigureOptions, ConfigureOptionsProps } from '@common/components/ConfigureOptions/ConfigureOptions'
 
 import { errorCheck } from '@common/utils/formikHelpers'

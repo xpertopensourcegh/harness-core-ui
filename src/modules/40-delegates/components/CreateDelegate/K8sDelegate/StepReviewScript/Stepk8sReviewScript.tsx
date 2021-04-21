@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Button, Layout, StepProps, Heading, Text, Link, Color } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { KubDelegateYaml } from 'services/portal'
 import { useToaster } from '@common/exports'
 import YamlBuilder from '@common/components/YAMLBuilder/YamlBuilder'

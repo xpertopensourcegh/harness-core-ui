@@ -13,7 +13,7 @@ import {
   TrafficSplit,
   getVerificationSensitivityOptions
 } from '@cv/pages/verification-jobs/VerificationJobForms/VerificationJobFields'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { ContinousVerificationData } from '@cv/components/PipelineSteps/ContinousVerification/types'
 import {
   durationOptions,

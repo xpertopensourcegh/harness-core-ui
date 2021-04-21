@@ -15,7 +15,7 @@ import {
 } from '@wings-software/uicore'
 import { Radio, RadioGroup } from '@blueprintjs/core'
 import { AccessPoint, useAllHostedZones, useCreateAccessPoint, useGetAccessPoint } from 'services/lw'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/exports'
 import CreateTunnelStep from './CreateAccessPointTunnel'
 

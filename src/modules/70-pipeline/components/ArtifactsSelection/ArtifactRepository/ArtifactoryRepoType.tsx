@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Card, Color, Container, Heading, Icon, Layout, StepProps, Text } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
 import { getArtifactIconByType, getArtifactTitleIdByType } from '../ArtifactHelper'

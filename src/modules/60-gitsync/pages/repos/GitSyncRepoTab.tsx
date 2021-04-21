@@ -6,7 +6,7 @@ import Table from '@common/components/Table/Table'
 import type { GitSyncConfig } from 'services/cd-ng'
 
 import useCreateGitSyncModal from '@gitsync/modals/useCreateGitSyncModal'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { getGitConnectorIcon } from '@gitsync/common/gitSyncUtils'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import css from './GitSyncRepoTab.module.scss'

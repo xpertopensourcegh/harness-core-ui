@@ -19,7 +19,7 @@ import type { ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
 
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import TextReference, { TextReferenceInterface, ValueType } from '@secrets/components/TextReference/TextReference'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { AuthTypes } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import css from './HelmRepoConnector.module.scss'

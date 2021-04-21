@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, Color } from '@wings-software/uicore'
 import type { VerificationResult } from 'services/cv'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import styles from './DeploymentDrilldownView.module.scss'
 
 export default function VerificationStatusCard({ status }: { status: VerificationResult['status'] }) {

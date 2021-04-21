@@ -7,7 +7,7 @@ import type { ConnectorConfigDTO, ConnectorInfoDTO, ResponseBoolean } from 'serv
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 
 import { getConnectorTitleIdByType, getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { buildJiraPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import DelegateSelectorStep from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'

@@ -3,11 +3,11 @@ import type { StringSchema, Lazy, ArraySchema, Schema } from 'yup'
 import type { FormikErrors } from 'formik'
 import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import { get, set, uniq, uniqBy, isEmpty } from 'lodash-es'
-import type { UseStringsReturn } from 'framework/strings/String'
+import type { UseStringsReturn } from 'framework/strings'
 import { StringUtils } from '@common/exports'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import type { ExecutionWrapperConfig, StepElementConfig } from 'services/cd-ng'
-import type { StringKeys } from 'framework/strings/StringsContext'
+import type { StringKeys } from 'framework/strings'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 
 export enum Types {

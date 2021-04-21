@@ -5,7 +5,7 @@ import isEmpty from 'lodash-es/isEmpty'
 import cx from 'classnames'
 import { debounce, get, set } from 'lodash-es'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { NgPipeline, ServiceConfig } from 'services/cd-ng'

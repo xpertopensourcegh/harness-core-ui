@@ -4,8 +4,8 @@ import type { ITreeNode } from '@blueprintjs/core'
 import { Text, Color } from '@wings-software/uicore'
 import get from 'lodash-es/get'
 import { StringUtils } from '@common/exports'
-import { useStrings } from 'framework/exports'
-import type { UseStringsReturn } from 'framework/strings/String'
+import { useStrings } from 'framework/strings'
+import type { UseStringsReturn } from 'framework/strings'
 
 import type { NgPipeline, StageElement, StageElementWrapper } from 'services/cd-ng'
 

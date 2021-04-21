@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid'
 import cx from 'classnames'
 import { debounce } from 'lodash-es'
 
-import { String } from 'framework/exports'
+import { String } from 'framework/strings'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
 import type { NGVariable } from 'services/cd-ng'

@@ -3,7 +3,7 @@ import { useModalHook, Button, Text, Card, Icon, Layout } from '@wings-software/
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import useCreateConnectorModal, { UseCreateConnectorModalProps } from './useCreateConnectorModal'
 import wizardCss from '../../components/CreateConnectorWizard/CreateConnectorWizard.module.scss'
 import css from './useCreateConnectorMultiTypeModal.module.scss'

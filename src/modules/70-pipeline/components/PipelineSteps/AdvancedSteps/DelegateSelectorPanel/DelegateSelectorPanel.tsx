@@ -1,7 +1,7 @@
 import React from 'react'
 import type { FormikProps } from 'formik'
 import { DelegateSelectors } from '@common/components'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 export interface DelegatePanelProps {
   formikProps: FormikProps<{

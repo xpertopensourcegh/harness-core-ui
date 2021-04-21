@@ -66,7 +66,7 @@ import ServiceDetailPage from '@dashboards/pages/ServiceDetailPage/ServiceDetail
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
-import { String } from 'framework/exports'
+import { String } from 'framework/strings'
 
 import './components/PipelineSteps'
 import './components/PipelineStudio/DeployStage'

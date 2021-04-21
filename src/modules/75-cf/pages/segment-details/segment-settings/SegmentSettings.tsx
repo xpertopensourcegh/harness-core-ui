@@ -1,7 +1,7 @@
 import React from 'react'
 import { noop } from 'lodash-es'
 import { Container, Tab, Tabs, Text } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { Feature, Segment } from 'services/cf'
 import { AuditLogs } from '@cf/components/AuditLogs/AuditLogs'
 import { AuditLogObjectType } from '@cf/utils/CFUtils'

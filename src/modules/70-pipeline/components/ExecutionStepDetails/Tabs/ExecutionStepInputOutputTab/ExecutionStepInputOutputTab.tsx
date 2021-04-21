@@ -3,7 +3,7 @@ import { isPlainObject, toPairs, startCase, isEmpty, isNil } from 'lodash-es'
 import { Collapse as BPCollapse, Icon } from '@blueprintjs/core'
 import cx from 'classnames'
 
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { CopyText } from '@common/components/CopyText/CopyText'
 import { toVariableStr } from '@common/utils/StringUtils'
 

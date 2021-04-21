@@ -3,7 +3,7 @@ import { Text, Color, Container, Layout, Icon, SparkChart } from '@wings-softwar
 import { useHistory, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import type { Project } from 'services/cd-ng'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import css from '../ModuleRenderer.module.scss'
 

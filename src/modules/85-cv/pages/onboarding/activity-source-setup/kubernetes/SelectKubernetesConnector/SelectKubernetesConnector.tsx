@@ -8,7 +8,7 @@ import {
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import { buildConnectorRef } from '@cv/pages/onboarding/CVOnBoardingUtils'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { KubernetesActivitySourceInfo } from '../KubernetesActivitySourceUtils'
 import { buildKubernetesActivitySourceInfo } from '../KubernetesActivitySourceUtils'
 import css from './SelectKubernetesConnector.module.scss'

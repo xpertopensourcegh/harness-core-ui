@@ -25,7 +25,7 @@ import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
 
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from '../CreateGcrConnector.module.scss'
 
 interface GcrAuthenticationProps {

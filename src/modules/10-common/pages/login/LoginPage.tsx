@@ -13,7 +13,7 @@ import {
 } from '@wings-software/uicore'
 import { useToaster } from '@common/components'
 import AppStorage from 'framework/utils/AppStorage'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import { useQueryParams } from '@common/hooks'
 import AuthLayout from '@common/components/AuthLayout/AuthLayout'

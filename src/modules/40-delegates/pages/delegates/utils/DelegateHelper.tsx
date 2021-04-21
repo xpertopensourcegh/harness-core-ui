@@ -1,5 +1,5 @@
 import type { IconName } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { DelegateTypes } from '@delegates/constants'
 
 export const GetDelegateTitleTextByType = (type: string): string => {

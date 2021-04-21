@@ -4,7 +4,7 @@ import cx from 'classnames'
 import type { FormikProps } from 'formik'
 import { isEmpty } from 'lodash-es'
 
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { StepWidgetWithFormikRef } from '@pipeline/components/AbstractSteps/StepWidget'
 import { AdvancedStepsWithRef } from '@pipeline/components/PipelineSteps/AdvancedSteps/AdvancedSteps'
 

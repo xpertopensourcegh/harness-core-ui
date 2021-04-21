@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Layout, Button, ExpandingSearchInput, Container } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { PageBody } from '@common/components/Page/PageBody'
 import { useResourceGroupModal } from '@rbac/modals/ResourceGroupModal/useResourceGroupModal'

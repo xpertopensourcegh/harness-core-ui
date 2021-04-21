@@ -1,5 +1,5 @@
 import React from 'react'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { HomePageTemplate } from '@common/components/HomePageTemplate/HomePageTemplate'
 import bgImageURL from './cf-homepage-bg.svg'
 

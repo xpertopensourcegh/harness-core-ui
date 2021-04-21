@@ -4,7 +4,7 @@ import { Layout, Text, Button, Icon } from '@wings-software/uicore'
 
 import { FieldArray } from 'formik'
 import type { FormikProps } from 'formik'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 import type { TerraformData, VarFileArray } from '../TerraformInterfaces'
 import TfVarFile from './TfVarFile'

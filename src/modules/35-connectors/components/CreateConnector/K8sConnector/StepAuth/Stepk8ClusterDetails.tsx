@@ -24,7 +24,7 @@ import {
   SecretReferenceInterface,
   DelegateCardInterface
 } from '@connectors/pages/connectors/utils/ConnectorUtils'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { AuthTypes } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import TextReference, { ValueType, TextReferenceInterface } from '@secrets/components/TextReference/TextReference'
 import css from './Stepk8ClusterDetails.module.scss'

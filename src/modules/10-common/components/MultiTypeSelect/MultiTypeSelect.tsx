@@ -9,7 +9,7 @@ import {
   SelectOption
 } from '@wings-software/uicore'
 import { get } from 'lodash-es'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { ConfigureOptions, ConfigureOptionsProps } from '@common/components/ConfigureOptions/ConfigureOptions'
 
 interface FormMultiTypeInputProps extends Omit<IFormGroupProps, 'labelFor'> {

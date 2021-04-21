@@ -2,7 +2,7 @@ import React from 'react'
 import { get, isEmpty } from 'lodash-es'
 import { Card, FormInput } from '@wings-software/uicore'
 import { connect, FormikContext } from 'formik'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { TriggerTypes } from '../../pages/triggers/utils/TriggersWizardPageUtils'
 
 export interface CICodebaseInputSetFormProps {

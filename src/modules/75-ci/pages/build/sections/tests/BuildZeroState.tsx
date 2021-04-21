@@ -1,6 +1,6 @@
 import React from 'react'
 import { Icon, Layout, Link, Text } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './BuildTests.module.scss'
 
 export const BuildZeroState: React.FC = () => {

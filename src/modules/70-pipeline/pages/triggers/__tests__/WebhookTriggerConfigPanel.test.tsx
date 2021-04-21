@@ -9,7 +9,7 @@ import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import routes from '@common/RouteDefinitions'
 import { TestWrapper } from '@common/utils/testUtils'
 import { accountPathProps, pipelineModuleParams, triggerPathProps } from '@common/utils/routeUtils'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { getTriggerConfigDefaultProps, getTriggerConfigInitialValues } from './webhookMockConstants'
 import {
   GetSourceRepoToEventResponse,

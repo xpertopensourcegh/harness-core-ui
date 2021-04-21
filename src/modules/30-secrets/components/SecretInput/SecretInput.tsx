@@ -10,7 +10,7 @@ import useCreateUpdateSecretModal from '@secrets/modals/CreateSecretModal/useCre
 import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
 import type { SecretIdentifiers } from '@secrets/components/CreateUpdateSecret/CreateUpdateSecret'
 import type { SecretResponseWrapper, ResponsePageSecretResponseWrapper } from 'services/cd-ng'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './SecretInput.module.scss'
 
 interface SecretInputProps {

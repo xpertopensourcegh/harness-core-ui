@@ -11,7 +11,7 @@ import Table from '@common/components/Table/Table'
 import { NGTriggerDetailsResponse, useDeleteTrigger, useUpdateTriggerStatus } from 'services/pipeline-ng'
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import TagsPopover from '@common/components/TagsPopover/TagsPopover'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { getTriggerIcon, GitSourceProviders } from '../utils/TriggersListUtils'
 import { TriggerTypes } from '../utils/TriggersWizardPageUtils'
 

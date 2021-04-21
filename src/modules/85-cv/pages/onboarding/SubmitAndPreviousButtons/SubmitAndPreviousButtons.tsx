@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Layout, ButtonProps } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './SubmitAndPreviousButtons.module.scss'
 
 export interface SubmitAndPreviousButtonProps {

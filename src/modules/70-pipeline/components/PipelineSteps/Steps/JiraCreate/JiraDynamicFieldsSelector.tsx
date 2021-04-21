@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { FieldArray, FormikProps } from 'formik'
 import { useParams } from 'react-router'
 import { Button, Formik, FormInput, MultiTypeInputType, Radio, Select, Text } from '@wings-software/uicore'
-import { String, useStrings } from 'framework/exports'
+import { String, useStrings } from 'framework/strings'
 
 import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { JiraFieldNG, JiraProjectNG, useGetJiraIssueCreateMetadata } from 'services/cd-ng'

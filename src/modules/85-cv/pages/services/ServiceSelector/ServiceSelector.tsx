@@ -5,8 +5,8 @@ import { useParams } from 'react-router-dom'
 import { RiskScoreTile } from '@cv/components/RiskScoreTile/RiskScoreTile'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { EnvServiceRiskDTO, RestResponseListEnvServiceRiskDTO, useGetEnvServiceRisks } from 'services/cv'
-import { useStrings } from 'framework/exports'
-import type { UseStringsReturn } from 'framework/strings/String'
+import { useStrings } from 'framework/strings'
+import type { UseStringsReturn } from 'framework/strings'
 import css from './ServiceSelector.module.scss'
 
 interface ServiceSelectorProps {

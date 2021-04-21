@@ -14,7 +14,7 @@ import * as Yup from 'yup'
 import cx from 'classnames'
 
 import type { FormikProps } from 'formik'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import {
   FormMultiTypeDurationField,
   getDurationValidationSchema

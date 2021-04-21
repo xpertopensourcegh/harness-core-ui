@@ -3,7 +3,7 @@ import { render } from '@testing-library/react'
 import { Formik, FormikForm } from '@wings-software/uicore'
 import { renderHook } from '@testing-library/react-hooks'
 import { TestWrapper } from '@common/utils/testUtils'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { NameIdDescriptionTags } from '@common/components'
 import type { FormikForNameIdDescriptionTags } from '../NameIdDescriptionTagsConstants'
 

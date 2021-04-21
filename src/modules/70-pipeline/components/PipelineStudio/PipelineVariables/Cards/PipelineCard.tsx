@@ -10,7 +10,7 @@ import type {
   CustomVariablesData,
   CustomVariableEditableExtraProps
 } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import type { AllNGVariables } from '@pipeline/utils/types'
 

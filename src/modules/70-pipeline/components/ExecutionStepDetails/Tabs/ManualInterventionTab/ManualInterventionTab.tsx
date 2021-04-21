@@ -3,7 +3,7 @@ import { chunk } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 
-import { String } from 'framework/exports'
+import { String } from 'framework/strings'
 import {
   useHandleManualInterventionInterrupt,
   ExecutionNode,

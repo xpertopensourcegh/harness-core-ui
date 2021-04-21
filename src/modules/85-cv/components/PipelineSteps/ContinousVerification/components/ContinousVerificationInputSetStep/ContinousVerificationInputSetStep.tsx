@@ -2,7 +2,7 @@ import React from 'react'
 import { FormInput, FormikForm, SelectOption } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import type { spec } from '../../types'
 import { checkIfRunTimeInput } from '../../utils'

@@ -17,7 +17,7 @@ import memoize from 'lodash-es/memoize'
 import * as Yup from 'yup'
 import { get } from 'lodash-es'
 import { ArtifactConfig, ConnectorConfigDTO, useGetBuildDetailsForGcr } from 'services/cd-ng'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { StringUtils } from '@common/exports'

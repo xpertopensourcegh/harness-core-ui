@@ -2,7 +2,7 @@ import React from 'react'
 import { Layout } from '@wings-software/uicore'
 import cx from 'classnames'
 import { NameIdDescriptionTags } from '@common/components'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import css from './TriggerOverviewPanel.module.scss'
 

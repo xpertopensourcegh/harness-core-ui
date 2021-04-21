@@ -48,8 +48,8 @@ import {
   ConnectorReferenceFieldProps
 } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
-import { useStrings } from 'framework/exports'
-import type { UseStringsReturn } from 'framework/strings/String'
+import { useStrings } from 'framework/strings'
+import type { UseStringsReturn } from 'framework/strings'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'

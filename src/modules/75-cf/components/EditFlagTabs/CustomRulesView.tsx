@@ -40,7 +40,7 @@ import {
   TargetMap
   // useGetTargetsAndSegments
 } from 'services/cf'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { unescapeI18nSupportedTags, useBucketByItems } from '@cf/utils/CFUtils'
 import { extraOperators, extraOperatorReference, useOperatorsFromYaml, CFVariationColors } from '@cf/constants'
 import { VariationWithIcon } from '../VariationWithIcon/VariationWithIcon'

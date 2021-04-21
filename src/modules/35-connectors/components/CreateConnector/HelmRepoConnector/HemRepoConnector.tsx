@@ -7,7 +7,7 @@ import type { ConnectorConfigDTO, ConnectorInfoDTO, ResponseBoolean } from 'serv
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 
 import { getConnectorTitleIdByType, getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import StepHelmAuth from '@connectors/components/CreateConnector/HelmRepoConnector/StepHelmRepoAuth'
 import { buildHelmPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'

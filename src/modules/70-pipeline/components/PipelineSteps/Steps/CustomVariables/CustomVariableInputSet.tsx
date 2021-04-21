@@ -2,7 +2,7 @@ import React from 'react'
 import { Text, FormInput, MultiTypeInputType, getMultiTypeFromValue, SelectOption } from '@wings-software/uicore'
 import cx from 'classnames'
 
-import { String } from 'framework/exports'
+import { String } from 'framework/strings'
 import type { AllNGVariables } from '@pipeline/utils/types'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'

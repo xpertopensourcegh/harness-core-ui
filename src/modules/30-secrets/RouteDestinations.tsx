@@ -14,7 +14,7 @@ import RbacFactory from '@rbac/factories/RbacFactory'
 import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
 import SecretResourceModalBody from '@secrets/components/SecretResourceModalBody/SecretResourceModalBody'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { String } from 'framework/exports'
+import { String } from 'framework/strings'
 
 const AccountSettingsSideNavProps: SidebarContext = {
   navComponent: AccountSettingsSideNav,

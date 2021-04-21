@@ -15,7 +15,7 @@ import {
   UseGetStepsProps
 } from 'services/pipeline-ng'
 import { useGetProvisionerSteps } from 'services/cd-ng'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useLocalStorage } from '@common/hooks/useLocalStorage'
 import type { AbstractStepFactory, StepData as FactoryStepData } from '../../AbstractSteps/AbstractStepFactory'
 

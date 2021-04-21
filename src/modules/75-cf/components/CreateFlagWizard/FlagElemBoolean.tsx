@@ -14,7 +14,7 @@ import {
   ModalErrorHandler,
   FlexExpander
 } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { FormikEffect, FormikEffectProps } from '@common/components/FormikEffect/FormikEffect'
 import type { FeatureFlagRequestRequestBody } from 'services/cf'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'

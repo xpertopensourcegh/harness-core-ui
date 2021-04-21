@@ -3,7 +3,7 @@ import { Text, FormInput, Button, getMultiTypeFromValue, MultiTypeInputType, For
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { FormGroup } from '@blueprintjs/core'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { ShellScriptMonacoField } from '@common/components/ShellScriptMonaco/ShellScriptMonaco'
 import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
 import StepCommonFieldsInputSet from '@pipeline/components/StepCommonFields/StepCommonFieldsInputSet'

@@ -13,7 +13,7 @@ import {
 } from 'services/pipeline-ng'
 import { PipelineInputSetForm } from '@pipeline/components/PipelineInputSetForm/PipelineInputSetForm'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { clearRuntimeInput } from '@pipeline/components/PipelineStudio/StepUtil'
 import StagesTree, { stagesTreeNodeClasses } from '@pipeline/components/StagesTree/StagesTree'
 import { getPipelineTree } from '@pipeline/components/PipelineStudio/PipelineUtils'

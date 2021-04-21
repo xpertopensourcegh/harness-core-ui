@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Heading, Layout, Text, Container, Button, Color, Icon } from '@wings-software/uicore'
 import { Link } from 'react-router-dom'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 interface TrialHomePageTemplateProps {
   title: string

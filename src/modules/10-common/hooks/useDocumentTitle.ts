@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 type Title = string | string[]
 

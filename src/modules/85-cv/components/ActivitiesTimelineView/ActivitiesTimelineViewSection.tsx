@@ -8,7 +8,7 @@ import {
   RestResponseListActivityDashboardDTO,
   useListActivitiesForDashboard
 } from 'services/cv'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import ActivitiesTimelineView, { ActivitiesTimelineViewProps, EventData } from './ActivitiesTimelineView'
 import css from './ActivitiesTimelineView.module.scss'
 

@@ -7,7 +7,7 @@ import Table from '@common/components/Table/Table'
 import { PageError } from '@common/components/Page/PageError'
 import { useToaster } from '@common/exports'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useGetAppDynamicsApplications, AppDynamicsApplication } from 'services/cv'
 import {
   useGetEnvironmentListForProject,

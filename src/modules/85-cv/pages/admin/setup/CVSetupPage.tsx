@@ -17,7 +17,7 @@ import { useIndexedDBHook, CVObjectStoreNames } from '@cv/hooks/IndexedDBHook/In
 import { useToaster } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { pluralize } from '@common/utils/StringUtils'
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'

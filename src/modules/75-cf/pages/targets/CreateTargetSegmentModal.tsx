@@ -14,7 +14,7 @@ import {
   IconName
 } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useCreateSegment, Tag } from 'services/cf'
 import { useToaster } from '@common/exports'
 import css from './CFTargetsPage.module.scss'

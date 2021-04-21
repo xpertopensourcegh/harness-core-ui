@@ -16,7 +16,7 @@ import {
   Button
 } from '@wings-software/uicore'
 import { setFormikRef, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
-import { String, useStrings } from 'framework/exports'
+import { String, useStrings } from 'framework/strings'
 import {
   FormMultiTypeDurationField,
   getDurationValidationSchema

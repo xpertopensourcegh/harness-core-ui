@@ -14,7 +14,7 @@ import {
 import * as Yup from 'yup'
 import type { ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
 
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 
 import TextReference, { TextReferenceInterface, ValueType } from '@secrets/components/TextReference/TextReference'

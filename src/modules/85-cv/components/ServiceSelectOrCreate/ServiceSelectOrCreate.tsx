@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom'
 import { AddDescriptionAndTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useCreateService, ServiceResponseDTO, CreateServiceQueryParams } from 'services/cd-ng'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 export interface ServiceSelectOrCreateProps {
   item?: SelectOption

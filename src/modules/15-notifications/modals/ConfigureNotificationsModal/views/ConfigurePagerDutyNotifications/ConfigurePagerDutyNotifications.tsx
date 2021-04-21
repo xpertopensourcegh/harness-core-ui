@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 
 import { useToaster } from '@common/components'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useTestNotificationSetting, PagerDutySettingDTO } from 'services/platform'
 import type { PagerDutyNotificationConfiguration } from '@notifications/interfaces/Notifications'
 import { TestStatus } from '@notifications/interfaces/Notifications'

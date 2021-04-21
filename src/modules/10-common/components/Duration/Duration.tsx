@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Text, TextProps, timeToDisplayText } from '@wings-software/uicore'
 import { isNil } from 'lodash-es'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 export interface DurationProps extends Omit<TextProps, 'icon'> {
   startTime?: number

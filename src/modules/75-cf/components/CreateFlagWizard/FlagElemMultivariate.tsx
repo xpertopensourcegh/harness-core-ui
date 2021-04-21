@@ -20,7 +20,7 @@ import {
 import { FieldArray } from 'formik'
 import { FormikEffect, FormikEffectProps } from '@common/components/FormikEffect/FormikEffect'
 import type { FeatureFlagRequestRequestBody, Variation } from 'services/cf'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { FeatureFlagMutivariateKind, useValidateVariationValues } from '@cf/utils/CFUtils'
 import css from './FlagElemVariations.module.scss'
 

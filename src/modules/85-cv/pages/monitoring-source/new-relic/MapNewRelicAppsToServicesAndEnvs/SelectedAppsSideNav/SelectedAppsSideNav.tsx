@@ -2,7 +2,7 @@ import React from 'react'
 import { Container, Text } from '@wings-software/uicore'
 import { Classes } from '@blueprintjs/core'
 import cx from 'classnames'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './SelectedAppsSideNav.module.scss'
 
 const LoadingCells = [1, 2, 3, 4, 5]

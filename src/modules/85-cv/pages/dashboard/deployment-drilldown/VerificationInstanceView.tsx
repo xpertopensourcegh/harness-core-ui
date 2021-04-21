@@ -10,7 +10,7 @@ import {
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useToaster } from '@common/exports'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { DeploymentProgressAndNodes } from '@cv/components/DeploymentProgressAndNodes/DeploymentProgressAndNodes'
 import type { NodeData } from '../../services/BlueGreenVerificationChart'
 import DeploymentMetricsTab from './DeploymentMetricsTab'

@@ -5,7 +5,7 @@ import cx from 'classnames'
 import type { DeploymentVerificationJobInstanceSummary } from 'services/cv'
 import TestsSummaryView from '@cv/pages/dashboard/deployment-drilldown/TestsSummaryView'
 import BlueGreenVerificationChart, { NodeData } from '@cv/pages/services/BlueGreenVerificationChart'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import CVProgressBar from '../CVProgressBar/CVProgressBar'
 import css from './DeploymentProgressAndNodes.module.scss'
 

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { PopoverInteractionKind, Position, ProgressBar } from '@blueprintjs/core'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import { Accordion, Button, Color, Container, Layout, Popover, Text } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { NgPipeline } from 'services/cd-ng'
 import {
   ConnectorCheckResponse,

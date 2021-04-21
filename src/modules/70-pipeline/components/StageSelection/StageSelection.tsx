@@ -4,7 +4,7 @@ import { Button, IconName, Icon } from '@wings-software/uicore'
 import { Menu } from '@blueprintjs/core'
 import cx from 'classnames'
 
-import { String } from 'framework/exports'
+import { String } from 'framework/strings'
 import type { StageSelectOption } from '@pipeline/components/PipelineStudio/CommonUtils/CommonUtils'
 import { getIconFromStageModule } from '@pipeline/utils/executionUtils'
 import css from './StageSelection.module.scss'

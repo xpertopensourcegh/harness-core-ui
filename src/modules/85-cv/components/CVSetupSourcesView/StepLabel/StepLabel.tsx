@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, Container } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './StepLabel.module.scss'
 
 export interface StepLabelProps {

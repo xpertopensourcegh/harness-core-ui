@@ -33,7 +33,7 @@ import useCreateConnectorModal, {
 } from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
 import useCreateConnectorMultiTypeModal from '@connectors/modals/ConnectorModal/useCreateConnectorMultiTypeModal'
 import { Scope } from '@common/interfaces/SecretsInterface'
-import { String, useStrings } from 'framework/exports'
+import { String, useStrings } from 'framework/strings'
 import { ReferenceSelect, ReferenceSelectProps } from '@common/components/ReferenceSelect/ReferenceSelect'
 import css from './ConnectorReferenceField.module.scss'
 

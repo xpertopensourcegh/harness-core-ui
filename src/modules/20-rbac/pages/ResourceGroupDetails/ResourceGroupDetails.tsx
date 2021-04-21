@@ -5,7 +5,7 @@ import ReactTimeago from 'react-timeago'
 import produce from 'immer'
 import type { ResourceGroupDetailsPathProps } from '@common/interfaces/RouteInterfaces'
 
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import ResourceTypeList from '@rbac/components/ResourceTypeList/ResourceTypeList'
 import {
   useGetResourceGroup,

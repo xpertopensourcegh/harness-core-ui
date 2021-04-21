@@ -3,7 +3,7 @@ import { Text, Button, FormInput, getMultiTypeFromValue, MultiTypeInputType } fr
 import cx from 'classnames'
 import { isEmpty } from 'lodash-es'
 import { connect } from 'formik'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import type { InputSetData } from '@pipeline/components/AbstractSteps/Step'
 import css from '../PipelineSteps/Steps/Steps.module.scss'

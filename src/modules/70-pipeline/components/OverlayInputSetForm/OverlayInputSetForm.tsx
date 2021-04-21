@@ -33,7 +33,7 @@ import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { NameIdDescriptionTags } from '@common/components'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './OverlayInputSetForm.module.scss'
 
 export interface OverlayInputSetDTO extends Omit<OverlayInputSetResponse, 'identifier'> {

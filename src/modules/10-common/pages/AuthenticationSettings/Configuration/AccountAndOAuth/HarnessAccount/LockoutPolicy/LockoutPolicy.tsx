@@ -8,7 +8,7 @@ import { useToaster } from '@common/components'
 import type { LoginSettings, UserLockoutPolicy } from 'services/cd-ng'
 import { usePutLoginSettings } from 'services/cd-ng'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import cssConfiguration from '@common/pages/AuthenticationSettings/Configuration/Configuration.module.scss'
 import cssHarnessAccount from '@common/pages/AuthenticationSettings/Configuration/AccountAndOAuth/HarnessAccount/HarnessAccount.module.scss'
 

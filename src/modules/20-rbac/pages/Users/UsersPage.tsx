@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Button, ExpandingSearchInput, Layout } from '@wings-software/uicore'
 
 import { useHistory, useParams } from 'react-router-dom'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { Page } from '@common/exports'
 import { useRoleAssignmentModal } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
 import { useQueryParams } from '@common/hooks'

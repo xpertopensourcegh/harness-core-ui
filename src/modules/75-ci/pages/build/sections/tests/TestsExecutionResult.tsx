@@ -1,7 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
 import { Heading, Text, Container, Color, Button } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { TestReportSummary } from 'services/ti-service'
 import { TestStatus } from './TestsUtils'
 import css from './BuildTests.module.scss'

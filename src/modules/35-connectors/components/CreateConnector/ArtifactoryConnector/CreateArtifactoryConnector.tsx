@@ -6,7 +6,7 @@ import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDel
 import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER, CreateConnectorModalProps } from '@connectors/constants'
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { buildArtifactoryPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import StepArtifactoryAuthentication from './StepAuth/StepArtifactoryAuthentication'
 import DelegateSelectorStep from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 

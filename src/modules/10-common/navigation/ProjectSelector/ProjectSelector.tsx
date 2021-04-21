@@ -8,7 +8,7 @@ import { Text, Layout, Color } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { Project, useGetProjectList } from 'services/cd-ng'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 
 import pointerImage from './pointer.svg'

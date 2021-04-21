@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, waitFor, queryByText, fireEvent, queryAllByText } from '@testing-library/react'
 import { renderHook } from '@testing-library/react-hooks'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { TestWrapper } from '@common/utils/testUtils'
 
 import routes from '@common/RouteDefinitions'

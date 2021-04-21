@@ -3,7 +3,7 @@ import { NestedAccordionPanel } from '@wings-software/uicore'
 import cx from 'classnames'
 import { isEmpty, omit } from 'lodash-es'
 
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { ServiceSpec } from 'services/cd-ng'
 import type { VariableMergeServiceResponse, YamlProperties } from 'services/pipeline-ng'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'

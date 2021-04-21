@@ -6,7 +6,7 @@ import ResourceHandlerTable, {
 } from '@rbac/components/ResourceHandlerTable/ResourceHandlerTable'
 import { PageSpinner } from '@common/components'
 import type { RbacResourceModalProps } from '@rbac/factories/RbacFactory'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { PagePMSPipelineSummaryResponse, PMSPipelineSummaryResponse, useGetPipelineList } from 'services/pipeline-ng'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
 

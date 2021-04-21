@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { FormInput } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { getBreakdownValues } from './ScheduleUtils'
 import ExpressionBreakdown, { ActiveInputs } from './ExpressionBreakdown'
 import Expression from './Expression'

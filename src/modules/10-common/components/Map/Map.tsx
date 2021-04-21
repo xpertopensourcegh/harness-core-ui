@@ -4,7 +4,7 @@ import cx from 'classnames'
 import { Text, Card, Button, TextInput, Intent } from '@wings-software/uicore'
 import { connect, FormikContext } from 'formik'
 import { get, isEmpty } from 'lodash-es'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './Map.module.scss'
 
 export type MapType = { [key: string]: string }

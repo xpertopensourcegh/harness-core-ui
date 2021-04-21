@@ -12,7 +12,7 @@ import {
 import { FieldArray, connect, FormikContext } from 'formik'
 import { get } from 'lodash-es'
 import { ConfigureOptions, ConfigureOptionsProps } from '@common/components/ConfigureOptions/ConfigureOptions'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import MultiTypeFieldSelector, {
   MultiTypeFieldSelectorProps
 } from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'

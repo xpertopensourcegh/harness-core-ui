@@ -23,7 +23,7 @@ import {
 import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
 
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from '../CreateGcpConnector.module.scss'
 
 interface GcpAuthenticationProps {

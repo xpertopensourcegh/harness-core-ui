@@ -16,7 +16,7 @@ import cx from 'classnames'
 import * as Yup from 'yup'
 import type { IconName } from '@blueprintjs/core'
 import type { StageElementWrapper, StageElementConfig } from 'services/cd-ng'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type {
   CustomVariablesData,

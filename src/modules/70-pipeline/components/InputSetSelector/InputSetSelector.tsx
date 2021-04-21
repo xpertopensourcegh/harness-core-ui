@@ -18,7 +18,7 @@ import { useParams } from 'react-router-dom'
 import { InputSetSummaryResponse, useGetInputSetsListForPipeline } from 'services/pipeline-ng'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useToaster } from '@common/exports'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './InputSetSelector.module.scss'
 
 interface InputSetValue extends SelectOption {

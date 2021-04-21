@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { Container } from '@wings-software/uicore'
 import { get } from 'lodash-es'
 
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useUpdateQueryParams } from '@common/hooks'
 import { processExecutionData } from '@pipeline/utils/executionUtils'
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'

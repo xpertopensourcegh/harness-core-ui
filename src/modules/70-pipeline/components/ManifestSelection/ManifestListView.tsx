@@ -8,7 +8,7 @@ import { get, set } from 'lodash-es'
 
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import produce from 'immer'
-import { useStrings, String } from 'framework/exports'
+import { String, useStrings } from 'framework/strings'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 import GitDetailsStep from '@connectors/components/CreateConnector/commonSteps/GitDetailsStep'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'

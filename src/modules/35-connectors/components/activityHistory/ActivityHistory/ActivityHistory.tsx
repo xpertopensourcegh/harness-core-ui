@@ -5,7 +5,7 @@ import { Position } from '@blueprintjs/core'
 import { DateRangePicker, DateRange, IDateRangeShortcut } from '@blueprintjs/datetime'
 import { Container, Color, Layout, Popover, Button, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import {
   GetActivitiesSummaryQueryParams,
   useListActivities,

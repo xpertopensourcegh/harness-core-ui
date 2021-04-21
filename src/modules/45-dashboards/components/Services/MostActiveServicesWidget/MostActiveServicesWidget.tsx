@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import cx from 'classnames'
 import { Card, Color, LabelPosition, Layout, Text, WeightedStack } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { Ticker } from '@common/components/Ticker/Ticker'
 import { TIME_RANGE_ENUMS, TimeRangeSelector } from '@dashboards/components/TimeRangeSelector/TimeRangeSelector'
 import css from './MostActiveServicesWidget.module.scss'

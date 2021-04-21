@@ -7,7 +7,7 @@ import { useGetTestConnectionResult, ResponseConnectorValidationResult, Connecto
 
 import type { StepDetails } from '@connectors/interfaces/ConnectorInterface'
 import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER } from '@connectors/constants'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import {
   GetTestConnectionValidationTextByType,
   removeErrorCode,

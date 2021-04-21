@@ -3,7 +3,7 @@ import { Text, FormInput, Button, getMultiTypeFromValue, MultiTypeInputType, For
 import { FormGroup } from '@blueprintjs/core'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import Map from '@common/components/Map/Map'
 import { ShellScriptMonacoField } from '@common/components/ShellScriptMonaco/ShellScriptMonaco'
 import List from '@common/components/List/List'

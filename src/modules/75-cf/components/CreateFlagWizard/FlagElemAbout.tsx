@@ -15,7 +15,7 @@ import {
 import type { FormikProps } from 'formik'
 import type { IconName } from '@blueprintjs/core'
 import * as Yup from 'yup'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { illegalIdentifiers } from '@common/utils/StringUtils'
 import css from './FlagElemAbout.module.scss'
 

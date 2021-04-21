@@ -7,7 +7,7 @@ import { CONNECTOR_CREDENTIALS_STEP_IDENTIFIER, CreateConnectorModalProps } from
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { buildGcpPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import GcrAuthentication from './StepAuth/GcrAuthentication'
 import DelegateSelectorStep from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 

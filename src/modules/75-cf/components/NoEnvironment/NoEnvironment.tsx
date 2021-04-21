@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, Heading, Text } from '@wings-software/uicore'
 import type { ContainerProps } from '@wings-software/uicore/dist/components/Container/Container'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import EmptyContent from './EmptyContent.svg'
 import EnvironmentDialog, { EnvironmentDialogProps } from '../CreateEnvironmentDialog/EnvironmentDialog'
 

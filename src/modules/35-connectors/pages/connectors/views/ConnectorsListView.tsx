@@ -5,8 +5,8 @@ import { Menu, Classes, Position, Intent, PopoverInteractionKind } from '@bluepr
 import { useParams, useHistory, useLocation } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import classNames from 'classnames'
-import { String } from 'framework/exports'
-import type { StringKeys } from 'framework/strings/StringsContext'
+import { String } from 'framework/strings'
+import type { StringKeys } from 'framework/strings'
 import {
   ConnectorResponse,
   useDeleteConnector,
@@ -23,7 +23,7 @@ import TagsPopover from '@common/components/TagsPopover/TagsPopover'
 import { StepIndex, STEP } from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import type { StepDetails } from '@connectors/interfaces/ConnectorInterface'
 import { ConnectorStatus, Connectors } from '@connectors/constants'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { UseCreateConnectorModalReturn } from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
 import useTestConnectionErrorModal from '@connectors/common/useTestConnectionErrorModal/useTestConnectionErrorModal'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'

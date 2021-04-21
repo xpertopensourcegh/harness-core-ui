@@ -3,7 +3,7 @@ import { Color, Icon, IconName, Layout, Text } from '@wings-software/uicore'
 import { Card } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './OrgNavCardRenderer.module.scss'
 

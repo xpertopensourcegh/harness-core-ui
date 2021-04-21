@@ -13,7 +13,7 @@ import {
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { pick } from 'lodash-es'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 import ConditionsForm from '@cv/components/CVNotifications/NotificationConditions/ConditionsForm'
 

@@ -9,7 +9,7 @@ import CreateUpdateSecret, {
   SecretFormData
 } from '@secrets/components/CreateUpdateSecret/CreateUpdateSecret'
 
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './useCreateSecretModal.module.scss'
 
 type SecretType = SecretDTOV2['type']

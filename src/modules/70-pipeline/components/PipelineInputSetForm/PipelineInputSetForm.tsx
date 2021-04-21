@@ -3,7 +3,7 @@ import { Layout, Card, NestedAccordionPanel, getMultiTypeFromValue, MultiTypeInp
 import { isEmpty } from 'lodash-es'
 import cx from 'classnames'
 import type { DeploymentStageConfig, PipelineInfoConfig, StageElementWrapperConfig } from 'services/cd-ng'
-import { String, useStrings } from 'framework/exports'
+import { String, useStrings } from 'framework/strings'
 import type { AllNGVariables } from '@pipeline/utils/types'
 import { CollapseForm } from './CollapseForm'
 import { StageInputSetForm } from './StageInputSetForm'

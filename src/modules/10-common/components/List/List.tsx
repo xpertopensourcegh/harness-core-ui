@@ -3,7 +3,7 @@ import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { Text, TextInput, Card, Button, Intent } from '@wings-software/uicore'
 import { get, isEmpty } from 'lodash-es'
 import { connect, FormikContext } from 'formik'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './List.module.scss'
 
 export type ListType = string[]

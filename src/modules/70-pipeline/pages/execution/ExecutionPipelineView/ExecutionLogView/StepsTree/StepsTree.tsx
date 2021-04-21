@@ -4,7 +4,7 @@ import cx from 'classnames'
 import { mapKeys } from 'lodash-es'
 
 import type { ExecutionNode } from 'services/pipeline-ng'
-import { String } from 'framework/exports'
+import { String } from 'framework/strings'
 import type { ExecutionPipelineNode } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
 import { Duration } from '@common/components'
 import { ExecutionStatusIconMap } from '@pipeline/utils/executionUtils'

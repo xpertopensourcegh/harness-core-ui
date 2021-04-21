@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import useCVTabsHook from '@cv/hooks/CVTabsHook/useCVTabsHook'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import CVOnboardingTabs from '@cv/components/CVOnboardingTabs/CVOnboardingTabs'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { DSConfig } from 'services/cv'

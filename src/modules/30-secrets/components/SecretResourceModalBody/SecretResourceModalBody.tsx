@@ -6,7 +6,7 @@ import { useListSecretsV2, SecretDTOV2, SecretTextSpecDTO } from 'services/cd-ng
 import { PageSpinner } from '@common/components'
 import type { RbacResourceModalProps } from '@rbac/factories/RbacFactory'
 import { getStringForType } from '@secrets/utils/SSHAuthUtils'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 const RenderColumnSecret: Renderer<CellProps<SecretDTOV2>> = ({ row }) => {
   const data = row.original

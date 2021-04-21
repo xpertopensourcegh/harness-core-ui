@@ -1,6 +1,6 @@
 import { Intent } from '@blueprintjs/core'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 export interface UseConfirmActionDialogProps {
   message: React.ReactElement

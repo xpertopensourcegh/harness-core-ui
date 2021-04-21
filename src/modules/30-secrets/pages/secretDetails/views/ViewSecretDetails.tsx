@@ -23,7 +23,7 @@ import {
   ActivityDetailsRowInterface,
   RenderDetailsTable
 } from '@common/components/RenderDetailsTable/RenderDetailsTable'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import i18n from '../SecretDetails.i18n'
 import css from './ViewSecretDetails.module.scss'
 

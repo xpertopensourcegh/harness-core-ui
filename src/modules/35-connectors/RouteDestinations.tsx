@@ -14,7 +14,7 @@ import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
 import RbacFactory from '@rbac/factories/RbacFactory'
-import { String } from 'framework/exports'
+import { String } from 'framework/strings'
 import ConnectorResourceModalBody from './components/ConnectorResourceModalBody/ConnectorResourceModalBody'
 
 const RedirectToOrgResourcesHome = (): React.ReactElement => {

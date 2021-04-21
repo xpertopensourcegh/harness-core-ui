@@ -18,7 +18,7 @@ import {
 import type { FormikProps, FormikErrors } from 'formik'
 import { Menu, Classes, Position, PopoverInteractionKind, Dialog, IDialogProps } from '@blueprintjs/core'
 import { useToaster } from '@common/components/Toaster/useToaster'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { StringUtils } from '@common/exports'
 import { UNIQUE_ID_MAX_LENGTH } from '@common/utils/StringUtils'
 import type { FilterInterface } from '../Constants'

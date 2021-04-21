@@ -2,7 +2,7 @@ import type { IconName } from '@wings-software/uicore'
 // temporary mock data
 import type { AddDrawerMapInterface } from '@common/components/AddDrawer/AddDrawer'
 import type { GetActionsListQueryParams } from 'services/pipeline-ng'
-import type { StringKeys } from 'framework/strings/StringsContext'
+import type { StringKeys } from 'framework/strings'
 import { TriggerTypes } from './TriggersWizardPageUtils'
 
 export const GitSourceProviders: Record<

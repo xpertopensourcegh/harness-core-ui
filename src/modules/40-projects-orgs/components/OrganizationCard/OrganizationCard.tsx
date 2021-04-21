@@ -7,7 +7,7 @@ import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmat
 
 import { useToaster } from '@common/exports'
 import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'

@@ -4,7 +4,7 @@ import { FormikProps, FieldArray } from 'formik'
 import { v4 as uuid } from 'uuid'
 import { isEmpty, get, flatMap } from 'lodash-es'
 
-import { String, useStrings } from 'framework/exports'
+import { String, useStrings } from 'framework/strings'
 import type { FailureStrategyConfig } from 'services/cd-ng'
 
 import FailureTypeMultiSelect from './FailureTypeMultiSelect'

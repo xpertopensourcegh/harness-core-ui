@@ -8,8 +8,8 @@ import { FormikProps, yupToFormErrors, FormikErrors } from 'formik'
 import { PipelineStep, StepProps } from '@pipeline/components/PipelineSteps/PipelineStep'
 import type { StepElementConfig } from 'services/cd-ng'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
-import { useStrings } from 'framework/exports'
-import type { StringKeys } from 'framework/strings/StringsContext'
+import { useStrings } from 'framework/strings'
+import type { StringKeys } from 'framework/strings'
 import {
   DurationInputFieldForInputSet,
   FormMultiTypeDurationField,

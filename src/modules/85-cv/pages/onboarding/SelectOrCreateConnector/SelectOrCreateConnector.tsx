@@ -12,7 +12,7 @@ import {
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useToaster } from '@common/exports'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { ConnectorInfoDTO, GetConnectorQueryParams, useGetConnector } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'

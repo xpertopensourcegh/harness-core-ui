@@ -13,7 +13,7 @@ import {
   ResponseHarnessApprovalInstanceAuthorization,
   ResponseApprovalInstanceResponse
 } from 'services/pipeline-ng'
-import { String } from 'framework/exports'
+import { String } from 'framework/strings'
 import { Duration } from '@common/exports'
 import { isExecutionWaiting } from '@pipeline/utils/statusHelpers'
 import { StepDetails } from '../../Common/StepDetails/StepDetails'

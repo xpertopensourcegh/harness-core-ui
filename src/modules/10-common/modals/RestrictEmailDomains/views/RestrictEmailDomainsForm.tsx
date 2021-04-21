@@ -1,7 +1,7 @@
 import React from 'react'
 import * as yup from 'yup'
 import { Layout, Heading, Color, Formik, FormikForm, FormInput, Button } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 interface Props {
   hideModal: () => void

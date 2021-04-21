@@ -9,7 +9,7 @@ import { OrganizationAggregateDTO, useGetOrganizationAggregateDTOList, Error } f
 import { useOrganizationModal } from '@projects-orgs/modals/OrganizationModal/useOrganizationModal'
 import { OrganizationCard } from '@projects-orgs/components/OrganizationCard/OrganizationCard'
 import { useCollaboratorModal } from '@projects-orgs/modals/ProjectModal/useCollaboratorModal'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'

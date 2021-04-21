@@ -6,7 +6,7 @@ import SyncStepDataValues from '@cv/utils/SyncStepDataValues'
 import routes from '@common/RouteDefinitions'
 import { StringUtils } from '@common/exports'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import ActivitySourceDetails from '../../ActivitySourceDetails/ActivitySourceDetails'
 

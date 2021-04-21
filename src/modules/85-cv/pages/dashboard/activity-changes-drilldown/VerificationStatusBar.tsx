@@ -3,8 +3,8 @@ import { Container, Text, Button, Color } from '@wings-software/uicore'
 import { Collapse } from '@blueprintjs/core'
 import classnames from 'classnames'
 import moment from 'moment'
-import { useStrings } from 'framework/exports'
-import type { UseStringsReturn } from 'framework/strings/String'
+import { useStrings } from 'framework/strings'
+import type { UseStringsReturn } from 'framework/strings'
 import { RiskScoreTile } from '@cv/components/RiskScoreTile/RiskScoreTile'
 import {
   MetricCategoriesWithRiskScore,

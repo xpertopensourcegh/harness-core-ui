@@ -2,7 +2,7 @@ import React from 'react'
 import type { ResourceHandler, ResourceCategoryHandler } from '@rbac/factories/RbacFactory'
 import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { String } from 'framework/exports'
+import { String } from 'framework/strings'
 
 export const getResourceTypeHandlerMock = (resource: ResourceType): ResourceHandler | undefined => {
   switch (resource) {

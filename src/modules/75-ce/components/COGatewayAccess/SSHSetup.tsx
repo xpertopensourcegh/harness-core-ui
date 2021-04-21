@@ -1,7 +1,7 @@
 import React from 'react'
 import { Layout, Button, Text, Select, SelectOption } from '@wings-software/uicore'
 import { isEmpty as _isEmpty } from 'lodash-es'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 enum OS {
   Mac = 'Mac',

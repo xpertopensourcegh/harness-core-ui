@@ -1,6 +1,6 @@
 import React, { SetStateAction, Dispatch } from 'react'
 import cx from 'classnames'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './VisualYamlToggle.module.scss'
 
 export enum SelectedView {

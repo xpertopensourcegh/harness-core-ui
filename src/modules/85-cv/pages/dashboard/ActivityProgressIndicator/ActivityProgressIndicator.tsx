@@ -3,7 +3,7 @@ import { Container, Text, Color } from '@wings-software/uicore'
 import cx from 'classnames'
 import CVProgressBar from '@cv/components/CVProgressBar/CVProgressBar'
 import type { ActivityVerificationSummary } from 'services/cv'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './ActivityProgressIndicator.module.scss'
 
 interface ActivityProgressIndicatorProps {

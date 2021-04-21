@@ -4,7 +4,7 @@ import { AbstractStepFactory } from '@pipeline/components/AbstractSteps/Abstract
 import { StepWidgetWithFormikRef, StepWidgetProps } from '@pipeline/components/AbstractSteps/StepWidget'
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import { StepViewType, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 class StepTestFactory extends AbstractStepFactory {
   protected type = 'test-factory'

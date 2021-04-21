@@ -11,7 +11,7 @@ import {
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'

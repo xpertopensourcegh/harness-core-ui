@@ -13,7 +13,7 @@ import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
 import { useUpdateQueryParams } from '@common/hooks'
 import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetExecutionNode } from 'services/pipeline-ng'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 import { REFRESH_APPROVAL } from './Tabs/ApprovalTab/ApprovalTab'
 import { StepDetailTabs } from './StepDetailTabs'

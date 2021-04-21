@@ -3,7 +3,7 @@ import { Button } from '@wings-software/uicore'
 import { Popover, Position } from '@blueprintjs/core'
 
 import type { PipelineExecutionSummary } from 'services/pipeline-ng'
-import { String } from 'framework/exports'
+import { String } from 'framework/strings'
 import { getPipelineStagesMap } from '@pipeline/utils/executionUtils'
 import { ServicePopoverCard } from '@pipeline/components/ServicePopoverCard/ServicePopoverCard'
 import type { CDPipelineModuleInfo, CDStageModuleInfo, ServiceExecutionSummary } from 'services/cd-ng'

@@ -19,7 +19,7 @@ import { Dialog, Classes } from '@blueprintjs/core'
 
 import { useParams } from 'react-router-dom'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 

@@ -41,7 +41,7 @@ import {
   useGetServices,
   useSecurityGroupsOfInstances
 } from 'services/lw'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import CORoutingTable from './CORoutingTable'
 import COHealthCheckTable from './COHealthCheckTable'

@@ -8,7 +8,7 @@ import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { usePasswordStrengthModal } from '@common/modals/PasswordStrength/usePasswordStrength'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { usePutLoginSettings } from 'services/cd-ng'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import cssConfiguration from '@common/pages/AuthenticationSettings/Configuration/Configuration.module.scss'
 import cssHarnessAccount from '@common/pages/AuthenticationSettings/Configuration/AccountAndOAuth/HarnessAccount/HarnessAccount.module.scss'
 

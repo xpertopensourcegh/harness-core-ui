@@ -1,7 +1,7 @@
 import type { IconName } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import type { NgPipeline, StageElementWrapper } from 'services/cd-ng'
-import type { UseStringsReturn } from 'framework/strings/String'
+import type { UseStringsReturn } from 'framework/strings'
 import { EmptyStageName } from '../PipelineConstants'
 import type { StagesMap } from '../PipelineContext/PipelineContext'
 import { getCommonStyles, EmptyNodeSeparator, Listeners } from './StageBuilderUtil'

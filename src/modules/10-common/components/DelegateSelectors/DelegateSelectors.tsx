@@ -2,7 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { SimpleTagInput, Text, Icon, Color } from '@wings-software/uicore'
 import { useToaster } from '@common/exports'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useGetDelegateSelectors } from 'services/portal'
 
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'

@@ -5,7 +5,7 @@ import { Classes } from '@blueprintjs/core'
 import { renderHook } from '@testing-library/react-hooks'
 import { waitFor, render, fireEvent } from '@testing-library/react'
 import * as cvService from 'services/cv'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { TestWrapper } from '@common/utils/testUtils'
 import { CVAnalysisTabs } from '../CVAnalysisTabs'
 

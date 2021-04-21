@@ -2,7 +2,7 @@ import { Button, Color, Container, Formik, FormInput, Layout, StepProps, Text } 
 import React from 'react'
 import { Form } from 'formik'
 import * as Yup from 'yup'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { NotificationRules } from 'services/pipeline-ng'
 
 interface OverviewProps {

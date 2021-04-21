@@ -3,7 +3,7 @@ import cx from 'classnames'
 import { Button, Container, Layout, Text } from '@wings-software/uicore'
 import type { PipelinePathProps, ProjectPathProps, PathFn, PipelineType } from '@common/interfaces/RouteInterfaces'
 
-import { String } from 'framework/exports'
+import { String } from 'framework/strings'
 import { PipelineCanvas } from './PipelineCanvas/PipelineCanvas'
 import { PipelineContext } from './PipelineContext/PipelineContext'
 import { PipelineVariablesContextProvider } from '../PipelineVariablesContext/PipelineVariablesContext'

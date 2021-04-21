@@ -23,7 +23,7 @@ import {
   useValidateKubernetesYaml
 } from 'services/portal'
 
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { DelegateProfile } from '@delegates/DelegateInterface'
 import { useToaster } from '@common/exports'
 import { AddDescriptionWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'

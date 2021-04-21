@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { StepProps, Formik, FormikForm, FormInput, Layout, Text, Color, Button } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 export interface AWSCCDetailsStepProps extends StepProps<ConnectorConfigDTO> {
   isEditMode: boolean

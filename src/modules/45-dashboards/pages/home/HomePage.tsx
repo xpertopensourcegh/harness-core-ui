@@ -28,7 +28,7 @@ import { Page } from '@common/exports'
 
 import routes from '@common/RouteDefinitions'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './HomePage.module.scss'
 
 enum Views {

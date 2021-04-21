@@ -5,7 +5,7 @@ import ResourceHandlerTable from '@rbac/components/ResourceHandlerTable/Resource
 import { Organization, useGetOrganizationList } from 'services/cd-ng'
 import { PageSpinner } from '@common/components'
 import type { RbacResourceModalProps } from '@rbac/factories/RbacFactory'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 const RenderColumnOrganization: Renderer<CellProps<Organization>> = ({ row }) => {
   const data = row.original

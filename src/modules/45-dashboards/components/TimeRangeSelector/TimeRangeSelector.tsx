@@ -2,7 +2,7 @@ import React from 'react'
 import { useMemo } from 'react'
 import { Menu, MenuItem, Position } from '@blueprintjs/core'
 import { Button, Popover } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './TimeRangeSelector.module.scss'
 
 export enum TIME_RANGE_ENUMS {

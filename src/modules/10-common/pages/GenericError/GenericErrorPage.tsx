@@ -3,7 +3,7 @@ import { Container, Text, Icon, Layout } from '@wings-software/uicore'
 import { useParams, Link } from 'react-router-dom'
 import { useQueryParams } from '@common/hooks'
 import routes from '@common/RouteDefinitions'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 
 interface GenericErrorPageQueryParams {

@@ -3,8 +3,8 @@ import { Icon } from '@wings-software/uicore'
 import type { IconName } from '@wings-software/uicore'
 import cx from 'classnames'
 
-import { String } from 'framework/exports'
-import type { StringKeys } from 'framework/strings/StringsContext'
+import { String } from 'framework/strings'
+import type { StringKeys } from 'framework/strings'
 
 import { Strategy, testIds } from './StrategyConfig'
 import css from './StrategySelection.module.scss'

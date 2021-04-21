@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Dialog } from '@blueprintjs/core'
 import { Color, useModalHook, Button, Container, Text, Icon } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { FlagTypeVariations } from './FlagDialogUtils'
 import FlagWizard from '../CreateFlagWizard/FlagWizard'
 import FlagTypeElement from '../CreateFlagType/FlagTypeElement'

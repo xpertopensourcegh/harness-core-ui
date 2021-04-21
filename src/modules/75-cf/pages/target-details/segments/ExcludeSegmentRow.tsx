@@ -1,7 +1,7 @@
 import React from 'react'
 import { Intent, Text } from '@wings-software/uicore'
 import { getErrorMessage } from '@cf/utils/CFUtils'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { TargetSegmentParams, useRemoveTargetsFromExcludeList } from '@cf/utils/SegmentUtils'
 import type { Target, TargetDetailSegment } from 'services/cf'
 import { useConfirmAction } from '@common/hooks'

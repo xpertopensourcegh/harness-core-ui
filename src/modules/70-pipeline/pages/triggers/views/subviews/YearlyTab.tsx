@@ -1,7 +1,7 @@
 import React from 'react'
 import { Layout, SelectOption } from '@wings-software/uicore'
 import { Toothpick, TimeSelect } from '@common/components'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import ExpressionBreakdown, { ActiveInputs } from './ExpressionBreakdown'
 import Expression from './Expression'
 import Spacer from './Spacer'

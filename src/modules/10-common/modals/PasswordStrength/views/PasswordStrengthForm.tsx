@@ -17,7 +17,7 @@ import { useToaster } from '@common/components'
 import type { LoginSettings, PasswordStrengthPolicy } from 'services/cd-ng'
 import { usePutLoginSettings } from 'services/cd-ng'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 interface Props {
   onSubmit?: () => void

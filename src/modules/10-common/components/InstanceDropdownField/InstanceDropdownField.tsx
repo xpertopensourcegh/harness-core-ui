@@ -14,7 +14,7 @@ import {
 import { connect } from 'formik'
 import { get, isNil } from 'lodash-es'
 import * as Yup from 'yup'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { errorCheck } from '@common/utils/formikHelpers'
 // import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 

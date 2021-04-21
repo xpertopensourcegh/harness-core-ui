@@ -5,7 +5,7 @@ import { get } from 'lodash-es'
 import cx from 'classnames'
 import { Icon } from '@wings-software/uicore'
 
-import { String } from 'framework/exports'
+import { String } from 'framework/strings'
 import { Duration } from '@common/exports'
 import { ExecutionStatusIconMap as IconMap, getStageType } from '@pipeline/utils/executionUtils'
 import { ExecutionStatus, isExecutionNotStarted } from '@pipeline/utils/statusHelpers'

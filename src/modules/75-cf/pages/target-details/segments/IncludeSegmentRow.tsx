@@ -1,7 +1,7 @@
 import React from 'react'
 import { Intent, Text } from '@wings-software/uicore'
 import { getErrorMessage } from '@cf/utils/CFUtils'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useRemoveTargetsFromIncludeList, TargetSegmentParams } from '@cf/utils/SegmentUtils'
 import { useToaster } from '@common/exports'
 import { useConfirmAction } from '@common/hooks'

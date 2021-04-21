@@ -1,7 +1,7 @@
 import React from 'react'
 import { Layout, Text, Icon, Color } from '@wings-software/uicore'
 import cx from 'classnames'
-import { String, useStrings } from 'framework/exports'
+import { String, useStrings } from 'framework/strings'
 import { getStatus } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import type { SidecarArtifactWrapper } from 'services/cd-ng'
 import { CreationType, getArtifactIconByType } from '../ArtifactHelper'

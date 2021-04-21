@@ -7,7 +7,7 @@ import { v4 as uuid } from 'uuid'
 import cx from 'classnames'
 
 import { errorCheck } from '@common/utils/formikHelpers'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 

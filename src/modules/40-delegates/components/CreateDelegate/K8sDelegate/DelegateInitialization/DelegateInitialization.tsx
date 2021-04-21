@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { StepProps, Layout, Icon, Text, Color } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useInitialization } from 'services/portal'
 import type { StepK8Data } from '@delegates/DelegateInterface'
 

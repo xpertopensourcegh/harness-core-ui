@@ -2,7 +2,7 @@ import React from 'react'
 import { FieldArray, FormikProps } from 'formik'
 import { Button, FormInput, MultiTypeInputType, Text, SelectOption } from '@wings-software/uicore'
 import { v4 as uuid } from 'uuid'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 
 import type { ShellScriptFormData, ShellScriptOutputStepVariable } from './shellScriptTypes'

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useModalHook, Button, Container, Text, Color } from '@wings-software/uicore'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { removeErrorCode } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import type { ConnectorValidationResult } from 'services/cd-ng'
 import css from './useTestConnectionErrorModal.module.scss'

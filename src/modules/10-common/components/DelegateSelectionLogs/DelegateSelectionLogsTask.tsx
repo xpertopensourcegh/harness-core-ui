@@ -2,7 +2,7 @@ import React from 'react'
 import { Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useGetSelectionLogsV2 } from 'services/portal'
-import { useStrings, String } from 'framework/exports'
+import { String, useStrings } from 'framework/strings'
 import { PageSpinner } from '..'
 import DelegateSelectionLogsTable from './DelegateSelectionLogsTable'
 

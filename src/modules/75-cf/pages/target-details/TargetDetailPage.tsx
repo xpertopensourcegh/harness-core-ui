@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { Container, Layout, Text, Avatar, Intent } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useDeleteTarget, useGetTarget } from 'services/cf'
 import routes from '@common/RouteDefinitions'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'

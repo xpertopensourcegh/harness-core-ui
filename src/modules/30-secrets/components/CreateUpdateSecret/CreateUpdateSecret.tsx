@@ -33,7 +33,7 @@ import { useToaster } from '@common/exports'
 import { illegalIdentifiers } from '@common/utils/StringUtils'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import VaultFormFields from './views/VaultFormFields'
 import LocalFormFields from './views/LocalFormFields'
 

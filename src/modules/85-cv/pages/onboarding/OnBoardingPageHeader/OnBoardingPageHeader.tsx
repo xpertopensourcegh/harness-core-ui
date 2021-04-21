@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { Breadcrumb, Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import routes from '@common/RouteDefinitions'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './OnBoardingPageHeader.module.scss'
 
 export interface OnBoardingPageHeader {

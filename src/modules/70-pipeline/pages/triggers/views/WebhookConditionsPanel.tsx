@@ -1,7 +1,7 @@
 import React from 'react'
 import { Layout, FormInput, Heading, Text } from '@wings-software/uicore'
 import cx from 'classnames'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { eventTypes } from '../utils/TriggersWizardPageUtils'
 import { GitSourceProviders } from '../utils/TriggersListUtils'
 import AddConditionsSection from './AddConditionsSection'

@@ -13,7 +13,7 @@ import {
 import { Dialog, Classes, FormGroup, Position } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import cx from 'classnames'
-import { String, useStrings } from 'framework/exports'
+import { useStrings, String } from 'framework/strings'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import css from './ConfigureOptions.module.scss'
 

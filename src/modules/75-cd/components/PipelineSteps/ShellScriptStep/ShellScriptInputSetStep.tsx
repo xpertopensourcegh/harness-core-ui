@@ -3,7 +3,7 @@ import { getMultiTypeFromValue, MultiTypeInputType, FormInput, FormikForm } from
 import { FormGroup } from '@blueprintjs/core'
 import { isEmpty, get } from 'lodash-es'
 
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
 import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'

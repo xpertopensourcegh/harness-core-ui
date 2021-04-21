@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormInput } from '@wings-software/uicore'
 import type { FormikContext } from 'formik'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 import type { SecretDTOV2 } from 'services/cd-ng'
 

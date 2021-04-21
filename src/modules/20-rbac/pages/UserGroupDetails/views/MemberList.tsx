@@ -4,10 +4,10 @@ import type { CellProps, Column, Renderer } from 'react-table'
 import { Layout, Button, Text, Avatar, Popover, Container } from '@wings-software/uicore'
 import { Classes, Menu, Position } from '@blueprintjs/core'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useStrings } from 'framework/exports'
 import { useRemoveMember, UserSearchDTO } from 'services/cd-ng'
 import { Table, useToaster } from '@common/components'
 import { useConfirmationDialog } from '@common/exports'
+import { useStrings } from 'framework/strings'
 import css from '../UserGroupDetails.module.scss'
 
 interface MemberListProps {

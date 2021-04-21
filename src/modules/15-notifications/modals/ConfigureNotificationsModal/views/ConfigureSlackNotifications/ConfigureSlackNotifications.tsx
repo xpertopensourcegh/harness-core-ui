@@ -9,7 +9,7 @@ import { useToaster } from '@common/components'
 import { useTestNotificationSetting, SlackSettingDTO } from 'services/platform'
 import { SlackNotificationConfiguration, TestStatus } from '@notifications/interfaces/Notifications'
 import { NotificationType } from '@notifications/interfaces/Notifications'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import css from '../../ConfigureNotificationsModal.module.scss'
 

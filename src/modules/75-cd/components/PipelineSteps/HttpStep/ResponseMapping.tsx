@@ -5,7 +5,7 @@ import { FormInput, Button, MultiTypeInputType } from '@wings-software/uicore'
 import { v4 as uuid } from 'uuid'
 
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { HttpStepFormData, HttpStepOutputVariable } from './types'

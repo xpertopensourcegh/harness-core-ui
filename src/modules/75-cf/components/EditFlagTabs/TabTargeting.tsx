@@ -12,7 +12,7 @@ import {
 import { Classes, Dialog, Switch } from '@blueprintjs/core'
 import cx from 'classnames'
 import { FeatureFlagActivationStatus } from '@cf/utils/CFUtils'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { Feature } from 'services/cf'
 import CustomRulesView from './CustomRulesView'
 import { DefaultRulesView } from './DefaultRulesView'

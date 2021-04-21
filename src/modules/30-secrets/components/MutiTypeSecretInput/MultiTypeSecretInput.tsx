@@ -13,7 +13,7 @@ import { FormGroup, IFormGroupProps, Intent } from '@blueprintjs/core'
 import useCreateOrSelectSecretModal from '@secrets/modals/CreateOrSelectSecretModal/useCreateOrSelectSecretModal'
 import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
 import type { SecretResponseWrapper, ResponsePageSecretResponseWrapper } from 'services/cd-ng'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { errorCheck } from '@common/utils/formikHelpers'
 
 import css from './MultiTypeSecretInput.module.scss'

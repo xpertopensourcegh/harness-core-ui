@@ -16,7 +16,7 @@
 //   getScopeFromValue
 // } from '@common/components/EntityReference/EntityReference'
 // import { Scope } from '@common/interfaces/SecretsInterface'
-// import { useStrings } from 'framework/exports'
+// import { useStrings } from 'framework/strings'
 // import { ReferenceSelect, ReferenceSelectProps } from '@common/components/ReferenceSelect/ReferenceSelect'
 // import { getAdditionalParamsForUGs } from './helper'
 // import type { UserGroupReferenceSelectProps, UserGroupSelectedValue } from './types'

@@ -26,7 +26,7 @@ import { useToaster, useConfirmationDialog } from '@common/exports'
 import { getSnippetTags } from '@common/utils/SnippetUtils'
 import routes from '@common/RouteDefinitions'
 import { PageSpinner } from '@common/components'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { getInvocationPathsForSecrets } from '../connectors/utils/ConnectorUtils'
 

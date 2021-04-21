@@ -4,7 +4,7 @@ import { first, isEmpty, isObject } from 'lodash-es'
 import { Color, Icon, Link, Popover, Text } from '@wings-software/uicore'
 import { Position, HTMLTable } from '@blueprintjs/core'
 
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { CDStageModuleInfo, ServiceExecutionSummary } from 'services/cd-ng'
 import type { CIBuildResponseDTO } from '@pipeline/pages/pipeline-deployment-list/ExecutionsList/ExecutionCard/ExecutionDetails/Types/types'
 import { TagsPopover } from '@common/components'

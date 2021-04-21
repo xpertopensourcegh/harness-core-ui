@@ -15,7 +15,7 @@ import {
 import { isEmpty } from 'lodash-es'
 import type { IconName } from '@blueprintjs/core'
 import cx from 'classnames'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { FlagTypeSdk, FlagTypeLanguage } from '../CreateFlagDialog/FlagDialogUtils'
 import css from './FlagElemTest.module.scss'
 

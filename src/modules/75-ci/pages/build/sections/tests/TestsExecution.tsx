@@ -15,7 +15,7 @@ import {
 } from '@wings-software/uicore'
 import { get } from 'lodash-es'
 import cx from 'classnames'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { PageError } from '@common/components/Page/PageError'
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import { TestSuiteSummaryQueryParams, useTestSuiteSummary } from 'services/ti-service'

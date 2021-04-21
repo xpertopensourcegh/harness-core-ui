@@ -1,6 +1,6 @@
 import React from 'react'
 import { StepProps, Container, Layout, Text, Color, Button } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import CopyToClipboard from '@common/components/CopyToClipBoard/CopyToClipBoard'
 import { TroubleShootingTypes } from '@delegates/constants'
 import css from './DelegateInstallationError.module.scss'

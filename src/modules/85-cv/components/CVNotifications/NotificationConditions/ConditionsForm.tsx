@@ -23,7 +23,7 @@ import type { CVNotificationForm } from '@cv/pages/admin/notifications/Notificat
 import { useToaster } from '@common/exports'
 import CVRiskScoreSlider from '@cv/components/CVRiskSlider/CVRiskScoreSlider'
 import { useCreateAlert, useUpdateAlert, useGetActivityTypes, AlertRuleDTO, VerificationsNotify } from 'services/cv'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './ConditionsForm.module.scss'
 
 interface ConditionsFormProps extends StepProps<any> {

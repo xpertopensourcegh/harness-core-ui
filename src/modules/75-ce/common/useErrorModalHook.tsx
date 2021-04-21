@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useModalHook, Button, Container, Text, Color } from '@wings-software/uicore'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 import type { ServiceError } from 'services/lw'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './useErrorModalHook.module.scss'
 
 const modalProps: IDialogProps = {

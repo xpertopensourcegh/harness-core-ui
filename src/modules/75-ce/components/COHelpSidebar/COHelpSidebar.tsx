@@ -1,6 +1,6 @@
 import { Layout, Container, Text, Icon, Color, Heading } from '@wings-software/uicore'
 import React, { ReactElement, useState } from 'react'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import idleTimeIMG from './images/idleTime.svg'
 import spotVSODIMG from './images/spotOD.svg'
 import ssh from './images/ssh.svg'

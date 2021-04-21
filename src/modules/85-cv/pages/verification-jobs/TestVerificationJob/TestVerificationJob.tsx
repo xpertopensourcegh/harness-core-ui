@@ -3,7 +3,7 @@ import { Container, Formik, FormikForm, Layout, Text, Color } from '@wings-softw
 
 import * as Yup from 'yup'
 
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 

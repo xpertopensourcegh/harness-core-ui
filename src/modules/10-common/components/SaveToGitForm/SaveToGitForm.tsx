@@ -14,7 +14,7 @@ import {
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { GitSyncConfig, GitSyncEntityDTO, getListOfBranchesByGitConfigPromise } from 'services/cd-ng'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { PageSpinner } from '../Page/PageSpinner'
 import css from './SaveToGitForm.module.scss'

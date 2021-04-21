@@ -6,7 +6,7 @@ import { Classes, ITreeNode, PopoverInteractionKind, Tree } from '@blueprintjs/c
 import { useToaster } from '@common/exports'
 import { PageSpinner } from '@common/components'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
-import { String, useStrings } from 'framework/exports'
+import { String, useStrings } from 'framework/strings'
 import { StackdriverDashboardDetail, StackdriverDashboardDTO, useGetStackdriverDashboardDetail } from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { ManualInputQueryModal, MANUAL_INPUT_QUERY } from '../../ManualInputQueryModal/ManualInputQueryModal'

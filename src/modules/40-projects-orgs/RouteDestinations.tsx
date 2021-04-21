@@ -40,7 +40,7 @@ import Roles from '@rbac/pages/Roles/Roles'
 import UserGroups from '@rbac/pages/UserGroups/UserGroups'
 import UsersPage from '@rbac/pages/Users/UsersPage'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { String } from 'framework/exports'
+import { String } from 'framework/strings'
 import UserGroupDetails from '@rbac/pages/UserGroupDetails/UserGroupDetails'
 
 const AccountSettingsSideNavProps: SidebarContext = {

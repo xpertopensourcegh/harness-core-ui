@@ -13,7 +13,7 @@ import {
   useHealthOfService,
   useSavingsOfService
 } from 'services/lw'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/exports'
 import useDeleteServiceHook from '@ce/common/useDeleteService'
 import COGatewayLogs from './COGatewayLogs'

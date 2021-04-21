@@ -4,7 +4,7 @@ import { partition } from 'lodash-es'
 
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import { isExecutionComplete } from '@pipeline/utils/statusHelpers'
-import { useStrings, String } from 'framework/exports'
+import { String, useStrings } from 'framework/strings'
 import { Collapse } from '../Common/Collapse/Collapse'
 
 import css from './PipelineDetailsTab.module.scss'

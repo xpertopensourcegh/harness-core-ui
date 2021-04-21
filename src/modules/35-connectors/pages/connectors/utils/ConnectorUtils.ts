@@ -14,7 +14,7 @@ import {
 import type { FormData } from '@connectors/interfaces/ConnectorInterface'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { ValueType } from '@secrets/components/TextReference/TextReference'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { AuthTypes, GitAuthTypes, GitAPIAuthTypes } from './ConnectorHelper'
 
 export const getScopeFromString = (value: string) => {

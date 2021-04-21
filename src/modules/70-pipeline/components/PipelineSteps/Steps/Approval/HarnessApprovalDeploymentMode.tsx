@@ -15,7 +15,7 @@ import {
 } from '@wings-software/uicore'
 import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useGetUserGroupList } from 'services/cd-ng'
 import type { HarnessApprovalDeploymentModeProps, UGMUltiSelectProps } from './types'
 import css from './HarnessApproval.module.scss'

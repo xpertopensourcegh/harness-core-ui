@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { String } from 'framework/exports'
+import { String } from 'framework/strings'
 import type { ServiceExecutionSummary } from 'services/cd-ng'
 
 import css from './ServicePopoverCard.module.scss'

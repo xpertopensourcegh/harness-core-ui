@@ -16,7 +16,7 @@ import { SecretReferenceInterface, setupArtifactoryFormData } from '@connectors/
 import type { ConnectorConfigDTO, ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import TextReference, { ValueType, TextReferenceInterface } from '@secrets/components/TextReference/TextReference'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { PageSpinner } from '@common/components'
 import { AuthTypes } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import css from '../../NexusConnector/StepAuth/StepNexusConnector.module.scss'

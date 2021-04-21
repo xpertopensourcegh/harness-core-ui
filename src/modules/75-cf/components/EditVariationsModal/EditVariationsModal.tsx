@@ -18,7 +18,7 @@ import {
   SelectOption
 } from '@wings-software/uicore'
 import { getErrorMessage, useFeatureFlagTypeToStringMapping, useValidateVariationValues } from '@cf/utils/CFUtils'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/exports'
 import { FormikEffect, FormikEffectProps } from '@common/components/FormikEffect/FormikEffect'
 import { Feature, usePatchFeature, Variation } from 'services/cf'

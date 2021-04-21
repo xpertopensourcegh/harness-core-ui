@@ -4,7 +4,7 @@ import type { CellProps } from 'react-table'
 import { useParams } from 'react-router-dom'
 import { SetupSourceMappingList } from '@cv/components/CVSetupSourcesView/SetupSourceMappingList/SetupSourceMappingList'
 import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import {
   AppdynamicsValidationResponse,
   getNewRelicMetricDataPromise,

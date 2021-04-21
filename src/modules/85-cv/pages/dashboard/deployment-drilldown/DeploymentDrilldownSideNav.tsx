@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import DeploymentGroupList from './DeploymentGroupList'
 import styles from './DeploymentDrilldownView.module.scss'
 

@@ -9,7 +9,7 @@ import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/Rout
 
 import routes from '@common/RouteDefinitions'
 import type { Failure, VerificationJobDTO } from 'services/cv'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { ContinousVerificationData } from '../../../types'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 

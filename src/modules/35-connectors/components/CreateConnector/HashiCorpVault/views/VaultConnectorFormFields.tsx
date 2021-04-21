@@ -12,7 +12,7 @@ import {
   VaultConnectorDTO
 } from 'services/cd-ng'
 import { useToaster } from '@common/exports'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { VaultConfigFormData } from './VaultConfigForm'
 

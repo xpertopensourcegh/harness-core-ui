@@ -1,7 +1,7 @@
 import React from 'react'
 import { Color, CardSelect, Container, Text, Layout, Icon } from '@wings-software/uicore'
 
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { DelegateTypes } from '@delegates/constants'
 
 import type { CardData } from '../CreateDelegate/commonSteps/DelegateDetailsStep'

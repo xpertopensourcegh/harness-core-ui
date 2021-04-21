@@ -4,7 +4,7 @@ import { get, set, isEmpty, isNil, isNaN } from 'lodash-es'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 
-import type { UseStringsReturn } from 'framework/strings/String'
+import type { UseStringsReturn } from 'framework/strings'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
 import { listSecretsV2Promise, SecretResponseWrapper } from 'services/cd-ng'

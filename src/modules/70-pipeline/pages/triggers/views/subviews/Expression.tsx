@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, Container } from '@wings-software/uicore'
 import cx from 'classnames'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { scheduleTabsId, isCronValid } from './ScheduleUtils'
 import css from './Expression.module.scss'
 

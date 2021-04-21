@@ -7,7 +7,7 @@ import type { FormikProps } from 'formik'
 import { useParams } from 'react-router-dom'
 import { StepFormikFowardRef, setFormikRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
 

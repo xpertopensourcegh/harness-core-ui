@@ -5,7 +5,7 @@ import { isNil, isEmpty, get, set } from 'lodash-es'
 import cx from 'classnames'
 
 import produce from 'immer'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { FailureStrategyWithRef } from '@pipeline/components/PipelineStudio/FailureStrategy/FailureStrategy'
 import type { ExecutionElementConfig, ExecutionWrapper } from 'services/cd-ng'
 import { PipelineContext } from '../PipelineContext/PipelineContext'

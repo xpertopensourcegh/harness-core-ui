@@ -20,7 +20,7 @@ import {
   validateTheIdentifierIsUniquePromise,
   Failure
 } from 'services/cd-ng'
-import { String, useStrings } from 'framework/exports'
+import { String, useStrings } from 'framework/strings'
 import { NameIdDescriptionTags } from '@common/components'
 import { getHeadingIdByType } from '../../../pages/connectors/utils/ConnectorHelper'
 import css from './ConnectorDetailsStep.module.scss'

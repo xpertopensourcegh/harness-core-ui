@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { StepProps, Layout, Icon, Text, Tabs, Tab } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import CommonProblems from '../../CommonProblems/CommonProblems'
 import TroubleShooting from './TroubleShooting'
 import css from './DelegateInstallationError.module.scss'

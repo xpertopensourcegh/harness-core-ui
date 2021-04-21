@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Text, Layout, Icon, Container, Color } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { NgPipeline } from 'services/cd-ng'
 import { SelectOrCreatePipelineForm } from '@pipeline/components/SelectOrCreatePipelineForm/SelectOrCreatePipelineForm'
 import { CreatePipelineForm } from '@pipeline/components/CreatePipelineForm/CreatePipelineForm'

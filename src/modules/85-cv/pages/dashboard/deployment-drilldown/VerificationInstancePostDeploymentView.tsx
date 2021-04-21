@@ -13,7 +13,7 @@ import { EventDetailsForChange } from '@cv/components/EventDetailsForChange/Even
 import { VerificationActivityRiskCard } from '@cv/components/VerificationActivityRiskCard/VerificationActivityRiskCard'
 import { TimeBasedShadedRegion } from '@cv/components/TimeBasedShadedRegion/TimeBasedShadedRegion'
 import { transformAnalysisDataToChartSeries } from '@cv/components/TimeseriesRow/TimeSeriesRowUtils'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { TabIdentifier } from './VerificationInstanceView'
 import {
   getFilterOptions,

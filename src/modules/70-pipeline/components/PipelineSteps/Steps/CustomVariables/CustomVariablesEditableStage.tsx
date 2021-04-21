@@ -6,8 +6,8 @@ import { Button, FormInput, MultiTypeInputType, getMultiTypeFromValue } from '@w
 import cx from 'classnames'
 import * as Yup from 'yup'
 
-import { String, useStrings } from 'framework/exports'
-import type { UseStringsReturn } from 'framework/strings/String'
+import { String, useStrings } from 'framework/strings'
+import type { UseStringsReturn } from 'framework/strings'
 import { TextInputWithCopyBtn } from '@common/components/TextInputWithCopyBtn/TextInputWithCopyBtn'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'

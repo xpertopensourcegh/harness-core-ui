@@ -3,7 +3,7 @@ import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-d
 import type { BaseModelListener } from '@projectstorm/react-canvas-core'
 import { Button, Layout, Text } from '@wings-software/uicore'
 import type { StageElementWrapper } from 'services/cd-ng'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
 import { useToaster } from '@common/exports'

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text } from '@wings-software/uicore'
 
-import { String } from 'framework/exports'
+import { String } from 'framework/strings'
 import type { AbstractStepFactory } from './AbstractStepFactory'
 import { StepViewType } from './Step'
 import type { StepProps, StepFormikFowardRef } from './Step'

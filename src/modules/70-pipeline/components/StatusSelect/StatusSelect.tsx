@@ -4,7 +4,7 @@ import { Button, Menu } from '@blueprintjs/core'
 
 import { EXECUTION_STATUS } from '@pipeline/utils/statusHelpers'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
-import { String } from 'framework/exports'
+import { String } from 'framework/strings'
 
 import css from './StatusSelect.module.scss'
 

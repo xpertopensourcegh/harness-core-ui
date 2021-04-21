@@ -8,7 +8,7 @@ import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { AddDescriptionAndTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 import { EnvironmentResponseDTO, useCreateEnvironment, CreateEnvironmentQueryParams } from 'services/cd-ng'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { EnvironmentTypes } from '../../utils'
 
 export interface EnvironmentSelectProps {

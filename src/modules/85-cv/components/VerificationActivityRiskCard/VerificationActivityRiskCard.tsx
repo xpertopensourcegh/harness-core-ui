@@ -5,7 +5,7 @@ import cx from 'classnames'
 import CVProgressBar from '@cv/components/CVProgressBar/CVProgressBar'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetActivityVerificationResult, RestResponseActivityVerificationResultDTO } from 'services/cv'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import VerificationStatusBar from '@cv/pages/dashboard/activity-changes-drilldown/VerificationStatusBar'
 import css from './VerificationActivityRiskCard.module.scss'
 

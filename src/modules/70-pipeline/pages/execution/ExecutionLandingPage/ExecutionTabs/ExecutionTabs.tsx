@@ -10,7 +10,7 @@ import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteI
 import type { CIBuildResponseDTO } from '@pipeline/pages/pipeline-deployment-list/ExecutionsList/ExecutionCard/ExecutionDetails/Types/types'
 import type { ExecutionQueryParams } from '@pipeline/utils/executionUtils'
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
-import { String, useStrings } from 'framework/exports'
+import { String, useStrings } from 'framework/strings'
 
 import css from './ExecutionTabs.module.scss'
 

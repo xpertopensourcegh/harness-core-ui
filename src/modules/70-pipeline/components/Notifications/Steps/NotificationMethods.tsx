@@ -1,7 +1,7 @@
 import { Color, Layout, Select, SelectOption, StepProps, Text } from '@wings-software/uicore'
 import React, { useState } from 'react'
 import { noop } from 'lodash-es'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { NotificationType } from '@notifications/interfaces/Notifications'
 import type { NotificationRules, PmsEmailChannel, PmsPagerDutyChannel, PmsSlackChannel } from 'services/pipeline-ng'
 import { NotificationTypeSelectOptions } from '@notifications/constants'

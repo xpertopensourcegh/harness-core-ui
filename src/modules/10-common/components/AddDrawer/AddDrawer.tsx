@@ -3,7 +3,7 @@ import { ExpandingSearchInput, Card, Text, Icon, Layout, Button, IconName } from
 import { cloneDeep, uniqBy } from 'lodash-es'
 import { Drawer, IDrawerProps, Position } from '@blueprintjs/core'
 import cx from 'classnames'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './AddDrawer.module.scss'
 
 const getAllItemsCount = (originalData: CategoryInterface[]): number | undefined => {

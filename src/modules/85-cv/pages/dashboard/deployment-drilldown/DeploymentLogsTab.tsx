@@ -7,7 +7,7 @@ import type {
 } from 'services/cv'
 import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import ClusterChart from './ClusterChart'
 import {
   LogAnalysisRow,

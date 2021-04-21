@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Container, FormInput, Layout, SelectOption, Text } from '@wings-software/uicore'
 import cx from 'classnames'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { Distribution, Variation, WeightedVariation } from 'services/cf'
 import { CFVariationColors } from '@cf/constants'
 import { VariationWithIcon } from '../VariationWithIcon/VariationWithIcon'

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, Text, Layout, Color, Button } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { AppdynamicsValidationResponse } from 'services/cv'
 import css from './ValidateMappingCell.module.scss'
 

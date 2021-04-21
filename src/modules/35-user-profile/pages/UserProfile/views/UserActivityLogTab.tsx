@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, Layout } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 const UserActivityLogTab: React.FC = () => {
   const { getString } = useStrings()

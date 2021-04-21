@@ -1,6 +1,6 @@
 import React from 'react'
 import { Layout, Container, Text } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 import mockData from './mocks/service-details.json'
 

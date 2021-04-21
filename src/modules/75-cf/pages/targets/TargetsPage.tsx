@@ -20,7 +20,7 @@ import {
   TARGET_PRIMARY_COLOR
 } from '@cf/utils/CFUtils'
 import { useConfirmAction, useLocalStorage } from '@common/hooks'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
 import { OptionsMenuButton } from '@common/components'

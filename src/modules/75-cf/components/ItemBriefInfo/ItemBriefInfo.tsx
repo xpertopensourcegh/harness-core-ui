@@ -1,7 +1,7 @@
 import React from 'react'
 import { Avatar, Container, Layout, Text } from '@wings-software/uicore'
 import { OptionsMenuButton } from '@common/components'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { DISABLE_AVATAR_PROPS } from '@cf/utils/CFUtils'
 import { ItemContainer, ItemContainerProps } from '@cf/components/ItemContainer/ItemContainer'
 import css from './ItemBriefInfo.module.scss'

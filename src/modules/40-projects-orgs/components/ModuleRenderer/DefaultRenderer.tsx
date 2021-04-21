@@ -1,6 +1,6 @@
 import React from 'react'
 import { Color, Layout, Icon, Text } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './ModuleRenderer.module.scss'
 
 const DefaultRenderer: React.FC = () => {

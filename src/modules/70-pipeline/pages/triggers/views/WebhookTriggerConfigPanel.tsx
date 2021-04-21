@@ -7,7 +7,7 @@ import { NameIdDescriptionTags } from '@common/components'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 
 import { useToaster } from '@common/exports'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { GitSourceProviders, getSourceRepoOptions } from '../utils/TriggersListUtils'
 import { eventTypes } from '../utils/TriggersWizardPageUtils'
 import { ConnectorSection } from './ConnectorSection'

@@ -6,7 +6,7 @@ import { useGetConnectorListV2, ConnectorResponse } from 'services/cd-ng'
 import { PageSpinner } from '@common/components'
 import type { RbacResourceModalProps } from '@rbac/factories/RbacFactory'
 import { useMutateAsGet } from '@common/hooks'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import {
   RenderColumnConnector,
   RenderColumnDetails,

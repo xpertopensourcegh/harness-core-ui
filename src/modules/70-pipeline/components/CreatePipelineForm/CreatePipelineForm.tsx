@@ -6,7 +6,7 @@ import { NameIdDescriptionTags } from '@common/components'
 import type { NgPipeline } from 'services/cd-ng'
 import { StringUtils } from '@common/exports'
 import { DEFAULT_COLOR } from '@common/constants/Utils'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 interface CreatePipelineFormProps {
   handleSubmit: (value: NgPipeline) => void

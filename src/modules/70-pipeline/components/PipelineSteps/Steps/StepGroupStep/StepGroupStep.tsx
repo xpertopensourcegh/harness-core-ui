@@ -9,7 +9,7 @@ import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { StepGroupElement } from 'services/cd-ng'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 interface StepGroupWidgetProps {

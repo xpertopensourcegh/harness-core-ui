@@ -3,7 +3,7 @@ import type { SelectOption } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import {
   useGetServiceListForProject,
   GetServiceListForProjectQueryParams,

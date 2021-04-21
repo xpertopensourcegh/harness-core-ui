@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, Tab, Container, Tabs, Color } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import UserSummaryTab from './UserSummaryTab'
 
 const UserOverView: React.FC = () => {

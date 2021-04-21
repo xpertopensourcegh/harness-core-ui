@@ -12,8 +12,8 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
-import { useStrings } from 'framework/exports'
-import type { UseStringsReturn } from 'framework/strings/String'
+import { useStrings } from 'framework/strings'
+import type { UseStringsReturn } from 'framework/strings'
 import {
   DurationInputFieldForInputSet,
   FormMultiTypeDurationField,

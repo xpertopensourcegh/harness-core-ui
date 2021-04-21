@@ -19,7 +19,7 @@ import { useParams } from 'react-router-dom'
 import type { StageElementWrapper, PipelineInfoConfig } from 'services/cd-ng'
 import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import {
   ConnectorReferenceField,
   ConnectorReferenceFieldProps

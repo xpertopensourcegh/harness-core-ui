@@ -13,7 +13,7 @@ import type {
   CustomVariableEditableExtraProps
 } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { AbstractStepFactory } from '../AbstractSteps/AbstractStepFactory'
 import { getFlattenedStages, getStageIndexFromPipeline } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 import { StepViewType } from '../AbstractSteps/Step'

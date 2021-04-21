@@ -2,7 +2,7 @@ import React from 'react'
 import { getMultiTypeFromValue, MultiTypeInputType, SelectOption, FormInput } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 

@@ -19,7 +19,7 @@ import {
   NGTriggerSource,
   useGetSchemaYaml
 } from 'services/pipeline-ng'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { clearRuntimeInput } from '@pipeline/components/PipelineStudio/StepUtil'
 import { Scope } from '@common/interfaces/SecretsInterface'

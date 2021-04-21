@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import { Card, Color, Layout, Text } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { Ticker, TickerVerticalAlignment } from '@common/components/Ticker/Ticker'
 import {
   TimeRangeSelector,

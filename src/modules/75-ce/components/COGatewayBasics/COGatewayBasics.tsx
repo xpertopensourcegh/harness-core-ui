@@ -5,7 +5,7 @@ import type { ConnectorInfoDTO } from 'services/cd-ng'
 import createConnectorModal from '@ce/components/Connectors/createConnectorModal'
 import type { GatewayDetails } from '@ce/components/COCreateGateway/models'
 import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 interface COGatewayBasicsProps {
   gatewayDetails: GatewayDetails
   setGatewayDetails: (gwDetails: GatewayDetails) => void

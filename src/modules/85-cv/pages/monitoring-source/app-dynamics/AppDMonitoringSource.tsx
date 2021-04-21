@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import CVOnboardingTabs from '@cv/components/CVOnboardingTabs/CVOnboardingTabs'
 import useCVTabsHook from '@cv/hooks/CVTabsHook/useCVTabsHook'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { BaseSetupTabsObject } from '@cv/pages/admin/setup/SetupUtils'
 import type { DSConfig } from 'services/cv'
 

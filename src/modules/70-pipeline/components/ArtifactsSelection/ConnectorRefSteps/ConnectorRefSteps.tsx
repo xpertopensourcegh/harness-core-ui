@@ -1,7 +1,7 @@
 import React from 'react'
 import { StepWizard, StepProps, Icon } from '@wings-software/uicore'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
-import { useStrings, String } from 'framework/exports'
+import { String, useStrings } from 'framework/strings'
 import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
 import { ArtifactoryRepoType } from '../ArtifactRepository/ArtifactoryRepoType'
 import { ArtifactConnector } from '../ArtifactRepository/ArtifactConnector'

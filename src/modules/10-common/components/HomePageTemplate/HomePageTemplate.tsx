@@ -1,7 +1,7 @@
 import React from 'react'
 import { Heading, Layout, Text, Link as ExternalLink, FlexExpander, Container } from '@wings-software/uicore'
 import { Link, useParams } from 'react-router-dom'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import css from './HomePageTemplate.module.scss'
 

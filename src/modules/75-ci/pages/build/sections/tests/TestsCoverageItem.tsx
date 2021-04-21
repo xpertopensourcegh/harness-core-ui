@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, Color, Text, Icon } from '@wings-software/uicore'
 import copy from 'copy-to-clipboard'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/exports'
 import css from './BuildTests.module.scss'
 

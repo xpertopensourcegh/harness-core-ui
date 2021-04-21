@@ -1,6 +1,6 @@
 import React from 'react'
 import { TrialHomePageTemplate } from '@common/components/TrialHomePageTemplate/TrialHomePageTemplate'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import bgImageURL from './images/homeIllustration.svg'
 

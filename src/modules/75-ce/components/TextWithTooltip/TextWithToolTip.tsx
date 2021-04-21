@@ -1,6 +1,6 @@
 import React from 'react'
 import { Color, Text, Layout } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { ServiceError } from 'services/lw'
 import useErrorModalHook from '../../common/useErrorModalHook'
 import css from './TextWithToolTip.module.scss'

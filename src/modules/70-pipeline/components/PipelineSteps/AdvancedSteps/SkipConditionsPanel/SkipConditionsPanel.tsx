@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Text, FormInput } from '@wings-software/uicore'
-import { String } from 'framework/exports'
+import { String } from 'framework/strings'
 
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { Modes } from '../common'

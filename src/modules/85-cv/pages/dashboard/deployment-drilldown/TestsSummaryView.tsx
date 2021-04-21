@@ -2,7 +2,7 @@ import React from 'react'
 import { Container, Text } from '@wings-software/uicore'
 import moment from 'moment'
 import type { FontProps } from '@wings-software/uicore/dist/styled-props/font/FontProps'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import styles from './TestsSummaryView.module.scss'
 
 export interface TestsSummaryViewProps {

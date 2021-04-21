@@ -1,6 +1,6 @@
 import React from 'react'
 import { Layout, Text } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 const IPSetup: React.FC = () => {
   const { getString } = useStrings()

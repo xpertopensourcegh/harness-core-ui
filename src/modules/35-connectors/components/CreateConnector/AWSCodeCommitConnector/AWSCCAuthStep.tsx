@@ -19,7 +19,7 @@ import {
   ConnectorRequestBody,
   ConnectorInfoDTO
 } from 'services/cd-ng'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import TextReference, { ValueType } from '@secrets/components/TextReference/TextReference'

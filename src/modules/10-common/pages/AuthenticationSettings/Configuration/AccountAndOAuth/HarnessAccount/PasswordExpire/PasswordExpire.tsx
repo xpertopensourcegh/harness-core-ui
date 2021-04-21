@@ -7,7 +7,7 @@ import { usePasswordExpirationModal } from '@common/modals/PasswordExpiration/us
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { usePutLoginSettings } from 'services/cd-ng'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/components'
 import cssConfiguration from '@common/pages/AuthenticationSettings/Configuration/Configuration.module.scss'
 import cssHarnessAccount from '@common/pages/AuthenticationSettings/Configuration/AccountAndOAuth/HarnessAccount/HarnessAccount.module.scss'

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, Container, Layout, Heading, Color, timeToDisplayText } from '@wings-software/uicore'
 import cx from 'classnames'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { Duration } from '@common/exports'
 import css from './BuildTests.module.scss'
 

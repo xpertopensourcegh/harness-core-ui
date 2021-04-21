@@ -16,7 +16,7 @@ import cx from 'classnames'
 import { Classes, Position } from '@blueprintjs/core'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './OverrideSetsInputSelector.module.scss'
 
 type InputSetValue = SelectOption | SelectOption[]

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { Button, Text, Icon, OverlaySpinner } from '@wings-software/uicore'
 
 import { useGetListOfExecutions, useGetFilterList } from 'services/pipeline-ng'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { Page, StringUtils } from '@common/exports'
 import { useQueryParams, useMutateAsGet } from '@common/hooks'
 import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'

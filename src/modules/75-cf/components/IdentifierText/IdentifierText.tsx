@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Color, Icon, Text, TextProps, Utils } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/exports'
 
 export interface IdentifierTextProps extends TextProps {

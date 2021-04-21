@@ -5,7 +5,7 @@ import ResourceHandlerTable from '@rbac/components/ResourceHandlerTable/Resource
 import { Project, useGetProjectList } from 'services/cd-ng'
 import { PageSpinner } from '@common/components'
 import type { RbacResourceModalProps } from '@rbac/factories/RbacFactory'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 const RenderColumnProject: Renderer<CellProps<Project>> = ({ row }) => {
   const data = row.original

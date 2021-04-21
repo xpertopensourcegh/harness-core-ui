@@ -10,7 +10,7 @@ import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineCon
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { ManifestSelectionProps } from './ManifestInterface'
 import ManifestListView from './ManifestListView'
 

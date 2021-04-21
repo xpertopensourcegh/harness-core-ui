@@ -6,7 +6,7 @@ import { Popover } from '@blueprintjs/core'
 import { Icon, IconName } from '@wings-software/uicore'
 import { getIconNameForTag } from '@common/utils/SnippetUtils'
 import type { YamlSnippetMetaData } from 'services/cd-ng'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { SnippetFetchResponse } from '@common/interfaces/YAMLBuilderProps'
 import { shouldShowError } from '@common/utils/errorUtils'
 

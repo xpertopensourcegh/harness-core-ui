@@ -11,7 +11,7 @@ import type {
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import type { AllNGVariables } from '@pipeline/utils/types'

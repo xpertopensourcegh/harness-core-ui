@@ -22,7 +22,7 @@ import type { ConnectorConfigDTO, ConnectorRequestBody, ConnectorInfoDTO } from 
 
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import TextReference, { TextReferenceInterface, ValueType } from '@secrets/components/TextReference/TextReference'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { GitAuthTypes, GitAPIAuthTypes } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import css from './StepGitlabAuthentication.module.scss'

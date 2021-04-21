@@ -19,7 +19,7 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import type { InfraProvisioningData } from '@cd/components/PipelineSteps/InfraProvisioning/InfraProvisioning'
 import type { GcpInfrastructureSpec } from '@cd/components/PipelineSteps/GcpInfrastructureSpec/GcpInfrastructureSpec'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
-import { String, useStrings } from 'framework/exports'
+import { String, useStrings } from 'framework/strings'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import css from './DeployInfraSpecifications.module.scss'

@@ -5,7 +5,7 @@ import { isEmpty } from 'lodash-es'
 import type { ITagInputProps } from '@blueprintjs/core'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type {
   DescriptionComponentProps,
   DescriptionProps,

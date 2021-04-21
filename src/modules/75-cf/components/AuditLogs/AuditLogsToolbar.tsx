@@ -8,7 +8,7 @@ import {
   Layout
 } from '@wings-software/uicore'
 import type { ContainerProps } from '@wings-software/uicore/dist/components/Container/Container'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 export interface AuditLogsToolbar extends ContainerProps {
   startDate: Date

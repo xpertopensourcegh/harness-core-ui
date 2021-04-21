@@ -3,7 +3,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import cx from 'classnames'
 
 import type { ExecutionNode } from 'services/pipeline-ng'
-import { String, useStrings } from 'framework/exports'
+import { String, useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import type { PipelineType, ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 import { LogsContent } from '@pipeline/components/LogsContent/LogsContent'

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Button, Container, ExpandingSearchInput, Layout, Pagination } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { PageBody } from '@common/components/Page/PageBody'
 import { Role, RoleResponse, useGetRoleList } from 'services/rbac'

@@ -2,7 +2,7 @@ import React from 'react'
 import cx from 'classnames'
 import { Text, Container, Heading, Color, Button } from '@wings-software/uicore'
 import { ProgressBar } from '@blueprintjs/core'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './BuildTests.module.scss'
 
 export interface TestsSelectionBreakdownProps {

@@ -20,7 +20,7 @@ import { Tooltip } from '@blueprintjs/core'
 import { StringUtils } from '@common/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import { FormMultiTypeCheckboxField } from '@common/components'
 import { Scope } from '@common/interfaces/SecretsInterface'

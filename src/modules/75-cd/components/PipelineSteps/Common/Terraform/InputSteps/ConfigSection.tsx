@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 
 import { getMultiTypeFromValue, MultiTypeInputType, FormInput } from '@wings-software/uicore'
 
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import {
   ConnectorReferenceField,
   ConnectorReferenceFieldProps

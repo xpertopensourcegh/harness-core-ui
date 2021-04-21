@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Layout, StepProps, Button, Color, Text, Container, Link } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { DelegateInfoDTO, DelegateConfigDTO } from '@delegates/DelegateInterface'
 import Delegates4Ways from '../../Delegates4Ways/Delegates4Ways'
 import harnessDelegate from './images/harness-delegate.svg'

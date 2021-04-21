@@ -15,7 +15,7 @@ import { PageError } from '@common/components/Page/PageError'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { ServiceSelectOrCreate } from '@cv/components/ServiceSelectOrCreate/ServiceSelectOrCreate'
 import {
   useGetServiceListForProject,

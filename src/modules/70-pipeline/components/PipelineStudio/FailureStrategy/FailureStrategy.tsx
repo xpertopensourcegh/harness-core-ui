@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 import { debounce } from 'lodash-es'
 
 import type { ExecutionWrapper, FailureStrategyConfig, StageElementWrapperConfig } from 'services/cd-ng'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import FailureStrategyPanel from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/FailureStrategyPanel'
 import {
   Domain,

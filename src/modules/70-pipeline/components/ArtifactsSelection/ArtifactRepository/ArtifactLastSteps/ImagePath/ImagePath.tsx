@@ -17,7 +17,7 @@ import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 import { get } from 'lodash-es'
 import { ArtifactConfig, ConnectorConfigDTO, useGetBuildDetailsForDocker } from 'services/cd-ng'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { StringUtils } from '@common/exports'

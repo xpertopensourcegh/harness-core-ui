@@ -5,7 +5,7 @@ import { Layout, Text, Icon, Color, IconName, Container } from '@wings-software/
 import { useParams } from 'react-router-dom'
 import type { CellProps, Renderer, Column } from 'react-table'
 import type { DateRange } from '@blueprintjs/datetime'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import Table from '@common/components/Table/Table'
 
 import type { ResponsePageActivity, Activity, ResponseConnectivityCheckSummary } from 'services/cd-ng'

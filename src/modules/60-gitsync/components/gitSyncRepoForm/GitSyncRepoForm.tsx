@@ -21,7 +21,7 @@ import { noop, pick, debounce } from 'lodash-es'
 import { useToaster, StringUtils } from '@common/exports'
 import { usePostGitSync, GitSyncConfig, getListOfBranchesByConnectorPromise } from 'services/cd-ng'
 
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { Connectors } from '@connectors/constants'
 import { getConnectorDisplayName, GitUrlType } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import {

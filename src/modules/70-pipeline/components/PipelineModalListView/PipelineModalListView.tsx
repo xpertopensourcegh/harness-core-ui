@@ -8,7 +8,7 @@ import {
   useGetPipelineList
 } from 'services/pipeline-ng'
 import { Page } from '@common/exports'
-import { String, useStrings } from 'framework/exports'
+import { String, useStrings } from 'framework/strings'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import RunPipelineListView from './RunPipelineListView'

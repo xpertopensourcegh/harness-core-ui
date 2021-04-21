@@ -5,7 +5,7 @@ import { useHistory, useParams } from 'react-router-dom'
 
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import { PageHeader } from '@common/components/Page/PageHeader'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { SnippetFetchResponse, YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import {
   usePostSecretViaYaml,

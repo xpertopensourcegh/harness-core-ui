@@ -5,7 +5,7 @@ import { Container, Icon, Text, Button, TextInput } from '@wings-software/uicore
 import moment from 'moment'
 import { Page } from '@common/exports'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetMonitoringSources, MonitoringSource, useDeleteDSConfig } from 'services/cv'

@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 import type { NgPipeline } from 'services/cd-ng'
 import { NameIdDescriptionTags } from '@common/components'
 import { StringUtils } from '@common/exports'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { DEFAULT_COLOR } from '@common/constants/Utils'
 import cdImage from '../images/illustration.png'
 

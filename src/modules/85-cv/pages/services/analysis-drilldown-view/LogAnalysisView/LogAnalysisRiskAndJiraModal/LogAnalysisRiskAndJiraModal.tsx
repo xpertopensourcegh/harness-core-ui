@@ -23,7 +23,7 @@ import {
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import { Formik } from 'formik'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './LogAnalysisRiskAndJiraModal.module.scss'
 
 interface LogAnalysisRiskAndJiraModalProps {

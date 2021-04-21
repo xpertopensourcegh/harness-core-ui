@@ -4,7 +4,7 @@ import type { SeriesColumnOptions } from 'highcharts'
 import cx from 'classnames'
 import { Classes, PopoverInteractionKind, Position } from '@blueprintjs/core'
 import { Button, Layout, Popover } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { StackedColumnChart } from '@common/components/StackedColumnChart/StackedColumnChart'
 import {
   TIME_RANGE_ENUMS,

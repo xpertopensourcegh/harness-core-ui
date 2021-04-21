@@ -1,7 +1,7 @@
 import React from 'react'
 import { Tag, Popover, PopoverInteractionKind } from '@blueprintjs/core'
 import { Layout } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './RoleBindingsList.module.scss'
 
 interface RoleBindingsListProps {

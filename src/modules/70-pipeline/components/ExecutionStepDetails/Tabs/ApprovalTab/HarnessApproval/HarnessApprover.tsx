@@ -3,8 +3,8 @@ import { Icon, IconName } from '@wings-software/uicore'
 import moment from 'moment'
 
 import type { HarnessApprovalActivity } from 'services/pipeline-ng'
-import { String } from 'framework/exports'
-import type { StringKeys } from 'framework/strings/StringsContext'
+import { String } from 'framework/strings'
+import type { StringKeys } from 'framework/strings'
 import { Collapse } from '../../Common/Collapse/Collapse'
 
 import css from '../ApprovalStepDetails.module.scss'

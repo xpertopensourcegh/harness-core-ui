@@ -3,7 +3,7 @@ import type { Column, CellProps, Renderer } from 'react-table'
 import { Layout, Color, Text, Card } from '@wings-software/uicore'
 import Table from '@common/components/Table/Table'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
-import { String, useStrings } from 'framework/exports'
+import { String, useStrings } from 'framework/strings'
 import type { DelegateSelectionLogParams } from 'services/portal'
 import css from './DelegateSelectionLogs.module.scss'
 

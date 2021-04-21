@@ -7,8 +7,8 @@ import {
   DefineYourMonitoringSource,
   DefineYourMonitoringSourceProps
 } from '@cv/components/CVSetupSourcesView/DefineYourMonitoringSource/DefineYourMonitoringSource'
-import { useStrings } from 'framework/exports'
-import type { UseStringsReturn } from 'framework/strings/String'
+import { useStrings } from 'framework/strings'
+import type { UseStringsReturn } from 'framework/strings'
 import { SelectCVConnector } from '@cv/components/CVSetupSourcesView/SelectCVConnector/SelectCVConnector'
 import type { StepLabelProps } from '@cv/components/CVSetupSourcesView/StepLabel/StepLabel'
 import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'

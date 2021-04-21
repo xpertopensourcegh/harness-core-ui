@@ -3,7 +3,7 @@ import cx from 'classnames'
 import { NavLink as Link, useParams } from 'react-router-dom'
 import type { NavLinkProps } from 'react-router-dom'
 import { Text, Icon, Layout, Color, Avatar } from '@wings-software/uicore'
-import { String } from 'framework/exports'
+import { String } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 
 import paths from '@common/RouteDefinitions'

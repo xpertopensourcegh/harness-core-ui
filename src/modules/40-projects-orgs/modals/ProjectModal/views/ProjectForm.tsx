@@ -20,7 +20,7 @@ import { illegalIdentifiers, regexIdentifier, regexName } from '@common/utils/St
 import type { Project } from 'services/cd-ng'
 import ProjectCard from '@projects-orgs/components/ProjectCard/ProjectCard'
 import { DEFAULT_COLOR } from '@common/constants/Utils'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './Steps.module.scss'
 
 interface ProjectModalData {

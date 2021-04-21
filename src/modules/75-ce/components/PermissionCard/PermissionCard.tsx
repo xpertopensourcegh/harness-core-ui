@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Card, Color, Icon, Layout, Text } from '@wings-software/uicore'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import css from './PermissionCard.module.scss'
 
 interface PermissionCardProps {

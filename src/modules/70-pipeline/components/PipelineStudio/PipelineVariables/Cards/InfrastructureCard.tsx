@@ -2,7 +2,7 @@ import React from 'react'
 import { NestedAccordionPanel } from '@wings-software/uicore'
 
 import type { PipelineInfrastructure, Infrastructure } from 'services/cd-ng'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import type { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'

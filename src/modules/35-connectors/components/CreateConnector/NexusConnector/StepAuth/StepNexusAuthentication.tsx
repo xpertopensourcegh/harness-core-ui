@@ -16,7 +16,7 @@ import { SecretReferenceInterface, setupNexusFormData } from '@connectors/pages/
 import type { ConnectorConfigDTO, ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import TextReference, { TextReferenceInterface, ValueType } from '@secrets/components/TextReference/TextReference'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import { PageSpinner } from '@common/components'
 import { AuthTypes } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import css from './StepNexusConnector.module.scss'

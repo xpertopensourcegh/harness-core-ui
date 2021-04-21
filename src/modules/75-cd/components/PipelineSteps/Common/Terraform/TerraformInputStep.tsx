@@ -6,7 +6,7 @@ import { isEmpty } from 'lodash-es'
 import Map from '@common/components/Map/Map'
 import List from '@common/components/List/List'
 
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 

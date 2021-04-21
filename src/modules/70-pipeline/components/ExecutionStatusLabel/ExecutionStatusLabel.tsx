@@ -3,8 +3,8 @@ import { Text } from '@wings-software/uicore'
 import cx from 'classnames'
 
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
-import { useStrings } from 'framework/exports'
-import type { StringKeys } from 'framework/strings/StringsContext'
+import { useStrings } from 'framework/strings'
+import type { StringKeys } from 'framework/strings'
 
 import css from './ExecutionStatusLabel.module.scss'
 

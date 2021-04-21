@@ -1,7 +1,7 @@
 import React from 'react'
 import { Drawer, IDrawerProps, Classes } from '@blueprintjs/core'
 import { Button, Layout } from '@wings-software/uicore'
-import { String } from 'framework/exports'
+import { String } from 'framework/strings'
 import css from './FilterDrawer.module.scss'
 
 class FilterDrawer extends React.Component<{ isFilterPanelOpen: boolean; onClose?: () => void }> {

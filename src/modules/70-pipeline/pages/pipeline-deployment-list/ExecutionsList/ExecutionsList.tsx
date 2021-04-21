@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text } from '@wings-software/uicore'
-import { String } from 'framework/exports'
+import { String } from 'framework/strings'
 import type { PipelineExecutionSummary } from 'services/pipeline-ng'
 
 import ExecutionCard from './ExecutionCard/ExecutionCard'

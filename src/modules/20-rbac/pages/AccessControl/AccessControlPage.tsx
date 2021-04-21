@@ -3,7 +3,7 @@ import { NavLink, useParams } from 'react-router-dom'
 import { Container, Layout } from '@wings-software/uicore'
 
 import { Page } from '@common/exports'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import css from './AccessControlPage.module.scss'

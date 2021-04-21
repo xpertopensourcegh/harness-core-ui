@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, Layout, Icon, Color, Text, StepProps } from '@wings-software/uicore'
 import { Link } from 'react-router-dom'
-import { useStrings } from 'framework/exports'
+import { useStrings } from 'framework/strings'
 
 import CopyToClipboard from '@common/components/CopyToClipBoard/CopyToClipBoard'
 import css from '../K8sDelegate/CreateK8sDelegate.module.scss'
