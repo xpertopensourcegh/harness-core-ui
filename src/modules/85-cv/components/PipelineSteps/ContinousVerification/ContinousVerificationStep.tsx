@@ -23,7 +23,7 @@ export class ContinousVerificationStep extends PipelineStep<ContinousVerificatio
   }
 
   protected type = StepType.Verify
-  protected stepName = 'CV Step'
+  protected stepName = 'Verify'
   protected stepIcon: IconName = 'cv-main'
   protected isHarnessSpecific = true
   protected invocationMap: Map<
@@ -33,7 +33,7 @@ export class ContinousVerificationStep extends PipelineStep<ContinousVerificatio
 
   protected defaultValues: ContinousVerificationData = {
     identifier: '',
-    timeout: '10m',
+    timeout: '2h',
     spec: {
       verificationJobRef: '',
       type: '',
@@ -96,8 +96,6 @@ export class ContinousVerificationStep extends PipelineStep<ContinousVerificatio
     validateField(trafficsplit as string, 'trafficsplit', data, errors, getString)
     validateField(deploymentTag as string, 'deploymentTag', data, errors, getString)
     validateTimeout(template, getString, data, errors)
-    //TODO - check running of pipeline
-
     return errors
   }
 

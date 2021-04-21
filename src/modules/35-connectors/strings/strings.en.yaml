@@ -207,9 +207,9 @@ cdng:
   trafficsplit: Traffic Split
   continousVerificationStep: Verify Step Details
   displayName: Display Name
-  createCVJob: Please create a CV Job
-  loadingJobs: Loading jobs...
-  noJobsConfigured: No CV Jobs are configured.
+  createCVJob: Please create a verification job
+  loadingJobs: Loading verification jobs…
+  noJobsConfigured: No verification jobs are configured.
   selectTheJobNameFirst: Please select the job name first by clicking on Define Verification Job Panel
   error: Something went wrong , please try again by clicking on CV step again
   verificationSensitivityLabel:

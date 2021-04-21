@@ -501,7 +501,7 @@ exports[`Test ContinousVerificationStep Step should render editView when a new s
                           name="timeout"
                           placeholder="Enter w/d/h/m/s/ms"
                           type="text"
-                          value="10m"
+                          value="2h"
                         />
                       </div>
                       <span
@@ -756,7 +756,7 @@ exports[`Test ContinousVerificationStep Step should render editView when current
                           name="timeout"
                           placeholder="Enter w/d/h/m/s/ms"
                           type="text"
-                          value="10m"
+                          value="2h"
                         />
                       </div>
                       <span

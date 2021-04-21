@@ -41,7 +41,7 @@ const Status = {
 const ChangeSourcesHarness = [
   {
     type: 'HarnessCD_1.0',
-    icon: 'cd-main',
+    icon: 'harness',
     label: 'Harness CD FirstGen',
     routeName: 'harness-cd',
     routeUrl: routes.toCVActivitySourceSetup
