@@ -155,7 +155,7 @@ exports[`Role Details Page render data 1`] = `
               </span>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main name StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
-                style="--text-line-clamp: 2;"
+                style="--text-line-clamp: 1;"
               >
                 role 1
               </p>
@@ -232,7 +232,7 @@ exports[`Role Details Page render data 1`] = `
               </span>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main name StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
-                style="--text-line-clamp: 2;"
+                style="--text-line-clamp: 1;"
               >
                 role 2
               </p>
@@ -309,7 +309,7 @@ exports[`Role Details Page render data 1`] = `
               </span>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main name StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
-                style="--text-line-clamp: 2;"
+                style="--text-line-clamp: 1;"
               >
                 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
               </p>
