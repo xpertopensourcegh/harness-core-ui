@@ -21,7 +21,8 @@ import type {
   ModulePathParams,
   RolePathProps,
   ResourceGroupPathProps,
-  UserGroupPathProps
+  UserGroupPathProps,
+  UserPathProps
 } from '@common/interfaces/RouteInterfaces'
 
 export const accountPathProps: AccountPathProps = {
@@ -75,6 +76,10 @@ export const rolePathProps: RolePathProps = {
 
 export const userGroupPathProps: UserGroupPathProps = {
   userGroupIdentifier: ':userGroupIdentifier'
+}
+
+export const userPathProps: UserPathProps = {
+  userIdentifier: ':userIdentifier'
 }
 
 export const resourceGroupPathProps: ResourceGroupPathProps = {
@@ -144,4 +149,21 @@ export function withProjectIdentifier<T>(fn: (args: T) => string) {
 
     return `/orgs/${params.projectIdentifier}/${path.replace(/^\//, '')}`
   }
+}
+
+export const getScopeBasedRoute = ({
+  scope: { orgIdentifier, projectIdentifier, module },
+  path
+}: {
+  scope: Partial<ProjectPathProps & ModulePathParams>
+  path: string
+}): string => {
+  if (module && orgIdentifier && projectIdentifier) {
+    return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/${path}`
+  } else if (orgIdentifier && projectIdentifier) {
+    return `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/${path}`
+  } else if (orgIdentifier) {
+    return `/admin/organizations/${orgIdentifier}/${path}`
+  }
+  return `/admin/${path}`
 }

@@ -1,0 +1,190 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserDetails Test render data 1`] = `
+<div>
+  <div
+    class="Layout--horizontal StyledProps--main container xlarge header StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+  >
+    <div
+      class="Layout--vertical StyledProps--main"
+    >
+      <div
+        class="breadcrumbs"
+      >
+        <div>
+          <a
+            class="breadcrumb"
+            href="/account/testAcc/admin/access-control"
+          >
+            accessControl
+          </a>
+          <span
+            class="bp3-icon StyledProps--main separator"
+            data-icon="main-chevron-right"
+          >
+            <svg
+              height="11"
+              viewBox="0 0 8 14"
+              width="11"
+            >
+              <path
+                d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                fill="#4d5969"
+              />
+            </svg>
+          </span>
+        </div>
+        <div>
+          <a
+            class="breadcrumb"
+            href="/account/testAcc/admin/access-control/users"
+          >
+            users
+          </a>
+          <span
+            class="bp3-icon StyledProps--main separator"
+            data-icon="main-chevron-right"
+          >
+            <svg
+              height="11"
+              viewBox="0 0 8 14"
+              width="11"
+            >
+              <path
+                d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                fill="#4d5969"
+              />
+            </svg>
+          </span>
+        </div>
+        <div>
+          <span
+            class="lastBreadcrumb"
+          >
+            dummy
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+      >
+        <div
+          class="Avatar--Avatar Avatar--contentStyle"
+        >
+          <span
+            class="bp3-popover-wrapper Avatar--avatarPopOver"
+          >
+            <span
+              class="bp3-popover-target"
+            >
+              <div
+                class="Avatar--AvatarInner"
+                style="border-radius: 100%; line-height: 66px; width: 72px; height: 72px; font-size: 28px;"
+                tabindex="0"
+              >
+                D
+              </div>
+            </span>
+          </span>
+        </div>
+        <div
+          class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-left-medium"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-medium"
+          >
+            dummy
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            dummy@harness.io
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="StyledProps--font StyledProps--main pageBody body"
+  >
+    <div
+      class="Layout--vertical StyledProps--main StyledProps--padding-large"
+      style="width: 100%;"
+    >
+      <div
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-bottom-large"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
+        >
+          rbac.roleBinding
+        </p>
+        <div
+          class="bp3-card bp3-elevation-0 Card--card card"
+        >
+          <span
+            class="bp3-tag customtag"
+          >
+            <span
+              class="bp3-text-overflow-ellipsis bp3-fill"
+            >
+              New Role - All Resources
+            </span>
+          </span>
+          <span
+            class="bp3-tag customtag"
+          >
+            <span
+              class="bp3-text-overflow-ellipsis bp3-fill"
+            >
+              TestRole - All Resources
+            </span>
+          </span>
+          <span
+            class="bp3-tag harnesstag"
+          >
+            <span
+              class="bp3-text-overflow-ellipsis bp3-fill"
+            >
+              Account dummy - All Resources
+            </span>
+          </span>
+          <span
+            class="bp3-tag harnesstag"
+          >
+            <span
+              class="bp3-text-overflow-ellipsis bp3-fill"
+            >
+              Account Viewer - All Resources
+            </span>
+          </span>
+          <span
+            class="bp3-tag customtag"
+          >
+            <span
+              class="bp3-text-overflow-ellipsis bp3-fill"
+            >
+              ufbvfbvbfv - All Resources
+            </span>
+          </span>
+        </div>
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--padding-top-medium"
+        >
+          <button
+            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main addButton"
+            data-testid="addRole-UserGroup"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              common.plusNumber
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

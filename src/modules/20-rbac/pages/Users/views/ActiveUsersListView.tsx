@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react'
 import { Text, Layout, Button, Popover, Avatar } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position, Menu } from '@blueprintjs/core'
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import {
   UserAggregate,
   useDeleteActiveUser,
@@ -18,6 +18,7 @@ import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList
 import { PrincipalType, useRoleAssignmentModal } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
 import { useMutateAsGet } from '@common/hooks'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import routes from '@common/RouteDefinitions'
 import css from './UserListView.module.scss'
 
 interface ActiveUserListViewProps {
@@ -45,6 +46,11 @@ const RenderColumnRoleAssignments: Renderer<CellProps<UserAggregate>> = ({ row, 
   }))
   const { getString } = useStrings()
 
+  const handleAddRole = (e: React.MouseEvent<Element, MouseEvent>): void => {
+    e.stopPropagation()
+    ;(column as any).openRoleAssignmentModal(PrincipalType.USER, row.original.user, row.original.roleBindings)
+  }
+
   return (
     <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
       <RoleBindingsList data={data} length={2} />
@@ -53,19 +59,12 @@ const RenderColumnRoleAssignments: Renderer<CellProps<UserAggregate>> = ({ row, 
         minimal
         data-testid={`addRole-${row.original.user.uuid}`}
         className={css.roleButton}
-        onClick={() =>
-          (column as any).openRoleAssignmentModal(PrincipalType.USER, row.original.user, row.original.roleBindings)
-        }
+        onClick={handleAddRole}
       />
     </Layout.Horizontal>
   )
 }
 
-const RenderColumnStatus: Renderer<CellProps<UserAggregate>> = () => {
-  const { getString } = useStrings()
-
-  return <Text>{getString('active')}</Text>
-}
 const RenderColumnEmail: Renderer<CellProps<UserAggregate>> = ({ row }) => {
   const data = row.original
 
@@ -139,6 +138,7 @@ const RenderColumnMenu: Renderer<CellProps<UserAggregate>> = ({ row, column }) =
 
 const ActiveUserListView: React.FC<ActiveUserListViewProps> = ({ searchTerm, openRoleAssignmentModal }) => {
   const { getString } = useStrings()
+  const history = useHistory()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const [page, setPage] = useState(0)
 
@@ -171,16 +171,9 @@ const ActiveUserListView: React.FC<ActiveUserListViewProps> = ({ searchTerm, ope
         Header: getString('rbac.usersPage.roleBinding'),
         id: 'roleBinding',
         accessor: row => row.roleBindings,
-        width: '40%',
+        width: '50%',
         Cell: RenderColumnRoleAssignments,
         openRoleAssignmentModal: addRole
-      },
-      {
-        Header: getString('status'),
-        id: 'status',
-        accessor: row => row.roleBindings?.[0]?.roleIdentifier,
-        width: '10%',
-        Cell: RenderColumnStatus
       },
       {
         Header: getString('email'),
@@ -232,6 +225,16 @@ const ActiveUserListView: React.FC<ActiveUserListViewProps> = ({ searchTerm, ope
           pageCount: data?.data?.totalPages || 0,
           pageIndex: data?.data?.pageIndex || 0,
           gotoPage: (pageNumber: number) => setPage(pageNumber)
+        }}
+        onRowClick={user => {
+          history.push(
+            routes.toUserDetails({
+              accountId,
+              orgIdentifier,
+              projectIdentifier,
+              userIdentifier: user.user.uuid
+            })
+          )
         }}
       />
     </Page.Body>

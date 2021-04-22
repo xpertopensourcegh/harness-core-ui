@@ -1,0 +1,23 @@
+.header {
+  background-color: var(--blue-200) !important;
+  align-items: flex-start !important;
+  padding-top: var(--spacing-large) !important;
+}
+
+.body {
+  padding: var(--spacing-large) !important;
+  display: flex;
+  flex-direction: row;
+}
+
+.card {
+  box-shadow: var(--card-box-shadow);
+  align-items: center;
+  display: flex !important;
+  flex-wrap: wrap;
+  gap: var(--spacing-xsmall);
+}
+
+.addButton {
+  color: var(--blue-500) !important;
+}

@@ -92,3 +92,7 @@ export interface ResourceGroupDetailsPathProps extends ProjectPathProps {
 export interface UserGroupPathProps {
   userGroupIdentifier: string
 }
+
+export interface UserPathProps {
+  userIdentifier: string
+}

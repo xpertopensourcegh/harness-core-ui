@@ -1,4 +1,4 @@
-import { withAccountId } from '@common/utils/routeUtils'
+import { getScopeBasedRoute, withAccountId } from '@common/utils/routeUtils'
 import type {
   OrgPathProps,
   ConnectorPathProps,
@@ -21,7 +21,8 @@ import type {
   ModulePathParams,
   RolePathProps,
   ResourceGroupPathProps,
-  UserGroupPathProps
+  UserGroupPathProps,
+  UserPathProps
 } from '@common/interfaces/RouteInterfaces'
 
 const CV_HOME = `/cv/home`
@@ -89,38 +90,59 @@ const routes = {
   ),
   toAccessControl: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
-      if (module && orgIdentifier && projectIdentifier) {
-        return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/access-control`
-      } else if (orgIdentifier && projectIdentifier) {
-        return `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/access-control`
-      } else if (orgIdentifier) {
-        return `/admin/organizations/${orgIdentifier}/access-control`
-      }
-      return '/admin/access-control'
+      const path = `access-control`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
     }
   ),
   toUsers: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
-      if (module && orgIdentifier && projectIdentifier) {
-        return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/access-control/users`
-      } else if (orgIdentifier && projectIdentifier) {
-        return `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/access-control/users`
-      } else if (orgIdentifier) {
-        return `/admin/organizations/${orgIdentifier}/access-control/users`
-      }
-      return '/admin/access-control/users'
+      const path = `access-control/users`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
+  ),
+  toUserDetails: withAccountId(
+    ({
+      orgIdentifier,
+      projectIdentifier,
+      module,
+      userIdentifier
+    }: Partial<ProjectPathProps & ModulePathParams & UserPathProps>) => {
+      const path = `access-control/users/${userIdentifier}`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
     }
   ),
   toUserGroups: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
-      if (module && orgIdentifier && projectIdentifier) {
-        return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/access-control/user-groups`
-      } else if (orgIdentifier && projectIdentifier) {
-        return `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/access-control/user-groups`
-      } else if (orgIdentifier) {
-        return `/admin/organizations/${orgIdentifier}/access-control/user-groups`
-      }
-      return '/admin/access-control/user-groups'
+      const path = `access-control/user-groups`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
     }
   ),
   toUserGroupDetails: withAccountId(
@@ -130,38 +152,41 @@ const routes = {
       module,
       userGroupIdentifier
     }: Partial<ProjectPathProps & ModulePathParams & UserGroupPathProps>) => {
-      if (module && orgIdentifier && projectIdentifier) {
-        return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/access-control/user-groups/${userGroupIdentifier}`
-      } else if (orgIdentifier && projectIdentifier) {
-        return `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/access-control/user-groups/${userGroupIdentifier}`
-      } else if (orgIdentifier) {
-        return `/admin/organizations/${orgIdentifier}/access-control/user-groups/${userGroupIdentifier}`
-      }
-      return `/admin/access-control/user-groups/${userGroupIdentifier}`
+      const path = `access-control/user-groups/${userGroupIdentifier}`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
     }
   ),
   toResourceGroups: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
-      if (module && orgIdentifier && projectIdentifier) {
-        return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/access-control/resource-groups`
-      } else if (orgIdentifier && projectIdentifier) {
-        return `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/access-control/resource-groups`
-      } else if (orgIdentifier) {
-        return `/admin/organizations/${orgIdentifier}/access-control/resource-groups`
-      }
-      return '/admin/access-control/resource-groups'
+      const path = `access-control/resource-groups`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
     }
   ),
   toRoles: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
-      if (module && orgIdentifier && projectIdentifier) {
-        return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/access-control/roles`
-      } else if (orgIdentifier && projectIdentifier) {
-        return `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/access-control/roles`
-      } else if (orgIdentifier) {
-        return `/admin/organizations/${orgIdentifier}/access-control/roles`
-      }
-      return '/admin/access-control/roles'
+      const path = `access-control/roles`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
     }
   ),
   toRoleDetails: withAccountId(
@@ -171,14 +196,15 @@ const routes = {
       module,
       roleIdentifier
     }: Partial<ProjectPathProps & ModulePathParams & RolePathProps>) => {
-      if (module && orgIdentifier && projectIdentifier && roleIdentifier) {
-        return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/access-control/roles/${roleIdentifier}`
-      } else if (orgIdentifier && projectIdentifier && roleIdentifier) {
-        return `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/access-control/roles/${roleIdentifier}`
-      } else if (orgIdentifier) {
-        return `/admin/organizations/${orgIdentifier}/access-control/roles/${roleIdentifier}`
-      }
-      return `/admin/access-control/roles/${roleIdentifier}`
+      const path = `access-control/roles/${roleIdentifier}`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
     }
   ),
   toResourceGroupDetails: withAccountId(
@@ -188,14 +214,15 @@ const routes = {
       module,
       resourceGroupIdentifier
     }: Partial<ProjectPathProps & ModulePathParams & ResourceGroupPathProps>) => {
-      if (module && orgIdentifier && projectIdentifier && resourceGroupIdentifier) {
-        return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/access-control/resource-groups/${resourceGroupIdentifier}`
-      } else if (orgIdentifier && projectIdentifier && resourceGroupIdentifier) {
-        return `/projects/${projectIdentifier}/orgs/${orgIdentifier}/admin/access-control/resource-groups/${resourceGroupIdentifier}`
-      } else if (orgIdentifier) {
-        return `/admin/organizations/${orgIdentifier}/access-control/resource-groups/${resourceGroupIdentifier}`
-      }
-      return `/admin/access-control/resource-groups/${resourceGroupIdentifier}`
+      const path = `access-control/resource-groups/${resourceGroupIdentifier}`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
     }
   ),
   toOrganizations: withAccountId(() => `/admin/organizations`),
@@ -207,12 +234,15 @@ const routes = {
   toGenericError: withAccountId(() => '/error'),
   toCreateSecretFromYaml: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
-      if (module && orgIdentifier && projectIdentifier) {
-        return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/create-secret-from-yaml`
-      } else if (orgIdentifier) {
-        return `/admin/organizations/${orgIdentifier}/resources/create-secret-from-yaml`
-      }
-      return '/admin/resources/create-secret-from-yaml'
+      const path = `resources/create-secret-from-yaml`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
     }
   ),
   /********************************************************************************************************************/

@@ -9,7 +9,8 @@ import {
   projectPathProps,
   resourceGroupPathProps,
   rolePathProps,
-  userGroupPathProps
+  userGroupPathProps,
+  userPathProps
 } from '@common/utils/routeUtils'
 import { MinimalLayout } from '@common/layouts'
 
@@ -42,6 +43,7 @@ import UsersPage from '@rbac/pages/Users/UsersPage'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { String } from 'framework/strings'
 import UserGroupDetails from '@rbac/pages/UserGroupDetails/UserGroupDetails'
+import UserDetails from '@rbac/pages/UserDetails/UserDetails'
 
 const AccountSettingsSideNavProps: SidebarContext = {
   navComponent: AccountSettingsSideNav,
@@ -183,6 +185,14 @@ export default (
       <AccessControlPage>
         <UsersPage />
       </AccessControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={ProjectDetailsSideNavProps}
+      path={[routes.toUserDetails({ ...projectPathProps, ...userPathProps })]}
+      exact
+    >
+      <UserDetails />
     </RouteWithLayout>
 
     <RouteWithLayout
