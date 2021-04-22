@@ -196,6 +196,10 @@ const commonPlugins = [
     // available options are documented at https://github.com/Microsoft/monaco-editor-webpack-plugin#options
     languages: ['yaml', 'shell', 'powershell']
   }),
+  new CircularDependencyPlugin({
+    exclude: /node_modules/,
+    failOnError: true
+  }),
   new GenerateStringTypesPlugin()
 ]
 
@@ -203,11 +207,7 @@ const devOnlyPlugins = [
   new webpack.WatchIgnorePlugin({
     paths: [/node_modules/, /\.d\.ts$/, /stringTypes\.ts/]
   }),
-  new ForkTsCheckerWebpackPlugin(),
-  new CircularDependencyPlugin({
-    exclude: /node_modules/,
-    failOnError: true
-  })
+  new ForkTsCheckerWebpackPlugin()
   // new BundleAnalyzerPlugin()
 ]
 
