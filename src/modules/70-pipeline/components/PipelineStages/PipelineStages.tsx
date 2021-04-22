@@ -4,7 +4,7 @@ import { AddStageView } from './views/AddStageView'
 import type { PipelineStageProps } from './PipelineStage'
 
 export interface PipelineStagesProps<T = {}> {
-  children: Array<React.ReactElement<PipelineStageProps>>
+  children: Array<React.ReactElement<PipelineStageProps> | null>
   minimal?: boolean
   stageType?: string
   isParallel?: boolean

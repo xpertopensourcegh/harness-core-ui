@@ -6,7 +6,7 @@ import cx from 'classnames'
 
 import { String } from 'framework/strings'
 import type { StageSelectOption } from '@pipeline/components/PipelineStudio/CommonUtils/CommonUtils'
-import { getIconFromStageModule } from '@pipeline/utils/executionUtils'
+import { getIconFromStageModule, getIconStylesFromCollection } from '@pipeline/utils/executionUtils'
 import css from './StageSelection.module.scss'
 
 const Select = BPSelect.ofType<StageSelectOption>()
@@ -44,6 +44,7 @@ export function StageSelection(props: StageSelectionProps): React.ReactElement {
                 <Icon
                   className={css.icon}
                   name={getIconFromStageModule(item.type.toLowerCase(), item.node?.nodeType)}
+                  style={getIconStylesFromCollection(item.node.nodeType)}
                 />
                 <span>{item.label}</span>
               </React.Fragment>
@@ -64,6 +65,7 @@ export function StageSelection(props: StageSelectionProps): React.ReactElement {
             <Icon
               className={css.icon}
               name={getIconFromStageModule(selectedStage.type.toLowerCase(), selectedStage.node.nodeType)}
+              style={getIconStylesFromCollection(selectedStage.node.nodeType)}
             />
             <span>{selectedStage.label}</span>
           </React.Fragment>

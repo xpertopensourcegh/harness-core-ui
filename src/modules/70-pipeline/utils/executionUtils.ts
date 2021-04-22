@@ -1,3 +1,4 @@
+import type * as React from 'react'
 import type { IconName } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 
@@ -298,6 +299,18 @@ export function getIconFromStageModule(stageModule: 'cd' | 'ci' | string | undef
     default:
       return 'pipeline-deploy'
   }
+}
+
+export function getIconStylesFromCollection(stageType?: string): React.CSSProperties {
+  if (stageType) {
+    const iconColor = stagesCollection.getStageAttributes(stageType, key => key)?.iconColor
+
+    if (iconColor) {
+      return { color: iconColor }
+    }
+  }
+
+  return {}
 }
 
 const addDependencyToArray = (service: ServiceDependency, arr: ExecutionPipelineNode<ExecutionNode>[]): void => {

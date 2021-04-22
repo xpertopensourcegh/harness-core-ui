@@ -2,8 +2,8 @@ import React from 'react'
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
 import { Icon, Text, Button } from '@wings-software/uicore'
 import cx from 'classnames'
+import { DefaultPortLabel } from '@pipeline/components/Diagram'
 import type { DiamondNodeModel } from './DiamondNodeModel'
-import { DefaultPortLabel } from '../../port/DefaultPortLabelWidget'
 import type { DefaultPortModel } from '../../port/DefaultPortModel'
 import { Event } from '../../Constants'
 import type { DefaultNodeModel } from '../DefaultNodeModel'
@@ -57,7 +57,7 @@ export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
         className={cx(cssDefault.defaultCard, css.diamond, { [cssDefault.selected]: props.node.isSelected() })}
         style={{ width: options.width, height: options.height, ...options.customNodeStyle }}
       >
-        {options.icon && <Icon size={28} name={options.icon} />}
+        {options.icon && <Icon size={28} name={options.icon} style={options.iconStyle} />}
         {options.isInComplete && <Icon className={css.inComplete} size={12} name={'warning-sign'} color="orange500" />}
         {props.node.getInPorts().map(port => generatePort(port, props))}
         {props.node.getOutPorts().map(port => generatePort(port, props))}
