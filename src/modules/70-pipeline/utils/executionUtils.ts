@@ -3,7 +3,12 @@ import type { IconName } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
-import { isExecutionSuccess, isExecutionCompletedWithBadState, isExecutionRunning } from '@pipeline/utils/statusHelpers'
+import {
+  isExecutionSuccess,
+  isExecutionCompletedWithBadState,
+  isExecutionRunning,
+  isExecutionWaiting
+} from '@pipeline/utils/statusHelpers'
 import type { GraphLayoutNode, PipelineExecutionSummary, ExecutionGraph, ExecutionNode } from 'services/pipeline-ng'
 import {
   ExecutionPipelineNode,
@@ -174,7 +179,7 @@ export const processLayoutNodeMap = (executionSummary?: PipelineExecutionSummary
   return response
 }
 
-export function getRunningStageForPipeline(
+export function getActiveStageForPipeline(
   executionSummary?: PipelineExecutionSummary,
   pipelineExecutionStatus?: ExecutionStatus
 ): string | null {
@@ -195,18 +200,19 @@ export function getRunningStageForPipeline(
   }
 
   // for errored pipeline, select the errored stage
-  if (isExecutionCompletedWithBadState(pipelineExecutionStatus)) {
+  // for waiting status, select the waiting state
+  if (isExecutionCompletedWithBadState(pipelineExecutionStatus) || isExecutionWaiting(pipelineExecutionStatus)) {
     for (let i = stages.length - 1; i >= 0; i--) {
       const stage = stages[i]
 
       if (stage.stage) {
-        if (isExecutionCompletedWithBadState(stage.stage.status)) {
+        if (isExecutionCompletedWithBadState(stage.stage.status) || isExecutionWaiting(stage.stage.status)) {
           return stage.stage.nodeUuid || ''
-        } else {
-          continue
         }
       } else if (stage.parallel && Array.isArray(stage.parallel)) {
-        const erroredStage = stage.parallel.filter(item => isExecutionCompletedWithBadState(item.status))[0]
+        const erroredStage = stage.parallel.find(
+          item => isExecutionCompletedWithBadState(item.status) || isExecutionWaiting(item.status)
+        )
 
         /* istanbul ignore else */
         if (erroredStage) {
@@ -224,8 +230,6 @@ export function getRunningStageForPipeline(
     if (stage.stage) {
       if (isExecutionRunning(stage.stage.status)) {
         return stage.stage.nodeUuid || ''
-      } else {
-        continue
       }
       // for parallel stage
     } else if (stage.parallel && Array.isArray(stage.parallel)) {
@@ -241,7 +245,7 @@ export function getRunningStageForPipeline(
   return null
 }
 
-export function getRunningStep(graph: ExecutionGraph, nodeId?: string): string | null {
+export function getActiveStep(graph: ExecutionGraph, nodeId?: string): string | null {
   const { rootNodeId, nodeMap, nodeAdjacencyListMap } = graph
 
   if (!nodeMap || !nodeAdjacencyListMap) {
@@ -264,19 +268,24 @@ export function getRunningStep(graph: ExecutionGraph, nodeId?: string): string |
 
     for (let i = 0; i < n; i++) {
       const childNodeId = nodeAdjacencyList.children[i]
-      const step = getRunningStep(graph, childNodeId)
+      const step = getActiveStep(graph, childNodeId)
 
       if (typeof step === 'string') return step
     }
   }
 
   if (nodeAdjacencyList.nextIds && nodeAdjacencyList.nextIds[0]) {
-    const step = getRunningStep(graph, nodeAdjacencyList.nextIds[0])
+    const step = getActiveStep(graph, nodeAdjacencyList.nextIds[0])
 
     if (typeof step === 'string') return step
   }
 
-  if (isExecutionRunning(node.status) && !NonSelectableNodes.includes(node.stepType as NodeType)) {
+  if (
+    (isExecutionRunning(node.status) ||
+      isExecutionWaiting(node.status) ||
+      isExecutionCompletedWithBadState(node.status)) &&
+    !NonSelectableNodes.includes(node.stepType as NodeType)
+  ) {
     return currentNodeId
   }
 

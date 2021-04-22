@@ -7,22 +7,22 @@ jest.mock('@pipeline/components/PipelineSteps/PipelineStepFactory', () => ({}))
 describe('ExecutionUtils tests', () => {
   describe('getRunningStep tests', () => {
     test('gives current running step from stage graph', () => {
-      const result = utils.getRunningStep((stageGraph as unknown) as any)
+      const result = utils.getActiveStep((stageGraph as unknown) as any)
 
       expect(result).toBe('WOLUCzOCQDWyjJyOLN_9TQ')
     })
 
     test('handles empty objects', () => {
-      expect(utils.getRunningStep({})).toBe(null)
-      expect(utils.getRunningStep({ nodeMap: {} })).toBe(null)
-      expect(utils.getRunningStep({ nodeAdjacencyListMap: {} })).toBe(null)
-      expect(utils.getRunningStep({ nodeMap: {}, nodeAdjacencyListMap: {} })).toBe(null)
+      expect(utils.getActiveStep({})).toBe(null)
+      expect(utils.getActiveStep({ nodeMap: {} })).toBe(null)
+      expect(utils.getActiveStep({ nodeAdjacencyListMap: {} })).toBe(null)
+      expect(utils.getActiveStep({ nodeMap: {}, nodeAdjacencyListMap: {} })).toBe(null)
     })
   })
 
   describe('getRunningStageForPipeline tests', () => {
     test('gives current running stage', () => {
-      const stage = utils.getRunningStageForPipeline(
+      const stage = utils.getActiveStageForPipeline(
         {
           layoutNodeMap: {
             stage1: {
@@ -56,7 +56,7 @@ describe('ExecutionUtils tests', () => {
     })
 
     test('gives current running stage - parallel', () => {
-      const stage = utils.getRunningStageForPipeline(
+      const stage = utils.getActiveStageForPipeline(
         {
           layoutNodeMap: {
             stage1: {
@@ -104,7 +104,7 @@ describe('ExecutionUtils tests', () => {
     })
 
     test('handles empty objects', () => {
-      const stage = utils.getRunningStageForPipeline({
+      const stage = utils.getActiveStageForPipeline({
         layoutNodeMap: {}
       })
 
@@ -112,7 +112,7 @@ describe('ExecutionUtils tests', () => {
     })
 
     test('gives correct stage for completed process', () => {
-      const stage = utils.getRunningStageForPipeline(
+      const stage = utils.getActiveStageForPipeline(
         {
           layoutNodeMap: {
             stage1: {
@@ -146,7 +146,7 @@ describe('ExecutionUtils tests', () => {
     })
 
     test('gives correct stage for completed process - parallel', () => {
-      const stage = utils.getRunningStageForPipeline(
+      const stage = utils.getActiveStageForPipeline(
         {
           layoutNodeMap: {
             stage1: {
@@ -187,7 +187,7 @@ describe('ExecutionUtils tests', () => {
     })
 
     test('gives correct stage for errored process', () => {
-      const stage = utils.getRunningStageForPipeline(
+      const stage = utils.getActiveStageForPipeline(
         {
           layoutNodeMap: {
             stage1: {
@@ -221,7 +221,7 @@ describe('ExecutionUtils tests', () => {
     })
 
     test('gives correct stage for errored process - parallel', () => {
-      const stage = utils.getRunningStageForPipeline(
+      const stage = utils.getActiveStageForPipeline(
         {
           layoutNodeMap: {
             stage1: {

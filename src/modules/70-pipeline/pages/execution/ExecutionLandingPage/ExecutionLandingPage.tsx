@@ -17,15 +17,14 @@ import ExecutionActions from '@pipeline/components/ExecutionActions/ExecutionAct
 import { isExecutionComplete } from '@pipeline/utils/statusHelpers'
 import {
   getPipelineStagesMap,
-  ExecutionPathParams,
-  getRunningStageForPipeline,
-  getRunningStep,
+  getActiveStageForPipeline,
+  getActiveStep,
   LITE_ENGINE_TASK
 } from '@pipeline/utils/executionUtils'
 import { useQueryParams, useDeepCompareEffect } from '@common/hooks'
 import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
 
-import type { PipelineType } from '@common/interfaces/RouteInterfaces'
+import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
 import { PageError } from '@common/components/Page/PageError'
 import { usePermission } from '@rbac/hooks/usePermission'
@@ -65,7 +64,7 @@ const addServiceDependenciesFromLiteTaskEngine = (nodeMap: { [key: string]: any 
 
 export default function ExecutionLandingPage(props: React.PropsWithChildren<unknown>): React.ReactElement {
   const { orgIdentifier, projectIdentifier, executionIdentifier, accountId, pipelineIdentifier, module } = useParams<
-    PipelineType<ExecutionPathParams>
+    PipelineType<ExecutionPathProps>
   >()
   const [allNodeMap, setAllNodeMap] = React.useState({})
 
@@ -142,12 +141,12 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
       return
     }
 
-    const runningStage = getRunningStageForPipeline(
+    const runningStage = getActiveStageForPipeline(
       data.data.pipelineExecutionSummary,
       data.data?.pipelineExecutionSummary?.status
     )
 
-    const runningStep = getRunningStep(data.data.executionGraph || {})
+    const runningStep = getActiveStep(data.data.executionGraph || {})
 
     if (runningStage) {
       setAutoSelectedStageId(runningStage)

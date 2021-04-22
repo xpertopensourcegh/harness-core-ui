@@ -8,8 +8,8 @@ import { ResponsePipelineExecutionDetail, useGetExecutionDetail } from 'services
 
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
-import { ExecutionPathParams, getRunningStageForPipeline, getRunningStep } from '@pipeline/utils/executionUtils'
-import type { PipelineType } from '@common/interfaces/RouteInterfaces'
+import { getActiveStageForPipeline, getActiveStep } from '@pipeline/utils/executionUtils'
+import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import ExecutionLandingPage, { POLL_INTERVAL } from '../ExecutionLandingPage'
 import mockData from './mock.json'
 
@@ -50,7 +50,7 @@ fetchMock.mockResolvedValue({
 })
 
 describe('<ExecutionLandingPage /> tests', () => {
-  const pathParams: PipelineType<ExecutionPathParams> = {
+  const pathParams: PipelineType<ExecutionPathProps> = {
     accountId: 'TEST_ACCOUNT_ID',
     orgIdentifier: 'TEST_ORG',
     projectIdentifier: 'TEST_PROJECT',
@@ -184,8 +184,8 @@ describe('<ExecutionLandingPage /> tests', () => {
       </TestWrapper>
     )
     const testData = (mockData as unknown) as ResponsePipelineExecutionDetail
-    const stage = getRunningStageForPipeline(testData.data?.pipelineExecutionSummary)
-    const runningStep = getRunningStep(testData.data?.executionGraph || {})
+    const stage = getActiveStageForPipeline(testData.data?.pipelineExecutionSummary)
+    const runningStep = getActiveStep(testData.data?.executionGraph || {})
     jest.runOnlyPendingTimers()
 
     expect(getByTestId('autoSelectedStageId').innerHTML).toBe(stage)
