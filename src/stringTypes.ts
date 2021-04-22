@@ -12,9 +12,12 @@ export interface StringsMap {
   'common.approve': string
   'common.authSettings.SAMLProvider': string
   'common.authSettings.accountOrOAuthLogin': string
+  'common.authSettings.accountOrOAuthLoginEnabledSuccessfully': string
   'common.authSettings.atLeastNChars': string
   'common.authSettings.authorizationEnabledFor': string
   'common.authSettings.authorizationNotEnabled': string
+  'common.authSettings.changeLoginToHarnessAccountOrOauth': string
+  'common.authSettings.changeLoginToHarnessAccountOrOauthDescription': string
   'common.authSettings.confirmDisableLockoutPolicy': string
   'common.authSettings.confirmDisableOAuthLogin': string
   'common.authSettings.confirmDisablePasswordExpiration': string
@@ -22,12 +25,16 @@ export interface StringsMap {
   'common.authSettings.confirmDisableUserPasswordLogin': string
   'common.authSettings.daysBeforePasswordExpires': string
   'common.authSettings.daysBeforeUserNotified': string
+  'common.authSettings.deleteSamlProvider': string
+  'common.authSettings.deleteSamlProviderDescription': string
   'common.authSettings.disableLockoutPolicy': string
   'common.authSettings.disableOAuthLogin': string
   'common.authSettings.disablePasswordExpiration': string
   'common.authSettings.disablePasswordStrength': string
   'common.authSettings.disableUserPasswordLogin': string
   'common.authSettings.enableAtLeastOneSSoBeforeDisablingUserPasswordLogin': string
+  'common.authSettings.enableSamlProvider': string
+  'common.authSettings.enableSamlProviderDescription': string
   'common.authSettings.enforceLockoutPolicy': string
   'common.authSettings.enforcePasswordStrength': string
   'common.authSettings.enforceTwoFA': string
@@ -57,8 +64,13 @@ export interface StringsMap {
   'common.authSettings.passwordStrengthEnabled': string
   'common.authSettings.periodicallyExpirePassword': string
   'common.authSettings.periodicallyExpirePasswordNote': string
+  'common.authSettings.plusSAMLProvider': string
   'common.authSettings.publicOAuthLoginDisabled': string
   'common.authSettings.publicOAuthLoginEnabled': string
+  'common.authSettings.samlLoginEnabled': string
+  'common.authSettings.samlProviderDeleted': string
+  'common.authSettings.samlTestFailed': string
+  'common.authSettings.samlTestSuccessful': string
   'common.authSettings.selectUserGroup': string
   'common.authSettings.somethingWentWrong': string
   'common.authSettings.useHarnessUsernameAndPassword': string
@@ -117,10 +129,12 @@ export interface StringsMap {
   'common.input': string
   'common.jexlExpression': string
   'common.letsGetYouStarted': string
+  'common.link': string
   'common.logs.delegateSelectionLogs': string
   'common.logs.noLogsText': string
   'common.member': string
   'common.namespace': string
+  'common.note': string
   'common.options': string
   'common.orgViewer': string
   'common.other': string
@@ -177,6 +191,8 @@ export interface StringsMap {
   'common.samlProvider.groupAttributeName': string
   'common.samlProvider.okta': string
   'common.samlProvider.oneLogin': string
+  'common.samlProvider.samlProviderAddedSuccessfully': string
+  'common.samlProvider.samlProviderUpdatedSuccessfully': string
   'common.samlProvider.selectSAMLProvider': string
   'common.samlProvider.testingSSO': string
   'common.samlProvider.testingSSODescription': string

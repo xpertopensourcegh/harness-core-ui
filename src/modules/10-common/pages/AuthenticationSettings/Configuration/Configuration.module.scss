@@ -9,6 +9,10 @@
   }
 }
 
+.height60 {
+  height: 60px;
+}
+
 .collapseClassName {
   border-top: none !important;
   box-shadow: var(--card-box-shadow);
@@ -24,15 +28,4 @@
 
 .shadow {
   box-shadow: var(--card-box-shadow);
-}
-
-.summary {
-  padding: var(--spacing-xlarge) var(--spacing-xxlarge) !important;
-  background-color: var(--white);
-  height: 66px;
-}
-
-.details {
-  background-color: var(--white) !important;
-  padding-top: var(--spacing-none) !important;
 }

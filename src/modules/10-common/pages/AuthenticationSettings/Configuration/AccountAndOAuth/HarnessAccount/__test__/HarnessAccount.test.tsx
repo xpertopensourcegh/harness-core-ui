@@ -3,9 +3,9 @@ import { render, act, fireEvent, waitFor, queryByText } from '@testing-library/r
 import { TestWrapper, findDialogContainer } from '@common/utils/testUtils'
 import { AuthenticationMechanisms } from '@common/constants/Utils'
 import HarnessAccount from '@common/pages/AuthenticationSettings/Configuration/AccountAndOAuth/HarnessAccount/HarnessAccount'
+import routes from '@common/RouteDefinitions'
+import { accountPathProps } from '@common/utils/routeUtils'
 import { mockResponse, authSettings } from '@common/pages/AuthenticationSettings/__test__/mock'
-
-const refetchAuthSettings = jest.fn()
 
 jest.mock('services/cd-ng', () => ({
   useUpdateAuthMechanism: jest.fn().mockImplementation(() => {
@@ -15,6 +15,10 @@ jest.mock('services/cd-ng', () => ({
     return { mutate: () => Promise.resolve(mockResponse) }
   })
 }))
+
+const refetchAuthSettings = jest.fn()
+const submitUserPasswordUpdate = jest.fn()
+const updatingAuthMechanism = false
 
 const disabledUserPasswordLogin = {
   ...authSettings,
@@ -31,8 +35,16 @@ const disabledOauthLogin = {
 describe('HarnessAccount', () => {
   test('Disable login vai Username-Password', async () => {
     const { getByTestId, container } = render(
-      <TestWrapper path="/account/:accountId/admin/authentication/configuration" pathParams={{ accountId: 'testAcc' }}>
-        <HarnessAccount authSettings={authSettings} refetchAuthSettings={refetchAuthSettings} />
+      <TestWrapper
+        path={routes.toAuthenticationSettings({ ...accountPathProps })}
+        pathParams={{ accountId: 'testAcc' }}
+      >
+        <HarnessAccount
+          authSettings={authSettings}
+          refetchAuthSettings={refetchAuthSettings}
+          submitUserPasswordUpdate={submitUserPasswordUpdate}
+          updatingAuthMechanism={updatingAuthMechanism}
+        />
       </TestWrapper>
     )
 
@@ -52,15 +64,20 @@ describe('HarnessAccount', () => {
       fireEvent.click(confirmBtn!)
     })
 
-    expect(queryByText(document.body, 'common.authSettings.loginSettingsHaveBeenUpdated')).toBeTruthy()
+    expect(submitUserPasswordUpdate).toBeCalled()
   }),
     test('Enable login vai Username-Password', () => {
       const { getByTestId } = render(
         <TestWrapper
-          path="/account/:accountId/admin/authentication/configuration"
+          path={routes.toAuthenticationSettings({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
         >
-          <HarnessAccount authSettings={disabledUserPasswordLogin} refetchAuthSettings={refetchAuthSettings} />
+          <HarnessAccount
+            authSettings={disabledUserPasswordLogin}
+            refetchAuthSettings={refetchAuthSettings}
+            submitUserPasswordUpdate={submitUserPasswordUpdate}
+            updatingAuthMechanism={updatingAuthMechanism}
+          />
         </TestWrapper>
       )
 
@@ -69,15 +86,20 @@ describe('HarnessAccount', () => {
         fireEvent.click(toggleUserPasswordLogin)
       })
 
-      expect(queryByText(document.body, 'common.authSettings.loginSettingsHaveBeenUpdated')).toBeTruthy()
+      expect(submitUserPasswordUpdate).toBeCalled()
     }),
     test('Enable at least one SSO before disabling login vai Username-Password', () => {
       const { getByTestId } = render(
         <TestWrapper
-          path="/account/:accountId/admin/authentication/configuration"
+          path={routes.toAuthenticationSettings({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
         >
-          <HarnessAccount authSettings={disabledOauthLogin} refetchAuthSettings={refetchAuthSettings} />
+          <HarnessAccount
+            authSettings={disabledOauthLogin}
+            refetchAuthSettings={refetchAuthSettings}
+            submitUserPasswordUpdate={submitUserPasswordUpdate}
+            updatingAuthMechanism={updatingAuthMechanism}
+          />
         </TestWrapper>
       )
 

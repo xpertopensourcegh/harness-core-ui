@@ -650,8 +650,8 @@ cdDashboard:
   creatPipeline: + Create a pipeline
 hours: hours
 authenticationSettings:
-  allowUsersWIthEmails: 'Only allow users with the following email domains:'
   allowLoginFromTheseDomains: Allow login from these domains
+  allowUsersWIthEmails: 'Only allow users with the following email domains:'
   domainNameRequired: At least one domain name is required
 gitFetchTypes:
   fromBranch: 'Latest from Branch'

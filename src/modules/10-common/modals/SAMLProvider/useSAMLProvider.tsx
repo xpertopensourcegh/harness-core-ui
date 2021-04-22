@@ -2,32 +2,41 @@ import React from 'react'
 import cx from 'classnames'
 import { useModalHook } from '@wings-software/uicore'
 import { Dialog, Classes } from '@blueprintjs/core'
+import type { SamlSettings } from 'services/cd-ng'
 import SAMLProviderForm from './views/SAMLProviderForm'
 import css from './useSAMLProvider.module.scss'
 
-export interface SAMLProvider {
-  name: string
-  authorization: boolean
-  groupAttributeName?: string
+interface Props {
+  onSuccess: () => void
 }
 
 interface UseSAMLProviderReturn {
-  openSAMlProvider: (SAMLProvider?: SAMLProvider) => void
+  openSAMlProvider: (_samlProvider?: SamlSettings) => void
   closeSAMLProvider: () => void
 }
 
-export const useSAMLProvider = (): UseSAMLProviderReturn => {
-  const [samlProvider, setSamlProvider] = React.useState<SAMLProvider>()
-  const [showModal, hideModal] = useModalHook(() => (
-    <Dialog isOpen title="" onClose={hideModal} className={cx(Classes.DIALOG, css.dialog)}>
-      <SAMLProviderForm hideModal={hideModal} samlProvider={samlProvider} />
-    </Dialog>
-  ))
+export const useSAMLProviderModal = ({ onSuccess }: Props): UseSAMLProviderReturn => {
+  const [samlProvider, setSamlProvider] = React.useState<SamlSettings>()
+  const [showModal, hideModal] = useModalHook(
+    () => (
+      <Dialog isOpen title="" onClose={hideModal} className={cx(Classes.DIALOG, css.dialog)}>
+        <SAMLProviderForm
+          samlProvider={samlProvider}
+          onSubmit={() => {
+            onSuccess()
+            hideModal()
+          }}
+          onCancel={() => {
+            hideModal()
+          }}
+        />
+      </Dialog>
+    ),
+    [samlProvider]
+  )
 
-  const open = (_samlProvider?: SAMLProvider): void => {
-    if (_samlProvider) {
-      setSamlProvider(_samlProvider)
-    }
+  const open = (_samlProvider?: SamlSettings): void => {
+    setSamlProvider(_samlProvider)
     showModal()
   }
 

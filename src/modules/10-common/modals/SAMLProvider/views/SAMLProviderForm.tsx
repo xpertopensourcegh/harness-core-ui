@@ -1,4 +1,5 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 import * as yup from 'yup'
 import {
   Layout,
@@ -17,15 +18,26 @@ import {
   Checkbox
 } from '@wings-software/uicore'
 import { InputGroup } from '@blueprintjs/core'
-import CopyToClipboard from '@common/components/CopyToClipBoard/CopyToClipBoard'
+import copy from 'copy-to-clipboard'
 import { useStrings } from 'framework/strings'
+import { useToaster } from '@common/components'
+import type { SamlSettings } from 'services/cd-ng'
+import { useUploadSamlMetaData, useUpdateSamlMetaData } from 'services/cd-ng'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { AuthenticationMechanisms } from '@common/constants/Utils'
 import type { StringsMap } from 'stringTypes'
-import type { SAMLProvider } from '../useSAMLProvider'
 import css from '../useSAMLProvider.module.scss'
 
 interface Props {
-  hideModal: () => void
-  samlProvider?: SAMLProvider
+  onSubmit?: () => void
+  onCancel: () => void
+  samlProvider?: SamlSettings
+}
+
+interface FormValues {
+  displayName: string
+  authorizationEnabled: boolean
+  groupMembershipAttr: string
 }
 
 enum Providers {
@@ -54,22 +66,75 @@ const SAMLProviderTypes: SAMLProviderType[] = [
   {
     type: Providers.ONE_LOGIN,
     name: 'common.samlProvider.oneLogin',
-    icon: 'service-azure'
+    icon: 'main-more'
   },
   {
     type: Providers.OTHER,
     name: 'common.other',
-    icon: 'service-azure'
+    icon: 'main-more'
   }
 ]
 
-const SAMLProviderForm: React.FC<Props> = ({ hideModal, samlProvider }) => {
+const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider }) => {
   const { getString } = useStrings()
+  const { showSuccess, showError } = useToaster()
+  const { accountId } = useParams<AccountPathProps>()
   const [selected, setSelected] = React.useState<SAMLProviderType>()
 
-  const handleSubmit = (): void => {
-    // Submit logic
+  const { mutate: uploadSamlSettings, loading: updatingSamlSettings } = useUploadSamlMetaData({
+    queryParams: {
+      accountId
+    }
+  })
+
+  const { mutate: updateSamlSettings } = useUpdateSamlMetaData({
+    queryParams: {
+      accountId
+    }
+  })
+
+  const createFormData = (data: FormValues): FormData => {
+    const formData = new FormData()
+    formData.set('displayName', data.displayName)
+    formData.set('authorizationEnabled', JSON.stringify(data.authorizationEnabled))
+    formData.set('groupMembershipAttr', data.groupMembershipAttr)
+    formData.set('ssoSetupType', AuthenticationMechanisms.SAML)
+
+    const file = (data as any)?.files?.[0]
+    file && formData.set('file', file)
+
+    return formData
   }
+
+  const handleSubmit = async (values: FormValues): Promise<void> => {
+    try {
+      let response
+
+      if (samlProvider) {
+        response = await updateSamlSettings(createFormData(values) as any)
+      } else {
+        response = await uploadSamlSettings(createFormData(values) as any)
+      }
+
+      /* istanbul ignore else */ if (response) {
+        showSuccess(
+          getString(
+            samlProvider
+              ? 'common.samlProvider.samlProviderUpdatedSuccessfully'
+              : 'common.samlProvider.samlProviderAddedSuccessfully'
+          ),
+          5000
+        )
+        onSubmit?.()
+      }
+    } catch (e) {
+      /* istanbul ignore next */ showError(e.data?.message || e.message, 5000)
+    }
+  }
+
+  const filesValidation = samlProvider
+    ? yup.array()
+    : yup.array().required(getString('common.validation.fileIsRequired'))
 
   return (
     <Layout.Vertical padding={{ left: 'huge', right: 'huge' }}>
@@ -82,24 +147,26 @@ const SAMLProviderForm: React.FC<Props> = ({ hideModal, samlProvider }) => {
         <Layout.Vertical width={520} padding={{ right: 'xxxlarge' }}>
           <Formik
             initialValues={{
-              name: samlProvider?.name || '',
-              authorization: !!samlProvider?.authorization,
-              groupAttributeName: samlProvider?.groupAttributeName || ''
+              displayName: samlProvider?.displayName || /* istanbul ignore next */ '',
+              authorizationEnabled: !!samlProvider?.authorizationEnabled,
+              groupMembershipAttr: samlProvider?.groupMembershipAttr || /* istanbul ignore next */ ''
             }}
             validationSchema={yup.object().shape({
-              name: yup.string().trim().required(getString('common.validation.nameIsRequired')),
-              files: yup.array().required(getString('common.validation.fileIsRequired')),
-              groupAttributeName: yup.string().when('authorization', {
+              displayName: yup.string().trim().required(getString('common.validation.nameIsRequired')),
+              files: filesValidation,
+              groupMembershipAttr: yup.string().when('authorizationEnabled', {
                 is: val => val,
                 then: yup.string().trim().required(getString('common.validation.groupAttributeIsRequired'))
               })
             })}
-            onSubmit={handleSubmit}
+            onSubmit={values => {
+              handleSubmit(values)
+            }}
           >
             {({ values, setFieldValue }) => (
               <FormikForm>
                 <Container width={474}>
-                  <FormInput.Text name="name" label={getString('name')} />
+                  <FormInput.Text name="displayName" label={getString('name')} />
                 </Container>
                 {!samlProvider && (
                   <React.Fragment>
@@ -110,7 +177,7 @@ const SAMLProviderForm: React.FC<Props> = ({ hideModal, samlProvider }) => {
                         cornerSelected={true}
                         className={css.cardRow}
                         cardClassName={css.card}
-                        renderItem={(item, selectedItem) => (
+                        renderItem={item => (
                           <CardBody.Icon icon={item.icon} iconSize={25}>
                             <Text
                               font={{
@@ -118,7 +185,7 @@ const SAMLProviderForm: React.FC<Props> = ({ hideModal, samlProvider }) => {
                                 align: 'center'
                               }}
                               flex={{ justifyContent: 'center' }}
-                              color={selectedItem ? Color.GREY_900 : Color.GREY_350}
+                              color={Color.GREY_900}
                             >
                               {getString(item.name)}
                             </Text>
@@ -148,13 +215,19 @@ const SAMLProviderForm: React.FC<Props> = ({ hideModal, samlProvider }) => {
                     </Text>
                     <InputGroup
                       name="endPoint"
-                      value={`https://${window.location.hostname}/gateway/api/users/saml-login?acc`}
+                      value={`https://${window.location.hostname}/gateway/api/users/saml-login?acc=${accountId}`}
                       rightElement={
-                        <Container padding="xsmall">
-                          <CopyToClipboard
-                            content={`https://${window.location.hostname}/gateway/api/users/saml-login?acc`}
-                          />
-                        </Container>
+                        <Button
+                          icon="duplicate"
+                          inline
+                          minimal
+                          className={css.copyToClipboardButton}
+                          onClick={() => {
+                            copy(`https://${window.location.hostname}/gateway/api/users/saml-login?acc=${accountId}`)
+                              ? showSuccess(getString('clipboardCopySuccess'))
+                              : showError(getString('clipboardCopyFail'))
+                          }}
+                        />
                       }
                       disabled
                     />
@@ -176,14 +249,14 @@ const SAMLProviderForm: React.FC<Props> = ({ hideModal, samlProvider }) => {
                           label={getString('common.samlProvider.enableAuthorization')}
                           font={{ weight: 'semi-bold' }}
                           color={Color.GREY_600}
-                          checked={values.authorization}
-                          onChange={e => setFieldValue('authorization', e.currentTarget.checked)}
+                          checked={values.authorizationEnabled}
+                          onChange={e => setFieldValue('authorizationEnabled', e.currentTarget.checked)}
                         />
                       </Container>
-                      {values.authorization && (
+                      {values.authorizationEnabled && (
                         <Container width={300} margin={{ top: 'large' }}>
                           <FormInput.Text
-                            name="groupAttributeName"
+                            name="groupMembershipAttr"
                             label={getString('common.samlProvider.groupAttributeName')}
                           />
                         </Container>
@@ -196,9 +269,9 @@ const SAMLProviderForm: React.FC<Props> = ({ hideModal, samlProvider }) => {
                     intent="primary"
                     text={getString(samlProvider ? 'save' : 'add')}
                     type="submit"
-                    disabled={!(selected || samlProvider)}
+                    disabled={updatingSamlSettings}
                   />
-                  <Button text={getString('cancel')} onClick={hideModal} />
+                  <Button text={getString('cancel')} onClick={onCancel} />
                 </Layout.Horizontal>
               </FormikForm>
             )}

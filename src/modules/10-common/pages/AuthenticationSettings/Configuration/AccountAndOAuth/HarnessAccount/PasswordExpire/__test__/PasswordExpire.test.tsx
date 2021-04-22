@@ -2,9 +2,9 @@ import React from 'react'
 import { render, act, fireEvent, waitFor, queryByText, queryAllByText } from '@testing-library/react'
 import { TestWrapper, findDialogContainer } from '@common/utils/testUtils'
 import PasswordExpire from '@common/pages/AuthenticationSettings/Configuration/AccountAndOAuth/HarnessAccount/PasswordExpire/PasswordExpire'
+import routes from '@common/RouteDefinitions'
+import { accountPathProps } from '@common/utils/routeUtils'
 import { mockResponse, loginSettings } from '@common/pages/AuthenticationSettings/__test__/mock'
-
-const refetchAuthSettings = jest.fn()
 
 jest.mock('services/cd-ng', () => ({
   updateLoginSettings: jest.fn().mockImplementation(() => {
@@ -14,6 +14,8 @@ jest.mock('services/cd-ng', () => ({
     return { mutate: () => Promise.resolve(mockResponse) }
   })
 }))
+
+const refetchAuthSettings = jest.fn()
 
 const disablePasswordExpire = {
   ...loginSettings,
@@ -26,7 +28,10 @@ const disablePasswordExpire = {
 describe('PasswordExpire', () => {
   test('Disable password Expire', async () => {
     const { getByTestId, container } = render(
-      <TestWrapper path="/account/:accountId/admin/authentication/configuration" pathParams={{ accountId: 'testAcc' }}>
+      <TestWrapper
+        path={routes.toAuthenticationSettings({ ...accountPathProps })}
+        pathParams={{ accountId: 'testAcc' }}
+      >
         <PasswordExpire loginSettings={loginSettings} refetchAuthSettings={refetchAuthSettings} />
       </TestWrapper>
     )
@@ -52,7 +57,7 @@ describe('PasswordExpire', () => {
     test('Cancel enable password Expire', async () => {
       const { getByTestId } = render(
         <TestWrapper
-          path="/account/:accountId/admin/authentication/configuration"
+          path={routes.toAuthenticationSettings({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
         >
           <PasswordExpire loginSettings={disablePasswordExpire} refetchAuthSettings={refetchAuthSettings} />
@@ -78,7 +83,7 @@ describe('PasswordExpire', () => {
     test('Enable password Expire', async () => {
       const { getByTestId } = render(
         <TestWrapper
-          path="/account/:accountId/admin/authentication/configuration"
+          path={routes.toAuthenticationSettings({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
         >
           <PasswordExpire loginSettings={disablePasswordExpire} refetchAuthSettings={refetchAuthSettings} />
@@ -104,7 +109,7 @@ describe('PasswordExpire', () => {
     test('Update PasswordExpire settings', async () => {
       const { getByTestId } = render(
         <TestWrapper
-          path="/account/:accountId/admin/authentication/configuration"
+          path={routes.toAuthenticationSettings({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
         >
           <PasswordExpire loginSettings={loginSettings} refetchAuthSettings={refetchAuthSettings} />

@@ -50,7 +50,7 @@ const PasswordStrengthForm: React.FC<Props> = ({ onSubmit, onCancel, loginSettin
 
   const handleSubmit = async (values: FormValues): Promise<void> => {
     const passwordStrengthPolicy: PasswordStrengthPolicy = {
-      enabled: editing ? passwordStrengthSettings.enabled : true,
+      enabled: editing ? passwordStrengthSettings.enabled : /* istanbul ignore next */ true,
       minNumberOfCharacters: values.minNumberOfCharacters,
       minNumberOfUppercaseCharacters: Number(values.atLeastOneUppercase),
       minNumberOfLowercaseCharacters: Number(values.atLeastOneLowercase),

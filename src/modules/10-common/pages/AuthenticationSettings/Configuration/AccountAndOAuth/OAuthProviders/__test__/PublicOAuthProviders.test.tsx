@@ -3,6 +3,8 @@ import { render, act, fireEvent, waitFor, queryByText, queryAllByText } from '@t
 import { TestWrapper, findDialogContainer } from '@common/utils/testUtils'
 import { AuthenticationMechanisms } from '@common/constants/Utils'
 import PublicOAuthProviders from '@common/pages/AuthenticationSettings/Configuration/AccountAndOAuth/OAuthProviders/PublicOAuthProviders'
+import routes from '@common/RouteDefinitions'
+import { accountPathProps } from '@common/utils/routeUtils'
 import { mockResponse, authSettings } from '@common/pages/AuthenticationSettings/__test__/mock'
 
 const refetchAuthSettings = jest.fn()
@@ -39,7 +41,10 @@ const disabledOauthLogin = {
 describe('PublicOAuthProviders', () => {
   test('Disable OAuth Providers', async () => {
     const { getByTestId, container } = render(
-      <TestWrapper path="/account/:accountId/admin/authentication/configuration" pathParams={{ accountId: 'testAcc' }}>
+      <TestWrapper
+        path={routes.toAuthenticationSettings({ ...accountPathProps })}
+        pathParams={{ accountId: 'testAcc' }}
+      >
         <PublicOAuthProviders authSettings={authSettings} refetchAuthSettings={refetchAuthSettings} />
       </TestWrapper>
     )
@@ -65,7 +70,7 @@ describe('PublicOAuthProviders', () => {
     test('Enable OAuth Providers', async () => {
       const { getByTestId } = render(
         <TestWrapper
-          path="/account/:accountId/admin/authentication/configuration"
+          path={routes.toAuthenticationSettings({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
         >
           <PublicOAuthProviders authSettings={disabledOauthLogin} refetchAuthSettings={refetchAuthSettings} />
@@ -82,7 +87,7 @@ describe('PublicOAuthProviders', () => {
     test('Update OAuth settings', () => {
       const { getByTestId } = render(
         <TestWrapper
-          path="/account/:accountId/admin/authentication/configuration"
+          path={routes.toAuthenticationSettings({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
         >
           <PublicOAuthProviders authSettings={authSettings} refetchAuthSettings={refetchAuthSettings} />
@@ -104,7 +109,7 @@ describe('PublicOAuthProviders', () => {
     test('All oauth providers cannot be disabled, at least 1 is required', () => {
       const { getByTestId } = render(
         <TestWrapper
-          path="/account/:accountId/admin/authentication/configuration"
+          path={routes.toAuthenticationSettings({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
         >
           <PublicOAuthProviders authSettings={oneOauthEnabled} refetchAuthSettings={refetchAuthSettings} />

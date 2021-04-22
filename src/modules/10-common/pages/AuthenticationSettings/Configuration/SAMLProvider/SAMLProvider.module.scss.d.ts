@@ -3,6 +3,6 @@
 declare const styles: {
   readonly card: string
   readonly testButton: string
-  readonly button: string
+  readonly cardWithRadioBtn: string
 }
 export default styles

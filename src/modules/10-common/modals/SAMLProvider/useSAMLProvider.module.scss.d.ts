@@ -5,6 +5,6 @@ declare const styles: {
   readonly cardRow: string
   readonly card: string
   readonly authorizationCard: string
-  readonly copyToClipboardIcon: string
+  readonly copyToClipboardButton: string
 }
 export default styles

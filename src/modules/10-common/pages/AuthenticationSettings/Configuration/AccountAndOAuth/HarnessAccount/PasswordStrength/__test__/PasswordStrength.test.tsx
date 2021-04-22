@@ -2,9 +2,9 @@ import React from 'react'
 import { render, act, fireEvent, waitFor, queryByText, queryAllByText } from '@testing-library/react'
 import { TestWrapper, findDialogContainer } from '@common/utils/testUtils'
 import PasswordStrength from '@common/pages/AuthenticationSettings/Configuration/AccountAndOAuth/HarnessAccount/PasswordStrength/PasswordStrength'
+import routes from '@common/RouteDefinitions'
+import { accountPathProps } from '@common/utils/routeUtils'
 import { mockResponse, loginSettings } from '@common/pages/AuthenticationSettings/__test__/mock'
-
-const refetchAuthSettings = jest.fn()
 
 jest.mock('services/cd-ng', () => ({
   updateLoginSettings: jest.fn().mockImplementation(() => {
@@ -15,6 +15,8 @@ jest.mock('services/cd-ng', () => ({
   }),
   onSuccess: jest.fn()
 }))
+
+const refetchAuthSettings = jest.fn()
 
 const disablePasswordSettings = {
   ...loginSettings,
@@ -27,7 +29,10 @@ const disablePasswordSettings = {
 describe('PasswordStrength', () => {
   test('Disable password strength', async () => {
     const { getByTestId, container } = render(
-      <TestWrapper path="/account/:accountId/admin/authentication/configuration" pathParams={{ accountId: 'testAcc' }}>
+      <TestWrapper
+        path={routes.toAuthenticationSettings({ ...accountPathProps })}
+        pathParams={{ accountId: 'testAcc' }}
+      >
         <PasswordStrength loginSettings={loginSettings} refetchAuthSettings={refetchAuthSettings} />
       </TestWrapper>
     )
@@ -53,7 +58,7 @@ describe('PasswordStrength', () => {
     test('Cancel enable password strength', async () => {
       const { getByTestId } = render(
         <TestWrapper
-          path="/account/:accountId/admin/authentication/configuration"
+          path={routes.toAuthenticationSettings({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
         >
           <PasswordStrength loginSettings={disablePasswordSettings} refetchAuthSettings={refetchAuthSettings} />
@@ -79,7 +84,7 @@ describe('PasswordStrength', () => {
     test('Enable password strength', async () => {
       const { getByTestId } = render(
         <TestWrapper
-          path="/account/:accountId/admin/authentication/configuration"
+          path={routes.toAuthenticationSettings({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
         >
           <PasswordStrength loginSettings={disablePasswordSettings} refetchAuthSettings={refetchAuthSettings} />
@@ -114,7 +119,7 @@ describe('PasswordStrength', () => {
     test('Update Password settings', async () => {
       const { getByTestId } = render(
         <TestWrapper
-          path="/account/:accountId/admin/authentication/configuration"
+          path={routes.toAuthenticationSettings({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
         >
           <PasswordStrength loginSettings={loginSettings} refetchAuthSettings={refetchAuthSettings} />

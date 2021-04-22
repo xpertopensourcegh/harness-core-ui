@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import { Intent, Dialog, IconName, Classes, IDialogProps } from '@blueprintjs/core'
-import { useModalHook, Button, ButtonProps } from '@wings-software/uicore'
+import { useModalHook, Button, ButtonProps, Layout } from '@wings-software/uicore'
 
 export interface UseConfirmationDialogProps {
   titleText: string
@@ -10,6 +10,7 @@ export interface UseConfirmationDialogProps {
   buttonIntent?: ButtonProps['intent']
   confirmButtonText?: string
   onCloseDialog?: (isConfirmed: boolean) => void
+  customButtons?: React.ReactNode[]
 }
 
 export interface UseConfirmationDialogReturn {
@@ -49,19 +50,23 @@ export const useConfirmationDialog = (props: UseConfirmationDialogProps): UseCon
     intent = Intent.NONE,
     buttonIntent = Intent.PRIMARY,
     confirmButtonText,
-    onCloseDialog
+    onCloseDialog,
+    customButtons
   } = props
   const [showModal, hideModal] = useModalHook(() => {
     return (
       <Dialog title={titleText} icon={getIconForIntent(intent)} onClose={() => onClose(false)} {...confirmDialogProps}>
         <div className={Classes.DIALOG_BODY}>{contentText}</div>
         <div className={Classes.DIALOG_FOOTER}>
-          {confirmButtonText && (
-            <>
-              <Button intent={buttonIntent} text={confirmButtonText} onClick={() => onClose(true)} /> &nbsp; &nbsp;
-            </>
-          )}
-          <Button text={cancelButtonText} onClick={() => onClose(false)} />
+          <Layout.Horizontal spacing="small">
+            {confirmButtonText && (
+              <>
+                <Button intent={buttonIntent} text={confirmButtonText} onClick={() => onClose(true)} />
+              </>
+            )}
+            {customButtons}
+            <Button text={cancelButtonText} onClick={() => onClose(false)} />
+          </Layout.Horizontal>
         </div>
       </Dialog>
     )

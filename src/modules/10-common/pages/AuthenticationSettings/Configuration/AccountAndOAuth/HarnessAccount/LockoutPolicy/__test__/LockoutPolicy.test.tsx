@@ -2,9 +2,9 @@ import React from 'react'
 import { render, act, fireEvent, waitFor, queryByText, queryAllByText } from '@testing-library/react'
 import { TestWrapper, findDialogContainer } from '@common/utils/testUtils'
 import LockoutPolicy from '@common/pages/AuthenticationSettings/Configuration/AccountAndOAuth/HarnessAccount/LockoutPolicy/LockoutPolicy'
+import routes from '@common/RouteDefinitions'
+import { accountPathProps } from '@common/utils/routeUtils'
 import { mockResponse, loginSettings } from '@common/pages/AuthenticationSettings/__test__/mock'
-
-const refetchAuthSettings = jest.fn()
 
 jest.mock('services/cd-ng', () => ({
   updateLoginSettings: jest.fn().mockImplementation(() => {
@@ -14,6 +14,8 @@ jest.mock('services/cd-ng', () => ({
     return { mutate: () => Promise.resolve(mockResponse) }
   })
 }))
+
+const refetchAuthSettings = jest.fn()
 
 const disabledLockoutPolicy = {
   ...loginSettings,
@@ -26,7 +28,10 @@ const disabledLockoutPolicy = {
 describe('LockoutPolicy', () => {
   test('Disable lockout policy', async () => {
     const { getByTestId, container } = render(
-      <TestWrapper path="/account/:accountId/admin/authentication/configuration" pathParams={{ accountId: 'testAcc' }}>
+      <TestWrapper
+        path={routes.toAuthenticationSettings({ ...accountPathProps })}
+        pathParams={{ accountId: 'testAcc' }}
+      >
         <LockoutPolicy loginSettings={loginSettings} refetchAuthSettings={refetchAuthSettings} />
       </TestWrapper>
     )
@@ -52,7 +57,7 @@ describe('LockoutPolicy', () => {
     test('Cancel enable lockout policy', async () => {
       const { getByTestId } = render(
         <TestWrapper
-          path="/account/:accountId/admin/authentication/configuration"
+          path={routes.toAuthenticationSettings({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
         >
           <LockoutPolicy loginSettings={disabledLockoutPolicy} refetchAuthSettings={refetchAuthSettings} />
@@ -78,7 +83,7 @@ describe('LockoutPolicy', () => {
     test('Enable lockout policy', async () => {
       const { getByTestId } = render(
         <TestWrapper
-          path="/account/:accountId/admin/authentication/configuration"
+          path={routes.toAuthenticationSettings({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
         >
           <LockoutPolicy loginSettings={disabledLockoutPolicy} refetchAuthSettings={refetchAuthSettings} />
@@ -107,7 +112,7 @@ describe('LockoutPolicy', () => {
     test('Update LockoutPolicy', async () => {
       const { getByTestId } = render(
         <TestWrapper
-          path="/account/:accountId/admin/authentication/configuration"
+          path={routes.toAuthenticationSettings({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
         >
           <LockoutPolicy loginSettings={loginSettings} refetchAuthSettings={refetchAuthSettings} />

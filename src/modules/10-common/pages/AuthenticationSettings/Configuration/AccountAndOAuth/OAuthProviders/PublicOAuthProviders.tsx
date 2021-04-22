@@ -31,13 +31,11 @@ const PublicOAuthProviders: React.FC<Props> = ({ authSettings, refetchAuthSettin
       accountIdentifier: accountId
     }
   })
-
   const { mutate: deleteOAuthProviders, loading: deletingOauthProviders } = useRemoveOauthMechanism({
     queryParams: {
       accountIdentifier: accountId
     }
   })
-
   const { mutate: updateAuthMechanism, loading: updatingAuthMechanism } = useUpdateAuthMechanism({})
 
   const { openDialog: confirmOAuthDisable } = useConfirmationDialog({
@@ -155,7 +153,7 @@ const PublicOAuthProviders: React.FC<Props> = ({ authSettings, refetchAuthSettin
           color={Color.GREY_800}
           checked={oauthEnabled}
           onChange={toggleOAuthProviders}
-          disabled={loading}
+          disabled={loading || authSettings.authenticationMechanism === AuthenticationMechanisms.SAML}
           data-testid="toggle-oauth-providers"
         />
       }

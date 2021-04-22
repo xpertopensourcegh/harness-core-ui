@@ -1,14 +1,11 @@
 import React from 'react'
 import cx from 'classnames'
-import { useParams } from 'react-router-dom'
 import { noop } from 'lodash-es'
 import { Color, Layout, Card, Switch, Collapse } from '@wings-software/uicore'
-import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/components'
 import { AuthenticationMechanisms } from '@common/constants/Utils'
-import { useUpdateAuthMechanism } from 'services/cd-ng'
 import type { AuthenticationSettingsResponse, UsernamePasswordSettings } from 'services/cd-ng'
 import PasswordStrength from '@common/pages/AuthenticationSettings/Configuration/AccountAndOAuth/HarnessAccount/PasswordStrength/PasswordStrength'
 import PasswordExpire from '@common/pages/AuthenticationSettings/Configuration/AccountAndOAuth/HarnessAccount/PasswordExpire/PasswordExpire'
@@ -19,6 +16,11 @@ import css from '@common/pages/AuthenticationSettings/Configuration/AccountAndOA
 interface Props {
   authSettings: AuthenticationSettingsResponse
   refetchAuthSettings: () => void
+  submitUserPasswordUpdate: (
+    authenticationMechanism: keyof typeof AuthenticationMechanisms,
+    message?: string
+  ) => Promise<void>
+  updatingAuthMechanism: boolean
 }
 
 interface DetailsProps {
@@ -53,38 +55,19 @@ const Details: React.FC<DetailsProps> = ({ authSettings, refetchAuthSettings }) 
   )
 }
 
-const HarnessAccount: React.FC<Props> = ({ authSettings, refetchAuthSettings }) => {
+const HarnessAccount: React.FC<Props> = ({
+  authSettings,
+  refetchAuthSettings,
+  submitUserPasswordUpdate,
+  updatingAuthMechanism
+}) => {
   const { getString } = useStrings()
-  const { accountId } = useParams<AccountPathProps>()
-  const { showWarning, showSuccess, showError } = useToaster()
+  const { showWarning } = useToaster()
   const userPasswordAuthMechanismEnabled =
     authSettings.authenticationMechanism === AuthenticationMechanisms.USER_PASSWORD
   const oauthEnabled = !!authSettings.ngAuthSettings?.find(
     settings => settings.settingsType === AuthenticationMechanisms.OAUTH
   )
-
-  const { mutate: updateAuthMechanism, loading: updatingAuthMechanism } = useUpdateAuthMechanism({})
-
-  const submitUserPasswordUpdate = async (
-    authenticationMechanism: keyof typeof AuthenticationMechanisms,
-    message?: string
-  ): Promise<void> => {
-    try {
-      const response = await updateAuthMechanism(undefined, {
-        queryParams: {
-          accountIdentifier: accountId,
-          authenticationMechanism: authenticationMechanism
-        }
-      })
-
-      /* istanbul ignore else */ if (response) {
-        refetchAuthSettings()
-        showSuccess(message, 5000)
-      }
-    } catch (e) {
-      /* istanbul ignore next */ showError(e.data?.message || e.message, 5000)
-    }
-  }
 
   const { openDialog: confirmUserPasswordDisable } = useConfirmationDialog({
     cancelButtonText: getString('cancel'),
@@ -132,7 +115,7 @@ const HarnessAccount: React.FC<Props> = ({ authSettings, refetchAuthSettings }) 
           label={getString('common.authSettings.useHarnessUsernameAndPassword')}
           checked={userPasswordAuthMechanismEnabled}
           onChange={toggleUsernamePassword}
-          disabled={updatingAuthMechanism}
+          disabled={updatingAuthMechanism || authSettings.authenticationMechanism === AuthenticationMechanisms.SAML}
           font={{ weight: 'semi-bold', size: 'normal' }}
           color={Color.GREY_800}
           data-testid="toggle-user-password-login"

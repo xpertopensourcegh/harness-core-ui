@@ -12,7 +12,7 @@
   justify-content: center;
   box-shadow: var(--card-box-shadow);
   margin: var(--spacing-small);
-  width: 90px;
+  width: 80px;
   height: 80px;
 }
 
@@ -20,6 +20,8 @@
   width: 100%;
 }
 
-.copyToClipboardIcon {
-  cursor: pointer;
+.copyToClipboardButton {
+  &:hover {
+    background: none !important;
+  }
 }
