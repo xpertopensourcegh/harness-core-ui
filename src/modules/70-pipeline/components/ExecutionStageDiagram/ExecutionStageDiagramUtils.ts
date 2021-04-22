@@ -2,12 +2,9 @@ import { delay } from 'lodash-es'
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
 import { Color, IconName } from '@wings-software/uicore'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
-import {
-  ExecutionPipelineItemStatus,
-  ExecutionPipeline,
-  ExecutionPipelineItem,
-  ExecutionPipelineNode
-} from './ExecutionPipelineModel'
+import type { CSSProperties } from 'react'
+import { ExecutionStatusEnum, ExecutionStatus } from '@pipeline/utils/statusHelpers'
+import type { ExecutionPipeline, ExecutionPipelineItem, ExecutionPipelineNode } from './ExecutionPipelineModel'
 import * as Diagram from '../Diagram'
 import type { DefaultNodeModel } from '../Diagram'
 import { ExecutionPipelineNodeType } from './ExecutionPipelineModel'
@@ -83,7 +80,7 @@ export const calculateGroupHeaderDepth = <T>(items: Array<ExecutionPipelineNode<
   return maxNum
 }
 
-export const getNodeStyles = (isSelected: boolean, status: ExecutionPipelineItemStatus): React.CSSProperties => {
+export const getNodeStyles = (isSelected: boolean, status: ExecutionStatus): React.CSSProperties => {
   const style = {} as React.CSSProperties
 
   style.borderColor = 'var(--execution-pipeline-color-grey)'
@@ -92,35 +89,32 @@ export const getNodeStyles = (isSelected: boolean, status: ExecutionPipelineItem
 
   /* istanbul ignore else */ if (status) {
     switch (status) {
-      case ExecutionPipelineItemStatus.SUCCESS:
-      case ExecutionPipelineItemStatus.SUCCEEDED:
+      case ExecutionStatusEnum.Success:
         style.borderColor = 'var(--execution-pipeline-color-blue)'
         style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-blue)' : 'var(--white)'
         break
-      case ExecutionPipelineItemStatus.RUNNING:
+      case ExecutionStatusEnum.Running:
         style.borderColor = 'var(--execution-pipeline-color-blue)'
         style.backgroundColor = isSelected ? 'var(--blue-600)' : 'var(--white)'
         break
-      case ExecutionPipelineItemStatus.PAUSED:
-      case ExecutionPipelineItemStatus.ROLLBACK:
+      case ExecutionStatusEnum.Paused:
         style.borderColor = 'var(--execution-pipeline-color-orange)'
         style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-orange)' : 'var(--white)'
         break
-      case ExecutionPipelineItemStatus.WAITING:
+      case ExecutionStatusEnum.Waiting:
         style.backgroundColor = isSelected
           ? 'var(--execution-pipeline-color-blue)'
           : 'var(--execution-pipeline-color-orange)'
         break
-      case ExecutionPipelineItemStatus.NOT_STARTED:
+      case ExecutionStatusEnum.NotStarted:
         style.borderColor = 'var(--execution-pipeline-color-dark-grey)'
         style.backgroundColor = 'var(--white)'
         break
-      case ExecutionPipelineItemStatus.ABORTED:
+      case ExecutionStatusEnum.Aborted:
         style.borderColor = 'var(--execution-pipeline-color-dark-grey2)'
         style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-dark-grey2)' : 'var(--white)'
         break
-      case ExecutionPipelineItemStatus.ERROR:
-      case ExecutionPipelineItemStatus.FAILED:
+      case ExecutionStatusEnum.Failed:
         style.borderColor = 'var(--execution-pipeline-color-dark-red)'
         style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-red)' : 'var(--white)'
         break
@@ -132,12 +126,12 @@ export const getNodeStyles = (isSelected: boolean, status: ExecutionPipelineItem
   return style
 }
 
-export const getArrowsColor = (status: ExecutionPipelineItemStatus, isParallel = false, hideLines = false): string => {
+export const getArrowsColor = (status: ExecutionStatus, isParallel = false, hideLines = false): string => {
   if (hideLines) {
     return 'var(--pipeline-transparent-border)'
-  } else if (status === ExecutionPipelineItemStatus.NOT_STARTED) {
+  } else if (status === ExecutionStatusEnum.NotStarted) {
     return 'var(--execution-pipeline-color-arrow-not-started)'
-  } else if (isParallel && status === ExecutionPipelineItemStatus.RUNNING) {
+  } else if (isParallel && status === ExecutionStatusEnum.Running) {
     return 'var(--execution-pipeline-color-arrow-not-started)'
   } else {
     return 'var(--execution-pipeline-color-arrow-complete)'
@@ -145,12 +139,12 @@ export const getArrowsColor = (status: ExecutionPipelineItemStatus, isParallel =
 }
 
 export const getStatusProps = (
-  status: ExecutionPipelineItemStatus,
+  status: ExecutionStatus,
   stepType: ExecutionPipelineNodeType
 ): {
   secondaryIcon?: IconName
   secondaryIconProps: Omit<IconProps, 'name'>
-  secondaryIconStyle: React.CSSProperties
+  secondaryIconStyle: CSSProperties
 } => {
   const secondaryIconStyle: React.CSSProperties =
     stepType === ExecutionPipelineNodeType.DIAMOND ? {} : { top: -7, right: -7 }
@@ -158,46 +152,44 @@ export const getStatusProps = (
   const secondaryIconProps: Omit<IconProps, 'name'> = { size: 16 }
   /* istanbul ignore else */ if (status) {
     switch (status) {
-      case ExecutionPipelineItemStatus.FAILED:
-      case ExecutionPipelineItemStatus.ERROR:
+      case ExecutionStatusEnum.Failed:
         secondaryIcon = 'execution-warning'
         secondaryIconProps.size = 20
         secondaryIconStyle.color = 'var(--execution-pipeline-color-dark-red)'
         secondaryIconStyle.animation = `${css.fadeIn} 1s`
         break
-      case ExecutionPipelineItemStatus.WAITING:
+      case ExecutionStatusEnum.Waiting:
         secondaryIcon = 'execution-warning'
         secondaryIconProps.size = 20
         secondaryIconStyle.color = 'var(--execution-pipeline-color-orange)'
         secondaryIconStyle.animation = `${css.fadeIn} 1s`
         break
-      case ExecutionPipelineItemStatus.SUCCESS:
-      case ExecutionPipelineItemStatus.SUCCEEDED:
+      case ExecutionStatusEnum.Success:
         secondaryIcon = 'execution-success'
         secondaryIconProps.color = Color.GREEN_450
         secondaryIconStyle.animation = `${css.fadeIn} 1s`
         break
-      case ExecutionPipelineItemStatus.RUNNING:
+      case ExecutionStatusEnum.Running:
         secondaryIconProps.color = Color.WHITE
         break
-      case ExecutionPipelineItemStatus.ABORTED:
-      case ExecutionPipelineItemStatus.EXPIRED:
+      case ExecutionStatusEnum.Aborted:
+      case ExecutionStatusEnum.Expired:
         secondaryIcon = 'execution-abort'
         secondaryIconStyle.animation = `${css.fadeIn} 1s`
         secondaryIconStyle.color = 'var(--execution-pipeline-color-dark-grey2)'
         break
-      case ExecutionPipelineItemStatus.PAUSED:
-      case ExecutionPipelineItemStatus.PAUSING:
+      case ExecutionStatusEnum.Paused:
+      case ExecutionStatusEnum.Pausing:
         secondaryIcon = 'execution-input'
         secondaryIconStyle.animation = `${css.fadeIn} 1s`
         secondaryIconStyle.color = 'var(--execution-pipeline-color-orange)'
         break
-      case ExecutionPipelineItemStatus.ROLLBACK:
-        secondaryIcon = 'execution-rollback'
-        secondaryIconProps.size = 20
-        secondaryIconStyle.animation = `${css.fadeIn} 1s`
-        secondaryIconStyle.color = 'var(--execution-pipeline-color-orange)'
-        break
+      // case ExecutionStatusEnum.ROLLBACK:
+      //   secondaryIcon = 'execution-rollback'
+      //   secondaryIconProps.size = 20
+      //   secondaryIconStyle.animation = `${css.fadeIn} 1s`
+      //   secondaryIconStyle.color = 'var(--execution-pipeline-color-orange)'
+      //   break
       default:
         break
     }
@@ -205,15 +197,12 @@ export const getStatusProps = (
   return { secondaryIconStyle, secondaryIcon: secondaryIcon, secondaryIconProps }
 }
 
-export const getIconStyleBasedOnStatus = (
-  status: ExecutionPipelineItemStatus,
-  isSelected: boolean
-): React.CSSProperties => {
-  let toReturn: React.CSSProperties = {}
-  if (isSelected && status !== ExecutionPipelineItemStatus.NOT_STARTED) {
+export const getIconStyleBasedOnStatus = (status: ExecutionStatus, isSelected: boolean): React.CSSProperties => {
+  let toReturn: CSSProperties = {}
+  if (isSelected && status !== ExecutionStatusEnum.NotStarted) {
     toReturn = { color: 'var(--white)' }
   }
-  if (status === ExecutionPipelineItemStatus.SKIPPED || status === ExecutionPipelineItemStatus.EXPIRED) {
+  if (status === ExecutionStatusEnum.Skipped || status === ExecutionStatusEnum.Expired) {
     toReturn = { color: 'var(--grey-500)' }
   }
   return toReturn
@@ -244,7 +233,7 @@ export interface GroupState<T> {
   collapsed: boolean
   name: string
   showInLabel: boolean
-  status: ExecutionPipelineItemStatus
+  status: ExecutionStatus
   identifier: string
 }
 

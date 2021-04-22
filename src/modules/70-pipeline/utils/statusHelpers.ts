@@ -3,21 +3,23 @@ import type { PipelineExecutionSummaryDTO } from 'services/cd-ng'
 
 export type ExecutionStatus = Required<PipelineExecutionSummaryDTO>['executionStatus']
 
-export const EXECUTION_STATUS: readonly ExecutionStatus[] = [
-  'Aborted',
-  'Expired',
-  'Failed',
-  'NotStarted',
-  'Paused',
-  'Queued',
-  'Running',
-  'Success',
-  'Suspended',
-  'Waiting',
-  'Skipped',
-  'ApprovalRejected',
-  'Pausing'
-]
+export const ExecutionStatusEnum: Readonly<Record<ExecutionStatus, ExecutionStatus>> = {
+  Aborted: 'Aborted',
+  Expired: 'Expired',
+  Failed: 'Failed',
+  NotStarted: 'NotStarted',
+  Paused: 'Paused',
+  Queued: 'Queued',
+  Running: 'Running',
+  Success: 'Success',
+  Suspended: 'Suspended',
+  Waiting: 'Waiting',
+  Skipped: 'Skipped',
+  // ApprovalRejected: 'ApprovalRejected',
+  Pausing: 'Pausing'
+}
+
+export const EXECUTION_STATUS: readonly ExecutionStatus[] = Object.keys(ExecutionStatusEnum) as ExecutionStatus[]
 
 const changeCase = (status?: string): string => {
   const temp = camelCase(status)

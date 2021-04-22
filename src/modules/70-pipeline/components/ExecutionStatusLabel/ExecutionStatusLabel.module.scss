@@ -1,14 +1,23 @@
 .status {
   --execution-status-color: var(--green-500);
   white-space: nowrap !important;
-  font-weight: bold;
   font-size: var(--font-size-xsmall);
-  display: inline-block;
+  color: var(--execution-status-color) !important;
+  border: 1px solid var(--execution-status-color);
+  border-radius: 8px;
+  padding: 2px 12px !important;
+  height: 20px;
+  line-height: 20px !important;
+  font-weight: bold !important;
+  display: inline-flex !important;
+  justify-content: center;
+  align-items: center;
 
   &.failed,
   &.aborted,
   &.error,
   &.rejected,
+  &.expired,
   &.approvalrejected {
     --execution-status-color: var(--red-500);
   }
@@ -30,20 +39,8 @@
 
   &.queued,
   &.skipped,
-  &.expired,
   &.suspended,
   &.notstarted {
     --execution-status-color: var(--grey-350);
   }
-
-  color: var(--execution-status-color) !important;
-  border: 1px solid var(--execution-status-color);
-  border-radius: 8px;
-  padding: 2px 12px !important;
-  height: 20px;
-  line-height: 20px !important;
-  font-weight: bold !important;
-  display: inline-flex !important;
-  justify-content: center;
-  align-items: center;
 }

@@ -2,12 +2,8 @@ import type { LinkModelListener, NodeModelListener } from '@projectstorm/react-d
 import type { BaseModelListener } from '@projectstorm/react-canvas-core'
 import cx from 'classnames'
 import { last, isEmpty } from 'lodash-es'
-import {
-  ExecutionPipeline,
-  ExecutionPipelineItemStatus,
-  ExecutionPipelineNode,
-  ExecutionPipelineNodeType
-} from './ExecutionPipelineModel'
+import { ExecutionStatusEnum } from '@pipeline/utils/statusHelpers'
+import { ExecutionPipeline, ExecutionPipelineNode, ExecutionPipelineNodeType } from './ExecutionPipelineModel'
 import {
   getNodeStyles,
   getStatusProps,
@@ -98,8 +94,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
         ...statusProps,
         ...tertiaryIconProps,
         nodeClassName: cx(
-          { [css.runningNode]: stage.status === ExecutionPipelineItemStatus.RUNNING },
-          { [css.selected]: stage.status === ExecutionPipelineItemStatus.RUNNING && isSelected }
+          { [css.runningNode]: stage.status === ExecutionStatusEnum.Running },
+          { [css.selected]: stage.status === ExecutionStatusEnum.Running && isSelected }
         ),
         iconStyle: getIconStyleBasedOnStatus(stage.status, isSelected),
         icon: stage.icon,
@@ -207,7 +203,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
               false,
               0,
               getArrowsColor(
-                parallel[0].item?.status || /* istanbul ignore next */ ExecutionPipelineItemStatus.NOT_STARTED,
+                parallel[0].item?.status || /* istanbul ignore next */ ExecutionStatusEnum.NotStarted,
                 undefined,
                 verticalStepGroup
               )
@@ -263,7 +259,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
               false,
               0,
               getArrowsColor(
-                parallel[0].item?.status || /* istanbul ignore next */ ExecutionPipelineItemStatus.NOT_STARTED,
+                parallel[0].item?.status || /* istanbul ignore next */ ExecutionStatusEnum.NotStarted,
                 true,
                 verticalStepGroup
               ),
@@ -325,7 +321,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
               prevNode,
               false,
               0,
-              getArrowsColor(node.group?.status || /* istanbul ignore next */ ExecutionPipelineItemStatus.NOT_STARTED),
+              getArrowsColor(node.group?.status || /* istanbul ignore next */ ExecutionStatusEnum.NotStarted),
               { type: 'in', size: LINE_SEGMENT_LENGTH }
             )
           })
@@ -367,7 +363,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
                 false,
                 0,
                 getArrowsColor(
-                  node.group?.status || /* istanbul ignore next */ ExecutionPipelineItemStatus.NOT_STARTED,
+                  node.group?.status || /* istanbul ignore next */ ExecutionStatusEnum.NotStarted,
                   true,
                   node.group?.verticalStepGroup
                 )
@@ -403,7 +399,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
               prevNode,
               false,
               0,
-              getArrowsColor(node.group?.status || ExecutionPipelineItemStatus.NOT_STARTED)
+              getArrowsColor(node.group?.status || ExecutionStatusEnum.NotStarted)
             )
           })
         }
@@ -512,7 +508,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           lastNode,
           false,
           0,
-          getArrowsColor(pipeline.status || /* istanbul ignore next */ ExecutionPipelineItemStatus.NOT_STARTED)
+          getArrowsColor(pipeline.status || /* istanbul ignore next */ ExecutionStatusEnum.NotStarted)
         )
       }
       this.addNode(stopNode)

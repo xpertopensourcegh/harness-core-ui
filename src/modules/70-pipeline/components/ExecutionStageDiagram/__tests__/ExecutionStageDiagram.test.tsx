@@ -1,7 +1,8 @@
 import React from 'react'
 import { render, fireEvent, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { ExecutionPipelineItemStatus, ExecutionPipelineNodeType } from '../ExecutionPipelineModel'
+import { ExecutionStatusEnum } from '@pipeline/utils/statusHelpers'
+import { ExecutionPipelineNodeType } from '../ExecutionPipelineModel'
 import ExecutionStageDiagram, { ExecutionStageDiagramProps } from '../ExecutionStageDiagram'
 
 interface Data {
@@ -31,7 +32,7 @@ const getProps = (): ExecutionStageDiagramProps<Data> => ({
           icon: 'pipeline-deploy',
           identifier: 'qaStage',
           name: 'qa stage',
-          status: ExecutionPipelineItemStatus.FAILED,
+          status: ExecutionStatusEnum.Failed,
           type: ExecutionPipelineNodeType.NORMAL,
           data: {
             label: 'qaStage'
@@ -45,7 +46,7 @@ const getProps = (): ExecutionStageDiagramProps<Data> => ({
               icon: 'pipeline-deploy',
               identifier: 'parallel1',
               name: 'Parallel 1',
-              status: ExecutionPipelineItemStatus.PAUSED,
+              status: ExecutionStatusEnum.Paused,
               type: ExecutionPipelineNodeType.NORMAL,
               data: {
                 label: 'Parallel 1'
@@ -57,7 +58,7 @@ const getProps = (): ExecutionStageDiagramProps<Data> => ({
               icon: 'pipeline-deploy',
               identifier: 'parallel3',
               name: 'Parallel 2',
-              status: ExecutionPipelineItemStatus.SUCCESS,
+              status: ExecutionStatusEnum.Success,
               type: ExecutionPipelineNodeType.NORMAL,
               data: {
                 label: 'Parallel 2'
@@ -71,7 +72,7 @@ const getProps = (): ExecutionStageDiagramProps<Data> => ({
           icon: 'pipeline-deploy',
           identifier: 'stage2',
           name: 'stage 2',
-          status: ExecutionPipelineItemStatus.RUNNING,
+          status: ExecutionStatusEnum.Running,
           type: ExecutionPipelineNodeType.NORMAL,
           data: {
             label: 'stage2'
@@ -84,7 +85,7 @@ const getProps = (): ExecutionStageDiagramProps<Data> => ({
           identifier: 'Service',
           name: 'service',
           isOpen: true,
-          status: ExecutionPipelineItemStatus.WAITING,
+          status: ExecutionStatusEnum.Waiting,
           data: {
             label: 'service'
           },
@@ -94,7 +95,7 @@ const getProps = (): ExecutionStageDiagramProps<Data> => ({
                 icon: 'badge' as any,
                 identifier: 'badge',
                 name: 'Badge',
-                status: ExecutionPipelineItemStatus.ABORTED,
+                status: ExecutionStatusEnum.Aborted,
                 type: ExecutionPipelineNodeType.NORMAL,
                 data: {
                   label: 'badge'
@@ -108,7 +109,7 @@ const getProps = (): ExecutionStageDiagramProps<Data> => ({
                 name: 'Step Group HTTP',
                 isOpen: true,
                 showInLabel: false,
-                status: ExecutionPipelineItemStatus.RUNNING,
+                status: ExecutionStatusEnum.Running,
                 data: {
                   label: 'step-group'
                 },
@@ -118,7 +119,7 @@ const getProps = (): ExecutionStageDiagramProps<Data> => ({
                       icon: 'badge' as any,
                       identifier: 'badge',
                       name: 'Badge',
-                      status: ExecutionPipelineItemStatus.ABORTED,
+                      status: ExecutionStatusEnum.Aborted,
                       type: ExecutionPipelineNodeType.NORMAL,
                       data: {
                         label: 'badge'
@@ -130,7 +131,7 @@ const getProps = (): ExecutionStageDiagramProps<Data> => ({
                       icon: 'barcode' as any,
                       identifier: 'barcode',
                       name: 'barcode',
-                      status: ExecutionPipelineItemStatus.NOT_STARTED,
+                      status: ExecutionStatusEnum.NotStarted,
                       type: ExecutionPipelineNodeType.NORMAL,
                       data: {
                         label: 'barcode'
@@ -145,7 +146,7 @@ const getProps = (): ExecutionStageDiagramProps<Data> => ({
                 icon: 'barcode' as any,
                 identifier: 'barcode',
                 name: 'barcode',
-                status: ExecutionPipelineItemStatus.NOT_STARTED,
+                status: ExecutionStatusEnum.NotStarted,
                 type: ExecutionPipelineNodeType.NORMAL,
                 data: {
                   label: 'barcode'
@@ -157,7 +158,7 @@ const getProps = (): ExecutionStageDiagramProps<Data> => ({
       }
     ],
     identifier: 'Test_Pipline',
-    status: ExecutionPipelineItemStatus.ERROR,
+    status: ExecutionStatusEnum.Failed,
     allNodes: []
   },
   selectedIdentifier: 'qaStage',

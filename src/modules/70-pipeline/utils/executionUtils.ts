@@ -9,8 +9,7 @@ import {
   ExecutionPipelineNode,
   ExecutionPipelineNodeType,
   ExecutionPipelineItem,
-  ExecutionPipelineGroupInfo,
-  ExecutionPipelineItemStatus
+  ExecutionPipelineGroupInfo
 } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
@@ -80,7 +79,7 @@ export const ExecutionStatusIconMap: Record<ExecutionStatus, IconName> = {
   Paused: 'pause',
   Waiting: 'waiting',
   Skipped: 'skipped',
-  ApprovalRejected: 'circle-cross',
+  // ApprovalRejected: 'circle-cross',
   Pausing: 'pause'
 }
 
@@ -207,11 +206,11 @@ export function getRunningStageForPipeline(
           continue
         }
       } else if (stage.parallel && Array.isArray(stage.parallel)) {
-        const erorredStage = stage.parallel.filter(item => isExecutionCompletedWithBadState(item.status))[0]
+        const erroredStage = stage.parallel.filter(item => isExecutionCompletedWithBadState(item.status))[0]
 
         /* istanbul ignore else */
-        if (erorredStage) {
-          return erorredStage.nodeUuid || ''
+        if (erroredStage) {
+          return erroredStage.nodeUuid || ''
         }
       }
     }
@@ -318,7 +317,7 @@ const addDependencyToArray = (service: ServiceDependency, arr: ExecutionPipeline
     identifier: service.identifier as string,
     name: service.name as string,
     type: ExecutionPipelineNodeType.NORMAL,
-    status: service.status as ExecutionPipelineItemStatus,
+    status: service.status as ExecutionStatus,
     icon: 'dependency-step',
     data: service as ExecutionNode,
     itemType: 'service-dependency'
@@ -341,7 +340,7 @@ const addDependencies = (
     const dependenciesGroup: ExecutionPipelineGroupInfo<ExecutionNode> = {
       identifier: STATIC_SERVICE_GROUP_NAME,
       name: 'Dependencies', // TODO: use getString('execution.dependencyGroupName'),
-      status: dependencies[0].status as ExecutionPipelineItemStatus, // use status of first service
+      status: dependencies[0].status as ExecutionStatus, // use status of first service
       data: {},
       icon: 'step-group',
       verticalStepGroup: true,
@@ -349,7 +348,7 @@ const addDependencies = (
       items: [{ parallel: items }]
     }
 
-    // dependency goes at the begining
+    // dependency goes at the beginning
     stepsPipelineNodes.unshift({ group: dependenciesGroup })
   }
 }
@@ -371,7 +370,7 @@ const processLiteEngineTask = (
     identifier: nodeData?.uuid as string,
     name: 'Initialize',
     type: getExecutionPipelineNodeType(nodeData?.stepType),
-    status: nodeData?.status as ExecutionPipelineItemStatus,
+    status: nodeData?.status as ExecutionStatus,
     icon: 'initialize-step',
     data: nodeData as ExecutionNode,
     itemType: 'service-dependency'
@@ -413,7 +412,7 @@ const processNodeData = (
             ...(isRollback ? RollbackContainerCss : {})
           },
           showInLabel: false,
-          status: nodeData.status as ExecutionPipelineItemStatus,
+          status: nodeData.status as ExecutionStatus,
           isOpen: true,
           skipCondition: nodeData.skipInfo?.evaluatedCondition ? nodeData.skipInfo.skipCondition : undefined,
           ...getIconDataBasedOnType(nodeData),
@@ -435,7 +434,7 @@ const processNodeData = (
             ...getIconDataBasedOnType(nodeData),
             identifier: item,
             skipCondition: nodeData?.skipInfo?.evaluatedCondition ? nodeData?.skipInfo.skipCondition : undefined,
-            status: nodeData?.status as ExecutionPipelineItemStatus,
+            status: nodeData?.status as ExecutionStatus,
             type: getExecutionPipelineNodeType(nodeData?.stepType),
             data: nodeData
           }
@@ -466,7 +465,7 @@ const processNodeData = (
               ...(isRollbackNext ? RollbackContainerCss : {})
             },
             skipCondition: nodeDataNext.skipInfo?.evaluatedCondition ? nodeDataNext.skipInfo.skipCondition : undefined,
-            status: nodeDataNext.status as ExecutionPipelineItemStatus,
+            status: nodeDataNext.status as ExecutionStatus,
             isOpen: true,
             ...getIconDataBasedOnType(nodeDataNext),
             items: processNodeData(
@@ -484,7 +483,7 @@ const processNodeData = (
             ...getIconDataBasedOnType(nodeDataNext),
             identifier: id,
             skipCondition: nodeDataNext?.skipInfo?.evaluatedCondition ? nodeDataNext.skipInfo.skipCondition : undefined,
-            status: nodeDataNext?.status as ExecutionPipelineItemStatus,
+            status: nodeDataNext?.status as ExecutionStatus,
             type: getExecutionPipelineNodeType(nodeDataNext?.stepType),
             data: nodeDataNext
           }
@@ -537,7 +536,7 @@ export const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPip
                 containerCss: {
                   ...(RollbackIdentifier === nodeData.identifier || isRollback ? RollbackContainerCss : {})
                 },
-                status: nodeData.status as ExecutionPipelineItemStatus,
+                status: nodeData.status as ExecutionStatus,
                 isOpen: true,
                 ...getIconDataBasedOnType(nodeData),
                 items: processNodeData(
@@ -566,7 +565,7 @@ export const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPip
               ...getIconDataBasedOnType(nodeData),
               showInLabel: nodeData.stepType === NodeType.SERVICE || nodeData.stepType === NodeType.INFRASTRUCTURE,
               identifier: nodeId,
-              status: nodeData.status as ExecutionPipelineItemStatus,
+              status: nodeData.status as ExecutionStatus,
               type: getExecutionPipelineNodeType(nodeData?.stepType),
               data: nodeData
             }

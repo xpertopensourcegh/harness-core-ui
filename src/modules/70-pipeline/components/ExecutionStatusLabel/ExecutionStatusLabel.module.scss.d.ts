@@ -6,6 +6,7 @@ declare const styles: {
   readonly aborted: string
   readonly error: string
   readonly rejected: string
+  readonly expired: string
   readonly approvalrejected: string
   readonly success: string
   readonly running: string
@@ -18,7 +19,6 @@ declare const styles: {
   readonly paused: string
   readonly queued: string
   readonly skipped: string
-  readonly expired: string
   readonly suspended: string
   readonly notstarted: string
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Icon, timeToDisplayText, Text } from '@wings-software/uicore'
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
-import { ExecutionPipelineItemStatus } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
+import { ExecutionStatusEnum } from '@pipeline/utils/statusHelpers'
 import css from './HoverCard.module.scss'
 export interface HoverCardProps {
   data?: any
@@ -22,7 +22,7 @@ export default function HoverCard(props: HoverCardProps): React.ReactElement {
       <div className={css.header}>
         <div className={css.title}>
           <div>{data.name}</div>
-          {data.status === ExecutionPipelineItemStatus.FAILED && (
+          {data.status === ExecutionStatusEnum.Failed && (
             <div className={css.failureMessage}>
               <Icon name="warning-sign" className={css.warningIcon} />
               <Text
@@ -37,7 +37,7 @@ export default function HoverCard(props: HoverCardProps): React.ReactElement {
         </div>
         <div className={css.status}>
           <ExecutionStatusLabel status={data?.status} className={css.statusLabel} />
-          {data.status !== ExecutionPipelineItemStatus.SKIPPED && (
+          {data.status !== ExecutionStatusEnum.Skipped && (
             <div className={css.timeElapsed}>
               <Icon name="time" size={14} />
               <div className={css.time}>{timeText}</div>

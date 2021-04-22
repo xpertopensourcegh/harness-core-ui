@@ -80,7 +80,6 @@ export type PipelineExecutionFilterProperties = FilterProperties & {
     | 'Suspended'
     | 'Skipped'
     | 'Pausing'
-    | 'ApprovalRejected'
   )[]
   pipelineName?: string
   moduleProperties?: {
@@ -2156,7 +2155,6 @@ export interface ExecutionSummaryInfo {
     | 'Suspended'
     | 'Skipped'
     | 'Pausing'
-    | 'ApprovalRejected'
   lastExecutionId?: string
 }
 
@@ -2223,7 +2221,6 @@ export interface GraphLayoutNode {
     | 'Suspended'
     | 'Skipped'
     | 'Pausing'
-    | 'ApprovalRejected'
   module?: string
   moduleInfo?: {
     [key: string]: {
@@ -2306,7 +2303,6 @@ export interface PipelineExecutionSummary {
     | 'Suspended'
     | 'Skipped'
     | 'Pausing'
-    | 'ApprovalRejected'
   tags?: NGTag[]
   executionTriggerInfo?: ExecutionTriggerInfo
   executionErrorInfo?: ExecutionErrorInfo
@@ -2676,7 +2672,6 @@ export interface ExecutionNode {
     | 'Suspended'
     | 'Skipped'
     | 'Pausing'
-    | 'ApprovalRejected'
   failureInfo?: FailureInfoDTO
   skipInfo?: SkipInfo
   nodeRunInfo?: NodeRunInfo
@@ -6886,7 +6881,6 @@ export interface GetListOfExecutionsQueryParams {
     | 'Suspended'
     | 'Skipped'
     | 'Pausing'
-    | 'ApprovalRejected'
   myDeployments?: boolean
 }
 

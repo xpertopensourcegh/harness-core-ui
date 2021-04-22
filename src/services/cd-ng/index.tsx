@@ -6436,7 +6436,6 @@ export type CDStageExecutionSummaryDTO = StageExecutionSummaryDTO & {
     | 'Suspended'
     | 'Skipped'
     | 'Pausing'
-    | 'ApprovalRejected'
   startedAt?: number
   endedAt?: number
   serviceIdentifier?: string
@@ -6668,7 +6667,6 @@ export interface ExecutionNode {
     | 'Suspended'
     | 'Skipped'
     | 'Pausing'
-    | 'ApprovalRejected'
   failureInfo?: FailureInfoDTO
   skipInfo?: SkipInfo
   nodeRunInfo?: NodeRunInfo
@@ -6941,7 +6939,6 @@ export interface PipelineExecutionSummaryDTO {
     | 'Suspended'
     | 'Skipped'
     | 'Pausing'
-    | 'ApprovalRejected'
   inputSetYaml?: string
   startedAt?: number
   endedAt?: number
@@ -7239,7 +7236,6 @@ export interface ResponseListExecutionStatus {
     | 'Suspended'
     | 'Skipped'
     | 'Pausing'
-    | 'ApprovalRejected'
   )[]
   metaData?: { [key: string]: any }
   correlationId?: string
@@ -18802,7 +18798,6 @@ export interface GetListOfExecutionsQueryParams {
     | 'Suspended'
     | 'Skipped'
     | 'Pausing'
-    | 'ApprovalRejected'
   )[]
   startTime?: number
   endTime?: number

@@ -7,8 +7,8 @@ describe('statusHelpers tests', () => {
       ['Expired'],
       ['Failed'],
       ['Success'],
-      ['Suspended'],
-      ['ApprovalRejected']
+      ['Suspended']
+      // ['ApprovalRejected']
     ])('Status "%s" marks stage as complete', status => {
       expect(utils.isExecutionComplete(status)).toBe(true)
     })
