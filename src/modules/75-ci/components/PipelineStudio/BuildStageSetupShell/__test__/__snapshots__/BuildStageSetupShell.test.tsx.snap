@@ -110,19 +110,23 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main"
-              data-icon="yaml-builder-stages"
+              data-icon="infrastructure"
               style="height: 20px;"
             >
               <svg
+                fill="currentColor"
                 height="20"
-                viewBox="0 0 19 18"
+                viewBox="0 0 24 24"
                 width="20"
               >
                 <path
-                  d="M16.451 10.611V7.446a3.693 3.693 0 001.15-2.674c0-2.048-1.677-3.715-3.738-3.715a3.74 3.74 0 00-2.638 1.085H7.93A3.737 3.737 0 005.239 1C3.177 1 1.5 2.667 1.5 4.715c0 1.049.443 1.997 1.149 2.673v3.225A3.69 3.69 0 001.5 13.285C1.5 15.334 3.177 17 5.24 17a3.74 3.74 0 002.69-1.142h3.244A3.737 3.737 0 0013.863 17c2.061 0 3.738-1.666 3.738-3.715 0-1.05-.443-1.997-1.15-2.674zm-2.607-8.544a2.678 2.678 0 012.684 2.666A2.678 2.678 0 0113.844 7.4a2.678 2.678 0 01-2.683-2.667 2.678 2.678 0 012.683-2.666zm-8.587 0a2.678 2.678 0 012.684 2.666c0 1.47-1.204 2.667-2.684 2.667S2.574 6.204 2.574 4.733a2.678 2.678 0 012.683-2.666zm0 13.867a2.678 2.678 0 01-2.683-2.667c0-1.47 1.204-2.667 2.683-2.667s2.684 1.197 2.684 2.667a2.678 2.678 0 01-2.684 2.667zm3.409-1.067c.19-.452.296-.947.296-1.468 0-2.102-1.721-3.813-3.837-3.813-.524 0-1.023.106-1.478.295v-1.76c.455.189.954.294 1.478.294 2.116 0 3.837-1.71 3.837-3.813a3.78 3.78 0 00-.296-1.468h1.798a3.766 3.766 0 00-.323 1.526c0 2.103 1.721 3.814 3.837 3.814.523 0 1.021-.106 1.476-.295V9.88a3.842 3.842 0 00-1.476-.294c-2.116 0-3.837 1.71-3.837 3.813 0 .52.106 1.016.296 1.468H8.666zm5.178 1.067a2.678 2.678 0 01-2.683-2.667 2.678 2.678 0 012.683-2.667 2.678 2.678 0 012.684 2.667 2.678 2.678 0 01-2.684 2.667z"
-                  fill="#22272D"
-                  stroke="#22272D"
-                  stroke-width="0.25"
+                  d="M4 4h16v16H4z"
+                  opacity="0.01"
+                />
+                <path
+                  clip-rule="evenodd"
+                  d="M12.487 8.343a.2.2 0 00.08.17l6.287 4.692a1 1 0 01.006 1.598l-6.257 4.74a1 1 0 01-1.207.002l-6.325-4.773a1 1 0 01-.026-1.577l.664-.536a.2.2 0 01.248-.002l.207.161a.3.3 0 01-.006.479l-.593.436a.2.2 0 00-.002.32l5.618 4.253a.2.2 0 00.321-.159v-2.515L5.066 10.8a1 1 0 010-1.6l6.344-4.758a1 1 0 011.187-.01l6.408 4.646a1 1 0 01-.036 1.645l-.905.597-.482-.471a.2.2 0 01.037-.315l.747-.449a.2.2 0 00.011-.335l-5.471-3.825a.2.2 0 00-.315.155l-.104 2.263zm-.767-2.476a.2.2 0 00-.32-.16L5.972 9.775a.2.2 0 000 .32l5.753 4.346a.5.5 0 00.567.025l2.642-1.65a.2.2 0 01.233.014l.452.37a.2.2 0 01-.02.324l-3.217 2.02a.2.2 0 00-.093.17v2.468a.2.2 0 00.322.158l5.42-4.18a.2.2 0 00-.001-.318l-5.853-4.469a.2.2 0 00-.245.002l-2.438 1.92a.2.2 0 01-.258-.008l-.382-.346a.2.2 0 01.011-.305l2.78-2.186a.2.2 0 00.075-.158V5.867z"
+                  fill-rule="evenodd"
                 />
               </svg>
             </span>
@@ -185,17 +189,24 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
           >
             <span
               class="bp3-icon StyledProps--main"
-              data-icon="yaml-builder-steps"
+              data-icon="execution"
               style="height: 20px;"
             >
               <svg
+                fill="currentColor"
                 height="20"
-                viewBox="0 0 18 18"
+                viewBox="0 0 24 24"
                 width="20"
               >
                 <path
-                  d="M16.237 1.248C14.67-.431 11.912-.374 9 1.171 6.09-.375 3.33-.43 1.764 1.248.46 2.643.28 4.919 1.08 7.435c-.486.772-.383 1.806.242 2.45-1.044 2.739-.998 5.325.442 6.868 1.567 1.679 4.326 1.623 7.24.075 2.853 1.514 5.638 1.633 7.233-.075 1.595-1.71 1.483-4.695.069-7.752 1.414-3.058 1.526-6.044-.069-7.753zm-.845 14.6c-1.8 1.928-6.21.588-9.77-3.227a.57.57 0 00-.578-.166c-.206.06-.367.232-.422.453s.004.456.155.618a17.265 17.265 0 002.938 2.526c-2.19.958-4.09.883-5.106-.205-1.041-1.115-1.055-3.167-.199-5.436.053.005.103.017.157.017.99 0 1.792-.86 1.792-1.92 0-.42-.13-.806-.343-1.122A17.145 17.145 0 015.62 5.38a.672.672 0 00.155-.618.62.62 0 00-.422-.452.57.57 0 00-.577.165 18.403 18.403 0 00-1.745 2.187 1.628 1.628 0 00-.465-.074 1.676 1.676 0 00-.462.072c-.536-1.929-.37-3.571.504-4.507C3.774.906 6.105.99 8.698 2.438c.095.05.202.071.308.06a.548.548 0 00.3-.061C11.897.99 14.228.906 15.392 2.153c1.046 1.12 1.056 3.184.188 5.465a17.582 17.582 0 00-1.262-1.85 1.67 1.67 0 00.197-.78c0-.884-.669-1.6-1.493-1.6-.825 0-1.494.716-1.494 1.6 0 .884.669 1.6 1.494 1.6.118 0 .233-.019.343-.047a15.992 15.992 0 011.595 2.46 16.422 16.422 0 01-2.356 3.367c-.06-.008-.118-.02-.18-.02-.687 0-1.286.501-1.451 1.216-.166.714.146 1.458.754 1.8.608.343 1.356.197 1.812-.353a1.69 1.69 0 00.113-1.97 17.92 17.92 0 001.928-2.657c.867 2.28.858 4.344-.188 5.464zm-6.254-9.26c-1.32 0-2.39 1.146-2.39 2.56s1.07 2.56 2.39 2.56 2.39-1.146 2.39-2.56-1.07-2.56-2.39-2.56zm0 3.84c-.427 0-.821-.244-1.034-.64s-.214-.885 0-1.28a1.18 1.18 0 011.035-.64c.66 0 1.195.573 1.195 1.28 0 .707-.536 1.28-1.196 1.28z"
-                  fill="#22272D"
+                  d="M4 4h16v16H4z"
+                  opacity="0.01"
+                />
+                <path
+                  clip-rule="evenodd"
+                  d="M12 5.91c2.427-1.202 4.725-1.245 6.03.06 1.33 1.33 1.237 3.652.058 6.03 1.179 2.378 1.272 4.7-.057 6.03-1.329 1.328-3.65 1.236-6.028.058-2.428 1.204-4.727 1.247-6.033-.058-1.2-1.2-1.238-3.212-.368-5.341a1.49 1.49 0 01-.202-1.906c-.667-1.957-.515-3.727.57-4.813C7.276 4.665 9.574 4.708 12 5.91zm-2.815 8.906c2.967 2.967 6.642 4.01 8.142 2.51.871-.872.88-2.477.156-4.25a14.015 14.015 0 01-1.606 2.066 1.244 1.244 0 11-1.023-.538c.038 0 .075.005.112.01l.038.005a12.797 12.797 0 001.963-2.62 12.379 12.379 0 00-1.33-1.912 1.232 1.232 0 01-.286.037 1.245 1.245 0 111.245-1.245c0 .222-.063.427-.164.607.381.456.733.937 1.051 1.438.724-1.773.715-3.379-.156-4.25-.97-.97-2.913-.905-5.072.22a.484.484 0 01-.25.05.482.482 0 01-.257-.048c-2.16-1.127-4.103-1.192-5.074-.222-.727.728-.866 2.005-.42 3.506a1.44 1.44 0 01.385-.056c.131.001.262.02.387.057a14.52 14.52 0 011.455-1.7.498.498 0 01.704.703 13.542 13.542 0 00-1.339 1.56c.179.246.287.546.287.873 0 .825-.669 1.493-1.494 1.493a.581.581 0 01-.083-.007.93.93 0 00-.047-.006c-.714 1.765-.702 3.36.165 4.228.846.846 2.431.905 4.255.16a14.203 14.203 0 01-2.448-1.965.498.498 0 11.704-.704zm2.93-4.693a1.991 1.991 0 100 3.983 1.991 1.991 0 000-3.982zm-.862 2.49a.996.996 0 101.725-.997.996.996 0 00-1.725.996z"
+                  fill-rule="evenodd"
+                  opacity="0.8"
                 />
               </svg>
             </span>
@@ -222,128 +233,62 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
             </span>
           </span>
         </div>
+        <span
+          class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
+          icon="chevron-right"
+          style="align-self: center; height: 20px;"
+        >
+          <svg
+            data-icon="chevron-right"
+            height="20"
+            viewBox="0 0 20 20"
+            width="20"
+          >
+            <desc>
+              chevron-right
+            </desc>
+            <path
+              d="M13.71 9.29l-6-6a1.003 1.003 0 00-1.42 1.42l5.3 5.29-5.29 5.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l6-6c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
         <div
-          class="spacer"
-        />
-        <button
-          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main skipCondition"
-          type="button"
+          aria-controls="bp3-tab-panel_stageSetupShell_Advanced"
+          aria-disabled="false"
+          aria-expanded="false"
+          aria-selected="false"
+          class="bp3-tab"
+          data-tab-id="Advanced"
+          id="bp3-tab-title_stageSetupShell_Advanced"
+          role="tab"
+          tabindex="0"
         >
           <span
-            class="bp3-icon StyledProps--main StyledProps--margin-xsmall"
-            data-icon="conditional-skip"
+            class="tab"
           >
-            <svg
-              height="16"
-              viewBox="0 0 16 11"
-              width="16"
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="advanced"
+              style="height: 20px;"
             >
-              <path
-                d="M13.333 9.333h1.334V8h-1.334zm-6 0h1.334V8H7.333zm-6 0h1.334V8H1.333zM12 6.667v4h4v-4zm-6 0v4h4v-4zm-6 0v4h4v-4zM8 0A8.666 8.666 0 00.96 3.61l1.083.78a7.318 7.318 0 0110.974-1.057h-2.35v1.334h4.666V0H14v2.432A8.634 8.634 0 008 0z"
-                fill="#e59c0b"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-          <span
-            class="bp3-button-text"
-          >
-            skipConditionTitle
-          </span>
-        </button>
-        <button
-          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
-          type="button"
-        >
-          <span
-            class="bp3-icon StyledProps--main StyledProps--margin-xsmall"
-            data-icon="failure-strategy"
-          >
-            <svg
-              height="28"
-              viewBox="0 0 22 10"
-              width="28"
-            >
-              <defs>
-                <mask
-                  id="failure-strategy_svg__b"
-                >
-                  <path
-                    d="M16.137 6.5h5.4v5.848h-5.4z"
-                    fill="#fff"
-                    stroke="#fff"
-                    stroke-width="1.1"
-                  />
-                  <use
-                    xlink:href="#failure-strategy_svg__a"
-                  />
-                </mask>
-                <mask
-                  id="failure-strategy_svg__c"
-                >
-                  <path
-                    d="M23.5 9H26v1h-2.5z"
-                    fill="#fff"
-                  />
-                  <use
-                    xlink:href="#failure-strategy_svg__a"
-                  />
-                </mask>
-                <path
-                  d="M19.972 4l.707-.707-.707-.707-.707.707.707.707zM21.5 5.528l-.707.707.707.707.707-.707-.707-.707zM19 4.972l-.707-.707-.707.707.707.707.707-.707zM20.528 6.5l.707.707.707-.707-.707-.707-.707.707zM19 8.028l-.707-.707-.707.707.707.707.707-.707zm.972.972l-.707.708.707.707.707-.707L19.972 9zM21.5 7.472l.707-.707-.707-.707-.707.707.707.707zM23.028 9l-.707.707.707.707.707-.707L23.028 9zM24 8.028l.707.707.707-.707-.707-.707-.707.707zM22.473 6.5l-.708-.707-.707.707.707.707.707-.707zM24 4.973l.707.707.707-.707-.707-.708-.707.708zM23.028 4l.707-.707-.707-.707-.707.707.707.707zm-3.763.707l1.528 1.528 1.414-1.414-1.528-1.528-1.414 1.414zm.442.972l.972-.972-1.414-1.414-.972.972 1.414 1.414zm1.528.114l-1.528-1.528-1.414 1.414 1.528 1.528 1.414-1.414zm-1.528 2.942l1.528-1.528-1.414-1.414-1.528 1.528 1.414 1.414zm.972-.442l-.972-.972-1.414 1.414.972.973 1.414-1.415zm.114-1.528l-1.528 1.528 1.414 1.415 1.528-1.528-1.414-1.415zm2.942 1.528l-1.528-1.528-1.414 1.415 1.528 1.527 1.414-1.414zm-.442-.972l-.972.972 1.414 1.414.972-.972-1.414-1.414zm-1.528-.114l1.528 1.528 1.414-1.414-1.527-1.528-1.415 1.414zm1.528-2.942l-1.528 1.528 1.415 1.414 1.527-1.527-1.414-1.415zm-.972.442l.972.973 1.414-1.415-.972-.972-1.414 1.414zm-.114 1.528l1.528-1.528-1.414-1.414-1.528 1.528 1.414 1.414z"
-                  fill="#000"
-                  id="failure-strategy_svg__a"
-                />
-              </defs>
-              <g
-                transform="translate(-12 -3.7)"
+              <svg
+                fill="currentColor"
+                height="20"
+                viewBox="0 0 24 24"
+                width="20"
               >
                 <path
-                  d="M12.731 9.462h1.359"
-                  stroke="currentColor"
-                  stroke-linecap="square"
-                />
-                <rect
-                  fill="none"
-                  height="5.848"
-                  mask="url(#failure-strategy_svg__b)"
-                  rx="0.5"
-                  stroke="currentColor"
-                  stroke-width="1.1"
-                  width="5.4"
-                  x="16.137"
-                  y="6.5"
+                  d="M9.961 11.38h.227a.248.248 0 00.247-.248v-.226a.248.248 0 00-.247-.247H9.96a.248.248 0 00-.247.247v.226c0 .136.112.247.247.247zm.968.967h.226a.248.248 0 00.247-.247v-.227a.248.248 0 00-.247-.247h-.226a.248.248 0 00-.247.247v.227c0 .135.11.247.247.247zm0-.967h.226a.248.248 0 00.247-.248v-.226a.248.248 0 00-.247-.247h-.226a.248.248 0 00-.247.247v.226c0 .136.11.247.247.247zm-.968.967h.227a.248.248 0 00.247-.247v-.227a.248.248 0 00-.247-.247H9.96a.248.248 0 00-.247.247v.227c0 .135.112.247.247.247zm5.48 1.2h-.249a.273.273 0 00-.272.272v.25c0 .149.123.27.272.27h.25a.27.27 0 00.27-.27v-.25a.273.273 0 00-.27-.272zm.815 1.857h.25a.273.273 0 00.271-.272v-.25a.273.273 0 00-.272-.27h-.249a.272.272 0 00-.271.27v.25c0 .15.122.272.271.272zm0-1.064h.25a.273.273 0 00.271-.271v-.25a.273.273 0 00-.272-.272h-.249a.272.272 0 00-.271.272v.25c0 .149.122.27.271.27zm-.815.272h-.249a.272.272 0 00-.272.27v.25c0 .15.123.272.272.272h.25c.149 0 .27-.123.27-.272v-.25a.272.272 0 00-.27-.27zm-7.116.233h-.2a.218.218 0 00-.217.217v.2c0 .12.098.218.218.218h.199c.12 0 .218-.098.218-.218v-.2a.218.218 0 00-.218-.217zm.653 1.487h.2c.12 0 .217-.098.217-.218v-.2a.218.218 0 00-.218-.217h-.2a.218.218 0 00-.217.218v.2c0 .119.098.217.218.217zm0-.852h.2c.12 0 .217-.098.217-.218v-.2a.218.218 0 00-.218-.217h-.2a.218.218 0 00-.217.217v.2c0 .12.098.218.218.218zm-.653.217h-.2a.218.218 0 00-.217.218v.2c0 .119.098.217.218.217h.199c.12 0 .218-.098.218-.218v-.2a.218.218 0 00-.218-.217z"
                 />
                 <path
-                  d="M23.5 9h2.4v1.1h-2.4z"
-                  fill="currentColor"
-                  mask="url(#failure-strategy_svg__c)"
+                  d="M5.173 15.877l7.062 4.076a.344.344 0 00.346 0l7.061-4.076a.347.347 0 00.173-.3V7.423a.347.347 0 00-.173-.3l-7.06-4.077a.347.347 0 00-.347 0L5.173 7.123a.347.347 0 00-.173.3v8.154c0 .124.066.238.173.3zm7.235 2.98L6.739 15.67l1.636-1.636a.4.4 0 01.56-.006l4.392 4.192-.92.638zm6.444-3.824l-4.782 2.762-2.337-2.443 3.775-3.817a.4.4 0 01.566-.003l2.781 2.757-.003.744zM5.889 8.153a.6.6 0 01.301-.52l6.018-3.456a.4.4 0 01.4.001l5.948 3.454a.6.6 0 01.299.519v4.91l-2.82-2.662a.347.347 0 00-.49 0l-1.105 1.105-3.698-3.699a.357.357 0 00-.49 0l-4.363 4.36V8.152zm0 5.499l4.323-4.487a.4.4 0 01.573-.003l2.967 3.002-2.55 2.656-2.275-2.035a.347.347 0 00-.49 0L5.89 15.352v-1.7z"
                 />
-                <rect
-                  fill="none"
-                  height="5.848"
-                  rx="0.5"
-                  stroke="currentColor"
-                  stroke-width="1.1"
-                  width="5.4"
-                  x="27.099"
-                  y="6.5"
-                />
-                <path
-                  clip-rule="evenodd"
-                  d="M21.5 5.528L19.972 4 19 4.972 20.528 6.5 19 8.028l.972.972L21.5 7.472 23.028 9 24 8.028 22.473 6.5 24 4.973 23.028 4 21.5 5.528z"
-                  fill="#DA291D"
-                  fill-rule="evenodd"
-                />
-              </g>
-            </svg>
+              </svg>
+            </span>
+            Advanced
           </span>
-          <span
-            class="bp3-button-text"
-          >
-            pipeline.failureStrategies.title
-          </span>
-        </button>
+        </div>
       </div>
       <div
         aria-hidden="false"
@@ -368,7 +313,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                 stageDetails
               </div>
               <div
-                class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
+                class="bp3-card bp3-elevation-0 Card--card sectionCard"
               >
                 <form
                   class="FormikForm--main"
@@ -496,10 +441,10 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                 pipelineSteps.build.stageSpecifications.sharedPaths
               </div>
               <div
-                class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
+                class="bp3-card bp3-elevation-0 Card--card sectionCard"
               >
                 <form
-                  class="FormikForm--main fields"
+                  class="FormikForm--main fields contentCard"
                 >
                   <div>
                     <div
@@ -699,22 +644,22 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                 </form>
               </div>
               <div
-                class="Accordion--accordion sectionCard shadow"
+                class="Accordion--accordion accordionTitle"
               >
                 <div
                   class="Accordion--panel"
                   data-open="true"
-                  data-testid="variables-panel"
-                  id="variables-panel"
+                  data-testid="advanced-panel"
+                  id="advanced-panel"
                 >
                   <div
                     class="Accordion--summary"
-                    data-testid="variables-summary"
+                    data-testid="advanced-summary"
                   >
                     <div
                       class="Accordion--label"
                     >
-                      Variables
+                      Advanced
                     </div>
                     <div
                       class="Accordion--chevron"
@@ -731,118 +676,33 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                     >
                       <div
                         class="Accordion--details"
-                        data-testid="variables-details"
+                        data-testid="advanced-details"
                       >
                         <div
-                          class="stageSection"
+                          class="bp3-card bp3-elevation-0 Card--card sectionCard"
+                          id="variables"
                         >
                           <div
-                            class="stageDetails"
+                            class="tabSubHeading"
                           >
-                            <div>
-                              {"a":"a","variables":[],"canAddVariable":true}
-                            </div>
+                            Stage Variables
                           </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="Accordion--accordion sectionCard"
-              >
-                <div
-                  class="Accordion--panel"
-                  data-open="true"
-                  data-testid="skipConditions-panel"
-                  id="skipConditions-panel"
-                >
-                  <div
-                    class="Accordion--summary"
-                    data-testid="skipConditions-summary"
-                  >
-                    <div
-                      class="Accordion--label"
-                    >
-                      skipConditionsTitle
-                    </div>
-                    <div
-                      class="Accordion--chevron"
-                    />
-                  </div>
-                  <div
-                    class="bp3-collapse Accordion--collapse"
-                    style="height: auto; overflow-y: visible; transition: none;"
-                  >
-                    <div
-                      aria-hidden="false"
-                      class="bp3-collapse-body"
-                      style="transform: translateY(0); transition: none;"
-                    >
-                      <div
-                        class="Accordion--details"
-                        data-testid="skipConditions-details"
-                      >
-                        <form
-                          class="FormikForm--main"
-                          style="width: 300px;"
-                        >
-                          <div>
+                          <div
+                            class="Layout--horizontal StyledProps--main"
+                          >
                             <div
-                              class="bp3-form-group"
-                              data-id="skipCondition-0"
+                              class="stageSection"
                             >
-                              <label
-                                class="bp3-label"
-                                for="skipCondition"
-                              >
-                                skipConditionStageLabel
-                                 
-                                <span
-                                  class="bp3-text-muted"
-                                />
-                              </label>
                               <div
-                                class="bp3-form-content"
+                                class="stageDetails"
                               >
-                                <div
-                                  class="bp3-popover-wrapper"
-                                >
-                                  <div
-                                    class="bp3-popover-target"
-                                  >
-                                    <div
-                                      class="bp3-input-group"
-                                    >
-                                      <input
-                                        autocomplete="off"
-                                        class="bp3-input"
-                                        name="skipCondition"
-                                        type="text"
-                                        value=""
-                                      />
-                                    </div>
-                                  </div>
+                                <div>
+                                  {"a":"a","variables":[],"canAddVariable":true}
                                 </div>
                               </div>
                             </div>
-                            <p
-                              class="StyledProps--font StyledProps--main StyledProps--font-small"
-                              style="white-space: break-spaces;"
-                            >
-                              skipConditionText
-                              <br />
-                              <a
-                                href="https://ngdocs.harness.io/article/i36ibenkq2-step-skip-condition-settings"
-                                rel="noreferrer"
-                                target="_blank"
-                              >
-                                learnMore
-                              </a>
-                            </p>
                           </div>
-                        </form>
+                        </div>
                       </div>
                     </div>
                   </div>

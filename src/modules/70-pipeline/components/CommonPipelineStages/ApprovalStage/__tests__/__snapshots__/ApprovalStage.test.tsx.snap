@@ -21,13 +21,13 @@ exports[`Approval Stage readonly view if readonly view works: readonly view appr
           />
         </div>
         <div
-          aria-controls="bp3-tab-panel_approvalStageSetupShell_approvalStage.setupShellOverview"
+          aria-controls="bp3-tab-panel_approvalStageSetupShell_overview"
           aria-disabled="false"
           aria-expanded="true"
           aria-selected="true"
           class="bp3-tab"
-          data-tab-id="approvalStage.setupShellOverview"
-          id="bp3-tab-title_approvalStageSetupShell_approvalStage.setupShellOverview"
+          data-tab-id="overview"
+          id="bp3-tab-title_approvalStageSetupShell_overview"
           role="tab"
           tabindex="0"
         >
@@ -54,17 +54,37 @@ exports[`Approval Stage readonly view if readonly view works: readonly view appr
                 />
               </svg>
             </span>
-            approvalStage.setupShellOverview
+            overview
           </span>
         </div>
+        <span
+          class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
+          icon="chevron-right"
+          style="align-self: center; height: 20px;"
+        >
+          <svg
+            data-icon="chevron-right"
+            height="20"
+            viewBox="0 0 20 20"
+            width="20"
+          >
+            <desc>
+              chevron-right
+            </desc>
+            <path
+              d="M13.71 9.29l-6-6a1.003 1.003 0 00-1.42 1.42l5.3 5.29-5.29 5.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l6-6c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
         <div
-          aria-controls="bp3-tab-panel_approvalStageSetupShell_approvalStage.setupShellExecution"
+          aria-controls="bp3-tab-panel_approvalStageSetupShell_executionText"
           aria-disabled="false"
           aria-expanded="false"
           aria-selected="false"
           class="bp3-tab"
-          data-tab-id="approvalStage.setupShellExecution"
-          id="bp3-tab-title_approvalStageSetupShell_approvalStage.setupShellExecution"
+          data-tab-id="executionText"
+          id="bp3-tab-title_approvalStageSetupShell_executionText"
           role="tab"
           tabindex="0"
         >
@@ -99,137 +119,71 @@ exports[`Approval Stage readonly view if readonly view works: readonly view appr
                 />
               </svg>
             </span>
-            approvalStage.setupShellExecution
+            executionText
           </span>
         </div>
+        <span
+          class="bp3-icon bp3-icon-chevron-right StyledProps--main StyledProps--margin-right-small StyledProps--margin-left-small StyledProps--color StyledProps--color-grey400"
+          icon="chevron-right"
+          style="align-self: center; height: 20px;"
+        >
+          <svg
+            data-icon="chevron-right"
+            height="20"
+            viewBox="0 0 20 20"
+            width="20"
+          >
+            <desc>
+              chevron-right
+            </desc>
+            <path
+              d="M13.71 9.29l-6-6a1.003 1.003 0 00-1.42 1.42l5.3 5.29-5.29 5.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l6-6c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
         <div
-          class="spacer"
-        />
-        <button
-          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main failureStrategy"
-          type="button"
+          aria-controls="bp3-tab-panel_approvalStageSetupShell_advancedTitle"
+          aria-disabled="false"
+          aria-expanded="false"
+          aria-selected="false"
+          class="bp3-tab"
+          data-tab-id="advancedTitle"
+          id="bp3-tab-title_approvalStageSetupShell_advancedTitle"
+          role="tab"
+          tabindex="0"
         >
           <span
-            class="bp3-icon StyledProps--main StyledProps--margin-xsmall"
-            data-icon="conditional-skip"
+            class="tab"
           >
-            <svg
-              height="16"
-              viewBox="0 0 16 11"
-              width="16"
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="advanced"
+              style="height: 20px;"
             >
-              <path
-                d="M13.333 9.333h1.334V8h-1.334zm-6 0h1.334V8H7.333zm-6 0h1.334V8H1.333zM12 6.667v4h4v-4zm-6 0v4h4v-4zm-6 0v4h4v-4zM8 0A8.666 8.666 0 00.96 3.61l1.083.78a7.318 7.318 0 0110.974-1.057h-2.35v1.334h4.666V0H14v2.432A8.634 8.634 0 008 0z"
-                fill="#e59c0b"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-          <span
-            class="bp3-button-text"
-          >
-            skipConditionTitle
-          </span>
-        </button>
-        <button
-          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main failureStrategy"
-          type="button"
-        >
-          <span
-            class="bp3-icon StyledProps--main StyledProps--margin-xsmall"
-            data-icon="failure-strategy"
-          >
-            <svg
-              height="28"
-              viewBox="0 0 22 10"
-              width="28"
-            >
-              <defs>
-                <mask
-                  id="failure-strategy_svg__b"
-                >
-                  <path
-                    d="M16.137 6.5h5.4v5.848h-5.4z"
-                    fill="#fff"
-                    stroke="#fff"
-                    stroke-width="1.1"
-                  />
-                  <use
-                    xlink:href="#failure-strategy_svg__a"
-                  />
-                </mask>
-                <mask
-                  id="failure-strategy_svg__c"
-                >
-                  <path
-                    d="M23.5 9H26v1h-2.5z"
-                    fill="#fff"
-                  />
-                  <use
-                    xlink:href="#failure-strategy_svg__a"
-                  />
-                </mask>
-                <path
-                  d="M19.972 4l.707-.707-.707-.707-.707.707.707.707zM21.5 5.528l-.707.707.707.707.707-.707-.707-.707zM19 4.972l-.707-.707-.707.707.707.707.707-.707zM20.528 6.5l.707.707.707-.707-.707-.707-.707.707zM19 8.028l-.707-.707-.707.707.707.707.707-.707zm.972.972l-.707.708.707.707.707-.707L19.972 9zM21.5 7.472l.707-.707-.707-.707-.707.707.707.707zM23.028 9l-.707.707.707.707.707-.707L23.028 9zM24 8.028l.707.707.707-.707-.707-.707-.707.707zM22.473 6.5l-.708-.707-.707.707.707.707.707-.707zM24 4.973l.707.707.707-.707-.707-.708-.707.708zM23.028 4l.707-.707-.707-.707-.707.707.707.707zm-3.763.707l1.528 1.528 1.414-1.414-1.528-1.528-1.414 1.414zm.442.972l.972-.972-1.414-1.414-.972.972 1.414 1.414zm1.528.114l-1.528-1.528-1.414 1.414 1.528 1.528 1.414-1.414zm-1.528 2.942l1.528-1.528-1.414-1.414-1.528 1.528 1.414 1.414zm.972-.442l-.972-.972-1.414 1.414.972.973 1.414-1.415zm.114-1.528l-1.528 1.528 1.414 1.415 1.528-1.528-1.414-1.415zm2.942 1.528l-1.528-1.528-1.414 1.415 1.528 1.527 1.414-1.414zm-.442-.972l-.972.972 1.414 1.414.972-.972-1.414-1.414zm-1.528-.114l1.528 1.528 1.414-1.414-1.527-1.528-1.415 1.414zm1.528-2.942l-1.528 1.528 1.415 1.414 1.527-1.527-1.414-1.415zm-.972.442l.972.973 1.414-1.415-.972-.972-1.414 1.414zm-.114 1.528l1.528-1.528-1.414-1.414-1.528 1.528 1.414 1.414z"
-                  fill="#000"
-                  id="failure-strategy_svg__a"
-                />
-              </defs>
-              <g
-                transform="translate(-12 -3.7)"
+              <svg
+                fill="currentColor"
+                height="20"
+                viewBox="0 0 24 24"
+                width="20"
               >
                 <path
-                  d="M12.731 9.462h1.359"
-                  stroke="currentColor"
-                  stroke-linecap="square"
-                />
-                <rect
-                  fill="none"
-                  height="5.848"
-                  mask="url(#failure-strategy_svg__b)"
-                  rx="0.5"
-                  stroke="currentColor"
-                  stroke-width="1.1"
-                  width="5.4"
-                  x="16.137"
-                  y="6.5"
+                  d="M9.961 11.38h.227a.248.248 0 00.247-.248v-.226a.248.248 0 00-.247-.247H9.96a.248.248 0 00-.247.247v.226c0 .136.112.247.247.247zm.968.967h.226a.248.248 0 00.247-.247v-.227a.248.248 0 00-.247-.247h-.226a.248.248 0 00-.247.247v.227c0 .135.11.247.247.247zm0-.967h.226a.248.248 0 00.247-.248v-.226a.248.248 0 00-.247-.247h-.226a.248.248 0 00-.247.247v.226c0 .136.11.247.247.247zm-.968.967h.227a.248.248 0 00.247-.247v-.227a.248.248 0 00-.247-.247H9.96a.248.248 0 00-.247.247v.227c0 .135.112.247.247.247zm5.48 1.2h-.249a.273.273 0 00-.272.272v.25c0 .149.123.27.272.27h.25a.27.27 0 00.27-.27v-.25a.273.273 0 00-.27-.272zm.815 1.857h.25a.273.273 0 00.271-.272v-.25a.273.273 0 00-.272-.27h-.249a.272.272 0 00-.271.27v.25c0 .15.122.272.271.272zm0-1.064h.25a.273.273 0 00.271-.271v-.25a.273.273 0 00-.272-.272h-.249a.272.272 0 00-.271.272v.25c0 .149.122.27.271.27zm-.815.272h-.249a.272.272 0 00-.272.27v.25c0 .15.123.272.272.272h.25c.149 0 .27-.123.27-.272v-.25a.272.272 0 00-.27-.27zm-7.116.233h-.2a.218.218 0 00-.217.217v.2c0 .12.098.218.218.218h.199c.12 0 .218-.098.218-.218v-.2a.218.218 0 00-.218-.217zm.653 1.487h.2c.12 0 .217-.098.217-.218v-.2a.218.218 0 00-.218-.217h-.2a.218.218 0 00-.217.218v.2c0 .119.098.217.218.217zm0-.852h.2c.12 0 .217-.098.217-.218v-.2a.218.218 0 00-.218-.217h-.2a.218.218 0 00-.217.217v.2c0 .12.098.218.218.218zm-.653.217h-.2a.218.218 0 00-.217.218v.2c0 .119.098.217.218.217h.199c.12 0 .218-.098.218-.218v-.2a.218.218 0 00-.218-.217z"
                 />
                 <path
-                  d="M23.5 9h2.4v1.1h-2.4z"
-                  fill="currentColor"
-                  mask="url(#failure-strategy_svg__c)"
+                  d="M5.173 15.877l7.062 4.076a.344.344 0 00.346 0l7.061-4.076a.347.347 0 00.173-.3V7.423a.347.347 0 00-.173-.3l-7.06-4.077a.347.347 0 00-.347 0L5.173 7.123a.347.347 0 00-.173.3v8.154c0 .124.066.238.173.3zm7.235 2.98L6.739 15.67l1.636-1.636a.4.4 0 01.56-.006l4.392 4.192-.92.638zm6.444-3.824l-4.782 2.762-2.337-2.443 3.775-3.817a.4.4 0 01.566-.003l2.781 2.757-.003.744zM5.889 8.153a.6.6 0 01.301-.52l6.018-3.456a.4.4 0 01.4.001l5.948 3.454a.6.6 0 01.299.519v4.91l-2.82-2.662a.347.347 0 00-.49 0l-1.105 1.105-3.698-3.699a.357.357 0 00-.49 0l-4.363 4.36V8.152zm0 5.499l4.323-4.487a.4.4 0 01.573-.003l2.967 3.002-2.55 2.656-2.275-2.035a.347.347 0 00-.49 0L5.89 15.352v-1.7z"
                 />
-                <rect
-                  fill="none"
-                  height="5.848"
-                  rx="0.5"
-                  stroke="currentColor"
-                  stroke-width="1.1"
-                  width="5.4"
-                  x="27.099"
-                  y="6.5"
-                />
-                <path
-                  clip-rule="evenodd"
-                  d="M21.5 5.528L19.972 4 19 4.972 20.528 6.5 19 8.028l.972.972L21.5 7.472 23.028 9 24 8.028 22.473 6.5 24 4.973 23.028 4 21.5 5.528z"
-                  fill="#DA291D"
-                  fill-rule="evenodd"
-                />
-              </g>
-            </svg>
+              </svg>
+            </span>
+            advancedTitle
           </span>
-          <span
-            class="bp3-button-text"
-          >
-            pipeline.failureStrategies.title
-          </span>
-        </button>
+        </div>
       </div>
       <div
         aria-hidden="false"
-        aria-labelledby="bp3-tab-title_approvalStageSetupShell_approvalStage.setupShellOverview"
+        aria-labelledby="bp3-tab-title_approvalStageSetupShell_overview"
         class="bp3-tab-panel"
-        id="bp3-tab-panel_approvalStageSetupShell_approvalStage.setupShellOverview"
+        id="bp3-tab-panel_approvalStageSetupShell_overview"
         role="tabpanel"
       >
         <div
@@ -253,7 +207,7 @@ exports[`Approval Stage readonly view if readonly view works: readonly view appr
               >
                 <div>
                   <div
-                    class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
+                    class="bp3-card bp3-elevation-0 Card--card sectionCard"
                   >
                     <div
                       class="StyledProps--font StyledProps--main main"
@@ -389,7 +343,7 @@ exports[`Approval Stage readonly view if readonly view works: readonly view appr
               </form>
             </div>
             <div
-              class="Accordion--accordion sectionCard shadow"
+              class="Accordion--accordion accordionTitle"
             >
               <div
                 class="Accordion--panel"
@@ -404,7 +358,7 @@ exports[`Approval Stage readonly view if readonly view works: readonly view appr
                   <div
                     class="Accordion--label"
                   >
-                    Variables
+                    Advanced
                   </div>
                   <div
                     class="Accordion--chevron"
@@ -423,103 +377,23 @@ exports[`Approval Stage readonly view if readonly view works: readonly view appr
                       class="Accordion--details"
                       data-testid="variables-details"
                     >
-                      <div>
-                        {"a":"a","variables":[],"canAddVariable":true}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              class="Accordion--accordion sectionCard shadow"
-            >
-              <div
-                class="Accordion--panel"
-                data-open="true"
-                data-testid="skipCondition-panel"
-                id="skipCondition-panel"
-              >
-                <div
-                  class="Accordion--summary"
-                  data-testid="skipCondition-summary"
-                >
-                  <div
-                    class="Accordion--label"
-                  >
-                    Skip Condition
-                  </div>
-                  <div
-                    class="Accordion--chevron"
-                  />
-                </div>
-                <div
-                  class="bp3-collapse Accordion--collapse"
-                  style="height: auto; overflow-y: visible; transition: none;"
-                >
-                  <div
-                    aria-hidden="false"
-                    class="bp3-collapse-body"
-                    style="transform: translateY(0); transition: none;"
-                  >
-                    <div
-                      class="Accordion--details"
-                      data-testid="skipCondition-details"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main skipConditionLabel StyledProps--font-weight-semi-bold StyledProps--margin-bottom-large"
-                      >
-                        <span>
-                          skipConditionStageLabel
-                        </span>
-                      </p>
                       <div
-                        class="bp3-form-group"
+                        class="bp3-card bp3-elevation-0 Card--card sectionCard"
+                        id="variables"
                       >
-                        
                         <div
-                          class="bp3-form-content"
+                          class="tabSubHeading"
                         >
-                          <div
-                            class="bp3-popover-wrapper"
-                          >
-                            <div
-                              class="bp3-popover-target"
-                            >
-                              <div
-                                class="bp3-input-group bp3-disabled"
-                              >
-                                <input
-                                  autocomplete="off"
-                                  class="bp3-input"
-                                  disabled=""
-                                  name="skipCondition"
-                                  type="text"
-                                  value=""
-                                />
-                              </div>
-                            </div>
+                          Stage Variables
+                        </div>
+                        <div
+                          class="Layout--horizontal StyledProps--main"
+                        >
+                          <div>
+                            {"a":"a","variables":[],"canAddVariable":true}
                           </div>
                         </div>
                       </div>
-                      <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
-                        style="white-space: break-spaces;"
-                      >
-                        <span>
-                          skipConditionText
-                        </span>
-                        <br />
-                        <a
-                          href="https://ngdocs.harness.io/article/i36ibenkq2-step-skip-condition-settings"
-                          rel="noreferrer"
-                          target="_blank"
-                        >
-                          <span>
-                            learnMore
-                          </span>
-                        </a>
-                      </p>
                     </div>
                   </div>
                 </div>

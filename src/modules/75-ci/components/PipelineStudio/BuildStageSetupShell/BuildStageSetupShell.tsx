@@ -21,6 +21,7 @@ import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands
 import BuildInfraSpecifications from '../BuildInfraSpecifications/BuildInfraSpecifications'
 import BuildStageSpecifications from '../BuildStageSpecifications/BuildStageSpecifications'
 import i18n from './BuildStageSetupShell.i18n'
+import BuildAdvancedSpecifications from '../BuildAdvancedSpecifications/BuildAdvancedSpecifications'
 import css from './BuildStageSetupShell.module.scss'
 
 export const MapStepTypeToIcon: { [key: string]: HarnessIconName } = {
@@ -104,15 +105,15 @@ export default function BuildStageSetupShell(): JSX.Element {
     setSelectedTabId(data)
   }
 
-  const openDrawer: (drawerType: DrawerTypes) => void = drawerType => {
-    updatePipelineView({
-      ...pipelineView,
-      isDrawerOpened: true,
-      drawerData: {
-        type: drawerType
-      }
-    })
-  }
+  // const openDrawer: (drawerType: DrawerTypes) => void = drawerType => {
+  //   updatePipelineView({
+  //     ...pipelineView,
+  //     isDrawerOpened: true,
+  //     drawerData: {
+  //       type: drawerType
+  //     }
+  //   })
+  // }
 
   React.useEffect(() => {
     if (layoutRef.current) {
@@ -152,20 +153,38 @@ export default function BuildStageSetupShell(): JSX.Element {
         text={i18n.previous}
         icon="chevron-left"
         disabled={selectedTabId === i18n.defaultId}
-        onClick={() => setSelectedTabId(selectedTabId === i18n.executionLabel ? i18n.infraLabel : i18n.defaultId)}
+        onClick={() =>
+          setSelectedTabId(
+            selectedTabId === i18n.advancedLabel
+              ? i18n.executionLabel
+              : selectedTabId === i18n.executionLabel
+              ? i18n.infraLabel
+              : i18n.defaultId
+          )
+        }
       />
-      <Button
-        text={selectedTabId === i18n.executionLabel ? i18n.save : i18n.next}
-        intent="primary"
-        rightIcon="chevron-right"
-        onClick={() => {
-          if (selectedTabId === i18n.executionLabel) {
-            updatePipelineView({ ...pipelineView, isSplitViewOpen: false, splitViewData: {} })
-          } else {
-            setSelectedTabId(selectedTabId === i18n.defaultId ? i18n.infraLabel : i18n.executionLabel)
-          }
-        }}
-      />
+      {selectedTabId === i18n.advancedLabel ? (
+        <Button
+          text="Done"
+          intent="primary"
+          onClick={() => {
+            updatePipelineView({ ...pipelineView, isSplitViewOpen: false })
+          }}
+        />
+      ) : (
+        <Button
+          text={selectedTabId === i18n.executionLabel ? i18n.save : i18n.next}
+          intent="primary"
+          rightIcon="chevron-right"
+          onClick={() => {
+            if (selectedTabId === i18n.executionLabel) {
+              updatePipelineView({ ...pipelineView, isSplitViewOpen: false, splitViewData: {} })
+            } else {
+              setSelectedTabId(selectedTabId === i18n.defaultId ? i18n.infraLabel : i18n.executionLabel)
+            }
+          }}
+        />
+      )}
     </Layout.Horizontal>
   )
 
@@ -194,7 +213,7 @@ export default function BuildStageSetupShell(): JSX.Element {
           id={i18n.infraLabel}
           title={
             <span className={css.tab}>
-              <Icon name="yaml-builder-stages" height={20} size={20} />
+              <Icon name="infrastructure" height={20} size={20} />
               {i18n.infraLabel}
               {filledUpStages.infra ? null : (
                 <Icon
@@ -222,7 +241,7 @@ export default function BuildStageSetupShell(): JSX.Element {
           id={i18n.executionLabel}
           title={
             <span className={css.tab}>
-              <Icon name="yaml-builder-steps" height={20} size={20} />
+              <Icon name="execution" height={20} size={20} />
               {i18n.executionLabel}
               {filledUpStages.execution ? null : (
                 <Icon
@@ -328,7 +347,26 @@ export default function BuildStageSetupShell(): JSX.Element {
             />
           }
         />
-        <>
+        <Icon
+          name="chevron-right"
+          height={20}
+          size={20}
+          margin={{ right: 'small', left: 'small' }}
+          color={'grey400'}
+          style={{ alignSelf: 'center' }}
+        />
+        <Tab
+          id={i18n.advancedLabel}
+          title={
+            <span className={css.tab}>
+              <Icon name="advanced" height={20} size={20} />
+              {i18n.advancedLabel}
+            </span>
+          }
+          panel={<BuildAdvancedSpecifications>{navBtns}</BuildAdvancedSpecifications>}
+        />
+
+        {/* <>
           <div className={css.spacer} />
           <Button
             minimal
@@ -348,7 +386,7 @@ export default function BuildStageSetupShell(): JSX.Element {
           >
             {getString('pipeline.failureStrategies.title')}
           </Button>
-        </>
+        </> */}
       </Tabs>
     </section>
   )

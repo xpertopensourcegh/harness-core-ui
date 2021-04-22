@@ -189,7 +189,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
               </div>
               <FormikForm>
                 {otherBuildStagesWithInfraConfigurationOptions.length ? (
-                  <Card disabled={isReadonly} className={cx(css.sectionCard, css.shadow)}>
+                  <Card disabled={isReadonly} className={cx(css.sectionCard)}>
                     <Layout.Horizontal spacing="xxlarge">
                       <div
                         className={cx(css.card, { [css.active]: currentMode === Modes.Propagate })}
@@ -301,7 +301,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                     </Layout.Horizontal>
                   </Card>
                 ) : (
-                  <Card disabled={isReadonly} className={cx(css.sectionCard, css.shadow)}>
+                  <Card disabled={isReadonly} className={cx(css.sectionCard)}>
                     <ConnectorReferenceField
                       width={300}
                       name="connectorRef"

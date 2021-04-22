@@ -6,12 +6,12 @@ import { FailureStrategyWithRef } from '@pipeline/components/PipelineStudio/Fail
 import type { StepFormikRef } from '@pipeline/components/PipelineStudio/StepCommands/StepCommands'
 import SkipCondition from '@pipeline/components/PipelineStudio/SkipCondition/SkipCondition'
 import { useStrings } from 'framework/strings'
-import css from './DeployAdvancedSpecifications.module.scss'
+import css from './BuildAdvancedSpecifications.module.scss'
 
 export interface AdvancedSpecifications {
   context?: string
 }
-const DeployAdvancedSpecifications: React.FC<AdvancedSpecifications> = ({ children }): JSX.Element => {
+const BuildAdvancedSpecifications: React.FC<AdvancedSpecifications> = ({ children }): JSX.Element => {
   const { getString } = useStrings()
 
   const {
@@ -78,4 +78,4 @@ const DeployAdvancedSpecifications: React.FC<AdvancedSpecifications> = ({ childr
   )
 }
 
-export default DeployAdvancedSpecifications
+export default BuildAdvancedSpecifications

@@ -4,8 +4,8 @@ declare const styles: {
   readonly wrapper: string
   readonly contentSection: string
   readonly tabHeading: string
+  readonly tabSubHeading: string
   readonly sectionCard: string
-  readonly shadow: string
   readonly section: string
   readonly noPadTop: string
   readonly specTabs: string

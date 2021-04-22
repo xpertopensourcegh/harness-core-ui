@@ -17,7 +17,6 @@ import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
-import { skipConditionsNgDocsLink } from '@pipeline/components/PipelineSteps/AdvancedSteps/SkipConditionsPanel/SkipConditionsPanel'
 import type { StageElementWrapper } from 'services/cd-ng'
 import css from './BuildStageSpecifications.module.scss'
 
@@ -176,7 +175,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
               <div className={css.tabHeading} id="stageDetails">
                 {getString('stageDetails')}
               </div>
-              <Card className={cx(css.sectionCard, css.shadow)} disabled={isReadonly}>
+              <Card className={cx(css.sectionCard)} disabled={isReadonly}>
                 <FormikForm>
                   <Layout.Horizontal spacing="medium">
                     <FormInput.InputWithIdentifier
@@ -231,8 +230,8 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
               <div className={css.tabHeading} id="sharedPaths">
                 {getString('pipelineSteps.build.stageSpecifications.sharedPaths')}
               </div>
-              <Card disabled={isReadonly} className={cx(css.sectionCard, css.shadow)}>
-                <FormikForm className={css.fields}>
+              <Card disabled={isReadonly} className={cx(css.sectionCard)}>
+                <FormikForm className={cx(css.fields, css.contentCard)}>
                   <MultiTypeList
                     name="sharedPaths"
                     multiTextInputProps={{ expressions }}
@@ -253,64 +252,45 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
                   />
                 </FormikForm>
               </Card>
-              <Accordion className={cx(css.sectionCard, css.shadow)} activeId="variables">
-                <Accordion.Panel
-                  id="variables"
-                  summary={'Variables'}
-                  addDomId={true}
-                  details={
-                    <div className={css.stageSection}>
-                      <div className={css.stageDetails}>
-                        <StepWidget<CustomVariablesData>
-                          factory={stepsFactory}
-                          readonly={isReadonly}
-                          initialValues={{
-                            variables: ((stage?.stage as StageElementConfig)?.variables || []) as AllNGVariables[],
-                            canAddVariable: true
-                          }}
-                          type={StepType.CustomVariable}
-                          stepViewType={StepViewType.StageVariable}
-                          onUpdate={({ variables }: CustomVariablesData) => {
-                            handleStepWidgetUpdate({ ...stage?.stage, variables } as StageElementConfig)
-                          }}
-                          customStepProps={{
-                            yamlProperties:
-                              getStageFromPipeline(
-                                stage?.stage?.identifier,
-                                variablesPipeline
-                              )?.stage?.variables?.map?.(
-                                (variable: AllNGVariables) => metadataMap[variable.value || '']?.yamlProperties || {}
-                              ) || []
-                          }}
-                        />
-                      </div>
-                    </div>
-                  }
-                />
-              </Accordion>
 
-              <Accordion className={css.sectionCard} activeId="skipConditions">
+              <Accordion className={css.accordionTitle} activeId="advanced">
                 <Accordion.Panel
-                  id="skipConditions"
+                  id="advanced"
                   addDomId={true}
-                  summary={getString('skipConditionsTitle')}
+                  summary={'Advanced'}
                   details={
-                    <FormikForm style={{ width: 300 }}>
-                      <FormInput.ExpressionInput
-                        items={expressions}
-                        name="skipCondition"
-                        label={getString('skipConditionStageLabel')}
-                        expressionInputProps={{ disabled: isReadonly }}
-                        disabled={isReadonly}
-                      />
-                      <Text font="small" style={{ whiteSpace: 'break-spaces' }}>
-                        {getString('skipConditionText')}
-                        <br />
-                        <a href={skipConditionsNgDocsLink} target="_blank" rel="noreferrer">
-                          {getString('learnMore')}
-                        </a>
-                      </Text>
-                    </FormikForm>
+                    <Card className={css.sectionCard} id="variables">
+                      <div className={css.tabSubHeading}>Stage Variables</div>
+                      <Layout.Horizontal>
+                        <div className={css.stageSection}>
+                          <div className={css.stageDetails}>
+                            <StepWidget<CustomVariablesData>
+                              factory={stepsFactory}
+                              readonly={isReadonly}
+                              initialValues={{
+                                variables: ((stage?.stage as StageElementConfig)?.variables || []) as AllNGVariables[],
+                                canAddVariable: true
+                              }}
+                              type={StepType.CustomVariable}
+                              stepViewType={StepViewType.StageVariable}
+                              onUpdate={({ variables }: CustomVariablesData) => {
+                                handleStepWidgetUpdate({ ...stage?.stage, variables } as StageElementConfig)
+                              }}
+                              customStepProps={{
+                                yamlProperties:
+                                  getStageFromPipeline(
+                                    stage?.stage?.identifier,
+                                    variablesPipeline
+                                  )?.stage?.variables?.map?.(
+                                    (variable: AllNGVariables) =>
+                                      metadataMap[variable.value || '']?.yamlProperties || {}
+                                  ) || []
+                              }}
+                            />
+                          </div>
+                        </div>
+                      </Layout.Horizontal>
+                    </Card>
                   }
                 />
               </Accordion>

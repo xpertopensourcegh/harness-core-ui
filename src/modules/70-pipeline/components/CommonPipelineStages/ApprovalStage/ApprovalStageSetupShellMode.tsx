@@ -5,15 +5,15 @@ import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineCon
 import { useStrings } from 'framework/strings'
 import { useGetInitialStageYamlSnippet } from 'services/pipeline-ng'
 import type { StageElementConfig, StageElementWrapper } from 'services/cd-ng'
-import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { ApprovalStageOverview } from './ApprovalStageOverview'
 import { ApprovalStageExecution } from './ApprovalStageExecution'
+import ApprovalAdvancedSpecifications from './ApprovalStageAdvanced'
 import css from './ApprovalStageSetupShellMode.module.scss'
 
 export const ApprovalStageSetupShellMode: React.FC = () => {
   const { getString } = useStrings()
-  const tabHeadings = [getString('approvalStage.setupShellOverview'), getString('approvalStage.setupShellExecution')]
+  const tabHeadings = [getString('overview'), getString('executionText'), getString('advancedTitle')]
 
   const layoutRef = useRef<HTMLDivElement>(null)
   const [selectedTabId, setSelectedTabId] = React.useState<string>(tabHeadings[1])
@@ -55,16 +55,6 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
         />
       </Layout.Horizontal>
     )
-  }
-
-  function openDrawer(drawerType: DrawerTypes): void {
-    updatePipelineView({
-      ...pipelineView,
-      isDrawerOpened: true,
-      drawerData: {
-        type: drawerType
-      }
-    })
   }
 
   React.useEffect(() => {
@@ -118,6 +108,14 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
             </span>
           }
         />
+        <Icon
+          name="chevron-right"
+          height={20}
+          size={20}
+          margin={{ right: 'small', left: 'small' }}
+          color={'grey400'}
+          style={{ alignSelf: 'center' }}
+        />
         <Tab
           id={tabHeadings[1]}
           title={
@@ -132,27 +130,28 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
             </ApprovalStageExecution>
           }
         />
-        <React.Fragment>
-          <div className={css.spacer} />
-          <Button
-            minimal
-            onClick={() => openDrawer(DrawerTypes.SkipCondition)}
-            iconProps={{ margin: 'xsmall' }}
-            className={css.failureStrategy}
-            icon="conditional-skip"
-          >
-            {getString('skipConditionTitle')}
-          </Button>
-          <Button
-            minimal
-            iconProps={{ size: 28, margin: 'xsmall' }}
-            className={css.failureStrategy}
-            onClick={() => openDrawer(DrawerTypes.FailureStrategy)}
-            icon="failure-strategy"
-          >
-            {getString('pipeline.failureStrategies.title')}
-          </Button>
-        </React.Fragment>
+        <Icon
+          name="chevron-right"
+          height={20}
+          size={20}
+          margin={{ right: 'small', left: 'small' }}
+          color={'grey400'}
+          style={{ alignSelf: 'center' }}
+        />
+        <Tab
+          id={tabHeadings[2]}
+          title={
+            <span className={css.tab}>
+              <Icon name="advanced" height={20} size={20} />
+              {tabHeadings[2]}
+            </span>
+          }
+          panel={
+            <ApprovalAdvancedSpecifications>
+              <ActionButtons />
+            </ApprovalAdvancedSpecifications>
+          }
+        />
       </Tabs>
     </section>
   )

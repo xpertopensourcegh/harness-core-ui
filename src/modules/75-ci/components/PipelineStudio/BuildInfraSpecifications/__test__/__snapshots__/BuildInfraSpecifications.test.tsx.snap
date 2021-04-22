@@ -25,7 +25,7 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
           >
             <div>
               <div
-                class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
+                class="bp3-card bp3-elevation-0 Card--card sectionCard"
               >
                 <div
                   class="bp3-form-group"
@@ -239,7 +239,7 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
           >
             <div>
               <div
-                class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
+                class="bp3-card bp3-elevation-0 Card--card sectionCard"
               >
                 <div
                   class="bp3-form-group"

@@ -3,7 +3,7 @@ import cx from 'classnames'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
 import { cloneDeep, debounce } from 'lodash-es'
-import { Accordion, Card, Container, FormikForm } from '@wings-software/uicore'
+import { Accordion, Card, Container, FormikForm, Layout } from '@wings-software/uicore'
 import { NameIdDescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { useStrings } from 'framework/strings'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
@@ -14,8 +14,6 @@ import type { StageElementConfig, StageElementWrapper } from 'services/cd-ng'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
-import SkipConditionsPanel from '@pipeline/components/PipelineSteps/AdvancedSteps/SkipConditionsPanel/SkipConditionsPanel'
-import { Modes } from '@pipeline/components/PipelineSteps/AdvancedSteps/common'
 import type { AllNGVariables } from '@pipeline/utils/types'
 import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
 import type { ApprovalStageOverviewProps } from './types'
@@ -102,7 +100,7 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
           >
             {formikProps => (
               <FormikForm>
-                <Card className={cx(css.sectionCard, css.shadow)}>
+                <Card className={cx(css.sectionCard)}>
                   <NameIdDescriptionTags
                     formikProps={formikProps}
                     descriptionProps={{
@@ -122,71 +120,47 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
           </Formik>
         </Container>
 
-        <Accordion className={cx(css.sectionCard, css.shadow)} activeId="variables">
+        <Accordion className={cx(css.accordionTitle)} activeId="variables">
           <Accordion.Panel
             id="variables"
-            summary={'Variables'}
+            summary={'Advanced'}
             addDomId={true}
             details={
-              <StepWidget<CustomVariablesData>
-                factory={stepsFactory}
-                readonly={isReadonly}
-                initialValues={{
-                  variables: ((cloneOriginalData?.stage as StageElementConfig)?.variables || []) as AllNGVariables[],
-                  canAddVariable: true
-                }}
-                type={StepType.CustomVariable}
-                stepViewType={StepViewType.StageVariable}
-                onUpdate={({ variables }: CustomVariablesData) => {
-                  updateStageDebounced({
-                    ...cloneOriginalData?.stage,
-                    variables
-                  })
-                }}
-                customStepProps={{
-                  yamlProperties:
-                    getStageFromPipeline(
-                      cloneOriginalData?.stage?.identifier,
-                      variablesPipeline
-                    )?.stage?.variables?.map?.(
-                      (variable: AllNGVariables) => metadataMap[variable.value || '']?.yamlProperties || {}
-                    ) || []
-                }}
-              />
+              <Card className={css.sectionCard} id="variables">
+                <div className={css.tabSubHeading}>Stage Variables</div>
+                <Layout.Horizontal>
+                  <StepWidget<CustomVariablesData>
+                    factory={stepsFactory}
+                    readonly={isReadonly}
+                    initialValues={{
+                      variables: ((cloneOriginalData?.stage as StageElementConfig)?.variables ||
+                        []) as AllNGVariables[],
+                      canAddVariable: true
+                    }}
+                    type={StepType.CustomVariable}
+                    stepViewType={StepViewType.StageVariable}
+                    onUpdate={({ variables }: CustomVariablesData) => {
+                      updateStageDebounced({
+                        ...cloneOriginalData?.stage,
+                        variables
+                      })
+                    }}
+                    customStepProps={{
+                      yamlProperties:
+                        getStageFromPipeline(
+                          cloneOriginalData?.stage?.identifier,
+                          variablesPipeline
+                        )?.stage?.variables?.map?.(
+                          (variable: AllNGVariables) => metadataMap[variable.value || '']?.yamlProperties || {}
+                        ) || []
+                    }}
+                  />
+                </Layout.Horizontal>
+              </Card>
             }
           />
         </Accordion>
 
-        <Accordion className={cx(css.sectionCard, css.shadow)} activeId="skipCondition">
-          <Accordion.Panel
-            id="skipCondition"
-            summary={'Skip Condition'}
-            addDomId={true}
-            details={
-              <Formik
-                initialValues={{
-                  skipCondition: cloneOriginalData?.stage?.skipCondition || ''
-                }}
-                validate={values => {
-                  if (cloneOriginalData) {
-                    updateStageDebounced({
-                      ...cloneOriginalData.stage,
-                      skipCondition: values?.skipCondition
-                    })
-                  }
-                }}
-                onSubmit={values => {
-                  updateStageDebounced({
-                    ...cloneOriginalData?.stage,
-                    skipCondition: values?.skipCondition
-                  })
-                }}
-              >
-                <SkipConditionsPanel isReadonly={isReadonly} mode={Modes.STAGE} />
-              </Formik>
-            }
-          />
-        </Accordion>
         {props.children}
       </div>
     </div>

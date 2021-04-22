@@ -18,7 +18,7 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
           stageDetails
         </div>
         <div
-          class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
+          class="bp3-card bp3-elevation-0 Card--card sectionCard"
         >
           <form
             class="FormikForm--main"
@@ -147,10 +147,10 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
           pipelineSteps.build.stageSpecifications.sharedPaths
         </div>
         <div
-          class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
+          class="bp3-card bp3-elevation-0 Card--card sectionCard"
         >
           <form
-            class="FormikForm--main fields"
+            class="FormikForm--main fields contentCard"
           >
             <div>
               <div
@@ -350,22 +350,22 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
           </form>
         </div>
         <div
-          class="Accordion--accordion sectionCard shadow"
+          class="Accordion--accordion accordionTitle"
         >
           <div
             class="Accordion--panel"
             data-open="true"
-            data-testid="variables-panel"
-            id="variables-panel"
+            data-testid="advanced-panel"
+            id="advanced-panel"
           >
             <div
               class="Accordion--summary"
-              data-testid="variables-summary"
+              data-testid="advanced-summary"
             >
               <div
                 class="Accordion--label"
               >
-                Variables
+                Advanced
               </div>
               <div
                 class="Accordion--chevron"
@@ -382,118 +382,33 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
               >
                 <div
                   class="Accordion--details"
-                  data-testid="variables-details"
+                  data-testid="advanced-details"
                 >
                   <div
-                    class="stageSection"
+                    class="bp3-card bp3-elevation-0 Card--card sectionCard"
+                    id="variables"
                   >
                     <div
-                      class="stageDetails"
+                      class="tabSubHeading"
                     >
-                      <div>
-                        {"a":"a","variables":[],"canAddVariable":true}
-                      </div>
+                      Stage Variables
                     </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="Accordion--accordion sectionCard"
-        >
-          <div
-            class="Accordion--panel"
-            data-open="true"
-            data-testid="skipConditions-panel"
-            id="skipConditions-panel"
-          >
-            <div
-              class="Accordion--summary"
-              data-testid="skipConditions-summary"
-            >
-              <div
-                class="Accordion--label"
-              >
-                skipConditionsTitle
-              </div>
-              <div
-                class="Accordion--chevron"
-              />
-            </div>
-            <div
-              class="bp3-collapse Accordion--collapse"
-              style="height: auto; overflow-y: visible; transition: none;"
-            >
-              <div
-                aria-hidden="false"
-                class="bp3-collapse-body"
-                style="transform: translateY(0); transition: none;"
-              >
-                <div
-                  class="Accordion--details"
-                  data-testid="skipConditions-details"
-                >
-                  <form
-                    class="FormikForm--main"
-                    style="width: 300px;"
-                  >
-                    <div>
+                    <div
+                      class="Layout--horizontal StyledProps--main"
+                    >
                       <div
-                        class="bp3-form-group"
-                        data-id="skipCondition-0"
+                        class="stageSection"
                       >
-                        <label
-                          class="bp3-label"
-                          for="skipCondition"
-                        >
-                          skipConditionStageLabel
-                           
-                          <span
-                            class="bp3-text-muted"
-                          />
-                        </label>
                         <div
-                          class="bp3-form-content"
+                          class="stageDetails"
                         >
-                          <div
-                            class="bp3-popover-wrapper"
-                          >
-                            <div
-                              class="bp3-popover-target"
-                            >
-                              <div
-                                class="bp3-input-group"
-                              >
-                                <input
-                                  autocomplete="off"
-                                  class="bp3-input"
-                                  name="skipCondition"
-                                  type="text"
-                                  value=""
-                                />
-                              </div>
-                            </div>
+                          <div>
+                            {"a":"a","variables":[],"canAddVariable":true}
                           </div>
                         </div>
                       </div>
-                      <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
-                        style="white-space: break-spaces;"
-                      >
-                        skipConditionText
-                        <br />
-                        <a
-                          href="https://ngdocs.harness.io/article/i36ibenkq2-step-skip-condition-settings"
-                          rel="noreferrer"
-                          target="_blank"
-                        >
-                          learnMore
-                        </a>
-                      </p>
                     </div>
-                  </form>
+                  </div>
                 </div>
               </div>
             </div>
@@ -526,7 +441,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
           stageDetails
         </div>
         <div
-          class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
+          class="bp3-card bp3-elevation-0 Card--card sectionCard"
         >
           <form
             class="FormikForm--main"
@@ -654,10 +569,10 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
           pipelineSteps.build.stageSpecifications.sharedPaths
         </div>
         <div
-          class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
+          class="bp3-card bp3-elevation-0 Card--card sectionCard"
         >
           <form
-            class="FormikForm--main fields"
+            class="FormikForm--main fields contentCard"
           >
             <div>
               <div
@@ -857,22 +772,22 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
           </form>
         </div>
         <div
-          class="Accordion--accordion sectionCard shadow"
+          class="Accordion--accordion accordionTitle"
         >
           <div
             class="Accordion--panel"
             data-open="true"
-            data-testid="variables-panel"
-            id="variables-panel"
+            data-testid="advanced-panel"
+            id="advanced-panel"
           >
             <div
               class="Accordion--summary"
-              data-testid="variables-summary"
+              data-testid="advanced-summary"
             >
               <div
                 class="Accordion--label"
               >
-                Variables
+                Advanced
               </div>
               <div
                 class="Accordion--chevron"
@@ -889,118 +804,33 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
               >
                 <div
                   class="Accordion--details"
-                  data-testid="variables-details"
+                  data-testid="advanced-details"
                 >
                   <div
-                    class="stageSection"
+                    class="bp3-card bp3-elevation-0 Card--card sectionCard"
+                    id="variables"
                   >
                     <div
-                      class="stageDetails"
+                      class="tabSubHeading"
                     >
-                      <div>
-                        {"a":"a","variables":[],"canAddVariable":true}
-                      </div>
+                      Stage Variables
                     </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="Accordion--accordion sectionCard"
-        >
-          <div
-            class="Accordion--panel"
-            data-open="true"
-            data-testid="skipConditions-panel"
-            id="skipConditions-panel"
-          >
-            <div
-              class="Accordion--summary"
-              data-testid="skipConditions-summary"
-            >
-              <div
-                class="Accordion--label"
-              >
-                skipConditionsTitle
-              </div>
-              <div
-                class="Accordion--chevron"
-              />
-            </div>
-            <div
-              class="bp3-collapse Accordion--collapse"
-              style="height: auto; overflow-y: visible; transition: none;"
-            >
-              <div
-                aria-hidden="false"
-                class="bp3-collapse-body"
-                style="transform: translateY(0); transition: none;"
-              >
-                <div
-                  class="Accordion--details"
-                  data-testid="skipConditions-details"
-                >
-                  <form
-                    class="FormikForm--main"
-                    style="width: 300px;"
-                  >
-                    <div>
+                    <div
+                      class="Layout--horizontal StyledProps--main"
+                    >
                       <div
-                        class="bp3-form-group"
-                        data-id="skipCondition-0"
+                        class="stageSection"
                       >
-                        <label
-                          class="bp3-label"
-                          for="skipCondition"
-                        >
-                          skipConditionStageLabel
-                           
-                          <span
-                            class="bp3-text-muted"
-                          />
-                        </label>
                         <div
-                          class="bp3-form-content"
+                          class="stageDetails"
                         >
-                          <div
-                            class="bp3-popover-wrapper"
-                          >
-                            <div
-                              class="bp3-popover-target"
-                            >
-                              <div
-                                class="bp3-input-group"
-                              >
-                                <input
-                                  autocomplete="off"
-                                  class="bp3-input"
-                                  name="skipCondition"
-                                  type="text"
-                                  value=""
-                                />
-                              </div>
-                            </div>
+                          <div>
+                            {"a":"a","variables":[],"canAddVariable":true}
                           </div>
                         </div>
                       </div>
-                      <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-small"
-                        style="white-space: break-spaces;"
-                      >
-                        skipConditionText
-                        <br />
-                        <a
-                          href="https://ngdocs.harness.io/article/i36ibenkq2-step-skip-condition-settings"
-                          rel="noreferrer"
-                          target="_blank"
-                        >
-                          learnMore
-                        </a>
-                      </p>
                     </div>
-                  </form>
+                  </div>
                 </div>
               </div>
             </div>

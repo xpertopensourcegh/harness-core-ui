@@ -4,6 +4,7 @@ declare const styles: {
   readonly wrapper: string
   readonly contentSection: string
   readonly tabHeading: string
+  readonly tabSubHeading: string
   readonly sectionCard: string
   readonly shadow: string
   readonly section: string
@@ -23,6 +24,7 @@ declare const styles: {
   readonly squareCardContainer: string
   readonly addDataLinks: string
   readonly fields: string
+  readonly contentCard: string
   readonly removeSharedPathButton: string
   readonly fieldsGroup: string
   readonly withoutSpacing: string
@@ -38,5 +40,6 @@ declare const styles: {
   readonly repositoryUrl: string
   readonly predefinedValue: string
   readonly navigationButtons: string
+  readonly accordionTitle: string
 }
 export default styles
