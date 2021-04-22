@@ -1,9 +1,8 @@
 import React from 'react'
-import { Text } from '@wings-software/uicore'
 import cx from 'classnames'
 
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
-import { useStrings } from 'framework/strings'
+import { String } from 'framework/strings'
 import type { StringKeys } from 'framework/strings'
 
 import css from './ExecutionStatusLabel.module.scss'
@@ -33,16 +32,13 @@ export default function ExecutionStatusLabel({
   status,
   className
 }: ExecutionStatusLabelProps): React.ReactElement | null {
-  const { getString } = useStrings()
   if (!status) return null
 
   return (
-    <Text
-      inline
+    <String
+      tagName="div"
+      stringID={stringsMap[status] || 'pipeline.executionStatus.Unknown'}
       className={cx(css.status, css[status.toLowerCase() as keyof typeof css], className)}
-      font={{ weight: 'bold', size: 'xsmall' }}
-    >
-      {getString(stringsMap[status])}
-    </Text>
+    />
   )
 }

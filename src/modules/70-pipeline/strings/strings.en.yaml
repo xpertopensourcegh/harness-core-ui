@@ -224,3 +224,4 @@ executionStatus:
   Suspended: SUSPENDED
   NotStarted: NOT STARTED
   ApprovalRejected: REJECTED
+  Unknown: UNKNOWN

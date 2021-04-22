@@ -83,7 +83,7 @@ export function StageNode(props: StageNodeProps): React.ReactElement {
       {stage.status === 'Running' ? (
         <RunningIcon />
       ) : (
-        <Icon name={IconMap[stage.status as ExecutionStatus]} size={13} className={css.icon} />
+        <Icon name={IconMap[stage.status as ExecutionStatus] || IconMap.NotStarted} size={13} className={css.icon} />
       )}
       <div className={css.infoPopover}>
         <div className={css.title}>{stage.nodeIdentifier}</div>

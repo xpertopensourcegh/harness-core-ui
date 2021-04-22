@@ -1,6 +1,9 @@
 .status {
   --execution-status-color: var(--green-500);
   white-space: nowrap !important;
+  font-weight: bold;
+  font-size: var(--font-size-xsmall);
+  display: inline-block;
 
   &.failed,
   &.aborted,
@@ -18,6 +21,8 @@
   &.starting,
   &.aborting,
   &.waiting,
+  &.approvalwaiting,
+  &.interventionwaiting,
   &.pausing,
   &.paused {
     --execution-status-color: rgba(62, 123, 250, 0.5);

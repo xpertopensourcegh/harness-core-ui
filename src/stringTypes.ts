@@ -608,6 +608,7 @@ export interface StringsMap {
   'pipeline.executionStatus.Starting': string
   'pipeline.executionStatus.Success': string
   'pipeline.executionStatus.Suspended': string
+  'pipeline.executionStatus.Unknown': string
   'pipeline.executionStatus.Waiting': string
   'pipeline.failureStrategies.defaultStageText': string
   'pipeline.failureStrategies.errorTypeLabels.AnyOther': string

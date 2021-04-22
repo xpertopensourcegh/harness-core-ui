@@ -12,6 +12,8 @@ declare const styles: {
   readonly starting: string
   readonly aborting: string
   readonly waiting: string
+  readonly approvalwaiting: string
+  readonly interventionwaiting: string
   readonly pausing: string
   readonly paused: string
   readonly queued: string

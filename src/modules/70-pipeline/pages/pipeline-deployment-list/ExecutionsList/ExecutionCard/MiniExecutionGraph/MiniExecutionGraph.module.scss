@@ -164,7 +164,9 @@ $node-width: 40px;
     --icon-color: var(--grey-700);
   }
 
-  &.waiting {
+  &.waiting,
+  &.approvalwaiting,
+  &.interventionwaiting {
     --stage-bg: var(--orange-400);
     --icon-color: var(--grey-700);
     --stage-border: var(--orange-400);
