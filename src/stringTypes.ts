@@ -837,7 +837,6 @@ export interface StringsMap {
   'ce.co.autoStoppingRule.configuration.step3.policyNotEnabled': string
   'ce.co.autoStoppingRule.configuration.step3.subTitle': string
   'ce.co.autoStoppingRule.configuration.step3.title': string
-  'ce.co.autoStoppingRule.configuration.step4.subTitle': string
   'ce.co.autoStoppingRule.configuration.step4.title': string
   'ce.co.autoStoppingRule.confirm.deleteDialogText': string
   'ce.co.autoStoppingRule.confirm.deleteServiceTitle': string

@@ -46,7 +46,7 @@ co:
         subTitle: 'Provide a friendly name to identify the rule and determine the idle time.'
       step2:
         title: 'Resources to be managed by the AutoStopping rules'
-        subTitle: 'You can manage multiple instances or a Auto Scaling group using AutoStopping rule.'
+        subTitle: 'You can manage multiple instances or an Auto Scaling group using AutoStopping rule.'
         additionalResourceInfo:
           instance: 'Add an instance to be managed by the AutoStopping Rule. You can choose to add multiple instances to a single Rule.'
           asg: 'Add an ASG to be managed by the AutoStopping Rule. You can choose only one ASG to a single Rule'
@@ -59,7 +59,6 @@ co:
         policyNotEnabled: 'Mixed instance policy is not enabled'
       step4:
         title: 'Set up Routing, Health check and Advanced Configuration'
-        subTitle: 'Add an instance to be managed by the AutoStopping Rule. You can choose to add multiple instances to a single Rule'
     review:
       configDetails: 'Configuration Details'
     setupAccess:
