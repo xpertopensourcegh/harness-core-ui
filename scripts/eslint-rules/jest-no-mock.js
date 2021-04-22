@@ -2,6 +2,17 @@ const { get } = require('lodash')
 
 module.exports = {
   meta: {
+    schema: [
+      {
+        type: 'object',
+        properties: {
+          module: {
+            type: 'object'
+          }
+        },
+        additionalProperties: false
+      }
+    ],
     docs: {
       description: `Restrict some properties from being mocked in jest`
     }
