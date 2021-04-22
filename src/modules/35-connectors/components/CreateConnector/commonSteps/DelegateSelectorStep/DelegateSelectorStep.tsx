@@ -121,8 +121,11 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
     try {
       modalErrorHandler?.hide()
       const queryParams = gitData ? { accountIdentifier: accountId, ...gitData } : {}
+
       const response = props.isEditMode
-        ? await updateConnector(payload, { queryParams: queryParams })
+        ? await updateConnector(payload, {
+            queryParams: gitData ? { ...queryParams, lastObjectId: payload.connector?.identifier } : queryParams
+          })
         : await createConnector(payload, { queryParams: queryParams })
       afterSuccessHandler(response)
     } catch (e) {
@@ -168,7 +171,9 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
           stepDataRef = stepData
           if (isGitSyncEnabled) {
             openSaveToGitDialog(props.isEditMode, {
-              type: Entities.CONNECTORS
+              type: Entities.CONNECTORS,
+              name: data.connector?.name || '',
+              identifier: data.connector?.identifier || ''
             })
           } else {
             if (customHandleUpdate || customHandleCreate) {

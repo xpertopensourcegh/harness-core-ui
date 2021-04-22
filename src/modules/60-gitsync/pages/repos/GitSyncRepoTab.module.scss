@@ -1,9 +1,22 @@
 .table {
   padding: var(--spacing-small) var(--spacing-xlarge);
   background-color: var(--grey-100);
+  min-width: 1460px;
 
   .wrapper {
     width: calc(100% - 20px);
+
+    .rootFoldersContainer {
+      width: 100%;
+
+      .rootFoldersData {
+        width: 660px;
+        .rootFolderRelativePath {
+          width: 10%;
+        }
+      }
+    }
+
     .name {
       max-width: 100%;
       overflow: hidden;
@@ -13,10 +26,23 @@
     p {
       white-space: nowrap !important;
     }
+
+    .addFolderBtn {
+      width: 104px;
+      margin-left: 0;
+      padding-left: 0 !important;
+    }
   }
 
-  [role='row'] [role='cell']:first-child div div {
-    width: calc(100% - 50px); // extra 30px for icons of size 30 in 1st column
+  [role='cell'] {
+    vertical-align: top;
+  }
+
+  [role='row'] {
+    padding-right: 0;
+    [role='cell']:first-child div div {
+      width: calc(100% - 50px); // extra 30px for icons of size 30 in 1st column
+    }
   }
 
   .menuContainer {

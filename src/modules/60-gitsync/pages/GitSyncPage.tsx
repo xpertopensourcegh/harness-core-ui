@@ -7,7 +7,6 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import routes from '@common/RouteDefinitions'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-
 import NewUserView from './newUser/NewUserView'
 import css from './GitSyncPage.module.scss'
 

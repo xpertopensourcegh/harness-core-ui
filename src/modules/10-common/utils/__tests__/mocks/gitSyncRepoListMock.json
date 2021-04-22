@@ -8,7 +8,16 @@
     "repo": "https://github.com/wings-software/triggerNgDemo",
     "branch": "master",
     "gitConnectorType": "Github",
-    "gitSyncFolderConfigDTOs": null
+    "gitSyncFolderConfigDTOs": [
+      {
+        "rootFolder": "src1/.harness/",
+        "isDefault": true
+      },
+      {
+        "rootFolder": "src2/.harness/",
+        "isDefault": false
+      }
+    ]
   },
   {
     "identifier": "6062f6e4ef03c30721080b81",
@@ -19,6 +28,15 @@
     "repo": "https://www.github.com/testRepo.git",
     "branch": "feature",
     "gitConnectorType": "Github",
-    "gitSyncFolderConfigDTOs": null
+    "gitSyncFolderConfigDTOs": [
+      {
+        "rootFolder": "rootFolder1/.harness/",
+        "isDefault": true
+      },
+      {
+        "rootFolder": "rootFolderTest/.harness/",
+        "isDefault": false
+      }
+    ]
   }
 ]

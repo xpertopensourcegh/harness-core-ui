@@ -269,14 +269,48 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
                   </div>
                 </div>
                 <div
+                  class="Layout--horizontal StyledProps--main"
+                >
+                  <div
+                    class="bp3-form-group"
+                    data-id="repo-2"
+                  >
+                    <label
+                      class="bp3-label"
+                      for="repo"
+                    >
+                      repositoryUrlLabel
+                       
+                      <span
+                        class="bp3-text-muted"
+                      />
+                    </label>
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="repo"
+                          type="text"
+                          value=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
                   class="bp3-form-group"
-                  data-id="repo-2"
+                  data-id="rootfolder-3"
                 >
                   <label
                     class="bp3-label"
-                    for="repo"
+                    for="rootfolder"
                   >
-                    repositoryUrlLabel
+                    gitsync.rootfolderLabel
                      
                     <span
                       class="bp3-text-muted"
@@ -291,7 +325,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
                       <input
                         autocomplete="off"
                         class="bp3-input"
-                        name="repo"
+                        name="rootfolder"
                         type="text"
                         value=""
                       />
@@ -300,7 +334,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
                 </div>
                 <div
                   class="bp3-form-group"
-                  data-id="branch-3"
+                  data-id="branch-4"
                 >
                   <label
                     class="bp3-label"
@@ -728,14 +762,53 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
                   </div>
                 </div>
                 <div
-                  class="bp3-form-group bp3-intent-danger"
-                  data-id="repo-2"
+                  class="Layout--horizontal StyledProps--main"
+                >
+                  <div
+                    class="bp3-form-group bp3-intent-danger"
+                    data-id="repo-2"
+                  >
+                    <label
+                      class="bp3-label"
+                      for="repo"
+                    >
+                      repositoryUrlLabel
+                       
+                      <span
+                        class="bp3-text-muted"
+                      />
+                    </label>
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-input-group bp3-intent-danger"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="repo"
+                          type="text"
+                          value=""
+                        />
+                      </div>
+                      <div
+                        class="bp3-form-helper-text"
+                      >
+                        validation.repositoryName
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="bp3-form-group"
+                  data-id="rootfolder-3"
                 >
                   <label
                     class="bp3-label"
-                    for="repo"
+                    for="rootfolder"
                   >
-                    repositoryUrlLabel
+                    gitsync.rootfolderLabel
                      
                     <span
                       class="bp3-text-muted"
@@ -745,26 +818,21 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
                     class="bp3-form-content"
                   >
                     <div
-                      class="bp3-input-group bp3-intent-danger"
+                      class="bp3-input-group"
                     >
                       <input
                         autocomplete="off"
                         class="bp3-input"
-                        name="repo"
+                        name="rootfolder"
                         type="text"
                         value=""
                       />
-                    </div>
-                    <div
-                      class="bp3-form-helper-text"
-                    >
-                      validation.repositoryName
                     </div>
                   </div>
                 </div>
                 <div
                   class="bp3-form-group bp3-intent-danger"
-                  data-id="branch-3"
+                  data-id="branch-4"
                 >
                   <label
                     class="bp3-label"

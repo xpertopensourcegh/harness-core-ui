@@ -100,6 +100,9 @@ repo_provider:
   codecommit: CodeCommit
   awscodecommit: AWS Code Commit
   azureDev: Azure Devops
+gitSync:
+  resourceLabel: '{{resource}} Name'
+  rootFolderLabel: Root Folder
 git:
   branchName: 'Branch name'
   urlType: 'URL Type'
@@ -126,7 +129,7 @@ git:
   applicationId: 'GitHub Application ID'
   privateKey: 'GitHub Private Key'
   saveResourceLabel: 'Save {{resource}} to Git'
-  selectRepoLabel: 'Select a repo where you want to save the {{resource}}'
+  selectRepoLabel: Repository name
   filePath: File path
   commitMessage: Commit message
   branchSelectHeader: SELECT A BRANCH TO COMMIT

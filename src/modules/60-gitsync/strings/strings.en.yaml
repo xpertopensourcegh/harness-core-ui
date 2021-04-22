@@ -1,4 +1,11 @@
 label: 'Git Sync'
+rootfolderLabel: Default Root folder
+rootFolderUpdatedSuccessfully: Root folders for repository {{name}} updated successfully
+markAsDefault: Mark as Default
+moveFolder: Move folder
+defaultFolder: Default folder
+addFolder: '+ Add Folder'
+rootFolderListHeader: Path To Harness Root Folder
 successfullCreate: 'Git sync repository {{name}} created successfully'
 repositoryPath: Repository Path
 entitiesByRepositories: 'Entities By repositories'

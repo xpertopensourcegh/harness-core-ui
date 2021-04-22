@@ -13,14 +13,23 @@ import {
   Icon
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { GitSyncConfig, GitSyncEntityDTO, getListOfBranchesByGitConfigPromise } from 'services/cd-ng'
+import { pick } from 'lodash-es'
+import {
+  GitSyncConfig,
+  GitSyncEntityDTO,
+  getListOfBranchesByGitConfigPromise,
+  GitSyncFolderConfigDTO
+} from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { PageSpinner } from '../Page/PageSpinner'
+import { NameId } from '../NameIdDescriptionTags/NameIdDescriptionTags'
 import css from './SaveToGitForm.module.scss'
 
 export interface GitResourceInterface {
   type: GitSyncEntityDTO['entityType']
+  name: string
+  identifier: string
 }
 
 interface SaveToGitFormProps {
@@ -37,7 +46,10 @@ interface ModalConfigureProps {
 }
 
 export interface SaveToGitFormInterface {
+  name?: string
+  identifier?: string
   repoIdentifier: string
+  rootFolder: string
   filePath: string
   isNewBranch: boolean
   branch: string
@@ -49,13 +61,17 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
   const { accountId, orgIdentifier, projectIdentifier } = props
   const { getString } = useStrings()
   const { gitSyncRepos, loadingRepos } = useGitSyncStore()
+  const [rootFolderSelectOptions, setRootFolderSelectOptions] = React.useState<SelectOption[]>([])
   const [repoSelectOptions, setRepoSelectOptions] = React.useState<SelectOption[]>([])
   const [branchSelectOptions, setBranchSelectOptions] = React.useState<SelectOption[]>([])
   const [isNewBranch, setIsNewBranch] = React.useState(false)
   const [loadingBranchList, setLoadingBranchList] = React.useState<boolean>(false)
 
   const defaultInitialFormData: SaveToGitFormInterface = {
+    name: props.resource.name,
+    identifier: props.resource.identifier,
     repoIdentifier: '',
+    rootFolder: '',
     filePath: '',
     isNewBranch: false,
     branch: '',
@@ -79,7 +95,6 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
     }).then(response => {
       setLoadingBranchList(false)
       if (response.data?.length) {
-        defaultInitialFormData.repoIdentifier = response.data[0]
         setBranchSelectOptions(
           response.data.map((branch: string) => {
             return {
@@ -92,8 +107,21 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
     })
   }
 
+  const getRootFolderSelectOptions = (folders: GitSyncFolderConfigDTO[] | undefined): SelectOption[] => {
+    return folders?.length
+      ? folders.map((folder: GitSyncFolderConfigDTO) => {
+          return {
+            label: folder.rootFolder || '',
+            value: folder.rootFolder || ''
+          }
+        })
+      : []
+  }
+
   useEffect(() => {
     if (projectIdentifier && gitSyncRepos?.length) {
+      defaultInitialFormData.repoIdentifier = gitSyncRepos[0].identifier || ''
+      fetchBranches(defaultInitialFormData.repoIdentifier)
       setRepoSelectOptions(
         gitSyncRepos?.map((gitRepo: GitSyncConfig) => {
           return {
@@ -102,6 +130,13 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
           }
         })
       )
+
+      setRootFolderSelectOptions(getRootFolderSelectOptions(gitSyncRepos[0].gitSyncFolderConfigDTOs))
+
+      const defaultRootFolder = gitSyncRepos[0].gitSyncFolderConfigDTOs?.find(
+        (folder: GitSyncFolderConfigDTO) => folder.isDefault
+      )
+      defaultInitialFormData.rootFolder = defaultRootFolder?.rootFolder || ''
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gitSyncRepos, projectIdentifier])
@@ -155,21 +190,57 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
             branch: Yup.string().trim().required(getString('validation.branchName'))
           })}
           onSubmit={formData => {
-            props.onSuccess?.({ ...formData, isNewBranch })
+            props.onSuccess?.({
+              ...pick(formData, [
+                'repoIdentifier',
+                'rootFolder',
+                'filePath',
+                'isNewBranch',
+                'branch',
+                'commitMsg',
+                'createPr'
+              ])
+            })
           }}
         >
-          {({ values: formValues, setFieldValue }) => (
+          {({ setFieldValue }) => (
             <FormikForm>
               <Container className={css.formBody}>
-                <FormInput.Select
-                  name="repoIdentifier"
-                  label={getString('common.git.selectRepoLabel', { resource: props.resource.type })}
-                  items={repoSelectOptions}
-                  onChange={(selected: SelectOption) => {
-                    setFieldValue(formValues.branch, '')
-                    fetchBranches(selected.value as string)
+                <NameId
+                  identifierProps={{
+                    inputName: 'name',
+                    isIdentifierEditable: false,
+                    inputGroupProps: { disabled: true }
                   }}
                 />
+                <Layout.Horizontal spacing="medium" className={css.formRow}>
+                  <FormInput.Select
+                    name="repoIdentifier"
+                    label={getString('common.git.selectRepoLabel')}
+                    items={repoSelectOptions}
+                    onChange={(selected: SelectOption) => {
+                      setFieldValue('branch', '')
+                      setFieldValue('rootFolder', '')
+                      fetchBranches(selected.value as string)
+                      const selectedRepo = gitSyncRepos.find(
+                        (repo: GitSyncConfig) => repo.identifier === selected.value
+                      )
+
+                      const defaultRootFolder = selectedRepo?.gitSyncFolderConfigDTOs?.find(
+                        (folder: GitSyncFolderConfigDTO) => !!folder.isDefault
+                      )
+
+                      defaultRootFolder && setFieldValue('rootFolder', defaultRootFolder.rootFolder)
+                      setRootFolderSelectOptions(getRootFolderSelectOptions(selectedRepo?.gitSyncFolderConfigDTOs))
+                    }}
+                  />
+                  <FormInput.Select
+                    name="rootFolder"
+                    label={getString('common.gitSync.rootFolderLabel')}
+                    items={rootFolderSelectOptions}
+                  />
+                </Layout.Horizontal>
+
                 <FormInput.Text name="filePath" label={getString('common.git.filePath')} />
                 <FormInput.TextArea name="commitMsg" label={getString('common.git.commitMessage')} />
 
@@ -205,7 +276,12 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
                     bottom: isNewBranch ? 'xSmall' : 'small'
                   }}
                 >
-                  <Radio large onClick={() => handleBranchTypeChange(true)} checked={isNewBranch}>
+                  <Radio
+                    data-test="newBranchRadioBtn"
+                    large
+                    onClick={() => handleBranchTypeChange(true)}
+                    checked={isNewBranch}
+                  >
                     <Icon name="git-new-branch"></Icon>
                     <Text inline margin={{ left: 'small' }}>
                       {getString('common.git.newBranchCommitLabel')}

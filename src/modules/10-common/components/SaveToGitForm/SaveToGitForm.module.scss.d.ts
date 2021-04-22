@@ -6,6 +6,7 @@ declare const styles: {
   readonly formBody: string
   readonly sectionHeader: string
   readonly branchInput: string
+  readonly formRow: string
   readonly formButton: string
 }
 export default styles

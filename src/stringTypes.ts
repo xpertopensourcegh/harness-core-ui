@@ -126,6 +126,8 @@ export interface StringsMap {
   'common.git.startPRLabel': string
   'common.git.urlType': string
   'common.git.validation.filePath': string
+  'common.gitSync.resourceLabel': string
+  'common.gitSync.rootFolderLabel': string
   'common.input': string
   'common.jexlExpression': string
   'common.letsGetYouStarted': string
@@ -559,9 +561,16 @@ export interface StringsMap {
   'dashboards.sideNav.byHarness': string
   'dashboards.sideNav.custom': string
   'dashboards.sideNav.noDashboard': string
+  'gitsync.addFolder': string
+  'gitsync.defaultFolder': string
   'gitsync.entitiesByRepositories': string
   'gitsync.label': string
+  'gitsync.markAsDefault': string
+  'gitsync.moveFolder': string
   'gitsync.repositoryPath': string
+  'gitsync.rootFolderListHeader': string
+  'gitsync.rootFolderUpdatedSuccessfully': string
+  'gitsync.rootfolderLabel': string
   'gitsync.seeLess': string
   'gitsync.seeMore': string
   'gitsync.successfullCreate': string

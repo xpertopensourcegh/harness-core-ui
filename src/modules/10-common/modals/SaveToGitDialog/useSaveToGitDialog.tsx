@@ -24,7 +24,9 @@ export interface UseSaveToGitDialogReturn {
 const useSaveToGitDialog = (props: UseSaveToGitDialogProps): UseSaveToGitDialogReturn => {
   const [isEditMode, setIsEditMode] = useState(false)
   const [resource, setResource] = useState<GitResourceInterface>({
-    type: Entities.CONNECTORS
+    type: Entities.CONNECTORS,
+    name: '',
+    identifier: ''
   })
   const [modalProps, setModalProps] = useState<IDialogProps>({
     isOpen: true,
