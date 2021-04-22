@@ -107,6 +107,7 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
               {tabHeadings[0]}
             </span>
           }
+          data-testid={tabHeadings[0]}
         />
         <Icon
           name="chevron-right"
@@ -129,6 +130,7 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
               <ActionButtons />
             </ApprovalStageExecution>
           }
+          data-testid={tabHeadings[1]}
         />
         <Icon
           name="chevron-right"
@@ -151,6 +153,7 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
               <ActionButtons />
             </ApprovalAdvancedSpecifications>
           }
+          data-testid={tabHeadings[2]}
         />
       </Tabs>
     </section>

@@ -41,8 +41,8 @@ interface StagesFilledStateFlags {
 export default function BuildStageSetupShell(): JSX.Element {
   const { getString } = useStrings()
 
-  const stageNames: string[] = [i18n.defaultId, i18n.infraLabel, i18n.executionLabel]
-  const [selectedTabId, setSelectedTabId] = React.useState<string>(i18n.defaultId)
+  const stageNames: string[] = [getString('overview'), getString('infrastructureText'), getString('executionText')]
+  const [selectedTabId, setSelectedTabId] = React.useState<string>(getString('overview'))
   const [filledUpStages, setFilledUpStages] = React.useState<StagesFilledStateFlags>({
     specifications: false,
     infra: false,
@@ -105,16 +105,6 @@ export default function BuildStageSetupShell(): JSX.Element {
     setSelectedTabId(data)
   }
 
-  // const openDrawer: (drawerType: DrawerTypes) => void = drawerType => {
-  //   updatePipelineView({
-  //     ...pipelineView,
-  //     isDrawerOpened: true,
-  //     drawerData: {
-  //       type: drawerType
-  //     }
-  //   })
-  // }
-
   React.useEffect(() => {
     if (layoutRef.current) {
       const parent = layoutRef.current.parentElement
@@ -152,14 +142,14 @@ export default function BuildStageSetupShell(): JSX.Element {
       <Button
         text={i18n.previous}
         icon="chevron-left"
-        disabled={selectedTabId === i18n.defaultId}
+        disabled={selectedTabId === getString('overview')}
         onClick={() =>
           setSelectedTabId(
             selectedTabId === i18n.advancedLabel
-              ? i18n.executionLabel
-              : selectedTabId === i18n.executionLabel
-              ? i18n.infraLabel
-              : i18n.defaultId
+              ? getString('executionText')
+              : selectedTabId === getString('executionText')
+              ? getString('infrastructureText')
+              : getString('overview')
           )
         }
       />
@@ -173,14 +163,16 @@ export default function BuildStageSetupShell(): JSX.Element {
         />
       ) : (
         <Button
-          text={selectedTabId === i18n.executionLabel ? i18n.save : i18n.next}
+          text={selectedTabId === getString('executionText') ? i18n.save : i18n.next}
           intent="primary"
           rightIcon="chevron-right"
           onClick={() => {
-            if (selectedTabId === i18n.executionLabel) {
+            if (selectedTabId === getString('executionText')) {
               updatePipelineView({ ...pipelineView, isSplitViewOpen: false, splitViewData: {} })
             } else {
-              setSelectedTabId(selectedTabId === i18n.defaultId ? i18n.infraLabel : i18n.executionLabel)
+              setSelectedTabId(
+                selectedTabId === getString('overview') ? getString('infrastructureText') : getString('executionText')
+              )
             }
           }}
         />
@@ -192,7 +184,7 @@ export default function BuildStageSetupShell(): JSX.Element {
     <section className={css.setupShell} ref={layoutRef} key={selectedStageId}>
       <Tabs id="stageSetupShell" onChange={handleTabChange} selectedTabId={selectedTabId}>
         <Tab
-          id={i18n.defaultId}
+          id={getString('overview')}
           panel={<BuildStageSpecifications>{navBtns}</BuildStageSpecifications>}
           title={
             <span className={css.tab}>
@@ -200,6 +192,7 @@ export default function BuildStageSetupShell(): JSX.Element {
               Overview
             </span>
           }
+          data-testid={getString('overview')}
         />
         <Icon
           name="chevron-right"
@@ -210,11 +203,11 @@ export default function BuildStageSetupShell(): JSX.Element {
           style={{ alignSelf: 'center' }}
         />
         <Tab
-          id={i18n.infraLabel}
+          id={getString('infrastructureText')}
           title={
             <span className={css.tab}>
               <Icon name="infrastructure" height={20} size={20} />
-              {i18n.infraLabel}
+              {getString('infrastructureText')}
               {filledUpStages.infra ? null : (
                 <Icon
                   name="warning-sign"
@@ -228,6 +221,7 @@ export default function BuildStageSetupShell(): JSX.Element {
             </span>
           }
           panel={<BuildInfraSpecifications>{navBtns}</BuildInfraSpecifications>}
+          data-testid={getString('infrastructureText')}
         />
         <Icon
           name="chevron-right"
@@ -238,11 +232,11 @@ export default function BuildStageSetupShell(): JSX.Element {
           style={{ alignSelf: 'center' }}
         />
         <Tab
-          id={i18n.executionLabel}
+          id={getString('executionText')}
           title={
             <span className={css.tab}>
               <Icon name="execution" height={20} size={20} />
-              {i18n.executionLabel}
+              {getString('executionText')}
               {filledUpStages.execution ? null : (
                 <Icon
                   name="warning-sign"
@@ -346,6 +340,7 @@ export default function BuildStageSetupShell(): JSX.Element {
               selectedStepId={selectedStepId}
             />
           }
+          data-testid={getString('executionText')}
         />
         <Icon
           name="chevron-right"
@@ -364,29 +359,8 @@ export default function BuildStageSetupShell(): JSX.Element {
             </span>
           }
           panel={<BuildAdvancedSpecifications>{navBtns}</BuildAdvancedSpecifications>}
+          data-testid={i18n.advancedLabel}
         />
-
-        {/* <>
-          <div className={css.spacer} />
-          <Button
-            minimal
-            onClick={() => openDrawer(DrawerTypes.SkipCondition)}
-            iconProps={{ margin: 'xsmall' }}
-            className={css.skipCondition}
-            icon="conditional-skip"
-          >
-            {getString('skipConditionTitle')}
-          </Button>
-          <Button
-            minimal
-            iconProps={{ size: 28, margin: 'xsmall' }}
-            // className={css.failureStrategy}
-            onClick={() => openDrawer(DrawerTypes.FailureStrategy)}
-            icon="failure-strategy"
-          >
-            {getString('pipeline.failureStrategies.title')}
-          </Button>
-        </> */}
       </Tabs>
     </section>
   )

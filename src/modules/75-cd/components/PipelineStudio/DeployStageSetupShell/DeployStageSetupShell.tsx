@@ -178,7 +178,9 @@ export default function DeployStageSetupShell(): JSX.Element {
               Overview
             </span>
           }
+          data-testid="default"
         />
+
         <Icon
           name="chevron-right"
           height={20}
@@ -196,6 +198,7 @@ export default function DeployStageSetupShell(): JSX.Element {
             </span>
           }
           panel={<DeployServiceSpecifications>{navBtns}</DeployServiceSpecifications>}
+          data-testid={getString('service')}
         />
         <Icon
           name="chevron-right"
@@ -214,6 +217,7 @@ export default function DeployStageSetupShell(): JSX.Element {
             </span>
           }
           panel={<DeployInfraSpecifications>{navBtns}</DeployInfraSpecifications>}
+          data-testid={getString('infrastructureText')}
         />
         <Icon
           name="chevron-right"
@@ -292,6 +296,7 @@ export default function DeployStageSetupShell(): JSX.Element {
               selectedStepId={selectedStepId}
             />
           }
+          data-testid={getString('executionText')}
         />
         <Icon
           name="chevron-right"
@@ -311,6 +316,7 @@ export default function DeployStageSetupShell(): JSX.Element {
           }
           className={css.fullHeight}
           panel={<DeployAdvancedSpecifications>{navBtns}</DeployAdvancedSpecifications>}
+          data-testid="advanced"
         />
       </Tabs>
     </section>
