@@ -596,6 +596,7 @@ export interface StringsMap {
   'pipeline.barriers.tooltips.barrierWaiting': string
   'pipeline.barriers.tooltips.timeout': string
   'pipeline.barriers.validation.barrierNamerequired': string
+  'pipeline.clickHere': string
   'pipeline.createANewPipeline': string
   'pipeline.createPipeline.learnMore': string
   'pipeline.createPipeline.setupHeader': string
@@ -769,6 +770,7 @@ export interface StringsMap {
   'pipeline.selectOrCreatePipeline.selectAPipeline': string
   'pipeline.selectOrCreatePipeline.setupHeader': string
   'pipeline.targets.title': string
+  'pipeline.verificationResult': string
   'cd.allowSimultaneousDeployments': string
   'cd.continuousIntegration': string
   'cd.dashboard.createProject': string

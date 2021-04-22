@@ -1,4 +1,6 @@
 enterDescription: Enter Description
+verificationResult: Verification Result
+clickHere: Click here
 approvalStep:
   message: 'Approval Message'
   approvers: 'Approver(s)'
