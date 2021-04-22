@@ -79,7 +79,7 @@ describe('Role Details Page', () => {
       })
     }),
     test('Click on Resource Type', () => {
-      const projectResources = queryByAttribute('data-testid', container, 'resourceCard-PROJECT_RESOURCES')
+      const projectResources = queryByAttribute('data-testid', container, 'resourceCard-SHARED_RESOURCES')
       act(() => {
         fireEvent.click(projectResources!)
       })

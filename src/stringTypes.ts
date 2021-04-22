@@ -251,6 +251,7 @@ export interface StringsMap {
   'rbac.activeUsers': string
   'rbac.addRole': string
   'rbac.addUser': string
+  'rbac.categoryLabels.sharedResources': string
   'rbac.pendingUsers': string
   'rbac.permissionLabels.access': string
   'rbac.permissionLabels.create': string

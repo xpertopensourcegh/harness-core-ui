@@ -7,6 +7,8 @@ permissionLabels:
   access: Access
   execute: '{{$.common.execute}}'
   runtimeAccess: 'Runtime Access'
+categoryLabels:
+  sharedResources: Shared Resources
 roleBinding: Role Bindings (Role - Resource Group)
 activeUsers: Active Users
 addRole: Add Role

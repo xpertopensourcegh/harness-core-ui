@@ -32,9 +32,9 @@ const AccountSettingsSideNavProps: SidebarContext = {
   title: 'Settings'
 }
 
-RbacFactory.registerResourceCategory(ResourceCategory.PROJECT_RESOURCES, {
+RbacFactory.registerResourceCategory(ResourceCategory.SHARED_RESOURCES, {
   icon: 'support-tour',
-  label: <String stringID="projectResources" />
+  label: <String stringID="rbac.categoryLabels.sharedResources" />
 })
 
 RbacFactory.registerResourceCategory(ResourceCategory.ADMINSTRATIVE_FUNCTIONS, {

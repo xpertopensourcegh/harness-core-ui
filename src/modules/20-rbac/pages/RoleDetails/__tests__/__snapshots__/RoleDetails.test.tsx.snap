@@ -200,14 +200,16 @@ exports[`Role Details Page Click on Resource Type 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
               >
-                Administrative Fucntions
+                <span>
+                  adminFunctions
+                </span>
                  
               </p>
             </div>
           </div>
           <div
             class="bp3-card bp3-interactive bp3-elevation-0 Card--card card Card--interactive"
-            data-testid="resourceCard-PROJECT_RESOURCES"
+            data-testid="resourceCard-SHARED_RESOURCES"
             tabindex="0"
           >
             <div
@@ -231,7 +233,9 @@ exports[`Role Details Page Click on Resource Type 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
               >
-                Project Resources
+                <span>
+                  rbac.categoryLabels.sharedResources
+                </span>
                  
               </p>
             </div>
@@ -302,7 +306,9 @@ exports[`Role Details Page Click on Resource Type 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
                     >
-                      Administrative Fucntions
+                      <span>
+                        adminFunctions
+                      </span>
                     </p>
                   </div>
                 </div>
@@ -386,7 +392,9 @@ exports[`Role Details Page Click on Resource Type 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
                     >
-                      Project Resources
+                      <span>
+                        rbac.categoryLabels.sharedResources
+                      </span>
                     </p>
                   </div>
                 </div>
@@ -613,14 +621,16 @@ exports[`Role Details Page render data 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
               >
-                Administrative Fucntions
+                <span>
+                  adminFunctions
+                </span>
                  
               </p>
             </div>
           </div>
           <div
             class="bp3-card bp3-interactive bp3-elevation-0 Card--card card Card--interactive"
-            data-testid="resourceCard-PROJECT_RESOURCES"
+            data-testid="resourceCard-SHARED_RESOURCES"
             tabindex="0"
           >
             <div
@@ -644,7 +654,9 @@ exports[`Role Details Page render data 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
               >
-                Project Resources
+                <span>
+                  rbac.categoryLabels.sharedResources
+                </span>
                  
               </p>
             </div>
@@ -715,7 +727,9 @@ exports[`Role Details Page render data 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
                     >
-                      Administrative Fucntions
+                      <span>
+                        adminFunctions
+                      </span>
                     </p>
                   </div>
                 </div>
@@ -798,7 +812,9 @@ exports[`Role Details Page render data 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
                     >
-                      Project Resources
+                      <span>
+                        rbac.categoryLabels.sharedResources
+                      </span>
                     </p>
                   </div>
                 </div>

@@ -180,7 +180,9 @@ exports[`Resource Groups Page render data 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                   >
-                    Administrative Fucntions
+                    <span>
+                      adminFunctions
+                    </span>
                   </p>
                 </div>
               </div>
@@ -241,9 +243,9 @@ exports[`Resource Groups Page render data 1`] = `
                   class="bp3-control bp3-checkbox"
                 >
                   <input
-                    data-testid="CHECK-BOX-PROJECT_RESOURCES"
+                    data-testid="CHECK-BOX-SHARED_RESOURCES"
                     type="checkbox"
-                    value="PROJECT_RESOURCES"
+                    value="SHARED_RESOURCES"
                   />
                   <span
                     class="bp3-control-indicator"
@@ -270,7 +272,9 @@ exports[`Resource Groups Page render data 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                   >
-                    Project Resources
+                    <span>
+                      rbac.categoryLabels.sharedResources
+                    </span>
                   </p>
                 </div>
               </div>

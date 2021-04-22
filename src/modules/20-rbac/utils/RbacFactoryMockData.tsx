@@ -36,7 +36,7 @@ export const getResourceTypeHandlerMock = (resource: ResourceType): ResourceHand
       return {
         icon: 'lock',
         label: 'Secrets',
-        category: ResourceCategory.PROJECT_RESOURCES,
+        category: ResourceCategory.SHARED_RESOURCES,
         // eslint-disable-next-line react/display-name
         addResourceModalBody: () => <></>
       }
@@ -47,15 +47,15 @@ export const getResourceGroupTypeHandlerMock = (
   resource: ResourceType | ResourceCategory
 ): ResourceCategoryHandler | undefined => {
   switch (resource) {
-    case ResourceCategory.PROJECT_RESOURCES:
+    case ResourceCategory.SHARED_RESOURCES:
       return {
         icon: 'nav-project',
-        label: 'Project Resources'
+        label: <String stringID="rbac.categoryLabels.sharedResources" />
       }
     case ResourceCategory.ADMINSTRATIVE_FUNCTIONS:
       return {
         icon: 'nav-project',
-        label: 'Administrative Fucntions'
+        label: <String stringID="adminFunctions" />
       }
   }
 }
@@ -63,6 +63,6 @@ export const getResourceGroupTypeHandlerMock = (
 export const getResourceCategoryListMock = (): Map<ResourceCategory | ResourceType, ResourceType[] | undefined> => {
   const mockMap = new Map()
   mockMap.set(ResourceCategory.ADMINSTRATIVE_FUNCTIONS, [ResourceType.ORGANIZATION, ResourceType.PROJECT])
-  mockMap.set(ResourceCategory.PROJECT_RESOURCES, [ResourceType.SECRET, ResourceType.CONNECTOR])
+  mockMap.set(ResourceCategory.SHARED_RESOURCES, [ResourceType.SECRET, ResourceType.CONNECTOR])
   return mockMap
 }

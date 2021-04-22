@@ -26,7 +26,7 @@ const AccountSettingsSideNavProps: SidebarContext = {
 RbacFactory.registerResourceTypeHandler(ResourceType.SECRET, {
   icon: 'lock',
   label: 'Secrets',
-  category: ResourceCategory.PROJECT_RESOURCES,
+  category: ResourceCategory.SHARED_RESOURCES,
   permissionLabels: {
     [PermissionIdentifier.VIEW_SECRET]: <String stringID="rbac.permissionLabels.view" />,
     [PermissionIdentifier.UPDATE_SECRET]: <String stringID="rbac.permissionLabels.createEdit" />,
