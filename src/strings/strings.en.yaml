@@ -648,10 +648,6 @@ cdDashboard:
   welcome: Welcome to Continuous Delivery
   description: Deploy your services with blazing fast pipelines.
 hours: hours
-authenticationSettings:
-  allowLoginFromTheseDomains: Allow login from these domains
-  allowUsersWIthEmails: 'Only allow users with the following email domains:'
-  domainNameRequired: At least one domain name is required
 gitFetchTypes:
   fromBranch: 'Latest from Branch'
   fromCommit: 'Specific Commit ID'

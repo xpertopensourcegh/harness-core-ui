@@ -11,8 +11,11 @@ export interface StringsMap {
   'common.addVariable': string
   'common.approve': string
   'common.authSettings.SAMLProvider': string
+  'common.authSettings.WhitelistedDomainsUpdated': string
   'common.authSettings.accountOrOAuthLogin': string
   'common.authSettings.accountOrOAuthLoginEnabledSuccessfully': string
+  'common.authSettings.allowLoginFromTheseDomains': string
+  'common.authSettings.allowUsersWIthEmails': string
   'common.authSettings.atLeastNChars': string
   'common.authSettings.authorizationEnabledFor': string
   'common.authSettings.authorizationNotEnabled': string
@@ -23,6 +26,7 @@ export interface StringsMap {
   'common.authSettings.confirmDisablePasswordExpiration': string
   'common.authSettings.confirmDisablePasswordStrength': string
   'common.authSettings.confirmDisableUserPasswordLogin': string
+  'common.authSettings.confirmDisableWhitelistedDomains': string
   'common.authSettings.daysBeforePasswordExpires': string
   'common.authSettings.daysBeforeUserNotified': string
   'common.authSettings.deleteSamlProvider': string
@@ -32,6 +36,8 @@ export interface StringsMap {
   'common.authSettings.disablePasswordExpiration': string
   'common.authSettings.disablePasswordStrength': string
   'common.authSettings.disableUserPasswordLogin': string
+  'common.authSettings.disableWhitelistedDomains': string
+  'common.authSettings.domainNameRequired': string
   'common.authSettings.enableAtLeastOneSSoBeforeDisablingUserPasswordLogin': string
   'common.authSettings.enableSamlProvider': string
   'common.authSettings.enableSamlProviderDescription': string
@@ -75,6 +81,7 @@ export interface StringsMap {
   'common.authSettings.somethingWentWrong': string
   'common.authSettings.useHarnessUsernameAndPassword': string
   'common.authSettings.usePublicOAuth': string
+  'common.authSettings.whitelistedDomainsDisabled': string
   'common.changePlan': string
   'common.cluster': string
   'common.comments': string
@@ -2056,18 +2063,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   authentication: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'authenticationSettings.allowLoginFromTheseDomains': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'authenticationSettings.allowUsersWIthEmails': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'authenticationSettings.domainNameRequired': string
   /**
    * @deprecated migrate this string to module level file
    */
