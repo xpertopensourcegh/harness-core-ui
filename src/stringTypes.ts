@@ -562,14 +562,17 @@ export interface StringsMap {
   'dashboards.homePage.title': string
   'dashboards.serviceDashboard.activeServiceInstancesLabel': string
   'dashboards.serviceDashboard.day': string
+  'dashboards.serviceDashboard.executionId': string
   'dashboards.serviceDashboard.frequency': string
   'dashboards.serviceDashboard.in': string
+  'dashboards.serviceDashboard.lastDeployment': string
   'dashboards.serviceDashboard.month': string
   'dashboards.serviceDashboard.months': string
   'dashboards.serviceDashboard.nonProd': string
   'dashboards.serviceDashboard.prod': string
   'dashboards.serviceDashboard.serviceInstances': string
   'dashboards.serviceDashboard.servicesInLast': string
+  'dashboards.serviceDashboard.totalServices': string
   'dashboards.serviceDashboard.week': string
   'dashboards.sideNav.byHarness': string
   'dashboards.sideNav.custom': string

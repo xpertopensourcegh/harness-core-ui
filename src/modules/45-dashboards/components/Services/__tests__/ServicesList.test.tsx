@@ -1,19 +1,17 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { DeploymentsWidget } from '@dashboards/components/Services/DeploymentsWidget/DeploymentsWidget'
-import { DeploymentsWidgetMock } from '@dashboards/mock'
+import { ServicesList } from '@dashboards/components/Services/ServicesList/ServicesList'
+import { ServiceListMock } from '@dashboards/mock'
 
-jest.mock('highcharts-react-official', () => () => <></>)
-
-describe('DeploymentsWidget', () => {
+describe('ServicesList', () => {
   test('render', () => {
     const { container } = render(
       <TestWrapper
         path="account/:accountId/cd/orgs/:orgIdentifier/projects/:projectIdentifier/services"
         pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}
       >
-        <DeploymentsWidget {...DeploymentsWidgetMock} />
+        <ServicesList {...{ ...ServiceListMock, data: [ServiceListMock.data[0]] }} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
