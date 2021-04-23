@@ -78,6 +78,7 @@ export interface StringsMap {
   'common.changePlan': string
   'common.cluster': string
   'common.comments': string
+  'common.createPipeline': string
   'common.datePickerShortcuts.Last2Days': string
   'common.datePickerShortcuts.Last2Months': string
   'common.datePickerShortcuts.Last3Days': string
@@ -1275,10 +1276,17 @@ export interface StringsMap {
   'cf.testTheFlag.testFlagTargetHeading': string
   'cf.testTheFlag.verify': string
   'cf.testTheFlag.verifyText': string
+  'ci.advancedLabel': string
   'ci.ciTrialHomePage.startTrial.description': string
   'ci.ciTrialHomePage.startTrial.startBtn.description': string
   'ci.ciTrialHomePage.trialInProgress.description': string
+  'ci.clipboardCopyFail': string
+  'ci.clipboardCopySuccess': string
+  'ci.commitsOn': string
+  'ci.committed': string
+  'ci.connectors': string
   'ci.continuous': string
+  'ci.createPipeline': string
   'ci.dashboard.activeBuilds': string
   'ci.dashboard.createProject': string
   'ci.dashboard.failedBuilds': string
@@ -1286,7 +1294,20 @@ export interface StringsMap {
   'ci.dashboard.noFailedBuilds': string
   'ci.dashboard.noRepositories': string
   'ci.dashboard.subHeading': string
+  'ci.delegates': string
+  'ci.description': string
+  'ci.executionLabel': string
+  'ci.fileStore': string
+  'ci.infraLabel': string
   'ci.learnMore': string
+  'ci.newConnectorButton': string
+  'ci.newItem': string
+  'ci.next': string
+  'ci.noData': string
+  'ci.previous': string
+  'ci.save': string
+  'ci.secrets': string
+  'ci.templates': string
   'ci.testsReports.className': string
   'ci.testsReports.commitId': string
   'ci.testsReports.consoleOutput': string
@@ -1329,6 +1350,10 @@ export interface StringsMap {
   'ci.testsReports.totalWithColon': string
   'ci.testsReports.updatedTests': string
   'ci.testsReports.willBeDisplayedIfAvailable': string
+  'ci.titleGovernance': string
+  'ci.titleResources': string
+  'ci.titleSettings': string
+  'ci.welcome': string
   'cv.abbreviatedCategories.errors': string
   'cv.abbreviatedCategories.infrastructure': string
   'cv.abbreviatedCategories.performance': string
@@ -2092,10 +2117,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   categories: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'cdDashboard.creatPipeline': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -4828,10 +4849,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'pipelineSteps.build.create.aboutYourStage': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.build.create.buildStageDescription': string
   /**
    * @deprecated migrate this string to module level file
    */

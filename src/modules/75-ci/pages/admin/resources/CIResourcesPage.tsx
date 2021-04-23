@@ -4,15 +4,16 @@ import { NavLink, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { Page } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import i18n from './CIResourcesPage.i18n'
+import { useStrings } from 'framework/strings'
 import css from './CIResourcesPage.module.scss'
 
 const CIResourcesPage: React.FC = ({ children }) => {
   const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps>()
+  const { getString } = useStrings()
   return (
     <>
       <Page.Header
-        title={i18n.title}
+        title={getString('ci.titleResources')}
         toolbar={
           <Container>
             <Layout.Horizontal spacing="medium">
@@ -21,7 +22,7 @@ const CIResourcesPage: React.FC = ({ children }) => {
                 activeClassName={css.activeTag}
                 to={routes.toCIAdminResourcesConnectors({ orgIdentifier, projectIdentifier, accountId })}
               >
-                {i18n.connectors}
+                {getString('ci.connectors')}
               </NavLink>
 
               <NavLink
@@ -29,19 +30,19 @@ const CIResourcesPage: React.FC = ({ children }) => {
                 activeClassName={css.activeTag}
                 to={routes.toCIAdminResourcesSecretsListing({ orgIdentifier, projectIdentifier, accountId })}
               >
-                {i18n.secrets}
+                {getString('ci.secrets')}
               </NavLink>
 
               <NavLink className={css.tags} to="#TBD">
-                {i18n.delegates}
+                {getString('ci.delegates')}
               </NavLink>
 
               <NavLink className={css.tags} to="#TBD">
-                {i18n.templates}
+                {getString('ci.templates')}
               </NavLink>
 
               <NavLink className={css.tags} to="#TBD">
-                {i18n.fileStore}
+                {getString('ci.fileStore')}
               </NavLink>
             </Layout.Horizontal>
           </Container>

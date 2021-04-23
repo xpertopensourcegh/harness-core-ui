@@ -4,15 +4,16 @@ import { Container, Layout } from '@wings-software/uicore'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import i18n from './ResourcesPage.i18n'
+import { useStrings } from 'framework/strings'
 import css from './ResourcesPage.module.scss'
 
 const ResourcesPage: React.FC = ({ children }) => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { getString } = useStrings()
   return (
     <>
       <Page.Header
-        title={i18n.title}
+        title={getString('ci.titleResources')}
         toolbar={
           <Container>
             <Layout.Horizontal spacing="medium">
@@ -21,7 +22,7 @@ const ResourcesPage: React.FC = ({ children }) => {
                 activeClassName={css.activeTag}
                 to={routes.toCIAdminResourcesConnectors({ accountId, orgIdentifier, projectIdentifier })}
               >
-                {i18n.connectors}
+                {getString('ci.connectors')}
               </NavLink>
 
               <NavLink
@@ -29,20 +30,20 @@ const ResourcesPage: React.FC = ({ children }) => {
                 activeClassName={css.activeTag}
                 to={routes.toCIAdminResourcesSecretsListing({ accountId, orgIdentifier, projectIdentifier })}
               >
-                {i18n.secrets}
+                {getString('ci.secrets')}
               </NavLink>
 
               <NavLink className={css.tags} to="#TBD">
-                {i18n.delegates}
+                {getString('ci.delegates')}
               </NavLink>
 
               {/* TODO: ENABLE IT WHEN IMPLEMENTED */}
               {/* <NavLink className={css.tags} to="#TBD">
-                {i18n.templates}
+                {getString('ci.templates')}
               </NavLink>
 
               <NavLink className={css.tags} to="#TBD">
-                {i18n.fileStore}
+                {getString('ci.fileStore')}
               </NavLink> */}
             </Layout.Horizontal>
           </Container>
