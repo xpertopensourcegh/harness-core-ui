@@ -125,7 +125,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
       }
     }
   }
-  useDocumentTitle([getString('resources'), getString('common.secrets'), secretData?.secret.name || ''])
+  useDocumentTitle([secretData?.secret.name || '', getString('common.secrets')])
 
   useEffect(() => {
     setSecretData(data?.data)

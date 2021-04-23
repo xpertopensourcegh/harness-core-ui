@@ -22,6 +22,7 @@ import ResourcesCard from '@rbac/components/ResourcesCard/ResourcesCard'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import routes from '@common/RouteDefinitions'
 import RbacFactory from '@rbac/factories/RbacFactory'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { getResourceSelectorsfromMap, getSelectedResourcesMap } from './utils'
 import css from './ResourceGroupDetails.module.scss'
 
@@ -155,6 +156,8 @@ const ResourceGroupDetails: React.FC = () => {
 
   const resourceGroup = resourceGroupDetails?.data?.resourceGroup
   const isHarnessManaged = resourceGroupDetails?.data?.harnessManaged
+
+  useDocumentTitle([resourceGroup?.name || '', getString('resourceGroups')])
 
   if (loading) return <Page.Spinner />
   if (errorInGettingResourceGroup)

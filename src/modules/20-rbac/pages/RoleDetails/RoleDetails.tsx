@@ -25,6 +25,7 @@ import routes from '@common/RouteDefinitions'
 import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
 import { getRoleIcon } from '@rbac/utils/RoleData'
 import type { PipelineType, RolePathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import css from './RoleDetails.module.scss'
 
 const RoleDetails: React.FC = () => {
@@ -111,6 +112,9 @@ const RoleDetails: React.FC = () => {
     }
   }
   const role = data?.data?.role
+
+  useDocumentTitle([role?.name || '', getString('roles')])
+
   if (loading) return <PageSpinner />
   if (error) return <PageError message={error.message} onClick={() => refetch()} />
   if (!role) return <></>

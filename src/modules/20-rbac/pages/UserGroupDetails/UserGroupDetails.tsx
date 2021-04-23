@@ -13,6 +13,7 @@ import { PageError } from '@common/components/Page/PageError'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { PrincipalType, useRoleAssignmentModal } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
+import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import MemberList from './views/MemberList'
 import css from './UserGroupDetails.module.scss'
 
@@ -41,6 +42,8 @@ const UserGroupDetails: React.FC = () => {
     item: `${item.roleName} - ${item.resourceGroupName}`,
     managed: item.managedRole
   }))
+
+  useDocumentTitle([userGroup?.name || '', getString('common.userGroups')])
 
   if (loading) return <PageSpinner />
   if (error) return <PageError message={error.message} onClick={() => refetch()} />

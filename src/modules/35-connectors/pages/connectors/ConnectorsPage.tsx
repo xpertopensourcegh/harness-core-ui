@@ -107,7 +107,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     accountIdentifier: accountId
   }
   const history = useHistory()
-  useDocumentTitle([getString('resources'), getString('connectorsLabel')])
+  useDocumentTitle(getString('connectorsLabel'))
 
   const ConnectorCatalogueNames = new Map<ConnectorCatalogueItem['category'], string>()
   // This list will control which categories will be displayed in UI and its order
