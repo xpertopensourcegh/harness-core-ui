@@ -86,6 +86,7 @@ const UserGroupsPage: React.FC = () => {
           openRoleAssignmentModal={openRoleAssignmentModal}
           gotoPage={(pageNumber: number) => setPage(pageNumber)}
           reload={refetch}
+          openUserGroupModal={openUserGroupModal}
         />
       </Page.Body>
     </>

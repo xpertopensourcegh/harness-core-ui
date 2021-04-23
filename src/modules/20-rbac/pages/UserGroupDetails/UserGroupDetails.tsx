@@ -14,7 +14,8 @@ import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { PrincipalType, useRoleAssignmentModal } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
-import MemberList from './views/MemberList'
+import { useUserGroupModal } from '@rbac/modals/UserGroupModal/useUserGroupModal'
+import MemberList from '@rbac/pages/UserGroupDetails/views/MemberList'
 import css from './UserGroupDetails.module.scss'
 
 const UserGroupDetails: React.FC = () => {
@@ -33,6 +34,10 @@ const UserGroupDetails: React.FC = () => {
   })
 
   const { openRoleAssignmentModal } = useRoleAssignmentModal({
+    onSuccess: refetch
+  })
+
+  const { openUserGroupModal } = useUserGroupModal({
     onSuccess: refetch
   })
 
@@ -101,7 +106,7 @@ const UserGroupDetails: React.FC = () => {
             <Text color={Color.BLACK} font={{ size: 'medium', weight: 'semi-bold' }}>
               {getString('members')}
             </Text>
-            <MemberList users={users} refetch={refetch} userGroupIdentifier={userGroupIdentifier} />
+            <MemberList userGroup={userGroup} users={users} refetch={refetch} openUserGroupModal={openUserGroupModal} />
           </Layout.Vertical>
         </Container>
         <Container width="50%" className={css.detailsContainer}>
