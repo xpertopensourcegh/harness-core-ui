@@ -204,7 +204,7 @@ const RoleDetails: React.FC = () => {
                 })}
             </Layout.Vertical>
           </Container>
-          <Container padding="large">
+          <Container padding="large" className={css.permissionListContainer}>
             <Layout.Vertical>
               <Layout.Horizontal flex padding="medium" spacing="medium">
                 <Text color={Color.BLACK} font={{ size: 'medium', weight: 'semi-bold' }} padding={{ left: 'medium' }}>

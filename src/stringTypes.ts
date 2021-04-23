@@ -263,8 +263,11 @@ export interface StringsMap {
   'rbac.permissionLabels.pipelineExecution': string
   'rbac.permissionLabels.runtimeAccess': string
   'rbac.permissionLabels.view': string
+  'rbac.roleAssignment.assignmentValidation': string
   'rbac.roleAssignment.deleteFailure': string
   'rbac.roleAssignment.deleteSuccess': string
+  'rbac.roleAssignment.userPlaceHolder': string
+  'rbac.roleAssignment.userValidation': string
   'rbac.roleBinding': string
   'rbac.userGroupForm.createSuccess': string
   'rbac.userGroupPage.confirmDelete': string

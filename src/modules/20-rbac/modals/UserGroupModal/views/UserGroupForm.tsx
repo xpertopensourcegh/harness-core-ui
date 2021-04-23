@@ -66,7 +66,7 @@ const UserGroupForm: React.FC<RoleModalData> = props => {
     try {
       const created = await createUserGroup(dataToSubmit)
       /* istanbul ignore else */ if (created) {
-        showSuccess(getString('rbac.userGroupForm.createSuccess'))
+        showSuccess(getString('rbac.userGroupForm.createSuccess', { name: created.data?.name }))
         onSubmit?.()
       }
     } catch (e) {

@@ -243,7 +243,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
         </div>
       </div>
       <div
-        class="StyledProps--font StyledProps--main StyledProps--padding-large"
+        class="StyledProps--font StyledProps--main permissionListContainer StyledProps--padding-large"
       >
         <div
           class="Layout--vertical StyledProps--main"
@@ -664,7 +664,7 @@ exports[`Role Details Page render data 1`] = `
         </div>
       </div>
       <div
-        class="StyledProps--font StyledProps--main StyledProps--padding-large"
+        class="StyledProps--font StyledProps--main permissionListContainer StyledProps--padding-large"
       >
         <div
           class="Layout--vertical StyledProps--main"
