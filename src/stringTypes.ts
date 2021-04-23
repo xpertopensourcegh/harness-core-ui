@@ -778,6 +778,7 @@ export interface StringsMap {
   'cd.dashboard.orSelectExisting': string
   'cd.dashboard.subHeading': string
   'cd.folderPath': string
+  'cd.infrastructureKey': string
   'cd.namespaceValidation': string
   'cd.releaseNameValidation': string
   'cd.steps.common.namespacePlaceholder': string
