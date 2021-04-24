@@ -22,6 +22,8 @@ import { useStrings } from 'framework/strings'
 import { setupAwsKmsFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { AwsKmsConfigFormData, CredTypeValues } from '@connectors/interfaces/ConnectorInterface'
 import { DelegateSelectors } from '@common/components'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+
 import AwsKmsAccessKeyForm from './AwsKmsAccessKeyForm'
 import type { CreateAwsKmsConnectorProps, StepSecretManagerProps } from '../CreateAwsKmsConnector'
 
@@ -33,7 +35,7 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
   onSuccess,
   connectorInfo
 }) => {
-  const { accountId: accountIdentifier, orgIdentifier, projectIdentifier } = useParams()
+  const { accountId: accountIdentifier, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { showSuccess } = useToaster()
   const { getString } = useStrings()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()

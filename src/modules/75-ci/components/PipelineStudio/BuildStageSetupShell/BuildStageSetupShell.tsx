@@ -255,7 +255,7 @@ export default function BuildStageSetupShell(): JSX.Element {
               isReadonly={isReadonly}
               hasDependencies={true}
               stepsFactory={stepsFactory}
-              stage={selectedStage!}
+              stage={selectedStage || {}}
               originalStage={originalStage}
               ref={executionRef}
               updateStage={() => {
@@ -272,8 +272,8 @@ export default function BuildStageSetupShell(): JSX.Element {
                         stepConfig: {
                           node: {
                             type: StepsStepType.Dependency,
-                            name: name,
-                            identifier: generateRandomString(name)
+                            name: '',
+                            identifier: generateRandomString(StepsStepType.Dependency)
                           },
                           stepsMap: event.stepsMap,
                           onUpdate: executionRef.current?.stepGroupUpdated,

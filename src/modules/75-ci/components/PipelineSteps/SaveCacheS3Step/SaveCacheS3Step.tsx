@@ -1,5 +1,6 @@
 import React from 'react'
 import type { IconName } from '@wings-software/uicore'
+import type { FormikErrors } from 'formik'
 import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { UseStringsReturn } from 'framework/strings'
@@ -86,15 +87,15 @@ export class SaveCacheS3Step extends PipelineStep<SaveCacheS3StepData> {
     }
   }
 
-  processFormData<SaveCacheS3StepDataUI>(data: SaveCacheS3StepDataUI): SaveCacheS3StepData {
-    return getFormValuesInCorrectFormat<SaveCacheS3StepDataUI, SaveCacheS3StepData>(data, transformValuesFieldsConfig)
+  processFormData<T>(data: T): SaveCacheS3StepData {
+    return getFormValuesInCorrectFormat<T, SaveCacheS3StepData>(data, transformValuesFieldsConfig)
   }
 
   validateInputSet(
     data: SaveCacheS3StepData,
     template?: SaveCacheS3StepData,
     getString?: UseStringsReturn['getString']
-  ): object {
+  ): FormikErrors<SaveCacheS3StepData> {
     if (getString) {
       return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
     }
