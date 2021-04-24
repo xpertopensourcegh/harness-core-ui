@@ -435,7 +435,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                           invocationMap={factory.getInvocationMap()}
                           schema={pipelineSchema?.data}
                           height="calc(100vh - 230px)"
-                          width="calc(100vw - 300px)"
+                          width="calc(100vw - 350px)"
                           showSnippetSection={false}
                         />
                       )}
