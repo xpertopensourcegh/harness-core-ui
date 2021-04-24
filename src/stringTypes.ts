@@ -1197,6 +1197,47 @@ export interface StringsMap {
   'cf.noFlag': string
   'cf.noTarget': string
   'cf.noTargetForEnv': string
+  'cf.onboarding.backToStart': string
+  'cf.onboarding.clientKey': string
+  'cf.onboarding.createAFlag': string
+  'cf.onboarding.createEnv': string
+  'cf.onboarding.envCreated': string
+  'cf.onboarding.help.getStarted': string
+  'cf.onboarding.help.heading1': string
+  'cf.onboarding.help.heading2': string
+  'cf.onboarding.help.test.heading': string
+  'cf.onboarding.help.test.readmore': string
+  'cf.onboarding.help.test.text1': string
+  'cf.onboarding.help.test.text2': string
+  'cf.onboarding.help.text1': string
+  'cf.onboarding.help.text2': string
+  'cf.onboarding.inputLabel': string
+  'cf.onboarding.keyDescriptionClient': string
+  'cf.onboarding.keyDescriptionServer': string
+  'cf.onboarding.letsStart': string
+  'cf.onboarding.listenToEvent': string
+  'cf.onboarding.readme.android': string
+  'cf.onboarding.readme.dotnet': string
+  'cf.onboarding.readme.golang': string
+  'cf.onboarding.readme.ios': string
+  'cf.onboarding.readme.java': string
+  'cf.onboarding.readme.javascript': string
+  'cf.onboarding.sdkButtonLabel': string
+  'cf.onboarding.sdkKeyLabel': string
+  'cf.onboarding.secret': string
+  'cf.onboarding.selectEnvironment': string
+  'cf.onboarding.selectLanguage': string
+  'cf.onboarding.setUpApp': string
+  'cf.onboarding.setUpYourCode': string
+  'cf.onboarding.setupLabel': string
+  'cf.onboarding.subTitle': string
+  'cf.onboarding.successLabel': string
+  'cf.onboarding.testYourFlag': string
+  'cf.onboarding.theBasics': string
+  'cf.onboarding.title': string
+  'cf.onboarding.toggleLabel': string
+  'cf.onboarding.tryItOut': string
+  'cf.onboarding.upAndRunning': string
   'cf.pipeline.default': string
   'cf.pipeline.stages.execution.title': string
   'cf.pipeline.stages.setup.title': string
@@ -1229,10 +1270,12 @@ export interface StringsMap {
   'cf.shared.environment': string
   'cf.shared.evaluations': string
   'cf.shared.flags': string
+  'cf.shared.getStarted': string
   'cf.shared.individual': string
   'cf.shared.lastEvaluated': string
   'cf.shared.pleaseSelectVariation': string
   'cf.shared.prerequisites': string
+  'cf.shared.quickGuide': string
   'cf.shared.rules': string
   'cf.shared.segment': string
   'cf.shared.segments': string

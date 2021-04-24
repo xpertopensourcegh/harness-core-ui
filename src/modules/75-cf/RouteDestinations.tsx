@@ -60,6 +60,8 @@ import CFPipelineStudio from './pages/pipeline-studio/CFPipelineStudio'
 import { TargetDetailPage } from './pages/target-details/TargetDetailPage'
 import { SegmentsPage } from './pages/segments/SegmentsPage'
 import { SegmentDetailPage } from './pages/segment-details/SegmentDetailPage'
+import { OnboardingPage } from './pages/onboarding/OnboardingPage'
+import { OnboardingDetailPage } from './pages/onboarding/OnboardingDetailPage'
 
 import './components/PipelineStudio/FeatureFlagStage'
 
@@ -196,6 +198,22 @@ export default (
       exact
     >
       <CFEnvironmentDetails />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CFSideNavProps}
+      path={routes.toCFOnboarding({ ...accountPathProps, ...projectPathProps, ...environmentPathProps })}
+      exact
+    >
+      <OnboardingPage />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CFSideNavProps}
+      path={routes.toCFOnboardingDetail({ ...accountPathProps, ...projectPathProps, ...environmentPathProps })}
+      exact
+    >
+      <OnboardingDetailPage />
     </RouteWithLayout>
 
     <RouteWithLayout

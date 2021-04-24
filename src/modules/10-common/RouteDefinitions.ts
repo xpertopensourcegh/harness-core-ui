@@ -645,7 +645,14 @@ const routes = {
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
       `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/governance`
   ),
-
+  toCFOnboarding: withAccountId(
+    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
+      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/onboarding`
+  ),
+  toCFOnboardingDetail: withAccountId(
+    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
+      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/onboarding/detail`
+  ),
   /********************************************************************************************************************/
   toCV: (params: Partial<ProjectPathProps>) =>
     params.orgIdentifier && params.projectIdentifier
