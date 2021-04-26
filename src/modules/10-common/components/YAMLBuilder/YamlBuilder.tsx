@@ -1,5 +1,8 @@
 import React, { useEffect, useState, useRef, ReactElement, useCallback } from 'react'
-import MonacoEditor, { MonacoEditorProps } from 'react-monaco-editor'
+import type { MonacoEditorProps } from 'react-monaco-editor'
+//@ts-ignore
+import ReactMonacoEditor from 'react-monaco-editor'
+import MonacoEditor from '@common/components/MonacoEditor/MonacoEditor'
 import '@wings-software/monaco-yaml/lib/esm/monaco.contribution'
 import { IKeyboardEvent, languages } from 'monaco-editor/esm/vs/editor/editor.api'
 import type { editor } from 'monaco-editor/esm/vs/editor/editor.api'
@@ -122,7 +125,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
   const [yamlValidationErrors, setYamlValidationErrors] = useState<Map<number, string> | undefined>()
   const [dynamicWidth, setDynamicWidth] = useState<number>(2 * MIN_SNIPPET_SECTION_WIDTH)
 
-  const editorRef = useRef<MonacoEditor>(null)
+  const editorRef = useRef<ReactMonacoEditor>(null)
   const yamlRef = useRef<string | undefined>('')
   const yamlValidationErrorsRef = useRef<Map<number, string>>()
   yamlValidationErrorsRef.current = yamlValidationErrors
