@@ -111,6 +111,8 @@ export const calculateDepthPS = (
         }
         groupMaxDepth = Math.max(groupMaxDepth, depthInner)
       })
+    } else {
+      groupMaxDepth = 1
     }
     groupMaxDepth += spaceAfterGroup
   }
