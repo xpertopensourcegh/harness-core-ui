@@ -6,16 +6,17 @@ import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { Page } from '@common/components'
 import TwoFactorAuthentication from '@user-profile/components/TwoFactorAuthentication/TwoFactorAuthentication'
+import useSwitchAccountModal from '@user-profile/modals/SwitchAccount/useSwitchAccountModal'
+
 import UserOverView from './views/UserOverView'
 import css from './UserProfile.module.scss'
 
 const UserProfilePage: React.FC = () => {
   const { getString } = useStrings()
   const { openPasswordModal } = useChangePassword()
-
-  const { currentUserInfo: user } = useAppStore()
-
+  const { openSwitchAccountModal } = useSwitchAccountModal({})
   const { openUserProfile } = useUserProfile({})
+  const { currentUserInfo: user } = useAppStore()
 
   return (
     <Page.Body filled>
@@ -51,6 +52,11 @@ const UserProfilePage: React.FC = () => {
                   </Button>
                 </Text>
               ) : null}
+              <Text icon="people" iconProps={{ padding: { right: 'medium' } }}>
+                <Button minimal onClick={openSwitchAccountModal} font={{ weight: 'semi-bold' }} className={css.button}>
+                  {getString('userProfile.switchAccount')}
+                </Button>
+              </Text>
             </Layout.Vertical>
             <Layout.Horizontal spacing="huge" padding="large" className={css.authentication} flex>
               <TwoFactorAuthentication />

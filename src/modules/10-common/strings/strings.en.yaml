@@ -10,6 +10,7 @@ editVariableType: Edit variable type
 removeThisVariable: Remove This Variable
 durationPrefix: 'Duration: '
 pipelineDetails: Pipeline Details
+accountName: Account Name
 comments: Comments
 approve: Approve
 reject: Reject
@@ -24,6 +25,7 @@ performAction: Perform Action
 jexlExpression: JEXL Expression
 input: Input
 refresh: Refresh
+loading: Loading, please wait...
 logs:
   noLogsText: 'No logs found'
   delegateSelectionLogs: Delegate selection logs

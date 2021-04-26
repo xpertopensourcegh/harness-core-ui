@@ -9,6 +9,7 @@ allowpaths:
   - '/delegate-profiles/{delegateProfileId}.get'
   - '/setup/delegates/kubernetes-delegates'
   - '/users/user.get'
+  - '/users/set-default-account/{accountId}'
   - '/users/new-trial'
   - '/users/{userId}/logout'
   - '/users/refresh-token'

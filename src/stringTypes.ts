@@ -8,6 +8,7 @@ export interface StringsMap {
   'common.PermissibleActions': string
   'common.accViewer': string
   'common.accessKey': string
+  'common.accountName': string
   'common.addVariable': string
   'common.approve': string
   'common.authSettings.SAMLProvider': string
@@ -140,6 +141,7 @@ export interface StringsMap {
   'common.jexlExpression': string
   'common.letsGetYouStarted': string
   'common.link': string
+  'common.loading': string
   'common.logs.delegateSelectionLogs': string
   'common.logs.noLogsText': string
   'common.member': string
@@ -529,12 +531,18 @@ export interface StringsMap {
   'userProfile.addSCM': string
   'userProfile.awsCredentials': string
   'userProfile.basicInformation': string
+  'userProfile.changeDefaultAccountMessage': string
+  'userProfile.changeDefaultAccountTitle': string
   'userProfile.changePassword': string
   'userProfile.confirmDelete': string
   'userProfile.confirmDeleteTitle': string
   'userProfile.confirmPassword': string
   'userProfile.currentPassword': string
   'userProfile.editProfile': string
+  'userProfile.headerAccountEdition': string
+  'userProfile.headerAccountName': string
+  'userProfile.headerCompanyName': string
+  'userProfile.headerDefaultAccount': string
   'userProfile.myGroups': string
   'userProfile.myProjects': string
   'userProfile.myTools': string
@@ -552,6 +560,8 @@ export interface StringsMap {
   'userProfile.scmValidation.accessKey': string
   'userProfile.scmValidation.secretKey': string
   'userProfile.selectSCM': string
+  'userProfile.setAsDefault': string
+  'userProfile.switchAccount': string
   'userProfile.twoFactor.description': string
   'userProfile.twoFactor.disableSuccess': string
   'userProfile.twoFactor.disableText': string

@@ -184,7 +184,7 @@ appD:
   clientId: Client Id
   clientSecret: Client Secret
   controllerURL: Controller URL
-  accountName: Account Name
+  accountName: '{{ $.common.accountName }}'
   validation:
     controllerURL: Controller URL is a required field
     clientId: Client Id is a required field

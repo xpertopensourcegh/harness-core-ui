@@ -18802,6 +18802,38 @@ export type UseGetUserProps = Omit<UseGetProps<RestResponseUser, unknown, void, 
 export const useGetUser = (props: UseGetUserProps) =>
   useGet<RestResponseUser, unknown, void, void>(`/users/user`, { base: getConfig('api'), ...props })
 
+export interface SetDefaultAccountForCurrentUserPathParams {
+  accountId: string
+}
+
+export type SetDefaultAccountForCurrentUserProps = Omit<
+  MutateProps<RestResponseBoolean, unknown, void, void, SetDefaultAccountForCurrentUserPathParams>,
+  'path' | 'verb'
+> &
+  SetDefaultAccountForCurrentUserPathParams
+
+export const SetDefaultAccountForCurrentUser = ({ accountId, ...props }: SetDefaultAccountForCurrentUserProps) => (
+  <Mutate<RestResponseBoolean, unknown, void, void, SetDefaultAccountForCurrentUserPathParams>
+    verb="PUT"
+    path="/users/set-default-account/${accountId}"
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseSetDefaultAccountForCurrentUserProps = Omit<
+  UseMutateProps<RestResponseBoolean, unknown, void, void, SetDefaultAccountForCurrentUserPathParams>,
+  'path' | 'verb'
+> &
+  SetDefaultAccountForCurrentUserPathParams
+
+export const useSetDefaultAccountForCurrentUser = ({ accountId, ...props }: UseSetDefaultAccountForCurrentUserProps) =>
+  useMutate<RestResponseBoolean, unknown, void, void, SetDefaultAccountForCurrentUserPathParams>(
+    'PUT',
+    (paramsInPath: SetDefaultAccountForCurrentUserPathParams) => `/users/set-default-account/${paramsInPath.accountId}`,
+    { base: getConfig('api'), pathParams: { accountId }, ...props }
+  )
+
 export type TrialSignupProps = Omit<
   MutateProps<RestResponseBoolean, unknown, void, UserInviteRequestBody, void>,
   'path' | 'verb'
