@@ -752,6 +752,7 @@ export interface StringsMap {
   'pipeline.jiraUpdateStep.statusTransitionAccordion': string
   'pipeline.jiraUpdateStep.transitionLabel': string
   'pipeline.jiraUpdateStep.validations.status': string
+  'pipeline.logs.fetchError': string
   'pipeline.manifestType.bitBucketLabel': string
   'pipeline.manifestType.branchPlaceholder': string
   'pipeline.manifestType.bucketName': string

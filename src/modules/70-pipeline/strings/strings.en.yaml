@@ -228,3 +228,5 @@ executionStatus:
   NotStarted: NOT STARTED
   ApprovalRejected: REJECTED
   Unknown: UNKNOWN
+logs:
+  fetchError: Could not fetch logs. Please try again later.
