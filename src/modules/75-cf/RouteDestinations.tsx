@@ -30,10 +30,10 @@ import type {
 } from '@common/interfaces/RouteInterfaces'
 
 import CFHomePage from '@cf/pages/home/CFHomePage'
-import CFFeatureFlagsPage from '@cf/pages/feature-flags/CFFeatureFlagsPage'
-import CFFeatureFlagsDetailPage from '@cf/pages/feature-flags-detail/CFFeatureFlagsDetailPage'
-import CFEnvironmentsPage from '@cf/pages/environments/CFEnvironmentsPage'
-import CFEnvironmentDetails from '@cf/pages/environment-details/CFEnvironmentDetails'
+import FeatureFlagsPage from '@cf/pages/feature-flags/FeatureFlagsPage'
+import FeatureFlagsDetailPage from '@cf/pages/feature-flags-detail/FeatureFlagsDetailPage'
+import EnvironmentsPage from '@cf/pages/environments/EnvironmentsPage'
+import EnvironmentDetails from '@cf/pages/environment-details/EnvironmentDetails'
 import CFWorkflowsPage from '@cf/pages/workflows/CFWorkflowsPage'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import SideNav from '@cf/components/SideNav/SideNav'
@@ -126,7 +126,7 @@ export default (
       path={routes.toCFFeatureFlags({ ...accountPathProps, ...projectPathProps })}
       exact
     >
-      <CFFeatureFlagsPage />
+      <FeatureFlagsPage />
     </RouteWithLayout>
 
     <RouteWithLayout
@@ -139,7 +139,7 @@ export default (
       })}
       exact
     >
-      <CFFeatureFlagsDetailPage />
+      <FeatureFlagsDetailPage />
     </RouteWithLayout>
 
     <RouteWithLayout
@@ -189,7 +189,7 @@ export default (
       path={routes.toCFEnvironments({ ...accountPathProps, ...projectPathProps })}
       exact
     >
-      <CFEnvironmentsPage />
+      <EnvironmentsPage />
     </RouteWithLayout>
 
     <RouteWithLayout
@@ -197,7 +197,7 @@ export default (
       path={routes.toCFEnvironmentDetails({ ...accountPathProps, ...projectPathProps, ...environmentPathProps })}
       exact
     >
-      <CFEnvironmentDetails />
+      <EnvironmentDetails />
     </RouteWithLayout>
 
     <RouteWithLayout

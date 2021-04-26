@@ -33,6 +33,7 @@ import { VariationTypeIcon } from '@cf/components/VariationTypeIcon/VariationTyp
 import { VariationWithIcon } from '@cf/components/VariationWithIcon/VariationWithIcon'
 import { ListingPageTemplate, ListingPageTitle } from '@cf/components/ListingPageTemplate/ListingPageTemplate'
 import { NoData } from '@cf/components/NoData/NoData'
+import { useEnvironments } from '@cf/hooks/environment'
 import {
   CF_LOCAL_STORAGE_ENV_KEY,
   DEFAULT_ENV,
@@ -47,11 +48,10 @@ import {
 import { FlagTypeVariations } from '../../components/CreateFlagDialog/FlagDialogUtils'
 // import FlagDrawerFilter from '../../components/FlagFilterDrawer/FlagFilterDrawer'
 import FlagDialog from '../../components/CreateFlagDialog/FlagDialog'
-import { useEnvironments } from '../../hooks/environment'
 import imageURL from './flag.svg'
 import { FeatureFlagStatus, FlagStatus } from './FlagStatus'
 import { FlagResult } from './FlagResult'
-import css from './CFFeatureFlagsPage.module.scss'
+import css from './FeatureFlagsPage.module.scss'
 
 interface RenderColumnFlagProps {
   cell: Cell<Feature>
@@ -358,7 +358,7 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
   )
 }
 
-const CFFeatureFlagsPage: React.FC = () => {
+const FeatureFlagsPage: React.FC = () => {
   // const [isSaveFiltersOn, setIsSaveFiltersOn] = useState(false)
   // const [isDrawerOpened, setIsDrawerOpened] = useState(false)
   const [environment, setEnvironment] = useLocalStorage<typeof DEFAULT_ENV | undefined>(
@@ -613,4 +613,4 @@ const CFFeatureFlagsPage: React.FC = () => {
   )
 }
 
-export default CFFeatureFlagsPage
+export default FeatureFlagsPage

@@ -8,12 +8,13 @@ import { PageError } from '@common/components/Page/PageError'
 import { useSyncedEnvironment } from '@cf/hooks/useSyncedEnvironment'
 import { useStrings } from 'framework/strings'
 import { getErrorMessage } from '@cf/utils/CFUtils'
-import CFEnvironmentDetailsHeader from './CFEnvironmentDetailsHeader'
-import CFEnvironmentDetailsBody from './CFEnvironmentDetailsBody'
+import CFEnvironmentDetailsHeader from './EnvironmentDetailsHeader'
+import CFEnvironmentDetailsBody from './EnvironmentDetailsBody'
 
-const CFEnvironmentDetails: React.FC<unknown> = () => {
+const EnvironmentDetails: React.FC = () => {
   const { getString } = useStrings()
   const { projectIdentifier, environmentIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
+
   const { loading, data, error, refetch } = useSyncedEnvironment({
     accountId,
     orgIdentifier,
@@ -58,4 +59,4 @@ const CFEnvironmentDetails: React.FC<unknown> = () => {
   )
 }
 
-export default CFEnvironmentDetails
+export default EnvironmentDetails

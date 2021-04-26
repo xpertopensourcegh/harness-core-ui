@@ -70,7 +70,7 @@ export const isFeatureFlagOn = (featureFlag: Feature) => {
 }
 
 export const featureFlagHasCustomRules = (featureFlag: Feature) => {
-  return featureFlag.envProperties?.rules?.length || featureFlag.envProperties?.variationMap?.length
+  return !!(featureFlag.envProperties?.rules?.length || featureFlag.envProperties?.variationMap?.length)
 }
 
 enum FeatureFlagBucketBy {
@@ -145,11 +145,7 @@ export enum SortOrder {
 }
 
 export enum SegmentsSortByField {
-  NAME = 'name',
-  IDENTIFIER = 'identifier',
-  ARCHIVED = 'archived',
-  KIND = 'kind',
-  MODIFIED_AT = 'modifiedAt'
+  NAME = 'name'
 }
 
 export enum FlagsSortByField {

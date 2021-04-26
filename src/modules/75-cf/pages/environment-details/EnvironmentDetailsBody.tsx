@@ -12,7 +12,7 @@ import { useEnvStrings } from '@cf/hooks/environment'
 import { CF_DEFAULT_PAGE_SIZE, EnvironmentSDKKeyType, getErrorMessage } from '@cf/utils/CFUtils'
 import { withTableData } from '../../utils/table-utils'
 import AddKeyDialog from '../../components/AddKeyDialog/AddKeyDialog'
-import css from './CFEnvironmentDetails.module.scss'
+import css from './EnvironmentDetails.module.scss'
 
 type CustomColumn<T extends Record<string, any>> = Column<T>
 

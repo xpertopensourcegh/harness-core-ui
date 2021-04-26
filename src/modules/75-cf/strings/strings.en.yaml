@@ -208,8 +208,8 @@ targets:
   create: + Target(s)
   list: Add a target
   upload: Upload a list of targets (CSV files only)
-  enterName: 'Enter a Name'
-  enterValue: 'Enter a Value'
+  enterName: 'Enter target name'
+  enterValue: 'Enter target identifier'
   addTargetsLabel: Add Target(s)
   addTargets: + Add Target(s)
   noTargetFound: 'No target found in this environment. Click the button above to create target(s).'

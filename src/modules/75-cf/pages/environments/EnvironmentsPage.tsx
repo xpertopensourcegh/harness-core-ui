@@ -17,7 +17,7 @@ import EnvironmentDialog from '@cf/components/CreateEnvironmentDialog/Environmen
 import routes from '@common/RouteDefinitions'
 import { NoEnvironment } from '@cf/components/NoEnvironment/NoEnvironment'
 import { withTableData } from '../../utils/table-utils'
-import css from './CFEnvironmentsPage.module.scss'
+import css from './EnvironmentsPage.module.scss'
 
 type EnvData = { environment: EnvironmentResponseDTO }
 const withEnvironment = withTableData<EnvironmentResponseDTO, EnvData>(({ row }) => ({ environment: row.original }))
@@ -131,7 +131,7 @@ const ModilfiedByCell = withActions(({ environment, actions }) => {
 
 type CustomColumn<T extends Record<string, any>> = Column<T>
 
-const CFEnvironmentsPage: React.FC<unknown> = () => {
+const EnvironmentsPage: React.FC = () => {
   const { getString } = useEnvStrings()
   const { showError, showSuccess } = useToaster()
   const history = useHistory()
@@ -284,4 +284,4 @@ const CFEnvironmentsPage: React.FC<unknown> = () => {
   )
 }
 
-export default CFEnvironmentsPage
+export default EnvironmentsPage

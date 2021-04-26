@@ -13,15 +13,15 @@ import { NoEnvironment } from '@cf/components/NoEnvironment/NoEnvironment'
 import { useLocalStorage } from '@common/hooks'
 import { useStrings } from 'framework/strings'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
-import FlagActivation from '../../components/FlagActivation/FlagActivation'
+import FlagActivation from '@cf/components/FlagActivation/FlagActivation'
 import FlagActivationDetails from '../../components/FlagActivation/FlagActivationDetails'
-import css from './CFFeatureFlagsDetailPage.module.scss'
+import css from './FeatureFlagsDetailPage.module.scss'
 
 // Show loading and wait 3s when the first environment is created before reloading
 // current detail page. See https://harness.atlassian.net/browse/FFM-565
 const WAIT_TIME_FOR_NEWLY_CREATED_ENVIRONMENT = 3000
 
-const CFFeatureFlagsDetailPage: React.FC = () => {
+const FeatureFlagsDetailPage: React.FC = () => {
   const history = useHistory()
   const { getString } = useStrings()
   const { orgIdentifier, projectIdentifier, featureFlagIdentifier, environmentIdentifier, accountId } = useParams<
@@ -86,6 +86,7 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
   const loading = envsLoading || loadingFlag || newEnvironmentCreateLoading
   const noEnvironmentExists = !loading && !error && environments?.length === 0
 
+  // console.log({ envsLoading, loadingFlag, newEnvironmentCreateLoading, featureFlag, environments })
   return (
     <Container flex height="100%">
       <Layout.Horizontal width={450} className={css.flagContainer}>
@@ -100,7 +101,7 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
         style={{ transform: 'translateX(-20px)', background: 'var(--white)' }}
       >
         <Layout.Vertical width="100%">
-          {!loading && featureFlag && !noEnvironmentExists && (
+          {!loading && featureFlag && !noEnvironmentExists && !errorEnvs && (
             <FlagActivation
               refetchFlag={fetchFeatureFlag}
               project={projectIdentifier as string}
@@ -165,4 +166,4 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
   )
 }
 
-export default CFFeatureFlagsDetailPage
+export default FeatureFlagsDetailPage
