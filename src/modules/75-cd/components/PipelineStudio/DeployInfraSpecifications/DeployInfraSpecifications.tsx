@@ -287,9 +287,9 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
       const originalStage = getStageFromPipeline(selectedStageId, originalPipeline).stage
       originalProvisioner = get(originalStage, 'stage.spec.infrastructure.infrastructureDefinition.provisioner')
     }
-    if (isNil(provisioner)) {
-      provisioner = {}
-    }
+
+    provisioner = isNil(provisioner) ? {} : { ...provisioner }
+
     if (isNil(provisioner.steps)) {
       provisioner.steps = []
     }
@@ -297,7 +297,12 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
       provisioner.rollbackSteps = []
     }
 
-    return { provisioner, provisionerEnabled, provisionerSnippetLoading, originalProvisioner }
+    return {
+      provisioner: { ...provisioner },
+      provisionerEnabled,
+      provisionerSnippetLoading,
+      originalProvisioner: { ...originalProvisioner }
+    }
   }
 
   const getInfrastructureDefaultValue = (
