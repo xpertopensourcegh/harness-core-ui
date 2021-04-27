@@ -168,7 +168,7 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
               top: config.minY + height - 20,
               width: nodeWidth,
               height: nodeHeight,
-              visibility: showAdd ? 'visible' : 'hidden'
+              display: showAdd ? 'flex' : 'none'
             }}
           >
             <Icon name="plus" style={{ color: 'var(--diagram-add-node-color)' }} />

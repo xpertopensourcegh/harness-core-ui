@@ -299,6 +299,7 @@ export const moveStageToFocus = (
     const offsetY = engine.getModel().getOffsetY()
     let newOffsetX = engine.getModel().getOffsetX()
     let newOffsetY = engine.getModel().getOffsetY()
+    const newZoom = resetZoom ? 100 : engine.getModel().getZoomLevel()
 
     const node = (engine.getModel() as Diagram.DiagramModel).getNodeFromId(identifier)
 
@@ -316,9 +317,18 @@ export const moveStageToFocus = (
       newOffsetY = (rect.height - s(node.height)) * 0.7 - s(node.getPosition().y)
     }
 
-    engine.getModel().setOffset(newOffsetX, newOffsetY)
-    engine.getModel().setZoomLevel(resetZoom ? 100 : zoom)
-    engine.repaintCanvas()
+    let shouldRepaint = false
+    if (newOffsetX !== offsetX || newOffsetY !== offsetY) {
+      engine.getModel().setOffset(newOffsetX, newOffsetY)
+      shouldRepaint = true
+    }
+    if (newZoom !== zoom) {
+      engine.getModel().setZoomLevel(resetZoom ? 100 : zoom)
+      shouldRepaint = true
+    }
+    if (shouldRepaint) {
+      engine.repaintCanvas()
+    }
   }
 }
 
@@ -359,10 +369,12 @@ export const focusRunningNode = <T>(engine: DiagramEngine, data: ExecutionPipeli
       const nodeWidth = node.width
       /* istanbul ignore else */ if (rect.width < nodePosition.x + nodeWidth + 40) {
         const newOffsetX = (rect.width - node.width) * 0.8 - nodePosition.x
-        const offsetY = engine.getModel().getOffsetY()
-        engine.getModel().setOffset(newOffsetX, offsetY)
-        engine.getModel().setZoomLevel(100)
-        engine.repaintCanvas()
+        if (newOffsetX !== engine.getModel().getOffsetX()) {
+          const offsetY = engine.getModel().getOffsetY()
+          engine.getModel().setOffset(newOffsetX, offsetY)
+          //engine.getModel().setZoomLevel(100)
+          engine.repaintCanvas()
+        }
       }
     }
   }

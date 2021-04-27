@@ -261,7 +261,7 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
           style={{
             width: options.width,
             height: options.height,
-            opacity: showAdd ? 1 : 0,
+            display: showAdd ? 'flex' : 'none',
             marginLeft: (126 - (options.width || 64)) / 2
           }}
         >

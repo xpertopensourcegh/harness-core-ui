@@ -29,7 +29,9 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
     loading,
     selectedStageId,
     selectedStepId,
-    allNodeMap
+    allNodeMap,
+    setStepsGraphCanvasState,
+    stepsGraphCanvasState
   } = useExecutionContext()
   const { setStepDetailsVisibility } = useExecutionLayoutContext()
   const [barrierSetupId, setBarrierSetupId] = React.useState<string | null>(null)
@@ -174,6 +176,8 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
             props.onStageSelect(item.value as string)
           }}
           canvasBtnsClass={css.canvasBtns}
+          setGraphCanvasState={state => setStepsGraphCanvasState?.(state)}
+          graphCanvasState={stepsGraphCanvasState}
         />
       )}
       <DynamicPopover
