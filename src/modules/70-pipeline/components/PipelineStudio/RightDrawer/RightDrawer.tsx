@@ -315,6 +315,9 @@ export const RightDrawer: React.FC = (): JSX.Element => {
             (e?.target as HTMLElement)?.closest('.bp3-dialog-close-button') &&
             values
           ) {
+            if (type === DrawerTypes.ConfigureService) {
+              onServiceDependencySubmit(values)
+            }
             onSubmitStep(values, type)
           } else {
             // please do not remove the await below.
