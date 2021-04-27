@@ -36,8 +36,10 @@ export interface StringsMap {
   'common.authSettings.disableOAuthLogin': string
   'common.authSettings.disablePasswordExpiration': string
   'common.authSettings.disablePasswordStrength': string
+  'common.authSettings.disableTwoFAEnforcement': string
   'common.authSettings.disableUserPasswordLogin': string
   'common.authSettings.disableWhitelistedDomains': string
+  'common.authSettings.doYouWantToEnforceTwoFAForAllMembers': string
   'common.authSettings.domainNameRequired': string
   'common.authSettings.enableAtLeastOneSSoBeforeDisablingUserPasswordLogin': string
   'common.authSettings.enableSamlProvider': string
@@ -45,8 +47,10 @@ export interface StringsMap {
   'common.authSettings.enforceLockoutPolicy': string
   'common.authSettings.enforcePasswordStrength': string
   'common.authSettings.enforceTwoFA': string
+  'common.authSettings.existingMembersWillReceiveAnEmailWithQRCode': string
   'common.authSettings.failedLoginsBeforeLocked': string
   'common.authSettings.failedLoginsBeforeLockedAccount': string
+  'common.authSettings.goToSettings': string
   'common.authSettings.haveOneDigit': string
   'common.authSettings.haveOneLowercase': string
   'common.authSettings.haveOneSpecialChar': string
@@ -59,6 +63,7 @@ export interface StringsMap {
   'common.authSettings.loginSettingsHaveBeenUpdated': string
   'common.authSettings.loginViaSAML': string
   'common.authSettings.minLength': string
+  'common.authSettings.newMembersWillNeedToSetUpTwoFADuringSignup': string
   'common.authSettings.notifyUsersWHenUserLocked': string
   'common.authSettings.notifyUsersWhenTheyLocked': string
   'common.authSettings.oauthSettingsHaveBeenUpdated': string
@@ -80,9 +85,13 @@ export interface StringsMap {
   'common.authSettings.samlTestSuccessful': string
   'common.authSettings.selectUserGroup': string
   'common.authSettings.somethingWentWrong': string
+  'common.authSettings.sureToDisableTwoFAEnforcement': string
+  'common.authSettings.twoFAEnforcementDisabled': string
+  'common.authSettings.twoFAEnforcementEnabled': string
   'common.authSettings.useHarnessUsernameAndPassword': string
   'common.authSettings.usePublicOAuth': string
   'common.authSettings.whitelistedDomainsDisabled': string
+  'common.authSettings.yourAccountWillBeLockedOut': string
   'common.cluster': string
   'common.comments': string
   'common.createPipeline': string
