@@ -91,7 +91,9 @@ export const ExecutionStatusIconMap: Record<ExecutionStatus, IconName> = {
   Paused: 'pause',
   Waiting: 'waiting',
   Skipped: 'skipped',
-  // ApprovalRejected: 'circle-cross',
+  ApprovalRejected: 'circle-cross',
+  InterventionWaiting: 'waiting',
+  ApprovalWaiting: 'waiting',
   Pausing: 'pause'
 }
 

@@ -101,6 +101,8 @@ export const getNodeStyles = (isSelected: boolean, status: ExecutionStatus): Rea
         style.borderColor = 'var(--execution-pipeline-color-orange)'
         style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-orange)' : 'var(--white)'
         break
+      case ExecutionStatusEnum.InterventionWaiting:
+      case ExecutionStatusEnum.ApprovalWaiting:
       case ExecutionStatusEnum.Waiting:
         style.backgroundColor = isSelected
           ? 'var(--execution-pipeline-color-blue)'
@@ -114,6 +116,7 @@ export const getNodeStyles = (isSelected: boolean, status: ExecutionStatus): Rea
         style.borderColor = 'var(--execution-pipeline-color-dark-grey2)'
         style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-dark-grey2)' : 'var(--white)'
         break
+      case ExecutionStatusEnum.ApprovalRejected:
       case ExecutionStatusEnum.Failed:
         style.borderColor = 'var(--execution-pipeline-color-dark-red)'
         style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-red)' : 'var(--white)'
