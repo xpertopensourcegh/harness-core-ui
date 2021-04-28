@@ -293,6 +293,10 @@ export interface StringsMap {
   'rbac.roleAssignment.userPlaceHolder': string
   'rbac.roleAssignment.userValidation': string
   'rbac.roleBinding': string
+  'rbac.userDetails.userGroup.addToGroup': string
+  'rbac.userDetails.userGroup.confirmDeleteText': string
+  'rbac.userDetails.userGroup.deleteSuccessMessage': string
+  'rbac.userDetails.userGroup.deleteTitle': string
   'rbac.userGroupForm.addMemberSuccess': string
   'rbac.userGroupForm.createSuccess': string
   'rbac.userGroupForm.editSuccess': string
