@@ -636,6 +636,7 @@ export interface StringsMap {
   'gitsync.successfullCreate': string
   'gitsync.totalLines': string
   'gitsync.unsavedChanges': string
+  'pipeline.and': string
   'pipeline.approvalStep.addUserGroups': string
   'pipeline.approvalStep.approverInputs': string
   'pipeline.approvalStep.approvers': string
@@ -659,11 +660,22 @@ export interface StringsMap {
   'pipeline.barriers.tooltips.timeout': string
   'pipeline.barriers.validation.barrierNamerequired': string
   'pipeline.clickHere': string
+  'pipeline.conditionalExecution.belowExpression': string
+  'pipeline.conditionalExecution.condition': string
+  'pipeline.conditionalExecution.statusOption.all': string
+  'pipeline.conditionalExecution.statusOption.failure': string
+  'pipeline.conditionalExecution.statusOption.success': string
+  'pipeline.conditionalExecution.subTitle': string
+  'pipeline.conditionalExecution.title': string
+  'pipeline.conditionalExecution.toolTip.conditionTitle': string
+  'pipeline.conditionalExecution.toolTip.stageTitle': string
+  'pipeline.conditionalExecution.toolTip.stepTitle': string
   'pipeline.createANewPipeline': string
   'pipeline.createPipeline.learnMore': string
   'pipeline.createPipeline.setupHeader': string
   'pipeline.createPipeline.setupLater': string
   'pipeline.createPipeline.setupSubtitle': string
+  'pipeline.duration': string
   'pipeline.enableVerificationOptions': string
   'pipeline.enterDescription': string
   'pipeline.execution.actions.abortPipeline': string
@@ -833,6 +845,7 @@ export interface StringsMap {
   'pipeline.selectOrCreatePipeline.pipelineNameRequired': string
   'pipeline.selectOrCreatePipeline.selectAPipeline': string
   'pipeline.selectOrCreatePipeline.setupHeader': string
+  'pipeline.startTime': string
   'pipeline.targets.title': string
   'pipeline.verificationResult': string
   'cd.allowSimultaneousDeployments': string
@@ -1434,7 +1447,6 @@ export interface StringsMap {
   'ci.testsReports.correlatedWithCodeChanges': string
   'ci.testsReports.coverage': string
   'ci.testsReports.coverageInfo': string
-  'ci.testsReports.duration': string
   'ci.testsReports.executionOverview': string
   'ci.testsReports.failedTests': string
   'ci.testsReports.failedWithColon': string
@@ -6703,10 +6715,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   start: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  startTime: string
   /**
    * @deprecated migrate this string to module level file
    */

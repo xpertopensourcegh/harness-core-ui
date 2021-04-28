@@ -39,7 +39,6 @@ testsReports:
   stackTrace: Stack Trace
   consoleOutput: Console Output
   testSuite: 'Test Suite:'
-  duration: Duration
   totalTests: Total Tests
   testCaseName: TEST CASE NAME
   className: CLASS NAME
