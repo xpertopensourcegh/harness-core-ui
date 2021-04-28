@@ -164,6 +164,7 @@ change: Change
 events: Events
 details: Details
 test: Test
+tested: Tested
 enable: Enable
 runTestsArgsInfo: The arguments to be passed to the buildTool. For maven, it will be a goal
 packagesLabel: Packages
@@ -953,7 +954,7 @@ pre-flight-check:
   skipCheckInfo: You can skip pre-flight check and continue to run your pipeline
   verifyingPipelineInputs: Verifying pipeline inputs
   verifyingConnectors: Verifying connectors
-
+titleOptional: '(OPTIONAL)'
 pipeline-triggers:
   aboutTriggers: Triggers are used to automate the execution of pipelines based on some event like new artifact/manifest, or run on a schedule or an external webhook.
   addNewTrigger: Add New Trigger
@@ -1023,7 +1024,6 @@ pipeline-triggers:
     recurrenceLabel: Recurrence
     selectTimezonePlaceholder: Select timezone
   conditionsPanel:
-    titleOptional: '(OPTIONAL)'
     subtitle: 'Specify the conditions for executing the pipeline - you can choose to trigger the pipeline only when your artifact build or tag or label matches a certain value or pattern.'
     branchConditions: 'Branch Conditions'
     sourceBranch: 'Source Branch'
