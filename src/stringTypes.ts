@@ -335,6 +335,8 @@ export interface StringsMap {
   'rbac.usersPage.selectRole': string
   'rbac.usersPage.validation.resourceGroup': string
   'rbac.usersPage.validation.role': string
+  'secrets.noRefData': string
+  'secrets.references': string
   'connectors.ECR.fullName': string
   'connectors.ECR.name': string
   'connectors.GCP.delegateInClusterInfo': string
@@ -2046,6 +2048,10 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   adminLabel: string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  adminResources: string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -6382,6 +6388,10 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'secret.titleEditText': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  'secret.updateSuccess': string
   /**
    * @deprecated migrate this string to module level file
    */
