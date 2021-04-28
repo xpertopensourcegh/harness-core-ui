@@ -12,54 +12,72 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { c
 ))
 
 const initialValues = {
-  timeout: '10m',
-  spec: {
-    provisionerIdentifier: 'test',
-    configuration: {
-      type: 'Inline',
-      spec: {
-        workspace: 'test',
-        configFiles: {
-          store: {
-            type: 'Git',
-            spec: {
-              gitFetchType: 'Branch',
-              branch: 'test',
-              folderPath: 'folder',
-              connectorRef: 'test'
-            }
-          }
-        }
-      }
-    },
-
-    targets: ['target-1', 'target-2']
-  }
-}
-
-const template: any = {
+  type: 'TerraformPlan',
+  name: 'Test A',
+  identifier: 'Test_A',
   timeout: RUNTIME_INPUT_VALUE,
   spec: {
     provisionerIdentifier: RUNTIME_INPUT_VALUE,
     configuration: {
-      type: 'Inline',
-      spec: {
-        workspace: RUNTIME_INPUT_VALUE,
-        configFiles: {
-          store: {
-            type: 'Git',
-            spec: {
-              gitFetchType: RUNTIME_INPUT_VALUE,
-              branch: RUNTIME_INPUT_VALUE,
-              folderPath: RUNTIME_INPUT_VALUE,
-              connectorRef: 'test'
+      command: 'Apply',
+      workspace: RUNTIME_INPUT_VALUE,
+      configFiles: {
+        store: {
+          spec: {
+            branch: RUNTIME_INPUT_VALUE,
+            folderPath: RUNTIME_INPUT_VALUE,
+            connectorRef: {
+              label: 'test',
+              Scope: 'Account',
+              value: 'test',
+              connector: {
+                type: 'GIT',
+                spec: {
+                  val: 'test'
+                }
+              }
             }
           }
         }
       }
     },
+    targets: RUNTIME_INPUT_VALUE,
+    environmentVariables: RUNTIME_INPUT_VALUE
+  }
+}
 
-    targets: RUNTIME_INPUT_VALUE
+const template: any = {
+  type: 'TerraformPlan',
+  name: 'Test A',
+  identifier: 'Test_A',
+  timeout: RUNTIME_INPUT_VALUE,
+  spec: {
+    provisionerIdentifier: RUNTIME_INPUT_VALUE,
+    configuration: {
+      command: 'Apply',
+      workspace: RUNTIME_INPUT_VALUE,
+      configFiles: {
+        store: {
+          spec: {
+            branch: RUNTIME_INPUT_VALUE,
+            folderPath: RUNTIME_INPUT_VALUE,
+            connectorRef: {
+              label: 'test',
+              Scope: 'Account',
+              value: 'test',
+              connector: {
+                type: 'GIT',
+                spec: {
+                  val: 'test'
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    targets: RUNTIME_INPUT_VALUE,
+    environmentVariables: RUNTIME_INPUT_VALUE
   }
 }
 
@@ -71,7 +89,7 @@ describe('Test terraform input set', () => {
           <FormikForm>
             <TerraformInputStep
               initialValues={initialValues as any}
-              stepType={StepType.TerraformDestroy}
+              stepType={StepType.TerraformPlan}
               stepViewType={StepViewType.InputSet}
               inputSetData={{
                 template

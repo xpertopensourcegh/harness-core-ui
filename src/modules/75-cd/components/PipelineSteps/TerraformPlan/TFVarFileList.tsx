@@ -6,12 +6,13 @@ import { FieldArray } from 'formik'
 import type { FormikProps } from 'formik'
 import { useStrings } from 'framework/strings'
 import type { InlineTerraformVarFileSpec, RemoteTerraformVarFileSpec, TerraformVarFileWrapper } from 'services/cd-ng'
-import { TerraformData, TerraformStoreTypes } from '../TerraformInterfaces'
-import TfVarFile from './TfVarFile'
+
+import { TerraformStoreTypes, TFPlanFormData } from '../Common/Terraform/TerraformInterfaces'
+import TfVarFile from '../Common/Terraform/Editview/TfVarFile'
 import css from './TerraformVarfile.module.scss'
 
 interface TfVarFileProps {
-  formik: FormikProps<TerraformData>
+  formik: FormikProps<TFPlanFormData>
 }
 
 export default function TfVarFileList(props: TfVarFileProps): React.ReactElement {
@@ -20,15 +21,15 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
   const { getString } = useStrings()
 
   const remoteRender = (varFile: TerraformVarFileWrapper) => {
-    const remoteVar = varFile?.varFile as RemoteTerraformVarFileSpec
+    const remoteVarFile = varFile?.varFile as RemoteTerraformVarFileSpec
     return (
       <>
-        <Text className={css.branch}>{remoteVar?.store?.spec?.branch}</Text>
+        <Text className={css.branch}>{remoteVarFile.store?.spec?.branch}</Text>
         <Layout.Horizontal className={css.path}>
           {varFile?.varFile?.type === getString('remote') && <Icon name="remote" />}
           {varFile?.varFile?.type === getString('inline') && <Icon name="Inline" />}
-          {remoteVar?.store?.spec?.paths && remoteVar?.store?.spec?.paths?.[0].path && (
-            <Text>{remoteVar?.store?.spec?.paths?.[0].path}</Text>
+          {remoteVarFile?.store?.spec?.paths && remoteVarFile?.store?.spec?.paths?.[0].path && (
+            <Text>{remoteVarFile?.store?.spec?.paths?.[0].path}</Text>
           )}
         </Layout.Horizontal>
       </>
@@ -46,14 +47,14 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
   }
   return (
     <FieldArray
-      name="spec.configuration.spec.varFiles"
+      name="spec.configuration.varFiles"
       render={({ push, remove }) => {
         return (
           <div>
-            {formik?.values?.spec?.configuration?.spec?.varFiles?.map((varFile: TerraformVarFileWrapper, i) => {
+            {formik?.values?.spec?.configuration?.varFiles?.map((varFile: TerraformVarFileWrapper, i) => {
               return (
-                <div className={css.addMarginTop} key={`${varFile?.varFile?.spec?.type}`}>
-                  <Layout.Horizontal className={css.tfContainer} key={varFile?.varFile?.spec?.type}>
+                <div className={css.addMarginTop} key={i}>
+                  <Layout.Horizontal className={css.tfContainer}>
                     {varFile?.varFile?.type === TerraformStoreTypes.Remote && remoteRender(varFile)}
                     {varFile?.varFile?.type === TerraformStoreTypes.Inline && inlineRender(varFile)}
                     <Button minimal icon="trash" data-testid={`remove-tfvar-file-${i}`} onClick={() => remove(i)} />

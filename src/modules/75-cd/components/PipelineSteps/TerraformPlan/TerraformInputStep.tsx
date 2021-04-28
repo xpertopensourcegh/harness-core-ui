@@ -10,13 +10,12 @@ import { useStrings } from 'framework/strings'
 
 import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 
-import type { TerraformProps } from './TerraformInterfaces'
+import type { TerraformPlanProps } from '../Common/Terraform/TerraformInterfaces'
 import ConfigInputs from './InputSteps/ConfigSection'
 
-export default function TerraformInputStep(props: TerraformProps): React.ReactElement {
+export default function TerraformInputStep(props: TerraformPlanProps): React.ReactElement {
   const { getString } = useStrings()
   const { inputSetData, readonly } = props
-
   return (
     <FormikForm>
       {getMultiTypeFromValue(inputSetData?.template?.spec?.provisionerIdentifier) === MultiTypeInputType.RUNTIME && (
@@ -35,8 +34,7 @@ export default function TerraformInputStep(props: TerraformProps): React.ReactEl
       )}
       <ConfigInputs {...props} />
 
-      {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.spec?.targets as string) ===
-        MultiTypeInputType.RUNTIME && (
+      {getMultiTypeFromValue(inputSetData?.template?.spec?.targets as string) === MultiTypeInputType.RUNTIME && (
         <List
           name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.targets`}
           label={<Text style={{ display: 'flex', alignItems: 'center' }}>{getString('pipeline.targets.title')}</Text>}
@@ -44,7 +42,7 @@ export default function TerraformInputStep(props: TerraformProps): React.ReactEl
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
-      {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.spec?.environmentVariables as string) ===
+      {getMultiTypeFromValue(inputSetData?.template?.spec?.environmentVariables as string) ===
         MultiTypeInputType.RUNTIME && (
         <Map
           name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.environmentVariables`}
