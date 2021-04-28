@@ -22,12 +22,14 @@ export interface StringsMap {
   'common.authSettings.authorizationNotEnabled': string
   'common.authSettings.changeLoginToHarnessAccountOrOauth': string
   'common.authSettings.changeLoginToHarnessAccountOrOauthDescription': string
+  'common.authSettings.clearSelection': string
   'common.authSettings.confirmDisableLockoutPolicy': string
   'common.authSettings.confirmDisableOAuthLogin': string
   'common.authSettings.confirmDisablePasswordExpiration': string
   'common.authSettings.confirmDisablePasswordStrength': string
   'common.authSettings.confirmDisableUserPasswordLogin': string
   'common.authSettings.confirmDisableWhitelistedDomains': string
+  'common.authSettings.confirmText': string
   'common.authSettings.daysBeforePasswordExpires': string
   'common.authSettings.daysBeforeUserNotified': string
   'common.authSettings.deleteSamlProvider': string
@@ -56,6 +58,7 @@ export interface StringsMap {
   'common.authSettings.haveOneSpecialChar': string
   'common.authSettings.haveOneUppercase': string
   'common.authSettings.keepAtLeastOneProviderEnabled': string
+  'common.authSettings.latest': string
   'common.authSettings.lockoutDuration': string
   'common.authSettings.lockoutPolicy': string
   'common.authSettings.lockoutPolicyDisabled': string
@@ -83,7 +86,9 @@ export interface StringsMap {
   'common.authSettings.samlProviderDeleted': string
   'common.authSettings.samlTestFailed': string
   'common.authSettings.samlTestSuccessful': string
+  'common.authSettings.selectBranch': string
   'common.authSettings.selectUserGroup': string
+  'common.authSettings.selectVersion': string
   'common.authSettings.somethingWentWrong': string
   'common.authSettings.sureToDisableTwoFAEnforcement': string
   'common.authSettings.twoFAEnforcementDisabled': string
@@ -617,6 +622,7 @@ export interface StringsMap {
   'gitsync.label': string
   'gitsync.markAsDefault': string
   'gitsync.moveFolder': string
+  'gitsync.newLines': string
   'gitsync.repositoryPath': string
   'gitsync.rootFolderListHeader': string
   'gitsync.rootFolderUpdatedSuccessfully': string
@@ -624,6 +630,8 @@ export interface StringsMap {
   'gitsync.seeLess': string
   'gitsync.seeMore': string
   'gitsync.successfullCreate': string
+  'gitsync.totalLines': string
+  'gitsync.unsavedChanges': string
   'pipeline.approvalStep.addUserGroups': string
   'pipeline.approvalStep.approverInputs': string
   'pipeline.approvalStep.approvers': string
