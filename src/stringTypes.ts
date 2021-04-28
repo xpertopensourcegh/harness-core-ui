@@ -1383,6 +1383,7 @@ export interface StringsMap {
   'cf.testTheFlag.verify': string
   'cf.testTheFlag.verifyText': string
   'ci.advancedLabel': string
+  'ci.annotations': string
   'ci.ciTrialHomePage.startTrial.description': string
   'ci.ciTrialHomePage.startTrial.startBtn.description': string
   'ci.clipboardCopyFail': string
@@ -1404,12 +1405,22 @@ export interface StringsMap {
   'ci.executionLabel': string
   'ci.fileStore': string
   'ci.infraLabel': string
+  'ci.labels': string
   'ci.learnMore': string
   'ci.newConnectorButton': string
   'ci.newItem': string
   'ci.next': string
   'ci.noData': string
+  'ci.optimize': string
+  'ci.optimizeInfo': string
   'ci.previous': string
+  'ci.privileged': string
+  'ci.privilegedInfo': string
+  'ci.remoteCacheImage.dockerInfo': string
+  'ci.remoteCacheImage.ecrInfo': string
+  'ci.remoteCacheImage.gcrInfo': string
+  'ci.remoteCacheImage.label': string
+  'ci.remoteCacheImage.placeholder': string
   'ci.save': string
   'ci.secrets': string
   'ci.templates': string
