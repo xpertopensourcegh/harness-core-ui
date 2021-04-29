@@ -1850,6 +1850,7 @@ export interface StringsMap {
   'cv.monitoringSources.oneMetricMappingValidation': string
   'cv.monitoringSources.oneMetricMappingValidationSubtext': string
   'cv.monitoringSources.oneMetricPackValidation': string
+  'cv.monitoringSources.prometheusName': string
   'cv.monitoringSources.reviewPageSubHeading': string
   'cv.navLinks.activities': string
   'cv.navLinks.adminSideNavLinks.activitySources': string
