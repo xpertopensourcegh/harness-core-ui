@@ -300,3 +300,42 @@ connector:
       description: Detection of orphaned resources, recommendations to save costs, Scaling/tearing
         down, turning off in non-work hours, reserving instances
     cost: COST
+recommendation:
+  listPage:
+    monthlySavingsText: POTENTIAL MONTHLY SAVINGS
+    monthlyForcastedCostText: FORECASTED MONTHLY SPEND
+    forecatedCostSubText: without applying recommendations
+    recommnedationBreakdown: 'Recommendations Breakdown'
+    listTableHeaders:
+      monthlySavings: 'MONTHLY SAVINGS'
+      resourceName: 'RESOURCE NAME'
+      resourceType: 'RESOURCE TYPE'
+      monthlyCost: 'MONTHLY COST'
+      recommendationType: 'RECOMMENDATION TYPE'
+      details: 'DETAILS'
+    recommendationTypes:
+      resizing: 'Resizing'
+    recommendationDetails:
+      resize: 'resize CPU and memory'
+  detailsPage:
+    costOptimized: 'Cost Optimized'
+    performanceOptimized: 'Performance Optimized'
+    resourceChanges: 'RESOURCE CHANGES TO BE MADE TO APPLY THE RECOMMENDATION'
+    currentResources: 'Current limits/request for CPU/Memory'
+    recommendedResources: 'Cost Optimized limits/request for CPU/Memory'
+    timeChangeText: 'SAMPLES WHOSE RESOURCE REQUIREMENTS WERE MET IN'
+    percentileOfReqAndLimit: 'Percentile of request and limit'
+    resizeText: 'Resize from a to b'
+    howItWorks: 'How it works / Options you have'
+    recommendationComputation: 'The recommendations are computed by analyzing the past utilization of CPU and memory of your workload.'
+    costOptimizedDetails: 'The lower bound is based on the 80th percentiles of CPU samples and memory peaks. There is no upper bound for CPU samples and memory peaks are based on the 95th percentile.'
+    performanceOptimizedDetails: 'The performance-optimized recommendations are computed using the 95th percentile of CPU samples and memory peaks.'
+    customDetails: 'The recommendations are computed by analyzing the past utilization of CPU and memory of your workload. The recommendations are computed by analyzing the past utilization of CPU and memory of your workload.'
+    totalCost: 'TOTAL COST'
+    idleCost: 'IDLE COST'
+  recommendationChart:
+    cpuPlaceholder: 'CPU Usage(millicores)'
+    noOfSamples: 'Number of samples'
+    memoryLabel: 'MEMORY'
+    memoryLabelRegular: 'Memory'
+    memoryUsagePlaceholder: 'Memory usage(GBs)'

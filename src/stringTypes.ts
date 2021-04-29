@@ -1079,6 +1079,38 @@ export interface StringsMap {
   'ce.dashboardPage.welcome': string
   'ce.homepage.slogan': string
   'ce.learnMore': string
+  'ce.recommendation.detailsPage.costOptimized': string
+  'ce.recommendation.detailsPage.costOptimizedDetails': string
+  'ce.recommendation.detailsPage.currentResources': string
+  'ce.recommendation.detailsPage.customDetails': string
+  'ce.recommendation.detailsPage.howItWorks': string
+  'ce.recommendation.detailsPage.idleCost': string
+  'ce.recommendation.detailsPage.percentileOfReqAndLimit': string
+  'ce.recommendation.detailsPage.performanceOptimized': string
+  'ce.recommendation.detailsPage.performanceOptimizedDetails': string
+  'ce.recommendation.detailsPage.recommendationComputation': string
+  'ce.recommendation.detailsPage.recommendedResources': string
+  'ce.recommendation.detailsPage.resizeText': string
+  'ce.recommendation.detailsPage.resourceChanges': string
+  'ce.recommendation.detailsPage.timeChangeText': string
+  'ce.recommendation.detailsPage.totalCost': string
+  'ce.recommendation.listPage.forecatedCostSubText': string
+  'ce.recommendation.listPage.listTableHeaders.details': string
+  'ce.recommendation.listPage.listTableHeaders.monthlyCost': string
+  'ce.recommendation.listPage.listTableHeaders.monthlySavings': string
+  'ce.recommendation.listPage.listTableHeaders.recommendationType': string
+  'ce.recommendation.listPage.listTableHeaders.resourceName': string
+  'ce.recommendation.listPage.listTableHeaders.resourceType': string
+  'ce.recommendation.listPage.monthlyForcastedCostText': string
+  'ce.recommendation.listPage.monthlySavingsText': string
+  'ce.recommendation.listPage.recommendationDetails.resize': string
+  'ce.recommendation.listPage.recommendationTypes.resizing': string
+  'ce.recommendation.listPage.recommnedationBreakdown': string
+  'ce.recommendation.recommendationChart.cpuPlaceholder': string
+  'ce.recommendation.recommendationChart.memoryLabel': string
+  'ce.recommendation.recommendationChart.memoryLabelRegular': string
+  'ce.recommendation.recommendationChart.memoryUsagePlaceholder': string
+  'ce.recommendation.recommendationChart.noOfSamples': string
   'cf.addPrerequisites.addPrerequisitesDesc': string
   'cf.addPrerequisites.addPrerequisitesHeading': string
   'cf.addPrerequisites.editPrerequisitesHeading': string
