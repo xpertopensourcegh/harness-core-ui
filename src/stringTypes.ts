@@ -300,6 +300,7 @@ export interface StringsMap {
   'rbac.roleAssignment.userPlaceHolder': string
   'rbac.roleAssignment.userValidation': string
   'rbac.roleBinding': string
+  'rbac.userDetails.noMembersMessage': string
   'rbac.userDetails.userGroup.addToGroup': string
   'rbac.userDetails.userGroup.confirmDeleteText': string
   'rbac.userDetails.userGroup.deleteSuccessMessage': string
@@ -307,8 +308,11 @@ export interface StringsMap {
   'rbac.userGroupForm.addMemberSuccess': string
   'rbac.userGroupForm.createSuccess': string
   'rbac.userGroupForm.editSuccess': string
+  'rbac.userGroupPage.addMembers': string
+  'rbac.userGroupPage.addUsers': string
   'rbac.userGroupPage.confirmDelete': string
   'rbac.userGroupPage.confirmDeleteTitle': string
+  'rbac.userGroupPage.editUserGroup': string
   'rbac.userGroupPage.newUserGroup': string
   'rbac.userGroupPage.noDataText': string
   'rbac.userGroupPage.noRoleAssignmentsText': string
