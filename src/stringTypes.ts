@@ -1509,12 +1509,17 @@ export interface StringsMap {
   'ci.continuous': string
   'ci.createPipeline': string
   'ci.dashboard.activeBuilds': string
+  'ci.dashboard.buildExecutions': string
+  'ci.dashboard.buildHealth': string
   'ci.dashboard.createProject': string
   'ci.dashboard.failedBuilds': string
   'ci.dashboard.noActiveBuilds': string
   'ci.dashboard.noFailedBuilds': string
   'ci.dashboard.noRepositories': string
   'ci.dashboard.subHeading': string
+  'ci.dashboard.successfulBuilds': string
+  'ci.dashboard.testCycleTimeSaved': string
+  'ci.dashboard.totalBuilds': string
   'ci.delegates': string
   'ci.description': string
   'ci.executionLabel': string
