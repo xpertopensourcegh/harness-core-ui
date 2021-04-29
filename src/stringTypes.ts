@@ -600,6 +600,7 @@ export interface StringsMap {
   'userProfile.selectSCM': string
   'userProfile.setAsDefault': string
   'userProfile.switchAccount': string
+  'userProfile.switchAccountSearch': string
   'userProfile.twoFactor.description': string
   'userProfile.twoFactor.disableSuccess': string
   'userProfile.twoFactor.disableText': string
