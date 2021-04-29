@@ -343,6 +343,7 @@ export interface StringsMap {
   'rbac.usersPage.validation.role': string
   'secrets.noRefData': string
   'secrets.references': string
+  'secrets.selectSecret': string
   'connectors.ECR.fullName': string
   'connectors.ECR.name': string
   'connectors.GCP.delegateInClusterInfo': string
