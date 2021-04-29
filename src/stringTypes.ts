@@ -236,7 +236,9 @@ export interface StringsMap {
   'common.userGroup': string
   'common.userGroups': string
   'common.validation.fileIsRequired': string
+  'common.validation.formatMustBeAlphanumeric': string
   'common.validation.groupAttributeIsRequired': string
+  'common.validation.identifierIsRequired': string
   'common.validation.nameIsRequired': string
   'common.validation.valueIsRequired': string
   'common.validation.valueMustBeANumber': string
@@ -1033,7 +1035,48 @@ export interface StringsMap {
   'ce.co.newAutoStoppingRule': string
   'ce.co.noData': string
   'ce.co.sshSetup': string
+  'ce.connector.AWS.cost': string
+  'ce.connector.AWS.crossAccountRole.arn': string
+  'ce.connector.AWS.crossAccountRole.externalID': string
+  'ce.connector.AWS.crossAccountRole.instructionLabel': string
+  'ce.connector.AWS.crossAccountRole.requirementExplanation': string
+  'ce.connector.AWS.crossAccountRole.submitText': string
+  'ce.connector.AWS.crossAccountRole.templateLaunchText': string
+  'ce.connector.AWS.crossAccountRole.text': string
+  'ce.connector.AWS.crossAccountRole.title': string
+  'ce.connector.AWS.crossAccountRole.validation.arnRequired': string
+  'ce.connector.AWS.crossAccountRole.validation.extIDRequired': string
+  'ce.connector.AWS.event.description': string
+  'ce.connector.AWS.event.title': string
+  'ce.connector.AWS.optimization.description': string
+  'ce.connector.AWS.optimization.title': string
+  'ce.connector.AWS.overview.featureSelection': string
+  'ce.connector.AWS.overview.label': string
+  'ce.connector.AWS.overview.permission.billing.description': string
+  'ce.connector.AWS.overview.permission.billing.label': string
+  'ce.connector.AWS.overview.permission.events.description': string
+  'ce.connector.AWS.overview.permission.events.label': string
+  'ce.connector.AWS.overview.permission.optimization.description': string
+  'ce.connector.AWS.overview.permission.optimization.label': string
+  'ce.connector.AWS.overview.placeholder': string
+  'ce.connector.AWS.overview.reqirementLabel': string
+  'ce.connector.AWS.overview.submitText': string
+  'ce.connector.AWS.overview.title': string
+  'ce.connector.AWS.overview.validation.identifier.format': string
+  'ce.connector.AWS.overview.validation.identifier.required': string
+  'ce.connector.AWS.overview.validation.name': string
+  'ce.connector.AWS.testConnection.auth.valid': string
+  'ce.connector.AWS.testConnection.cancel': string
+  'ce.connector.AWS.testConnection.crossARN.valid': string
+  'ce.connector.AWS.testConnection.cur.valid': string
+  'ce.connector.AWS.testConnection.finish': string
+  'ce.connector.AWS.testConnection.title': string
+  'ce.connector.AWS.title': string
+  'ce.connector.AWS.visibility.description': string
+  'ce.connector.AWS.visibility.title': string
   'ce.continuous': string
+  'ce.dashboardPage.description': string
+  'ce.dashboardPage.welcome': string
   'ce.homepage.slogan': string
   'ce.learnMore': string
   'cf.addPrerequisites.addPrerequisitesDesc': string
