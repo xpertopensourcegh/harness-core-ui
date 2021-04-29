@@ -4,7 +4,6 @@ import React from 'react'
 import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, UseMutateProps } from 'restful-react'
 
 import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from '../config'
-import type { PipelineOrStageStatus } from '@pipeline/components/PipelineSteps/AdvancedSteps/ConditionalExecutionPanel/ConditionalExecutionPanelUtils'
 export interface Account {
   uuid: string
   appId: string
@@ -2504,7 +2503,6 @@ export type DeploymentStage = StageType & {
   infrastructure?: PipelineInfrastructure
   execution?: ExecutionElement
   skipCondition?: string
-  when?: ConditionalExecutionStageConfig
   metadata?: string
 }
 
@@ -3169,7 +3167,6 @@ export type StageElement = StageElementWrapper & {
   failureStrategies: FailureStrategyConfig[]
   type?: string
   skipCondition?: string
-  when?: ConditionalExecutionStageConfig
   metadata?: string
   spec?: StageType
 }
@@ -3195,18 +3192,12 @@ export interface StageType {
   identifier: string
 }
 
-export interface ConditionalExecutionStepOrSetGroupConfig {
-  stageStatus: PipelineOrStageStatus.SUCCESS | PipelineOrStageStatus.ALL | PipelineOrStageStatus.FAILURE
-  condition?: string
-}
-
 export type StepElement = ExecutionWrapper & {
   identifier: string
   name?: string
   failureStrategies?: FailureStrategyConfig[]
   type?: string
   skipCondition?: string
-  when?: ConditionalExecutionStepOrSetGroupConfig
   metadata?: string
   spec?: StepSpecType
 }
@@ -3218,7 +3209,6 @@ export interface StepElementConfig {
   timeout?: string
   failureStrategies?: FailureStrategyConfig[]
   skipCondition?: string
-  when?: ConditionalExecutionStepOrSetGroupConfig
   type?: string
   spec?: StepSpecType
 }
@@ -3236,7 +3226,6 @@ export interface StepGroupElementConfig {
   identifier: string
   name?: string
   skipCondition?: string
-  when?: ConditionalExecutionStepOrSetGroupConfig
   failureStrategies?: FailureStrategyConfig[]
   steps: ExecutionWrapperConfig[]
   rollbackSteps?: ExecutionWrapperConfig[]
@@ -8128,17 +8117,11 @@ export interface ResponsePipelineConfig {
   correlationId?: string
 }
 
-export interface ConditionalExecutionStageConfig {
-  pipelineStatus: PipelineOrStageStatus.SUCCESS | PipelineOrStageStatus.ALL | PipelineOrStageStatus.FAILURE
-  condition?: string
-}
-
 export interface StageElementConfig {
   identifier: string
   name: string
   description?: string
   skipCondition?: string
-  when?: ConditionalExecutionStageConfig
   failureStrategies?: FailureStrategyConfig[]
   variables?: NGVariable[]
   tags?: {
