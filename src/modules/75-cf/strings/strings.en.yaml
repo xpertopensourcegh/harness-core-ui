@@ -194,9 +194,14 @@ featureFlags:
     save: '{{ $.save }}'
     cancel: '{{ $.cancel }}'
   metrics:
+    title: 'Metrics '
     noMetrics: No metrics
     evaluations: '{{ count }} evaluations'
     evaluationStatistics: Evaluation Statistic
+    flagEvaluations: Flag Evaluations ({{ count }})
+    targetServed: Target Served  ({{ count }})
+    noData: No metrics found in this time range.
+    totalEvaluations: Total Evaluations
 featureFlagDetail:
   variationCount: '{{ count }} variations'
 targets:

@@ -1210,7 +1210,12 @@ export interface StringsMap {
   'cf.featureFlags.makeSure': string
   'cf.featureFlags.metrics.evaluationStatistics': string
   'cf.featureFlags.metrics.evaluations': string
+  'cf.featureFlags.metrics.flagEvaluations': string
+  'cf.featureFlags.metrics.noData': string
   'cf.featureFlags.metrics.noMetrics': string
+  'cf.featureFlags.metrics.targetServed': string
+  'cf.featureFlags.metrics.title': string
+  'cf.featureFlags.metrics.totalEvaluations': string
   'cf.featureFlags.modifiedDate': string
   'cf.featureFlags.multi': string
   'cf.featureFlags.multiBtnText': string
