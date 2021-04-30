@@ -117,6 +117,8 @@ export interface StringsMap {
   'common.durationPrefix': string
   'common.editVariable': string
   'common.editVariableType': string
+  'common.errorHandler.issueCouldBe': string
+  'common.errorHandler.tryTheseSuggestions': string
   'common.execute': string
   'common.failureRate': string
   'common.git.APIAccessDescriptipn': string
