@@ -161,7 +161,6 @@ admin:
     dialogDeleteContent: 'Are you sure you want to delete Change Source: '
     dialogDeleteTitle: 'Delete Change Source'
     tableColumnNames:
-      environments: 'Number of Environments'
       createdOn: 'Created on'
       lastUpdatedOn: 'Last Updated on'
   monitoringSources:

@@ -1667,7 +1667,6 @@ export interface StringsMap {
   'cv.admin.activitySources.noDataMessage': string
   'cv.admin.activitySources.searchBoxPlaceholder': string
   'cv.admin.activitySources.tableColumnNames.createdOn': string
-  'cv.admin.activitySources.tableColumnNames.environments': string
   'cv.admin.activitySources.tableColumnNames.lastUpdatedOn': string
   'cv.admin.mapsTo': string
   'cv.admin.monitoringSources.applicationsImported': string
@@ -4336,10 +4335,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   number: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  numberOfServices: string
   /**
    * @deprecated migrate this string to module level file
    */
