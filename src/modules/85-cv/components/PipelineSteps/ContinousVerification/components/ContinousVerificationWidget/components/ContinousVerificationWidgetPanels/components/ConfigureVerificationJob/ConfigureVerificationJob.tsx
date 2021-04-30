@@ -101,17 +101,20 @@ export default function ConfigureVerificationJob(props: {
                 formik={formik}
               />
             </div>
-            <div className={cx(stepCss.formGroup)}>
-              <TrafficSplit
-                name={`spec.spec.trafficsplit`}
-                label={getString('connectors.cdng.trafficsplit')}
-                isSimpleDropdown={isFieldDisabled(
-                  specInfo?.trafficsplit,
-                  selectedJob?.trafficSplitPercentage?.toString()
-                )}
-                formik={formik}
-              />
-            </div>
+            {/* Traffic Split percentage is an optional field */}
+            {selectedJob?.trafficSplitPercentage && (
+              <div className={cx(stepCss.formGroup)}>
+                <TrafficSplit
+                  name={`spec.spec.trafficsplit`}
+                  label={getString('connectors.cdng.trafficsplit')}
+                  isSimpleDropdown={isFieldDisabled(
+                    specInfo?.trafficsplit,
+                    selectedJob?.trafficSplitPercentage?.toString()
+                  )}
+                  formik={formik}
+                />
+              </div>
+            )}
           </>
         )
       case 'HEALTH':

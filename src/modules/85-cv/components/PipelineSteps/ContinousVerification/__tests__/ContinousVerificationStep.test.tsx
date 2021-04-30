@@ -1,5 +1,5 @@
 import React from 'react'
-import { fireEvent, queryByAttribute, render, waitFor } from '@testing-library/react'
+import { act, findByText, fireEvent, queryByAttribute, render, waitFor } from '@testing-library/react'
 import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { StepViewType, StepFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
@@ -9,8 +9,8 @@ import { ContinousVerificationStep } from '../ContinousVerificationStep'
 const jobsData = {
   data: [
     {
-      identifier: 'test11212',
-      jobName: 'test-11212',
+      identifier: 'Health Job',
+      jobName: 'Health Job',
       serviceIdentifier: '<+input>',
       serviceName: null,
       envIdentifier: '<+input>',
@@ -21,11 +21,11 @@ const jobsData = {
       dataSources: null,
       monitoringSources: ['AppDynamics'],
       verificationJobUrl:
-        '/cv/api/verification-job?accountId=kmpySmUISimoRrJL6NL73w&orgIdentifier=default&projectIdentifier=test1&identifier=test11212',
+        '/cv/api/verification-job?accountId=kmpySmUISimoRrJL6NL73w&orgIdentifier=default&projectIdentifier=test1&identifier=Health Job',
       duration: '5m',
       sensitivity: 'HIGH',
-      trafficSplitPercentage: 5,
-      type: 'BLUE_GREEN',
+      trafficSplitPercentage: '',
+      type: 'HEALTH',
       defaultJob: false
     }
   ]
@@ -178,6 +178,60 @@ describe('Test ContinousVerificationStep Step', () => {
     fireEvent.click(getByText('connectors.cdng.configureVerificationJob'))
     await waitFor(() => {
       expect(getByText('connectors.cdng.selectTheJobNameFirst')).toBeTruthy()
+    })
+  })
+
+  test('shows different UI elements under configure job panel with different values when job of type HEALTH is selected', async () => {
+    const onUpdate = jest.fn()
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const { container, getByText } = render(
+      <TestStepWidget
+        initialValues={{}}
+        type={StepType.Verify}
+        stepViewType={StepViewType.Edit}
+        onUpdate={onUpdate}
+        ref={ref}
+      />
+    )
+
+    const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
+    fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'CV Step' } })
+
+    fireEvent.click(getByText('connectors.cdng.defineVerificationJob'))
+    await waitFor(() => {
+      expect(getByText('connectors.cdng.jobName')).toBeTruthy()
+    })
+
+    //clicking on the select jobs dropdown and selecting the job of type HEALTH
+    const defineVJDropdown = container.querySelector('input[name="spec.verificationJobRef"]') as HTMLInputElement
+    await waitFor(() => {
+      fireEvent.focus(defineVJDropdown)
+    })
+    const jobToSelect = await findByText(container, 'Health Job')
+    act(() => {
+      fireEvent.click(jobToSelect)
+    })
+    expect(defineVJDropdown.value).toBe('Health Job')
+
+    // clicking on the configure Verification Job panel and verifying difffernet UI elements and their values.
+    fireEvent.click(getByText('connectors.cdng.configureVerificationJob'))
+    await waitFor(() => {
+      const serviceDropdown = container.querySelector('input[name="spec.spec.serviceRef"]') as HTMLInputElement
+      const durationDropdown = container.querySelector('input[name="spec.spec.duration"]') as HTMLInputElement
+      const envDropdown = container.querySelector('input[name="spec.spec.envRef"]') as HTMLInputElement
+      const deploymentTagField = container.querySelector('input[name="spec.spec.deploymentTag"]') as HTMLInputElement
+
+      expect(serviceDropdown).toBeTruthy()
+      expect(serviceDropdown.value).toBe('<+service.identifier>')
+
+      expect(envDropdown).toBeTruthy()
+      expect(envDropdown.value).toBe('<+env.identifier>')
+
+      expect(durationDropdown).toBeTruthy()
+      expect(durationDropdown.value).toBe('5 min')
+
+      expect(deploymentTagField).toBeTruthy()
+      expect(deploymentTagField.value).toBe('<+serviceConfig.artifacts.primary.tag>')
     })
   })
 })
