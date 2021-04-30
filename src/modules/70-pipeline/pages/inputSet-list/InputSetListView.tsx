@@ -10,9 +10,12 @@ import {
   InputSetSummaryResponse
 } from 'services/pipeline-ng'
 import { useConfirmationDialog, useToaster } from '@common/exports'
-import { RunPipelineModal } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
+import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import { TagsPopover } from '@common/components'
 import { useStrings } from 'framework/strings'
+import RbacButton from '@rbac/components/Button/Button'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import css from './InputSetList.module.scss'
 
 interface InputSetListViewProps {
@@ -72,25 +75,49 @@ const RenderColumnDescription: Renderer<CellProps<InputSetLocal>> = ({ row }) =>
 const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row, column }) => {
   const data = row.original
   const { getString } = useStrings()
+
+  const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier } = useParams<{
+    projectIdentifier: string
+    orgIdentifier: string
+    accountId: string
+    pipelineIdentifier: string
+  }>()
+
+  const runPipeline = useRunPipelineModal({
+    inputSetSelected: [
+      {
+        type: data.inputSetType || /* istanbul ignore next */ 'INPUT_SET',
+        value: data.identifier || /* istanbul ignore next */ '',
+        label: data.name || /* istanbul ignore next */ ''
+      }
+    ],
+    pipelineIdentifier: (data.pipelineIdentifier || '') as string
+  })
+
   return (
-    <RunPipelineModal
-      pipelineIdentifier={data.pipelineIdentifier || /* istanbul ignore next */ ''}
-      inputSetSelected={[
-        {
-          type: data.inputSetType || /* istanbul ignore next */ 'INPUT_SET',
-          value: data.identifier || /* istanbul ignore next */ '',
-          label: data.name || /* istanbul ignore next */ ''
-        }
-      ]}
-    >
-      <Button
-        icon="run-pipeline"
-        className={css.runPipelineBtn}
-        intent="primary"
-        text={getString('runPipeline')}
-        disabled={!(column as any).canUpdate}
-      />
-    </RunPipelineModal>
+    <RbacButton
+      icon="run-pipeline"
+      className={css.runPipelineBtn}
+      intent="primary"
+      text={getString('runPipeline')}
+      disabled={!(column as any).canUpdate}
+      onClick={e => {
+        e.stopPropagation()
+        runPipeline()
+      }}
+      permission={{
+        resourceScope: {
+          accountIdentifier: accountId,
+          orgIdentifier: orgIdentifier,
+          projectIdentifier: projectIdentifier
+        },
+        resource: {
+          resourceType: ResourceType.PIPELINE,
+          resourceIdentifier: pipelineIdentifier
+        },
+        permission: PermissionIdentifier.EXECUTE_PIPELINE
+      }}
+    />
   )
 }
 const RenderColumnMenu: Renderer<CellProps<InputSetLocal>> = ({ row, column }) => {
@@ -266,7 +293,7 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
       className={css.table}
       columns={columns}
       data={data?.content || /* istanbul ignore next */ []}
-      onRowClick={item => goToInputSetDetail?.(item.identifier, item.inputSetType)}
+      onRowClick={item => canUpdate && goToInputSetDetail?.(item.identifier, item.inputSetType)}
       pagination={{
         itemCount: data?.totalItems || /* istanbul ignore next */ 0,
         pageSize: data?.pageSize || /* istanbul ignore next */ 10,

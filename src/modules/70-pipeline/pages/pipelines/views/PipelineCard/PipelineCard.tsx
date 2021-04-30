@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
 import { useHistory } from 'react-router-dom'
 import { useConfirmationDialog, useToaster } from '@common/exports'
-import { RunPipelineModal } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
+import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PMSPipelineSummaryResponse, useSoftDeletePipeline } from 'services/pipeline-ng'
 import { String, useStrings } from 'framework/strings'
@@ -95,11 +95,22 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
     [orgIdentifier, projectIdentifier, accountIdentifier, pipeline.identifier]
   )
 
+  const runPipeline = useRunPipelineModal({
+    pipelineIdentifier: (pipeline.identifier || '') as string
+  })
+
   return (
     <Menu style={{ minWidth: 'unset' }} onClick={e => e.stopPropagation()}>
-      <RunPipelineModal pipelineIdentifier={pipeline.identifier || /* istanbul ignore next */ ''}>
-        <Menu.Item icon="play" text={getString('runPipelineText')} disabled={!canRun} />
-      </RunPipelineModal>
+      <Menu.Item
+        icon="play"
+        text={getString('runPipelineText')}
+        disabled={!canRun}
+        onClick={(e: React.MouseEvent) => {
+          e.stopPropagation()
+          runPipeline()
+        }}
+      />
+      {/* </RunPipelineModal> */}
       <Menu.Item
         icon="cog"
         text={getString('launchStudio')}
@@ -171,6 +182,10 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
 
   const { getString } = useStrings()
   const deployments = pipeline.executionSummaryInfo?.deployments?.reduce((acc, val) => acc + val, 0) || 0
+
+  const runPipeline = useRunPipelineModal({
+    pipelineIdentifier: (pipeline.identifier || '') as string
+  })
 
   return (
     <Card className={css.pipelineCard} interactive onClick={() => goToPipelineStudio(pipeline.identifier)}>
@@ -313,28 +328,30 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
         </Layout.Horizontal>
       </Container>
       <Container padding={{ left: 'large', right: 'large', bottom: 'small' }}>
-        <RunPipelineModal pipelineIdentifier={pipeline.identifier || ''}>
-          <RbacButton
-            data-testid="card-run-pipeline"
-            intent="primary"
-            minimal
-            icon="run-pipeline"
-            className={css.runPipelineBtn}
-            text={<String stringID="runPipelineText" />}
-            permission={{
-              resourceScope: {
-                accountIdentifier: accountId,
-                orgIdentifier,
-                projectIdentifier
-              },
-              resource: {
-                resourceType: ResourceType.PIPELINE,
-                resourceIdentifier: pipeline.identifier as string
-              },
-              permission: PermissionIdentifier.EXECUTE_PIPELINE
-            }}
-          />
-        </RunPipelineModal>
+        <RbacButton
+          data-testid="card-run-pipeline"
+          intent="primary"
+          minimal
+          icon="run-pipeline"
+          className={css.runPipelineBtn}
+          text={<String stringID="runPipelineText" />}
+          permission={{
+            resourceScope: {
+              accountIdentifier: accountId,
+              orgIdentifier,
+              projectIdentifier
+            },
+            resource: {
+              resourceType: ResourceType.PIPELINE,
+              resourceIdentifier: pipeline.identifier as string
+            },
+            permission: PermissionIdentifier.EXECUTE_PIPELINE
+          }}
+          onClick={e => {
+            e.stopPropagation()
+            runPipeline()
+          }}
+        />
       </Container>
     </Card>
   )

@@ -74,9 +74,8 @@ jest.mock('services/pipeline-ng', () => ({
   }))
 }))
 
-jest.mock('@pipeline/components/RunPipelineModal/RunPipelineModal', () => ({
-  // eslint-disable-next-line react/display-name
-  RunPipelineModal: ({ children }: { children: JSX.Element }) => <div onClick={onRunPipelineClick}>{children}</div>
+jest.mock('@pipeline/components/RunPipelineModal/useRunPipelineModal', () => ({
+  useRunPipelineModal: () => onRunPipelineClick
 }))
 
 const TEST_PATH = routes.toPipelines({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })
@@ -114,7 +113,9 @@ describe('CD Pipeline Page List', () => {
       </TestWrapper>
     )
     await waitFor(() => getByTestId(params.pipelineIdentifier))
-    fireEvent.click(getAllByTestId('card-run-pipeline')[0]!)
+    await act(async () => {
+      fireEvent.click(getAllByTestId('card-run-pipeline')[0]!)
+    })
     expect(onRunPipelineClick).toHaveBeenCalled()
   })
 
@@ -211,7 +212,9 @@ describe('Pipeline List View Test cases', () => {
     await waitFor(() => getByText(menuContent as HTMLElement, 'runPipelineText'))
     const runPipelineBtn = getByText(menuContent as HTMLElement, 'runPipelineText')
     onRunPipelineClick.mockReset()
-    fireEvent.click(runPipelineBtn)
+    await act(async () => {
+      fireEvent.click(runPipelineBtn)
+    })
     expect(onRunPipelineClick).toHaveBeenCalled()
   })
 
@@ -280,7 +283,9 @@ describe('Pipeline Card View Test Cases', () => {
     await waitFor(() => getByText(menuContent as HTMLElement, 'runPipelineText'))
     const runPipelineBtn = getByText(menuContent as HTMLElement, 'runPipelineText')
     onRunPipelineClick.mockReset()
-    fireEvent.click(runPipelineBtn)
+    await act(async () => {
+      fireEvent.click(runPipelineBtn)
+    })
     expect(onRunPipelineClick).toHaveBeenCalled()
   })
 
@@ -310,7 +315,9 @@ describe('Pipeline Card View Test Cases', () => {
     const form = findDialogContainer()
     const confirmDelete = getByText(form as HTMLElement, 'delete')
     mockDeleteFunction.mockReset()
-    fireEvent.click(confirmDelete)
+    await act(async () => {
+      fireEvent.click(confirmDelete)
+    })
     expect(mockDeleteFunction).toBeCalled()
   })
 })

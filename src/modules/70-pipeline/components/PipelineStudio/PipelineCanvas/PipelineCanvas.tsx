@@ -13,7 +13,7 @@ import { NavigationCheck } from '@common/components/NavigationCheck/NavigationCh
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { accountPathProps, pipelinePathProps, pipelineModuleParams } from '@common/utils/routeUtils'
 import type { PipelinePathProps, ProjectPathProps, PathFn, PipelineType } from '@common/interfaces/RouteInterfaces'
-import { RunPipelineModal } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
+import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import RbacButton from '@rbac/components/Button/Button'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
@@ -253,6 +253,10 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     setSelectedStageId(undefined)
   }
 
+  const runPipeline = useRunPipelineModal({
+    pipelineIdentifier: (pipeline?.identifier || '') as string
+  })
+
   if (isLoading) {
     return (
       <React.Fragment>
@@ -374,29 +378,32 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                 icon="send-data"
                 disabled={isReadonly}
               />
-              <RunPipelineModal pipelineIdentifier={pipeline?.identifier || /* istanbul ignore next */ ''}>
-                <RbacButton
-                  data-testid="card-run-pipeline"
-                  intent="primary"
-                  icon="run-pipeline"
-                  disabled={isUpdated}
-                  className={css.runPipelineBtn}
-                  text={getString('runPipelineText')}
-                  tooltip={isUpdated ? 'Please click Save and then run the pipeline.' : ''}
-                  permission={{
-                    resourceScope: {
-                      accountIdentifier: accountId,
-                      orgIdentifier,
-                      projectIdentifier
-                    },
-                    resource: {
-                      resourceType: ResourceType.PIPELINE,
-                      resourceIdentifier: pipeline?.identifier as string
-                    },
-                    permission: PermissionIdentifier.EXECUTE_PIPELINE
-                  }}
-                />
-              </RunPipelineModal>
+
+              <RbacButton
+                data-testid="card-run-pipeline"
+                intent="primary"
+                icon="run-pipeline"
+                disabled={isUpdated}
+                className={css.runPipelineBtn}
+                text={getString('runPipelineText')}
+                tooltip={isUpdated ? 'Please click Save and then run the pipeline.' : ''}
+                onClick={e => {
+                  e.stopPropagation()
+                  runPipeline()
+                }}
+                permission={{
+                  resourceScope: {
+                    accountIdentifier: accountId,
+                    orgIdentifier,
+                    projectIdentifier
+                  },
+                  resource: {
+                    resourceType: ResourceType.PIPELINE,
+                    resourceIdentifier: pipeline?.identifier as string
+                  },
+                  permission: PermissionIdentifier.EXECUTE_PIPELINE
+                }}
+              />
             </div>
           </div>
         </div>

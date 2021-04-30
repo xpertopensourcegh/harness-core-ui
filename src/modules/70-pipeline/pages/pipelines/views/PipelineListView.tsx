@@ -7,7 +7,7 @@ import Table from '@common/components/Table/Table'
 import TagsPopover from '@common/components/TagsPopover/TagsPopover'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
 import { useConfirmationDialog, useToaster } from '@common/exports'
-import { RunPipelineModal } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
+import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import { PagePMSPipelineSummaryResponse, PMSPipelineSummaryResponse, useSoftDeletePipeline } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
 import { usePermission } from '@rbac/hooks/usePermission'
@@ -94,6 +94,10 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
     [data.identifier]
   )
 
+  const runPipeline = useRunPipelineModal({
+    pipelineIdentifier: (data.identifier || '') as string
+  })
+
   return (
     <Layout.Horizontal style={{ justifyContent: 'flex-end' }}>
       <Popover
@@ -114,9 +118,15 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
           }}
         />
         <Menu style={{ minWidth: 'unset' }} onClick={e => e.stopPropagation()}>
-          <RunPipelineModal pipelineIdentifier={data.identifier || /* istanbul ignore next */ ''}>
-            <Menu.Item icon="play" text={getString('runPipelineText')} disabled={!canRun} />
-          </RunPipelineModal>
+          <Menu.Item
+            icon="play"
+            text={getString('runPipelineText')}
+            disabled={!canRun}
+            onClick={(e: React.MouseEvent) => {
+              e.stopPropagation()
+              runPipeline()
+            }}
+          />
           <Menu.Item
             icon="list-detail-view"
             text={getString('viewExecutions')}
@@ -269,27 +279,34 @@ const RenderRunPipeline: Renderer<CellProps<PipelineDTO>> = ({ row }): JSX.Eleme
     orgIdentifier: string
     accountId: string
   }>()
+
+  const runPipeline = useRunPipelineModal({
+    pipelineIdentifier: (rowdata.identifier || '') as string
+  })
+
   return (
-    <RunPipelineModal pipelineIdentifier={rowdata.identifier || ''}>
-      <RbacButton
-        style={{ textAlign: 'end' }}
-        intent="primary"
-        icon="run-pipeline"
-        className={css.runPipelineListBtn}
-        permission={{
-          resourceScope: {
-            accountIdentifier: accountId,
-            orgIdentifier,
-            projectIdentifier
-          },
-          resource: {
-            resourceType: ResourceType.PIPELINE,
-            resourceIdentifier: rowdata.identifier as string
-          },
-          permission: PermissionIdentifier.EXECUTE_PIPELINE
-        }}
-      />
-    </RunPipelineModal>
+    <RbacButton
+      style={{ textAlign: 'end' }}
+      intent="primary"
+      icon="run-pipeline"
+      className={css.runPipelineListBtn}
+      permission={{
+        resourceScope: {
+          accountIdentifier: accountId,
+          orgIdentifier,
+          projectIdentifier
+        },
+        resource: {
+          resourceType: ResourceType.PIPELINE,
+          resourceIdentifier: rowdata.identifier as string
+        },
+        permission: PermissionIdentifier.EXECUTE_PIPELINE
+      }}
+      onClick={e => {
+        e.stopPropagation()
+        runPipeline()
+      }}
+    />
   )
 }
 

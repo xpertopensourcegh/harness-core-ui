@@ -112,6 +112,7 @@ const InputSetList: React.FC = (): JSX.Element => {
               </Menu>
             }
             position={Position.BOTTOM}
+            disabled={!canUpdateInputSet}
           >
             <RbacButton
               text={getString('inputSets.newInputSet')}
