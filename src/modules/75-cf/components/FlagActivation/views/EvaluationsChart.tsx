@@ -21,13 +21,14 @@ const chartDefaultOptions: Highcharts.Options = {
     crosshair: {
       width: 2,
       dashStyle: 'ShortDash',
-      color: '#0092E4'
+      color: '#0092E4',
+      zIndex: 10
     },
     tickmarkPlacement: 'on',
     startOnTick: true,
     plotLines: [
       {
-        value: 0,
+        value: -1,
         width: 1,
         color: '#D9DAE5',
         zIndex: 10
@@ -39,7 +40,7 @@ const chartDefaultOptions: Highcharts.Options = {
     gridLineColor: 'transparent'
   },
   tooltip: {
-    shared: true,
+    // shared: true,
     useHTML: true
     // Custom tooltip will be implemented with https://harness.atlassian.net/browse/FFM-802
     // formatter: function formatter(): string {
@@ -58,8 +59,9 @@ const chartDefaultOptions: Highcharts.Options = {
     column: {
       stacking: 'normal',
       dataLabels: {
-        enabled: true
-      }
+        enabled: false
+      },
+      borderColor: undefined
     }
   }
 }
