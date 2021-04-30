@@ -6,7 +6,6 @@ import cx from 'classnames'
 import { isEmpty } from 'lodash-es'
 import { FormikProps, yupToFormErrors, FormikErrors } from 'formik'
 import { PipelineStep, StepProps } from '@pipeline/components/PipelineSteps/PipelineStep'
-import type { StepElementConfig } from 'services/cd-ng'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { useStrings } from 'framework/strings'
 import type { StringKeys } from 'framework/strings'
@@ -25,47 +24,41 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
+import type { TFRollbackData } from '../Common/Terraform/TerraformInterfaces'
+
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-export interface TerraformRollbackData extends StepElementConfig {
-  spec: {
-    provisionerIdentifier: string
-    delegateSelectors: string[]
-  }
-}
-
 interface TerraformRollbackProps {
-  initialValues: TerraformRollbackData
-  onUpdate?: (data: TerraformRollbackData) => void
+  initialValues: TFRollbackData
+  onUpdate?: (data: TFRollbackData) => void
   stepViewType?: StepViewType
   isNewStep?: boolean
   inputSetData?: {
-    template?: TerraformRollbackData
+    template?: TFRollbackData
     path?: string
   }
   readonly?: boolean
 }
 
 export interface TerraformRollbackVariableStepProps {
-  initialValues: TerraformRollbackData
+  initialValues: TFRollbackData
   stageIdentifier: string
-  onUpdate?(data: TerraformRollbackData): void
+  onUpdate?(data: TFRollbackData): void
   metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
-  variablesData: TerraformRollbackData
+  variablesData: TFRollbackData
 }
 
-const setInitialValues = (data: TerraformRollbackData): TerraformRollbackData => {
+const setInitialValues = (data: TFRollbackData): TFRollbackData => {
   return {
     ...data,
     spec: {
-      provisionerIdentifier: data?.spec?.provisionerIdentifier,
-      delegateSelectors: data?.spec?.delegateSelectors
+      provisionerIdentifier: data?.spec?.provisionerIdentifier
     }
   }
 }
 function TerraformRollbackWidget(
   props: TerraformRollbackProps,
-  formikRef: StepFormikFowardRef<TerraformRollbackData>
+  formikRef: StepFormikFowardRef<TFRollbackData>
 ): React.ReactElement {
   const { initialValues, onUpdate, isNewStep = true } = props
   const { getString } = useStrings()
@@ -73,15 +66,10 @@ function TerraformRollbackWidget(
 
   return (
     <>
-      <Formik<TerraformRollbackData>
-        onSubmit={(values: TerraformRollbackData) => {
-          const payload = {
-            ...values,
-            spec: {
-              ...values.spec
-            }
-          }
-          onUpdate?.(payload)
+      <Formik<TFRollbackData>
+        /* isanbul ignore next */
+        onSubmit={(values: TFRollbackData) => {
+          onUpdate?.(values)
         }}
         initialValues={setInitialValues(initialValues)}
         validationSchema={Yup.object().shape({
@@ -96,9 +84,10 @@ function TerraformRollbackWidget(
           })
         })}
       >
-        {(formik: FormikProps<TerraformRollbackData>) => {
+        {(formik: FormikProps<TFRollbackData>) => {
           const { values, setFieldValue } = formik
           setFormikRef(formikRef, formik)
+
           return (
             <>
               <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
@@ -121,6 +110,7 @@ function TerraformRollbackWidget(
                       showDefaultField={false}
                       showAdvanced={true}
                       onChange={value => {
+                        /* istanbul ignore next */
                         setFieldValue('spec.provisionerIdentifier', value)
                       }}
                     />
@@ -142,6 +132,7 @@ function TerraformRollbackWidget(
                       showDefaultField={false}
                       showAdvanced={true}
                       onChange={value => {
+                        /* istanbul ignore next */
                         setFieldValue('timeout', value)
                       }}
                     />
@@ -188,14 +179,14 @@ const TerraformRollbackVariableStep: React.FC<TerraformRollbackVariableStepProps
 
 const TerraformRollbackWidgetWithRef = React.forwardRef(TerraformRollbackWidget)
 
-export class TerraformRollback extends PipelineStep<TerraformRollbackData> {
+export class TerraformRollback extends PipelineStep<TFRollbackData> {
   constructor() {
     super()
     this._hasStepVariables = true
     this._hasDelegateSelectionVisible = true
   }
   protected type = StepType.TerraformRollback
-  protected defaultValues: TerraformRollbackData = {
+  protected defaultValues: TFRollbackData = {
     identifier: '',
     timeout: '10m',
     spec: {
@@ -205,21 +196,23 @@ export class TerraformRollback extends PipelineStep<TerraformRollbackData> {
   }
   protected stepIcon: IconName = 'terraform-apply-new'
   protected stepName = 'Terraform Rollback'
+  /* istanbul ignore next */
   validateInputSet(
-    data: TerraformRollbackData,
-    template?: TerraformRollbackData,
+    data: TFRollbackData,
+    template?: TFRollbackData,
     getString?: (key: StringKeys, vars?: Record<string, any>) => string
-  ): FormikErrors<TerraformRollbackData> {
+  ): FormikErrors<TFRollbackData> {
+    /* istanbul ignore next */
     const errors = {} as any
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
       const timeout = Yup.object().shape({
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
       })
-
+      /* istanbul ignore next */
       try {
         timeout.validateSync(data)
       } catch (e) {
-        /* istanbul ignore else */
+        /* istanbul ignore next */
         if (e instanceof Yup.ValidationError) {
           const err = yupToFormErrors(e)
 
@@ -227,15 +220,15 @@ export class TerraformRollback extends PipelineStep<TerraformRollbackData> {
         }
       }
     }
-    /* istanbul ignore else */
+    /* istanbul ignore next */
     if (isEmpty(errors.spec)) {
       delete errors.spec
     }
+    /* istanbul ignore next */
     return errors
   }
-  renderStep(props: StepProps<TerraformRollbackData, unknown>): JSX.Element {
+  renderStep(props: StepProps<TFRollbackData, unknown>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
-
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <TerraformRollbackInputStep
@@ -243,6 +236,7 @@ export class TerraformRollback extends PipelineStep<TerraformRollbackData> {
           onUpdate={onUpdate}
           stepViewType={stepViewType}
           readonly={inputSetData?.readonly}
+          inputSetData={inputSetData}
         />
       )
     } else if (stepViewType === StepViewType.InputVariable) {

@@ -15,6 +15,7 @@ import type {
   TerraformBackendConfig,
   TerraformDestroyStepInfo,
   TerraformPlanStepInfo,
+  TerraformRollbackStepInfo,
   TerraformVarFileWrapper
 } from 'services/cd-ng'
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
@@ -173,6 +174,10 @@ export interface TFDestroyData extends StepElementConfig {
   spec?: TerraformDestroyStepInfo
 }
 
+export interface TFRollbackData extends StepElementConfig {
+  spec: TerraformRollbackStepInfo
+}
+
 export interface TFPlanFormData extends StepElementConfig {
   spec?: TerraformPlanStepInfo
 }
@@ -308,7 +313,6 @@ export const onSubmitTFPlanData = (values: any): TFPlanFormData => {
 
   const connectorValue = values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef as any
   const secretManager = values?.spec?.configuration?.secretManagerRef as any
-
   return {
     ...values,
     spec: {

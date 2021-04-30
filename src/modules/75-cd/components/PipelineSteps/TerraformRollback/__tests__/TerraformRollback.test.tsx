@@ -1,7 +1,7 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { act, render } from '@testing-library/react'
 import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
-import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { StepFormikRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
 import { TerraformRollback } from '../TerraformRollback'
@@ -37,8 +37,7 @@ describe('Test TerraformRollback', () => {
           timeout: '10m',
 
           spec: {
-            provisionerIdentifier: 'test',
-            delegateSelectors: ['test-1', 'test-2']
+            provisionerIdentifier: 'test'
           }
         }}
         type={StepType.TerraformRollback}
@@ -47,40 +46,76 @@ describe('Test TerraformRollback', () => {
     )
     expect(container).toMatchSnapshot()
   })
-  test('should render edit view', () => {
+
+  test('should render edit view with runtime input values', async () => {
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const onUpdate = jest.fn()
     const { container } = render(
       <TestStepWidget
         initialValues={{
           type: 'TerraformRollback',
           name: 'Test A',
           identifier: 'Test_A',
-          timeout: '10m',
+          timeout: RUNTIME_INPUT_VALUE,
 
           spec: {
-            provisionerIdentifier: RUNTIME_INPUT_VALUE,
-            delegateSelectors: ['test-1', 'test-2']
+            provisionerIdentifier: RUNTIME_INPUT_VALUE
+          }
+        }}
+        type={StepType.TerraformRollback}
+        stepViewType={StepViewType.Edit}
+        ref={ref}
+        onUpdate={onUpdate}
+      />
+    )
+    await act(() => ref.current?.submitForm())
+    expect(onUpdate).toHaveBeenCalled()
+    expect(container).toMatchSnapshot()
+  })
+  test('should render edit view', () => {
+    const { container } = render(
+      <TestStepWidget
+        inputSetData={{
+          template: {
+            type: 'TerraformRollback',
+            name: 'Test A',
+            identifier: 'Test_A',
+            timeout: RUNTIME_INPUT_VALUE,
+
+            spec: {
+              provisionerIdentifier: RUNTIME_INPUT_VALUE
+            }
+          },
+          path: ''
+        }}
+        initialValues={{
+          type: 'TerraformRollback',
+          name: 'Test A',
+          identifier: 'Test_A',
+          timeout: RUNTIME_INPUT_VALUE,
+
+          spec: {
+            provisionerIdentifier: RUNTIME_INPUT_VALUE
           }
         }}
         template={{
           type: 'TerraformRollback',
           name: 'Test A',
           identifier: 'Test_A',
-          timeout: '10m',
+          timeout: RUNTIME_INPUT_VALUE,
 
           spec: {
-            provisionerIdentifier: RUNTIME_INPUT_VALUE,
-            delegateSelectors: ['test-1', 'test-2']
+            provisionerIdentifier: RUNTIME_INPUT_VALUE
           }
         }}
         allValues={{
           type: 'TerraformRollback',
           name: 'Test A',
           identifier: 'Test_A',
-          timeout: '10m',
+          timeout: RUNTIME_INPUT_VALUE,
 
           spec: {
-            provisionerIdentifier: RUNTIME_INPUT_VALUE,
-            delegateSelectors: ['test-1', 'test-2']
+            provisionerIdentifier: RUNTIME_INPUT_VALUE
           }
         }}
         type={StepType.TerraformRollback}
@@ -100,8 +135,7 @@ describe('Test TerraformRollback', () => {
           timeout: '10m',
 
           spec: {
-            provisionerIdentifier: RUNTIME_INPUT_VALUE,
-            delegateSelectors: ['test-1', 'test-2']
+            provisionerIdentifier: RUNTIME_INPUT_VALUE
           }
         }}
         template={{
@@ -111,8 +145,7 @@ describe('Test TerraformRollback', () => {
           timeout: '10m',
 
           spec: {
-            provisionerIdentifier: RUNTIME_INPUT_VALUE,
-            delegateSelectors: ['test-1', 'test-2']
+            provisionerIdentifier: RUNTIME_INPUT_VALUE
           }
         }}
         allValues={{
@@ -122,8 +155,7 @@ describe('Test TerraformRollback', () => {
           timeout: '10m',
 
           spec: {
-            provisionerIdentifier: RUNTIME_INPUT_VALUE,
-            delegateSelectors: ['test-1', 'test-2']
+            provisionerIdentifier: RUNTIME_INPUT_VALUE
           }
         }}
         customStepProps={{

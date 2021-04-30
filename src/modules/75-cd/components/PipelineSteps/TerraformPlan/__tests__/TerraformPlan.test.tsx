@@ -1,7 +1,7 @@
 import React from 'react'
-import { fireEvent, render } from '@testing-library/react'
+import { act, fireEvent, render } from '@testing-library/react'
 import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
-import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { StepFormikRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
 import { TerraformPlan } from '../TerraformPlan'
@@ -161,6 +161,68 @@ describe('Test TerraformPlan', () => {
     expect(container).toMatchSnapshot()
   })
 
+  test('should submit form for terraform plan', async () => {
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const onUpdate = jest.fn()
+    const { container } = render(
+      <TestStepWidget
+        type={StepType.TerraformPlan}
+        stepViewType={StepViewType.Edit}
+        ref={ref}
+        onUpdate={onUpdate}
+        initialValues={{
+          type: 'TerraformPlan',
+          name: 'Test A',
+          identifier: 'Test_A',
+          timeout: '10m',
+
+          spec: {
+            provisionerIdentifier: 'test',
+            configuration: {
+              command: 'Apply',
+              secretManagerRef: {
+                label: 'secret-1',
+                value: 'sercet-1',
+                scope: 'account'
+              },
+              configFiles: {
+                store: {
+                  spec: {
+                    connectorRef: {
+                      label: 'test',
+                      value: 'test',
+                      scope: 'account',
+                      connector: { type: 'Git' }
+                    }
+                  }
+                }
+              },
+              backendConfig: {
+                spec: {
+                  content: 'test-content'
+                }
+              },
+              targets: ['test-1'],
+              environmentVariables: [{ key: 'test', value: 'abc' }],
+              varFiles: [
+                {
+                  varFile: {
+                    type: 'Inline',
+                    spec: {
+                      content: 'test'
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }}
+      />
+    )
+    await act(() => ref.current?.submitForm())
+    expect(onUpdate).toHaveBeenCalled()
+    expect(container).toMatchSnapshot()
+  })
   test('should render variable view', () => {
     const { container } = render(
       <TestStepWidget
