@@ -76,7 +76,7 @@ const RestrictEmailDomainsForm: React.FC<Props> = ({ onSubmit, onCancel, whiteli
           <FormikForm>
             <FormInput.MultiInput name="domains" />
             <Layout.Horizontal margin={{ top: 'xxxlarge', bottom: 'xlarge' }}>
-              <Button intent="primary" type="submit" margin={{ right: 'xsmall' }} loading={updatingWhitelistedDomains}>
+              <Button intent="primary" type="submit" margin={{ right: 'xsmall' }} disabled={updatingWhitelistedDomains}>
                 {getString('save')}
               </Button>
               <Button onClick={onCancel}>{getString('cancel')}</Button>

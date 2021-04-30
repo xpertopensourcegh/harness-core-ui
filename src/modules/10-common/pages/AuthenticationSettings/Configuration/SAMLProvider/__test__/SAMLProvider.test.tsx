@@ -71,7 +71,7 @@ describe('SAML Provider', () => {
     const form = findDialogContainer()
     expect(form).toBeTruthy()
 
-    const okta = queryByAttribute('data-icon', form!, 'ring')
+    const okta = queryByAttribute('data-icon', form!, 'service-okta')
     expect(okta).toBeTruthy()
     await act(async () => {
       fireEvent.click(okta!)

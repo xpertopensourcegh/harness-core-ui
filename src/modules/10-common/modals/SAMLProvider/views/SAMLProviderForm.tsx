@@ -15,7 +15,9 @@ import {
   Button,
   IconName,
   Card,
-  Checkbox
+  Checkbox,
+  ModalErrorHandler,
+  ModalErrorHandlerBinding
 } from '@wings-software/uicore'
 import { InputGroup } from '@blueprintjs/core'
 import copy from 'copy-to-clipboard'
@@ -50,26 +52,23 @@ interface SAMLProviderType {
   type: Providers
   name: keyof StringsMap
   icon: IconName
-  color?: Color
 }
 
 const SAMLProviderTypes: SAMLProviderType[] = [
   {
     type: Providers.AZURE,
     name: 'common.samlProvider.azure',
-    icon: 'service-azure',
-    color: Color.BLUE_700
+    icon: 'service-azure'
   },
   {
     type: Providers.OKTA,
     name: 'common.samlProvider.okta',
-    icon: 'ring',
-    color: Color.BLUE_700
+    icon: 'service-okta'
   },
   {
     type: Providers.ONE_LOGIN,
     name: 'common.samlProvider.oneLogin',
-    icon: 'main-more'
+    icon: 'service-onelogin'
   },
   {
     type: Providers.OTHER,
@@ -83,6 +82,7 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
   const { showSuccess, showError } = useToaster()
   const { accountId } = useParams<AccountPathProps>()
   const [selected, setSelected] = React.useState<SAMLProviderType>()
+  const [modalErrorHandler, setModalErrorHandler] = React.useState<ModalErrorHandlerBinding>()
   const samlEndpoint = `https://${window.location.hostname}/gateway/api/users/saml-login?acc=${accountId}`
   const selectedSAMLProvider = getString(
     selected
@@ -103,6 +103,10 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
       accountId
     }
   })
+
+  // React.useEffect(() => {
+  //   console.log(uploadingSamlSettings, updatingSamlSettings)
+  // }, [uploadingSamlSettings, updatingSamlSettings])
 
   const createFormData = (data: FormValues): FormData => {
     const formData = new FormData()
@@ -139,7 +143,7 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
         onSubmit?.()
       }
     } catch (e) {
-      /* istanbul ignore next */ showError(e.data?.message || e.message, 5000)
+      /* istanbul ignore next */ modalErrorHandler?.showDanger(e.data?.message || e.message)
     }
   }
 
@@ -149,6 +153,7 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
 
   return (
     <Layout.Vertical padding={{ left: 'huge', right: 'huge' }}>
+      <ModalErrorHandler bind={setModalErrorHandler} />
       <Heading level={1} color={Color.BLACK} font={{ weight: 'bold' }} margin={{ bottom: 'xxlarge' }}>
         {samlProvider
           ? getString('common.samlProvider.editSAMLProvider')
@@ -188,7 +193,7 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
                         cornerSelected
                         cardClassName={css.card}
                         renderItem={item => (
-                          <CardBody.Icon icon={item.icon} iconSize={25} iconProps={{ color: item.color }}>
+                          <CardBody.Icon icon={item.icon} iconSize={25}>
                             <Text
                               font={{
                                 size: 'small',
@@ -291,7 +296,7 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
                     intent="primary"
                     text={getString(samlProvider ? 'save' : 'add')}
                     type="submit"
-                    loading={uploadingSamlSettings || updatingSamlSettings}
+                    disabled={uploadingSamlSettings || updatingSamlSettings}
                   />
                   <Button text={getString('cancel')} onClick={onCancel} />
                 </Layout.Horizontal>
