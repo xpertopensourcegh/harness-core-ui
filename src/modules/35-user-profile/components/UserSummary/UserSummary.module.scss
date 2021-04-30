@@ -1,0 +1,12 @@
+.cardContainer {
+  display: grid;
+  grid-gap: var(--spacing-medium);
+  grid-template-columns: repeat(auto-fill, 128px);
+
+  .card {
+    width: 128px;
+    height: 128px;
+    box-shadow: var(--card-box-shadow);
+    border-radius: 5px;
+  }
+}

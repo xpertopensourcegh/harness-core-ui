@@ -35,6 +35,39 @@ export const mockSecretList = {
   metaData: null,
   correlationId: 'abb45801-d524-44ab-824c-aa532c367f39'
 }
+export const mockMyProfiles = {
+  status: 'SUCCESS',
+  data: {
+    totalPages: 1,
+    totalItems: 1,
+    pageItemCount: 1,
+    pageSize: 100,
+    content: [
+      {
+        orgIdentifier: 'O1',
+        identifier: 'P3',
+        name: 'P3',
+        color: '#0063f7',
+        modules: ['CD'],
+        description: '',
+        tags: {}
+      },
+      {
+        orgIdentifier: 'O2',
+        identifier: 'P1',
+        name: 'P1',
+        color: '#0063f7',
+        modules: ['CD'],
+        description: '',
+        tags: {}
+      }
+    ],
+    pageIndex: 0,
+    empty: false
+  },
+  metaData: null,
+  correlationId: 'abb45801-d524-44ab-824c-aa532c367f39'
+}
 
 export const mockResponse: ResponseBoolean = {
   status: 'SUCCESS',

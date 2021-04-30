@@ -21,7 +21,8 @@ import {
   mockSecretList,
   sourceCodeManagers,
   twoFactorAuthSettings,
-  userMockData
+  userMockData,
+  mockMyProfiles
 } from './mock'
 
 const createSCM = jest.fn()
@@ -79,6 +80,9 @@ jest.mock('services/cd-ng', () => ({
   usePutSecretFileV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
   useGetAuthenticationSettings: jest.fn().mockImplementation(() => {
     return { mutate: () => Promise.resolve(mockResponse) }
+  }),
+  useGetUserProjectInfo: jest.fn().mockImplementation(() => {
+    return { data: mockMyProfiles }
   })
 }))
 

@@ -598,6 +598,7 @@ export interface StringsMap {
   'userProfile.myTools': string
   'userProfile.mysourceCodeManagers': string
   'userProfile.newPassword': string
+  'userProfile.noProjects': string
   'userProfile.passwordMatch': string
   'userProfile.passwordReqs': string
   'userProfile.plusSCM': string
