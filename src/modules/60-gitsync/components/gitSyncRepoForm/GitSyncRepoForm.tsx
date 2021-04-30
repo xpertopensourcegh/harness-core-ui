@@ -93,11 +93,11 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
     }
   }
 
-  const debounceFetchBranches = debounce((identifier: string, repoURL: string) => {
+  const debounceFetchBranches = debounce((connectorIdentifierRef: string, repoURL: string) => {
     setLoadingBranchList(true)
     getListOfBranchesByConnectorPromise({
       queryParams: {
-        identifier,
+        connectorIdentifierRef,
         accountIdentifier: accountId,
         orgIdentifier,
         projectIdentifier,
@@ -182,6 +182,7 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                               [css.selectedCard]: isSelected
                             })}
                             onClick={e => {
+                              if (cardData.disabled) return
                               e.stopPropagation()
                               setFieldValue('gitConnectorType', cardData.type)
                               setFieldValue('gitConnector', '')

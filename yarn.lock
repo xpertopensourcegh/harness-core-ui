@@ -4371,10 +4371,10 @@
   resolved "https://npm.pkg.github.com/download/@wings-software/telemetry/1.0.36/5f59a357aff1dceaa0f724acb8620985f6b3334233231838eea82ea25b3de4ce#cac20fc86f51e0bf91688d35664ad1a3cf84c124"
   integrity sha512-PrWLYNubOjFDlMO2DJlH1PljfeVgJ6zih6gHOmp2B/2+fdUhjOABSnEKduNSZwrTGqCFmHKmqF1gZ1ksQMEJLA==
 
-"@wings-software/uicore@0.1.139":
-  version "0.1.139"
-  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.139/4475a9b2015f2fee044dc9099596851811ed29083fc94ecee6a66f06ccf689c9#852cd565fa43065bad4a8faaeb7a9cce11c3358d"
-  integrity sha512-zNtE6RMW7pfzhDwx11xqfu0db2QMY1CfiCfCLnYiBTq3gufgSp8n4dtlcB5qxggRzVYeXFEcFS+/WGYijatLVA==
+"@wings-software/uicore@0.1.141":
+  version "0.1.141"
+  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.141/d04812c4e14a158bde7190b953dc68cad55fa6598d0a53495b2dce856c84d483#b748ba599fd77df6fa2343153d66cbe84205a689"
+  integrity sha512-pPB6yh+GK+XxJbhkjqSG5qjYsUMq6kKM+FOR/eXI+SwhxCQKBVNdEWNH2SPOCPM7wMbspGhNhG4Sr95n2Uz92g==
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
@@ -11144,11 +11144,6 @@ lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17
   version "4.17.20"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
   integrity "sha1-tEqbYpe8tpjxxRo1RaKzs2jVnFI= sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA=="
-
-lodash@^4.17.21, lodash@~4.17.20:
-  version "4.17.21"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
-  integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
 
 log-symbols@^1.0.2:
   version "1.0.2"
