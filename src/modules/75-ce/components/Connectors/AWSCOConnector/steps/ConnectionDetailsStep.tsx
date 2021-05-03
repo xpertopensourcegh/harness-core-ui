@@ -118,7 +118,7 @@ const ConnectionDetailsStep: React.FC<StepProps<ConnectorInfoDTO>> = props => {
           .required(getString('ce.connector.AWS.crossAccountRole.validation.extIDRequired'))
       })}
       onSubmit={formData => {
-        saveAndContinue(formData)
+        saveAndContinue({ ...formData, externalID: formData.externalID.trim(), roleARN: formData.roleARN.trim() })
       }}
     >
       {() => (
