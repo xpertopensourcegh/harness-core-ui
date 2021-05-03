@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, ExpandingSearchInput, Layout } from '@wings-software/uicore'
+import { ExpandingSearchInput, Layout } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -11,6 +11,8 @@ import UserGroupsListView from '@rbac/pages/UserGroups/views/UserGroupsListView'
 import { useRoleAssignmentModal } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import ManagePrincipalButton from '@rbac/components/ManagePrincipalButton/ManagePrincipalButton'
 
 const UserGroupsPage: React.FC = () => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
@@ -42,11 +44,12 @@ const UserGroupsPage: React.FC = () => {
       <PageHeader
         title={
           <Layout.Horizontal padding={{ left: 'large' }}>
-            <Button
+            <ManagePrincipalButton
               text={getString('rbac.userGroupPage.newUserGroup')}
               intent="primary"
               icon="plus"
               onClick={() => openUserGroupModal()}
+              resourceType={ResourceType.USERGROUP}
             />
           </Layout.Horizontal>
         }

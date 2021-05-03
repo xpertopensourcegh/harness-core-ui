@@ -18,6 +18,10 @@ import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList
 import { PrincipalType } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { usePermission } from '@rbac/hooks/usePermission'
+import ManagePrincipalButton from '@rbac/components/ManagePrincipalButton/ManagePrincipalButton'
 import css from './UserGroupsListView.module.scss'
 
 interface UserGroupsListViewProps {
@@ -78,7 +82,7 @@ const RenderColumnRoleAssignments: Renderer<CellProps<UserGroupAggregateDTO>> = 
   return (
     <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
       <RoleBindingsList data={data} length={2} />
-      <Button
+      <ManagePrincipalButton
         text={getString('common.plusNumber', { number: getString('common.role') })}
         minimal
         data-testid={`addRole-${row.original.userGroupDTO.identifier}`}
@@ -91,6 +95,8 @@ const RenderColumnRoleAssignments: Renderer<CellProps<UserGroupAggregateDTO>> = 
             row.original.roleAssignmentsMetadataDTO
           )
         }}
+        resourceType={ResourceType.USERGROUP}
+        resourceIdentifier={row.original.userGroupDTO.identifier}
       />
     </Layout.Horizontal>
   )
@@ -98,13 +104,29 @@ const RenderColumnRoleAssignments: Renderer<CellProps<UserGroupAggregateDTO>> = 
 
 const RenderColumnMenu: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, column }) => {
   const data = row.original.userGroupDTO
+  const { accountIdentifier, orgIdentifier, projectIdentifier, identifier } = data
   const [menuOpen, setMenuOpen] = useState(false)
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
-  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { mutate: deleteUserGroup } = useDeleteUserGroup({
-    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
+    queryParams: { accountIdentifier, orgIdentifier, projectIdentifier }
   })
+
+  const [canManage] = usePermission(
+    {
+      resourceScope: {
+        accountIdentifier,
+        orgIdentifier,
+        projectIdentifier
+      },
+      resource: {
+        resourceType: ResourceType.USERGROUP,
+        resourceIdentifier: identifier
+      },
+      permissions: [PermissionIdentifier.MANAGE_USERGROUP]
+    },
+    [data]
+  )
 
   const { openDialog: openDeleteDialog } = useConfirmationDialog({
     contentText: getString('rbac.userGroupPage.confirmDelete', { name: data.name }),
@@ -115,7 +137,7 @@ const RenderColumnMenu: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, col
     onCloseDialog: async (isConfirmed: boolean) => {
       /* istanbul ignore else */ if (isConfirmed) {
         try {
-          const deleted = await deleteUserGroup(data.identifier, {
+          const deleted = await deleteUserGroup(identifier, {
             headers: { 'content-type': 'application/json' }
           })
           /* istanbul ignore else */ if (deleted) {
@@ -164,8 +186,8 @@ const RenderColumnMenu: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, col
           }}
         />
         <Menu>
-          <Menu.Item icon="edit" text={getString('edit')} onClick={handleEdit} />
-          <Menu.Item icon="trash" text={getString('delete')} onClick={handleDelete} />
+          <Menu.Item icon="edit" text={getString('edit')} onClick={handleEdit} disabled={!canManage} />
+          <Menu.Item icon="trash" text={getString('delete')} onClick={handleDelete} disabled={!canManage} />
         </Menu>
       </Popover>
     </Layout.Horizontal>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Card, Color, Container, Icon, Layout, Text } from '@wings-software/uicore'
+import { Card, Color, Container, Icon, Layout, Text } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
@@ -19,13 +19,15 @@ import {
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import PermissionCard from '@rbac/components/PermissionCard/PermissionCard'
 import RbacFactory from '@rbac/factories/RbacFactory'
-import type { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
+import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
 import { getPermissionMap } from '@rbac/pages/RoleDetails/utils'
 import routes from '@common/RouteDefinitions'
 import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
-import { getRoleIcon } from '@rbac/utils/RoleData'
+import { getRoleIcon } from '@rbac/utils/utils'
 import type { PipelineType, RolePathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
+import RbacButton from '@rbac/components/Button/Button'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import css from './RoleDetails.module.scss'
 
 const RoleDetails: React.FC = () => {
@@ -216,11 +218,23 @@ const RoleDetails: React.FC = () => {
                 </Text>
                 <Layout.Horizontal flex={{ justifyContent: 'flex-end' }} spacing="small">
                   {isUpdated && <Text color={Color.BLACK}>{getString('unsavedChanges')}</Text>}
-                  <Button
+                  <RbacButton
                     onClick={() => submitChanges(role)}
                     text={getString('applyChanges')}
                     intent="primary"
                     disabled={data?.data?.harnessManaged || !isUpdated}
+                    permission={{
+                      resourceScope: {
+                        accountIdentifier: accountId,
+                        orgIdentifier,
+                        projectIdentifier
+                      },
+                      resource: {
+                        resourceType: ResourceType.ROLE,
+                        resourceIdentifier: roleIdentifier
+                      },
+                      permission: PermissionIdentifier.UPDATE_ROLE
+                    }}
                   />
                 </Layout.Horizontal>
               </Layout.Horizontal>

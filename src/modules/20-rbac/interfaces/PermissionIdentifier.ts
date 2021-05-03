@@ -26,5 +26,15 @@ export enum PermissionIdentifier {
   VIEW_ENVIRONMENT = 'core_environment_view',
   EDIT_ENVIRONMENT = 'core_environment_edit',
   DELETE_ENVIRONMENT = 'core_environment_delete',
-  RUNTIMEACCESS_ENVIRONMENT = 'core_environment_access'
+  RUNTIMEACCESS_ENVIRONMENT = 'core_environment_access',
+  VIEW_USERGROUP = 'core_usergroup_view',
+  MANAGE_USERGROUP = 'core_usergroup_manage',
+  VIEW_USER = 'core_user_view',
+  MANAGE_USER = 'core_user_manage',
+  VIEW_ROLE = 'core_role_view',
+  UPDATE_ROLE = 'core_role_edit',
+  DELETE_ROLE = 'core_role_delete',
+  VIEW_RESOURCEGROUP = 'core_resourcegroup_view',
+  UPDATE_RESOURCEGROUP = 'core_resourcegroup_edit',
+  DELETE_RESOURCEGROUP = 'core_resourcegroup_delete'
 }

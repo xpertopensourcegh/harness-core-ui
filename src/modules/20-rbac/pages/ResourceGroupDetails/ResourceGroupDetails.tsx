@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Text, Layout, Container, Button, Color } from '@wings-software/uicore'
+import { Text, Layout, Container, Color } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import produce from 'immer'
@@ -17,12 +17,14 @@ import {
 import { Page } from '@common/components/Page/Page'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { RbacResourceGroupTypes } from '@rbac/constants/utils'
-import type { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
+import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
 import ResourcesCard from '@rbac/components/ResourcesCard/ResourcesCard'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import routes from '@common/RouteDefinitions'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
+import RbacButton from '@rbac/components/Button/Button'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { getResourceSelectorsfromMap, getSelectedResourcesMap } from './utils'
 import css from './ResourceGroupDetails.module.scss'
 
@@ -276,11 +278,23 @@ const ResourceGroupDetails: React.FC = () => {
               <Layout.Vertical flex={{ alignItems: 'flex-end' }} padding="medium">
                 <Layout.Horizontal flex={{ justifyContent: 'flex-end' }} spacing="small">
                   {isUpdated && <Text color={Color.BLACK}>{getString('unsavedChanges')}</Text>}
-                  <Button
+                  <RbacButton
                     text={getString('applyChanges')}
                     onClick={() => updateResourceGroupData(resourceGroup)}
                     disabled={updating || !isUpdated}
                     intent="primary"
+                    permission={{
+                      resourceScope: {
+                        accountIdentifier: accountId,
+                        orgIdentifier,
+                        projectIdentifier
+                      },
+                      resource: {
+                        resourceType: ResourceType.RESOURCEGROUP,
+                        resourceIdentifier: resourceGroupIdentifier
+                      },
+                      permission: PermissionIdentifier.UPDATE_RESOURCEGROUP
+                    }}
                   />
                 </Layout.Horizontal>
               </Layout.Vertical>

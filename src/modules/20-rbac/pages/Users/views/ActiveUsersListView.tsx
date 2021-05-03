@@ -19,6 +19,10 @@ import { PrincipalType, useRoleAssignmentModal } from '@rbac/modals/RoleAssignme
 import { useMutateAsGet } from '@common/hooks'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { usePermission } from '@rbac/hooks/usePermission'
+import ManagePrincipalButton from '@rbac/components/ManagePrincipalButton/ManagePrincipalButton'
 import css from './UserListView.module.scss'
 
 interface ActiveUserListViewProps {
@@ -54,13 +58,15 @@ const RenderColumnRoleAssignments: Renderer<CellProps<UserAggregate>> = ({ row, 
   return (
     <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
       <RoleBindingsList data={data} length={2} />
-      <Button
+      <ManagePrincipalButton
         text={getString('common.plusNumber', { number: getString('common.role') })}
         minimal
         intent="primary"
         className={css.roleButton}
         data-testid={`addRole-${row.original.user.uuid}`}
         onClick={handleAddRole}
+        resourceIdentifier={row.original.user.uuid}
+        resourceType={ResourceType.USER}
       />
     </Layout.Horizontal>
   )
@@ -103,6 +109,21 @@ const RenderColumnMenu: Renderer<CellProps<UserAggregate>> = ({ row, column }) =
       }
     }
   })
+  const [canManage] = usePermission(
+    {
+      resourceScope: {
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier
+      },
+      resource: {
+        resourceType: ResourceType.USER,
+        resourceIdentifier: data.uuid
+      },
+      permissions: [PermissionIdentifier.MANAGE_USER]
+    },
+    [data]
+  )
 
   const handleDelete = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
     e.stopPropagation()
@@ -131,7 +152,7 @@ const RenderColumnMenu: Renderer<CellProps<UserAggregate>> = ({ row, column }) =
           }}
         />
         <Menu>
-          <Menu.Item icon="trash" text={getString('delete')} onClick={handleDelete} />
+          <Menu.Item icon="trash" text={getString('delete')} onClick={handleDelete} disabled={!canManage} />
         </Menu>
       </Popover>
     </Layout.Horizontal>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Layout, Color, Card, Container, Button } from '@wings-software/uicore'
+import { Text, Layout, Color, Card, Container } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import { useStrings } from 'framework/strings'
@@ -16,6 +16,8 @@ import { PrincipalType, useRoleAssignmentModal } from '@rbac/modals/RoleAssignme
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { useUserGroupModal } from '@rbac/modals/UserGroupModal/useUserGroupModal'
 import MemberList from '@rbac/pages/UserGroupDetails/views/MemberList'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import ManagePrincipalButton from '@rbac/components/ManagePrincipalButton/ManagePrincipalButton'
 import css from './UserGroupDetails.module.scss'
 
 const UserGroupDetails: React.FC = () => {
@@ -106,12 +108,14 @@ const UserGroupDetails: React.FC = () => {
             <Text color={Color.BLACK} font={{ size: 'medium', weight: 'semi-bold' }}>
               {getString('members')}
             </Text>
-            <Button
+            <ManagePrincipalButton
               text={getString('common.plusNumber', { number: getString('members') })}
               minimal
               onClick={() => {
                 openUserGroupModal(userGroup, true)
               }}
+              resourceType={ResourceType.USERGROUP}
+              resourceIdentifier={userGroupIdentifier}
             />
           </Layout.Horizontal>
           <MemberList />
@@ -128,7 +132,7 @@ const UserGroupDetails: React.FC = () => {
               flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
               padding={{ top: 'medium' }}
             >
-              <Button
+              <ManagePrincipalButton
                 data-testid={'addRole-UserGroup'}
                 text={getString('common.plusNumber', { number: getString('common.role') })}
                 minimal
@@ -137,6 +141,8 @@ const UserGroupDetails: React.FC = () => {
                   event.stopPropagation()
                   openRoleAssignmentModal(PrincipalType.USER_GROUP, userGroup, data?.data?.roleAssignmentsMetadataDTO)
                 }}
+                resourceType={ResourceType.USERGROUP}
+                resourceIdentifier={userGroupIdentifier}
               />
             </Layout.Horizontal>
           </Layout.Vertical>

@@ -29,6 +29,7 @@ const createRoleMock = (): ResponseBoolean => {
 }
 
 jest.mock('@common/hooks', () => ({
+  ...(jest.requireActual('@common/hooks') as any),
   useQueryParams: jest.fn().mockImplementation(() => ({ view: 'PENDING' })),
   useMutateAsGet: jest.fn().mockImplementation(() => {
     return { data: pendingUserMock, refetch: jest.fn(), error: null }

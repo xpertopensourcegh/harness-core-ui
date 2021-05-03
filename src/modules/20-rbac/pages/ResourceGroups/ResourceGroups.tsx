@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Layout, Button, ExpandingSearchInput, Container } from '@wings-software/uicore'
+import { Layout, ExpandingSearchInput, Container } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { PageHeader } from '@common/components/Page/PageHeader'
@@ -9,6 +9,9 @@ import { useGetResourceGroupList } from 'services/platform'
 import ResourceGroupListView from '@rbac/components/ResourceGroupList/ResourceGroupListView'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
+import RbacButton from '@rbac/components/Button/Button'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
 
 const ResourceGroups: React.FC = () => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
@@ -36,12 +39,23 @@ const ResourceGroups: React.FC = () => {
       <PageHeader
         title={
           <Layout.Horizontal padding={{ left: 'large' }}>
-            <Button
+            <RbacButton
               text={getString('resourceGroup.newResourceGroup')}
               intent="primary"
               icon="plus"
               onClick={() => openResourceGroupModal()}
               data-testid="addNewResourceGroup"
+              permission={{
+                permission: PermissionIdentifier.UPDATE_RESOURCEGROUP,
+                resource: {
+                  resourceType: ResourceType.RESOURCEGROUP
+                },
+                resourceScope: {
+                  accountIdentifier: accountId,
+                  orgIdentifier,
+                  projectIdentifier
+                }
+              }}
             />
           </Layout.Horizontal>
         }

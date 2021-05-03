@@ -7,8 +7,11 @@ import { Role, RoleResponse, useDeleteRole } from 'services/rbac'
 import routes from '@common/RouteDefinitions'
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import { useStrings } from 'framework/strings'
-import { getRoleIcon } from '@rbac/utils/RoleData'
+import { getRoleIcon } from '@rbac/utils/utils'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { usePermission } from '@rbac/hooks/usePermission'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import css from './RoleCard.module.scss'
 
 interface RoleCardProps {
@@ -27,6 +30,22 @@ const RoleCard: React.FC<RoleCardProps> = ({ data, reloadRoles, editRoleModal })
   const { mutate: deleteRole } = useDeleteRole({
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
+
+  const [canUpdate, canDelete] = usePermission(
+    {
+      resourceScope: {
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier
+      },
+      resource: {
+        resourceType: ResourceType.ROLE,
+        resourceIdentifier: role.identifier
+      },
+      permissions: [PermissionIdentifier.UPDATE_ROLE, PermissionIdentifier.DELETE_ROLE]
+    },
+    [role]
+  )
 
   const { openDialog: openDeleteDialog } = useConfirmationDialog({
     contentText: getString('roleCard.confirmDelete', { name: role.name }),
@@ -77,8 +96,18 @@ const RoleCard: React.FC<RoleCardProps> = ({ data, reloadRoles, editRoleModal })
       <CardBody.Menu
         menuContent={
           <Menu>
-            <Menu.Item icon="edit" text={getString('edit')} onClick={handleEdit} disabled={harnessManaged} />
-            <Menu.Item icon="trash" text={getString('delete')} onClick={handleDelete} disabled={harnessManaged} />
+            <Menu.Item
+              icon="edit"
+              text={getString('edit')}
+              onClick={handleEdit}
+              disabled={harnessManaged || !canUpdate}
+            />
+            <Menu.Item
+              icon="trash"
+              text={getString('delete')}
+              onClick={handleDelete}
+              disabled={harnessManaged || !canDelete}
+            />
           </Menu>
         }
         menuPopoverProps={{

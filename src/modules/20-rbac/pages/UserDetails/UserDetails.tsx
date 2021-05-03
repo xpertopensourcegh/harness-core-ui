@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Layout, Color, Card, Button, Avatar } from '@wings-software/uicore'
+import { Text, Layout, Color, Card, Avatar } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { useGetAggregatedUser } from 'services/cd-ng'
@@ -12,6 +12,8 @@ import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList
 import type { PipelineType, ProjectPathProps, UserPathProps } from '@common/interfaces/RouteInterfaces'
 import { PrincipalType, useRoleAssignmentModal } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import ManagePrincipalButton from '@rbac/components/ManagePrincipalButton/ManagePrincipalButton'
 import UserGroupTable from './views/UserGroupTable'
 import css from './UserDetails.module.scss'
 
@@ -94,7 +96,7 @@ const UserDetails: React.FC = () => {
               flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
               padding={{ top: 'medium' }}
             >
-              <Button
+              <ManagePrincipalButton
                 data-testid={'addRole-UserGroup'}
                 text={getString('common.plusNumber', { number: getString('common.role') })}
                 minimal
@@ -103,6 +105,8 @@ const UserDetails: React.FC = () => {
                   event.stopPropagation()
                   openRoleAssignmentModal(PrincipalType.USER, user, data?.data?.roleBindings)
                 }}
+                resourceIdentifier={user.uuid}
+                resourceType={ResourceType.USER}
               />
             </Layout.Horizontal>
           </Layout.Vertical>

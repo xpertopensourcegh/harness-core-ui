@@ -21,12 +21,13 @@ import Roles from '@rbac/pages/Roles/Roles'
 import ResourceGroups from '@rbac/pages/ResourceGroups/ResourceGroups'
 import { String } from 'framework/strings'
 import RoleDetails from '@rbac/pages/RoleDetails/RoleDetails'
-import { ResourceCategory } from '@rbac/interfaces/ResourceType'
+import { ResourceCategory, ResourceType } from '@rbac/interfaces/ResourceType'
 import UserGroupDetails from '@rbac/pages/UserGroupDetails/UserGroupDetails'
 import ResourceGroupDetails from '@rbac/pages/ResourceGroupDetails/ResourceGroupDetails'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
 import UserDetails from './pages/UserDetails/UserDetails'
+import { PermissionIdentifier } from './interfaces/PermissionIdentifier'
 
 const AccountSettingsSideNavProps: SidebarContext = {
   navComponent: AccountSettingsSideNav,
@@ -42,6 +43,48 @@ RbacFactory.registerResourceCategory(ResourceCategory.SHARED_RESOURCES, {
 RbacFactory.registerResourceCategory(ResourceCategory.ADMINSTRATIVE_FUNCTIONS, {
   icon: 'support-account',
   label: <String stringID="adminFunctions" />
+})
+
+RbacFactory.registerResourceTypeHandler(ResourceType.USER, {
+  icon: 'nav-project',
+  label: <String stringID="users" />,
+  category: ResourceCategory.ADMINSTRATIVE_FUNCTIONS,
+  permissionLabels: {
+    [PermissionIdentifier.VIEW_USER]: <String stringID="rbac.permissionLabels.view" />,
+    [PermissionIdentifier.MANAGE_USER]: <String stringID="rbac.permissionLabels.manage" />
+  }
+})
+
+RbacFactory.registerResourceTypeHandler(ResourceType.USERGROUP, {
+  icon: 'nav-project',
+  label: <String stringID="common.userGroups" />,
+  category: ResourceCategory.ADMINSTRATIVE_FUNCTIONS,
+  permissionLabels: {
+    [PermissionIdentifier.VIEW_USERGROUP]: <String stringID="rbac.permissionLabels.view" />,
+    [PermissionIdentifier.MANAGE_USERGROUP]: <String stringID="rbac.permissionLabels.manage" />
+  }
+})
+
+RbacFactory.registerResourceTypeHandler(ResourceType.RESOURCEGROUP, {
+  icon: 'nav-project',
+  label: <String stringID="resourceGroups" />,
+  category: ResourceCategory.ADMINSTRATIVE_FUNCTIONS,
+  permissionLabels: {
+    [PermissionIdentifier.VIEW_RESOURCEGROUP]: <String stringID="rbac.permissionLabels.view" />,
+    [PermissionIdentifier.UPDATE_RESOURCEGROUP]: <String stringID="rbac.permissionLabels.createEdit" />,
+    [PermissionIdentifier.DELETE_RESOURCEGROUP]: <String stringID="rbac.permissionLabels.delete" />
+  }
+})
+
+RbacFactory.registerResourceTypeHandler(ResourceType.ROLE, {
+  icon: 'nav-project',
+  label: <String stringID="roles" />,
+  category: ResourceCategory.ADMINSTRATIVE_FUNCTIONS,
+  permissionLabels: {
+    [PermissionIdentifier.VIEW_ROLE]: <String stringID="rbac.permissionLabels.view" />,
+    [PermissionIdentifier.UPDATE_ROLE]: <String stringID="rbac.permissionLabels.createEdit" />,
+    [PermissionIdentifier.DELETE_ROLE]: <String stringID="rbac.permissionLabels.delete" />
+  }
 })
 
 const RedirectToAccessControlHome = (): React.ReactElement => {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Container, ExpandingSearchInput, Layout, Pagination } from '@wings-software/uicore'
+import { Container, ExpandingSearchInput, Layout, Pagination } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -10,6 +10,9 @@ import RoleCard from '@rbac/components/RoleCard/RoleCard'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useRoleModal } from '@rbac/modals/RoleModal/useRoleModal'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
+import RbacButton from '@rbac/components/Button/Button'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
 import css from './Roles.module.scss'
 
 const Roles: React.FC = () => {
@@ -40,12 +43,23 @@ const Roles: React.FC = () => {
       <PageHeader
         title={
           <Layout.Horizontal padding={{ left: 'large' }}>
-            <Button
+            <RbacButton
               text={getString('newRole')}
               data-testid="createRole"
               intent="primary"
               icon="plus"
               onClick={() => openRoleModal()}
+              permission={{
+                permission: PermissionIdentifier.UPDATE_ROLE,
+                resource: {
+                  resourceType: ResourceType.ROLE
+                },
+                resourceScope: {
+                  accountIdentifier: accountId,
+                  orgIdentifier,
+                  projectIdentifier
+                }
+              }}
             />
           </Layout.Horizontal>
         }

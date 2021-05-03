@@ -9,6 +9,8 @@ import { useQueryParams } from '@common/hooks'
 import routes from '@common/RouteDefinitions'
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import ManagePrincipalButton from '@rbac/components/ManagePrincipalButton/ManagePrincipalButton'
 import ActiveUserListView from './views/ActiveUsersListView'
 import PendingUserListView from './views/PendingUsersListView'
 import css from './UsersPage.module.scss'
@@ -42,11 +44,12 @@ const UsersPage: React.FC = () => {
       <Page.Header
         title={
           <Layout.Horizontal padding={{ left: 'large' }} spacing="small">
-            <Button
+            <ManagePrincipalButton
               text={getString('newUser')}
               intent="primary"
               icon="plus"
               onClick={() => openRoleAssignmentModal()}
+              resourceType={ResourceType.USER}
             />
           </Layout.Horizontal>
         }

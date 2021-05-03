@@ -7,8 +7,11 @@ import { useStrings } from 'framework/strings'
 import { ResourceGroupDTO, ResourceGroupResponse, useDeleteResourceGroup } from 'services/platform'
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-
+import { usePermission } from '@rbac/hooks/usePermission'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import css from './ResourceGroupList.module.scss'
+
 export type CellPropsResourceGroupColumn<D extends Record<string, any>, V = any> = TableInstance<D> & {
   column: ColumnInstance<D> & {
     reload?: () => Promise<void>
@@ -18,6 +21,7 @@ export type CellPropsResourceGroupColumn<D extends Record<string, any>, V = any>
   cell: Cell<D, V>
   value: CellValue<V>
 }
+
 const ResourceGroupColumnMenu: Renderer<CellPropsResourceGroupColumn<ResourceGroupResponse>> = ({ row, column }) => {
   const data = row.original
   const isHarnessManaged = data.harnessManaged
@@ -28,6 +32,22 @@ const ResourceGroupColumnMenu: Renderer<CellPropsResourceGroupColumn<ResourceGro
   const { mutate: deleteResourceGroup } = useDeleteResourceGroup({
     queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier }
   })
+
+  const [canUpdate, canDelete] = usePermission(
+    {
+      resourceScope: {
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier
+      },
+      resource: {
+        resourceType: ResourceType.RESOURCEGROUP,
+        resourceIdentifier: data.resourceGroup.identifier || ''
+      },
+      permissions: [PermissionIdentifier.UPDATE_RESOURCEGROUP, PermissionIdentifier.DELETE_RESOURCEGROUP]
+    },
+    [data.resourceGroup]
+  )
 
   const { openDialog } = useConfirmationDialog({
     contentText: `${getString('resourceGroup.confirmDelete', { name: data.resourceGroup?.name })}`,
@@ -64,6 +84,7 @@ const ResourceGroupColumnMenu: Renderer<CellPropsResourceGroupColumn<ResourceGro
     }
     column.openResourceGroupModal?.(row.original.resourceGroup)
   }
+
   return !isHarnessManaged ? (
     <Popover
       isOpen={menuOpen}
@@ -83,8 +104,8 @@ const ResourceGroupColumnMenu: Renderer<CellPropsResourceGroupColumn<ResourceGro
         }}
       />
       <Menu style={{ minWidth: 'unset' }}>
-        <Menu.Item icon="edit" text={getString('edit')} onClick={handleEdit} />
-        <Menu.Item icon="trash" text={getString('delete')} onClick={handleDelete} />
+        <Menu.Item icon="edit" text={getString('edit')} onClick={handleEdit} disabled={!canUpdate} />
+        <Menu.Item icon="trash" text={getString('delete')} onClick={handleDelete} disabled={!canDelete} />
       </Menu>
     </Popover>
   ) : (

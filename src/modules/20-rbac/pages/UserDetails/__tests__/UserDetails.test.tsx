@@ -32,6 +32,7 @@ jest.mock('services/cd-ng', () => ({
 }))
 
 jest.mock('@common/hooks', () => ({
+  ...(jest.requireActual('@common/hooks') as any),
   useMutateAsGet: jest.fn().mockImplementation(() => {
     return { data: userGroupInfo, refetch: jest.fn(), error: null, loading: false }
   })
