@@ -106,8 +106,8 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
           <PageSpinner />
         </div>
       )}
-      <h2 className={css.heading}>{`${getString('pipeline-triggers.triggerConfigurationLabel')}${
-        !isEdit ? `: ${getString('pipeline-triggers.onNewWebhookTitle')}` : ''
+      <h2 className={css.heading}>{`${getString('pipeline.triggers.triggerConfigurationLabel')}${
+        !isEdit ? `: ${getString('pipeline.triggers.onNewWebhookTitle')}` : ''
       }`}</h2>
       <div style={{ backgroundColor: 'var(--white)' }}>
         <NameIdDescriptionTags
@@ -118,11 +118,11 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
           }}
         />
         <Heading className={css.listenOnNewWebhook} style={{ marginTop: '0!important' }} level={2}>
-          {getString('pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook')}
+          {getString('pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook')}
         </Heading>
         <section style={{ width: '650px', marginTop: 'var(--spacing-small)' }}>
           <FormInput.Select
-            label={getString('pipeline-triggers.triggerConfigurationPanel.payloadType')}
+            label={getString('pipeline.triggers.triggerConfigurationPanel.payloadType')}
             name="sourceRepo"
             items={getSourceRepoOptions(getString)}
             onChange={e => {
@@ -155,7 +155,7 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
               {sourceRepo && <ConnectorSection formikProps={formikProps} />}
               <FormInput.Select
                 key={event}
-                label={getString('pipeline-triggers.triggerConfigurationPanel.event')}
+                label={getString('pipeline.triggers.triggerConfigurationPanel.event')}
                 name="event"
                 items={eventOptions}
                 onChange={e => {
@@ -184,7 +184,7 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
                 <div className={css.actionsContainer}>
                   <div>
                     <Text style={{ fontSize: 13, marginBottom: 'var(--spacing-xsmall)' }}>
-                      {getString('pipeline-triggers.triggerConfigurationPanel.actions')}
+                      {getString('pipeline.triggers.triggerConfigurationPanel.actions')}
                     </Text>
                     <FormInput.MultiSelect
                       name="actions"
@@ -203,7 +203,7 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
                   <FormInput.CheckBox
                     name="anyAction"
                     key={Date.now()}
-                    label={getString('pipeline-triggers.triggerConfigurationPanel.anyActions')}
+                    label={getString('pipeline.triggers.triggerConfigurationPanel.anyActions')}
                     defaultChecked={Array.isArray(actions) && actions.length === 0}
                     className={css.anyAction}
                     onClick={(e: React.FormEvent<HTMLInputElement>) => {
@@ -243,14 +243,14 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
                       className={css.regenerateButton}
                       data-name="regenerate-token"
                       icon="main-refresh"
-                      tooltip={getString('pipeline-triggers.triggerConfigurationPanel.regenerateToken')}
+                      tooltip={getString('pipeline.triggers.triggerConfigurationPanel.regenerateToken')}
                       tooltipProps={{ hoverOpenDelay: 300 }}
                       minimal
                       style={{ paddingLeft: 'var(--spacing-small)' }}
                       onClick={() => {
                         refetchGenerateWebhookToken()
                           .then(_res => {
-                            showSuccess(getString('pipeline-triggers.triggerConfigurationPanel.regeneratedToken'))
+                            showSuccess(getString('pipeline.triggers.triggerConfigurationPanel.regeneratedToken'))
                           })
                           .catch(_err => showError(getString('commonError')))
                       }}
@@ -262,7 +262,7 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
                 <Layout.Horizontal spacing="small" className={css.fieldWarning}>
                   <Icon name="main-warning" color={Color.YELLOW_500} />
                   <Text color={Color.GREY_800}>
-                    {getString('pipeline-triggers.triggerConfigurationPanel.secureTokenRegenerateWarning')}
+                    {getString('pipeline.triggers.triggerConfigurationPanel.secureTokenRegenerateWarning')}
                   </Text>
                 </Layout.Horizontal>
               )}

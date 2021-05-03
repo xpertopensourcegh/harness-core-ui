@@ -886,6 +886,119 @@ export interface StringsMap {
   'pipeline.selectOrCreatePipeline.setupHeader': string
   'pipeline.startTime': string
   'pipeline.targets.title': string
+  'pipeline.triggers.aboutTriggers': string
+  'pipeline.triggers.activityActivation': string
+  'pipeline.triggers.activityDays': string
+  'pipeline.triggers.addNewTrigger': string
+  'pipeline.triggers.cannotParseInputValues': string
+  'pipeline.triggers.cannotParseTriggersData': string
+  'pipeline.triggers.conditionsPanel.attribute': string
+  'pipeline.triggers.conditionsPanel.branchConditions': string
+  'pipeline.triggers.conditionsPanel.branchName': string
+  'pipeline.triggers.conditionsPanel.headerConditions': string
+  'pipeline.triggers.conditionsPanel.jexlCondition': string
+  'pipeline.triggers.conditionsPanel.matchesValue': string
+  'pipeline.triggers.conditionsPanel.operator': string
+  'pipeline.triggers.conditionsPanel.payloadConditions': string
+  'pipeline.triggers.conditionsPanel.sourceBranch': string
+  'pipeline.triggers.conditionsPanel.subtitle': string
+  'pipeline.triggers.conditionsPanel.tagName': string
+  'pipeline.triggers.conditionsPanel.targetBranch': string
+  'pipeline.triggers.confirmDelete': string
+  'pipeline.triggers.copyAsCurl': string
+  'pipeline.triggers.copyAsUrl': string
+  'pipeline.triggers.createTrigger': string
+  'pipeline.triggers.cronLabel': string
+  'pipeline.triggers.deleteTrigger': string
+  'pipeline.triggers.enableLabel': string
+  'pipeline.triggers.lastActivationLabel': string
+  'pipeline.triggers.lastExecutionAt': string
+  'pipeline.triggers.lastExecutionDetails': string
+  'pipeline.triggers.newArtifactLabel': string
+  'pipeline.triggers.newManifestLabel': string
+  'pipeline.triggers.newTrigger': string
+  'pipeline.triggers.noTriggersFound': string
+  'pipeline.triggers.onNewArtifactTitle': string
+  'pipeline.triggers.onNewScheduleTitle': string
+  'pipeline.triggers.onNewWebhookTitle': string
+  'pipeline.triggers.onScheduleLabel': string
+  'pipeline.triggers.pageNotFound': string
+  'pipeline.triggers.pipelineExecutionInput': string
+  'pipeline.triggers.pipelineInputLabel': string
+  'pipeline.triggers.pipelineInputPanel.automaticallyExtractedFromText': string
+  'pipeline.triggers.pipelineInputPanel.noRuntimeInputs': string
+  'pipeline.triggers.schedulePanel.FRI': string
+  'pipeline.triggers.schedulePanel.MON': string
+  'pipeline.triggers.schedulePanel.SAT': string
+  'pipeline.triggers.schedulePanel.SUN': string
+  'pipeline.triggers.schedulePanel.THU': string
+  'pipeline.triggers.schedulePanel.TUE': string
+  'pipeline.triggers.schedulePanel.WED': string
+  'pipeline.triggers.schedulePanel.cronExpression': string
+  'pipeline.triggers.schedulePanel.dailyTabTitle': string
+  'pipeline.triggers.schedulePanel.dayOfMonthLabel': string
+  'pipeline.triggers.schedulePanel.dayOfWeekLabel': string
+  'pipeline.triggers.schedulePanel.enterCustomCron': string
+  'pipeline.triggers.schedulePanel.expressionBreakdown': string
+  'pipeline.triggers.schedulePanel.hourlyTabTitle': string
+  'pipeline.triggers.schedulePanel.hoursAnd': string
+  'pipeline.triggers.schedulePanel.hoursLabel': string
+  'pipeline.triggers.schedulePanel.minutesAfterTheHour': string
+  'pipeline.triggers.schedulePanel.minutesLabel': string
+  'pipeline.triggers.schedulePanel.minutesParentheses': string
+  'pipeline.triggers.schedulePanel.monthLabel': string
+  'pipeline.triggers.schedulePanel.monthlyTabTitle': string
+  'pipeline.triggers.schedulePanel.monthsParentheses': string
+  'pipeline.triggers.schedulePanel.ofEvery': string
+  'pipeline.triggers.schedulePanel.onThe': string
+  'pipeline.triggers.schedulePanel.runAt': string
+  'pipeline.triggers.schedulePanel.runDailyAt': string
+  'pipeline.triggers.schedulePanel.runEvery': string
+  'pipeline.triggers.schedulePanel.runOn': string
+  'pipeline.triggers.schedulePanel.runOnSpecificDay': string
+  'pipeline.triggers.schedulePanel.runOnSpecificDayMonth': string
+  'pipeline.triggers.schedulePanel.startingWith': string
+  'pipeline.triggers.schedulePanel.title': string
+  'pipeline.triggers.schedulePanel.weeklyTabTitle': string
+  'pipeline.triggers.schedulePanel.yearlyTabTitle': string
+  'pipeline.triggers.scheduledLabel': string
+  'pipeline.triggers.searchPlaceholder': string
+  'pipeline.triggers.showAllTriggers': string
+  'pipeline.triggers.toast.successfulCreate': string
+  'pipeline.triggers.toast.successfulUpdate': string
+  'pipeline.triggers.toast.toggleEnable': string
+  'pipeline.triggers.toast.webhookCurlCopied': string
+  'pipeline.triggers.toast.webhookUrlCopied': string
+  'pipeline.triggers.triggerConfigurationLabel': string
+  'pipeline.triggers.triggerConfigurationPanel.actions': string
+  'pipeline.triggers.triggerConfigurationPanel.anyActions': string
+  'pipeline.triggers.triggerConfigurationPanel.copiedToken': string
+  'pipeline.triggers.triggerConfigurationPanel.event': string
+  'pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook': string
+  'pipeline.triggers.triggerConfigurationPanel.payloadType': string
+  'pipeline.triggers.triggerConfigurationPanel.recurrenceLabel': string
+  'pipeline.triggers.triggerConfigurationPanel.regenerateToken': string
+  'pipeline.triggers.triggerConfigurationPanel.regeneratedToken': string
+  'pipeline.triggers.triggerConfigurationPanel.secureTokenRegenerateWarning': string
+  'pipeline.triggers.triggerConfigurationPanel.selectTimezonePlaceholder': string
+  'pipeline.triggers.triggerConfigurationPanel.title': string
+  'pipeline.triggers.triggerConfigurationPanel.triggerName': string
+  'pipeline.triggers.triggerLabel': string
+  'pipeline.triggers.triggerOverviewPanel.title': string
+  'pipeline.triggers.triggersLabel': string
+  'pipeline.triggers.triggersSubLabel': string
+  'pipeline.triggers.updateTrigger': string
+  'pipeline.triggers.validation.actions': string
+  'pipeline.triggers.validation.connector': string
+  'pipeline.triggers.validation.cronExpression': string
+  'pipeline.triggers.validation.event': string
+  'pipeline.triggers.validation.headerConditions': string
+  'pipeline.triggers.validation.identifier': string
+  'pipeline.triggers.validation.matchesValue': string
+  'pipeline.triggers.validation.operator': string
+  'pipeline.triggers.validation.payloadConditions': string
+  'pipeline.triggers.validation.repoName': string
+  'pipeline.triggers.validation.triggerName': string
   'pipeline.verificationResult': string
   'cd.allowSimultaneousDeployments': string
   'cd.cdTrialHomePage.startTrial.description': string
@@ -4556,454 +4669,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'pipeline-list.readyToRun': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.aboutTriggers': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.activityActivation': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.activityDays': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.addNewTrigger': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.cannotParseInputValues': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.cannotParseTriggersData': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.conditionsPanel.attribute': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.conditionsPanel.branchConditions': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.conditionsPanel.branchName': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.conditionsPanel.headerConditions': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.conditionsPanel.jexlCondition': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.conditionsPanel.matchesValue': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.conditionsPanel.operator': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.conditionsPanel.payloadConditions': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.conditionsPanel.sourceBranch': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.conditionsPanel.subtitle': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.conditionsPanel.tagName': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.conditionsPanel.targetBranch': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.confirmDelete': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.copyAsCurl': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.copyAsUrl': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.createTrigger': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.cronLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.deleteTrigger': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.enableLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.lastActivationLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.lastExecutionAt': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.lastExecutionDetails': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.newArtifactLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.newManifestLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.newTrigger': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.noTriggersFound': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.onNewArtifactTitle': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.onNewScheduleTitle': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.onNewWebhookTitle': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.onScheduleLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.pageNotFound': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.pipelineExecutionInput': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.pipelineInputLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.pipelineInputPanel.noRuntimeInputs': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.FRI': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.MON': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.SAT': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.SUN': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.THU': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.TUE': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.WED': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.cronExpression': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.dailyTabTitle': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.dayOfMonthLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.dayOfWeekLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.enterCustomCron': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.expressionBreakdown': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.hourlyTabTitle': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.hoursAnd': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.hoursLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.minutesAfterTheHour': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.minutesLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.minutesParentheses': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.monthLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.monthlyTabTitle': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.monthsParentheses': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.ofEvery': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.onThe': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.runAt': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.runDailyAt': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.runEvery': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.runOn': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.runOnSpecificDay': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.runOnSpecificDayMonth': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.startingWith': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.title': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.weeklyTabTitle': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.schedulePanel.yearlyTabTitle': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.scheduledLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.searchPlaceholder': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.showAllTriggers': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.toast.successfulCreate': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.toast.successfulUpdate': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.toast.toggleEnable': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.toast.webhookCurlCopied': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.toast.webhookUrlCopied': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.triggerConfigurationLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.triggerConfigurationPanel.actions': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.triggerConfigurationPanel.anyActions': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.triggerConfigurationPanel.copiedToken': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.triggerConfigurationPanel.event': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.triggerConfigurationPanel.payloadType': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.triggerConfigurationPanel.recurrenceLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.triggerConfigurationPanel.regenerateToken': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.triggerConfigurationPanel.regeneratedToken': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.triggerConfigurationPanel.secureTokenRegenerateWarning': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.triggerConfigurationPanel.selectTimezonePlaceholder': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.triggerConfigurationPanel.title': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.triggerConfigurationPanel.triggerName': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.triggerLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.triggerOverviewPanel.title': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.triggersLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.triggersSubLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.updateTrigger': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.validation.actions': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.validation.connector': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.validation.cronExpression': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.validation.event': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.validation.headerConditions': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.validation.identifier': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.validation.matchesValue': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.validation.operator': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.validation.payloadConditions': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.validation.repoName': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipeline-triggers.validation.triggerName': string
   /**
    * @deprecated migrate this string to module level file
    */

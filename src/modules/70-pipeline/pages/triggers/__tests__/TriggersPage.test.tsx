@@ -53,7 +53,7 @@ describe('TriggersPage Triggers tests', () => {
     test('Initial Render - Shows Trigger List', async () => {
       render(<WrapperComponent />)
       await waitFor(() =>
-        expect(result.current.getString('pipeline-triggers.triggerLabel').toUpperCase()).not.toBeNull()
+        expect(result.current.getString('pipeline.triggers.triggerLabel').toUpperCase()).not.toBeNull()
       )
       // eslint-disable-next-line no-document-body-snapshot
       expect(document.body).toMatchSnapshot()
@@ -64,7 +64,7 @@ describe('TriggersPage Triggers tests', () => {
       const { container } = render(<WrapperComponent />)
       jest.spyOn(usePermission, 'usePermission').mockImplementation(() => [true])
       await waitFor(() =>
-        expect(result.current.getString('pipeline-triggers.triggerLabel').toUpperCase()).not.toBeNull()
+        expect(result.current.getString('pipeline.triggers.triggerLabel').toUpperCase()).not.toBeNull()
       )
       const firstActionButton = container.querySelectorAll('[class*="actionButton"]')?.[0]
       if (!firstActionButton) {
@@ -78,7 +78,7 @@ describe('TriggersPage Triggers tests', () => {
         throw Error('No error button')
       }
       fireEvent.click(deleteButton)
-      await waitFor(() => expect(result.current.getString('pipeline-triggers.confirmDelete')).not.toBeNull())
+      await waitFor(() => expect(result.current.getString('pipeline.triggers.confirmDelete')).not.toBeNull())
 
       const confirmDeleteButton = document.body.querySelector('[class*="bp3-dialog-footer"] [class*="intent-primary"]')
       if (!confirmDeleteButton) {
@@ -94,7 +94,7 @@ describe('TriggersPage Triggers tests', () => {
 
       const { container, getByTestId } = render(<WrapperComponent />)
       await waitFor(() =>
-        expect(result.current.getString('pipeline-triggers.triggerLabel').toUpperCase()).not.toBeNull()
+        expect(result.current.getString('pipeline.triggers.triggerLabel').toUpperCase()).not.toBeNull()
       )
       const firstActionButton = container.querySelectorAll('[class*="actionButton"]')?.[0]
       if (!firstActionButton) {
@@ -125,9 +125,9 @@ describe('TriggersPage Triggers tests', () => {
         </TestWrapper>
       )
       await waitFor(() =>
-        expect(result.current.getString('pipeline-triggers.triggerLabel').toUpperCase()).not.toBeNull()
+        expect(result.current.getString('pipeline.triggers.triggerLabel').toUpperCase()).not.toBeNull()
       )
-      const addTriggerButton = queryByText(container, result.current.getString('pipeline-triggers.newTrigger'))
+      const addTriggerButton = queryByText(container, result.current.getString('pipeline.triggers.newTrigger'))
       if (!addTriggerButton) {
         throw Error('No action button')
       }
@@ -139,7 +139,7 @@ describe('TriggersPage Triggers tests', () => {
     test('Search for a trigger shows filtered results', async () => {
       const { container } = render(<WrapperComponent />)
       await waitFor(() =>
-        expect(result.current.getString('pipeline-triggers.triggerLabel').toUpperCase()).not.toBeNull()
+        expect(result.current.getString('pipeline.triggers.triggerLabel').toUpperCase()).not.toBeNull()
       )
       const searchInput = container.querySelector('[data-name="search"]')
       if (!searchInput) {

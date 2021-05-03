@@ -145,7 +145,7 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
           </div>
           <div className={css.inputSetContent}>
             <div className={css.pipelineInputRow}>
-              <Heading level={2}>{getString('pipeline-triggers.pipelineInputLabel')}</Heading>
+              <Heading level={2}>{getString('pipeline.triggers.pipelineInputLabel')}</Heading>
               <InputSetSelector
                 pipelineIdentifier={pipelineIdentifier}
                 onChange={value => {
@@ -166,9 +166,9 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
       ) : (
         <Layout.Vertical style={{ padding: '0 var(--spacing-small)' }} margin="large" spacing="large">
           <h2 className={css.heading} style={{ marginTop: '0!important' }}>
-            {getString('pipeline-triggers.pipelineInputLabel')}
+            {getString('pipeline.triggers.pipelineInputLabel')}
           </h2>
-          <Text>{getString('pipeline-triggers.pipelineInputPanel.noRuntimeInputs')}</Text>
+          <Text>{getString('pipeline.triggers.pipelineInputPanel.noRuntimeInputs')}</Text>
         </Layout.Vertical>
       )}
     </Layout.Vertical>

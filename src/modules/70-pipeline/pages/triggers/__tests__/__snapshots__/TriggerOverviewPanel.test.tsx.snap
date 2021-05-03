@@ -13,7 +13,7 @@ exports[`TriggerOverviewPanel Triggers tests Renders/snapshots Initial Render - 
           class="Layout--vertical Layout--layout-spacing-large StyledProps--main triggerOverviewPanelContainer StyledProps--padding-xxlarge"
         >
           <h2>
-            pipeline-triggers.triggerOverviewPanel.title
+            pipeline.triggers.triggerOverviewPanel.title
           </h2>
           <div
             class="StyledProps--font StyledProps--main main nameIdDescriptionTags"

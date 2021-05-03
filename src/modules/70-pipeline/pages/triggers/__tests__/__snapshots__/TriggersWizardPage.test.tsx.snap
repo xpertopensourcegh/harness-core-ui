@@ -112,7 +112,7 @@ exports[`TriggersWizardPage Triggers tests Payload/Values Comparison OnEdit Sche
                         </svg>
                       </span>
                       1. 
-                      pipeline-triggers.triggerOverviewPanel.title
+                      pipeline.triggers.triggerOverviewPanel.title
                     </span>
                   </div>
                   <div
@@ -150,7 +150,7 @@ exports[`TriggersWizardPage Triggers tests Payload/Values Comparison OnEdit Sche
                         </svg>
                       </span>
                       2. 
-                      pipeline-triggers.schedulePanel.title
+                      pipeline.triggers.schedulePanel.title
                     </span>
                   </div>
                   <div
@@ -188,7 +188,7 @@ exports[`TriggersWizardPage Triggers tests Payload/Values Comparison OnEdit Sche
                         </svg>
                       </span>
                       3. 
-                      pipeline-triggers.pipelineInputLabel
+                      pipeline.triggers.pipelineInputLabel
                     </span>
                   </div>
                 </div>
@@ -203,7 +203,7 @@ exports[`TriggersWizardPage Triggers tests Payload/Values Comparison OnEdit Sche
                     class="Layout--vertical Layout--layout-spacing-large StyledProps--main triggerOverviewPanelContainer StyledProps--padding-xxlarge"
                   >
                     <h2>
-                      pipeline-triggers.triggerOverviewPanel.title
+                      pipeline.triggers.triggerOverviewPanel.title
                     </h2>
                     <div
                       class="StyledProps--font StyledProps--main main nameIdDescriptionTags"
@@ -546,7 +546,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                         </svg>
                       </span>
                       1. 
-                      pipeline-triggers.triggerConfigurationLabel
+                      pipeline.triggers.triggerConfigurationLabel
                     </span>
                   </div>
                   <div
@@ -622,7 +622,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                         </svg>
                       </span>
                       3. 
-                      pipeline-triggers.pipelineInputLabel
+                      pipeline.triggers.pipelineInputLabel
                     </span>
                   </div>
                 </div>
@@ -639,7 +639,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                     <h2
                       class="heading"
                     >
-                      pipeline-triggers.triggerConfigurationLabel
+                      pipeline.triggers.triggerConfigurationLabel
                     </h2>
                     <div>
                       <div
@@ -770,7 +770,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                         class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
                         level="2"
                       >
-                        pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook
+                        pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook
                       </h2>
                       <section
                         style="width: 650px;"
@@ -783,7 +783,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             class="bp3-label"
                             for="sourceRepo"
                           >
-                            pipeline-triggers.triggerConfigurationPanel.payloadType
+                            pipeline.triggers.triggerConfigurationPanel.payloadType
                              
                             <span
                               class="bp3-text-muted"
@@ -946,7 +946,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             class="bp3-label"
                             for="event"
                           >
-                            pipeline-triggers.triggerConfigurationPanel.event
+                            pipeline.triggers.triggerConfigurationPanel.event
                              
                             <span
                               class="bp3-text-muted"
@@ -1009,7 +1009,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                               class="StyledProps--font StyledProps--main"
                               style="font-size: 13px;"
                             >
-                              pipeline-triggers.triggerConfigurationPanel.actions
+                              pipeline.triggers.triggerConfigurationPanel.actions
                             </p>
                             <div
                               class="bp3-form-group"
@@ -1164,7 +1164,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                 <span
                                   class="bp3-control-indicator"
                                 />
-                                pipeline-triggers.triggerConfigurationPanel.anyActions
+                                pipeline.triggers.triggerConfigurationPanel.anyActions
                               </label>
                             </div>
                           </div>
@@ -1353,7 +1353,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                         </svg>
                       </span>
                       1. 
-                      pipeline-triggers.triggerConfigurationLabel
+                      pipeline.triggers.triggerConfigurationLabel
                     </span>
                   </div>
                   <div
@@ -1429,7 +1429,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                         </svg>
                       </span>
                       3. 
-                      pipeline-triggers.pipelineInputLabel
+                      pipeline.triggers.pipelineInputLabel
                     </span>
                   </div>
                 </div>
@@ -1446,7 +1446,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                     <h2
                       class="heading"
                     >
-                      pipeline-triggers.triggerConfigurationLabel
+                      pipeline.triggers.triggerConfigurationLabel
                     </h2>
                     <div>
                       <div
@@ -1581,7 +1581,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                         class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
                         level="2"
                       >
-                        pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook
+                        pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook
                       </h2>
                       <section
                         style="width: 650px;"
@@ -1594,7 +1594,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             class="bp3-label"
                             for="sourceRepo"
                           >
-                            pipeline-triggers.triggerConfigurationPanel.payloadType
+                            pipeline.triggers.triggerConfigurationPanel.payloadType
                              
                             <span
                               class="bp3-text-muted"
@@ -1757,7 +1757,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             class="bp3-label"
                             for="event"
                           >
-                            pipeline-triggers.triggerConfigurationPanel.event
+                            pipeline.triggers.triggerConfigurationPanel.event
                              
                             <span
                               class="bp3-text-muted"
@@ -1820,7 +1820,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                               class="StyledProps--font StyledProps--main"
                               style="font-size: 13px;"
                             >
-                              pipeline-triggers.triggerConfigurationPanel.actions
+                              pipeline.triggers.triggerConfigurationPanel.actions
                             </p>
                             <div
                               class="bp3-form-group bp3-disabled"
@@ -1876,7 +1876,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                 <span
                                   class="bp3-control-indicator"
                                 />
-                                pipeline-triggers.triggerConfigurationPanel.anyActions
+                                pipeline.triggers.triggerConfigurationPanel.anyActions
                               </label>
                             </div>
                           </div>
@@ -2048,7 +2048,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                         </svg>
                       </span>
                       1. 
-                      pipeline-triggers.triggerOverviewPanel.title
+                      pipeline.triggers.triggerOverviewPanel.title
                     </span>
                   </div>
                   <div
@@ -2086,7 +2086,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                         </svg>
                       </span>
                       2. 
-                      pipeline-triggers.schedulePanel.title
+                      pipeline.triggers.schedulePanel.title
                     </span>
                   </div>
                   <div
@@ -2124,7 +2124,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                         </svg>
                       </span>
                       3. 
-                      pipeline-triggers.pipelineInputLabel
+                      pipeline.triggers.pipelineInputLabel
                     </span>
                   </div>
                 </div>
@@ -2139,7 +2139,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                     class="Layout--vertical Layout--layout-spacing-large StyledProps--main triggerOverviewPanelContainer StyledProps--padding-xxlarge"
                   >
                     <h2>
-                      pipeline-triggers.triggerOverviewPanel.title
+                      pipeline.triggers.triggerOverviewPanel.title
                     </h2>
                     <div
                       class="StyledProps--font StyledProps--main main nameIdDescriptionTags"
@@ -2465,7 +2465,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                         </svg>
                       </span>
                       1. 
-                      pipeline-triggers.triggerOverviewPanel.title
+                      pipeline.triggers.triggerOverviewPanel.title
                     </span>
                   </div>
                   <div
@@ -2503,7 +2503,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                         </svg>
                       </span>
                       2. 
-                      pipeline-triggers.schedulePanel.title
+                      pipeline.triggers.schedulePanel.title
                     </span>
                   </div>
                   <div
@@ -2541,7 +2541,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                         </svg>
                       </span>
                       3. 
-                      pipeline-triggers.pipelineInputLabel
+                      pipeline.triggers.pipelineInputLabel
                     </span>
                   </div>
                 </div>
@@ -2558,7 +2558,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                     <h2
                       class="heading"
                     >
-                      pipeline-triggers.schedulePanel.title
+                      pipeline.triggers.schedulePanel.title
                     </h2>
                     <div
                       class="bp3-tabs Tabs--main Tabs--horizontal"
@@ -2604,7 +2604,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                             class="bp3-label"
                             for="expression"
                           >
-                            pipeline-triggers.schedulePanel.enterCustomCron
+                            pipeline.triggers.schedulePanel.enterCustomCron
                              
                             <span
                               class="bp3-text-muted"
@@ -2641,7 +2641,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                           <p
                             class="StyledProps--font StyledProps--main title"
                           >
-                            pipeline-triggers.schedulePanel.expressionBreakdown
+                            pipeline.triggers.schedulePanel.expressionBreakdown
                           </p>
                           <div
                             class="Layout--horizontal StyledProps--main"
@@ -2657,7 +2657,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                                 <p
                                   class="StyledProps--font StyledProps--main"
                                 >
-                                  pipeline-triggers.schedulePanel.minutesLabel
+                                  pipeline.triggers.schedulePanel.minutesLabel
                                 </p>
                               </div>
                               <div
@@ -2681,7 +2681,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                                 <p
                                   class="StyledProps--font StyledProps--main"
                                 >
-                                  pipeline-triggers.schedulePanel.hoursLabel
+                                  pipeline.triggers.schedulePanel.hoursLabel
                                 </p>
                               </div>
                               <div
@@ -2705,7 +2705,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                                 <p
                                   class="StyledProps--font StyledProps--main"
                                 >
-                                  pipeline-triggers.schedulePanel.dayOfMonthLabel
+                                  pipeline.triggers.schedulePanel.dayOfMonthLabel
                                 </p>
                               </div>
                               <div
@@ -2729,7 +2729,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                                 <p
                                   class="StyledProps--font StyledProps--main"
                                 >
-                                  pipeline-triggers.schedulePanel.monthLabel
+                                  pipeline.triggers.schedulePanel.monthLabel
                                 </p>
                               </div>
                               <div
@@ -2753,7 +2753,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                                 <p
                                   class="StyledProps--font StyledProps--main"
                                 >
-                                  pipeline-triggers.schedulePanel.dayOfWeekLabel
+                                  pipeline.triggers.schedulePanel.dayOfWeekLabel
                                 </p>
                               </div>
                               <div
@@ -2783,7 +2783,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                           <p
                             class="StyledProps--font StyledProps--main label"
                           >
-                            pipeline-triggers.schedulePanel.cronExpression
+                            pipeline.triggers.schedulePanel.cronExpression
                           </p>
                           <div
                             class="StyledProps--font StyledProps--main field"

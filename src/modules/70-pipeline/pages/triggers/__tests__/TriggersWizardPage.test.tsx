@@ -98,7 +98,7 @@ describe('TriggersWizardPage Triggers tests', () => {
         expect(() =>
           queryByText(
             document.body,
-            result.current.getString('pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook')
+            result.current.getString('pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook')
           )
         ).not.toBeNull()
       )
@@ -190,7 +190,7 @@ describe('TriggersWizardPage Triggers tests', () => {
       fireEvent.click(tab2)
       await waitFor(() =>
         expect(() =>
-          queryByText(document.body, result.current.getString('pipeline-triggers.schedulePanel.enterCustomCron'))
+          queryByText(document.body, result.current.getString('pipeline.triggers.schedulePanel.enterCustomCron'))
         ).not.toBeNull()
       )
       expect(container).toMatchSnapshot()
@@ -238,7 +238,7 @@ describe('TriggersWizardPage Triggers tests', () => {
       await waitFor(() => expect(() => queryByText(document.body, 'Loading, please wait...')).toBeDefined())
       await waitFor(() =>
         expect(() =>
-          queryByText(document.body, result.current.getString('pipeline-triggers.cannotParseTriggersData'))
+          queryByText(document.body, result.current.getString('pipeline.triggers.cannotParseTriggersData'))
         ).not.toBeNull()
       )
     })
@@ -289,7 +289,7 @@ describe('TriggersWizardPage Triggers tests', () => {
         .mockReturnValue(GetActionsListResponse as UseGetReturn<any, any, any, any>)
       const { container } = render(<WrapperComponent />)
       await waitFor(() =>
-        queryByText(container, result.current.getString('pipeline-triggers.triggerConfigurationLabel'))
+        queryByText(container, result.current.getString('pipeline.triggers.triggerConfigurationLabel'))
       )
 
       const tab3 = document.body.querySelector('[class*="bp3-tab-list"] [data-tab-id="Pipeline Input"]')
@@ -297,8 +297,8 @@ describe('TriggersWizardPage Triggers tests', () => {
         throw Error('No Pipeline Input tab')
       }
       fireEvent.click(tab3)
-      await waitFor(() => expect(result.current.getString('pipeline-triggers.updateTrigger')).not.toBeNull())
-      const updateButton = queryByText(container, result.current.getString('pipeline-triggers.updateTrigger'))
+      await waitFor(() => expect(result.current.getString('pipeline.triggers.updateTrigger')).not.toBeNull())
+      const updateButton = queryByText(container, result.current.getString('pipeline.triggers.updateTrigger'))
       if (!updateButton) {
         throw Error('Cannot find Update Trigger button')
       }
@@ -347,7 +347,7 @@ describe('TriggersWizardPage Triggers tests', () => {
         .mockReturnValue(GetActionsListResponse as UseGetReturn<any, any, any, any>)
       const { container } = render(<WrapperComponent />)
       await waitFor(() =>
-        queryByText(container, result.current.getString('pipeline-triggers.triggerConfigurationLabel'))
+        queryByText(container, result.current.getString('pipeline.triggers.triggerConfigurationLabel'))
       )
 
       const enabledSwitch = container.querySelector('[data-name="enabled-switch"]')
@@ -362,8 +362,8 @@ describe('TriggersWizardPage Triggers tests', () => {
         throw Error('No Pipeline Input tab')
       }
       fireEvent.click(tab3)
-      await waitFor(() => expect(result.current.getString('pipeline-triggers.updateTrigger')).not.toBeNull())
-      const updateButton = queryByText(container, result.current.getString('pipeline-triggers.updateTrigger'))
+      await waitFor(() => expect(result.current.getString('pipeline.triggers.updateTrigger')).not.toBeNull())
+      const updateButton = queryByText(container, result.current.getString('pipeline.triggers.updateTrigger'))
       if (!updateButton) {
         throw Error('Cannot find Update Trigger button')
       }
@@ -428,8 +428,8 @@ describe('TriggersWizardPage Triggers tests', () => {
         throw Error('No Pipeline Input tab')
       }
       fireEvent.click(tab3)
-      await waitFor(() => expect(result.current.getString('pipeline-triggers.updateTrigger')).not.toBeNull())
-      const updateButton = queryByText(container, result.current.getString('pipeline-triggers.updateTrigger'))
+      await waitFor(() => expect(result.current.getString('pipeline.triggers.updateTrigger')).not.toBeNull())
+      const updateButton = queryByText(container, result.current.getString('pipeline.triggers.updateTrigger'))
       if (!updateButton) {
         throw Error('Cannot find Update Trigger button')
       }
@@ -493,8 +493,8 @@ describe('TriggersWizardPage Triggers tests', () => {
         throw Error('No Pipeline Input tab')
       }
       fireEvent.click(tab3)
-      await waitFor(() => expect(result.current.getString('pipeline-triggers.updateTrigger')).not.toBeNull())
-      const updateButton = queryByText(container, result.current.getString('pipeline-triggers.updateTrigger'))
+      await waitFor(() => expect(result.current.getString('pipeline.triggers.updateTrigger')).not.toBeNull())
+      const updateButton = queryByText(container, result.current.getString('pipeline.triggers.updateTrigger'))
       if (!updateButton) {
         throw Error('Cannot find Update Trigger button')
       }
@@ -532,7 +532,7 @@ describe('TriggersWizardPage Triggers tests', () => {
       fireEvent.click(tab2)
       await waitFor(() =>
         expect(() =>
-          queryByText(document.body, result.current.getString('pipeline-triggers.schedulePanel.enterCustomCron'))
+          queryByText(document.body, result.current.getString('pipeline.triggers.schedulePanel.enterCustomCron'))
         ).not.toBeNull()
       )
       fillAtForm([
@@ -550,7 +550,7 @@ describe('TriggersWizardPage Triggers tests', () => {
       }
       fireEvent.click(tab3)
 
-      const updateButton = queryByText(container, result.current.getString('pipeline-triggers.updateTrigger'))
+      const updateButton = queryByText(container, result.current.getString('pipeline.triggers.updateTrigger'))
       if (!updateButton) {
         throw Error('Cannot find Update Trigger button')
       }
@@ -606,7 +606,7 @@ describe('TriggersWizardPage Triggers tests', () => {
         expect(() =>
           queryByText(
             document.body,
-            result.current.getString('pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook')
+            result.current.getString('pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook')
           )
         ).not.toBeNull()
       )

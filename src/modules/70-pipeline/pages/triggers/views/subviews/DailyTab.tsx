@@ -25,7 +25,7 @@ export default function DailyTab(props: DailyTabInterface): JSX.Element {
   return (
     <div className={css.dailyTab}>
       <TimeSelect
-        label={getString('pipeline-triggers.schedulePanel.runDailyAt')}
+        label={getString('pipeline.triggers.schedulePanel.runDailyAt')}
         hoursValue={hours}
         minutesValue={minutes}
         amPmValue={amPm}

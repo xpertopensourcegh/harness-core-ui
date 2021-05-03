@@ -34,9 +34,9 @@ export default function MonthlyTab(props: MonthlyTabInterface): JSX.Element {
   return (
     <div className={css.monthlyTab}>
       <Layout.Vertical>
-        <Text className={css.label}> {getString('pipeline-triggers.schedulePanel.runOnSpecificDay')}</Text>
+        <Text className={css.label}> {getString('pipeline.triggers.schedulePanel.runOnSpecificDay')}</Text>
         <Layout.Horizontal spacing="small" style={{ alignItems: 'center', marginBottom: 'var(--spacing-medium)' }}>
-          <Text className={css.label}>{getString('pipeline-triggers.schedulePanel.startingWith')}</Text>
+          <Text className={css.label}>{getString('pipeline.triggers.schedulePanel.startingWith')}</Text>
           <FormInput.Select
             className={css.selectMonth}
             name="startMonth"
@@ -70,7 +70,7 @@ export default function MonthlyTab(props: MonthlyTabInterface): JSX.Element {
           />
           <Text className={css.label}>
             {', '}
-            {getString('pipeline-triggers.schedulePanel.onThe')}
+            {getString('pipeline.triggers.schedulePanel.onThe')}
           </Text>
           <Toothpick
             startValue={dayOfMonth}
@@ -99,12 +99,12 @@ export default function MonthlyTab(props: MonthlyTabInterface): JSX.Element {
             }
             startOptions={getDayOptionsToMonth({ monthNo: startMonth, options: nthDayOptions })}
             endOptions={oneTwelveOptions}
-            adjoiningText={getString('pipeline-triggers.schedulePanel.ofEvery')}
-            endingText={getString('pipeline-triggers.schedulePanel.monthsParentheses')}
+            adjoiningText={getString('pipeline.triggers.schedulePanel.ofEvery')}
+            endingText={getString('pipeline.triggers.schedulePanel.monthsParentheses')}
           />
         </Layout.Horizontal>
         <TimeSelect
-          label={getString('pipeline-triggers.schedulePanel.runAt')}
+          label={getString('pipeline.triggers.schedulePanel.runAt')}
           hoursValue={hours}
           minutesValue={minutes}
           amPmValue={amPm}

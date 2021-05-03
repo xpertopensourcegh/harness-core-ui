@@ -37,7 +37,7 @@ export default function WeeklyTab(props: DailyTabInterface): JSX.Element {
     <div className={css.weeklyTab}>
       <Layout.Vertical style={{ alignItems: 'flex-start' }}>
         <Container>
-          <Text className={css.label}> {getString('pipeline-triggers.schedulePanel.runOn')}</Text>
+          <Text className={css.label}> {getString('pipeline.triggers.schedulePanel.runOn')}</Text>
           {shortDays.map(day => (
             <Button
               key={day}
@@ -76,9 +76,9 @@ export default function WeeklyTab(props: DailyTabInterface): JSX.Element {
               <Layout.Horizontal className={css.weekdayText}>
                 <Icon
                   style={{
-                    visibility: selectedDaysOfWeek.includes(day) ? 'visible' : 'hidden',
-                    marginRight: 'var(--spacing-xsmall)'
+                    visibility: selectedDaysOfWeek.includes(day) ? 'visible' : 'hidden'
                   }}
+                  className={css.checked}
                   background={Color.WHITE}
                   color={Color.WHITE}
                   size={16}
@@ -86,14 +86,14 @@ export default function WeeklyTab(props: DailyTabInterface): JSX.Element {
                 />
                 <Text>
                   {getString(
-                    `pipeline-triggers.schedulePanel.${day}` as StringKeys /* TODO: fix this by using a map */
+                    `pipeline.triggers.schedulePanel.${day}` as StringKeys /* TODO: fix this by using a map */
                   )}
                 </Text>
               </Layout.Horizontal>
             </Button>
           ))}
           <TimeSelect
-            label={getString('pipeline-triggers.schedulePanel.runAt')}
+            label={getString('pipeline.triggers.schedulePanel.runAt')}
             hoursValue={hours}
             minutesValue={minutes}
             amPmValue={amPm}

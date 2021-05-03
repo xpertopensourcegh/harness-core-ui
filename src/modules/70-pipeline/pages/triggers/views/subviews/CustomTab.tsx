@@ -24,7 +24,7 @@ export default function CustomTab(props: CustomTabInterface): JSX.Element {
   return (
     <>
       <FormInput.Text
-        label={getString('pipeline-triggers.schedulePanel.enterCustomCron')}
+        label={getString('pipeline.triggers.schedulePanel.enterCustomCron')}
         name="expression"
         style={{ margin: 0 }}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {

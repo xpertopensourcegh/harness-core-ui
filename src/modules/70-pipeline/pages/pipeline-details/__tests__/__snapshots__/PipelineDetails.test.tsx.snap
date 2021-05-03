@@ -93,7 +93,7 @@ exports[`Pipeline Details tests render snapshot view 1`] = `
           class="tags"
           href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/triggers"
         >
-          pipeline-triggers.triggersLabel
+          pipeline.triggers.triggersLabel
         </a>
         <a
           class="tags"

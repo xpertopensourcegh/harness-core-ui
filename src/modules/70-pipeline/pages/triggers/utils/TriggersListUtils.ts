@@ -38,33 +38,33 @@ export const getTriggerIcon = ({
 }
 
 const triggerDrawerMap = (getString: (key: StringKeys) => string): AddDrawerMapInterface => ({
-  drawerLabel: getString('pipeline-triggers.triggersLabel'),
-  drawerSubLabel: getString('pipeline-triggers.triggersSubLabel'),
-  showAllLabel: getString('pipeline-triggers.showAllTriggers'),
-  searchPlaceholder: getString('pipeline-triggers.searchPlaceholder'),
+  drawerLabel: getString('pipeline.triggers.triggersLabel'),
+  drawerSubLabel: getString('pipeline.triggers.triggersSubLabel'),
+  showAllLabel: getString('pipeline.triggers.showAllTriggers'),
+  searchPlaceholder: getString('pipeline.triggers.searchPlaceholder'),
   categories: [
     // {
-    //   categoryLabel: getString('pipeline-triggers.onNewArtifactTitle'),
+    //   categoryLabel: getString('pipeline.triggers.onNewArtifactTitle'),
     //   categoryValue: 'OnArtifact',
     //   items: [
     //     {
-    //       itemLabel: getString('pipeline-triggers.newArtifactLabel'),
+    //       itemLabel: getString('pipeline.triggers.newArtifactLabel'),
     //       value: 'NewArtifact',
     //       iconName: 'trigger-artifact' as IconName
     //     },
     //     {
-    //       itemLabel: getString('pipeline-triggers.newManifestLabel'),
+    //       itemLabel: getString('pipeline.triggers.newManifestLabel'),
     //       value: 'NewManifest',
     //       iconName: 'trigger-artifact' as IconName
     //     }
     //   ]
     // },
     {
-      categoryLabel: getString('pipeline-triggers.scheduledLabel'),
+      categoryLabel: getString('pipeline.triggers.scheduledLabel'),
       categoryValue: 'Scheduled',
       items: [
         {
-          itemLabel: getString('pipeline-triggers.cronLabel'),
+          itemLabel: getString('pipeline.triggers.cronLabel'),
           value: 'Cron',
           iconName: TriggerTypeIcons.SCHEDULE as IconName
         }

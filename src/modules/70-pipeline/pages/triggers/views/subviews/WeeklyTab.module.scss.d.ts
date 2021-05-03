@@ -6,5 +6,6 @@ declare const styles: {
   readonly weekdayText: string
   readonly label: string
   readonly weekday: string
+  readonly checked: string
 }
 export default styles

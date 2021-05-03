@@ -18,12 +18,12 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
             <h2
               class="heading"
             >
-              pipeline-triggers.pipelineInputLabel
+              pipeline.triggers.pipelineInputLabel
             </h2>
             <p
               class="StyledProps--font StyledProps--main"
             >
-              pipeline-triggers.pipelineInputPanel.noRuntimeInputs
+              pipeline.triggers.pipelineInputPanel.noRuntimeInputs
             </p>
           </div>
         </div>
@@ -200,7 +200,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                   class="StyledProps--font StyledProps--font-h2 StyledProps--main"
                   level="2"
                 >
-                  pipeline-triggers.pipelineInputLabel
+                  pipeline.triggers.pipelineInputLabel
                 </h2>
                 <span
                   class="bp3-popover-wrapper"

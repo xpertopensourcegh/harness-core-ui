@@ -23,7 +23,7 @@ export default function MinutesTab(props: MinutesTabInterface): JSX.Element {
 
   return (
     <div className={css.minutesTab}>
-      <Text className={css.label}>{getString('pipeline-triggers.schedulePanel.runEvery')}</Text>
+      <Text className={css.label}>{getString('pipeline.triggers.schedulePanel.runEvery')}</Text>
       <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
         <FormInput.Select
           name="minutes"
@@ -42,7 +42,7 @@ export default function MinutesTab(props: MinutesTabInterface): JSX.Element {
           }}
         />
         <Text style={{ marginBottom: 'var(--spacing-medium)' }} color={Color.GREY_800}>
-          {getString('pipeline-triggers.schedulePanel.minutesParentheses')}
+          {getString('pipeline.triggers.schedulePanel.minutesParentheses')}
         </Text>
       </Layout.Horizontal>
       <Spacer paddingTop="var(--spacing-xsmall)" />

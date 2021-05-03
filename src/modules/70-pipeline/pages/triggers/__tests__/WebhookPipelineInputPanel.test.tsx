@@ -1,11 +1,12 @@
 import React from 'react'
 import { render, waitFor, queryByAttribute } from '@testing-library/react'
 import { Formik, FormikForm } from '@wings-software/uicore'
+import { renderHook } from '@testing-library/react-hooks'
 import type { UseGetReturn, UseMutateReturn } from 'restful-react'
 import * as pipelineNg from 'services/pipeline-ng'
-import strings from 'strings/strings.en.yaml'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { TestWrapper } from '@common/utils/testUtils'
+import { useStrings } from 'framework/strings'
 import {
   GetTemplateFromPipelineResponse,
   GetTemplateFromPipelineResponseEmpty,
@@ -24,6 +25,11 @@ jest.mock('services/cd-ng', () => ({
 }))
 
 const defaultTriggerConfigDefaultProps = getTriggerConfigDefaultProps({})
+
+const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
+  <TestWrapper>{children}</TestWrapper>
+)
+const { result } = renderHook(() => useStrings(), { wrapper })
 
 function WrapperComponent(): JSX.Element {
   return (
@@ -74,7 +80,7 @@ describe('WebhookPipelineInputPanel Triggers tests', () => {
         .mockReturnValue(GetInputSetsResponse as UseGetReturn<any, any, any, any>)
 
       const { container } = render(<WrapperComponent />)
-      await waitFor(() => expect(strings['pipeline-triggers'].pipelineInputLabel).toBeTruthy())
+      await waitFor(() => expect(result.current.getString('pipeline.triggers.pipelineInputLabel')).toBeTruthy())
       expect(container).toMatchSnapshot()
     })
 
@@ -92,7 +98,8 @@ describe('WebhookPipelineInputPanel Triggers tests', () => {
         .mockReturnValue(GetInputSetsResponse as UseGetReturn<any, any, any, any>)
 
       const { container } = render(<WrapperComponent />)
-      await waitFor(() => expect(strings['pipeline-triggers'].pipelineInputLabel).toBeTruthy())
+      await waitFor(() => expect(result.current.getString('pipeline.triggers.pipelineInputLabel')).toBeTruthy())
+      // await waitFor(() => expect(strings['pipeline'].triggers.pipelineInputLabel).toBeTruthy())
       await waitFor(() => queryByAttribute('placeholder', container, 'cd.steps.common.namespacePlaceholder'))
       expect(container).toMatchSnapshot()
     })

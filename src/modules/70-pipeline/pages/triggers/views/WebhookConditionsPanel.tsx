@@ -45,7 +45,7 @@ export const ConditionRow = ({
         style={{ alignSelf: valueError ? 'baseline' : 'center' }}
         items={mockOperators}
         name={operatorKey}
-        label={getString('pipeline-triggers.conditionsPanel.operator')}
+        label={getString('pipeline.triggers.conditionsPanel.operator')}
         onChange={() => {
           formikProps.setFieldTouched(valueKey, true)
         }}
@@ -53,7 +53,7 @@ export const ConditionRow = ({
       <FormInput.Text
         name={valueKey}
         style={{ alignSelf: operatorError ? 'baseline' : 'center' }}
-        label={getString('pipeline-triggers.conditionsPanel.matchesValue')}
+        label={getString('pipeline.triggers.conditionsPanel.matchesValue')}
         onChange={() => {
           formikProps.setFieldTouched(operatorKey, true)
         }}
@@ -78,17 +78,17 @@ const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = (
           {getString('titleOptional')}
         </Text>
       </h2>
-      <Text>{getString('pipeline-triggers.conditionsPanel.subtitle')}</Text>
+      <Text>{getString('pipeline.triggers.conditionsPanel.subtitle')}</Text>
       {sourceRepo !== GitSourceProviders.CUSTOM.value && (
         <section>
           <Heading level={2} font={{ weight: 'bold' }}>
-            {getString('pipeline-triggers.conditionsPanel.branchConditions')}
+            {getString('pipeline.triggers.conditionsPanel.branchConditions')}
           </Heading>
           {event !== eventTypes.PUSH && event !== eventTypes.TAG && (
             <ConditionRow
               formikProps={formikProps}
               name="sourceBranch"
-              label={getString('pipeline-triggers.conditionsPanel.sourceBranch')}
+              label={getString('pipeline.triggers.conditionsPanel.sourceBranch')}
             />
           )}
           {event !== eventTypes.TAG && (
@@ -97,8 +97,8 @@ const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = (
               name="targetBranch"
               label={
                 event === eventTypes.PUSH
-                  ? getString('pipeline-triggers.conditionsPanel.branchName')
-                  : getString('pipeline-triggers.conditionsPanel.targetBranch')
+                  ? getString('pipeline.triggers.conditionsPanel.branchName')
+                  : getString('pipeline.triggers.conditionsPanel.targetBranch')
               }
             />
           )}
@@ -106,13 +106,13 @@ const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = (
             <ConditionRow
               formikProps={formikProps}
               name="tagCondition"
-              label={getString('pipeline-triggers.conditionsPanel.tagName')}
+              label={getString('pipeline.triggers.conditionsPanel.tagName')}
             />
           )}
         </section>
       )}
       <AddConditionsSection
-        title={getString('pipeline-triggers.conditionsPanel.headerConditions')}
+        title={getString('pipeline.triggers.conditionsPanel.headerConditions')}
         key="headerConditions"
         fieldId="headerConditions"
         formikValues={formikValues}
@@ -120,7 +120,7 @@ const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = (
         errors={errors}
       />
       <AddConditionsSection
-        title={getString('pipeline-triggers.conditionsPanel.payloadConditions')}
+        title={getString('pipeline.triggers.conditionsPanel.payloadConditions')}
         key="payloadConditions"
         fieldId="payloadConditions"
         formikValues={formikValues}
@@ -130,7 +130,7 @@ const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = (
       <FormInput.Text
         style={{ width: '100%' }}
         name="jexlCondition"
-        label={getString('pipeline-triggers.conditionsPanel.jexlCondition')}
+        label={getString('pipeline.triggers.conditionsPanel.jexlCondition')}
       />
     </Layout.Vertical>
   )

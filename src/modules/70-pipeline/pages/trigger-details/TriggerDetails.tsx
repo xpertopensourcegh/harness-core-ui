@@ -34,7 +34,7 @@ export const TriggerBreadcrumbs = ({
   const project = selectedProject
   const { getString } = useStrings()
   const onEditTriggerName = triggerResponse?.data?.name
-  useDocumentTitle([getString('pipelines'), getString('pipeline-triggers.triggersLabel')])
+  useDocumentTitle([getString('pipelines'), getString('pipeline.triggers.triggersLabel')])
 
   return (
     <Breadcrumbs
@@ -112,7 +112,7 @@ const GetTriggerRightNav = (): JSX.Element => {
           activeClassName={css.activeTag}
           to={routes.toTriggersPage({ orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module })}
         >
-          {getString('pipeline-triggers.triggersLabel')}
+          {getString('pipeline.triggers.triggersLabel')}
         </NavLink>
         <NavLink
           className={css.tags}

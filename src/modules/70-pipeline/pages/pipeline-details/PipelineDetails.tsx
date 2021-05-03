@@ -126,7 +126,7 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
                   module
                 })}
               >
-                {getString('pipeline-triggers.triggersLabel')}
+                {getString('pipeline.triggers.triggersLabel')}
               </NavLink>
               <NavLink
                 className={cx(css.tags, { [css.disabled]: pipelineIdentifier === DefaultNewPipelineId })}

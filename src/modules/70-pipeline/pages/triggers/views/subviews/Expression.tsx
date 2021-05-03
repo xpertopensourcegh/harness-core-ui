@@ -19,7 +19,7 @@ export default function Expression(props: ExpressionInterface): JSX.Element {
   const showError = selectedScheduleTab === scheduleTabsId.CUSTOM && !isCronValid(expression)
   return (
     <Container data-name="expression" className={css.expression}>
-      <Text className={css.label}>{getString('pipeline-triggers.schedulePanel.cronExpression')}</Text>
+      <Text className={css.label}>{getString('pipeline.triggers.schedulePanel.cronExpression')}</Text>
       <Container className={cx(css.field, (showError && css.errorField) || '')}>
         <Text>{expression}</Text>
       </Container>

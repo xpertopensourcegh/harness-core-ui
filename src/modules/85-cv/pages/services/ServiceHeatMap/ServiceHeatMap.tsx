@@ -96,7 +96,7 @@ function getHeatmapCellTimeRange(heatmapData: HeatMapDTO[], getString: UseString
     )} ${getString('cv.perHeatMapCell')})`
   }
   return `(${timeDifference} ${getString(
-    'pipeline-triggers.schedulePanel.minutesLabel'
+    'pipeline.triggers.schedulePanel.minutesLabel'
   ).toLocaleLowerCase()} ${getString('cv.perHeatMapCell')})`
 }
 

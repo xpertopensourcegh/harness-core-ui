@@ -33,7 +33,7 @@ export default function YearlyTab(props: YearlyTabInterface): JSX.Element {
     <div className={css.yearlyTab}>
       <Layout.Vertical>
         <Toothpick
-          label={getString('pipeline-triggers.schedulePanel.runOnSpecificDayMonth')}
+          label={getString('pipeline.triggers.schedulePanel.runOnSpecificDayMonth')}
           startValue={month}
           handleStartValueChange={option => {
             const dayOfMonthResetExpression = getUpdatedExpression({
@@ -66,10 +66,10 @@ export default function YearlyTab(props: YearlyTabInterface): JSX.Element {
           }
           startOptions={monthOptions}
           endOptions={getDayOptionsToMonth({ monthNo: month, options: nthDayOptions })}
-          adjoiningText={getString('pipeline-triggers.schedulePanel.onThe')}
+          adjoiningText={getString('pipeline.triggers.schedulePanel.onThe')}
         />
         <TimeSelect
-          label={getString('pipeline-triggers.schedulePanel.runAt')}
+          label={getString('pipeline.triggers.schedulePanel.runAt')}
           hoursValue={hours}
           minutesValue={minutes}
           amPmValue={amPm}

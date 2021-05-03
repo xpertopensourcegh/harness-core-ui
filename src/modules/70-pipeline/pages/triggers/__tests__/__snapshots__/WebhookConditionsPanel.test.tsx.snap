@@ -27,7 +27,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
           <p
             class="StyledProps--font StyledProps--main"
           >
-            pipeline-triggers.conditionsPanel.subtitle
+            pipeline.triggers.conditionsPanel.subtitle
           </p>
           <section
             data-name="headerConditions"
@@ -36,7 +36,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
               class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-bold"
               level="2"
             >
-              pipeline-triggers.conditionsPanel.headerConditions
+              pipeline.triggers.conditionsPanel.headerConditions
             </h2>
             <div
               style="margin-top: 20px;"
@@ -56,7 +56,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
               class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-bold"
               level="2"
             >
-              pipeline-triggers.conditionsPanel.payloadConditions
+              pipeline.triggers.conditionsPanel.payloadConditions
             </h2>
             <div
               style="margin-top: 20px;"
@@ -78,7 +78,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
               class="bp3-label"
               for="jexlCondition"
             >
-              pipeline-triggers.conditionsPanel.jexlCondition
+              pipeline.triggers.conditionsPanel.jexlCondition
                
               <span
                 class="bp3-text-muted"
@@ -144,14 +144,14 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
           <p
             class="StyledProps--font StyledProps--main"
           >
-            pipeline-triggers.conditionsPanel.subtitle
+            pipeline.triggers.conditionsPanel.subtitle
           </p>
           <section>
             <h2
               class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-bold"
               level="2"
             >
-              pipeline-triggers.conditionsPanel.branchConditions
+              pipeline.triggers.conditionsPanel.branchConditions
             </h2>
             <div
               class="conditionsRow"
@@ -161,7 +161,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
                   class="StyledProps--font StyledProps--main"
                   style="font-size: 16px;"
                 >
-                  pipeline-triggers.conditionsPanel.sourceBranch
+                  pipeline.triggers.conditionsPanel.sourceBranch
                 </p>
               </div>
               <div
@@ -173,7 +173,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
                   class="bp3-label"
                   for="sourceBranchOperator"
                 >
-                  pipeline-triggers.conditionsPanel.operator
+                  pipeline.triggers.conditionsPanel.operator
                    
                   <span
                     class="bp3-text-muted"
@@ -237,7 +237,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
                   class="bp3-label"
                   for="sourceBranchValue"
                 >
-                  pipeline-triggers.conditionsPanel.matchesValue
+                  pipeline.triggers.conditionsPanel.matchesValue
                    
                   <span
                     class="bp3-text-muted"
@@ -268,7 +268,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
                   class="StyledProps--font StyledProps--main"
                   style="font-size: 16px;"
                 >
-                  pipeline-triggers.conditionsPanel.targetBranch
+                  pipeline.triggers.conditionsPanel.targetBranch
                 </p>
               </div>
               <div
@@ -280,7 +280,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
                   class="bp3-label"
                   for="targetBranchOperator"
                 >
-                  pipeline-triggers.conditionsPanel.operator
+                  pipeline.triggers.conditionsPanel.operator
                    
                   <span
                     class="bp3-text-muted"
@@ -344,7 +344,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
                   class="bp3-label"
                   for="targetBranchValue"
                 >
-                  pipeline-triggers.conditionsPanel.matchesValue
+                  pipeline.triggers.conditionsPanel.matchesValue
                    
                   <span
                     class="bp3-text-muted"
@@ -375,7 +375,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
               class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-bold"
               level="2"
             >
-              pipeline-triggers.conditionsPanel.headerConditions
+              pipeline.triggers.conditionsPanel.headerConditions
             </h2>
             <div
               style="margin-top: 20px;"
@@ -395,7 +395,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
               class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-bold"
               level="2"
             >
-              pipeline-triggers.conditionsPanel.payloadConditions
+              pipeline.triggers.conditionsPanel.payloadConditions
             </h2>
             <div
               style="margin-top: 20px;"
@@ -417,7 +417,7 @@ exports[`WebhookConditionsPanel Triggers tests Renders/snapshots Initial Render 
               class="bp3-label"
               for="jexlCondition"
             >
-              pipeline-triggers.conditionsPanel.jexlCondition
+              pipeline.triggers.conditionsPanel.jexlCondition
                
               <span
                 class="bp3-text-muted"

@@ -38,14 +38,11 @@
     }
   }
   .inactive {
-    background-color: var(--grey-200) !important;
+    background-color: var(--grey-100) !important;
   }
 
   .column {
-    //   border-top: 1px solid var(--grey-800);
     border-top: 1px solid var(--bp3-intent-color, #dddddd);
     border-bottom: 1px solid var(--bp3-intent-color, #dddddd);
-
-    // border-left: 1px solid var(--grey-800);
   }
 }

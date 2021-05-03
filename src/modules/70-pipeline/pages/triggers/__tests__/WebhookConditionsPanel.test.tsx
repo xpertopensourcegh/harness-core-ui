@@ -69,7 +69,7 @@ describe('WebhookConditionsPanel Triggers tests', () => {
         throw Error('no add button')
       }
       fireEvent.click(addButton)
-      expect(result.current.getString('pipeline-triggers.conditionsPanel.attribute')).not.toBeNull()
+      expect(result.current.getString('pipeline.triggers.conditionsPanel.attribute')).not.toBeNull()
     })
 
     test('Delete Payload Conditions row (1st of 3 rows)', async () => {
@@ -82,7 +82,7 @@ describe('WebhookConditionsPanel Triggers tests', () => {
         throw Error('no add button')
       }
       fireEvent.click(addButton)
-      expect(result.current.getString('pipeline-triggers.conditionsPanel.attribute')).not.toBeNull()
+      expect(result.current.getString('pipeline.triggers.conditionsPanel.attribute')).not.toBeNull()
       await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"]').length).toEqual(1))
 
       const addButton2 = document.body.querySelector('[data-name="payloadConditions"] [data-name="plusAdd"]')
@@ -131,7 +131,7 @@ describe('WebhookConditionsPanel Triggers tests', () => {
         throw Error('no add button')
       }
       fireEvent.click(addButton)
-      expect(result.current.getString('pipeline-triggers.conditionsPanel.attribute')).not.toBeNull()
+      expect(result.current.getString('pipeline.triggers.conditionsPanel.attribute')).not.toBeNull()
       await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"]').length).toEqual(1))
 
       const addButton2 = document.body.querySelector('[data-name="payloadConditions"] [data-name="plusAdd"]')
@@ -205,7 +205,7 @@ describe('WebhookConditionsPanel Triggers tests', () => {
       }
       fireEvent.click(submit)
       await waitFor(() =>
-        expect(getByText(result.current.getString('pipeline-triggers.validation.matchesValue'))).not.toBeNull()
+        expect(getByText(result.current.getString('pipeline.triggers.validation.matchesValue'))).not.toBeNull()
       )
       fillAtForm([
         {
@@ -254,7 +254,7 @@ describe('WebhookConditionsPanel Triggers tests', () => {
       }
       fireEvent.click(submit)
       await waitFor(() =>
-        expect(getByText(result.current.getString('pipeline-triggers.validation.payloadConditions'))).not.toBeNull()
+        expect(getByText(result.current.getString('pipeline.triggers.validation.payloadConditions'))).not.toBeNull()
       )
     })
   })
@@ -271,7 +271,7 @@ describe('WebhookConditionsPanel Triggers tests', () => {
         throw Error('no add button')
       }
       fireEvent.click(addButton)
-      expect(result.current.getString('pipeline-triggers.conditionsPanel.attribute')).not.toBeNull()
+      expect(result.current.getString('pipeline.triggers.conditionsPanel.attribute')).not.toBeNull()
     })
 
     test('Delete Header Conditions row (3rd of 3 rows)', async () => {
@@ -286,7 +286,7 @@ describe('WebhookConditionsPanel Triggers tests', () => {
         throw Error('no add button')
       }
       fireEvent.click(addButton)
-      expect(result.current.getString('pipeline-triggers.conditionsPanel.attribute')).not.toBeNull()
+      expect(result.current.getString('pipeline.triggers.conditionsPanel.attribute')).not.toBeNull()
       await waitFor(() => expect(container.querySelectorAll('[class*="addConditionsRow"]').length).toEqual(1))
 
       const addButton2 = document.body.querySelector('[data-name="headerConditions"] [data-name="plusAdd"]')

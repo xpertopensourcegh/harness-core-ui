@@ -32,8 +32,11 @@
 .weekday {
   width: 93px;
   height: 38px !important;
+  max-height: 38px !important;
   margin: 0 var(--spacing-xsmall) var(--spacing-small) 0 !important;
-  border-color: var(--bp3-intent-color, #dddddd) !important;
+  border: 1px solid var(--bp3-intent-color, #dddddd) !important;
+  box-shadow: none !important;
+  background-color: var(--white) !important;
 
   [data-icon='deployment-success-new'] svg path {
     &:first-child {
@@ -43,4 +46,10 @@
       fill: var(--primary-7) !important;
     }
   }
+}
+.checked {
+  margin-right: var(--spacing-xsmall) !important;
+  height: 16px;
+  position: relative;
+  top: 1px;
 }

@@ -149,11 +149,11 @@ const getTriggerTitle = ({
   if (triggerName) {
     return `Trigger: ${triggerName}`
   } else if (triggerType === TriggerTypes.WEBHOOK) {
-    return getString('pipeline-triggers.onNewWebhookTitle')
+    return getString('pipeline.triggers.onNewWebhookTitle')
   } else if (triggerType === TriggerTypes.NEW_ARTIFACT) {
-    return getString('pipeline-triggers.onNewArtifactTitle')
+    return getString('pipeline.triggers.onNewArtifactTitle')
   } else if (triggerType === TriggerTypes.SCHEDULE) {
-    return getString('pipeline-triggers.onNewScheduleTitle')
+    return getString('pipeline.triggers.onNewScheduleTitle')
   }
   return ''
 }
@@ -261,7 +261,7 @@ const getPanels = ({
     return [
       {
         id: 'Trigger Configuration',
-        tabTitle: getString('pipeline-triggers.triggerConfigurationLabel'),
+        tabTitle: getString('pipeline.triggers.triggerConfigurationLabel'),
         requiredFields: ['name', 'identifier'], // conditional required validations checkValidTriggerConfiguration
         checkValidPanel: checkValidTriggerConfiguration
       },
@@ -272,7 +272,7 @@ const getPanels = ({
       },
       {
         id: 'Pipeline Input',
-        tabTitle: getString('pipeline-triggers.pipelineInputLabel')
+        tabTitle: getString('pipeline.triggers.pipelineInputLabel')
         // require all fields for input set and have preflight check handled on backend
       }
     ]
@@ -280,19 +280,19 @@ const getPanels = ({
     return [
       {
         id: 'Trigger Overview',
-        tabTitle: getString('pipeline-triggers.triggerOverviewPanel.title'),
+        tabTitle: getString('pipeline.triggers.triggerOverviewPanel.title'),
         checkValidPanel: checkValidOverview,
         requiredFields: ['name', 'identifier'] // conditional required validations checkValidTriggerConfiguration
       },
       {
         id: 'Schedule',
-        tabTitle: getString('pipeline-triggers.schedulePanel.title'),
+        tabTitle: getString('pipeline.triggers.schedulePanel.title'),
         checkValidPanel: checkValidCronExpression,
         requiredFields: ['expression']
       },
       {
         id: 'Pipeline Input',
-        tabTitle: getString('pipeline-triggers.pipelineInputLabel')
+        tabTitle: getString('pipeline.triggers.pipelineInputLabel')
         // require all fields for input set and have preflight check handled on backend
       }
     ]
@@ -323,7 +323,7 @@ export const getValidationSchema = (
 ): ObjectSchema<Record<string, any> | undefined> => {
   if (triggerType === TriggerTypes.WEBHOOK) {
     return object().shape({
-      name: string().trim().required(getString('pipeline-triggers.validation.triggerName')),
+      name: string().trim().required(getString('pipeline.triggers.validation.triggerName')),
       identifier: string().when('name', {
         is: val => val?.length,
         then: string()
@@ -332,22 +332,22 @@ export const getValidationSchema = (
           .notOneOf(illegalIdentifiers)
       }),
       event: string().test(
-        getString('pipeline-triggers.validation.event'),
-        getString('pipeline-triggers.validation.event'),
+        getString('pipeline.triggers.validation.event'),
+        getString('pipeline.triggers.validation.event'),
         function (event) {
           return this.parent.sourceRepo === CUSTOM || event
         }
       ),
       connectorRef: object().test(
-        getString('pipeline-triggers.validation.connector'),
-        getString('pipeline-triggers.validation.connector'),
+        getString('pipeline.triggers.validation.connector'),
+        getString('pipeline.triggers.validation.connector'),
         function (connectorRef) {
           return this.parent.sourceRepo === CUSTOM || connectorRef?.value
         }
       ),
       repoName: string().test(
-        getString('pipeline-triggers.validation.repoName'),
-        getString('pipeline-triggers.validation.repoName'),
+        getString('pipeline.triggers.validation.repoName'),
+        getString('pipeline.triggers.validation.repoName'),
         function (repoName) {
           const connectorURLType = this.parent.connectorRef?.connector?.spec?.type
           return (
@@ -359,15 +359,15 @@ export const getValidationSchema = (
         }
       ),
       actions: array().test(
-        getString('pipeline-triggers.validation.actions'),
-        getString('pipeline-triggers.validation.actions'),
+        getString('pipeline.triggers.validation.actions'),
+        getString('pipeline.triggers.validation.actions'),
         function (actions) {
           return this.parent.sourceRepo === CUSTOM || !isUndefined(actions)
         }
       ),
       sourceBranchOperator: string().test(
-        getString('pipeline-triggers.validation.operator'),
-        getString('pipeline-triggers.validation.operator'),
+        getString('pipeline.triggers.validation.operator'),
+        getString('pipeline.triggers.validation.operator'),
         function (operator) {
           return (
             // both filled or both empty. Return false to show error
@@ -378,8 +378,8 @@ export const getValidationSchema = (
         }
       ),
       sourceBranchValue: string().test(
-        getString('pipeline-triggers.validation.matchesValue'),
-        getString('pipeline-triggers.validation.matchesValue'),
+        getString('pipeline.triggers.validation.matchesValue'),
+        getString('pipeline.triggers.validation.matchesValue'),
         function (matchesValue) {
           return (
             (matchesValue && !this.parent.sourceBranchOperator) ||
@@ -389,8 +389,8 @@ export const getValidationSchema = (
         }
       ),
       targetBranchOperator: string().test(
-        getString('pipeline-triggers.validation.operator'),
-        getString('pipeline-triggers.validation.operator'),
+        getString('pipeline.triggers.validation.operator'),
+        getString('pipeline.triggers.validation.operator'),
         function (operator) {
           return (
             (operator && !this.parent.targetBranchValue) ||
@@ -400,8 +400,8 @@ export const getValidationSchema = (
         }
       ),
       targetBranchValue: string().test(
-        getString('pipeline-triggers.validation.matchesValue'),
-        getString('pipeline-triggers.validation.matchesValue'),
+        getString('pipeline.triggers.validation.matchesValue'),
+        getString('pipeline.triggers.validation.matchesValue'),
         function (matchesValue) {
           return (
             (matchesValue && !this.parent.targetBranchOperator) ||
@@ -411,8 +411,8 @@ export const getValidationSchema = (
         }
       ),
       tagConditionOperator: string().test(
-        getString('pipeline-triggers.validation.operator'),
-        getString('pipeline-triggers.validation.operator'),
+        getString('pipeline.triggers.validation.operator'),
+        getString('pipeline.triggers.validation.operator'),
         function (operator) {
           return (
             (operator && !this.parent.tagConditionValue) ||
@@ -422,8 +422,8 @@ export const getValidationSchema = (
         }
       ),
       tagConditionValue: string().test(
-        getString('pipeline-triggers.validation.matchesValue'),
-        getString('pipeline-triggers.validation.matchesValue'),
+        getString('pipeline.triggers.validation.matchesValue'),
+        getString('pipeline.triggers.validation.matchesValue'),
         function (matchesValue) {
           return (
             (matchesValue && !this.parent.tagConditionOperator) ||
@@ -433,8 +433,8 @@ export const getValidationSchema = (
         }
       ),
       payloadConditions: array().test(
-        getString('pipeline-triggers.validation.payloadConditions'),
-        getString('pipeline-triggers.validation.payloadConditions'),
+        getString('pipeline.triggers.validation.payloadConditions'),
+        getString('pipeline.triggers.validation.payloadConditions'),
         function (payloadConditions = []) {
           if (payloadConditions.some((payloadCondition: AddConditionInterface) => isRowUnfilled(payloadCondition))) {
             return false
@@ -443,8 +443,8 @@ export const getValidationSchema = (
         }
       ),
       headerConditions: array().test(
-        getString('pipeline-triggers.validation.headerConditions'),
-        getString('pipeline-triggers.validation.headerConditions'),
+        getString('pipeline.triggers.validation.headerConditions'),
+        getString('pipeline.triggers.validation.headerConditions'),
         function (headerConditions = []) {
           if (headerConditions.some((headerCondition: AddConditionInterface) => isRowUnfilled(headerCondition))) {
             return false
@@ -456,7 +456,7 @@ export const getValidationSchema = (
   } else {
     // Scheduled
     return object().shape({
-      name: string().trim().required(getString('pipeline-triggers.validation.triggerName')),
+      name: string().trim().required(getString('pipeline.triggers.validation.triggerName')),
       identifier: string().when('name', {
         is: val => val?.length,
         then: string()
@@ -465,8 +465,8 @@ export const getValidationSchema = (
           .notOneOf(illegalIdentifiers)
       }),
       expression: string().test(
-        getString('pipeline-triggers.validation.cronExpression'),
-        getString('pipeline-triggers.validation.cronExpression'),
+        getString('pipeline.triggers.validation.cronExpression'),
+        getString('pipeline.triggers.validation.cronExpression'),
         function (expression) {
           return isCronValid(expression || '')
         }
@@ -491,6 +491,6 @@ export const isPipelineWithCiCodebase = (pipeline: any): boolean =>
 export const ciCodebaseBuild = {
   type: 'branch',
   spec: {
-    branch: '<+ trigger.branch>'
+    branch: '<+trigger.branch>'
   }
 }

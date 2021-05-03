@@ -73,8 +73,8 @@ const RenderColumnMenu: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
   })
 
   const { openDialog: confirmDelete } = useConfirmationDialog({
-    contentText: `${column.getString('pipeline-triggers.confirmDelete')} ${data.name || /* istanbul ignore next */ ''}`,
-    titleText: column.getString('pipeline-triggers.triggerLabel'),
+    contentText: `${column.getString('pipeline.triggers.confirmDelete')} ${data.name || /* istanbul ignore next */ ''}`,
+    titleText: column.getString('pipeline.triggers.triggerLabel'),
     confirmButtonText: column.getString('delete'),
     cancelButtonText: column.getString('cancel'),
     onCloseDialog: async (isConfirmed: boolean) => {
@@ -87,7 +87,7 @@ const RenderColumnMenu: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
           /* istanbul ignore else */
           if (deleted.status === 'SUCCESS') {
             column.showSuccess(
-              `${column.getString('pipeline-triggers.triggerLabel')} ${
+              `${column.getString('pipeline.triggers.triggerLabel')} ${
                 data.name || /* istanbul ignore next */ ''
               } ${column.getString('deleted')}`
             )
@@ -209,8 +209,8 @@ const RenderColumnActivity: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
     <Layout.Horizontal flex={{ align: 'center-center' }} spacing="xsmall">
       <span className={css.activityChart}>{numActivations !== 0 && <SparkChart data={executions} />}</span>
       <Container style={{ textAlign: 'start', paddingLeft: 'var(--spacing-xsmall)' }}>
-        <span>{column.getString('pipeline-triggers.activityActivation', { numActivations })}</span>
-        <Text>{column.getString('pipeline-triggers.activityDays', { numDays })}</Text>
+        <span>{column.getString('pipeline.triggers.activityActivation', { numActivations })}</span>
+        <Text>{column.getString('pipeline.triggers.activityDays', { numDays })}</Text>
       </Container>
     </Layout.Horizontal>
   )
@@ -308,21 +308,21 @@ const RenderWebhookIcon = ({
         />
         <Menu style={{ minWidth: 'unset' }}>
           <Menu.Item
-            text={column.getString('pipeline-triggers.copyAsUrl')}
+            text={column.getString('pipeline.triggers.copyAsUrl')}
             onClick={(e: React.MouseEvent) => {
               e.stopPropagation()
               copy(webhookUrl)
-              ;(column as any).showSuccess(column.getString('pipeline-triggers.toast.webhookUrlCopied'))
+              ;(column as any).showSuccess(column.getString('pipeline.triggers.toast.webhookUrlCopied'))
               setOptionsOpen(false)
             }}
           />
           <Menu.Divider />
           <Menu.Item
-            text={column.getString('pipeline-triggers.copyAsCurl')}
+            text={column.getString('pipeline.triggers.copyAsCurl')}
             onClick={(e: React.MouseEvent) => {
               e.stopPropagation()
               copy(curlCommand)
-              ;(column as any).showSuccess(column.getString('pipeline-triggers.toast.webhookCurlCopied'))
+              ;(column as any).showSuccess(column.getString('pipeline.triggers.toast.webhookCurlCopied'))
               setOptionsOpen(false)
             }}
           />
@@ -339,7 +339,7 @@ const RenderWebhookIcon = ({
         onClick={e => {
           e.stopPropagation()
           copy(webhookUrl)
-          ;(column as any).showSuccess(column.getString('pipeline-triggers.toast.webhookUrlCopied'))
+          ;(column as any).showSuccess(column.getString('pipeline.triggers.toast.webhookUrlCopied'))
         }}
       />
     )
@@ -418,7 +418,7 @@ const RenderColumnEnable: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
 
           if (updated.status === 'SUCCESS') {
             column.showSuccess(
-              column.getString('pipeline-triggers.toast.toggleEnable', {
+              column.getString('pipeline.triggers.toast.toggleEnable', {
                 enabled: !data.enabled ? 'enabled' : 'disabled',
                 name: data.name!
               })
@@ -472,7 +472,7 @@ export const TriggersListSection: React.FC<TriggersListSectionProps> = ({
     // const columns: CustomColumn<NGTriggerDetailsResponse>[] = React.useMemo( // wait for backend to support condition
     () => [
       {
-        Header: getString('pipeline-triggers.triggerLabel').toUpperCase(),
+        Header: getString('pipeline.triggers.triggerLabel').toUpperCase(),
         accessor: 'name',
         width: '25%',
         Cell: RenderColumnTrigger
@@ -494,7 +494,7 @@ export const TriggersListSection: React.FC<TriggersListSectionProps> = ({
         getString
       },
       {
-        Header: RenderCenteredColumnHeader(getString('pipeline-triggers.lastActivationLabel')),
+        Header: RenderCenteredColumnHeader(getString('pipeline.triggers.lastActivationLabel')),
         accessor: 'lastExecutionTime',
         width: '18%',
         Cell: RenderColumnLastActivation,
@@ -515,7 +515,7 @@ export const TriggersListSection: React.FC<TriggersListSectionProps> = ({
         isTriggerRbacDisabled
       },
       {
-        Header: RenderCenteredColumnHeader(getString('pipeline-triggers.enableLabel')),
+        Header: RenderCenteredColumnHeader(getString('pipeline.triggers.enableLabel')),
         accessor: 'enable',
         width: '10%',
         Cell: RenderColumnEnable,

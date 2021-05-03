@@ -140,7 +140,7 @@ export default function TriggersDetailPage(): JSX.Element {
 
   const { showSuccess, showError } = useToaster()
   const { getString } = useStrings()
-  useDocumentTitle([getString('pipelines'), getString('pipeline-triggers.triggersLabel')])
+  useDocumentTitle([getString('pipelines'), getString('pipeline.triggers.triggersLabel')])
   const triggerObj = parse(triggerResponse?.data?.yaml || '')?.trigger as NGTriggerConfig
   const pipelineInputSet = triggerObj?.target?.spec?.runtimeInputYaml as NgPipeline
   let conditionsArr: string[] = []
@@ -191,7 +191,7 @@ export default function TriggersDetailPage(): JSX.Element {
 
                         if (updated.status === 'SUCCESS') {
                           showSuccess(
-                            getString('pipeline-triggers.toast.toggleEnable', {
+                            getString('pipeline.triggers.toast.toggleEnable', {
                               enabled: !triggerResponse?.data?.enabled ? 'enabled' : 'disabled',
                               name: triggerResponse?.data?.name
                             })
@@ -244,7 +244,7 @@ export default function TriggersDetailPage(): JSX.Element {
                 <Card interactive={false} elevation={0} selected={false} className={css.overview}>
                   <Text font={{ size: 'medium', weight: 'bold' }}>{getString('overview')}</Text>
                   <Layout.Vertical spacing="medium" padding={{ top: 'medium' }}>
-                    <Text>{getString('pipeline-triggers.triggerConfigurationPanel.triggerName')}</Text>
+                    <Text>{getString('pipeline.triggers.triggerConfigurationPanel.triggerName')}</Text>
                     <Text font={{ weight: 'bold' }} lineClamp={1}>
                       {triggerResponse?.data?.name}
                     </Text>
@@ -280,7 +280,7 @@ export default function TriggersDetailPage(): JSX.Element {
                     ) : null}
                     {jexlCondition ? (
                       <>
-                        <Text>{getString('pipeline-triggers.conditionsPanel.jexlCondition')}</Text>
+                        <Text>{getString('pipeline.triggers.conditionsPanel.jexlCondition')}</Text>
                         <Text font={{ weight: 'bold' }} lineClamp={1}>
                           {jexlCondition}
                         </Text>
@@ -288,14 +288,14 @@ export default function TriggersDetailPage(): JSX.Element {
                     ) : null}
                     {cronExpression ? (
                       <>
-                        <Text>{getString('pipeline-triggers.schedulePanel.cronExpression')}</Text>
+                        <Text>{getString('pipeline.triggers.schedulePanel.cronExpression')}</Text>
                         <Text font={{ weight: 'bold' }} lineClamp={1}>
                           {cronExpression}
                         </Text>
                       </>
                     ) : null}
                     {conditionsArr?.length || cronExpression ? <hr /> : null}
-                    <Text>{getString('pipeline-triggers.pipelineExecutionInput')}</Text>
+                    <Text>{getString('pipeline.triggers.pipelineExecutionInput')}</Text>
                     {!isEmpty(pipelineInputSet) && <pre>{pipelineInputSet}</pre>}
                   </Layout.Vertical>
                 </Card>
@@ -318,7 +318,7 @@ export default function TriggersDetailPage(): JSX.Element {
           <Layout.Vertical style={{ flex: 1 }}>
             <Layout.Horizontal spacing="xxlarge">
               <Text font={{ size: 'medium', weight: 'bold' }}>
-                {getString('pipeline-triggers.lastExecutionDetails')}
+                {getString('pipeline.triggers.lastExecutionDetails')}
               </Text>
               {triggerResponse?.data?.lastTriggerExecutionDetails?.lastExecutionSuccessful === false ? (
                 <Text
@@ -346,14 +346,14 @@ export default function TriggersDetailPage(): JSX.Element {
               <div>
                 {triggerResponse?.data?.lastTriggerExecutionDetails?.lastExecutionTime ? (
                   <Text>
-                    {`${getString('pipeline-triggers.lastExecutionAt')}: ${new Date(
+                    {`${getString('pipeline.triggers.lastExecutionAt')}: ${new Date(
                       triggerResponse.data.lastTriggerExecutionDetails.lastExecutionTime
                     ).toLocaleDateString()} ${new Date(
                       triggerResponse.data.lastTriggerExecutionDetails.lastExecutionTime
                     ).toLocaleTimeString()}`}
                   </Text>
                 ) : (
-                  <Text>{`${getString('pipeline-triggers.lastExecutionAt')}: -`}</Text>
+                  <Text>{`${getString('pipeline.triggers.lastExecutionAt')}: -`}</Text>
                 )}
               </div>
               <hr />

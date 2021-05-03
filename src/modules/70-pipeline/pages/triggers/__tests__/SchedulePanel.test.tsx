@@ -105,7 +105,7 @@ describe('SchedulePanel Triggers tests', () => {
   describe('Renders/snapshots', () => {
     test('Initial Render - Schedule Panel', async () => {
       const { container } = render(<WrapperComponent initialValues={getTriggerConfigInitialValues({})} />)
-      await waitFor(() => queryByText(container, result.current.getString('pipeline-triggers.schedulePanel.title')))
+      await waitFor(() => queryByText(container, result.current.getString('pipeline.triggers.schedulePanel.title')))
       expect(container).toMatchSnapshot()
     })
   })
@@ -119,7 +119,7 @@ describe('SchedulePanel Triggers tests', () => {
           })}
         />
       )
-      await waitFor(() => queryByText(container, result.current.getString('pipeline-triggers.schedulePanel.title')))
+      await waitFor(() => queryByText(container, result.current.getString('pipeline.triggers.schedulePanel.title')))
       fillAtForm([
         {
           container: container,
@@ -149,7 +149,7 @@ describe('SchedulePanel Triggers tests', () => {
       fireEvent.click(hourlyTab)
 
       await waitFor(() =>
-        queryByText(container, result.current.getString('pipeline-triggers.schedulePanel.minutesAfterTheHour'))
+        queryByText(container, result.current.getString('pipeline.triggers.schedulePanel.minutesAfterTheHour'))
       )
       const firstSelect = document.querySelector('[data-name="toothpick"] [icon="caret-down"] svg')
 
@@ -195,7 +195,7 @@ describe('SchedulePanel Triggers tests', () => {
       fireEvent.click(dailyTab)
 
       await waitFor(() =>
-        queryByText(container, result.current.getString('pipeline-triggers.schedulePanel.runDailyAt'))
+        queryByText(container, result.current.getString('pipeline.triggers.schedulePanel.runDailyAt'))
       )
       const hourSelect = document.querySelectorAll(
         '[data-name="timeselect"] [class*="selectStyle"] [icon="caret-down"] svg'
@@ -257,7 +257,7 @@ describe('SchedulePanel Triggers tests', () => {
       }
       fireEvent.click(weeklyTab)
 
-      await waitFor(() => queryByText(container, result.current.getString('pipeline-triggers.schedulePanel.runOn')))
+      await waitFor(() => queryByText(container, result.current.getString('pipeline.triggers.schedulePanel.runOn')))
       fillTimeSelect({ hoursIndex: 2, minutesIndex: 4, amPmIndex: 0 })
       await waitFor(() => expect(queryByText(container, '4 3 * * MON')).not.toBeNull())
 
@@ -299,7 +299,7 @@ describe('SchedulePanel Triggers tests', () => {
       fireEvent.click(monthlyTab)
 
       await waitFor(() =>
-        queryByText(container, result.current.getString('pipeline-triggers.schedulePanel.runOnSpecificDay'))
+        queryByText(container, result.current.getString('pipeline.triggers.schedulePanel.runOnSpecificDay'))
       )
       fillTimeSelect({ hoursIndex: 10, minutesIndex: 5, amPmIndex: 1 })
       await waitFor(() => expect(queryByText(container, '5 23 1 1/1 *')).not.toBeNull())
@@ -354,7 +354,7 @@ describe('SchedulePanel Triggers tests', () => {
       fireEvent.click(yearlyTab)
 
       await waitFor(() =>
-        queryByText(container, result.current.getString('pipeline-triggers.schedulePanel.runOnSpecificDayMonth'))
+        queryByText(container, result.current.getString('pipeline.triggers.schedulePanel.runOnSpecificDayMonth'))
       )
 
       const monthSelect = document.querySelectorAll('[data-name="toothpick"] [icon="caret-down"] svg')[0]
@@ -401,7 +401,7 @@ describe('SchedulePanel Triggers tests', () => {
       fireEvent.click(customTab)
 
       await waitFor(() =>
-        queryByText(container, result.current.getString('pipeline-triggers.schedulePanel.enterCustomCron'))
+        queryByText(container, result.current.getString('pipeline.triggers.schedulePanel.enterCustomCron'))
       )
 
       await waitFor(() => expect(queryByText(container, '0/5 * * * *')).not.toBeNull()) // persists last

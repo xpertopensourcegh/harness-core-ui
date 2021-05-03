@@ -119,7 +119,7 @@ export default function TriggersList(props: TriggersListPropsInterface): JSX.Ele
         title={
           <Button
             disabled={!isEditable}
-            text={getString('pipeline-triggers.newTrigger')}
+            text={getString('pipeline.triggers.newTrigger')}
             intent="primary"
             onClick={openDrawer}
           ></Button>
@@ -146,15 +146,15 @@ export default function TriggersList(props: TriggersListPropsInterface): JSX.Ele
             ? {
                 when: () => Array.isArray(triggerList) && triggerList.length === 0,
                 icon: 'yaml-builder-trigger',
-                message: getString('pipeline-triggers.aboutTriggers'),
-                buttonText: getString('pipeline-triggers.addNewTrigger'),
+                message: getString('pipeline.triggers.aboutTriggers'),
+                buttonText: getString('pipeline.triggers.addNewTrigger'),
                 onClick: openDrawer,
                 buttonDisabled: !isEditable
               }
             : {
                 when: () => Array.isArray(triggerList) && triggerList.length === 0,
                 icon: 'yaml-builder-trigger',
-                message: getString('pipeline-triggers.noTriggersFound')
+                message: getString('pipeline.triggers.noTriggersFound')
               }
         }
       >

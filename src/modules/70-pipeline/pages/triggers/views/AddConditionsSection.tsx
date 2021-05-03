@@ -42,7 +42,7 @@ const AddConditionRow: React.FC<AddConditionRowInterface> = ({ fieldId, index, g
     <FormInput.Select items={mockOperators} name={`${fieldId}.${[index]}.operator`} label="Operator" />
     <FormInput.Text
       name={`${fieldId}.${[index]}.value`}
-      label={getString('pipeline-triggers.conditionsPanel.matchesValue')}
+      label={getString('pipeline.triggers.conditionsPanel.matchesValue')}
     />
   </div>
 )

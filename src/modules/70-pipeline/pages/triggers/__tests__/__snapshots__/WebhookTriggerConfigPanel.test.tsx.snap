@@ -15,7 +15,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
           <h2
             class="heading"
           >
-            pipeline-triggers.triggerConfigurationLabel: pipeline-triggers.onNewWebhookTitle
+            pipeline.triggers.triggerConfigurationLabel: pipeline.triggers.onNewWebhookTitle
           </h2>
           <div>
             <div
@@ -169,7 +169,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
               class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
               level="2"
             >
-              pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook
+              pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook
             </h2>
             <section
               style="width: 650px;"
@@ -182,7 +182,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                   class="bp3-label"
                   for="sourceRepo"
                 >
-                  pipeline-triggers.triggerConfigurationPanel.payloadType
+                  pipeline.triggers.triggerConfigurationPanel.payloadType
                    
                   <span
                     class="bp3-text-muted"
@@ -261,7 +261,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
           <h2
             class="heading"
           >
-            pipeline-triggers.triggerConfigurationLabel: pipeline-triggers.onNewWebhookTitle
+            pipeline.triggers.triggerConfigurationLabel: pipeline.triggers.onNewWebhookTitle
           </h2>
           <div>
             <div
@@ -415,7 +415,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
               class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
               level="2"
             >
-              pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook
+              pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook
             </h2>
             <section
               style="width: 650px;"
@@ -428,7 +428,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                   class="bp3-label"
                   for="sourceRepo"
                 >
-                  pipeline-triggers.triggerConfigurationPanel.payloadType
+                  pipeline.triggers.triggerConfigurationPanel.payloadType
                    
                   <span
                     class="bp3-text-muted"
@@ -540,7 +540,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
           <h2
             class="heading"
           >
-            pipeline-triggers.triggerConfigurationLabel
+            pipeline.triggers.triggerConfigurationLabel
           </h2>
           <div>
             <div
@@ -673,7 +673,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
               class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
               level="2"
             >
-              pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook
+              pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook
             </h2>
             <section
               style="width: 650px;"
@@ -686,7 +686,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                   class="bp3-label"
                   for="sourceRepo"
                 >
-                  pipeline-triggers.triggerConfigurationPanel.payloadType
+                  pipeline.triggers.triggerConfigurationPanel.payloadType
                    
                   <span
                     class="bp3-text-muted"
@@ -827,7 +827,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
                 >
-                  pipeline-triggers.triggerConfigurationPanel.secureTokenRegenerateWarning
+                  pipeline.triggers.triggerConfigurationPanel.secureTokenRegenerateWarning
                 </p>
               </div>
             </section>
@@ -854,7 +854,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
           <h2
             class="heading"
           >
-            pipeline-triggers.triggerConfigurationLabel: pipeline-triggers.onNewWebhookTitle
+            pipeline.triggers.triggerConfigurationLabel: pipeline.triggers.onNewWebhookTitle
           </h2>
           <div>
             <div
@@ -1008,7 +1008,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
               class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
               level="2"
             >
-              pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook
+              pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook
             </h2>
             <section
               style="width: 650px;"
@@ -1021,7 +1021,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                   class="bp3-label"
                   for="sourceRepo"
                 >
-                  pipeline-triggers.triggerConfigurationPanel.payloadType
+                  pipeline.triggers.triggerConfigurationPanel.payloadType
                    
                   <span
                     class="bp3-text-muted"
@@ -1145,7 +1145,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                   class="bp3-label"
                   for="event"
                 >
-                  pipeline-triggers.triggerConfigurationPanel.event
+                  pipeline.triggers.triggerConfigurationPanel.event
                    
                   <span
                     class="bp3-text-muted"

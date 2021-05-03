@@ -94,11 +94,11 @@ const ExpressionBreakdown: React.FC<ExpressionBreakdownPropsInterface> = ({
   const hideValuesRow = selectedScheduleTab === scheduleTabsId.CUSTOM && isUndefined(minutesValue)
   return (
     <Container data-name="expressionBreakdown" className={css.expressionBreakdown}>
-      <Text className={css.title}>{getString('pipeline-triggers.schedulePanel.expressionBreakdown')}</Text>
+      <Text className={css.title}>{getString('pipeline.triggers.schedulePanel.expressionBreakdown')}</Text>
       <Layout.Horizontal>
         <Column
           width={ColumnWidth.SMALL}
-          label={getString('pipeline-triggers.schedulePanel.minutesLabel')}
+          label={getString('pipeline.triggers.schedulePanel.minutesLabel')}
           value={minutesValue}
           inactive={!activeInputs.includes(ActiveInputs.MINUTES)}
           getString={getString}
@@ -106,7 +106,7 @@ const ExpressionBreakdown: React.FC<ExpressionBreakdownPropsInterface> = ({
         />
         <Column
           width={ColumnWidth.SMALL}
-          label={getString('pipeline-triggers.schedulePanel.hoursLabel')}
+          label={getString('pipeline.triggers.schedulePanel.hoursLabel')}
           value={getColumnValue(formikValues, EXP_BREAKDOWN_INPUTS.HOURS)}
           inactive={!activeInputs.includes(ActiveInputs.HOURS)}
           getString={getString}
@@ -114,7 +114,7 @@ const ExpressionBreakdown: React.FC<ExpressionBreakdownPropsInterface> = ({
         />
         <Column
           width={ColumnWidth.MEDIUM}
-          label={getString('pipeline-triggers.schedulePanel.dayOfMonthLabel')}
+          label={getString('pipeline.triggers.schedulePanel.dayOfMonthLabel')}
           value={getColumnValue(formikValues, EXP_BREAKDOWN_INPUTS.DAY_OF_MONTH)}
           inactive={!activeInputs.includes(ActiveInputs.DAY_OF_MONTH)}
           getString={getString}
@@ -122,7 +122,7 @@ const ExpressionBreakdown: React.FC<ExpressionBreakdownPropsInterface> = ({
         />
         <Column
           width={ColumnWidth.SMALL}
-          label={getString('pipeline-triggers.schedulePanel.monthLabel')}
+          label={getString('pipeline.triggers.schedulePanel.monthLabel')}
           value={getColumnValue(formikValues, EXP_BREAKDOWN_INPUTS.MONTH)}
           inactive={!activeInputs.includes(ActiveInputs.MONTH)}
           getString={getString}
@@ -130,7 +130,7 @@ const ExpressionBreakdown: React.FC<ExpressionBreakdownPropsInterface> = ({
         />
         <Column
           width={ColumnWidth.LARGE}
-          label={getString('pipeline-triggers.schedulePanel.dayOfWeekLabel')}
+          label={getString('pipeline.triggers.schedulePanel.dayOfWeekLabel')}
           value={getColumnValue(formikValues, EXP_BREAKDOWN_INPUTS.DAY_OF_WEEK)}
           inactive={!activeInputs.includes(ActiveInputs.DAY_OF_WEEK)}
           getString={getString}

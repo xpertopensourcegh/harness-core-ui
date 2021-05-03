@@ -39,7 +39,7 @@ const TriggersPage: React.FC = (): React.ReactElement => {
   }
   const { getString } = useStrings()
 
-  useDocumentTitle([getString('pipelines'), getString('pipeline-triggers.triggersLabel')])
+  useDocumentTitle([getString('pipelines'), getString('pipeline.triggers.triggersLabel')])
 
   return <TriggersList onNewTriggerClick={onNewTriggerClick} />
 }

@@ -236,7 +236,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           pipelineJson = parse(pipelineYaml)?.pipeline
         } catch (e) {
           // set error
-          setGetTriggerErrorMessage(getString('pipeline-triggers.cannotParseInputValues'))
+          setGetTriggerErrorMessage(getString('pipeline.triggers.cannotParseInputValues'))
         }
         const expressionBreakdownValues = getBreakdownValues(expression)
         const newExpressionBreakdown = { ...resetScheduleObject, ...expressionBreakdownValues }
@@ -254,7 +254,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         }
       } catch (e) {
         // set error
-        setGetTriggerErrorMessage(getString('pipeline-triggers.cannotParseTriggersData'))
+        setGetTriggerErrorMessage(getString('pipeline.triggers.cannotParseTriggersData'))
       }
       setOnEditInitialValues({ ...onEditInitialValues, ...newOnEditInitialValues })
     }
@@ -441,7 +441,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         pipelineJson = parse(pipelineYaml)?.pipeline
       } catch (e) {
         // set error
-        setGetTriggerErrorMessage(getString('pipeline-triggers.cannotParseInputValues'))
+        setGetTriggerErrorMessage(getString('pipeline.triggers.cannotParseInputValues'))
       }
 
       triggerValues = {
@@ -475,7 +475,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       gitRepoSpecCopy = gitRepoSpec
     } catch (e) {
       // set error
-      setGetTriggerErrorMessage(getString('pipeline-triggers.cannotParseTriggersData'))
+      setGetTriggerErrorMessage(getString('pipeline.triggers.cannotParseTriggersData'))
     }
 
     if (triggerValues && triggerValues.sourceRepo !== GitSourceProviders.CUSTOM.value && gitRepoSpecCopy?.identifier) {
@@ -523,7 +523,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     if (onEditInitialValues?.identifier) {
       const { status, data } = await updateTrigger(stringify({ trigger: clearNullUndefined(triggerYaml) }) as any)
       if (status === ResponseStatus.SUCCESS) {
-        showSuccess(getString('pipeline-triggers.toast.successfulUpdate', { name: data?.name }))
+        showSuccess(getString('pipeline.triggers.toast.successfulUpdate', { name: data?.name }))
         history.push(
           routes.toTriggersPage({
             accountId,
@@ -538,7 +538,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     } else {
       const { status, data } = await createTrigger(stringify({ trigger: clearNullUndefined(triggerYaml) }) as any)
       if (status === ResponseStatus.SUCCESS) {
-        showSuccess(getString('pipeline-triggers.toast.successfulCreate', { name: data?.name }))
+        showSuccess(getString('pipeline.triggers.toast.successfulCreate', { name: data?.name }))
         history.push(
           routes.toTriggersPage({
             accountId,
@@ -600,7 +600,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   }
 
   const getInitialValues = (triggerType: NGTriggerSource['type']): FlatInitialValuesInterface | undefined => {
-    if (triggerType === TriggerTypes.WEBHOOK && !isEmpty(currentPipeline)) {
+    if (triggerType === TriggerTypes.WEBHOOK) {
       const newPipeline: any = { ...(currentPipeline?.pipeline || {}) }
 
       if (isPipelineWithCiCodebase(newPipeline)) {
@@ -653,7 +653,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         }
       } catch (e) {
         // set error
-        setGetTriggerErrorMessage(getString('pipeline-triggers.cannotParseInputValues'))
+        setGetTriggerErrorMessage(getString('pipeline.triggers.cannotParseInputValues'))
       }
     }
   }, [pipelineResponse?.data?.yamlPipeline, onEditInitialValues?.identifier, initialValues])
@@ -666,7 +666,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         setInitialValues({ ...initialValues, ...getWebhookTriggerValues({ triggerYaml }) })
         setWizardKey(wizardKey + 1)
       } catch (e) {
-        setGetTriggerErrorMessage(getString('pipeline-triggers.cannotParseInputValues'))
+        setGetTriggerErrorMessage(getString('pipeline.triggers.cannotParseInputValues'))
       }
     }
   }
@@ -743,7 +743,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         onHide={returnToTriggersPage}
         // defaultTabId="Schedule"
         submitLabel={
-          isEdit ? getString('pipeline-triggers.updateTrigger') : getString('pipeline-triggers.createTrigger')
+          isEdit ? getString('pipeline.triggers.updateTrigger') : getString('pipeline.triggers.createTrigger')
         }
         disableSubmit={loadingGetTrigger || createTriggerLoading || updateTriggerLoading || isTriggerRbacDisabled}
         isEdit={isEdit}
@@ -787,7 +787,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         onHide={returnToTriggersPage}
         // defaultTabId="Conditions"
         submitLabel={
-          isEdit ? getString('pipeline-triggers.updateTrigger') : getString('pipeline-triggers.createTrigger')
+          isEdit ? getString('pipeline.triggers.updateTrigger') : getString('pipeline.triggers.createTrigger')
         }
         disableSubmit={loadingGetTrigger || createTriggerLoading || updateTriggerLoading}
         isEdit={isEdit}
@@ -805,7 +805,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     return (
       <Layout.Vertical spacing="medium" padding="medium">
         <Page.Body>
-          <h2>{getString('pipeline-triggers.pageNotFound')}</h2>
+          <h2>{getString('pipeline.triggers.pageNotFound')}</h2>
         </Page.Body>
       </Layout.Vertical>
     )

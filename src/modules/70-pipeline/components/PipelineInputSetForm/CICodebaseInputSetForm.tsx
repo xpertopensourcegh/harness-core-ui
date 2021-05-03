@@ -1,6 +1,6 @@
 import React from 'react'
 import { get, isEmpty } from 'lodash-es'
-import { Card, FormInput } from '@wings-software/uicore'
+import { Card, FormInput, Color, Text } from '@wings-software/uicore'
 import { connect, FormikContext } from 'formik'
 import { useStrings } from 'framework/strings'
 import { TriggerTypes } from '../../pages/triggers/utils/TriggersWizardPageUtils'
@@ -54,6 +54,11 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
           disabled={readonly || disableOnWebhookTrigger}
           style={{ marginBottom: 0 }}
         />
+      )}
+      {disableOnWebhookTrigger && (
+        <Text style={{ marginTop: 'var(--spacing-xsmall)' }} color={Color.GREY_400}>
+          {getString('pipeline.triggers.pipelineInputPanel.automaticallyExtractedFromText')}
+        </Text>
       )}
     </Card>
   )

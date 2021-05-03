@@ -90,7 +90,7 @@ export const Conditions = ({
               <div>
                 <div className={css.headers}>
                   <span>{getString('pipeline.jiraApprovalStep.jiraField')}</span>
-                  <span>{getString('pipeline-triggers.conditionsPanel.operator')}</span>
+                  <span>{getString('pipeline.triggers.conditionsPanel.operator')}</span>
                   <span>{getString('valueLabel')}</span>
                 </div>
                 {values.spec.conditions?.map((condition: ApprovalRejectionCriteriaCondition, i: number) => (

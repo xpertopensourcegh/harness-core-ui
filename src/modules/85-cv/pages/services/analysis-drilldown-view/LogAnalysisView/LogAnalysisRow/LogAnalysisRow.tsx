@@ -71,7 +71,7 @@ function ColumnHeaderRow(): JSX.Element {
         {getString('cv.messageFrequency')}
       </Text>
       <Text color={Color.BLACK} className={css.logRowColumnHeader}>
-        {getString('pipeline-triggers.triggerConfigurationPanel.actions')}
+        {getString('pipeline.triggers.triggerConfigurationPanel.actions')}
       </Text>
     </Container>
   )

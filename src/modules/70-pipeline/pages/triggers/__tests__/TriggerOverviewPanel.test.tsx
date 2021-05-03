@@ -46,7 +46,7 @@ describe('TriggerOverviewPanel Triggers tests', () => {
     test('Initial Render - Trigger Overview Panel', async () => {
       const { container } = render(<WrapperComponent initialValues={getTriggerConfigInitialValues({})} />)
       await waitFor(() =>
-        queryByText(container, result.current.getString('pipeline-triggers.triggerOverviewPanel.title'))
+        queryByText(container, result.current.getString('pipeline.triggers.triggerOverviewPanel.title'))
       )
       expect(container).toMatchSnapshot()
     })

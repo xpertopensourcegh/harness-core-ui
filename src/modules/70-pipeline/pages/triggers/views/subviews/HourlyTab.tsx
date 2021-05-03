@@ -25,7 +25,7 @@ export default function HourlyTab(props: HourlyTabInterface): JSX.Element {
   return (
     <div className={css.hourlyTab}>
       <Toothpick
-        label={getString('pipeline-triggers.schedulePanel.runEvery')}
+        label={getString('pipeline.triggers.schedulePanel.runEvery')}
         startValue={hours}
         endValue={minutes}
         startOptions={cronSensicalHoursOptions}
@@ -48,8 +48,8 @@ export default function HourlyTab(props: HourlyTabInterface): JSX.Element {
             expression: getUpdatedExpression({ expression, value: val.value as string, id: 'minutes' })
           })
         }
-        adjoiningText={getString('pipeline-triggers.schedulePanel.hoursAnd')}
-        endingText={getString('pipeline-triggers.schedulePanel.minutesAfterTheHour')}
+        adjoiningText={getString('pipeline.triggers.schedulePanel.hoursAnd')}
+        endingText={getString('pipeline.triggers.schedulePanel.minutesAfterTheHour')}
       />
       <Spacer paddingTop={'var(--spacing-large)'} />
       <ExpressionBreakdown formikValues={values} activeInputs={[ActiveInputs.MINUTES, ActiveInputs.HOURS]} />

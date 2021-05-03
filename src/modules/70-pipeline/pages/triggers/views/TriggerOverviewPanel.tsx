@@ -28,7 +28,7 @@ const TriggerOverviewPanel: React.FC<TriggerOverviewPanelPropsInterface> = ({
           <PageSpinner />
         </div>
       )}
-      <h2>{getString('pipeline-triggers.triggerOverviewPanel.title')}</h2>
+      <h2>{getString('pipeline.triggers.triggerOverviewPanel.title')}</h2>
       <NameIdDescriptionTags
         className={css.nameIdDescriptionTags}
         formikProps={formikProps}

@@ -15,7 +15,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
         <span
           class="bp3-button-text"
         >
-          pipeline-triggers.newTrigger
+          pipeline.triggers.newTrigger
         </span>
       </button>
       <div
@@ -69,7 +69,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             role="columnheader"
             style="width: 25%;"
           >
-            PIPELINE-TRIGGERS.TRIGGERLABEL
+            PIPELINE.TRIGGERS.TRIGGERLABEL
           </div>
           <div
             class="cell"
@@ -100,7 +100,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             <div
               class="textCentered"
             >
-              pipeline-triggers.lastActivationLabel
+              pipeline.triggers.lastActivationLabel
             </div>
           </div>
           <div
@@ -124,7 +124,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             <div
               class="textCentered"
             >
-              pipeline-triggers.enableLabel
+              pipeline.triggers.enableLabel
             </div>
           </div>
           <div
@@ -315,12 +315,12 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                 style="text-align: start;"
               >
                 <span>
-                  pipeline-triggers.activityActivation
+                  pipeline.triggers.activityActivation
                 </span>
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  pipeline-triggers.activityDays
+                  pipeline.triggers.activityDays
                 </p>
               </div>
             </div>
@@ -547,12 +547,12 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                 style="text-align: start;"
               >
                 <span>
-                  pipeline-triggers.activityActivation
+                  pipeline.triggers.activityActivation
                 </span>
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  pipeline-triggers.activityDays
+                  pipeline.triggers.activityDays
                 </p>
               </div>
             </div>
@@ -781,12 +781,12 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                 style="text-align: start;"
               >
                 <span>
-                  pipeline-triggers.activityActivation
+                  pipeline.triggers.activityActivation
                 </span>
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  pipeline-triggers.activityDays
+                  pipeline.triggers.activityDays
                 </p>
               </div>
             </div>
@@ -984,12 +984,12 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
                 style="text-align: start;"
               >
                 <span>
-                  pipeline-triggers.activityActivation
+                  pipeline.triggers.activityActivation
                 </span>
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  pipeline-triggers.activityDays
+                  pipeline.triggers.activityDays
                 </p>
               </div>
             </div>

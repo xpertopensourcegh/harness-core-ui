@@ -76,7 +76,7 @@ describe('WebhookTriggerConfigPanel Triggers tests', () => {
       await waitFor(() =>
         queryByText(
           container,
-          result.current.getString('pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook')
+          result.current.getString('pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook')
         )
       )
       expect(container).toMatchSnapshot()
@@ -100,7 +100,7 @@ describe('WebhookTriggerConfigPanel Triggers tests', () => {
       await waitFor(() =>
         queryByText(
           container,
-          result.current.getString('pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook')
+          result.current.getString('pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook')
         )
       )
       expect(container).toMatchSnapshot()
@@ -128,7 +128,7 @@ describe('WebhookTriggerConfigPanel Triggers tests', () => {
       await waitFor(() =>
         queryByText(
           container,
-          result.current.getString('pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook')
+          result.current.getString('pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook')
         )
       )
       expect(container).toMatchSnapshot()
@@ -157,7 +157,7 @@ describe('WebhookTriggerConfigPanel Triggers tests', () => {
       await waitFor(() =>
         queryByText(
           container,
-          result.current.getString('pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook')
+          result.current.getString('pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook')
         )
       )
       expect(container).toMatchSnapshot()
@@ -176,7 +176,7 @@ describe('WebhookTriggerConfigPanel Triggers tests', () => {
       await waitFor(() =>
         queryByText(
           container,
-          result.current.getString('pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook')
+          result.current.getString('pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook')
         )
       )
       fillAtForm([
@@ -232,7 +232,7 @@ describe('WebhookTriggerConfigPanel Triggers tests', () => {
       await waitFor(() =>
         queryByText(
           container,
-          result.current.getString('pipeline-triggers.triggerConfigurationPanel.listenOnNewWebhook')
+          result.current.getString('pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook')
         )
       )
 
@@ -246,7 +246,7 @@ describe('WebhookTriggerConfigPanel Triggers tests', () => {
       expect(
         queryByText(
           document.body,
-          result.current.getString('pipeline-triggers.triggerConfigurationPanel.regeneratedToken')
+          result.current.getString('pipeline.triggers.triggerConfigurationPanel.regeneratedToken')
         )
       ).not.toBeNull()
     })
