@@ -8,8 +8,8 @@ import notifications from '@notifications/strings/strings.en.yaml'
 import rbac from '@rbac/strings/strings.en.yaml'
 import secrets from '@secrets/strings/strings.en.yaml'
 import connectors from '@connectors/strings/strings.en.yaml'
-import userProfile from '@user-profile/strings/strings.en.yaml'
 import delegates from '@delegates/strings/strings.en.yaml'
+import userProfile from '@user-profile/strings/strings.en.yaml'
 import projectsOrgs from '@projects-orgs/strings/strings.en.yaml'
 import dashboards from '@dashboards/strings/strings.en.yaml'
 import gitsync from '@gitsync/strings/strings.en.yaml'
@@ -27,8 +27,8 @@ export default function languageLoader() {
     rbac,
     secrets,
     connectors,
-    userProfile,
     delegates,
+    userProfile,
     projectsOrgs,
     dashboards,
     gitsync,

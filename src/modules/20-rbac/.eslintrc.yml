@@ -5,8 +5,8 @@ rules:
         - lodash.*
         - modules/30-secrets/*
         - modules/35-connectors/*
+        - modules/35-delegates/*
         - modules/35-user-profile/*
-        - modules/40-delegates/*
         - modules/40-projects-orgs/*
         - modules/45-dashboards/*
         - modules/60-gitsync/*
@@ -18,8 +18,8 @@ rules:
         - modules/85-cv/*
         - '@secrets/*'
         - '@connectors/*'
-        - '@user-profile/*'
         - '@delegates/*'
+        - '@user-profile/*'
         - '@projects-orgs/*'
         - '@dashboards/*'
         - '@gitsync/*'

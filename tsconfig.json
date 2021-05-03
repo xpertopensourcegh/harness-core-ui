@@ -29,7 +29,7 @@
       "@connectors/*": ["modules/35-connectors/*"],
       "@user-profile/*": ["modules/35-user-profile/*"],
       "@projects-orgs/*": ["modules/40-projects-orgs/*"],
-      "@delegates/*": ["modules/40-delegates/*"],
+      "@delegates/*": ["modules/35-delegates/*"],
       "@dashboards/*": ["modules/45-dashboards/*"],
       "@gitsync/*": ["modules/60-gitsync/*"],
       "@pipeline/*": ["modules/70-pipeline/*"],

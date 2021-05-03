@@ -3,6 +3,8 @@ rules:
     - error
     - patterns:
         - lodash.*
+        - modules/35-connectors/*
+        - modules/35-user-profile/*
         - modules/40-projects-orgs/*
         - modules/45-dashboards/*
         - modules/60-gitsync/*
@@ -12,6 +14,8 @@ rules:
         - modules/75-cf/*
         - modules/75-ci/*
         - modules/85-cv/*
+        - '@connectors/*'
+        - '@user-profile/*'
         - '@projects-orgs/*'
         - '@dashboards/*'
         - '@gitsync/*'

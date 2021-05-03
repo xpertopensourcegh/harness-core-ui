@@ -452,10 +452,6 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
                   accountIdentifier: accountId,
                   orgIdentifier,
                   projectIdentifier
-                },
-                resource: {
-                  resourceType: ResourceType.CONNECTOR,
-                  resourceIdentifier: connector?.identifier || ''
                 }
               }}
               onClick={() => {
