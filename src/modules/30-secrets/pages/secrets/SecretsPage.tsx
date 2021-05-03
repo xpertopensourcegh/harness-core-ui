@@ -15,6 +15,7 @@ import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import type { Module, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
 import SecretsList from './views/SecretsListView/SecretsList'
 
 import i18n from './SecretsPage.i18n'
@@ -70,6 +71,9 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ module, mock }) => {
               rightIcon="chevron-down"
               permission={{
                 permission: PermissionIdentifier.UPDATE_SECRET,
+                resource: {
+                  resourceType: ResourceType.SECRET
+                },
                 resourceScope: {
                   accountIdentifier: accountId,
                   orgIdentifier,
@@ -109,6 +113,9 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ module, mock }) => {
             }
             permission={{
               permission: PermissionIdentifier.UPDATE_SECRET,
+              resource: {
+                resourceType: ResourceType.SECRET
+              },
               resourceScope: {
                 accountIdentifier: accountId,
                 orgIdentifier,

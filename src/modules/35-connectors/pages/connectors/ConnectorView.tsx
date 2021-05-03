@@ -444,6 +444,10 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
               icon="edit"
               permission={{
                 permission: PermissionIdentifier.UPDATE_CONNECTOR,
+                resource: {
+                  resourceType: ResourceType.CONNECTOR,
+                  resourceIdentifier: connector.identifier
+                },
                 resourceScope: {
                   accountIdentifier: accountId,
                   orgIdentifier,

@@ -8,6 +8,7 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
 
 export const CDDashboardPage: React.FC = () => {
   const { projectIdentifier, accountId } = useParams<ProjectPathProps>()
@@ -38,12 +39,15 @@ export const CDDashboardPage: React.FC = () => {
               )
             }
             permission={{
+              permission: PermissionIdentifier.EDIT_PIPELINE,
+              resource: {
+                resourceType: ResourceType.PIPELINE
+              },
               resourceScope: {
                 accountIdentifier: accountId,
                 orgIdentifier: project?.orgIdentifier,
                 projectIdentifier
-              },
-              permission: PermissionIdentifier.EDIT_PIPELINE
+              }
             }}
           />
         </Layout.Vertical>

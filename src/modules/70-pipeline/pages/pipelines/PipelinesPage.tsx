@@ -55,6 +55,7 @@ import {
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacButton from '@rbac/components/Button/Button'
 import { shouldShowError } from '@common/utils/errorUtils'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PipelineGridView } from './views/PipelineGridView'
 import { PipelineListView } from './views/PipelineListView'
 import PipelineFilterForm from '../pipeline-deployment-list/PipelineFilterForm/PipelineFilterForm'
@@ -490,12 +491,15 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
             text={getString('addPipeline')}
             onClick={() => goToPipeline()}
             permission={{
+              permission: PermissionIdentifier.EDIT_PIPELINE,
+              resource: {
+                resourceType: ResourceType.PIPELINE
+              },
               resourceScope: {
                 accountIdentifier: accountId,
                 orgIdentifier,
                 projectIdentifier
-              },
-              permission: PermissionIdentifier.EDIT_PIPELINE
+              }
             }}
           />
         </Layout.Horizontal>
@@ -595,12 +599,15 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
                   onClick={() => goToPipeline()}
                   text={getString('pipeline-list.createPipeline')}
                   permission={{
+                    permission: PermissionIdentifier.EDIT_PIPELINE,
+                    resource: {
+                      resourceType: ResourceType.PIPELINE
+                    },
                     resourceScope: {
                       accountIdentifier: accountId,
                       orgIdentifier,
                       projectIdentifier
-                    },
-                    permission: PermissionIdentifier.EDIT_PIPELINE
+                    }
                   }}
                 />
               </div>

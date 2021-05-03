@@ -5,58 +5,31 @@ import { usePermissionsContext, PermissionRequestOptions } from '@rbac/interface
 import type { PermissionCheck, ResourceScope } from 'services/rbac'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import type { ResourceType } from '@rbac/interfaces/ResourceType'
 
 export interface Resource {
   resourceType: ResourceType
-  resourceIdentifier: string
+  resourceIdentifier?: string
 }
 
 export interface PermissionRequest {
   resourceScope: ResourceScope
-  resource?: Resource
+  resource: Resource
   permission: PermissionIdentifier
 }
 
 export interface PermissionsRequest {
   resourceScope: ResourceScope
-  resource?: Resource
+  resource: Resource
   permissions: PermissionIdentifier[]
   options?: PermissionRequestOptions
 }
 
 export function getDTOFromRequest(permissionRequest: PermissionRequest): PermissionCheck {
   const { resource, resourceScope, permission } = permissionRequest
-  if (!resource) {
-    const { accountIdentifier, orgIdentifier, projectIdentifier } = resourceScope
-    if (projectIdentifier) {
-      return {
-        resourceType: ResourceType.PROJECT,
-        resourceIdentifier: projectIdentifier,
-        resourceScope: {
-          accountIdentifier,
-          orgIdentifier
-        },
-        permission
-      }
-    } else if (orgIdentifier) {
-      return {
-        resourceType: ResourceType.ORGANIZATION,
-        resourceIdentifier: orgIdentifier,
-        resourceScope: { accountIdentifier },
-        permission
-      }
-    }
-    return {
-      resourceType: ResourceType.ACCOUNT,
-      resourceIdentifier: accountIdentifier as string,
-      resourceScope: {},
-      permission
-    }
-  }
   return {
     // pickBy(obj, identity) removes keys with undefined values
-    resourceScope: pickBy(permissionRequest.resourceScope, identity),
+    resourceScope: pickBy(resourceScope, identity),
     ...resource,
     permission
   }

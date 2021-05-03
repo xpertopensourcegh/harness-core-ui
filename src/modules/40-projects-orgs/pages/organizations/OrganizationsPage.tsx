@@ -14,6 +14,7 @@ import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacButton from '@rbac/components/Button/Button'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
 import i18n from './OrganizationsPage.i18n'
 import css from './OrganizationsPage.module.scss'
 
@@ -45,6 +46,9 @@ const OrganizationsPage: React.FC = () => {
               onClick={() => openOrganizationModal()}
               permission={{
                 permission: PermissionIdentifier.CREATE_ORG,
+                resource: {
+                  resourceType: ResourceType.ORGANIZATION
+                },
                 resourceScope: {
                   accountIdentifier: accountId
                 }
