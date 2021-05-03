@@ -13,7 +13,6 @@ import {
   LogViewerAccordionProps,
   LogViewerAccordionStatus
 } from '@common/components/MultiLogsViewer/MultiLogsViewer'
-import { getStageType } from '@pipeline/utils/executionUtils'
 import { PQueue } from '@common/utils/PQueue'
 import { useDeepCompareEffect } from '@common/hooks'
 import type { FormattedLogLine } from '@common/components/MultiLogsViewer/types'
@@ -163,9 +162,7 @@ export function highlightSearchText(
 export function LogsContent(props: LogsContentProps): React.ReactElement {
   const { mode, toConsoleView = '', errorMessage } = props
   const requestQueue = React.useRef(new PQueue())
-  const { accountId, pipelineIdentifier, projectIdentifier, executionIdentifier, orgIdentifier } = useParams<
-    ExecutionPathProps
-  >()
+  const { accountId } = useParams<ExecutionPathProps>()
   const [state, dispatch] = React.useReducer<LogsReducer>(reducer, { units: [], dataMap: {}, selectedStep: '' })
   const {
     pipelineStagesMap,
@@ -294,21 +291,11 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
   React.useEffect(() => {
     const currentStepId = mode !== 'console-view' && queryParams.retryStep ? queryParams.retryStep : selectedStepId
     const selectedStep = allNodeMap[currentStepId]
-    const selectedStage = pipelineStagesMap.get(selectedStageId)
 
     dispatch({
       type: ActionType.CreateSections,
       payload: {
         node: selectedStep,
-        module: getStageType(selectedStage),
-        stageStatus: selectedStage?.status,
-        accountId,
-        pipelineIdentifier,
-        projectIdentifier,
-        executionIdentifier,
-        orgIdentifier,
-        stageIdentifier: selectedStage?.nodeIdentifier || '',
-        runSequence: pipelineExecutionDetail?.pipelineExecutionSummary?.runSequence,
         selectedStep: selectedStepId
       }
     })
@@ -317,13 +304,8 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
     mode,
     selectedStepId,
     allNodeMap,
-    accountId,
-    pipelineIdentifier,
-    projectIdentifier,
-    executionIdentifier,
     pipelineStagesMap,
     selectedStageId,
-    orgIdentifier,
     pipelineExecutionDetail?.pipelineExecutionSummary?.runSequence
   ])
 

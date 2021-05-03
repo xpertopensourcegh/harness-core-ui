@@ -1,14 +1,13 @@
 import React from 'react'
-import { useHistory, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 
 import type { ExecutionNode } from 'services/pipeline-ng'
-import { String, useStrings } from 'framework/strings'
+import { String } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import type { PipelineType, ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 import { LogsContent } from '@pipeline/components/LogsContent/LogsContent'
 import { isExecutionSkipped, isExecutionCompletedWithBadState } from '@pipeline/utils/statusHelpers'
-import LogsContentOld from '@pipeline/pages/execution/ExecutionPipelineView/ExecutionLogView/LogsContent'
 
 import { StepDetails } from '../Common/StepDetails/StepDetails'
 
@@ -25,8 +24,6 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
     PipelineType<ExecutionPathProps>
   >()
 
-  const { getString } = useStrings()
-  const history = useHistory()
   const logUrl = routes.toExecutionPipelineView({
     orgIdentifier,
     executionIdentifier,
@@ -35,10 +32,6 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
     accountId,
     module
   })
-
-  const redirectToLogView = (): void => {
-    history.push(`${logUrl}?view=log`)
-  }
 
   const errorMessage = step?.failureInfo?.message || step.executableResponses?.[0]?.skipTask?.message
   const isFailed = isExecutionCompletedWithBadState(step.status)
@@ -53,11 +46,7 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
         </div>
       ) : null}
       <StepDetails step={step} />
-      {module === 'cd' ? (
-        <LogsContent mode="step-details" toConsoleView={`${logUrl}?view=log`} />
-      ) : (
-        <LogsContentOld header={getString('execution.stepLogs')} redirectToLogView={redirectToLogView} />
-      )}
+      <LogsContent mode="step-details" toConsoleView={`${logUrl}?view=log`} />
     </div>
   )
 }

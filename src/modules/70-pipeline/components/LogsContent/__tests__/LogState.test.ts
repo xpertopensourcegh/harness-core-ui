@@ -9,12 +9,6 @@ function getCreateSectionsAction(statuses: LogViewerAccordionStatus[]): Action<A
   return {
     type: ActionType.CreateSections,
     payload: {
-      module: 'cd',
-      executionIdentifier: '',
-      pipelineIdentifier: '',
-      projectIdentifier: '',
-      orgIdentifier: '',
-      accountId: '',
       node: {
         executableResponses: [
           {
@@ -26,7 +20,6 @@ function getCreateSectionsAction(statuses: LogViewerAccordionStatus[]): Action<A
         ],
         unitProgresses: statuses.map((status, i) => ({ unitName: `Unit ${i + 1}`, status })) as any
       },
-      stageIdentifier: '',
       selectedStep: 'SELECTED_STEP_1'
     }
   }

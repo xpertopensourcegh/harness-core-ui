@@ -120,5 +120,5 @@ export function isExecutionActive(status?: string): boolean {
 }
 
 export function isExecutionRunningLike(status?: string): boolean {
-  return isExecutionRunning(status) || isExecutionPaused(status)
+  return isExecutionRunning(status) || isExecutionPaused(status) || isExecutionWaiting(status)
 }

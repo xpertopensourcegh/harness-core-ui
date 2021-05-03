@@ -1,9 +1,7 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
 import { Container } from '@wings-software/uicore'
 import { get } from 'lodash-es'
 
-import { useStrings } from 'framework/strings'
 import { useUpdateQueryParams } from '@common/hooks'
 import { processExecutionData } from '@pipeline/utils/executionUtils'
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
@@ -11,15 +9,11 @@ import { StageSelection, StageSelectOption } from '@pipeline/components/StageSel
 import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
 import { isExecutionNotStarted } from '@pipeline/utils/statusHelpers'
 import { LogsContent } from '@pipeline/components/LogsContent/LogsContent'
-import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
-
-import LogsContentOld from './LogsContent'
 
 import { StepsTree } from './StepsTree/StepsTree'
 import css from './ExecutionLogView.module.scss'
 
 export default function ExecutionLogView(): React.ReactElement {
-  const { getString } = useStrings()
   const {
     pipelineStagesMap,
     allNodeMap,
@@ -27,7 +21,6 @@ export default function ExecutionLogView(): React.ReactElement {
     selectedStageId,
     selectedStepId
   } = useExecutionContext()
-  const { module } = useParams<PipelineType<ExecutionPathProps>>()
   const { updateQueryParams } = useUpdateQueryParams<ExecutionPageQueryParams>()
 
   const tree = React.useMemo(() => processExecutionData(pipelineExecutionDetail?.executionGraph), [
@@ -70,11 +63,7 @@ export default function ExecutionLogView(): React.ReactElement {
         </div>
       </div>
       <div className={css.logViewer}>
-        {module === 'cd' ? (
-          <LogsContent mode="console-view" errorMessage={errorMessage} />
-        ) : (
-          <LogsContentOld header={getString('execution.stepLogs')} key={selectedStepId} />
-        )}
+        <LogsContent mode="console-view" errorMessage={errorMessage} />
       </div>
     </Container>
   )

@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react'
 import type { LogViewerAccordionStatus } from '@common/components/MultiLogsViewer/LogViewerAccordion'
 import type { FormattedLogLine } from '@common/components/MultiLogsViewer/types'
-import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 import type { ExecutionNode, UnitProgress } from 'services/pipeline-ng'
 
 export enum ActionType {
@@ -28,12 +27,8 @@ export interface LogSectionData {
   formattedData: FormattedLogLine[]
 }
 
-export interface CreateSectionsPayload extends ExecutionPathProps {
+export interface CreateSectionsPayload {
   node: ExecutionNode
-  module: 'cd' | 'ci' | 'unknown'
-  stageIdentifier: string
-  stageStatus?: string
-  runSequence?: number
   selectedStep: string
 }
 

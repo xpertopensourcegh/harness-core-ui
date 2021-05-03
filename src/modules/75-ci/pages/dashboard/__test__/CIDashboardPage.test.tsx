@@ -174,8 +174,16 @@ jest.mock('services/ci', () => ({
 }))
 
 jest.mock('highcharts-react-official', () => () => <div />)
+const RealDate = Date.now
 
 describe('CIDashboardPage snapshot test', () => {
+  beforeAll(() => {
+    global.Date.now = jest.fn(() => new Date('2021-04-22T10:20:30Z').getTime())
+  })
+
+  afterAll(() => {
+    global.Date.now = RealDate
+  })
   test('should render properly', async () => {
     const { container } = render(
       <TestWrapper defaultAppStoreValues={defaultAppStoreValues}>
