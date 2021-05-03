@@ -1,6 +1,5 @@
 .rowItem {
   padding: var(--spacing-medium) 0;
-  background: white !important;
   border-bottom: solid 1px #d9dae5;
   span.type {
     color: var(--grey-900) !important;
@@ -11,7 +10,7 @@
   font-size: 14px !important;
   > p {
     cursor: pointer;
-    color: var(--blue-500) !important;
+    color: var(--primary-7) !important;
   }
   .columnId {
     display: grid;
@@ -36,7 +35,7 @@
       -webkit-transform: scaleX(-1) !important;
       transform: scaleX(-1) !important;
     }
-    span {
+    > span {
       color: #000;
       cursor: pointer;
     }

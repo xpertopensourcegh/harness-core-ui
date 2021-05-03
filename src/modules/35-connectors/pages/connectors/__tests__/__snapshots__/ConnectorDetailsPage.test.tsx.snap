@@ -131,7 +131,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
             </div>
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main editButton"
+            class="bp3-button Button--button StyledProps--font StyledProps--main editButton Button--with-current-color"
             id="editDetailsBtn"
             type="button"
           >
@@ -384,7 +384,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
             class="Layout--vertical StyledProps--main"
           >
             <button
-              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testButton"
+              class="bp3-button Button--button StyledProps--font StyledProps--main testButton Button--with-current-color"
               type="button"
             >
               <span
@@ -574,7 +574,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
             </div>
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main editButton"
+            class="bp3-button Button--button StyledProps--font StyledProps--main editButton Button--with-current-color"
             id="editDetailsBtn"
             type="button"
           >
@@ -827,7 +827,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
             class="Layout--vertical StyledProps--main"
           >
             <button
-              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testButton"
+              class="bp3-button Button--button StyledProps--font StyledProps--main testButton Button--with-current-color"
               type="button"
             >
               <span

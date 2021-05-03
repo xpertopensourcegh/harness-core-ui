@@ -25,7 +25,7 @@ exports[`Save to git form rendering form to save resouces 1`] = `
               class="StyledProps--font StyledProps--main formBody"
             >
               <div
-                class="InputWithIdentifier--txtNameContainer"
+                class="InputWithIdentifier--txtNameContainer TextInput--main"
               >
                 <div
                   class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -452,7 +452,7 @@ exports[`Save to git form rendering form to save resouces 1`] = `
               class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
             >
               <button
-                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main formButton StyledProps--intent-primary"
+                class="bp3-button Button--button StyledProps--font StyledProps--main formButton StyledProps--intent-primary Button--with-current-color"
                 type="submit"
               >
                 <span
@@ -462,7 +462,7 @@ exports[`Save to git form rendering form to save resouces 1`] = `
                 </span>
               </button>
               <button
-                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main formButton StyledProps--margin-left-medium"
+                class="bp3-button Button--button StyledProps--font StyledProps--main formButton StyledProps--margin-left-medium Button--with-current-color"
                 type="button"
               >
                 <span
@@ -505,7 +505,7 @@ exports[`Save to git form rendering form to save resouces 2`] = `
               class="StyledProps--font StyledProps--main formBody"
             >
               <div
-                class="InputWithIdentifier--txtNameContainer"
+                class="InputWithIdentifier--txtNameContainer TextInput--main"
               >
                 <div
                   class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -899,7 +899,7 @@ exports[`Save to git form rendering form to save resouces 2`] = `
               class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
             >
               <button
-                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main formButton StyledProps--intent-primary"
+                class="bp3-button Button--button StyledProps--font StyledProps--main formButton StyledProps--intent-primary Button--with-current-color"
                 type="submit"
               >
                 <span
@@ -909,7 +909,7 @@ exports[`Save to git form rendering form to save resouces 2`] = `
                 </span>
               </button>
               <button
-                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main formButton StyledProps--margin-left-medium"
+                class="bp3-button Button--button StyledProps--font StyledProps--main formButton StyledProps--margin-left-medium Button--with-current-color"
                 type="button"
               >
                 <span

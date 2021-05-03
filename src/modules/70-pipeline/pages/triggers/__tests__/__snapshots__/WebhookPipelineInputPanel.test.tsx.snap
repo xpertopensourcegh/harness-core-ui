@@ -269,6 +269,9 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                       data-testid="Stage.stage1-summary"
                     >
                       <div
+                        class="Accordion--chevron"
+                      />
+                      <div
                         class=""
                       >
                         <div
@@ -277,9 +280,6 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                           <span />
                         </div>
                       </div>
-                      <div
-                        class="Accordion--chevron"
-                      />
                     </div>
                     <div
                       class="bp3-collapse Accordion--collapse"
@@ -305,6 +305,9 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                               data-testid="Stage.stage1.Infrastructure-summary"
                             >
                               <div
+                                class="Accordion--chevron"
+                              />
+                              <div
                                 class=""
                               >
                                 <div
@@ -315,9 +318,6 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                                   </span>
                                 </div>
                               </div>
-                              <div
-                                class="Accordion--chevron"
-                              />
                             </div>
                             <div
                               class="bp3-collapse Accordion--collapse"

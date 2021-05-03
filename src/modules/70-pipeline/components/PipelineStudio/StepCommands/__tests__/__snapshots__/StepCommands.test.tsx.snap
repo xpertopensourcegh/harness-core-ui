@@ -89,13 +89,13 @@ exports[`<StepCommands /> tests able to switch tab 1`] = `
                         data-testid="conditionalExecution-summary"
                       >
                         <div
+                          class="Accordion--chevron"
+                        />
+                        <div
                           class="Accordion--label"
                         >
                           pipeline.conditionalExecution.title
                         </div>
-                        <div
-                          class="Accordion--chevron"
-                        />
                       </div>
                       <div
                         class="bp3-collapse Accordion--collapse"
@@ -120,7 +120,7 @@ exports[`<StepCommands /> tests able to switch tab 1`] = `
                                 pipeline.conditionalExecution.subTitle
                                  
                                 <a
-                                  class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main StyledProps--color StyledProps--color-blue400"
+                                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-blue400 Button--with-current-color Button--link"
                                   href="https://ngdocs.harness.io/"
                                   rel="noreferrer noopener"
                                   role="button"
@@ -250,13 +250,13 @@ exports[`<StepCommands /> tests able to switch tab 1`] = `
                         data-testid="failureStrategy-summary"
                       >
                         <div
+                          class="Accordion--chevron"
+                        />
+                        <div
                           class="Accordion--label"
                         >
                           pipeline.failureStrategies.title
                         </div>
-                        <div
-                          class="Accordion--chevron"
-                        />
                       </div>
                       <div
                         class="bp3-collapse Accordion--collapse"
@@ -369,13 +369,13 @@ exports[`<StepCommands /> tests renders ok 1`] = `
                         data-testid="conditionalExecution-summary"
                       >
                         <div
+                          class="Accordion--chevron"
+                        />
+                        <div
                           class="Accordion--label"
                         >
                           pipeline.conditionalExecution.title
                         </div>
-                        <div
-                          class="Accordion--chevron"
-                        />
                       </div>
                       <div
                         class="bp3-collapse Accordion--collapse"
@@ -400,7 +400,7 @@ exports[`<StepCommands /> tests renders ok 1`] = `
                                 pipeline.conditionalExecution.subTitle
                                  
                                 <a
-                                  class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main StyledProps--color StyledProps--color-blue400"
+                                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-blue400 Button--with-current-color Button--link"
                                   href="https://ngdocs.harness.io/"
                                   rel="noreferrer noopener"
                                   role="button"
@@ -530,13 +530,13 @@ exports[`<StepCommands /> tests renders ok 1`] = `
                         data-testid="failureStrategy-summary"
                       >
                         <div
+                          class="Accordion--chevron"
+                        />
+                        <div
                           class="Accordion--label"
                         >
                           pipeline.failureStrategies.title
                         </div>
-                        <div
-                          class="Accordion--chevron"
-                        />
                       </div>
                       <div
                         class="bp3-collapse Accordion--collapse"

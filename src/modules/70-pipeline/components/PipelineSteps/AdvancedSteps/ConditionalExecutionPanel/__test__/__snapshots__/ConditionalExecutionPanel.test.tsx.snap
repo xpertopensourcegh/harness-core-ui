@@ -15,7 +15,7 @@ exports[`ConditionalExecutionPanel matches snapshot 1`] = `
         pipeline.conditionalExecution.subTitle
          
         <a
-          class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main StyledProps--color StyledProps--color-blue400"
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-blue400 Button--with-current-color Button--link"
           href="https://ngdocs.harness.io/"
           rel="noreferrer noopener"
           role="button"

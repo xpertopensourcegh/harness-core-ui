@@ -23,7 +23,7 @@ exports[`Instance Selector Modal search and select instances successfully 1`] = 
         style="padding-bottom: 20px; padding-top: 20px; border-bottom: 1px solid #CDD3DD; justify-content: space-between;"
       >
         <button
-          class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+          class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly"
           disabled=""
           style="background-color: inherit;"
           tabindex="-1"
@@ -69,7 +69,7 @@ exports[`Instance Selector Modal search and select instances successfully 1`] = 
             class="ExpandingSearchInput--btnWrapper  "
           >
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
               type="button"
             >
               <span
@@ -329,7 +329,7 @@ exports[`Instance Selector Modal should show data 1`] = `
         style="padding-bottom: 20px; padding-top: 20px; border-bottom: 1px solid #CDD3DD; justify-content: space-between;"
       >
         <button
-          class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+          class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly"
           disabled=""
           style="background-color: inherit;"
           tabindex="-1"
@@ -601,7 +601,7 @@ exports[`Instance Selector Modal should show loader while loading data 1`] = `
         style="padding-bottom: 20px; padding-top: 20px; border-bottom: 1px solid #CDD3DD; justify-content: space-between;"
       >
         <button
-          class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+          class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly"
           disabled=""
           style="background-color: inherit;"
           tabindex="-1"

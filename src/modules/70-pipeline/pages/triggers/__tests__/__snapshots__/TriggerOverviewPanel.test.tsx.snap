@@ -19,7 +19,7 @@ exports[`TriggerOverviewPanel Triggers tests Renders/snapshots Initial Render - 
             class="StyledProps--font StyledProps--main main nameIdDescriptionTags"
           >
             <div
-              class="InputWithIdentifier--txtNameContainer"
+              class="InputWithIdentifier--txtNameContainer TextInput--main"
             >
               <div
                 class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -104,7 +104,7 @@ exports[`TriggerOverviewPanel Triggers tests Renders/snapshots Initial Render - 
             >
               <label
                 class="Label--main"
-                style="font-size: 13px;"
+                style="font-size: 13px; font-weight: normal;"
               >
                 optionalField
                 <span
@@ -135,7 +135,7 @@ exports[`TriggerOverviewPanel Triggers tests Renders/snapshots Initial Render - 
             >
               <label
                 class="Label--main"
-                style="font-size: 13px;"
+                style="font-size: 13px; font-weight: normal;"
               >
                 optionalField
                 <span
@@ -164,7 +164,7 @@ exports[`TriggerOverviewPanel Triggers tests Renders/snapshots Initial Render - 
           </div>
         </div>
         <button
-          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main submitButton"
+          class="bp3-button Button--button StyledProps--font StyledProps--main submitButton Button--with-current-color"
           type="submit"
         >
           <span

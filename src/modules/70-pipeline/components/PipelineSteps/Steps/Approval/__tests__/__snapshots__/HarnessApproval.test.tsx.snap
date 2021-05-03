@@ -99,7 +99,7 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
       {}
     </pre>
     <button
-      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
       type="button"
     >
       <span
@@ -132,7 +132,7 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
             tabindex="0"
             type="button"
           >
@@ -182,7 +182,7 @@ exports[`Harness Approval tests Basic snapshot - inputset mode but no runtime va
       {}
     </pre>
     <button
-      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
       type="button"
     >
       <span
@@ -311,7 +311,7 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: input set with e
 }
     </pre>
     <button
-      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
       type="button"
     >
       <span

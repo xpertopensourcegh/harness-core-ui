@@ -134,7 +134,7 @@ exports[`Create Docker Connector  Wizard Should render form 1`] = `
                     class="StyledProps--font StyledProps--main main formElm"
                   >
                     <div
-                      class="InputWithIdentifier--txtNameContainer"
+                      class="InputWithIdentifier--txtNameContainer TextInput--main"
                     >
                       <div
                         class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -221,7 +221,7 @@ exports[`Create Docker Connector  Wizard Should render form 1`] = `
                     >
                       <label
                         class="Label--main"
-                        style="font-size: 13px;"
+                        style="font-size: 13px; font-weight: normal;"
                       >
                         optionalField
                         <span
@@ -252,7 +252,7 @@ exports[`Create Docker Connector  Wizard Should render form 1`] = `
                     >
                       <label
                         class="Label--main"
-                        style="font-size: 13px;"
+                        style="font-size: 13px; font-weight: normal;"
                       >
                         optionalField
                         <span
@@ -284,7 +284,7 @@ exports[`Create Docker Connector  Wizard Should render form 1`] = `
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                     type="submit"
                   >
                     <span
@@ -803,7 +803,7 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
                   data-name="dockerBackButton"
                   type="button"
                 >
@@ -833,7 +833,7 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                   type="submit"
                 >
                   <span
@@ -1005,7 +1005,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                     class="StyledProps--font StyledProps--main main formElm"
                   >
                     <div
-                      class="InputWithIdentifier--txtNameContainer"
+                      class="InputWithIdentifier--txtNameContainer TextInput--main"
                     >
                       <div
                         class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -1072,7 +1072,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                     >
                       <label
                         class="Label--main"
-                        style="font-size: 13px;"
+                        style="font-size: 13px; font-weight: normal;"
                       >
                         optionalField
                       </label>
@@ -1098,7 +1098,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                     >
                       <label
                         class="Label--main"
-                        style="font-size: 13px;"
+                        style="font-size: 13px; font-weight: normal;"
                       >
                         optionalField
                         <span
@@ -1130,7 +1130,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                     type="submit"
                   >
                     <span
@@ -1629,7 +1629,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                           </p>
                         </a>
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main containerEditBtn"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
                           data-testid="password-edit"
                           type="button"
                         >
@@ -1666,7 +1666,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
                   data-name="dockerBackButton"
                   type="button"
                 >
@@ -1696,7 +1696,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                   type="submit"
                 >
                   <span

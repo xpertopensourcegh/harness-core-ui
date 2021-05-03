@@ -19,7 +19,7 @@ exports[`Test Shell Script Step input sets should not render 1`] = `
       {}
     </pre>
     <button
-      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
       type="button"
     >
       <span
@@ -51,7 +51,7 @@ exports[`Test Shell Script Step renders empty input sets 1`] = `
       {}
     </pre>
     <button
-      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
       type="button"
     >
       <span
@@ -93,7 +93,7 @@ exports[`Test Shell Script Step renders input sets 1`] = `
               class="monacoWrapper"
             >
               <button
-                class="bp3-button bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main expandBtn"
+                class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
                 type="button"
               >
                 <span
@@ -182,7 +182,7 @@ exports[`Test Shell Script Step renders input sets 1`] = `
               style="flex-grow: 1;"
             >
               <button
-                class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main value"
+                class="bp3-button Button--button StyledProps--font StyledProps--main value Button--with-current-color Button--iconOnly"
                 data-testid="create-or-select-secret"
                 type="button"
               >
@@ -294,7 +294,7 @@ exports[`Test Shell Script Step renders input sets 1`] = `
       {}
     </pre>
     <button
-      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
       type="button"
     >
       <span
@@ -325,13 +325,13 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
           data-testid="step-1-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             basic
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -350,7 +350,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
                 class="formGroup md"
               >
                 <div
-                  class="InputWithIdentifier--txtNameContainer"
+                  class="InputWithIdentifier--txtNameContainer TextInput--main"
                 >
                   <div
                     class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -520,7 +520,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
                           class="bp3-popover-target typeSelector"
                         >
                           <button
-                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
                             type="button"
                           >
                             <span
@@ -563,7 +563,7 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
                       class="monacoWrapper"
                     >
                       <button
-                        class="bp3-button bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main expandBtn"
+                        class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
                         type="button"
                       >
                         <span
@@ -672,13 +672,13 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
           data-testid="step-2-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             scriptInputVariables
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -700,13 +700,13 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
           data-testid="step-4-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             scriptOutputVariables
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -728,13 +728,13 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
           data-testid="step-3-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             executionTarget
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -769,13 +769,13 @@ exports[`Test Shell Script Step should render edit view 1`] = `
           data-testid="step-1-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             basic
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -794,7 +794,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
                 class="formGroup md"
               >
                 <div
-                  class="InputWithIdentifier--txtNameContainer"
+                  class="InputWithIdentifier--txtNameContainer TextInput--main"
                 >
                   <div
                     class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -964,7 +964,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
                           class="bp3-popover-target typeSelector"
                         >
                           <button
-                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
                             type="button"
                           >
                             <span
@@ -1007,7 +1007,7 @@ exports[`Test Shell Script Step should render edit view 1`] = `
                       class="monacoWrapper"
                     >
                       <button
-                        class="bp3-button bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main expandBtn"
+                        class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
                         type="button"
                       >
                         <span
@@ -1118,13 +1118,13 @@ exports[`Test Shell Script Step should render edit view 1`] = `
           data-testid="step-2-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             scriptInputVariables
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -1146,13 +1146,13 @@ exports[`Test Shell Script Step should render edit view 1`] = `
           data-testid="step-4-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             scriptOutputVariables
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -1174,13 +1174,13 @@ exports[`Test Shell Script Step should render edit view 1`] = `
           data-testid="step-3-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             executionTarget
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -1215,13 +1215,13 @@ exports[`Test Shell Script Step should render edit view 2`] = `
           data-testid="step-1-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             basic
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -1240,7 +1240,7 @@ exports[`Test Shell Script Step should render edit view 2`] = `
                 class="formGroup md"
               >
                 <div
-                  class="InputWithIdentifier--txtNameContainer"
+                  class="InputWithIdentifier--txtNameContainer TextInput--main"
                 >
                   <div
                     class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -1410,7 +1410,7 @@ exports[`Test Shell Script Step should render edit view 2`] = `
                           class="bp3-popover-target typeSelector"
                         >
                           <button
-                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
                             type="button"
                           >
                             <span
@@ -1453,7 +1453,7 @@ exports[`Test Shell Script Step should render edit view 2`] = `
                       class="monacoWrapper"
                     >
                       <button
-                        class="bp3-button bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main expandBtn"
+                        class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
                         type="button"
                       >
                         <span
@@ -1564,13 +1564,13 @@ exports[`Test Shell Script Step should render edit view 2`] = `
           data-testid="step-2-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             scriptInputVariables
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -1592,13 +1592,13 @@ exports[`Test Shell Script Step should render edit view 2`] = `
           data-testid="step-4-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             scriptOutputVariables
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -1620,13 +1620,13 @@ exports[`Test Shell Script Step should render edit view 2`] = `
           data-testid="step-3-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             executionTarget
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -1661,13 +1661,13 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
           data-testid="step-1-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             basic
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -1686,7 +1686,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
                 class="formGroup md"
               >
                 <div
-                  class="InputWithIdentifier--txtNameContainer"
+                  class="InputWithIdentifier--txtNameContainer TextInput--main"
                 >
                   <div
                     class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -1856,7 +1856,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
                           class="bp3-popover-target typeSelector"
                         >
                           <button
-                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
                             type="button"
                           >
                             <span
@@ -1899,7 +1899,7 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
                       class="monacoWrapper"
                     >
                       <button
-                        class="bp3-button bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main expandBtn"
+                        class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
                         type="button"
                       >
                         <span
@@ -2008,13 +2008,13 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
           data-testid="step-2-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             scriptInputVariables
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -2036,13 +2036,13 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
           data-testid="step-4-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             scriptOutputVariables
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -2064,13 +2064,13 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
           data-testid="step-3-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             executionTarget
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -2105,13 +2105,13 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
           data-testid="step-1-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             basic
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -2130,7 +2130,7 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
                 class="formGroup md"
               >
                 <div
-                  class="InputWithIdentifier--txtNameContainer"
+                  class="InputWithIdentifier--txtNameContainer TextInput--main"
                 >
                   <div
                     class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -2298,7 +2298,7 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
                           class="bp3-popover-target typeSelector"
                         >
                           <button
-                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
                             type="button"
                           >
                             <span
@@ -2341,7 +2341,7 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
                       class="monacoWrapper"
                     >
                       <button
-                        class="bp3-button bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main expandBtn"
+                        class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
                         type="button"
                       >
                         <span
@@ -2450,13 +2450,13 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
           data-testid="step-2-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             scriptInputVariables
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -2478,13 +2478,13 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
           data-testid="step-4-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             scriptOutputVariables
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -2506,13 +2506,13 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
           data-testid="step-3-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             executionTarget
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -2548,7 +2548,7 @@ exports[`Test Shell Script Step should render inputSet view and test validation 
       {}
     </pre>
     <button
-      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
       type="button"
     >
       <span

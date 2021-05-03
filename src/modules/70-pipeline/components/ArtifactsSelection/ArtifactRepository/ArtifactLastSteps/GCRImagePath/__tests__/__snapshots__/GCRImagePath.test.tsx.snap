@@ -288,7 +288,7 @@ exports[`GCR Image Path Artifact tests renders correctly in edit case 1`] = `
               class="configureOptions"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                 id="configureOptions"
                 type="button"
               >
@@ -316,7 +316,7 @@ exports[`GCR Image Path Artifact tests renders correctly in edit case 1`] = `
           </div>
         </div>
         <button
-          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main saveBtn StyledProps--intent-primary"
+          class="bp3-button Button--button StyledProps--font StyledProps--main saveBtn StyledProps--intent-primary Button--with-current-color"
           type="submit"
         >
           <span
@@ -619,7 +619,7 @@ exports[`GCR Image Path Artifact tests renders while adding step first time 1`] 
               class="configureOptions"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                 id="configureOptions"
                 type="button"
               >
@@ -647,7 +647,7 @@ exports[`GCR Image Path Artifact tests renders while adding step first time 1`] 
           </div>
         </div>
         <button
-          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main saveBtn StyledProps--intent-primary"
+          class="bp3-button Button--button StyledProps--font StyledProps--main saveBtn StyledProps--intent-primary Button--with-current-color"
           type="submit"
         >
           <span
@@ -950,7 +950,7 @@ exports[`GCR Image Path Artifact tests renders without crashing 1`] = `
               class="configureOptions"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                 id="configureOptions"
                 type="button"
               >
@@ -978,7 +978,7 @@ exports[`GCR Image Path Artifact tests renders without crashing 1`] = `
           </div>
         </div>
         <button
-          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main saveBtn StyledProps--intent-primary"
+          class="bp3-button Button--button StyledProps--font StyledProps--main saveBtn StyledProps--intent-primary Button--with-current-color"
           type="submit"
         >
           <span

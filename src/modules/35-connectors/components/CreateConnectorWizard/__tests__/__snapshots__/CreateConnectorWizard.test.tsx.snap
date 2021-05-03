@@ -135,7 +135,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Artifacto
                       class="StyledProps--font StyledProps--main main formElm"
                     >
                       <div
-                        class="InputWithIdentifier--txtNameContainer"
+                        class="InputWithIdentifier--txtNameContainer TextInput--main"
                       >
                         <div
                           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -220,7 +220,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Artifacto
                       >
                         <label
                           class="Label--main"
-                          style="font-size: 13px;"
+                          style="font-size: 13px; font-weight: normal;"
                         >
                           optionalField
                           <span
@@ -251,7 +251,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Artifacto
                       >
                         <label
                           class="Label--main"
-                          style="font-size: 13px;"
+                          style="font-size: 13px; font-weight: normal;"
                         >
                           optionalField
                           <span
@@ -283,7 +283,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Artifacto
                     class="Layout--horizontal StyledProps--main"
                   >
                     <button
-                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                       type="submit"
                     >
                       <span
@@ -489,7 +489,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for BITBUCKET
                       class="StyledProps--font StyledProps--main main formElm"
                     >
                       <div
-                        class="InputWithIdentifier--txtNameContainer"
+                        class="InputWithIdentifier--txtNameContainer TextInput--main"
                       >
                         <div
                           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -574,7 +574,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for BITBUCKET
                       >
                         <label
                           class="Label--main"
-                          style="font-size: 13px;"
+                          style="font-size: 13px; font-weight: normal;"
                         >
                           optionalField
                           <span
@@ -605,7 +605,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for BITBUCKET
                       >
                         <label
                           class="Label--main"
-                          style="font-size: 13px;"
+                          style="font-size: 13px; font-weight: normal;"
                         >
                           optionalField
                           <span
@@ -637,7 +637,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for BITBUCKET
                     class="Layout--horizontal StyledProps--main"
                   >
                     <button
-                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                       type="submit"
                     >
                       <span
@@ -816,7 +816,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for DOCKER 1`
                       class="StyledProps--font StyledProps--main main formElm"
                     >
                       <div
-                        class="InputWithIdentifier--txtNameContainer"
+                        class="InputWithIdentifier--txtNameContainer TextInput--main"
                       >
                         <div
                           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -901,7 +901,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for DOCKER 1`
                       >
                         <label
                           class="Label--main"
-                          style="font-size: 13px;"
+                          style="font-size: 13px; font-weight: normal;"
                         >
                           optionalField
                           <span
@@ -932,7 +932,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for DOCKER 1`
                       >
                         <label
                           class="Label--main"
-                          style="font-size: 13px;"
+                          style="font-size: 13px; font-weight: normal;"
                         >
                           optionalField
                           <span
@@ -964,7 +964,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for DOCKER 1`
                     class="Layout--horizontal StyledProps--main"
                   >
                     <button
-                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                       type="submit"
                     >
                       <span
@@ -1196,7 +1196,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for GCP 1`] =
                       class="StyledProps--font StyledProps--main main formElm"
                     >
                       <div
-                        class="InputWithIdentifier--txtNameContainer"
+                        class="InputWithIdentifier--txtNameContainer TextInput--main"
                       >
                         <div
                           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -1281,7 +1281,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for GCP 1`] =
                       >
                         <label
                           class="Label--main"
-                          style="font-size: 13px;"
+                          style="font-size: 13px; font-weight: normal;"
                         >
                           optionalField
                           <span
@@ -1312,7 +1312,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for GCP 1`] =
                       >
                         <label
                           class="Label--main"
-                          style="font-size: 13px;"
+                          style="font-size: 13px; font-weight: normal;"
                         >
                           optionalField
                           <span
@@ -1344,7 +1344,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for GCP 1`] =
                     class="Layout--horizontal StyledProps--main"
                   >
                     <button
-                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                       type="submit"
                     >
                       <span
@@ -1533,7 +1533,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Git 1`] =
                       class="StyledProps--font StyledProps--main main formElm"
                     >
                       <div
-                        class="InputWithIdentifier--txtNameContainer"
+                        class="InputWithIdentifier--txtNameContainer TextInput--main"
                       >
                         <div
                           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -1618,7 +1618,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Git 1`] =
                       >
                         <label
                           class="Label--main"
-                          style="font-size: 13px;"
+                          style="font-size: 13px; font-weight: normal;"
                         >
                           optionalField
                           <span
@@ -1649,7 +1649,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Git 1`] =
                       >
                         <label
                           class="Label--main"
-                          style="font-size: 13px;"
+                          style="font-size: 13px; font-weight: normal;"
                         >
                           optionalField
                           <span
@@ -1681,7 +1681,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Git 1`] =
                     class="Layout--horizontal StyledProps--main"
                   >
                     <button
-                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                       type="submit"
                     >
                       <span
@@ -1869,7 +1869,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Github 1`
                       class="StyledProps--font StyledProps--main main formElm"
                     >
                       <div
-                        class="InputWithIdentifier--txtNameContainer"
+                        class="InputWithIdentifier--txtNameContainer TextInput--main"
                       >
                         <div
                           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -1954,7 +1954,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Github 1`
                       >
                         <label
                           class="Label--main"
-                          style="font-size: 13px;"
+                          style="font-size: 13px; font-weight: normal;"
                         >
                           optionalField
                           <span
@@ -1985,7 +1985,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Github 1`
                       >
                         <label
                           class="Label--main"
-                          style="font-size: 13px;"
+                          style="font-size: 13px; font-weight: normal;"
                         >
                           optionalField
                           <span
@@ -2017,7 +2017,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Github 1`
                     class="Layout--horizontal StyledProps--main"
                   >
                     <button
-                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                       type="submit"
                     >
                       <span
@@ -2230,7 +2230,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Gitlab 1`
                       class="StyledProps--font StyledProps--main main formElm"
                     >
                       <div
-                        class="InputWithIdentifier--txtNameContainer"
+                        class="InputWithIdentifier--txtNameContainer TextInput--main"
                       >
                         <div
                           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -2315,7 +2315,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Gitlab 1`
                       >
                         <label
                           class="Label--main"
-                          style="font-size: 13px;"
+                          style="font-size: 13px; font-weight: normal;"
                         >
                           optionalField
                           <span
@@ -2346,7 +2346,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Gitlab 1`
                       >
                         <label
                           class="Label--main"
-                          style="font-size: 13px;"
+                          style="font-size: 13px; font-weight: normal;"
                         >
                           optionalField
                           <span
@@ -2378,7 +2378,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Gitlab 1`
                     class="Layout--horizontal StyledProps--main"
                   >
                     <button
-                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                       type="submit"
                     >
                       <span
@@ -2568,7 +2568,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Nexus 1`]
                       class="StyledProps--font StyledProps--main main formElm"
                     >
                       <div
-                        class="InputWithIdentifier--txtNameContainer"
+                        class="InputWithIdentifier--txtNameContainer TextInput--main"
                       >
                         <div
                           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -2653,7 +2653,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Nexus 1`]
                       >
                         <label
                           class="Label--main"
-                          style="font-size: 13px;"
+                          style="font-size: 13px; font-weight: normal;"
                         >
                           optionalField
                           <span
@@ -2684,7 +2684,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Nexus 1`]
                       >
                         <label
                           class="Label--main"
-                          style="font-size: 13px;"
+                          style="font-size: 13px; font-weight: normal;"
                         >
                           optionalField
                           <span
@@ -2716,7 +2716,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Nexus 1`]
                     class="Layout--horizontal StyledProps--main"
                   >
                     <button
-                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                       type="submit"
                     >
                       <span
@@ -2876,7 +2876,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for VAULT 1`]
                       class="StyledProps--font StyledProps--main main formElm"
                     >
                       <div
-                        class="InputWithIdentifier--txtNameContainer"
+                        class="InputWithIdentifier--txtNameContainer TextInput--main"
                       >
                         <div
                           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -2961,7 +2961,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for VAULT 1`]
                       >
                         <label
                           class="Label--main"
-                          style="font-size: 13px;"
+                          style="font-size: 13px; font-weight: normal;"
                         >
                           optionalField
                           <span
@@ -2992,7 +2992,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for VAULT 1`]
                       >
                         <label
                           class="Label--main"
-                          style="font-size: 13px;"
+                          style="font-size: 13px; font-weight: normal;"
                         >
                           optionalField
                           <span
@@ -3024,7 +3024,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for VAULT 1`]
                     class="Layout--horizontal StyledProps--main"
                   >
                     <button
-                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                       type="submit"
                     >
                       <span
@@ -3208,7 +3208,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for k8 1`] = 
                       class="StyledProps--font StyledProps--main main formElm"
                     >
                       <div
-                        class="InputWithIdentifier--txtNameContainer"
+                        class="InputWithIdentifier--txtNameContainer TextInput--main"
                       >
                         <div
                           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -3293,7 +3293,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for k8 1`] = 
                       >
                         <label
                           class="Label--main"
-                          style="font-size: 13px;"
+                          style="font-size: 13px; font-weight: normal;"
                         >
                           optionalField
                           <span
@@ -3324,7 +3324,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for k8 1`] = 
                       >
                         <label
                           class="Label--main"
-                          style="font-size: 13px;"
+                          style="font-size: 13px; font-weight: normal;"
                         >
                           optionalField
                           <span
@@ -3356,7 +3356,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for k8 1`] = 
                     class="Layout--horizontal StyledProps--main"
                   >
                     <button
-                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                       type="submit"
                     >
                       <span

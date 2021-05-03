@@ -115,7 +115,7 @@ exports[`Terraform var file creation testing initial render 1`] = `
         class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-huge"
       >
         <button
-          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
           type="submit"
         >
           <span
@@ -125,7 +125,7 @@ exports[`Terraform var file creation testing initial render 1`] = `
           </span>
         </button>
         <button
-          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
           type="button"
         >
           <span
@@ -288,7 +288,7 @@ exports[`Terraform var file creation testing removing path successfully 1`] = `
         class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-huge"
       >
         <button
-          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
           type="submit"
         >
           <span
@@ -298,7 +298,7 @@ exports[`Terraform var file creation testing removing path successfully 1`] = `
           </span>
         </button>
         <button
-          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
           type="button"
         >
           <span

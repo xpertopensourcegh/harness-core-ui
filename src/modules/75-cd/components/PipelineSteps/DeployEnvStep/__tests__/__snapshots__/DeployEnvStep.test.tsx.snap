@@ -51,7 +51,7 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
           class="StyledProps--font StyledProps--main main"
         >
           <div
-            class="InputWithIdentifier--txtNameContainer"
+            class="InputWithIdentifier--txtNameContainer TextInput--main"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -117,7 +117,7 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
           >
             <label
               class="Label--main"
-              style="font-size: 13px;"
+              style="font-size: 13px; font-weight: normal;"
             >
               optionalField
             </label>
@@ -142,7 +142,7 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
           >
             <label
               class="Label--main"
-              style="font-size: 13px;"
+              style="font-size: 13px; font-weight: normal;"
             >
               optionalField
             </label>
@@ -319,7 +319,7 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
         </div>
         <div>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             data-id="environment-save"
             type="button"
           >
@@ -387,7 +387,7 @@ exports[`Test DeployEnvironment Step should render environment view and save 1`]
           class="StyledProps--font StyledProps--main main"
         >
           <div
-            class="InputWithIdentifier--txtNameContainer"
+            class="InputWithIdentifier--txtNameContainer TextInput--main"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -471,7 +471,7 @@ exports[`Test DeployEnvironment Step should render environment view and save 1`]
           >
             <label
               class="Label--main"
-              style="font-size: 13px;"
+              style="font-size: 13px; font-weight: normal;"
             >
               optionalField
               <span
@@ -502,7 +502,7 @@ exports[`Test DeployEnvironment Step should render environment view and save 1`]
           >
             <label
               class="Label--main"
-              style="font-size: 13px;"
+              style="font-size: 13px; font-weight: normal;"
             >
               optionalField
               <span
@@ -611,7 +611,7 @@ exports[`Test DeployEnvironment Step should render environment view and save 1`]
         </div>
         <div>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             data-id="environment-save"
             type="button"
           >

@@ -60,7 +60,7 @@ exports[`PurposePage should display error page when api call fails 1`] = `
             call failed
           </p>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             type="button"
           >
             <span

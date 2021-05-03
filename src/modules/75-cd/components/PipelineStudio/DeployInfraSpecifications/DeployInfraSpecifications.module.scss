@@ -36,7 +36,7 @@
     }
   }
   .removeLink {
-    color: var(--blue-500);
+    color: var(--primary-7);
     cursor: pointer;
     position: absolute;
     left: 350px;
@@ -146,13 +146,13 @@
 }
 .tabHeading {
   font-size: var(--font-size-medium);
-  color: var(--black-color-3);
+  color: var(--grey-700);
   margin-bottom: 14px;
   font-weight: 600;
 }
 .tabSubHeading {
   font-size: var(--font-size-normal);
-  color: var(--black-color-3);
+  color: var(--grey-700);
   margin-bottom: 14px;
   font-weight: 600;
 }
@@ -165,7 +165,7 @@
   &.notwide {
     width: auto;
   }
-  background-color: #fafbfc;
+  background-color: var(--grey-50);
   box-shadow: none;
   -webkit-box-shadow: none;
 }

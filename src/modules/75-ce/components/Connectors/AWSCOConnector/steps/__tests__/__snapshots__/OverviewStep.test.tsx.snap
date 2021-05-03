@@ -32,7 +32,7 @@ exports[`Test Step 1 renders without crashing 1`] = `
                   class="StyledProps--font StyledProps--main connectorFormNameElm"
                 >
                   <div
-                    class="InputWithIdentifier--txtNameContainer"
+                    class="InputWithIdentifier--txtNameContainer TextInput--main"
                   >
                     <div
                       class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -137,7 +137,7 @@ exports[`Test Step 1 renders without crashing 1`] = `
             </div>
           </div>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main nextButton StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main nextButton StyledProps--intent-primary Button--with-current-color"
             type="submit"
           >
             <span

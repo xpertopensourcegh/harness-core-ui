@@ -9,7 +9,7 @@ exports[`<PipelineDeploymentListHeader /> test snapshot testing 1`] = `
       class="lhs"
     >
       <button
-        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
         type="button"
       >
         <span
@@ -53,7 +53,7 @@ exports[`<PipelineDeploymentListHeader /> test snapshot testing 1`] = `
         </span>
       </button>
       <div
-        class="filterGroup btnGroup"
+        class="filterGroup"
       >
         <span
           class="label"
@@ -61,10 +61,10 @@ exports[`<PipelineDeploymentListHeader /> test snapshot testing 1`] = `
           deploymentsText
         </span>
         <div
-          class="StyledProps--font StyledProps--main ButtonGroup--btnGroup"
+          class="StyledProps--font StyledProps--main ButtonGroup--btnGroup btnGroup"
         >
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -76,7 +76,7 @@ exports[`<PipelineDeploymentListHeader /> test snapshot testing 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -244,9 +244,8 @@ exports[`<PipelineDeploymentListHeader /> test snapshot testing 1`] = `
       </div>
       <div>
         <button
-          class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main ngFilter"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ngFilter StyledProps--intent-primary Button--with-current-color Button--without-shadow"
           id="ngfilterbtn"
-          style="width: 32px; height: 32px;"
           type="button"
         >
           <span
@@ -254,9 +253,9 @@ exports[`<PipelineDeploymentListHeader /> test snapshot testing 1`] = `
             data-icon="ng-filter"
           >
             <svg
-              height="16"
+              height="22"
               viewBox="0 0 24 24"
-              width="16"
+              width="22"
             >
               <mask
                 fill="#fff"

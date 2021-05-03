@@ -122,7 +122,7 @@ exports[`CVSetupPage check next and previous 1`] = `
           class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             type="button"
           >
             <span
@@ -292,7 +292,7 @@ exports[`CVSetupPage check next and previous 1`] = `
               cv.onboarding.activitySources.dontHaveChangeSource
             </p>
             <a
-              class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--link"
               href="javascript:void()"
               role="button"
               tabindex="0"
@@ -447,7 +447,7 @@ exports[`CVSetupPage check next and previous 2`] = `
           class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
             type="button"
           >
             <span
@@ -476,7 +476,7 @@ exports[`CVSetupPage check next and previous 2`] = `
             </span>
           </button>
           <button
-            class="bp3-button bp3-disabled bp3-loading StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button bp3-disabled bp3-loading Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             disabled=""
             tabindex="-1"
             type="button"
@@ -812,7 +812,7 @@ exports[`CVSetupPage check next and previous 3`] = `
           class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
           <button
-            class="bp3-button bp3-disabled bp3-loading StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button bp3-disabled bp3-loading Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             disabled=""
             tabindex="-1"
             type="button"
@@ -1010,7 +1010,7 @@ exports[`CVSetupPage check next and previous 3`] = `
               cv.onboarding.activitySources.dontHaveChangeSource
             </p>
             <a
-              class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--link"
               href="javascript:void()"
               role="button"
               tabindex="0"
@@ -1151,7 +1151,7 @@ exports[`CVSetupPage render initial state 1`] = `
           class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             type="button"
           >
             <span
@@ -1321,7 +1321,7 @@ exports[`CVSetupPage render initial state 1`] = `
               cv.onboarding.activitySources.dontHaveChangeSource
             </p>
             <a
-              class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--link"
               href="javascript:void()"
               role="button"
               tabindex="0"

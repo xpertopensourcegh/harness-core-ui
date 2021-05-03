@@ -31,9 +31,8 @@
 }
 
 .stage-create {
-  max-width: 1000px;
+  max-width: 1024px;
   padding: var(--spacing-xlarge);
-  background-color: var(--white);
 }
 
 .btn-setup {
@@ -52,8 +51,10 @@
   }
 
   .tabHeading {
-    font-weight: 500;
     font-size: var(--font-size-medium);
+    color: var(--grey-700);
+    margin-bottom: 14px;
+    font-weight: 600;
   }
   &.noPadVertical {
     padding-top: 0px;
@@ -92,7 +93,7 @@
     }
   }
   .removeLink {
-    color: var(--blue-500);
+    color: var(--primary-7);
     cursor: pointer;
     position: relative;
     top: 16px;
@@ -107,7 +108,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 64px;
+  width: 85px;
   margin-right: var(--spacing-small);
 }
 
@@ -175,7 +176,7 @@
 
   &:hover {
     path:first-child {
-      stroke: var(--blue-450) !important;
+      stroke: var(--primary-7) !important;
     }
   }
 }
@@ -251,18 +252,18 @@
 }
 .tabHeading {
   font-size: var(--font-size-medium);
-  color: var(--black-color-3);
+  color: var(--grey-700);
   margin-bottom: 14px;
   font-weight: 600;
 }
 .tabSubHeading {
   font-size: var(--font-size-normal);
-  color: var(--black-color-3);
+  color: var(--grey-700);
   margin-bottom: 14px;
   font-weight: 600;
 }
 .section-card {
-  width: 1024px;
+  width: 100%;
   margin-bottom: 20px;
   &.shadow {
     box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
@@ -270,7 +271,7 @@
   &.notwide {
     width: auto;
   }
-  background-color: #fafbfc;
+  background-color: var(--grey-50);
   box-shadow: none;
   -webkit-box-shadow: none;
 }

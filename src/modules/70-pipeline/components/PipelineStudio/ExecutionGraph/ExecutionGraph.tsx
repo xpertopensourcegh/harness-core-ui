@@ -78,12 +78,14 @@ const renderPopover = ({
           icon="Edit"
           text={labels.addStep}
           onClick={() => onPopoverSelection?.(false, isParallelNodeClicked, event)}
+          withoutBoxShadow
         />
         <Button
           minimal
           icon="step-group"
           text={labels.addStepGroup}
           onClick={() => onPopoverSelection?.(true, isParallelNodeClicked, event)}
+          withoutBoxShadow
         />
       </Layout.Vertical>
     </>
@@ -623,7 +625,12 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
             active: state.isRollback ? StepsType.Rollback : StepsType.Normal
           }}
         />
-        <CanvasButtons engine={engine} tooltipPosition={canvasButtonsTooltipPosition} layout={canvasButtonsLayout} />
+        <CanvasButtons
+          engine={engine}
+          tooltipPosition={canvasButtonsTooltipPosition}
+          layout={canvasButtonsLayout}
+          className={css.canvasButtons}
+        />
         <DynamicPopover
           className={css.addStepPopover}
           darkMode={true}

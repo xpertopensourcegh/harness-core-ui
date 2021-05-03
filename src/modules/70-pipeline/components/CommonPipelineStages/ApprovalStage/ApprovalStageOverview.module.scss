@@ -49,7 +49,7 @@
     &.notwide {
       width: auto;
     }
-    background-color: #fafbfc;
+    background-color: var(--grey-50);
     box-shadow: none;
     -webkit-box-shadow: none;
   }
@@ -85,7 +85,7 @@
     }
   }
   .removeLink {
-    color: var(--blue-500);
+    color: var(--primary-7);
     cursor: pointer;
     position: relative;
     top: 16px;

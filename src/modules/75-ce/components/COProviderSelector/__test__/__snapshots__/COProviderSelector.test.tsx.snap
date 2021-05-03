@@ -155,7 +155,7 @@ exports[`COProviderSelector Rendering should render COProviderSelector 1`] = `
       </div>
     </div>
     <button
-      class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color StyledProps--main footer StyledProps--intent-primary"
+      class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main footer StyledProps--intent-primary Button--with-current-color"
       disabled=""
       tabindex="-1"
       type="button"

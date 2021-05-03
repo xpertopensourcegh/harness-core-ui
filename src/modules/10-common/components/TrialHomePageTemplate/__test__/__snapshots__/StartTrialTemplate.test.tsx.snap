@@ -56,7 +56,7 @@ exports[`StartTrialTemplate snapshot test should display error msg when api call
           style="align-items: center;"
         >
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             style="width: 300px; height: 45px;"
             type="button"
           >
@@ -114,7 +114,7 @@ exports[`StartTrialTemplate snapshot test should render start a trial by default
           style="align-items: center;"
         >
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             style="width: 300px; height: 45px;"
             type="button"
           >

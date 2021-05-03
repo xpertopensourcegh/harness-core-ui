@@ -13,7 +13,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
           class="fieldsSection"
         >
           <div
-            class="InputWithIdentifier--txtNameContainer"
+            class="InputWithIdentifier--txtNameContainer TextInput--main"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -175,7 +175,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     tabindex="0"
                     type="button"
                   >
@@ -214,7 +214,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                     style="width: 560px;"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                       data-testid="cr-field-spec.connectorRef"
                       style="width: 532px;"
                       type="button"
@@ -342,7 +342,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     tabindex="0"
                     type="button"
                   >
@@ -436,7 +436,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     tabindex="0"
                     type="button"
                   >
@@ -529,7 +529,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     tabindex="0"
                     type="button"
                   >
@@ -655,7 +655,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     tabindex="0"
                     type="button"
                   >
@@ -781,7 +781,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     tabindex="0"
                     type="button"
                   >
@@ -935,7 +935,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     tabindex="0"
                     type="button"
                   >
@@ -1043,7 +1043,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                           tabindex="0"
                           type="button"
                         >
@@ -1073,7 +1073,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -1116,7 +1116,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                   class="monacoWrapper"
                 >
                   <button
-                    class="bp3-button bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main expandBtn"
+                    class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
                     type="button"
                   >
                     <span
@@ -1175,7 +1175,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                           tabindex="0"
                           type="button"
                         >
@@ -1205,7 +1205,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -1248,7 +1248,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                   class="monacoWrapper"
                 >
                   <button
-                    class="bp3-button bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main expandBtn"
+                    class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
                     type="button"
                   >
                     <span
@@ -1307,7 +1307,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                           tabindex="0"
                           type="button"
                         >
@@ -1337,7 +1337,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -1438,7 +1438,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                       </div>
                     </div>
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                       data-testid="remove-spec.reportPaths-[0]"
                       type="button"
                     >
@@ -1517,7 +1517,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                       </div>
                     </div>
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                       data-testid="remove-spec.reportPaths-[1]"
                       type="button"
                     >
@@ -1596,7 +1596,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                       </div>
                     </div>
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                       data-testid="remove-spec.reportPaths-[2]"
                       type="button"
                     >
@@ -1675,7 +1675,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                       </div>
                     </div>
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                       data-testid="remove-spec.reportPaths-[3]"
                       type="button"
                     >
@@ -1754,7 +1754,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                       </div>
                     </div>
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                       data-testid="remove-spec.reportPaths-[4]"
                       type="button"
                     >
@@ -1776,7 +1776,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                     </button>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                     data-testid="add-spec.reportPaths"
                     type="button"
                   >
@@ -1817,7 +1817,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                           tabindex="0"
                           type="button"
                         >
@@ -1847,7 +1847,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -1988,7 +1988,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                           </div>
                         </div>
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                           data-testid="remove-spec.envVariables-[0]"
                           type="button"
                         >
@@ -2099,7 +2099,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                           </div>
                         </div>
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                           data-testid="remove-spec.envVariables-[1]"
                           type="button"
                         >
@@ -2210,7 +2210,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                           </div>
                         </div>
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                           data-testid="remove-spec.envVariables-[2]"
                           type="button"
                         >
@@ -2234,7 +2234,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                     data-testid="add-spec.envVariables"
                     type="button"
                   >
@@ -2275,7 +2275,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                           tabindex="0"
                           type="button"
                         >
@@ -2305,7 +2305,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -2405,7 +2405,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                       </div>
                     </div>
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                       data-testid="remove-spec.outputVariables-[0]"
                       type="button"
                     >
@@ -2483,7 +2483,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                       </div>
                     </div>
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                       data-testid="remove-spec.outputVariables-[1]"
                       type="button"
                     >
@@ -2561,7 +2561,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                       </div>
                     </div>
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                       data-testid="remove-spec.outputVariables-[2]"
                       type="button"
                     >
@@ -2639,7 +2639,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                       </div>
                     </div>
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                       data-testid="remove-spec.outputVariables-[3]"
                       type="button"
                     >
@@ -2661,7 +2661,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                     </button>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                     data-testid="add-spec.outputVariables"
                     type="button"
                   >
@@ -2686,7 +2686,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                   tabindex="0"
                   type="button"
                 >
@@ -2868,7 +2868,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                       tabindex="0"
                       type="button"
                     >
@@ -2968,7 +2968,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
           class="fieldsSection"
         >
           <div
-            class="InputWithIdentifier--txtNameContainer"
+            class="InputWithIdentifier--txtNameContainer TextInput--main"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -3123,7 +3123,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                   </span>
                 </div>
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                   id="configureOptions"
                   type="button"
                 >
@@ -3165,7 +3165,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     tabindex="0"
                     type="button"
                   >
@@ -3251,7 +3251,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                 id="configureOptions"
                 type="button"
               >
@@ -3289,7 +3289,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     tabindex="0"
                     type="button"
                   >
@@ -3374,7 +3374,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                 id="configureOptions"
                 type="button"
               >
@@ -3412,7 +3412,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     tabindex="0"
                     type="button"
                   >
@@ -3497,7 +3497,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                 id="configureOptions"
                 type="button"
               >
@@ -3535,7 +3535,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     tabindex="0"
                     type="button"
                   >
@@ -3620,7 +3620,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                 id="configureOptions"
                 type="button"
               >
@@ -3658,7 +3658,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     tabindex="0"
                     type="button"
                   >
@@ -3743,7 +3743,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                 id="configureOptions"
                 type="button"
               >
@@ -3781,7 +3781,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     tabindex="0"
                     type="button"
                   >
@@ -3866,7 +3866,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                 id="configureOptions"
                 type="button"
               >
@@ -3979,7 +3979,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     tabindex="0"
                     type="button"
                   >
@@ -4064,7 +4064,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                 id="configureOptions"
                 type="button"
               >
@@ -4118,7 +4118,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                             tabindex="0"
                             type="button"
                           >
@@ -4153,7 +4153,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -4194,7 +4194,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
               />
             </div>
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
               id="configureOptions"
               type="button"
             >
@@ -4247,7 +4247,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                             tabindex="0"
                             type="button"
                           >
@@ -4282,7 +4282,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -4323,7 +4323,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
               />
             </div>
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
               id="configureOptions"
               type="button"
             >
@@ -4376,7 +4376,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                             tabindex="0"
                             type="button"
                           >
@@ -4411,7 +4411,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -4452,7 +4452,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
               />
             </div>
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
               id="configureOptions"
               type="button"
             >
@@ -4505,7 +4505,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                             tabindex="0"
                             type="button"
                           >
@@ -4540,7 +4540,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -4581,7 +4581,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
               />
             </div>
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
               id="configureOptions"
               type="button"
             >
@@ -4634,7 +4634,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                             tabindex="0"
                             type="button"
                           >
@@ -4669,7 +4669,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -4710,7 +4710,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
               />
             </div>
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
               id="configureOptions"
               type="button"
             >
@@ -4746,7 +4746,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                   tabindex="0"
                   type="button"
                 >
@@ -4842,7 +4842,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                   </div>
                 </div>
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                   id="configureOptions"
                   type="button"
                 >
@@ -4938,7 +4938,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                   </div>
                 </div>
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                   id="configureOptions"
                   type="button"
                 >
@@ -4986,7 +4986,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                       tabindex="0"
                       type="button"
                     >
@@ -5069,7 +5069,7 @@ exports[`RunTests Step Edit View renders runtime inputs 1`] = `
                   </span>
                 </div>
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                   id="configureOptions"
                   type="button"
                 >
@@ -5116,7 +5116,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
           class="fieldsSection"
         >
           <div
-            class="InputWithIdentifier--txtNameContainer"
+            class="InputWithIdentifier--txtNameContainer TextInput--main"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -5274,7 +5274,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     tabindex="0"
                     type="button"
                   >
@@ -5313,7 +5313,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                     style="width: 560px;"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                       data-testid="cr-field-spec.connectorRef"
                       style="width: 532px;"
                       type="button"
@@ -5441,7 +5441,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     tabindex="0"
                     type="button"
                   >
@@ -5535,7 +5535,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     tabindex="0"
                     type="button"
                   >
@@ -5628,7 +5628,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     tabindex="0"
                     type="button"
                   >
@@ -5754,7 +5754,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     tabindex="0"
                     type="button"
                   >
@@ -5880,7 +5880,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     tabindex="0"
                     type="button"
                   >
@@ -6035,7 +6035,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     tabindex="0"
                     type="button"
                   >
@@ -6143,7 +6143,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                           tabindex="0"
                           type="button"
                         >
@@ -6173,7 +6173,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -6216,7 +6216,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                   class="monacoWrapper"
                 >
                   <button
-                    class="bp3-button bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main expandBtn"
+                    class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
                     type="button"
                   >
                     <span
@@ -6273,7 +6273,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                           tabindex="0"
                           type="button"
                         >
@@ -6303,7 +6303,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -6346,7 +6346,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                   class="monacoWrapper"
                 >
                   <button
-                    class="bp3-button bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main expandBtn"
+                    class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
                     type="button"
                   >
                     <span
@@ -6403,7 +6403,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                           tabindex="0"
                           type="button"
                         >
@@ -6433,7 +6433,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -6534,7 +6534,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                       </div>
                     </div>
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                       data-testid="remove-spec.reportPaths-[0]"
                       type="button"
                     >
@@ -6556,7 +6556,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                     </button>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                     data-testid="add-spec.reportPaths"
                     type="button"
                   >
@@ -6597,7 +6597,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                           tabindex="0"
                           type="button"
                         >
@@ -6627,7 +6627,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -6768,7 +6768,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                           </div>
                         </div>
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                           data-testid="remove-spec.envVariables-[0]"
                           type="button"
                         >
@@ -6792,7 +6792,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                     data-testid="add-spec.envVariables"
                     type="button"
                   >
@@ -6833,7 +6833,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                           tabindex="0"
                           type="button"
                         >
@@ -6863,7 +6863,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -6963,7 +6963,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                       </div>
                     </div>
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                       data-testid="remove-spec.outputVariables-[0]"
                       type="button"
                     >
@@ -6985,7 +6985,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                     </button>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                     data-testid="add-spec.outputVariables"
                     type="button"
                   >
@@ -7010,7 +7010,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                   tabindex="0"
                   type="button"
                 >
@@ -7192,7 +7192,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                       tabindex="0"
                       type="button"
                     >
@@ -7298,7 +7298,7 @@ exports[`RunTests Step InputSet View should not render any fields 1`] = `
       {}
     </pre>
     <button
-      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
       type="button"
     >
       <span
@@ -7363,7 +7363,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     tabindex="0"
                     type="button"
                   >
@@ -7395,7 +7395,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
             class="bp3-form-content"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
               data-testid="cr-field-spec.connectorRef"
               style="width: 560px;"
               type="button"
@@ -7501,7 +7501,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     tabindex="0"
                     type="button"
                   >
@@ -7565,7 +7565,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     tabindex="0"
                     type="button"
                   >
@@ -7629,7 +7629,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     tabindex="0"
                     type="button"
                   >
@@ -7726,7 +7726,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     tabindex="0"
                     type="button"
                   >
@@ -7823,7 +7823,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     tabindex="0"
                     type="button"
                   >
@@ -7908,7 +7908,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     tabindex="0"
                     type="button"
                   >
@@ -7971,7 +7971,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     tabindex="0"
                     type="button"
                   >
@@ -8006,7 +8006,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
               class="monacoWrapper"
             >
               <button
-                class="bp3-button bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main expandBtn"
+                class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
                 type="button"
               >
                 <span
@@ -8054,7 +8054,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     tabindex="0"
                     type="button"
                   >
@@ -8089,7 +8089,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
               class="monacoWrapper"
             >
               <button
-                class="bp3-button bp3-small StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main expandBtn"
+                class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
                 type="button"
               >
                 <span
@@ -8131,7 +8131,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                   tabindex="0"
                   type="button"
                 >
@@ -8181,7 +8181,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                 data-testid="remove-spec.reports.spec.paths-[0]"
                 style="margin-top: 4px;"
                 type="button"
@@ -8204,7 +8204,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
               </button>
             </div>
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
               data-testid="add-spec.reports.spec.paths"
               type="button"
             >
@@ -8229,7 +8229,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                   tabindex="0"
                   type="button"
                 >
@@ -8308,7 +8308,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     data-testid="remove-spec.envVariables-[0]"
                     style="margin-top: 4px;"
                     type="button"
@@ -8333,7 +8333,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
               </div>
             </div>
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
               data-testid="add-spec.envVariables"
               type="button"
             >
@@ -8358,7 +8358,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                   tabindex="0"
                   type="button"
                 >
@@ -8407,7 +8407,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                 data-testid="remove-spec.outputVariables-[0]"
                 style="margin-top: 4px;"
                 type="button"
@@ -8430,7 +8430,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
               </button>
             </div>
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
               data-testid="add-spec.outputVariables"
               type="button"
             >
@@ -8453,7 +8453,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                 tabindex="0"
                 type="button"
               >
@@ -8574,7 +8574,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     tabindex="0"
                     type="button"
                   >
@@ -8629,7 +8629,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
       {}
     </pre>
     <button
-      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
       type="button"
     >
       <span
@@ -8661,7 +8661,7 @@ exports[`RunTests Step InputSet View should render properly 1`] = `
       {}
     </pre>
     <button
-      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
       type="button"
     >
       <span
@@ -8694,7 +8694,7 @@ exports[`RunTests Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
             tabindex="0"
             type="button"
           >
@@ -8741,7 +8741,7 @@ exports[`RunTests Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
             tabindex="0"
             type="button"
           >
@@ -8788,7 +8788,7 @@ exports[`RunTests Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
             tabindex="0"
             type="button"
           >
@@ -8835,7 +8835,7 @@ exports[`RunTests Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
             tabindex="0"
             type="button"
           >
@@ -8882,7 +8882,7 @@ exports[`RunTests Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
             tabindex="0"
             type="button"
           >
@@ -8929,7 +8929,7 @@ exports[`RunTests Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
             tabindex="0"
             type="button"
           >
@@ -8976,7 +8976,7 @@ exports[`RunTests Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
             tabindex="0"
             type="button"
           >
@@ -9023,7 +9023,7 @@ exports[`RunTests Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
             tabindex="0"
             type="button"
           >
@@ -9070,7 +9070,7 @@ exports[`RunTests Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
             tabindex="0"
             type="button"
           >
@@ -9117,7 +9117,7 @@ exports[`RunTests Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
             tabindex="0"
             type="button"
           >
@@ -9164,7 +9164,7 @@ exports[`RunTests Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
             tabindex="0"
             type="button"
           >
@@ -9211,7 +9211,7 @@ exports[`RunTests Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
             tabindex="0"
             type="button"
           >
@@ -9258,7 +9258,7 @@ exports[`RunTests Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
             tabindex="0"
             type="button"
           >
@@ -9305,7 +9305,7 @@ exports[`RunTests Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
             tabindex="0"
             type="button"
           >
@@ -9352,7 +9352,7 @@ exports[`RunTests Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
             tabindex="0"
             type="button"
           >
@@ -9403,7 +9403,7 @@ exports[`RunTests Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
             tabindex="0"
             type="button"
           >
@@ -9450,7 +9450,7 @@ exports[`RunTests Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
             tabindex="0"
             type="button"
           >
@@ -9497,7 +9497,7 @@ exports[`RunTests Step InputVariable View should render properly 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
             tabindex="0"
             type="button"
           >

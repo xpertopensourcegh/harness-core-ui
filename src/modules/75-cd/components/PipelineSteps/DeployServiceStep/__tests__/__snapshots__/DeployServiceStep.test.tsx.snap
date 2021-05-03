@@ -51,7 +51,7 @@ exports[`Test DeployService Step Should be able save even if there is 63 charact
           class="StyledProps--font StyledProps--main main"
         >
           <div
-            class="InputWithIdentifier--txtNameContainer"
+            class="InputWithIdentifier--txtNameContainer TextInput--main"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -117,7 +117,7 @@ exports[`Test DeployService Step Should be able save even if there is 63 charact
           >
             <label
               class="Label--main"
-              style="font-size: 13px;"
+              style="font-size: 13px; font-weight: normal;"
             >
               optionalField
             </label>
@@ -142,7 +142,7 @@ exports[`Test DeployService Step Should be able save even if there is 63 charact
           >
             <label
               class="Label--main"
-              style="font-size: 13px;"
+              style="font-size: 13px; font-weight: normal;"
             >
               optionalField
             </label>
@@ -239,7 +239,7 @@ exports[`Test DeployService Step Should be able save even if there is 63 charact
         </div>
         <div>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             data-id="service-save"
             type="button"
           >
@@ -307,7 +307,7 @@ exports[`Test DeployService Step should render edit service view (service), then
           class="StyledProps--font StyledProps--main main"
         >
           <div
-            class="InputWithIdentifier--txtNameContainer"
+            class="InputWithIdentifier--txtNameContainer TextInput--main"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -373,7 +373,7 @@ exports[`Test DeployService Step should render edit service view (service), then
           >
             <label
               class="Label--main"
-              style="font-size: 13px;"
+              style="font-size: 13px; font-weight: normal;"
             >
               optionalField
             </label>
@@ -398,7 +398,7 @@ exports[`Test DeployService Step should render edit service view (service), then
           >
             <label
               class="Label--main"
-              style="font-size: 13px;"
+              style="font-size: 13px; font-weight: normal;"
             >
               optionalField
             </label>
@@ -495,7 +495,7 @@ exports[`Test DeployService Step should render edit service view (service), then
         </div>
         <div>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             data-id="service-save"
             type="button"
           >
@@ -563,7 +563,7 @@ exports[`Test DeployService Step should render service view and save 1`] = `
           class="StyledProps--font StyledProps--main main"
         >
           <div
-            class="InputWithIdentifier--txtNameContainer"
+            class="InputWithIdentifier--txtNameContainer TextInput--main"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -647,7 +647,7 @@ exports[`Test DeployService Step should render service view and save 1`] = `
           >
             <label
               class="Label--main"
-              style="font-size: 13px;"
+              style="font-size: 13px; font-weight: normal;"
             >
               optionalField
               <span
@@ -678,7 +678,7 @@ exports[`Test DeployService Step should render service view and save 1`] = `
           >
             <label
               class="Label--main"
-              style="font-size: 13px;"
+              style="font-size: 13px; font-weight: normal;"
             >
               optionalField
               <span
@@ -707,7 +707,7 @@ exports[`Test DeployService Step should render service view and save 1`] = `
         </div>
         <div>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             data-id="service-save"
             type="button"
           >

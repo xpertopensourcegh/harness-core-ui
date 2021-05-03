@@ -12,7 +12,7 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
         class="formGroup md"
       >
         <div
-          class="InputWithIdentifier--txtNameContainer"
+          class="InputWithIdentifier--txtNameContainer TextInput--main"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -302,13 +302,13 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
             data-testid="step-1-summary"
           >
             <div
+              class="Accordion--chevron"
+            />
+            <div
               class="Accordion--label"
             >
               pipelineSteps.configFiles
             </div>
-            <div
-              class="Accordion--chevron"
-            />
           </div>
           <div
             class="bp3-collapse Accordion--collapse"
@@ -402,7 +402,7 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                           tabindex="0"
                           type="button"
                         >
@@ -440,7 +440,7 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
                           style="width: 260px;"
                         >
                           <button
-                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                             data-testid="cr-field-spec.configuration.spec.configFiles.store.spec.connectorRef"
                             style="width: 232px;"
                             type="button"
@@ -651,13 +651,13 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
             data-testid="step-2-summary"
           >
             <div
+              class="Accordion--chevron"
+            />
+            <div
               class="Accordion--label"
             >
               pipelineSteps.terraformVarFiles
             </div>
-            <div
-              class="Accordion--chevron"
-            />
           </div>
           <div
             class="bp3-collapse Accordion--collapse"
@@ -687,7 +687,7 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
                         />
                       </div>
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                         data-testid="remove-tfvar-file-0"
                         type="button"
                       >
@@ -728,7 +728,7 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
                         class="Layout--horizontal StyledProps--main path"
                       />
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                         data-testid="remove-tfvar-file-1"
                         type="button"
                       >
@@ -755,7 +755,7 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                     data-testid="add-tfvar-file"
                     type="button"
                   >
@@ -799,13 +799,13 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
             data-testid="step-3-summary"
           >
             <div
+              class="Accordion--chevron"
+            />
+            <div
               class="Accordion--label"
             >
               pipelineSteps.backendConfig
             </div>
-            <div
-              class="Accordion--chevron"
-            />
           </div>
           <div
             class="bp3-collapse Accordion--collapse"
@@ -827,13 +827,13 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
             data-testid="step-4-summary"
           >
             <div
+              class="Accordion--chevron"
+            />
+            <div
               class="Accordion--label"
             >
               pipeline.targets.title
             </div>
-            <div
-              class="Accordion--chevron"
-            />
           </div>
           <div
             class="bp3-collapse Accordion--collapse"
@@ -855,13 +855,13 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
             data-testid="step-5-summary"
           >
             <div
+              class="Accordion--chevron"
+            />
+            <div
               class="Accordion--label"
             >
               environmentVariables
             </div>
-            <div
-              class="Accordion--chevron"
-            />
           </div>
           <div
             class="bp3-collapse Accordion--collapse"

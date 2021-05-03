@@ -68,7 +68,7 @@ exports[`UsersPage Test Add Roles 1`] = `
                     rbac.usersPage.assignRoles
                   </span>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                     data-id="btn-add"
                     type="button"
                   >
@@ -218,7 +218,7 @@ exports[`UsersPage Test Add Roles 1`] = `
                         class="FieldArray--deleteColumn"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                           data-id="btn-delete"
                           type="button"
                         >
@@ -353,7 +353,7 @@ exports[`UsersPage Test Add Roles 1`] = `
                         class="FieldArray--deleteColumn"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                           data-id="btn-delete"
                           type="button"
                         >
@@ -383,7 +383,7 @@ exports[`UsersPage Test Add Roles 1`] = `
               class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                 type="submit"
               >
                 <span
@@ -399,7 +399,7 @@ exports[`UsersPage Test Add Roles 1`] = `
     </div>
   </div>
   <button
-    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main crossIcon"
+    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main crossIcon Button--with-current-color Button--iconOnly Button--without-shadow"
     type="button"
   >
     <span
@@ -434,7 +434,7 @@ exports[`UsersPage Test render data 1`] = `
       class="Layout--horizontal StyledProps--main StyledProps--padding-left-large"
     >
       <button
-        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
         type="button"
       >
         <span
@@ -689,7 +689,7 @@ exports[`UsersPage Test render data 1`] = `
               </span>
             </span>
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main roleButton"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main roleButton Button--with-current-color Button--without-shadow"
               data-testid="addRole-Testing_User_Group"
               type="button"
             >
@@ -716,7 +716,7 @@ exports[`UsersPage Test render data 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                   data-testid="menu-Testing_User_Group"
                   type="button"
                 >
@@ -772,7 +772,7 @@ exports[`UsersPage Test render data 1`] = `
             class="Layout--horizontal StyledProps--main"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main roleButton"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main roleButton Button--with-current-color Button--without-shadow"
               type="button"
             >
               <span
@@ -792,7 +792,7 @@ exports[`UsersPage Test render data 1`] = `
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main roleButton"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main roleButton Button--with-current-color Button--without-shadow"
               data-testid="addRole-dummyid"
               type="button"
             >
@@ -819,7 +819,7 @@ exports[`UsersPage Test render data 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                   data-testid="menu-dummyid"
                   type="button"
                 >

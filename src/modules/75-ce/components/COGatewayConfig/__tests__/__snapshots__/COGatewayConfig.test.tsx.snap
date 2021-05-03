@@ -994,7 +994,7 @@ exports[`Auto stopping Rule creation Tests Fill remaining form for INSTANCES 1`]
                       role="cell"
                     >
                       <button
-                        class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main clearBtn"
+                        class="bp3-button Button--button StyledProps--font StyledProps--main clearBtn Button--with-current-color Button--iconOnly"
                         type="button"
                       >
                         <span

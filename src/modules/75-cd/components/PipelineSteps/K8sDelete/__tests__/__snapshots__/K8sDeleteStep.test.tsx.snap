@@ -12,7 +12,7 @@ exports[`Test K8sDeleteStep should render edit view -with ManifestPaths selected
         class="formGroup md"
       >
         <div
-          class="InputWithIdentifier--txtNameContainer"
+          class="InputWithIdentifier--txtNameContainer TextInput--main"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -244,7 +244,7 @@ exports[`Test K8sDeleteStep should render edit view -with ReleaseName selected 1
         class="formGroup md"
       >
         <div
-          class="InputWithIdentifier--txtNameContainer"
+          class="InputWithIdentifier--txtNameContainer TextInput--main"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -486,7 +486,7 @@ exports[`Test K8sDeleteStep should render edit view -with ResourceName selected 
         class="formGroup md"
       >
         <div
-          class="InputWithIdentifier--txtNameContainer"
+          class="InputWithIdentifier--txtNameContainer TextInput--main"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -718,7 +718,7 @@ exports[`Test K8sDeleteStep should render edit view as new step 1`] = `
         class="formGroup md"
       >
         <div
-          class="InputWithIdentifier--txtNameContainer"
+          class="InputWithIdentifier--txtNameContainer TextInput--main"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"

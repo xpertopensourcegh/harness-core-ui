@@ -324,7 +324,7 @@ exports[`MapApplications matches snapshot 1`] = `
       class="Layout--horizontal StyledProps--main main"
     >
       <button
-        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
         type="button"
       >
         <span
@@ -353,7 +353,7 @@ exports[`MapApplications matches snapshot 1`] = `
         </span>
       </button>
       <button
-        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
         type="submit"
       >
         <span

@@ -14,7 +14,7 @@ exports[`<ExecutionStepDetails /> tests approval steps click on refresh triggers
         pipeline.execution.stepTitlePrefix
       </div>
       <button
-        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+        class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
         type="button"
       >
         <span
@@ -155,7 +155,7 @@ exports[`<ExecutionStepDetails /> tests approval steps click on refresh triggers
           </label>
         </div>
         <button
-          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
           type="button"
         >
           <span
@@ -409,7 +409,7 @@ exports[`<ExecutionStepDetails /> tests approval steps renders approval complete
           </label>
         </div>
         <button
-          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
           type="button"
         >
           <span
@@ -532,7 +532,7 @@ exports[`<ExecutionStepDetails /> tests approval steps renders approval waiting 
         pipeline.execution.stepTitlePrefix
       </div>
       <button
-        class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+        class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
         type="button"
       >
         <span
@@ -673,7 +673,7 @@ exports[`<ExecutionStepDetails /> tests approval steps renders approval waiting 
           </label>
         </div>
         <button
-          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
           type="button"
         >
           <span
@@ -928,7 +928,7 @@ exports[`<ExecutionStepDetails /> tests approval steps renders normal error step
           </label>
         </div>
         <button
-          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
           type="button"
         >
           <span
@@ -1325,7 +1325,7 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
           </label>
         </div>
         <button
-          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
           type="button"
         >
           <span
@@ -1664,7 +1664,7 @@ exports[`<ExecutionStepDetails /> tests retried steps does not fetches data for 
           </label>
         </div>
         <button
-          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
           type="button"
         >
           <span
@@ -1694,7 +1694,7 @@ exports[`<ExecutionStepDetails /> tests retried steps does not fetches data for 
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn more"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn more Button--with-current-color Button--iconOnly Button--without-shadow"
               data-testid="retry-logs"
               type="button"
             >
@@ -2036,7 +2036,7 @@ exports[`<ExecutionStepDetails /> tests retried steps fetches data for retry ste
           </label>
         </div>
         <button
-          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
           type="button"
         >
           <span
@@ -2066,7 +2066,7 @@ exports[`<ExecutionStepDetails /> tests retried steps fetches data for retry ste
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn more"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn more Button--with-current-color Button--iconOnly Button--without-shadow"
               data-testid="retry-logs"
               type="button"
             >
@@ -2407,7 +2407,7 @@ exports[`<ExecutionStepDetails /> tests retried steps shows loader while loading
           </label>
         </div>
         <button
-          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
           type="button"
         >
           <span
@@ -2437,7 +2437,7 @@ exports[`<ExecutionStepDetails /> tests retried steps shows loader while loading
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn more"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn more Button--with-current-color Button--iconOnly Button--without-shadow"
               data-testid="retry-logs"
               type="button"
             >
@@ -2640,7 +2640,7 @@ exports[`<ExecutionStepDetails /> tests retried steps shows step selection 1`] =
           </label>
         </div>
         <button
-          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
           type="button"
         >
           <span
@@ -2670,7 +2670,7 @@ exports[`<ExecutionStepDetails /> tests retried steps shows step selection 1`] =
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn more"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn more Button--with-current-color Button--iconOnly Button--without-shadow"
               data-testid="retry-logs"
               type="button"
             >

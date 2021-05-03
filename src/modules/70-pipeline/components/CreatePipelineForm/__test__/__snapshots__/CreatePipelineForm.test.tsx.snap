@@ -25,7 +25,7 @@ exports[`CreatePipelineForm Rendering should closeModal when click Setup Later 1
           class="StyledProps--font StyledProps--main main"
         >
           <div
-            class="InputWithIdentifier--txtNameContainer"
+            class="InputWithIdentifier--txtNameContainer TextInput--main"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -110,7 +110,7 @@ exports[`CreatePipelineForm Rendering should closeModal when click Setup Later 1
           >
             <label
               class="Label--main"
-              style="font-size: 13px;"
+              style="font-size: 13px; font-weight: normal;"
             >
               optionalField
               <span
@@ -141,7 +141,7 @@ exports[`CreatePipelineForm Rendering should closeModal when click Setup Later 1
           >
             <label
               class="Label--main"
-              style="font-size: 13px;"
+              style="font-size: 13px; font-weight: normal;"
             >
               optionalField
               <span
@@ -172,7 +172,7 @@ exports[`CreatePipelineForm Rendering should closeModal when click Setup Later 1
           class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large"
         >
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             type="submit"
           >
             <span
@@ -182,7 +182,7 @@ exports[`CreatePipelineForm Rendering should closeModal when click Setup Later 1
             </span>
           </button>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
             type="reset"
           >
             <span
@@ -260,7 +260,7 @@ exports[`CreatePipelineForm Rendering should render CreatePipelineForm 1`] = `
           class="StyledProps--font StyledProps--main main"
         >
           <div
-            class="InputWithIdentifier--txtNameContainer"
+            class="InputWithIdentifier--txtNameContainer TextInput--main"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -345,7 +345,7 @@ exports[`CreatePipelineForm Rendering should render CreatePipelineForm 1`] = `
           >
             <label
               class="Label--main"
-              style="font-size: 13px;"
+              style="font-size: 13px; font-weight: normal;"
             >
               optionalField
               <span
@@ -376,7 +376,7 @@ exports[`CreatePipelineForm Rendering should render CreatePipelineForm 1`] = `
           >
             <label
               class="Label--main"
-              style="font-size: 13px;"
+              style="font-size: 13px; font-weight: normal;"
             >
               optionalField
               <span
@@ -407,7 +407,7 @@ exports[`CreatePipelineForm Rendering should render CreatePipelineForm 1`] = `
           class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large"
         >
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             type="submit"
           >
             <span
@@ -417,7 +417,7 @@ exports[`CreatePipelineForm Rendering should render CreatePipelineForm 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
             type="reset"
           >
             <span
@@ -495,7 +495,7 @@ exports[`CreatePipelineForm Rendering should validate inputs 1`] = `
           class="StyledProps--font StyledProps--main main"
         >
           <div
-            class="InputWithIdentifier--txtNameContainer"
+            class="InputWithIdentifier--txtNameContainer TextInput--main"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -585,7 +585,7 @@ exports[`CreatePipelineForm Rendering should validate inputs 1`] = `
           >
             <label
               class="Label--main"
-              style="font-size: 13px;"
+              style="font-size: 13px; font-weight: normal;"
             >
               optionalField
               <span
@@ -616,7 +616,7 @@ exports[`CreatePipelineForm Rendering should validate inputs 1`] = `
           >
             <label
               class="Label--main"
-              style="font-size: 13px;"
+              style="font-size: 13px; font-weight: normal;"
             >
               optionalField
               <span
@@ -647,7 +647,7 @@ exports[`CreatePipelineForm Rendering should validate inputs 1`] = `
           class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large"
         >
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             type="submit"
           >
             <span
@@ -657,7 +657,7 @@ exports[`CreatePipelineForm Rendering should validate inputs 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
             type="reset"
           >
             <span

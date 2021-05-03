@@ -78,7 +78,7 @@ exports[`Unit tests for DefineYourMonitoringSource Ensure card renders passed in
               class="StyledProps--font StyledProps--main main"
             >
               <div
-                class="InputWithIdentifier--txtNameContainer"
+                class="InputWithIdentifier--txtNameContainer TextInput--main"
               >
                 <div
                   class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -163,7 +163,7 @@ exports[`Unit tests for DefineYourMonitoringSource Ensure card renders passed in
               >
                 <label
                   class="Label--main"
-                  style="font-size: 13px;"
+                  style="font-size: 13px; font-weight: normal;"
                 >
                   optionalField
                   <span
@@ -194,7 +194,7 @@ exports[`Unit tests for DefineYourMonitoringSource Ensure card renders passed in
               >
                 <label
                   class="Label--main"
-                  style="font-size: 13px;"
+                  style="font-size: 13px; font-weight: normal;"
                 >
                   optionalField
                   <span

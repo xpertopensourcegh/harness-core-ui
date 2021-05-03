@@ -78,7 +78,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
       class="StyledProps--font StyledProps--main main"
     >
       <button
-        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
         type="button"
       >
         <span
@@ -204,7 +204,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main StyledProps--color StyledProps--color-grey350"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey350 Button--with-current-color Button--iconOnly Button--without-shadow"
                     type="button"
                   >
                     <span
@@ -300,7 +300,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main StyledProps--color StyledProps--color-grey350"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey350 Button--with-current-color Button--iconOnly Button--without-shadow"
                     type="button"
                   >
                     <span

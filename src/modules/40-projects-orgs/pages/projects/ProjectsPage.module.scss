@@ -7,7 +7,7 @@
     border-bottom: 3px solid transparent;
 
     &.selected {
-      border-bottom-color: var(--blue-500);
+      border-bottom-color: var(--primary-7);
     }
 
     &:hover {
@@ -26,7 +26,7 @@
 
   .header {
     padding: var(--spacing-large) var(--spacing-xxxlarge) !important;
-    border-bottom: 1px solid var(--grey-300);
+    border-bottom: 1px solid var(--grey-200);
     background: var(--white) !important;
   }
 

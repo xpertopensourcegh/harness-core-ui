@@ -269,13 +269,13 @@ exports[`helm with http tests renders correctly in edit mode with connectorref 1
                 data-testid="advancedTitle-summary"
               >
                 <div
+                  class="Accordion--chevron"
+                />
+                <div
                   class="Accordion--label"
                 >
                   advancedTitle
                 </div>
-                <div
-                  class="Accordion--chevron"
-                />
               </div>
               <div
                 class="bp3-collapse Accordion--collapse"
@@ -293,7 +293,7 @@ exports[`helm with http tests renders correctly in edit mode with connectorref 1
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
             type="button"
           >
             <span
@@ -322,7 +322,7 @@ exports[`helm with http tests renders correctly in edit mode with connectorref 1
             </span>
           </button>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             type="submit"
           >
             <span
@@ -626,13 +626,13 @@ exports[`helm with http tests renders without crashing 1`] = `
                 data-testid="advancedTitle-summary"
               >
                 <div
+                  class="Accordion--chevron"
+                />
+                <div
                   class="Accordion--label"
                 >
                   advancedTitle
                 </div>
-                <div
-                  class="Accordion--chevron"
-                />
               </div>
               <div
                 class="bp3-collapse Accordion--collapse"
@@ -650,7 +650,7 @@ exports[`helm with http tests renders without crashing 1`] = `
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
             type="button"
           >
             <span
@@ -679,7 +679,7 @@ exports[`helm with http tests renders without crashing 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             type="submit"
           >
             <span

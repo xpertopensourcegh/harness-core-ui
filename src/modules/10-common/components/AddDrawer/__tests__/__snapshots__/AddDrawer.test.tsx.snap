@@ -417,7 +417,7 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                 style="justify-content: flex-end;"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                   type="button"
                 >
                   <span

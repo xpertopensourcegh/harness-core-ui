@@ -9,7 +9,7 @@ exports[`Test TerraformPlan click on add tf var file -should open the dialog 1`]
       class="formGroup md"
     >
       <div
-        class="InputWithIdentifier--txtNameContainer"
+        class="InputWithIdentifier--txtNameContainer TextInput--main"
       >
         <div
           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -239,7 +239,7 @@ exports[`Test TerraformPlan click on add tf var file -should open the dialog 1`]
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                 tabindex="0"
                 type="button"
               >
@@ -277,7 +277,7 @@ exports[`Test TerraformPlan click on add tf var file -should open the dialog 1`]
                 style="width: 260px;"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                   data-testid="cr-field-spec.configuration.secretManagerRef"
                   style="width: 232px;"
                   type="button"
@@ -357,13 +357,13 @@ exports[`Test TerraformPlan click on add tf var file -should open the dialog 1`]
           data-testid="step-1-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             pipelineSteps.configFiles
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -457,7 +457,7 @@ exports[`Test TerraformPlan click on add tf var file -should open the dialog 1`]
                       class="bp3-popover-target"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                         tabindex="0"
                         type="button"
                       >
@@ -495,7 +495,7 @@ exports[`Test TerraformPlan click on add tf var file -should open the dialog 1`]
                         style="width: 260px;"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                           data-testid="cr-field-spec.configuration.configFiles.store.spec.connectorRef"
                           style="width: 232px;"
                           type="button"
@@ -706,13 +706,13 @@ exports[`Test TerraformPlan click on add tf var file -should open the dialog 1`]
           data-testid="step-2-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             pipelineSteps.terraformVarFiles
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -744,7 +744,7 @@ exports[`Test TerraformPlan click on add tf var file -should open the dialog 1`]
                       </p>
                     </div>
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                       data-testid="remove-tfvar-file-0"
                       type="button"
                     >
@@ -783,7 +783,7 @@ exports[`Test TerraformPlan click on add tf var file -should open the dialog 1`]
                       class="Layout--horizontal StyledProps--main path"
                     />
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                       data-testid="remove-tfvar-file-1"
                       type="button"
                     >
@@ -810,7 +810,7 @@ exports[`Test TerraformPlan click on add tf var file -should open the dialog 1`]
                   </div>
                 </div>
                 <button
-                  class="bp3-button bp3-disabled bp3-loading bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button bp3-disabled bp3-loading bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                   data-testid="add-tfvar-file"
                   disabled=""
                   tabindex="-1"
@@ -882,13 +882,13 @@ exports[`Test TerraformPlan click on add tf var file -should open the dialog 1`]
           data-testid="step-3-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             pipelineSteps.backendConfig
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -910,13 +910,13 @@ exports[`Test TerraformPlan click on add tf var file -should open the dialog 1`]
           data-testid="step-4-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             pipeline.targets.title
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -938,13 +938,13 @@ exports[`Test TerraformPlan click on add tf var file -should open the dialog 1`]
           data-testid="step-5-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             environmentVariables
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -970,7 +970,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
       class="formGroup md"
     >
       <div
-        class="InputWithIdentifier--txtNameContainer"
+        class="InputWithIdentifier--txtNameContainer TextInput--main"
       >
         <div
           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -1200,7 +1200,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                 tabindex="0"
                 type="button"
               >
@@ -1238,7 +1238,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                 style="width: 260px;"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                   data-testid="cr-field-spec.configuration.secretManagerRef"
                   style="width: 232px;"
                   type="button"
@@ -1318,13 +1318,13 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
           data-testid="step-1-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             pipelineSteps.configFiles
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -1418,7 +1418,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                       class="bp3-popover-target"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                         tabindex="0"
                         type="button"
                       >
@@ -1456,7 +1456,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                         style="width: 260px;"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                           data-testid="cr-field-spec.configuration.configFiles.store.spec.connectorRef"
                           style="width: 232px;"
                           type="button"
@@ -1667,13 +1667,13 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
           data-testid="step-2-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             pipelineSteps.terraformVarFiles
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -1705,7 +1705,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                       </p>
                     </div>
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                       data-testid="remove-tfvar-file-0"
                       type="button"
                     >
@@ -1744,7 +1744,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                       class="Layout--horizontal StyledProps--main path"
                     />
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                       data-testid="remove-tfvar-file-1"
                       type="button"
                     >
@@ -1771,7 +1771,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                   </div>
                 </div>
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                   data-testid="add-tfvar-file"
                   type="button"
                 >
@@ -1815,13 +1815,13 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
           data-testid="step-3-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             pipelineSteps.backendConfig
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -1843,13 +1843,13 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
           data-testid="step-4-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             pipeline.targets.title
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -1871,13 +1871,13 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
           data-testid="step-5-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             environmentVariables
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -1913,7 +1913,7 @@ exports[`Test TerraformPlan should render edit view 1`] = `
       {}
     </pre>
     <button
-      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
       type="button"
     >
       <span
@@ -1935,7 +1935,7 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
       class="formGroup md"
     >
       <div
-        class="InputWithIdentifier--txtNameContainer"
+        class="InputWithIdentifier--txtNameContainer TextInput--main"
       >
         <div
           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -2165,7 +2165,7 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                 tabindex="0"
                 type="button"
               >
@@ -2203,7 +2203,7 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
                 style="width: 260px;"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                   data-testid="cr-field-spec.configuration.secretManagerRef"
                   style="width: 232px;"
                   type="button"
@@ -2283,13 +2283,13 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
           data-testid="step-1-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             pipelineSteps.configFiles
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -2383,7 +2383,7 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
                       class="bp3-popover-target"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                         tabindex="0"
                         type="button"
                       >
@@ -2421,7 +2421,7 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
                         style="width: 260px;"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                           data-testid="cr-field-spec.configuration.configFiles.store.spec.connectorRef"
                           style="width: 232px;"
                           type="button"
@@ -2632,13 +2632,13 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
           data-testid="step-2-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             pipelineSteps.terraformVarFiles
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -2660,13 +2660,13 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
           data-testid="step-3-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             pipelineSteps.backendConfig
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -2688,13 +2688,13 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
           data-testid="step-4-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             pipeline.targets.title
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -2716,13 +2716,13 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
           data-testid="step-5-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             environmentVariables
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -2748,7 +2748,7 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
       class="formGroup md"
     >
       <div
-        class="InputWithIdentifier--txtNameContainer"
+        class="InputWithIdentifier--txtNameContainer TextInput--main"
       >
         <div
           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -2976,7 +2976,7 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                 tabindex="0"
                 type="button"
               >
@@ -3014,7 +3014,7 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
                 style="width: 260px;"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                   data-testid="cr-field-spec.configuration.secretManagerRef"
                   style="width: 232px;"
                   type="button"
@@ -3094,13 +3094,13 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
           data-testid="step-1-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             pipelineSteps.configFiles
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -3194,7 +3194,7 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
                       class="bp3-popover-target"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                         tabindex="0"
                         type="button"
                       >
@@ -3232,7 +3232,7 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
                         style="width: 260px;"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                           data-testid="cr-field-spec.configuration.configFiles.store.spec.connectorRef"
                           style="width: 232px;"
                           type="button"
@@ -3443,13 +3443,13 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
           data-testid="step-2-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             pipelineSteps.terraformVarFiles
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -3471,13 +3471,13 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
           data-testid="step-3-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             pipelineSteps.backendConfig
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -3499,13 +3499,13 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
           data-testid="step-4-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             pipeline.targets.title
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -3527,13 +3527,13 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
           data-testid="step-5-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             environmentVariables
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -3559,7 +3559,7 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
       class="formGroup md"
     >
       <div
-        class="InputWithIdentifier--txtNameContainer"
+        class="InputWithIdentifier--txtNameContainer TextInput--main"
       >
         <div
           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -3787,7 +3787,7 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                 tabindex="0"
                 type="button"
               >
@@ -3825,7 +3825,7 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
                 style="width: 260px;"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                   data-testid="cr-field-spec.configuration.secretManagerRef"
                   style="width: 232px;"
                   type="button"
@@ -3905,13 +3905,13 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
           data-testid="step-1-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             pipelineSteps.configFiles
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -4005,7 +4005,7 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
                       class="bp3-popover-target"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                         tabindex="0"
                         type="button"
                       >
@@ -4043,7 +4043,7 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
                         style="width: 260px;"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                           data-testid="cr-field-spec.configuration.configFiles.store.spec.connectorRef"
                           style="width: 232px;"
                           type="button"
@@ -4254,13 +4254,13 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
           data-testid="step-2-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             pipelineSteps.terraformVarFiles
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -4282,13 +4282,13 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
           data-testid="step-3-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             pipelineSteps.backendConfig
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -4310,13 +4310,13 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
           data-testid="step-4-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             pipeline.targets.title
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -4338,13 +4338,13 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
           data-testid="step-5-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             environmentVariables
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -4370,7 +4370,7 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
       class="formGroup md"
     >
       <div
-        class="InputWithIdentifier--txtNameContainer"
+        class="InputWithIdentifier--txtNameContainer TextInput--main"
       >
         <div
           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -4600,7 +4600,7 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                 tabindex="0"
                 type="button"
               >
@@ -4638,7 +4638,7 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
                 style="width: 260px;"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                   data-testid="cr-field-spec.configuration.secretManagerRef"
                   style="width: 232px;"
                   type="button"
@@ -4718,13 +4718,13 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
           data-testid="step-1-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             pipelineSteps.configFiles
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -4818,7 +4818,7 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
                       class="bp3-popover-target"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                         tabindex="0"
                         type="button"
                       >
@@ -4856,7 +4856,7 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
                         style="width: 260px;"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                           data-testid="cr-field-spec.configuration.configFiles.store.spec.connectorRef"
                           style="width: 232px;"
                           type="button"
@@ -5067,13 +5067,13 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
           data-testid="step-2-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             pipelineSteps.terraformVarFiles
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -5095,13 +5095,13 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
           data-testid="step-3-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             pipelineSteps.backendConfig
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -5123,13 +5123,13 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
           data-testid="step-4-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             pipeline.targets.title
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -5151,13 +5151,13 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
           data-testid="step-5-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             environmentVariables
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -5193,7 +5193,7 @@ exports[`Test TerraformPlan should render input set view 1`] = `
       {}
     </pre>
     <button
-      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
       type="button"
     >
       <span
@@ -5226,7 +5226,7 @@ exports[`Test TerraformPlan should render variable view 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
             tabindex="0"
             type="button"
           >
@@ -5273,7 +5273,7 @@ exports[`Test TerraformPlan should render variable view 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
             tabindex="0"
             type="button"
           >
@@ -5360,7 +5360,7 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
       class="formGroup md"
     >
       <div
-        class="InputWithIdentifier--txtNameContainer"
+        class="InputWithIdentifier--txtNameContainer TextInput--main"
       >
         <div
           class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -5590,7 +5590,7 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                 tabindex="0"
                 type="button"
               >
@@ -5628,7 +5628,7 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
                 style="width: 260px;"
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                   data-testid="cr-field-spec.configuration.secretManagerRef"
                   style="width: 232px;"
                   type="button"
@@ -5758,13 +5758,13 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
           data-testid="step-1-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             pipelineSteps.configFiles
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -5858,7 +5858,7 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
                       class="bp3-popover-target"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                         tabindex="0"
                         type="button"
                       >
@@ -5896,7 +5896,7 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
                         style="width: 260px;"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                           data-testid="cr-field-spec.configuration.configFiles.store.spec.connectorRef"
                           style="width: 232px;"
                           type="button"
@@ -6157,13 +6157,13 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
           data-testid="step-2-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             pipelineSteps.terraformVarFiles
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -6185,13 +6185,13 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
           data-testid="step-3-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             pipelineSteps.backendConfig
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -6213,13 +6213,13 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
           data-testid="step-4-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             pipeline.targets.title
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"
@@ -6241,13 +6241,13 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
           data-testid="step-5-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             environmentVariables
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"

@@ -22,7 +22,7 @@ exports[`Project Card Functionality Test Click on CD 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly Button--round StyledProps--main Card--menu"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
                 type="button"
               >
                 <span
@@ -67,7 +67,7 @@ exports[`Project Card Functionality Test Click on CD 1`] = `
           dummy_name
         </p>
         <div
-          class="StyledProps--font StyledProps--main StyledProps--padding-xsmall StyledProps--margin-top-xsmall StyledProps--border StyledProps--border-color-grey200 StyledProps--flex StyledProps--flex-inline"
+          class="StyledProps--font StyledProps--main StyledProps--padding-xsmall StyledProps--margin-top-small StyledProps--border StyledProps--border-color-grey200 StyledProps--flex StyledProps--flex-inline"
         >
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-right-xsmall"
@@ -1512,7 +1512,7 @@ exports[`Project Card test initializes ok  1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly Button--round StyledProps--main Card--menu"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
                 type="button"
               >
                 <span
@@ -1557,7 +1557,7 @@ exports[`Project Card test initializes ok  1`] = `
           dummy_name
         </p>
         <div
-          class="StyledProps--font StyledProps--main StyledProps--padding-xsmall StyledProps--margin-top-xsmall StyledProps--border StyledProps--border-color-grey200 StyledProps--flex StyledProps--flex-inline"
+          class="StyledProps--font StyledProps--main StyledProps--padding-xsmall StyledProps--margin-top-small StyledProps--border StyledProps--border-color-grey200 StyledProps--flex StyledProps--flex-inline"
         >
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-right-xsmall"

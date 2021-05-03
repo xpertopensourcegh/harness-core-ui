@@ -22,7 +22,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
               class="StyledProps--font StyledProps--main main nameIdDescriptionTags"
             >
               <div
-                class="InputWithIdentifier--txtNameContainer"
+                class="InputWithIdentifier--txtNameContainer TextInput--main"
               >
                 <div
                   class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -107,7 +107,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
               >
                 <label
                   class="Label--main"
-                  style="font-size: 13px;"
+                  style="font-size: 13px; font-weight: normal;"
                 >
                   optionalField
                   <span
@@ -138,7 +138,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
               >
                 <label
                   class="Label--main"
-                  style="font-size: 13px;"
+                  style="font-size: 13px; font-weight: normal;"
                 >
                   optionalField
                   <span
@@ -268,7 +268,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
               class="StyledProps--font StyledProps--main main nameIdDescriptionTags"
             >
               <div
-                class="InputWithIdentifier--txtNameContainer"
+                class="InputWithIdentifier--txtNameContainer TextInput--main"
               >
                 <div
                   class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -353,7 +353,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
               >
                 <label
                   class="Label--main"
-                  style="font-size: 13px;"
+                  style="font-size: 13px; font-weight: normal;"
                 >
                   optionalField
                   <span
@@ -384,7 +384,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
               >
                 <label
                   class="Label--main"
-                  style="font-size: 13px;"
+                  style="font-size: 13px; font-weight: normal;"
                 >
                   optionalField
                   <span
@@ -547,7 +547,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
               class="StyledProps--font StyledProps--main main nameIdDescriptionTags"
             >
               <div
-                class="InputWithIdentifier--txtNameContainer"
+                class="InputWithIdentifier--txtNameContainer TextInput--main"
               >
                 <div
                   class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -611,7 +611,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
               >
                 <label
                   class="Label--main"
-                  style="font-size: 13px;"
+                  style="font-size: 13px; font-weight: normal;"
                 >
                   optionalField
                   <span
@@ -642,7 +642,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
               >
                 <label
                   class="Label--main"
-                  style="font-size: 13px;"
+                  style="font-size: 13px; font-weight: normal;"
                 >
                   optionalField
                   <span
@@ -781,7 +781,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                       class="bp3-popover-target"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main regenerateButton"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main regenerateButton Button--with-current-color Button--iconOnly Button--without-shadow"
                         data-name="regenerate-token"
                         tabindex="0"
                         type="button"
@@ -861,7 +861,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
               class="StyledProps--font StyledProps--main main nameIdDescriptionTags"
             >
               <div
-                class="InputWithIdentifier--txtNameContainer"
+                class="InputWithIdentifier--txtNameContainer TextInput--main"
               >
                 <div
                   class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -946,7 +946,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
               >
                 <label
                   class="Label--main"
-                  style="font-size: 13px;"
+                  style="font-size: 13px; font-weight: normal;"
                 >
                   optionalField
                   <span
@@ -977,7 +977,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
               >
                 <label
                   class="Label--main"
-                  style="font-size: 13px;"
+                  style="font-size: 13px; font-weight: normal;"
                 >
                   optionalField
                   <span
@@ -1094,7 +1094,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                     class="bp3-form-content"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                       data-testid="cr-field-connectorRef"
                       style="width: 324px;"
                       type="button"

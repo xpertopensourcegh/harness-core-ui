@@ -340,7 +340,7 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                         }
                         className={helmcss.skipversionTooltip}
                       >
-                        <Icon name="info-sign" color={Color.BLUE_450} size={16} />
+                        <Icon name="info-sign" color={Color.PRIMARY_4} size={16} />
                       </Tooltip>
                     </Layout.Horizontal>
                   }

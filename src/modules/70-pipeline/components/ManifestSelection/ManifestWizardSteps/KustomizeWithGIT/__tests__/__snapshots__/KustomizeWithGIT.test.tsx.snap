@@ -256,7 +256,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
                   class="bp3-popover-target"
                 >
                   <span
-                    class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color StyledProps--color-blue450"
+                    class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color StyledProps--color-primary4"
                     icon="info-sign"
                     tabindex="0"
                   >
@@ -349,7 +349,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
                   class="bp3-popover-target"
                 >
                   <span
-                    class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color StyledProps--color-blue450"
+                    class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color StyledProps--color-primary4"
                     icon="info-sign"
                     tabindex="0"
                   >
@@ -386,13 +386,13 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
                 data-testid="advancedTitle-summary"
               >
                 <div
+                  class="Accordion--chevron"
+                />
+                <div
                   class="Accordion--label"
                 >
                   advancedTitle
                 </div>
-                <div
-                  class="Accordion--chevron"
-                />
               </div>
               <div
                 class="bp3-collapse Accordion--collapse"
@@ -410,7 +410,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
             type="button"
           >
             <span
@@ -439,7 +439,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
             </span>
           </button>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             type="submit"
           >
             <span
@@ -730,7 +730,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
                   class="bp3-popover-target"
                 >
                   <span
-                    class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color StyledProps--color-blue450"
+                    class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color StyledProps--color-primary4"
                     icon="info-sign"
                     tabindex="0"
                   >
@@ -823,7 +823,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
                   class="bp3-popover-target"
                 >
                   <span
-                    class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color StyledProps--color-blue450"
+                    class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color StyledProps--color-primary4"
                     icon="info-sign"
                     tabindex="0"
                   >
@@ -860,13 +860,13 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
                 data-testid="advancedTitle-summary"
               >
                 <div
+                  class="Accordion--chevron"
+                />
+                <div
                   class="Accordion--label"
                 >
                   advancedTitle
                 </div>
-                <div
-                  class="Accordion--chevron"
-                />
               </div>
               <div
                 class="bp3-collapse Accordion--collapse"
@@ -884,7 +884,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
             type="button"
           >
             <span
@@ -913,7 +913,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
             </span>
           </button>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             type="submit"
           >
             <span
@@ -1204,7 +1204,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
                   class="bp3-popover-target"
                 >
                   <span
-                    class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color StyledProps--color-blue450"
+                    class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color StyledProps--color-primary4"
                     icon="info-sign"
                     tabindex="0"
                   >
@@ -1297,7 +1297,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
                   class="bp3-popover-target"
                 >
                   <span
-                    class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color StyledProps--color-blue450"
+                    class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color StyledProps--color-primary4"
                     icon="info-sign"
                     tabindex="0"
                   >
@@ -1334,13 +1334,13 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
                 data-testid="advancedTitle-summary"
               >
                 <div
+                  class="Accordion--chevron"
+                />
+                <div
                   class="Accordion--label"
                 >
                   advancedTitle
                 </div>
-                <div
-                  class="Accordion--chevron"
-                />
               </div>
               <div
                 class="bp3-collapse Accordion--collapse"
@@ -1358,7 +1358,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
             type="button"
           >
             <span
@@ -1387,7 +1387,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
             </span>
           </button>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             type="submit"
           >
             <span

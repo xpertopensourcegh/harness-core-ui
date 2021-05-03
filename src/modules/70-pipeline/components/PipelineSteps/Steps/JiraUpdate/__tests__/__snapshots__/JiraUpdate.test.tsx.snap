@@ -21,7 +21,7 @@ exports[`Jira Update tests Basic snapshot - deploymentform mode: jira-update-dep
         class="bp3-form-content"
       >
         <button
-          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
           data-testid="cr-field-spec.conectorRef"
           style="width: 400px;"
           type="button"
@@ -228,7 +228,7 @@ exports[`Jira Update tests Basic snapshot - deploymentform mode: jira-update-dep
       {}
     </pre>
     <button
-      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
       type="button"
     >
       <span
@@ -261,7 +261,7 @@ exports[`Jira Update tests Basic snapshot - input variable view: jira-update-inp
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
             tabindex="0"
             type="button"
           >
@@ -311,7 +311,7 @@ exports[`Jira Update tests Basic snapshot - inputset mode but no runtime values:
       {}
     </pre>
     <button
-      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
       type="button"
     >
       <span
@@ -345,7 +345,7 @@ exports[`Jira Update tests Basic snapshot - inputset mode: input set with errors
         class="bp3-form-content"
       >
         <button
-          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
           data-testid="cr-field-spec.conectorRef"
           style="width: 400px;"
           type="button"
@@ -562,7 +562,7 @@ exports[`Jira Update tests Basic snapshot - inputset mode: input set with errors
 }
     </pre>
     <button
-      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
       type="button"
     >
       <span

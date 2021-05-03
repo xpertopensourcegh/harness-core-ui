@@ -30,7 +30,7 @@ exports[`About Project test create project  1`] = `
                 </p>
               </div>
               <div
-                class="InputWithIdentifier--txtNameContainer"
+                class="InputWithIdentifier--txtNameContainer TextInput--main"
               >
                 <div
                   class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -137,7 +137,7 @@ exports[`About Project test create project  1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main ColorPicker--picker"
+                          class="bp3-button Button--button StyledProps--font StyledProps--main ColorPicker--picker Button--with-current-color"
                           style="width: 60px; height: 38px;"
                           type="button"
                         >
@@ -346,7 +346,7 @@ exports[`About Project test create project  1`] = `
               class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                 type="submit"
               >
                 <span
@@ -705,7 +705,7 @@ exports[`About Project test create project  2`] = `
                 </p>
               </div>
               <div
-                class="InputWithIdentifier--txtNameContainer"
+                class="InputWithIdentifier--txtNameContainer TextInput--main"
               >
                 <div
                   class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -814,7 +814,7 @@ exports[`About Project test create project  2`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main ColorPicker--picker"
+                          class="bp3-button Button--button StyledProps--font StyledProps--main ColorPicker--picker Button--with-current-color"
                           style="width: 60px; height: 38px;"
                           type="button"
                         >
@@ -1064,7 +1064,7 @@ exports[`About Project test create project  2`] = `
               class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                 type="submit"
               >
                 <span
@@ -1429,7 +1429,7 @@ exports[`About Project test edit project  1`] = `
                 </p>
               </div>
               <div
-                class="InputWithIdentifier--txtNameContainer"
+                class="InputWithIdentifier--txtNameContainer TextInput--main"
               >
                 <div
                   class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -1517,7 +1517,7 @@ exports[`About Project test edit project  1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main ColorPicker--picker"
+                          class="bp3-button Button--button StyledProps--font StyledProps--main ColorPicker--picker Button--with-current-color"
                           style="width: 60px; height: 38px;"
                           type="button"
                         >
@@ -1745,7 +1745,7 @@ exports[`About Project test edit project  1`] = `
               class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                 type="submit"
               >
                 <span
@@ -1793,7 +1793,7 @@ exports[`About Project test edit project  2`] = `
                 </p>
               </div>
               <div
-                class="InputWithIdentifier--txtNameContainer"
+                class="InputWithIdentifier--txtNameContainer TextInput--main"
               >
                 <div
                   class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -1881,7 +1881,7 @@ exports[`About Project test edit project  2`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main ColorPicker--picker"
+                          class="bp3-button Button--button StyledProps--font StyledProps--main ColorPicker--picker Button--with-current-color"
                           style="width: 60px; height: 38px;"
                           type="button"
                         >
@@ -2109,7 +2109,7 @@ exports[`About Project test edit project  2`] = `
               class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                 type="submit"
               >
                 <span

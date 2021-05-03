@@ -12,7 +12,7 @@ exports[`Test K8sCanaryDeleteStep should render edit view  1`] = `
         class="formGroup md"
       >
         <div
-          class="InputWithIdentifier--txtNameContainer"
+          class="InputWithIdentifier--txtNameContainer TextInput--main"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -162,7 +162,7 @@ exports[`Test K8sCanaryDeleteStep should render edit view  1`] = `
           </div>
         </div>
         <button
-          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
           id="configureOptions"
           type="button"
         >
@@ -204,7 +204,7 @@ exports[`Test K8sCanaryDeleteStep should render edit view as new step 1`] = `
         class="formGroup md"
       >
         <div
-          class="InputWithIdentifier--txtNameContainer"
+          class="InputWithIdentifier--txtNameContainer TextInput--main"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -397,7 +397,7 @@ exports[`Test K8sCanaryDeleteStep should render edit view for inputset 1`] = `
       {}
     </pre>
     <button
-      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
       type="button"
     >
       <span

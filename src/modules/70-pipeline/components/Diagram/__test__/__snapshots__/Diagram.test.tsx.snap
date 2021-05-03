@@ -67,7 +67,7 @@ exports[`Test Diagram App should test basic snapshot 1`] = `
                       data-nodeid="node1"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main portBtn StyledProps--intent-primary"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -128,7 +128,7 @@ exports[`Test Diagram App should test basic snapshot 1`] = `
                   </svg>
                 </span>
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main closeNode"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeNode Button--with-current-color Button--iconOnly Button--without-shadow"
                   type="button"
                 >
                   <span
@@ -204,7 +204,7 @@ exports[`Test Diagram App should test basic snapshot 1`] = `
                       data-nodeid="node2"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main portBtn StyledProps--intent-primary"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -242,7 +242,7 @@ exports[`Test Diagram App should test basic snapshot 1`] = `
                       data-nodeid="node2"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main portBtn StyledProps--intent-primary"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -445,7 +445,7 @@ exports[`Test Diagram App should test basic snapshot 1`] = `
                       data-nodeid="approval"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main portBtn StyledProps--intent-primary"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -471,7 +471,7 @@ exports[`Test Diagram App should test basic snapshot 1`] = `
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main closeNode diamondClose"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeNode diamondClose Button--with-current-color Button--iconOnly Button--without-shadow"
                     type="button"
                   >
                     <span
@@ -519,7 +519,7 @@ exports[`Test Diagram App should test basic snapshot 1`] = `
               >
                 <div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main closeNode"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeNode Button--with-current-color Button--iconOnly Button--without-shadow"
                     type="button"
                   >
                     <span
@@ -584,7 +584,7 @@ exports[`Test Diagram App should test basic snapshot 1`] = `
                           data-nodeid="iconNode"
                         >
                           <button
-                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main portBtn StyledProps--intent-primary"
+                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                             type="button"
                           >
                             <span
@@ -622,7 +622,7 @@ exports[`Test Diagram App should test basic snapshot 1`] = `
                           data-nodeid="iconNode"
                         >
                           <button
-                            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main portBtn StyledProps--intent-primary"
+                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                             type="button"
                           >
                             <span
@@ -677,7 +677,7 @@ exports[`Test Diagram App should test basic snapshot 1`] = `
                     data-nodeid="emptyNode1"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main portBtn StyledProps--intent-primary"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                       type="button"
                     >
                       <span
@@ -713,7 +713,7 @@ exports[`Test Diagram App should test basic snapshot 1`] = `
                     data-nodeid="emptyNode1"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main portBtn StyledProps--intent-primary"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                       type="button"
                     >
                       <span
@@ -759,7 +759,7 @@ exports[`Test Diagram App should test basic snapshot 1`] = `
                     data-nodeid="emptyNode2"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main portBtn StyledProps--intent-primary"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                       type="button"
                     >
                       <span
@@ -795,7 +795,7 @@ exports[`Test Diagram App should test basic snapshot 1`] = `
                     data-nodeid="emptyNode2"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main portBtn StyledProps--intent-primary"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                       type="button"
                     >
                       <span
@@ -879,10 +879,10 @@ exports[`Test Diagram App should test basic snapshot 1`] = `
           class="btnRollback"
         >
           <div
-            class="StyledProps--font StyledProps--main ButtonGroup--btnGroup"
+            class="StyledProps--font StyledProps--main ButtonGroup--btnGroup buttonGroup"
           >
             <button
-              class="bp3-button bp3-active StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+              class="bp3-button bp3-active Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly"
               type="button"
             >
               <span
@@ -909,7 +909,7 @@ exports[`Test Diagram App should test basic snapshot 1`] = `
               </span>
             </button>
             <button
-              class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+              class="bp3-button Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly"
               type="button"
             >
               <span

@@ -67,7 +67,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
             class="StyledProps--font StyledProps--main columnContainer"
           >
             <a
-              class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main manualQueryLink"
+              class="bp3-button Button--button StyledProps--font StyledProps--main manualQueryLink Button--with-current-color Button--link"
               href="javascript:void()"
               role="button"
               tabindex="0"
@@ -640,7 +640,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
         >
           <button
-            class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             disabled=""
             tabindex="-1"
             type="button"
@@ -652,7 +652,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
             </span>
           </button>
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -662,7 +662,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
             </span>
           </button>
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -672,7 +672,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
             </span>
           </button>
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -688,7 +688,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
       class="Layout--horizontal StyledProps--main main"
     >
       <button
-        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
         type="button"
       >
         <span
@@ -717,7 +717,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
         </span>
       </button>
       <button
-        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
         type="submit"
       >
         <span

@@ -58,7 +58,7 @@ exports[`EditStageView snapshot test should render properly 1`] = `
               pipelineSteps.build.create.aboutYourStage
             </p>
             <div
-              class="InputWithIdentifier--txtNameContainer"
+              class="InputWithIdentifier--txtNameContainer TextInput--main"
             >
               <div
                 class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -251,7 +251,7 @@ exports[`EditStageView snapshot test should render properly 1`] = `
               </p>
             </div>
             <button
-              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary StyledProps--margin-top-small"
+              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-top-small Button--with-current-color"
               type="submit"
             >
               <span
@@ -326,7 +326,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
               pipelineSteps.build.create.aboutYourStage
             </p>
             <div
-              class="InputWithIdentifier--txtNameContainer"
+              class="InputWithIdentifier--txtNameContainer TextInput--main"
             >
               <div
                 class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -549,7 +549,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                   class="bp3-form-content"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                     data-testid="cr-field-connectorRef"
                     style="width: 400px;"
                     type="button"
@@ -668,7 +668,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
               </div>
             </div>
             <button
-              class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary StyledProps--margin-top-small"
+              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-top-small Button--with-current-color"
               type="submit"
             >
               <span

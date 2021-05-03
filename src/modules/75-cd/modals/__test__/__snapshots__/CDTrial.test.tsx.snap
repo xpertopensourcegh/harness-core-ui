@@ -108,7 +108,7 @@ exports[`CDTrial Modal Rendering should render CDTrial 1`] = `
                 class="StyledProps--font StyledProps--main main"
               >
                 <div
-                  class="InputWithIdentifier--txtNameContainer"
+                  class="InputWithIdentifier--txtNameContainer TextInput--main"
                 >
                   <div
                     class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -193,7 +193,7 @@ exports[`CDTrial Modal Rendering should render CDTrial 1`] = `
                 >
                   <label
                     class="Label--main"
-                    style="font-size: 13px;"
+                    style="font-size: 13px; font-weight: normal;"
                   >
                     optionalField
                     <span
@@ -224,7 +224,7 @@ exports[`CDTrial Modal Rendering should render CDTrial 1`] = `
                 >
                   <label
                     class="Label--main"
-                    style="font-size: 13px;"
+                    style="font-size: 13px; font-weight: normal;"
                   >
                     optionalField
                     <span
@@ -255,7 +255,7 @@ exports[`CDTrial Modal Rendering should render CDTrial 1`] = `
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                   type="submit"
                 >
                   <span
@@ -265,7 +265,7 @@ exports[`CDTrial Modal Rendering should render CDTrial 1`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
                   type="reset"
                 >
                   <span
@@ -429,7 +429,7 @@ exports[`CDTrial Modal Rendering should validate input 1`] = `
                 class="StyledProps--font StyledProps--main main"
               >
                 <div
-                  class="InputWithIdentifier--txtNameContainer"
+                  class="InputWithIdentifier--txtNameContainer TextInput--main"
                 >
                   <div
                     class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -514,7 +514,7 @@ exports[`CDTrial Modal Rendering should validate input 1`] = `
                 >
                   <label
                     class="Label--main"
-                    style="font-size: 13px;"
+                    style="font-size: 13px; font-weight: normal;"
                   >
                     optionalField
                     <span
@@ -545,7 +545,7 @@ exports[`CDTrial Modal Rendering should validate input 1`] = `
                 >
                   <label
                     class="Label--main"
-                    style="font-size: 13px;"
+                    style="font-size: 13px; font-weight: normal;"
                   >
                     optionalField
                     <span
@@ -576,7 +576,7 @@ exports[`CDTrial Modal Rendering should validate input 1`] = `
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                   type="submit"
                 >
                   <span
@@ -586,7 +586,7 @@ exports[`CDTrial Modal Rendering should validate input 1`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
                   type="reset"
                 >
                   <span
@@ -750,7 +750,7 @@ exports[`CDTrial Modal Rendering should validate input 2`] = `
                 class="StyledProps--font StyledProps--main main"
               >
                 <div
-                  class="InputWithIdentifier--txtNameContainer"
+                  class="InputWithIdentifier--txtNameContainer TextInput--main"
                 >
                   <div
                     class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -840,7 +840,7 @@ exports[`CDTrial Modal Rendering should validate input 2`] = `
                 >
                   <label
                     class="Label--main"
-                    style="font-size: 13px;"
+                    style="font-size: 13px; font-weight: normal;"
                   >
                     optionalField
                     <span
@@ -871,7 +871,7 @@ exports[`CDTrial Modal Rendering should validate input 2`] = `
                 >
                   <label
                     class="Label--main"
-                    style="font-size: 13px;"
+                    style="font-size: 13px; font-weight: normal;"
                   >
                     optionalField
                     <span
@@ -902,7 +902,7 @@ exports[`CDTrial Modal Rendering should validate input 2`] = `
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                   type="submit"
                 >
                   <span
@@ -912,7 +912,7 @@ exports[`CDTrial Modal Rendering should validate input 2`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
                   type="reset"
                 >
                   <span
@@ -1076,7 +1076,7 @@ exports[`CDTrial Modal Rendering should validate input 3`] = `
                 class="StyledProps--font StyledProps--main main"
               >
                 <div
-                  class="InputWithIdentifier--txtNameContainer"
+                  class="InputWithIdentifier--txtNameContainer TextInput--main"
                 >
                   <div
                     class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -1166,7 +1166,7 @@ exports[`CDTrial Modal Rendering should validate input 3`] = `
                 >
                   <label
                     class="Label--main"
-                    style="font-size: 13px;"
+                    style="font-size: 13px; font-weight: normal;"
                   >
                     optionalField
                     <span
@@ -1197,7 +1197,7 @@ exports[`CDTrial Modal Rendering should validate input 3`] = `
                 >
                   <label
                     class="Label--main"
-                    style="font-size: 13px;"
+                    style="font-size: 13px; font-weight: normal;"
                   >
                     optionalField
                     <span
@@ -1228,7 +1228,7 @@ exports[`CDTrial Modal Rendering should validate input 3`] = `
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                   type="submit"
                 >
                   <span
@@ -1238,7 +1238,7 @@ exports[`CDTrial Modal Rendering should validate input 3`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
                   type="reset"
                 >
                   <span
@@ -1402,7 +1402,7 @@ exports[`CDTrial Modal Rendering should validate inputs 1`] = `
                 class="StyledProps--font StyledProps--main main"
               >
                 <div
-                  class="InputWithIdentifier--txtNameContainer"
+                  class="InputWithIdentifier--txtNameContainer TextInput--main"
                 >
                   <div
                     class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -1487,7 +1487,7 @@ exports[`CDTrial Modal Rendering should validate inputs 1`] = `
                 >
                   <label
                     class="Label--main"
-                    style="font-size: 13px;"
+                    style="font-size: 13px; font-weight: normal;"
                   >
                     optionalField
                     <span
@@ -1518,7 +1518,7 @@ exports[`CDTrial Modal Rendering should validate inputs 1`] = `
                 >
                   <label
                     class="Label--main"
-                    style="font-size: 13px;"
+                    style="font-size: 13px; font-weight: normal;"
                   >
                     optionalField
                     <span
@@ -1549,7 +1549,7 @@ exports[`CDTrial Modal Rendering should validate inputs 1`] = `
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                   type="submit"
                 >
                   <span
@@ -1559,7 +1559,7 @@ exports[`CDTrial Modal Rendering should validate inputs 1`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
                   type="reset"
                 >
                   <span
@@ -1723,7 +1723,7 @@ exports[`CDTrial Modal Rendering should validate inputs 2`] = `
                 class="StyledProps--font StyledProps--main main"
               >
                 <div
-                  class="InputWithIdentifier--txtNameContainer"
+                  class="InputWithIdentifier--txtNameContainer TextInput--main"
                 >
                   <div
                     class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -1808,7 +1808,7 @@ exports[`CDTrial Modal Rendering should validate inputs 2`] = `
                 >
                   <label
                     class="Label--main"
-                    style="font-size: 13px;"
+                    style="font-size: 13px; font-weight: normal;"
                   >
                     optionalField
                     <span
@@ -1839,7 +1839,7 @@ exports[`CDTrial Modal Rendering should validate inputs 2`] = `
                 >
                   <label
                     class="Label--main"
-                    style="font-size: 13px;"
+                    style="font-size: 13px; font-weight: normal;"
                   >
                     optionalField
                     <span
@@ -1870,7 +1870,7 @@ exports[`CDTrial Modal Rendering should validate inputs 2`] = `
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                   type="submit"
                 >
                   <span
@@ -1880,7 +1880,7 @@ exports[`CDTrial Modal Rendering should validate inputs 2`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button bp3-disabled bp3-loading StyledProps--font Button--button Button--with-current-color StyledProps--main"
+                  class="bp3-button bp3-disabled bp3-loading Button--button StyledProps--font StyledProps--main Button--with-current-color"
                   disabled=""
                   tabindex="-1"
                   type="reset"
@@ -2072,7 +2072,7 @@ exports[`CDTrial Modal Rendering should validate inputs 3`] = `
                 class="StyledProps--font StyledProps--main main"
               >
                 <div
-                  class="InputWithIdentifier--txtNameContainer"
+                  class="InputWithIdentifier--txtNameContainer TextInput--main"
                 >
                   <div
                     class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -2157,7 +2157,7 @@ exports[`CDTrial Modal Rendering should validate inputs 3`] = `
                 >
                   <label
                     class="Label--main"
-                    style="font-size: 13px;"
+                    style="font-size: 13px; font-weight: normal;"
                   >
                     optionalField
                     <span
@@ -2188,7 +2188,7 @@ exports[`CDTrial Modal Rendering should validate inputs 3`] = `
                 >
                   <label
                     class="Label--main"
-                    style="font-size: 13px;"
+                    style="font-size: 13px; font-weight: normal;"
                   >
                     optionalField
                     <span
@@ -2219,7 +2219,7 @@ exports[`CDTrial Modal Rendering should validate inputs 3`] = `
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large"
               >
                 <button
-                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                   type="submit"
                 >
                   <span
@@ -2229,7 +2229,7 @@ exports[`CDTrial Modal Rendering should validate inputs 3`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
                   type="reset"
                 >
                   <span

@@ -252,13 +252,13 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
           data-testid="advanced-summary"
         >
           <div
+            class="Accordion--chevron"
+          />
+          <div
             class="Accordion--label"
           >
             Advanced
           </div>
-          <div
-            class="Accordion--chevron"
-          />
         </div>
         <div
           class="bp3-collapse Accordion--collapse"

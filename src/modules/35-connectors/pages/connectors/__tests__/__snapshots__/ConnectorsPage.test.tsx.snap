@@ -12,7 +12,7 @@ exports[`Connectors Page Test Filter connector by name 1`] = `
         class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
       >
         <button
-          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
           data-test="newConnectorButton"
           id="newConnectorBtn"
           type="button"
@@ -43,7 +43,7 @@ exports[`Connectors Page Test Filter connector by name 1`] = `
           </span>
         </button>
         <button
-          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--margin-left-small"
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--margin-left-small Button--with-current-color"
           data-test="createViaYamlButton"
           id="newYamlConnectorBtn"
           type="button"
@@ -138,9 +138,8 @@ exports[`Connectors Page Test Filter connector by name 1`] = `
         </div>
         <div>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main ngFilter"
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ngFilter StyledProps--intent-primary Button--with-current-color Button--without-shadow"
             id="ngfilterbtn"
-            style="width: 32px; height: 32px;"
             type="button"
           >
             <span
@@ -148,9 +147,9 @@ exports[`Connectors Page Test Filter connector by name 1`] = `
               data-icon="ng-filter"
             >
               <svg
-                height="16"
+                height="22"
                 viewBox="0 0 24 24"
-                width="16"
+                width="22"
               >
                 <mask
                   fill="#fff"
@@ -235,7 +234,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
         class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
       >
         <button
-          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
           data-test="newConnectorButton"
           id="newConnectorBtn"
           type="button"
@@ -266,7 +265,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
           </span>
         </button>
         <button
-          class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--margin-left-small"
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--margin-left-small Button--with-current-color"
           data-test="createViaYamlButton"
           id="newYamlConnectorBtn"
           type="button"
@@ -361,9 +360,8 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
         </div>
         <div>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main ngFilter"
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ngFilter StyledProps--intent-primary Button--with-current-color Button--without-shadow"
             id="ngfilterbtn"
-            style="width: 32px; height: 32px;"
             type="button"
           >
             <span
@@ -371,9 +369,9 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
               data-icon="ng-filter"
             >
               <svg
-                height="16"
+                height="22"
                 viewBox="0 0 24 24"
-                width="16"
+                width="22"
               >
                 <mask
                   fill="#fff"
@@ -588,7 +586,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                 />
               </div>
               <button
-                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
+                class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
                 type="button"
               >
                 <span
@@ -625,7 +623,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     type="button"
                   >
                     <span
@@ -758,7 +756,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                     :
                   </span>
                   <a
-                    class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main link StyledProps--margin-left-xsmall Button--with-current-color Button--link"
                     href="https://github.com/vardanbansal-harness/vscode-yaml.git"
                     rel="noreferrer noopener"
                     role="button"
@@ -817,7 +815,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                 />
               </div>
               <button
-                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
+                class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
                 type="button"
               >
                 <span
@@ -854,7 +852,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     type="button"
                   >
                     <span
@@ -954,7 +952,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                     :
                   </span>
                   <a
-                    class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main link StyledProps--margin-left-xsmall Button--with-current-color Button--link"
                     href="https://github.com/vardanbansal-harness/vscode-yaml.git"
                     rel="noreferrer noopener"
                     role="button"
@@ -1013,7 +1011,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                 />
               </div>
               <button
-                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
+                class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
                 type="button"
               >
                 <span
@@ -1050,7 +1048,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     type="button"
                   >
                     <span
@@ -1155,7 +1153,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                     :
                   </span>
                   <a
-                    class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main link StyledProps--margin-left-xsmall Button--with-current-color Button--link"
                     href="www.google.com"
                     rel="noreferrer noopener"
                     role="button"
@@ -1254,7 +1252,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                 </p>
               </div>
               <button
-                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
+                class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
                 type="button"
               >
                 <span
@@ -1291,7 +1289,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     type="button"
                   >
                     <span
@@ -1396,7 +1394,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                     :
                   </span>
                   <a
-                    class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main link StyledProps--margin-left-xsmall Button--with-current-color Button--link"
                     href="www.docker.com"
                     rel="noreferrer noopener"
                     role="button"
@@ -1513,7 +1511,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     type="button"
                   >
                     <span
@@ -1629,7 +1627,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                     :
                   </span>
                   <a
-                    class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main link StyledProps--margin-left-xsmall Button--with-current-color Button--link"
                     href="dbhgj"
                     rel="noreferrer noopener"
                     role="button"
@@ -1688,7 +1686,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                 />
               </div>
               <button
-                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main testBtn StyledProps--font-small"
+                class="bp3-button Button--button StyledProps--font StyledProps--main testBtn StyledProps--font StyledProps--font-small Button--with-current-color"
                 type="button"
               >
                 <span
@@ -1723,7 +1721,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     type="button"
                   >
                     <span
@@ -1862,7 +1860,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                     :
                   </span>
                   <a
-                    class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main link StyledProps--margin-left-xsmall"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main link StyledProps--margin-left-xsmall Button--with-current-color Button--link"
                     href="sample.google.com"
                     rel="noreferrer noopener"
                     role="button"
@@ -1979,7 +1977,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     type="button"
                   >
                     <span
@@ -2117,7 +2115,7 @@ exports[`Connectors Page Test Render and check create connector panel: Connector
               style="justify-content: flex-end;"
             >
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                 type="button"
               >
                 <span
@@ -2437,7 +2435,7 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 1`] = `
                     class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-bottom-xsmall"
                   >
                     <button
-                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                       type="submit"
                     >
                       <span
@@ -2447,7 +2445,7 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 1`] = `
                       </span>
                     </button>
                     <button
-                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
                       type="reset"
                     >
                       <span
@@ -2508,7 +2506,7 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 1`] = `
                       </span>
                     </div>
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main StyledProps--color StyledProps--color-white"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white Button--with-current-color Button--iconOnly Button--without-shadow"
                       type="button"
                     >
                       <span
@@ -2537,7 +2535,7 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 1`] = `
                   class="Layout--vertical StyledProps--main StyledProps--padding-top-xlarge"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main addNewFilterBtn isActive StyledProps--intent-primary StyledProps--padding-left-large StyledProps--border StyledProps--border-false"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--intent-primary StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color"
                     type="button"
                   >
                     <span
@@ -2601,7 +2599,7 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 1`] = `
                               class="bp3-popover-target"
                             >
                               <button
-                                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                                 id="filtermenu-DockerOnly"
                                 tabindex="0"
                                 type="button"
@@ -2668,7 +2666,7 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 1`] = `
                               class="bp3-popover-target"
                             >
                               <button
-                                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                                 id="filtermenu-AWSOnly"
                                 tabindex="0"
                                 type="button"
@@ -2973,7 +2971,7 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 2`] = `
                     class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-bottom-xsmall"
                   >
                     <button
-                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                       type="submit"
                     >
                       <span
@@ -2983,7 +2981,7 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 2`] = `
                       </span>
                     </button>
                     <button
-                      class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
                       type="reset"
                     >
                       <span
@@ -3044,7 +3042,7 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 2`] = `
                       </span>
                     </div>
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main StyledProps--color StyledProps--color-white"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white Button--with-current-color Button--iconOnly Button--without-shadow"
                       type="button"
                     >
                       <span
@@ -3073,7 +3071,7 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 2`] = `
                   class="Layout--vertical StyledProps--main StyledProps--padding-top-xlarge"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main addNewFilterBtn isActive StyledProps--intent-primary StyledProps--padding-left-large StyledProps--border StyledProps--border-false"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--intent-primary StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color"
                     type="button"
                   >
                     <span
@@ -3137,7 +3135,7 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 2`] = `
                               class="bp3-popover-target"
                             >
                               <button
-                                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                                 id="filtermenu-DockerOnly"
                                 tabindex="0"
                                 type="button"
@@ -3204,7 +3202,7 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 2`] = `
                               class="bp3-popover-target"
                             >
                               <button
-                                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                                 id="filtermenu-AWSOnly"
                                 tabindex="0"
                                 type="button"

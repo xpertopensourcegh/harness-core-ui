@@ -520,7 +520,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+                    class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                     tabindex="0"
                     type="button"
                   >
@@ -567,7 +567,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+                    class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                     tabindex="0"
                     type="button"
                   >
@@ -611,7 +611,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                 customVariables.title
               </b>
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                 type="button"
               >
                 <span
@@ -662,7 +662,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                       tabindex="0"
                       type="button"
                     >
@@ -755,7 +755,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly"
                           data-testid="edit-variable-0"
                           tabindex="0"
                           type="button"
@@ -789,7 +789,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly"
                           data-testid="delete-variable-0"
                           tabindex="0"
                           type="button"
@@ -840,7 +840,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                       tabindex="0"
                       type="button"
                     >
@@ -933,7 +933,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly"
                           data-testid="edit-variable-1"
                           tabindex="0"
                           type="button"
@@ -967,7 +967,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly"
                           data-testid="delete-variable-1"
                           tabindex="0"
                           type="button"
@@ -1026,6 +1026,9 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
             data-testid="Stage.stage_1-summary"
           >
             <div
+              class="Accordion--chevron"
+            />
+            <div
               class=""
             >
               <p
@@ -1034,9 +1037,6 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                 stage_1
               </p>
             </div>
-            <div
-              class="Accordion--chevron"
-            />
           </div>
           <div
             class="bp3-collapse Accordion--collapse"
@@ -1072,7 +1072,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                             tabindex="0"
                             type="button"
                           >
@@ -1119,7 +1119,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                             tabindex="0"
                             type="button"
                           >
@@ -1163,7 +1163,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                         customVariables.title
                       </b>
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -1214,7 +1214,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                             class="bp3-popover-target"
                           >
                             <button
-                              class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+                              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                               tabindex="0"
                               type="button"
                             >
@@ -1307,7 +1307,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                 class="bp3-popover-target"
                               >
                                 <button
-                                  class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly"
                                   data-testid="edit-variable-0"
                                   tabindex="0"
                                   type="button"
@@ -1341,7 +1341,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                 class="bp3-popover-target"
                               >
                                 <button
-                                  class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly"
                                   data-testid="delete-variable-0"
                                   tabindex="0"
                                   type="button"
@@ -1392,7 +1392,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                             class="bp3-popover-target"
                           >
                             <button
-                              class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+                              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                               tabindex="0"
                               type="button"
                             >
@@ -1485,7 +1485,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                 class="bp3-popover-target"
                               >
                                 <button
-                                  class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly"
                                   data-testid="edit-variable-1"
                                   tabindex="0"
                                   type="button"
@@ -1519,7 +1519,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                 class="bp3-popover-target"
                               >
                                 <button
-                                  class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly"
                                   data-testid="delete-variable-1"
                                   tabindex="0"
                                   type="button"
@@ -1562,13 +1562,13 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                       data-testid="Stage.stage_1.Service-summary"
                     >
                       <div
+                        class="Accordion--chevron"
+                      />
+                      <div
                         class="Accordion--label"
                       >
                         service
                       </div>
-                      <div
-                        class="Accordion--chevron"
-                      />
                     </div>
                     <div
                       class="bp3-collapse Accordion--collapse"
@@ -1601,7 +1601,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                   class="bp3-popover-target"
                                 >
                                   <button
-                                    class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+                                    class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                                     tabindex="0"
                                     type="button"
                                   >
@@ -1649,13 +1649,13 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                       data-testid="Stage.stage_1.Infrastructure-summary"
                     >
                       <div
+                        class="Accordion--chevron"
+                      />
+                      <div
                         class="Accordion--label"
                       >
                         infrastructureText
                       </div>
-                      <div
-                        class="Accordion--chevron"
-                      />
                     </div>
                     <div
                       class="bp3-collapse Accordion--collapse"
@@ -1684,13 +1684,13 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                       data-testid="Stage.stage_1.Execution-summary"
                     >
                       <div
+                        class="Accordion--chevron"
+                      />
+                      <div
                         class="Accordion--label"
                       >
                         executionText
                       </div>
-                      <div
-                        class="Accordion--chevron"
-                      />
                     </div>
                     <div
                       class="bp3-collapse Accordion--collapse"
@@ -1716,13 +1716,13 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                               data-testid="Stage.stage_1.Execution.Step.step_1-summary"
                             >
                               <div
+                                class="Accordion--chevron"
+                              />
+                              <div
                                 class="Accordion--label"
                               >
                                 step_1
                               </div>
-                              <div
-                                class="Accordion--chevron"
-                              />
                             </div>
                             <div
                               class="bp3-collapse Accordion--collapse"
@@ -1755,7 +1755,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                           class="bp3-popover-target"
                                         >
                                           <button
-                                            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+                                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                                             tabindex="0"
                                             type="button"
                                           >
@@ -1802,7 +1802,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                           class="bp3-popover-target"
                                         >
                                           <button
-                                            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+                                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                                             tabindex="0"
                                             type="button"
                                           >
@@ -1850,13 +1850,13 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                               data-testid="Stage.stage_1.Execution.StepGroup.step_group_1-summary"
                             >
                               <div
+                                class="Accordion--chevron"
+                              />
+                              <div
                                 class="Accordion--label"
                               >
                                 step_group_1
                               </div>
-                              <div
-                                class="Accordion--chevron"
-                              />
                             </div>
                             <div
                               class="bp3-collapse Accordion--collapse"
@@ -1889,7 +1889,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                           class="bp3-popover-target"
                                         >
                                           <button
-                                            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+                                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                                             tabindex="0"
                                             type="button"
                                           >
@@ -1933,13 +1933,13 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                       data-testid="Stage.stage_1.Execution.Step.p_step_1-summary"
                                     >
                                       <div
+                                        class="Accordion--chevron"
+                                      />
+                                      <div
                                         class="Accordion--label"
                                       >
                                         p_step_1
                                       </div>
-                                      <div
-                                        class="Accordion--chevron"
-                                      />
                                     </div>
                                     <div
                                       class="bp3-collapse Accordion--collapse"
@@ -1972,7 +1972,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                   class="bp3-popover-target"
                                                 >
                                                   <button
-                                                    class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+                                                    class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                                                     tabindex="0"
                                                     type="button"
                                                   >
@@ -2019,7 +2019,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                   class="bp3-popover-target"
                                                 >
                                                   <button
-                                                    class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+                                                    class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                                                     tabindex="0"
                                                     type="button"
                                                   >
@@ -2067,13 +2067,13 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                       data-testid="Stage.stage_1.Execution.Step.p_step_2-summary"
                                     >
                                       <div
+                                        class="Accordion--chevron"
+                                      />
+                                      <div
                                         class="Accordion--label"
                                       >
                                         p_step_2
                                       </div>
-                                      <div
-                                        class="Accordion--chevron"
-                                      />
                                     </div>
                                     <div
                                       class="bp3-collapse Accordion--collapse"
@@ -2106,7 +2106,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                   class="bp3-popover-target"
                                                 >
                                                   <button
-                                                    class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+                                                    class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                                                     tabindex="0"
                                                     type="button"
                                                   >
@@ -2153,7 +2153,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                   class="bp3-popover-target"
                                                 >
                                                   <button
-                                                    class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+                                                    class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                                                     tabindex="0"
                                                     type="button"
                                                   >
@@ -2214,6 +2214,9 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
             data-testid="Stage.stage_2-summary"
           >
             <div
+              class="Accordion--chevron"
+            />
+            <div
               class=""
             >
               <p
@@ -2222,9 +2225,6 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                 stage_2
               </p>
             </div>
-            <div
-              class="Accordion--chevron"
-            />
           </div>
           <div
             class="bp3-collapse Accordion--collapse"
@@ -2260,7 +2260,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                             tabindex="0"
                             type="button"
                           >
@@ -2307,7 +2307,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                             tabindex="0"
                             type="button"
                           >
@@ -2351,7 +2351,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                         customVariables.title
                       </b>
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -2394,13 +2394,13 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                       data-testid="Stage.stage_2.Service-summary"
                     >
                       <div
+                        class="Accordion--chevron"
+                      />
+                      <div
                         class="Accordion--label"
                       >
                         service
                       </div>
-                      <div
-                        class="Accordion--chevron"
-                      />
                     </div>
                     <div
                       class="bp3-collapse Accordion--collapse"
@@ -2433,7 +2433,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                   class="bp3-popover-target"
                                 >
                                   <button
-                                    class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+                                    class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                                     tabindex="0"
                                     type="button"
                                   >
@@ -2481,13 +2481,13 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                       data-testid="Stage.stage_2.Infrastructure-summary"
                     >
                       <div
+                        class="Accordion--chevron"
+                      />
+                      <div
                         class="Accordion--label"
                       >
                         infrastructureText
                       </div>
-                      <div
-                        class="Accordion--chevron"
-                      />
                     </div>
                     <div
                       class="bp3-collapse Accordion--collapse"
@@ -2516,13 +2516,13 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                       data-testid="Stage.stage_2.Execution-summary"
                     >
                       <div
+                        class="Accordion--chevron"
+                      />
+                      <div
                         class="Accordion--label"
                       >
                         executionText
                       </div>
-                      <div
-                        class="Accordion--chevron"
-                      />
                     </div>
                     <div
                       class="bp3-collapse Accordion--collapse"
@@ -2548,13 +2548,13 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                               data-testid="Stage.stage_2.Execution.Step.step_1-summary"
                             >
                               <div
+                                class="Accordion--chevron"
+                              />
+                              <div
                                 class="Accordion--label"
                               >
                                 step_1
                               </div>
-                              <div
-                                class="Accordion--chevron"
-                              />
                             </div>
                             <div
                               class="bp3-collapse Accordion--collapse"
@@ -2587,7 +2587,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                           class="bp3-popover-target"
                                         >
                                           <button
-                                            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+                                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                                             tabindex="0"
                                             type="button"
                                           >
@@ -2634,7 +2634,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                           class="bp3-popover-target"
                                         >
                                           <button
-                                            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+                                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                                             tabindex="0"
                                             type="button"
                                           >
@@ -2691,6 +2691,9 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
             data-testid="Stage.parallel_stage_-summary"
           >
             <div
+              class="Accordion--chevron"
+            />
+            <div
               class=""
             >
               <p
@@ -2699,9 +2702,6 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                 parallel_stage_1
               </p>
             </div>
-            <div
-              class="Accordion--chevron"
-            />
           </div>
           <div
             class="bp3-collapse Accordion--collapse"
@@ -2737,7 +2737,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                             tabindex="0"
                             type="button"
                           >
@@ -2784,7 +2784,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                             tabindex="0"
                             type="button"
                           >
@@ -2828,7 +2828,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                         customVariables.title
                       </b>
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -2871,13 +2871,13 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                       data-testid="Stage.parallel_stage_.Service-summary"
                     >
                       <div
+                        class="Accordion--chevron"
+                      />
+                      <div
                         class="Accordion--label"
                       >
                         service
                       </div>
-                      <div
-                        class="Accordion--chevron"
-                      />
                     </div>
                     <div
                       class="bp3-collapse Accordion--collapse"
@@ -2906,13 +2906,13 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                       data-testid="Stage.parallel_stage_.Infrastructure-summary"
                     >
                       <div
+                        class="Accordion--chevron"
+                      />
+                      <div
                         class="Accordion--label"
                       >
                         infrastructureText
                       </div>
-                      <div
-                        class="Accordion--chevron"
-                      />
                     </div>
                     <div
                       class="bp3-collapse Accordion--collapse"
@@ -2941,13 +2941,13 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                       data-testid="Stage.parallel_stage_.Execution-summary"
                     >
                       <div
+                        class="Accordion--chevron"
+                      />
+                      <div
                         class="Accordion--label"
                       >
                         executionText
                       </div>
-                      <div
-                        class="Accordion--chevron"
-                      />
                     </div>
                     <div
                       class="bp3-collapse Accordion--collapse"
@@ -2973,13 +2973,13 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                               data-testid="Stage.parallel_stage_.Execution.Step.step_1-summary"
                             >
                               <div
+                                class="Accordion--chevron"
+                              />
+                              <div
                                 class="Accordion--label"
                               >
                                 step_1
                               </div>
-                              <div
-                                class="Accordion--chevron"
-                              />
                             </div>
                             <div
                               class="bp3-collapse Accordion--collapse"
@@ -3012,7 +3012,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                           class="bp3-popover-target"
                                         >
                                           <button
-                                            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+                                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                                             tabindex="0"
                                             type="button"
                                           >
@@ -3059,7 +3059,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                           class="bp3-popover-target"
                                         >
                                           <button
-                                            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+                                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                                             tabindex="0"
                                             type="button"
                                           >
@@ -3116,6 +3116,9 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
             data-testid="Stage.parallel_stage_2-summary"
           >
             <div
+              class="Accordion--chevron"
+            />
+            <div
               class=""
             >
               <p
@@ -3124,9 +3127,6 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                 parallel_stage_2
               </p>
             </div>
-            <div
-              class="Accordion--chevron"
-            />
           </div>
           <div
             class="bp3-collapse Accordion--collapse"
@@ -3162,7 +3162,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                             tabindex="0"
                             type="button"
                           >
@@ -3209,7 +3209,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                             tabindex="0"
                             type="button"
                           >
@@ -3253,7 +3253,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                         customVariables.title
                       </b>
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -3296,13 +3296,13 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                       data-testid="Stage.parallel_stage_2.Service-summary"
                     >
                       <div
+                        class="Accordion--chevron"
+                      />
+                      <div
                         class="Accordion--label"
                       >
                         service
                       </div>
-                      <div
-                        class="Accordion--chevron"
-                      />
                     </div>
                     <div
                       class="bp3-collapse Accordion--collapse"
@@ -3331,13 +3331,13 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                       data-testid="Stage.parallel_stage_2.Infrastructure-summary"
                     >
                       <div
+                        class="Accordion--chevron"
+                      />
+                      <div
                         class="Accordion--label"
                       >
                         infrastructureText
                       </div>
-                      <div
-                        class="Accordion--chevron"
-                      />
                     </div>
                     <div
                       class="bp3-collapse Accordion--collapse"
@@ -3366,13 +3366,13 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                       data-testid="Stage.parallel_stage_2.Execution-summary"
                     >
                       <div
+                        class="Accordion--chevron"
+                      />
+                      <div
                         class="Accordion--label"
                       >
                         executionText
                       </div>
-                      <div
-                        class="Accordion--chevron"
-                      />
                     </div>
                     <div
                       class="bp3-collapse Accordion--collapse"
@@ -3398,13 +3398,13 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                               data-testid="Stage.parallel_stage_2.Execution.Step.step_1-summary"
                             >
                               <div
+                                class="Accordion--chevron"
+                              />
+                              <div
                                 class="Accordion--label"
                               >
                                 step_1
                               </div>
-                              <div
-                                class="Accordion--chevron"
-                              />
                             </div>
                             <div
                               class="bp3-collapse Accordion--collapse"
@@ -3437,7 +3437,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                           class="bp3-popover-target"
                                         >
                                           <button
-                                            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+                                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                                             tabindex="0"
                                             type="button"
                                           >
@@ -3484,7 +3484,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                           class="bp3-popover-target"
                                         >
                                           <button
-                                            class="bp3-button bp3-minimal bp3-small StyledProps--font Button--button Button--with-current-color StyledProps--main copyIcon StyledProps--intent-primary"
+                                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                                             tabindex="0"
                                             type="button"
                                           >

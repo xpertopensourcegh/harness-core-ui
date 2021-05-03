@@ -97,7 +97,7 @@ exports[`SelectOrCreatePipelineForm Rendering should open create pipeline modal 
           class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large"
         >
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             type="submit"
           >
             <span
@@ -107,7 +107,7 @@ exports[`SelectOrCreatePipelineForm Rendering should open create pipeline modal 
             </span>
           </button>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
             style="text-align: center; padding: 7px; width: 150px; height: 33px; display: inline-block; border-width: 1px;"
             type="button"
           >
@@ -221,7 +221,7 @@ exports[`SelectOrCreatePipelineForm Rendering should render SelectOrCreatePipeli
           class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large"
         >
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             type="submit"
           >
             <span
@@ -231,7 +231,7 @@ exports[`SelectOrCreatePipelineForm Rendering should render SelectOrCreatePipeli
             </span>
           </button>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
             style="text-align: center; padding: 7px; width: 150px; height: 33px; display: inline-block; border-width: 1px;"
             type="button"
           >

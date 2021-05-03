@@ -13,7 +13,7 @@ exports[`NameIdDescriptionTags  tests Renders/snapshots Initial Render - Name, I
           class="StyledProps--font StyledProps--main main"
         >
           <div
-            class="InputWithIdentifier--txtNameContainer"
+            class="InputWithIdentifier--txtNameContainer TextInput--main"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -98,7 +98,7 @@ exports[`NameIdDescriptionTags  tests Renders/snapshots Initial Render - Name, I
           >
             <label
               class="Label--main"
-              style="font-size: 13px;"
+              style="font-size: 13px; font-weight: normal;"
             >
               optionalField
               <span
@@ -129,7 +129,7 @@ exports[`NameIdDescriptionTags  tests Renders/snapshots Initial Render - Name, I
           >
             <label
               class="Label--main"
-              style="font-size: 13px;"
+              style="font-size: 13px; font-weight: normal;"
             >
               optionalField
               <span
@@ -175,7 +175,7 @@ exports[`NameIdDescriptionTags  tests Renders/snapshots On Edit Render - Name, I
           class="StyledProps--font StyledProps--main main"
         >
           <div
-            class="InputWithIdentifier--txtNameContainer"
+            class="InputWithIdentifier--txtNameContainer TextInput--main"
           >
             <div
               class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -263,7 +263,7 @@ exports[`NameIdDescriptionTags  tests Renders/snapshots On Edit Render - Name, I
           >
             <label
               class="Label--main"
-              style="font-size: 13px;"
+              style="font-size: 13px; font-weight: normal;"
             >
               optionalField
             </label>
@@ -289,7 +289,7 @@ exports[`NameIdDescriptionTags  tests Renders/snapshots On Edit Render - Name, I
           >
             <label
               class="Label--main"
-              style="font-size: 13px;"
+              style="font-size: 13px; font-weight: normal;"
             >
               optionalField
             </label>

@@ -112,7 +112,7 @@ exports[`Login Page The login page renders 1`] = `
                     </div>
                   </div>
                   <button
-                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                     style="width: 100%;"
                     type="submit"
                   >

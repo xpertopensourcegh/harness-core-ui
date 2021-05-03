@@ -178,7 +178,7 @@ exports[`Test terraform input set should render edit view as new step 1`] = `
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                     data-testid="remove-spec.targets-[0]"
                     style="margin-top: 4px;"
                     type="button"
@@ -201,7 +201,7 @@ exports[`Test terraform input set should render edit view as new step 1`] = `
                   </button>
                 </div>
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                   data-testid="add-spec.targets"
                   type="button"
                 >
@@ -226,7 +226,7 @@ exports[`Test terraform input set should render edit view as new step 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                       tabindex="0"
                       type="button"
                     >
@@ -305,7 +305,7 @@ exports[`Test terraform input set should render edit view as new step 1`] = `
                         </div>
                       </div>
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                         data-testid="remove-spec.environmentVariables-[0]"
                         style="margin-top: 4px;"
                         type="button"
@@ -330,7 +330,7 @@ exports[`Test terraform input set should render edit view as new step 1`] = `
                   </div>
                 </div>
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                   data-testid="add-spec.environmentVariables"
                   type="button"
                 >

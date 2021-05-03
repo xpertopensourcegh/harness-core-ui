@@ -87,7 +87,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
       class="Layout--horizontal Layout--layout-spacing-large StyledProps--main btnWrapper"
     >
       <button
-        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
         type="button"
       >
         <span
@@ -188,7 +188,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
       class="Layout--horizontal Layout--layout-spacing-large StyledProps--main btnWrapper"
     >
       <button
-        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
         type="button"
       >
         <span
@@ -289,7 +289,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
       class="Layout--horizontal Layout--layout-spacing-large StyledProps--main btnWrapper"
     >
       <button
-        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
         type="button"
       >
         <span
@@ -390,7 +390,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
       class="Layout--horizontal Layout--layout-spacing-large StyledProps--main btnWrapper"
     >
       <button
-        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
         type="button"
       >
         <span
@@ -578,7 +578,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
       class="Layout--horizontal Layout--layout-spacing-large StyledProps--main btnWrapper"
     >
       <button
-        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
         type="button"
       >
         <span
@@ -679,7 +679,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
       class="Layout--horizontal Layout--layout-spacing-large StyledProps--main btnWrapper"
     >
       <button
-        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
         type="button"
       >
         <span

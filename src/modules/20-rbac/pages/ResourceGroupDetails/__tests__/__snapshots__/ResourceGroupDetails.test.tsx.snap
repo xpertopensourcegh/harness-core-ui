@@ -312,7 +312,7 @@ exports[`Resource Groups Page render data 1`] = `
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end"
           >
             <button
-              class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+              class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
               disabled=""
               tabindex="-1"
               type="button"
@@ -382,7 +382,7 @@ exports[`Resource Groups Page render data 1`] = `
                   resourceGroup.limitAccess
                 </p>
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main addResourceBtn StyledProps--intent-primary"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addResourceBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                   type="button"
                 >
                   <span

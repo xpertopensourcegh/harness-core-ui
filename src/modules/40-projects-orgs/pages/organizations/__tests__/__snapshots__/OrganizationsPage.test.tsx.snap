@@ -19,7 +19,7 @@ exports[`Org Page List Create New Org 1`] = `
       class="Layout--horizontal StyledProps--main StyledProps--padding-small"
     >
       <button
-        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
         type="button"
       >
         <span
@@ -123,7 +123,7 @@ exports[`Org Page List Create New Org 1`] = `
                       class="bp3-popover-target"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly Button--round StyledProps--main Card--menu"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -307,7 +307,7 @@ exports[`Org Page List Create New Org 1`] = `
                       class="bp3-popover-target"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly Button--round StyledProps--main Card--menu"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -535,7 +535,7 @@ exports[`Org Page List Create New Org 1`] = `
                       class="bp3-popover-target"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly Button--round StyledProps--main Card--menu"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
                         type="button"
                       >
                         <span

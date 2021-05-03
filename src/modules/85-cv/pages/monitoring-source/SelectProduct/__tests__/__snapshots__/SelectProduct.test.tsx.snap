@@ -91,7 +91,7 @@ exports[`SelectProduct Render for AppD monitoring source 1`] = `
                   class="StyledProps--font StyledProps--main connectorFormNameElm"
                 >
                   <div
-                    class="InputWithIdentifier--txtNameContainer"
+                    class="InputWithIdentifier--txtNameContainer TextInput--main"
                   >
                     <div
                       class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -225,7 +225,7 @@ exports[`SelectProduct Render for AppD monitoring source 1`] = `
                         style="width: 300px;"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                           data-testid="cr-field-connectorRef"
                           style="width: 272px;"
                           type="button"
@@ -291,7 +291,7 @@ exports[`SelectProduct Render for AppD monitoring source 1`] = `
                   </div>
                 </div>
                 <a
-                  class="bp3-button StyledProps--font Button--button Button--with-current-color Button--link StyledProps--main"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--link"
                   href="javascript:void()"
                   role="button"
                   style="height: 30px;"
@@ -371,7 +371,7 @@ exports[`SelectProduct Render for AppD monitoring source 1`] = `
           class="Layout--horizontal StyledProps--main main"
         >
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
             type="button"
           >
             <span
@@ -400,7 +400,7 @@ exports[`SelectProduct Render for AppD monitoring source 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             type="submit"
           >
             <span

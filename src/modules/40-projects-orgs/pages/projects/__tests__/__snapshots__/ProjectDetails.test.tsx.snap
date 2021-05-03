@@ -316,7 +316,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
             type="button"
           >
             <span
@@ -1827,7 +1827,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
             type="button"
           >
             <span
@@ -1977,7 +1977,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                   15 min setup
                 </p>
                 <button
-                  class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main enable StyledProps--font StyledProps--font-size-small StyledProps--font-weight-semi-bold Button--with-current-color Button--iconOnly"
                   type="button"
                 >
                   <span
@@ -2057,7 +2057,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                   15 min setup
                 </p>
                 <button
-                  class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main enable StyledProps--font StyledProps--font-size-small StyledProps--font-weight-semi-bold Button--with-current-color Button--iconOnly"
                   type="button"
                 >
                   <span
@@ -2137,7 +2137,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                   15 min setup
                 </p>
                 <button
-                  class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main enable StyledProps--font StyledProps--font-size-small StyledProps--font-weight-semi-bold Button--with-current-color Button--iconOnly"
                   type="button"
                 >
                   <span
@@ -2217,7 +2217,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                   15 min setup
                 </p>
                 <button
-                  class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main enable StyledProps--font StyledProps--font-size-small StyledProps--font-weight-semi-bold Button--with-current-color Button--iconOnly"
                   type="button"
                 >
                   <span
@@ -2297,7 +2297,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                   15 min setup
                 </p>
                 <button
-                  class="bp3-button StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main enable StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main enable StyledProps--font StyledProps--font-size-small StyledProps--font-weight-semi-bold Button--with-current-color Button--iconOnly"
                   type="button"
                 >
                   <span

@@ -28,7 +28,7 @@ exports[`Connector details step Test for  create  connector step one required fe
                 class="StyledProps--font StyledProps--main main formElm"
               >
                 <div
-                  class="InputWithIdentifier--txtNameContainer"
+                  class="InputWithIdentifier--txtNameContainer TextInput--main"
                 >
                   <div
                     class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -118,7 +118,7 @@ exports[`Connector details step Test for  create  connector step one required fe
                 >
                   <label
                     class="Label--main"
-                    style="font-size: 13px;"
+                    style="font-size: 13px; font-weight: normal;"
                   >
                     optionalField
                     <span
@@ -149,7 +149,7 @@ exports[`Connector details step Test for  create  connector step one required fe
                 >
                   <label
                     class="Label--main"
-                    style="font-size: 13px;"
+                    style="font-size: 13px; font-weight: normal;"
                   >
                     optionalField
                     <span
@@ -181,7 +181,7 @@ exports[`Connector details step Test for  create  connector step one required fe
               class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                 type="submit"
               >
                 <span
@@ -248,7 +248,7 @@ exports[`Connector details step Test for going to next step 1`] = `
                 class="StyledProps--font StyledProps--main main formElm"
               >
                 <div
-                  class="InputWithIdentifier--txtNameContainer"
+                  class="InputWithIdentifier--txtNameContainer TextInput--main"
                 >
                   <div
                     class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -335,7 +335,7 @@ exports[`Connector details step Test for going to next step 1`] = `
                 >
                   <label
                     class="Label--main"
-                    style="font-size: 13px;"
+                    style="font-size: 13px; font-weight: normal;"
                   >
                     optionalField
                     <span
@@ -366,7 +366,7 @@ exports[`Connector details step Test for going to next step 1`] = `
                 >
                   <label
                     class="Label--main"
-                    style="font-size: 13px;"
+                    style="font-size: 13px; font-weight: normal;"
                   >
                     optionalField
                     <span
@@ -398,7 +398,7 @@ exports[`Connector details step Test for going to next step 1`] = `
               class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                 type="submit"
               >
                 <span

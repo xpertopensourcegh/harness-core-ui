@@ -39,8 +39,8 @@
 }
 
 .button {
-  color: var(--blue-500) !important;
-  border-color: var(--blue-500) !important;
+  color: var(--primary-7) !important;
+  border-color: var(--primary-7) !important;
 }
 
 .preview {
@@ -81,6 +81,11 @@
 .pendingList {
   max-height: 250px;
   overflow: scroll;
+}
+
+.roleButton {
+  width: 150px !important;
+  padding: var(--spacing-none) var(--spacing-small) !important;
 }
 
 .colorBar {

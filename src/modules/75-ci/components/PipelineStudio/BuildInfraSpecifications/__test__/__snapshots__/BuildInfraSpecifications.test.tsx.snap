@@ -44,7 +44,7 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                     class="bp3-form-content"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                       data-testid="cr-field-connectorRef"
                       style="width: 300px;"
                       type="button"
@@ -231,7 +231,7 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                         style="width: 100%;"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                           data-testid="add-annotations"
                           type="button"
                         >
@@ -275,7 +275,7 @@ exports[`BuildInfraSpecifications snapshot test able to select a connector 1`] =
                         style="width: 100%;"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                           data-testid="add-labels"
                           type="button"
                         >
@@ -346,7 +346,7 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                     class="bp3-form-content"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--iconOnly StyledProps--main container"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                       data-testid="cr-field-connectorRef"
                       style="width: 300px;"
                       type="button"
@@ -533,7 +533,7 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                         style="width: 100%;"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                           data-testid="add-annotations"
                           type="button"
                         >
@@ -577,7 +577,7 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                         style="width: 100%;"
                       >
                         <button
-                          class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                           data-testid="add-labels"
                           type="button"
                         >

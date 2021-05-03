@@ -221,7 +221,7 @@ exports[`Use DNS for Setup No Access Point is available 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                 style="justify-content: flex-start;"
                 type="button"
               >
@@ -465,7 +465,7 @@ exports[`Use DNS for Setup No hosted zone is available 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                 style="justify-content: flex-start;"
                 type="button"
               >
@@ -709,7 +709,7 @@ exports[`Use DNS for Setup renders without crashing 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                 style="justify-content: flex-start;"
                 type="button"
               >

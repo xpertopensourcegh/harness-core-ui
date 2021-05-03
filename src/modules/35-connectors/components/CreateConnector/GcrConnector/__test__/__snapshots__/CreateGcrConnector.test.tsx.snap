@@ -187,7 +187,7 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
                     class="StyledProps--font StyledProps--main main formElm"
                   >
                     <div
-                      class="InputWithIdentifier--txtNameContainer"
+                      class="InputWithIdentifier--txtNameContainer TextInput--main"
                     >
                       <div
                         class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -274,7 +274,7 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
                     >
                       <label
                         class="Label--main"
-                        style="font-size: 13px;"
+                        style="font-size: 13px; font-weight: normal;"
                       >
                         optionalField
                         <span
@@ -305,7 +305,7 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
                     >
                       <label
                         class="Label--main"
-                        style="font-size: 13px;"
+                        style="font-size: 13px; font-weight: normal;"
                       >
                         optionalField
                         <span
@@ -337,7 +337,7 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                     type="submit"
                   >
                     <span
@@ -689,7 +689,7 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
                 </div>
               </div>
               <button
-                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                 type="submit"
               >
                 <span
@@ -913,7 +913,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                     class="StyledProps--font StyledProps--main main formElm"
                   >
                     <div
-                      class="InputWithIdentifier--txtNameContainer"
+                      class="InputWithIdentifier--txtNameContainer TextInput--main"
                     >
                       <div
                         class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
@@ -980,7 +980,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                     >
                       <label
                         class="Label--main"
-                        style="font-size: 13px;"
+                        style="font-size: 13px; font-weight: normal;"
                       >
                         optionalField
                       </label>
@@ -1006,7 +1006,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                     >
                       <label
                         class="Label--main"
-                        style="font-size: 13px;"
+                        style="font-size: 13px; font-weight: normal;"
                       >
                         optionalField
                         <span
@@ -1038,7 +1038,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                     type="submit"
                   >
                     <span
@@ -1390,7 +1390,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                 </div>
               </div>
               <button
-                class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                 type="submit"
               >
                 <span

@@ -321,7 +321,7 @@ exports[`Select Services render services for application 1`] = `
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
         >
           <button
-            class="bp3-button bp3-disabled StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             disabled=""
             tabindex="-1"
             type="button"
@@ -333,7 +333,7 @@ exports[`Select Services render services for application 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -343,7 +343,7 @@ exports[`Select Services render services for application 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -353,7 +353,7 @@ exports[`Select Services render services for application 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -363,7 +363,7 @@ exports[`Select Services render services for application 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -382,7 +382,7 @@ exports[`Select Services render services for application 1`] = `
                 class=""
               >
                 <button
-                  class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
                   type="button"
                 >
                   <span
@@ -409,7 +409,7 @@ exports[`Select Services render services for application 1`] = `
             </div>
           </div>
           <button
-            class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
             type="button"
           >
             <span
@@ -425,7 +425,7 @@ exports[`Select Services render services for application 1`] = `
       class="Layout--horizontal StyledProps--main main"
     >
       <button
-        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
         type="button"
       >
         <span
@@ -454,7 +454,7 @@ exports[`Select Services render services for application 1`] = `
         </span>
       </button>
       <button
-        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
         type="submit"
       >
         <span

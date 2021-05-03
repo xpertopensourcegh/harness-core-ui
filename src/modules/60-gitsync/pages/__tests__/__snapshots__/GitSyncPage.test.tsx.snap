@@ -71,7 +71,7 @@ exports[`GitSync Page render GitSync page for new user 1`] = `
         gitExperienceNewUserText
       </p>
       <button
-        class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main gitEnableBtn StyledProps--intent-primary StyledProps--margin-large StyledProps--font-size-medium"
+        class="bp3-button Button--button StyledProps--font StyledProps--main gitEnableBtn StyledProps--intent-primary StyledProps--margin-large StyledProps--font StyledProps--font-size-medium Button--with-current-color"
         type="button"
       >
         <span

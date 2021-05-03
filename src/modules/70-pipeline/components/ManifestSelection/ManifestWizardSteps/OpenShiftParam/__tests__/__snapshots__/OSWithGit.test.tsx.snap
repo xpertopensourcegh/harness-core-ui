@@ -210,7 +210,7 @@ exports[`Open shift params with git tests renders form in edit mode 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -254,7 +254,7 @@ exports[`Open shift params with git tests renders form in edit mode 1`] = `
                   style="width: 100%;"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                     data-testid="add-paths"
                     type="button"
                   >
@@ -273,7 +273,7 @@ exports[`Open shift params with git tests renders form in edit mode 1`] = `
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main StyledProps--margin-top-huge"
         >
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
             type="button"
           >
             <span
@@ -302,7 +302,7 @@ exports[`Open shift params with git tests renders form in edit mode 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             type="submit"
           >
             <span
@@ -547,7 +547,7 @@ exports[`Open shift params with git tests renders without crashing 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color Button--iconOnly StyledProps--main btn"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -591,7 +591,7 @@ exports[`Open shift params with git tests renders without crashing 1`] = `
                   style="width: 100%;"
                 >
                   <button
-                    class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                     data-testid="add-paths"
                     type="button"
                   >
@@ -610,7 +610,7 @@ exports[`Open shift params with git tests renders without crashing 1`] = `
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main StyledProps--margin-top-huge"
         >
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
             type="button"
           >
             <span
@@ -639,7 +639,7 @@ exports[`Open shift params with git tests renders without crashing 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
             type="submit"
           >
             <span
