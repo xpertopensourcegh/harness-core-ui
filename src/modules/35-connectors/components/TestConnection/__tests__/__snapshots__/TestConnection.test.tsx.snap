@@ -2,57 +2,45 @@
 
 exports[`Test Connection render test connection 1`] = `
 <div>
-  <div
-    class="Layout--vertical StyledProps--main"
+  <button
+    class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+    type="button"
   >
-    <button
-      class="bp3-button Button--button StyledProps--font StyledProps--main testButton Button--with-current-color"
-      type="button"
+    <span
+      class="bp3-button-text"
     >
-      <span
-        class="bp3-button-text"
-      >
-        connectors.stepThreeName
-      </span>
-    </button>
-  </div>
+      connectors.stepThreeName
+    </span>
+  </button>
 </div>
 `;
 
 exports[`Test Connection render test connection verify out of cluster  1`] = `
 <div>
-  <div
-    class="Layout--vertical StyledProps--main"
+  <button
+    class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+    type="button"
   >
-    <button
-      class="bp3-button Button--button StyledProps--font StyledProps--main testButton Button--with-current-color"
-      type="button"
+    <span
+      class="bp3-button-text"
     >
-      <span
-        class="bp3-button-text"
-      >
-        connectors.stepThreeName
-      </span>
-    </button>
-  </div>
+      connectors.stepThreeName
+    </span>
+  </button>
 </div>
 `;
 
 exports[`Test Connection render test connection verify out of cluster  2`] = `
 <div>
-  <div
-    class="Layout--vertical StyledProps--main"
+  <button
+    class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+    type="button"
   >
-    <button
-      class="bp3-button Button--button StyledProps--font StyledProps--main testButton Button--with-current-color"
-      type="button"
+    <span
+      class="bp3-button-text"
     >
-      <span
-        class="bp3-button-text"
-      >
-        connectors.stepThreeName
-      </span>
-    </button>
-  </div>
+      connectors.stepThreeName
+    </span>
+  </button>
 </div>
 `;

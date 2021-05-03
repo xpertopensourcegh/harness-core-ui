@@ -16,7 +16,6 @@ declare const styles: {
   readonly item: string
   readonly selected: string
   readonly yamlView: string
-  readonly editButton: string
   readonly disabled: string
 }
 export default styles

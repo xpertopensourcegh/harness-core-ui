@@ -55,7 +55,6 @@
   .optionBtns {
     display: inline-block;
     justify-content: space-between;
-    background-color: var(--grey-300);
     border-radius: 10px;
     font-size: var(--font-size-xsmall);
     line-height: 10px;
@@ -78,11 +77,6 @@
 
 .yamlView {
   width: 93%;
-}
-
-.editButton {
-  color: var(--primary-7) !important;
-  border-color: var(--primary-7) !important;
 }
 
 .disabled {

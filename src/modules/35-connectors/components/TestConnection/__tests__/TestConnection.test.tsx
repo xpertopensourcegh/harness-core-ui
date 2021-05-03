@@ -52,7 +52,7 @@ describe('Test Connection', () => {
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
-    const testBtn = container.querySelector('[class*="testButton"]')
+    const testBtn = container.querySelector('[type="button"]')
     expect(testBtn).not.toBeNull()
     expect(getByText('connectors.stepThreeName')).toBeDefined()
     if (testBtn) {

@@ -1,11 +1,10 @@
 import React from 'react'
-import { Layout, Button } from '@wings-software/uicore'
+import { Button } from '@wings-software/uicore'
 
 import type { ResponseConnectorValidationResult, ConnectorInfoDTO } from 'services/cd-ng'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import useTestConnectionModal from '@connectors/common/useTestConnectionModal/useTestConnectionModal'
 import { useStrings } from 'framework/strings'
-import css from './TestConnection.module.scss'
 
 interface TestConnectionProps {
   connectorType: ConnectorInfoDTO['type']
@@ -13,6 +12,7 @@ interface TestConnectionProps {
   connectorIdentifier: string
   url: string
   testConnectionMockData?: UseGetMockData<ResponseConnectorValidationResult>
+  className?: string
 }
 const TestConnection: React.FC<TestConnectionProps> = props => {
   const { openErrorModal } = useTestConnectionModal({
@@ -22,15 +22,14 @@ const TestConnection: React.FC<TestConnectionProps> = props => {
   })
   const { getString } = useStrings()
   return (
-    <Layout.Vertical>
-      <Button
-        className={css.testButton}
-        text={getString('connectors.stepThreeName')}
-        onClick={() => {
-          openErrorModal(props.connectorIdentifier, props.connectorType, props.url)
-        }}
-      />
-    </Layout.Vertical>
+    <Button
+      withoutBoxShadow
+      className={props.className}
+      text={getString('connectors.stepThreeName')}
+      onClick={() => {
+        openErrorModal(props.connectorIdentifier, props.connectorType, props.url)
+      }}
+    />
   )
 }
 export default TestConnection

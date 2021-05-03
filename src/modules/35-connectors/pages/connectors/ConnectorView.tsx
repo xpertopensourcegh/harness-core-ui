@@ -439,7 +439,6 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
           {state.enableEdit || isHarnessManaged ? null : (
             <RbacButton
               id="editDetailsBtn"
-              className={css.editButton}
               text={getString('editDetails')}
               icon="edit"
               permission={{
