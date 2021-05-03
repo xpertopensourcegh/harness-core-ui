@@ -52,4 +52,9 @@
       bottom: 0;
     }
   }
+
+  .userName {
+    overflow-wrap: anywhere;
+    padding: var(--spacing-none) var(--spacing-xsmall) !important;
+  }
 }

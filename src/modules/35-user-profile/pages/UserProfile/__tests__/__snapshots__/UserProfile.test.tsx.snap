@@ -1079,7 +1079,7 @@ exports[`User Profile Page User Profile 1`] = `
                     class="Layout--horizontal StyledProps--main StyledProps--padding-top-large"
                   >
                     <button
-                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main"
+                      class="bp3-button bp3-minimal StyledProps--font Button--button Button--with-current-color StyledProps--main StyledProps--intent-primary"
                       type="button"
                     >
                       <span

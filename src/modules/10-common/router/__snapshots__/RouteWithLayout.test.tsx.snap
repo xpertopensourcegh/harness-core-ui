@@ -403,12 +403,10 @@ exports[`RouteWithLayout basic 1`] = `
                 </span>
               </div>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--color StyledProps--color-white"
-                style="--text-line-clamp: 2;"
+                class="StyledProps--font Text--lineclamp StyledProps--main userName StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--color StyledProps--color-white"
+                style="--text-line-clamp: 1;"
               >
-                <span>
-                  account
-                </span>
+                dummyname
               </p>
             </div>
           </a>
@@ -873,12 +871,10 @@ exports[`RouteWithLayout minimal 1`] = `
                 </span>
               </div>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--color StyledProps--color-white"
-                style="--text-line-clamp: 2;"
+                class="StyledProps--font Text--lineclamp StyledProps--main userName StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--color StyledProps--color-white"
+                style="--text-line-clamp: 1;"
               >
-                <span>
-                  account
-                </span>
+                dummyname
               </p>
             </div>
           </a>

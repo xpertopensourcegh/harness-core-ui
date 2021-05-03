@@ -7,5 +7,6 @@ declare const styles: {
   readonly navLink: string
   readonly active: string
   readonly separation: string
+  readonly userName: string
 }
 export default styles

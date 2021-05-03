@@ -23,7 +23,7 @@ export interface TableProps<Data extends Record<string, any>> {
 }
 
 const Table = <Data extends Record<string, any>>(props: TableProps<Data>): React.ReactElement => {
-  const { columns, data, className, sortable = true, hideHeaders = false, pagination } = props
+  const { columns, data, className, sortable = false, hideHeaders = false, pagination } = props
   const { headerGroups, page, prepareRow } = useTable(
     {
       columns,

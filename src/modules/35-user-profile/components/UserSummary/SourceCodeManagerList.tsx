@@ -105,7 +105,7 @@ const SourceCodeManagerList: React.FC = () => {
         <Table<SourceCodeManagerDTO> data={data.data} columns={columns} hideHeaders={true} />
       ) : null}
       <Layout.Horizontal padding={{ top: 'large' }}>
-        <Button text={getString('userProfile.plusSCM')} minimal onClick={openSourceCodeModal} />
+        <Button text={getString('userProfile.plusSCM')} minimal intent="primary" onClick={openSourceCodeModal} />
       </Layout.Horizontal>
     </Layout.Vertical>
   )

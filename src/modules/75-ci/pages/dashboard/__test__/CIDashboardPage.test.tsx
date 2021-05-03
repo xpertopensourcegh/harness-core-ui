@@ -13,6 +13,8 @@ jest.mock('framework/exports', () => ({
   })
 }))
 
+jest.mock('react-timeago', () => () => 'dummy date')
+
 const buildExecutionMock = {
   data: {
     buildExecutionInfoList: [

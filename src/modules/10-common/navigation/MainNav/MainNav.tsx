@@ -115,8 +115,13 @@ export default function L1Nav(): React.ReactElement {
           <Link className={css.navLink} activeClassName={css.active} to={paths.toUser(params)}>
             <Layout.Vertical flex={{ align: 'center-center' }} spacing="small" width={90}>
               <Avatar email={user.email} size="small" hoverCard={false} />
-              <Text font={{ size: 'small', weight: 'semi-bold', align: 'center' }} color={Color.WHITE} lineClamp={2}>
-                <String stringID="account" />
+              <Text
+                font={{ size: 'small', weight: 'semi-bold', align: 'center' }}
+                color={Color.WHITE}
+                lineClamp={1}
+                className={css.userName}
+              >
+                {user.name}
               </Text>
             </Layout.Vertical>
           </Link>
