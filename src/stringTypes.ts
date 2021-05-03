@@ -174,6 +174,7 @@ export interface StringsMap {
   'common.logs.noLogsText': string
   'common.member': string
   'common.namespace': string
+  'common.noRefData': string
   'common.note': string
   'common.ok': string
   'common.options': string
@@ -206,6 +207,7 @@ export interface StringsMap {
   'common.purpose.setup': string
   'common.purpose.startATrial': string
   'common.purpose.welcome': string
+  'common.references': string
   'common.refresh': string
   'common.reject': string
   'common.releaseName': string
@@ -353,8 +355,6 @@ export interface StringsMap {
   'rbac.usersPage.selectRole': string
   'rbac.usersPage.validation.resourceGroup': string
   'rbac.usersPage.validation.role': string
-  'secrets.noRefData': string
-  'secrets.references': string
   'secrets.selectSecret': string
   'connectors.ECR.fullName': string
   'connectors.ECR.name': string

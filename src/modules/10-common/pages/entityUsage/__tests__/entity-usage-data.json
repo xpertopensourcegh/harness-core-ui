@@ -1,0 +1,55 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "content": [
+      {
+        "accountIdentifier": "nqqlJ_62S0q7wFnYSmwNpQ",
+        "referredEntity": {
+          "type": "Secrets",
+          "entityRef": {
+            "scope": "project",
+            "identifier": "HARNESS_IMAGE_PASSWORD",
+            "accountIdentifier": "nqqlJ_62S0q7wFnYSmwNpQ",
+            "orgIdentifier": "default",
+            "projectIdentifier": "YNC_Project",
+            "metadata": {}
+          },
+          "name": ""
+        },
+        "referredByEntity": {
+          "type": "Connectors",
+          "entityRef": {
+            "scope": "project",
+            "identifier": "harnessImage",
+            "accountIdentifier": "nqqlJ_62S0q7wFnYSmwNpQ",
+            "orgIdentifier": "default",
+            "projectIdentifier": "YNC_Project",
+            "metadata": {}
+          },
+          "name": "Harness Docker Connector"
+        },
+        "detail": null,
+        "createdAt": 1618476077650
+      }
+    ],
+    "pageable": {
+      "sort": { "sorted": true, "unsorted": false, "empty": false },
+      "pageNumber": 0,
+      "pageSize": 10,
+      "offset": 0,
+      "unpaged": false,
+      "paged": true
+    },
+    "totalPages": 1,
+    "last": true,
+    "totalElements": 1,
+    "first": true,
+    "sort": { "sorted": true, "unsorted": false, "empty": false },
+    "numberOfElements": 1,
+    "size": 10,
+    "number": 0,
+    "empty": false
+  },
+  "metaData": null,
+  "correlationId": "8d0d2e23-ac8f-46d6-860e-676586ebacd1"
+}

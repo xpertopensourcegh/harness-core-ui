@@ -120,4 +120,20 @@ else {
 }
 ```
 
+**EntityUsage**: We have also build up a common component for Entity usage which will display the below sub components:-
+(a) Page title with search feature
+(b) Table grid which will display all the references of Entity
+(c) Pagination feature
+
+Hence, to use EntityUsage component for different entity type please use below code :-
+
+```typescript
+import EntitySetupUsage from '@common/pages/entityUsage/EntityUsage'
+;<EntitySetupUsage entityType={'Secrets'} entityIdentifier={secretId} />
+```
+
+Below is the screen shot of Entity setup usage reference detail page
+
+![Entity setup usage - references](../images/entity-usage-references.png)
+
 - For more details of Factory, kindly refer [ResourceDetailFactory](https://github.com/wings-software/nextgenui/blob/master/src/modules/10-common/factories/ResourceDetailFactory.tsx)

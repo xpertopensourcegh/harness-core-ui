@@ -274,3 +274,5 @@ authSettings:
 errorHandler:
   issueCouldBe: Issue could be
   tryTheseSuggestions: Try these suggestions
+noRefData: 'No references found'
+references: 'References'

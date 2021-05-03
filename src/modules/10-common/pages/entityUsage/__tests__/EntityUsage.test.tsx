@@ -3,19 +3,26 @@ import { render, waitFor, queryByText } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { accountPathProps, secretPathProps } from '@common/utils/routeUtils'
 import routes from '@common/RouteDefinitions'
-import SecretReferences from '../SecretReferences'
-import referencedData from './secret-references-entities-data.json'
+import EntityUsage from '../EntityUsage'
+import referencedData from './entity-usage-data.json'
 
 jest.mock('react-timeago', () => () => 'dummy date')
 
-describe('Secret Referenced By', () => {
+describe('Entity Usage', () => {
   test('render for no data', async () => {
     const { container } = render(
       <TestWrapper
         path={routes.toResourcesSecretDetailsReferences({ ...accountPathProps, ...secretPathProps })}
         pathParams={{ accountId: 'dummy', secretId: 'secretId' }}
       >
-        <SecretReferences secretData={{} as any} />
+        <EntityUsage
+          mockData={{
+            data: {} as any,
+            loading: false
+          }}
+          entityIdentifier="secretId"
+          entityType="Secrets"
+        />
       </TestWrapper>
     )
     await waitFor(() => queryByText(container, 'entityReference.noRecordFound'))
@@ -27,7 +34,14 @@ describe('Secret Referenced By', () => {
         path={routes.toResourcesSecretDetailsReferences({ ...accountPathProps, ...secretPathProps })}
         pathParams={{ accountId: 'dummy', secretId: 'secretId' }}
       >
-        <SecretReferences secretData={referencedData as any} />
+        <EntityUsage
+          mockData={{
+            data: referencedData as any,
+            loading: false
+          }}
+          entityIdentifier="secretId"
+          entityType="Secrets"
+        />
       </TestWrapper>
     )
 

@@ -138,7 +138,7 @@ const SecretDetaislHomePage: React.FC<SecretDetailsProps> = ({ children }, props
                   module
                 })}
               >
-                {getString('secrets.references')}
+                {getString('common.references')}
               </NavLink>
             </Layout.Horizontal>
           </Container>

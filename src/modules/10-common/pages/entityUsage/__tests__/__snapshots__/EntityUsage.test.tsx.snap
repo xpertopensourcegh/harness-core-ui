@@ -1,0 +1,244 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Entity Usage render for data 1`] = `
+<div>
+  <div
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+  >
+    <h2
+      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+      level="2"
+    >
+      common.references
+    </h2>
+    <div
+      class="StyledProps--font StyledProps--main"
+    >
+      <div
+        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+      >
+        <div
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main search "
+          data-name=""
+        >
+          <span
+            class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon "
+            icon="search"
+          >
+            <svg
+              data-icon="search"
+              height="14"
+              viewBox="0 0 16 16"
+              width="14"
+            >
+              <desc>
+                search
+              </desc>
+              <path
+                d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <input
+            class="bp3-input "
+            dir="auto"
+            placeholder="projectSelector.placeholder"
+            type="search"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="StyledProps--font StyledProps--main pageBody"
+  >
+    <div
+      class="table table"
+    >
+      <div
+        class="header"
+        role="row"
+      >
+        <div
+          class="cell"
+          colspan="1"
+          role="columnheader"
+          style="width: 33%;"
+        >
+          entity
+        </div>
+        <div
+          class="cell"
+          colspan="1"
+          role="columnheader"
+          style="width: 33%;"
+        >
+          details
+        </div>
+        <div
+          class="cell"
+          colspan="1"
+          role="columnheader"
+          style="width: 34%;"
+        >
+          lastActivity
+        </div>
+      </div>
+      <div
+        class="row card"
+        role="row"
+      >
+        <div
+          class="cell"
+          role="cell"
+          style="width: 33%;"
+        >
+          <div
+            class="Layout--vertical StyledProps--main"
+          >
+            <div
+              class="Layout--horizontal StyledProps--main"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main overflow StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 1;"
+              >
+                Harness Docker Connector
+              </p>
+            </div>
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main overflow StyledProps--color StyledProps--color-grey400"
+              style="--text-line-clamp: 1;"
+            >
+              Connectors
+            </p>
+          </div>
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 33%;"
+        />
+        <div
+          class="cell"
+          role="cell"
+          style="width: 34%;"
+        >
+          <div
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+          >
+            dummy date
+          </div>
+        </div>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
+      >
+        <span
+          class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
+        >
+          Showing 
+          <strong>
+            1
+          </strong>
+           of 
+          <strong>
+            1
+          </strong>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Entity Usage render for no data 1`] = `
+<div>
+  <div
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+  >
+    <h2
+      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+      level="2"
+    >
+      common.references
+    </h2>
+    <div
+      class="StyledProps--font StyledProps--main"
+    >
+      <div
+        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+      >
+        <div
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main search "
+          data-name=""
+        >
+          <span
+            class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon "
+            icon="search"
+          >
+            <svg
+              data-icon="search"
+              height="14"
+              viewBox="0 0 16 16"
+              width="14"
+            >
+              <desc>
+                search
+              </desc>
+              <path
+                d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <input
+            class="bp3-input "
+            dir="auto"
+            placeholder="projectSelector.placeholder"
+            type="search"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="StyledProps--font StyledProps--main pageBody"
+  >
+    <div
+      class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+      style="width: 100%; height: 100%;"
+    >
+      <div
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+        style="align-items: center; margin-top: -48px; width: 470px;"
+      >
+        <span
+          class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
+          data-icon="nav-project"
+        >
+          <svg
+            height="48"
+            viewBox="0 0 22 22"
+            width="48"
+          >
+            <path
+              d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"
+              fill="#56778d"
+            />
+          </svg>
+        </span>
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-align-center StyledProps--color StyledProps--color-grey500"
+          level="2"
+        >
+          common.noRefData
+        </h2>
+      </div>
+    </div>
+  </div>
+</div>
+`;
