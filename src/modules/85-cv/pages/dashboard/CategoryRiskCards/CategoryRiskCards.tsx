@@ -173,7 +173,7 @@ export function OverallRiskScoreCard(props: OverallRiskScoreCard): JSX.Element {
         <Text font={{ weight: 'bold' }} color={Color.BLACK}>
           {getString('cv.overall')}
         </Text>
-        <Text style={{ fontSize: 12 }} color={Color.GREY_250}>
+        <Text style={{ fontSize: 12 }} color={Color.GREY_100}>
           {getString('cv.riskScore')}
         </Text>
       </Layout.Vertical>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import cx from 'classnames'
 import { Container, Color, Icon, Text, Collapse, IconName } from '@wings-software/uicore'
 import moment from 'moment'
 import type { VerificationResult } from 'services/cv'
@@ -69,8 +70,7 @@ export default function DeploymentGroupList({ name, defaultOpen, items }: Deploy
         <Container
           key={item.name + i}
           onClick={item.onClick}
-          className={styles.item}
-          background={item.selected ? Color.BLUE_200 : undefined}
+          className={cx(styles.item, item.selected ? styles.selectedDeployment : undefined)}
           padding="small"
         >
           <Container className={styles.itemHeader}>

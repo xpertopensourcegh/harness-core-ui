@@ -655,7 +655,7 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
             </Layout.Horizontal>
           </Layout.Vertical>
           <Container
-            background={Color.GREY_200}
+            background={Color.GREY_100}
             width={data?.resource?.totalNumberOfEnvironments && data?.resource?.totalNumberOfServices ? '50%' : '70%'}
           >
             {activeStep === Step.CHANGE_SOURCE ? (

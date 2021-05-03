@@ -2,18 +2,20 @@
   padding: 0;
   width: 80px;
   height: 80px;
+  position: relative;
 
-  .cardIcon {
-    position: relative;
-    top: 20px;
-  }
+  display: flex !important;
+  flex-direction: column;
+  justify-content: space-evenly;
 
   .triangle {
     width: 0;
     height: 0;
     border-top: 30px solid var(--primary-7);
     border-left: 30px solid transparent;
-    float: right;
+    position: absolute;
+    top: -2px;
+    right: -2px;
   }
 
   .tick {
@@ -26,18 +28,19 @@
     border: 2px solid var(--primary-7);
   }
   .cardIconSelected {
-    left: 14px;
+    left: 1px;
   }
 
   .cardLabel {
-    text-align: center !important;
-  }
-  .cardLabelPadding {
-    padding: var(--spacing-xlarge) 0 !important;
+    align-self: center;
   }
 }
 
 .largeCard {
   width: 130px;
   height: 140px;
+  .triangle {
+    left: 97px;
+    top: -1px;
+  }
 }

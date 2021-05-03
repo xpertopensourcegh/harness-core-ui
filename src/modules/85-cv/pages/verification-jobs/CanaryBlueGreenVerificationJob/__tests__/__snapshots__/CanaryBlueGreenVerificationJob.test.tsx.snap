@@ -53,7 +53,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                   </span>
                 </div>
                 <div
-                  class="Card--cardIcon cardIcon cardIconSelected"
+                  class="Card--cardIcon cardIconSelected"
                 >
                   <span
                     class="bp3-icon StyledProps--main"
@@ -177,7 +177,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for bluegreen 1`] = `
                   </span>
                 </div>
                 <p
-                  class="StyledProps--font StyledProps--main cardLabel cardLabelPadding StyledProps--color StyledProps--color-black"
+                  class="StyledProps--font StyledProps--main cardLabel StyledProps--color StyledProps--color-black"
                 >
                   blueGreen
                 </p>
@@ -800,7 +800,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                   </span>
                 </div>
                 <div
-                  class="Card--cardIcon cardIcon cardIconSelected"
+                  class="Card--cardIcon cardIconSelected"
                 >
                   <span
                     class="bp3-icon StyledProps--main"
@@ -820,7 +820,7 @@ exports[`CanaryBlueGreenVerificationJob Render initially for canary 1`] = `
                   </span>
                 </div>
                 <p
-                  class="StyledProps--font StyledProps--main cardLabel cardLabelPadding StyledProps--color StyledProps--color-black"
+                  class="StyledProps--font StyledProps--main cardLabel StyledProps--color StyledProps--color-black"
                 >
                   canary
                 </p>

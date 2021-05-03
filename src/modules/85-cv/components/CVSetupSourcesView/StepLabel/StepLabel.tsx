@@ -10,12 +10,12 @@ export interface StepLabelProps {
 
 const StepNumberColoring = [
   {
-    backgroundColor: 'var(--green-300)',
+    backgroundColor: 'var(--green-200)',
     color: '#1E5C1F'
   },
   {
-    backgroundColor: 'var(--blue-300)',
-    color: 'var(--blue-700)'
+    backgroundColor: 'var(--primary-3)',
+    color: 'var(--primary-8)'
   },
   {
     backgroundColor: '#E1D0FF',

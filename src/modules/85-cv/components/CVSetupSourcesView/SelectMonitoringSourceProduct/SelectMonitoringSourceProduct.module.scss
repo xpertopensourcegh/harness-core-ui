@@ -18,7 +18,7 @@
     width: 130px;
 
     &[class*='selected'] {
-      border: 2px solid var(--blue-600) !important;
+      border: 2px solid var(--primary-7) !important;
     }
     > p {
       margin-top: var(--spacing-small);

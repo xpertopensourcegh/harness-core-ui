@@ -34,7 +34,7 @@ exports[`VerificationStatusCard matches snapshot when status = VERIFICATION_FAIL
 exports[`VerificationStatusCard matches snapshot when status = VERIFICATION_PASSED 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main verificationStatusCard StyledProps--color StyledProps--color-green500 StyledProps--background-green350"
+    class="StyledProps--font StyledProps--main verificationStatusCard StyledProps--color StyledProps--color-green700 StyledProps--background-green350"
   >
     passed
   </div>

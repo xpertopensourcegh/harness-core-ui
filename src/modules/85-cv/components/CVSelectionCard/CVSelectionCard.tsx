@@ -48,15 +48,14 @@ export function CVSelectionCard(props: CVSelectionCardProps): JSX.Element {
             <Icon name="tick" size={14} className={css.tick} color={Color.WHITE} />
           </div>
         ) : null}
-
         <CardBody.Icon
-          className={cx(css.cardIcon, { [css.cardIconSelected]: isSelectable })}
+          className={cx({ [css.cardIconSelected]: isSelectable })}
           icon={iconProps.name}
           iconSize={iconProps.size}
           {...iconProps}
         />
         {!renderLabelOutsideCard && Boolean(cardLabel) && (
-          <Text color={Color.BLACK} className={cx(css.cardLabel, css.cardLabelPadding)}>
+          <Text color={Color.BLACK} className={css.cardLabel}>
             {cardLabel}
           </Text>
         )}

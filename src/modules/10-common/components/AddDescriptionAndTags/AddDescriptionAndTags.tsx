@@ -67,7 +67,7 @@ function FieldLabelWithHideOption(props: FieldLabelWithHideOptionProps): JSX.Ele
   return (
     <Container className={css.headerRow}>
       <Text inline>{fieldLabel}</Text>
-      <Text inline className={css.fieldToggleLabel} onClick={onHide} color={Color.BLUE_500}>
+      <Text inline className={css.fieldToggleLabel} onClick={onHide} color={Color.PRIMARY_7}>
         {i18n.hideInput}
       </Text>
     </Container>
@@ -80,7 +80,7 @@ function FieldLabelWithRemoveOption(props: FieldLabelWithRemoveOptionProps): JSX
   return (
     <Container className={css.headerRow}>
       <Text inline>{fieldLabel}</Text>
-      <Text inline className={css.fieldToggleLabel} onClick={onRemove} color={Color.BLUE_500}>
+      <Text inline className={css.fieldToggleLabel} onClick={onRemove} color={Color.PRIMARY_7}>
         {getString('removeLabel')}
       </Text>
     </Container>
@@ -91,7 +91,7 @@ function AddFieldOption(props: AddFieldOptionProps): JSX.Element | null {
   const { onClick, label, isOpen } = props
   if (!isOpen) return null
   return (
-    <Text className={css.fieldToggleLabel} onClick={onClick} color={Color.BLUE_500}>
+    <Text className={css.fieldToggleLabel} onClick={onClick} color={Color.PRIMARY_7}>
       {label}
     </Text>
   )

@@ -153,7 +153,7 @@ exports[`CVSetupPage check next and previous 1`] = `
         </div>
       </div>
       <div
-        class="StyledProps--font StyledProps--main StyledProps--background-grey200"
+        class="StyledProps--font StyledProps--main StyledProps--background-grey100"
         style="width: 70%;"
       >
         <div
@@ -535,7 +535,7 @@ exports[`CVSetupPage check next and previous 2`] = `
         </div>
       </div>
       <div
-        class="StyledProps--font StyledProps--main StyledProps--background-grey200"
+        class="StyledProps--font StyledProps--main StyledProps--background-grey100"
         style="width: 70%;"
       >
         <div
@@ -871,7 +871,7 @@ exports[`CVSetupPage check next and previous 3`] = `
         </div>
       </div>
       <div
-        class="StyledProps--font StyledProps--main StyledProps--background-grey200"
+        class="StyledProps--font StyledProps--main StyledProps--background-grey100"
         style="width: 70%;"
       >
         <div
@@ -1182,7 +1182,7 @@ exports[`CVSetupPage render initial state 1`] = `
         </div>
       </div>
       <div
-        class="StyledProps--font StyledProps--main StyledProps--background-grey200"
+        class="StyledProps--font StyledProps--main StyledProps--background-grey100"
         style="width: 70%;"
       >
         <div

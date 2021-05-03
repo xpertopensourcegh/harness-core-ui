@@ -148,7 +148,7 @@ exports[`DeploymentDrilldownSideNav renders correctly and fires onSelect callbac
             style="transform: translateY(0);"
           >
             <div
-              class="StyledProps--font StyledProps--main item StyledProps--background-blue200 StyledProps--padding-small"
+              class="StyledProps--font StyledProps--main item selectedDeployment StyledProps--padding-small"
             >
               <div
                 class="StyledProps--font StyledProps--main itemHeader"

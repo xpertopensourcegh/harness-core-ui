@@ -27,7 +27,7 @@ export function FooterCTA(props: FooterCTAProps): JSX.Element {
         </Button>
       )}
       {onNext && (
-        <Button icon="chevron-right" className={css.nextButton} onClick={() => onNext()}>
+        <Button icon="chevron-right" className={css.nextButton} intent="primary" onClick={() => onNext()}>
           {isSubmit ? getString('submit') : getString('next')}
         </Button>
       )}

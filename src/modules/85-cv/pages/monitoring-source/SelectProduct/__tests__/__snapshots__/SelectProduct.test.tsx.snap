@@ -52,7 +52,7 @@ exports[`SelectProduct Render for AppD monitoring source 1`] = `
                   </span>
                 </div>
                 <div
-                  class="Card--cardIcon cardIcon cardIconSelected"
+                  class="Card--cardIcon cardIconSelected"
                 >
                   <span
                     class="bp3-icon StyledProps--main"
@@ -179,12 +179,12 @@ exports[`SelectProduct Render for AppD monitoring source 1`] = `
                   style="justify-content: center;"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
+                    class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-primary7"
                   >
                     + Description
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
+                    class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-primary7"
                   >
                     + Tags
                   </p>
@@ -334,7 +334,7 @@ exports[`SelectProduct Render for AppD monitoring source 1`] = `
                     tabindex="0"
                   >
                     <div
-                      class="Card--cardIcon cardIcon"
+                      class="Card--cardIcon"
                     >
                       <span
                         class="bp3-icon StyledProps--main"
@@ -357,7 +357,7 @@ exports[`SelectProduct Render for AppD monitoring source 1`] = `
                       </span>
                     </div>
                     <p
-                      class="StyledProps--font StyledProps--main cardLabel cardLabelPadding StyledProps--color StyledProps--color-black"
+                      class="StyledProps--font StyledProps--main cardLabel StyledProps--color StyledProps--color-black"
                     >
                       cv.monitoringSources.appD.product.applicationMonitoring
                     </p>

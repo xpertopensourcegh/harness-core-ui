@@ -22,7 +22,7 @@
     }
 
     .selectedActivity {
-      background-color: var(--blue-200);
+      background-color: var(--primary-1);
     }
 
     .activityItem {
@@ -32,7 +32,7 @@
       justify-content: space-between;
       align-items: center;
       &:hover {
-        background-color: var(--blue-200);
+        background-color: var(--primary-1);
         cursor: pointer;
       }
 

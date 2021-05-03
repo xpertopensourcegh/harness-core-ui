@@ -38,7 +38,7 @@ interface WorkloadsToServicesTableProps {
   onClickWorkload: (selectedWorkload: WorkloadInfo) => void
 }
 
-const TOTAL_ITEMS_PER_PAGE = 7
+const TOTAL_ITEMS_PER_PAGE = 6
 
 function generateOptions(response?: EnvironmentResponseDTO[] | ServiceResponseDTO[]): SelectOption[] {
   return response

@@ -119,12 +119,12 @@ exports[`Unit tests for SelectActivitySource Ensure required fields are validate
                 style="justify-content: center;"
               >
                 <p
-                  class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
+                  class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-primary7"
                 >
                   + Description
                 </p>
                 <p
-                  class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
+                  class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-primary7"
                 >
                   + Tags
                 </p>
@@ -167,7 +167,7 @@ exports[`Unit tests for SelectActivitySource Ensure required fields are validate
                       tabindex="0"
                     >
                       <div
-                        class="Card--cardIcon cardIcon"
+                        class="Card--cardIcon"
                       >
                         <span
                           class="bp3-icon StyledProps--main"
@@ -192,7 +192,7 @@ exports[`Unit tests for SelectActivitySource Ensure required fields are validate
                         </span>
                       </div>
                       <p
-                        class="StyledProps--font StyledProps--main cardLabel cardLabelPadding StyledProps--color StyledProps--color-black"
+                        class="StyledProps--font StyledProps--main cardLabel StyledProps--color StyledProps--color-black"
                       >
                         kubernetesText
                       </p>

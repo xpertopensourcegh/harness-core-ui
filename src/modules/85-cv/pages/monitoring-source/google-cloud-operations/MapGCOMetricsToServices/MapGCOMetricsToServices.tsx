@@ -283,7 +283,7 @@ function MapMetricToServiceAndEnvironment(props: MapMetricToServiceAndEnvironmen
       <Container className={css.metricServiceEnvContainer}>
         <Container flex>
           <Icon name="service-stackdriver" className={css.logo} />
-          <Text className={css.typedMetricName} width={200} lineClamp={1}>
+          <Text className={css.typedMetricName} width={100} lineClamp={1}>
             {metricName}
           </Text>
         </Container>

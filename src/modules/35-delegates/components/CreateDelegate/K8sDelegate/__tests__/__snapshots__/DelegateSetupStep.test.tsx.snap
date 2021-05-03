@@ -117,7 +117,7 @@ exports[`Create DelegateSetup Step render data 1`] = `
                       style="justify-content: center;"
                     >
                       <p
-                        class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
+                        class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-primary7"
                       >
                         + Description
                       </p>

@@ -13,9 +13,9 @@
   }
 
   [class*='bp3-tree-node'][class*='bp3-tree-node-selected'] > [class*='bp3-tree-node-content'] {
-    background-color: var(--blue-850);
+    background-color: var(--primary-8);
     p {
-      color: var(--grey-200) !important;
+      color: var(--grey-300) !important;
     }
   }
 

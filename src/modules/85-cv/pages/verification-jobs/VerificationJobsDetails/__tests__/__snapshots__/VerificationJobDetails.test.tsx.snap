@@ -123,12 +123,12 @@ exports[`VerificationJobsDetails Render initiaaly 1`] = `
                   style="justify-content: center;"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
+                    class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-primary7"
                   >
                     + Description
                   </p>
                   <p
-                    class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-blue500"
+                    class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-primary7"
                   >
                     + Tags
                   </p>
@@ -301,7 +301,7 @@ exports[`VerificationJobsDetails Render initiaaly 1`] = `
                         tabindex="0"
                       >
                         <div
-                          class="Card--cardIcon cardIcon"
+                          class="Card--cardIcon"
                         >
                           <span
                             class="bp3-icon bp3-icon-lab-test StyledProps--main"
@@ -324,7 +324,7 @@ exports[`VerificationJobsDetails Render initiaaly 1`] = `
                           </span>
                         </div>
                         <p
-                          class="StyledProps--font StyledProps--main cardLabel cardLabelPadding StyledProps--color StyledProps--color-black"
+                          class="StyledProps--font StyledProps--main cardLabel StyledProps--color StyledProps--color-black"
                         >
                           test
                         </p>
@@ -351,7 +351,7 @@ exports[`VerificationJobsDetails Render initiaaly 1`] = `
                           tabindex="0"
                         >
                           <div
-                            class="Card--cardIcon cardIcon"
+                            class="Card--cardIcon"
                           >
                             <span
                               class="bp3-icon StyledProps--main"
@@ -475,7 +475,7 @@ exports[`VerificationJobsDetails Render initiaaly 1`] = `
                             </span>
                           </div>
                           <p
-                            class="StyledProps--font StyledProps--main cardLabel cardLabelPadding StyledProps--color StyledProps--color-black"
+                            class="StyledProps--font StyledProps--main cardLabel StyledProps--color StyledProps--color-black"
                           >
                             blueGreen
                           </p>
@@ -489,7 +489,7 @@ exports[`VerificationJobsDetails Render initiaaly 1`] = `
                           tabindex="0"
                         >
                           <div
-                            class="Card--cardIcon cardIcon"
+                            class="Card--cardIcon"
                           >
                             <span
                               class="bp3-icon StyledProps--main"
@@ -509,7 +509,7 @@ exports[`VerificationJobsDetails Render initiaaly 1`] = `
                             </span>
                           </div>
                           <p
-                            class="StyledProps--font StyledProps--main cardLabel cardLabelPadding StyledProps--color StyledProps--color-black"
+                            class="StyledProps--font StyledProps--main cardLabel StyledProps--color StyledProps--color-black"
                           >
                             canary
                           </p>
@@ -534,7 +534,7 @@ exports[`VerificationJobsDetails Render initiaaly 1`] = `
                         tabindex="0"
                       >
                         <div
-                          class="Card--cardIcon cardIcon"
+                          class="Card--cardIcon"
                         >
                           <span
                             class="bp3-icon StyledProps--main"
@@ -555,7 +555,7 @@ exports[`VerificationJobsDetails Render initiaaly 1`] = `
                           </span>
                         </div>
                         <p
-                          class="StyledProps--font StyledProps--main cardLabel cardLabelPadding StyledProps--color StyledProps--color-black"
+                          class="StyledProps--font StyledProps--main cardLabel StyledProps--color StyledProps--color-black"
                         >
                           health
                         </p>

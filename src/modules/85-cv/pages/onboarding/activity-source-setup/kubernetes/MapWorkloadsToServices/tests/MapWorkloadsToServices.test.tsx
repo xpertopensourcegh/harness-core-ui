@@ -76,7 +76,7 @@ describe('Unit tests for MapWorkloadsToServices', () => {
     )
 
     await waitFor(() => expect(container.querySelector('[class*="workloadTable"]')))
-    expect(container.querySelectorAll(`[class*='${Classes.SKELETON}']`).length).toBe(28)
+    expect(container.querySelectorAll(`[class*='${Classes.SKELETON}']`).length).toBe(24)
   })
 
   test('Ensure that when api errors out error card is rendered', async () => {

@@ -142,7 +142,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
                 style="transform: translateY(0);"
               >
                 <div
-                  class="StyledProps--font StyledProps--main item StyledProps--background-blue200 StyledProps--padding-small"
+                  class="StyledProps--font StyledProps--main item selectedDeployment StyledProps--padding-small"
                 >
                   <div
                     class="StyledProps--font StyledProps--main itemHeader"
@@ -252,7 +252,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
               jobName
             </p>
             <div
-              class="StyledProps--font StyledProps--main verificationStatusCard StyledProps--color StyledProps--color-green500 StyledProps--background-green350"
+              class="StyledProps--font StyledProps--main verificationStatusCard StyledProps--color StyledProps--color-green700 StyledProps--background-green350"
             >
               passed
             </div>
