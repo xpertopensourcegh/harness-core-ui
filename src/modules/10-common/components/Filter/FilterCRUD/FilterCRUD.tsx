@@ -363,7 +363,7 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
             <Icon name="ng-filter" size={25} color={Color.WHITE} />
             <span className={css.title}>Filter</span>
           </Layout.Horizontal>
-          <Button minimal icon="cross" onClick={onClose} color={Color.WHITE} />
+          <Button minimal icon="cross" onClick={onClose} className={css.closeFilter} />
         </Layout.Horizontal>
       </Layout.Vertical>
       {isRefreshingFilters || isLoading ? (

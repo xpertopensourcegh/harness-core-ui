@@ -113,7 +113,7 @@ export function ReferenceSelect<T extends MinimalObject>(props: ReferenceSelectP
                   }}
                   style={{ width: '100%', justifyContent: 'flex-start' }}
                 >
-                  <Text color={Color.BLUE_500}>+ {createNewLabel}</Text>
+                  <Text color={Color.PRIMARY_7}>+ {createNewLabel}</Text>
                 </Button>
                 <Button onClick={() => setOpen(false)} className={css.closeButton} icon="cross" minimal />
               </Layout.Horizontal>

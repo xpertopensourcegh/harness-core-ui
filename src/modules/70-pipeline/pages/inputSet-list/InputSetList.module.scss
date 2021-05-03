@@ -13,3 +13,12 @@
   background-color: var(--green-500) !important;
   border-color: var(--green-500) !important;
 }
+.menuList {
+  :global {
+    .bp3-menu-item.bp3-intent-primary.bp3-active,
+    .bp3-menu-item:hover {
+      background-color: var(--primary-7);
+      color: var(--white);
+    }
+  }
+}

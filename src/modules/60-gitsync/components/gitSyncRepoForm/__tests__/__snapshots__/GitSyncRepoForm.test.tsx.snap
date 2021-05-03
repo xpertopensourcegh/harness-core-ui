@@ -19,7 +19,7 @@ exports[`Git Sync - repo tab Filling gitSync repo form: connectorSelectorDialog 
           class="bp3-button-text"
         >
           <p
-            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-blue500"
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary7"
           >
             + 
             newConnector

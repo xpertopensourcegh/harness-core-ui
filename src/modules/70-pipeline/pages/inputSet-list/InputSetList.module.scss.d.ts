@@ -5,5 +5,6 @@ declare const styles: {
   readonly table: string
   readonly actionButton: string
   readonly runPipelineBtn: string
+  readonly menuList: string
 }
 export default styles

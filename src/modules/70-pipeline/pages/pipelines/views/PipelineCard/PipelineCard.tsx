@@ -215,7 +215,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
         />
       </Container>
       <Layout.Horizontal padding={{ left: 'large', bottom: 'medium', right: 'large' }}>
-        <div>
+        <div className={css.pipelineNameSections}>
           <Text
             lineClamp={2}
             font="medium"
@@ -272,7 +272,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
           <Text
             rightIcon={pipeline.executionSummaryInfo?.lastExecutionTs ? 'full-circle' : undefined}
             rightIconProps={{ color: getStatusColor(pipeline), size: 8, padding: { left: 'medium' } }}
-            color={pipeline.executionSummaryInfo?.lastExecutionId ? Color.BLUE_500 : Color.GREY_400}
+            color={pipeline.executionSummaryInfo?.lastExecutionId ? Color.PRIMARY_7 : Color.GREY_400}
             onClick={event => {
               event.stopPropagation()
               goToExecutionPipelineView(pipeline.executionSummaryInfo?.lastExecutionId)

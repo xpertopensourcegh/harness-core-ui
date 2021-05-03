@@ -462,7 +462,6 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
     fetchPipelines(defaultQueryParamsForPiplines, appliedFilter?.filterProperties)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, accountId, projectIdentifier, orgIdentifier, appliedFilter?.filterProperties, module, searchParam, sort])
-
   return (
     <>
       <Page.Header

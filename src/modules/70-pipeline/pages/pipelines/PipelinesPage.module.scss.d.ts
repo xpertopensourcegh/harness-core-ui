@@ -4,6 +4,7 @@ declare const styles: {
   readonly separator: string
   readonly table: string
   readonly pipelineCard: string
+  readonly pipelineNameSections: string
   readonly pipelineTitle: string
   readonly menu: string
   readonly pipelineName: string

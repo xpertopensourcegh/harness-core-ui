@@ -119,7 +119,7 @@ exports[`Test Filter component Initial render should match snapshot: Filter 1`] 
                       </span>
                     </div>
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow"
                       type="button"
                     >
                       <span

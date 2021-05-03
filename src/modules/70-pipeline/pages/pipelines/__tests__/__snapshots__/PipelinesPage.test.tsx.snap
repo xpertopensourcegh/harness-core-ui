@@ -439,7 +439,9 @@ exports[`CD Pipeline Page List render card view 1`] = `
               <div
                 class="Layout--horizontal StyledProps--main StyledProps--padding-left-large StyledProps--padding-bottom-medium StyledProps--padding-right-large"
               >
-                <div>
+                <div
+                  class="pipelineNameSections"
+                >
                   <p
                     class="StyledProps--font Text--lineclamp StyledProps--main pipelineName StyledProps--font-medium StyledProps--color StyledProps--color-black"
                     data-testid="pipeline1"
@@ -821,7 +823,9 @@ exports[`CD Pipeline Page List render card view 1`] = `
               <div
                 class="Layout--horizontal StyledProps--main StyledProps--padding-left-large StyledProps--padding-bottom-medium StyledProps--padding-right-large"
               >
-                <div>
+                <div
+                  class="pipelineNameSections"
+                >
                   <p
                     class="StyledProps--font Text--lineclamp StyledProps--main pipelineName StyledProps--font-medium StyledProps--color StyledProps--color-black"
                     data-testid="First_pipeline"
@@ -1193,7 +1197,9 @@ exports[`CD Pipeline Page List render card view 1`] = `
               <div
                 class="Layout--horizontal StyledProps--main StyledProps--padding-left-large StyledProps--padding-bottom-medium StyledProps--padding-right-large"
               >
-                <div>
+                <div
+                  class="pipelineNameSections"
+                >
                   <p
                     class="StyledProps--font Text--lineclamp StyledProps--main pipelineName StyledProps--font-medium StyledProps--color StyledProps--color-black"
                     data-testid="Second_Pipeline"

@@ -96,7 +96,7 @@ const InputSetList: React.FC = (): JSX.Element => {
           <Popover
             minimal
             content={
-              <Menu>
+              <Menu className={css.menuList}>
                 <MenuItem
                   text={getString('inputSets.inputSetLabel')}
                   onClick={() => {

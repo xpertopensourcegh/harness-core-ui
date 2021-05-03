@@ -20,7 +20,7 @@
     height: 100vh;
     overflow: scroll;
     width: calc(100% - 200px);
-    background-color: var(--blue-100);
+    background-color: var(--primary-1);
     .expandSearch {
       width: 200px;
       height: 35px;
@@ -120,7 +120,7 @@
       }
     }
     .active {
-      background: var(--blue-300);
+      background: var(--primary-2);
       color: var(--primary-7) !important;
       font-weight: 700;
       border-radius: 5px;

@@ -6,6 +6,10 @@
 .main {
   background-color: var(--filter-theme-bg-color);
   height: 100vh;
+  .closeFilter {
+    background-color: var(--white) !important;
+    color: var(--primary-7) !important;
+  }
 }
 
 .title {
@@ -16,12 +20,12 @@
 
 .addNewFilterBtn {
   justify-content: end;
+  max-height: none !important;
   height: var(--spacing-huge) !important;
   padding-left: var(--spacing-medium) !important;
   background: var(--filter-theme-bg-color) !important;
-  &:hover {
-    background: var(--hover-bg-color) !important;
-  }
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
 }
 
 .saveFilterBtn {
