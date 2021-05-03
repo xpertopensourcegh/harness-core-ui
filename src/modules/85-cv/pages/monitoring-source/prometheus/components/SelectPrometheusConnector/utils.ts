@@ -11,7 +11,7 @@ export function getDefineMonitoringSourceBaseProps(
       stepNumber: 1,
       totalSteps: 3
     },
-    iconLabel: getString('cv.monitoringSources.prometheusName'),
+    iconLabel: getString('connectors.prometheusLabel'),
     sourceIcon: { name: 'service-prometheus' }
   }
 }

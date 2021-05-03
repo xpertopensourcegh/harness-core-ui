@@ -970,6 +970,23 @@ export const buildNewRelicPayload = (formData: FormData) => ({
   }
 })
 
+export const buildPrometheusPayload = (formData: FormData) => {
+  return {
+    connector: {
+      name: formData.name,
+      identifier: formData.identifier,
+      type: Connectors.PROMETHEUS,
+      projectIdentifier: formData.projectIdentifier,
+      orgIdentifier: formData.orgIdentifier,
+      spec: {
+        delegateSelectors: formData.delegateSelectors || {},
+        url: formData.url,
+        accountId: formData.accountId
+      }
+    }
+  }
+}
+
 export const buildSplunkPayload = (formData: FormData, accountId: string) => ({
   connector: {
     ...pick(formData, ['name', 'identifier', 'orgIdentifier', 'projectIdentifier', 'description', 'tags']),
@@ -1009,6 +1026,8 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'service-splunk'
     case Connectors.NEW_RELIC:
       return 'service-newrelic'
+    case Connectors.PROMETHEUS:
+      return 'service-prometheus'
     case Connectors.DOCKER:
       return 'service-dockerhub'
     case Connectors.AWS:
@@ -1047,9 +1066,13 @@ export const getConnectorDisplayName = (type: string) => {
     case Connectors.GCP:
       return 'GCP'
     case Connectors.APP_DYNAMICS:
-      return 'AppDynamics server'
+      return 'AppDynamics'
     case Connectors.SPLUNK:
-      return 'Splunk server'
+      return 'Splunk'
+    case Connectors.NEW_RELIC:
+      return 'New Relic'
+    case Connectors.PROMETHEUS:
+      return 'Prometheus'
     case Connectors.AWS:
       return 'AWS'
     case Connectors.AWS_CODECOMMIT:
@@ -1155,7 +1178,10 @@ export const getUrlValueByType = (type: ConnectorInfoDTO['type'], connector: Con
 
     case Connectors.APP_DYNAMICS:
       return connector.spec.controllerUrl
-
+    case Connectors.NEW_RELIC:
+      return connector.spec.url?.value
+    case Connectors.PROMETHUS:
+      return connector.spec.url
     case Connectors.SPLUNK:
       return connector.spec.splunkUrl
 

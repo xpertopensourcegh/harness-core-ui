@@ -515,6 +515,9 @@ export interface StringsMap {
   'connectors.newRelic.urlValidation': string
   'connectors.newRelicConnectorDetails': string
   'connectors.nexus.nexusServerUrl': string
+  'connectors.prometheus.urlValidation': string
+  'connectors.prometheusConnectorDetails': string
+  'connectors.prometheusLabel': string
   'connectors.secretManagerDetails': string
   'connectors.selectConnectorLabel': string
   'connectors.specifyArtifactRepo': string
@@ -1864,7 +1867,6 @@ export interface StringsMap {
   'cv.monitoringSources.oneMetricMappingValidation': string
   'cv.monitoringSources.oneMetricMappingValidationSubtext': string
   'cv.monitoringSources.oneMetricPackValidation': string
-  'cv.monitoringSources.prometheusName': string
   'cv.monitoringSources.reviewPageSubHeading': string
   'cv.navLinks.activities': string
   'cv.navLinks.adminSideNavLinks.activitySources': string

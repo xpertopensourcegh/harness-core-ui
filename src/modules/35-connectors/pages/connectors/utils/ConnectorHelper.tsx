@@ -137,6 +137,10 @@ export const getConnectorIconByType = (type: string): IconName => {
       return 'service-appdynamics'
     case Connectors.SPLUNK:
       return 'service-splunk'
+    case Connectors.NEW_RELIC:
+      return 'service-newrelic'
+    case Connectors.PROMETHEUS:
+      return 'service-prometheus'
     case Connectors.DOCKER:
     case 'Dockerhub':
       return 'service-dockerhub'

@@ -44,7 +44,7 @@ interface ConnectorCreateEditProps {
   payload?: Connector
 }
 
-interface DelegateSelectorProps {
+export interface DelegateSelectorProps {
   buildPayload: (data: BuildPayloadProps) => ConnectorRequestBody
   hideModal?: () => void
   onConnectorCreated?: (data?: ConnectorRequestBody) => void | Promise<void>

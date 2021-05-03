@@ -35,7 +35,7 @@ export function SelectPrometheusConnector(): JSX.Element {
                   subHeading={getString('cv.onboarding.monitoringSources.monitoringSourceSubheading')}
                 />
                 <SelectCVConnector
-                  connectorTypeLabel={getString('cv.monitoringSources.prometheusName')}
+                  connectorTypeLabel={getString('connectors.prometheusLabel')}
                   connectorType="Prometheus"
                   isEdit={Boolean(identifier)}
                   stepLabelProps={SelectCVConnectorStepProps}
@@ -46,12 +46,12 @@ export function SelectPrometheusConnector(): JSX.Element {
                     products={[
                       {
                         productName: PrometheusProductNames.APM,
-                        productLabel: getString('cv.monitoringSources.prometheusName'),
+                        productLabel: getString('connectors.prometheusLabel'),
                         icon: { name: 'service-prometheus', size: 35 }
                       }
                     ]}
                     stepLabelProps={SelectMonitoringSourceStepProps}
-                    monitoringSourceName={getString('cv.monitoringSources.prometheusName')}
+                    monitoringSourceName={getString('connectors.prometheusLabel')}
                     monitoringSourceEntityName={getString('dashboardLabel').toLocaleLowerCase()}
                   />
                 )}

@@ -20,6 +20,7 @@ import HelmRepoConnector from '../CreateConnector/HelmRepoConnector/HemRepoConne
 import JiraConnector from '../CreateConnector/JiraConnector/JiraConnector'
 import CreateAwsKmsConnector from '../CreateConnector/AWSKmsConnector/CreateAwsKmsConnector'
 import CreateNewRelicConnector from '../CreateConnector/NewRelicConnector/CreateNewRelicConnector'
+import CreatePrometheusConnector from '../CreateConnector/PrometheusConnector/CreatePrometheusConnector'
 import css from './CreateConnectorWizard.module.scss'
 
 interface CreateConnectorWizardProps {
@@ -83,8 +84,10 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
           projectIdentifier={projectIdentifier}
         />
       )
-    case 'NewRelic':
+    case Connectors.NEW_RELIC:
       return <CreateNewRelicConnector {...commonProps} />
+    case Connectors.PROMETHEUS:
+      return <CreatePrometheusConnector {...commonProps} />
     case Connectors.DOCKER:
       return <CreateDockerConnector {...commonProps} />
     case Connectors.HttpHelmRepo:

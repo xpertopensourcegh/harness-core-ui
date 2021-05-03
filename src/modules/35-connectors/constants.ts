@@ -59,7 +59,8 @@ export const Connectors: ConnectorType = {
   HttpHelmRepo: 'HttpHelmRepo',
   Jira: 'Jira',
   NEW_RELIC: 'NewRelic',
-  AWS_KMS: 'AwsKms'
+  AWS_KMS: 'AwsKms',
+  PROMETHEUS: 'Prometheus'
 }
 
 export const ConnectorInfoText = {

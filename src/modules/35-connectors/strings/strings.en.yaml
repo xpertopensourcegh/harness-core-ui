@@ -23,6 +23,8 @@ hashicorpVaultDetails: 'HashiCorp Vault Overview'
 appDynamicsDetails: 'AppDynamics Connector Details'
 splunkConnectorDetails: 'Splunk Connector Details'
 newRelicConnectorDetails: New Relic Connector Details
+prometheusConnectorDetails: Prometheus Connector Details
+prometheusLabel: Prometheus
 connectorDetailsHeader: '{{type}} Connector Details'
 addConnectorDetails: Add {{type}} Verification Provider
 unableToCreateConnector: Unable to create connector
@@ -200,6 +202,8 @@ newRelic:
   accountIdTooltip: For steps to get New Relic Account ID
   products:
     fullStackObservability: 'Full Stack Observability: APM'
+prometheus:
+  urlValidation: Prometheus URL is required.
 cdng:
   jobName: Job Name
   deploymentTag: Deployment Tag
