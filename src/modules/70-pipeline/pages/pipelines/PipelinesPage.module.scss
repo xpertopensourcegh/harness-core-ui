@@ -22,7 +22,7 @@
       position: relative;
       > div {
         top: 7px;
-        right: 0;
+        right: -17px;
       }
       :global(.bp3-popover-target) {
         position: absolute;
@@ -122,7 +122,7 @@
 
 .gridView {
   height: 100%;
-  background-color: var(--grey-100);
+  background-color: var(--grey-50);
   padding: 0 var(--spacing-xxlarge) !important;
   .gridLayout {
     height: calc(100% - 135px);
@@ -141,7 +141,7 @@
   position: static;
   bottom: 0;
   z-index: 3;
-  background: var(--grey-100);
+  background: var(--grey-50);
   padding-top: var(--spacing-medium);
 }
 

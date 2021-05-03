@@ -189,7 +189,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
 
   return (
     <Card className={css.pipelineCard} interactive onClick={() => goToPipelineStudio(pipeline.identifier)}>
-      <Container padding={{ left: 'large', bottom: 'medium' }} className={css.pipelineTitle}>
+      <Container padding={{ bottom: 'medium' }} className={css.pipelineTitle}>
         <span>
           {getIconsForPipeline(pipeline).map(iconObj => (
             <Icon key={iconObj.icon} name={iconObj.icon} size={iconObj.size} />
@@ -214,7 +214,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
           className={css.menu}
         />
       </Container>
-      <Layout.Horizontal padding={{ left: 'large', bottom: 'medium', right: 'large' }}>
+      <Layout.Horizontal padding={{ bottom: 'medium', right: 'large' }}>
         <div className={css.pipelineNameSections}>
           <Text
             lineClamp={2}
@@ -234,7 +234,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
       </Layout.Horizontal>
 
       {!isEmpty(pipeline.description) ? (
-        <Layout.Horizontal padding={{ left: 'large', bottom: 'medium', right: 'large' }}>
+        <Layout.Horizontal padding={{ bottom: 'medium', right: 'large' }}>
           <Text font="small" color={Color.GREY_400} lineClamp={2} tooltipProps={{ position: Position.BOTTOM }}>
             {pipeline.description}
           </Text>
@@ -242,7 +242,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
       ) : null}
 
       {pipeline.stageNames?.length ? (
-        <Layout.Horizontal padding={{ left: 'large', bottom: 'medium', right: 'medium' }}>
+        <Layout.Horizontal padding={{ bottom: 'medium', right: 'medium' }}>
           <Text font="small" color={Color.GREY_400} className={css.serviceLabel}>
             {getString('stages')}
           </Text>
@@ -253,7 +253,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
       ) : null}
 
       {pipeline.filters?.[module]?.serviceNames?.length ? (
-        <Layout.Horizontal padding={{ left: 'large', bottom: 'medium', right: 'medium' }}>
+        <Layout.Horizontal padding={{ bottom: 'medium', right: 'medium' }}>
           <Text font="small" color={Color.GREY_400} className={css.serviceLabel}>
             {getString('services')}
           </Text>
@@ -264,7 +264,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
       ) : null}
 
       <Container
-        padding={{ left: 'large', right: 'large', top: 'medium', bottom: 'small' }}
+        padding={{ right: 'large', top: 'medium', bottom: 'small' }}
         border={{ top: true, color: Color.GREY_300 }}
       >
         <Layout.Horizontal spacing="xsmall">
