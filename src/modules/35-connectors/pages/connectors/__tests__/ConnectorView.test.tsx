@@ -55,20 +55,16 @@ describe('Connector Details Page', () => {
     expect(container).toMatchSnapshot()
   })
 
-  // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('Switch to Visual->YAML->Visual view', async () => {
-    const { container, getByText } = setup()
+  test('should verify switching to yaml display yaml builder', async () => {
+    const { container } = setup()
+    const getYamlBuilderContainer = () => container.querySelector('[data-test="yamlBuilderContainer"]')
+    expect(getYamlBuilderContainer()).toBeFalsy()
     await waitFor(() => {
-      const switchToYAML = getByText('YAML')
-      expect(switchToYAML).toBeDefined()
-      fireEvent.click(switchToYAML)
+      const switchToYAML = container.querySelector('[data-test="connectorViewYaml"]')
+      expect(switchToYAML).toBeTruthy()
+      fireEvent.click(switchToYAML!)
     })
-    await waitFor(() => {
-      const switchToVisual = getByText('VISUAL')
-      expect(switchToVisual).toBeDefined()
-      fireEvent.click(switchToVisual)
-    })
-    expect(container).toMatchSnapshot()
+    expect(getYamlBuilderContainer()).toBeTruthy()
   })
 
   // eslint-disable-next-line jest/no-disabled-tests

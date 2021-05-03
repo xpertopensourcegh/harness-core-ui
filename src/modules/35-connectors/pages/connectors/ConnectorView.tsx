@@ -431,6 +431,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
               <div
                 className={cx(css.item, { [css.selected]: selectedView === SelectedView.YAML })}
                 onClick={() => handleModeSwitch(SelectedView.YAML)}
+                data-test="connectorViewYaml"
               >
                 {getString('yaml')}
               </div>
@@ -447,6 +448,10 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
                   accountIdentifier: accountId,
                   orgIdentifier,
                   projectIdentifier
+                },
+                resource: {
+                  resourceType: ResourceType.CONNECTOR,
+                  resourceIdentifier: connector?.identifier || ''
                 }
               }}
               onClick={() => {
@@ -497,7 +502,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
             </Layout.Horizontal>
           ) : (
             <Layout.Horizontal spacing="medium" className={css.fullWidth}>
-              <div className={css.yamlView}>
+              <div className={css.yamlView} data-test="yamlBuilderContainer">
                 <YamlBuilder
                   {...yamlBuilderReadOnlyModeProps}
                   showSnippetSection={false}
