@@ -35,9 +35,5 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
 }
 
 export const CreateConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
-  return (
-    <div>
-      <ConnectorWizard {...props} />
-    </div>
-  )
+  return <ConnectorWizard {...props} />
 }

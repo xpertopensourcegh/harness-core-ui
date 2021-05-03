@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useParams } from 'react-router'
 import * as Yup from 'yup'
 import {
@@ -17,6 +17,7 @@ import {
 import type { ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
 import { useCreateConnector } from 'services/cd-ng'
 import { useToaster } from '@common/components/Toaster/useToaster'
+import { DialogWithExtensionContext } from '@ce/common/DialogWithExtension/DialogWithExtension'
 import { useGetCloudFormationTemplate } from 'services/lw'
 import { useStrings } from 'framework/strings'
 import { OPTIMIZATION_FEATURE, CROSS_ACCOUNT_ACCESS, FEATURES_ENABLED } from '../constants'
@@ -36,6 +37,7 @@ const ConnectionDetailsStep: React.FC<StepProps<ConnectorInfoDTO>> = props => {
   }>()
   const { getString } = useStrings()
   const { prevStepData, nextStep } = props
+  const { triggerExtension } = useContext(DialogWithExtensionContext)
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const connectorInfo = prevStepData as ConnectorInfoDTO
   const [showRoleView, setShowRoleView] = useState(false)
@@ -100,6 +102,12 @@ const ConnectionDetailsStep: React.FC<StepProps<ConnectorInfoDTO>> = props => {
       modalErrorHandler?.showDanger(e.data?.message || e.message)
     }
   }
+
+  const handleFollowInstructionsClick = () => {
+    setShowRoleView(true)
+    triggerExtension()
+  }
+
   return (
     <Formik
       initialValues={{ roleARN: connectorInfo.spec.roleARN, externalID: connectorInfo.spec.externalID }}
@@ -128,15 +136,13 @@ const ConnectionDetailsStep: React.FC<StepProps<ConnectorInfoDTO>> = props => {
                 </Text>
               </Container>
             </Container>
-            {!showRoleView && (
-              <Container>
-                <Button color="blue700" intent="primary" minimal onClick={() => setShowRoleView(true)}>
-                  <Text font={{ weight: 'bold' }} color="blue700">
-                    {getString('ce.connector.AWS.crossAccountRole.instructionLabel')}
-                  </Text>
-                </Button>
-              </Container>
-            )}
+            <Container>
+              <Button color="blue700" intent="primary" minimal onClick={handleFollowInstructionsClick}>
+                <Text font={{ weight: 'bold' }} color="blue700">
+                  {getString('ce.connector.AWS.crossAccountRole.instructionLabel')}
+                </Text>
+              </Button>
+            </Container>
             {showRoleView && (
               <Layout.Vertical spacing="large">
                 <FormInput.Text
@@ -145,13 +151,12 @@ const ConnectionDetailsStep: React.FC<StepProps<ConnectorInfoDTO>> = props => {
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setExternalID(e.target.value)
                   }}
-                  disabled={!externalIDEnabled}
+                  // disabled={!externalIDEnabled}
                 />
                 <FormInput.Text name="roleARN" label={getString('ce.connector.AWS.crossAccountRole.arn')} />
                 <div>
                   <Button
                     intent="primary"
-                    minimal
                     text={getString('ce.connector.AWS.crossAccountRole.templateLaunchText')}
                     onClick={createTemplate}
                     disabled={!externalIDEnabled}

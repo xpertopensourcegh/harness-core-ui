@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { useModalHook, Button } from '@wings-software/uicore'
-import { Dialog, IDialogProps } from '@blueprintjs/core'
+import type { IDialogProps } from '@blueprintjs/core'
 import { useParams } from 'react-router'
 import { Connectors } from '@connectors/constants'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import DialogWithExtension from '@ce/common/DialogWithExtension/DialogWithExtension'
 import { CreateConnectorWizard } from './CreateConnectorWizard'
+import AWSConnectorExtension from './AWSCOConnector/AWSConnectorExtension'
 import css from './CreateConnectorWizard.module.scss'
 
 export interface UseCreateConnectorModalProps {
@@ -31,11 +33,11 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
   const [modalProps, setModalProps] = useState<IDialogProps>({
     isOpen: true,
     style: {
-      width: 1175,
-      minHeight: 640,
+      width: 'auto',
+      // minHeight: 640,
       borderLeft: 0,
       paddingBottom: 0,
-      position: 'relative',
+      // position: 'relative',
       overflow: 'hidden'
     }
   })
@@ -47,7 +49,7 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
 
   const [showModal, hideModal] = useModalHook(
     () => (
-      <Dialog {...modalProps}>
+      <DialogWithExtension modalProps={modalProps} renderExtension={<AWSConnectorExtension />}>
         <CreateConnectorWizard
           accountId={accountId}
           orgIdentifier={orgIdentifier}
@@ -73,7 +75,11 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
           }}
           className={css.crossIcon}
         />
-      </Dialog>
+        {/* {({ triggerExtension }) => (
+          <>
+          </>
+        )} */}
+      </DialogWithExtension>
     ),
     [type, isEditMode, connectorInfo]
   )

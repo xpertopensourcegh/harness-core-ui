@@ -39,6 +39,24 @@ exports[`Test Step 2 render after button is clicked 1`] = `
             </div>
           </div>
           <div
+            class="StyledProps--font StyledProps--main"
+          >
+            <button
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-blue700 StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-blue700"
+                >
+                  ce.connector.AWS.crossAccountRole.instructionLabel
+                </p>
+              </span>
+            </button>
+          </div>
+          <div
             class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
           >
             <div
@@ -101,7 +119,7 @@ exports[`Test Step 2 render after button is clicked 1`] = `
             </div>
             <div>
               <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
                 type="button"
               >
                 <span

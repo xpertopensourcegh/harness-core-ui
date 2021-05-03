@@ -22,3 +22,21 @@
     margin-bottom: var(--spacing-xxlarge) !important;
   }
 }
+
+.awsConnectorExtension {
+  padding: var(--spacing-xlarge) !important;
+  .header {
+    margin: var(--spacing-large) 0 !important;
+  }
+  ol[type='1'] {
+    margin-top: var(--spacing-xlarge);
+    li {
+      margin: var(--spacing-medium) 0;
+    }
+  }
+  .codeText {
+    font-family: 'Roboto Mono', 'Monaco', 'Ubuntu Mono', monospace;
+    font-weight: 700;
+    color: var(--grey-400);
+  }
+}
