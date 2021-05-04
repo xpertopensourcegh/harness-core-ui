@@ -121,7 +121,7 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
           class="cell"
           colspan="1"
           role="columnheader"
-          style="width: 30%;"
+          style="width: 35%;"
         >
           rbac.usersPage.roleBinding
         </div>
@@ -129,7 +129,7 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
           class="cell"
           colspan="1"
           role="columnheader"
-          style="width: 20%;"
+          style="width: 15%;"
         >
           status
         </div>
@@ -192,7 +192,7 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 30%;"
+          style="width: 35%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -211,7 +211,7 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 20%;"
+          style="width: 15%;"
         >
           <span
             class="bp3-tag bp3-round invitation"
@@ -319,7 +319,7 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 30%;"
+          style="width: 35%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -338,7 +338,7 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 20%;"
+          style="width: 15%;"
         >
           <span
             class="bp3-tag bp3-round invitation"

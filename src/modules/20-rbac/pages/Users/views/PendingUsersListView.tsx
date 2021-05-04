@@ -134,6 +134,10 @@ const PendingUserListView: React.FC<PendingUserListViewProps> = ({ searchTerm, r
     }
   })
 
+  useEffect(() => {
+    if (searchTerm) setPage(0)
+  }, [searchTerm])
+
   const { openRoleAssignmentModal } = useRoleAssignmentModal({
     onSuccess: refetch
   })
@@ -155,7 +159,7 @@ const PendingUserListView: React.FC<PendingUserListViewProps> = ({ searchTerm, r
         Header: getString('rbac.usersPage.roleBinding'),
         id: 'roleBinding',
         accessor: row => row.roleBindings,
-        width: '30%',
+        width: '35%',
         Cell: RenderColumnRoleAssignments,
         openRoleAssignmentModal: openRoleAssignmentModal
       },
@@ -163,7 +167,7 @@ const PendingUserListView: React.FC<PendingUserListViewProps> = ({ searchTerm, r
         Header: getString('status'),
         id: 'status',
         accessor: row => row.id,
-        width: '20%',
+        width: '15%',
         Cell: RenderColumnStatus
       },
       {

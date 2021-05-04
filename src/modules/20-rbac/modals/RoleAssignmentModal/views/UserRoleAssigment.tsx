@@ -170,6 +170,7 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
             )
           })}
           onSubmit={values => {
+            modalErrorHandler?.hide()
             isInvite ? handleInvitation(values) : handleRoleAssignment(values, user?.uuid || values.user)
           }}
         >

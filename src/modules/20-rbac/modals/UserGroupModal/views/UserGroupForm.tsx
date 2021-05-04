@@ -140,6 +140,7 @@ const UserGroupForm: React.FC<UserGroupModalData> = props => {
             })
           })}
           onSubmit={values => {
+            modalErrorHandler?.hide()
             if (isEdit || isAddMember) handleEdit(values)
             else handleCreate(values)
           }}

@@ -90,6 +90,7 @@ const RoleForm: React.FC<RoleModalData> = props => {
             })
           })}
           onSubmit={values => {
+            modalErrorHandler?.hide()
             handleSubmit(values)
           }}
         >

@@ -103,7 +103,7 @@ export function PermissionsProvider(props: React.PropsWithChildren<PermissionsPr
       setPermissions(oldPermissions => {
         return produce(oldPermissions, draft => {
           // find the current request in aggregated response
-          const hasAccess = !!res.data?.accessControlList?.find((perm: AccessControl) =>
+          const hasAccess = !!res?.data?.accessControlList?.find((perm: AccessControl) =>
             isEqual(omit(perm, 'permitted'), permissionRequest)
           )?.permitted
 

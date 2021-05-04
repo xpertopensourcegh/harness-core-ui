@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import { Text, Layout, Button, Popover, Avatar } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position, Menu } from '@blueprintjs/core'
@@ -61,7 +61,11 @@ const RenderColumnRoleAssignments: Renderer<CellProps<UserAggregate>> = ({ row, 
   }
 
   return (
-    <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+    <Layout.Horizontal
+      spacing="small"
+      flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
+      padding={{ right: 'small' }}
+    >
       <RoleBindingsList data={data} length={2} />
       <ManagePrincipalButton
         text={getString('common.plusNumber', { number: getString('common.role') })}
@@ -185,6 +189,10 @@ const ActiveUserListView: React.FC<ActiveUserListViewProps> = ({ searchTerm, ope
   const { openRoleAssignmentModal: addRole } = useRoleAssignmentModal({
     onSuccess: refetch
   })
+
+  useEffect(() => {
+    if (searchTerm) setPage(0)
+  }, [searchTerm])
 
   const columns: Column<UserAggregate>[] = useMemo(
     () => [

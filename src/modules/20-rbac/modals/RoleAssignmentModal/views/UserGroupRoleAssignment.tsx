@@ -98,6 +98,7 @@ const UserGroupRoleAssignment: React.FC<UserGroupRoleAssignmentData> = props => 
             )
           })}
           onSubmit={values => {
+            modalErrorHandler?.hide()
             handleRoleAssignment(values)
           }}
         >

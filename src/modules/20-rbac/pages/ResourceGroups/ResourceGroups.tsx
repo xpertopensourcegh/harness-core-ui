@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Layout, ExpandingSearchInput, Container } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -32,6 +32,11 @@ const ResourceGroups: React.FC = () => {
       ...defaultQueryParams
     }
   })
+
+  useEffect(() => {
+    if (searchTerm) setPage(0)
+  }, [searchTerm])
+
   const { openResourceGroupModal } = useResourceGroupModal({ onSuccess: refetch })
 
   return (

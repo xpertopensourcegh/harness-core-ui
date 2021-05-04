@@ -38,7 +38,7 @@ exports[`PipelineModal List View render list view 1`] = `
         </div>
       </div>
       <div
-        class="row card"
+        class="row card clickable"
         role="row"
       >
         <div
@@ -46,16 +46,20 @@ exports[`PipelineModal List View render list view 1`] = `
           role="cell"
           style="width: 5%;"
         >
-          <label
-            class="bp3-control bp3-checkbox"
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
           >
-            <input
-              type="checkbox"
-            />
-            <span
-              class="bp3-control-indicator"
-            />
-          </label>
+            <label
+              class="bp3-control bp3-checkbox checkBox"
+            >
+              <input
+                type="checkbox"
+              />
+              <span
+                class="bp3-control-indicator"
+              />
+            </label>
+          </div>
         </div>
         <div
           class="cell"
@@ -100,7 +104,7 @@ exports[`PipelineModal List View render list view 1`] = `
         </div>
       </div>
       <div
-        class="row card"
+        class="row card clickable"
         role="row"
       >
         <div
@@ -108,16 +112,20 @@ exports[`PipelineModal List View render list view 1`] = `
           role="cell"
           style="width: 5%;"
         >
-          <label
-            class="bp3-control bp3-checkbox"
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
           >
-            <input
-              type="checkbox"
-            />
-            <span
-              class="bp3-control-indicator"
-            />
-          </label>
+            <label
+              class="bp3-control bp3-checkbox checkBox"
+            >
+              <input
+                type="checkbox"
+              />
+              <span
+                class="bp3-control-indicator"
+              />
+            </label>
+          </div>
         </div>
         <div
           class="cell"
@@ -162,7 +170,7 @@ exports[`PipelineModal List View render list view 1`] = `
         </div>
       </div>
       <div
-        class="row card"
+        class="row card clickable"
         role="row"
       >
         <div
@@ -170,16 +178,20 @@ exports[`PipelineModal List View render list view 1`] = `
           role="cell"
           style="width: 5%;"
         >
-          <label
-            class="bp3-control bp3-checkbox"
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
           >
-            <input
-              type="checkbox"
-            />
-            <span
-              class="bp3-control-indicator"
-            />
-          </label>
+            <label
+              class="bp3-control bp3-checkbox checkBox"
+            >
+              <input
+                type="checkbox"
+              />
+              <span
+                class="bp3-control-indicator"
+              />
+            </label>
+          </div>
         </div>
         <div
           class="cell"
@@ -224,7 +236,7 @@ exports[`PipelineModal List View render list view 1`] = `
         </div>
       </div>
       <div
-        class="row card"
+        class="row card clickable"
         role="row"
       >
         <div
@@ -232,16 +244,20 @@ exports[`PipelineModal List View render list view 1`] = `
           role="cell"
           style="width: 5%;"
         >
-          <label
-            class="bp3-control bp3-checkbox"
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
           >
-            <input
-              type="checkbox"
-            />
-            <span
-              class="bp3-control-indicator"
-            />
-          </label>
+            <label
+              class="bp3-control bp3-checkbox checkBox"
+            >
+              <input
+                type="checkbox"
+              />
+              <span
+                class="bp3-control-indicator"
+              />
+            </label>
+          </div>
         </div>
         <div
           class="cell"

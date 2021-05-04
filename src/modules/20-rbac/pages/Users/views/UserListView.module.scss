@@ -9,7 +9,8 @@
 
 .roleButton {
   min-height: inherit !important;
-  padding: var(--spacing-xsmall) !important;
+  padding: var(--spacing-xsmall) var(--spacing-none) !important;
+  min-width: 50px;
 }
 
 .overflow {

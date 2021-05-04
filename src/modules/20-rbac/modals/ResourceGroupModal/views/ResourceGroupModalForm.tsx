@@ -97,6 +97,7 @@ const ResourceGroupForm: React.FC<ResourceGroupModalData> = props => {
             color: Yup.string().trim().required()
           })}
           onSubmit={values => {
+            modalErrorHandler?.hide()
             handleSubmit(values)
           }}
         >

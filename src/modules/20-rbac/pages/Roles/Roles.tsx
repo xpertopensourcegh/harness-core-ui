@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container, ExpandingSearchInput, Layout, Pagination } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
@@ -31,6 +31,10 @@ const Roles: React.FC = () => {
       searchTerm
     }
   })
+
+  useEffect(() => {
+    if (searchTerm) setPage(0)
+  }, [searchTerm])
 
   const { openRoleModal } = useRoleModal({ onSuccess: refetch })
 

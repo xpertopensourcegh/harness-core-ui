@@ -30,7 +30,7 @@ export function getDTOFromRequest(permissionRequest: PermissionRequest): Permiss
   return {
     // pickBy(obj, identity) removes keys with undefined values
     resourceScope: pickBy(resourceScope, identity),
-    ...resource,
+    ...pickBy(resource, identity),
     permission
   }
 }

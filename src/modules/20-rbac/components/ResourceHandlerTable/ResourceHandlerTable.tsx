@@ -1,9 +1,10 @@
 import React, { useMemo } from 'react'
-import type { PaginationProps } from '@wings-software/uicore'
+import { Layout, PaginationProps } from '@wings-software/uicore'
 import type { CellProps, Column } from 'react-table'
 import { Checkbox } from '@blueprintjs/core'
 import produce from 'immer'
 import Table from '@common/components/Table/Table'
+import css from './ResourceHandlerTable.module.scss'
 
 interface ResourceHandlerTableProps<T extends ResourceHandlerTableData> {
   data: T[]
@@ -22,6 +23,16 @@ const ResourceHandlerTable = <T extends ResourceHandlerTableData>(
 ): React.ReactElement => {
   const { data, pagination, columns, onSelectChange, selectedData = [] } = props
 
+  const handleSelectChange = (isSelect: boolean, identifier: string): void => {
+    if (isSelect) onSelectChange([...selectedData, identifier])
+    else
+      onSelectChange(
+        produce(selectedData, draft => {
+          draft?.splice(draft.indexOf(identifier), 1)
+        })
+      )
+  }
+
   const resourceHandlerTableColumns: Column<T>[] = useMemo(
     () => [
       {
@@ -32,20 +43,15 @@ const ResourceHandlerTable = <T extends ResourceHandlerTableData>(
         // eslint-disable-next-line react/display-name
         Cell: ({ row }: CellProps<T>) => {
           return (
-            <Checkbox
-              defaultChecked={selectedData.includes(row.original.identifier)}
-              onChange={(event: React.FormEvent<HTMLInputElement>) => {
-                if (event.currentTarget.checked) {
-                  onSelectChange([...selectedData, row.original.identifier])
-                } else {
-                  onSelectChange(
-                    produce(selectedData, draft => {
-                      draft?.splice(draft.indexOf(row.original.identifier), 1)
-                    })
-                  )
-                }
-              }}
-            />
+            <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+              <Checkbox
+                className={css.checkBox}
+                defaultChecked={selectedData.includes(row.original.identifier)}
+                onChange={(event: React.FormEvent<HTMLInputElement>) => {
+                  handleSelectChange(event.currentTarget.checked, row.original.identifier)
+                }}
+              />
+            </Layout.Horizontal>
           )
         }
       },
@@ -53,7 +59,16 @@ const ResourceHandlerTable = <T extends ResourceHandlerTableData>(
     ],
     [selectedData]
   )
-  return <Table<T> columns={resourceHandlerTableColumns} data={data} pagination={pagination} />
+  return (
+    <Table<T>
+      columns={resourceHandlerTableColumns}
+      data={data}
+      pagination={pagination}
+      onRowClick={row => {
+        handleSelectChange(!selectedData.includes(row.identifier), row.identifier)
+      }}
+    />
+  )
 }
 
 export default ResourceHandlerTable
