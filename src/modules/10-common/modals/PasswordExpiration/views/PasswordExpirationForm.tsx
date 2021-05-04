@@ -117,10 +117,14 @@ const PasswordExpirationForm: React.FC<Props> = ({ onSubmit, onCancel, loginSett
               />
             </Layout.Vertical>
             <Layout.Horizontal margin={{ top: 'xxxlarge', bottom: 'xlarge' }}>
-              <Button type="submit" intent="primary" margin={{ right: 'xsmall' }} disabled={updatingLoginSettings}>
-                {getString('save')}
-              </Button>
-              <Button onClick={onCancel}>{getString('cancel')}</Button>
+              <Button
+                text={getString('save')}
+                type="submit"
+                intent="primary"
+                margin={{ right: 'small' }}
+                disabled={updatingLoginSettings}
+              />
+              <Button text={getString('cancel')} onClick={onCancel} />
             </Layout.Horizontal>
           </FormikForm>
         )}

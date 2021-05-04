@@ -6646,10 +6646,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  tested: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   tests: string
   /**
    * @deprecated migrate this string to module level file

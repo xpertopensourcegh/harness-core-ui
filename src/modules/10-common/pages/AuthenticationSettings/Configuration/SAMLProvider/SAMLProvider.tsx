@@ -23,7 +23,6 @@ const SAMLProvider: React.FC<Props> = ({ authSettings, refetchAuthSettings }) =>
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
   const { accountId } = useParams<AccountPathProps>()
-  const [testSucceeded, setTestSucceeded] = React.useState(false)
   const samlEnabled = authSettings.authenticationMechanism === AuthenticationMechanisms.SAML
   const samlSettings = authSettings.ngAuthSettings?.find(
     settings => settings.settingsType === AuthenticationMechanisms.SAML
@@ -93,10 +92,8 @@ const SAMLProvider: React.FC<Props> = ({ authSettings, refetchAuthSettings }) =>
         const samlTestResponse = localStorage.getItem('samlTestResponse')
         /* istanbul ignore else */ if (samlTestResponse === 'true' || samlTestResponse === 'false') {
           if (samlTestResponse === 'true') {
-            setTestSucceeded(true)
             showSuccess(getString('common.authSettings.samlTestSuccessful'), 5000)
           } else {
-            setTestSucceeded(false)
             showError(getString('common.authSettings.samlTestFailed'), 5000)
           }
           childWindow?.close()
@@ -125,9 +122,8 @@ const SAMLProvider: React.FC<Props> = ({ authSettings, refetchAuthSettings }) =>
         <Button
           className={css.leftMarginAuto}
           intent="primary"
-          text={getString(testSucceeded ? 'tested' : 'test')}
+          text={getString('test')}
           onClick={() => {
-            if (testSucceeded) setTestSucceeded(false)
             getSamlLoginTestData()
           }}
         />
@@ -194,15 +190,13 @@ const SAMLProvider: React.FC<Props> = ({ authSettings, refetchAuthSettings }) =>
               </Text>
               <Button
                 minimal
+                text={getString('test')}
                 intent="primary"
                 className={css.testButton}
                 onClick={() => {
-                  if (testSucceeded) setTestSucceeded(false)
                   getSamlLoginTestData()
                 }}
-              >
-                {getString(testSucceeded ? 'tested' : 'test')}
-              </Button>
+              />
               <Popover
                 interactionKind="click"
                 position="left-top"

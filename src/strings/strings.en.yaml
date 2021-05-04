@@ -164,7 +164,6 @@ change: Change
 events: Events
 details: Details
 test: Test
-tested: Tested
 enable: Enable
 runTestsArgsInfo: The arguments to be passed to the buildTool. For maven, it will be a goal
 packagesLabel: Packages

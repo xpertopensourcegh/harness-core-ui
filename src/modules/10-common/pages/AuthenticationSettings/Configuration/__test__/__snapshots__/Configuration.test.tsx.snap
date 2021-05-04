@@ -3,67 +3,14 @@
 exports[`Configuration Configuration page 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container medium StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
   >
-    <div
-      class="Layout--vertical StyledProps--main"
+    <h2
+      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+      level="2"
     >
-      <div
-        class="breadcrumbs"
-      >
-        <div>
-          <a
-            class="breadcrumb"
-            href="/account/testAcc/admin"
-          >
-            settingsLabel
-          </a>
-          <span
-            class="bp3-icon StyledProps--main separator"
-            data-icon="main-chevron-right"
-          >
-            <svg
-              height="11"
-              viewBox="0 0 8 14"
-              width="11"
-            >
-              <path
-                d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-                fill="#4d5969"
-              />
-            </svg>
-          </span>
-        </div>
-        <div>
-          <span
-            class="lastBreadcrumb"
-          />
-        </div>
-      </div>
-      <h1
-        class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
-      >
-        authentication
-        : 
-        configuration
-      </h1>
-    </div>
-    <div
-      class="Layout--horizontal StyledProps--main"
-    >
-      <a
-        class="tags"
-        href="/account/testAcc/admin/authentication/configuration"
-      >
-        configuration
-      </a>
-      <a
-        class="tags"
-        href="/account/testAcc/admin/authentication/activity-log"
-      >
-        activityLog
-      </a>
-    </div>
+      authentication: configuration
+    </h2>
   </div>
   <div
     class="StyledProps--font StyledProps--main pageBody"

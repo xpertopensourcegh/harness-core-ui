@@ -77,7 +77,6 @@ const RestrictEmailDomains: React.FC<Props> = ({ whitelistedDomains, refetchAuth
               {getString('common.authSettings.allowUsersWIthEmails')}
             </Text>
           }
-          padding={{ bottom: 'medium' }}
           checked={emailRestrictionsEnabled}
           onChange={onChangeWhitelistedDomains}
           disabled={updatingWhitelistedDomains}

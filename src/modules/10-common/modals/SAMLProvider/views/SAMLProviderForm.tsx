@@ -104,10 +104,6 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
     }
   })
 
-  // React.useEffect(() => {
-  //   console.log(uploadingSamlSettings, updatingSamlSettings)
-  // }, [uploadingSamlSettings, updatingSamlSettings])
-
   const createFormData = (data: FormValues): FormData => {
     const formData = new FormData()
     formData.set('displayName', data.displayName)
@@ -160,7 +156,7 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
           : getString('common.samlProvider.addSAMLProvider')}
       </Heading>
       <Layout.Horizontal>
-        <Layout.Vertical width={580} padding={{ right: 'xxxlarge' }}>
+        <Layout.Vertical width={660} padding={{ right: 'xxxlarge' }}>
           <Formik
             initialValues={{
               displayName: samlProvider?.displayName || /* istanbul ignore next */ '',
