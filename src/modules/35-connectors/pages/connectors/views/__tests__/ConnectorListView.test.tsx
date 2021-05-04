@@ -218,7 +218,7 @@ describe('Connectors List Test', () => {
     act(() => {
       fireEvent.click(getEditButton()!)
     })
-    expect(openConnectorModal).toBeCalledWith(true, currentConnector.type, currentConnector)
+    expect(openConnectorModal).toBeCalledWith(true, currentConnector.type, { connectorInfo: currentConnector })
   })
 
   test('Edit and delete methods should be called with correct data', async () => {

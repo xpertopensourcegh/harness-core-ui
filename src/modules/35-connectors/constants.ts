@@ -4,7 +4,8 @@ import type {
   Activity,
   EntityDetail,
   ConnectorRequestBody,
-  ResponseBoolean
+  ResponseBoolean,
+  EntityGitDetails
 } from 'services/cd-ng'
 
 interface ConnectorType {
@@ -32,6 +33,7 @@ export interface CreateConnectorModalProps {
   isEditMode: boolean
   setIsEditMode: (val: boolean) => void
   connectorInfo: ConnectorInfoDTO | void
+  gitDetails?: EntityGitDetails
   accountId: string
   orgIdentifier: string
   projectIdentifier: string

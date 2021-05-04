@@ -15,6 +15,7 @@ const CreateK8sConnector: React.FC<CreateConnectorModalProps> = props => {
   const commonProps = pick(props, [
     'isEditMode',
     'connectorInfo',
+    'gitDetails',
     'setIsEditMode',
     'accountId',
     'orgIdentifier',
@@ -48,6 +49,7 @@ const CreateK8sConnector: React.FC<CreateConnectorModalProps> = props => {
         buildPayload={buildKubPayload}
         onConnectorCreated={props.onSuccess}
         connectorInfo={props.connectorInfo}
+        gitDetails={props.gitDetails}
         hideModal={props.onClose}
       />
       <VerifyOutOfClusterDelegate

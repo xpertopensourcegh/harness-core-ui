@@ -4,7 +4,7 @@ import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { useParams } from 'react-router'
 import { CreateConnectorWizard } from '@connectors/components/CreateConnectorWizard/CreateConnectorWizard'
 import { Connectors } from '@connectors/constants'
-import type { ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
+import type { ConnectorInfoDTO, ConnectorRequestBody, EntityGitDetails } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import css from '../../components/CreateConnectorWizard/CreateConnectorWizard.module.scss'
 
@@ -13,11 +13,16 @@ export interface UseCreateConnectorModalProps {
   onClose?: () => void
 }
 
+export interface ConnectorModaldata {
+  connectorInfo?: ConnectorInfoDTO
+  gitDetails?: EntityGitDetails
+}
+
 export interface UseCreateConnectorModalReturn {
   openConnectorModal: (
     isEditMode: boolean,
     type: ConnectorInfoDTO['type'],
-    connectorInfo?: ConnectorInfoDTO,
+    connector?: ConnectorModaldata,
     modalProps?: IDialogProps
   ) => void
   hideConnectorModal: () => void
@@ -27,6 +32,7 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
   const [isEditMode, setIsEditMode] = useState(false)
   const [type, setType] = useState(Connectors.KUBERNETES_CLUSTER)
   const [connectorInfo, setConnectorInfo] = useState<ConnectorInfoDTO | undefined>()
+  const [gitDetails, setGitDetails] = useState<EntityGitDetails | undefined>()
   const [modalProps, setModalProps] = useState<IDialogProps>({
     isOpen: true,
     style: {
@@ -55,6 +61,7 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
           isEditMode={isEditMode}
           setIsEditMode={setIsEditMode}
           connectorInfo={connectorInfo}
+          gitDetails={gitDetails}
           onSuccess={data => {
             handleSuccess(data)
           }}
@@ -82,10 +89,11 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
     openConnectorModal: (
       isEditing: boolean,
       connectorType: ConnectorInfoDTO['type'],
-      connectorDetails?: ConnectorInfoDTO,
+      connector?: ConnectorModaldata,
       _modalProps?: IDialogProps
     ) => {
-      setConnectorInfo(connectorDetails)
+      setConnectorInfo(connector?.connectorInfo)
+      setGitDetails(connector?.gitDetails)
       setIsEditMode(isEditing)
       setType(connectorType)
       setModalProps(_modalProps || modalProps)

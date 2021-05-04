@@ -107,7 +107,7 @@ export function getEditRenderer(
         icon="edit"
         onClick={e => {
           e.stopPropagation()
-          openConnectorModal(true, type, selected?.connector)
+          openConnectorModal(true, type, { connectorInfo: selected?.connector })
         }}
         style={{
           color: 'var(--blue-450)'
@@ -241,7 +241,7 @@ export function getReferenceFieldProps({
                 className={css.editBtn}
                 onClick={e => {
                   e.stopPropagation()
-                  openConnectorModal(true, item.record?.type || type, item.record)
+                  openConnectorModal(true, item.record?.type || type, { connectorInfo: item.record })
                 }}
                 style={{
                   color: 'var(--primary-4)'

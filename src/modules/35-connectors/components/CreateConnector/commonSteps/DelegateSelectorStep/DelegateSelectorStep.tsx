@@ -25,7 +25,8 @@ import {
   ConnectorRequestBody,
   ConnectorInfoDTO,
   ResponseConnectorResponse,
-  Connector
+  Connector,
+  EntityGitDetails
 } from 'services/cd-ng'
 
 import useSaveToGitDialog from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
@@ -51,6 +52,7 @@ export interface DelegateSelectorProps {
   isEditMode: boolean
   setIsEditMode?: (val: boolean) => void
   connectorInfo: ConnectorInfoDTO | void
+  gitDetails?: EntityGitDetails
   customHandleCreate?: (
     payload: ConnectorConfigDTO,
     prevData: ConnectorConfigDTO,
@@ -70,7 +72,15 @@ const defaultInitialFormData: InitialFormData = {
 }
 
 const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSelectorProps> = props => {
-  const { prevStepData, nextStep, buildPayload, customHandleCreate, customHandleUpdate, connectorInfo } = props
+  const {
+    prevStepData,
+    nextStep,
+    buildPayload,
+    customHandleCreate,
+    customHandleUpdate,
+    connectorInfo,
+    gitDetails
+  } = props
   const { accountId, projectIdentifier: projectIdentifierFromUrl, orgIdentifier: orgIdentifierFromUrl } = useParams<
     any
   >()
@@ -124,7 +134,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
 
       const response = props.isEditMode
         ? await updateConnector(payload, {
-            queryParams: gitData ? { ...queryParams, lastObjectId: payload.connector?.identifier } : queryParams
+            queryParams: gitData ? { ...queryParams, lastObjectId: gitDetails?.objectId } : queryParams
           })
         : await createConnector(payload, { queryParams: queryParams })
       afterSuccessHandler(response)
@@ -173,7 +183,8 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
             openSaveToGitDialog(props.isEditMode, {
               type: Entities.CONNECTORS,
               name: data.connector?.name || '',
-              identifier: data.connector?.identifier || ''
+              identifier: data.connector?.identifier || '',
+              gitDetails
             })
           } else {
             if (customHandleUpdate || customHandleCreate) {

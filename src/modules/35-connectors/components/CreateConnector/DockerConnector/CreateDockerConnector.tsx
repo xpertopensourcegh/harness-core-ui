@@ -7,7 +7,7 @@ import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER } from '@connectors/c
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { buildDockerPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { useStrings } from 'framework/strings'
-import type { ConnectorRequestBody, ConnectorInfoDTO, ResponseBoolean } from 'services/cd-ng'
+import type { ConnectorRequestBody, ConnectorInfoDTO, ResponseBoolean, EntityGitDetails } from 'services/cd-ng'
 import StepDockerAuthentication from './StepAuth/StepDockerAuthentication'
 import DelegateSelectorStep from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 
@@ -18,6 +18,7 @@ interface CreateDockerConnectorProps {
   isEditMode: boolean
   setIsEditMode: (val: boolean) => void
   connectorInfo?: ConnectorInfoDTO | void
+  gitDetails?: EntityGitDetails
   accountId: string
   orgIdentifier: string
   projectIdentifier: string
@@ -54,6 +55,7 @@ const CreateDockerConnector: React.FC<CreateDockerConnectorProps> = props => {
           hideModal={props.onClose}
           onConnectorCreated={props.onSuccess}
           connectorInfo={props.connectorInfo}
+          gitDetails={props.gitDetails}
         />
         <VerifyOutOfClusterDelegate
           name={getString('connectors.stepThreeName')}

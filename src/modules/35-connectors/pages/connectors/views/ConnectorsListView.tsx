@@ -423,11 +423,9 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
     e.stopPropagation()
     setMenuOpen(false)
     if (!data?.connector?.identifier) return
-    ;(column as any).openConnectorModal(
-      true,
-      row?.original?.connector?.type as ConnectorInfoDTO['type'],
-      row.original.connector
-    )
+    ;(column as any).openConnectorModal(true, row?.original?.connector?.type as ConnectorInfoDTO['type'], {
+      connectorInfo: row.original.connector
+    })
   }
 
   return (

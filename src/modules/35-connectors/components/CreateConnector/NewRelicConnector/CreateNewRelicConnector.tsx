@@ -267,6 +267,7 @@ export default function CreateNewRelicConnector(props: CreateNewRelicConnectorPr
           hideModal={props.onClose}
           onConnectorCreated={props.onSuccess}
           connectorInfo={props.connectorInfo}
+          gitDetails={props.gitDetails}
           isEditMode={props.isEditMode}
           buildPayload={buildNewRelicPayload}
         />

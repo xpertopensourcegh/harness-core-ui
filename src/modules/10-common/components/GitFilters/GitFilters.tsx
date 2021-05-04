@@ -207,8 +207,9 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
 
   const handleBranchClick = (branch: BranchSelectOption): void => {
     if (branch.branchSyncStatus === branchSyncStatus.SYNCED) {
-      setSelectedGitBranch(branch.value as string)
-      props.onChange({ repo: selectedGitRepo, branch: selectedGitBranch })
+      const newSelected = branch.value as string
+      setSelectedGitBranch(newSelected)
+      props.onChange({ repo: selectedGitRepo, branch: newSelected })
     } else {
       setUnSyncedSelectedBranch(branch)
       showModal()

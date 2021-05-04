@@ -3,7 +3,7 @@ import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
 import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER } from '@connectors/constants'
-import type { ConnectorConfigDTO, ConnectorInfoDTO, ResponseBoolean } from 'services/cd-ng'
+import type { ConnectorConfigDTO, ConnectorInfoDTO, EntityGitDetails, ResponseBoolean } from 'services/cd-ng'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 
 import { getConnectorTitleIdByType, getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
@@ -19,6 +19,7 @@ interface CreateJiraConnectorProps {
   onClose: () => void
   isEditMode?: boolean
   connectorInfo?: ConnectorInfoDTO | void
+  gitDetails?: EntityGitDetails
   context?: number
   accountId: string
   orgIdentifier: string
@@ -59,6 +60,7 @@ const JiraConnector: React.FC<CreateJiraConnectorProps> = props => {
         hideModal={props.onClose}
         onConnectorCreated={props.onConnectorCreated}
         connectorInfo={props.connectorInfo}
+        gitDetails={props.gitDetails}
       />
       <VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}

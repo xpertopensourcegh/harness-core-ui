@@ -16,6 +16,7 @@ const CreateGitConnector = (props: CreateConnectorModalProps): JSX.Element => {
   const commonProps = pick(props, [
     'isEditMode',
     'connectorInfo',
+    'gitDetails',
     'setIsEditMode',
     'accountId',
     'orgIdentifier',
@@ -56,6 +57,7 @@ const CreateGitConnector = (props: CreateConnectorModalProps): JSX.Element => {
         hideModal={props.onClose}
         onConnectorCreated={props.onSuccess}
         connectorInfo={props.connectorInfo}
+        gitDetails={props.gitDetails}
       />
       <VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}

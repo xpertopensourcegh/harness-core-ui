@@ -15,6 +15,7 @@ const CreateNexusConnector: React.FC<CreateConnectorModalProps> = props => {
   const commonProps = pick(props, [
     'isEditMode',
     'connectorInfo',
+    'gitDetails',
     'setIsEditMode',
     'accountId',
     'orgIdentifier',
@@ -48,6 +49,7 @@ const CreateNexusConnector: React.FC<CreateConnectorModalProps> = props => {
           hideModal={props.onClose}
           onConnectorCreated={props.onSuccess}
           connectorInfo={props.connectorInfo}
+          gitDetails={props.gitDetails}
         />
         <VerifyOutOfClusterDelegate
           name={getString('connectors.stepThreeName')}

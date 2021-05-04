@@ -14,8 +14,9 @@ const CreateArtifactoryConnector: React.FC<CreateConnectorModalProps> = props =>
   const { getString } = useStrings()
   const commonProps = pick(props, [
     'isEditMode',
-    'connectorInfo',
     'setIsEditMode',
+    'connectorInfo',
+    'gitDetails',
     'accountId',
     'orgIdentifier',
     'projectIdentifier'
@@ -48,6 +49,7 @@ const CreateArtifactoryConnector: React.FC<CreateConnectorModalProps> = props =>
           hideModal={props.onClose}
           onConnectorCreated={props.onSuccess}
           connectorInfo={props.connectorInfo}
+          gitDetails={props.gitDetails}
         />
         <VerifyOutOfClusterDelegate
           name={getString('connectors.stepThreeName')}

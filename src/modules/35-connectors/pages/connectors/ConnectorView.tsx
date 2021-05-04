@@ -458,7 +458,12 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
               }}
               onClick={() => {
                 state.setEnableEdit(true)
-                selectedView === SelectedView.VISUAL ? openConnectorModal(true, props.type, connector) : undefined
+                selectedView === SelectedView.VISUAL
+                  ? openConnectorModal(true, props.type, {
+                      connectorInfo: connector,
+                      gitDetails: props.response?.gitDetails
+                    })
+                  : undefined
               }}
             />
           )}

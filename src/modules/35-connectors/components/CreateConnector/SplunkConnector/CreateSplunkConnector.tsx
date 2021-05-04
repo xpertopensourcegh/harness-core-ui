@@ -119,6 +119,7 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
           hideModal={props.onClose}
           onConnectorCreated={props.onSuccess}
           connectorInfo={props.connectorInfo}
+          gitDetails={props.gitDetails}
           isEditMode={isEditMode}
           buildPayload={buildSplunkPayload}
         />

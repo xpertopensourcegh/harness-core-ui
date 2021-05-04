@@ -117,6 +117,7 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
         hideModal={props.onClose}
         onConnectorCreated={props.onSuccess}
         connectorInfo={props.connectorInfo}
+        gitDetails={props.gitDetails}
         isEditMode={props.isEditMode}
         buildPayload={buildAppDynamicsPayload}
       />

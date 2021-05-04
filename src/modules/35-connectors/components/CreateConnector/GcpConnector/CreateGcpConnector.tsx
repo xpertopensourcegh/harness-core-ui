@@ -12,7 +12,15 @@ import DelegateSelectorStep from '../commonSteps/DelegateSelectorStep/DelegateSe
 
 const CreateGcpConnector: React.FC<CreateConnectorModalProps> = props => {
   const { getString } = useStrings()
-  const commonProps = pick(props, ['isEditMode', 'setIsEditMode', 'accountId', 'orgIdentifier', 'projectIdentifier'])
+  const commonProps = pick(props, [
+    'isEditMode',
+    'setIsEditMode',
+    'connectorInfo',
+    'gitDetails',
+    'accountId',
+    'orgIdentifier',
+    'projectIdentifier'
+  ])
 
   return (
     <>
@@ -43,6 +51,7 @@ const CreateGcpConnector: React.FC<CreateConnectorModalProps> = props => {
           hideModal={props.onClose}
           onConnectorCreated={props.onSuccess}
           connectorInfo={props.connectorInfo}
+          gitDetails={props.gitDetails}
         />
         <VerifyOutOfClusterDelegate
           name={getString('connectors.stepThreeName')}

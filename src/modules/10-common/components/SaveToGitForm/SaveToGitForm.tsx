@@ -19,7 +19,8 @@ import {
   GitSyncConfig,
   GitSyncEntityDTO,
   getListOfBranchesByGitConfigPromise,
-  GitSyncFolderConfigDTO
+  GitSyncFolderConfigDTO,
+  EntityGitDetails
 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
@@ -31,6 +32,7 @@ export interface GitResourceInterface {
   type: GitSyncEntityDTO['entityType']
   name: string
   identifier: string
+  gitDetails?: EntityGitDetails
 }
 
 interface SaveToGitFormProps {
@@ -59,7 +61,7 @@ export interface SaveToGitFormInterface {
 }
 
 const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props => {
-  const { accountId, orgIdentifier, projectIdentifier } = props
+  const { accountId, orgIdentifier, projectIdentifier, isEditing = false, resource } = props
   const { getString } = useStrings()
   const { gitSyncRepos, loadingRepos } = useGitSyncStore()
   const [rootFolderSelectOptions, setRootFolderSelectOptions] = React.useState<SelectOption[]>([])
@@ -69,13 +71,13 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
   const [loadingBranchList, setLoadingBranchList] = React.useState<boolean>(false)
 
   const defaultInitialFormData: SaveToGitFormInterface = {
-    name: props.resource.name,
-    identifier: props.resource.identifier,
-    repoIdentifier: '',
+    name: resource.name,
+    identifier: resource.identifier,
+    repoIdentifier: resource.gitDetails?.repoIdentifier || '',
     rootFolder: '',
     filePath: '',
     isNewBranch: false,
-    branch: '',
+    branch: resource.gitDetails?.branch || '',
     commitMsg: '',
     createPr: false
   }
@@ -217,6 +219,7 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
                       name="repoIdentifier"
                       label={getString('common.git.selectRepoLabel')}
                       items={repoSelectOptions}
+                      disabled={isEditing}
                       onChange={(selected: SelectOption) => {
                         formik.setFieldValue('branch', '')
                         formik.setFieldValue('rootFolder', '')
