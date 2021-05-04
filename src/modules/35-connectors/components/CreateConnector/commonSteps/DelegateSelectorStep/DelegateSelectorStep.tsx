@@ -109,7 +109,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
       })
     )
 
-    if (!delegateSelectors.length && stepDataRef?.skipDefaultValidation) {
+    if (stepDataRef?.skipDefaultValidation) {
       props.hideModal?.()
     } else {
       nextStep?.({ ...prevStepData, ...stepDataRef } as ConnectorConfigDTO)
