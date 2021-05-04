@@ -126,7 +126,8 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
         : props.gatewayDetails.routing.instance.scale_group?.region || '',
       vpc: props.gatewayDetails.selectedInstances?.length
         ? props.gatewayDetails.selectedInstances[0].vpc
-        : props.gatewayDetails.routing.instance.scale_group?.target_groups?.[0]?.vpc || ''
+        : props.gatewayDetails.routing.instance.scale_group?.target_groups?.[0]?.vpc || '',
+      cloud_account_id: props.gatewayDetails.cloudAccount.id // eslint-disable-line
     }
   })
   function generateHostName(val: string): string {

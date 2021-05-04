@@ -1472,6 +1472,7 @@ export const useDeleteAccessPoints = ({ org_id, project_id, ...props }: UseDelet
 export interface ListAccessPointsQueryParams {
   vpc: string
   region: string
+  cloud_account_id: string
 }
 
 export interface ListAccessPointsPathParams {
