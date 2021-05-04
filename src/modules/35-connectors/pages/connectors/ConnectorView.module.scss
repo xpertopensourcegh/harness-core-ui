@@ -64,6 +64,10 @@
       padding: var(--spacing-xsmall) var(--spacing-medium);
       border-radius: 10px;
       cursor: pointer;
+      border: 1px solid var(--grey-250);
+    }
+    .item:first-of-type {
+      margin-right: var(--spacing-xsmall);
     }
 
     .selected {

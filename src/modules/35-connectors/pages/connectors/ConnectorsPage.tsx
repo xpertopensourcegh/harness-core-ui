@@ -6,7 +6,8 @@ import {
   FormInput,
   MultiSelectOption,
   OverlaySpinner,
-  ExpandingSearchInput
+  ExpandingSearchInput,
+  Container
 } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import { debounce, pick } from 'lodash-es'
@@ -605,7 +606,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
         </Layout.Horizontal>
 
         <Layout.Horizontal margin={{ left: 'small' }}>
-          <div className={css.expandSearch}>
+          <Container className={css.expandSearch} margin={{ right: 'small' }}>
             <ExpandingSearchInput
               placeholder={getString('search')}
               throttle={200}
@@ -613,7 +614,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
                 onSearch(text)
               }}
             />
-          </div>
+          </Container>
           <FilterSelector<FilterDTO>
             appliedFilter={appliedFilter}
             filters={filters}

@@ -155,6 +155,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
       }
     } else {
       setSelectedView(targetMode)
+      fetchSecrets()
     }
   }
 
@@ -191,7 +192,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
     }
   }
 
-  const { data: secretsResponse } = useListSecretsV2({
+  const { data: secretsResponse, refetch: fetchSecrets } = useListSecretsV2({
     queryParams: {
       accountIdentifier: accountId,
       pageIndex: 0,
@@ -200,7 +201,8 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
       projectIdentifier
     },
     mock: props.mockSecretData,
-    debounce: 300
+    debounce: 300,
+    lazy: true
   })
 
   const currentScope = getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
