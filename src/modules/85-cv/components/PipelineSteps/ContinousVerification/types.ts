@@ -1,5 +1,5 @@
 import type { SelectOption } from '@wings-software/uicore'
-import type { StepElementConfig } from 'services/cd-ng'
+import type { FailureStrategyConfig, StepElementConfig } from 'services/cd-ng'
 import type { VariableResponseMapValue } from 'services/pipeline-ng'
 
 export interface ContinousVerificationVariableStepProps {
@@ -21,6 +21,7 @@ export interface spec {
 }
 
 export interface ContinousVerificationData extends StepElementConfig {
+  failureStrategies: FailureStrategyConfig[]
   spec: {
     verificationJobRef?: SelectOption | string
     type?: string

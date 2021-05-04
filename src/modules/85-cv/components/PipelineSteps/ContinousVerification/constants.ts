@@ -1,4 +1,8 @@
 import type { SelectOption } from '@wings-software/uicore'
+import {
+  ErrorType,
+  Strategy
+} from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/StrategySelection/StrategyConfig'
 
 export enum JobTypes {
   BLUE_GREEN = 'Bluegreen',
@@ -48,5 +52,39 @@ export const cvDefaultValues = {
       envRef: '',
       deploymentTag: ''
     }
-  }
+  },
+  failureStrategies: [
+    {
+      onFailure: {
+        errors: [ErrorType.Verification],
+        action: {
+          type: Strategy.ManualIntervention,
+          spec: {
+            timeout: '2h',
+            onTimeout: {
+              action: {
+                type: Strategy.StageRollback
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      onFailure: {
+        errors: [ErrorType.AnyOther],
+        action: {
+          type: Strategy.ManualIntervention,
+          spec: {
+            timeout: '2h',
+            onTimeout: {
+              action: {
+                type: Strategy.Ignore
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
 }
