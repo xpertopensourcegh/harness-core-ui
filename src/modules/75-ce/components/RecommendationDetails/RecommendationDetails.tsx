@@ -1,5 +1,4 @@
-import React, { useState, useRef } from 'react'
-import { Slider, MultiSlider, Intent } from '@blueprintjs/core'
+import React, { useState, useRef, useEffect } from 'react'
 import { Container, Layout, Text } from '@wings-software/uicore'
 import { MonacoDiffEditor } from 'react-monaco-editor'
 import cx from 'classnames'
@@ -9,7 +8,7 @@ import { convertNumberToFixedDecimalPlaces } from '@ce/utils/convertNumberToFixe
 import { getCPUValueInReadableForm, getMemValueInReadableForm } from '@ce/utils/formatResourceValue'
 import type { RecommendationItem } from '@ce/pages/recommendationDetails/RecommendationDetailsPage'
 
-import RecommendationHistogram from '../RecommendationHistogram/RecommendationHistogram'
+import RecommendationHistogram, { CustomHighcharts } from '../RecommendationHistogram/RecommendationHistogram'
 // import histogramData from '../RecommendationHistogram/MockData.json'
 import css from './RecommendationDetails.module.scss'
 
@@ -96,16 +95,21 @@ const RecommendationDetails: React.FC<RecommendationDetailsProps> = ({ histogram
     RecommedationType.CostOptimized
   )
 
-  const cpuChartRef = useRef<Highcharts.Chart>()
-  const memoryChartRef = useRef<Highcharts.Chart>()
+  const cpuChartRef = useRef<CustomHighcharts>()
+  const memoryChartRef = useRef<CustomHighcharts>()
 
-  const setCPUChartRef: (chart: Highcharts.Chart) => void = chart => {
+  const setCPUChartRef: (chart: CustomHighcharts) => void = chart => {
     cpuChartRef.current = chart
   }
 
-  const setMemoryChartRef: (chart: Highcharts.Chart) => void = chart => {
+  const setMemoryChartRef: (chart: CustomHighcharts) => void = chart => {
     memoryChartRef.current = chart
   }
+
+  useEffect(() => {
+    cpuChartRef.current && cpuChartRef.current.rePlaceMarker(cpuReqVal)
+    memoryChartRef.current && memoryChartRef.current.rePlaceMarker(memReqVal, memLimitVal)
+  }, [selectedRecommendation])
 
   const updateCPUChart: (val: number) => void = val => {
     const {
@@ -113,20 +117,7 @@ const RecommendationDetails: React.FC<RecommendationDetailsProps> = ({ histogram
     } = histogramData
     setCPUReqVal(val)
     const value = precomputed[val]
-    selectedRecommendation !== RecommedationType.Custom && setSelectedRecommendation(RecommedationType.Custom)
 
-    cpuChartRef.current?.update({
-      xAxis: {
-        plotLines: [
-          {
-            zIndex: 5,
-            color: ChartColors.BLUE,
-            width: 3,
-            value: convertNumberToFixedDecimalPlaces(value, 2) + 0.0001
-          }
-        ]
-      }
-    })
     cpuChartRef.current?.series[0].update({
       type: 'column',
       zones: [
@@ -149,36 +140,9 @@ const RecommendationDetails: React.FC<RecommendationDetailsProps> = ({ histogram
     setMemReqVal(reqVal)
     setMemLimitVal(limitVal)
 
-    selectedRecommendation !== RecommedationType.Custom && setSelectedRecommendation(RecommedationType.Custom)
-
     const reqValHistogram = precomputed[reqVal]
     const limitValHistogram = precomputed[limitVal]
 
-    memoryChartRef.current?.update({
-      xAxis: {
-        plotLines: [
-          {
-            zIndex: 5,
-            color: ChartColors.BLUE,
-            width: 3,
-            value: convertNumberToFixedDecimalPlaces(reqValHistogram, 2) + 1
-          },
-          {
-            zIndex: 5,
-            color: ChartColors.GREEN,
-            width: 3,
-            value: convertNumberToFixedDecimalPlaces(limitValHistogram, 2) + 1
-          }
-        ],
-        plotBands: [
-          {
-            color: ChartColors.GREEN_300,
-            from: 0,
-            to: convertNumberToFixedDecimalPlaces(limitValHistogram, 2) + 1
-          }
-        ]
-      }
-    })
     memoryChartRef.current?.series[0].update({
       type: 'column',
       zones: [
@@ -249,6 +213,8 @@ const RecommendationDetails: React.FC<RecommendationDetailsProps> = ({ histogram
       </Container>
       <Container className={css.histogramContainer}>
         <RecommendationHistogram
+          updateMemoryChart={updateMemoryChart}
+          updateCPUChart={updateCPUChart}
           histogramData={histogramData}
           selectedRecommendation={selectedRecommendation}
           cpuReqVal={cpuReqVal}
@@ -259,7 +225,7 @@ const RecommendationDetails: React.FC<RecommendationDetailsProps> = ({ histogram
         />
       </Container>
 
-      <Container className={css.sliderContainer}>
+      {/* <Container className={css.sliderContainer}>
         <Slider min={0} max={100} stepSize={1} labelStepSize={25} onChange={updateCPUChart} value={cpuReqVal} />
 
         <MultiSlider min={0} max={100} stepSize={1} labelStepSize={25} onChange={updateMemoryChart}>
@@ -272,7 +238,7 @@ const RecommendationDetails: React.FC<RecommendationDetailsProps> = ({ histogram
           />
         </MultiSlider>
         <Text font={{ align: 'center' }}>{getString('ce.recommendation.detailsPage.percentileOfReqAndLimit')}</Text>
-      </Container>
+      </Container> */}
     </Container>
   )
 }

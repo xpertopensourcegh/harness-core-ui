@@ -18,8 +18,27 @@ export const getMemValueInReadableForm: (val: number) => string = (val: number) 
     return '0'
   }
   if (log10(val) >= 9) {
-    return `${Math.ceil(val / BYTES_IN_A_GB)}Gi`
+    return val % 1 === 0 ? `${val / BYTES_IN_A_GB}Gi` : `${(val / BYTES_IN_A_GB + 0.1).toFixed(1)}Gi`
   } else {
     return `${Math.ceil(val / BYTES_IN_A_MB)}Mi`
   }
+}
+
+export const getMemValueInReadableFormForChart = (val: number) => {
+  if (!val) {
+    return '0'
+  }
+  if (log10(val) >= 9) {
+    return `${(val / BYTES_IN_A_GB).toFixed(2)}Gi`
+  } else {
+    return `${(val / BYTES_IN_A_MB).toFixed(2)}Mi`
+  }
+}
+
+export const getCPUValueInmCPUs = (val: number) => {
+  return `${val * 1000}`
+}
+
+export const getMemValueInGB = (val: number) => {
+  return `${val / BYTES_IN_A_GB}Gi`
 }

@@ -9,7 +9,7 @@ import routes from '@common/RouteDefinitions'
 import formatCost from '@ce/utils/formatCost'
 import { useGraphQLQuery } from '@common/hooks/useGraphQLQuery'
 import FETCH_RECOMMENDATIONS from 'queries/ce/fetch_recommendation.gql'
-import type { FetchRecommendationQuery } from 'services/ce/services'
+import type { FetchRecommendationQuery, RecommendationOverviewStats } from 'services/ce/services'
 
 import RecommendationDetails from '../../components/RecommendationDetails/RecommendationDetails'
 import css from './RecommendationDetailsPage.module.scss'
@@ -17,28 +17,21 @@ import css from './RecommendationDetailsPage.module.scss'
 interface RecommendationDetails {
   items: Array<RecommendationItem>
 }
+
+export interface HistogramData {
+  bucketWeights: Array<number>
+  firstBucketSize: number
+  growthRatio: number
+  maxBucket: number
+  numBuckets: number
+  precomputed: Array<number>
+  totalWeight: number
+  minBucket: number
+}
 export interface RecommendationItem {
   containerName: string
-  cpuHistogram: {
-    bucketWeights: Array<number>
-    firstBucketSize: number
-    growthRatio: number
-    maxBucket: number
-    numBuckets: number
-    precomputed: Array<number>
-    totalWeight: number
-    minBucket: number
-  }
-  memoryHistogram: {
-    bucketWeights: Array<number>
-    firstBucketSize: number
-    growthRatio: number
-    maxBucket: number
-    minBucket: number
-    numBuckets: number
-    precomputed: Array<number>
-    totalWeight: number
-  }
+  cpuHistogram: HistogramData
+  memoryHistogram: HistogramData
 }
 
 const RecommendationHelperText = () => {
@@ -78,7 +71,7 @@ const CostDetails: React.FC<{ costName: string; totalCost: string; isSavingsCost
   isSavingsCost
 }) => {
   return (
-    <Layout.Vertical spacing="large">
+    <Layout.Vertical spacing="medium">
       <Text font="normal">{costName}</Text>
       <Text
         font="medium"
@@ -92,19 +85,32 @@ const CostDetails: React.FC<{ costName: string; totalCost: string; isSavingsCost
   )
 }
 
-const RecommendationSavingsComponent = () => {
+interface RecommendationSavingsComponentProps {
+  recommendationStats: RecommendationOverviewStats
+}
+
+const RecommendationSavingsComponent: React.FC<RecommendationSavingsComponentProps> = ({ recommendationStats }) => {
   const { getString } = useStrings()
+
+  const { totalMonthlyCost, totalMonthlySaving } = recommendationStats
 
   return (
     <Container padding="xlarge" className={css.savingsContainer}>
       <Layout.Horizontal spacing="large">
-        <CostDetails
-          costName={getString('ce.recommendation.listPage.monthlySavingsText')}
-          totalCost={formatCost(25000)}
-          isSavingsCost={true}
-        />
-        <CostDetails costName={getString('ce.recommendation.detailsPage.totalCost')} totalCost={formatCost(25000)} />
-        <CostDetails costName={getString('ce.recommendation.detailsPage.idleCost')} totalCost={formatCost(25000)} />
+        {totalMonthlyCost ? (
+          <CostDetails
+            costName={getString('ce.recommendation.listPage.monthlySavingsText')}
+            totalCost={formatCost(totalMonthlyCost)}
+            isSavingsCost={true}
+          />
+        ) : null}
+        {totalMonthlySaving ? (
+          <CostDetails
+            costName={getString('ce.recommendation.listPage.monthlyForcastedCostText')}
+            totalCost={formatCost(totalMonthlySaving)}
+          />
+        ) : null}
+        {/* <CostDetails costName={getString('ce.recommendation.detailsPage.idleCost')} totalCost={formatCost(25000)} /> */}
       </Layout.Horizontal>
     </Container>
   )
@@ -123,7 +129,9 @@ const RecommendationDetailsPage: React.FC = () => {
     body: { query: FETCH_RECOMMENDATIONS, variables: { id: recommendation } }
   })
 
-  const recommendationDetails = (data?.data.recommendationDetails as RecommendationDetails) || []
+  const recommendationDetails = (data?.data?.recommendationDetails as RecommendationDetails) || []
+
+  const recommendationStats = data?.data?.recommendationStats as RecommendationOverviewStats
 
   const recommendationItems = recommendationDetails?.items || []
 
@@ -148,7 +156,7 @@ const RecommendationDetailsPage: React.FC = () => {
             }
           ]}
         />
-        <RecommendationSavingsComponent />
+        {recommendationStats ? <RecommendationSavingsComponent recommendationStats={recommendationStats} /> : null}
       </Container>
       <Container padding="xlarge">
         <Layout.Vertical spacing="xlarge">

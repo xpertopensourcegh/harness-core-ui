@@ -5,7 +5,7 @@ import type { CellProps, Renderer } from 'react-table'
 
 import { useStrings } from 'framework/strings'
 import FETCH_ALL_RECOMMENDATIONS from 'queries/ce/fetch_all_recommendations.gql'
-import type { RecommendationsQuery, NodeDto } from 'services/ce/services'
+import type { RecommendationsQuery, RecommendationItemDto } from 'services/ce/services'
 
 import { useGraphQLQuery } from '@common/hooks/useGraphQLQuery'
 import { Page } from '@common/exports'
@@ -14,7 +14,7 @@ import formatCost from '@ce/utils/formatCost'
 import RecommendationSavingsCard from '../../components/RecommendationSavingsCard/RecommendationSavingsCard'
 
 interface RecommendationListProps {
-  data: Array<NodeDto>
+  data: Array<RecommendationItemDto>
 }
 
 const RecommendationsList: React.FC<RecommendationListProps> = ({ data }) => {
@@ -22,11 +22,11 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({ data }) => {
   const { pathname } = useLocation()
   const { getString } = useStrings()
 
-  const NameCell: Renderer<CellProps<NodeDto>> = cell => {
+  const NameCell: Renderer<CellProps<RecommendationItemDto>> = cell => {
     return <Text>{cell.value}</Text>
   }
 
-  const RecommendationTypeCell: Renderer<CellProps<NodeDto>> = ({ row }) => {
+  const RecommendationTypeCell: Renderer<CellProps<RecommendationItemDto>> = ({ row }) => {
     const rowData = row.original
     const { resourceType } = rowData
     return (
@@ -36,7 +36,7 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({ data }) => {
     )
   }
 
-  const RecommendationDetailsCell: Renderer<CellProps<NodeDto>> = ({ row }) => {
+  const RecommendationDetailsCell: Renderer<CellProps<RecommendationItemDto>> = ({ row }) => {
     const rowData = row.original
     const { resourceType } = rowData
     return (
@@ -46,15 +46,15 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({ data }) => {
     )
   }
 
-  const ResourceTypeCell: Renderer<CellProps<NodeDto>> = cell => {
+  const ResourceTypeCell: Renderer<CellProps<RecommendationItemDto>> = cell => {
     return <Text>{cell.value === 'WORKLOAD' ? getString('pipelineSteps.workload') : ''}</Text>
   }
 
-  const CostCell: Renderer<CellProps<NodeDto>> = cell => {
+  const CostCell: Renderer<CellProps<RecommendationItemDto>> = cell => {
     return <Text>{formatCost(cell.value)}</Text>
   }
 
-  const SavingCell: Renderer<CellProps<NodeDto>> = cell => {
+  const SavingCell: Renderer<CellProps<RecommendationItemDto>> = cell => {
     return (
       <Text color="green500" icon="money-icon" iconProps={{ size: 28 }}>
         {formatCost(cell.value)}
@@ -66,7 +66,7 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({ data }) => {
     <Card elevation={1}>
       <Layout.Vertical spacing="large">
         <Text>{getString('ce.recommendation.listPage.recommnedationBreakdown')}</Text>
-        <Table<NodeDto>
+        <Table<RecommendationItemDto>
           onRowClick={row => {
             history.push(`${pathname}/${row.id}/details`)
           }}
@@ -123,8 +123,8 @@ const RecommendationList: React.FC = () => {
 
   const { getString } = useStrings()
 
-  const totalMonthlyCost = data?.data.recommendations?.totalMonthlyCost || 0
-  const totalSavings = data?.data.recommendations?.totalMonthlySaving || 0
+  const totalMonthlyCost = data?.data.recommendationStats?.totalMonthlyCost || 0
+  const totalSavings = data?.data.recommendationStats?.totalMonthlySaving || 0
 
   const recommendationItems = data?.data.recommendations?.items || []
 
@@ -148,7 +148,7 @@ const RecommendationList: React.FC = () => {
                 />
               </Layout.Horizontal>
 
-              <RecommendationsList data={recommendationItems as Array<NodeDto>} />
+              <RecommendationsList data={recommendationItems as Array<RecommendationItemDto>} />
             </Layout.Vertical>
           ) : null}
         </Container>

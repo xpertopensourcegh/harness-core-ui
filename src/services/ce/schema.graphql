@@ -1,16 +1,21 @@
 "Directs the executor to include this field or fragment only when the `if` argument is true"
 directive @include("Included when true." if: Boolean!) on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT
+
 "Directs the executor to skip this field or fragment when the `if`'argument is true."
 directive @skip("Skipped when true." if: Boolean!) on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT
+
 "Marks the field or enum value as deprecated"
 directive @deprecated(
   "The reason for the deprecation"
   reason: String = "No longer supported"
 ) on FIELD_DEFINITION | ENUM_VALUE
+
 "Exposes a URL that specifies the behaviour of this scalar."
 directive @specifiedBy("The URL that specifies the behaviour of this scalar." url: String!) on SCALAR
+
 "This union of all types of recommendations"
 union recommendationDetails = NodeRecommendationDTO | WorkloadRecommendationDTO
+
 type BillingDataDemo {
   billingamount: Float
   instancedata: InstanceDataDemo
@@ -18,11 +23,13 @@ type BillingDataDemo {
   instancename: String
   starttime: Long
 }
+
 type ContainerHistogramDTO {
   containerName: String
   cpuHistogram: HistogramExp
   memoryHistogram: HistogramExp
 }
+
 type HistogramExp {
   bucketWeights: [Float]
   firstBucketSize: Float!
@@ -33,54 +40,102 @@ type HistogramExp {
   precomputed: [Float]
   totalWeight: Float!
 }
+
 type InstanceDataDemo {
   cloudprovider: String
   instancetype: String
   region: String
 }
-type NodeDTO {
-  id: String
-  monthlyCost: Float!
-  monthlySaving: Float!
-  recommendationDetails(endTime: OffsetDateTime, startTime: OffsetDateTime): recommendationDetails
-  resourceName: String
-  resourceType: ResourceType!
-}
+
 type NodeRecommendationDTO {
   id: String
-  name: String
 }
+
 "Query root"
 type Query {
   billingdata(clusterid: String, endTime: OffsetTime, startTime: OffsetTime): [BillingDataDemo]
   instancedata(instanceid: String!): InstanceDataDemo
+  "recommendation details/drillDown"
   recommendationDetails(
+    "defaults to Now()"
     endTime: OffsetDateTime
     id: String!
     resourceType: ResourceType!
+    "defaults to Now().minusDays(7)"
     startTime: OffsetDateTime
   ): recommendationDetails
-  recommendations: RecommendationsDTO
+  "top panel stats API"
+  recommendationStats(
+    clusterName: String
+    id: String
+    minCost: Float
+    minSaving: Float
+    name: String
+    namespace: String
+    resourceType: ResourceType
+  ): RecommendationOverviewStats
+  "the list of all types of recommendations for overview page"
+  recommendations(
+    clusterName: String
+    id: String
+    limit: Long
+    minCost: Float
+    minSaving: Float
+    name: String
+    namespace: String
+    offset: Long
+    resourceType: ResourceType
+  ): RecommendationsDTO
 }
-type RecommendationsDTO {
-  items: [NodeDTO]
+
+type RecommendationItemDTO {
+  clusterName: String
+  id: String!
+  monthlyCost: Float!
+  monthlySaving: Float!
+  "recommendation details/drillDown"
+  recommendationDetails(
+    "defaults to Now()"
+    endTime: OffsetDateTime
+    "defaults to Now().minusDays(7)"
+    startTime: OffsetDateTime
+  ): recommendationDetails
+  resourceName: String
+  resourceType: ResourceType!
+}
+
+type RecommendationOverviewStats {
   totalMonthlyCost: Float!
   totalMonthlySaving: Float!
 }
+
+type RecommendationsDTO {
+  items: [RecommendationItemDTO]
+  limit: Long!
+  offset: Long!
+}
+
 type WorkloadRecommendationDTO {
+  containerRecommendations: Map_String_ContainerRecommendationScalar
   items: [ContainerHistogramDTO]
 }
+
 enum ResourceType {
-  AUTO_STOPPING
-  CLUSTER
   NODE
   WORKLOAD
 }
+
 "Long type"
 scalar Long
+
+"Built-in scalar for map-like structures"
+scalar Map_String_ContainerRecommendationScalar
+
 "Built-in scalar representing a date-time with a UTC offset"
 scalar OffsetDateTime
+
 "Built-in scalar representing a time with a UTC offset"
 scalar OffsetTime
+
 "Use SPQR's SchemaPrinter to remove this from SDL"
 scalar UNREPRESENTABLE

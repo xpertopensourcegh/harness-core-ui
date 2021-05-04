@@ -1,7 +1,10 @@
 query Recommendations {
-  recommendations {
+  recommendationStats {
     totalMonthlyCost
     totalMonthlySaving
+  }
+
+  recommendations {
     items {
       id
       resourceType

@@ -1,6 +1,11 @@
 query FetchRecommendation($id: String!) {
+  recommendationStats(id: $id) {
+    totalMonthlyCost
+    totalMonthlySaving
+  }
   recommendationDetails(id: $id, resourceType: WORKLOAD) {
     ... on WorkloadRecommendationDTO {
+      containerRecommendations
       items {
         containerName
         cpuHistogram {
