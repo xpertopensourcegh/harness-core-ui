@@ -1,8 +1,8 @@
-# Resource Details View and Action Framework
+# Entity Setup Usage Framework
 
-The purpose of creating this _Resource detail view and Action_ framework is to register the different resource type corresponding to its UI component(i.e React component containing view and action) on the basis of props passed to it. It should be implemented by the owner of different resource teams which can be used on platform UI if registered.
+The purpose of creating this _Entity Setup Usage_ framework is to register the different resource types corresponding to its UI components(i.e React component containing view and action) on the basis of props passed to it. It should be implemented by the owner of different resource teams which can be used on platform UI if registered.
 
-This is two steps process of **Resources Details View and Action framework**: Registration and Consumption.
+This is two steps process of this framework: Registration and Consumption.
 
 **Registration**: In this step,resource owner team will register their resource types. Currently we have below two categories
 (1) REFERRED BY ENTITY - types (eg. Secret, Project, Pipeline, Connector etc.)
