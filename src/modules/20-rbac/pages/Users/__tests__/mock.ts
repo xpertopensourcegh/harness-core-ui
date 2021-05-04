@@ -2,7 +2,7 @@ import type {
   ResponseBoolean,
   ResponsePageInvite,
   ResponsePageUserAggregate,
-  ResponsePageUserSearchDTO
+  ResponsePageUserMetadataDTO
 } from 'services/cd-ng'
 
 export const mockResponse: ResponseBoolean = {
@@ -150,7 +150,7 @@ export const resourceGroupsMockData = {
   correlationId: ''
 }
 
-export const usersMockData: ResponsePageUserSearchDTO = {
+export const usersMockData: ResponsePageUserMetadataDTO = {
   status: 'SUCCESS',
   data: {
     content: [{ name: 'Admin', email: 'admin@harness.io', uuid: 'uuid' }]

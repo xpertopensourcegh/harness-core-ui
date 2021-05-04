@@ -1,4 +1,5 @@
 import React from 'react'
+import cx from 'classnames'
 import { Tag, Popover, PopoverInteractionKind } from '@blueprintjs/core'
 import { Layout } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
@@ -30,7 +31,7 @@ const RoleBindingsList: React.FC<RoleBindingsListProps> = ({ data, length = data
           </Layout.Horizontal>
           <Layout.Vertical padding="small" spacing="small">
             {popoverData?.map(({ item, managed }) => (
-              <Tag key={item} className={managed ? css.harnesstag : css.customtag}>
+              <Tag key={item} className={cx(css.tag, managed ? css.harnesstag : css.customtag)}>
                 {item}
               </Tag>
             ))}

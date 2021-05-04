@@ -3,7 +3,7 @@ import { useModalHook, Button } from '@wings-software/uicore'
 import { Dialog, Classes } from '@blueprintjs/core'
 import cx from 'classnames'
 
-import type { UserSearchDTO, RoleBinding, UserGroupDTO } from 'services/cd-ng'
+import type { UserMetadataDTO, RoleBinding, UserGroupDTO } from 'services/cd-ng'
 import UserRoleAssignment from './views/UserRoleAssigment'
 import UserGroupRoleAssignment from './views/UserGroupRoleAssignment'
 import css from './useRoleAssignmentModal.module.scss'
@@ -20,7 +20,7 @@ export enum PrincipalType {
 export interface UseRoleAssignmentModalReturn {
   openRoleAssignmentModal: (
     type?: PrincipalType,
-    principalInfo?: UserGroupDTO | UserSearchDTO,
+    principalInfo?: UserGroupDTO | UserMetadataDTO,
     roleBindings?: RoleBinding[]
   ) => void
   closeRoleAssignmentModal: () => void
@@ -28,7 +28,7 @@ export interface UseRoleAssignmentModalReturn {
 
 export const useRoleAssignmentModal = ({ onSuccess }: UseRoleAssignmentModalProps): UseRoleAssignmentModalReturn => {
   const [roleBindings, setRoleBindings] = useState<RoleBinding[]>()
-  const [principalInfo, setPrincipalInfo] = useState<UserSearchDTO | UserGroupDTO>()
+  const [principalInfo, setPrincipalInfo] = useState<UserMetadataDTO | UserGroupDTO>()
   const [principal, setPrincipal] = useState<PrincipalType>(PrincipalType.USER)
   const [showModal, hideModal] = useModalHook(
     () => (
@@ -42,7 +42,7 @@ export const useRoleAssignmentModal = ({ onSuccess }: UseRoleAssignmentModalProp
         {principal === PrincipalType.USER ? (
           <UserRoleAssignment
             roleBindings={roleBindings}
-            user={principalInfo as UserSearchDTO}
+            user={principalInfo as UserMetadataDTO}
             isInvite={!principalInfo}
             onSubmit={() => {
               onSuccess()
@@ -74,7 +74,7 @@ export const useRoleAssignmentModal = ({ onSuccess }: UseRoleAssignmentModalProp
     [roleBindings, principalInfo]
   )
   const open = useCallback(
-    (_type?: PrincipalType, _principalInfo?: UserGroupDTO | UserSearchDTO, _roleBindings?: RoleBinding[]) => {
+    (_type?: PrincipalType, _principalInfo?: UserGroupDTO | UserMetadataDTO, _roleBindings?: RoleBinding[]) => {
       if (_type) setPrincipal(_type)
       setRoleBindings(_roleBindings)
       setPrincipalInfo(_principalInfo)
@@ -86,7 +86,7 @@ export const useRoleAssignmentModal = ({ onSuccess }: UseRoleAssignmentModalProp
   return {
     openRoleAssignmentModal: (
       _type?: PrincipalType,
-      _principalInfo?: UserGroupDTO | UserSearchDTO,
+      _principalInfo?: UserGroupDTO | UserMetadataDTO,
       _roleBindings?: RoleBinding[]
     ) => open(_type, _principalInfo, _roleBindings),
     closeRoleAssignmentModal: hideModal

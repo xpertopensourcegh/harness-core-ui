@@ -8,7 +8,7 @@ import {
   useDeleteUserGroup,
   ResponsePageUserGroupAggregateDTO,
   UserGroupDTO,
-  UserSearchDTO,
+  UserMetadataDTO,
   RoleBinding
 } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
@@ -30,7 +30,7 @@ interface UserGroupsListViewProps {
   reload: () => Promise<void>
   openRoleAssignmentModal: (
     type?: PrincipalType,
-    principalInfo?: UserGroupDTO | UserSearchDTO,
+    principalInfo?: UserGroupDTO | UserMetadataDTO,
     roleBindings?: RoleBinding[]
   ) => void
   openUserGroupModal: (userGroup?: UserGroupDTO, _isAddMember?: boolean) => void

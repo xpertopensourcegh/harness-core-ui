@@ -119,7 +119,7 @@ describe('Project Details', () => {
           <ProjectDetails />
         </TestWrapper>
       )
-      const back = getByText(container, 'Manage Projects /')
+      const back = getByText(container, 'projectsText')
       fireEvent.click(back)
       await waitFor(() => localGetByTestId('location'))
       expect(localGetByTestId('location').innerHTML.endsWith(routes.toProjects({ accountId: 'testAcc' }))).toBeTruthy()

@@ -160,7 +160,7 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
           style="width: 25%;"
         >
           <div
-            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main overflow StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
           >
             <div
               class="Avatar--Avatar Avatar--contentStyle"
@@ -182,7 +182,8 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
               </span>
             </div>
             <p
-              class="StyledProps--font StyledProps--main"
+              class="StyledProps--font Text--lineclamp StyledProps--main"
+              style="--text-line-clamp: 1;"
             >
               Admin_123_123
             </p>
@@ -286,7 +287,7 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
           style="width: 25%;"
         >
           <div
-            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main overflow StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
           >
             <div
               class="Avatar--Avatar Avatar--contentStyle"
@@ -308,7 +309,8 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
               </span>
             </div>
             <p
-              class="StyledProps--font StyledProps--main"
+              class="StyledProps--font Text--lineclamp StyledProps--main"
+              style="--text-line-clamp: 1;"
             >
               default
             </p>

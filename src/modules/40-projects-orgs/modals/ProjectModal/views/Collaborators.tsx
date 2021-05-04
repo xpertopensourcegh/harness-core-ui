@@ -97,7 +97,7 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
   const users: SelectOption[] =
     userData?.data?.content?.map(user => {
       return {
-        label: user.name,
+        label: user.name || user.email,
         value: user.email
       }
     }) || []

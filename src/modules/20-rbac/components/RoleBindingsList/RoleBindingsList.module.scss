@@ -1,18 +1,17 @@
 .harnesstag {
-  background-color: var(--blue-400);
+  background-color: var(--primary-2);
   color: var(--primary-7);
-  font-weight: 500;
-  font-size: var(--font-size-small);
 }
 
 .customtag {
-  background-color: var(--green-400);
+  background-color: var(--green-200);
   color: var(--green-500);
-  font-weight: 500;
-  font-size: var(--font-size-small);
 }
 
 .tag {
   background-color: var(--grey-200);
   color: var(--black);
+  font-weight: 500;
+  font-size: var(--font-size-small);
+  border-radius: var(--spacing-xsmall);
 }

@@ -66,7 +66,7 @@ const UserDetails: React.FC = () => {
                 },
                 {
                   url: '#',
-                  label: user.name
+                  label: user.name || user.email
                 }
               ]}
             />

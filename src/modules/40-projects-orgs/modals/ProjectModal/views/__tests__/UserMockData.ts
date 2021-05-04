@@ -1,6 +1,6 @@
-import type { ResponsePageUserSearchDTO } from 'services/cd-ng'
+import type { ResponsePageUserMetadataDTO } from 'services/cd-ng'
 
-export const userMockData: ResponsePageUserSearchDTO = {
+export const userMockData: ResponsePageUserMetadataDTO = {
   status: 'SUCCESS',
   data: {
     totalPages: 1,

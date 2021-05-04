@@ -21,9 +21,13 @@ interface PendingUserListViewProps {
 const RenderColumnUser: Renderer<CellProps<Invite>> = ({ row }) => {
   const data = row.original
   return (
-    <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+    <Layout.Horizontal
+      className={css.overflow}
+      spacing="small"
+      flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
+    >
       <Avatar email={data.email} hoverCard={false} />
-      <Text>{data.name || data.email.split('@')[0]}</Text>
+      <Text lineClamp={1}>{data.name || data.email.split('@')[0]}</Text>
     </Layout.Horizontal>
   )
 }

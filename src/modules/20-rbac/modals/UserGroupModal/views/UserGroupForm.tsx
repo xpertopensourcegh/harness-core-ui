@@ -20,8 +20,9 @@ import { Menu } from '@blueprintjs/core'
 import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
 import { NameIdDescriptionTags, useToaster } from '@common/components'
 import { useStrings } from 'framework/strings'
-import { UserGroupDTO, usePostUserGroup, useGetCurrentGenUsers, usePutUserGroup } from 'services/cd-ng'
+import { UserGroupDTO, usePostUserGroup, usePutUserGroup, useGetUsers } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useMutateAsGet } from '@common/hooks'
 import css from '@rbac/modals/UserGroupModal/useUserGroupModal.module.scss'
 
 interface UserGroupModalData {
@@ -58,10 +59,12 @@ const UserGroupForm: React.FC<UserGroupModalData> = props => {
     }
   })
 
-  const { data: userList } = useGetCurrentGenUsers({
+  const { data: userList } = useMutateAsGet(useGetUsers, {
+    body: { userNameSearchTerm: search, userMailSearchTerm: search },
     queryParams: {
       accountIdentifier: accountId,
-      searchString: search
+      orgIdentifier,
+      projectIdentifier
     }
   })
 
@@ -74,7 +77,7 @@ const UserGroupForm: React.FC<UserGroupModalData> = props => {
   const users: MultiSelectOption[] =
     userList?.data?.content?.map(value => {
       return {
-        label: value.name,
+        label: value.name || '',
         value: value.uuid
       }
     }) || []

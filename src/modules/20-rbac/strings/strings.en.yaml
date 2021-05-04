@@ -15,6 +15,7 @@ activeUsers: Active Users
 addRole: Add Role
 addUser: Add User
 pendingUsers: Pending Users
+allResources: All Resources
 userGroupPage:
   newUserGroup: New {{ $.common.userGroup}}
   editUserGroup: Edit {{ $.common.userGroup}}

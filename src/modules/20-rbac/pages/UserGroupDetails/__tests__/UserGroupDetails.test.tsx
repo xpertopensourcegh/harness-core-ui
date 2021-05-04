@@ -25,6 +25,13 @@ jest.mock('services/cd-ng', () => ({
   })
 }))
 
+jest.mock('@common/hooks', () => ({
+  ...(jest.requireActual('@common/hooks') as any),
+  useMutateAsGet: jest.fn().mockImplementation(() => {
+    return { data: userInfo, refetch: jest.fn(), error: null, loading: false }
+  })
+}))
+
 jest.mock('react-timeago', () => () => 'dummy date')
 
 describe('UserGroupDetails Test', () => {

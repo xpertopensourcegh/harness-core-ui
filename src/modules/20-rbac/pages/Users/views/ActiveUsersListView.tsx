@@ -8,7 +8,7 @@ import {
   useRemoveUser,
   useGetAggregatedUsers,
   UserGroupDTO,
-  UserSearchDTO,
+  UserMetadataDTO,
   RoleBinding
 } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
@@ -29,7 +29,7 @@ interface ActiveUserListViewProps {
   searchTerm?: string
   openRoleAssignmentModal: (
     type?: PrincipalType,
-    principalInfo?: UserGroupDTO | UserSearchDTO,
+    principalInfo?: UserGroupDTO | UserMetadataDTO,
     roleBindings?: RoleBinding[]
   ) => void
 }
@@ -37,9 +37,14 @@ interface ActiveUserListViewProps {
 const RenderColumnUser: Renderer<CellProps<UserAggregate>> = ({ row }) => {
   const data = row.original
   return (
-    <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+    <Layout.Horizontal
+      spacing="small"
+      className={css.overflow}
+      flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
+      padding={{ right: 'small' }}
+    >
       <Avatar email={data.user?.email} hoverCard={false} />
-      <Text>{data.user?.name}</Text>
+      <Text lineClamp={1}>{data.user?.name}</Text>
     </Layout.Horizontal>
   )
 }
@@ -187,14 +192,14 @@ const ActiveUserListView: React.FC<ActiveUserListViewProps> = ({ searchTerm, ope
         Header: getString('users'),
         id: 'user',
         accessor: row => row.user?.name,
-        width: '25%',
+        width: '30%',
         Cell: RenderColumnUser
       },
       {
         Header: getString('rbac.usersPage.roleBinding'),
         id: 'roleBinding',
         accessor: row => row.roleBindings,
-        width: '50%',
+        width: '45%',
         Cell: RenderColumnRoleAssignments,
         openRoleAssignmentModal: addRole
       },

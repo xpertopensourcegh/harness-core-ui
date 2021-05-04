@@ -9,6 +9,7 @@ import { Table, useToaster } from '@common/components'
 import { useConfirmationDialog } from '@common/exports'
 import { useStrings } from 'framework/strings'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
+import { useMutateAsGet } from '@common/hooks'
 import css from '../UserGroupDetails.module.scss'
 
 const RenderColumnUser: Renderer<CellProps<UserInfo>> = ({ row }) => {
@@ -119,7 +120,8 @@ const MemberList: React.FC = () => {
     ProjectPathProps & UserGroupPathProps
   >()
 
-  const { data, refetch } = useGetUsersInUserGroup({
+  const { data, refetch } = useMutateAsGet(useGetUsersInUserGroup, {
+    body: {},
     identifier: userGroupIdentifier,
     queryParams: {
       accountIdentifier: accountId,

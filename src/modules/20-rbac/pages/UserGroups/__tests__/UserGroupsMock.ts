@@ -1,4 +1,4 @@
-import type { ResponseBoolean, ResponsePageUserGroupAggregateDTO, ResponsePageUserSearchDTO } from 'services/cd-ng'
+import type { ResponseBoolean, ResponsePageUserGroupAggregateDTO, ResponsePageUserMetadataDTO } from 'services/cd-ng'
 
 export const userGroupsAggregate: ResponsePageUserGroupAggregateDTO = {
   status: 'SUCCESS',
@@ -68,7 +68,7 @@ export const mockResponse: ResponseBoolean = {
   correlationId: ''
 }
 
-export const usersMockData: ResponsePageUserSearchDTO = {
+export const usersMockData: ResponsePageUserMetadataDTO = {
   status: 'SUCCESS',
   data: {
     totalPages: 1,

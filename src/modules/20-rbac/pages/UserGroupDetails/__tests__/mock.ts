@@ -1,4 +1,4 @@
-import type { ResponseBoolean, ResponsePageUserInfo } from 'services/cd-ng'
+import type { ResponseBoolean } from 'services/cd-ng'
 
 export const userGroupInfo = {
   status: 'SUCCESS',
@@ -39,7 +39,7 @@ export const mockResponse: ResponseBoolean = {
   correlationId: ''
 }
 
-export const userInfo: ResponsePageUserInfo = {
+export const userInfo = {
   status: 'SUCCESS',
   data: {
     totalPages: 1,

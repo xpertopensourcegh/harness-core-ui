@@ -847,10 +847,9 @@ exports[`Resource Groups Page render data 1`] = `
             style="width: 32%;"
           >
             <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-              style="--text-line-clamp: 1;"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
             >
-              resourceGroup.all, resourceGroup.all, resourceGroup.all
+              rbac.allResources
             </p>
           </div>
           <div

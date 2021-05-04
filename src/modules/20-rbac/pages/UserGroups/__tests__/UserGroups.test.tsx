@@ -66,6 +66,12 @@ jest.mock('services/cd-ng', () => ({
   })
 }))
 
+jest.mock('@common/hooks/useMutateAsGet', () => ({
+  useMutateAsGet: jest.fn().mockImplementation(() => {
+    return { data: usersMockData, refetch: jest.fn(), error: null }
+  })
+}))
+
 jest.useFakeTimers()
 
 jest.mock('react-timeago', () => () => 'dummy date')

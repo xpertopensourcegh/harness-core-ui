@@ -55,37 +55,37 @@ const RenderColumnLastUpdated: Renderer<CellProps<ResourceGroupResponse>> = ({ r
 
 const RenderColumnSummary: Renderer<CellProps<ResourceGroupResponse>> = ({ row, column }) => {
   const { getString } = useStrings()
-  const rowData = row?.original
-  const resourceSelectors = rowData?.resourceGroup?.resourceSelectors
-  const resourceTypeName = (resource: ResourceSelector) => {
+  const { resourceGroup, harnessManaged } = row.original
+  const resourceSelectors = resourceGroup.resourceSelectors
+  const resourceTypeName = (resource: ResourceSelector): string => {
+    const label = RbacFactory.getResourceTypeHandler(resource?.resourceType)?.label
     if (get(resource, 'type') === RbacResourceGroupTypes.DYNAMIC_RESOURCE_SELECTOR) {
       return getString('resourceGroup.all', {
-        name: RbacFactory.getResourceTypeHandler(resource?.resourceType)?.label || ''
+        name: label
       })
     }
-    // TODO make this work for static Resources
-    return resource?.resourceType
+    return `${resourceSelectors?.length} ${label}`
   }
+  if (harnessManaged) return <Text color={Color.BLACK}>{getString('rbac.allResources')}</Text>
   return resourceSelectors?.length ? (
     <Text
       color={Color.BLACK}
       lineClamp={1}
       onClick={() => {
-        ;(column as any).openResourceSelector(rowData?.resourceGroup?.identifier)
+        ;(column as any).openResourceSelector(resourceGroup.identifier)
       }}
     >
       {/* TODO: replace with the summary data  with resource number*/}
       {resourceSelectors.map(ele => resourceTypeName(ele)).join(', ')}
     </Text>
   ) : (
-    // TODO: replace with view change action
     <Button
       minimal
       className={css.selectResource}
       intent="primary"
       onClick={e => {
         e.stopPropagation()
-        ;(column as any).openResourceSelector(rowData?.resourceGroup?.identifier)
+        ;(column as any).openResourceSelector(resourceGroup.identifier)
       }}
     >
       {getString('selectResource')}
@@ -98,7 +98,7 @@ const ResourceGroupListView: React.FC<ResourceGroupListViewProps> = props => {
   const listData: ResourceGroupResponse[] = data?.content || []
   const { getString } = useStrings()
   const history = useHistory()
-  const openResourceSelector = (resourceGroupIdentifier: string) => {
+  const openResourceSelector = (resourceGroupIdentifier: string): void => {
     history.push(
       routes.toResourceGroupDetails({
         resourceGroupIdentifier: resourceGroupIdentifier || '',
@@ -150,7 +150,9 @@ const ResourceGroupListView: React.FC<ResourceGroupListViewProps> = props => {
     <Table<ResourceGroupResponse>
       columns={columns}
       data={listData}
-      onRowClick={rowDetails => openResourceSelector(get(rowDetails, 'resourceGroup.identifier', ''))}
+      onRowClick={rowDetails => {
+        if (!rowDetails.harnessManaged) openResourceSelector(get(rowDetails, 'resourceGroup.identifier', ''))
+      }}
       pagination={{
         itemCount: data?.totalItems || 0,
         pageSize: data?.pageSize || 10,

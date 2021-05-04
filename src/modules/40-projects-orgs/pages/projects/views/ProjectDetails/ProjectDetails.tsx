@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { AvatarGroup, Button, Color, Container, Icon, Layout, Popover, Text } from '@wings-software/uicore'
-import { Link, useHistory, useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { Classes, Position } from '@blueprintjs/core'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
@@ -17,6 +17,7 @@ import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import i18n from './ProjectDetails.i18n'
 import useDeleteProjectDialog from '../../DeleteProject'
 import css from './ProjectDetails.module.scss'
@@ -89,13 +90,18 @@ const ProjectDetails: React.FC = () => {
         size="xlarge"
         title={
           <Layout.Vertical spacing="small" padding="medium" className={css.title}>
-            <Layout.Horizontal>
-              <Link to={routes.toProjects({ accountId })}>
-                <Text font="small" color={Color.BLUE_600}>
-                  {i18n.manage}
-                </Text>
-              </Link>
-            </Layout.Horizontal>
+            <Breadcrumbs
+              links={[
+                {
+                  url: routes.toProjects({ accountId }),
+                  label: getString('projectsText')
+                },
+                {
+                  url: '#',
+                  label: projectData.name
+                }
+              ]}
+            />
             <Text font={{ size: 'medium', weight: 'bold' }} color={Color.BLACK} lineClamp={1}>
               {projectData.name}
             </Text>

@@ -1,4 +1,4 @@
-import type { ResponsePageUserSearchDTO, ResponsePageInvite } from 'services/cd-ng'
+import type { ResponsePageUserMetadataDTO, ResponsePageInvite } from 'services/cd-ng'
 import type { ResponsePageRoleResponse } from 'services/rbac'
 
 export const orgMockData = {
@@ -168,7 +168,7 @@ export const response = {
   correlationId: ''
 }
 
-export const userMockData: ResponsePageUserSearchDTO = {
+export const userMockData: ResponsePageUserMetadataDTO = {
   status: 'SUCCESS',
   data: {
     totalPages: 1,

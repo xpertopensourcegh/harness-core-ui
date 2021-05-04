@@ -25,7 +25,7 @@ export type WrappedUseMutateProps<TData, TError, TQueryParams, TRequestBody, TPa
       }
     | boolean
     | number
-}
+} & any // TODO: Add correct types here
 
 type UseMutateWrapper<TData, TError, TQueryParams, TRequestBody, TPathParams> = (
   props: WrappedUseMutateProps<TData, TError, TQueryParams, TRequestBody, TPathParams>

@@ -16,13 +16,13 @@ import { useParams } from 'react-router-dom'
 import { useToaster } from '@common/components'
 import { useCreateRoleAssignments, RoleAssignment as RBACRoleAssignment } from 'services/rbac'
 import { useStrings } from 'framework/strings'
-import { UserSearchDTO, useGetCurrentGenUsers, useSendInvite, CreateInvite, RoleBinding } from 'services/cd-ng'
+import { UserMetadataDTO, useGetCurrentGenUsers, useSendInvite, CreateInvite, RoleBinding } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import RoleAssignmentForm, { InviteType } from './RoleAssignmentForm'
 
 interface UserRoleAssignmentData {
   roleBindings?: RoleBinding[]
-  user?: UserSearchDTO
+  user?: UserMetadataDTO
   onSubmit?: () => void
   isInvite?: boolean
 }
@@ -77,7 +77,7 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
   const users: SelectOption[] =
     userList?.data?.content?.map(response => {
       return {
-        label: response.name,
+        label: response.name || response.email,
         value: response.email
       }
     }) || []
@@ -185,7 +185,7 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
                     user
                       ? [
                           {
-                            label: user.name,
+                            label: user.name || user.email,
                             value: user.email
                           }
                         ]
