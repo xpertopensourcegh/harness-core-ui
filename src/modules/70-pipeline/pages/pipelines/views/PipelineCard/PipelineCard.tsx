@@ -214,7 +214,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
           className={css.menu}
         />
       </Container>
-      <Layout.Horizontal padding={{ bottom: 'medium', right: 'large' }}>
+      <Layout.Horizontal padding={{ bottom: 'medium' }}>
         <div className={css.pipelineNameSections}>
           <Text
             lineClamp={2}

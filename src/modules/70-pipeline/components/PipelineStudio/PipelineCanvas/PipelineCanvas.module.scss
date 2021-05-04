@@ -102,14 +102,15 @@
   justify-content: flex-end;
 
   .tagRender {
-    color: var(--orange-color-1);
+    color: var(--orange-700);
     margin-right: var(--spacing-xlarge);
+    font-size: var(--font-size-small);
     &::before {
       content: '';
       width: 10px;
       height: 10px;
       border-radius: 100%;
-      background: var(--orange-color-1);
+      background: var(--orange-700);
       display: inline-block;
       margin: 0 4px;
     }

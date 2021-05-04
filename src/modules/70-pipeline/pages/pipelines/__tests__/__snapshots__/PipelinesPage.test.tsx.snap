@@ -437,7 +437,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                 </div>
               </div>
               <div
-                class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-medium StyledProps--padding-right-large"
+                class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-medium"
               >
                 <div
                   class="pipelineNameSections"
@@ -821,7 +821,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                 </div>
               </div>
               <div
-                class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-medium StyledProps--padding-right-large"
+                class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-medium"
               >
                 <div
                   class="pipelineNameSections"
@@ -1195,7 +1195,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                 </div>
               </div>
               <div
-                class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-medium StyledProps--padding-right-large"
+                class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-medium"
               >
                 <div
                   class="pipelineNameSections"
