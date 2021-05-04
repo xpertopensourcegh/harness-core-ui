@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InfraProvisioning  click on checkbox- should open up prov popup 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <form
+      class="FormikForm--main"
+    >
+      <div>
+        <div
+          class="bp3-form-group"
+          data-id="provisionerEnabled-0"
+        >
+          <div
+            class="bp3-form-content"
+          >
+            <label
+              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox provisionerEnabledCheckbox StyledProps--main StyledProps--inline"
+            >
+              <input
+                name="provisionerEnabled"
+                type="checkbox"
+              />
+              <span
+                class="bp3-control-indicator"
+              />
+              pipelineSteps.deploy.provisioner.enableProvisionerLabel
+            </label>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+`;

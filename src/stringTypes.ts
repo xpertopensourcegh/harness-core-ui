@@ -1005,6 +1005,7 @@ export interface StringsMap {
   'cd.allowSimultaneousDeployments': string
   'cd.cdTrialHomePage.startTrial.description': string
   'cd.cdTrialHomePage.startTrial.startBtn.description': string
+  'cd.chooseProvisionerText': string
   'cd.continuous': string
   'cd.dashboard.createProject': string
   'cd.dashboard.orSelectExisting': string
@@ -1014,6 +1015,7 @@ export interface StringsMap {
   'cd.learnMore': string
   'cd.namespaceValidation': string
   'cd.releaseNameValidation': string
+  'cd.setUpProvisionerBtnText': string
   'cd.steps.common.namespacePlaceholder': string
   'cd.steps.common.releaseNamePlaceholder': string
   'cd.steps.common.selectConnectorPlaceholder': string

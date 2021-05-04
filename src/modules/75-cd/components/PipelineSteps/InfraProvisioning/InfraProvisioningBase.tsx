@@ -18,6 +18,8 @@ import {
 } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import { transformValuesFieldsConfig } from './InfraProvisioningFunctionConfigs'
 import type { InfraProvisioningData, InfraProvisioningDataUI, InfraProvisioningProps } from './InfraProvisioning'
+import useChooseProvisioner from './ChooseProvisioner'
+
 import css from './InfraProvisioning.module.scss'
 
 export const InfraProvisioningBase = (
@@ -34,6 +36,15 @@ export const InfraProvisioningBase = (
   const { getString } = useStrings()
 
   const executionRef = React.useRef<ExecutionGraphRefObj | null>(null)
+  const { showModal, hideModal } = useChooseProvisioner({
+    onSubmit: (data: any) => {
+      onUpdate?.(data)
+      //  setTypeEnabled(true)
+    },
+    onClose: () => {
+      hideModal()
+    }
+  })
 
   return (
     <Formik
@@ -60,14 +71,16 @@ export const InfraProvisioningBase = (
               label={getString('pipelineSteps.deploy.provisioner.enableProvisionerLabel')}
               onChange={(event: React.FormEvent<HTMLInputElement>) => {
                 if (!event.currentTarget.checked) {
+                  // setShowDialog(false)
                   formik.values.provisioner.stage.spec.execution = { steps: [], rollbackSteps: [] }
+                } else {
+                  showModal({
+                    provisioner: formik.values.provisioner.stage.spec.execution,
+                    provisionerEnabled: true
+                  })
                 }
 
                 formik.setFieldValue('provisioner', formik.values.provisioner)
-                onUpdate?.({
-                  provisioner: formik.values.provisioner.stage.spec.execution,
-                  provisionerEnabled: event.currentTarget.checked
-                })
               }}
             />
             {formik.values.provisionerSnippetLoading ? (
@@ -75,6 +88,7 @@ export const InfraProvisioningBase = (
                 <Spinner />
               </Container>
             ) : null}
+
             {formik.values.provisionerEnabled && !formik.values.provisionerSnippetLoading ? (
               <div className={css.graphContainer}>
                 <Field name="provisioner">
