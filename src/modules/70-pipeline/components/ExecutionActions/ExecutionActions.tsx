@@ -213,7 +213,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
           <Button icon="more" {...commonButtonProps} className={css.more} />
           <Menu>
             <Link
-              className="bp3-menu-item"
+              className={`bp3-menu-item${!canEdit ? ' bp3-disabled' : ''}`}
               to={routes.toPipelineStudio({ orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module })}
               onClick={e => !canEdit && e.preventDefault()}
             >

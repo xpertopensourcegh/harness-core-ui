@@ -1,5 +1,6 @@
-import { ButtonProps, Button, Color, Heading, Container, Icon, Layout, IconName } from '@wings-software/uicore'
 import React from 'react'
+import { ButtonProps, Button, Color, Heading, Container, Icon, Layout, IconName } from '@wings-software/uicore'
+import { useStrings } from 'framework/strings'
 
 export interface NoDataCardProps {
   icon: IconName
@@ -15,6 +16,7 @@ export interface NoDataCardProps {
 }
 
 export const NoDataCard: React.FC<NoDataCardProps> = props => {
+  const { getString } = useStrings()
   // there are icons to which color prop shouldn't be passed to
   // as it brokes complex svg gradients and a
   // simple ternary condition doesn't work
@@ -26,6 +28,7 @@ export const NoDataCard: React.FC<NoDataCardProps> = props => {
   if (props.noIconColor) {
     delete iconProps.color
   }
+  const buttonDisabled = typeof props.buttonDisabled !== undefined && props.buttonDisabled
   return (
     <Container width="100%" height="100%" flex={{ align: 'center-center' }}>
       <Layout.Vertical
@@ -44,7 +47,8 @@ export const NoDataCard: React.FC<NoDataCardProps> = props => {
             text={props.buttonText}
             width={props.buttonWidth}
             onClick={props.onClick}
-            disabled={typeof props.buttonDisabled !== undefined && props.buttonDisabled}
+            tooltip={buttonDisabled ? getString('noPermission') : undefined}
+            disabled={buttonDisabled}
           />
         ) : null}
       </Layout.Vertical>

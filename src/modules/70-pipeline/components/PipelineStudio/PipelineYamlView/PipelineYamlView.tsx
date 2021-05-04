@@ -80,6 +80,7 @@ const PipelineYamlView: React.FC = () => {
             width="calc(100vw - 400px)"
             invocationMap={stepsFactory.getInvocationMap()}
             schema={pipelineSchema?.data}
+            isEditModeSupported={!isReadonly}
           />
         )}
       </>

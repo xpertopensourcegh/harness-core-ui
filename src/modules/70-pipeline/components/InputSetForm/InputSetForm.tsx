@@ -437,6 +437,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                           height="calc(100vh - 230px)"
                           width="calc(100vw - 350px)"
                           showSnippetSection={false}
+                          isEditModeSupported={isEditable}
                         />
                       )}
                     </Layout.Vertical>

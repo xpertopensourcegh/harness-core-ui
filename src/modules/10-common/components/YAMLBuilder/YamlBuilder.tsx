@@ -359,6 +359,8 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
   const handleEditorKeyDownEvent = (event: IKeyboardEvent, editor: any): void => {
     if (props.isReadOnlyMode && isEditModeSupported) {
       openDialog()
+    } else if (props.isReadOnlyMode && !isEditModeSupported) {
+      showError(getString('noPermission'))
     }
     try {
       const { shiftKey, code, ctrlKey, metaKey } = event

@@ -461,6 +461,7 @@ function RunPipelineFormBasic({
                         height="calc(100vh - 330px)"
                         width="calc(100vw - 300px)"
                         showSnippetSection={false}
+                        isEditModeSupported={canEdit}
                       />
                     )}
                   </div>
