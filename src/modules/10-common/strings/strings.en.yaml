@@ -111,6 +111,7 @@ gitSync:
   rootFolderLabel: Root Folder
   allRepositories: All Repositories
   defaultBranches: Default Branches
+  repoDetails: Repo Details
   sync: Sync
   syncStartSuccess: 'Sync started for branch {{branch}}'
   syncing:

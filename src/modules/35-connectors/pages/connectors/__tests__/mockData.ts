@@ -23,6 +23,11 @@ export const connectorsData = {
             }
           }
         },
+        gitDetails: {
+          branch: 'master',
+          objectId: '1111',
+          repoIdentifier: 'repoOne'
+        },
         createdAt: 1608697269523,
         lastModifiedAt: 1608697269523,
         status: null,
@@ -44,6 +49,11 @@ export const connectorsData = {
             spec: { username: 'admin', passwordRef: 'account.sec1' },
             gitSync: { enabled: false, customCommitAttributes: null, syncEnabled: false }
           }
+        },
+        gitDetails: {
+          branch: 'dev',
+          objectId: '1112',
+          repoIdentifier: 'repoTwo'
         },
         createdAt: 1608679004757,
         lastModifiedAt: 1608679004757,

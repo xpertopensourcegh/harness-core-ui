@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react'
-import { Text, Link, Layout, Color, Icon, Button, Popover, StepsProgress } from '@wings-software/uicore'
+import { Text, Link, Layout, Color, Icon, Button, Popover, StepsProgress, Container } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Menu, Classes, Position, Intent, PopoverInteractionKind } from '@blueprintjs/core'
 import { useParams, useHistory, useLocation } from 'react-router-dom'
@@ -30,6 +30,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { usePermission } from '@rbac/hooks/usePermission'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { getIconByType, GetTestConnectionValidationTextByType, DelegateTypes } from '../utils/ConnectorUtils'
 import css from './ConnectorsListView.module.scss'
 
@@ -175,6 +176,40 @@ export const RenderColumnDetails: Renderer<CellProps<ConnectorResponse>> = ({ ro
   return data.connector ? (
     <div className={css.wrapper}>
       <div color={Color.BLACK}>{getConnectorDisplaySummary(data.connector)}</div>
+    </div>
+  ) : null
+}
+
+export const RenderGitDetails: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
+  const data = row.original
+
+  return data.gitDetails ? (
+    <div className={css.wrapper}>
+      <Layout.Horizontal>
+        <Container
+          className={css.name}
+          color={Color.BLACK}
+          title={data.gitDetails?.repoIdentifier}
+          padding={{ top: 'xsmall' }}
+          margin={{ right: 'small' }}
+        >
+          {data.gitDetails?.repoIdentifier}
+        </Container>
+        {data.gitDetails?.branch && (
+          <Layout.Horizontal
+            border
+            spacing="xsmall"
+            padding={'xsmall'}
+            background={Color.GREY_100}
+            width={'fit-content'}
+          >
+            <Icon inline name="git-new-branch" size={12} margin={{ left: 'xsmall', top: 'xsmall' }}></Icon>
+            <div className={css.name} color={Color.BLACK} title={data.gitDetails?.branch}>
+              {data.gitDetails?.branch}
+            </div>
+          </Layout.Horizontal>
+        )}
+      </Layout.Horizontal>
     </div>
   ) : null
 }
@@ -461,6 +496,7 @@ const ConnectorsListView: React.FC<ConnectorListViewProps> = props => {
   const { data, reload, gotoPage } = props
   const history = useHistory()
   const { getString } = useStrings()
+  const { isGitSyncEnabled } = useAppStore()
   const listData: ConnectorResponse[] = useMemo(() => data?.content || [], [data?.content])
   const { pathname } = useLocation()
   const columns: CustomColumn<ConnectorResponse>[] = useMemo(
@@ -469,7 +505,7 @@ const ConnectorsListView: React.FC<ConnectorListViewProps> = props => {
         Header: getString('connector').toUpperCase(),
         accessor: row => row.connector?.name,
         id: 'name',
-        width: '25%',
+        width: isGitSyncEnabled ? '17%' : '25%',
         Cell: RenderColumnConnector
       },
       {
@@ -480,10 +516,17 @@ const ConnectorsListView: React.FC<ConnectorListViewProps> = props => {
         Cell: RenderColumnDetails
       },
       {
+        Header: getString('common.gitSync.repoDetails').toUpperCase(),
+        accessor: row => row.connector?.identifier,
+        id: 'gitDetails',
+        width: '20%',
+        Cell: RenderGitDetails
+      },
+      {
         Header: getString('lastActivity').toUpperCase(),
         accessor: 'activityDetails',
         id: 'activity',
-        width: '15%',
+        width: isGitSyncEnabled ? '10%' : '15%',
         Cell: RenderColumnActivity
       },
       {
@@ -497,7 +540,7 @@ const ConnectorsListView: React.FC<ConnectorListViewProps> = props => {
         Header: getString('lastUpdated').toUpperCase(),
         accessor: 'lastModifiedAt',
         id: 'lastModifiedAt',
-        width: '15%',
+        width: isGitSyncEnabled ? '8%' : '15%',
         Cell: RenderColumnLastUpdated
       },
       {
@@ -511,8 +554,13 @@ const ConnectorsListView: React.FC<ConnectorListViewProps> = props => {
         disableSortBy: true
       }
     ],
-    [props.openConnectorModal, reload]
+    [props.openConnectorModal, reload, isGitSyncEnabled]
   )
+
+  if (!isGitSyncEnabled) {
+    columns.splice(2, 1)
+  }
+
   return (
     <Table<ConnectorResponse>
       className={css.table}

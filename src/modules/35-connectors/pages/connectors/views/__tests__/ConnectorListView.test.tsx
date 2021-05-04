@@ -93,6 +93,17 @@ describe('Connectors List Test', () => {
       </TestWrapper>
     )
 
+  const setupWithGit = (customProps = {}) =>
+    render(
+      <TestWrapper
+        path="/account/:accountId/ci/orgs/:orgIdentifier/projects/:projectIdentifier/admin/resources/connectors"
+        pathParams={{ accountId: 'dummy', orgIdentifier: 'default', projectIdentifier: 'dummyProject' }}
+        defaultAppStoreValues={{ isGitSyncEnabled: true }}
+      >
+        <ConnectorsListView {...{ ...props, ...customProps }} />
+      </TestWrapper>
+    )
+
   test('Initial render should match snapshot', async () => {
     ;(useGetTestConnectionResult as any).mockImplementation(() => {
       return { mutate: reloadTestConnection }
@@ -231,5 +242,15 @@ describe('Connectors List Test', () => {
     const [editButton, deleteButton] = [getEditButton(), getDeleteButton()]
     expect(editButton!.parentElement?.getAttribute('class')).toContain('disabled')
     expect(deleteButton!.parentElement?.getAttribute('class')).toContain('disabled')
+  })
+
+  test('Test of listing connectors with git enabled', async () => {
+    ;(useGetTestConnectionResult as any).mockImplementation(() => {
+      return { mutate: reloadTestConnection }
+    })
+    const { container } = setupWithGit()
+
+    await waitFor(() => queryByText(container, 'Connectors'))
+    expect(container).toMatchSnapshot()
   })
 })
