@@ -99,16 +99,6 @@ exports[`Projects Side Nav render 1`] = `
         resources
       </p>
     </a>
-    <a
-      class="link"
-      href="/account/account/projects/project/orgs/org/admin/access-control"
-    >
-      <p
-        class="StyledProps--font StyledProps--main text"
-      >
-        accessControl
-      </p>
-    </a>
   </div>
 </div>
 `;

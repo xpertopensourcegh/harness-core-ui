@@ -9,8 +9,10 @@ import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import { SidebarLink } from '@common/navigation/SideNav/SideNav'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 
 export default function ProjectsSideNav(): React.ReactElement {
+  const { NG_RBAC_ENABLED } = useFeatureFlags()
   const params = useParams<PipelinePathProps>()
   const routeMatch = useRouteMatch()
   const history = useHistory()
@@ -34,7 +36,7 @@ export default function ProjectsSideNav(): React.ReactElement {
       />
       <SidebarLink label={getString('overview')} to={routes.toProjectDetails(params)} />
       <SidebarLink label={getString('resources')} to={routes.toResources(params)} />
-      <SidebarLink label={getString('accessControl')} to={routes.toAccessControl(params)} />
+      {NG_RBAC_ENABLED ? <SidebarLink label={getString('accessControl')} to={routes.toAccessControl(params)} /> : null}
     </Layout.Vertical>
   )
 }

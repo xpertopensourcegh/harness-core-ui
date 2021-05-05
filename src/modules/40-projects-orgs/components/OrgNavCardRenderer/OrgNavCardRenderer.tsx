@@ -5,6 +5,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import css from './OrgNavCardRenderer.module.scss'
 
 interface OrgNavCardProps {
@@ -16,6 +17,7 @@ interface OrgNavCardProps {
 
 const OrgNavCardRenderer: React.FC = () => {
   const { orgIdentifier, accountId } = useParams<OrgPathProps>()
+  const { NG_RBAC_ENABLED } = useFeatureFlags()
   const history = useHistory()
   const { getString } = useStrings()
 
@@ -33,12 +35,6 @@ const OrgNavCardRenderer: React.FC = () => {
         title: getString('resources'),
         description: getString('orgDetails.resourcesDescription'),
         route: routes.toResources({ orgIdentifier, accountId })
-      },
-      {
-        icon: 'resources-icon',
-        title: getString('accessControl'),
-        description: getString('orgDetails.accessControlDescription'),
-        route: routes.toAccessControl({ orgIdentifier, accountId })
       }
       // {
       //   icon: 'resources-icon',
@@ -47,6 +43,14 @@ const OrgNavCardRenderer: React.FC = () => {
       //   route: routes.toOrgGitSync({ orgIdentifier, accountId })
       // }
     ]
+
+    NG_RBAC_ENABLED &&
+      options.push({
+        icon: 'resources-icon',
+        title: getString('accessControl'),
+        description: getString('orgDetails.accessControlDescription'),
+        route: routes.toAccessControl({ orgIdentifier, accountId })
+      })
 
     return options
   }
