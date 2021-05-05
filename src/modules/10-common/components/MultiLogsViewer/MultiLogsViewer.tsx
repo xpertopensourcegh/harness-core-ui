@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo, useState, useRef, useEffect } from 'react'
 import { GroupedVirtuoso } from 'react-virtuoso'
 
 import { LogLine, memoizedAnsiToJson } from './LogLine'
@@ -6,6 +6,22 @@ import { LogLine, memoizedAnsiToJson } from './LogLine'
 import { LogViewerAccordion, LogViewerAccordionProps, LogViewerAccordionStatus } from './LogViewerAccordion'
 import type { FormattedLogLine } from './types'
 import css from './MultiLogsViewer.module.scss'
+
+const CONTAINER_BREAKPOINT_SM = 595
+const CONTAINER_BREAKPOINT_XS = 450
+
+type LayoutType = undefined | 'sm' | 'xs'
+
+// local helper function
+const getLayoutTypeFromContainerWidth: (width: number | undefined) => LayoutType = width => {
+  if (!width || width > CONTAINER_BREAKPOINT_SM) {
+    return undefined
+  } else if (width < CONTAINER_BREAKPOINT_XS) {
+    return 'xs'
+  } else {
+    return 'sm'
+  }
+}
 
 export type MultiLogsViewerData = Omit<LogViewerAccordionProps, 'onSectionClick' | 'linesChunkSize'> & {
   formattedData: FormattedLogLine[]
@@ -31,6 +47,25 @@ export interface MultiLogsViewerProps {
 
 export function MultiLogsViewer(props: MultiLogsViewerProps): React.ReactElement {
   const { data, onSectionClick, virtuosoRef } = props
+  const [logsContainerWidth, setLogContainerWidth] = useState<number | undefined>()
+  const logContainerRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    if (!logContainerRef || !logContainerRef?.current) return
+    const containerRefElement = logContainerRef.current
+    const resizeObserver = new ResizeObserver(entries => {
+      const [containerEntry] = entries
+      const {
+        contentRect: { width }
+      } = containerEntry
+      setLogContainerWidth(width)
+    })
+    resizeObserver.observe(containerRefElement)
+    return () => {
+      resizeObserver.unobserve(containerRefElement)
+      resizeObserver.disconnect()
+    }
+  }, [])
 
   const memoizedData = React.useMemo(() => {
     return data.map(row => {
@@ -59,6 +94,11 @@ export function MultiLogsViewer(props: MultiLogsViewerProps): React.ReactElement
     })
   }, [data])
 
+  const memoizedContainerClassName = useMemo(() => {
+    const layoutClassName = getLayoutTypeFromContainerWidth(logsContainerWidth)
+    return layoutClassName ? css[layoutClassName] : ''
+  }, [logsContainerWidth])
+
   const flattenedRows = memoizedData
     .map(row => {
       return row.isOpen ? row.linesData : []
@@ -68,7 +108,7 @@ export function MultiLogsViewer(props: MultiLogsViewerProps): React.ReactElement
     })
 
   return (
-    <div className={css.multiLogViewer}>
+    <div className={`${css.multiLogViewer} ${memoizedContainerClassName}`} ref={logContainerRef}>
       <GroupedVirtuoso
         id="logContent"
         ref={virtuosoRef}

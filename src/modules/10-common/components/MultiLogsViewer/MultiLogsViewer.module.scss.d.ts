@@ -3,6 +3,11 @@
 declare const styles: {
   readonly multiLogViewer: string
   readonly logsSection: string
+  readonly sm: string
+  readonly line: string
+  readonly xs: string
+  readonly logLineTimestamp: string
+  readonly logLineContent: string
   readonly logViewerSection: string
   readonly chevron: string
   readonly status: string
@@ -12,10 +17,7 @@ declare const styles: {
   readonly logViewer: string
   readonly list: string
   readonly logLine: string
-  readonly line: string
   readonly lineNumber: string
-  readonly logLineContent: string
-  readonly logLineTimestamp: string
   readonly logLineLevel: string
 }
 export default styles

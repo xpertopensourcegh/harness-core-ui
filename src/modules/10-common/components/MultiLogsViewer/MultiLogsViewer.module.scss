@@ -11,6 +11,26 @@ $background: #09090b;
   .logsSection {
     position: relative;
   }
+  &.sm,
+  &.xs {
+    .line {
+      flex-wrap: wrap;
+    }
+  }
+  &.sm {
+    .logLineTimestamp {
+      padding-left: 1.5rem;
+    }
+  }
+  &.xs {
+    .logLineTimestamp {
+      padding-left: 0rem;
+      flex: 1 1 100%;
+    }
+    .logLineContent {
+      padding-left: 0rem;
+    }
+  }
 }
 
 .logViewerSection {
@@ -113,6 +133,7 @@ $background: #09090b;
     width: calc(100% - 75px);
     float: left;
     white-space: pre-wrap;
+    flex-wrap: wrap;
   }
 
   .lineNumber {
@@ -147,6 +168,7 @@ $background: #09090b;
 .logLineContent {
   padding-left: 3.5rem;
   overflow-wrap: anywhere;
+  flex: 1 1 15rem;
 }
 
 .logLineTimestamp {
