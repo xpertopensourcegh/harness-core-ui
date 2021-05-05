@@ -9,7 +9,7 @@ exports[`Org Page List Create New Org 1`] = `
       class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
       level="2"
     >
-      Organizations
+      orgsText
     </h2>
   </div>
   <div
@@ -44,7 +44,7 @@ exports[`Org Page List Create New Org 1`] = `
         <span
           class="bp3-button-text"
         >
-          Organization
+          orgLabel
         </span>
       </button>
     </div>

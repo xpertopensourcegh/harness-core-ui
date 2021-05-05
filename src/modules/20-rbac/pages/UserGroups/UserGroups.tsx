@@ -39,20 +39,20 @@ const UserGroupsPage: React.FC = () => {
     onSuccess: refetch
   })
 
+  const newUserGroupsBtn = (): JSX.Element => (
+    <ManagePrincipalButton
+      text={getString('rbac.userGroupPage.newUserGroup')}
+      intent="primary"
+      icon="plus"
+      onClick={() => openUserGroupModal()}
+      resourceType={ResourceType.USERGROUP}
+    />
+  )
+
   return (
     <>
       <PageHeader
-        title={
-          <Layout.Horizontal padding={{ left: 'large' }}>
-            <ManagePrincipalButton
-              text={getString('rbac.userGroupPage.newUserGroup')}
-              intent="primary"
-              icon="plus"
-              onClick={() => openUserGroupModal()}
-              resourceType={ResourceType.USERGROUP}
-            />
-          </Layout.Horizontal>
-        }
+        title={<Layout.Horizontal padding={{ left: 'large' }}>{newUserGroupsBtn()}</Layout.Horizontal>}
         toolbar={
           <Layout.Horizontal margin={{ right: 'small' }} height="xxxlarge">
             <ExpandingSearchInput
@@ -74,8 +74,7 @@ const UserGroupsPage: React.FC = () => {
                 when: () => !data?.data?.content?.length,
                 icon: 'nav-project',
                 message: getString('rbac.userGroupPage.noDataText'),
-                buttonText: getString('rbac.userGroupPage.newUserGroup'),
-                onClick: () => openUserGroupModal()
+                button: newUserGroupsBtn()
               }
             : {
                 when: () => !data?.data?.content?.length,

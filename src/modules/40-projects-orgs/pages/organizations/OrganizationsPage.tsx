@@ -15,7 +15,6 @@ import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacButton from '@rbac/components/Button/Button'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
-import i18n from './OrganizationsPage.i18n'
 import css from './OrganizationsPage.module.scss'
 
 const OrganizationsPage: React.FC = () => {
@@ -33,29 +32,29 @@ const OrganizationsPage: React.FC = () => {
   })
   const { openCollaboratorModal } = useCollaboratorModal()
 
+  const newOrgButton = (): JSX.Element => (
+    <RbacButton
+      intent="primary"
+      icon="plus"
+      text={getString('orgLabel')}
+      onClick={() => openOrganizationModal()}
+      permission={{
+        permission: PermissionIdentifier.CREATE_ORG,
+        resource: {
+          resourceType: ResourceType.ORGANIZATION
+        },
+        resourceScope: {
+          accountIdentifier: accountId
+        }
+      }}
+    />
+  )
+
   return (
     <>
-      <Page.Header title={i18n.organizations} />
+      <Page.Header title={getString('orgsText')} />
       <Page.Header
-        title={
-          <Layout.Horizontal padding="small">
-            <RbacButton
-              intent="primary"
-              icon="plus"
-              text={i18n.newOrganization}
-              onClick={() => openOrganizationModal()}
-              permission={{
-                permission: PermissionIdentifier.CREATE_ORG,
-                resource: {
-                  resourceType: ResourceType.ORGANIZATION
-                },
-                resourceScope: {
-                  accountIdentifier: accountId
-                }
-              }}
-            />
-          </Layout.Horizontal>
-        }
+        title={<Layout.Horizontal padding="small">{newOrgButton()}</Layout.Horizontal>}
         toolbar={
           <Layout.Horizontal padding={{ right: 'large' }}>
             <Layout.Horizontal flex>
@@ -77,9 +76,8 @@ const OrganizationsPage: React.FC = () => {
         noData={{
           when: () => !data?.data?.content?.length,
           icon: 'nav-dashboard',
-          message: i18n.noDataMessage,
-          buttonText: i18n.newOrganizationButtonText,
-          onClick: () => openOrganizationModal()
+          message: getString('projectsOrgs.orgs.noDataMessage'),
+          button: newOrgButton()
         }}
         className={css.orgPage}
       >

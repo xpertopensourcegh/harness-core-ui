@@ -247,8 +247,15 @@ const ActiveUserListView: React.FC<ActiveUserListViewProps> = ({ searchTerm, ope
               when: () => !data?.data?.content?.length,
               icon: 'nav-project',
               message: getString('rbac.usersPage.noDataDescription'),
-              buttonText: getString('newUser'),
-              onClick: () => openRoleAssignmentModal()
+              button: (
+                <ManagePrincipalButton
+                  text={getString('newUser')}
+                  intent="primary"
+                  icon="plus"
+                  onClick={() => openRoleAssignmentModal()}
+                  resourceType={ResourceType.USER}
+                />
+              )
             }
           : {
               when: () => !data?.data?.content?.length,

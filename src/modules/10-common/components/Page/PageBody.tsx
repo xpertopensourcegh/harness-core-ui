@@ -32,6 +32,9 @@ export interface PageBodyProps {
     /** message to pass to <NoDataCard/> */
     message: string
 
+    /** Button to render with custom styles */
+    button?: React.ReactElement
+
     /** button text to pass to <NoDataCard/> */
     buttonText?: string
 
@@ -74,6 +77,7 @@ export const PageBody: React.FC<PageBodyProps> = ({
           icon={noData?.icon}
           noIconColor={noData?.noIconColor}
           message={noData?.message || ''}
+          button={noData?.button}
           buttonText={noData?.buttonText || ''}
           onClick={noData?.onClick}
           className={noData?.className}

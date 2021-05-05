@@ -10,6 +10,7 @@ export interface NoDataCardProps {
   width?: number
   buttonText?: string
   buttonWidth?: number
+  button?: React.ReactElement
   onClick?: ButtonProps['onClick']
   className?: string
   buttonDisabled?: boolean
@@ -41,7 +42,9 @@ export const NoDataCard: React.FC<NoDataCardProps> = props => {
         <Heading level={2} font={{ align: 'center' }} color={Color.GREY_500}>
           {props.message}
         </Heading>
-        {props.buttonText ? (
+        {props.button ? (
+          props.button
+        ) : props.buttonText ? (
           <Button
             intent="primary"
             text={props.buttonText}

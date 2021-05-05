@@ -11,6 +11,8 @@ import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList
 import { useRoleAssignmentModal } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useMutateAsGet } from '@common/hooks'
+import ManagePrincipalButton from '@rbac/components/ManagePrincipalButton/ManagePrincipalButton'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
 import css from './UserListView.module.scss'
 
 interface PendingUserListViewProps {
@@ -213,8 +215,15 @@ const PendingUserListView: React.FC<PendingUserListViewProps> = ({ searchTerm, r
               when: () => !data?.data?.content?.length,
               icon: 'nav-project',
               message: getString('rbac.usersPage.noDataDescription'),
-              buttonText: getString('newUser'),
-              onClick: () => openRoleAssignmentModal()
+              button: (
+                <ManagePrincipalButton
+                  text={getString('newUser')}
+                  intent="primary"
+                  icon="plus"
+                  onClick={() => openRoleAssignmentModal()}
+                  resourceType={ResourceType.USER}
+                />
+              )
             }
           : {
               when: () => !data?.data?.content?.length,

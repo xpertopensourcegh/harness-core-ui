@@ -42,31 +42,31 @@ const Roles: React.FC = () => {
     openRoleModal(role)
   }
 
+  const newRoleButton = (): JSX.Element => (
+    <RbacButton
+      text={getString('newRole')}
+      data-testid="createRole"
+      intent="primary"
+      icon="plus"
+      onClick={() => openRoleModal()}
+      permission={{
+        permission: PermissionIdentifier.UPDATE_ROLE,
+        resource: {
+          resourceType: ResourceType.ROLE
+        },
+        resourceScope: {
+          accountIdentifier: accountId,
+          orgIdentifier,
+          projectIdentifier
+        }
+      }}
+    />
+  )
+
   return (
     <>
       <PageHeader
-        title={
-          <Layout.Horizontal padding={{ left: 'large' }}>
-            <RbacButton
-              text={getString('newRole')}
-              data-testid="createRole"
-              intent="primary"
-              icon="plus"
-              onClick={() => openRoleModal()}
-              permission={{
-                permission: PermissionIdentifier.UPDATE_ROLE,
-                resource: {
-                  resourceType: ResourceType.ROLE
-                },
-                resourceScope: {
-                  accountIdentifier: accountId,
-                  orgIdentifier,
-                  projectIdentifier
-                }
-              }}
-            />
-          </Layout.Horizontal>
-        }
+        title={<Layout.Horizontal padding={{ left: 'large' }}>{newRoleButton()}</Layout.Horizontal>}
         toolbar={
           <Layout.Horizontal margin={{ right: 'small' }} height="xxxlarge">
             <ExpandingSearchInput
@@ -88,8 +88,7 @@ const Roles: React.FC = () => {
                 when: () => !data?.data?.content?.length,
                 icon: 'nav-project',
                 message: getString('roleDetails.noDataText'),
-                buttonText: getString('newRole'),
-                onClick: () => openRoleModal()
+                button: newRoleButton()
               }
             : {
                 when: () => !data?.data?.content?.length,

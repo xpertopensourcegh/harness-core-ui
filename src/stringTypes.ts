@@ -632,6 +632,7 @@ export interface StringsMap {
   'userProfile.userEditSuccess': string
   'projectsOrgs.createProject': string
   'projectsOrgs.noCollaborators': string
+  'projectsOrgs.orgs.noDataMessage': string
   'dashboards.createModal.dataSource': string
   'dashboards.createModal.descriptionPlaceholder': string
   'dashboards.createModal.fav': string
