@@ -7,9 +7,9 @@ import { useStrings } from 'framework/strings'
 import { ResourceGroupDTO, ResourceGroupResponse, useDeleteResourceGroup } from 'services/platform'
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import css from './ResourceGroupList.module.scss'
 
 export type CellPropsResourceGroupColumn<D extends Record<string, any>, V = any> = TableInstance<D> & {
@@ -32,22 +32,17 @@ const ResourceGroupColumnMenu: Renderer<CellPropsResourceGroupColumn<ResourceGro
   const { mutate: deleteResourceGroup } = useDeleteResourceGroup({
     queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier }
   })
-
-  const [canUpdate, canDelete] = usePermission(
-    {
-      resourceScope: {
-        accountIdentifier: accountId,
-        orgIdentifier,
-        projectIdentifier
-      },
-      resource: {
-        resourceType: ResourceType.RESOURCEGROUP,
-        resourceIdentifier: data.resourceGroup.identifier || ''
-      },
-      permissions: [PermissionIdentifier.UPDATE_RESOURCEGROUP, PermissionIdentifier.DELETE_RESOURCEGROUP]
+  const permissionRequest = {
+    resourceScope: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier
     },
-    [data.resourceGroup]
-  )
+    resource: {
+      resourceType: ResourceType.RESOURCEGROUP,
+      resourceIdentifier: data.resourceGroup.identifier
+    }
+  }
 
   const { openDialog } = useConfirmationDialog({
     contentText: `${getString('resourceGroup.confirmDelete', { name: data.resourceGroup?.name })}`,
@@ -104,8 +99,18 @@ const ResourceGroupColumnMenu: Renderer<CellPropsResourceGroupColumn<ResourceGro
         }}
       />
       <Menu style={{ minWidth: 'unset' }}>
-        <Menu.Item icon="edit" text={getString('edit')} onClick={handleEdit} disabled={!canUpdate} />
-        <Menu.Item icon="trash" text={getString('delete')} onClick={handleDelete} disabled={!canDelete} />
+        <RbacMenuItem
+          icon="edit"
+          text={getString('edit')}
+          onClick={handleEdit}
+          permission={{ ...permissionRequest, permission: PermissionIdentifier.UPDATE_RESOURCEGROUP }}
+        />
+        <RbacMenuItem
+          icon="trash"
+          text={getString('delete')}
+          onClick={handleDelete}
+          permission={{ ...permissionRequest, permission: PermissionIdentifier.DELETE_RESOURCEGROUP }}
+        />
       </Menu>
     </Popover>
   ) : (

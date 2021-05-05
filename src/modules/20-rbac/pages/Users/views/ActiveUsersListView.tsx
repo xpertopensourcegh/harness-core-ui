@@ -21,8 +21,8 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { usePermission } from '@rbac/hooks/usePermission'
 import ManagePrincipalButton from '@rbac/components/ManagePrincipalButton/ManagePrincipalButton'
+import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import css from './UserListView.module.scss'
 
 interface ActiveUserListViewProps {
@@ -118,21 +118,19 @@ const RenderColumnMenu: Renderer<CellProps<UserAggregate>> = ({ row, column }) =
       }
     }
   })
-  const [canManage] = usePermission(
-    {
-      resourceScope: {
-        accountIdentifier: accountId,
-        orgIdentifier,
-        projectIdentifier
-      },
-      resource: {
-        resourceType: ResourceType.USER,
-        resourceIdentifier: data.uuid
-      },
-      permissions: [PermissionIdentifier.MANAGE_USER]
+
+  const permissionRequest = {
+    resourceScope: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier
     },
-    [data]
-  )
+    resource: {
+      resourceType: ResourceType.USER,
+      resourceIdentifier: data.uuid
+    },
+    permission: PermissionIdentifier.MANAGE_USER
+  }
 
   const handleDelete = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
     e.stopPropagation()
@@ -161,7 +159,7 @@ const RenderColumnMenu: Renderer<CellProps<UserAggregate>> = ({ row, column }) =
           }}
         />
         <Menu>
-          <Menu.Item icon="trash" text={getString('delete')} onClick={handleDelete} disabled={!canManage} />
+          <RbacMenuItem icon="trash" text={getString('delete')} onClick={handleDelete} permission={permissionRequest} />
         </Menu>
       </Popover>
     </Layout.Horizontal>

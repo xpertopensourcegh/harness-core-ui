@@ -8,10 +8,10 @@ import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmat
 import { useToaster } from '@common/exports'
 import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
 import { useStrings } from 'framework/strings'
-import { usePermission } from '@rbac/hooks/usePermission'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import i18n from './OrganizationCard.i18n'
 import css from './OrganizationCard.module.scss'
 
@@ -39,6 +39,15 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
   const [menuOpen, setMenuOpen] = useState(false)
   const { mutate: deleteOrg } = useDeleteOrganization({ queryParams: { accountIdentifier: accountId } })
   const { getString } = useStrings()
+  const permissionRequest = {
+    resourceScope: {
+      accountIdentifier: accountId
+    },
+    resource: {
+      resourceType: ResourceType.ORGANIZATION,
+      resourceIdentifier: data.identifier
+    }
+  }
   const { openDialog } = useConfirmationDialog({
     contentText: getString('orgs.confirmDelete', { name: data.name }),
     titleText: i18n.confirmDeleteTitle,
@@ -57,20 +66,6 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
       }
     }
   })
-
-  const [canUpdate, canDelete] = usePermission(
-    {
-      resourceScope: {
-        accountIdentifier: accountId
-      },
-      resource: {
-        resourceType: ResourceType.ORGANIZATION,
-        resourceIdentifier: data.identifier
-      },
-      permissions: [PermissionIdentifier.UPDATE_ORG, PermissionIdentifier.DELETE_ORG]
-    },
-    [data]
-  )
 
   const handleEdit = (e: React.MouseEvent): void => {
     e.stopPropagation()
@@ -104,18 +99,26 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
           <CardBody.Menu
             menuContent={
               <Menu>
-                <Menu.Item
+                <RbacMenuItem
                   icon="edit"
                   text={i18n.edit}
                   onClick={handleEdit}
-                  disabled={isHarnessManaged || !canUpdate}
+                  disabled={isHarnessManaged}
+                  permission={{
+                    ...permissionRequest,
+                    permission: PermissionIdentifier.UPDATE_ORG
+                  }}
                 />
                 <Menu.Item icon="new-person" text={i18n.invite} onClick={handleInvite} />
-                <Menu.Item
+                <RbacMenuItem
                   icon="trash"
                   text={i18n.delete}
                   onClick={handleDelete}
-                  disabled={isHarnessManaged || !canDelete}
+                  disabled={isHarnessManaged}
+                  permission={{
+                    ...permissionRequest,
+                    permission: PermissionIdentifier.UPDATE_ORG
+                  }}
                 />
               </Menu>
             }

@@ -6,10 +6,10 @@ import type { Project } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 import { ModuleName } from 'framework/types/ModuleName'
-import { usePermission } from '@rbac/hooks/usePermission'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 
 interface ContextMenuProps {
   project: Project
@@ -26,20 +26,16 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
   const { getString } = useStrings()
   const { project, editProject, collaborators, setMenuOpen, openDialog } = props
 
-  const [canUpdate, canDelete] = usePermission(
-    {
-      resourceScope: {
-        accountIdentifier: accountId,
-        orgIdentifier: project.orgIdentifier
-      },
-      resource: {
-        resourceType: ResourceType.PROJECT,
-        resourceIdentifier: project.identifier
-      },
-      permissions: [PermissionIdentifier.UPDATE_PROJECT, PermissionIdentifier.DELETE_PROJECT]
+  const permissionRequest = {
+    resourceScope: {
+      accountIdentifier: accountId,
+      orgIdentifier: project.orgIdentifier
     },
-    [project]
-  )
+    resource: {
+      resourceType: ResourceType.PROJECT,
+      resourceIdentifier: project.identifier
+    }
+  }
 
   const handleDelete = (event: React.MouseEvent<HTMLElement, MouseEvent>): void => {
     event.stopPropagation()
@@ -174,18 +170,29 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
           onClick={handleCE}
         />
       ) : null}
-      <Menu.Item
+      <RbacMenuItem
         icon="edit"
         text={getString('edit')}
         onClick={handleEdit}
-        disabled={!canUpdate}
         data-testid={'edit-project'}
+        permission={{
+          ...permissionRequest,
+          permission: PermissionIdentifier.UPDATE_PROJECT
+        }}
       />
       <Menu.Item icon="new-person" text={getString('projectContextMenuRenderer.invite')} onClick={handleCollaborate} />
 
       <>
         <Menu.Divider />
-        <Menu.Item icon="trash" text={getString('delete')} onClick={handleDelete} disabled={!canDelete} />
+        <RbacMenuItem
+          icon="trash"
+          text={getString('delete')}
+          onClick={handleDelete}
+          permission={{
+            ...permissionRequest,
+            permission: PermissionIdentifier.DELETE_PROJECT
+          }}
+        />
       </>
     </Menu>
   )

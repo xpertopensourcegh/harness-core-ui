@@ -9,9 +9,9 @@ import { useConfirmationDialog, useToaster } from '@common/exports'
 import { useStrings } from 'framework/strings'
 import { getRoleIcon } from '@rbac/utils/utils'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import css from './RoleCard.module.scss'
 
 interface RoleCardProps {
@@ -31,21 +31,17 @@ const RoleCard: React.FC<RoleCardProps> = ({ data, reloadRoles, editRoleModal })
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
 
-  const [canUpdate, canDelete] = usePermission(
-    {
-      resourceScope: {
-        accountIdentifier: accountId,
-        orgIdentifier,
-        projectIdentifier
-      },
-      resource: {
-        resourceType: ResourceType.ROLE,
-        resourceIdentifier: role.identifier
-      },
-      permissions: [PermissionIdentifier.UPDATE_ROLE, PermissionIdentifier.DELETE_ROLE]
+  const permissionRequest = {
+    resourceScope: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier
     },
-    [role]
-  )
+    resource: {
+      resourceType: ResourceType.ROLE,
+      resourceIdentifier: role.identifier
+    }
+  }
 
   const { openDialog: openDeleteDialog } = useConfirmationDialog({
     contentText: getString('roleCard.confirmDelete', { name: role.name }),
@@ -96,17 +92,25 @@ const RoleCard: React.FC<RoleCardProps> = ({ data, reloadRoles, editRoleModal })
       <CardBody.Menu
         menuContent={
           <Menu>
-            <Menu.Item
+            <RbacMenuItem
               icon="edit"
               text={getString('edit')}
               onClick={handleEdit}
-              disabled={harnessManaged || !canUpdate}
+              disabled={harnessManaged}
+              permission={{
+                ...permissionRequest,
+                permission: PermissionIdentifier.UPDATE_ROLE
+              }}
             />
-            <Menu.Item
+            <RbacMenuItem
               icon="trash"
               text={getString('delete')}
               onClick={handleDelete}
-              disabled={harnessManaged || !canDelete}
+              disabled={harnessManaged}
+              permission={{
+                ...permissionRequest,
+                permission: PermissionIdentifier.UPDATE_ROLE
+              }}
             />
           </Menu>
         }

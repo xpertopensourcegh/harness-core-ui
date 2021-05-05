@@ -130,8 +130,9 @@ const SampleComponent = () => {
 }
 ```
 
-If your usecase is just to add the access control check on a button, you can use the provided RbacButton component. This component will
-internally use the `usePermission` hook and add the required tooltips for a better disabled experience.
+### Components
+
+We have some in-built Rbac components(eg. Button and Menu) which internally use the `usePermission` hook and add the required tooltips for a better disabled experience. These components take an additional PermissionRequest prop and check for the permission internally. The usage of these components is as follows:
 
 ```typescript
 import RbacButton from '@rbac/components/Button/Button'
@@ -154,6 +155,31 @@ function SampleComponent() {
         }}
       />
     </>
+  )
+}
+```
+
+```typescript
+import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
+
+function SampleComponent() {
+  return (
+    <RbacMenuItem
+      icon="trash"
+      text={getString('delete')}
+      onClick={handleDelete}
+      permission={{
+        resourceScope: {
+          accountIdentifier: accountId,
+          orgIdentifier
+        },
+        resource: {
+          resourceType: ResourceType.PROJECT,
+          resourceIdentifier: projectIdentifier
+        },
+        permission: PermissionIdentifier.UPDATE_PROJECT
+      }}
+    />
   )
 }
 ```

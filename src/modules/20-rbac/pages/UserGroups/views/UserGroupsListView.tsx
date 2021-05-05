@@ -20,8 +20,8 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { usePermission } from '@rbac/hooks/usePermission'
 import ManagePrincipalButton from '@rbac/components/ManagePrincipalButton/ManagePrincipalButton'
+import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import css from './UserGroupsListView.module.scss'
 
 interface UserGroupsListViewProps {
@@ -111,22 +111,18 @@ const RenderColumnMenu: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, col
   const { mutate: deleteUserGroup } = useDeleteUserGroup({
     queryParams: { accountIdentifier, orgIdentifier, projectIdentifier }
   })
-
-  const [canManage] = usePermission(
-    {
-      resourceScope: {
-        accountIdentifier,
-        orgIdentifier,
-        projectIdentifier
-      },
-      resource: {
-        resourceType: ResourceType.USERGROUP,
-        resourceIdentifier: identifier
-      },
-      permissions: [PermissionIdentifier.MANAGE_USERGROUP]
+  const permissionRequest = {
+    resourceScope: {
+      accountIdentifier,
+      orgIdentifier,
+      projectIdentifier
     },
-    [data]
-  )
+    resource: {
+      resourceType: ResourceType.USERGROUP,
+      resourceIdentifier: identifier
+    },
+    permission: PermissionIdentifier.MANAGE_USERGROUP
+  }
 
   const { openDialog: openDeleteDialog } = useConfirmationDialog({
     contentText: getString('rbac.userGroupPage.confirmDelete', { name: data.name }),
@@ -186,8 +182,8 @@ const RenderColumnMenu: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, col
           }}
         />
         <Menu>
-          <Menu.Item icon="edit" text={getString('edit')} onClick={handleEdit} disabled={!canManage} />
-          <Menu.Item icon="trash" text={getString('delete')} onClick={handleDelete} disabled={!canManage} />
+          <RbacMenuItem icon="edit" text={getString('edit')} onClick={handleEdit} permission={permissionRequest} />
+          <RbacMenuItem icon="trash" text={getString('delete')} onClick={handleDelete} permission={permissionRequest} />
         </Menu>
       </Popover>
     </Layout.Horizontal>

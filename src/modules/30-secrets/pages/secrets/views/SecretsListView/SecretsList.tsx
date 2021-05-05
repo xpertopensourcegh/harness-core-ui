@@ -14,11 +14,11 @@ import TagsPopover from '@common/components/TagsPopover/TagsPopover'
 import useCreateSSHCredModal from '@secrets/modals/CreateSSHCredModal/useCreateSSHCredModal'
 import useCreateUpdateSecretModal from '@secrets/modals/CreateSecretModal/useCreateUpdateSecretModal'
 import { useVerifyModal } from '@secrets/modals/CreateSSHCredModal/useVerifyModal'
-import { usePermission } from '@rbac/hooks/usePermission'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { SecretIdentifiers } from '@secrets/components/CreateUpdateSecret/CreateUpdateSecret'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
+import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import i18n from '../../SecretsPage.i18n'
 import css from './SecretsList.module.scss'
 
@@ -115,21 +115,17 @@ const RenderColumnAction: Renderer<CellProps<SecretResponseWrapper>> = ({ row, c
   const { openCreateSSHCredModal } = useCreateSSHCredModal({ onSuccess: (column as any).refreshSecrets })
   const { openCreateSecretModal } = useCreateUpdateSecretModal({ onSuccess: (column as any).refreshSecrets })
 
-  const [canUpdate, canDelete] = usePermission(
-    {
-      resourceScope: {
-        accountIdentifier: accountId,
-        orgIdentifier,
-        projectIdentifier
-      },
-      resource: {
-        resourceType: ResourceType.SECRET,
-        resourceIdentifier: data.identifier
-      },
-      permissions: [PermissionIdentifier.UPDATE_SECRET, PermissionIdentifier.DELETE_SECRET]
+  const permissionRequest = {
+    resourceScope: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier
     },
-    []
-  )
+    resource: {
+      resourceType: ResourceType.SECRET,
+      resourceIdentifier: data.identifier
+    }
+  }
 
   const { openDialog } = useConfirmationDialog({
     contentText: i18n.confirmDelete(data.name || ''),
@@ -186,8 +182,18 @@ const RenderColumnAction: Renderer<CellProps<SecretResponseWrapper>> = ({ row, c
           }}
         />
         <Menu>
-          <Menu.Item icon="edit" text="Edit" onClick={handleEdit} disabled={!canUpdate} />
-          <Menu.Item icon="trash" text="Delete" onClick={handleDelete} disabled={!canDelete} />
+          <RbacMenuItem
+            icon="edit"
+            text="Edit"
+            onClick={handleEdit}
+            permission={{ ...permissionRequest, permission: PermissionIdentifier.UPDATE_SECRET }}
+          />
+          <RbacMenuItem
+            icon="trash"
+            text="Delete"
+            onClick={handleDelete}
+            permission={{ ...permissionRequest, permission: PermissionIdentifier.DELETE_SECRET }}
+          />
         </Menu>
       </Popover>
     </Layout.Horizontal>
