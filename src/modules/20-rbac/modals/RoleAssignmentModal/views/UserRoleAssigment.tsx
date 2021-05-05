@@ -29,6 +29,7 @@ interface UserRoleAssignmentData {
 
 export interface RoleOption extends SelectOption {
   managed: boolean
+  managedRoleAssignment: boolean
   assignmentIdentifier?: string
 }
 
@@ -89,6 +90,7 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
           label: roleAssignment.roleName,
           value: roleAssignment.roleIdentifier,
           managed: roleAssignment.managedRole,
+          managedRoleAssignment: roleAssignment.managedRoleAssignment,
           assignmentIdentifier: roleAssignment.identifier
         },
         resourceGroup: {
@@ -128,7 +130,8 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
             roleIdentifier: value.role.value.toString(),
             roleName: value.role.label,
             resourceGroupName: value.resourceGroup.label,
-            managedRole: value.role.managed
+            managedRole: value.role.managed,
+            managedRoleAssignment: value.role.managedRoleAssignment
           }
         }),
         inviteType: InviteType.ADMIN_INITIATED

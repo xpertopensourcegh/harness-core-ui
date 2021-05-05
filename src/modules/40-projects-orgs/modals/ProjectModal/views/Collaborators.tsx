@@ -157,7 +157,8 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
         {
           roleIdentifier: role.value.toString(),
           roleName: role.label,
-          managedRole: role.managed
+          managedRole: role.managed,
+          managedRoleAssignment: false
         }
       ],
       inviteType: InviteType.ADMIN_INITIATED

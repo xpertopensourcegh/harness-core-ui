@@ -51,7 +51,8 @@ RbacFactory.registerResourceTypeHandler(ResourceType.USER, {
   category: ResourceCategory.ADMINSTRATIVE_FUNCTIONS,
   permissionLabels: {
     [PermissionIdentifier.VIEW_USER]: <String stringID="rbac.permissionLabels.view" />,
-    [PermissionIdentifier.MANAGE_USER]: <String stringID="rbac.permissionLabels.manage" />
+    [PermissionIdentifier.MANAGE_USER]: <String stringID="rbac.permissionLabels.manage" />,
+    [PermissionIdentifier.INVITE_USER]: <String stringID="rbac.permissionLabels.invite" />
   }
 })
 

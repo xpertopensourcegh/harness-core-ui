@@ -7,6 +7,7 @@ permissionLabels:
   access: Access
   execute: '{{$.common.execute}}'
   manage: Manage
+  invite: Invite
 categoryLabels:
   sharedResources: Shared Resources
 roleBinding: Role Bindings (Role - Resource Group)

@@ -177,7 +177,8 @@ export const pendingUserMock: ResponsePageInvite = {
             roleName: 'Account Viewer',
             resourceGroupIdentifier: 'New_123',
             resourceGroupName: 'New 123',
-            managedRole: true
+            managedRole: true,
+            managedRoleAssignment: true
           }
         ],
         inviteType: 'ADMIN_INITIATED_INVITE',
@@ -193,7 +194,8 @@ export const pendingUserMock: ResponsePageInvite = {
             roleName: 'New Role',
             resourceGroupIdentifier: 'New_123',
             resourceGroupName: 'New 123',
-            managedRole: false
+            managedRole: false,
+            managedRoleAssignment: false
           }
         ],
         inviteType: 'ADMIN_INITIATED_INVITE',
@@ -226,7 +228,8 @@ export const activeUserMock: ResponsePageUserAggregate = {
             roleName: 'Account Admin',
             resourceGroupIdentifier: '_all_resources',
             resourceGroupName: 'All Resources',
-            managedRole: true
+            managedRole: true,
+            managedRoleAssignment: false
           },
           {
             identifier: 'role_assignment_obm6QvdxtfqrlDzug31t',
@@ -234,7 +237,8 @@ export const activeUserMock: ResponsePageUserAggregate = {
             roleName: 'Account Viewer',
             resourceGroupIdentifier: '_all_resources',
             resourceGroupName: 'All Resources',
-            managedRole: true
+            managedRole: true,
+            managedRoleAssignment: true
           }
         ]
       }

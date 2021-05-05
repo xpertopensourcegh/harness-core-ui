@@ -35,7 +35,8 @@ export const userGroupsAggregate: ResponsePageUserGroupAggregateDTO = {
             roleName: 'Custom Role',
             resourceGroupIdentifier: '_all_resources',
             resourceGroupName: 'All Resources',
-            managedRole: false
+            managedRole: false,
+            managedRoleAssignment: false
           }
         ],
         lastModifiedAt: 1617941811398

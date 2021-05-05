@@ -31,6 +31,7 @@ export enum PermissionIdentifier {
   MANAGE_USERGROUP = 'core_usergroup_manage',
   VIEW_USER = 'core_user_view',
   MANAGE_USER = 'core_user_manage',
+  INVITE_USER = 'core_user_invite',
   VIEW_ROLE = 'core_role_view',
   UPDATE_ROLE = 'core_role_edit',
   DELETE_ROLE = 'core_role_delete',

@@ -331,7 +331,8 @@ export const invitesMockData: ResponsePageInvite = {
             roleName: 'role 1',
             resourceGroupIdentifier: 'rg1',
             resourceGroupName: 'rg 1',
-            managedRole: true
+            managedRole: true,
+            managedRoleAssignment: false
           }
         ],
         inviteType: 'ADMIN_INITIATED_INVITE',
@@ -347,7 +348,8 @@ export const invitesMockData: ResponsePageInvite = {
             roleName: 'role 1',
             resourceGroupIdentifier: 'rg1',
             resourceGroupName: 'rg 1',
-            managedRole: true
+            managedRole: true,
+            managedRoleAssignment: false
           }
         ],
         inviteType: 'ADMIN_INITIATED_INVITE',
@@ -363,7 +365,8 @@ export const invitesMockData: ResponsePageInvite = {
             roleName: 'role 1',
             resourceGroupIdentifier: 'rg1',
             resourceGroupName: 'rg 1',
-            managedRole: true
+            managedRole: true,
+            managedRoleAssignment: false
           }
         ],
         inviteType: 'ADMIN_INITIATED_INVITE',

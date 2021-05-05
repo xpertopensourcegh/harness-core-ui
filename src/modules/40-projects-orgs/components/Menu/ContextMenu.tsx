@@ -180,7 +180,22 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
           permission: PermissionIdentifier.UPDATE_PROJECT
         }}
       />
-      <Menu.Item icon="new-person" text={getString('projectContextMenuRenderer.invite')} onClick={handleCollaborate} />
+      <RbacMenuItem
+        icon="new-person"
+        text={getString('projectContextMenuRenderer.invite')}
+        onClick={handleCollaborate}
+        permission={{
+          resourceScope: {
+            accountIdentifier: accountId,
+            orgIdentifier: project.orgIdentifier,
+            projectIdentifier: project.identifier
+          },
+          resource: {
+            resourceType: ResourceType.USER
+          },
+          permission: PermissionIdentifier.INVITE_USER
+        }}
+      />
 
       <>
         <Menu.Divider />

@@ -51,7 +51,8 @@ const RoleAssignmentForm: React.FC<RoleAssignmentFormProps> = ({ noRoleAssignmen
         return {
           label: response.role.name,
           value: response.role.identifier,
-          managed: response.harnessManaged || false
+          managed: response.harnessManaged || false,
+          managedRoleAssignment: false
         }
       }) || [],
     [roleList]
@@ -93,7 +94,7 @@ const RoleAssignmentForm: React.FC<RoleAssignmentFormProps> = ({ noRoleAssignmen
         name="assignments"
         placeholder={noRoleAssignmentsText}
         insertRowAtBeginning={false}
-        isDeleteOfRowAllowed={_row => true}
+        isDeleteOfRowAllowed={row => !(row as Assignment).role.managedRoleAssignment}
         onDeleteOfRow={(row, rowIndex) => {
           const assignment = (row as Assignment).role.assignmentIdentifier
           if (assignment) handleRoleAssignmentDelete(assignment)

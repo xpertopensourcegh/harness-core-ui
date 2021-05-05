@@ -109,7 +109,21 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
                     permission: PermissionIdentifier.UPDATE_ORG
                   }}
                 />
-                <Menu.Item icon="new-person" text={i18n.invite} onClick={handleInvite} />
+                <RbacMenuItem
+                  icon="new-person"
+                  text={i18n.invite}
+                  onClick={handleInvite}
+                  permission={{
+                    resourceScope: {
+                      accountIdentifier: accountId,
+                      orgIdentifier: data.identifier
+                    },
+                    resource: {
+                      resourceType: ResourceType.USER
+                    },
+                    permission: PermissionIdentifier.INVITE_USER
+                  }}
+                />
                 <RbacMenuItem
                   icon="trash"
                   text={i18n.delete}
