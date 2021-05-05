@@ -230,16 +230,15 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
           showError(getString('invalidYamlText'))
           return
         }
-        // TODO: only apply for CI as its schema is implemented
-        if (module === 'ci') {
-          if (yamlHandler.getYAMLValidationErrorMap()?.size > 0) {
-            setYamlError(true)
-            return
-          }
+        if (yamlHandler.getYAMLValidationErrorMap()?.size > 0) {
+          setYamlError(true)
+          showError(getString('invalidYamlText'))
+          return
         }
         updatePipeline(parsedYaml.pipeline)
       } catch (e) {
         setYamlError(true)
+        showError(getString('invalidYamlText'))
         return
       }
     }

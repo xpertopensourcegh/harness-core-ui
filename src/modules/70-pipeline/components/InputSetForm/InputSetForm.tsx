@@ -29,8 +29,7 @@ import {
   InputSetResponse,
   ResponseInputSetResponse,
   useGetMergeInputSetFromPipelineTemplateWithListInput,
-  ResponsePMSPipelineResponseDTO,
-  useGetYamlSchema
+  ResponsePMSPipelineResponseDTO
 } from 'services/pipeline-ng'
 
 import { useToaster } from '@common/exports'
@@ -39,8 +38,7 @@ import type { InputSetPathProps, PipelineType } from '@common/interfaces/RouteIn
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { PageBody } from '@common/components/Page/PageBody'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
-import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
-import { PageSpinner, NameIdDescriptionTags } from '@common/components'
+import { NameIdDescriptionTags } from '@common/components'
 import routes from '@common/RouteDefinitions'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { useStrings } from 'framework/strings'
@@ -235,15 +233,6 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
 
   useDocumentTitle([getString('pipelines'), getString('inputSetsText')])
 
-  const { loading, data: pipelineSchema } = useGetYamlSchema({
-    queryParams: {
-      entityType: 'Pipelines',
-      projectIdentifier,
-      orgIdentifier,
-      scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
-    }
-  })
-
   const handleModeSwitch = React.useCallback(
     (view: SelectedView) => {
       if (view === SelectedView.VISUAL) {
@@ -424,22 +413,17 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                 ) : (
                   <div className={css.editor}>
                     <Layout.Vertical className={css.content} padding="xlarge">
-                      {loading ? (
-                        <PageSpinner />
-                      ) : (
-                        <YamlBuilderMemo
-                          {...yamlBuilderReadOnlyModeProps}
-                          existingJSON={{ inputSet: omit(formikProps?.values, 'inputSetReferences') }}
-                          bind={setYamlHandler}
-                          isReadOnlyMode={!isEditable}
-                          invocationMap={factory.getInvocationMap()}
-                          schema={pipelineSchema?.data}
-                          height="calc(100vh - 230px)"
-                          width="calc(100vw - 350px)"
-                          showSnippetSection={false}
-                          isEditModeSupported={isEditable}
-                        />
-                      )}
+                      <YamlBuilderMemo
+                        {...yamlBuilderReadOnlyModeProps}
+                        existingJSON={{ inputSet: omit(formikProps?.values, 'inputSetReferences') }}
+                        bind={setYamlHandler}
+                        isReadOnlyMode={!isEditable}
+                        invocationMap={factory.getInvocationMap()}
+                        height="calc(100vh - 230px)"
+                        width="calc(100vw - 350px)"
+                        showSnippetSection={false}
+                        isEditModeSupported={isEditable}
+                      />
                     </Layout.Vertical>
                     <Layout.Horizontal className={css.footer} padding="xlarge">
                       <Button

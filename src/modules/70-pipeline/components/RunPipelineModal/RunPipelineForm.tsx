@@ -28,8 +28,7 @@ import {
   useGetTemplateFromPipeline,
   useGetMergeInputSetFromPipelineTemplateWithListInput,
   getInputSetForPipelinePromise,
-  useCreateInputSetForPipeline,
-  useGetYamlSchema
+  useCreateInputSetForPipeline
 } from 'services/pipeline-ng'
 import { useToaster } from '@common/exports'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
@@ -40,7 +39,6 @@ import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PageBody } from '@common/components/Page/PageBody'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
-import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import StagesTree, { stagesTreeNodeClasses } from '@pipeline/components/StagesTree/StagesTree'
@@ -197,15 +195,6 @@ function RunPipelineFormBasic({
   const { mutate: createInputSet, loading: createInputSetLoading } = useCreateInputSetForPipeline({
     queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier },
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
-  })
-
-  const { loading, data: pipelineSchema } = useGetYamlSchema({
-    queryParams: {
-      entityType: 'Pipelines',
-      projectIdentifier,
-      orgIdentifier,
-      scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
-    }
   })
 
   const handleModeSwitch = React.useCallback(
@@ -449,21 +438,16 @@ function RunPipelineFormBasic({
                   </div>
                 ) : (
                   <div className={css.editor}>
-                    {loading ? (
-                      <PageSpinner />
-                    ) : (
-                      <YamlBuilderMemo
-                        {...yamlBuilderReadOnlyModeProps}
-                        existingJSON={{ pipeline: values }}
-                        bind={setYamlHandler}
-                        invocationMap={factory.getInvocationMap()}
-                        schema={pipelineSchema?.data}
-                        height="calc(100vh - 330px)"
-                        width="calc(100vw - 300px)"
-                        showSnippetSection={false}
-                        isEditModeSupported={canEdit}
-                      />
-                    )}
+                    <YamlBuilderMemo
+                      {...yamlBuilderReadOnlyModeProps}
+                      existingJSON={{ pipeline: values }}
+                      bind={setYamlHandler}
+                      invocationMap={factory.getInvocationMap()}
+                      height="calc(100vh - 330px)"
+                      width="calc(100vw - 300px)"
+                      showSnippetSection={false}
+                      isEditModeSupported={canEdit}
+                    />
                   </div>
                 )}
               </Layout.Horizontal>
