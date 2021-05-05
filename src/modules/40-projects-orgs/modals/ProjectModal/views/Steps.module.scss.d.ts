@@ -13,6 +13,7 @@ declare const styles: {
   readonly clone: string
   readonly align: string
   readonly toEnd: string
+  readonly manageUsers: string
   readonly invites: string
   readonly collaboratorForm: string
   readonly pendingList: string

@@ -52,7 +52,7 @@
 }
 
 .clone {
-  padding: var(--spacing-large) !important;
+  padding: var(--spacing-none) var(--spacing-large) !important;
 }
 
 .align {
@@ -63,13 +63,17 @@
   justify-content: flex-end !important;
 }
 
+.manageUsers {
+  color: var(--primary-7) !important;
+}
+
 .invites {
   align-items: center;
-  border-top: 1px solid var(--grey-200);
-  border-bottom: 1px solid var(--grey-200);
+  border-top: 1px solid var(--grey-100);
+  border-bottom: 1px solid var(--grey-100);
   &:hover {
     cursor: pointer;
-    background-color: var(--grey-200) !important;
+    background-color: var(--grey-100) !important;
   }
 }
 
@@ -89,10 +93,9 @@
 }
 
 .colorBar {
-  width: 105px;
   height: var(--spacing-medium);
   border-radius: var(--spacing-small);
-  padding: 1px 9px !important;
+  padding: 2px var(--spacing-small) !important;
 
   &.pending {
     background-color: var(--primary-1) !important;

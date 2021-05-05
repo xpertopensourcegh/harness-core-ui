@@ -22,9 +22,10 @@ const RenderColumnUser: Renderer<CellProps<Invite>> = ({ row }) => {
   const data = row.original
   return (
     <Layout.Horizontal
-      className={css.overflow}
       spacing="small"
+      className={css.overflow}
       flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
+      padding={{ right: 'small' }}
     >
       <Avatar email={data.email} hoverCard={false} />
       <Text lineClamp={1}>{data.name || data.email.split('@')[0]}</Text>
@@ -38,7 +39,11 @@ const RenderColumnRoleAssignments: Renderer<CellProps<Invite>> = ({ row }) => {
   }))
 
   return (
-    <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+    <Layout.Horizontal
+      spacing="small"
+      flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
+      padding={{ right: 'small' }}
+    >
       <RoleBindingsList data={data} length={2} />
     </Layout.Horizontal>
   )
@@ -56,7 +61,15 @@ const RenderColumnStatus: Renderer<CellProps<Invite>> = () => {
 const RenderColumnEmail: Renderer<CellProps<Invite>> = ({ row }) => {
   const data = row.original
 
-  return <Text>{data.email}</Text>
+  return (
+    <Layout.Horizontal
+      className={css.overflow}
+      flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
+      padding={{ right: 'small' }}
+    >
+      <Text>{data.email}</Text>
+    </Layout.Horizontal>
+  )
 }
 
 const RenderColumnMenu: Renderer<CellProps<Invite>> = ({ row, column }) => {

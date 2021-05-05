@@ -810,11 +810,15 @@ exports[`UsersPage Test render data 1`] = `
           role="cell"
           style="width: 20%;"
         >
-          <p
-            class="StyledProps--font StyledProps--main"
+          <div
+            class="Layout--horizontal StyledProps--main overflow StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--padding-right-small"
           >
-            abc@harness.io
-          </p>
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              abc@harness.io
+            </p>
+          </div>
         </div>
         <div
           class="cell"

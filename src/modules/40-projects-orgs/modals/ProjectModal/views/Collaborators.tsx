@@ -21,7 +21,8 @@ import { Select } from '@blueprintjs/select'
 import cx from 'classnames'
 import * as Yup from 'yup'
 import { Menu } from '@blueprintjs/core'
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
+import copy from 'copy-to-clipboard'
 import {
   Project,
   useGetCurrentGenUsers,
@@ -38,6 +39,8 @@ import { getScopeFromDTO, ScopedObjectDTO } from '@common/components/EntityRefer
 import { useGetRoleList } from 'services/rbac'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { InviteType } from '@rbac/modals/RoleAssignmentModal/views/RoleAssignmentForm'
+import { useToaster } from '@common/exports'
+import routes from '@common/RouteDefinitions'
 import InviteListRenderer from './InviteListRenderer'
 import css from './Steps.module.scss'
 
@@ -61,7 +64,8 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
   const { projectIdentifier, orgIdentifier, showManage = true } = props
   const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
-
+  const { showSuccess, showError } = useToaster()
+  const history = useHistory()
   const [search, setSearch] = useState<string>()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
   const initialValues: CollaboratorsData = { collaborators: [] }
@@ -131,6 +135,17 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
     return regexEmail.test(String(email).toLowerCase())
   }
 
+  const getUrl = (): string | undefined => {
+    if (projectIdentifier && orgIdentifier)
+      return `${window.location.href.split('#')[0]}#${routes.toProjectDetails({
+        accountId,
+        orgIdentifier,
+        projectIdentifier
+      })}`
+    if (orgIdentifier)
+      return `${window.location.href.split('#')[0]}#${routes.toOrganizationDetails({ accountId, orgIdentifier })}`
+  }
+
   const SendInvitation = async (values: MultiSelectOption[]): Promise<void> => {
     const usersToSubmit = values?.map(collaborator => {
       return collaborator.value
@@ -189,14 +204,18 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
               </Text>
               <Layout.Horizontal>
                 <TextInput
-                  placeholder={i18n.newProjectWizard.Collaborators.url}
+                  placeholder={getUrl()}
                   disabled
                   rightElement={
                     (
                       <Button
                         tooltip={i18n.newProjectWizard.Collaborators.notAvailableForBeta}
                         icon="duplicate"
-                        disabled
+                        onClick={() => {
+                          copy(getUrl() || '')
+                            ? showSuccess(getString('clipboardCopySuccess'))
+                            : showError(getString('clipboardCopyFail'))
+                        }}
                         inline
                         minimal
                         className={css.clone}
@@ -308,7 +327,13 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
 
             {showManage ? (
               <Layout.Horizontal>
-                <Button minimal disabled tooltip={i18n.newProjectWizard.Collaborators.notAvailableForBeta}>
+                <Button
+                  minimal
+                  className={css.manageUsers}
+                  onClick={() => {
+                    history.push(routes.toUsers({ accountId, orgIdentifier, projectIdentifier }))
+                  }}
+                >
                   {projectIdentifier
                     ? i18n.newProjectWizard.Collaborators.manage
                     : i18n.newProjectWizard.Collaborators.manageOrg}

@@ -74,7 +74,7 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
                 <Text
                   font={{ size: 'xsmall', weight: 'bold' }}
                   className={cx(css.colorBar, css.pending)}
-                  color={Color.BLUE_500}
+                  color={Color.PRIMARY_7}
                 >
                   {i18n.newProjectWizard.Collaborators.pendingInvitation}
                 </Text>

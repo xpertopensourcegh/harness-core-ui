@@ -7,7 +7,12 @@ import { useHistory, useParams } from 'react-router-dom'
 import { get } from 'lodash-es'
 import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/strings'
-import type { PageResourceGroupResponse, ResourceGroupResponse, ResourceSelector } from 'services/platform'
+import type {
+  PageResourceGroupResponse,
+  ResourceGroupResponse,
+  ResourceSelector,
+  StaticResourceSelector
+} from 'services/platform'
 import routes from '@common/RouteDefinitions'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -64,7 +69,7 @@ const RenderColumnSummary: Renderer<CellProps<ResourceGroupResponse>> = ({ row, 
         name: label
       })
     }
-    return `${resourceSelectors?.length} ${label}`
+    return `${(resource as StaticResourceSelector).identifiers?.length || 0} ${label}`
   }
   if (harnessManaged) return <Text color={Color.BLACK}>{getString('rbac.allResources')}</Text>
   return resourceSelectors?.length ? (

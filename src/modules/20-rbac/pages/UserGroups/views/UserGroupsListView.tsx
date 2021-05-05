@@ -62,11 +62,13 @@ const RenderColumnMembers: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, 
     <AvatarGroup avatars={avatars} restrictLengthTo={6} onAdd={handleAddMember} />
   ) : (
     <Layout.Horizontal>
-      <Button
+      <ManagePrincipalButton
         text={getString('plusNumber', { number: getString('members') })}
         minimal
         onClick={handleAddMember}
         className={css.roleButton}
+        resourceType={ResourceType.USERGROUP}
+        resourceIdentifier={row.original.userGroupDTO.identifier}
       />
     </Layout.Horizontal>
   )

@@ -84,7 +84,15 @@ const RenderColumnRoleAssignments: Renderer<CellProps<UserAggregate>> = ({ row, 
 const RenderColumnEmail: Renderer<CellProps<UserAggregate>> = ({ row }) => {
   const data = row.original
 
-  return <Text>{data.user?.email}</Text>
+  return (
+    <Layout.Horizontal
+      className={css.overflow}
+      flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
+      padding={{ right: 'small' }}
+    >
+      <Text>{data.user?.email}</Text>
+    </Layout.Horizontal>
+  )
 }
 
 const RenderColumnMenu: Renderer<CellProps<UserAggregate>> = ({ row, column }) => {

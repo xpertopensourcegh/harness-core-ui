@@ -34,7 +34,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                 <input
                   class="bp3-input"
                   disabled=""
-                  placeholder="https://www.harness.io/fake-url"
+                  placeholder="http://localhost/#/account/testAcc/projects/test/orgs/testOrg/details"
                   style="padding-right: 0px;"
                   type="text"
                 />
@@ -48,9 +48,8 @@ exports[`Collaborators test Render Collaborators  1`] = `
                       class="bp3-popover-target"
                     >
                       <button
-                        class="bp3-button bp3-disabled bp3-minimal Button--button StyledProps--font StyledProps--main clone StyledProps--inline Button--with-current-color Button--iconOnly Button--without-shadow"
-                        disabled=""
-                        tabindex="-1"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main clone StyledProps--inline Button--with-current-color Button--iconOnly Button--without-shadow"
+                        tabindex="0"
                         type="button"
                       >
                         <span
@@ -254,7 +253,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                           example4
                         </p>
                         <p
-                          class="StyledProps--font StyledProps--main colorBar pending StyledProps--font-size-xsmall StyledProps--font-weight-bold StyledProps--color StyledProps--color-blue500"
+                          class="StyledProps--font StyledProps--main colorBar pending StyledProps--font-size-xsmall StyledProps--font-weight-bold StyledProps--color StyledProps--color-primary7"
                         >
                           Pending Invitation
                         </p>
@@ -390,7 +389,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                           example3
                         </p>
                         <p
-                          class="StyledProps--font StyledProps--main colorBar pending StyledProps--font-size-xsmall StyledProps--font-weight-bold StyledProps--color StyledProps--color-blue500"
+                          class="StyledProps--font StyledProps--main colorBar pending StyledProps--font-size-xsmall StyledProps--font-weight-bold StyledProps--color StyledProps--color-primary7"
                         >
                           Pending Invitation
                         </p>
@@ -526,7 +525,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                           example2
                         </p>
                         <p
-                          class="StyledProps--font StyledProps--main colorBar pending StyledProps--font-size-xsmall StyledProps--font-weight-bold StyledProps--color StyledProps--color-blue500"
+                          class="StyledProps--font StyledProps--main colorBar pending StyledProps--font-size-xsmall StyledProps--font-weight-bold StyledProps--color StyledProps--color-primary7"
                         >
                           Pending Invitation
                         </p>
@@ -626,26 +625,16 @@ exports[`Collaborators test Render Collaborators  1`] = `
         <div
           class="Layout--horizontal StyledProps--main"
         >
-          <span
-            class="bp3-popover-wrapper"
+          <button
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main manageUsers Button--with-current-color Button--iconOnly Button--without-shadow"
+            type="button"
           >
             <span
-              class="bp3-popover-target"
+              class="bp3-button-text"
             >
-              <button
-                class="bp3-button bp3-disabled bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                disabled=""
-                tabindex="-1"
-                type="button"
-              >
-                <span
-                  class="bp3-button-text"
-                >
-                  Manage all the users in the project
-                </span>
-              </button>
+              Manage all the users in the project
             </span>
-          </span>
+          </button>
         </div>
       </div>
     </form>
