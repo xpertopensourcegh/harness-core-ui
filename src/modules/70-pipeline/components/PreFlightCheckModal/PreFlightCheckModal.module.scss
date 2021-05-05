@@ -12,19 +12,51 @@
     }
   }
 
-  .inputFqn {
-    width: 260px;
-    display: block !important;
-    text-overflow: ellipsis !important;
-    white-space: nowrap;
+  .listRow {
+    padding: 0px var(--spacing-small) !important;
+    display: flex;
+    align-items: flex-start;
   }
 
-  .connectorName {
-    width: 130px;
+  .inputFqn {
+    width: 390px;
+    display: block !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
   }
 
   .connectorID {
-    width: 130px;
+    width: 200px;
+    white-space: nowrap !important;
+  }
+
+  .connectorName {
+    width: 180px;
+    display: inline-block !important;
+    white-space: nowrap !important;
+    text-overflow: ellipsis;
+  }
+
+  .connectorIdentifierHolder {
+    display: flex;
+  }
+
+  .connectorIdentifier {
+    display: inline-block;
+    width: 180px;
+    overflow: hidden;
+    white-space: nowrap !important;
+    text-overflow: ellipsis;
+    color: inherit !important;
+    padding-left: var(--spacing-small) !important;
+  }
+
+  .accordionPaddingCorrection {
+    margin-left: 14px !important;
+  }
+
+  .status {
+    display: inline-block;
   }
 }
 

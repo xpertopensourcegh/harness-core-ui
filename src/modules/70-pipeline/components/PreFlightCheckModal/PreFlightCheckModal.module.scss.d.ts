@@ -2,9 +2,14 @@
 // this is an auto-generated file
 declare const styles: {
   readonly preFlightCheckContainer: string
+  readonly listRow: string
   readonly inputFqn: string
-  readonly connectorName: string
   readonly connectorId: string
+  readonly connectorName: string
+  readonly connectorIdentifierHolder: string
+  readonly connectorIdentifier: string
+  readonly accordionPaddingCorrection: string
+  readonly status: string
   readonly divider: string
   readonly sectionLabelText: string
   readonly sectionsWrapper: string

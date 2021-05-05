@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { stringify } from 'yaml'
 import { isEmpty } from 'lodash-es'
 import { Link } from 'react-router-dom'
+import cx from 'classnames'
 import { PopoverInteractionKind, Position, ProgressBar } from '@blueprintjs/core'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import { Accordion, Button, Color, Container, Layout, Popover, Text } from '@wings-software/uicore'
@@ -53,7 +54,7 @@ const getStatusMessage = (status?: string): string => {
 
 const RowStatus: React.FC<{ status: ConnectorCheckResponse['status'] }> = ({ status }) => {
   return (
-    <Text inline icon="dot" iconProps={{ color: getIconProps(status).color }}>
+    <Text inline icon="dot" iconProps={{ color: getIconProps(status).color }} className={css.status}>
       {getStatusMessage(status)}
     </Text>
   )
@@ -207,11 +208,15 @@ const ConnectorsSection: React.FC<ConnectorsSectionProps> = ({
     return `${getStageLink(stageIdentifier)}&stepId=${stepIdentifier}`
   }
 
-  const getDetails = (row: ConnectorCheckResponse) => (
-    <Layout.Horizontal spacing="large" key={row.fqn}>
-      <Text className={css.connectorName}>{row.connectorIdentifier}</Text>
+  const getDetails = (row: ConnectorCheckResponse, hasExpandableDetails: boolean) => (
+    <Layout.Horizontal spacing="large" key={row.fqn} className={css.listRow}>
+      <Text
+        lineClamp={1}
+        className={cx(css.connectorName, { [css.accordionPaddingCorrection]: !hasExpandableDetails })}
+      >
+        {row.connectorIdentifier}
+      </Text>
       <span className={css.connectorId}>
-        {getString('idLabel')}
         <Popover
           boundary={'window'}
           position={Position.TOP}
@@ -220,9 +225,12 @@ const ConnectorsSection: React.FC<ConnectorsSectionProps> = ({
           modifiers={{ preventOverflow: { enabled: false } }}
         >
           {row.connectorIdentifier ? (
-            <Link target={'_blank'} to={getConnectorUrl(row.connectorIdentifier)}>
-              <Text lineClamp={1}>{row.connectorIdentifier}</Text>
-            </Link>
+            <div className={css.connectorIdentifierHolder}>
+              <span> {getString('idLabel')}</span>
+              <Link target={'_blank'} to={getConnectorUrl(row.connectorIdentifier)}>
+                <Text className={css.connectorIdentifier}> {row.connectorIdentifier}</Text>
+              </Link>
+            </div>
           ) : null}
 
           <Container className={css.locationPopoverContent}>
@@ -258,11 +266,11 @@ const ConnectorsSection: React.FC<ConnectorsSectionProps> = ({
             <Accordion.Panel
               id={row.connectorIdentifier || ''}
               details={<ErrorPanel errorInfo={row.errorInfo} />}
-              summary={getDetails(row)}
+              summary={getDetails(row, true)}
             ></Accordion.Panel>
           </Accordion>
         ) : (
-          getDetails(row)
+          getDetails(row, false)
         )
       })}
     </Layout.Vertical>
@@ -291,9 +299,9 @@ const InputSetsSection: React.FC<InputSetsSectionProps> = ({ preFlightCheckData 
     return <Text intent="danger">{getString('pre-flight-check.couldNotVerifyInputSets')}</Text>
   }
 
-  const getDetails = (row: PipelineInputResponse) => (
-    <Layout.Horizontal spacing="large" key={row.fqn}>
-      <Text className={css.inputFqn} lineClamp={1}>
+  const getDetails = (row: PipelineInputResponse, hasExpandableDetails: boolean) => (
+    <Layout.Horizontal spacing="large" key={row.fqn} className={css.listRow}>
+      <Text lineClamp={1} className={cx(css.inputFqn, { [css.accordionPaddingCorrection]: !hasExpandableDetails })}>
         {row.fqn}
       </Text>
       <RowStatus status={row.success ? 'SUCCESS' : 'FAILURE'} />
@@ -308,11 +316,11 @@ const InputSetsSection: React.FC<InputSetsSectionProps> = ({ preFlightCheckData 
             <Accordion.Panel
               id={row.fqn || ''}
               details={<ErrorPanel errorInfo={row.errorInfo} />}
-              summary={getDetails(row)}
+              summary={getDetails(row, true)}
             ></Accordion.Panel>
           </Accordion>
         ) : (
-          getDetails(row)
+          getDetails(row, false)
         )
       })}
     </Layout.Vertical>
