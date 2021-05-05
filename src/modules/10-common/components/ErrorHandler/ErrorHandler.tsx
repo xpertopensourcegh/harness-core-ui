@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react'
+import cx from 'classnames'
 import { Color, Layout, Text, Icon, IconName } from '@wings-software/uicore'
 import type { ResponseMessage } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
@@ -6,6 +7,7 @@ import css from '@common/components/ErrorHandler/ErrorHandler.module.scss'
 
 export interface ErrorHandlerProps {
   responseMessages: ResponseMessage[]
+  className?: string
 }
 
 const extractInfo = (
@@ -62,14 +64,14 @@ const ErrorList: React.FC<{
 }
 
 export const ErrorHandler: React.FC<ErrorHandlerProps> = props => {
-  const { responseMessages } = props
+  const { responseMessages, className = '' } = props
   const { error = {}, explanations = [], hints = [] } = useMemo(() => extractInfo(responseMessages), [responseMessages])
   const { getString } = useStrings()
   return (
     <Layout.Vertical
-      background={Color.RED_300}
-      padding={{ top: 'small', bottom: 0, left: 'medium', right: 'medium' }}
-      className={css.container}
+      background={Color.RED_100}
+      padding={{ top: 'medium', bottom: 0, left: 'medium', right: 'medium' }}
+      className={cx(css.container, className)}
     >
       <Text font={{ weight: 'bold' }} color={Color.RED_700} margin={{ bottom: 'medium' }}>
         {error.message}

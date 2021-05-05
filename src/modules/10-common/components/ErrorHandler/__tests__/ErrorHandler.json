@@ -1,0 +1,23 @@
+[
+  {
+    "code": "CONNECTOR_NOT_FOUND_EXCEPTION",
+    "level": "ERROR",
+    "message": "No connector found with identifier test35",
+    "exception": "",
+    "failureTypes": []
+  },
+  {
+    "code": "HINT",
+    "level": "INFO",
+    "message": "No connector found with identifier test35",
+    "exception": "",
+    "failureTypes": []
+  },
+  {
+    "code": "EXPLANATION",
+    "level": "INFO",
+    "message": "No connector found with identifier test35",
+    "exception": "",
+    "failureTypes": []
+  }
+]

@@ -3,7 +3,12 @@ import { useParams } from 'react-router'
 import cx from 'classnames'
 import { StepsProgress, Layout, Button, Text, Intent, Color, StepProps, Container } from '@wings-software/uicore'
 import { useGetDelegateFromId } from 'services/portal'
-import { useGetTestConnectionResult, ResponseConnectorValidationResult, ConnectorConfigDTO } from 'services/cd-ng'
+import {
+  useGetTestConnectionResult,
+  ResponseConnectorValidationResult,
+  ConnectorConfigDTO,
+  Error
+} from 'services/cd-ng'
 
 import type { StepDetails } from '@connectors/interfaces/ConnectorInterface'
 import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER } from '@connectors/constants'
@@ -14,6 +19,7 @@ import {
   DelegateTypes
 } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { ErrorHandler } from '@common/components/ErrorHandler/ErrorHandler'
 import css from './VerifyOutOfClusterDelegate.module.scss'
 
 interface RenderUrlInfo {
@@ -188,35 +194,45 @@ const VerifyOutOfClusterDelegate: React.FC<
   })
 
   const renderError = () => {
+    const { responseMessages = null } = testConnectionResponse?.data as Error
+    const genericHandler = (
+      <Layout.Horizontal className={css.errorResult}>
+        <Text
+          color={Color.GREY_900}
+          lineClamp={1}
+          font={{ size: 'small', weight: 'semi-bold' }}
+          margin={{ top: 'small', bottom: 'small' }}
+        >
+          {testConnectionResponse?.data?.errorSummary}
+        </Text>
+        {testConnectionResponse?.data?.errors && (
+          <Button
+            width={'120px'}
+            text="View Details"
+            intent="primary"
+            font={{ size: 'small' }}
+            minimal
+            onClick={() => setViewDetails(!viewDetails)}
+            rightIcon={viewDetails ? 'chevron-up' : 'chevron-down'}
+            iconProps={{ size: 12 }}
+          />
+        )}
+      </Layout.Horizontal>
+    )
+    {
+      viewDetails ? (
+        <div className={css.errorMsg}>
+          <pre>{JSON.stringify({ errors: removeErrorCode(testConnectionResponse?.data?.errors) }, null, ' ')}</pre>
+        </div>
+      ) : null
+    }
     return (
       <Layout.Vertical className={css.stepError}>
-        <Layout.Horizontal className={css.errorResult}>
-          <Text
-            color={Color.GREY_900}
-            lineClamp={1}
-            font={{ size: 'small', weight: 'semi-bold' }}
-            margin={{ top: 'small', bottom: 'small' }}
-          >
-            {testConnectionResponse?.data?.errorSummary}
-          </Text>
-          {testConnectionResponse?.data?.errors && (
-            <Button
-              width={'120px'}
-              text="View Details"
-              intent="primary"
-              font={{ size: 'small' }}
-              minimal
-              onClick={() => setViewDetails(!viewDetails)}
-              rightIcon={viewDetails ? 'chevron-up' : 'chevron-down'}
-              iconProps={{ size: 12 }}
-            />
-          )}
-        </Layout.Horizontal>
-        {viewDetails ? (
-          <div className={css.errorMsg}>
-            <pre>{JSON.stringify({ errors: removeErrorCode(testConnectionResponse?.data?.errors) }, null, ' ')}</pre>
-          </div>
-        ) : null}
+        {responseMessages ? (
+          <ErrorHandler responseMessages={responseMessages} className={css.errorHandler} />
+        ) : (
+          genericHandler
+        )}
         {/* TODO: when install delegate behaviour is known {testConnectionResponse?.data?.delegateId ? ( */}
         <Layout.Horizontal spacing="small">
           {props.isStep ? (
@@ -266,7 +282,9 @@ const VerifyOutOfClusterDelegate: React.FC<
 
         {stepDetails.step === StepIndex.get(STEP.TEST_CONNECTION) ? (
           stepDetails.status === 'ERROR' ? (
-            testConnectionResponse?.data?.errorSummary || testConnectionResponse?.data?.errors ? (
+            testConnectionResponse?.data?.errorSummary ||
+            testConnectionResponse?.data?.errors ||
+            (testConnectionResponse?.data as Error)?.responseMessages ? (
               renderError()
             ) : (
               <Text padding={{ top: 'small' }}>{getString('connectors.testConnectionStep.placeholderError')}</Text>
@@ -298,6 +316,7 @@ const VerifyOutOfClusterDelegate: React.FC<
             })
           }
         } catch (err) {
+          setTestConnectionResponse(err)
           setStepDetails({
             step: 1,
             intent: Intent.DANGER,

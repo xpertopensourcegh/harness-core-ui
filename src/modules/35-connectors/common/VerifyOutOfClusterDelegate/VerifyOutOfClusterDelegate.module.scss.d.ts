@@ -16,5 +16,6 @@ declare const styles: {
   readonly contentMinHeight: string
   readonly errorResult: string
   readonly stepError: string
+  readonly errorHandler: string
 }
 export default styles
