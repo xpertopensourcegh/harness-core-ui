@@ -67,7 +67,6 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
     },
     [orgIdentifier, projectIdentifier, accountId, pipelineExecution.pipelineIdentifier]
   )
-
   return (
     <Card elevation={0} className={css.card} interactive>
       <Link
@@ -151,7 +150,13 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
           </div>
           <div className={css.footer}>
             <div className={css.triggerInfo}>
-              <UserLabel name={pipelineExecution.executionTriggerInfo?.triggeredBy?.identifier || 'Anonymous'} />
+              <UserLabel
+                name={
+                  pipelineExecution.moduleInfo?.ci?.ciExecutionInfoDTO?.author?.name ||
+                  pipelineExecution.executionTriggerInfo?.triggeredBy?.identifier ||
+                  'Anonymous'
+                }
+              />
               <String
                 className={css.triggerType}
                 stringID={

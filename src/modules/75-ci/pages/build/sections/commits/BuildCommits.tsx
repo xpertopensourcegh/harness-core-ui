@@ -42,6 +42,10 @@ const BuildCommits: React.FC = () => {
     context,
     'pipelineExecutionDetail.pipelineExecutionSummary.moduleInfo.ci.ciExecutionInfoDTO.branch.commits'
   )
+  const commitAuthor = get(
+    context,
+    'pipelineExecutionDetail.pipelineExecutionSummary.moduleInfo.ci.ciExecutionInfoDTO.author'
+  )
   buildCommits?.forEach((commit: CIBuildCommit) => {
     const index = commitsGroupedByTimestamp.findIndex(({ timeStamp: timestamp2 }) =>
       moment(commit.timeStamp).isSame(timestamp2, 'day')
@@ -53,7 +57,6 @@ const BuildCommits: React.FC = () => {
       commitsGroupedByTimestamp.push({ timeStamp: commit.timeStamp || 0, commits: [commit] })
     }
   })
-
   return (
     <div className={css.wrapper}>
       {commitsGroupedByTimestamp.map(({ timeStamp, commits }) => (
@@ -68,7 +71,7 @@ const BuildCommits: React.FC = () => {
             const [title, description] = message.split('\n\n')
             // we should use only first part of a name
             // in order to show a single letter
-            const firstName = ownerName?.split(' ')[0]
+            const firstName = (ownerName || commitAuthor.name)?.split(' ')[0]
             return (
               <Card className={css.commit} key={id}>
                 <div>
@@ -90,9 +93,11 @@ const BuildCommits: React.FC = () => {
                     name={firstName}
                     size={'xsmall'}
                     backgroundColor={AVATAR_COLORS[index % AVATAR_COLORS.length]}
+                    src={commitAuthor.avatar}
+                    hoverCard={false}
                   />
                   <Text className={css.committed} font="xsmall" margin={{ right: 'xlarge' }}>
-                    {ownerId} {getString('ci.committed')} {getTimeAgo(commitTimestamp)}
+                    {ownerId || commitAuthor.id} {getString('ci.committed')} {getTimeAgo(commitTimestamp)}
                   </Text>
                   <button className={css.hash} onClick={() => copy2Clipboard(id)}>
                     <Text
