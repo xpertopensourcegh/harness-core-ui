@@ -22,7 +22,7 @@ export const NoEnvironment: React.FC<NoEnvironmentProps> = ({ onCreated, style, 
         {getString('cf.noEnvironment.title')}
       </Heading>
       <Text
-        width={325}
+        width={400}
         style={{
           padding: 'var(--spacing-large) 0 var(--spacing-xxlarge)',
           fontSize: 'var(--font-size-medium)',

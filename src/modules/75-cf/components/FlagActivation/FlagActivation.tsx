@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useState } from 'react'
+import { useHistory, useParams } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
 import type { FormikActions } from 'formik'
-import { get, isEqual, isNil } from 'lodash-es'
+import { get, isEqual } from 'lodash-es'
 import {
   Layout,
   Container,
@@ -11,9 +11,7 @@ import {
   Tab,
   Button,
   FlexExpander,
-  Select,
   useModalHook,
-  SelectOption,
   Formik,
   FormikForm as Form
 } from '@wings-software/uicore'
@@ -35,21 +33,29 @@ import { useStrings } from 'framework/strings'
 import { extraOperatorReference } from '@cf/constants'
 import { useToaster } from '@common/exports'
 import { useQueryParams } from '@common/hooks'
-import { FFDetailPageTab } from '@cf/utils/CFUtils'
+import { useEnvironmentSelectV2 } from '@cf/hooks/useEnvironmentSelectV2'
+import type { EnvironmentResponseDTO } from 'services/cd-ng'
+import { FFDetailPageTab, getErrorMessage, rewriteCurrentLocationWithActiveEnvironment } from '@cf/utils/CFUtils'
+import routes from '@common/RouteDefinitions'
+import { PageError } from '@common/components/Page/PageError'
+import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import FlagElemTest from '../CreateFlagWizard/FlagElemTest'
 import TabTargeting from '../EditFlagTabs/TabTargeting'
 import TabActivity from '../EditFlagTabs/TabActivity'
+import { CFEnvironmentSelect } from '../CFEnvironmentSelect/CFEnvironmentSelect'
 import patch, { ClauseData, getDiff } from '../../utils/instructions'
 import { MetricsView } from './views/MetricsView'
+import { NoEnvironment } from '../NoEnvironment/NoEnvironment'
 import css from './FlagActivation.module.scss'
+
+// Show loading and wait 3s when the first environment is created before reloading
+// current detail page. See https://harness.atlassian.net/browse/FFM-565
+const WAIT_TIME_FOR_NEWLY_CREATED_ENVIRONMENT = 3000
 
 interface FlagActivationProps {
   project: string
-  environments: SelectOption[]
-  environment: SelectOption | null
   flagData: Feature
   isBooleanFlag: boolean
-  onEnvChange: any
   refetchFlag: () => Promise<any>
 }
 
@@ -74,20 +80,42 @@ const fromVariationMapToObj = (variationMap: VariationMap[]) =>
   }, {})
 
 const FlagActivation: React.FC<FlagActivationProps> = props => {
-  const { flagData, project, environments, environment, isBooleanFlag, refetchFlag } = props
+  const { flagData, project, isBooleanFlag, refetchFlag } = props
   const { showError } = useToaster()
   const [editing, setEditing] = useState(false)
+  const [loadingFlags, setLoadingFlags] = useState(false)
+  const urlQuery: Record<string, string> = useQueryParams()
   const { orgIdentifier, accountId } = useParams<Record<string, string>>()
+  const [activeEnvironment, setActiveEnvironment] = useState<EnvironmentResponseDTO>()
   const { mutate: patchFeature } = usePatchFeature({
     identifier: flagData.identifier as string,
     queryParams: {
       project: project as string,
-      environment: environment?.value as string,
+      environment: activeEnvironment?.identifier as string,
       account: accountId,
       accountIdentifier: accountId,
       org: orgIdentifier
     } as PatchFeatureQueryParams
   })
+  const {
+    EnvironmentSelect,
+    loading: envsLoading,
+    error: envsError,
+    refetch: refetchEnvironments,
+    environments
+  } = useEnvironmentSelectV2({
+    selectedEnvironmentIdentifier: urlQuery.activeEnvironment || activeEnvironment?.identifier,
+    onChange: (_value, _environment, _userEvent) => {
+      setActiveEnvironment(_environment)
+      rewriteCurrentLocationWithActiveEnvironment(_environment)
+
+      if (_userEvent) {
+        setLoadingFlags(true)
+        refetchFlag().finally(() => setLoadingFlags(false))
+      }
+    }
+  })
+  const noEnvironmentExists = !envsLoading && !envsError && environments?.length === 0
 
   const onCancelEditHandler = (): void => {
     setEditing(false)
@@ -345,13 +373,58 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
   ))
   const { tab = FFDetailPageTab.TARGETING } = useQueryParams<{ tab?: string }>()
   const [activeTabId, setActiveTabId] = useState(tab)
+  const [newEnvironmentCreateLoading, setNewEnvironmentCreateLoading] = useState(false)
   const { getString } = useStrings()
+  const history = useHistory()
 
-  useEffect(() => {
-    if (isNil(environment)) {
-      props.onEnvChange(environments[0])
-    }
-  }, [environment])
+  if (envsLoading || newEnvironmentCreateLoading || loadingFlags) {
+    return (
+      <Container
+        style={{
+          position: 'fixed',
+          top: '64px',
+          left: 0,
+          bottom: 0,
+          right: 0,
+          zIndex: 1
+        }}
+      >
+        <ContainerSpinner />
+      </Container>
+    )
+  }
+
+  if (envsError) {
+    return <PageError message={getErrorMessage(envsError)} onClick={() => refetchEnvironments()} />
+  }
+
+  if (noEnvironmentExists) {
+    return (
+      <Container style={{ height: '100%', display: 'grid', alignItems: 'center' }}>
+        <NoEnvironment
+          style={{ marginTop: '-100px' }}
+          onCreated={response => {
+            history.replace(
+              routes.toCFFeatureFlagsDetail({
+                orgIdentifier,
+                projectIdentifier: flagData.project,
+                environmentIdentifier: response?.data?.identifier as string,
+                featureFlagIdentifier: flagData.identifier,
+                accountId
+              })
+            )
+
+            // See https://harness.atlassian.net/browse/FFM-565
+            setNewEnvironmentCreateLoading(true)
+            setTimeout(() => {
+              setNewEnvironmentCreateLoading(false)
+              refetchEnvironments()
+            }, WAIT_TIME_FOR_NEWLY_CREATED_ENVIRONMENT)
+          }}
+        />
+      </Container>
+    )
+  }
 
   return (
     <Formik
@@ -376,19 +449,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                 }}
               >
                 <FlexExpander />
-                <Text
-                  margin={{ right: 'medium' }}
-                  font={{ weight: 'bold' }}
-                  style={{ color: '#1C1C28', fontSize: '14px' }}
-                >
-                  {getString('environment').toUpperCase()}
-                </Text>
-                <Select
-                  items={environments}
-                  className={css.envSelect}
-                  value={environment ?? environments[0]}
-                  onChange={props.onEnvChange}
-                />
+                <CFEnvironmentSelect component={<EnvironmentSelect />} />
               </Layout.Horizontal>
               <Container
                 className={cx(css.tabContainer, (!editing || activeTabId !== FFDetailPageTab.TARGETING) && css.noEdit)}
@@ -415,7 +476,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                             targetData={flagData}
                             isBooleanTypeFlag={isBooleanFlag}
                             projectIdentifier={project}
-                            environmentIdentifier={environment?.value as string}
+                            environmentIdentifier={activeEnvironment?.identifier as string}
                             setEditing={setEditing}
                             feature={flagData}
                           />

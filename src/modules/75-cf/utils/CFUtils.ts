@@ -4,6 +4,7 @@ import { get } from 'lodash-es'
 import { Utils } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type { Feature, Variation } from 'services/cf'
+import type { EnvironmentResponseDTO } from 'services/cd-ng'
 
 const LOCALE = 'en'
 export const SEVEN_DAYS_IN_MILLIS = 7 * 24 * 60 * 60 * 1000
@@ -253,4 +254,109 @@ export function useValidateVariationValues(): UseValidateVariationValuesResult {
   )
 
   return validateVariationValues
+}
+
+// Colors used for CF banners
+export const ColorPickerColors = [
+  '#e63535',
+  '#ff3b3b',
+  '#ff5c5c',
+  '#ff8080',
+  '#ffe6e6', // red
+  '#05a660',
+  '#06c270',
+  '#39d98a',
+  '#57eba1',
+  '#e3fff1', // green
+  '#004fc4',
+  '#0063f7',
+  '#5b8def',
+  '#9dbff9',
+  '#e5f0ff', // blue
+  '#e6b800',
+  '#ffcc00',
+  '#fddd48',
+  '#fded72',
+  '#fffee6', // yellow
+  '#e67a00',
+  '#ff8800',
+  '#fdac42',
+  '#fccc75',
+  '#fff8e6', // orange
+  '#00b7c4',
+  '#00cfde',
+  '#73dfe7',
+  '#a9eff2',
+  '#e6ffff', // teal
+  '#4d0099',
+  '#6600cc',
+  '#ac5dd9',
+  '#dda5e9',
+  '#ffe6ff', // purple
+  '#e4e4eb',
+  '#ebebf0',
+  '#f2f2f5',
+  '#fafafc',
+  '#ffffff', // grey
+  '#1c1c28',
+  '#28293d',
+  '#555770',
+  '#8f90a6',
+  '#c7c9d9' // black
+]
+
+/*!
+ * Get the contrasting color for any hex color
+ * (c) 2021 Chris Ferdinandi, MIT License, https://gomakethings.com
+ * Derived from work by Brian Suda, https://24ways.org/2010/calculating-color-contrast/
+ * @param  {String} A hexcolor value
+ * @return {String} The contrasting color (black or white)
+ */
+export function getContrast(hexcolor: string): string {
+  // If a leading # is provided, remove it
+  if (hexcolor.slice(0, 1) === '#') {
+    hexcolor = hexcolor.slice(1)
+  }
+
+  // If a three-character hexcode, make six-character
+  if (hexcolor.length === 3) {
+    hexcolor = hexcolor
+      .split('')
+      .map(function (hex) {
+        return hex + hex
+      })
+      .join('')
+  }
+
+  // Convert to RGB value
+  const r = parseInt(hexcolor.substr(0, 2), 16)
+  const g = parseInt(hexcolor.substr(2, 2), 16)
+  const b = parseInt(hexcolor.substr(4, 2), 16)
+
+  // Get YIQ ratio
+  const yiq = (r * 299 + g * 587 + b * 114) / 1000
+
+  // Check contrast
+  return yiq >= 128 ? 'black' : 'white'
+}
+
+export const rewriteCurrentLocationWithActiveEnvironment = (activeEnvironment: EnvironmentResponseDTO): void => {
+  const hrefParts = location.href.split('?')
+  const activeQueryParams: Record<string, string> = (hrefParts[1] || '')
+    .split('&')
+    .filter(entry => !!entry?.length)
+    .map(item => item.split('='))
+    .reduce((params, item) => {
+      params[item[0]] = item[1]
+      return params
+    }, {} as Record<string, string>)
+
+  activeQueryParams.activeEnvironment = activeEnvironment.identifier || ''
+  location.replace(
+    hrefParts[0] +
+      '?' +
+      Object.entries(activeQueryParams)
+        .map(pair => pair.join('='))
+        .join('&')
+  )
 }

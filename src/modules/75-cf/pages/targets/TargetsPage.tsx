@@ -7,47 +7,50 @@ import { useHistory } from 'react-router-dom'
 import { Button, Color, Container, FlexExpander, Layout, Pagination, Text } from '@wings-software/uicore'
 import type { Cell, Column } from 'react-table'
 import { ListingPageTemplate, ListingPageTitle } from '@cf/components/ListingPageTemplate/ListingPageTemplate'
-import { useEnvironments } from '@cf/hooks/environment'
 import Table from '@common/components/Table/Table'
 import {
   CF_DEFAULT_PAGE_SIZE,
-  CF_LOCAL_STORAGE_ENV_KEY,
-  DEFAULT_ENV,
   getErrorMessage,
-  NO_ENVIRONMENT_IDENTIFIER,
+  rewriteCurrentLocationWithActiveEnvironment,
   SEGMENT_PRIMARY_COLOR,
   showToaster,
   TARGET_PRIMARY_COLOR
 } from '@cf/utils/CFUtils'
-import { useConfirmAction, useLocalStorage } from '@common/hooks'
+import { useConfirmAction, useQueryParams } from '@common/hooks'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
 import { OptionsMenuButton } from '@common/components'
-import { EnvironmentSelect } from '@cf/components/EnvironmentSelect/EnvironmentSelect'
 import { Segment, Target, useDeleteTarget, useGetAllTargets } from 'services/cf'
 import {
   makeStackedCircleShortName,
   StackedCircleContainer
 } from '@cf/components/StackedCircleContainer/StackedCircleContainer'
+import { useEnvironmentSelectV2 } from '@cf/hooks/useEnvironmentSelectV2'
+import { CFEnvironmentSelect } from '@cf/components/CFEnvironmentSelect/CFEnvironmentSelect'
+import type { EnvironmentResponseDTO } from 'services/cd-ng'
 import { NoEnvironment } from '@cf/components/NoEnvironment/NoEnvironment'
 import { NoTargetsView } from './NoTargetsView'
 import { NewTargets } from './NewTarget'
 
 export const TargetsPage: React.FC = () => {
-  const { projectIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
+  const urlQuery: Record<string, string> = useQueryParams()
+  const [activeEnvironment, setActiveEnvironment] = useState<EnvironmentResponseDTO>()
   const {
-    data: environments,
+    EnvironmentSelect,
     loading: loadingEnvironments,
     error: errEnvironments,
-    refetch: refetchEnvs
-  } = useEnvironments({
-    projectIdentifier,
-    accountId,
-    orgIdentifier
+    refetch: refetchEnvs,
+    environments
+  } = useEnvironmentSelectV2({
+    selectedEnvironmentIdentifier: urlQuery.activeEnvironment || activeEnvironment?.identifier,
+    onChange: (_value, _environment, _userEvent) => {
+      setActiveEnvironment(_environment)
+      rewriteCurrentLocationWithActiveEnvironment(_environment)
+    }
   })
+  const { projectIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
   const { getString } = useStrings()
-  const [environment, setEnvironment] = useLocalStorage(CF_LOCAL_STORAGE_ENV_KEY, DEFAULT_ENV)
   const [pageNumber, setPageNumber] = useState(0)
   const queryParams = useMemo(
     () => ({
@@ -55,11 +58,11 @@ export const TargetsPage: React.FC = () => {
       accountIdentifier: accountId,
       org: orgIdentifier,
       project: projectIdentifier,
-      environment: (environment?.value || '') as string,
+      environment: (activeEnvironment?.identifier || urlQuery.activeEnvironment || '') as string,
       pageNumber,
       pageSize: CF_DEFAULT_PAGE_SIZE
     }),
-    [accountId, orgIdentifier, projectIdentifier, environment?.value, pageNumber]
+    [accountId, orgIdentifier, projectIdentifier, activeEnvironment?.identifier, pageNumber, urlQuery.activeEnvironment] // eslint-disable-line react-hooks/exhaustive-deps
   )
   const { data: targetsData, loading: loadingTargets, error: errTargets, refetch: refetchTargets } = useGetAllTargets({
     queryParams
@@ -74,14 +77,7 @@ export const TargetsPage: React.FC = () => {
     <Layout.Horizontal flex={{ align: 'center-center' }} style={{ flexGrow: 1 }} padding={{ right: 'xlarge' }}>
       <ListingPageTitle style={{ borderBottom: 'none' }}>{title}</ListingPageTitle>
       <FlexExpander />
-      {!!environments?.length && (
-        <EnvironmentSelect
-          label={getString('cf.shared.environment').toLocaleUpperCase()}
-          selectedEnvironment={environment?.value ? environment : environments[0]}
-          environments={environments}
-          onChange={({ label, value }) => setEnvironment({ label, value: value as string })}
-        />
-      )}
+      {!!environments?.length && <CFEnvironmentSelect component={<EnvironmentSelect />} />}
     </Layout.Horizontal>
   )
   const toolbar = (
@@ -90,7 +86,7 @@ export const TargetsPage: React.FC = () => {
         accountId={accountId}
         orgIdentifier={orgIdentifier}
         projectIdentifier={projectIdentifier}
-        environmentIdentifier={environment?.value}
+        environmentIdentifier={activeEnvironment?.identifier}
         onCreated={() => {
           setPageNumber(0)
           refetchTargets({ queryParams: { ...queryParams, pageNumber: 0 } })
@@ -106,23 +102,23 @@ export const TargetsPage: React.FC = () => {
           accountId,
           orgIdentifier,
           projectIdentifier,
-          environmentIdentifier: environment.value || NO_ENVIRONMENT_IDENTIFIER,
+          environmentIdentifier: activeEnvironment?.identifier as string,
           targetIdentifier: identifier as string
-        })
+        }) + `${activeEnvironment?.identifier ? `?activeEnvironment=${activeEnvironment?.identifier}` : ''}`
       )
     },
-    [history, accountId, orgIdentifier, projectIdentifier, environment.value]
+    [history, accountId, orgIdentifier, projectIdentifier, activeEnvironment?.identifier] // eslint-disable-line react-hooks/exhaustive-deps
   )
-  const { showSuccess, showError, clear } = useToaster()
+  const { showError, clear } = useToaster()
   const deleteTargetParams = useMemo(
     () => ({
       account: accountId,
       accountIdentifier: accountId,
       org: orgIdentifier,
       project: projectIdentifier,
-      environment: environment?.value
+      environment: activeEnvironment?.identifier as string
     }),
-    [accountId, orgIdentifier, projectIdentifier, environment?.value]
+    [accountId, orgIdentifier, projectIdentifier, activeEnvironment?.identifier] // eslint-disable-line react-hooks/exhaustive-deps
   )
   const { mutate: deleteTarget } = useDeleteTarget({
     queryParams: deleteTargetParams
@@ -268,18 +264,14 @@ export const TargetsPage: React.FC = () => {
         }
       }
     ],
-    [getString, clear, deleteTarget, gotoTargeDetailPage, refetchTargets, showError, showSuccess]
+    [getString, clear, deleteTarget, gotoTargeDetailPage, refetchTargets, showError]
   )
 
   useEffect(() => {
-    if (environments?.[0] && !environment?.label) {
-      setEnvironment(environments[0] as typeof environment)
-    }
-
     return () => {
       clear()
     }
-  }, [clear, environments, environment, environment?.label, setEnvironment])
+  }, [clear])
 
   const content = noEnvironmentExists ? (
     <Container flex={{ align: 'center-center' }} height="100%">
@@ -287,13 +279,13 @@ export const TargetsPage: React.FC = () => {
     </Container>
   ) : noTargetExists ? (
     <NoTargetsView
-      environmentIdentifier={environment?.value}
+      environmentIdentifier={activeEnvironment?.identifier}
       onNewTargetsCreated={() => {
         setPageNumber(0)
         refetchTargets({ queryParams: { ...queryParams, pageNumber: 0 } })
         showToaster(getString('cf.messages.targetCreated'))
       }}
-      hasEnvironment={!!environments.length}
+      hasEnvironment={!!environments?.length}
     />
   ) : (
     <Container padding={{ top: 'medium', right: 'xxlarge', left: 'xxlarge' }}>

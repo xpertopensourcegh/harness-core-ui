@@ -9,7 +9,7 @@ import { PageError } from '@common/components/Page/PageError'
 import { OptionsMenuButton, PageSpinner, useToaster } from '@common/components'
 import { DISABLE_AVATAR_PROPS, formatDate, formatTime, getErrorMessage, showToaster } from '@cf/utils/CFUtils'
 import { useSyncedEnvironment } from '@cf/hooks/useSyncedEnvironment'
-import { useConfirmAction } from '@common/hooks'
+import { useConfirmAction, useQueryParams } from '@common/hooks'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { DetailPageTemplate } from '@cf/components/DetailPageTemplate/DetailPageTemplate'
 import { FlagsUseSegment } from './flags-use-segment/FlagsUseSegment'
@@ -25,6 +25,7 @@ export const fullSizeContentStyle: React.CSSProperties = {
 }
 
 export const SegmentDetailPage: React.FC = () => {
+  const urlQuery: Record<string, string> = useQueryParams()
   const { getString } = useStrings()
   const { showError, clear } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier, environmentIdentifier, segmentIdentifier } = useParams<
@@ -50,11 +51,12 @@ export const SegmentDetailPage: React.FC = () => {
   const breadcrumbs = [
     {
       title,
-      url: routes.toCFSegments({
-        accountId,
-        orgIdentifier,
-        projectIdentifier
-      })
+      url:
+        routes.toCFSegments({
+          accountId,
+          orgIdentifier,
+          projectIdentifier
+        }) + `${urlQuery?.activeEnvironment ? `?activeEnvironment=${urlQuery.activeEnvironment}` : ''}`
     }
   ]
   const history = useHistory()

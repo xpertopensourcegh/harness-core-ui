@@ -8,8 +8,6 @@ import {
   // ExpandingSearchInput,
   Button,
   FlexExpander,
-  Select,
-  SelectOption,
   Heading,
   Utils,
   Pagination,
@@ -22,7 +20,7 @@ import type { CellProps, Renderer, Column, Cell } from 'react-table'
 import { useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
-import { useConfirmAction, useLocalStorage } from '@common/hooks'
+import { useConfirmAction, useQueryParams } from '@common/hooks'
 import Table from '@common/components/Table/Table'
 import {
   useGetAllFeatures,
@@ -39,17 +37,18 @@ import { VariationTypeIcon } from '@cf/components/VariationTypeIcon/VariationTyp
 import { VariationWithIcon } from '@cf/components/VariationWithIcon/VariationWithIcon'
 import { ListingPageTemplate, ListingPageTitle } from '@cf/components/ListingPageTemplate/ListingPageTemplate'
 import { NoData } from '@cf/components/NoData/NoData'
-import { useEnvironments } from '@cf/hooks/environment'
+import { useEnvironmentSelectV2 } from '@cf/hooks/useEnvironmentSelectV2'
+import type { EnvironmentResponseDTO } from 'services/cd-ng'
+import { CFEnvironmentSelect } from '@cf/components/CFEnvironmentSelect/CFEnvironmentSelect'
 import {
-  CF_LOCAL_STORAGE_ENV_KEY,
-  DEFAULT_ENV,
   isFeatureFlagOn,
   CF_DEFAULT_PAGE_SIZE,
   featureFlagHasCustomRules,
   FeatureFlagActivationStatus,
   getErrorMessage,
   useFeatureFlagTypeToStringMapping,
-  showToaster
+  showToaster,
+  rewriteCurrentLocationWithActiveEnvironment
 } from '../../utils/CFUtils'
 import { FlagTypeVariations } from '../../components/CreateFlagDialog/FlagDialogUtils'
 // import FlagDrawerFilter from '../../components/FlagFilterDrawer/FlagFilterDrawer'
@@ -64,9 +63,9 @@ interface RenderColumnFlagProps {
   update: (status: boolean) => void
 }
 
-const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row }, update }) => {
+const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row, column }, update }) => {
   const data = row.original
-  const [environment] = useLocalStorage(CF_LOCAL_STORAGE_ENV_KEY, DEFAULT_ENV)
+  // const [environment] = useLocalStorage(CF_LOCAL_STORAGE_ENV_KEY, DEFAULT_ENV)
   const [status, setStatus] = useState(isFeatureFlagOn(data))
   const { getString } = useStrings()
   const { projectIdentifier, orgIdentifier, accountId: accountIdentifier } = useParams<Record<string, string>>()
@@ -93,7 +92,8 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row }, upda
           dangerouslySetInnerHTML={{
             __html: getString(status ? 'cf.featureFlags.turnOffMessage' : 'cf.featureFlags.turnOnMessage', {
               name: data.name,
-              env: environment?.label
+              env:
+                ((column as unknown) as { activeEnvironment?: EnvironmentResponseDTO })?.activeEnvironment?.name || ''
             })
           }}
         />
@@ -138,7 +138,7 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row }, upda
     </Container>
   )
 
-  const onResize = () => {
+  const onResize = (): void => {
     if (ref.current) {
       setFlagNameTextSize((ref.current.closest('div[role="cell"]') as HTMLDivElement)?.offsetWidth - 174)
     }
@@ -294,7 +294,7 @@ interface ColumnMenuProps {
 const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, environment }) => {
   const data = row.original
   const { showError, clear } = useToaster()
-  const { projectIdentifier, orgIdentifier, accountId } = useParams<any>()
+  const { projectIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
   const history = useHistory()
   const { getString } = useStrings()
   const { mutate } = useDeleteFeatureFlag({
@@ -368,57 +368,47 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
 const FeatureFlagsPage: React.FC = () => {
   // const [isSaveFiltersOn, setIsSaveFiltersOn] = useState(false)
   // const [isDrawerOpened, setIsDrawerOpened] = useState(false)
-  const [environment, setEnvironment] = useLocalStorage<typeof DEFAULT_ENV | undefined>(
-    CF_LOCAL_STORAGE_ENV_KEY,
-    DEFAULT_ENV
-  )
+  const [activeEnvironment, setActiveEnvironment] = useState<EnvironmentResponseDTO>()
   const { projectIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
+  const urlQuery: Record<string, string> = useQueryParams()
   const history = useHistory()
-
-  const { data: environments, loading: envsLoading, error: envsError, refetch: refetchEnvironments } = useEnvironments({
-    accountId,
-    orgIdentifier,
-    projectIdentifier
-  })
   const [pageNumber, setPageNumber] = useState(0)
-  const queryParams = useMemo(() => {
-    return {
+  const queryParams = useMemo(
+    () => ({
       project: projectIdentifier as string,
-      environment: environment?.value as string,
+      environment: activeEnvironment?.identifier as string,
       account: accountId,
       accountIdentifier: accountId,
       org: orgIdentifier,
       pageSize: CF_DEFAULT_PAGE_SIZE,
       pageNumber
-    }
-  }, [projectIdentifier, environment?.value, accountId, orgIdentifier, pageNumber])
+    }),
+    [projectIdentifier, activeEnvironment?.identifier, accountId, orgIdentifier, pageNumber] // eslint-disable-line react-hooks/exhaustive-deps
+  )
   const { data, loading: flagsLoading, error: flagsError, refetch } = useGetAllFeatures({
     lazy: true,
     queryParams
   })
+  const {
+    EnvironmentSelect,
+    loading: envsLoading,
+    error: envsError,
+    refetch: refetchEnvironments,
+    environments
+  } = useEnvironmentSelectV2({
+    selectedEnvironmentIdentifier: urlQuery.activeEnvironment || activeEnvironment?.identifier,
+    onChange: (_value, _environment, _userEvent) => {
+      setActiveEnvironment(_environment)
+      rewriteCurrentLocationWithActiveEnvironment(_environment)
+      refetch({ queryParams: { ...queryParams, environment: _environment.identifier as string } })
+    },
+    onEmpty: () => {
+      refetch({ queryParams: { ...queryParams, environment: (undefined as unknown) as string } })
+    }
+  })
   const [features, setFeatures] = useState<Features | null>()
   const { getString } = useStrings()
   const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    if (!envsLoading) {
-      if (environments?.length > 0) {
-        if (environment?.value && environments.find(v => v.value === environment.value)) {
-          setEnvironment({ label: environment.label, value: environment.value })
-          refetch({ queryParams: { ...queryParams, environment: environment.value } })
-        } else {
-          setEnvironment({ label: environments[0].label, value: environments[0].value as string })
-          refetch({ queryParams: { ...queryParams, environment: environments[0].value as string } })
-        }
-      } else if (environments?.length === 0) {
-        setEnvironment(undefined)
-        setLoading(true)
-        setTimeout(() => {
-          refetch({ queryParams: { ...queryParams, environment: (undefined as unknown) as string } })
-        }, 0)
-      }
-    }
-  }, [environments?.length, envsLoading])
 
   useEffect(() => {
     setFeatures(data)
@@ -436,6 +426,7 @@ const FeatureFlagsPage: React.FC = () => {
         Header: getString('featureFlagsText').toUpperCase(),
         accessor: row => row.name,
         width: '35%',
+        activeEnvironment,
         Cell: function WrapperRenderColumnFlag(cell: Cell<Feature>) {
           return (
             <RenderColumnFlag
@@ -499,13 +490,13 @@ const FeatureFlagsPage: React.FC = () => {
         id: 'version',
         width: '5%',
         Cell: function WrapperRenderColumnEdit(cell: Cell<Feature>) {
-          return <RenderColumnEdit cell={cell} environment={environment?.value as string} />
+          return <RenderColumnEdit cell={cell} environment={cell.row.original.envProperties?.environment as string} />
         },
         disableSortBy: true,
         refetch
       }
     ],
-    [refetch]
+    [refetch, features, getString, activeEnvironment]
   )
 
   // const onDrawerOpened = (): void => {
@@ -516,10 +507,6 @@ const FeatureFlagsPage: React.FC = () => {
   //   setIsDrawerOpened(false)
   // }
 
-  const onEnvironmentChanged = (item: SelectOption) => {
-    setEnvironment({ label: item?.label, value: item.value as string })
-    refetch({ queryParams: { ...queryParams, environment: item.value as string } })
-  }
   const hasFeatureFlags = features?.features && features?.features?.length > 0
   const emptyFeatureFlags = !loading && features?.features?.length === 0
   const title = getString('featureFlagsText')
@@ -527,16 +514,7 @@ const FeatureFlagsPage: React.FC = () => {
     <Layout.Horizontal flex={{ align: 'center-center' }} style={{ flexGrow: 1 }} padding={{ right: 'xlarge' }}>
       <ListingPageTitle style={{ borderBottom: 'none' }}>{title}</ListingPageTitle>
       <FlexExpander />
-      {!!environments?.length && (
-        <Select
-          items={environments}
-          className={css.ffPageBtnsSelect}
-          inputProps={{ placeholder: getString('cf.shared.selectEnvironment') }}
-          onChange={onEnvironmentChanged}
-          value={environment?.value ? environment : environments[0] || null}
-          disabled={loading}
-        />
-      )}
+      {!!environments?.length && <CFEnvironmentSelect component={<EnvironmentSelect />} />}
     </Layout.Horizontal>
   )
 
@@ -547,7 +525,7 @@ const FeatureFlagsPage: React.FC = () => {
       headerStyle={{ display: 'flex' }}
       toolbar={
         <Layout.Horizontal>
-          <FlagDialog disabled={loading} environment={environment?.value as string} />
+          <FlagDialog disabled={loading} environment={activeEnvironment?.identifier as string} />
           <FlexExpander />
 
           {/** TODO: Disable search as backend does not support it yet */}
@@ -577,10 +555,11 @@ const FeatureFlagsPage: React.FC = () => {
                       routes.toCFFeatureFlagsDetail({
                         orgIdentifier: orgIdentifier as string,
                         projectIdentifier: projectIdentifier as string,
-                        environmentIdentifier: environment?.value || (environments[0]?.value as string),
+                        environmentIdentifier: feature.envProperties?.environment || '',
                         featureFlagIdentifier: feature.identifier,
                         accountId
-                      })
+                      }) +
+                        `${activeEnvironment?.identifier ? `?activeEnvironment=${activeEnvironment?.identifier}` : ''}`
                     )
                   }}
                 />
@@ -591,7 +570,7 @@ const FeatureFlagsPage: React.FC = () => {
           {!loading && emptyFeatureFlags && (
             <Container width="100%" height="100%" flex={{ align: 'center-center' }}>
               <NoData imageURL={imageURL} message={getString('cf.noFlag')}>
-                <FlagDialog environment={environment?.value as string} />
+                <FlagDialog environment={activeEnvironment?.identifier as string} />
               </NoData>
             </Container>
           )}

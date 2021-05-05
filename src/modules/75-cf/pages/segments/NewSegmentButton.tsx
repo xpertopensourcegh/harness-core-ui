@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Button, Container, Layout, useModalHook, FormInput, Formik, Collapse, IconName } from '@wings-software/uicore'
 import * as yup from 'yup'
 import { Dialog } from '@blueprintjs/core'
@@ -38,7 +38,7 @@ export const NewSegmentButton: React.FC<NewSegmentButtonProps> = ({
   onCreated
 }) => {
   const { getString } = useStrings()
-  const { showError, clear } = useToaster()
+  const { showError } = useToaster()
 
   const { mutate: createSegment } = useCreateSegment({
     queryParams: { account: accountId, accountIdentifier: accountId, org: orgIdentifier } as CreateSegmentQueryParams
@@ -58,10 +58,6 @@ export const NewSegmentButton: React.FC<NewSegmentButtonProps> = ({
         showError(getErrorMessage(e), 0)
       })
   }
-
-  useEffect(() => {
-    return () => clear()
-  }, [clear])
 
   const [openModal, hideModal] = useModalHook(() => {
     return (
@@ -129,7 +125,7 @@ export const NewSegmentButton: React.FC<NewSegmentButtonProps> = ({
         </Formik>
       </Dialog>
     )
-  }, [])
+  }, [environmentIdentifier])
 
   return <Button intent="primary" text={getString('cf.segments.create')} onClick={openModal} />
 }

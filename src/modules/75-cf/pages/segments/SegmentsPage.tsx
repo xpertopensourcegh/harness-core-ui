@@ -7,58 +7,61 @@ import { useHistory } from 'react-router-dom'
 import { Container, FlexExpander, Layout, Pagination, Text } from '@wings-software/uicore'
 import type { Cell, Column } from 'react-table'
 import { ListingPageTemplate, ListingPageTitle } from '@cf/components/ListingPageTemplate/ListingPageTemplate'
-import { useEnvironments } from '@cf/hooks/environment'
 import Table from '@common/components/Table/Table'
 import {
   CF_DEFAULT_PAGE_SIZE,
-  CF_LOCAL_STORAGE_ENV_KEY,
-  DEFAULT_ENV,
   getErrorMessage,
-  NO_ENVIRONMENT_IDENTIFIER,
+  rewriteCurrentLocationWithActiveEnvironment,
   SEGMENT_PRIMARY_COLOR,
   showToaster
 } from '@cf/utils/CFUtils'
-import { useConfirmAction, useLocalStorage } from '@common/hooks'
+import { useConfirmAction, useQueryParams } from '@common/hooks'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
 import { OptionsMenuButton } from '@common/components'
-import { EnvironmentSelect } from '@cf/components/EnvironmentSelect/EnvironmentSelect'
 import {
   makeStackedCircleShortName,
   StackedCircleContainer
 } from '@cf/components/StackedCircleContainer/StackedCircleContainer'
 import { NoEnvironment } from '@cf/components/NoEnvironment/NoEnvironment'
+import type { EnvironmentResponseDTO } from 'services/cd-ng'
+import { useEnvironmentSelectV2 } from '@cf/hooks/useEnvironmentSelectV2'
+import { CFEnvironmentSelect } from '@cf/components/CFEnvironmentSelect/CFEnvironmentSelect'
 import { Segment, useDeleteSegment, useGetAllSegments } from 'services/cf'
 import { NoSegmentsView } from './NoSegmentsView'
 import { NewSegmentButton } from './NewSegmentButton'
 
 export const SegmentsPage: React.FC = () => {
-  const { projectIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
+  const urlQuery: Record<string, string> = useQueryParams()
+  const [activeEnvironment, setActiveEnvironment] = useState<EnvironmentResponseDTO>()
   const {
-    data: environments,
+    EnvironmentSelect,
     loading: loadingEnvironments,
     error: errEnvironments,
-    refetch: refetchEnvs
-  } = useEnvironments({
-    projectIdentifier,
-    accountId,
-    orgIdentifier
+    refetch: refetchEnvs,
+    environments
+  } = useEnvironmentSelectV2({
+    selectedEnvironmentIdentifier: urlQuery.activeEnvironment || activeEnvironment?.identifier,
+    onChange: (_value, _environment, _userEvent) => {
+      setActiveEnvironment(_environment)
+      rewriteCurrentLocationWithActiveEnvironment(_environment)
+    }
   })
+  const { projectIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
   const { getString } = useStrings()
-  const [environment, setEnvironment] = useLocalStorage(CF_LOCAL_STORAGE_ENV_KEY, DEFAULT_ENV)
   const [pageNumber, setPageNumber] = useState(0)
   const queryParams = useMemo(
     () => ({
       project: projectIdentifier,
-      environment: (environment?.value || '') as string,
+      environment: (activeEnvironment?.identifier || urlQuery.activeEnvironment || '') as string,
       pageNumber,
       pageSize: CF_DEFAULT_PAGE_SIZE,
       account: accountId,
       accountIdentifier: accountId,
       org: orgIdentifier
     }),
-    [accountId, orgIdentifier, projectIdentifier, environment?.value, pageNumber]
+    [accountId, orgIdentifier, projectIdentifier, activeEnvironment?.identifier, pageNumber, urlQuery.activeEnvironment] // eslint-disable-line react-hooks/exhaustive-deps
   )
   const {
     data: segmentsData,
@@ -79,32 +82,22 @@ export const SegmentsPage: React.FC = () => {
     <Layout.Horizontal flex={{ align: 'center-center' }} style={{ flexGrow: 1 }} padding={{ right: 'xlarge' }}>
       <ListingPageTitle style={{ borderBottom: 'none' }}>{title}</ListingPageTitle>
       <FlexExpander />
-      {!!environments?.length && (
-        <EnvironmentSelect
-          label={getString('cf.shared.environment').toLocaleUpperCase()}
-          selectedEnvironment={environment?.value ? environment : environments[0]}
-          environments={environments}
-          onChange={({ label, value }) => setEnvironment({ label, value: value as string })}
-        />
-      )}
+      {!!environments?.length && <CFEnvironmentSelect component={<EnvironmentSelect />} />}
     </Layout.Horizontal>
   )
   const gotoSegmentDetailPage = useCallback(
     (identifier: string): void => {
-      const _environmentIdentifier =
-        environment?.value || (environments?.[0].value as string) || NO_ENVIRONMENT_IDENTIFIER
-
       history.push(
         routes.toCFSegmentDetails({
           segmentIdentifier: identifier as string,
-          environmentIdentifier: _environmentIdentifier,
+          environmentIdentifier: activeEnvironment?.identifier as string,
           projectIdentifier,
           orgIdentifier,
           accountId
-        })
+        }) + `${activeEnvironment?.identifier ? `?activeEnvironment=${activeEnvironment?.identifier}` : ''}`
       )
     },
-    [history, accountId, orgIdentifier, projectIdentifier, environment?.value, environments]
+    [history, accountId, orgIdentifier, projectIdentifier, activeEnvironment?.identifier] // eslint-disable-line react-hooks/exhaustive-deps
   )
   const toolbar = (
     <Layout.Horizontal>
@@ -112,7 +105,7 @@ export const SegmentsPage: React.FC = () => {
         accountId={accountId}
         orgIdentifier={orgIdentifier}
         projectIdentifier={projectIdentifier}
-        environmentIdentifier={environment?.value}
+        environmentIdentifier={activeEnvironment?.identifier}
         onCreated={segmentIdentifier => {
           gotoSegmentDetailPage(segmentIdentifier)
           showToaster(getString('cf.messages.segmentCreated'))
@@ -127,14 +120,13 @@ export const SegmentsPage: React.FC = () => {
       accountIdentifier: accountId,
       org: orgIdentifier,
       project: projectIdentifier,
-      environment: environment?.value
+      environment: activeEnvironment?.identifier as string
     }),
-    [accountId, orgIdentifier, projectIdentifier, environment?.value]
+    [accountId, orgIdentifier, projectIdentifier, activeEnvironment?.identifier] // eslint-disable-line react-hooks/exhaustive-deps
   )
   const { mutate: deleteSegment } = useDeleteSegment({
     queryParams: deleteSegmentParams
   })
-
   const columns: Column<Segment>[] = useMemo(
     () => [
       {
@@ -240,18 +232,14 @@ export const SegmentsPage: React.FC = () => {
         }
       }
     ],
-    [getString]
+    [getString, clear, deleteSegment, gotoSegmentDetailPage, showError, refetchSegments]
   )
 
   useEffect(() => {
-    if (environments?.[0] && !environment?.value) {
-      setEnvironment(environments[0] as typeof environment)
-    }
-
     return () => {
       clear()
     }
-  }, [clear, environments, environment, environment?.value, setEnvironment])
+  }, [clear])
 
   const content = noEnvironmentExists ? (
     <Container flex={{ align: 'center-center' }} height="100%">
@@ -259,8 +247,8 @@ export const SegmentsPage: React.FC = () => {
     </Container>
   ) : noSegmentExists ? (
     <NoSegmentsView
-      environmentIdentifier={environment?.value}
-      hasEnvironment={!!environments.length}
+      environmentIdentifier={activeEnvironment?.identifier}
+      hasEnvironment={!!environments?.length}
       onNewSegmentCreated={segmentIdentifier => {
         gotoSegmentDetailPage(segmentIdentifier)
         showToaster(getString('cf.messages.segmentCreated'))

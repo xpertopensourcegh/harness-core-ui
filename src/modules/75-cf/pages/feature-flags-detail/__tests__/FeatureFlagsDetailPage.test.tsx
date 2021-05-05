@@ -12,12 +12,15 @@ describe('FeatureFlagsDetailPage', () => {
       useGetEnvironmentListForProject: () => ({ loading: true, refetch: jest.fn() })
     })
 
-    mockImport('@cf/hooks/environment', {
-      useEnvironments: () => ({
+    mockImport('@cf/hooks/useEnvironmentSelectV2', {
+      useEnvironmentSelectV2: () => ({
         data: undefined,
         loading: true,
         error: undefined,
-        refetch: jest.fn()
+        refetch: jest.fn(),
+        EnvironmentSelect: function EnvironmentSelect() {
+          return <div />
+        }
       })
     })
 
@@ -49,12 +52,15 @@ describe('FeatureFlagsDetailPage', () => {
       useGetEnvironmentListForProject: () => ({ loading: true, refetch: jest.fn() })
     })
 
-    mockImport('@cf/hooks/environment', {
-      useEnvironments: () => ({
+    mockImport('@cf/hooks/useEnvironmentSelectV2', {
+      useEnvironmentSelectV2: () => ({
         data: undefined,
         loading: undefined,
         error,
-        refetch: jest.fn()
+        refetch: jest.fn(),
+        EnvironmentSelect: function EnvironmentSelect() {
+          return <div />
+        }
       })
     })
 
@@ -85,12 +91,15 @@ describe('FeatureFlagsDetailPage', () => {
       useGetEnvironmentListForProject: () => ({ loading: true, refetch: jest.fn() })
     })
 
-    mockImport('@cf/hooks/environment', {
-      useEnvironments: () => ({
+    mockImport('@cf/hooks/useEnvironmentSelectV2', {
+      useEnvironmentSelectV2: () => ({
         data: mockEnvironments.data.content,
         loading: undefined,
         error: undefined,
-        refetch: jest.fn()
+        refetch: jest.fn(),
+        EnvironmentSelect: function EnvironmentSelect() {
+          return <div />
+        }
       })
     })
 
@@ -115,17 +124,20 @@ describe('FeatureFlagsDetailPage', () => {
     expect(getAllByText(container, error.message)).toBeDefined()
   })
 
-  test('FeatureFlagsDetailPage should render no environment correctly', async () => {
+  test('FeatureFlagsDetailPage should render no environment', async () => {
     mockImport('services/cd-ng', {
       useGetEnvironmentListForProject: () => ({ loading: true, refetch: jest.fn() })
     })
 
-    mockImport('@cf/hooks/environment', {
-      useEnvironments: () => ({
-        data: [],
+    mockImport('@cf/hooks/useEnvironmentSelectV2', {
+      useEnvironmentSelectV2: () => ({
+        environments: [],
         loading: undefined,
         error: undefined,
-        refetch: jest.fn()
+        refetch: jest.fn(),
+        EnvironmentSelect: function EnvironmentSelect() {
+          return <div />
+        }
       })
     })
 
@@ -147,9 +159,9 @@ describe('FeatureFlagsDetailPage', () => {
       </TestWrapper>
     )
 
-    expect(getAllByText(container, 'cf.noEnvironment.title')).toBeDefined()
-    expect(getAllByText(container, 'cf.noEnvironment.message')).toBeDefined()
-    expect(getAllByText(container, 'cf.environments.create.title')).toBeDefined()
+    expect(getByText(container, 'cf.noEnvironment.title')).toBeDefined()
+    expect(getByText(container, 'cf.noEnvironment.message')).toBeDefined()
+    expect(getByText(container, 'cf.environments.create.title')).toBeDefined()
   })
 
   test('FeatureFlagsDetailPage should render data correctly', async () => {
@@ -157,12 +169,15 @@ describe('FeatureFlagsDetailPage', () => {
       useGetEnvironmentListForProject: () => ({ loading: true, refetch: jest.fn() })
     })
 
-    mockImport('@cf/hooks/environment', {
-      useEnvironments: () => ({
+    mockImport('@cf/hooks/useEnvironmentSelectV2', {
+      useEnvironmentSelectV2: () => ({
         data: mockEnvironments.data.content,
         loading: undefined,
         error: undefined,
-        refetch: jest.fn()
+        refetch: jest.fn(),
+        EnvironmentSelect: function EnvironmentSelect() {
+          return <div />
+        }
       })
     })
 
@@ -193,49 +208,5 @@ describe('FeatureFlagsDetailPage', () => {
 
     expect(getAllByText(container, 'FlagActivation')).toBeDefined()
     expect(container).toMatchSnapshot()
-  })
-
-  test('FeatureFlagsDetailPage should render no environment', async () => {
-    mockImport('services/cd-ng', {
-      useGetEnvironmentListForProject: () => ({ loading: true, refetch: jest.fn() })
-    })
-
-    mockImport('@cf/hooks/environment', {
-      useEnvironments: () => ({
-        data: [],
-        loading: undefined,
-        error: undefined,
-        refetch: jest.fn()
-      })
-    })
-
-    mockImport('services/cf', {
-      useGetFeatureFlag: () => ({
-        data: mockFeatureFlag,
-        loading: undefined,
-        error: undefined,
-        refetch: jest.fn()
-      })
-    })
-
-    mockImport('@cf/components/FlagActivation/FlagActivation', {
-      // FlagActivation is exported as `default`
-      default: function FlagActivation() {
-        return <div>FlagActivation</div>
-      }
-    })
-
-    const { container } = render(
-      <TestWrapper
-        path="/account/:accountId/cf/orgs/:orgIdentifier/projects/:projectIdentifier/onboarding/detail"
-        pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}
-      >
-        <FeatureFlagsDetailPage />
-      </TestWrapper>
-    )
-
-    expect(getByText(container, 'cf.noEnvironment.title')).toBeDefined()
-    expect(getByText(container, 'cf.noEnvironment.message')).toBeDefined()
-    expect(getByText(container, 'cf.environments.create.title')).toBeDefined()
   })
 })

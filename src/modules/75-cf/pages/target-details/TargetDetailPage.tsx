@@ -8,9 +8,9 @@ import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerS
 import { PageError } from '@common/components/Page/PageError'
 import { OptionsMenuButton, PageSpinner, useToaster } from '@common/components'
 import { DISABLE_AVATAR_PROPS, formatDate, formatTime, getErrorMessage, showToaster } from '@cf/utils/CFUtils'
-import { useSyncedEnvironment } from '@cf/hooks/useSyncedEnvironment'
-import { useConfirmAction } from '@common/hooks'
+import { useConfirmAction, useQueryParams } from '@common/hooks'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
+import { useGetEnvironment } from 'services/cd-ng'
 import { DetailPageTemplate } from '@cf/components/DetailPageTemplate/DetailPageTemplate'
 import { TargetSettings } from './target-settings/TargetSettings'
 import { FlagSettings } from './flag-settings/FlagSettings'
@@ -25,12 +25,13 @@ export const fullSizeContentStyle: React.CSSProperties = {
 }
 
 export const TargetDetailPage: React.FC = () => {
+  const urlQuery: Record<string, string> = useQueryParams()
   const { getString } = useStrings()
   const { showError, clear } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier, environmentIdentifier, targetIdentifier } = useParams<
     Record<string, string>
   >()
-  const { data: target, loading: targetLoading, refetch, error: targetError } = useGetTarget({
+  const { data: target, loading, refetch, error } = useGetTarget({
     identifier: targetIdentifier,
     queryParams: {
       account: accountId,
@@ -40,21 +41,24 @@ export const TargetDetailPage: React.FC = () => {
       environment: environmentIdentifier
     } as GetTargetQueryParams
   })
-  const { loading: envLoading, data: envData, error: envError, refetch: envRefetch } = useSyncedEnvironment({
-    accountId,
-    orgIdentifier,
-    projectIdentifier,
-    environmentIdentifier
+  const { data: environment } = useGetEnvironment({
+    environmentIdentifier,
+    queryParams: {
+      accountId,
+      projectIdentifier,
+      orgIdentifier
+    }
   })
   const title = getString('pipeline.targets.title')
   const breadcrumbs = [
     {
       title,
-      url: routes.toCFTargets({
-        accountId,
-        orgIdentifier,
-        projectIdentifier
-      })
+      url:
+        routes.toCFTargets({
+          accountId,
+          orgIdentifier,
+          projectIdentifier
+        }) + `${urlQuery?.activeEnvironment ? `?activeEnvironment=${urlQuery.activeEnvironment}` : ''}`
     }
   ]
   const history = useHistory()
@@ -94,19 +98,16 @@ export const TargetDetailPage: React.FC = () => {
             )
             showToaster(getString('cf.messages.targetDeleted'))
           })
-          .catch(error => {
-            showError(getErrorMessage(error), 0)
+          .catch(_error => {
+            showError(getErrorMessage(_error), 0)
           })
-      } catch (error) {
-        showError(getErrorMessage(error), 0)
+      } catch (_error) {
+        showError(getErrorMessage(_error), 0)
       }
     }
   })
 
   useDocumentTitle(title)
-
-  const loading = targetLoading || envLoading
-  const error = targetError || envError
 
   if (loading) {
     if (!target) {
@@ -125,7 +126,6 @@ export const TargetDetailPage: React.FC = () => {
       <PageError
         message={getErrorMessage(error)}
         onClick={() => {
-          envRefetch()
           refetch()
         }}
       />
@@ -163,7 +163,9 @@ export const TargetDetailPage: React.FC = () => {
           <Text style={{ position: 'absolute', top: '76px', right: '30px' }}>
             <span
               dangerouslySetInnerHTML={{
-                __html: getString('cf.targetDetail.environmentLine', { name: envData?.data?.name })
+                __html: getString('cf.targetDetail.environmentLine', {
+                  name: environment?.data?.name || target?.environment
+                })
               }}
             />
           </Text>

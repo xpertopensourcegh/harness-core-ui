@@ -2,10 +2,10 @@ import React from 'react'
 import { render, waitFor, getByText, fireEvent } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import mockImport from 'framework/utils/mockImport'
-import CreateTargetSegmentModal from '../CreateTargetSegmentModal'
+import { NewSegmentButton } from '../NewSegmentButton'
 
-describe('CreateTargetSegmentModal', () => {
-  test('CreateTargetSegmentModal should render initial state correctly', async () => {
+describe('NewSegmentButton', () => {
+  test('NewSegmentButton should render initial state correctly', async () => {
     const params = { accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }
 
     const { container } = render(
@@ -13,7 +13,13 @@ describe('CreateTargetSegmentModal', () => {
         path="/account/:accountId/cf/orgs/:orgIdentifier/projects/:projectIdentifier/onboarding/detail"
         pathParams={params}
       >
-        <CreateTargetSegmentModal project="dummy" environment="dummy" onCreate={jest.fn()} />
+        <NewSegmentButton
+          accountId="dummy"
+          orgIdentifier="dummy"
+          projectIdentifier="dummy"
+          environmentIdentifier="dummy"
+          onCreated={jest.fn()}
+        />
       </TestWrapper>
     )
 
@@ -25,9 +31,9 @@ describe('CreateTargetSegmentModal', () => {
     expect(document.querySelector('.bp3-portal')).toMatchSnapshot()
   })
 
-  test('CreateTargetSegmentModal should call callbacks properly', async () => {
+  test('NewSegmentButton should call callbacks properly', async () => {
     const params = { accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }
-    const onCreate = jest.fn()
+    const onCreated = jest.fn()
     const mutate = jest.fn(() => {
       return Promise.resolve({ data: {} })
     })
@@ -41,7 +47,13 @@ describe('CreateTargetSegmentModal', () => {
         path="/account/:accountId/cf/orgs/:orgIdentifier/projects/:projectIdentifier/onboarding/detail"
         pathParams={params}
       >
-        <CreateTargetSegmentModal project="dummy" environment="dummy" onCreate={onCreate} />
+        <NewSegmentButton
+          accountId="dummy"
+          orgIdentifier="dummy"
+          projectIdentifier="dummy"
+          environmentIdentifier="dummy"
+          onCreated={onCreated}
+        />
       </TestWrapper>
     )
 
@@ -58,6 +70,6 @@ describe('CreateTargetSegmentModal', () => {
       document.querySelector('.bp3-portal button[type="button"][class*="intent-primary"]') as HTMLButtonElement
     )
 
-    await waitFor(() => expect(onCreate).toBeCalledTimes(1))
+    await waitFor(() => expect(onCreated).toBeCalledTimes(1))
   })
 })

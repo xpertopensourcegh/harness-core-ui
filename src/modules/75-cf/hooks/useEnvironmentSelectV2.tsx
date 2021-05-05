@@ -6,10 +6,11 @@ import { EnvironmentResponseDTO, useGetEnvironmentListForProject } from 'service
 export interface UseEnvironmentSelectV2Params {
   selectedEnvironmentIdentifier?: string
   onChange: (opt: SelectOption, environment: EnvironmentResponseDTO, userEvent: boolean) => void
+  onEmpty?: () => void
 }
 
 export const useEnvironmentSelectV2 = (params: UseEnvironmentSelectV2Params) => {
-  const { onChange, selectedEnvironmentIdentifier } = params
+  const { onChange, onEmpty, selectedEnvironmentIdentifier } = params
   const { projectIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
   const { data, loading, error, refetch } = useGetEnvironmentListForProject({
     queryParams: { accountId, orgIdentifier, projectIdentifier }
@@ -39,6 +40,8 @@ export const useEnvironmentSelectV2 = (params: UseEnvironmentSelectV2Params) => 
 
       setSelectedEnvironment(selectOptions[0])
       onChange(selectOptions[0], data?.data?.content?.[0], false)
+    } else if (data?.data?.content?.length === 0) {
+      onEmpty?.()
     }
   }, [data?.data?.content?.length, data?.data?.content?.find, selectedEnvironmentIdentifier]) // eslint-disable-line
 

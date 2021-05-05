@@ -31,7 +31,7 @@ import {
   Variation
 } from 'services/cf'
 import { VariationWithIcon } from '@cf/components/VariationWithIcon/VariationWithIcon'
-import { useConfirmAction } from '@common/hooks'
+import { useConfirmAction, useQueryParams } from '@common/hooks'
 import { getErrorMessage, showToaster, useFeatureFlagTypeToStringMapping } from '@cf/utils/CFUtils'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
 import patch from '../../utils/instructions'
@@ -113,15 +113,17 @@ const VariationsList: React.FC<{ featureFlag: Feature; onEditSuccess: () => void
 }
 
 const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
+  const urlQuery: Record<string, string> = useQueryParams()
   const { featureFlag, refetchFlag } = props
   const { showError } = useToaster()
   const { getString } = useStrings()
   const { orgIdentifier, accountId, projectIdentifier } = useParams<Record<string, string>>()
-  const featureFlagListURL = routes.toCFFeatureFlags({
-    projectIdentifier: projectIdentifier,
-    orgIdentifier: orgIdentifier,
-    accountId
-  })
+  const featureFlagListURL =
+    routes.toCFFeatureFlags({
+      projectIdentifier: projectIdentifier,
+      orgIdentifier: orgIdentifier,
+      accountId
+    }) + `${urlQuery?.activeEnvironment ? `?activeEnvironment=${urlQuery.activeEnvironment}` : ''}`
   const { mutate: submitPatch } = usePatchFeature({
     identifier: featureFlag.identifier as string,
     queryParams: {

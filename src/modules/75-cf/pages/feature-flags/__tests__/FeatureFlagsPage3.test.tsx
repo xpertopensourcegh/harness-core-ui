@@ -60,7 +60,10 @@ describe('FeatureFlagsPage', () => {
     fireEvent.click(container.querySelector('[role="row"]:not(:first-of-type)') as HTMLElement)
 
     expect(
-      getByText(container, '/account/dummy/cf/orgs/dummy/projects/dummy/feature-flags/hello_world/environments/foobar')
+      getByText(
+        container,
+        '/account/dummy/cf/orgs/dummy/projects/dummy/feature-flags/hello_world/environments/sfgsd?activeEnvironment=foobar'
+      )
     ).toBeDefined()
   })
 
@@ -91,7 +94,7 @@ describe('FeatureFlagsPage', () => {
     fireEvent.click(document.querySelector('[icon="edit"]') as HTMLElement)
 
     expect(
-      getByText(container, '/account/dummy/cf/orgs/dummy/projects/dummy/feature-flags/hello_world/environments/foobar')
+      getByText(container, '/account/dummy/cf/orgs/dummy/projects/dummy/feature-flags/hello_world/environments/sfgsd')
     ).toBeDefined()
   })
 
