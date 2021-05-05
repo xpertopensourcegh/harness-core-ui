@@ -3,6 +3,7 @@
 declare const styles: {
   readonly expandedInput: string
   readonly stepInside: string
+  readonly paletteCardHeader: string
   readonly stepPalette: string
   readonly stepsRenderer: string
   readonly expandSearch: string
@@ -13,6 +14,11 @@ declare const styles: {
   readonly stepName: string
   readonly drawerSubLabel: string
   readonly categoriesRenderer: string
+  readonly library: string
+  readonly libraryHeader: string
+  readonly headerContainer: string
+  readonly showAllBtn: string
+  readonly separator: string
   readonly primaryCategories: string
   readonly secCategories: string
   readonly title: string

@@ -15,12 +15,21 @@
   display: flex;
 }
 
+.paletteCardHeader {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(151, 151, 151, 0.2);
+  mix-blend-mode: normal;
+}
+
 .stepPalette {
   .stepsRenderer {
     height: 100vh;
     overflow: scroll;
     width: calc(100% - 200px);
-    background-color: var(--primary-1);
+    background-color: var(--white);
+    box-sizing: border-box;
+    box-shadow: -3px 3px 11px rgba(156, 156, 156, 0.5);
     .expandSearch {
       width: 200px;
       height: 35px;
@@ -37,6 +46,9 @@
       .categoryName {
         color: var(--grey-400);
         margin-bottom: var(--spacing-large);
+        font-size: 14px;
+        line-height: 17px;
+        color: #000000;
       }
       .steps {
         display: grid;
@@ -45,6 +57,7 @@
         grid-row-gap: var(--spacing-large);
         text-align: center;
         .step {
+          position: relative;
           :global {
             .bp3-elevation-0 {
               box-shadow: 0px 5px 8px -2px var(--grey-300);
@@ -56,6 +69,7 @@
           [class*='card'] {
             &:hover {
               cursor: pointer;
+              border: 1px solid var(--primary-5);
             }
           }
           .stepName {
@@ -66,6 +80,14 @@
             -webkit-line-clamp: 2;
             display: -webkit-box;
             -webkit-box-orient: vertical;
+            -webkit-box-orient: vertical;
+            font-size: 12px;
+            line-height: 15px;
+            /* identical to box height */
+
+            text-align: center;
+
+            color: #555770;
             &:hover {
               cursor: pointer;
             }
@@ -74,6 +96,8 @@
       }
     }
     .drawerSubLabel {
+      opacity: 0.4;
+      color: var(--grey-400);
       margin-top: 0 !important;
     }
   }
@@ -81,9 +105,44 @@
   .categoriesRenderer {
     width: 280px;
     height: 100vh;
+    font-family: Inter;
+    font-style: normal;
+
+    background: #00467b;
+    color: var(--white);
+    .library {
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .libraryHeader {
+      margin-left: var(--spacing-medium);
+    }
+    .headerContainer {
+      display: flex;
+      flex-direction: column;
+    }
+    .showAllBtn {
+      background: #112143;
+      mix-blend-mode: normal;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      padding: var(--spacing-medium) !important;
+      margin-top: var(--spacing-medium);
+      color: var(--white);
+      font-weight: bold;
+    }
+
+    .separator {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50%;
+      opacity: 0.34;
+      margin-top: var(--spacing-medium);
+    }
     .primaryCategories {
-      margin: var(--spacing-medium);
-      border-bottom: 1px solid var(--grey-200);
+      margin-top: var(--spacing-medium);
       > section {
         cursor: pointer;
         margin-bottom: var(--spacing-small);
@@ -106,7 +165,9 @@
         cursor: pointer;
         color: var(--grey-800);
         align-items: end;
-        font-size: var(--font-size-small);
+        font-size: 12px;
+        color: var(--white);
+        opacity: 0.9;
         :global {
           .bp3-icon {
             margin-right: var(--spacing-small);
@@ -115,8 +176,8 @@
       }
       .offset {
         padding-left: var(--spacing-large);
-        border-left: 2px solid var(--grey-200);
-        margin-left: var(--spacing-medium);
+        border-left: 0.25px solid rgb(255, 255, 255, 0.44);
+        margin-left: var(--spacing-large);
       }
     }
     .active {

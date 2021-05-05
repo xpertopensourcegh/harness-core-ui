@@ -2055,15 +2055,19 @@ exports[`Connectors Page Test Render and check create connector panel: Connector
               class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--padding-large"
             >
               <div
-                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main paletteCardHeader"
                 style="align-items: center;"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="width: 185px; font-size: 16px;"
+                <div
+                  class="Layout--vertical StyledProps--main"
                 >
-                  Connectors
-                </p>
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 185px; font-size: 14px; line-height: 24px;"
+                  >
+                    Connectors
+                  </p>
+                </div>
                 <div
                   class="expandSearch"
                 >
@@ -2112,7 +2116,7 @@ exports[`Connectors Page Test Render and check create connector panel: Connector
           >
             <div
               class="Layout--horizontal StyledProps--main StyledProps--padding-medium"
-              style="justify-content: flex-end;"
+              style="justify-content: flex-end; padding: 0px;"
             >
               <button
                 class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
@@ -2143,7 +2147,7 @@ exports[`Connectors Page Test Render and check create connector panel: Connector
               class="primaryCategories"
             >
               <section
-                class="active"
+                class="showAllBtn"
               >
                 showAll
                  (
@@ -2151,14 +2155,12 @@ exports[`Connectors Page Test Render and check create connector panel: Connector
                 )
               </section>
             </section>
+            <hr
+              class="separator"
+            />
             <section
               class="secCategories"
             >
-              <section
-                class="title"
-              >
-                categories
-              </section>
               <div
                 class="Layout--vertical StyledProps--main"
               />

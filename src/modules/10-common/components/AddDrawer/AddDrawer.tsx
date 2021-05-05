@@ -44,7 +44,7 @@ export enum DrawerContext {
 
 const defaultDrawerValues = {
   STUDIO: {
-    iconSize: 14,
+    iconSize: 25,
     defaultDrawerProps: defaultStudioDrawerProps
   },
   PAGE: {
@@ -107,7 +107,7 @@ export interface AddDrawerProps {
   showRecentlyUsed?: boolean
 }
 export default function AddDrawer(props: AddDrawerProps): JSX.Element {
-  const { onSelect, onClose, addDrawerMap, drawerProps, drawerContext, showRecentlyUsed = true } = props
+  const { onSelect, onClose, addDrawerMap, drawerProps, drawerContext, showRecentlyUsed = false } = props
   const [categories, setCategories] = useState<CategoryInterface[]>([])
   const [originalData, setOriginalCategories] = useState<CategoryInterface[]>([])
   const [selectedCategory, setSelectedCategory] = useState(primaryTypes.SHOW_ALL)
@@ -169,10 +169,16 @@ export default function AddDrawer(props: AddDrawerProps): JSX.Element {
         <div className={css.stepInside}>
           <section className={css.stepsRenderer}>
             <Layout.Vertical padding="large" spacing="large">
-              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                <Text style={{ width: '185px', color: 'var(--grey-700)', fontSize: 16 }}>
-                  {addDrawerMap.drawerLabel}
-                </Text>
+              <Layout.Horizontal className={css.paletteCardHeader} spacing="medium" style={{ alignItems: 'center' }}>
+                <Layout.Vertical>
+                  <Text style={{ width: '185px', color: 'var(--grey-700)', fontSize: 14, lineHeight: '24px' }}>
+                    {addDrawerMap.drawerLabel}
+                  </Text>
+                  {addDrawerMap.drawerSubLabel && (
+                    <Text className={css.drawerSubLabel}>{addDrawerMap.drawerSubLabel}</Text>
+                  )}
+                </Layout.Vertical>
+
                 <div className={css.expandSearch}>
                   <ExpandingSearchInput
                     placeholder={addDrawerMap.searchPlaceholder || getString('search')}
@@ -181,11 +187,6 @@ export default function AddDrawer(props: AddDrawerProps): JSX.Element {
                   />
                 </div>
               </Layout.Horizontal>
-              {addDrawerMap.drawerSubLabel && (
-                <Text className={css.drawerSubLabel} style={{ color: 'var(--grey-400)', fontSize: 13 }}>
-                  {addDrawerMap.drawerSubLabel}
-                </Text>
-              )}
               {categories?.length === 0 && (
                 <section style={{ paddingTop: '50%', justifyContent: 'center', textAlign: 'center' }}>
                   {getString('noSearchResultsFoundPeriod')}
@@ -252,15 +253,17 @@ export default function AddDrawer(props: AddDrawerProps): JSX.Element {
             </Layout.Vertical>
           </section>
           <section className={css.categoriesRenderer}>
-            <Layout.Horizontal
-              padding="medium"
-              style={{ justifyContent: 'flex-end', marginTop: 'var(--spacing-small)' }}
-            >
+            <Layout.Horizontal padding="medium" style={{ justifyContent: 'flex-end', padding: '0' }}>
               <Button intent="primary" minimal icon="cross" onClick={onClose} />
             </Layout.Horizontal>
             <section className={css.primaryCategories}>
               <section
-                className={cx(selectedCategory === primaryTypes.SHOW_ALL ? css.active : /* istanbul ignore next */ '')}
+                className={cx(
+                  css.showAllBtn,
+                  showRecentlyUsed && selectedCategory === primaryTypes.SHOW_ALL
+                    ? css.active
+                    : /* istanbul ignore next */ ''
+                )}
                 onClick={() => {
                   filterSteps(primaryTypes.SHOW_ALL)
                 }}
@@ -271,8 +274,8 @@ export default function AddDrawer(props: AddDrawerProps): JSX.Element {
               </section>
               {showRecentlyUsed ? <section>{getString('recentlyUsed')} (0)</section> : null}
             </section>
+            <hr className={css.separator} />
             <section className={css.secCategories}>
-              <section className={css.title}>{getString('categories')}</section>
               <Layout.Vertical>
                 {originalData?.map((category: CategoryInterface) => {
                   const stepRenderer = []
@@ -298,7 +301,7 @@ export default function AddDrawer(props: AddDrawerProps): JSX.Element {
                         }}
                         key={category.categoryLabel}
                       >
-                        {category.iconName && <Icon size={14} name={category.iconName} />}
+                        {category.iconName && <Icon size={25} name={category.iconName} />}
                         {category.categoryLabel}
                       </section>
                     )

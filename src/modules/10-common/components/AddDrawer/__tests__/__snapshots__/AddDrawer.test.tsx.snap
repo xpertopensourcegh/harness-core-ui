@@ -45,15 +45,24 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                 class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--padding-large"
               >
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main paletteCardHeader"
                   style="align-items: center;"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                    style="width: 185px; font-size: 16px;"
+                  <div
+                    class="Layout--vertical StyledProps--main"
                   >
-                    Triggers
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="width: 185px; font-size: 14px; line-height: 24px;"
+                    >
+                      Triggers
+                    </p>
+                    <p
+                      class="StyledProps--font StyledProps--main drawerSubLabel"
+                    >
+                      All Trigger Types
+                    </p>
+                  </div>
                   <div
                     class="expandSearch"
                   >
@@ -90,12 +99,6 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                     </div>
                   </div>
                 </div>
-                <p
-                  class="StyledProps--font StyledProps--main drawerSubLabel"
-                  style="font-size: 13px;"
-                >
-                  All Trigger Types
-                </p>
                 <section
                   class="categorySteps"
                 >
@@ -414,7 +417,7 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
             >
               <div
                 class="Layout--horizontal StyledProps--main StyledProps--padding-medium"
-                style="justify-content: flex-end;"
+                style="justify-content: flex-end; padding: 0px;"
               >
                 <button
                   class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
@@ -445,26 +448,20 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                 class="primaryCategories"
               >
                 <section
-                  class="active"
+                  class="showAllBtn"
                 >
                   Show all Triggers
                    (
                   6
                   )
                 </section>
-                <section>
-                  recentlyUsed
-                   (0)
-                </section>
               </section>
+              <hr
+                class="separator"
+              />
               <section
                 class="secCategories"
               >
-                <section
-                  class="title"
-                >
-                  categories
-                </section>
                 <div
                   class="Layout--vertical StyledProps--main"
                 >
