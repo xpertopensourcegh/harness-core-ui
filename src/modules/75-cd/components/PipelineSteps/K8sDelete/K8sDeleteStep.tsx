@@ -111,16 +111,16 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
     // eslint-disable-next-line @typescript-eslint/no-shadow
     const options: IOptionProps[] = [
       {
-        label: getString('pipelineSteps.releaseNameLabel'),
-        value: getString('pipelineSteps.releaseNameValue')
-      },
-      {
         label: getString('pipelineSteps.resourceNameLabel'),
         value: getString('pipelineSteps.resourceNameValue')
       },
       {
         label: getString('pipelineSteps.manifestPathLabel'),
         value: getString('pipelineSteps.manifestPathValue')
+      },
+      {
+        label: getString('pipelineSteps.releaseNameLabel'),
+        value: getString('pipelineSteps.releaseNameValue')
       }
     ]
     return options

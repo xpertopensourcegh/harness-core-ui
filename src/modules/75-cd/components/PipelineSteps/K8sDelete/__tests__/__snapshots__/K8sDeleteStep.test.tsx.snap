@@ -120,19 +120,6 @@ exports[`Test K8sDeleteStep should render edit view -with ManifestPaths selected
                 <input
                   name="spec.deleteResources.type"
                   type="radio"
-                  value="pipelineSteps.releaseNameValue"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-                pipelineSteps.releaseNameLabel
-              </label>
-              <label
-                class="bp3-control bp3-radio bp3-inline Radio--radio"
-              >
-                <input
-                  name="spec.deleteResources.type"
-                  type="radio"
                   value="pipelineSteps.resourceNameValue"
                 />
                 <span
@@ -152,6 +139,19 @@ exports[`Test K8sDeleteStep should render edit view -with ManifestPaths selected
                   class="bp3-control-indicator"
                 />
                 pipelineSteps.manifestPathLabel
+              </label>
+              <label
+                class="bp3-control bp3-radio bp3-inline Radio--radio"
+              >
+                <input
+                  name="spec.deleteResources.type"
+                  type="radio"
+                  value="pipelineSteps.releaseNameValue"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                pipelineSteps.releaseNameLabel
               </label>
             </div>
           </div>
@@ -352,19 +352,6 @@ exports[`Test K8sDeleteStep should render edit view -with ReleaseName selected 1
                 <input
                   name="spec.deleteResources.type"
                   type="radio"
-                  value="pipelineSteps.releaseNameValue"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-                pipelineSteps.releaseNameLabel
-              </label>
-              <label
-                class="bp3-control bp3-radio bp3-inline Radio--radio"
-              >
-                <input
-                  name="spec.deleteResources.type"
-                  type="radio"
                   value="pipelineSteps.resourceNameValue"
                 />
                 <span
@@ -384,6 +371,19 @@ exports[`Test K8sDeleteStep should render edit view -with ReleaseName selected 1
                   class="bp3-control-indicator"
                 />
                 pipelineSteps.manifestPathLabel
+              </label>
+              <label
+                class="bp3-control bp3-radio bp3-inline Radio--radio"
+              >
+                <input
+                  name="spec.deleteResources.type"
+                  type="radio"
+                  value="pipelineSteps.releaseNameValue"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                pipelineSteps.releaseNameLabel
               </label>
             </div>
           </div>
@@ -594,19 +594,6 @@ exports[`Test K8sDeleteStep should render edit view -with ResourceName selected 
                 <input
                   name="spec.deleteResources.type"
                   type="radio"
-                  value="pipelineSteps.releaseNameValue"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-                pipelineSteps.releaseNameLabel
-              </label>
-              <label
-                class="bp3-control bp3-radio bp3-inline Radio--radio"
-              >
-                <input
-                  name="spec.deleteResources.type"
-                  type="radio"
                   value="pipelineSteps.resourceNameValue"
                 />
                 <span
@@ -626,6 +613,19 @@ exports[`Test K8sDeleteStep should render edit view -with ResourceName selected 
                   class="bp3-control-indicator"
                 />
                 pipelineSteps.manifestPathLabel
+              </label>
+              <label
+                class="bp3-control bp3-radio bp3-inline Radio--radio"
+              >
+                <input
+                  name="spec.deleteResources.type"
+                  type="radio"
+                  value="pipelineSteps.releaseNameValue"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                pipelineSteps.releaseNameLabel
               </label>
             </div>
           </div>
@@ -824,19 +824,6 @@ exports[`Test K8sDeleteStep should render edit view as new step 1`] = `
                 <input
                   name="spec.deleteResources.type"
                   type="radio"
-                  value="pipelineSteps.releaseNameValue"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-                pipelineSteps.releaseNameLabel
-              </label>
-              <label
-                class="bp3-control bp3-radio bp3-inline Radio--radio"
-              >
-                <input
-                  name="spec.deleteResources.type"
-                  type="radio"
                   value="pipelineSteps.resourceNameValue"
                 />
                 <span
@@ -856,6 +843,19 @@ exports[`Test K8sDeleteStep should render edit view as new step 1`] = `
                   class="bp3-control-indicator"
                 />
                 pipelineSteps.manifestPathLabel
+              </label>
+              <label
+                class="bp3-control bp3-radio bp3-inline Radio--radio"
+              >
+                <input
+                  name="spec.deleteResources.type"
+                  type="radio"
+                  value="pipelineSteps.releaseNameValue"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                pipelineSteps.releaseNameLabel
               </label>
             </div>
           </div>
