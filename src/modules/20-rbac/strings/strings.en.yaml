@@ -6,7 +6,6 @@ permissionLabels:
   delete: '{{ $.delete}}'
   access: Access
   execute: '{{$.common.execute}}'
-  runtimeAccess: 'Runtime Access'
   manage: Manage
 categoryLabels:
   sharedResources: Shared Resources

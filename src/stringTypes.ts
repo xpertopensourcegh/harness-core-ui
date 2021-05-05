@@ -310,7 +310,6 @@ export interface StringsMap {
   'rbac.permissionLabels.execute': string
   'rbac.permissionLabels.manage': string
   'rbac.permissionLabels.pipelineExecution': string
-  'rbac.permissionLabels.runtimeAccess': string
   'rbac.permissionLabels.view': string
   'rbac.roleAssignment.assignmentValidation': string
   'rbac.roleAssignment.deleteFailure': string
