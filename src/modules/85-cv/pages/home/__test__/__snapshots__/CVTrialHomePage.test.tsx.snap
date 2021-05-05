@@ -32,6 +32,7 @@ exports[`CVTrialHomePage snapshot test should render properly 1`] = `
         <a
           href=""
           rel="noreferrer"
+          style="width: 25%;"
           target="_blank"
         >
           cv.learnMore

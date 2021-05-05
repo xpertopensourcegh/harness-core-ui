@@ -32,6 +32,7 @@ exports[`CFTrialHomePage snapshot test should render properly 1`] = `
         <a
           href="https://ngdocs.harness.io/article/0a2u2ppp8s-getting-started-with-continuous-features"
           rel="noreferrer"
+          style="width: 25%;"
           target="_blank"
         >
           cf.learnMore

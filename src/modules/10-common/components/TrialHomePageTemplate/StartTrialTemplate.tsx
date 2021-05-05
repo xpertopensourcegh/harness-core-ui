@@ -47,7 +47,7 @@ const StartTrialComponent: React.FC<StartTrialProps> = startTrialProps => {
       >
         {description}
       </Text>
-      <a href={learnMore.url} rel="noreferrer" target="_blank">
+      <a style={{ width: '25%' }} href={learnMore.url} rel="noreferrer" target="_blank">
         {learnMore.description}
       </a>
       <Layout.Horizontal spacing="large" style={{ alignItems: 'center' }}>

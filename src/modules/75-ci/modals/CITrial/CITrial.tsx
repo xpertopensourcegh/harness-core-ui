@@ -32,7 +32,6 @@ const CITrial: React.FC<CITrialModalData> = ({ isSelect, onSubmit, closeModal })
             width: 120,
             borderRadius: 3,
             marginLeft: 30,
-            marginTop: 6,
             display: 'inline-block'
           }}
         >

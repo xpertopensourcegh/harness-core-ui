@@ -111,7 +111,7 @@ exports[`PurposePage should render module description and continue button when s
         >
           <div
             class="StyledProps--font StyledProps--main"
-            style="width: 800px;"
+            style="width: 50%;"
           >
             <div
               style="border-right: inset; margin-left: -15px;"

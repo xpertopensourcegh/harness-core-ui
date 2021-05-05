@@ -47,6 +47,7 @@ exports[`StartTrialTemplate snapshot test should display error msg when api call
         <a
           href=""
           rel="noreferrer"
+          style="width: 25%;"
           target="_blank"
         >
           learn more description
@@ -105,6 +106,7 @@ exports[`StartTrialTemplate snapshot test should render start a trial by default
         <a
           href=""
           rel="noreferrer"
+          style="width: 25%;"
           target="_blank"
         >
           learn more description

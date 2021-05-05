@@ -144,7 +144,7 @@ const PurposeList: React.FC = () => {
   return (
     <Layout.Vertical spacing="large">
       <Layout.Horizontal padding={{ top: 'large' }}>
-        <Container width={800}>
+        <Container width="50%">
           <div style={{ borderRight: 'inset', marginLeft: -15 }}>
             {getOptions().map(option => (
               <Card
