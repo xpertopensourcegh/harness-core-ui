@@ -7,9 +7,8 @@ import useTestConnectionModal from '@connectors/common/useTestConnectionModal/us
 import { useStrings } from 'framework/strings'
 
 interface TestConnectionProps {
-  connectorType: ConnectorInfoDTO['type']
   refetchConnector: () => Promise<any>
-  connectorIdentifier: string
+  connector: ConnectorInfoDTO
   url: string
   testConnectionMockData?: UseGetMockData<ResponseConnectorValidationResult>
   className?: string
@@ -27,7 +26,7 @@ const TestConnection: React.FC<TestConnectionProps> = props => {
       className={props.className}
       text={getString('connectors.stepThreeName')}
       onClick={() => {
-        openErrorModal(props.connectorIdentifier, props.connectorType, props.url)
+        openErrorModal(props.connector, props.url)
       }}
     />
   )

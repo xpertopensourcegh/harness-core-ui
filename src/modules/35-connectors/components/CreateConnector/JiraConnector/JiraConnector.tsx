@@ -64,6 +64,7 @@ const JiraConnector: React.FC<CreateJiraConnectorProps> = props => {
       />
       <VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}
+        connectorInfo={props.connectorInfo}
         isStep={true}
         isLastStep={true}
         type={Connectors.Jira}

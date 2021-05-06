@@ -53,6 +53,7 @@ const CreateNexusConnector: React.FC<CreateConnectorModalProps> = props => {
         />
         <VerifyOutOfClusterDelegate
           name={getString('connectors.stepThreeName')}
+          connectorInfo={props.connectorInfo}
           isStep
           isLastStep={true}
           type={Connectors.NEXUS}

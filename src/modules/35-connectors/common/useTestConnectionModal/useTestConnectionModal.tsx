@@ -11,7 +11,7 @@ export interface UseTestConnectionModalProps {
 }
 
 export interface UseTestConnectionModalReturn {
-  openErrorModal: (connectorIdentifier: string, connectorType: ConnectorInfoDTO['type'], connectorUrl: string) => void
+  openErrorModal: (connector: ConnectorInfoDTO, connectorUrl: string) => void
   hideErrorModal: () => void
 }
 const modalProps: IDialogProps = {
@@ -27,15 +27,19 @@ const modalProps: IDialogProps = {
 }
 
 const useTestConnectionModal = (props: UseTestConnectionModalProps): UseTestConnectionModalReturn => {
-  const [identifier, setIdentifier] = useState<string>('')
-  const [type, setType] = useState<ConnectorInfoDTO['type']>('' as ConnectorInfoDTO['type'])
+  const [connectorInfo, setConnectorInfo] = useState<ConnectorInfoDTO>({} as ConnectorInfoDTO)
   const [url, setUrl] = useState<string>('')
 
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog {...modalProps}>
         <Container height={'100%'} padding="xxlarge">
-          <VerifyOutOfClusterDelegate connectorIdentifier={identifier} isStep={false} url={url} type={type} />
+          <VerifyOutOfClusterDelegate
+            connectorInfo={connectorInfo}
+            isStep={false}
+            url={url}
+            type={connectorInfo.type}
+          />
         </Container>
         <Button
           minimal
@@ -49,13 +53,12 @@ const useTestConnectionModal = (props: UseTestConnectionModalProps): UseTestConn
         />
       </Dialog>
     ),
-    [identifier, type, url]
+    [connectorInfo, url]
   )
 
   return {
-    openErrorModal: (connectorIdentifier: string, connectorType: ConnectorInfoDTO['type'], connectorUrl: string) => {
-      setIdentifier(connectorIdentifier)
-      setType(connectorType)
+    openErrorModal: (connector: ConnectorInfoDTO, connectorUrl: string) => {
+      setConnectorInfo(connector)
       setUrl(connectorUrl)
       showModal()
     },

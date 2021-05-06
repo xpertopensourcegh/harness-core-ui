@@ -61,6 +61,7 @@ const CreateGitlabConnector = (props: CreateConnectorModalProps): JSX.Element =>
       />
       <VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}
+        connectorInfo={props.connectorInfo}
         isStep={true}
         isLastStep={true}
         type={Connectors.GITLAB}

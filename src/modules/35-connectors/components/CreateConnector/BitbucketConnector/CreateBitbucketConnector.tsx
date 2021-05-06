@@ -62,6 +62,7 @@ const CreateBitbucketConnector = (props: CreateConnectorModalProps): JSX.Element
       <VerifyOutOfClusterDelegate
         type={Connectors.BITBUCKET}
         name={getString('connectors.stepThreeName')}
+        connectorInfo={props.connectorInfo}
         isStep={true}
         isLastStep={true}
         onClose={props.onClose}

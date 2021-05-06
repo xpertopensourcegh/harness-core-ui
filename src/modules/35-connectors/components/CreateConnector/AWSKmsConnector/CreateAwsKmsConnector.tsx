@@ -50,6 +50,7 @@ const CreateAwsKmsConnector: React.FC<CreateAwsKmsConnectorProps> = props => {
       />
       <VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}
+        connectorInfo={props.connectorInfo}
         isStep
         onClose={onClose}
         isLastStep={true}

@@ -2,9 +2,11 @@ import React from 'react'
 import { MemoryRouter } from 'react-router'
 import { render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
+import type { ConnectorInfoDTO } from 'services/cd-ng'
 import VerifyOutOfClusterDelegate from '../VerifyOutOfClusterDelegate'
 import delegateNameresponse from './mockData/delegate-name-response-error.json'
 import testConnectionSuccess from './mockData/test-connection-success.json'
+import { K8WithInheritFromDelegate, ManualK8s, Docker, Nexus, Artifactory, GCP, AWS } from './mockData/connectorsMock'
 
 jest.mock('services/portal', () => ({
   useGetDelegateFromId: jest.fn().mockImplementation(() => {
@@ -22,7 +24,12 @@ describe('Verification step for out of cluster delegate', () => {
     const { container, getByText } = render(
       <MemoryRouter>
         <TestWrapper>
-          <VerifyOutOfClusterDelegate type="K8sCluster" name="sample-name" isStep={false} />
+          <VerifyOutOfClusterDelegate
+            type="K8sCluster"
+            name="sample-name"
+            connectorInfo={ManualK8s as ConnectorInfoDTO}
+            isStep={false}
+          />
         </TestWrapper>
       </MemoryRouter>
     )
@@ -35,7 +42,12 @@ describe('Verification step for out of cluster delegate', () => {
       const { container } = render(
         <MemoryRouter>
           <TestWrapper>
-            <VerifyOutOfClusterDelegate type="K8sCluster" name="sample-name" isStep={true} />
+            <VerifyOutOfClusterDelegate
+              type="K8sCluster"
+              name="sample-name"
+              connectorInfo={K8WithInheritFromDelegate as ConnectorInfoDTO}
+              isStep={true}
+            />
           </TestWrapper>
         </MemoryRouter>
       )
@@ -46,7 +58,12 @@ describe('Verification step for out of cluster delegate', () => {
       const { container } = render(
         <MemoryRouter>
           <TestWrapper>
-            <VerifyOutOfClusterDelegate type="DockerRegistry" name="sample-name" isStep={true} />
+            <VerifyOutOfClusterDelegate
+              type="DockerRegistry"
+              name="sample-name"
+              connectorInfo={Docker as ConnectorInfoDTO}
+              isStep={true}
+            />
           </TestWrapper>
         </MemoryRouter>
       )
@@ -57,29 +74,44 @@ describe('Verification step for out of cluster delegate', () => {
       const { container } = render(
         <MemoryRouter>
           <TestWrapper>
-            <VerifyOutOfClusterDelegate type="Nexus" name="sample-name" isStep={true} />
+            <VerifyOutOfClusterDelegate
+              type="Nexus"
+              name="sample-name"
+              connectorInfo={Nexus as ConnectorInfoDTO}
+              isStep={true}
+            />
           </TestWrapper>
         </MemoryRouter>
       )
 
       expect(container).toMatchSnapshot()
     }),
-    test('render VerifyOutOfClusterDelegate for Nexus', () => {
+    test('render VerifyOutOfClusterDelegate for GCP', () => {
       const { container } = render(
         <MemoryRouter>
           <TestWrapper>
-            <VerifyOutOfClusterDelegate type="Splunk" name="sample-name" isStep={true} />
+            <VerifyOutOfClusterDelegate
+              type="Gcp"
+              name="sample-name"
+              connectorInfo={GCP as ConnectorInfoDTO}
+              isStep={true}
+            />
           </TestWrapper>
         </MemoryRouter>
       )
 
       expect(container).toMatchSnapshot()
     }),
-    test('render VerifyOutOfClusterDelegate for AppDynamics', () => {
+    test('render VerifyOutOfClusterDelegate for AWS', () => {
       const { container } = render(
         <MemoryRouter>
           <TestWrapper>
-            <VerifyOutOfClusterDelegate type="AppDynamics" name="sample-name" isStep={true} />
+            <VerifyOutOfClusterDelegate
+              type="Aws"
+              name="sample-name"
+              connectorInfo={AWS as ConnectorInfoDTO}
+              isStep={true}
+            />
           </TestWrapper>
         </MemoryRouter>
       )
@@ -90,7 +122,12 @@ describe('Verification step for out of cluster delegate', () => {
       const { container } = render(
         <MemoryRouter>
           <TestWrapper>
-            <VerifyOutOfClusterDelegate type="Artifactory" name="sample-name" isStep={true} />
+            <VerifyOutOfClusterDelegate
+              type="Artifactory"
+              name="sample-name"
+              connectorInfo={Artifactory as ConnectorInfoDTO}
+              isStep={true}
+            />
           </TestWrapper>
         </MemoryRouter>
       )

@@ -7,7 +7,8 @@ import {
   useGetTestConnectionResult,
   ResponseConnectorValidationResult,
   ConnectorConfigDTO,
-  Error
+  Error,
+  ConnectorInfoDTO
 } from 'services/cd-ng'
 
 import type { StepDetails } from '@connectors/interfaces/ConnectorInterface'
@@ -30,12 +31,12 @@ interface RenderUrlInfo {
 interface VerifyOutOfClusterDelegateProps {
   type: string
   isStep: boolean
-  connectorIdentifier?: string
   onClose?: () => void
   setIsEditMode?: (val: boolean) => void // Remove after removing all usages
   url?: string
   isLastStep?: boolean
   name?: string
+  connectorInfo: ConnectorInfoDTO | void
 }
 export interface VerifyOutOfClusterStepProps extends ConnectorConfigDTO {
   isEditMode?: boolean
@@ -131,8 +132,12 @@ const RenderUrlInfo: React.FC<StepProps<VerifyOutOfClusterStepProps> & RenderUrl
 const VerifyOutOfClusterDelegate: React.FC<
   StepProps<VerifyOutOfClusterStepProps> & VerifyOutOfClusterDelegateProps
 > = props => {
-  const { prevStepData, nextStep, isLastStep = false } = props
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { prevStepData, nextStep, isLastStep = false, connectorInfo } = props
+  const { accountId, projectIdentifier: projectIdentifierFromUrl, orgIdentifier: orgIdentifierFromUrl } = useParams<
+    ProjectPathProps
+  >()
+  const projectIdentifier = connectorInfo ? connectorInfo.projectIdentifier : projectIdentifierFromUrl
+  const orgIdentifier = connectorInfo ? connectorInfo.orgIdentifier : orgIdentifierFromUrl
 
   const [viewDetails, setViewDetails] = useState<boolean>(false)
   const [testConnectionResponse, setTestConnectionResponse] = useState<ResponseConnectorValidationResult>()
@@ -173,7 +178,7 @@ const VerifyOutOfClusterDelegate: React.FC<
   }
 
   const { mutate: reloadTestConnection, loading } = useGetTestConnectionResult({
-    identifier: props.connectorIdentifier || prevStepData?.identifier || '',
+    identifier: connectorInfo ? connectorInfo.identifier : prevStepData?.identifier || '',
     queryParams: { accountIdentifier: accountId, orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier },
     requestOptions: {
       headers: {

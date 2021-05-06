@@ -357,11 +357,10 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
             {getString('lastSuccessfulStatusCheckAt')} {lastConnectedAt ? `${lastConnectedAt}` : getString('na')}
           </Text>
           <TestConnection
-            connectorIdentifier={connector?.identifier || ''}
+            connector={connector}
             // ToDo:  delegateName={connector?.spec?.credential?.spec?.delegateName || ''}
             url={getUrlValueByType(connector?.type || '', connector)}
             refetchConnector={props.refetchConnector}
-            connectorType={connector?.type || ''}
           />
         </Container>
         <Container>

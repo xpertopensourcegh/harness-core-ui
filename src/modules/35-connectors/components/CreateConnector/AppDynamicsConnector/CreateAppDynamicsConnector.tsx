@@ -123,6 +123,7 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
       />
       <VerifyOutOfClusterDelegate
         name={getString('connectors.verifyConnection')}
+        connectorInfo={props.connectorInfo}
         onClose={props.onClose}
         isStep
         isLastStep

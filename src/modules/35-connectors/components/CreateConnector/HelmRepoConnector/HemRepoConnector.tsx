@@ -64,6 +64,7 @@ const HelmRepoConnector: React.FC<CreateHelmConnectorProps> = props => {
       />
       <VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}
+        connectorInfo={props.connectorInfo}
         isStep={true}
         isLastStep={true}
         type={Connectors.HttpHelmRepo}

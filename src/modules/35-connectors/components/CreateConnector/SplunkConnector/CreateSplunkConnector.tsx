@@ -125,8 +125,8 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
         />
         <VerifyOutOfClusterDelegate
           name={getString('connectors.verifyConnection')}
+          connectorInfo={props.connectorInfo}
           url={formData?.url}
-          connectorIdentifier={formData?.identifier}
           onClose={() => props.onConnectorCreated?.(connectorResponse as ConnectorInfoDTO)}
           isStep
           isLastStep

@@ -55,6 +55,7 @@ const CreateGcpConnector: React.FC<CreateConnectorModalProps> = props => {
         />
         <VerifyOutOfClusterDelegate
           name={getString('connectors.stepThreeName')}
+          connectorInfo={props.connectorInfo}
           isStep={true}
           isLastStep={true}
           type={Connectors.GCP}

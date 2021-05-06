@@ -56,6 +56,7 @@ export function cvConnectorHOC(hocInput: CVConnectorHOCInput): (props: CreateCon
         />
         <VerifyOutOfClusterDelegate
           name={`${getString('verify')} ${getString('connection')}`}
+          connectorInfo={props.connectorInfo}
           onClose={onClose}
           isStep
           isLastStep

@@ -457,6 +457,7 @@ export default function ArtifactsSelection({
             />
             <VerifyOutOfClusterDelegate
               name={getString('connectors.stepThreeName')}
+              connectorInfo={undefined}
               isStep={true}
               isLastStep={false}
               type={'Gcr'}
@@ -489,6 +490,7 @@ export default function ArtifactsSelection({
             />
             <VerifyOutOfClusterDelegate
               name={getString('connectors.stepThreeName')}
+              connectorInfo={undefined}
               isStep={true}
               isLastStep={false}
               type={Connectors.AWS}
@@ -518,6 +520,7 @@ export default function ArtifactsSelection({
             />
             <VerifyOutOfClusterDelegate
               name={getString('connectors.stepThreeName')}
+              connectorInfo={undefined}
               isStep={true}
               isLastStep={false}
               type={Connectors.DOCKER}

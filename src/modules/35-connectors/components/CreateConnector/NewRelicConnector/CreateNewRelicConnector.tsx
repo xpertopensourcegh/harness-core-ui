@@ -273,6 +273,7 @@ export default function CreateNewRelicConnector(props: CreateNewRelicConnectorPr
         />
         <VerifyOutOfClusterDelegate
           name={`${getString('verify')} ${getString('connection')}`}
+          connectorInfo={props.connectorInfo}
           onClose={props.onClose}
           isStep
           isLastStep

@@ -38,6 +38,7 @@ export default function CreateAWSCodeCommitConnector(props: CreateConnectorModal
       />
       <VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}
+        connectorInfo={props.connectorInfo}
         isStep
         isLastStep
         type={Connectors.AWS_CODECOMMIT}

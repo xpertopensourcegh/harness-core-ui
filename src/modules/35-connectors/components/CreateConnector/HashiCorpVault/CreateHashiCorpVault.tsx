@@ -46,6 +46,7 @@ const CreateHashiCorpVault: React.FC<CreateHashiCorpVaultProps> = props => {
       />
       <VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}
+        connectorInfo={props.connectorInfo}
         isStep
         onClose={onClose}
         isLastStep={true}

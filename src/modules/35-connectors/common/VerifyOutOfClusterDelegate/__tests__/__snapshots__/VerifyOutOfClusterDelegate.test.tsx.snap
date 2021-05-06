@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Verification step for out of cluster delegate render VerifyOutOfClusterDelegate for AppDynamics 1`] = `
+exports[`Verification step for out of cluster delegate render VerifyOutOfClusterDelegate for AWS 1`] = `
 <div>
   <div
     class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-right-small StyledProps--padding-left-small StyledProps--padding-bottom-large"
@@ -69,7 +69,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600"
                   >
-                    connectors.testConnectionStep.validationText.appD
+                    connectors.testConnectionStep.validationText.aws
                   </p>
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--padding-top-small"
@@ -272,6 +272,107 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600"
                   >
                     connectors.testConnectionStep.validationText.docker
+                  </p>
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--padding-top-small"
+                  >
+                    connectors.testConnectionStep.placeholderError
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main btnWrapper"
+    >
+      <button
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+        type="button"
+      >
+        <span
+          class="bp3-button-text"
+        >
+          continue
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Verification step for out of cluster delegate render VerifyOutOfClusterDelegate for GCP 1`] = `
+<div>
+  <div
+    class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-right-small StyledProps--padding-left-small StyledProps--padding-bottom-large"
+    style="height: 100%;"
+  >
+    <div
+      class="Layout--vertical StyledProps--main"
+    >
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800"
+      >
+        connectors.stepThreeName
+      </p>
+      <div
+        class="StyledProps--font StyledProps--main content contentMinHeight StyledProps--padding-top-xxlarge"
+      >
+        <div
+          class="Layout--vertical Layout--layout-spacing-large StyledProps--main StepsProgress--stepsProgress"
+          id="steps-progress"
+        >
+          <div
+            class="StepsProgress--progressBar"
+          >
+            <div
+              class="bp3-progress-bar bp3-intent-danger bp3-no-stripes StepsProgress--progressHeight"
+            >
+              <div
+                class="bp3-progress-meter"
+                style="width: 100%;"
+              />
+            </div>
+          </div>
+          <div
+            class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+          >
+            <div
+              class="StepsProgress--stepWrap"
+            >
+              <span
+                class="bp3-icon bp3-icon-error StyledProps--main StyledProps--color StyledProps--color-red500 StyledProps--margin-right-small"
+                icon="error"
+              >
+                <svg
+                  data-icon="error"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <desc>
+                    error
+                  </desc>
+                  <path
+                    d="M7.99-.01c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm1 13h-2v-2h2v2zm0-3h-2v-7h2v7z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <div
+                class="StyledProps--font StyledProps--main"
+                style=""
+              >
+                <div
+                  class="Layout--vertical StyledProps--main"
+                  style="width: 100%;"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600"
+                  >
+                    connectors.testConnectionStep.validationText.gcp
                   </p>
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--padding-top-small"
@@ -561,107 +662,6 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600"
                   >
                     connectors.testConnectionStep.validationText.nexus
-                  </p>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--padding-top-small"
-                  >
-                    connectors.testConnectionStep.placeholderError
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main btnWrapper"
-    >
-      <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-        type="button"
-      >
-        <span
-          class="bp3-button-text"
-        >
-          continue
-        </span>
-      </button>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Verification step for out of cluster delegate render VerifyOutOfClusterDelegate for Nexus 2`] = `
-<div>
-  <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-right-small StyledProps--padding-left-small StyledProps--padding-bottom-large"
-    style="height: 100%;"
-  >
-    <div
-      class="Layout--vertical StyledProps--main"
-    >
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800"
-      >
-        connectors.stepThreeName
-      </p>
-      <div
-        class="StyledProps--font StyledProps--main content contentMinHeight StyledProps--padding-top-xxlarge"
-      >
-        <div
-          class="Layout--vertical Layout--layout-spacing-large StyledProps--main StepsProgress--stepsProgress"
-          id="steps-progress"
-        >
-          <div
-            class="StepsProgress--progressBar"
-          >
-            <div
-              class="bp3-progress-bar bp3-intent-danger bp3-no-stripes StepsProgress--progressHeight"
-            >
-              <div
-                class="bp3-progress-meter"
-                style="width: 100%;"
-              />
-            </div>
-          </div>
-          <div
-            class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
-          >
-            <div
-              class="StepsProgress--stepWrap"
-            >
-              <span
-                class="bp3-icon bp3-icon-error StyledProps--main StyledProps--color StyledProps--color-red500 StyledProps--margin-right-small"
-                icon="error"
-              >
-                <svg
-                  data-icon="error"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                >
-                  <desc>
-                    error
-                  </desc>
-                  <path
-                    d="M7.99-.01c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm1 13h-2v-2h2v2zm0-3h-2v-7h2v7z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-              <div
-                class="StyledProps--font StyledProps--main"
-                style=""
-              >
-                <div
-                  class="Layout--vertical StyledProps--main"
-                  style="width: 100%;"
-                >
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600"
-                  >
-                    connectors.testConnectionStep.validationText.splunk
                   </p>
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--padding-top-small"

@@ -5,7 +5,11 @@ import { TestWrapper } from '@common/utils/testUtils'
 import testConnectionSuccess from '@connectors/common/VerifyOutOfClusterDelegate/__tests__/mockData/test-connection-success.json'
 import delegateNameresponse from '@connectors/common/VerifyOutOfClusterDelegate/__tests__/mockData/delegate-name-response-error.json'
 
-import { Connectors } from '@connectors/constants'
+import {
+  ManualK8s,
+  K8WithInheritFromDelegate
+} from '@connectors/common/VerifyOutOfClusterDelegate/__tests__/mockData/connectorsMock'
+import type { ConnectorInfoDTO } from 'services/cd-ng'
 import TestConnection from '../TestConnection'
 
 jest.mock('services/portal', () => ({
@@ -26,8 +30,7 @@ describe('Test Connection', () => {
       <TestWrapper path="/account/:accountId" pathParams={{ accountId: 'dummy' }}>
         <MemoryRouter>
           <TestConnection
-            connectorType={Connectors.KUBERNETES_CLUSTER}
-            connectorIdentifier="connectorId"
+            connector={ManualK8s as ConnectorInfoDTO}
             url={'kubernetes_mock_url'}
             refetchConnector={jest.fn()}
           />
@@ -43,8 +46,7 @@ describe('Test Connection', () => {
       <TestWrapper path="/account/:accountId" pathParams={{ accountId: 'dummy' }}>
         <MemoryRouter>
           <TestConnection
-            connectorType={Connectors.KUBERNETES_CLUSTER}
-            connectorIdentifier="connectorId"
+            connector={K8WithInheritFromDelegate as ConnectorInfoDTO}
             url={'kubernetes_mock_url'}
             refetchConnector={jest.fn()}
           />
