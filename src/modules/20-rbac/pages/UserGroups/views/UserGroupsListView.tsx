@@ -9,7 +9,7 @@ import {
   ResponsePageUserGroupAggregateDTO,
   UserGroupDTO,
   UserMetadataDTO,
-  RoleBinding
+  RoleAssignmentMetadataDTO
 } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/strings'
@@ -32,7 +32,7 @@ interface UserGroupsListViewProps {
   openRoleAssignmentModal: (
     type?: PrincipalType,
     principalInfo?: UserGroupDTO | UserMetadataDTO,
-    roleBindings?: RoleBinding[]
+    roleBindings?: RoleAssignmentMetadataDTO[]
   ) => void
   openUserGroupModal: (userGroup?: UserGroupDTO, _isAddMember?: boolean) => void
 }

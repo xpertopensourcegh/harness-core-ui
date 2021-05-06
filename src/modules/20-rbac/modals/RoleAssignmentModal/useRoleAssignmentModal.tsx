@@ -3,7 +3,7 @@ import { useModalHook, Button } from '@wings-software/uicore'
 import { Dialog, Classes } from '@blueprintjs/core'
 import cx from 'classnames'
 
-import type { UserMetadataDTO, RoleBinding, UserGroupDTO } from 'services/cd-ng'
+import type { UserMetadataDTO, RoleAssignmentMetadataDTO, UserGroupDTO } from 'services/cd-ng'
 import UserRoleAssignment from './views/UserRoleAssigment'
 import UserGroupRoleAssignment from './views/UserGroupRoleAssignment'
 import css from './useRoleAssignmentModal.module.scss'
@@ -21,13 +21,13 @@ export interface UseRoleAssignmentModalReturn {
   openRoleAssignmentModal: (
     type?: PrincipalType,
     principalInfo?: UserGroupDTO | UserMetadataDTO,
-    roleBindings?: RoleBinding[]
+    roleBindings?: RoleAssignmentMetadataDTO[]
   ) => void
   closeRoleAssignmentModal: () => void
 }
 
 export const useRoleAssignmentModal = ({ onSuccess }: UseRoleAssignmentModalProps): UseRoleAssignmentModalReturn => {
-  const [roleBindings, setRoleBindings] = useState<RoleBinding[]>()
+  const [roleBindings, setRoleBindings] = useState<RoleAssignmentMetadataDTO[]>()
   const [principalInfo, setPrincipalInfo] = useState<UserMetadataDTO | UserGroupDTO>()
   const [principal, setPrincipal] = useState<PrincipalType>(PrincipalType.USER)
   const [showModal, hideModal] = useModalHook(
@@ -74,7 +74,11 @@ export const useRoleAssignmentModal = ({ onSuccess }: UseRoleAssignmentModalProp
     [roleBindings, principalInfo]
   )
   const open = useCallback(
-    (_type?: PrincipalType, _principalInfo?: UserGroupDTO | UserMetadataDTO, _roleBindings?: RoleBinding[]) => {
+    (
+      _type?: PrincipalType,
+      _principalInfo?: UserGroupDTO | UserMetadataDTO,
+      _roleBindings?: RoleAssignmentMetadataDTO[]
+    ) => {
       if (_type) setPrincipal(_type)
       setRoleBindings(_roleBindings)
       setPrincipalInfo(_principalInfo)
@@ -87,7 +91,7 @@ export const useRoleAssignmentModal = ({ onSuccess }: UseRoleAssignmentModalProp
     openRoleAssignmentModal: (
       _type?: PrincipalType,
       _principalInfo?: UserGroupDTO | UserMetadataDTO,
-      _roleBindings?: RoleBinding[]
+      _roleBindings?: RoleAssignmentMetadataDTO[]
     ) => open(_type, _principalInfo, _roleBindings),
     closeRoleAssignmentModal: hideModal
   }

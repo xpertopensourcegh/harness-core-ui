@@ -16,12 +16,18 @@ import { useParams } from 'react-router-dom'
 import { useToaster } from '@common/components'
 import { useCreateRoleAssignments, RoleAssignment as RBACRoleAssignment } from 'services/rbac'
 import { useStrings } from 'framework/strings'
-import { UserMetadataDTO, useGetCurrentGenUsers, useSendInvite, CreateInvite, RoleBinding } from 'services/cd-ng'
+import {
+  UserMetadataDTO,
+  useGetCurrentGenUsers,
+  useSendInvite,
+  CreateInvite,
+  RoleAssignmentMetadataDTO
+} from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import RoleAssignmentForm, { InviteType } from './RoleAssignmentForm'
 
 interface UserRoleAssignmentData {
-  roleBindings?: RoleBinding[]
+  roleBindings?: RoleAssignmentMetadataDTO[]
   user?: UserMetadataDTO
   onSubmit?: () => void
   isInvite?: boolean
@@ -130,8 +136,7 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
             roleIdentifier: value.role.value.toString(),
             roleName: value.role.label,
             resourceGroupName: value.resourceGroup.label,
-            managedRole: value.role.managed,
-            managedRoleAssignment: value.role.managedRoleAssignment
+            managedRole: value.role.managed
           }
         }),
         inviteType: InviteType.ADMIN_INITIATED

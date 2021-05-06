@@ -10,6 +10,9 @@ import { useConfirmationDialog } from '@common/exports'
 import { useStrings } from 'framework/strings'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { useMutateAsGet } from '@common/hooks'
+import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import css from '../UserGroupDetails.module.scss'
 
 const RenderColumnUser: Renderer<CellProps<UserInfo>> = ({ row }) => {
@@ -106,7 +109,23 @@ const RenderColumnMenu: Renderer<CellProps<UserInfo>> = ({ row, column }) => {
           }}
         />
         <Menu>
-          <Menu.Item icon="trash" text={getString('common.remove')} onClick={handleDelete} />
+          <RbacMenuItem
+            icon="trash"
+            text={getString('common.remove')}
+            onClick={handleDelete}
+            permission={{
+              resourceScope: {
+                accountIdentifier: accountId,
+                orgIdentifier,
+                projectIdentifier
+              },
+              resource: {
+                resourceType: ResourceType.USERGROUP,
+                resourceIdentifier: (column as any).userGroupIdentifier
+              },
+              permission: PermissionIdentifier.MANAGE_USERGROUP
+            }}
+          />
         </Menu>
       </Popover>
     </Layout.Horizontal>

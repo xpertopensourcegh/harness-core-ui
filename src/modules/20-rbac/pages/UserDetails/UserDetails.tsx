@@ -37,7 +37,7 @@ const UserDetails: React.FC = () => {
   })
 
   const user = data?.data?.user
-  const roleBindings = data?.data?.roleBindings?.map(item => ({
+  const roleBindings = data?.data?.roleAssignmentMetadata?.map(item => ({
     item: `${item.roleName} - ${item.resourceGroupName}`,
     managed: item.managedRole
   }))
@@ -103,7 +103,7 @@ const UserDetails: React.FC = () => {
                 intent="primary"
                 onClick={event => {
                   event.stopPropagation()
-                  openRoleAssignmentModal(PrincipalType.USER, user, data?.data?.roleBindings)
+                  openRoleAssignmentModal(PrincipalType.USER, user, data?.data?.roleAssignmentMetadata)
                 }}
                 resourceIdentifier={user.uuid}
                 resourceType={ResourceType.USER}

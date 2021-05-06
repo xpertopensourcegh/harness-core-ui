@@ -177,8 +177,7 @@ export const pendingUserMock: ResponsePageInvite = {
             roleName: 'Account Viewer',
             resourceGroupIdentifier: 'New_123',
             resourceGroupName: 'New 123',
-            managedRole: true,
-            managedRoleAssignment: true
+            managedRole: true
           }
         ],
         inviteType: 'ADMIN_INITIATED_INVITE',
@@ -194,8 +193,7 @@ export const pendingUserMock: ResponsePageInvite = {
             roleName: 'New Role',
             resourceGroupIdentifier: 'New_123',
             resourceGroupName: 'New 123',
-            managedRole: false,
-            managedRoleAssignment: false
+            managedRole: false
           }
         ],
         inviteType: 'ADMIN_INITIATED_INVITE',
@@ -221,7 +219,7 @@ export const activeUserMock: ResponsePageUserAggregate = {
           email: 'abc@harness.io',
           uuid: '123'
         },
-        roleBindings: [
+        roleAssignmentMetadata: [
           {
             identifier: 'role_assignment_vawmAV0YuQ9HlxmljpAu',
             roleIdentifier: '_account_admin',

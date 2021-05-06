@@ -1,17 +1,18 @@
-import type { ResponseBoolean } from 'services/cd-ng'
+import type { ResponseBoolean, ResponseUserAggregate } from 'services/cd-ng'
 
-export const userInfo = {
+export const userInfo: ResponseUserAggregate = {
   status: 'SUCCESS',
   data: {
     user: { name: 'dummy', email: 'dummy@harness.io', uuid: 'dummy' },
-    roleBindings: [
+    roleAssignmentMetadata: [
       {
         identifier: 'role_assignment_JZcId0QnciEQsfOtUYlo',
         roleIdentifier: 'New_Role',
         roleName: 'New Role',
         resourceGroupIdentifier: '_all_resources',
         resourceGroupName: 'All Resources',
-        managedRole: false
+        managedRole: false,
+        managedRoleAssignment: false
       },
       {
         identifier: 'role_assignment_wHQ0QnLTID3MSVGzKchN',
@@ -19,7 +20,8 @@ export const userInfo = {
         roleName: 'TestRole',
         resourceGroupIdentifier: '_all_resources',
         resourceGroupName: 'All Resources',
-        managedRole: false
+        managedRole: false,
+        managedRoleAssignment: false
       },
       {
         identifier: 'role_assignment_VSS2NofHI92c9TibXh03',
@@ -27,7 +29,8 @@ export const userInfo = {
         roleName: 'Account dummy',
         resourceGroupIdentifier: '_all_resources',
         resourceGroupName: 'All Resources',
-        managedRole: true
+        managedRole: true,
+        managedRoleAssignment: false
       },
       {
         identifier: 'role_assignment_gfLKLhqViVlNahxOfks7',
@@ -35,7 +38,8 @@ export const userInfo = {
         roleName: 'Account Viewer',
         resourceGroupIdentifier: '_all_resources',
         resourceGroupName: 'All Resources',
-        managedRole: true
+        managedRole: true,
+        managedRoleAssignment: false
       },
       {
         identifier: 'role_assignment_RkYa8Hrtp2CZJIJbUE7C',
@@ -43,11 +47,12 @@ export const userInfo = {
         roleName: 'ufbvfbvbfv',
         resourceGroupIdentifier: '_all_resources',
         resourceGroupName: 'All Resources',
-        managedRole: false
+        managedRole: false,
+        managedRoleAssignment: false
       }
     ]
   },
-  metaData: '',
+  metaData: {},
   correlationId: ''
 }
 export const mockResponse: ResponseBoolean = {

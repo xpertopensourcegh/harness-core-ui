@@ -9,7 +9,7 @@ import {
   useGetAggregatedUsers,
   UserGroupDTO,
   UserMetadataDTO,
-  RoleBinding
+  RoleAssignmentMetadataDTO
 } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/strings'
@@ -31,7 +31,7 @@ interface ActiveUserListViewProps {
   openRoleAssignmentModal: (
     type?: PrincipalType,
     principalInfo?: UserGroupDTO | UserMetadataDTO,
-    roleBindings?: RoleBinding[]
+    roleBindings?: RoleAssignmentMetadataDTO[]
   ) => void
 }
 
@@ -50,7 +50,7 @@ const RenderColumnUser: Renderer<CellProps<UserAggregate>> = ({ row }) => {
   )
 }
 const RenderColumnRoleAssignments: Renderer<CellProps<UserAggregate>> = ({ row, column }) => {
-  const data = row.original.roleBindings?.map(item => ({
+  const data = row.original.roleAssignmentMetadata?.map(item => ({
     item: `${item.roleName} - ${item.resourceGroupName}`,
     managed: item.managedRole
   }))
@@ -58,7 +58,7 @@ const RenderColumnRoleAssignments: Renderer<CellProps<UserAggregate>> = ({ row, 
 
   const handleAddRole = (e: React.MouseEvent<Element, MouseEvent>): void => {
     e.stopPropagation()
-    ;(column as any).openRoleAssignmentModal(PrincipalType.USER, row.original.user, row.original.roleBindings)
+    ;(column as any).openRoleAssignmentModal(PrincipalType.USER, row.original.user, row.original.roleAssignmentMetadata)
   }
 
   return (
@@ -213,7 +213,7 @@ const ActiveUserListView: React.FC<ActiveUserListViewProps> = ({ searchTerm, ope
       {
         Header: getString('rbac.usersPage.roleBinding'),
         id: 'roleBinding',
-        accessor: row => row.roleBindings,
+        accessor: row => row.roleAssignmentMetadata,
         width: '45%',
         Cell: RenderColumnRoleAssignments,
         openRoleAssignmentModal: addRole
