@@ -76,7 +76,7 @@ function K8RolloutDeployWidget(
               <div className={cx(stepCss.formGroup, stepCss.md)}>
                 <FormInput.InputWithIdentifier
                   inputLabel={getString('name')}
-                  isIdentifierEditable={isNewStep}
+                  isIdentifierEditable={isNewStep && !readonly}
                   inputGroupProps={{ disabled: readonly }}
                 />
               </div>
@@ -85,6 +85,7 @@ function K8RolloutDeployWidget(
                   name="timeout"
                   label={getString('pipelineSteps.timeoutLabel')}
                   multiTypeDurationProps={{ enableConfigureOptions: false, expressions, disabled: readonly }}
+                  disabled={readonly}
                 />
                 {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions

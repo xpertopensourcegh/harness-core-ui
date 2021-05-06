@@ -1,7 +1,7 @@
 import React from 'react'
 import { Classes, Dialog } from '@blueprintjs/core'
 import cx from 'classnames'
-import { Button, useModalHook, Text, Icon } from '@wings-software/uicore'
+import { useModalHook, Text, Icon } from '@wings-software/uicore'
 import { useHistory, useParams, matchPath } from 'react-router-dom'
 import { parse } from 'yaml'
 import { isEqual } from 'lodash-es'
@@ -368,7 +368,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
           <div className={css.savePublishContainer}>
             {isUpdated && <div className={css.tagRender}>{getString('unsavedChanges')}</div>}
             <div>
-              <Button
+              <RbacButton
                 minimal
                 intent="primary"
                 text={getString('save')}
@@ -376,6 +376,13 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                 className={css.savePublishBtn}
                 icon="send-data"
                 disabled={isReadonly}
+                permission={{
+                  resource: {
+                    resourceType: ResourceType.PIPELINE,
+                    resourceIdentifier: pipeline?.identifier
+                  },
+                  permission: PermissionIdentifier.EDIT_PIPELINE
+                }}
               />
 
               <RbacButton

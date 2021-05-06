@@ -44,7 +44,7 @@ export default function BaseShellScript(props: {
       <div className={cx(stepCss.formGroup, stepCss.md)}>
         <FormInput.InputWithIdentifier
           inputLabel={getString('pipelineSteps.stepNameLabel')}
-          isIdentifierEditable={isNewStep}
+          isIdentifierEditable={isNewStep && !readonly}
           inputGroupProps={{ disabled: readonly }}
         />
       </div>
@@ -75,7 +75,7 @@ export default function BaseShellScript(props: {
             )
           }}
         >
-          <ShellScriptMonacoField name="spec.source.spec.script" scriptType={scriptType} />
+          <ShellScriptMonacoField name="spec.source.spec.script" scriptType={scriptType} disabled={readonly} />
         </MultiTypeFieldSelector>
         {getMultiTypeFromValue(formValues.spec.source?.spec?.script) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
@@ -96,6 +96,7 @@ export default function BaseShellScript(props: {
           label={getString('pipelineSteps.timeoutLabel')}
           multiTypeDurationProps={{ enableConfigureOptions: false, expressions, disabled: readonly }}
           className={stepCss.duration}
+          disabled={readonly}
         />
         {getMultiTypeFromValue(formValues?.timeout) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions

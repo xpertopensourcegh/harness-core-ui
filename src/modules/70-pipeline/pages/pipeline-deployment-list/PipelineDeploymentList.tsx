@@ -1,9 +1,8 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Button, Text, Icon, OverlaySpinner } from '@wings-software/uicore'
+import { Text, Icon, OverlaySpinner } from '@wings-software/uicore'
 
 import { useGetListOfExecutions, useGetFilterList } from 'services/pipeline-ng'
-import type { PermissionCheck } from 'services/rbac'
 import { useStrings } from 'framework/strings'
 import { Page, StringUtils } from '@common/exports'
 import { useQueryParams, useMutateAsGet } from '@common/hooks'
@@ -11,10 +10,10 @@ import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { UNSAVED_FILTER } from '@common/components/Filter/utils/FilterUtils'
-import { usePermission } from '@rbac/hooks/usePermission'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 
+import RbacButton from '@rbac/components/Button/Button'
 import ExecutionsList from './ExecutionsList/ExecutionsList'
 import ExecutionsPagination from './ExecutionsPagination/ExecutionsPagination'
 import { PipelineDeploymentListHeader } from './PipelineDeploymentListHeader/PipelineDeploymentListHeader'
@@ -119,26 +118,6 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, loading])
 
-  const [canExecute] = usePermission(
-    {
-      resourceScope: {
-        accountIdentifier: accountId,
-        orgIdentifier,
-        projectIdentifier
-      },
-      resource: {
-        resourceType: ResourceType.PIPELINE,
-        resourceIdentifier: (pipelineIdentifier || queryParams.pipelineIdentifier) as string
-      },
-      permissions: [PermissionIdentifier.EXECUTE_PIPELINE],
-      options: {
-        skipCondition: (permissionCheck: PermissionCheck) => !permissionCheck.resourceIdentifier
-      }
-    },
-    [accountId, orgIdentifier, projectIdentifier, pipelineIdentifier || queryParams.pipelineIdentifier]
-  )
-  const disableRun = !canExecute
-
   return (
     <Page.Body
       className={css.main}
@@ -152,7 +131,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
         refetchFilters={refetchFilters}
         queryParams={queryParams}
       >
-        <PipelineDeploymentListHeader onRunPipeline={props.onRunPipeline} disableRun={disableRun} />
+        <PipelineDeploymentListHeader onRunPipeline={props.onRunPipeline} />
         {loading && !pollingRequest ? (
           <OverlaySpinner show={true} className={css.loading}>
             <div />
@@ -168,12 +147,21 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
               <Text padding={{ top: 'small', bottom: 'small' }} font="medium">
                 {getString(isCIModule ? 'noBuildsText' : 'noDeploymentText')}
               </Text>
-              <Button
+              <RbacButton
                 intent="primary"
-                onClick={props.onRunPipeline}
                 text={getString('runPipelineText')}
-                disabled={disableRun}
-              ></Button>
+                onClick={props.onRunPipeline}
+                permission={{
+                  permission: PermissionIdentifier.EXECUTE_PIPELINE,
+                  resource: {
+                    resourceType: ResourceType.PIPELINE,
+                    resourceIdentifier: pipelineIdentifier || queryParams.pipelineIdentifier
+                  },
+                  options: {
+                    skipCondition: ({ resourceIdentifier }) => !resourceIdentifier
+                  }
+                }}
+              />
             </div>
           )
         ) : (

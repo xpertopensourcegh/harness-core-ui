@@ -42,7 +42,7 @@ export default function HttpStepBase(props: {
     <div className={stepCss.stepPanel}>
       <div className={cx(stepCss.formGroup, stepCss.md)}>
         <FormInput.InputWithIdentifier
-          isIdentifierEditable={isNewStep}
+          isIdentifierEditable={isNewStep && !readonly}
           inputLabel={getString('name')}
           inputGroupProps={{ disabled: readonly }}
         />
@@ -182,6 +182,7 @@ export default function HttpStepBase(props: {
           name="timeout"
           label={getString('pipelineSteps.timeoutLabel')}
           multiTypeDurationProps={{ enableConfigureOptions: false, expressions, disabled: readonly }}
+          disabled={readonly}
         />
         {getMultiTypeFromValue(formValues.timeout) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions

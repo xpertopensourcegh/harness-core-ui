@@ -606,20 +606,30 @@ exports[`Project Details render with modules and edit menu 1`] = `
                   <div
                     class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
                   >
-                    <a
-                      href="/account/testAcc/cd/orgs/testOrg/projects/dummy_name/pipelines/-1/pipeline-studio/"
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+                      type="button"
                     >
-                      <span>
-                        moduleRenderer.newPipeLine
+                      <span
+                        class="bp3-button-text"
+                      >
+                        <span>
+                          moduleRenderer.newPipeLine
+                        </span>
                       </span>
-                    </a>
-                    <a
-                      href="/account/testAcc/cd/orgs/testOrg/projects/dummy_name/pipelines"
+                    </button>
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+                      type="button"
                     >
-                      <span>
-                        moduleRenderer.viewPipelines
+                      <span
+                        class="bp3-button-text"
+                      >
+                        <span>
+                          moduleRenderer.viewPipelines
+                        </span>
                       </span>
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -849,20 +859,26 @@ exports[`Project Details render with modules and edit menu 1`] = `
                   <div
                     class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
                   >
-                    <a
-                      href="/account/testAcc/cv/orgs/testOrg/projects/dummy_name/admin/setup"
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+                      type="button"
                     >
-                      <span>
+                      <span
+                        class="bp3-button-text"
+                      >
                         moduleRenderer.setupChanges
                       </span>
-                    </a>
-                    <a
-                      href="/account/testAcc/cv/orgs/testOrg/projects/dummy_name/admin/setup?step=2"
+                    </button>
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+                      type="button"
                     >
-                      <span>
+                      <span
+                        class="bp3-button-text"
+                      >
                         moduleRenderer.monitoringSources
                       </span>
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -1092,20 +1108,30 @@ exports[`Project Details render with modules and edit menu 1`] = `
                   <div
                     class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
                   >
-                    <a
-                      href="/account/testAcc/ci/orgs/testOrg/projects/dummy_name/pipelines/-1/pipeline-studio/"
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+                      type="button"
                     >
-                      <span>
-                        moduleRenderer.newPipeLine
+                      <span
+                        class="bp3-button-text"
+                      >
+                        <span>
+                          moduleRenderer.newPipeLine
+                        </span>
                       </span>
-                    </a>
-                    <a
-                      href="/account/testAcc/ci/orgs/testOrg/projects/dummy_name/pipelines"
+                    </button>
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+                      type="button"
                     >
-                      <span>
-                        moduleRenderer.viewPipelines
+                      <span
+                        class="bp3-button-text"
+                      >
+                        <span>
+                          moduleRenderer.viewPipelines
+                        </span>
                       </span>
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -1335,18 +1361,26 @@ exports[`Project Details render with modules and edit menu 1`] = `
                   <div
                     class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
                   >
-                    <a
-                      href="/"
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+                      type="button"
                     >
-                       
-                      Create New Pipeline
-                    </a>
-                    <a
-                      href="/"
+                      <span
+                        class="bp3-button-text"
+                      >
+                        moduleRenderer.newPipeLine
+                      </span>
+                    </button>
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+                      type="button"
                     >
-                       
-                      View Pipeline
-                    </a>
+                      <span
+                        class="bp3-button-text"
+                      >
+                        moduleRenderer.viewPipelines
+                      </span>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -1576,18 +1610,26 @@ exports[`Project Details render with modules and edit menu 1`] = `
                   <div
                     class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
                   >
-                    <a
-                      href="/"
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+                      type="button"
                     >
-                       
-                      Create New Pipeline
-                    </a>
-                    <a
-                      href="/"
+                      <span
+                        class="bp3-button-text"
+                      >
+                        moduleRenderer.newPipeLine
+                      </span>
+                    </button>
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+                      type="button"
                     >
-                       
-                      View Pipeline
-                    </a>
+                      <span
+                        class="bp3-button-text"
+                      >
+                        moduleRenderer.viewPipelines
+                      </span>
+                    </button>
                   </div>
                 </div>
               </div>

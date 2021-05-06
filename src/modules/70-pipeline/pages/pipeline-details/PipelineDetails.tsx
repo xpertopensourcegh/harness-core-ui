@@ -12,6 +12,7 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { DefaultNewPipelineId } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import { String } from 'framework/strings'
+import GenericErrorHandler from '@common/pages/GenericErrorHandler/GenericErrorHandler'
 import css from './PipelineDetails.module.scss'
 
 // add custom event to the global scope
@@ -25,7 +26,7 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
   const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module } = useParams<
     PipelineType<PipelinePathProps>
   >()
-  const { data: pipeline, refetch } = useGetPipelineSummary({
+  const { data: pipeline, refetch, error } = useGetPipelineSummary({
     pipelineIdentifier,
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
     lazy: true
@@ -69,6 +70,10 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
       setPipelineName(event.detail)
     }
   })
+
+  if (error?.data) {
+    return <GenericErrorHandler errStatusCode={error?.status} errorMessage={(error?.data as Error)?.message} />
+  }
 
   return (
     <>

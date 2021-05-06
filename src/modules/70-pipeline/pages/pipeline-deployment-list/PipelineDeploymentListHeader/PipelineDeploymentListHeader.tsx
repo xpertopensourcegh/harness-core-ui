@@ -10,6 +10,9 @@ import PipelineSelect from '@pipeline/components/PipelineSelect/PipelineSelect'
 import { useUpdateQueryParams } from '@common/hooks'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 import type { GetListOfExecutionsQueryParams } from 'services/pipeline-ng'
+import RbacButton from '@rbac/components/Button/Button'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 
 import { useFiltersContext } from '../FiltersContext/FiltersContext'
 import { ExecutionFilters } from './ExecutionFilters/ExecutionFilters'
@@ -23,7 +26,6 @@ export interface FilterQueryParams {
 }
 export interface PipelineDeploymentListHeaderProps {
   onRunPipeline(): void
-  disableRun?: boolean
 }
 
 export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeaderProps): React.ReactElement {
@@ -62,9 +64,23 @@ export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeader
   return (
     <div className={css.main}>
       <div className={css.lhs}>
-        <Button icon="run-pipeline" intent="primary" onClick={props.onRunPipeline} disabled={props.disableRun || false}>
+        <RbacButton
+          icon="run-pipeline"
+          intent="primary"
+          onClick={props.onRunPipeline}
+          permission={{
+            resource: {
+              resourceType: ResourceType.PIPELINE,
+              resourceIdentifier: pipelineIdentifier || queryParams.pipelineIdentifier
+            },
+            permission: PermissionIdentifier.EXECUTE_PIPELINE,
+            options: {
+              skipCondition: ({ resourceIdentifier }) => !resourceIdentifier
+            }
+          }}
+        >
           <String className={css.runText} stringID="runPipelineText" />
-        </Button>
+        </RbacButton>
         <div className={css.filterGroup}>
           <String className={css.label} stringID={module === 'ci' ? 'buildsText' : 'deploymentsText'} />
           <ButtonGroup className={css.btnGroup}>

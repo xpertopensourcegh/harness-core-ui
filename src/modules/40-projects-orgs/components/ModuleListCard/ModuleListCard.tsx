@@ -1,11 +1,15 @@
 import React from 'react'
-import { Card, Color, Container, Icon, Layout, SparkChart, Text } from '@wings-software/uicore'
-import { Link } from 'react-router-dom'
+import { Button, Card, Color, Container, Icon, Layout, SparkChart, Text } from '@wings-software/uicore'
+import { useHistory } from 'react-router-dom'
 import { getModuleIcon, getModulePurpose } from '@projects-orgs/utils/utils'
 import { String, useStrings } from 'framework/strings'
 import type { StringKeys } from 'framework/strings'
 import { ModuleName } from 'framework/types/ModuleName'
 import routes from '@common/RouteDefinitions'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import RbacButton from '@rbac/components/Button/Button'
 import i18n from './ModuleListCard.i18n'
 import css from './ModuleListCard.module.scss'
 
@@ -16,83 +20,131 @@ interface ModuleListCardProps {
   accountId: string
 }
 
-const getModuleLinks = (
-  module: ModuleName,
-  orgIdentifier: string,
-  projectIdentifier: string,
-  accountId: string
-): React.ReactElement => {
-  switch (module) {
-    case ModuleName.CD:
-      return (
-        <Layout.Vertical spacing="medium">
-          <Link
-            to={routes.toPipelineStudio({
-              accountId,
-              orgIdentifier,
-              projectIdentifier,
-              pipelineIdentifier: '-1',
-              module: 'cd'
-            })}
-          >
-            <String stringID="moduleRenderer.newPipeLine" />
-          </Link>
-          <Link to={routes.toPipelines({ accountId, orgIdentifier, projectIdentifier, module: 'cd' })}>
-            <String stringID="moduleRenderer.viewPipelines" />
-          </Link>
-        </Layout.Vertical>
-      )
-    case ModuleName.CV:
-      return (
-        <Layout.Vertical spacing="medium">
-          <Link to={routes.toCVAdminSetup({ accountId, orgIdentifier, projectIdentifier })}>
-            <String stringID="moduleRenderer.setupChanges" />
-          </Link>
-          <Link to={`${routes.toCVAdminSetup({ accountId, orgIdentifier, projectIdentifier })}?step=2`}>
-            <String stringID="moduleRenderer.monitoringSources" />
-          </Link>
-        </Layout.Vertical>
-      )
-    case ModuleName.CI:
-      return (
-        <Layout.Vertical spacing="medium">
-          <Link
-            to={routes.toPipelineStudio({
-              accountId,
-              orgIdentifier,
-              projectIdentifier,
-              pipelineIdentifier: '-1',
-              module: 'ci'
-            })}
-          >
-            <String stringID="moduleRenderer.newPipeLine" />
-          </Link>
-          <Link to={routes.toPipelines({ accountId, orgIdentifier, projectIdentifier, module: 'ci' })}>
-            <String stringID="moduleRenderer.viewPipelines" />
-          </Link>
-        </Layout.Vertical>
-      )
-    case ModuleName.CE:
-      return (
-        <Layout.Vertical spacing="medium">
-          <Link to={''}> {i18n.newPipeLine}</Link>
-          <Link to={''}> {i18n.viewPipeline}</Link>
-        </Layout.Vertical>
-      )
-    case ModuleName.CF:
-      return (
-        <Layout.Vertical spacing="medium">
-          <Link to={''}> {i18n.newPipeLine}</Link>
-          <Link to={''}> {i18n.viewPipeline}</Link>
-        </Layout.Vertical>
-      )
-    /* istanbul ignore next */
-    default:
-      return <></>
-  }
-}
 const ModuleListCard: React.FC<ModuleListCardProps> = ({ module, projectIdentifier, orgIdentifier, accountId }) => {
   const { getString } = useStrings()
+  const history = useHistory()
+
+  const getModuleLinks = (): React.ReactElement => {
+    switch (module) {
+      case ModuleName.CD:
+        return (
+          <Layout.Vertical spacing="medium">
+            <RbacButton
+              text={<String stringID="moduleRenderer.newPipeLine" />}
+              minimal
+              onClick={() => {
+                history.push(
+                  routes.toPipelineStudio({
+                    accountId,
+                    orgIdentifier,
+                    projectIdentifier,
+                    pipelineIdentifier: '-1',
+                    module: 'cd'
+                  })
+                )
+              }}
+              permission={{
+                permission: PermissionIdentifier.EDIT_PIPELINE,
+                resource: {
+                  resourceType: ResourceType.PIPELINE
+                }
+              }}
+            />
+
+            <RbacButton
+              text={<String stringID="moduleRenderer.viewPipelines" />}
+              minimal
+              onClick={() => {
+                history.push(routes.toPipelines({ accountId, orgIdentifier, projectIdentifier, module: 'cd' }))
+              }}
+              permission={{
+                permission: PermissionIdentifier.VIEW_PIPELINE,
+                resource: {
+                  resourceType: ResourceType.PIPELINE
+                }
+              }}
+            />
+          </Layout.Vertical>
+        )
+      case ModuleName.CV:
+        return (
+          <Layout.Vertical spacing="medium">
+            <Button
+              minimal
+              text={getString('moduleRenderer.setupChanges')}
+              onClick={() => {
+                history.push(routes.toCVAdminSetup({ accountId, orgIdentifier, projectIdentifier }))
+              }}
+            />
+            <Button
+              minimal
+              text={getString('moduleRenderer.monitoringSources')}
+              onClick={() => {
+                history.push(`${routes.toCVAdminSetup({ accountId, orgIdentifier, projectIdentifier })}?step=2`)
+              }}
+            />
+          </Layout.Vertical>
+        )
+      case ModuleName.CI:
+        return (
+          <Layout.Vertical spacing="medium">
+            <RbacButton
+              text={<String stringID="moduleRenderer.newPipeLine" />}
+              minimal
+              onClick={() => {
+                history.push(
+                  routes.toPipelineStudio({
+                    accountId,
+                    orgIdentifier,
+                    projectIdentifier,
+                    pipelineIdentifier: '-1',
+                    module: 'ci'
+                  })
+                )
+              }}
+              permission={{
+                permission: PermissionIdentifier.EDIT_PIPELINE,
+                resource: {
+                  resourceType: ResourceType.PIPELINE
+                }
+              }}
+            />
+
+            <RbacButton
+              text={<String stringID="moduleRenderer.viewPipelines" />}
+              onClick={() => {
+                history.push(routes.toPipelines({ accountId, orgIdentifier, projectIdentifier, module: 'ci' }))
+              }}
+              minimal
+              permission={{
+                permission: PermissionIdentifier.VIEW_PIPELINE,
+                resource: {
+                  resourceType: ResourceType.PIPELINE
+                }
+              }}
+            />
+          </Layout.Vertical>
+        )
+      case ModuleName.CE:
+        return (
+          <Layout.Vertical spacing="medium">
+            <Button minimal text={getString('moduleRenderer.newPipeLine')} />
+            <Button minimal text={getString('moduleRenderer.viewPipelines')} />
+          </Layout.Vertical>
+        )
+      case ModuleName.CF:
+        return (
+          <Layout.Vertical spacing="medium">
+            <Button minimal text={getString('moduleRenderer.newPipeLine')} />
+            <Button minimal text={getString('moduleRenderer.viewPipelines')} />
+          </Layout.Vertical>
+        )
+      /* istanbul ignore next */
+      default:
+        return <></>
+    }
+  }
+
   return (
     <>
       <Card className={css.card}>
@@ -132,7 +184,7 @@ const ModuleListCard: React.FC<ModuleListCardProps> = ({ module, projectIdentifi
             </Layout.Vertical>
           </Container>
           <Container width="30%" flex={{ align: 'center-center' }}>
-            {getModuleLinks(module, orgIdentifier, projectIdentifier, accountId)}
+            {getModuleLinks()}
           </Container>
         </Layout.Horizontal>
       </Card>

@@ -227,20 +227,30 @@ exports[`Project Details render 1`] = `
         <div
           class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
         >
-          <a
-            href="/account/testAcc/cd/orgs/Cisco_Meraki/projects/Portal/pipelines/-1/pipeline-studio/"
+          <button
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+            type="button"
           >
-            <span>
-              moduleRenderer.newPipeLine
+            <span
+              class="bp3-button-text"
+            >
+              <span>
+                moduleRenderer.newPipeLine
+              </span>
             </span>
-          </a>
-          <a
-            href="/account/testAcc/cd/orgs/Cisco_Meraki/projects/Portal/pipelines"
+          </button>
+          <button
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+            type="button"
           >
-            <span>
-              moduleRenderer.viewPipelines
+            <span
+              class="bp3-button-text"
+            >
+              <span>
+                moduleRenderer.viewPipelines
+              </span>
             </span>
-          </a>
+          </button>
         </div>
       </div>
     </div>
@@ -475,20 +485,26 @@ exports[`Project Details render 2`] = `
         <div
           class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
         >
-          <a
-            href="/account/testAcc/cv/orgs/Cisco_Meraki/projects/Portal/admin/setup"
+          <button
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+            type="button"
           >
-            <span>
+            <span
+              class="bp3-button-text"
+            >
               moduleRenderer.setupChanges
             </span>
-          </a>
-          <a
-            href="/account/testAcc/cv/orgs/Cisco_Meraki/projects/Portal/admin/setup?step=2"
+          </button>
+          <button
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+            type="button"
           >
-            <span>
+            <span
+              class="bp3-button-text"
+            >
               moduleRenderer.monitoringSources
             </span>
-          </a>
+          </button>
         </div>
       </div>
     </div>
@@ -723,18 +739,26 @@ exports[`Project Details render 3`] = `
         <div
           class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
         >
-          <a
-            href="/"
+          <button
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+            type="button"
           >
-             
-            Create New Pipeline
-          </a>
-          <a
-            href="/"
+            <span
+              class="bp3-button-text"
+            >
+              moduleRenderer.newPipeLine
+            </span>
+          </button>
+          <button
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+            type="button"
           >
-             
-            View Pipeline
-          </a>
+            <span
+              class="bp3-button-text"
+            >
+              moduleRenderer.viewPipelines
+            </span>
+          </button>
         </div>
       </div>
     </div>
@@ -969,18 +993,26 @@ exports[`Project Details render 4`] = `
         <div
           class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
         >
-          <a
-            href="/"
+          <button
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+            type="button"
           >
-             
-            Create New Pipeline
-          </a>
-          <a
-            href="/"
+            <span
+              class="bp3-button-text"
+            >
+              moduleRenderer.newPipeLine
+            </span>
+          </button>
+          <button
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+            type="button"
           >
-             
-            View Pipeline
-          </a>
+            <span
+              class="bp3-button-text"
+            >
+              moduleRenderer.viewPipelines
+            </span>
+          </button>
         </div>
       </div>
     </div>
@@ -1215,20 +1247,30 @@ exports[`Project Details render 5`] = `
         <div
           class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
         >
-          <a
-            href="/account/testAcc/ci/orgs/Cisco_Meraki/projects/Portal/pipelines/-1/pipeline-studio/"
+          <button
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+            type="button"
           >
-            <span>
-              moduleRenderer.newPipeLine
+            <span
+              class="bp3-button-text"
+            >
+              <span>
+                moduleRenderer.newPipeLine
+              </span>
             </span>
-          </a>
-          <a
-            href="/account/testAcc/ci/orgs/Cisco_Meraki/projects/Portal/pipelines"
+          </button>
+          <button
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+            type="button"
           >
-            <span>
-              moduleRenderer.viewPipelines
+            <span
+              class="bp3-button-text"
+            >
+              <span>
+                moduleRenderer.viewPipelines
+              </span>
             </span>
-          </a>
+          </button>
         </div>
       </div>
     </div>
