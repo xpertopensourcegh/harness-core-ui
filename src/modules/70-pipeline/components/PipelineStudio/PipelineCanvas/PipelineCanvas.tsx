@@ -336,11 +336,6 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                   iconProps={{ size: 12 }}
                   onClick={showModal}
                   permission={{
-                    resourceScope: {
-                      accountIdentifier: accountId,
-                      orgIdentifier,
-                      projectIdentifier
-                    },
                     resource: {
                       resourceType: ResourceType.PIPELINE,
                       resourceIdentifier: pipeline?.identifier

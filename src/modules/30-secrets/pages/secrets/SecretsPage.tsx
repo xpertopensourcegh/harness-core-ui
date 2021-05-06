@@ -73,11 +73,6 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ module, mock }) => {
                 permission: PermissionIdentifier.UPDATE_SECRET,
                 resource: {
                   resourceType: ResourceType.SECRET
-                },
-                resourceScope: {
-                  accountIdentifier: accountId,
-                  orgIdentifier,
-                  projectIdentifier
                 }
               }}
               onClick={() => {

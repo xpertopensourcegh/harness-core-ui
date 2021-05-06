@@ -4,7 +4,8 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { PermissionCheck } from 'services/rbac'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionsProvider } from '@rbac/interfaces/PermissionsContext'
-import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
+import { TestWrapper } from '@common/utils/testUtils'
+import routes from '@common/RouteDefinitions'
 import { getDTOFromRequest, usePermission } from './usePermission'
 import mocks from './permissionMocks.json'
 
@@ -13,13 +14,15 @@ jest.useFakeTimers()
 describe('getDTOFromRequest', () => {
   test('create in account scope', () => {
     expect(
-      getDTOFromRequest({
-        permission: PermissionIdentifier.UPDATE_SECRET,
-        resource: {
-          resourceType: ResourceType.SECRET
+      getDTOFromRequest(
+        {
+          permission: PermissionIdentifier.UPDATE_SECRET,
+          resource: {
+            resourceType: ResourceType.SECRET
+          }
         },
-        resourceScope: { accountIdentifier: 'account' }
-      })
+        { accountIdentifier: 'account' }
+      )
     ).toMatchObject({
       permission: PermissionIdentifier.UPDATE_SECRET,
       resourceType: ResourceType.SECRET,
@@ -29,16 +32,18 @@ describe('getDTOFromRequest', () => {
 
   test('edit in account scope', () => {
     expect(
-      getDTOFromRequest({
-        resourceScope: {
+      getDTOFromRequest(
+        {
+          resource: {
+            resourceType: ResourceType.SECRET,
+            resourceIdentifier: 'secret'
+          },
+          permission: PermissionIdentifier.UPDATE_SECRET
+        },
+        {
           accountIdentifier: 'account'
-        },
-        resource: {
-          resourceType: ResourceType.SECRET,
-          resourceIdentifier: 'secret'
-        },
-        permission: PermissionIdentifier.UPDATE_SECRET
-      })
+        }
+      )
     ).toMatchObject({
       resourceScope: {
         accountIdentifier: 'account'
@@ -46,6 +51,29 @@ describe('getDTOFromRequest', () => {
       resourceType: ResourceType.SECRET,
       resourceIdentifier: 'secret',
       permission: PermissionIdentifier.UPDATE_SECRET
+    } as PermissionCheck)
+  })
+
+  test('create in account scope with custom scope', () => {
+    expect(
+      getDTOFromRequest(
+        {
+          permission: PermissionIdentifier.UPDATE_SECRET,
+          resource: {
+            resourceType: ResourceType.SECRET
+          },
+          resourceScope: {
+            accountIdentifier: 'account',
+            orgIdentifier: 'org',
+            projectIdentifier: 'project'
+          }
+        },
+        { accountIdentifier: 'account' }
+      )
+    ).toMatchObject({
+      permission: PermissionIdentifier.UPDATE_SECRET,
+      resourceType: ResourceType.SECRET,
+      resourceScope: { accountIdentifier: 'account', orgIdentifier: 'org', projectIdentifier: 'project' }
     } as PermissionCheck)
   })
 })
@@ -63,17 +91,19 @@ jest.mock('services/rbac', () => {
 })
 
 describe('usePermission', () => {
+  beforeEach(() => {
+    getPermissions.mockClear()
+  })
+
   test('when RBAC is disabled', async () => {
     const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
-      <AppStoreContext.Provider
-        value={{
-          featureFlags: { NG_RBAC_ENABLED: false },
-          currentUserInfo: {},
-          updateAppStore: jest.fn()
-        }}
+      <TestWrapper
+        path={routes.toProjects({ accountId: 'dummy' })}
+        pathParams={{ accountId: 'dummy' }}
+        defaultAppStoreValues={{ featureFlags: { NG_RBAC_ENABLED: false } }}
       >
         <PermissionsProvider debounceWait={0}>{children}</PermissionsProvider>
-      </AppStoreContext.Provider>
+      </TestWrapper>
     )
     const { result } = renderHook(
       () =>
@@ -96,15 +126,13 @@ describe('usePermission', () => {
 
   test('when skipCondition is true', async () => {
     const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
-      <AppStoreContext.Provider
-        value={{
-          featureFlags: { NG_RBAC_ENABLED: true },
-          currentUserInfo: {},
-          updateAppStore: jest.fn()
-        }}
+      <TestWrapper
+        path={routes.toProjects({ accountId: 'dummy' })}
+        pathParams={{ accountId: 'dummy' }}
+        defaultAppStoreValues={{ featureFlags: { NG_RBAC_ENABLED: true } }}
       >
         <PermissionsProvider debounceWait={0}>{children}</PermissionsProvider>
-      </AppStoreContext.Provider>
+      </TestWrapper>
     )
     const { result } = renderHook(
       () =>
@@ -130,15 +158,13 @@ describe('usePermission', () => {
 
   test('basic function', async () => {
     const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
-      <AppStoreContext.Provider
-        value={{
-          featureFlags: { NG_RBAC_ENABLED: true },
-          currentUserInfo: {},
-          updateAppStore: jest.fn()
-        }}
+      <TestWrapper
+        path={routes.toProjects({ accountId: ':accountId' })}
+        pathParams={{ accountId: 'dummy' }}
+        defaultAppStoreValues={{ featureFlags: { NG_RBAC_ENABLED: true } }}
       >
         <PermissionsProvider debounceWait={0}>{children}</PermissionsProvider>
-      </AppStoreContext.Provider>
+      </TestWrapper>
     )
     const { result, waitForNextUpdate } = renderHook(
       () =>
@@ -160,8 +186,118 @@ describe('usePermission', () => {
     jest.runAllTimers()
     await waitForNextUpdate()
 
+    expect(getPermissions).toHaveBeenCalledWith({
+      permissions: [
+        {
+          resourceScope: {
+            accountIdentifier: 'dummy',
+            orgIdentifier: 'default'
+          },
+          resourceType: 'PROJECT',
+          resourceIdentifier: 'nextgenui',
+          permission: 'core_project_edit'
+        },
+        {
+          resourceScope: {
+            accountIdentifier: 'dummy',
+            orgIdentifier: 'default'
+          },
+          resourceType: 'PROJECT',
+          resourceIdentifier: 'nextgenui',
+          permission: 'core_project_delete'
+        }
+      ]
+    })
+
     // should return actual value after API call completes
     expect(result.current[0]).toBe(true)
     expect(result.current[1]).toBe(false)
+  })
+
+  test('basic function with default scope', async () => {
+    const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
+      <TestWrapper
+        path={routes.toResourcesConnectors({
+          accountId: ':accountId',
+          orgIdentifier: ':orgIdentifier',
+          projectIdentifier: ':projectIdentifier'
+        })}
+        pathParams={{ accountId: 'account', orgIdentifier: 'org', projectIdentifier: 'project' }}
+        defaultAppStoreValues={{ featureFlags: { NG_RBAC_ENABLED: true } }}
+      >
+        <PermissionsProvider debounceWait={0}>{children}</PermissionsProvider>
+      </TestWrapper>
+    )
+    const { waitForNextUpdate } = renderHook(
+      () =>
+        usePermission({
+          resource: {
+            resourceIdentifier: 'connector',
+            resourceType: ResourceType.CONNECTOR
+          },
+          permissions: [PermissionIdentifier.DELETE_CONNECTOR]
+        }),
+      { wrapper }
+    )
+
+    jest.runAllTimers()
+    await waitForNextUpdate()
+
+    expect(getPermissions).toHaveBeenCalledWith({
+      permissions: [
+        {
+          resourceScope: {
+            accountIdentifier: 'account',
+            orgIdentifier: 'org',
+            projectIdentifier: 'project'
+          },
+          resourceType: 'CONNECTOR',
+          resourceIdentifier: 'connector',
+          permission: 'core_connector_delete'
+        }
+      ]
+    })
+  })
+
+  test('when api has incomplete response', async () => {
+    const getPermissionslocal = jest.fn(() => {
+      return {}
+    })
+
+    jest.mock('services/rbac', () => {
+      return {
+        useGetAccessControlList: jest.fn(() => {
+          return {
+            mutate: getPermissionslocal
+          }
+        })
+      }
+    })
+
+    const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
+      <TestWrapper
+        path={routes.toProjects({ accountId: 'dummy' })}
+        pathParams={{ accountId: 'dummy' }}
+        defaultAppStoreValues={{ featureFlags: { NG_RBAC_ENABLED: true } }}
+      >
+        <PermissionsProvider debounceWait={0}>{children}</PermissionsProvider>
+      </TestWrapper>
+    )
+    const { result } = renderHook(
+      () =>
+        usePermission({
+          resource: {
+            resourceIdentifier: 'connector',
+            resourceType: ResourceType.CONNECTOR
+          },
+          permissions: [PermissionIdentifier.DELETE_CONNECTOR]
+        }),
+      { wrapper }
+    )
+
+    jest.runAllTimers()
+
+    // should return true even when API doesn't return anything for this request
+    expect(result.current[0]).toBe(true)
   })
 })

@@ -42,9 +42,6 @@ const OrganizationsPage: React.FC = () => {
         permission: PermissionIdentifier.CREATE_ORG,
         resource: {
           resourceType: ResourceType.ORGANIZATION
-        },
-        resourceScope: {
-          accountIdentifier: accountId
         }
       }}
     />

@@ -93,8 +93,8 @@ import usePermission from '@rbac/hooks/usePermission'
 const SampleComponent = () => {
   const [canEdit, canDelete] = usePermission(
     {
-      // Scope variables for account, org and project
-      resourceScope: {
+      // (optional) Scope variables for account, org and project
+      resourceScope?: {
         accountIdentifier,
         orgIdentifier,
         projectIdentifier
@@ -102,12 +102,12 @@ const SampleComponent = () => {
       // Identify the resource you want to check permission for
       resource: {
         resourceType,
-        resourceIdentifier
+        resourceIdentifier?
       }
       // The permissions you want to check
       permissions: [PermissionIdentifier.UPDATE_PROJECT, PermissionIdentifier.DELETE_PROJECT],
-      // configuration options
-      options: {
+      // (optional) configuration options
+      options?: {
         // if true, in-memory cache will be skipped and
         // api call will be made for each execution of hook
         skipCache: true,
@@ -148,9 +148,6 @@ function SampleComponent() {
           resource: {
             resourceType: ResourceType.PROJECT,
             resourceIdentifier: project.identifier
-          },
-          resourceScope: {
-            accountIdentifier
           }
         }}
       />
@@ -169,10 +166,6 @@ function SampleComponent() {
       text={getString('delete')}
       onClick={handleDelete}
       permission={{
-        resourceScope: {
-          accountIdentifier: accountId,
-          orgIdentifier
-        },
         resource: {
           resourceType: ResourceType.PROJECT,
           resourceIdentifier: projectIdentifier

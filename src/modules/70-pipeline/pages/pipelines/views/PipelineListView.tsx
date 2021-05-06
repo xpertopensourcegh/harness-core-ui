@@ -274,11 +274,6 @@ const RenderLastRun: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
 
 const RenderRunPipeline: Renderer<CellProps<PipelineDTO>> = ({ row }): JSX.Element => {
   const rowdata = row.original
-  const { projectIdentifier, orgIdentifier, accountId } = useParams<{
-    projectIdentifier: string
-    orgIdentifier: string
-    accountId: string
-  }>()
 
   const runPipeline = useRunPipelineModal({
     pipelineIdentifier: (rowdata.identifier || '') as string
@@ -291,11 +286,6 @@ const RenderRunPipeline: Renderer<CellProps<PipelineDTO>> = ({ row }): JSX.Eleme
       icon="run-pipeline"
       className={css.runPipelineListBtn}
       permission={{
-        resourceScope: {
-          accountIdentifier: accountId,
-          orgIdentifier,
-          projectIdentifier
-        },
         resource: {
           resourceType: ResourceType.PIPELINE,
           resourceIdentifier: rowdata.identifier as string

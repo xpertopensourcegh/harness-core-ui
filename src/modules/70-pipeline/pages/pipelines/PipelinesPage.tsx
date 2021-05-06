@@ -494,11 +494,6 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
               permission: PermissionIdentifier.EDIT_PIPELINE,
               resource: {
                 resourceType: ResourceType.PIPELINE
-              },
-              resourceScope: {
-                accountIdentifier: accountId,
-                orgIdentifier,
-                projectIdentifier
               }
             }}
           />

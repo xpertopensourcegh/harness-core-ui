@@ -563,11 +563,6 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
               permission: PermissionIdentifier.UPDATE_CONNECTOR,
               resource: {
                 resourceType: ResourceType.CONNECTOR
-              },
-              resourceScope: {
-                accountIdentifier: accountId,
-                orgIdentifier,
-                projectIdentifier
               }
             }}
             onClick={openDrawer}

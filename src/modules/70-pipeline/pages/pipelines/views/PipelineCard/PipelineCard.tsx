@@ -336,11 +336,6 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
           className={css.runPipelineBtn}
           text={<String stringID="runPipelineText" />}
           permission={{
-            resourceScope: {
-              accountIdentifier: accountId,
-              orgIdentifier,
-              projectIdentifier
-            },
             resource: {
               resourceType: ResourceType.PIPELINE,
               resourceIdentifier: pipeline.identifier as string

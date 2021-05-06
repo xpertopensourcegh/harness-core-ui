@@ -212,11 +212,6 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
                 }}
                 permission={{
                   permission: PermissionIdentifier.UPDATE_SECRET,
-                  resourceScope: {
-                    accountIdentifier: accountId,
-                    orgIdentifier,
-                    projectIdentifier
-                  },
                   resource: {
                     resourceType: ResourceType.SECRET,
                     resourceIdentifier: secretData.secret.identifier

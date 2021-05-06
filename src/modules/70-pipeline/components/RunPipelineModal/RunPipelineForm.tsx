@@ -465,11 +465,6 @@ function RunPipelineFormBasic({
                           submitForm()
                         }}
                         permission={{
-                          resourceScope: {
-                            accountIdentifier: accountId,
-                            orgIdentifier: orgIdentifier,
-                            projectIdentifier: projectIdentifier
-                          },
                           resource: {
                             resourceIdentifier: pipeline?.identifier as string,
                             resourceType: ResourceType.PIPELINE

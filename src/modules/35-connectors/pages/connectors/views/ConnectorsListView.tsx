@@ -412,11 +412,6 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
 
   const [canUpdate, canDelete] = usePermission(
     {
-      resourceScope: {
-        accountIdentifier: accountId,
-        orgIdentifier,
-        projectIdentifier
-      },
       resource: {
         resourceType: ResourceType.CONNECTOR,
         resourceIdentifier: data.connector?.identifier || ''

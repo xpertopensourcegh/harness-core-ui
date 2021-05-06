@@ -76,10 +76,7 @@ const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row, column }
   const data = row.original
   const { getString } = useStrings()
 
-  const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier } = useParams<{
-    projectIdentifier: string
-    orgIdentifier: string
-    accountId: string
+  const { pipelineIdentifier } = useParams<{
     pipelineIdentifier: string
   }>()
 
@@ -106,11 +103,6 @@ const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row, column }
         runPipeline()
       }}
       permission={{
-        resourceScope: {
-          accountIdentifier: accountId,
-          orgIdentifier: orgIdentifier,
-          projectIdentifier: projectIdentifier
-        },
         resource: {
           resourceType: ResourceType.PIPELINE,
           resourceIdentifier: pipelineIdentifier

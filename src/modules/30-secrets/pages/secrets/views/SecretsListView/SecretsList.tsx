@@ -116,11 +116,6 @@ const RenderColumnAction: Renderer<CellProps<SecretResponseWrapper>> = ({ row, c
   const { openCreateSecretModal } = useCreateUpdateSecretModal({ onSuccess: (column as any).refreshSecrets })
 
   const permissionRequest = {
-    resourceScope: {
-      accountIdentifier: accountId,
-      orgIdentifier,
-      projectIdentifier
-    },
     resource: {
       resourceType: ResourceType.SECRET,
       resourceIdentifier: data.identifier

@@ -41,9 +41,6 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
   const { mutate: deleteOrg } = useDeleteOrganization({ queryParams: { accountIdentifier: accountId } })
   const { getString } = useStrings()
   const permissionRequest = {
-    resourceScope: {
-      accountIdentifier: accountId
-    },
     resource: {
       resourceType: ResourceType.ORGANIZATION,
       resourceIdentifier: data.identifier

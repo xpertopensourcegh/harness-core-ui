@@ -2,6 +2,7 @@ import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { Menu } from '@blueprintjs/core'
 import { Layout, Color, Text, Icon } from '@wings-software/uicore'
+import type { Optional } from 'utility-types'
 import type { Project } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
@@ -10,6 +11,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
+import type { PermissionRequest } from '@rbac/hooks/usePermission'
 
 interface ContextMenuProps {
   project: Project
@@ -26,7 +28,7 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
   const { getString } = useStrings()
   const { project, editProject, collaborators, setMenuOpen, openDialog } = props
 
-  const permissionRequest = {
+  const permissionRequest: Optional<PermissionRequest, 'permission'> = {
     resourceScope: {
       accountIdentifier: accountId,
       orgIdentifier: project.orgIdentifier

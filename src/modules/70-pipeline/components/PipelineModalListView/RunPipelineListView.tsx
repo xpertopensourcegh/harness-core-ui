@@ -96,11 +96,6 @@ export default function RunPipelineListView({
         text={<String stringID="runPipelineText" />}
         onClick={() => routeToPipelinesPage(rowdata.identifier || '')}
         permission={{
-          resourceScope: {
-            accountIdentifier: accountId,
-            orgIdentifier,
-            projectIdentifier
-          },
           resource: {
             resourceType: ResourceType.PIPELINE,
             resourceIdentifier: rowdata.identifier as string

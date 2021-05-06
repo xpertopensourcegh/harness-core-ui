@@ -119,11 +119,6 @@ const InputSetList: React.FC = (): JSX.Element => {
               rightIcon="caret-down"
               intent="primary"
               permission={{
-                resourceScope: {
-                  accountIdentifier: accountId,
-                  orgIdentifier,
-                  projectIdentifier
-                },
                 resource: {
                   resourceType: ResourceType.PIPELINE,
                   resourceIdentifier: pipelineIdentifier
