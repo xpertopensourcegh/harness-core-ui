@@ -94,13 +94,23 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   const [connectorScopeParams, setConnectorScopeParams] = useState<GetConnectorQueryParams | undefined>(undefined)
 
   const { mutate: createTrigger, error: createTriggerErrorResponse, loading: createTriggerLoading } = useCreateTrigger({
-    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      targetIdentifier: pipelineIdentifier
+    },
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
 
   const { mutate: updateTrigger, error: updateTriggerErrorResponse, loading: updateTriggerLoading } = useUpdateTrigger({
     triggerIdentifier,
-    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      targetIdentifier: pipelineIdentifier
+    },
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
 
