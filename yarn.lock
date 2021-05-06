@@ -4366,15 +4366,20 @@
     vscode-languageserver "^5.2.1"
     vscode-uri "^2.1.1"
 
+"@wings-software/ng-tooltip@1.2.0":
+  version "1.2.0"
+  resolved "https://npm.pkg.github.com/download/@wings-software/ng-tooltip/1.2.0/e669d8e4688a251ee28fc32ef3bd58b475b0eadf44041a5d1f5940b051603009#ee51f705c760f1a25b2ed3c509931989373ea30a"
+  integrity sha512-VLVq3KpwO2iGS2i6IARHcLLpWsulKMlB4B68qErQ3L6L9b0WQPuMQrc8XKsPDmGalrMlMY3WW8IDTipylkNMXQ==
+
 "@wings-software/telemetry@^1.0.36":
   version "1.0.36"
   resolved "https://npm.pkg.github.com/download/@wings-software/telemetry/1.0.36/5f59a357aff1dceaa0f724acb8620985f6b3334233231838eea82ea25b3de4ce#cac20fc86f51e0bf91688d35664ad1a3cf84c124"
   integrity sha512-PrWLYNubOjFDlMO2DJlH1PljfeVgJ6zih6gHOmp2B/2+fdUhjOABSnEKduNSZwrTGqCFmHKmqF1gZ1ksQMEJLA==
 
-"@wings-software/uicore@0.1.146":
-  version "0.1.146"
-  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.146/d33b4778ef753b98edf997c4bf19f0be91743c4778eea9a599915322fd0cd175#d81a8a9f0c4b5e8858e42a5fb267926cf28f0e57"
-  integrity sha512-RcG5zmLkB/OQaOZpOs3QwGzlJ13LFHpur/UdUY1Rhh3ygtxoxwHnEsj+aOgZEYKhj016/f+dMObuEks9qHYwTQ==
+"@wings-software/uicore@0.1.147":
+  version "0.1.147"
+  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.147/78da09e855654a622630a26805f934e030ae9f679f05d28f724cd327e1e401e2#4af963e2bff7c7082a0034fc3365d6606d80fd86"
+  integrity sha512-w0a58ik49wT0jYEi3KwtQfrDHpo7XL6hf7w4+7fxkbdnZSxDnqE/ok88n4zsfLNv/d4SMMy+mdX3vtr9SmPA3g==
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
@@ -14790,6 +14795,11 @@ snapdragon@^0.8.1:
     source-map "^0.5.6"
     source-map-resolve "^0.5.0"
     use "^3.1.0"
+
+snarkdown@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/snarkdown/-/snarkdown-2.0.0.tgz#b1feb4db91b9f94a8ebbd7a50f3e99aee18b1e03"
+  integrity sha512-MgL/7k/AZdXCTJiNgrO7chgDqaB9FGM/1Tvlcenenb7div6obaDATzs16JhFyHHBGodHT3B7RzRc5qk8pFhg3A==
 
 sockjs-client@^1.5.0:
   version "1.5.1"

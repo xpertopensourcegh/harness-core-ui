@@ -339,7 +339,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       autoFocus={true}
       canEscapeKeyClose={type !== DrawerTypes.ExecutionStrategy}
       canOutsideClickClose={type !== DrawerTypes.ExecutionStrategy}
-      enforceFocus={true}
+      enforceFocus={false}
       hasBackdrop={true}
       size={DrawerSizes[type]}
       isOpen={isDrawerOpened}

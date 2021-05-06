@@ -182,6 +182,9 @@ const FormContent = ({
                 }}
               />
               <FormInput.MultiTypeInput
+                tooltipProps={{
+                  dataTooltipId: 'jiraApprovalProject'
+                }}
                 selectItems={
                   fetchingProjects
                     ? [{ label: getString('pipeline.jiraApprovalStep.fetchingProjectsPlaceholder'), value: '' }]
@@ -208,6 +211,9 @@ const FormContent = ({
                 }}
               />
               <FormInput.MultiTypeInput
+                tooltipProps={{
+                  dataTooltipId: 'jiraApprovalIssueType'
+                }}
                 selectItems={
                   fetchingProjectMetadata
                     ? [{ label: getString('pipeline.jiraApprovalStep.fetchingIssueTypePlaceholder'), value: '' }]
@@ -234,6 +240,9 @@ const FormContent = ({
                 }}
               />
               <FormInput.MultiTextInput
+                tooltipProps={{
+                  dataTooltipId: 'jiraApprovalIssueKey'
+                }}
                 label={getString('pipeline.jiraApprovalStep.issueKey')}
                 name="spec.issueKey"
                 placeholder={getString('pipeline.jiraApprovalStep.issueKeyPlaceholder')}

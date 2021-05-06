@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import { HashRouter, Route, Switch } from 'react-router-dom'
 import { RestfulProvider } from 'restful-react'
 import { FocusStyleManager } from '@blueprintjs/core'
+import { TooltipContextProvider } from '@wings-software/uicore'
+import { tooltipDictionary } from '@wings-software/ng-tooltip'
 import { setAutoFreeze, enableMapSet } from 'immer'
 import SessionToken from 'framework/utils/SessionToken'
 import languageLoader from 'strings/languageLoader'
@@ -16,6 +18,7 @@ import AppErrorBoundary from 'framework/utils/AppErrorBoundary/AppErrorBoundary'
 import { StringsContextProvider } from 'framework/strings/StringsContextProvider'
 import { PermissionsProvider } from '@rbac/interfaces/PermissionsContext'
 import { getLoginPageURL } from 'framework/utils/SessionUtils'
+import { NGTooltipEditorPortal } from 'framework/tooltip/TooltipEditor'
 import AppStorage from 'framework/utils/AppStorage'
 
 import './App.scss'
@@ -31,6 +34,8 @@ interface AppProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   strings: Record<string, any>
 }
+
+const Harness = (window.Harness = window.Harness || {})
 
 function AppWithAuthentication(props: AppProps): React.ReactElement {
   const token = SessionToken.getToken()
@@ -72,6 +77,9 @@ function AppWithAuthentication(props: AppProps): React.ReactElement {
     }
   }
 
+  const [showTooltipEditor, setShowTooltipEditor] = useState(false)
+  Harness.openNgTooltipEditor = () => setShowTooltipEditor(true)
+
   return (
     <RestfulProvider
       base="/"
@@ -93,13 +101,19 @@ function AppWithAuthentication(props: AppProps): React.ReactElement {
       }}
     >
       <StringsContextProvider initialStrings={props.strings}>
-        <AppStoreProvider>
-          <AppErrorBoundary>
-            <PermissionsProvider>
-              <RouteDestinations />
-            </PermissionsProvider>
-          </AppErrorBoundary>
-        </AppStoreProvider>
+        <TooltipContextProvider initialTooltipDictionary={tooltipDictionary}>
+          <AppStoreProvider>
+            <AppErrorBoundary>
+              <PermissionsProvider>
+                <RouteDestinations />
+                <NGTooltipEditorPortal
+                  showTooltipEditor={showTooltipEditor}
+                  onEditorClose={() => setShowTooltipEditor(false)}
+                />
+              </PermissionsProvider>
+            </AppErrorBoundary>
+          </AppStoreProvider>
+        </TooltipContextProvider>
       </StringsContextProvider>
     </RestfulProvider>
   )

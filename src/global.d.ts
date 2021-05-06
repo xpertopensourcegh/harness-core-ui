@@ -37,6 +37,9 @@ declare interface Window {
   apiUrl: string
   segmentToken: string
   HARNESS_ENABLE_NG_AUTH_UI: boolean
+  Harness: {
+    openNgTooltipEditor: () => void
+  }
 }
 
 declare const monaco: any
