@@ -11,6 +11,7 @@ import {
 import * as Yup from 'yup'
 import { FormikProps, yupToFormErrors } from 'formik'
 import { isEmpty } from 'lodash-es'
+import cx from 'classnames'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
@@ -29,7 +30,11 @@ import {
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { PipelineStep, StepProps } from '@pipeline/components/PipelineSteps/PipelineStep'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+
 import css from './Barrier.module.scss'
+import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
+
 type BarrierData = StepElementConfig
 
 export interface BarrierVariableStepProps {
@@ -59,6 +64,8 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
   const { initialValues, onUpdate, isNewStep = true } = props
 
   const { getString } = useStrings()
+  const { expressions } = useVariablesExpression()
+
   let barriers: SelectOption[] = []
   if (pipeline?.flowControl?.barriers?.length) {
     barriers = pipeline?.flowControl?.barriers?.map(barrier => ({
@@ -80,7 +87,7 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
             getString('validation.timeout10SecMinimum')
           ),
           spec: Yup.object().shape({
-            barrierRef: Yup.string().required('Barrier Ref. is required')
+            barrierRef: Yup.string().required(getString('pipeline.barrierStep.barrierReferenceRequired'))
           })
         })}
       >
@@ -89,13 +96,29 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
           setFormikRef(formikRef, formik)
           return (
             <>
-              <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
-              <FormInput.Select
-                className={css.width50}
-                label="Barrier Reference"
-                name="spec.barrierRef"
-                items={barriers}
-              />
+              <div className={cx(stepCss.formGroup, stepCss.md)}>
+                <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
+              </div>
+              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                <FormInput.MultiTypeInput
+                  label={getString('pipeline.barrierStep.barrierReference')}
+                  name="spec.barrierRef"
+                  placeholder={getString('pipeline.barrierStep.barrierReferencePlaceholder')}
+                  selectItems={barriers}
+                  multiTypeInputProps={{ expressions }}
+                />
+                {getMultiTypeFromValue(formik?.values?.spec?.barrierRef) === MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={formik?.values?.spec?.barrierRef as string}
+                    type={getString('string')}
+                    variableName="spec.barrierRef"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => formik?.setFieldValue('spec.barrierRef', value)}
+                  />
+                )}
+              </Layout.Horizontal>
               <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
                 <FormMultiTypeDurationField
                   name="timeout"

@@ -30,13 +30,13 @@ describe('Test Barrier Step', () => {
         template={{
           identifier: 'Test_A',
           type: StepType.Barrier,
-          spec: { timeout: RUNTIME_INPUT_VALUE }
+          timeout: RUNTIME_INPUT_VALUE
         }}
         allValues={{
           type: StepType.Barrier,
           name: 'Test A',
           identifier: 'Test_A',
-          spec: { timeout: RUNTIME_INPUT_VALUE }
+          timeout: RUNTIME_INPUT_VALUE
         }}
       />
     )
@@ -52,13 +52,39 @@ describe('Test Barrier Step', () => {
         template={{
           identifier: 'Test_A',
           type: StepType.Barrier,
-          spec: { timeout: RUNTIME_INPUT_VALUE }
+          timeout: RUNTIME_INPUT_VALUE
         }}
         allValues={{
           type: StepType.Barrier,
           name: 'Test A',
           identifier: 'Test_A',
-          spec: { timeout: RUNTIME_INPUT_VALUE }
+          timeout: RUNTIME_INPUT_VALUE
+        }}
+      />
+    )
+    await act(async () => {
+      fireEvent.click(getByText('Submit'))
+    })
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should render inputSet view and test validation - with errors', async () => {
+    const { container, getByText } = render(
+      <Barrier
+        type={StepType.Barrier}
+        initialValues={{ identifier: 'Test_A', type: StepType.Barrier }}
+        stepViewType={StepViewType.InputSet}
+        path=""
+        template={{
+          identifier: 'Test_A',
+          type: StepType.Barrier,
+          timeout: RUNTIME_INPUT_VALUE
+        }}
+        allValues={{
+          type: StepType.Barrier,
+          name: 'Test A',
+          identifier: 'Test_A',
+          timeout: ''
         }}
       />
     )
@@ -78,13 +104,13 @@ describe('Test Barrier Step', () => {
         template={{
           identifier: 'Test_A',
           type: StepType.Barrier,
-          spec: { timeout: '10m' }
+          timeout: '10m'
         }}
         allValues={{
           type: StepType.Barrier,
           name: 'Test A',
           identifier: 'Test_A',
-          spec: { timeout: '10m' }
+          timeout: '10m'
         }}
         customStepProps={{
           stageIdentifier: 'qaStage',
@@ -107,7 +133,7 @@ describe('Test Barrier Step', () => {
             name: 'step-name',
             identifier: 'BARRIER',
             type: StepType.Barrier,
-            spec: { timeout: 'step-timeout' }
+            timeout: 'step-timeout'
           }
         }}
       />

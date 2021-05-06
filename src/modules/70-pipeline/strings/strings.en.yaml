@@ -2,6 +2,10 @@ enterDescription: Enter Description
 verificationResult: Verification Result
 enableVerificationOptions: Enable verification options
 clickHere: Click here
+barrierStep:
+  barrierReference: Barrier Reference
+  barrierReferenceRequired: Barrier Reference is required
+  barrierReferencePlaceholder: Select Barrier Reference
 approvalStep:
   message: 'Approval Message'
   approvers: 'Approver(s)'

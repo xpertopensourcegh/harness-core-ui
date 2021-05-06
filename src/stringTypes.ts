@@ -696,6 +696,9 @@ export interface StringsMap {
   'pipeline.approvalStep.validation.minimumCountOne': string
   'pipeline.approvalStep.validation.minimumCountRequired': string
   'pipeline.approvalStep.validation.userGroups': string
+  'pipeline.barrierStep.barrierReference': string
+  'pipeline.barrierStep.barrierReferencePlaceholder': string
+  'pipeline.barrierStep.barrierReferenceRequired': string
   'pipeline.barriers.addBarrier': string
   'pipeline.barriers.flowControl': string
   'pipeline.barriers.syncBarriers': string
