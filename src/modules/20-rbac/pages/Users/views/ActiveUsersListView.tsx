@@ -23,6 +23,7 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import ManagePrincipalButton from '@rbac/components/ManagePrincipalButton/ManagePrincipalButton'
 import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
+import RbacButton from '@rbac/components/Button/Button'
 import css from './UserListView.module.scss'
 
 interface ActiveUserListViewProps {
@@ -248,12 +249,22 @@ const ActiveUserListView: React.FC<ActiveUserListViewProps> = ({ searchTerm, ope
               icon: 'nav-project',
               message: getString('rbac.usersPage.noDataDescription'),
               button: (
-                <ManagePrincipalButton
+                <RbacButton
                   text={getString('newUser')}
                   intent="primary"
                   icon="plus"
                   onClick={() => openRoleAssignmentModal()}
-                  resourceType={ResourceType.USER}
+                  permission={{
+                    resourceScope: {
+                      accountIdentifier: accountId,
+                      orgIdentifier,
+                      projectIdentifier
+                    },
+                    resource: {
+                      resourceType: ResourceType.USER
+                    },
+                    permission: PermissionIdentifier.INVITE_USER
+                  }}
                 />
               )
             }

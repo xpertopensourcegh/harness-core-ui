@@ -1,4 +1,4 @@
-import { Card, Color, Container, Icon, Layout, Text, CardBody, AvatarGroup } from '@wings-software/uicore'
+import { Card, Color, Container, Icon, Layout, Text, CardBody } from '@wings-software/uicore'
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Menu, Classes, Intent } from '@blueprintjs/core'
@@ -12,6 +12,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
+import RbacAvatarGroup from '@rbac/components/RbacAvatarGroup/RbacAvatarGroup'
 import i18n from './OrganizationCard.i18n'
 import css from './OrganizationCard.module.scss'
 
@@ -48,6 +49,17 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
       resourceIdentifier: data.identifier
     }
   }
+  const invitePermission = {
+    resourceScope: {
+      accountIdentifier: accountId,
+      orgIdentifier: data.identifier
+    },
+    resource: {
+      resourceType: ResourceType.USER
+    },
+    permission: PermissionIdentifier.INVITE_USER
+  }
+
   const { openDialog } = useConfirmationDialog({
     contentText: getString('orgs.confirmDelete', { name: data.name }),
     titleText: i18n.confirmDeleteTitle,
@@ -61,7 +73,7 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
           /* istanbul ignore else */ if (deleted) showSuccess(i18n.successMessage(data.name))
           reloadOrgs?.()
         } catch (err) {
-          showError(err)
+          showError(err.data?.message || err.message)
         }
       }
     }
@@ -113,16 +125,7 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
                   icon="new-person"
                   text={i18n.invite}
                   onClick={handleInvite}
-                  permission={{
-                    resourceScope: {
-                      accountIdentifier: accountId,
-                      orgIdentifier: data.identifier
-                    },
-                    resource: {
-                      resourceType: ResourceType.USER
-                    },
-                    permission: PermissionIdentifier.INVITE_USER
-                  }}
+                  permission={invitePermission}
                 />
                 <RbacMenuItem
                   icon="trash"
@@ -167,13 +170,14 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
               <Text font="small">{getString('projectsText')}</Text>
             </Layout.Vertical>
             <Layout.Vertical padding={{ left: 'huge' }} spacing="small" flex>
-              <AvatarGroup
+              <RbacAvatarGroup
                 avatars={orgMembers?.length ? orgMembers : [{}]}
                 onAdd={event => {
                   event.stopPropagation()
                   inviteCollab?.()
                 }}
                 restrictLengthTo={3}
+                permission={invitePermission}
               />
               <Text font="small">{`${orgMembers?.length || 0} ${getString('members')}`}</Text>
             </Layout.Vertical>

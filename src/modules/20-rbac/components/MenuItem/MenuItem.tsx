@@ -1,9 +1,8 @@
 import React from 'react'
-
 import { IMenuItemProps, Menu, Tooltip } from '@blueprintjs/core'
 import { usePermission, PermissionsRequest, PermissionRequest } from '@rbac/hooks/usePermission'
 import { String } from 'framework/strings'
-
+import css from './MenuItem.module.scss'
 interface MenuItemProps extends IMenuItemProps {
   permission: PermissionRequest
 }
@@ -20,7 +19,7 @@ const RbacMenuItem: React.FC<MenuItemProps> = ({ permission: permissionRequest, 
 
   if (canDoAction) return <Menu.Item {...restProps} disabled={restProps.disabled} />
   return (
-    <Tooltip content={<String stringID="noPermission" />}>
+    <Tooltip content={<String stringID="noPermission" />} className={css.popover}>
       <Menu.Item {...restProps} disabled />
     </Tooltip>
   )

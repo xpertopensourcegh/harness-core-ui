@@ -153,9 +153,9 @@ const PurposeList: React.FC<ProjectModalData> = props => {
       onSuccess?.()
       const newSelected = [...selected, module]
       setSelected(newSelected)
-    } catch (e) {
+    } catch (err) {
       /* istanbul ignore next */
-      showError(e.data.message)
+      showError(err.data?.message || err.message)
     }
   }
 

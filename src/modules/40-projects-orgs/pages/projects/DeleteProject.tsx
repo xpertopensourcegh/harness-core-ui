@@ -37,7 +37,7 @@ const useDeleteProjectDialog = (data: Project, onSuccess: () => void): UseDelete
           onSuccess()
         } catch (err) {
           /* istanbul ignore next */
-          showError(err)
+          showError(err.data?.message || err.message)
         }
       }
     }

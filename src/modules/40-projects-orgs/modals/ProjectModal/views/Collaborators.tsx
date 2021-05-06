@@ -210,7 +210,6 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
                   rightElement={
                     (
                       <Button
-                        tooltip={i18n.newProjectWizard.Collaborators.notAvailableForBeta}
                         icon="duplicate"
                         onClick={() => {
                           copy(getUrl() || '')

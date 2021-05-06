@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { AvatarGroup, Button, Color, Container, Icon, Layout, Popover, Text } from '@wings-software/uicore'
+import { Button, Color, Container, Icon, Layout, Popover, Text } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { Classes, Position } from '@blueprintjs/core'
 import { Page } from '@common/exports'
@@ -18,6 +18,9 @@ import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import RbacAvatarGroup from '@rbac/components/RbacAvatarGroup/RbacAvatarGroup'
 import i18n from './ProjectDetails.i18n'
 import useDeleteProjectDialog from '../../DeleteProject'
 import css from './ProjectDetails.module.scss'
@@ -28,6 +31,17 @@ const ProjectDetails: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false)
   const { updateAppStore } = useAppStore()
   const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
+  const invitePermission = {
+    resourceScope: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier
+    },
+    resource: {
+      resourceType: ResourceType.USER
+    },
+    permission: PermissionIdentifier.INVITE_USER
+  }
   const { data, loading, error, refetch } = useGetProjectAggregateDTO({
     identifier: projectIdentifier,
     queryParams: {
@@ -116,7 +130,7 @@ const ProjectDetails: React.FC = () => {
         toolbar={
           <Layout.Horizontal padding="xxlarge">
             <Layout.Vertical padding={{ right: 'large' }} spacing="xsmall">
-              <AvatarGroup
+              <RbacAvatarGroup
                 className={css.projectDetailsAvatarGroup}
                 avatars={data?.data?.admins?.length ? data?.data?.admins : [{}]}
                 onAdd={event => {
@@ -124,13 +138,14 @@ const ProjectDetails: React.FC = () => {
                   showCollaborators(projectData as Project)
                 }}
                 restrictLengthTo={6}
+                permission={invitePermission}
               />
               <Text font="xsmall" padding={{ left: 'xsmall' }}>
                 {`${getString('adminLabel')} ${data?.data?.admins?.length ? `(${data?.data?.admins?.length})` : ``}`}
               </Text>
             </Layout.Vertical>
             <Layout.Vertical padding={{ right: 'large' }} spacing="xsmall">
-              <AvatarGroup
+              <RbacAvatarGroup
                 className={css.projectDetailsAvatarGroup}
                 avatars={data?.data?.collaborators?.length ? data?.data?.collaborators : [{}]}
                 onAdd={event => {
@@ -138,6 +153,7 @@ const ProjectDetails: React.FC = () => {
                   showCollaborators(projectData as Project)
                 }}
                 restrictLengthTo={6}
+                permission={invitePermission}
               />
               <Text font="xsmall" padding={{ left: 'xsmall' }}>{`${getString('collaboratorsLabel')} ${
                 data?.data?.collaborators?.length ? `(${data?.data?.collaborators?.length})` : ``

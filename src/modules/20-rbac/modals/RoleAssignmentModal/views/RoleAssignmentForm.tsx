@@ -81,9 +81,9 @@ const RoleAssignmentForm: React.FC<RoleAssignmentFormProps> = ({ noRoleAssignmen
       })
       if (deleted) showSuccess(getString('rbac.roleAssignment.deleteSuccess'))
       else showError(getString('rbac.roleAssignment.deleteFailure'))
-    } catch (e) {
+    } catch (err) {
       /* istanbul ignore next */
-      showError(e.data.message)
+      showError(err.data?.message || err.message)
     }
   }
 

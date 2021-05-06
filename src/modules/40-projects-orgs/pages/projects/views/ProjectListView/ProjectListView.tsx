@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react'
-import { Text, Layout, Color, Icon, Button, Popover, AvatarGroup } from '@wings-software/uicore'
+import { Text, Layout, Color, Icon, Button, Popover } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
@@ -12,6 +12,9 @@ import { String, useStrings } from 'framework/strings'
 import type { ModuleName } from 'framework/types/ModuleName'
 import ContextMenu from '@projects-orgs/components/Menu/ContextMenu'
 import { getModuleIcon } from '@projects-orgs/utils/utils'
+import RbacAvatarGroup from '@rbac/components/RbacAvatarGroup/RbacAvatarGroup'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import useDeleteProjectDialog from '../../DeleteProject'
 import css from './ProjectListView.module.scss'
 
@@ -77,9 +80,11 @@ const RenderColumnModules: Renderer<CellProps<ProjectAggregateDTO>> = ({ row }) 
 }
 
 const RenderColumnAdmin: Renderer<CellProps<ProjectAggregateDTO>> = ({ row, column }) => {
+  const { accountId } = useParams<AccountPathProps>()
   const data = row.original
+  const project = data.projectResponse.project
   return (
-    <AvatarGroup
+    <RbacAvatarGroup
       avatars={
         data.admins?.length
           ? data.admins.map(admin => {
@@ -90,25 +95,49 @@ const RenderColumnAdmin: Renderer<CellProps<ProjectAggregateDTO>> = ({ row, colu
       onAdd={event => {
         event.stopPropagation()
         const { collaborators } = column as any
-        collaborators(data.projectResponse.project)
+        collaborators(project)
       }}
       restrictLengthTo={2}
+      permission={{
+        resourceScope: {
+          accountIdentifier: accountId,
+          orgIdentifier: project.orgIdentifier,
+          projectIdentifier: project.identifier
+        },
+        resource: {
+          resourceType: ResourceType.USER
+        },
+        permission: PermissionIdentifier.INVITE_USER
+      }}
     />
   )
 }
 const RenderColumnCollabrators: Renderer<CellProps<ProjectAggregateDTO>> = ({ row, column }) => {
+  const { accountId } = useParams<AccountPathProps>()
   const data = row.original
+  const project = data.projectResponse.project
   const { getString } = useStrings()
   return (
     <Layout.Horizontal flex={{ alignItems: 'center', inline: true }}>
-      <AvatarGroup
+      <RbacAvatarGroup
         avatars={data.collaborators?.length ? data.collaborators : [{}]}
         onAdd={event => {
           event.stopPropagation()
           const { collaborators } = column as any
-          collaborators(data.projectResponse.project)
+          collaborators(project)
         }}
         restrictLengthTo={2}
+        permission={{
+          resourceScope: {
+            accountIdentifier: accountId,
+            orgIdentifier: project.orgIdentifier,
+            projectIdentifier: project.identifier
+          },
+          resource: {
+            resourceType: ResourceType.USER
+          },
+          permission: PermissionIdentifier.INVITE_USER
+        }}
       />
       {!data.collaborators?.length ? (
         <Text font={{ size: 'small' }} color={Color.GREY_350}>

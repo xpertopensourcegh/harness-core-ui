@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react'
-import { Text, Layout, Button, Popover, AvatarGroup } from '@wings-software/uicore'
+import { Text, Layout, Button, Popover } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position, Menu, Intent } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
@@ -22,6 +22,7 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import ManagePrincipalButton from '@rbac/components/ManagePrincipalButton/ManagePrincipalButton'
 import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
+import RbacAvatarGroup from '@rbac/components/RbacAvatarGroup/RbacAvatarGroup'
 import css from './UserGroupsListView.module.scss'
 
 interface UserGroupsListViewProps {
@@ -47,6 +48,7 @@ const RenderColumnUserGroup: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row
 
 const RenderColumnMembers: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, column }) => {
   const data = row.original
+  const { accountIdentifier, orgIdentifier, projectIdentifier, identifier } = data.userGroupDTO
   const { getString } = useStrings()
   const avatars =
     data.users?.map(user => {
@@ -59,7 +61,23 @@ const RenderColumnMembers: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, 
   }
 
   return avatars.length ? (
-    <AvatarGroup avatars={avatars} restrictLengthTo={6} onAdd={handleAddMember} />
+    <RbacAvatarGroup
+      avatars={avatars}
+      restrictLengthTo={6}
+      onAdd={handleAddMember}
+      permission={{
+        resourceScope: {
+          accountIdentifier,
+          orgIdentifier,
+          projectIdentifier
+        },
+        resource: {
+          resourceType: ResourceType.USERGROUP,
+          resourceIdentifier: identifier
+        },
+        permission: PermissionIdentifier.MANAGE_USERGROUP
+      }}
+    />
   ) : (
     <Layout.Horizontal>
       <ManagePrincipalButton
@@ -68,7 +86,7 @@ const RenderColumnMembers: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, 
         onClick={handleAddMember}
         className={css.roleButton}
         resourceType={ResourceType.USERGROUP}
-        resourceIdentifier={row.original.userGroupDTO.identifier}
+        resourceIdentifier={identifier}
       />
     </Layout.Horizontal>
   )

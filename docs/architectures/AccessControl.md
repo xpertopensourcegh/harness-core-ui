@@ -132,7 +132,7 @@ const SampleComponent = () => {
 
 ### Components
 
-We have some in-built Rbac components(eg. Button and Menu) which internally use the `usePermission` hook and add the required tooltips for a better disabled experience. These components take an additional PermissionRequest prop and check for the permission internally. The usage of these components is as follows:
+We have some in-built Rbac components(eg. Button, Menu, AvatarGroup) which internally use the `usePermission` hook and add the required tooltips for a better disabled experience. These components take an additional PermissionRequest prop and check for the permission internally. The usage of these components is as follows:
 
 ```typescript
 import RbacButton from '@rbac/components/Button/Button'
@@ -178,6 +178,31 @@ function SampleComponent() {
           resourceIdentifier: projectIdentifier
         },
         permission: PermissionIdentifier.UPDATE_PROJECT
+      }}
+    />
+  )
+}
+```
+
+```typescript
+import RbacAvatarGroup from '@rbac/components/RbacAvatarGroup/RbacAvatarGroup'
+
+function SampleComponent() {
+  return (
+    <RbacAvatarGroup
+      avatars={avatars}
+      onAdd={handleAddMember}
+      permission={{
+        resourceScope: {
+          accountIdentifier,
+          orgIdentifier,
+          projectIdentifier
+        },
+        resource: {
+          resourceType: ResourceType.USERGROUP,
+          resourceIdentifier: identifier
+        },
+        permission: PermissionIdentifier.MANAGE_USERGROUP
       }}
     />
   )

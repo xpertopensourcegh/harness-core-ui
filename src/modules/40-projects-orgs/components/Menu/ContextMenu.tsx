@@ -196,7 +196,6 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
           permission: PermissionIdentifier.INVITE_USER
         }}
       />
-
       <>
         <Menu.Divider />
         <RbacMenuItem

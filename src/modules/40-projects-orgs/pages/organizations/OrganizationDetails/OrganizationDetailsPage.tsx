@@ -1,5 +1,5 @@
 import React from 'react'
-import { AvatarGroup, Color, Icon, Layout, Text } from '@wings-software/uicore'
+import { Color, Icon, Layout, Text } from '@wings-software/uicore'
 import { Link, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
@@ -10,6 +10,9 @@ import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
 import { useStrings } from 'framework/strings'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import RbacAvatarGroup from '@rbac/components/RbacAvatarGroup/RbacAvatarGroup'
 import i18n from './OrganizationDetailsPage.i18n'
 import css from './OrganizationDetailsPage.module.scss'
 
@@ -23,6 +26,17 @@ const OrganizationDetailsPage: React.FC = () => {
     }
   })
   const organization = data?.data?.organizationResponse.organization
+  const invitePermission = {
+    resourceScope: {
+      accountIdentifier: accountId,
+      orgIdentifier
+    },
+    resource: {
+      resourceType: ResourceType.USER
+    },
+    permission: PermissionIdentifier.INVITE_USER
+  }
+
   const { openCollaboratorModal } = useCollaboratorModal()
   useDocumentTitle([organization?.name || '', getString('orgsText')])
 
@@ -73,24 +87,26 @@ const OrganizationDetailsPage: React.FC = () => {
         toolbar={
           <Layout.Horizontal padding="xxlarge">
             <Layout.Vertical padding={{ right: 'large' }} spacing="xsmall" flex>
-              <AvatarGroup
+              <RbacAvatarGroup
                 avatars={data?.data?.admins?.length ? data.data.admins : [{}]}
                 onAdd={event => {
                   event.stopPropagation()
                   openCollaboratorModal({ orgIdentifier })
                 }}
                 restrictLengthTo={6}
+                permission={invitePermission}
               />
               <Text font="xsmall">{i18n.admin}</Text>
             </Layout.Vertical>
             <Layout.Vertical padding={{ right: 'large' }} spacing="xsmall" flex>
-              <AvatarGroup
+              <RbacAvatarGroup
                 avatars={data?.data?.collaborators?.length ? data.data.collaborators : [{}]}
                 onAdd={event => {
                   event.stopPropagation()
                   openCollaboratorModal({ orgIdentifier })
                 }}
                 restrictLengthTo={6}
+                permission={invitePermission}
               />
               <Text font="xsmall">{i18n.collaborators}</Text>
             </Layout.Vertical>

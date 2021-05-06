@@ -43,9 +43,9 @@ const ModuleEnableCard: React.FC<ModuleEnableCardProps> = ({ data, module, refet
       )
       showSuccess(i18n.moduleSuccess)
       refetchProject()
-    } catch (e) {
+    } catch (err) {
       /* istanbul ignore next */
-      showError(e.data.message)
+      showError(err.data?.message || err.message)
     }
   }
 

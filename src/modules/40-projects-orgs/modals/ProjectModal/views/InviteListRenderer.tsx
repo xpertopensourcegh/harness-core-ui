@@ -47,7 +47,7 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
       if (updated) reload()
       showSuccess(i18n.newProjectWizard.Collaborators.inviteSuccess)
     } catch (err) {
-      showError(err.data)
+      showError(err.data?.message || err.message)
     }
   }
 
@@ -57,7 +57,7 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
       if (deleted) reload()
       showSuccess(i18n.newProjectWizard.Collaborators.deleteSuccess)
     } catch (err) {
-      showError(err.data)
+      showError(err.data?.message || err.message)
     }
   }
   return (

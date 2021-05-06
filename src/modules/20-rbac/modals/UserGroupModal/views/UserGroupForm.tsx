@@ -60,7 +60,7 @@ const UserGroupForm: React.FC<UserGroupModalData> = props => {
   })
 
   const { data: userList } = useMutateAsGet(useGetUsers, {
-    body: { userNameSearchTerm: search, userMailSearchTerm: search },
+    body: { name: search, mail: search },
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,

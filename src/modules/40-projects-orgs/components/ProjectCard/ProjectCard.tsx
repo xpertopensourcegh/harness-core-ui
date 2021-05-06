@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import cx from 'classnames'
-import { Card, Text, Layout, CardBody, Container, Color, AvatarGroup } from '@wings-software/uicore'
+import { Card, Text, Layout, CardBody, Container, Color } from '@wings-software/uicore'
 import { Classes } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -17,6 +17,9 @@ import CFRenderer from '@projects-orgs/components/ModuleRenderer/cf/CFRenderer'
 import useDeleteProjectDialog from '@projects-orgs/pages/projects/DeleteProject'
 import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import RbacAvatarGroup from '@rbac/components/RbacAvatarGroup/RbacAvatarGroup'
 import css from './ProjectCard.module.scss'
 
 export interface ProjectCardProps {
@@ -30,6 +33,7 @@ export interface ProjectCardProps {
 
 const ProjectCard: React.FC<ProjectCardProps> = props => {
   const { data: projectAggregateDTO, isPreview, reloadProjects, editProject, handleInviteCollaborators } = props
+  const [menuOpen, setMenuOpen] = useState(false)
   const {
     projectResponse,
     organization,
@@ -41,10 +45,20 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
   const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
   const history = useHistory()
+  const invitePermission = {
+    resourceScope: {
+      accountIdentifier: accountId,
+      orgIdentifier: data.orgIdentifier,
+      projectIdentifier: data.identifier
+    },
+    resource: {
+      resourceType: ResourceType.USER
+    },
+    permission: PermissionIdentifier.INVITE_USER
+  }
   const onDeleted = (): void => {
     reloadProjects?.()
   }
-  const [menuOpen, setMenuOpen] = useState(false)
   const { openDialog } = useDeleteProjectDialog(data, onDeleted)
 
   return (
@@ -126,7 +140,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
               <Text font="small" padding={{ bottom: 'small' }}>{`${getString('adminLabel')} ${
                 adminList?.length ? `(${adminList?.length})` : ``
               }`}</Text>
-              <AvatarGroup
+              <RbacAvatarGroup
                 className={css.projectAvatarGroup}
                 avatars={adminList?.length ? adminList : [{}]}
                 onAdd={event => {
@@ -134,13 +148,14 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
                   handleInviteCollaborators ? handleInviteCollaborators(data) : null
                 }}
                 restrictLengthTo={1}
+                permission={invitePermission}
               />
             </Layout.Vertical>
             <Layout.Vertical spacing="xsmall">
               <Text font="small" padding={{ bottom: 'small' }}>{`${getString('collaboratorsLabel')} ${
                 collaboratorsList?.length ? `(${collaboratorsList?.length})` : ``
               }`}</Text>
-              <AvatarGroup
+              <RbacAvatarGroup
                 className={css.projectAvatarGroup}
                 avatars={collaboratorsList?.length ? collaboratorsList : [{}]}
                 onAdd={event => {
@@ -149,6 +164,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
                   handleInviteCollaborators ? handleInviteCollaborators(data) : null
                 }}
                 restrictLengthTo={1}
+                permission={invitePermission}
               />
             </Layout.Vertical>
           </Layout.Horizontal>
