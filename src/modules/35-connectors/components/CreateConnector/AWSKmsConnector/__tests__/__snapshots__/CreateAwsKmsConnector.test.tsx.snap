@@ -984,7 +984,7 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
                     class="bp3-label"
                     for="region"
                   >
-                    regionLabel*
+                    regionLabel
                      
                     <span
                       class="bp3-text-muted"

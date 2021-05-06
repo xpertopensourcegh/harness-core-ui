@@ -52,7 +52,7 @@ const AwsKmsAccessKeyForm: React.FC<AwsKmsAccessKeyFormProps> = ({ formik, accou
       {loading ? (
         <Icon margin="medium" name="spinner" size={15} color={Color.BLUE_500} />
       ) : (
-        <FormInput.Select name="region" items={regions} label={`${getString('regionLabel')}*`} />
+        <FormInput.Select name="region" items={regions} label={getString('regionLabel')} />
       )}
     </>
   )

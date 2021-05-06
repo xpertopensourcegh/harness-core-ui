@@ -37,7 +37,7 @@ export interface StepDetails {
 export enum CredTypeValues {
   ManualConfig = 'ManualConfig',
   AssumeIAMRole = 'AssumeIAMRole',
-  AssuemRoleSTS = 'AssumeSTSRole'
+  AssumeRoleSTS = 'AssumeSTSRole'
 }
 export interface AwsKmsConfigFormData {
   accessKey?: string

@@ -2,7 +2,7 @@ import React from 'react'
 import { Layout, Tag, Text, Color, Container, Icon, IconName } from '@wings-software/uicore'
 import moment from 'moment'
 import { Connectors } from '@connectors/constants'
-import type { ConnectorInfoDTO, VaultConnectorDTO } from 'services/cd-ng'
+import type { ConnectorInfoDTO, VaultConnectorDTO, AwsKmsConnectorDTO } from 'services/cd-ng'
 import { StringUtils } from '@common/exports'
 import type { TagsInterface } from '@common/interfaces/ConnectorsInterface'
 import { useStrings } from 'framework/strings'
@@ -333,6 +333,49 @@ const getVaultSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowIn
   ]
 }
 
+const getAwsKmsSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInterface> => {
+  const data = connector.spec as AwsKmsConnectorDTO
+  return [
+    {
+      label: 'credType',
+      value: data.credential?.type
+    },
+    {
+      label: 'connectors.awsKms.accessKeyLabel',
+      value: data.credential?.spec?.accessKey
+    },
+    {
+      label: 'connectors.awsKms.arnLabel',
+      value: data.kmsArn
+    },
+    {
+      label: 'regionLabel',
+      value: data.region
+    },
+    {
+      label: 'connectors.awsKms.roleArnLabel',
+      value: data.credential?.spec?.roleArn
+    },
+    {
+      label: 'connectors.aws.externalId',
+      value: data.credential?.spec?.externalName
+    },
+    {
+      label: 'connectors.awsKms.assumedRoleDuration',
+      value: data.credential?.spec?.assumeStsRoleDuration
+    },
+    {
+      label: 'delegate.delegateTags',
+      value:
+        data.credential?.spec?.delegateSelectors?.length > 0 ? data.credential?.spec?.delegateSelectors.join(', ') : ''
+    },
+    {
+      label: 'connectors.hashiCorpVault.default',
+      value: data.default
+    }
+  ]
+}
+
 const getGCPSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInterface> => {
   return [
     {
@@ -459,6 +502,8 @@ const getSchemaByType = (connector: ConnectorInfoDTO, type: string): Array<Activ
     case Connectors.GCP_KMS:
     case Connectors.LOCAL:
       return getVaultSchema(connector)
+    case Connectors.AWS_KMS:
+      return getAwsKmsSchema(connector)
     default:
       return []
   }

@@ -271,7 +271,7 @@ connector:
         modify any of your workloads. Cross-Account IAM ARN is the Output of CloudFormation
         Stack
       arn: Cross-Account Role ARN
-      externalID: '{{$.connectors.awsKms.externalId}}'
+      externalID: '{{$.connectors.aws.externalId}}'
       validation:
         arnRequired: '{{$.connectors.aws.validation.crossAccountRoleArn}}'
         extIDRequired: External ID is required

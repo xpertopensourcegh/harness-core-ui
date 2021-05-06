@@ -402,12 +402,13 @@ export interface StringsMap {
   'connectors.awsKms.arnLabel': string
   'connectors.awsKms.assumedRoleDuration': string
   'connectors.awsKms.awsSTS': string
-  'connectors.awsKms.externalId': string
   'connectors.awsKms.loggedAt': string
   'connectors.awsKms.roleArnLabel': string
   'connectors.awsKms.secretKeyLabel': string
   'connectors.awsKms.validation.durationError': string
   'connectors.awsKms.validation.durationNumber': string
+  'connectors.awsKms.validation.externalIdLengthError': string
+  'connectors.awsKms.validation.externalIdRegexError': string
   'connectors.awsKms.validation.selectAWSArn': string
   'connectors.awsKms.validation.selectDelegate': string
   'connectors.awsKms.validation.selectRegion': string
