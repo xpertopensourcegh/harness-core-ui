@@ -42,10 +42,10 @@ export default function CDInfo(props: CDInfoProps): React.ReactElement {
                 <Icon name="services" color={Color.GREY_600} size={24} />
               </Container>
               <Layout.Vertical spacing={'xsmall'}>
-                <Text style={{ fontSize: '12px' }} font={{ weight: 'semi-bold' }} color={Color.BLACK}>
+                <Text font={{ size: 'small', weight: 'semi-bold' }} color={Color.BLACK}>
                   {getString('serviceOrServices')}
                 </Text>
-                <Text style={{ fontSize: '10px' }} color={Color.GREY_700} data-testid="hovercard-service">
+                <Text font={{ size: 'xsmall' }} color={Color.GREY_700} data-testid="hovercard-service">
                   {serviceName}
                 </Text>
               </Layout.Vertical>
@@ -57,14 +57,14 @@ export default function CDInfo(props: CDInfoProps): React.ReactElement {
                 <Icon name="services" color={Color.GREY_600} size={24} />
               </Container>
               <Layout.Vertical spacing={'xsmall'}>
-                <Text style={{ fontSize: '12px' }} font={{ weight: 'semi-bold' }} color={Color.BLACK}>
+                <Text font={{ size: 'small', weight: 'semi-bold' }} color={Color.BLACK}>
                   {getString('artifactOrArtifacts')}
                 </Text>
                 <Container data-testid="hovercard-artifact">
                   {artifacts.map((imagePath: string, index: number) => (
                     <Text
                       key={`${imagePath}+${index}`}
-                      style={{ fontSize: '10px' }}
+                      font={{ size: 'xsmall' }}
                       color={Color.GREY_700}
                       data-testid="hovercard-environment"
                     >
@@ -81,10 +81,10 @@ export default function CDInfo(props: CDInfoProps): React.ReactElement {
                 <Icon name="services" color={Color.GREY_600} size={24} />
               </Container>
               <Layout.Vertical spacing={'xsmall'}>
-                <Text style={{ fontSize: '12px' }} font={{ weight: 'semi-bold' }} color={Color.BLACK}>
+                <Text font={{ size: 'small', weight: 'semi-bold' }} color={Color.BLACK}>
                   {getString('environmentOrEnvironments')}
                 </Text>
-                <Text style={{ fontSize: '10px' }} color={Color.GREY_700} data-testid="hovercard-environment">
+                <Text font={{ size: 'xsmall' }} color={Color.GREY_700} data-testid="hovercard-environment">
                   {environment}
                 </Text>
               </Layout.Vertical>

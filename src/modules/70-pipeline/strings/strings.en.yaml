@@ -241,7 +241,7 @@ conditionalExecution:
   toolTip:
     stageTitle: Conditions for Stage Execution
     stepTitle: Conditions for Step Execution
-    conditionTitle: EVALUATED CONDITION
+    resolvedVariables: RESOLVED VARIABLES
   belowExpression: below expression is true
 startTime: Start time
 duration: Duration

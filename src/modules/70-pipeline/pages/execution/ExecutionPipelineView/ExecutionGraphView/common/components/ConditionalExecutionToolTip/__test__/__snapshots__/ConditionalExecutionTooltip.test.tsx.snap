@@ -55,42 +55,28 @@ exports[`ConditionalExecution matches snapshot when no data 1`] = `
       style="flex: 1;"
     >
       <p
-        class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
-        style="font-size: 12px;"
+        class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
       >
         pipeline.conditionalExecution.toolTip.stageTitle
       </p>
       <p
-        class="StyledProps--font StyledProps--main StyledProps--padding-top-xsmall StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-grey900"
-        style="font-size: 10px;"
+        class="StyledProps--font StyledProps--main StyledProps--padding-top-xsmall StyledProps--padding-bottom-xsmall StyledProps--font-size-xsmall StyledProps--color StyledProps--color-grey900"
+        style="line-height: 16px;"
       >
         pipeline.conditionalExecution.statusOption.success
         <span
-          class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall StyledProps--margin-left-xsmall StyledProps--margin-right-xsmall StyledProps--background-grey100 StyledProps--border"
-          style="font-size: 10px;"
+          class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black StyledProps--font-size-xsmall StyledProps--font-weight-semi-bold StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall StyledProps--margin-left-xsmall StyledProps--margin-right-xsmall StyledProps--background-grey100 StyledProps--border StyledProps--border-color-grey100"
         >
           pipeline.and
         </span>
         pipeline.conditionalExecution.belowExpression
       </p>
       <div
-        class="StyledProps--font StyledProps--main StyledProps--padding-small StyledProps--background-grey100 StyledProps--color StyledProps--color-grey900 StyledProps--border StyledProps--border-color-grey200"
-        style="font-size: 12px; word-break: break-word;"
+        class="StyledProps--font StyledProps--main StyledProps--padding-small StyledProps--background-grey100 StyledProps--color StyledProps--color-grey900 StyledProps--font-size-small StyledProps--border StyledProps--border-color-grey200"
+        style="word-break: break-word;"
       >
         some JEXL condition
       </div>
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--padding-top-small StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500"
-        style="font-size: 10px;"
-      >
-        pipeline.conditionalExecution.toolTip.conditionTitle
-      </p>
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"
-        style="font-size: 10px;"
-      >
-        true
-      </p>
     </div>
   </div>
 </div>

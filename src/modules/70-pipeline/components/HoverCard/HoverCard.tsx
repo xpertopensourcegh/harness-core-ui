@@ -60,7 +60,7 @@ export default function HoverCard(props: HoverCardProps): React.ReactElement {
       </Layout.Horizontal>
       {data.status === ExecutionStatusEnum.Failed && (
         <Layout.Horizontal
-          background={Color.RED_300}
+          background={Color.RED_100}
           padding={{ right: 'medium', top: 'small', bottom: 'small', left: 'small' }}
         >
           <Container flex={{ justifyContent: 'center', alignItems: 'start' }} width={32}>

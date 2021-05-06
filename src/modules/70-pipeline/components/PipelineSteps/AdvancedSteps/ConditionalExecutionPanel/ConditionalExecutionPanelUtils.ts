@@ -22,7 +22,7 @@ export const ParentModeEntityNameMap = {
   STEP: 'stage'
 }
 
-export const StatusToStringIdMapping: any = {
+export const statusToStringIdMapping: any = {
   OnPipelineSuccess: 'pipeline.conditionalExecution.statusOption.success',
   OnStageSuccess: 'pipeline.conditionalExecution.statusOption.success',
   OnPipelineFailure: 'pipeline.conditionalExecution.statusOption.failure',

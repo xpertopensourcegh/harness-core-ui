@@ -710,7 +710,7 @@ export interface StringsMap {
   'pipeline.conditionalExecution.statusOption.success': string
   'pipeline.conditionalExecution.subTitle': string
   'pipeline.conditionalExecution.title': string
-  'pipeline.conditionalExecution.toolTip.conditionTitle': string
+  'pipeline.conditionalExecution.toolTip.resolvedVariables': string
   'pipeline.conditionalExecution.toolTip.stageTitle': string
   'pipeline.conditionalExecution.toolTip.stepTitle': string
   'pipeline.createANewPipeline': string

@@ -1,5 +1,4 @@
-import type { StringNGVariable, NumberNGVariable, SecretNGVariable } from 'services/cd-ng'
-import type { PipelineOrStageStatus } from '@pipeline/components/PipelineSteps/AdvancedSteps/ConditionalExecutionPanel/ConditionalExecutionPanelUtils'
+import type { StringNGVariable, NumberNGVariable, SecretNGVariable, NodeRunInfo, ExpressionBlock } from 'services/cd-ng'
 
 export type AllNGVariables = StringNGVariable | NumberNGVariable | SecretNGVariable
 
@@ -9,12 +8,6 @@ export interface ExecutionPageQueryParams {
   retryStep?: string
 }
 
-export interface ConditionalExecutionStageConfig {
-  pipelineStatus: PipelineOrStageStatus.SUCCESS | PipelineOrStageStatus.ALL | PipelineOrStageStatus.FAILURE
-  condition?: string
-}
-
-export interface ConditionalExecutionStepOrSetGroupConfig {
-  stageStatus: PipelineOrStageStatus.SUCCESS | PipelineOrStageStatus.ALL | PipelineOrStageStatus.FAILURE
-  condition?: string
+export interface ConditionalExecutionNodeRunInfo extends NodeRunInfo {
+  expressions?: ExpressionBlock[]
 }

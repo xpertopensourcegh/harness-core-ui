@@ -60,7 +60,7 @@ exports[`ConditionalExecution matches snapshot with failure 1`] = `
       </div>
     </div>
     <div
-      class="Layout--horizontal StyledProps--main StyledProps--background-red300 StyledProps--padding-right-medium StyledProps--padding-top-small StyledProps--padding-bottom-small StyledProps--padding-left-small"
+      class="Layout--horizontal StyledProps--main StyledProps--background-red100 StyledProps--padding-right-medium StyledProps--padding-top-small StyledProps--padding-bottom-small StyledProps--padding-left-small"
     >
       <div
         class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-center StyledProps--flex-alignItems-start"

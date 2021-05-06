@@ -37,10 +37,10 @@ export default function BarrierStageTooltip(props: BarrierStageTooltipProps): Re
               <Icon name="barrier-open-with-links" size={20} />
             </Container>
             <Layout.Vertical spacing={'xsmall'} margin={{ right: 'medium' }} style={{ flex: 1 }}>
-              <Text style={{ fontSize: '12px' }} font={{ weight: 'semi-bold' }} color={Color.BLACK}>
+              <Text font={{ size: 'small', weight: 'semi-bold' }} color={Color.BLACK}>
                 {barrier.name}
               </Text>
-              <Text style={{ fontSize: '12px' }} color={Color.GREY_900} data-testid="hovercard-service">
+              <Text font={{ size: 'small' }} color={Color.GREY_900} data-testid="hovercard-service">
                 {getString('pipeline.barriers.tooltips.barrierWaiting')}
                 {barrier.identifier} | {getString('pipeline.execution.stageTitlePrefix')}
                 {props?.stageName}
@@ -49,14 +49,14 @@ export default function BarrierStageTooltip(props: BarrierStageTooltipProps): Re
             <Container>
               <Layout.Vertical
                 background={Color.YELLOW_500}
-                border={{ radius: 4 }}
+                border={{ radius: 4, color: Color.YELLOW_500 }}
                 flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
-                padding={'xsmall'}
+                padding={{ top: 'xsmall', bottom: 'xsmall', left: 'small', right: 'small' }}
               >
-                <Text style={{ fontSize: '10px' }} font={{ weight: 'bold' }} color={Color.GREY_800}>
+                <Text font={{ size: 'xsmall', weight: 'bold' }} color={Color.GREY_800}>
                   {barrier?.startedAt > 0 ? timeoutData.value : altDuration}
                 </Text>
-                <Text font={{ size: 'xsmall' }} color={Color.GREY_600}>
+                <Text style={{ fontSize: '8px' }} color={Color.GREY_500}>
                   {barrier?.startedAt > 0 ? timeoutData.unit : altUnit}
                 </Text>
               </Layout.Vertical>
