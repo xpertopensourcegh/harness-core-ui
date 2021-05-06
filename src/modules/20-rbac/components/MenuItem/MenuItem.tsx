@@ -1,5 +1,6 @@
 import React from 'react'
-import { IMenuItemProps, Menu, Tooltip } from '@blueprintjs/core'
+import { IMenuItemProps, Menu, MenuItem, PopoverInteractionKind } from '@blueprintjs/core'
+import { Container, Popover } from '@wings-software/uicore'
 import { usePermission, PermissionsRequest, PermissionRequest } from '@rbac/hooks/usePermission'
 import { String } from 'framework/strings'
 import css from './MenuItem.module.scss'
@@ -17,11 +18,28 @@ const RbacMenuItem: React.FC<MenuItemProps> = ({ permission: permissionRequest, 
     [permissionRequest]
   )
 
-  if (canDoAction) return <Menu.Item {...restProps} disabled={restProps.disabled} />
+  if (canDoAction) return <Menu.Item {...restProps} />
   return (
-    <Tooltip content={<String stringID="noPermission" />} className={css.popover}>
-      <Menu.Item {...restProps} disabled />
-    </Tooltip>
+    <Popover
+      fill
+      usePortal
+      interactionKind={PopoverInteractionKind.HOVER_TARGET_ONLY}
+      hoverCloseDelay={50}
+      content={
+        <Container padding="small">
+          <String stringID="noPermission" />
+        </Container>
+      }
+      className={css.popover}
+    >
+      <div
+        onClick={(event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+          event.stopPropagation()
+        }}
+      >
+        <MenuItem {...restProps} disabled />
+      </div>
+    </Popover>
   )
 }
 
