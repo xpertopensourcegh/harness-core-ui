@@ -1,0 +1,68 @@
+[
+  {
+    "name": "Stage 1",
+    "icon": "pipeline-deploy",
+    "artifacts": [
+      {
+        "url": "https://github.com/shadowsocks/shadowsocks-rust/tree/d6bccfc7654e009d192e9a154c0da2a816651317/ashdgpjv3498gu4jp4igh1vp4uihfejp19u345hyg",
+        "image": "imageName",
+        "tag": "tag",
+        "type": "Image"
+      },
+      {
+        "url": "https://github.com/shadowsocks/shadowsocks-rust/tree/d6bccfc7654e009d192e9a154c0da2a816651317",
+        "image": "imageName",
+        "tag": "tag",
+        "type": "Image"
+      },
+      {
+        "url": "https://github.com/shadowsocks/shadowsocks-rust/tree/d6bccfc7654e009d192e9a154c0da2a816651317",
+        "image": "imageName",
+        "tag": "tag",
+        "type": "Image"
+      },
+      {
+        "url": "https://github.com/shadowsocks/shadowsocks-rust/tree/d6bccfc7654e009d192e9a154c0da2a816651317",
+        "image": "imageName",
+        "tag": "tag",
+        "type": "Image"
+      },
+      {
+        "url": "https://github.com/shadowsocks/shadowsocks-rust/tree/d6bccfc7654e009d192e9a154c0da2a816651317",
+        "image": "imageName",
+        "tag": "tag",
+        "type": "Image"
+      }
+    ]
+  },
+  {
+    "name": "Stage 2",
+    "icon": "pipeline-deploy",
+    "artifacts": [
+      {
+        "url": "https://...",
+        "type": "File"
+      },
+      {
+        "url": "https://...",
+        "type": "File"
+      },
+      {
+        "url": "https://...",
+        "type": "File"
+      },
+      {
+        "url": "https://...",
+        "type": "File"
+      },
+      {
+        "url": "https://...",
+        "type": "File"
+      },
+      {
+        "url": "https://...",
+        "type": "File"
+      }
+    ]
+  }
+]

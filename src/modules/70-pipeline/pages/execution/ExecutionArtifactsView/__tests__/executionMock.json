@@ -1,0 +1,655 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "pipelineExecutionSummary": {
+      "pipelineIdentifier": "ci-pipelinezvRZ",
+      "planExecutionId": "MHU83On8Qqu5tlFQXb_u2Q",
+      "name": "docker build push success",
+      "status": "Success",
+      "tags": [],
+      "executionTriggerInfo": {
+        "triggerType": "MANUAL",
+        "triggeredBy": {
+          "uuid": "lv0euRhKRCyiXWzS7pOg6g",
+          "identifier": "Admin",
+          "extraInfo": {
+            "email": "admin@harness.io"
+          }
+        }
+      },
+      "moduleInfo": {
+        "pmsInternal": {},
+        "ci": {
+          "ciExecutionInfoDTO": {
+            "event": null
+          }
+        }
+      },
+      "layoutNodeMap": {
+        "8PKMDSMyRdih_aJp8p3f6w": {
+          "nodeType": "CI",
+          "nodeGroup": "STAGE",
+          "nodeIdentifier": "docker-buildPush-success",
+          "name": "docker build push",
+          "nodeUuid": "8PKMDSMyRdih_aJp8p3f6w",
+          "status": "Success",
+          "module": "ci",
+          "moduleInfo": {
+            "ci": {},
+            "pmsInternal": {}
+          },
+          "startTs": 1619650562121,
+          "endTs": 0,
+          "edgeLayoutList": {
+            "currentNodeChildren": [],
+            "nextIds": ["UkROwkBmS-2QpiHgvc6CLA"]
+          },
+          "nodeRunInfo": {
+            "whenCondition": "\u003c+OnPipelineSuccess\u003e",
+            "evaluatedCondition": true
+          }
+        },
+        "UkROwkBmS-2QpiHgvc6CLA": {
+          "nodeType": "CI",
+          "nodeGroup": "STAGE",
+          "nodeIdentifier": "test-docker-uploaded-image",
+          "name": "test docker upload image",
+          "nodeUuid": "UkROwkBmS-2QpiHgvc6CLA",
+          "status": "Success",
+          "module": "ci",
+          "moduleInfo": {
+            "ci": {},
+            "pmsInternal": {}
+          },
+          "startTs": 1619650655239,
+          "endTs": 1619650774321,
+          "edgeLayoutList": {
+            "currentNodeChildren": [],
+            "nextIds": []
+          },
+          "nodeRunInfo": {
+            "whenCondition": "\u003c+OnPipelineSuccess\u003e",
+            "evaluatedCondition": true
+          }
+        }
+      },
+      "modules": ["ci", "ci"],
+      "startingNodeId": "8PKMDSMyRdih_aJp8p3f6w",
+      "startTs": 1619650553997,
+      "endTs": 1619650776375,
+      "createdAt": 1619650554050,
+      "runSequence": 74,
+      "successfulStagesCount": 2,
+      "runningStagesCount": 0,
+      "failedStagesCount": 0,
+      "totalStagesCount": 2
+    },
+    "executionGraph": {
+      "rootNodeId": "pLisAB7sT0Woi6I3PomP-w",
+      "nodeMap": {
+        "lLVM3Q3LTYSE739N2jB8gA": {
+          "uuid": "lLVM3Q3LTYSE739N2jB8gA",
+          "setupId": "FDTWaFAKQS624iwn7rG5ig",
+          "name": "liteEngineTask1",
+          "identifier": "liteEngineTask1",
+          "baseFqn": "pipeline.stages.docker-buildPush-success.execution.steps.liteEngineTask1",
+          "outcomes": [
+            {
+              "ipAddress": "10.28.0.14",
+              "uuid": null
+            },
+            {
+              "serviceDependencyList": []
+            }
+          ],
+          "stepParameters": {
+            "uuid": "FDTWaFAKQS624iwn7rG5ig",
+            "identifier": "liteEngineTask1",
+            "name": null,
+            "description": null,
+            "timeout": "10h",
+            "failureStrategies": null,
+            "skipCondition": null,
+            "type": "liteEngineTask",
+            "spec": {
+              "timeout": 600000,
+              "identifier": null,
+              "name": null,
+              "retry": 0,
+              "buildJobEnvInfo": {
+                "podsSetupInfo": {
+                  "podSetupInfoList": [
+                    {
+                      "podSetupParams": {
+                        "containerDefinitionInfos": [
+                          {
+                            "name": "step-1",
+                            "containerImageDetails": {
+                              "imageDetails": {
+                                "name": "alpine",
+                                "tag": "3.6",
+                                "sourceName": null,
+                                "registryUrl": null,
+                                "username": null,
+                                "password": null,
+                                "domainName": null
+                              },
+                              "connectorIdentifier": "account.testDockerConnector3VIh"
+                            },
+                            "containerType": "RUN",
+                            "containerResourceParams": {
+                              "resourceRequestMemoryMiB": 10,
+                              "resourceLimitMemoryMiB": 500,
+                              "resourceRequestMilliCpu": 10,
+                              "resourceLimitMilliCpu": 400
+                            },
+                            "stepIdentifier": "createDockerFile",
+                            "stepName": "create docker file",
+                            "commands": ["/addon/bin/ci-addon"],
+                            "isMainLiteEngine": false,
+                            "args": ["--port", "20002"],
+                            "ports": [20002],
+                            "envVars": {
+                              "DRONE_BUILD_NUMBER": "74"
+                            },
+                            "secretVariables": null,
+                            "privileged": false,
+                            "runAsUser": null
+                          },
+                          {
+                            "name": "step-2",
+                            "containerImageDetails": {
+                              "imageDetails": {
+                                "name": "harnessdev/kaniko",
+                                "tag": "atest-v4",
+                                "sourceName": null,
+                                "registryUrl": null,
+                                "username": null,
+                                "password": null,
+                                "domainName": null
+                              },
+                              "connectorIdentifier": null
+                            },
+                            "containerType": "PLUGIN",
+                            "containerResourceParams": {
+                              "resourceRequestMemoryMiB": 10,
+                              "resourceLimitMemoryMiB": 500,
+                              "resourceRequestMilliCpu": 10,
+                              "resourceLimitMilliCpu": 400
+                            },
+                            "stepIdentifier": "dockerBuildPush",
+                            "stepName": "docker build push",
+                            "commands": ["/addon/bin/ci-addon"],
+                            "isMainLiteEngine": false,
+                            "args": ["--port", "20003"],
+                            "ports": [20003],
+                            "envVars": {
+                              "PLUGIN_TARGET": "dev-env",
+                              "PLUGIN_TAGS": "1,1.2",
+                              "DRONE_BUILD_NUMBER": "74",
+                              "PLUGIN_CUSTOM_LABELS": "foo=bar,hello=world",
+                              "PLUGIN_CONTEXT": ".",
+                              "PLUGIN_DOCKERFILE": "harnessDockerfile",
+                              "PLUGIN_BUILD_ARGS": "foo=bar,hello=world",
+                              "PLUGIN_REPO": "harness/ci-automation",
+                              "PLUGIN_SNAPSHOT_MODE": "redo",
+                              "PLUGIN_ARTIFACT_FILE": "/addon/tmp/.plugin/artifact"
+                            },
+                            "secretVariables": null,
+                            "privileged": false,
+                            "runAsUser": null
+                          }
+                        ]
+                      },
+                      "pvcParamsList": [
+                        {
+                          "volumeName": "addon",
+                          "claimName": "harnessci-dockerbuildpush-n16w4h98-addon",
+                          "isPresent": false,
+                          "storageClass": "faster",
+                          "sizeMib": 25600
+                        },
+                        {
+                          "volumeName": "harness",
+                          "claimName": "harnessci-dockerbuildpush-n16w4h98-harness",
+                          "isPresent": false,
+                          "storageClass": "faster",
+                          "sizeMib": 25600
+                        }
+                      ],
+                      "volumeToMountPath": {
+                        "addon": "/addon",
+                        "harness": "/harness"
+                      },
+                      "name": "harnessci-dockerbuildpush-n16w4h98",
+                      "stageMemoryRequest": 500,
+                      "stageCpuRequest": 400,
+                      "serviceIdList": null,
+                      "serviceGrpcPortList": null,
+                      "workDirPath": "/harness"
+                    }
+                  ]
+                },
+                "workDir": "/harness",
+                "stepConnectorRefs": {
+                  "dockerBuildPush": {
+                    "connectorRef": "account.testDockerConnectorF9qg",
+                    "envToSecretsMap": {
+                      "DOCKER_USERNAME": "PLUGIN_USERNAME",
+                      "DOCKER_PASSWORD": "PLUGIN_PASSWORD",
+                      "DOCKER_REGISTRY": "PLUGIN_REGISTRY"
+                    }
+                  }
+                }
+              },
+              "usePVC": false,
+              "accountId": null,
+              "executionElementConfig": {
+                "uuid": "4q9BbT5KSzaQvX07i-VxoA",
+                "steps": [
+                  {
+                    "uuid": "elLtL_hKQYmoLl90xz6gxQ",
+                    "step": {
+                      "__encodedValue": {
+                        "identifier": "createDockerFile",
+                        "name": "create docker file",
+                        "type": "Run",
+                        "spec": {
+                          "retry": 1,
+                          "command": "touch harnessDockerfile\ncat > harnessDockerfile <<- EOM\nFROM alpine:latest AS dev-env\nARG foo\nRUN echo \"$foo bar\"\nENTRYPOINT [\"pwd\"]\n\nFROM alpine:latest AS release-env\nARG hello\nRUN echo \"$hello world\"\nENTRYPOINT [\"ls\"]\nEOM\n\ncat harnessDockerfile\n",
+                          "connectorRef": "account.testDockerConnector3VIh",
+                          "image": "alpine:3.6",
+                          "uuid": "9n3Z3PlTTreBtMcJZ36fAg"
+                        },
+                        "uuid": "s8oBlDMGTMGgBBcdc6q3xg"
+                      }
+                    },
+                    "parallel": {
+                      "__encodedValue": null
+                    },
+                    "stepGroup": {
+                      "__encodedValue": null
+                    }
+                  },
+                  {
+                    "uuid": "4nz2QeR3Sh-JxeodCIdO3g",
+                    "step": {
+                      "__encodedValue": {
+                        "identifier": "dockerBuildPush",
+                        "name": "docker build push",
+                        "type": "BuildAndPushDockerRegistry",
+                        "spec": {
+                          "repo": "harness/ci-automation",
+                          "tags": ["1", "1.2"],
+                          "buildArgs": {
+                            "foo": "bar",
+                            "hello": "world",
+                            "uuid": "1NDeUm96QqiycDvtNk-cgw"
+                          },
+                          "labels": {
+                            "foo": "bar",
+                            "hello": "world",
+                            "uuid": "SqyhNbK2T5ifwIWI6G_KyQ"
+                          },
+                          "target": "dev-env",
+                          "context": ".",
+                          "dockerfile": "harnessDockerfile",
+                          "connectorRef": "account.testDockerConnectorF9qg",
+                          "uuid": "g2d0vvFzSIWAoiEBE0TmYw"
+                        },
+                        "uuid": "T8Q5vmCMTUySqEZmXQHPtw"
+                      }
+                    },
+                    "parallel": {
+                      "__encodedValue": null
+                    },
+                    "stepGroup": {
+                      "__encodedValue": null
+                    }
+                  }
+                ],
+                "rollbackSteps": null
+              },
+              "skipGitClone": true,
+              "infrastructure": {
+                "type": "KUBERNETES_DIRECT",
+                "spec": {
+                  "connectorRef": "account.testK8sConnectorWXRr",
+                  "namespace": "harness-delegate",
+                  "annotations": null,
+                  "labels": null
+                }
+              },
+              "runAsUser": null
+            },
+            "delegateSelectors": null
+          },
+          "startTs": 1619650569130,
+          "endTs": 1619650591165,
+          "stepType": "liteEngineTask",
+          "status": "Success",
+          "failureInfo": {
+            "message": "",
+            "failureTypeList": [],
+            "responseMessages": []
+          },
+          "skipInfo": null,
+          "nodeRunInfo": {
+            "whenCondition": "\u003c+OnStageSuccess\u003e",
+            "evaluatedCondition": true
+          },
+          "executableResponses": [
+            {
+              "task": {
+                "taskId": "PMhoBDlPSNGPkQkp68fu6A",
+                "taskCategory": "DELEGATE_TASK_V2",
+                "logKeys": [
+                  "accountId:kmpySmUISimoRrJL6NL73w/orgId:DemoOrgufad/projectId:DemoProz7ot/pipelineId:ci-pipelinezvRZ/runSequence:74/level0:pipeline/level1:stages/level2:docker-buildPush-success/level3:execution/level4:steps/level5:liteEngineTask1"
+                ],
+                "taskName": "CI_BUILD"
+              }
+            }
+          ],
+          "taskIdToProgressDataMap": {},
+          "unitProgresses": [],
+          "delegateInfoList": [
+            {
+              "id": "b6lkSs_MQbCU2NmBKbGO-g",
+              "name": "vm",
+              "taskId": "PMhoBDlPSNGPkQkp68fu6A",
+              "taskName": "CI_BUILD"
+            }
+          ],
+          "interruptHistories": []
+        },
+        "rQ277sq7Scqy3TinsQ-07w": {
+          "uuid": "rQ277sq7Scqy3TinsQ-07w",
+          "setupId": "s8oBlDMGTMGgBBcdc6q3xg",
+          "name": "create docker file",
+          "identifier": "createDockerFile",
+          "baseFqn": "pipeline.stages.docker-buildPush-success.execution.steps.createDockerFile",
+          "outcomes": [
+            {
+              "outputVariables": null
+            }
+          ],
+          "stepParameters": {
+            "uuid": "s8oBlDMGTMGgBBcdc6q3xg",
+            "identifier": "createDockerFile",
+            "name": "create docker file",
+            "description": null,
+            "timeout": "10h",
+            "failureStrategies": null,
+            "skipCondition": null,
+            "type": "Run",
+            "spec": {
+              "identifier": null,
+              "name": null,
+              "retry": 1,
+              "command": "touch harnessDockerfile\ncat > harnessDockerfile <<- EOM\nFROM alpine:latest AS dev-env\nARG foo\nRUN echo \"$foo bar\"\nENTRYPOINT [\"pwd\"]\n\nFROM alpine:latest AS release-env\nARG hello\nRUN echo \"$hello world\"\nENTRYPOINT [\"ls\"]\nEOM\n\ncat harnessDockerfile\n",
+              "outputVariables": null,
+              "envVariables": null,
+              "image": "alpine:3.6",
+              "connectorRef": "account.testDockerConnector3VIh",
+              "privileged": null,
+              "runAsUser": null
+            },
+            "delegateSelectors": null
+          },
+          "startTs": 1619650593157,
+          "endTs": 1619650601183,
+          "stepType": "Run",
+          "status": "Success",
+          "failureInfo": {
+            "message": "",
+            "failureTypeList": [],
+            "responseMessages": []
+          },
+          "skipInfo": null,
+          "nodeRunInfo": {
+            "whenCondition": "\u003c+OnStageSuccess\u003e",
+            "evaluatedCondition": true
+          },
+          "executableResponses": [
+            {
+              "async": {
+                "callbackIds": ["y5ViEOGtR7WYNYbj9hYxIw", "SKajLy-LS--_N5LPoZHfUw"],
+                "logKeys": [
+                  "accountId:kmpySmUISimoRrJL6NL73w/orgId:DemoOrgufad/projectId:DemoProz7ot/pipelineId:ci-pipelinezvRZ/runSequence:74/level0:pipeline/level1:stages/level2:docker-buildPush-success/level3:execution/level4:steps/level5:createDockerFile"
+                ]
+              }
+            }
+          ],
+          "taskIdToProgressDataMap": {},
+          "unitProgresses": [],
+          "delegateInfoList": [],
+          "interruptHistories": []
+        },
+        "0B0ZHRmGS1e_aNZvcFAcHg": {
+          "uuid": "0B0ZHRmGS1e_aNZvcFAcHg",
+          "setupId": "T8Q5vmCMTUySqEZmXQHPtw",
+          "name": "docker build push",
+          "identifier": "dockerBuildPush",
+          "baseFqn": "pipeline.stages.docker-buildPush-success.execution.steps.dockerBuildPush",
+          "outcomes": [
+            {
+              "stepArtifacts": {
+                "publishedFileArtifacts": [],
+                "publishedImageArtifacts": [
+                  {
+                    "imageName": "harness/ci-automation",
+                    "tag": "1",
+                    "url": "https://hub.docker.com/layers/harness/ci-automation/1/images/sha256-e4069d8aa9b2825630ba28674526544967dfc9fd6d832b002df00c534e8de6e0/"
+                  },
+                  {
+                    "imageName": "harness/ci-automation",
+                    "tag": "1.2",
+                    "url": "https://hub.docker.com/layers/harness/ci-automation/1.2/images/sha256-e4069d8aa9b2825630ba28674526544967dfc9fd6d832b002df00c534e8de6e0/"
+                  }
+                ]
+              }
+            },
+            {
+              "outputVariables": null
+            }
+          ],
+          "stepParameters": {
+            "uuid": "T8Q5vmCMTUySqEZmXQHPtw",
+            "identifier": "dockerBuildPush",
+            "name": "docker build push",
+            "description": null,
+            "timeout": "10h",
+            "failureStrategies": null,
+            "skipCondition": null,
+            "type": "BuildAndPushDockerRegistry",
+            "spec": {
+              "identifier": null,
+              "name": null,
+              "retry": 1,
+              "connectorRef": "account.testDockerConnectorF9qg",
+              "repo": "harness/ci-automation",
+              "tags": ["1", "1.2"],
+              "context": ".",
+              "dockerfile": "harnessDockerfile",
+              "target": "dev-env",
+              "labels": {
+                "__recast": "java.util.LinkedHashMap",
+                "foo": "bar",
+                "hello": "world",
+                "uuid": "SqyhNbK2T5ifwIWI6G_KyQ"
+              },
+              "buildArgs": {
+                "__recast": "java.util.LinkedHashMap",
+                "foo": "bar",
+                "hello": "world",
+                "uuid": "1NDeUm96QqiycDvtNk-cgw"
+              },
+              "runAsUser": null,
+              "optimize": null,
+              "remoteCacheImage": null
+            },
+            "delegateSelectors": null
+          },
+          "startTs": 1619650603170,
+          "endTs": 1619650624633,
+          "stepType": "BuildAndPushDockerRegistry",
+          "status": "Success",
+          "failureInfo": {
+            "message": "",
+            "failureTypeList": [],
+            "responseMessages": []
+          },
+          "skipInfo": null,
+          "nodeRunInfo": {
+            "whenCondition": "\u003c+OnStageSuccess\u003e",
+            "evaluatedCondition": true
+          },
+          "executableResponses": [
+            {
+              "async": {
+                "callbackIds": ["9ehOG1MfSZiFnlc9rkTAgg", "cV4HZIYQRoO31raco578yw"],
+                "logKeys": [
+                  "accountId:kmpySmUISimoRrJL6NL73w/orgId:DemoOrgufad/projectId:DemoProz7ot/pipelineId:ci-pipelinezvRZ/runSequence:74/level0:pipeline/level1:stages/level2:docker-buildPush-success/level3:execution/level4:steps/level5:dockerBuildPush"
+                ]
+              }
+            }
+          ],
+          "taskIdToProgressDataMap": {},
+          "unitProgresses": [],
+          "delegateInfoList": [],
+          "interruptHistories": []
+        },
+        "pLisAB7sT0Woi6I3PomP-w": {
+          "uuid": "pLisAB7sT0Woi6I3PomP-w",
+          "setupId": "8PKMDSMyRdih_aJp8p3f6w",
+          "name": "docker build push",
+          "identifier": "docker-buildPush-success",
+          "baseFqn": "pipeline.stages.docker-buildPush-success",
+          "outcomes": [
+            {
+              "imageArtifacts": [
+                {
+                  "imageName": "harness/ci-automation",
+                  "tag": "1.2",
+                  "url": "https://hub.docker.com/layers/harness/ci-automation/1.2/images/sha256-e4069d8aa9b2825630ba28674526544967dfc9fd6d832b002df00c534e8de6e0/"
+                },
+                {
+                  "imageName": "harness/ci-automation",
+                  "tag": "1",
+                  "url": "https://hub.docker.com/layers/harness/ci-automation/1/images/sha256-e4069d8aa9b2825630ba28674526544967dfc9fd6d832b002df00c534e8de6e0/"
+                }
+              ],
+              "fileArtifacts": []
+            }
+          ],
+          "stepParameters": {
+            "identifier": "docker-buildPush-success",
+            "name": "docker build push",
+            "description": null,
+            "originalVariables": null,
+            "type": "CI",
+            "infrastructure": {
+              "type": "KUBERNETES_DIRECT",
+              "spec": {
+                "connectorRef": "account.testK8sConnectorWXRr",
+                "namespace": "harness-delegate",
+                "annotations": null,
+                "labels": null
+              }
+            },
+            "dependencies": null,
+            "sharedPaths": null,
+            "skipCondition": null,
+            "enableCloneRepo": false,
+            "stepIdentifiers": ["createDockerFile", "dockerBuildPush"],
+            "childNodeID": "E3Kq8iITQ8-ruvrOQK2K2g"
+          },
+          "startTs": 1619650562121,
+          "endTs": 1619650654250,
+          "stepType": "IntegrationStageStepPMS",
+          "status": "Success",
+          "failureInfo": {
+            "message": "",
+            "failureTypeList": [],
+            "responseMessages": []
+          },
+          "skipInfo": null,
+          "nodeRunInfo": {
+            "whenCondition": "\u003c+OnPipelineSuccess\u003e",
+            "evaluatedCondition": true
+          },
+          "executableResponses": [
+            {
+              "child": {
+                "childNodeId": "E3Kq8iITQ8-ruvrOQK2K2g"
+              }
+            }
+          ],
+          "taskIdToProgressDataMap": {},
+          "unitProgresses": [],
+          "delegateInfoList": [],
+          "interruptHistories": []
+        },
+        "e6kArW-iS-W4jgZJguHP-w": {
+          "uuid": "e6kArW-iS-W4jgZJguHP-w",
+          "setupId": "E3Kq8iITQ8-ruvrOQK2K2g",
+          "name": "Execution",
+          "identifier": "execution",
+          "baseFqn": "pipeline.stages.docker-buildPush-success.execution",
+          "outcomes": [],
+          "stepParameters": {
+            "childNodeId": "E3Kq8iITQ8-ruvrOQK2K2gsteps",
+            "logMessage": "Execution Element"
+          },
+          "startTs": 1619650565120,
+          "endTs": 1619650626691,
+          "stepType": "NG_SECTION",
+          "status": "Success",
+          "failureInfo": {
+            "message": "",
+            "failureTypeList": [],
+            "responseMessages": []
+          },
+          "skipInfo": null,
+          "nodeRunInfo": null,
+          "executableResponses": [
+            {
+              "child": {
+                "childNodeId": "E3Kq8iITQ8-ruvrOQK2K2gsteps"
+              }
+            }
+          ],
+          "taskIdToProgressDataMap": {},
+          "unitProgresses": [],
+          "delegateInfoList": [],
+          "interruptHistories": []
+        }
+      },
+      "nodeAdjacencyListMap": {
+        "lLVM3Q3LTYSE739N2jB8gA": {
+          "children": [],
+          "nextIds": ["rQ277sq7Scqy3TinsQ-07w"]
+        },
+        "rQ277sq7Scqy3TinsQ-07w": {
+          "children": [],
+          "nextIds": ["0B0ZHRmGS1e_aNZvcFAcHg"]
+        },
+        "0B0ZHRmGS1e_aNZvcFAcHg": {
+          "children": [],
+          "nextIds": []
+        },
+        "pLisAB7sT0Woi6I3PomP-w": {
+          "children": ["e6kArW-iS-W4jgZJguHP-w"],
+          "nextIds": ["K1jvnWbnRZWv8pkAT2_FXw"]
+        },
+        "e6kArW-iS-W4jgZJguHP-w": {
+          "children": ["lLVM3Q3LTYSE739N2jB8gA"],
+          "nextIds": []
+        }
+      },
+      "representationStrategy": "camelCase"
+    }
+  },
+  "metaData": null,
+  "correlationId": "f0d5b912-af3d-489d-9a79-6c8e8ea9a46e"
+}

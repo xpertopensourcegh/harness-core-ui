@@ -8,6 +8,10 @@ import { useQueryParams, useUpdateQueryParams } from '@common/hooks'
 import { accountPathProps, executionPathProps, pipelineModuleParams } from '@common/utils/routeUtils'
 import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import type { CIBuildResponseDTO } from '@pipeline/pages/pipeline-deployment-list/ExecutionsList/ExecutionCard/ExecutionDetails/Types/types'
+import {
+  getStageNodesWithArtifacts,
+  getStageSetupIds
+} from '@pipeline/pages/execution/ExecutionArtifactsView/ExecutionArtifactsView'
 import type { ExecutionQueryParams } from '@pipeline/utils/executionUtils'
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import { String, useStrings } from 'framework/strings'
@@ -36,6 +40,14 @@ export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): 
   // NOTE: hide commits tab if there are no commits
   // by default we are showing Commits tab > 'isEmpty(pipelineExecutionDetail)'
   const ciShowCommitsTab = !!ciData?.branch?.commits?.length || !!ciData?.pullRequest?.commits?.length
+
+  const ciShowArtifactsTab =
+    !!pipelineExecutionDetail?.executionGraph &&
+    !!pipelineExecutionDetail?.pipelineExecutionSummary &&
+    getStageNodesWithArtifacts(
+      pipelineExecutionDetail?.executionGraph,
+      getStageSetupIds(pipelineExecutionDetail?.pipelineExecutionSummary)
+    ).length
 
   function handleLogViewChange(e: React.ChangeEvent<HTMLInputElement>): void {
     const { checked } = e.target as HTMLInputElement
@@ -75,18 +87,18 @@ export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): 
           <Icon name="manually-entered-data" size={16} />
           <span>{getString('inputs')}</span>
         </NavLink>
-        {/* {!isCI && (
-          <NavLink
-            to={routes.toExecutionArtifactsView(params)}
-            className={css.tabLink}
-            activeClassName={css.activeLink}
-          >
-            <Icon name="add-to-artifact" size={16} />
-            <span>{i18n.artifacts}</span>
-          </NavLink>
-        )} */}
         {isCI && (
           <>
+            {ciShowArtifactsTab ? (
+              <NavLink
+                to={routes.toExecutionArtifactsView(params)}
+                className={css.tabLink}
+                activeClassName={css.activeLink}
+              >
+                <Icon name="add-to-artifact" size={16} />
+                <span>{getString('artifacts')}</span>
+              </NavLink>
+            ) : null}
             {ciShowCommitsTab ? (
               <NavLink
                 to={routes.toExecutionCommitsView(params)}

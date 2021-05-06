@@ -1,0 +1,12 @@
+.wrapper {
+  // 96px is ExtendedPageHeader's height
+  // 56px is Tabs's height
+  // --spacing-huge * 2 is top + bottom margins
+  height: calc(100vh - 96px - 56px - var(--spacing-xxxlarge) * 2);
+  width: 960px;
+  margin-right: auto;
+  margin-left: auto;
+  overflow: auto;
+  margin-top: var(--spacing-xxxlarge);
+  margin-bottom: var(--spacing-xxxlarge);
+}

@@ -4,5 +4,6 @@ declare const styles: {
   readonly main: string
   readonly heading: string
   readonly listItem: string
+  readonly imageTag: string
 }
 export default styles
