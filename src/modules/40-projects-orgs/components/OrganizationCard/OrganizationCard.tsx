@@ -174,7 +174,12 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
                   inviteCollab?.()
                 }}
                 restrictLengthTo={3}
-                permission={invitePermission}
+                permission={{
+                  ...invitePermission,
+                  options: {
+                    skipCondition: _permissionRequest => (isPreview ? true : false)
+                  }
+                }}
               />
               <Text font="small">{`${orgMembers?.length || 0} ${getString('members')}`}</Text>
             </Layout.Vertical>

@@ -148,7 +148,12 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
                   handleInviteCollaborators ? handleInviteCollaborators(data) : null
                 }}
                 restrictLengthTo={1}
-                permission={invitePermission}
+                permission={{
+                  ...invitePermission,
+                  options: {
+                    skipCondition: _permissionRequest => (isPreview ? true : false)
+                  }
+                }}
               />
             </Layout.Vertical>
             <Layout.Vertical spacing="xsmall">
@@ -164,7 +169,12 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
                   handleInviteCollaborators ? handleInviteCollaborators(data) : null
                 }}
                 restrictLengthTo={1}
-                permission={invitePermission}
+                permission={{
+                  ...invitePermission,
+                  options: {
+                    skipCondition: _permissionRequest => (isPreview ? true : false)
+                  }
+                }}
               />
             </Layout.Vertical>
           </Layout.Horizontal>
