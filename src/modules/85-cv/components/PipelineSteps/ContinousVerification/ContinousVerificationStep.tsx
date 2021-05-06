@@ -21,8 +21,7 @@ export class ContinousVerificationStep extends PipelineStep<ContinousVerificatio
   constructor() {
     super()
     this.invocationMap.set(ConnectorRefRegex, this.getSecretsListForYaml.bind(this))
-    // this will be turned true once backend support is available
-    this._hasStepVariables = false
+    this._hasStepVariables = true
   }
 
   protected type = StepType.Verify

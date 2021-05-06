@@ -101,7 +101,7 @@ export default function ConfigureVerificationJob(props: {
                 formik={formik}
               />
             </div>
-            {/* Traffic Split percentage is an optional field */}
+            {/* Traffic Split is an optional field */}
             {selectedJob?.trafficSplitPercentage && (
               <div className={cx(stepCss.formGroup)}>
                 <TrafficSplit
