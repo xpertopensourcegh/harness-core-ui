@@ -103,12 +103,15 @@ export function PermissionsProvider(props: React.PropsWithChildren<PermissionsPr
       setPermissions(oldPermissions => {
         return produce(oldPermissions, draft => {
           // find the current request in aggregated response
-          const hasAccess = !!res?.data?.accessControlList?.find((perm: AccessControl) =>
+          const hasAccess = res?.data?.accessControlList?.find((perm: AccessControl) =>
             isEqual(omit(perm, 'permitted'), permissionRequest)
           )?.permitted
 
           // update current request in the map
-          draft.set(getStringKeyFromObjectValues(permissionRequest, keysToCompare), hasAccess)
+          draft.set(
+            getStringKeyFromObjectValues(permissionRequest, keysToCompare),
+            typeof hasAccess === 'boolean' ? hasAccess : true
+          )
         })
       })
     } catch (err) {
