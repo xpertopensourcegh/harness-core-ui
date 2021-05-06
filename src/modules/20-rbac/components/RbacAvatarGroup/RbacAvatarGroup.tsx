@@ -1,10 +1,13 @@
 import React from 'react'
+import { pick } from 'lodash-es'
+
 import { AvatarGroup, AvatarGroupProps, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import { usePermission, PermissionsRequest, PermissionRequest } from '@rbac/hooks/usePermission'
+import { usePermission, PermissionsRequest } from '@rbac/hooks/usePermission'
+import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 
 interface RbacAvatarGroupProps extends AvatarGroupProps {
-  permission: PermissionRequest
+  permission: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
 }
 
 const RbacAvatarGroup: React.FC<RbacAvatarGroupProps> = ({ permission: permissionRequest, ...restProps }) => {
@@ -12,8 +15,7 @@ const RbacAvatarGroup: React.FC<RbacAvatarGroupProps> = ({ permission: permissio
 
   const [canDoAction] = usePermission(
     {
-      resourceScope: permissionRequest.resourceScope,
-      resource: permissionRequest.resource,
+      ...pick(permissionRequest, ['resourceScope', 'resource', 'options']),
       permissions: [permissionRequest.permission || '']
     } as PermissionsRequest,
     [permissionRequest]

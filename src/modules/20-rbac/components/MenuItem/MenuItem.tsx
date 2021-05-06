@@ -1,18 +1,21 @@
 import React from 'react'
+import { pick } from 'lodash-es'
 import { IMenuItemProps, Menu, MenuItem, PopoverInteractionKind } from '@blueprintjs/core'
+
 import { Container, Popover } from '@wings-software/uicore'
-import { usePermission, PermissionsRequest, PermissionRequest } from '@rbac/hooks/usePermission'
+import { usePermission, PermissionsRequest } from '@rbac/hooks/usePermission'
+import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { String } from 'framework/strings'
 import css from './MenuItem.module.scss'
+
 interface MenuItemProps extends IMenuItemProps {
-  permission: PermissionRequest
+  permission: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
 }
 
 const RbacMenuItem: React.FC<MenuItemProps> = ({ permission: permissionRequest, ...restProps }) => {
   const [canDoAction] = usePermission(
     {
-      resourceScope: permissionRequest.resourceScope,
-      resource: permissionRequest.resource,
+      ...pick(permissionRequest, ['resourceScope', 'resource', 'options']),
       permissions: [permissionRequest.permission || '']
     } as PermissionsRequest,
     [permissionRequest]
