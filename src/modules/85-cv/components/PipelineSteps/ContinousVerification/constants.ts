@@ -11,6 +11,12 @@ export enum JobTypes {
   CANARY = 'Canary'
 }
 
+export enum SensitivityTypes {
+  HIGH = 'High',
+  MEDIUM = 'Medium',
+  LOW = 'Low'
+}
+
 export enum IdentifierTypes {
   serviceIdentifier = '<+service.identifier>',
   envIdentifier = '<+env.identifier>'

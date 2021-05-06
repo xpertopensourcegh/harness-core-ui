@@ -9,7 +9,8 @@ import {
   VerificationSensitivityOptions,
   durationOptions,
   baseLineOptions,
-  trafficSplitPercentageOptions
+  trafficSplitPercentageOptions,
+  SensitivityTypes
 } from './constants'
 
 /**
@@ -79,7 +80,14 @@ export function getSpecYamlData(specInfo: spec | undefined): spec {
   const validspec = omitBy(specInfo, isNil)
 
   Object.keys(validspec).map((key: string) => {
-    validspec[key] = validspec[key].value ? validspec[key].value : validspec[key]
+    //TODO logic in if block will be removed once backend api is fixed : https://harness.atlassian.net/browse/CVNG-2481
+    if (key === 'sensitivity') {
+      validspec[key] = validspec[key].value
+        ? SensitivityTypes[validspec[key].value as keyof typeof SensitivityTypes]
+        : validspec[key]
+    } else {
+      validspec[key] = validspec[key].value ? validspec[key].value : validspec[key]
+    }
   })
 
   return validspec
@@ -123,6 +131,14 @@ export function getSpecFormData(specInfo: spec | undefined): spec {
 export function setFieldData(validspec: spec | undefined, field: string, fieldOptions: SelectOption[]): void {
   //finding the complete option if the field is fixed input
   if (validspec && validspec[field] && validspec[field] !== RUNTIME_INPUT_VALUE) {
-    validspec[field] = fieldOptions.find((el: SelectOption) => el.value === (validspec && validspec[field]))
+    //TODO logic in if block will be removed once backend api is fixed : https://harness.atlassian.net/browse/CVNG-2481
+    if (field === 'sensitivity') {
+      validspec[field] = fieldOptions.find(
+        (el: SelectOption) =>
+          SensitivityTypes[el.value as keyof typeof SensitivityTypes] === (validspec && validspec[field])
+      )
+    } else {
+      validspec[field] = fieldOptions.find((el: SelectOption) => el.value === (validspec && validspec[field]))
+    }
   }
 }

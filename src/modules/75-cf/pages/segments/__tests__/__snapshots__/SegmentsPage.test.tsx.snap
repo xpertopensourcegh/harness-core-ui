@@ -384,7 +384,7 @@ exports[`SegmentsPage SegmentsPage should render data correctly 1`] = `
                     datetime="2021-04-26T00:42:10.112Z"
                     title="2021-04-26 00:42"
                   >
-                    1 week ago
+                    2 weeks ago
                   </time>
                 </p>
                 <div
