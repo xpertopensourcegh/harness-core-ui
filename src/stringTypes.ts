@@ -1015,10 +1015,12 @@ export interface StringsMap {
   'cd.dashboard.createProject': string
   'cd.dashboard.orSelectExisting': string
   'cd.dashboard.subHeading': string
+  'cd.filePathRequired': string
   'cd.folderPath': string
   'cd.infrastructureKey': string
   'cd.learnMore': string
   'cd.namespaceValidation': string
+  'cd.pathCannotBeEmpty': string
   'cd.releaseNameValidation': string
   'cd.setUpProvisionerBtnText': string
   'cd.steps.common.namespacePlaceholder': string
