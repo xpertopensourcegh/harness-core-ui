@@ -61,7 +61,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
-import GitFilters, { GitFiltersProps } from '@common/components/GitFilters/GitFilters'
+import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import ConnectorsListView from './views/ConnectorsListView'
 import { getIconByType, getConnectorDisplayName } from './utils/ConnectorUtils'
@@ -103,7 +103,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   const [isRefreshingFilters, setIsRefreshingFilters] = useState<boolean>(false)
   const [isFetchingStats, setIsFetchingStats] = useState<boolean>(false)
   const filterRef = React.useRef<FilterRef<FilterDTO> | null>(null)
-  const [gitFilter, setGitFilter] = useState<GitFiltersProps['defaultValue']>({ repo: '', branch: '' })
+  const [gitFilter, setGitFilter] = useState<GitFilterScope>({ repo: '', branch: '' })
   const defaultQueryParams: GetConnectorListV2QueryParams = {
     pageIndex: page,
     pageSize: 10,

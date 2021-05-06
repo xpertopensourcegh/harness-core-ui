@@ -21,14 +21,14 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/exports'
 import css from './GitFilters.module.scss'
 
-interface GitFilterForm {
+export interface GitFilterScope {
   repo: string
   branch: GitBranchDTO['branchName']
 }
 
 export interface GitFiltersProps {
-  defaultValue?: GitFilterForm
-  onChange: (value: GitFilterForm) => void
+  defaultValue?: GitFilterScope
+  onChange: (value: GitFilterScope) => void
   className?: string
   branchSelectClassName?: string
 }

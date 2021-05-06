@@ -20,7 +20,8 @@ import {
   ConnectorResponse,
   getConnectorListV2Promise,
   ConnectorFilterProperties,
-  useGetConnector
+  useGetConnector,
+  EntityGitDetails
 } from 'services/cd-ng'
 import {
   EntityReferenceResponse,
@@ -35,6 +36,7 @@ import useCreateConnectorMultiTypeModal from '@connectors/modals/ConnectorModal/
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { String, useStrings } from 'framework/strings'
 import { ReferenceSelect, ReferenceSelectProps } from '@common/components/ReferenceSelect/ReferenceSelect'
+import type { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import css from './ConnectorReferenceField.module.scss'
 
 interface AdditionalParams {
@@ -79,6 +81,7 @@ export interface ConnectorReferenceFieldProps extends Omit<IFormGroupProps, 'lab
   selected?: ConnectorSelectedValue | string
   onChange?: (connector: ConnectorReferenceDTO, scope: Scope) => void
   orgIdentifier?: string
+  gitScope?: GitFilterScope
   defaultScope?: Scope
   width?: number
   type?: ConnectorInfoDTO['type'] | ConnectorInfoDTO['type'][]
@@ -88,6 +91,7 @@ export interface ConnectorReferenceFieldProps extends Omit<IFormGroupProps, 'lab
 
 export interface ConnectorReferenceDTO extends ConnectorInfoDTO {
   status: ConnectorResponse['status']
+  gitDetails?: EntityGitDetails
 }
 export function getEditRenderer(
   selected: ConnectorSelectedValue,
@@ -147,6 +151,7 @@ interface GetReferenceFieldMethodProps extends ConnectorReferenceFieldProps {
 
 export function getReferenceFieldProps({
   defaultScope,
+  gitScope,
   accountIdentifier,
   projectIdentifier,
   orgIdentifier,
@@ -170,12 +175,15 @@ export function getReferenceFieldProps({
     recordClassName: css.listItem,
     fetchRecords: (scope, search = '', done) => {
       const additionalParams = getAdditionalParams({ scope, projectIdentifier, orgIdentifier })
+      const gitFilterParams =
+        gitScope?.repo && gitScope?.branch ? { repoIdentifier: gitScope.repo, branch: gitScope.branch } : {}
       const request = Array.isArray(type)
         ? getConnectorListV2Promise({
             queryParams: {
               accountIdentifier,
               searchTerm: search,
-              ...additionalParams
+              ...additionalParams,
+              ...gitFilterParams
             },
             body: {
               ...(!category && { types: type }),
@@ -190,6 +198,7 @@ export function getReferenceFieldProps({
               accountIdentifier,
               // If we also pass "type" along with "category", "category" will be ignored
               ...(!category && { type }),
+              ...gitFilterParams,
               category,
               searchTerm: search,
               projectIdentifier: scope === Scope.PROJECT ? projectIdentifier : undefined,
@@ -206,7 +215,11 @@ export function getReferenceFieldProps({
               response.push({
                 name: connector.connector?.name || '',
                 identifier: connector.connector?.identifier || '',
-                record: { ...connector.connector, status: connector.status } as ConnectorReferenceDTO
+                record: {
+                  ...connector.connector,
+                  status: connector.status,
+                  gitDetails: connector.gitDetails?.objectId ? connector.gitDetails : undefined
+                } as ConnectorReferenceDTO
               })
             })
             done(response)
@@ -255,6 +268,22 @@ export function getReferenceFieldProps({
               />
             </Layout.Horizontal>
           </div>
+          {item.record.gitDetails?.repoIdentifier && (
+            <Layout.Vertical margin={{ left: 'xsmall' }} spacing="small">
+              <Layout.Horizontal spacing="xsmall">
+                <Icon name="repository" size={12}></Icon>
+                <Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
+                  {item.record.gitDetails.repoIdentifier}
+                </Text>
+              </Layout.Horizontal>
+              <Layout.Horizontal spacing="xsmall">
+                <Icon size={12} name="git-new-branch"></Icon>
+                <Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
+                  {item.record.gitDetails.branch}
+                </Text>
+              </Layout.Horizontal>
+            </Layout.Vertical>
+          )}
           <Icon className={cx(css.iconCheck, { [css.iconChecked]: checked })} name="pipeline-approval" />
         </>
       )
@@ -265,6 +294,7 @@ export function getReferenceFieldProps({
 export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = props => {
   const {
     defaultScope,
+    gitScope,
     accountIdentifier,
     projectIdentifier,
     orgIdentifier,
@@ -396,6 +426,7 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
         }}
         {...getReferenceFieldProps({
           defaultScope,
+          gitScope,
           accountIdentifier,
           projectIdentifier,
           orgIdentifier,
