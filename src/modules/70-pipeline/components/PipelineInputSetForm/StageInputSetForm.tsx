@@ -23,6 +23,7 @@ import { getStepFromStage } from '../PipelineStudio/StepUtil'
 import { StepWidget } from '../AbstractSteps/StepWidget'
 import { StepViewType } from '../AbstractSteps/Step'
 import css from './PipelineInputSetForm.module.scss'
+// import { deployStageStep } from '@common/components/AddDrawer/__tests__/mockResponses'
 function StepForm({
   template,
   allValues,
@@ -218,7 +219,6 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
   const deploymentStageInputSet = get(formik?.values, path, {})
   const { getString } = useStrings()
   const isPropagating = deploymentStage?.serviceConfig?.useFromStage
-
   return (
     <>
       {deploymentStageTemplate.serviceConfig && (
@@ -251,13 +251,13 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 <StepWidget<ServiceSpec>
                   factory={factory}
                   initialValues={
-                    isPropagating
-                      ? deploymentStageInputSet?.serviceConfig.stageOverrides
+                    isPropagating && deploymentStageInputSet
+                      ? deploymentStageInputSet?.serviceConfig?.stageOverrides
                       : deploymentStageInputSet?.serviceConfig?.serviceDefinition?.spec || {}
                   }
                   template={
-                    isPropagating
-                      ? deploymentStageTemplate?.serviceConfig.stageOverrides
+                    isPropagating && deploymentStageTemplate
+                      ? deploymentStageTemplate?.serviceConfig?.stageOverrides
                       : deploymentStageTemplate?.serviceConfig?.serviceDefinition?.spec || {}
                   }
                   type={StepType.K8sServiceSpec}

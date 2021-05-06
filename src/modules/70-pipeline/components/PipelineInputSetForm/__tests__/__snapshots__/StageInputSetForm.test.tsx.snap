@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`stageinputset tests initial render 1`] = `
+<div>
+  <div
+    class="Accordion--panel nestedAccordions"
+    data-open="false"
+    data-testid="Stage.undefined.Service-panel"
+    id="Stage.undefined.Service-panel"
+  >
+    <div
+      class="Accordion--summary nopadLeft accordionSummary"
+      data-testid="Stage.undefined.Service-summary"
+    >
+      <div
+        class="Accordion--chevron"
+      />
+      <div
+        class=""
+      >
+        <div
+          class="stagesTreeBulletCircle"
+        >
+          <span>
+            service
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="bp3-collapse Accordion--collapse"
+    >
+      <div
+        aria-hidden="false"
+        class="bp3-collapse-body"
+        style="transform: translateY(-undefinedpx);"
+      />
+    </div>
+  </div>
+  <div
+    class="Accordion--panel nestedAccordions"
+    data-open="false"
+    data-testid="Stage.undefined.Infrastructure-panel"
+    id="Stage.undefined.Infrastructure-panel"
+  >
+    <div
+      class="Accordion--summary nopadLeft accordionSummary"
+      data-testid="Stage.undefined.Infrastructure-summary"
+    >
+      <div
+        class="Accordion--chevron"
+      />
+      <div
+        class=""
+      >
+        <div
+          class="stagesTreeBulletCircle"
+        >
+          <span>
+            infrastructureText
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="bp3-collapse Accordion--collapse"
+    >
+      <div
+        aria-hidden="false"
+        class="bp3-collapse-body"
+        style="transform: translateY(-undefinedpx);"
+      />
+    </div>
+  </div>
+  <div
+    class="Accordion--panel nestedAccordions"
+    data-open="false"
+    data-testid="Stage.undefined.Execution-panel"
+    id="Stage.undefined.Execution-panel"
+  >
+    <div
+      class="Accordion--summary nopadLeft accordionSummary"
+      data-testid="Stage.undefined.Execution-summary"
+    >
+      <div
+        class="Accordion--chevron"
+      />
+      <div
+        class=""
+      >
+        <div
+          class="stagesTreeBulletCircle"
+        >
+          <span>
+            executionText
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="bp3-collapse Accordion--collapse"
+    >
+      <div
+        aria-hidden="false"
+        class="bp3-collapse-body"
+        style="transform: translateY(-undefinedpx);"
+      />
+    </div>
+  </div>
+</div>
+`;
