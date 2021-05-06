@@ -18,8 +18,8 @@ export const getStageNodesWithArtifacts: (data: ExecutionGraph, stageIds: string
     const { setupId = '', outcomes = [] } = entry
     return (
       stageIds.includes(setupId) &&
-      outcomes.length &&
-      outcomes.some(outcome => outcome.fileArtifacts?.length || outcome.imageArtifacts?.length)
+      outcomes?.length &&
+      outcomes?.some(outcome => outcome.fileArtifacts?.length || outcome.imageArtifacts?.length)
     )
   })
 }
