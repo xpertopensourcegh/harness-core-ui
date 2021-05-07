@@ -359,7 +359,7 @@ describe('Plugin Step', () => {
               spec: {
                 connectorRef: 'step-connectorRef',
                 image: 'step-image',
-                privileged: false,
+                privileged: 'step-privileged',
                 settings: 'step-settings',
                 // TODO: Right now we do not support Image Pull Policy but will do in the future
                 // pull: 'step-pull',

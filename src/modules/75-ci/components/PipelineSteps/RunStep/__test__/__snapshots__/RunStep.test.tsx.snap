@@ -4292,7 +4292,6 @@ exports[`Run Step Edit View should render properly 1`] = `
                   class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox input StyledProps--main"
                 >
                   <input
-                    checked=""
                     name="spec.privileged"
                     type="checkbox"
                   />

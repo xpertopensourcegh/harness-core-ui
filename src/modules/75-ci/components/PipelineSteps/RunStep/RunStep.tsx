@@ -114,7 +114,7 @@ export class RunStep extends PipelineStep<RunStepData> {
       connectorRef: '',
       image: '',
       command: '',
-      privileged: true
+      privileged: false
     }
   }
 
