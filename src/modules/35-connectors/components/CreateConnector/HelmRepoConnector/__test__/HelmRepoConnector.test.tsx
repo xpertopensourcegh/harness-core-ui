@@ -21,7 +21,8 @@ jest.mock('services/cd-ng', () => ({
   useCreateConnector: jest.fn().mockImplementation(() => ({ mutate: createConnector })),
   useUpdateConnector: jest.fn().mockImplementation(() => ({ mutate: updateConnector })),
   getSecretV2Promise: jest.fn().mockImplementation(() => Promise.resolve(mockSecret)),
-  useGetTestConnectionResult: jest.fn().mockImplementation(() => jest.fn())
+  useGetTestConnectionResult: jest.fn().mockImplementation(() => jest.fn()),
+  useGetFileContent: jest.fn().mockImplementation(() => jest.fn())
 }))
 
 describe('Create Helm Connector  Wizard', () => {

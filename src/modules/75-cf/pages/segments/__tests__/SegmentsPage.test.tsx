@@ -5,6 +5,7 @@ import mockEnvironments from '@cf/pages/environments/__tests__/mockEnvironments'
 import mockImport from 'framework/utils/mockImport'
 import { SegmentsPage } from '../SegmentsPage'
 
+// eslint-disable-next-line jest/no-disabled-tests
 describe('SegmentsPage', () => {
   test('SegmentsPage should render loading correctly 1', async () => {
     mockImport('services/cf', {

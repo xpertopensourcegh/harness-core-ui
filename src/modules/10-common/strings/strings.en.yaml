@@ -277,3 +277,11 @@ errorHandler:
   tryTheseSuggestions: Try these suggestions
 noRefData: 'No references found'
 references: 'References'
+totalLines: 'Total lines'
+newLines: 'New lines'
+unsavedChanges: You may have unsaved changes
+newVersion: There is a new version of this branch
+confictOccured: '{{name}} has committed since you started editing.'
+resolveConflict: Resolve the conflicts before Saving.
+seeWhatChanged: See What Changed
+changesUnsaved: You may have unsaved changes.

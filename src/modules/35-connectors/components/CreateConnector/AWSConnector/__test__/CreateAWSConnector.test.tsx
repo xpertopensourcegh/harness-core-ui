@@ -24,7 +24,8 @@ jest.mock('services/cd-ng', () => ({
   validateTheIdentifierIsUniquePromise: jest.fn().mockImplementation(() => Promise.resolve(mockResponse)),
   useCreateConnector: jest.fn().mockImplementation(() => ({ mutate: createConnector })),
   useUpdateConnector: jest.fn().mockImplementation(() => ({ mutate: updateConnector })),
-  getSecretV2Promise: jest.fn().mockImplementation(() => Promise.resolve(mockSecret))
+  getSecretV2Promise: jest.fn().mockImplementation(() => Promise.resolve(mockSecret)),
+  useGetFileContent: jest.fn().mockImplementation(() => jest.fn())
 }))
 
 jest.mock('services/portal', () => ({

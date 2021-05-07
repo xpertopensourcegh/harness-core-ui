@@ -101,8 +101,10 @@ export interface StringsMap {
   'common.authSettings.usePublicOAuth': string
   'common.authSettings.whitelistedDomainsDisabled': string
   'common.authSettings.yourAccountWillBeLockedOut': string
+  'common.changesUnsaved': string
   'common.cluster': string
   'common.comments': string
+  'common.confictOccured': string
   'common.createPipeline': string
   'common.datePickerShortcuts.Last2Days': string
   'common.datePickerShortcuts.Last2Months': string
@@ -175,6 +177,8 @@ export interface StringsMap {
   'common.logs.noLogsText': string
   'common.member': string
   'common.namespace': string
+  'common.newLines': string
+  'common.newVersion': string
   'common.noRefData': string
   'common.note': string
   'common.ok': string
@@ -221,6 +225,7 @@ export interface StringsMap {
   'common.repo_provider.customLabel': string
   'common.repo_provider.githubLabel': string
   'common.repo_provider.gitlabLabel': string
+  'common.resolveConflict': string
   'common.role': string
   'common.samlProvider.addSAMLProvider': string
   'common.samlProvider.azure': string
@@ -244,10 +249,13 @@ export interface StringsMap {
   'common.samlProvider.uploadIdentityProvider': string
   'common.secretKey': string
   'common.secrets': string
+  'common.seeWhatChanged': string
   'common.selectStrategy': string
   'common.specify': string
+  'common.totalLines': string
   'common.trialInProgress': string
   'common.trialInProgressDescription': string
+  'common.unsavedChanges': string
   'common.userGroup': string
   'common.userGroups': string
   'common.validation.fileIsRequired': string
@@ -669,7 +677,6 @@ export interface StringsMap {
   'gitsync.label': string
   'gitsync.markAsDefault': string
   'gitsync.moveFolder': string
-  'gitsync.newLines': string
   'gitsync.repositoryPath': string
   'gitsync.rootFolderListHeader': string
   'gitsync.rootFolderUpdatedSuccessfully': string
@@ -677,8 +684,6 @@ export interface StringsMap {
   'gitsync.seeLess': string
   'gitsync.seeMore': string
   'gitsync.successfullCreate': string
-  'gitsync.totalLines': string
-  'gitsync.unsavedChanges': string
   'pipeline.and': string
   'pipeline.approvalStep.addUserGroups': string
   'pipeline.approvalStep.approverInputs': string

@@ -16,7 +16,7 @@ import { noop } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { DelegateTypes } from '@connectors/pages/connectors/utils/ConnectorUtils'
-import { DelegateSelectors } from '@common/components'
+import { DelegateSelectors, PageSpinner } from '@common/components'
 import { useToaster } from '@common/exports'
 import {
   useCreateConnector,
@@ -30,6 +30,7 @@ import {
 } from 'services/cd-ng'
 
 import useSaveToGitDialog from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
+import { useGitDiffDialog } from '@common/modals/GitDiff/useGitDiffDialog'
 import { Entities } from '@common/interfaces/GitSyncInterface'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import css from './DelegateSelectorStep.module.scss'
@@ -124,6 +125,17 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
     onClose: noop
   })
 
+  const { openGitDiffDialog } = useGitDiffDialog<ConnectorCreateEditProps>({
+    onSuccess: (data: ConnectorCreateEditProps): void => {
+      try {
+        handleCreateOrEdit(data)
+      } catch (e) {
+        //ignore error
+      }
+    },
+    onClose: noop
+  })
+
   const handleCreateOrEdit = async (connectorData: ConnectorCreateEditProps): Promise<void> => {
     const { gitData } = connectorData
     const payload = connectorData.payload || (connectorPayloadRef as Connector)
@@ -139,7 +151,11 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
         : await createConnector(payload, { queryParams: queryParams })
       afterSuccessHandler(response)
     } catch (e) {
-      modalErrorHandler?.showDanger(e.data?.message || e.message)
+      if (e.data?.code === 'SCM_CONFLICT_ERROR') {
+        openGitDiffDialog(connectorData, connectorData?.gitData)
+      } else {
+        modalErrorHandler?.showDanger(e.data?.message || e.message)
+      }
     }
   }
 
@@ -155,53 +171,54 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
       <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
         {getString('delegateSelection')}
       </Text>
-      <Formik
-        initialValues={{
-          ...initialValues,
-          ...prevStepData
-        }}
-        //   Enable when delegateSelector adds form validation
-        // validationSchema={Yup.object().shape({
-        //   delegateSelector: Yup.string().when('delegateType', {
-        //     is: DelegateTypes.DELEGATE_IN_CLUSTER,
-        //     then: Yup.string().trim().required(i18n.STEP.TWO.validation.delegateSelector)
-        //   })
-        // })}
-        onSubmit={stepData => {
-          const connectorData: BuildPayloadProps = {
-            ...prevStepData,
-            ...stepData,
-            delegateSelectors,
-            projectIdentifier: projectIdentifier,
-            orgIdentifier: orgIdentifier
-          }
-
-          const data = buildPayload(connectorData)
-          setConnectorPayloadRef(data)
-          stepDataRef = stepData
-          if (isGitSyncEnabled) {
-            openSaveToGitDialog(props.isEditMode, {
-              type: Entities.CONNECTORS,
-              name: data.connector?.name || '',
-              identifier: data.connector?.identifier || '',
-              gitDetails
-            })
-          } else {
-            if (customHandleUpdate || customHandleCreate) {
-              props.isEditMode
-                ? customHandleUpdate?.(data, { ...prevStepData, ...stepData }, props)
-                : customHandleCreate?.(data, { ...prevStepData, ...stepData }, props)
-            } else {
-              handleCreateOrEdit({ payload: data })
+      {updating ? (
+        <PageSpinner />
+      ) : (
+        <Formik
+          initialValues={{
+            ...initialValues,
+            ...prevStepData
+          }}
+          //   Enable when delegateSelector adds form validation
+          // validationSchema={Yup.object().shape({
+          //   delegateSelector: Yup.string().when('delegateType', {
+          //     is: DelegateTypes.DELEGATE_IN_CLUSTER,
+          //     then: Yup.string().trim().required(i18n.STEP.TWO.validation.delegateSelector)
+          //   })
+          // })}
+          onSubmit={stepData => {
+            const connectorData: BuildPayloadProps = {
+              ...prevStepData,
+              ...stepData,
+              delegateSelectors,
+              projectIdentifier: projectIdentifier,
+              orgIdentifier: orgIdentifier
             }
-          }
-        }}
-      >
-        <Form>
-          <ModalErrorHandler bind={setModalErrorHandler} />
 
-          <Layout.Vertical padding={{ top: 'xxlarge', bottom: 'large' }} className={css.formData}>
-            <>
+            const data = buildPayload(connectorData)
+            setConnectorPayloadRef(data)
+            stepDataRef = stepData
+            if (isGitSyncEnabled) {
+              openSaveToGitDialog(props.isEditMode, {
+                type: Entities.CONNECTORS,
+                name: data.connector?.name || '',
+                identifier: data.connector?.identifier || '',
+                gitDetails
+              })
+            } else {
+              if (customHandleUpdate || customHandleCreate) {
+                props.isEditMode
+                  ? customHandleUpdate?.(data, { ...prevStepData, ...stepData }, props)
+                  : customHandleCreate?.(data, { ...prevStepData, ...stepData }, props)
+              } else {
+                handleCreateOrEdit({ payload: data })
+              }
+            }
+          }}
+        >
+          <Form>
+            <ModalErrorHandler bind={setModalErrorHandler} />
+            <Layout.Vertical padding={{ top: 'xxlarge', bottom: 'large' }} className={css.formData}>
               <Text margin={{ bottom: 'medium' }}>{getString('delegate.DelegateselectionConnectorText')}</Text>
               <DelegateSelectors
                 className={css.formInput}
@@ -213,29 +230,30 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
                   setDelegateSelectors(data as Array<string>)
                 }}
               ></DelegateSelectors>
-            </>
-          </Layout.Vertical>
-          <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
-            <Button
-              text={getString('back')}
-              icon="chevron-left"
-              onClick={() => props?.previousStep?.(props?.prevStepData)}
-              data-name="awsBackButton"
-            />
-            <Button
-              type="submit"
-              intent={'primary'}
-              text={getString('saveAndContinue')}
-              disabled={
-                (DelegateTypes.DELEGATE_IN_CLUSTER === prevStepData?.delegateType && delegateSelectors.length === 0) ||
-                creating ||
-                updating
-              }
-              rightIcon="chevron-right"
-            />
-          </Layout.Horizontal>
-        </Form>
-      </Formik>
+            </Layout.Vertical>
+            <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
+              <Button
+                text={getString('back')}
+                icon="chevron-left"
+                onClick={() => props?.previousStep?.(props?.prevStepData)}
+                data-name="awsBackButton"
+              />
+              <Button
+                type="submit"
+                intent={'primary'}
+                text={getString('saveAndContinue')}
+                disabled={
+                  (DelegateTypes.DELEGATE_IN_CLUSTER === prevStepData?.delegateType &&
+                    delegateSelectors.length === 0) ||
+                  creating ||
+                  updating
+                }
+                rightIcon="chevron-right"
+              />
+            </Layout.Horizontal>
+          </Form>
+        </Formik>
+      )}
     </Layout.Vertical>
   )
 }
