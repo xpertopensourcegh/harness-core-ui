@@ -145,8 +145,8 @@ featureFlags:
   deleteFlagMessage: Are you sure you want to delete flag <strong>{{name}}</strong>? This action cannot be undone.
   archiveFlag: Archive Flag
   archiveFlagMessage: Are you sure you want to archive flag <strong>{{name}}</strong>? This action cannot be undone.
-  flagOff: Flag Targeting is OFF
-  flagOn: Flag Targeting is ON
+  flagOff: Flag is OFF
+  flagOn: Flag is ON
   flagWillTurnOn: Turn flag on for this environment upon save
   flagWillTurnOff: Turn flag off for this environment upon save
   targeting: Targeting

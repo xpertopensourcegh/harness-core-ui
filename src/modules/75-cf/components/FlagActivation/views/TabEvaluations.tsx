@@ -36,17 +36,20 @@ const _formatDateWithoutYear = (date: number): string => {
 
 export const TabEvaluations: React.FC<TabEvaluationsProps> = ({ flagData, startDate, endDate }) => {
   const { getString } = useStrings()
-  const { accountId: account, orgIdentifier: org, projectIdentifier: project } = useParams<Record<string, string>>()
+  const { accountId: account, orgIdentifier: org, projectIdentifier: project, environmentIdentifier } = useParams<
+    Record<string, string>
+  >()
   const queryParams = useMemo(
     () => ({
       account,
       accountIdentifier: account,
       org,
       project,
+      environment: environmentIdentifier,
       startTime: startDate.getTime(),
       endTime: endDate.getTime()
     }),
-    [startDate, endDate, account, org, project]
+    [startDate, endDate, account, org, project, environmentIdentifier]
   )
   const { data, loading, error, refetch } = useGetFeatureEvaluations({
     identifier: flagData.identifier,
