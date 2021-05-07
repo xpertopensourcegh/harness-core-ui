@@ -170,59 +170,57 @@ const PurposeList: React.FC<ProjectModalData> = props => {
   }
 
   return (
-    <Layout.Vertical spacing="large" className={css.modalPage}>
+    <Layout.Vertical spacing="large" padding="huge">
       <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
         {i18n.newProjectWizard.purposeList.name}
       </Text>
       <Layout.Horizontal padding={{ top: 'large' }}>
-        <Container width="65%">
-          <div className={css.border}>
-            {getOptions().map(option => (
-              <Card key={option.title} className={css.card}>
-                <Layout.Horizontal spacing="small">
-                  <Icon name={option.icon} size={30} />
-                  <div>
-                    <Text font="small">{i18n.newProjectWizard.purposeList.continuous}</Text>
-                    <Text font={{ size: 'medium' }} padding={{ bottom: 'xxlarge' }} color={Color.BLACK}>
-                      {option.title}
-                    </Text>
-                  </div>
-                </Layout.Horizontal>
-
-                <Text font="small" padding={{ bottom: 'xxlarge' }} className={css.description}>
-                  {option.Description}
-                </Text>
-                <Layout.Horizontal spacing="large">
-                  <Text font="small" className={css.time}>
-                    {i18n.newProjectWizard.purposeList.time}
+        <Container width="60%" className={css.border}>
+          {getOptions().map(option => (
+            <Card key={option.title} className={css.card}>
+              <Layout.Horizontal spacing="small">
+                <Icon name={option.icon} size={30} />
+                <div>
+                  <Text font="small">{i18n.newProjectWizard.purposeList.continuous}</Text>
+                  <Text font={{ size: 'medium' }} padding={{ bottom: 'xxlarge' }} color={Color.BLACK}>
+                    {option.title}
                   </Text>
-                  {selected.includes(option.module) ? (
-                    <Button
-                      font={{ size: 'small', weight: 'semi-bold' }}
-                      className={css.enabled}
-                      icon="tick"
-                      iconProps={{ size: 10, padding: 'xsmall' }}
-                    >
-                      {i18n.newProjectWizard.purposeList.enabled}
-                    </Button>
-                  ) : (
-                    <Button
-                      font={{ size: 'small', weight: 'semi-bold' }}
-                      className={css.enable}
-                      data-testid={option.module}
-                      onClick={() => {
-                        addModule(option.module)
-                      }}
-                    >
-                      {i18n.newProjectWizard.purposeList.enable}
-                    </Button>
-                  )}
-                </Layout.Horizontal>
-              </Card>
-            ))}
-          </div>
+                </div>
+              </Layout.Horizontal>
+
+              <Text font="small" padding={{ bottom: 'xxlarge' }} className={css.description}>
+                {option.Description}
+              </Text>
+              <Layout.Horizontal spacing="large">
+                <Text font="small" className={css.time}>
+                  {i18n.newProjectWizard.purposeList.time}
+                </Text>
+                {selected.includes(option.module) ? (
+                  <Button
+                    font={{ size: 'small', weight: 'semi-bold' }}
+                    className={css.enabled}
+                    icon="tick"
+                    iconProps={{ size: 10, padding: 'xsmall' }}
+                  >
+                    {i18n.newProjectWizard.purposeList.enabled}
+                  </Button>
+                ) : (
+                  <Button
+                    font={{ size: 'small', weight: 'semi-bold' }}
+                    className={css.enable}
+                    data-testid={option.module}
+                    onClick={() => {
+                      addModule(option.module)
+                    }}
+                  >
+                    {i18n.newProjectWizard.purposeList.enable}
+                  </Button>
+                )}
+              </Layout.Horizontal>
+            </Card>
+          ))}
         </Container>
-        <Container width="35%" padding={{ left: 'huge', top: 'medium' }}>
+        <Container width="40%" padding={{ left: 'huge', top: 'medium' }}>
           {selected.length === 0 ? (
             <Text font={{ size: 'medium', weight: 'semi-bold' }}>
               {i18n.newProjectWizard.purposeList.selectAModule}

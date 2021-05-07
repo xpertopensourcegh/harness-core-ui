@@ -6667,8 +6667,7 @@ export interface ResponsePageUserMetadataDTO {
 }
 
 export interface UserFilter {
-  name?: string
-  mail?: string
+  searchTerm?: string
   identifiers?: string[]
 }
 

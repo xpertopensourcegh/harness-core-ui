@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, ExpandingSearchInput, Layout } from '@wings-software/uicore'
-
+import cx from 'classnames'
 import { useHistory, useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { Page } from '@common/exports'
@@ -65,16 +65,18 @@ const UsersPage: React.FC = () => {
           </Layout.Horizontal>
         }
         content={
-          <Layout.Horizontal height="inherit" flex={{ alignItems: 'flex-end' }} spacing="small" className={css.tabs}>
+          <Layout.Horizontal height="inherit" flex={{ alignItems: 'flex-end' }} spacing="small">
             <Button
               text={getString('rbac.activeUsers')}
               minimal
+              className={cx({ [css.selectedTabs]: view != Views.PENDING })}
               intent={view === Views.PENDING ? 'none' : 'primary'}
               onClick={() => history.push(routes.toUsers({ accountId, orgIdentifier, projectIdentifier, module }))}
             />
             <Button
               text={getString('rbac.pendingUsers')}
               minimal
+              className={cx({ [css.selectedTabs]: view === Views.PENDING })}
               intent={view === Views.PENDING ? 'primary' : 'none'}
               onClick={() =>
                 history.push({

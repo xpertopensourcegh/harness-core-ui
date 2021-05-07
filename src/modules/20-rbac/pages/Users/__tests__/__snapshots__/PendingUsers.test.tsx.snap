@@ -39,7 +39,7 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
       </button>
     </div>
     <div
-      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main tabs StyledProps--flex StyledProps--flex-alignItems-flex-end"
+      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-end"
       style="height: inherit;"
     >
       <button
@@ -53,7 +53,7 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
         </span>
       </button>
       <button
-        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main selectedTabs StyledProps--intent-primary Button--with-current-color Button--without-shadow"
         type="button"
       >
         <span

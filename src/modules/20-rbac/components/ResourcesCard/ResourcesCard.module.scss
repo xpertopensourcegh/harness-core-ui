@@ -8,7 +8,7 @@
 
 .resourceFields {
   display: grid !important;
-  grid-template-columns: 1fr 1fr 3fr 1fr;
+  grid-template-columns: 1fr 1fr 2.5fr 1fr;
   align-items: center;
   column-gap: var(--spacing-xxlarge);
 }

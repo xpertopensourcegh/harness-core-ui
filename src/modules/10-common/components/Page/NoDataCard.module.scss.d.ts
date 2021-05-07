@@ -1,8 +1,6 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly tabs: string
-  readonly selectedTabs: string
-  readonly toolbar: string
+  readonly noDataCard: string
 }
 export default styles

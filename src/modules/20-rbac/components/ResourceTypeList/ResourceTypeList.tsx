@@ -29,6 +29,9 @@ const ResourceTypeList: React.FC<ResourceTypeListProps> = props => {
     }
   }
 
+  const getIntermittent = (resourceTypes: ResourceType[]): boolean =>
+    Array.from(resourceTypes).some(value => preSelectedResourceList.includes(value))
+
   return (
     <Layout.Vertical flex spacing="small">
       {resourceCategoryMap?.keys() &&
@@ -55,12 +58,17 @@ const ResourceTypeList: React.FC<ResourceTypeListProps> = props => {
                         data-testid={`CHECK-BOX-${resourceCategory}`}
                         key={resourceCategory}
                         disabled={disableAddingResources}
+                        checked={getChecked(resourceCategory, resourceTypes)}
+                        indeterminate={
+                          resourceTypes
+                            ? getIntermittent(resourceTypes) && !getChecked(resourceCategory, resourceTypes)
+                            : undefined
+                        }
                         onChange={e => {
                           if (resourceTypes) onResourceCategorySelect(resourceTypes, e.currentTarget.checked)
                           else onResourceSelectionChange(resourceCategory as ResourceType, e.currentTarget.checked)
                         }}
                         value={resourceCategory}
-                        checked={getChecked(resourceCategory, resourceTypes)}
                       />
                       <Layout.Horizontal spacing="small">
                         <Icon name={resourceCategoryHandler.icon} />

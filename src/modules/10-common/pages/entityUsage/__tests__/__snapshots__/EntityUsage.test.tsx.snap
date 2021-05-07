@@ -209,8 +209,7 @@ exports[`Entity Usage render for no data 1`] = `
     class="StyledProps--font StyledProps--main pageBody"
   >
     <div
-      class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
-      style="width: 100%; height: 100%;"
+      class="StyledProps--font StyledProps--main noDataCard StyledProps--flex StyledProps--flex-align-center-center"
     >
       <div
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"

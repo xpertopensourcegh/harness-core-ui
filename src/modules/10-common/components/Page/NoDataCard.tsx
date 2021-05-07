@@ -1,7 +1,7 @@
 import React from 'react'
 import { ButtonProps, Button, Color, Heading, Container, Icon, Layout, IconName } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-
+import css from './NoDataCard.module.scss'
 export interface NoDataCardProps {
   icon: IconName
   iconSize?: number
@@ -31,7 +31,7 @@ export const NoDataCard: React.FC<NoDataCardProps> = props => {
   }
   const buttonDisabled = typeof props.buttonDisabled !== undefined && props.buttonDisabled
   return (
-    <Container width="100%" height="100%" flex={{ align: 'center-center' }}>
+    <Container className={css.noDataCard} flex={{ align: 'center-center' }}>
       <Layout.Vertical
         spacing="medium"
         width={props?.width || 470}

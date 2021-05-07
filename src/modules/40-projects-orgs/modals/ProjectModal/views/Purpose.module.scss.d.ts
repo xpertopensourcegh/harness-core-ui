@@ -5,7 +5,6 @@ declare const styles: {
   readonly halfWidth: string
   readonly border: string
   readonly started: string
-  readonly modalPage: string
   readonly text: string
   readonly textPadding: string
   readonly button: string

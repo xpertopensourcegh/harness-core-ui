@@ -2,6 +2,11 @@
   padding-bottom: 2px !important;
 }
 
+.selectedTabs {
+  border-radius: 0px;
+  border-bottom: 2px solid var(--primary-7) !important;
+}
+
 .toolbar {
   min-width: 250px;
   justify-content: flex-end;

@@ -1,14 +1,13 @@
 .card {
   width: 190px;
-  height: 210px;
+  height: 230px;
   box-shadow: 1px 1px 15px 3px rgba(0, 0, 0, 0.1);
   border: 1px solid transparent !important;
   &:hover {
     cursor: pointer;
-    box-shadow: 0 0 5px 0px var(--blue-400) !important;
-    border: 1px solid var(--blue-400) !important;
+    border: 1px solid var(--primary-7) !important;
   }
-  margin: var(--spacing-medium);
+  margin: var(--spacing-medium) var(--spacing-none);
 }
 
 .halfWidth {
@@ -19,15 +18,15 @@
 }
 
 .border {
+  display: grid;
   border-right: inset;
+  grid-template-columns: auto auto auto;
+  grid-auto-rows: auto auto;
+  padding: 0px 30px 0px 0px;
 }
 
 .started {
   padding-right: 65px !important;
-}
-
-.modalPage {
-  padding: 60px 40px 40px 40px !important;
 }
 
 .text {
@@ -51,8 +50,8 @@
 }
 
 .enable {
-  border: 1px solid var(--blue-600) !important;
-  color: var(--blue-600) !important;
+  border: 1px solid var(--primary-7) !important;
+  color: var(--primary-7) !important;
   min-height: var(--spacing-large) !important;
   height: var(--spacing-large) !important;
   padding: 2px var(--spacing-large) !important;
