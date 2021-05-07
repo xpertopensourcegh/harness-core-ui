@@ -155,7 +155,7 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
             <div
               class="formLabel"
             >
-              fileFolderPathText
+              cd.filePath
             </div>
              
             <span
@@ -190,7 +190,7 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
                           autocomplete="off"
                           class="bp3-input"
                           name="spec.filePaths[0].value"
-                          placeholder="Enter file path"
+                          placeholder="cd.filePathPlaceholder"
                           type="text"
                           value="test-1"
                         />
@@ -272,7 +272,7 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
                           autocomplete="off"
                           class="bp3-input"
                           name="spec.filePaths[1].value"
-                          placeholder="Enter file path"
+                          placeholder="cd.filePathPlaceholder"
                           type="text"
                           value="test-2"
                         />
@@ -647,7 +647,7 @@ exports[`Test K8sApplyStep should render edit view as new step 1`] = `
             <div
               class="formLabel"
             >
-              fileFolderPathText
+              cd.filePath
             </div>
              
             <span

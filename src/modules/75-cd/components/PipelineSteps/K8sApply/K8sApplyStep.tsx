@@ -136,7 +136,7 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
                   <MultiTypeFieldSelector
                     defaultValueToReset={defaultValueToReset}
                     name={'spec.filePaths'}
-                    label={getString('fileFolderPathText')}
+                    label={getString('cd.filePath')}
                     disableTypeSelection
                   >
                     <FieldArray
@@ -151,7 +151,7 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
                             >
                               <FormInput.MultiTextInput
                                 label=""
-                                placeholder={'Enter file path'}
+                                placeholder={getString('cd.filePathPlaceholder')}
                                 name={`spec.filePaths[${index}].value`}
                                 multiTextInputProps={{
                                   allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
