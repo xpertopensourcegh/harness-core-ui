@@ -14,7 +14,7 @@ const MyProjectsList: React.FC = () => {
     queryParams: {
       accountId,
       pageIndex: 0,
-      pageSize: 5
+      pageSize: 6
     }
   })
 
@@ -61,6 +61,13 @@ const MyProjectsList: React.FC = () => {
               </Card>
             )
           })}
+          {Number(projects.data.totalItems) > Number(projects.data.content?.length) && (
+            <Text margin={{ top: 'huge' }}>
+              {getString('more', {
+                number: Number(projects.data.totalItems) - Number(projects.data.content?.length)
+              })}
+            </Text>
+          )}
         </Container>
       ) : !loading ? (
         <Text color={Color.GREY_700}>{getString('userProfile.noProjects')}</Text>
