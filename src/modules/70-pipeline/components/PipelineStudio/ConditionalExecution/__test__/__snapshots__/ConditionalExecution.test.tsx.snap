@@ -10,17 +10,15 @@ exports[`ConditionalExecution matches snapshot when no data 1`] = `
       style="width: 846px;"
     >
       <p
-        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700"
-        style="font-size: 12px;"
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700 StyledProps--font-size-small"
       >
         pipeline.conditionalExecution.subTitle
          
         <a
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-blue400 Button--with-current-color Button--link"
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-blue400 StyledProps--font StyledProps--font-size-small Button--with-current-color Button--link"
           href="https://ngdocs.harness.io/"
           rel="noreferrer noopener"
           role="button"
-          style="font-size: 12px;"
           tabindex="0"
           target="_blank"
         >
@@ -32,10 +30,10 @@ exports[`ConditionalExecution matches snapshot when no data 1`] = `
         </a>
       </p>
       <div
-        class="Layout--horizontal StyledProps--main StyledProps--padding-top-xxlarge StyledProps--padding-bottom-medium StyledProps--margin-top-medium StyledProps--border StyledProps--border-top StyledProps--border-color-grey300"
+        class="Layout--horizontal StyledProps--main StyledProps--padding-top-xxlarge StyledProps--padding-bottom-medium StyledProps--margin-top-medium StyledProps--border StyledProps--border-top StyledProps--border-color-grey200"
       >
         <div
-          class="StyledProps--font StyledProps--main StyledProps--padding-right-xxlarge StyledProps--border StyledProps--border-right StyledProps--border-color-grey300"
+          class="StyledProps--font StyledProps--main StyledProps--padding-right-xxlarge StyledProps--border StyledProps--border-right StyledProps--border-color-grey200"
           style="width: 48%;"
         >
           <div>
@@ -89,12 +87,14 @@ exports[`ConditionalExecution matches snapshot when no data 1`] = `
         >
           <div
             class="bp3-form-group"
+            style="font-size: 13px;"
           >
             <div
               class="bp3-form-content"
             >
               <label
                 class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--color StyledProps--color-grey900 StyledProps--inline"
+                style="font-size: 13px;"
               >
                 <input
                   name="enableJEXL"
@@ -152,17 +152,15 @@ exports[`ConditionalExecution matches snapshot with data 1`] = `
       style="width: 846px;"
     >
       <p
-        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700"
-        style="font-size: 12px;"
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700 StyledProps--font-size-small"
       >
         pipeline.conditionalExecution.subTitle
          
         <a
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-blue400 Button--with-current-color Button--link"
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-blue400 StyledProps--font StyledProps--font-size-small Button--with-current-color Button--link"
           href="https://ngdocs.harness.io/"
           rel="noreferrer noopener"
           role="button"
-          style="font-size: 12px;"
           tabindex="0"
           target="_blank"
         >
@@ -174,10 +172,10 @@ exports[`ConditionalExecution matches snapshot with data 1`] = `
         </a>
       </p>
       <div
-        class="Layout--horizontal StyledProps--main StyledProps--padding-top-xxlarge StyledProps--padding-bottom-medium StyledProps--margin-top-medium StyledProps--border StyledProps--border-top StyledProps--border-color-grey300"
+        class="Layout--horizontal StyledProps--main StyledProps--padding-top-xxlarge StyledProps--padding-bottom-medium StyledProps--margin-top-medium StyledProps--border StyledProps--border-top StyledProps--border-color-grey200"
       >
         <div
-          class="StyledProps--font StyledProps--main StyledProps--padding-right-xxlarge StyledProps--border StyledProps--border-right StyledProps--border-color-grey300"
+          class="StyledProps--font StyledProps--main StyledProps--padding-right-xxlarge StyledProps--border StyledProps--border-right StyledProps--border-color-grey200"
           style="width: 48%;"
         >
           <div>
@@ -231,12 +229,14 @@ exports[`ConditionalExecution matches snapshot with data 1`] = `
         >
           <div
             class="bp3-form-group"
+            style="font-size: 13px;"
           >
             <div
               class="bp3-form-content"
             >
               <label
                 class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--color StyledProps--color-grey900 StyledProps--font-weight-semi-bold StyledProps--inline"
+                style="font-size: 13px;"
               >
                 <input
                   checked=""

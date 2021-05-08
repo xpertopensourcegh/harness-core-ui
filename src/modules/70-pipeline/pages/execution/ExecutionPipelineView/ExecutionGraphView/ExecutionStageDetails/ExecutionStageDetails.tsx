@@ -20,7 +20,7 @@ import HoverCard from '@pipeline/components/HoverCard/HoverCard'
 import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 import { Modes } from '@pipeline/components/PipelineSteps/AdvancedSteps/common'
 import BarrierStepTooltip from './components/BarrierStepTooltip'
-import ResourceConstraintTooltip from './components/ResourceConstraints'
+import ResourceConstraintTooltip from './components/ResourceConstraints/ResourceConstraints'
 import ConditionalExecutionTooltip from '../common/components/ConditionalExecutionToolTip/ConditionalExecutionTooltip'
 import css from './ExecutionStageDetails.module.scss'
 

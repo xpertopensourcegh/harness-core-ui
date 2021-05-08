@@ -6,8 +6,9 @@
 
 .blackText {
   color: var(--black);
+  font-size: 13px;
   &.active {
     color: var(--grey-900);
-    font-weight: bold;
+    font-weight: 500;
   }
 }

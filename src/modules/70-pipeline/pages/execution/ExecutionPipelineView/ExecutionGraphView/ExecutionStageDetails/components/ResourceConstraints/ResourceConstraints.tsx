@@ -36,14 +36,14 @@ export default function ResourceConstraintTooltip(props: ResourceConstraintToolt
     props.data?.executionId
   )
   return props.loading ? (
-    <Container border={{ top: true, width: 1, color: Color.GREY_200 }} padding={'medium'}>
+    <Container border={{ top: true, width: 1, color: Color.GREY_100 }} padding={'medium'}>
       <Spinner size={24} />
     </Container>
   ) : (
-    <Container padding={'medium'} border={{ top: true, width: 1, color: Color.GREY_200 }}>
+    <Container padding={'medium'} border={{ top: true, width: 1, color: Color.GREY_100 }}>
       {props?.data?.executionList?.length && (
-        <Layout.Vertical spacing={'medium'}>
-          <Text>
+        <Layout.Vertical spacing={'small'}>
+          <Text font={{ size: 'small' }}>
             {getString('pipeline.resourceConstraints.infoText', { executioncount: noOfExecutionsBeforePipeline })}
           </Text>
           {props?.data?.executionList?.map((pipeline: ResourceConstraintExecutionInfo) => (
@@ -64,11 +64,12 @@ export default function ResourceConstraintTooltip(props: ResourceConstraintToolt
                     width={200}
                     lineClamp={1}
                     inline={true}
+                    font={{ size: 'small' }}
                     color={Color.BLUE_500}
                   >
                     {pipeline.pipelineIdentifier}
                   </Text>
-                  <Text inline={true} color={Color.BLUE_500}>
+                  <Text inline={true} color={Color.BLUE_500} font={{ size: 'small' }}>
                     {pipeline.planExecutionId === props.data?.executionId &&
                       pipeline.state !== 'ACTIVE' &&
                       getString('pipeline.resourceConstraints.yourPipeline')}

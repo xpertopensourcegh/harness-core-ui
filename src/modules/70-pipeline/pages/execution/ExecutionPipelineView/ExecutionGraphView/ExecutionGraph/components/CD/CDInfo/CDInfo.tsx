@@ -2,7 +2,7 @@ import React from 'react'
 import { get } from 'lodash-es'
 import { Container, Icon, Text, Layout, Color } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import BarrierStageTooltip from './BarrierStageTooltip'
+import BarrierStageTooltip from '../BarrierStageTooltip/BarrierStageTooltip'
 
 export interface CDInfoProps {
   data?: any
@@ -35,13 +35,13 @@ export default function CDInfo(props: CDInfoProps): React.ReactElement {
         />
       )}
       {(serviceName || artifacts.length > 0 || environment) && (
-        <Container border={{ top: true, width: 1, color: Color.GREY_200 }} padding={{ top: 'small' }}>
+        <Container border={{ top: true, width: 1, color: Color.GREY_100 }} padding={{ top: 'small' }}>
           {serviceName && (
             <Layout.Horizontal padding={{ right: 'medium', bottom: 'small', left: 'small' }}>
               <Container flex={{ justifyContent: 'center', alignItems: 'start' }} width={32}>
                 <Icon name="services" color={Color.GREY_600} size={24} />
               </Container>
-              <Layout.Vertical spacing={'xsmall'}>
+              <Layout.Vertical spacing={'xsmall'} padding={{ top: 'xsmall', bottom: 'xsmall' }}>
                 <Text font={{ size: 'small', weight: 'semi-bold' }} color={Color.BLACK}>
                   {getString('serviceOrServices')}
                 </Text>
@@ -56,11 +56,11 @@ export default function CDInfo(props: CDInfoProps): React.ReactElement {
               <Container flex={{ justifyContent: 'center', alignItems: 'start' }} width={32}>
                 <Icon name="services" color={Color.GREY_600} size={24} />
               </Container>
-              <Layout.Vertical spacing={'xsmall'}>
+              <Layout.Vertical spacing={'xsmall'} padding={{ top: 'xsmall', bottom: 'xsmall' }}>
                 <Text font={{ size: 'small', weight: 'semi-bold' }} color={Color.BLACK}>
                   {getString('artifactOrArtifacts')}
                 </Text>
-                <Container data-testid="hovercard-artifact">
+                <Layout.Vertical spacing={'xsmall'} data-testid="hovercard-artifact">
                   {artifacts.map((imagePath: string, index: number) => (
                     <Text
                       key={`${imagePath}+${index}`}
@@ -71,7 +71,7 @@ export default function CDInfo(props: CDInfoProps): React.ReactElement {
                       {imagePath}
                     </Text>
                   ))}
-                </Container>
+                </Layout.Vertical>
               </Layout.Vertical>
             </Layout.Horizontal>
           )}
@@ -80,7 +80,7 @@ export default function CDInfo(props: CDInfoProps): React.ReactElement {
               <Container flex={{ justifyContent: 'center', alignItems: 'start' }} width={32}>
                 <Icon name="services" color={Color.GREY_600} size={24} />
               </Container>
-              <Layout.Vertical spacing={'xsmall'}>
+              <Layout.Vertical spacing={'xsmall'} padding={{ top: 'xsmall', bottom: 'xsmall' }}>
                 <Text font={{ size: 'small', weight: 'semi-bold' }} color={Color.BLACK}>
                   {getString('environmentOrEnvironments')}
                 </Text>

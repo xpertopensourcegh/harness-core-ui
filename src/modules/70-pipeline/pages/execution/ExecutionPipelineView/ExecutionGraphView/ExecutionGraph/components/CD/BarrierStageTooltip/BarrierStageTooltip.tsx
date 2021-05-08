@@ -13,7 +13,7 @@ export interface BarrierStageTooltipProps {
 export default function BarrierStageTooltip(props: BarrierStageTooltipProps): React.ReactElement {
   const { getString } = useStrings()
   return props.loading ? (
-    <Container border={{ top: true, width: 1, color: Color.GREY_200 }} padding={'medium'}>
+    <Container border={{ top: true, width: 1, color: Color.GREY_100 }} padding={'medium'}>
       <Spinner size={24} />
     </Container>
   ) : (
@@ -30,13 +30,18 @@ export default function BarrierStageTooltip(props: BarrierStageTooltipProps): Re
         return (
           <Layout.Horizontal
             key={barrier.identifier}
-            border={{ top: true, width: 1, color: Color.GREY_200 }}
+            border={{ top: true, width: 1, color: Color.GREY_100 }}
             padding={{ right: 'medium', top: 'small', bottom: 'small', left: 'small' }}
           >
             <Container flex={{ justifyContent: 'center', alignItems: 'start' }} width={32}>
               <Icon name="barrier-open-with-links" size={20} />
             </Container>
-            <Layout.Vertical spacing={'xsmall'} margin={{ right: 'medium' }} style={{ flex: 1 }}>
+            <Layout.Vertical
+              spacing={'xsmall'}
+              margin={{ right: 'medium' }}
+              padding={{ top: 'xsmall', bottom: 'xsmall' }}
+              style={{ flex: 1 }}
+            >
               <Text font={{ size: 'small', weight: 'semi-bold' }} color={Color.BLACK}>
                 {barrier.name}
               </Text>

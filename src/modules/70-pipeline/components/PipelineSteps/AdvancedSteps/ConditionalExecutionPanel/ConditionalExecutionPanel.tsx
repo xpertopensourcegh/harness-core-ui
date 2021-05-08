@@ -48,7 +48,7 @@ export default function ConditionalExecutionPanel(props: ConditionalExecutionPan
           <>
             <ConditionalExecutionPanelHeader mode={mode} />
             <Container
-              border={{ top: true, bottom: true, color: Color.GREY_300 }}
+              border={{ top: true, bottom: true, color: Color.GREY_200 }}
               padding={{ bottom: 'small', top: 'medium' }}
               margin={{ top: 'medium' }}
             >

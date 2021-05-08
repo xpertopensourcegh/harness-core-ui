@@ -65,19 +65,27 @@ export default function ConditionalExecutionTooltip(props: ConditionalExecutionT
 
   return (
     <Layout.Horizontal
-      border={{ top: true, width: 0.5, color: Color.GREY_200 }}
+      border={{ top: true, width: 0.5, color: Color.GREY_100 }}
       padding={{ right: 'xlarge', top: 'small', bottom: 'small', left: 'small' }}
     >
       <Container flex={{ justifyContent: 'center', alignItems: 'start' }} width={32}>
         <Icon name="conditional-execution" color={Color.GREY_600} size={20} />
       </Container>
-      <Layout.Vertical spacing={'xsmall'} style={{ flex: 1 }} data-testid="hovercard-service">
+      <Layout.Vertical
+        spacing={'xsmall'}
+        style={{ flex: 1 }}
+        data-testid="hovercard-service"
+        padding={{ top: 'xsmall', bottom: 'xsmall' }}
+      >
         <Text font={{ size: 'small', weight: 'semi-bold' }} color={Color.BLACK}>
           {mode === Modes.STAGE && getString('pipeline.conditionalExecution.toolTip.stageTitle')}
           {mode === Modes.STEP && getString('pipeline.conditionalExecution.toolTip.stepTitle')}
         </Text>
         <Text
-          padding={{ top: 'xsmall', bottom: condition !== undefined ? 'xsmall' : 'none' }}
+          padding={{
+            top: condition !== undefined ? 'xsmall' : 'none',
+            bottom: condition !== undefined ? 'xsmall' : 'none'
+          }}
           font={{ size: 'xsmall' }}
           style={{ lineHeight: '16px' }}
           color={Color.GREY_900}
@@ -104,22 +112,17 @@ export default function ConditionalExecutionTooltip(props: ConditionalExecutionT
         {!!condition && (
           <Container
             padding={'small'}
-            background={Color.GREY_100}
             color={Color.GREY_900}
             font={{ size: 'small' }}
-            style={{ wordBreak: 'break-word' }}
-            border={{ width: 0.5, color: Color.GREY_200, radius: 4 }}
+            style={{ wordBreak: 'break-word', background: '#FAFBFC' }}
+            border={{ width: 0.5, color: Color.GREY_100, radius: 4 }}
           >
             {condition}
           </Container>
         )}
         {resolvedVariablesStrings.length > 0 && (
-          <Layout.Vertical spacing={'xsmall'}>
-            <Text
-              padding={{ top: 'small', bottom: 'xsmall' }}
-              font={{ size: 'xsmall', weight: 'semi-bold' }}
-              color={Color.GREY_500}
-            >
+          <Layout.Vertical spacing={'xsmall'} padding={{ top: 'medium' }}>
+            <Text padding={{ bottom: 'xsmall' }} font={{ size: 'xsmall', weight: 'semi-bold' }} color={Color.GREY_500}>
               {getString('pipeline.conditionalExecution.toolTip.resolvedVariables')}
             </Text>
             {resolvedVariablesStrings.map(resolvedVariablesString => {

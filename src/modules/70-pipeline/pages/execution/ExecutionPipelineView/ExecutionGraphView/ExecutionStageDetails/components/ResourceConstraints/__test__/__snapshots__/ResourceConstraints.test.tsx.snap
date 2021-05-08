@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResourceConstraintTooltip matches snapshot 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main StyledProps--padding-medium StyledProps--border StyledProps--border-top StyledProps--border-color-grey100"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+    >
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+      >
+        pipeline.resourceConstraints.infoText
+      </p>
+      <div
+        class="StyledProps--font StyledProps--main"
+      >
+        <a
+          href="/account/undefined/undefined/orgs/undefined/projects/undefined/pipelines/Some Identifier/executions/Some Plan Execution Id/pipeline"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main"
+          >
+            <span
+              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline StyledProps--font-size-small StyledProps--color StyledProps--color-blue500"
+              style="--text-line-clamp: 1; width: 200px;"
+              title="Some Identifier"
+            >
+              Some Identifier
+            </span>
+            <span
+              class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-blue500 StyledProps--font-size-small"
+            >
+              pipeline.resourceConstraints.currentlyExecuting
+            </span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;

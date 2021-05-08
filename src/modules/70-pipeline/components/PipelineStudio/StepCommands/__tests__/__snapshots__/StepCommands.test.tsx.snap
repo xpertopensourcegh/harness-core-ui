@@ -114,17 +114,15 @@ exports[`<StepCommands /> tests able to switch tab 1`] = `
                               class="OverlaySpinner--overlaySpinner"
                             >
                               <p
-                                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700"
-                                style="font-size: 12px;"
+                                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700 StyledProps--font-size-small"
                               >
                                 pipeline.conditionalExecution.subTitle
                                  
                                 <a
-                                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-blue400 Button--with-current-color Button--link"
+                                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-blue400 StyledProps--font StyledProps--font-size-small Button--with-current-color Button--link"
                                   href="https://ngdocs.harness.io/"
                                   rel="noreferrer noopener"
                                   role="button"
-                                  style="font-size: 12px;"
                                   tabindex="0"
                                   target="_blank"
                                 >
@@ -136,7 +134,7 @@ exports[`<StepCommands /> tests able to switch tab 1`] = `
                                 </a>
                               </p>
                               <div
-                                class="StyledProps--font StyledProps--main StyledProps--border StyledProps--border-top StyledProps--border-bottom StyledProps--border-color-grey300 StyledProps--padding-bottom-small StyledProps--padding-top-medium StyledProps--margin-top-medium"
+                                class="StyledProps--font StyledProps--main StyledProps--border StyledProps--border-top StyledProps--border-bottom StyledProps--border-color-grey200 StyledProps--padding-bottom-small StyledProps--padding-top-medium StyledProps--margin-top-medium"
                               >
                                 <div>
                                   <label
@@ -187,12 +185,14 @@ exports[`<StepCommands /> tests able to switch tab 1`] = `
                                 <div
                                   class="bp3-form-group"
                                   data-id="enableJEXL-0"
+                                  style="font-size: 13px;"
                                 >
                                   <div
                                     class="bp3-form-content"
                                   >
                                     <label
                                       class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--color StyledProps--color-grey900 StyledProps--inline"
+                                      style="font-size: 13px;"
                                     >
                                       <input
                                         name="enableJEXL"
@@ -394,17 +394,15 @@ exports[`<StepCommands /> tests renders ok 1`] = `
                               class="OverlaySpinner--overlaySpinner"
                             >
                               <p
-                                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700"
-                                style="font-size: 12px;"
+                                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700 StyledProps--font-size-small"
                               >
                                 pipeline.conditionalExecution.subTitle
                                  
                                 <a
-                                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-blue400 Button--with-current-color Button--link"
+                                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-blue400 StyledProps--font StyledProps--font-size-small Button--with-current-color Button--link"
                                   href="https://ngdocs.harness.io/"
                                   rel="noreferrer noopener"
                                   role="button"
-                                  style="font-size: 12px;"
                                   tabindex="0"
                                   target="_blank"
                                 >
@@ -416,7 +414,7 @@ exports[`<StepCommands /> tests renders ok 1`] = `
                                 </a>
                               </p>
                               <div
-                                class="StyledProps--font StyledProps--main StyledProps--border StyledProps--border-top StyledProps--border-bottom StyledProps--border-color-grey300 StyledProps--padding-bottom-small StyledProps--padding-top-medium StyledProps--margin-top-medium"
+                                class="StyledProps--font StyledProps--main StyledProps--border StyledProps--border-top StyledProps--border-bottom StyledProps--border-color-grey200 StyledProps--padding-bottom-small StyledProps--padding-top-medium StyledProps--margin-top-medium"
                               >
                                 <div>
                                   <label
@@ -467,12 +465,14 @@ exports[`<StepCommands /> tests renders ok 1`] = `
                                 <div
                                   class="bp3-form-group"
                                   data-id="enableJEXL-0"
+                                  style="font-size: 13px;"
                                 >
                                   <div
                                     class="bp3-form-content"
                                   >
                                     <label
                                       class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--color StyledProps--color-grey900 StyledProps--inline"
+                                      style="font-size: 13px;"
                                     >
                                       <input
                                         name="enableJEXL"

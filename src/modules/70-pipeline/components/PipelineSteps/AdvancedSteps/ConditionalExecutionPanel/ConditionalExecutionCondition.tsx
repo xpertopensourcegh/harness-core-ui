@@ -25,6 +25,7 @@ export default function ConditionalExecutionCondition(props: ConditionalExecutio
         name={'enableJEXL'}
         disabled={isReadonly}
         color={Color.GREY_900}
+        style={{ fontSize: '13px' }}
         font={formikProps.values.enableJEXL ? { weight: 'semi-bold' } : {}}
         label={' ' + getString('pipeline.conditionalExecution.condition', { entity: ModeEntityNameMap[mode] })}
       />
