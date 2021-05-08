@@ -49,6 +49,28 @@ describe('helm with GIT tests', () => {
     expect(container).toMatchSnapshot()
   })
 
+  test('expand advanced section', () => {
+    const initialValues = {
+      identifier: '',
+      gitFetchType: 'Branch',
+      branch: 'master',
+      folderPath: './',
+      helmVersion: 'V2',
+      repoName: 'reponame',
+      skipResourceVersioning: false,
+      commandFlags: [{ commandType: undefined, flag: undefined, id: 'id' }]
+    }
+
+    const { container, getByText } = render(
+      <TestWrapper>
+        <HelmWithGIT initialValues={initialValues} {...props} />
+      </TestWrapper>
+    )
+
+    fireEvent.click(getByText('advancedTitle'))
+    expect(container).toMatchSnapshot()
+  })
+
   test(`renders correctly in edit case`, () => {
     const initialValues = {
       identifier: 'identifier',

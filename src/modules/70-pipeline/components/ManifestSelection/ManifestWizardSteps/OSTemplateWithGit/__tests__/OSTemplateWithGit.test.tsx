@@ -27,6 +27,26 @@ describe('Open shift template with git tests', () => {
     expect(container).toMatchSnapshot()
   })
 
+  test('expand advanced section', () => {
+    const initialValues = {
+      identifier: '',
+      branch: '',
+      commitId: '',
+      gitFetchType: 'Branch',
+      paths: [],
+      skipResourceVersioning: false,
+      repoName: ''
+    }
+    const { container, getByText } = render(
+      <TestWrapper>
+        <OpenShiftTemplateWithGit {...props} initialValues={initialValues} />
+      </TestWrapper>
+    )
+
+    fireEvent.click(getByText('advancedTitle'))
+    expect(container).toMatchSnapshot()
+  })
+
   test(`renders correctly in edit case`, () => {
     const initialValues = {
       identifier: 'test',

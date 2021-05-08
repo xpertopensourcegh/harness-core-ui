@@ -28,5 +28,9 @@ declare const styles: {
   readonly tooltip: string
   readonly tooltipContent: string
   readonly repoName: string
+  readonly alignSelf: string
+  readonly addmarginTop: string
+  readonly tooltipCls: string
+  readonly helmToolTip: string
 }
 export default styles

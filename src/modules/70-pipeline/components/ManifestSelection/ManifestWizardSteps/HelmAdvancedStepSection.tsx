@@ -1,5 +1,13 @@
 import React from 'react'
-import { Layout, Button, FormInput, MultiTypeInputType, Color, Icon } from '@wings-software/uicore'
+import {
+  Layout,
+  Button,
+  FormInput,
+  MultiTypeInputType,
+  Color,
+  Icon,
+  getMultiTypeFromValue
+} from '@wings-software/uicore'
 import { Tooltip } from '@blueprintjs/core'
 import cx from 'classnames'
 import { isEmpty } from 'lodash-es'
@@ -10,9 +18,12 @@ import { FieldArray } from 'formik'
 import { String, useStrings } from 'framework/strings'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import { FormMultiTypeCheckboxField } from '@common/components'
-import type { CommandFlags, HelmWithGITDataType, HelmWithHTTPDataType } from '../ManifestInterface'
-import helmcss from './HelmWithGIT/HelmWithGIT.module.scss'
+import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
+import type { CommandFlags, HelmWithGITDataType, HelmWithHTTPDataType } from '../ManifestInterface'
+
+import helmcss from './HelmWithGIT/HelmWithGIT.module.scss'
+import css from './ManifestWizardSteps.module.scss'
 interface HelmAdvancedStepProps {
   commandFlagOptions: Array<{ label: string; value: string }>
   expressions: string[]
@@ -43,12 +54,25 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({ formik, comm
           className={cx(helmcss.checkbox, helmcss.halfWidth)}
           multiTypeTextbox={{ expressions }}
         />
+        {getMultiTypeFromValue(formik.values?.skipResourceVersioning) === MultiTypeInputType.RUNTIME && (
+          <ConfigureOptions
+            value={formik.values?.skipResourceVersioning ? 'true' : 'false'}
+            type="String"
+            variableName="skipResourceVersioning"
+            showRequiredField={false}
+            showDefaultField={false}
+            showAdvanced={true}
+            onChange={value => formik.setFieldValue('skipResourceVersioning', value)}
+            style={{ alignSelf: 'center' }}
+            className={cx(css.addmarginTop)}
+          />
+        )}
         <Tooltip
           position="top"
           content={
             <div className={helmcss.tooltipContent}>{getString('pipeline.manifestType.helmSkipResourceVersion')} </div>
           }
-          className={helmcss.tooltip}
+          className={cx(helmcss.tooltip, css.addmarginTop)}
         >
           <Icon name="info-sign" color={Color.PRIMARY_4} size={16} />
         </Tooltip>

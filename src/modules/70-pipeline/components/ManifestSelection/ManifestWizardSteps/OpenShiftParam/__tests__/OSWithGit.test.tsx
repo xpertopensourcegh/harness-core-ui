@@ -31,6 +31,7 @@ describe('Open shift params with git tests', () => {
     )
     expect(container).toMatchSnapshot()
   })
+
   test('submits with right payload', async () => {
     const { container } = render(
       <TestWrapper>

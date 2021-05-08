@@ -28,6 +28,27 @@ describe('Kustomize with Git/ Github/Gitlab/Bitbucket tests', () => {
     expect(container).toMatchSnapshot()
   })
 
+  test('expand advanced section', () => {
+    const initialValues = {
+      identifier: '',
+      branch: undefined,
+      commitId: undefined,
+      gitFetchType: 'Branch',
+      folderPath: '',
+      skipResourceVersioning: false,
+      repoName: '',
+      pluginPath: ''
+    }
+    const { container, getByText } = render(
+      <TestWrapper>
+        <KustomizeWithGIT {...props} initialValues={initialValues} />
+      </TestWrapper>
+    )
+
+    fireEvent.click(getByText('advancedTitle'))
+    expect(container).toMatchSnapshot()
+  })
+
   test(`renders while adding step first time`, () => {
     const initialValues = {
       identifier: 'id2',

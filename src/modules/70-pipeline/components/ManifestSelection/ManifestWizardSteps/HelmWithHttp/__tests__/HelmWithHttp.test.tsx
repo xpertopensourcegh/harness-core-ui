@@ -27,6 +27,25 @@ describe('helm with http tests', () => {
     expect(container).toMatchSnapshot()
   })
 
+  test('expand advanced section', () => {
+    const initialValues = {
+      identifier: 'test',
+      spec: {
+        helmVersion: 'test',
+        chartName: 'test',
+        chartVersion: 'v3'
+      }
+    }
+    const { container, getByText } = render(
+      <TestWrapper>
+        <HelmWithHttp {...props} initialValues={initialValues} />
+      </TestWrapper>
+    )
+
+    fireEvent.click(getByText('advancedTitle'))
+    expect(container).toMatchSnapshot()
+  })
+
   test(`renders correctly in edit mode with connectorref`, () => {
     const initialValues = {
       identifier: 'test',

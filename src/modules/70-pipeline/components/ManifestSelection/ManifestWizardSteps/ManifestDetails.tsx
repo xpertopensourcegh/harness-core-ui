@@ -243,195 +243,210 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
           })
         }}
       >
-        {(formik: { setFieldValue: (a: string, b: string) => void; values: ManifestDetailDataType }) => (
-          <Form>
-            <div className={css.manifestDetailsForm}>
-              <FormInput.Text
-                name="identifier"
-                label={getString('pipeline.manifestType.manifestIdentifier')}
-                placeholder={getString('pipeline.manifestType.manifestPlaceholder')}
-              />
-              {connectionType === GitRepoName.Repo && (
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormInput.Text
-                    label={getString('pipelineSteps.build.create.repositoryNameLabel')}
-                    disabled
-                    name="repoName"
-                    style={{ width: '370px' }}
-                  />
-                </div>
-              )}
-
-              {!!(connectionType === GitRepoName.Account && accountUrl) && (
-                <div>
-                  <FormInput.Text
-                    label={getString('pipelineSteps.build.create.repositoryNameLabel')}
-                    name="repoName"
-                    className={css.repoName}
-                  />
-
-                  <div
-                    style={{ marginBottom: 'var(--spacing-medium)' }}
-                  >{`${accountUrl}/${formik.values?.repoName}`}</div>
-                </div>
-              )}
-              <FormInput.Select
-                name="gitFetchType"
-                label={getString('pipeline.manifestType.gitFetchTypeLabel')}
-                items={gitFetchTypes}
-              />
-
-              <div className={cx(stepCss.formGroup, stepCss.md)}>
-                {formik.values?.gitFetchType === gitFetchTypes[0].value && (
-                  <FormInput.MultiTextInput
-                    multiTextInputProps={{ expressions }}
-                    label={getString('pipelineSteps.deploy.inputSet.branch')}
-                    placeholder={getString('pipeline.manifestType.branchPlaceholder')}
-                    name="branch"
-                    style={{ width: '370px' }}
-                  />
-                )}
-                {getMultiTypeFromValue(formik.values?.branch) === MultiTypeInputType.RUNTIME && (
-                  <ConfigureOptions
-                    value={formik.values?.branch as string}
-                    type="String"
-                    variableName="branch"
-                    showRequiredField={false}
-                    showDefaultField={false}
-                    showAdvanced={true}
-                    onChange={value => formik.setFieldValue('branch', value)}
-                  />
-                )}
-              </div>
-              <div className={cx(stepCss.formGroup, stepCss.md)}>
-                {formik.values?.gitFetchType === gitFetchTypes[1].value && (
-                  <FormInput.MultiTextInput
-                    multiTextInputProps={{ expressions }}
-                    label={getString('pipeline.manifestType.commitId')}
-                    placeholder={getString('pipeline.manifestType.commitPlaceholder')}
-                    name="commitId"
-                    style={{ width: '370px' }}
-                  />
-                )}
-                {getMultiTypeFromValue(formik.values?.commitId) === MultiTypeInputType.RUNTIME && (
-                  <ConfigureOptions
-                    value={formik.values?.commitId as string}
-                    type="String"
-                    variableName="commitId"
-                    showRequiredField={false}
-                    showDefaultField={false}
-                    showAdvanced={true}
-                    onChange={value => formik.setFieldValue('commitId', value)}
-                  />
-                )}
-              </div>
-
-              <MultiTypeFieldSelector
-                defaultValueToReset={defaultValueToReset}
-                disableTypeSelection
-                name={'paths'}
-                label={getString('fileFolderPathText')}
-              >
-                <FieldArray
-                  name="paths"
-                  render={arrayHelpers => (
-                    <Layout.Vertical>
-                      {formik.values?.paths?.map((path: { path: string; uuid: string }, index: number) => (
-                        <Layout.Horizontal
-                          key={path.uuid}
-                          flex={{ distribution: 'space-between' }}
-                          style={{ alignItems: 'end' }}
-                        >
-                          <Layout.Horizontal
-                            spacing="medium"
-                            style={{ alignItems: 'baseline' }}
-                            draggable={true}
-                            onDragStart={event => {
-                              onDragStart(event, index)
-                            }}
-                            onDragEnd={onDragEnd}
-                            onDragOver={onDragOver}
-                            onDragLeave={onDragLeave}
-                            onDrop={event => onDrop(event, arrayHelpers, index)}
-                          >
-                            {formik.values?.paths?.length > 1 && (
-                              <Icon name="drag-handle-vertical" className={css.drag} />
-                            )}
-                            {formik.values?.paths?.length > 1 && <Text>{`${index + 1}.`}</Text>}
-                            <FormInput.MultiTextInput
-                              label={''}
-                              placeholder={getString('pipeline.manifestType.filePathPlaceholder')}
-                              name={`paths[${index}].path`}
-                              style={{ width: '330px' }}
-                              multiTextInputProps={{
-                                expressions,
-                                allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                              }}
-                            />
-                          </Layout.Horizontal>
-                          {formik.values?.paths?.length > 1 && (
-                            <Button minimal icon="minus" onClick={() => arrayHelpers.remove(index)} />
-                          )}
-                        </Layout.Horizontal>
-                      ))}
-                      <span>
-                        <Button
-                          minimal
-                          text={getString('addFileText')}
-                          intent="primary"
-                          className={css.addFileButton}
-                          onClick={() => arrayHelpers.push({ path: '', uuid: uuid('', nameSpace()) })}
-                        />
-                      </span>
-                    </Layout.Vertical>
-                  )}
+        {(formik: { setFieldValue: (a: string, b: string) => void; values: ManifestDetailDataType }) => {
+          const skipResourceVersionRunTime =
+            getMultiTypeFromValue(formik.values?.skipResourceVersioning) === MultiTypeInputType.RUNTIME
+          const skipResourceVersionClsName = !skipResourceVersionRunTime ? css.tooltipCls : ''
+          return (
+            <Form>
+              <div className={css.manifestDetailsForm}>
+                <FormInput.Text
+                  name="identifier"
+                  label={getString('pipeline.manifestType.manifestIdentifier')}
+                  placeholder={getString('pipeline.manifestType.manifestPlaceholder')}
                 />
-              </MultiTypeFieldSelector>
-              {!!(selectedManifest === ManifestDataType.K8sManifest) && (
-                <Accordion
-                  activeId={isActiveAdvancedStep ? getString('advancedTitle') : ''}
-                  className={css.advancedStepOpen}
-                >
-                  <Accordion.Panel
-                    id={getString('advancedTitle')}
-                    addDomId={true}
-                    summary={getString('advancedTitle')}
-                    details={
-                      <Layout.Horizontal
-                        width={'90%'}
-                        height={120}
-                        flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}
-                      >
-                        <FormMultiTypeCheckboxField
-                          name="skipResourceVersioning"
-                          label={getString('skipResourceVersion')}
-                          multiTypeTextbox={{ expressions }}
-                          className={cx(css.checkbox, css.halfWidth)}
-                        />
-                        <Tooltip
-                          position="bottom"
-                          content={
-                            <div className={css.tooltipContent}>
-                              {getString('pipeline.manifestType.helmSkipResourceVersion')}{' '}
-                            </div>
-                          }
-                          className={css.tooltip}
-                        >
-                          <Icon name="info-sign" color={Color.PRIMARY_4} size={16} />
-                        </Tooltip>
-                      </Layout.Horizontal>
-                    }
-                  />
-                </Accordion>
-              )}
-            </div>
+                {connectionType === GitRepoName.Repo && (
+                  <div className={cx(stepCss.formGroup, stepCss.md)}>
+                    <FormInput.Text
+                      label={getString('pipelineSteps.build.create.repositoryNameLabel')}
+                      disabled
+                      name="repoName"
+                      style={{ width: '370px' }}
+                    />
+                  </div>
+                )}
 
-            <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>
-              <Button text={getString('back')} icon="chevron-left" onClick={() => previousStep?.(prevStepData)} />
-              <Button intent="primary" type="submit" text={getString('submit')} rightIcon="chevron-right" />
-            </Layout.Horizontal>
-          </Form>
-        )}
+                {!!(connectionType === GitRepoName.Account && accountUrl) && (
+                  <div>
+                    <FormInput.Text
+                      label={getString('pipelineSteps.build.create.repositoryNameLabel')}
+                      name="repoName"
+                      className={css.repoName}
+                    />
+
+                    <div
+                      style={{ marginBottom: 'var(--spacing-medium)' }}
+                    >{`${accountUrl}/${formik.values?.repoName}`}</div>
+                  </div>
+                )}
+                <FormInput.Select
+                  name="gitFetchType"
+                  label={getString('pipeline.manifestType.gitFetchTypeLabel')}
+                  items={gitFetchTypes}
+                />
+
+                <div className={cx(stepCss.formGroup, stepCss.md)}>
+                  {formik.values?.gitFetchType === gitFetchTypes[0].value && (
+                    <FormInput.MultiTextInput
+                      multiTextInputProps={{ expressions }}
+                      label={getString('pipelineSteps.deploy.inputSet.branch')}
+                      placeholder={getString('pipeline.manifestType.branchPlaceholder')}
+                      name="branch"
+                      style={{ width: '370px' }}
+                    />
+                  )}
+                  {getMultiTypeFromValue(formik.values?.branch) === MultiTypeInputType.RUNTIME && (
+                    <ConfigureOptions
+                      value={formik.values?.branch as string}
+                      type="String"
+                      variableName="branch"
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={value => formik.setFieldValue('branch', value)}
+                    />
+                  )}
+                </div>
+                <div className={cx(stepCss.formGroup, stepCss.md)}>
+                  {formik.values?.gitFetchType === gitFetchTypes[1].value && (
+                    <FormInput.MultiTextInput
+                      multiTextInputProps={{ expressions }}
+                      label={getString('pipeline.manifestType.commitId')}
+                      placeholder={getString('pipeline.manifestType.commitPlaceholder')}
+                      name="commitId"
+                      style={{ width: '370px' }}
+                    />
+                  )}
+                  {getMultiTypeFromValue(formik.values?.commitId) === MultiTypeInputType.RUNTIME && (
+                    <ConfigureOptions
+                      value={formik.values?.commitId as string}
+                      type="String"
+                      variableName="commitId"
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={value => formik.setFieldValue('commitId', value)}
+                    />
+                  )}
+                </div>
+
+                <MultiTypeFieldSelector
+                  defaultValueToReset={defaultValueToReset}
+                  disableTypeSelection
+                  name={'paths'}
+                  label={getString('fileFolderPathText')}
+                >
+                  <FieldArray
+                    name="paths"
+                    render={arrayHelpers => (
+                      <Layout.Vertical>
+                        {formik.values?.paths?.map((path: { path: string; uuid: string }, index: number) => (
+                          <Layout.Horizontal
+                            key={path.uuid}
+                            flex={{ distribution: 'space-between' }}
+                            style={{ alignItems: 'end' }}
+                          >
+                            <Layout.Horizontal
+                              spacing="medium"
+                              style={{ alignItems: 'baseline' }}
+                              draggable={true}
+                              onDragStart={event => {
+                                onDragStart(event, index)
+                              }}
+                              onDragEnd={onDragEnd}
+                              onDragOver={onDragOver}
+                              onDragLeave={onDragLeave}
+                              onDrop={event => onDrop(event, arrayHelpers, index)}
+                            >
+                              {formik.values?.paths?.length > 1 && (
+                                <Icon name="drag-handle-vertical" className={css.drag} />
+                              )}
+                              {formik.values?.paths?.length > 1 && <Text>{`${index + 1}.`}</Text>}
+                              <FormInput.MultiTextInput
+                                label={''}
+                                placeholder={getString('pipeline.manifestType.filePathPlaceholder')}
+                                name={`paths[${index}].path`}
+                                style={{ width: '330px' }}
+                                multiTextInputProps={{
+                                  expressions,
+                                  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                                }}
+                              />
+                            </Layout.Horizontal>
+                            {formik.values?.paths?.length > 1 && (
+                              <Button minimal icon="minus" onClick={() => arrayHelpers.remove(index)} />
+                            )}
+                          </Layout.Horizontal>
+                        ))}
+                        <span>
+                          <Button
+                            minimal
+                            text={getString('addFileText')}
+                            intent="primary"
+                            className={css.addFileButton}
+                            onClick={() => arrayHelpers.push({ path: '', uuid: uuid('', nameSpace()) })}
+                          />
+                        </span>
+                      </Layout.Vertical>
+                    )}
+                  />
+                </MultiTypeFieldSelector>
+                {!!(selectedManifest === ManifestDataType.K8sManifest) && (
+                  <Accordion
+                    activeId={isActiveAdvancedStep ? getString('advancedTitle') : ''}
+                    className={css.advancedStepOpen}
+                  >
+                    <Accordion.Panel
+                      id={getString('advancedTitle')}
+                      addDomId={true}
+                      summary={getString('advancedTitle')}
+                      details={
+                        <Layout.Horizontal width={'90%'} height={120} flex={{ justifyContent: 'flex-start' }}>
+                          <FormMultiTypeCheckboxField
+                            name="skipResourceVersioning"
+                            label={getString('skipResourceVersion')}
+                            multiTypeTextbox={{ expressions }}
+                            className={cx(css.checkbox, css.halfWidth)}
+                          />
+                          {getMultiTypeFromValue(formik.values?.skipResourceVersioning) ===
+                            MultiTypeInputType.RUNTIME && (
+                            <ConfigureOptions
+                              value={formik.values?.skipResourceVersioning ? 'true' : 'false'}
+                              type="String"
+                              variableName="skipResourceVersioning"
+                              showRequiredField={false}
+                              showDefaultField={false}
+                              showAdvanced={true}
+                              onChange={value => formik.setFieldValue('skipResourceVersioning', value)}
+                              style={{ alignSelf: 'center' }}
+                              className={css.addmarginTop}
+                            />
+                          )}
+                          <Tooltip
+                            position="bottom"
+                            content={
+                              <div className={css.tooltipContent}>
+                                {getString('pipeline.manifestType.helmSkipResourceVersion')}{' '}
+                              </div>
+                            }
+                            className={cx(css.tooltip, skipResourceVersionClsName)}
+                          >
+                            <Icon name="info-sign" color={Color.PRIMARY_4} size={16} />
+                          </Tooltip>
+                        </Layout.Horizontal>
+                      }
+                    />
+                  </Accordion>
+                )}
+              </div>
+
+              <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>
+                <Button text={getString('back')} icon="chevron-left" onClick={() => previousStep?.(prevStepData)} />
+                <Button intent="primary" type="submit" text={getString('submit')} rightIcon="chevron-right" />
+              </Layout.Horizontal>
+            </Form>
+          )
+        }}
       </Formik>
     </Layout.Vertical>
   )

@@ -38,6 +38,27 @@ describe('helm with http tests', () => {
     expect(container).toMatchSnapshot()
   })
 
+  test('expand advanced section', () => {
+    const initialValues = {
+      identifier: 'test',
+      bucketName: 'test-bucket',
+      region: { name: '', value: '' },
+      folderPath: 'testfolder',
+      helmVersion: 'V2',
+      chartName: 'testChart',
+      chartVersion: 'v1',
+      skipResourceVersioning: false
+    }
+    const { container, getByText } = render(
+      <TestWrapper>
+        <HelmWithS3 {...props} initialValues={initialValues} />
+      </TestWrapper>
+    )
+
+    fireEvent.click(getByText('advancedTitle'))
+    expect(container).toMatchSnapshot()
+  })
+
   test('load form correctly in edit mode and fill region', () => {
     const initialValues = {
       identifier: 'test',

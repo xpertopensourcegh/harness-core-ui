@@ -320,17 +320,26 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                   addDomId={true}
                   summary={getString('advancedTitle')}
                   details={
-                    <Layout.Horizontal
-                      width={'90%'}
-                      height={120}
-                      flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}
-                    >
+                    <Layout.Horizontal width={'90%'} height={120} flex={{ justifyContent: 'flex-start' }}>
                       <FormMultiTypeCheckboxField
                         name="skipResourceVersioning"
                         label={getString('skipResourceVersion')}
                         multiTypeTextbox={{ expressions }}
                         className={cx(templateCss.checkbox, templateCss.halfWidth)}
                       />
+                      {getMultiTypeFromValue(formik.values?.skipResourceVersioning) === MultiTypeInputType.RUNTIME && (
+                        <ConfigureOptions
+                          value={formik.values?.skipResourceVersioning ? 'true' : 'false'}
+                          type="String"
+                          variableName="skipResourceVersioning"
+                          showRequiredField={false}
+                          showDefaultField={false}
+                          showAdvanced={true}
+                          onChange={value => formik.setFieldValue('skipResourceVersioning', value)}
+                          style={{ alignSelf: 'center' }}
+                          className={css.addmarginTop}
+                        />
+                      )}
                       <Tooltip
                         position="bottom"
                         content={

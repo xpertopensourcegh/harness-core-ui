@@ -28,6 +28,27 @@ describe('helm with http tests', () => {
     expect(container).toMatchSnapshot()
   })
 
+  test('expand advanced section', () => {
+    const initialValues = {
+      identifier: '',
+      helmVersion: 'V2',
+      chartName: '',
+      chartVersion: '',
+      skipResourceVersioning: false,
+      bucketName: '',
+      folderPath: '',
+      commandFlags: [{ commandType: undefined, flag: undefined, id: 'id1' }]
+    }
+    const { container, getByText } = render(
+      <TestWrapper>
+        <HelmWithGcs {...props} initialValues={initialValues} />
+      </TestWrapper>
+    )
+
+    fireEvent.click(getByText('advancedTitle'))
+    expect(container).toMatchSnapshot()
+  })
+
   test(`renders while adding step first time`, () => {
     const initialValues = {
       identifier: '',
