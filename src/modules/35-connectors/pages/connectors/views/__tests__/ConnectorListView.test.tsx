@@ -13,8 +13,6 @@ import { useGetTestConnectionResult } from 'services/cd-ng'
 import * as usePermission from '@rbac/hooks/usePermission'
 import ConnectorsListView from '../ConnectorsListView'
 
-jest.mock('react-timeago', () => () => 'dummy date')
-
 const fetchConnectors = () => Promise.resolve(connectorsData)
 
 const testConnectorResultError = {

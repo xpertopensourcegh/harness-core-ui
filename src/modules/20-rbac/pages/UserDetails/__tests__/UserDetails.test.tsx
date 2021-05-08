@@ -38,8 +38,6 @@ jest.mock('@common/hooks', () => ({
   })
 }))
 
-jest.mock('react-timeago', () => () => 'dummy date')
-
 describe('UserDetails Test', () => {
   let container: HTMLElement
   let getAllByText: RenderResult['getAllByText']

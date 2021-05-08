@@ -6,8 +6,6 @@ import routes from '@common/RouteDefinitions'
 import SecretReferences from '../SecretReferences'
 import referencedData from './secret-references-entities-data.json'
 
-jest.mock('react-timeago', () => () => 'dummy date')
-
 describe('Secret Referenced By', () => {
   test('render for no data', async () => {
     const { container } = render(

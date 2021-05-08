@@ -194,7 +194,7 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
           >
-            react-timeago-mocked-component
+            dummy date
           </div>
         </div>
       </div>
@@ -374,7 +374,7 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
           >
-            react-timeago-mocked-component
+            dummy date
           </div>
         </div>
       </div>
@@ -521,7 +521,7 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
           >
-            react-timeago-mocked-component
+            dummy date
           </div>
         </div>
       </div>
@@ -673,7 +673,7 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
           >
-            react-timeago-mocked-component
+            dummy date
           </div>
         </div>
       </div>
@@ -825,7 +825,7 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
           >
-            react-timeago-mocked-component
+            dummy date
           </div>
         </div>
       </div>
@@ -1172,7 +1172,7 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
           >
-            react-timeago-mocked-component
+            dummy date
           </div>
         </div>
       </div>

@@ -74,8 +74,6 @@ jest.mock('@common/hooks/useMutateAsGet', () => ({
 
 jest.useFakeTimers()
 
-jest.mock('react-timeago', () => () => 'dummy date')
-
 describe('UsersPage Test', () => {
   let container: HTMLElement
   let getAllByText: RenderResult['getAllByText']

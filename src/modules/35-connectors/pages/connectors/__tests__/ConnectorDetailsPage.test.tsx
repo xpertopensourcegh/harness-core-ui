@@ -4,8 +4,6 @@ import { TestWrapper } from '@common/utils/testUtils'
 import ConnectorDetailsPage from '../ConnectorDetailsPage'
 import connector from './mocks/get-connector-mock.json'
 
-jest.mock('react-timeago', () => () => 'dummy date')
-
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => {
   const ComponentToMock = () => <div />
   return ComponentToMock

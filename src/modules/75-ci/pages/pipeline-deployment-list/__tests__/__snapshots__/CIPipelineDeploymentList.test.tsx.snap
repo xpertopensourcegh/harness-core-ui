@@ -663,12 +663,7 @@ exports[`<CIPipelineDeploymentList /> tests snapshot test 1`] = `
                       />
                     </svg>
                   </span>
-                  <time
-                    datetime="2021-01-13T08:53:13.932Z"
-                    title="2021-01-13 08:53"
-                  >
-                    3 months from now
-                  </time>
+                  dummy date
                 </span>
               </div>
             </div>

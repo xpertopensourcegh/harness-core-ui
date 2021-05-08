@@ -7,8 +7,6 @@ import ConnectorsPage from '../ConnectorsPage'
 
 import { connectorsData, catalogueData, statisticsMockData, filters } from './mockData'
 
-jest.mock('react-timeago', () => () => 'dummy date')
-
 const fetchConnectors = () => Promise.resolve(connectorsData)
 
 jest.mock('services/cd-ng', () => ({

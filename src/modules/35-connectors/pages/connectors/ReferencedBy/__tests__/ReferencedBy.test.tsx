@@ -4,8 +4,6 @@ import { TestWrapper } from '@common/utils/testUtils'
 import ReferencedBy from '../ReferencedBy'
 import referencedData from './referenced-entities-data.json'
 
-jest.mock('react-timeago', () => () => 'dummy date')
-
 describe('Referenced By', () => {
   test('render for no data', async () => {
     const { container } = render(

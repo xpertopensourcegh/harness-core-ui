@@ -4,8 +4,6 @@ import { TestWrapper } from '@common/utils/testUtils'
 import CVNotificationTable from '../CVNotificationTable'
 import mockList from './mockList.json'
 
-jest.mock('react-timeago', () => () => 'dummy date')
-
 describe('CVNotificationTable', () => {
   test('render notification table', async () => {
     const { container } = render(

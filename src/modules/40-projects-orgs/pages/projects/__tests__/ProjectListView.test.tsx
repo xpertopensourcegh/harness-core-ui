@@ -9,8 +9,6 @@ import routes from '@common/RouteDefinitions'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import { projectPageMock } from './ProjectPageMock'
 
-jest.mock('react-timeago', () => () => 'dummy date')
-
 const openProjectModal = jest.fn()
 const closeModal = jest.fn()
 const collaboratorModal = jest.fn()

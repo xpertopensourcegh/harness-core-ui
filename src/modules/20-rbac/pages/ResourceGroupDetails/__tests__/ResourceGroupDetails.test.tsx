@@ -11,8 +11,6 @@ import {
 import ResourceGroupDetails from '../ResourceGroupDetails'
 import { resourceTypes, resourceGroupDetails, resourceGroupDetailsWithHarnessManaged } from './mock'
 
-jest.mock('react-timeago', () => () => 'dummy date')
-
 const updateResourceGroupDetails = jest.fn()
 const getResourceGroupDetailsMock = jest.fn().mockImplementation(() => {
   return { data: resourceGroupDetails, refetch: jest.fn(), error: null, loading: false }

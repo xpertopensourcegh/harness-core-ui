@@ -45,3 +45,5 @@ jest.mock('framework/utils/Telemetry', () => {
     identify: jest.fn()
   }
 })
+
+jest.mock('react-timeago', () => () => 'dummy date')

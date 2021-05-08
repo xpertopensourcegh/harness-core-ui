@@ -6,8 +6,6 @@ import routes from '@common/RouteDefinitions'
 import EntityUsage from '../EntityUsage'
 import referencedData from './entity-usage-data.json'
 
-jest.mock('react-timeago', () => () => 'dummy date')
-
 describe('Entity Usage', () => {
   test('render for no data', async () => {
     const { container } = render(

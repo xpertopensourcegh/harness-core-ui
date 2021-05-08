@@ -34,8 +34,6 @@ jest.mock('@rbac/factories/RbacFactory', () => ({
   getResourceCategoryList: jest.fn().mockImplementation(() => getResourceCategoryListMock())
 }))
 
-jest.mock('react-timeago', () => () => 'dummy date')
-
 describe('Role Details Page', () => {
   let container: HTMLElement
   let getByText: RenderResult['getByText']

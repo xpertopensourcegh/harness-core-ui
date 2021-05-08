@@ -33,8 +33,6 @@ jest.mock('services/rbac', () => ({
   useUpdateRole: jest.fn().mockImplementation(() => createRoleMockData)
 }))
 
-jest.mock('react-timeago', () => () => 'dummy date')
-
 describe('Role Details Page', () => {
   let container: HTMLElement
   let getAllByText: RenderResult['getAllByText']

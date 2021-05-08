@@ -59,8 +59,6 @@ jest.mock('services/cd-ng', () => ({
 
 jest.useFakeTimers()
 
-jest.mock('react-timeago', () => () => 'dummy date')
-
 describe('UsersPage Test', () => {
   let container: HTMLElement
   let getAllByText: RenderResult['getAllByText']

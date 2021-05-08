@@ -4,7 +4,6 @@ import { TestWrapper } from '@common/utils/testUtils'
 import mockEnvironments from '@cv/pages/onboarding/activity-source-setup/harness-cd/SelectEnvironment/__tests__/mockEnvironments.json'
 import ConditionForm from '../ConditionsForm'
 
-jest.mock('react-timeago', () => () => 'dummy date')
 jest.mock('services/cd-ng', () => ({
   useGetEnvironmentListForProject: () => mockEnvironments,
   useGetServiceListForProject: jest.fn().mockReturnValue({

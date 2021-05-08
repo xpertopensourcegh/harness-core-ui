@@ -61,8 +61,6 @@ describe('Secrets Page', () => {
   })
 })
 
-jest.mock('react-timeago', () => () => 'dummy date')
-
 describe('Secrets List', () => {
   let container: HTMLElement
   let getAllByText: RenderResult['getAllByText']

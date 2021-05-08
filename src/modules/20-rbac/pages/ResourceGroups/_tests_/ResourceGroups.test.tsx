@@ -8,8 +8,6 @@ import { accountPathProps } from '@common/utils/routeUtils'
 import ResourceGroups from '../ResourceGroups'
 import { resourceGroupListResponse } from './mock'
 
-jest.mock('react-timeago', () => () => 'dummy date')
-
 const deleteResourceGroup = jest.fn()
 const createResourceGroup = jest.fn()
 const updateResourceGroup = jest.fn()

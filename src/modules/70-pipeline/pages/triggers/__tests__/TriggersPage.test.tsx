@@ -24,8 +24,6 @@ jest.mock('services/pipeline-ng', () => ({
   useUpdateTriggerStatus: jest.fn().mockImplementation(() => ({ mutate: mockUpdateTriggerStatus }))
 }))
 
-jest.mock('react-timeago', () => () => 'dummy date')
-
 const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
   <TestWrapper>{children}</TestWrapper>
 )
