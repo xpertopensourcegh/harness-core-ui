@@ -2,6 +2,7 @@ import React from 'react'
 import { pick } from 'lodash-es'
 import { Button as CoreButton, ButtonProps as CoreButtonProps } from '@wings-software/uicore'
 
+import { PopoverInteractionKind } from '@blueprintjs/core'
 import { usePermission, PermissionsRequest } from '@rbac/hooks/usePermission'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { useStrings } from 'framework/strings'
@@ -25,6 +26,7 @@ const RbacButton: React.FC<ButtonProps> = ({ permission: permissionRequest, ...r
       {...restProps}
       disabled={restProps.disabled || !canDoAction}
       tooltip={!canDoAction ? getString('noPermission') : undefined}
+      tooltipProps={{ hoverCloseDelay: 50, interactionKind: PopoverInteractionKind.HOVER_TARGET_ONLY }}
     />
   )
 }
