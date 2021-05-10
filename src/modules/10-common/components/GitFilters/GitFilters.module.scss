@@ -1,15 +1,17 @@
-:global {
-  .bp3-menu-item.bp3-intent-primary.bp3-active,
-  .bp3-menu-item:hover {
-    background-color: var(--blue-300);
-    color: var(--white);
-  }
-}
-
 .gitFilterContainer {
   width: 500px;
+
   .repoSelectDefault {
     margin-right: var(--spacing-medium);
+  }
+
+  :global {
+    .Select--active,
+    .bp3-active,
+    .bp3-menu-item:hover {
+      background-color: var(--primary-2) !important;
+      color: var(--grey-900) !important;
+    }
   }
 }
 
