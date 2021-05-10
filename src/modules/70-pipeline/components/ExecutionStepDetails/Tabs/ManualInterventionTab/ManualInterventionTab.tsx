@@ -11,8 +11,7 @@ import {
 } from 'services/pipeline-ng'
 import { Strategy } from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/StrategySelection/StrategyConfig'
 import { StrategyIcon } from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/StrategySelection/StrategyIcon'
-import type { ExecutionPathParams } from '@pipeline/utils/executionUtils'
-import type { PipelineType } from '@common/interfaces/RouteInterfaces'
+import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/components/Toaster/useToaster'
 
 import css from './ManualInterventionTab.module.scss'
@@ -22,13 +21,13 @@ export interface ManualInterventionTabProps {
 }
 
 export const STRATEGIES: Strategy[][] = chunk(
-  [Strategy.Retry, Strategy.Ignore, Strategy.MarkAsSuccess, Strategy.Abort],
+  [Strategy.Retry, Strategy.Ignore, Strategy.MarkAsSuccess, Strategy.Abort, Strategy.StageRollback],
   5
 )
 
 export function ManualInterventionTab(props: ManualInterventionTabProps): React.ReactElement {
   const { orgIdentifier, projectIdentifier, executionIdentifier, accountId } = useParams<
-    PipelineType<ExecutionPathParams>
+    PipelineType<ExecutionPathProps>
   >()
   const { mutate: handleInterrupt, loading, error } = useHandleManualInterventionInterrupt({
     planExecutionId: executionIdentifier,
