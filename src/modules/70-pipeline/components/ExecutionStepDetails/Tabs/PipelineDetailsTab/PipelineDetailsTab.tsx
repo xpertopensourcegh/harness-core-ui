@@ -14,7 +14,7 @@ export function PipelineDetailsTab(): React.ReactElement {
   const { getString } = useStrings()
 
   const [completedStages, upcomingStages] = partition(
-    [...pipelineStagesMap.values()].filter(stage => isExecutionSkipped(stage.status)),
+    [...pipelineStagesMap.values()].filter(stage => !isExecutionSkipped(stage.status)),
     stage => isExecutionComplete(stage.status)
   )
   const filteredCompletedStages = completedStages.reverse().filter(stage => queryParams.stage !== stage.nodeUuid)
