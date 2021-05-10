@@ -45,12 +45,14 @@ export function transformGetResponse(
 
   for (const config of gcoConfig.metricConfigurations) {
     const { envIdentifier, serviceIdentifier, metricDefinition } = config
+    // TODO: Remove this once backend fixes discripancy in key names manualQuery and isManualQuery
+    const manualQuery = metricDefinition?.isManualQuery || (metricDefinition as any)?.manualQuery
     if (
       !envIdentifier ||
       !serviceIdentifier ||
       !metricDefinition ||
       !metricDefinition.dashboardName ||
-      !metricDefinition.dashboardPath ||
+      !(manualQuery ? true : metricDefinition.dashboardPath) ||
       !metricDefinition.metricName
     )
       continue
@@ -68,7 +70,7 @@ export function transformGetResponse(
       dashboardPath: metricDefinition.dashboardPath,
       service: { label: serviceIdentifier, value: serviceIdentifier },
       environment: { label: envIdentifier, value: envIdentifier },
-      isManualQuery: metricDefinition.isManualQuery,
+      isManualQuery: manualQuery,
       riskCategory: `${metricDefinition.riskProfile?.category}/${metricDefinition.riskProfile?.metricType}`,
       higherBaselineDeviation: metricDefinition.riskProfile?.thresholdTypes?.includes('ACT_WHEN_HIGHER'),
       lowerBaselineDeviation: metricDefinition.riskProfile?.thresholdTypes?.includes('ACT_WHEN_LOWER'),

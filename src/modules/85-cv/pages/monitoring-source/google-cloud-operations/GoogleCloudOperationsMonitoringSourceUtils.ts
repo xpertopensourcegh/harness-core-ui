@@ -37,7 +37,7 @@ export interface GCODefinition {
   jsonMetricDefinition: Record<string, any>
   metricName: string
   dashboardName: string
-  dashboardPath: string
+  dashboardPath?: string
   metricTags: string[]
   riskProfile: {
     category: 'Performance' | 'Errors' | 'Infrastructure'

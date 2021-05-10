@@ -54,6 +54,37 @@ const MockResponseData = {
   responseMessages: []
 }
 
+const MockResponseManualQuery = {
+  metaData: {},
+  resource: {
+    accountId: '1234_accountId',
+    orgIdentifier: 'harness_test',
+    projectIdentifier: 'raghu_p',
+    connectorIdentifier: 'gcpProd2',
+    identifier: 'MyGoogleCloudOperationsSource',
+    monitoringSourceName: 'MyGoogleCloudOperationsSource',
+    metricConfigurations: [
+      {
+        metricDefinition: {
+          dashboardName: 'Manual_Query_Dashboard',
+          dashboardPath: undefined,
+          metricName: 'testQuery',
+          jsonMetricDefinition: JSON.parse(
+            '{"dataSets":[{"timeSeriesQuery":{"timeSeriesFilter":{"filter":"metric.type=\\"custom.googleapis.com/user/x_mongo_prod_prune_queues_count\\" resource.type=\\"global\\"","aggregation":{"perSeriesAligner":"ALIGN_MEAN"},"secondaryAggregation":{}},"unitOverride":"1"}}]}'
+          ),
+          metricTags: ['test'],
+          riskProfile: { category: 'Performance', metricType: 'ERROR', thresholdTypes: ['ACT_WHEN_HIGHER'] },
+          manualQuery: true
+        },
+        serviceIdentifier: 'ci',
+        envIdentifier: 'Prod'
+      }
+    ],
+    type: 'STACKDRIVER'
+  },
+  responseMessages: []
+}
+
 jest.mock('@cv/hooks/IndexedDBHook/IndexedDBHook', () => ({
   useIndexedDBHook: jest.fn().mockImplementation(() => {
     return { isInitializingDB: false, dbInstance: { get: jest.fn() } }
@@ -137,7 +168,7 @@ describe('Unit tests for GoogleCloudOperationsMonitoringSource', () => {
               value: 'Prod'
             },
             higherBaselineDeviation: true,
-            isManualQuery: undefined,
+            isManualQuery: false,
             lowerBaselineDeviation: false,
             metricName: 'custom.googleapis.com/user/x_mongo_prod_prune_queues_count',
             metricTags: {
@@ -163,7 +194,7 @@ describe('Unit tests for GoogleCloudOperationsMonitoringSource', () => {
               value: 'Qa'
             },
             higherBaselineDeviation: true,
-            isManualQuery: undefined,
+            isManualQuery: false,
             lowerBaselineDeviation: false,
             metricName: 'custom.googleapis.com/user/x_mongo_prod_resource_constraint_instances_count',
             metricTags: {
@@ -190,6 +221,87 @@ describe('Unit tests for GoogleCloudOperationsMonitoringSource', () => {
           path: 'projects/778566137835/dashboards/026f87a1-9b32-4217-925a-03031769dddc'
         }
       ],
+      type: 'STACKDRIVER'
+    })
+  })
+  test('Ensure transformGetResponse returns manual input query in edit mode', async () => {
+    const res = transformGetResponse(MockResponseManualQuery.resource as GCODSConfig, {
+      accountId: '1234_account',
+      projectIdentifier: '1234_project',
+      orgIdentifier: '1234_ORG',
+      identifier: '1234_iden'
+    })
+    expect(res).toEqual({
+      accountId: '1234_accountId',
+      connectorRef: {
+        label: 'gcpProd2',
+        value: 'gcpProd2'
+      },
+      identifier: 'MyGoogleCloudOperationsSource',
+      name: 'MyGoogleCloudOperationsSource',
+      orgIdentifier: 'harness_test',
+      product: 'Cloud Metrics',
+      projectIdentifier: 'raghu_p',
+      selectedMetrics: new Map([
+        [
+          'testQuery',
+          {
+            dashboardName: 'Manual_Query_Dashboard',
+            dashboardPath: undefined,
+            environment: {
+              label: 'Prod',
+              value: 'Prod'
+            },
+            higherBaselineDeviation: true,
+            isManualQuery: true,
+            lowerBaselineDeviation: false,
+            metricName: 'testQuery',
+            metricTags: {
+              test: ''
+            },
+            query: formatJSON(
+              '{"dataSets":[{"timeSeriesQuery":{"timeSeriesFilter":{"filter":"metric.type=\\"custom.googleapis.com/user/x_mongo_prod_prune_queues_count\\" resource.type=\\"global\\"","aggregation":{"perSeriesAligner":"ALIGN_MEAN"},"secondaryAggregation":{}},"unitOverride":"1"}}]}'
+            ),
+            riskCategory: 'Performance/ERROR',
+            service: {
+              label: 'ci',
+              value: 'ci'
+            }
+          }
+        ]
+      ]),
+      selectedDashboards: [
+        {
+          name: 'Manual_Query_Dashboard',
+          path: undefined
+        }
+      ],
+      type: 'STACKDRIVER'
+    })
+  })
+
+  test('Non Manual Input with incorrect payload', async () => {
+    const copyMockResponseManualQuery = Object.assign({}, MockResponseManualQuery.resource)
+    copyMockResponseManualQuery.metricConfigurations[0].metricDefinition.manualQuery = false
+    const res = transformGetResponse(MockResponseManualQuery.resource as GCODSConfig, {
+      accountId: '1234_account',
+      projectIdentifier: '1234_project',
+      orgIdentifier: '1234_ORG',
+      identifier: '1234_iden'
+    })
+    expect(res).toEqual({
+      accountId: '1234_accountId',
+      connectorRef: {
+        label: 'gcpProd2',
+        value: 'gcpProd2'
+      },
+      identifier: 'MyGoogleCloudOperationsSource',
+      name: 'MyGoogleCloudOperationsSource',
+      orgIdentifier: 'harness_test',
+      product: 'Cloud Metrics',
+      projectIdentifier: 'raghu_p',
+      selectedDashboards: [],
+      selectedMetrics: new Map([]),
       type: 'STACKDRIVER'
     })
   })
