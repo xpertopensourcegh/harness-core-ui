@@ -10,6 +10,7 @@ declare const styles: {
   readonly reviewMsg: string
   readonly jiraTicket: string
   readonly criteriaMsg: string
+  readonly infoHeader: string
   readonly statusMsg: string
   readonly harnessApproval: string
   readonly completed: string

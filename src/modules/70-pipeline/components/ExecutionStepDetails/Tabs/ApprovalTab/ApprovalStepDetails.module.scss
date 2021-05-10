@@ -9,32 +9,35 @@
   }
 
   .info {
-    color: var(--orange-color-1);
-    --intent-color: var(--orange-color-1);
-    font-size: var(--font-size-normal);
-    background-color: var(--yellow-200);
-    padding: var(--spacing-medium) var(--spacing-large) var(--spacing-small) var(--spacing-large);
+    background-color: var(--yellow-100);
+    padding: var(--spacing-4) var(--spacing-6) var(--spacing-8) var(--spacing-6);
 
     & :global(.bp3-icon) {
-      color: var(--orange-color-1);
-
       & path {
         fill: currentColor !important;
       }
     }
 
     .timer {
+      --intent-color: var(--orange-900);
       font-size: var(--font-size-small);
-      margin-bottom: var(--spacing-small);
+      font-weight: bold;
+      display: inline-flex;
+      align-items: center;
 
       .duration {
         --font-size: var(--font-size-small);
+        font-weight: bold;
         margin-right: var(--spacing-xsmall);
+        color: currentColor;
       }
     }
 
     .review-msg {
-      margin-bottom: var(--spacing-xsmall);
+      margin-top: var(--spacing-xsmall);
+      color: var(--orange-700);
+      font-size: var(--font-size-normal);
+      line-height: 1.5;
     }
 
     .jira-ticket {
@@ -51,17 +54,25 @@
     }
   }
 
+  .info-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-3);
+  }
+
   .status-msg {
-    padding: var(--spacing-large);
+    font-size: var(--font-size-small);
     font-weight: bold;
+    line-height: 2;
   }
 }
 
 .harness-approval {
-  padding: 0 var(--spacing-large);
+  padding: var(--spacing-6);
 
   &.completed {
-    margin-top: -18px;
+    padding: 0 var(--spacing-6);
     margin-left: var(--spacing-xsmall);
   }
 

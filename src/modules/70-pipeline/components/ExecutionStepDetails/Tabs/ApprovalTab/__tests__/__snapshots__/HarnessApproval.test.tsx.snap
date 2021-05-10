@@ -227,25 +227,29 @@ exports[`<HarnessApproval /> tests Waiting Status does not shows form if user is
     data-type="harness"
   >
     <div
-      class="timer"
+      class="infoHeader"
     >
-      <div>
-        MOCK DURATION
+      <div
+        class="statusMsg"
+      >
+        execution.approvals.statusMsg
       </div>
-      <span>
-        execution.approvals.timeRemainingSuffix
-      </span>
+      <div
+        class="timer"
+      >
+        <div>
+          MOCK DURATION
+        </div>
+        <span>
+          execution.approvals.timeRemainingSuffix
+        </span>
+      </div>
     </div>
     <div
       class="reviewMsg"
     >
       Please review the following information and approve the pipeline progression
     </div>
-  </div>
-  <div
-    class="statusMsg"
-  >
-    execution.approvals.statusMsg
   </div>
   <div
     class="harnessApproval"
@@ -440,25 +444,29 @@ exports[`<HarnessApproval /> tests Waiting Status shows form if user is authoriz
     data-type="harness"
   >
     <div
-      class="timer"
+      class="infoHeader"
     >
-      <div>
-        MOCK DURATION
+      <div
+        class="statusMsg"
+      >
+        execution.approvals.statusMsg
       </div>
-      <span>
-        execution.approvals.timeRemainingSuffix
-      </span>
+      <div
+        class="timer"
+      >
+        <div>
+          MOCK DURATION
+        </div>
+        <span>
+          execution.approvals.timeRemainingSuffix
+        </span>
+      </div>
     </div>
     <div
       class="reviewMsg"
     >
       Please review the following information and approve the pipeline progression
     </div>
-  </div>
-  <div
-    class="statusMsg"
-  >
-    execution.approvals.statusMsg
   </div>
   <div
     class="harnessApproval"

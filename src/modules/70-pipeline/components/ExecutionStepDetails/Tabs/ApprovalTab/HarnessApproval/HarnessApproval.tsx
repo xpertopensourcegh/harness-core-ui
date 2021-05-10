@@ -46,29 +46,31 @@ export function HarnessApproval(props: HarnessApprovalProps): React.ReactElement
       {isWaitingAll ? (
         <React.Fragment>
           <div className={css.info} data-type="harness">
-            {isWaiting ? (
-              <div className={css.timer}>
-                <Duration
-                  className={css.duration}
-                  durationText=""
-                  icon="hourglass"
-                  startTime={approvalData.deadline}
-                  iconProps={{ size: 8 }}
-                />
-                <String stringID="execution.approvals.timeRemainingSuffix" />
-              </div>
-            ) : null}
+            <div className={css.infoHeader}>
+              <String
+                tagName="div"
+                className={css.statusMsg}
+                stringID="execution.approvals.statusMsg"
+                vars={{
+                  count: approvalData.details.approvalActivities?.length || 0,
+                  total: approvalData.details.approvers?.minimumCount || 1
+                }}
+              />
+              {isWaiting ? (
+                <div className={css.timer}>
+                  <Duration
+                    className={css.duration}
+                    durationText=""
+                    icon="hourglass"
+                    startTime={approvalData.deadline}
+                    iconProps={{ size: 12 }}
+                  />
+                  <String stringID="execution.approvals.timeRemainingSuffix" />
+                </div>
+              ) : null}
+            </div>
             <div className={css.reviewMsg}>{approvalData.details.approvalMessage}</div>
           </div>
-          <String
-            tagName="div"
-            className={css.statusMsg}
-            stringID="execution.approvals.statusMsg"
-            vars={{
-              count: approvalData.details.approvalActivities?.length || 0,
-              total: approvalData.details.approvers?.minimumCount || 1
-            }}
-          />
         </React.Fragment>
       ) : (
         <StepDetails step={{ startTs: approvalData.createdAt, endTs: approvalData.lastModifiedAt }} />
