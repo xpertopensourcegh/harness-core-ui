@@ -2,7 +2,7 @@
   position: relative;
 
   :global(.bp3-input) {
-    display: block;
+    display: table;
     border: 1px solid var(--grey-400);
     border-radius: 4px;
     font-size: var(--font-size-normal);
