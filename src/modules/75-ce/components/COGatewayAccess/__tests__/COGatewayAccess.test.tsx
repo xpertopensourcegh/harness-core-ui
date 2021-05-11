@@ -1,5 +1,6 @@
 import React from 'react'
-import { fireEvent, render, waitFor } from '@testing-library/react'
+import { act } from 'react-dom/test-utils'
+import { findByText, fireEvent, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import COGatewayAccess from '../COGatewayAccess'
 
@@ -155,5 +156,47 @@ describe('Testing COGatewayAccess', () => {
       expect(dnsCheckBox.checked).toBe(true)
     })
     expect(container).toMatchSnapshot()
+  })
+
+  test('SSH checkbox checks succesfully and download os ssh file', async () => {
+    const { container } = render(
+      <TestWrapper path={testpath} pathParams={testparams}>
+        <COGatewayAccess
+          gatewayDetails={initialGatewayDetails}
+          setGatewayDetails={jest.fn()}
+          valid={true}
+          setValidity={jest.fn()}
+        />
+      </TestWrapper>
+    )
+    const sshCheckBox = container.querySelector('#ssh') as HTMLInputElement
+    expect(sshCheckBox).toBeDefined()
+    fireEvent.click(sshCheckBox)
+    await waitFor(() => {
+      expect(sshCheckBox.checked).toBe(true)
+    })
+    const sshTab = await findByText(container, 'ce.co.gatewayAccess.sshRdp')
+    act(() => {
+      fireEvent.click(sshTab)
+    })
+    expect(container).toMatchSnapshot()
+
+    const osDropdown = container.querySelector('input[name="sshOs"]') as HTMLInputElement
+    const osCaret = container
+      .querySelector(`input[name="sshOs"] + [class*="bp3-input-action"]`)
+      ?.querySelector('[data-icon="caret-down"]')
+    await waitFor(() => {
+      fireEvent.click(osCaret!)
+    })
+    const osToSelect = await findByText(container, 'Mac')
+    act(() => {
+      fireEvent.click(osToSelect)
+    })
+    expect(osDropdown.value).toBe('Mac')
+
+    const downloadBtn = await findByText(container, 'Download CLI')
+    act(() => {
+      fireEvent.click(downloadBtn)
+    })
   })
 })

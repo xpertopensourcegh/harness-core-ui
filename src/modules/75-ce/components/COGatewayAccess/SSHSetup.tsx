@@ -2,6 +2,7 @@ import React from 'react'
 import { Layout, Button, Text, Select, SelectOption } from '@wings-software/uicore'
 import { isEmpty as _isEmpty } from 'lodash-es'
 import { useStrings } from 'framework/strings'
+import css from './COGatewayAccess.module.scss'
 
 enum OS {
   Mac = 'Mac',
@@ -57,15 +58,12 @@ const SSHSetup: React.FC = () => {
   }
 
   return (
-    <Layout.Vertical spacing="medium" padding="medium" style={{ backgroundColor: 'var(--grey-200)' }}>
-      <Text style={{ lineHeight: '20px', fontSize: 'var(--font-size-normal)' }}>{getString('ce.co.sshSetup')}</Text>
-      <Layout.Horizontal>
-        <Select
-          // size={SelectSize}
-          items={dropdownOptions}
-          onChange={handleOsSelectChange}
-          value={assetLink}
-        />
+    <Layout.Vertical spacing="medium" padding="medium" className={css.sshSetupContainer}>
+      <Text className={css.text}>{getString('ce.co.sshSetup')}</Text>
+      <Layout.Horizontal className={css.infoSection}>
+        <div className={css.selectContainer}>
+          <Select items={dropdownOptions} onChange={handleOsSelectChange} value={assetLink} name={'sshOs'} />
+        </div>
         <Button
           style={{
             borderRadius: '8px',
@@ -73,13 +71,14 @@ const SSHSetup: React.FC = () => {
             border: '1px solid var(--blue-700)',
             color: 'var(--blue-700)',
             width: '130px',
-            marginLeft: 'var(--spacing-large)'
+            marginLeft: 'var(--spacing-large)',
+            fontSize: 12
           }}
-          text="Download CLI"
           onClick={downloadAsset}
-          className={'download-cli-btn'}
           disabled={_isEmpty(assetLink)}
-        />
+        >
+          {'Download CLI'}
+        </Button>
       </Layout.Horizontal>
     </Layout.Vertical>
   )

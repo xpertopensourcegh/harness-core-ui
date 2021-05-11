@@ -149,6 +149,7 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
               />
               <Checkbox
                 label="SSH / RDP"
+                id="ssh"
                 onChange={val => {
                   accessDetails.ssh.selected = val.currentTarget.checked
                   setAccessDetails(Object.assign({}, accessDetails))

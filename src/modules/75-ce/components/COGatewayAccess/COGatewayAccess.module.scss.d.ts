@@ -27,5 +27,9 @@ declare const styles: {
   readonly formFieldRow: string
   readonly radioBtn: string
   readonly saveBtn: string
+  readonly sshSetupContainer: string
+  readonly infoSection: string
+  readonly text: string
+  readonly selectContainer: string
 }
 export default styles

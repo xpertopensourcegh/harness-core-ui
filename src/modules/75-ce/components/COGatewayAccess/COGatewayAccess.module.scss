@@ -169,3 +169,18 @@
     margin-right: var(--spacing-medium) !important;
   }
 }
+
+.sshSetupContainer {
+  background-color: var(--grey-200) !important;
+  .infoSection {
+    --layout-spacing: var(--spacing-xlarge) !important;
+    .text {
+      line-height: 20px;
+      font-size: var(--font-size-normal);
+    }
+  }
+  .selectContainer {
+    width: auto;
+    margin-right: var(--spacing-large);
+  }
+}
