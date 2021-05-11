@@ -50,7 +50,6 @@ import ExecutionInputsView from '@pipeline/pages/execution/ExecutionInputsView/E
 import PipelineDetails from '@pipeline/pages/pipeline-details/PipelineDetails'
 import TriggerDetails from '@pipeline/pages/trigger-details/TriggerDetails'
 import CDTemplateLibraryPage from '@cd/pages/admin/template-library/CDTemplateLibraryPage'
-import CDGitSyncPage from '@cd/pages/admin/git-sync/CDGitSyncPage'
 import CDGovernancePage from '@cd/pages/admin/governance/CDGovernancePage'
 import CDGeneralSettingsPage from '@cd/pages/admin/general-settings/CDGeneralSettingsPage'
 import CDPipelineDeploymentList from '@cd/pages/pipeline-deployment-list/CDPipelineDeploymentList'
@@ -93,9 +92,9 @@ const RedirectToCDHome = (): React.ReactElement => {
 
 const RedirectToGitSyncHome = (): React.ReactElement => {
   const accountId = SessionToken.accountId()
-  const { projectIdentifier, orgIdentifier } = useParams<PipelineType<ProjectPathProps>>()
+  const { projectIdentifier, orgIdentifier, module } = useParams<PipelineType<ProjectPathProps & ModulePathParams>>()
 
-  return <Redirect to={routes.toGitSyncReposAdmin({ projectIdentifier, accountId, orgIdentifier })} />
+  return <Redirect to={routes.toGitSyncReposAdmin({ projectIdentifier, accountId, orgIdentifier, module })} />
 }
 
 const RedirectToCDProject = (): React.ReactElement => {
@@ -420,13 +419,6 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CDSideNavProps}
-      path={routes.toCDGitSync({ ...accountPathProps, ...projectPathProps })}
-    >
-      <CDGitSyncPage />
-    </RouteWithLayout>
-    <RouteWithLayout
-      exact
-      sidebarProps={CDSideNavProps}
       path={routes.toCDGovernance({ ...accountPathProps, ...projectPathProps })}
     >
       <CDGovernancePage />
@@ -507,14 +499,14 @@ export default (
     <RouteWithLayout
       sidebarProps={CDSideNavProps}
       exact
-      path={[routes.toGitSyncAdmin({ ...accountPathProps, ...projectPathProps })]}
+      path={[routes.toGitSyncAdmin({ ...accountPathProps, ...pipelineModuleParams, ...projectPathProps })]}
     >
       <RedirectToGitSyncHome />
     </RouteWithLayout>
     <RouteWithLayout
       exact
       sidebarProps={CDSideNavProps}
-      path={routes.toGitSyncReposAdmin({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toGitSyncReposAdmin({ ...accountPathProps, ...pipelineModuleParams, ...projectPathProps })}
     >
       <GitSyncPage>
         <GitSyncRepoTab />
@@ -522,7 +514,7 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={CDSideNavProps}
-      path={routes.toGitSyncEntitiesAdmin({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toGitSyncEntitiesAdmin({ ...accountPathProps, ...pipelineModuleParams, ...projectPathProps })}
       exact
     >
       <GitSyncPage>
