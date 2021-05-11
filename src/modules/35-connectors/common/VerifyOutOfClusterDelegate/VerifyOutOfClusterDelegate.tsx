@@ -178,7 +178,7 @@ const VerifyOutOfClusterDelegate: React.FC<
   }
 
   const { mutate: reloadTestConnection, loading } = useGetTestConnectionResult({
-    identifier: connectorInfo ? connectorInfo.identifier : prevStepData?.identifier || '',
+    identifier: connectorInfo && connectorInfo.identifier ? connectorInfo.identifier : prevStepData?.identifier || '',
     queryParams: { accountIdentifier: accountId, orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier },
     requestOptions: {
       headers: {

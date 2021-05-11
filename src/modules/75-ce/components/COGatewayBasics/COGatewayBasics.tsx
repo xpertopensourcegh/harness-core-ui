@@ -10,6 +10,7 @@ import { useStrings } from 'framework/strings'
 import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
 import { Utils } from '@ce/common/Utils'
 import { Connectors } from '@connectors/constants'
+
 interface COGatewayBasicsProps {
   gatewayDetails: GatewayDetails
   setGatewayDetails: (gwDetails: GatewayDetails) => void
@@ -77,7 +78,9 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
           if (isAwsProvider) {
             openConnectorModal(false, 'CEAws')
           } else {
-            openAzureConnectorModal(false, Connectors.CE_AZURE)
+            openAzureConnectorModal(false, Connectors.CE_AZURE, {
+              connectorInfo: ({ orgIdentifier: '', projectIdentifier: '' } as unknown) as ConnectorInfoDTO
+            })
           }
           trackEvent('MadeNewConnector', {})
         }}
