@@ -255,6 +255,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
           return (
             <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
               <FormInput.MultiTypeInput
+                tooltipProps={{ dataTooltipId: 'specifyYourService' }}
                 label={getString('pipelineSteps.serviceTab.specifyYourService')}
                 name="serviceRef"
                 disabled={readonly}
@@ -350,6 +351,7 @@ const DeployServiceInputStep: React.FC<DeployServiceProps> = ({ inputSetData }) 
     <>
       {getMultiTypeFromValue(inputSetData?.template?.serviceRef) === MultiTypeInputType.RUNTIME && (
         <FormInput.Select
+          tooltipProps={{ dataTooltipId: 'specifyYourService' }}
           label={getString('pipelineSteps.serviceTab.specifyYourService')}
           name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}serviceRef`}
           placeholder={getString('pipelineSteps.serviceTab.selectService')}

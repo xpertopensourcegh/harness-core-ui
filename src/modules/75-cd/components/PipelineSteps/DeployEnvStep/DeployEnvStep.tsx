@@ -308,6 +308,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
             <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
               <FormInput.MultiTypeInput
                 label={getString('pipelineSteps.environmentTab.specifyYourEnvironment')}
+                tooltipProps={{ dataTooltipId: 'specifyYourEnvironment' }}
                 name="environmentRef"
                 disabled={readonly}
                 placeholder={getString('pipelineSteps.environmentTab.selectEnvironment')}
@@ -408,6 +409,7 @@ const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps> = ({ inputSet
       {getMultiTypeFromValue(inputSetData?.template?.environmentRef) === MultiTypeInputType.RUNTIME && (
         <FormInput.Select
           label={getString('pipelineSteps.environmentTab.specifyYourEnvironment')}
+          tooltipProps={{ dataTooltipId: 'specifyYourEnvironment' }}
           name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}environmentRef`}
           placeholder={getString('pipelineSteps.environmentTab.selectEnvironment')}
           items={environments}

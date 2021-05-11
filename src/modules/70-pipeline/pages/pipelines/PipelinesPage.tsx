@@ -506,7 +506,12 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
                 { url: '#', label: getString('pipelines') }
               ]}
             />
-            <Text font={{ size: 'medium' }} color={Color.GREY_700}>
+            <Text
+              tooltipProps={{ dataTooltipId: 'pipelinesPageHeading' }}
+              className="ng-tooltip-native"
+              font={{ size: 'medium' }}
+              color={Color.GREY_700}
+            >
               {getString('pipelines')}
             </Text>
           </Layout.Vertical>
@@ -519,6 +524,9 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
             data-testid="add-pipeline"
             text={getString('addPipeline')}
             onClick={() => goToPipeline()}
+            tooltipProps={{
+              dataTooltipId: 'addPipeline'
+            }}
             permission={{
               permission: PermissionIdentifier.EDIT_PIPELINE,
               resource: {
