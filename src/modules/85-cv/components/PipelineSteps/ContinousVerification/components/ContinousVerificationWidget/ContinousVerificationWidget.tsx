@@ -67,8 +67,12 @@ export function ContinousVerificationWidget(
     getStageFromPipeline
   } = React.useContext(PipelineContext)
   const selectedStage = getStageFromPipeline(selectedStageId as string)?.stage
-  const envIdentifier = selectedStage?.stage?.spec?.infrastructure?.environmentRef
-  const serviceIdentifier = selectedStage?.stage?.spec?.serviceConfig.serviceRef
+  const envIdentifier =
+    selectedStage?.stage?.spec?.infrastructure?.environment?.identifier ||
+    selectedStage?.stage?.spec?.infrastructure?.environmentRef
+  const serviceIdentifier =
+    selectedStage?.stage?.spec?.serviceConfig?.service?.identifier ||
+    selectedStage?.stage?.spec?.serviceConfig?.serviceRef
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps & AccountPathProps>()
 
   //passing service and env identifier only when they are fixed inputs
