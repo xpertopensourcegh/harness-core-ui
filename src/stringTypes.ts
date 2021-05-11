@@ -731,6 +731,24 @@ export interface StringsMap {
   'pipeline.createPipeline.setupHeader': string
   'pipeline.createPipeline.setupLater': string
   'pipeline.createPipeline.setupSubtitle': string
+  'pipeline.dashboards.activeBuilds': string
+  'pipeline.dashboards.activeDeployments': string
+  'pipeline.dashboards.buildExecutions': string
+  'pipeline.dashboards.buildHealth': string
+  'pipeline.dashboards.failedBuilds': string
+  'pipeline.dashboards.failedDeployments': string
+  'pipeline.dashboards.noActiveBuilds': string
+  'pipeline.dashboards.noActiveDeployments': string
+  'pipeline.dashboards.noFailedBuilds': string
+  'pipeline.dashboards.noFailedDeployments': string
+  'pipeline.dashboards.noPendingDeployments': string
+  'pipeline.dashboards.noRepositories': string
+  'pipeline.dashboards.noWorkloads': string
+  'pipeline.dashboards.pendingDeployments': string
+  'pipeline.dashboards.successfulBuilds': string
+  'pipeline.dashboards.testCycleTimeSaved': string
+  'pipeline.dashboards.totalBuilds': string
+  'pipeline.dashboards.workloads': string
   'pipeline.discard': string
   'pipeline.duration': string
   'pipeline.enableVerificationOptions': string
@@ -1675,18 +1693,8 @@ export interface StringsMap {
   'ci.connectors': string
   'ci.continuous': string
   'ci.createPipeline': string
-  'ci.dashboard.activeBuilds': string
-  'ci.dashboard.buildExecutions': string
-  'ci.dashboard.buildHealth': string
   'ci.dashboard.createProject': string
-  'ci.dashboard.failedBuilds': string
-  'ci.dashboard.noActiveBuilds': string
-  'ci.dashboard.noFailedBuilds': string
-  'ci.dashboard.noRepositories': string
   'ci.dashboard.subHeading': string
-  'ci.dashboard.successfulBuilds': string
-  'ci.dashboard.testCycleTimeSaved': string
-  'ci.dashboard.totalBuilds': string
   'ci.delegates': string
   'ci.description': string
   'ci.executionLabel': string

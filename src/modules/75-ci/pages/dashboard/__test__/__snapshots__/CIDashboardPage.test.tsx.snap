@@ -64,7 +64,7 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main"
           >
-            ci.dashboard.buildHealth
+            pipeline.dashboards.buildHealth
           </p>
           <div
             class="bp3-popover-wrapper rangeSelector Select--main bp3-fill"
@@ -119,7 +119,7 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
             <div
               class="StyledProps--font StyledProps--main cardHeader"
             >
-              ci.dashboard.totalBuilds
+              pipeline.dashboards.totalBuilds
             </div>
             <div
               class="StyledProps--font StyledProps--main cardContent"
@@ -174,7 +174,7 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
             <div
               class="StyledProps--font StyledProps--main cardHeader"
             >
-              ci.dashboard.successfulBuilds
+              pipeline.dashboards.successfulBuilds
             </div>
             <div
               class="StyledProps--font StyledProps--main cardContent"
@@ -226,7 +226,7 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
             <div
               class="StyledProps--font StyledProps--main cardHeader"
             >
-              ci.dashboard.failedBuilds
+              pipeline.dashboards.failedBuilds
             </div>
             <div
               class="StyledProps--font StyledProps--main cardContent"
@@ -265,15 +265,19 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
           <div
             class="StyledProps--font StyledProps--main titleAndFilter"
           >
-            <div
-              class="Layout--horizontal StyledProps--main"
+            <p
+              class="StyledProps--font StyledProps--main"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--margin-right-small"
+              <div
+                class="Layout--horizontal StyledProps--main"
               >
-                ci.dashboard.buildExecutions
-              </p>
-            </div>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--margin-right-small"
+                >
+                  pipeline.dashboards.buildExecutions
+                </p>
+              </div>
+            </p>
             <div
               class="bp3-popover-wrapper rangeSelector Select--main bp3-fill"
             >
@@ -457,7 +461,7 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
                 </div>
               </div>
               <div
-                class="StyledProps--font StyledProps--main chartWrapper StyledProps--margin-top-small StyledProps--margin-left-huge"
+                class="StyledProps--font StyledProps--main chartWrapper StyledProps--margin-left-medium"
                 style="height: 40px;"
               >
                 <div />
@@ -482,9 +486,6 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
                 17 hours ago
               </div>
             </div>
-            <div
-              class="leftBorder"
-            />
           </div>
         </div>
       </div>
@@ -500,7 +501,7 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main title"
           >
-            ci.dashboard.failedBuilds
+            pipeline.dashboards.failedBuilds
           </p>
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-small"
@@ -754,7 +755,7 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
           <p
             class="StyledProps--font StyledProps--main title"
           >
-            ci.dashboard.activeBuilds
+            pipeline.dashboards.activeBuilds
           </p>
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-small"

@@ -21,7 +21,7 @@ export default function CDSideNav(): React.ReactElement {
   const module = 'cd'
   const { getString } = useStrings()
   const { updateAppStore } = useAppStore()
-  const { SERVICE_DASHBOARD_NG, GIT_SYNC_NG } = useFeatureFlags()
+  const { SERVICE_DASHBOARD_NG, GIT_SYNC_NG, CD_OVERVIEW_PAGE } = useFeatureFlags()
 
   return (
     <Layout.Vertical spacing="small">
@@ -52,7 +52,7 @@ export default function CDSideNav(): React.ReactElement {
       />
       {projectIdentifier && orgIdentifier ? (
         <React.Fragment>
-          <SidebarLink label="Overview" to={routes.toCDProjectOverview(params)} />
+          {CD_OVERVIEW_PAGE && <SidebarLink label="Overview" to={routes.toCDProjectOverview(params)} />}
           <SidebarLink label="Deployments" to={routes.toDeployments({ ...params, module })} />
           <SidebarLink label="Pipelines" to={routes.toPipelines({ ...params, module })} />
           {SERVICE_DASHBOARD_NG ? <SidebarLink label="Services" to={routes.toServices({ ...params, module })} /> : null}

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, useParams, Redirect } from 'react-router-dom'
-
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { RouteWithLayout } from '@common/router'
 import { MinimalLayout } from '@common/layouts'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
@@ -108,6 +108,20 @@ const RedirectToCDProject = (): React.ReactElement => {
   }
 }
 
+const CDDashboardPageOrRedirect = (): React.ReactElement => {
+  const params = useParams<ProjectPathProps>()
+  const { selectedProject } = useAppStore()
+  const { CD_OVERVIEW_PAGE } = useFeatureFlags()
+
+  if (CD_OVERVIEW_PAGE) {
+    return <CDDashboardPage />
+  } else if (selectedProject?.modules?.includes(ModuleName.CD)) {
+    return <Redirect to={routes.toDeployments({ ...params, module: 'cd' })} />
+  } else {
+    return <Redirect to={routes.toCDHome(params)} />
+  }
+}
+
 const RedirectToResourcesHome = (): React.ReactElement => {
   const params = useParams<PipelineType<ProjectPathProps>>()
   return <Redirect to={routes.toResourcesConnectors(params)} />
@@ -163,7 +177,7 @@ export default (
       path={routes.toCDProjectOverview({ ...accountPathProps, ...projectPathProps })}
       exact
     >
-      <CDDashboardPage />
+      <CDDashboardPageOrRedirect />
     </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={CDSideNavProps}

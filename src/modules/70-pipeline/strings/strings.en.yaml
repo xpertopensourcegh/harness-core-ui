@@ -374,3 +374,22 @@ triggers:
     SUN: 'SUN'
     expressionBreakdown: 'Expression Breakdown'
     cronExpression: 'Cron Expression'
+dashboards:
+  failedBuilds: Failed Builds
+  activeBuilds: Active Builds
+  workloads: Workloads
+  failedDeployments: Failed Deployments
+  activeDeployments: Active Deployments
+  pendingDeployments: Pending Approval/Manual Intervention
+  noRepositories: No Repositories found
+  noFailedBuilds: No Failed Builds found
+  noActiveBuilds: No Active Builds found
+  noWorkloads: 'No Workloads found'
+  noFailedDeployments: 'No Failed Deployments found'
+  noActiveDeployments: 'No Active Deployments found'
+  noPendingDeployments: 'No Pending Deployments found'
+  buildExecutions: Build Executions
+  buildHealth: Build health
+  totalBuilds: Total Builds
+  testCycleTimeSaved: Test Cycle Time Saved
+  successfulBuilds: Successful Builds

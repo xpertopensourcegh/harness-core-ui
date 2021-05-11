@@ -10,15 +10,15 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetBuilds, useGetRepositoryBuild } from 'services/ci'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/components/Toaster/useToaster'
-import CIDashboardSummaryCards from './CIDashboardSummaryCards/CIDashboardSummaryCards'
-import CardRailView from './CardRailView/CardRailView'
-import FailedBuildCard from './BuildCards/FailedBuildCard'
-import ActiveBuildCard, { ActiveBuildCardProps } from './BuildCards/ActiveBuildCard'
-import BuildExecutionsChart from './BuildExecutionsChart/BuildExecutionsChart'
-import RepositoryCard from './BuildCards/RepositoryCard'
-import RangeSelector from './RangeSelector'
+import CIDashboardSummaryCards from '@pipeline/components/Dashboards/CIDashboardSummaryCards/CIDashboardSummaryCards'
+import CardRailView from '@pipeline/components/Dashboards/CardRailView/CardRailView'
+import FailedBuildCard from '@pipeline/components/Dashboards/BuildCards/FailedBuildCard'
+import ActiveBuildCard, { ActiveBuildCardProps } from '@pipeline/components/Dashboards/BuildCards/ActiveBuildCard'
+import BuildExecutionsChart from '@pipeline/components/Dashboards/BuildExecutionsChart/BuildExecutionsChart'
+import RepositoryCard from '@pipeline/components/Dashboards/BuildCards/RepositoryCard'
+import RangeSelector from '@pipeline/components/Dashboards/RangeSelector'
 import styles from './CIDashboardPage.module.scss'
-import './sharedStyles.module.scss'
+// import '@pipeline/components/Dashboards/sharedStyles.module.scss'
 
 export const CIDashboardPage: React.FC = () => {
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
@@ -96,7 +96,7 @@ export const CIDashboardPage: React.FC = () => {
                 message={repo.lastCommit!}
                 lastBuildStatus={(repo as any).lastStatus}
                 startTime={moment(repo.time, 'YYYY-MM-DD HH:mm:ss').valueOf()}
-                buildsNumber={repo.buildCount!}
+                count={repo.buildCount!}
                 successRate={repo.percentSuccess!}
                 successRateDiff={repo.successRate!}
                 countList={repo.countList}
