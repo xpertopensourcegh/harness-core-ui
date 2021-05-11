@@ -74,6 +74,10 @@ import ResourceGroupDetails from '@rbac/pages/ResourceGroupDetails/ResourceGroup
 import UserGroups from '@rbac/pages/UserGroups/UserGroups'
 
 import ResourcesPage from '@common/pages/resources/ResourcesPage'
+import SessionToken from 'framework/utils/SessionToken'
+import GitSyncPage from '@gitsync/pages/GitSyncPage'
+import GitSyncRepoTab from '@gitsync/pages/repos/GitSyncRepoTab'
+import GitSyncEntityTab from '@gitsync/pages/entities/GitSyncEntityTab'
 import CDTrialHomePage from './pages/home/CDTrialHomePage'
 
 const RedirectToAccessControlHome = (): React.ReactElement => {
@@ -85,6 +89,13 @@ const RedirectToAccessControlHome = (): React.ReactElement => {
 const RedirectToCDHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps>()
   return <Redirect to={routes.toCDHome(params)} />
+}
+
+const RedirectToGitSyncHome = (): React.ReactElement => {
+  const accountId = SessionToken.accountId()
+  const { projectIdentifier, orgIdentifier } = useParams<PipelineType<ProjectPathProps>>()
+
+  return <Redirect to={routes.toGitSyncReposAdmin({ projectIdentifier, accountId, orgIdentifier })} />
 }
 
 const RedirectToCDProject = (): React.ReactElement => {
@@ -491,6 +502,32 @@ export default (
       exact
     >
       <ResourceGroupDetails />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CDSideNavProps}
+      exact
+      path={[routes.toGitSyncAdmin({ ...accountPathProps, ...projectPathProps })]}
+    >
+      <RedirectToGitSyncHome />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toGitSyncReposAdmin({ ...accountPathProps, ...projectPathProps })}
+    >
+      <GitSyncPage>
+        <GitSyncRepoTab />
+      </GitSyncPage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={CDSideNavProps}
+      path={routes.toGitSyncEntitiesAdmin({ ...accountPathProps, ...projectPathProps })}
+      exact
+    >
+      <GitSyncPage>
+        <GitSyncEntityTab />
+      </GitSyncPage>
     </RouteWithLayout>
   </>
 )
