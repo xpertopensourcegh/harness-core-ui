@@ -5,6 +5,9 @@ import type { Distribution, WeightedVariation, Variation } from 'services/cf'
 import { useStrings } from 'framework/strings'
 import { useBucketByItems } from '@cf/utils/CFUtils'
 import { CFVariationColors } from '@cf/constants'
+import { useTargetAttributes } from '@cf/hooks/useTargetAttributes'
+import type { Option } from '@cf/utils/sortOptions'
+import { sortOptions } from '@cf/utils/sortOptions'
 import css from './TabTargeting.module.scss'
 
 interface PercentageValues {
@@ -77,12 +80,15 @@ const PercentageRollout: React.FC<PercentageRolloutProps> = ({
     })
   }, [bucketByValue, percentageValues])
   const { bucketByItems, addBucketByItem } = useBucketByItems()
+  const { targetAttributes } = useTargetAttributes()
   const bucketBySelectValue = useMemo(() => {
     return bucketByItems.find(item => item.value === bucketByValue)
   }, [bucketByItems, bucketByValue])
   const bucketByDisplayName = useMemo(() => {
     return bucketByItems.find(item => item.value === bucketByValue)?.label
   }, [bucketByItems, bucketByValue])
+
+  const sortedBucketByItems = useMemo<Option[]>(() => sortOptions(bucketByItems), [bucketByItems])
 
   type InputEventType = { target: { value: string } }
   const onSelectEvent = (event: InputEventType): void => {
@@ -94,6 +100,12 @@ const PercentageRollout: React.FC<PercentageRolloutProps> = ({
   useEffect(() => {
     addBucketByItem(bucketBy as string)
   }, [bucketBy, addBucketByItem])
+
+  useEffect(() => {
+    if (targetAttributes.length) {
+      targetAttributes.forEach(addBucketByItem)
+    }
+  }, [targetAttributes, addBucketByItem])
 
   return (
     <Container margin={{ left: editing ? 'small' : 'xsmall' }} style={style}>
@@ -114,7 +126,7 @@ const PercentageRollout: React.FC<PercentageRolloutProps> = ({
           <Select
             name="bucketBy"
             value={bucketBySelectValue}
-            items={bucketByItems}
+            items={sortedBucketByItems}
             onChange={({ value }) => {
               addBucketByItem(value as string)
               setBucketByValue(value as string)

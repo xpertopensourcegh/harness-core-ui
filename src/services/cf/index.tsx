@@ -350,7 +350,7 @@ export type FeatureFlagRequestRequestBody = {
   identifier: string
   owner?: string
   kind: 'boolean' | 'int' | 'string' | 'json'
-  archived: boolean
+  archived?: boolean
   variations: Variation[]
   tags?: Tag[]
   defaultOnVariation: string
@@ -547,7 +547,7 @@ export interface CreateProjectQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -630,7 +630,7 @@ export interface GetAllProjectsQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -643,10 +643,6 @@ export interface GetAllProjectsQueryParams {
    * PageSize
    */
   pageSize?: number
-  /**
-   * query
-   */
-  queryString?: string
   /**
    * SortOrder
    */
@@ -712,7 +708,7 @@ export interface GetProjectQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -787,7 +783,7 @@ export interface ModifyProjectQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -883,7 +879,7 @@ export interface DeleteProjectQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -950,7 +946,7 @@ export interface AddAPIKeyQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -1041,7 +1037,7 @@ export interface GetAllAPIKeysQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -1127,7 +1123,7 @@ export interface DeleteApiKeyQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -1202,7 +1198,7 @@ export interface UpdateAPIKeyQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -1306,7 +1302,7 @@ export interface GetAPIKeyQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -1381,7 +1377,7 @@ export interface CreateEnvironmentQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -1464,7 +1460,7 @@ export interface GetAllEnvironmentsQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -1481,10 +1477,6 @@ export interface GetAllEnvironmentsQueryParams {
    * PageSize
    */
   pageSize?: number
-  /**
-   * query
-   */
-  queryString?: string
   /**
    * SortOrder
    */
@@ -1554,7 +1546,7 @@ export interface GetEnvironmentQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -1629,7 +1621,7 @@ export interface ModifyEnvironmentQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -1733,7 +1725,7 @@ export interface DeleteEnvironmentQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -1800,7 +1792,7 @@ export interface CreateFeatureFlagQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -1883,7 +1875,7 @@ export interface GetAllFeaturesQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -1904,10 +1896,6 @@ export interface GetAllFeaturesQueryParams {
    * PageSize
    */
   pageSize?: number
-  /**
-   * query
-   */
-  queryString?: string
   /**
    * SortOrder
    */
@@ -1993,7 +1981,7 @@ export interface GetFeatureFlagQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -2076,7 +2064,7 @@ export interface PatchFeatureQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -2184,7 +2172,7 @@ export interface DeleteFeatureFlagQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -2255,7 +2243,7 @@ export interface GetFeatureEvaluationsQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -2346,7 +2334,7 @@ export interface CreateTargetQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -2429,7 +2417,7 @@ export interface GetAllTargetsQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -2450,10 +2438,6 @@ export interface GetAllTargetsQueryParams {
    * PageSize
    */
   pageSize?: number
-  /**
-   * query
-   */
-  queryString?: string
   /**
    * SortOrder
    */
@@ -2527,7 +2511,7 @@ export interface UploadTargetsQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -2618,7 +2602,7 @@ export interface GetTargetQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -2701,7 +2685,7 @@ export interface ModifyTargetQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -2809,7 +2793,7 @@ export interface DeleteTargetQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -2884,7 +2868,7 @@ export interface PatchTargetQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -2992,7 +2976,7 @@ export interface GetTargetSegmentsQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -3075,7 +3059,7 @@ export interface GetTargetAvailableSegmentsQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -3182,7 +3166,7 @@ export interface GetAllTargetAttributesQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -3252,7 +3236,7 @@ export interface CreateSegmentQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -3335,7 +3319,7 @@ export interface GetAllSegmentsQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -3356,10 +3340,6 @@ export interface GetAllSegmentsQueryParams {
    * PageSize
    */
   pageSize?: number
-  /**
-   * query
-   */
-  queryString?: string
   /**
    * SortOrder
    */
@@ -3425,7 +3405,7 @@ export interface GetSegmentQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -3508,7 +3488,7 @@ export interface PatchSegmentQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -3616,7 +3596,7 @@ export interface DeleteSegmentQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -3691,7 +3671,7 @@ export interface GetSegmentFlagsQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -3774,7 +3754,7 @@ export interface GetAvailableFlagsForSegmentQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */
@@ -3897,7 +3877,7 @@ export interface GetAuditByParamsQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Start Time
    */
@@ -4055,7 +4035,7 @@ export interface GetTargetsAndSegmentsQueryParams {
   /**
    * Account
    */
-  account: string
+  accountIdentifier: string
   /**
    * Organization Identifier
    */

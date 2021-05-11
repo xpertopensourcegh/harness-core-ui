@@ -14,6 +14,7 @@ import cx from 'classnames'
 import { FeatureFlagActivationStatus } from '@cf/utils/CFUtils'
 import { useStrings } from 'framework/strings'
 import type { Feature } from 'services/cf'
+import { TargetAttributesProvider } from '@cf/hooks/useTargetAttributes'
 import CustomRulesView from './CustomRulesView'
 import { DefaultRulesView } from './DefaultRulesView'
 import css from '../FlagActivation/FlagActivation.module.scss'
@@ -28,16 +29,28 @@ interface TabTargetingProps {
   projectIdentifier: string
   environmentIdentifier: string
   setEditing: (flag: boolean) => void
+  org: string
+  accountIdentifier: string
 }
 
 const TabTargeting: React.FC<TabTargetingProps> = props => {
-  const { feature, formikProps, targetData, editing, setEditing, environmentIdentifier, projectIdentifier } = props
+  const {
+    feature,
+    formikProps,
+    targetData,
+    editing,
+    setEditing,
+    environmentIdentifier,
+    projectIdentifier,
+    org,
+    accountIdentifier
+  } = props
   const [isEditRulesOn, setEditRulesOn] = useState(false)
   const { getString } = useStrings()
 
   useEffect(() => {
     if (!editing && isEditRulesOn) setEditRulesOn(false)
-  }, [editing])
+  }, [editing, isEditRulesOn])
 
   const [, hideTargetModal] = useModalHook(() => (
     <Dialog onClose={hideTargetModal} title="" isOpen={true}>
@@ -82,62 +95,69 @@ const TabTargeting: React.FC<TabTargetingProps> = props => {
   }
 
   return (
-    <Layout.Vertical padding={{ left: 'huge', right: 'large', bottom: 'large' }}>
-      <Layout.Horizontal
-        className={css.contentHeading}
-        style={{ alignItems: 'center' }}
-        margin={{ top: 'small', bottom: 'xlarge' }}
-      >
-        <Switch
-          onChange={event => {
-            onChangeSwitchEnv(event.currentTarget.value, formikProps)
-          }}
-          alignIndicator="right"
-          className={cx(Classes.LARGE, css.switch)}
-          checked={formikProps.values.state === FeatureFlagActivationStatus.ON}
-          disabled={feature.archived}
-        />
-        <Text style={{ fontSize: '12px', color: '#6B6D85' }} padding={{ left: 'small' }}>
-          {isFlagSwitchChanged
-            ? getString(switchOff ? 'cf.featureFlags.flagWillTurnOff' : 'cf.featureFlags.flagWillTurnOn')
-            : switchOff
-            ? getString('cf.featureFlags.flagOff')
-            : getString('cf.featureFlags.flagOn')}
-        </Text>
-        <FlexExpander />
-        <Button
-          text={getString('cf.featureFlags.rules.editRules')}
-          icon="edit"
-          onClick={onEditBtnHandler}
-          style={{
-            visibility: isEditRulesOn ? 'hidden' : undefined
-          }}
-          disabled={feature.archived}
-        />
-      </Layout.Horizontal>
-      <Layout.Vertical>
-        <DefaultRulesView
-          formikProps={formikProps}
-          editing={isEditRulesOn}
-          defaultOnVariation={targetData.defaultOnVariation}
-          bucketBy={targetData.envProperties?.defaultServe.distribution?.bucketBy}
-          weightedVariations={targetData.envProperties?.defaultServe.distribution?.variations}
-          variations={targetData.variations}
-        />
-      </Layout.Vertical>
-      <Layout.Vertical>
-        {showCustomRules && (
-          <CustomRulesView
-            feature={feature}
-            editing={isEditRulesOn}
-            formikProps={formikProps}
-            target={targetData}
-            enviroment={environmentIdentifier}
-            project={projectIdentifier}
+    <TargetAttributesProvider
+      project={projectIdentifier}
+      org={org}
+      accountIdentifier={accountIdentifier}
+      environment={environmentIdentifier}
+    >
+      <Layout.Vertical padding={{ left: 'huge', right: 'large', bottom: 'large' }}>
+        <Layout.Horizontal
+          className={css.contentHeading}
+          style={{ alignItems: 'center' }}
+          margin={{ top: 'small', bottom: 'xlarge' }}
+        >
+          <Switch
+            onChange={event => {
+              onChangeSwitchEnv(event.currentTarget.value, formikProps)
+            }}
+            alignIndicator="right"
+            className={cx(Classes.LARGE, css.switch)}
+            checked={formikProps.values.state === FeatureFlagActivationStatus.ON}
+            disabled={feature.archived}
           />
-        )}
+          <Text style={{ fontSize: '12px', color: '#6B6D85' }} padding={{ left: 'small' }}>
+            {isFlagSwitchChanged
+              ? getString(switchOff ? 'cf.featureFlags.flagWillTurnOff' : 'cf.featureFlags.flagWillTurnOn')
+              : switchOff
+              ? getString('cf.featureFlags.flagOff')
+              : getString('cf.featureFlags.flagOn')}
+          </Text>
+          <FlexExpander />
+          <Button
+            text={getString('cf.featureFlags.rules.editRules')}
+            icon="edit"
+            onClick={onEditBtnHandler}
+            style={{
+              visibility: isEditRulesOn ? 'hidden' : undefined
+            }}
+            disabled={feature.archived}
+          />
+        </Layout.Horizontal>
+        <Layout.Vertical>
+          <DefaultRulesView
+            formikProps={formikProps}
+            editing={isEditRulesOn}
+            defaultOnVariation={targetData.defaultOnVariation}
+            bucketBy={targetData.envProperties?.defaultServe.distribution?.bucketBy}
+            weightedVariations={targetData.envProperties?.defaultServe.distribution?.variations}
+            variations={targetData.variations}
+          />
+        </Layout.Vertical>
+        <Layout.Vertical>
+          {showCustomRules && (
+            <CustomRulesView
+              feature={feature}
+              editing={isEditRulesOn}
+              formikProps={formikProps}
+              target={targetData}
+              environment={environmentIdentifier}
+              project={projectIdentifier}
+            />
+          )}
+        </Layout.Vertical>
       </Layout.Vertical>
-    </Layout.Vertical>
+    </TargetAttributesProvider>
   )
 }
 

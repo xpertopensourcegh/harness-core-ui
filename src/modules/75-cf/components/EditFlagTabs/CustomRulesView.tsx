@@ -44,6 +44,8 @@ import {
 import { useStrings } from 'framework/strings'
 import { unescapeI18nSupportedTags, useBucketByItems } from '@cf/utils/CFUtils'
 import { extraOperators, extraOperatorReference, useOperatorsFromYaml, CFVariationColors } from '@cf/constants'
+import { useTargetAttributes } from '@cf/hooks/useTargetAttributes'
+import { sortOptions } from '@cf/utils/sortOptions'
 import { VariationWithIcon } from '../VariationWithIcon/VariationWithIcon'
 import PercentageRollout from './PercentageRollout'
 import css from './TabTargeting.module.scss'
@@ -143,13 +145,22 @@ const ClauseRow: React.FC<ClauseRowProps> = props => {
   const handleSingleValueChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     handleValuesChange([toOption(e.target.value)])
   const { bucketByItems, addBucketByItem } = useBucketByItems()
+  const { targetAttributes } = useTargetAttributes()
   const bucketBySelectValue = useMemo(() => {
     return bucketByItems.find(item => item.value === attribute)
   }, [bucketByItems, attribute])
 
+  const sortedBucketByItems = useMemo<Option<string>[]>(() => sortOptions(bucketByItems), [bucketByItems])
+
   useEffect(() => {
     addBucketByItem(attribute as string)
   }, [attribute, addBucketByItem])
+
+  useEffect(() => {
+    if (targetAttributes.length) {
+      targetAttributes.forEach(addBucketByItem)
+    }
+  }, [targetAttributes, addBucketByItem])
 
   const actions = [
     <Icon
@@ -195,7 +206,7 @@ const ClauseRow: React.FC<ClauseRowProps> = props => {
           <Select
             name="bucketBy"
             value={bucketBySelectValue}
-            items={bucketByItems}
+            items={sortedBucketByItems}
             disabled={operator.value === matchSegment.value}
             onChange={({ value }) => {
               addBucketByItem(value as string)
@@ -652,7 +663,7 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
   //   }
   // })
 
-  const targetIdentidiersFromForm = uniq(
+  const targetIdentifiersFromForm = uniq(
     formikProps.values.variationMap
       .map((map: { targets: TargetMap[] }) => map.targets || [])
       .flat()
@@ -660,7 +671,7 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
   )
   const availableTargets: Option<string>[] =
     ((data?.targets || []) as Target[])
-      .filter(target => !targetIdentidiersFromForm.includes(target.identifier))
+      .filter(target => !targetIdentifiersFromForm.includes(target.identifier))
       .map(compose(toOption, prop('identifier'))) || []
   const [tempTargets, setTempTargets] = useState(tagOpts)
 
@@ -820,7 +831,7 @@ const ServingCard: React.FC<ServingCardProps> = ({
     }
   })
   const handleUpdate = (idx: number, attr: 'targets' | 'variation') => (data: any) => onUpdate(idx, attr, data)
-  const moreAvaiable = servings.length < variations.length
+  const moreAvailable = servings.length < variations.length
 
   return (
     <Container className={cx(css.rulesContainer, css.custom)} width="100%">
@@ -854,7 +865,7 @@ const ServingCard: React.FC<ServingCardProps> = ({
             />
           )
         })}
-        {editing && moreAvaiable && (
+        {editing && moreAvailable && (
           <Button intent="primary" minimal onClick={onAdd} className={css.addBtn} text={getString('plusAdd')} />
         )}
       </Layout.Vertical>
@@ -867,7 +878,7 @@ interface CustomRulesViewProps {
   formikProps: any
   target: Feature
   editing: boolean
-  enviroment: string
+  environment: string
   project: string
 }
 
@@ -884,7 +895,7 @@ const CustomRulesView: React.FC<CustomRulesViewProps> = ({
   formikProps,
   target,
   editing,
-  enviroment,
+  environment,
   project
 }) => {
   const { getString } = useStrings()
@@ -944,7 +955,7 @@ const CustomRulesView: React.FC<CustomRulesViewProps> = ({
               editing={editing}
               servings={servings}
               variations={target.variations}
-              environment={enviroment}
+              environment={environment}
               project={project}
               onAdd={handleAddServing}
               onUpdate={handleUpdateServing}
