@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useModalHook, Button } from '@wings-software/uicore'
 import { Dialog, Classes } from '@blueprintjs/core'
 import cx from 'classnames'
+import { useStrings } from 'framework/strings'
 import type { NgPipeline } from 'services/cd-ng'
 
-import CITrial from './CITrial'
+import { SelectOrCreatePipelineForm } from '@pipeline/components/SelectOrCreatePipelineForm/SelectOrCreatePipelineForm'
+import { CreatePipelineForm } from '@pipeline/components/CreatePipelineForm/CreatePipelineForm'
+import { TrialModalTemplate } from '@common/components/TrialModalTemplate/TrialModalTemplate'
+import ciImage from '../images/illustration.png'
+
 import css from './useCITrialModal.module.scss'
 
 type onCreateSuccess = (data: NgPipeline) => void
@@ -24,6 +29,46 @@ export interface UseCITrialModalProps {
 export interface UseCITrialModalReturn {
   openCITrialModal: () => void
   closeCITrialModal: () => void
+}
+
+type handleSelectSubmit = (value: string) => void
+type handleCreateSubmit = (value: NgPipeline) => void
+interface CITrialModalData {
+  onSubmit: handleSelectSubmit | handleCreateSubmit
+  closeModal?: () => void
+  isSelect: boolean
+}
+
+const CITrial: React.FC<CITrialModalData> = ({ isSelect, onSubmit, closeModal }) => {
+  const { getString } = useStrings()
+
+  const [select, setSelect] = useState(isSelect)
+
+  const description = select
+    ? getString('pipeline.selectOrCreateForm.description')
+    : getString('ci.ciTrialHomePage.startTrial.description')
+  const children = select ? (
+    <SelectOrCreatePipelineForm
+      handleSubmit={onSubmit as handleSelectSubmit}
+      openCreatPipeLineModal={() => {
+        setSelect(false)
+      }}
+      closeModal={closeModal}
+    />
+  ) : (
+    <CreatePipelineForm handleSubmit={onSubmit as handleCreateSubmit} closeModal={closeModal} />
+  )
+
+  return (
+    <TrialModalTemplate
+      iconName="ci-main"
+      title={getString('ci.continuous')}
+      description={description}
+      imgSrc={ciImage}
+    >
+      {children}
+    </TrialModalTemplate>
+  )
 }
 
 const CITrialDialog = ({ onClose, onSubmit, isSelect }: DialogProps): React.ReactElement => (

@@ -1,13 +1,41 @@
 import React from 'react'
 import { render, fireEvent, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { useCDTrialModal } from '../CDTrial/useCDTrialModal'
+import { TrialType, useCDTrialModal } from '../CDTrial/useCDTrialModal'
+
+jest.mock('services/pipeline-ng', () => ({
+  useGetPipelineList: jest.fn().mockImplementation(() => {
+    return {
+      cancel: jest.fn(),
+      loading: false,
+      mutate: jest.fn().mockImplementationOnce(() => {
+        return {
+          data: {
+            content: [
+              {
+                identifier: 'item 1'
+              },
+              {
+                identifier: 'item 2'
+              }
+            ]
+          }
+        }
+      })
+    }
+  })
+}))
 
 const onCloseModal = jest.fn()
-const TestComponent = (): React.ReactElement => {
+const TestComponent = ({ trialType = TrialType.SET_UP_PIPELINE }: { trialType?: TrialType }): React.ReactElement => {
   const { openCDTrialModal, closeCDTrialModal } = useCDTrialModal({
-    onSuccess: jest.fn(),
-    onCloseModal
+    actionProps: {
+      onSuccess: jest.fn(),
+      onCloseModal,
+      onCreateProject: jest.fn(),
+      onSelectProject: jest.fn()
+    },
+    trialType
   })
   return (
     <>
@@ -17,7 +45,7 @@ const TestComponent = (): React.ReactElement => {
   )
 }
 
-describe('open and close CDTrial Modal', () => {
+describe('CDTrial Modal', () => {
   describe('Rendering', () => {
     test('should open and close CDTrial', async () => {
       const { container, getByText, getByRole } = render(
@@ -26,7 +54,7 @@ describe('open and close CDTrial Modal', () => {
         </TestWrapper>
       )
       fireEvent.click(container.querySelector('.open')!)
-      await waitFor(() => expect(() => getByText('Trial in-progress')).toBeDefined())
+      await waitFor(() => expect(() => getByText('cd.cdTrialHomePage.startTrial.description')).toBeDefined())
       fireEvent.click(getByRole('button', { name: 'close modal' }))
       await waitFor(() => expect(onCloseModal).toBeCalled())
     })
@@ -38,9 +66,45 @@ describe('open and close CDTrial Modal', () => {
         </TestWrapper>
       )
       fireEvent.click(container.querySelector('.open')!)
-      await waitFor(() => expect(() => getByText('Trial in-progress')).toBeDefined())
+      await waitFor(() => expect(() => getByText('cd.cdTrialHomePage.startTrial.description')).toBeDefined())
       fireEvent.click(container.querySelector('.close')!)
       await waitFor(() => expect(onCloseModal).toBeCalled())
+    })
+  })
+
+  describe('validation', () => {
+    test('should validate inputs', async () => {
+      const { container, getByText } = render(
+        <TestWrapper>
+          <TestComponent />
+        </TestWrapper>
+      )
+      fireEvent.click(container.querySelector('.open')!)
+      fireEvent.click(getByText('start'))
+      await waitFor(() => expect(container).toMatchSnapshot())
+      expect(getByText('createPipeline.pipelineNameRequired')).toBeDefined()
+    })
+  })
+
+  describe('trial type', () => {
+    test('create or select project modal', async () => {
+      const { container, getByText } = render(
+        <TestWrapper>
+          <TestComponent trialType={TrialType.CREATE_OR_SELECT_PROJECT} />
+        </TestWrapper>
+      )
+      fireEvent.click(container.querySelector('.open')!)
+      await waitFor(() => expect(() => getByText('cd.continuous')).toBeDefined())
+    })
+
+    test('create or select pipeline modal', async () => {
+      const { container, getByText } = render(
+        <TestWrapper>
+          <TestComponent trialType={TrialType.CREATE_OR_SELECT_PIPELINE} />
+        </TestWrapper>
+      )
+      fireEvent.click(container.querySelector('.open')!)
+      await waitFor(() => expect(() => getByText('pipeline.selectOrCreateForm.description')).toBeDefined())
     })
   })
 })

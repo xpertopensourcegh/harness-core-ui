@@ -41,7 +41,7 @@ describe('open and close CITrial Modal', () => {
         </TestWrapper>
       )
       fireEvent.click(container.querySelector('.open')!)
-      await waitFor(() => expect(() => getByText('Setup Pipeline')).toBeDefined())
+      await waitFor(() => expect(() => getByText('pipeline.createPipeline.setupHeader')).toBeDefined())
       expect(container).toMatchSnapshot()
       fireEvent.click(getByRole('button', { name: 'close modal' }))
       await waitFor(() => expect(onCloseModal).toBeCalled())
@@ -67,8 +67,8 @@ describe('open and close CITrial Modal', () => {
       </TestWrapper>
     )
     fireEvent.click(container.querySelector('.open')!)
-    await waitFor(() => expect(() => getByText('Trial in-progress')).toBeDefined())
-    fireEvent.click(container.querySelector('.close')!)
-    await waitFor(() => expect(onCloseModal).toBeCalled())
+    await waitFor(() => expect(() => getByText('pipeline.selectOrCreatePipeline.selectAPipeline')).toBeDefined())
+    fireEvent.click(getByText('pipeline.createANewPipeline')!)
+    await waitFor(() => expect(() => getByText('pipeline.createPipeline.setupHeader')).toBeDefined())
   })
 })

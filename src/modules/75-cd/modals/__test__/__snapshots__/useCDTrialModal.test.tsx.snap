@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CDTrial Modal validation should validate inputs 1`] = `
+<div>
+  <button
+    class="open"
+  />
+  <button
+    class="close"
+  />
+</div>
+`;
+
+exports[`CDTrial Modal validation should validate inputs 2`] = `
+<div>
+  <button
+    class="open"
+  />
+  <button
+    class="close"
+  />
+</div>
+`;
+
+exports[`CDTrial Modal validation should validate inputs 3`] = `
+<div>
+  <button
+    class="open"
+  />
+  <button
+    class="close"
+  />
+</div>
+`;

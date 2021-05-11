@@ -652,10 +652,14 @@ export interface StringsMap {
   'userProfile.twofactorAuth': string
   'userProfile.userEditFail': string
   'userProfile.userEditSuccess': string
+  'projectsOrgs.createANewProject': string
+  'projectsOrgs.createOrSelectAProject': string
   'projectsOrgs.createProject': string
   'projectsOrgs.createProjectLoader': string
+  'projectsOrgs.getStarted': string
   'projectsOrgs.noCollaborators': string
   'projectsOrgs.orgs.noDataMessage': string
+  'projectsOrgs.selectAnExistingProject': string
   'dashboards.createModal.dataSource': string
   'dashboards.createModal.descriptionPlaceholder': string
   'dashboards.createModal.fav': string
@@ -1051,6 +1055,7 @@ export interface StringsMap {
   'cd.cdTrialHomePage.startTrial.startBtn.description': string
   'cd.chooseProvisionerText': string
   'cd.continuous': string
+  'cd.createOrSelectProject': string
   'cd.dashboard.createProject': string
   'cd.dashboard.orSelectExisting': string
   'cd.dashboard.subHeading': string
