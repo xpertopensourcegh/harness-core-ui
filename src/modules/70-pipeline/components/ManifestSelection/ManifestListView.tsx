@@ -52,7 +52,8 @@ import {
   ManifestStoreMap,
   manifestTypeIcons,
   manifestTypeText,
-  manifestTypeLabels
+  manifestTypeLabels,
+  ManifestToConnectorLabelMap
 } from './Manifesthelper'
 import ManifestDetails from './ManifestWizardSteps/ManifestDetails/ManifestDetails'
 import type { ConnectorRefLabelType } from '../ArtifactsSelection/ArtifactInterface'
@@ -292,9 +293,7 @@ const ManifestListView = ({
     return {
       firstStepName: getString('pipeline.manifestType.specifyManifestRepoType'),
       secondStepName: `${getString('common.specify')} ${manifestTypeLabels[selectedManifest]} ${getString('store')}`,
-      newConnector: `${getString('newLabel')} ${
-        manifestStore === ManifestStoreMap.Gcs ? 'GCP' : ManifestToConnectorMap[manifestStore]
-      } ${getString('connector')}`
+      newConnector: `${getString('newLabel')} ${ManifestToConnectorLabelMap[manifestStore]} ${getString('connector')}`
     }
   }
 
@@ -598,7 +597,6 @@ const ManifestListView = ({
       setManifestStore('')
       setIsEditMode(false)
     }
-    //S3 and GCS are disabled till BE is ready
     const storeTypes =
       selectedManifest === ManifestDataType.HelmChart
         ? [...manifestStoreTypes, ManifestStoreMap.Http, ManifestStoreMap.S3, ManifestStoreMap.Gcs]

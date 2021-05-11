@@ -26,7 +26,7 @@ import type { ManifestStepInitData, ManifestStores } from '../ManifestInterface'
 import {
   getManifestIconByType,
   getManifestStoreTitle,
-  ManifestStoreMap,
+  ManifestToConnectorLabelMap,
   ManifestToConnectorMap
 } from '../Manifesthelper'
 import css from './ManifestWizardSteps.module.scss'
@@ -144,7 +144,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                     disabled={selectedManifest === ''}
                     label={
                       <Text style={{ marginBottom: '5px' }}>{`${getString('select')} ${
-                        selectedManifest === ManifestStoreMap.Gcs ? 'GCP' : ManifestToConnectorMap[selectedManifest]
+                        ManifestToConnectorLabelMap[selectedManifest]
                       } ${getString('connector')}`}</Text>
                     }
                     placeholder={getString('selectServer')}

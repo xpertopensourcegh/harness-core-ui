@@ -104,6 +104,16 @@ export const ManifestToConnectorMap: Record<string, ConnectorInfoDTO['type']> = 
   S3: Connectors.AWS,
   Gcs: Connectors.GCP
 }
+
+export const ManifestToConnectorLabelMap: Record<string, string> = {
+  Git: 'Git',
+  Github: 'GitHub',
+  GitLab: 'GitLab',
+  Bitbucket: 'Bitbucket',
+  Http: 'HttpHelmRepo',
+  S3: 'AWS',
+  Gcs: 'GCP'
+}
 export const GitRepoName: Record<string, string> = {
   Account: 'Account',
   Repo: 'Repo'

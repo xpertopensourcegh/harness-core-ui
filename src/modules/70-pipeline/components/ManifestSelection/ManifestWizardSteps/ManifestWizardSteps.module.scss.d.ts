@@ -28,6 +28,7 @@ declare const styles: {
   readonly tooltip: string
   readonly tooltipContent: string
   readonly repoName: string
+  readonly repoNameUrl: string
   readonly alignSelf: string
   readonly addmarginTop: string
   readonly tooltipCls: string

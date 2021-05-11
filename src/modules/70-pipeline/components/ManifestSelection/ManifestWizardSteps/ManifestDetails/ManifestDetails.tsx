@@ -274,9 +274,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                       className={css.repoName}
                     />
 
-                    <div
-                      style={{ marginBottom: 'var(--spacing-medium)' }}
-                    >{`${accountUrl}/${formik.values?.repoName}`}</div>
+                    <div className={css.repoNameUrl}>{`${accountUrl}/${formik.values?.repoName}`}</div>
                   </div>
                 )}
                 <FormInput.Select

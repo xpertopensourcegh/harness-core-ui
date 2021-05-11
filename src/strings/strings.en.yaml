@@ -148,7 +148,7 @@ secretDetails: 'Secret Details'
 noDeploymentText: Your Pipeline does not have any executions yet. Click the button below to run a pipeline.
 noBuildsText: Your account does not have any builds yet. Click the button below to run a pipeline.
 newConnector: 'New Connector'
-thisConnectorIsSavedAs: 'This Connector is saved as'
+thisConnectorIsSavedAs: 'Selected Connector'
 errorTitle: Something went wrong...
 errorSubtitle: This error has been reported and we are looking into it with high priority.
 errorHelp: to continue, this will remove all unsaved changes.

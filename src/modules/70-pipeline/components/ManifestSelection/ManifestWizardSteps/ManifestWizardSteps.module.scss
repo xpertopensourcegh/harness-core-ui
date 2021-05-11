@@ -146,6 +146,11 @@
   margin-bottom: 0 !important;
   width: 370px;
 }
+.repo-name-url {
+  margin-bottom: var(--spacing-medium);
+  width: 370px;
+  word-break: break-all;
+}
 
 .alignSelf {
   align-self: center;

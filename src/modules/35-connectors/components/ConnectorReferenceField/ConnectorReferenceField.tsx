@@ -114,7 +114,7 @@ export function getEditRenderer(
           openConnectorModal(true, type, { connectorInfo: selected?.connector })
         }}
         style={{
-          color: 'var(--blue-450)'
+          color: 'var(--primary-7)'
         }}
       />
     </Layout.Horizontal>
