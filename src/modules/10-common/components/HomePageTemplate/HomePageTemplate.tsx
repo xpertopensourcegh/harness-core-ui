@@ -32,7 +32,7 @@ export const HomePageTemplate: React.FC<HomePageTemplate> = ({
         margin: '80px',
         background: `transparent url(${bgImageUrl}) no-repeat`,
         position: 'relative',
-        backgroundSize: 'auto',
+        backgroundSize: 'contain',
         backgroundPositionY: 'center'
       }}
     >

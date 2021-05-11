@@ -3,10 +3,14 @@ import { fireEvent, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import { useStartTrial } from 'services/portal'
+import useStartTrialModal from '@common/modals/StartTrial/StartTrialModal'
 import { StartTrialTemplate } from '../StartTrialTemplate'
 
 jest.mock('services/portal')
 const useStartTrialMock = useStartTrial as jest.MockedFunction<any>
+
+jest.mock('@common/modals/StartTrial/StartTrialModal')
+const useStartTrialModalMock = useStartTrialModal as jest.MockedFunction<any>
 
 const props = {
   title: 'Continuous Integration',
@@ -24,7 +28,12 @@ const props = {
   module: 'ci' as Module
 }
 describe('StartTrialTemplate snapshot test', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+
   test('should render start a trial by default', async () => {
+    useStartTrialModalMock.mockImplementation(() => ({ showModal: jest.fn(), hideModal: jest.fn() }))
     useStartTrialMock.mockImplementation(() => {
       return {
         cancel: jest.fn(),
@@ -48,6 +57,7 @@ describe('StartTrialTemplate snapshot test', () => {
   })
 
   test('should call start trial api when click Start Trial', async () => {
+    useStartTrialModalMock.mockImplementation(() => ({ showModal: jest.fn(), hideModal: jest.fn() }))
     useStartTrialMock.mockImplementation(() => {
       return {
         cancel: jest.fn(),
@@ -72,7 +82,55 @@ describe('StartTrialTemplate snapshot test', () => {
     expect(container).toMatchSnapshot()
   })
 
+  test('should open the modal when a button is clicked and shouldShowStartTrialModal is true', async () => {
+    const showModalMock = jest.fn()
+    useStartTrialModalMock.mockImplementation(() => ({ showModal: showModalMock, hideModal: jest.fn() }))
+
+    useStartTrialMock.mockImplementation(() => {
+      return {
+        cancel: jest.fn(),
+        loading: false,
+        mutate: jest.fn().mockImplementation(() => {
+          return {
+            status: 'SUCCESS',
+            data: {
+              licenseType: 'TRIAL'
+            }
+          }
+        })
+      }
+    })
+
+    const customProps = {
+      title: 'Continuous Integration',
+      bgImageUrl: '',
+      startTrialProps: {
+        description: 'start trial description',
+        learnMore: {
+          description: 'learn more description',
+          url: ''
+        },
+        startBtn: {
+          description: 'Start A Trial'
+        },
+        shouldShowStartTrialModal: true
+      },
+      module: 'ci' as Module,
+      shouldShowStartTrialModal: true
+    }
+
+    const { container, getByText } = render(
+      <TestWrapper pathParams={{ orgIdentifier: 'dummy' }}>
+        <StartTrialTemplate {...customProps} />
+      </TestWrapper>
+    )
+    fireEvent.click(getByText('Start A Trial'))
+    await waitFor(() => expect(showModalMock).toHaveBeenCalled())
+    expect(container).toMatchSnapshot()
+  })
+
   test('should display error msg when api call fails', async () => {
+    useStartTrialModalMock.mockImplementation(() => ({ showModal: jest.fn(), hideModal: jest.fn() }))
     useStartTrialMock.mockImplementation(() => {
       return {
         mutate: jest.fn().mockRejectedValue({

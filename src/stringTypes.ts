@@ -101,6 +101,12 @@ export interface StringsMap {
   'common.authSettings.usePublicOAuth': string
   'common.authSettings.whitelistedDomainsDisabled': string
   'common.authSettings.yourAccountWillBeLockedOut': string
+  'common.ce.cost': string
+  'common.ce.optimization': string
+  'common.ce.startTrial': string
+  'common.ce.visibility': string
+  'common.ce.visibilityLaunchButton': string
+  'common.ce.visibilityWarning': string
   'common.changesUnsaved': string
   'common.cluster': string
   'common.comments': string
@@ -197,7 +203,9 @@ export interface StringsMap {
   'common.purpose.cd.subtitle': string
   'common.purpose.ce.description': string
   'common.purpose.ce.efficiency': string
+  'common.purpose.ce.optimizationCard.description': string
   'common.purpose.ce.subtitle': string
+  'common.purpose.ce.visibilityCard.description': string
   'common.purpose.cf.description': string
   'common.purpose.cf.features': string
   'common.purpose.cf.subtitle': string
@@ -208,6 +216,7 @@ export interface StringsMap {
   'common.purpose.cv.description': string
   'common.purpose.cv.subtitle': string
   'common.purpose.cv.verification': string
+  'common.purpose.infoCardIntent': string
   'common.purpose.moduleSuccess': string
   'common.purpose.selectAModule': string
   'common.purpose.setup': string
@@ -1062,7 +1071,6 @@ export interface StringsMap {
   'cd.steps.common.selectOrEnterClusterPlaceholder': string
   'cd.steps.kubernetesGcpStep.stepName': string
   'ce.ceTrialHomePage.startTrial.description': string
-  'ce.ceTrialHomePage.startTrial.startBtn.description': string
   'ce.co.accessPoint.ap': string
   'ce.co.accessPoint.aps': string
   'ce.co.accessPoint.asssociatedRules': string
@@ -1222,7 +1230,6 @@ export interface StringsMap {
   'ce.co.newAutoStoppingRule': string
   'ce.co.noData': string
   'ce.co.sshSetup': string
-  'ce.connector.AWS.cost': string
   'ce.connector.AWS.crossAccountRole.arn': string
   'ce.connector.AWS.crossAccountRole.externalID': string
   'ce.connector.AWS.crossAccountRole.instructionLabel': string
@@ -1236,7 +1243,6 @@ export interface StringsMap {
   'ce.connector.AWS.event.description': string
   'ce.connector.AWS.event.title': string
   'ce.connector.AWS.optimization.description': string
-  'ce.connector.AWS.optimization.title': string
   'ce.connector.AWS.overview.featureSelection': string
   'ce.connector.AWS.overview.label': string
   'ce.connector.AWS.overview.permission.billing.description': string
@@ -1260,7 +1266,6 @@ export interface StringsMap {
   'ce.connector.AWS.testConnection.title': string
   'ce.connector.AWS.title': string
   'ce.connector.AWS.visibility.description': string
-  'ce.connector.AWS.visibility.title': string
   'ce.continuous': string
   'ce.dashboardPage.description': string
   'ce.dashboardPage.welcome': string

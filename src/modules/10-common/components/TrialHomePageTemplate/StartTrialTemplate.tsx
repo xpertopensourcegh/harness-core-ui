@@ -6,6 +6,7 @@ import { useToaster } from '@common/components'
 import { useStartTrial, RestResponseModuleLicenseInfo, StartTrialRequestBody } from 'services/portal'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
+import useStartTrialModal from '@common/modals/StartTrial/StartTrialModal'
 
 interface StartTrialTemplateProps {
   title: string
@@ -24,18 +25,41 @@ interface StartTrialProps {
   startBtn: {
     description: string
   }
+  shouldShowStartTrialModal?: boolean
   startTrial: MutateMethod<RestResponseModuleLicenseInfo, void, StartTrialRequestBody, void>
   module: Module
   loading: boolean
 }
 
 const StartTrialComponent: React.FC<StartTrialProps> = startTrialProps => {
-  const { description, learnMore, startBtn, startTrial, module, loading } = startTrialProps
+  const { description, learnMore, startBtn, shouldShowStartTrialModal, startTrial, module, loading } = startTrialProps
   const history = useHistory()
   const { accountId } = useParams<{
     accountId: string
   }>()
   const { showError } = useToaster()
+  const { showModal } = useStartTrialModal({ module, handleStartTrial })
+
+  async function handleStartTrial(): Promise<void> {
+    try {
+      await startTrial()
+      history.push({
+        pathname: routes.toModuleHome({ accountId, module }),
+        search: '?trial=true'
+      })
+    } catch (error) {
+      showError(error.data?.message)
+    }
+  }
+
+  function handleStartButtonClick(): void {
+    if (shouldShowStartTrialModal) {
+      showModal()
+    } else {
+      handleStartTrial()
+    }
+  }
+
   return (
     <Layout.Vertical spacing="small">
       <Text
@@ -58,17 +82,7 @@ const StartTrialComponent: React.FC<StartTrialProps> = startTrialProps => {
           }}
           intent="primary"
           text={startBtn.description}
-          onClick={async () => {
-            try {
-              await startTrial()
-              history.push({
-                pathname: routes.toModuleHome({ accountId, module }),
-                search: '?trial=true'
-              })
-            } catch (error) {
-              showError(error.data?.message)
-            }
-          }}
+          onClick={handleStartButtonClick}
         />
         {loading && <Icon name="steps-spinner" size={20} color={Color.BLUE_600} style={{ marginBottom: 7 }} />}
       </Layout.Horizontal>
@@ -103,7 +117,7 @@ export const StartTrialTemplate: React.FC<StartTrialTemplateProps> = ({
         margin: '80px',
         background: `transparent url(${bgImageUrl}) no-repeat`,
         position: 'relative',
-        backgroundSize: 'auto',
+        backgroundSize: 'contain',
         backgroundPositionY: 'center'
       }}
     >

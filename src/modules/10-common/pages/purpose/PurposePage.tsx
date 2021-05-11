@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Color, HarnessIcons, Container, Text, Icon, IconName, Card, Layout, Heading } from '@wings-software/uicore'
 import { Link, useParams } from 'react-router-dom'
 import cx from 'classnames'
@@ -9,6 +9,7 @@ import { PageError } from '@common/components/Page/PageError'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { StringsMap } from 'stringTypes'
 import type { Module } from '@common/interfaces/RouteInterfaces'
+import ModuleInfoCards, { ModuleInfoCard, INFO_CARD_PROPS } from '../../components/ModuleInfoCards/ModuleInfoCards'
 import css from './PurposePage.module.scss'
 
 interface PurposeType {
@@ -24,6 +25,18 @@ const PurposeList: React.FC = () => {
     accountId: string
   }>()
   const [selected, setSelected] = useState<Module>()
+  const [selectedInfoCard, setSelectedInfoCard] = useState<ModuleInfoCard>()
+
+  useEffect(() => {
+    if (selected) {
+      const infoCardProps = INFO_CARD_PROPS[selected]
+
+      // Automatically select the first info card if none are selected
+      if (!selectedInfoCard && infoCardProps) {
+        setSelectedInfoCard(infoCardProps[0])
+      }
+    }
+  }, [selected, selectedInfoCard])
 
   const { getString } = useStrings()
 
@@ -78,19 +91,8 @@ const PurposeList: React.FC = () => {
   }
 
   const getModuleLink = (module: Module): React.ReactElement => {
-    const moduleName = module.toString().toLowerCase()
-    const title = getString(`${moduleName}.continuous` as keyof StringsMap)
-    return (
-      <Layout.Vertical key={module} spacing="large" padding={{ bottom: 'xxxlarge' }}>
-        <Layout.Horizontal spacing="small">
-          <Icon name={`${moduleName}-main` as IconName} size={25} />
-          <Text font={{ size: 'medium', weight: 'semi-bold' }}>{title}</Text>
-        </Layout.Horizontal>
-        <String
-          style={{ lineHeight: 2, fontSize: 'small' }}
-          stringID={`common.purpose.${moduleName}.description` as keyof StringsMap}
-          useRichText={true}
-        />
+    if (!selectedInfoCard || selectedInfoCard?.isNgRoute) {
+      return (
         <Link
           style={{
             backgroundColor: 'var(--blue-600)',
@@ -104,6 +106,48 @@ const PurposeList: React.FC = () => {
         >
           {getString('continue')}
         </Link>
+      )
+    }
+
+    return (
+      <a
+        style={{
+          backgroundColor: 'var(--blue-600)',
+          width: 100,
+          borderRadius: 4,
+          lineHeight: 2.5,
+          textAlign: 'center',
+          color: Color.WHITE
+        }}
+        href={selectedInfoCard.route}
+      >
+        {getString('continue')}
+      </a>
+    )
+  }
+
+  const getModuleInfo = (module: Module): React.ReactElement => {
+    const moduleName = module.toString().toLowerCase()
+    const title = getString(`${moduleName}.continuous` as keyof StringsMap)
+    const link = getModuleLink(module)
+
+    const infoCards = (
+      <ModuleInfoCards module={module} selectedInfoCard={selectedInfoCard} setSelectedInfoCard={setSelectedInfoCard} />
+    )
+
+    return (
+      <Layout.Vertical key={module} spacing="large" padding={{ bottom: 'xxxlarge' }}>
+        <Layout.Horizontal spacing="small">
+          <Icon name={`${moduleName}-main` as IconName} size={25} />
+          <Text font={{ size: 'medium', weight: 'semi-bold' }}>{title}</Text>
+        </Layout.Horizontal>
+        <String
+          style={{ lineHeight: 2, fontSize: 'small' }}
+          stringID={`common.purpose.${moduleName}.description` as keyof StringsMap}
+          useRichText={true}
+        />
+        {infoCards}
+        {link}
       </Layout.Vertical>
     )
   }
@@ -133,6 +177,11 @@ const PurposeList: React.FC = () => {
     return options
   }
 
+  const handleModuleSelection = (module: Module): void => {
+    setSelected(module)
+    setSelectedInfoCard(undefined)
+  }
+
   if (loading) {
     return <PageSpinner />
   }
@@ -150,7 +199,7 @@ const PurposeList: React.FC = () => {
               <Card
                 key={option.title}
                 className={cx(css.card, selected === option.module ? css.selected : '')}
-                onClick={() => setSelected(option.module)}
+                onClick={() => handleModuleSelection(option.module)}
               >
                 <Layout.Horizontal spacing="small">
                   <Icon name={option.icon} size={25} />
@@ -191,9 +240,9 @@ const PurposeList: React.FC = () => {
             ))}
           </div>
         </Container>
-        <Container width={500} padding={{ left: 'huge', top: 'medium' }}>
+        <Container width={600} padding={{ left: 'huge', top: 'medium' }}>
           {selected ? (
-            getModuleLink(selected)
+            getModuleInfo(selected)
           ) : (
             <Text font={{ size: 'medium', weight: 'semi-bold' }}>{getString('common.purpose.selectAModule')}</Text>
           )}

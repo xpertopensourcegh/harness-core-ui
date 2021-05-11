@@ -63,7 +63,7 @@ export const TrialInProgressTemplate: React.FC<TrialInProgressTemplateProps> = (
         margin: '80px',
         background: `transparent url(${bgImageUrl}) no-repeat`,
         position: 'relative',
-        backgroundSize: 'auto',
+        backgroundSize: 'contain',
         backgroundPositionY: 'center'
       }}
     >

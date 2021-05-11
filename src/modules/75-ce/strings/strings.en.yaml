@@ -235,8 +235,6 @@ learnMore: Learn more about Continuous Efficiency
 ceTrialHomePage:
   startTrial:
     description: Take your software build processes to the next level using our Harness Continuous Efficiency.
-    startBtn:
-      description: Start 14 day CE Enterprise trial
 dashboardPage:
   welcome: Welcome to Continuous Efficiency
   description: placeholder for description
@@ -294,7 +292,6 @@ connector:
       finish: '{{$.finish}}'
       cancel: '{{$.cancel}}'
     visibility:
-      title: Visibility
       description: Cost Insights, Anomaly detection, Creating budget and perspectives
         for the Cloud
     event:
@@ -302,10 +299,8 @@ connector:
       description: Cost insights, Service insights,Creating budgets and perspectives,
         Anomaly detection and alerts, utilised/wasted resouces in ECS Clusters
     optimization:
-      title: Optimization
       description: Detection of orphaned resources, recommendations to save costs, Scaling/tearing
         down, turning off in non-work hours, reserving instances
-    cost: COST
 recommendation:
   listPage:
     monthlySavingsText: POTENTIAL MONTHLY SAVINGS

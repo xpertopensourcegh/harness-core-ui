@@ -513,7 +513,7 @@ exports[`PurposePage should render module description and continue button when s
           </div>
           <div
             class="StyledProps--font StyledProps--main StyledProps--padding-left-huge StyledProps--padding-top-medium"
-            style="width: 500px;"
+            style="width: 600px;"
           >
             <div
               class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--padding-bottom-xxxlarge"

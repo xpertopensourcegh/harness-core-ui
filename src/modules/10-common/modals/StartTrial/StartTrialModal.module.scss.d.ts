@@ -1,8 +1,6 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly card: string
-  readonly infoCard: string
-  readonly selected: string
+  readonly dialog: string
 }
 export default styles
