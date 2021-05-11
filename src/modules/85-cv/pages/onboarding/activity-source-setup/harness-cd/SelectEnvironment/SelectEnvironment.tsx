@@ -93,6 +93,7 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
       queryParams: {
         appId: appIds,
         offset: String(offset),
+        accountId: accountId,
         limit: PAGE_LIMIT.toString(),
         'search[0]': filter ? [{ field: 'keywords' }, { op: 'CONTAINS' }, { value: filter }] : undefined
       } as GetListEnvironmentsQueryParams,
