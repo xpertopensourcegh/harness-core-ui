@@ -18,7 +18,7 @@ testNotificationMock.mockImplementation(
   }
 )
 
-jest.mock('services/platform', () => ({
+jest.mock('services/notifications', () => ({
   useTestNotificationSetting: jest.fn().mockImplementation(() => ({ mutate: testNotificationMock }))
 }))
 

@@ -1,0 +1,6 @@
+allowpaths:
+  - /channels
+  - /channels/test
+  - /notifications
+  - /settings
+  - /templates

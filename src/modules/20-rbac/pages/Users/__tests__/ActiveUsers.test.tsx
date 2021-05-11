@@ -37,7 +37,7 @@ jest.mock('services/rbac', () => ({
   useDeleteRoleAssignment: jest.fn().mockImplementation(() => ({ mutate: mockResponse }))
 }))
 
-jest.mock('services/platform', () => ({
+jest.mock('services/resourcegroups', () => ({
   useGetResourceGroupList: jest.fn().mockImplementation(() => {
     return { data: resourceGroupsMockData, refetch: jest.fn(), error: null }
   })

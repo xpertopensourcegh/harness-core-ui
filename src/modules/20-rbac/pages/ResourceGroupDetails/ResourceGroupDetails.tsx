@@ -13,7 +13,7 @@ import {
   ResourceGroupRequestRequestBody,
   ResourceGroupDTO,
   useGetResourceTypes
-} from 'services/platform'
+} from 'services/resourcegroups'
 import { Page } from '@common/components/Page/Page'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { RbacResourceGroupTypes } from '@rbac/constants/utils'

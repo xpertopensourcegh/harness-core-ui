@@ -48,8 +48,8 @@ module.exports = {
     },
     customGenerator: arg => customGenerator(arg, "getConfig('log-service')")
   },
-  platform: {
-    output: 'src/services/platform/index.tsx',
+  notifications: {
+    output: 'src/services/notifications/index.tsx',
     url: 'http://localhost:9005/api/swagger.json',
     transformer: 'scripts/swagger-transform.js',
     customImport: `import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from "../config";`,
@@ -57,6 +57,16 @@ module.exports = {
       base: `{getConfig("notifications/api")}`
     },
     customGenerator: arg => customGenerator(arg, "getConfig('notifications/api')")
+  },
+  resourcegroups: {
+    output: 'src/services/resourcegroups/index.tsx',
+    url: 'http://localhost:9005/api/swagger.json',
+    transformer: 'scripts/swagger-transform.js',
+    customImport: `import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from "../config";`,
+    customProps: {
+      base: `{getConfig("resourcegroup/api")}`
+    },
+    customGenerator: arg => customGenerator(arg, "getConfig('resourcegroup/api')")
   },
   rbac: {
     output: 'src/services/rbac/index.tsx',

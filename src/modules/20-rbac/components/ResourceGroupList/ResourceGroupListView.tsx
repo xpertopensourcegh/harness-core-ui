@@ -12,7 +12,7 @@ import type {
   ResourceGroupResponse,
   ResourceSelector,
   StaticResourceSelector
-} from 'services/platform'
+} from 'services/resourcegroups'
 import routes from '@common/RouteDefinitions'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'

@@ -14,6 +14,10 @@ module.exports = {
     pathRewrite: { '^/notifications/api': '/api' },
     target: targetLocalHost ? 'http://localhost:9005' : `${baseUrl}/notifications`
   },
+  '/resourcegroup/api': {
+    pathRewrite: { '^/resourcegroup/api': '/api' },
+    target: targetLocalHost ? 'http://localhost:9005' : `${baseUrl}/resourcegroup`
+  },
   '/authz/api': {
     pathRewrite: { '^/authz/api': '/api' },
     target: targetLocalHost ? 'http://localhost:9006' : `${baseUrl}/authz`

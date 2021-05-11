@@ -1,0 +1,4 @@
+allowpaths:
+  - /resourcegroup
+  - /resourcegroup/{identifier}
+  - /resourcetype

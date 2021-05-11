@@ -18,7 +18,7 @@ import {
   useCreateResourceGroup,
   ResourceGroupRequestRequestBody,
   useUpdateResourceGroup
-} from 'services/platform'
+} from 'services/resourcegroups'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { DEFAULT_COLOR } from '@common/constants/Utils'

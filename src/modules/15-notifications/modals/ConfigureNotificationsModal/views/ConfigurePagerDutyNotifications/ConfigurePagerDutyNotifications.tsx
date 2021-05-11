@@ -7,7 +7,7 @@ import cx from 'classnames'
 
 import { useToaster } from '@common/components'
 import { useStrings } from 'framework/strings'
-import { useTestNotificationSetting, PagerDutySettingDTO } from 'services/platform'
+import { useTestNotificationSetting, PagerDutySettingDTO } from 'services/notifications'
 import type { PagerDutyNotificationConfiguration } from '@notifications/interfaces/Notifications'
 import { TestStatus } from '@notifications/interfaces/Notifications'
 import { NotificationType } from '@notifications/interfaces/Notifications'

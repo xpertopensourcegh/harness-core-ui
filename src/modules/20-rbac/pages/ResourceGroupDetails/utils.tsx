@@ -1,6 +1,6 @@
 import { RbacResourceGroupTypes } from '@rbac/constants/utils'
 import type { ResourceType } from '@rbac/interfaces/ResourceType'
-import type { ResourceSelector } from 'services/platform'
+import type { ResourceSelector } from 'services/resourcegroups'
 
 export const getSelectedResourcesMap = (
   resourceSelectorList?: ResourceSelector[]
