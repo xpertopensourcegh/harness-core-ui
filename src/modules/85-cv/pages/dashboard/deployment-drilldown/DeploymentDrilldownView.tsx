@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { Container, Text } from '@wings-software/uicore'
 import { useParams, useLocation } from 'react-router-dom'
+import { useQueryParams } from '@common/hooks'
 import { useGetVerificationInstances, DeploymentVerificationJobInstanceSummary } from 'services/cv'
 import { Page } from '@common/exports'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
@@ -17,6 +18,7 @@ export default function DeploymentDrilldownView(): JSX.Element {
   const { accountId, projectIdentifier, orgIdentifier, deploymentTag, serviceIdentifier } = useParams<
     ProjectPathProps & { deploymentTag: string; serviceIdentifier: string }
   >()
+  const { activityId } = useQueryParams<{ activityId: string }>()
   const location = useLocation()
   const { showError } = useToaster()
   const [anomalousMetricsOnly, setAnomalousMetricsOnly] = useState<boolean>(false)
@@ -69,7 +71,11 @@ export default function DeploymentDrilldownView(): JSX.Element {
       entry = instances.find(val => !!val.values?.length)
     }
     if (entry) {
-      setVerificationInstance(entry.values![0])
+      const defaultVerificationInstance = entry.values![0]
+      const verificationInstanceByActivityId = activityId
+        ? entry.values!.find(item => item.activityId == activityId)
+        : null
+      setVerificationInstance(verificationInstanceByActivityId || defaultVerificationInstance)
       setInstancePhase(entry.phase)
     }
   }, [preProduction, postDeployment, productionDeployment])

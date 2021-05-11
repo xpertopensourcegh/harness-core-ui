@@ -702,10 +702,13 @@ const routes = {
       projectIdentifier,
       orgIdentifier,
       deploymentTag,
-      serviceIdentifier
-    }: Partial<ProjectPathProps> & Record<'deploymentTag' | 'serviceIdentifier', string>) =>
+      serviceIdentifier,
+      activityId
+    }: Partial<ProjectPathProps & { activityId: string }> & Record<'deploymentTag' | 'serviceIdentifier', string>) =>
       !projectIdentifier || !orgIdentifier
         ? CV_HOME
+        : activityId
+        ? `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard/deployment/${deploymentTag}/service/${serviceIdentifier}?activityId=${activityId}`
         : `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard/deployment/${deploymentTag}/service/${serviceIdentifier}`
   ),
   toCVActivityChangesPage: withAccountId(
