@@ -26,7 +26,11 @@ export function createSections(state: State, action: Action<ActionType.CreateSec
    */
   const executableResponse = node?.executableResponses?.[0] || {}
   const task =
-    executableResponse.taskChain || executableResponse.task || executableResponse.sync || executableResponse.async
+    executableResponse.taskChain ||
+    executableResponse.task ||
+    executableResponse.sync ||
+    executableResponse.async ||
+    executableResponse.child
 
   // eslint-disable-next-line prefer-const
   let { units = [], logKeys = [] } = task || ({} as any)

@@ -44,6 +44,7 @@ export interface ServiceDependency {
 
 export enum NodeType {
   SERVICE = 'SERVICE',
+  SERVICE_CONFIG = 'SERVICE_CONFIG',
   INFRASTRUCTURE = 'INFRASTRUCTURE',
   GENERIC_SECTION = 'GENERIC_SECTION',
   STEP_GROUP = 'STEP_GROUP',
@@ -68,6 +69,7 @@ export const TopLevelNodes: NodeType[] = [
 ]
 export const StepTypeIconsMap: { [key in NodeType]: IconName } = {
   SERVICE: 'main-services',
+  SERVICE_CONFIG: 'main-services',
   GENERIC_SECTION: 'step-group',
   NG_SECTION: 'step-group',
   ROLLBACK_OPTIONAL_CHILD_CHAIN: 'step-group',
