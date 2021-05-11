@@ -51,8 +51,8 @@ import odIcon from './images/ondemandIcon.svg'
 import spotIcon from './images/spotIcon.svg'
 import CORuleDendencySelector from './CORuleDependencySelector'
 import COGatewayConfigStep from './COGatewayConfigStep'
-import COFixedDrawer from '../COGatewayAccess/COFixedDrawer'
 import COAsgSelector from '../COAsgSelector'
+import COFixedDrawer from '../COGatewayAccess/COFixedDrawer'
 import css from './COGatewayConfig.module.scss'
 
 interface COGatewayConfigProps {
@@ -166,7 +166,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   }
   function NameCell(tableProps: CellProps<InstanceDetails>): JSX.Element {
     return (
-      <Text lineClamp={3} color={Color.BLACK}>
+      <Text lineClamp={3} color={Color.BLACK} style={{ overflowWrap: 'anywhere' }}>
         {tableProps.value} {tableProps.row.original.id}
       </Text>
     )

@@ -197,7 +197,7 @@ exports[`Instance Selector Modal search and select instances successfully 1`] = 
             >
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                style="--text-line-clamp: 3;"
+                style="overflow-wrap: anywhere; --text-line-clamp: 3;"
               >
                 instance
                  
@@ -475,7 +475,7 @@ exports[`Instance Selector Modal should show data 1`] = `
             >
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                style="--text-line-clamp: 3;"
+                style="overflow-wrap: anywhere; --text-line-clamp: 3;"
               >
                 instance
                  

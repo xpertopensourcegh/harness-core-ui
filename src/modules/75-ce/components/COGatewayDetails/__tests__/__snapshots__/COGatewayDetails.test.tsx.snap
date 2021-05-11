@@ -638,7 +638,7 @@ exports[`Test GatewayDetails renders without crashing 1`] = `
                             >
                               <p
                                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                                style="--text-line-clamp: 3;"
+                                style="overflow-wrap: anywhere; --text-line-clamp: 3;"
                               >
                                 
                                  

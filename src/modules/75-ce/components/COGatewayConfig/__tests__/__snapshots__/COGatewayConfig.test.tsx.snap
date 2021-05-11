@@ -923,7 +923,7 @@ exports[`Auto stopping Rule creation Tests Fill remaining form for INSTANCES 1`]
                     >
                       <p
                         class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                        style="--text-line-clamp: 3;"
+                        style="overflow-wrap: anywhere; --text-line-clamp: 3;"
                       >
                         name
                          
@@ -2244,7 +2244,7 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 1`] = `
                     >
                       <p
                         class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                        style="--text-line-clamp: 3;"
+                        style="overflow-wrap: anywhere; --text-line-clamp: 3;"
                       >
                          
                         mockAsg
@@ -3316,7 +3316,7 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 2`] = `
                     >
                       <p
                         class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                        style="--text-line-clamp: 3;"
+                        style="overflow-wrap: anywhere; --text-line-clamp: 3;"
                       >
                          
                         mockAsg

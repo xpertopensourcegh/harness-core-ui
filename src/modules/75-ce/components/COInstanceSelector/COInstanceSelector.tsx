@@ -28,7 +28,7 @@ function TableCell(tableProps: CellProps<InstanceDetails>): JSX.Element {
 }
 function NameCell(tableProps: CellProps<InstanceDetails>): JSX.Element {
   return (
-    <Text lineClamp={3} color={Color.BLACK}>
+    <Text lineClamp={3} color={Color.BLACK} style={{ overflowWrap: 'anywhere' }}>
       {tableProps.value} {tableProps.row.original.id}
     </Text>
   )
