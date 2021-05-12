@@ -16,6 +16,7 @@ import { useStrings } from 'framework/strings'
 import RbacButton from '@rbac/components/Button/Button'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import css from './InputSetList.module.scss'
 
 interface InputSetListViewProps {
@@ -72,6 +73,45 @@ const RenderColumnDescription: Renderer<CellProps<InputSetLocal>> = ({ row }) =>
     </Text>
   )
 }
+
+export const RenderGitDetails: Renderer<CellProps<InputSetLocal>> = ({ row }) => {
+  const data = row.original
+
+  return data.gitDetails ? (
+    <Layout.Horizontal style={{ alignItems: 'center' }} padding={{ right: 'medium' }}>
+      <Text
+        style={{ fontSize: '13px', wordWrap: 'break-word', maxWidth: '100px' }}
+        color={Color.GREY_800}
+        margin={{ right: 'small' }}
+        lineClamp={1}
+        title={data.gitDetails.repoIdentifier}
+      >
+        {data.gitDetails.repoIdentifier}
+      </Text>
+      <Layout.Horizontal
+        border={{ color: Color.GREY_200 }}
+        spacing="xsmall"
+        style={{ borderRadius: '5px', alignItems: 'center' }}
+        padding={{ left: 'small', right: 'small', top: 'xsmall', bottom: 'xsmall' }}
+        background={Color.GREY_100}
+      >
+        <Icon name="git-new-branch" size={11} />
+        <Text
+          style={{ wordWrap: 'break-word', maxWidth: '100px' }}
+          font={{ size: 'small' }}
+          color={Color.GREY_800}
+          title={data.gitDetails.branch}
+          lineClamp={1}
+        >
+          {data.gitDetails.branch}
+        </Text>
+      </Layout.Horizontal>
+    </Layout.Horizontal>
+  ) : (
+    <></>
+  )
+}
+
 const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row, column }) => {
   const data = row.original
   const { getString } = useStrings()
@@ -230,12 +270,13 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
   canUpdate = true
 }): JSX.Element => {
   const { getString } = useStrings()
+  const { isGitSyncEnabled } = useAppStore()
   const columns: CustomColumn<InputSetLocal>[] = React.useMemo(
     () => [
       {
         Header: getString('inputSets.inputSetLabel').toUpperCase(),
         accessor: 'name',
-        width: '25%',
+        width: isGitSyncEnabled ? '20%' : '25%',
         Cell: RenderColumnInputSet
       },
       {
@@ -243,6 +284,13 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
         accessor: 'description',
         width: '20%',
         Cell: RenderColumnDescription,
+        disableSortBy: true
+      },
+      {
+        Header: getString('common.gitSync.repoDetails').toUpperCase(),
+        accessor: 'gitDetails',
+        width: '20%',
+        Cell: RenderGitDetails,
         disableSortBy: true
       },
       {
@@ -269,7 +317,7 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
       {
         Header: '',
         accessor: 'action',
-        width: '20%',
+        width: isGitSyncEnabled ? '5%' : '20%',
         Cell: RenderColumnMenu,
         disableSortBy: true,
         goToInputSetDetail,
@@ -280,6 +328,11 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
     ],
     [goToInputSetDetail, refetchInputSet, cloneInputSet]
   )
+
+  if (!isGitSyncEnabled) {
+    columns.splice(2, 1)
+  }
+
   return (
     <Table<InputSetLocal>
       className={css.table}

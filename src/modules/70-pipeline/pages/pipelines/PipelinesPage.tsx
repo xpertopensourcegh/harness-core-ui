@@ -93,7 +93,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
   const [filters, setFilters] = useState<FilterDTO[]>()
   const [isRefreshingFilters, setIsRefreshingFilters] = useState<boolean>(false)
   const filterRef = React.useRef<FilterRef<FilterDTO> | null>(null)
-  const [gitFilter, setGitFilter] = useState<GitFilterScope>({ repo: '', branch: '' })
+  const [gitFilter, setGitFilter] = useState<GitFilterScope | null>(null)
   const [error, setError] = useState<Error | null>(null)
   const history = useHistory()
   const { showError } = useToaster()
@@ -176,7 +176,11 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
     searchTerm: searchParam,
     page,
     sort,
-    size: 10
+    size: 10,
+    ...(!!gitFilter && {
+      repoIdentifier: gitFilter.repo,
+      branch: gitFilter.branch
+    })
   }
 
   const { mutate: reloadPipelines, cancel } = useGetPipelineList({
@@ -464,16 +468,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
   useEffect(() => {
     cancel()
     setInitLoading(true)
-    fetchPipelines(
-      {
-        ...defaultQueryParamsForPiplines,
-        ...(!!gitFilter.repo && {
-          repoIdentifier: gitFilter.repo,
-          branch: gitFilter.branch
-        })
-      },
-      appliedFilter?.filterProperties
-    )
+    fetchPipelines(defaultQueryParamsForPiplines, appliedFilter?.filterProperties)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     page,

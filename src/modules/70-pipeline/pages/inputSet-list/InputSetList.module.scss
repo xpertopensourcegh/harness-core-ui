@@ -5,7 +5,9 @@
 .table {
   margin: var(--spacing-xlarge);
 }
-
+.gitFilter {
+  padding-left: var(--spacing-xlarge) !important;
+}
 .actionButton {
   transform: rotate(90deg);
 }

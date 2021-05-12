@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Popover, Layout, TextInput, useModalHook } from '@wings-software/uicore'
 import { Menu, MenuItem, Position } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
@@ -13,12 +13,17 @@ import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { usePermission } from '@rbac/hooks/usePermission'
+import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
+import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { InputSetListView } from './InputSetListView'
 import css from './InputSetList.module.scss'
 
 const InputSetList: React.FC = (): JSX.Element => {
+  const { isGitSyncEnabled } = useAppStore()
   const [searchParam, setSearchParam] = React.useState('')
   const [page, setPage] = React.useState(0)
+  const [gitFilter, setGitFilter] = useState<GitFilterScope | null>(null)
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier, module } = useParams<
     PipelineType<PipelinePathProps> & { accountId: string }
   >()
@@ -31,7 +36,11 @@ const InputSetList: React.FC = (): JSX.Element => {
       pipelineIdentifier,
       pageIndex: page,
       pageSize: 10,
-      searchTerm: searchParam
+      searchTerm: searchParam,
+      ...(!!gitFilter && {
+        repoIdentifier: gitFilter.repo,
+        branch: gitFilter.branch
+      })
     },
     debounce: 300
   })
@@ -93,40 +102,53 @@ const InputSetList: React.FC = (): JSX.Element => {
     <>
       <Page.Header
         title={
-          <Popover
-            minimal
-            content={
-              <Menu className={css.menuList}>
-                <MenuItem
-                  text={getString('inputSets.inputSetLabel')}
-                  onClick={() => {
-                    goToInputSetForm()
+          <Layout.Horizontal>
+            <Popover
+              minimal
+              content={
+                <Menu className={css.menuList}>
+                  <MenuItem
+                    text={getString('inputSets.inputSetLabel')}
+                    onClick={() => {
+                      goToInputSetForm()
+                    }}
+                  />
+                  <MenuItem
+                    text={getString('inputSets.overlayInputSet')}
+                    onClick={() => {
+                      showOverlayInputSetForm()
+                    }}
+                  />
+                </Menu>
+              }
+              position={Position.BOTTOM}
+              disabled={!canUpdateInputSet}
+            >
+              <RbacButton
+                text={getString('inputSets.newInputSet')}
+                rightIcon="caret-down"
+                intent="primary"
+                permission={{
+                  resource: {
+                    resourceType: ResourceType.PIPELINE,
+                    resourceIdentifier: pipelineIdentifier
+                  },
+                  permission: PermissionIdentifier.EDIT_PIPELINE
+                }}
+              />
+            </Popover>
+            {isGitSyncEnabled && (
+              <GitSyncStoreProvider>
+                <GitFilters
+                  onChange={filter => {
+                    setGitFilter(filter)
+                    setPage(0)
                   }}
+                  className={css.gitFilter}
                 />
-                <MenuItem
-                  text={getString('inputSets.overlayInputSet')}
-                  onClick={() => {
-                    showOverlayInputSetForm()
-                  }}
-                />
-              </Menu>
-            }
-            position={Position.BOTTOM}
-            disabled={!canUpdateInputSet}
-          >
-            <RbacButton
-              text={getString('inputSets.newInputSet')}
-              rightIcon="caret-down"
-              intent="primary"
-              permission={{
-                resource: {
-                  resourceType: ResourceType.PIPELINE,
-                  resourceIdentifier: pipelineIdentifier
-                },
-                permission: PermissionIdentifier.EDIT_PIPELINE
-              }}
-            />
-          </Popover>
+              </GitSyncStoreProvider>
+            )}
+          </Layout.Horizontal>
         }
         toolbar={
           <Layout.Horizontal spacing="small">
@@ -141,7 +163,7 @@ const InputSetList: React.FC = (): JSX.Element => {
             />
           </Layout.Horizontal>
         }
-      ></Page.Header>
+      />
       <Page.Body
         loading={loading}
         error={error?.message}

@@ -5,43 +5,47 @@ exports[`Input Set List tests render Input Set List view 1`] = `
   <div
     class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
   >
-    <span
-      class="bp3-popover-wrapper"
+    <div
+      class="Layout--horizontal StyledProps--main"
     >
       <span
-        class="bp3-popover-target"
+        class="bp3-popover-wrapper"
       >
-        <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-          type="button"
+        <span
+          class="bp3-popover-target"
         >
-          <span
-            class="bp3-button-text"
+          <button
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            type="button"
           >
-            inputSets.newInputSet
-          </span>
-          <span
-            class="bp3-icon bp3-icon-caret-down StyledProps--main"
-            icon="caret-down"
-          >
-            <svg
-              data-icon="caret-down"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
+            <span
+              class="bp3-button-text"
             >
-              <desc>
-                caret-down
-              </desc>
-              <path
-                d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-        </button>
+              inputSets.newInputSet
+            </span>
+            <span
+              class="bp3-icon bp3-icon-caret-down StyledProps--main"
+              icon="caret-down"
+            >
+              <svg
+                data-icon="caret-down"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  caret-down
+                </desc>
+                <path
+                  d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </span>
+    </div>
     <div
       class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
     >
