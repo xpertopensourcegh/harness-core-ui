@@ -87,7 +87,6 @@ export interface CDPipelinesPageProps {
 }
 
 const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
-  const { isGitSyncEnabled } = useAppStore()
   const [initLoading, setInitLoading] = React.useState(true)
   const [appliedFilter, setAppliedFilter] = useState<FilterDTO | null>()
   const [filters, setFilters] = useState<FilterDTO[]>()
@@ -106,7 +105,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
   >()
   const [isFetchingMetaData, setIsFetchingMetaData] = useState<boolean>(false)
 
-  const { selectedProject } = useAppStore()
+  const { selectedProject, isGitSyncEnabled } = useAppStore()
   const project = selectedProject
   const isCDEnabled = (selectedProject?.modules && selectedProject.modules?.indexOf('CD') > -1) || false
   const isCIEnabled = (selectedProject?.modules && selectedProject.modules?.indexOf('CI') > -1) || false
@@ -177,10 +176,11 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
     page,
     sort,
     size: 10,
-    ...(!!gitFilter && {
-      repoIdentifier: gitFilter.repo,
-      branch: gitFilter.branch
-    })
+    ...(gitFilter?.repo &&
+      gitFilter.branch && {
+        repoIdentifier: gitFilter.repo,
+        branch: gitFilter.branch
+      })
   }
 
   const { mutate: reloadPipelines, cancel } = useGetPipelineList({

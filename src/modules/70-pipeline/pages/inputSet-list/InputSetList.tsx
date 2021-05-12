@@ -37,10 +37,11 @@ const InputSetList: React.FC = (): JSX.Element => {
       pageIndex: page,
       pageSize: 10,
       searchTerm: searchParam,
-      ...(!!gitFilter && {
-        repoIdentifier: gitFilter.repo,
-        branch: gitFilter.branch
-      })
+      ...(gitFilter?.repo &&
+        gitFilter.branch && {
+          repoIdentifier: gitFilter.repo,
+          branch: gitFilter.branch
+        })
     },
     debounce: 300
   })

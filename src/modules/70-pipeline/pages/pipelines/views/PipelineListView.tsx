@@ -256,18 +256,18 @@ const RenderActivity: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => {
 }
 
 export const RenderGitDetails: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
-  const data = row.original
+  const { gitDetails } = row.original
 
-  return data.gitDetails ? (
+  return gitDetails?.repoIdentifier && gitDetails.branch ? (
     <Layout.Horizontal style={{ alignItems: 'center' }} padding={{ right: 'medium' }}>
       <Text
         style={{ fontSize: '13px', wordWrap: 'break-word', maxWidth: '100px' }}
         color={Color.GREY_800}
         margin={{ right: 'small' }}
         lineClamp={1}
-        title={data.gitDetails.repoIdentifier}
+        title={gitDetails.repoIdentifier}
       >
-        {data.gitDetails.repoIdentifier}
+        {gitDetails.repoIdentifier}
       </Text>
       <Layout.Horizontal
         border={{ color: Color.GREY_200 }}
@@ -281,10 +281,10 @@ export const RenderGitDetails: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
           style={{ wordWrap: 'break-word', maxWidth: '100px' }}
           font={{ size: 'small' }}
           color={Color.GREY_800}
-          title={data.gitDetails.branch}
+          title={gitDetails.branch}
           lineClamp={1}
         >
-          {data.gitDetails.branch}
+          {gitDetails.branch}
         </Text>
       </Layout.Horizontal>
     </Layout.Horizontal>
