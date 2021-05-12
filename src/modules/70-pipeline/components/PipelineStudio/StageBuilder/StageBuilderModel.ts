@@ -15,6 +15,29 @@ import {
   NodeStartModel
 } from '../../Diagram'
 
+export interface AddUpdateGraphProps {
+  data: NgPipeline
+  listeners: Listeners
+  stagesMap: StagesMap
+  getString: UseStringsReturn['getString']
+  isReadonly: boolean
+  selectedStageId?: string
+  splitPaneSize?: number
+}
+
+export interface RenderGraphNodeProps {
+  node: StageElementWrapper
+  startX: number
+  startY: number
+  stagesMap: StagesMap
+  isReadonly: boolean
+  selectedStageId?: string
+  splitPaneSize?: number
+  prevNodes?: DefaultNodeModel[]
+  allowAdd?: boolean
+  isParallelNodes?: boolean
+}
+
 export class StageBuilderModel extends DiagramModel {
   constructor() {
     super({
@@ -26,18 +49,18 @@ export class StageBuilderModel extends DiagramModel {
     })
   }
 
-  renderGraphNodes(
-    node: StageElementWrapper,
-    startX: number,
-    startY: number,
-    stagesMap: StagesMap,
-    isReadonly: boolean,
-    selectedStageId?: string,
-    splitPaneSize?: number,
-    prevNodes?: DefaultNodeModel[],
-    allowAdd?: boolean,
-    isParallelNodes = false
-  ): { startX: number; startY: number; prevNodes?: DefaultNodeModel[] } {
+  renderGraphNodes(props: RenderGraphNodeProps): { startX: number; startY: number; prevNodes?: DefaultNodeModel[] } {
+    const {
+      node,
+      startY,
+      stagesMap,
+      isReadonly,
+      selectedStageId,
+      splitPaneSize,
+      allowAdd,
+      isParallelNodes = false
+    } = props
+    let { startX, prevNodes } = props
     if (node && node.stage) {
       const type = stagesMap[node.stage.type]
       startX += this.gapX
@@ -54,7 +77,7 @@ export class StageBuilderModel extends DiagramModel {
             name: node.stage.name,
             width: 57,
             isInComplete: node.stage.name === EmptyStageName,
-            canDelete: selectedStageId === node.stage.identifier || isReadonly ? false : true,
+            canDelete: !(selectedStageId === node.stage.identifier || isReadonly),
             draggable: !isReadonly,
             height: 57,
             skipCondition: node.stage.skipCondition,
@@ -72,7 +95,7 @@ export class StageBuilderModel extends DiagramModel {
             isInComplete: node.stage.name === EmptyStageName,
             width: 114,
             draggable: !isReadonly,
-            canDelete: selectedStageId === node.stage.identifier || isReadonly ? false : true,
+            canDelete: !(selectedStageId === node.stage.identifier || isReadonly),
             skipCondition: node.stage.skipCondition,
             conditionalExecutionEnabled: node.stage.when
               ? node.stage.when?.pipelineStatus !== 'Success' || !!node.stage.when?.condition?.trim()
@@ -150,18 +173,18 @@ export class StageBuilderModel extends DiagramModel {
           const prevNodesAr: DefaultNodeModel[] = []
           node.parallel.forEach((nodeP: StageElementWrapper, index: number) => {
             const isLastNode = node.parallel.length === index + 1
-            const resp = this.renderGraphNodes(
-              nodeP,
-              newX,
-              newY,
+            const resp = this.renderGraphNodes({
+              node: nodeP,
+              startX: newX,
+              startY: newY,
               stagesMap,
               isReadonly,
               selectedStageId,
               splitPaneSize,
               prevNodes,
-              isLastNode,
-              true
-            )
+              allowAdd: isLastNode,
+              isParallelNodes: true
+            })
             startX = resp.startX
             newY = resp.startY + this.gapY
             /* istanbul ignore else */ if (resp.prevNodes) {
@@ -184,8 +207,8 @@ export class StageBuilderModel extends DiagramModel {
           }
         }
       } else {
-        return this.renderGraphNodes(
-          node.parallel[0],
+        return this.renderGraphNodes({
+          node: node.parallel[0],
           startX,
           startY,
           stagesMap,
@@ -193,24 +216,17 @@ export class StageBuilderModel extends DiagramModel {
           selectedStageId,
           splitPaneSize,
           prevNodes,
-          true,
-          false
-        )
+          allowAdd: true,
+          isParallelNodes: false
+        })
       }
       return { startX, startY, prevNodes }
     }
     return { startX, startY }
   }
 
-  addUpdateGraph(
-    data: NgPipeline,
-    listeners: Listeners,
-    stagesMap: StagesMap,
-    getString: UseStringsReturn['getString'],
-    isReadonly: boolean,
-    selectedStageId?: string,
-    splitPaneSize?: number
-  ): void {
+  addUpdateGraph(props: AddUpdateGraphProps): void {
+    const { data, listeners, stagesMap, getString, isReadonly, selectedStageId, splitPaneSize } = props
     let { startX, startY } = this
     this.clearAllNodesAndLinks() // TODO: Improve this
 
@@ -238,7 +254,7 @@ export class StageBuilderModel extends DiagramModel {
 
     let prevNodes: DefaultNodeModel[] = [startNode]
     data?.stages?.forEach((node: StageElementWrapper) => {
-      const resp = this.renderGraphNodes(
+      const resp = this.renderGraphNodes({
         node,
         startX,
         startY,
@@ -247,8 +263,8 @@ export class StageBuilderModel extends DiagramModel {
         selectedStageId,
         splitPaneSize,
         prevNodes,
-        true
-      )
+        allowAdd: true
+      })
       startX = resp.startX
       startY = resp.startY
       /* istanbul ignore else */ if (resp.prevNodes) {
