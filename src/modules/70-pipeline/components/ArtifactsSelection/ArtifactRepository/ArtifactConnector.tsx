@@ -141,7 +141,10 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
                 type="submit"
                 text={getString('continue')}
                 rightIcon="chevron-right"
-                disabled={!(formik.values.connectorId as ConnectorSelectedValue)?.connector}
+                disabled={
+                  getMultiTypeFromValue(formik.values.connectorId) === MultiTypeInputType.FIXED &&
+                  !(formik.values.connectorId as ConnectorSelectedValue)?.connector
+                }
               />
             </Layout.Horizontal>
           </Form>

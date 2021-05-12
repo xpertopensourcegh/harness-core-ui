@@ -211,7 +211,11 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                 type="submit"
                 text={getString('continue')}
                 rightIcon="chevron-right"
-                disabled={!selectedManifest || !(formik.values.connectorRef as ConnectorSelectedValue)?.connector}
+                disabled={
+                  !selectedManifest ||
+                  (getMultiTypeFromValue(formik.values.connectorRef) === MultiTypeInputType.FIXED &&
+                    !(formik.values.connectorRef as ConnectorSelectedValue)?.connector)
+                }
               />
             </Layout.Horizontal>
           </Form>
