@@ -35,7 +35,8 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
   handleSubmit,
   expressions,
   prevStepData,
-  initialValues
+  initialValues,
+  previousStep
 }) => {
   const { getString } = useStrings()
 
@@ -357,7 +358,10 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
               ) : null}
             </div>
 
-            <Button intent="primary" type="submit" text={getString('save')} className={css.saveBtn} />
+            <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>
+              <Button text={getString('back')} icon="chevron-left" onClick={() => previousStep?.(prevStepData)} />
+              <Button intent="primary" type="submit" text={getString('submit')} rightIcon="chevron-right" />
+            </Layout.Horizontal>
           </Form>
         )}
       </Formik>

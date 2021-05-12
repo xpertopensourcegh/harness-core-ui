@@ -32,7 +32,8 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
   handleSubmit,
   expressions,
   prevStepData,
-  initialValues
+  initialValues,
+  previousStep
 }) => {
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
@@ -300,8 +301,10 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
                 </div>
               ) : null}
             </div>
-
-            <Button intent="primary" type="submit" text={getString('save')} className={css.saveBtn} />
+            <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>
+              <Button text={getString('back')} icon="chevron-left" onClick={() => previousStep?.(prevStepData)} />
+              <Button intent="primary" type="submit" text={getString('submit')} rightIcon="chevron-right" />
+            </Layout.Horizontal>
           </Form>
         )}
       </Formik>

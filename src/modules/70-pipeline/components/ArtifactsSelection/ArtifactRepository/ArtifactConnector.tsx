@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import {
   Text,
   Formik,
@@ -11,11 +11,13 @@ import {
 import { Form } from 'formik'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
+import { set } from 'lodash-es'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { useStrings } from 'framework/strings'
 import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ConnectorSelectedValue } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import type { ConnectorDataType } from '../ArtifactInterface'
 import css from './ArtifactConnector.module.scss'
 
@@ -55,12 +57,18 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
   const submitFirstStep = async (formData: any): Promise<void> => {
     nextStep?.({ ...formData })
   }
+  const getInitialValues = useCallback((): ConnectorDataType => {
+    if (prevStepData?.connectorId) {
+      set(initialValues, 'connectorId', prevStepData?.connectorId)
+    }
+    return initialValues
+  }, [initialValues, prevStepData?.connectorId])
 
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep} data-id={name}>
       <div className={css.heading}>{stepName}</div>
       <Formik
-        initialValues={initialValues}
+        initialValues={getInitialValues()}
         validationSchema={primarySchema}
         onSubmit={formData => {
           submitFirstStep(formData)
@@ -119,8 +127,13 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
             </div>
             <Layout.Horizontal spacing="xxlarge">
               <Button text={getString('back')} icon="chevron-left" onClick={() => previousStep?.(prevStepData)} />
-
-              <Button intent="primary" type="submit" text={getString('continue')} rightIcon="chevron-right" />
+              <Button
+                intent="primary"
+                type="submit"
+                text={getString('continue')}
+                rightIcon="chevron-right"
+                disabled={!(formik.values.connectorId as ConnectorSelectedValue)?.connector}
+              />
             </Layout.Horizontal>
           </Form>
         )}

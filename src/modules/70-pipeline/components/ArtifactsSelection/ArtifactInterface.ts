@@ -1,3 +1,4 @@
+import type { ConnectorSelectedValue } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import type {
   ArtifactConfig,
   ArtifactSpecWrapper,
@@ -38,7 +39,7 @@ export enum TagTypes {
   Regex = 'regex'
 }
 export interface ConnectorDataType {
-  connectorId: string | undefined
+  connectorId: string | undefined | ConnectorSelectedValue
 }
 export interface ImagePathTypes {
   identifier: string
