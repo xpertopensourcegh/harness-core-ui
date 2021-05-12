@@ -582,48 +582,56 @@ exports[`Test GatewayDetails renders without crashing 1`] = `
                             <th
                               colspan="1"
                               role="columnheader"
+                              style="width: 16.5%;"
                             >
                               NAME AND ID
                             </th>
                             <th
                               colspan="1"
                               role="columnheader"
+                              style="width: 16.5%;"
                             >
                               IP ADDRESS
                             </th>
                             <th
                               colspan="1"
                               role="columnheader"
+                              style="width: 16.5%;"
                             >
                               REGION
                             </th>
                             <th
                               colspan="1"
                               role="columnheader"
+                              style="width: 16.5%;"
                             >
                               TYPE
                             </th>
                             <th
                               colspan="1"
                               role="columnheader"
+                              style="width: 16.5%;"
                             >
                               TAGS
                             </th>
                             <th
                               colspan="1"
                               role="columnheader"
+                              style="width: 16.5%;"
                             >
                               LAUNCH TIME
                             </th>
                             <th
                               colspan="1"
                               role="columnheader"
+                              style="width: 16.5%;"
                             >
                               STATUS
                             </th>
                             <th
                               colspan="1"
                               role="columnheader"
+                              style="width: 5%;"
                             />
                           </tr>
                         </thead>
@@ -925,54 +933,63 @@ exports[`Test GatewayDetails renders without crashing 1`] = `
                                       <th
                                         colspan="1"
                                         role="columnheader"
+                                        style="width: 16.5%;"
                                       >
                                         LISTEN PROTOCOL
                                       </th>
                                       <th
                                         colspan="1"
                                         role="columnheader"
+                                        style="width: 16.5%;"
                                       >
                                         LISTEN PORT
                                       </th>
                                       <th
                                         colspan="1"
                                         role="columnheader"
+                                        style="width: 16.5%;"
                                       >
                                         ACTION
                                       </th>
                                       <th
                                         colspan="1"
                                         role="columnheader"
+                                        style="width: 16.5%;"
                                       >
                                         TARGET PROTOCOL
                                       </th>
                                       <th
                                         colspan="1"
                                         role="columnheader"
+                                        style="width: 16.5%;"
                                       >
                                         TARGET PORT
                                       </th>
                                       <th
                                         colspan="1"
                                         role="columnheader"
+                                        style="width: 16.5%;"
                                       >
                                         REDIRECT URL
                                       </th>
                                       <th
                                         colspan="1"
                                         role="columnheader"
+                                        style="width: 16.5%;"
                                       >
                                         SERVER NAME
                                       </th>
                                       <th
                                         colspan="1"
                                         role="columnheader"
+                                        style="width: 16.5%;"
                                       >
                                         PATH MATCH
                                       </th>
                                       <th
                                         colspan="1"
                                         role="columnheader"
+                                        style="width: 16.5%;"
                                       />
                                     </tr>
                                   </thead>
