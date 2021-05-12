@@ -9,7 +9,7 @@ import { getStringForType } from '@secrets/utils/SSHAuthUtils'
 import { useStrings } from 'framework/strings'
 import css from './SecretResourceModalBody.module.scss'
 
-const RenderColumnSecret: Renderer<CellProps<SecretDTOV2>> = ({ row }) => {
+export const RenderColumnSecret: Renderer<CellProps<SecretDTOV2>> = ({ row }) => {
   const data = row.original
   return (
     <Layout.Vertical padding={{ left: 'small' }} className={css.secretDetails}>
@@ -17,13 +17,13 @@ const RenderColumnSecret: Renderer<CellProps<SecretDTOV2>> = ({ row }) => {
         {data.name}
       </Text>
       <Text color={Color.GREY_400} lineClamp={1}>
-        {data.description}
+        {data.identifier}
       </Text>
     </Layout.Vertical>
   )
 }
 
-const RenderColumnDetails: Renderer<CellProps<SecretDTOV2>> = ({ row }) => {
+export const RenderColumnDetails: Renderer<CellProps<SecretDTOV2>> = ({ row }) => {
   const data = row.original
   return (
     <Layout.Vertical className={css.secretDetails}>

@@ -2,11 +2,13 @@ import React from 'react'
 import { Layout, Text, Card, Color, Button } from '@wings-software/uicore'
 import { Radio } from '@blueprintjs/core'
 import { noop } from 'lodash-es'
+import { useParams } from 'react-router'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { useStrings } from 'framework/strings'
 import type { ResourceType } from '@rbac/interfaces/ResourceType'
 import useAddResourceModal from '@rbac/modals/AddResourceModal/useAddResourceModal'
 import { RbacResourceGroupTypes } from '@rbac/constants/utils'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './ResourcesCard.module.scss'
 
 interface ResourcesCardProps {
@@ -22,6 +24,7 @@ const ResourcesCard: React.FC<ResourcesCardProps> = ({
   onResourceSelectionChange,
   disableAddingResources
 }) => {
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const { openAddResourceModal } = useAddResourceModal({
     onSuccess: resources => {
@@ -31,7 +34,7 @@ const ResourcesCard: React.FC<ResourcesCardProps> = ({
 
   const resourceDetails = RbacFactory.getResourceTypeHandler(resourceType)
   if (!resourceDetails) return null
-  const { label, icon, addResourceModalBody } = resourceDetails
+  const { label, icon, addResourceModalBody, staticResourceRenderer } = resourceDetails
   return (
     <Card className={css.selectedResourceGroupCardDetails} key={resourceType}>
       <Layout.Vertical>
@@ -71,18 +74,25 @@ const ResourcesCard: React.FC<ResourcesCardProps> = ({
 
         {Array.isArray(resourceValues) && (
           <Layout.Vertical padding={{ top: 'large' }}>
-            {resourceValues.map(resource => (
-              <Layout.Horizontal padding="large" className={css.staticResource} key={resource} flex>
-                <Text>{resource}</Text>
-                <Button
-                  icon="trash"
-                  minimal
-                  onClick={() => {
-                    onResourceSelectionChange(resourceType, false, [resource])
-                  }}
-                />
-              </Layout.Horizontal>
-            ))}
+            {staticResourceRenderer
+              ? staticResourceRenderer({
+                  identifiers: resourceValues,
+                  resourceScope: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
+                  onResourceSelectionChange,
+                  resourceType
+                })
+              : resourceValues.map(resource => (
+                  <Layout.Horizontal padding="large" className={css.staticResource} key={resource} flex>
+                    <Text>{resource}</Text>
+                    <Button
+                      icon="trash"
+                      minimal
+                      onClick={() => {
+                        onResourceSelectionChange(resourceType, false, [resource])
+                      }}
+                    />
+                  </Layout.Horizontal>
+                ))}
           </Layout.Vertical>
         )}
       </Layout.Vertical>

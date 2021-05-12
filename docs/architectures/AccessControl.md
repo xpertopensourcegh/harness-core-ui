@@ -54,7 +54,7 @@ A `ResourceCategory` is used for grouping of resources that belong to the same c
 
 <img width="700" alt="Screenshot 2021-04-08 at 10 03 20 AM" src="https://user-images.githubusercontent.com/47316575/113968935-adc3df00-9851-11eb-8919-88159a204692.png">
 
-Similarly, for all resource types, we need the capability to select individual resources for a resource group. This is done by delegating the UI via the `addResourceModalBody` prop. This allows teams to render their own UI within the modal, while the overall access-control interface still remains consistent.
+Similarly, for all resource types, we need the capability to select individual resources for a resource group. This is done by delegating the UI via the `addResourceModalBody` and `staticResourceRenderer` props. This allows teams to render their own UI within the modal and on the details page, while the overall access-control interface still remains consistent.
 
 `ResourceHandler` and `ResourceCategoryHandler` interfaces are implemented as follows (as of March 2021):
 
@@ -66,6 +66,7 @@ export interface ResourceHandler {
     [key in PermissionIdentifier]?: string | React.ReactElement
   }
   addResourceModalBody?: (props: RbacResourceModalProps) => React.ReactElement
+  staticResourceRenderer?: (props: RbacResourceRendererProps) => React.ReactElement
   category?: ResourceCategory
 }
 ```

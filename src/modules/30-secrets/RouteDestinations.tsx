@@ -18,6 +18,7 @@ import SecretResourceModalBody from '@secrets/components/SecretResourceModalBody
 import type { ModulePathParams, ProjectPathProps, SecretsPathProps } from '@common/interfaces/RouteInterfaces'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { String } from 'framework/strings'
+import SecretResourceRenderer from '@secrets/components/SecretResourceRenderer/SecretResourceRenderer'
 
 const AccountSettingsSideNavProps: SidebarContext = {
   navComponent: AccountSettingsSideNav,
@@ -37,7 +38,9 @@ RbacFactory.registerResourceTypeHandler(ResourceType.SECRET, {
     [PermissionIdentifier.ACCESS_SECRET]: <String stringID="rbac.permissionLabels.access" />
   },
   // eslint-disable-next-line react/display-name
-  addResourceModalBody: props => <SecretResourceModalBody {...props} />
+  addResourceModalBody: props => <SecretResourceModalBody {...props} />,
+  // eslint-disable-next-line react/display-name
+  staticResourceRenderer: props => <SecretResourceRenderer {...props} />
 })
 
 const RedirectToSecretDetailHome = () => {

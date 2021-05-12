@@ -80,7 +80,7 @@ const ResourceTypeList: React.FC<ResourceTypeListProps> = props => {
                         const resourceHandler = RbacFactory.getResourceTypeHandler(resource)
                         return (
                           resourceHandler && (
-                            <Layout.Horizontal className={css.resourceSubList}>
+                            <Layout.Horizontal key={resource} className={css.resourceSubList}>
                               <Checkbox
                                 data-testid={`CHECK-BOX-${resource}`}
                                 disabled={disableAddingResources}

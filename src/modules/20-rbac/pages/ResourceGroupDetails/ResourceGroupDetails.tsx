@@ -110,11 +110,10 @@ const ResourceGroupDetails: React.FC = () => {
       } else {
         setSelectedResourceMap(
           produce(selectedResourcesMap, draft => {
-            const resources = draft.get(resourceType)
-            if (resources && typeof resources === 'object')
+            if (Array.isArray(draft.get(resourceType)))
               draft.set(
                 resourceType,
-                resources.filter(el => !identifiers.includes(el))
+                (draft.get(resourceType) as string[]).filter(el => !identifiers.includes(el))
               )
             if (draft.get(resourceType)?.length === 0) draft.delete(resourceType)
           })
@@ -309,17 +308,14 @@ const ResourceGroupDetails: React.FC = () => {
               )}
               {Array.from(selectedResourcesMap.keys()).length !== 0 &&
                 Array.from(selectedResourcesMap.keys()).map(resourceType => {
-                  const resourceValues = selectedResourcesMap.get(resourceType)
                   return (
-                    resourceValues && (
-                      <ResourcesCard
-                        key={resourceType}
-                        resourceType={resourceType}
-                        resourceValues={resourceValues}
-                        onResourceSelectionChange={onResourceSelectionChange}
-                        disableAddingResources={isHarnessManaged}
-                      />
-                    )
+                    <ResourcesCard
+                      key={resourceType}
+                      resourceType={resourceType}
+                      resourceValues={selectedResourcesMap.get(resourceType) || []}
+                      onResourceSelectionChange={onResourceSelectionChange}
+                      disableAddingResources={isHarnessManaged}
+                    />
                   )
                 })}
             </Layout.Vertical>
