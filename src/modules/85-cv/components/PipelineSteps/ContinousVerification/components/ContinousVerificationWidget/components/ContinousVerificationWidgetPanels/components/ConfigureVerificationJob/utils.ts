@@ -20,7 +20,7 @@ export function getFieldDataFromSelectedJob(
     if (selectedJob[selectedJobField]?.toString() === RUNTIME_INPUT_VALUE) {
       field = ''
     } else {
-      field = options.find((el: SelectOption) => el.value === selectedJob[selectedJobField])
+      field = options.find((el: SelectOption) => el?.value?.toString() === selectedJob[selectedJobField])
     }
   }
   return field

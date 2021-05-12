@@ -51,7 +51,7 @@ export function ContinousVerificationWidget(
         ),
         trafficsplit: Yup.mixed().test(
           'trafficsplit',
-          getString('connectors.cdng.validations.baselineRequired'),
+          getString('connectors.cdng.validations.trafficsplitRequired'),
           value => value !== ''
         ),
         deploymentTag: Yup.string().required(getString('connectors.cdng.validations.deploymentTagRequired'))

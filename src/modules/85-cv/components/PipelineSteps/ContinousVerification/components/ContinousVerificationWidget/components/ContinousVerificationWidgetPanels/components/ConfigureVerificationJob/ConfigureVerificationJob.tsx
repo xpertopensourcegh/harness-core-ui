@@ -97,7 +97,7 @@ export default function ConfigureVerificationJob(props: {
                 name={`spec.spec.duration`}
                 label={getString('duration')}
                 expressions={expressions}
-                isSimpleDropdown={isFieldDisabled(specInfo?.duration, selectedJob.duration)}
+                isSimpleDropdown={isFieldDisabled(specInfo?.duration, selectedJob?.duration)}
                 formik={formik}
               />
             </div>
@@ -107,6 +107,7 @@ export default function ConfigureVerificationJob(props: {
                 <TrafficSplit
                   name={`spec.spec.trafficsplit`}
                   label={getString('connectors.cdng.trafficsplit')}
+                  expressions={expressions}
                   isSimpleDropdown={isFieldDisabled(
                     specInfo?.trafficsplit,
                     selectedJob?.trafficSplitPercentage?.toString()

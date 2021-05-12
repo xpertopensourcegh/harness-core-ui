@@ -436,7 +436,6 @@ export interface StringsMap {
   'connectors.awsKms.validation.selectRegion': string
   'connectors.cdng.baseline': string
   'connectors.cdng.baselineDefaultLabel.lastSuccess': string
-  'connectors.cdng.configureVerificationJob': string
   'connectors.cdng.continousVerificationStep': string
   'connectors.cdng.createCVJob': string
   'connectors.cdng.defineVerificationJob': string

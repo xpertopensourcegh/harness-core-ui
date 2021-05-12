@@ -56,7 +56,7 @@ export function ContinousVerificationWidgetPanels({
       />
       <Accordion.Panel
         id="step-3"
-        summary={getString('connectors.cdng.configureVerificationJob')}
+        summary={getString('cv.verificationJobs.configure.tabName')}
         details={<ConfigureVerificationJob formik={formik} jobContents={jobContents} />}
       />
     </Accordion>

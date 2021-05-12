@@ -15,12 +15,9 @@ import { ContinousVerificationVariableStep } from './components/ContinousVerific
 import { getSpecFormData, getSpecYamlData, validateField, validateTimeout } from './utils'
 import { cvDefaultValues } from './constants'
 
-const ConnectorRefRegex = /^.+step\.spec\.executionTarget\.connectorRef$/
-
 export class ContinousVerificationStep extends PipelineStep<ContinousVerificationData> {
   constructor() {
     super()
-    this.invocationMap.set(ConnectorRefRegex, this.getSecretsListForYaml.bind(this))
     this._hasStepVariables = true
   }
 
@@ -83,13 +80,6 @@ export class ContinousVerificationStep extends PipelineStep<ContinousVerificatio
     validateField(deploymentTag as string, 'deploymentTag', data, errors, getString)
     validateTimeout(template, getString, data, errors)
     return errors
-  }
-
-  protected async getSecretsListForYaml(): Promise<CompletionItemInterface[]> {
-    //TODO implement this once story is picked up
-    return new Promise(resolve => {
-      resolve([])
-    })
   }
 
   private getInitialValues(initialValues: ContinousVerificationData): ContinousVerificationData {
