@@ -36,6 +36,9 @@ import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProp
 
 import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
 import { NameIdDescriptionTags } from '@common/components'
+import { usePermission } from '@rbac/hooks/usePermission'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import css from './DeployServiceStep.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
@@ -214,6 +217,25 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
   if (error?.message) {
     showError(error.message)
   }
+
+  const [canEdit] = usePermission({
+    resource: {
+      resourceType: ResourceType.SERVICE,
+      resourceIdentifier: services[0]?.value as string
+    },
+    permissions: [PermissionIdentifier.EDIT_SERVICE],
+    options: {
+      skipCondition: ({ resourceIdentifier }) => !resourceIdentifier
+    }
+  })
+
+  const [canCreate] = usePermission({
+    resource: {
+      resourceType: ResourceType.SERVICE
+    },
+    permissions: [PermissionIdentifier.EDIT_SERVICE]
+  })
+
   return (
     <>
       <Formik<DeployServiceData>
@@ -280,7 +302,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
                 <Button
                   minimal
                   intent="primary"
-                  disabled={readonly}
+                  disabled={readonly || (isEditService(values) ? !canEdit : !canCreate)}
                   onClick={() => {
                     const isEdit = isEditService(values)
                     if (isEdit) {

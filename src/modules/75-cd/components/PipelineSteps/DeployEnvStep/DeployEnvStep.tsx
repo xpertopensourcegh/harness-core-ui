@@ -40,6 +40,9 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 
 import { IdentifierValidation } from '@pipeline/components/PipelineStudio/PipelineUtils'
+import { usePermission } from '@rbac/hooks/usePermission'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import css from './DeployEnvStep.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
@@ -265,6 +268,25 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
   }
 
   const { expressions } = useVariablesExpression()
+
+  const [canEdit] = usePermission({
+    resource: {
+      resourceType: ResourceType.ENVIRONMENT,
+      resourceIdentifier: environments[0]?.value as string
+    },
+    permissions: [PermissionIdentifier.EDIT_ENVIRONMENT],
+    options: {
+      skipCondition: ({ resourceIdentifier }) => !resourceIdentifier
+    }
+  })
+
+  const [canCreate] = usePermission({
+    resource: {
+      resourceType: ResourceType.ENVIRONMENT
+    },
+    permissions: [PermissionIdentifier.EDIT_ENVIRONMENT]
+  })
+
   return (
     <>
       <Formik<DeployEnvData>
@@ -332,7 +354,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
                 <Button
                   minimal
                   intent="primary"
-                  disabled={readonly}
+                  disabled={readonly || (isEditEnvironment(values) ? !canEdit : !canCreate)}
                   onClick={() => {
                     const isEdit = isEditEnvironment(values)
                     if (isEdit) {
