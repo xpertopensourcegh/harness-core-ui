@@ -2,7 +2,7 @@ import React from 'react'
 import { Icon, Select, SelectOption, Label } from '@wings-software/uicore'
 import cx from 'classnames'
 import {
-  ListSecretsQueryParams,
+  ListSecretsV2QueryParams,
   Failure,
   listSecretsV2Promise,
   SecretDTOV2,
@@ -25,7 +25,7 @@ export interface SecretReferenceProps {
   projectIdentifier?: string
   orgIdentifier?: string
   defaultScope?: Scope
-  type?: ListSecretsQueryParams['type']
+  type?: ListSecretsV2QueryParams['type']
   mock?: ResponsePageSecretResponseWrapper
 }
 
@@ -33,7 +33,7 @@ const fetchRecords = (
   scope: Scope,
   search: string | undefined,
   done: (records: EntityReferenceResponse<SecretRef>[]) => void,
-  type: ListSecretsQueryParams['type'],
+  type: ListSecretsV2QueryParams['type'],
   accountIdentifier: string,
   projectIdentifier?: string,
   orgIdentifier?: string,
