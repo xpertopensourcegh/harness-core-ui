@@ -267,14 +267,32 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                 )}
 
                 {!!(connectionType === GitRepoName.Account && accountUrl) && (
-                  <div>
-                    <FormInput.Text
-                      label={getString('pipelineSteps.build.create.repositoryNameLabel')}
-                      name="repoName"
-                      className={css.repoName}
-                    />
+                  <div className={css.repoName}>
+                    <div className={cx(stepCss.formGroup, stepCss.md)}>
+                      <FormInput.MultiTextInput
+                        multiTextInputProps={{ expressions }}
+                        label={getString('pipelineSteps.build.create.repositoryNameLabel')}
+                        placeholder={getString('pipeline.manifestType.repoNamePlacefolder')}
+                        name="repoName"
+                        style={{ width: 370 }}
+                      />
+                      {getMultiTypeFromValue(formik.values?.repoName) === MultiTypeInputType.RUNTIME && (
+                        <ConfigureOptions
+                          value={formik.values?.repoName as string}
+                          type="String"
+                          variableName="repoName"
+                          showRequiredField={false}
+                          showDefaultField={false}
+                          showAdvanced={true}
+                          style={{ marginTop: 10 }}
+                          onChange={value => formik.setFieldValue('repoName', value)}
+                        />
+                      )}
+                    </div>
 
-                    <div className={css.repoNameUrl}>{`${accountUrl}/${formik.values?.repoName}`}</div>
+                    {getMultiTypeFromValue(formik.values?.repoName) === MultiTypeInputType.FIXED && (
+                      <div className={css.repoNameUrl}>{`${accountUrl}/${formik.values?.repoName}`}</div>
+                    )}
                   </div>
                 )}
                 <FormInput.Select

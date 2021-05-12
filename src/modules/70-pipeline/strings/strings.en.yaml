@@ -119,6 +119,7 @@ manifestType:
   commitPlaceholder: Enter Commit ID here
   filePathPlaceholder: Enter file or folder path
   kustomizeFolderPath: Kustomize Folder Path
+  repoNamePlacefolder: Enter repo name here
   http:
     chartName: 'Helm Chart Name'
     chartVersion: 'Helm Chart Version'

@@ -7,7 +7,9 @@ declare const styles: {
   readonly commandFlags: string
   readonly runtimeInput: string
   readonly advancedStepOpen: string
+  readonly repoNameSection: string
   readonly repoName: string
+  readonly repoNameUrl: string
   readonly checkbox: string
   readonly tooltip: string
   readonly tooltipContent: string

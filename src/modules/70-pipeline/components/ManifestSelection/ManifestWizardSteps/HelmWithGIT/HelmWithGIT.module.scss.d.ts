@@ -10,7 +10,9 @@ declare const styles: {
   readonly runtimeInput: string
   readonly advancedStepOpen: string
   readonly skipResourceSection: string
+  readonly repoNameSection: string
   readonly repoName: string
+  readonly repoNameUrl: string
   readonly checkbox: string
   readonly tooltip: string
   readonly skipversionTooltip: string

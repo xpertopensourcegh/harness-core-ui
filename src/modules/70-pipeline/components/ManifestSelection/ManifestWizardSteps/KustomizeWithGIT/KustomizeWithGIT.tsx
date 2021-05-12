@@ -210,19 +210,35 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
               )}
 
               {!!(connectionType === GitRepoName.Account && accountUrl) && (
-                <div className={helmcss.halfWidth}>
-                  <div>
-                    <FormInput.Text
+                <div className={helmcss.repoNameSection}>
+                  <div className={helmcss.repoName}>
+                    <FormInput.MultiTextInput
+                      multiTextInputProps={{ expressions }}
+                      placeholder={getString('pipeline.manifestType.repoNamePlacefolder')}
                       label={getString('pipelineSteps.build.create.repositoryNameLabel')}
                       name="repoName"
-                      className={helmcss.repoName}
+                      isOptional={true}
                     />
+                    {getMultiTypeFromValue(formik.values?.repoName) === MultiTypeInputType.RUNTIME && (
+                      <ConfigureOptions
+                        value={formik.values?.repoName as string}
+                        type="String"
+                        variableName="repoName"
+                        showRequiredField={false}
+                        showDefaultField={false}
+                        showAdvanced={true}
+                        onChange={value => formik.setFieldValue('repoName', value)}
+                      />
+                    )}
                   </div>
-                  <div
-                    style={{ marginBottom: 'var(--spacing-medium)' }}
-                  >{`${accountUrl}/${formik.values?.repoName}`}</div>
+                  {getMultiTypeFromValue(formik.values?.repoName) === MultiTypeInputType.FIXED && (
+                    <div
+                      className={cx(helmcss.repoNameUrl, helmcss.halfWidth)}
+                    >{`${accountUrl}/${formik.values?.repoName}`}</div>
+                  )}
                 </div>
               )}
+
               <Layout.Horizontal flex spacing="huge" margin={{ top: 'small', bottom: 'small' }}>
                 <div className={helmcss.halfWidth}>
                   <FormInput.Select

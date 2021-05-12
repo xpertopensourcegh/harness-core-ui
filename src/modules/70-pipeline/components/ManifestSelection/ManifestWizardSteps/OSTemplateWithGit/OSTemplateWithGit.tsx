@@ -204,18 +204,32 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
               )}
 
               {!!(connectionType === GitRepoName.Account && accountUrl) && (
-                <div className={templateCss.halfWidth}>
-                  <div>
-                    <FormInput.Text
+                <div className={templateCss.repoNameSection}>
+                  <div className={templateCss.repoName}>
+                    <FormInput.MultiTextInput
+                      multiTextInputProps={{ expressions }}
                       label={getString('pipelineSteps.build.create.repositoryNameLabel')}
+                      placeholder={getString('pipeline.manifestType.repoNamePlacefolder')}
                       name="repoName"
                       isOptional={true}
-                      className={templateCss.repoName}
                     />
+                    {getMultiTypeFromValue(formik.values?.repoName) === MultiTypeInputType.RUNTIME && (
+                      <ConfigureOptions
+                        value={formik.values?.repoName as string}
+                        type="String"
+                        variableName="repoName"
+                        showRequiredField={false}
+                        showDefaultField={false}
+                        showAdvanced={true}
+                        onChange={value => formik.setFieldValue('repoName', value)}
+                      />
+                    )}
                   </div>
-                  <div
-                    style={{ marginBottom: 'var(--spacing-medium)' }}
-                  >{`${accountUrl}/${formik.values?.repoName}`}</div>
+                  {getMultiTypeFromValue(formik.values?.repoName) === MultiTypeInputType.FIXED && (
+                    <div
+                      className={cx(templateCss.repoNameUrl, templateCss.halfWidth)}
+                    >{`${accountUrl}/${formik.values?.repoName}`}</div>
+                  )}
                 </div>
               )}
               <Layout.Horizontal flex spacing="huge" margin={{ top: 'small', bottom: 'small' }}>

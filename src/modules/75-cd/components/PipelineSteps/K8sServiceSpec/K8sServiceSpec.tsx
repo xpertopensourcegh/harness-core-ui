@@ -808,7 +808,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                       spec: {
                         skipResourceVersioning = '',
                         store: {
-                          spec: { branch = '', connectorRef = '', folderPath = '', commitId = '' } = {},
+                          spec: { branch = '', connectorRef = '', folderPath = '', commitId = '', repoName = '' } = {},
                           type = ''
                         } = {}
                       } = {}
@@ -861,6 +861,18 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                             disabled={readonly}
                             className={css.inputWidth}
                             name={`${path}.manifests[${index}].manifest.spec.store.spec.branch`}
+                          />
+                        </FormGroup>
+                      )}
+                      {getMultiTypeFromValue(repoName) === MultiTypeInputType.RUNTIME && (
+                        <FormGroup
+                          labelFor={'repoName'}
+                          label={getString('pipelineSteps.build.create.repositoryNameLabel')}
+                        >
+                          <FormInput.Text
+                            disabled={readonly}
+                            className={css.inputWidth}
+                            name={`${path}.manifests[${index}].manifest.spec.store.spec.repoName`}
                           />
                         </FormGroup>
                       )}

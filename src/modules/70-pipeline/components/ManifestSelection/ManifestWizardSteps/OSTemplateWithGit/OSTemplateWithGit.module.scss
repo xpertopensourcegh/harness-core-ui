@@ -17,8 +17,18 @@
   .advancedStepOpen {
     min-height: 200px;
   }
+  .repoNameSection {
+    margin-bottom: 6px !important;
+  }
   .repoName {
-    margin-bottom: 0 !important;
+    display: grid;
+    grid-template-columns: 1fr 35px;
+    width: 50%;
+    align-items: center;
+  }
+  .repo-name-url {
+    margin-bottom: var(--spacing-medium);
+    word-break: break-all;
   }
 }
 
