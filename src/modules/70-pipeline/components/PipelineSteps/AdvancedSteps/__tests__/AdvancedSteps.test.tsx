@@ -6,6 +6,14 @@ import type { StepFormikRef } from '@pipeline/components/AbstractSteps/Step'
 
 import { AdvancedStepsWithRef } from '../AdvancedSteps'
 
+const mockGetCallFunction = jest.fn()
+jest.mock('services/portal', () => ({
+  useGetDelegateSelectors: jest.fn().mockImplementation(args => {
+    mockGetCallFunction(args)
+    return []
+  })
+}))
+
 describe('<AdvancedSteps /> tests', () => {
   test('snapshot test', () => {
     const { container } = render(

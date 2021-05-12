@@ -69,7 +69,26 @@ export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: Step
         return (
           <FormikForm className={css.form}>
             <div>
-              <Accordion activeId={AdvancedPanels.ConditionalExecution}>
+              <Accordion
+                activeId={
+                  hiddenPanels.indexOf(AdvancedPanels.DelegateSelectors) === -1 &&
+                  stepsFactory.getStep(stepType)?.hasDelegateSelectionVisible
+                    ? AdvancedPanels.DelegateSelectors
+                    : hiddenPanels.indexOf(AdvancedPanels.ConditionalExecution) === -1
+                    ? AdvancedPanels.ConditionalExecution
+                    : hiddenPanels.indexOf(AdvancedPanels.FailureStrategy) === -1
+                    ? AdvancedPanels.FailureStrategy
+                    : ''
+                }
+              >
+                {hiddenPanels.indexOf(AdvancedPanels.DelegateSelectors) === -1 &&
+                  stepsFactory.getStep(stepType)?.hasDelegateSelectionVisible && (
+                    <Accordion.Panel
+                      id={AdvancedPanels.DelegateSelectors}
+                      summary={getString('delegate.DelegateSelector')}
+                      details={<DelegateSelectorPanel isReadonly={isReadonly} formikProps={formikProps} />}
+                    />
+                  )}
                 {hiddenPanels.indexOf(AdvancedPanels.ConditionalExecution) === -1 && (
                   <Accordion.Panel
                     id={AdvancedPanels.ConditionalExecution}
@@ -97,14 +116,6 @@ export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: Step
                     }
                   />
                 )}
-                {hiddenPanels.indexOf(AdvancedPanels.DelegateSelectors) === -1 &&
-                  stepsFactory.getStep(stepType)?.hasDelegateSelectionVisible && (
-                    <Accordion.Panel
-                      id={AdvancedPanels.DelegateSelectors}
-                      summary={getString('delegate.DelegateSelector')}
-                      details={<DelegateSelectorPanel isReadonly={isReadonly} formikProps={formikProps} />}
-                    />
-                  )}
               </Accordion>
             </div>
           </FormikForm>

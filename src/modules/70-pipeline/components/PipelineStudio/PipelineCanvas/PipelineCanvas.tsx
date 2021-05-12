@@ -307,7 +307,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
             }
           }
           setYamlError(false)
-          return !matchDefault?.isExact && localUpdated
+          return !matchDefault?.isExact && localUpdated && !isReadonly
         }}
         textProps={{
           contentText: isYamlError ? getString('navigationYamlError') : getString('navigationCheckText'),
