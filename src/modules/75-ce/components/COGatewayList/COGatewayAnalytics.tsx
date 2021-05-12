@@ -277,7 +277,11 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
             </Layout.Horizontal>
             <Text>Host name</Text>
             <Layout.Horizontal spacing="xsmall">
-              <Link href={`http://${props.service?.data.host_name}`} target="_blank">
+              <Link
+                href={`http://${props.service?.data.host_name}`}
+                target="_blank"
+                style={{ maxWidth: 400, textAlign: 'left' }}
+              >
                 {props.service?.data.host_name}
               </Link>
             </Layout.Horizontal>
