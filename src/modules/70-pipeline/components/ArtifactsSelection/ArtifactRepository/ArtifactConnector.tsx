@@ -92,12 +92,8 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
               <div className={css.connectorContainer}>
                 <FormMultiTypeConnectorField
                   name="connectorId"
-                  label={
-                    <Text style={{ marginBottom: 8 }}>{`${getString('select')} ${connectorType} ${getString(
-                      'connector'
-                    )}`}</Text>
-                  }
-                  placeholder={getString('select')}
+                  label={<Text style={{ marginBottom: 8 }}>{`${connectorType} ${getString('connector')}`}</Text>}
+                  placeholder={`${getString('select')} ${connectorType} ${getString('connector')}`}
                   accountIdentifier={accountId}
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}

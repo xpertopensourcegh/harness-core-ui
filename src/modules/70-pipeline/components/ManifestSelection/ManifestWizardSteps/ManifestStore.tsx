@@ -28,8 +28,8 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { ManifestStepInitData, ManifestStores } from '../ManifestInterface'
 import {
-  getManifestIconByType,
-  getManifestStoreTitle,
+  ManifestIconByType,
+  ManifestStoreTitle,
   ManifestToConnectorLabelMap,
   ManifestToConnectorMap
 } from '../Manifesthelper'
@@ -117,7 +117,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                 }
               }}
             >
-              <Icon name={getManifestIconByType(store)} size={26} />
+              <Icon name={ManifestIconByType[store]} size={26} />
             </Card>
             <Text
               style={{
@@ -126,7 +126,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                 textAlign: 'center'
               }}
             >
-              {getString(getManifestStoreTitle(store))}
+              {getString(ManifestStoreTitle[store])}
             </Text>
           </div>
         ))}
@@ -156,11 +156,13 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                     name="connectorRef"
                     disabled={selectedManifest === ''}
                     label={
-                      <Text style={{ marginBottom: '5px' }}>{`${getString('select')} ${
+                      <Text style={{ marginBottom: '5px' }}>{`${
                         ManifestToConnectorLabelMap[selectedManifest]
                       } ${getString('connector')}`}</Text>
                     }
-                    placeholder={getString('selectServer')}
+                    placeholder={`${getString('select')} ${ManifestToConnectorLabelMap[selectedManifest]} ${getString(
+                      'connector'
+                    )}`}
                     accountIdentifier={accountId}
                     projectIdentifier={projectIdentifier}
                     orgIdentifier={orgIdentifier}

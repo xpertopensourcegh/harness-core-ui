@@ -46,7 +46,7 @@ import {
   getStatus
 } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 import {
-  getManifestIconByType,
+  ManifestIconByType,
   ManifestDataType,
   ManifestToConnectorMap,
   ManifestStoreMap,
@@ -657,7 +657,7 @@ const ManifestListView = ({
                   <div className={css.server}>
                     <Text
                       inline
-                      icon={getManifestIconByType(manifest?.spec?.store.type)}
+                      icon={ManifestIconByType[manifest?.spec?.store.type as ManifestStores]}
                       iconProps={{ size: 18 }}
                       width={200}
                       lineClamp={1}

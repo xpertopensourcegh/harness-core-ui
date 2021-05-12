@@ -166,7 +166,15 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
             .required(getString('validation.identifierRequired'))
             .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
             .notOneOf(StringUtils.illegalIdentifiers),
-          folderPath: Yup.string().trim().required(getString('pipeline.manifestType.kustomizePathRequired'))
+          folderPath: Yup.string().trim().required(getString('pipeline.manifestType.kustomizePathRequired')),
+          branch: Yup.string().when('gitFetchType', {
+            is: 'Branch',
+            then: Yup.string().trim().required(getString('validation.branchName'))
+          }),
+          commitId: Yup.string().when('gitFetchType', {
+            is: 'Commit',
+            then: Yup.string().trim().required(getString('validation.commitId'))
+          })
         })}
         onSubmit={formData => {
           submitFormData({

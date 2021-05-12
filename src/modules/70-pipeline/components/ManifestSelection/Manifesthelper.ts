@@ -41,7 +41,7 @@ export const manifestTypeLabels: Record<ManifestTypes, string> = {
   OpenshiftParam: 'Openshift Param'
 }
 
-export const manifestTypeText: Record<string, string> = {
+export const manifestTypeText: Record<ManifestTypes, string> = {
   K8sManifest: 'Manifest',
   Values: 'Values Overrides',
   HelmChart: 'Helm Chart',
@@ -54,48 +54,28 @@ export const helmVersions: Array<{ label: string; value: HelmVersionOptions }> =
   { label: 'Version 2', value: 'V2' },
   { label: 'Version 3', value: 'V3' }
 ]
-export const getManifestIconByType = (type: string | undefined): IconName => {
-  switch (type) {
-    case ManifestStoreMap.Git:
-      return 'service-github'
-    case ManifestStoreMap.Github:
-      return 'github'
-    case ManifestStoreMap.GitLab:
-      return 'service-gotlab'
-    case ManifestStoreMap.Bitbucket:
-      return 'bitbucket'
-    case ManifestStoreMap.Http:
-      return 'service-helm'
-    case ManifestStoreMap.S3:
-      return 'service-service-s3'
-    case ManifestStoreMap.Gcs:
-      return 'gcs-step'
-    default:
-      return 'cog'
-  }
-}
-export const getManifestStoreTitle = (type: string): StringKeys => {
-  switch (type) {
-    case ManifestStoreMap.Git:
-      return 'pipeline.manifestType.gitConnectorLabel'
-    case ManifestStoreMap.Github:
-      return 'common.repo_provider.githubLabel'
-    case ManifestStoreMap.GitLab:
-      return 'common.repo_provider.gitlabLabel'
-    case ManifestStoreMap.Bitbucket:
-      return 'pipeline.manifestType.bitBucketLabel'
-    case ManifestStoreMap.Http:
-      return 'pipeline.manifestType.httpHelmRepoConnectorLabel'
-    case ManifestStoreMap.S3:
-      return 'connectors.S3'
-    case ManifestStoreMap.Gcs:
-      return 'connectors.GCS.fullName'
-    default:
-      return 'store'
-  }
+
+export const ManifestIconByType: Record<ManifestStores, IconName> = {
+  Git: 'service-github',
+  Github: 'github',
+  GitLab: 'service-gotlab',
+  Bitbucket: 'bitbucket',
+  Http: 'service-helm',
+  S3: 'service-service-s3',
+  Gcs: 'gcs-step'
 }
 
-export const ManifestToConnectorMap: Record<string, ConnectorInfoDTO['type']> = {
+export const ManifestStoreTitle: Record<ManifestStores, StringKeys> = {
+  Git: 'pipeline.manifestType.gitConnectorLabel',
+  Github: 'common.repo_provider.githubLabel',
+  GitLab: 'common.repo_provider.gitlabLabel',
+  Bitbucket: 'pipeline.manifestType.bitBucketLabel',
+  Http: 'pipeline.manifestType.httpHelmRepoConnectorLabel',
+  S3: 'connectors.S3',
+  Gcs: 'connectors.GCS.fullName'
+}
+
+export const ManifestToConnectorMap: Record<ManifestStores | string, ConnectorInfoDTO['type']> = {
   Git: Connectors.GIT,
   Github: Connectors.GITHUB,
   GitLab: Connectors.GITLAB,
@@ -105,7 +85,7 @@ export const ManifestToConnectorMap: Record<string, ConnectorInfoDTO['type']> = 
   Gcs: Connectors.GCP
 }
 
-export const ManifestToConnectorLabelMap: Record<string, string> = {
+export const ManifestToConnectorLabelMap: Record<ManifestStores | string, string> = {
   Git: 'Git',
   Github: 'GitHub',
   GitLab: 'GitLab',
@@ -114,9 +94,10 @@ export const ManifestToConnectorLabelMap: Record<string, string> = {
   S3: 'AWS',
   Gcs: 'GCP'
 }
-export const GitRepoName: Record<string, string> = {
-  Account: 'Account',
-  Repo: 'Repo'
+
+export enum GitRepoName {
+  Account = 'Account',
+  Repo = 'Repo'
 }
 
 export const gitFetchTypes = [
