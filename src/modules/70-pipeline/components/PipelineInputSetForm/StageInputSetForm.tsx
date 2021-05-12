@@ -1,5 +1,11 @@
 import React from 'react'
-import { Label, NestedAccordionPanel, FormInput } from '@wings-software/uicore'
+import {
+  Label,
+  NestedAccordionPanel,
+  FormInput,
+  getMultiTypeFromValue,
+  MultiTypeInputType
+} from '@wings-software/uicore'
 import { connect } from 'formik'
 import { get, set, isEmpty, pickBy, identity } from 'lodash-es'
 import cx from 'classnames'
@@ -348,6 +354,15 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                     }
                   }}
                   stepViewType={StepViewType.InputSet}
+                />
+              )}
+              {getMultiTypeFromValue(deploymentStageTemplate?.infrastructure?.infrastructureKey) ===
+                MultiTypeInputType.RUNTIME && (
+                <FormInput.Text
+                  name={`${path}.infrastructure.infrastructureKey`}
+                  label={getString('pipeline.infrastructureKey')}
+                  disabled={readonly}
+                  className={css.inputWidth}
                 />
               )}
             </>

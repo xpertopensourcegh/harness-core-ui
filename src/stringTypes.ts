@@ -842,6 +842,7 @@ export interface StringsMap {
   'pipeline.failureStrategies.validation.retryIntervalMinimum': string
   'pipeline.failureStrategies.validation.retryIntervalRequired': string
   'pipeline.failureStrategies.validation.timeoutRequired': string
+  'pipeline.infrastructureKey': string
   'pipeline.jiraApprovalStep.allConditions': string
   'pipeline.jiraApprovalStep.anyCondition': string
   'pipeline.jiraApprovalStep.approvalCriteria': string
@@ -1067,7 +1068,6 @@ export interface StringsMap {
   'cd.filePathPlaceholder': string
   'cd.filePathRequired': string
   'cd.folderPath': string
-  'cd.infrastructureKey': string
   'cd.learnMore': string
   'cd.namespaceValidation': string
   'cd.pathCannotBeEmpty': string

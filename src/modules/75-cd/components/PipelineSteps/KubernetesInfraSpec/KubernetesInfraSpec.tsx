@@ -231,7 +231,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                     dataTooltipId: 'k8InfraKey'
                   }}
                   className={css.inputWidth}
-                  label={getString('cd.infrastructureKey')}
+                  label={getString('pipeline.infrastructureKey')}
                   disabled={readonly}
                   multiTextInputProps={{
                     expressions,
@@ -363,14 +363,6 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps & 
           disabled={readonly}
           className={css.inputWidth}
           placeholder={getString('cd.steps.common.releaseNamePlaceholder')}
-        />
-      )}
-      {getMultiTypeFromValue(template?.releaseName) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
-          name={`${path}.infrastructureKey`}
-          label={getString('cd.infrastructureKey')}
-          disabled={readonly}
-          className={css.inputWidth}
         />
       )}
     </Layout.Vertical>

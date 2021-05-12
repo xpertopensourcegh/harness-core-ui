@@ -395,35 +395,6 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                                         </div>
                                       </div>
                                     </div>
-                                    <div
-                                      class="bp3-form-group inputWidth"
-                                    >
-                                      <label
-                                        class="bp3-label"
-                                        for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.infrastructureKey"
-                                      >
-                                        cd.infrastructureKey
-                                         
-                                        <span
-                                          class="bp3-text-muted"
-                                        />
-                                      </label>
-                                      <div
-                                        class="bp3-form-content"
-                                      >
-                                        <div
-                                          class="bp3-input-group"
-                                        >
-                                          <input
-                                            autocomplete="off"
-                                            class="bp3-input"
-                                            name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.infrastructureKey"
-                                            type="text"
-                                            value=""
-                                          />
-                                        </div>
-                                      </div>
-                                    </div>
                                   </div>
                                 </div>
                               </div>

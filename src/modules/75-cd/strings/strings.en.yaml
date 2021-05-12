@@ -1,5 +1,4 @@
 allowSimultaneousDeployments: Allow simultaneous deployments on the same infrastructure
-infrastructureKey: 'Infrastructure Key'
 continuous: Continuous Delivery
 learnMore: Learn more about Continuous Delivery
 dashboard:

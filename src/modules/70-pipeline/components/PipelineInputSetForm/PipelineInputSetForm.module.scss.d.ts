@@ -3,6 +3,7 @@
 declare const styles: {
   readonly container: string
   readonly header: string
+  readonly inputWidth: string
   readonly stagesTreeBulletSquare: string
   readonly stagesTreeBulletCircle: string
   readonly nestedAccordions: string
