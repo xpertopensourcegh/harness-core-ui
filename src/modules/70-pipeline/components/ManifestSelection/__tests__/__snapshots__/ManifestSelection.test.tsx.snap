@@ -61,7 +61,7 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
             </span>
           </div>
           <div>
-            Manifest
+            K8s Manifest
           </div>
           <div
             class="server"
@@ -241,7 +241,7 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
             </span>
           </div>
           <div>
-            Manifest
+            K8s Manifest
           </div>
           <div
             class="server"
@@ -421,7 +421,7 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
             </span>
           </div>
           <div>
-            Manifest
+            K8s Manifest
           </div>
           <div
             class="server"
@@ -601,7 +601,7 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
             </span>
           </div>
           <div>
-            Manifest
+            K8s Manifest
           </div>
           <div
             class="server"
@@ -821,7 +821,7 @@ exports[`ManifestSelection tests edit manifest list works correctly 1`] = `
             </span>
           </div>
           <div>
-            Manifest
+            K8s Manifest
           </div>
           <div
             class="server"
@@ -1001,7 +1001,7 @@ exports[`ManifestSelection tests edit manifest list works correctly 1`] = `
             </span>
           </div>
           <div>
-            Manifest
+            K8s Manifest
           </div>
           <div
             class="server"
@@ -1181,7 +1181,7 @@ exports[`ManifestSelection tests edit manifest list works correctly 1`] = `
             </span>
           </div>
           <div>
-            Manifest
+            K8s Manifest
           </div>
           <div
             class="server"
@@ -1401,7 +1401,7 @@ exports[`ManifestSelection tests renders Manifest Listview with connectors Data 
             </span>
           </div>
           <div>
-            Manifest
+            K8s Manifest
           </div>
           <div
             class="server"
@@ -1581,7 +1581,7 @@ exports[`ManifestSelection tests renders Manifest Listview with connectors Data 
             </span>
           </div>
           <div>
-            Manifest
+            K8s Manifest
           </div>
           <div
             class="server"
@@ -1761,7 +1761,7 @@ exports[`ManifestSelection tests renders Manifest Listview with connectors Data 
             </span>
           </div>
           <div>
-            Manifest
+            K8s Manifest
           </div>
           <div
             class="server"
@@ -1941,7 +1941,7 @@ exports[`ManifestSelection tests renders Manifest Listview with connectors Data 
             </span>
           </div>
           <div>
-            Manifest
+            K8s Manifest
           </div>
           <div
             class="server"
@@ -2192,7 +2192,7 @@ exports[`ManifestSelection tests renders Manifest Listview without crashing 1`] 
             </span>
           </div>
           <div>
-            Manifest
+            K8s Manifest
           </div>
           <div
             class="server"
@@ -2372,7 +2372,7 @@ exports[`ManifestSelection tests renders Manifest Listview without crashing 1`] 
             </span>
           </div>
           <div>
-            Manifest
+            K8s Manifest
           </div>
           <div
             class="server"
@@ -2552,7 +2552,7 @@ exports[`ManifestSelection tests renders Manifest Listview without crashing 1`] 
             </span>
           </div>
           <div>
-            Manifest
+            K8s Manifest
           </div>
           <div
             class="server"
@@ -2732,7 +2732,7 @@ exports[`ManifestSelection tests renders Manifest Listview without crashing 1`] 
             </span>
           </div>
           <div>
-            Manifest
+            K8s Manifest
           </div>
           <div
             class="server"

@@ -41,15 +41,6 @@ export const manifestTypeLabels: Record<ManifestTypes, string> = {
   OpenshiftParam: 'Openshift Param'
 }
 
-export const manifestTypeText: Record<ManifestTypes, string> = {
-  K8sManifest: 'Manifest',
-  Values: 'Values Overrides',
-  HelmChart: 'Helm Chart',
-  Kustomize: 'Kustomize',
-  OpenshiftTemplate: 'Openshift Template',
-  OpenshiftParam: 'Openshift Param'
-}
-
 export const helmVersions: Array<{ label: string; value: HelmVersionOptions }> = [
   { label: 'Version 2', value: 'V2' },
   { label: 'Version 3', value: 'V3' }

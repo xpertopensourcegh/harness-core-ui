@@ -51,7 +51,6 @@ import {
   ManifestToConnectorMap,
   ManifestStoreMap,
   manifestTypeIcons,
-  manifestTypeText,
   manifestTypeLabels,
   ManifestToConnectorLabelMap
 } from './Manifesthelper'
@@ -653,7 +652,7 @@ const ManifestListView = ({
                       {manifest?.identifier}
                     </Text>
                   </div>
-                  <div>{manifestTypeText[manifest?.type as ManifestTypes]}</div>
+                  <div>{manifestTypeLabels[manifest?.type as ManifestTypes]}</div>
                   <div className={css.server}>
                     <Text
                       inline

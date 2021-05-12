@@ -117,7 +117,7 @@ manifestType:
   commitId: Commit ID
   branchPlaceholder: Enter branch name here
   commitPlaceholder: Enter Commit ID here
-  filePathPlaceholder: Enter overrides file path
+  filePathPlaceholder: Enter file or folder path
   kustomizeFolderPath: Kustomize Folder Path
   http:
     chartName: 'Helm Chart Name'
