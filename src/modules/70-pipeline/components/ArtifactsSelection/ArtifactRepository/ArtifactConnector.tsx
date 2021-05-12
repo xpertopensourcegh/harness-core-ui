@@ -18,6 +18,9 @@ import { useStrings } from 'framework/strings'
 import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { ConnectorSelectedValue } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
+import { usePermission } from '@rbac/hooks/usePermission'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { ConnectorDataType } from '../ArtifactInterface'
 import css from './ArtifactConnector.module.scss'
 
@@ -27,6 +30,7 @@ interface ArtifactConnectorProps {
   expressions: string[]
   stepName: string
   newConnectorLabel: string
+  isReadonly: boolean
   initialValues: ConnectorDataType
   connectorType: ConnectorInfoDTO['type']
 }
@@ -42,11 +46,19 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
     name,
     expressions,
     connectorType,
-    newConnectorLabel
+    newConnectorLabel,
+    isReadonly
   } = props
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
+
+  const [canCreate] = usePermission({
+    resource: {
+      resourceType: ResourceType.CONNECTOR
+    },
+    permissions: [PermissionIdentifier.UPDATE_CONNECTOR]
+  })
 
   const primarySchema = Yup.object().shape({
     connectorId: Yup.string()
@@ -116,6 +128,7 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
                     minimal
                     text={newConnectorLabel}
                     icon="plus"
+                    disabled={isReadonly || !canCreate}
                     onClick={() => {
                       handleViewChange()
                       nextStep?.()

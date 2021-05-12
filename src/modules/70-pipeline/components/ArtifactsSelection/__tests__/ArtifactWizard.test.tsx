@@ -26,6 +26,7 @@ describe('Artifact ConnectorRefSteps tests', () => {
           connectorData={{} as ConnectorDataType}
           types={[]}
           expressions={[]}
+          isReadonly={false}
           labels={{
             firstStepName: 'first step',
             secondStepName: 'second step',
@@ -52,6 +53,7 @@ describe('Artifact ConnectorRefSteps tests', () => {
           connectorData={initialValues as ConnectorDataType}
           types={[]}
           expressions={[]}
+          isReadonly={false}
           labels={{
             firstStepName: 'first step',
             secondStepName: 'second step',
@@ -78,6 +80,7 @@ describe('Artifact ConnectorRefSteps tests', () => {
           connectorData={initialValues as ConnectorDataType}
           types={['DockerRegistry', 'Gcp', 'Aws']}
           expressions={[]}
+          isReadonly={false}
           labels={{
             firstStepName: 'first step',
             secondStepName: 'second step',
@@ -104,6 +107,7 @@ describe('Artifact ConnectorRefSteps tests', () => {
           connectorData={initialValues as ConnectorDataType}
           types={['DockerRegistry', 'Gcp', 'Aws']}
           expressions={[]}
+          isReadonly={false}
           labels={{
             firstStepName: 'first step',
             secondStepName: 'second step',
@@ -167,6 +171,7 @@ describe('Artifact ConnectorRefSteps tests', () => {
           connectorData={initialValues as ConnectorDataType}
           types={['DockerRegistry', 'Gcp', 'Aws']}
           expressions={[]}
+          isReadonly={false}
           labels={{
             firstStepName: 'first step',
             secondStepName: 'second step',

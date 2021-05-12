@@ -567,6 +567,7 @@ export default function ArtifactsSelection({
           expressions={expressions}
           lastSteps={getLastSteps()}
           labels={getLabels()}
+          isReadonly={isReadonly}
           selectedArtifact={selectedArtifact}
           changeArtifactType={changeArtifactType}
           newConnectorView={connectorView}

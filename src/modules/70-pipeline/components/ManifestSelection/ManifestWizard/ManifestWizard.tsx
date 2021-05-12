@@ -31,6 +31,7 @@ interface ManifestWizardStepsProps {
   lastSteps?: Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> | null
   changeManifestType: (data: ManifestTypes) => void
   iconsProps: IconProps
+  isReadonly: boolean
 }
 
 export const ManifestWizard: React.FC<ManifestWizardStepsProps> = ({
@@ -46,7 +47,8 @@ export const ManifestWizard: React.FC<ManifestWizardStepsProps> = ({
   newConnectorSteps,
   lastSteps,
   changeManifestType,
-  iconsProps
+  iconsProps,
+  isReadonly
 }) => {
   const { getString } = useStrings()
   const onStepChange = (arg: StepChangeData<any>): void => {
@@ -81,6 +83,7 @@ export const ManifestWizard: React.FC<ManifestWizardStepsProps> = ({
         name={getString('pipeline.manifestType.manifestSource')}
         stepName={labels.secondStepName}
         expressions={expressions}
+        isReadonly={isReadonly}
         newConnectorLabel={labels.newConnector}
         manifestStoreTypes={manifestStoreTypes}
         handleConnectorViewChange={() => handleConnectorViewChange(true)}

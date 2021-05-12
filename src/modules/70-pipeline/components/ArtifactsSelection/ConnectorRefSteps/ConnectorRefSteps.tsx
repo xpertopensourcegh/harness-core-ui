@@ -26,6 +26,7 @@ interface ConnectorRefStepsProps {
   changeArtifactType: (data: ConnectorInfoDTO['type']) => void
   newConnectorView: boolean
   iconsProps: IconProps
+  isReadonly: boolean
 }
 
 const ConnectorRefSteps: React.FC<ConnectorRefStepsProps> = ({
@@ -39,7 +40,8 @@ const ConnectorRefSteps: React.FC<ConnectorRefStepsProps> = ({
   newConnectorView,
   newConnectorSteps,
   lastSteps,
-  iconsProps
+  iconsProps,
+  isReadonly
 }) => {
   const { getString } = useStrings()
 
@@ -71,6 +73,7 @@ const ConnectorRefSteps: React.FC<ConnectorRefStepsProps> = ({
         name={getString('connectors.artifactRepository')}
         stepName={labels.secondStepName}
         expressions={expressions}
+        isReadonly={isReadonly}
         handleViewChange={() => handleViewChange(true)}
         initialValues={connectorData}
         connectorType={selectedArtifact}

@@ -619,6 +619,7 @@ const ManifestListView = ({
             newConnectorSteps={getNewConnectorSteps()}
             lastSteps={getLastSteps()}
             iconsProps={getIconProps()}
+            isReadonly={isReadonly}
           />
         </div>
         <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={onClose} className={css.crossIcon} />

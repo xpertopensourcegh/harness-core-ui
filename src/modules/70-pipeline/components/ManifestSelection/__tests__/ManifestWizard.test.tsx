@@ -16,6 +16,7 @@ describe('ManifestSelection tests', () => {
           initialValues={{} as ManifestStepInitData}
           types={[]}
           expressions={[]}
+          isReadonly={false}
           manifestStoreTypes={[]}
           labels={{
             firstStepName: 'first step',
@@ -49,6 +50,7 @@ describe('ManifestSelection tests', () => {
           initialValues={initialValues as ManifestStepInitData}
           types={[]}
           expressions={[]}
+          isReadonly={false}
           manifestStoreTypes={['Git', 'Github', 'GitLab', 'Bitbucket']}
           labels={{
             firstStepName: 'first step',
@@ -79,6 +81,7 @@ describe('ManifestSelection tests', () => {
           initialValues={initialValues as ManifestStepInitData}
           types={['K8sManifest', 'Values', 'HelmChart']}
           expressions={[]}
+          isReadonly={false}
           manifestStoreTypes={['Git', 'Github', 'GitLab', 'Bitbucket']}
           labels={{
             firstStepName: 'first step',
@@ -110,6 +113,7 @@ describe('ManifestSelection tests', () => {
           initialValues={initialValues as ManifestStepInitData}
           types={['K8sManifest', 'Values', 'HelmChart']}
           expressions={[]}
+          isReadonly={false}
           manifestStoreTypes={['Git', 'Github', 'GitLab', 'Bitbucket']}
           labels={{
             firstStepName: 'Specify Manifest Type',
@@ -178,6 +182,7 @@ describe('ManifestSelection tests', () => {
           initialValues={initialValues as ManifestStepInitData}
           types={['K8sManifest', 'Values', 'HelmChart']}
           expressions={[]}
+          isReadonly={false}
           manifestStoreTypes={['Git', 'Github', 'GitLab', 'Bitbucket']}
           labels={{
             firstStepName: 'Specify Manifest Type',
@@ -233,6 +238,7 @@ describe('ManifestSelection tests', () => {
           initialValues={initialValues as ManifestStepInitData}
           types={['K8sManifest', 'Values', 'HelmChart']}
           expressions={[]}
+          isReadonly={false}
           manifestStoreTypes={['Git', 'Github', 'GitLab', 'Bitbucket']}
           labels={{
             firstStepName: 'Specify Manifest Type',

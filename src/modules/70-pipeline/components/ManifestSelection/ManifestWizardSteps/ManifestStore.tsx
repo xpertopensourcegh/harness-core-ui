@@ -23,6 +23,9 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { ConnectorSelectedValue } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
+import { usePermission } from '@rbac/hooks/usePermission'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { ManifestStepInitData, ManifestStores } from '../ManifestInterface'
 import {
   getManifestIconByType,
@@ -36,6 +39,7 @@ interface ManifestStorePropType {
   stepName: string
   expressions: string[]
   newConnectorLabel: string
+  isReadonly: boolean
   manifestStoreTypes: Array<ManifestStores>
   initialValues: ManifestStepInitData
   handleConnectorViewChange: () => void
@@ -46,6 +50,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
   handleConnectorViewChange,
   handleStoreChange,
   stepName,
+  isReadonly,
   manifestStoreTypes,
   initialValues,
   previousStep,
@@ -58,6 +63,13 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
   const { getString } = useStrings()
 
   const [selectedManifest, setSelectedManifest] = React.useState(prevStepData?.store || initialValues.store)
+
+  const [canCreate] = usePermission({
+    resource: {
+      resourceType: ResourceType.CONNECTOR
+    },
+    permissions: [PermissionIdentifier.UPDATE_CONNECTOR]
+  })
 
   const submitFirstStep = async (formData: ManifestStepInitData): Promise<void> => {
     nextStep?.({ ...formData, store: selectedManifest })
@@ -176,6 +188,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                     <Button
                       intent="primary"
                       minimal
+                      disabled={isReadonly || !canCreate}
                       text={newConnectorLabel}
                       className={css.addNewManifest}
                       icon="plus"
