@@ -98,18 +98,22 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
   const { getString } = useStrings()
 
   const validationSchema = Yup.object().shape({
-    namespace: Yup.string().test('namespace', getString('cd.namespaceValidation'), function (value) {
-      if (getMultiTypeFromValue(value) !== MultiTypeInputType.FIXED) {
-        return true
-      }
-      return namespaceRegex.test(value)
-    }),
-    releaseName: Yup.string().test('releaseName', getString('cd.releaseNameValidation'), function (value) {
-      if (getMultiTypeFromValue(value) !== MultiTypeInputType.FIXED) {
-        return true
-      }
-      return releaseNameRegex.test(value)
-    })
+    namespace: Yup.string()
+      .required()
+      .test('namespace', getString('cd.namespaceValidation'), function (value) {
+        if (getMultiTypeFromValue(value) !== MultiTypeInputType.FIXED) {
+          return true
+        }
+        return namespaceRegex.test(value)
+      }),
+    releaseName: Yup.string()
+      .required()
+      .test('releaseName', getString('cd.releaseNameValidation'), function (value) {
+        if (getMultiTypeFromValue(value) !== MultiTypeInputType.FIXED) {
+          return true
+        }
+        return releaseNameRegex.test(value)
+      })
   })
 
   return (
