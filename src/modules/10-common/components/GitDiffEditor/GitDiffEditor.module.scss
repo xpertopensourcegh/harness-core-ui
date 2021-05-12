@@ -1,7 +1,6 @@
 .header {
-  height: fit-content;
+  height: 60px;
   border: 1px solid var(--grey-250);
-  width: calc(100% - var(--spacing-xxlarge)) !important;
 }
 
 .panel {
@@ -13,17 +12,15 @@
   border-right: 1px solid var(--grey-250);
 }
 
+.panel:last-of-type {
+  margin-right: var(--spacing-xxxlarge) !important;
+  padding-right: var(--spacing-medium) !important;
+}
+
 .footer {
   border-top: 1px solid var(--grey-250);
   height: var(--spacing-huge);
   display: flex;
   justify-content: flex-end;
   align-items: center;
-}
-
-.subHeader {
-  justify-content: flex-end;
-  border-width: 0 1px 1px 0;
-  border-style: solid;
-  border-color: var(--grey-200);
 }

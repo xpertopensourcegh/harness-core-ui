@@ -26,11 +26,12 @@ import {
   ConnectorInfoDTO,
   ResponseConnectorResponse,
   Connector,
-  EntityGitDetails
+  EntityGitDetails,
+  ResponseMessage
 } from 'services/cd-ng'
 
 import useSaveToGitDialog from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
-import { useGitDiffDialog } from '@common/modals/GitDiff/useGitDiffDialog'
+import { useGitDiffEditorDialog } from '@common/modals/GitDiffEditor/useGitDiffEditorDialog'
 import { Entities } from '@common/interfaces/GitSyncInterface'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import css from './DelegateSelectorStep.module.scss'
@@ -101,6 +102,8 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
   const [delegateSelectors, setDelegateSelectors] = useState<Array<string>>([])
   let stepDataRef: ConnectorConfigDTO | null = null
   const [connectorPayloadRef, setConnectorPayloadRef] = useState<Connector | undefined>()
+  //TODO @vardan api to fetch this flag is currently WIP, will replace later with api response
+  const isSyncingToGitViaManager = true
 
   const afterSuccessHandler = (response: ResponseConnectorResponse): void => {
     props.onConnectorCreated?.(response?.data)
@@ -125,10 +128,10 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
     onClose: noop
   })
 
-  const { openGitDiffDialog } = useGitDiffDialog<ConnectorCreateEditProps>({
-    onSuccess: (data: ConnectorCreateEditProps): void => {
+  const { openGitDiffDialog } = useGitDiffEditorDialog<Connector>({
+    onSuccess: (payload: Connector, objectId: EntityGitDetails['objectId'], gitData?: SaveToGitFormInterface): void => {
       try {
-        handleCreateOrEdit(data)
+        handleCreateOrEdit({ payload, gitData }, objectId)
       } catch (e) {
         //ignore error
       }
@@ -136,7 +139,10 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
     onClose: noop
   })
 
-  const handleCreateOrEdit = async (connectorData: ConnectorCreateEditProps): Promise<void> => {
+  const handleCreateOrEdit = async (
+    connectorData: ConnectorCreateEditProps,
+    objectId?: EntityGitDetails['objectId']
+  ): Promise<void> => {
     const { gitData } = connectorData
     const payload = connectorData.payload || (connectorPayloadRef as Connector)
 
@@ -146,13 +152,17 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
 
       const response = props.isEditMode
         ? await updateConnector(payload, {
-            queryParams: gitData ? { ...queryParams, lastObjectId: gitDetails?.objectId } : queryParams
+            queryParams: gitData ? { ...queryParams, lastObjectId: objectId ?? gitDetails?.objectId } : queryParams
           })
         : await createConnector(payload, { queryParams: queryParams })
       afterSuccessHandler(response)
     } catch (e) {
-      if (e.data?.code === 'SCM_CONFLICT_ERROR') {
-        openGitDiffDialog(connectorData, connectorData?.gitData)
+      if (
+        (e.data?.responseMessages as ResponseMessage[])?.findIndex(
+          (mssg: ResponseMessage) => mssg.code === 'SCM_CONFLICT_ERROR'
+        ) !== -1
+      ) {
+        openGitDiffDialog(payload, connectorData?.gitData)
       } else {
         modalErrorHandler?.showDanger(e.data?.message || e.message)
       }
@@ -172,7 +182,13 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
         {getString('delegateSelection')}
       </Text>
       {updating ? (
-        <PageSpinner />
+        <PageSpinner
+          message={
+            isSyncingToGitViaManager
+              ? getString('common.submittingRequest')
+              : getString('common.submittingRequestToGit')
+          }
+        />
       ) : (
         <Formik
           initialValues={{

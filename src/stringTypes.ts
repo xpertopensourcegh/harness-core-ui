@@ -179,6 +179,7 @@ export interface StringsMap {
   'common.letsGetYouStarted': string
   'common.link': string
   'common.loading': string
+  'common.local': string
   'common.logs.delegateSelectionLogs': string
   'common.logs.noLogsText': string
   'common.member': string
@@ -257,11 +258,14 @@ export interface StringsMap {
   'common.samlProvider.testingSSO': string
   'common.samlProvider.testingSSODescription': string
   'common.samlProvider.uploadIdentityProvider': string
+  'common.savedSuccessfully': string
   'common.secretKey': string
   'common.secrets': string
   'common.seeWhatChanged': string
   'common.selectStrategy': string
   'common.specify': string
+  'common.submittingRequest': string
+  'common.submittingRequestToGit': string
   'common.totalLines': string
   'common.trialInProgress': string
   'common.trialInProgressDescription': string

@@ -299,3 +299,7 @@ confictOccured: '{{name}} has committed since you started editing.'
 resolveConflict: Resolve the conflicts before Saving.
 seeWhatChanged: See What Changed
 changesUnsaved: You may have unsaved changes.
+savedSuccessfully: Saved Successfully
+submittingRequest: Submitting request and pushing change to Git
+submittingRequestToGit: Submitting request and pushing change to Git from Delegate
+local: Local

@@ -13,35 +13,37 @@ import {
 } from '@wings-software/uicore'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
-import { GitDiff } from '@common/components/GitDiff/GitDiff'
+import { PageSpinner } from '@common/components'
+import { GitDiffEditor } from '@common/components/GitDiffEditor/GitDiffEditor'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
-import { ResponseGitFileContent, useGetFileContent } from 'services/cd-ng'
+import { EntityGitDetails, useGetFileContent } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
-import css from './useGitDiffDialog.module.scss'
+import css from './useGitDiffEditorDialog.module.scss'
 
-export interface UseGitDiffDialogProps<T> {
-  onSuccess: (data: T) => void
+export interface UseGitDiffEditorDialogProps<T> {
+  onSuccess: (payload: T, objectId: EntityGitDetails['objectId'], gitDetails?: SaveToGitFormInterface) => void
   onClose: () => void
 }
 
-export interface UseGitDiffDialogReturn<T> {
-  openGitDiffDialog: (entity?: T, gitDetails?: SaveToGitFormInterface, _modalProps?: IDialogProps) => void
+export interface UseGitDiffEditorDialogReturn<T> {
+  openGitDiffDialog: (entity: T, gitDetails?: SaveToGitFormInterface, _modalProps?: IDialogProps) => void
   hideGitDiffDialog: () => void
 }
 
-export function useGitDiffDialog<T>(props: UseGitDiffDialogProps<T>): UseGitDiffDialogReturn<T> {
+export function useGitDiffEditorDialog<T>(props: UseGitDiffEditorDialogProps<T>): UseGitDiffEditorDialogReturn<T> {
   const { onSuccess, onClose } = props
   const { getString } = useStrings()
   const [modalErrorHandler, setModalErrorHandler] = React.useState<ModalErrorHandlerBinding>()
-  const [entity, setEntity] = useState<T>()
   const [entityAsYaml, setEntityAsYaml] = useState<string>()
+  const [gitDetails, setGitDetails] = useState<SaveToGitFormInterface>()
   const [showGitDiff, setShowGitDiff] = useState<boolean>(false)
+  const [remoteVersion, setRemoteVersion] = useState<string>('')
   const defaultModalProps: IDialogProps = {
     isOpen: true,
     style: {
       minWidth: 500,
-      minHeight: 200,
+      minHeight: 170,
       borderLeft: 0,
       paddingBottom: 0,
       position: 'relative',
@@ -55,7 +57,7 @@ export function useGitDiffDialog<T>(props: UseGitDiffDialogProps<T>): UseGitDiff
     projectIdentifier,
     orgIdentifier
   }
-  const { response: remoteVersion, refetch: fetchRemoteFileContent, error } = useGetFileContent({
+  const { data, loading, refetch: fetchRemoteFileContent, error } = useGetFileContent({
     queryParams: {
       ...commonParams,
       yamlGitConfigIdentifier: '',
@@ -64,6 +66,16 @@ export function useGitDiffDialog<T>(props: UseGitDiffDialogProps<T>): UseGitDiff
     },
     lazy: true
   })
+
+  React.useEffect(() => {
+    try {
+      if (data?.data?.content) {
+        setRemoteVersion(stringify(parse(data.data.content), { indent: 4 }))
+      }
+    } catch (e) {
+      //ignore error
+    }
+  }, [data?.data?.content])
 
   React.useEffect(() => {
     if (showGitDiff) {
@@ -79,14 +91,6 @@ export function useGitDiffDialog<T>(props: UseGitDiffDialogProps<T>): UseGitDiff
     }
   }, [showGitDiff, error?.message])
 
-  React.useEffect(() => {
-    try {
-      setEntityAsYaml(stringify(entity))
-    } catch (e) {
-      //ignore error
-    }
-  }, [entity])
-
   const [showModal, hideModal] = useModalHook(() => {
     const closeHandler = (): void => {
       onClose()
@@ -98,13 +102,15 @@ export function useGitDiffDialog<T>(props: UseGitDiffDialogProps<T>): UseGitDiff
       <Dialog {...modalProps}>
         <ModalErrorHandler bind={setModalErrorHandler} />
         <Button minimal icon="cross" iconProps={{ size: 18 }} className={css.crossIcon} onClick={closeHandler} />
-        {showGitDiff ? (
-          <GitDiff
-            remoteVersion={(remoteVersion as ResponseGitFileContent['data'])?.content || ''}
-            localVersion={entityAsYaml || ''}
-            onSave={data => {
+        {!error && loading ? (
+          <PageSpinner />
+        ) : showGitDiff ? (
+          <GitDiffEditor
+            remote={{ branch: gitDetails?.branch || '', content: remoteVersion }}
+            local={{ branch: getString('common.local'), content: entityAsYaml || '' }}
+            onSave={_data => {
               try {
-                onSuccess(parse(data) as T)
+                onSuccess(parse(_data) as T, data?.data?.objectId, gitDetails)
                 hideModal()
               } catch (e) {
                 //ignore e
@@ -137,11 +143,10 @@ export function useGitDiffDialog<T>(props: UseGitDiffDialogProps<T>): UseGitDiff
         )}
       </Dialog>
     )
-  }, [showGitDiff, modalProps])
+  }, [showGitDiff, modalProps, remoteVersion])
   return {
-    openGitDiffDialog: (_entity?: T, gitDetails?: SaveToGitFormInterface, _modalProps?: IDialogProps) => {
-      setEntity(_entity)
-      const { repoIdentifier = '', filePath = '', rootFolder = '', branch = '' } = gitDetails || {}
+    openGitDiffDialog: (_entity: T, _gitDetails?: SaveToGitFormInterface, _modalProps?: IDialogProps) => {
+      const { repoIdentifier = '', filePath = '', rootFolder = '', branch = '' } = _gitDetails || {}
       fetchRemoteFileContent({
         queryParams: {
           ...commonParams,
@@ -150,6 +155,12 @@ export function useGitDiffDialog<T>(props: UseGitDiffDialogProps<T>): UseGitDiff
           branch
         }
       })
+      try {
+        setEntityAsYaml(stringify(_entity, { indent: 4 }))
+      } catch (e) {
+        //ignore error
+      }
+      setGitDetails(_gitDetails)
       setModalProps(_modalProps || modalProps)
       showModal()
     },

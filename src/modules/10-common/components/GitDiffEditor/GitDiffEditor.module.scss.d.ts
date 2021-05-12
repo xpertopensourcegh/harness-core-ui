@@ -4,6 +4,5 @@ declare const styles: {
   readonly header: string
   readonly panel: string
   readonly footer: string
-  readonly subHeader: string
 }
 export default styles
