@@ -14192,10 +14192,10 @@ responselike@^1.0.2:
   dependencies:
     lowercase-keys "^1.0.0"
 
-restful-react@15.1.0:
-  version "15.1.0"
-  resolved "https://registry.yarnpkg.com/restful-react/-/restful-react-15.1.0.tgz#f4253f2908c9e437372c4268f7f99ce9341116ac"
-  integrity "sha1-9CU/KQjJ5Dc3LEJo9/mc6TQRFqw= sha512-pVzIp86v6N3TTsI4Og7PeEX+4KEVv9gzIoJ4AZnylpCzJRhTn+WVSgcm7j6xEJg6nY9BT461U0XqFHgU8sk6pQ=="
+restful-react@15.6.0:
+  version "15.6.0"
+  resolved "https://registry.yarnpkg.com/restful-react/-/restful-react-15.6.0.tgz#c0d690ea5cea3c5f59e8a85e01e0a6c27f960387"
+  integrity sha512-pwhJRdLpgjYelUwLoLeCNDHFZzPRw+7RApO1Rher+1c+aUk+bIDa3vJ9ZFLdnjTgHyI9kGIA8b+E3KIb9b8WZA==
   dependencies:
     case "^1.6.2"
     chalk "^3.0.0"
@@ -14211,7 +14211,7 @@ restful-react@15.1.0:
     request "^2.88.0"
     slash "^3.0.0"
     swagger2openapi "^5.3.2"
-    tslib "^1.10.0"
+    tslib "^2.1.0"
     url "^0.11.0"
 
 restore-cursor@^2.0.0:
@@ -15776,6 +15776,11 @@ tslib@^2.0.0, tslib@^2.0.1, tslib@~2.0.1:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.0.3.tgz#8e0741ac45fc0c226e58a17bfc3e64b9bc6ca61c"
   integrity "sha1-jgdBrEX8DCJuWKF7/D5kubxsphw= sha512-uZtkfKblCEQtZKBF6EBXVZeQNl82yqtDQdv+eck8u7tdPxjLu2/lp5/uPW+um2tpuxINHWy3GhiccY7QgEaVHQ=="
+
+tslib@^2.1.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.2.0.tgz#fb2c475977e35e241311ede2693cee1ec6698f5c"
+  integrity sha512-gS9GVHRU+RGn5KQM2rllAlR3dU6m7AcpJKdtH8gFvQiC4Otgk98XnmMU+nZenHt/+VhnBPWwgrJsyrdcw6i23w==
 
 tslib@~1.10.0:
   version "1.10.0"
