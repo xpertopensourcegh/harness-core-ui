@@ -23,6 +23,7 @@ const MockData = {
         identifier: '1234_uuid',
         name: 'kube_activitySource',
         createdAt: 1606846078440,
+        editable: true,
         lastUpdatedAt: 1606846078440,
         activitySourceConfigs: [
           {
@@ -42,6 +43,7 @@ const MockData = {
       {
         identifier: '5678_uuid',
         name: 'cd_1.0_source',
+        editable: true,
         createdAt: 1606932419572,
         lastUpdatedAt: 1606932419572,
         activitySourceConfigs: [

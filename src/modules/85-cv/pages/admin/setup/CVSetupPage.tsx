@@ -20,7 +20,6 @@ import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { useStrings } from 'framework/strings'
 import { pluralize } from '@common/utils/StringUtils'
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
-import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import ProgressStatus from './ProgressStatus/ProgressStatus'
 import OnboardedSourceSummary from './OnboardedSourceSummary/OnboardedSourceSummary'
 import { SetupIndexDBData, Step, getCardLabelByType, getIconBySourceType } from './SetupUtils'
@@ -103,7 +102,6 @@ const ActivitySourceContent: React.FC<ActivitySourceContentProps> = props => {
   const history = useHistory()
   const { getString } = useStrings()
   const [showSummary, setShowSummary] = useState(Boolean(props.step))
-  const { CVNG_CDNG_INTEGRATION } = useFeatureFlags()
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
 
   const DefaultChangeSource = useMemo(
@@ -194,30 +192,28 @@ const ActivitySourceContent: React.FC<ActivitySourceContentProps> = props => {
                   </div>
                 </Layout.Vertical>
               </Layout.Horizontal>
-              {CVNG_CDNG_INTEGRATION && (
-                <>
-                  <Text font={{ size: 'medium' }} margin={{ top: 'xlarge', bottom: 'small' }}>
-                    {getString('cv.onboarding.defaultChangeSource')}
-                  </Text>
-                  <Layout.Horizontal margin={{ top: 'xxlarge' }}>
-                    <Layout.Vertical margin={{ right: 'xxlarge' }}>
-                      <Text>{getString('harness')} </Text>
-                      <div className={css.items}>
-                        {DefaultChangeSource.map((item, index) => {
-                          return (
-                            <div className={css.cardWrapper} key={`${index}${item}`}>
-                              <Card className={css.cardCss}>
-                                <CardBody.Icon icon={item.icon as IconName} iconSize={40} />
-                              </Card>
-                              <div className={css.cardLabel}>{item.label}</div>
-                            </div>
-                          )
-                        })}
-                      </div>
-                    </Layout.Vertical>
-                  </Layout.Horizontal>
-                </>
-              )}
+              <>
+                <Text font={{ size: 'medium' }} margin={{ top: 'xlarge', bottom: 'small' }}>
+                  {getString('cv.onboarding.defaultChangeSource')}
+                </Text>
+                <Layout.Horizontal margin={{ top: 'xxlarge' }}>
+                  <Layout.Vertical margin={{ right: 'xxlarge' }}>
+                    <Text>{getString('harness')} </Text>
+                    <div className={css.items}>
+                      {DefaultChangeSource.map((item, index) => {
+                        return (
+                          <div className={css.cardWrapper} key={`${index}${item}`}>
+                            <Card className={css.cardCss}>
+                              <CardBody.Icon icon={item.icon as IconName} iconSize={40} />
+                            </Card>
+                            <div className={css.cardLabel}>{item.label}</div>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </Layout.Vertical>
+                </Layout.Horizontal>
+              </>
             </>
           )}
         </div>

@@ -13,7 +13,6 @@ import {
   useGetExecutionStrategyYaml
 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
-import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import BlueGreen from './images/BlueGreen.png'
@@ -53,7 +52,6 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
   const [isSubmitDisabled, disableSubmit] = useState(false)
   const [selectedStrategy, setSelectedStrategy] = useState<StrategyType>('Rolling')
   const [isVerifyEnabled, setIsVerifyEnabled] = useState(false)
-  const { CVNG_CDNG_INTEGRATION } = useFeatureFlags()
   const serviceDefinitionType: GetExecutionStrategyYamlQueryParams['serviceDefinitionType'] = get(
     selectedStage,
     'stage.spec.serviceConfig.serviceDefinition.type',
@@ -176,15 +174,13 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
               <section className={css.image}>
                 <img src={imageByType[selectedStrategy]} />
               </section>
-              {CVNG_CDNG_INTEGRATION && (
-                <Switch
-                  label={getString('pipeline.enableVerificationOptions')}
-                  checked={isVerifyEnabled}
-                  onChange={() => setIsVerifyEnabled(prevIsVerifyEnabled => !prevIsVerifyEnabled)}
-                  defaultChecked={false}
-                  margin={{ bottom: 'small' }}
-                />
-              )}
+              <Switch
+                label={getString('pipeline.enableVerificationOptions')}
+                checked={isVerifyEnabled}
+                onChange={() => setIsVerifyEnabled(prevIsVerifyEnabled => !prevIsVerifyEnabled)}
+                defaultChecked={false}
+                margin={{ bottom: 'small' }}
+              />
             </section>
           </section>
         </Layout.Vertical>

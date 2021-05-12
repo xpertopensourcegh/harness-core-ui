@@ -280,6 +280,61 @@ exports[`CVSetupPage check next and previous 1`] = `
                   </div>
                 </div>
               </div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--margin-top-xlarge StyledProps--margin-bottom-small"
+              >
+                cv.onboarding.defaultChangeSource
+              </p>
+              <div
+                class="Layout--horizontal StyledProps--main StyledProps--margin-top-xxlarge"
+              >
+                <div
+                  class="Layout--vertical StyledProps--main StyledProps--margin-right-xxlarge"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    harness
+                     
+                  </p>
+                  <div
+                    class="items"
+                  >
+                    <div
+                      class="cardWrapper"
+                    >
+                      <div
+                        class="bp3-card bp3-elevation-0 Card--card cardCss"
+                      >
+                        <div
+                          class="Card--cardIcon"
+                        >
+                          <span
+                            class="bp3-icon bp3-icon-cv.onboarding.changeSourceTypes.HarnessCDNextGen.icon StyledProps--main"
+                            icon="cv.onboarding.changeSourceTypes.HarnessCDNextGen.icon"
+                          >
+                            <svg
+                              data-icon="cv.onboarding.changeSourceTypes.HarnessCDNextGen.icon"
+                              height="40"
+                              viewBox="0 0 20 20"
+                              width="40"
+                            >
+                              <desc>
+                                cv.onboarding.changeSourceTypes.HarnessCDNextGen.icon
+                              </desc>
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                      <div
+                        class="cardLabel"
+                      >
+                        cv.onboarding.changeSourceTypes.HarnessCDNextGen.name
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div
@@ -998,6 +1053,61 @@ exports[`CVSetupPage check next and previous 3`] = `
                   </div>
                 </div>
               </div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--margin-top-xlarge StyledProps--margin-bottom-small"
+              >
+                cv.onboarding.defaultChangeSource
+              </p>
+              <div
+                class="Layout--horizontal StyledProps--main StyledProps--margin-top-xxlarge"
+              >
+                <div
+                  class="Layout--vertical StyledProps--main StyledProps--margin-right-xxlarge"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    harness
+                     
+                  </p>
+                  <div
+                    class="items"
+                  >
+                    <div
+                      class="cardWrapper"
+                    >
+                      <div
+                        class="bp3-card bp3-elevation-0 Card--card cardCss"
+                      >
+                        <div
+                          class="Card--cardIcon"
+                        >
+                          <span
+                            class="bp3-icon bp3-icon-cv.onboarding.changeSourceTypes.HarnessCDNextGen.icon StyledProps--main"
+                            icon="cv.onboarding.changeSourceTypes.HarnessCDNextGen.icon"
+                          >
+                            <svg
+                              data-icon="cv.onboarding.changeSourceTypes.HarnessCDNextGen.icon"
+                              height="40"
+                              viewBox="0 0 20 20"
+                              width="40"
+                            >
+                              <desc>
+                                cv.onboarding.changeSourceTypes.HarnessCDNextGen.icon
+                              </desc>
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                      <div
+                        class="cardLabel"
+                      >
+                        cv.onboarding.changeSourceTypes.HarnessCDNextGen.name
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div
@@ -1304,6 +1414,61 @@ exports[`CVSetupPage render initial state 1`] = `
                         class="cardLabel"
                       >
                         Kubernetes
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--margin-top-xlarge StyledProps--margin-bottom-small"
+              >
+                cv.onboarding.defaultChangeSource
+              </p>
+              <div
+                class="Layout--horizontal StyledProps--main StyledProps--margin-top-xxlarge"
+              >
+                <div
+                  class="Layout--vertical StyledProps--main StyledProps--margin-right-xxlarge"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    harness
+                     
+                  </p>
+                  <div
+                    class="items"
+                  >
+                    <div
+                      class="cardWrapper"
+                    >
+                      <div
+                        class="bp3-card bp3-elevation-0 Card--card cardCss"
+                      >
+                        <div
+                          class="Card--cardIcon"
+                        >
+                          <span
+                            class="bp3-icon bp3-icon-cv.onboarding.changeSourceTypes.HarnessCDNextGen.icon StyledProps--main"
+                            icon="cv.onboarding.changeSourceTypes.HarnessCDNextGen.icon"
+                          >
+                            <svg
+                              data-icon="cv.onboarding.changeSourceTypes.HarnessCDNextGen.icon"
+                              height="40"
+                              viewBox="0 0 20 20"
+                              width="40"
+                            >
+                              <desc>
+                                cv.onboarding.changeSourceTypes.HarnessCDNextGen.icon
+                              </desc>
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                      <div
+                        class="cardLabel"
+                      >
+                        cv.onboarding.changeSourceTypes.HarnessCDNextGen.name
                       </div>
                     </div>
                   </div>
