@@ -274,7 +274,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
             padding={{ top: 'medium', bottom: 'medium' }}
           >
             <Layout.Horizontal style={{ alignItems: 'center' }} spacing={'small'}>
-              <Icon name="service-gotlab" size={16} />
+              <Icon name="repository" size={16} />
               <Text
                 style={{ maxWidth: '70px' }}
                 font={{ size: 'small' }}
