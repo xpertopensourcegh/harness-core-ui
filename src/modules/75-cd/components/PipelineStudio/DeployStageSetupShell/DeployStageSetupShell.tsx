@@ -28,10 +28,25 @@ export const MapStepTypeToIcon: { [key: string]: HarnessIconName } = {
   Custom: 'pipeline-custom'
 }
 
+export enum DeployTabs {
+  OVERVIEW = 'OVERVIEW',
+  SERVICE = 'SERVICE',
+  INFRASTRUCTURE = 'INFRASTRUCTURE',
+  EXECUTION = 'EXECUTION',
+  ADVANCED = 'ADVANCED'
+}
+
+const TabsOrder = [
+  DeployTabs.OVERVIEW,
+  DeployTabs.SERVICE,
+  DeployTabs.INFRASTRUCTURE,
+  DeployTabs.EXECUTION,
+  DeployTabs.ADVANCED
+]
+
 export default function DeployStageSetupShell(): JSX.Element {
   const { getString } = useStrings()
   const stageNames: string[] = [getString('service'), getString('infrastructureText'), getString('executionText')]
-  const [selectedTabId, setSelectedTabId] = React.useState<string>(getString('service'))
   const [isTabNavigationAllowed, setTabNavigationAllowed] = React.useState<boolean>(false)
   const layoutRef = React.useRef<HTMLDivElement>(null)
   const {
@@ -50,27 +65,27 @@ export default function DeployStageSetupShell(): JSX.Element {
     updatePipelineView,
     setSelectedStepId
   } = React.useContext(PipelineContext)
+  const [selectedTabId, setSelectedTabId] = React.useState<DeployTabs>(
+    selectedStepId ? DeployTabs.EXECUTION : DeployTabs.SERVICE
+  )
 
   React.useEffect(() => {
     if (selectedStepId) {
-      setSelectedTabId(getString('executionText'))
+      setSelectedTabId(DeployTabs.EXECUTION)
     }
   }, [selectedStepId])
 
   React.useEffect(() => {
-    if (selectedStageId && stageNames.indexOf(selectedStageId) !== -1) {
-      setSelectedTabId(selectedStageId)
-    }
     const { stage } = getStageFromPipeline(selectedStageId || '', pipeline)
     updateTabNavigation(stage as StageElementWrapper, selectedTabId)
   }, [selectedStageId, pipeline, isSplitViewOpen, stageNames])
 
-  const handleTabChange = (data: string): void => {
+  const handleTabChange = (data: DeployTabs): void => {
     setSelectedTabId(data)
   }
 
-  const updateTabNavigation = (stage: StageElementWrapper, selectedTab: string): void => {
-    if (selectedTab === getString('service')) {
+  const updateTabNavigation = (stage: StageElementWrapper, selectedTab: DeployTabs): void => {
+    if (selectedTab === DeployTabs.SERVICE) {
       const hasService = get(stage, 'stage.spec.serviceConfig.service.identifier', false)
       const hasServiceRef = get(stage, 'stage.spec.serviceConfig.serviceRef', false)
       const hasUseFromStage = get(stage, 'stage.spec.serviceConfig.useFromStage.stage', false)
@@ -80,7 +95,8 @@ export default function DeployStageSetupShell(): JSX.Element {
         isTabNavigationAllowed && setTabNavigationAllowed(false)
       }
     }
-    if (selectedTabId === getString('infrastructureText')) {
+
+    if (selectedTab === DeployTabs.INFRASTRUCTURE) {
       const hasEnvironment = get(stage, 'stage.spec.infrastructure.environment.identifier', false)
       let hasEnvironmentRef = get(stage, 'stage.spec.infrastructure.environmentRef', false)
       hasEnvironmentRef = hasEnvironmentRef?.value !== undefined ? !!hasEnvironmentRef?.value : hasEnvironmentRef
@@ -92,13 +108,14 @@ export default function DeployStageSetupShell(): JSX.Element {
     }
   }
   React.useEffect(() => {
+    /* istanbul ignore else */
     if (layoutRef.current) {
       layoutRef.current.scrollTo(0, 0)
     }
   }, [selectedTabId])
 
   React.useEffect(() => {
-    if (selectedTabId === getString('executionText')) {
+    if (selectedTabId === DeployTabs.EXECUTION) {
       const { stage: data } = getStageFromPipeline(selectedStageId || '')
       if (data?.stage) {
         if (!data?.stage?.spec?.execution) {
@@ -141,23 +158,15 @@ export default function DeployStageSetupShell(): JSX.Element {
       <Button
         text={getString('previous')}
         icon="chevron-left"
-        disabled={selectedTabId === 'default'}
+        disabled={selectedTabId === DeployTabs.OVERVIEW}
         onClick={() => {
           updatePipeline(pipeline)
-          setSelectedTabId(
-            selectedTabId === 'advanced'
-              ? getString('executionText')
-              : selectedTabId === getString('executionText')
-              ? getString('infrastructureText')
-              : selectedTabId === getString('infrastructureText')
-              ? getString('service')
-              : 'default'
-          )
+          setSelectedTabId(TabsOrder[Math.max(0, TabsOrder.indexOf(selectedTabId) - 1)])
         }}
       />
-      {selectedTabId === 'advanced' ? (
+      {selectedTabId === DeployTabs.ADVANCED ? (
         <Button
-          text="Done"
+          text={getString('done')}
           intent="primary"
           onClick={() => {
             updatePipelineView({ ...pipelineView, isSplitViewOpen: false })
@@ -165,21 +174,15 @@ export default function DeployStageSetupShell(): JSX.Element {
         />
       ) : (
         <Button
-          text={selectedTabId === getString('executionText') ? getString('save') : getString('next')}
+          text={selectedTabId === DeployTabs.EXECUTION ? getString('save') : getString('next')}
           intent="primary"
           rightIcon="chevron-right"
           onClick={() => {
             updatePipeline(pipeline)
-            if (selectedTabId === getString('executionText')) {
+            if (selectedTabId === DeployTabs.EXECUTION) {
               updatePipelineView({ ...pipelineView, isSplitViewOpen: false, splitViewData: {} })
             } else {
-              setSelectedTabId(
-                selectedTabId === 'default'
-                  ? getString('service')
-                  : selectedTabId === getString('service')
-                  ? getString('infrastructureText')
-                  : getString('executionText')
-              )
+              setSelectedTabId(TabsOrder[Math.min(TabsOrder.length, TabsOrder.indexOf(selectedTabId) + 1)])
             }
           }}
         />
@@ -188,24 +191,18 @@ export default function DeployStageSetupShell(): JSX.Element {
   )
 
   return (
-    <section
-      ref={layoutRef}
-      key={selectedStageId}
-      // className={cx(css.setupShell, { [css.tabsFullHeight]: selectedTabId === getString('executionText') })}
-      className={cx(css.setupShell)}
-    >
+    <section ref={layoutRef} key={selectedStageId} className={cx(css.setupShell)}>
       <Tabs id="stageSetupShell" onChange={handleTabChange} selectedTabId={selectedTabId} data-tabId={selectedTabId}>
         <Tab
-          panelClassName="tabsfoo"
-          id={'default'}
+          id={DeployTabs.OVERVIEW}
           panel={<DeployStageSpecifications>{navBtns}</DeployStageSpecifications>}
           title={
             <span className={css.tab}>
               <Icon name="cd-main" height={20} size={20} />
-              Overview
+              {getString('overview')}
             </span>
           }
-          data-testid="default"
+          data-testid="overview"
         />
 
         <Icon
@@ -217,7 +214,7 @@ export default function DeployStageSetupShell(): JSX.Element {
           style={{ alignSelf: 'center' }}
         />
         <Tab
-          id={getString('service')}
+          id={DeployTabs.SERVICE}
           title={
             <span className={css.tab}>
               <Icon name="services" height={20} size={20} />
@@ -226,7 +223,7 @@ export default function DeployStageSetupShell(): JSX.Element {
           }
           disabled={!isTabNavigationAllowed}
           panel={<DeployServiceSpecifications>{navBtns}</DeployServiceSpecifications>}
-          data-testid={getString('service')}
+          data-testid="service"
         />
         <Icon
           name="chevron-right"
@@ -237,7 +234,7 @@ export default function DeployStageSetupShell(): JSX.Element {
           style={{ alignSelf: 'center' }}
         />
         <Tab
-          id={getString('infrastructureText')}
+          id={DeployTabs.INFRASTRUCTURE}
           title={
             <span className={css.tab}>
               <Icon name="infrastructure" height={20} size={20} />
@@ -246,7 +243,7 @@ export default function DeployStageSetupShell(): JSX.Element {
           }
           disabled={!isTabNavigationAllowed}
           panel={<DeployInfraSpecifications>{navBtns}</DeployInfraSpecifications>}
-          data-testid={getString('infrastructureText')}
+          data-testid="infrastructure"
         />
         <Icon
           name="chevron-right"
@@ -257,7 +254,7 @@ export default function DeployStageSetupShell(): JSX.Element {
           style={{ alignSelf: 'center' }}
         />
         <Tab
-          id={getString('executionText')}
+          id={DeployTabs.EXECUTION}
           title={
             <span className={css.tab}>
               <Icon name="execution" height={20} size={20} />
@@ -326,7 +323,7 @@ export default function DeployStageSetupShell(): JSX.Element {
               selectedStepId={selectedStepId}
             />
           }
-          data-testid={getString('executionText')}
+          data-testid="execution"
         />
         <Icon
           name="chevron-right"
@@ -337,7 +334,7 @@ export default function DeployStageSetupShell(): JSX.Element {
           style={{ alignSelf: 'center' }}
         />
         <Tab
-          id="advanced"
+          id={DeployTabs.ADVANCED}
           title={
             <span className={css.tab}>
               <Icon name="advanced" height={20} size={20} />
