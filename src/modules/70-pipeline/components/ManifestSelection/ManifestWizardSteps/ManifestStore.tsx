@@ -22,6 +22,7 @@ import type { ConnectorConfigDTO } from 'services/cd-ng'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ConnectorSelectedValue } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import type { ManifestStepInitData, ManifestStores } from '../ManifestInterface'
 import {
   getManifestIconByType,
@@ -195,7 +196,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                 type="submit"
                 text={getString('continue')}
                 rightIcon="chevron-right"
-                disabled={!selectedManifest}
+                disabled={!selectedManifest || !(formik.values.connectorRef as ConnectorSelectedValue)?.connector}
               />
             </Layout.Horizontal>
           </Form>
