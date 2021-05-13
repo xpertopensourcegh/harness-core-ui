@@ -91,7 +91,7 @@ const FirstStep = (props: any): JSX.Element => {
             })
         }}
       >
-        {formik => (
+        {() => (
           <Form className={css.formContainer}>
             <Layout.Horizontal style={{ justifyContent: 'space-between' }}>
               <Layout.Vertical spacing="xsmall" style={{ width: '55%', paddingRight: 'var(--spacing-xxlarge)' }}>
@@ -121,60 +121,6 @@ const FirstStep = (props: any): JSX.Element => {
                   )}
                 </Layout.Vertical>
               </Layout.Vertical>
-
-              <Card className={cx(css.dashboardCard)} style={{ width: '280px', height: '320px' }}>
-                <Container padding="xlarge">
-                  <Layout.Vertical spacing="large">
-                    <Icon name={'dashboard'} size={25} color={Color.GREY_400} />
-                    <Text color={Color.BLACK_100} font={{ size: 'medium', weight: 'semi-bold' }}>
-                      {formik?.values?.name || getString('dashboards.createModal.sampleTitle')}
-                    </Text>
-                    <Text color={Color.GREY_350}>
-                      {formik?.values?.description || getString('dashboards.createModal.sampleDesc')}
-                    </Text>
-                    <Layout.Horizontal
-                      spacing="medium"
-                      style={{ borderTop: '1px solid var(--grey-200)', paddingTop: 'var(--spacing-large)' }}
-                    >
-                      <Container
-                        style={{ width: '50%', borderRadius: '5px' }}
-                        padding="small"
-                        background={Color.GREY_100}
-                      >
-                        <Icon name="eye-open" size={16} style={{ marginBottom: '10px' }} />
-                        <Layout.Horizontal style={{ alignItems: 'baseline' }}>
-                          <Text color={Color.BLACK_100} font={{ size: 'medium', weight: 'semi-bold' }}>
-                            {0}
-                          </Text>
-                          &nbsp;{getString('dashboards.createModal.view')}
-                        </Layout.Horizontal>
-                      </Container>
-                      <Container
-                        style={{ width: '50%', borderRadius: '5px' }}
-                        padding="small"
-                        background={Color.GREY_100}
-                      >
-                        <Icon name="star-empty" size={16} style={{ marginBottom: '10px' }} />
-                        <Layout.Horizontal style={{ alignItems: 'baseline' }}>
-                          <Text color={Color.BLACK_100} font={{ size: 'medium', weight: 'semi-bold' }}>
-                            {0}
-                          </Text>
-                          &nbsp;{getString('dashboards.createModal.fav')}
-                        </Layout.Horizontal>
-                      </Container>
-                    </Layout.Horizontal>
-                    <Layout.Vertical spacing="medium">
-                      <Text color={Color.GREY_400}>{getString('dashboards.createModal.dataSource')}</Text>
-                      <Layout.Horizontal spacing="medium">
-                        <Icon name="ce-main" size={22} />
-                        <Icon name="cd-main" size={22} />
-                        <Icon name="ci-main" size={22} />
-                        <Icon name="cf-main" size={22} />
-                      </Layout.Horizontal>
-                    </Layout.Vertical>
-                  </Layout.Vertical>
-                </Container>
-              </Card>
             </Layout.Horizontal>
           </Form>
         )}
@@ -281,18 +227,14 @@ const HomePage: React.FC = () => {
       }}
       error={(error?.data as Error)?.message}
     >
-      <Layout.Vertical
-        padding="large"
-        background={Color.GREY_100}
-        style={{ borderBottom: '1px solid var(--grey-200)' }}
-      >
+      <Layout.Vertical padding="large" background={Color.GREY_50} style={{ borderBottom: '1px solid var(--grey-100)' }}>
         <Text color={Color.BLACK} font={{ size: 'medium', weight: 'bold' }}>
           {getString('dashboards.homePage.title')}
         </Text>
       </Layout.Vertical>
       <Layout.Horizontal
         padding="medium"
-        style={{ borderBottom: '1px solid var(--grey-200)', justifyContent: 'space-between' }}
+        style={{ borderBottom: '1px solid var(--grey-100)', justifyContent: 'space-between' }}
         flex={true}
       >
         <Layout.Horizontal spacing="medium" style={{ justifyContent: 'inherit', alignItems: 'center', width: '368px' }}>
@@ -300,7 +242,7 @@ const HomePage: React.FC = () => {
             intent="primary"
             text={getString('dashboardLabel')}
             icon="plus"
-            style={{ background: 'var(--blue-700)', borderColor: 'var(--blue-700)', width: '110px' }}
+            style={{ background: 'var(--primary-6)', borderColor: 'var(--primary-6)', width: '110px' }}
             onClick={() => showModal()}
           />
           <Layout.Horizontal className={css.filter}>
@@ -349,7 +291,7 @@ const HomePage: React.FC = () => {
                 favorite_count?: number
               }) => (
                 <Card className={cx(css.dashboardCard)}>
-                  <Container padding="xlarge">
+                  <Container>
                     {dashboard?.type !== 'SHARED' && dashboard?.type !== 'ACCOUNT' && (
                       <CardBody.Menu
                         menuContent={
@@ -378,7 +320,7 @@ const HomePage: React.FC = () => {
                         <Icon
                           name={dashboard?.type === 'SHARED' ? 'harness' : 'dashboard'}
                           size={25}
-                          color={dashboard?.type === 'ACCOUNT' ? Color.GREY_400 : Color.BLUE_500}
+                          color={dashboard?.type === 'ACCOUNT' ? Color.GREY_400 : Color.PRIMARY_6}
                         />
                       </Layout.Horizontal>
                       <Text color={Color.BLACK_100} font={{ size: 'medium', weight: 'semi-bold' }}>
@@ -439,7 +381,7 @@ const HomePage: React.FC = () => {
           </Container>
         </Layout.Vertical>
       )}
-      {filteredDashboardList && filteredDashboardList.length === 0 && (
+      {filteredDashboardList && filteredDashboardList.length === 0 && !loading && (
         <Container width="100%" height="100%" flex={{ align: 'center-center' }}>
           <Layout.Vertical spacing="medium" width={470} style={{ alignItems: 'center', marginTop: '-48px' }}>
             <Icon name="dashboard" color={Color.GREY_300} size={35} />

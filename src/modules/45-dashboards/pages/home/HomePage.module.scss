@@ -4,8 +4,8 @@
   padding: 0px;
   &:hover {
     cursor: pointer;
-    box-shadow: 0 0 5px 0px var(--blue-400) !important;
-    border: 1px solid var(--blue-400) !important;
+    box-shadow: 0 0 5px 0px var(--primary-6) !important;
+    border: 1px solid var(--primary-6) !important;
   }
 }
 
@@ -15,7 +15,7 @@
 }
 
 .filter {
-  background: var(--grey-200) !important;
+  background: var(--grey-100) !important;
   padding: var(--spacing-small) var(--spacing-xxlarge) var(--spacing-small) var(--spacing-xxxlarge) !important;
   border-radius: 30px !important;
   width: 230px !important;
@@ -26,7 +26,6 @@
       color: var(--black-100);
     }
     .bp3-checkbox:first-child {
-      border-right: 1px solid var(--grey-400);
       padding-right: var(--spacing-small);
     }
   }
@@ -47,9 +46,7 @@
   .formContainer {
     height: 350px;
   }
-  div[class*='StepWizard--navBar'] {
-    grid-template-columns: 238px 1fr !important;
-  }
+
   div[class*='StepWizard--navBarList'] {
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
