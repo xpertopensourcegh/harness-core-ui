@@ -471,6 +471,15 @@ export interface StringsMap {
   'connectors.createFromYaml': string
   'connectors.createNewConnector': string
   'connectors.createdSuccessfully': string
+  'connectors.delegate.configure': string
+  'connectors.delegate.delegateSelectorAny': string
+  'connectors.delegate.delegateSelectorSelective': string
+  'connectors.delegate.hearbeat': string
+  'connectors.delegate.matchesSelectors': string
+  'connectors.delegate.matchingDelegates': string
+  'connectors.delegate.noDelegates': string
+  'connectors.delegate.noMatchingDelegate': string
+  'connectors.delegate.testDelegateConnectivity': string
   'connectors.docker.dockerHub': string
   'connectors.docker.dockerProvideType': string
   'connectors.docker.dockerRegistryURL': string
@@ -3366,10 +3375,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   delegateLabel: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  delegateSelection: string
   /**
    * @deprecated migrate this string to module level file
    */

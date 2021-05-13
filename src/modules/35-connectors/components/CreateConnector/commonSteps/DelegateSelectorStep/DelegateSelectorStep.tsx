@@ -16,7 +16,7 @@ import { noop } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { DelegateTypes } from '@connectors/pages/connectors/utils/ConnectorUtils'
-import { DelegateSelectors, PageSpinner } from '@common/components'
+import { PageSpinner } from '@common/components'
 import { useToaster } from '@common/exports'
 import {
   useCreateConnector,
@@ -34,7 +34,11 @@ import useSaveToGitDialog from '@common/modals/SaveToGitDialog/useSaveToGitDialo
 import { useGitDiffEditorDialog } from '@common/modals/GitDiffEditor/useGitDiffEditorDialog'
 import { Entities } from '@common/interfaces/GitSyncInterface'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
-import css from './DelegateSelectorStep.module.scss'
+import {
+  DelegateOptions,
+  DelegateSelector
+} from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector'
+import css from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector.module.scss'
 
 interface BuildPayloadProps {
   projectIdentifier: string
@@ -73,6 +77,20 @@ const defaultInitialFormData: InitialFormData = {
   delegateSelectors: []
 }
 
+const NoMatchingDelegateWarning: React.FC = () => {
+  const { getString } = useStrings()
+  return (
+    <Text
+      icon="warning-sign"
+      iconProps={{ margin: { right: 'xsmall' }, color: Color.YELLOW_900 }}
+      font={{ size: 'small', weight: 'semi-bold' }}
+      data-name="delegateNoMatchWarning"
+    >
+      {getString('connectors.delegate.noMatchingDelegate')}
+    </Text>
+  )
+}
+
 const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSelectorProps> = props => {
   const { prevStepData, nextStep, buildPayload, customHandleCreate, customHandleUpdate, connectorInfo } = props
   const { accountId, projectIdentifier: projectIdentifierFromUrl, orgIdentifier: orgIdentifierFromUrl } = useParams<
@@ -93,6 +111,12 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
   })
   const [initialValues, setInitialValues] = useState<InitialFormData>(defaultInitialFormData)
   const [delegateSelectors, setDelegateSelectors] = useState<Array<string>>([])
+  const [mode, setMode] = useState<DelegateOptions>(
+    DelegateTypes.DELEGATE_IN_CLUSTER === prevStepData?.delegateType
+      ? DelegateOptions.DelegateOptionsSelective
+      : DelegateOptions.DelegateOptionsAny
+  )
+  const [delegatesFound, setDelegatesFound] = useState<boolean>(true)
   let stepDataRef: ConnectorConfigDTO | null = null
   const [connectorPayloadRef, setConnectorPayloadRef] = useState<Connector | undefined>()
   //TODO @vardan api to fetch this flag is currently WIP, will replace later with api response
@@ -163,16 +187,25 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
   }
 
   useEffect(() => {
-    const delegate = (props.connectorInfo as ConnectorInfoDTO & InitialFormData)?.spec?.delegateSelectors || []
+    let delegate = (props.connectorInfo as ConnectorInfoDTO & InitialFormData)?.spec?.delegateSelectors || []
+    if (prevStepData?.delegateSelectors) {
+      delegate = prevStepData.delegateSelectors
+    }
     if (props.isEditMode) {
       setInitialValues({ delegateSelectors: delegate })
       setDelegateSelectors(delegate)
     }
   }, [])
+
+  const isSaveButtonDisabled =
+    (DelegateTypes.DELEGATE_IN_CLUSTER === prevStepData?.delegateType && delegateSelectors.length === 0) ||
+    (mode === DelegateOptions.DelegateOptionsSelective && delegateSelectors.length === 0) ||
+    creating ||
+    updating
   return (
     <Layout.Vertical height={'inherit'} padding={{ left: 'small' }}>
       <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
-        {getString('delegateSelection')}
+        {getString('delegate.DelegateselectionLabel')}
       </Text>
       {updating ? (
         <PageSpinner
@@ -196,17 +229,21 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
           //   })
           // })}
           onSubmit={stepData => {
+            const updatedStepData = {
+              ...stepData,
+              delegateSelectors: mode === DelegateOptions.DelegateOptionsAny ? [] : delegateSelectors
+            }
+
             const connectorData: BuildPayloadProps = {
               ...prevStepData,
-              ...stepData,
-              delegateSelectors,
+              ...updatedStepData,
               projectIdentifier: projectIdentifier,
               orgIdentifier: orgIdentifier
             }
 
             const data = buildPayload(connectorData)
             setConnectorPayloadRef(data)
-            stepDataRef = stepData
+            stepDataRef = updatedStepData
             if (isGitSyncEnabled) {
               // Using git conext set at 1st step while creating new connector
               if (!props.isEditMode) {
@@ -222,8 +259,8 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
             } else {
               if (customHandleUpdate || customHandleCreate) {
                 props.isEditMode
-                  ? customHandleUpdate?.(data, { ...prevStepData, ...stepData }, props)
-                  : customHandleCreate?.(data, { ...prevStepData, ...stepData }, props)
+                  ? customHandleUpdate?.(data, { ...prevStepData, ...updatedStepData }, props)
+                  : customHandleCreate?.(data, { ...prevStepData, ...updatedStepData }, props)
               } else {
                 handleCreateOrEdit({ payload: data })
               }
@@ -232,20 +269,15 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
         >
           <Form>
             <ModalErrorHandler bind={setModalErrorHandler} />
-            <Layout.Vertical padding={{ top: 'xxlarge', bottom: 'large' }} className={css.formData}>
-              <Text margin={{ bottom: 'medium' }}>{getString('delegate.DelegateselectionConnectorText')}</Text>
-              <DelegateSelectors
-                className={css.formInput}
-                fill
-                allowNewTag={false}
-                placeholder={getString('delegate.DelegateselectionPlaceholder')}
-                selectedItems={delegateSelectors}
-                onChange={data => {
-                  setDelegateSelectors(data as Array<string>)
-                }}
-              ></DelegateSelectors>
-            </Layout.Vertical>
-            <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
+            <DelegateSelector
+              mode={mode}
+              setMode={setMode}
+              delegateSelectors={delegateSelectors}
+              setDelegateSelectors={setDelegateSelectors}
+              setDelegatesFound={setDelegatesFound}
+              delegateSelectorMandatory={DelegateTypes.DELEGATE_IN_CLUSTER === prevStepData?.delegateType}
+            />
+            <Layout.Horizontal padding={{ top: 'small' }} margin={{ top: 'xxxlarge' }} spacing="medium">
               <Button
                 text={getString('back')}
                 icon="chevron-left"
@@ -256,14 +288,12 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
                 type="submit"
                 intent={'primary'}
                 text={getString('saveAndContinue')}
-                disabled={
-                  (DelegateTypes.DELEGATE_IN_CLUSTER === prevStepData?.delegateType &&
-                    delegateSelectors.length === 0) ||
-                  creating ||
-                  updating
-                }
+                className={css.saveAndContinue}
+                disabled={isSaveButtonDisabled}
                 rightIcon="chevron-right"
+                data-name="delegateSaveAndContinue"
               />
+              {!delegatesFound ? <NoMatchingDelegateWarning /> : <></>}
             </Layout.Horizontal>
           </Form>
         </Formik>
