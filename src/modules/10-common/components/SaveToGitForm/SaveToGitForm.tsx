@@ -285,7 +285,7 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
                       onClick={() => handleBranchTypeChange(true, formik)}
                       checked={isNewBranch}
                     >
-                      <Icon name="git-new-branch"></Icon>
+                      <Icon name="git-new-branch" color={Color.GREY_700}></Icon>
                       <Text inline margin={{ left: 'small' }}>
                         {getString('common.git.newBranchCommitLabel')}
                       </Text>

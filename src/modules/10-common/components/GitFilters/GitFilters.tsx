@@ -222,7 +222,7 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
       margin={{ right: 'small' }}
       className={cx(props.className, css.gitFilterContainer)}
     >
-      <Icon padding={{ top: 'small' }} name="repository"></Icon>
+      <Icon padding={{ top: 'small' }} name="repository" color={Color.GREY_600}></Icon>
       <Select
         name={'repo'}
         className={css.repoSelectDefault}
@@ -236,7 +236,7 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
         }}
       ></Select>
 
-      <Icon padding={{ top: 'small' }} margin={{ left: 'large' }} name="git-new-branch"></Icon>
+      <Icon padding={{ top: 'small' }} margin={{ left: 'large' }} name="git-new-branch" color={Color.GREY_600}></Icon>
       <Select
         name={'branch'}
         value={branchSelectOptions.find(branchOption => branchOption.value === selectedGitBranch)}

@@ -203,7 +203,13 @@ export const RenderGitDetails: Renderer<CellProps<ConnectorResponse>> = ({ row }
             background={Color.GREY_100}
             width={'fit-content'}
           >
-            <Icon inline name="git-new-branch" size={12} margin={{ left: 'xsmall', top: 'xsmall' }}></Icon>
+            <Icon
+              inline
+              name="git-new-branch"
+              size={12}
+              margin={{ left: 'xsmall', top: 'xsmall' }}
+              color={Color.GREY_700}
+            ></Icon>
             <div className={css.name} color={Color.BLACK} title={data.gitDetails?.branch}>
               {data.gitDetails?.branch}
             </div>

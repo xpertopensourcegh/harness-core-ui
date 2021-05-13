@@ -264,41 +264,39 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
         </Layout.Horizontal>
       ) : null}
 
-      {isGitSyncEnabled &&
-        !!pipeline.gitDetails &&
-        !!pipeline.gitDetails.repoIdentifier &&
-        !!pipeline.gitDetails.branch && (
-          <Layout.Horizontal
-            style={{ alignItems: 'center', justifyContent: 'space-between' }}
-            border={{ top: true, color: Color.GREY_300 }}
-            padding={{ top: 'medium', bottom: 'medium' }}
-          >
-            <Layout.Horizontal style={{ alignItems: 'center' }} spacing={'small'}>
-              <Icon name="repository" size={16} />
-              <Text
-                style={{ maxWidth: '70px' }}
-                font={{ size: 'small' }}
-                color={Color.GREY_900}
-                title={pipeline.gitDetails.repoIdentifier}
-                lineClamp={1}
-              >
-                {pipeline.gitDetails.repoIdentifier}
-              </Text>
-            </Layout.Horizontal>
-            <Layout.Horizontal style={{ alignItems: 'center' }} spacing={'small'}>
-              <Icon name="git-new-branch" size={14} />
-              <Text
-                style={{ wordWrap: 'break-word', maxWidth: '70px' }}
-                font={{ size: 'small' }}
-                color={Color.GREY_900}
-                title={pipeline.gitDetails.branch}
-                lineClamp={1}
-              >
-                {pipeline.gitDetails.branch}
-              </Text>
-            </Layout.Horizontal>
+      {isGitSyncEnabled && !!pipeline.gitDetails?.repoIdentifier && !!pipeline.gitDetails.branch && (
+        <Layout.Horizontal
+          className={css.pipelineGitDetails}
+          style={{ alignItems: 'center', justifyContent: 'space-between' }}
+          border={{ top: true, color: Color.GREY_300 }}
+          padding={{ top: 'medium', bottom: 'medium' }}
+        >
+          <Layout.Horizontal style={{ alignItems: 'center' }} spacing={'small'}>
+            <Icon name="repository" size={16} color={Color.GREY_600} />
+            <Text
+              style={{ maxWidth: '70px' }}
+              font={{ size: 'small' }}
+              color={Color.GREY_900}
+              title={pipeline.gitDetails.repoIdentifier}
+              lineClamp={1}
+            >
+              {pipeline.gitDetails.repoIdentifier}
+            </Text>
           </Layout.Horizontal>
-        )}
+          <Layout.Horizontal style={{ alignItems: 'center' }} spacing={'small'}>
+            <Icon name="git-new-branch" size={14} color={Color.GREY_600} />
+            <Text
+              style={{ wordWrap: 'break-word', maxWidth: '70px' }}
+              font={{ size: 'small' }}
+              color={Color.GREY_900}
+              title={pipeline.gitDetails.branch}
+              lineClamp={1}
+            >
+              {pipeline.gitDetails.branch}
+            </Text>
+          </Layout.Horizontal>
+        </Layout.Horizontal>
+      )}
 
       <Container
         padding={{ right: 'large', top: 'medium', bottom: 'small' }}

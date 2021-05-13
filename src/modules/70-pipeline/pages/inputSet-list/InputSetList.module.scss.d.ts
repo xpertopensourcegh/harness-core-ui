@@ -6,6 +6,7 @@ declare const styles: {
   readonly gitFilter: string
   readonly actionButton: string
   readonly runPipelineBtn: string
+  readonly gitDetails: string
   readonly menuList: string
 }
 export default styles

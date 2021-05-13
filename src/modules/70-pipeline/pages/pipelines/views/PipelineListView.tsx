@@ -258,8 +258,12 @@ const RenderActivity: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => {
 export const RenderGitDetails: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
   const { gitDetails } = row.original
 
-  return gitDetails?.repoIdentifier && gitDetails.branch ? (
-    <Layout.Horizontal style={{ alignItems: 'center' }} padding={{ right: 'medium' }}>
+  return !!gitDetails?.repoIdentifier && !!gitDetails.branch ? (
+    <Layout.Horizontal
+      style={{ alignItems: 'center' }}
+      padding={{ right: 'medium' }}
+      className={css.pipelineGitDetails}
+    >
       <Text
         style={{ fontSize: '13px', wordWrap: 'break-word', maxWidth: '100px' }}
         color={Color.GREY_800}
@@ -276,7 +280,7 @@ export const RenderGitDetails: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
         padding={{ left: 'small', right: 'small', top: 'xsmall', bottom: 'xsmall' }}
         background={Color.GREY_100}
       >
-        <Icon name="git-new-branch" size={11} />
+        <Icon name="git-new-branch" size={11} color={Color.GREY_600} />
         <Text
           style={{ wordWrap: 'break-word', maxWidth: '100px' }}
           font={{ size: 'small' }}

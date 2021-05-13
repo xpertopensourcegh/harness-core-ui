@@ -11732,18 +11732,17 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
               class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--border StyledProps--padding-xsmall StyledProps--background-grey100"
             >
               <span
-                class="bp3-icon StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--margin-top-xsmall"
+                class="bp3-icon StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
                 data-icon="git-new-branch"
               >
                 <svg
-                  fill="none"
                   height="12"
                   viewBox="0 0 13 16"
                   width="12"
                 >
                   <path
                     d="M10.406.003a2.399 2.399 0 00-.8 4.658v.94a.8.8 0 01-.8.8H4.001a2.413 2.413 0 00-.8.14V4.66A2.399 2.399 0 002.402 0a2.399 2.399 0 00-.8 4.661v6.678a2.399 2.399 0 00.8 4.661 2.399 2.399 0 00.8-4.661v-2.54a.8.8 0 01.8-.799h4.803a2.4 2.4 0 002.402-2.4v-.939a2.399 2.399 0 00-.8-4.658z"
-                    fill="#383946"
+                    fill="currentColor"
                   />
                 </svg>
               </span>
@@ -12008,18 +12007,17 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
               class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--border StyledProps--padding-xsmall StyledProps--background-grey100"
             >
               <span
-                class="bp3-icon StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--margin-top-xsmall"
+                class="bp3-icon StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--margin-top-xsmall StyledProps--color StyledProps--color-grey700"
                 data-icon="git-new-branch"
               >
                 <svg
-                  fill="none"
                   height="12"
                   viewBox="0 0 13 16"
                   width="12"
                 >
                   <path
                     d="M10.406.003a2.399 2.399 0 00-.8 4.658v.94a.8.8 0 01-.8.8H4.001a2.413 2.413 0 00-.8.14V4.66A2.399 2.399 0 002.402 0a2.399 2.399 0 00-.8 4.661v6.678a2.399 2.399 0 00.8 4.661 2.399 2.399 0 00.8-4.661v-2.54a.8.8 0 01.8-.799h4.803a2.4 2.4 0 002.402-2.4v-.939a2.399 2.399 0 00-.8-4.658z"
-                    fill="#383946"
+                    fill="currentColor"
                   />
                 </svg>
               </span>

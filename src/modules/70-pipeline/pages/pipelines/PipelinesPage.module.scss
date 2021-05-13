@@ -44,6 +44,12 @@
   }
 }
 
+.pipelineGitDetails {
+  :global(.bp3-popover-target) {
+    display: block;
+  }
+}
+
 .pipelineName {
   margin-right: var(--spacing-medium) !important;
   margin-bottom: var(--spacing-xsmall) !important;
