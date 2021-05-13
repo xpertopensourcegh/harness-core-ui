@@ -3,6 +3,7 @@ import type { IDrawerProps } from '@blueprintjs/core'
 import type { ExecutionWrapper, YamlSnippetMetaData, PipelineInfoConfig } from 'services/cd-ng'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import type * as Diagram from '@pipeline/components/Diagram'
+import type { EntityGitDetails } from 'services/pipeline-ng'
 import type { DependenciesWrapper, StepState } from '../ExecutionGraph/ExecutionGraphUtil'
 import type { AdvancedPanels } from '../StepCommands/StepCommandTypes'
 
@@ -99,6 +100,7 @@ export interface PipelineReducerState {
   pipelineView: PipelineViewData
   pipelineIdentifier: string
   error?: string
+  gitDetail: EntityGitDetails
   isDBInitialized: boolean
   isLoading: boolean
   isInitialized: boolean
@@ -116,6 +118,7 @@ export const DefaultPipeline: PipelineInfoConfig = {
 export interface ActionResponse {
   error?: string
   isUpdated?: boolean
+  gitDetail?: EntityGitDetails
   pipeline?: PipelineInfoConfig
   yamlHandler?: YamlBuilderHandlerBinding
   originalPipeline?: PipelineInfoConfig
@@ -178,6 +181,7 @@ export const initialState: PipelineReducerState = {
       type: DrawerTypes.AddStep
     }
   },
+  gitDetail: {},
   isLoading: false,
   isBEPipelineUpdated: false,
   isDBInitialized: false,

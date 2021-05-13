@@ -21,6 +21,7 @@ const pipelineContext: PipelineContextInterface = {
   view: PipelineStudioView.ui,
   renderPipelineStage: jest.fn(),
   setView: jest.fn(),
+  updateGitDetails: jest.fn(),
   updatePipelineView: jest.fn(),
   fetchPipeline: jest.fn(),
   deletePipelineCache: jest.fn(),

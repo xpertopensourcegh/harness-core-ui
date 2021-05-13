@@ -33,9 +33,11 @@ const getPipelineContext = (): PipelineContextInterface => ({
     isDBInitialized: true,
     isInitialized: true,
     isLoading: false,
+    gitDetail: {},
     isUpdated: true
   },
   stagesMap: {},
+  updateGitDetails: jest.fn(),
   isReadonly: false,
   renderPipelineStage: jest.fn(),
   fetchPipeline: jest.fn(),

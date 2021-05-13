@@ -27,6 +27,7 @@ const getPipelineContext = (): PipelineContextInterface => ({
       drawerData: { type: DrawerTypes.AddStep },
       splitViewData: {}
     },
+    gitDetail: {},
     selectionState: {},
     pipelineIdentifier: '',
     isBEPipelineUpdated: false,
@@ -35,6 +36,7 @@ const getPipelineContext = (): PipelineContextInterface => ({
     isLoading: false,
     isUpdated: true
   },
+  updateGitDetails: jest.fn(),
   stagesMap: {},
   isReadonly: false,
   renderPipelineStage: jest.fn(),

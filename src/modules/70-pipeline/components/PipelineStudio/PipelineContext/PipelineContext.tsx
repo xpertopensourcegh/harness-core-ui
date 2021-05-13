@@ -21,7 +21,8 @@ import {
   GetPipelineQueryParams,
   putPipelinePromise,
   PutPipelineQueryParams,
-  Failure
+  Failure,
+  EntityGitDetails
 } from 'services/pipeline-ng'
 import { useGlobalEventListener, useLocalStorage } from '@common/hooks'
 import { usePermission } from '@rbac/hooks/usePermission'
@@ -153,6 +154,7 @@ export interface PipelineContextInterface {
   fetchPipeline: (forceFetch?: boolean, forceUpdate?: boolean, newPipelineId?: string) => Promise<void>
   setYamlHandler: (yamlHandler: YamlBuilderHandlerBinding) => void
   updatePipeline: (pipeline: PipelineInfoConfig) => Promise<void>
+  updateGitDetails: (gitDetail: EntityGitDetails) => Promise<void>
   updatePipelineView: (data: PipelineViewData) => void
   deletePipelineCache: () => Promise<void>
   getStageFromPipeline: (
@@ -171,19 +173,24 @@ interface PipelinePayload {
   pipeline: PipelineInfoConfig | undefined
   originalPipeline?: PipelineInfoConfig
   isUpdated: boolean
+  gitDetail: EntityGitDetails
 }
 
 const getId = (
   accountIdentifier: string,
   orgIdentifier: string,
   projectIdentifier: string,
-  pipelineIdentifier: string
-): string => `${accountIdentifier}_${orgIdentifier}_${projectIdentifier}_${pipelineIdentifier}`
+  pipelineIdentifier: string,
+  repoIdentifier = '',
+  branch = ''
+): string =>
+  `${accountIdentifier}_${orgIdentifier}_${projectIdentifier}_${pipelineIdentifier}_${repoIdentifier}_${branch}`
 
 const _fetchPipeline = async (
   dispatch: React.Dispatch<ActionReturnType>,
   queryParams: GetPipelineQueryParams,
   identifier: string,
+  gitDetail: EntityGitDetails,
   forceFetch = false,
   forceUpdate = false,
   newPipelineId?: string
@@ -193,7 +200,9 @@ const _fetchPipeline = async (
     queryParams.accountIdentifier,
     queryParams.orgIdentifier || '',
     queryParams.projectIdentifier || '',
-    pipelineId
+    pipelineId,
+    gitDetail.repoIdentifier,
+    gitDetail.branch
   )
   if (IdbPipeline) {
     dispatch(PipelineContextActions.fetching())
@@ -204,7 +213,8 @@ const _fetchPipeline = async (
         [KeyPath]: id,
         pipeline,
         originalPipeline: cloneDeep(pipeline),
-        isUpdated: false
+        isUpdated: false,
+        gitDetail
       }
       if (data && !forceUpdate) {
         dispatch(
@@ -287,13 +297,16 @@ const _softFetchPipeline = async (
   originalPipeline: PipelineInfoConfig,
   pipeline: PipelineInfoConfig,
   pipelineView: PipelineReducerState['pipelineView'],
-  selectionState: PipelineReducerState['selectionState']
+  selectionState: PipelineReducerState['selectionState'],
+  gitDetail: EntityGitDetails
 ): Promise<void> => {
   const id = getId(
     queryParams.accountIdentifier,
     queryParams.orgIdentifier || '',
     queryParams.projectIdentifier || '',
-    pipelineId
+    pipelineId,
+    gitDetail.repoIdentifier,
+    gitDetail.branch
   )
   if (IdbPipeline) {
     const data: PipelinePayload = await IdbPipeline.get(IdbPipelineStoreName, id)
@@ -328,18 +341,22 @@ const _softFetchPipeline = async (
   }
 }
 
-const _updatePipeline = async (
-  dispatch: React.Dispatch<ActionReturnType>,
-  queryParams: GetPipelineQueryParams,
-  identifier: string,
-  originalPipeline: PipelineInfoConfig,
+interface UpdateGitDetailsArgs {
+  dispatch: React.Dispatch<ActionReturnType>
+  queryParams: GetPipelineQueryParams
+  identifier: string
+  originalPipeline: PipelineInfoConfig
   pipeline: PipelineInfoConfig
-): Promise<void> => {
+}
+const _updateGitDetails = async (args: UpdateGitDetailsArgs, gitDetail: EntityGitDetails): Promise<void> => {
+  const { dispatch, queryParams, identifier, originalPipeline, pipeline } = args
   const id = getId(
     queryParams.accountIdentifier,
     queryParams.orgIdentifier || '',
     queryParams.projectIdentifier || '',
-    identifier
+    identifier,
+    gitDetail.repoIdentifier,
+    gitDetail.branch
   )
   if (IdbPipeline) {
     const isUpdated = !isEqual(originalPipeline, pipeline)
@@ -347,7 +364,40 @@ const _updatePipeline = async (
       [KeyPath]: id,
       pipeline,
       originalPipeline,
-      isUpdated
+      isUpdated,
+      gitDetail
+    }
+    await IdbPipeline.put(IdbPipelineStoreName, payload)
+    dispatch(PipelineContextActions.success({ error: '', pipeline, isUpdated, gitDetail }))
+  }
+}
+
+interface UpdatePipelineArgs {
+  dispatch: React.Dispatch<ActionReturnType>
+  queryParams: GetPipelineQueryParams
+  identifier: string
+  originalPipeline: PipelineInfoConfig
+  gitDetail: EntityGitDetails
+}
+
+const _updatePipeline = async (args: UpdatePipelineArgs, pipeline: PipelineInfoConfig): Promise<void> => {
+  const { dispatch, queryParams, identifier, originalPipeline, gitDetail } = args
+  const id = getId(
+    queryParams.accountIdentifier,
+    queryParams.orgIdentifier || '',
+    queryParams.projectIdentifier || '',
+    identifier,
+    gitDetail.repoIdentifier,
+    gitDetail.branch
+  )
+  if (IdbPipeline) {
+    const isUpdated = !isEqual(originalPipeline, pipeline)
+    const payload: PipelinePayload = {
+      [KeyPath]: id,
+      pipeline,
+      originalPipeline,
+      isUpdated,
+      gitDetail
     }
     await IdbPipeline.put(IdbPipelineStoreName, payload)
     dispatch(PipelineContextActions.success({ error: '', pipeline, isUpdated }))
@@ -404,20 +454,28 @@ const _initializeDb = async (dispatch: React.Dispatch<ActionReturnType>, version
   }
 }
 
-const _deletePipelineCache = async (queryParams: GetPipelineQueryParams, identifier: string): Promise<void> => {
+const _deletePipelineCache = async (
+  queryParams: GetPipelineQueryParams,
+  identifier: string,
+  gitDetail: EntityGitDetails
+): Promise<void> => {
   if (IdbPipeline) {
     const id = getId(
       queryParams.accountIdentifier,
       queryParams.orgIdentifier || '',
       queryParams.projectIdentifier || '',
-      identifier
+      identifier,
+      gitDetail.repoIdentifier,
+      gitDetail.branch
     )
     await IdbPipeline.delete(IdbPipelineStoreName, id)
     const defaultId = getId(
       queryParams.accountIdentifier,
       queryParams.orgIdentifier || '',
       queryParams.projectIdentifier || '',
-      DefaultNewPipelineId
+      DefaultNewPipelineId,
+      gitDetail.repoIdentifier,
+      gitDetail.branch
     )
     await IdbPipeline.delete(IdbPipelineStoreName, defaultId)
   }
@@ -429,6 +487,7 @@ export const PipelineContext = React.createContext<PipelineContextInterface>({
   stagesMap: {},
   isReadonly: false,
   view: PipelineStudioView.ui,
+  updateGitDetails: () => new Promise<void>(() => undefined),
   setView: () => void 0,
   runPipeline: () => undefined,
   // eslint-disable-next-line react/display-name
@@ -457,8 +516,21 @@ export const PipelineProvider: React.FC<{
   const [view, setView] = useLocalStorage<PipelineStudioView>('pipeline_studio_view', PipelineStudioView.ui)
   state.pipelineIdentifier = pipelineIdentifier
 
-  const fetchPipeline = _fetchPipeline.bind(null, dispatch, queryParams, pipelineIdentifier)
-  const updatePipeline = _updatePipeline.bind(null, dispatch, queryParams, pipelineIdentifier, state.originalPipeline)
+  const fetchPipeline = _fetchPipeline.bind(null, dispatch, queryParams, pipelineIdentifier, state.gitDetail)
+  const updateGitDetails = _updateGitDetails.bind(null, {
+    dispatch,
+    queryParams,
+    identifier: pipelineIdentifier,
+    originalPipeline: state.originalPipeline,
+    pipeline: state.pipeline
+  })
+  const updatePipeline = _updatePipeline.bind(null, {
+    dispatch,
+    queryParams,
+    identifier: pipelineIdentifier,
+    originalPipeline: state.originalPipeline,
+    gitDetail: state.gitDetail
+  })
 
   const [isEdit] = usePermission(
     {
@@ -478,7 +550,7 @@ export const PipelineProvider: React.FC<{
     [queryParams, pipelineIdentifier]
   )
   const isReadonly = !isEdit
-  const deletePipelineCache = _deletePipelineCache.bind(null, queryParams, pipelineIdentifier)
+  const deletePipelineCache = _deletePipelineCache.bind(null, queryParams, pipelineIdentifier, state.gitDetail)
   const pipelineSaved = React.useCallback(
     async (pipeline: PipelineInfoConfig) => {
       await deletePipelineCache()
@@ -556,7 +628,8 @@ export const PipelineProvider: React.FC<{
       state.originalPipeline,
       state.pipeline,
       state.pipelineView,
-      state.selectionState
+      state.selectionState,
+      state.gitDetail
     )
   })
 
@@ -583,6 +656,7 @@ export const PipelineProvider: React.FC<{
         getStageFromPipeline,
         renderPipelineStage,
         fetchPipeline,
+        updateGitDetails,
         updatePipeline,
         updateStage,
         updatePipelineView,

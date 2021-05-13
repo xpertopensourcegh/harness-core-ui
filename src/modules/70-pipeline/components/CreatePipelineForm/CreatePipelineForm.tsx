@@ -2,14 +2,16 @@ import React from 'react'
 import { Text, Layout, Formik, FormikForm as Form, Button, Color } from '@wings-software/uicore'
 import { Link } from 'react-router-dom'
 import * as Yup from 'yup'
+import { omit } from 'lodash-es'
 import { NameIdDescriptionTags } from '@common/components'
 import type { NgPipeline } from 'services/cd-ng'
 import { StringUtils } from '@common/exports'
 import { DEFAULT_COLOR } from '@common/constants/Utils'
 import { useStrings } from 'framework/strings'
+import type { EntityGitDetails } from 'services/pipeline-ng'
 
 interface CreatePipelineFormProps {
-  handleSubmit: (value: NgPipeline) => void
+  handleSubmit: (value: NgPipeline, gitDetail: EntityGitDetails) => void
   closeModal?: () => void
 }
 
@@ -23,7 +25,9 @@ export const CreatePipelineForm: React.FC<CreatePipelineFormProps> = props => {
         identifier: '',
         name: '',
         description: '',
-        tags: {}
+        tags: {},
+        repoIdentifier: '',
+        branch: ''
       }}
       validationSchema={Yup.object().shape({
         name: Yup.string().trim().required(getString('createPipeline.pipelineNameRequired')),
@@ -38,7 +42,10 @@ export const CreatePipelineForm: React.FC<CreatePipelineFormProps> = props => {
       })}
       enableReinitialize={true}
       onSubmit={values => {
-        handleSubmit(values)
+        handleSubmit(omit(values, 'repoIdentifier', 'branch'), {
+          branch: values.branch,
+          repoIdentifier: values.repoIdentifier
+        })
       }}
     >
       {formikProps => {
