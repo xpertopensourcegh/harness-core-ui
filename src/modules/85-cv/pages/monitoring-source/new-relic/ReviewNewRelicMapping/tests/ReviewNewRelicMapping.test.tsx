@@ -207,7 +207,7 @@ describe('Unit tests for ReviewNewRelicMapping', () => {
 
   test('Ensure that correct data is displayed based on contextual data, expect edit api to be called on submit', async () => {
     const updateFuncMock = jest.fn()
-    jest.spyOn(cvService, 'useSaveDSConfig').mockReturnValue({
+    jest.spyOn(cvService, 'useUpdateDSConfig').mockReturnValue({
       mutate: updateFuncMock as any
     } as UseMutateReturn<any, any, any, any, any>)
 

@@ -25,7 +25,7 @@ import {
 } from 'services/cd-ng'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { TableFilter } from '@cv/components/TableFilter/TableFilter'
-import { useRegisterActivitySource, ActivitySourceDTO } from 'services/cv'
+import { useCreateActivitySource, usePutActivitySource, ActivitySourceDTO } from 'services/cv'
 import routes from '@common/RouteDefinitions'
 import { ONBOARDING_ENTITIES } from '@cv/pages/admin/setup/SetupUtils'
 import css from './SelectServices.module.scss'
@@ -68,13 +68,14 @@ export interface CDActivitySourceDTO extends ActivitySourceDTO {
 }
 
 export function transformToSavePayload(data: any): CDActivitySourceDTO {
-  const envMappings = Object.values(data.environments || {}).map((val: any) => ({
+  const { identifier, environments, services, uuid, name, projectIdentifier, orgIdentifier } = data || {}
+  const envMappings = Object.values(environments || {}).map((val: any) => ({
     envId: val.id,
     appId: val.appId,
     appName: val.appName,
     envIdentifier: val.environment?.value
   }))
-  const serviceMappings = Object.values(data.services || {}).map((val: any) => ({
+  const serviceMappings = Object.values(services || {}).map((val: any) => ({
     serviceId: val.id,
     appId: val.appId,
     appName: val.appName,
@@ -82,12 +83,14 @@ export function transformToSavePayload(data: any): CDActivitySourceDTO {
   }))
 
   return {
-    identifier: data.identifier,
-    name: data.name,
-    uuid: data.uuid,
+    identifier,
+    name,
+    uuid,
     type: 'HARNESS_CD10',
     envMappings,
-    serviceMappings
+    serviceMappings,
+    projectIdentifier,
+    orgIdentifier
   }
 }
 
@@ -111,7 +114,9 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
     initializeSelectedServices(props.initialValues.services)
   )
   const [serviceOptions, setServiceOptions] = useState<any>([])
-  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
+  const { accountId, orgIdentifier, projectIdentifier, activitySourceId } = useParams<
+    ProjectPathProps & { activitySourceId: string }
+  >()
   const [validationText, setValidationText] = useState<undefined | string>()
   const { showError, clear } = useToaster()
   const [page, setPage] = useState(0)
@@ -137,13 +142,24 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
     } as GetServiceListForProjectQueryParams,
     mock: props.mockGetServices
   })
+  /* 
+    isEditMode : Boolean
+    While creating, activitySourceId is undefined
+    and while editing activitySourceId is string value.
+  */
+  const isEditMode = Boolean(activitySourceId)
 
-  const { mutate } = useRegisterActivitySource({
+  const { mutate: createActivitySource } = useCreateActivitySource({
     queryParams: {
-      accountId,
-      orgIdentifier,
-      projectIdentifier
+      accountId
     }
+  })
+  const { mutate: updateActivitySource } = usePutActivitySource({
+    identifier: activitySourceId,
+    queryParams: {
+      accountId
+    },
+    ...props
   })
 
   useEffect(() => {
@@ -210,9 +226,14 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
         sourceType: ONBOARDING_ENTITIES.CHANGE_SOURCE
       })
       setValidationText(undefined)
-      const savePayload = transformToSavePayload({ ...props.initialValues, services: newlySelectedServices })
+      const savePayload = transformToSavePayload({
+        ...props.initialValues,
+        services: newlySelectedServices,
+        projectIdentifier,
+        orgIdentifier
+      })
       try {
-        await mutate(savePayload)
+        isEditMode ? await updateActivitySource(savePayload) : await createActivitySource(savePayload)
         history.push(
           `${routes.toCVAdminSetup({
             accountId,

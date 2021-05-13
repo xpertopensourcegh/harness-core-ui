@@ -213,7 +213,7 @@ describe('Select Services', () => {
       any
     >)
 
-    jest.spyOn(cvService, 'useRegisterActivitySource').mockReturnValue({
+    jest.spyOn(cvService, 'useCreateActivitySource').mockReturnValue({
       mutate: jest.fn().mockRejectedValue({ data: { detailedMessage: 'some error' } }) as unknown
     } as UseMutateReturn<any, any, any, any, any>)
 

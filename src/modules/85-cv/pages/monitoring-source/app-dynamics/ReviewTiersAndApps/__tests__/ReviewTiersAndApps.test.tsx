@@ -4,6 +4,7 @@ import type { UseGetReturn, UseMutateReturn } from 'restful-react'
 import { TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import * as cvService from 'services/cv'
+import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import ReviewTiersAndApps from '../ReviewTiersAndApps'
 
 jest.mock('@cv/hooks/IndexedDBHook/IndexedDBHook', () => ({
@@ -69,7 +70,7 @@ describe('ReviewTiersAndApps', () => {
   })
 
   test('onNext handles saving correctly', () => {
-    jest.spyOn(cvService, 'useSaveDSConfig').mockReturnValue({
+    jest.spyOn(cvService, 'useCreateDataSource').mockReturnValue({
       loading: false,
       mutate: mutateCallback as unknown
     } as UseMutateReturn<any, any, any, any, any>)
@@ -89,6 +90,56 @@ describe('ReviewTiersAndApps', () => {
           monitoringSource: 'appdynamics'
         })}
         pathParams={{ accountId: 'accountIdMock', projectIdentifier: 'projectIdMock', orgIdentifier: 'orgIdMock' }}
+      >
+        <ReviewTiersAndApps
+          stepData={{
+            applications,
+            identifier: 'testID',
+            connectorRef: { value: 'test' },
+            product: 'Application Monitoring',
+            metricPacks: [{ identifier: 'mp1' }, { identifier: 'mp2' }]
+          }}
+          onCompleteStep={jest.fn()}
+        />
+      </TestWrapper>
+    )
+    fireEvent.click(container.querySelector('button[type=submit]')!)
+    const payload = mutateCallback.mock.calls[0][0]
+    expect(payload.connectorIdentifier).toEqual('test')
+    expect(payload.type).toEqual('APP_DYNAMICS')
+    expect(payload.productName).toEqual('Application Monitoring')
+    expect(payload.appConfigs[0].applicationName).toEqual('app1')
+    expect(payload.appConfigs[0].envIdentifier).toEqual('qa')
+    expect(payload.appConfigs[0].serviceMappings.length).toEqual(2)
+  })
+
+  test('onNext in edit mode handles saving correctly', () => {
+    jest.spyOn(cvService, 'useUpdateDSConfig').mockReturnValue({
+      loading: false,
+      mutate: mutateCallback as unknown
+    } as UseMutateReturn<any, any, any, any, any>)
+
+    jest.spyOn(cvService, 'getAppDynamicsTiersPromise').mockResolvedValue({
+      data: {
+        totalItems: 3
+      }
+    } as UseGetReturn<any, any, any, any>)
+
+    const { container } = render(
+      <TestWrapper
+        path={routes.toCVAdminSetupMonitoringSourceEdit({
+          ...accountPathProps,
+          ...projectPathProps,
+          monitoringSource: ':monitoringSource',
+          identifier: ':identifier'
+        })}
+        pathParams={{
+          accountId: 'accountIdMock',
+          projectIdentifier: 'projectIdMock',
+          orgIdentifier: 'orgIdMock',
+          identifier: 'identifier',
+          monitoringSource: 'monitoringSource'
+        }}
       >
         <ReviewTiersAndApps
           stepData={{

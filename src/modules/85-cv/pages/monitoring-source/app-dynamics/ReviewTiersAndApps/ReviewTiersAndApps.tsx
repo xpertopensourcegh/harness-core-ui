@@ -7,7 +7,7 @@ import { Spinner } from '@blueprintjs/core'
 import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/strings'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
-import { getAppDynamicsTiersPromise, useSaveDSConfig } from 'services/cv'
+import { getAppDynamicsTiersPromise, useUpdateDSConfig, useCreateDataSource } from 'services/cv'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
@@ -61,8 +61,27 @@ export default function ReviewTiersAndApps({ stepData, onPrevious, onCompleteSte
   const { getString } = useStrings()
   const [tableData, setTableData] = useState<TableData[]>([])
   const history = useHistory()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps & AccountPathProps>()
-  const { mutate: saveDSConfigs, loading } = useSaveDSConfig({})
+  const { accountId, projectIdentifier, orgIdentifier, identifier: indentifierFromParam } = useParams<
+    ProjectPathProps & AccountPathProps & { identifier: string }
+  >()
+  /* 
+    isEdit : Boolean
+    While creating new AppD, identifier is undefined
+    and while editing identifier is string value.
+  */
+  const isEdit = Boolean(indentifierFromParam)
+  const { mutate: updateDSConfigs, loading: updateLoading } = useUpdateDSConfig({
+    identifier: indentifierFromParam,
+    queryParams: {
+      accountId
+    }
+  })
+  const { mutate: saveDSConfigs, loading: createLoading } = useCreateDataSource({
+    queryParams: {
+      accountId
+    }
+  })
+  const loading = isEdit ? updateLoading : createLoading
   const { showError, clear } = useToaster()
 
   const updateTiersNumber = async (appName: string) => {
@@ -150,7 +169,11 @@ export default function ReviewTiersAndApps({ stepData, onPrevious, onCompleteSte
     }
 
     try {
-      await saveDSConfigs(payload, { queryParams: { accountId } })
+      if (isEdit) {
+        await updateDSConfigs(payload)
+      } else {
+        await saveDSConfigs(payload)
+      }
     } catch (e) {
       clear()
       showError(getErrorMessage(e), 7000)

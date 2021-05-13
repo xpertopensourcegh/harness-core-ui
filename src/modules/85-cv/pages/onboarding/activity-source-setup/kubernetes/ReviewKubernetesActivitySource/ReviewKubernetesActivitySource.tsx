@@ -8,7 +8,7 @@ import routes from '@common/RouteDefinitions'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { String, useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useRegisterActivitySource } from 'services/cv'
+import { useCreateActivitySource, usePutActivitySource } from 'services/cv'
 import { ONBOARDING_ENTITIES, BaseSetupTabsObject } from '@cv/pages/admin/setup/SetupUtils'
 import type { KubernetesActivitySourceDTO, KubernetesActivitySourceInfo } from '../KubernetesActivitySourceUtils'
 
@@ -49,13 +49,16 @@ function transformIncomingData(data: KubernetesActivitySourceInfo): TableData[] 
 }
 
 function transformToSavePayload(data: KubernetesActivitySourceInfo): KubernetesActivitySourceDTO {
+  const { name, uuid, identifier, connectorRef, projectIdentifier, orgIdentifier } = data
   const kubernetesActivitySourceDTO: KubernetesActivitySourceDTO = {
-    uuid: data.uuid,
-    identifier: data.identifier,
-    name: data.name,
-    connectorIdentifier: data.connectorRef?.value as string,
+    uuid,
+    name,
+    identifier: identifier,
+    connectorIdentifier: connectorRef?.value as string,
     activitySourceConfigs: [],
-    type: 'KUBERNETES'
+    type: 'KUBERNETES',
+    projectIdentifier: projectIdentifier,
+    orgIdentifier: orgIdentifier
   }
 
   for (const namespaceWithWorkload of data.selectedWorkloads) {
@@ -88,15 +91,34 @@ function TableColumn(props: CellProps<TableData>): JSX.Element {
 export function ReviewKubernetesActivitySource(props: ReviewKubernetesActivitySourceProps): JSX.Element {
   const { onPrevious, data } = props
   const params = useParams<ProjectPathProps>()
-
+  const { accountId, activitySourceId, projectIdentifier, orgIdentifier } = useParams<
+    ProjectPathProps & { activitySourceId: string }
+  >()
   const history = useHistory()
   const { getString } = useStrings()
   const { showError } = useToaster()
-  const { mutate, error } = useRegisterActivitySource({
+  /* 
+    isEditMode : Boolean
+    While creating, activitySourceId is undefined
+    and while editing activitySourceId is string value.
+  */
+  const isEditMode = Boolean(activitySourceId)
+
+  const { mutate: updateActivitySource, error: updateError } = usePutActivitySource({
+    identifier: activitySourceId,
     queryParams: {
-      ...params
+      accountId
     }
   })
+
+  const { mutate: createActivitySource, error: creationError } = useCreateActivitySource({
+    queryParams: {
+      accountId
+    }
+  })
+
+  const error = isEditMode ? updateError : creationError
+
   const tableData = transformIncomingData(data)
   useEffect(() => {
     if (error?.message) showError(error.message, 5000)
@@ -141,7 +163,11 @@ export function ReviewKubernetesActivitySource(props: ReviewKubernetesActivitySo
         onPreviousClick={onPrevious}
         nextButtonProps={{ text: getString('submit') }}
         onNextClick={async () => {
-          await mutate(transformToSavePayload(data))
+          if (!data.orgIdentifier) data['orgIdentifier'] = orgIdentifier
+          if (!data.projectIdentifier) data['projectIdentifier'] = projectIdentifier
+          isEditMode
+            ? await updateActivitySource(transformToSavePayload(data))
+            : await createActivitySource(transformToSavePayload(data))
           props.onSubmit({
             ...data,
             type: 'KUBERNETES',

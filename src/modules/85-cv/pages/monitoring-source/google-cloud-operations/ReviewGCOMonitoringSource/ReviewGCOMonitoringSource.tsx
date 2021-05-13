@@ -4,11 +4,11 @@ import { useHistory, useParams } from 'react-router-dom'
 import type { CellProps } from 'react-table'
 import { Table, useToaster } from '@common/components'
 import { String, useStrings } from 'framework/strings'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { BaseSetupTabsObject, ONBOARDING_ENTITIES } from '@cv/pages/admin/setup/SetupUtils'
 import routes from '@common/RouteDefinitions'
-import { TimeSeriesMetricDefinition, useSaveDSConfig } from 'services/cv'
+import { TimeSeriesMetricDefinition, useUpdateDSConfig, useCreateDataSource } from 'services/cv'
 import type { GCODSConfig, GCODefinition, GCOMonitoringSourceInfo } from '../GoogleCloudOperationsMonitoringSourceUtils'
 import css from './ReviewGCOMonitoringSource.module.scss'
 
@@ -106,10 +106,28 @@ function transformToSavePayload(data: GCOMonitoringSourceInfo): GCODSConfig {
 export function ReviewGCOMonitoringSource(props: ReviewGCOMonitoringSourceProps): JSX.Element {
   const { onSubmit, onPrevious, data } = props
   const history = useHistory()
-  const params = useParams<ProjectPathProps>()
+  const params = useParams<ProjectPathProps & AccountPathProps & { identifier: string }>()
+  const { accountId, identifier } = useParams<ProjectPathProps & AccountPathProps & { identifier: string }>()
   const { getString } = useStrings()
   const { showError } = useToaster()
-  const { mutate: saveDSConfigs, error } = useSaveDSConfig({ queryParams: { ...params } })
+  /* 
+    isEditMode : Boolean
+    While creating, identifier is undefined
+    and while editing identifier is string value.
+  */
+  const isEditMode = Boolean(identifier)
+  const { mutate: updateDSConfigs, error: updateError } = useUpdateDSConfig({
+    identifier: identifier,
+    queryParams: {
+      accountId
+    }
+  })
+  const { mutate: createDSConfigs, error: creationError } = useCreateDataSource({
+    queryParams: {
+      accountId
+    }
+  })
+  const error = isEditMode ? updateError : creationError
   const { tableData, services } = transformIncomingData(data)
 
   useEffect(() => {
@@ -154,7 +172,9 @@ export function ReviewGCOMonitoringSource(props: ReviewGCOMonitoringSourceProps)
           text: getString('submit')
         }}
         onNextClick={async () => {
-          await saveDSConfigs(transformToSavePayload(data))
+          isEditMode
+            ? await updateDSConfigs(transformToSavePayload(data))
+            : await createDSConfigs(transformToSavePayload(data))
           onSubmit({
             ...data,
             sourceType: ONBOARDING_ENTITIES.MONITORING_SOURCE as BaseSetupTabsObject['sourceType']

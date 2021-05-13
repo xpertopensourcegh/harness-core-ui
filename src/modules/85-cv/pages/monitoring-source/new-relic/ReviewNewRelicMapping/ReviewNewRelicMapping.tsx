@@ -9,7 +9,7 @@ import { useToaster } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
-import { useSaveDSConfig, useCreateDataSource } from 'services/cv'
+import { useUpdateDSConfig, useCreateDataSource } from 'services/cv'
 import type { NewRelicDSConfig, NewRelicServiceEnvMapping } from '../NewRelicMonitoringSourceUtils'
 
 type TableData = {
@@ -20,10 +20,17 @@ type TableData = {
 
 export function ReviewNewRelicMapping(): JSX.Element {
   const { getString } = useStrings()
-  const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
+  const { projectIdentifier, orgIdentifier, accountId, identifier } = useParams<
+    ProjectPathProps & { identifier: string }
+  >()
   const { onNext, onPrevious, sourceData } = useContext(SetupSourceTabsContext)
   const { showError, clear } = useToaster()
-  const { mutate: updateDSConfigs } = useSaveDSConfig({})
+  const { mutate: updateDSConfigs } = useUpdateDSConfig({
+    identifier: identifier,
+    queryParams: {
+      accountId
+    }
+  })
   const { mutate: createDSConfig } = useCreateDataSource({})
   const tableData = useMemo(() => {
     const mappedServiceAndEnv: TableData[] = []

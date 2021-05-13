@@ -49,6 +49,7 @@ allowpaths:
   - /stackdriver/dashboard-detail
   - /stackdriver/sample-data
   - /activity-source
+  - /activity-source/create
   - /activity-source/{identifier}
   - /activity-source/list
   - /activity/{identifier}
@@ -61,6 +62,7 @@ allowpaths:
   - /newrelic/metric-data
   - /cvng-log
   - /verification-job/eligible-cdng-verification-jobs
+  - /verification-job/{identifier}
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData
@@ -70,6 +72,7 @@ operationIdOverrides:
   /ds-config/env-to-services.get: getServices
   /ds-config/listMonitoringSources.get: getMonitoringSources
   /ds-config/{identifier}.get: getDSConfig
+  /ds-config/{identifier}.put: updateDSConfig
   /ds-config.put: saveDSConfig
   /ds-config.delete: deleteDSConfig
   /heatmap.get: getHeatmap
