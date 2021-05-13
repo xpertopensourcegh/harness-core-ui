@@ -288,7 +288,7 @@ exports[`Open shift template with git tests expand advanced section 1`] = `
                   >
                     <div
                       class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
-                      style="width: 90%; height: 120px;"
+                      style="height: 90px;"
                     >
                       <div
                         class="bp3-form-group checkbox halfWidth"

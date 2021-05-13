@@ -17,7 +17,7 @@ import { Form } from 'formik'
 import * as Yup from 'yup'
 import { Tooltip } from '@blueprintjs/core'
 
-import { get } from 'lodash-es'
+import { get, set } from 'lodash-es'
 import { StringUtils } from '@common/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { FormMultiTypeCheckboxField } from '@common/components'
@@ -133,14 +133,23 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
             spec: {
               connectorRef: formData?.connectorRef,
               gitFetchType: formData?.gitFetchType,
-              branch: formData?.branch,
-              commitId: formData?.commitId,
-              repoName: formData?.repoName,
               paths: [formData?.path]
             }
           },
           skipResourceVersioning: formData?.skipResourceVersioning
         }
+      }
+    }
+
+    if (connectionType === GitRepoName.Account) {
+      set(manifestObj, 'manifest.spec.store.spec.repoName', formData?.repoName)
+    }
+
+    if (manifestObj?.manifest?.spec?.store) {
+      if (formData?.gitFetchType === 'Branch') {
+        set(manifestObj, 'manifest.spec.store.spec.branch', formData?.branch)
+      } else if (formData?.gitFetchType === 'Commit') {
+        set(manifestObj, 'manifest.spec.store.spec.commitId', formData?.commitId)
       }
     }
     handleSubmit(manifestObj)
@@ -313,7 +322,7 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                   addDomId={true}
                   summary={getString('advancedTitle')}
                   details={
-                    <Layout.Horizontal width={'90%'} height={120} flex={{ justifyContent: 'flex-start' }}>
+                    <Layout.Horizontal height={90} flex={{ justifyContent: 'flex-start' }}>
                       <FormMultiTypeCheckboxField
                         name="skipResourceVersioning"
                         label={getString('skipResourceVersion')}

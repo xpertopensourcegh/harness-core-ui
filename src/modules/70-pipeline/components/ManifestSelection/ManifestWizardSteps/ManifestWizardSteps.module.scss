@@ -143,11 +143,9 @@
 .checkbox {
   margin-right: var(--spacing-medium);
   margin-bottom: 0 !important;
+  width: 100%;
 }
 
-.halfWidth {
-  width: 80%;
-}
 .tooltip {
   > * {
     width: 60%;

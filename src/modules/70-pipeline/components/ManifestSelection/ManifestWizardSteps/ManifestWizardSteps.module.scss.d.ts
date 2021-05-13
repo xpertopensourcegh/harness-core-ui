@@ -28,7 +28,6 @@ declare const styles: {
   readonly manifestIcon: string
   readonly advancedStepOpen: string
   readonly checkbox: string
-  readonly halfWidth: string
   readonly tooltip: string
   readonly tooltipContent: string
   readonly alignSelf: string

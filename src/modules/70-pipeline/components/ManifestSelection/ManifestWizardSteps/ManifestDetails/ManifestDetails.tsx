@@ -17,7 +17,7 @@ import { Form, FieldArrayRenderProps, FieldArray } from 'formik'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { Tooltip } from '@blueprintjs/core'
 import * as Yup from 'yup'
-import { get } from 'lodash-es'
+import { get, set } from 'lodash-es'
 import { StringUtils } from '@common/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
@@ -178,7 +178,6 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
             spec: {
               connectorRef: formData?.connectorRef,
               gitFetchType: formData?.gitFetchType,
-              repoName: formData?.repoName,
               paths:
                 typeof formData?.paths === 'string'
                   ? formData?.paths
@@ -188,16 +187,20 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
         }
       }
     }
+    if (connectionType === GitRepoName.Account) {
+      set(manifestObj, 'manifest.spec.store.spec.repoName', formData?.repoName)
+    }
+
     if (manifestObj?.manifest?.spec?.store) {
       if (formData?.gitFetchType === 'Branch') {
-        manifestObj.manifest.spec.store.spec.branch = formData?.branch
+        set(manifestObj, 'manifest.spec.store.spec.branch', formData?.branch)
       } else if (formData?.gitFetchType === 'Commit') {
-        manifestObj.manifest.spec.store.spec.commitId = formData?.commitId
+        set(manifestObj, 'manifest.spec.store.spec.commitId', formData?.commitId)
       }
     }
 
     if (selectedManifest === ManifestDataType.K8sManifest) {
-      ;(manifestObj.manifest?.spec as any).skipResourceVersioning = formData?.skipResourceVersioning
+      set(manifestObj, 'manifest.spec.skipResourceVersioning', formData?.skipResourceVersioning)
     }
     handleSubmit(manifestObj)
   }
@@ -420,12 +423,12 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                       addDomId={true}
                       summary={getString('advancedTitle')}
                       details={
-                        <Layout.Horizontal width={'90%'} height={120} flex={{ justifyContent: 'flex-start' }}>
+                        <Layout.Horizontal height={90} flex={{ justifyContent: 'flex-start' }}>
                           <FormMultiTypeCheckboxField
                             name="skipResourceVersioning"
                             label={getString('skipResourceVersion')}
                             multiTypeTextbox={{ expressions }}
-                            className={cx(css.checkbox, css.halfWidth)}
+                            className={css.checkbox}
                           />
                           {getMultiTypeFromValue(formik.values?.skipResourceVersioning) ===
                             MultiTypeInputType.RUNTIME && (

@@ -15,7 +15,7 @@ import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { Form } from 'formik'
 import * as Yup from 'yup'
 
-import { get } from 'lodash-es'
+import { get, set } from 'lodash-es'
 import { StringUtils } from '@common/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useStrings } from 'framework/strings'
@@ -122,43 +122,34 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
   }, [])
 
   const submitFormData = (formData: OpenShiftParamDataType & { store?: string; connectorRef?: string }): void => {
-    if (prevStepData?.store === ManifestStoreMap.Git) {
-      const manifestObj: ManifestConfigWrapper = {
-        manifest: {
-          identifier: formData.identifier,
-          spec: {
-            store: {
-              type: formData?.store,
-              spec: {
-                connectorRef: formData?.connectorRef,
-                gitFetchType: formData?.gitFetchType,
-                branch: formData?.branch,
-                commitId: formData?.commitId,
-                repoName: formData?.repoName,
-                paths: formData?.paths
-              }
+    const manifestObj: ManifestConfigWrapper = {
+      manifest: {
+        identifier: formData.identifier,
+        spec: {
+          store: {
+            type: formData?.store,
+            spec: {
+              connectorRef: formData?.connectorRef,
+              gitFetchType: formData?.gitFetchType,
+              paths: formData?.paths
             }
           }
         }
       }
-      handleSubmit(manifestObj)
-    } else {
-      const manifestObj: ManifestConfigWrapper = {
-        manifest: {
-          identifier: formData.identifier,
-          spec: {
-            store: {
-              type: formData?.store,
-              spec: {
-                connectorRef: formData?.connectorRef,
-                paths: formData?.paths
-              }
-            }
-          }
-        }
-      }
-      handleSubmit(manifestObj)
     }
+
+    if (connectionType === GitRepoName.Account) {
+      set(manifestObj, 'manifest.spec.store.spec.repoName', formData?.repoName)
+    }
+
+    if (manifestObj?.manifest?.spec?.store) {
+      if (formData?.gitFetchType === 'Branch') {
+        set(manifestObj, 'manifest.spec.store.spec.branch', formData?.branch)
+      } else if (formData?.gitFetchType === 'Commit') {
+        set(manifestObj, 'manifest.spec.store.spec.commitId', formData?.commitId)
+      }
+    }
+    handleSubmit(manifestObj)
   }
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" className={css.manifestStore}>

@@ -409,7 +409,7 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests expand advanced secti
                   >
                     <div
                       class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
-                      style="width: 90%; height: 120px;"
+                      style="height: 90px;"
                     >
                       <div
                         class="bp3-form-group checkbox halfWidth"

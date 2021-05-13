@@ -15,7 +15,7 @@ import {
 import cx from 'classnames'
 import { Form } from 'formik'
 import * as Yup from 'yup'
-import { get } from 'lodash-es'
+import { get, set } from 'lodash-es'
 import { Tooltip } from '@blueprintjs/core'
 import { StringUtils } from '@common/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
@@ -133,7 +133,6 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
             spec: {
               connectorRef: formData?.connectorRef,
               gitFetchType: formData?.gitFetchType,
-              repoName: formData?.repoName,
               folderPath: formData?.folderPath
             }
           },
@@ -143,11 +142,15 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
       }
     }
 
+    if (connectionType === GitRepoName.Account) {
+      set(manifestObj, 'manifest.spec.store.spec.repoName', formData?.repoName)
+    }
+
     if (manifestObj?.manifest?.spec?.store) {
       if (formData?.gitFetchType === 'Branch') {
-        manifestObj.manifest.spec.store.spec.branch = formData?.branch
+        set(manifestObj, 'manifest.spec.store.spec.branch', formData?.branch)
       } else if (formData?.gitFetchType === 'Commit') {
-        manifestObj.manifest.spec.store.spec.commitId = formData?.commitId
+        set(manifestObj, 'manifest.spec.store.spec.commitId', formData?.commitId)
       }
     }
 
@@ -371,7 +374,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                   addDomId={true}
                   summary={getString('advancedTitle')}
                   details={
-                    <Layout.Horizontal width={'90%'} height={120} flex={{ justifyContent: 'flex-start' }}>
+                    <Layout.Horizontal height={90} flex={{ justifyContent: 'flex-start' }}>
                       <FormMultiTypeCheckboxField
                         name="skipResourceVersioning"
                         label={getString('skipResourceVersion')}

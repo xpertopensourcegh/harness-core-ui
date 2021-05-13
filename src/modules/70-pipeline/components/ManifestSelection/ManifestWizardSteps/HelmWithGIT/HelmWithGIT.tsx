@@ -16,7 +16,7 @@ import cx from 'classnames'
 import { Form } from 'formik'
 import * as Yup from 'yup'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
-import { get } from 'lodash-es'
+import { get, set } from 'lodash-es'
 import { StringUtils } from '@common/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
@@ -140,7 +140,6 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
             spec: {
               connectorRef: formData?.connectorRef,
               gitFetchType: formData?.gitFetchType,
-              repoName: formData?.repoName,
               folderPath: formData?.folderPath
             }
           },
@@ -149,11 +148,16 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
         }
       }
     }
+
+    if (connectionType === GitRepoName.Account) {
+      set(manifestObj, 'manifest.spec.store.spec.repoName', formData?.repoName)
+    }
+
     if (manifestObj?.manifest?.spec?.store) {
       if (formData?.gitFetchType === 'Branch') {
-        manifestObj.manifest.spec.store.spec.branch = formData?.branch
+        set(manifestObj, 'manifest.spec.store.spec.branch', formData?.branch)
       } else if (formData?.gitFetchType === 'Commit') {
-        manifestObj.manifest.spec.store.spec.commitId = formData?.commitId
+        set(manifestObj, 'manifest.spec.store.spec.commitId', formData?.commitId)
       }
     }
 
