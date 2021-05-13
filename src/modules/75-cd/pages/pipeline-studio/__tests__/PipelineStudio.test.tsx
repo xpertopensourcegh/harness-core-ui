@@ -12,6 +12,7 @@ import { accountPathProps, pipelineModuleParams, pipelinePathProps } from '@comm
 import CDPipelineStudio from '../CDPipelineStudio'
 import { PipelineResponse } from './PipelineStudioMocks'
 
+jest.mock('@common/utils/YamlUtils', () => ({ useValidationError: () => ({ errorMap: new Map() }) }))
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
 ))

@@ -31,6 +31,8 @@ import '@cf/components/PipelineStudio/FeatureFlagStage'
 import '@cd/components/PipelineSteps'
 // eslint-disable-next-line no-restricted-imports
 import '@ci/components/PipelineSteps'
+
+jest.mock('@common/utils/YamlUtils', () => ({ useValidationError: () => ({ errorMap: new Map() }) }))
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
 ))

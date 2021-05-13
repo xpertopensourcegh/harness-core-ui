@@ -5,9 +5,8 @@ import cx from 'classnames'
 import { Position } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import type { DefaultNodeModel } from './DefaultNodeModel'
-import { DefaultPortLabel } from '../port/DefaultPortLabelWidget'
 import type { DefaultPortModel } from '../port/DefaultPortModel'
-
+import { DefaultPortLabel } from '../port/DefaultPortLabelWidget'
 import { Event, DiagramDrag } from '../Constants'
 import css from './DefaultNode.module.scss'
 
@@ -190,7 +189,7 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
         }}
       >
         {/* Only add the icon style if the stage is not skipped.
-        Otherwise, the deploymet icon becomes transparent and we do not see it when the stage is skipped. */}
+        Otherwise, the deployment icon becomes transparent and we do not see it when the stage is skipped. */}
         {options.icon && <Icon size={28} name={options.icon} {...options.iconProps} style={options.iconStyle} />}
         <div style={{ visibility: options.showPorts ? 'visible' : 'hidden' }}>
           {props.node.getInPorts().map(port => generatePort(port, props))}
@@ -219,7 +218,7 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
 
         {options.isInComplete && <Icon className={css.inComplete} size={12} name={'warning-sign'} color="orange500" />}
         {options.skipCondition && (
-          <div className={css.сonditional}>
+          <div className={css.conditional}>
             <Text
               tooltip={`Skip condition:\n${options.skipCondition}`}
               tooltipProps={{
@@ -231,7 +230,7 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
           </div>
         )}
         {options.conditionalExecutionEnabled && (
-          <div className={css.сonditional}>
+          <div className={css.conditional}>
             <Text
               tooltip={getString('pipeline.conditionalExecution.title')}
               tooltipProps={{

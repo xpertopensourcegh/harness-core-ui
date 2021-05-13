@@ -8,7 +8,7 @@ declare const styles: {
   readonly secondaryIcon: string
   readonly tertiaryIcon: string
   readonly inComplete: string
-  readonly сonditional: string
+  readonly conditional: string
   readonly iconGroup: string
   readonly addNode: string
   readonly hoverName: string

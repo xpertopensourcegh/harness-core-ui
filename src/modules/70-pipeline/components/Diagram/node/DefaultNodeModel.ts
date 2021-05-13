@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import { map } from 'lodash-es'
 import { NodeModel, NodeModelGenerics, PortModelAlignment } from '@projectstorm/react-diagrams-core'
 import type { BasePositionModelOptions, DeserializeEvent } from '@projectstorm/react-canvas-core'
@@ -9,7 +10,7 @@ import type { DefaultLinkModel } from '../link/DefaultLinkModel'
 
 export interface DefaultNodeModelOptions extends BasePositionModelOptions {
   name: string
-  customNodeStyle?: React.CSSProperties
+  customNodeStyle?: CSSProperties
   nodeClassName?: string
   width?: number
   height?: number
@@ -17,7 +18,7 @@ export interface DefaultNodeModelOptions extends BasePositionModelOptions {
   icon?: IconName
   allowAdd?: boolean
   draggable?: boolean
-  iconStyle?: React.CSSProperties
+  iconStyle?: CSSProperties
   iconProps?: Omit<IconProps, 'name'>
   canDelete?: boolean
   isInComplete?: boolean
@@ -25,11 +26,11 @@ export interface DefaultNodeModelOptions extends BasePositionModelOptions {
   conditionalExecutionEnabled?: boolean
   secondaryIcon?: IconName | null
   secondaryIconProps?: Omit<IconProps, 'name'>
-  secondaryIconStyle?: React.CSSProperties
+  secondaryIconStyle?: CSSProperties
   showPorts?: boolean
   tertiaryIcon?: IconName
   tertiaryIconProps?: Omit<IconProps, 'name'>
-  tertiaryIconStyle?: React.CSSProperties
+  tertiaryIconStyle?: CSSProperties
   iconSize?: number
   selected?: boolean
   allowDropOnLink?: boolean

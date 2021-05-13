@@ -11,6 +11,7 @@ import { useStrings } from 'framework/strings'
 import { useConfirmationDialog } from '@common/exports'
 import { CanvasButtons } from '@pipeline/components/CanvasButtons/CanvasButtons'
 import { moveStageToFocusDelayed } from '@pipeline/components/ExecutionStageDiagram/ExecutionStageDiagramUtils'
+import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
 import {
   CanvasWidget,
   createEngine,
@@ -168,6 +169,7 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
   const canvasRef = React.useRef<HTMLDivElement | null>(null)
 
   const [stageMap, setStageMap] = React.useState(new Map<string, StageState>())
+  const { errorMap } = useValidationErrors()
 
   const addStage = (
     newStage: StageElementWrapper,
@@ -245,7 +247,9 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
       },
       stagesMap,
       getString,
-      isReadonly
+      isReadonly,
+      parentPath: 'pipeline.stages',
+      errorMap
     })
     if (newStage.stage && newStage.stage.name !== EmptyStageName) {
       stageMap.set(newStage.stage.identifier, { isConfigured: true, stage: newStage })
@@ -557,7 +561,9 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
     getString,
     isReadonly,
     selectedStageId,
-    splitPaneSize
+    splitPaneSize,
+    parentPath: 'pipeline.stages',
+    errorMap
   })
   const setSplitPaneSizeDeb = React.useRef(debounce(setSplitPaneSize, 200))
   // load model into engine

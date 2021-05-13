@@ -23,6 +23,8 @@ export interface AddUpdateGraphProps {
   isReadonly: boolean
   selectedStageId?: string
   splitPaneSize?: number
+  parentPath: string
+  errorMap: Map<string, string[]>
 }
 
 export interface RenderGraphNodeProps {
@@ -36,6 +38,8 @@ export interface RenderGraphNodeProps {
   prevNodes?: DefaultNodeModel[]
   allowAdd?: boolean
   isParallelNodes?: boolean
+  parentPath: string
+  errorMap: Map<string, string[]>
 }
 
 export class StageBuilderModel extends DiagramModel {
@@ -58,11 +62,14 @@ export class StageBuilderModel extends DiagramModel {
       selectedStageId,
       splitPaneSize,
       allowAdd,
-      isParallelNodes = false
+      isParallelNodes = false,
+      parentPath,
+      errorMap
     } = props
     let { startX, prevNodes } = props
     if (node && node.stage) {
       const type = stagesMap[node.stage.type]
+      const hasErrors = errorMap && [...errorMap.keys()].some(key => parentPath && key.startsWith(parentPath))
       startX += this.gapX
       const isSelected = selectedStageId === node.stage.identifier
       const nodeRender = type?.isApproval
@@ -76,7 +83,7 @@ export class StageBuilderModel extends DiagramModel {
             },
             name: node.stage.name,
             width: 57,
-            isInComplete: node.stage.name === EmptyStageName,
+            isInComplete: node.stage.name === EmptyStageName || hasErrors,
             canDelete: !(selectedStageId === node.stage.identifier || isReadonly),
             draggable: !isReadonly,
             height: 57,
@@ -92,7 +99,7 @@ export class StageBuilderModel extends DiagramModel {
             id: node.stage.identifier,
             customNodeStyle: getCommonStyles(isSelected),
             name: node.stage.name,
-            isInComplete: node.stage.name === EmptyStageName,
+            isInComplete: node.stage.name === EmptyStageName || hasErrors,
             width: 114,
             draggable: !isReadonly,
             canDelete: !(selectedStageId === node.stage.identifier || isReadonly),
@@ -183,7 +190,9 @@ export class StageBuilderModel extends DiagramModel {
               splitPaneSize,
               prevNodes,
               allowAdd: isLastNode,
-              isParallelNodes: true
+              isParallelNodes: true,
+              parentPath: `${parentPath}.parallel.${index}`,
+              errorMap
             })
             startX = resp.startX
             newY = resp.startY + this.gapY
@@ -217,7 +226,9 @@ export class StageBuilderModel extends DiagramModel {
           splitPaneSize,
           prevNodes,
           allowAdd: true,
-          isParallelNodes: false
+          isParallelNodes: false,
+          parentPath: `${parentPath}.0`,
+          errorMap
         })
       }
       return { startX, startY, prevNodes }
@@ -226,7 +237,17 @@ export class StageBuilderModel extends DiagramModel {
   }
 
   addUpdateGraph(props: AddUpdateGraphProps): void {
-    const { data, listeners, stagesMap, getString, isReadonly, selectedStageId, splitPaneSize } = props
+    const {
+      data,
+      listeners,
+      stagesMap,
+      getString,
+      isReadonly,
+      selectedStageId,
+      splitPaneSize,
+      parentPath = '',
+      errorMap
+    } = props
     let { startX, startY } = this
     this.clearAllNodesAndLinks() // TODO: Improve this
 
@@ -253,7 +274,7 @@ export class StageBuilderModel extends DiagramModel {
     startX -= this.gapX / 2
 
     let prevNodes: DefaultNodeModel[] = [startNode]
-    data?.stages?.forEach((node: StageElementWrapper) => {
+    data?.stages?.forEach((node: StageElementWrapper, index: number) => {
       const resp = this.renderGraphNodes({
         node,
         startX,
@@ -263,7 +284,9 @@ export class StageBuilderModel extends DiagramModel {
         selectedStageId,
         splitPaneSize,
         prevNodes,
-        allowAdd: true
+        allowAdd: true,
+        parentPath: `${parentPath}.${index}`,
+        errorMap
       })
       startX = resp.startX
       startY = resp.startY

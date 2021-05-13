@@ -13,6 +13,7 @@ import { PipelineDBName } from '@pipeline/components/PipelineStudio/PipelineCont
 import CIPipelineStudio from '../CFPipelineStudio'
 import { PipelineResponse } from './PipelineStudioMocks'
 
+jest.mock('@common/utils/YamlUtils', () => ({ useValidationError: () => ({ errorMap: new Map() }) }))
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
 ))

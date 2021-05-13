@@ -288,7 +288,7 @@ exports[`Test Diagram App should test basic snapshot 1`] = `
                   </svg>
                 </span>
                 <div
-                  class="сonditional"
+                  class="conditional"
                 >
                   <span
                     class="bp3-popover-wrapper"

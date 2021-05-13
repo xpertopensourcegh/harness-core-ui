@@ -90,52 +90,45 @@ const getPartialYAML = (tokens: string[], endingIndex: number): string => {
  * @param schema schema against which json is to be validated
  * @returns Map of json path to list of errors at that path
  */
-const validateJSONWithSchema = (
+async function validateJSONWithSchema(
   jsonObj: Record<string, any>,
   schema: Record<string, any>
-): Promise<Map<string, string[]>> => {
-  if (isEmpty(jsonObj)) {
-    return Promise.reject('Invalid or empty yaml.')
-  }
-  if (isEmpty(schema)) {
-    return Promise.reject('Invalid or empty schema.')
-  }
+): Promise<Map<string, string[]>> {
   const errorMap = new Map<string, string[]>()
+
+  if (isEmpty(jsonObj) || isEmpty(schema)) {
+    return errorMap
+  }
+
   try {
     const yamlEqOfJSON = stringify(jsonObj)
     const lineContents = yamlEqOfJSON.split(/\r?\n/)
-    const validationPromise = validateYAMLWithSchema(yamlEqOfJSON, getSchemaWithLanguageSettings(schema))
-    validationPromise &&
-      validationPromise
-        .then((validationErrors: Diagnostic[]) => {
-          if (!isEmpty(validationErrors)) {
-            validationErrors.map(error => {
-              const idx = error.range.end.line
-              if (idx <= lineContents.length) {
-                const key = lineContents[idx]?.split(':')?.[0]?.trim()
-                const partialYAML = getPartialYAML(lineContents, idx)
-                const partialJSONEqofYAML = parse(partialYAML)
-                if (key && !isEmpty(partialJSONEqofYAML)) {
-                  const jsonPathOfKey = findLeafToParentPath(partialJSONEqofYAML, key)
-                  if (jsonPathOfKey) {
-                    if (errorMap.has(jsonPathOfKey)) {
-                      const existingErrors = errorMap.get(jsonPathOfKey) || []
-                      existingErrors.push(error.message)
-                      errorMap.set(jsonPathOfKey, existingErrors)
-                    } else {
-                      errorMap.set(jsonPathOfKey, [error.message])
-                    }
-                  }
-                }
-              }
-            })
+    const validationErrors = await validateYAMLWithSchema(yamlEqOfJSON, getSchemaWithLanguageSettings(schema))
+    validationErrors.map(error => {
+      const idx = error.range.end.line
+      if (idx <= lineContents.length) {
+        const key = lineContents[idx]?.split(':')?.[0]?.trim()
+        const partialYAML = getPartialYAML(lineContents, idx)
+        const partialJSONEqofYAML = parse(partialYAML)
+        if (key && !isEmpty(partialJSONEqofYAML)) {
+          const jsonPathOfKey = findLeafToParentPath(partialJSONEqofYAML, key)
+          if (jsonPathOfKey) {
+            if (errorMap.has(jsonPathOfKey)) {
+              const existingErrors = errorMap.get(jsonPathOfKey) || []
+              existingErrors.push(error.message)
+              errorMap.set(jsonPathOfKey, existingErrors)
+            } else {
+              errorMap.set(jsonPathOfKey, [error.message])
+            }
           }
-        })
-        .catch(err => Promise.reject(err))
+        }
+      }
+    })
+
+    return errorMap
   } catch (err) {
-    Promise.reject(err)
+    return errorMap
   }
-  return Promise.resolve(errorMap)
 }
 
 const setUpLanguageService = (schema: Record<string, any>) => {
