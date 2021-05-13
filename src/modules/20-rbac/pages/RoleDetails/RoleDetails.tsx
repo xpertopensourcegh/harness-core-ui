@@ -28,6 +28,7 @@ import type { PipelineType, RolePathProps, ProjectPathProps } from '@common/inte
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { usePermission } from '@rbac/hooks/usePermission'
 import css from './RoleDetails.module.scss'
 
 const RoleDetails: React.FC = () => {
@@ -51,6 +52,17 @@ const RoleDetails: React.FC = () => {
       projectIdentifier
     }
   })
+
+  const [canEdit] = usePermission(
+    {
+      resource: {
+        resourceType: ResourceType.ROLE,
+        resourceIdentifier: roleIdentifier
+      },
+      permissions: [PermissionIdentifier.UPDATE_ROLE]
+    },
+    [roleIdentifier]
+  )
 
   const { data: resourceGroups } = useGetPermissionResourceTypesList({
     queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier }
@@ -114,6 +126,7 @@ const RoleDetails: React.FC = () => {
     }
   }
   const role = data?.data?.role
+  const disableEdit = data?.data?.harnessManaged || !canEdit
 
   useDocumentTitle([role?.name || '', getString('roles')])
 
@@ -224,11 +237,6 @@ const RoleDetails: React.FC = () => {
                     intent="primary"
                     disabled={data?.data?.harnessManaged || !isUpdated}
                     permission={{
-                      resourceScope: {
-                        accountIdentifier: accountId,
-                        orgIdentifier,
-                        projectIdentifier
-                      },
                       resource: {
                         resourceType: ResourceType.ROLE,
                         resourceIdentifier: roleIdentifier
@@ -252,7 +260,7 @@ const RoleDetails: React.FC = () => {
                         selected={resourceCategory === resource}
                         permissionMap={permissionsMap}
                         resourceCategory={resourceCategory}
-                        isDefault={data?.data?.harnessManaged}
+                        disableEdit={disableEdit}
                         onChangePermission={onChangePermission}
                         isPermissionEnabled={isPermissionEnabled}
                       />

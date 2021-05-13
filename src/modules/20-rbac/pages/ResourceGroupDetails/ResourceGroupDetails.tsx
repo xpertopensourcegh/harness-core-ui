@@ -25,6 +25,7 @@ import RbacFactory from '@rbac/factories/RbacFactory'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { usePermission } from '@rbac/hooks/usePermission'
 import { getResourceSelectorsfromMap, getSelectedResourcesMap } from './utils'
 import css from './ResourceGroupDetails.module.scss'
 
@@ -40,6 +41,17 @@ const ResourceGroupDetails: React.FC = () => {
   const [resourceCategoryMap, setResourceCategoryMap] = useState<
     Map<ResourceType | ResourceCategory, ResourceType[] | undefined>
   >()
+
+  const [canEdit] = usePermission(
+    {
+      resource: {
+        resourceType: ResourceType.RESOURCEGROUP,
+        resourceIdentifier: resourceGroupIdentifier
+      },
+      permissions: [PermissionIdentifier.UPDATE_RESOURCEGROUP]
+    },
+    [resourceGroupIdentifier]
+  )
 
   const { data: resourceGroupDetails, error: errorInGettingResourceGroup, loading, refetch } = useGetResourceGroup({
     identifier: resourceGroupIdentifier,
@@ -157,6 +169,7 @@ const ResourceGroupDetails: React.FC = () => {
 
   const resourceGroup = resourceGroupDetails?.data?.resourceGroup
   const isHarnessManaged = resourceGroupDetails?.data?.harnessManaged
+  const disableAddingResources = isHarnessManaged || !canEdit
 
   useDocumentTitle([resourceGroup?.name || '', getString('resourceGroups')])
 
@@ -251,7 +264,7 @@ const ResourceGroupDetails: React.FC = () => {
               onResourceSelectionChange={onResourceSelectionChange}
               onResourceCategorySelect={onResourceCategorySelect}
               preSelectedResourceList={Array.from(selectedResourcesMap.keys())}
-              disableAddingResources={isHarnessManaged}
+              disableAddingResources={disableAddingResources}
             />
           </Container>
           <Container
@@ -283,11 +296,6 @@ const ResourceGroupDetails: React.FC = () => {
                     disabled={updating || !isUpdated}
                     intent="primary"
                     permission={{
-                      resourceScope: {
-                        accountIdentifier: accountId,
-                        orgIdentifier,
-                        projectIdentifier
-                      },
                       resource: {
                         resourceType: ResourceType.RESOURCEGROUP,
                         resourceIdentifier: resourceGroupIdentifier

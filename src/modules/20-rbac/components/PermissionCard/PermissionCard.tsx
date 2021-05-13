@@ -13,7 +13,7 @@ interface PermissionCardProps {
   resourceCategory: ResourceType | ResourceCategory
   permissionMap: Map<ResourceType, Permission[]>
   selected?: boolean
-  isDefault?: boolean
+  disableEdit?: boolean
   onChangePermission: (permission: string, isAdd: boolean) => void
   isPermissionEnabled: (_permission: string) => boolean
 }
@@ -22,7 +22,7 @@ const PermissionCard: React.FC<PermissionCardProps> = ({
   resourceCategory,
   resourceTypes,
   selected,
-  isDefault,
+  disableEdit,
   permissionMap,
   onChangePermission,
   isPermissionEnabled
@@ -54,7 +54,7 @@ const PermissionCard: React.FC<PermissionCardProps> = ({
                   }
                   data-testid={`checkBox-${resource}-${permission.action}`}
                   key={permission.name}
-                  disabled={isDefault || isView(permission.action)}
+                  disabled={disableEdit || isView(permission.action)}
                   defaultChecked={isPermissionEnabled(permission.identifier)}
                   onChange={(event: React.FormEvent<HTMLInputElement>) => {
                     onChangePermission(permission.identifier, event.currentTarget.checked)
