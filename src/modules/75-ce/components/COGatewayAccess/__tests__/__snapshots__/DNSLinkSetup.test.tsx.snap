@@ -9,7 +9,7 @@ exports[`Use DNS for Setup No Access Point is available 1`] = `
       class="StyledProps--font StyledProps--font-h3 StyledProps--main"
       level="3"
     >
-      A DNS Link lets you to connect to the Rule by matching human-readable domain names
+      ce.co.gatewayAccess.dnsLinkHeader
     </h3>
     <div
       class="OverlaySpinner--overlaySpinner"
@@ -217,7 +217,7 @@ exports[`Use DNS for Setup No hosted zone is available 1`] = `
       class="StyledProps--font StyledProps--font-h3 StyledProps--main"
       level="3"
     >
-      A DNS Link lets you to connect to the Rule by matching human-readable domain names
+      ce.co.gatewayAccess.dnsLinkHeader
     </h3>
     <div
       class="OverlaySpinner--overlaySpinner"
@@ -425,7 +425,7 @@ exports[`Use DNS for Setup renders without crashing 1`] = `
       class="StyledProps--font StyledProps--font-h3 StyledProps--main"
       level="3"
     >
-      A DNS Link lets you to connect to the Rule by matching human-readable domain names
+      ce.co.gatewayAccess.dnsLinkHeader
     </h3>
     <div
       class="OverlaySpinner--overlaySpinner"

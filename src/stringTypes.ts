@@ -1101,6 +1101,7 @@ export interface StringsMap {
   'ce.co.accessPoint.loadbalancers': string
   'ce.co.accessPoint.mapDomain': string
   'ce.co.accessPoint.new': string
+  'ce.co.accessPoint.newAppGateway': string
   'ce.co.accessPoint.others': string
   'ce.co.accessPoint.proceed': string
   'ce.co.accessPoint.route53': string
@@ -1125,6 +1126,8 @@ export interface StringsMap {
   'ce.co.accessPoint.validation.vpc': string
   'ce.co.autoStopping': string
   'ce.co.autoStoppingRule.configuration.asgSelectionInfoText': string
+  'ce.co.autoStoppingRule.configuration.instanceModal.description': string
+  'ce.co.autoStoppingRule.configuration.step1.form.idleTime.label': string
   'ce.co.autoStoppingRule.configuration.step1.subTitle': string
   'ce.co.autoStoppingRule.configuration.step1.title': string
   'ce.co.autoStoppingRule.configuration.step2.addResourceCta.asg': string
@@ -1133,6 +1136,8 @@ export interface StringsMap {
   'ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.instance': string
   'ce.co.autoStoppingRule.configuration.step2.subTitle': string
   'ce.co.autoStoppingRule.configuration.step2.title': string
+  'ce.co.autoStoppingRule.configuration.step3.asgSubTitle': string
+  'ce.co.autoStoppingRule.configuration.step3.asgTitle': string
   'ce.co.autoStoppingRule.configuration.step3.policyNotEnabled': string
   'ce.co.autoStoppingRule.configuration.step3.subTitle': string
   'ce.co.autoStoppingRule.configuration.step3.title': string
@@ -1147,10 +1152,10 @@ export interface StringsMap {
   'ce.co.autoStoppingRule.helpText.readMore': string
   'ce.co.autoStoppingRule.helpText.step1.description': string
   'ce.co.autoStoppingRule.helpText.step1.title': string
-  'ce.co.autoStoppingRule.helpText.step2.description.additionalInfo': string
   'ce.co.autoStoppingRule.helpText.step2.description.heading': string
-  'ce.co.autoStoppingRule.helpText.step2.description.info': string
   'ce.co.autoStoppingRule.helpText.step2.description.resourceList.asg': string
+  'ce.co.autoStoppingRule.helpText.step2.description.resourceList.kubernetes': string
+  'ce.co.autoStoppingRule.helpText.step2.description.resourceList.vms': string
   'ce.co.autoStoppingRule.helpText.step2.title': string
   'ce.co.autoStoppingRule.helpText.step3.description.additionalInfo': string
   'ce.co.autoStoppingRule.helpText.step3.description.heading': string
@@ -1185,6 +1190,7 @@ export interface StringsMap {
   'ce.co.autoStoppingRule.setupAccess.helpText.ssh.setup.download': string
   'ce.co.autoStoppingRule.setupAccess.helpText.ssh.setup.title': string
   'ce.co.autoStoppingRule.setupAccess.pageName': string
+  'ce.co.autoStoppingRule.setupAccess.selectAppGateway': string
   'ce.co.autoStoppingRule.setupAccess.selectLb': string
   'ce.co.autoStoppingRule.setupAccess.selectLbHelpText': string
   'ce.co.breadCrumb.rules': string
@@ -1194,6 +1200,7 @@ export interface StringsMap {
   'ce.co.gatewayAccess.accessDescription': string
   'ce.co.gatewayAccess.backgroundTasks': string
   'ce.co.gatewayAccess.dnsLink': string
+  'ce.co.gatewayAccess.dnsLinkHeader': string
   'ce.co.gatewayAccess.ip': string
   'ce.co.gatewayAccess.rdp': string
   'ce.co.gatewayAccess.sshRdp': string

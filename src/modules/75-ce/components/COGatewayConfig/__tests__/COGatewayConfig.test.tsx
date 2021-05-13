@@ -264,7 +264,7 @@ describe('Auto stopping Rule creation Tests', () => {
       </TestWrapper>
     )
 
-    const asgRadio = getByLabelText('Auto-scaling groups')
+    const asgRadio = getByLabelText('Auto scaling groups')
     expect(asgRadio).toBeDefined()
     act(() => {
       fireEvent.click(asgRadio)
@@ -277,7 +277,7 @@ describe('Auto stopping Rule creation Tests', () => {
     fireEvent.click(getByTestId('close-asg-modal'))
     expect(queryByText('Select Auto scaling group')).toBeFalsy()
 
-    expect(getByText('ce.co.autoStoppingRule.configuration.step3.subTitle')).toBeDefined()
+    expect(getByText('ce.co.autoStoppingRule.configuration.step3.asgSubTitle')).toBeDefined()
     const odInstanceInput = container.querySelector('input[name="odInstance"]') as HTMLInputElement
     expect(odInstanceInput).toBeTruthy()
     await waitFor(() => {

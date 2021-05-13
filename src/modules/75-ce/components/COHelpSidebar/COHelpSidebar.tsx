@@ -30,9 +30,9 @@ const ConfigStepOneContent = () => {
       <Text style={{ lineHeight: '20px', fontSize: 'var(--font-size-normal)' }}>
         {getString('ce.co.autoStoppingRule.helpText.step1.description')}
       </Text>
-      <Text style={{ color: '#0278d5', fontSize: 'var(--font-size-normal)', fontWeight: 500, lineHeight: '24px' }}>
+      {/* <Text style={{ color: '#0278d5', fontSize: 'var(--font-size-normal)', fontWeight: 500, lineHeight: '24px' }}>
         {getString('ce.co.autoStoppingRule.helpText.readMore')}
-      </Text>
+      </Text> */}
     </>
   )
 }
@@ -46,14 +46,11 @@ const ConfigStepTwoContent = () => {
       </Text>
       <Text style={{ lineHeight: '20px', fontSize: 'var(--font-size-normal)' }}>
         {getString('ce.co.autoStoppingRule.helpText.step2.description.heading')}
+        <br />
         <ol type={'1'}>
-          <li>{getString('pipelineSteps.instanceLabel')}</li>
+          <li>{getString('ce.co.autoStoppingRule.helpText.step2.description.resourceList.vms')}</li>
           <li>{getString('ce.co.autoStoppingRule.helpText.step2.description.resourceList.asg')}</li>
         </ol>
-        <br />
-        {getString('ce.co.autoStoppingRule.helpText.step2.description.info')}
-        <br />
-        {getString('ce.co.autoStoppingRule.helpText.step2.description.additionalInfo')}
       </Text>
     </>
   )
@@ -131,11 +128,11 @@ const COHelpSidebar: React.FC<COHelpSidebarProps> = props => {
                 {getString('ce.co.autoStoppingRule.setupAccess.helpText.ip.info')}
               </Text>
             </Layout.Horizontal>
-            <Text
+            {/* <Text
               style={{ color: '#0278d5', fontSize: 'var(--font-size-normal)', fontWeight: 500, lineHeight: '24px' }}
             >
               {getString('ce.co.autoStoppingRule.helpText.readMore')}
-            </Text>
+            </Text> */}
           </Layout.Vertical>
         </Container>
       ) : null}
@@ -232,11 +229,11 @@ const COHelpSidebar: React.FC<COHelpSidebarProps> = props => {
                   </Layout.Vertical>
                 </Layout.Horizontal>
               ) : null}
-              <Text
+              {/* <Text
                 style={{ color: '#0278d5', fontSize: 'var(--font-size-normal)', fontWeight: 500, lineHeight: '24px' }}
               >
                 {getString('ce.co.autoStoppingRule.helpText.readMore')}
-              </Text>
+              </Text> */}
             </Layout.Vertical>
           </Container>
         </>
@@ -269,11 +266,11 @@ const COHelpSidebar: React.FC<COHelpSidebarProps> = props => {
                   </Text>
                 </Layout.Vertical>
               </Layout.Horizontal>
-              <Text
+              {/* <Text
                 style={{ color: '#0278d5', fontSize: 'var(--font-size-normal)', fontWeight: 500, lineHeight: '24px' }}
               >
                 {getString('ce.co.autoStoppingRule.helpText.readMore')}
-              </Text>
+              </Text> */}
             </Layout.Vertical>
           </Container>
         </>
@@ -293,11 +290,11 @@ const COHelpSidebar: React.FC<COHelpSidebarProps> = props => {
                 }}
               />
               <Text>{getString('ce.co.autoStoppingRule.providerSelector.helpText.selectProvider')}</Text>
-              <Text
+              {/* <Text
                 style={{ color: '#0278d5', fontSize: 'var(--font-size-normal)', fontWeight: 500, lineHeight: '24px' }}
               >
                 {getString('ce.co.autoStoppingRule.helpText.readMore')}
-              </Text>
+              </Text> */}
             </Layout.Vertical>
           </Container>
         </>

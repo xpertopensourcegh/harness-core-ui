@@ -17,6 +17,12 @@ exports[`Instance Selector Modal search and select instances successfully 1`] = 
         >
           Select Instances
         </p>
+        <p
+          class="StyledProps--font StyledProps--main"
+          style="margin-top: 15px;"
+        >
+          ce.co.autoStoppingRule.configuration.instanceModal.description
+        </p>
       </div>
       <div
         class="Layout--horizontal StyledProps--main"
@@ -323,6 +329,12 @@ exports[`Instance Selector Modal should show data 1`] = `
         >
           Select Instances
         </p>
+        <p
+          class="StyledProps--font StyledProps--main"
+          style="margin-top: 15px;"
+        >
+          ce.co.autoStoppingRule.configuration.instanceModal.description
+        </p>
       </div>
       <div
         class="Layout--horizontal StyledProps--main"
@@ -594,6 +606,12 @@ exports[`Instance Selector Modal should show loader while loading data 1`] = `
           class="StyledProps--font StyledProps--main StyledProps--font-large"
         >
           Select Instances
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main"
+          style="margin-top: 15px;"
+        >
+          ce.co.autoStoppingRule.configuration.instanceModal.description
         </p>
       </div>
       <div

@@ -83,6 +83,9 @@ const COInstanceSelector: React.FC<COInstanceSelectorprops> = props => {
       <Layout.Vertical spacing="large">
         <Container style={{ paddingBottom: 20, borderBottom: '1px solid #CDD3DD' }}>
           <Text font={'large'}>Select Instances</Text>
+          <Text style={{ marginTop: 15 }}>
+            {getString('ce.co.autoStoppingRule.configuration.instanceModal.description')}
+          </Text>
         </Container>
         <Layout.Horizontal
           style={{

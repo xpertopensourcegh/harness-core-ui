@@ -126,12 +126,6 @@ exports[`Testing COGatewayAccess DNS checkbox checks succesfully 1`] = `
                 </p>
               </div>
             </div>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="color: rgb(2, 120, 213); font-weight: 500; line-height: 24px;"
-            >
-              ce.co.autoStoppingRule.helpText.readMore
-            </p>
           </div>
         </div>
       </div>
@@ -269,7 +263,7 @@ exports[`Testing COGatewayAccess DNS checkbox checks succesfully 1`] = `
                 class="StyledProps--font StyledProps--font-h3 StyledProps--main"
                 level="3"
               >
-                A DNS Link lets you to connect to the Rule by matching human-readable domain names
+                ce.co.gatewayAccess.dnsLinkHeader
               </h3>
               <div
                 class="OverlaySpinner--overlaySpinner"
@@ -559,12 +553,6 @@ exports[`Testing COGatewayAccess SSH checkbox checks succesfully and download os
                 </p>
               </div>
             </div>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="color: rgb(2, 120, 213); font-weight: 500; line-height: 24px;"
-            >
-              ce.co.autoStoppingRule.helpText.readMore
-            </p>
           </div>
         </div>
       </div>
@@ -883,12 +871,6 @@ exports[`Testing COGatewayAccess renders without crashing 1`] = `
                 ce.co.autoStoppingRule.setupAccess.helpText.ip.info
               </p>
             </div>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="color: rgb(2, 120, 213); font-weight: 500; line-height: 24px;"
-            >
-              ce.co.autoStoppingRule.helpText.readMore
-            </p>
           </div>
         </div>
       </div>

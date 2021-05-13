@@ -58,12 +58,6 @@ exports[`Auto stopping Rule creation Tests Config screen renders without crashin
             </p>
             <p
               class="StyledProps--font StyledProps--main"
-              style="color: rgb(2, 120, 213); font-weight: 500; line-height: 24px;"
-            >
-              ce.co.autoStoppingRule.helpText.readMore
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main"
               style="font-weight: 500; line-height: 24px;"
             >
               <span
@@ -90,20 +84,17 @@ exports[`Auto stopping Rule creation Tests Config screen renders without crashin
               style="line-height: 20px;"
             >
               ce.co.autoStoppingRule.helpText.step2.description.heading
+              <br />
               <ol
                 type="1"
               >
                 <li>
-                  pipelineSteps.instanceLabel
+                  ce.co.autoStoppingRule.helpText.step2.description.resourceList.vms
                 </li>
                 <li>
                   ce.co.autoStoppingRule.helpText.step2.description.resourceList.asg
                 </li>
               </ol>
-              <br />
-              ce.co.autoStoppingRule.helpText.step2.description.info
-              <br />
-              ce.co.autoStoppingRule.helpText.step2.description.additionalInfo
             </p>
           </div>
         </div>
@@ -268,8 +259,9 @@ exports[`Auto stopping Rule creation Tests Config screen renders without crashin
                             >
                               <p
                                 class="StyledProps--font StyledProps--main"
+                                style="font-size: 13px;"
                               >
-                                Idle time (mins)
+                                ce.co.autoStoppingRule.configuration.step1.form.idleTime.label
                               </p>
                             </div>
                              
@@ -363,7 +355,7 @@ exports[`Auto stopping Rule creation Tests Config screen renders without crashin
                   <span
                     class="bp3-control-indicator"
                   />
-                  Auto-scaling groups
+                  Auto scaling groups
                 </label>
               </div>
             </div>
@@ -387,7 +379,11 @@ exports[`Auto stopping Rule creation Tests Config screen renders without crashin
           >
             ce.co.autoStoppingRule.configuration.step3.title
           </p>
-          
+          <p
+            class="StyledProps--font StyledProps--main subTitle"
+          >
+            ce.co.autoStoppingRule.configuration.step3.subTitle
+          </p>
           <div
             class="childrenContainer"
           >
@@ -530,12 +526,6 @@ exports[`Auto stopping Rule creation Tests Fill remaining form for INSTANCES 1`]
             </p>
             <p
               class="StyledProps--font StyledProps--main"
-              style="color: rgb(2, 120, 213); font-weight: 500; line-height: 24px;"
-            >
-              ce.co.autoStoppingRule.helpText.readMore
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main"
               style="font-weight: 500; line-height: 24px;"
             >
               <span
@@ -562,20 +552,17 @@ exports[`Auto stopping Rule creation Tests Fill remaining form for INSTANCES 1`]
               style="line-height: 20px;"
             >
               ce.co.autoStoppingRule.helpText.step2.description.heading
+              <br />
               <ol
                 type="1"
               >
                 <li>
-                  pipelineSteps.instanceLabel
+                  ce.co.autoStoppingRule.helpText.step2.description.resourceList.vms
                 </li>
                 <li>
                   ce.co.autoStoppingRule.helpText.step2.description.resourceList.asg
                 </li>
               </ol>
-              <br />
-              ce.co.autoStoppingRule.helpText.step2.description.info
-              <br />
-              ce.co.autoStoppingRule.helpText.step2.description.additionalInfo
             </p>
           </div>
         </div>
@@ -740,8 +727,9 @@ exports[`Auto stopping Rule creation Tests Fill remaining form for INSTANCES 1`]
                             >
                               <p
                                 class="StyledProps--font StyledProps--main"
+                                style="font-size: 13px;"
                               >
-                                Idle time (mins)
+                                ce.co.autoStoppingRule.configuration.step1.form.idleTime.label
                               </p>
                             </div>
                              
@@ -836,7 +824,7 @@ exports[`Auto stopping Rule creation Tests Fill remaining form for INSTANCES 1`]
                   <span
                     class="bp3-control-indicator"
                   />
-                  Auto-scaling groups
+                  Auto scaling groups
                 </label>
               </div>
               <div
@@ -1050,7 +1038,11 @@ exports[`Auto stopping Rule creation Tests Fill remaining form for INSTANCES 1`]
           >
             ce.co.autoStoppingRule.configuration.step3.title
           </p>
-          
+          <p
+            class="StyledProps--font StyledProps--main subTitle"
+          >
+            ce.co.autoStoppingRule.configuration.step3.subTitle
+          </p>
           <div
             class="childrenContainer"
           >
@@ -1896,12 +1888,6 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 1`] = `
             </p>
             <p
               class="StyledProps--font StyledProps--main"
-              style="color: rgb(2, 120, 213); font-weight: 500; line-height: 24px;"
-            >
-              ce.co.autoStoppingRule.helpText.readMore
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main"
               style="font-weight: 500; line-height: 24px;"
             >
               <span
@@ -1928,20 +1914,17 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 1`] = `
               style="line-height: 20px;"
             >
               ce.co.autoStoppingRule.helpText.step2.description.heading
+              <br />
               <ol
                 type="1"
               >
                 <li>
-                  pipelineSteps.instanceLabel
+                  ce.co.autoStoppingRule.helpText.step2.description.resourceList.vms
                 </li>
                 <li>
                   ce.co.autoStoppingRule.helpText.step2.description.resourceList.asg
                 </li>
               </ol>
-              <br />
-              ce.co.autoStoppingRule.helpText.step2.description.info
-              <br />
-              ce.co.autoStoppingRule.helpText.step2.description.additionalInfo
             </p>
           </div>
         </div>
@@ -2106,8 +2089,9 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 1`] = `
                             >
                               <p
                                 class="StyledProps--font StyledProps--main"
+                                style="font-size: 13px;"
                               >
-                                Idle time (mins)
+                                ce.co.autoStoppingRule.configuration.step1.form.idleTime.label
                               </p>
                             </div>
                              
@@ -2202,7 +2186,7 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 1`] = `
                   <span
                     class="bp3-control-indicator"
                   />
-                  Auto-scaling groups
+                  Auto scaling groups
                 </label>
               </div>
               <div
@@ -2312,12 +2296,12 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 1`] = `
           <p
             class="StyledProps--font StyledProps--main title"
           >
-            ce.co.autoStoppingRule.configuration.step3.title
+            ce.co.autoStoppingRule.configuration.step3.asgTitle
           </p>
           <p
             class="StyledProps--font StyledProps--main subTitle"
           >
-            ce.co.autoStoppingRule.configuration.step3.subTitle
+            ce.co.autoStoppingRule.configuration.step3.asgSubTitle
           </p>
           <div
             class="childrenContainer"
@@ -2980,12 +2964,6 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 2`] = `
             </p>
             <p
               class="StyledProps--font StyledProps--main"
-              style="color: rgb(2, 120, 213); font-weight: 500; line-height: 24px;"
-            >
-              ce.co.autoStoppingRule.helpText.readMore
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main"
               style="font-weight: 500; line-height: 24px;"
             >
               <span
@@ -3012,20 +2990,17 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 2`] = `
               style="line-height: 20px;"
             >
               ce.co.autoStoppingRule.helpText.step2.description.heading
+              <br />
               <ol
                 type="1"
               >
                 <li>
-                  pipelineSteps.instanceLabel
+                  ce.co.autoStoppingRule.helpText.step2.description.resourceList.vms
                 </li>
                 <li>
                   ce.co.autoStoppingRule.helpText.step2.description.resourceList.asg
                 </li>
               </ol>
-              <br />
-              ce.co.autoStoppingRule.helpText.step2.description.info
-              <br />
-              ce.co.autoStoppingRule.helpText.step2.description.additionalInfo
             </p>
           </div>
         </div>
@@ -3190,8 +3165,9 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 2`] = `
                             >
                               <p
                                 class="StyledProps--font StyledProps--main"
+                                style="font-size: 13px;"
                               >
-                                Idle time (mins)
+                                ce.co.autoStoppingRule.configuration.step1.form.idleTime.label
                               </p>
                             </div>
                              
@@ -3286,7 +3262,7 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 2`] = `
                   <span
                     class="bp3-control-indicator"
                   />
-                  Auto-scaling groups
+                  Auto scaling groups
                 </label>
               </div>
               <div
@@ -3396,12 +3372,12 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 2`] = `
           <p
             class="StyledProps--font StyledProps--main title"
           >
-            ce.co.autoStoppingRule.configuration.step3.title
+            ce.co.autoStoppingRule.configuration.step3.asgTitle
           </p>
           <p
             class="StyledProps--font StyledProps--main subTitle"
           >
-            ce.co.autoStoppingRule.configuration.step3.subTitle
+            ce.co.autoStoppingRule.configuration.step3.asgSubTitle
           </p>
           <div
             class="childrenContainer"

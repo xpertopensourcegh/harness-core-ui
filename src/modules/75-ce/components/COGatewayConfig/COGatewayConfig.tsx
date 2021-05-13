@@ -95,7 +95,7 @@ enum RESOURCES {
 
 const managedResources = [
   { label: 'Instances', value: RESOURCES.INSTANCES, providers: ['aws', 'azure'] },
-  { label: 'Auto-scaling groups', value: RESOURCES.ASG, providers: ['aws'] }
+  { label: 'Auto scaling groups', value: RESOURCES.ASG, providers: ['aws'] }
 ]
 
 const modalProps: IDialogProps = {
@@ -679,7 +679,9 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                           name="idleTime"
                           label={
                             <Layout.Horizontal spacing="small">
-                              <Text>Idle time (mins)</Text>
+                              <Text style={{ fontSize: 13 }}>
+                                {getString('ce.co.autoStoppingRule.configuration.step1.form.idleTime.label')}
+                              </Text>
                             </Layout.Horizontal>
                           }
                           placeholder="Enter time"
@@ -833,8 +835,16 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
           </COGatewayConfigStep>
           <COGatewayConfigStep
             count={3}
-            title={getString('ce.co.autoStoppingRule.configuration.step3.title')}
-            subTitle={selectedAsg ? getString('ce.co.autoStoppingRule.configuration.step3.subTitle') : ''}
+            title={
+              selectedAsg
+                ? getString('ce.co.autoStoppingRule.configuration.step3.asgTitle')
+                : getString('ce.co.autoStoppingRule.configuration.step3.title')
+            }
+            subTitle={
+              selectedAsg
+                ? getString('ce.co.autoStoppingRule.configuration.step3.asgSubTitle')
+                : getString('ce.co.autoStoppingRule.configuration.step3.subTitle')
+            }
             totalStepsCount={4}
             id={CONFIG_STEP_IDS[2]}
           >

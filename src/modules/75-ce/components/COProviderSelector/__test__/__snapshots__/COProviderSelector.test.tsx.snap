@@ -63,12 +63,6 @@ exports[`COProviderSelector Rendering should render COProviderSelector 1`] = `
           >
             ce.co.autoStoppingRule.providerSelector.helpText.selectProvider
           </p>
-          <p
-            class="StyledProps--font StyledProps--main"
-            style="color: rgb(2, 120, 213); font-weight: 500; line-height: 24px;"
-          >
-            ce.co.autoStoppingRule.helpText.readMore
-          </p>
         </div>
       </div>
     </div>
@@ -415,12 +409,6 @@ exports[`COProviderSelector selecting AWS provider shows option to select connec
             class="StyledProps--font StyledProps--main"
           >
             ce.co.autoStoppingRule.providerSelector.helpText.selectProvider
-          </p>
-          <p
-            class="StyledProps--font StyledProps--main"
-            style="color: rgb(2, 120, 213); font-weight: 500; line-height: 24px;"
-          >
-            ce.co.autoStoppingRule.helpText.readMore
           </p>
         </div>
       </div>

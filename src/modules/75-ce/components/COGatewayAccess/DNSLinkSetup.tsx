@@ -362,7 +362,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
 
   return (
     <Layout.Vertical spacing="medium" padding="medium">
-      <Heading level={3}>A DNS Link lets you to connect to the Rule by matching human-readable domain names</Heading>
+      <Heading level={3}>{getString('ce.co.gatewayAccess.dnsLinkHeader')}</Heading>
 
       <Formik
         initialValues={{
@@ -396,7 +396,11 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
             <Layout.Vertical spacing="large">
               <Container className={css.dnsLinkContainer}>
                 <Heading level={3} font={{ weight: 'bold' }} className={css.header}>
-                  {getString('ce.co.autoStoppingRule.setupAccess.selectLb')}
+                  {getString(
+                    isAwsProvider
+                      ? 'ce.co.autoStoppingRule.setupAccess.selectLb'
+                      : 'ce.co.autoStoppingRule.setupAccess.selectAppGateway'
+                  )}
                 </Heading>
                 <Layout.Horizontal className={css.selectLoadBalancerContainer}>
                   <img src={loadBalancerSvg} className={css.helperImage} />
@@ -419,7 +423,10 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                         className={css.loadBalancerSelector}
                       />
                       <Text color={Color.BLUE_500} onClick={handleCreateNewLb} style={{ cursor: 'pointer' }}>
-                        {'+' + getString('ce.co.accessPoint.new')}
+                        {'+' +
+                          (isAwsProvider
+                            ? getString('ce.co.accessPoint.new')
+                            : getString('ce.co.accessPoint.newAppGateway'))}
                       </Text>
                     </Layout.Horizontal>
                   </div>
