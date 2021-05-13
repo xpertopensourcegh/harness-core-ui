@@ -40,7 +40,6 @@ const SwitchAccount: React.FC<SwitchAccountProps> = ({ searchString = '', mock }
 
   const { getString } = useStrings()
   const { data, loading, error, refetch } = useGetUser({
-    queryParams: ({ routingId: accountId } as unknown) as void,
     mock
   })
   const { mutate: setDefaultAccount, loading: settingDefault } = useSetDefaultAccountForCurrentUser({ accountId })

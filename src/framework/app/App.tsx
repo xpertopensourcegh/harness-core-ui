@@ -39,6 +39,7 @@ const Harness = (window.Harness = window.Harness || {})
 
 function AppWithAuthentication(props: AppProps): React.ReactElement {
   const token = SessionToken.getToken()
+  const accountId = SessionToken.accountId()
 
   const getRequestOptions = React.useCallback((): Partial<RequestInit> => {
     const headers: RequestInit['headers'] = {}
@@ -49,6 +50,12 @@ function AppWithAuthentication(props: AppProps): React.ReactElement {
 
     return { headers }
   }, [token])
+
+  const getQueryParams = React.useCallback(() => {
+    return {
+      routingId: accountId
+    }
+  }, [accountId])
 
   const { data: refreshTokenResponse, refetch: refreshToken, loading: refreshingToken } = useRefreshToken({
     lazy: true,
@@ -84,6 +91,7 @@ function AppWithAuthentication(props: AppProps): React.ReactElement {
     <RestfulProvider
       base="/"
       requestOptions={getRequestOptions}
+      queryParams={getQueryParams()}
       onResponse={response => {
         if (!response.ok && response.status === 401) {
           // 401 might be returned due to RBAC maybe?
