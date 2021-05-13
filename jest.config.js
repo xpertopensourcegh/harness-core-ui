@@ -36,7 +36,8 @@ module.exports = {
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
     '^.+\\.js$': 'ts-jest',
-    '^.+\\.ya?ml$': '<rootDir>/scripts/jest/yaml-transform.js'
+    '^.+\\.ya?ml$': '<rootDir>/scripts/jest/yaml-transform.js',
+    '^.+\\.gql$': '<rootDir>/scripts/jest/gql-loader.js'
   },
   moduleDirectories: ['node_modules', 'src'],
   testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
