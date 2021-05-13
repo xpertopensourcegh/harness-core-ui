@@ -112,7 +112,7 @@ export const RenderGitDetails: Renderer<CellProps<InputSetLocal>> = ({ row }) =>
   )
 }
 
-const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row, column }) => {
+const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row }) => {
   const data = row.original
   const { getString } = useStrings()
 
@@ -137,7 +137,6 @@ const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row, column }
       className={css.runPipelineBtn}
       intent="primary"
       text={getString('runPipeline')}
-      disabled={!(column as any).canUpdate}
       onClick={e => {
         e.stopPropagation()
         runPipeline()
@@ -311,8 +310,7 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
         width: '15%',
         Cell: RenderColumnActions,
         disableSortBy: true,
-        goToInputSetDetail,
-        canUpdate
+        goToInputSetDetail
       },
       {
         Header: '',
@@ -338,7 +336,7 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
       className={css.table}
       columns={columns}
       data={data?.content || /* istanbul ignore next */ []}
-      onRowClick={item => canUpdate && goToInputSetDetail?.(item.identifier, item.inputSetType)}
+      onRowClick={item => goToInputSetDetail?.(item.identifier, item.inputSetType)}
       pagination={{
         itemCount: data?.totalItems || /* istanbul ignore next */ 0,
         pageSize: data?.pageSize || /* istanbul ignore next */ 10,
