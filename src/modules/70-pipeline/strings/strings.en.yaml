@@ -396,3 +396,8 @@ dashboards:
   totalBuilds: Total Builds
   testCycleTimeSaved: Test Cycle Time Saved
   successfulBuilds: Successful Builds
+  pipelineHealth: Pipeline health
+  totalExecutions: Total Executions
+  successRate: Success Rate
+  meanDuration: Mean Duration
+  medianDuration: Median Duration

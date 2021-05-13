@@ -6,6 +6,12 @@ exports[`<CDPipelineDeploymentList /> tests snapshot test 1`] = `
     class="StyledProps--font StyledProps--main pageBody main"
   >
     <div
+      class="StyledProps--font StyledProps--main healthAndExecutions"
+    >
+      <div />
+      <div />
+    </div>
+    <div
       class="main"
     >
       <div

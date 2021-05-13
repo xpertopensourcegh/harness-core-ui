@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Text, Icon, OverlaySpinner } from '@wings-software/uicore'
+import { Text, Icon, OverlaySpinner, Container } from '@wings-software/uicore'
 
 import { useGetListOfExecutions, useGetFilterList } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
@@ -14,6 +14,8 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 
 import RbacButton from '@rbac/components/Button/Button'
+import PipelineSummaryCards from '@pipeline/components/Dashboards/PipelineSummaryCards/PipelineSummaryCards'
+import PipelineBuildExecutionsChart from '@pipeline/components/Dashboards/BuildExecutionsChart/PipelineBuildExecutionsChart'
 import ExecutionsList from './ExecutionsList/ExecutionsList'
 import ExecutionsPagination from './ExecutionsPagination/ExecutionsPagination'
 import { PipelineDeploymentListHeader } from './PipelineDeploymentListHeader/PipelineDeploymentListHeader'
@@ -25,6 +27,7 @@ const pollingIntervalInMilliseconds = 5_000
 
 export interface PipelineDeploymentListProps {
   onRunPipeline(): void
+  showHealthAndExecution?: boolean
 }
 
 export default function PipelineDeploymentList(props: PipelineDeploymentListProps): React.ReactElement {
@@ -125,6 +128,12 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
       error={error?.message}
       retryOnError={() => fetchExecutions()}
     >
+      {props.showHealthAndExecution && (
+        <Container className={css.healthAndExecutions}>
+          <PipelineSummaryCards />
+          <PipelineBuildExecutionsChart />
+        </Container>
+      )}
       <FilterContextProvider
         savedFilters={filters}
         isFetchingFilters={isFetchingFilters}

@@ -10,7 +10,7 @@ import { useGetBuildHealth } from 'services/ci'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import { RangeSelectorWithTitle } from '../RangeSelector'
-import { roundNumber } from '../shared'
+import { roundNumber, formatDuration } from '../shared'
 import styles from './CIDashboardSummaryCards.module.scss'
 
 export interface SummaryCardProps {
@@ -18,6 +18,7 @@ export interface SummaryCardProps {
   text?: any
   subContent?: React.ReactNode
   rate?: number
+  rateDuration?: number
   isLoading?: boolean
   neutralColor?: boolean
 }
@@ -92,10 +93,28 @@ export default function CIDashboardSummaryCards() {
   )
 }
 
-export function SummaryCard({ title, text, subContent, rate, isLoading, neutralColor }: SummaryCardProps) {
+export function SummaryCard({
+  title,
+  text,
+  subContent,
+  rate,
+  rateDuration,
+  isLoading,
+  neutralColor
+}: SummaryCardProps) {
   const isEmpty = typeof text === 'undefined'
-  const isIncrease = typeof rate === 'number' && rate > 0
-  const isDecrease = typeof rate === 'number' && rate < 0
+  let rateFormatted
+  let isIncrease = false
+  let isDecrease = false
+  if (typeof rate !== 'undefined') {
+    isIncrease = rate > 0
+    isDecrease = rate < 0
+    rateFormatted = `${roundNumber(rate!)}%`
+  } else if (typeof rateDuration === 'number') {
+    isIncrease = rateDuration > 0
+    isDecrease = rateDuration < 0
+    rateFormatted = formatDuration(rateDuration)
+  }
   return (
     <Container
       className={classnames(styles.card, {
@@ -117,8 +136,8 @@ export function SummaryCard({ title, text, subContent, rate, isLoading, neutralC
         </Container>
         {!isEmpty && !isLoading && (
           <Container className={styles.diffContent}>
-            <Text>{`${roundNumber(rate!)}%`}</Text>
-            {rate !== 0 && (
+            <Text>{rateFormatted}</Text>
+            {(isIncrease || isDecrease) && (
               <Icon name="fat-arrow-up" style={isDecrease ? { transform: 'rotate(180deg)' } : {}} size={18} />
             )}
           </Container>
