@@ -2,7 +2,6 @@
 // this is an auto-generated file
 declare const styles: {
   readonly helmGitForm: string
-  readonly halfWidth: string
   readonly folderPath: string
   readonly helmAdvancedSteps: string
   readonly commandFlags: string
@@ -10,9 +9,10 @@ declare const styles: {
   readonly runtimeInput: string
   readonly advancedStepOpen: string
   readonly skipResourceSection: string
+  readonly halfWidth: string
   readonly repoNameSection: string
+  readonly reponameField: string
   readonly repoName: string
-  readonly repoNameUrl: string
   readonly checkbox: string
   readonly tooltip: string
   readonly skipversionTooltip: string

@@ -27,6 +27,7 @@ import { Scope } from '@common/interfaces/SecretsInterface'
 import { getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import type { OpenShiftTemplateGITDataType } from '../../ManifestInterface'
 import { gitFetchTypes, GitRepoName, ManifestStoreMap } from '../../Manifesthelper'
+import GitRepositoryName from '../GitRepositoryName/GitRepositoryName'
 import css from '../ManifestWizardSteps.module.scss'
 import templateCss from './OSTemplateWithGit.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
@@ -197,40 +198,18 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                     label={getString('pipelineSteps.build.create.repositoryNameLabel')}
                     disabled
                     name="repoName"
-                    isOptional={true}
                     style={{ width: '370px' }}
                   />
                 </div>
               )}
 
               {!!(connectionType === GitRepoName.Account && accountUrl) && (
-                <div className={templateCss.repoNameSection}>
-                  <div className={templateCss.repoName}>
-                    <FormInput.MultiTextInput
-                      multiTextInputProps={{ expressions }}
-                      label={getString('pipelineSteps.build.create.repositoryNameLabel')}
-                      placeholder={getString('pipeline.manifestType.repoNamePlacefolder')}
-                      name="repoName"
-                      isOptional={true}
-                    />
-                    {getMultiTypeFromValue(formik.values?.repoName) === MultiTypeInputType.RUNTIME && (
-                      <ConfigureOptions
-                        value={formik.values?.repoName as string}
-                        type="String"
-                        variableName="repoName"
-                        showRequiredField={false}
-                        showDefaultField={false}
-                        showAdvanced={true}
-                        onChange={value => formik.setFieldValue('repoName', value)}
-                      />
-                    )}
-                  </div>
-                  {getMultiTypeFromValue(formik.values?.repoName) === MultiTypeInputType.FIXED && (
-                    <div
-                      className={cx(templateCss.repoNameUrl, templateCss.halfWidth)}
-                    >{`${accountUrl}/${formik.values?.repoName}`}</div>
-                  )}
-                </div>
+                <GitRepositoryName
+                  accountUrl={accountUrl}
+                  expressions={expressions}
+                  fieldValue={formik.values?.repoName}
+                  changeFieldValue={(value: string) => formik.setFieldValue('repoName', value)}
+                />
               )}
               <Layout.Horizontal flex spacing="huge" margin={{ top: 'small', bottom: 'small' }}>
                 <div className={templateCss.halfWidth}>

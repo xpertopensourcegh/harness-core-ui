@@ -45,6 +45,22 @@
     box-shadow: none !important;
     justify-content: flex-start;
   }
+  .accountUrl {
+    color: var(--grey-700);
+    font-weight: bold;
+  }
+  .reponameField {
+    width: 370px;
+    margin-bottom: var(--spacing-xsmall) !important;
+  }
+  .repoName {
+    margin-bottom: var(--spacing-medium);
+    width: 370px;
+  }
+  .repo-name-url {
+    margin-left: 6px;
+    word-break: break-all;
+  }
 }
 .saveBtn {
   position: relative;
@@ -141,15 +157,6 @@
 
 .tooltipContent {
   width: 300px;
-}
-.repoName {
-  margin-bottom: 6px !important;
-  width: 370px;
-}
-.repo-name-url {
-  margin-bottom: var(--spacing-medium);
-  width: 370px;
-  word-break: break-all;
 }
 
 .alignSelf {

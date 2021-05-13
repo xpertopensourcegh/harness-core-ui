@@ -18,17 +18,16 @@
     min-height: 400px;
   }
   .repoNameSection {
-    margin-bottom: 6px !important;
+    margin-bottom: var(--spacing-medium);
+  }
+  .reponameField {
+    margin-bottom: var(--spacing-small);
   }
   .repoName {
     display: grid;
     grid-template-columns: 1fr 35px;
     width: 50%;
     align-items: center;
-  }
-  .repo-name-url {
-    margin-bottom: var(--spacing-medium);
-    word-break: break-all;
   }
 }
 

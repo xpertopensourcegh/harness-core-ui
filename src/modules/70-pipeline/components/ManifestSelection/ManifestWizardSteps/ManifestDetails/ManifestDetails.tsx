@@ -24,7 +24,7 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import { FormMultiTypeCheckboxField } from '@common/components'
 
-import { useStrings } from 'framework/strings'
+import { String, useStrings } from 'framework/strings'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import { getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
@@ -268,13 +268,13 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
 
                 {!!(connectionType === GitRepoName.Account && accountUrl) && (
                   <div className={css.repoName}>
-                    <div className={cx(stepCss.formGroup, stepCss.md)}>
+                    <div className={cx(stepCss.formGroup)}>
                       <FormInput.MultiTextInput
                         multiTextInputProps={{ expressions }}
                         label={getString('pipelineSteps.build.create.repositoryNameLabel')}
                         placeholder={getString('pipeline.manifestType.repoNamePlacefolder')}
                         name="repoName"
-                        style={{ width: 370 }}
+                        className={css.reponameField}
                       />
                       {getMultiTypeFromValue(formik.values?.repoName) === MultiTypeInputType.RUNTIME && (
                         <ConfigureOptions
@@ -291,7 +291,10 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                     </div>
 
                     {getMultiTypeFromValue(formik.values?.repoName) === MultiTypeInputType.FIXED && (
-                      <div className={css.repoNameUrl}>{`${accountUrl}/${formik.values?.repoName}`}</div>
+                      <>
+                        <String stringID="common.git.gitAccountUrl" className={css.accountUrl} />:
+                        <span className={css.repoNameUrl}>{`${accountUrl}`}</span>
+                      </>
                     )}
                   </div>
                 )}

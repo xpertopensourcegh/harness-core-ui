@@ -27,6 +27,7 @@ import { Scope } from '@common/interfaces/SecretsInterface'
 import HelmAdvancedStepSection from '../HelmAdvancedStepSection'
 import type { CommandFlags, HelmWithGITDataType } from '../../ManifestInterface'
 import { gitFetchTypes, GitRepoName, helmVersions, ManifestStoreMap } from '../../Manifesthelper'
+import GitRepositoryName from '../GitRepositoryName/GitRepositoryName'
 import css from '../ManifestWizardSteps.module.scss'
 import helmcss from './HelmWithGIT.module.scss'
 
@@ -232,33 +233,12 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
               )}
 
               {!!(connectionType === GitRepoName.Account && accountUrl) && (
-                <div className={helmcss.repoNameSection}>
-                  <div className={helmcss.repoName}>
-                    <FormInput.MultiTextInput
-                      multiTextInputProps={{ expressions }}
-                      placeholder={getString('pipeline.manifestType.repoNamePlacefolder')}
-                      label={getString('pipelineSteps.build.create.repositoryNameLabel')}
-                      name="repoName"
-                      isOptional={true}
-                    />
-                    {getMultiTypeFromValue(formik.values?.repoName) === MultiTypeInputType.RUNTIME && (
-                      <ConfigureOptions
-                        value={formik.values?.repoName as string}
-                        type="String"
-                        variableName="repoName"
-                        showRequiredField={false}
-                        showDefaultField={false}
-                        showAdvanced={true}
-                        onChange={value => formik.setFieldValue('repoName', value)}
-                      />
-                    )}
-                  </div>
-                  {getMultiTypeFromValue(formik.values?.repoName) === MultiTypeInputType.FIXED && (
-                    <div
-                      className={cx(helmcss.repoNameUrl, helmcss.halfWidth)}
-                    >{`${accountUrl}/${formik.values?.repoName}`}</div>
-                  )}
-                </div>
+                <GitRepositoryName
+                  accountUrl={accountUrl}
+                  expressions={expressions}
+                  fieldValue={formik.values?.repoName}
+                  changeFieldValue={(value: string) => formik.setFieldValue('repoName', value)}
+                />
               )}
               <Layout.Horizontal flex spacing="huge" margin={{ top: 'small', bottom: 'small' }}>
                 <div className={helmcss.halfWidth}>

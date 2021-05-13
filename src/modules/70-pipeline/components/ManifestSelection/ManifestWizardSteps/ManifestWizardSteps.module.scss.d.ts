@@ -9,6 +9,10 @@ declare const styles: {
   readonly bp3PopoverTarget: string
   readonly configureOptions: string
   readonly addNewManifest: string
+  readonly accountUrl: string
+  readonly reponameField: string
+  readonly repoName: string
+  readonly repoNameUrl: string
   readonly saveBtn: string
   readonly drag: string
   readonly dragging: string
@@ -27,8 +31,6 @@ declare const styles: {
   readonly halfWidth: string
   readonly tooltip: string
   readonly tooltipContent: string
-  readonly repoName: string
-  readonly repoNameUrl: string
   readonly alignSelf: string
   readonly addmarginTop: string
   readonly tooltipCls: string
