@@ -34,6 +34,7 @@ const CreateGitConnector = (props: CreateConnectorModalProps): JSX.Element => {
         name={getString('overview')}
         isEditMode={props.isEditMode}
         connectorInfo={props.connectorInfo}
+        gitDetails={props.gitDetails}
         mock={props.mock}
       />
       <GitDetailsStep

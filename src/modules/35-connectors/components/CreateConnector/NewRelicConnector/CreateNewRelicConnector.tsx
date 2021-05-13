@@ -249,6 +249,7 @@ export default function CreateNewRelicConnector(props: CreateNewRelicConnectorPr
           name={getString('connectors.newRelicConnectorDetails')}
           isEditMode={isEditMode}
           connectorInfo={props.connectorInfo}
+          gitDetails={props.gitDetails}
           mock={props.mockIdentifierValidate}
         />
         <ConnectionConfigStep

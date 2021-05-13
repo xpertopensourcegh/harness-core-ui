@@ -23,6 +23,7 @@ const CreateCeAzureConnector: React.FC<CreateConnectorModalProps> = props => {
         name={getString('overview')}
         isEditMode={props.isEditMode}
         connectorInfo={props.connectorInfo}
+        gitDetails={props.gitDetails}
       />
       <AzureBillingInfo {...props} name={'Azure Connection Details'} onSuccess={props.onSuccess} />
       <CreateServicePrincipal name={'Create Service Principal'} />

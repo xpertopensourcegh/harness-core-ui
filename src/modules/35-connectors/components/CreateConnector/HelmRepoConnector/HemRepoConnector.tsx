@@ -41,6 +41,7 @@ const HelmRepoConnector: React.FC<CreateHelmConnectorProps> = props => {
         name={getString('overview')}
         isEditMode={props.isEditMode}
         connectorInfo={props.connectorInfo}
+        gitDetails={props.gitDetails}
         mock={props.mock}
       />
       <StepHelmAuth

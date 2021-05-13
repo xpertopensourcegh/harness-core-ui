@@ -164,9 +164,11 @@ export interface StringsMap {
   'common.git.validation.filePath': string
   'common.gitSync.allRepositories': string
   'common.gitSync.defaultBranches': string
+  'common.gitSync.gitRepositoryDetails': string
   'common.gitSync.repoDetails': string
   'common.gitSync.resourceLabel': string
   'common.gitSync.rootFolderLabel': string
+  'common.gitSync.selectBranchLabel': string
   'common.gitSync.sync': string
   'common.gitSync.syncStartSuccess': string
   'common.gitSync.syncing.header': string

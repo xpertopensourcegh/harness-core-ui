@@ -18,13 +18,17 @@ import {
   ConnectorInfoDTO,
   ResponseBoolean,
   validateTheIdentifierIsUniquePromise,
-  Failure
+  Failure,
+  EntityGitDetails
 } from 'services/cd-ng'
 import { String, useStrings } from 'framework/strings'
 import { NameIdDescriptionTags } from '@common/components'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
+import GitContextForm, { GitContextProps } from '@common/components/GitContextForm/GitContextForm'
 import { getHeadingIdByType } from '../../../pages/connectors/utils/ConnectorHelper'
 import css from './ConnectorDetailsStep.module.scss'
-export type DetailsForm = Pick<ConnectorInfoDTO, 'name' | 'identifier' | 'description' | 'tags'>
+export type DetailsForm = Pick<ConnectorInfoDTO, 'name' | 'identifier' | 'description' | 'tags'> & GitContextProps
 
 interface ConnectorDetailsStepProps extends StepProps<ConnectorInfoDTO> {
   type: ConnectorInfoDTO['type']
@@ -33,6 +37,7 @@ interface ConnectorDetailsStepProps extends StepProps<ConnectorInfoDTO> {
   formData?: ConnectorConfigDTO
   isEditMode?: boolean
   connectorInfo?: ConnectorInfoDTO | void
+  gitDetails?: EntityGitDetails
   mock?: ResponseBoolean
 }
 
@@ -45,6 +50,7 @@ type Params = {
 const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsStepProps> = props => {
   const { prevStepData, nextStep } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams<Params>()
+  const { isGitSyncEnabled } = useAppStore()
   const mounted = useRef(false)
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const [loading, setLoading] = useState(false)
@@ -142,6 +148,12 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
                     formikProps={formikProps}
                     identifierProps={{ inputName: 'name', isIdentifierEditable: !isEdit }}
                   />
+
+                  {isGitSyncEnabled && (
+                    <GitSyncStoreProvider>
+                      <GitContextForm formikProps={formikProps} gitDetails={props.gitDetails} />
+                    </GitSyncStoreProvider>
+                  )}
                 </Container>
                 <Layout.Horizontal>
                   <Button type="submit" intent="primary" rightIcon="chevron-right" disabled={loading}>

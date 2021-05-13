@@ -126,6 +126,8 @@ gitSync:
   allRepositories: All Repositories
   defaultBranches: Default Branches
   repoDetails: Repo Details
+  gitRepositoryDetails: Git Repository Details
+  selectBranchLabel: Select a Branch
   sync: Sync
   syncStartSuccess: 'Sync started for branch {{branch}}'
   syncing:

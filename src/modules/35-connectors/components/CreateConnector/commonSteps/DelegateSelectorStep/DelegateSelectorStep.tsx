@@ -74,18 +74,11 @@ const defaultInitialFormData: InitialFormData = {
 }
 
 const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSelectorProps> = props => {
-  const {
-    prevStepData,
-    nextStep,
-    buildPayload,
-    customHandleCreate,
-    customHandleUpdate,
-    connectorInfo,
-    gitDetails
-  } = props
+  const { prevStepData, nextStep, buildPayload, customHandleCreate, customHandleUpdate, connectorInfo } = props
   const { accountId, projectIdentifier: projectIdentifierFromUrl, orgIdentifier: orgIdentifierFromUrl } = useParams<
     any
   >()
+  let gitDetails = props.gitDetails
   const projectIdentifier = connectorInfo ? connectorInfo.projectIdentifier : projectIdentifierFromUrl
   const orgIdentifier = connectorInfo ? connectorInfo.orgIdentifier : orgIdentifierFromUrl
   const { showSuccess } = useToaster()
@@ -215,6 +208,11 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
             setConnectorPayloadRef(data)
             stepDataRef = stepData
             if (isGitSyncEnabled) {
+              // Using git conext set at 1st step while creating new connector
+              if (!props.isEditMode) {
+                gitDetails = { branch: prevStepData?.branch, repoIdentifier: prevStepData?.repo }
+              }
+
               openSaveToGitDialog(props.isEditMode, {
                 type: Entities.CONNECTORS,
                 name: data.connector?.name || '',

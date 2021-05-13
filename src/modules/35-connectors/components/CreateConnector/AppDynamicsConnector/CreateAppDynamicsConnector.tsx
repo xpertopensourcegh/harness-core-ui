@@ -99,6 +99,7 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
         name={getString('connectors.connectorDetails')}
         isEditMode={isEditMode}
         connectorInfo={props.connectorInfo}
+        gitDetails={props.gitDetails}
         mock={props.mockIdentifierValidate}
       />
       <ConnectionConfigStep

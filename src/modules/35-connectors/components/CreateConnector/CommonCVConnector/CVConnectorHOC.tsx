@@ -37,6 +37,7 @@ export function cvConnectorHOC(hocInput: CVConnectorHOCInput): (props: CreateCon
           name={dsconfigTypeToConnectorDetailsTitle(connectorType, getString)}
           isEditMode={isEditMode}
           connectorInfo={connectorInfo}
+          gitDetails={props.gitDetails}
         />
         <ConnectorCredentialsStep
           isEditMode={isEditMode}

@@ -22,6 +22,7 @@ export default function CreateAWSCodeCommitConnector(props: CreateConnectorModal
         name={getString('overview')}
         isEditMode={props.isEditMode}
         connectorInfo={props.connectorInfo}
+        gitDetails={props.gitDetails}
       />
       <AWSCCDetailsStep
         name={getString('details')}

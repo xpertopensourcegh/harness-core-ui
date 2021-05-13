@@ -33,6 +33,7 @@ const CreateArtifactoryConnector: React.FC<CreateConnectorModalProps> = props =>
           name={getString('overview')}
           isEditMode={props.isEditMode}
           connectorInfo={props.connectorInfo}
+          gitDetails={props.gitDetails}
           mock={props.mock}
         />
         <StepArtifactoryAuthentication

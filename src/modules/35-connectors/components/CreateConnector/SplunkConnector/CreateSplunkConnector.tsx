@@ -100,6 +100,7 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
           mock={props.mockIdentifierValidate}
           isEditMode={isEditMode}
           connectorInfo={props.connectorInfo}
+          gitDetails={props.gitDetails}
         />
         <ConnectionConfigStep
           accountId={props.accountId}
