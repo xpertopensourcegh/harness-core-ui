@@ -27,6 +27,7 @@ import memoize from 'lodash-es/memoize'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import type { FormikErrors } from 'formik'
 import { useGetPipeline } from 'services/pipeline-ng'
+import List from '@common/components/List/List'
 import type { PipelineType, InputSetPathProps } from '@common/interfaces/RouteInterfaces'
 import WorkflowVariables from '@pipeline/components/WorkflowVariablesSelection/WorkflowVariables'
 import ArtifactsSelection from '@pipeline/components/ArtifactsSelection/ArtifactsSelection'
@@ -808,7 +809,14 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                       spec: {
                         skipResourceVersioning = '',
                         store: {
-                          spec: { branch = '', connectorRef = '', folderPath = '', commitId = '', repoName = '' } = {},
+                          spec: {
+                            branch = '',
+                            connectorRef = '',
+                            folderPath = '',
+                            commitId = '',
+                            repoName = '',
+                            paths = ''
+                          } = {},
                           type = ''
                         } = {}
                       } = {}
@@ -863,6 +871,15 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                             name={`${path}.manifests[${index}].manifest.spec.store.spec.branch`}
                           />
                         </FormGroup>
+                      )}
+                      {getMultiTypeFromValue(paths) === MultiTypeInputType.RUNTIME && (
+                        <List
+                          label={getString('fileFolderPathText')}
+                          name={`${path}.manifests[${index}].manifest.spec.store.spec.paths`}
+                          placeholder={getString('pipeline.manifestType.filePathPlaceholder')}
+                          disabled={readonly}
+                          style={{ marginBottom: 'var(--spacing-small)' }}
+                        />
                       )}
                       {getMultiTypeFromValue(repoName) === MultiTypeInputType.RUNTIME && (
                         <FormGroup
@@ -1225,6 +1242,16 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
           errors,
           `manifests[${index}].manifest.spec.store.spec.branch`,
           getString?.('fieldRequired', { field: 'Branch' })
+        )
+      }
+      if (
+        isEmpty(manifest?.manifest?.spec?.store?.spec?.paths?.[0]) &&
+        getMultiTypeFromValue(currentManifestTemplate?.paths) === MultiTypeInputType.RUNTIME
+      ) {
+        set(
+          errors,
+          `manifests[${index}].manifest.spec.store.spec.paths`,
+          getString?.('fieldRequired', { field: 'Paths' })
         )
       }
     })

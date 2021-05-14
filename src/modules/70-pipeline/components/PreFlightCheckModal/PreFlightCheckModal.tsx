@@ -525,8 +525,10 @@ export const PreFlightCheckModal: React.FC<PreFlightCheckModalProps> = ({
         .then(response => {
           if (response?.status === 'ERROR' || response?.status === 'FAILURE') {
             processResponseError(response as any)
-          } else {
+          } else if (response.data) {
             setPreFlightCheckId(response.data)
+          } else {
+            processResponseError()
           }
         })
         .catch(error => {

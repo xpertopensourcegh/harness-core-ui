@@ -17,7 +17,7 @@ import { Form, FieldArrayRenderProps, FieldArray } from 'formik'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { Tooltip } from '@blueprintjs/core'
 import * as Yup from 'yup'
-import { get, set } from 'lodash-es'
+import { get, set, isArray, isEmpty } from 'lodash-es'
 import { StringUtils } from '@common/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
@@ -226,11 +226,10 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
             is: 'Commit',
             then: Yup.string().trim().required(getString('validation.commitId'))
           }),
-          paths: Yup.array(
-            Yup.object().shape({
-              path: Yup.string().trim().required(getString('pipeline.manifestType.pathRequired'))
-            })
-          ).min(1)
+          paths: Yup.mixed().test('paths', getString('pipeline.manifestType.pathRequired'), value => {
+            if (typeof value === 'string') return true
+            return isArray(value) && value.length > 0 && !isEmpty(value[0].path)
+          })
         })}
         onSubmit={formData => {
           submitFormData({
@@ -351,68 +350,80 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                     />
                   )}
                 </div>
-
-                <MultiTypeFieldSelector
-                  defaultValueToReset={defaultValueToReset}
-                  disableTypeSelection
-                  name={'paths'}
-                  label={getString('fileFolderPathText')}
-                >
-                  <FieldArray
-                    name="paths"
-                    render={arrayHelpers => (
-                      <Layout.Vertical>
-                        {formik.values?.paths?.map((path: { path: string; uuid: string }, index: number) => (
-                          <Layout.Horizontal
-                            key={path.uuid}
-                            flex={{ distribution: 'space-between' }}
-                            style={{ alignItems: 'end' }}
-                          >
+                <div className={cx(stepCss.formGroup)}>
+                  <MultiTypeFieldSelector
+                    defaultValueToReset={defaultValueToReset}
+                    name={'paths'}
+                    label={<Text>{getString('fileFolderPathText')}</Text>}
+                    style={{ flexGrow: 1, marginBottom: 0 }}
+                  >
+                    <FieldArray
+                      name="paths"
+                      render={arrayHelpers => (
+                        <Layout.Vertical>
+                          {formik.values?.paths?.map((path: { path: string; uuid: string }, index: number) => (
                             <Layout.Horizontal
-                              spacing="medium"
-                              style={{ alignItems: 'baseline' }}
-                              draggable={true}
-                              onDragStart={event => {
-                                onDragStart(event, index)
-                              }}
-                              onDragEnd={onDragEnd}
-                              onDragOver={onDragOver}
-                              onDragLeave={onDragLeave}
-                              onDrop={event => onDrop(event, arrayHelpers, index)}
+                              key={path.uuid}
+                              flex={{ distribution: 'space-between' }}
+                              style={{ alignItems: 'end' }}
                             >
-                              {formik.values?.paths?.length > 1 && (
-                                <Icon name="drag-handle-vertical" className={css.drag} />
-                              )}
-                              {formik.values?.paths?.length > 1 && <Text>{`${index + 1}.`}</Text>}
-                              <FormInput.MultiTextInput
-                                label={''}
-                                placeholder={getString('pipeline.manifestType.filePathPlaceholder')}
-                                name={`paths[${index}].path`}
-                                style={{ width: formik.values?.paths?.length > 1 ? 312 : 370 }}
-                                multiTextInputProps={{
-                                  expressions,
-                                  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                              <Layout.Horizontal
+                                spacing="medium"
+                                style={{ alignItems: 'baseline' }}
+                                draggable={true}
+                                onDragStart={event => {
+                                  onDragStart(event, index)
                                 }}
-                              />
+                                onDragEnd={onDragEnd}
+                                onDragOver={onDragOver}
+                                onDragLeave={onDragLeave}
+                                onDrop={event => onDrop(event, arrayHelpers, index)}
+                              >
+                                {formik.values?.paths?.length > 1 && (
+                                  <Icon name="drag-handle-vertical" className={css.drag} />
+                                )}
+                                {formik.values?.paths?.length > 1 && <Text>{`${index + 1}.`}</Text>}
+                                <FormInput.MultiTextInput
+                                  label={''}
+                                  placeholder={getString('pipeline.manifestType.filePathPlaceholder')}
+                                  name={`paths[${index}].path`}
+                                  style={{ width: formik.values?.paths?.length > 1 ? 312 : 370 }}
+                                  multiTextInputProps={{
+                                    expressions,
+                                    allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                                  }}
+                                />
+                              </Layout.Horizontal>
+                              {formik.values?.paths?.length > 1 && (
+                                <Button minimal icon="minus" onClick={() => arrayHelpers.remove(index)} />
+                              )}
                             </Layout.Horizontal>
-                            {formik.values?.paths?.length > 1 && (
-                              <Button minimal icon="minus" onClick={() => arrayHelpers.remove(index)} />
-                            )}
-                          </Layout.Horizontal>
-                        ))}
-                        <span>
-                          <Button
-                            minimal
-                            text={getString('addFileText')}
-                            intent="primary"
-                            className={css.addFileButton}
-                            onClick={() => arrayHelpers.push({ path: '', uuid: uuid('', nameSpace()) })}
-                          />
-                        </span>
-                      </Layout.Vertical>
-                    )}
-                  />
-                </MultiTypeFieldSelector>
+                          ))}
+                          <span>
+                            <Button
+                              minimal
+                              text={getString('addFileText')}
+                              intent="primary"
+                              className={css.addFileButton}
+                              onClick={() => arrayHelpers.push({ path: '', uuid: uuid('', nameSpace()) })}
+                            />
+                          </span>
+                        </Layout.Vertical>
+                      )}
+                    />
+                  </MultiTypeFieldSelector>
+                  {getMultiTypeFromValue(formik.values.paths) === MultiTypeInputType.RUNTIME && (
+                    <ConfigureOptions
+                      value={formik.values.paths}
+                      type={getString('list')}
+                      variableName={'paths'}
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={val => formik?.setFieldValue('paths', val)}
+                    />
+                  )}
+                </div>
                 {!!(selectedManifest === ManifestDataType.K8sManifest) && (
                   <Accordion
                     activeId={isActiveAdvancedStep ? getString('advancedTitle') : ''}
