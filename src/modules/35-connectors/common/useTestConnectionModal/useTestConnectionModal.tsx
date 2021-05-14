@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useModalHook, Button, Container } from '@wings-software/uicore'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 
-import type { ConnectorInfoDTO } from 'services/cd-ng'
+import type { ConnectorInfoDTO, EntityGitDetails } from 'services/cd-ng'
 import VerifyOutOfClusterDelegate from '../VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import css from './useTestConnectionModal.module.scss'
 
@@ -11,7 +11,7 @@ export interface UseTestConnectionModalProps {
 }
 
 export interface UseTestConnectionModalReturn {
-  openErrorModal: (connector: ConnectorInfoDTO, connectorUrl: string) => void
+  openErrorModal: (connectorTestDetails: IConnectorTestDetails) => void
   hideErrorModal: () => void
 }
 const modalProps: IDialogProps = {
@@ -26,19 +26,29 @@ const modalProps: IDialogProps = {
   }
 }
 
+interface IConnectorTestDetails {
+  connector: ConnectorInfoDTO
+  testUrl: string
+  gitDetails?: EntityGitDetails
+}
+
 const useTestConnectionModal = (props: UseTestConnectionModalProps): UseTestConnectionModalReturn => {
-  const [connectorInfo, setConnectorInfo] = useState<ConnectorInfoDTO>({} as ConnectorInfoDTO)
-  const [url, setUrl] = useState<string>('')
+  const [testDetails, setTestDetails] = useState<IConnectorTestDetails>({
+    connector: {},
+    testUrl: '',
+    gitDetails: {}
+  } as IConnectorTestDetails)
 
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog {...modalProps}>
         <Container height={'100%'} padding="xxlarge">
           <VerifyOutOfClusterDelegate
-            connectorInfo={connectorInfo}
+            connectorInfo={testDetails.connector}
+            gitDetails={testDetails.gitDetails}
             isStep={false}
-            url={url}
-            type={connectorInfo.type}
+            url={testDetails.testUrl}
+            type={testDetails.connector.type}
           />
         </Container>
         <Button
@@ -53,13 +63,12 @@ const useTestConnectionModal = (props: UseTestConnectionModalProps): UseTestConn
         />
       </Dialog>
     ),
-    [connectorInfo, url]
+    [testDetails]
   )
 
   return {
-    openErrorModal: (connector: ConnectorInfoDTO, connectorUrl: string) => {
-      setConnectorInfo(connector)
-      setUrl(connectorUrl)
+    openErrorModal: (connectorTestDetails: IConnectorTestDetails) => {
+      setTestDetails(connectorTestDetails)
       showModal()
     },
     hideErrorModal: hideModal

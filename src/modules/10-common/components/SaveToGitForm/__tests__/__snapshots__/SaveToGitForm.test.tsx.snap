@@ -273,7 +273,9 @@ exports[`Save to git form rendering form to save resouces 1`] = `
                     autocomplete="off"
                     class="bp3-input bp3-fill"
                     name="commitMsg"
-                  />
+                  >
+                    common.gitSync.updateResource
+                  </textarea>
                 </div>
               </div>
               <p
@@ -752,7 +754,9 @@ exports[`Save to git form rendering form to save resouces 2`] = `
                     autocomplete="off"
                     class="bp3-input bp3-fill"
                     name="commitMsg"
-                  />
+                  >
+                    common.gitSync.updateResource
+                  </textarea>
                 </div>
               </div>
               <p

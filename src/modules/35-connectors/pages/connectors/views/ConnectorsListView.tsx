@@ -246,7 +246,7 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
 
   const [errorMessage, setErrorMessage] = useState<ConnectorValidationResult>()
   const { getString } = useStrings()
-
+  const { branch, repoIdentifier } = data.gitDetails || {}
   const [stepDetails, setStepDetails] = useState<StepDetails>({
     step: 1,
     intent: Intent.WARNING,
@@ -256,7 +256,13 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
   const { openErrorModal } = useTestConnectionErrorModal({})
   const { mutate: reloadTestConnection } = useGetTestConnectionResult({
     identifier: data.connector?.identifier || '',
-    queryParams: { accountIdentifier: accountId, orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier },
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier: orgIdentifier,
+      projectIdentifier: projectIdentifier,
+      branch,
+      repoIdentifier
+    },
     requestOptions: {
       headers: {
         'content-type': 'application/json'

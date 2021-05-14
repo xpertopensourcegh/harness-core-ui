@@ -176,6 +176,7 @@ export interface StringsMap {
   'common.gitSync.unSynced.header': string
   'common.gitSync.unSynced.message1': string
   'common.gitSync.unSynced.message2': string
+  'common.gitSync.updateResource': string
   'common.input': string
   'common.jexlExpression': string
   'common.letsGetYouStarted': string

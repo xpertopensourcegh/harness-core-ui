@@ -359,8 +359,9 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
           </Text>
           <TestConnection
             connector={connector}
+            gitDetails={props.response?.gitDetails}
             // ToDo:  delegateName={connector?.spec?.credential?.spec?.delegateName || ''}
-            url={getUrlValueByType(connector?.type || '', connector)}
+            testUrl={getUrlValueByType(connector?.type || '', connector)}
             refetchConnector={props.refetchConnector}
           />
         </Container>

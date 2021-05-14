@@ -8,7 +8,8 @@ import {
   ResponseConnectorValidationResult,
   ConnectorConfigDTO,
   Error,
-  ConnectorInfoDTO
+  ConnectorInfoDTO,
+  EntityGitDetails
 } from 'services/cd-ng'
 
 import type { StepDetails } from '@connectors/interfaces/ConnectorInterface'
@@ -37,6 +38,7 @@ interface VerifyOutOfClusterDelegateProps {
   isLastStep?: boolean
   name?: string
   connectorInfo: ConnectorInfoDTO | void
+  gitDetails?: EntityGitDetails
 }
 export interface VerifyOutOfClusterStepProps extends ConnectorConfigDTO {
   isEditMode?: boolean
@@ -133,6 +135,7 @@ const VerifyOutOfClusterDelegate: React.FC<
   StepProps<VerifyOutOfClusterStepProps> & VerifyOutOfClusterDelegateProps
 > = props => {
   const { prevStepData, nextStep, isLastStep = false, connectorInfo } = props
+  const { branch, repo: repoIdentifier } = prevStepData || {}
   const { accountId, projectIdentifier: projectIdentifierFromUrl, orgIdentifier: orgIdentifierFromUrl } = useParams<
     ProjectPathProps
   >()
@@ -179,7 +182,13 @@ const VerifyOutOfClusterDelegate: React.FC<
 
   const { mutate: reloadTestConnection, loading } = useGetTestConnectionResult({
     identifier: connectorInfo && connectorInfo.identifier ? connectorInfo.identifier : prevStepData?.identifier || '',
-    queryParams: { accountIdentifier: accountId, orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier },
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier: orgIdentifier,
+      projectIdentifier: projectIdentifier,
+      branch,
+      repoIdentifier
+    },
     requestOptions: {
       headers: {
         'content-type': 'application/json'

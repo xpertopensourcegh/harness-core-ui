@@ -31,7 +31,7 @@ describe('Test Connection', () => {
         <MemoryRouter>
           <TestConnection
             connector={ManualK8s as ConnectorInfoDTO}
-            url={'kubernetes_mock_url'}
+            testUrl={'kubernetes_mock_url'}
             refetchConnector={jest.fn()}
           />
         </MemoryRouter>
@@ -47,7 +47,7 @@ describe('Test Connection', () => {
         <MemoryRouter>
           <TestConnection
             connector={K8WithInheritFromDelegate as ConnectorInfoDTO}
-            url={'kubernetes_mock_url'}
+            testUrl={'kubernetes_mock_url'}
             refetchConnector={jest.fn()}
           />
         </MemoryRouter>

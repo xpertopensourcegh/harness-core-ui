@@ -78,7 +78,7 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
     filePath: resource.gitDetails?.filePath || '',
     isNewBranch: false,
     branch: resource.gitDetails?.branch || '',
-    commitMsg: '',
+    commitMsg: getString('common.gitSync.updateResource', { resource: resource.name }),
     createPr: false
   }
 
@@ -127,7 +127,11 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
 
   useEffect(() => {
     if (projectIdentifier && gitSyncRepos?.length) {
-      defaultInitialFormData.repoIdentifier = gitSyncRepos[0].identifier || ''
+      defaultInitialFormData.repoIdentifier = defaultInitialFormData.repoIdentifier || gitSyncRepos[0].identifier || ''
+      const selectedRepo = gitSyncRepos.find(
+        (repo: GitSyncConfig) => repo.identifier === defaultInitialFormData.repoIdentifier
+      )
+
       fetchBranches(defaultInitialFormData.repoIdentifier)
       setRepoSelectOptions(
         gitSyncRepos?.map((gitRepo: GitSyncConfig) => {
@@ -138,12 +142,12 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
         })
       )
 
-      setRootFolderSelectOptions(getRootFolderSelectOptions(gitSyncRepos[0].gitSyncFolderConfigDTOs))
+      setRootFolderSelectOptions(getRootFolderSelectOptions(selectedRepo?.gitSyncFolderConfigDTOs))
 
-      const defaultRootFolder = gitSyncRepos[0].gitSyncFolderConfigDTOs?.find(
+      const defaultRootFolder = selectedRepo?.gitSyncFolderConfigDTOs?.find(
         (folder: GitSyncFolderConfigDTO) => folder.isDefault
       )
-      defaultInitialFormData.rootFolder = defaultRootFolder?.rootFolder || ''
+      defaultInitialFormData.rootFolder = defaultInitialFormData.rootFolder || defaultRootFolder?.rootFolder || ''
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gitSyncRepos, projectIdentifier])
