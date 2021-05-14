@@ -257,8 +257,8 @@ export default function ArtifactsSelection({
 
   const addArtifact = (artifactObj: any): void => {
     artifactObj = {
-      ...artifactObj,
-      type: ENABLED_ARTIFACT_TYPES[selectedArtifact]
+      type: ENABLED_ARTIFACT_TYPES[selectedArtifact],
+      ...artifactObj
     }
 
     if (context === ModalViewFor.PRIMARY) {
