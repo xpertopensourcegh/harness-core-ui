@@ -31,7 +31,7 @@ export const EditorTheme = {
 export const DEFAULT_EDITOR_HEIGHT = 600
 export const MIN_SNIPPET_SECTION_WIDTH = 400
 
-export const TRIGGER_CHARS_FOR_NEW_EXPR = ['<', '+']
+export const TRIGGER_CHARS_FOR_NEW_EXPR = ['+']
 export const TRIGGER_CHAR_FOR_PARTIAL_EXPR = '.'
 export const KEY_CODE_FOR_PLUS_SIGN = 'Equal'
 export const ANGULAR_BRACKET_CHAR = '<'

@@ -36,6 +36,9 @@ const PipelineYamlView: React.FC = () => {
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
 
   const { expressions } = useVariablesExpression()
+  const expressionRef = React.useRef<string[]>([])
+  expressionRef.current = expressions
+
   // setup polling
   React.useEffect(() => {
     try {
@@ -73,7 +76,9 @@ const PipelineYamlView: React.FC = () => {
             bind={setYamlHandler}
             showSnippetSection={false}
             onExpressionTrigger={() => {
-              return Promise.resolve(expressions.map(item => ({ label: item, insertText: `${item}>`, kind: 1 })))
+              return Promise.resolve(
+                expressionRef.current.map(item => ({ label: item, insertText: `${item}>`, kind: 1 }))
+              )
             }}
             yamlSanityConfig={{ removeEmptyString: false, removeEmptyObject: false, removeEmptyArray: false }}
             height={'calc(100vh - 200px)'}
