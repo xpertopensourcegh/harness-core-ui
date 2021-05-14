@@ -419,6 +419,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       ) : null}
       {type === DrawerTypes.StepConfig && data?.stepConfig?.node && (
         <StepCommands
+          key={`step-form-${data.stepConfig.node.identifier}`}
           step={data.stepConfig.node}
           isReadonly={isReadonly}
           ref={formikRef}
@@ -534,6 +535,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       ) : null}
       {type === DrawerTypes.ConfigureService && selectedStageId && data?.stepConfig && data?.stepConfig.node && (
         <StepCommands
+          key={`step-form-${data.stepConfig.node.identifier}`}
           step={data.stepConfig.node}
           isReadonly={isReadonly}
           ref={formikRef}
@@ -615,6 +617,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       )}
       {type === DrawerTypes.ProvisionerStepConfig && data?.stepConfig?.node && (
         <StepCommands
+          key={`step-form-${data.stepConfig.node.identifier}`}
           step={data.stepConfig.node}
           ref={formikRef}
           isReadonly={isReadonly}

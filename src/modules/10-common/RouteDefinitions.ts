@@ -331,8 +331,13 @@ const routes = {
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/pipeline-studio/`
   ),
   toProjectAdminResourcesConnectorDetails: withAccountId(
-    ({ projectIdentifier, orgIdentifier, module }: ProjectPathProps & ConnectorPathProps & ModulePathParams) =>
-      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/connectors/:connectorId`
+    ({
+      projectIdentifier,
+      orgIdentifier,
+      connectorId,
+      module
+    }: ProjectPathProps & ConnectorPathProps & ModulePathParams) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/resources/connectors/${connectorId}`
   ),
   toCDAdmin: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
