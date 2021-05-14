@@ -9,7 +9,7 @@ import { toVariableStr } from '@common/utils/StringUtils'
 
 import css from './ExecutionStepInputOutputTab.module.scss'
 
-const blackListKeys = ['step', 'parallel', 'spec']
+const blackListKeys = ['step', 'parallel']
 
 function Collapse(props: React.PropsWithChildren<{ title: string }>): React.ReactElement {
   const [isOpen, setIsOpen] = React.useState(true)
@@ -65,7 +65,9 @@ export function ExecutionStepInputOutputTabRow(props: ExecutionStepInputOutputTa
                 <div className={css.key}>
                   <CopyText textToCopy={toVariableStr(newKey)}>{startCase(key)}</CopyText>
                 </div>
-                <div className={css.value}>{value.join(', ')}</div>
+                <div className={css.value}>
+                  <CopyText textToCopy={value.join(', ')}>{value.join(', ')}</CopyText>
+                </div>
               </div>
             )
           }
@@ -91,7 +93,9 @@ export function ExecutionStepInputOutputTabRow(props: ExecutionStepInputOutputTa
             <div data-fqn={newKey} className={css.key}>
               <CopyText textToCopy={toVariableStr(newKey)}>{startCase(key)}</CopyText>
             </div>
-            <div className={css.value}>{value.toString()}</div>
+            <div className={css.value}>
+              <CopyText textToCopy={value.toString()}>{value.toString()}</CopyText>
+            </div>
           </div>
         )
       })}

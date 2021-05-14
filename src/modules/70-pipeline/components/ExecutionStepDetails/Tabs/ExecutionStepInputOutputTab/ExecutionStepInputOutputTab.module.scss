@@ -34,7 +34,10 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      padding: var(--spacing-xsmall) var(--spacing-xxlarge) var(--spacing-xsmall) var(--spacing-xsmall);
+      padding: var(--spacing-xsmall);
+      &:hover {
+        background-color: var(--primary-1);
+      }
     }
   }
 
