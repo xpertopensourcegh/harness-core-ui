@@ -13,7 +13,6 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import RbacAvatarGroup from '@rbac/components/RbacAvatarGroup/RbacAvatarGroup'
-import i18n from './OrganizationCard.i18n'
 import css from './OrganizationCard.module.scss'
 
 interface OrganizationCardProps {
@@ -58,16 +57,17 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
   }
 
   const { openDialog } = useConfirmationDialog({
-    contentText: getString('orgs.confirmDelete', { name: data.name }),
-    titleText: i18n.confirmDeleteTitle,
-    confirmButtonText: i18n.delete,
-    cancelButtonText: i18n.cancelButton,
+    contentText: getString('projectsOrgs.confirmDelete', { name: data.name }),
+    titleText: getString('projectsOrgs.confirmDeleteTitle'),
+    confirmButtonText: getString('delete'),
+    cancelButtonText: getString('cancel'),
     intent: Intent.WARNING,
     onCloseDialog: async (isConfirmed: boolean) => {
       /* istanbul ignore else */ if (isConfirmed) {
         try {
           const deleted = await deleteOrg(data.identifier, { headers: { 'content-type': 'application/json' } })
-          /* istanbul ignore else */ if (deleted) showSuccess(i18n.successMessage(data.name))
+          /* istanbul ignore else */ if (deleted)
+            showSuccess(getString('projectsOrgs.orgDeletedMessage', { name: data.name }))
           reloadOrgs?.()
         } catch (err) {
           showError(err.data?.message || err.message)
@@ -110,7 +110,7 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
               <Menu>
                 <RbacMenuItem
                   icon="edit"
-                  text={i18n.edit}
+                  text={getString('edit')}
                   onClick={handleEdit}
                   disabled={isHarnessManaged}
                   permission={{
@@ -120,13 +120,13 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
                 />
                 <RbacMenuItem
                   icon="new-person"
-                  text={i18n.invite}
+                  text={getString('projectsOrgs.invite')}
                   onClick={handleInvite}
                   permission={invitePermission}
                 />
                 <RbacMenuItem
                   icon="trash"
-                  text={i18n.delete}
+                  text={getString('delete')}
                   onClick={handleDelete}
                   disabled={isHarnessManaged}
                   permission={{
@@ -148,7 +148,7 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
         ) : null}
         <Layout.Vertical className={css.title} padding={{ right: isPreview ? 'large' : undefined }}>
           <Text font="medium" color={Color.BLACK} lineClamp={1}>
-            {data?.name || i18n.placeholder.name}
+            {data?.name || getString('projectsOrgs.orgName')}
           </Text>
           <Layout.Horizontal className={css.description}>
             {data?.description ? (

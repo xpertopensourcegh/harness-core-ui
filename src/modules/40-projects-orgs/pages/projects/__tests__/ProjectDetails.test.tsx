@@ -1,5 +1,14 @@
 import React from 'react'
-import { act, fireEvent, getAllByText, getByText, render, waitFor, getByTestId } from '@testing-library/react'
+import {
+  act,
+  fireEvent,
+  getAllByText,
+  getByText,
+  render,
+  waitFor,
+  getByTestId,
+  queryAllByText
+} from '@testing-library/react'
 import { findDialogContainer, findPopoverContainer, TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
@@ -77,7 +86,7 @@ describe('Project Details', () => {
     const edit = getByTestId(popover as HTMLElement, 'edit-project')
     await act(async () => {
       fireEvent.click(edit)
-      await waitFor(() => getByText(document.body, 'Edit Project'))
+      await waitFor(() => queryAllByText(document.body, 'projectsOrgs.projectEdit'))
       const form = findDialogContainer()
       expect(form).toBeTruthy()
       fireEvent.click(form?.querySelector('button[type="submit"]')!)
@@ -98,10 +107,10 @@ describe('Project Details', () => {
       const menu = container.querySelector("[data-icon='Options']")
       fireEvent.click(menu!)
       const popover = findPopoverContainer()
-      const invite = getByText(popover as HTMLElement, 'projectContextMenuRenderer.invite')
+      const invite = getByText(popover as HTMLElement, 'projectsOrgs.invite')
       await act(async () => {
         fireEvent.click(invite)
-        await waitFor(() => getByText(document.body, 'Invite Collaborators'))
+        await waitFor(() => queryAllByText(document.body, 'projectsOrgs.invite'))
         let form = findDialogContainer()
         expect(form).toBeTruthy()
         await waitFor(() => fireEvent.click(form?.querySelector('[icon="cross"]')!))
@@ -137,7 +146,7 @@ describe('Project Details', () => {
       const plus = getAllByText(container, '+')[0]
       await act(async () => {
         fireEvent.click(plus)
-        await waitFor(() => getAllByText(document.body, 'Invite Collaborators')[0])
+        await waitFor(() => queryAllByText(document.body, 'projectsOrgs.invite')[0])
       })
       const form = findDialogContainer()
       expect(form).toBeTruthy()
@@ -155,7 +164,7 @@ describe('Project Details', () => {
       const plus = getAllByText(container, '+')[1]
       await act(async () => {
         fireEvent.click(plus)
-        await waitFor(() => getAllByText(document.body, 'Invite Collaborators')[0])
+        await waitFor(() => queryAllByText(document.body, 'projectsOrgs.invite')[0])
       })
       const form = findDialogContainer()
       expect(form).toBeTruthy()

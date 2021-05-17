@@ -39,13 +39,13 @@ export const useOrganizationModal = ({ onSuccess }: UseOrganizationModalArgs): U
       >
         {view === Views.CREATE ? (
           <StepWizard<Organization> stepClassName={css.stepClass} onCompleteWizard={hideModal}>
-            <StepAboutOrganization name={getString('orgs.aboutTitle')} onSuccess={onSuccess} />
-            <OrgCollaboratorsStep name={getString('orgs.collaboratorsTitle')} />
+            <StepAboutOrganization name={getString('projectsOrgs.aboutTitle')} onSuccess={onSuccess} />
+            <OrgCollaboratorsStep name={getString('projectsOrgs.collaboratorsTitle')} />
           </StepWizard>
         ) : null}
         {view === Views.EDIT ? (
           <EditOrganization
-            name={getString('orgs.aboutTitle')}
+            name={getString('projectsOrgs.aboutTitle')}
             onSuccess={() => {
               hideModal()
               onSuccess()

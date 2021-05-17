@@ -1,5 +1,5 @@
 allowSimultaneousDeployments: Allow simultaneous deployments on the same infrastructure
-continuous: Continuous Delivery
+continuous: '{{$.common.purpose.cd.continuous}}'
 learnMore: Learn more about Continuous Delivery
 dashboard:
   subHeading: Let Harness take your software release process to the next level with Continuous Delivery

@@ -1,5 +1,14 @@
 import React from 'react'
-import { fireEvent, getByText, queryByText, render, RenderResult, waitFor, findAllByText } from '@testing-library/react'
+import {
+  fireEvent,
+  getByText,
+  queryByText,
+  render,
+  RenderResult,
+  waitFor,
+  findAllByText,
+  queryAllByText
+} from '@testing-library/react'
 
 import { act } from 'react-dom/test-utils'
 import { findDialogContainer, findPopoverContainer, TestWrapper } from '@common/utils/testUtils'
@@ -82,18 +91,18 @@ describe('Org Page List', () => {
     const newOrg = getAllByText?.('orgLabel')[0]
     await act(async () => {
       if (newOrg) fireEvent.click(newOrg)
-      await waitFor(() => findAllByText(document.body, 'About the Organization'))
+      await waitFor(() => findAllByText(document.body, 'projectsOrgs.aboutTitle'))
     })
     let form = findDialogContainer()
     expect(form).toBeTruthy()
     setFieldValue({ container: form as HTMLElement, type: InputTypes.TEXTFIELD, fieldId: 'name', value: 'dummyorg' })
     await act(async () => {
       clickSubmit(form as HTMLElement)
-      await waitFor(() => findAllByText(document.body, 'Invite Collaborators'))
+      await waitFor(() => queryAllByText(document.body, 'projectsOrgs.invite'))
     })
     await act(async () => {
       clickBack(form as HTMLElement)
-      await waitFor(() => findAllByText(document.body, 'Edit Organization'))
+      await waitFor(() => queryAllByText(document.body, 'projectsOrgs.editTitle'))
     })
     await act(async () => {
       fireEvent.click(form?.querySelector('[icon="cross"]')!)
@@ -108,14 +117,14 @@ describe('Org Page List', () => {
         ?.querySelector("[data-icon='Options']")
       fireEvent.click(menu!)
       const popover = findPopoverContainer()
-      const deleteMenu = getByText(popover as HTMLElement, 'Delete')
+      const deleteMenu = getByText(popover as HTMLElement, 'delete')
       await act(async () => {
         fireEvent.click(deleteMenu!)
-        await waitFor(() => getByText(document.body, 'Delete Organization'))
+        await waitFor(() => getByText(document.body, 'projectsOrgs.confirmDeleteTitle'))
       })
       const form = findDialogContainer()
       expect(form).toBeTruthy()
-      const deleteBtn = queryByText(form as HTMLElement, 'Delete')
+      const deleteBtn = queryByText(form as HTMLElement, 'delete')
       await act(async () => {
         fireEvent.click(deleteBtn!)
       })
@@ -127,10 +136,10 @@ describe('Org Page List', () => {
         ?.querySelector("[data-icon='Options']")
       fireEvent.click(menu!)
       const popover = findPopoverContainer()
-      const edit = getByText(popover as HTMLElement, 'Edit')
+      const edit = queryAllByText(popover as HTMLElement, 'edit')
       await act(async () => {
-        fireEvent.click(edit)
-        await waitFor(() => getByText(document.body, 'Edit Organization'))
+        fireEvent.click(edit[0])
+        await waitFor(() => getByText(document.body, 'projectsOrgs.editTitle'))
       })
       const form = findDialogContainer()
       expect(form).toBeTruthy()
@@ -145,10 +154,10 @@ describe('Org Page List', () => {
         ?.querySelector("[data-icon='Options']")
       fireEvent.click(menu!)
       const popover = findPopoverContainer()
-      const invite = getByText(popover as HTMLElement, 'Invite Collaborators')
+      const invite = getByText(popover as HTMLElement, 'projectsOrgs.invite')
       await act(async () => {
         fireEvent.click(invite)
-        await waitFor(() => getByText(document.body, 'Invite Collaborators'))
+        await waitFor(() => getByText(document.body, 'projectsOrgs.invite'))
         const form = findDialogContainer()
         expect(form).toBeTruthy()
       })

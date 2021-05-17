@@ -53,7 +53,7 @@ describe('Collaborators test', () => {
     const opt = getByText(popover as HTMLElement, 'Project Admin')
     fireEvent.click(opt!)
     await act(async () => {
-      fireEvent.change(container.querySelector("input[name='collaborators']")!, {
+      fireEvent.change(container.querySelector("input[name='projectsOrgs.collaborator']")!, {
         target: { value: 'example5@email.com' }
       })
       fireEvent.click(container.querySelector('button[type="submit"]')!)

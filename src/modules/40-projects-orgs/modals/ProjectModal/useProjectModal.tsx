@@ -5,7 +5,8 @@ import isEmpty from 'lodash/isEmpty'
 import cx from 'classnames'
 import type { ModuleName } from 'framework/types/ModuleName'
 import type { Project } from 'services/cd-ng'
-import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
+import { useStrings } from 'framework/strings'
+
 import { Views } from './Constants'
 import { ProjectCollaboratorsStep } from './views/Collaborators'
 import PurposeList from './views/PurposeList'
@@ -33,6 +34,7 @@ export const useProjectModal = ({
 }: UseProjectModalProps): UseProjectModalReturn => {
   const [view, setView] = useState(Views.CREATE)
   const [projectData, setProjectData] = useState<Project>()
+  const { getString } = useStrings()
 
   const wizardCompleteHandler = async (wizardData: Project | undefined): Promise<void> => {
     /* istanbul ignore else */ if (!wizardData || isEmpty(wizardData.modules)) {
@@ -59,12 +61,12 @@ export const useProjectModal = ({
         {view === Views.CREATE ? (
           <StepWizard<Project> onCompleteWizard={wizardCompleteHandler} stepClassName={css.stepClass}>
             <StepAboutProject
-              name={i18n.newProjectWizard.aboutProject.name}
+              name={getString('projectsOrgs.aboutProject')}
               modules={projectData?.modules}
               onSuccess={onSuccess}
               module={module}
             />
-            <ProjectCollaboratorsStep name={i18n.newProjectWizard.Collaborators.name} />
+            <ProjectCollaboratorsStep name={getString('projectsOrgs.invite')} />
           </StepWizard>
         ) : null}
 

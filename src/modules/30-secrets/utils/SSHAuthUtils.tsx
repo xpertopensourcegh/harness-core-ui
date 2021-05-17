@@ -1,5 +1,7 @@
+import React from 'react'
 import { pick } from 'lodash-es'
 import { Scope } from '@common/interfaces/SecretsInterface'
+import { String } from 'framework/strings'
 import type { SSHConfigFormData } from '@secrets/modals/CreateSSHCredModal/views/StepAuthentication'
 import type { DetailsForm } from '@secrets/modals/CreateSSHCredModal/views/StepDetails'
 import {
@@ -16,7 +18,6 @@ import {
   getSecretV2Promise
 } from 'services/cd-ng'
 import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
-import i18n from './SSHAuthUtils.i18n'
 
 type SSHCredentialType = SSHKeyPathCredentialDTO | SSHKeyReferenceCredentialDTO | SSHPasswordCredentialDTO
 
@@ -79,30 +80,30 @@ export const getReference = (scope?: Scope, identifier?: string): string | undef
   }
 }
 
-export const getStringForType = (type?: SecretDTOV2['type']): string => {
-  if (!type) return ''
+export const getStringForType = (type?: SecretDTOV2['type']): React.ReactElement => {
+  if (!type) return <String stringID="secrets.blank" />
   switch (type) {
     case 'SecretText':
-      return i18n.typeText
+      return <String stringID="secret.labelText" />
     case 'SecretFile':
-      return i18n.typeFile
+      return <String stringID="secret.labelFile" />
     case 'SSHKey':
-      return i18n.typeSSH
+      return <String stringID="secrets.typeSSH" />
     default:
-      return ''
+      return <String stringID="secrets.blank" />
   }
 }
 
-export const getStringForCredentialType = (type?: SSHConfigDTO['credentialType']): string => {
+export const getKeyForCredentialType = (type?: SSHConfigDTO['credentialType']): React.ReactElement => {
   switch (type) {
     case 'Password':
-      return i18n.optionPassword
+      return <String stringID="secrets.sshAuthFormFields.optionPassword" />
     case 'KeyPath':
-      return i18n.optionKeypath
+      return <String stringID="secrets.sshAuthFormFields.optionKeypath" />
     case 'KeyReference':
-      return i18n.optionKey
+      return <String stringID="secrets.sshAuthFormFields.optionKey" />
     default:
-      return ''
+      return <String stringID="secrets.blank" />
   }
 }
 

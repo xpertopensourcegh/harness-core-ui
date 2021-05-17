@@ -10,7 +10,6 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacButton from '@rbac/components/Button/Button'
-import i18n from './ModuleListCard.i18n'
 import css from './ModuleListCard.module.scss'
 
 interface ModuleListCardProps {
@@ -154,14 +153,14 @@ const ModuleListCard: React.FC<ModuleListCardProps> = ({ module, projectIdentifi
               <Icon name={getModuleIcon(module)} size={70}></Icon>
               <div>
                 <Layout.Vertical padding={{ bottom: 'medium' }}>
-                  <Text font={{ size: 'small' }}>{i18n.continuous.toUpperCase()}</Text>
+                  <Text font={{ size: 'small' }}>{getString('projectsOrgs.purposeList.continuous')}</Text>
                   <Text font={{ size: 'medium' }} color={Color.BLACK}>
                     {getModulePurpose(module)}
                   </Text>
                 </Layout.Vertical>
                 <Layout.Horizontal spacing="xsmall" className={css.enable}>
                   <Icon name="tick" color={Color.WHITE}></Icon>
-                  <Text color={Color.WHITE}>{i18n.enabled}</Text>
+                  <Text color={Color.WHITE}>{getString('enabledLabel')}</Text>
                 </Layout.Horizontal>
               </div>
             </Layout.Horizontal>
@@ -171,7 +170,7 @@ const ModuleListCard: React.FC<ModuleListCardProps> = ({ module, projectIdentifi
               <Layout.Horizontal flex={{ align: 'center-center' }} spacing="xxlarge">
                 <SparkChart data={[2, 3, 4, 5, 4, 3, 2]} className={css.activitychart} />
                 <Text color={Color.GREY_400} font={{ size: 'medium' }}>
-                  {i18n.placeholder}
+                  {getString('projectsOrgs.placeholder')}
                 </Text>
               </Layout.Horizontal>
               <Text color={Color.GREY_400} font={{ size: 'xsmall' }}>

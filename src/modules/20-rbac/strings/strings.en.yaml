@@ -46,7 +46,7 @@ roleAssignment:
 usersPage:
   search: Search by Name or Email
   roleBinding: Role Binding (Role - Resource Group)
-  pendingInvitation: Pending Invitation
+  pendingInvitation: '{{$.common.pendingInvitation}'
   forUser: For User
   assignRoles: Assign Roles
   noDataText: There are no roles assigned to this User, Click on Add to start assigning roles

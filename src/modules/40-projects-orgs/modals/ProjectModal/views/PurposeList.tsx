@@ -6,7 +6,7 @@ import { Link, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import type { Project } from 'services/cd-ng'
 import { usePutProject } from 'services/cd-ng'
-import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
+import { String, useStrings } from 'framework/strings'
 import { useToaster } from '@common/exports'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
@@ -19,45 +19,11 @@ interface ProjectModalData {
 }
 
 interface PurposeType {
-  title: string
+  title: React.ReactElement
   icon: IconName
-  Description: string
+  Description: React.ReactElement
   module: Required<Project>['modules'][number]
 }
-const CDNG_OPTIONS: PurposeType = {
-  title: i18n.newProjectWizard.purposeList.delivery,
-  icon: 'cd-main',
-  Description: i18n.newProjectWizard.purposeList.descriptionCD,
-  module: ModuleName.CD
-}
-const CVNG_OPTIONS: PurposeType = {
-  title: i18n.newProjectWizard.purposeList.verification,
-  icon: 'cv-main',
-  Description: i18n.newProjectWizard.purposeList.descriptionCV,
-  module: ModuleName.CV
-}
-
-const CING_OPTIONS: PurposeType = {
-  title: i18n.newProjectWizard.purposeList.integration,
-  icon: 'ci-main',
-  Description: i18n.newProjectWizard.purposeList.descriptionCI,
-  module: ModuleName.CI
-}
-
-const CENG_OPTIONS: PurposeType = {
-  title: i18n.newProjectWizard.purposeList.efficiency,
-  icon: 'ce-main',
-  Description: i18n.newProjectWizard.purposeList.descriptionCE,
-  module: ModuleName.CE
-}
-
-const CFNG_OPTIONS: PurposeType = {
-  title: i18n.newProjectWizard.purposeList.features,
-  icon: 'cf-main',
-  Description: i18n.newProjectWizard.purposeList.descriptionCF,
-  module: ModuleName.CF
-}
-
 const getModuleLinks = (
   module: Required<Project>['modules'][number],
   orgIdentifier: string,
@@ -68,7 +34,9 @@ const getModuleLinks = (
     case ModuleName.CD:
       return (
         <Layout.Vertical key={module} spacing="large" padding={{ bottom: 'xxxlarge' }}>
-          <Text font={{ size: 'medium', weight: 'semi-bold' }}>{i18n.newProjectWizard.purposeList.cd}</Text>
+          <Text font={{ size: 'medium', weight: 'semi-bold' }}>
+            {<String stringID="projectsOrgs.purposeList.cd" />}
+          </Text>
           <Link
             to={routes.toPipelineStudio({
               orgIdentifier,
@@ -78,26 +46,30 @@ const getModuleLinks = (
               module: 'cd'
             })}
           >
-            {i18n.newProjectWizard.purposeList.linkcd}
+            {<String stringID="moduleRenderer.newPipeLine" />}
           </Link>
         </Layout.Vertical>
       )
     case ModuleName.CV:
       return (
         <Layout.Vertical key={module} spacing="large" padding={{ bottom: 'xxxlarge' }}>
-          <Text font={{ size: 'medium', weight: 'semi-bold' }}>{i18n.newProjectWizard.purposeList.cv}</Text>
+          <Text font={{ size: 'medium', weight: 'semi-bold' }}>
+            {<String stringID="projectsOrgs.purposeList.cv" />}
+          </Text>
           <Link to={routes.toCVAdminSetup({ accountId, orgIdentifier, projectIdentifier })}>
-            {i18n.newProjectWizard.purposeList.linkcvChangeSources}
+            {<String stringID="projectsOrgs.purposeList.linkcvChangeSources" />}
           </Link>
           <Link to={`${routes.toCVAdminSetup({ accountId, orgIdentifier, projectIdentifier })}?step=2`}>
-            {i18n.newProjectWizard.purposeList.linkcv}
+            {<String stringID="projectsOrgs.purposeList.linkcv" />}
           </Link>
         </Layout.Vertical>
       )
     case ModuleName.CI:
       return (
         <Layout.Vertical key={module} spacing="large" padding={{ bottom: 'xxxlarge' }}>
-          <Text font={{ size: 'medium', weight: 'semi-bold' }}>{i18n.newProjectWizard.purposeList.ci}</Text>
+          <Text font={{ size: 'medium', weight: 'semi-bold' }}>
+            {<String stringID="projectsOrgs.purposeList.ci" />}
+          </Text>
           <Link
             to={routes.toPipelineStudio({
               orgIdentifier,
@@ -107,22 +79,26 @@ const getModuleLinks = (
               module: 'ci'
             })}
           >
-            {i18n.newProjectWizard.purposeList.linkci}
+            {<String stringID="moduleRenderer.newPipeLine" />}
           </Link>
         </Layout.Vertical>
       )
     case ModuleName.CE:
       return (
         <Layout.Vertical key={module} spacing="large" padding={{ bottom: 'xxxlarge' }}>
-          <Text font={{ size: 'medium', weight: 'semi-bold' }}>{i18n.newProjectWizard.purposeList.ce}</Text>
-          <Link to={''}>{i18n.newProjectWizard.purposeList.linkce}</Link>
+          <Text font={{ size: 'medium', weight: 'semi-bold' }}>
+            {<String stringID="projectsOrgs.purposeList.ce" />}
+          </Text>
+          <Link to={''}>{<String stringID="tbd" />}</Link>
         </Layout.Vertical>
       )
     case ModuleName.CF:
       return (
         <Layout.Vertical key={module} spacing="large" padding={{ bottom: 'xxxlarge' }}>
-          <Text font={{ size: 'medium', weight: 'semi-bold' }}>{i18n.newProjectWizard.purposeList.cf}</Text>
-          <Link to={''}>{i18n.newProjectWizard.purposeList.linkcf}</Link>
+          <Text font={{ size: 'medium', weight: 'semi-bold' }}>
+            {<String stringID="projectsOrgs.purposeList.cf" />}
+          </Text>
+          <Link to={''}>{<String stringID="tbd" />}</Link>
         </Layout.Vertical>
       )
     default:
@@ -131,12 +107,48 @@ const getModuleLinks = (
   }
 }
 
+const CDNG_OPTIONS: PurposeType = {
+  title: <String stringID="projectsOrgs.purposeList.delivery" />,
+  icon: 'cd-main',
+  Description: <String stringID="projectsOrgs.purposeList.descriptionCD" />,
+  module: ModuleName.CD
+}
+const CVNG_OPTIONS: PurposeType = {
+  title: <String stringID="projectsOrgs.purposeList.verification" />,
+  icon: 'cv-main',
+  Description: <String stringID="projectsOrgs.purposeList.descriptionCV" />,
+  module: ModuleName.CV
+}
+
+const CING_OPTIONS: PurposeType = {
+  title: <String stringID="projectsOrgs.purposeList.integration" />,
+  icon: 'ci-main',
+  Description: <String stringID="projectsOrgs.purposeList.descriptionCI" />,
+  module: ModuleName.CI
+}
+
+const CENG_OPTIONS: PurposeType = {
+  title: <String stringID="projectsOrgs.purposeList.efficiency" />,
+  icon: 'ce-main',
+  Description: <String stringID="projectsOrgs.purposeList.descriptionCE" />,
+  module: ModuleName.CE
+}
+
+const CFNG_OPTIONS: PurposeType = {
+  title: <String stringID="projectsOrgs.purposeList.features" />,
+  icon: 'cf-main',
+  Description: <String stringID="projectsOrgs.purposeList.descriptionCF" />,
+  module: ModuleName.CF
+}
+
 const PurposeList: React.FC<ProjectModalData> = props => {
   const { data: projectData, onSuccess } = props
-  const { accountId } = useParams<AccountPathProps>()
   const [selected, setSelected] = useState<Required<Project>['modules']>([])
+  const { getString } = useStrings()
   const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
   const { showSuccess, showError } = useToaster()
+
+  const { accountId } = useParams<AccountPathProps>()
   const { mutate: updateProject } = usePutProject({
     identifier: projectData.identifier,
     queryParams: {
@@ -144,12 +156,13 @@ const PurposeList: React.FC<ProjectModalData> = props => {
       orgIdentifier: projectData.orgIdentifier
     }
   })
+
   const addModule = async (module: Required<Project>['modules'][number]): Promise<void> => {
     projectData.modules?.push(module)
     const dataToSubmit: Project = projectData
     try {
       await updateProject({ project: dataToSubmit })
-      showSuccess(i18n.moduleSuccess)
+      showSuccess(getString('projectsOrgs.purposeList.moduleSuccess'))
       onSuccess?.()
       const newSelected = [...selected, module]
       setSelected(newSelected)
@@ -172,16 +185,16 @@ const PurposeList: React.FC<ProjectModalData> = props => {
   return (
     <Layout.Vertical spacing="large" padding="huge">
       <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
-        {i18n.newProjectWizard.purposeList.name}
+        {getString('projectsOrgs.purposeList.name')}
       </Text>
       <Layout.Horizontal padding={{ top: 'large' }}>
         <Container width="60%" className={css.border}>
           {getOptions().map(option => (
-            <Card key={option.title} className={css.card}>
+            <Card key={option.module} className={css.card}>
               <Layout.Horizontal spacing="small">
                 <Icon name={option.icon} size={30} />
                 <div>
-                  <Text font="small">{i18n.newProjectWizard.purposeList.continuous}</Text>
+                  <Text font="small">{getString('projectsOrgs.purposeList.continuous')}</Text>
                   <Text font={{ size: 'medium' }} padding={{ bottom: 'xxlarge' }} color={Color.BLACK}>
                     {option.title}
                   </Text>
@@ -193,7 +206,7 @@ const PurposeList: React.FC<ProjectModalData> = props => {
               </Text>
               <Layout.Horizontal spacing="large">
                 <Text font="small" className={css.time}>
-                  {i18n.newProjectWizard.purposeList.time}
+                  {getString('projectsOrgs.purposeList.time')}
                 </Text>
                 {selected.includes(option.module) ? (
                   <Button
@@ -202,7 +215,7 @@ const PurposeList: React.FC<ProjectModalData> = props => {
                     icon="tick"
                     iconProps={{ size: 10, padding: 'xsmall' }}
                   >
-                    {i18n.newProjectWizard.purposeList.enabled}
+                    {getString('enabledLabel')}
                   </Button>
                 ) : (
                   <Button
@@ -213,7 +226,7 @@ const PurposeList: React.FC<ProjectModalData> = props => {
                       addModule(option.module)
                     }}
                   >
-                    {i18n.newProjectWizard.purposeList.enable}
+                    {getString('enable')}
                   </Button>
                 )}
               </Layout.Horizontal>
@@ -223,7 +236,7 @@ const PurposeList: React.FC<ProjectModalData> = props => {
         <Container width="40%" padding={{ left: 'huge', top: 'medium' }}>
           {selected.length === 0 ? (
             <Text font={{ size: 'medium', weight: 'semi-bold' }}>
-              {i18n.newProjectWizard.purposeList.selectAModule}
+              {getString('projectsOrgs.purposeList.selectAModule')}
             </Text>
           ) : (
             selected.map(module =>

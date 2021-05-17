@@ -4,7 +4,7 @@ import ReactTimeago from 'react-timeago'
 import { Menu, Position, Classes } from '@blueprintjs/core'
 import type { Column, Renderer, CellProps } from 'react-table'
 import { Text, Color, Layout, Icon, Button, Popover } from '@wings-software/uicore'
-
+import { String, useStrings } from 'framework/strings'
 import Table from '@common/components/Table/Table'
 import { useToaster, useConfirmationDialog } from '@common/exports'
 import { SecretResponseWrapper, useDeleteSecretV2 } from 'services/cd-ng'
@@ -19,7 +19,6 @@ import type { SecretIdentifiers } from '@secrets/components/CreateUpdateSecret/C
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
-import i18n from '../../SecretsPage.i18n'
 import css from './SecretsList.module.scss'
 
 interface SecretsListProps {
@@ -82,7 +81,7 @@ const RenderColumnStatus: Renderer<CellProps<SecretResponseWrapper>> = ({ row })
   if (data.type === 'SecretText' || data.type === 'SecretFile') {
     return row.original.draft ? (
       <Text icon="warning-sign" intent="warning">
-        {i18n.incompleteSecret}
+        {<String stringID="secrets.incompleteSecret" />}
       </Text>
     ) : null
   }
@@ -90,7 +89,7 @@ const RenderColumnStatus: Renderer<CellProps<SecretResponseWrapper>> = ({ row })
     return (
       <Button
         font="small"
-        text={i18n.testconnection}
+        text={<String stringID="secrets.testconnection" />}
         onClick={e => {
           e.stopPropagation()
           openVerifyModal(data)
@@ -123,10 +122,10 @@ const RenderColumnAction: Renderer<CellProps<SecretResponseWrapper>> = ({ row, c
   }
 
   const { openDialog } = useConfirmationDialog({
-    contentText: i18n.confirmDelete(data.name || ''),
-    titleText: i18n.confirmDeleteTitle,
-    confirmButtonText: i18n.btnDelete,
-    cancelButtonText: i18n.btnCancel,
+    contentText: <String stringID="secrets.confirmDeleteTitle" vars={{ name: data.name }} />,
+    titleText: <String stringID="secrets.confirmDeleteTitle" />,
+    confirmButtonText: <String stringID="delete" />,
+    cancelButtonText: <String stringID="cancel" />,
     onCloseDialog: async didConfirm => {
       if (didConfirm && data.identifier) {
         try {
@@ -199,24 +198,26 @@ const SecretsList: React.FC<SecretsListProps> = ({ secrets, refetch, gotoPage })
   const history = useHistory()
   const data: SecretResponseWrapper[] = useMemo(() => secrets?.content || [], [secrets?.content])
   const { pathname } = useLocation()
+  const { getString } = useStrings()
+
   const columns: Column<SecretResponseWrapper>[] = useMemo(
     () => [
       {
-        Header: i18n.table.secret,
+        Header: getString('secretType'),
         accessor: row => row.secret.name,
         id: 'name',
         width: '30%',
         Cell: RenderColumnSecret
       },
       {
-        Header: i18n.table.secretManager,
+        Header: getString('details'),
         accessor: row => row.secret.description,
         id: 'details',
         width: '25%',
         Cell: RenderColumnDetails
       },
       {
-        Header: i18n.table.lastActivity,
+        Header: getString('lastActivity'),
         accessor: 'updatedAt',
         id: 'activity',
         width: '20%',

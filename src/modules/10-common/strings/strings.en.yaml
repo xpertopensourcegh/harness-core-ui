@@ -82,19 +82,24 @@ purpose:
     delivery: Delivery
     subtitle: Deploy your services with blazingly fast pipelines.
     description: CD description placeholder
+    continuous: Continuous Delivery
 
   cv:
     verification: Verification
     subtitle: Deploy in peace - verify activities that take place in your system. Identify risk early.
     description: CV description placeholder
+    continuous: Continuous Verification
+
   ci:
     integration: Integration
     subtitle: Commit, build, and test your code at a whole new level.
+    continuous: Continuous Integration
     description:
       'Define pipelines that enable you to improve your deployment times, manage your integrations and view your services all in one place.
       <br><br>You can access this module via your free trial. Benefits include:
       Your software delivery pipeline can now include build stages
       Test intelligence - faster and more reliable build processes'
+
   ce:
     optimizationCard:
       description: Detection of orphaned resources, recommendations to save costs, Scaling/tearing down, turning off in non-work hours, reserving instances.
@@ -102,12 +107,14 @@ purpose:
       description: Cost insights, anomaly detection, Service insights,Creating budgets and perspectives and alerts, utilised/wasted resources in Clusters.
     efficiency: Efficiency
     subtitle: Spot and quickly debug inefficiencies and optimize them to reduce costs.
+    continuous: Continuous Efficiency
     description: 'Gain Cloud cost visibilty and optimize costs across projects, environments, clusters, deployments, etc
       <br><br>You can access this module via your free trial. Benefits include: Your software delivery pipeline can now include build stages, Test intelligence - faster and more reliable build processes'
   cf:
     features: Features
     subtitle: Decouple release from deployment and rollout features safely and quickly.
     description: '{{$.common.purpose.cf.subtitle}}'
+    continuous: Continuous Features
 trialInProgress: Trial in-progress
 trialInProgressDescription: Your Harness journey begins with the creation of a Project. A Project lets you map users, resources into an end to end deployment pipeline workflow. Get started by creating your first Project below.
 letsGetYouStarted: Let’s get you started
@@ -295,6 +302,12 @@ errorHandler:
   tryTheseSuggestions: Try these suggestions
 noRefData: 'No references found'
 references: 'References'
+labelTestConnection: 'Test Connection'
+path: 'Path'
+saveAndClose: Save and Close
+pendingInvitation: Pending Invitation
+capsAll: ALL
+blank: ''
 totalLines: 'Total lines'
 newLines: 'New lines'
 unsavedChanges: You may have unsaved changes

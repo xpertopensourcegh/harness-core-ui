@@ -1,4 +1,4 @@
-continuous: Continuous Verification
+continuous: '{{$.common.purpose.cv.continuous}}'
 methodLabel: Method Label
 request: Request
 response: Response

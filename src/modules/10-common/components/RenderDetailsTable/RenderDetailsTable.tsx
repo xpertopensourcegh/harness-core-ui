@@ -7,7 +7,7 @@ import css from './RenderDetailsTable.module.scss'
 
 export interface ActivityDetailsRowInterface {
   label: string
-  value: string | string[] | tagsType | number | null | undefined
+  value: string | string[] | tagsType | number | React.ReactElement | null | undefined
   iconData?: {
     text: string
     icon: IconName

@@ -3,10 +3,9 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { SSHKeyValidationMetadata, useValidateSecret, ResponseSecretValidationResultDTO } from 'services/cd-ng'
 import { useGetDelegatesStatus, RestResponseDelegateStatus } from 'services/portal'
+import { useStrings } from 'framework/strings'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-
-import i18n from '../CreateSSHCredModal.i18n'
 
 interface VerifySecretProps {
   validationMetadata?: SSHKeyValidationMetadata
@@ -38,6 +37,7 @@ const VerifySecret: React.FC<VerifySecretProps> = ({
 }) => {
   const { accountId: accountIdentifier, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
+  const { getString } = useStrings()
   const {
     data: delegateStatus,
     loading: loadingDelegateStatus,
@@ -111,7 +111,10 @@ const VerifySecret: React.FC<VerifySecretProps> = ({
     <>
       <StepsProgress
         current={currentStep}
-        steps={[i18n.verifyStepOne, i18n.verifyStepTwo]}
+        steps={[
+          getString('secrets.createSSHCredWizard.verifyStepOne'),
+          getString('secrets.createSSHCredWizard.verifyStepTwo')
+        ]}
         currentStatus={currentStatus}
         intent={currentIntent}
       />

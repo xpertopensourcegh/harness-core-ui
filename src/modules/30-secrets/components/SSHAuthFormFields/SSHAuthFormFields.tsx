@@ -3,69 +3,66 @@ import { FormInput, Layout, Button, Text, SelectOption } from '@wings-software/u
 import { IOptionProps, MenuItem } from '@blueprintjs/core'
 import { Select } from '@blueprintjs/select'
 import type { FormikProps } from 'formik'
-
+import { useStrings } from 'framework/strings'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import type { SSHConfigFormData } from '@secrets/modals/CreateSSHCredModal/views/StepAuthentication'
 
-import i18n from './SSHAuthFormFields.i18n'
-
 const CustomSelect = Select.ofType<SelectOption>()
-
 interface SSHAuthFormFieldsProps {
   formik: FormikProps<SSHConfigFormData>
   secretName?: string
   editing?: boolean
 }
 
-const credentialTypeOptions: SelectOption[] = [
-  {
-    label: i18n.optionKey,
-    value: 'KeyReference'
-  },
-  {
-    label: i18n.optionKeypath,
-    value: 'KeyPath'
-  },
-  {
-    label: i18n.optionPassword,
-    value: 'Password'
-  }
-]
-
-const authSchemeOptions: IOptionProps[] = [
-  {
-    label: i18n.optionSSHKey,
-    value: 'SSH'
-  },
-  {
-    label: i18n.optionKerberos,
-    value: 'Kerberos'
-  }
-]
-
-const tgtGenerationMethodOptions: IOptionProps[] = [
-  {
-    label: i18n.optionKeyTab,
-    value: 'KeyTabFilePath'
-  },
-  {
-    label: i18n.optionKerbPass,
-    value: 'Password'
-  },
-  {
-    label: i18n.optionKerbNone,
-    value: 'None'
-  }
-]
-
 const SSHAuthFormFields: React.FC<SSHAuthFormFieldsProps> = props => {
+  const { getString } = useStrings()
   const { formik } = props
+  const credentialTypeOptions: SelectOption[] = [
+    {
+      label: getString('secrets.sshAuthFormFields.optionKey'),
+      value: 'KeyReference'
+    },
+    {
+      label: getString('secrets.sshAuthFormFields.optionKeypath'),
+      value: 'KeyPath'
+    },
+    {
+      label: getString('secrets.sshAuthFormFields.optionPassword'),
+      value: 'Password'
+    }
+  ]
+
+  const authSchemeOptions: IOptionProps[] = [
+    {
+      label: getString('SSH_KEY'),
+      value: 'SSH'
+    },
+    {
+      label: getString('kerberos'),
+      value: 'Kerberos'
+    }
+  ]
+
+  const tgtGenerationMethodOptions: IOptionProps[] = [
+    {
+      label: getString('secrets.sshAuthFormFields.labelKeyTab'),
+      value: 'KeyTabFilePath'
+    },
+    {
+      label: getString('password'),
+      value: 'Password'
+    },
+    {
+      label: getString('secrets.sshAuthFormFields.optionKerbNone'),
+      value: 'None'
+    }
+  ]
 
   return (
     <>
       <FormInput.RadioGroup
         name="authScheme"
-        label={i18n.labelType}
+        label={getString('secrets.sshAuthFormFields.labelType')}
         items={authSchemeOptions}
         radioGroup={{ inline: true }}
       />
@@ -73,7 +70,7 @@ const SSHAuthFormFields: React.FC<SSHAuthFormFieldsProps> = props => {
         <>
           <Layout.Horizontal margin={{ bottom: 'medium' }}>
             <Text icon="lock" style={{ flex: 1 }}>
-              {i18n.labelAuth}
+              {getString('authentication')}
             </Text>
             <CustomSelect
               items={credentialTypeOptions}
@@ -98,41 +95,47 @@ const SSHAuthFormFields: React.FC<SSHAuthFormFieldsProps> = props => {
               />
             </CustomSelect>
           </Layout.Horizontal>
-          <FormInput.Text name="userName" label={i18n.labelUsername} />
+          <FormInput.Text name="userName" label={getString('username')} />
           {formik.values.credentialType === 'KeyReference' ? (
             <>
-              <SecretInput name="key" label={i18n.labelFile} type="SecretFile" />
-              <SecretInput name={'encryptedPassphrase'} label={i18n.labelPassphrase} />
+              <SecretInput name="key" label={getString('secrets.sshAuthFormFields.labelFile')} type="SecretFile" />
+              <SecretInput
+                name={'encryptedPassphrase'}
+                label={getString('secrets.sshAuthFormFields.labelPassphrase')}
+              />
             </>
           ) : null}
           {formik.values.credentialType === 'KeyPath' ? (
             <>
-              <FormInput.Text name="keyPath" label={i18n.labelKeyFilePath} />
-              <SecretInput name={'encryptedPassphrase'} label={i18n.labelPassphrase} />
+              <FormInput.Text name="keyPath" label={getString('secrets.sshAuthFormFields.labelKeyFilePath')} />
+              <SecretInput
+                name={'encryptedPassphrase'}
+                label={getString('secrets.sshAuthFormFields.labelPassphrase')}
+              />
             </>
           ) : null}
           {formik.values.credentialType === 'Password' ? (
-            <SecretInput name={'password'} label={i18n.labelPassword} />
+            <SecretInput name={'password'} label={getString('password')} />
           ) : null}
-          <FormInput.Text name="port" label={i18n.labelSSHPort} />
+          <FormInput.Text name="port" label={getString('secrets.sshAuthFormFields.labelSSHPort')} />
         </>
       ) : null}
       {formik.values.authScheme === 'Kerberos' ? (
         <>
-          <FormInput.Text name="principal" label={i18n.labelPrincipal} />
-          <FormInput.Text name="realm" label={i18n.labelRealm} />
-          <FormInput.Text name="port" label={i18n.labelSSHPort} />
+          <FormInput.Text name="principal" label={getString('secrets.sshAuthFormFields.labelPrincipal')} />
+          <FormInput.Text name="realm" label={getString('secrets.sshAuthFormFields.labelRealm')} />
+          <FormInput.Text name="port" label={getString('secrets.sshAuthFormFields.labelSSHPort')} />
           <FormInput.RadioGroup
             name="tgtGenerationMethod"
-            label={i18n.labelTGT}
+            label={getString('secrets.sshAuthFormFields.labelTGT')}
             items={tgtGenerationMethodOptions}
             radioGroup={{ inline: true }}
           />
           {formik.values.tgtGenerationMethod === 'KeyTabFilePath' ? (
-            <FormInput.Text name="keyPath" label={i18n.labelKeyTab} />
+            <FormInput.Text name="keyPath" label={getString('secrets.sshAuthFormFields.labelKeyTab')} />
           ) : null}
           {formik.values.tgtGenerationMethod === 'Password' ? (
-            <SecretInput name={'password'} label={i18n.labelPassword} />
+            <SecretInput name={'password'} label={getString('password')} />
           ) : null}
         </>
       ) : null}

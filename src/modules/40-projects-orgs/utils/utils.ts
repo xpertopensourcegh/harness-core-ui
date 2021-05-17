@@ -1,6 +1,6 @@
 import type { IconName } from '@wings-software/uicore'
+import type { StringKeys } from 'framework/strings/StringsContext'
 import { ModuleName } from 'framework/types/ModuleName'
-import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
 
 export const getModuleIcon = (module: ModuleName): IconName => {
   switch (module) {
@@ -34,18 +34,18 @@ export const getModulePurpose = (module: ModuleName): string => {
   return ''
 }
 
-export const getModuleDescription = (module: ModuleName): string => {
+export const getModuleDescription = (module: ModuleName): StringKeys => {
   switch (module) {
     case ModuleName.CD:
-      return i18n.newProjectWizard.purposeList.descriptionCD
+      return 'projectsOrgs.purposeList.descriptionCD'
     case ModuleName.CV:
-      return i18n.newProjectWizard.purposeList.descriptionCV
+      return 'projectsOrgs.purposeList.descriptionCV'
     case ModuleName.CI:
-      return i18n.newProjectWizard.purposeList.descriptionCI
+      return 'projectsOrgs.purposeList.descriptionCI'
     case ModuleName.CE:
-      return i18n.newProjectWizard.purposeList.descriptionCE
+      return 'projectsOrgs.purposeList.descriptionCE'
     case ModuleName.CF:
-      return i18n.newProjectWizard.purposeList.descriptionCF
+      return 'projectsOrgs.purposeList.descriptionCF'
   }
-  return ''
+  return 'projectsOrgs.blank'
 }

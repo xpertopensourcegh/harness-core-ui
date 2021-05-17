@@ -17,7 +17,7 @@ exports[`Organization Details Render 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-blue600"
           >
-            Manage Organizations /
+            projectsOrgs.manage
           </p>
         </a>
       </div>
@@ -100,7 +100,7 @@ exports[`Organization Details Render 1`] = `
         <p
           class="StyledProps--font StyledProps--main"
         >
-          View Projects
+          projectsOrgs.viewProjects
         </p>
       </a>
     </div>
@@ -161,7 +161,7 @@ exports[`Organization Details Render 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-xsmall"
         >
-          Admin
+          adminLabel
         </p>
       </div>
       <div
@@ -198,7 +198,7 @@ exports[`Organization Details Render 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-xsmall"
         >
-          Collaborators
+          collaboratorsLabel
         </p>
       </div>
     </div>

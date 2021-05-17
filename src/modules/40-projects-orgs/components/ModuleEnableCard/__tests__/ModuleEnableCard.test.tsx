@@ -39,7 +39,7 @@ describe('Module Enable Card', () => {
         </TestWrapper>
       )
       expect(container).toMatchSnapshot()
-      const enable = getAllByText('Enable')[0]
+      const enable = getAllByText('enable')[0]
       fireEvent.click(enable)
       expect(addModule).toBeCalled()
     })

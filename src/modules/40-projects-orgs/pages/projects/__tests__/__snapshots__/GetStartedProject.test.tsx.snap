@@ -9,12 +9,12 @@ exports[`Get Started Project test Add a new Project  1`] = `
       class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
       level="2"
     >
-      Get Started
+      getStarted
     </h2>
     <a
       href="/account/testAcc/projects"
     >
-      Projects
+      projectsText
     </a>
   </div>
   <div
@@ -34,13 +34,13 @@ exports[`Get Started Project test Add a new Project  1`] = `
           class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
           level="1"
         >
-          Welcome, let's get you started!
+          projectsOrgs.welcome
         </h1>
         <h2
           class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey600"
           level="2"
         >
-          Take your software delivery processes to the next level using our Harness modules
+          projectsOrgs.welcomeSecondLine
         </h2>
       </div>
       <button
@@ -69,7 +69,7 @@ exports[`Get Started Project test Add a new Project  1`] = `
         <span
           class="bp3-button-text"
         >
-          Project
+          projectLabel
         </span>
       </button>
     </div>

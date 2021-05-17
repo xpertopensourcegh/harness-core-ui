@@ -15,12 +15,12 @@ exports[`Collaborators test Render Collaborators  1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-black StyledProps--padding-bottom-xxlarge"
           >
-            Invite Collaborators
+            projectsOrgs.invite
           </p>
           <p
             class="StyledProps--font StyledProps--main StyledProps--padding-bottom-small"
           >
-            Your Project is only accessible to people you've invited
+            projectsOrgs.urlMessageProject
           </p>
           <div
             class="Layout--horizontal StyledProps--main"
@@ -79,7 +79,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                Invite People to Collaborate
+                projectsOrgs.inviteCollab
               </p>
             </div>
             <div
@@ -89,7 +89,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
               <p
                 class="StyledProps--font StyledProps--main"
               >
-                collaborators.roleLabel
+                projectsOrgs.roleLabel
               </p>
               <span
                 class="bp3-popover-wrapper"
@@ -144,7 +144,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
           >
             <div
               class="bp3-form-group input"
-              data-id="collaborators-0"
+              data-id="projectsOrgs.collaborator-0"
             >
               <div
                 class="bp3-form-content"
@@ -167,7 +167,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                           <input
                             autocomplete="off"
                             class="bp3-input-ghost bp3-multi-select-tag-input-input"
-                            name="collaborators"
+                            name="projectsOrgs.collaborator"
                             placeholder="Search..."
                             value=""
                           />
@@ -187,7 +187,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
               <span
                 class="bp3-button-text"
               >
-                Add
+                add
               </span>
             </button>
           </div>
@@ -197,7 +197,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--padding-bottom-small"
             >
-              People Waiting to be Processed (3)
+              projectsOrgs.pendingUsers
             </p>
             <div
               class="StyledProps--font StyledProps--main pendingList"
@@ -246,7 +246,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                         <p
                           class="StyledProps--font StyledProps--main colorBar pending StyledProps--font-size-xsmall StyledProps--font-weight-bold StyledProps--color StyledProps--color-primary7"
                         >
-                          Pending Invitation
+                          projectsOrgs.pendingInvitation
                         </p>
                       </div>
                       <p
@@ -261,7 +261,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
                         >
-                          Role Assigned:
+                          projectsOrgs.roleAssigned
                         </p>
                         <p
                           class="StyledProps--font Text--lineclamp StyledProps--main role StyledProps--font-xsmall StyledProps--color StyledProps--color-blue600"
@@ -382,7 +382,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                         <p
                           class="StyledProps--font StyledProps--main colorBar pending StyledProps--font-size-xsmall StyledProps--font-weight-bold StyledProps--color StyledProps--color-primary7"
                         >
-                          Pending Invitation
+                          projectsOrgs.pendingInvitation
                         </p>
                       </div>
                       <p
@@ -397,7 +397,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
                         >
-                          Role Assigned:
+                          projectsOrgs.roleAssigned
                         </p>
                         <p
                           class="StyledProps--font Text--lineclamp StyledProps--main role StyledProps--font-xsmall StyledProps--color StyledProps--color-blue600"
@@ -518,7 +518,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                         <p
                           class="StyledProps--font StyledProps--main colorBar pending StyledProps--font-size-xsmall StyledProps--font-weight-bold StyledProps--color StyledProps--color-primary7"
                         >
-                          Pending Invitation
+                          projectsOrgs.pendingInvitation
                         </p>
                       </div>
                       <p
@@ -533,7 +533,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
                         >
-                          Role Assigned:
+                          projectsOrgs.roleAssigned
                         </p>
                         <p
                           class="StyledProps--font Text--lineclamp StyledProps--main role StyledProps--font-xsmall StyledProps--color StyledProps--color-blue600"
@@ -623,7 +623,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
             <span
               class="bp3-button-text"
             >
-              Manage all the users in the project
+              projectsOrgs.manageProject
             </span>
           </button>
         </div>

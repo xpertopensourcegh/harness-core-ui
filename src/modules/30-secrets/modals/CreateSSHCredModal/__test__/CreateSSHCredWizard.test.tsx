@@ -73,11 +73,11 @@ describe('Create SSH Cred Wizard', () => {
     await act(async () => {
       clickSubmit(container)
     })
-    expect(getAllByText('Key file is required')[0]).toBeDefined()
+    expect(getAllByText('secrets.createSSHCredWizard.validateSshKey')[0]).toBeDefined()
     await act(async () => {
       fireEvent.click(container.querySelector('a[data-testid="key"]')!)
     })
-    const $selectTab = getByText(document.body, 'Select an existing secret')
+    const $selectTab = getByText(document.body, 'secrets.titleSelect')
     await act(async () => {
       fireEvent.click($selectTab)
     })
@@ -129,6 +129,6 @@ describe('Create SSH Cred Wizard', () => {
       clickSubmit(container)
     })
     //Verification of delegate service
-    expect(getAllByText('RETEST CONNECTION')[0]).toBeDefined()
+    expect(getAllByText('secrets.createSSHCredWizard.verifyRetest')[0]).toBeDefined()
   })
 })

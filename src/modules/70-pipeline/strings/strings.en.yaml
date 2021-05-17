@@ -107,7 +107,7 @@ manifestType:
   chartPathRequired: Chart Path is required
   kustomizePathRequired: Kustomize Path is required
   pathRequired: Path is required
-  path: 'Path'
+  path: '{{$.common.path}}'
   osTemplatePath: 'Template File Path'
   osTemplatePathPlaceHolder: 'Enter Template File Path'
   osTemplatePathRequired: Template File Path is required

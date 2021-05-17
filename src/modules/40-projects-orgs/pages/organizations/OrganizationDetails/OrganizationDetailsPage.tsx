@@ -13,7 +13,6 @@ import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacAvatarGroup from '@rbac/components/RbacAvatarGroup/RbacAvatarGroup'
-import i18n from './OrganizationDetailsPage.i18n'
 import css from './OrganizationDetailsPage.module.scss'
 
 const OrganizationDetailsPage: React.FC = () => {
@@ -54,7 +53,7 @@ const OrganizationDetailsPage: React.FC = () => {
             <Layout.Horizontal>
               <Link to={routes.toOrganizations({ accountId })}>
                 <Text font="small" color={Color.BLUE_600}>
-                  {i18n.manage}
+                  {getString('projectsOrgs.manage')}
                 </Text>
               </Link>
             </Layout.Horizontal>
@@ -80,7 +79,7 @@ const OrganizationDetailsPage: React.FC = () => {
                 accountId
               })}?orgId=${orgIdentifier}`}
             >
-              <Text>{i18n.viewProjects}</Text>
+              <Text>{getString('projectsOrgs.viewProjects')}</Text>
             </Link>
           </Layout.Vertical>
         }
@@ -96,7 +95,7 @@ const OrganizationDetailsPage: React.FC = () => {
                 restrictLengthTo={6}
                 permission={invitePermission}
               />
-              <Text font="xsmall">{i18n.admin}</Text>
+              <Text font="xsmall">{getString('adminLabel')}</Text>
             </Layout.Vertical>
             <Layout.Vertical padding={{ right: 'large' }} spacing="xsmall" flex>
               <RbacAvatarGroup
@@ -108,7 +107,7 @@ const OrganizationDetailsPage: React.FC = () => {
                 restrictLengthTo={6}
                 permission={invitePermission}
               />
-              <Text font="xsmall">{i18n.collaborators}</Text>
+              <Text font="xsmall">{getString('collaboratorsLabel')}</Text>
             </Layout.Vertical>
           </Layout.Horizontal>
         }

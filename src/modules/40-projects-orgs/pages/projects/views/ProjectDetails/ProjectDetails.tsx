@@ -21,7 +21,6 @@ import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacAvatarGroup from '@rbac/components/RbacAvatarGroup/RbacAvatarGroup'
-import i18n from './ProjectDetails.i18n'
 import useDeleteProjectDialog from '../../DeleteProject'
 import css from './ProjectDetails.module.scss'
 
@@ -194,7 +193,7 @@ const ProjectDetails: React.FC = () => {
             <Container padding="xxlarge" className={css.enabledModules}>
               <Layout.Vertical padding="small" spacing="large">
                 <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
-                  {i18n.modulesEnabled}
+                  {getString('projectsOrgs.modulesEnabled')}
                 </Text>
                 {projectData.modules?.length ? (
                   projectData.modules.map(module => (
@@ -209,7 +208,7 @@ const ProjectDetails: React.FC = () => {
                 ) : (
                   <Layout.Vertical padding="huge" flex={{ align: 'center-center' }} spacing="huge">
                     <Icon name="nav-project" size={70} />
-                    <Text font="medium">{i18n.noModules}</Text>
+                    <Text font="medium">{getString('projectsOrgs.noModules')}</Text>
                   </Layout.Vertical>
                 )}
               </Layout.Vertical>
@@ -218,7 +217,7 @@ const ProjectDetails: React.FC = () => {
               {getEnableModules().length === 0 ? null : (
                 <>
                   <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
-                    {i18n.enableModules}
+                    {getString('projectsOrgs.enableModules')}
                   </Text>
                   <Layout.Horizontal spacing="small" padding={{ top: 'large' }}>
                     {getEnableModules().map(module => (
@@ -237,7 +236,7 @@ const ProjectDetails: React.FC = () => {
           {/* TODO: ENABLE THIS WHEN WE HAVE INFO */}
           {/* <Layout.Vertical padding="huge" spacing="large">
             <Text font={{ size: 'medium', weight: 'bold' }} color={Color.BLACK}>
-              {i18n.recentActivities}
+              {getString('projectsOrgs.recentActivities')}
             </Text>
             <Card className={css.activityCard}>
               <ActivityStack

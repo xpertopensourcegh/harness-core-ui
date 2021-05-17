@@ -1,4 +1,4 @@
-continuous: Continuous Efficiency
+continuous: '{{$.common.purpose.ce.continuous}}'
 homepage:
   slogan: 'Take your Cloud Cost management to the next level using our Harness Continuous Efficiency.'
 co:

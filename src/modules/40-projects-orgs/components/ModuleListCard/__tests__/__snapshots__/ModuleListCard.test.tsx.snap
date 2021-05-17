@@ -58,7 +58,7 @@ exports[`Project Details render 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small"
               >
-                CONTINUOUS
+                projectsOrgs.purposeList.continuous
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
@@ -91,7 +91,7 @@ exports[`Project Details render 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
               >
-                Enabled
+                enabledLabel
               </p>
             </div>
           </div>
@@ -210,7 +210,7 @@ exports[`Project Details render 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-medium"
             >
-              23
+              projectsOrgs.placeholder
             </p>
           </div>
           <p
@@ -316,7 +316,7 @@ exports[`Project Details render 2`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small"
               >
-                CONTINUOUS
+                projectsOrgs.purposeList.continuous
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
@@ -349,7 +349,7 @@ exports[`Project Details render 2`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
               >
-                Enabled
+                enabledLabel
               </p>
             </div>
           </div>
@@ -468,7 +468,7 @@ exports[`Project Details render 2`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-medium"
             >
-              23
+              projectsOrgs.placeholder
             </p>
           </div>
           <p
@@ -570,7 +570,7 @@ exports[`Project Details render 3`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small"
               >
-                CONTINUOUS
+                projectsOrgs.purposeList.continuous
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
@@ -603,7 +603,7 @@ exports[`Project Details render 3`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
               >
-                Enabled
+                enabledLabel
               </p>
             </div>
           </div>
@@ -722,7 +722,7 @@ exports[`Project Details render 3`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-medium"
             >
-              23
+              projectsOrgs.placeholder
             </p>
           </div>
           <p
@@ -824,7 +824,7 @@ exports[`Project Details render 4`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small"
               >
-                CONTINUOUS
+                projectsOrgs.purposeList.continuous
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
@@ -857,7 +857,7 @@ exports[`Project Details render 4`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
               >
-                Enabled
+                enabledLabel
               </p>
             </div>
           </div>
@@ -976,7 +976,7 @@ exports[`Project Details render 4`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-medium"
             >
-              23
+              projectsOrgs.placeholder
             </p>
           </div>
           <p
@@ -1078,7 +1078,7 @@ exports[`Project Details render 5`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-small"
               >
-                CONTINUOUS
+                projectsOrgs.purposeList.continuous
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
@@ -1111,7 +1111,7 @@ exports[`Project Details render 5`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
               >
-                Enabled
+                enabledLabel
               </p>
             </div>
           </div>
@@ -1230,7 +1230,7 @@ exports[`Project Details render 5`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-medium"
             >
-              23
+              projectsOrgs.placeholder
             </p>
           </div>
           <p

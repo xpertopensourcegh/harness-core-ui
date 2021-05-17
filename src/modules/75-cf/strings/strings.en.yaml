@@ -1,4 +1,4 @@
-continuous: Continuous Features
+continuous: '{{$.common.purpose.cf.continuous}}'
 shared:
   individual: Individual
   target: '{{ $.pipelineSteps.targetLabel }}'
@@ -36,7 +36,7 @@ creationModal:
   defaultRules: Default rules for the flag
   flagOn: If the flag is ON, serve
   flagOff: If the flag is OFF, serve
-  saveAndClose: Save and Close
+  saveAndClose: '{{$.common.saveAndClose}}'
   nameIsRequired: Variation name is required
   valueIsRequired: Variation value is required
   idIsRequired: Variation identifier is required

@@ -101,6 +101,8 @@ export interface StringsMap {
   'common.authSettings.usePublicOAuth': string
   'common.authSettings.whitelistedDomainsDisabled': string
   'common.authSettings.yourAccountWillBeLockedOut': string
+  'common.blank': string
+  'common.capsAll': string
   'common.ce.cost': string
   'common.ce.optimization': string
   'common.ce.startTrial': string
@@ -179,6 +181,7 @@ export interface StringsMap {
   'common.gitSync.updateResource': string
   'common.input': string
   'common.jexlExpression': string
+  'common.labelTestConnection': string
   'common.letsGetYouStarted': string
   'common.link': string
   'common.loading': string
@@ -195,6 +198,8 @@ export interface StringsMap {
   'common.options': string
   'common.orgViewer': string
   'common.other': string
+  'common.path': string
+  'common.pendingInvitation': string
   'common.performAction': string
   'common.pipeline': string
   'common.pipelineDetails': string
@@ -202,21 +207,26 @@ export interface StringsMap {
   'common.production': string
   'common.projectViewer': string
   'common.provisioner': string
+  'common.purpose.cd.continuous': string
   'common.purpose.cd.delivery': string
   'common.purpose.cd.description': string
   'common.purpose.cd.subtitle': string
+  'common.purpose.ce.continuous': string
   'common.purpose.ce.description': string
   'common.purpose.ce.efficiency': string
   'common.purpose.ce.optimizationCard.description': string
   'common.purpose.ce.subtitle': string
   'common.purpose.ce.visibilityCard.description': string
+  'common.purpose.cf.continuous': string
   'common.purpose.cf.description': string
   'common.purpose.cf.features': string
   'common.purpose.cf.subtitle': string
+  'common.purpose.ci.continuous': string
   'common.purpose.ci.description': string
   'common.purpose.ci.integration': string
   'common.purpose.ci.subtitle': string
   'common.purpose.continuous': string
+  'common.purpose.cv.continuous': string
   'common.purpose.cv.description': string
   'common.purpose.cv.subtitle': string
   'common.purpose.cv.verification': string
@@ -261,6 +271,7 @@ export interface StringsMap {
   'common.samlProvider.testingSSO': string
   'common.samlProvider.testingSSODescription': string
   'common.samlProvider.uploadIdentityProvider': string
+  'common.saveAndClose': string
   'common.savedSuccessfully': string
   'common.secretKey': string
   'common.secrets': string
@@ -385,7 +396,52 @@ export interface StringsMap {
   'rbac.usersPage.selectRole': string
   'rbac.usersPage.validation.resourceGroup': string
   'rbac.usersPage.validation.role': string
+  'secrets.blank': string
+  'secrets.confirmDelete': string
+  'secrets.confirmDeleteTitle': string
+  'secrets.createSSHCredWizard.btnSaving': string
+  'secrets.createSSHCredWizard.btnVerifyConnection': string
+  'secrets.createSSHCredWizard.hostnameInfo': string
+  'secrets.createSSHCredWizard.labelHostname': string
+  'secrets.createSSHCredWizard.titleAuth': string
+  'secrets.createSSHCredWizard.titleDetails': string
+  'secrets.createSSHCredWizard.validId': string
+  'secrets.createSSHCredWizard.validIdRegex': string
+  'secrets.createSSHCredWizard.validName': string
+  'secrets.createSSHCredWizard.validateKeypath': string
+  'secrets.createSSHCredWizard.validatePort': string
+  'secrets.createSSHCredWizard.validatePrincipal': string
+  'secrets.createSSHCredWizard.validateRealm': string
+  'secrets.createSSHCredWizard.validateSshKey': string
+  'secrets.createSSHCredWizard.validateUsername': string
+  'secrets.createSSHCredWizard.verifyRetest': string
+  'secrets.createSSHCredWizard.verifyStepOne': string
+  'secrets.createSSHCredWizard.verifyStepTwo': string
+  'secrets.incompleteSecret': string
+  'secrets.labelPath': string
+  'secrets.labelSecretManager': string
+  'secrets.labelType': string
+  'secrets.labelValue': string
   'secrets.selectSecret': string
+  'secrets.sshAuthFormFields.labelFile': string
+  'secrets.sshAuthFormFields.labelKeyFilePath': string
+  'secrets.sshAuthFormFields.labelKeyReference': string
+  'secrets.sshAuthFormFields.labelKeyTab': string
+  'secrets.sshAuthFormFields.labelPassphrase': string
+  'secrets.sshAuthFormFields.labelPrincipal': string
+  'secrets.sshAuthFormFields.labelRealm': string
+  'secrets.sshAuthFormFields.labelSSHPort': string
+  'secrets.sshAuthFormFields.labelTGT': string
+  'secrets.sshAuthFormFields.labelType': string
+  'secrets.sshAuthFormFields.optionKerbNone': string
+  'secrets.sshAuthFormFields.optionKey': string
+  'secrets.sshAuthFormFields.optionKeypath': string
+  'secrets.sshAuthFormFields.optionPassword': string
+  'secrets.stepTitleVerify': string
+  'secrets.testconnection': string
+  'secrets.titleCreate': string
+  'secrets.titleSelect': string
+  'secrets.typeSSH': string
   'connectors.ECR.fullName': string
   'connectors.ECR.name': string
   'connectors.GCP.delegateInClusterInfo': string
@@ -668,14 +724,86 @@ export interface StringsMap {
   'userProfile.twofactorAuth': string
   'userProfile.userEditFail': string
   'userProfile.userEditSuccess': string
+  'projectsOrgs.aboutProject': string
+  'projectsOrgs.aboutTitle': string
+  'projectsOrgs.blank': string
+  'projectsOrgs.capsAllValue': string
+  'projectsOrgs.collaborator': string
+  'projectsOrgs.collaboratorsTitle': string
+  'projectsOrgs.confirmDelete': string
+  'projectsOrgs.confirmDeleteTitle': string
   'projectsOrgs.createANewProject': string
   'projectsOrgs.createOrSelectAProject': string
   'projectsOrgs.createProject': string
   'projectsOrgs.createProjectLoader': string
+  'projectsOrgs.editTitle': string
+  'projectsOrgs.enableModules': string
   'projectsOrgs.getStarted': string
+  'projectsOrgs.gotoCD': string
+  'projectsOrgs.gotoCE': string
+  'projectsOrgs.gotoCF': string
+  'projectsOrgs.gotoCI': string
+  'projectsOrgs.gotoCV': string
+  'projectsOrgs.invite': string
+  'projectsOrgs.inviteCollab': string
+  'projectsOrgs.manage': string
+  'projectsOrgs.manageOrg': string
+  'projectsOrgs.manageProject': string
+  'projectsOrgs.moduleSuccess': string
+  'projectsOrgs.modulesEnabled': string
   'projectsOrgs.noCollaborators': string
-  'projectsOrgs.orgs.noDataMessage': string
+  'projectsOrgs.noDataMessage': string
+  'projectsOrgs.noModules': string
+  'projectsOrgs.noProjectRole': string
+  'projectsOrgs.notAvailableForBeta': string
+  'projectsOrgs.orgCreateSuccess': string
+  'projectsOrgs.orgDeletedMessage': string
+  'projectsOrgs.orgEditSuccess': string
+  'projectsOrgs.orgName': string
+  'projectsOrgs.pendingInvitation': string
+  'projectsOrgs.pendingUsers': string
+  'projectsOrgs.placeholder': string
+  'projectsOrgs.projectCreateSuccess': string
+  'projectsOrgs.projectDeleteSuccess': string
+  'projectsOrgs.projectEdit': string
+  'projectsOrgs.projectEditSuccess': string
+  'projectsOrgs.projectInviteSuccess': string
+  'projectsOrgs.purposeList.cd': string
+  'projectsOrgs.purposeList.ce': string
+  'projectsOrgs.purposeList.cf': string
+  'projectsOrgs.purposeList.ci': string
+  'projectsOrgs.purposeList.continuous': string
+  'projectsOrgs.purposeList.cv': string
+  'projectsOrgs.purposeList.delivery': string
+  'projectsOrgs.purposeList.descriptionCD': string
+  'projectsOrgs.purposeList.descriptionCE': string
+  'projectsOrgs.purposeList.descriptionCF': string
+  'projectsOrgs.purposeList.descriptionCI': string
+  'projectsOrgs.purposeList.descriptionCV': string
+  'projectsOrgs.purposeList.efficiency': string
+  'projectsOrgs.purposeList.features': string
+  'projectsOrgs.purposeList.integration': string
+  'projectsOrgs.purposeList.linkcv': string
+  'projectsOrgs.purposeList.linkcvChangeSources': string
+  'projectsOrgs.purposeList.moduleSuccess': string
+  'projectsOrgs.purposeList.name': string
+  'projectsOrgs.purposeList.selectAModule': string
+  'projectsOrgs.purposeList.time': string
+  'projectsOrgs.purposeList.verification': string
+  'projectsOrgs.recentActivities': string
+  'projectsOrgs.requestAccess': string
+  'projectsOrgs.roleAssigned': string
+  'projectsOrgs.roleLabel': string
+  'projectsOrgs.saveAndClose': string
+  'projectsOrgs.search': string
+  'projectsOrgs.searchPlaceHolder': string
   'projectsOrgs.selectAnExistingProject': string
+  'projectsOrgs.tabOrgs': string
+  'projectsOrgs.urlMessageOrg': string
+  'projectsOrgs.urlMessageProject': string
+  'projectsOrgs.viewProjects': string
+  'projectsOrgs.welcome': string
+  'projectsOrgs.welcomeSecondLine': string
   'dashboards.createModal.dataSource': string
   'dashboards.createModal.descriptionPlaceholder': string
   'dashboards.createModal.fav': string
@@ -2662,10 +2790,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'collaborators.roleLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   collaboratorsLabel: string
   /**
    * @deprecated migrate this string to module level file
@@ -4598,22 +4722,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'orgs.aboutTitle': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'orgs.collaboratorsTitle': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'orgs.confirmDelete': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'orgs.searchPlaceHolder': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   orgsText: string
   /**
    * @deprecated migrate this string to module level file
@@ -5814,30 +5922,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'projectContextMenuRenderer.gotoCD': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'projectContextMenuRenderer.gotoCE': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'projectContextMenuRenderer.gotoCF': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'projectContextMenuRenderer.gotoCI': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'projectContextMenuRenderer.gotoCV': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'projectContextMenuRenderer.invite': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   projectDescription: string
   /**
    * @deprecated migrate this string to module level file
@@ -6271,10 +6355,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'secret.validationValue': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  secretDetails: string
   /**
    * @deprecated migrate this string to module level file
    */

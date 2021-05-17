@@ -39,8 +39,8 @@ describe('Get Started Project test', () => {
     expect(container).toMatchSnapshot()
 
     await act(async () => {
-      fireEvent.click(getByText('Project'))
-      await waitFor(() => queryAllByText(document.body, 'About the Project')[0])
+      fireEvent.click(getByText('projectLabel'))
+      await waitFor(() => queryAllByText(document.body, 'projectsOrgs')[0])
     })
     let form = findDialogContainer()
     expect(form).toBeTruthy()
@@ -65,7 +65,7 @@ describe('Get Started Project test', () => {
         </TestWrapper>
       )
       await act(async () => {
-        fireEvent.click(getByText('Projects'))
+        fireEvent.click(getByText('projectsText'))
       })
       expect(getByTestId('location').innerHTML.endsWith(routes.toProjects({ accountId: 'testAcc' }))).toBeTruthy()
     })

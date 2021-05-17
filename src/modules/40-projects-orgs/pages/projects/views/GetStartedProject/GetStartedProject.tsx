@@ -8,7 +8,6 @@ import { Page } from '@common/components/Page/Page'
 import { useStrings } from 'framework/strings'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import i18n from '../../ProjectsPage.i18n'
 import getStarted from './images/getStarted.png'
 import css from './GetStartedProject.module.scss'
 
@@ -34,21 +33,21 @@ const GetStartedProject: React.FC = () => {
   return (
     <>
       <Page.Header
-        title={i18n.getNewProjectStarted}
-        content={<Link to={routes.toProjects({ accountId })}>{i18n.projects}</Link>}
+        title={getString('getStarted')}
+        content={<Link to={routes.toProjects({ accountId })}>{getString('projectsText')}</Link>}
       />
       <div className={css.getStartedMainContainer}>
         <Layout.Vertical spacing="xxxlarge" flex>
           <Layout.Vertical spacing="medium" flex>
             <img src={getStarted} className={css.image} />
             <Heading level={1} font={{ weight: 'bold' }} color={Color.BLACK}>
-              {i18n.newProjectWizard.GetStartedProjectPage.welcome}
+              {getString('projectsOrgs.welcome')}
             </Heading>
             <Heading color={Color.GREY_600} level={2}>
-              {i18n.newProjectWizard.GetStartedProjectPage.welcomeSecondLine}
+              {getString('projectsOrgs.welcomeSecondLine')}
             </Heading>
           </Layout.Vertical>
-          <Button intent="primary" text={i18n.newProject} icon="plus" onClick={() => openProjectModal()} />
+          <Button intent="primary" text={getString('projectLabel')} icon="plus" onClick={() => openProjectModal()} />
         </Layout.Vertical>
       </div>
     </>

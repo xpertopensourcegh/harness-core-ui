@@ -122,7 +122,7 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
           text={
             <Layout.Horizontal spacing="xsmall">
               <Icon name="cd-main" />
-              <Text color={Color.WHITE}>{getString('projectContextMenuRenderer.gotoCD')}</Text>
+              <Text color={Color.WHITE}>{getString('projectsOrgs.gotoCD')}</Text>
             </Layout.Horizontal>
           }
           onClick={handleCD}
@@ -133,7 +133,7 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
           text={
             <Layout.Horizontal spacing="xsmall">
               <Icon name="cv-main" />
-              <Text color={Color.WHITE}>{getString('projectContextMenuRenderer.gotoCV')}</Text>
+              <Text color={Color.WHITE}>{getString('projectsOrgs.gotoCV')}</Text>
             </Layout.Horizontal>
           }
           onClick={handleCV}
@@ -144,7 +144,7 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
           text={
             <Layout.Horizontal spacing="xsmall">
               <Icon name="ci-main" />
-              <Text color={Color.WHITE}>{getString('projectContextMenuRenderer.gotoCI')}</Text>
+              <Text color={Color.WHITE}>{getString('projectsOrgs.gotoCI')}</Text>
             </Layout.Horizontal>
           }
           onClick={handleCI}
@@ -155,7 +155,7 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
           text={
             <Layout.Horizontal spacing="xsmall">
               <Icon name="cf-main" />
-              <Text color={Color.WHITE}>{getString('projectContextMenuRenderer.gotoCF')}</Text>
+              <Text color={Color.WHITE}>{getString('projectsOrgs.gotoCF')}</Text>
             </Layout.Horizontal>
           }
           onClick={handleCF}
@@ -166,7 +166,7 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
           text={
             <Layout.Horizontal spacing="xsmall">
               <Icon name="ce-main" />
-              <Text color={Color.WHITE}>{getString('projectContextMenuRenderer.gotoCE')}</Text>
+              <Text color={Color.WHITE}>{getString('projectsOrgs.gotoCE')}</Text>
             </Layout.Horizontal>
           }
           onClick={handleCE}
@@ -184,7 +184,7 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
       />
       <RbacMenuItem
         icon="new-person"
-        text={getString('projectContextMenuRenderer.invite')}
+        text={getString('projectsOrgs.invite')}
         onClick={handleCollaborate}
         permission={{
           resourceScope: {

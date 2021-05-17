@@ -57,7 +57,7 @@ exports[`Context Menu test render 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
             >
-              projectContextMenuRenderer.gotoCD
+              projectsOrgs.gotoCD
             </p>
           </div>
         </div>
@@ -114,7 +114,7 @@ exports[`Context Menu test render 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
             >
-              projectContextMenuRenderer.gotoCV
+              projectsOrgs.gotoCV
             </p>
           </div>
         </div>
@@ -171,7 +171,7 @@ exports[`Context Menu test render 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
             >
-              projectContextMenuRenderer.gotoCI
+              projectsOrgs.gotoCI
             </p>
           </div>
         </div>
@@ -228,7 +228,7 @@ exports[`Context Menu test render 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
             >
-              projectContextMenuRenderer.gotoCF
+              projectsOrgs.gotoCF
             </p>
           </div>
         </div>
@@ -285,7 +285,7 @@ exports[`Context Menu test render 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
             >
-              projectContextMenuRenderer.gotoCE
+              projectsOrgs.gotoCE
             </p>
           </div>
         </div>
@@ -352,7 +352,7 @@ exports[`Context Menu test render 1`] = `
         <div
           class="bp3-text-overflow-ellipsis bp3-fill"
         >
-          projectContextMenuRenderer.invite
+          projectsOrgs.invite
         </div>
       </a>
     </li>

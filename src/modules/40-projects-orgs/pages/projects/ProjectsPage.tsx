@@ -16,16 +16,10 @@ import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import i18n from './ProjectsPage.i18n'
 import { Views } from './Constants'
 import ProjectsListView from './views/ProjectListView/ProjectListView'
 import ProjectsGridView from './views/ProjectGridView/ProjectGridView'
 import css from './ProjectsPage.module.scss'
-
-const allOrgsSelectOption: SelectOption = {
-  label: i18n.orgLabel,
-  value: i18n.orgLabel.toUpperCase()
-}
 
 const CustomSelect = Select.ofType<SelectOption>()
 
@@ -38,6 +32,11 @@ const ProjectsListPage: React.FC = () => {
   const [searchParam, setSearchParam] = useState<string>()
   const [page, setPage] = useState(0)
   const history = useHistory()
+
+  const allOrgsSelectOption: SelectOption = {
+    label: getString('all'),
+    value: getString('projectsOrgs.capsAllValue')
+  }
   let orgFilter = allOrgsSelectOption
 
   const { data: orgsData } = useGetOrganizationList({
@@ -98,11 +97,11 @@ const ProjectsListPage: React.FC = () => {
   return (
     <Container className={css.projectsPage}>
       <Page.Header
-        title={i18n.projects}
-        content={<Link to={routes.toProjectsGetStarted({ accountId })}>{i18n.getNewProjectStarted}</Link>}
+        title={getString('projectsText')}
+        content={<Link to={routes.toProjectsGetStarted({ accountId })}>{getString('getStarted')}</Link>}
       />
       <Layout.Horizontal spacing="large" className={css.header}>
-        <Button intent="primary" text={i18n.newProject} icon="plus" onClick={() => openProjectModal()} />
+        <Button intent="primary" text={getString('projectLabel')} icon="plus" onClick={() => openProjectModal()} />
         <CustomSelect
           items={organizations}
           filterable={false}
@@ -127,7 +126,7 @@ const ProjectsListPage: React.FC = () => {
             className={css.orgSelect}
             text={
               <Layout.Horizontal spacing="xsmall">
-                <Text color={Color.BLACK}>{i18n.tabOrgs}</Text>
+                <Text color={Color.BLACK}>{getString('projectsOrgs.tabOrgs')}</Text>
                 <Text>{orgFilter.label}</Text>
               </Layout.Horizontal>
             }
@@ -137,7 +136,7 @@ const ProjectsListPage: React.FC = () => {
         <div style={{ flex: 1 }}></div>
 
         <ExpandingSearchInput
-          placeholder={i18n.search}
+          placeholder={getString('projectsOrgs.search')}
           onChange={text => {
             setSearchParam(text.trim())
           }}

@@ -47,7 +47,7 @@ describe('Context Menu test', () => {
     expect(container).toMatchSnapshot()
   })
   test('invite collaborators ', async () => {
-    fireEvent.click(getByText('projectContextMenuRenderer.invite'))
+    fireEvent.click(getByText('projectsOrgs.invite'))
     expect(collaborators).toHaveBeenCalled()
   }),
     test('edit project ', async () => {
@@ -59,23 +59,23 @@ describe('Context Menu test', () => {
       expect(openDialog).toHaveBeenCalled()
     }),
     test('Go to CV ', async () => {
-      fireEvent.click(getByText('projectContextMenuRenderer.gotoCV'))
+      fireEvent.click(getByText('projectsOrgs.gotoCV'))
       expect(getByTestId('location').innerHTML.endsWith(routes.toCVProjectOverview(routeParams))).toBeTruthy()
     }),
     test('Go to CD ', async () => {
-      fireEvent.click(getByText('projectContextMenuRenderer.gotoCD'))
+      fireEvent.click(getByText('projectsOrgs.gotoCD'))
       expect(getByTestId('location').innerHTML.endsWith(routes.toCDProjectOverview(routeParams))).toBeTruthy()
     }),
     test('Go to CE ', async () => {
-      fireEvent.click(getByText('projectContextMenuRenderer.gotoCE'))
+      fireEvent.click(getByText('projectsOrgs.gotoCE'))
       expect(getByTestId('location').innerHTML.endsWith(routes.toCECORules(routeParams))).toBeTruthy()
     }),
     test('Go to CI ', async () => {
-      fireEvent.click(getByText('projectContextMenuRenderer.gotoCI'))
+      fireEvent.click(getByText('projectsOrgs.gotoCI'))
       expect(getByTestId('location').innerHTML.endsWith(routes.toCIProjectOverview(routeParams))).toBeTruthy()
     }),
     test('Go to CF ', async () => {
-      fireEvent.click(getByText('projectContextMenuRenderer.gotoCF'))
+      fireEvent.click(getByText('projectsOrgs.gotoCF'))
       expect(getByTestId('location').innerHTML.endsWith(routes.toCFFeatureFlags(routeParams))).toBeTruthy()
     })
 })

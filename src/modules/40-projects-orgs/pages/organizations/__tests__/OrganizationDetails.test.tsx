@@ -50,7 +50,7 @@ describe('Organization Details', () => {
     expect(container).toMatchSnapshot()
   })
   test('View Projects', async () => {
-    const viewProjects = getByText('View Projects')
+    const viewProjects = getByText('projectsOrgs.viewProjects')
     fireEvent.click(viewProjects)
     await waitFor(() => getByTestId('location'))
     expect(
@@ -62,7 +62,7 @@ describe('Organization Details', () => {
     ).toBeTruthy()
   })
   test('Manage Organizations', async () => {
-    const back = getByText('Manage Organizations /')
+    const back = getByText('projectsOrgs.manage')
     fireEvent.click(back)
     await waitFor(() => getByTestId('location'))
     expect(getByTestId('location').innerHTML.endsWith(routes.toOrganizations({ accountId: 'testAcc' }))).toBeTruthy()
@@ -84,7 +84,7 @@ describe('Organization Details', () => {
     const plus = getAllByText(container, '+')[0]
     await act(async () => {
       fireEvent.click(plus)
-      await waitFor(() => getAllByText(document.body, 'Invite Collaborators')[0])
+      await waitFor(() => getAllByText(document.body, 'projectsOrgs.invite')[0])
     })
     const form = findDialogContainer()
     expect(form).toBeTruthy()
@@ -93,7 +93,7 @@ describe('Organization Details', () => {
       const plus = getAllByText(container, '+')[1]
       await act(async () => {
         fireEvent.click(plus)
-        await waitFor(() => getAllByText(document.body, 'Invite Collaborators')[0])
+        await waitFor(() => getAllByText(document.body, 'projectsOrgs.invite')[0])
       })
       const form = findDialogContainer()
       expect(form).toBeTruthy()

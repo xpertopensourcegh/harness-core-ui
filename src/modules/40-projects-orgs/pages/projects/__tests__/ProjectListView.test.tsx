@@ -80,7 +80,7 @@ describe('Project List', () => {
       collaboratorModal.mockReset()
       const menu = container.querySelector(`[data-testid="menu-${project.identifier + project.orgIdentifier}"]`)
       fireEvent.click(menu!)
-      const colMenu = getAllByText('projectContextMenuRenderer.invite')[0]
+      const colMenu = getAllByText('projectsOrgs.invite')[0]
       expect(colMenu).toBeDefined()
       await act(async () => {
         fireEvent.click(colMenu!)

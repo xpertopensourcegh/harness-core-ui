@@ -14,9 +14,8 @@ import type {
   ConnectorConnectivityDetails,
   TGTPasswordSpecDTO
 } from 'services/cd-ng'
-import { getStringForCredentialType, getStringForType } from '@secrets/utils/SSHAuthUtils'
+import { getKeyForCredentialType, getStringForType } from '@secrets/utils/SSHAuthUtils'
 
-import sshi18n from '@secrets/components/SSHAuthFormFields/SSHAuthFormFields.i18n'
 import VerifyConnection from '@secrets/modals/CreateSSHCredModal/views/VerifyConnection'
 import ConnectorStats from '@common/components/ConnectorStats/ConnectorStats'
 import {
@@ -24,7 +23,6 @@ import {
   RenderDetailsTable
 } from '@common/components/RenderDetailsTable/RenderDetailsTable'
 import { useStrings } from 'framework/strings'
-import i18n from '../SecretDetails.i18n'
 import css from './ViewSecretDetails.module.scss'
 
 interface ViewSecretDetailsProps {
@@ -48,44 +46,47 @@ const ViewSecretDetails: React.FC<ViewSecretDetailsProps> = props => {
 
   const getSecretCredentialsRow = (): ActivityDetailsRowInterface[] => {
     const items: ActivityDetailsRowInterface[] = []
-    items.push({ label: i18n.labelType, value: getStringForType(secret.type) })
+    items.push({ label: getString('secrets.labelType'), value: getStringForType(secret.type) })
     if (secret.type === 'SSHKey' && (secret.spec as SSHKeySpecDTO)?.auth?.type) {
-      items.push({ label: sshi18n.labelAuth, value: (secret.spec as SSHKeySpecDTO)?.auth.type })
+      items.push({
+        label: getString('authentication'),
+        value: (secret.spec as SSHKeySpecDTO)?.auth.type
+      })
       if ((secret.spec as SSHKeySpecDTO)?.auth.type === 'SSH') {
         items.push({
-          label: sshi18n.labelCredentialType,
-          value: getStringForCredentialType((secret.spec as SSHKeySpecDTO)?.auth.spec.credentialType)
+          label: getString('credType'),
+          value: getKeyForCredentialType((secret.spec as SSHKeySpecDTO)?.auth.spec.credentialType)
         })
         items.push({
-          label: sshi18n.labelUsername,
+          label: getString('username'),
           value: (((secret.spec as SSHKeySpecDTO)?.auth.spec as SSHConfigDTO).spec as SSHPasswordCredentialDTO).userName
         })
         if (((secret.spec as SSHKeySpecDTO)?.auth.spec as SSHConfigDTO).credentialType === 'Password') {
           items.push({
-            label: sshi18n.labelUsername,
+            label: getString('username'),
             value: (((secret.spec as SSHKeySpecDTO)?.auth.spec as SSHConfigDTO).spec as SSHPasswordCredentialDTO)
               .userName
           })
         }
         if (((secret.spec as SSHKeySpecDTO)?.auth.spec as SSHConfigDTO).credentialType === 'KeyPath') {
           items.push({
-            label: sshi18n.labelKeyFilePath,
+            label: getString('secrets.sshAuthFormFields.labelKeyFilePath'),
             value: (((secret.spec as SSHKeySpecDTO)?.auth.spec as SSHConfigDTO).spec as SSHKeyPathCredentialDTO).keyPath
           })
           items.push({
-            label: sshi18n.labelPassphrase,
+            label: getString('secrets.sshAuthFormFields.labelPassphrase'),
             value: (((secret.spec as SSHKeySpecDTO)?.auth.spec as SSHConfigDTO).spec as SSHKeyPathCredentialDTO)
               .encryptedPassphrase
           })
         }
         if (((secret.spec as SSHKeySpecDTO)?.auth.spec as SSHConfigDTO).credentialType === 'KeyReference') {
           items.push({
-            label: sshi18n.labelKeyReference,
+            label: getString('secrets.sshAuthFormFields.labelKeyReference'),
             value: (((secret.spec as SSHKeySpecDTO)?.auth.spec as SSHConfigDTO).spec as SSHKeyReferenceCredentialDTO)
               .key
           })
           items.push({
-            label: sshi18n.labelPassphrase,
+            label: getString('secrets.sshAuthFormFields.labelPassphrase'),
             value: (((secret.spec as SSHKeySpecDTO)?.auth.spec as SSHConfigDTO).spec as SSHKeyReferenceCredentialDTO)
               .encryptedPassphrase
           })
@@ -93,28 +94,28 @@ const ViewSecretDetails: React.FC<ViewSecretDetailsProps> = props => {
       }
       if ((secret.spec as SSHKeySpecDTO)?.auth.type === 'Kerberos') {
         items.push({
-          label: sshi18n.labelPrincipal,
+          label: getString('secrets.sshAuthFormFields.labelPrincipal'),
           value: ((secret.spec as SSHKeySpecDTO)?.auth.spec as KerberosConfigDTO).principal
         })
         items.push({
-          label: sshi18n.labelRealm,
+          label: getString('secrets.sshAuthFormFields.labelRealm'),
           value: ((secret.spec as SSHKeySpecDTO)?.auth.spec as KerberosConfigDTO).realm
         })
         items.push({
-          label: sshi18n.labelTGT,
+          label: getString('secrets.sshAuthFormFields.labelTGT'),
           value:
-            ((secret.spec as SSHKeySpecDTO)?.auth.spec as KerberosConfigDTO).tgtGenerationMethod || sshi18n.valueNone
+            ((secret.spec as SSHKeySpecDTO)?.auth.spec as KerberosConfigDTO).tgtGenerationMethod || getString('none')
         })
         if (((secret.spec as SSHKeySpecDTO)?.auth.spec as KerberosConfigDTO).tgtGenerationMethod === 'KeyTabFilePath') {
           items.push({
-            label: sshi18n.labelKeyTab,
+            label: getString('secrets.sshAuthFormFields.labelKeyTab'),
             value: (((secret.spec as SSHKeySpecDTO)?.auth.spec as KerberosConfigDTO)?.spec as TGTKeyTabFilePathSpecDTO)
               ?.keyPath
           })
         }
         if (((secret.spec as SSHKeySpecDTO)?.auth.spec as KerberosConfigDTO).tgtGenerationMethod === 'Password') {
           items.push({
-            label: sshi18n.labelPassword,
+            label: getString('password'),
             value: (((secret.spec as SSHKeySpecDTO)?.auth.spec as KerberosConfigDTO).spec as TGTPasswordSpecDTO)
               .password
           })
@@ -126,20 +127,27 @@ const ViewSecretDetails: React.FC<ViewSecretDetailsProps> = props => {
       const secretTextSpec = secret.spec as SecretTextSpecDTO
       if (secretTextSpec.valueType == 'Inline')
         items.push({
-          label: i18n.labelValue,
+          label: getString('secrets.labelValue'),
           value: getString('encrypted').toLowerCase(),
           valueColor: Color.GREY_350
         })
-      if (secretTextSpec.valueType == 'Reference') items.push({ label: i18n.labelPath, value: secretTextSpec.value })
-      items.push({ label: i18n.labelSecretManager, value: (secret.spec as SecretTextSpecDTO).secretManagerIdentifier })
+      if (secretTextSpec.valueType == 'Reference')
+        items.push({ label: getString('secrets.labelPath'), value: secretTextSpec.value })
+      items.push({
+        label: getString('secrets.labelSecretManager'),
+        value: (secret.spec as SecretTextSpecDTO).secretManagerIdentifier
+      })
     }
     if (secret.type === 'SecretFile') {
       items.push({
-        label: i18n.labelValue,
+        label: getString('secrets.labelValue'),
         value: getString('encryptedFile').toLowerCase(),
         valueColor: Color.GREY_350
       })
-      items.push({ label: i18n.labelSecretManager, value: (secret.spec as SecretTextSpecDTO).secretManagerIdentifier })
+      items.push({
+        label: getString('secrets.labelSecretManager'),
+        value: (secret.spec as SecretTextSpecDTO).secretManagerIdentifier
+      })
     }
     return items
   }

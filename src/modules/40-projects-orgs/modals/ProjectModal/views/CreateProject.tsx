@@ -2,16 +2,15 @@ import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import type { StepProps, SelectOption, ModalErrorHandlerBinding } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
-import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
 import { useGetOrganizationList } from 'services/cd-ng'
 import type { Project } from 'services/cd-ng'
 import { usePostProject } from 'services/cd-ng'
+import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { useQueryParams } from '@common/hooks'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import type { ModuleName } from 'framework/types/ModuleName'
 import { PageSpinner } from '@common/components'
-import { useStrings } from 'framework/strings'
 import ProjectForm from './ProjectForm'
 
 interface CreateModalData {
@@ -73,7 +72,7 @@ const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
         }
       )
       nextStep?.(dataToSubmit)
-      showSuccess(i18n.newProjectWizard.aboutProject.createSuccess)
+      showSuccess(getString('projectsOrgs.projectCreateSuccess'))
       onSuccess?.()
     } catch (e) {
       /* istanbul ignore next */
@@ -89,7 +88,7 @@ const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
         initialOrgIdentifier={orgIdentifier || defaultOrg}
         initialModules={modules}
         organizationItems={organizations}
-        title={i18n.newProjectWizard.aboutProject.name}
+        title={getString('projectsOrgs.aboutProject')}
         setModalErrorHandler={setModalErrorHandler}
         onComplete={onComplete}
       />

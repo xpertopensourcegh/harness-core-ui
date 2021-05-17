@@ -103,10 +103,10 @@ describe('Project Page List', () => {
   test('Create Project and Close', async () => {
     expect(container).toMatchSnapshot()
     await act(async () => {
-      const newProject = getAllByText?.('Project')[0]
+      const newProject = getAllByText?.('projectLabel')[0]
       expect(newProject).toBeDefined()
       fireEvent.click(newProject!)
-      await waitFor(() => queryAllByText(document.body, 'About the Project')[0])
+      await waitFor(() => queryAllByText(document.body, 'projectsOrgs.aboutProject')[0])
       let form = findDialogContainer()
       expect(form).toBeTruthy()
       fireEvent.click(form?.querySelector('[icon="cross"]')!)
@@ -116,10 +116,10 @@ describe('Project Page List', () => {
   }),
     test('Whole Modal Test', async () => {
       expect(container).toMatchSnapshot()
-      const newProject = getAllByText?.('Project')[0]
+      const newProject = getAllByText?.('projectLabel')[0]
       expect(newProject).toBeDefined()
       fireEvent.click(newProject!)
-      await waitFor(() => queryAllByText(document.body, 'About the Project')[0])
+      await waitFor(() => queryAllByText(document.body, 'projectsOrgs.aboutProject')[0])
       let form = findDialogContainer()
       expect(form).toBeTruthy()
       fireEvent.change(form?.querySelector('input[name="name"]')!, {
@@ -127,13 +127,13 @@ describe('Project Page List', () => {
       })
 
       fireEvent.click(form?.querySelector('button[type="submit"]')!)
-      await waitFor(() => getByText(document.body, 'Invite Collaborators'))
-      fireEvent.click(getByText(document.body, 'Back')!)
-      await waitFor(() => getByText(document.body, 'Edit Project'))
+      await waitFor(() => queryAllByText(document.body, 'projectsOrgs.invite'))
+      fireEvent.click(getByText(document.body, 'back')!)
+      await waitFor(() => queryAllByText(document.body, 'projectsOrgs.projectEdit'))
       fireEvent.click(form?.querySelector('button[type="submit"]')!)
-      await waitFor(() => getByText(document.body, 'Invite Collaborators'))
-      fireEvent.click(queryByText(document.body, 'Save and Continue')!)
-      await waitFor(() => getByText(document.body, 'Which Harness modules would you like to enable for this project?'))
+      await waitFor(() => queryAllByText(document.body, 'projectsOrgs.invite'))
+      fireEvent.click(queryByText(document.body, 'saveAndContinue')!)
+      await waitFor(() => queryAllByText(document.body, 'projectsOrgs.purposeList.name'))
       fireEvent.click(form?.querySelector('[icon="cross"]')!)
       form = findDialogContainer()
       expect(form).not.toBeTruthy()
@@ -144,10 +144,10 @@ describe('Project Page List', () => {
         ?.querySelector("[data-icon='Options']")
       fireEvent.click(menu!)
       const popover = findPopoverContainer()
-      const invite = getByText(popover as HTMLElement, 'projectContextMenuRenderer.invite')
+      const invite = getByText(popover as HTMLElement, 'projectsOrgs.invite')
       await act(async () => {
         fireEvent.click(invite)
-        await waitFor(() => getByText(document.body, 'projectContextMenuRenderer.invite'))
+        await waitFor(() => getByText(document.body, 'projectsOrgs.invite'))
         let form = findDialogContainer()
         expect(form).toBeTruthy()
         fireEvent.click(form?.querySelector('[icon="cross"]')!)
@@ -181,7 +181,7 @@ describe('Project Page List', () => {
       const edit = getByTestId('edit-project')
       await act(async () => {
         fireEvent.click(edit)
-        await waitFor(() => getByText(document.body, 'Edit Project'))
+        await waitFor(() => queryAllByText(document.body, 'projectsOrgs.projectEdit'))
         const form = findDialogContainer()
         expect(form).toBeTruthy()
         fireEvent.click(form?.querySelector('button[type="submit"]')!)
@@ -214,7 +214,7 @@ describe('Project Page List', () => {
       ).toBeTruthy()
     }),
     test('Get Started', async () => {
-      const getStarted = getAllByText('Get Started')[0]
+      const getStarted = getAllByText('getStarted')[0]
       await act(async () => {
         fireEvent.click(getStarted)
       })

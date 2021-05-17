@@ -379,7 +379,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
             >
-              Modules Enabled
+              projectsOrgs.modulesEnabled
             </p>
             <div
               class="bp3-card bp3-elevation-0 Card--card card"
@@ -437,7 +437,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                         >
-                          CONTINUOUS
+                          projectsOrgs.purposeList.continuous
                         </p>
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
@@ -470,7 +470,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
                         >
-                          Enabled
+                          enabledLabel
                         </p>
                       </div>
                     </div>
@@ -589,7 +589,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-medium"
                       >
-                        23
+                        projectsOrgs.placeholder
                       </p>
                     </div>
                     <p
@@ -690,7 +690,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                         >
-                          CONTINUOUS
+                          projectsOrgs.purposeList.continuous
                         </p>
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
@@ -723,7 +723,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
                         >
-                          Enabled
+                          enabledLabel
                         </p>
                       </div>
                     </div>
@@ -842,7 +842,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-medium"
                       >
-                        23
+                        projectsOrgs.placeholder
                       </p>
                     </div>
                     <p
@@ -939,7 +939,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                         >
-                          CONTINUOUS
+                          projectsOrgs.purposeList.continuous
                         </p>
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
@@ -972,7 +972,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
                         >
-                          Enabled
+                          enabledLabel
                         </p>
                       </div>
                     </div>
@@ -1091,7 +1091,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-medium"
                       >
-                        23
+                        projectsOrgs.placeholder
                       </p>
                     </div>
                     <p
@@ -1192,7 +1192,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                         >
-                          CONTINUOUS
+                          projectsOrgs.purposeList.continuous
                         </p>
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
@@ -1225,7 +1225,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
                         >
-                          Enabled
+                          enabledLabel
                         </p>
                       </div>
                     </div>
@@ -1344,7 +1344,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-medium"
                       >
-                        23
+                        projectsOrgs.placeholder
                       </p>
                     </div>
                     <p
@@ -1441,7 +1441,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
                         >
-                          CONTINUOUS
+                          projectsOrgs.purposeList.continuous
                         </p>
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
@@ -1474,7 +1474,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
                         >
-                          Enabled
+                          enabledLabel
                         </p>
                       </div>
                     </div>
@@ -1593,7 +1593,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                       <p
                         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-medium"
                       >
-                        23
+                        projectsOrgs.placeholder
                       </p>
                     </div>
                     <p
@@ -1953,7 +1953,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
             >
-              Modules Enabled
+              projectsOrgs.modulesEnabled
             </p>
             <div
               class="Layout--vertical Layout--layout-spacing-huge StyledProps--main StyledProps--padding-huge StyledProps--flex StyledProps--flex-align-center-center"
@@ -1976,7 +1976,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-medium"
               >
-                You have no modules
+                projectsOrgs.noModules
               </p>
             </div>
           </div>
@@ -1987,7 +1987,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
           >
-            Enable More Modules
+            projectsOrgs.enableModules
           </p>
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-large"
@@ -2038,7 +2038,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-small"
                   >
-                    CONTINUOUS
+                    projectsOrgs.purposeList.continuous
                   </p>
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xxlarge StyledProps--color StyledProps--color-black"
@@ -2050,7 +2050,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
               <p
                 class="StyledProps--font StyledProps--main description StyledProps--font-small StyledProps--padding-bottom-xxlarge"
               >
-                Deploy your services with blazingly fast pipelines.
+                projectsOrgs.purposeList.descriptionCD
               </p>
               <div
                 class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main"
@@ -2058,7 +2058,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main time StyledProps--font-small"
                 >
-                  15 min setup
+                  projectsOrgs.purposeList.time
                 </p>
                 <button
                   class="bp3-button Button--button StyledProps--font StyledProps--main enable StyledProps--font StyledProps--font-size-small StyledProps--font-weight-semi-bold Button--with-current-color Button--iconOnly"
@@ -2067,7 +2067,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Enable
+                    enable
                   </span>
                 </button>
               </div>
@@ -2118,7 +2118,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-small"
                   >
-                    CONTINUOUS
+                    projectsOrgs.purposeList.continuous
                   </p>
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xxlarge StyledProps--color StyledProps--color-black"
@@ -2130,7 +2130,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
               <p
                 class="StyledProps--font StyledProps--main description StyledProps--font-small StyledProps--padding-bottom-xxlarge"
               >
-                Deploy in peace, verify activities that take place in system. Identify risk early.
+                projectsOrgs.purposeList.descriptionCV
               </p>
               <div
                 class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main"
@@ -2138,7 +2138,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main time StyledProps--font-small"
                 >
-                  15 min setup
+                  projectsOrgs.purposeList.time
                 </p>
                 <button
                   class="bp3-button Button--button StyledProps--font StyledProps--main enable StyledProps--font StyledProps--font-size-small StyledProps--font-weight-semi-bold Button--with-current-color Button--iconOnly"
@@ -2147,7 +2147,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Enable
+                    enable
                   </span>
                 </button>
               </div>
@@ -2198,7 +2198,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-small"
                   >
-                    CONTINUOUS
+                    projectsOrgs.purposeList.continuous
                   </p>
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xxlarge StyledProps--color StyledProps--color-black"
@@ -2210,7 +2210,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
               <p
                 class="StyledProps--font StyledProps--main description StyledProps--font-small StyledProps--padding-bottom-xxlarge"
               >
-                Commit, build, and test your code at a whole new level.
+                projectsOrgs.purposeList.descriptionCI
               </p>
               <div
                 class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main"
@@ -2218,7 +2218,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main time StyledProps--font-small"
                 >
-                  15 min setup
+                  projectsOrgs.purposeList.time
                 </p>
                 <button
                   class="bp3-button Button--button StyledProps--font StyledProps--main enable StyledProps--font StyledProps--font-size-small StyledProps--font-weight-semi-bold Button--with-current-color Button--iconOnly"
@@ -2227,7 +2227,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Enable
+                    enable
                   </span>
                 </button>
               </div>
@@ -2278,7 +2278,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-small"
                   >
-                    CONTINUOUS
+                    projectsOrgs.purposeList.continuous
                   </p>
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xxlarge StyledProps--color StyledProps--color-black"
@@ -2290,7 +2290,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
               <p
                 class="StyledProps--font StyledProps--main description StyledProps--font-small StyledProps--padding-bottom-xxlarge"
               >
-                Spot and quickly debug inefficiencies and optimize them to reduce costs.
+                projectsOrgs.purposeList.descriptionCE
               </p>
               <div
                 class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main"
@@ -2298,7 +2298,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main time StyledProps--font-small"
                 >
-                  15 min setup
+                  projectsOrgs.purposeList.time
                 </p>
                 <button
                   class="bp3-button Button--button StyledProps--font StyledProps--main enable StyledProps--font StyledProps--font-size-small StyledProps--font-weight-semi-bold Button--with-current-color Button--iconOnly"
@@ -2307,7 +2307,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Enable
+                    enable
                   </span>
                 </button>
               </div>
@@ -2358,7 +2358,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-small"
                   >
-                    CONTINUOUS
+                    projectsOrgs.purposeList.continuous
                   </p>
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xxlarge StyledProps--color StyledProps--color-black"
@@ -2370,7 +2370,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
               <p
                 class="StyledProps--font StyledProps--main description StyledProps--font-small StyledProps--padding-bottom-xxlarge"
               >
-                Decouple release from deployment and rollout features safely and quickly.
+                projectsOrgs.purposeList.descriptionCF
               </p>
               <div
                 class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main"
@@ -2378,7 +2378,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main time StyledProps--font-small"
                 >
-                  15 min setup
+                  projectsOrgs.purposeList.time
                 </p>
                 <button
                   class="bp3-button Button--button StyledProps--font StyledProps--main enable StyledProps--font StyledProps--font-size-small StyledProps--font-weight-semi-bold Button--with-current-color Button--iconOnly"
@@ -2387,7 +2387,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    Enable
+                    enable
                   </span>
                 </button>
               </div>

@@ -48,7 +48,7 @@ exports[`Module Enable Card render and Enable 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-small"
         >
-          CONTINUOUS
+          projectsOrgs.purposeList.continuous
         </p>
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xxlarge StyledProps--color StyledProps--color-black"
@@ -60,7 +60,7 @@ exports[`Module Enable Card render and Enable 1`] = `
     <p
       class="StyledProps--font StyledProps--main description StyledProps--font-small StyledProps--padding-bottom-xxlarge"
     >
-      Deploy your services with blazingly fast pipelines.
+      projectsOrgs.purposeList.descriptionCD
     </p>
     <div
       class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main"
@@ -68,7 +68,7 @@ exports[`Module Enable Card render and Enable 1`] = `
       <p
         class="StyledProps--font StyledProps--main time StyledProps--font-small"
       >
-        15 min setup
+        projectsOrgs.purposeList.time
       </p>
       <button
         class="bp3-button Button--button StyledProps--font StyledProps--main enable StyledProps--font StyledProps--font-size-small StyledProps--font-weight-semi-bold Button--with-current-color Button--iconOnly"
@@ -77,7 +77,7 @@ exports[`Module Enable Card render and Enable 1`] = `
         <span
           class="bp3-button-text"
         >
-          Enable
+          enable
         </span>
       </button>
     </div>
@@ -133,7 +133,7 @@ exports[`Module Enable Card render and Enable 2`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-small"
         >
-          CONTINUOUS
+          projectsOrgs.purposeList.continuous
         </p>
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xxlarge StyledProps--color StyledProps--color-black"
@@ -145,7 +145,7 @@ exports[`Module Enable Card render and Enable 2`] = `
     <p
       class="StyledProps--font StyledProps--main description StyledProps--font-small StyledProps--padding-bottom-xxlarge"
     >
-      Deploy in peace, verify activities that take place in system. Identify risk early.
+      projectsOrgs.purposeList.descriptionCV
     </p>
     <div
       class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main"
@@ -153,7 +153,7 @@ exports[`Module Enable Card render and Enable 2`] = `
       <p
         class="StyledProps--font StyledProps--main time StyledProps--font-small"
       >
-        15 min setup
+        projectsOrgs.purposeList.time
       </p>
       <button
         class="bp3-button Button--button StyledProps--font StyledProps--main enable StyledProps--font StyledProps--font-size-small StyledProps--font-weight-semi-bold Button--with-current-color Button--iconOnly"
@@ -162,7 +162,7 @@ exports[`Module Enable Card render and Enable 2`] = `
         <span
           class="bp3-button-text"
         >
-          Enable
+          enable
         </span>
       </button>
     </div>
@@ -218,7 +218,7 @@ exports[`Module Enable Card render and Enable 3`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-small"
         >
-          CONTINUOUS
+          projectsOrgs.purposeList.continuous
         </p>
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xxlarge StyledProps--color StyledProps--color-black"
@@ -230,7 +230,7 @@ exports[`Module Enable Card render and Enable 3`] = `
     <p
       class="StyledProps--font StyledProps--main description StyledProps--font-small StyledProps--padding-bottom-xxlarge"
     >
-      Spot and quickly debug inefficiencies and optimize them to reduce costs.
+      projectsOrgs.purposeList.descriptionCE
     </p>
     <div
       class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main"
@@ -238,7 +238,7 @@ exports[`Module Enable Card render and Enable 3`] = `
       <p
         class="StyledProps--font StyledProps--main time StyledProps--font-small"
       >
-        15 min setup
+        projectsOrgs.purposeList.time
       </p>
       <button
         class="bp3-button Button--button StyledProps--font StyledProps--main enable StyledProps--font StyledProps--font-size-small StyledProps--font-weight-semi-bold Button--with-current-color Button--iconOnly"
@@ -247,7 +247,7 @@ exports[`Module Enable Card render and Enable 3`] = `
         <span
           class="bp3-button-text"
         >
-          Enable
+          enable
         </span>
       </button>
     </div>
@@ -303,7 +303,7 @@ exports[`Module Enable Card render and Enable 4`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-small"
         >
-          CONTINUOUS
+          projectsOrgs.purposeList.continuous
         </p>
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xxlarge StyledProps--color StyledProps--color-black"
@@ -315,7 +315,7 @@ exports[`Module Enable Card render and Enable 4`] = `
     <p
       class="StyledProps--font StyledProps--main description StyledProps--font-small StyledProps--padding-bottom-xxlarge"
     >
-      Decouple release from deployment and rollout features safely and quickly.
+      projectsOrgs.purposeList.descriptionCF
     </p>
     <div
       class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main"
@@ -323,7 +323,7 @@ exports[`Module Enable Card render and Enable 4`] = `
       <p
         class="StyledProps--font StyledProps--main time StyledProps--font-small"
       >
-        15 min setup
+        projectsOrgs.purposeList.time
       </p>
       <button
         class="bp3-button Button--button StyledProps--font StyledProps--main enable StyledProps--font StyledProps--font-size-small StyledProps--font-weight-semi-bold Button--with-current-color Button--iconOnly"
@@ -332,7 +332,7 @@ exports[`Module Enable Card render and Enable 4`] = `
         <span
           class="bp3-button-text"
         >
-          Enable
+          enable
         </span>
       </button>
     </div>
@@ -388,7 +388,7 @@ exports[`Module Enable Card render and Enable 5`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-small"
         >
-          CONTINUOUS
+          projectsOrgs.purposeList.continuous
         </p>
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xxlarge StyledProps--color StyledProps--color-black"
@@ -400,7 +400,7 @@ exports[`Module Enable Card render and Enable 5`] = `
     <p
       class="StyledProps--font StyledProps--main description StyledProps--font-small StyledProps--padding-bottom-xxlarge"
     >
-      Commit, build, and test your code at a whole new level.
+      projectsOrgs.purposeList.descriptionCI
     </p>
     <div
       class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main"
@@ -408,7 +408,7 @@ exports[`Module Enable Card render and Enable 5`] = `
       <p
         class="StyledProps--font StyledProps--main time StyledProps--font-small"
       >
-        15 min setup
+        projectsOrgs.purposeList.time
       </p>
       <button
         class="bp3-button Button--button StyledProps--font StyledProps--main enable StyledProps--font StyledProps--font-size-small StyledProps--font-weight-semi-bold Button--with-current-color Button--iconOnly"
@@ -417,7 +417,7 @@ exports[`Module Enable Card render and Enable 5`] = `
         <span
           class="bp3-button-text"
         >
-          Enable
+          enable
         </span>
       </button>
     </div>

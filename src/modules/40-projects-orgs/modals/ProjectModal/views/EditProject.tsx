@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import type { StepProps, SelectOption, ModalErrorHandlerBinding } from '@wings-software/uicore'
-import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
 import { useGetOrganization, useGetProject } from 'services/cd-ng'
 import type { Project } from 'services/cd-ng'
 import { usePutProject } from 'services/cd-ng'
+import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { PageSpinner } from '@common/components'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
@@ -23,6 +23,7 @@ const EditProject: React.FC<StepProps<Project> & EditModalData> = props => {
   const [version, setVersion] = useState<string>()
   const { accountId } = useParams<AccountPathProps>()
   const { showSuccess } = useToaster()
+  const { getString } = useStrings()
   const projectIdentifier = isStep ? prevStepData?.identifier : identifier
   const organizationIdentifier = isStep ? prevStepData?.orgIdentifier : orgIdentifier
 
@@ -77,7 +78,7 @@ const EditProject: React.FC<StepProps<Project> & EditModalData> = props => {
           }
         }
       )
-      showSuccess(i18n.newProjectWizard.aboutProject.editSuccess)
+      showSuccess(getString('projectsOrgs.projectEditSuccess'))
       onSuccess?.()
       isStep ? nextStep?.({ ...values }) : closeModal?.()
     } catch (e) {
@@ -97,7 +98,7 @@ const EditProject: React.FC<StepProps<Project> & EditModalData> = props => {
           projectData?.data?.project.orgIdentifier || orgIdentifier || /* istanbul ignore next */ ''
         }
         organizationItems={organizations}
-        title={i18n.newProjectWizard.aboutProject.edit}
+        title={getString('projectsOrgs.projectEdit')}
         setModalErrorHandler={setModalErrorHandler}
         onComplete={onComplete}
         displayProjectCardPreview={isStep ? true : false}

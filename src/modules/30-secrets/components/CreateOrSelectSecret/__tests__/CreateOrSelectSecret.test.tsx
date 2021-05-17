@@ -39,12 +39,12 @@ describe('CreateOrSelectSecret', () => {
     )
 
     await waitFor(() => {
-      expect(getByText('Create a new secret')).toBeDefined()
+      expect(getByText('secrets.titleCreate')).toBeDefined()
     })
 
     expect(container).toMatchSnapshot()
 
-    const $selectTab = getByText('Select an existing secret')
+    const $selectTab = getByText('secrets.titleSelect')
     await act(async () => {
       fireEvent.click($selectTab)
     })

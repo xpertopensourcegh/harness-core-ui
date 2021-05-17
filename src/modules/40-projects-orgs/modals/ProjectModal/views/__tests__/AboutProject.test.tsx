@@ -128,7 +128,7 @@ describe('About Project test', () => {
         />
       </TestWrapper>
     )
-    expect(queryByText(container, 'About the Project')).toBeTruthy()
+    expect(queryByText(container, 'projectsOrgs.aboutProject')).toBeDefined()
     expect(container).toMatchSnapshot()
 
     setFieldValue({ type: InputTypes.TEXTFIELD, container: container, fieldId: 'name', value: 'dummy name' })
@@ -150,7 +150,7 @@ describe('About Project test', () => {
           <EditProject identifier={project.identifier} orgIdentifier={project.orgIdentifier} />
         </TestWrapper>
       )
-      expect(queryByText(container, 'Edit Project')).toBeTruthy()
+      expect(queryByText(container, 'projectsOrgs.projectEdit')).toBeDefined()
       expect(container).toMatchSnapshot()
 
       await act(async () => {

@@ -4,12 +4,11 @@ import type { StepProps, ModalErrorHandlerBinding } from '@wings-software/uicore
 import { pick } from 'lodash-es'
 import { Organization, useGetOrganization } from 'services/cd-ng'
 import { usePutOrganization } from 'services/cd-ng'
+import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { PageSpinner } from '@common/components'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import OrganizationForm from './OrganizationForm'
-
-import i18n from './StepAboutOrganization.i18n'
 
 interface EditModalData {
   identifier?: string
@@ -23,6 +22,7 @@ const EditOrganization: React.FC<StepProps<Organization> & EditModalData> = prop
   const { accountId } = useParams<AccountPathProps>()
   const { showSuccess } = useToaster()
   const [version, setVersion] = useState<string>()
+  const { getString } = useStrings()
   const orgIdentifier = isStep ? prevStepData?.identifier : identifier
 
   const { mutate: editOrganization, loading: saving } = usePutOrganization({
@@ -64,7 +64,7 @@ const EditOrganization: React.FC<StepProps<Organization> & EditModalData> = prop
         }
       )
       nextStep?.(values)
-      showSuccess(i18n.form.editSuccess)
+      showSuccess(getString('projectsOrgs.orgEditSuccess'))
       onSuccess?.(values)
     } catch (e) {
       /* istanbul ignore next */
@@ -75,9 +75,9 @@ const EditOrganization: React.FC<StepProps<Organization> & EditModalData> = prop
     <>
       <OrganizationForm
         data={data?.data?.organization}
-        title={i18n.editTitle}
+        title={getString('projectsOrgs.editTitle')}
         enableEdit={false}
-        submitTitle={isStep ? i18n.form.saveAndContinue : i18n.form.saveAndClose}
+        submitTitle={isStep ? getString('saveAndContinue') : getString('projectsOrgs.saveAndClose')}
         disableSubmit={saving}
         disablePreview={!isStep}
         setModalErrorHandler={setModalErrorHandler}

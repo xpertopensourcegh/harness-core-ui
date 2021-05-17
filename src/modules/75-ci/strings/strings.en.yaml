@@ -1,4 +1,4 @@
-continuous: 'Continuous Integration'
+continuous: '{{$.common.purpose.ci.continuous}}'
 learnMore: Learn more about Continuous Integration
 ciTrialHomePage:
   startTrial:

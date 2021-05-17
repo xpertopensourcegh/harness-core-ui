@@ -31,7 +31,6 @@ import {
   useSendInvite,
   Organization
 } from 'services/cd-ng'
-import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
 import { useStrings } from 'framework/strings'
 import { regexEmail } from '@common/utils/StringUtils'
 import { Scope } from '@common/interfaces/SecretsInterface'
@@ -195,12 +194,12 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
             <ModalErrorHandler bind={setModalErrorHandler} />
             <Container className={css.collaboratorForm}>
               <Text font="medium" color={Color.BLACK} padding={{ bottom: 'xxlarge' }}>
-                {i18n.newProjectWizard.Collaborators.name}
+                {getString('projectsOrgs.invite')}
               </Text>
               <Text padding={{ bottom: 'small' }}>
                 {projectIdentifier
-                  ? i18n.newProjectWizard.Collaborators.urlMessageProject
-                  : i18n.newProjectWizard.Collaborators.urlMessageOrg}
+                  ? getString('projectsOrgs.urlMessageProject')
+                  : getString('projectsOrgs.urlMessageOrg')}
               </Text>
               <Layout.Horizontal>
                 <TextInput
@@ -226,14 +225,14 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
               </Layout.Horizontal>
               <Layout.Horizontal padding={{ top: 'medium' }} spacing="xlarge" className={cx(css.align, css.input)}>
                 <Layout.Horizontal width="50%">
-                  <Text>{i18n.newProjectWizard.Collaborators.inviteCollab}</Text>
+                  <Text>{getString('projectsOrgs.inviteCollab')}</Text>
                 </Layout.Horizontal>
                 <Layout.Horizontal
                   width="50%"
                   spacing="xsmall"
                   flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
                 >
-                  <Text>{getString('collaborators.roleLabel')}</Text>
+                  <Text>{getString('projectsOrgs.roleLabel')}</Text>
                   <CustomSelect
                     items={roles}
                     filterable={false}
@@ -264,7 +263,7 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
               </Layout.Horizontal>
               <Layout.Horizontal spacing="small">
                 <FormInput.MultiSelect
-                  name={i18n.newProjectWizard.Collaborators.collaborator}
+                  name={getString('projectsOrgs.collaborator')}
                   items={users}
                   multiSelectProps={{
                     allowCreatingNewItems: true,
@@ -298,7 +297,7 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
                   className={css.input}
                 />
                 <Button
-                  text={i18n.newProjectWizard.Collaborators.add}
+                  text={getString('add')}
                   intent="primary"
                   inline
                   disabled={role.value === 'none' || formik.values.collaborators.length === 0 ? true : false}
@@ -309,7 +308,7 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
               {inviteData?.data?.content?.length ? (
                 <Layout.Vertical padding={{ top: 'medium', bottom: 'xxxlarge' }}>
                   <Text padding={{ bottom: 'small' }}>
-                    {i18n.newProjectWizard.Collaborators.pendingUsers(inviteData?.data?.content?.length.toString())}
+                    {getString('projectsOrgs.pendingUsers', { name: inviteData?.data?.content?.length.toString() })}
                   </Text>
                   <Container className={css.pendingList}>
                     {inviteData?.data?.content.slice(0, 15).map(user => (
@@ -333,9 +332,7 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
                     history.push(routes.toUsers({ accountId, orgIdentifier, projectIdentifier }))
                   }}
                 >
-                  {projectIdentifier
-                    ? i18n.newProjectWizard.Collaborators.manage
-                    : i18n.newProjectWizard.Collaborators.manageOrg}
+                  {projectIdentifier ? getString('projectsOrgs.manageProject') : getString('projectsOrgs.manageOrg')}
                 </Button>
               </Layout.Horizontal>
             ) : null}
@@ -352,6 +349,7 @@ export const ProjectCollaboratorsStep: React.FC<StepProps<Project> & Collaborato
   nextStep,
   ...rest
 }) => {
+  const { getString } = useStrings()
   return (
     <Layout.Vertical padding="xxxlarge">
       <Collaborators
@@ -361,10 +359,10 @@ export const ProjectCollaboratorsStep: React.FC<StepProps<Project> & Collaborato
         {...rest}
       />
       <Layout.Horizontal spacing="small">
-        <Button onClick={() => previousStep?.(prevStepData)} text={i18n.newProjectWizard.back} />
+        <Button onClick={() => previousStep?.(prevStepData)} text={getString('back')} />
         <Button
           intent="primary"
-          text={i18n.newProjectWizard.saveAndContinue}
+          text={getString('saveAndContinue')}
           onClick={() => {
             /* istanbul ignore else */ if (prevStepData) {
               nextStep?.({ ...prevStepData })
@@ -382,15 +380,16 @@ export const OrgCollaboratorsStep: React.FC<StepProps<Organization> & Collaborat
   nextStep,
   ...rest
 }) => {
+  const { getString } = useStrings()
   return (
     <Layout.Vertical padding="xxxlarge">
       <Collaborators orgIdentifier={prevStepData?.identifier} showManage={false} {...rest} />
       {prevStepData ? (
         <Layout.Horizontal spacing="small">
-          <Button onClick={() => previousStep?.(prevStepData)} text={i18n.newProjectWizard.back} />
+          <Button onClick={() => previousStep?.(prevStepData)} text={getString('back')} />
           <Button
             intent="primary"
-            text={i18n.newProjectWizard.finish}
+            text={getString('finish')}
             onClick={() => {
               /* istanbul ignore else */ if (prevStepData) {
                 nextStep?.({ ...prevStepData })
@@ -400,8 +399,8 @@ export const OrgCollaboratorsStep: React.FC<StepProps<Organization> & Collaborat
         </Layout.Horizontal>
       ) : (
         <Layout.Horizontal>
-          <Button inline minimal disabled tooltip={i18n.newProjectWizard.Collaborators.notAvailableForBeta}>
-            {i18n.newProjectWizard.Collaborators.manage}
+          <Button inline minimal disabled tooltip={getString('projectsOrgs.notAvailableForBeta')}>
+            {getString('projectsOrgs.manageProject')}
           </Button>
         </Layout.Horizontal>
       )}

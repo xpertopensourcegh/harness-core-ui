@@ -3,12 +3,12 @@ import { Intent, Dialog, IconName, Classes, IDialogProps } from '@blueprintjs/co
 import { useModalHook, Button, ButtonProps, Layout } from '@wings-software/uicore'
 
 export interface UseConfirmationDialogProps {
-  titleText: string
+  titleText: string | React.ReactElement
   contentText: string | JSX.Element
-  cancelButtonText: string
+  cancelButtonText: string | React.ReactElement
   intent?: Intent
   buttonIntent?: ButtonProps['intent']
-  confirmButtonText?: string
+  confirmButtonText?: string | React.ReactElement
   onCloseDialog?: (isConfirmed: boolean) => void
   customButtons?: React.ReactNode
 }

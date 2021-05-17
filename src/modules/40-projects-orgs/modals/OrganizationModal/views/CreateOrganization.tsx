@@ -4,9 +4,9 @@ import type { StepProps, ModalErrorHandlerBinding } from '@wings-software/uicore
 import { pick } from 'lodash-es'
 import type { Organization } from 'services/cd-ng'
 import { usePostOrganization } from 'services/cd-ng'
+import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import i18n from './StepAboutOrganization.i18n'
 import OrganizationForm from './OrganizationForm'
 import type { OrgModalData } from './StepAboutOrganization'
 
@@ -14,6 +14,7 @@ const CreateOrganization: React.FC<StepProps<Organization> & OrgModalData> = pro
   const { nextStep, onSuccess } = props
   const { accountId } = useParams<AccountPathProps>()
   const { showSuccess } = useToaster()
+  const { getString } = useStrings()
   const { mutate: createOrganization } = usePostOrganization({
     queryParams: {
       accountIdentifier: accountId
@@ -38,7 +39,7 @@ const CreateOrganization: React.FC<StepProps<Organization> & OrgModalData> = pro
         }
       )
       nextStep?.(values)
-      showSuccess(i18n.form.createSuccess)
+      showSuccess(getString('projectsOrgs.orgCreateSuccess'))
       onSuccess?.(values)
     } catch (e) {
       /* istanbul ignore next */
@@ -47,10 +48,10 @@ const CreateOrganization: React.FC<StepProps<Organization> & OrgModalData> = pro
   }
   return (
     <OrganizationForm
-      title={i18n.aboutTitle}
+      title={getString('projectsOrgs.aboutTitle')}
       enableEdit={true}
       disableSubmit={false}
-      submitTitle={i18n.form.saveAndContinue}
+      submitTitle={getString('saveAndContinue')}
       setModalErrorHandler={setModalErrorHandler}
       onComplete={onComplete}
     />

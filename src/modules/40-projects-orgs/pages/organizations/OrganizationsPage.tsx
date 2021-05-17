@@ -56,7 +56,7 @@ const OrganizationsPage: React.FC = () => {
           <Layout.Horizontal padding={{ right: 'large' }}>
             <Layout.Horizontal flex>
               <ExpandingSearchInput
-                placeholder={getString('orgs.searchPlaceHolder')}
+                placeholder={getString('projectsOrgs.searchPlaceHolder')}
                 onChange={text => {
                   setSearchParam(text.trim())
                 }}
@@ -73,7 +73,7 @@ const OrganizationsPage: React.FC = () => {
         noData={{
           when: () => !data?.data?.content?.length,
           icon: 'nav-dashboard',
-          message: getString('projectsOrgs.orgs.noDataMessage'),
+          message: getString('projectsOrgs.noDataMessage'),
           button: newOrgButton()
         }}
         className={css.orgPage}

@@ -18,7 +18,6 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import SecretsList from './views/SecretsListView/SecretsList'
 
-import i18n from './SecretsPage.i18n'
 import css from './SecretsPage.module.scss'
 
 interface SecretsPageProps {
@@ -66,7 +65,7 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ module, mock }) => {
           <Popover minimal position={Position.BOTTOM_LEFT} interactionKind={PopoverInteractionKind.CLICK_TARGET_ONLY}>
             <RbacButton
               intent="primary"
-              text={i18n.newSecret.button}
+              text={getString('createSecretYAML.newSecret')}
               icon="plus"
               rightIcon="chevron-down"
               permission={{
@@ -82,17 +81,17 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ module, mock }) => {
             {openPopOver && (
               <Menu large>
                 <Menu.Item
-                  text={i18n.newSecret.text}
+                  text={getString('secret.labelText')}
                   labelElement={<Icon name="text" />}
                   onClick={/* istanbul ignore next */ () => openCreateSecretModal('SecretText')}
                 />
                 <Menu.Item
-                  text={i18n.newSecret.file}
+                  text={getString('secret.labelFile')}
                   labelElement={<Icon name="document" color="blue600" />}
                   onClick={/* istanbul ignore next */ () => openCreateSecretModal('SecretFile')}
                 />
                 <Menu.Item
-                  text={i18n.newSecret.ssh}
+                  text={getString('ssh.sshCredential')}
                   labelElement={<Icon name="secret-ssh" />}
                   onClick={/* istanbul ignore next */ () => openCreateSSHCredModal()}
                 />

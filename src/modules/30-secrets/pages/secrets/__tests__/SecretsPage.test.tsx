@@ -1,5 +1,14 @@
 import React from 'react'
-import { act, fireEvent, getByText, queryByText, render, RenderResult, waitFor } from '@testing-library/react'
+import {
+  act,
+  fireEvent,
+  getByText,
+  queryByText,
+  render,
+  RenderResult,
+  waitFor,
+  queryAllByText
+} from '@testing-library/react'
 
 import { findDialogContainer, findPopoverContainer, TestWrapper } from '@common/utils/testUtils'
 import SecretsPage from '../SecretsPage'
@@ -97,21 +106,21 @@ describe('Secrets List', () => {
     const deleteButton = getByText(popover as HTMLElement, 'Delete')
     await act(async () => {
       fireEvent.click(deleteButton)
-      await waitFor(() => getByText(document.body, 'Delete Secret'))
+      await waitFor(() => queryAllByText(document.body, 'secrets.confirmDeleteTitle'))
       const form = findDialogContainer()
       expect(form).toBeTruthy()
-      const deleteBtn = queryByText(form as HTMLElement, 'Delete')
+      const deleteBtn = queryByText(form as HTMLElement, 'delete')
       fireEvent.click(deleteBtn!)
     })
     expect(container).toMatchSnapshot()
   })
 
   test('Verify Connection SSH', async () => {
-    const testConnection = getAllByText('TEST CONNECTION')[0]
+    const testConnection = getAllByText('secrets.testconnection')[0]
     let form = findDialogContainer()
     await act(async () => {
       fireEvent.click(testConnection)
-      await waitFor(() => getByText(document.body, 'Test Connection'))
+      await waitFor(() => queryAllByText(document.body, 'secrets.createSSHCredWizard.btnVerifyConnection'))
     })
     form = findDialogContainer()
     expect(form).toBeTruthy()

@@ -143,7 +143,6 @@ serviceDeploymentTypes:
   pcf: PCF
   ssh: Secure Shell
   deployDifferentLabel: Deploy different service
-secretDetails: 'Secret Details'
 noDeploymentText: Your Pipeline does not have any executions yet. Click the button below to run a pipeline.
 noBuildsText: Your account does not have any builds yet. Click the button below to run a pipeline.
 newConnector: 'New Connector'
@@ -722,8 +721,6 @@ projectCard:
   cfRendererText: 'Feature Flags in last 7 days'
   ceRendererText: 'Cost Savings in last 7 days'
 
-collaborators:
-  roleLabel: 'Role :'
 ssh:
   sshCredential: 'SSH Credential'
   createmessageSuccess: 'Execution Credential created successfully'
@@ -958,13 +955,7 @@ moduleRenderer:
   viewPipelines: View Pipelines
   setupChanges: Set Up Change Sources
   monitoringSources: Set Up Monitoring Sources
-projectContextMenuRenderer:
-  gotoCV: 'Go to Continuous Verification'
-  gotoCD: 'Go to Continuous Delivery'
-  gotoCF: 'Go to Continuous Features'
-  gotoCI: 'Go to Continuous Integration'
-  gotoCE: 'Go to Continuous Efficiency'
-  invite: 'Invite Collaborators'
+
 settingsLabel: 'Settings'
 pipelineSteps:
   duplicateStep: Duplicate Step
@@ -1347,11 +1338,7 @@ configureOptions:
     minOneAllowedValue: 'Minimum one allowed value'
   notValidExpression: 'Not a valid input Expression'
   advancedHelp: 'With the advanced option, <br> you can type in JEXL expressions to return a list of values. <br> <a target="_blank">More information</a> <br> E.g. ${env.type} == “prod” ? aws1, aws2 : aws3, aws4'
-orgs:
-  searchPlaceHolder: 'Search Organizations by name and tags'
-  aboutTitle: 'About the Organization'
-  collaboratorsTitle: 'Invite Members'
-  confirmDelete: Deleting the Organization '{{name}}' would mean that you are also deleting all the projects and the resources associated with it. Are you sure you want to delete the Organization?
+
 pipeline-list:
   aboutPipeline: Pipelines define your release process using multiple Workflows and approvals in sequential and/or parallel stages.
   listStages: '{{ $.stages }}'

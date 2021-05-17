@@ -5,7 +5,6 @@ import { SelectOption, Layout, Color, Text, Button, Avatar, Container } from '@w
 import { useParams } from 'react-router-dom'
 import { Select } from '@blueprintjs/select'
 import { useToaster } from '@common/exports'
-import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
 import { useDeleteInvite, useUpdateInvite, Invite } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
@@ -45,7 +44,7 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
     try {
       const updated = await updateInvite(dataToSubmit, { pathParams: { inviteId: user.id } })
       if (updated) reload()
-      showSuccess(i18n.newProjectWizard.Collaborators.inviteSuccess)
+      showSuccess(getString('projectsOrgs.projectInviteSuccess'))
     } catch (err) {
       showError(err.data?.message || err.message)
     }
@@ -55,7 +54,7 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
     try {
       const deleted = await deleteInvite(user.id, { headers: { 'content-type': 'application/json' } })
       if (deleted) reload()
-      showSuccess(i18n.newProjectWizard.Collaborators.deleteSuccess)
+      showSuccess(getString('projectsOrgs.projectDeleteSuccess'))
     } catch (err) {
       showError(err.data?.message || err.message)
     }
@@ -76,7 +75,7 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
                   className={cx(css.colorBar, css.pending)}
                   color={Color.PRIMARY_7}
                 >
-                  {i18n.newProjectWizard.Collaborators.pendingInvitation}
+                  {getString('projectsOrgs.pendingInvitation')}
                 </Text>
               </Layout.Horizontal>
               <Text className={css.email} lineClamp={1}>
@@ -84,7 +83,7 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
               </Text>
               <Layout.Horizontal spacing="xsmall">
                 <Text font={{ size: 'xsmall', weight: 'bold' }} color={Color.BLACK}>
-                  {i18n.newProjectWizard.Collaborators.roleAssigned}
+                  {getString('projectsOrgs.roleAssigned')}
                 </Text>
                 <Text font="xsmall" color={Color.BLUE_600} className={css.role} lineClamp={1}>
                   {user.roleBindings[0]?.roleName}
@@ -118,14 +117,14 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
                   className={cx(css.colorBar, css.request)}
                   color={Color.YELLOW_500}
                 >
-                  {i18n.newProjectWizard.Collaborators.requestAccess}
+                  {getString('projectsOrgs.requestAccess')}
                 </Text>
               </Layout.Horizontal>
               <Text className={css.email} lineClamp={1}>
                 {user.email}
               </Text>
               <Text font={{ size: 'xsmall', weight: 'bold' }} color={Color.BLACK}>
-                {i18n.newProjectWizard.Collaborators.noRole}
+                {getString('projectsOrgs.noProjectRole')}
               </Text>
             </Layout.Vertical>
           </Layout.Horizontal>

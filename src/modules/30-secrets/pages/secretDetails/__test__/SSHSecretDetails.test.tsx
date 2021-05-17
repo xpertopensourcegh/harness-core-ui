@@ -1,9 +1,8 @@
 import React from 'react'
 import { render, fireEvent, getByText, waitFor, RenderResult } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
-
-import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 import { InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
+import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 import type { ResponseSecretValidationResultDTO } from 'services/cd-ng'
 import { accountPathProps, secretPathProps } from '@common/utils/routeUtils'
 import routes from '@common/RouteDefinitions'
@@ -77,7 +76,7 @@ describe('Secret Details', () => {
     expect(container).toMatchSnapshot()
   })
   test('Test Connection', async () => {
-    const testConnection = getAllByText('TEST CONNECTION')[0]
+    const testConnection = getAllByText('secrets.createSSHCredWizard.btnVerifyConnection')[0]
     await act(async () => {
       fireEvent.click(testConnection)
     })
@@ -92,7 +91,7 @@ describe('Secret Details', () => {
       fireEvent.click(testConnection)
     })
     expect(container).toMatchSnapshot()
-    const retestConnection = getAllByText('RETEST CONNECTION')[0]
+    const retestConnection = getAllByText('secrets.createSSHCredWizard.verifyRetest')[0]
 
     await act(async () => {
       fireEvent.click(retestConnection)

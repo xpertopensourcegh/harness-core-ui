@@ -9,8 +9,6 @@ import StepVerify from './views/StepVerify'
 import type { DetailsForm } from './views/StepDetails'
 import type { SSHConfigFormData } from './views/StepAuthentication'
 
-import i18n from './CreateSSHCredModal.i18n'
-
 interface CreateSSHCredWizardProps {
   onSuccess?: () => void
   hideModal?: () => void
@@ -28,9 +26,9 @@ const CreateSSHCredWizard: React.FC<CreateSSHCredWizardProps & SSHCredSharedObj>
 
   return (
     <StepWizard<SSHCredSharedObj> icon="secret-ssh" iconProps={{ size: 37 }} title={getString('ssh.sshCredential')}>
-      <StepSSHDetails name={i18n.titleDetails} {...props} />
-      <StepAuthentication name={i18n.stepTitleAuth} onSuccess={props.onSuccess} isEdit={isEdit} />
-      <StepVerify name={i18n.stepTitleVerify} closeModal={props.hideModal} />
+      <StepSSHDetails name={getString('secrets.createSSHCredWizard.titleDetails')} {...props} />
+      <StepAuthentication name={getString('configuration')} onSuccess={props.onSuccess} isEdit={isEdit} />
+      <StepVerify name={getString('secrets.stepTitleVerify')} closeModal={props.hideModal} />
     </StepWizard>
   )
 }

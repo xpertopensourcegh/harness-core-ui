@@ -3,7 +3,6 @@ import React from 'react'
 import { render, queryByText, fireEvent, act } from '@testing-library/react'
 import type { Project } from 'services/cd-ng'
 import { TestWrapper } from '@common/utils/testUtils'
-import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import PurposeList from '../PurposeList'
 
@@ -33,7 +32,7 @@ describe('PurposeList test', () => {
         <PurposeList data={project} />
       </TestWrapper>
     )
-    expect(queryByText(container, i18n.newProjectWizard.purposeList.name)).toBeDefined()
+    expect(queryByText(container, 'projectsOrgs.purposeList.name')).toBeDefined()
     expect(container).toMatchSnapshot()
     await act(async () => {
       const enablecd = getByTestId('CD')

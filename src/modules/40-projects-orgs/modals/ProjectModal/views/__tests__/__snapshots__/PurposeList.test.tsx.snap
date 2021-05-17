@@ -8,7 +8,7 @@ exports[`PurposeList test initializes ok  1`] = `
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
     >
-      Which Harness modules would you like to enable for this project?
+      projectsOrgs.purposeList.name
     </p>
     <div
       class="Layout--horizontal StyledProps--main StyledProps--padding-top-large"
@@ -63,19 +63,23 @@ exports[`PurposeList test initializes ok  1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-small"
               >
-                CONTINUOUS
+                projectsOrgs.purposeList.continuous
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xxlarge StyledProps--color StyledProps--color-black"
               >
-                Delivery
+                <span>
+                  projectsOrgs.purposeList.delivery
+                </span>
               </p>
             </div>
           </div>
           <p
             class="StyledProps--font StyledProps--main description StyledProps--font-small StyledProps--padding-bottom-xxlarge"
           >
-            Deploy your services with blazingly fast pipelines.
+            <span>
+              projectsOrgs.purposeList.descriptionCD
+            </span>
           </p>
           <div
             class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
@@ -83,7 +87,7 @@ exports[`PurposeList test initializes ok  1`] = `
             <p
               class="StyledProps--font StyledProps--main time StyledProps--font-small"
             >
-              15 min setup
+              projectsOrgs.purposeList.time
             </p>
             <button
               class="bp3-button Button--button StyledProps--font StyledProps--main enable StyledProps--font StyledProps--font-size-small StyledProps--font-weight-semi-bold Button--with-current-color Button--iconOnly"
@@ -93,7 +97,7 @@ exports[`PurposeList test initializes ok  1`] = `
               <span
                 class="bp3-button-text"
               >
-                Enable
+                enable
               </span>
             </button>
           </div>
@@ -144,19 +148,23 @@ exports[`PurposeList test initializes ok  1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-small"
               >
-                CONTINUOUS
+                projectsOrgs.purposeList.continuous
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xxlarge StyledProps--color StyledProps--color-black"
               >
-                Verification
+                <span>
+                  projectsOrgs.purposeList.verification
+                </span>
               </p>
             </div>
           </div>
           <p
             class="StyledProps--font StyledProps--main description StyledProps--font-small StyledProps--padding-bottom-xxlarge"
           >
-            Deploy in peace, verify activities that take place in system. Identify risk early.
+            <span>
+              projectsOrgs.purposeList.descriptionCV
+            </span>
           </p>
           <div
             class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
@@ -164,7 +172,7 @@ exports[`PurposeList test initializes ok  1`] = `
             <p
               class="StyledProps--font StyledProps--main time StyledProps--font-small"
             >
-              15 min setup
+              projectsOrgs.purposeList.time
             </p>
             <button
               class="bp3-button Button--button StyledProps--font StyledProps--main enable StyledProps--font StyledProps--font-size-small StyledProps--font-weight-semi-bold Button--with-current-color Button--iconOnly"
@@ -174,7 +182,7 @@ exports[`PurposeList test initializes ok  1`] = `
               <span
                 class="bp3-button-text"
               >
-                Enable
+                enable
               </span>
             </button>
           </div>
@@ -225,19 +233,23 @@ exports[`PurposeList test initializes ok  1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-small"
               >
-                CONTINUOUS
+                projectsOrgs.purposeList.continuous
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xxlarge StyledProps--color StyledProps--color-black"
               >
-                Integration
+                <span>
+                  projectsOrgs.purposeList.integration
+                </span>
               </p>
             </div>
           </div>
           <p
             class="StyledProps--font StyledProps--main description StyledProps--font-small StyledProps--padding-bottom-xxlarge"
           >
-            Commit, build, and test your code at a whole new level.
+            <span>
+              projectsOrgs.purposeList.descriptionCI
+            </span>
           </p>
           <div
             class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
@@ -245,7 +257,7 @@ exports[`PurposeList test initializes ok  1`] = `
             <p
               class="StyledProps--font StyledProps--main time StyledProps--font-small"
             >
-              15 min setup
+              projectsOrgs.purposeList.time
             </p>
             <button
               class="bp3-button Button--button StyledProps--font StyledProps--main enable StyledProps--font StyledProps--font-size-small StyledProps--font-weight-semi-bold Button--with-current-color Button--iconOnly"
@@ -255,7 +267,7 @@ exports[`PurposeList test initializes ok  1`] = `
               <span
                 class="bp3-button-text"
               >
-                Enable
+                enable
               </span>
             </button>
           </div>
@@ -306,19 +318,23 @@ exports[`PurposeList test initializes ok  1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-small"
               >
-                CONTINUOUS
+                projectsOrgs.purposeList.continuous
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xxlarge StyledProps--color StyledProps--color-black"
               >
-                Efficiency
+                <span>
+                  projectsOrgs.purposeList.efficiency
+                </span>
               </p>
             </div>
           </div>
           <p
             class="StyledProps--font StyledProps--main description StyledProps--font-small StyledProps--padding-bottom-xxlarge"
           >
-            Spot and quickly debug inefficiencies and optimize them to reduce costs.
+            <span>
+              projectsOrgs.purposeList.descriptionCE
+            </span>
           </p>
           <div
             class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
@@ -326,7 +342,7 @@ exports[`PurposeList test initializes ok  1`] = `
             <p
               class="StyledProps--font StyledProps--main time StyledProps--font-small"
             >
-              15 min setup
+              projectsOrgs.purposeList.time
             </p>
             <button
               class="bp3-button Button--button StyledProps--font StyledProps--main enable StyledProps--font StyledProps--font-size-small StyledProps--font-weight-semi-bold Button--with-current-color Button--iconOnly"
@@ -336,7 +352,7 @@ exports[`PurposeList test initializes ok  1`] = `
               <span
                 class="bp3-button-text"
               >
-                Enable
+                enable
               </span>
             </button>
           </div>
@@ -387,19 +403,23 @@ exports[`PurposeList test initializes ok  1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-small"
               >
-                CONTINUOUS
+                projectsOrgs.purposeList.continuous
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xxlarge StyledProps--color StyledProps--color-black"
               >
-                Features
+                <span>
+                  projectsOrgs.purposeList.features
+                </span>
               </p>
             </div>
           </div>
           <p
             class="StyledProps--font StyledProps--main description StyledProps--font-small StyledProps--padding-bottom-xxlarge"
           >
-            Decouple release from deployment and rollout features safely and quickly.
+            <span>
+              projectsOrgs.purposeList.descriptionCF
+            </span>
           </p>
           <div
             class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
@@ -407,7 +427,7 @@ exports[`PurposeList test initializes ok  1`] = `
             <p
               class="StyledProps--font StyledProps--main time StyledProps--font-small"
             >
-              15 min setup
+              projectsOrgs.purposeList.time
             </p>
             <button
               class="bp3-button Button--button StyledProps--font StyledProps--main enable StyledProps--font StyledProps--font-size-small StyledProps--font-weight-semi-bold Button--with-current-color Button--iconOnly"
@@ -417,7 +437,7 @@ exports[`PurposeList test initializes ok  1`] = `
               <span
                 class="bp3-button-text"
               >
-                Enable
+                enable
               </span>
             </button>
           </div>
@@ -430,7 +450,7 @@ exports[`PurposeList test initializes ok  1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
         >
-          Select a module
+          projectsOrgs.purposeList.selectAModule
         </p>
       </div>
     </div>
@@ -446,7 +466,7 @@ exports[`PurposeList test initializes ok  2`] = `
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
     >
-      Which Harness modules would you like to enable for this project?
+      projectsOrgs.purposeList.name
     </p>
     <div
       class="Layout--horizontal StyledProps--main StyledProps--padding-top-large"
@@ -501,19 +521,23 @@ exports[`PurposeList test initializes ok  2`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-small"
               >
-                CONTINUOUS
+                projectsOrgs.purposeList.continuous
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xxlarge StyledProps--color StyledProps--color-black"
               >
-                Delivery
+                <span>
+                  projectsOrgs.purposeList.delivery
+                </span>
               </p>
             </div>
           </div>
           <p
             class="StyledProps--font StyledProps--main description StyledProps--font-small StyledProps--padding-bottom-xxlarge"
           >
-            Deploy your services with blazingly fast pipelines.
+            <span>
+              projectsOrgs.purposeList.descriptionCD
+            </span>
           </p>
           <div
             class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
@@ -521,7 +545,7 @@ exports[`PurposeList test initializes ok  2`] = `
             <p
               class="StyledProps--font StyledProps--main time StyledProps--font-small"
             >
-              15 min setup
+              projectsOrgs.purposeList.time
             </p>
             <button
               class="bp3-button Button--button StyledProps--font StyledProps--main enabled StyledProps--font StyledProps--font-size-small StyledProps--font-weight-semi-bold Button--with-current-color Button--iconOnly"
@@ -549,7 +573,7 @@ exports[`PurposeList test initializes ok  2`] = `
               <span
                 class="bp3-button-text"
               >
-                Enabled
+                enabledLabel
               </span>
             </button>
           </div>
@@ -600,19 +624,23 @@ exports[`PurposeList test initializes ok  2`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-small"
               >
-                CONTINUOUS
+                projectsOrgs.purposeList.continuous
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xxlarge StyledProps--color StyledProps--color-black"
               >
-                Verification
+                <span>
+                  projectsOrgs.purposeList.verification
+                </span>
               </p>
             </div>
           </div>
           <p
             class="StyledProps--font StyledProps--main description StyledProps--font-small StyledProps--padding-bottom-xxlarge"
           >
-            Deploy in peace, verify activities that take place in system. Identify risk early.
+            <span>
+              projectsOrgs.purposeList.descriptionCV
+            </span>
           </p>
           <div
             class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
@@ -620,7 +648,7 @@ exports[`PurposeList test initializes ok  2`] = `
             <p
               class="StyledProps--font StyledProps--main time StyledProps--font-small"
             >
-              15 min setup
+              projectsOrgs.purposeList.time
             </p>
             <button
               class="bp3-button Button--button StyledProps--font StyledProps--main enabled StyledProps--font StyledProps--font-size-small StyledProps--font-weight-semi-bold Button--with-current-color Button--iconOnly"
@@ -648,7 +676,7 @@ exports[`PurposeList test initializes ok  2`] = `
               <span
                 class="bp3-button-text"
               >
-                Enabled
+                enabledLabel
               </span>
             </button>
           </div>
@@ -699,19 +727,23 @@ exports[`PurposeList test initializes ok  2`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-small"
               >
-                CONTINUOUS
+                projectsOrgs.purposeList.continuous
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xxlarge StyledProps--color StyledProps--color-black"
               >
-                Integration
+                <span>
+                  projectsOrgs.purposeList.integration
+                </span>
               </p>
             </div>
           </div>
           <p
             class="StyledProps--font StyledProps--main description StyledProps--font-small StyledProps--padding-bottom-xxlarge"
           >
-            Commit, build, and test your code at a whole new level.
+            <span>
+              projectsOrgs.purposeList.descriptionCI
+            </span>
           </p>
           <div
             class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
@@ -719,7 +751,7 @@ exports[`PurposeList test initializes ok  2`] = `
             <p
               class="StyledProps--font StyledProps--main time StyledProps--font-small"
             >
-              15 min setup
+              projectsOrgs.purposeList.time
             </p>
             <button
               class="bp3-button Button--button StyledProps--font StyledProps--main enabled StyledProps--font StyledProps--font-size-small StyledProps--font-weight-semi-bold Button--with-current-color Button--iconOnly"
@@ -747,7 +779,7 @@ exports[`PurposeList test initializes ok  2`] = `
               <span
                 class="bp3-button-text"
               >
-                Enabled
+                enabledLabel
               </span>
             </button>
           </div>
@@ -798,19 +830,23 @@ exports[`PurposeList test initializes ok  2`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-small"
               >
-                CONTINUOUS
+                projectsOrgs.purposeList.continuous
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xxlarge StyledProps--color StyledProps--color-black"
               >
-                Efficiency
+                <span>
+                  projectsOrgs.purposeList.efficiency
+                </span>
               </p>
             </div>
           </div>
           <p
             class="StyledProps--font StyledProps--main description StyledProps--font-small StyledProps--padding-bottom-xxlarge"
           >
-            Spot and quickly debug inefficiencies and optimize them to reduce costs.
+            <span>
+              projectsOrgs.purposeList.descriptionCE
+            </span>
           </p>
           <div
             class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
@@ -818,7 +854,7 @@ exports[`PurposeList test initializes ok  2`] = `
             <p
               class="StyledProps--font StyledProps--main time StyledProps--font-small"
             >
-              15 min setup
+              projectsOrgs.purposeList.time
             </p>
             <button
               class="bp3-button Button--button StyledProps--font StyledProps--main enabled StyledProps--font StyledProps--font-size-small StyledProps--font-weight-semi-bold Button--with-current-color Button--iconOnly"
@@ -846,7 +882,7 @@ exports[`PurposeList test initializes ok  2`] = `
               <span
                 class="bp3-button-text"
               >
-                Enabled
+                enabledLabel
               </span>
             </button>
           </div>
@@ -897,19 +933,23 @@ exports[`PurposeList test initializes ok  2`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-small"
               >
-                CONTINUOUS
+                projectsOrgs.purposeList.continuous
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-xxlarge StyledProps--color StyledProps--color-black"
               >
-                Features
+                <span>
+                  projectsOrgs.purposeList.features
+                </span>
               </p>
             </div>
           </div>
           <p
             class="StyledProps--font StyledProps--main description StyledProps--font-small StyledProps--padding-bottom-xxlarge"
           >
-            Decouple release from deployment and rollout features safely and quickly.
+            <span>
+              projectsOrgs.purposeList.descriptionCF
+            </span>
           </p>
           <div
             class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
@@ -917,7 +957,7 @@ exports[`PurposeList test initializes ok  2`] = `
             <p
               class="StyledProps--font StyledProps--main time StyledProps--font-small"
             >
-              15 min setup
+              projectsOrgs.purposeList.time
             </p>
             <button
               class="bp3-button Button--button StyledProps--font StyledProps--main enabled StyledProps--font StyledProps--font-size-small StyledProps--font-weight-semi-bold Button--with-current-color Button--iconOnly"
@@ -945,7 +985,7 @@ exports[`PurposeList test initializes ok  2`] = `
               <span
                 class="bp3-button-text"
               >
-                Enabled
+                enabledLabel
               </span>
             </button>
           </div>
@@ -961,12 +1001,16 @@ exports[`PurposeList test initializes ok  2`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
           >
-            Continuous Delivery
+            <span>
+              projectsOrgs.purposeList.cd
+            </span>
           </p>
           <a
             href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/-1/pipeline-studio/"
           >
-            Create New pipeline
+            <span>
+              moduleRenderer.newPipeLine
+            </span>
           </a>
         </div>
         <div
@@ -975,17 +1019,23 @@ exports[`PurposeList test initializes ok  2`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
           >
-            Continuous Verification
+            <span>
+              projectsOrgs.purposeList.cv
+            </span>
           </p>
           <a
             href="/account/testAcc/cv/orgs/testOrg/projects/test/admin/setup"
           >
-            Add New Change Source
+            <span>
+              projectsOrgs.purposeList.linkcvChangeSources
+            </span>
           </a>
           <a
             href="/account/testAcc/cv/orgs/testOrg/projects/test/admin/setup?step=2"
           >
-            Add New Monitoring Source
+            <span>
+              projectsOrgs.purposeList.linkcv
+            </span>
           </a>
         </div>
         <div
@@ -994,12 +1044,16 @@ exports[`PurposeList test initializes ok  2`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
           >
-            Continuous Integration
+            <span>
+              projectsOrgs.purposeList.ci
+            </span>
           </p>
           <a
             href="/account/testAcc/ci/orgs/testOrg/projects/test/pipelines/-1/pipeline-studio/"
           >
-            Create New pipeline
+            <span>
+              moduleRenderer.newPipeLine
+            </span>
           </a>
         </div>
         <div
@@ -1008,12 +1062,16 @@ exports[`PurposeList test initializes ok  2`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
           >
-            Continuous Efficiency
+            <span>
+              projectsOrgs.purposeList.ce
+            </span>
           </p>
           <a
             href="/"
           >
-            TBD
+            <span>
+              tbd
+            </span>
           </a>
         </div>
         <div
@@ -1022,12 +1080,16 @@ exports[`PurposeList test initializes ok  2`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
           >
-            Continuous Features
+            <span>
+              projectsOrgs.purposeList.cf
+            </span>
           </p>
           <a
             href="/"
           >
-            TBD
+            <span>
+              tbd
+            </span>
           </a>
         </div>
       </div>

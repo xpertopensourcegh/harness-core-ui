@@ -12,12 +12,12 @@ exports[`Project Page List Create Project and Close 1`] = `
         class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
         level="2"
       >
-        Projects
+        projectsText
       </h2>
       <a
         href="/account/testAcc/projects/get-started"
       >
-        Get Started
+        getStarted
       </a>
     </div>
     <div
@@ -49,7 +49,7 @@ exports[`Project Page List Create Project and Close 1`] = `
         <span
           class="bp3-button-text"
         >
-          Project
+          projectLabel
         </span>
       </button>
       <span
@@ -74,12 +74,12 @@ exports[`Project Page List Create Project and Close 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                   >
-                    Organizations:
+                    projectsOrgs.tabOrgs
                   </p>
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    All
+                    all
                   </p>
                 </div>
               </span>
@@ -135,7 +135,7 @@ exports[`Project Page List Create Project and Close 1`] = `
         <input
           class="bp3-input "
           dir="auto"
-          placeholder="Search by project, tags, members"
+          placeholder="projectsOrgs.search"
           type="search"
           value=""
         />
@@ -3724,12 +3724,12 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
         class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
         level="2"
       >
-        Projects
+        projectsText
       </h2>
       <a
         href="/account/testAcc/projects/get-started"
       >
-        Get Started
+        getStarted
       </a>
     </div>
     <div
@@ -3761,7 +3761,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
         <span
           class="bp3-button-text"
         >
-          Project
+          projectLabel
         </span>
       </button>
       <span
@@ -3786,12 +3786,12 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                   >
-                    Organizations:
+                    projectsOrgs.tabOrgs
                   </p>
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    All
+                    all
                   </p>
                 </div>
               </span>
@@ -3847,7 +3847,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
         <input
           class="bp3-input "
           dir="auto"
-          placeholder="Search by project, tags, members"
+          placeholder="projectsOrgs.search"
           type="search"
           value=""
         />
@@ -7436,12 +7436,12 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
         class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
         level="2"
       >
-        Projects
+        projectsText
       </h2>
       <a
         href="/account/testAcc/projects/get-started"
       >
-        Get Started
+        getStarted
       </a>
     </div>
     <div
@@ -7473,7 +7473,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
         <span
           class="bp3-button-text"
         >
-          Project
+          projectLabel
         </span>
       </button>
       <span
@@ -7498,12 +7498,12 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                   >
-                    Organizations:
+                    projectsOrgs.tabOrgs
                   </p>
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    All
+                    all
                   </p>
                 </div>
               </span>
@@ -7559,7 +7559,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
         <input
           class="bp3-input "
           dir="auto"
-          placeholder="Search by project, tags, members"
+          placeholder="projectsOrgs.search"
           type="search"
           value=""
         />
@@ -11148,12 +11148,12 @@ exports[`Project Page List Whole Modal Test 1`] = `
         class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
         level="2"
       >
-        Projects
+        projectsText
       </h2>
       <a
         href="/account/testAcc/projects/get-started"
       >
-        Get Started
+        getStarted
       </a>
     </div>
     <div
@@ -11185,7 +11185,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
         <span
           class="bp3-button-text"
         >
-          Project
+          projectLabel
         </span>
       </button>
       <span
@@ -11210,12 +11210,12 @@ exports[`Project Page List Whole Modal Test 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                   >
-                    Organizations:
+                    projectsOrgs.tabOrgs
                   </p>
                   <p
                     class="StyledProps--font StyledProps--main"
                   >
-                    All
+                    all
                   </p>
                 </div>
               </span>
@@ -11271,7 +11271,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
         <input
           class="bp3-input "
           dir="auto"
-          placeholder="Search by project, tags, members"
+          placeholder="projectsOrgs.search"
           type="search"
           value=""
         />
