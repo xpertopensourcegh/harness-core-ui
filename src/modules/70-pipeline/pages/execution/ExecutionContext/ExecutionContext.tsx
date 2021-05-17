@@ -24,6 +24,8 @@ export interface ExecutionContextParams {
   addNewNodeToMap(id: string, node: ExecutionNode): void
   setStepsGraphCanvasState?: (canvasState: GraphCanvasState) => void
   stepsGraphCanvasState?: GraphCanvasState
+  setSelectedStepId: (step: string) => void
+  setSelectedStageId: (stage: string) => void
 }
 
 const ExecutionContext = createContext<ExecutionContextParams>({
@@ -39,7 +41,9 @@ const ExecutionContext = createContext<ExecutionContextParams>({
   refetch: undefined,
   addNewNodeToMap: () => void 0,
   setStepsGraphCanvasState: () => undefined,
-  stepsGraphCanvasState: { offsetX: 0, offsetY: 0, zoom: 100 }
+  stepsGraphCanvasState: { offsetX: 0, offsetY: 0, zoom: 100 },
+  setSelectedStepId: () => void 0,
+  setSelectedStageId: () => void 0
 })
 
 export default ExecutionContext

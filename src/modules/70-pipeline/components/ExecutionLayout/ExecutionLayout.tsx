@@ -6,12 +6,11 @@ import cx from 'classnames'
 import { useLocalStorage } from '@common/hooks'
 import { ExecutionLayoutContext, ExecutionLayoutState } from './ExecutionLayoutContext'
 import ExecutionLayoutFloatingView from './ExecutionLayoutFloatingView'
-import ExcecutionLayoutToggle from './ExecutionLayoutToggle'
+import ExecutionLayoutToggle from './ExecutionLayoutToggle'
 
 import css from './ExecutionLayout.module.scss'
 
 const IS_TEST = process.env.NODE_ENV === 'test'
-export const PANEL_RESIZE_DELTA = 50
 export const MIN_PANEL_SIZE = 200
 const EXECUTION_LAYOUT_DOM_ID = `execution-layout-${IS_TEST ? 'test' : /* istanbul ignore next */ Date.now()}`
 
@@ -46,11 +45,11 @@ function ExecutionLayout(props: React.PropsWithChildren<ExecutionLayoutProps>): 
   )
   const [isStepDetailsVisible, setStepDetailsVisibility] = React.useState(!!props.defaultStepVisibility)
   const [primaryPaneSize, setPrimaryPaneSize] = React.useState(250)
-  const [teritiaryPaneSize, setTeritiaryPaneSize] = React.useState(250)
+  const [tertiaryPaneSize, setTertiaryPaneSize] = React.useState(250)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const setStageSplitPaneSizeDebounce = React.useCallback(debounce(setPrimaryPaneSize, 300), [setPrimaryPaneSize])
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const setStepSplitPaneSizeDebounce = React.useCallback(debounce(setTeritiaryPaneSize, 300), [setTeritiaryPaneSize])
+  const setStepSplitPaneSizeDebounce = React.useCallback(debounce(setTertiaryPaneSize, 300), [setTertiaryPaneSize])
 
   /* Ignoring this function as it is used by "react-split-pane" */
   /* istanbul ignore next */
@@ -61,9 +60,9 @@ function ExecutionLayout(props: React.PropsWithChildren<ExecutionLayoutProps>): 
   // handle layout change
   React.useEffect(() => {
     if (layoutState === ExecutionLayoutState.RIGHT) {
-      setTeritiaryPaneSize(500)
+      setTertiaryPaneSize(500)
     } else if (layoutState === ExecutionLayoutState.BOTTOM) {
-      setTeritiaryPaneSize(300)
+      setTertiaryPaneSize(300)
     }
   }, [layoutState])
 
@@ -73,9 +72,9 @@ function ExecutionLayout(props: React.PropsWithChildren<ExecutionLayoutProps>): 
         layout: layoutState,
         setLayout: (e: ExecutionLayoutState) => setLayoutState(e),
         primaryPaneSize,
-        teritiaryPaneSize,
+        tertiaryPaneSize,
         setPrimaryPaneSize,
-        setTeritiaryPaneSize,
+        setTertiaryPaneSize,
         isStepDetailsVisible,
         setStepDetailsVisibility
       }}
@@ -95,7 +94,7 @@ function ExecutionLayout(props: React.PropsWithChildren<ExecutionLayoutProps>): 
               <SplitPane
                 className={css.splitPane2}
                 {...splitPaneProps[layoutState]}
-                size={teritiaryPaneSize}
+                size={tertiaryPaneSize}
                 onChange={setStepSplitPaneSizeDebounce}
               >
                 <Pane className={css.pane21}>{child2}</Pane>
@@ -114,5 +113,5 @@ function ExecutionLayout(props: React.PropsWithChildren<ExecutionLayoutProps>): 
   )
 }
 
-ExecutionLayout.Toggle = ExcecutionLayoutToggle
+ExecutionLayout.Toggle = ExecutionLayoutToggle
 export default ExecutionLayout

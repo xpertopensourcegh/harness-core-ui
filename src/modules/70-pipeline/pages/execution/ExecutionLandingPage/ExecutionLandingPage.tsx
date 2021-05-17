@@ -156,10 +156,12 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
 
     if (runningStage) {
       setAutoSelectedStageId(runningStage)
+      setSelectedStageId(runningStage)
     }
 
     if (runningStep) {
       setAutoSelectedStepId(runningStep)
+      setSelectedStepId(runningStep)
     }
   }, [queryParams, data])
 
@@ -204,6 +206,8 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
         refetch,
         stepsGraphCanvasState,
         setStepsGraphCanvasState,
+        setSelectedStageId,
+        setSelectedStepId,
         addNewNodeToMap(id, node) {
           setAllNodeMap(nodeMap => ({ ...nodeMap, [id]: node }))
         }
