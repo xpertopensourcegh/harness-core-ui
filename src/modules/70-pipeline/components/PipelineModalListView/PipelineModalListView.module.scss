@@ -41,4 +41,14 @@
     font-size: var(--font-size-small);
     color: var(--grey-400);
   }
+  .pipelineGitDetails {
+    :global(.bp3-popover-target) {
+      display: block;
+    }
+  }
+}
+
+.gitFilter {
+  height: 32px;
+  padding-left: var(--spacing-xlarge) !important;
 }

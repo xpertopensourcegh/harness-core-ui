@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { Button, Text, Color, Container, ExpandingSearchInput } from '@wings-software/uicore'
+import { Button, Text, Color, Container, ExpandingSearchInput, Layout } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import {
   PagePMSPipelineSummaryResponse,
@@ -11,6 +11,9 @@ import { Page } from '@common/exports'
 import { String, useStrings } from 'framework/strings'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
+import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import RunPipelineListView from './RunPipelineListView'
 import css from './PipelineModalListView.module.scss'
 
@@ -23,6 +26,8 @@ export default function PipelineModalListView({ onClose, mockData }: PipelineMod
   const [page, setPage] = useState(0)
   const [searchParam, setSearchParam] = React.useState('')
   const { getString } = useStrings()
+  const { isGitSyncEnabled } = useAppStore()
+  const [gitFilter, setGitFilter] = useState<GitFilterScope | null>(null)
 
   const { projectIdentifier, orgIdentifier, accountId, module } = useParams<
     PipelineType<{
@@ -42,7 +47,12 @@ export default function PipelineModalListView({ onClose, mockData }: PipelineMod
       orgIdentifier,
       searchTerm: searchParam,
       page,
-      size: 5
+      size: 5,
+      ...(gitFilter?.repo &&
+        gitFilter.branch && {
+          repoIdentifier: gitFilter.repo,
+          branch: gitFilter.branch
+        })
     },
     mock: mockData
   })
@@ -66,9 +76,22 @@ export default function PipelineModalListView({ onClose, mockData }: PipelineMod
     <>
       <Page.Header
         title={
-          <Text color={Color.GREY_800} font="medium">
-            <String stringID="runPipelineText" />
-          </Text>
+          <Layout.Horizontal style={{ alignItems: 'center' }}>
+            <Text color={Color.GREY_800} font="medium">
+              {getString('runPipelineText')}
+            </Text>
+            {isGitSyncEnabled && (
+              <GitSyncStoreProvider>
+                <GitFilters
+                  onChange={filter => {
+                    setGitFilter(filter)
+                    setPage(0)
+                  }}
+                  className={css.gitFilter}
+                />
+              </GitSyncStoreProvider>
+            )}
+          </Layout.Horizontal>
         }
         toolbar={
           <Container>

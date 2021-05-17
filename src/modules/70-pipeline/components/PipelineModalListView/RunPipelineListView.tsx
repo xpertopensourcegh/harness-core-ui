@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import type { Column, CellProps, Renderer } from 'react-table'
-import { Layout, Color, Text } from '@wings-software/uicore'
+import { Layout, Color, Text, Icon } from '@wings-software/uicore'
 import Table from '@common/components/Table/Table'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
 import type { PagePMSPipelineSummaryResponse, PMSPipelineSummaryResponse } from 'services/pipeline-ng'
@@ -12,6 +12,7 @@ import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import css from './PipelineModalListView.module.scss'
 
 type CustomColumn<T extends Record<string, any>> = Column<T> & {
@@ -46,6 +47,7 @@ export default function RunPipelineListView({
   >()
 
   const history = useHistory()
+  const { isGitSyncEnabled } = useAppStore()
 
   const routeToPipelinesPage = (identifier: string): void => {
     history.push(
@@ -69,6 +71,48 @@ export default function RunPipelineListView({
         </Text>
         <Text color={Color.GREY_400}>{rowdata.description}</Text>
       </Layout.Vertical>
+    )
+  }
+
+  const RenderGitDetails: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
+    const { gitDetails } = row.original
+
+    return !!gitDetails?.repoIdentifier && !!gitDetails.branch ? (
+      <Layout.Horizontal
+        style={{ alignItems: 'center' }}
+        padding={{ right: 'medium' }}
+        className={css.pipelineGitDetails}
+      >
+        <Text
+          style={{ fontSize: '13px', wordWrap: 'break-word', maxWidth: '100px' }}
+          color={Color.GREY_800}
+          margin={{ right: 'small' }}
+          lineClamp={1}
+          title={gitDetails.repoIdentifier}
+        >
+          {gitDetails.repoIdentifier}
+        </Text>
+        <Layout.Horizontal
+          border={{ color: Color.GREY_200 }}
+          spacing="xsmall"
+          style={{ borderRadius: '5px', alignItems: 'center' }}
+          padding={{ left: 'small', right: 'small', top: 'xsmall', bottom: 'xsmall' }}
+          background={Color.GREY_100}
+        >
+          <Icon name="git-new-branch" size={11} color={Color.GREY_600} />
+          <Text
+            style={{ wordWrap: 'break-word', maxWidth: '100px' }}
+            font={{ size: 'small' }}
+            color={Color.GREY_800}
+            title={gitDetails.branch}
+            lineClamp={1}
+          >
+            {gitDetails.branch}
+          </Text>
+        </Layout.Horizontal>
+      </Layout.Horizontal>
+    ) : (
+      <></>
     )
   }
 
@@ -109,8 +153,13 @@ export default function RunPipelineListView({
     () => [
       {
         accessor: 'name',
-        width: '60%',
+        width: isGitSyncEnabled ? '30%' : '60%',
         Cell: RenderColumnPipeline
+      },
+      {
+        accessor: 'gitDetails',
+        width: '30%',
+        Cell: RenderGitDetails
       },
       {
         accessor: 'executionSummaryInfo',
@@ -126,6 +175,10 @@ export default function RunPipelineListView({
     ],
     [refetch]
   )
+
+  if (!isGitSyncEnabled) {
+    columns.splice(1, 1)
+  }
 
   return (
     <Table<PipelineDTO>

@@ -5,13 +5,16 @@ exports[`PipelineModal List View render list view 1`] = `
   <div
     class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
   >
-    <p
-      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-medium"
+    <div
+      class="Layout--horizontal StyledProps--main"
+      style="align-items: center;"
     >
-      <span>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-medium"
+      >
         runPipelineText
-      </span>
-    </p>
+      </p>
+    </div>
     <div
       class="StyledProps--font StyledProps--main"
     >

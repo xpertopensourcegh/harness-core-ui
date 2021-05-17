@@ -9,5 +9,7 @@ declare const styles: {
   readonly table: string
   readonly runText: string
   readonly pipelineDesc: string
+  readonly pipelineGitDetails: string
+  readonly gitFilter: string
 }
 export default styles
