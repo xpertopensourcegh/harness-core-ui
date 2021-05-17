@@ -1060,6 +1060,14 @@ exports[`<ExecutionStepDetails /> tests approval steps renders normal error step
                   </div>
                 </td>
               </tr>
+              <tr>
+                <th>
+                  common.timeout
+                </th>
+                <td>
+                  -
+                </td>
+              </tr>
               <tr
                 class="delegateRow"
               >
@@ -1445,6 +1453,14 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
                   </div>
                 </td>
               </tr>
+              <tr>
+                <th>
+                  common.timeout
+                </th>
+                <td>
+                  -
+                </td>
+              </tr>
             </tbody>
           </table>
           <div
@@ -1817,6 +1833,14 @@ exports[`<ExecutionStepDetails /> tests retried steps does not fetches data for 
                   </div>
                 </td>
               </tr>
+              <tr>
+                <th>
+                  common.timeout
+                </th>
+                <td>
+                  -
+                </td>
+              </tr>
             </tbody>
           </table>
           <div
@@ -2187,6 +2211,14 @@ exports[`<ExecutionStepDetails /> tests retried steps fetches data for retry ste
                   <div>
                     MOCK DURATION
                   </div>
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  common.timeout
+                </th>
+                <td>
+                  -
                 </td>
               </tr>
             </tbody>
@@ -2791,6 +2823,14 @@ exports[`<ExecutionStepDetails /> tests retried steps shows step selection 1`] =
                   <div>
                     MOCK DURATION
                   </div>
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  common.timeout
+                </th>
+                <td>
+                  -
                 </td>
               </tr>
             </tbody>

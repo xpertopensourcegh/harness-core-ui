@@ -32,6 +32,14 @@ exports[`<HarnessApproval /> tests Non-Waiting Status form is not shown 1`] = `
           </div>
         </td>
       </tr>
+      <tr>
+        <th>
+          common.timeout
+        </th>
+        <td>
+          -
+        </td>
+      </tr>
     </tbody>
   </table>
   <div

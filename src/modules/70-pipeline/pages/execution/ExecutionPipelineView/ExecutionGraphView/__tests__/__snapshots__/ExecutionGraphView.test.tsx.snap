@@ -619,6 +619,14 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                                 </span>
                               </td>
                             </tr>
+                            <tr>
+                              <th>
+                                common.timeout
+                              </th>
+                              <td>
+                                -
+                              </td>
+                            </tr>
                           </tbody>
                         </table>
                         <div

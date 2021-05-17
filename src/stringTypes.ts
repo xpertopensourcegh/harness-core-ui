@@ -269,6 +269,7 @@ export interface StringsMap {
   'common.specify': string
   'common.submittingRequest': string
   'common.submittingRequestToGit': string
+  'common.timeout': string
   'common.totalLines': string
   'common.trialInProgress': string
   'common.trialInProgressDescription': string

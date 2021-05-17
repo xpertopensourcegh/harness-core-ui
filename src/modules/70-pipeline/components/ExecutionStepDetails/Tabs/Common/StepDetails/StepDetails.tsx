@@ -46,6 +46,10 @@ export function StepDetails(props: StepDetailsProps): React.ReactElement {
             <Duration className={css.timer} durationText="" startTime={step?.startTs} endTime={step?.endTs} />
           </td>
         </tr>
+        <tr>
+          <th>{getString('common.timeout')}</th>
+          <td>{step?.stepParameters?.timeout || '-'}</td>
+        </tr>
         {step.delegateInfoList && step.delegateInfoList.length > 0 ? (
           <tr className={css.delegateRow}>
             <th>{getString('delegateLabel')}</th>
