@@ -29,8 +29,6 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
   const { color } = getStatus(primaryArtifact?.spec?.connectorRef, fetchedConnectorResponse, accountId)
   return (
     <Layout.Vertical style={{ flexShrink: 'initial' }}>
-      {/* {props.isForPredefinedSets && <PredefinedOverrideSets context="ARTIFACT" currentStage={props.stage} />} */}
-
       <Layout.Vertical spacing="small" style={{ flexShrink: 'initial' }}>
         <div className={cx(css.artifactList, css.listHeader)}>
           <span></span>
@@ -50,26 +48,25 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
                   </Text>
                 </div>
 
-                <div className={css.server}>
+                <span>
                   <Text
                     inline
                     icon={getArtifactIconByType(primaryArtifact.type)}
                     iconProps={{ size: 18 }}
-                    width={180}
+                    width={300}
                     lineClamp={1}
+                    rightIcon="full-circle"
+                    rightIconProps={{ size: 12, color }}
                     style={{ color: Color.BLACK, fontWeight: 900 }}
                   >
-                    {primaryArtifact.type}
+                    {primaryArtifact.spec?.connectorRef}
                   </Text>
-
-                  <Text width={200} icon="full-circle" iconProps={{ size: 10, color }} />
-                </div>
+                </span>
                 <div>
                   <Text width={400} lineClamp={1} style={{ color: Color.GREY_500 }}>
                     {primaryArtifact?.spec?.imagePath}
                   </Text>
                 </div>
-                <div>{/* WIP artifact validation */}</div>
                 {overrideSetIdentifier?.length === 0 && !isReadonly && (
                   <span>
                     <Layout.Horizontal spacing="medium" className={css.actionGrid}>
@@ -78,13 +75,6 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
                         size={16}
                         onClick={() => editArtifact(ModalViewFor.PRIMARY, primaryArtifact.type)}
                       />
-                      {/* <Icon
-                              name="main-clone"
-                              size={16}
-                              style={{ cursor: 'pointer' }}
-                              className={css.cloneIcon}
-                              // onClick={() => cloneArtifact(manifest)}
-                            /> */}
                       <Icon name="bin-main" size={25} onClick={removePrimary} />
                     </Layout.Horizontal>
                   </span>
@@ -111,26 +101,25 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
                         </Text>
                       </Text>
                     </div>
-                    <div className={css.server}>
+                    <span>
                       <Text
                         inline
                         icon={getArtifactIconByType(sidecar?.type as string)}
                         iconProps={{ size: 18 }}
-                        width={180}
+                        width={300}
+                        rightIcon="full-circle"
+                        rightIconProps={{ size: 12, color: sideCarConnectionColor }}
                         lineClamp={1}
                         style={{ color: Color.BLACK, fontWeight: 900 }}
                       >
-                        {sidecar?.type}
+                        {sidecar?.spec?.connectorRef}
                       </Text>
-
-                      <Text width={200} icon="full-circle" iconProps={{ size: 10, color: sideCarConnectionColor }} />
-                    </div>
+                    </span>
                     <div>
                       <Text width={400} lineClamp={1} style={{ color: Color.GREY_500 }}>
                         {sidecar?.spec?.imagePath}
                       </Text>
                     </div>
-                    <div>{/* WIP artifact validation */}</div>
                     {overrideSetIdentifier?.length === 0 && !isReadonly && (
                       <span>
                         <Layout.Horizontal spacing="medium" className={css.actionGrid}>
@@ -141,13 +130,6 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
                               editArtifact(ModalViewFor.SIDECAR, sidecar?.type as CreationType, index)
                             }}
                           />
-                          {/* <Icon
-                                    name="main-clone"
-                                    size={16}
-                                    style={{ cursor: 'pointer' }}
-                                    className={css.cloneIcon}
-                                    // onClick={() => cloneArtifact(manifest)}
-                                  /> */}
                           <Icon name="bin-main" size={25} onClick={() => removeSidecar(index)} />
                         </Layout.Horizontal>
                       </span>

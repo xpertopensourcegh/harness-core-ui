@@ -37,12 +37,10 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
                 Primary
               </p>
             </div>
-            <div
-              class="server"
-            >
+            <span>
               <span
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
-                style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 180px;"
+                style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 300px;"
               >
                 <span
                   class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
@@ -91,21 +89,16 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
                     </defs>
                   </svg>
                 </span>
-                Ecr
-              </span>
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center; width: 200px;"
-              >
+                Test
                 <span
-                  class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
+                  class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-xsmall StyledProps--color"
                   icon="full-circle"
                 >
                   <svg
                     data-icon="full-circle"
-                    height="10"
+                    height="12"
                     viewBox="0 0 16 16"
-                    width="10"
+                    width="12"
                   >
                     <desc>
                       full-circle
@@ -116,8 +109,8 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
                     />
                   </svg>
                 </span>
-              </p>
-            </div>
+              </span>
+            </span>
             <div>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main"
@@ -126,7 +119,6 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
                 &lt;+input&gt;
               </p>
             </div>
-            <div />
             <span>
               <div
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main actionGrid"
@@ -233,12 +225,10 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
                 </p>
               </p>
             </div>
-            <div
-              class="server"
-            >
+            <span>
               <span
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
-                style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 180px;"
+                style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 300px;"
               >
                 <span
                   class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
@@ -260,21 +250,16 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
                     />
                   </svg>
                 </span>
-                Dockerhub
-              </span>
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center; width: 200px;"
-              >
+                connectorRef
                 <span
-                  class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
+                  class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-xsmall StyledProps--color"
                   icon="full-circle"
                 >
                   <svg
                     data-icon="full-circle"
-                    height="10"
+                    height="12"
                     viewBox="0 0 16 16"
-                    width="10"
+                    width="12"
                   >
                     <desc>
                       full-circle
@@ -285,8 +270,8 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
                     />
                   </svg>
                 </span>
-              </p>
-            </div>
+              </span>
+            </span>
             <div>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main"
@@ -295,7 +280,6 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
                 &lt;+input&gt;
               </p>
             </div>
-            <div />
             <span>
               <div
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main actionGrid"
@@ -439,12 +423,10 @@ exports[`ArtifactsSelection tests delete artifact list works correctly 1`] = `
                 Primary
               </p>
             </div>
-            <div
-              class="server"
-            >
+            <span>
               <span
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
-                style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 180px;"
+                style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 300px;"
               >
                 <span
                   class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
@@ -519,21 +501,15 @@ exports[`ArtifactsSelection tests delete artifact list works correctly 1`] = `
                     </g>
                   </svg>
                 </span>
-                Gcr
-              </span>
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center; width: 200px;"
-              >
                 <span
-                  class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
+                  class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-xsmall StyledProps--color"
                   icon="full-circle"
                 >
                   <svg
                     data-icon="full-circle"
-                    height="10"
+                    height="12"
                     viewBox="0 0 16 16"
-                    width="10"
+                    width="12"
                   >
                     <desc>
                       full-circle
@@ -544,15 +520,14 @@ exports[`ArtifactsSelection tests delete artifact list works correctly 1`] = `
                     />
                   </svg>
                 </span>
-              </p>
-            </div>
+              </span>
+            </span>
             <div>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main"
                 style="--text-line-clamp: 1; width: 400px;"
               />
             </div>
-            <div />
             <span>
               <div
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main actionGrid"
@@ -696,12 +671,10 @@ exports[`ArtifactsSelection tests edit artifact list works correctly 1`] = `
                 Primary
               </p>
             </div>
-            <div
-              class="server"
-            >
+            <span>
               <span
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
-                style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 180px;"
+                style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 300px;"
               >
                 <span
                   class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
@@ -776,21 +749,15 @@ exports[`ArtifactsSelection tests edit artifact list works correctly 1`] = `
                     </g>
                   </svg>
                 </span>
-                Gcr
-              </span>
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center; width: 200px;"
-              >
                 <span
-                  class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
+                  class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-xsmall StyledProps--color"
                   icon="full-circle"
                 >
                   <svg
                     data-icon="full-circle"
-                    height="10"
+                    height="12"
                     viewBox="0 0 16 16"
-                    width="10"
+                    width="12"
                   >
                     <desc>
                       full-circle
@@ -801,15 +768,14 @@ exports[`ArtifactsSelection tests edit artifact list works correctly 1`] = `
                     />
                   </svg>
                 </span>
-              </p>
-            </div>
+              </span>
+            </span>
             <div>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main"
                 style="--text-line-clamp: 1; width: 400px;"
               />
             </div>
-            <div />
             <span>
               <div
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main actionGrid"
@@ -1011,12 +977,10 @@ exports[`ArtifactsSelection tests renders Artifact Listview with connectors Data
                 Primary
               </p>
             </div>
-            <div
-              class="server"
-            >
+            <span>
               <span
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
-                style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 180px;"
+                style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 300px;"
               >
                 <span
                   class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
@@ -1091,21 +1055,15 @@ exports[`ArtifactsSelection tests renders Artifact Listview with connectors Data
                     </g>
                   </svg>
                 </span>
-                Gcr
-              </span>
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center; width: 200px;"
-              >
                 <span
-                  class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
+                  class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-xsmall StyledProps--color"
                   icon="full-circle"
                 >
                   <svg
                     data-icon="full-circle"
-                    height="10"
+                    height="12"
                     viewBox="0 0 16 16"
-                    width="10"
+                    width="12"
                   >
                     <desc>
                       full-circle
@@ -1116,15 +1074,14 @@ exports[`ArtifactsSelection tests renders Artifact Listview with connectors Data
                     />
                   </svg>
                 </span>
-              </p>
-            </div>
+              </span>
+            </span>
             <div>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main"
                 style="--text-line-clamp: 1; width: 400px;"
               />
             </div>
-            <div />
           </section>
         </section>
       </div>
@@ -1173,12 +1130,10 @@ exports[`ArtifactsSelection tests renders Artifact Listview without crashing 1`]
                 Primary
               </p>
             </div>
-            <div
-              class="server"
-            >
+            <span>
               <span
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
-                style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 180px;"
+                style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 300px;"
               >
                 <span
                   class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
@@ -1200,21 +1155,15 @@ exports[`ArtifactsSelection tests renders Artifact Listview without crashing 1`]
                     />
                   </svg>
                 </span>
-                Dockerhub
-              </span>
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center; width: 200px;"
-              >
                 <span
-                  class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
+                  class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-xsmall StyledProps--color"
                   icon="full-circle"
                 >
                   <svg
                     data-icon="full-circle"
-                    height="10"
+                    height="12"
                     viewBox="0 0 16 16"
-                    width="10"
+                    width="12"
                   >
                     <desc>
                       full-circle
@@ -1225,15 +1174,14 @@ exports[`ArtifactsSelection tests renders Artifact Listview without crashing 1`]
                     />
                   </svg>
                 </span>
-              </p>
-            </div>
+              </span>
+            </span>
             <div>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main"
                 style="--text-line-clamp: 1; width: 400px;"
               />
             </div>
-            <div />
           </section>
         </section>
       </div>
@@ -1398,12 +1346,10 @@ exports[`ArtifactsSelection tests renders artifact without crashing 1`] = `
                 Primary
               </p>
             </div>
-            <div
-              class="server"
-            >
+            <span>
               <span
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
-                style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 180px;"
+                style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 300px;"
               >
                 <span
                   class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
@@ -1425,21 +1371,16 @@ exports[`ArtifactsSelection tests renders artifact without crashing 1`] = `
                     />
                   </svg>
                 </span>
-                Dockerhub
-              </span>
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center; width: 200px;"
-              >
+                &lt;+input&gt;
                 <span
-                  class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
+                  class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-xsmall StyledProps--color"
                   icon="full-circle"
                 >
                   <svg
                     data-icon="full-circle"
-                    height="10"
+                    height="12"
                     viewBox="0 0 16 16"
-                    width="10"
+                    width="12"
                   >
                     <desc>
                       full-circle
@@ -1450,8 +1391,8 @@ exports[`ArtifactsSelection tests renders artifact without crashing 1`] = `
                     />
                   </svg>
                 </span>
-              </p>
-            </div>
+              </span>
+            </span>
             <div>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main"
@@ -1460,7 +1401,6 @@ exports[`ArtifactsSelection tests renders artifact without crashing 1`] = `
                 &lt;+input&gt;
               </p>
             </div>
-            <div />
             <span>
               <div
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main actionGrid"
@@ -1604,12 +1544,10 @@ exports[`ArtifactsSelection tests renders edit modal without crashing: Edit Moda
                 Primary
               </p>
             </div>
-            <div
-              class="server"
-            >
+            <span>
               <span
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
-                style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 180px;"
+                style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 300px;"
               >
                 <span
                   class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
@@ -1631,21 +1569,16 @@ exports[`ArtifactsSelection tests renders edit modal without crashing: Edit Moda
                     />
                   </svg>
                 </span>
-                Dockerhub
-              </span>
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center; width: 200px;"
-              >
+                &lt;+input&gt;
                 <span
-                  class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
+                  class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-xsmall StyledProps--color"
                   icon="full-circle"
                 >
                   <svg
                     data-icon="full-circle"
-                    height="10"
+                    height="12"
                     viewBox="0 0 16 16"
-                    width="10"
+                    width="12"
                   >
                     <desc>
                       full-circle
@@ -1656,8 +1589,8 @@ exports[`ArtifactsSelection tests renders edit modal without crashing: Edit Moda
                     />
                   </svg>
                 </span>
-              </p>
-            </div>
+              </span>
+            </span>
             <div>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main"
@@ -1666,7 +1599,6 @@ exports[`ArtifactsSelection tests renders edit modal without crashing: Edit Moda
                 &lt;+input&gt;
               </p>
             </div>
-            <div />
             <span>
               <div
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main actionGrid"
@@ -1810,12 +1742,10 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
                 Primary
               </p>
             </div>
-            <div
-              class="server"
-            >
+            <span>
               <span
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline"
-                style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 180px;"
+                style="color: black; font-weight: 900; --text-line-clamp: 1; display: inline-flex; align-items: center; width: 300px;"
               >
                 <span
                   class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
@@ -1837,21 +1767,16 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
                     />
                   </svg>
                 </span>
-                Dockerhub
-              </span>
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center; width: 200px;"
-              >
+                &lt;+input&gt;
                 <span
-                  class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color"
+                  class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-xsmall StyledProps--color"
                   icon="full-circle"
                 >
                   <svg
                     data-icon="full-circle"
-                    height="10"
+                    height="12"
                     viewBox="0 0 16 16"
-                    width="10"
+                    width="12"
                   >
                     <desc>
                       full-circle
@@ -1862,8 +1787,8 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
                     />
                   </svg>
                 </span>
-              </p>
-            </div>
+              </span>
+            </span>
             <div>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main"
@@ -1872,7 +1797,6 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
                 &lt;+input&gt;
               </p>
             </div>
-            <div />
             <span>
               <div
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main actionGrid"

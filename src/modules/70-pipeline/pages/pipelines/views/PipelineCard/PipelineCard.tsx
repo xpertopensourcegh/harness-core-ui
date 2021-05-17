@@ -334,7 +334,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
               </Text>
             </div>
             <Text
-              color={deployments ? Color.BLUE_500 : Color.GREY_400}
+              color={deployments ? Color.PRIMARY_7 : Color.GREY_400}
               font="medium"
               iconProps={{ size: 18 }}
               onClick={event => {

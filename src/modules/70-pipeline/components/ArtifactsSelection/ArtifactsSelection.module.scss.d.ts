@@ -7,7 +7,6 @@ declare const styles: {
   readonly cloneIcon: string
   readonly artifactId: string
   readonly paddingVertical: string
-  readonly server: string
   readonly sideCarBtn: string
   readonly modal: string
   readonly connectorDialog: string

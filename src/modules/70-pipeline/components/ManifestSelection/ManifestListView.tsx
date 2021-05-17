@@ -651,20 +651,20 @@ const ManifestListView = ({
                     </Text>
                   </div>
                   <div>{manifestTypeLabels[manifest?.type as ManifestTypes]}</div>
-                  <div className={css.server}>
+                  <span>
                     <Text
                       inline
                       icon={ManifestIconByType[manifest?.spec?.store.type as ManifestStores]}
                       iconProps={{ size: 18 }}
-                      width={200}
+                      width={300}
                       lineClamp={1}
+                      rightIcon="full-circle"
+                      rightIconProps={{ size: 12, color }}
                       style={{ color: Color.BLACK, fontWeight: 900 }}
                     >
-                      {manifest?.spec?.store.type}
+                      {manifest?.spec?.store.spec.connectorRef}
                     </Text>
-
-                    <Text width={200} icon="full-circle" iconProps={{ size: 10, color }} />
-                  </div>
+                  </span>
 
                   {!!manifest?.spec?.store.spec.paths?.length && (
                     <span>
@@ -705,13 +705,7 @@ const ManifestListView = ({
                             )
                           }
                         />
-                        {/* <Icon
-                              name="main-clone"
-                              size={16}
-                              style={{ cursor: 'pointer' }}
-                              className={css.cloneIcon}
-                              // onClick={() => editManifest(manifest)}
-                            /> */}
+
                         <Icon name="bin-main" size={25} onClick={() => removeManifestConfig(index)} />
                       </Layout.Horizontal>
                     </span>
