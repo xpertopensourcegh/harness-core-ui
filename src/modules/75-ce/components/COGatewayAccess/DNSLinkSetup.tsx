@@ -28,7 +28,6 @@ import {
   AzureAccessPointCore
 } from 'services/lw'
 import { useStrings } from 'framework/strings'
-import { useToaster } from '@common/exports'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import CreateAccessPointWizard from './CreateAccessPointWizard'
 import type { ConnectionMetadata, CustomDomainDetails, GatewayDetails } from '../COCreateGateway/models'
@@ -56,7 +55,6 @@ interface DNSLinkSetupProps {
 }
 
 const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
-  const { showWarning } = useToaster()
   const { getString } = useStrings()
   const { trackEvent } = useTelemetry()
   const isAwsProvider = Utils.isProviderAws(props.gatewayDetails.provider)
@@ -210,9 +208,6 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   useEffect(() => {
     if (hostedZonesLoading) return
     if (hostedZones?.response?.length == 0) {
-      if (props.gatewayDetails.customDomains?.length) {
-        showWarning(getString('ce.co.autoStoppingRule.setupAccess.customDomain.noHostedZones'))
-      }
       return
     }
     const loadedhostedZones: SelectOption[] =
