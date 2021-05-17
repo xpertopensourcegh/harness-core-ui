@@ -221,6 +221,12 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
           paths: Yup.mixed().test('paths', getString('pipeline.manifestType.pathRequired'), value => {
             if (typeof value === 'string') return true
             return isArray(value) && value.length > 0 && !isEmpty(value[0].path)
+          }),
+          repoName: Yup.string().test('repoName', getString('pipeline.manifestType.reponameRequired'), value => {
+            if (connectionType === GitRepoName.Repo) {
+              return true
+            }
+            return !isEmpty(value) && value?.length > 0
           })
         })}
         onSubmit={formData => {

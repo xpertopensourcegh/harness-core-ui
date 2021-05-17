@@ -1088,6 +1088,7 @@ export interface StringsMap {
   'pipeline.manifestType.pathRequired': string
   'pipeline.manifestType.pluginPathHelperText': string
   'pipeline.manifestType.repoNamePlacefolder': string
+  'pipeline.manifestType.reponameRequired': string
   'pipeline.manifestType.selectManifestStore': string
   'pipeline.manifestType.specifyManifestRepoType': string
   'pipeline.manifestType.specifyManifestStore': string

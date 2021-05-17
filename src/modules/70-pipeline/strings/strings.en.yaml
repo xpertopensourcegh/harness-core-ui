@@ -106,6 +106,7 @@ manifestType:
   folderPathRequired: Folder Path is required
   chartPathRequired: Chart Path is required
   kustomizePathRequired: Kustomize Path is required
+  reponameRequired: Repository name is required
   pathRequired: Path is required
   path: '{{$.common.path}}'
   osTemplatePath: 'Template File Path'
