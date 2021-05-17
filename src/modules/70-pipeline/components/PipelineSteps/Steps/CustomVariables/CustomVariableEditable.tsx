@@ -183,6 +183,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                                 onClick={() => {
                                   setSelectedVariable({ variable, index })
                                 }}
+                                minimal
                               />
                               <Button
                                 icon="trash"
@@ -190,6 +191,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                                 tooltip={<String className={css.tooltip} stringID="common.removeThisVariable" />}
                                 disabled={readonly}
                                 onClick={() => handleRemove(index)}
+                                minimal
                               />
                             </section>
                           ) : /* istanbul ignore next */ null}

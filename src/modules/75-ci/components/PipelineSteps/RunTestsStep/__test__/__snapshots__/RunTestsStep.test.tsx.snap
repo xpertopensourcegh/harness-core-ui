@@ -1115,6 +1115,11 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                 <div
                   class="monacoWrapper"
                 >
+                  <textarea
+                    name="spec.source.spec.script"
+                  >
+                    pre command
+                  </textarea>
                   <button
                     class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
                     type="button"
@@ -1139,11 +1144,6 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <textarea
-                    name="spec.source.spec.script"
-                  >
-                    pre command
-                  </textarea>
                 </div>
               </div>
             </div>
@@ -1247,6 +1247,11 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                 <div
                   class="monacoWrapper"
                 >
+                  <textarea
+                    name="spec.source.spec.script"
+                  >
+                    post command
+                  </textarea>
                   <button
                     class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
                     type="button"
@@ -1271,11 +1276,6 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <textarea
-                    name="spec.source.spec.script"
-                  >
-                    post command
-                  </textarea>
                 </div>
               </div>
             </div>
@@ -6215,6 +6215,9 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                 <div
                   class="monacoWrapper"
                 >
+                  <textarea
+                    name="spec.source.spec.script"
+                  />
                   <button
                     class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
                     type="button"
@@ -6239,9 +6242,6 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <textarea
-                    name="spec.source.spec.script"
-                  />
                 </div>
               </div>
             </div>
@@ -6345,6 +6345,9 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                 <div
                   class="monacoWrapper"
                 >
+                  <textarea
+                    name="spec.source.spec.script"
+                  />
                   <button
                     class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
                     type="button"
@@ -6369,9 +6372,6 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <textarea
-                    name="spec.source.spec.script"
-                  />
                 </div>
               </div>
             </div>
@@ -8005,6 +8005,9 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
             <div
               class="monacoWrapper"
             >
+              <textarea
+                name="spec.source.spec.script"
+              />
               <button
                 class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
                 type="button"
@@ -8029,9 +8032,6 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
                   </svg>
                 </span>
               </button>
-              <textarea
-                name="spec.source.spec.script"
-              />
             </div>
           </div>
         </div>
@@ -8088,6 +8088,9 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
             <div
               class="monacoWrapper"
             >
+              <textarea
+                name="spec.source.spec.script"
+              />
               <button
                 class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
                 type="button"
@@ -8112,9 +8115,6 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
                   </svg>
                 </span>
               </button>
-              <textarea
-                name="spec.source.spec.script"
-              />
             </div>
           </div>
         </div>

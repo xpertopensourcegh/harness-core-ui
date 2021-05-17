@@ -98,11 +98,12 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     updatePipeline
   } = React.useContext(PipelineContext)
 
-  const debounceUpdatePipeline = React.useRef(
+  const debounceUpdatePipeline = React.useCallback(
     debounce((pipelineData: NgPipeline) => {
       return updatePipeline(pipelineData)
-    }, 500)
-  ).current
+    }, 500),
+    [updatePipeline]
+  )
 
   const { stage = {} } = getStageFromPipeline(selectedStageId || '')
   const { index: stageIndex } = getStageIndexFromPipeline(pipeline, selectedStageId || '')

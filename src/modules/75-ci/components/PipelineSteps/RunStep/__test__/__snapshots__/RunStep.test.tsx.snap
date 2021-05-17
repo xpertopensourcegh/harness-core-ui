@@ -521,6 +521,11 @@ exports[`Run Step Edit View edit mode works 1`] = `
                 <div
                   class="monacoWrapper"
                 >
+                  <textarea
+                    name="spec.source.spec.script"
+                  >
+                    command
+                  </textarea>
                   <button
                     class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
                     type="button"
@@ -545,11 +550,6 @@ exports[`Run Step Edit View edit mode works 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <textarea
-                    name="spec.source.spec.script"
-                  >
-                    command
-                  </textarea>
                 </div>
               </div>
             </div>
@@ -4238,6 +4238,9 @@ exports[`Run Step Edit View should render properly 1`] = `
                 <div
                   class="monacoWrapper"
                 >
+                  <textarea
+                    name="spec.source.spec.script"
+                  />
                   <button
                     class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
                     type="button"
@@ -4262,9 +4265,6 @@ exports[`Run Step Edit View should render properly 1`] = `
                       </svg>
                     </span>
                   </button>
-                  <textarea
-                    name="spec.source.spec.script"
-                  />
                 </div>
               </div>
             </div>
@@ -5581,6 +5581,9 @@ exports[`Run Step InputSet View should render all fields 1`] = `
             <div
               class="monacoWrapper"
             >
+              <textarea
+                name="spec.source.spec.script"
+              />
               <button
                 class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
                 type="button"
@@ -5605,9 +5608,6 @@ exports[`Run Step InputSet View should render all fields 1`] = `
                   </svg>
                 </span>
               </button>
-              <textarea
-                name="spec.source.spec.script"
-              />
             </div>
           </div>
         </div>

@@ -33,15 +33,6 @@ export function ShellScriptMonaco(props: ConnectedShellScriptMonacoProps): React
 
   const monaco = (
     <div className={css.monacoWrapper}>
-      {isFullScreen ? null : (
-        <Button
-          className={css.expandBtn}
-          icon="fullscreen"
-          small
-          onClick={() => setFullScreen(true)}
-          iconProps={{ size: 10 }}
-        />
-      )}
       <MonacoEditor
         height={isFullScreen ? '70vh' : 300}
         value={value}
@@ -59,6 +50,15 @@ export function ShellScriptMonaco(props: ConnectedShellScriptMonacoProps): React
         }
         onChange={txt => formik.setFieldValue(name, txt)}
       />
+      {isFullScreen ? null : (
+        <Button
+          className={css.expandBtn}
+          icon="fullscreen"
+          small
+          onClick={() => setFullScreen(true)}
+          iconProps={{ size: 10 }}
+        />
+      )}
     </div>
   )
   return (

@@ -161,9 +161,7 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
           details={
             <Card className={css.sectionCard} id={getString('variablesText')}>
               <div className={css.tabSubHeading}>{getString('variablesText')}</div>
-              <Layout.Horizontal>
-                <WorkflowVariables factory={factory as any} isPropagating={isPropagating} readonly={readonly} />
-              </Layout.Horizontal>
+              <WorkflowVariables factory={factory as any} isPropagating={isPropagating} readonly={readonly} />
             </Card>
           }
         />

@@ -92,6 +92,9 @@ exports[`Test Shell Script Step renders input sets 1`] = `
             <div
               class="monacoWrapper"
             >
+              <textarea
+                name="spec.source.spec.script"
+              />
               <button
                 class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
                 type="button"
@@ -116,9 +119,6 @@ exports[`Test Shell Script Step renders input sets 1`] = `
                   </svg>
                 </span>
               </button>
-              <textarea
-                name="spec.source.spec.script"
-              />
             </div>
           </div>
         </div>
@@ -562,6 +562,9 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
                     <div
                       class="monacoWrapper"
                     >
+                      <textarea
+                        name="spec.source.spec.script"
+                      />
                       <button
                         class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
                         type="button"
@@ -586,9 +589,6 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
                           </svg>
                         </span>
                       </button>
-                      <textarea
-                        name="spec.source.spec.script"
-                      />
                     </div>
                   </div>
                 </div>
@@ -1006,6 +1006,11 @@ exports[`Test Shell Script Step should render edit view 1`] = `
                     <div
                       class="monacoWrapper"
                     >
+                      <textarea
+                        name="spec.source.spec.script"
+                      >
+                        test script
+                      </textarea>
                       <button
                         class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
                         type="button"
@@ -1030,11 +1035,6 @@ exports[`Test Shell Script Step should render edit view 1`] = `
                           </svg>
                         </span>
                       </button>
-                      <textarea
-                        name="spec.source.spec.script"
-                      >
-                        test script
-                      </textarea>
                     </div>
                   </div>
                 </div>
@@ -1452,6 +1452,11 @@ exports[`Test Shell Script Step should render edit view 2`] = `
                     <div
                       class="monacoWrapper"
                     >
+                      <textarea
+                        name="spec.source.spec.script"
+                      >
+                        test script
+                      </textarea>
                       <button
                         class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
                         type="button"
@@ -1476,11 +1481,6 @@ exports[`Test Shell Script Step should render edit view 2`] = `
                           </svg>
                         </span>
                       </button>
-                      <textarea
-                        name="spec.source.spec.script"
-                      >
-                        test script
-                      </textarea>
                     </div>
                   </div>
                 </div>
@@ -1898,6 +1898,9 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
                     <div
                       class="monacoWrapper"
                     >
+                      <textarea
+                        name="spec.source.spec.script"
+                      />
                       <button
                         class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
                         type="button"
@@ -1922,9 +1925,6 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
                           </svg>
                         </span>
                       </button>
-                      <textarea
-                        name="spec.source.spec.script"
-                      />
                     </div>
                   </div>
                 </div>
@@ -2340,6 +2340,9 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
                     <div
                       class="monacoWrapper"
                     >
+                      <textarea
+                        name="spec.source.spec.script"
+                      />
                       <button
                         class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
                         type="button"
@@ -2364,9 +2367,6 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
                           </svg>
                         </span>
                       </button>
-                      <textarea
-                        name="spec.source.spec.script"
-                      />
                     </div>
                   </div>
                 </div>

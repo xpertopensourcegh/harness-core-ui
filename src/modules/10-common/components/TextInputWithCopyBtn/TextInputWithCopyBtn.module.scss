@@ -9,7 +9,7 @@
 
     input[type='text'] {
       box-shadow: none;
-      border: 1px solid var(--grey-250);
+      border: 1px solid var(--form-field-border);
       padding-right: 32px;
       height: 32px !important;
 
@@ -36,7 +36,7 @@
     }
 
     &::before {
-      background-color: var(--grey-250);
+      background-color: var(--form-field-border);
       width: 4px;
     }
 
@@ -49,13 +49,14 @@
   }
 
   .btn {
-    background-color: var(--grey-250) !important;
+    background-color: var(--form-field-border) !important;
     border: none !important;
     padding: 0 !important;
     height: 30px !important;
     min-height: unset !important;
     color: var(--primary-7) !important;
     border-radius: 0 2px 2px 0 !important;
+    box-shadow: none !important;
   }
 
   &.disabled {
