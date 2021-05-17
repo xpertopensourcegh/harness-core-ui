@@ -9,6 +9,9 @@ dashboard:
   subHeading: Take your software build processes to the next level using our Harness Continuous Integration
   createProject: '{{ $.projectsOrgs.createProject }}'
 testsReports:
+  description: Failure Description
+  type: Failure Type
+  status: '{{ $.status }}'
   executionOverview: Test Execution Overview
   numberOfSelectedTests: '# of Selected Tests'
   testsIntelligentlySkipped: Tests Intelligently Skipped

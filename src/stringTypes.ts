@@ -1908,6 +1908,7 @@ export interface StringsMap {
   'ci.testsReports.correlatedWithCodeChanges': string
   'ci.testsReports.coverage': string
   'ci.testsReports.coverageInfo': string
+  'ci.testsReports.description': string
   'ci.testsReports.executionOverview': string
   'ci.testsReports.failedTests': string
   'ci.testsReports.failedWithColon': string
@@ -1931,6 +1932,7 @@ export interface StringsMap {
   'ci.testsReports.skippedWithColon': string
   'ci.testsReports.sortBy': string
   'ci.testsReports.stackTrace': string
+  'ci.testsReports.status': string
   'ci.testsReports.successWithColon': string
   'ci.testsReports.testCaseName': string
   'ci.testsReports.testCasesExecution': string
@@ -1941,6 +1943,7 @@ export interface StringsMap {
   'ci.testsReports.totalExecutedTest': string
   'ci.testsReports.totalTests': string
   'ci.testsReports.totalWithColon': string
+  'ci.testsReports.type': string
   'ci.testsReports.updatedTests': string
   'ci.testsReports.willBeDisplayedIfAvailable': string
   'ci.titleGovernance': string

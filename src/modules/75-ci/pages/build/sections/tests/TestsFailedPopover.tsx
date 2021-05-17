@@ -5,48 +5,39 @@ import { useStrings } from 'framework/strings'
 import type { TestCase } from 'services/ti-service'
 import css from './BuildTests.module.scss'
 
+const PopoverSection: React.FC<{ label: string; content: string }> = props => {
+  const { label, content } = props
+  return (
+    <Container>
+      <Heading className={css.testPopoverHeading} level={3} font={{ weight: 'bold' }}>
+        {label}
+      </Heading>
+      <Text className={css.testPopoverDetail} font={{ mono: true }}>
+        <Ansi useClasses>{content}</Ansi>
+      </Text>
+    </Container>
+  )
+}
+
 export const TestsFailedPopover: React.FC<{ testCase: TestCase }> = ({ testCase }) => {
   const { getString } = useStrings()
-  const failed = ['error', 'failed'].includes(testCase.result?.status || '')
-  const output = testCase.stdout
-  const message = testCase.result?.message || testCase.result?.desc || testCase.result?.type
-  const stacktrace = testCase.stderr
+  const { result: { status = '', message, desc, type } = {}, stderr: stacktrace, stdout: output } = testCase
+  const failed = ['error', 'failed'].includes(status)
 
   if (failed) {
     return (
       <Layout.Vertical spacing="xlarge" padding="xlarge" className={css.testPopoverBody}>
-        {message && (
-          <Container>
-            <Heading className={css.testPopoverHeading} level={3} font={{ weight: 'bold' }}>
-              {getString('ci.testsReports.failureMessage')}
-            </Heading>
-            <Text className={css.testPopoverDetail} font={{ mono: true }}>
-              <Ansi useClasses>{message}</Ansi>
-            </Text>
-          </Container>
-        )}
+        {status && <PopoverSection label={getString('ci.testsReports.status')} content={status} />}
 
-        {stacktrace && (
-          <Container>
-            <Heading className={css.testPopoverHeading} level={3} font={{ weight: 'bold' }}>
-              {getString('ci.testsReports.stackTrace')}
-            </Heading>
-            <Text className={css.testPopoverDetail} font={{ mono: true }}>
-              <Ansi useClasses>{stacktrace}</Ansi>
-            </Text>
-          </Container>
-        )}
+        {type && <PopoverSection label={getString('ci.testsReports.type')} content={type} />}
 
-        {output && (
-          <Container>
-            <Heading className={css.testPopoverHeading} level={3} font={{ weight: 'bold' }}>
-              {getString('ci.testsReports.consoleOutput')}
-            </Heading>
-            <Text className={css.testPopoverDetail} font={{ mono: true }}>
-              <Ansi useClasses>{output}</Ansi>
-            </Text>
-          </Container>
-        )}
+        {message && <PopoverSection label={getString('ci.testsReports.failureMessage')} content={message} />}
+
+        {desc && <PopoverSection label={getString('ci.testsReports.description')} content={desc} />}
+
+        {stacktrace && <PopoverSection label={getString('ci.testsReports.stackTrace')} content={stacktrace} />}
+
+        {output && <PopoverSection label={getString('ci.testsReports.consoleOutput')} content={output} />}
       </Layout.Vertical>
     )
   }
