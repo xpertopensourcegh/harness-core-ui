@@ -29,8 +29,7 @@ describe('Artifact ConnectorRefSteps tests', () => {
           isReadonly={false}
           labels={{
             firstStepName: 'first step',
-            secondStepName: 'second step',
-            newConnector: 'new connector'
+            secondStepName: 'second step'
           }}
           selectedArtifact={'DockerRegistry'}
           changeArtifactType={jest.fn()}
@@ -56,8 +55,7 @@ describe('Artifact ConnectorRefSteps tests', () => {
           isReadonly={false}
           labels={{
             firstStepName: 'first step',
-            secondStepName: 'second step',
-            newConnector: 'new connector'
+            secondStepName: 'second step'
           }}
           selectedArtifact={'DockerRegistry'}
           changeArtifactType={jest.fn()}
@@ -83,8 +81,7 @@ describe('Artifact ConnectorRefSteps tests', () => {
           isReadonly={false}
           labels={{
             firstStepName: 'first step',
-            secondStepName: 'second step',
-            newConnector: 'new connector'
+            secondStepName: 'second step'
           }}
           selectedArtifact={'Gcp'}
           changeArtifactType={jest.fn()}
@@ -110,8 +107,7 @@ describe('Artifact ConnectorRefSteps tests', () => {
           isReadonly={false}
           labels={{
             firstStepName: 'first step',
-            secondStepName: 'second step',
-            newConnector: 'new connector'
+            secondStepName: 'second step'
           }}
           selectedArtifact={'DockerRegistry'}
           changeArtifactType={jest.fn()}
@@ -135,7 +131,7 @@ describe('Artifact ConnectorRefSteps tests', () => {
 
     const artifactRepoLabel = await findByText('DockerRegistry connector')
     expect(artifactRepoLabel).toBeDefined()
-    const newConnectorLabel = await findByText('new connector')
+    const newConnectorLabel = await findByText('newLabel DockerRegistry connector')
     expect(newConnectorLabel).toBeDefined()
 
     fireEvent.click(newConnectorLabel)
@@ -174,8 +170,7 @@ describe('Artifact ConnectorRefSteps tests', () => {
           isReadonly={false}
           labels={{
             firstStepName: 'first step',
-            secondStepName: 'second step',
-            newConnector: 'new connector'
+            secondStepName: 'second step'
           }}
           selectedArtifact={'DockerRegistry'}
           changeArtifactType={jest.fn()}
