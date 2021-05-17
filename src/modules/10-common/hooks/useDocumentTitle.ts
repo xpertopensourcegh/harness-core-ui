@@ -1,6 +1,6 @@
-import { useEffect } from 'react'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { useDeepCompareEffect } from '@common/hooks/useDeepCompareEffect'
 
 type Title = string | string[]
 
@@ -20,7 +20,7 @@ export function useDocumentTitle(title: Title): UseDocumentTitleReturn {
       .join(' | ')
   }
 
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     updateTitle(title)
 
     return () => {
