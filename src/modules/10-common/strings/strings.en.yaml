@@ -320,3 +320,11 @@ savedSuccessfully: Saved Successfully
 submittingRequest: Submitting request and pushing change to Git
 submittingRequestToGit: Submitting request and pushing change to Git from Delegate
 local: Local
+banners:
+  email:
+    description: Please check your email and follow the link to verify your email. Didn’t receive it?
+    resend: Resend Email
+    success: Thank you for verifying your email address.
+  trial:
+    description: Your Enterprise {{ module }} trial expires in {{ days }} days. Contact Sales to continue using {{ moduleDescription }}
+    contactSales: Contact Sales

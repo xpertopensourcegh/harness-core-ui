@@ -2,6 +2,8 @@ import React from 'react'
 import { Button, Color, Container, Heading, Layout, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type { ModuleName } from 'framework/types/ModuleName'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { Category, PageNames } from '@common/constants/TrackingConstants'
 
 interface TrialInProgressTemplateProps {
   title: string
@@ -52,9 +54,12 @@ const TrialInProgressComponent: React.FC<TrialInProgressProps> = trialInProgress
 export const TrialInProgressTemplate: React.FC<TrialInProgressTemplateProps> = ({
   title,
   bgImageUrl,
-  trialInProgressProps
+  trialInProgressProps,
+  module
 }) => {
   const { getString } = useStrings()
+
+  useTelemetry({ pageName: PageNames.TrialInProgress, category: Category.SIGNUP, properties: { module: module } })
 
   return (
     <Container

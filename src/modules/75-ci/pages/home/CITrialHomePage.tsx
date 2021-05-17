@@ -1,10 +1,15 @@
 import React from 'react'
 import { useStrings } from 'framework/strings'
 import { StartTrialTemplate } from '@common/components/TrialHomePageTemplate/StartTrialTemplate'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { PageNames } from '@ci/constants/TrackingConstants'
+import { Category } from '@common/constants/TrackingConstants'
 import bgImageURL from './images/homeIllustration.svg'
 
 const CITrialHomePage: React.FC = () => {
   const { getString } = useStrings()
+
+  useTelemetry({ pageName: PageNames.CIStartTrial, category: Category.SIGNUP })
 
   const startTrialProps = {
     description: getString('ci.ciTrialHomePage.startTrial.description'),

@@ -5,6 +5,8 @@ import type { MutateMethod } from 'restful-react'
 import { useToaster } from '@common/components'
 import { useStartTrial, RestResponseModuleLicenseInfo, StartTrialRequestBody } from 'services/portal'
 import type { Module } from '@common/interfaces/RouteInterfaces'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { Category, TrialActions } from '@common/constants/TrackingConstants'
 import routes from '@common/RouteDefinitions'
 import useStartTrialModal from '@common/modals/StartTrial/StartTrialModal'
 
@@ -41,6 +43,7 @@ const StartTrialComponent: React.FC<StartTrialProps> = startTrialProps => {
   const { showModal } = useStartTrialModal({ module, handleStartTrial })
 
   async function handleStartTrial(): Promise<void> {
+    trackEvent(TrialActions.StartTrialClick, { category: Category.SIGNUP, module: module })
     try {
       await startTrial()
       history.push({
@@ -60,6 +63,7 @@ const StartTrialComponent: React.FC<StartTrialProps> = startTrialProps => {
     }
   }
 
+  const { trackEvent } = useTelemetry()
   return (
     <Layout.Vertical spacing="small">
       <Text

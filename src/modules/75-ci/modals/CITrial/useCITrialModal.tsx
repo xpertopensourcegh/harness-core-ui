@@ -4,6 +4,8 @@ import { Dialog, Classes } from '@blueprintjs/core'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import type { NgPipeline } from 'services/cd-ng'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { Category, TrialActions, PageNames } from '@common/constants/TrackingConstants'
 
 import { SelectOrCreatePipelineForm } from '@pipeline/components/SelectOrCreatePipelineForm/SelectOrCreatePipelineForm'
 import { CreatePipelineForm } from '@pipeline/components/CreatePipelineForm/CreatePipelineForm'
@@ -71,19 +73,36 @@ const CITrial: React.FC<CITrialModalData> = ({ isSelect, onSubmit, closeModal })
   )
 }
 
-const CITrialDialog = ({ onClose, onSubmit, isSelect }: DialogProps): React.ReactElement => (
-  <Dialog isOpen={true} onClose={onClose} className={cx(css.dialog, Classes.DIALOG, css.ciTrial)}>
-    <CITrial isSelect={isSelect} onSubmit={onSubmit} closeModal={onClose} />
-    <Button
-      aria-label="close modal"
-      minimal
-      icon="cross"
-      iconProps={{ size: 18 }}
-      onClick={onClose}
-      className={css.crossIcon}
-    />
-  </Dialog>
-)
+const CITrialDialog = ({ onClose, onSubmit, isSelect }: DialogProps): React.ReactElement => {
+  const { trackEvent } = useTelemetry()
+  const handleClose = (): void => {
+    trackEvent(TrialActions.TrialModalPipelineSetupCancel, { category: Category.SIGNUP, module: 'ci' })
+    onClose()
+  }
+  const handleSubmit = (values: NgPipeline): void => {
+    trackEvent(TrialActions.TrialModalPipelineSetupSubmit, { category: Category.SIGNUP, module: 'ci' })
+    onSubmit(values)
+  }
+  useTelemetry({
+    pageName: PageNames.TrialSetupPipelineModal,
+    category: Category.SIGNUP,
+    properties: { module: 'ci' }
+  })
+
+  return (
+    <Dialog isOpen={true} onClose={handleClose} className={cx(css.dialog, Classes.DIALOG, css.ciTrial)}>
+      <CITrial isSelect={isSelect} onSubmit={handleSubmit} closeModal={handleClose} />
+      <Button
+        aria-label="close modal"
+        minimal
+        icon="cross"
+        iconProps={{ size: 18 }}
+        onClick={handleClose}
+        className={css.crossIcon}
+      />
+    </Dialog>
+  )
+}
 
 export const getCITrialModal = (
   onSubmit: (values: NgPipeline) => void,
@@ -99,27 +118,13 @@ export const useCITrialModal = ({
   isSelect = false
 }: UseCITrialModalProps): UseCITrialModalReturn => {
   const [showModal, hideModal] = useModalHook(() => (
-    <Dialog
-      isOpen={true}
+    <CITrialDialog
       onClose={() => {
-        hideModal()
-        onCloseModal?.()
+        hideModal(), onCloseModal?.()
       }}
-      className={cx(css.dialog, Classes.DIALOG, css.ciTrial)}
-    >
-      <CITrial isSelect={isSelect} onSubmit={onSubmit} closeModal={onCloseModal ? onCloseModal : hideModal} />
-      <Button
-        aria-label="close modal"
-        minimal
-        icon="cross"
-        iconProps={{ size: 18 }}
-        onClick={() => {
-          hideModal()
-          onCloseModal?.()
-        }}
-        className={css.crossIcon}
-      />
-    </Dialog>
+      onSubmit={onSubmit}
+      isSelect={isSelect}
+    />
   ))
 
   return {

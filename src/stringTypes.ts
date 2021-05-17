@@ -101,6 +101,11 @@ export interface StringsMap {
   'common.authSettings.usePublicOAuth': string
   'common.authSettings.whitelistedDomainsDisabled': string
   'common.authSettings.yourAccountWillBeLockedOut': string
+  'common.banners.email.description': string
+  'common.banners.email.resend': string
+  'common.banners.email.success': string
+  'common.banners.trial.contactSales': string
+  'common.banners.trial.description': string
   'common.blank': string
   'common.capsAll': string
   'common.ce.cost': string

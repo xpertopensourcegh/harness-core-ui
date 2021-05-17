@@ -7,6 +7,8 @@ import { useGetAccountLicenseInfo } from 'services/portal'
 import routes from '@common/RouteDefinitions'
 import { PageError } from '@common/components/Page/PageError'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { Category, PageNames, PurposeActions } from '@common/constants/TrackingConstants'
 import type { StringsMap } from 'stringTypes'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import ModuleInfoCards, { ModuleInfoCard, INFO_CARD_PROPS } from '../../components/ModuleInfoCards/ModuleInfoCards'
@@ -39,6 +41,7 @@ const PurposeList: React.FC = () => {
   }, [selected, selectedInfoCard])
 
   const { getString } = useStrings()
+  const { trackEvent } = useTelemetry()
 
   const CDNG_OPTIONS: PurposeType = {
     title: getString('common.purpose.cd.delivery'),
@@ -103,6 +106,9 @@ const PurposeList: React.FC = () => {
             color: Color.WHITE
           }}
           to={routes.toModuleHome({ accountId, module })}
+          onClick={() => {
+            trackEvent(PurposeActions.ModuleContinue, { category: Category.SIGNUP, module: module })
+          }}
         >
           {getString('continue')}
         </Link>
@@ -256,6 +262,8 @@ export const PurposePage: React.FC = () => {
   const { getString } = useStrings()
 
   const HarnessLogo = HarnessIcons['harness-logo-black']
+
+  useTelemetry({ pageName: PageNames.Purpose, category: Category.SIGNUP })
 
   return (
     <Container margin={{ left: 'xxxlarge' }} flex={{ alignItems: 'start' }}>
