@@ -17,7 +17,7 @@ import { Form } from 'formik'
 import * as Yup from 'yup'
 import { Tooltip } from '@blueprintjs/core'
 
-import { get, set } from 'lodash-es'
+import { get, isEmpty, set } from 'lodash-es'
 import { StringUtils } from '@common/exports'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { FormMultiTypeCheckboxField } from '@common/components'
@@ -165,6 +165,12 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
           commitId: Yup.string().when('gitFetchType', {
             is: 'Commit',
             then: Yup.string().trim().required(getString('validation.commitId'))
+          }),
+          repoName: Yup.string().test('repoName', getString('pipeline.manifestType.reponameRequired'), value => {
+            if (connectionType === GitRepoName.Repo) {
+              return true
+            }
+            return !isEmpty(value) && value?.length > 0
           })
         })}
         onSubmit={formData => {
