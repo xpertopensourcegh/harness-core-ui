@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Button, CardBody, CardSelect, Container, Heading, IconName, Layout, Text } from '@wings-software/uicore'
 import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
+import { Connectors } from '@connectors/constants'
 import { useStrings } from 'framework/strings'
 import type { Provider } from '../COCreateGateway/models'
 import css from './COAPProviderSelector.module.scss'
@@ -37,6 +38,7 @@ const COAPProviderSelector: React.FC<COAPProviderSelectorProps> = props => {
             selected={selectedCard as Provider}
             className={css.providerCardsContainer}
             onChange={item => {
+              if (connectorDetails) setConnectorDetails(undefined)
               setSelectedCard(item)
             }}
             renderItem={(item: Provider) => (
@@ -58,7 +60,9 @@ const COAPProviderSelector: React.FC<COAPProviderSelectorProps> = props => {
             }}
             accountIdentifier={props.accountId}
             label={getString('ce.co.accessPoint.select.connector')}
-            category={'CLOUD_COST'}
+            type={
+              selectedCard.value ? (selectedCard.value === 'aws' ? Connectors.CEAWS : Connectors.CE_AZURE) : undefined
+            }
           />
         )}
       </Container>

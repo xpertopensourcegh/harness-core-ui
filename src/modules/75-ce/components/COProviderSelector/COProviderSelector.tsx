@@ -50,6 +50,20 @@ const COProviderSelector: React.FC<COProviderSelectorProps> = props => {
   useEffect(() => {
     if (selectedCard) trackEvent('SelectedCloudCard', { cloudProvider: selectedCard.name })
   }, [selectedCard])
+
+  const clearCloudAccountDetails = (_gatewayDetails: GatewayDetails) => {
+    if (_gatewayDetails.cloudAccount.id) {
+      _gatewayDetails.cloudAccount.id = ''
+      setCloudAccountID('')
+    }
+    if (_gatewayDetails.cloudAccount.name) {
+      _gatewayDetails.cloudAccount.name = ''
+    }
+    if (_gatewayDetails.metadata.cloud_provider_details) {
+      delete _gatewayDetails.metadata.cloud_provider_details
+    }
+  }
+
   return (
     <>
       <Breadcrumbs
@@ -80,9 +94,11 @@ const COProviderSelector: React.FC<COProviderSelectorProps> = props => {
                 selected={selectedCard}
                 className={css.providersViewGrid}
                 onChange={item => {
-                  props.gatewayDetails.provider = item
                   setSelectedCard(item)
-                  props.setGatewayDetails(props.gatewayDetails)
+                  const updatedGatewayDetails = { ...props.gatewayDetails }
+                  updatedGatewayDetails.provider = item
+                  clearCloudAccountDetails(updatedGatewayDetails)
+                  props.setGatewayDetails(updatedGatewayDetails)
                 }}
                 renderItem={item => (
                   <Layout.Vertical spacing="small">

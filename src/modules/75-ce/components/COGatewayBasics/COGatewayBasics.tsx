@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Layout } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
@@ -38,6 +38,12 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
   const { trackEvent } = useTelemetry()
   const isAwsProvider = Utils.isProviderAws(props.gatewayDetails.provider)
   const [selectedConnector, setSelectedConnector] = useState<ConnectorInfoDTO | null>(null)
+
+  useEffect(() => {
+    if (selectedConnector) {
+      setSelectedConnector(null)
+    }
+  }, [props.gatewayDetails.provider.value])
 
   const handleConnectorSelection = (data: ConnectorInfoDTO) => {
     setSelectedConnector(data)
