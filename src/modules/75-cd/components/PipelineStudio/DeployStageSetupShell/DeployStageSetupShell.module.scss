@@ -3,16 +3,11 @@
   height: 100%;
   background: var(--white);
   overflow: hidden;
-  & > :global(.bp3-tabs > .bp3-tab-list) {
-    position: sticky;
-    top: 0;
-    z-index: 2;
-    padding-right: var(--spacing-xxxlarge);
-  }
 
   .fullHeight {
     height: 100%;
   }
+
   &.tab-execution {
     :global(.bp3-tab-panel) {
       $bg-color: #f6fcff;
@@ -29,16 +24,41 @@
       overflow: hidden;
     }
   }
+
   :global {
     .bp3-tabs {
       height: 100%;
     }
+
     .bp3-tab {
       margin: 10px 0 10px 0 !important;
       min-width: 140px;
       padding: 0 var(--spacing-medium);
       text-align: center;
+
+      span.bp3-icon {
+        margin-right: var(--spacing-small);
+      }
+
+      &[aria-selected='true'] {
+        color: var(--grey-800);
+        font-weight: 500;
+
+        .bp3-icon path {
+          fill: var(--grey-900);
+        }
+      }
+
+      &[aria-selected='false'] {
+        color: var(--grey-800);
+        font-weight: 400;
+
+        .bp3-icon path {
+          fill: var(--grey-800);
+        }
+      }
     }
+
     .bp3-tab-list {
       background: white;
       width: 100%;
@@ -49,70 +69,30 @@
         margin-right: var(--spacing-small) !important;
       }
     }
+
     .bp3-tab-panel {
       width: 100%;
       height: 100%;
       margin-top: 0 !important;
     }
-    .bp3-tab[aria-selected='true'] {
-      color: var(--grey-800);
-      font-weight: 500;
-      span.bp3-icon {
-        margin-right: var(--spacing-small);
-        path {
-          fill: var(--grey-900);
-        }
-      }
-    }
-    .bp3-tab[aria-selected='false'] {
-      color: var(--grey-800);
-      font-weight: 400;
-      span.bp3-icon {
-        margin-right: var(--spacing-small);
-        path {
-          fill: var(--grey-800);
-        }
-      }
-    }
   }
-  .tab {
+
+  .title {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    &[data-warning='true'] {
+      :global {
+        .bp3-icon path {
+          fill: var(--orange-500);
+        }
+      }
+    }
   }
 
   .spacer {
     flex: 1 1 auto;
-  }
-
-  .failureStrategy {
-    position: relative;
-    margin-right: 0 !important;
-
-    /* Following hacky CSS is required in order to render the icon properly :( */
-    & > span svg :not(path) {
-      stroke: none !important;
-    }
-
-    & > span svg rect {
-      stroke: currentColor !important;
-    }
-
-    & > span svg path[fill='#DA291D'] {
-      fill: #da291d !important;
-    }
-
-    & > span svg path[fill='#000'] {
-      fill: #000 !important;
-    }
-
-    & > span svg path[fill='#fff'] {
-      fill: #fff !important;
-    }
-
-    & .active {
-      color: var(--blue-450);
-    }
   }
 
   .footer {

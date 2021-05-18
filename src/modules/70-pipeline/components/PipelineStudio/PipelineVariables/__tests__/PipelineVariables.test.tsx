@@ -31,7 +31,8 @@ const pipelineContext: PipelineContextInterface = {
   updateStage: jest.fn(),
   pipelineSaved: jest.fn(),
   setSelectedStageId: jest.fn(),
-  setSelectedStepId: jest.fn()
+  setSelectedStepId: jest.fn(),
+  getStagePathFromPipeline: jest.fn()
 }
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (

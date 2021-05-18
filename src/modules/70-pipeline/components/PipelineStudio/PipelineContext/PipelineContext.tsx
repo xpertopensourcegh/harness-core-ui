@@ -44,6 +44,10 @@ import type { AbstractStepFactory } from '../../AbstractSteps/AbstractStepFactor
 import type { PipelineStagesProps } from '../../PipelineStages/PipelineStages'
 import { PipelineStudioView } from '../PipelineUtils'
 import { usePipelineQuestParamState } from '../PipelineQueryParamState/usePipelineQueryParam'
+import {
+  getStagePathFromPipeline as _getStagePathFromPipeline,
+  getStageFromPipeline as _getStageFromPipeline
+} from './helpers'
 
 const logger = loggerFor(ModuleName.CD)
 
@@ -166,6 +170,7 @@ export interface PipelineContextInterface {
   updateStage: (stage: StageElementConfig) => Promise<void>
   setSelectedStageId: (selectedStageId: string | undefined) => void
   setSelectedStepId: (selectedStepId: string | undefined) => void
+  getStagePathFromPipeline(stageId: string, prefix?: string, pipeline?: PipelineInfoConfig): string
 }
 
 interface PipelinePayload {
@@ -265,29 +270,6 @@ const _fetchPipeline = async (
   } else {
     dispatch(PipelineContextActions.success({ error: 'DB is not initialized' }))
   }
-}
-
-const _getStageFromPipeline = (
-  stageId: string,
-  localPipeline: PipelineInfoConfig
-): { stage: StageElementWrapper | undefined; parent: StageElementWrapper | undefined } => {
-  let stage: StageElementWrapper | undefined = undefined
-  let parent: StageElementWrapper | undefined = undefined
-  if (localPipeline?.stages) {
-    localPipeline.stages?.some?.(item => {
-      if (item?.stage && item.stage.identifier === stageId) {
-        stage = item
-        return true
-      } else if (item?.parallel) {
-        stage = _getStageFromPipeline(stageId, ({ stages: item.parallel } as unknown) as PipelineInfoConfig).stage
-        if (stage) {
-          parent = item
-          return true
-        }
-      }
-    })
-  }
-  return { stage, parent }
 }
 
 const _softFetchPipeline = async (
@@ -501,7 +483,8 @@ export const PipelineContext = React.createContext<PipelineContextInterface>({
   pipelineSaved: () => undefined,
   deletePipelineCache: () => new Promise<void>(() => undefined),
   setSelectedStageId: (_selectedStageId: string | undefined) => undefined,
-  setSelectedStepId: (_selectedStepId: string | undefined) => undefined
+  setSelectedStepId: (_selectedStepId: string | undefined) => undefined,
+  getStagePathFromPipeline: () => ''
 })
 
 export const PipelineProvider: React.FC<{
@@ -595,6 +578,14 @@ export const PipelineProvider: React.FC<{
     [state.pipeline, state.pipeline?.stages]
   )
 
+  const getStagePathFromPipeline = React.useCallback(
+    (stageId: string, prefix = '', pipeline?: PipelineInfoConfig) => {
+      const localPipeline = pipeline || state.pipeline
+      return _getStagePathFromPipeline(stageId, prefix, localPipeline)
+    }, // eslint-disable-next-line react-hooks/exhaustive-deps
+    [state.pipeline, state.pipeline?.stages]
+  )
+
   const updateStage = React.useCallback(
     async (newStage: StageElementConfig) => {
       function _updateStages(stages: StageElementWrapperConfig[]): StageElementWrapperConfig[] {
@@ -665,7 +656,8 @@ export const PipelineProvider: React.FC<{
         isReadonly,
         setYamlHandler,
         setSelectedStageId,
-        setSelectedStepId
+        setSelectedStepId,
+        getStagePathFromPipeline
       }}
     >
       {children}

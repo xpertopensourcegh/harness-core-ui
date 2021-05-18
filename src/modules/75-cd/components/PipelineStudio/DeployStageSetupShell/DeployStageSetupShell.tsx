@@ -14,6 +14,7 @@ import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineCon
 import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import { useStrings } from 'framework/strings'
 import type { StageElementWrapper } from 'services/cd-ng'
+import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
 import DeployInfraSpecifications from '../DeployInfraSpecifications/DeployInfraSpecifications'
 import DeployServiceSpecifications from '../DeployServiceSpecifications/DeployServiceSpecifications'
 import DeployStageSpecifications from '../DeployStageSpecifications/DeployStageSpecifications'
@@ -46,9 +47,10 @@ const TabsOrder = [
 
 export default function DeployStageSetupShell(): JSX.Element {
   const { getString } = useStrings()
-  const stageNames: string[] = [getString('service'), getString('infrastructureText'), getString('executionText')]
   const [isTabNavigationAllowed, setTabNavigationAllowed] = React.useState<boolean>(false)
   const layoutRef = React.useRef<HTMLDivElement>(null)
+  const { errorMap } = useValidationErrors()
+
   const {
     state: {
       pipeline,
@@ -63,7 +65,8 @@ export default function DeployStageSetupShell(): JSX.Element {
     updatePipeline,
     getStageFromPipeline,
     updatePipelineView,
-    setSelectedStepId
+    setSelectedStepId,
+    getStagePathFromPipeline
   } = React.useContext(PipelineContext)
   const [selectedTabId, setSelectedTabId] = React.useState<DeployTabs>(
     selectedStepId ? DeployTabs.EXECUTION : DeployTabs.SERVICE
@@ -76,9 +79,9 @@ export default function DeployStageSetupShell(): JSX.Element {
   }, [selectedStepId])
 
   React.useEffect(() => {
-    const { stage } = getStageFromPipeline(selectedStageId || '', pipeline)
+    const { stage } = getStageFromPipeline(selectedStageId || '')
     updateTabNavigation(stage as StageElementWrapper, selectedTabId)
-  }, [selectedStageId, pipeline, isSplitViewOpen, stageNames])
+  }, [selectedStageId, pipeline, isSplitViewOpen, selectedTabId])
 
   const handleTabChange = (data: DeployTabs): void => {
     setSelectedTabId(data)
@@ -107,6 +110,7 @@ export default function DeployStageSetupShell(): JSX.Element {
       }
     }
   }
+
   React.useEffect(() => {
     /* istanbul ignore else */
     if (layoutRef.current) {
@@ -151,6 +155,7 @@ export default function DeployStageSetupShell(): JSX.Element {
 
   const selectedStage = selectedStageId ? getStageFromPipeline(selectedStageId).stage : undefined
   const originalStage = selectedStageId ? getStageFromPipeline(selectedStageId, originalPipeline).stage : undefined
+  const stagePath = getStagePathFromPipeline(selectedStageId || '', 'pipeline.stages')
 
   const executionRef = React.useRef<ExecutionGraphRefObj | null>(null)
   const navBtns = (
@@ -189,6 +194,9 @@ export default function DeployStageSetupShell(): JSX.Element {
       )}
     </Layout.Horizontal>
   )
+  const errorKeys = [...errorMap.keys()]
+  const servicesHasWarning = errorKeys.some(key => stagePath && key.startsWith(`${stagePath}.stage.spec.serviceConfig`))
+  const infraHasWarning = errorKeys.some(key => stagePath && key.startsWith(`${stagePath}.stage.spec.infrastructure`))
 
   return (
     <section ref={layoutRef} key={selectedStageId} className={cx(css.setupShell)}>
@@ -197,7 +205,7 @@ export default function DeployStageSetupShell(): JSX.Element {
           id={DeployTabs.OVERVIEW}
           panel={<DeployStageSpecifications>{navBtns}</DeployStageSpecifications>}
           title={
-            <span className={css.tab}>
+            <span className={css.title}>
               <Icon name="cd-main" height={20} size={20} />
               {getString('overview')}
             </span>
@@ -216,8 +224,8 @@ export default function DeployStageSetupShell(): JSX.Element {
         <Tab
           id={DeployTabs.SERVICE}
           title={
-            <span className={css.tab}>
-              <Icon name="services" height={20} size={20} />
+            <span className={css.title} data-warning={servicesHasWarning}>
+              <Icon name={servicesHasWarning ? 'warning-sign' : 'services'} size={servicesHasWarning ? 16 : 20} />
               {getString('service')}
             </span>
           }
@@ -236,8 +244,8 @@ export default function DeployStageSetupShell(): JSX.Element {
         <Tab
           id={DeployTabs.INFRASTRUCTURE}
           title={
-            <span className={css.tab}>
-              <Icon name="infrastructure" height={20} size={20} />
+            <span className={css.title} data-warning={infraHasWarning}>
+              <Icon name={infraHasWarning ? 'warning-sign' : 'infrastructure'} size={infraHasWarning ? 16 : 20} />
               {getString('infrastructureText')}
             </span>
           }
@@ -256,7 +264,7 @@ export default function DeployStageSetupShell(): JSX.Element {
         <Tab
           id={DeployTabs.EXECUTION}
           title={
-            <span className={css.tab}>
+            <span className={css.title}>
               <Icon name="execution" height={20} size={20} />
               {getString('executionText')}
             </span>
@@ -336,7 +344,7 @@ export default function DeployStageSetupShell(): JSX.Element {
         <Tab
           id={DeployTabs.ADVANCED}
           title={
-            <span className={css.tab}>
+            <span className={css.title}>
               <Icon name="advanced" height={20} size={20} />
               Advanced
             </span>

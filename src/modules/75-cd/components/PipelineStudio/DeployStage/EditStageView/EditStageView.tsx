@@ -16,6 +16,8 @@ import {
 import cx from 'classnames'
 import * as Yup from 'yup'
 import type { IconName } from '@blueprintjs/core'
+import produce from 'immer'
+import { set } from 'lodash-es'
 import type { StageElementWrapper, StageElementConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
@@ -107,16 +109,28 @@ export const EditStageView: React.FC<EditStageView> = ({
               name: data?.stage.name,
               description: data?.stage.description,
               tags: data?.stage?.tags || {},
-              skipCondition: data?.stage.skipCondition,
               serviceType: newStageData[0]
             }}
             onSubmit={values => {
               if (data) {
-                data.stage.identifier = values.identifier
-                data.stage.name = values.name
-                data.stage.description = values.description
-                data.stage.tags = values.tags || {}
-                onSubmit?.(data, values.identifier)
+                const newData = produce(data, draft => {
+                  if (draft.stage) {
+                    draft.stage.identifier = values.identifier
+                    draft.stage.name = values.name
+                    draft.stage.description = values.description
+                    draft.stage.tags = values.tags || {}
+
+                    if (!draft.stage.spec?.serviceConfig) {
+                      set(draft, 'stage.spec.serviceConfig', {})
+                    }
+
+                    if (!draft.stage.spec?.infrastructure) {
+                      set(draft, 'stage.spec.infrastructure', {})
+                    }
+                  }
+                })
+
+                onSubmit?.(newData, values.identifier)
               }
             }}
             validate={values => {

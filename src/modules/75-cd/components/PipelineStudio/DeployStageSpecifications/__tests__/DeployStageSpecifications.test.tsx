@@ -53,7 +53,8 @@ const getPipelineContext = (): PipelineContextInterface => ({
   setView: jest.fn(),
   stepsFactory: factory,
   setSelectedStageId: jest.fn(),
-  setSelectedStepId: jest.fn()
+  setSelectedStepId: jest.fn(),
+  getStagePathFromPipeline: jest.fn()
 })
 describe('StepWidget tests', () => {
   test(`renders DeployStageSpecifications without crashing `, () => {

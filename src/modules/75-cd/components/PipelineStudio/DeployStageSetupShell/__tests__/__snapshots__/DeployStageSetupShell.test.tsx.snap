@@ -33,7 +33,7 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
           tabindex="0"
         >
           <span
-            class="tab"
+            class="title"
           >
             <span
               class="bp3-icon StyledProps--main"
@@ -107,12 +107,12 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
           role="tab"
         >
           <span
-            class="tab"
+            class="title"
+            data-warning="false"
           >
             <span
               class="bp3-icon StyledProps--main"
               data-icon="services"
-              style="height: 20px;"
             >
               <svg
                 fill="currentColor"
@@ -163,12 +163,12 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
           role="tab"
         >
           <span
-            class="tab"
+            class="title"
+            data-warning="false"
           >
             <span
               class="bp3-icon StyledProps--main"
               data-icon="infrastructure"
-              style="height: 20px;"
             >
               <svg
                 fill="currentColor"
@@ -222,7 +222,7 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
           role="tab"
         >
           <span
-            class="tab"
+            class="title"
           >
             <span
               class="bp3-icon StyledProps--main"
@@ -282,7 +282,7 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
           role="tab"
         >
           <span
-            class="tab"
+            class="title"
           >
             <span
               class="bp3-icon StyledProps--main"

@@ -88,7 +88,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
 
   const { stage } = getStageFromPipeline(selectedStageId || '')
 
-  const resetInfrastructureDefinition = (type?: string, shouldUpdate = false) => {
+  const resetInfrastructureDefinition = (type?: string, shouldUpdate = false): void => {
     const spec = get(stage, 'stage.spec', {})
     spec.infrastructure = {
       ...spec.infrastructure,
@@ -164,69 +164,65 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
       : deploymentTypes
 
     return (
-      <>
-        <div className={css.deploymentTypeGroups}>
-          {visibleDeploymentTypes.map(deploymentTypeGroup => {
-            return (
-              <div className={css.deploymentTypeGroup} key={deploymentTypeGroup.name}>
-                <div className={css.connectionType}>{deploymentTypeGroup.name}</div>
-                <Layout.Horizontal>
-                  {deploymentTypeGroup.items.map(deploymentType => (
-                    <>
-                      <div key={deploymentType.name} className={css.squareCardContainer}>
-                        <Card
-                          disabled={!deploymentType.enabled || isReadonly}
-                          interactive={true}
-                          selected={deploymentType.type === selectedDeploymentType}
-                          onClick={() => {
-                            if (selectedDeploymentType !== deploymentType.type) {
-                              setSelectedDeploymentType(deploymentType.type)
-                              resetInfrastructureDefinition(deploymentType.type, true)
-                            }
-                          }}
-                          cornerSelected={deploymentType.type === selectedDeploymentType}
-                          className={cx({ [css.disabled]: !deploymentType.enabled }, css.squareCard)}
-                        >
-                          <Icon name={deploymentType.icon as IconName} size={26} height={26} />
-                        </Card>
-                        <Text
-                          style={{
-                            fontSize: '12px',
-                            color: deploymentType.enabled ? 'var(--grey-900)' : 'var(--grey-350)',
-                            textAlign: 'center'
-                          }}
-                        >
-                          {deploymentType.name}
-                        </Text>
-                      </div>
-                    </>
-                  ))}
-                </Layout.Horizontal>
-              </div>
-            )
-          })}
-          {selectedDeploymentType ? (
-            <Button
-              className={css.changeButton}
-              disabled={isReadonly}
-              minimal
-              intent="primary"
-              onClick={() => {
-                setSelectedDeploymentType(undefined)
-                resetInfrastructureDefinition(undefined, true)
-              }}
-              text={getString('change')}
-            />
-          ) : null}
-        </div>
-      </>
+      <div className={css.deploymentTypeGroups}>
+        {visibleDeploymentTypes.map(deploymentTypeGroup => {
+          return (
+            <div className={css.deploymentTypeGroup} key={deploymentTypeGroup.name}>
+              <div className={css.connectionType}>{deploymentTypeGroup.name}</div>
+              <Layout.Horizontal>
+                {deploymentTypeGroup.items.map(deploymentType => (
+                  <div key={deploymentType.name} className={css.squareCardContainer}>
+                    <Card
+                      disabled={!deploymentType.enabled || isReadonly}
+                      interactive={true}
+                      selected={deploymentType.type === selectedDeploymentType}
+                      onClick={() => {
+                        if (selectedDeploymentType !== deploymentType.type) {
+                          setSelectedDeploymentType(deploymentType.type)
+                          resetInfrastructureDefinition(deploymentType.type, true)
+                        }
+                      }}
+                      cornerSelected={deploymentType.type === selectedDeploymentType}
+                      className={cx({ [css.disabled]: !deploymentType.enabled }, css.squareCard)}
+                    >
+                      <Icon name={deploymentType.icon as IconName} size={26} height={26} />
+                    </Card>
+                    <Text
+                      style={{
+                        fontSize: '12px',
+                        color: deploymentType.enabled ? 'var(--grey-900)' : 'var(--grey-350)',
+                        textAlign: 'center'
+                      }}
+                    >
+                      {deploymentType.name}
+                    </Text>
+                  </div>
+                ))}
+              </Layout.Horizontal>
+            </div>
+          )
+        })}
+        {selectedDeploymentType ? (
+          <Button
+            className={css.changeButton}
+            disabled={isReadonly}
+            minimal
+            intent="primary"
+            onClick={() => {
+              setSelectedDeploymentType(undefined)
+              resetInfrastructureDefinition(undefined, true)
+            }}
+            text={getString('change')}
+          />
+        ) : null}
+      </div>
     )
   }
 
   const [provisionerEnabled, setProvisionerEnabled] = useState<boolean>(false)
   const [provisionerSnippetLoading, setProvisionerSnippetLoading] = useState<boolean>(false)
 
-  const isProvisionerEmpty = (stageData: StageElementWrapper) => {
+  const isProvisionerEmpty = (stageData: StageElementWrapper): boolean => {
     const provisionerData = get(stageData, 'stage.spec.infrastructure.infrastructureDefinition.provisioner')
     return isEmpty(provisionerData?.steps) && isEmpty(provisionerData?.rollbackSteps)
   }
@@ -247,7 +243,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
     }
   }, [provisionerEnabled])
 
-  const cleanUpEmptyProvisioner = () => {
+  const cleanUpEmptyProvisioner = (): boolean => {
     const provisioner = stage?.stage?.spec?.infrastructure?.infrastructureDefinition?.provisioner
     let isChanged = false
 
@@ -347,7 +343,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
     }
   }
 
-  const getClusterConfigurationStep = (type: string) => {
+  const getClusterConfigurationStep = (type: string): React.ReactElement => {
     switch (type) {
       case 'KubernetesDirect': {
         return (
@@ -403,12 +399,13 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
       }
     }
   }
+
   return (
-    <div className={css.serviceOverrides}>
+    <div className={css.serviceOverrides} key="1">
       <div className={css.contentSection} ref={scrollRef}>
         <Layout.Vertical>
           <div className={css.tabHeading} id="environment">
-            {<String stringID="environment" />}
+            <String stringID="environment" />
           </div>
           <Card className={cx(css.sectionCard)}>
             <StepWidget
@@ -477,7 +474,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
           </Card>
         ) : null}
 
-        <div className={css.navigationButtons}> {props.children}</div>
+        <div className={css.navigationButtons}>{props.children}</div>
       </div>
     </div>
   )

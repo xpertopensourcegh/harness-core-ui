@@ -4,10 +4,8 @@ declare const styles: {
   readonly setupShell: string
   readonly fullHeight: string
   readonly tabExecution: string
-  readonly tab: string
+  readonly title: string
   readonly spacer: string
-  readonly failureStrategy: string
-  readonly active: string
   readonly footer: string
   readonly whenCondition: string
   readonly stageDropDownTab: string
