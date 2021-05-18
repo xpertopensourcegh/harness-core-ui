@@ -132,7 +132,7 @@ describe('ArtifactsSelection tests', () => {
     const props = {
       updateStage: jest.fn(),
       primaryArtifact: {
-        type: 'Dockerhub' as 'Dockerhub' | 'Gcr' | 'Ecr'
+        type: 'DockerRegistry' as 'DockerRegistry' | 'Gcr' | 'Ecr'
       },
       sideCarArtifact: [],
       stage: pipelineContextMock.state.pipeline.stages[0],
@@ -158,7 +158,7 @@ describe('ArtifactsSelection tests', () => {
     const props = {
       updateStage: jest.fn(),
       primaryArtifact: {
-        type: 'Gcr' as 'Dockerhub' | 'Gcr' | 'Ecr'
+        type: 'Gcr' as 'DockerRegistry' | 'Gcr' | 'Ecr'
       },
       sideCarArtifact: [],
       stage: pipelineContextMock.state.pipeline.stages[0],
@@ -183,7 +183,7 @@ describe('ArtifactsSelection tests', () => {
     const props = {
       updateStage: jest.fn(),
       primaryArtifact: {
-        type: 'Ecr' as 'Dockerhub' | 'Gcr' | 'Ecr',
+        type: 'Ecr' as 'DockerRegistry' | 'Gcr' | 'Ecr',
         spec: {
           connectorRef: 'Test',
           imagePath: '<+input>',
@@ -194,7 +194,7 @@ describe('ArtifactsSelection tests', () => {
       sideCarArtifact: [
         {
           sidecar: {
-            type: 'Dockerhub' as 'Dockerhub' | 'Gcr' | 'Ecr',
+            type: 'DockerRegistry' as 'DockerRegistry' | 'Gcr' | 'Ecr',
             spec: {
               connectorRef: 'connectorRef',
               imagePath: '<+input>',
@@ -233,7 +233,7 @@ describe('ArtifactsSelection tests', () => {
     const props = {
       updateStage: jest.fn(),
       primaryArtifact: {
-        type: 'Gcr' as 'Dockerhub' | 'Gcr' | 'Ecr'
+        type: 'Gcr' as 'DockerRegistry' | 'Gcr' | 'Ecr'
       },
       sideCarArtifact: [],
       stage: pipelineContextMock.state.pipeline.stages[0],
@@ -266,7 +266,7 @@ describe('ArtifactsSelection tests', () => {
     const props = {
       updateStage: jest.fn(),
       primaryArtifact: {
-        type: 'Gcr' as 'Dockerhub' | 'Gcr' | 'Ecr'
+        type: 'Gcr' as 'DockerRegistry' | 'Gcr' | 'Ecr'
       },
       sideCarArtifact: [],
       stage: pipelineContextMock.state.pipeline.stages[0],

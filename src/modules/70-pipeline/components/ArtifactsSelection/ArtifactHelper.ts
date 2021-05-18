@@ -35,7 +35,7 @@ export const getArtifactTitleIdByType = (type: string): StringKeys => {
 }
 
 export const ENABLED_ARTIFACT_TYPES: { [key: string]: CreationType } = {
-  DockerRegistry: 'Dockerhub',
+  DockerRegistry: 'DockerRegistry',
   Gcp: 'Gcr',
   Aws: 'Ecr'
 }
