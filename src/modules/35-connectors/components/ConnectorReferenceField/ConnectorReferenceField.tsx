@@ -37,6 +37,10 @@ import { Scope } from '@common/interfaces/SecretsInterface'
 import { String, useStrings } from 'framework/strings'
 import { ReferenceSelect, ReferenceSelectProps } from '@common/components/ReferenceSelect/ReferenceSelect'
 import type { GitFilterScope } from '@common/components/GitFilters/GitFilters'
+import { usePermission } from '@rbac/hooks/usePermission'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import type { ResourceScope } from '@rbac/interfaces/ResourceScope'
 import css from './ConnectorReferenceField.module.scss'
 
 interface AdditionalParams {
@@ -149,6 +153,85 @@ interface GetReferenceFieldMethodProps extends ConnectorReferenceFieldProps {
   type: ConnectorInfoDTO['type'] | ConnectorInfoDTO['type'][]
 }
 
+interface RecordRenderProps {
+  item: EntityReferenceResponse<ConnectorReferenceDTO>
+  resourceScope: ResourceScope
+  openConnectorModal: GetReferenceFieldMethodProps['openConnectorModal']
+  type: ConnectorInfoDTO['type'] | ConnectorInfoDTO['type'][]
+  checked?: boolean
+}
+
+const RecordRender: React.FC<RecordRenderProps> = props => {
+  const { item, resourceScope, openConnectorModal, type, checked } = props
+  const [canUpdate] = usePermission(
+    {
+      resource: {
+        resourceType: ResourceType.CONNECTOR,
+        resourceIdentifier: item.identifier || ''
+      },
+      permissions: [PermissionIdentifier.UPDATE_CONNECTOR],
+      resourceScope
+    },
+    []
+  )
+  return (
+    <>
+      <div className={css.item}>
+        <Layout.Horizontal spacing="small" margin={{ right: 'medium' }}>
+          <Icon name={getIconByType(item.record.type)} size={30}></Icon>
+          <div>
+            <Text font={{ weight: 'bold' }}>{item.record.name}</Text>
+            <Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
+              {item.identifier}
+            </Text>
+          </div>
+        </Layout.Horizontal>
+        <Layout.Horizontal spacing="small">
+          {canUpdate ? (
+            <Button
+              minimal
+              icon="edit"
+              className={css.editBtn}
+              onClick={e => {
+                e.stopPropagation()
+                openConnectorModal(true, item.record?.type || type, { connectorInfo: item.record })
+              }}
+              style={{
+                color: 'var(--primary-4)'
+              }}
+            />
+          ) : (
+            <></>
+          )}
+          <Icon
+            className={css.status}
+            name="full-circle"
+            size={6}
+            color={item.record.status?.status === 'SUCCESS' ? Color.GREEN_500 : Color.RED_500}
+          />
+        </Layout.Horizontal>
+      </div>
+      {item.record.gitDetails?.repoIdentifier && (
+        <Layout.Vertical margin={{ left: 'xsmall' }} spacing="small">
+          <Layout.Horizontal spacing="xsmall">
+            <Icon name="repository" size={12}></Icon>
+            <Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
+              {item.record.gitDetails.repoIdentifier}
+            </Text>
+          </Layout.Horizontal>
+          <Layout.Horizontal spacing="xsmall">
+            <Icon size={12} name="git-new-branch"></Icon>
+            <Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
+              {item.record.gitDetails.branch}
+            </Text>
+          </Layout.Horizontal>
+        </Layout.Vertical>
+      )}
+      <Icon className={cx(css.iconCheck, { [css.iconChecked]: checked })} name="pipeline-approval" />
+    </>
+  )
+}
+
 export function getReferenceFieldProps({
   defaultScope,
   gitScope,
@@ -173,6 +256,7 @@ export function getReferenceFieldProps({
     defaultScope,
     createNewLabel: getString('newConnector'),
     recordClassName: css.listItem,
+    isNewConnectorLabelVisible: true,
     fetchRecords: (scope, search = '', done) => {
       const additionalParams = getAdditionalParams({ scope, projectIdentifier, orgIdentifier })
       const gitFilterParams =
@@ -234,59 +318,19 @@ export function getReferenceFieldProps({
     projectIdentifier,
     orgIdentifier,
     noRecordsText: getString('noConnectorFound'),
-    recordRender: function renderItem(item, checked) {
-      return (
-        <>
-          <div className={css.item}>
-            <Layout.Horizontal spacing="small" margin={{ right: 'medium' }}>
-              <Icon name={getIconByType(item.record.type)} size={30}></Icon>
-              <div>
-                <Text font={{ weight: 'bold' }}>{item.record.name}</Text>
-                <Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
-                  {item.identifier}
-                </Text>
-              </div>
-            </Layout.Horizontal>
-            <Layout.Horizontal spacing="small">
-              <Button
-                minimal
-                icon="edit"
-                className={css.editBtn}
-                onClick={e => {
-                  e.stopPropagation()
-                  openConnectorModal(true, item.record?.type || type, { connectorInfo: item.record })
-                }}
-                style={{
-                  color: 'var(--primary-4)'
-                }}
-              />
-              <Icon
-                className={css.status}
-                name="full-circle"
-                size={6}
-                color={item.record.status?.status === 'SUCCESS' ? Color.GREEN_500 : Color.RED_500}
-              />
-            </Layout.Horizontal>
-          </div>
-          {item.record.gitDetails?.repoIdentifier && (
-            <Layout.Vertical margin={{ left: 'xsmall' }} spacing="small">
-              <Layout.Horizontal spacing="xsmall">
-                <Icon name="repository" size={12}></Icon>
-                <Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
-                  {item.record.gitDetails.repoIdentifier}
-                </Text>
-              </Layout.Horizontal>
-              <Layout.Horizontal spacing="xsmall">
-                <Icon size={12} name="git-new-branch"></Icon>
-                <Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
-                  {item.record.gitDetails.branch}
-                </Text>
-              </Layout.Horizontal>
-            </Layout.Vertical>
-          )}
-          <Icon className={cx(css.iconCheck, { [css.iconChecked]: checked })} name="pipeline-approval" />
-        </>
-      )
+    recordRender: function recordRender({ item, selectedScope, selected: checked }) {
+      const recordRenderProps: RecordRenderProps = {
+        item,
+        resourceScope: {
+          accountIdentifier,
+          orgIdentifier: selectedScope === Scope.ORG || selectedScope === Scope.PROJECT ? orgIdentifier : undefined,
+          projectIdentifier: selectedScope === Scope.PROJECT ? projectIdentifier : undefined
+        },
+        openConnectorModal,
+        type,
+        checked
+      }
+      return <RecordRender {...recordRenderProps} />
     }
   }
 }
@@ -325,6 +369,16 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
       }
     }
   })
+
+  const [canUpdate] = usePermission(
+    {
+      resource: {
+        resourceType: ResourceType.CONNECTOR
+      },
+      permissions: [PermissionIdentifier.UPDATE_CONNECTOR]
+    },
+    []
+  )
 
   const [selectedValue, setSelectedValue] = React.useState(selected)
 
@@ -440,6 +494,7 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
           category,
           openConnectorModal
         })}
+        isNewConnectorLabelVisible={canUpdate}
         selectedRenderer={getSelectedRenderer(selectedValue as ConnectorSelectedValue)}
         {...optionalReferenceSelectProps}
         disabled={disabled || loading}

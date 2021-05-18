@@ -114,7 +114,7 @@ const SecretReference: React.FC<SecretReferenceProps> = props => {
       orgIdentifier={orgIdentifier}
       noRecordsText={getString('secret.noSecretsFound')}
       searchInlineComponent={!type ? selectTypeDropdown : undefined}
-      recordRender={(item, selected) => (
+      recordRender={({ item, selected }) => (
         <>
           <div className={css.item}>
             {item.record.type === 'SecretText' || item.record.type === 'SecretFile' ? (

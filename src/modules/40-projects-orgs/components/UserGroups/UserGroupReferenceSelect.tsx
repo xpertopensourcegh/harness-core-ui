@@ -75,7 +75,7 @@
 //     projectIdentifier,
 //     orgIdentifier,
 //     noRecordsText: getString('noUserGroupsFound'),
-//     recordRender: function renderItem(item, checked) {
+//     recordRender: function renderItem({item, checked}) {
 //       return (
 //         <>
 //           <Layout.Horizontal key={item.name.toString()} spacing="small" className={css.ugRecordLabel}>

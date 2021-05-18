@@ -54,7 +54,7 @@ export interface EntityReferenceProps<T> {
     searchTerm: string | undefined,
     done: (records: EntityReferenceResponse<T>[]) => void
   ) => void
-  recordRender: (item: EntityReferenceResponse<T>, selected?: boolean) => JSX.Element
+  recordRender: (args: { item: EntityReferenceResponse<T>; selectedScope: Scope; selected?: boolean }) => JSX.Element
   recordClassName?: string
   className?: string
   projectIdentifier?: string
@@ -166,7 +166,7 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
           })}
           onClick={() => setSelectedRecord(selectedRecord === item.record ? undefined : item.record)}
         >
-          {recordRender(item, selectedRecord === item.record)}
+          {recordRender({ item, selectedScope, selected: selectedRecord === item.record })}
         </div>
       ))}
     </div>
