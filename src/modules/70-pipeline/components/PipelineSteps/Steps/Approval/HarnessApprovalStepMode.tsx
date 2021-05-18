@@ -25,6 +25,7 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea/MultiTypeTextArea'
 import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useGetUserGroupList } from 'services/cd-ng'
+import { isApprovalStepFieldDisabled } from '../ApprovalCommons'
 import type {
   HarnessApprovalStepModeProps,
   HarnessApprovalData,
@@ -40,7 +41,8 @@ const FormContent = ({
   userGroupsFetchError,
   userGroupsResponse,
   fetchingUserGroups,
-  isNewStep
+  isNewStep,
+  readonly
 }: HarnessApprovalFormContentProps) => {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
@@ -71,10 +73,18 @@ const FormContent = ({
   return (
     <React.Fragment>
       <div className={cx(stepCss.formGroup, stepCss.md)}>
-        <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
+        <FormInput.InputWithIdentifier
+          inputLabel={getString('name')}
+          isIdentifierEditable={isNewStep}
+          inputGroupProps={{ disabled: isApprovalStepFieldDisabled(readonly) }}
+        />
       </div>
       <div className={cx(stepCss.formGroup, stepCss.sm)}>
-        <FormMultiTypeDurationField name="timeout" label={getString('pipelineSteps.timeoutLabel')} />
+        <FormMultiTypeDurationField
+          name="timeout"
+          label={getString('pipelineSteps.timeoutLabel')}
+          disabled={isApprovalStepFieldDisabled(readonly)}
+        />
       </div>
 
       <Accordion activeId="step-1" className={stepCss.accordion}>
@@ -89,11 +99,13 @@ const FormContent = ({
                 className={cx(css.approvalMessage, css.md)}
                 multiTypeTextArea={{ enableConfigureOptions: false, expressions }}
                 placeholder="Please add relevant information for this step"
+                disabled={isApprovalStepFieldDisabled(readonly)}
               />
               <FormInput.CheckBox
                 className={cx(css.execHistoryCheckbox, css.md)}
                 name="spec.includePipelineExecutionHistory"
                 label={getString('pipeline.approvalStep.includePipelineExecutionHistory')}
+                disabled={isApprovalStepFieldDisabled(readonly)}
               />
             </div>
           }
@@ -107,6 +119,7 @@ const FormContent = ({
                 className={cx(css.multiSelect, css.md)}
                 name="spec.approvers.userGroups"
                 label={getString('common.userGroups')}
+                disabled={isApprovalStepFieldDisabled(readonly)}
                 selectItems={
                   fetchingUserGroups
                     ? [{ label: getString('pipeline.approvalStep.fetchingUserGroups'), value: '', disabled: true }]
@@ -161,11 +174,13 @@ const FormContent = ({
                     type: 'number'
                   }
                 }}
+                disabled={isApprovalStepFieldDisabled(readonly)}
               />
               <FormInput.CheckBox
                 className={cx(css.execHistoryCheckbox, css.md)}
                 name="spec.approvers.disallowPipelineExecutor"
                 label={getString('pipeline.approvalStep.disallowPipelineExecutor')}
+                disabled={isApprovalStepFieldDisabled(readonly)}
               />
             </div>
           }
@@ -187,9 +202,13 @@ const FormContent = ({
                       {(formik.values.spec.approverInputs as ApproverInputsSubmitCallInterface[]).map(
                         (_unused: ApproverInputsSubmitCallInterface, i: number) => (
                           <div className={css.headerRow} key={i}>
-                            <FormInput.Text name={`spec.approverInputs[${i}].name`} />
+                            <FormInput.Text
+                              name={`spec.approverInputs[${i}].name`}
+                              disabled={isApprovalStepFieldDisabled(readonly)}
+                            />
                             <FormInput.MultiTextInput
                               name={`spec.approverInputs[${i}].defaultValue`}
+                              disabled={isApprovalStepFieldDisabled(readonly)}
                               label=""
                               multiTextInputProps={{
                                 allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
@@ -200,6 +219,7 @@ const FormContent = ({
                               minimal
                               icon="trash"
                               data-testid={`remove-approverInputs-${i}`}
+                              disabled={isApprovalStepFieldDisabled(readonly)}
                               onClick={() => remove(i)}
                             />
                           </div>
@@ -210,6 +230,7 @@ const FormContent = ({
                         minimal
                         intent="primary"
                         data-testid="add-approverInput"
+                        disabled={isApprovalStepFieldDisabled(readonly)}
                         onClick={() => push({ name: '', defaultValue: '' })}
                       >
                         Add
@@ -234,7 +255,7 @@ function HarnessApprovalStepMode(
   props: HarnessApprovalStepModeProps,
   formikRef: StepFormikFowardRef<HarnessApprovalData>
 ) {
-  const { onUpdate, isNewStep = true } = props
+  const { onUpdate, isNewStep = true, readonly } = props
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
     PipelineType<PipelinePathProps & AccountPathProps>
@@ -278,6 +299,7 @@ function HarnessApprovalStepMode(
             fetchingUserGroups={fetchingUserGroups}
             userGroupsFetchError={userGroupsFetchError}
             isNewStep={isNewStep}
+            readonly={readonly}
           />
         )
       }}

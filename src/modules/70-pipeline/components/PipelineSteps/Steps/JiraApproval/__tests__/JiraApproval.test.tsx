@@ -62,6 +62,21 @@ describe('Jira Approval tests', () => {
     expect(container).toMatchSnapshot('jira-approval-deploymentform')
   })
 
+  test('deploymentform mode - readonly', async () => {
+    const props = getJiraApprovalDeploymentModeProps()
+    const { container } = render(
+      <TestStepWidget
+        template={props.inputSetData?.template}
+        initialValues={props.initialValues}
+        type={StepType.JiraApproval}
+        stepViewType={StepViewType.DeploymentForm}
+        inputSetData={{ ...props.inputSetData, path: props.inputSetData?.path || '', readonly: true }}
+      />
+    )
+
+    expect(container).toMatchSnapshot('jira-approval-deploymentform readonly')
+  })
+
   test('Basic snapshot - inputset mode but no runtime values', async () => {
     const props = getJiraApprovalDeploymentModeProps()
     const { container } = render(
@@ -133,6 +148,22 @@ describe('Jira Approval tests', () => {
 
     fireEvent.click(getByText('common.jexlExpression'))
     await waitFor(() => expect(queryByText('pipeline.jiraApprovalStep.validations.expression')).toBeTruthy())
+  })
+
+  test('Edit stage - readonly', async () => {
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const props = getJiraApprovalEditModeProps()
+    const { container } = render(
+      <TestStepWidget
+        initialValues={props.initialValues}
+        type={StepType.JiraApproval}
+        stepViewType={StepViewType.Edit}
+        ref={ref}
+        readonly={true}
+      />
+    )
+
+    expect(container).toMatchSnapshot('edit stage view readonly')
   })
 
   test('Open a saved jira approval step - edit stage view', async () => {

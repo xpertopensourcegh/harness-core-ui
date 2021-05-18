@@ -21,6 +21,7 @@ import {
 } from 'services/cd-ng'
 import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
+import { isApprovalStepFieldDisabled } from '../ApprovalCommons'
 import { ApprovalRejectionCriteria } from './ApprovalRejectionCriteria'
 import {
   JiraApprovalStepModeProps,
@@ -48,7 +49,9 @@ const FormContent = ({
   projectMetadataFetchError,
   projectMetaResponse,
   fetchingProjects,
-  fetchingProjectMetadata
+  fetchingProjectMetadata,
+  isNewStep,
+  readonly
 }: JiraFormContentInterface) => {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
@@ -153,10 +156,18 @@ const FormContent = ({
   return (
     <React.Fragment>
       <div className={cx(stepCss.formGroup, stepCss.md)}>
-        <FormInput.InputWithIdentifier inputLabel={getString('name')} />
+        <FormInput.InputWithIdentifier
+          inputLabel={getString('name')}
+          isIdentifierEditable={isNewStep}
+          inputGroupProps={{ disabled: isApprovalStepFieldDisabled(readonly) }}
+        />
       </div>
       <div className={cx(stepCss.formGroup, stepCss.sm)}>
-        <FormMultiTypeDurationField name="timeout" label={getString('pipelineSteps.timeoutLabel')} />
+        <FormMultiTypeDurationField
+          name="timeout"
+          label={getString('pipelineSteps.timeoutLabel')}
+          disabled={isApprovalStepFieldDisabled(readonly)}
+        />
       </div>
       <Accordion activeId="step-1" className={stepCss.accordion}>
         <Accordion.Panel
@@ -180,6 +191,7 @@ const FormContent = ({
                   // Clear dependent fields
                   resetForm(formik, 'connectorRef')
                 }}
+                disabled={isApprovalStepFieldDisabled(readonly)}
               />
               <FormInput.MultiTypeInput
                 tooltipProps={{
@@ -200,7 +212,7 @@ const FormContent = ({
                     : getString('select')
                 }
                 className={css.md}
-                disabled={fetchingProjects}
+                disabled={isApprovalStepFieldDisabled(readonly, fetchingProjects)}
                 isOptional={true}
                 multiTypeInputProps={{
                   allowableTypes: [MultiTypeInputType.FIXED],
@@ -230,7 +242,7 @@ const FormContent = ({
                     : getString('select')
                 }
                 className={css.md}
-                disabled={fetchingProjectMetadata}
+                disabled={isApprovalStepFieldDisabled(readonly, fetchingProjectMetadata)}
                 multiTypeInputProps={{
                   allowableTypes: [MultiTypeInputType.FIXED],
                   onChange: _unused => {
@@ -247,6 +259,7 @@ const FormContent = ({
                 name="spec.issueKey"
                 placeholder={getString('pipeline.jiraApprovalStep.issueKeyPlaceholder')}
                 className={css.md}
+                disabled={isApprovalStepFieldDisabled(readonly)}
               />
             </div>
           }
@@ -263,6 +276,7 @@ const FormContent = ({
               values={formik.values.spec.approvalCriteria}
               onChange={values => formik.setFieldValue('spec.approvalCriteria', values)}
               formikErrors={formik.errors.spec?.approvalCriteria?.spec}
+              readonly={readonly}
             />
           }
         />
@@ -278,6 +292,7 @@ const FormContent = ({
               mode="rejectionCriteria"
               values={formik.values.spec.rejectionCriteria}
               onChange={values => formik.setFieldValue('spec.rejectionCriteria', values)}
+              readonly={readonly}
             />
           }
         />
@@ -291,7 +306,7 @@ functional component as this component doesn't need a state of it's own.
 everything is governed from the parent
 */
 function JiraApprovalStepMode(props: JiraApprovalStepModeProps, formikRef: StepFormikFowardRef<JiraApprovalData>) {
-  const { onUpdate } = props
+  const { onUpdate, readonly, isNewStep } = props
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
     PipelineType<PipelinePathProps & AccountPathProps>
@@ -370,6 +385,8 @@ function JiraApprovalStepMode(props: JiraApprovalStepModeProps, formikRef: StepF
             projectsResponse={projectsResponse}
             projectsFetchError={projectsFetchError}
             projectMetadataFetchError={projectMetadataFetchError}
+            readonly={readonly}
+            isNewStep={isNewStep}
           />
         )
       }}
