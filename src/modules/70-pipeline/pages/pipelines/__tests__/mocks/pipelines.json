@@ -24,7 +24,7 @@
             "environmentNames": ["Sam env"],
             "serviceNames": ["nginx service"]
           },
-          "ci": { "repoNames": ["https://github.com/random-harness/"] }
+          "ci": { "repoName": ["https://github.com/random-harness/"] }
         }
       },
       {

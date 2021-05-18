@@ -104,6 +104,9 @@ export default function PipelineFilterForm<
             />
           ) : null}
           <FormInput.Select
+            selectProps={{
+              addClearBtn: true
+            }}
             items={buildTypeOptions}
             name="buildType"
             label={getString('filters.executions.buildType')}

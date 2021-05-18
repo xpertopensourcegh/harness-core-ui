@@ -15,7 +15,7 @@
           "pipelineTags": [],
           "name": "Http Golden Pipeline",
           "moduleProperties": {
-            "ci": { "repoNames": ["https://github.com/sampleproject/"] },
+            "ci": { "repoName": ["https://github.com/sampleproject/"] },
             "cd": {
               "deploymentTypes": ["Kubernetes"],
               "serviceNames": ["nginx service"],

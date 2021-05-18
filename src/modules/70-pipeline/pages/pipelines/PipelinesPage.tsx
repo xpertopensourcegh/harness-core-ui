@@ -350,7 +350,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
       (appliedFilter?.filterProperties as PipelineFilterProperties) || {}
     const { name = '', filterVisibility, identifier = '' } = appliedFilter || {}
     const { ci, cd } = moduleProperties || {}
-    const { branch, tag, ciExecutionInfoDTO, repoNames } = ci || {}
+    const { branch, tag, ciExecutionInfoDTO, repoName } = ci || {}
     const { deploymentTypes, environmentNames, infrastructureTypes, serviceNames } = cd || {}
     const { sourceBranch, targetBranch } = ciExecutionInfoDTO?.pullRequest || {}
     // eslint-disable-next-line @typescript-eslint/no-shadow
@@ -385,7 +385,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
             sourceBranch,
             targetBranch,
             buildType,
-            repositoryName: repoNames ? repoNames[0] : undefined,
+            repositoryName: repoName ? repoName[0] : undefined,
             deploymentType: deploymentTypes ? deploymentTypes[0] : undefined,
             infrastructureType: infrastructureTypes ? infrastructureTypes[0] : undefined,
             services: getMultiSelectFormOptions(serviceNames),
