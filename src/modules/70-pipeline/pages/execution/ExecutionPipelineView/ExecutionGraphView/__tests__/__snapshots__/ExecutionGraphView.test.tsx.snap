@@ -346,7 +346,7 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
             />
             <div
               class="Pane vertical Pane2  "
-              style="flex: 0 0 auto; position: relative; outline: none; width: 500px;"
+              style="flex: 0 0 auto; position: relative; outline: none; width: 570px;"
             >
               <div
                 class="Pane  pane22"

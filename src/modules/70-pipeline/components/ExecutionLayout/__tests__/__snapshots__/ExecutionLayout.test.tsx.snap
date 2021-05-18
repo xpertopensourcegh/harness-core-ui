@@ -43,7 +43,7 @@ exports[`<ExecutionLayout /> tests "BOTTOM" Layout works 1`] = `
           >
             <div
               class="Pane horizontal Pane1  "
-              style="flex: 0 0 auto; position: relative; outline: none; height: 300px; display: flex;"
+              style="flex: 0 0 auto; position: relative; outline: none; height: 500px; display: flex;"
             >
               <div
                 class="Pane  pane21"
@@ -451,7 +451,7 @@ exports[`<ExecutionLayout /> tests "RIGHT" Layout works 1`] = `
             />
             <div
               class="Pane vertical Pane2  "
-              style="flex: 0 0 auto; position: relative; outline: none; width: 500px;"
+              style="flex: 0 0 auto; position: relative; outline: none; width: 570px;"
             >
               <div
                 class="Pane  pane22"
@@ -710,7 +710,7 @@ exports[`<ExecutionLayout /> tests ExecutionLayout.Toggle works 1`] = `
             />
             <div
               class="Pane vertical Pane2  "
-              style="flex: 0 0 auto; position: relative; outline: none; width: 500px;"
+              style="flex: 0 0 auto; position: relative; outline: none; width: 570px;"
             >
               <div
                 class="Pane  pane22"
@@ -797,7 +797,7 @@ exports[`<ExecutionLayout /> tests Showing third child works 1`] = `
             />
             <div
               class="Pane vertical Pane2  "
-              style="flex: 0 0 auto; position: relative; outline: none; width: 500px;"
+              style="flex: 0 0 auto; position: relative; outline: none; width: 570px;"
             >
               <div
                 class="Pane  pane22"

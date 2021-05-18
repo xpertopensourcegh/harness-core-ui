@@ -12,19 +12,21 @@ import css from './ExecutionLayout.module.scss'
 
 const IS_TEST = process.env.NODE_ENV === 'test'
 export const MIN_PANEL_SIZE = 200
+const RIGHT_LAYOUT_DEFAULT_SIZE = 570
+const BOTTOM_LAYOUT_DEFAULT_SIZE = 500
 const EXECUTION_LAYOUT_DOM_ID = `execution-layout-${IS_TEST ? 'test' : /* istanbul ignore next */ Date.now()}`
 
 const splitPaneProps: Partial<Record<ExecutionLayoutState, SplitPaneProps>> = {
   [ExecutionLayoutState.RIGHT]: {
     split: 'vertical',
-    defaultSize: 570,
+    defaultSize: RIGHT_LAYOUT_DEFAULT_SIZE,
     minSize: 300,
     maxSize: -300,
     primary: 'second'
   },
   [ExecutionLayoutState.BOTTOM]: {
     split: 'horizontal',
-    defaultSize: 300,
+    defaultSize: BOTTOM_LAYOUT_DEFAULT_SIZE,
     minSize: 200,
     maxSize: -100,
     primary: 'first'
@@ -45,7 +47,9 @@ function ExecutionLayout(props: React.PropsWithChildren<ExecutionLayoutProps>): 
   )
   const [isStepDetailsVisible, setStepDetailsVisibility] = React.useState(!!props.defaultStepVisibility)
   const [primaryPaneSize, setPrimaryPaneSize] = React.useState(250)
-  const [tertiaryPaneSize, setTertiaryPaneSize] = React.useState(250)
+  const [tertiaryPaneSize, setTertiaryPaneSize] = React.useState(
+    layoutState === ExecutionLayoutState.RIGHT ? RIGHT_LAYOUT_DEFAULT_SIZE : BOTTOM_LAYOUT_DEFAULT_SIZE
+  )
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const setStageSplitPaneSizeDebounce = React.useCallback(debounce(setPrimaryPaneSize, 300), [setPrimaryPaneSize])
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -60,9 +64,9 @@ function ExecutionLayout(props: React.PropsWithChildren<ExecutionLayoutProps>): 
   // handle layout change
   React.useEffect(() => {
     if (layoutState === ExecutionLayoutState.RIGHT) {
-      setTertiaryPaneSize(500)
+      setTertiaryPaneSize(RIGHT_LAYOUT_DEFAULT_SIZE)
     } else if (layoutState === ExecutionLayoutState.BOTTOM) {
-      setTertiaryPaneSize(300)
+      setTertiaryPaneSize(BOTTOM_LAYOUT_DEFAULT_SIZE)
     }
   }, [layoutState])
 
