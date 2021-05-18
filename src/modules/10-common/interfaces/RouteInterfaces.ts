@@ -1,9 +1,26 @@
+import type { EntityGitDetails } from 'services/pipeline-ng'
+
 export interface AccountPathProps {
   accountId: string
 }
 
 export interface OrgPathProps extends AccountPathProps {
   orgIdentifier: string
+}
+export interface GitQueryParams {
+  branch?: EntityGitDetails['branch']
+  repoIdentifier?: EntityGitDetails['repoIdentifier']
+}
+
+export interface PipelineStudioQueryParams extends GitQueryParams {
+  stageId?: string
+  stepId?: string
+}
+export interface RunPipelineQueryParams extends GitQueryParams {
+  executionId?: string
+  inputSetType?: string
+  inputSetLabel?: string
+  inputSetValue?: string
 }
 
 export interface ProjectPathProps extends OrgPathProps {

@@ -529,7 +529,9 @@ export function InputSetFormWrapper(props: InputSetFormWrapperProps): React.Reac
                     projectIdentifier,
                     accountId,
                     pipelineIdentifier,
-                    module
+                    module,
+                    branch: pipeline?.data?.gitDetails?.branch,
+                    repoIdentifier: pipeline?.data?.gitDetails?.repoIdentifier
                   }),
                   label: parse(pipeline?.data?.yamlPipeline || '')?.pipeline.name || ''
                 },

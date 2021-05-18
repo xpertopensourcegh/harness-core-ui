@@ -49,14 +49,16 @@ export default function RunPipelineListView({
   const history = useHistory()
   const { isGitSyncEnabled } = useAppStore()
 
-  const routeToPipelinesPage = (identifier: string): void => {
+  const routeToPipelinesPage = (pipeline: PipelineDTO): void => {
     history.push(
       routes.toRunPipeline({
         accountId,
         orgIdentifier,
         projectIdentifier,
-        pipelineIdentifier: identifier,
-        module
+        pipelineIdentifier: pipeline.identifier || '',
+        module,
+        branch: pipeline.gitDetails?.branch,
+        repoIdentifier: pipeline.gitDetails?.repoIdentifier
       })
     )
   }
@@ -138,7 +140,7 @@ export default function RunPipelineListView({
         icon="run-pipeline"
         intent="primary"
         text={<String stringID="runPipelineText" />}
-        onClick={() => routeToPipelinesPage(rowdata.identifier || '')}
+        onClick={() => routeToPipelinesPage(rowdata)}
         permission={{
           resource: {
             resourceType: ResourceType.PIPELINE,

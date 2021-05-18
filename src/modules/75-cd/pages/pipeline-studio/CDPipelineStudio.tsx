@@ -4,18 +4,26 @@ import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { stagesCollection } from '@pipeline/components/PipelineStudio/Stages/StagesCollection'
 import routes from '@common/RouteDefinitions'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
-import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
+import type {
+  AccountPathProps,
+  GitQueryParams,
+  PipelinePathProps,
+  PipelineType
+} from '@common/interfaces/RouteInterfaces'
 import { getCDPipelineStages } from '@cd/components/PipelineStudio/CDPipelineStagesUtils'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { PipelineProvider } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { PipelineStudio } from '@pipeline/components/PipelineStudio/PipelineStudio'
+import { useQueryParams } from '@common/hooks'
 import css from './CDPipelineStudio.module.scss'
 
 const CDPipelineStudio: React.FC = (): JSX.Element => {
   const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier, module } = useParams<
     PipelineType<PipelinePathProps & AccountPathProps>
   >()
+
+  const { branch, repoIdentifier } = useQueryParams<GitQueryParams>()
 
   const history = useHistory()
   const handleRunPipeline = (): void => {
@@ -25,7 +33,9 @@ const CDPipelineStudio: React.FC = (): JSX.Element => {
         orgIdentifier,
         projectIdentifier,
         pipelineIdentifier,
-        module
+        module,
+        branch,
+        repoIdentifier
       })
     )
   }

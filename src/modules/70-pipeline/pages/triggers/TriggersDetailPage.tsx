@@ -6,7 +6,13 @@ import { isEmpty } from 'lodash-es'
 import { parse } from 'yaml'
 import { Page, useToaster } from '@common/exports'
 import type { NgPipeline } from 'services/cd-ng'
-import { NGTriggerConfig, useGetTriggerDetails, useUpdateTriggerStatus, useGetYamlSchema } from 'services/pipeline-ng'
+import {
+  NGTriggerConfig,
+  useGetTriggerDetails,
+  useUpdateTriggerStatus,
+  useGetYamlSchema,
+  useGetPipelineSummary
+} from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
 import type { tagsType } from '@common/utils/types'
 import { TagsPopover, PageSpinner } from '@common/components'
@@ -154,6 +160,11 @@ export default function TriggersDetailPage(): JSX.Element {
   conditionsArr = conditionsArr.concat(payloadConditionsArr)
   const jexlCondition = triggerObj?.source?.spec?.spec?.jexlCondition
   const cronExpression = triggerObj?.source?.spec?.spec?.expression
+  const { data: pipeline } = useGetPipelineSummary({
+    pipelineIdentifier,
+    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
+  })
+
   return (
     <>
       <Container
@@ -161,7 +172,7 @@ export default function TriggersDetailPage(): JSX.Element {
         background={Color.BLUE_200}
       >
         <Layout.Vertical spacing="medium">
-          <TriggerBreadcrumbs triggerResponse={triggerResponse} />
+          <TriggerBreadcrumbs triggerResponse={triggerResponse} pipelineResponse={pipeline} />
           <div>
             <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
               <Icon

@@ -4,12 +4,12 @@ import { NavLink, useParams } from 'react-router-dom'
 import cx from 'classnames'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
-import { useGlobalEventListener } from '@common/hooks'
+import { useGlobalEventListener, useQueryParams } from '@common/hooks'
 import { useGetPipelineSummary } from 'services/pipeline-ng'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
-import type { PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
+import type { GitQueryParams, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { DefaultNewPipelineId } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import { String } from 'framework/strings'
 import GenericErrorHandler from '@common/pages/GenericErrorHandler/GenericErrorHandler'
@@ -31,6 +31,8 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
     lazy: true
   })
+
+  const { branch, repoIdentifier } = useQueryParams<GitQueryParams>()
 
   const [pipelineName, setPipelineName] = React.useState('')
 
@@ -97,7 +99,9 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
                   projectIdentifier,
                   pipelineIdentifier,
                   accountId,
-                  module
+                  module,
+                  branch,
+                  repoIdentifier
                 })}
               >
                 {getString('pipelineStudio')}
@@ -114,7 +118,9 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
                   projectIdentifier,
                   pipelineIdentifier,
                   accountId,
-                  module
+                  module,
+                  branch,
+                  repoIdentifier
                 })}
               >
                 {getString('inputSetsText')}
@@ -142,7 +148,9 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
                   projectIdentifier,
                   pipelineIdentifier,
                   accountId,
-                  module
+                  module,
+                  branch,
+                  repoIdentifier
                 })}
               >
                 {getString('executionHeaderText')}

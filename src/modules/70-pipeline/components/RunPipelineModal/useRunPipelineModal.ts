@@ -2,15 +2,15 @@ import { useHistory, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 
 import type { InputSetSelectorProps } from '@pipeline/components/InputSetSelector/InputSetSelector'
-import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { GitQueryParams, PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 export interface RunPipelineModalParams {
   pipelineIdentifier: string
   inputSetSelected?: InputSetSelectorProps['value']
 }
 
-export const useRunPipelineModal = (runPipelineModaParams: RunPipelineModalParams) => {
-  const { inputSetSelected, pipelineIdentifier } = runPipelineModaParams
+export const useRunPipelineModal = (runPipelineModaParams: RunPipelineModalParams & GitQueryParams) => {
+  const { inputSetSelected, pipelineIdentifier, branch, repoIdentifier } = runPipelineModaParams
   const { projectIdentifier, orgIdentifier, accountId, module } = useParams<PipelineType<ProjectPathProps>>()
 
   const history = useHistory()
@@ -23,20 +23,25 @@ export const useRunPipelineModal = (runPipelineModaParams: RunPipelineModalParam
           orgIdentifier,
           projectIdentifier,
           pipelineIdentifier,
-          module
+          module,
+          branch,
+          repoIdentifier
         })
       )
     } else {
       history.push(
-        `${routes.toRunPipeline({
+        routes.toRunPipeline({
           accountId,
           orgIdentifier,
           projectIdentifier,
           pipelineIdentifier,
-          module
-        })}?inputSetType=${inputSetSelected?.[0].type}&inputSetLabel=${inputSetSelected?.[0].label}&inputSetValue=${
-          inputSetSelected[0].value as string
-        }`
+          module,
+          repoIdentifier,
+          branch,
+          inputSetType: inputSetSelected?.[0].type,
+          inputSetLabel: inputSetSelected?.[0].label,
+          inputSetValue: inputSetSelected[0].value as string
+        })
       )
     }
   }

@@ -20,7 +20,7 @@ import {
 import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { useToaster } from '@common/exports'
-import type { Module } from '@common/interfaces/RouteInterfaces'
+import type { GitQueryParams, Module } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 
 import css from './PreFlightCheckModal.module.scss'
@@ -147,13 +147,15 @@ interface ConnectorsSectionProps {
   preFlightCheckData?: PreFlightDTO
 }
 
-const ConnectorsSection: React.FC<ConnectorsSectionProps> = ({
+const ConnectorsSection: React.FC<ConnectorsSectionProps & GitQueryParams> = ({
   accountId,
   orgIdentifier,
   projectIdentifier,
   pipelineIdentifier,
   module,
-  preFlightCheckData
+  preFlightCheckData,
+  branch,
+  repoIdentifier
 }) => {
   const { getString } = useStrings()
 
@@ -194,14 +196,17 @@ const ConnectorsSection: React.FC<ConnectorsSectionProps> = ({
     }
   }
 
-  const getStageLink = (stageIdentifier: string): string => {
+  const getStageLink = (stageId: string): string => {
     return `${routes.toPipelineStudio({
       accountId,
       orgIdentifier,
       projectIdentifier,
       pipelineIdentifier,
-      module
-    })}?stageId=${stageIdentifier}`
+      module,
+      branch,
+      repoIdentifier,
+      stageId
+    })}`
   }
 
   const getStepLink = (stageIdentifier: string, stepIdentifier: string): string => {
@@ -337,14 +342,16 @@ interface SectionPanelProps {
   preFlightCheckData?: PreFlightDTO
 }
 
-const SectionPanel: React.FC<SectionPanelProps> = ({
+const SectionPanel: React.FC<SectionPanelProps & GitQueryParams> = ({
   accountId,
   orgIdentifier,
   projectIdentifier,
   pipelineIdentifier,
   module,
   selectedSection,
-  preFlightCheckData
+  preFlightCheckData,
+  branch,
+  repoIdentifier
 }) => {
   return (
     <div className={css.sectionPanelWrapper}>
@@ -356,6 +363,8 @@ const SectionPanel: React.FC<SectionPanelProps> = ({
           pipelineIdentifier={pipelineIdentifier}
           module={module}
           preFlightCheckData={preFlightCheckData}
+          branch={branch}
+          repoIdentifier={repoIdentifier}
         />
       ) : (
         <InputSetsSection preFlightCheckData={preFlightCheckData} />
@@ -372,13 +381,15 @@ interface PreFlightCheckSectionsProps {
   module: Module
   preFlightCheckData?: PreFlightDTO
 }
-const PreFlightCheckSections: React.FC<PreFlightCheckSectionsProps> = ({
+const PreFlightCheckSections: React.FC<PreFlightCheckSectionsProps & GitQueryParams> = ({
   accountId,
   orgIdentifier,
   projectIdentifier,
   pipelineIdentifier,
   module,
-  preFlightCheckData
+  preFlightCheckData,
+  branch,
+  repoIdentifier
 }) => {
   const [selectedSection, setSelectedSection] = useState(Section.INPUT_SET)
 
@@ -416,6 +427,8 @@ const PreFlightCheckSections: React.FC<PreFlightCheckSectionsProps> = ({
         module={module}
         selectedSection={selectedSection}
         preFlightCheckData={preFlightCheckData}
+        branch={branch}
+        repoIdentifier={repoIdentifier}
       />
     </Layout.Horizontal>
   )
@@ -489,13 +502,15 @@ export interface PreFlightCheckModalProps {
   onContinuePipelineClick: () => void
 }
 
-export const PreFlightCheckModal: React.FC<PreFlightCheckModalProps> = ({
+export const PreFlightCheckModal: React.FC<PreFlightCheckModalProps & GitQueryParams> = ({
   pipeline,
   module,
   accountId,
   orgIdentifier,
   projectIdentifier,
   pipelineIdentifier,
+  branch,
+  repoIdentifier,
   onCloseButtonClick,
   onContinuePipelineClick
 }) => {
@@ -609,6 +624,8 @@ export const PreFlightCheckModal: React.FC<PreFlightCheckModalProps> = ({
         pipelineIdentifier={pipelineIdentifier}
         module={module}
         preFlightCheckData={preFlightCheckData?.data}
+        branch={branch}
+        repoIdentifier={repoIdentifier}
       />
       <PreFlightCheckFooter
         preFlightCheckData={preFlightCheckData?.data}

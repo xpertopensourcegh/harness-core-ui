@@ -22,6 +22,7 @@ import {
   GetPipelineListQueryParams,
   PagePMSPipelineSummaryResponse,
   PipelineFilterProperties,
+  PMSPipelineSummaryResponse,
   ResponsePagePMSPipelineSummaryResponse,
   useDeleteFilter,
   useGetFilterList,
@@ -111,14 +112,16 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
   const isCIEnabled = (selectedProject?.modules && selectedProject.modules?.indexOf('CI') > -1) || false
 
   const goToPipelineDetail = React.useCallback(
-    (/* istanbul ignore next */ pipelineIdentifier = '-1') => {
+    (/* istanbul ignore next */ pipeline?: PMSPipelineSummaryResponse) => {
       history.push(
         routes.toPipelineDeploymentList({
           projectIdentifier,
           orgIdentifier,
-          pipelineIdentifier,
+          pipelineIdentifier: pipeline?.identifier || '-1',
           accountId,
-          module
+          module,
+          branch: pipeline?.gitDetails?.branch,
+          repoIdentifier: pipeline?.gitDetails?.repoIdentifier
         })
       )
     },
@@ -126,14 +129,16 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
   )
 
   const goToPipeline = React.useCallback(
-    (pipelineIdentifier = '-1') => {
+    (pipeline?: PMSPipelineSummaryResponse) => {
       history.push(
         routes.toPipelineStudio({
           projectIdentifier,
           orgIdentifier,
-          pipelineIdentifier,
+          pipelineIdentifier: pipeline?.identifier || '-1',
           accountId,
-          module
+          module,
+          branch: pipeline?.gitDetails?.branch,
+          repoIdentifier: pipeline?.gitDetails?.repoIdentifier
         })
       )
     },

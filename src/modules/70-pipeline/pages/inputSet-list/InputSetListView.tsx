@@ -21,7 +21,7 @@ import css from './InputSetList.module.scss'
 
 interface InputSetListViewProps {
   data?: PageInputSetSummaryResponse
-  goToInputSetDetail?: (identifier?: string, type?: InputSetSummaryResponse['inputSetType']) => void
+  goToInputSetDetail?: (inputSet?: InputSetSummaryResponse) => void
   cloneInputSet?: (identifier?: string) => void
   refetchInputSet?: () => void
   gotoPage: (pageNumber: number) => void
@@ -36,7 +36,7 @@ interface InputSetLocal extends InputSetSummaryResponse {
 }
 
 type CustomColumn<T extends Record<string, any>> = Column<T> & {
-  goToInputSetDetail?: (identifier?: string) => void
+  goToInputSetDetail?: (inputSet?: InputSetSummaryResponse) => void
   cloneInputSet?: (identifier?: string) => void
   refetchInputSet?: () => void
 }
@@ -225,7 +225,7 @@ const RenderColumnMenu: Renderer<CellProps<InputSetLocal>> = ({ row, column }) =
             text={getString('edit')}
             onClick={(e: React.MouseEvent) => {
               e.stopPropagation()
-              ;(column as any).goToInputSetDetail?.(data.identifier, data.inputSetType)
+              ;(column as any).goToInputSetDetail?.(data)
               setMenuOpen(false)
             }}
             disabled={!(column as any).canUpdate}
@@ -336,7 +336,7 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
       className={css.table}
       columns={columns}
       data={data?.content || /* istanbul ignore next */ []}
-      onRowClick={item => goToInputSetDetail?.(item.identifier, item.inputSetType)}
+      onRowClick={item => goToInputSetDetail?.(item)}
       pagination={{
         itemCount: data?.totalItems || /* istanbul ignore next */ 0,
         pageSize: data?.pageSize || /* istanbul ignore next */ 10,

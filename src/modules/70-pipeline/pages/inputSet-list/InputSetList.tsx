@@ -3,7 +3,7 @@ import { Popover, Layout, TextInput, useModalHook } from '@wings-software/uicore
 import { Menu, MenuItem, Position } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
-import { useGetInputSetsListForPipeline } from 'services/pipeline-ng'
+import { InputSetSummaryResponse, useGetInputSetsListForPipeline } from 'services/pipeline-ng'
 import { OverlayInputSetForm } from '@pipeline/components/OverlayInputSetForm/OverlayInputSetForm'
 import routes from '@common/RouteDefinitions'
 import type { PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
@@ -54,14 +54,14 @@ const InputSetList: React.FC = (): JSX.Element => {
   useDocumentTitle([getString('pipelines'), getString('inputSetsText')])
 
   const goToInputSetForm = React.useCallback(
-    (inputSetIdentifier = '-1') => {
+    (inputSetTemp?: InputSetSummaryResponse) => {
       history.push(
         routes.toInputSetForm({
           accountId,
           orgIdentifier,
           projectIdentifier,
           pipelineIdentifier,
-          inputSetIdentifier: typeof inputSetIdentifier !== 'string' ? '-1' : inputSetIdentifier,
+          inputSetIdentifier: typeof inputSetTemp?.identifier !== 'string' ? '-1' : inputSetTemp.identifier,
           module
         })
       )
@@ -181,10 +181,10 @@ const InputSetList: React.FC = (): JSX.Element => {
         <InputSetListView
           data={inputSet?.data}
           gotoPage={setPage}
-          goToInputSetDetail={(identifier, type) => {
-            setSelectedInputSet({ identifier })
-            if (type === 'INPUT_SET') {
-              goToInputSetForm(identifier)
+          goToInputSetDetail={inputSetTemp => {
+            setSelectedInputSet({ identifier: inputSetTemp?.identifier })
+            if (inputSetTemp?.inputSetType === 'INPUT_SET') {
+              goToInputSetForm(inputSetTemp)
             } else {
               showOverlayInputSetForm()
             }

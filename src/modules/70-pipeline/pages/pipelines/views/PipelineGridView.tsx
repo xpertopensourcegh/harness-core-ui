@@ -7,8 +7,8 @@ import css from '../PipelinesPage.module.scss'
 interface PipelineGridViewProps {
   data?: PagePMSPipelineSummaryResponse
   gotoPage: (pageNumber: number) => void
-  goToPipelineDetail: (pipelineIdentifier?: string) => void
-  goToPipelineStudio: (pipelineIdentifier?: string) => void
+  goToPipelineDetail: (pipeline?: PMSPipelineSummaryResponse) => void
+  goToPipelineStudio: (pipeline?: PMSPipelineSummaryResponse) => void
   refetchPipeline: () => void
 }
 

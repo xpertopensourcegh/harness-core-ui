@@ -237,7 +237,9 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
                       projectIdentifier,
                       pipelineIdentifier,
                       accountId,
-                      module
+                      module,
+                      branch: pipelineExecutionSummary?.gitDetails?.branch,
+                      repoIdentifier: pipelineExecutionSummary?.gitDetails?.repoIdentifier
                     }),
                     label: pipelineExecutionSummary.name || getString('common.pipeline')
                   },
@@ -286,7 +288,9 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
                       projectIdentifier,
                       accountId,
                       executionIdentifier,
-                      module
+                      module,
+                      repoIdentifier: pipelineExecutionSummary?.gitDetails?.repoIdentifier,
+                      branch: pipelineExecutionSummary?.gitDetails?.branch
                     }}
                     canEdit={canEdit}
                     canExecute={canExecute}

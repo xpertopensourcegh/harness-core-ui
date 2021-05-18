@@ -328,7 +328,9 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
                 projectIdentifier,
                 accountId,
                 executionIdentifier,
-                module
+                module,
+                repoIdentifier: pipelineExecutionDetail?.pipelineExecutionSummary?.gitDetails?.repoIdentifier,
+                branch: pipelineExecutionDetail?.pipelineExecutionSummary?.gitDetails?.branch
               }}
               noMenu
               stageId={stageNode?.uuid}

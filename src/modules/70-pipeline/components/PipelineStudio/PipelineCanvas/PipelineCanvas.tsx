@@ -12,7 +12,14 @@ import { useToaster } from '@common/components/Toaster/useToaster'
 import { NavigationCheck } from '@common/components/NavigationCheck/NavigationCheck'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { accountPathProps, pipelinePathProps, pipelineModuleParams } from '@common/utils/routeUtils'
-import type { PipelinePathProps, ProjectPathProps, PathFn, PipelineType } from '@common/interfaces/RouteInterfaces'
+import type {
+  PipelinePathProps,
+  ProjectPathProps,
+  PathFn,
+  PipelineType,
+  GitQueryParams,
+  PipelineStudioQueryParams
+} from '@common/interfaces/RouteInterfaces'
 import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import RbacButton from '@rbac/components/Button/Button'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
@@ -32,7 +39,7 @@ interface OtherModalProps {
   onClose?: () => void
 }
 export interface PipelineCanvasProps {
-  toPipelineStudio: PathFn<PipelineType<PipelinePathProps>>
+  toPipelineStudio: PathFn<PipelineType<PipelinePathProps> & PipelineStudioQueryParams>
   toPipelineDetail: PathFn<PipelineType<PipelinePathProps>>
   toPipelineList: PathFn<PipelineType<ProjectPathProps>>
   toPipelineProject: PathFn<PipelineType<ProjectPathProps>>
@@ -61,13 +68,14 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
 
   const { getString } = useStrings()
 
-  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier, module } = useParams<
+  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier, module, repoIdentifier, branch } = useParams<
     PipelineType<{
       orgIdentifier: string
       projectIdentifier: string
       pipelineIdentifier: string
       accountId: string
-    }>
+    }> &
+      GitQueryParams
   >()
 
   const { showSuccess, showError, clear } = useToaster()
@@ -118,7 +126,9 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
             orgIdentifier,
             pipelineIdentifier: newPipelineId,
             accountId,
-            module
+            module,
+            repoIdentifier,
+            branch
           })
         )
         // note: without setTimeout does not redirect properly after save

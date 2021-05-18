@@ -72,6 +72,8 @@ export default function RunPipelinePage(): React.ReactElement {
       orgIdentifier={orgIdentifier}
       projectIdentifier={projectIdentifier}
       accountId={accountId}
+      branch={query.branch}
+      repoIdentifier={query.repoIdentifier}
       module={module}
       inputSetYAML={inputSetYaml || ''}
       inputSetSelected={getInputSetSelected()}

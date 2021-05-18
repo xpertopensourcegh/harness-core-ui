@@ -11,7 +11,7 @@ import { isExecutionComplete, isExecutionActive, isExecutionPaused } from '@pipe
 import { useStrings } from 'framework/strings'
 import type { StringKeys } from 'framework/strings'
 
-import type { PipelineType } from '@common/interfaces/RouteInterfaces'
+import type { GitQueryParams, PipelineType } from '@common/interfaces/RouteInterfaces'
 import css from './ExecutionActions.module.scss'
 
 const commonButtonProps: ButtonProps = {
@@ -31,7 +31,8 @@ export interface ExecutionActionsProps {
     pipelineIdentifier: string
     executionIdentifier: string
     accountId: string
-  }>
+  }> &
+    GitQueryParams
   refetch?(): Promise<void>
   noMenu?: boolean
   stageId?: string
@@ -41,7 +42,16 @@ export interface ExecutionActionsProps {
 
 export default function ExecutionActions(props: ExecutionActionsProps): React.ReactElement {
   const { executionStatus, params, noMenu, stageId, canEdit = true, canExecute = true } = props
-  const { orgIdentifier, executionIdentifier, accountId, projectIdentifier, pipelineIdentifier, module } = params
+  const {
+    orgIdentifier,
+    executionIdentifier,
+    accountId,
+    projectIdentifier,
+    pipelineIdentifier,
+    module,
+    branch,
+    repoIdentifier
+  } = params
   const { mutate: interrupt } = useHandleInterrupt({ planExecutionId: executionIdentifier })
   const { mutate: stageInterrupt } = useHandleStageInterrupt({
     planExecutionId: executionIdentifier,
@@ -58,7 +68,9 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
         orgIdentifier,
         projectIdentifier,
         pipelineIdentifier,
-        module
+        module,
+        branch,
+        repoIdentifier
       })}?executionId=${executionIdentifier}`
     )
   }
@@ -214,7 +226,15 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
           <Menu>
             <Link
               className={`bp3-menu-item${!canEdit ? ' bp3-disabled' : ''}`}
-              to={routes.toPipelineStudio({ orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module })}
+              to={routes.toPipelineStudio({
+                orgIdentifier,
+                projectIdentifier,
+                pipelineIdentifier,
+                accountId,
+                module,
+                branch,
+                repoIdentifier
+              })}
               onClick={e => !canEdit && e.preventDefault()}
             >
               {getString('editPipeline')}

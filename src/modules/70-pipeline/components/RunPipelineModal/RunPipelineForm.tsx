@@ -34,7 +34,7 @@ import { useToaster } from '@common/exports'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
 import routes from '@common/RouteDefinitions'
 import { PipelineInputSetForm } from '@pipeline/components/PipelineInputSetForm/PipelineInputSetForm'
-import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
+import type { GitQueryParams, PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PageBody } from '@common/components/Page/PageBody'
 import { PageHeader } from '@common/components/Page/PageHeader'
@@ -92,8 +92,10 @@ function RunPipelineFormBasic({
   inputSetSelected,
   inputSetYAML,
   module,
-  executionView
-}: RunPipelineFormProps): React.ReactElement {
+  executionView,
+  branch,
+  repoIdentifier
+}: RunPipelineFormProps & GitQueryParams): React.ReactElement {
   const [selectedView, setSelectedView] = React.useState<SelectedView>(SelectedView.VISUAL)
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const [skipPreFlightCheck, setSkipPreFlightCheck] = React.useState<boolean>(false)
@@ -269,6 +271,8 @@ function RunPipelineFormBasic({
           orgIdentifier={orgIdentifier}
           projectIdentifier={projectIdentifier}
           pipelineIdentifier={pipelineIdentifier}
+          branch={branch}
+          repoIdentifier={repoIdentifier}
           onCloseButtonClick={hidePreflightCheckModal}
           onContinuePipelineClick={() => {
             hidePreflightCheckModal()
@@ -665,7 +669,7 @@ export function RunPipelineFormWrapper(props: RunPipelineFormWrapperProps): Reac
   )
 }
 
-export const RunPipelineForm: React.FC<RunPipelineFormProps> = props => {
+export const RunPipelineForm: React.FC<RunPipelineFormProps & GitQueryParams> = props => {
   return (
     <NestedAccordionProvider>
       <RunPipelineFormBasic {...props} />

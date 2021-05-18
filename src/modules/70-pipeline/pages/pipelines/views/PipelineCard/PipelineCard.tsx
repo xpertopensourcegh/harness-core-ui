@@ -25,15 +25,15 @@ interface PipelineDTO extends PMSPipelineSummaryResponse {
 }
 export interface PipelineCardProps {
   pipeline: PipelineDTO
-  goToPipelineDetail: (pipelineIdentifier?: string) => void
-  goToPipelineStudio: (pipelineIdentifier?: string) => void
+  goToPipelineDetail: (pipeline?: PMSPipelineSummaryResponse) => void
+  goToPipelineStudio: (pipeline?: PMSPipelineSummaryResponse) => void
   refetchPipeline: () => void
 }
 
 interface ContextMenuProps {
   pipeline: PMSPipelineSummaryResponse
-  goToPipelineStudio: (pipelineIdentifier?: string) => void
-  goToPipelineDetail: (pipelineIdentifier?: string) => void
+  goToPipelineStudio: (pipeline?: PMSPipelineSummaryResponse) => void
+  goToPipelineDetail: (pipeline?: PMSPipelineSummaryResponse) => void
   refetchPipeline: () => void
   projectIdentifier: string
   orgIdentifier: string
@@ -116,7 +116,7 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
         icon="cog"
         text={getString('launchStudio')}
         onClick={() => {
-          goToPipelineStudio(pipeline.identifier)
+          goToPipelineStudio(pipeline)
         }}
       />
       <Menu.Item
@@ -124,7 +124,7 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
         text={getString('viewExecutions')}
         onClick={(e: React.MouseEvent) => {
           e.stopPropagation()
-          goToPipelineDetail(pipeline.identifier)
+          goToPipelineDetail(pipeline)
         }}
       />
       <Menu.Divider />
@@ -189,7 +189,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
   })
 
   return (
-    <Card className={css.pipelineCard} interactive onClick={() => goToPipelineStudio(pipeline.identifier)}>
+    <Card className={css.pipelineCard} interactive onClick={() => goToPipelineStudio(pipeline)}>
       <Container padding={{ bottom: 'medium' }} className={css.pipelineTitle}>
         <span>
           {getIconsForPipeline(pipeline).map(iconObj => (
@@ -339,7 +339,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
               iconProps={{ size: 18 }}
               onClick={event => {
                 event.stopPropagation()
-                goToPipelineDetail(pipeline.identifier)
+                goToPipelineDetail(pipeline)
               }}
             >
               {deployments}

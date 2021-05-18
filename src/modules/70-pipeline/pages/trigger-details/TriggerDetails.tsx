@@ -3,7 +3,12 @@ import { Container, Layout } from '@wings-software/uicore'
 import { NavLink, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
-import { useGetPipelineSummary, useGetTrigger, ResponseNGTriggerResponse } from 'services/pipeline-ng'
+import {
+  useGetPipelineSummary,
+  useGetTrigger,
+  ResponseNGTriggerResponse,
+  ResponsePMSPipelineSummaryResponse
+} from 'services/pipeline-ng'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { useStrings } from 'framework/strings'
@@ -12,9 +17,11 @@ import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import css from './TriggerDetails.module.scss'
 
 export const TriggerBreadcrumbs = ({
-  triggerResponse
+  triggerResponse,
+  pipelineResponse
 }: {
   triggerResponse: ResponseNGTriggerResponse | null
+  pipelineResponse: ResponsePMSPipelineSummaryResponse | null
 }): JSX.Element => {
   const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module } = useParams<
     PipelineType<{
@@ -26,10 +33,6 @@ export const TriggerBreadcrumbs = ({
     }>
   >()
 
-  const { data: pipeline } = useGetPipelineSummary({
-    pipelineIdentifier,
-    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
-  })
   const { selectedProject } = useAppStore()
   const project = selectedProject
   const { getString } = useStrings()
@@ -64,14 +67,14 @@ export const TriggerBreadcrumbs = ({
             pipelineIdentifier,
             module
           }),
-          label: pipeline?.data?.name || ''
+          label: pipelineResponse?.data?.name || ''
         },
         { url: '#', label: onEditTriggerName || '' }
       ]}
     />
   )
 }
-const GetTriggerRightNav = (): JSX.Element => {
+const GetTriggerRightNav = (pipelineResponse: ResponsePMSPipelineSummaryResponse | null): JSX.Element => {
   const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module } = useParams<
     PipelineType<{
       projectIdentifier: string
@@ -94,7 +97,9 @@ const GetTriggerRightNav = (): JSX.Element => {
             projectIdentifier,
             pipelineIdentifier,
             accountId,
-            module
+            module,
+            branch: pipelineResponse?.data?.gitDetails?.branch,
+            repoIdentifier: pipelineResponse?.data?.gitDetails?.repoIdentifier
           })}
         >
           {getString('pipelineStudio')}
@@ -103,7 +108,15 @@ const GetTriggerRightNav = (): JSX.Element => {
         <NavLink
           className={css.tags}
           activeClassName={css.activeTag}
-          to={routes.toInputSetList({ orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module })}
+          to={routes.toInputSetList({
+            orgIdentifier,
+            projectIdentifier,
+            pipelineIdentifier,
+            accountId,
+            module,
+            branch: pipelineResponse?.data?.gitDetails?.branch,
+            repoIdentifier: pipelineResponse?.data?.gitDetails?.repoIdentifier
+          })}
         >
           {getString('inputSetsText')}
         </NavLink>
@@ -122,7 +135,9 @@ const GetTriggerRightNav = (): JSX.Element => {
             projectIdentifier,
             pipelineIdentifier,
             accountId,
-            module
+            module,
+            branch: pipelineResponse?.data?.gitDetails?.branch,
+            repoIdentifier: pipelineResponse?.data?.gitDetails?.repoIdentifier
           })}
         >
           {getString('executionHeaderText')}
@@ -152,13 +167,19 @@ export default function TriggerDetails({ children }: React.PropsWithChildren<unk
       targetIdentifier: pipelineIdentifier
     }
   })
+
+  const { data: pipeline } = useGetPipelineSummary({
+    pipelineIdentifier,
+    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
+  })
+
   return (
     <>
       <Page.Header
-        toolbar={GetTriggerRightNav()}
+        toolbar={GetTriggerRightNav(pipeline)}
         title={
           <Layout.Vertical spacing="xsmall">
-            <TriggerBreadcrumbs triggerResponse={triggerResponse} />
+            <TriggerBreadcrumbs triggerResponse={triggerResponse} pipelineResponse={pipeline} />
           </Layout.Vertical>
         }
       />

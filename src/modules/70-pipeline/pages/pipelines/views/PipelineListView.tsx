@@ -21,8 +21,8 @@ import css from '../PipelinesPage.module.scss'
 interface PipelineListViewProps {
   data?: PagePMSPipelineSummaryResponse
   gotoPage: (pageNumber: number) => void
-  goToPipelineDetail: (pipelineIdentifier?: string) => void
-  goToPipelineStudio: (pipelineIdentifier?: string) => void
+  goToPipelineDetail: (pipeline?: PMSPipelineSummaryResponse) => void
+  goToPipelineStudio: (pipeline?: PMSPipelineSummaryResponse) => void
   refetchPipeline: () => void
 }
 
@@ -34,8 +34,8 @@ interface PipelineDTO extends PMSPipelineSummaryResponse {
 }
 
 type CustomColumn<T extends Record<string, any>> = Column<T> & {
-  goToPipelineStudio?: (pipelineIdentifier?: string) => void
-  goToPipelineDetail?: (pipelineIdentifier?: string) => void
+  goToPipelineStudio?: (pipeline?: PMSPipelineSummaryResponse) => void
+  goToPipelineDetail?: (pipeline?: PMSPipelineSummaryResponse) => void
   refetchPipeline?: () => void
 }
 
@@ -133,7 +133,7 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
             text={getString('viewExecutions')}
             onClick={(e: React.MouseEvent) => {
               e.stopPropagation()
-              ;(column as any).goToPipelineDetail(data.identifier)
+              ;(column as any).goToPipelineDetail(data)
               setMenuOpen(false)
             }}
           />
@@ -142,7 +142,7 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
             text={getString('launchStudio')}
             onClick={(e: React.MouseEvent) => {
               e.stopPropagation()
-              ;(column as any).goToPipelineStudio(data.identifier)
+              ;(column as any).goToPipelineStudio(data)
               setMenuOpen(false)
             }}
           />
@@ -225,7 +225,7 @@ const RenderActivity: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => {
           className={`${deployments ? css.clickable : ''}`}
           onClick={event => {
             event.stopPropagation()
-            ;(column as any).goToPipelineDetail(data.identifier)
+            ;(column as any).goToPipelineDetail(data)
           }}
           font="small"
           lineClamp={2}
@@ -415,7 +415,7 @@ export const PipelineListView: React.FC<PipelineListViewProps> = ({
       className={css.table}
       columns={columns}
       data={data?.content || []}
-      onRowClick={item => goToPipelineStudio(item.identifier)}
+      onRowClick={item => goToPipelineStudio(item)}
       pagination={{
         itemCount: data?.totalElements || 0,
         pageSize: data?.size || 10,
