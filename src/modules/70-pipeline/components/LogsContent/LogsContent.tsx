@@ -186,6 +186,7 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
 
   // need to save token in a ref due to scoping issues
   const logsTokenRef = React.useRef('')
+  const timerRef = React.useRef<null | number>(null)
 
   function getBlobData(id: string, key: string): void {
     requestQueue.current.add(async (signal: AbortSignal) => {
@@ -196,7 +197,7 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
 
       // if token is not found, schedule the call for later
       if (!logsTokenRef.current) {
-        setTimeout(() => getBlobData(id, key), 300)
+        timerRef.current = window.setTimeout(() => getBlobData(id, key), 300)
         return
       }
 
@@ -233,6 +234,26 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
     })
   }
 
+  function getStream(unit: string, logKey: string): void {
+    // if token is not found, schedule the call for later
+    if (!logsTokenRef.current) {
+      timerRef.current = window.setTimeout(() => getStream(unit, logKey), 300)
+      return
+    }
+    dispatch({ type: ActionType.FetchingSectionData, payload: unit })
+    startStream({
+      queryParams: {
+        accountId,
+        key: encodeURIComponent(logKey)
+      },
+      headers: {
+        'X-Harness-Token': logsTokenRef.current,
+        Authorization: SessionToken.getToken()
+      },
+      unitId: unit
+    })
+  }
+
   React.useEffect(() => {
     // use the existing token if present
     if (logsToken) {
@@ -256,18 +277,7 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
         if (section.dataSource === 'blob') {
           getBlobData(unit, section.logKey)
         } else if (section.dataSource === 'stream') {
-          dispatch({ type: ActionType.FetchingSectionData, payload: unit })
-          startStream({
-            queryParams: {
-              accountId,
-              key: encodeURIComponent(section.logKey)
-            },
-            headers: {
-              'X-Harness-Token': logsTokenRef.current,
-              Authorization: SessionToken.getToken()
-            },
-            unitId: unit
-          })
+          getStream(unit, section.logKey)
         }
       }
     })
@@ -286,6 +296,9 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
     const queue = requestQueue.current
 
     return () => {
+      if (timerRef.current) {
+        window.clearTimeout(timerRef.current)
+      }
       queue.cancel()
       closeStream()
       logsCache.clear()
