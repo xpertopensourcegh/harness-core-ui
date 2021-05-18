@@ -60,7 +60,7 @@ const SignupPage: React.FC = () => {
       const accountId = userInfoResponse.resource.defaultAccountId
       await setToken(userInfoResponse)
       if (module) {
-        history.push(routes.toModuleTrialHome({ module, accountId }))
+        history.push({ pathname: routes.toModuleHome({ module, accountId }), search: '?source=signup' })
       } else {
         history.push(
           routes.toPurpose({

@@ -2,6 +2,10 @@ continuous: '{{$.common.purpose.ce.continuous}}'
 homepage:
   slogan: 'Take your Cloud Cost management to the next level using our Harness Continuous Efficiency.'
 co:
+  cloudProviders:
+    aws: aws
+  setupCloudProvider: 'Setup Cloud Provider'
+  getStarted: Let's get you started
   autoStopping: 'AutoStopping'
   newAutoStoppingRule: 'New AutoStopping Rule'
   landingPageText:

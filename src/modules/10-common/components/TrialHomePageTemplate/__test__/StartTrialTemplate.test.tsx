@@ -129,6 +129,55 @@ describe('StartTrialTemplate snapshot test', () => {
     expect(container).toMatchSnapshot()
   })
 
+  test('should call the start button click handler if it exists', async () => {
+    const showModalMock = jest.fn()
+    useStartTrialModalMock.mockImplementation(() => ({ showModal: showModalMock, hideModal: jest.fn() }))
+
+    useStartTrialMock.mockImplementation(() => {
+      return {
+        cancel: jest.fn(),
+        loading: false,
+        mutate: jest.fn().mockImplementation(() => {
+          return {
+            status: 'SUCCESS',
+            data: {
+              licenseType: 'TRIAL'
+            }
+          }
+        })
+      }
+    })
+
+    const startBtnClickHandlerMock = jest.fn()
+
+    const customProps = {
+      title: 'Continuous Integration',
+      bgImageUrl: '',
+      startTrialProps: {
+        description: 'start trial description',
+        learnMore: {
+          description: 'learn more description',
+          url: ''
+        },
+        startBtn: {
+          description: 'Start A Trial',
+          onClick: startBtnClickHandlerMock
+        }
+      },
+      module: 'ci' as Module,
+      shouldShowStartTrialModal: true
+    }
+
+    const { container, getByText } = render(
+      <TestWrapper pathParams={{ orgIdentifier: 'dummy' }}>
+        <StartTrialTemplate {...customProps} />
+      </TestWrapper>
+    )
+    fireEvent.click(getByText('Start A Trial'))
+    await waitFor(() => expect(startBtnClickHandlerMock).toHaveBeenCalled())
+    expect(container).toMatchSnapshot()
+  })
+
   test('should display error msg when api call fails', async () => {
     useStartTrialModalMock.mockImplementation(() => ({ showModal: jest.fn(), hideModal: jest.fn() }))
     useStartTrialMock.mockImplementation(() => {

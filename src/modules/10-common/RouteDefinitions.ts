@@ -26,7 +26,8 @@ import type {
   UserPathProps,
   PipelineStudioQueryParams,
   RunPipelineQueryParams,
-  GitQueryParams
+  GitQueryParams,
+  ModuleHomeParams
 } from '@common/interfaces/RouteInterfaces'
 
 const CV_HOME = `/cv/home`
@@ -311,7 +312,12 @@ const routes = {
       ? routes.toCDProject(params as ProjectPathProps)
       : routes.toCDDashboard(params as AccountPathProps),
   toCDDashboard: withAccountId(() => `/cd`),
-  toModuleHome: withAccountId(({ module }: ModulePathParams) => `/${module}/home`),
+  toModuleHome: withAccountId(({ module, source }: ModuleHomeParams) => {
+    if (source) {
+      return `/${module}/home?source=${source}`
+    }
+    return `/${module}/home`
+  }),
   toModuleTrialHome: withAccountId(({ module }: ModulePathParams) => `/${module}/home/trial`),
   toCDHome: withAccountId(() => `/cd/home`),
   toCDProject: withAccountId(

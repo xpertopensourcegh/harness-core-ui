@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { Button, Heading, Color, Container, Layout, IconName, Icon, Text } from '@wings-software/uicore'
 import { String, useStrings } from 'framework/strings'
+import { useQueryParams } from '@common/hooks'
 import type { StringsMap } from 'stringTypes'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import ModuleInfoCards, { ModuleInfoCard, INFO_CARD_PROPS } from '@common/components/ModuleInfoCards/ModuleInfoCards'
 
 export interface StartTrialModalContentProps {
-  handleStartTrial: () => Promise<void>
+  handleStartTrial?: () => void
   module: Module
 }
 
@@ -14,22 +15,29 @@ const StartTrialModalContent: React.FC<StartTrialModalContentProps> = props => {
   const { handleStartTrial, module } = props
 
   const { getString } = useStrings()
+  const { source } = useQueryParams<{ source?: string }>()
   const initialSelectedInfoCard = INFO_CARD_PROPS[module] ? INFO_CARD_PROPS[module][0] : undefined
   const [selectedInfoCard, setSelectedInfoCard] = useState<ModuleInfoCard | undefined>(initialSelectedInfoCard)
 
   function getModuleButton(): React.ReactElement {
     function handleOnClick(): void {
       if (!selectedInfoCard || selectedInfoCard?.isNgRoute) {
-        handleStartTrial()
+        handleStartTrial?.()
       } else if (selectedInfoCard?.route) {
         window.location.href = selectedInfoCard.route
         return
       }
     }
 
-    const buttonText = selectedInfoCard?.route
-      ? getString('common.ce.visibilityLaunchButton')
-      : getString('common.ce.startTrial')
+    const getButtonText = (): string | undefined => {
+      if (source) {
+        return getString('continue')
+      }
+      if (selectedInfoCard?.route) {
+        return getString('common.launchFirstGen' as keyof StringsMap, { module: module.toUpperCase() })
+      }
+      return getString('common.startTrial' as keyof StringsMap, { module: module.toUpperCase() })
+    }
 
     return (
       <Button
@@ -41,7 +49,7 @@ const StartTrialModalContent: React.FC<StartTrialModalContentProps> = props => {
           padding: 19
         }}
         intent="primary"
-        text={buttonText}
+        text={getButtonText()}
         onClick={handleOnClick}
       />
     )
@@ -89,7 +97,7 @@ const StartTrialModalContent: React.FC<StartTrialModalContentProps> = props => {
           }}
         >
           <Icon name={`deployment-incomplete-new`} size={25} style={{ marginRight: 10 }} />
-          <Text>{warningText}</Text>
+          <Text color={Color.BLACK}>{warningText}</Text>
         </Container>
       )
     }
@@ -108,7 +116,7 @@ const StartTrialModalContent: React.FC<StartTrialModalContentProps> = props => {
 
   const contentHeader = getContentHeader()
 
-  const warningBanner = getWarningBanner()
+  const warningBanner = module === 'ce' ? getWarningBanner() : null
 
   return (
     <Layout.Vertical key={module} spacing="large" padding={{ bottom: 'xxxlarge' }}>

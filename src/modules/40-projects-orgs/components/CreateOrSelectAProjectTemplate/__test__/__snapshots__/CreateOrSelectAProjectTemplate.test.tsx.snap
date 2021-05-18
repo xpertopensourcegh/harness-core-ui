@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Rendering should render 1`] = `
+exports[`Rendering that it should render 1`] = `
 <div>
   <div
     class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
@@ -18,11 +18,10 @@ exports[`Rendering should render 1`] = `
       projectsOrgs.getStarted
     </p>
     <div
-      class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-large"
+      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-large"
     >
       <button
         class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-        style="width: 60%;"
         type="button"
       >
         <span
@@ -33,7 +32,6 @@ exports[`Rendering should render 1`] = `
       </button>
       <button
         class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
-        style="width: 60%;"
         type="button"
       >
         <span

@@ -20,7 +20,6 @@ const commonLinkProps: Partial<NavLinkProps> = {
 export default function L1Nav(): React.ReactElement {
   const params = useParams<ProjectPathProps>()
   const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED, NG_DASHBOARDS } = useFeatureFlags()
-
   const { currentUserInfo: user } = useAppStore()
 
   return (

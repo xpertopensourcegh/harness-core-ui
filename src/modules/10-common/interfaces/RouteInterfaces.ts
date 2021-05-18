@@ -108,6 +108,11 @@ export interface ModulePathParams {
   module: Module
 }
 
+export type ModuleHomeParams = {
+  module: Module
+  source?: string
+}
+
 export type PipelineType<T> = T & ModulePathParams
 
 export type PathFn<T> = (props: AccountPathProps & T) => string

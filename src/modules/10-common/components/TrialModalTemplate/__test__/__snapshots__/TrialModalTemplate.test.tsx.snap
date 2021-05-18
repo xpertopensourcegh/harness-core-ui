@@ -3,7 +3,7 @@
 exports[`Rendering should render 1`] = `
 <div>
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-left-xxxlarge StyledProps--padding-bottom-large"
+    class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-left-xxxlarge StyledProps--padding-right-large"
   >
     <div
       class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-large"
@@ -62,7 +62,7 @@ exports[`Rendering should render 1`] = `
     >
       <div
         class="StyledProps--font StyledProps--main StyledProps--padding-right-xxxlarge"
-        style="width: 57%;"
+        style="background: transparent url() no-repeat; background-size: cover; background-position-x: 15%; background-position-y: center; width: 57%;"
       >
         <p
           class="StyledProps--font StyledProps--main"
@@ -70,16 +70,13 @@ exports[`Rendering should render 1`] = `
         >
           Continuous Delivery description
         </p>
-        <img
-          height="400"
-          src=""
-          style="margin-left: -40px; margin-top: -30px;"
-          width="800"
-        />
       </div>
       <div
-        class="StyledProps--font StyledProps--main StyledProps--padding-left-xxxlarge StyledProps--border StyledProps--border-left"
-        style="width: 30%; height: 400px;"
+        style="border-left-width: 1px; border-left-style: solid; height: 425px;"
+      />
+      <div
+        class="StyledProps--font StyledProps--main StyledProps--padding-left-xxxlarge"
+        style="width: 30%; height: 500px;"
       />
     </div>
   </div>

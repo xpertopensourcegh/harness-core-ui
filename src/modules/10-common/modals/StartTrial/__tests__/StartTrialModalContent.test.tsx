@@ -68,11 +68,33 @@ describe('StartTrialModalContent', () => {
         </TestWrapper>
       )
       expect(getByText('common.purpose.ce.description')).toBeDefined()
-      expect(getByText('common.ce.startTrial')).toBeDefined()
+      expect(getByText('common.startTrial')).toBeDefined()
 
-      fireEvent.click(getByText('common.ce.startTrial'))
+      fireEvent.click(getByText('common.startTrial'))
 
       await waitFor(() => expect(startTrialMock).toHaveBeenCalled())
+    })
+
+    test('test that adding a source query param updates the button text', async () => {
+      const startTrialMock = jest.fn()
+
+      const props = {
+        handleStartTrial: startTrialMock,
+        module: 'ce' as Module
+      }
+
+      const { container } = render(
+        <TestWrapper
+          path="/account/:accountId"
+          queryParams={{ source: 'signup' }}
+          pathParams={{ accountId: 'testAcc' }}
+          defaultAppStoreValues={defaultAppStoreValues}
+        >
+          <StartTrialModalContent {...props} />
+        </TestWrapper>
+      )
+
+      expect(container).toMatchSnapshot()
     })
   })
 })

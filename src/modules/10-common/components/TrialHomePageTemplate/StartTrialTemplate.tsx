@@ -26,6 +26,7 @@ interface StartTrialProps {
   }
   startBtn: {
     description: string
+    onClick?: () => void
   }
   shouldShowStartTrialModal?: boolean
   startTrial: MutateMethod<RestResponseModuleLicenseInfo, void, StartTrialRequestBody, void>
@@ -86,7 +87,7 @@ const StartTrialComponent: React.FC<StartTrialProps> = startTrialProps => {
           }}
           intent="primary"
           text={startBtn.description}
-          onClick={handleStartButtonClick}
+          onClick={startBtn.onClick ? startBtn.onClick : handleStartButtonClick}
         />
         {loading && <Icon name="steps-spinner" size={20} color={Color.BLUE_600} style={{ marginBottom: 7 }} />}
       </Layout.Horizontal>

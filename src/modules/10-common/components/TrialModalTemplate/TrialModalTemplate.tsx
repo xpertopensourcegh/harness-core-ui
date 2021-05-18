@@ -22,7 +22,7 @@ export const TrialModalTemplate: React.FC<TrialModalTemplateProps> = ({
   const { getString } = useStrings()
 
   return (
-    <Layout.Vertical padding={{ top: 'large', left: 'xxxlarge', bottom: 'large' }}>
+    <Layout.Vertical padding={{ top: 'large', left: 'xxxlarge', right: 'large' }}>
       <Layout.Horizontal padding={{ top: 'large' }} spacing="small">
         <Icon name={iconName as IconName} size={20} />
         <Text style={{ color: Color.BLACK, fontSize: 'medium' }}>{title}</Text>
@@ -41,13 +41,30 @@ export const TrialModalTemplate: React.FC<TrialModalTemplateProps> = ({
         </Text>
       </Layout.Horizontal>
       <Layout.Horizontal padding={{ top: 'large' }}>
-        <Container width="57%" padding={{ right: 'xxxlarge' }}>
+        <Container
+          width="57%"
+          padding={{ right: 'xxxlarge' }}
+          style={{
+            background: `transparent url(${imgSrc}) no-repeat`,
+            backgroundSize: 'cover',
+            backgroundPositionX: '15%',
+            backgroundPositionY: 'center'
+          }}
+        >
           <Text style={{ fontSize: 'normal', width: 380, display: 'inline-block', marginLeft: 30, lineHeight: 2 }}>
             {description}
           </Text>
-          <img src={imgSrc} style={{ marginLeft: -40, marginTop: -30 }} width={800} height={400} />
         </Container>
-        <Container width={rightWidth} padding={{ left: 'xxxlarge' }} border={{ left: true }} height={400}>
+        <div
+          style={{
+            paddingLeft: 'xxxlarge',
+            borderLeftWidth: '1px',
+            borderColor: 'var(--grey-200)',
+            borderLeftStyle: 'solid',
+            height: 425
+          }}
+        />
+        <Container width={rightWidth} padding={{ left: 'xxxlarge' }} height={500}>
           {children}
         </Container>
       </Layout.Horizontal>

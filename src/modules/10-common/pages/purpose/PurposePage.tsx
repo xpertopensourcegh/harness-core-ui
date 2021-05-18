@@ -105,7 +105,7 @@ const PurposeList: React.FC = () => {
             textAlign: 'center',
             color: Color.WHITE
           }}
-          to={routes.toModuleHome({ accountId, module })}
+          to={routes.toModuleHome({ accountId, module, source: 'purpose' })}
           onClick={() => {
             trackEvent(PurposeActions.ModuleContinue, { category: Category.SIGNUP, module: module })
           }}

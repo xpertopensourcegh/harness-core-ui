@@ -70,6 +70,8 @@ ce:
   startTrial: Start 14 day CE Enterprise trial
   visibilityWarning: Cost Visibility is currently only available in CE First Generation
   visibilityLaunchButton: Launch CE First Generation
+launchFirstGen: 'Launch {{module}} First Generation'
+startTrial: 'Start 14 day {{module}} Enterprise trial'
 purpose:
   welcome: 'Welcome, let’s get you started!'
   infoCardIntent: 'How would you like to get started?'
@@ -108,6 +110,7 @@ purpose:
     efficiency: Efficiency
     subtitle: Spot and quickly debug inefficiencies and optimize them to reduce costs.
     continuous: Continuous Efficiency
+    descriptionOnly: 'Gain Cloud cost visibilty and optimize costs across projects, environments, clusters, deployments, etc'
     description: 'Gain Cloud cost visibilty and optimize costs across projects, environments, clusters, deployments, etc
       <br><br>You can access this module via your free trial. Benefits include: Your software delivery pipeline can now include build stages, Test intelligence - faster and more reliable build processes'
   cf:

@@ -88,4 +88,18 @@ describe('COProviderSelector', () => {
       expect(connectorLabel.textContent).toBe('ce.co.gatewayBasics.connect AWS ce.co.gatewayBasics.account ')
     expect(container).toMatchSnapshot()
   })
+
+  test('passing a provider property shows the gateway basics', () => {
+    const { container } = render(
+      <TestWrapper
+        path="/account/:accountId"
+        pathParams={{ accountId: 'testAcc', projectIdentifier: 'projectIdentifier', orgIdentifier: 'orgIdentifier' }}
+        defaultAppStoreValues={defaultAppStoreValues}
+      >
+        <COProviderSelector {...props} provider="CEAws" />
+      </TestWrapper>
+    )
+
+    expect(container).toMatchSnapshot()
+  })
 })

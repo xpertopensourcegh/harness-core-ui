@@ -8,7 +8,7 @@ import StartTrialModalContent from './StartTrialModalContent'
 import css from './StartTrialModal.module.scss'
 
 export interface UseProjectModalProps {
-  handleStartTrial: () => Promise<void>
+  handleStartTrial?: () => Promise<void>
   module: Module
 }
 export interface UseStartTrialModalReturn {
@@ -28,7 +28,13 @@ const useStartTrialModal = (props: UseProjectModalProps): UseStartTrialModalRetu
         }}
         className={cx(css.dialog, Classes.DIALOG)}
       >
-        <StartTrialModalContent module={module} handleStartTrial={handleStartTrial} />
+        <StartTrialModalContent
+          module={module}
+          handleStartTrial={() => {
+            hideModal()
+            handleStartTrial?.()
+          }}
+        />
       </Dialog>
     )
   }, [])

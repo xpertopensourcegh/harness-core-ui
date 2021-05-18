@@ -17,6 +17,7 @@ interface COProviderSelectorProps {
   nextTab: () => void
   setGatewayDetails: (gatewayDetails: GatewayDetails) => void
   gatewayDetails: GatewayDetails
+  provider?: string
 }
 
 const data: Provider[] = [
@@ -37,21 +38,23 @@ const data: Provider[] = [
   // }
 ]
 
-function getProvider(name: string): Provider {
-  return data.filter(p => p.name == name)[0]
+function getProvider(name: string): Provider | undefined {
+  return data.find(p => p.name === name)
 }
 
 const COProviderSelector: React.FC<COProviderSelectorProps> = props => {
-  const [selectedCard, setSelectedCard] = useState<Provider>(getProvider(props.gatewayDetails.provider.name))
+  const [selectedCard, setSelectedCard] = useState<Provider | undefined>(
+    getProvider(props.gatewayDetails.provider.name)
+  )
   const [cloudAccountID, setCloudAccountID] = useState<string>(props.gatewayDetails.cloudAccount.id)
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const { trackEvent } = useTelemetry()
   useEffect(() => {
     if (selectedCard) trackEvent('SelectedCloudCard', { cloudProvider: selectedCard.name })
-  }, [selectedCard])
+  }, [selectedCard, trackEvent])
 
-  const clearCloudAccountDetails = (_gatewayDetails: GatewayDetails) => {
+  const clearCloudAccountDetails = (_gatewayDetails: GatewayDetails): void => {
     if (_gatewayDetails.cloudAccount.id) {
       _gatewayDetails.cloudAccount.id = ''
       setCloudAccountID('')
@@ -63,7 +66,6 @@ const COProviderSelector: React.FC<COProviderSelectorProps> = props => {
       delete _gatewayDetails.metadata.cloud_provider_details
     }
   }
-
   return (
     <>
       <Breadcrumbs
@@ -117,11 +119,12 @@ const COProviderSelector: React.FC<COProviderSelectorProps> = props => {
               </Text>
             </Layout.Horizontal>
           </Layout.Vertical>
-          {selectedCard ? (
+          {selectedCard || props.provider ? (
             <COGatewayBasics
               gatewayDetails={props.gatewayDetails}
               setGatewayDetails={props.setGatewayDetails}
               setCloudAccount={setCloudAccountID}
+              provider={props.provider}
             ></COGatewayBasics>
           ) : null}
         </Layout.Vertical>

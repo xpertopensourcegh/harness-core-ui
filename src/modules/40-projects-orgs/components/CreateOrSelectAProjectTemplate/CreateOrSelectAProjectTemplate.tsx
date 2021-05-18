@@ -2,18 +2,31 @@ import React from 'react'
 import { Text, Layout, Color, Button } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 
+import css from '@common/navigation/ProjectSelector/ProjectSelector.module.scss'
+
 interface CreateOrSelectAProjectTemplateProps {
-  onSelectProject: () => void
   onCreateProject: () => void
+  closeModal?: () => void
   moduleDescription: string
 }
 
 export const CreateOrSelectAProjectTemplate: React.FC<CreateOrSelectAProjectTemplateProps> = ({
-  onSelectProject,
   onCreateProject,
-  moduleDescription
+  moduleDescription,
+  closeModal
 }) => {
   const { getString } = useStrings()
+  function toggleSelectProject(): void {
+    const selectProjectButton: HTMLElement = document.getElementsByClassName(css.selectButton)[0] as HTMLElement
+
+    selectProjectButton?.click()
+    closeModal?.()
+  }
+
+  function handleCreateProject(): void {
+    closeModal?.()
+    onCreateProject()
+  }
 
   return (
     <Layout.Vertical spacing="small">
@@ -23,20 +36,14 @@ export const CreateOrSelectAProjectTemplate: React.FC<CreateOrSelectAProjectTemp
       <Text style={{ color: Color.BLACK, fontSize: 'small' }}>
         {getString('projectsOrgs.getStarted', { moduleDescription })}
       </Text>
-      <Layout.Vertical spacing="small" padding={{ top: 'large' }}>
+      <Layout.Horizontal spacing="small" padding={{ top: 'large' }}>
         <Button
           intent="primary"
           text={getString('projectsOrgs.selectAnExistingProject')}
-          onClick={onSelectProject}
-          width="60%"
+          onClick={toggleSelectProject}
         />
-        <Button
-          intent="none"
-          text={getString('projectsOrgs.createANewProject')}
-          onClick={onCreateProject}
-          width="60%"
-        />
-      </Layout.Vertical>
+        <Button intent="none" text={getString('projectsOrgs.createANewProject')} onClick={handleCreateProject} />
+      </Layout.Horizontal>
     </Layout.Vertical>
   )
 }

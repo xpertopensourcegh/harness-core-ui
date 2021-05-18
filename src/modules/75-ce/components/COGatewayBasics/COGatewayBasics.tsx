@@ -15,13 +15,14 @@ interface COGatewayBasicsProps {
   gatewayDetails: GatewayDetails
   setGatewayDetails: (gwDetails: GatewayDetails) => void
   setCloudAccount: (s: string) => void
+  provider?: string
 }
 
 const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
   const { accountId } = useParams<{
     accountId: string
   }>()
-  const handleConnectorCreationSuccess = (data: ConnectorInfoDTO | undefined) => {
+  const handleConnectorCreationSuccess = (data: ConnectorInfoDTO | undefined): void => {
     handleConnectorSelection(data as ConnectorInfoDTO)
   }
   const { openConnectorModal } = createConnectorModal({
@@ -45,7 +46,7 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
     }
   }, [props.gatewayDetails.provider.value])
 
-  const handleConnectorSelection = (data: ConnectorInfoDTO) => {
+  const handleConnectorSelection = (data: ConnectorInfoDTO): void => {
     setSelectedConnector(data)
     const updatedGatewayDetails = { ...props.gatewayDetails }
     updatedGatewayDetails.cloudAccount = { id: data.identifier?.toString(), name: data.name }
@@ -54,6 +55,23 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
     props.setCloudAccount(updatedGatewayDetails.cloudAccount.id)
     trackEvent('SelectingExistingConnector', {})
   }
+
+  useEffect(() => {
+    if (props.provider) {
+      switch (props.provider) {
+        case 'CEAws':
+          openConnectorModal(false, 'CEAws')
+          break
+        case 'CEAzure':
+          openAzureConnectorModal(false, Connectors.CE_AZURE, {
+            connectorInfo: ({ orgIdentifier: '', projectIdentifier: '' } as unknown) as ConnectorInfoDTO
+          })
+          break
+        default:
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.provider])
 
   return (
     <div>

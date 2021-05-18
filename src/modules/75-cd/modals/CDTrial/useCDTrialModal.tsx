@@ -102,7 +102,6 @@ const CDTrial: React.FC<CDTrialProps> = ({ trialType, actionProps, hideModal }) 
     case TrialType.CREATE_OR_SELECT_PROJECT: {
       child = (
         <CreateOrSelectAProjectTemplate
-          onSelectProject={(actionProps as CreateOrSelectProjectProps).onSelectProject}
           onCreateProject={(actionProps as CreateOrSelectProjectProps).onCreateProject}
           moduleDescription={getString('cd.continuous')}
         />

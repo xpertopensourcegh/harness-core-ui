@@ -1,24 +1,31 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { ModuleName } from 'framework/types/ModuleName'
+import useCETrialModal from '@ce/modals/CETrialModal/useCETrialModal'
 import { HomePageTemplate } from '@common/components/HomePageTemplate/HomePageTemplate'
 import { useGetModuleLicenseInfo } from 'services/portal'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import { TrialInProgressTemplate } from '@common/components/TrialHomePageTemplate/TrialInProgressTemplate'
 import { useQueryParams } from '@common/hooks'
+import { useGetProjectList } from 'services/cd-ng'
 import { PageError } from '@common/components/Page/PageError'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { Project } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
+import CETrialHomePage from './CETrialHomePage'
 import bgImageURL from './ce-homepage-bg.svg'
 
 const CEHomePage: React.FC = () => {
   const { getString } = useStrings()
+  const { selectedProject, updateAppStore } = useAppStore()
 
   const { accountId } = useParams<{
     accountId: string
   }>()
+
+  const { trial } = useQueryParams<{ trial?: boolean }>()
 
   const moduleLicenseQueryParams = {
     queryParams: {
@@ -27,21 +34,74 @@ const CEHomePage: React.FC = () => {
     }
   }
 
+  const { data: projectListData, loading: getProjectListLoading, error: getProjectListError } = useGetProjectList({
+    queryParams: {
+      accountIdentifier: accountId
+    },
+    debounce: 300
+  })
+
   const { data, error, refetch, loading } = useGetModuleLicenseInfo(moduleLicenseQueryParams)
 
+  useEffect(() => {
+    refetch()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [trial])
+
+  function handleSelectProjectFromModal(provider: string, project?: Project): void {
+    history.push({
+      pathname: routes.toCECOCreateGateway({
+        orgIdentifier: project?.orgIdentifier || selectedProject?.orgIdentifier || '',
+        projectIdentifier: project?.orgIdentifier || selectedProject?.identifier || '',
+        accountId
+      }),
+      search: `?provider=${provider}`
+    })
+  }
+
+  function handleRouteToCECO(): void {
+    history.push({
+      pathname: routes.toCECORules({
+        orgIdentifier: selectedProject?.orgIdentifier || '',
+        projectIdentifier: selectedProject?.identifier || '',
+        accountId
+      })
+    })
+  }
+
   const { openProjectModal, closeProjectModal } = useProjectModal({
-    onWizardComplete: (projectData?: Project) => {
-      closeProjectModal(),
-        history.push({
-          pathname: routes.toCECORules({
-            orgIdentifier: projectData?.orgIdentifier || '',
-            projectIdentifier: projectData?.identifier || '',
-            accountId
-          })
-        })
+    onWizardComplete: (project?: Project) => {
+      updateAppStore({ selectedProject: project })
+      closeProjectModal()
+      showModal()
     },
     module: ModuleName.CE
   })
+
+  function handleOpenProjectModal(): void {
+    hideModal()
+    openProjectModal()
+  }
+
+  const { showModal, hideModal } = useCETrialModal({
+    isProjectSelected: Boolean(selectedProject),
+    openProjectModal: handleOpenProjectModal,
+    routeToCE: handleSelectProjectFromModal,
+    onClose: selectedProject ? handleRouteToCECO : undefined
+  })
+
+  const projectsExist = projectListData?.data?.content?.length !== 0
+
+  useEffect(() => {
+    if (trial) {
+      if (projectsExist) {
+        showModal()
+      } else {
+        openProjectModal()
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [projectsExist, trial])
 
   const trialInProgressProps = {
     description: getString('common.trialInProgressDescription'),
@@ -51,25 +111,23 @@ const CEHomePage: React.FC = () => {
     }
   }
 
-  const { trial } = useQueryParams<{ trial?: boolean }>()
-
   const history = useHistory()
 
-  if (loading) {
+  if (loading || getProjectListLoading) {
     return <PageSpinner />
   }
 
-  if (error) {
-    return <PageError message={(error.data as Error)?.message || error.message} onClick={() => refetch()} />
+  if (error || getProjectListError) {
+    const message =
+      (error?.data as Error)?.message ||
+      error?.message ||
+      (getProjectListError?.data as Error)?.message ||
+      getProjectListError?.message
+    return <PageError message={message} onClick={() => refetch()} />
   }
 
   if (data?.status === 'SUCCESS' && !data.data) {
-    history.push(
-      routes.toModuleTrialHome({
-        accountId,
-        module: 'ce'
-      })
-    )
+    return <CETrialHomePage />
   }
 
   if (data && data.data && trial) {

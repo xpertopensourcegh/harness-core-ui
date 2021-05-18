@@ -4,7 +4,9 @@ import { useParams } from 'react-router-dom'
 
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import COProviderSelector from '@ce/components/COProviderSelector/COProviderSelector'
+import { useQueryParams } from '@common/hooks'
 import COGatewayDetails from '@ce/components/COGatewayDetails/COGatewayDetails'
+import type { Provider } from '@ce/components/COCreateGateway/models'
 import type { GatewayDetails } from './models'
 
 function getString(val: string | undefined): string {
@@ -17,8 +19,21 @@ function getString(val: string | undefined): string {
 
 export const CECODashboardPage: React.FC = () => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { provider } = useQueryParams<{ provider: string }>()
   const gatewayCreationTabs = ['providerSelector', 'gatewayConfig']
   const [currentTab, setCurrentTab] = useState<string | 'providerSelector'>('providerSelector')
+  const initialProvider: Provider = provider
+    ? {
+        name: 'AWS',
+        value: 'aws',
+        icon: 'service-aws'
+      }
+    : {
+        name: 'Azure',
+        value: 'azure',
+        icon: 'service-azure'
+      }
+
   const initialGatewayDetails: GatewayDetails = {
     name: '',
     cloudAccount: {
@@ -54,11 +69,7 @@ export const CECODashboardPage: React.FC = () => {
       deleteCloudResources: false,
       alwaysUsePrivateIP: false
     },
-    provider: {
-      name: 'Azure',
-      value: 'azure',
-      icon: 'service-azure'
-    },
+    provider: initialProvider,
     selectedInstances: [],
     accessPointID: '',
     metadata: {},
@@ -77,10 +88,16 @@ export const CECODashboardPage: React.FC = () => {
       setCurrentTab(gatewayCreationTabs[tabIndex - 1])
     }
   }
+
   return (
     <Container background={Color.WHITE} height="100vh">
-      {currentTab == 'providerSelector' ? (
-        <COProviderSelector nextTab={nextTab} setGatewayDetails={setGatewayDetails} gatewayDetails={gatewayDetails} />
+      {currentTab === 'providerSelector' ? (
+        <COProviderSelector
+          nextTab={nextTab}
+          setGatewayDetails={setGatewayDetails}
+          gatewayDetails={gatewayDetails}
+          provider={provider}
+        />
       ) : null}
 
       {currentTab == 'gatewayConfig' ? (

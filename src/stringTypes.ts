@@ -187,6 +187,7 @@ export interface StringsMap {
   'common.input': string
   'common.jexlExpression': string
   'common.labelTestConnection': string
+  'common.launchFirstGen': string
   'common.letsGetYouStarted': string
   'common.link': string
   'common.loading': string
@@ -218,6 +219,7 @@ export interface StringsMap {
   'common.purpose.cd.subtitle': string
   'common.purpose.ce.continuous': string
   'common.purpose.ce.description': string
+  'common.purpose.ce.descriptionOnly': string
   'common.purpose.ce.efficiency': string
   'common.purpose.ce.optimizationCard.description': string
   'common.purpose.ce.subtitle': string
@@ -283,6 +285,7 @@ export interface StringsMap {
   'common.seeWhatChanged': string
   'common.selectStrategy': string
   'common.specify': string
+  'common.startTrial': string
   'common.submittingRequest': string
   'common.submittingRequestToGit': string
   'common.timeout': string
@@ -1362,6 +1365,7 @@ export interface StringsMap {
   'ce.co.autoStoppingRule.setupAccess.selectLb': string
   'ce.co.autoStoppingRule.setupAccess.selectLbHelpText': string
   'ce.co.breadCrumb.rules': string
+  'ce.co.cloudProviders.aws': string
   'ce.co.dnsSetup.autoURL': string
   'ce.co.dnsSetup.customURL': string
   'ce.co.dnsSetup.isURLaccessible': string
@@ -1407,6 +1411,7 @@ export interface StringsMap {
   'ce.co.gatewayReview.selectCloudAccount': string
   'ce.co.gatewayReview.tags': string
   'ce.co.gatewayReview.type': string
+  'ce.co.getStarted': string
   'ce.co.instanceSelector.ipAddress': string
   'ce.co.instanceSelector.launchTime': string
   'ce.co.instanceSelector.name': string
@@ -1414,6 +1419,7 @@ export interface StringsMap {
   'ce.co.landingPageText': string
   'ce.co.newAutoStoppingRule': string
   'ce.co.noData': string
+  'ce.co.setupCloudProvider': string
   'ce.co.sshSetup': string
   'ce.connector.AWS.crossAccountRole.arn': string
   'ce.connector.AWS.crossAccountRole.externalID': string

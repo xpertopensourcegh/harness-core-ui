@@ -1,6 +1,6 @@
 import React from 'react'
-import { render, fireEvent, waitFor } from '@testing-library/react'
-import { TestWrapper } from '@common/utils/testUtils'
+import { render, fireEvent } from '@testing-library/react'
+import { TestWrapper, findDialogContainer } from '@common/utils/testUtils'
 import useStartTrialModal from '../StartTrialModal'
 
 const TestComponent = (): React.ReactElement => {
@@ -19,14 +19,15 @@ const TestComponent = (): React.ReactElement => {
 describe('open and close Start Trial Modal', () => {
   describe('Rendering', () => {
     test('should open and close the start trial modal', async () => {
-      const { container, getByText } = render(
+      const { container } = render(
         <TestWrapper>
           <TestComponent />
         </TestWrapper>
       )
       fireEvent.click(container.querySelector('.open')!)
-      await waitFor(() => expect(() => getByText('Welcome, let’s get you started!')).toBeDefined())
-      expect(container).toMatchSnapshot()
+
+      const dialog = findDialogContainer() as HTMLElement
+      expect(dialog).toMatchSnapshot()
     })
   })
 })
