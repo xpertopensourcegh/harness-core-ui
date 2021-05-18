@@ -30,7 +30,7 @@ import {
 } from 'services/cd-ng'
 import type { SecretTextSpecDTO, SecretFileSpecDTO } from 'services/cd-ng'
 import { useToaster } from '@common/exports'
-import { illegalIdentifiers } from '@common/utils/StringUtils'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
@@ -267,14 +267,8 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
         }}
         enableReinitialize={true}
         validationSchema={Yup.object().shape({
-          name: Yup.string().trim().required(getString('secret.validationName')),
-          identifier: Yup.string().when('name', {
-            is: val => val?.length,
-            then: Yup.string()
-              .required(getString('secret.validationIdentifier'))
-              .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
-              .notOneOf(illegalIdentifiers)
-          }),
+          name: NameSchema(),
+          identifier: IdentifierSchema(),
           value:
             editing || type === 'SecretFile'
               ? Yup.string().trim()

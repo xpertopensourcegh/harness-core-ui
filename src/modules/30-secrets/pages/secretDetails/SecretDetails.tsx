@@ -94,7 +94,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
         setEdit(false)
         props.refetch?.()
       } catch (err) {
-        showError(err.data.message)
+        showError(err.data?.errors[0]?.error || err.data.message)
       }
     }
   }
