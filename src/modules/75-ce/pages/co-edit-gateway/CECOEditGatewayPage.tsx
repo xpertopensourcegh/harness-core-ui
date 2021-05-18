@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { isEmpty as _isEmpty } from 'lodash-es'
 import COGatewayDetails from '@ce/components/COGatewayDetails/COGatewayDetails'
-import type { GatewayDetails, Routing, InstanceDetails } from '@ce/components/COCreateGateway/models'
+import type { GatewayDetails, Routing, InstanceDetails, Provider } from '@ce/components/COCreateGateway/models'
 import {
   HealthCheck,
   PortConfig,
@@ -14,6 +14,7 @@ import {
 } from 'services/lw'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { allProviders, PROVIDER_TYPES } from '@ce/constants'
 
 export const CECOEditGatewayPage: React.FC = () => {
   const { accountId, orgIdentifier, projectIdentifier, gatewayIdentifier } = useParams<
@@ -47,9 +48,11 @@ export const CECOEditGatewayPage: React.FC = () => {
       lb: ''
     }
     let selectedInstances: InstanceDetails[] = []
+    let providerType = PROVIDER_TYPES.AWS.valueOf()
     if (hasAsg) {
       routing.instance.scale_group = service.routing?.instance?.scale_group // eslint-disable-line
     } else {
+      providerType = resources?.response?.[0]?.provider_type || providerType
       const selectedResources = resources?.response ? resources?.response : []
       selectedInstances = selectedResources.map(item => {
         return {
@@ -61,7 +64,8 @@ export const CECOEditGatewayPage: React.FC = () => {
           tags: '',
           launch_time: item.launch_time ? item.launch_time : '', // eslint-disable-line
           status: item.status ? item.status : '',
-          vpc: item.metadata ? item.metadata['VpcID'] : ''
+          vpc: item.metadata ? item.metadata['VpcID'] : '',
+          ...(providerType === PROVIDER_TYPES.AZURE && { metadata: { resourceGroup: item.metadata?.resourceGroup } })
         }
       })
     }
@@ -80,11 +84,7 @@ export const CECOEditGatewayPage: React.FC = () => {
         deleteCloudResources: service.opts?.delete_cloud_resources as boolean,
         alwaysUsePrivateIP: service.opts?.always_use_private_ip as boolean
       },
-      provider: {
-        name: 'aws',
-        icon: 'service-aws',
-        value: 'aws'
-      }, //TODO take from a master list when on boarding azure or do
+      provider: allProviders.find(provider => provider.value === providerType) as Provider,
       selectedInstances: selectedInstances,
       accessPointID: service.access_point_id as string,
       accountID: accountId,

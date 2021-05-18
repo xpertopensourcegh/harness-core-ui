@@ -59,6 +59,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   const { trackEvent } = useTelemetry()
   const isAwsProvider = Utils.isProviderAws(props.gatewayDetails.provider)
   const isAzureProvider = Utils.isProviderAzure(props.gatewayDetails.provider)
+  const isEditFlow = window.location.href.includes('edit')
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{
     accountId: string
     orgIdentifier: string
@@ -201,8 +202,8 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   }, [apCoresResponse?.response])
 
   useEffect(() => {
-    const albArn = accessPoint?.metadata?.albArn
-    const selectedResource = albArn && apCoreList.find(_item => _item.value === albArn)
+    const resourceId = isAwsProvider ? accessPoint?.metadata?.albArn : accessPoint?.metadata?.app_gateway_id
+    const selectedResource = resourceId && apCoreList.find(_item => _item.value === resourceId)
     if (selectedResource) {
       setSelectedApCore(selectedResource)
     }
@@ -416,15 +417,17 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                           trackEvent('SelectingAccessPoint', {})
                         }}
                         value={selectedApCore}
-                        disabled={accessPointsLoading || apCoresLoading}
+                        disabled={isEditFlow || accessPointsLoading || apCoresLoading}
                         className={css.loadBalancerSelector}
                       />
-                      <Text color={Color.BLUE_500} onClick={handleCreateNewLb} style={{ cursor: 'pointer' }}>
-                        {'+' +
-                          (isAwsProvider
-                            ? getString('ce.co.accessPoint.new')
-                            : getString('ce.co.accessPoint.newAppGateway'))}
-                      </Text>
+                      {!isEditFlow && (
+                        <Text color={Color.BLUE_500} onClick={handleCreateNewLb} style={{ cursor: 'pointer' }}>
+                          {'+' +
+                            (isAwsProvider
+                              ? getString('ce.co.accessPoint.new')
+                              : getString('ce.co.accessPoint.newAppGateway'))}
+                        </Text>
+                      )}
                     </Layout.Horizontal>
                   </div>
                 </Layout.Horizontal>
