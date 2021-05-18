@@ -43,9 +43,9 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
       allowDecimals: false,
       labels: {
         formatter: function () {
-          const index = this.value
+          const index = Number(this.value)
           return index < dateLabels.length ? dateLabels[index] : ''
-        } as (this: { value: number }) => string
+        }
       }
     },
     plotOptions: {

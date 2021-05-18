@@ -316,7 +316,7 @@ const RecommendationHistogram: React.FC<RecommendationChartProps> = props => {
               },
               labels: {
                 formatter: function () {
-                  return getCPUValueInmCPUs(this.value)
+                  return getCPUValueInmCPUs(Number(this.value))
                 }
               }
             }
@@ -568,7 +568,7 @@ const RecommendationHistogram: React.FC<RecommendationChartProps> = props => {
               },
               labels: {
                 formatter: function () {
-                  return `${getMemValueInGB(this.value)}`
+                  return `${getMemValueInGB(Number(this.value))}`
                 }
               },
               crosshair: true

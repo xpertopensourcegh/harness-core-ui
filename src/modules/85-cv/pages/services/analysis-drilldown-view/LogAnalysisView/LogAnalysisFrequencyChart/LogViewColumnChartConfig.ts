@@ -1,4 +1,4 @@
-import type { SeriesColumnOptions, YAxisOptions } from 'highcharts'
+import type { SeriesColumnOptions } from 'highcharts'
 import moment from 'moment'
 
 function getLabelStepValue(startTime: number, endTime: number): number {
@@ -65,8 +65,8 @@ export default function getLogViewcolumnChartConfig(
       {
         min: 0,
         title: {
-          enabled: false
-        } as YAxisOptions,
+          text: null
+        },
         stackLabels: {
           enabled: false
         },
