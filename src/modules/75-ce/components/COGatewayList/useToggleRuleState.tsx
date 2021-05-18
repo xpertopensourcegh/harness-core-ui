@@ -7,6 +7,7 @@ import { useToggleAutostoppingRule, Service } from 'services/lw'
 interface UseToggleAutostoppingRuleProps {
   orgIdentifier: string
   projectIdentifier: string
+  accountId: string
   serviceData: Service
   onSuccess?: (updatedServiceData: Service) => void
   onFailure?: (error: any) => void
@@ -17,13 +18,14 @@ interface UseToggleAutostoppingRuleReturn {
 }
 
 const useToggleRuleState = (props: UseToggleAutostoppingRuleProps): UseToggleAutostoppingRuleReturn => {
-  const { orgIdentifier, projectIdentifier, serviceData } = props
+  const { orgIdentifier, projectIdentifier, serviceData, accountId } = props
   const { getString } = useStrings()
   const { mutate: toggleAutoStoppingRule } = useToggleAutostoppingRule({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
     service_id: (serviceData.id as number).toString(), // eslint-disable-line
     queryParams: {
+      accountIdentifier: accountId,
       disable: !serviceData.disabled
     }
   })

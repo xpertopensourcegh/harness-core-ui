@@ -61,12 +61,16 @@ function DurationCell(tableProps: CellProps<SessionReportRow>): JSX.Element {
   )
 }
 const COGatewayUsageTime: React.FC<COGatewayUsageTimeProps> = props => {
-  const { orgIdentifier } = useParams<{
+  const { accountId, orgIdentifier } = useParams<{
     orgIdentifier: string
+    accountId: string
   }>()
   const { getString } = useStrings()
   const { mutate: getSessionReport } = useGatewaySessionReport({
-    org_id: orgIdentifier // eslint-disable-line
+    org_id: orgIdentifier, // eslint-disable-line
+    queryParams: {
+      accountIdentifier: accountId
+    }
   })
   const [sessionReportRows, setSessionReportRows] = useState<SessionReportRow[]>([])
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()

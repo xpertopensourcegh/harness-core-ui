@@ -194,7 +194,8 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     account_id: accountId, // eslint-disable-line
     queryParams: {
       cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
-      type: 'instance'
+      type: 'instance',
+      accountIdentifier: accountId
     }
   })
 
@@ -203,13 +204,17 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     project_id: projectIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     queryParams: {
-      cloud_account_id: props.gatewayDetails.cloudAccount.id // eslint-disable-line
+      cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
+      accountIdentifier: accountId
     }
   })
 
   const { data, error } = useGetServices({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
+    queryParams: {
+      accountIdentifier: accountId
+    },
     debounce: 300
   })
   if (error) {
@@ -349,7 +354,8 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
         {
           queryParams: {
             cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
-            type: 'instance'
+            type: 'instance',
+            accountIdentifier: accountId
           }
         }
       )
@@ -395,7 +401,8 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     account_id: accountId, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
-      cloud_account_id: props.gatewayDetails.cloudAccount.id // eslint-disable-line
+      cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
+      accountIdentifier: accountId
     }
   })
   const fetchInstanceSecurityGroups = async (): Promise<void> => {

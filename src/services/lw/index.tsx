@@ -4,6 +4,7 @@ import React from 'react'
 import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, UseMutateProps } from 'restful-react'
 
 import { getConfig } from '../config'
+export const SPEC_VERSION = '1.0.0'
 export interface DeleteAccessPointPayload {
   ids?: string[]
   with_resources?: boolean
@@ -519,12 +520,19 @@ export interface TargetGroupMinimal {
 
 export type ResourceFilterBodyRequestBody = ResourceFilterBody
 
+export interface GetServicesQueryParams {
+  accountIdentifier: string
+}
+
 export interface GetServicesPathParams {
   org_id: string
   project_id: string
 }
 
-export type GetServicesProps = Omit<GetProps<ServicesResponse, void, void, GetServicesPathParams>, 'path'> &
+export type GetServicesProps = Omit<
+  GetProps<ServicesResponse, void, GetServicesQueryParams, GetServicesPathParams>,
+  'path'
+> &
   GetServicesPathParams
 
 /**
@@ -533,14 +541,17 @@ export type GetServicesProps = Omit<GetProps<ServicesResponse, void, void, GetSe
  * Multiple status values can be provided with comma separated strings
  */
 export const GetServices = ({ org_id, project_id, ...props }: GetServicesProps) => (
-  <Get<ServicesResponse, void, void, GetServicesPathParams>
-    path="/orgs/${org_id}/projects/${project_id}/services"
+  <Get<ServicesResponse, void, GetServicesQueryParams, GetServicesPathParams>
+    path={`/orgs/${org_id}/projects/${project_id}/services`}
     base={getConfig('lw/api')}
     {...props}
   />
 )
 
-export type UseGetServicesProps = Omit<UseGetProps<ServicesResponse, void, void, GetServicesPathParams>, 'path'> &
+export type UseGetServicesProps = Omit<
+  UseGetProps<ServicesResponse, void, GetServicesQueryParams, GetServicesPathParams>,
+  'path'
+> &
   GetServicesPathParams
 
 /**
@@ -549,11 +560,15 @@ export type UseGetServicesProps = Omit<UseGetProps<ServicesResponse, void, void,
  * Multiple status values can be provided with comma separated strings
  */
 export const useGetServices = ({ org_id, project_id, ...props }: UseGetServicesProps) =>
-  useGet<ServicesResponse, void, void, GetServicesPathParams>(
+  useGet<ServicesResponse, void, GetServicesQueryParams, GetServicesPathParams>(
     (paramsInPath: GetServicesPathParams) =>
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/services`,
     { base: getConfig('lw/api'), pathParams: { org_id, project_id }, ...props }
   )
+
+export interface SaveServiceQueryParams {
+  accountIdentifier: string
+}
 
 export interface SaveServicePathParams {
   org_id: string
@@ -561,7 +576,7 @@ export interface SaveServicePathParams {
 }
 
 export type SaveServiceProps = Omit<
-  MutateProps<ServicesResponse, void, void, SaveServiceRequest, SaveServicePathParams>,
+  MutateProps<ServicesResponse, void, SaveServiceQueryParams, SaveServiceRequest, SaveServicePathParams>,
   'path' | 'verb'
 > &
   SaveServicePathParams
@@ -570,16 +585,16 @@ export type SaveServiceProps = Omit<
  * Create/Update Autostopping gateway
  */
 export const SaveService = ({ org_id, project_id, ...props }: SaveServiceProps) => (
-  <Mutate<ServicesResponse, void, void, SaveServiceRequest, SaveServicePathParams>
+  <Mutate<ServicesResponse, void, SaveServiceQueryParams, SaveServiceRequest, SaveServicePathParams>
     verb="POST"
-    path="/orgs/${org_id}/projects/${project_id}/services"
+    path={`/orgs/${org_id}/projects/${project_id}/services`}
     base={getConfig('lw/api')}
     {...props}
   />
 )
 
 export type UseSaveServiceProps = Omit<
-  UseMutateProps<ServicesResponse, void, void, SaveServiceRequest, SaveServicePathParams>,
+  UseMutateProps<ServicesResponse, void, SaveServiceQueryParams, SaveServiceRequest, SaveServicePathParams>,
   'path' | 'verb'
 > &
   SaveServicePathParams
@@ -588,12 +603,16 @@ export type UseSaveServiceProps = Omit<
  * Create/Update Autostopping gateway
  */
 export const useSaveService = ({ org_id, project_id, ...props }: UseSaveServiceProps) =>
-  useMutate<ServicesResponse, void, void, SaveServiceRequest, SaveServicePathParams>(
+  useMutate<ServicesResponse, void, SaveServiceQueryParams, SaveServiceRequest, SaveServicePathParams>(
     'POST',
     (paramsInPath: SaveServicePathParams) =>
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/services`,
     { base: getConfig('lw/api'), pathParams: { org_id, project_id }, ...props }
   )
+
+export interface GetServiceDefinitionByIDQueryParams {
+  accountIdentifier: string
+}
 
 export interface GetServiceDefinitionByIDPathParams {
   org_id: string
@@ -602,7 +621,12 @@ export interface GetServiceDefinitionByIDPathParams {
 }
 
 export type GetServiceDefinitionByIDProps = Omit<
-  GetProps<ServiceDefinitionByIDResponse, void, void, GetServiceDefinitionByIDPathParams>,
+  GetProps<
+    ServiceDefinitionByIDResponse,
+    void,
+    GetServiceDefinitionByIDQueryParams,
+    GetServiceDefinitionByIDPathParams
+  >,
   'path'
 > &
   GetServiceDefinitionByIDPathParams
@@ -613,15 +637,20 @@ export type GetServiceDefinitionByIDProps = Omit<
  * Get service definition of auto stopping gateway
  */
 export const GetServiceDefinitionByID = ({ org_id, project_id, id, ...props }: GetServiceDefinitionByIDProps) => (
-  <Get<ServiceDefinitionByIDResponse, void, void, GetServiceDefinitionByIDPathParams>
-    path="/orgs/${org_id}/projects/${project_id}/services/${id}"
+  <Get<ServiceDefinitionByIDResponse, void, GetServiceDefinitionByIDQueryParams, GetServiceDefinitionByIDPathParams>
+    path={`/orgs/${org_id}/projects/${project_id}/services/${id}`}
     base={getConfig('lw/api')}
     {...props}
   />
 )
 
 export type UseGetServiceDefinitionByIDProps = Omit<
-  UseGetProps<ServiceDefinitionByIDResponse, void, void, GetServiceDefinitionByIDPathParams>,
+  UseGetProps<
+    ServiceDefinitionByIDResponse,
+    void,
+    GetServiceDefinitionByIDQueryParams,
+    GetServiceDefinitionByIDPathParams
+  >,
   'path'
 > &
   GetServiceDefinitionByIDPathParams
@@ -632,11 +661,15 @@ export type UseGetServiceDefinitionByIDProps = Omit<
  * Get service definition of auto stopping gateway
  */
 export const useGetServiceDefinitionByID = ({ org_id, project_id, id, ...props }: UseGetServiceDefinitionByIDProps) =>
-  useGet<ServiceDefinitionByIDResponse, void, void, GetServiceDefinitionByIDPathParams>(
+  useGet<ServiceDefinitionByIDResponse, void, GetServiceDefinitionByIDQueryParams, GetServiceDefinitionByIDPathParams>(
     (paramsInPath: GetServiceDefinitionByIDPathParams) =>
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/services/${paramsInPath.id}`,
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, id }, ...props }
   )
+
+export interface GetServiceStatsQueryParams {
+  accountIdentifier: string
+}
 
 export interface GetServiceStatsPathParams {
   org_id: string
@@ -644,7 +677,10 @@ export interface GetServiceStatsPathParams {
   id: number
 }
 
-export type GetServiceStatsProps = Omit<GetProps<ServiceStatsResponse, void, void, GetServiceStatsPathParams>, 'path'> &
+export type GetServiceStatsProps = Omit<
+  GetProps<ServiceStatsResponse, void, GetServiceStatsQueryParams, GetServiceStatsPathParams>,
+  'path'
+> &
   GetServiceStatsPathParams
 
 /**
@@ -653,15 +689,15 @@ export type GetServiceStatsProps = Omit<GetProps<ServiceStatsResponse, void, voi
  * Returns duartion of idle time and down time
  */
 export const GetServiceStats = ({ org_id, project_id, id, ...props }: GetServiceStatsProps) => (
-  <Get<ServiceStatsResponse, void, void, GetServiceStatsPathParams>
-    path="/orgs/${org_id}/projects/${project_id}/services/${id}/stats"
+  <Get<ServiceStatsResponse, void, GetServiceStatsQueryParams, GetServiceStatsPathParams>
+    path={`/orgs/${org_id}/projects/${project_id}/services/${id}/stats`}
     base={getConfig('lw/api')}
     {...props}
   />
 )
 
 export type UseGetServiceStatsProps = Omit<
-  UseGetProps<ServiceStatsResponse, void, void, GetServiceStatsPathParams>,
+  UseGetProps<ServiceStatsResponse, void, GetServiceStatsQueryParams, GetServiceStatsPathParams>,
   'path'
 > &
   GetServiceStatsPathParams
@@ -672,11 +708,15 @@ export type UseGetServiceStatsProps = Omit<
  * Returns duartion of idle time and down time
  */
 export const useGetServiceStats = ({ org_id, project_id, id, ...props }: UseGetServiceStatsProps) =>
-  useGet<ServiceStatsResponse, void, void, GetServiceStatsPathParams>(
+  useGet<ServiceStatsResponse, void, GetServiceStatsQueryParams, GetServiceStatsPathParams>(
     (paramsInPath: GetServiceStatsPathParams) =>
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/services/${paramsInPath.id}/stats`,
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, id }, ...props }
   )
+
+export interface GetServiceRequestsQueryParams {
+  accountIdentifier: string
+}
 
 export interface GetServiceRequestsPathParams {
   org_id: string
@@ -685,7 +725,7 @@ export interface GetServiceRequestsPathParams {
 }
 
 export type GetServiceRequestsProps = Omit<
-  GetProps<ServiceUsageResponse, void, void, GetServiceRequestsPathParams>,
+  GetProps<ServiceUsageResponse, void, GetServiceRequestsQueryParams, GetServiceRequestsPathParams>,
   'path'
 > &
   GetServiceRequestsPathParams
@@ -696,15 +736,15 @@ export type GetServiceRequestsProps = Omit<
  * Returns service usage records of requested autostopping gateway
  */
 export const GetServiceRequests = ({ org_id, project_id, id, ...props }: GetServiceRequestsProps) => (
-  <Get<ServiceUsageResponse, void, void, GetServiceRequestsPathParams>
-    path="/orgs/${org_id}/projects/${project_id}/services/${id}/requests"
+  <Get<ServiceUsageResponse, void, GetServiceRequestsQueryParams, GetServiceRequestsPathParams>
+    path={`/orgs/${org_id}/projects/${project_id}/services/${id}/requests`}
     base={getConfig('lw/api')}
     {...props}
   />
 )
 
 export type UseGetServiceRequestsProps = Omit<
-  UseGetProps<ServiceUsageResponse, void, void, GetServiceRequestsPathParams>,
+  UseGetProps<ServiceUsageResponse, void, GetServiceRequestsQueryParams, GetServiceRequestsPathParams>,
   'path'
 > &
   GetServiceRequestsPathParams
@@ -715,17 +755,24 @@ export type UseGetServiceRequestsProps = Omit<
  * Returns service usage records of requested autostopping gateway
  */
 export const useGetServiceRequests = ({ org_id, project_id, id, ...props }: UseGetServiceRequestsProps) =>
-  useGet<ServiceUsageResponse, void, void, GetServiceRequestsPathParams>(
+  useGet<ServiceUsageResponse, void, GetServiceRequestsQueryParams, GetServiceRequestsPathParams>(
     (paramsInPath: GetServiceRequestsPathParams) =>
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/services/${paramsInPath.id}/requests`,
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, id }, ...props }
   )
 
+export interface AllAccountsQueryParams {
+  accountIdentifier: string
+}
+
 export interface AllAccountsPathParams {
   org_id: string
 }
 
-export type AllAccountsProps = Omit<GetProps<AllAccountsResponse, void, void, AllAccountsPathParams>, 'path'> &
+export type AllAccountsProps = Omit<
+  GetProps<AllAccountsResponse, void, AllAccountsQueryParams, AllAccountsPathParams>,
+  'path'
+> &
   AllAccountsPathParams
 
 /**
@@ -734,14 +781,17 @@ export type AllAccountsProps = Omit<GetProps<AllAccountsResponse, void, void, Al
  * Returns all the accounts under the requesting organization
  */
 export const AllAccounts = ({ org_id, ...props }: AllAccountsProps) => (
-  <Get<AllAccountsResponse, void, void, AllAccountsPathParams>
-    path="/orgs/${org_id}/accounts"
+  <Get<AllAccountsResponse, void, AllAccountsQueryParams, AllAccountsPathParams>
+    path={`/orgs/${org_id}/accounts`}
     base={getConfig('lw/api')}
     {...props}
   />
 )
 
-export type UseAllAccountsProps = Omit<UseGetProps<AllAccountsResponse, void, void, AllAccountsPathParams>, 'path'> &
+export type UseAllAccountsProps = Omit<
+  UseGetProps<AllAccountsResponse, void, AllAccountsQueryParams, AllAccountsPathParams>,
+  'path'
+> &
   AllAccountsPathParams
 
 /**
@@ -750,7 +800,7 @@ export type UseAllAccountsProps = Omit<UseGetProps<AllAccountsResponse, void, vo
  * Returns all the accounts under the requesting organization
  */
 export const useAllAccounts = ({ org_id, ...props }: UseAllAccountsProps) =>
-  useGet<AllAccountsResponse, void, void, AllAccountsPathParams>(
+  useGet<AllAccountsResponse, void, AllAccountsQueryParams, AllAccountsPathParams>(
     (paramsInPath: AllAccountsPathParams) => `/orgs/${paramsInPath.org_id}/accounts`,
     { base: getConfig('lw/api'), pathParams: { org_id }, ...props }
   )
@@ -760,6 +810,7 @@ export interface AllResourcesOfAccountResponse {}
 export interface AllResourcesOfAccountQueryParams {
   cloud_account_id: string
   type: string
+  accountIdentifier: string
 }
 
 export interface AllResourcesOfAccountPathParams {
@@ -794,7 +845,7 @@ export const AllResourcesOfAccount = ({ org_id, project_id, account_id, ...props
     AllResourcesOfAccountPathParams
   >
     verb="POST"
-    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/resources"
+    path={`/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/resources`}
     base={getConfig('lw/api')}
     {...props}
   />
@@ -835,6 +886,7 @@ export interface SecurityGroupsOfInstancesResponse {}
 
 export interface SecurityGroupsOfInstancesQueryParams {
   cloud_account_id: string
+  accountIdentifier: string
 }
 
 export interface SecurityGroupsOfInstancesPathParams {
@@ -874,7 +926,7 @@ export const SecurityGroupsOfInstances = ({
     SecurityGroupsOfInstancesPathParams
   >
     verb="POST"
-    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/instance_nsg"
+    path={`/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/instance_nsg`}
     base={getConfig('lw/api')}
     {...props}
   />
@@ -916,6 +968,10 @@ export const useSecurityGroupsOfInstances = ({
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id }, ...props }
   )
 
+export interface HealthOfServiceQueryParams {
+  accountIdentifier: string
+}
+
 export interface HealthOfServicePathParams {
   org_id: string
   projectID: string
@@ -923,7 +979,7 @@ export interface HealthOfServicePathParams {
 }
 
 export type HealthOfServiceProps = Omit<
-  GetProps<ServiceHealthResponse, void, void, HealthOfServicePathParams>,
+  GetProps<ServiceHealthResponse, void, HealthOfServiceQueryParams, HealthOfServicePathParams>,
   'path'
 > &
   HealthOfServicePathParams
@@ -934,15 +990,15 @@ export type HealthOfServiceProps = Omit<
  * Returns health of a service
  */
 export const HealthOfService = ({ org_id, projectID, serviceID, ...props }: HealthOfServiceProps) => (
-  <Get<ServiceHealthResponse, void, void, HealthOfServicePathParams>
-    path="/orgs/${org_id}/projects/${projectID}/services/${serviceID}/health"
+  <Get<ServiceHealthResponse, void, HealthOfServiceQueryParams, HealthOfServicePathParams>
+    path={`/orgs/${org_id}/projects/${projectID}/services/${serviceID}/health`}
     base={getConfig('lw/api')}
     {...props}
   />
 )
 
 export type UseHealthOfServiceProps = Omit<
-  UseGetProps<ServiceHealthResponse, void, void, HealthOfServicePathParams>,
+  UseGetProps<ServiceHealthResponse, void, HealthOfServiceQueryParams, HealthOfServicePathParams>,
   'path'
 > &
   HealthOfServicePathParams
@@ -953,13 +1009,14 @@ export type UseHealthOfServiceProps = Omit<
  * Returns health of a service
  */
 export const useHealthOfService = ({ org_id, projectID, serviceID, ...props }: UseHealthOfServiceProps) =>
-  useGet<ServiceHealthResponse, void, void, HealthOfServicePathParams>(
+  useGet<ServiceHealthResponse, void, HealthOfServiceQueryParams, HealthOfServicePathParams>(
     (paramsInPath: HealthOfServicePathParams) =>
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.projectID}/services/${paramsInPath.serviceID}/health`,
     { base: getConfig('lw/api'), pathParams: { org_id, projectID, serviceID }, ...props }
   )
 
 export interface SavingsOfServiceQueryParams {
+  accountIdentifier: string
   from?: string
   to?: string
   group_by?: string
@@ -994,7 +1051,7 @@ export const SavingsOfService = ({ org_id, projectID, serviceID, ...props }: Sav
     SavingsOfServiceQueryParams,
     SavingsOfServicePathParams
   >
-    path="/orgs/${org_id}/projects/${projectID}/services/${serviceID}/savings"
+    path={`/orgs/${org_id}/projects/${projectID}/services/${serviceID}/savings`}
     base={getConfig('lw/api')}
     {...props}
   />
@@ -1028,6 +1085,10 @@ export const useSavingsOfService = ({ org_id, projectID, serviceID, ...props }: 
     { base: getConfig('lw/api'), pathParams: { org_id, projectID, serviceID }, ...props }
   )
 
+export interface RequestsOfServiceQueryParams {
+  accountIdentifier: string
+}
+
 export interface RequestsOfServicePathParams {
   org_id: string
   projectID: string
@@ -1035,7 +1096,7 @@ export interface RequestsOfServicePathParams {
 }
 
 export type RequestsOfServiceProps = Omit<
-  GetProps<ServiceRequestsResponse, void, void, RequestsOfServicePathParams>,
+  GetProps<ServiceRequestsResponse, void, RequestsOfServiceQueryParams, RequestsOfServicePathParams>,
   'path'
 > &
   RequestsOfServicePathParams
@@ -1046,15 +1107,15 @@ export type RequestsOfServiceProps = Omit<
  * Returns requests of a service
  */
 export const RequestsOfService = ({ org_id, projectID, serviceID, ...props }: RequestsOfServiceProps) => (
-  <Get<ServiceRequestsResponse, void, void, RequestsOfServicePathParams>
-    path="/orgs/${org_id}/projects/${projectID}/services/${serviceID}/requests"
+  <Get<ServiceRequestsResponse, void, RequestsOfServiceQueryParams, RequestsOfServicePathParams>
+    path={`/orgs/${org_id}/projects/${projectID}/services/${serviceID}/requests`}
     base={getConfig('lw/api')}
     {...props}
   />
 )
 
 export type UseRequestsOfServiceProps = Omit<
-  UseGetProps<ServiceRequestsResponse, void, void, RequestsOfServicePathParams>,
+  UseGetProps<ServiceRequestsResponse, void, RequestsOfServiceQueryParams, RequestsOfServicePathParams>,
   'path'
 > &
   RequestsOfServicePathParams
@@ -1065,11 +1126,15 @@ export type UseRequestsOfServiceProps = Omit<
  * Returns requests of a service
  */
 export const useRequestsOfService = ({ org_id, projectID, serviceID, ...props }: UseRequestsOfServiceProps) =>
-  useGet<ServiceRequestsResponse, void, void, RequestsOfServicePathParams>(
+  useGet<ServiceRequestsResponse, void, RequestsOfServiceQueryParams, RequestsOfServicePathParams>(
     (paramsInPath: RequestsOfServicePathParams) =>
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.projectID}/services/${paramsInPath.serviceID}/requests`,
     { base: getConfig('lw/api'), pathParams: { org_id, projectID, serviceID }, ...props }
   )
+
+export interface LogsOfServiceQueryParams {
+  accountIdentifier: string
+}
 
 export interface LogsOfServicePathParams {
   org_id: string
@@ -1077,7 +1142,10 @@ export interface LogsOfServicePathParams {
   serviceID: number
 }
 
-export type LogsOfServiceProps = Omit<GetProps<ServiceLogsResponse, void, void, LogsOfServicePathParams>, 'path'> &
+export type LogsOfServiceProps = Omit<
+  GetProps<ServiceLogsResponse, void, LogsOfServiceQueryParams, LogsOfServicePathParams>,
+  'path'
+> &
   LogsOfServicePathParams
 
 /**
@@ -1086,15 +1154,15 @@ export type LogsOfServiceProps = Omit<GetProps<ServiceLogsResponse, void, void, 
  * Returns logs of a service
  */
 export const LogsOfService = ({ org_id, projectID, serviceID, ...props }: LogsOfServiceProps) => (
-  <Get<ServiceLogsResponse, void, void, LogsOfServicePathParams>
-    path="/orgs/${org_id}/projects/${projectID}/services/${serviceID}/logs"
+  <Get<ServiceLogsResponse, void, LogsOfServiceQueryParams, LogsOfServicePathParams>
+    path={`/orgs/${org_id}/projects/${projectID}/services/${serviceID}/logs`}
     base={getConfig('lw/api')}
     {...props}
   />
 )
 
 export type UseLogsOfServiceProps = Omit<
-  UseGetProps<ServiceLogsResponse, void, void, LogsOfServicePathParams>,
+  UseGetProps<ServiceLogsResponse, void, LogsOfServiceQueryParams, LogsOfServicePathParams>,
   'path'
 > &
   LogsOfServicePathParams
@@ -1105,7 +1173,7 @@ export type UseLogsOfServiceProps = Omit<
  * Returns logs of a service
  */
 export const useLogsOfService = ({ org_id, projectID, serviceID, ...props }: UseLogsOfServiceProps) =>
-  useGet<ServiceLogsResponse, void, void, LogsOfServicePathParams>(
+  useGet<ServiceLogsResponse, void, LogsOfServiceQueryParams, LogsOfServicePathParams>(
     (paramsInPath: LogsOfServicePathParams) =>
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.projectID}/services/${paramsInPath.serviceID}/logs`,
     { base: getConfig('lw/api'), pathParams: { org_id, projectID, serviceID }, ...props }
@@ -1113,12 +1181,22 @@ export const useLogsOfService = ({ org_id, projectID, serviceID, ...props }: Use
 
 export interface GatewaySessionReportResponse {}
 
+export interface GatewaySessionReportQueryParams {
+  accountIdentifier: string
+}
+
 export interface GatewaySessionReportPathParams {
   org_id: string
 }
 
 export type GatewaySessionReportProps = Omit<
-  MutateProps<GatewaySessionReportResponse, void, void, ReportRequestBody, GatewaySessionReportPathParams>,
+  MutateProps<
+    GatewaySessionReportResponse,
+    void,
+    GatewaySessionReportQueryParams,
+    ReportRequestBody,
+    GatewaySessionReportPathParams
+  >,
   'path' | 'verb'
 > &
   GatewaySessionReportPathParams
@@ -1129,16 +1207,28 @@ export type GatewaySessionReportProps = Omit<
  * Get GatewaySessionReport
  */
 export const GatewaySessionReport = ({ org_id, ...props }: GatewaySessionReportProps) => (
-  <Mutate<GatewaySessionReportResponse, void, void, ReportRequestBody, GatewaySessionReportPathParams>
+  <Mutate<
+    GatewaySessionReportResponse,
+    void,
+    GatewaySessionReportQueryParams,
+    ReportRequestBody,
+    GatewaySessionReportPathParams
+  >
     verb="POST"
-    path="/orgs/${org_id}/reports"
+    path={`/orgs/${org_id}/reports`}
     base={getConfig('lw/api')}
     {...props}
   />
 )
 
 export type UseGatewaySessionReportProps = Omit<
-  UseMutateProps<GatewaySessionReportResponse, void, void, ReportRequestBody, GatewaySessionReportPathParams>,
+  UseMutateProps<
+    GatewaySessionReportResponse,
+    void,
+    GatewaySessionReportQueryParams,
+    ReportRequestBody,
+    GatewaySessionReportPathParams
+  >,
   'path' | 'verb'
 > &
   GatewaySessionReportPathParams
@@ -1149,16 +1239,23 @@ export type UseGatewaySessionReportProps = Omit<
  * Get GatewaySessionReport
  */
 export const useGatewaySessionReport = ({ org_id, ...props }: UseGatewaySessionReportProps) =>
-  useMutate<GatewaySessionReportResponse, void, void, ReportRequestBody, GatewaySessionReportPathParams>(
-    'POST',
-    (paramsInPath: GatewaySessionReportPathParams) => `/orgs/${paramsInPath.org_id}/reports`,
-    { base: getConfig('lw/api'), pathParams: { org_id }, ...props }
-  )
+  useMutate<
+    GatewaySessionReportResponse,
+    void,
+    GatewaySessionReportQueryParams,
+    ReportRequestBody,
+    GatewaySessionReportPathParams
+  >('POST', (paramsInPath: GatewaySessionReportPathParams) => `/orgs/${paramsInPath.org_id}/reports`, {
+    base: getConfig('lw/api'),
+    pathParams: { org_id },
+    ...props
+  })
 
 export interface ToggleAutostoppingRuleResponse {}
 
 export interface ToggleAutostoppingRuleQueryParams {
   disable: boolean
+  accountIdentifier: string
 }
 
 export interface ToggleAutostoppingRulePathParams {
@@ -1193,7 +1290,7 @@ export const ToggleAutostoppingRule = ({ org_id, project_id, service_id, ...prop
     ToggleAutostoppingRulePathParams
   >
     verb="PUT"
-    path="/orgs/${org_id}/projects/${project_id}/services/${service_id}/toggle_state"
+    path={`/orgs/${org_id}/projects/${project_id}/services/${service_id}/toggle_state`}
     base={getConfig('lw/api')}
     {...props}
   />
@@ -1237,6 +1334,7 @@ export const useToggleAutostoppingRule = ({
 
 export interface AllRegionsQueryParams {
   cloud_account_id: string
+  accountIdentifier: string
 }
 
 export interface AllRegionsPathParams {
@@ -1258,7 +1356,7 @@ export type AllRegionsProps = Omit<
  */
 export const AllRegions = ({ org_id, project_id, account_id, ...props }: AllRegionsProps) => (
   <Get<AllRegionsResponse, void, AllRegionsQueryParams, AllRegionsPathParams>
-    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/regions"
+    path={`/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/regions`}
     base={getConfig('lw/api')}
     {...props}
   />
@@ -1284,6 +1382,7 @@ export const useAllRegions = ({ org_id, project_id, account_id, ...props }: UseA
 
 export interface AllResourceGroupsQueryParams {
   cloud_account_id: string
+  accountIdentifier: string
 }
 
 export interface AllResourceGroupsPathParams {
@@ -1305,7 +1404,7 @@ export type AllResourceGroupsProps = Omit<
  */
 export const AllResourceGroups = ({ org_id, project_id, account_id, ...props }: AllResourceGroupsProps) => (
   <Get<AllResourceGroupsResponse, void, AllResourceGroupsQueryParams, AllResourceGroupsPathParams>
-    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/resource_groups"
+    path={`/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/resource_groups`}
     base={getConfig('lw/api')}
     {...props}
   />
@@ -1333,6 +1432,7 @@ export interface AllVPCsQueryParams {
   cloud_account_id: string
   region: string
   resource_group_name?: string
+  accountIdentifier: string
 }
 
 export interface AllVPCsPathParams {
@@ -1351,7 +1451,7 @@ export type AllVPCsProps = Omit<GetProps<AllVPCsResponse, void, AllVPCsQueryPara
  */
 export const AllVPCs = ({ org_id, project_id, account_id, ...props }: AllVPCsProps) => (
   <Get<AllVPCsResponse, void, AllVPCsQueryParams, AllVPCsPathParams>
-    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/virtual_networks"
+    path={`/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/virtual_networks`}
     base={getConfig('lw/api')}
     {...props}
   />
@@ -1377,6 +1477,7 @@ export interface AllSubnetsQueryParams {
   region: string
   vpc: string
   resource_group_name?: string
+  accountIdentifier: string
 }
 
 export interface AllSubnetsPathParams {
@@ -1398,7 +1499,7 @@ export type AllSubnetsProps = Omit<
  */
 export const AllSubnets = ({ org_id, project_id, account_id, ...props }: AllSubnetsProps) => (
   <Get<AllSubnetsResponse, void, AllSubnetsQueryParams, AllSubnetsPathParams>
-    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/subnets"
+    path={`/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/subnets`}
     base={getConfig('lw/api')}
     {...props}
   />
@@ -1427,6 +1528,7 @@ export interface AllPublicIpsQueryParams {
   region: string
   vpc: string
   resource_group_name: string
+  accountIdentifier: string
 }
 
 export interface AllPublicIpsPathParams {
@@ -1448,7 +1550,7 @@ export type AllPublicIpsProps = Omit<
  */
 export const AllPublicIps = ({ org_id, project_id, account_id, ...props }: AllPublicIpsProps) => (
   <Get<AllPublicIpsResponse, void, AllPublicIpsQueryParams, AllPublicIpsPathParams>
-    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/public_ips"
+    path={`/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/public_ips`}
     base={getConfig('lw/api')}
     {...props}
   />
@@ -1476,6 +1578,7 @@ export interface AllSecurityGroupsQueryParams {
   cloud_account_id: string
   region: string
   vpc_id: string
+  accountIdentifier: string
 }
 
 export interface AllSecurityGroupsPathParams {
@@ -1497,7 +1600,7 @@ export type AllSecurityGroupsProps = Omit<
  */
 export const AllSecurityGroups = ({ org_id, project_id, account_id, ...props }: AllSecurityGroupsProps) => (
   <Get<AllSecurityGroupsResponse, void, AllSecurityGroupsQueryParams, AllSecurityGroupsPathParams>
-    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/network_security_groups"
+    path={`/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/network_security_groups`}
     base={getConfig('lw/api')}
     {...props}
   />
@@ -1521,13 +1624,17 @@ export const useAllSecurityGroups = ({ org_id, project_id, account_id, ...props 
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id }, ...props }
   )
 
+export interface CreateAccessPointQueryParams {
+  accountIdentifier: string
+}
+
 export interface CreateAccessPointPathParams {
   org_id: string
   project_id: string
 }
 
 export type CreateAccessPointProps = Omit<
-  MutateProps<CreateAccessPointResponse, void, void, AccessPoint, CreateAccessPointPathParams>,
+  MutateProps<CreateAccessPointResponse, void, CreateAccessPointQueryParams, AccessPoint, CreateAccessPointPathParams>,
   'path' | 'verb'
 > &
   CreateAccessPointPathParams
@@ -1538,16 +1645,22 @@ export type CreateAccessPointProps = Omit<
  * Create an AccessPoint
  */
 export const CreateAccessPoint = ({ org_id, project_id, ...props }: CreateAccessPointProps) => (
-  <Mutate<CreateAccessPointResponse, void, void, AccessPoint, CreateAccessPointPathParams>
+  <Mutate<CreateAccessPointResponse, void, CreateAccessPointQueryParams, AccessPoint, CreateAccessPointPathParams>
     verb="POST"
-    path="/orgs/${org_id}/projects/${project_id}/services/access_points"
+    path={`/orgs/${org_id}/projects/${project_id}/services/access_points`}
     base={getConfig('lw/api')}
     {...props}
   />
 )
 
 export type UseCreateAccessPointProps = Omit<
-  UseMutateProps<CreateAccessPointResponse, void, void, AccessPoint, CreateAccessPointPathParams>,
+  UseMutateProps<
+    CreateAccessPointResponse,
+    void,
+    CreateAccessPointQueryParams,
+    AccessPoint,
+    CreateAccessPointPathParams
+  >,
   'path' | 'verb'
 > &
   CreateAccessPointPathParams
@@ -1558,12 +1671,16 @@ export type UseCreateAccessPointProps = Omit<
  * Create an AccessPoint
  */
 export const useCreateAccessPoint = ({ org_id, project_id, ...props }: UseCreateAccessPointProps) =>
-  useMutate<CreateAccessPointResponse, void, void, AccessPoint, CreateAccessPointPathParams>(
+  useMutate<CreateAccessPointResponse, void, CreateAccessPointQueryParams, AccessPoint, CreateAccessPointPathParams>(
     'POST',
     (paramsInPath: CreateAccessPointPathParams) =>
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/services/access_points`,
     { base: getConfig('lw/api'), pathParams: { org_id, project_id }, ...props }
   )
+
+export interface DeleteAccessPointsQueryParams {
+  accountIdentifier: string
+}
 
 export interface DeleteAccessPointsPathParams {
   org_id: string
@@ -1571,7 +1688,7 @@ export interface DeleteAccessPointsPathParams {
 }
 
 export type DeleteAccessPointsProps = Omit<
-  MutateProps<void, unknown, void, DeleteAccessPointPayload, DeleteAccessPointsPathParams>,
+  MutateProps<void, unknown, DeleteAccessPointsQueryParams, DeleteAccessPointPayload, DeleteAccessPointsPathParams>,
   'path' | 'verb'
 > &
   DeleteAccessPointsPathParams
@@ -1580,16 +1697,16 @@ export type DeleteAccessPointsProps = Omit<
  * Delete Access Points
  */
 export const DeleteAccessPoints = ({ org_id, project_id, ...props }: DeleteAccessPointsProps) => (
-  <Mutate<void, unknown, void, DeleteAccessPointPayload, DeleteAccessPointsPathParams>
+  <Mutate<void, unknown, DeleteAccessPointsQueryParams, DeleteAccessPointPayload, DeleteAccessPointsPathParams>
     verb="DELETE"
-    path="/orgs/${org_id}/projects/${project_id}/services/access_points"
+    path={`/orgs/${org_id}/projects/${project_id}/services/access_points`}
     base={getConfig('lw/api')}
     {...props}
   />
 )
 
 export type UseDeleteAccessPointsProps = Omit<
-  UseMutateProps<void, unknown, void, DeleteAccessPointPayload, DeleteAccessPointsPathParams>,
+  UseMutateProps<void, unknown, DeleteAccessPointsQueryParams, DeleteAccessPointPayload, DeleteAccessPointsPathParams>,
   'path' | 'verb'
 > &
   DeleteAccessPointsPathParams
@@ -1598,7 +1715,7 @@ export type UseDeleteAccessPointsProps = Omit<
  * Delete Access Points
  */
 export const useDeleteAccessPoints = ({ org_id, project_id, ...props }: UseDeleteAccessPointsProps) =>
-  useMutate<void, unknown, void, DeleteAccessPointPayload, DeleteAccessPointsPathParams>(
+  useMutate<void, unknown, DeleteAccessPointsQueryParams, DeleteAccessPointPayload, DeleteAccessPointsPathParams>(
     'DELETE',
     (paramsInPath: DeleteAccessPointsPathParams) =>
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/services/access_points`,
@@ -1609,6 +1726,7 @@ export interface ListAccessPointsQueryParams {
   vpc: string
   region: string
   cloud_account_id: string
+  accountIdentifier: string
 }
 
 export interface ListAccessPointsPathParams {
@@ -1630,7 +1748,7 @@ export type ListAccessPointsProps = Omit<
  */
 export const ListAccessPoints = ({ org_id, project_id, account_id, ...props }: ListAccessPointsProps) => (
   <Get<ListAccessPointResponse, void, ListAccessPointsQueryParams, ListAccessPointsPathParams>
-    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/services/access_points"
+    path={`/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/services/access_points`}
     base={getConfig('lw/api')}
     {...props}
   />
@@ -1654,13 +1772,20 @@ export const useListAccessPoints = ({ org_id, project_id, account_id, ...props }
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id }, ...props }
   )
 
+export interface GetAccessPointQueryParams {
+  accountIdentifier: string
+}
+
 export interface GetAccessPointPathParams {
   org_id: string
   project_id: string
   access_point_id: string
 }
 
-export type GetAccessPointProps = Omit<GetProps<GetAccessPointResponse, void, void, GetAccessPointPathParams>, 'path'> &
+export type GetAccessPointProps = Omit<
+  GetProps<GetAccessPointResponse, void, GetAccessPointQueryParams, GetAccessPointPathParams>,
+  'path'
+> &
   GetAccessPointPathParams
 
 /**
@@ -1669,15 +1794,15 @@ export type GetAccessPointProps = Omit<GetProps<GetAccessPointResponse, void, vo
  * status of access point
  */
 export const GetAccessPoint = ({ org_id, project_id, access_point_id, ...props }: GetAccessPointProps) => (
-  <Get<GetAccessPointResponse, void, void, GetAccessPointPathParams>
-    path="/orgs/${org_id}/projects/${project_id}/services/access_points/${access_point_id}"
+  <Get<GetAccessPointResponse, void, GetAccessPointQueryParams, GetAccessPointPathParams>
+    path={`/orgs/${org_id}/projects/${project_id}/services/access_points/${access_point_id}`}
     base={getConfig('lw/api')}
     {...props}
   />
 )
 
 export type UseGetAccessPointProps = Omit<
-  UseGetProps<GetAccessPointResponse, void, void, GetAccessPointPathParams>,
+  UseGetProps<GetAccessPointResponse, void, GetAccessPointQueryParams, GetAccessPointPathParams>,
   'path'
 > &
   GetAccessPointPathParams
@@ -1688,7 +1813,7 @@ export type UseGetAccessPointProps = Omit<
  * status of access point
  */
 export const useGetAccessPoint = ({ org_id, project_id, access_point_id, ...props }: UseGetAccessPointProps) =>
-  useGet<GetAccessPointResponse, void, void, GetAccessPointPathParams>(
+  useGet<GetAccessPointResponse, void, GetAccessPointQueryParams, GetAccessPointPathParams>(
     (paramsInPath: GetAccessPointPathParams) =>
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/services/access_points/${paramsInPath.access_point_id}`,
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, access_point_id }, ...props }
@@ -1696,6 +1821,7 @@ export const useGetAccessPoint = ({ org_id, project_id, access_point_id, ...prop
 
 export interface AllExecutionRolesQueryParams {
   cloud_account_id: string
+  accountIdentifier: string
 }
 
 export interface AllExecutionRolesPathParams {
@@ -1717,7 +1843,7 @@ export type AllExecutionRolesProps = Omit<
  */
 export const AllExecutionRoles = ({ org_id, project_id, account_id, ...props }: AllExecutionRolesProps) => (
   <Get<AllExecutionRolesResponse, void, AllExecutionRolesQueryParams, AllExecutionRolesPathParams>
-    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/execution_roles"
+    path={`/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/execution_roles`}
     base={getConfig('lw/api')}
     {...props}
   />
@@ -1745,6 +1871,7 @@ export interface AllCertificatesQueryParams {
   cloud_account_id: string
   region: string
   resource_group_name?: string
+  accountIdentifier: string
 }
 
 export interface AllCertificatesPathParams {
@@ -1766,7 +1893,7 @@ export type AllCertificatesProps = Omit<
  */
 export const AllCertificates = ({ org_id, project_id, account_id, ...props }: AllCertificatesProps) => (
   <Get<AllCertificatesResponse, void, AllCertificatesQueryParams, AllCertificatesPathParams>
-    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/certificates"
+    path={`/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/certificates`}
     base={getConfig('lw/api')}
     {...props}
   />
@@ -1793,6 +1920,7 @@ export const useAllCertificates = ({ org_id, project_id, account_id, ...props }:
 export interface AllServiceResourcesQueryParams {
   cloud_account_id: string
   region: string
+  accountIdentifier: string
 }
 
 export interface AllServiceResourcesPathParams {
@@ -1814,7 +1942,7 @@ export type AllServiceResourcesProps = Omit<
  */
 export const AllServiceResources = ({ org_id, project_id, service_id, ...props }: AllServiceResourcesProps) => (
   <Get<AllResourcesOfAccountResponse, void, AllServiceResourcesQueryParams, AllServiceResourcesPathParams>
-    path="/orgs/${org_id}/projects/${project_id}/services/${service_id}/resources"
+    path={`/orgs/${org_id}/projects/${project_id}/services/${service_id}/resources`}
     base={getConfig('lw/api')}
     {...props}
   />
@@ -1838,13 +1966,17 @@ export const useAllServiceResources = ({ org_id, project_id, service_id, ...prop
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, service_id }, ...props }
   )
 
+export interface CumulativeServiceSavingsQueryParams {
+  accountIdentifier: string
+}
+
 export interface CumulativeServiceSavingsPathParams {
   org_id: string
   project_id: string
 }
 
 export type CumulativeServiceSavingsProps = Omit<
-  GetProps<CumulativeSavingsResponse, void, void, CumulativeServiceSavingsPathParams>,
+  GetProps<CumulativeSavingsResponse, void, CumulativeServiceSavingsQueryParams, CumulativeServiceSavingsPathParams>,
   'path'
 > &
   CumulativeServiceSavingsPathParams
@@ -1855,15 +1987,15 @@ export type CumulativeServiceSavingsProps = Omit<
  * CumulativeSavings for all services
  */
 export const CumulativeServiceSavings = ({ org_id, project_id, ...props }: CumulativeServiceSavingsProps) => (
-  <Get<CumulativeSavingsResponse, void, void, CumulativeServiceSavingsPathParams>
-    path="/orgs/${org_id}/projects/${project_id}/services/savings/cumulative"
+  <Get<CumulativeSavingsResponse, void, CumulativeServiceSavingsQueryParams, CumulativeServiceSavingsPathParams>
+    path={`/orgs/${org_id}/projects/${project_id}/services/savings/cumulative`}
     base={getConfig('lw/api')}
     {...props}
   />
 )
 
 export type UseCumulativeServiceSavingsProps = Omit<
-  UseGetProps<CumulativeSavingsResponse, void, void, CumulativeServiceSavingsPathParams>,
+  UseGetProps<CumulativeSavingsResponse, void, CumulativeServiceSavingsQueryParams, CumulativeServiceSavingsPathParams>,
   'path'
 > &
   CumulativeServiceSavingsPathParams
@@ -1874,7 +2006,7 @@ export type UseCumulativeServiceSavingsProps = Omit<
  * CumulativeSavings for all services
  */
 export const useCumulativeServiceSavings = ({ org_id, project_id, ...props }: UseCumulativeServiceSavingsProps) =>
-  useGet<CumulativeSavingsResponse, void, void, CumulativeServiceSavingsPathParams>(
+  useGet<CumulativeSavingsResponse, void, CumulativeServiceSavingsQueryParams, CumulativeServiceSavingsPathParams>(
     (paramsInPath: CumulativeServiceSavingsPathParams) =>
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/services/savings/cumulative`,
     { base: getConfig('lw/api'), pathParams: { org_id, project_id }, ...props }
@@ -1884,13 +2016,20 @@ export interface RouteDetailsResponse {
   response?: SaveServiceRequest
 }
 
+export interface RouteDetailsQueryParams {
+  accountIdentifier: string
+}
+
 export interface RouteDetailsPathParams {
   org_id: string
   project_id: string
   service_id: number
 }
 
-export type RouteDetailsProps = Omit<GetProps<RouteDetailsResponse, void, void, RouteDetailsPathParams>, 'path'> &
+export type RouteDetailsProps = Omit<
+  GetProps<RouteDetailsResponse, void, RouteDetailsQueryParams, RouteDetailsPathParams>,
+  'path'
+> &
   RouteDetailsPathParams
 
 /**
@@ -1899,14 +2038,17 @@ export type RouteDetailsProps = Omit<GetProps<RouteDetailsResponse, void, void, 
  * Get Details of a Route
  */
 export const RouteDetails = ({ org_id, project_id, service_id, ...props }: RouteDetailsProps) => (
-  <Get<RouteDetailsResponse, void, void, RouteDetailsPathParams>
-    path="/orgs/${org_id}/projects/${project_id}/services/${service_id}"
+  <Get<RouteDetailsResponse, void, RouteDetailsQueryParams, RouteDetailsPathParams>
+    path={`/orgs/${org_id}/projects/${project_id}/services/${service_id}`}
     base={getConfig('lw/api')}
     {...props}
   />
 )
 
-export type UseRouteDetailsProps = Omit<UseGetProps<RouteDetailsResponse, void, void, RouteDetailsPathParams>, 'path'> &
+export type UseRouteDetailsProps = Omit<
+  UseGetProps<RouteDetailsResponse, void, RouteDetailsQueryParams, RouteDetailsPathParams>,
+  'path'
+> &
   RouteDetailsPathParams
 
 /**
@@ -1915,18 +2057,25 @@ export type UseRouteDetailsProps = Omit<UseGetProps<RouteDetailsResponse, void, 
  * Get Details of a Route
  */
 export const useRouteDetails = ({ org_id, project_id, service_id, ...props }: UseRouteDetailsProps) =>
-  useGet<RouteDetailsResponse, void, void, RouteDetailsPathParams>(
+  useGet<RouteDetailsResponse, void, RouteDetailsQueryParams, RouteDetailsPathParams>(
     (paramsInPath: RouteDetailsPathParams) =>
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/services/${paramsInPath.service_id}`,
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, service_id }, ...props }
   )
+
+export interface DeleteServiceQueryParams {
+  accountIdentifier: string
+}
 
 export interface DeleteServicePathParams {
   org_id: string
   project_id: string
 }
 
-export type DeleteServiceProps = Omit<MutateProps<void, void, void, number, DeleteServicePathParams>, 'path' | 'verb'> &
+export type DeleteServiceProps = Omit<
+  MutateProps<void, void, DeleteServiceQueryParams, number, DeleteServicePathParams>,
+  'path' | 'verb'
+> &
   DeleteServicePathParams
 
 /**
@@ -1935,16 +2084,16 @@ export type DeleteServiceProps = Omit<MutateProps<void, void, void, number, Dele
  * Deletes a service
  */
 export const DeleteService = ({ org_id, project_id, ...props }: DeleteServiceProps) => (
-  <Mutate<void, void, void, number, DeleteServicePathParams>
+  <Mutate<void, void, DeleteServiceQueryParams, number, DeleteServicePathParams>
     verb="DELETE"
-    path="/orgs/${org_id}/projects/${project_id}/services"
+    path={`/orgs/${org_id}/projects/${project_id}/services`}
     base={getConfig('lw/api')}
     {...props}
   />
 )
 
 export type UseDeleteServiceProps = Omit<
-  UseMutateProps<void, void, void, number, DeleteServicePathParams>,
+  UseMutateProps<void, void, DeleteServiceQueryParams, number, DeleteServicePathParams>,
   'path' | 'verb'
 > &
   DeleteServicePathParams
@@ -1955,7 +2104,7 @@ export type UseDeleteServiceProps = Omit<
  * Deletes a service
  */
 export const useDeleteService = ({ org_id, project_id, ...props }: UseDeleteServiceProps) =>
-  useMutate<void, void, void, number, DeleteServicePathParams>(
+  useMutate<void, void, DeleteServiceQueryParams, number, DeleteServicePathParams>(
     'DELETE',
     (paramsInPath: DeleteServicePathParams) =>
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/services`,
@@ -1966,6 +2115,7 @@ export interface AttachTagsQueryParams {
   cloud_account_id: string
   tagKey: string
   tagValue: string
+  accountIdentifier: string
 }
 
 export interface AttachTagsPathParams {
@@ -1994,7 +2144,7 @@ export type AttachTagsProps = Omit<
 export const AttachTags = ({ org_id, project_id, account_id, ...props }: AttachTagsProps) => (
   <Mutate<AttachTagByFilterResponse, void, AttachTagsQueryParams, ResourceFilterBodyRequestBody, AttachTagsPathParams>
     verb="POST"
-    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/tag"
+    path={`/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/tag`}
     base={getConfig('lw/api')}
     {...props}
   />
@@ -2034,6 +2184,7 @@ export const useAttachTags = ({ org_id, project_id, account_id, ...props }: UseA
 export interface AllHostedZonesQueryParams {
   cloud_account_id: string
   region: string
+  accountIdentifier: string
   domain?: string
 }
 
@@ -2056,7 +2207,7 @@ export type AllHostedZonesProps = Omit<
  */
 export const AllHostedZones = ({ org_id, project_id, account_id, ...props }: AllHostedZonesProps) => (
   <Get<AllHostedZonesResponse, void, AllHostedZonesQueryParams, AllHostedZonesPathParams>
-    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/hosted_zones"
+    path={`/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/hosted_zones`}
     base={getConfig('lw/api')}
     {...props}
   />
@@ -2080,13 +2231,20 @@ export const useAllHostedZones = ({ org_id, project_id, account_id, ...props }: 
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id }, ...props }
   )
 
+export interface MapToDNSQueryParams {
+  accountIdentifier: string
+}
+
 export interface MapToDNSPathParams {
   org_id: string
   project_id: string
   access_point_id: string
 }
 
-export type MapToDNSProps = Omit<MutateProps<void, void, void, MaptoDNSBody, MapToDNSPathParams>, 'path' | 'verb'> &
+export type MapToDNSProps = Omit<
+  MutateProps<void, void, MapToDNSQueryParams, MaptoDNSBody, MapToDNSPathParams>,
+  'path' | 'verb'
+> &
   MapToDNSPathParams
 
 /**
@@ -2095,16 +2253,16 @@ export type MapToDNSProps = Omit<MutateProps<void, void, void, MaptoDNSBody, Map
  * map access point to dns
  */
 export const MapToDNS = ({ org_id, project_id, access_point_id, ...props }: MapToDNSProps) => (
-  <Mutate<void, void, void, MaptoDNSBody, MapToDNSPathParams>
+  <Mutate<void, void, MapToDNSQueryParams, MaptoDNSBody, MapToDNSPathParams>
     verb="POST"
-    path="/orgs/${org_id}/projects/${project_id}/services/access_points/${access_point_id}/map_dns"
+    path={`/orgs/${org_id}/projects/${project_id}/services/access_points/${access_point_id}/map_dns`}
     base={getConfig('lw/api')}
     {...props}
   />
 )
 
 export type UseMapToDNSProps = Omit<
-  UseMutateProps<void, void, void, MaptoDNSBody, MapToDNSPathParams>,
+  UseMutateProps<void, void, MapToDNSQueryParams, MaptoDNSBody, MapToDNSPathParams>,
   'path' | 'verb'
 > &
   MapToDNSPathParams
@@ -2115,12 +2273,16 @@ export type UseMapToDNSProps = Omit<
  * map access point to dns
  */
 export const useMapToDNS = ({ org_id, project_id, access_point_id, ...props }: UseMapToDNSProps) =>
-  useMutate<void, void, void, MaptoDNSBody, MapToDNSPathParams>(
+  useMutate<void, void, MapToDNSQueryParams, MaptoDNSBody, MapToDNSPathParams>(
     'POST',
     (paramsInPath: MapToDNSPathParams) =>
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/services/access_points/${paramsInPath.access_point_id}/map_dns`,
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, access_point_id }, ...props }
   )
+
+export interface AllAccessPointsQueryParams {
+  accountIdentifier: string
+}
 
 export interface AllAccessPointsPathParams {
   org_id: string
@@ -2129,7 +2291,7 @@ export interface AllAccessPointsPathParams {
 }
 
 export type AllAccessPointsProps = Omit<
-  GetProps<ListAccessPointResponse, void, void, AllAccessPointsPathParams>,
+  GetProps<ListAccessPointResponse, void, AllAccessPointsQueryParams, AllAccessPointsPathParams>,
   'path'
 > &
   AllAccessPointsPathParams
@@ -2140,15 +2302,15 @@ export type AllAccessPointsProps = Omit<
  * Returns all AccessPoints for an account
  */
 export const AllAccessPoints = ({ org_id, project_id, account_id, ...props }: AllAccessPointsProps) => (
-  <Get<ListAccessPointResponse, void, void, AllAccessPointsPathParams>
-    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/services/access_points/all"
+  <Get<ListAccessPointResponse, void, AllAccessPointsQueryParams, AllAccessPointsPathParams>
+    path={`/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/services/access_points/all`}
     base={getConfig('lw/api')}
     {...props}
   />
 )
 
 export type UseAllAccessPointsProps = Omit<
-  UseGetProps<ListAccessPointResponse, void, void, AllAccessPointsPathParams>,
+  UseGetProps<ListAccessPointResponse, void, AllAccessPointsQueryParams, AllAccessPointsPathParams>,
   'path'
 > &
   AllAccessPointsPathParams
@@ -2159,11 +2321,15 @@ export type UseAllAccessPointsProps = Omit<
  * Returns all AccessPoints for an account
  */
 export const useAllAccessPoints = ({ org_id, project_id, account_id, ...props }: UseAllAccessPointsProps) =>
-  useGet<ListAccessPointResponse, void, void, AllAccessPointsPathParams>(
+  useGet<ListAccessPointResponse, void, AllAccessPointsQueryParams, AllAccessPointsPathParams>(
     (paramsInPath: AllAccessPointsPathParams) =>
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/accounts/${paramsInPath.account_id}/services/access_points/all`,
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id }, ...props }
   )
+
+export interface AccessPointRulesQueryParams {
+  accountIdentifier: string
+}
 
 export interface AccessPointRulesPathParams {
   org_id: string
@@ -2172,7 +2338,10 @@ export interface AccessPointRulesPathParams {
   access_point_id: string
 }
 
-export type AccessPointRulesProps = Omit<GetProps<ServicesResponse, void, void, AccessPointRulesPathParams>, 'path'> &
+export type AccessPointRulesProps = Omit<
+  GetProps<ServicesResponse, void, AccessPointRulesQueryParams, AccessPointRulesPathParams>,
+  'path'
+> &
   AccessPointRulesPathParams
 
 /**
@@ -2187,15 +2356,15 @@ export const AccessPointRules = ({
   access_point_id,
   ...props
 }: AccessPointRulesProps) => (
-  <Get<ServicesResponse, void, void, AccessPointRulesPathParams>
-    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/services/access_points/${access_point_id}/rules"
+  <Get<ServicesResponse, void, AccessPointRulesQueryParams, AccessPointRulesPathParams>
+    path={`/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/services/access_points/${access_point_id}/rules`}
     base={getConfig('lw/api')}
     {...props}
   />
 )
 
 export type UseAccessPointRulesProps = Omit<
-  UseGetProps<ServicesResponse, void, void, AccessPointRulesPathParams>,
+  UseGetProps<ServicesResponse, void, AccessPointRulesQueryParams, AccessPointRulesPathParams>,
   'path'
 > &
   AccessPointRulesPathParams
@@ -2212,11 +2381,15 @@ export const useAccessPointRules = ({
   access_point_id,
   ...props
 }: UseAccessPointRulesProps) =>
-  useGet<ServicesResponse, void, void, AccessPointRulesPathParams>(
+  useGet<ServicesResponse, void, AccessPointRulesQueryParams, AccessPointRulesPathParams>(
     (paramsInPath: AccessPointRulesPathParams) =>
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/accounts/${paramsInPath.account_id}/services/access_points/${paramsInPath.access_point_id}/rules`,
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id, access_point_id }, ...props }
   )
+
+export interface AccessPointActivityQueryParams {
+  accountIdentifier: string
+}
 
 export interface AccessPointActivityPathParams {
   org_id: string
@@ -2226,7 +2399,7 @@ export interface AccessPointActivityPathParams {
 }
 
 export type AccessPointActivityProps = Omit<
-  GetProps<AccessPointActivityResponse, void, void, AccessPointActivityPathParams>,
+  GetProps<AccessPointActivityResponse, void, AccessPointActivityQueryParams, AccessPointActivityPathParams>,
   'path'
 > &
   AccessPointActivityPathParams
@@ -2243,15 +2416,15 @@ export const AccessPointActivity = ({
   access_point_id,
   ...props
 }: AccessPointActivityProps) => (
-  <Get<AccessPointActivityResponse, void, void, AccessPointActivityPathParams>
-    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/services/access_points/${access_point_id}/last_active_at"
+  <Get<AccessPointActivityResponse, void, AccessPointActivityQueryParams, AccessPointActivityPathParams>
+    path={`/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/services/access_points/${access_point_id}/last_active_at`}
     base={getConfig('lw/api')}
     {...props}
   />
 )
 
 export type UseAccessPointActivityProps = Omit<
-  UseGetProps<AccessPointActivityResponse, void, void, AccessPointActivityPathParams>,
+  UseGetProps<AccessPointActivityResponse, void, AccessPointActivityQueryParams, AccessPointActivityPathParams>,
   'path'
 > &
   AccessPointActivityPathParams
@@ -2268,11 +2441,15 @@ export const useAccessPointActivity = ({
   access_point_id,
   ...props
 }: UseAccessPointActivityProps) =>
-  useGet<AccessPointActivityResponse, void, void, AccessPointActivityPathParams>(
+  useGet<AccessPointActivityResponse, void, AccessPointActivityQueryParams, AccessPointActivityPathParams>(
     (paramsInPath: AccessPointActivityPathParams) =>
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/accounts/${paramsInPath.account_id}/services/access_points/${paramsInPath.access_point_id}/last_active_at`,
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id, access_point_id }, ...props }
   )
+
+export interface GetCloudFormationTemplateQueryParams {
+  accountIdentifier: string
+}
 
 export interface GetCloudFormationTemplatePathParams {
   org_id: string
@@ -2281,7 +2458,7 @@ export interface GetCloudFormationTemplatePathParams {
 }
 
 export type GetCloudFormationTemplateProps = Omit<
-  GetProps<CFTResponse, void, void, GetCloudFormationTemplatePathParams>,
+  GetProps<CFTResponse, void, GetCloudFormationTemplateQueryParams, GetCloudFormationTemplatePathParams>,
   'path'
 > &
   GetCloudFormationTemplatePathParams
@@ -2297,15 +2474,15 @@ export const GetCloudFormationTemplate = ({
   account_id,
   ...props
 }: GetCloudFormationTemplateProps) => (
-  <Get<CFTResponse, void, void, GetCloudFormationTemplatePathParams>
-    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/cft_path"
+  <Get<CFTResponse, void, GetCloudFormationTemplateQueryParams, GetCloudFormationTemplatePathParams>
+    path={`/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/cft_path`}
     base={getConfig('lw/api')}
     {...props}
   />
 )
 
 export type UseGetCloudFormationTemplateProps = Omit<
-  UseGetProps<CFTResponse, void, void, GetCloudFormationTemplatePathParams>,
+  UseGetProps<CFTResponse, void, GetCloudFormationTemplateQueryParams, GetCloudFormationTemplatePathParams>,
   'path'
 > &
   GetCloudFormationTemplatePathParams
@@ -2321,11 +2498,15 @@ export const useGetCloudFormationTemplate = ({
   account_id,
   ...props
 }: UseGetCloudFormationTemplateProps) =>
-  useGet<CFTResponse, void, void, GetCloudFormationTemplatePathParams>(
+  useGet<CFTResponse, void, GetCloudFormationTemplateQueryParams, GetCloudFormationTemplatePathParams>(
     (paramsInPath: GetCloudFormationTemplatePathParams) =>
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/accounts/${paramsInPath.account_id}/cft_path`,
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id }, ...props }
   )
+
+export interface GetServiceDiagnosticsQueryParams {
+  accountIdentifier: string
+}
 
 export interface GetServiceDiagnosticsPathParams {
   org_id: string
@@ -2335,7 +2516,7 @@ export interface GetServiceDiagnosticsPathParams {
 }
 
 export type GetServiceDiagnosticsProps = Omit<
-  GetProps<ServiceDiagnosticsResponse, void, void, GetServiceDiagnosticsPathParams>,
+  GetProps<ServiceDiagnosticsResponse, void, GetServiceDiagnosticsQueryParams, GetServiceDiagnosticsPathParams>,
   'path'
 > &
   GetServiceDiagnosticsPathParams
@@ -2352,15 +2533,15 @@ export const GetServiceDiagnostics = ({
   service_id,
   ...props
 }: GetServiceDiagnosticsProps) => (
-  <Get<ServiceDiagnosticsResponse, void, void, GetServiceDiagnosticsPathParams>
-    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/services/${service_id}/diagnostics"
+  <Get<ServiceDiagnosticsResponse, void, GetServiceDiagnosticsQueryParams, GetServiceDiagnosticsPathParams>
+    path={`/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/services/${service_id}/diagnostics`}
     base={getConfig('lw/api')}
     {...props}
   />
 )
 
 export type UseGetServiceDiagnosticsProps = Omit<
-  UseGetProps<ServiceDiagnosticsResponse, void, void, GetServiceDiagnosticsPathParams>,
+  UseGetProps<ServiceDiagnosticsResponse, void, GetServiceDiagnosticsQueryParams, GetServiceDiagnosticsPathParams>,
   'path'
 > &
   GetServiceDiagnosticsPathParams
@@ -2377,7 +2558,7 @@ export const useGetServiceDiagnostics = ({
   service_id,
   ...props
 }: UseGetServiceDiagnosticsProps) =>
-  useGet<ServiceDiagnosticsResponse, void, void, GetServiceDiagnosticsPathParams>(
+  useGet<ServiceDiagnosticsResponse, void, GetServiceDiagnosticsQueryParams, GetServiceDiagnosticsPathParams>(
     (paramsInPath: GetServiceDiagnosticsPathParams) =>
       `/orgs/${paramsInPath.org_id}/projects/${paramsInPath.project_id}/accounts/${paramsInPath.account_id}/services/${paramsInPath.service_id}/diagnostics`,
     { base: getConfig('lw/api'), pathParams: { org_id, project_id, account_id, service_id }, ...props }
@@ -2387,6 +2568,7 @@ export interface AccessPointResourcesQueryParams {
   cloud_account_id: string
   region: string
   resource_group_name?: string
+  accountIdentifier: string
 }
 
 export interface AccessPointResourcesPathParams {
@@ -2408,7 +2590,7 @@ export type AccessPointResourcesProps = Omit<
  */
 export const AccessPointResources = ({ org_id, project_id, account_id, ...props }: AccessPointResourcesProps) => (
   <Get<AccessPointCoresResponse, void, AccessPointResourcesQueryParams, AccessPointResourcesPathParams>
-    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/access_points/supported_resources"
+    path={`/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/access_points/supported_resources`}
     base={getConfig('lw/api')}
     {...props}
   />
@@ -2434,6 +2616,7 @@ export const useAccessPointResources = ({ org_id, project_id, account_id, ...pro
 
 export interface GetAllASGsQueryParams {
   cloud_account_id: string
+  accountIdentifier: string
 }
 
 export interface GetAllASGsPathParams {
@@ -2456,7 +2639,7 @@ export type GetAllASGsProps = Omit<
 export const GetAllASGs = ({ org_id, project_id, account_id, ...props }: GetAllASGsProps) => (
   <Mutate<AllASGResponse, void, GetAllASGsQueryParams, ASGResourceFilterBody, GetAllASGsPathParams>
     verb="POST"
-    path="/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/scaling_groups"
+    path={`/orgs/${org_id}/projects/${project_id}/accounts/${account_id}/scaling_groups`}
     base={getConfig('lw/api')}
     {...props}
   />
@@ -2489,7 +2672,7 @@ export type GetAppIdProps = Omit<GetProps<AppIdResponse, void, void, void>, 'pat
  * Get Azure application ID
  */
 export const GetAppId = (props: GetAppIdProps) => (
-  <Get<AppIdResponse, void, void, void> path="/app_id" base={getConfig('lw/api')} {...props} />
+  <Get<AppIdResponse, void, void, void> path={`/app_id`} base={getConfig('lw/api')} {...props} />
 )
 
 export type UseGetAppIdProps = Omit<UseGetProps<AppIdResponse, void, void, void>, 'path'>

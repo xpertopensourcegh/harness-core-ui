@@ -57,6 +57,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
       {
         queryParams: {
           cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
+          accountIdentifier: accountId,
           tagKey,
           tagValue
         }

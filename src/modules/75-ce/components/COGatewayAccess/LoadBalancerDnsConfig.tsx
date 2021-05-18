@@ -32,9 +32,10 @@ const LoadBalancerDnsConfig: React.FC<LoadBalancerDnsConfigProps> = props => {
   const [loadBalancerId, setLoadBalancerId] = useState<string>()
   const [currCloudAccountId, setCurrCloudAccountId] = useState<string | undefined>(cloudAccountId)
 
-  const { orgIdentifier, projectIdentifier } = useParams<{
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<{
     orgIdentifier: string
     projectIdentifier: string
+    accountId: string
   }>()
 
   const { mutate: createLoadBalancer } = useCreateAccessPoint({
@@ -46,6 +47,9 @@ const LoadBalancerDnsConfig: React.FC<LoadBalancerDnsConfigProps> = props => {
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
     access_point_id: loadBalancerId as string, //eslint-disable-line
+    queryParams: {
+      accountIdentifier: accountId
+    },
     lazy: true
   })
 

@@ -73,7 +73,8 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     queryParams: {
       cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
       region: 'us-east-1',
-      domain: props.gatewayDetails.customDomains?.length ? props.gatewayDetails.customDomains[0] : ''
+      domain: props.gatewayDetails.customDomains?.length ? props.gatewayDetails.customDomains[0] : '',
+      accountIdentifier: accountId
     },
     lazy: true
   })
@@ -144,7 +145,8 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
       vpc: props.gatewayDetails.selectedInstances?.length
         ? props.gatewayDetails.selectedInstances[0].vpc
         : props.gatewayDetails.routing.instance.scale_group?.target_groups?.[0]?.vpc || '',
-      cloud_account_id: props.gatewayDetails.cloudAccount.id // eslint-disable-line
+      cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
+      accountIdentifier: accountId
     }
   })
 
@@ -157,7 +159,8 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
         ? props.gatewayDetails.selectedInstances[0].region
         : props.gatewayDetails.routing.instance.scale_group?.region || '',
       cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
-      resource_group_name: props.gatewayDetails.selectedInstances[0].metadata?.resourceGroup
+      resource_group_name: props.gatewayDetails.selectedInstances[0].metadata?.resourceGroup,
+      accountIdentifier: accountId
     }
   })
 

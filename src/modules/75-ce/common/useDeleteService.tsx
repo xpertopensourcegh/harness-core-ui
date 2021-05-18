@@ -7,6 +7,7 @@ interface UseDeleteServiceHookProps {
   orgIdentifier: string
   projectIdentifier: string
   serviceData: Service
+  accountId: string
   onSuccess?: (data: Service) => void
   onFailure?: (error: any) => void
 }
@@ -16,11 +17,14 @@ interface UseDeleteServiceHookReturn {
 }
 
 const useDeleteServiceHook = (props: UseDeleteServiceHookProps): UseDeleteServiceHookReturn => {
-  const { orgIdentifier, projectIdentifier, serviceData } = props
+  const { accountId, orgIdentifier, projectIdentifier, serviceData } = props
   const { getString } = useStrings()
   const { mutate: deleteServiceApiCall } = useDeleteService({
     org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier // eslint-disable-line
+    project_id: projectIdentifier, // eslint-disable-line
+    queryParams: {
+      accountIdentifier: accountId
+    }
   })
 
   const deleteRule = async (isConfirmed: boolean) => {

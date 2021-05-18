@@ -100,7 +100,10 @@ const COLoadBalancerList: React.FC = () => {
       org_id: orgIdentifier, // eslint-disable-line
       project_id: projectIdentifier, // eslint-disable-line
       access_point_id: tableProps.row.original.id as string, // eslint-disable-line
-      account_id: accountId // eslint-disable-line
+      account_id: accountId, // eslint-disable-line
+      queryParams: {
+        accountIdentifier: accountId
+      }
     })
     if (detailsError) {
       showError(detailsError.data || detailsError.message)
@@ -127,7 +130,10 @@ const COLoadBalancerList: React.FC = () => {
       org_id: orgIdentifier, // eslint-disable-line
       project_id: projectIdentifier, // eslint-disable-line
       access_point_id: tableProps.row.original.id as string, // eslint-disable-line
-      account_id: accountId // eslint-disable-line
+      account_id: accountId, // eslint-disable-line
+      queryParams: {
+        accountIdentifier: accountId
+      }
     })
     if (detailsError) {
       showError(detailsError.message)
@@ -202,6 +208,9 @@ const COLoadBalancerList: React.FC = () => {
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
+    queryParams: {
+      accountIdentifier: accountId
+    },
     debounce: 300
   })
   if (error) {
@@ -246,6 +255,7 @@ const COLoadBalancerList: React.FC = () => {
                     accessPoints={selectedAccessPoints}
                     orgID={orgIdentifier}
                     projectID={projectIdentifier}
+                    accountId={accountId}
                     refresh={refreshList}
                   />
                 </Layout.Horizontal>

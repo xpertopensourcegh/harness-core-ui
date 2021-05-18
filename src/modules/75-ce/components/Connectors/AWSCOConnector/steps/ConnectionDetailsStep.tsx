@@ -49,7 +49,10 @@ const ConnectionDetailsStep: React.FC<StepProps<ConnectorInfoDTO>> = props => {
   const { data, error } = useGetCloudFormationTemplate({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
-    account_id: accountId // eslint-disable-line
+    account_id: accountId, // eslint-disable-line
+    queryParams: {
+      accountIdentifier: accountId
+    }
   })
 
   if (error) {

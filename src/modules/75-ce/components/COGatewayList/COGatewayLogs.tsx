@@ -38,7 +38,7 @@ function getLogs(logs: ServiceLog[] | undefined): string {
 }
 
 const COGatewayLogs: React.FC<COGatewayLogsProps> = props => {
-  const { orgIdentifier, projectIdentifier } = useParams<{
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<{
     accountId: string
     orgIdentifier: string
     projectIdentifier: string
@@ -46,7 +46,10 @@ const COGatewayLogs: React.FC<COGatewayLogsProps> = props => {
   const { data, loading } = useLogsOfService({
     org_id: orgIdentifier,
     projectID: projectIdentifier,
-    serviceID: props.service?.id as number
+    serviceID: props.service?.id as number,
+    queryParams: {
+      accountIdentifier: accountId
+    }
   })
 
   return <SimpleLogViewer data={getLogs(data?.response)} loading={loading} />

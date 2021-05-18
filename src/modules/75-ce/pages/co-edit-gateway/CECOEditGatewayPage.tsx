@@ -23,7 +23,10 @@ export const CECOEditGatewayPage: React.FC = () => {
   const { data, loading } = useRouteDetails({
     org_id: orgIdentifier,
     project_id: projectIdentifier,
-    service_id: (gatewayIdentifier as unknown) as number
+    service_id: (gatewayIdentifier as unknown) as number,
+    queryParams: {
+      accountIdentifier: accountId
+    }
   })
   const { data: resources, loading: resourcesLoading } = useAllServiceResources({
     org_id: orgIdentifier,

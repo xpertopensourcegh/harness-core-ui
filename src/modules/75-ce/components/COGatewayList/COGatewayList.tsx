@@ -108,7 +108,10 @@ function NameCell(tableProps: CellProps<Service>): JSX.Element {
     org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
-    service_id: tableProps.row.original.id as number // eslint-disable-line
+    service_id: tableProps.row.original.id as number, // eslint-disable-line
+    queryParams: {
+      accountIdentifier: accountId
+    }
   })
   const diagnosticsErrors = (data?.response || [])
     .filter(item => !item.success)
@@ -190,6 +193,9 @@ const COGatewayList: React.FC = () => {
   const { data: servicesData, error, loading, refetch: refetchServices } = useGetServices({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
+    queryParams: {
+      accountIdentifier: accountId
+    },
     debounce: 300
   })
 
@@ -214,6 +220,9 @@ const COGatewayList: React.FC = () => {
       org_id: orgIdentifier, // eslint-disable-line
       projectID: projectIdentifier, // eslint-disable-line
       serviceID: tableProps.row.original.id as number,
+      queryParams: {
+        accountIdentifier: accountId
+      },
       debounce: 300
     })
     return (
@@ -246,6 +255,9 @@ const COGatewayList: React.FC = () => {
       org_id: orgIdentifier, // eslint-disable-line
       projectID: projectIdentifier, // eslint-disable-line
       serviceID: tableProps.row.original.id as number,
+      queryParams: {
+        accountIdentifier: accountId
+      },
       debounce: 300
     })
     return (
@@ -270,6 +282,9 @@ const COGatewayList: React.FC = () => {
       org_id: orgIdentifier, // eslint-disable-line
       projectID: projectIdentifier, // eslint-disable-line
       serviceID: tableProps.row.original.id as number,
+      queryParams: {
+        accountIdentifier: accountId
+      },
       debounce: 300
     })
 
@@ -373,6 +388,7 @@ const COGatewayList: React.FC = () => {
     const { triggerToggle } = useToggleRuleState({
       orgIdentifier,
       projectIdentifier,
+      accountId,
       serviceData: row.original,
       onSuccess: (updatedServiceData: Service) => onServiceStateToggle('SUCCESS', updatedServiceData, row.index),
       onFailure: err => onServiceStateToggle('FAILURE', err)
@@ -381,6 +397,7 @@ const COGatewayList: React.FC = () => {
       orgIdentifier,
       projectIdentifier,
       serviceData: row.original,
+      accountId,
       onSuccess: (_data: Service) => onServiceDeletion('SUCCESS', _data),
       onFailure: err => onServiceDeletion('FAILURE', err)
     })

@@ -31,15 +31,19 @@ const AzureAPConfig: React.FC<AzureAPConfigProps> = props => {
   const [loadBalancerId, setLoadBalancerId] = useState<string>()
   const [lbCreationInProgress, setLbCreationInProgress] = useState<boolean>(false)
 
-  const { orgIdentifier, projectIdentifier } = useParams<{
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<{
     orgIdentifier: string
     projectIdentifier: string
+    accountId: string
   }>()
 
   const { data: accessPointData, refetch, loading: accessPointStatusLoading } = useGetAccessPoint({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
     access_point_id: loadBalancerId as string, //eslint-disable-line
+    queryParams: {
+      accountIdentifier: accountId
+    },
     lazy: true
   })
 

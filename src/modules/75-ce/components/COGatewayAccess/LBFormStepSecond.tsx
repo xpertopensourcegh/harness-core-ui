@@ -55,7 +55,8 @@ const LBFormStepSecond: React.FC<LBFormStepSecondProps> = props => {
     account_id: accountId, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
-      cloud_account_id: selectedCloudAccount // eslint-disable-line
+      cloud_account_id: selectedCloudAccount, // eslint-disable-line
+      accountIdentifier: accountId
     }
   })
 
@@ -65,7 +66,8 @@ const LBFormStepSecond: React.FC<LBFormStepSecondProps> = props => {
     project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
       region: selectedRegion,
-      cloud_account_id: selectedCloudAccount // eslint-disable-line
+      cloud_account_id: selectedCloudAccount, // eslint-disable-line
+      accountIdentifier: accountId
     },
     lazy: true
   })
@@ -76,7 +78,8 @@ const LBFormStepSecond: React.FC<LBFormStepSecondProps> = props => {
     project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
       cloud_account_id: selectedCloudAccount, // eslint-disable-line
-      region: selectedRegion
+      region: selectedRegion,
+      accountIdentifier: accountId
     },
     lazy: true
   })
@@ -88,7 +91,8 @@ const LBFormStepSecond: React.FC<LBFormStepSecondProps> = props => {
     queryParams: {
       region: selectedRegion,
       vpc_id: selectedVpc as string, // eslint-disable-line
-      cloud_account_id: selectedCloudAccount // eslint-disable-line
+      cloud_account_id: selectedCloudAccount, // eslint-disable-line
+      accountIdentifier: accountId
     },
     lazy: true
   })

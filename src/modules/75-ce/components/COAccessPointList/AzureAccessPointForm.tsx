@@ -61,7 +61,8 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
     account_id: accountId, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
-      cloud_account_id: cloudAccountId // eslint-disable-line
+      cloud_account_id: cloudAccountId, // eslint-disable-line
+      accountIdentifier: accountId
     }
   })
 
@@ -70,7 +71,8 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
     account_id: accountId, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
-      cloud_account_id: cloudAccountId // eslint-disable-line
+      cloud_account_id: cloudAccountId, // eslint-disable-line
+      accountIdentifier: accountId
     }
   })
 
@@ -81,7 +83,8 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
     queryParams: {
       cloud_account_id: cloudAccountId,
       region: selectedRegion?.value as string,
-      resource_group_name: selectedResourceGroup?.value as string
+      resource_group_name: selectedResourceGroup?.value as string,
+      accountIdentifier: accountId
     },
     lazy: true
   })
@@ -94,7 +97,8 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
       cloud_account_id: cloudAccountId,
       region: selectedRegion?.value as string,
       vpc: selectedVpc?.label as string,
-      resource_group_name: selectedResourceGroup?.value as string
+      resource_group_name: selectedResourceGroup?.value as string,
+      accountIdentifier: accountId
     },
     lazy: true
   })
@@ -107,7 +111,8 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
       cloud_account_id: cloudAccountId,
       region: selectedRegion?.value as string,
       vpc: selectedVpc?.label as string,
-      resource_group_name: selectedResourceGroup?.value as string
+      resource_group_name: selectedResourceGroup?.value as string,
+      accountIdentifier: accountId
     },
     lazy: true
   })
@@ -119,7 +124,8 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
     queryParams: {
       cloud_account_id: cloudAccountId,
       region: selectedRegion?.value as string,
-      resource_group_name: selectedResourceGroup?.value as string
+      resource_group_name: selectedResourceGroup?.value as string,
+      accountIdentifier: accountId
     },
     lazy: true
   })
@@ -274,7 +280,8 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
                       cloud_account_id: cloudAccountId,
                       region: selectedRegion?.value as string,
                       vpc: vpcItem.label as string,
-                      resource_group_name: selectedResourceGroup?.value as string
+                      resource_group_name: selectedResourceGroup?.value as string,
+                      accountIdentifier: accountId
                     }
                   })
                   publicIpsReload({
@@ -282,7 +289,8 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
                       cloud_account_id: cloudAccountId,
                       region: selectedRegion?.value as string,
                       vpc: vpcItem.label as string,
-                      resource_group_name: selectedResourceGroup?.value as string
+                      resource_group_name: selectedResourceGroup?.value as string,
+                      accountIdentifier: accountId
                     }
                   })
                 }}

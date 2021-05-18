@@ -121,7 +121,8 @@ const startOfDay = (time: moment.Moment) => time.startOf('day').toDate()
 const endOfDay = (time: moment.Moment) => time.endOf('day').toDate()
 
 const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
-  const { orgIdentifier, projectIdentifier } = useParams<{
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<{
+    accountId: string
     orgIdentifier: string
     projectIdentifier: string
   }>()
@@ -135,13 +136,17 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
   const { data, loading } = useSavingsOfService({
     org_id: orgIdentifier, // eslint-disable-line
     projectID: projectIdentifier, // eslint-disable-line
-    serviceID: props.service?.data.id as number
+    serviceID: props.service?.data.id as number,
+    queryParams: {
+      accountIdentifier: accountId
+    }
   })
   const { data: graphData, loading: graphLoading } = useSavingsOfService({
     org_id: orgIdentifier, // eslint-disable-line
     projectID: projectIdentifier, // eslint-disable-line
     serviceID: props.service?.data.id as number,
     queryParams: {
+      accountIdentifier: accountId,
       from: moment(startOfDay(today().subtract(7, 'days'))).format(DATE_FORMAT),
       to: moment(endOfDay(today())).format(DATE_FORMAT),
       group_by: 'date' // eslint-disable-line
@@ -151,6 +156,9 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
     org_id: orgIdentifier, // eslint-disable-line
     projectID: projectIdentifier, // eslint-disable-line
     serviceID: props.service?.data.id as number,
+    queryParams: {
+      accountIdentifier: accountId
+    },
     debounce: 300
   })
   const { data: resources, loading: resourcesLoading, error: resourceError } = useAllServiceResources({
@@ -163,6 +171,7 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
   const { triggerToggle } = useToggleRuleState({
     orgIdentifier,
     projectIdentifier,
+    accountId,
     serviceData: props.service?.data as Service,
     onSuccess: (updatedServiceData: Service) =>
       props.handleServiceToggle('SUCCESS', updatedServiceData, props.service?.index),
@@ -171,6 +180,7 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
   const { triggerDelete } = useDeleteServiceHook({
     orgIdentifier,
     projectIdentifier,
+    accountId,
     serviceData: props.service?.data as Service,
     onSuccess: (_data: Service) => props.handleServiceDeletion('SUCCESS', _data),
     onFailure: err => props.handleServiceDeletion('FAILURE', err)

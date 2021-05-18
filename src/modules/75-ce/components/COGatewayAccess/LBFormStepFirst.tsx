@@ -73,7 +73,8 @@ const LBFormStepFirst: React.FC<LBFormStepFirstProps> = props => {
     queryParams: {
       cloud_account_id: cloudAccountId as string, // eslint-disable-line
       region: 'us-east-1',
-      domain: loadBalancer?.host_name || '' // eslint-disable-line
+      domain: loadBalancer?.host_name || '', // eslint-disable-line
+      accountIdentifier: accountId
     },
     lazy: true
   })

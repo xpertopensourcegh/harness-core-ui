@@ -55,7 +55,8 @@ const MapToProvider: React.FC<StepProps<MapToProviderProps> & Props> = props => 
     queryParams: {
       cloud_account_id: props.accessPoint.cloud_account_id as string, // eslint-disable-line
       region: 'us-east-1',
-      domain: accessPoint.name
+      domain: accessPoint.name,
+      accountIdentifier: accountId
     },
     lazy: true
   })
@@ -73,6 +74,9 @@ const MapToProvider: React.FC<StepProps<MapToProviderProps> & Props> = props => 
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
     access_point_id: props.accessPoint.id as string, //eslint-disable-line
+    queryParams: {
+      accountIdentifier: accountId
+    },
     lazy: true
   })
 
