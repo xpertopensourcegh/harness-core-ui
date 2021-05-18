@@ -30,7 +30,7 @@ const AzureApDnsMapping: React.FC<AzureApDnsMappingProps> = props => {
           <Layout.Vertical>
             <FormInput.Text name="name" label="Provide a name for the Load balancer" className={css.lbNameInput} />
             <Text color={Color.GREY_400} className={css.configInfo}>
-              The Application Load Balancer does not have a domain name associated with it. The rule directs traffic to
+              The Application gateway does not have a domain name associated with it. The rule directs traffic to
               resources through the Load balancer. Hence the Load balancer requires a domain name to be accessed by the
               rule
             </Text>

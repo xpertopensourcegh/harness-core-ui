@@ -123,7 +123,7 @@ exports[`Instance Selector Modal search and select instances successfully 1`] = 
               class="cell"
               colspan="1"
               role="columnheader"
-              style="width: 20%;"
+              style="width: 35%;"
             >
               ce.co.instanceSelector.name
             </div>
@@ -147,25 +147,9 @@ exports[`Instance Selector Modal search and select instances successfully 1`] = 
               class="cell"
               colspan="1"
               role="columnheader"
-              style="width: 10%;"
-            >
-              typeLabel
-            </div>
-            <div
-              class="cell"
-              colspan="1"
-              role="columnheader"
-              style="width: 10%;"
-            >
-              tagsLabel
-            </div>
-            <div
-              class="cell"
-              colspan="1"
-              role="columnheader"
               style="width: 15%;"
             >
-              ce.co.instanceSelector.launchTime
+              typeLabel
             </div>
             <div
               class="cell"
@@ -199,11 +183,11 @@ exports[`Instance Selector Modal search and select instances successfully 1`] = 
             <div
               class="cell"
               role="cell"
-              style="width: 20%;"
+              style="width: 35%;"
             >
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                style="overflow-wrap: anywhere; --text-line-clamp: 3;"
+                style="overflow-wrap: anywhere; padding-right: 5px; --text-line-clamp: 3;"
               >
                 instance
                  
@@ -232,30 +216,6 @@ exports[`Instance Selector Modal search and select instances successfully 1`] = 
                 style="--text-line-clamp: 3;"
               >
                 us-west-1
-              </p>
-            </div>
-            <div
-              class="cell"
-              role="cell"
-              style="width: 10%;"
-            >
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                style="--text-line-clamp: 3;"
-              >
-                
-              </p>
-            </div>
-            <div
-              class="cell"
-              role="cell"
-              style="width: 10%;"
-            >
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                style="--text-line-clamp: 3;"
-              >
-                
               </p>
             </div>
             <div
@@ -407,7 +367,7 @@ exports[`Instance Selector Modal should show data 1`] = `
               class="cell"
               colspan="1"
               role="columnheader"
-              style="width: 20%;"
+              style="width: 35%;"
             >
               ce.co.instanceSelector.name
             </div>
@@ -431,25 +391,9 @@ exports[`Instance Selector Modal should show data 1`] = `
               class="cell"
               colspan="1"
               role="columnheader"
-              style="width: 10%;"
-            >
-              typeLabel
-            </div>
-            <div
-              class="cell"
-              colspan="1"
-              role="columnheader"
-              style="width: 10%;"
-            >
-              tagsLabel
-            </div>
-            <div
-              class="cell"
-              colspan="1"
-              role="columnheader"
               style="width: 15%;"
             >
-              ce.co.instanceSelector.launchTime
+              typeLabel
             </div>
             <div
               class="cell"
@@ -483,11 +427,11 @@ exports[`Instance Selector Modal should show data 1`] = `
             <div
               class="cell"
               role="cell"
-              style="width: 20%;"
+              style="width: 35%;"
             >
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                style="overflow-wrap: anywhere; --text-line-clamp: 3;"
+                style="overflow-wrap: anywhere; padding-right: 5px; --text-line-clamp: 3;"
               >
                 instance
                  
@@ -516,30 +460,6 @@ exports[`Instance Selector Modal should show data 1`] = `
                 style="--text-line-clamp: 3;"
               >
                 us-west-1
-              </p>
-            </div>
-            <div
-              class="cell"
-              role="cell"
-              style="width: 10%;"
-            >
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                style="--text-line-clamp: 3;"
-              >
-                
-              </p>
-            </div>
-            <div
-              class="cell"
-              role="cell"
-              style="width: 10%;"
-            >
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                style="--text-line-clamp: 3;"
-              >
-                
               </p>
             </div>
             <div

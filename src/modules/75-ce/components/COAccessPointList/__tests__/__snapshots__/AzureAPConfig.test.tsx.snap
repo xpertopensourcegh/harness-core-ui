@@ -55,7 +55,7 @@ exports[`Azure Access Point Configuration render configuration dialog and fill d
               <p
                 class="StyledProps--font StyledProps--main configInfo StyledProps--color StyledProps--color-grey400"
               >
-                The Application Load Balancer does not have a domain name associated with it. The rule directs traffic to resources through the Load balancer. Hence the Load balancer requires a domain name to be accessed by the rule
+                The Application gateway does not have a domain name associated with it. The rule directs traffic to resources through the Load balancer. Hence the Load balancer requires a domain name to be accessed by the rule
               </p>
               <div
                 class="Layout--horizontal StyledProps--main"
@@ -232,7 +232,7 @@ exports[`Azure Access Point Configuration render configuration dialog and fill d
               <p
                 class="StyledProps--font StyledProps--main configInfo StyledProps--color StyledProps--color-grey400"
               >
-                The Application Load Balancer does not have a domain name associated with it. The rule directs traffic to resources through the Load balancer. Hence the Load balancer requires a domain name to be accessed by the rule
+                The Application gateway does not have a domain name associated with it. The rule directs traffic to resources through the Load balancer. Hence the Load balancer requires a domain name to be accessed by the rule
               </p>
               <div
                 class="Layout--horizontal StyledProps--main"

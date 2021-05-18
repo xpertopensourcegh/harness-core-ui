@@ -28,7 +28,7 @@ function TableCell(tableProps: CellProps<InstanceDetails>): JSX.Element {
 }
 function NameCell(tableProps: CellProps<InstanceDetails>): JSX.Element {
   return (
-    <Text lineClamp={3} color={Color.BLACK} style={{ overflowWrap: 'anywhere' }}>
+    <Text lineClamp={3} color={Color.BLACK} style={{ overflowWrap: 'anywhere', paddingRight: 5 }}>
       {tableProps.value} {tableProps.row.original.id}
     </Text>
   )
@@ -137,7 +137,7 @@ const COInstanceSelector: React.FC<COInstanceSelectorprops> = props => {
                 {
                   accessor: 'name',
                   Header: getString('ce.co.instanceSelector.name'),
-                  width: '20%',
+                  width: '35%',
                   Cell: NameCell,
                   disableSortBy: true
                 },
@@ -158,24 +158,24 @@ const COInstanceSelector: React.FC<COInstanceSelectorprops> = props => {
                 {
                   accessor: 'type',
                   Header: getString('typeLabel'),
-                  width: '10%',
-                  Cell: TableCell,
-                  disableSortBy: true
-                },
-                {
-                  accessor: 'tags',
-                  Header: getString('tagsLabel'),
-                  width: '10%',
-                  Cell: TableCell,
-                  disableSortBy: true
-                },
-                {
-                  accessor: 'launch_time',
-                  Header: getString('ce.co.instanceSelector.launchTime'),
                   width: '15%',
                   Cell: TableCell,
                   disableSortBy: true
                 },
+                // {
+                //   accessor: 'tags',
+                //   Header: getString('tagsLabel'),
+                //   width: '10%',
+                //   Cell: TableCell,
+                //   disableSortBy: true
+                // },
+                // {
+                //   accessor: 'launch_time',
+                //   Header: getString('ce.co.instanceSelector.launchTime'),
+                //   width: '15%',
+                //   Cell: TableCell,
+                //   disableSortBy: true
+                // },
                 {
                   accessor: 'status',
                   Header: getString('status'),

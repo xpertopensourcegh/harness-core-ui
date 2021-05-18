@@ -42,7 +42,7 @@ function DNSCell(tableProps: CellProps<AccessPoint>): JSX.Element {
 function CloudAccountCell(tableProps: CellProps<AccessPoint>): JSX.Element {
   return (
     <Layout.Horizontal spacing="medium">
-      <Icon name={'service-aws' as IconName} size={24} />
+      <Icon name={`service-${tableProps.row.original.type || 'aws'}` as IconName} size={24} />
       <Text lineClamp={3} color={Color.GREY_500}>
         {tableProps.value}
       </Text>
