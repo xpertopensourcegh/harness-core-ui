@@ -934,6 +934,7 @@ export interface StringsMap {
   'pipeline.duration': string
   'pipeline.enableVerificationOptions': string
   'pipeline.enterDescription': string
+  'pipeline.estimatedTimeRemaining': string
   'pipeline.execution.actions.abortPipeline': string
   'pipeline.execution.actions.abortStage': string
   'pipeline.execution.actions.downloadLogs': string
@@ -1097,6 +1098,7 @@ export interface StringsMap {
   'pipeline.manifestType.selectManifestStore': string
   'pipeline.manifestType.specifyManifestRepoType': string
   'pipeline.manifestType.specifyManifestStore': string
+  'pipeline.progressPercentage': string
   'pipeline.resourceConstraints.currentlyExecuting': string
   'pipeline.resourceConstraints.infoText': string
   'pipeline.resourceConstraints.title': string

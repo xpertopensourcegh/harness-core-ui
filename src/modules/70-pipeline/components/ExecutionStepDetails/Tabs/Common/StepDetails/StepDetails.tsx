@@ -25,6 +25,9 @@ export function StepDetails(props: StepDetailsProps): React.ReactElement {
   //TODO - types will modified when the backend swagger docs are updated
   const deploymentTag = step?.stepParameters?.deploymentTag as any
   const serviceIdentifier = step?.stepParameters?.serviceIdentifier as any
+  const activityId = step?.progressData?.activityId as any
+  const estimatedRemainingTime = step?.progressData?.estimatedRemainingTime
+  const progressPercentage = step?.progressData?.progressPercentage
 
   const { openDelegateSelectionLogsModal } = useDelegateSelectionLogsModal()
 
@@ -93,23 +96,38 @@ export function StepDetails(props: StepDetailsProps): React.ReactElement {
           deploymentTag &&
           serviceIdentifier &&
           step?.status !== ExecutionStatusEnum.Queued && (
-            <tr>
-              <th>{getString('pipeline.verificationResult')}</th>
-              <td>
-                <Link
-                  to={routes.toCVDeploymentPage({
-                    accountId,
-                    projectIdentifier,
-                    orgIdentifier,
-                    deploymentTag: encodeURIWithReservedChars(deploymentTag),
-                    serviceIdentifier
-                  })}
-                  target="_blank"
-                >
-                  {getString('pipeline.clickHere')}
-                </Link>
-              </td>
-            </tr>
+            <>
+              {estimatedRemainingTime && (
+                <tr>
+                  <th>{getString('pipeline.estimatedTimeRemaining')}</th>
+                  <td>{estimatedRemainingTime}</td>
+                </tr>
+              )}
+              {(progressPercentage || progressPercentage === 0) && (
+                <tr>
+                  <th>{getString('pipeline.progressPercentage')}</th>
+                  <td>{progressPercentage}</td>
+                </tr>
+              )}
+              <tr>
+                <th>{getString('pipeline.verificationResult')}</th>
+                <td>
+                  <Link
+                    to={routes.toCVDeploymentPage({
+                      accountId,
+                      projectIdentifier,
+                      orgIdentifier,
+                      deploymentTag: encodeURIWithReservedChars(deploymentTag),
+                      serviceIdentifier,
+                      ...(activityId && { activityId })
+                    })}
+                    target="_blank"
+                  >
+                    {getString('pipeline.clickHere')}
+                  </Link>
+                </td>
+              </tr>
+            </>
           )}
       </tbody>
     </table>

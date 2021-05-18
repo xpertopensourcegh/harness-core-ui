@@ -1,5 +1,7 @@
 enterDescription: Enter Description
-verificationResult: Verification Result
+verificationResult: 'Verification result:'
+estimatedTimeRemaining: 'Estimated time remaning:'
+progressPercentage: 'Progress percentage:'
 discard: Discard
 enableVerificationOptions: Enable verification options
 closeStepConfig: Step Config
