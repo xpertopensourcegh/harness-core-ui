@@ -125,12 +125,12 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   const [gatewayName, setGatewayName] = useState<string>(props.gatewayDetails.name)
   const [idleTime, setIdleTime] = useState<number>(props.gatewayDetails.idleTimeMins)
   const [fullfilment, setFullfilment] = useState<string>(props.gatewayDetails.fullfilment)
-  const [matchSubdomains, setMatchSubdomains] = useState<boolean>(
-    props.gatewayDetails.matchAllSubdomains ? props.gatewayDetails.matchAllSubdomains : false
-  )
-  const [usePrivateIP, setUsePrivateIP] = useState<boolean>(
-    props.gatewayDetails.opts.alwaysUsePrivateIP ? props.gatewayDetails.opts.alwaysUsePrivateIP : false
-  )
+  // const [matchSubdomains, setMatchSubdomains] = useState<boolean>(
+  //   props.gatewayDetails.matchAllSubdomains ? props.gatewayDetails.matchAllSubdomains : false
+  // )
+  // const [usePrivateIP, setUsePrivateIP] = useState<boolean>(
+  //   props.gatewayDetails.opts.alwaysUsePrivateIP ? props.gatewayDetails.opts.alwaysUsePrivateIP : false
+  // )
   const [routingRecords, setRoutingRecords] = useState<PortConfig[]>(props.gatewayDetails.routing.ports)
   const [serviceDependencies, setServiceDependencies] = useState<ServiceDep[]>(props.gatewayDetails.deps || [])
   const [, setDrawerOpen] = useState<boolean>(!props.gatewayDetails.fullfilment)
@@ -1040,7 +1040,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                       panel={
                         <Container style={{ backgroundColor: '#FBFBFB', width: '595px', marginLeft: '175px' }}>
                           <Layout.Vertical spacing="medium" style={{ padding: '32px' }}>
-                            <Switch
+                            {/* <Switch
                               label={getString('ce.co.gatewayConfig.allowTraffic')}
                               width="50%"
                               className={css.switchFont}
@@ -1061,7 +1061,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                                 setUsePrivateIP(e.currentTarget.checked)
                                 props.setGatewayDetails(props.gatewayDetails)
                               }}
-                            />
+                            /> */}
                             {serviceDependencies && serviceDependencies.length ? (
                               <CORuleDendencySelector
                                 deps={serviceDependencies}
