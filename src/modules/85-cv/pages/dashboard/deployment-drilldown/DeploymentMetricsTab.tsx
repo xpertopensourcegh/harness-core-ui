@@ -3,7 +3,7 @@ import { Container, Pagination, Link } from '@wings-software/uicore'
 import { extendMoment } from 'moment-range'
 import classnames from 'classnames'
 import { TimelineBar } from '@cv/components/TimelineView/TimelineBar'
-import type { RestResponseTransactionMetricInfoSummaryPageDTO, HostData, TimeRange } from 'services/cv'
+import type { RestResponseTransactionMetricInfoSummaryPageDTO, HostData } from 'services/cv'
 import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { useStrings } from 'framework/strings'
@@ -30,7 +30,8 @@ export interface TransactionRowProps {
   metricName?: string
   riskScore?: number
   nodes?: HostData[]
-  timeRange?: TimeRange
+  endTime?: number
+  startTime?: number
 }
 
 export default function DeploymentMetricsTab({
@@ -49,11 +50,11 @@ export default function DeploymentMetricsTab({
           defaultFilterValue={anomalousMetricsOnly ? filterOptions[0] : filterOptions[1]}
           onChangeFilter={val => onAnomalousMetricsOnly(val === MetricAnalysisFilterType.ANOMALOUS)}
         />
-        {data?.resource?.deploymentTimeRange && (
+        {data?.resource?.deploymentEndTime && data?.resource?.deploymentStartTime && (
           <TimelineBar
             className={styles.timelineBar}
-            startDate={data?.resource?.deploymentTimeRange.startTime as number}
-            endDate={data?.resource?.deploymentTimeRange.endTime as number}
+            startDate={data?.resource?.deploymentStartTime as number}
+            endDate={data?.resource?.deploymentEndTime as number}
           />
         )}
       </Container>
@@ -67,7 +68,8 @@ export default function DeploymentMetricsTab({
             transactionName={value.transactionMetric?.transactionName}
             metricName={value.transactionMetric?.metricName}
             nodes={value.nodes}
-            timeRange={data?.resource?.deploymentTimeRange}
+            startTime={data?.resource?.deploymentStartTime}
+            endTime={data?.resource?.deploymentEndTime}
           />
         ))}
       </Container>
@@ -86,10 +88,10 @@ export default function DeploymentMetricsTab({
 
 const DEFAULT_ROW_SIZE = 3
 
-function TransactionRow({ transactionName, metricName, nodes = [], timeRange }: TransactionRowProps) {
+function TransactionRow({ transactionName, metricName, nodes = [], startTime, endTime }: TransactionRowProps) {
   const [showMax, setShowMax] = useState<number>(DEFAULT_ROW_SIZE)
   const { getString } = useStrings()
-  const range = moment.range(moment(timeRange?.startTime), moment(timeRange?.endTime))
+  const range = moment.range(moment(startTime), moment(endTime))
   const mapSeriesData = (items?: number[]) => {
     items = items || []
     const increment = Math.floor(range.diff() / Math.max(items.length - 1, 1))
@@ -157,7 +159,7 @@ function TransactionRow({ transactionName, metricName, nodes = [], timeRange }: 
           }
         })
         .filter(val => !!val) as Array<SeriesConfig>,
-    [nodes, timeRange, showMax]
+    [nodes, startTime, endTime, showMax]
   )
 
   return (

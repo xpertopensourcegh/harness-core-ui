@@ -4,6 +4,7 @@ import React from 'react'
 import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, UseMutateProps } from 'restful-react'
 
 import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from '../config'
+export const SPEC_VERSION = '1.0'
 export interface ActivityDTO {
   accountIdentifier?: string
   projectIdentifier?: string
@@ -25,24 +26,6 @@ export interface VerificationJobRuntimeDetails {
   }
 }
 
-export interface ActivityDashboardDTO {
-  activityType?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES'
-  activityId?: string
-  activityName?: string
-  activityStartTime?: number
-  environmentIdentifier?: string
-  environmentName?: string
-  serviceIdentifier?: string
-  verificationStatus?:
-    | 'IGNORED'
-    | 'NOT_STARTED'
-    | 'VERIFICATION_PASSED'
-    | 'VERIFICATION_FAILED'
-    | 'ERROR'
-    | 'IN_PROGRESS'
-  activityVerificationSummary?: ActivityVerificationSummary
-}
-
 export interface ActivityVerificationSummary {
   total?: number
   passed?: number
@@ -56,6 +39,15 @@ export interface ActivityVerificationSummary {
   durationMs?: number
   risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
   aggregatedStatus?: 'IGNORED' | 'NOT_STARTED' | 'VERIFICATION_PASSED' | 'VERIFICATION_FAILED' | 'ERROR' | 'IN_PROGRESS'
+}
+
+export interface DeploymentActivityVerificationResultDTO {
+  tag?: string
+  serviceName?: string
+  serviceIdentifier?: string
+  preProductionDeploymentSummary?: ActivityVerificationSummary
+  productionDeploymentSummary?: ActivityVerificationSummary
+  postDeploymentSummary?: ActivityVerificationSummary
 }
 
 export interface ResponseMessage {
@@ -79,6 +71,7 @@ export interface ResponseMessage {
     | 'EMAIL_NOT_VERIFIED'
     | 'EMAIL_VERIFICATION_TOKEN_NOT_FOUND'
     | 'INVALID_TOKEN'
+    | 'REVOKED_TOKEN'
     | 'INVALID_CAPTCHA_TOKEN'
     | 'NOT_ACCOUNT_MGR_NOR_HAS_ALL_APP_ACCESS'
     | 'EXPIRED_TOKEN'
@@ -118,6 +111,7 @@ export interface ResponseMessage {
     | 'PLATFORM_SOFTWARE_DELETE_ERROR'
     | 'INVALID_CSV_FILE'
     | 'INVALID_REQUEST'
+    | 'SCHEMA_VALIDATION_FAILED'
     | 'INVALID_INFRA_STATE'
     | 'PIPELINE_ALREADY_TRIGGERED'
     | 'NON_EXISTING_PIPELINE'
@@ -174,6 +168,8 @@ export interface ResponseMessage {
     | 'AWS_ACCESS_DENIED'
     | 'AWS_CLUSTER_NOT_FOUND'
     | 'AWS_SERVICE_NOT_FOUND'
+    | 'IMAGE_NOT_FOUND'
+    | 'IMAGE_TAG_NOT_FOUND'
     | 'INVALID_YAML_PAYLOAD'
     | 'UNRECOGNIZED_YAML_FIELDS'
     | 'COULD_NOT_MAP_BEFORE_YAML'
@@ -310,7 +306,12 @@ export interface ResponseMessage {
     | 'CONNECTOR_NOT_FOUND_EXCEPTION'
     | 'GCP_SERVER_ERROR'
     | 'HTTP_RESPONSE_EXCEPTION'
+    | 'SCM_NOT_FOUND_ERROR'
+    | 'SCM_CONFLICT_ERROR'
+    | 'SCM_UNPROCESSABLE_ENTITY'
+    | 'SCM_UNAUTHORIZED'
     | 'DATA'
+    | 'CONTEXT'
   level?: 'INFO' | 'ERROR'
   message?: string
   exception?: Throwable
@@ -334,11 +335,11 @@ export interface RestResponse {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseListActivityDashboardDTO {
+export interface RestResponseListDeploymentActivityVerificationResultDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: ActivityDashboardDTO[]
+  resource?: DeploymentActivityVerificationResultDTO[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -356,23 +357,6 @@ export interface Throwable {
   message?: string
   localizedMessage?: string
   suppressed?: Throwable[]
-}
-
-export interface DeploymentActivityVerificationResultDTO {
-  tag?: string
-  serviceName?: string
-  serviceIdentifier?: string
-  preProductionDeploymentSummary?: ActivityVerificationSummary
-  productionDeploymentSummary?: ActivityVerificationSummary
-  postDeploymentSummary?: ActivityVerificationSummary
-}
-
-export interface RestResponseListDeploymentActivityVerificationResultDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DeploymentActivityVerificationResultDTO[]
-  responseMessages?: ResponseMessage[]
 }
 
 export interface AdditionalInfo {
@@ -509,6 +493,32 @@ export interface RestResponseString {
   responseMessages?: ResponseMessage[]
 }
 
+export interface ActivityDashboardDTO {
+  activityType?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES'
+  activityId?: string
+  activityName?: string
+  activityStartTime?: number
+  environmentIdentifier?: string
+  environmentName?: string
+  serviceIdentifier?: string
+  verificationStatus?:
+    | 'IGNORED'
+    | 'NOT_STARTED'
+    | 'VERIFICATION_PASSED'
+    | 'VERIFICATION_FAILED'
+    | 'ERROR'
+    | 'IN_PROGRESS'
+  activityVerificationSummary?: ActivityVerificationSummary
+}
+
+export interface RestResponseListActivityDashboardDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ActivityDashboardDTO[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface ActivityStatusDTO {
   durationMs?: number
   remainingTimeMs?: number
@@ -587,6 +597,7 @@ export interface Failure {
     | 'EMAIL_NOT_VERIFIED'
     | 'EMAIL_VERIFICATION_TOKEN_NOT_FOUND'
     | 'INVALID_TOKEN'
+    | 'REVOKED_TOKEN'
     | 'INVALID_CAPTCHA_TOKEN'
     | 'NOT_ACCOUNT_MGR_NOR_HAS_ALL_APP_ACCESS'
     | 'EXPIRED_TOKEN'
@@ -626,6 +637,7 @@ export interface Failure {
     | 'PLATFORM_SOFTWARE_DELETE_ERROR'
     | 'INVALID_CSV_FILE'
     | 'INVALID_REQUEST'
+    | 'SCHEMA_VALIDATION_FAILED'
     | 'INVALID_INFRA_STATE'
     | 'PIPELINE_ALREADY_TRIGGERED'
     | 'NON_EXISTING_PIPELINE'
@@ -682,6 +694,8 @@ export interface Failure {
     | 'AWS_ACCESS_DENIED'
     | 'AWS_CLUSTER_NOT_FOUND'
     | 'AWS_SERVICE_NOT_FOUND'
+    | 'IMAGE_NOT_FOUND'
+    | 'IMAGE_TAG_NOT_FOUND'
     | 'INVALID_YAML_PAYLOAD'
     | 'UNRECOGNIZED_YAML_FIELDS'
     | 'COULD_NOT_MAP_BEFORE_YAML'
@@ -818,7 +832,12 @@ export interface Failure {
     | 'CONNECTOR_NOT_FOUND_EXCEPTION'
     | 'GCP_SERVER_ERROR'
     | 'HTTP_RESPONSE_EXCEPTION'
+    | 'SCM_NOT_FOUND_ERROR'
+    | 'SCM_CONFLICT_ERROR'
+    | 'SCM_UNPROCESSABLE_ENTITY'
+    | 'SCM_UNAUTHORIZED'
     | 'DATA'
+    | 'CONTEXT'
   message?: string
   correlationId?: string
   errors?: ValidationError[]
@@ -851,6 +870,7 @@ export interface Error {
     | 'EMAIL_NOT_VERIFIED'
     | 'EMAIL_VERIFICATION_TOKEN_NOT_FOUND'
     | 'INVALID_TOKEN'
+    | 'REVOKED_TOKEN'
     | 'INVALID_CAPTCHA_TOKEN'
     | 'NOT_ACCOUNT_MGR_NOR_HAS_ALL_APP_ACCESS'
     | 'EXPIRED_TOKEN'
@@ -890,6 +910,7 @@ export interface Error {
     | 'PLATFORM_SOFTWARE_DELETE_ERROR'
     | 'INVALID_CSV_FILE'
     | 'INVALID_REQUEST'
+    | 'SCHEMA_VALIDATION_FAILED'
     | 'INVALID_INFRA_STATE'
     | 'PIPELINE_ALREADY_TRIGGERED'
     | 'NON_EXISTING_PIPELINE'
@@ -946,6 +967,8 @@ export interface Error {
     | 'AWS_ACCESS_DENIED'
     | 'AWS_CLUSTER_NOT_FOUND'
     | 'AWS_SERVICE_NOT_FOUND'
+    | 'IMAGE_NOT_FOUND'
+    | 'IMAGE_TAG_NOT_FOUND'
     | 'INVALID_YAML_PAYLOAD'
     | 'UNRECOGNIZED_YAML_FIELDS'
     | 'COULD_NOT_MAP_BEFORE_YAML'
@@ -1082,7 +1105,12 @@ export interface Error {
     | 'CONNECTOR_NOT_FOUND_EXCEPTION'
     | 'GCP_SERVER_ERROR'
     | 'HTTP_RESPONSE_EXCEPTION'
+    | 'SCM_NOT_FOUND_ERROR'
+    | 'SCM_CONFLICT_ERROR'
+    | 'SCM_UNPROCESSABLE_ENTITY'
+    | 'SCM_UNAUTHORIZED'
     | 'DATA'
+    | 'CONTEXT'
   message?: string
   correlationId?: string
   detailedMessage?: string
@@ -1281,6 +1309,14 @@ export interface VerificationsNotify {
   allVerificationStatuses?: boolean
 }
 
+export interface RestResponseListActivityType {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ('DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES')[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface PageAlertRuleDTO {
   totalPages?: number
   totalItems?: number
@@ -1296,14 +1332,6 @@ export interface RestResponsePageAlertRuleDTO {
     [key: string]: { [key: string]: any }
   }
   resource?: PageAlertRuleDTO
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListActivityType {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ('DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM' | 'CONFIG' | 'OTHER' | 'KUBERNETES')[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -1431,6 +1459,23 @@ export interface ResultSummary {
   score?: number
   controlClusterSummaries?: ControlClusterSummary[]
   testClusterSummaries?: ClusterSummary[]
+}
+
+export interface LogClusterDTO {
+  verificationTaskId?: string
+  epochMinute?: number
+  host?: string
+  log?: string
+  clusterLabel?: string
+  clusterCount?: number
+}
+
+export interface RestResponseListLogClusterDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LogClusterDTO[]
+  responseMessages?: ResponseMessage[]
 }
 
 export interface AnalysisResult {
@@ -1644,7 +1689,7 @@ export interface MetricPackDTO {
   accountId?: string
   orgIdentifier?: string
   projectIdentifier?: string
-  dataSourceType?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC'
+  dataSourceType?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS'
   identifier?: string
   category?: 'PERFORMANCE' | 'ERRORS' | 'INFRASTRUCTURE'
   metrics?: MetricDefinitionDTO[]
@@ -1662,7 +1707,7 @@ export interface TimeSeriesThresholdDTO {
   accountId?: string
   orgIdentifier?: string
   projectIdentifier?: string
-  dataSourceType?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC'
+  dataSourceType?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS'
   metricPackIdentifier?: string
   metricName?: string
   metricType?: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX' | 'OTHER'
@@ -1715,6 +1760,14 @@ export interface ResponsePageAppDynamicsTier {
   correlationId?: string
 }
 
+export interface RestResponseListString {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: string[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface CVConfig {
   uuid?: string
   dataCollectionTaskIteration?: number
@@ -1734,7 +1787,7 @@ export interface CVConfig {
   identifier: string
   monitoringSourceName: string
   createNextTaskIteration?: number
-  type?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC'
+  type?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS'
   firstTimeDataCollectionTimeRange?: TimeRange
 }
 
@@ -1759,16 +1812,8 @@ export interface RestResponseListCVConfig {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseListString {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: string[]
-  responseMessages?: ResponseMessage[]
-}
-
 export interface DatasourceTypeDTO {
-  dataSourceType?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC'
+  dataSourceType?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS'
   verificationType?: 'TIME_SERIES' | 'LOG'
 }
 
@@ -1807,6 +1852,52 @@ export interface ResponsePageCVNGLogDTO {
   correlationId?: string
 }
 
+export interface JsonNode {
+  array?: boolean
+  null?: boolean
+  object?: boolean
+  valueNode?: boolean
+  containerNode?: boolean
+  missingNode?: boolean
+  nodeType?: 'ARRAY' | 'BINARY' | 'BOOLEAN' | 'MISSING' | 'NULL' | 'NUMBER' | 'OBJECT' | 'POJO' | 'STRING'
+  pojo?: boolean
+  number?: boolean
+  integralNumber?: boolean
+  floatingPointNumber?: boolean
+  short?: boolean
+  int?: boolean
+  long?: boolean
+  float?: boolean
+  double?: boolean
+  bigDecimal?: boolean
+  bigInteger?: boolean
+  textual?: boolean
+  boolean?: boolean
+  binary?: boolean
+}
+
+export interface PartialSchemaDTO {
+  schema?: JsonNode
+  nodeType?: string
+  nodeName?: string
+  namespace?: string
+}
+
+export interface ResponsePartialSchemaDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PartialSchemaDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface RestResponseListDataSourceType {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ('APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS')[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface CVSetupStatus {
   stepsWhichAreCompleted?: ('ACTIVITY_SOURCE' | 'MONITORING_SOURCE' | 'VERIFICATION_JOBS')[]
   totalNumberOfServices?: number
@@ -1824,14 +1915,6 @@ export interface RestResponseCVSetupStatus {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseListDataSourceType {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ('APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC')[]
-  responseMessages?: ResponseMessage[]
-}
-
 export interface DSConfig {
   accountId?: string
   orgIdentifier?: string
@@ -1840,7 +1923,7 @@ export interface DSConfig {
   connectorIdentifier?: string
   identifier?: string
   monitoringSourceName?: string
-  type?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC'
+  type?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS'
 }
 
 export interface RestResponseDSConfig {
@@ -1854,7 +1937,7 @@ export interface RestResponseDSConfig {
 export interface MonitoringSource {
   monitoringSourceIdentifier?: string
   monitoringSourceName?: string
-  type?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC'
+  type?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS'
   numberOfServices?: number
   importedAt?: number
 }
@@ -1973,14 +2056,6 @@ export interface DataCollectionTaskDTO {
   endTime?: number
 }
 
-export interface RestResponseListDataCollectionTaskDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DataCollectionTaskDTO[]
-  responseMessages?: ResponseMessage[]
-}
-
 export interface RestResponseOptionalDataCollectionTaskDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -1994,6 +2069,14 @@ export interface DataCollectionTaskResult {
   status?: 'FAILED' | 'QUEUED' | 'RUNNING' | 'WAITING' | 'EXPIRED' | 'SUCCESS'
   exception?: string
   stacktrace?: string
+}
+
+export interface RestResponseListDataCollectionTaskDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DataCollectionTaskDTO[]
+  responseMessages?: ResponseMessage[]
 }
 
 export interface HostRecordDTO {
@@ -2012,22 +2095,6 @@ export interface LogRecordDTO {
   log?: string
 }
 
-export interface TimeSeriesThreshold {
-  uuid?: string
-  createdAt?: number
-  lastUpdatedAt?: number
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-  dataSourceType: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC'
-  metricPackIdentifier: string
-  metricName: string
-  metricType: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX' | 'OTHER'
-  metricGroupName?: string
-  action: 'IGNORE' | 'FAIL'
-  criteria: TimeSeriesThresholdCriteria
-}
-
 export interface MetricDefinition {
   name?: string
   type: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX' | 'OTHER'
@@ -2044,10 +2111,26 @@ export interface MetricPack {
   accountId?: string
   orgIdentifier?: string
   projectIdentifier?: string
-  dataSourceType: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC'
+  dataSourceType: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS'
   identifier?: string
   category: 'PERFORMANCE' | 'ERRORS' | 'INFRASTRUCTURE'
   metrics?: MetricDefinition[]
+}
+
+export interface TimeSeriesThreshold {
+  uuid?: string
+  createdAt?: number
+  lastUpdatedAt?: number
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  dataSourceType: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS'
+  metricPackIdentifier: string
+  metricName: string
+  metricType: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX' | 'OTHER'
+  metricGroupName?: string
+  action: 'IGNORE' | 'FAIL'
+  criteria: TimeSeriesThresholdCriteria
 }
 
 export interface RestResponseListMetricPackDTO {
@@ -2383,8 +2466,12 @@ export interface DataCollectionRequest {
     | 'APPDYNAMICS_GET_METRIC_DATA'
     | 'NEWRELIC_APPS_REQUEST'
     | 'NEWRELIC_VALIDATION_REQUEST'
-  baseUrl?: string
+    | 'PROMETHEUS_METRIC_LIST_GET'
+    | 'PROMETHEUS_LABEL_NAMES_GET'
+    | 'PROMETHEUS_LABEL_VALUES_GET'
+    | 'PROMETHEUS_SAMPLE_DATA'
   dsl?: string
+  baseUrl?: string
 }
 
 export interface DockerAuthCredentialsDTO {
@@ -2750,6 +2837,25 @@ export type VaultConnectorDTO = ConnectorConfigDTO & {
   accessType?: 'APP_ROLE' | 'TOKEN'
 }
 
+export interface DataPoint {
+  timestamp?: number
+  value?: number
+}
+
+export interface PrometheusSampleData {
+  metricDetails?: {
+    [key: string]: string
+  }
+  data?: DataPoint[]
+}
+
+export interface ResponseListPrometheusSampleData {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PrometheusSampleData[]
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
 export interface RestResponseListSplunkSavedSearch {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -2887,33 +2993,6 @@ export interface TimeSeriesTestDataDTO {
   }
 }
 
-export interface RestResponseVersionPackage {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: VersionPackage
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RuntimeInfo {
-  primary?: boolean
-  primaryVersion?: string
-  deployMode?: string
-}
-
-export interface VersionInfo {
-  version?: string
-  buildNo?: string
-  gitCommit?: string
-  gitBranch?: string
-  timestamp?: string
-}
-
-export interface VersionPackage {
-  versionInfo?: VersionInfo
-  runtimeInfo?: RuntimeInfo
-}
-
 export interface CategoryRisksDTO {
   startTimeEpoch?: number
   endTimeEpoch?: number
@@ -3000,24 +3079,6 @@ export interface ServiceSummary {
   analysisRisks?: AnalysisRisk[]
 }
 
-export interface CountByTag {
-  tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
-  count?: number
-}
-
-export interface LogDataByTag {
-  timestamp?: number
-  countByTags?: CountByTag[]
-}
-
-export interface RestResponseSortedSetLogDataByTag {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: LogDataByTag[]
-  responseMessages?: ResponseMessage[]
-}
-
 export interface AnalyzedLogDataDTO {
   projectIdentifier?: string
   orgIdentifier?: string
@@ -3054,6 +3115,24 @@ export interface RestResponsePageAnalyzedLogDataDTO {
     [key: string]: { [key: string]: any }
   }
   resource?: PageAnalyzedLogDataDTO
+  responseMessages?: ResponseMessage[]
+}
+
+export interface CountByTag {
+  tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
+  count?: number
+}
+
+export interface LogDataByTag {
+  timestamp?: number
+  countByTags?: CountByTag[]
+}
+
+export interface RestResponseSortedSetLogDataByTag {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LogDataByTag[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -3167,6 +3246,8 @@ export interface TransactionMetricInfo {
 export interface TransactionMetricInfoSummaryPageDTO {
   pageResponse?: PageTransactionMetricInfo
   deploymentTimeRange?: TimeRange
+  deploymentStartTime?: number
+  deploymentEndTime?: number
 }
 
 export interface RestResponseListTestVerificationBaselineExecutionDTO {
@@ -3199,10 +3280,11 @@ export interface VerificationJobDTO {
   projectIdentifier?: string
   orgIdentifier?: string
   activitySourceIdentifier?: string
-  dataSources?: ('APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC')[]
+  dataSources?: ('APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS')[]
   monitoringSources?: string[]
   verificationJobUrl?: string
   duration?: string
+  allMonitoringSourcesEnabled?: boolean
   type?: 'TEST' | 'CANARY' | 'BLUE_GREEN' | 'HEALTH'
   defaultJob?: boolean
 }
@@ -3277,7 +3359,7 @@ export type GetAppDynamicsApplicationsProps = Omit<
  */
 export const GetAppDynamicsApplications = (props: GetAppDynamicsApplicationsProps) => (
   <Get<ResponsePageAppDynamicsApplication, Failure | Error, GetAppDynamicsApplicationsQueryParams, void>
-    path="/appdynamics/applications"
+    path={`/appdynamics/applications`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -3349,7 +3431,7 @@ export const GetAppDynamicsMetricData = (props: GetAppDynamicsMetricDataProps) =
     void
   >
     verb="POST"
-    path="/appdynamics/metric-data"
+    path={`/appdynamics/metric-data`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -3420,7 +3502,7 @@ export type GetAppDynamicsTiersProps = Omit<
  */
 export const GetAppDynamicsTiers = (props: GetAppDynamicsTiersProps) => (
   <Get<ResponsePageAppDynamicsTier, Failure | Error, GetAppDynamicsTiersQueryParams, void>
-    path="/appdynamics/tiers"
+    path={`/appdynamics/tiers`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -3473,7 +3555,7 @@ export type GetDataSourcetypesProps = Omit<
  */
 export const GetDataSourcetypes = (props: GetDataSourcetypesProps) => (
   <Get<RestResponseSetDatasourceTypeDTO, unknown, GetDataSourcetypesQueryParams, void>
-    path="/cv-config/datasource-types"
+    path={`/cv-config/datasource-types`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -3523,7 +3605,7 @@ export type GetDataSourceConfigsProps = Omit<
  */
 export const GetDataSourceConfigs = (props: GetDataSourceConfigsProps) => (
   <Get<RestResponseListDSConfig, Failure | Error, GetDataSourceConfigsQueryParams, void>
-    path="/ds-config    "
+    path={`/ds-config`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -3572,7 +3654,7 @@ export type CreateDataSourceProps = Omit<
 export const CreateDataSource = (props: CreateDataSourceProps) => (
   <Mutate<void, Failure | Error, CreateDataSourceQueryParams, DSConfigRequestBody, void>
     verb="POST"
-    path="/ds-config"
+    path={`/ds-config`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -3622,7 +3704,7 @@ export type SaveDSConfigProps = Omit<
 export const SaveDSConfig = (props: SaveDSConfigProps) => (
   <Mutate<void, Failure | Error, SaveDSConfigQueryParams, DSConfigRequestBody, void>
     verb="PUT"
-    path="/ds-config"
+    path={`/ds-config`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -3675,7 +3757,7 @@ export type DeleteDSConfigProps = Omit<
 export const DeleteDSConfig = (props: DeleteDSConfigProps) => (
   <Mutate<void, Failure | Error, DeleteDSConfigQueryParams, void, void>
     verb="DELETE"
-    path="/ds-config"
+    path={`/ds-config`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -3731,7 +3813,7 @@ export type GetDSConfigProps = Omit<
  */
 export const GetDSConfig = ({ identifier, ...props }: GetDSConfigProps) => (
   <Get<RestResponseDSConfig, Failure | Error, GetDSConfigQueryParams, GetDSConfigPathParams>
-    path="/ds-config/${identifier}"
+    path={`/ds-config/${identifier}`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -3791,7 +3873,7 @@ export type UpdateDSConfigProps = Omit<
 export const UpdateDSConfig = ({ identifier, ...props }: UpdateDSConfigProps) => (
   <Mutate<void, Failure | Error, UpdateDSConfigQueryParams, DSConfigRequestBody, UpdateDSConfigPathParams>
     verb="PUT"
-    path="/ds-config/${identifier}"
+    path={`/ds-config/${identifier}`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -3806,15 +3888,12 @@ export type UseUpdateDSConfigProps = Omit<
 /**
  * creates a data source config
  */
-export const useUpdateDSConfig = ({ identifier, ...props }: UseUpdateDSConfigProps) => {
-  console.log('identifier', identifier)
-  console.log('identifier props', props)
-  return useMutate<void, Failure | Error, UpdateDSConfigQueryParams, DSConfigRequestBody, UpdateDSConfigPathParams>(
+export const useUpdateDSConfig = ({ identifier, ...props }: UseUpdateDSConfigProps) =>
+  useMutate<void, Failure | Error, UpdateDSConfigQueryParams, DSConfigRequestBody, UpdateDSConfigPathParams>(
     'PUT',
     (paramsInPath: UpdateDSConfigPathParams) => `/ds-config/${paramsInPath.identifier}`,
     { base: getConfig('cv/api'), pathParams: { identifier }, ...props }
   )
-}
 
 /**
  * creates a data source config
@@ -3859,7 +3938,7 @@ export type GetMonitoringSourcesProps = Omit<
  */
 export const GetMonitoringSources = (props: GetMonitoringSourcesProps) => (
   <Get<ResponsePageMonitoringSource, Failure | Error, GetMonitoringSourcesQueryParams, void>
-    path="/ds-config/listMonitoringSources"
+    path={`/ds-config/listMonitoringSources`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -3909,7 +3988,7 @@ export type GetAvailableMonitoringSourcesProps = Omit<
  */
 export const GetAvailableMonitoringSources = (props: GetAvailableMonitoringSourcesProps) => (
   <Get<RestResponseListString, Failure | Error, GetAvailableMonitoringSourcesQueryParams, void>
-    path="/ds-config/available-monitoring-sources"
+    path={`/ds-config/available-monitoring-sources`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -3959,7 +4038,7 @@ export type GetServicesProps = Omit<
  */
 export const GetServices = (props: GetServicesProps) => (
   <Get<RestResponseListEnvToServicesDTO, Failure | Error, GetServicesQueryParams, void>
-    path="/ds-config/env-to-services"
+    path={`/ds-config/env-to-services`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -3997,7 +4076,7 @@ export interface GetMetricPacksQueryParams {
   accountId: string
   orgIdentifier: string
   projectIdentifier: string
-  dataSourceType: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC'
+  dataSourceType: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS'
 }
 
 export type GetMetricPacksProps = Omit<
@@ -4010,7 +4089,7 @@ export type GetMetricPacksProps = Omit<
  */
 export const GetMetricPacks = (props: GetMetricPacksProps) => (
   <Get<RestResponseListMetricPackDTO, unknown, GetMetricPacksQueryParams, void>
-    path="/metric-pack"
+    path={`/metric-pack`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -4048,7 +4127,7 @@ export interface SaveMetricPacksQueryParams {
   accountId: string
   orgIdentifier: string
   projectIdentifier: string
-  dataSourceType: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC'
+  dataSourceType: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS'
 }
 
 export type SaveMetricPacksProps = Omit<
@@ -4062,7 +4141,7 @@ export type SaveMetricPacksProps = Omit<
 export const SaveMetricPacks = (props: SaveMetricPacksProps) => (
   <Mutate<RestResponseBoolean, unknown, SaveMetricPacksQueryParams, MetricPack[], void>
     verb="POST"
-    path="/metric-pack"
+    path={`/metric-pack`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -4116,7 +4195,7 @@ export type GetSplunkValidationProps = Omit<
  */
 export const GetSplunkValidation = (props: GetSplunkValidationProps) => (
   <Get<RestResponseSplunkValidationResponse, unknown, GetSplunkValidationQueryParams, void>
-    path="/splunk/validation"
+    path={`/splunk/validation`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -4168,7 +4247,7 @@ export type GetSplunkSavedSearchesProps = Omit<
  */
 export const GetSplunkSavedSearches = (props: GetSplunkSavedSearchesProps) => (
   <Get<RestResponseListSplunkSavedSearch, unknown, GetSplunkSavedSearchesQueryParams, void>
-    path="/splunk/saved-searches"
+    path={`/splunk/saved-searches`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -4221,7 +4300,7 @@ export type GetTimeSeriesDataProps = Omit<
  */
 export const GetTimeSeriesData = (props: GetTimeSeriesDataProps) => (
   <Get<RestResponseTimeSeriesTestDataDTO, unknown, GetTimeSeriesDataQueryParams, void>
-    path="/timeseries/metric-group-data"
+    path={`/timeseries/metric-group-data`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -4270,7 +4349,7 @@ export type GetMetricDefinitionsProps = Omit<
  */
 export const GetMetricDefinitions = (props: GetMetricDefinitionsProps) => (
   <Get<RestResponseListTimeSeriesMetricDefinition, unknown, GetMetricDefinitionsQueryParams, void>
-    path="/timeseries/metric-template"
+    path={`/timeseries/metric-template`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -4324,7 +4403,7 @@ export type GetHeatmapProps = Omit<
  */
 export const GetHeatmap = (props: GetHeatmapProps) => (
   <Get<RestResponseMapCVMonitoringCategorySortedSetHeatMapDTO, unknown, GetHeatmapQueryParams, void>
-    path="/heatmap"
+    path={`/heatmap`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -4381,7 +4460,7 @@ export type GetCategoryRiskMapProps = Omit<
  */
 export const GetCategoryRiskMap = (props: GetCategoryRiskMapProps) => (
   <Get<RestResponseCategoryRisksDTO, unknown, GetCategoryRiskMapQueryParams, void>
-    path="/heatmap/category-risks"
+    path={`/heatmap/category-risks`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -4431,7 +4510,7 @@ export type GetEnvServiceRisksProps = Omit<
  */
 export const GetEnvServiceRisks = (props: GetEnvServiceRisksProps) => (
   <Get<RestResponseListEnvServiceRiskDTO, unknown, GetEnvServiceRisksQueryParams, void>
-    path="/heatmap/env-service-risks"
+    path={`/heatmap/env-service-risks`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -4484,7 +4563,7 @@ export type GetRiskSummaryPopoverProps = Omit<
  */
 export const GetRiskSummaryPopover = (props: GetRiskSummaryPopoverProps) => (
   <Get<RestResponseRiskSummaryPopoverDTO, unknown, GetRiskSummaryPopoverQueryParams, void>
-    path="/heatmap/risk-summary-popover"
+    path={`/heatmap/risk-summary-popover`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -4535,7 +4614,7 @@ export type GetVerificationJobProps = Omit<
  */
 export const GetVerificationJob = (props: GetVerificationJobProps) => (
   <Get<ResponseVerificationJobDTO, Failure | Error, GetVerificationJobQueryParams, void>
-    path="/verification-job"
+    path={`/verification-job`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -4584,7 +4663,7 @@ export type CreateVerificationJobProps = Omit<
 export const CreateVerificationJob = (props: CreateVerificationJobProps) => (
   <Mutate<void, Failure | Error, CreateVerificationJobQueryParams, VerificationJobDTORequestBody, void>
     verb="POST"
-    path="/verification-job"
+    path={`/verification-job`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -4641,7 +4720,7 @@ export type SaveVerificationJobProps = Omit<
 export const SaveVerificationJob = (props: SaveVerificationJobProps) => (
   <Mutate<void, Failure | Error, SaveVerificationJobQueryParams, VerificationJobDTORequestBody, void>
     verb="PUT"
-    path="/verification-job"
+    path={`/verification-job`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -4701,7 +4780,7 @@ export type DeleteVerificationJobProps = Omit<
 export const DeleteVerificationJob = (props: DeleteVerificationJobProps) => (
   <Mutate<void, Failure | Error, DeleteVerificationJobQueryParams, void, void>
     verb="DELETE"
-    path="/verification-job"
+    path={`/verification-job`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -4755,7 +4834,7 @@ export type GetVerificationJobsProps = Omit<
  */
 export const GetVerificationJobs = (props: GetVerificationJobsProps) => (
   <Get<ResponsePageVerificationJobDTO, Failure | Error, GetVerificationJobsQueryParams, void>
-    path="/verification-job/list"
+    path={`/verification-job/list`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -4802,7 +4881,7 @@ export interface GetAnomalousMetricDashboardDataQueryParams {
   page?: number
   size?: number
   filter?: string
-  datasourceType?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC'
+  datasourceType?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS'
 }
 
 export type GetAnomalousMetricDashboardDataProps = Omit<
@@ -4815,7 +4894,7 @@ export type GetAnomalousMetricDashboardDataProps = Omit<
  */
 export const GetAnomalousMetricDashboardData = (props: GetAnomalousMetricDashboardDataProps) => (
   <Get<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetAnomalousMetricDashboardDataQueryParams, void>
-    path="/timeseries-dashboard/anomalous-metric-data"
+    path={`/timeseries-dashboard/anomalous-metric-data`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -4867,7 +4946,7 @@ export interface GetMetricDataQueryParams {
   page?: number
   size?: number
   filter?: string
-  datasourceType?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC'
+  datasourceType?: 'APP_DYNAMICS' | 'SPLUNK' | 'STACKDRIVER' | 'KUBERNETES' | 'NEW_RELIC' | 'PROMETHEUS'
 }
 
 export type GetMetricDataProps = Omit<
@@ -4880,7 +4959,7 @@ export type GetMetricDataProps = Omit<
  */
 export const GetMetricData = (props: GetMetricDataProps) => (
   <Get<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetMetricDataQueryParams, void>
-    path="/timeseries-dashboard/metric-data"
+    path={`/timeseries-dashboard/metric-data`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -4947,7 +5026,7 @@ export type GetActivityMetricsProps = Omit<
  */
 export const GetActivityMetrics = ({ activityId, ...props }: GetActivityMetricsProps) => (
   <Get<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetActivityMetricsQueryParams, GetActivityMetricsPathParams>
-    path="/timeseries-dashboard/${activityId}/metrics"
+    path={`/timeseries-dashboard/${activityId}/metrics`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -5018,7 +5097,7 @@ export type GetAllLogsProps = Omit<
  */
 export const GetAllLogs = (props: GetAllLogsProps) => (
   <Get<RestResponsePageAnalyzedLogDataDTO, unknown, GetAllLogsQueryParams, void>
-    path="/log-dashboard/all-logs"
+    path={`/log-dashboard/all-logs`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -5075,7 +5154,7 @@ export type GetAnomalousLogsProps = Omit<
  */
 export const GetAnomalousLogs = (props: GetAnomalousLogsProps) => (
   <Get<RestResponsePageAnalyzedLogDataDTO, unknown, GetAnomalousLogsQueryParams, void>
-    path="/log-dashboard/anomalous-logs"
+    path={`/log-dashboard/anomalous-logs`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -5130,7 +5209,7 @@ export type GetTagCountProps = Omit<
  */
 export const GetTagCount = (props: GetTagCountProps) => (
   <Get<RestResponseSortedSetLogDataByTag, unknown, GetTagCountQueryParams, void>
-    path="/log-dashboard/log-count-by-tags"
+    path={`/log-dashboard/log-count-by-tags`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -5192,7 +5271,7 @@ export type GetActivityLogsProps = Omit<
  */
 export const GetActivityLogs = ({ activityId, ...props }: GetActivityLogsProps) => (
   <Get<RestResponsePageAnalyzedLogDataDTO, unknown, GetActivityLogsQueryParams, GetActivityLogsPathParams>
-    path="/log-dashboard/${activityId}/logs"
+    path={`/log-dashboard/${activityId}/logs`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -5263,7 +5342,7 @@ export type GetTagCountForActivityProps = Omit<
  */
 export const GetTagCountForActivity = ({ activityId, ...props }: GetTagCountForActivityProps) => (
   <Get<RestResponseSortedSetLogDataByTag, unknown, GetTagCountForActivityQueryParams, GetTagCountForActivityPathParams>
-    path="/log-dashboard/${activityId}/log-count-by-tags"
+    path={`/log-dashboard/${activityId}/log-count-by-tags`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -5349,7 +5428,7 @@ export const GetDeploymentTimeSeries = ({ verificationJobInstanceId, ...props }:
     GetDeploymentTimeSeriesQueryParams,
     GetDeploymentTimeSeriesPathParams
   >
-    path="/deployment-time-series-analysis/${verificationJobInstanceId}"
+    path={`/deployment-time-series-analysis/${verificationJobInstanceId}`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -5435,7 +5514,7 @@ export const GetDeploymentLogAnalyses = ({ verificationJobInstanceId, ...props }
     GetDeploymentLogAnalysesQueryParams,
     GetDeploymentLogAnalysesPathParams
   >
-    path="/deployment-log-analysis/${verificationJobInstanceId}"
+    path={`/deployment-log-analysis/${verificationJobInstanceId}`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -5522,7 +5601,7 @@ export const GetClusterChartAnalyses = ({ verificationJobInstanceId, ...props }:
     GetClusterChartAnalysesQueryParams,
     GetClusterChartAnalysesPathParams
   >
-    path="/deployment-log-analysis/${verificationJobInstanceId}/clusters"
+    path={`/deployment-log-analysis/${verificationJobInstanceId}/clusters`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -5602,7 +5681,7 @@ export const GetRecentDeploymentActivityVerifications = (props: GetRecentDeploym
     GetRecentDeploymentActivityVerificationsQueryParams,
     void
   >
-    path="/activity/recent-deployment-activity-verifications"
+    path={`/activity/recent-deployment-activity-verifications`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -5680,7 +5759,7 @@ export const GetVerificationInstances = ({ deploymentTag, ...props }: GetVerific
     GetVerificationInstancesQueryParams,
     GetVerificationInstancesPathParams
   >
-    path="/activity/deployment-activity-verifications/${deploymentTag}"
+    path={`/activity/deployment-activity-verifications/${deploymentTag}`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -5766,7 +5845,7 @@ export const GetVerificationsPopoverSummary = ({ deploymentTag, ...props }: GetV
     GetVerificationsPopoverSummaryQueryParams,
     GetVerificationsPopoverSummaryPathParams
   >
-    path="/activity/deployment-activity-verifications-popover-summary/${deploymentTag}"
+    path={`/activity/deployment-activity-verifications-popover-summary/${deploymentTag}`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -5845,7 +5924,7 @@ export type GetRecentActivityVerificationResultsProps = Omit<
  */
 export const GetRecentActivityVerificationResults = (props: GetRecentActivityVerificationResultsProps) => (
   <Get<RestResponseListActivityVerificationResultDTO, unknown, GetRecentActivityVerificationResultsQueryParams, void>
-    path="/activity/recent-activity-verifications"
+    path={`/activity/recent-activity-verifications`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -5918,7 +5997,7 @@ export const GetActivityVerificationResult = ({ activityId, ...props }: GetActiv
     GetActivityVerificationResultQueryParams,
     GetActivityVerificationResultPathParams
   >
-    path="/activity/${activityId}/activity-risks"
+    path={`/activity/${activityId}/activity-risks`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -6001,7 +6080,7 @@ export const GetDeploymentActivitySummary = ({ activityId, ...props }: GetDeploy
     GetDeploymentActivitySummaryQueryParams,
     GetDeploymentActivitySummaryPathParams
   >
-    path="/activity/${activityId}/deployment-activity-summary"
+    path={`/activity/${activityId}/deployment-activity-summary`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -6075,7 +6154,7 @@ export type ListActivitiesForDashboardProps = Omit<
  */
 export const ListActivitiesForDashboard = (props: ListActivitiesForDashboardProps) => (
   <Get<RestResponseListActivityDashboardDTO, unknown, ListActivitiesForDashboardQueryParams, void>
-    path="/activity/list"
+    path={`/activity/list`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -6125,7 +6204,7 @@ export type GetCVSetupStatusProps = Omit<
  */
 export const GetCVSetupStatus = (props: GetCVSetupStatusProps) => (
   <Get<RestResponseCVSetupStatus, unknown, GetCVSetupStatusQueryParams, void>
-    path="/setup/status"
+    path={`/setup/status`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -6179,7 +6258,7 @@ export type GetNamespacesProps = Omit<
  */
 export const GetNamespaces = (props: GetNamespacesProps) => (
   <Get<ResponsePageString, Failure | Error, GetNamespacesQueryParams, void>
-    path="/kubernetes/namespaces"
+    path={`/kubernetes/namespaces`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -6234,7 +6313,7 @@ export type GetWorkloadsProps = Omit<
  */
 export const GetWorkloads = (props: GetWorkloadsProps) => (
   <Get<ResponsePageString, Failure | Error, GetWorkloadsQueryParams, void>
-    path="/kubernetes/workloads"
+    path={`/kubernetes/workloads`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -6285,7 +6364,7 @@ export type GetEventDetailsProps = Omit<
  */
 export const GetEventDetails = (props: GetEventDetailsProps) => (
   <Get<ResponseKubernetesActivityDetailsDTO, Failure | Error, GetEventDetailsQueryParams, void>
-    path="/kubernetes/event-details"
+    path={`/kubernetes/event-details`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -6333,7 +6412,7 @@ export type GetAlertRuleProps = Omit<GetProps<RestResponseAlertRuleDTO, unknown,
  */
 export const GetAlertRule = (props: GetAlertRuleProps) => (
   <Get<RestResponseAlertRuleDTO, unknown, GetAlertRuleQueryParams, void>
-    path="/alert"
+    path={`/alert`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -6384,7 +6463,7 @@ export type CreateAlertProps = Omit<
 export const CreateAlert = (props: CreateAlertProps) => (
   <Mutate<RestResponseAlertRuleDTO, unknown, CreateAlertQueryParams, AlertRuleDTORequestBody, void>
     verb="POST"
-    path="/alert"
+    path={`/alert`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -6443,7 +6522,7 @@ export type UpdateAlertProps = Omit<
 export const UpdateAlert = (props: UpdateAlertProps) => (
   <Mutate<void, void, UpdateAlertQueryParams, AlertRuleDTORequestBody, void>
     verb="PUT"
-    path="/alert"
+    path={`/alert`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -6496,7 +6575,7 @@ export type RetrieveAlertProps = Omit<
  */
 export const RetrieveAlert = (props: RetrieveAlertProps) => (
   <Get<RestResponsePageAlertRuleDTO, unknown, RetrieveAlertQueryParams, void>
-    path="/alert/list"
+    path={`/alert/list`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -6544,7 +6623,7 @@ export type DeleteAlertProps = Omit<MutateProps<void, void, DeleteAlertQueryPara
 export const DeleteAlert = (props: DeleteAlertProps) => (
   <Mutate<void, void, DeleteAlertQueryParams, string, void>
     verb="DELETE"
-    path="/alert"
+    path={`/alert`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -6595,7 +6674,7 @@ export type GetActivityTypesProps = Omit<
  */
 export const GetActivityTypes = (props: GetActivityTypesProps) => (
   <Get<RestResponseListActivityType, unknown, GetActivityTypesQueryParams, void>
-    path="/alert/activityTypes"
+    path={`/alert/activityTypes`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -6650,7 +6729,7 @@ export type GetStackdriverDashboardsProps = Omit<
  */
 export const GetStackdriverDashboards = (props: GetStackdriverDashboardsProps) => (
   <Get<ResponsePageStackdriverDashboardDTO, Failure | Error, GetStackdriverDashboardsQueryParams, void>
-    path="/stackdriver/dashboards"
+    path={`/stackdriver/dashboards`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -6708,7 +6787,7 @@ export type GetStackdriverDashboardDetailProps = Omit<
  */
 export const GetStackdriverDashboardDetail = (props: GetStackdriverDashboardDetailProps) => (
   <Get<ResponseListStackdriverDashboardDetail, Failure | Error, GetStackdriverDashboardDetailQueryParams, void>
-    path="/stackdriver/dashboard-detail"
+    path={`/stackdriver/dashboard-detail`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -6782,7 +6861,7 @@ export const GetStackdriverSampleData = (props: GetStackdriverSampleDataProps) =
     void
   >
     verb="POST"
-    path="/stackdriver/sample-data"
+    path={`/stackdriver/sample-data`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -6849,7 +6928,7 @@ export type GetActivitySourceProps = Omit<
  */
 export const GetActivitySource = (props: GetActivitySourceProps) => (
   <Get<ResponseActivitySourceDTO, Failure | Error, GetActivitySourceQueryParams, void>
-    path="/activity-source"
+    path={`/activity-source`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -6900,7 +6979,7 @@ export type RegisterActivitySourceProps = Omit<
 export const RegisterActivitySource = (props: RegisterActivitySourceProps) => (
   <Mutate<ResponseString, Failure | Error, RegisterActivitySourceQueryParams, ActivitySourceDTORequestBody, void>
     verb="POST"
-    path="/activity-source"
+    path={`/activity-source`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -6963,7 +7042,7 @@ export type CreateActivitySourceProps = Omit<
 export const CreateActivitySource = (props: CreateActivitySourceProps) => (
   <Mutate<ResponseString, Failure | Error, CreateActivitySourceQueryParams, ActivitySourceDTORequestBody, void>
     verb="POST"
-    path="/activity-source/create"
+    path={`/activity-source/create`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -7037,7 +7116,7 @@ export const PutActivitySource = ({ identifier, ...props }: PutActivitySourcePro
     PutActivitySourcePathParams
   >
     verb="PUT"
-    path="/activity-source/${identifier}"
+    path={`/activity-source/${identifier}`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -7112,7 +7191,7 @@ export type DeleteKubernetesSourceProps = Omit<
 export const DeleteKubernetesSource = (props: DeleteKubernetesSourceProps) => (
   <Mutate<ResponseBoolean, Failure | Error, DeleteKubernetesSourceQueryParams, string, void>
     verb="DELETE"
-    path="/activity-source"
+    path={`/activity-source`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -7167,7 +7246,7 @@ export type ListActivitySourcesProps = Omit<
  */
 export const ListActivitySources = (props: ListActivitySourcesProps) => (
   <Get<ResponsePageActivitySourceDTO, Failure | Error, ListActivitySourcesQueryParams, void>
-    path="/activity-source/list"
+    path={`/activity-source/list`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -7217,7 +7296,7 @@ export type ListAllSupportedDataSourceProps = Omit<
  */
 export const ListAllSupportedDataSource = (props: ListAllSupportedDataSourceProps) => (
   <Get<RestResponseListDataSourceType, unknown, ListAllSupportedDataSourceQueryParams, void>
-    path="/setup/supported-providers"
+    path={`/setup/supported-providers`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -7268,7 +7347,7 @@ export type ListBaselineExecutionsProps = Omit<
  */
 export const ListBaselineExecutions = (props: ListBaselineExecutionsProps) => (
   <Get<RestResponseListTestVerificationBaselineExecutionDTO, unknown, ListBaselineExecutionsQueryParams, void>
-    path="/verification-job-instance/baseline-executions"
+    path={`/verification-job-instance/baseline-executions`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -7323,7 +7402,7 @@ export type GetDefaultHealthVerificationJobProps = Omit<
  */
 export const GetDefaultHealthVerificationJob = (props: GetDefaultHealthVerificationJobProps) => (
   <Get<ResponseVerificationJobDTO, Failure | Error, GetDefaultHealthVerificationJobQueryParams, void>
-    path="/verification-job/default-health-job"
+    path={`/verification-job/default-health-job`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -7369,7 +7448,7 @@ export type GetNewRelicEndPointsProps = Omit<GetProps<ResponseListString, Failur
  */
 export const GetNewRelicEndPoints = (props: GetNewRelicEndPointsProps) => (
   <Get<ResponseListString, Failure | Error, void, void>
-    path="/newrelic/endpoints"
+    path={`/newrelic/endpoints`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -7421,7 +7500,7 @@ export type GetNewRelicApplicationsProps = Omit<
  */
 export const GetNewRelicApplications = (props: GetNewRelicApplicationsProps) => (
   <Get<ResponseListNewRelicApplication, Failure | Error, GetNewRelicApplicationsQueryParams, void>
-    path="/newrelic/applications"
+    path={`/newrelic/applications`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -7489,7 +7568,7 @@ export const GetNewRelicMetricData = (props: GetNewRelicMetricDataProps) => (
     void
   >
     verb="POST"
-    path="/newrelic/metric-data"
+    path={`/newrelic/metric-data`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -7556,7 +7635,7 @@ export type GetOnboardingLogsProps = Omit<
  */
 export const GetOnboardingLogs = (props: GetOnboardingLogsProps) => (
   <Get<ResponsePageCVNGLogDTO, unknown, GetOnboardingLogsQueryParams, void>
-    path="/cvng-log"
+    path={`/cvng-log`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -7605,7 +7684,7 @@ export type SaveCVNGLogRecordsProps = Omit<
 export const SaveCVNGLogRecords = (props: SaveCVNGLogRecordsProps) => (
   <Mutate<RestResponseVoid, unknown, SaveCVNGLogRecordsQueryParams, CVNGLogDTO[], void>
     verb="POST"
-    path="/cvng-log"
+    path={`/cvng-log`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -7658,7 +7737,7 @@ export type CDNGVerificationJobsProps = Omit<
  */
 export const CDNGVerificationJobs = (props: CDNGVerificationJobsProps) => (
   <Get<ResponseListVerificationJobDTO, Failure | Error, CDNGVerificationJobsQueryParams, void>
-    path="/verification-job/eligible-cdng-verification-jobs"
+    path={`/verification-job/eligible-cdng-verification-jobs`}
     base={getConfig('cv/api')}
     {...props}
   />
@@ -7724,7 +7803,7 @@ export const UpdateVerificationJob = ({ identifier, ...props }: UpdateVerificati
     UpdateVerificationJobPathParams
   >
     verb="PUT"
-    path="/verification-job/${identifier}"
+    path={`/verification-job/${identifier}`}
     base={getConfig('cv/api')}
     {...props}
   />

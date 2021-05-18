@@ -53,10 +53,8 @@ const dataMock: RestResponseTransactionMetricInfoSummaryPageDTO = {
       pageIndex: 0,
       empty: false
     },
-    deploymentTimeRange: {
-      startTime: 1609422672601,
-      endTime: 1609426272601
-    }
+    deploymentStartTime: 1609422672601,
+    deploymentEndTime: 1609426272601
   }
 }
 
