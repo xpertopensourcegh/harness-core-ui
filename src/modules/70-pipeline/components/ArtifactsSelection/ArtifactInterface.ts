@@ -1,7 +1,7 @@
 import type { ConnectorSelectedValue } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import type {
   ArtifactConfig,
-  ArtifactSpecWrapper,
+  PrimaryArtifact,
   PageConnectorResponse,
   SidecarArtifactWrapper,
   StageElementWrapper
@@ -11,7 +11,7 @@ export interface ArtifactListViewProps {
   isForPredefinedSets?: boolean
   stage: StageElementWrapper | undefined
   overrideSetIdentifier?: string
-  primaryArtifact: ArtifactSpecWrapper
+  primaryArtifact: PrimaryArtifact
   sideCarArtifact: SidecarArtifactWrapper[]
   addNewArtifact: (view: number) => void
   editArtifact: (view: number, type: CreationType, index?: number) => void
