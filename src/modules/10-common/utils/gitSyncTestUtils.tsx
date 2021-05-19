@@ -32,6 +32,7 @@ export const GitSyncTestWrapper: React.FC<GitSyncTestWrapperProps> = props => {
         value={
           {
             gitSyncRepos: gitSyncListResponse,
+            codeManagers: [{ authentication: { spec: { spec: { username: 'dev' } } } }],
             updateStore: noop,
             refreshStore: noop,
             ...gitSyncSoreValues

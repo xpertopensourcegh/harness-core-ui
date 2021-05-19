@@ -31,12 +31,35 @@ describe('Save to git form', () => {
       </GitSyncTestWrapper>
     )
 
+  test('rendering form to git save form without git credential in user profile', async () => {
+    const { container, getByText } = render(
+      <GitSyncTestWrapper
+        path="/account/:accountId/ci/orgs/:orgIdentifier/projects/:projectIdentifier/admin/git-sync/repos"
+        pathParams={pathParams}
+        gitSyncSoreValues={{ codeManagers: [] }}
+      >
+        <SaveToGitForm
+          {...pathParams}
+          isEditing={false}
+          resource={{ type: 'Connectors', name: 'testConnector', identifier: 'testConnector' }}
+          onSuccess={noop}
+          onClose={noop}
+        />
+      </GitSyncTestWrapper>
+    )
+    await waitFor(() => {
+      expect(getByText('common.git.saveResourceLabel')).toBeTruthy()
+    })
+
+    expect(container).toMatchSnapshot()
+  })
+
   test('rendering form to save resouces', async () => {
     const { container, getByText } = setup()
     await waitFor(() => {
       expect(getByText('common.git.saveResourceLabel')).toBeTruthy()
     })
-    expect(fetchBranches).toHaveBeenCalledTimes(1)
+
     // All required validation test
     await act(async () => {
       fireEvent.click(getByText('save'))
@@ -45,8 +68,7 @@ describe('Save to git form', () => {
     const newBranchRadioBtn = document.querySelector('[data-test="newBranchRadioBtn"]')
     act(() => {
       fireEvent.click(newBranchRadioBtn!)
-      expect(fetchBranches).toHaveBeenCalledTimes(1)
+      expect(container).toMatchSnapshot()
     })
-    expect(container).toMatchSnapshot()
   })
 })

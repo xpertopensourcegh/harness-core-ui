@@ -138,6 +138,7 @@ export interface StringsMap {
   'common.failureRate': string
   'common.git.APIAccessDescriptipn': string
   'common.git.APIAuthentication': string
+  'common.git.addUserCredentialLabel': string
   'common.git.applicationId': string
   'common.git.bitbucketAccountUrl': string
   'common.git.bitbucketPlaceholderSSH': string
@@ -147,6 +148,7 @@ export interface StringsMap {
   'common.git.branchSelectHeader': string
   'common.git.commitMessage': string
   'common.git.connectionType': string
+  'common.git.currentUserLabel': string
   'common.git.enableAPIAccess': string
   'common.git.existingBranchCommitLabel': string
   'common.git.filePath': string
@@ -163,6 +165,7 @@ export interface StringsMap {
   'common.git.gitRepoUrl': string
   'common.git.installationId': string
   'common.git.newBranchCommitLabel': string
+  'common.git.noUserLabel': string
   'common.git.privateKey': string
   'common.git.saveResourceLabel': string
   'common.git.selectRepoLabel': string
@@ -170,8 +173,10 @@ export interface StringsMap {
   'common.git.urlType': string
   'common.git.validation.filePath': string
   'common.gitSync.allRepositories': string
+  'common.gitSync.commitDetailsLabel': string
   'common.gitSync.defaultBranches': string
   'common.gitSync.gitRepositoryDetails': string
+  'common.gitSync.harnessFolderLabel': string
   'common.gitSync.repoDetails': string
   'common.gitSync.resourceLabel': string
   'common.gitSync.rootFolderLabel': string
