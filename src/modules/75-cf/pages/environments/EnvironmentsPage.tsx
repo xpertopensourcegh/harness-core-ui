@@ -173,7 +173,7 @@ const EnvironmentsPage: React.FC = () => {
 
   const handleDeleteEnv = async (id: string) => {
     try {
-      await deleteEnvironment(id)
+      await deleteEnvironment(id, { headers: { 'content-type': 'application/json' } })
       showSuccess(`Successfully deleted environment ${id}`)
       refetch()
     } catch (e) {
