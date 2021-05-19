@@ -529,7 +529,6 @@ export interface StringsMap {
   'connectors.cdng.validations.durationRequired': string
   'connectors.cdng.validations.jobNameRequired': string
   'connectors.cdng.validations.sensitivityRequired': string
-  'connectors.cdng.validations.trafficsplitRequired': string
   'connectors.cdng.verificationSensitivityLabel.high': string
   'connectors.cdng.verificationSensitivityLabel.low': string
   'connectors.cdng.verificationSensitivityLabel.medium': string

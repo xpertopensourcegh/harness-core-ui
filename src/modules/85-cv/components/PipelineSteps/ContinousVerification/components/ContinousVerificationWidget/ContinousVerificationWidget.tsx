@@ -49,11 +49,6 @@ export function ContinousVerificationWidget(
           getString('connectors.cdng.validations.baselineRequired'),
           value => value !== ''
         ),
-        trafficsplit: Yup.mixed().test(
-          'trafficsplit',
-          getString('connectors.cdng.validations.trafficsplitRequired'),
-          value => value !== ''
-        ),
         deploymentTag: Yup.string().required(getString('connectors.cdng.validations.deploymentTagRequired'))
       })
     }),
