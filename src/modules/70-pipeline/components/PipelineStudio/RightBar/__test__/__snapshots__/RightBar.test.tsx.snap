@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RightBar renders correctly 1`] = `
+<div>
+  <div
+    class="rightBar"
+  >
+    <button
+      class="bp3-button Button--button StyledProps--font StyledProps--main iconButton notificationsIcon StyledProps--font StyledProps--font-weight-semi-bold StyledProps--font-size-xsmall"
+      type="button"
+    >
+      <span
+        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+        data-icon="right-bar-notification"
+      >
+        <svg
+          fill="none"
+          height="28"
+          viewBox="0 0 20 20"
+          width="28"
+        >
+          <path
+            d="M4.167 10.05A5.833 5.833 0 0110 4.219v0-.885.885a5.833 5.833 0 015.833 5.833V15H8.765h2.445v1.666H8.765V15H4.166v-4.95z"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M10 5.833v0A4.167 4.167 0 005.833 10v.834"
+            opacity="0.3"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </span>
+      <span
+        class="bp3-button-text"
+      >
+        notifications.notificationRules
+      </span>
+    </button>
+    <button
+      class="bp3-button Button--button StyledProps--font StyledProps--main iconButton variablesIcon StyledProps--font StyledProps--font-weight-semi-bold StyledProps--font-size-xsmall Button--with-current-color"
+      data-testid="input-variable"
+      type="button"
+    >
+      <span
+        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+        data-icon="pipeline-variables"
+      >
+        <svg
+          height="20"
+          viewBox="0 0 15.4 12.2"
+          width="20"
+        >
+          <defs>
+            <path
+              d="M12.5 6.1l-.2-.4c-.1-.3-.2-.4-.2-.5l-.2-.5c-.2-.4-.3-.6-.5-.6s-.4.2-.6.7c-.1 0-.2-.1-.2-.2 0-.2.1-.4.4-.7.2-.3.5-.4.6-.4.4 0 .8.5 1.2 1.6l.2.3.1-.2c.7-1.1 1.3-1.7 1.8-1.7.1 0 .3 0 .4.1l-.6.6h-.2c-.4 0-.8.4-1.3 1.3l-.1.2.1.3c.4 1.2.8 1.8 1.1 1.8.3 0 .5-.2.6-.6.1.1.1.1.1.2 0 .2-.1.4-.4.6-.3.2-.5.4-.7.4-.4 0-.8-.5-1.2-1.6l-.1-.4-.1.3c-.7 1.2-1.3 1.8-2 1.8-.2 0-.4-.1-.6-.2l.6-.6c.1.1.2.2.4.2.4 0 .8-.4 1.3-1.1l.3-.4v-.3zm-6.1-.5L2.6.9h3.8s1.3-.1 1.8.6.6 1.8.6 1.8h.5L9.1 0H0v.5l4.7 5.7L0 11.7v.5h9.3l.6-3.6-.5-.1s-.2.8-.8 1.5c-.6.7-3.1.6-3.1.6H2.1l4.3-5z"
+              id="pipeline-variables_svg__a"
+            />
+          </defs>
+          <clippath
+            id="pipeline-variables_svg__b"
+          >
+            <use
+              overflow="visible"
+              xlink:href="#pipeline-variables_svg__a"
+            />
+          </clippath>
+          <path
+            clip-path="url(#pipeline-variables_svg__b)"
+            d="M-5-5h25.4v22.2H-5z"
+            fill="#9d7cff"
+          />
+        </svg>
+      </span>
+      <span
+        class="bp3-button-text"
+      >
+        variablesText
+      </span>
+    </button>
+    <div />
+    <div />
+  </div>
+</div>
+`;

@@ -3,6 +3,7 @@ import { openDB, IDBPDatabase, deleteDB } from 'idb'
 import { isEqual, cloneDeep, pick, isNil, isEmpty } from 'lodash-es'
 import { parse, stringify } from 'yaml'
 import type { IconName } from '@wings-software/uicore'
+import merge from 'lodash-es/merge'
 import type {
   PipelineInfoConfig,
   StageElementConfig,
@@ -495,7 +496,22 @@ export const PipelineProvider: React.FC<{
   runPipeline: (identifier: string) => void
   renderPipelineStage: PipelineContextInterface['renderPipelineStage']
 }> = ({ queryParams, pipelineIdentifier, children, renderPipelineStage, stepsFactory, stagesMap, runPipeline }) => {
-  const [state, dispatch] = React.useReducer(PipelineReducer, initialState)
+  const [state, dispatch] = React.useReducer(
+    PipelineReducer,
+    merge(
+      {
+        pipeline: {
+          projectIdentifier: queryParams.projectIdentifier,
+          orgIdentifier: queryParams.orgIdentifier
+        },
+        originalPipeline: {
+          projectIdentifier: queryParams.projectIdentifier,
+          orgIdentifier: queryParams.orgIdentifier
+        }
+      },
+      initialState
+    )
+  )
   const [view, setView] = useLocalStorage<PipelineStudioView>('pipeline_studio_view', PipelineStudioView.ui)
   state.pipelineIdentifier = pipelineIdentifier
 

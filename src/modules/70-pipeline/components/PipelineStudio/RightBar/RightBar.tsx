@@ -14,6 +14,7 @@ import {
 import { useParams } from 'react-router-dom'
 import { isEmpty, set } from 'lodash-es'
 import { Classes, Dialog } from '@blueprintjs/core'
+import flatten from 'lodash-es/flatten'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import {
@@ -40,7 +41,6 @@ import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import { RightDrawer } from '../RightDrawer/RightDrawer'
 import { StageTypes } from '../Stages/StageTypes'
-
 import css from './RightBar.module.scss'
 
 interface CodebaseValues {
@@ -143,7 +143,9 @@ export const RightBar = (): JSX.Element => {
 
   const { selectedProject } = useAppStore()
 
-  const ciStageExists = pipeline?.stages?.some?.(stage => {
+  const pipelineStages = flatten(pipeline?.stages?.map(s => s.parallel || s))
+
+  const ciStageExists = pipelineStages?.some?.(stage => {
     if (stage?.stage?.type) {
       return stage?.stage?.type === StageTypes.BUILD
     } else {
@@ -157,7 +159,7 @@ export const RightBar = (): JSX.Element => {
     selectedProject.modules.indexOf?.('CI') > -1 &&
     ciStageExists
 
-  const atLeastOneCloneCodebaseEnabled = pipeline?.stages?.some?.(stage => (stage?.stage?.spec as any)?.cloneCodebase)
+  const atLeastOneCloneCodebaseEnabled = pipelineStages?.some?.(stage => (stage?.stage?.spec as any)?.cloneCodebase)
 
   React.useEffect(() => {
     if (atLeastOneCloneCodebaseEnabled) {
