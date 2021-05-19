@@ -13,7 +13,6 @@ import { InputSetSummaryResponse, useGetInputsetYaml } from 'services/pipeline-n
 import { useQueryParams } from '@common/hooks'
 import { PageSpinner } from '@common/components'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
-import NotFoundPage from '@common/pages/404/NotFoundPage'
 
 interface InputSetValue extends SelectOption {
   type: InputSetSummaryResponse['inputSetType']
@@ -68,10 +67,6 @@ export default function RunPipelinePage(): React.ReactElement {
       return inputSetSelected
     }
     return []
-  }
-
-  if (isGitSyncEnabled && (!query.repo || !query.branch)) {
-    return <NotFoundPage />
   }
 
   if (loading) {
