@@ -48,7 +48,7 @@ import { getStageIndexByIdentifier } from '@pipeline/components/PipelineStudio/S
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type { CustomVariablesData } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 import { Step, StepProps } from '@pipeline/components/AbstractSteps/Step'
-import { ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
+import { ArtifactToConnectorMap, ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
 
 import { String, useStrings } from 'framework/strings'
 import { loggerFor } from 'framework/logging/logging'
@@ -69,12 +69,6 @@ import { K8sServiceSpecVariablesForm, K8sServiceSpecVariablesFormProps } from '.
 import css from './K8sServiceSpec.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
-
-export const ARTIFACT_TYPE_TO_CONNECTOR_MAP: { [key: string]: ConnectorInfoDTO['type'] } = {
-  Dockerhub: 'DockerRegistry',
-  Gcr: 'Gcp',
-  Ecr: 'Aws'
-}
 
 export const getStagePathByIdentifier = memoize((stageIdentifier = '', pipeline: NgPipeline) => {
   let finalPath = ''
@@ -483,7 +477,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                         orgIdentifier={orgIdentifier}
                         width={400}
                         disabled={readonly}
-                        type={ARTIFACT_TYPE_TO_CONNECTOR_MAP[artifacts?.primary?.type] as ConnectorInfoDTO['type']}
+                        type={ArtifactToConnectorMap[artifacts?.primary?.type] as ConnectorInfoDTO['type']}
                         onChange={(record, scope) => {
                           const connectorRef =
                             scope === Scope.ORG || scope === Scope.ACCOUNT
@@ -653,7 +647,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                             projectIdentifier={projectIdentifier}
                             orgIdentifier={orgIdentifier}
                             type={
-                              ARTIFACT_TYPE_TO_CONNECTOR_MAP[
+                              ArtifactToConnectorMap[
                                 artifacts?.sidecars?.[index]?.sidecar?.type
                               ] as ConnectorInfoDTO['type']
                             }

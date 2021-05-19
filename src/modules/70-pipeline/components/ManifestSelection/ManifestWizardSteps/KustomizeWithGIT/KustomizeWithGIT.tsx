@@ -66,7 +66,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
   const getRepoName = (): string => {
     let repoName = ''
     if (getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.RUNTIME) {
-      repoName = '<+input>'
+      repoName = prevStepData?.connectorRef
     } else if (prevStepData?.connectorRef) {
       if (connectionType === GitRepoName.Repo) {
         repoName = prevStepData?.connectorRef?.connector?.spec?.url

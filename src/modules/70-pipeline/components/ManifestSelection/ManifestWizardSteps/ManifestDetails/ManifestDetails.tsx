@@ -111,7 +111,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
   const getRepoName = (): string => {
     let repoName = ''
     if (getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.RUNTIME) {
-      repoName = '<+input>'
+      repoName = prevStepData?.connectorRef
     } else if (prevStepData?.connectorRef) {
       const connectorScope = getScopeFromValue(initialValues?.spec?.store.spec?.connectorRef)
       if (connectorScope === Scope.ACCOUNT) {

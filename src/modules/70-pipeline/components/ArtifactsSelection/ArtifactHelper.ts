@@ -8,7 +8,6 @@ import type { CreationType } from './ArtifactInterface'
 export const getArtifactIconByType = (type: string): IconName => {
   switch (type) {
     case Connectors.DOCKER:
-    case 'Dockerhub':
       return 'service-dockerhub'
     case Connectors.AWS:
     case 'Ecr':
@@ -41,9 +40,9 @@ export const ENABLED_ARTIFACT_TYPES: { [key: string]: CreationType } = {
 }
 
 export const ArtifactToConnectorMap: Record<string, ConnectorInfoDTO['type']> = {
-  Dockerhub: Connectors.DOCKER,
-  Ecr: Connectors.AWS,
-  Gcr: Connectors.GCP
+  DockerRegistry: Connectors.DOCKER,
+  Gcr: Connectors.GCP,
+  Ecr: Connectors.AWS
 }
 
 export const tagOptions: IOptionProps[] = [
