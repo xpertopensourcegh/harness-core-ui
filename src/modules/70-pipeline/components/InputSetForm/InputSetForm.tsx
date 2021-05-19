@@ -135,17 +135,14 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
   >()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const history = useHistory()
-  const { isGitSyncEnabled } = useAppStore()
   const { refetch: refetchTemplate, data: template, loading: loadingTemplate } = useGetTemplateFromPipeline({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,
       pipelineIdentifier,
       projectIdentifier,
-      ...(isGitSyncEnabled && {
-        repoIdentifier,
-        branch
-      })
+      repoIdentifier,
+      branch
     },
     lazy: true
   })
@@ -180,10 +177,8 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
       orgIdentifier,
       pipelineIdentifier,
       projectIdentifier,
-      ...(isGitSyncEnabled && {
-        repoIdentifier,
-        branch
-      })
+      repoIdentifier,
+      branch
     },
     inputSetIdentifier: inputSetIdentifier || '',
     lazy: true
@@ -197,10 +192,8 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
       projectIdentifier,
       orgIdentifier,
       pipelineIdentifier,
-      ...(isGitSyncEnabled && {
-        repoIdentifier,
-        branch
-      })
+      repoIdentifier,
+      branch
     }
   })
 
@@ -210,10 +203,8 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
       orgIdentifier,
       pipelineIdentifier,
       projectIdentifier,
-      ...(isGitSyncEnabled && {
-        repoIdentifier,
-        branch
-      })
+      repoIdentifier,
+      branch
     },
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
@@ -223,10 +214,8 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
       orgIdentifier,
       pipelineIdentifier,
       projectIdentifier,
-      ...(isGitSyncEnabled && {
-        repoIdentifier,
-        branch
-      })
+      repoIdentifier,
+      branch
     },
     inputSetIdentifier: '',
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
@@ -239,10 +228,8 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
-      ...(isGitSyncEnabled && {
-        repoIdentifier,
-        branch
-      })
+      repoIdentifier,
+      branch
     }
   })
 

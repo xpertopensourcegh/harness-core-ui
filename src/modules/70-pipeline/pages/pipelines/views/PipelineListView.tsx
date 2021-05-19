@@ -96,7 +96,9 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
   )
 
   const runPipeline = useRunPipelineModal({
-    pipelineIdentifier: (data.identifier || '') as string
+    pipelineIdentifier: (data.identifier || '') as string,
+    repoIdentifier: data.gitDetails?.repoIdentifier,
+    branch: data.gitDetails?.branch
   })
 
   return (
@@ -318,9 +320,10 @@ const RenderLastRun: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
 
 const RenderRunPipeline: Renderer<CellProps<PipelineDTO>> = ({ row }): JSX.Element => {
   const rowdata = row.original
-
   const runPipeline = useRunPipelineModal({
-    pipelineIdentifier: (rowdata.identifier || '') as string
+    pipelineIdentifier: (rowdata.identifier || '') as string,
+    repoIdentifier: rowdata.gitDetails?.repoIdentifier,
+    branch: rowdata.gitDetails?.branch
   })
 
   return (

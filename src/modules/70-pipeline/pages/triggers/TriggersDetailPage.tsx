@@ -26,7 +26,6 @@ import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { useQueryParams } from '@common/hooks'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { TriggerBreadcrumbs } from '../trigger-details/TriggerDetails'
 import { getTriggerIcon } from './utils/TriggersListUtils'
 import css from './TriggersDetailPage.module.scss'
@@ -51,7 +50,6 @@ const getTriggerConditionsStr = (payloadConditions: ConditionInterface[]): strin
   return arr
 }
 export default function TriggersDetailPage(): JSX.Element {
-  const { isGitSyncEnabled } = useAppStore()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
 
   const [selectedView, setSelectedView] = React.useState<SelectedView>(SelectedView.VISUAL)
@@ -121,7 +119,8 @@ export default function TriggersDetailPage(): JSX.Element {
         triggerIdentifier,
         triggerType: triggerResponse?.data?.type,
         module,
-        ...(isGitSyncEnabled && { repoIdentifier, branch })
+        repoIdentifier,
+        branch
       })
     )
   }
@@ -172,7 +171,8 @@ export default function TriggersDetailPage(): JSX.Element {
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
-      ...(isGitSyncEnabled && { repoIdentifier, branch })
+      repoIdentifier,
+      branch
     }
   })
 

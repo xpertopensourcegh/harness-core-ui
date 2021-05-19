@@ -35,7 +35,6 @@ import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { NameIdDescriptionTags } from '@common/components'
 import { useStrings } from 'framework/strings'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import css from './OverlayInputSetForm.module.scss'
 
 export interface OverlayInputSetDTO extends Omit<OverlayInputSetResponse, 'identifier'> {
@@ -95,7 +94,6 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps & GitQueryPa
   branch
 }): JSX.Element => {
   const { getString } = useStrings()
-  const { isGitSyncEnabled } = useAppStore()
   const [isOpen, setIsOpen] = React.useState(true)
   const [isEdit, setIsEdit] = React.useState(false)
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier } = useParams<{
@@ -120,7 +118,8 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps & GitQueryPa
       orgIdentifier,
       pipelineIdentifier,
       projectIdentifier,
-      ...(isGitSyncEnabled && { repoIdentifier, branch })
+      repoIdentifier,
+      branch
     },
     inputSetIdentifier: identifier || '',
     lazy: true
@@ -136,7 +135,8 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps & GitQueryPa
       orgIdentifier,
       pipelineIdentifier,
       projectIdentifier,
-      ...(isGitSyncEnabled && { repoIdentifier, branch })
+      repoIdentifier,
+      branch
     },
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
@@ -150,7 +150,8 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps & GitQueryPa
       orgIdentifier,
       pipelineIdentifier,
       projectIdentifier,
-      ...(isGitSyncEnabled && { repoIdentifier, branch })
+      repoIdentifier,
+      branch
     },
     inputSetIdentifier: '',
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
@@ -168,7 +169,8 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps & GitQueryPa
       projectIdentifier,
       pipelineIdentifier,
       inputSetType: 'INPUT_SET',
-      ...(isGitSyncEnabled && { repoIdentifier, branch })
+      repoIdentifier,
+      branch
     },
     debounce: 300,
     lazy: true
@@ -181,7 +183,8 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps & GitQueryPa
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
-      ...(isGitSyncEnabled && { repoIdentifier, branch })
+      repoIdentifier,
+      branch
     }
   })
 

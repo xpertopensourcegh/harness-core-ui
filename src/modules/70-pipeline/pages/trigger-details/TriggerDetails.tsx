@@ -35,7 +35,7 @@ export const TriggerBreadcrumbs = ({
   >()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
 
-  const { selectedProject, isGitSyncEnabled } = useAppStore()
+  const { selectedProject } = useAppStore()
   const project = selectedProject
   const { getString } = useStrings()
   const onEditTriggerName = triggerResponse?.data?.name
@@ -68,10 +68,8 @@ export const TriggerBreadcrumbs = ({
             accountId,
             pipelineIdentifier,
             module,
-            ...(isGitSyncEnabled && {
-              repoIdentifier,
-              branch
-            })
+            repoIdentifier,
+            branch
           }),
           label: pipelineResponse?.data?.name || ''
         },
@@ -92,7 +90,6 @@ const GetTriggerRightNav = (pipelineResponse: ResponsePMSPipelineSummaryResponse
   >()
 
   const { getString } = useStrings()
-  const { isGitSyncEnabled } = useAppStore()
   return (
     <Container>
       <Layout.Horizontal spacing="medium">
@@ -105,10 +102,8 @@ const GetTriggerRightNav = (pipelineResponse: ResponsePMSPipelineSummaryResponse
             pipelineIdentifier,
             accountId,
             module,
-            ...(isGitSyncEnabled && {
-              branch: pipelineResponse?.data?.gitDetails?.branch,
-              repoIdentifier: pipelineResponse?.data?.gitDetails?.repoIdentifier
-            })
+            branch: pipelineResponse?.data?.gitDetails?.branch,
+            repoIdentifier: pipelineResponse?.data?.gitDetails?.repoIdentifier
           })}
         >
           {getString('pipelineStudio')}
@@ -123,10 +118,8 @@ const GetTriggerRightNav = (pipelineResponse: ResponsePMSPipelineSummaryResponse
             pipelineIdentifier,
             accountId,
             module,
-            ...(isGitSyncEnabled && {
-              branch: pipelineResponse?.data?.gitDetails?.branch,
-              repoIdentifier: pipelineResponse?.data?.gitDetails?.repoIdentifier
-            })
+            branch: pipelineResponse?.data?.gitDetails?.branch,
+            repoIdentifier: pipelineResponse?.data?.gitDetails?.repoIdentifier
           })}
         >
           {getString('inputSetsText')}
@@ -140,10 +133,8 @@ const GetTriggerRightNav = (pipelineResponse: ResponsePMSPipelineSummaryResponse
             pipelineIdentifier,
             accountId,
             module,
-            ...(isGitSyncEnabled && {
-              branch: pipelineResponse?.data?.gitDetails?.branch,
-              repoIdentifier: pipelineResponse?.data?.gitDetails?.repoIdentifier
-            })
+            branch: pipelineResponse?.data?.gitDetails?.branch,
+            repoIdentifier: pipelineResponse?.data?.gitDetails?.repoIdentifier
           })}
         >
           {getString('pipeline.triggers.triggersLabel')}
@@ -157,10 +148,8 @@ const GetTriggerRightNav = (pipelineResponse: ResponsePMSPipelineSummaryResponse
             pipelineIdentifier,
             accountId,
             module,
-            ...(isGitSyncEnabled && {
-              branch: pipelineResponse?.data?.gitDetails?.branch,
-              repoIdentifier: pipelineResponse?.data?.gitDetails?.repoIdentifier
-            })
+            branch: pipelineResponse?.data?.gitDetails?.branch,
+            repoIdentifier: pipelineResponse?.data?.gitDetails?.repoIdentifier
           })}
         >
           {getString('executionHeaderText')}
@@ -181,7 +170,6 @@ export default function TriggerDetails({ children }: React.PropsWithChildren<unk
     }>
   >()
 
-  const { isGitSyncEnabled } = useAppStore()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
 
   const { data: triggerResponse } = useGetTrigger({
@@ -200,7 +188,8 @@ export default function TriggerDetails({ children }: React.PropsWithChildren<unk
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
-      ...(isGitSyncEnabled && { repoIdentifier, branch })
+      repoIdentifier,
+      branch
     }
   })
 

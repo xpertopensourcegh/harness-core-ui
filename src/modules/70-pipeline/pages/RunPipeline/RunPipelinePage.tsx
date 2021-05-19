@@ -12,7 +12,6 @@ import { RunPipelineForm } from '@pipeline/components/RunPipelineModal/RunPipeli
 import { InputSetSummaryResponse, useGetInputsetYaml } from 'services/pipeline-ng'
 import { useQueryParams } from '@common/hooks'
 import { PageSpinner } from '@common/components'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
 
 interface InputSetValue extends SelectOption {
   type: InputSetSummaryResponse['inputSetType']
@@ -23,7 +22,6 @@ export default function RunPipelinePage(): React.ReactElement {
     PipelineType<PipelinePathProps & AccountPathProps>
   >()
   const query = useQueryParams<Record<string, string> & GitQueryParams>()
-  const { isGitSyncEnabled } = useAppStore()
 
   const { data, refetch, loading } = useGetInputsetYaml({
     planExecutionId: query.executionId,
@@ -79,8 +77,8 @@ export default function RunPipelinePage(): React.ReactElement {
       orgIdentifier={orgIdentifier}
       projectIdentifier={projectIdentifier}
       accountId={accountId}
-      branch={isGitSyncEnabled ? query.branch : undefined}
-      repoIdentifier={isGitSyncEnabled ? query.repoIdentifier : undefined}
+      branch={query.branch}
+      repoIdentifier={query.repoIdentifier}
       module={module}
       inputSetYAML={inputSetYaml || ''}
       inputSetSelected={getInputSetSelected()}

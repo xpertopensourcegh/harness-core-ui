@@ -23,7 +23,7 @@ declare global {
 }
 
 export default function PipelineDetails({ children }: React.PropsWithChildren<unknown>): React.ReactElement {
-  const { selectedProject, isGitSyncEnabled } = useAppStore()
+  const { selectedProject } = useAppStore()
   const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module } = useParams<
     PipelineType<PipelinePathProps>
   >()
@@ -34,10 +34,8 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
-      ...(isGitSyncEnabled && {
-        branch,
-        repoIdentifier
-      })
+      branch,
+      repoIdentifier
     },
     lazy: true
   })
@@ -107,10 +105,8 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
                   pipelineIdentifier,
                   accountId,
                   module,
-                  ...(isGitSyncEnabled && {
-                    repoIdentifier,
-                    branch
-                  })
+                  repoIdentifier,
+                  branch
                 })}
               >
                 {getString('pipelineStudio')}
@@ -128,10 +124,8 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
                   pipelineIdentifier,
                   accountId,
                   module,
-                  ...(isGitSyncEnabled && {
-                    repoIdentifier,
-                    branch
-                  })
+                  repoIdentifier,
+                  branch
                 })}
               >
                 {getString('inputSetsText')}
@@ -146,10 +140,8 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
                   pipelineIdentifier,
                   accountId,
                   module,
-                  ...(isGitSyncEnabled && {
-                    repoIdentifier,
-                    branch
-                  })
+                  repoIdentifier,
+                  branch
                 })}
               >
                 {getString('pipeline.triggers.triggersLabel')}
@@ -164,10 +156,8 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
                   pipelineIdentifier,
                   accountId,
                   module,
-                  ...(isGitSyncEnabled && {
-                    repoIdentifier,
-                    branch
-                  })
+                  repoIdentifier,
+                  branch
                 })}
               >
                 {getString('executionHeaderText')}

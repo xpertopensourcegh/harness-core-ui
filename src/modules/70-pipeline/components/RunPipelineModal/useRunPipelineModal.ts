@@ -24,8 +24,8 @@ export const useRunPipelineModal = (runPipelineModaParams: RunPipelineModalParam
           projectIdentifier,
           pipelineIdentifier,
           module,
-          branch,
-          repoIdentifier
+          repoIdentifier,
+          branch
         })
       )
     } else {
@@ -36,11 +36,11 @@ export const useRunPipelineModal = (runPipelineModaParams: RunPipelineModalParam
           projectIdentifier,
           pipelineIdentifier,
           module,
-          repoIdentifier,
-          branch,
           inputSetType: inputSetSelected?.[0].type,
           inputSetLabel: inputSetSelected?.[0].label,
-          inputSetValue: inputSetSelected[0].value as string
+          inputSetValue: inputSetSelected[0].value as string,
+          repoIdentifier,
+          branch
         })
       )
     }

@@ -5,7 +5,6 @@ import type { GitQueryParams, PipelineType } from '@common/interfaces/RouteInter
 import { useStrings } from 'framework/strings'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { useQueryParams } from '@common/hooks'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import TriggersList from './views/TriggersList'
 import type { TriggerDataInterface } from './utils/TriggersListUtils'
 
@@ -24,7 +23,6 @@ const TriggersPage: React.FC = (): React.ReactElement => {
     }>
   >()
   const history = useHistory()
-  const { isGitSyncEnabled } = useAppStore()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const onNewTriggerClick = (val: TriggerDataInterface): void => {
     const { triggerType, sourceRepo } = val
@@ -38,10 +36,8 @@ const TriggersPage: React.FC = (): React.ReactElement => {
         triggerType,
         sourceRepo,
         module,
-        ...(isGitSyncEnabled && {
-          repoIdentifier,
-          branch
-        })
+        repoIdentifier,
+        branch
       })
     )
   }
@@ -49,13 +45,7 @@ const TriggersPage: React.FC = (): React.ReactElement => {
 
   useDocumentTitle([getString('pipelines'), getString('pipeline.triggers.triggersLabel')])
 
-  return (
-    <TriggersList
-      onNewTriggerClick={onNewTriggerClick}
-      repoIdentifier={isGitSyncEnabled ? repoIdentifier : undefined}
-      branch={isGitSyncEnabled ? branch : undefined}
-    />
-  )
+  return <TriggersList onNewTriggerClick={onNewTriggerClick} repoIdentifier={repoIdentifier} branch={branch} />
 }
 
 export default TriggersPage

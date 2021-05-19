@@ -11,7 +11,6 @@ import type { GitQueryParams, PipelineType } from '@common/interfaces/RouteInter
 import { usePermission } from '@rbac/hooks/usePermission'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { TriggersListSection, GoToEditWizardInterface } from './TriggersListSection'
 import { TriggerTypes } from '../utils/TriggersWizardPageUtils'
 import { getCategoryItems, ItemInterface, TriggerDataInterface } from '../utils/TriggersListUtils'
@@ -31,8 +30,6 @@ export default function TriggersList(props: TriggersListPropsInterface & GitQuer
       pipelineIdentifier: string
     }>
   >()
-
-  const { isGitSyncEnabled } = useAppStore()
 
   const [searchParam, setSearchParam] = useState('')
   const { getString } = useStrings()
@@ -79,10 +76,8 @@ export default function TriggersList(props: TriggersListPropsInterface & GitQuer
         triggerIdentifier,
         triggerType,
         module,
-        ...(isGitSyncEnabled && {
-          repoIdentifier,
-          branch
-        })
+        repoIdentifier,
+        branch
       })
     )
   }
@@ -95,10 +90,8 @@ export default function TriggersList(props: TriggersListPropsInterface & GitQuer
         pipelineIdentifier,
         triggerIdentifier,
         module,
-        ...(isGitSyncEnabled && {
-          repoIdentifier,
-          branch
-        })
+        repoIdentifier,
+        branch
       })
     )
   }

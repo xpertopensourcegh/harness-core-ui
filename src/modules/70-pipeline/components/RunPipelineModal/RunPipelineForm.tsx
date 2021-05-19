@@ -34,7 +34,6 @@ import type { GitQueryParams, PipelinePathProps } from '@common/interfaces/Route
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PageBody } from '@common/components/Page/PageBody'
 import { useStrings } from 'framework/strings'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
@@ -77,7 +76,6 @@ function RunPipelineFormBasic({
   const { showError, showSuccess, showWarning } = useToaster()
   const history = useHistory()
   const { getString } = useStrings()
-  const { isGitSyncEnabled } = useAppStore()
 
   useEffect(() => {
     if (inputSetYAML) {
@@ -91,10 +89,8 @@ function RunPipelineFormBasic({
       orgIdentifier,
       pipelineIdentifier,
       projectIdentifier,
-      ...(isGitSyncEnabled && {
-        repoIdentifier,
-        branch
-      })
+      repoIdentifier,
+      branch
     }
   })
   const { data: pipelineResponse, loading: loadingPipeline } = useGetPipeline({
@@ -103,10 +99,8 @@ function RunPipelineFormBasic({
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
-      ...(isGitSyncEnabled && {
-        repoIdentifier,
-        branch
-      })
+      repoIdentifier,
+      branch
     }
   })
   const { mutate: runPipeline, loading: runLoading } = usePostPipelineExecuteWithInputSetYaml({
@@ -114,10 +108,8 @@ function RunPipelineFormBasic({
       accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier,
-      ...(isGitSyncEnabled && {
-        repoIdentifier,
-        branch
-      })
+      repoIdentifier,
+      branch
     },
     identifier: pipelineIdentifier,
     requestOptions: {
@@ -166,10 +158,8 @@ function RunPipelineFormBasic({
               projectIdentifier,
               orgIdentifier,
               pipelineIdentifier,
-              ...(isGitSyncEnabled && {
-                repoIdentifier,
-                branch
-              })
+              repoIdentifier,
+              branch
             }
           })
           if (data?.data?.inputSetYaml) {
@@ -197,10 +187,8 @@ function RunPipelineFormBasic({
       projectIdentifier,
       orgIdentifier,
       pipelineIdentifier,
-      ...(isGitSyncEnabled && {
-        repoIdentifier,
-        branch
-      })
+      repoIdentifier,
+      branch
     }
   })
 
@@ -210,10 +198,8 @@ function RunPipelineFormBasic({
       orgIdentifier,
       pipelineIdentifier,
       projectIdentifier,
-      ...(isGitSyncEnabled && {
-        repoIdentifier,
-        branch
-      })
+      repoIdentifier,
+      branch
     },
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })

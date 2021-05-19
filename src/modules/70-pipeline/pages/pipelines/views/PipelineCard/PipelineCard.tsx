@@ -97,7 +97,9 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
   )
 
   const runPipeline = useRunPipelineModal({
-    pipelineIdentifier: (pipeline.identifier || '') as string
+    pipelineIdentifier: (pipeline.identifier || '') as string,
+    repoIdentifier: pipeline?.gitDetails?.repoIdentifier,
+    branch: pipeline?.gitDetails?.branch
   })
 
   return (

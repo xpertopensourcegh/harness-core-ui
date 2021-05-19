@@ -267,7 +267,9 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   }
 
   const runPipeline = useRunPipelineModal({
-    pipelineIdentifier: (pipeline?.identifier || '') as string
+    pipelineIdentifier: (pipeline?.identifier || '') as string,
+    repoIdentifier,
+    branch
   })
 
   if (isLoading) {
