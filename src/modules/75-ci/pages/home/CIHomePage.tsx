@@ -54,6 +54,12 @@ const CIHomePage: React.FC = () => {
 
   const history = useHistory()
 
+  const trialBannerProps = {
+    expiryTime: data?.data?.expiryTime,
+    licenseType: data?.data?.licenseType,
+    module: ModuleName.CI
+  }
+
   if (loading) {
     return <PageSpinner />
   }
@@ -77,7 +83,7 @@ const CIHomePage: React.FC = () => {
         title={getString('ci.continuous')}
         bgImageUrl={bgImageURL}
         trialInProgressProps={trialInProgressProps}
-        module={ModuleName.CI}
+        trialBannerProps={trialBannerProps}
       />
     )
   }
@@ -90,6 +96,7 @@ const CIHomePage: React.FC = () => {
       subTitle={getString('ci.dashboard.subHeading')}
       documentText={getString('ci.learnMore')}
       documentURL="https://ngdocs.harness.io/category/zgffarnh1m-ci-category"
+      trialBannerProps={trialBannerProps}
     />
   )
 }

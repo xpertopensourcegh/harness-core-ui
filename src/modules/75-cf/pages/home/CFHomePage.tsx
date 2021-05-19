@@ -47,6 +47,13 @@ const CFHomePage: React.FC = () => {
       onClick: openProjectModal
     }
   }
+
+  const trialBannerProps = {
+    expiryTime: data?.data?.expiryTime,
+    licenseType: data?.data?.licenseType,
+    module: ModuleName.CF
+  }
+
   const { trial } = useQueryParams<{ trial?: boolean }>()
 
   const history = useHistory()
@@ -74,7 +81,7 @@ const CFHomePage: React.FC = () => {
         title={getString('cf.continuous')}
         bgImageUrl={bgImageURL}
         trialInProgressProps={trialInProgressProps}
-        module={ModuleName.CF}
+        trialBannerProps={trialBannerProps}
       />
     )
   }
@@ -87,6 +94,7 @@ const CFHomePage: React.FC = () => {
       subTitle={getString('cf.homepage.slogan')}
       documentText={getString('cf.homepage.learnMore')}
       documentURL="https://ngdocs.harness.io/article/0a2u2ppp8s-getting-started-with-continuous-features"
+      trialBannerProps={trialBannerProps}
     />
   )
 }

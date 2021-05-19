@@ -14,7 +14,9 @@ const props = {
       onClick: () => true
     }
   },
-  module: ModuleName.CI
+  trialBannerProps: {
+    module: ModuleName.CI
+  }
 }
 describe('TrialInProgressTemplate snapshot test', () => {
   test('should render trial in progress', async () => {

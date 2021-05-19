@@ -19163,6 +19163,26 @@ export const useTrialSignup = (props: UseTrialSignupProps) =>
     base: getConfig('api'),
     ...props
   })
+export interface ResendEmailPathParam {
+  uuid: string
+}
+
+export type ResendEmailProps = Omit<
+  UseMutateProps<RestResponseBoolean, Error, void, void, ResendEmailPathParam>,
+  'path' | 'verb'
+> &
+  ResendEmailPathParam
+
+export const useResendEmail = ({ uuid, ...props }: ResendEmailProps) =>
+  useMutate<RestResponseBoolean, Error, void, void, ResendEmailPathParam>(
+    'POST',
+    (paramsInPath: ResendEmailPathParam) => `/signup/${paramsInPath.uuid}/verify-notification`,
+    {
+      base: getConfig('ng/api'),
+      pathParams: { uuid },
+      ...props
+    }
+  )
 
 export type UseSignupUserProps = Omit<
   UseMutateProps<RestResponseUserInfo, unknown, void, SignupUserRequestBody, void>,

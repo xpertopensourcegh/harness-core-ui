@@ -10,23 +10,22 @@ exports[`CVHomePage snapshot test should render properly 1`] = `
       class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
     >
       <h1
-        class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold"
-        style="color: rgb(34, 34, 42); font-size: 30px;"
+        class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--color"
       >
         cv.continuous
       </h1>
       <p
-        class="StyledProps--font StyledProps--main"
-        style="color: rgb(79, 81, 98); line-height: 24px; font-size: 16px; width: 400px;"
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--font-size-normal"
+        style="line-height: 24px; width: 400px;"
       >
         cv.dashboard.subHeading
       </p>
       <a
-        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--link"
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--font StyledProps--font-size-normal Button--with-current-color Button--link"
         href="https://ngdocs.harness.io/"
         rel="noreferrer noopener"
         role="button"
-        style="align-self: flex-start; color: rgb(0, 146, 228); font-size: 14px;"
+        style="align-self: flex-start;"
         tabindex="0"
         target="_blank"
       >
@@ -42,13 +41,11 @@ exports[`CVHomePage snapshot test should render properly 1`] = `
         <a
           class="createBtn"
           href="/account/undefined/projects"
-          style="border-radius: 4px; font-size: 14px; font-weight: bold; line-height: 16px; width: 200px; height: 45px; background: rgb(25, 119, 212); display: flex; align-items: center; justify-content: center;"
         >
           createProject
         </a>
         <p
-          class="StyledProps--font StyledProps--main"
-          style="font-size: 16px; color: rgb(79, 81, 98);"
+          class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
         >
           orSelectExisting
         </p>

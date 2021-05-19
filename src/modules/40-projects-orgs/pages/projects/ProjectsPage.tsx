@@ -15,6 +15,7 @@ import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
+import { EmailVerificationBanner } from '@common/components/Banners/EmailVerificationBanner'
 import { Views } from './Constants'
 import ProjectsListView from './views/ProjectListView/ProjectListView'
 import ProjectsGridView from './views/ProjectGridView/ProjectGridView'
@@ -94,6 +95,7 @@ const ProjectsListPage: React.FC = () => {
 
   return (
     <Container className={css.projectsPage}>
+      <EmailVerificationBanner />
       <Page.Header
         title={getString('projectsText')}
         content={<Link to={routes.toProjectsGetStarted({ accountId })}>{getString('getStarted')}</Link>}

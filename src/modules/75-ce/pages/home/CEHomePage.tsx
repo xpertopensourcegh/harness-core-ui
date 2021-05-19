@@ -113,6 +113,12 @@ const CEHomePage: React.FC = () => {
 
   const history = useHistory()
 
+  const trialBannerProps = {
+    expiryTime: data?.data?.expiryTime,
+    licenseType: data?.data?.licenseType,
+    module: ModuleName.CE
+  }
+
   if (loading || getProjectListLoading) {
     return <PageSpinner />
   }
@@ -136,7 +142,7 @@ const CEHomePage: React.FC = () => {
         title={getString('ce.continuous')}
         bgImageUrl={bgImageURL}
         trialInProgressProps={trialInProgressProps}
-        module={ModuleName.CE}
+        trialBannerProps={trialBannerProps}
       />
     )
   }
@@ -147,6 +153,7 @@ const CEHomePage: React.FC = () => {
       bgImageUrl={bgImageURL}
       subTitle={getString('ce.homepage.slogan')}
       documentText={getString('ce.learnMore')}
+      trialBannerProps={trialBannerProps}
     />
   )
 }

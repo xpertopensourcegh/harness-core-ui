@@ -4,13 +4,20 @@ import { useStrings } from 'framework/strings'
 import type { ModuleName } from 'framework/types/ModuleName'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { Category, PageNames } from '@common/constants/TrackingConstants'
+import { TrialLicenseBanner } from '@common/components/Banners/TrialLicenseBanner'
+import { Page } from '../Page/Page'
 
+interface TrialBannerProps {
+  expiryTime?: number
+  licenseType?: string
+  module: ModuleName
+}
 interface TrialInProgressTemplateProps {
   title: string
   bgImageUrl: string
   isTrialInProgress?: boolean
   trialInProgressProps: TrialInProgressProps
-  module: ModuleName
+  trialBannerProps: TrialBannerProps
 }
 
 interface TrialInProgressProps {
@@ -28,24 +35,18 @@ const TrialInProgressComponent: React.FC<TrialInProgressProps> = trialInProgress
     <Layout.Vertical spacing="small">
       <Text
         padding={{ bottom: 'xxlarge' }}
+        width={500}
         style={{
-          width: 500,
           lineHeight: 2
         }}
       >
         {description}
       </Text>
       <Layout.Horizontal spacing="small">
-        <Button
-          style={{
-            width: 200,
-            height: 45
-          }}
-          intent="primary"
-          text={startBtn.description}
-          onClick={startBtn.onClick}
-        />
-        <Text style={{ fontSize: '16px', color: '#4F5162', padding: '12px' }}>{getString('orSelectExisting')}</Text>
+        <Button width={200} height={45} intent="primary" text={startBtn.description} onClick={startBtn.onClick} />
+        <Text font={{ size: 'normal' }} color={Color.BLACK} padding={'small'}>
+          {getString('orSelectExisting')}
+        </Text>
       </Layout.Horizontal>
     </Layout.Vertical>
   )
@@ -55,45 +56,54 @@ export const TrialInProgressTemplate: React.FC<TrialInProgressTemplateProps> = (
   title,
   bgImageUrl,
   trialInProgressProps,
-  module
+  trialBannerProps
 }) => {
   const { getString } = useStrings()
 
-  useTelemetry({ pageName: PageNames.TrialInProgress, category: Category.SIGNUP, properties: { module: module } })
+  useTelemetry({
+    pageName: PageNames.TrialInProgress,
+    category: Category.SIGNUP,
+    properties: { module: trialBannerProps.module }
+  })
 
   return (
-    <Container
-      height="calc(100% - 160px)"
-      style={{
-        margin: '80px',
-        background: `transparent url(${bgImageUrl}) no-repeat`,
-        position: 'relative',
-        backgroundSize: 'contain',
-        backgroundPositionY: 'center'
-      }}
-    >
-      <Layout.Vertical spacing="medium">
-        <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
-          <Heading font={{ weight: 'bold' }} style={{ fontSize: '30px' }} color={Color.BLACK_100}>
-            {title}
-          </Heading>
+    <>
+      <TrialLicenseBanner {...trialBannerProps} />
+      <Page.Body>
+        <Container
+          height="calc(100% - 160px)"
+          style={{
+            margin: '80px',
+            background: `transparent url(${bgImageUrl}) no-repeat`,
+            position: 'relative',
+            backgroundSize: 'contain',
+            backgroundPositionY: 'center'
+          }}
+        >
+          <Layout.Vertical spacing="medium">
+            <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
+              <Heading font={{ weight: 'bold', size: 'large' }} color={Color.BLACK_100}>
+                {title}
+              </Heading>
 
-          <Text
-            style={{
-              backgroundColor: 'var(--orange-500)',
-              color: Color.WHITE,
-              textAlign: 'center',
-              width: 120,
-              height: 18,
-              borderRadius: 3,
-              display: 'inline-block'
-            }}
-          >
-            {getString('common.trialInProgress')}
-          </Text>
-        </Layout.Horizontal>
-        <TrialInProgressComponent {...trialInProgressProps} />
-      </Layout.Vertical>
-    </Container>
+              <Text
+                width={120}
+                height={18}
+                border={{ radius: 3 }}
+                color={Color.WHITE}
+                style={{
+                  backgroundColor: 'var(--orange-500)',
+                  textAlign: 'center',
+                  display: 'inline-block'
+                }}
+              >
+                {getString('common.trialInProgress')}
+              </Text>
+            </Layout.Horizontal>
+            <TrialInProgressComponent {...trialInProgressProps} />
+          </Layout.Vertical>
+        </Container>
+      </Page.Body>
+    </>
   )
 }
