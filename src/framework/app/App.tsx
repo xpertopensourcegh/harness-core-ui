@@ -92,6 +92,7 @@ function AppWithAuthentication(props: AppProps): React.ReactElement {
       base="/"
       requestOptions={getRequestOptions}
       queryParams={getQueryParams()}
+      queryParamStringifyOptions={{ skipNulls: true }}
       onResponse={response => {
         if (!response.ok && response.status === 401) {
           // 401 might be returned due to RBAC maybe?
