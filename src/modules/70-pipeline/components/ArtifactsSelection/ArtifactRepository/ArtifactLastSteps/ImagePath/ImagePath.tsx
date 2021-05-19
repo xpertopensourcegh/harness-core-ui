@@ -226,7 +226,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
                     <ConfigureOptions
                       value={formik.values.imagePath as string}
                       type="String"
-                      variableName="dockerConnector"
+                      variableName="imagePath"
                       showRequiredField={false}
                       showDefaultField={false}
                       showAdvanced={true}
@@ -274,7 +274,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
                       <ConfigureOptions
                         value={formik.values.tag as string}
                         type="String"
-                        variableName="dockerConnector"
+                        variableName="tag"
                         showRequiredField={false}
                         showDefaultField={false}
                         showAdvanced={true}
@@ -300,7 +300,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
                       <ConfigureOptions
                         value={formik.values.tagRegex as string}
                         type="String"
-                        variableName="dockerConnector"
+                        variableName="tagRegex"
                         showRequiredField={false}
                         showDefaultField={false}
                         showAdvanced={true}
