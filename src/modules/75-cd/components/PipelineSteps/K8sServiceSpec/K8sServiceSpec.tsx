@@ -978,7 +978,11 @@ const ManifestConnectorRefRegex = /^.+manifest\.spec\.store\.spec\.connectorRef$
 const ManifestConnectorRefType = 'Git'
 const ArtifactsSidecarRegex = /^.+.sidecar\.spec\.connectorRef$/
 const ArtifactsPrimaryRegex = /^.+artifacts\.primary\.spec\.connectorRef$/
-const ArtifactConnectorTypes = ['DockerRegistry', 'Gcr']
+const ArtifactConnectorTypes = [
+  ENABLED_ARTIFACT_TYPES.DockerRegistry,
+  ENABLED_ARTIFACT_TYPES.Gcp,
+  ENABLED_ARTIFACT_TYPES.Aws
+]
 const getConnectorValue = (connector?: ConnectorResponse): string =>
   `${
     connector?.connector?.orgIdentifier && connector?.connector?.projectIdentifier
@@ -1088,7 +1092,10 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
             projectIdentifier,
             includeAllConnectorsAvailableAtScope: true
           },
-          body: { types: ['DockerRegistry', 'Gcp'], filterType: 'Connector' }
+          body: {
+            types: [ArtifactToConnectorMap.DockerRegistry, ArtifactToConnectorMap.Gcr, ArtifactToConnectorMap.Ecr],
+            filterType: 'Connector'
+          }
         }).then(response => {
           const data =
             response?.data?.content?.map(connector => ({
@@ -1132,7 +1139,10 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
             projectIdentifier,
             includeAllConnectorsAvailableAtScope: true
           },
-          body: { types: ['DockerRegistry', 'Gcp'], filterType: 'Connector' }
+          body: {
+            types: [ArtifactToConnectorMap.DockerRegistry, ArtifactToConnectorMap.Gcr, ArtifactToConnectorMap.Ecr],
+            filterType: 'Connector'
+          }
         }).then(response => {
           const data =
             response?.data?.content?.map(connector => ({
