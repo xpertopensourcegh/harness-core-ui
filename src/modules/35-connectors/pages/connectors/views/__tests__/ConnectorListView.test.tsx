@@ -212,6 +212,7 @@ describe('Connectors List Test', () => {
     const openConnectorModal = jest.fn()
     const { container } = setup({ openConnectorModal })
     const currentConnector = connectorsData.data.content[0].connector
+    const gitDetails = connectorsData.data.content[0]?.gitDetails
     const deleteText = `connectors.confirmDelete `
     const menuIcon = getMenuIcon(container.querySelectorAll('div[role="row"]')[1])
     act(() => {
@@ -220,14 +221,17 @@ describe('Connectors List Test', () => {
     act(() => {
       fireEvent.click(getDeleteButton()!)
     })
-    await waitFor(() => expect(queryByText(document.body, `${deleteText}${currentConnector.name}`)).toBeTruthy())
+    await waitFor(() => expect(queryByText(document.body, `${deleteText}${currentConnector.name}?`)).toBeTruthy())
     act(() => {
       fireEvent.click(queryByText(document.body.querySelector('.bp3-dialog')! as HTMLElement, 'cancel')!)
     })
     act(() => {
       fireEvent.click(getEditButton()!)
     })
-    expect(openConnectorModal).toBeCalledWith(true, currentConnector.type, { connectorInfo: currentConnector })
+    expect(openConnectorModal).toBeCalledWith(true, currentConnector.type, {
+      connectorInfo: currentConnector,
+      gitDetails: gitDetails
+    })
   })
 
   test('Edit and delete methods should be called with correct data', async () => {

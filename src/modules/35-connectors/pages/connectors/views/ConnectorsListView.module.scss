@@ -62,3 +62,13 @@
     text-overflow: ellipsis;
   }
 }
+
+:global {
+  .connectorDeleteDialog {
+    textarea {
+      max-height: 200px;
+      width: 100%;
+      resize: vertical;
+    }
+  }
+}

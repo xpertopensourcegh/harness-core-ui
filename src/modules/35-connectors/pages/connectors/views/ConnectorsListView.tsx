@@ -1,10 +1,11 @@
 import React, { useState, useMemo, useEffect } from 'react'
 import { Text, Link, Layout, Color, Icon, Button, Popover, StepsProgress, Container } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
-import { Menu, Classes, Position, Intent, PopoverInteractionKind } from '@blueprintjs/core'
+import { Menu, Classes, Position, Intent, PopoverInteractionKind, TextArea } from '@blueprintjs/core'
 import { useParams, useHistory, useLocation } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import classNames from 'classnames'
+import { pick } from 'lodash-es'
 import { String } from 'framework/strings'
 import type { StringKeys } from 'framework/strings'
 import {
@@ -416,13 +417,28 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
 
 const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column }) => {
   const data = row.original
+  const gitDetails = data?.gitDetails ?? {}
   const isHarnessManaged = data.harnessManaged
   const [menuOpen, setMenuOpen] = useState(false)
   const { showSuccess, showError } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
+  const [commitMsg, setCommitMsg] = useState<string>(
+    `${getString('connectors.confirmDeleteTitle')} ${data.connector?.name}`
+  )
+  const gitParams = gitDetails?.objectId
+    ? {
+        ...pick(gitDetails, ['branch', 'repoIdentifier', 'filePath', 'rootFolder']),
+        commitMsg
+      }
+    : {}
   const { mutate: deleteConnector } = useDeleteConnector({
-    queryParams: { accountIdentifier: accountId, orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier }
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier: orgIdentifier,
+      projectIdentifier: projectIdentifier,
+      ...gitParams
+    }
   })
 
   const [canUpdate, canDelete] = usePermission(
@@ -436,8 +452,27 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
     []
   )
 
+  const getConfirmationDialogContent = (): JSX.Element => {
+    return (
+      <div className={'connectorDeleteDialog'}>
+        <Text margin={{ bottom: 'medium' }}>{`${getString('connectors.confirmDelete')} ${data.connector?.name}?`}</Text>
+        {gitDetails?.objectId && (
+          <>
+            <Text>{getString('common.git.commitMessage')}</Text>
+            <TextArea
+              value={commitMsg}
+              onInput={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
+                setCommitMsg(event.target.value)
+              }}
+            />
+          </>
+        )}
+      </div>
+    )
+  }
+
   const { openDialog } = useConfirmationDialog({
-    contentText: `${getString('connectors.confirmDelete')} ${data.connector?.name}`,
+    contentText: getConfirmationDialogContent(),
     titleText: getString('connectors.confirmDeleteTitle'),
     confirmButtonText: getString('delete'),
     cancelButtonText: getString('cancel'),
@@ -469,7 +504,8 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
     setMenuOpen(false)
     if (!data?.connector?.identifier) return
     ;(column as any).openConnectorModal(true, row?.original?.connector?.type as ConnectorInfoDTO['type'], {
-      connectorInfo: row.original.connector
+      connectorInfo: row.original.connector,
+      gitDetails: row.original?.gitDetails
     })
   }
 
