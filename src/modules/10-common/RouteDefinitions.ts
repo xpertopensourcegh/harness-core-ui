@@ -439,8 +439,21 @@ const routes = {
     }
   ),
   toTriggersPage: withAccountId(
-    ({ orgIdentifier, projectIdentifier, pipelineIdentifier, module }: PipelineType<PipelinePathProps>) =>
-      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/triggers`
+    ({
+      orgIdentifier,
+      projectIdentifier,
+      pipelineIdentifier,
+      accountId: _accountId,
+      module,
+      ...rest
+    }: PipelineType<PipelinePathProps> & GitQueryParams) => {
+      const queryString = qs.stringify(rest, { skipNulls: true })
+      if (queryString.length > 0) {
+        return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/triggers?${queryString}`
+      } else {
+        return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/triggers`
+      }
+    }
   ),
   toTriggersWizardPage: withAccountId(
     ({
@@ -450,12 +463,22 @@ const routes = {
       triggerIdentifier,
       triggerType,
       sourceRepo,
-      module
-    }: PipelineType<TriggerPathProps>) => {
+      accountId: _accountId,
+      module,
+      ...rest
+    }: PipelineType<TriggerPathProps> & GitQueryParams) => {
       const isNewTrigger = triggerIdentifier === 'new'
-      return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/triggers/${triggerIdentifier}${
-        (isNewTrigger && triggerType && `?triggerType=${triggerType}`) || ''
-      }${(isNewTrigger && sourceRepo && `&sourceRepo=${sourceRepo}`) || ''}`
+      const queryParams = {
+        ...rest,
+        ...(isNewTrigger && triggerType && { triggerType }),
+        ...(isNewTrigger && sourceRepo && { sourceRepo })
+      }
+      const queryString = qs.stringify(queryParams, { skipNulls: true })
+      if (queryString.length > 0) {
+        return `${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/triggers/${triggerIdentifier}?${queryString}`
+      } else {
+        return `${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/triggers/${triggerIdentifier}`
+      }
     }
   ),
   toPipelineDeploymentList: withAccountId(
@@ -481,9 +504,17 @@ const routes = {
       projectIdentifier,
       pipelineIdentifier,
       triggerIdentifier,
-      module
-    }: PipelineType<TriggerPathProps>) =>
-      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/triggers/${triggerIdentifier}/detail`
+      accountId: _accountId,
+      module,
+      ...rest
+    }: PipelineType<TriggerPathProps> & GitQueryParams) => {
+      const queryString = qs.stringify(rest, { skipNulls: true })
+      if (queryString.length > 0) {
+        return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/triggers/${triggerIdentifier}/detail?${queryString}`
+      } else {
+        return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/triggers/${triggerIdentifier}/detail`
+      }
+    }
   ),
   toExecution: withAccountId(
     ({

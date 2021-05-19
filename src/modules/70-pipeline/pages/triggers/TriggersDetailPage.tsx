@@ -21,10 +21,12 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import routes from '@common/RouteDefinitions'
-import type { PipelineType } from '@common/interfaces/RouteInterfaces'
+import type { GitQueryParams, PipelineType } from '@common/interfaces/RouteInterfaces'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
+import { useQueryParams } from '@common/hooks'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { TriggerBreadcrumbs } from '../trigger-details/TriggerDetails'
 import { getTriggerIcon } from './utils/TriggersListUtils'
 import css from './TriggersDetailPage.module.scss'
@@ -49,6 +51,9 @@ const getTriggerConditionsStr = (payloadConditions: ConditionInterface[]): strin
   return arr
 }
 export default function TriggersDetailPage(): JSX.Element {
+  const { isGitSyncEnabled } = useAppStore()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
+
   const [selectedView, setSelectedView] = React.useState<SelectedView>(SelectedView.VISUAL)
 
   const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, triggerIdentifier, module } = useParams<
@@ -115,7 +120,8 @@ export default function TriggersDetailPage(): JSX.Element {
         pipelineIdentifier,
         triggerIdentifier,
         triggerType: triggerResponse?.data?.type,
-        module
+        module,
+        ...(isGitSyncEnabled && { repoIdentifier, branch })
       })
     )
   }
@@ -162,7 +168,12 @@ export default function TriggersDetailPage(): JSX.Element {
   const cronExpression = triggerObj?.source?.spec?.spec?.expression
   const { data: pipeline } = useGetPipelineSummary({
     pipelineIdentifier,
-    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      ...(isGitSyncEnabled && { repoIdentifier, branch })
+    }
   })
 
   return (

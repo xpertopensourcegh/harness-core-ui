@@ -23,6 +23,7 @@ import { useToaster } from '@common/exports'
 import type { GitQueryParams, Module } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import css from './PreFlightCheckModal.module.scss'
 
 enum Section {
@@ -519,6 +520,7 @@ export const PreFlightCheckModal: React.FC<PreFlightCheckModalProps & GitQueryPa
 
   const { showError } = useToaster()
   const { getString } = useStrings()
+  const { isGitSyncEnabled } = useAppStore()
 
   const processResponseError = (error?: { message?: string }) => {
     showError(error?.message ? error?.message : getString('somethingWentWrong'))
@@ -533,7 +535,11 @@ export const PreFlightCheckModal: React.FC<PreFlightCheckModalProps & GitQueryPa
           accountIdentifier: accountId,
           orgIdentifier,
           projectIdentifier,
-          pipelineIdentifier
+          pipelineIdentifier,
+          ...(isGitSyncEnabled && {
+            repoIdentifier,
+            branch
+          })
         },
         body: !isEmpty(pipeline) ? (stringify({ pipeline }) as any) : ''
       })

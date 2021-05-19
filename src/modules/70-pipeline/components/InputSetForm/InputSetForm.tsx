@@ -47,6 +47,8 @@ import StagesTree, { stagesTreeNodeClasses } from '@pipeline/components/StagesTr
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { useQueryParams } from '@common/hooks'
+import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
 import { clearRuntimeInput, validatePipeline, getErrorsList } from '../PipelineStudio/StepUtil'
 import { getPipelineTree } from '../PipelineStudio/PipelineUtils'
@@ -133,9 +135,20 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier, inputSetIdentifier } = useParams<
     PipelineType<InputSetPathProps> & { accountId: string }
   >()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const history = useHistory()
+  const { isGitSyncEnabled } = useAppStore()
   const { refetch: refetchTemplate, data: template, loading: loadingTemplate } = useGetTemplateFromPipeline({
-    queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier },
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      pipelineIdentifier,
+      projectIdentifier,
+      ...(isGitSyncEnabled && {
+        repoIdentifier,
+        branch
+      })
+    },
     lazy: true
   })
 
@@ -164,7 +177,16 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
   const { showSuccess, showError } = useToaster()
 
   const { data: inputSetResponse, refetch, loading: loadingInputSet } = useGetInputSetForPipeline({
-    queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier },
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      pipelineIdentifier,
+      projectIdentifier,
+      ...(isGitSyncEnabled && {
+        repoIdentifier,
+        branch
+      })
+    },
     inputSetIdentifier: inputSetIdentifier || '',
     lazy: true
   })
@@ -172,15 +194,42 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
   const [mergeTemplate, setMergeTemplate] = React.useState<string>()
   const { openNestedPath } = useNestedAccordion()
   const { mutate: mergeInputSet, loading: loadingMerge } = useGetMergeInputSetFromPipelineTemplateWithListInput({
-    queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier, pipelineIdentifier }
+    queryParams: {
+      accountIdentifier: accountId,
+      projectIdentifier,
+      orgIdentifier,
+      pipelineIdentifier,
+      ...(isGitSyncEnabled && {
+        repoIdentifier,
+        branch
+      })
+    }
   })
 
   const { mutate: createInputSet, loading: createInputSetLoading } = useCreateInputSetForPipeline({
-    queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier },
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      pipelineIdentifier,
+      projectIdentifier,
+      ...(isGitSyncEnabled && {
+        repoIdentifier,
+        branch
+      })
+    },
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
   const { mutate: updateInputSet, loading: updateInputSetLoading } = useUpdateInputSetForPipeline({
-    queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier },
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      pipelineIdentifier,
+      projectIdentifier,
+      ...(isGitSyncEnabled && {
+        repoIdentifier,
+        branch
+      })
+    },
     inputSetIdentifier: '',
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
@@ -188,7 +237,15 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
   const { data: pipeline, loading: loadingPipeline, refetch: refetchPipeline } = useGetPipeline({
     pipelineIdentifier,
     lazy: true,
-    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      ...(isGitSyncEnabled && {
+        repoIdentifier,
+        branch
+      })
+    }
   })
 
   const inputSet = React.useMemo(() => {

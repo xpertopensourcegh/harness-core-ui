@@ -7,10 +7,11 @@ import routes from '@common/RouteDefinitions'
 import { useGetTriggerListForTarget } from 'services/pipeline-ng'
 import { AddDrawer } from '@common/components'
 import { DrawerContext } from '@common/components/AddDrawer/AddDrawer'
-import type { PipelineType } from '@common/interfaces/RouteInterfaces'
+import type { GitQueryParams, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { TriggersListSection, GoToEditWizardInterface } from './TriggersListSection'
 import { TriggerTypes } from '../utils/TriggersWizardPageUtils'
 import { getCategoryItems, ItemInterface, TriggerDataInterface } from '../utils/TriggersListUtils'
@@ -19,8 +20,8 @@ import css from './TriggersList.module.scss'
 interface TriggersListPropsInterface {
   onNewTriggerClick: (val: TriggerDataInterface) => void
 }
-export default function TriggersList(props: TriggersListPropsInterface): JSX.Element {
-  const { onNewTriggerClick } = props
+export default function TriggersList(props: TriggersListPropsInterface & GitQueryParams): JSX.Element {
+  const { onNewTriggerClick, repoIdentifier, branch } = props
 
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier, module } = useParams<
     PipelineType<{
@@ -30,6 +31,8 @@ export default function TriggersList(props: TriggersListPropsInterface): JSX.Ele
       pipelineIdentifier: string
     }>
   >()
+
+  const { isGitSyncEnabled } = useAppStore()
 
   const [searchParam, setSearchParam] = useState('')
   const { getString } = useStrings()
@@ -75,7 +78,11 @@ export default function TriggersList(props: TriggersListPropsInterface): JSX.Ele
         pipelineIdentifier,
         triggerIdentifier,
         triggerType,
-        module
+        module,
+        ...(isGitSyncEnabled && {
+          repoIdentifier,
+          branch
+        })
       })
     )
   }
@@ -87,7 +94,11 @@ export default function TriggersList(props: TriggersListPropsInterface): JSX.Ele
         projectIdentifier,
         pipelineIdentifier,
         triggerIdentifier,
-        module
+        module,
+        ...(isGitSyncEnabled && {
+          repoIdentifier,
+          branch
+        })
       })
     )
   }

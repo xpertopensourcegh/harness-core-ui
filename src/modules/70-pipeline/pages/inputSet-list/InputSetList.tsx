@@ -48,6 +48,8 @@ const InputSetList: React.FC = (): JSX.Element => {
 
   const [selectedInputSet, setSelectedInputSet] = React.useState<{
     identifier?: string
+    repoIdentifier?: string
+    branch?: string
   }>()
   const history = useHistory()
   const { getString } = useStrings()
@@ -62,7 +64,9 @@ const InputSetList: React.FC = (): JSX.Element => {
           projectIdentifier,
           pipelineIdentifier,
           inputSetIdentifier: typeof inputSetTemp?.identifier !== 'string' ? '-1' : inputSetTemp.identifier,
-          module
+          module,
+          repoIdentifier: inputSetTemp?.gitDetails?.repoIdentifier,
+          branch: inputSetTemp?.gitDetails?.branch
         })
       )
     },
@@ -89,6 +93,8 @@ const InputSetList: React.FC = (): JSX.Element => {
     () => (
       <OverlayInputSetForm
         identifier={selectedInputSet?.identifier}
+        repoIdentifier={selectedInputSet?.repoIdentifier}
+        branch={selectedInputSet?.branch}
         hideForm={() => {
           refetch()
           hideOverlayInputSetForm()
@@ -182,7 +188,11 @@ const InputSetList: React.FC = (): JSX.Element => {
           data={inputSet?.data}
           gotoPage={setPage}
           goToInputSetDetail={inputSetTemp => {
-            setSelectedInputSet({ identifier: inputSetTemp?.identifier })
+            setSelectedInputSet({
+              identifier: inputSetTemp?.identifier,
+              repoIdentifier: inputSetTemp?.gitDetails?.repoIdentifier,
+              branch: inputSetTemp?.gitDetails?.branch
+            })
             if (inputSetTemp?.inputSetType === 'INPUT_SET') {
               goToInputSetForm(inputSetTemp)
             } else {

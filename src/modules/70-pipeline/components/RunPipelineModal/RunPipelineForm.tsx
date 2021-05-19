@@ -57,7 +57,7 @@ import css from './RunPipelineModal.module.scss'
 
 export const POLL_INTERVAL = 1 /* sec */ * 1000 /* ms */
 const debouncedValidatePipeline = debounce(validatePipeline, 300)
-export interface RunPipelineFormProps extends PipelineType<PipelinePathProps> {
+export interface RunPipelineFormProps extends PipelineType<PipelinePathProps & GitQueryParams> {
   inputSetSelected?: InputSetSelectorProps['value']
   inputSetYAML?: string
   onClose?: () => void
@@ -111,6 +111,7 @@ function RunPipelineFormBasic({
   const { showError, showSuccess, showWarning } = useToaster()
   const history = useHistory()
   const { getString } = useStrings()
+  const { isGitSyncEnabled } = useAppStore()
 
   useEffect(() => {
     if (inputSetYAML) {
@@ -120,14 +121,39 @@ function RunPipelineFormBasic({
 
   const { openNestedPath } = useNestedAccordion()
   const { data: template, loading: loadingTemplate } = useGetTemplateFromPipeline({
-    queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier }
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      pipelineIdentifier,
+      projectIdentifier,
+      ...(isGitSyncEnabled && {
+        repoIdentifier,
+        branch
+      })
+    }
   })
   const { data: pipelineResponse, loading: loadingPipeline } = useGetPipeline({
     pipelineIdentifier,
-    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      ...(isGitSyncEnabled && {
+        repoIdentifier,
+        branch
+      })
+    }
   })
   const { mutate: runPipeline, loading: runLoading } = usePostPipelineExecuteWithInputSetYaml({
-    queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
+    queryParams: {
+      accountIdentifier: accountId,
+      projectIdentifier,
+      orgIdentifier,
+      ...(isGitSyncEnabled && {
+        repoIdentifier,
+        branch
+      })
+    },
     identifier: pipelineIdentifier,
     requestOptions: {
       headers: {
@@ -170,7 +196,16 @@ function RunPipelineFormBasic({
         const fetchData = async (): Promise<void> => {
           const data = await getInputSetForPipelinePromise({
             inputSetIdentifier: selectedInputSets[0].value as string,
-            queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier, pipelineIdentifier }
+            queryParams: {
+              accountIdentifier: accountId,
+              projectIdentifier,
+              orgIdentifier,
+              pipelineIdentifier,
+              ...(isGitSyncEnabled && {
+                repoIdentifier,
+                branch
+              })
+            }
           })
           if (data?.data?.inputSetYaml) {
             if (selectedInputSets[0].type === 'INPUT_SET') {
@@ -191,11 +226,29 @@ function RunPipelineFormBasic({
   ])
 
   const { mutate: mergeInputSet, loading: loadingUpdate } = useGetMergeInputSetFromPipelineTemplateWithListInput({
-    queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier, pipelineIdentifier }
+    queryParams: {
+      accountIdentifier: accountId,
+      projectIdentifier,
+      orgIdentifier,
+      pipelineIdentifier,
+      ...(isGitSyncEnabled && {
+        repoIdentifier,
+        branch
+      })
+    }
   })
 
   const { mutate: createInputSet, loading: createInputSetLoading } = useCreateInputSetForPipeline({
-    queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier },
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      pipelineIdentifier,
+      projectIdentifier,
+      ...(isGitSyncEnabled && {
+        repoIdentifier,
+        branch
+      })
+    },
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
 

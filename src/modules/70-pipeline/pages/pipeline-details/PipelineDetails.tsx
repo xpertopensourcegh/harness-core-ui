@@ -23,16 +23,24 @@ declare global {
 }
 
 export default function PipelineDetails({ children }: React.PropsWithChildren<unknown>): React.ReactElement {
+  const { selectedProject, isGitSyncEnabled } = useAppStore()
   const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module } = useParams<
     PipelineType<PipelinePathProps>
   >()
+  const { branch, repoIdentifier } = useQueryParams<GitQueryParams>()
   const { data: pipeline, refetch, error } = useGetPipelineSummary({
     pipelineIdentifier,
-    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      ...(isGitSyncEnabled && {
+        branch,
+        repoIdentifier
+      })
+    },
     lazy: true
   })
-
-  const { branch, repoIdentifier } = useQueryParams<GitQueryParams>()
 
   const [pipelineName, setPipelineName] = React.useState('')
 
@@ -42,7 +50,6 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pipelineIdentifier])
-  const { selectedProject } = useAppStore()
   const project = selectedProject
   const { getString } = useStrings()
   const getBreadCrumbs = React.useCallback(
@@ -100,8 +107,10 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
                   pipelineIdentifier,
                   accountId,
                   module,
-                  branch,
-                  repoIdentifier
+                  ...(isGitSyncEnabled && {
+                    repoIdentifier,
+                    branch
+                  })
                 })}
               >
                 {getString('pipelineStudio')}
@@ -119,8 +128,10 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
                   pipelineIdentifier,
                   accountId,
                   module,
-                  branch,
-                  repoIdentifier
+                  ...(isGitSyncEnabled && {
+                    repoIdentifier,
+                    branch
+                  })
                 })}
               >
                 {getString('inputSetsText')}
@@ -134,7 +145,11 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
                   projectIdentifier,
                   pipelineIdentifier,
                   accountId,
-                  module
+                  module,
+                  ...(isGitSyncEnabled && {
+                    repoIdentifier,
+                    branch
+                  })
                 })}
               >
                 {getString('pipeline.triggers.triggersLabel')}
@@ -149,8 +164,10 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
                   pipelineIdentifier,
                   accountId,
                   module,
-                  branch,
-                  repoIdentifier
+                  ...(isGitSyncEnabled && {
+                    repoIdentifier,
+                    branch
+                  })
                 })}
               >
                 {getString('executionHeaderText')}

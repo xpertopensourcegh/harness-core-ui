@@ -34,6 +34,8 @@ import { getScopeFromDTO } from '@common/components/EntityReference/EntityRefere
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { NameIdDescriptionTags } from '@common/components'
 import { useStrings } from 'framework/strings'
+import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import css from './OverlayInputSetForm.module.scss'
 
 export interface OverlayInputSetDTO extends Omit<OverlayInputSetResponse, 'identifier'> {
@@ -85,12 +87,15 @@ const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
 const clearNullUndefined = /* istanbul ignore next */ (data: OverlayInputSetDTO): OverlayInputSetDTO =>
   omitBy(omitBy(data, isUndefined), isNull)
 
-export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
+export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps & GitQueryParams> = ({
   hideForm,
   identifier,
-  isReadOnly = false
+  isReadOnly = false,
+  repoIdentifier,
+  branch
 }): JSX.Element => {
   const { getString } = useStrings()
+  const { isGitSyncEnabled } = useAppStore()
   const [isOpen, setIsOpen] = React.useState(true)
   const [isEdit, setIsEdit] = React.useState(false)
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier } = useParams<{
@@ -110,7 +115,13 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
     loading: loadingOverlayInputSet,
     error: errorOverlayInputSet
   } = useGetOverlayInputSetForPipeline({
-    queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier },
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      pipelineIdentifier,
+      projectIdentifier,
+      ...(isGitSyncEnabled && { repoIdentifier, branch })
+    },
     inputSetIdentifier: identifier || '',
     lazy: true
   })
@@ -120,7 +131,13 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
     error: createOverlayInputSetError,
     loading: createOverlayInputSetLoading
   } = useCreateOverlayInputSetForPipeline({
-    queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier },
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      pipelineIdentifier,
+      projectIdentifier,
+      ...(isGitSyncEnabled && { repoIdentifier, branch })
+    },
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
   const {
@@ -128,7 +145,13 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
     error: updateOverlayInputSetError,
     loading: updateOverlayInputSetLoading
   } = useUpdateOverlayInputSetForPipeline({
-    queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier },
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      pipelineIdentifier,
+      projectIdentifier,
+      ...(isGitSyncEnabled && { repoIdentifier, branch })
+    },
     inputSetIdentifier: '',
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
@@ -144,7 +167,8 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
       orgIdentifier,
       projectIdentifier,
       pipelineIdentifier,
-      inputSetType: 'INPUT_SET'
+      inputSetType: 'INPUT_SET',
+      ...(isGitSyncEnabled && { repoIdentifier, branch })
     },
     debounce: 300,
     lazy: true
@@ -153,7 +177,12 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
   const { loading: loadingPipeline, error: errorPipeline } = useGetPipeline({
     pipelineIdentifier,
     lazy: true,
-    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      ...(isGitSyncEnabled && { repoIdentifier, branch })
+    }
   })
 
   const inputSet = React.useMemo(() => {
