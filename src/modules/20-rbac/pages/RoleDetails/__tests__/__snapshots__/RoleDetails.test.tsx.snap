@@ -200,9 +200,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
               >
-                <span>
-                  adminFunctions
-                </span>
+                adminFunctions
                  
               </p>
             </div>
@@ -233,9 +231,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
               >
-                <span>
-                  rbac.categoryLabels.sharedResources
-                </span>
+                rbac.categoryLabels.sharedResources
                  
               </p>
             </div>
@@ -306,9 +302,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
                     >
-                      <span>
-                        adminFunctions
-                      </span>
+                      adminFunctions
                     </p>
                   </div>
                 </div>
@@ -321,7 +315,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-left-large"
                     >
-                      Organizations
+                      orgsText
                     </p>
                     <div
                       class="permissionList"
@@ -350,7 +344,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-left-large"
                     >
-                      Projects
+                      projectsText
                     </p>
                     <div
                       class="permissionList"
@@ -393,9 +387,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
                     >
-                      <span>
-                        rbac.categoryLabels.sharedResources
-                      </span>
+                      rbac.categoryLabels.sharedResources
                     </p>
                   </div>
                 </div>
@@ -408,7 +400,7 @@ exports[`Role Details Page Click on Resource Type 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-left-large"
                     >
-                      Secrets
+                      common.secrets
                     </p>
                   </div>
                 </div>
@@ -622,9 +614,7 @@ exports[`Role Details Page render data 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
               >
-                <span>
-                  adminFunctions
-                </span>
+                adminFunctions
                  
               </p>
             </div>
@@ -655,9 +645,7 @@ exports[`Role Details Page render data 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
               >
-                <span>
-                  rbac.categoryLabels.sharedResources
-                </span>
+                rbac.categoryLabels.sharedResources
                  
               </p>
             </div>
@@ -728,9 +716,7 @@ exports[`Role Details Page render data 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
                     >
-                      <span>
-                        adminFunctions
-                      </span>
+                      adminFunctions
                     </p>
                   </div>
                 </div>
@@ -743,7 +729,7 @@ exports[`Role Details Page render data 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-left-large"
                     >
-                      Organizations
+                      orgsText
                     </p>
                     <div
                       class="permissionList"
@@ -771,7 +757,7 @@ exports[`Role Details Page render data 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-left-large"
                     >
-                      Projects
+                      projectsText
                     </p>
                     <div
                       class="permissionList"
@@ -814,9 +800,7 @@ exports[`Role Details Page render data 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
                     >
-                      <span>
-                        rbac.categoryLabels.sharedResources
-                      </span>
+                      rbac.categoryLabels.sharedResources
                     </p>
                   </div>
                 </div>
@@ -829,7 +813,7 @@ exports[`Role Details Page render data 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-left-large"
                     >
-                      Secrets
+                      common.secrets
                     </p>
                   </div>
                 </div>

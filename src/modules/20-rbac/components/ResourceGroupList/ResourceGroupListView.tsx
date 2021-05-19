@@ -64,12 +64,15 @@ const RenderColumnSummary: Renderer<CellProps<ResourceGroupResponse>> = ({ row, 
   const resourceSelectors = resourceGroup.resourceSelectors
   const resourceTypeName = (resource: ResourceSelector): string => {
     const label = RbacFactory.getResourceTypeHandler(resource?.resourceType)?.label
-    if (get(resource, 'type') === RbacResourceGroupTypes.DYNAMIC_RESOURCE_SELECTOR) {
-      return getString('resourceGroup.all', {
-        name: label
-      })
+    if (label) {
+      if (get(resource, 'type') === RbacResourceGroupTypes.DYNAMIC_RESOURCE_SELECTOR) {
+        return getString('resourceGroup.all', {
+          name: getString(label)
+        })
+      }
+      return `${(resource as StaticResourceSelector).identifiers?.length || 0} ${getString(label)}`
     }
-    return `${(resource as StaticResourceSelector).identifiers?.length || 0} ${label}`
+    return get(resource, 'type')
   }
   if (harnessManaged) return <Text color={Color.BLACK}>{getString('rbac.allResources')}</Text>
   return resourceSelectors?.length ? (

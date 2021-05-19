@@ -5,6 +5,7 @@ import type { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { Page } from '@common/exports'
 import css from './AddResourceModal.module.scss'
 
 interface RoleModalData {
@@ -21,11 +22,12 @@ const AddResourceModal: React.FC<RoleModalData> = ({ resource, onSuccess, onClos
   const [searchTerm, setSearchTerm] = useState<string>('')
   const [selectedItems, setSelectedItems] = useState<string[]>(selectedData)
 
+  if (!resourceHandler) return <Page.Error />
   return (
     <Layout.Vertical padding="xxxlarge">
       <Layout.Vertical>
         <Text color={Color.BLACK} font="medium">
-          {`${getString('add')} ${resourceHandler?.label}`}
+          {`${getString('add')} ${getString(resourceHandler.label)}`}
         </Text>
         <Layout.Horizontal padding={{ top: 'large' }} flex>
           <ExpandingSearchInput
@@ -34,7 +36,10 @@ const AddResourceModal: React.FC<RoleModalData> = ({ resource, onSuccess, onClos
             }}
           />
           <Text color={Color.BLUE_500}>
-            {getString('addResourceModal.selectedText', { name: resourceHandler?.label, number: selectedItems.length })}
+            {getString('addResourceModal.selectedText', {
+              name: getString(resourceHandler.label),
+              number: selectedItems.length
+            })}
           </Text>
         </Layout.Horizontal>
         <Container className={css.modal}>
@@ -54,7 +59,7 @@ const AddResourceModal: React.FC<RoleModalData> = ({ resource, onSuccess, onClos
         <Layout.Horizontal spacing="small">
           <Button
             intent="primary"
-            text={`${getString('add')} ${selectedItems.length} ${resourceHandler?.label}`}
+            text={`${getString('add')} ${selectedItems.length} ${getString(resourceHandler.label)}`}
             onClick={() => onSuccess(selectedItems)}
           />
           <Button text={getString('cancel')} onClick={onClose} />

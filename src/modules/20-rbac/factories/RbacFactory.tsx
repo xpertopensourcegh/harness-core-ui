@@ -3,6 +3,7 @@ import type { IconName } from '@wings-software/uicore'
 import type { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { ResourceScope } from '@rbac/interfaces/ResourceScope'
+import type { StringsMap } from 'framework/strings/StringsContext'
 
 export interface RbacResourceModalProps {
   searchTerm: string
@@ -18,7 +19,7 @@ export interface RbacResourceRendererProps {
 }
 export interface ResourceHandler {
   icon: IconName
-  label: string | React.ReactElement
+  label: keyof StringsMap
   permissionLabels?: {
     [key in PermissionIdentifier]?: string | React.ReactElement
   }
@@ -29,7 +30,7 @@ export interface ResourceHandler {
 
 export interface ResourceCategoryHandler {
   icon: IconName
-  label: string | React.ReactElement
+  label: keyof StringsMap
   resourceTypes?: Set<ResourceType>
 }
 

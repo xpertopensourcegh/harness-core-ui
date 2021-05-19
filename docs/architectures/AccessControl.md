@@ -24,7 +24,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 
 RbacFactory.registerResourceTypeHandler(ResourceType.ORGANIZATION, {
   icon: 'nav-org',
-  label: 'Organizations',
+  label: 'organizations',
   permissionLabels: {
     [PermissionIdentifier.UPDATE_ORG]: 'Create / Edit'
   }
@@ -38,7 +38,7 @@ Example of a resource category registration:
 ```typescript
 RbacFactory.registerResourceCategory(ResourceCategory.ADMINSTRATIVE_FUNCTIONS, {
   icon: 'settings',
-  label: <String stringID="adminFunctions" />
+  label: 'adminFunctions'
 })
 ```
 
@@ -61,7 +61,7 @@ Similarly, for all resource types, we need the capability to select individual r
 ```typescript
 export interface ResourceHandler {
   icon: IconName
-  label: string | React.ReactElement
+  label: keyof StringsMap
   permissionLabels?: {
     [key in PermissionIdentifier]?: string | React.ReactElement
   }
@@ -74,7 +74,7 @@ export interface ResourceHandler {
 ```typescript
 export interface ResourceCategoryHandler {
   icon: IconName
-  label: string | React.ReactElement
+  label: keyof StringsMap
   resourceTypes?: Set<ResourceType>
 }
 ```

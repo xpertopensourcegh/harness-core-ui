@@ -37,17 +37,17 @@ const AccountSettingsSideNavProps: SidebarContext = {
 
 RbacFactory.registerResourceCategory(ResourceCategory.SHARED_RESOURCES, {
   icon: 'support-tour',
-  label: <String stringID="rbac.categoryLabels.sharedResources" />
+  label: 'rbac.categoryLabels.sharedResources'
 })
 
 RbacFactory.registerResourceCategory(ResourceCategory.ADMINSTRATIVE_FUNCTIONS, {
   icon: 'support-account',
-  label: <String stringID="adminFunctions" />
+  label: 'adminFunctions'
 })
 
 RbacFactory.registerResourceTypeHandler(ResourceType.USER, {
   icon: 'nav-project',
-  label: <String stringID="users" />,
+  label: 'users',
   category: ResourceCategory.ADMINSTRATIVE_FUNCTIONS,
   permissionLabels: {
     [PermissionIdentifier.VIEW_USER]: <String stringID="rbac.permissionLabels.view" />,
@@ -58,7 +58,7 @@ RbacFactory.registerResourceTypeHandler(ResourceType.USER, {
 
 RbacFactory.registerResourceTypeHandler(ResourceType.USERGROUP, {
   icon: 'nav-project',
-  label: <String stringID="common.userGroups" />,
+  label: 'common.userGroups',
   category: ResourceCategory.ADMINSTRATIVE_FUNCTIONS,
   permissionLabels: {
     [PermissionIdentifier.VIEW_USERGROUP]: <String stringID="rbac.permissionLabels.view" />,
@@ -68,7 +68,7 @@ RbacFactory.registerResourceTypeHandler(ResourceType.USERGROUP, {
 
 RbacFactory.registerResourceTypeHandler(ResourceType.RESOURCEGROUP, {
   icon: 'nav-project',
-  label: <String stringID="resourceGroups" />,
+  label: 'resourceGroups',
   category: ResourceCategory.ADMINSTRATIVE_FUNCTIONS,
   permissionLabels: {
     [PermissionIdentifier.VIEW_RESOURCEGROUP]: <String stringID="rbac.permissionLabels.view" />,
@@ -79,7 +79,7 @@ RbacFactory.registerResourceTypeHandler(ResourceType.RESOURCEGROUP, {
 
 RbacFactory.registerResourceTypeHandler(ResourceType.ROLE, {
   icon: 'nav-project',
-  label: <String stringID="roles" />,
+  label: 'roles',
   category: ResourceCategory.ADMINSTRATIVE_FUNCTIONS,
   permissionLabels: {
     [PermissionIdentifier.VIEW_ROLE]: <String stringID="rbac.permissionLabels.view" />,

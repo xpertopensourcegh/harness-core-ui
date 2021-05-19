@@ -180,9 +180,7 @@ exports[`Resource Groups Page render data 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                   >
-                    <span>
-                      adminFunctions
-                    </span>
+                    adminFunctions
                   </p>
                 </div>
               </div>
@@ -204,7 +202,7 @@ exports[`Resource Groups Page render data 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                 >
-                  Organizations
+                  orgsText
                 </p>
               </div>
               <div
@@ -224,7 +222,7 @@ exports[`Resource Groups Page render data 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                 >
-                  Projects
+                  projectsText
                 </p>
               </div>
             </div>
@@ -272,9 +270,7 @@ exports[`Resource Groups Page render data 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                   >
-                    <span>
-                      rbac.categoryLabels.sharedResources
-                    </span>
+                    rbac.categoryLabels.sharedResources
                   </p>
                 </div>
               </div>
@@ -295,7 +291,7 @@ exports[`Resource Groups Page render data 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                 >
-                  Secrets
+                  common.secrets
                 </p>
               </div>
             </div>
@@ -361,7 +357,7 @@ exports[`Resource Groups Page render data 1`] = `
                       />
                     </svg>
                   </span>
-                  Organizations
+                  orgsText
                 </p>
                 <label
                   class="bp3-control bp3-radio radioBtn"

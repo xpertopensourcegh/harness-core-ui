@@ -14,7 +14,7 @@ import EnvironmentResourceModal from '@pipeline/components/RbacResourceModals/En
 
 RbacFactory.registerResourceTypeHandler(ResourceType.PIPELINE, {
   icon: 'pipeline-deployment',
-  label: 'Pipelines',
+  label: 'pipelines',
   permissionLabels: {
     [PermissionIdentifier.VIEW_PIPELINE]: <String stringID="rbac.permissionLabels.view" />,
     [PermissionIdentifier.EDIT_PIPELINE]: <String stringID="rbac.permissionLabels.createEdit" />,
@@ -27,7 +27,7 @@ RbacFactory.registerResourceTypeHandler(ResourceType.PIPELINE, {
 
 RbacFactory.registerResourceTypeHandler(ResourceType.SERVICE, {
   icon: 'service-deployment',
-  label: 'Services',
+  label: 'services',
   permissionLabels: {
     [PermissionIdentifier.VIEW_SERVICE]: <String stringID="rbac.permissionLabels.view" />,
     [PermissionIdentifier.EDIT_SERVICE]: <String stringID="rbac.permissionLabels.createEdit" />,
@@ -40,7 +40,7 @@ RbacFactory.registerResourceTypeHandler(ResourceType.SERVICE, {
 
 RbacFactory.registerResourceTypeHandler(ResourceType.ENVIRONMENT, {
   icon: 'environment',
-  label: 'Environments',
+  label: 'environments',
   permissionLabels: {
     [PermissionIdentifier.VIEW_ENVIRONMENT]: <String stringID="rbac.permissionLabels.view" />,
     [PermissionIdentifier.EDIT_ENVIRONMENT]: <String stringID="rbac.permissionLabels.createEdit" />,

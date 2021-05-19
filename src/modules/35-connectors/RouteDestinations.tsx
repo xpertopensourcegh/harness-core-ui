@@ -32,7 +32,7 @@ const AccountSettingsSideNavProps: SidebarContext = {
 
 RbacFactory.registerResourceTypeHandler(ResourceType.CONNECTOR, {
   icon: 'lock',
-  label: 'Connectors',
+  label: 'connectorsLabel',
   category: ResourceCategory.SHARED_RESOURCES,
   permissionLabels: {
     [PermissionIdentifier.VIEW_CONNECTOR]: <String stringID="rbac.permissionLabels.view" />,

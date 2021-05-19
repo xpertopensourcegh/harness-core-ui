@@ -3,6 +3,7 @@ import { Icon, Card, Layout, Text, Color } from '@wings-software/uicore'
 import { Checkbox } from '@blueprintjs/core'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import type { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
+import { useStrings } from 'framework/strings'
 import css from './ResourceTypeList.module.scss'
 
 interface ResourceTypeListProps {
@@ -20,6 +21,8 @@ const ResourceTypeList: React.FC<ResourceTypeListProps> = props => {
     preSelectedResourceList,
     disableAddingResources
   } = props
+
+  const { getString } = useStrings()
 
   const getChecked = (resourceCategory: ResourceType | ResourceCategory, resourceTypes?: ResourceType[]): boolean => {
     if (resourceTypes) {
@@ -72,7 +75,7 @@ const ResourceTypeList: React.FC<ResourceTypeListProps> = props => {
                       />
                       <Layout.Horizontal spacing="small">
                         <Icon name={resourceCategoryHandler.icon} />
-                        <Text color={Color.BLACK}>{resourceCategoryHandler.label}</Text>
+                        <Text color={Color.BLACK}>{getString(resourceCategoryHandler.label)}</Text>
                       </Layout.Horizontal>
                     </Layout.Horizontal>
                     {resourceTypes &&
@@ -89,7 +92,7 @@ const ResourceTypeList: React.FC<ResourceTypeListProps> = props => {
                                 }}
                                 checked={getChecked(resource)}
                               />
-                              <Text color={Color.BLACK}>{resourceHandler.label}</Text>
+                              <Text color={Color.BLACK}>{getString(resourceHandler.label)}</Text>
                             </Layout.Horizontal>
                           )
                         )

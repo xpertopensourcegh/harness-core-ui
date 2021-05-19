@@ -9,7 +9,7 @@ export const getResourceTypeHandlerMock = (resource: ResourceType): ResourceHand
     case ResourceType.PROJECT:
       return {
         icon: 'nav-project',
-        label: 'Projects',
+        label: 'projectsText',
         category: ResourceCategory.ADMINSTRATIVE_FUNCTIONS,
         permissionLabels: {
           [PermissionIdentifier.UPDATE_PROJECT]: <String stringID="rbac.permissionLabels.createEdit" />,
@@ -22,7 +22,7 @@ export const getResourceTypeHandlerMock = (resource: ResourceType): ResourceHand
     case ResourceType.ORGANIZATION:
       return {
         icon: 'settings',
-        label: 'Organizations',
+        label: 'orgsText',
         category: ResourceCategory.ADMINSTRATIVE_FUNCTIONS,
         permissionLabels: {
           [PermissionIdentifier.UPDATE_ORG]: <String stringID="rbac.permissionLabels.createEdit" />,
@@ -35,7 +35,7 @@ export const getResourceTypeHandlerMock = (resource: ResourceType): ResourceHand
     case ResourceType.SECRET:
       return {
         icon: 'lock',
-        label: 'Secrets',
+        label: 'common.secrets',
         category: ResourceCategory.SHARED_RESOURCES,
         // eslint-disable-next-line react/display-name
         addResourceModalBody: () => <></>
@@ -50,12 +50,12 @@ export const getResourceGroupTypeHandlerMock = (
     case ResourceCategory.SHARED_RESOURCES:
       return {
         icon: 'nav-project',
-        label: <String stringID="rbac.categoryLabels.sharedResources" />
+        label: 'rbac.categoryLabels.sharedResources'
       }
     case ResourceCategory.ADMINSTRATIVE_FUNCTIONS:
       return {
         icon: 'nav-project',
-        label: <String stringID="adminFunctions" />
+        label: 'adminFunctions'
       }
   }
 }

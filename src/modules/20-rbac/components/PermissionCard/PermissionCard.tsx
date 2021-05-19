@@ -6,6 +6,7 @@ import type { Permission } from 'services/rbac'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import type { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { useStrings } from 'framework/strings'
 import css from './PermissionCard.module.scss'
 
 interface PermissionCardProps {
@@ -27,6 +28,7 @@ const PermissionCard: React.FC<PermissionCardProps> = ({
   onChangePermission,
   isPermissionEnabled
 }) => {
+  const { getString } = useStrings()
   const isView = (value: string): boolean => {
     if (value === 'view') return true
     return false
@@ -77,7 +79,7 @@ const PermissionCard: React.FC<PermissionCardProps> = ({
           <Layout.Horizontal spacing="medium" className={css.center}>
             <Icon name={resourceHandler.icon} size={30} />
             <Text color={Color.BLACK} font={{ weight: 'semi-bold' }}>
-              {resourceHandler.label}
+              {getString(resourceHandler.label)}
             </Text>
           </Layout.Horizontal>
           {resourceTypes && Array.from(resourceTypes).length
@@ -92,7 +94,7 @@ const PermissionCard: React.FC<PermissionCardProps> = ({
                 handler && (
                   <div key={resource} className={cx(css.permissionRow, css.groupRow)}>
                     <Text color={Color.BLACK} padding={{ left: 'large' }}>
-                      {handler.label}
+                      {getString(handler.label)}
                     </Text>
                     {getPermissionList(resource)}
                   </div>
