@@ -74,10 +74,14 @@
       padding: 12px !important;
     }
   }
+
+  [class*='InputWithIdentifier--txtNameContainer'] {
+    max-width: 295px;
+  }
 }
 .inputsetGrid {
   display: grid;
-  grid-template-columns: 300px 1fr;
+  // grid-template-columns: 300px 1fr;
   background: var(--grey-50);
   .treeSidebar {
     border-right: solid 1px #ccc;

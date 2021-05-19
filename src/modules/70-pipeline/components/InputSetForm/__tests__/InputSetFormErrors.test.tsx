@@ -81,7 +81,7 @@ const TEST_INPUT_SET_FORM_PATH = routes.toInputSetForm({
 
 describe('Input Set - error scenarios', () => {
   test('if API errors are displayed in yellow accordion', async () => {
-    const { getAllByText, getByText, queryByText, container } = render(
+    const { getAllByText, getByText, queryByText } = render(
       <TestWrapper
         path={TEST_INPUT_SET_FORM_PATH}
         pathParams={{
@@ -106,12 +106,6 @@ describe('Input Set - error scenarios', () => {
         </PipelineContext.Provider>
       </TestWrapper>
     )
-    const stagePanel = container.querySelector('[data-testid="Stage.asd-summary"]')
-    act(() => {
-      fireEvent.click(stagePanel as Element)
-    })
-    const infraPanel = container.querySelector('[data-testid="Stage.asd.Infrastructure-summary"]')
-    fireEvent.click(infraPanel as Element)
     await waitFor(() => getAllByText('tesa1'))
     fireEvent.click(getByText('save'))
     await waitFor(() => expect(queryByText('2 problems with Input Set')).toBeTruthy())

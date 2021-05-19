@@ -436,6 +436,7 @@ const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps> = ({ inputSet
           placeholder={getString('pipelineSteps.environmentTab.selectEnvironment')}
           items={environments}
           disabled={inputSetData?.readonly}
+          className={css.inputWidth}
         />
       )}
     </>

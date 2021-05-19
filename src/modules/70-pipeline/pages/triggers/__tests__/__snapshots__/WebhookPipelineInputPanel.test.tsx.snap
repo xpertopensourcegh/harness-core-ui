@@ -210,7 +210,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                   >
                     <button
                       class="bp3-button bp3-minimal container"
-                      style="width: 300px;"
+                      style="width: 100%;"
                       type="button"
                     >
                       <span
@@ -222,31 +222,12 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                           inputSets.selectPlaceholder
                         </span>
                       </span>
-                      <span
-                        class="bp3-icon bp3-icon-caret-down"
-                        icon="caret-down"
-                      >
-                        <svg
-                          data-icon="caret-down"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          width="16"
-                        >
-                          <desc>
-                            caret-down
-                          </desc>
-                          <path
-                            d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
                     </button>
                   </span>
                 </span>
               </div>
               <div
-                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main container StyledProps--padding-medium"
+                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main container StyledProps--padding-xlarge"
               >
                 <div
                   class="header"
@@ -256,146 +237,92 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                   </span>
                 </div>
                 <div
-                  class="bp3-card bp3-elevation-0 Card--card"
+                  class="Layout--vertical StyledProps--main"
                 >
                   <div
-                    class="Accordion--panel nestedAccordions"
-                    data-open="true"
-                    data-testid="Stage.stage1-panel"
-                    id="Stage.stage1-panel"
+                    class="accordionSummary"
+                    id="Stage.stage1"
                   >
                     <div
-                      class="Accordion--summary nopadLeft accordionSummary"
-                      data-testid="Stage.stage1-summary"
-                    >
-                      <div
-                        class="Accordion--chevron"
-                      />
-                      <div
-                        class=""
-                      >
-                        <div
-                          class="stagesTreeBulletSquare"
-                        >
-                          <span />
-                        </div>
-                      </div>
-                    </div>
+                      class="subheading"
+                    />
                     <div
-                      class="bp3-collapse Accordion--collapse"
-                      style="height: 0px;"
+                      class="topAccordion"
                     >
                       <div
-                        aria-hidden="false"
-                        class="bp3-collapse-body"
-                        style="transform: translateY(0);"
+                        class="nopadLeft accordionSummary"
+                        id="Stage.stage1.Infrastructure"
                       >
                         <div
-                          class="Accordion--details"
-                          data-testid="Stage.stage1-details"
+                          class="inputheader"
+                        >
+                          infrastructureText
+                        </div>
+                        <div
+                          class="nestedAccordions"
                         >
                           <div
-                            class="Accordion--panel nestedAccordions"
-                            data-open="true"
-                            data-testid="Stage.stage1.Infrastructure-panel"
-                            id="Stage.stage1.Infrastructure-panel"
+                            class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-medium"
                           >
                             <div
-                              class="Accordion--summary nopadLeft accordionSummary"
-                              data-testid="Stage.stage1.Infrastructure-summary"
+                              class="bp3-form-group inputWidth"
+                              data-id="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace-0"
                             >
+                              <label
+                                class="bp3-label"
+                                for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
+                              >
+                                common.namespace
+                                 
+                                <span
+                                  class="bp3-text-muted"
+                                />
+                              </label>
                               <div
-                                class="Accordion--chevron"
-                              />
-                              <div
-                                class=""
+                                class="bp3-form-content"
                               >
                                 <div
-                                  class="stagesTreeBulletCircle"
+                                  class="bp3-input-group"
                                 >
-                                  <span>
-                                    infrastructureText
-                                  </span>
+                                  <input
+                                    autocomplete="off"
+                                    class="bp3-input"
+                                    name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
+                                    placeholder="cd.steps.common.namespacePlaceholder"
+                                    type="text"
+                                    value="<+input>"
+                                  />
                                 </div>
                               </div>
                             </div>
                             <div
-                              class="bp3-collapse Accordion--collapse"
-                              style="height: 0px;"
+                              class="bp3-form-group inputWidth"
+                              data-id="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName-1"
                             >
+                              <label
+                                class="bp3-label"
+                                for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
+                              >
+                                common.releaseName
+                                 
+                                <span
+                                  class="bp3-text-muted"
+                                />
+                              </label>
                               <div
-                                aria-hidden="false"
-                                class="bp3-collapse-body"
-                                style="transform: translateY(0);"
+                                class="bp3-form-content"
                               >
                                 <div
-                                  class="Accordion--details"
-                                  data-testid="Stage.stage1.Infrastructure-details"
+                                  class="bp3-input-group"
                                 >
-                                  <div
-                                    class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-medium"
-                                  >
-                                    <div
-                                      class="bp3-form-group inputWidth"
-                                    >
-                                      <label
-                                        class="bp3-label"
-                                        for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
-                                      >
-                                        common.namespace
-                                         
-                                        <span
-                                          class="bp3-text-muted"
-                                        />
-                                      </label>
-                                      <div
-                                        class="bp3-form-content"
-                                      >
-                                        <div
-                                          class="bp3-input-group"
-                                        >
-                                          <input
-                                            autocomplete="off"
-                                            class="bp3-input"
-                                            name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
-                                            placeholder="cd.steps.common.namespacePlaceholder"
-                                            type="text"
-                                            value="<+input>"
-                                          />
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div
-                                      class="bp3-form-group inputWidth"
-                                    >
-                                      <label
-                                        class="bp3-label"
-                                        for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
-                                      >
-                                        common.releaseName
-                                         
-                                        <span
-                                          class="bp3-text-muted"
-                                        />
-                                      </label>
-                                      <div
-                                        class="bp3-form-content"
-                                      >
-                                        <div
-                                          class="bp3-input-group"
-                                        >
-                                          <input
-                                            autocomplete="off"
-                                            class="bp3-input"
-                                            name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
-                                            placeholder="cd.steps.common.releaseNamePlaceholder"
-                                            type="text"
-                                            value="<+input>"
-                                          />
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
+                                  <input
+                                    autocomplete="off"
+                                    class="bp3-input"
+                                    name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
+                                    placeholder="cd.steps.common.releaseNamePlaceholder"
+                                    type="text"
+                                    value="<+input>"
+                                  />
                                 </div>
                               </div>
                             </div>

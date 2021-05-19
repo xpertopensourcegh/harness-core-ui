@@ -1,7 +1,7 @@
 import React from 'react'
 import { isEmpty, isNull, isUndefined, omit, omitBy } from 'lodash-es'
 import cx from 'classnames'
-import { IconName, ITreeNode, Intent } from '@blueprintjs/core'
+import { IconName, Intent } from '@blueprintjs/core'
 import {
   Button,
   Collapse,
@@ -11,7 +11,6 @@ import {
   FormInput,
   Layout,
   Text,
-  useNestedAccordion,
   NestedAccordionProvider,
   Accordion,
   Icon
@@ -44,7 +43,6 @@ import routes from '@common/RouteDefinitions'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
-import StagesTree, { stagesTreeNodeClasses } from '@pipeline/components/StagesTree/StagesTree'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
@@ -52,7 +50,6 @@ import { useQueryParams } from '@common/hooks'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
 import { clearRuntimeInput, validatePipeline, getErrorsList } from '../PipelineStudio/StepUtil'
-import { getPipelineTree } from '../PipelineStudio/PipelineUtils'
 import { factory } from '../PipelineSteps/Steps/__tests__/StepTestUtil'
 import { YamlBuilderMemo } from '../PipelineStudio/PipelineYamlView/PipelineYamlView'
 import css from './InputSetForm.module.scss'
@@ -193,7 +190,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
   })
 
   const [mergeTemplate, setMergeTemplate] = React.useState<string>()
-  const { openNestedPath } = useNestedAccordion()
+  // const { openNestedPath } = useNestedAccordion()
   const { mutate: mergeInputSet, loading: loadingMerge } = useGetMergeInputSetFromPipelineTemplateWithListInput({
     queryParams: {
       accountIdentifier: accountId,
@@ -354,12 +351,6 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
     [isEdit, updateInputSet, createInputSet, showSuccess, showError]
   )
 
-  const handleSelectionChange = (id: string): void => {
-    setSelectedTreeNodeId(id)
-    openNestedPath(id)
-    document.getElementById(`${id}-panel`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }
-
   const renderErrors = React.useCallback(() => {
     const errorList = getErrorsList(formErrors)
     if (!errorList.length) {
@@ -421,13 +412,6 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
               <>
                 {selectedView === SelectedView.VISUAL ? (
                   <div className={css.inputsetGrid}>
-                    <div className={css.treeSidebar}>
-                      <StagesTree
-                        contents={nodes}
-                        selectedId={selectedTreeNodeId}
-                        selectionChange={handleSelectionChange}
-                      />
-                    </div>
                     <div>
                       {renderErrors()}
 
@@ -531,19 +515,6 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
       </Layout.Vertical>
     </Container>
   )
-  const [nodes, updateNodes] = React.useState<ITreeNode[]>([])
-  const [selectedTreeNodeId, setSelectedTreeNodeId] = React.useState<string>('')
-
-  React.useEffect(() => {
-    const parsedPipeline = parse(pipeline?.data?.yamlPipeline || '')
-    parsedPipeline &&
-      updateNodes(
-        getPipelineTree(parsedPipeline.pipeline, stagesTreeNodeClasses, getString, {
-          hideNonRuntimeFields: true,
-          template: parse(template?.data?.inputSetTemplateYaml || '')?.pipeline
-        })
-      )
-  }, [pipeline?.data?.yamlPipeline, template])
 
   return executionView ? (
     child
