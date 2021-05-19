@@ -60,7 +60,7 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import type { CustomVariableInputSetExtraProps } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableInputSet'
 import { useListAwsRegions } from 'services/portal'
 import type { ManifestStores } from '@pipeline/components/ManifestSelection/ManifestInterface'
-import { ManifestToConnectorMap } from '@pipeline/components/ManifestSelection/Manifesthelper'
+import { GitRepoName, ManifestToConnectorMap } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import type { AllNGVariables } from '@pipeline/utils/types'
 import type { UseStringsReturn } from 'framework/strings'
 import { K8sServiceSpecVariablesForm, K8sServiceSpecVariablesFormProps } from './K8sServiceSpecVariablesForm'
@@ -315,7 +315,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
   const getSelectItems = (tagsPath: string): SelectOption[] => {
     return get(tagListMap, `${tagsPath}.tags`, []) as SelectOption[]
   }
-
+  const [showRepoName, setShowRepoName] = React.useState(true)
   const fetchTags = ({
     path: tagsPath = '',
     imagePath = '',
@@ -849,6 +849,12 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                                 scope === Scope.ORG || scope === Scope.ACCOUNT
                                   ? `${scope}.${record?.identifier}`
                                   : record?.identifier
+
+                              if (record?.spec?.connectionType === GitRepoName.Repo) {
+                                setShowRepoName(false)
+                              } else {
+                                setShowRepoName(true)
+                              }
                               set(
                                 initialValues,
                                 `manifests[${index}].manifest.spec.store.spec.connectorRef`,
@@ -879,7 +885,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                           style={{ marginBottom: 'var(--spacing-small)' }}
                         />
                       )}
-                      {getMultiTypeFromValue(repoName) === MultiTypeInputType.RUNTIME && (
+                      {getMultiTypeFromValue(repoName) === MultiTypeInputType.RUNTIME && showRepoName && (
                         <FormGroup
                           labelFor={'repoName'}
                           label={getString('pipelineSteps.build.create.repositoryNameLabel')}
