@@ -409,6 +409,33 @@ export interface StringsMap {
   'rbac.usersPage.selectRole': string
   'rbac.usersPage.validation.resourceGroup': string
   'rbac.usersPage.validation.role': string
+  'delegates.delegateInstances': string
+  'delegates.delegateNameRegexIssue': string
+  'delegates.delegateNamespaceRequired': string
+  'delegates.delegatePermissions.clusterReadContent': string
+  'delegates.delegatePermissions.clusterReadTitle': string
+  'delegates.delegatePermissions.clusterWriteContent': string
+  'delegates.delegatePermissions.clusterWriteTitle': string
+  'delegates.delegatePermissions.specificNamespaceContent': string
+  'delegates.delegatePermissions.specificNamespaceTitle': string
+  'delegates.delegatePermissions.title': string
+  'delegates.delegateSizeUpTo': string
+  'delegates.downloadYAMLFile': string
+  'delegates.lastUpdated': string
+  'delegates.newDelegateConfigWizard.matchAllEnvs': string
+  'delegates.newDelegateConfigWizard.nonprodEnv': string
+  'delegates.newDelegateConfigWizard.overviewTitle': string
+  'delegates.newDelegateConfigWizard.prodEnv': string
+  'delegates.newDelegateConfigWizard.scopeSubtitle': string
+  'delegates.newDelegateConfigWizard.scriptTitle': string
+  'delegates.newDelegateConfigWizard.specEnvNotPossible': string
+  'delegates.newDelegateConfigWizard.specifyEnvs': string
+  'delegates.newDelegateConfigWizard.successMessage': string
+  'delegates.permissionRequired': string
+  'delegates.replicaText': string
+  'delegates.searchDelegateName': string
+  'delegates.totalMemUnit': string
+  'delegates.usedBy': string
   'secrets.blank': string
   'secrets.confirmDelete': string
   'secrets.confirmDeleteTitle': string
@@ -3367,10 +3394,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'delegate.downloadScript': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'delegate.enterTags': string
   /**
    * @deprecated migrate this string to module level file
@@ -3384,6 +3407,10 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'delegate.initScriptPlaceholder': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  'delegate.instancesCount': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -3415,15 +3442,7 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'delegate.kubernetes.prerequisites_worload1': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.kubernetes.prerequisites_worload2': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.kubernetes.prerequisites_worload3': string
+  'delegate.kubernetes.prerequisites_worload': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -3452,10 +3471,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'delegate.questionDeleteDelegate': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.replicaText': string
   /**
    * @deprecated migrate this string to module level file
    */
