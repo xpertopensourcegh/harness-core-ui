@@ -117,11 +117,19 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
   })
   const { mutate: updateSecretText, loading: loadingUpdateText } = usePutSecret({
     identifier: secret?.identifier as string,
-    queryParams: { accountIdentifier, projectIdentifier, orgIdentifier }
+    queryParams: {
+      accountIdentifier,
+      projectIdentifier: propsSecret?.projectIdentifier,
+      orgIdentifier: propsSecret?.orgIdentifier
+    }
   })
   const { mutate: updateSecretFile, loading: loadingUpdateFile } = usePutSecretFileV2({
     identifier: secret?.identifier as string,
-    queryParams: { accountIdentifier, projectIdentifier, orgIdentifier }
+    queryParams: {
+      accountIdentifier,
+      projectIdentifier: propsSecret?.projectIdentifier,
+      orgIdentifier: propsSecret?.orgIdentifier
+    }
   })
 
   const loading = loadingCreateText || loadingUpdateText || loadingCreateFile || loadingUpdateFile
@@ -141,7 +149,7 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
     }
   }, [secretResponse])
 
-  const createFormData = (data: SecretFormData): FormData => {
+  const createFormData = (data: SecretFormData, editFlag?: boolean): FormData => {
     const formData = new FormData()
     formData.set(
       'spec',
@@ -149,8 +157,8 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
         secret: {
           type,
           ...pick(data, ['name', 'identifier', 'description', 'tags']),
-          orgIdentifier,
-          projectIdentifier,
+          orgIdentifier: editFlag ? propsSecret?.orgIdentifier : orgIdentifier,
+          projectIdentifier: editFlag ? propsSecret?.projectIdentifier : projectIdentifier,
           spec: {
             ...pick(data, ['secretManagerIdentifier'])
           } as SecretFileSpecDTO
@@ -162,13 +170,13 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
     return formData
   }
 
-  const createSecretTextData = (data: SecretFormData): SecretRequestWrapper => {
+  const createSecretTextData = (data: SecretFormData, editFlag?: boolean): SecretRequestWrapper => {
     return {
       secret: {
         type,
         ...pick(data, ['name', 'identifier', 'description', 'tags']),
-        orgIdentifier,
-        projectIdentifier,
+        orgIdentifier: editFlag ? propsSecret?.orgIdentifier : orgIdentifier,
+        projectIdentifier: editFlag ? propsSecret?.projectIdentifier : projectIdentifier,
         spec: {
           ...pick(data, ['secretManagerIdentifier', 'value', 'valueType'])
         } as SecretTextSpecDTO
@@ -180,10 +188,10 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
     try {
       if (editing) {
         if (type === 'SecretText') {
-          await updateSecretText(createSecretTextData(data))
+          await updateSecretText(createSecretTextData(data, editing))
         }
         if (type === 'SecretFile') {
-          await updateSecretFile(createFormData(data) as any)
+          await updateSecretFile(createFormData(data, editing) as any)
         }
         showSuccess(`Secret '${data.name}' updated successfully`)
       } else {
