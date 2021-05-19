@@ -210,7 +210,7 @@ describe.skip('SchedulePanel Triggers tests', () => {
 
       const hourOptions = document.querySelectorAll('[class*="bp3-menu"] li')
       fireEvent.click(hourOptions[11])
-      await waitFor(() => expect(queryByText(container, '0 0 1 * *')).not.toBeNull())
+      await waitFor(() => expect(queryByText(container, '0 0 * * *')).not.toBeNull())
 
       const minutesSelect = document.querySelectorAll(
         '[data-name="timeselect"] [class*="selectStyle"] [icon="caret-down"] svg'
@@ -224,7 +224,7 @@ describe.skip('SchedulePanel Triggers tests', () => {
       await waitFor(() => expect(document.querySelectorAll('[class*="bp3-menu"] li')).toHaveLength(60))
       const minutesOptions = document.querySelectorAll('[class*="bp3-menu"] li')
       fireEvent.click(minutesOptions[3])
-      await waitFor(() => expect(queryByText(container, '3 0 1 * *')).not.toBeNull())
+      await waitFor(() => expect(queryByText(container, '3 0 * * *')).not.toBeNull())
 
       const amPmSelect = document.querySelectorAll(
         '[data-name="timeselect"] [class*="selectStyle"] [icon="caret-down"] svg'
@@ -239,7 +239,7 @@ describe.skip('SchedulePanel Triggers tests', () => {
       const amPmOptions = document.querySelectorAll('[class*="bp3-menu"] li')
       fireEvent.click(amPmOptions[1])
       // tests pm adds 12 hours
-      await waitFor(() => expect(queryByText(container, '3 12 1 * *')).not.toBeNull())
+      await waitFor(() => expect(queryByText(container, '3 12 * * *')).not.toBeNull())
     })
 
     test('Weekly selection updates expression breakdown and expression', async () => {

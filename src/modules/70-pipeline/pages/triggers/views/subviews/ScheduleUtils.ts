@@ -177,7 +177,7 @@ const defaultHourlyValues = {
 }
 
 export const defaultDailyValues = {
-  dayOfMonth: defaultScheduleValues.DAY_OF_MONTH_1,
+  dayOfMonth: defaultScheduleValues.ASTERISK,
   month: defaultScheduleValues.ASTERISK,
   dayOfWeek: defaultScheduleValues.DAY_OF_WEEK_EMPTY,
   ...defaultTimeSelect
