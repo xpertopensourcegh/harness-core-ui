@@ -54,9 +54,6 @@ export const CommitsList: React.FC<CommitsListProps> = props => {
             <div className={css.commitItem} key={commit.id}>
               <div className={css.commitMessage}>{commit.message}</div>
               <div>
-                {/* @TODO: once response includes avatar reference,
-                 * we should pass it to Avatar component
-                 */}
                 <Avatar
                   className={css.avatar}
                   name={commit.ownerName?.split(' ')[0]}

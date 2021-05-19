@@ -1044,7 +1044,7 @@ pipelineSteps:
   targetLabel: 'Target'
   artifactsTargetPlaceholder: path/in/bucket
   targetInfo: Build the specified stage as defined inside the Dockerfile
-  artifactsTargetInfo: The path to store the cache in, relatively to the bucket. If not provided the cache will be save to [bucket]/[key]
+  artifactsTargetInfo: The path to store the cache in, relatively to the bucket. If not provided the cache will be save to [bucket]/
   jFrogArtifactoryTargetInfo: Repository name relative to the server URL in the connector. If pom.xml is not present then target should be full path to artifacts folder (groupID/artifactID/version)
   outputVariablesLabel: 'Output Variables'
   outputVariablesInfo: 'Output Variables can be used to expose Environment Variables to be used by other steps/stages of the pipeline'

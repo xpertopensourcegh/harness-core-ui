@@ -171,6 +171,7 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
               <UserLabel
                 name={
                   pipelineExecution.moduleInfo?.ci?.ciExecutionInfoDTO?.author?.name ||
+                  pipelineExecution.moduleInfo?.ci?.ciExecutionInfoDTO?.author?.id ||
                   pipelineExecution.executionTriggerInfo?.triggeredBy?.identifier ||
                   'Anonymous'
                 }
