@@ -8,9 +8,15 @@ import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
 const afterSave = jest.fn()
 const closeModal = jest.fn()
 
-const getEditProps = (identifier = 'test', description = 'desc', name = 'pipeline'): PipelineCreateProps => ({
+const getEditProps = (
+  identifier = 'test',
+  description = 'desc',
+  name = 'pipeline',
+  repo = '',
+  branch = ''
+): PipelineCreateProps => ({
   afterSave,
-  initialValues: { identifier, description, name },
+  initialValues: { identifier, description, name, repo, branch },
   closeModal
 })
 
@@ -97,11 +103,14 @@ describe('PipelineCreate test', () => {
     const saveBtn = getByText('save')
     fireEvent.click(saveBtn)
     await waitFor(() => expect(afterSave).toBeCalledTimes(1))
-    expect(afterSave).toBeCalledWith({
-      description: 'desc',
-      identifier: 'test',
-      name: 'pipeline'
-    })
+    expect(afterSave).toBeCalledWith(
+      {
+        description: 'desc',
+        identifier: 'test',
+        name: 'pipeline'
+      },
+      undefined
+    )
     const closeBtn = container.querySelector('[icon="cross"]')
     fireEvent.click(closeBtn!)
     await waitFor(() => expect(closeModal).toBeCalledTimes(1))

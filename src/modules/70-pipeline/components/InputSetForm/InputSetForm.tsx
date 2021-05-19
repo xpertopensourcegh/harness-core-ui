@@ -34,7 +34,7 @@ import {
 
 import { useToaster } from '@common/exports'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
-import type { InputSetPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
+import type { InputSetGitQueryParams, InputSetPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { PageBody } from '@common/components/Page/PageBody'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
@@ -42,16 +42,18 @@ import { NameIdDescriptionTags } from '@common/components'
 import routes from '@common/RouteDefinitions'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { useStrings } from 'framework/strings'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { AppStoreContext, useAppStore } from 'framework/AppStore/AppStoreContext'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { useQueryParams } from '@common/hooks'
-import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
+import useSaveToGitDialog from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
+import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
 import { clearRuntimeInput, validatePipeline, getErrorsList } from '../PipelineStudio/StepUtil'
 import { factory } from '../PipelineSteps/Steps/__tests__/StepTestUtil'
 import { YamlBuilderMemo } from '../PipelineStudio/PipelineYamlView/PipelineYamlView'
+import GitPopover from '../GitPopover/GitPopover'
 import css from './InputSetForm.module.scss'
 export interface InputSetDTO extends Omit<InputSetResponse, 'identifier' | 'pipeline'> {
   pipeline?: NgPipeline
@@ -130,10 +132,12 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
   const { executionView } = props
   const { getString } = useStrings()
   const [isEdit, setIsEdit] = React.useState(false)
+  const [savedInputSetObj, setSavedInputSetObj] = React.useState<InputSetDTO>({})
+  const { isGitSyncEnabled } = React.useContext(AppStoreContext)
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier, inputSetIdentifier } = useParams<
     PipelineType<InputSetPathProps> & { accountId: string }
   >()
-  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
+  const { repoIdentifier, branch, inputSetRepoIdentifier, inputSetBranch } = useQueryParams<InputSetGitQueryParams>()
   const history = useHistory()
   const { refetch: refetchTemplate, data: template, loading: loadingTemplate } = useGetTemplateFromPipeline({
     queryParams: {
@@ -177,8 +181,8 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
       orgIdentifier,
       pipelineIdentifier,
       projectIdentifier,
-      repoIdentifier,
-      branch
+      repoIdentifier: inputSetRepoIdentifier,
+      branch: inputSetBranch
     },
     inputSetIdentifier: inputSetIdentifier || '',
     lazy: true
@@ -244,7 +248,8 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
         tags: inputSetObj.tags,
         identifier: inputSetObj.identifier || /* istanbul ignore next */ '',
         description: inputSetObj?.description,
-        pipeline: clearRuntimeInput(inputYamlObj)
+        pipeline: clearRuntimeInput(inputYamlObj),
+        gitDetails: inputSetObj.gitDetails || {}
       }
     }
     return getDefaultInputSet(
@@ -304,38 +309,79 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
     return toReturn
   }
 
+  const createUpdateInputSet = async (inputSetObj: InputSetDTO, gitDetails?: SaveToGitFormInterface, objectId = '') => {
+    try {
+      let response: ResponseInputSetResponse | null = null
+      if (isEdit) {
+        response = await updateInputSet(stringify({ inputSet: clearNullUndefined(inputSetObj) }) as any, {
+          pathParams: {
+            inputSetIdentifier: inputSetObj.identifier || /* istanbul ignore next */ ''
+          },
+          queryParams: {
+            accountIdentifier: accountId,
+            orgIdentifier,
+            pipelineIdentifier,
+            projectIdentifier,
+            ...(gitDetails ?? {}),
+            lastObjectId: objectId
+          }
+        })
+      } else {
+        response = await createInputSet(stringify({ inputSet: clearNullUndefined(inputSetObj) }) as any, {
+          queryParams: {
+            accountIdentifier: accountId,
+            orgIdentifier,
+            pipelineIdentifier,
+            projectIdentifier,
+            ...(gitDetails ?? {})
+          }
+        })
+      }
+      /* istanbul ignore else */
+      if (response) {
+        if (response.data?.errorResponse) {
+          const errors = getFormattedErrors(response.data.inputSetErrorWrapper?.uuidToErrorResponseMap)
+          if (Object.keys(errors).length) {
+            setFormErrors(errors)
+          } else {
+            showError(getString('inputSets.inputSetSavedError'))
+          }
+        } else {
+          showSuccess(getString('inputSets.inputSetSaved'))
+          history.goBack()
+        }
+      }
+    } catch (e) {
+      showError(e?.data?.message || e?.message || getString('commonError'))
+    }
+  }
+
+  const createUpdateInputSetWithGitDetails = (gitDetails: SaveToGitFormInterface, objectId = '') => {
+    createUpdateInputSet(savedInputSetObj, gitDetails, objectId)
+  }
+
+  const { openSaveToGitDialog } = useSaveToGitDialog({
+    onSuccess: (data: SaveToGitFormInterface) =>
+      createUpdateInputSetWithGitDetails(data, inputSetResponse?.data?.gitDetails?.objectId ?? '')
+  })
+
   const handleSubmit = React.useCallback(
     async (inputSetObj: InputSetDTO) => {
+      setSavedInputSetObj(inputSetObj)
       if (inputSetObj) {
-        try {
-          let response: ResponseInputSetResponse | null = null
-          if (isEdit) {
-            response = await updateInputSet(stringify({ inputSet: clearNullUndefined(inputSetObj) }) as any, {
-              pathParams: { inputSetIdentifier: inputSetObj.identifier || /* istanbul ignore next */ '' }
-            })
-          } else {
-            response = await createInputSet(stringify({ inputSet: clearNullUndefined(inputSetObj) }) as any)
-          }
-          /* istanbul ignore else */
-          if (response) {
-            if (response.data?.errorResponse) {
-              const errors = getFormattedErrors(response.data.inputSetErrorWrapper?.uuidToErrorResponseMap)
-              if (Object.keys(errors).length) {
-                setFormErrors(errors)
-              } else {
-                showError(getString('inputSets.inputSetSavedError'))
-              }
-            } else {
-              showSuccess(getString('inputSets.inputSetSaved'))
-              history.goBack()
-            }
-          }
-        } catch (e) {
-          showError(e?.data?.message || e?.message || getString('commonError'))
+        if (isGitSyncEnabled) {
+          openSaveToGitDialog(isEdit, {
+            type: 'InputSets',
+            name: inputSetObj.name as string,
+            identifier: inputSetObj.identifier as string,
+            gitDetails: inputSetResponse?.data?.gitDetails ?? pipeline?.data?.gitDetails ?? {}
+          })
+        } else {
+          createUpdateInputSet(inputSetObj)
         }
       }
     },
-    [isEdit, updateInputSet, createInputSet, showSuccess, showError]
+    [isEdit, updateInputSet, createInputSet, showSuccess, showError, isGitSyncEnabled, inputSetResponse, pipeline]
   )
 
   const renderErrors = React.useCallback(() => {
@@ -520,6 +566,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
       handleModeSwitch={handleModeSwitch}
       inputSet={inputSet}
       pipeline={pipeline}
+      isGitSyncEnabled={isGitSyncEnabled}
     >
       {child}
     </InputSetFormWrapper>
@@ -534,10 +581,11 @@ export interface InputSetFormWrapperProps {
   handleModeSwitch(mode: SelectedView): void
   inputSet: InputSetDTO
   pipeline: ResponsePMSPipelineResponseDTO | null
+  isGitSyncEnabled?: boolean
 }
 
 export function InputSetFormWrapper(props: InputSetFormWrapperProps): React.ReactElement {
-  const { isEdit, children, selectedView, handleModeSwitch, loading, inputSet, pipeline } = props
+  const { isEdit, children, selectedView, handleModeSwitch, loading, inputSet, pipeline, isGitSyncEnabled } = props
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier, module } = useParams<
     PipelineType<InputSetPathProps> & { accountId: string }
   >()
@@ -580,6 +628,7 @@ export function InputSetFormWrapper(props: InputSetFormWrapperProps): React.Reac
                   ? getString('inputSets.editTitle', { name: inputSet.name })
                   : getString('inputSets.newInputSetLabel')}
               </Text>
+              {isGitSyncEnabled && isEdit && <GitPopover data={inputSet.gitDetails || {}} />}
               <div className={css.optionBtns}>
                 <div
                   className={cx(css.item, { [css.selected]: selectedView === SelectedView.VISUAL })}

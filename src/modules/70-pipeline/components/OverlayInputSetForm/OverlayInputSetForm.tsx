@@ -35,6 +35,10 @@ import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { NameIdDescriptionTags } from '@common/components'
 import { useStrings } from 'framework/strings'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
+import useSaveToGitDialog from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
+import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
+import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
+import type { InputSetDTO } from '../InputSetForm/InputSetForm'
 import css from './OverlayInputSetForm.module.scss'
 
 export interface OverlayInputSetDTO extends Omit<OverlayInputSetResponse, 'identifier'> {
@@ -96,6 +100,8 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps & GitQueryPa
   const { getString } = useStrings()
   const [isOpen, setIsOpen] = React.useState(true)
   const [isEdit, setIsEdit] = React.useState(false)
+  const [savedInputSetObj, setSavedInputSetObj] = React.useState<InputSetDTO>({})
+  const { isGitSyncEnabled } = React.useContext(AppStoreContext)
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier } = useParams<{
     projectIdentifier: string
     orgIdentifier: string
@@ -176,7 +182,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps & GitQueryPa
     lazy: true
   })
 
-  const { loading: loadingPipeline, error: errorPipeline } = useGetPipeline({
+  const { data: pipeline, loading: loadingPipeline, error: errorPipeline } = useGetPipeline({
     pipelineIdentifier,
     lazy: true,
     queryParams: {
@@ -253,42 +259,89 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps & GitQueryPa
     hideForm()
   }, [hideForm])
 
+  const createUpdateOverlayInputSet = async (
+    inputSetObj: InputSetDTO,
+    gitDetails?: SaveToGitFormInterface,
+    objectId = ''
+  ) => {
+    try {
+      let response: ResponseOverlayInputSetResponse | null = null
+      /* istanbul ignore else */
+      if (isEdit) {
+        response = await updateOverlayInputSet(stringify({ overlayInputSet: clearNullUndefined(inputSetObj) }) as any, {
+          pathParams: { inputSetIdentifier: inputSetObj.identifier || /* istanbul ignore next */ '' },
+          queryParams: {
+            accountIdentifier: accountId,
+            orgIdentifier,
+            pipelineIdentifier,
+            projectIdentifier,
+            ...(gitDetails ?? {}),
+            lastObjectId: objectId
+          }
+        })
+      } else {
+        response = await createOverlayInputSet(stringify({ overlayInputSet: clearNullUndefined(inputSetObj) }) as any, {
+          queryParams: {
+            accountIdentifier: accountId,
+            orgIdentifier,
+            pipelineIdentifier,
+            projectIdentifier,
+            ...(gitDetails ?? {})
+          }
+        })
+      }
+      /* istanbul ignore else */
+      if (response) {
+        if (response.data?.errorResponse) {
+          clear()
+          showError(getString('inputSets.overlayInputSetSavedError'))
+        } else {
+          clear()
+          showSuccess(getString('inputSets.overlayInputSetSaved'))
+        }
+      }
+      closeForm()
+    } catch (_e) {
+      // showError(e?.message || i18n.commonError)
+    }
+  }
+
+  const createUpdateInputSetWithGitDetails = (gitDetails: SaveToGitFormInterface, objectId = '') => {
+    createUpdateOverlayInputSet(savedInputSetObj, gitDetails, objectId)
+  }
+
+  const { openSaveToGitDialog } = useSaveToGitDialog({
+    onSuccess: (data: SaveToGitFormInterface) =>
+      createUpdateInputSetWithGitDetails(data, overlayInputSetResponse?.data?.gitDetails?.objectId ?? '')
+  })
+
   const handleSubmit = React.useCallback(
     async (inputSetObj: OverlayInputSetDTO) => {
+      setSavedInputSetObj(inputSetObj)
       if (inputSetObj) {
         delete inputSetObj.pipeline
-        try {
-          let response: ResponseOverlayInputSetResponse | null = null
-          /* istanbul ignore else */
-          if (isEdit) {
-            response = await updateOverlayInputSet(
-              stringify({ overlayInputSet: clearNullUndefined(inputSetObj) }) as any,
-              {
-                pathParams: { inputSetIdentifier: inputSetObj.identifier || /* istanbul ignore next */ '' }
-              }
-            )
-          } else {
-            response = await createOverlayInputSet(
-              stringify({ overlayInputSet: clearNullUndefined(inputSetObj) }) as any
-            )
-          }
-          /* istanbul ignore else */
-          if (response) {
-            if (response.data?.errorResponse) {
-              clear()
-              showError(getString('inputSets.overlayInputSetSavedError'))
-            } else {
-              clear()
-              showSuccess(getString('inputSets.overlayInputSetSaved'))
-            }
-          }
-          closeForm()
-        } catch (_e) {
-          // showError(e?.message || i18n.commonError)
+        if (isGitSyncEnabled) {
+          openSaveToGitDialog(isEdit, {
+            type: 'InputSets',
+            name: inputSetObj.name as string,
+            identifier: inputSetObj.identifier as string,
+            gitDetails: overlayInputSetResponse?.data?.gitDetails ?? pipeline?.data?.gitDetails ?? {}
+          })
+        } else {
+          createUpdateOverlayInputSet(inputSetObj)
         }
       }
     },
-    [isEdit, showSuccess, closeForm, showError, createOverlayInputSet, updateOverlayInputSet]
+    [
+      isEdit,
+      showSuccess,
+      closeForm,
+      showError,
+      createOverlayInputSet,
+      updateOverlayInputSet,
+      isGitSyncEnabled,
+      overlayInputSetResponse
+    ]
   )
 
   const onDragStart = React.useCallback((event: React.DragEvent<HTMLDivElement>, index: number) => {

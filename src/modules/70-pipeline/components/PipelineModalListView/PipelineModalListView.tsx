@@ -66,7 +66,7 @@ export default function PipelineModalListView({ onClose, mockData }: PipelineMod
     cancel()
     fetchPipelines()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, accountId, projectIdentifier, orgIdentifier, module, searchParam])
+  }, [page, accountId, projectIdentifier, orgIdentifier, module, searchParam, gitFilter])
 
   const handleSearch = (query: string): void => {
     setSearchParam(query)

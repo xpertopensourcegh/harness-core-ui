@@ -6,7 +6,7 @@ import { Page } from '@common/exports'
 import { InputSetSummaryResponse, useGetInputSetsListForPipeline } from 'services/pipeline-ng'
 import { OverlayInputSetForm } from '@pipeline/components/OverlayInputSetForm/OverlayInputSetForm'
 import routes from '@common/RouteDefinitions'
-import type { PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
+import type { GitQueryParams, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { useStrings } from 'framework/strings'
 import RbacButton from '@rbac/components/Button/Button'
@@ -16,6 +16,7 @@ import { usePermission } from '@rbac/hooks/usePermission'
 import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { useQueryParams } from '@common/hooks'
 import { InputSetListView } from './InputSetListView'
 import css from './InputSetList.module.scss'
 
@@ -23,7 +24,8 @@ const InputSetList: React.FC = (): JSX.Element => {
   const { isGitSyncEnabled } = useAppStore()
   const [searchParam, setSearchParam] = React.useState('')
   const [page, setPage] = React.useState(0)
-  const [gitFilter, setGitFilter] = useState<GitFilterScope | null>(null)
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
+  const [gitFilter, setGitFilter] = useState<GitFilterScope>({ repo: repoIdentifier || '', branch: branch || '' })
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier, module } = useParams<
     PipelineType<PipelinePathProps> & { accountId: string }
   >()
@@ -37,11 +39,8 @@ const InputSetList: React.FC = (): JSX.Element => {
       pageIndex: page,
       pageSize: 10,
       searchTerm: searchParam,
-      ...(gitFilter?.repo &&
-        gitFilter.branch && {
-          repoIdentifier: gitFilter.repo,
-          branch: gitFilter.branch
-        })
+      repoIdentifier: gitFilter.repo,
+      branch: gitFilter.branch
     },
     debounce: 300
   })
@@ -65,8 +64,10 @@ const InputSetList: React.FC = (): JSX.Element => {
           pipelineIdentifier,
           inputSetIdentifier: typeof inputSetTemp?.identifier !== 'string' ? '-1' : inputSetTemp.identifier,
           module,
-          repoIdentifier: inputSetTemp?.gitDetails?.repoIdentifier,
-          branch: inputSetTemp?.gitDetails?.branch
+          inputSetRepoIdentifier: inputSetTemp?.gitDetails?.repoIdentifier,
+          inputSetBranch: inputSetTemp?.gitDetails?.branch,
+          repoIdentifier,
+          branch
         })
       )
     },
@@ -152,6 +153,7 @@ const InputSetList: React.FC = (): JSX.Element => {
                     setPage(0)
                   }}
                   className={css.gitFilter}
+                  defaultValue={{ repo: repoIdentifier || '', branch: branch }}
                 />
               </GitSyncStoreProvider>
             )}

@@ -1,12 +1,13 @@
 import React from 'react'
 import { Classes, Dialog } from '@blueprintjs/core'
 import cx from 'classnames'
-import { useModalHook, Text, Icon } from '@wings-software/uicore'
+import { useModalHook, Text, Icon, Layout, Color } from '@wings-software/uicore'
 import { useHistory, useParams, matchPath } from 'react-router-dom'
 import { parse } from 'yaml'
-import { isEqual } from 'lodash-es'
-import type { NgPipeline } from 'services/cd-ng'
+import { isEqual, merge, omit } from 'lodash-es'
+import type { NgPipeline, PipelineInfoConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
+import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { NavigationCheck } from '@common/components/NavigationCheck/NavigationCheck'
@@ -24,6 +25,10 @@ import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRu
 import RbacButton from '@rbac/components/Button/Button'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import useSaveToGitDialog from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
+import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
+import type { EntityGitDetails } from 'services/pipeline-ng'
+import { useQueryParams, useUpdateQueryParams } from '@common/hooks'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import CreatePipelines from '../CreateModal/PipelineCreate'
 import { DefaultNewPipelineId, DrawerTypes } from '../PipelineContext/PipelineActions'
@@ -43,7 +48,10 @@ export interface PipelineCanvasProps {
   toPipelineDetail: PathFn<PipelineType<PipelinePathProps>>
   toPipelineList: PathFn<PipelineType<ProjectPathProps>>
   toPipelineProject: PathFn<PipelineType<ProjectPathProps>>
-  getOtherModal?: (onSubmit: (values: NgPipeline) => void, onClose: () => void) => React.ReactElement<OtherModalProps>
+  getOtherModal?: (
+    onSubmit: (values: NgPipeline, gitDetails?: EntityGitDetails) => void,
+    onClose: () => void
+  ) => React.ReactElement<OtherModalProps>
 }
 
 export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
@@ -51,9 +59,11 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   toPipelineStudio,
   getOtherModal
 }): JSX.Element => {
+  const { isGitSyncEnabled } = React.useContext(AppStoreContext)
   const {
     state,
     updatePipeline,
+    updateGitDetails,
     deletePipelineCache,
     fetchPipeline,
     view,
@@ -62,13 +72,24 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     updatePipelineView,
     setSelectedStageId
   } = React.useContext(PipelineContext)
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
+  const { updateQueryParams } = useUpdateQueryParams<PipelineStudioQueryParams>()
 
-  const { pipeline, isUpdated, isLoading, isInitialized, originalPipeline, yamlHandler, isBEPipelineUpdated } = state
+  const {
+    pipeline,
+    isUpdated,
+    isLoading,
+    isInitialized,
+    originalPipeline,
+    yamlHandler,
+    isBEPipelineUpdated,
+    gitDetails
+  } = state
   // const { stage: selectedStage } = getStageFromPipeline(pipeline, selectedStageId || '')
 
   const { getString } = useStrings()
 
-  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier, module, repoIdentifier, branch } = useParams<
+  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier, module } = useParams<
     PipelineType<{
       orgIdentifier: string
       projectIdentifier: string
@@ -98,20 +119,26 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   const history = useHistory()
   const isYaml = view === 'yaml'
   const [isYamlError, setYamlError] = React.useState(false)
+  const [saving, setSaving] = React.useState(false)
 
-  const saveAndPublish = React.useCallback(async () => {
-    let latestPipeline: NgPipeline = pipeline
-
-    if (isYaml && yamlHandler) {
-      latestPipeline = parse(yamlHandler.getLatestYaml()).pipeline as NgPipeline
-    }
-
+  const saveAndPublishPipeline = async (
+    latestPipeline: NgPipeline,
+    updatedGitDetails?: SaveToGitFormInterface,
+    lastObject?: { lastObjectId?: string }
+  ) => {
+    setSaving(true)
     const response = await savePipeline(
-      { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
+      {
+        accountIdentifier: accountId,
+        projectIdentifier,
+        orgIdentifier,
+        ...(updatedGitDetails ?? {}),
+        ...(lastObject ?? {})
+      },
       latestPipeline,
       pipelineIdentifier !== DefaultNewPipelineId
     )
-
+    setSaving(false)
     const newPipelineId = latestPipeline?.identifier
 
     if (response && response.status === 'SUCCESS') {
@@ -127,8 +154,8 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
             pipelineIdentifier: newPipelineId,
             accountId,
             module,
-            repoIdentifier,
-            branch
+            repoIdentifier: updatedGitDetails?.repoIdentifier,
+            branch: updatedGitDetails?.branch
           })
         )
         // note: without setTimeout does not redirect properly after save
@@ -139,6 +166,44 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     } else {
       clear()
       showError(response?.message || getString('errorWhileSaving'))
+    }
+  }
+
+  const saveAngPublishWithGitInfo = async (updatedGitDetails: SaveToGitFormInterface, objectId: string) => {
+    let latestPipeline: PipelineInfoConfig = pipeline
+
+    if (isYaml && yamlHandler) {
+      latestPipeline = parse(yamlHandler.getLatestYaml()).pipeline as NgPipeline
+    }
+
+    saveAndPublishPipeline(
+      latestPipeline,
+      omit(updatedGitDetails, 'name', 'identifier'),
+      pipelineIdentifier !== DefaultNewPipelineId ? { lastObjectId: objectId } : {}
+    )
+  }
+
+  const { openSaveToGitDialog } = useSaveToGitDialog({
+    onSuccess: (data: SaveToGitFormInterface) => saveAngPublishWithGitInfo(data, gitDetails?.objectId ?? '')
+  })
+
+  const saveAndPublish = React.useCallback(async () => {
+    let latestPipeline: PipelineInfoConfig = pipeline
+
+    if (isYaml && yamlHandler) {
+      latestPipeline = parse(yamlHandler.getLatestYaml()).pipeline as NgPipeline
+    }
+
+    // if Git sync enabled then display modal
+    if (isGitSyncEnabled) {
+      openSaveToGitDialog(pipelineIdentifier !== DefaultNewPipelineId, {
+        type: 'Pipelines',
+        name: latestPipeline.name,
+        identifier: latestPipeline.identifier,
+        gitDetails: gitDetails ?? {}
+      })
+    } else {
+      saveAndPublishPipeline(latestPipeline)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -163,8 +228,16 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       return getOtherModal(onSubmit, onCloseCreate)
     } else {
       return (
-        <Dialog style={{ width: '385px', paddingBottom: 0 }} isOpen={true} className={cx(css.dialog, Classes.DIALOG)}>
-          <CreatePipelines afterSave={onSubmit} initialValues={pipeline} closeModal={onCloseCreate} />
+        <Dialog
+          style={{ width: isGitSyncEnabled ? '614px' : '385px', paddingBottom: 0 }}
+          isOpen={true}
+          className={cx(css.dialog, Classes.DIALOG)}
+        >
+          <CreatePipelines
+            afterSave={onSubmit}
+            initialValues={merge(pipeline, { repo: gitDetails.repoIdentifier || '', branch: gitDetails.branch || '' })}
+            closeModal={onCloseCreate}
+          />
         </Dialog>
       )
     }
@@ -224,12 +297,22 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   ])
 
   const onSubmit = React.useCallback(
-    (data: NgPipeline) => {
+    (data: NgPipeline, updatedGitDetails?: EntityGitDetails) => {
       pipeline.name = data.name
       pipeline.description = data.description
       pipeline.identifier = data.identifier
       pipeline.tags = data.tags ?? {}
-      updatePipeline(pipeline)
+      updatePipeline(omit(pipeline, 'repo', 'branch'))
+      if (updatedGitDetails) {
+        updateGitDetails(updatedGitDetails).then(() => {
+          if (updatedGitDetails) {
+            updateQueryParams(
+              { repoIdentifier: updatedGitDetails.repoIdentifier, branch: updatedGitDetails.branch },
+              { skipNulls: true }
+            )
+          }
+        })
+      }
       hideModal()
     },
     [hideModal, pipeline, updatePipeline]
@@ -271,6 +354,34 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     repoIdentifier,
     branch
   })
+
+  const RenderGitDetails: React.FC = () => {
+    if (gitDetails?.objectId || (pipelineIdentifier === DefaultNewPipelineId && gitDetails.repoIdentifier)) {
+      return (
+        <Layout.Horizontal border={{ left: true, color: Color.GREY_300 }} spacing="medium">
+          <Layout.Horizontal spacing="small">
+            <Icon name="repository" margin={{ left: 'medium' }}></Icon>
+            {pipelineIdentifier === DefaultNewPipelineId ? (
+              <Text>{`${gitDetails?.repoIdentifier}`}</Text>
+            ) : (
+              <Text>{`${gitDetails?.rootFolder}${gitDetails?.filePath}`}</Text>
+            )}
+          </Layout.Horizontal>
+
+          <Layout.Horizontal border={{ left: true, color: Color.GREY_300 }} spacing="small">
+            <Icon name="git-new-branch" margin={{ left: 'medium' }}></Icon>
+            {
+              // pipelineIdentifier === DefaultNewPipelineId || isReadonly ?
+              <Text>{gitDetails?.branch}</Text>
+              // : <BranchSelecto />
+            }
+          </Layout.Horizontal>
+        </Layout.Horizontal>
+      )
+    } else {
+      return <></>
+    }
+  }
 
   if (isLoading) {
     return (
@@ -357,22 +468,28 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                 />
               )}
             </div>
-          </div>
-        </div>
 
-        <div className={css.pipelineStudioTitleContainer}>
-          <div className={css.optionBtns}>
-            <div
-              className={cx(css.item, { [css.selected]: !isYaml })}
-              onClick={() => handleViewChange(PipelineStudioView.ui)}
-            >
-              {getString('visual')}
-            </div>
-            <div
-              className={cx(css.item, { [css.selected]: isYaml })}
-              onClick={() => handleViewChange(PipelineStudioView.yaml)}
-            >
-              {getString('yaml')}
+            {isGitSyncEnabled && (
+              <div className={css.gitDetails}>
+                <RenderGitDetails />
+              </div>
+            )}
+          </div>
+
+          <div className={css.pipelineStudioTitleContainer}>
+            <div className={css.optionBtns}>
+              <div
+                className={cx(css.item, { [css.selected]: !isYaml })}
+                onClick={() => handleViewChange(PipelineStudioView.ui)}
+              >
+                {getString('visual')}
+              </div>
+              <div
+                className={cx(css.item, { [css.selected]: isYaml })}
+                onClick={() => handleViewChange(PipelineStudioView.yaml)}
+              >
+                {getString('yaml')}
+              </div>
             </div>
           </div>
         </div>
@@ -428,6 +545,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       </div>
       {isYaml ? <PipelineYamlView /> : <StageBuilder />}
       <RightBar />
+      {saving ? <PageSpinner message={getString('pipeline.savingInProgress')} /> : null}
     </div>
   )
 }

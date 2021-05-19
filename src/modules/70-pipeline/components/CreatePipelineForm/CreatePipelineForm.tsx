@@ -9,6 +9,9 @@ import { StringUtils } from '@common/exports'
 import { DEFAULT_COLOR } from '@common/constants/Utils'
 import { useStrings } from 'framework/strings'
 import type { EntityGitDetails } from 'services/pipeline-ng'
+import GitContextForm from '@common/components/GitContextForm/GitContextForm'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 
 interface CreatePipelineFormProps {
   handleSubmit: (value: NgPipeline, gitDetail: EntityGitDetails) => void
@@ -18,6 +21,7 @@ interface CreatePipelineFormProps {
 export const CreatePipelineForm: React.FC<CreatePipelineFormProps> = props => {
   const { getString } = useStrings()
   const { handleSubmit, closeModal } = props
+  const { isGitSyncEnabled } = useAppStore()
   return (
     <Formik
       initialValues={{
@@ -26,7 +30,7 @@ export const CreatePipelineForm: React.FC<CreatePipelineFormProps> = props => {
         name: '',
         description: '',
         tags: {},
-        repoIdentifier: '',
+        repo: '',
         branch: ''
       }}
       validationSchema={Yup.object().shape({
@@ -42,9 +46,9 @@ export const CreatePipelineForm: React.FC<CreatePipelineFormProps> = props => {
       })}
       enableReinitialize={true}
       onSubmit={values => {
-        handleSubmit(omit(values, 'repoIdentifier', 'branch'), {
+        handleSubmit(omit(values, 'repo', 'branch'), {
           branch: values.branch,
-          repoIdentifier: values.repoIdentifier
+          repoIdentifier: values.repo
         })
       }}
     >
@@ -58,6 +62,14 @@ export const CreatePipelineForm: React.FC<CreatePipelineFormProps> = props => {
               {getString('pipeline.createPipeline.setupSubtitle')}
             </Text>
             <NameIdDescriptionTags formikProps={formikProps} />
+            {isGitSyncEnabled && (
+              <GitSyncStoreProvider>
+                <GitContextForm
+                  formikProps={formikProps}
+                  gitDetails={{ repoIdentifier: formikProps.values.repo, branch: formikProps.values.branch }}
+                />
+              </GitSyncStoreProvider>
+            )}
             <Layout.Horizontal padding={{ top: 'large' }} spacing="medium">
               <Button intent="primary" text={getString('start')} type="submit" />
               <Button

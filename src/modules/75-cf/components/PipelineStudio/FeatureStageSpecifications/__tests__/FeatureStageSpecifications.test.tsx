@@ -27,7 +27,7 @@ const getPipelineContext = (): PipelineContextInterface => ({
       drawerData: { type: DrawerTypes.AddStep },
       splitViewData: {}
     },
-    gitDetail: {},
+    gitDetails: {},
     selectionState: {},
     pipelineIdentifier: '',
     isBEPipelineUpdated: false,

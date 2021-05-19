@@ -33,7 +33,7 @@ const getPipelineContext = (): PipelineContextInterface => ({
     isDBInitialized: true,
     isInitialized: true,
     isLoading: false,
-    gitDetail: {},
+    gitDetails: {},
     isUpdated: true
   },
   stagesMap: {},

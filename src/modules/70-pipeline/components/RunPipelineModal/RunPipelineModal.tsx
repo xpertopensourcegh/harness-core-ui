@@ -94,6 +94,8 @@ export function RunPipelineModal(): React.ReactElement {
           module={module}
           inputSetYAML={inputSetYaml || ''}
           inputSetSelected={getInputSetSelected()}
+          repoIdentifier={query.repoIdentifier}
+          branch={query.branch}
         />
       </Layout.Vertical>
     </Dialog>

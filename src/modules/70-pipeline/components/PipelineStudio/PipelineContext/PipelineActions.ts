@@ -100,7 +100,7 @@ export interface PipelineReducerState {
   pipelineView: PipelineViewData
   pipelineIdentifier: string
   error?: string
-  gitDetail: EntityGitDetails
+  gitDetails: EntityGitDetails
   isDBInitialized: boolean
   isLoading: boolean
   isInitialized: boolean
@@ -118,7 +118,7 @@ export const DefaultPipeline: PipelineInfoConfig = {
 export interface ActionResponse {
   error?: string
   isUpdated?: boolean
-  gitDetail?: EntityGitDetails
+  gitDetails?: EntityGitDetails
   pipeline?: PipelineInfoConfig
   yamlHandler?: YamlBuilderHandlerBinding
   originalPipeline?: PipelineInfoConfig
@@ -181,7 +181,7 @@ export const initialState: PipelineReducerState = {
       type: DrawerTypes.AddStep
     }
   },
-  gitDetail: {},
+  gitDetails: {},
   isLoading: false,
   isBEPipelineUpdated: false,
   isDBInitialized: false,

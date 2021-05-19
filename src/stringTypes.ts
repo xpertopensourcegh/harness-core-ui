@@ -1137,6 +1137,7 @@ export interface StringsMap {
   'pipeline.resourceConstraints.infoText': string
   'pipeline.resourceConstraints.title': string
   'pipeline.resourceConstraints.yourPipeline': string
+  'pipeline.savingInProgress': string
   'pipeline.selectOrCreateForm.description': string
   'pipeline.selectOrCreatePipeline.pipelineNameRequired': string
   'pipeline.selectOrCreatePipeline.selectAPipeline': string

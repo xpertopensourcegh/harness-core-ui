@@ -404,3 +404,4 @@ dashboards:
   successRate: Success Rate
   meanDuration: Mean Duration
   medianDuration: Median Duration
+savingInProgress: Saving in progress...

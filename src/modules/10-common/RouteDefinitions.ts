@@ -27,7 +27,8 @@ import type {
   PipelineStudioQueryParams,
   RunPipelineQueryParams,
   GitQueryParams,
-  ModuleHomeParams
+  ModuleHomeParams,
+  InputSetGitQueryParams
 } from '@common/interfaces/RouteInterfaces'
 
 const CV_HOME = `/cv/home`
@@ -465,7 +466,7 @@ const routes = {
       accountId: _accountId,
       module,
       ...rest
-    }: PipelineType<InputSetPathProps> & GitQueryParams) => {
+    }: PipelineType<InputSetPathProps> & InputSetGitQueryParams) => {
       const queryString = qs.stringify(rest, { skipNulls: true })
       if (queryString.length > 0) {
         return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/input-sets/${inputSetIdentifier}?${queryString}`

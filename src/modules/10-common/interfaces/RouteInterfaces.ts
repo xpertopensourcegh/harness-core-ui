@@ -12,6 +12,10 @@ export interface GitQueryParams {
   repoIdentifier?: EntityGitDetails['repoIdentifier']
 }
 
+export interface InputSetGitQueryParams extends GitQueryParams {
+  inputSetBranch?: EntityGitDetails['branch']
+  inputSetRepoIdentifier?: EntityGitDetails['repoIdentifier']
+}
 export interface PipelineStudioQueryParams extends GitQueryParams {
   stageId?: string
   stepId?: string

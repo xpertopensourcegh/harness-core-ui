@@ -1,34 +1,43 @@
 import React from 'react'
 import { Container, Formik, FormikForm, Button } from '@wings-software/uicore'
 import * as Yup from 'yup'
-
+import { omit, pick } from 'lodash-es'
 import { useParams } from 'react-router-dom'
+
 import { useStrings } from 'framework/strings'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
 import type { NgPipeline } from 'services/cd-ng'
-
 import { StringUtils } from '@common/exports'
 import { NameIdDescriptionTags } from '@common/components'
-import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
+import GitContextForm from '@common/components/GitContextForm/GitContextForm'
+import type { EntityGitDetails } from 'services/pipeline-ng'
 
+import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
 import css from './PipelineCreate.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
 
+interface NgPipelineWithGitDetails extends NgPipeline {
+  repo: string
+  branch: string
+}
 export interface PipelineCreateProps {
-  afterSave?: (values: NgPipeline) => void
-  initialValues?: NgPipeline
+  afterSave?: (values: NgPipeline, gitDetails?: EntityGitDetails) => void
+  initialValues?: NgPipelineWithGitDetails
   closeModal?: () => void
 }
 
 export default function CreatePipelines({
   afterSave,
-  initialValues = { identifier: '', name: '', description: '', tags: {} },
+  initialValues = { identifier: '', name: '', description: '', tags: {}, repo: '', branch: '' },
   closeModal
 }: PipelineCreateProps): JSX.Element {
   const { getString } = useStrings()
   const { pipelineIdentifier } = useParams<{ pipelineIdentifier: string }>()
+  const { isGitSyncEnabled } = useAppStore()
 
   const identifier = initialValues?.identifier
   if (identifier === DefaultNewPipelineId) {
@@ -56,7 +65,11 @@ export default function CreatePipelines({
             })}
             onSubmit={values => {
               logger.info(JSON.stringify(values))
-              afterSave && afterSave(values)
+              const gitDetails =
+                values.repo && values.repo.trim().length > 0
+                  ? { repoIdentifier: values.repo, branch: values.branch }
+                  : undefined
+              afterSave && afterSave(omit(values, 'repo', 'branch'), gitDetails)
             }}
           >
             {formikProps => (
@@ -69,6 +82,11 @@ export default function CreatePipelines({
                     }}
                   />
                 </div>
+                {isGitSyncEnabled && (
+                  <GitSyncStoreProvider>
+                    <GitContextForm formikProps={formikProps} gitDetails={pick(initialValues, ['repo', 'branch'])} />
+                  </GitSyncStoreProvider>
+                )}
                 <Button
                   intent="primary"
                   className={css.startBtn}

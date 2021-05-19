@@ -45,7 +45,7 @@ const CDPipelineStudio: React.FC = (): JSX.Element => {
   return (
     <PipelineProvider
       stagesMap={stagesCollection.getAllStagesAttributes(getString)}
-      queryParams={{ accountIdentifier: accountId, orgIdentifier, projectIdentifier }}
+      queryParams={{ accountIdentifier: accountId, orgIdentifier, projectIdentifier, repoIdentifier, branch }}
       pipelineIdentifier={pipelineIdentifier}
       renderPipelineStage={args =>
         getCDPipelineStages(

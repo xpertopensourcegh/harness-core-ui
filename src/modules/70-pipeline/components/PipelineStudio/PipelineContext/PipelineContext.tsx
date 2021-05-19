@@ -1,6 +1,6 @@
 import React from 'react'
 import { openDB, IDBPDatabase, deleteDB } from 'idb'
-import { isEqual, cloneDeep, pick, isNil, isEmpty } from 'lodash-es'
+import { isEqual, cloneDeep, pick, isNil, isEmpty, omit } from 'lodash-es'
 import { parse, stringify } from 'yaml'
 import type { IconName } from '@wings-software/uicore'
 import merge from 'lodash-es/merge'
@@ -50,18 +50,23 @@ import {
   getStageFromPipeline as _getStageFromPipeline
 } from './helpers'
 
+interface PipelineInfoConfigWithGitDetails extends PipelineInfoConfig {
+  gitDetails?: EntityGitDetails
+}
+
 const logger = loggerFor(ModuleName.CD)
 
 export const getPipelineByIdentifier = (
   params: GetPipelineQueryParams,
   identifier: string
-): Promise<PipelineInfoConfig | undefined> => {
+): Promise<PipelineInfoConfigWithGitDetails> => {
   return getPipelinePromise({
     pipelineIdentifier: identifier,
     queryParams: {
       accountIdentifier: params.accountIdentifier,
       orgIdentifier: params.orgIdentifier,
-      projectIdentifier: params.projectIdentifier
+      projectIdentifier: params.projectIdentifier,
+      ...(params.repoIdentifier ? { repoIdentifier: params.repoIdentifier, branch: params.branch } : {})
     },
     requestOptions: {
       headers: {
@@ -76,8 +81,9 @@ export const getPipelineByIdentifier = (
       obj = response
     }
     if (obj.status === 'SUCCESS' && obj.data?.yamlPipeline) {
-      return parse(obj.data.yamlPipeline).pipeline as PipelineInfoConfig
+      return { ...parse(obj.data.yamlPipeline).pipeline, gitDetails: obj.data.gitDetails ?? {} }
     }
+    return obj
   })
 }
 
@@ -99,9 +105,7 @@ export const savePipeline = (
     ? putPipelinePromise({
         pipelineIdentifier: pipeline.identifier,
         queryParams: {
-          accountIdentifier: params.accountIdentifier,
-          projectIdentifier: params.projectIdentifier,
-          orgIdentifier: params.orgIdentifier
+          ...params
         },
         body: body as any,
         requestOptions: { headers: { 'Content-Type': 'application/yaml' } }
@@ -115,9 +119,7 @@ export const savePipeline = (
     : createPipelinePromise({
         body: body as any,
         queryParams: {
-          accountIdentifier: params.accountIdentifier,
-          projectIdentifier: params.projectIdentifier,
-          orgIdentifier: params.orgIdentifier
+          ...params
         },
         requestOptions: { headers: { 'Content-Type': 'application/yaml' } }
       }).then(async (response: unknown) => {
@@ -159,7 +161,7 @@ export interface PipelineContextInterface {
   fetchPipeline: (forceFetch?: boolean, forceUpdate?: boolean, newPipelineId?: string) => Promise<void>
   setYamlHandler: (yamlHandler: YamlBuilderHandlerBinding) => void
   updatePipeline: (pipeline: PipelineInfoConfig) => Promise<void>
-  updateGitDetails: (gitDetail: EntityGitDetails) => Promise<void>
+  updateGitDetails: (gitDetails: EntityGitDetails) => Promise<void>
   updatePipelineView: (data: PipelineViewData) => void
   deletePipelineCache: () => Promise<void>
   getStageFromPipeline: (
@@ -179,7 +181,7 @@ interface PipelinePayload {
   pipeline: PipelineInfoConfig | undefined
   originalPipeline?: PipelineInfoConfig
   isUpdated: boolean
-  gitDetail: EntityGitDetails
+  gitDetails: EntityGitDetails
 }
 
 const getId = (
@@ -196,7 +198,7 @@ const _fetchPipeline = async (
   dispatch: React.Dispatch<ActionReturnType>,
   queryParams: GetPipelineQueryParams,
   identifier: string,
-  gitDetail: EntityGitDetails,
+  gitDetails: EntityGitDetails,
   forceFetch = false,
   forceUpdate = false,
   newPipelineId?: string
@@ -207,20 +209,24 @@ const _fetchPipeline = async (
     queryParams.orgIdentifier || '',
     queryParams.projectIdentifier || '',
     pipelineId,
-    gitDetail.repoIdentifier,
-    gitDetail.branch
+    gitDetails.repoIdentifier || '',
+    gitDetails.branch || ''
   )
   if (IdbPipeline) {
     dispatch(PipelineContextActions.fetching())
     const data: PipelinePayload = await IdbPipeline.get(IdbPipelineStoreName, id)
     if ((!data || forceFetch) && pipelineId !== DefaultNewPipelineId) {
-      const pipeline = await getPipelineByIdentifier(queryParams, pipelineId)
+      const pipelineWithGitDetails: PipelineInfoConfigWithGitDetails = await getPipelineByIdentifier(
+        queryParams,
+        pipelineId
+      )
+      const pipeline: PipelineInfoConfig = omit(pipelineWithGitDetails, 'gitDetails')
       const payload: PipelinePayload = {
         [KeyPath]: id,
         pipeline,
         originalPipeline: cloneDeep(pipeline),
         isUpdated: false,
-        gitDetail
+        gitDetails: pipelineWithGitDetails?.gitDetails?.objectId ? pipelineWithGitDetails.gitDetails : gitDetails ?? {}
       }
       if (data && !forceUpdate) {
         dispatch(
@@ -229,7 +235,8 @@ const _fetchPipeline = async (
             pipeline: data.pipeline,
             originalPipeline: cloneDeep(pipeline),
             isBEPipelineUpdated: !isEqual(pipeline, data.originalPipeline),
-            isUpdated: !isEqual(pipeline, data.pipeline)
+            isUpdated: !isEqual(pipeline, data.pipeline),
+            gitDetails: data?.gitDetails ?? {}
           })
         )
         dispatch(PipelineContextActions.initialized())
@@ -241,7 +248,10 @@ const _fetchPipeline = async (
             pipeline,
             originalPipeline: cloneDeep(pipeline),
             isBEPipelineUpdated: false,
-            isUpdated: false
+            isUpdated: false,
+            gitDetails: pipelineWithGitDetails?.gitDetails?.objectId
+              ? pipelineWithGitDetails.gitDetails
+              : gitDetails ?? {}
           })
         )
         dispatch(PipelineContextActions.initialized())
@@ -263,7 +273,8 @@ const _fetchPipeline = async (
               orgIdentifier: queryParams.orgIdentifier
             }),
           isUpdated: true,
-          isBEPipelineUpdated: false
+          isBEPipelineUpdated: false,
+          gitDetails: data?.gitDetails ?? {}
         })
       )
       dispatch(PipelineContextActions.initialized())
@@ -281,15 +292,15 @@ const _softFetchPipeline = async (
   pipeline: PipelineInfoConfig,
   pipelineView: PipelineReducerState['pipelineView'],
   selectionState: PipelineReducerState['selectionState'],
-  gitDetail: EntityGitDetails
+  gitDetails: EntityGitDetails
 ): Promise<void> => {
   const id = getId(
     queryParams.accountIdentifier,
     queryParams.orgIdentifier || '',
     queryParams.projectIdentifier || '',
     pipelineId,
-    gitDetail.repoIdentifier,
-    gitDetail.branch
+    gitDetails.repoIdentifier || '',
+    gitDetails.branch || ''
   )
   if (IdbPipeline) {
     const data: PipelinePayload = await IdbPipeline.get(IdbPipelineStoreName, id)
@@ -331,15 +342,15 @@ interface UpdateGitDetailsArgs {
   originalPipeline: PipelineInfoConfig
   pipeline: PipelineInfoConfig
 }
-const _updateGitDetails = async (args: UpdateGitDetailsArgs, gitDetail: EntityGitDetails): Promise<void> => {
+const _updateGitDetails = async (args: UpdateGitDetailsArgs, gitDetails: EntityGitDetails): Promise<void> => {
   const { dispatch, queryParams, identifier, originalPipeline, pipeline } = args
   const id = getId(
     queryParams.accountIdentifier,
     queryParams.orgIdentifier || '',
     queryParams.projectIdentifier || '',
     identifier,
-    gitDetail.repoIdentifier,
-    gitDetail.branch
+    gitDetails.repoIdentifier || '',
+    gitDetails.branch || ''
   )
   if (IdbPipeline) {
     const isUpdated = !isEqual(originalPipeline, pipeline)
@@ -348,10 +359,10 @@ const _updateGitDetails = async (args: UpdateGitDetailsArgs, gitDetail: EntityGi
       pipeline,
       originalPipeline,
       isUpdated,
-      gitDetail
+      gitDetails
     }
     await IdbPipeline.put(IdbPipelineStoreName, payload)
-    dispatch(PipelineContextActions.success({ error: '', pipeline, isUpdated, gitDetail }))
+    dispatch(PipelineContextActions.success({ error: '', pipeline, isUpdated, gitDetails }))
   }
 }
 
@@ -360,18 +371,18 @@ interface UpdatePipelineArgs {
   queryParams: GetPipelineQueryParams
   identifier: string
   originalPipeline: PipelineInfoConfig
-  gitDetail: EntityGitDetails
+  gitDetails: EntityGitDetails
 }
 
 const _updatePipeline = async (args: UpdatePipelineArgs, pipeline: PipelineInfoConfig): Promise<void> => {
-  const { dispatch, queryParams, identifier, originalPipeline, gitDetail } = args
+  const { dispatch, queryParams, identifier, originalPipeline, gitDetails } = args
   const id = getId(
     queryParams.accountIdentifier,
     queryParams.orgIdentifier || '',
     queryParams.projectIdentifier || '',
     identifier,
-    gitDetail.repoIdentifier,
-    gitDetail.branch
+    gitDetails.repoIdentifier || '',
+    gitDetails.branch || ''
   )
   if (IdbPipeline) {
     const isUpdated = !isEqual(originalPipeline, pipeline)
@@ -380,7 +391,7 @@ const _updatePipeline = async (args: UpdatePipelineArgs, pipeline: PipelineInfoC
       pipeline,
       originalPipeline,
       isUpdated,
-      gitDetail
+      gitDetails
     }
     await IdbPipeline.put(IdbPipelineStoreName, payload)
     dispatch(PipelineContextActions.success({ error: '', pipeline, isUpdated }))
@@ -440,7 +451,7 @@ const _initializeDb = async (dispatch: React.Dispatch<ActionReturnType>, version
 const _deletePipelineCache = async (
   queryParams: GetPipelineQueryParams,
   identifier: string,
-  gitDetail: EntityGitDetails
+  gitDetails: EntityGitDetails
 ): Promise<void> => {
   if (IdbPipeline) {
     const id = getId(
@@ -448,8 +459,8 @@ const _deletePipelineCache = async (
       queryParams.orgIdentifier || '',
       queryParams.projectIdentifier || '',
       identifier,
-      gitDetail.repoIdentifier,
-      gitDetail.branch
+      gitDetails.repoIdentifier || '',
+      gitDetails.branch || ''
     )
     await IdbPipeline.delete(IdbPipelineStoreName, id)
     const defaultId = getId(
@@ -457,8 +468,8 @@ const _deletePipelineCache = async (
       queryParams.orgIdentifier || '',
       queryParams.projectIdentifier || '',
       DefaultNewPipelineId,
-      gitDetail.repoIdentifier,
-      gitDetail.branch
+      gitDetails.repoIdentifier || '',
+      gitDetails.branch || ''
     )
     await IdbPipeline.delete(IdbPipelineStoreName, defaultId)
   }
@@ -514,8 +525,7 @@ export const PipelineProvider: React.FC<{
   )
   const [view, setView] = useLocalStorage<PipelineStudioView>('pipeline_studio_view', PipelineStudioView.ui)
   state.pipelineIdentifier = pipelineIdentifier
-
-  const fetchPipeline = _fetchPipeline.bind(null, dispatch, queryParams, pipelineIdentifier, state.gitDetail)
+  const fetchPipeline = _fetchPipeline.bind(null, dispatch, queryParams, pipelineIdentifier, state.gitDetails)
   const updateGitDetails = _updateGitDetails.bind(null, {
     dispatch,
     queryParams,
@@ -528,7 +538,7 @@ export const PipelineProvider: React.FC<{
     queryParams,
     identifier: pipelineIdentifier,
     originalPipeline: state.originalPipeline,
-    gitDetail: state.gitDetail
+    gitDetails: state.gitDetails
   })
 
   const [isEdit] = usePermission(
@@ -549,7 +559,7 @@ export const PipelineProvider: React.FC<{
     [queryParams, pipelineIdentifier]
   )
   const isReadonly = !isEdit
-  const deletePipelineCache = _deletePipelineCache.bind(null, queryParams, pipelineIdentifier, state.gitDetail)
+  const deletePipelineCache = _deletePipelineCache.bind(null, queryParams, pipelineIdentifier, state.gitDetails)
   const pipelineSaved = React.useCallback(
     async (pipeline: PipelineInfoConfig) => {
       await deletePipelineCache()
@@ -636,7 +646,7 @@ export const PipelineProvider: React.FC<{
       state.pipeline,
       state.pipelineView,
       state.selectionState,
-      state.gitDetail
+      state.gitDetails
     )
   })
 

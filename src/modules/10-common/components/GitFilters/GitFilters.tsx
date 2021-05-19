@@ -11,6 +11,7 @@ import {
   Color
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
+import { isEmpty } from 'lodash-es'
 
 import cx from 'classnames'
 import { Menu, Dialog } from '@blueprintjs/core'
@@ -74,10 +75,17 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
   })
 
   useEffect(() => {
+    setSelectedGitRepo(defaultValue.repo)
+    setSelectedGitBranch(defaultValue.branch || '')
+  }, [defaultValue.repo, defaultValue.branch])
+
+  useEffect(() => {
     if (!loading && response?.data?.branches?.content?.length) {
       const defaultBranch = response.data.defaultBranch?.branchName as string
-      props.onChange({ repo: selectedGitRepo, branch: defaultBranch })
-      setSelectedGitBranch(defaultBranch)
+      if (isEmpty(selectedGitBranch)) {
+        props.onChange({ repo: selectedGitRepo, branch: defaultBranch })
+        setSelectedGitBranch(defaultBranch)
+      }
       setBranchSelectOptions(
         response.data.branches.content.map((branch: GitBranchDTO) => {
           return {
