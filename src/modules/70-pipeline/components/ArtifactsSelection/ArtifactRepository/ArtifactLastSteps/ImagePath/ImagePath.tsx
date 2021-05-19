@@ -81,8 +81,17 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
       orgIdentifier,
       projectIdentifier
     },
-    lazy: true
+    lazy: true,
+    debounce: 300
   })
+
+  // const debouncedCall = useCallback(
+  //   debounce((_searchVal: string) => {
+  //     setLastImagePath(_searchVal)
+  //     // send the server request here
+  //   }, 1000),
+  //   []
+  // )
 
   React.useEffect(() => {
     if (Array.isArray(data?.data?.buildDetailsList)) {
@@ -208,6 +217,9 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
                   name="imagePath"
                   placeholder={getString('artifactsSelection.existingDocker.imageNamePlaceholder')}
                   multiTextInputProps={{ expressions }}
+                  onChange={val => {
+                    setLastImagePath(val as string)
+                  }}
                 />
                 {getMultiTypeFromValue(formik.values.imagePath) === MultiTypeInputType.RUNTIME && (
                   <div className={css.configureOptions}>
