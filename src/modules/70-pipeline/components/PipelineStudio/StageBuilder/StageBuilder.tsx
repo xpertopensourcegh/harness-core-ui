@@ -620,7 +620,7 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
           split="horizontal"
           minSize={MinimumSplitPaneSize}
           maxSize={MaximumSplitPaneSize}
-          style={{ overflow: 'scroll' }}
+          style={{ overflow: openSplitView ? 'auto' : 'hidden' }}
           pane2Style={{ overflow: 'initial', zIndex: 2 }}
           resizerStyle={resizerStyle}
           onChange={handleStageResize}
