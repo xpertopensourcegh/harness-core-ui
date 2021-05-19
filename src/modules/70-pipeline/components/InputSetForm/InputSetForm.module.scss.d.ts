@@ -17,7 +17,7 @@ declare const styles: {
   readonly treeSidebar: string
   readonly cardCard: string
   readonly inputSetcard: string
-  readonly errorHeader: string
   readonly nameiddescription: string
+  readonly errorHeader: string
 }
 export default styles

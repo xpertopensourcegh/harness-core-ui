@@ -29,7 +29,8 @@ import {
   InputSetResponse,
   ResponseInputSetResponse,
   useGetMergeInputSetFromPipelineTemplateWithListInput,
-  ResponsePMSPipelineResponseDTO
+  ResponsePMSPipelineResponseDTO,
+  InputSetErrorResponse
 } from 'services/pipeline-ng'
 
 import { useToaster } from '@common/exports'
@@ -305,6 +306,20 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
     [yamlHandler?.getLatestYaml, inputSet]
   )
 
+  const getFormattedErrors = (apiErrorMap?: { [key: string]: InputSetErrorResponse }): Record<string, any> => {
+    const toReturn: Record<string, any> = {}
+    if (apiErrorMap) {
+      const apiErrorKeys = Object.keys(apiErrorMap)
+      apiErrorKeys.forEach(apiErrorKey => {
+        const errorsForKey = apiErrorMap[apiErrorKey].errors || []
+        if (errorsForKey[0].fieldName) {
+          toReturn[errorsForKey[0].fieldName] = `${errorsForKey[0].fieldName}: ${errorsForKey[0].message}`
+        }
+      })
+    }
+    return toReturn
+  }
+
   const handleSubmit = React.useCallback(
     async (inputSetObj: InputSetDTO) => {
       if (inputSetObj) {
@@ -320,12 +335,17 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
           /* istanbul ignore else */
           if (response) {
             if (response.data?.errorResponse) {
-              showError(getString('inputSets.inputSetSavedError'))
+              const errors = getFormattedErrors(response.data.inputSetErrorWrapper?.uuidToErrorResponseMap)
+              if (Object.keys(errors).length) {
+                setFormErrors(errors)
+              } else {
+                showError(getString('inputSets.inputSetSavedError'))
+              }
             } else {
               showSuccess(getString('inputSets.inputSetSaved'))
+              history.goBack()
             }
           }
-          history.goBack()
         } catch (e) {
           showError(e?.data?.message || e?.message || getString('commonError'))
         }
@@ -351,10 +371,10 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
           <Accordion.Panel
             id="errors"
             summary={
-              <span>
+              <Layout.Horizontal spacing="small">
                 <Icon name="warning-sign" intent={Intent.DANGER} />
-                {`${errorList.length} problems with Input Set`}
-              </span>
+                <span>{`${errorList.length} problem${errorList.length > 1 ? 's' : ''} with Input Set`}</span>
+              </Layout.Horizontal>
             }
             details={
               <ul>
@@ -469,6 +489,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                   </div>
                 ) : (
                   <div className={css.editor}>
+                    {renderErrors()}
                     <Layout.Vertical className={css.content} padding="xlarge">
                       <YamlBuilderMemo
                         {...yamlBuilderReadOnlyModeProps}
