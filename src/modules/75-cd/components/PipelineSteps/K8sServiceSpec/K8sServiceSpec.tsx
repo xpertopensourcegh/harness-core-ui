@@ -296,13 +296,13 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
   React.useEffect(() => {
     if (lastQueryData.connectorRef) {
       switch (lastQueryData.connectorType) {
-        case 'Dockerhub':
+        case ENABLED_ARTIFACT_TYPES.DockerRegistry:
           refetchDockerBuildData()
           break
-        case 'Gcr':
+        case ENABLED_ARTIFACT_TYPES.Gcp:
           refetchGcrBuildData()
           break
-        case 'Ecr':
+        case ENABLED_ARTIFACT_TYPES.Aws:
           refetchEcrBuildData()
           break
       }
@@ -320,7 +320,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
     registryHostname,
     region
   }: LastQueryData): void => {
-    if (connectorType === 'Dockerhub') {
+    if (connectorType === ENABLED_ARTIFACT_TYPES.DockerRegistry) {
       if (
         imagePath?.length &&
         connectorRef?.length &&
@@ -330,7 +330,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
       ) {
         setLastQueryData({ path: tagsPath, imagePath, connectorRef, connectorType, registryHostname })
       }
-    } else if (connectorType === 'Gcr') {
+    } else if (connectorType === ENABLED_ARTIFACT_TYPES.Gcp) {
       if (
         imagePath?.length &&
         connectorRef?.length &&
@@ -978,7 +978,7 @@ const ManifestConnectorRefRegex = /^.+manifest\.spec\.store\.spec\.connectorRef$
 const ManifestConnectorRefType = 'Git'
 const ArtifactsSidecarRegex = /^.+.sidecar\.spec\.connectorRef$/
 const ArtifactsPrimaryRegex = /^.+artifacts\.primary\.spec\.connectorRef$/
-const ArtifactConnectorTypes = ['Dockerhub', 'Gcr']
+const ArtifactConnectorTypes = ['DockerRegistry', 'Gcr']
 const getConnectorValue = (connector?: ConnectorResponse): string =>
   `${
     connector?.connector?.orgIdentifier && connector?.connector?.projectIdentifier
