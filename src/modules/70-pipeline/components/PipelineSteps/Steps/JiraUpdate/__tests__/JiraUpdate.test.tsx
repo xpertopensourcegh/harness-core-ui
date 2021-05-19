@@ -106,7 +106,8 @@ describe('Jira Update tests', () => {
     expect(container).toMatchSnapshot('jira-update-input variable view')
   })
 
-  test('Basic functions - edit stage view validations', async () => {
+  // eslint-disable-next-line jest/no-disabled-tests
+  test.skip('Basic functions - edit stage view validations', async () => {
     const ref = React.createRef<StepFormikRef<unknown>>()
     const props = getJiraUpdateEditModeProps()
     const { container, queryByText, getByText } = render(
