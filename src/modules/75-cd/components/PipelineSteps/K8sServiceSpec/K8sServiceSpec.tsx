@@ -48,6 +48,8 @@ import { getStageIndexByIdentifier } from '@pipeline/components/PipelineStudio/S
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type { CustomVariablesData } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 import { Step, StepProps } from '@pipeline/components/AbstractSteps/Step'
+import { ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
+
 import { String, useStrings } from 'framework/strings'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
@@ -409,9 +411,9 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
           ? artifacts?.primary?.spec?.region
           : initialValues.artifacts?.primary?.spec?.region
     }
-    if (connectorType === 'Dockerhub') {
+    if (connectorType === ENABLED_ARTIFACT_TYPES.DockerRegistry) {
       return !imagePath?.length || !connectorRef?.length
-    } else if (connectorType === 'Ecr') {
+    } else if (connectorType === ENABLED_ARTIFACT_TYPES.Aws) {
       return !imagePath?.length || !connectorRef?.length || !region?.length
     } else {
       return !imagePath?.length || !connectorRef?.length || !registryHostname?.length
