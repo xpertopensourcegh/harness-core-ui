@@ -1,3 +1,4 @@
+import { getConfig } from 'services/config'
 import type { Provider } from './components/COCreateGateway/models'
 
 export const allProviders: Provider[] = [
@@ -22,4 +23,20 @@ export enum PROVIDER_TYPES {
   AWS = 'aws',
   AZURE = 'azure',
   DIGITAL_OCEAN = 'do'
+}
+
+type GetGraphQLAPIConfigReturnType = {
+  path: string
+  queryParams: {
+    accountIdentifier: string
+  }
+}
+
+export const getGraphQLAPIConfig: (accountId: string) => GetGraphQLAPIConfigReturnType = (accountId: string) => {
+  return {
+    path: getConfig('ccm/api/graphql'),
+    queryParams: {
+      accountIdentifier: accountId
+    }
+  }
 }

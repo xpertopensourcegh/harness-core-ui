@@ -11,6 +11,7 @@ import { useGraphQLQuery } from '@common/hooks/useGraphQLQuery'
 import { Page } from '@common/exports'
 import Table from '@common/components/Table/Table'
 import formatCost from '@ce/utils/formatCost'
+import { getGraphQLAPIConfig } from '@ce/constants'
 import RecommendationSavingsCard from '../../components/RecommendationSavingsCard/RecommendationSavingsCard'
 
 interface RecommendationListProps {
@@ -117,10 +118,7 @@ const RecommendationList: React.FC = () => {
   const { accountId } = useParams<{ accountId: string }>()
 
   const { data, initLoading } = useGraphQLQuery<{ data: RecommendationsQuery }>({
-    path: `/ccm/api/graphql`,
-    queryParams: {
-      accountIdentifier: accountId
-    },
+    ...getGraphQLAPIConfig(accountId),
     body: { query: FETCH_ALL_RECOMMENDATIONS }
   })
 

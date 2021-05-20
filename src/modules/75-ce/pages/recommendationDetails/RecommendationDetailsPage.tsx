@@ -10,6 +10,7 @@ import formatCost from '@ce/utils/formatCost'
 import { GET_DATE_RANGE } from '@ce/utils/momentUtils'
 import type { RecommendationItem, TimeRangeValue } from '@ce/types'
 import { TimeRange, TimeRangeType } from '@ce/types'
+import { getGraphQLAPIConfig } from '@ce/constants'
 import { useGraphQLQuery } from '@common/hooks/useGraphQLQuery'
 import FETCH_RECOMMENDATIONS from 'queries/ce/fetch_recommendation.gql'
 import type { FetchRecommendationQuery, RecommendationOverviewStats } from 'services/ce/services'
@@ -136,7 +137,7 @@ const RecommendationDetailsPage: React.FC = () => {
   const timeRangeFilter = GET_DATE_RANGE[timeRange.value]
 
   const { data, initLoading } = useGraphQLQuery<{ data: FetchRecommendationQuery }>({
-    path: `/ccm/api/graphql`,
+    ...getGraphQLAPIConfig(accountId),
     queryParams: {
       accountIdentifier: accountId
     },
