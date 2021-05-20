@@ -262,11 +262,7 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
       then: Yup.object().required(getString('validation.clientKey')),
       otherwise: Yup.object().nullable()
     }),
-    clientKeyPassphrase: Yup.object().when('authType', {
-      is: authType => authType === AuthTypes.CLIENT_KEY_CERT,
-      then: Yup.object().required(getString('validation.clientKeyPassphrase')),
-      otherwise: Yup.object().nullable()
-    }),
+
     clientKeyCertificate: Yup.object().when('authType', {
       is: authType => authType === AuthTypes.CLIENT_KEY_CERT,
       then: Yup.object().required(getString('validation.clientCertificate')),
