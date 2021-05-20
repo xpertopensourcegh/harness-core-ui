@@ -404,6 +404,10 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
     return arrayRow.previousLineLength || 0
   })
 
+  function escapeRegExp(string: string): string {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') // $& means the whole matched string
+  }
+
   return (
     <div className={cx(css.main, { [css.hasErrorMessage]: !!errorMessage })} data-mode={mode}>
       <div className={css.header}>
@@ -411,7 +415,7 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
         <div className={css.searchContainer}>
           <ExpandingSearchInput
             className={cssSearchInput}
-            onChange={text => handleSearchChange(text)}
+            onChange={text => handleSearchChange(escapeRegExp(text))}
             showPrevNextButtons={true}
             onNext={() => goToResult('next', searchResults, virtuosoRef)}
             onPrev={() => goToResult('previous', searchResults, virtuosoRef)}
