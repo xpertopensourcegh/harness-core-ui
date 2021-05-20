@@ -3,6 +3,8 @@ import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { StageInputSetForm } from '../StageInputSetForm'
 
+jest.mock('@common/utils/YamlUtils', () => ({}))
+
 const props = {
   deploymentStageTemplate: {
     serviceConfig: {

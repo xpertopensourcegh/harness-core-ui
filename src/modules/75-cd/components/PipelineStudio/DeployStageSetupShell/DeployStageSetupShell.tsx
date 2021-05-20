@@ -197,6 +197,7 @@ export default function DeployStageSetupShell(): JSX.Element {
   const errorKeys = [...errorMap.keys()]
   const servicesHasWarning = errorKeys.some(key => stagePath && key.startsWith(`${stagePath}.stage.spec.serviceConfig`))
   const infraHasWarning = errorKeys.some(key => stagePath && key.startsWith(`${stagePath}.stage.spec.infrastructure`))
+  const executionHasWarning = errorKeys.some(key => stagePath && key.startsWith(`${stagePath}.stage.spec.execution`))
 
   return (
     <section ref={layoutRef} key={selectedStageId} className={cx(css.setupShell)}>
@@ -264,8 +265,8 @@ export default function DeployStageSetupShell(): JSX.Element {
         <Tab
           id={DeployTabs.EXECUTION}
           title={
-            <span className={css.title}>
-              <Icon name="execution" height={20} size={20} />
+            <span className={css.title} data-warning={executionHasWarning}>
+              <Icon name={executionHasWarning ? 'warning-sign' : 'execution'} size={executionHasWarning ? 16 : 20} />
               {getString('executionText')}
             </span>
           }
@@ -280,6 +281,7 @@ export default function DeployStageSetupShell(): JSX.Element {
               stepsFactory={stepsFactory}
               originalStage={originalStage}
               ref={executionRef}
+              pathToStage={`${stagePath}.stage.spec.execution`}
               // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               stage={selectedStage!}
               updateStage={() => {

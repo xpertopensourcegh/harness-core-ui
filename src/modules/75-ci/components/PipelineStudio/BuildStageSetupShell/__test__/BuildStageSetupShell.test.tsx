@@ -15,6 +15,7 @@ import pipelineContextMock from './pipelineContext.json'
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
 ))
+jest.mock('@common/utils/YamlUtils', () => ({}))
 
 class StepFactory extends AbstractStepFactory {
   protected type = 'test-factory'

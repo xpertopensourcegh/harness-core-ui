@@ -19,7 +19,7 @@ import WebhookPipelineInputPanel from '../views/WebhookPipelineInputPanel'
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
 ))
-
+jest.mock('@common/utils/YamlUtils', () => ({}))
 jest.mock('services/cd-ng', () => ({
   useGetConnector: jest.fn(() => ConnectorResponse)
 }))

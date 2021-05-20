@@ -16,7 +16,7 @@ import {
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
 ))
-
+jest.mock('@common/utils/YamlUtils', () => ({}))
 jest.mock('lodash-es', () => ({
   ...(jest.requireActual('lodash-es') as Record<string, any>),
   debounce: jest.fn(fn => {

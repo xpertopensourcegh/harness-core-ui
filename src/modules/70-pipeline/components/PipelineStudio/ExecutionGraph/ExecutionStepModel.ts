@@ -34,6 +34,37 @@ export interface GridStyleInterface {
   gapY?: number
 }
 
+export interface AddUpdateGraphProps {
+  stepsData: ExecutionWrapper[]
+  stepStates: StepStateMap
+  hasDependencies: boolean
+  servicesData: DependenciesWrapper[]
+  factory: AbstractStepFactory
+  listeners: Listeners
+  isRollback: boolean
+  getString: UseStringsReturn['getString']
+  isReadonly: boolean
+  parentPath: string
+  errorMap: Map<string, string[]>
+}
+
+export interface RenderGraphStepNodesProps {
+  node: ExecutionWrapper
+  startX: number
+  startY: number
+  factory: AbstractStepFactory
+  isReadonly: boolean
+  stepStates: StepStateMap
+  isRollback?: boolean
+  prevNodes?: DefaultNodeModel[]
+  allowAdd?: boolean
+  isParallelNode?: boolean
+  isStepGroupNode?: boolean
+  getString?: UseStringsReturn['getString']
+  parentPath: string
+  errorMap: Map<string, string[]>
+}
+
 const SPACE_AFTER_GROUP = 0.3
 const GROUP_HEADER_DEPTH = 0.3
 
@@ -63,7 +94,7 @@ export class ExecutionStepModel extends DiagramModel {
     })
   }
 
-  setSelectedNodeId(selectedNodeId?: string) {
+  setSelectedNodeId(selectedNodeId?: string): void {
     this.selectedNodeId = selectedNodeId
   }
 
@@ -188,22 +219,26 @@ export class ExecutionStepModel extends DiagramModel {
   }
 
   renderGraphStepNodes(
-    node: ExecutionWrapper,
-    startX: number,
-    startY: number,
-    factory: AbstractStepFactory,
-    isReadonly: boolean,
-    stepStates: StepStateMap,
-    isRollback = false,
-    prevNodes?: DefaultNodeModel[],
-    allowAdd?: boolean,
-    isParallelNode = false,
-    isStepGroupNode = false,
-    getString?: UseStringsReturn['getString']
+    props: RenderGraphStepNodesProps
   ): { startX: number; startY: number; prevNodes?: DefaultNodeModel[] } {
+    const {
+      node,
+      factory,
+      isReadonly,
+      stepStates,
+      isRollback = false,
+      allowAdd,
+      isParallelNode = false,
+      isStepGroupNode = false,
+      getString,
+      parentPath,
+      errorMap
+    } = props
+    let { startX, startY, prevNodes } = props
     if (node.step) {
       const stepType = node?.step?.type
       const nodeType = getExecutionPipelineNodeType(node?.step?.type) || ExecutionPipelineNodeType.NORMAL
+      const hasErrors = errorMap && [...errorMap.keys()].some(key => parentPath && key.startsWith(parentPath))
       startX += this.gapX
       const nodeRender =
         nodeType === ExecutionPipelineNodeType.DIAMOND
@@ -214,7 +249,7 @@ export class ExecutionStepModel extends DiagramModel {
               allowAdd: !isReadonly,
               canDelete: !isReadonly,
               draggable: !isReadonly,
-              isInComplete: isCustomGeneratedString(node.step.identifier),
+              isInComplete: isCustomGeneratedString(node.step.identifier) || hasErrors,
               skipCondition: node.step.skipCondition,
               conditionalExecutionEnabled: node.step.when
                 ? node.step.when?.stageStatus !== 'Success' || !!node.step.when?.condition?.trim()
@@ -229,7 +264,7 @@ export class ExecutionStepModel extends DiagramModel {
               icon: factory.getStepIcon(stepType),
               allowAdd: allowAdd === true && !isReadonly,
               canDelete: !isReadonly,
-              isInComplete: isCustomGeneratedString(node.step.identifier),
+              isInComplete: isCustomGeneratedString(node.step.identifier) || hasErrors,
               skipCondition: node.step.skipCondition,
               conditionalExecutionEnabled: node.step.when
                 ? node.step.when?.stageStatus !== 'Success' || !!node.step.when?.condition?.trim()
@@ -247,7 +282,7 @@ export class ExecutionStepModel extends DiagramModel {
               name: node.step.name,
               icon: factory.getStepIcon(stepType),
               allowAdd: allowAdd === true && !isReadonly,
-              isInComplete: isCustomGeneratedString(node.step.identifier),
+              isInComplete: isCustomGeneratedString(node.step.identifier) || hasErrors,
               skipCondition: node.step.skipCondition,
               conditionalExecutionEnabled: node.step.when
                 ? node.step.when?.stageStatus !== 'Success' || !!node.step.when?.condition?.trim()
@@ -303,19 +338,21 @@ export class ExecutionStepModel extends DiagramModel {
 
         node.parallel.forEach((nodeP: ExecutionWrapper, index: number) => {
           const isLastNode = node.parallel.length === index + 1
-          const resp = this.renderGraphStepNodes(
-            nodeP,
-            newX,
-            newY,
+          const resp = this.renderGraphStepNodes({
+            node: nodeP,
+            startX: newX,
+            startY: newY,
             factory,
             isReadonly,
             stepStates,
             isRollback,
             prevNodes,
-            isLastNode,
-            true,
-            isStepGroupNode
-          )
+            allowAdd: isLastNode,
+            isParallelNode: true,
+            isStepGroupNode,
+            parentPath: `${parentPath}.parallel.${index}`,
+            errorMap
+          })
           if (resp.startX > startX) {
             startX = resp.startX
           }
@@ -352,8 +389,8 @@ export class ExecutionStepModel extends DiagramModel {
 
         return { startX, startY, prevNodes }
       } else if (node.parallel.length === 1) {
-        return this.renderGraphStepNodes(
-          node.parallel[0],
+        return this.renderGraphStepNodes({
+          node: node.parallel[0],
           startX,
           startY,
           factory,
@@ -361,10 +398,12 @@ export class ExecutionStepModel extends DiagramModel {
           stepStates,
           isRollback,
           prevNodes,
-          true,
-          true,
-          isStepGroupNode
-        )
+          allowAdd: true,
+          isParallelNode: true,
+          isStepGroupNode,
+          parentPath: `${parentPath}.parallel.${0}`,
+          errorMap
+        })
       }
     } else if (node.stepGroup) {
       const stepState = stepStates.get(node.stepGroup.identifier)
@@ -442,9 +481,9 @@ export class ExecutionStepModel extends DiagramModel {
         }
         // Check if step group has nodes
         if (steps?.length > 0) {
-          steps.forEach((nodeP: ExecutionElement) => {
-            const resp = this.renderGraphStepNodes(
-              nodeP,
+          steps.forEach((nodeP: ExecutionElement, index: number) => {
+            const resp = this.renderGraphStepNodes({
+              node: nodeP,
               startX,
               startY,
               factory,
@@ -452,10 +491,12 @@ export class ExecutionStepModel extends DiagramModel {
               stepStates,
               isRollback,
               prevNodes,
-              true,
-              false,
-              true
-            )
+              allowAdd: true,
+              isParallelNode: false,
+              isStepGroupNode: true,
+              parentPath: `${parentPath}.stepGroup.steps.${index}`,
+              errorMap
+            })
             startX = resp.startX
             startY = resp.startY
             if (resp.prevNodes) {
@@ -498,17 +539,20 @@ export class ExecutionStepModel extends DiagramModel {
     return { startX, startY }
   }
 
-  addUpdateGraph(
-    stepsData: ExecutionWrapper[],
-    stepStates: StepStateMap,
-    hasDependencies: boolean,
-    servicesData: DependenciesWrapper[],
-    factory: AbstractStepFactory,
-    { nodeListeners, linkListeners, layerListeners }: Listeners,
-    isRollback: boolean,
-    getString: UseStringsReturn['getString'],
-    isReadonly: boolean
-  ): void {
+  addUpdateGraph(props: AddUpdateGraphProps): void {
+    const {
+      stepsData,
+      stepStates,
+      hasDependencies,
+      servicesData,
+      factory,
+      listeners: { nodeListeners, linkListeners, layerListeners },
+      isRollback,
+      getString,
+      isReadonly,
+      parentPath,
+      errorMap
+    } = props
     let { startX, startY } = this
     this.clearAllNodesAndLinks()
     this.setLocked(false)
@@ -517,7 +561,7 @@ export class ExecutionStepModel extends DiagramModel {
     const startNode = (this.getNode('start-new') as DefaultNodeModel) || new NodeStartModel({ id: 'start-new' })
     startX += this.gapX
     startNode.setPosition(startX, startY)
-    startX -= this.gapX / 2 // Start Node is very small thats why reduce the margin for next
+    startX -= this.gapX / 2 // Start Node is very small that is why reduce the margin for next
     const tempStartX = startX
     this.addNode(startNode)
 
@@ -551,8 +595,8 @@ export class ExecutionStepModel extends DiagramModel {
       }
     }
 
-    stepsData.forEach((node: ExecutionWrapper) => {
-      const resp = this.renderGraphStepNodes(
+    stepsData.forEach((node: ExecutionWrapper, index: number) => {
+      const resp = this.renderGraphStepNodes({
         node,
         startX,
         startY,
@@ -561,11 +605,13 @@ export class ExecutionStepModel extends DiagramModel {
         stepStates,
         isRollback,
         prevNodes,
-        true,
-        false,
-        false,
-        getString
-      )
+        allowAdd: true,
+        isParallelNode: false,
+        isStepGroupNode: false,
+        getString,
+        parentPath: `${parentPath}.${index}`,
+        errorMap
+      })
       startX = resp.startX
       startY = resp.startY
       if (resp.prevNodes) {

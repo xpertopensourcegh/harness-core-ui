@@ -26,7 +26,7 @@ import {
 const eventData = { dataTransfer: { setData: jest.fn(), dropEffect: '', getData: () => '1' } }
 
 const successResponse = (): Promise<{ status: string }> => Promise.resolve({ status: 'SUCCESS' })
-
+jest.mock('@common/utils/YamlUtils', () => ({}))
 jest.mock(
   '@common/components/YAMLBuilder/YamlBuilder',
   () => ({ children, bind }: { children: JSX.Element; bind: YamlBuilderProps['bind'] }) => {

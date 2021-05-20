@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useCallback } from 'react'
 import { isNil } from 'lodash-es'
 import debounce from 'p-debounce'
 
@@ -16,17 +16,20 @@ export function useValidationErrors(): { errorMap: Map<string, string[]> } {
   } = usePipelineContext()
 
   const [errorMap, setErrorMap] = useState<Map<string, string[]>>(new Map())
-  const validateErrors = useRef(
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const validateErrors = useCallback(
     debounce(async (_originalPipeline: PipelineInfoConfig, _pipelineSchema: ResponseJsonNode | null): Promise<void> => {
       if (!isNil(_pipelineSchema) && _pipelineSchema.data) {
         const error = await validateJSONWithSchema({ pipeline: _originalPipeline }, _pipelineSchema.data)
         setErrorMap(error)
       }
-    }, 300)
+    }, 300),
+    []
   )
 
   useDeepCompareEffect(() => {
-    validateErrors.current(originalPipeline, pipelineSchema)
+    validateErrors(originalPipeline, pipelineSchema)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [originalPipeline, pipelineSchema])
 
   return { errorMap }

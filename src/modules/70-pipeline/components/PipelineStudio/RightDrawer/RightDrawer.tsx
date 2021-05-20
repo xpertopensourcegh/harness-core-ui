@@ -445,7 +445,8 @@ export const RightDrawer: React.FC = (): JSX.Element => {
                 step: {
                   type: item.type,
                   name: item.name,
-                  identifier: generateRandomString(item.name)
+                  identifier: generateRandomString(item.name),
+                  spec: {}
                 }
               }
               if (pipelineStage && isNil(pipelineStage.stage.spec.execution)) {
@@ -562,7 +563,8 @@ export const RightDrawer: React.FC = (): JSX.Element => {
                 step: {
                   type: item.type,
                   name: item.name,
-                  identifier: generateRandomString(item.name)
+                  identifier: generateRandomString(item.name),
+                  spec: {}
                 }
               }
 

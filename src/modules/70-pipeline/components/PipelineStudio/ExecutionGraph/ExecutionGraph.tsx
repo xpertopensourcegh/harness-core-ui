@@ -8,6 +8,7 @@ import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/Abs
 import { DynamicPopover, DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
 import { useToaster } from '@common/exports'
 import type { ExecutionWrapper } from 'services/cd-ng'
+import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
 import { ExecutionStepModel, GridStyleInterface } from './ExecutionStepModel'
 import { StepType as PipelineStepType } from '../../PipelineSteps/PipelineStepInterface'
 import {
@@ -131,6 +132,7 @@ export interface ExecutionGraphProp {
   rollBackBannerStyle?: React.CSSProperties
   canvasButtonsLayout?: 'horizontal' | 'vertical'
   canvasButtonsTooltipPosition?: 'top' | 'left'
+  pathToStage?: string
 }
 
 function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForwardRef): JSX.Element {
@@ -151,10 +153,12 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
     rollBackPropsStyle = {},
     rollBackBannerStyle = {},
     canvasButtonsLayout,
-    canvasButtonsTooltipPosition
+    canvasButtonsTooltipPosition,
+    pathToStage
   } = props
 
   const { getString } = useStrings()
+  const { errorMap } = useValidationErrors()
 
   const addStep = (event: ExecutionGraphAddStepEvent): void => {
     onAddStep(event)
@@ -467,17 +471,23 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
 
   // renderParallelNodes(model)
   model.setSelectedNodeId(selectedStepId)
-  model.addUpdateGraph(
-    state.isRollback ? state.stepsData.rollbackSteps || [] : state.stepsData.steps || [],
-    state.states,
+  model.addUpdateGraph({
+    stepsData: state.isRollback ? state.stepsData.rollbackSteps || [] : state.stepsData.steps || [],
+    stepStates: state.states,
     hasDependencies,
-    state.dependenciesData,
-    stepsFactory,
-    { nodeListeners, linkListeners, layerListeners },
-    state.isRollback,
+    servicesData: state.dependenciesData,
+    factory: stepsFactory,
+    listeners: {
+      nodeListeners,
+      linkListeners,
+      layerListeners
+    },
+    isRollback: state.isRollback,
     getString,
-    isReadonly
-  )
+    isReadonly,
+    parentPath: `${pathToStage}.steps`,
+    errorMap
+  })
 
   // load model into engine
   engine.setModel(model)

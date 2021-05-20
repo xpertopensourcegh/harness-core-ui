@@ -12,6 +12,7 @@ jest.mock('react-monaco-editor', () => ({ value, onChange, name }: any) => {
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
 ))
+jest.mock('@common/utils/YamlUtils', () => ({}))
 
 jest.mock('resize-observer-polyfill', () => {
   class ResizeObserver {
