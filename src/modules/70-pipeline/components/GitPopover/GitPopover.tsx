@@ -9,9 +9,12 @@ export interface GitPopoverProps {
   iconSize?: number
 }
 
-export default function GitPopover(props: GitPopoverProps): React.ReactElement {
+export default function GitPopover(props: GitPopoverProps): React.ReactElement | null {
   const { getString } = useStrings()
   const { data, iconSize = 16 } = props
+  if (!data.repoIdentifier) {
+    return null
+  }
 
   return (
     <Popover interactionKind={PopoverInteractionKind.HOVER}>

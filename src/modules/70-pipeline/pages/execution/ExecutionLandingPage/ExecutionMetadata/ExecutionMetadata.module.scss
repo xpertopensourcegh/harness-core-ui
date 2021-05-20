@@ -30,6 +30,23 @@
     display: block;
     max-width: 250px;
   }
+  .triggerValue {
+    display: flex;
+    flex-direction: row;
+    .triggerType {
+      display: flex;
+      align-items: center;
+
+      &::before {
+        content: '';
+        display: inline-block;
+        width: 1px;
+        background: var(--grey-400);
+        height: calc(var(--font-size-small) + 2px);
+        margin: 0 0.5em;
+      }
+    }
+  }
 
   .pullRequestStatus {
     font-size: var(--font-size-small);

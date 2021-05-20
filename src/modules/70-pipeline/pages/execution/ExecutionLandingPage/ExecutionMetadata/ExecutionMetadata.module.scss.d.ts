@@ -5,6 +5,8 @@ declare const styles: {
   readonly commitMessageValue: string
   readonly pullRequestValue: string
   readonly pullRequestMessage: string
+  readonly triggerValue: string
+  readonly triggerType: string
   readonly pullRequestStatus: string
   readonly pullRequestLink: string
   readonly commitMessage: string

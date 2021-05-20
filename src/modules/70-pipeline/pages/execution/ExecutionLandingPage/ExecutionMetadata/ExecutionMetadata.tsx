@@ -4,7 +4,7 @@ import { first, isEmpty, isObject } from 'lodash-es'
 import { Color, Icon, Link, Popover, Text } from '@wings-software/uicore'
 import { Position, HTMLTable } from '@blueprintjs/core'
 
-import { useStrings } from 'framework/strings'
+import { String, StringKeys, useStrings } from 'framework/strings'
 import type { CDStageModuleInfo, ServiceExecutionSummary } from 'services/cd-ng'
 import type { CIBuildResponseDTO } from '@pipeline/pages/pipeline-deployment-list/ExecutionsList/ExecutionCard/ExecutionDetails/Types/types'
 import { TagsPopover } from '@common/components'
@@ -18,6 +18,7 @@ import { useExecutionContext } from '../../ExecutionContext/ExecutionContext'
 import ExecutionMetadataSection from './ExecutionMetadataSection/ExecutionMetadataSection'
 
 import css from './ExecutionMetadata.module.scss'
+import sectionCss from './ExecutionMetadataSection/ExecutionMetadataSection.module.scss'
 
 //const DATE_FORMAT = 'MM/DD/YYYY hh:mm:ss a'
 
@@ -237,8 +238,29 @@ export default function ExecutionMetadata(): React.ReactElement {
       ) : null}
       {HAS_CI ? <ExecutionMetadataSection title="BUILD" entries={ciEntries} delimiter={true} /> : null}
       {HAS_CD ? <ExecutionMetadataSection title="DEPLOYMENT" entries={cdEntries} delimiter={true} /> : null}
-      <ExecutionMetadataSection title="TRIGGER" entries={triggerEntries} />
-      {/* TODO: hide TBD <ExecutionMetadataSection title="TRIGGER" entries={triggerEntries} />*/}
+      <div className={sectionCss.main}>
+        <div className={sectionCss.entry}>
+          <span className={sectionCss.title}>{getString('pipeline.triggers.triggerLabel')}</span>
+        </div>
+        <div className={css.triggerValue}>
+          <UserLabel
+            name={
+              pipelineExecutionSummary?.moduleInfo?.ci?.ciExecutionInfoDTO?.author?.name ||
+              pipelineExecutionSummary?.moduleInfo?.ci?.ciExecutionInfoDTO?.author?.id ||
+              pipelineExecutionSummary?.executionTriggerInfo?.triggeredBy?.identifier ||
+              'Anonymous'
+            }
+          />
+          <String
+            className={css.triggerType}
+            stringID={
+              `execution.triggerType.${
+                pipelineExecutionSummary?.executionTriggerInfo?.triggerType ?? 'MANUAL'
+              }` as StringKeys
+            }
+          />
+        </div>
+      </div>
     </div>
   )
 }

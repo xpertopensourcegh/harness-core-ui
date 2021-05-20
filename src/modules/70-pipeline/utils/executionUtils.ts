@@ -539,6 +539,10 @@ export const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPip
   if (graph?.nodeAdjacencyListMap && graph?.rootNodeId) {
     const nodeAdjacencyListMap = graph.nodeAdjacencyListMap
     const rootNode = graph.rootNodeId
+    // Ignore the graph when its fqn is pipeline, as this doesn't render pipeline graph
+    if (graph?.nodeMap?.[rootNode].baseFqn === 'pipeline') {
+      return items
+    }
     let nodeId = nodeAdjacencyListMap[rootNode].children?.[0]
     while (nodeId && nodeAdjacencyListMap[nodeId]) {
       const nodeData = graph?.nodeMap?.[nodeId]
