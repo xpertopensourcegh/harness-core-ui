@@ -305,6 +305,7 @@ export interface StringsMap {
   'common.validation.groupAttributeIsRequired': string
   'common.validation.identifierIsRequired': string
   'common.validation.nameIsRequired': string
+  'common.validation.urlIsRequired': string
   'common.validation.valueIsRequired': string
   'common.validation.valueMustBeANumber': string
   'common.validation.valueMustBeGreaterThanOrEqualToN': string

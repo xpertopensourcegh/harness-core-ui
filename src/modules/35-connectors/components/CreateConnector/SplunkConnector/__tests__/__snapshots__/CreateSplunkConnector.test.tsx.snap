@@ -723,7 +723,7 @@ exports[`Create Splunk connector Wizard should render form 3`] = `
                 <div
                   class="bp3-form-helper-text"
                 >
-                  username is a required field
+                  validation.username
                 </div>
               </div>
             </div>
@@ -786,7 +786,7 @@ exports[`Create Splunk connector Wizard should render form 3`] = `
                 <div
                   class="bp3-form-helper-text"
                 >
-                  passwordRef is a required field
+                  validation.password
                 </div>
               </div>
             </div>

@@ -10,7 +10,6 @@ import {
   useCreateConnector,
   ConnectorConfigDTO,
   ConnectorInfoDTO,
-  ConnectorRequestBody,
   useUpdateConnector,
   ResponseBoolean
 } from 'services/cd-ng'
@@ -53,7 +52,6 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
   const [formData, setFormData] = useState<ConnectorConfigDTO | undefined>()
   const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: props.accountId } })
   const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: props.accountId } })
-  const [connectorResponse, setConnectorResponse] = useState<ConnectorRequestBody | undefined>()
   const [successfullyCreated, setSuccessfullyCreated] = useState(false)
   const { showSuccess } = useToaster()
   const { getString } = useStrings()
@@ -75,7 +73,6 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
         setSuccessfullyCreated(true)
         props.onConnectorCreated?.(res.data)
         props.onSuccess?.(res.data)
-        setConnectorResponse(res.data)
         stepProps?.nextStep?.(prevData)
         props.setIsEditMode(true)
       }
@@ -128,7 +125,7 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
           name={getString('connectors.verifyConnection')}
           connectorInfo={props.connectorInfo}
           url={formData?.url}
-          onClose={() => props.onConnectorCreated?.(connectorResponse as ConnectorInfoDTO)}
+          onClose={props.onClose}
           isStep
           isLastStep
           type={Connectors.SPLUNK}
@@ -183,9 +180,9 @@ export function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element 
         ...props.prevStepData
       }}
       validationSchema={Yup.object().shape({
-        url: Yup.string().trim().required(),
-        username: Yup.string().trim().required(),
-        passwordRef: Yup.string().trim().required()
+        url: Yup.string().trim().required(getString('common.validation.urlIsRequired')),
+        username: Yup.string().trim().required(getString('validation.username')),
+        passwordRef: Yup.string().trim().required(getString('validation.password'))
       })}
       onSubmit={handleSubmit}
     >

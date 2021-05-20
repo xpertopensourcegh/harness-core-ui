@@ -54,6 +54,7 @@ validation:
   valueMustBeANumber: Value must be number
   formatMustBeAlphanumeric: Identifier can only contain alphanumerics, _ and $
   identifierIsRequired: Identifier is required
+  urlIsRequired: Url is a required field
 specify: Specify
 role: Role
 projectViewer: Project Viewer
