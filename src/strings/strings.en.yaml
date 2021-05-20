@@ -81,7 +81,7 @@ changeHistory: Change History
 entity: Entity
 entities: Entities
 enableGitExperience: Enable Git Experience
-gitExperienceNewUserText: Git Experience allows you to store the pipeline and other harness configurations in git alongside with your code. With this, Git will act as the single source of truth for all your code and configurations.
+gitExperienceNewUserText: Git Experience allows you to store the Pipeline and other Harness entities in Git with your code. With this method, Git is the single source of truth for all your code and configurations.
 primaryBranch: Primary branch
 selectGitProvider: Select your Git Provider
 selectGitConnectorTypeLabel: 'Select the connector to your {{type}}'
@@ -563,7 +563,7 @@ inputSets:
   confirmDeleteText: 'Are you sure want to delete {{type}} "{{name}}"'
 assessment: Assessment
 workflowVariableInfo: 'Specify additional overrides for any existing variables or define new variables.'
-manifestSelectionInfo: Specify the locations of the manifests for this service. Harness will fetch the manifests at the time of deployments. You can also store these manifests locally in the harness file store.
+manifestSelectionInfo: Specify the locations of the manifests for this service. Harness will fetch the manifests at the time of deployments. You can also store these manifests locally in the Harness file store.
 duration: 'Duration:'
 runPipelineForm:
   pipelineRunSuccessFully: Pipeline started successfully
