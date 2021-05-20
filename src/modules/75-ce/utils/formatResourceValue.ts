@@ -1,6 +1,8 @@
 const BYTES_IN_A_GB = 1000000000
 const BYTES_IN_A_MB = 1000000
 
+type fnNumberToString = (val: number) => string
+
 const log10: (n: number) => number = n => Math.log(n) / Math.log(10)
 
 export const getCPUValueInReadableForm: (val: number) => string = (val: number) => {
@@ -24,7 +26,7 @@ export const getMemValueInReadableForm: (val: number) => string = (val: number) 
   }
 }
 
-export const getMemValueInReadableFormForChart = (val: number) => {
+export const getMemValueInReadableFormForChart: fnNumberToString = val => {
   if (!val) {
     return '0'
   }
@@ -35,10 +37,36 @@ export const getMemValueInReadableFormForChart = (val: number) => {
   }
 }
 
-export const getCPUValueInmCPUs = (val: number) => {
+export const getCPUValueInmCPUs: fnNumberToString = val => {
   return `${val * 1000}`
 }
 
-export const getMemValueInGB = (val: number) => {
+export const getMemValueInGB: fnNumberToString = val => {
   return `${val / BYTES_IN_A_GB}Gi`
+}
+
+export const getRecommendationYaml: (
+  cpuReqVal: string | number,
+  memReqVal: string | number,
+  memLimitVal: string | number
+) => string = (cpuReqVal, memReqVal, memLimitVal) => {
+  return `limits:\n  memory: ${memLimitVal}\nrequests:\n  memory: ${memReqVal}\n  cpu: ${cpuReqVal}\n`
+}
+
+export const getMemoryValueInGBFromExpression: (val: string | number) => number = val => {
+  const stringVal = `${val}`
+  if (stringVal.includes('Gi')) {
+    return Number(stringVal.split('Gi')[0])
+  } else if (stringVal.includes('Mi')) {
+    return Number(stringVal.split('Mi')[0]) / 1000
+  }
+  return Number(val) / BYTES_IN_A_GB
+}
+
+export const getCPUValueInCPUFromExpression: (val: string | number) => number = val => {
+  const stringVal = `${val}`
+  if (stringVal.includes('m')) {
+    return Number(stringVal.split('m')[0]) / 1000
+  }
+  return Number(val)
 }

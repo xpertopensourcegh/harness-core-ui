@@ -316,6 +316,7 @@ connector:
       description: Detection of orphaned resources, recommendations to save costs, Scaling/tearing
         down, turning off in non-work hours, reserving instances
 recommendation:
+  sideNavText: Recommendations
   listPage:
     monthlySavingsText: POTENTIAL MONTHLY SAVINGS
     monthlyForcastedCostText: FORECASTED MONTHLY SPEND
@@ -333,12 +334,15 @@ recommendation:
     recommendationDetails:
       resize: 'resize CPU and memory'
   detailsPage:
+    histogramTextDetails1: 'A histogram is a bar graph-like representation of data that buckets a range of outcomes into columns along the x-axis.'
+    histogramTextDetails2: 'The y-axis represents the number count or percentage of occurrences in the data for each column and can be used to visualize data distributions.'
+    histogramText: 'HISTOGRAM'
     costOptimized: 'Cost Optimized'
     performanceOptimized: 'Performance Optimized'
     resourceChanges: 'RESOURCE CHANGES TO BE MADE TO APPLY THE RECOMMENDATION'
     currentResources: 'Current limits/request for CPU/Memory'
     recommendedResources: '{{recommendationType}} limits/request for CPU/Memory'
-    timeChangeText: 'SAMPLES WHOSE RESOURCE REQUIREMENTS WERE MET IN'
+    timeChangeText: 'OF SAMPLES ANALYSED OVER THE'
     percentileOfReqAndLimit: 'Percentile of request and limit'
     resizeText: 'Resize from a to b'
     howItWorks: 'How it works / Options you have'
@@ -351,6 +355,8 @@ recommendation:
     reqPercentileLegendText: 'Percentile of Samples whose request will be met'
     limitPercentileLegendText: 'Percentile of Samples whose Limit will be met'
     resetRecommendationText: 'Reset to default {{recommendationType}}'
+    costOptimizedCaps: 'COST OPTIMIZED'
+    performanceOptimizedCaps: 'PERFORMANCE OPTIMIZED'
   recommendationChart:
     cpuPlaceholder: 'CPU Usage(millicores)'
     noOfSamples: 'Number of samples'

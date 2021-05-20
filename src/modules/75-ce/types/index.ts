@@ -19,8 +19,31 @@ export interface HistogramData {
   minBucket: number
 }
 
+interface LastDayCost {
+  cpu?: string
+  memory?: string
+}
+
 export interface RecommendationItem {
   containerName: string
   cpuHistogram: HistogramData
   memoryHistogram: HistogramData
+  containerRecommendation: {
+    lastDayCost: LastDayCost
+  }
+}
+
+export type TimeRangeValue = {
+  label: TimeRange
+  value: TimeRangeType
+}
+
+export enum TimeRange {
+  'LAST_7' = 'LAST 7 DAYS',
+  'LAST_30' = 'LAST 30 DAYS'
+}
+
+export enum TimeRangeType {
+  'LAST_7' = 'LAST_7',
+  'LAST_30' = 'LAST_30'
 }

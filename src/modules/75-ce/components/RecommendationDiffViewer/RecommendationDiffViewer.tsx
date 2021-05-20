@@ -25,7 +25,7 @@ const DiffBlock: React.FC<DiffBlockProps> = ({ text, color, resources, textColor
       <Layout.Horizontal padding={{ left: 'medium', top: 'xsmall' }}>
         <Text>cpu:</Text>
         <Text color={textColor} padding={{ left: 'xsmall' }}>
-          {resources.cpu}
+          {resources.cpu || '-'}
         </Text>
       </Layout.Horizontal>
     </>

@@ -1,104 +1,103 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Container, Layout, Text, Button } from '@wings-software/uicore'
-import cx from 'classnames'
+import { Container, Layout, Text, Button, Icon, Popover } from '@wings-software/uicore'
+import copy from 'copy-to-clipboard'
+import { PopoverInteractionKind, Position, Menu, MenuItem } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 
 import { convertNumberToFixedDecimalPlaces } from '@ce/utils/convertNumberToFixedDecimalPlaces'
-import { getCPUValueInReadableForm, getMemValueInReadableForm } from '@ce/utils/formatResourceValue'
-import type { RecommendationItem } from '@ce/types'
+import {
+  getCPUValueInReadableForm,
+  getMemValueInReadableForm,
+  getRecommendationYaml,
+  getMemoryValueInGBFromExpression,
+  getCPUValueInCPUFromExpression
+} from '@ce/utils/formatResourceValue'
+import type { RecommendationItem, TimeRangeValue } from '@ce/types'
 import type { ResourceObject } from '@ce/types'
 
+import { RecommendationType, ChartColors, ViewTimeRange } from './constants'
+import RecommendationTabs from './RecommendationTabs'
 import RecommendationDiffViewer from '../RecommendationDiffViewer/RecommendationDiffViewer'
 import RecommendationHistogram, { CustomHighcharts } from '../RecommendationHistogram/RecommendationHistogram'
 import limitLegend from './images/limit-legend.svg'
 import requestLegend from './images/request-legend.svg'
+import histogramImg from './images/histogram.gif'
 import css from './RecommendationDetails.module.scss'
-
-interface RecommendationTabsProps {
-  selectedRecommendation: RecommedationType
-  setSelectedRecommendation: React.Dispatch<React.SetStateAction<RecommedationType>>
-  setCPUReqVal: React.Dispatch<React.SetStateAction<number>>
-  setMemReqVal: React.Dispatch<React.SetStateAction<number>>
-  setMemLimitVal: React.Dispatch<React.SetStateAction<number>>
-}
-
-const RecommendationTabs: React.FC<RecommendationTabsProps> = ({
-  selectedRecommendation,
-  setSelectedRecommendation,
-  setCPUReqVal,
-  setMemReqVal,
-  setMemLimitVal
-}) => {
-  const { getString } = useStrings()
-
-  return (
-    <Container padding="small" className={css.recommendationTypeContainer}>
-      <Layout.Horizontal className={css.recommendations}>
-        <Text
-          className={cx(css.recommendationTypeText, {
-            [css.selectedTab]: selectedRecommendation === RecommedationType.CostOptimized
-          })}
-          onClick={() => {
-            setCPUReqVal(50)
-            setMemReqVal(50)
-            setMemLimitVal(95)
-            setSelectedRecommendation(RecommedationType.CostOptimized)
-          }}
-          font="small"
-          padding="small"
-        >
-          {getString('ce.recommendation.detailsPage.costOptimized')}
-        </Text>
-        <Text
-          onClick={() => {
-            setCPUReqVal(95)
-            setMemReqVal(95)
-            setMemLimitVal(95)
-            setSelectedRecommendation(RecommedationType.PerformanceOptimized)
-          }}
-          className={cx(css.recommendationTypeText, {
-            [css.selectedTab]: selectedRecommendation === RecommedationType.PerformanceOptimized
-          })}
-          font="small"
-          padding="small"
-        >
-          {getString('ce.recommendation.detailsPage.performanceOptimized')}
-        </Text>
-      </Layout.Horizontal>
-    </Container>
-  )
-}
-
-export enum RecommedationType {
-  CostOptimized = 'Cost Optimized',
-  PerformanceOptimized = 'Performance Optimized',
-  Custom = 'Custom'
-}
-
-export enum ChartColors {
-  'BLUE' = '#25a6f7',
-  'GREEN' = '#38d168',
-  'GREY' = '#c4c4c4',
-  'GREEN_300' = '#d7f4e0'
-}
 
 interface RecommendationDetailsProps {
   histogramData: RecommendationItem
   currentResources: ResourceObject
+  timeRange: TimeRangeValue
+  setTimeRange: React.Dispatch<React.SetStateAction<TimeRangeValue>>
 }
 
-const RecommendationDetails: React.FC<RecommendationDetailsProps> = ({ histogramData, currentResources }) => {
+const RecommendationDetails: React.FC<RecommendationDetailsProps> = ({
+  histogramData,
+  currentResources,
+  timeRange,
+  setTimeRange
+}) => {
   const [cpuReqVal, setCPUReqVal] = useState(50)
   const [memReqVal, setMemReqVal] = useState(50)
   const [memLimitVal, setMemLimitVal] = useState(95)
+
+  // DANGER: Remove both the constants, this are mocked values
+
+  const { cpu: cpuCost, memory: memoryCost } = histogramData.containerRecommendation?.lastDayCost || {}
 
   const [reRenderChart, setRerenderChart] = useState(false)
 
   const { getString } = useStrings()
 
-  const [selectedRecommendation, setSelectedRecommendation] = useState<RecommedationType>(
-    RecommedationType.CostOptimized
+  const [selectedRecommendation, setSelectedRecommendation] = useState<RecommendationType>(
+    RecommendationType.CostOptimized
   )
+  const currentCPUResource = getCPUValueInCPUFromExpression(currentResources.requests.cpu || 1)
+  const currentMemResource = getMemoryValueInGBFromExpression(currentResources.requests.memory)
+
+  const cpuReqValue = Number(histogramData?.cpuHistogram.precomputed[cpuReqVal])
+  const memReqValue = Number(histogramData?.memoryHistogram.precomputed[memReqVal])
+  const memLimitValue = Number(histogramData?.memoryHistogram.precomputed[memLimitVal])
+
+  const perfCPUReqValue = Number(histogramData?.cpuHistogram.precomputed[95])
+  const perfMemReqValue = Number(histogramData?.memoryHistogram.precomputed[95])
+
+  const costOptimisedCPUReqValue = Number(histogramData?.cpuHistogram.precomputed[50])
+  const costOptimisedMemReqValue = Number(histogramData?.memoryHistogram.precomputed[50])
+
+  const isLastDayCostDefined = cpuCost && memoryCost
+
+  const lastDayCost = isLastDayCostDefined ? Number(cpuCost) + Number(memoryCost) : null
+
+  const numCPUCost = Number(cpuCost)
+  const numMemCost = Number(memoryCost)
+  const numLastDayCost = Number(lastDayCost)
+
+  const currentSavings = isLastDayCostDefined
+    ? numLastDayCost -
+      (((currentCPUResource - getCPUValueInCPUFromExpression(cpuReqValue)) / currentCPUResource) * numCPUCost +
+        ((currentMemResource - getMemoryValueInGBFromExpression(memReqValue)) / currentMemResource) * numMemCost)
+    : -1
+
+  const performanceOptimizedSavings = isLastDayCostDefined
+    ? numLastDayCost -
+      (((currentCPUResource - getCPUValueInCPUFromExpression(perfCPUReqValue)) / currentCPUResource) * numCPUCost +
+        ((currentMemResource - getMemoryValueInGBFromExpression(perfMemReqValue)) / currentMemResource) * numMemCost)
+    : -1
+
+  const costOptimizedSavings = isLastDayCostDefined
+    ? numLastDayCost -
+      (((currentCPUResource - getCPUValueInCPUFromExpression(costOptimisedCPUReqValue)) / currentCPUResource) *
+        numCPUCost +
+        ((currentMemResource - getMemoryValueInGBFromExpression(costOptimisedMemReqValue)) / currentMemResource) *
+          numMemCost)
+    : -1
+
+  const isCostOptimizedCustomized =
+    selectedRecommendation === RecommendationType.CostOptimized && currentSavings !== costOptimizedSavings
+
+  const isPerfOptimizedCustomized =
+    selectedRecommendation === RecommendationType.PerformanceOptimized && currentSavings !== performanceOptimizedSavings
 
   const cpuChartRef = useRef<CustomHighcharts>()
   const memoryChartRef = useRef<CustomHighcharts>()
@@ -120,15 +119,15 @@ const RecommendationDetails: React.FC<RecommendationDetailsProps> = ({ histogram
     memoryChartRef.current && memoryChartRef.current.rePlaceMarker(reqMem, limitMem)
   }
 
-  const resetToDefaultRecommendation: (recommendation: RecommedationType) => void = (
-    recommendation: RecommedationType
+  const resetToDefaultRecommendation: (recommendation: RecommendationType) => void = (
+    recommendation: RecommendationType
   ) => {
-    if (recommendation === RecommedationType.CostOptimized) {
+    if (recommendation === RecommendationType.CostOptimized) {
       setCPUReqVal(50)
       setMemReqVal(50)
       setMemLimitVal(95)
       resetReqLimitMarkers(50, 50, 90)
-    } else if (recommendation === RecommedationType.PerformanceOptimized) {
+    } else if (recommendation === RecommendationType.PerformanceOptimized) {
       setCPUReqVal(95)
       setMemReqVal(95)
       setMemLimitVal(95)
@@ -194,36 +193,55 @@ const RecommendationDetails: React.FC<RecommendationDetailsProps> = ({ histogram
   return (
     <Container className={css.mainContainer} background="white" padding="large">
       <RecommendationTabs
+        costOptimizedSavings={costOptimizedSavings}
+        performanceOptimizedSavings={performanceOptimizedSavings}
+        currentSavings={currentSavings}
         selectedRecommendation={selectedRecommendation}
         setSelectedRecommendation={setSelectedRecommendation}
         setCPUReqVal={setCPUReqVal}
         setMemReqVal={setMemReqVal}
         setMemLimitVal={setMemLimitVal}
+        isPerfOptimizedCustomized={isPerfOptimizedCustomized}
+        isCostOptimizedCustomized={isCostOptimizedCustomized}
       />
       <section className={css.diffContainer}>
         <Text padding="xsmall" font={{ size: 'normal', align: 'center' }} background="grey100">
           {getString('ce.recommendation.detailsPage.resourceChanges')}
         </Text>
         <section className={css.diffHeader}>
-          <Text className={css.heading} color="grey800" font={{ size: 'small', align: 'center' }}>
+          <Text padding={{ left: 'small' }} className={css.heading} color="grey800" font={{ size: 'small' }}>
             {getString('ce.recommendation.detailsPage.currentResources')}
           </Text>
-          <Text
-            font={{ size: 'small', align: 'center' }}
-            className={css.heading}
-            color="grey800"
-            style={{
-              justifyContent: 'center'
-            }}
+
+          <Layout.Horizontal
             border={{
               left: true
             }}
-            rightIcon="duplicate"
           >
-            {getString('ce.recommendation.detailsPage.recommendedResources', {
-              recommendationType: selectedRecommendation
-            })}
-          </Text>
+            <Text
+              padding={{ left: 'small' }}
+              font={{ size: 'small' }}
+              className={css.heading}
+              color="grey800"
+              style={{
+                flex: 1
+              }}
+            >
+              {getString('ce.recommendation.detailsPage.recommendedResources', {
+                recommendationType: selectedRecommendation
+              })}
+            </Text>
+            <Icon
+              name="duplicate"
+              color="primary5"
+              onClick={() => {
+                const yamlVal = getRecommendationYaml(cpuReqValue, memReqValue, memLimitValue)
+                copy(yamlVal)
+              }}
+              className={css.copyIcon}
+              size={13}
+            />
+          </Layout.Horizontal>
         </section>
 
         <RecommendationDiffViewer
@@ -240,9 +258,89 @@ const RecommendationDetails: React.FC<RecommendationDetailsProps> = ({ histogram
         />
       </section>
       <Container className={css.timeframeContainer}>
-        <Text padding="xsmall" font={{ size: 'normal', align: 'center' }} background="grey100">
-          {getString('ce.recommendation.detailsPage.timeChangeText')}
-        </Text>
+        <Layout.Horizontal
+          background="grey100"
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          <Text
+            margin={{
+              right: 'xsmall'
+            }}
+          >
+            {selectedRecommendation === RecommendationType.CostOptimized
+              ? getString('ce.recommendation.detailsPage.costOptimizedCaps')
+              : getString('ce.recommendation.detailsPage.performanceOptimizedCaps')}
+          </Text>
+          <Popover
+            interactionKind={PopoverInteractionKind.HOVER}
+            position={Position.BOTTOM_LEFT}
+            usePortal={false}
+            modifiers={{
+              arrow: { enabled: false },
+              flip: { enabled: true },
+              keepTogether: { enabled: true },
+              preventOverflow: { enabled: true }
+            }}
+            content={
+              <Container padding="medium" className={css.histogram}>
+                <Layout.Horizontal spacing="medium">
+                  <img width="235" src={histogramImg} />
+                  <Text>{getString('ce.recommendation.detailsPage.histogramTextDetails1')}</Text>
+                </Layout.Horizontal>
+                <Text
+                  padding={{
+                    top: 'small'
+                  }}
+                >
+                  {getString('ce.recommendation.detailsPage.histogramTextDetails2')}
+                </Text>
+              </Container>
+            }
+          >
+            <Text color="primary5" className={css.actionText}>
+              {getString('ce.recommendation.detailsPage.histogramText')}
+            </Text>
+          </Popover>
+          <Text padding="xsmall" font={{ size: 'normal', align: 'center' }}>
+            {getString('ce.recommendation.detailsPage.timeChangeText')}
+          </Text>
+          <Popover
+            position={Position.BOTTOM_LEFT}
+            modifiers={{
+              arrow: { enabled: false },
+              flip: { enabled: true },
+              keepTogether: { enabled: true },
+              preventOverflow: { enabled: true }
+            }}
+            content={
+              <Menu>
+                {ViewTimeRange.map(viewTimeRange => (
+                  <MenuItem
+                    onClick={() => {
+                      setTimeRange(viewTimeRange)
+                    }}
+                    text={viewTimeRange.label}
+                    key={viewTimeRange.value}
+                  />
+                ))}
+              </Menu>
+            }
+          >
+            <Text
+              color="primary5"
+              rightIcon="caret-down"
+              rightIconProps={{
+                color: 'primary5'
+              }}
+              className={css.actionText}
+            >
+              {timeRange?.label}
+            </Text>
+          </Popover>
+        </Layout.Horizontal>
       </Container>
       <Container className={css.histogramContainer}>
         <RecommendationHistogram
@@ -260,18 +358,20 @@ const RecommendationDetails: React.FC<RecommendationDetailsProps> = ({ histogram
       </Container>
       <Container className={css.legendContainer}>
         <Container>
-          <Button
-            onClick={() => {
-              resetToDefaultRecommendation(selectedRecommendation)
-            }}
-            icon="reset-icon"
-            withoutBoxShadow={true}
-            intent="none"
-          >
-            {getString('ce.recommendation.detailsPage.resetRecommendationText', {
-              recommendationType: selectedRecommendation
-            })}
-          </Button>
+          {isPerfOptimizedCustomized || isCostOptimizedCustomized ? (
+            <Button
+              onClick={() => {
+                resetToDefaultRecommendation(selectedRecommendation)
+              }}
+              icon="reset-icon"
+              withoutBoxShadow={true}
+              intent="none"
+            >
+              {getString('ce.recommendation.detailsPage.resetRecommendationText', {
+                recommendationType: selectedRecommendation
+              })}
+            </Button>
+          ) : null}
         </Container>
         <img src={requestLegend} />
         <Text>{getString('ce.recommendation.detailsPage.reqPercentileLegendText')}</Text>

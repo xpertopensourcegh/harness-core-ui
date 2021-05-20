@@ -117,7 +117,10 @@ const RecommendationList: React.FC = () => {
   const { accountId } = useParams<{ accountId: string }>()
 
   const { data, initLoading } = useGraphQLQuery<{ data: RecommendationsQuery }>({
-    path: `/ccm/api/graphql?accountIdentifier=${accountId}`,
+    path: `/ccm/api/graphql`,
+    queryParams: {
+      accountIdentifier: accountId
+    },
     body: { query: FETCH_ALL_RECOMMENDATIONS }
   })
 

@@ -60,6 +60,12 @@ export default function CESideNav(): React.ReactElement {
             label={getString('ce.co.accessPoint.loadbalancer')}
             to={routes.toCECOAccessPoints({ accountId, projectIdentifier, orgIdentifier })}
           />
+          {localStorage.RECOMMENDATIONS ? (
+            <SidebarLink
+              label={getString('ce.recommendation.sideNavText')}
+              to={routes.toCERecommendations({ accountId, projectIdentifier, orgIdentifier })}
+            />
+          ) : null}
         </React.Fragment>
       ) : null}
     </Layout.Vertical>

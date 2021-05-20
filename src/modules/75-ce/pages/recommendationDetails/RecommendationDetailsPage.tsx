@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { Container, Layout, Text } from '@wings-software/uicore'
@@ -7,10 +7,13 @@ import { Page } from '@common/exports'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import routes from '@common/RouteDefinitions'
 import formatCost from '@ce/utils/formatCost'
-import type { RecommendationItem } from '@ce/types'
+import { GET_DATE_RANGE } from '@ce/utils/momentUtils'
+import type { RecommendationItem, TimeRangeValue } from '@ce/types'
+import { TimeRange, TimeRangeType } from '@ce/types'
 import { useGraphQLQuery } from '@common/hooks/useGraphQLQuery'
 import FETCH_RECOMMENDATIONS from 'queries/ce/fetch_recommendation.gql'
 import type { FetchRecommendationQuery, RecommendationOverviewStats } from 'services/ce/services'
+import CustomizeRecommendationsImg from './images/custom-recommendations.gif'
 
 import RecommendationDetails from '../../components/RecommendationDetails/RecommendationDetails'
 import css from './RecommendationDetailsPage.module.scss'
@@ -31,7 +34,7 @@ interface RecommendationDetails {
   containerRecommendations: Record<string, ContainerRecommendaitons>
 }
 
-const RecommendationHelperText = () => {
+const RecommendationHelperText: React.FC = () => {
   const { getString } = useStrings()
 
   return (
@@ -56,6 +59,13 @@ const RecommendationHelperText = () => {
         <Text color="grey800" font="medium">
           {getString('common.repo_provider.customLabel')}
         </Text>
+        <Container
+          style={{
+            alignSelf: 'center'
+          }}
+        >
+          <img className={css.customImage} src={CustomizeRecommendationsImg} alt="custom-recommendation-img" />
+        </Container>
         <Text color="grey400">{getString('ce.recommendation.detailsPage.customDetails')}</Text>
       </Layout.Vertical>
     </Container>
@@ -121,9 +131,19 @@ const RecommendationDetailsPage: React.FC = () => {
     accountId: string
   }>()
 
+  const [timeRange, setTimeRange] = useState<TimeRangeValue>({ value: TimeRangeType.LAST_7, label: TimeRange.LAST_7 })
+
+  const timeRangeFilter = GET_DATE_RANGE[timeRange.value]
+
   const { data, initLoading } = useGraphQLQuery<{ data: FetchRecommendationQuery }>({
-    path: `/ccm/api/graphql?accountIdentifier=${accountId}`,
-    body: { query: FETCH_RECOMMENDATIONS, variables: { id: recommendation } }
+    path: `/ccm/api/graphql`,
+    queryParams: {
+      accountIdentifier: accountId
+    },
+    body: {
+      query: FETCH_RECOMMENDATIONS,
+      variables: { id: recommendation, startTime: timeRangeFilter[0], endTime: timeRangeFilter[1] }
+    }
   })
 
   const recommendationDetails = (data?.data?.recommendationDetails as RecommendationDetails) || []
@@ -164,9 +184,11 @@ const RecommendationDetailsPage: React.FC = () => {
                 const currentResources = recommendationDetails?.containerRecommendations[containerName]?.current
                 return (
                   <RecommendationDetails
-                    key={`${item.containerName}-${index}`}
+                    key={`${item.containerName}-${index}-${timeRange.label}`}
                     histogramData={item}
                     currentResources={currentResources}
+                    timeRange={timeRange}
+                    setTimeRange={setTimeRange}
                   />
                 )
               })}

@@ -1495,14 +1495,19 @@ export interface StringsMap {
   'ce.homepage.slogan': string
   'ce.learnMore': string
   'ce.recommendation.detailsPage.costOptimized': string
+  'ce.recommendation.detailsPage.costOptimizedCaps': string
   'ce.recommendation.detailsPage.costOptimizedDetails': string
   'ce.recommendation.detailsPage.currentResources': string
   'ce.recommendation.detailsPage.customDetails': string
+  'ce.recommendation.detailsPage.histogramText': string
+  'ce.recommendation.detailsPage.histogramTextDetails1': string
+  'ce.recommendation.detailsPage.histogramTextDetails2': string
   'ce.recommendation.detailsPage.howItWorks': string
   'ce.recommendation.detailsPage.idleCost': string
   'ce.recommendation.detailsPage.limitPercentileLegendText': string
   'ce.recommendation.detailsPage.percentileOfReqAndLimit': string
   'ce.recommendation.detailsPage.performanceOptimized': string
+  'ce.recommendation.detailsPage.performanceOptimizedCaps': string
   'ce.recommendation.detailsPage.performanceOptimizedDetails': string
   'ce.recommendation.detailsPage.recommendationComputation': string
   'ce.recommendation.detailsPage.recommendedResources': string
@@ -1529,6 +1534,7 @@ export interface StringsMap {
   'ce.recommendation.recommendationChart.memoryLabelRegular': string
   'ce.recommendation.recommendationChart.memoryUsagePlaceholder': string
   'ce.recommendation.recommendationChart.noOfSamples': string
+  'ce.recommendation.sideNavText': string
   'cf.addPrerequisites.addPrerequisitesDesc': string
   'cf.addPrerequisites.addPrerequisitesHeading': string
   'cf.addPrerequisites.editPrerequisitesHeading': string

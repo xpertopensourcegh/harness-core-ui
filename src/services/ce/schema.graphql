@@ -16,6 +16,71 @@ directive @specifiedBy("The URL that specifies the behaviour of this scalar." ur
 "This union of all types of recommendations"
 union recommendationDetails = NodeRecommendationDTO | WorkloadRecommendationDTO
 
+type BillingData {
+  accountid: String
+  actualidlecost: Float
+  appid: String
+  avgcpuutilization: Float
+  avgcpuutilizationvalue: Float
+  avgmemoryutilization: Float
+  avgmemoryutilizationvalue: Float
+  billingaccountid: String
+  billingamount: Float
+  cloudprovider: String
+  cloudproviderid: String
+  cloudservicename: String
+  clusterid: String
+  clustername: String
+  clustertype: String
+  cpuactualidlecost: Float
+  cpubillingamount: Float
+  cpuidlecost: Float
+  cpulimit: Float
+  cpurequest: Float
+  cpusystemcost: Float
+  cpuunallocatedcost: Float
+  cpuunitseconds: Float
+  endtime: OffsetDateTime
+  envid: String
+  idlecost: Float
+  instanceid: String
+  instancename: String
+  instancetype: String
+  launchtype: String
+  maxcpuutilization: Float
+  maxcpuutilizationvalue: Float
+  maxmemoryutilization: Float
+  maxmemoryutilizationvalue: Float
+  memoryactualidlecost: Float
+  memorybillingamount: Float
+  memoryidlecost: Float
+  memorylimit: Float
+  memorymbseconds: Float
+  memoryrequest: Float
+  memorysystemcost: Float
+  memoryunallocatedcost: Float
+  namespace: String
+  networkcost: Float
+  parentinstanceid: String
+  pricingsource: String
+  region: String
+  serviceid: String
+  settingid: String
+  starttime: OffsetDateTime
+  storageactualidlecost: Float
+  storagecost: Float
+  storagembseconds: Float
+  storagerequest: Float
+  storageunallocatedcost: Float
+  storageutilizationvalue: Float
+  systemcost: Float
+  taskid: String
+  unallocatedcost: Float
+  usagedurationseconds: Float
+  workloadname: String
+  workloadtype: String
+}
+
 type BillingDataDemo {
   billingamount: Float
   instancedata: InstanceDataDemo
@@ -26,8 +91,25 @@ type BillingDataDemo {
 
 type ContainerHistogramDTO {
   containerName: String
+  containerRecommendation: ContainerRecommendation
   cpuHistogram: HistogramExp
   memoryHistogram: HistogramExp
+}
+
+type ContainerRecommendation {
+  burstable: ResourceRequirement
+  current: ResourceRequirement
+  guaranteed: ResourceRequirement
+  lastDayCost: Cost
+  numDays: Int!
+  percentileBased: Map_String_ResourceRequirementScalar
+  recommended: ResourceRequirement
+  totalSamplesCount: Int!
+}
+
+type Cost {
+  cpu: BigDecimal
+  memory: BigDecimal
 }
 
 type HistogramExp {
@@ -53,6 +135,7 @@ type NodeRecommendationDTO {
 
 "Query root"
 type Query {
+  billingData(request: GridRequestInput): [BillingData]
   billingdata(clusterid: String, endTime: OffsetTime, startTime: OffsetTime): [BillingDataDemo]
   instancedata(instanceid: String!): InstanceDataDemo
   "recommendation details/drillDown"
@@ -78,12 +161,12 @@ type Query {
   recommendations(
     clusterName: String
     id: String
-    limit: Long
+    limit: Long = 10
     minCost: Float
     minSaving: Float
     name: String
     namespace: String
-    offset: Long
+    offset: Long = 0
     resourceType: ResourceType
   ): RecommendationsDTO
 }
@@ -91,8 +174,8 @@ type Query {
 type RecommendationItemDTO {
   clusterName: String
   id: String!
-  monthlyCost: Float!
-  monthlySaving: Float!
+  monthlyCost: Float
+  monthlySaving: Float
   "recommendation details/drillDown"
   recommendationDetails(
     "defaults to Now()"
@@ -115,9 +198,40 @@ type RecommendationsDTO {
   offset: Long!
 }
 
+type ResourceRequirement {
+  CPU: String
+  MEMORY: String
+  empty: Boolean!
+  limits: Map_String_StringScalar
+  requests: Map_String_StringScalar
+}
+
 type WorkloadRecommendationDTO {
-  containerRecommendations: Map_String_ContainerRecommendationScalar
+  "use items.containerRecommendation"
+  containerRecommendations: Map_String_ContainerRecommendationScalar @deprecated
   items: [ContainerHistogramDTO]
+  lastDayCost: Cost
+}
+
+enum AggregationOperation {
+  AVG
+  COUNT
+  MAX
+  MIN
+  SUM
+}
+
+enum FilterOperator {
+  EQUALS
+  GREATER_OR_EQUALS
+  IN
+  LESS_OR_EQUALS
+  LIKE
+  NOT_EQUALS
+  NOT_IN
+  NOT_NULL
+  TIME_AFTER
+  TIME_BEFORE
 }
 
 enum ResourceType {
@@ -125,11 +239,27 @@ enum ResourceType {
   WORKLOAD
 }
 
+enum SortOrder {
+  ASC
+  ASCENDING
+  DESC
+  DESCENDING
+}
+
+"Built-in java.math.BigDecimal"
+scalar BigDecimal
+
 "Long type"
 scalar Long
 
 "Built-in scalar for map-like structures"
 scalar Map_String_ContainerRecommendationScalar
+
+"Built-in scalar for map-like structures"
+scalar Map_String_ResourceRequirementScalar
+
+"Built-in scalar for map-like structures"
+scalar Map_String_StringScalar
 
 "Built-in scalar representing a date-time with a UTC offset"
 scalar OffsetDateTime
@@ -139,3 +269,30 @@ scalar OffsetTime
 
 "Use SPQR's SchemaPrinter to remove this from SDL"
 scalar UNREPRESENTABLE
+
+input FieldAggregationInput {
+  field: String
+  operation: AggregationOperation
+}
+
+input FieldFilterInput {
+  field: String
+  operator: FilterOperator
+  values: [String]
+}
+
+input GridRequestInput {
+  aggregate: [FieldAggregationInput]
+  entity: String
+  groupBy: [String]
+  having: [FieldFilterInput]
+  limit: Int
+  offset: Int
+  orderBy: [SortCriteriaInput]
+  where: [FieldFilterInput]
+}
+
+input SortCriteriaInput {
+  field: String
+  order: SortOrder
+}

@@ -1,12 +1,23 @@
-query FetchRecommendation($id: String!) {
+query FetchRecommendation($id: String!, $startTime: OffsetDateTime!, $endTime: OffsetDateTime!) {
   recommendationStats(id: $id) {
     totalMonthlyCost
     totalMonthlySaving
   }
-  recommendationDetails(id: $id, resourceType: WORKLOAD) {
+  recommendationDetails(id: $id, resourceType: WORKLOAD, startTime: $startTime, endTime: $endTime) {
     ... on WorkloadRecommendationDTO {
       containerRecommendations
       items {
+        containerRecommendation {
+          numDays
+          current {
+            CPU
+            MEMORY
+          }
+          lastDayCost {
+            cpu
+            memory
+          }
+        }
         containerName
         cpuHistogram {
           bucketWeights
