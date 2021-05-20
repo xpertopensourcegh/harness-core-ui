@@ -147,8 +147,7 @@ export default (
       path={routes.toCFFeatureFlagsDetail({
         ...accountPathProps,
         ...projectPathProps,
-        ...featureFlagPathProps,
-        ...environmentPathProps
+        ...featureFlagPathProps
       })}
       exact
     >

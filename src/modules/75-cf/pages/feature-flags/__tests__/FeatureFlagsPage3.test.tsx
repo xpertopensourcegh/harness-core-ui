@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, getAllByText, getByText, fireEvent, waitFor } from '@testing-library/react'
+import { render, fireEvent, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import mockImport from 'framework/utils/mockImport'
 import mockEnvironments from '@cf/pages/environments/__tests__/mockEnvironments'
@@ -21,7 +21,7 @@ describe('FeatureFlagsPage', () => {
       })
     })
 
-    render(
+    const { getAllByText } = render(
       <TestWrapper
         path="/account/:accountId/cf/orgs/:orgIdentifier/projects/:projectIdentifier/feature-flags"
         pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}
@@ -30,8 +30,8 @@ describe('FeatureFlagsPage', () => {
       </TestWrapper>
     )
 
-    expect(getAllByText(document.body, mockFeatureFlags.features[0].name)).toBeDefined()
-    expect(getAllByText(document.body, mockFeatureFlags.features[1].name)).toBeDefined()
+    expect(getAllByText(mockFeatureFlags.features[0].name)).toBeDefined()
+    expect(getAllByText(mockFeatureFlags.features[1].name)).toBeDefined()
   })
 
   test('Should go to edit page by clicking a row', async () => {
@@ -48,7 +48,7 @@ describe('FeatureFlagsPage', () => {
       })
     })
 
-    const { container } = render(
+    const { container, getByText } = render(
       <TestWrapper
         path="/account/:accountId/cf/orgs/:orgIdentifier/projects/:projectIdentifier/feature-flags"
         pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}
@@ -59,12 +59,7 @@ describe('FeatureFlagsPage', () => {
 
     fireEvent.click(container.querySelector('[role="row"]:not(:first-of-type)') as HTMLElement)
 
-    expect(
-      getByText(
-        container,
-        '/account/dummy/cf/orgs/dummy/projects/dummy/feature-flags/hello_world/environments/sfgsd?activeEnvironment=foobar'
-      )
-    ).toBeDefined()
+    expect(getByText('/account/dummy/cf/orgs/dummy/projects/dummy/feature-flags/hello_world')).toBeDefined()
   })
 
   test('Should go to edit page by clicking edit', async () => {
@@ -81,7 +76,7 @@ describe('FeatureFlagsPage', () => {
       })
     })
 
-    const { container } = render(
+    const { container, getByText } = render(
       <TestWrapper
         path="/account/:accountId/cf/orgs/:orgIdentifier/projects/:projectIdentifier/feature-flags"
         pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}
@@ -94,7 +89,7 @@ describe('FeatureFlagsPage', () => {
     fireEvent.click(document.querySelector('[icon="edit"]') as HTMLElement)
 
     expect(
-      getByText(container, '/account/dummy/cf/orgs/dummy/projects/dummy/feature-flags/hello_world/environments/sfgsd')
+      getByText('/account/dummy/cf/orgs/dummy/projects/dummy/feature-flags/hello_world?activeEnvironment=sfgsd')
     ).toBeDefined()
   })
 

@@ -7,23 +7,21 @@ import { getErrorMessage } from '@cf/utils/CFUtils'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { useStrings } from 'framework/strings'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
-import { useQueryParams } from '@common/hooks'
 import FlagActivation from '@cf/components/FlagActivation/FlagActivation'
-import FlagActivationDetails from '../../components/FlagActivation/FlagActivationDetails'
+import FlagActivationDetails from '@cf/components/FlagActivation/FlagActivationDetails'
+import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import css from './FeatureFlagsDetailPage.module.scss'
 
 const FeatureFlagsDetailPage: React.FC = () => {
   const { getString } = useStrings()
-  const urlQuery: Record<string, string> = useQueryParams()
   const [skipLoading, setSkipLoading] = useState(false)
-  const { orgIdentifier, projectIdentifier, featureFlagIdentifier, environmentIdentifier, accountId } = useParams<
-    Record<string, string>
-  >()
+  const { orgIdentifier, projectIdentifier, featureFlagIdentifier, accountId } = useParams<Record<string, string>>()
+  const { activeEnvironment } = useActiveEnvironment()
 
   useDocumentTitle(getString('featureFlagsText'))
   const queryParams = {
     project: projectIdentifier as string,
-    environment: environmentIdentifier !== 'undefined' ? environmentIdentifier : '',
+    environment: activeEnvironment,
     account: accountId,
     accountIdentifier: accountId,
     org: orgIdentifier
@@ -83,7 +81,7 @@ const FeatureFlagsDetailPage: React.FC = () => {
                 return refetch({
                   queryParams: {
                     ...queryParams,
-                    environment: urlQuery.activeEnvironment
+                    environment: activeEnvironment
                   }
                 }).finally(() => {
                   setSkipLoading(false)

@@ -22,6 +22,7 @@ import { PageError } from '@common/components/Page/PageError'
 import { CFVariationColors } from '@cf/constants'
 import { FlagPatchParams, useServeFeatureFlagVariationToTargets } from '@cf/utils/FlagUtils'
 import { useToaster } from '@common/exports'
+import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import { DetailHeading } from '../DetailHeading'
 import css from './FlagSettings.module.scss'
 
@@ -35,9 +36,8 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null }> = ({
   const { getString } = useStrings()
   const [sortByField] = useState(FlagsSortByField.NAME)
   const [sortOrder, setSortOrder] = useState(SortOrder.ASCENDING)
-  const { accountId, orgIdentifier, projectIdentifier, environmentIdentifier, targetIdentifier } = useParams<
-    Record<string, string>
-  >()
+  const { accountId, orgIdentifier, projectIdentifier, targetIdentifier } = useParams<Record<string, string>>()
+  const { activeEnvironment: environmentIdentifier } = useActiveEnvironment()
   const patchParams = { accountIdentifier: accountId, orgIdentifier, projectIdentifier, environmentIdentifier }
 
   const [pageNumber, setPageNumber] = useState(0)
@@ -203,6 +203,7 @@ const FlagSettingsRow: React.FC<{
 }> = ({ target, feature, patchParams, setLoadingFeaturesInBackground, refetch }) => {
   const _useServeFlagVariationToTargets = useServeFeatureFlagVariationToTargets(patchParams)
   const { showError } = useToaster()
+  const { withActiveEnvironment } = useActiveEnvironment()
 
   return (
     <ItemContainer>
@@ -218,13 +219,14 @@ const FlagSettingsRow: React.FC<{
           >
             <Link
               className={css.link}
-              to={routes.toCFFeatureFlagsDetail({
-                accountId: patchParams.accountIdentifier,
-                orgIdentifier: patchParams.orgIdentifier,
-                projectIdentifier: patchParams.projectIdentifier,
-                environmentIdentifier: patchParams.environmentIdentifier,
-                featureFlagIdentifier: feature.identifier
-              })}
+              to={withActiveEnvironment(
+                routes.toCFFeatureFlagsDetail({
+                  accountId: patchParams.accountIdentifier,
+                  orgIdentifier: patchParams.orgIdentifier,
+                  projectIdentifier: patchParams.projectIdentifier,
+                  featureFlagIdentifier: feature.identifier
+                })
+              )}
             >
               {feature.name}
             </Link>

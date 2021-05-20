@@ -759,13 +759,8 @@ const routes = {
       `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/feature-flags`
   ),
   toCFFeatureFlagsDetail: withAccountId(
-    ({
-      orgIdentifier,
-      projectIdentifier,
-      featureFlagIdentifier,
-      environmentIdentifier
-    }: ProjectPathProps & FeatureFlagPathProps & EnvironmentPathProps) =>
-      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/feature-flags/${featureFlagIdentifier}/environments/${environmentIdentifier}`
+    ({ orgIdentifier, projectIdentifier, featureFlagIdentifier }: ProjectPathProps & FeatureFlagPathProps) =>
+      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/feature-flags/${featureFlagIdentifier}`
   ),
   toCFSegments: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>

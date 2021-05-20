@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
 import type { FormikActions } from 'formik'
@@ -39,6 +39,8 @@ import { FFDetailPageTab, getErrorMessage, rewriteCurrentLocationWithActiveEnvir
 import routes from '@common/RouteDefinitions'
 import { PageError } from '@common/components/Page/PageError'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
+import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
+import type { FeatureFlagPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import FlagElemTest from '../CreateFlagWizard/FlagElemTest'
 import TabTargeting from '../EditFlagTabs/TabTargeting'
 import TabActivity from '../EditFlagTabs/TabActivity'
@@ -376,6 +378,14 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
   const [newEnvironmentCreateLoading, setNewEnvironmentCreateLoading] = useState(false)
   const { getString } = useStrings()
   const history = useHistory()
+  const { withActiveEnvironment } = useActiveEnvironment()
+  const pathParams = useParams<ProjectPathProps & FeatureFlagPathProps>()
+
+  useEffect(() => {
+    if (tab !== activeTabId) {
+      history.replace(withActiveEnvironment(routes.toCFFeatureFlagsDetail(pathParams) + `?tab=${activeTabId}`))
+    }
+  }, [activeTabId, history, pathParams, tab, withActiveEnvironment])
 
   if (envsLoading || newEnvironmentCreateLoading || loadingFlags) {
     return (
@@ -405,13 +415,15 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
           style={{ marginTop: '-100px' }}
           onCreated={response => {
             history.replace(
-              routes.toCFFeatureFlagsDetail({
-                orgIdentifier,
-                projectIdentifier: flagData.project,
-                environmentIdentifier: response?.data?.identifier as string,
-                featureFlagIdentifier: flagData.identifier,
-                accountId
-              })
+              withActiveEnvironment(
+                routes.toCFFeatureFlagsDetail({
+                  orgIdentifier,
+                  projectIdentifier: flagData.project,
+                  featureFlagIdentifier: flagData.identifier,
+                  accountId
+                }),
+                response?.data?.identifier
+              )
             )
 
             // See https://harness.atlassian.net/browse/FFM-565
@@ -459,11 +471,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                     <Tabs
                       id="editFlag"
                       defaultSelectedTabId={activeTabId}
-                      onChange={tabId => {
-                        const url = `${location.href.split('?')[0]}?tab=${tabId}`
-                        window.history.replaceState(null, document.title, url)
-                        setActiveTabId(tabId as FFDetailPageTab)
-                      }}
+                      onChange={(tabId: string) => setActiveTabId(tabId)}
                     >
                       <Tab
                         id={FFDetailPageTab.TARGETING}

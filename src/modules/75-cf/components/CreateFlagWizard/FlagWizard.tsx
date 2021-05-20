@@ -7,6 +7,7 @@ import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
 import { useStrings } from 'framework/strings'
 import { getErrorMessage, showToaster, FeatureFlagMutivariateKind } from '@cf/utils/CFUtils'
+import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import FlagElemAbout from './FlagElemAbout'
 import FlagElemBoolean from './FlagElemBoolean'
 import FlagElemMultivariate from './FlagElemMultivariate'
@@ -33,6 +34,7 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
   const { showError } = useToaster()
   const { projectIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
   const history = useHistory()
+  const { withActiveEnvironment } = useActiveEnvironment()
   const { mutate: createFeatureFlag, loading: isLoadingCreateFeatureFlag } = useCreateFeatureFlag({
     queryParams: {
       account: accountId,
@@ -58,13 +60,15 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
         .then(() => {
           hideModal()
           history.push(
-            routes.toCFFeatureFlagsDetail({
-              orgIdentifier: orgIdentifier as string,
-              projectIdentifier: projectIdentifier as string,
-              featureFlagIdentifier: formData.identifier,
-              environmentIdentifier,
-              accountId
-            })
+            withActiveEnvironment(
+              routes.toCFFeatureFlagsDetail({
+                orgIdentifier: orgIdentifier as string,
+                projectIdentifier: projectIdentifier as string,
+                featureFlagIdentifier: formData.identifier,
+                accountId
+              }),
+              environmentIdentifier
+            )
           )
           showToaster(getString('cf.messages.flagCreated'))
         })

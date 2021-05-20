@@ -14,6 +14,7 @@ import { Feature, FeatureEvaluation, useGetFeatureEvaluations } from 'services/c
 import { PageError } from '@common/components/Page/PageError'
 import { formatDate, formatNumber, getErrorMessage } from '@cf/utils/CFUtils'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
+import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import { EvaluationsChart } from './EvaluationsChart'
 import css from './MetricsView.module.scss'
 
@@ -36,9 +37,9 @@ const _formatDateWithoutYear = (date: number): string => {
 
 export const TabEvaluations: React.FC<TabEvaluationsProps> = ({ flagData, startDate, endDate }) => {
   const { getString } = useStrings()
-  const { accountId: account, orgIdentifier: org, projectIdentifier: project, environmentIdentifier } = useParams<
-    Record<string, string>
-  >()
+  const { accountId: account, orgIdentifier: org, projectIdentifier: project } = useParams<Record<string, string>>()
+  const { activeEnvironment: environmentIdentifier } = useActiveEnvironment()
+
   const queryParams = useMemo(
     () => ({
       account,

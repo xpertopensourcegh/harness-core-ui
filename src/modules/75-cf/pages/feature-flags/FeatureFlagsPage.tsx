@@ -40,6 +40,7 @@ import { NoData } from '@cf/components/NoData/NoData'
 import { useEnvironmentSelectV2 } from '@cf/hooks/useEnvironmentSelectV2'
 import type { EnvironmentResponseDTO } from 'services/cd-ng'
 import { CFEnvironmentSelect } from '@cf/components/CFEnvironmentSelect/CFEnvironmentSelect'
+import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import {
   isFeatureFlagOn,
   CF_DEFAULT_PAGE_SIZE,
@@ -49,10 +50,10 @@ import {
   useFeatureFlagTypeToStringMapping,
   showToaster,
   rewriteCurrentLocationWithActiveEnvironment
-} from '../../utils/CFUtils'
-import { FlagTypeVariations } from '../../components/CreateFlagDialog/FlagDialogUtils'
+} from '@cf/utils/CFUtils'
+import { FlagTypeVariations } from '@cf/components/CreateFlagDialog/FlagDialogUtils'
 // import FlagDrawerFilter from '../../components/FlagFilterDrawer/FlagFilterDrawer'
-import FlagDialog from '../../components/CreateFlagDialog/FlagDialog'
+import FlagDialog from '@cf/components/CreateFlagDialog/FlagDialog'
 import imageURL from './flag.svg'
 import { FeatureFlagStatus, FlagStatus } from './FlagStatus'
 import { FlagResult } from './FlagResult'
@@ -296,6 +297,7 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
   const { showError, clear } = useToaster()
   const { projectIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
   const history = useHistory()
+  const { withActiveEnvironment } = useActiveEnvironment()
   const { getString } = useStrings()
   const { mutate } = useDeleteFeatureFlag({
     queryParams: {
@@ -335,13 +337,15 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
 
   const gotoDetailPage = (): void => {
     history.push(
-      routes.toCFFeatureFlagsDetail({
-        orgIdentifier: orgIdentifier as string,
-        projectIdentifier: projectIdentifier as string,
-        environmentIdentifier: environment as string,
-        featureFlagIdentifier: data.identifier,
-        accountId
-      })
+      withActiveEnvironment(
+        routes.toCFFeatureFlagsDetail({
+          orgIdentifier: orgIdentifier as string,
+          projectIdentifier: projectIdentifier as string,
+          featureFlagIdentifier: data.identifier,
+          accountId
+        }),
+        environment
+      )
     )
   }
 
@@ -372,6 +376,7 @@ const FeatureFlagsPage: React.FC = () => {
   const { projectIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
   const urlQuery: Record<string, string> = useQueryParams()
   const history = useHistory()
+  const { withActiveEnvironment } = useActiveEnvironment()
   const [pageNumber, setPageNumber] = useState(0)
   const queryParams = useMemo(
     () => ({
@@ -552,14 +557,14 @@ const FeatureFlagsPage: React.FC = () => {
                   data={features?.features || []}
                   onRowClick={feature => {
                     history.push(
-                      routes.toCFFeatureFlagsDetail({
-                        orgIdentifier: orgIdentifier as string,
-                        projectIdentifier: projectIdentifier as string,
-                        environmentIdentifier: feature.envProperties?.environment || '',
-                        featureFlagIdentifier: feature.identifier,
-                        accountId
-                      }) +
-                        `${activeEnvironment?.identifier ? `?activeEnvironment=${activeEnvironment?.identifier}` : ''}`
+                      withActiveEnvironment(
+                        routes.toCFFeatureFlagsDetail({
+                          orgIdentifier: orgIdentifier as string,
+                          projectIdentifier: projectIdentifier as string,
+                          featureFlagIdentifier: feature.identifier,
+                          accountId
+                        })
+                      )
                     )
                   }}
                 />

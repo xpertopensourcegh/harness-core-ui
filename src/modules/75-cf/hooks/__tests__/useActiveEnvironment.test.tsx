@@ -1,0 +1,72 @@
+import { renderHook } from '@testing-library/react-hooks'
+import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
+import * as commonHooks from '@common/hooks'
+
+jest.mock('@common/hooks')
+
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+const renderActiveEnvironmentHook = (activeEnvironment = 'TEST_ENV') => {
+  jest.spyOn(commonHooks, 'useQueryParams').mockReturnValue({ activeEnvironment })
+  return renderHook(() => useActiveEnvironment())
+}
+
+describe('useActiveEnvironment', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+
+  test('it should return activeEnvironment and withActiveEnvironment', async () => {
+    const { result } = renderActiveEnvironmentHook()
+
+    expect(result.current).toHaveProperty('activeEnvironment')
+    expect(result.current).toHaveProperty('withActiveEnvironment')
+  })
+
+  describe('activeEnvironment', () => {
+    test.each(['test', ''])('it should return the active environment as "%s"', async (activeEnvironment: string) => {
+      const { result } = renderActiveEnvironmentHook(activeEnvironment)
+
+      expect(result.current).toHaveProperty('activeEnvironment', activeEnvironment)
+    })
+  })
+
+  describe('withActiveEnvironment', () => {
+    test('it should append a query string with the active environment', async () => {
+      const env = 'test123'
+      const url = 'test/url'
+
+      const { result } = renderActiveEnvironmentHook(env)
+
+      expect(result.current.withActiveEnvironment(url)).toEqual(`${url}?activeEnvironment=${env}`)
+    })
+
+    test('it should add the active environment to an existing query string', async () => {
+      const env = 'test123'
+      const url = 'test/url?test=123'
+
+      const { result } = renderActiveEnvironmentHook(env)
+
+      expect(result.current.withActiveEnvironment(url)).toEqual(`${url}&activeEnvironment=${env}`)
+    })
+
+    test('it should modify the active environment if it already exists', async () => {
+      const env = 'test123'
+      const { result } = renderActiveEnvironmentHook(env)
+
+      expect(result.current.withActiveEnvironment('test/url?activeEnvironment=test456&test=123')).toEqual(
+        `test/url?activeEnvironment=${env}&test=123`
+      )
+    })
+
+    test('it should use the environment override instead of the activeEnvironment if passed', async () => {
+      const env = 'test123'
+      const envOverride = 'test456'
+      const url = 'test/url'
+      const { result } = renderActiveEnvironmentHook(env)
+
+      const output = result.current.withActiveEnvironment(url, envOverride)
+      expect(output).not.toContain(env)
+      expect(output).toEqual(`${url}?activeEnvironment=${envOverride}`)
+    })
+  })
+})
