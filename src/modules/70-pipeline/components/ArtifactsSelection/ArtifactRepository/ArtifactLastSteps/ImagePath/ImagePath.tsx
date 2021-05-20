@@ -85,14 +85,6 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
     debounce: 300
   })
 
-  // const debouncedCall = useCallback(
-  //   debounce((_searchVal: string) => {
-  //     setLastImagePath(_searchVal)
-  //     // send the server request here
-  //   }, 1000),
-  //   []
-  // )
-
   React.useEffect(() => {
     if (Array.isArray(data?.data?.buildDetailsList)) {
       setTagList(data?.data?.buildDetailsList as [])
@@ -100,7 +92,9 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
   }, [data])
 
   React.useEffect(() => {
-    refetch()
+    if (lastImagePath) {
+      refetch()
+    }
   }, [lastImagePath])
   const getSelectItems = React.useCallback(() => {
     const list = tagList?.map(({ tag }: { tag: string }) => ({ label: tag, value: tag }))
