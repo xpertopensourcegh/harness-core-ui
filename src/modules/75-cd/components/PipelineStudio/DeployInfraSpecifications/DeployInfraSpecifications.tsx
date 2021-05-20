@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import YAML from 'yaml'
 import { Layout, Card, Icon, Text, Accordion, Button } from '@wings-software/uicore'
 import type { IconName } from '@wings-software/uicore'
-import { cloneDeep, get, isEmpty, isNil, omit } from 'lodash-es'
+import { clone, get, isEmpty, isNil, omit } from 'lodash-es'
 import debounce from 'p-debounce'
 import cx from 'classnames'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
@@ -84,7 +84,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceUpdatePipeline = React.useCallback(
-    debounce((pipelineData: NgPipeline) => updatePipeline(cloneDeep(pipelineData)), 300),
+    debounce((pipelineData: NgPipeline) => updatePipeline(clone(pipelineData)), 300),
     [updatePipeline]
   )
 
