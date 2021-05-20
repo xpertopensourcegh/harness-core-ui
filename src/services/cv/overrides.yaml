@@ -49,7 +49,6 @@ allowpaths:
   - /stackdriver/dashboard-detail
   - /stackdriver/sample-data
   - /activity-source
-  - /activity-source/create
   - /activity-source/{identifier}
   - /activity-source/list
   - /activity/{identifier}
@@ -91,3 +90,4 @@ operationIdOverrides:
   /activity/{identifier}: deleteActivitySource
   /activity/source.post: saveActivitySource
   /verification-job/eligible-cdng-verification-jobs.get: CDNGVerificationJobs
+  /activity-source.post: createActivitySource
