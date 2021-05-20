@@ -14,7 +14,7 @@ export interface DynamicPopoverHandlerBinding<T> {
   show: (
     ref: Element | PopperJS.VirtualElement | string,
     data?: T,
-    options?: { darkMode?: boolean; useArrows?: boolean },
+    options?: { darkMode?: boolean; useArrows?: boolean; fixedPosition?: boolean },
     onHideCallBack?: () => void
   ) => void
   hide: () => void
@@ -25,14 +25,24 @@ export interface DynamicPopoverProps<T> {
   className?: string
   darkMode?: boolean
   useArrows?: boolean
+  fixedPosition?: boolean
   bind: (dynamicPopoverHandler: DynamicPopoverHandlerBinding<T>) => void
   closeOnMouseOut?: boolean
 }
 
 export function DynamicPopover<T>(props: DynamicPopoverProps<T>): JSX.Element {
-  const { bind, render, className = '', darkMode = false, useArrows = true, closeOnMouseOut } = props
+  const {
+    bind,
+    render,
+    className = '',
+    darkMode = false,
+    useArrows = true,
+    fixedPosition = false,
+    closeOnMouseOut
+  } = props
   const [darkModeState, setDarkMode] = useState<boolean>(darkMode)
   const [useArrowsState, setArrowVisibility] = useState<boolean>(useArrows)
+  const [fixedPositionState, setFixedPosition] = useState<boolean>(fixedPosition)
 
   const [popperElement, setPopperElement] = useState<HTMLElement | null>(null)
   const [data, setData] = useState<T>()
@@ -71,6 +81,7 @@ export function DynamicPopover<T>(props: DynamicPopoverProps<T>): JSX.Element {
           if (options) {
             typeof options.darkMode === 'boolean' && setDarkMode(options.darkMode)
             typeof options.useArrows === 'boolean' && setArrowVisibility(options.useArrows)
+            typeof options.fixedPosition === 'boolean' && setFixedPosition(options.fixedPosition)
           }
           setHideCallBack(prev => {
             prev?.()
@@ -107,13 +118,15 @@ export function DynamicPopover<T>(props: DynamicPopoverProps<T>): JSX.Element {
     bind(handler)
   }, [bind, handler])
 
+  const popperStyle = fixedPositionState ? { ...styles.popper, transform: 'initial' } : styles.popper
+
   return (
     <>
       {visible && (
         <span
           ref={setPopperElement}
           className={cx(css.dynamicPopover, { [css.dark]: darkModeState }, className)}
-          style={styles.popper}
+          style={popperStyle}
           {...attributes.popper}
           onMouseEnter={() => {
             if (closeOnMouseOut) {

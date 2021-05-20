@@ -116,7 +116,7 @@ export default function ExecutionGraph(props: ExecutionGraphProps): React.ReactE
         event,
         data: stage
       },
-      { useArrows: true, darkMode: false }
+      { useArrows: true, darkMode: false, fixedPosition: false }
     )
     const isFinished = stage?.data?.endTs
     const hasStarted = stage?.data?.startTs

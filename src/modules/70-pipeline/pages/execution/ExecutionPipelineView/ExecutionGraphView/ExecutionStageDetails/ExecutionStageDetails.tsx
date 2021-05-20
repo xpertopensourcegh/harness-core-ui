@@ -109,7 +109,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
         event,
         data: currentStage
       },
-      { useArrows: true, darkMode: false }
+      { useArrows: true, darkMode: false, fixedPosition: false }
     )
     if (!isFinished && hasStarted) {
       if (currentStage?.data?.stepType === StepType.Barrier && status !== 'Success') {

@@ -247,7 +247,7 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
             addStepGroup: getString('addStepGroup')
           }
         },
-        { useArrows: true, darkMode: true },
+        { useArrows: true, darkMode: true, fixedPosition: false },
         onHide
       )
     }

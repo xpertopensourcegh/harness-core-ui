@@ -323,7 +323,7 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
               renderPipelineStage,
               stagesMap
             },
-            { useArrows: false, darkMode: false }
+            { useArrows: false, darkMode: false, fixedPosition: false }
           )
         } else if (eventTemp.entity.getType() === DiagramType.GroupNode && selectedStageId) {
           const parent = getStageFromPipeline(eventTemp.entity.getIdentifier()).parent
@@ -348,7 +348,7 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
                 stagesMap,
                 renderPipelineStage
               },
-              { useArrows: false, darkMode: false }
+              { useArrows: false, darkMode: false, fixedPosition: false }
             )
           }
         } /* istanbul ignore else */ else if (eventTemp.entity.getType() !== DiagramType.StartNode) {
@@ -378,7 +378,7 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
                   stagesMap,
                   renderPipelineStage
                 },
-                { useArrows: false, darkMode: false }
+                { useArrows: false, darkMode: false, fixedPosition: false }
               )
               /*updatePipelineView({
                 ...pipelineView,
@@ -432,7 +432,7 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
                   stagesMap,
                   renderPipelineStage
                 },
-                { useArrows: false, darkMode: false }
+                { useArrows: false, darkMode: false, fixedPosition: false }
               )
             }
           }
@@ -469,7 +469,7 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
             stagesMap,
             renderPipelineStage
           },
-          { useArrows: false, darkMode: false },
+          { useArrows: false, darkMode: false, fixedPosition: false },
           eventTemp.callback
         )
       }
@@ -523,12 +523,12 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
           `[data-linkid="${eventTemp.entity.getID()}"] circle`,
           {
             addStage,
-            isStageView: false,
+            isStageView: true,
             event: eventTemp,
             stagesMap,
             renderPipelineStage
           },
-          { useArrows: false, darkMode: false }
+          { useArrows: false, darkMode: false, fixedPosition: openSplitView }
         )
       }
     },
