@@ -9,22 +9,36 @@ import {
   Formik,
   FormikForm,
   FormInput,
-  Popover
+  Popover,
+  useModalHook,
+  ModalErrorHandlerBinding,
+  ModalErrorHandler,
+  Tag
 } from '@wings-software/uicore'
+import cx from 'classnames'
 import type { CellProps, Renderer, Column } from 'react-table'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
 import { pick } from 'lodash-es'
-import { Menu, Classes, Position } from '@blueprintjs/core'
+import { Menu, Classes, Position, Dialog } from '@blueprintjs/core'
 import Table from '@common/components/Table/Table'
-import { GitSyncConfig, GitSyncFolderConfigDTO, usePutGitSync } from 'services/cd-ng'
+import {
+  GitSyncConfig,
+  GitSyncFolderConfigDTO,
+  ResponseConnectorValidationResult,
+  useGetTestGitRepoConnectionResult,
+  usePutGitSync
+} from 'services/cd-ng'
 import useCreateGitSyncModal from '@gitsync/modals/useCreateGitSyncModal'
 import { useStrings } from 'framework/strings'
-import { getGitConnectorIcon } from '@gitsync/common/gitSyncUtils'
+import { getCompleteGitPath, getGitConnectorIcon, getRepoPath } from '@gitsync/common/gitSyncUtils'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
-import { Connectors } from '@connectors/constants'
 import { useToaster } from '@common/components/Toaster/useToaster'
-import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { HARNESS_FOLDER_SUFFIX } from '@gitsync/common/Constants'
+import { TestConnectionWidget, TestStatus } from '@common/components/TestConnectionWidget/TestConnectionWidget'
+import { getScopeFromValue } from '@common/components/EntityReference/EntityReference'
+import CopyToClipboard from '@common/components/CopyToClipBoard/CopyToClipBoard'
 import css from './GitSyncRepoTab.module.scss'
 
 enum RepoState {
@@ -99,22 +113,6 @@ const GitSyncRepoTab: React.FC = () => {
     }
   })
 
-  const getRepoPath = (gitRepo: GitSyncConfig): string => {
-    let basePath = ''
-    switch (gitRepo.gitConnectorType) {
-      case Connectors.GITHUB:
-        basePath = 'https://github.com/'
-        break
-      case Connectors.GITLAB:
-        basePath = 'https://gitlab.com/'
-        break
-      case Connectors.BITBUCKET:
-        basePath = 'https://bitbucket.com/'
-    }
-
-    return gitRepo.repo?.split(basePath)[1] || ''
-  }
-
   const RenderColumnReponame: Renderer<CellProps<GitSyncConfig>> = ({ row }) => {
     const data = row.original
 
@@ -136,7 +134,9 @@ const GitSyncRepoTab: React.FC = () => {
   const RenderColumnRepo: Renderer<CellProps<GitSyncConfig>> = ({ row }) => {
     return (
       <div className={css.wrapper}>
-        <Text className={css.name}>{getRepoPath(row.original)}</Text>
+        <Text className={css.name} color={Color.BLACK}>
+          {getRepoPath(row.original)}
+        </Text>
       </div>
     )
   }
@@ -145,22 +145,30 @@ const GitSyncRepoTab: React.FC = () => {
     const data = row.original
     return (
       <div className={css.wrapper}>
-        <Text className={css.name}>{data.branch}</Text>
+        <Text className={css.name} color={Color.BLACK}>
+          {data.branch}
+        </Text>
       </div>
     )
   }
 
   const RenderColumnRootFolder: Renderer<CellProps<GitSyncConfig>> = ({ row }) => {
-    const { accountId } = useParams<AccountPathProps>()
+    const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
     const { showSuccess, showError } = useToaster()
     const [repoState, setRepoState] = React.useState<RepoState>(RepoState.VIEW)
     const [repoData, setRepoData] = React.useState<GitSyncConfig>(row.original)
     const { mutate: updateGitSyncRepo, loading } = usePutGitSync({
       queryParams: { accountIdentifier: accountId }
     })
+    const [testStatus, setTestStatus] = useState<TestStatus>(TestStatus.NOT_INITIATED)
+    const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
 
-    const handleRepoUpdate = async (updatedFolders: GitSyncFolderConfigDTO[]): Promise<void> => {
+    const handleRepoUpdate = async (
+      updatedFolders: GitSyncFolderConfigDTO[],
+      whileAddingNewFolder = false
+    ): Promise<void> => {
       try {
+        modalErrorHandler?.hide()
         const payload = {
           ...pick(repoData, [
             'gitConnectorType',
@@ -180,30 +188,258 @@ const GitSyncRepoTab: React.FC = () => {
         showSuccess(getString('gitsync.rootFolderUpdatedSuccessfully', { name: payload.name }))
         setRepoData(response)
         setRepoState(RepoState.VIEW)
-      } catch (err) {
-        showError(err?.data?.message || err?.message)
+        hideModal()
+      } catch (e) {
+        if (whileAddingNewFolder) {
+          modalErrorHandler?.showDanger(e.data?.message || e.message)
+        } else {
+          showError(e.data?.message || e.message)
+        }
       }
     }
+
+    const { mutate: testRepo, loading: testing } = useGetTestGitRepoConnectionResult({
+      identifier: '',
+      pathParams: {
+        identifier: ''
+      },
+      queryParams: {
+        repoURL: ''
+      }
+    })
+
+    const testConnection = async (identifier: string, repoURL: string): Promise<void> => {
+      setTestStatus(TestStatus.IN_PROGRESS)
+      testRepo(undefined, {
+        pathParams: {
+          identifier
+        },
+        queryParams: {
+          accountIdentifier: accountId,
+          projectIdentifier,
+          orgIdentifier,
+          repoURL
+        }
+      })
+        .then((response: ResponseConnectorValidationResult) => {
+          if (response?.data?.status !== 'SUCCESS') {
+            setTestStatus(TestStatus.FAILED)
+          } else {
+            setTestStatus(TestStatus.SUCCESS)
+          }
+        })
+        .catch(_e => {
+          setTestStatus(TestStatus.FAILED)
+        })
+    }
+
+    /** Disabling this section till underlying api call is fixed */
+    const disableTestConnection = false
+
+    const [showModal, hideModal] = useModalHook(() => {
+      return (
+        <Dialog
+          isOpen={true}
+          onClose={() => {
+            hideModal()
+            setRepoState(RepoState.VIEW)
+          }}
+          title={
+            <Text padding={{ bottom: 'small' }} margin={{ left: 'medium' }} font={{ weight: 'bold' }}>
+              {getString('gitsync.addNewHarnessFolderLabel')}
+            </Text>
+          }
+          style={{
+            width: 700
+          }}
+        >
+          <ModalErrorHandler bind={setModalErrorHandler} />
+          <Container
+            margin={{ left: 'xxlarge', right: 'xxlarge' }}
+            border={{ top: true, color: Color.GREY_250 }}
+            padding={{ top: 'xlarge' }}
+          >
+            <Formik
+              initialValues={{ rootFolder: '', isDefault: false, repo: repoData.repo || '' }}
+              validationSchema={Yup.object().shape({
+                rootFolder: Yup.string().trim().required(getString('validation.nameRequired'))
+              })}
+              onSubmit={formData => {
+                if (repoData?.gitSyncFolderConfigDTOs?.length) {
+                  const folders = formData.isDefault
+                    ? repoData?.gitSyncFolderConfigDTOs?.map((oldFolder: GitSyncFolderConfigDTO) => {
+                        oldFolder.isDefault = false
+                        return oldFolder
+                      })
+                    : repoData?.gitSyncFolderConfigDTOs?.slice()
+
+                  folders?.push({
+                    rootFolder: formData.rootFolder.concat(HARNESS_FOLDER_SUFFIX),
+                    isDefault: formData.isDefault
+                  })
+                  handleRepoUpdate(folders, true)
+                }
+              }}
+            >
+              {({ values: formValues }) => (
+                <FormikForm>
+                  <Layout.Vertical border={{ bottom: true, color: Color.GREY_250 }} margin={{ bottom: 'medium' }}>
+                    <Layout.Horizontal flex={{ justifyContent: 'flex-start' }} spacing="xlarge">
+                      <Layout.Vertical>
+                        <FormInput.Text
+                          className={cx(css.inputFields, { [css.noSpacing]: formValues.repo })}
+                          name="repo"
+                          label={getString('repositoryUrlLabel')}
+                          disabled={!!formValues.repo}
+                        />
+                        {formValues.repo ? (
+                          <Text
+                            font={{ size: 'small' }}
+                            padding={{ top: 'xsmall', bottom: 'large' }}
+                            color={Color.GREY_250}
+                            style={{
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              whiteSpace: 'nowrap'
+                            }}
+                            title={getRepoPath({
+                              repo: formValues.repo,
+                              gitConnectorType: repoData.gitConnectorType
+                            })}
+                          >
+                            {getRepoPath({
+                              repo: formValues.repo,
+                              gitConnectorType: repoData.gitConnectorType
+                            })}
+                          </Text>
+                        ) : null}
+                      </Layout.Vertical>
+                      {disableTestConnection && formValues.repo ? (
+                        <Container padding={{ bottom: 'medium' }}>
+                          <TestConnectionWidget
+                            testStatus={testStatus}
+                            onTest={() =>
+                              testConnection(getScopeFromValue(repoData.gitConnectorRef || ''), formValues.repo || '')
+                            }
+                          />
+                        </Container>
+                      ) : null}
+                    </Layout.Horizontal>
+                    <Layout.Vertical>
+                      <FormInput.Text
+                        className={cx(css.inputFields, css.placeholder, { [css.noSpacing]: formValues.rootFolder })}
+                        name="rootFolder"
+                        label={getString('gitsync.pathToHarnessFolder')}
+                        placeholder={HARNESS_FOLDER_SUFFIX}
+                      />
+                      {formValues.rootFolder ? (
+                        <Text
+                          font={{ size: 'small' }}
+                          padding={{ top: 'xsmall', bottom: 'xxlarge' }}
+                          color={Color.GREY_250}
+                          style={{
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap'
+                          }}
+                          title={getCompleteGitPath(formValues.repo, formValues.rootFolder, HARNESS_FOLDER_SUFFIX)}
+                        >
+                          {getCompleteGitPath(formValues.repo, formValues.rootFolder, HARNESS_FOLDER_SUFFIX)}
+                        </Text>
+                      ) : null}
+                      <Container
+                        padding={{
+                          left: 'xlarge'
+                        }}
+                      >
+                        <FormInput.CheckBox name="isDefault" label={getString('gitsync.markAsDefaultLabel')} />
+                      </Container>
+                    </Layout.Vertical>
+                  </Layout.Vertical>
+                  <Layout.Horizontal flex={{ justifyContent: 'flex-start' }}>
+                    <Button
+                      intent="primary"
+                      type="submit"
+                      text={getString('gitsync.addFolder')}
+                      margin={{ right: 'large' }}
+                      disabled={loading || testing || testStatus === TestStatus.FAILED}
+                    />
+                    {loading ? (
+                      <Icon name="steps-spinner" color={Color.PRIMARY_7} margin={{ right: 'large' }} size={18} />
+                    ) : null}
+                    <Button
+                      disabled={loading}
+                      text={getString('cancel')}
+                      onClick={() => {
+                        setRepoState(RepoState.VIEW)
+                        hideModal()
+                      }}
+                    />
+                  </Layout.Horizontal>
+                </FormikForm>
+              )}
+            </Formik>
+          </Container>
+        </Dialog>
+      )
+    }, [modalErrorHandler?.showDanger, loading, testStatus])
+
+    React.useEffect(() => {
+      if (repoState === RepoState.EDIT) {
+        showModal()
+      }
+    }, [repoState])
 
     return (
       <div className={css.wrapper}>
         <Layout.Vertical spacing="xsmall">
           {repoData?.gitSyncFolderConfigDTOs?.length
             ? repoData.gitSyncFolderConfigDTOs.map((rootFolderData: GitSyncFolderConfigDTO, index: number) => {
+                const folder = '/'.concat(rootFolderData.rootFolder?.split('/.harness')[0] || '')
+                const folderPath = `${repoData.repo}/${rootFolderData.rootFolder}`
                 return (
-                  <Layout.Horizontal key={index} className={css.rootFoldersContainer}>
-                    <Layout.Horizontal spacing="medium" className={css.rootFoldersData}>
-                      <Text className={css.rootFolderRelativePath}>
-                        {rootFolderData.rootFolder?.split('/.harness')[0]}
-                      </Text>
-                      <Text>{`${repoData.repo}/${rootFolderData.rootFolder}`}</Text>
-                      {rootFolderData.isDefault && (
-                        <Text padding="xsmall" background={Color.PURPLE_100}>
-                          {getString('gitsync.defaultFolder')}
+                  <Layout.Horizontal
+                    key={index}
+                    className={css.rootFoldersContainer}
+                    flex={{ justifyContent: 'space-between', alignItems: 'center' }}
+                  >
+                    <Layout.Horizontal className={css.rootFoldersData}>
+                      <Container width="20%">
+                        <Text
+                          style={{
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap'
+                          }}
+                          title={folder}
+                          color={Color.BLACK}
+                        >
+                          {folder}
                         </Text>
+                      </Container>
+                      <Container width={rootFolderData.isDefault ? '55%' : '75%'}>
+                        <Text
+                          style={{
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap'
+                          }}
+                          title={folderPath}
+                        >
+                          {folderPath}
+                        </Text>
+                      </Container>
+                      <Container width="5%">
+                        <CopyToClipboard content={folderPath} showFeedback={true} />
+                      </Container>
+                      {rootFolderData.isDefault && (
+                        <Container width="20%">
+                          <Tag className={css.defaultFolderTag} style={{ borderRadius: 5 }}>
+                            {getString('gitsync.defaultFolder')}
+                          </Tag>
+                        </Container>
                       )}
                     </Layout.Horizontal>
-
                     <RightMenu repo={repoData} selectedFolderIndex={index} handleRepoUpdate={handleRepoUpdate} />
                   </Layout.Horizontal>
                 )
@@ -215,65 +451,17 @@ const GitSyncRepoTab: React.FC = () => {
               minimal
               className={css.addFolderBtn}
               intent="primary"
-              text={getString('gitsync.addFolder')}
+              text={
+                <Layout.Horizontal flex={{ alignItems: 'baseline' }} spacing="xsmall">
+                  <Text font={{ size: 'medium' }}>+</Text>
+                  <Text>{getString('gitsync.addFolder')}</Text>
+                </Layout.Horizontal>
+              }
               onClick={() => {
                 repoState === RepoState.VIEW && setRepoState(RepoState.EDIT)
               }}
             />
-          ) : (
-            <Container padding="medium">
-              <Formik
-                initialValues={{ rootFolder: '', isDefault: false }}
-                validationSchema={Yup.object().shape({
-                  rootFolder: Yup.string().trim().required(getString('validation.nameRequired'))
-                })}
-                onSubmit={formData => {
-                  if (repoData?.gitSyncFolderConfigDTOs?.length) {
-                    const folders = formData.isDefault
-                      ? repoData?.gitSyncFolderConfigDTOs?.map((oldFolder: GitSyncFolderConfigDTO) => {
-                          oldFolder.isDefault = false
-                          return oldFolder
-                        })
-                      : repoData?.gitSyncFolderConfigDTOs?.slice()
-
-                    folders?.push({
-                      rootFolder: formData.rootFolder,
-                      isDefault: formData.isDefault
-                    })
-
-                    handleRepoUpdate(folders)
-                  }
-                }}
-              >
-                <FormikForm>
-                  <Layout.Horizontal spacing="medium">
-                    <FormInput.Text name="rootFolder" />
-                    <FormInput.CheckBox
-                      margin={{ left: 'huge', top: 'small' }}
-                      font={{ size: 'normal' }}
-                      name="isDefault"
-                      label={getString('gitsync.markAsDefault')}
-                    />
-                  </Layout.Horizontal>
-                  <Button
-                    intent="primary"
-                    type="submit"
-                    text={getString('save')}
-                    margin={{ right: 'large' }}
-                    disabled={loading}
-                  />
-                  <Button
-                    disabled={loading}
-                    intent="danger"
-                    text={getString('cancel')}
-                    onClick={() => {
-                      setRepoState(RepoState.VIEW)
-                    }}
-                  />
-                </FormikForm>
-              </Formik>
-            </Container>
-          )}
+          ) : null}
         </Layout.Vertical>
       </div>
     )

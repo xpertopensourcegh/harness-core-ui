@@ -19,7 +19,13 @@ import cx from 'classnames'
 import * as Yup from 'yup'
 import { noop, pick, debounce } from 'lodash-es'
 import { useToaster, StringUtils } from '@common/exports'
-import { usePostGitSync, GitSyncConfig, getListOfBranchesByConnectorPromise } from 'services/cd-ng'
+import {
+  usePostGitSync,
+  GitSyncConfig,
+  getListOfBranchesByConnectorPromise,
+  useGetTestGitRepoConnectionResult,
+  ResponseConnectorValidationResult
+} from 'services/cd-ng'
 
 import { useStrings } from 'framework/strings'
 import { Connectors } from '@connectors/constants'
@@ -29,9 +35,11 @@ import {
   ConnectorSelectedValue
 } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import { Scope } from '@common/interfaces/SecretsInterface'
-import { ConnectorCardInterface, gitCards } from '@gitsync/common/gitSyncUtils'
+import { ConnectorCardInterface, getCompleteGitPath, getRepoPath, gitCards } from '@gitsync/common/gitSyncUtils'
 import { NameId } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
-import { getScopeFromDTO, ScopedObjectDTO } from '@common/components/EntityReference/EntityReference'
+import { TestConnectionWidget, TestStatus } from '@common/components/TestConnectionWidget/TestConnectionWidget'
+import { HARNESS_FOLDER_SUFFIX } from '@gitsync/common/Constants'
+import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import css from './GitSyncRepoForm.module.scss'
 
 export interface GitSyncRepoFormProps {
@@ -61,14 +69,24 @@ interface GitSyncFormInterface {
 const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = props => {
   const { accountId, projectIdentifier, orgIdentifier, isNewUser } = props
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-
   const [branchSelectOptions, setBranchSelectOptions] = React.useState<SelectOption[]>([])
   const [loadingBranchList, setLoadingBranchList] = React.useState<boolean>(false)
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
+  const [testStatus, setTestStatus] = useState<TestStatus>(TestStatus.NOT_INITIATED)
 
   const { mutate: createGitSyncRepo, loading: creatingGitSync } = usePostGitSync({
     queryParams: { accountIdentifier: accountId }
+  })
+
+  const { mutate: testRepo, loading: testing } = useGetTestGitRepoConnectionResult({
+    identifier: '',
+    pathParams: {
+      identifier: ''
+    },
+    queryParams: {
+      repoURL: ''
+    }
   })
 
   const defaultInitialFormData: GitSyncFormInterface = {
@@ -127,6 +145,34 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
       })
   }, 1000) // Fetching branches after user input of repoUrl
 
+  const testConnection = async (identifier: string, repoURL: string): Promise<void> => {
+    setTestStatus(TestStatus.IN_PROGRESS)
+    testRepo(undefined, {
+      pathParams: {
+        identifier
+      },
+      queryParams: {
+        accountIdentifier: accountId,
+        projectIdentifier,
+        orgIdentifier,
+        repoURL
+      }
+    })
+      .then((response: ResponseConnectorValidationResult) => {
+        if (response?.data?.status !== 'SUCCESS') {
+          setTestStatus(TestStatus.FAILED)
+        } else {
+          setTestStatus(TestStatus.SUCCESS)
+        }
+      })
+      .catch(_e => {
+        setTestStatus(TestStatus.FAILED)
+      })
+  }
+
+  /** Disabling this section till underlying api call is fixed */
+  const disableTestConnection = false
+
   return (
     <Container height={'inherit'} className={css.modalContainer} margin="large">
       <Text font={{ size: 'large', weight: 'semi-bold' }} color={Color.BLACK}>
@@ -156,7 +202,7 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                 gitConnectorRef: (formData.gitConnector as ConnectorSelectedValue)?.value,
                 gitSyncFolderConfigDTOs: [
                   {
-                    rootFolder: formData.rootfolder,
+                    rootFolder: formData.rootfolder.concat(HARNESS_FOLDER_SUFFIX),
                     isDefault: true
                   }
                 ],
@@ -245,7 +291,9 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                       width={350}
                       type={connectorType}
                       selected={formValues.gitConnector}
-                      label={getString('selectGitConnectorTypeLabel', { type: getConnectorDisplayName(connectorType) })}
+                      label={getString('selectGitConnectorTypeLabel', {
+                        type: getConnectorDisplayName(connectorType)
+                      })}
                       placeholder={getString('select')}
                       accountIdentifier={accountId}
                       projectIdentifier={projectIdentifier}
@@ -265,29 +313,78 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                             value?.spec?.url
                           )
                         }
+                        setTestStatus(TestStatus.NOT_INITIATED)
                       }}
                     />
 
-                    <Layout.Horizontal>
-                      <FormInput.Text
-                        name="repo"
-                        label={getString('repositoryUrlLabel')}
-                        disabled={formValues.gitConnector?.connector?.spec?.type === GitUrlType.REPO}
-                        onChange={e => {
-                          formValues.gitConnector?.connector.identifier &&
-                            debounceFetchBranches(
-                              getConnectorIdentifierWithScope(
-                                getScopeFromDTO(formValues?.gitConnector?.connector as ScopedObjectDTO),
-                                formValues?.gitConnector?.connector?.identifier
-                              ),
-                              (e.target as HTMLInputElement)?.value
-                            )
-                        }}
-                      />
-                      {/* Todo: Add repo test after behaviour is finalized */}
+                    <Layout.Horizontal flex={{ justifyContent: 'flex-start' }} spacing="medium">
+                      <Layout.Vertical>
+                        <FormInput.Text
+                          className={cx({ [css.noSpacing]: formValues.repo })}
+                          name="repo"
+                          label={getString('repositoryUrlLabel')}
+                          disabled={formValues.gitConnector?.connector?.spec?.type === GitUrlType.REPO}
+                          onChange={e => {
+                            formValues.gitConnector?.connector.identifier &&
+                              debounceFetchBranches(
+                                formValues.gitConnector.connector.identifier,
+                                (e.target as HTMLInputElement)?.value
+                              )
+                          }}
+                        />
+                        {formValues.repo ? (
+                          <Text
+                            padding={{ top: 'xsmall', bottom: 'medium' }}
+                            color={Color.GREY_250}
+                            style={{
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              whiteSpace: 'nowrap'
+                            }}
+                            title={getRepoPath({
+                              repo: formValues?.gitConnector?.connector?.spec?.url,
+                              gitConnectorType: formValues.gitConnectorType
+                            })}
+                          >
+                            {getRepoPath({
+                              repo: formValues?.gitConnector?.connector?.spec?.url,
+                              gitConnectorType: formValues.gitConnectorType
+                            })}
+                          </Text>
+                        ) : null}
+                      </Layout.Vertical>
+                      {disableTestConnection && formValues.gitConnector?.connector?.identifier ? (
+                        <Container padding={{ bottom: 'medium' }}>
+                          <TestConnectionWidget
+                            testStatus={testStatus}
+                            onTest={() =>
+                              testConnection(formValues.gitConnector?.connector?.identifier || '', formValues.repo)
+                            }
+                          />
+                        </Container>
+                      ) : null}
                     </Layout.Horizontal>
 
-                    <FormInput.Text name="rootfolder" label={getString('gitsync.selectHarnessFolder')} />
+                    <FormInput.Text
+                      className={cx(css.placeholder, { [css.noSpacing]: formValues.rootfolder })}
+                      name="rootfolder"
+                      label={getString('gitsync.selectHarnessFolder')}
+                      placeholder={HARNESS_FOLDER_SUFFIX}
+                    />
+                    {formValues.rootfolder ? (
+                      <Text
+                        padding={{ top: 'xsmall', bottom: 'medium' }}
+                        color={Color.GREY_250}
+                        style={{
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap'
+                        }}
+                        title={getCompleteGitPath(formValues.repo, formValues.rootfolder, HARNESS_FOLDER_SUFFIX)}
+                      >
+                        {getCompleteGitPath(formValues.repo, formValues.rootfolder, HARNESS_FOLDER_SUFFIX)}
+                      </Text>
+                    ) : null}
                     <FormInput.Select
                       name="branch"
                       disabled={loadingBranchList}
@@ -303,7 +400,7 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                     type="submit"
                     intent="primary"
                     text={getString('save')}
-                    disabled={creatingGitSync}
+                    disabled={creatingGitSync || testing || testStatus === TestStatus.FAILED}
                   />
                   <Button
                     className={css.formButton}

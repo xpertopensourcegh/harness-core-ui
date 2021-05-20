@@ -2,9 +2,11 @@ label: 'Git Sync'
 rootfolderLabel: Default Root folder
 rootFolderUpdatedSuccessfully: Root folders for repository {{name}} updated successfully
 markAsDefault: Mark as Default
+markAsDefaultLabel: Make this a default folder for this repository
 moveFolder: Move folder
 defaultFolder: Default folder
-addFolder: '+ Add Folder'
+addFolder: 'Add Folder'
+addNewHarnessFolderLabel: 'Add new .harness folder'
 rootFolderListHeader: Path To Harness Root Folder
 successfullCreate: 'Git sync repository {{name}} created successfully'
 repositoryPath: Repository Path
@@ -25,3 +27,4 @@ folderDetails: Folder Details
 selectHarnessFolder: Select Harness Folder
 selectDefaultBranch: Select Default Branch
 successfullySavedConnectivityMode: Successfully saved Connectivity Mode
+pathToHarnessFolder: Path to the Harness folder

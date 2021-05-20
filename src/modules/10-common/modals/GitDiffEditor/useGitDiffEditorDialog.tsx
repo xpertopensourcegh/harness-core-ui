@@ -76,7 +76,7 @@ export function useGitDiffEditorDialog<T>(props: UseGitDiffEditorDialogProps<T>)
   React.useEffect(() => {
     try {
       if (data?.data?.content) {
-        setRemoteVersion(stringify(parse(data.data.content), FORMATTING_OPTIONS))
+        setRemoteVersion(stringify(sanitize(parse(data.data.content)), FORMATTING_OPTIONS))
       }
     } catch (e) {
       //ignore error

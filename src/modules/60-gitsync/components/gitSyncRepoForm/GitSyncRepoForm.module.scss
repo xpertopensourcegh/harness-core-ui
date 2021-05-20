@@ -53,3 +53,13 @@
 .helpText {
   border-radius: 8px;
 }
+
+.noSpacing {
+  margin-bottom: 0 !important;
+}
+
+.placeholder {
+  input::placeholder {
+    text-align: right;
+  }
+}

@@ -49,3 +49,23 @@
     text-align: right;
   }
 }
+
+.noSpacing {
+  margin-bottom: 0 !important;
+}
+
+.placeholder {
+  input::placeholder {
+    text-align: right;
+  }
+}
+
+.inputFields {
+  width: 20vw;
+}
+
+.defaultFolderTag {
+  background-color: var(--purple-100) !important;
+  color: var(--purple);
+  font-size: var(--font-size-small);
+}

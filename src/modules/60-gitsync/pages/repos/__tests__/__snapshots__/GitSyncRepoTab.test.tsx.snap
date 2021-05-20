@@ -128,7 +128,7 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
             class="wrapper"
           >
             <p
-              class="StyledProps--font StyledProps--main name"
+              class="StyledProps--font StyledProps--main name StyledProps--color StyledProps--color-black"
             >
               wings-software/triggerNgDemo
             </p>
@@ -143,7 +143,7 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
             class="wrapper"
           >
             <p
-              class="StyledProps--font StyledProps--main name"
+              class="StyledProps--font StyledProps--main name StyledProps--color StyledProps--color-black"
             >
               master
             </p>
@@ -161,26 +161,95 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
               class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
             >
               <div
-                class="Layout--horizontal StyledProps--main rootFoldersContainer"
+                class="Layout--horizontal StyledProps--main rootFoldersContainer StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-center"
               >
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main rootFoldersData"
+                  class="Layout--horizontal StyledProps--main rootFoldersData"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main rootFolderRelativePath"
-                  >
-                    src1
-                  </p>
-                  <p
+                  <div
                     class="StyledProps--font StyledProps--main"
+                    style="width: 20%;"
                   >
-                    https://github.com/wings-software/triggerNgDemo/src1/.harness/
-                  </p>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--padding-xsmall StyledProps--background-purple100"
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                      title="/src1"
+                    >
+                      /src1
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 55%;"
                   >
-                    gitsync.defaultFolder
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                      title="https://github.com/wings-software/triggerNgDemo/src1/.harness/"
+                    >
+                      https://github.com/wings-software/triggerNgDemo/src1/.harness/
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 5%;"
+                  >
+                    <span
+                      class="bp3-popover-wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class=""
+                          tabindex="0"
+                        >
+                          <span
+                            class="bp3-icon StyledProps--main copyIcon"
+                            data-icon="copy"
+                          >
+                            <svg
+                              height="20"
+                              viewBox="0 0 14 16"
+                              width="20"
+                            >
+                              <g
+                                fill="#22272D"
+                                stroke="#22272D"
+                                stroke-width="0.25"
+                              >
+                                <path
+                                  d="M12.89.55H6.388a3.28 3.28 0 00-3.043 2.067C1.672 2.76.34 4.17.34 5.87v9.271c0 .17.138.308.307.308H7.15c1.35 0 2.543-.825 3.042-2.066 1.673-.144 3.006-1.554 3.006-3.255V.86a.307.307 0 00-.308-.31zM7.15 14.835H.955V5.87c0-1.299.955-2.4 2.199-2.624-.002.01-.001.021-.003.032-.031.182-.05.367-.05.552v9.27c0 .17.138.308.308.308h6.105a2.67 2.67 0 01-2.364 1.425zm5.432-4.705a2.68 2.68 0 01-2.607 2.664H3.716V3.831a2.672 2.672 0 012.671-2.665h6.195v8.963z"
+                                />
+                                <path
+                                  d="M6.11 6.672a.308.308 0 000 .615h1.732V9.02a.308.308 0 00.616 0V7.287h1.733a.308.308 0 000-.615H8.458V4.939a.308.308 0 00-.616 0v1.733H6.11z"
+                                />
+                              </g>
+                            </svg>
+                          </span>
+                        </div>
+                      </span>
+                    </span>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 20%;"
+                  >
+                    <span
+                      class="Tag--main"
+                    >
+                      <span
+                        class="bp3-tag defaultFolderTag"
+                        style="border-radius: 5px;"
+                      >
+                        <span
+                          class="bp3-text-overflow-ellipsis bp3-fill"
+                        >
+                          gitsync.defaultFolder
+                        </span>
+                      </span>
+                    </span>
+                  </div>
                 </div>
                 <div
                   class="Layout--horizontal StyledProps--main"
@@ -219,21 +288,76 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
                 </div>
               </div>
               <div
-                class="Layout--horizontal StyledProps--main rootFoldersContainer"
+                class="Layout--horizontal StyledProps--main rootFoldersContainer StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-center"
               >
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main rootFoldersData"
+                  class="Layout--horizontal StyledProps--main rootFoldersData"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main rootFolderRelativePath"
-                  >
-                    src2
-                  </p>
-                  <p
+                  <div
                     class="StyledProps--font StyledProps--main"
+                    style="width: 20%;"
                   >
-                    https://github.com/wings-software/triggerNgDemo/src2/.harness/
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                      title="/src2"
+                    >
+                      /src2
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 75%;"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                      title="https://github.com/wings-software/triggerNgDemo/src2/.harness/"
+                    >
+                      https://github.com/wings-software/triggerNgDemo/src2/.harness/
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 5%;"
+                  >
+                    <span
+                      class="bp3-popover-wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class=""
+                          tabindex="0"
+                        >
+                          <span
+                            class="bp3-icon StyledProps--main copyIcon"
+                            data-icon="copy"
+                          >
+                            <svg
+                              height="20"
+                              viewBox="0 0 14 16"
+                              width="20"
+                            >
+                              <g
+                                fill="#22272D"
+                                stroke="#22272D"
+                                stroke-width="0.25"
+                              >
+                                <path
+                                  d="M12.89.55H6.388a3.28 3.28 0 00-3.043 2.067C1.672 2.76.34 4.17.34 5.87v9.271c0 .17.138.308.307.308H7.15c1.35 0 2.543-.825 3.042-2.066 1.673-.144 3.006-1.554 3.006-3.255V.86a.307.307 0 00-.308-.31zM7.15 14.835H.955V5.87c0-1.299.955-2.4 2.199-2.624-.002.01-.001.021-.003.032-.031.182-.05.367-.05.552v9.27c0 .17.138.308.308.308h6.105a2.67 2.67 0 01-2.364 1.425zm5.432-4.705a2.68 2.68 0 01-2.607 2.664H3.716V3.831a2.672 2.672 0 012.671-2.665h6.195v8.963z"
+                                />
+                                <path
+                                  d="M6.11 6.672a.308.308 0 000 .615h1.732V9.02a.308.308 0 00.616 0V7.287h1.733a.308.308 0 000-.615H8.458V4.939a.308.308 0 00-.616 0v1.733H6.11z"
+                                />
+                              </g>
+                            </svg>
+                          </span>
+                        </div>
+                      </span>
+                    </span>
+                  </div>
                 </div>
                 <div
                   class="Layout--horizontal StyledProps--main"
@@ -278,7 +402,20 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  gitsync.addFolder
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-size-medium"
+                    >
+                      +
+                    </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      gitsync.addFolder
+                    </p>
+                  </div>
                 </span>
               </button>
             </div>
@@ -338,7 +475,7 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
             class="wrapper"
           >
             <p
-              class="StyledProps--font StyledProps--main name"
+              class="StyledProps--font StyledProps--main name StyledProps--color StyledProps--color-black"
             >
               
             </p>
@@ -353,7 +490,7 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
             class="wrapper"
           >
             <p
-              class="StyledProps--font StyledProps--main name"
+              class="StyledProps--font StyledProps--main name StyledProps--color StyledProps--color-black"
             >
               feature
             </p>
@@ -371,26 +508,95 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
               class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
             >
               <div
-                class="Layout--horizontal StyledProps--main rootFoldersContainer"
+                class="Layout--horizontal StyledProps--main rootFoldersContainer StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-center"
               >
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main rootFoldersData"
+                  class="Layout--horizontal StyledProps--main rootFoldersData"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main rootFolderRelativePath"
-                  >
-                    rootFolder1
-                  </p>
-                  <p
+                  <div
                     class="StyledProps--font StyledProps--main"
+                    style="width: 20%;"
                   >
-                    https://www.github.com/testRepo.git/rootFolder1/.harness/
-                  </p>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--padding-xsmall StyledProps--background-purple100"
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                      title="/rootFolder1"
+                    >
+                      /rootFolder1
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 55%;"
                   >
-                    gitsync.defaultFolder
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                      title="https://www.github.com/testRepo.git/rootFolder1/.harness/"
+                    >
+                      https://www.github.com/testRepo.git/rootFolder1/.harness/
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 5%;"
+                  >
+                    <span
+                      class="bp3-popover-wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class=""
+                          tabindex="0"
+                        >
+                          <span
+                            class="bp3-icon StyledProps--main copyIcon"
+                            data-icon="copy"
+                          >
+                            <svg
+                              height="20"
+                              viewBox="0 0 14 16"
+                              width="20"
+                            >
+                              <g
+                                fill="#22272D"
+                                stroke="#22272D"
+                                stroke-width="0.25"
+                              >
+                                <path
+                                  d="M12.89.55H6.388a3.28 3.28 0 00-3.043 2.067C1.672 2.76.34 4.17.34 5.87v9.271c0 .17.138.308.307.308H7.15c1.35 0 2.543-.825 3.042-2.066 1.673-.144 3.006-1.554 3.006-3.255V.86a.307.307 0 00-.308-.31zM7.15 14.835H.955V5.87c0-1.299.955-2.4 2.199-2.624-.002.01-.001.021-.003.032-.031.182-.05.367-.05.552v9.27c0 .17.138.308.308.308h6.105a2.67 2.67 0 01-2.364 1.425zm5.432-4.705a2.68 2.68 0 01-2.607 2.664H3.716V3.831a2.672 2.672 0 012.671-2.665h6.195v8.963z"
+                                />
+                                <path
+                                  d="M6.11 6.672a.308.308 0 000 .615h1.732V9.02a.308.308 0 00.616 0V7.287h1.733a.308.308 0 000-.615H8.458V4.939a.308.308 0 00-.616 0v1.733H6.11z"
+                                />
+                              </g>
+                            </svg>
+                          </span>
+                        </div>
+                      </span>
+                    </span>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 20%;"
+                  >
+                    <span
+                      class="Tag--main"
+                    >
+                      <span
+                        class="bp3-tag defaultFolderTag"
+                        style="border-radius: 5px;"
+                      >
+                        <span
+                          class="bp3-text-overflow-ellipsis bp3-fill"
+                        >
+                          gitsync.defaultFolder
+                        </span>
+                      </span>
+                    </span>
+                  </div>
                 </div>
                 <div
                   class="Layout--horizontal StyledProps--main"
@@ -429,21 +635,76 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
                 </div>
               </div>
               <div
-                class="Layout--horizontal StyledProps--main rootFoldersContainer"
+                class="Layout--horizontal StyledProps--main rootFoldersContainer StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-center"
               >
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main rootFoldersData"
+                  class="Layout--horizontal StyledProps--main rootFoldersData"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main rootFolderRelativePath"
-                  >
-                    rootFolderTest
-                  </p>
-                  <p
+                  <div
                     class="StyledProps--font StyledProps--main"
+                    style="width: 20%;"
                   >
-                    https://www.github.com/testRepo.git/rootFolderTest/.harness/
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                      title="/rootFolderTest"
+                    >
+                      /rootFolderTest
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 75%;"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                      title="https://www.github.com/testRepo.git/rootFolderTest/.harness/"
+                    >
+                      https://www.github.com/testRepo.git/rootFolderTest/.harness/
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 5%;"
+                  >
+                    <span
+                      class="bp3-popover-wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class=""
+                          tabindex="0"
+                        >
+                          <span
+                            class="bp3-icon StyledProps--main copyIcon"
+                            data-icon="copy"
+                          >
+                            <svg
+                              height="20"
+                              viewBox="0 0 14 16"
+                              width="20"
+                            >
+                              <g
+                                fill="#22272D"
+                                stroke="#22272D"
+                                stroke-width="0.25"
+                              >
+                                <path
+                                  d="M12.89.55H6.388a3.28 3.28 0 00-3.043 2.067C1.672 2.76.34 4.17.34 5.87v9.271c0 .17.138.308.307.308H7.15c1.35 0 2.543-.825 3.042-2.066 1.673-.144 3.006-1.554 3.006-3.255V.86a.307.307 0 00-.308-.31zM7.15 14.835H.955V5.87c0-1.299.955-2.4 2.199-2.624-.002.01-.001.021-.003.032-.031.182-.05.367-.05.552v9.27c0 .17.138.308.308.308h6.105a2.67 2.67 0 01-2.364 1.425zm5.432-4.705a2.68 2.68 0 01-2.607 2.664H3.716V3.831a2.672 2.672 0 012.671-2.665h6.195v8.963z"
+                                />
+                                <path
+                                  d="M6.11 6.672a.308.308 0 000 .615h1.732V9.02a.308.308 0 00.616 0V7.287h1.733a.308.308 0 000-.615H8.458V4.939a.308.308 0 00-.616 0v1.733H6.11z"
+                                />
+                              </g>
+                            </svg>
+                          </span>
+                        </div>
+                      </span>
+                    </span>
+                  </div>
                 </div>
                 <div
                   class="Layout--horizontal StyledProps--main"
@@ -488,7 +749,20 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  gitsync.addFolder
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-size-medium"
+                    >
+                      +
+                    </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      gitsync.addFolder
+                    </p>
+                  </div>
                 </span>
               </button>
             </div>
@@ -628,7 +902,7 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
             class="wrapper"
           >
             <p
-              class="StyledProps--font StyledProps--main name"
+              class="StyledProps--font StyledProps--main name StyledProps--color StyledProps--color-black"
             >
               wings-software/triggerNgDemo
             </p>
@@ -643,7 +917,7 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
             class="wrapper"
           >
             <p
-              class="StyledProps--font StyledProps--main name"
+              class="StyledProps--font StyledProps--main name StyledProps--color StyledProps--color-black"
             >
               master
             </p>
@@ -661,26 +935,95 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
               class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
             >
               <div
-                class="Layout--horizontal StyledProps--main rootFoldersContainer"
+                class="Layout--horizontal StyledProps--main rootFoldersContainer StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-center"
               >
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main rootFoldersData"
+                  class="Layout--horizontal StyledProps--main rootFoldersData"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main rootFolderRelativePath"
-                  >
-                    src1
-                  </p>
-                  <p
+                  <div
                     class="StyledProps--font StyledProps--main"
+                    style="width: 20%;"
                   >
-                    https://github.com/wings-software/triggerNgDemo/src1/.harness/
-                  </p>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--padding-xsmall StyledProps--background-purple100"
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                      title="/src1"
+                    >
+                      /src1
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 55%;"
                   >
-                    gitsync.defaultFolder
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                      title="https://github.com/wings-software/triggerNgDemo/src1/.harness/"
+                    >
+                      https://github.com/wings-software/triggerNgDemo/src1/.harness/
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 5%;"
+                  >
+                    <span
+                      class="bp3-popover-wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class=""
+                          tabindex="0"
+                        >
+                          <span
+                            class="bp3-icon StyledProps--main copyIcon"
+                            data-icon="copy"
+                          >
+                            <svg
+                              height="20"
+                              viewBox="0 0 14 16"
+                              width="20"
+                            >
+                              <g
+                                fill="#22272D"
+                                stroke="#22272D"
+                                stroke-width="0.25"
+                              >
+                                <path
+                                  d="M12.89.55H6.388a3.28 3.28 0 00-3.043 2.067C1.672 2.76.34 4.17.34 5.87v9.271c0 .17.138.308.307.308H7.15c1.35 0 2.543-.825 3.042-2.066 1.673-.144 3.006-1.554 3.006-3.255V.86a.307.307 0 00-.308-.31zM7.15 14.835H.955V5.87c0-1.299.955-2.4 2.199-2.624-.002.01-.001.021-.003.032-.031.182-.05.367-.05.552v9.27c0 .17.138.308.308.308h6.105a2.67 2.67 0 01-2.364 1.425zm5.432-4.705a2.68 2.68 0 01-2.607 2.664H3.716V3.831a2.672 2.672 0 012.671-2.665h6.195v8.963z"
+                                />
+                                <path
+                                  d="M6.11 6.672a.308.308 0 000 .615h1.732V9.02a.308.308 0 00.616 0V7.287h1.733a.308.308 0 000-.615H8.458V4.939a.308.308 0 00-.616 0v1.733H6.11z"
+                                />
+                              </g>
+                            </svg>
+                          </span>
+                        </div>
+                      </span>
+                    </span>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 20%;"
+                  >
+                    <span
+                      class="Tag--main"
+                    >
+                      <span
+                        class="bp3-tag defaultFolderTag"
+                        style="border-radius: 5px;"
+                      >
+                        <span
+                          class="bp3-text-overflow-ellipsis bp3-fill"
+                        >
+                          gitsync.defaultFolder
+                        </span>
+                      </span>
+                    </span>
+                  </div>
                 </div>
                 <div
                   class="Layout--horizontal StyledProps--main"
@@ -719,21 +1062,76 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
                 </div>
               </div>
               <div
-                class="Layout--horizontal StyledProps--main rootFoldersContainer"
+                class="Layout--horizontal StyledProps--main rootFoldersContainer StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-center"
               >
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main rootFoldersData"
+                  class="Layout--horizontal StyledProps--main rootFoldersData"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main rootFolderRelativePath"
-                  >
-                    src2
-                  </p>
-                  <p
+                  <div
                     class="StyledProps--font StyledProps--main"
+                    style="width: 20%;"
                   >
-                    https://github.com/wings-software/triggerNgDemo/src2/.harness/
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                      title="/src2"
+                    >
+                      /src2
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 75%;"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                      title="https://github.com/wings-software/triggerNgDemo/src2/.harness/"
+                    >
+                      https://github.com/wings-software/triggerNgDemo/src2/.harness/
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 5%;"
+                  >
+                    <span
+                      class="bp3-popover-wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class=""
+                          tabindex="0"
+                        >
+                          <span
+                            class="bp3-icon StyledProps--main copyIcon"
+                            data-icon="copy"
+                          >
+                            <svg
+                              height="20"
+                              viewBox="0 0 14 16"
+                              width="20"
+                            >
+                              <g
+                                fill="#22272D"
+                                stroke="#22272D"
+                                stroke-width="0.25"
+                              >
+                                <path
+                                  d="M12.89.55H6.388a3.28 3.28 0 00-3.043 2.067C1.672 2.76.34 4.17.34 5.87v9.271c0 .17.138.308.307.308H7.15c1.35 0 2.543-.825 3.042-2.066 1.673-.144 3.006-1.554 3.006-3.255V.86a.307.307 0 00-.308-.31zM7.15 14.835H.955V5.87c0-1.299.955-2.4 2.199-2.624-.002.01-.001.021-.003.032-.031.182-.05.367-.05.552v9.27c0 .17.138.308.308.308h6.105a2.67 2.67 0 01-2.364 1.425zm5.432-4.705a2.68 2.68 0 01-2.607 2.664H3.716V3.831a2.672 2.672 0 012.671-2.665h6.195v8.963z"
+                                />
+                                <path
+                                  d="M6.11 6.672a.308.308 0 000 .615h1.732V9.02a.308.308 0 00.616 0V7.287h1.733a.308.308 0 000-.615H8.458V4.939a.308.308 0 00-.616 0v1.733H6.11z"
+                                />
+                              </g>
+                            </svg>
+                          </span>
+                        </div>
+                      </span>
+                    </span>
+                  </div>
                 </div>
                 <div
                   class="Layout--horizontal StyledProps--main"
@@ -769,85 +1167,6 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
                       </button>
                     </span>
                   </span>
-                </div>
-              </div>
-              <div
-                class="StyledProps--font StyledProps--main StyledProps--padding-medium"
-              >
-                <div
-                  class="OverlaySpinner--overlaySpinner"
-                >
-                  <form
-                    class="FormikForm--main"
-                  >
-                    <div>
-                      <div
-                        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
-                      >
-                        <div
-                          class="bp3-form-group"
-                          data-id="rootFolder-0"
-                        >
-                          <div
-                            class="bp3-form-content"
-                          >
-                            <div
-                              class="bp3-input-group"
-                            >
-                              <input
-                                autocomplete="off"
-                                class="bp3-input"
-                                name="rootFolder"
-                                type="text"
-                                value=""
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div
-                          class="bp3-form-group"
-                          data-id="isDefault-1"
-                        >
-                          <div
-                            class="bp3-form-content"
-                          >
-                            <label
-                              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--margin-left-huge StyledProps--margin-top-small StyledProps--font-size-normal StyledProps--inline"
-                            >
-                              <input
-                                name="isDefault"
-                                type="checkbox"
-                              />
-                              <span
-                                class="bp3-control-indicator"
-                              />
-                              gitsync.markAsDefault
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                      <button
-                        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-right-large Button--with-current-color"
-                        type="submit"
-                      >
-                        <span
-                          class="bp3-button-text"
-                        >
-                          save
-                        </span>
-                      </button>
-                      <button
-                        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-danger Button--with-current-color"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-button-text"
-                        >
-                          cancel
-                        </span>
-                      </button>
-                    </div>
-                  </form>
                 </div>
               </div>
             </div>
@@ -907,7 +1226,7 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
             class="wrapper"
           >
             <p
-              class="StyledProps--font StyledProps--main name"
+              class="StyledProps--font StyledProps--main name StyledProps--color StyledProps--color-black"
             >
               
             </p>
@@ -922,7 +1241,7 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
             class="wrapper"
           >
             <p
-              class="StyledProps--font StyledProps--main name"
+              class="StyledProps--font StyledProps--main name StyledProps--color StyledProps--color-black"
             >
               feature
             </p>
@@ -940,26 +1259,95 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
               class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
             >
               <div
-                class="Layout--horizontal StyledProps--main rootFoldersContainer"
+                class="Layout--horizontal StyledProps--main rootFoldersContainer StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-center"
               >
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main rootFoldersData"
+                  class="Layout--horizontal StyledProps--main rootFoldersData"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main rootFolderRelativePath"
-                  >
-                    rootFolder1
-                  </p>
-                  <p
+                  <div
                     class="StyledProps--font StyledProps--main"
+                    style="width: 20%;"
                   >
-                    https://www.github.com/testRepo.git/rootFolder1/.harness/
-                  </p>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--padding-xsmall StyledProps--background-purple100"
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                      title="/rootFolder1"
+                    >
+                      /rootFolder1
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 55%;"
                   >
-                    gitsync.defaultFolder
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                      title="https://www.github.com/testRepo.git/rootFolder1/.harness/"
+                    >
+                      https://www.github.com/testRepo.git/rootFolder1/.harness/
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 5%;"
+                  >
+                    <span
+                      class="bp3-popover-wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class=""
+                          tabindex="0"
+                        >
+                          <span
+                            class="bp3-icon StyledProps--main copyIcon"
+                            data-icon="copy"
+                          >
+                            <svg
+                              height="20"
+                              viewBox="0 0 14 16"
+                              width="20"
+                            >
+                              <g
+                                fill="#22272D"
+                                stroke="#22272D"
+                                stroke-width="0.25"
+                              >
+                                <path
+                                  d="M12.89.55H6.388a3.28 3.28 0 00-3.043 2.067C1.672 2.76.34 4.17.34 5.87v9.271c0 .17.138.308.307.308H7.15c1.35 0 2.543-.825 3.042-2.066 1.673-.144 3.006-1.554 3.006-3.255V.86a.307.307 0 00-.308-.31zM7.15 14.835H.955V5.87c0-1.299.955-2.4 2.199-2.624-.002.01-.001.021-.003.032-.031.182-.05.367-.05.552v9.27c0 .17.138.308.308.308h6.105a2.67 2.67 0 01-2.364 1.425zm5.432-4.705a2.68 2.68 0 01-2.607 2.664H3.716V3.831a2.672 2.672 0 012.671-2.665h6.195v8.963z"
+                                />
+                                <path
+                                  d="M6.11 6.672a.308.308 0 000 .615h1.732V9.02a.308.308 0 00.616 0V7.287h1.733a.308.308 0 000-.615H8.458V4.939a.308.308 0 00-.616 0v1.733H6.11z"
+                                />
+                              </g>
+                            </svg>
+                          </span>
+                        </div>
+                      </span>
+                    </span>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 20%;"
+                  >
+                    <span
+                      class="Tag--main"
+                    >
+                      <span
+                        class="bp3-tag defaultFolderTag"
+                        style="border-radius: 5px;"
+                      >
+                        <span
+                          class="bp3-text-overflow-ellipsis bp3-fill"
+                        >
+                          gitsync.defaultFolder
+                        </span>
+                      </span>
+                    </span>
+                  </div>
                 </div>
                 <div
                   class="Layout--horizontal StyledProps--main"
@@ -998,21 +1386,76 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
                 </div>
               </div>
               <div
-                class="Layout--horizontal StyledProps--main rootFoldersContainer"
+                class="Layout--horizontal StyledProps--main rootFoldersContainer StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-center"
               >
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main rootFoldersData"
+                  class="Layout--horizontal StyledProps--main rootFoldersData"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main rootFolderRelativePath"
-                  >
-                    rootFolderTest
-                  </p>
-                  <p
+                  <div
                     class="StyledProps--font StyledProps--main"
+                    style="width: 20%;"
                   >
-                    https://www.github.com/testRepo.git/rootFolderTest/.harness/
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                      title="/rootFolderTest"
+                    >
+                      /rootFolderTest
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 75%;"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                      title="https://www.github.com/testRepo.git/rootFolderTest/.harness/"
+                    >
+                      https://www.github.com/testRepo.git/rootFolderTest/.harness/
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 5%;"
+                  >
+                    <span
+                      class="bp3-popover-wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class=""
+                          tabindex="0"
+                        >
+                          <span
+                            class="bp3-icon StyledProps--main copyIcon"
+                            data-icon="copy"
+                          >
+                            <svg
+                              height="20"
+                              viewBox="0 0 14 16"
+                              width="20"
+                            >
+                              <g
+                                fill="#22272D"
+                                stroke="#22272D"
+                                stroke-width="0.25"
+                              >
+                                <path
+                                  d="M12.89.55H6.388a3.28 3.28 0 00-3.043 2.067C1.672 2.76.34 4.17.34 5.87v9.271c0 .17.138.308.307.308H7.15c1.35 0 2.543-.825 3.042-2.066 1.673-.144 3.006-1.554 3.006-3.255V.86a.307.307 0 00-.308-.31zM7.15 14.835H.955V5.87c0-1.299.955-2.4 2.199-2.624-.002.01-.001.021-.003.032-.031.182-.05.367-.05.552v9.27c0 .17.138.308.308.308h6.105a2.67 2.67 0 01-2.364 1.425zm5.432-4.705a2.68 2.68 0 01-2.607 2.664H3.716V3.831a2.672 2.672 0 012.671-2.665h6.195v8.963z"
+                                />
+                                <path
+                                  d="M6.11 6.672a.308.308 0 000 .615h1.732V9.02a.308.308 0 00.616 0V7.287h1.733a.308.308 0 000-.615H8.458V4.939a.308.308 0 00-.616 0v1.733H6.11z"
+                                />
+                              </g>
+                            </svg>
+                          </span>
+                        </div>
+                      </span>
+                    </span>
+                  </div>
                 </div>
                 <div
                   class="Layout--horizontal StyledProps--main"
@@ -1057,7 +1500,20 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  gitsync.addFolder
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-size-medium"
+                    >
+                      +
+                    </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      gitsync.addFolder
+                    </p>
+                  </div>
                 </span>
               </button>
             </div>
@@ -1197,7 +1653,7 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
             class="wrapper"
           >
             <p
-              class="StyledProps--font StyledProps--main name"
+              class="StyledProps--font StyledProps--main name StyledProps--color StyledProps--color-black"
             >
               wings-software/triggerNgDemo
             </p>
@@ -1212,7 +1668,7 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
             class="wrapper"
           >
             <p
-              class="StyledProps--font StyledProps--main name"
+              class="StyledProps--font StyledProps--main name StyledProps--color StyledProps--color-black"
             >
               master
             </p>
@@ -1230,21 +1686,76 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
               class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
             >
               <div
-                class="Layout--horizontal StyledProps--main rootFoldersContainer"
+                class="Layout--horizontal StyledProps--main rootFoldersContainer StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-center"
               >
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main rootFoldersData"
+                  class="Layout--horizontal StyledProps--main rootFoldersData"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main rootFolderRelativePath"
-                  >
-                    src1
-                  </p>
-                  <p
+                  <div
                     class="StyledProps--font StyledProps--main"
+                    style="width: 20%;"
                   >
-                    https://github.com/wings-software/triggerNgDemo/src1/.harness/
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                      title="/src1"
+                    >
+                      /src1
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 75%;"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                      title="https://github.com/wings-software/triggerNgDemo/src1/.harness/"
+                    >
+                      https://github.com/wings-software/triggerNgDemo/src1/.harness/
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 5%;"
+                  >
+                    <span
+                      class="bp3-popover-wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class=""
+                          tabindex="0"
+                        >
+                          <span
+                            class="bp3-icon StyledProps--main copyIcon"
+                            data-icon="copy"
+                          >
+                            <svg
+                              height="20"
+                              viewBox="0 0 14 16"
+                              width="20"
+                            >
+                              <g
+                                fill="#22272D"
+                                stroke="#22272D"
+                                stroke-width="0.25"
+                              >
+                                <path
+                                  d="M12.89.55H6.388a3.28 3.28 0 00-3.043 2.067C1.672 2.76.34 4.17.34 5.87v9.271c0 .17.138.308.307.308H7.15c1.35 0 2.543-.825 3.042-2.066 1.673-.144 3.006-1.554 3.006-3.255V.86a.307.307 0 00-.308-.31zM7.15 14.835H.955V5.87c0-1.299.955-2.4 2.199-2.624-.002.01-.001.021-.003.032-.031.182-.05.367-.05.552v9.27c0 .17.138.308.308.308h6.105a2.67 2.67 0 01-2.364 1.425zm5.432-4.705a2.68 2.68 0 01-2.607 2.664H3.716V3.831a2.672 2.672 0 012.671-2.665h6.195v8.963z"
+                                />
+                                <path
+                                  d="M6.11 6.672a.308.308 0 000 .615h1.732V9.02a.308.308 0 00.616 0V7.287h1.733a.308.308 0 000-.615H8.458V4.939a.308.308 0 00-.616 0v1.733H6.11z"
+                                />
+                              </g>
+                            </svg>
+                          </span>
+                        </div>
+                      </span>
+                    </span>
+                  </div>
                 </div>
                 <div
                   class="Layout--horizontal StyledProps--main"
@@ -1311,21 +1822,76 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
                 </div>
               </div>
               <div
-                class="Layout--horizontal StyledProps--main rootFoldersContainer"
+                class="Layout--horizontal StyledProps--main rootFoldersContainer StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-center"
               >
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main rootFoldersData"
+                  class="Layout--horizontal StyledProps--main rootFoldersData"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main rootFolderRelativePath"
-                  >
-                    src2
-                  </p>
-                  <p
+                  <div
                     class="StyledProps--font StyledProps--main"
+                    style="width: 20%;"
                   >
-                    https://github.com/wings-software/triggerNgDemo/src2/.harness/
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                      title="/src2"
+                    >
+                      /src2
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 75%;"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                      title="https://github.com/wings-software/triggerNgDemo/src2/.harness/"
+                    >
+                      https://github.com/wings-software/triggerNgDemo/src2/.harness/
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 5%;"
+                  >
+                    <span
+                      class="bp3-popover-wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class=""
+                          tabindex="0"
+                        >
+                          <span
+                            class="bp3-icon StyledProps--main copyIcon"
+                            data-icon="copy"
+                          >
+                            <svg
+                              height="20"
+                              viewBox="0 0 14 16"
+                              width="20"
+                            >
+                              <g
+                                fill="#22272D"
+                                stroke="#22272D"
+                                stroke-width="0.25"
+                              >
+                                <path
+                                  d="M12.89.55H6.388a3.28 3.28 0 00-3.043 2.067C1.672 2.76.34 4.17.34 5.87v9.271c0 .17.138.308.307.308H7.15c1.35 0 2.543-.825 3.042-2.066 1.673-.144 3.006-1.554 3.006-3.255V.86a.307.307 0 00-.308-.31zM7.15 14.835H.955V5.87c0-1.299.955-2.4 2.199-2.624-.002.01-.001.021-.003.032-.031.182-.05.367-.05.552v9.27c0 .17.138.308.308.308h6.105a2.67 2.67 0 01-2.364 1.425zm5.432-4.705a2.68 2.68 0 01-2.607 2.664H3.716V3.831a2.672 2.672 0 012.671-2.665h6.195v8.963z"
+                                />
+                                <path
+                                  d="M6.11 6.672a.308.308 0 000 .615h1.732V9.02a.308.308 0 00.616 0V7.287h1.733a.308.308 0 000-.615H8.458V4.939a.308.308 0 00-.616 0v1.733H6.11z"
+                                />
+                              </g>
+                            </svg>
+                          </span>
+                        </div>
+                      </span>
+                    </span>
+                  </div>
                 </div>
                 <div
                   class="Layout--horizontal StyledProps--main"
@@ -1370,7 +1936,20 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
                 <span
                   class="bp3-button-text"
                 >
-                  gitsync.addFolder
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-size-medium"
+                    >
+                      +
+                    </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      gitsync.addFolder
+                    </p>
+                  </div>
                 </span>
               </button>
             </div>
@@ -1430,7 +2009,7 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
             class="wrapper"
           >
             <p
-              class="StyledProps--font StyledProps--main name"
+              class="StyledProps--font StyledProps--main name StyledProps--color StyledProps--color-black"
             >
               
             </p>
@@ -1445,7 +2024,7 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
             class="wrapper"
           >
             <p
-              class="StyledProps--font StyledProps--main name"
+              class="StyledProps--font StyledProps--main name StyledProps--color StyledProps--color-black"
             >
               feature
             </p>
@@ -1463,26 +2042,95 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
               class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
             >
               <div
-                class="Layout--horizontal StyledProps--main rootFoldersContainer"
+                class="Layout--horizontal StyledProps--main rootFoldersContainer StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-center"
               >
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main rootFoldersData"
+                  class="Layout--horizontal StyledProps--main rootFoldersData"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main rootFolderRelativePath"
-                  >
-                    rootFolder1
-                  </p>
-                  <p
+                  <div
                     class="StyledProps--font StyledProps--main"
+                    style="width: 20%;"
                   >
-                    https://www.github.com/testRepo.git/rootFolder1/.harness/
-                  </p>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--padding-xsmall StyledProps--background-purple100"
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                      title="/rootFolder1"
+                    >
+                      /rootFolder1
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 55%;"
                   >
-                    gitsync.defaultFolder
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                      title="https://www.github.com/testRepo.git/rootFolder1/.harness/"
+                    >
+                      https://www.github.com/testRepo.git/rootFolder1/.harness/
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 5%;"
+                  >
+                    <span
+                      class="bp3-popover-wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class=""
+                          tabindex="0"
+                        >
+                          <span
+                            class="bp3-icon StyledProps--main copyIcon"
+                            data-icon="copy"
+                          >
+                            <svg
+                              height="20"
+                              viewBox="0 0 14 16"
+                              width="20"
+                            >
+                              <g
+                                fill="#22272D"
+                                stroke="#22272D"
+                                stroke-width="0.25"
+                              >
+                                <path
+                                  d="M12.89.55H6.388a3.28 3.28 0 00-3.043 2.067C1.672 2.76.34 4.17.34 5.87v9.271c0 .17.138.308.307.308H7.15c1.35 0 2.543-.825 3.042-2.066 1.673-.144 3.006-1.554 3.006-3.255V.86a.307.307 0 00-.308-.31zM7.15 14.835H.955V5.87c0-1.299.955-2.4 2.199-2.624-.002.01-.001.021-.003.032-.031.182-.05.367-.05.552v9.27c0 .17.138.308.308.308h6.105a2.67 2.67 0 01-2.364 1.425zm5.432-4.705a2.68 2.68 0 01-2.607 2.664H3.716V3.831a2.672 2.672 0 012.671-2.665h6.195v8.963z"
+                                />
+                                <path
+                                  d="M6.11 6.672a.308.308 0 000 .615h1.732V9.02a.308.308 0 00.616 0V7.287h1.733a.308.308 0 000-.615H8.458V4.939a.308.308 0 00-.616 0v1.733H6.11z"
+                                />
+                              </g>
+                            </svg>
+                          </span>
+                        </div>
+                      </span>
+                    </span>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 20%;"
+                  >
+                    <span
+                      class="Tag--main"
+                    >
+                      <span
+                        class="bp3-tag defaultFolderTag"
+                        style="border-radius: 5px;"
+                      >
+                        <span
+                          class="bp3-text-overflow-ellipsis bp3-fill"
+                        >
+                          gitsync.defaultFolder
+                        </span>
+                      </span>
+                    </span>
+                  </div>
                 </div>
                 <div
                   class="Layout--horizontal StyledProps--main"
@@ -1521,21 +2169,76 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
                 </div>
               </div>
               <div
-                class="Layout--horizontal StyledProps--main rootFoldersContainer"
+                class="Layout--horizontal StyledProps--main rootFoldersContainer StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-center"
               >
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main rootFoldersData"
+                  class="Layout--horizontal StyledProps--main rootFoldersData"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main rootFolderRelativePath"
-                  >
-                    rootFolderTest
-                  </p>
-                  <p
+                  <div
                     class="StyledProps--font StyledProps--main"
+                    style="width: 20%;"
                   >
-                    https://www.github.com/testRepo.git/rootFolderTest/.harness/
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                      title="/rootFolderTest"
+                    >
+                      /rootFolderTest
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 75%;"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                      title="https://www.github.com/testRepo.git/rootFolderTest/.harness/"
+                    >
+                      https://www.github.com/testRepo.git/rootFolderTest/.harness/
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 5%;"
+                  >
+                    <span
+                      class="bp3-popover-wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class=""
+                          tabindex="0"
+                        >
+                          <span
+                            class="bp3-icon StyledProps--main copyIcon"
+                            data-icon="copy"
+                          >
+                            <svg
+                              height="20"
+                              viewBox="0 0 14 16"
+                              width="20"
+                            >
+                              <g
+                                fill="#22272D"
+                                stroke="#22272D"
+                                stroke-width="0.25"
+                              >
+                                <path
+                                  d="M12.89.55H6.388a3.28 3.28 0 00-3.043 2.067C1.672 2.76.34 4.17.34 5.87v9.271c0 .17.138.308.307.308H7.15c1.35 0 2.543-.825 3.042-2.066 1.673-.144 3.006-1.554 3.006-3.255V.86a.307.307 0 00-.308-.31zM7.15 14.835H.955V5.87c0-1.299.955-2.4 2.199-2.624-.002.01-.001.021-.003.032-.031.182-.05.367-.05.552v9.27c0 .17.138.308.308.308h6.105a2.67 2.67 0 01-2.364 1.425zm5.432-4.705a2.68 2.68 0 01-2.607 2.664H3.716V3.831a2.672 2.672 0 012.671-2.665h6.195v8.963z"
+                                />
+                                <path
+                                  d="M6.11 6.672a.308.308 0 000 .615h1.732V9.02a.308.308 0 00.616 0V7.287h1.733a.308.308 0 000-.615H8.458V4.939a.308.308 0 00-.616 0v1.733H6.11z"
+                                />
+                              </g>
+                            </svg>
+                          </span>
+                        </div>
+                      </span>
+                    </span>
+                  </div>
                 </div>
                 <div
                   class="Layout--horizontal StyledProps--main"
@@ -1580,7 +2283,20 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
                 <span
                   class="bp3-button-text"
                 >
-                  gitsync.addFolder
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-size-medium"
+                    >
+                      +
+                    </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      gitsync.addFolder
+                    </p>
+                  </div>
                 </span>
               </button>
             </div>
@@ -1720,7 +2436,7 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
             class="wrapper"
           >
             <p
-              class="StyledProps--font StyledProps--main name"
+              class="StyledProps--font StyledProps--main name StyledProps--color StyledProps--color-black"
             >
               wings-software/triggerNgDemo
             </p>
@@ -1735,7 +2451,7 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
             class="wrapper"
           >
             <p
-              class="StyledProps--font StyledProps--main name"
+              class="StyledProps--font StyledProps--main name StyledProps--color StyledProps--color-black"
             >
               master
             </p>
@@ -1753,26 +2469,95 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
               class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
             >
               <div
-                class="Layout--horizontal StyledProps--main rootFoldersContainer"
+                class="Layout--horizontal StyledProps--main rootFoldersContainer StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-center"
               >
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main rootFoldersData"
+                  class="Layout--horizontal StyledProps--main rootFoldersData"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main rootFolderRelativePath"
-                  >
-                    src1
-                  </p>
-                  <p
+                  <div
                     class="StyledProps--font StyledProps--main"
+                    style="width: 20%;"
                   >
-                    https://github.com/wings-software/triggerNgDemo/src1/.harness/
-                  </p>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--padding-xsmall StyledProps--background-purple100"
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                      title="/src1"
+                    >
+                      /src1
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 55%;"
                   >
-                    gitsync.defaultFolder
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                      title="https://github.com/wings-software/triggerNgDemo/src1/.harness/"
+                    >
+                      https://github.com/wings-software/triggerNgDemo/src1/.harness/
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 5%;"
+                  >
+                    <span
+                      class="bp3-popover-wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class=""
+                          tabindex="0"
+                        >
+                          <span
+                            class="bp3-icon StyledProps--main copyIcon"
+                            data-icon="copy"
+                          >
+                            <svg
+                              height="20"
+                              viewBox="0 0 14 16"
+                              width="20"
+                            >
+                              <g
+                                fill="#22272D"
+                                stroke="#22272D"
+                                stroke-width="0.25"
+                              >
+                                <path
+                                  d="M12.89.55H6.388a3.28 3.28 0 00-3.043 2.067C1.672 2.76.34 4.17.34 5.87v9.271c0 .17.138.308.307.308H7.15c1.35 0 2.543-.825 3.042-2.066 1.673-.144 3.006-1.554 3.006-3.255V.86a.307.307 0 00-.308-.31zM7.15 14.835H.955V5.87c0-1.299.955-2.4 2.199-2.624-.002.01-.001.021-.003.032-.031.182-.05.367-.05.552v9.27c0 .17.138.308.308.308h6.105a2.67 2.67 0 01-2.364 1.425zm5.432-4.705a2.68 2.68 0 01-2.607 2.664H3.716V3.831a2.672 2.672 0 012.671-2.665h6.195v8.963z"
+                                />
+                                <path
+                                  d="M6.11 6.672a.308.308 0 000 .615h1.732V9.02a.308.308 0 00.616 0V7.287h1.733a.308.308 0 000-.615H8.458V4.939a.308.308 0 00-.616 0v1.733H6.11z"
+                                />
+                              </g>
+                            </svg>
+                          </span>
+                        </div>
+                      </span>
+                    </span>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 20%;"
+                  >
+                    <span
+                      class="Tag--main"
+                    >
+                      <span
+                        class="bp3-tag defaultFolderTag"
+                        style="border-radius: 5px;"
+                      >
+                        <span
+                          class="bp3-text-overflow-ellipsis bp3-fill"
+                        >
+                          gitsync.defaultFolder
+                        </span>
+                      </span>
+                    </span>
+                  </div>
                 </div>
                 <div
                   class="Layout--horizontal StyledProps--main"
@@ -1811,21 +2596,76 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
                 </div>
               </div>
               <div
-                class="Layout--horizontal StyledProps--main rootFoldersContainer"
+                class="Layout--horizontal StyledProps--main rootFoldersContainer StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-center"
               >
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main rootFoldersData"
+                  class="Layout--horizontal StyledProps--main rootFoldersData"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main rootFolderRelativePath"
-                  >
-                    src2
-                  </p>
-                  <p
+                  <div
                     class="StyledProps--font StyledProps--main"
+                    style="width: 20%;"
                   >
-                    https://github.com/wings-software/triggerNgDemo/src2/.harness/
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                      title="/src2"
+                    >
+                      /src2
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 75%;"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                      title="https://github.com/wings-software/triggerNgDemo/src2/.harness/"
+                    >
+                      https://github.com/wings-software/triggerNgDemo/src2/.harness/
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 5%;"
+                  >
+                    <span
+                      class="bp3-popover-wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class=""
+                          tabindex="0"
+                        >
+                          <span
+                            class="bp3-icon StyledProps--main copyIcon"
+                            data-icon="copy"
+                          >
+                            <svg
+                              height="20"
+                              viewBox="0 0 14 16"
+                              width="20"
+                            >
+                              <g
+                                fill="#22272D"
+                                stroke="#22272D"
+                                stroke-width="0.25"
+                              >
+                                <path
+                                  d="M12.89.55H6.388a3.28 3.28 0 00-3.043 2.067C1.672 2.76.34 4.17.34 5.87v9.271c0 .17.138.308.307.308H7.15c1.35 0 2.543-.825 3.042-2.066 1.673-.144 3.006-1.554 3.006-3.255V.86a.307.307 0 00-.308-.31zM7.15 14.835H.955V5.87c0-1.299.955-2.4 2.199-2.624-.002.01-.001.021-.003.032-.031.182-.05.367-.05.552v9.27c0 .17.138.308.308.308h6.105a2.67 2.67 0 01-2.364 1.425zm5.432-4.705a2.68 2.68 0 01-2.607 2.664H3.716V3.831a2.672 2.672 0 012.671-2.665h6.195v8.963z"
+                                />
+                                <path
+                                  d="M6.11 6.672a.308.308 0 000 .615h1.732V9.02a.308.308 0 00.616 0V7.287h1.733a.308.308 0 000-.615H8.458V4.939a.308.308 0 00-.616 0v1.733H6.11z"
+                                />
+                              </g>
+                            </svg>
+                          </span>
+                        </div>
+                      </span>
+                    </span>
+                  </div>
                 </div>
                 <div
                   class="Layout--horizontal StyledProps--main"
@@ -1870,7 +2710,20 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
                 <span
                   class="bp3-button-text"
                 >
-                  gitsync.addFolder
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-size-medium"
+                    >
+                      +
+                    </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      gitsync.addFolder
+                    </p>
+                  </div>
                 </span>
               </button>
             </div>
@@ -1930,7 +2783,7 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
             class="wrapper"
           >
             <p
-              class="StyledProps--font StyledProps--main name"
+              class="StyledProps--font StyledProps--main name StyledProps--color StyledProps--color-black"
             >
               
             </p>
@@ -1945,7 +2798,7 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
             class="wrapper"
           >
             <p
-              class="StyledProps--font StyledProps--main name"
+              class="StyledProps--font StyledProps--main name StyledProps--color StyledProps--color-black"
             >
               feature
             </p>
@@ -1963,26 +2816,95 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
               class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
             >
               <div
-                class="Layout--horizontal StyledProps--main rootFoldersContainer"
+                class="Layout--horizontal StyledProps--main rootFoldersContainer StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-center"
               >
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main rootFoldersData"
+                  class="Layout--horizontal StyledProps--main rootFoldersData"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main rootFolderRelativePath"
-                  >
-                    rootFolder1
-                  </p>
-                  <p
+                  <div
                     class="StyledProps--font StyledProps--main"
+                    style="width: 20%;"
                   >
-                    https://www.github.com/testRepo.git/rootFolder1/.harness/
-                  </p>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--padding-xsmall StyledProps--background-purple100"
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                      title="/rootFolder1"
+                    >
+                      /rootFolder1
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 55%;"
                   >
-                    gitsync.defaultFolder
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                      title="https://www.github.com/testRepo.git/rootFolder1/.harness/"
+                    >
+                      https://www.github.com/testRepo.git/rootFolder1/.harness/
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 5%;"
+                  >
+                    <span
+                      class="bp3-popover-wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class=""
+                          tabindex="0"
+                        >
+                          <span
+                            class="bp3-icon StyledProps--main copyIcon"
+                            data-icon="copy"
+                          >
+                            <svg
+                              height="20"
+                              viewBox="0 0 14 16"
+                              width="20"
+                            >
+                              <g
+                                fill="#22272D"
+                                stroke="#22272D"
+                                stroke-width="0.25"
+                              >
+                                <path
+                                  d="M12.89.55H6.388a3.28 3.28 0 00-3.043 2.067C1.672 2.76.34 4.17.34 5.87v9.271c0 .17.138.308.307.308H7.15c1.35 0 2.543-.825 3.042-2.066 1.673-.144 3.006-1.554 3.006-3.255V.86a.307.307 0 00-.308-.31zM7.15 14.835H.955V5.87c0-1.299.955-2.4 2.199-2.624-.002.01-.001.021-.003.032-.031.182-.05.367-.05.552v9.27c0 .17.138.308.308.308h6.105a2.67 2.67 0 01-2.364 1.425zm5.432-4.705a2.68 2.68 0 01-2.607 2.664H3.716V3.831a2.672 2.672 0 012.671-2.665h6.195v8.963z"
+                                />
+                                <path
+                                  d="M6.11 6.672a.308.308 0 000 .615h1.732V9.02a.308.308 0 00.616 0V7.287h1.733a.308.308 0 000-.615H8.458V4.939a.308.308 0 00-.616 0v1.733H6.11z"
+                                />
+                              </g>
+                            </svg>
+                          </span>
+                        </div>
+                      </span>
+                    </span>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 20%;"
+                  >
+                    <span
+                      class="Tag--main"
+                    >
+                      <span
+                        class="bp3-tag defaultFolderTag"
+                        style="border-radius: 5px;"
+                      >
+                        <span
+                          class="bp3-text-overflow-ellipsis bp3-fill"
+                        >
+                          gitsync.defaultFolder
+                        </span>
+                      </span>
+                    </span>
+                  </div>
                 </div>
                 <div
                   class="Layout--horizontal StyledProps--main"
@@ -2021,21 +2943,76 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
                 </div>
               </div>
               <div
-                class="Layout--horizontal StyledProps--main rootFoldersContainer"
+                class="Layout--horizontal StyledProps--main rootFoldersContainer StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-center"
               >
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main rootFoldersData"
+                  class="Layout--horizontal StyledProps--main rootFoldersData"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main rootFolderRelativePath"
-                  >
-                    rootFolderTest
-                  </p>
-                  <p
+                  <div
                     class="StyledProps--font StyledProps--main"
+                    style="width: 20%;"
                   >
-                    https://www.github.com/testRepo.git/rootFolderTest/.harness/
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                      title="/rootFolderTest"
+                    >
+                      /rootFolderTest
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 75%;"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                      title="https://www.github.com/testRepo.git/rootFolderTest/.harness/"
+                    >
+                      https://www.github.com/testRepo.git/rootFolderTest/.harness/
+                    </p>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="width: 5%;"
+                  >
+                    <span
+                      class="bp3-popover-wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class=""
+                          tabindex="0"
+                        >
+                          <span
+                            class="bp3-icon StyledProps--main copyIcon"
+                            data-icon="copy"
+                          >
+                            <svg
+                              height="20"
+                              viewBox="0 0 14 16"
+                              width="20"
+                            >
+                              <g
+                                fill="#22272D"
+                                stroke="#22272D"
+                                stroke-width="0.25"
+                              >
+                                <path
+                                  d="M12.89.55H6.388a3.28 3.28 0 00-3.043 2.067C1.672 2.76.34 4.17.34 5.87v9.271c0 .17.138.308.307.308H7.15c1.35 0 2.543-.825 3.042-2.066 1.673-.144 3.006-1.554 3.006-3.255V.86a.307.307 0 00-.308-.31zM7.15 14.835H.955V5.87c0-1.299.955-2.4 2.199-2.624-.002.01-.001.021-.003.032-.031.182-.05.367-.05.552v9.27c0 .17.138.308.308.308h6.105a2.67 2.67 0 01-2.364 1.425zm5.432-4.705a2.68 2.68 0 01-2.607 2.664H3.716V3.831a2.672 2.672 0 012.671-2.665h6.195v8.963z"
+                                />
+                                <path
+                                  d="M6.11 6.672a.308.308 0 000 .615h1.732V9.02a.308.308 0 00.616 0V7.287h1.733a.308.308 0 000-.615H8.458V4.939a.308.308 0 00-.616 0v1.733H6.11z"
+                                />
+                              </g>
+                            </svg>
+                          </span>
+                        </div>
+                      </span>
+                    </span>
+                  </div>
                 </div>
                 <div
                   class="Layout--horizontal StyledProps--main"
@@ -2080,7 +3057,20 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
                 <span
                   class="bp3-button-text"
                 >
-                  gitsync.addFolder
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-size-medium"
+                    >
+                      +
+                    </p>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      gitsync.addFolder
+                    </p>
+                  </div>
                 </span>
               </button>
             </div>

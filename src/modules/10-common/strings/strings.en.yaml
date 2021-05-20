@@ -327,7 +327,7 @@ seeWhatChanged: See What Changed
 changesUnsaved: You may have unsaved changes.
 savedSuccessfully: Saved Successfully
 submittingRequest: Submitting request and pushing change to Git
-submittingRequestToGit: Submitting request and pushing change to Git from Delegate
+submittingRequestToGitViaDelegate: Submitting request and pushing change to Git from Delegate
 local: Local
 banners:
   email:
@@ -337,3 +337,8 @@ banners:
   trial:
     description: Your Enterprise {{ module }} trial expires in {{ days }} days. Contact Sales to continue using {{ moduleDescription }}
     contactSales: Contact Sales
+test:
+  inProgress: Testing in progress
+  connectionSuccessful: Connection Successful
+  connectionFailed: Connection Failed.
+  retest: Retest.

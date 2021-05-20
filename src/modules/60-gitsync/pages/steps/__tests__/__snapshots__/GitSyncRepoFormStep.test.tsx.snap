@@ -264,41 +264,45 @@ exports[`Test GitSyncRepoFormStep Initial render should match snapshot for GitSy
                     </div>
                   </div>
                   <div
-                    class="Layout--horizontal StyledProps--main"
+                    class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
                   >
                     <div
-                      class="bp3-form-group"
-                      data-id="repo-2"
+                      class="Layout--vertical StyledProps--main"
                     >
-                      <label
-                        class="bp3-label"
-                        for="repo"
-                      >
-                        repositoryUrlLabel
-                         
-                        <span
-                          class="bp3-text-muted"
-                        />
-                      </label>
                       <div
-                        class="bp3-form-content"
+                        class="bp3-form-group"
+                        data-id="repo-2"
                       >
-                        <div
-                          class="bp3-input-group"
+                        <label
+                          class="bp3-label"
+                          for="repo"
                         >
-                          <input
-                            autocomplete="off"
-                            class="bp3-input"
-                            name="repo"
-                            type="text"
-                            value=""
+                          repositoryUrlLabel
+                           
+                          <span
+                            class="bp3-text-muted"
                           />
+                        </label>
+                        <div
+                          class="bp3-form-content"
+                        >
+                          <div
+                            class="bp3-input-group"
+                          >
+                            <input
+                              autocomplete="off"
+                              class="bp3-input"
+                              name="repo"
+                              type="text"
+                              value=""
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div
-                    class="bp3-form-group"
+                    class="bp3-form-group placeholder"
                     data-id="rootfolder-3"
                   >
                     <label
@@ -321,6 +325,7 @@ exports[`Test GitSyncRepoFormStep Initial render should match snapshot for GitSy
                           autocomplete="off"
                           class="bp3-input"
                           name="rootfolder"
+                          placeholder="/.harness/"
                           type="text"
                           value=""
                         />
@@ -811,46 +816,50 @@ exports[`Test GitSyncRepoFormStep Initial render should match snapshot for GitSy
                     </div>
                   </div>
                   <div
-                    class="Layout--horizontal StyledProps--main"
+                    class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
                   >
                     <div
-                      class="bp3-form-group bp3-intent-danger"
-                      data-id="repo-2"
+                      class="Layout--vertical StyledProps--main"
                     >
-                      <label
-                        class="bp3-label"
-                        for="repo"
-                      >
-                        repositoryUrlLabel
-                         
-                        <span
-                          class="bp3-text-muted"
-                        />
-                      </label>
                       <div
-                        class="bp3-form-content"
+                        class="bp3-form-group bp3-intent-danger"
+                        data-id="repo-2"
                       >
-                        <div
-                          class="bp3-input-group bp3-intent-danger"
+                        <label
+                          class="bp3-label"
+                          for="repo"
                         >
-                          <input
-                            autocomplete="off"
-                            class="bp3-input"
-                            name="repo"
-                            type="text"
-                            value=""
+                          repositoryUrlLabel
+                           
+                          <span
+                            class="bp3-text-muted"
                           />
-                        </div>
+                        </label>
                         <div
-                          class="bp3-form-helper-text"
+                          class="bp3-form-content"
                         >
-                          validation.repositoryName
+                          <div
+                            class="bp3-input-group bp3-intent-danger"
+                          >
+                            <input
+                              autocomplete="off"
+                              class="bp3-input"
+                              name="repo"
+                              type="text"
+                              value=""
+                            />
+                          </div>
+                          <div
+                            class="bp3-form-helper-text"
+                          >
+                            validation.repositoryName
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div
-                    class="bp3-form-group"
+                    class="bp3-form-group placeholder"
                     data-id="rootfolder-3"
                   >
                     <label
@@ -873,6 +882,7 @@ exports[`Test GitSyncRepoFormStep Initial render should match snapshot for GitSy
                           autocomplete="off"
                           class="bp3-input"
                           name="rootfolder"
+                          placeholder="/.harness/"
                           type="text"
                           value=""
                         />

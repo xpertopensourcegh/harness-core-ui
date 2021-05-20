@@ -12,7 +12,8 @@ jest.mock('services/cd-ng', () => ({
   usePostGitSync: jest.fn().mockImplementation(() => ({ mutate: createGitSynRepo })),
   useGetConnector: jest.fn().mockImplementation(() => ({ data: gitHubMock, refetch: getGitConnector })),
   getConnectorListPromise: jest.fn().mockImplementation(() => Promise.resolve(gitHubMock)),
-  getListOfBranchesByConnectorPromise: jest.fn().mockResolvedValue({ data: ['master', 'devBranch'] })
+  getListOfBranchesByConnectorPromise: jest.fn().mockResolvedValue({ data: ['master', 'devBranch'] }),
+  useGetTestGitRepoConnectionResult: jest.fn().mockImplementation(() => ({ mutate: jest.fn }))
 }))
 
 const pathParams = { accountId: 'dummy', orgIdentifier: 'default', projectIdentifier: 'dummyProject' }
@@ -131,7 +132,7 @@ describe('Git Sync - repo tab', () => {
     expect(rootfolderInput).toBeDefined()
 
     await act(async () => {
-      fireEvent.change(rootfolderInput!, { target: { value: 'src/.harness/' } })
+      fireEvent.change(rootfolderInput!, { target: { value: 'src' } })
     })
 
     const icons = container.querySelectorAll('[icon="caret-down"]')

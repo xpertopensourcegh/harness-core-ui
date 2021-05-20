@@ -215,7 +215,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
             isGitSyncEnabled
               ? isSyncingToGitViaManager
                 ? getString('common.submittingRequest')
-                : getString('common.submittingRequestToGit')
+                : getString('common.submittingRequestToGitViaDelegate')
               : getString('common.loading')
           }
         />

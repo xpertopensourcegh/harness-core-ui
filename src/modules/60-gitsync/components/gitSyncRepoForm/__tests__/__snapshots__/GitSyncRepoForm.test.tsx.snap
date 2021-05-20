@@ -775,42 +775,53 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
                     </div>
                   </div>
                   <div
-                    class="Layout--horizontal StyledProps--main"
+                    class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
                   >
                     <div
-                      class="bp3-form-group bp3-disabled"
-                      data-id="repo-2"
+                      class="Layout--vertical StyledProps--main"
                     >
-                      <label
-                        class="bp3-label"
-                        for="repo"
-                      >
-                        repositoryUrlLabel
-                         
-                        <span
-                          class="bp3-text-muted"
-                        />
-                      </label>
                       <div
-                        class="bp3-form-content"
+                        class="bp3-form-group bp3-disabled noSpacing"
+                        data-id="repo-2"
                       >
-                        <div
-                          class="bp3-input-group bp3-disabled"
+                        <label
+                          class="bp3-label"
+                          for="repo"
                         >
-                          <input
-                            autocomplete="off"
-                            class="bp3-input"
-                            disabled=""
-                            name="repo"
-                            type="text"
-                            value="https://github.com/wings-software/sunnykesh-gitSync"
+                          repositoryUrlLabel
+                           
+                          <span
+                            class="bp3-text-muted"
                           />
+                        </label>
+                        <div
+                          class="bp3-form-content"
+                        >
+                          <div
+                            class="bp3-input-group bp3-disabled"
+                          >
+                            <input
+                              autocomplete="off"
+                              class="bp3-input"
+                              disabled=""
+                              name="repo"
+                              type="text"
+                              value="https://github.com/wings-software/sunnykesh-gitSync"
+                            />
+                          </div>
                         </div>
                       </div>
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--padding-top-xsmall StyledProps--padding-bottom-medium StyledProps--color StyledProps--color-grey250"
+                        style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                        title="wings-software/sunnykesh-gitSync"
+                      >
+                        wings-software/sunnykesh-gitSync
+                      </p>
                     </div>
                   </div>
                   <div
-                    class="bp3-form-group"
+                    class="bp3-form-group placeholder noSpacing"
                     data-id="rootfolder-3"
                   >
                     <label
@@ -833,12 +844,20 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
                           autocomplete="off"
                           class="bp3-input"
                           name="rootfolder"
+                          placeholder="/.harness/"
                           type="text"
-                          value="src/.harness/"
+                          value="src"
                         />
                       </div>
                     </div>
                   </div>
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--padding-top-xsmall StyledProps--padding-bottom-medium StyledProps--color StyledProps--color-grey250"
+                    style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                    title="https://github.com/wings-software/sunnykesh-gitSync/src/.harness/"
+                  >
+                    https://github.com/wings-software/sunnykesh-gitSync/src/.harness/
+                  </p>
                   <div
                     class="bp3-form-group bp3-intent-danger"
                     data-id="branch-4"
@@ -1357,41 +1376,45 @@ exports[`Git Sync - repo tab Repo type card should be enabled only for Github 1`
                     </div>
                   </div>
                   <div
-                    class="Layout--horizontal StyledProps--main"
+                    class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
                   >
                     <div
-                      class="bp3-form-group"
-                      data-id="repo-2"
+                      class="Layout--vertical StyledProps--main"
                     >
-                      <label
-                        class="bp3-label"
-                        for="repo"
-                      >
-                        repositoryUrlLabel
-                         
-                        <span
-                          class="bp3-text-muted"
-                        />
-                      </label>
                       <div
-                        class="bp3-form-content"
+                        class="bp3-form-group"
+                        data-id="repo-2"
                       >
-                        <div
-                          class="bp3-input-group"
+                        <label
+                          class="bp3-label"
+                          for="repo"
                         >
-                          <input
-                            autocomplete="off"
-                            class="bp3-input"
-                            name="repo"
-                            type="text"
-                            value=""
+                          repositoryUrlLabel
+                           
+                          <span
+                            class="bp3-text-muted"
                           />
+                        </label>
+                        <div
+                          class="bp3-form-content"
+                        >
+                          <div
+                            class="bp3-input-group"
+                          >
+                            <input
+                              autocomplete="off"
+                              class="bp3-input"
+                              name="repo"
+                              type="text"
+                              value=""
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div
-                    class="bp3-form-group"
+                    class="bp3-form-group placeholder"
                     data-id="rootfolder-3"
                   >
                     <label
@@ -1414,6 +1437,7 @@ exports[`Git Sync - repo tab Repo type card should be enabled only for Github 1`
                           autocomplete="off"
                           class="bp3-input"
                           name="rootfolder"
+                          placeholder="/.harness/"
                           type="text"
                           value=""
                         />
@@ -1899,41 +1923,45 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
                     </div>
                   </div>
                   <div
-                    class="Layout--horizontal StyledProps--main"
+                    class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
                   >
                     <div
-                      class="bp3-form-group"
-                      data-id="repo-2"
+                      class="Layout--vertical StyledProps--main"
                     >
-                      <label
-                        class="bp3-label"
-                        for="repo"
-                      >
-                        repositoryUrlLabel
-                         
-                        <span
-                          class="bp3-text-muted"
-                        />
-                      </label>
                       <div
-                        class="bp3-form-content"
+                        class="bp3-form-group"
+                        data-id="repo-2"
                       >
-                        <div
-                          class="bp3-input-group"
+                        <label
+                          class="bp3-label"
+                          for="repo"
                         >
-                          <input
-                            autocomplete="off"
-                            class="bp3-input"
-                            name="repo"
-                            type="text"
-                            value=""
+                          repositoryUrlLabel
+                           
+                          <span
+                            class="bp3-text-muted"
                           />
+                        </label>
+                        <div
+                          class="bp3-form-content"
+                        >
+                          <div
+                            class="bp3-input-group"
+                          >
+                            <input
+                              autocomplete="off"
+                              class="bp3-input"
+                              name="repo"
+                              type="text"
+                              value=""
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div
-                    class="bp3-form-group"
+                    class="bp3-form-group placeholder"
                     data-id="rootfolder-3"
                   >
                     <label
@@ -1956,6 +1984,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
                           autocomplete="off"
                           class="bp3-input"
                           name="rootfolder"
+                          placeholder="/.harness/"
                           type="text"
                           value=""
                         />
@@ -2446,46 +2475,50 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
                     </div>
                   </div>
                   <div
-                    class="Layout--horizontal StyledProps--main"
+                    class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
                   >
                     <div
-                      class="bp3-form-group bp3-intent-danger"
-                      data-id="repo-2"
+                      class="Layout--vertical StyledProps--main"
                     >
-                      <label
-                        class="bp3-label"
-                        for="repo"
-                      >
-                        repositoryUrlLabel
-                         
-                        <span
-                          class="bp3-text-muted"
-                        />
-                      </label>
                       <div
-                        class="bp3-form-content"
+                        class="bp3-form-group bp3-intent-danger"
+                        data-id="repo-2"
                       >
-                        <div
-                          class="bp3-input-group bp3-intent-danger"
+                        <label
+                          class="bp3-label"
+                          for="repo"
                         >
-                          <input
-                            autocomplete="off"
-                            class="bp3-input"
-                            name="repo"
-                            type="text"
-                            value=""
+                          repositoryUrlLabel
+                           
+                          <span
+                            class="bp3-text-muted"
                           />
-                        </div>
+                        </label>
                         <div
-                          class="bp3-form-helper-text"
+                          class="bp3-form-content"
                         >
-                          validation.repositoryName
+                          <div
+                            class="bp3-input-group bp3-intent-danger"
+                          >
+                            <input
+                              autocomplete="off"
+                              class="bp3-input"
+                              name="repo"
+                              type="text"
+                              value=""
+                            />
+                          </div>
+                          <div
+                            class="bp3-form-helper-text"
+                          >
+                            validation.repositoryName
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div
-                    class="bp3-form-group"
+                    class="bp3-form-group placeholder"
                     data-id="rootfolder-3"
                   >
                     <label
@@ -2508,6 +2541,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
                           autocomplete="off"
                           class="bp3-input"
                           name="rootfolder"
+                          placeholder="/.harness/"
                           type="text"
                           value=""
                         />

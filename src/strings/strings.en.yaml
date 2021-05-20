@@ -1313,7 +1313,6 @@ activityHistory:
   connectivityCheck: Connectivity Check
   connectivityCheckFailed: Connectivity Check Failed
   connectionFailed: Connection Failed
-  connectionSuccessful: Connection Successful
   createdSuccessfully: Created Successfully
   updatedSuccessfully: Updated Successfully
   noData: No Activity Found

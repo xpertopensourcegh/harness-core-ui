@@ -1,7 +1,16 @@
 import React from 'react'
-import { render, fireEvent, findByText, waitFor, act, RenderResult } from '@testing-library/react'
+import {
+  render,
+  fireEvent,
+  findByText,
+  waitFor,
+  act,
+  RenderResult,
+  getByText as getByTextAlt
+} from '@testing-library/react'
 import { GitSyncTestWrapper } from '@common/utils/gitSyncTestUtils'
 import { fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
+import { findDialogContainer } from '@common/utils/testUtils'
 import GitSyncRepoTab from '../GitSyncRepoTab'
 
 const createGitSynRepo = jest.fn()
@@ -10,7 +19,8 @@ const updateGitSynRepo = jest.fn()
 jest.mock('services/cd-ng', () => ({
   usePostGitSync: jest.fn().mockImplementation(() => ({ mutate: createGitSynRepo })),
   usePutGitSync: jest.fn().mockImplementation(() => ({ mutate: updateGitSynRepo })),
-  useGetConnector: jest.fn().mockImplementation(() => Promise.resolve([]))
+  useGetConnector: jest.fn().mockImplementation(() => Promise.resolve([])),
+  useGetTestGitRepoConnectionResult: jest.fn().mockImplementation(() => ({ mutate: jest.fn }))
 }))
 
 const getMenuIcon = (row: Element) => {
@@ -56,16 +66,18 @@ describe('Git Sync - repo tab', () => {
   })
 
   test('test for adding new root folder', async () => {
-    const { container, getByText, getAllByText } = setup()
+    const { container, getAllByText } = setup()
     const addFolderBtn = getAllByText('gitsync.addFolder')
     expect(addFolderBtn.length).toEqual(2) // in mock data we have 2 repo now
     await act(async () => {
       fireEvent.click(addFolderBtn[0])
     })
 
-    // Valiadation for rootfolder name
+    const dialog = findDialogContainer() as HTMLElement
+
+    // Validation for rootfolder name
     act(() => {
-      fireEvent.click(getByText('save'))
+      fireEvent.click(getByTextAlt(dialog, 'gitsync.addFolder'))
     })
 
     expect(updateGitSynRepo).toHaveBeenCalledTimes(0)
@@ -73,24 +85,29 @@ describe('Git Sync - repo tab', () => {
     act(() => {
       fillAtForm([
         {
-          container,
-          fieldId: 'rootFolder',
+          container: dialog,
+          fieldId: 'repo',
           type: InputTypes.TEXTFIELD,
-          value: 'rootfolder/.harmess/'
+          value: 'repo'
         },
         {
-          container,
+          container: dialog,
+          fieldId: 'rootFolder',
+          type: InputTypes.TEXTFIELD,
+          value: 'rootfolder'
+        },
+        {
+          container: dialog,
           fieldId: 'isDefault',
           type: InputTypes.CHECKBOX,
           value: 'true'
         }
       ])
-
       expect(container).toMatchSnapshot()
     })
 
     await act(async () => {
-      fireEvent.click(getByText('save'))
+      fireEvent.click(getByTextAlt(dialog, 'gitsync.addFolder'))
     })
     expect(updateGitSynRepo).toHaveBeenCalledTimes(1)
     expect(updateGitSynRepo).toHaveBeenCalledWith({
@@ -108,7 +125,7 @@ describe('Git Sync - repo tab', () => {
         },
         {
           isDefault: true,
-          rootFolder: 'rootfolder/.harmess/'
+          rootFolder: 'rootfolder/.harness/'
         }
       ],
       identifier: '606312ffef03c30721080b85',

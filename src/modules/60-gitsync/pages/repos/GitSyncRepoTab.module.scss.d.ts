@@ -9,5 +9,9 @@ declare const styles: {
   readonly name: string
   readonly addFolderBtn: string
   readonly menuContainer: string
+  readonly noSpacing: string
+  readonly placeholder: string
+  readonly inputFields: string
+  readonly defaultFolderTag: string
 }
 export default styles

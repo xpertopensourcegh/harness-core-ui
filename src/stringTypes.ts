@@ -292,7 +292,11 @@ export interface StringsMap {
   'common.specify': string
   'common.startTrial': string
   'common.submittingRequest': string
-  'common.submittingRequestToGit': string
+  'common.submittingRequestToGitViaDelegate': string
+  'common.test.connectionFailed': string
+  'common.test.connectionSuccessful': string
+  'common.test.inProgress': string
+  'common.test.retest': string
   'common.timeout': string
   'common.totalLines': string
   'common.trialInProgress': string
@@ -873,6 +877,7 @@ export interface StringsMap {
   'dashboards.sideNav.custom': string
   'dashboards.sideNav.noDashboard': string
   'gitsync.addFolder': string
+  'gitsync.addNewHarnessFolderLabel': string
   'gitsync.configureHarnessFolder': string
   'gitsync.connectThroughDelegate': string
   'gitsync.connectThroughDelegateLabel': string
@@ -887,7 +892,9 @@ export interface StringsMap {
   'gitsync.label': string
   'gitsync.learnMore': string
   'gitsync.markAsDefault': string
+  'gitsync.markAsDefaultLabel': string
   'gitsync.moveFolder': string
+  'gitsync.pathToHarnessFolder': string
   'gitsync.repositoryPath': string
   'gitsync.rootFolderListHeader': string
   'gitsync.rootFolderUpdatedSuccessfully': string
@@ -2439,10 +2446,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'activityHistory.connectionFailed': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'activityHistory.connectionSuccessful': string
   /**
    * @deprecated migrate this string to module level file
    */

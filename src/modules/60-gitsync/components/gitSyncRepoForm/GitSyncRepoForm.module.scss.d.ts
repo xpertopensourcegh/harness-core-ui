@@ -10,5 +10,7 @@ declare const styles: {
   readonly formElm: string
   readonly formButton: string
   readonly helpText: string
+  readonly noSpacing: string
+  readonly placeholder: string
 }
 export default styles

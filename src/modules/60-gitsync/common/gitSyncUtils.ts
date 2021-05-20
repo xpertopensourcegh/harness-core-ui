@@ -54,3 +54,22 @@ export const gitCards: Array<ConnectorCardInterface> = [
   //   }
   // }
 ]
+
+export const getRepoPath = (gitRepo: GitSyncConfig): string => {
+  let basePath = ''
+  switch (gitRepo.gitConnectorType) {
+    case Connectors.GITHUB:
+      basePath = 'https://github.com/'
+      break
+    case Connectors.GITLAB:
+      basePath = 'https://gitlab.com/'
+      break
+    case Connectors.BITBUCKET:
+      basePath = 'https://bitbucket.com/'
+  }
+
+  return gitRepo.repo?.split(basePath)[1] || ''
+}
+
+export const getCompleteGitPath = (repo: string, rootFolder: string, suffix: string): string =>
+  repo.concat('/').concat(rootFolder).concat(suffix)
