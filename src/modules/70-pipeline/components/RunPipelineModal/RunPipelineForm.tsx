@@ -367,7 +367,7 @@ function RunPipelineFormBasic({
                           padding={{ top: 'xlarge', left: 'xlarge', right: 'xlarge' }}
                         >
                           <div className={css.divider}>
-                            <Layout.Horizontal className={css.runModalSubHeading}>
+                            <Layout.Horizontal className={css.runModalSubHeading} id="use-input-set">
                               <FormInput.RadioGroup
                                 name="existingProvideRadio"
                                 label="Select an existing inputset or provide new set of values"
@@ -461,6 +461,7 @@ function RunPipelineFormBasic({
                         </Layout.Horizontal>
                         <Layout.Horizontal spacing="xxxlarge" style={{ alignItems: 'center' }}>
                           <Button
+                            id="cancel-runpipeline"
                             text={getString('cancel')}
                             style={{ backgroundColor: 'var(--grey-50)', color: 'var(--grey-2)' }}
                             onClick={() => {

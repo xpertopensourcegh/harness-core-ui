@@ -18,5 +18,6 @@ declare const styles: {
   readonly variableListHeader: string
   readonly customVariables: string
   readonly panel: string
+  readonly variablesTable: string
 }
 export default styles

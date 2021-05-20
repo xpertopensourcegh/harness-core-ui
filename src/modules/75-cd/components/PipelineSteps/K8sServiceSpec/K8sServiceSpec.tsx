@@ -149,11 +149,11 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
         </Layout.Horizontal>
       </Card>
 
-      <Accordion className={css.accordionTitle} activeId="advanced">
+      <Accordion className={css.accordionTitle}>
         <Accordion.Panel
           id="advanced"
           addDomId={true}
-          summary={'Advanced'}
+          summary={getString('advancedTitle')}
           details={
             <Card className={css.sectionCard} id={getString('variablesText')}>
               <div className={css.tabSubHeading}>{getString('variablesText')}</div>

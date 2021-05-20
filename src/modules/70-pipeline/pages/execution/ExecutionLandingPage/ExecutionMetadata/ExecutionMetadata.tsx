@@ -8,6 +8,8 @@ import { useStrings } from 'framework/strings'
 import type { CDStageModuleInfo, ServiceExecutionSummary } from 'services/cd-ng'
 import type { CIBuildResponseDTO } from '@pipeline/pages/pipeline-deployment-list/ExecutionsList/ExecutionCard/ExecutionDetails/Types/types'
 import { TagsPopover } from '@common/components'
+
+import { UserLabel } from '@common/exports'
 import { ServicePopoverCard } from '@pipeline/components/ServicePopoverCard/ServicePopoverCard'
 import BuildBranchBadge from '@pipeline/components/badges/BuildBranchBadge/BuildBranchBadge'
 import BuildPullRequestBadge from '@pipeline/components/badges/BuildPullRequestBadge/BuildPullRequestBadge'
@@ -212,11 +214,12 @@ export default function ExecutionMetadata(): React.ReactElement {
   const triggerName = pipelineExecutionSummary?.executionTriggerInfo?.triggeredBy?.identifier
   if (triggerName) {
     triggerEntries.push({
+      label: pipelineExecutionSummary?.executionTriggerInfo?.triggerType,
       value: (
         <>
           {/*TODO: add right icon <Icon name="trigger-pipeline" margin={{ right: 'small' }} />*/}
           <Link withoutHref font={{ weight: 'bold' }}>
-            {triggerName}
+            <UserLabel name={triggerName} />
           </Link>
         </>
       )
@@ -234,6 +237,7 @@ export default function ExecutionMetadata(): React.ReactElement {
       ) : null}
       {HAS_CI ? <ExecutionMetadataSection title="BUILD" entries={ciEntries} delimiter={true} /> : null}
       {HAS_CD ? <ExecutionMetadataSection title="DEPLOYMENT" entries={cdEntries} delimiter={true} /> : null}
+      <ExecutionMetadataSection title="TRIGGER" entries={triggerEntries} />
       {/* TODO: hide TBD <ExecutionMetadataSection title="TRIGGER" entries={triggerEntries} />*/}
     </div>
   )

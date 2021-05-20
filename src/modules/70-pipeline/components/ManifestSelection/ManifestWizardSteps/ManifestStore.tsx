@@ -191,6 +191,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                       intent="primary"
                       minimal
                       disabled={isReadonly || !canCreate}
+                      id="new-manifest-connector"
                       text={newConnectorLabel}
                       className={css.addNewManifest}
                       icon="plus"

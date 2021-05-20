@@ -1017,6 +1017,7 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
                 </div>
                 <button
                   class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addNewManifest StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                  id="new-manifest-connector"
                   type="button"
                 >
                   <span

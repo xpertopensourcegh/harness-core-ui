@@ -245,7 +245,7 @@ export const EditStageView: React.FC<EditStageView> = ({
         </Container>
       </div>
       {context && (
-        <Accordion className={css.accordionTitle} activeId="advanced">
+        <Accordion className={css.accordionTitle}>
           <Accordion.Panel
             id="advanced"
             addDomId={true}

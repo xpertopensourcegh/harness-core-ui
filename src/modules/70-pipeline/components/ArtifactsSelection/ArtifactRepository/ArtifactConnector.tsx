@@ -131,6 +131,7 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
                   <Button
                     intent="primary"
                     minimal
+                    id="new-artifact-connector"
                     text={newConnectorLabel}
                     icon="plus"
                     disabled={isReadonly || !canCreate}

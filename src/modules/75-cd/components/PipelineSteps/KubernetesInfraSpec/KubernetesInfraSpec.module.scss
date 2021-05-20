@@ -9,3 +9,9 @@
     margin-top: var(--spacing-small);
   }
 }
+
+.variablesTable {
+  & + & {
+    margin-top: var(--spacing-large);
+  }
+}

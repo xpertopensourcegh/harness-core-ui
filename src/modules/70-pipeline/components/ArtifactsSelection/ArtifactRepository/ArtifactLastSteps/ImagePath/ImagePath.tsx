@@ -71,7 +71,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
     })
   })
 
-  const { data, loading, refetch } = useGetBuildDetailsForDocker({
+  const { data, loading, refetch, error: dockerTagError } = useGetBuildDetailsForDocker({
     queryParams: {
       imagePath: lastImagePath,
       connectorRef: prevStepData?.connectorId?.value
@@ -164,7 +164,6 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
 
     handleSubmit(artifactObj)
   }
-
   const itemRenderer = memoize((item: { label: string }, { handleClick }) => (
     <div key={item.label.toString()}>
       <Menu.Item
@@ -250,7 +249,12 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
                       selectProps: {
                         defaultSelectedItem: formik.values?.tag,
                         noResults: (
-                          <span className={css.padSmall}>{getString('pipelineSteps.deploy.errors.notags')}</span>
+                          <span className={css.padSmall}>
+                            <Text lineClamp={1}>
+                              {get(dockerTagError, 'data.message', null) ||
+                                getString('pipelineSteps.deploy.errors.notags')}{' '}
+                            </Text>
+                          </span>
                         ),
                         items: tags,
                         addClearBtn: true,

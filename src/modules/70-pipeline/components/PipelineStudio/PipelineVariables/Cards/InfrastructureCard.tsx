@@ -42,6 +42,7 @@ export function InfrastructureCard(props: InfrastructureCardProps): React.ReactE
   return (
     <React.Fragment>
       <VariablesListTable
+        className={css.variablesTable}
         data={infrastructure.environment}
         originalData={originalInfrastructure.environment}
         metadataMap={metadataMap}

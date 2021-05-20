@@ -109,6 +109,14 @@ export default function DeployStageSetupShell(): JSX.Element {
         isTabNavigationAllowed && setTabNavigationAllowed(false)
       }
     }
+    if (selectedTab === DeployTabs.OVERVIEW) {
+      const stageName = get(stage, 'stage.name', null)
+      if (!stageName) {
+        isTabNavigationAllowed && setTabNavigationAllowed(false)
+      } else {
+        !isTabNavigationAllowed && setTabNavigationAllowed(true)
+      }
+    }
   }
 
   React.useEffect(() => {
