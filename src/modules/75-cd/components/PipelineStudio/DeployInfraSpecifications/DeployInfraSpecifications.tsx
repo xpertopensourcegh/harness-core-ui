@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import YAML from 'yaml'
 import { Layout, Card, Icon, Text, Accordion, Button } from '@wings-software/uicore'
 import type { IconName } from '@wings-software/uicore'
-import { debounce, get, isEmpty, isNil, omit } from 'lodash-es'
+import { cloneDeep, get, isEmpty, isNil, omit } from 'lodash-es'
+import debounce from 'p-debounce'
 import cx from 'classnames'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import {
@@ -80,11 +81,12 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
     updatePipeline,
     getStageFromPipeline
   } = React.useContext(PipelineContext)
-  const debounceUpdatePipeline = React.useRef(
-    debounce((pipelineData: NgPipeline) => {
-      return updatePipeline(pipelineData)
-    }, 500)
-  ).current
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debounceUpdatePipeline = React.useCallback(
+    debounce((pipelineData: NgPipeline) => updatePipeline(cloneDeep(pipelineData)), 300),
+    [updatePipeline]
+  )
 
   const { stage } = getStageFromPipeline(selectedStageId || '')
 
@@ -103,7 +105,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
       const initialInfraDefValues = getInfrastructureDefaultValue(stage, type)
       setInitialInfrastructureDefinitionValues(initialInfraDefValues)
 
-      updatePipeline(pipeline)
+      debounceUpdatePipeline(pipeline)
     }
 
     setProvisionerEnabled(false)
@@ -235,7 +237,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
         const provisionerSnippet = YAML.parse(res?.data || '')
         if (stage && isProvisionerEmpty(stage) && provisionerSnippet) {
           stage.stage.spec.infrastructure.infrastructureDefinition.provisioner = provisionerSnippet.provisioner
-          updatePipeline(pipeline).then(() => {
+          debounceUpdatePipeline(pipeline).then(() => {
             setProvisionerSnippetLoading(false)
           })
         }
@@ -256,8 +258,12 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
       isChanged = true
     }
 
-    if (!provisioner?.steps && !provisioner?.rollbackSteps) {
-      delete stage?.stage.spec.infrastructure.infrastructureDefinition.provisioner
+    if (
+      !provisioner?.steps &&
+      !provisioner?.rollbackSteps &&
+      stage?.stage?.spec?.infrastructure?.infrastructureDefinition?.provisioner
+    ) {
+      delete stage.stage.spec.infrastructure.infrastructureDefinition.provisioner
       isChanged = true
     }
 
@@ -271,7 +277,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
       const isChanged = cleanUpEmptyProvisioner()
 
       if (isChanged) {
-        updatePipeline(pipeline)
+        debounceUpdatePipeline(pipeline)
       }
     }
   }, [])

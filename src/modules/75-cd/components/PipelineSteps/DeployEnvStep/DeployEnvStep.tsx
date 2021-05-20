@@ -343,7 +343,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
                     setFieldValue('environment', undefined)
                   },
                   selectProps: {
-                    addClearBtn: true && !readonly,
+                    addClearBtn: !readonly,
                     items: environments
                   },
                   expressions

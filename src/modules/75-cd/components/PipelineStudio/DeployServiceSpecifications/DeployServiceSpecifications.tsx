@@ -14,7 +14,8 @@ import {
 
 import isEmpty from 'lodash-es/isEmpty'
 import cx from 'classnames'
-import { debounce, get, set } from 'lodash-es'
+import { cloneDeep, get, set } from 'lodash-es'
+import debounce from 'p-debounce'
 import { FormGroup, Intent } from '@blueprintjs/core'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
@@ -98,10 +99,9 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     updatePipeline
   } = React.useContext(PipelineContext)
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceUpdatePipeline = React.useCallback(
-    debounce((pipelineData: NgPipeline) => {
-      return updatePipeline(pipelineData)
-    }, 500),
+    debounce((pipelineData: NgPipeline) => updatePipeline(cloneDeep(pipelineData)), 500),
     [updatePipeline]
   )
 
@@ -323,7 +323,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       if (stage?.stage?.spec?.serviceConfig?.serviceRef !== undefined) {
         delete stage.stage.spec.serviceConfig.serviceRef
       }
-      updatePipeline(pipeline)
+      debounceUpdatePipeline(pipeline)
     }
   }
   const initWithServiceDefinition = (): void => {
