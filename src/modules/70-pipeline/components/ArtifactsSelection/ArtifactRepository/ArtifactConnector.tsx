@@ -15,14 +15,14 @@ import { set } from 'lodash-es'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { useStrings } from 'framework/strings'
-import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
+import type { ConnectorConfigDTO } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { ConnectorSelectedValue } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import type { ConnectorDataType } from '../ArtifactInterface'
-import { getArtifactTitleIdByType } from '../ArtifactHelper'
+import type { ArtifactType, ConnectorDataType } from '../ArtifactInterface'
+import { ArtifactTitleIdByType, ArtifactToConnectorMap } from '../ArtifactHelper'
 import css from './ArtifactConnector.module.scss'
 
 interface ArtifactConnectorProps {
@@ -32,7 +32,7 @@ interface ArtifactConnectorProps {
   stepName: string
   isReadonly: boolean
   initialValues: ConnectorDataType
-  connectorType: ConnectorInfoDTO['type']
+  selectedArtifact: ArtifactType
 }
 
 export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & ArtifactConnectorProps> = props => {
@@ -45,12 +45,14 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
     stepName,
     name,
     expressions,
-    connectorType,
+    selectedArtifact,
     isReadonly
   } = props
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
+
+  const connectorType = ArtifactToConnectorMap[selectedArtifact]
 
   const newConnectorLabel = `${getString('newLabel')} ${connectorType} ${getString('connector')}`
 
@@ -95,11 +97,11 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
                   name="connectorId"
                   label={
                     <Text style={{ marginBottom: 8 }}>{`${getString(
-                      getArtifactTitleIdByType(connectorType)
+                      ArtifactTitleIdByType[selectedArtifact]
                     )} ${getString('connector')}`}</Text>
                   }
                   placeholder={`${getString('select')} ${getString(
-                    getArtifactTitleIdByType(connectorType)
+                    ArtifactTitleIdByType[selectedArtifact]
                   )} ${getString('connector')}`}
                   accountIdentifier={accountId}
                   projectIdentifier={projectIdentifier}

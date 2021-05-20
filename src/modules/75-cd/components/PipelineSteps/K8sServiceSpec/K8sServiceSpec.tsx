@@ -299,10 +299,10 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
         case ENABLED_ARTIFACT_TYPES.DockerRegistry:
           refetchDockerBuildData()
           break
-        case ENABLED_ARTIFACT_TYPES.Gcp:
+        case ENABLED_ARTIFACT_TYPES.Gcr:
           refetchGcrBuildData()
           break
-        case ENABLED_ARTIFACT_TYPES.Aws:
+        case ENABLED_ARTIFACT_TYPES.Ecr:
           refetchEcrBuildData()
           break
       }
@@ -330,7 +330,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
       ) {
         setLastQueryData({ path: tagsPath, imagePath, connectorRef, connectorType, registryHostname })
       }
-    } else if (connectorType === ENABLED_ARTIFACT_TYPES.Gcp) {
+    } else if (connectorType === ENABLED_ARTIFACT_TYPES.Gcr) {
       if (
         imagePath?.length &&
         connectorRef?.length &&
@@ -407,7 +407,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
     }
     if (connectorType === ENABLED_ARTIFACT_TYPES.DockerRegistry) {
       return !imagePath?.length || !connectorRef?.length
-    } else if (connectorType === ENABLED_ARTIFACT_TYPES.Aws) {
+    } else if (connectorType === ENABLED_ARTIFACT_TYPES.Ecr) {
       return !imagePath?.length || !connectorRef?.length || !region?.length
     } else {
       return !imagePath?.length || !connectorRef?.length || !registryHostname?.length
@@ -417,9 +417,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
     value: region.value,
     label: region.name
   }))
-  // const manifests =
-  //   template?.manifests ||
-  //   template.
+
   return (
     <Layout.Vertical spacing="medium">
       {get(template, 'artifacts', false) && (
@@ -980,8 +978,8 @@ const ArtifactsSidecarRegex = /^.+.sidecar\.spec\.connectorRef$/
 const ArtifactsPrimaryRegex = /^.+artifacts\.primary\.spec\.connectorRef$/
 const ArtifactConnectorTypes = [
   ENABLED_ARTIFACT_TYPES.DockerRegistry,
-  ENABLED_ARTIFACT_TYPES.Gcp,
-  ENABLED_ARTIFACT_TYPES.Aws
+  ENABLED_ARTIFACT_TYPES.Gcr,
+  ENABLED_ARTIFACT_TYPES.Ecr
 ]
 const getConnectorValue = (connector?: ConnectorResponse): string =>
   `${

@@ -4,8 +4,8 @@ import cx from 'classnames'
 import { String, useStrings } from 'framework/strings'
 import { getStatus } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import type { SidecarArtifactWrapper } from 'services/cd-ng'
-import { getArtifactIconByType } from '../ArtifactHelper'
-import type { ArtifactListViewProps, CreationType } from '../ArtifactInterface'
+import { ArtifactIconByType } from '../ArtifactHelper'
+import type { ArtifactListViewProps, ArtifactType } from '../ArtifactInterface'
 import css from '../ArtifactsSelection.module.scss'
 
 export enum ModalViewFor {
@@ -51,7 +51,7 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
                 <span>
                   <Text
                     inline
-                    icon={getArtifactIconByType(primaryArtifact.type)}
+                    icon={ArtifactIconByType[primaryArtifact.type]}
                     iconProps={{ size: 18 }}
                     width={300}
                     lineClamp={1}
@@ -104,7 +104,7 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
                     <span>
                       <Text
                         inline
-                        icon={getArtifactIconByType(sidecar?.type as string)}
+                        icon={ArtifactIconByType[sidecar?.type as ArtifactType]}
                         iconProps={{ size: 18 }}
                         width={300}
                         rightIcon="full-circle"
@@ -127,7 +127,7 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
                             name="Edit"
                             size={16}
                             onClick={() => {
-                              editArtifact(ModalViewFor.SIDECAR, sidecar?.type as CreationType, index)
+                              editArtifact(ModalViewFor.SIDECAR, sidecar?.type as ArtifactType, index)
                             }}
                           />
                           <Icon name="bin-main" size={25} onClick={() => removeSidecar(index)} />

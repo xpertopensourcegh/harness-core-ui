@@ -76,14 +76,14 @@ describe('Artifact ConnectorRefSteps tests', () => {
         <ConnectorRefSteps
           handleViewChange={jest.fn()}
           connectorData={initialValues as ConnectorDataType}
-          types={['DockerRegistry', 'Gcp', 'Aws']}
+          types={['DockerRegistry', 'Gcr', 'Ecr']}
           expressions={[]}
           isReadonly={false}
           labels={{
             firstStepName: 'first step',
             secondStepName: 'second step'
           }}
-          selectedArtifact={'Gcp'}
+          selectedArtifact={'Gcr'}
           changeArtifactType={jest.fn()}
           newConnectorView={false}
           iconsProps={{ name: 'info' }}
@@ -102,7 +102,7 @@ describe('Artifact ConnectorRefSteps tests', () => {
         <ConnectorRefSteps
           handleViewChange={jest.fn()}
           connectorData={initialValues as ConnectorDataType}
-          types={['DockerRegistry', 'Gcp', 'Aws']}
+          types={['DockerRegistry', 'Gcr', 'Ecr']}
           expressions={[]}
           isReadonly={false}
           labels={{
@@ -165,7 +165,7 @@ describe('Artifact ConnectorRefSteps tests', () => {
         <ConnectorRefSteps
           handleViewChange={jest.fn()}
           connectorData={initialValues as ConnectorDataType}
-          types={['DockerRegistry', 'Gcp', 'Aws']}
+          types={['DockerRegistry', 'Gcr', 'Ecr']}
           expressions={[]}
           isReadonly={false}
           labels={{

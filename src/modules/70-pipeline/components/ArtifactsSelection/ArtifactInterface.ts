@@ -14,7 +14,7 @@ export interface ArtifactListViewProps {
   primaryArtifact: PrimaryArtifact
   sideCarArtifact: SidecarArtifactWrapper[]
   addNewArtifact: (view: number) => void
-  editArtifact: (view: number, type: CreationType, index?: number) => void
+  editArtifact: (view: number, type: ArtifactType, index?: number) => void
   removePrimary: () => void
   removeSidecar: (index: number) => void
   fetchedConnectorResponse: PageConnectorResponse | undefined
@@ -30,9 +30,9 @@ export interface ArtifactsSelectionProps {
   overrideSetIdentifier?: string
 }
 
-export type CreationType = 'DockerRegistry' | 'Gcr' | 'Ecr'
+export type ArtifactType = 'DockerRegistry' | 'Gcr' | 'Ecr'
 export interface OrganizationCreationType {
-  type: CreationType
+  type: ArtifactType
 }
 export enum TagTypes {
   Value = 'value',

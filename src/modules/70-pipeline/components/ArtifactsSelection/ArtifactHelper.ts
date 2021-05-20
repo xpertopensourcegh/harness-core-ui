@@ -3,40 +3,23 @@ import type { IOptionProps } from '@blueprintjs/core'
 import { Connectors } from '@connectors/constants'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 import type { StringKeys } from 'framework/strings'
-import type { CreationType } from './ArtifactInterface'
+import type { ArtifactType } from './ArtifactInterface'
 
-export const getArtifactIconByType = (type: string): IconName => {
-  switch (type) {
-    case Connectors.DOCKER:
-      return 'service-dockerhub'
-    case Connectors.AWS:
-    case 'Ecr':
-      return 'ecr-step'
-    case Connectors.GCP:
-    case 'Gcr':
-      return 'service-gcp'
-    default:
-      return 'placeholder'
-  }
+export const ArtifactIconByType: Record<ArtifactType, IconName> = {
+  DockerRegistry: 'service-dockerhub',
+  Gcr: 'service-gcp',
+  Ecr: 'ecr-step'
+}
+export const ArtifactTitleIdByType: Record<ArtifactType, StringKeys> = {
+  DockerRegistry: 'dockerRegistry',
+  Gcr: 'connectors.GCR.name',
+  Ecr: 'connectors.ECR.name'
 }
 
-export const getArtifactTitleIdByType = (type: string): StringKeys => {
-  switch (type) {
-    case Connectors.DOCKER:
-      return 'dockerRegistry'
-    case Connectors.AWS:
-      return 'connectors.ECR.name'
-    case Connectors.GCP:
-      return 'connectors.GCR.name'
-    default:
-      return 'connector'
-  }
-}
-
-export const ENABLED_ARTIFACT_TYPES: { [key: string]: CreationType } = {
+export const ENABLED_ARTIFACT_TYPES: { [key: string]: ArtifactType } = {
   DockerRegistry: 'DockerRegistry',
-  Gcp: 'Gcr',
-  Aws: 'Ecr'
+  Gcr: 'Gcr',
+  Ecr: 'Ecr'
 }
 
 export const ArtifactToConnectorMap: Record<string, ConnectorInfoDTO['type']> = {
