@@ -960,12 +960,12 @@ pipelineSteps:
     stepName: Specify your Kubernetes Connector
     kubernetesConnector: Kubernetes Connector
   environmentTab:
-    specifyYourEnvironment: Specify your environment
+    specifyYourEnvironment: Specify Environment
     selectEnvironment: '- Select Environment -'
     newEnvironment: + New Environment
     environmentIsRequired: Environment is a required field
   serviceTab:
-    specifyYourService: Specify your service
+    specifyYourService: Specify Service
     selectService: '- Select Service -'
     newService: + New Service
     serviceIsRequired: Service is a required field
