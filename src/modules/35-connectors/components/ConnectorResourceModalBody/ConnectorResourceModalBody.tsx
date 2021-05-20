@@ -7,12 +7,8 @@ import { PageSpinner } from '@common/components'
 import type { RbacResourceModalProps } from '@rbac/factories/RbacFactory'
 import { useMutateAsGet } from '@common/hooks'
 import { useStrings } from 'framework/strings'
-import {
-  RenderColumnConnector,
-  RenderColumnDetails,
-  RenderColumnActivity,
-  RenderColumnLastUpdated
-} from '@connectors/pages/connectors/views/ConnectorsListView'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { RenderColumnConnector } from '@connectors/pages/connectors/views/ConnectorsListView'
 import css from './ConnectorResourceModalBody.module.scss'
 
 type ParsedColumnContent = ConnectorResponse & { identifier: string }
@@ -26,6 +22,7 @@ const ConnectorResourceModalBody: React.FC<RbacResourceModalProps> = ({
   const { accountIdentifier, orgIdentifier, projectIdentifier } = resourceScope
   const [page, setPage] = useState(0)
   const { getString } = useStrings()
+  const { isGitSyncEnabled } = useAppStore()
   const defaultQueryParams = useMemo(
     () => ({
       accountIdentifier,
@@ -33,9 +30,10 @@ const ConnectorResourceModalBody: React.FC<RbacResourceModalProps> = ({
       pageIndex: page,
       pageSize: 10,
       orgIdentifier,
-      projectIdentifier
+      projectIdentifier,
+      ...(isGitSyncEnabled ? { getDistinctFromBranches: true } : {})
     }),
-    [accountIdentifier, searchTerm, page, orgIdentifier, projectIdentifier]
+    [accountIdentifier, searchTerm, page, orgIdentifier, projectIdentifier, isGitSyncEnabled]
   )
 
   const { data: connectorData, loading } = useMutateAsGet(useGetConnectorListV2, {
@@ -55,29 +53,8 @@ const ConnectorResourceModalBody: React.FC<RbacResourceModalProps> = ({
         Header: getString('connector').toUpperCase(),
         accessor: row => row.connector?.name,
         id: 'name',
-        width: '25%',
+        width: '95%',
         Cell: RenderColumnConnector
-      },
-      {
-        Header: getString('details').toUpperCase(),
-        accessor: row => row.connector?.description,
-        id: 'details',
-        width: '25%',
-        Cell: RenderColumnDetails
-      },
-      {
-        Header: getString('lastActivity').toUpperCase(),
-        accessor: 'activityDetails',
-        id: 'activity',
-        width: '25%',
-        Cell: RenderColumnActivity
-      },
-      {
-        Header: getString('lastUpdated').toUpperCase(),
-        accessor: 'lastModifiedAt',
-        id: 'lastModifiedAt',
-        width: '20%',
-        Cell: RenderColumnLastUpdated
       }
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -24,33 +24,9 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
           class="cell"
           colspan="1"
           role="columnheader"
-          style="width: 25%;"
+          style="width: 95%;"
         >
           CONNECTOR
-        </div>
-        <div
-          class="cell"
-          colspan="1"
-          role="columnheader"
-          style="width: 25%;"
-        >
-          DETAILS
-        </div>
-        <div
-          class="cell"
-          colspan="1"
-          role="columnheader"
-          style="width: 25%;"
-        >
-          LASTACTIVITY
-        </div>
-        <div
-          class="cell"
-          colspan="1"
-          role="columnheader"
-          style="width: 20%;"
-        >
-          LASTUPDATED
         </div>
       </div>
       <div
@@ -80,7 +56,7 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 25%;"
+          style="width: 95%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -133,70 +109,6 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
             </div>
           </div>
         </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 25%;"
-        >
-          <div
-            class="wrapper"
-          >
-            <div
-              color="black"
-            >
-              <div
-                class="name"
-              >
-                <span
-                  class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
-                >
-                  <span>
-                    delegate.delegateTags
-                  </span>
-                  :
-                </span>
-                <span
-                  class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-xsmall StyledProps--color StyledProps--color-grey400"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 25%;"
-        >
-          <div
-            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-          >
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="activity"
-            >
-              <svg
-                height="16"
-                width="16"
-              >
-                <path
-                  d="M8 0C3.538.036-.035 3.644 0 8.053.036 12.427 3.61 16 8 16h.054c2.133-.018 4.142-.853 5.635-2.382 1.493-1.53 2.329-3.538 2.311-5.671C15.965 3.573 12.391 0 8 0zm5.262 8.836h-1.635a.52.52 0 01-.48-.338l-.836-2.276-1.653 5.245a.49.49 0 01-.462.355H8.16a.51.51 0 01-.462-.302L5.796 7.253l-.907 1.351a.5.5 0 01-.427.232H2.667a.516.516 0 010-1.032h1.511L5.44 5.902a.513.513 0 01.48-.23.488.488 0 01.427.301L8.07 9.867l1.725-5.423a.512.512 0 01.48-.355c.23 0 .426.124.498.338l1.208 3.36h1.28c.285 0 .516.23.516.515a.531.531 0 01-.516.534z"
-                  fill="#1D76FF"
-                />
-              </svg>
-            </span>
-          </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 20%;"
-        >
-          <div
-            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-          >
-            dummy date
-          </div>
-        </div>
       </div>
       <div
         class="row card clickable"
@@ -225,7 +137,7 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 25%;"
+          style="width: 95%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -301,82 +213,6 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
             </div>
           </div>
         </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 25%;"
-        >
-          <div
-            class="wrapper"
-          >
-            <div
-              color="black"
-            >
-              <div
-                class="name flex"
-              >
-                <span
-                  class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
-                >
-                  <span>
-                    UrlLabel
-                  </span>
-                  :
-                </span>
-                <a
-                  class="bp3-button Button--button StyledProps--font StyledProps--main link StyledProps--margin-left-xsmall Button--with-current-color Button--link"
-                  href="https://github.com/vardanbansal-harness/vscode-yaml.git"
-                  rel="noreferrer noopener"
-                  role="button"
-                  tabindex="0"
-                  target="_blank"
-                  title="https://github.com/vardanbansal-harness/vscode-yaml.git"
-                >
-                  <span
-                    class="bp3-button-text"
-                  >
-                    https://github.com/vardanbansal-harness/vscode-yaml.git
-                  </span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 25%;"
-        >
-          <div
-            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-          >
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="activity"
-            >
-              <svg
-                height="16"
-                width="16"
-              >
-                <path
-                  d="M8 0C3.538.036-.035 3.644 0 8.053.036 12.427 3.61 16 8 16h.054c2.133-.018 4.142-.853 5.635-2.382 1.493-1.53 2.329-3.538 2.311-5.671C15.965 3.573 12.391 0 8 0zm5.262 8.836h-1.635a.52.52 0 01-.48-.338l-.836-2.276-1.653 5.245a.49.49 0 01-.462.355H8.16a.51.51 0 01-.462-.302L5.796 7.253l-.907 1.351a.5.5 0 01-.427.232H2.667a.516.516 0 010-1.032h1.511L5.44 5.902a.513.513 0 01.48-.23.488.488 0 01.427.301L8.07 9.867l1.725-5.423a.512.512 0 01.48-.355c.23 0 .426.124.498.338l1.208 3.36h1.28c.285 0 .516.23.516.515a.531.531 0 01-.516.534z"
-                  fill="#1D76FF"
-                />
-              </svg>
-            </span>
-          </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 20%;"
-        >
-          <div
-            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-          >
-            dummy date
-          </div>
-        </div>
       </div>
       <div
         class="row card clickable"
@@ -405,7 +241,7 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 25%;"
+          style="width: 95%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -448,82 +284,6 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
             </div>
           </div>
         </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 25%;"
-        >
-          <div
-            class="wrapper"
-          >
-            <div
-              color="black"
-            >
-              <div
-                class="name flex"
-              >
-                <span
-                  class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
-                >
-                  <span>
-                    UrlLabel
-                  </span>
-                  :
-                </span>
-                <a
-                  class="bp3-button Button--button StyledProps--font StyledProps--main link StyledProps--margin-left-xsmall Button--with-current-color Button--link"
-                  href="https://github.com/vardanbansal-harness/vscode-yaml.git"
-                  rel="noreferrer noopener"
-                  role="button"
-                  tabindex="0"
-                  target="_blank"
-                  title="https://github.com/vardanbansal-harness/vscode-yaml.git"
-                >
-                  <span
-                    class="bp3-button-text"
-                  >
-                    https://github.com/vardanbansal-harness/vscode-yaml.git
-                  </span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 25%;"
-        >
-          <div
-            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-          >
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="activity"
-            >
-              <svg
-                height="16"
-                width="16"
-              >
-                <path
-                  d="M8 0C3.538.036-.035 3.644 0 8.053.036 12.427 3.61 16 8 16h.054c2.133-.018 4.142-.853 5.635-2.382 1.493-1.53 2.329-3.538 2.311-5.671C15.965 3.573 12.391 0 8 0zm5.262 8.836h-1.635a.52.52 0 01-.48-.338l-.836-2.276-1.653 5.245a.49.49 0 01-.462.355H8.16a.51.51 0 01-.462-.302L5.796 7.253l-.907 1.351a.5.5 0 01-.427.232H2.667a.516.516 0 010-1.032h1.511L5.44 5.902a.513.513 0 01.48-.23.488.488 0 01.427.301L8.07 9.867l1.725-5.423a.512.512 0 01.48-.355c.23 0 .426.124.498.338l1.208 3.36h1.28c.285 0 .516.23.516.515a.531.531 0 01-.516.534z"
-                  fill="#1D76FF"
-                />
-              </svg>
-            </span>
-          </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 20%;"
-        >
-          <div
-            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-          >
-            dummy date
-          </div>
-        </div>
       </div>
       <div
         class="row card clickable"
@@ -552,7 +312,7 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 25%;"
+          style="width: 95%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -600,82 +360,6 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
             </div>
           </div>
         </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 25%;"
-        >
-          <div
-            class="wrapper"
-          >
-            <div
-              color="black"
-            >
-              <div
-                class="name flex"
-              >
-                <span
-                  class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
-                >
-                  <span>
-                    UrlLabel
-                  </span>
-                  :
-                </span>
-                <a
-                  class="bp3-button Button--button StyledProps--font StyledProps--main link StyledProps--margin-left-xsmall Button--with-current-color Button--link"
-                  href="www.google.com"
-                  rel="noreferrer noopener"
-                  role="button"
-                  tabindex="0"
-                  target="_blank"
-                  title="www.google.com"
-                >
-                  <span
-                    class="bp3-button-text"
-                  >
-                    www.google.com
-                  </span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 25%;"
-        >
-          <div
-            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-          >
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="activity"
-            >
-              <svg
-                height="16"
-                width="16"
-              >
-                <path
-                  d="M8 0C3.538.036-.035 3.644 0 8.053.036 12.427 3.61 16 8 16h.054c2.133-.018 4.142-.853 5.635-2.382 1.493-1.53 2.329-3.538 2.311-5.671C15.965 3.573 12.391 0 8 0zm5.262 8.836h-1.635a.52.52 0 01-.48-.338l-.836-2.276-1.653 5.245a.49.49 0 01-.462.355H8.16a.51.51 0 01-.462-.302L5.796 7.253l-.907 1.351a.5.5 0 01-.427.232H2.667a.516.516 0 010-1.032h1.511L5.44 5.902a.513.513 0 01.48-.23.488.488 0 01.427.301L8.07 9.867l1.725-5.423a.512.512 0 01.48-.355c.23 0 .426.124.498.338l1.208 3.36h1.28c.285 0 .516.23.516.515a.531.531 0 01-.516.534z"
-                  fill="#1D76FF"
-                />
-              </svg>
-            </span>
-          </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 20%;"
-        >
-          <div
-            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-          >
-            dummy date
-          </div>
-        </div>
       </div>
       <div
         class="row card clickable"
@@ -704,7 +388,7 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 25%;"
+          style="width: 95%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -752,82 +436,6 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
             </div>
           </div>
         </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 25%;"
-        >
-          <div
-            class="wrapper"
-          >
-            <div
-              color="black"
-            >
-              <div
-                class="name flex"
-              >
-                <span
-                  class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
-                >
-                  <span>
-                    UrlLabel
-                  </span>
-                  :
-                </span>
-                <a
-                  class="bp3-button Button--button StyledProps--font StyledProps--main link StyledProps--margin-left-xsmall Button--with-current-color Button--link"
-                  href="www.docker.com"
-                  rel="noreferrer noopener"
-                  role="button"
-                  tabindex="0"
-                  target="_blank"
-                  title="www.docker.com"
-                >
-                  <span
-                    class="bp3-button-text"
-                  >
-                    www.docker.com
-                  </span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 25%;"
-        >
-          <div
-            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-          >
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="activity"
-            >
-              <svg
-                height="16"
-                width="16"
-              >
-                <path
-                  d="M8 0C3.538.036-.035 3.644 0 8.053.036 12.427 3.61 16 8 16h.054c2.133-.018 4.142-.853 5.635-2.382 1.493-1.53 2.329-3.538 2.311-5.671C15.965 3.573 12.391 0 8 0zm5.262 8.836h-1.635a.52.52 0 01-.48-.338l-.836-2.276-1.653 5.245a.49.49 0 01-.462.355H8.16a.51.51 0 01-.462-.302L5.796 7.253l-.907 1.351a.5.5 0 01-.427.232H2.667a.516.516 0 010-1.032h1.511L5.44 5.902a.513.513 0 01.48-.23.488.488 0 01.427.301L8.07 9.867l1.725-5.423a.512.512 0 01.48-.355c.23 0 .426.124.498.338l1.208 3.36h1.28c.285 0 .516.23.516.515a.531.531 0 01-.516.534z"
-                  fill="#1D76FF"
-                />
-              </svg>
-            </span>
-          </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 20%;"
-        >
-          <div
-            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-          >
-            dummy date
-          </div>
-        </div>
       </div>
       <div
         class="row card clickable"
@@ -856,7 +464,7 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 25%;"
+          style="width: 95%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -915,80 +523,6 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
             </div>
           </div>
         </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 25%;"
-        >
-          <div
-            class="wrapper"
-          >
-            <div
-              color="black"
-            >
-              <div
-                class="name flex"
-              >
-                <span
-                  class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
-                >
-                  <span>
-                    UrlLabel
-                  </span>
-                  :
-                </span>
-                <a
-                  class="bp3-button Button--button StyledProps--font StyledProps--main link StyledProps--margin-left-xsmall Button--with-current-color Button--link"
-                  href="dbhgj"
-                  rel="noreferrer noopener"
-                  role="button"
-                  tabindex="0"
-                  target="_blank"
-                  title="dbhgj"
-                >
-                  <span
-                    class="bp3-button-text"
-                  >
-                    dbhgj
-                  </span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 25%;"
-        >
-          <div
-            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-          >
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="activity"
-            >
-              <svg
-                height="16"
-                width="16"
-              >
-                <path
-                  d="M8 0C3.538.036-.035 3.644 0 8.053.036 12.427 3.61 16 8 16h.054c2.133-.018 4.142-.853 5.635-2.382 1.493-1.53 2.329-3.538 2.311-5.671C15.965 3.573 12.391 0 8 0zm5.262 8.836h-1.635a.52.52 0 01-.48-.338l-.836-2.276-1.653 5.245a.49.49 0 01-.462.355H8.16a.51.51 0 01-.462-.302L5.796 7.253l-.907 1.351a.5.5 0 01-.427.232H2.667a.516.516 0 010-1.032h1.511L5.44 5.902a.513.513 0 01.48-.23.488.488 0 01.427.301L8.07 9.867l1.725-5.423a.512.512 0 01.48-.355c.23 0 .426.124.498.338l1.208 3.36h1.28c.285 0 .516.23.516.515a.531.531 0 01-.516.534z"
-                  fill="#1D76FF"
-                />
-              </svg>
-            </span>
-          </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 20%;"
-        >
-          <div
-            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-          />
-        </div>
       </div>
       <div
         class="row card clickable"
@@ -1017,7 +551,7 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 25%;"
+          style="width: 95%;"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -1097,82 +631,6 @@ exports[`Connector Resource Modal Body test initializes ok  1`] = `
                 Kubernetes CTRX
               </div>
             </div>
-          </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 25%;"
-        >
-          <div
-            class="wrapper"
-          >
-            <div
-              color="black"
-            >
-              <div
-                class="name flex"
-              >
-                <span
-                  class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-black"
-                >
-                  <span>
-                    UrlLabel
-                  </span>
-                  :
-                </span>
-                <a
-                  class="bp3-button Button--button StyledProps--font StyledProps--main link StyledProps--margin-left-xsmall Button--with-current-color Button--link"
-                  href="sample.google.com"
-                  rel="noreferrer noopener"
-                  role="button"
-                  tabindex="0"
-                  target="_blank"
-                  title="sample.google.com"
-                >
-                  <span
-                    class="bp3-button-text"
-                  >
-                    sample.google.com
-                  </span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 25%;"
-        >
-          <div
-            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-          >
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="activity"
-            >
-              <svg
-                height="16"
-                width="16"
-              >
-                <path
-                  d="M8 0C3.538.036-.035 3.644 0 8.053.036 12.427 3.61 16 8 16h.054c2.133-.018 4.142-.853 5.635-2.382 1.493-1.53 2.329-3.538 2.311-5.671C15.965 3.573 12.391 0 8 0zm5.262 8.836h-1.635a.52.52 0 01-.48-.338l-.836-2.276-1.653 5.245a.49.49 0 01-.462.355H8.16a.51.51 0 01-.462-.302L5.796 7.253l-.907 1.351a.5.5 0 01-.427.232H2.667a.516.516 0 010-1.032h1.511L5.44 5.902a.513.513 0 01.48-.23.488.488 0 01.427.301L8.07 9.867l1.725-5.423a.512.512 0 01.48-.355c.23 0 .426.124.498.338l1.208 3.36h1.28c.285 0 .516.23.516.515a.531.531 0 01-.516.534z"
-                  fill="#1D76FF"
-                />
-              </svg>
-            </span>
-          </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 20%;"
-        >
-          <div
-            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-          >
-            dummy date
           </div>
         </div>
       </div>
