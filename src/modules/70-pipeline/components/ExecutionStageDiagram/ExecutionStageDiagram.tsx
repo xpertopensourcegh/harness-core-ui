@@ -8,8 +8,7 @@ import { Button, Layout, Icon } from '@wings-software/uicore'
 import { Select } from '@blueprintjs/select'
 import { Tooltip } from '@blueprintjs/core'
 import { GraphCanvasState, useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
-import type { PipelineType } from '@common/interfaces/RouteInterfaces'
-import type { ExecutionPathParams } from '@pipeline/utils/executionUtils'
+import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
@@ -118,7 +117,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
   ).current
 
   const { orgIdentifier, projectIdentifier, executionIdentifier, accountId, pipelineIdentifier, module } = useParams<
-    PipelineType<ExecutionPathParams>
+    PipelineType<ExecutionPathProps>
   >()
 
   const { pipelineStagesMap, refetch, pipelineExecutionDetail, allNodeMap } = useExecutionContext()
@@ -164,7 +163,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
 
   // Graph position and zoom change - event handling (update context value)
   React.useEffect(() => {
-    const offsetUpdateHandler = function (event: any) {
+    const offsetUpdateHandler = function (event: any): void {
       if (graphCanvasState) {
         graphCanvasState.offsetX = event.offsetX
         graphCanvasState.offsetY = event.offsetY
@@ -173,7 +172,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
         })
       }
     }
-    const zoomUpdateHandler = function (event: any) {
+    const zoomUpdateHandler = function (event: any): void {
       if (graphCanvasState) {
         graphCanvasState.zoom = event.zoom
         debounceSetGraphCanvasState({ ...graphCanvasState })
@@ -320,7 +319,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
               />
             </StageSelection>
             <ExecutionActions
-              executionStatus={pipelineExecutionDetail?.pipelineExecutionSummary?.status}
+              executionStatus={stageNode?.status}
               refetch={refetch}
               params={{
                 orgIdentifier,
@@ -340,7 +339,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
           </div>
           {groupStage && groupStage.size > 1 && (
             // Do not render groupStage if the size is less than 1
-            // In approval stage, we do not have service/innfra/execution sections
+            // In approval stage, we do not have service/infra/execution sections
             <div className={css.groupLabels}>
               {[...groupStage]
                 .filter(item => item[1].showInLabel)

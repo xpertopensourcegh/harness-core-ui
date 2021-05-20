@@ -7,7 +7,12 @@ import { useHandleInterrupt, useHandleStageInterrupt } from 'services/pipeline-n
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
-import { isExecutionComplete, isExecutionActive, isExecutionPaused } from '@pipeline/utils/statusHelpers'
+import {
+  isExecutionComplete,
+  isExecutionActive,
+  isExecutionPaused,
+  isExecutionPausing
+} from '@pipeline/utils/statusHelpers'
 import { useStrings } from 'framework/strings'
 import type { StringKeys } from 'framework/strings'
 
@@ -75,8 +80,12 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
     )
   }
 
-  const canPause = isExecutionActive(executionStatus) && !isExecutionPaused(executionStatus) && canExecute
   const canAbort = isExecutionActive(executionStatus) && canExecute
+  const canPause =
+    isExecutionActive(executionStatus) &&
+    !isExecutionPaused(executionStatus) &&
+    !isExecutionPausing(executionStatus) &&
+    canExecute
   const canRerun = isExecutionComplete(executionStatus) && canExecute
   const canResume = isExecutionPaused(executionStatus) && canExecute
 

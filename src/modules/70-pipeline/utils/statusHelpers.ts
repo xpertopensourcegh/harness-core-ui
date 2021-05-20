@@ -112,6 +112,7 @@ export function isExecutionCompletedWithBadState(status?: string): boolean {
 export function isExecutionActive(status?: string): boolean {
   return (
     isExecutionPaused(status) ||
+    isExecutionPausing(status) ||
     isExecutionRunning(status) ||
     isExecutionNotStarted(status) ||
     isExecutionWaiting(status) ||
@@ -120,5 +121,7 @@ export function isExecutionActive(status?: string): boolean {
 }
 
 export function isExecutionRunningLike(status?: string): boolean {
-  return isExecutionRunning(status) || isExecutionPaused(status) || isExecutionWaiting(status)
+  return (
+    isExecutionRunning(status) || isExecutionPaused(status) || isExecutionPausing(status) || isExecutionWaiting(status)
+  )
 }
