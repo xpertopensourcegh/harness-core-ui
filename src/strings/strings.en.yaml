@@ -562,7 +562,7 @@ inputSets:
   inputSetDeleted: 'Input Set "{{name}}" deleted'
   confirmDeleteText: 'Are you sure want to delete {{type}} "{{name}}"'
 assessment: Assessment
-workflowVariableInfo: 'Specify additional overrides for any existing variables or define new variables.'
+workflowVariableInfo: 'Override existing variables or define new variables.'
 manifestSelectionInfo: Specify the locations of the manifests for this service. Harness will fetch the manifests at the time of deployments. You can also store these manifests locally in the Harness file store.
 duration: 'Duration:'
 runPipelineForm:
@@ -697,16 +697,16 @@ inputTypes:
   RUNTIME: Runtime input
   EXPRESSION: Expression
 roleForm:
-  createSuccess: Role created succesfully
-  updateSuccess: Role updated succesfully
+  createSuccess: Role created successfully
+  updateSuccess: Role updated successfully
 roleDetails:
-  permissionUpdatedSuccess: Permissions updated succesfully
+  permissionUpdatedSuccess: Permissions updated successfully
   updateRolePermissions: Update Role permissions
   noDataText: You have no Roles. Click the button below to create a new one.
 roleCard:
   confirmDelete: Are you sure you want to delete the Role '{{name}}'?
   confirmDeleteTitle: 'Delete Role'
-  successMessage: Role '{{name}}' is deleted succesfully
+  successMessage: Role '{{name}}' is deleted successfully
 addResourceModal:
   selectedText: Selected {{name}} ({{number}})
 projectCard:
@@ -1367,8 +1367,8 @@ resourceGroup:
   dragAndDropData: Please select or drag and drop the type of resources, you would like to add to your group.
   resourceGroupColumn: 'Resource Group'
   summary: '{{ $.summary }}'
-  createSuccess: 'Resource Group created succesfully'
-  updateSuccess: 'Resource Group updated succesfully'
+  createSuccess: 'Resource Group created successfully'
+  updateSuccess: 'Resource Group updated successfully'
   confirmDelete: 'Are you sure you want to delete {{name}} Resource Group'
   confirmDeleteTitle: 'Delete Resource Group'
   deletedMessage: 'Resource Group {{name}} deleted'
