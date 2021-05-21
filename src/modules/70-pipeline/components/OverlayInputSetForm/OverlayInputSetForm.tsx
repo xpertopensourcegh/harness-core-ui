@@ -182,7 +182,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps & GitQueryPa
     lazy: true
   })
 
-  const { data: pipeline, loading: loadingPipeline, error: errorPipeline } = useGetPipeline({
+  const { data: pipeline, loading: loadingPipeline, refetch: refetchPipeline, error: errorPipeline } = useGetPipeline({
     pipelineIdentifier,
     lazy: true,
     queryParams: {
@@ -230,10 +230,11 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps & GitQueryPa
   React.useEffect(() => {
     if (identifier) {
       setIsEdit(true)
-
+      refetchPipeline()
       refetchInputSetList()
       refetchOverlay({ pathParams: { inputSetIdentifier: identifier } })
     } else {
+      refetchPipeline()
       refetchInputSetList()
       setIsEdit(false)
     }
@@ -340,7 +341,8 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps & GitQueryPa
       createOverlayInputSet,
       updateOverlayInputSet,
       isGitSyncEnabled,
-      overlayInputSetResponse
+      overlayInputSetResponse,
+      pipeline
     ]
   )
 

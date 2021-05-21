@@ -15,14 +15,17 @@ import { clone } from 'lodash-es'
 import cx from 'classnames'
 import { Button, Classes, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-import { InputSetSummaryResponse, useGetInputSetsListForPipeline } from 'services/pipeline-ng'
+import { EntityGitDetails, InputSetSummaryResponse, useGetInputSetsListForPipeline } from 'services/pipeline-ng'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useToaster } from '@common/exports'
+import { useQueryParams } from '@common/hooks'
+import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import css from './InputSetSelector.module.scss'
 
 interface InputSetValue extends SelectOption {
   type: InputSetSummaryResponse['inputSetType']
+  gitDetails?: EntityGitDetails
 }
 
 export interface InputSetSelectorProps {
@@ -94,9 +97,17 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
     orgIdentifier: string
     accountId: string
   }>()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
 
   const { data: inputSetResponse, refetch, error } = useGetInputSetsListForPipeline({
-    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier, pipelineIdentifier },
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      pipelineIdentifier,
+      repoIdentifier,
+      branch
+    },
     debounce: 300,
     lazy: true
   })
@@ -151,11 +162,17 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
   )
 
   const onCheckBoxHandler = React.useCallback(
-    (checked: boolean, label: string, val: string, type: InputSetSummaryResponse['inputSetType']) => {
+    (
+      checked: boolean,
+      label: string,
+      val: string,
+      type: InputSetSummaryResponse['inputSetType'],
+      gitDetails: EntityGitDetails | null
+    ) => {
       const selected = clone(selectedInputSets)
       const removedItem = selected.filter(set => set.value === val)[0]
       if (checked && !removedItem) {
-        selected.push({ label, value: val, type })
+        selected.push({ label, value: val, type, gitDetails: gitDetails ?? {} })
       } else if (removedItem) {
         selected.splice(selected.indexOf(removedItem), 1)
       }
@@ -181,7 +198,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
       onDragLeave={onDragLeave}
       onDrop={event => onDrop(event, selected)}
       onClick={() => {
-        onCheckBoxHandler(false, selected.label, selected.value as string, selected.type)
+        onCheckBoxHandler(false, selected.label, selected.value as string, selected.type, selected.gitDetails ?? {})
       }}
       key={`${index}-${selected.value as string}`}
     >
@@ -195,9 +212,31 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
           }
           checked={true}
           onChange={event => {
-            onCheckBoxHandler(event.currentTarget.checked, selected.label, selected.value as string, selected.type)
+            onCheckBoxHandler(
+              event.currentTarget.checked,
+              selected.label,
+              selected.value as string,
+              selected.type,
+              selected.gitDetails ?? null
+            )
           }}
         />
+        {selected.gitDetails?.repoIdentifier && (
+          <Layout.Vertical margin={{ left: 'xsmall' }} spacing="small">
+            <Layout.Horizontal spacing="xsmall">
+              <Icon name="repository" size={12}></Icon>
+              <Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
+                {selected.gitDetails?.repoIdentifier || ''}
+              </Text>
+            </Layout.Horizontal>
+            <Layout.Horizontal spacing="xsmall">
+              <Icon size={12} name="git-new-branch"></Icon>
+              <Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
+                {selected.gitDetails?.branch || ''}
+              </Text>
+            </Layout.Horizontal>
+          </Layout.Vertical>
+        )}
         <span className={css.order}>
           <Text className={css.orderText}>{index + 1}</Text>
           <Icon name="main-reorder" size={12} />
@@ -228,7 +267,8 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
               true,
               inputSet.name || '',
               inputSet.identifier || '',
-              inputSet.inputSetType || 'INPUT_SET'
+              inputSet.inputSetType || 'INPUT_SET',
+              inputSet.gitDetails ?? null
             )
           }}
         >
@@ -245,10 +285,27 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
                   event.currentTarget.checked,
                   inputSet.name || '',
                   inputSet.identifier || '',
-                  inputSet.inputSetType || 'INPUT_SET'
+                  inputSet.inputSetType || 'INPUT_SET',
+                  inputSet.gitDetails ?? null
                 )
               }}
             />
+            {inputSet.gitDetails?.repoIdentifier && (
+              <Layout.Vertical margin={{ left: 'xsmall' }} spacing="small">
+                <Layout.Horizontal spacing="xsmall">
+                  <Icon name="repository" size={12}></Icon>
+                  <Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
+                    {inputSet.gitDetails?.repoIdentifier || ''}
+                  </Text>
+                </Layout.Horizontal>
+                <Layout.Horizontal spacing="xsmall">
+                  <Icon size={12} name="git-new-branch"></Icon>
+                  <Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
+                    {inputSet.gitDetails?.branch || ''}
+                  </Text>
+                </Layout.Horizontal>
+              </Layout.Vertical>
+            )}
           </Layout.Horizontal>
         </li>
       ))

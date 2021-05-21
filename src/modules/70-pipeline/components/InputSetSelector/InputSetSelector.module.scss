@@ -93,7 +93,7 @@
     .item {
       display: block;
       padding: 0 var(--spacing-small);
-
+      height: 40px;
       :global(.bp3-checkbox) {
         display: flex !important;
         align-items: center !important;

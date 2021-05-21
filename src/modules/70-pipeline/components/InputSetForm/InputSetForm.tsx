@@ -416,7 +416,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
     <Container className={css.inputSetForm}>
       <Layout.Vertical spacing="medium">
         <Formik<InputSetDTO>
-          initialValues={inputSet}
+          initialValues={omit(inputSet, 'gitDetails')}
           enableReinitialize={true}
           validate={values => {
             const errors: FormikErrors<InputSetDTO> = {}
@@ -628,7 +628,9 @@ export function InputSetFormWrapper(props: InputSetFormWrapperProps): React.Reac
                   ? getString('inputSets.editTitle', { name: inputSet.name })
                   : getString('inputSets.newInputSetLabel')}
               </Text>
-              {isGitSyncEnabled && isEdit && <GitPopover data={inputSet.gitDetails || {}} />}
+              {isGitSyncEnabled && isEdit && (
+                <GitPopover data={inputSet.gitDetails || {}} iconMargin={{ left: 'small', top: 'xsmall' }} />
+              )}
               <div className={css.optionBtns}>
                 <div
                   className={cx(css.item, { [css.selected]: selectedView === SelectedView.VISUAL })}

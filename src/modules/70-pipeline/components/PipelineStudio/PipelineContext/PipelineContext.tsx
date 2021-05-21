@@ -25,7 +25,8 @@ import {
   EntityGitDetails,
   ResponsePMSPipelineResponseDTO
 } from 'services/pipeline-ng'
-import { useGlobalEventListener, useLocalStorage } from '@common/hooks'
+import { useGlobalEventListener, useLocalStorage, useQueryParams } from '@common/hooks'
+import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
@@ -226,7 +227,9 @@ const _fetchPipeline = async (
         pipeline,
         originalPipeline: cloneDeep(pipeline),
         isUpdated: false,
-        gitDetails: pipelineWithGitDetails?.gitDetails?.objectId ? pipelineWithGitDetails.gitDetails : gitDetails ?? {}
+        gitDetails: pipelineWithGitDetails?.gitDetails?.objectId
+          ? pipelineWithGitDetails.gitDetails
+          : data?.gitDetails ?? {}
       }
       if (data && !forceUpdate) {
         dispatch(
@@ -236,7 +239,9 @@ const _fetchPipeline = async (
             originalPipeline: cloneDeep(pipeline),
             isBEPipelineUpdated: !isEqual(pipeline, data.originalPipeline),
             isUpdated: !isEqual(pipeline, data.pipeline),
-            gitDetails: data?.gitDetails ?? {}
+            gitDetails: pipelineWithGitDetails?.gitDetails?.objectId
+              ? pipelineWithGitDetails.gitDetails
+              : data?.gitDetails ?? {}
           })
         )
         dispatch(PipelineContextActions.initialized())
@@ -249,9 +254,7 @@ const _fetchPipeline = async (
             originalPipeline: cloneDeep(pipeline),
             isBEPipelineUpdated: false,
             isUpdated: false,
-            gitDetails: pipelineWithGitDetails?.gitDetails?.objectId
-              ? pipelineWithGitDetails.gitDetails
-              : gitDetails ?? {}
+            gitDetails: payload.gitDetails
           })
         )
         dispatch(PipelineContextActions.initialized())
@@ -344,6 +347,7 @@ interface UpdateGitDetailsArgs {
 }
 const _updateGitDetails = async (args: UpdateGitDetailsArgs, gitDetails: EntityGitDetails): Promise<void> => {
   const { dispatch, queryParams, identifier, originalPipeline, pipeline } = args
+  await _deletePipelineCache(queryParams, identifier, {})
   const id = getId(
     queryParams.accountIdentifier,
     queryParams.orgIdentifier || '',
@@ -507,6 +511,7 @@ export const PipelineProvider: React.FC<{
   runPipeline: (identifier: string) => void
   renderPipelineStage: PipelineContextInterface['renderPipelineStage']
 }> = ({ queryParams, pipelineIdentifier, children, renderPipelineStage, stepsFactory, stagesMap, runPipeline }) => {
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const [state, dispatch] = React.useReducer(
     PipelineReducer,
     merge(
@@ -525,7 +530,10 @@ export const PipelineProvider: React.FC<{
   )
   const [view, setView] = useLocalStorage<PipelineStudioView>('pipeline_studio_view', PipelineStudioView.ui)
   state.pipelineIdentifier = pipelineIdentifier
-  const fetchPipeline = _fetchPipeline.bind(null, dispatch, queryParams, pipelineIdentifier, state.gitDetails)
+  const fetchPipeline = _fetchPipeline.bind(null, dispatch, queryParams, pipelineIdentifier, {
+    repoIdentifier,
+    branch
+  })
   const updateGitDetails = _updateGitDetails.bind(null, {
     dispatch,
     queryParams,

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Formik, FormikForm, Button } from '@wings-software/uicore'
+import { Container, Formik, FormikForm, Button, Color } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { omit, pick } from 'lodash-es'
 import { useParams } from 'react-router-dom'
@@ -45,7 +45,7 @@ export default function CreatePipelines({
   }
   const isEdit = (initialValues?.identifier?.length || '') > 0
   return (
-    <Container className={css.container}>
+    <Container className={css.container} background={isGitSyncEnabled ? Color.FORM_BG : ''}>
       <Button icon="cross" minimal className={css.closeModal} onClick={closeModal} />
       <div className={css.heading}>{isEdit ? getString('editPipeline') : getString('moduleRenderer.newPipeLine')}</div>
       <Container padding="xsmall" className={css.layout}>

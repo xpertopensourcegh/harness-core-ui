@@ -75,8 +75,9 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
         pipelineIdentifier,
         module,
         branch,
-        repoIdentifier
-      })}?executionId=${executionIdentifier}`
+        repoIdentifier,
+        executionId: executionIdentifier
+      })}`
     )
   }
 

@@ -1,24 +1,26 @@
 import React from 'react'
 import { PopoverInteractionKind } from '@blueprintjs/core'
 import { Color, Icon, Layout, Popover, Text } from '@wings-software/uicore'
+import type { MarginProps } from '@wings-software/uicore/dist/styled-props/margin/MarginProps'
 import type { EntityGitDetails } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
 
 export interface GitPopoverProps {
   data: EntityGitDetails
   iconSize?: number
+  iconMargin?: MarginProps
 }
 
 export default function GitPopover(props: GitPopoverProps): React.ReactElement | null {
   const { getString } = useStrings()
-  const { data, iconSize = 16 } = props
+  const { data, iconSize = 16, iconMargin = {} } = props
   if (!data.repoIdentifier) {
     return null
   }
 
   return (
     <Popover interactionKind={PopoverInteractionKind.HOVER}>
-      <Icon name={'service-github'} color={Color.GREY_500} size={iconSize} />
+      <Icon name={'service-github'} color={Color.GREY_500} size={iconSize} margin={iconMargin} />
       <Layout.Vertical padding={{ top: 'large', bottom: 'large', left: 'xlarge', right: 'xlarge' }}>
         <Text font={{ size: 'small', weight: 'bold' }} color={Color.BLACK}>
           {getString('pipeline.gitDetails').toUpperCase()}
