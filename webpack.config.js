@@ -24,6 +24,7 @@ const config = {
   mode: DEV ? 'development' : 'production',
   output: {
     path: path.resolve(__dirname, 'dist'),
+    publicPath: DEV ? '/' : '',
     filename: DEV ? 'static/[name].js' : 'static/[name].[contenthash:6].js',
     chunkFilename: DEV ? 'static/[name].[id].js' : 'static/[name].[id].[contenthash:6].js',
     pathinfo: false
