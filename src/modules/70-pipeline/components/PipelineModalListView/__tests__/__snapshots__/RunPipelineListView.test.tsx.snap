@@ -86,13 +86,42 @@ exports[`PipelineModal List View render list view 1`] = `
       class="table table"
     >
       <div
+        class="header"
+        role="row"
+      >
+        <div
+          class="cell"
+          colspan="1"
+          role="columnheader"
+          style="width: 50%;"
+        >
+          COMMON.PIPELINE
+        </div>
+        <div
+          class="cell"
+          colspan="1"
+          role="columnheader"
+          style="width: 30%;"
+        >
+          LASTEXECUTIONTS
+        </div>
+        <div
+          class="cell"
+          colspan="1"
+          role="columnheader"
+          style="width: 20%;"
+        >
+           
+        </div>
+      </div>
+      <div
         class="row card"
         role="row"
       >
         <div
           class="cell"
           role="cell"
-          style="width: 60%;"
+          style="width: 50%;"
         >
           <div
             class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
@@ -113,16 +142,11 @@ exports[`PipelineModal List View render list view 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 20%;"
+          style="width: 30%;"
         >
           <div
             class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
           >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
-            >
-              Last run:
-            </p>
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
             >
@@ -186,7 +210,7 @@ exports[`PipelineModal List View render list view 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 60%;"
+          style="width: 50%;"
         >
           <div
             class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
@@ -207,16 +231,11 @@ exports[`PipelineModal List View render list view 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 20%;"
+          style="width: 30%;"
         >
           <div
             class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
           >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
-            >
-              Last run:
-            </p>
             <p
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
             >

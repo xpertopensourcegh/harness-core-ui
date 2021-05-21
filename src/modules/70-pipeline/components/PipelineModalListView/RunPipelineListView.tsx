@@ -28,16 +28,10 @@ interface PipelineDTO extends PMSPipelineSummaryResponse {
 interface PipelineListViewProps {
   data?: PagePMSPipelineSummaryResponse
   refetch?: () => void
-  hideHeaders?: boolean
   gotoPage: (pageNumber: number) => void
 }
 
-export default function RunPipelineListView({
-  data,
-  refetch,
-  gotoPage,
-  hideHeaders
-}: PipelineListViewProps): React.ReactElement {
+export default function RunPipelineListView({ data, refetch, gotoPage }: PipelineListViewProps): React.ReactElement {
   const { orgIdentifier, projectIdentifier, accountId, module } = useParams<
     PipelineType<{
       projectIdentifier: string
@@ -47,6 +41,7 @@ export default function RunPipelineListView({
   >()
 
   const history = useHistory()
+  const { getString } = useStrings()
   const { isGitSyncEnabled } = useAppStore()
 
   const routeToPipelinesPage = (pipeline: PipelineDTO): void => {
@@ -120,10 +115,9 @@ export default function RunPipelineListView({
 
   const RenderLastRunDate: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
     const rowdata = row.original
-    const { getString } = useStrings()
+
     return (
       <Layout.Vertical spacing="xsmall">
-        <Text color={Color.GREY_400}>Last run:</Text>
         <Text color={Color.GREY_400}>
           {rowdata.executionSummaryInfo?.lastExecutionTs
             ? formatDatetoLocale(rowdata.executionSummaryInfo?.lastExecutionTs)
@@ -154,23 +148,26 @@ export default function RunPipelineListView({
   const columns: CustomColumn<PipelineDTO>[] = React.useMemo(
     () => [
       {
+        Header: getString('common.pipeline').toUpperCase(),
         accessor: 'name',
-        width: isGitSyncEnabled ? '30%' : '60%',
+        width: isGitSyncEnabled ? '30%' : '50%',
         Cell: RenderColumnPipeline
       },
       {
+        Header: getString('common.gitSync.repoDetails').toUpperCase(),
         accessor: 'gitDetails',
-        width: '30%',
+        width: isGitSyncEnabled ? '30%' : 0,
         Cell: RenderGitDetails
       },
       {
+        Header: getString('lastExecutionTs').toUpperCase(),
         accessor: 'executionSummaryInfo',
-        width: '20%',
+        width: isGitSyncEnabled ? '25%' : '30%',
         Cell: RenderLastRunDate
       },
       {
         accessor: 'tags',
-        width: '20%',
+        width: isGitSyncEnabled ? '15%' : '20%',
         Cell: RenderColumnMenu,
         disableSortBy: true
       }
@@ -187,7 +184,6 @@ export default function RunPipelineListView({
       className={css.table}
       columns={columns}
       data={data?.content || []}
-      hideHeaders={hideHeaders}
       pagination={{
         itemCount: data?.totalElements || 0,
         pageSize: data?.size || 10,

@@ -118,12 +118,7 @@ export default function PipelineModalListView({ onClose, mockData }: PipelineMod
           </div>
         ) : null}
 
-        <RunPipelineListView
-          data={data}
-          refetch={fetchPipelines}
-          gotoPage={pageNumber => setPage(pageNumber)}
-          hideHeaders={true}
-        />
+        <RunPipelineListView data={data} refetch={fetchPipelines} gotoPage={pageNumber => setPage(pageNumber)} />
       </Page.Body>
     </>
   )
