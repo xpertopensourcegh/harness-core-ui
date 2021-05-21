@@ -160,7 +160,7 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
         isNewStep={isNewStep}
         stepViewType={stepViewType}
         initialValues={processForInitialValues(initialValues)}
-        onUpdate={values => onUpdate?.(values)}
+        onUpdate={values => onUpdate?.(this.processFormData(values))}
         readonly={readonly}
       />
     )

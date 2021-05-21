@@ -137,7 +137,10 @@ export class JiraApproval extends PipelineStep<JiraApprovalData> {
         ref={formikRef}
         stepViewType={stepViewType}
         initialValues={processInitialValues(initialValues)}
-        onUpdate={(values: JiraApprovalData) => onUpdate?.(values)}
+        onUpdate={(values: JiraApprovalData) => {
+          const forUpdate = this.processFormData(values)
+          onUpdate?.(forUpdate)
+        }}
         isNewStep={isNewStep}
         readonly={readonly}
       />

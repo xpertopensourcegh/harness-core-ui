@@ -23,6 +23,7 @@ const renderValueSelects = (
   allowedValuesForFields: Record<string, SelectOption[]>,
   mode: string,
   i: number,
+  expressions: string[],
   readonly?: boolean
 ) => {
   if (condition.operator === 'in' || condition.operator === 'not in') {
@@ -34,7 +35,8 @@ const renderValueSelects = (
         selectItems={allowedValuesForFields[condition.key]}
         placeholder="Value(s)"
         multiSelectTypeInputProps={{
-          allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+          allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+          expressions
         }}
         disabled={isApprovalStepFieldDisabled(readonly)}
       />
@@ -47,7 +49,8 @@ const renderValueSelects = (
       selectItems={allowedValuesForFields[condition.key]}
       placeholder="Value(s)"
       multiTypeInputProps={{
-        allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+        allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+        expressions
       }}
       disabled={isApprovalStepFieldDisabled(readonly)}
     />
@@ -66,6 +69,7 @@ export const Conditions = ({
   readonly
 }: ConditionsInterface) => {
   const { getString } = useStrings()
+  const { expressions } = useVariablesExpression()
   if (isFetchingFields) {
     return <div className={css.fetching}>{getString('pipeline.jiraApprovalStep.fetchingFields')}</div>
   }
@@ -123,7 +127,7 @@ export const Conditions = ({
                       disabled={isApprovalStepFieldDisabled(readonly)}
                     />
                     {allowedValuesForFields[condition.key] ? (
-                      renderValueSelects(condition, allowedValuesForFields, mode, i, readonly)
+                      renderValueSelects(condition, allowedValuesForFields, mode, i, expressions, readonly)
                     ) : (
                       <FormInput.MultiTextInput
                         label=""
@@ -131,6 +135,7 @@ export const Conditions = ({
                         placeholder="Value(s)"
                         disabled={isApprovalStepFieldDisabled(readonly)}
                         multiTextInputProps={{
+                          expressions,
                           allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                         }}
                       />

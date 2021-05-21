@@ -32,7 +32,7 @@ import type {
   ApproverInputsSubmitCallInterface,
   HarnessApprovalFormContentProps
 } from './types'
-import { isArrayOfStrings, processFormData } from './helper'
+import { isArrayOfStrings } from './helper'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './HarnessApproval.module.scss'
 
@@ -48,6 +48,32 @@ const FormContent = ({
   const { expressions } = useVariablesExpression()
   const [userGroupOptions, setUserGroupOptions] = useState<MultiSelectOption[]>([])
 
+  const setOptionsInForm = (userGroupIds: string[]) => {
+    // When we open the form, we'll get the userGroups as string[] as saved in BE
+    // Convert the same as MultiSelectOption[], and update the formik values for auto populate
+    const selectedUgOptions: MultiSelectOption[] = []
+    userGroupIds.forEach(ugIdentifier => {
+      const matchedOption = userGroupOptions.find(opt => opt.value === ugIdentifier)
+      if (matchedOption) {
+        selectedUgOptions.push(matchedOption)
+      }
+    })
+    formik.setFieldValue('spec.approvers.userGroups', selectedUgOptions)
+  }
+
+  useEffect(() => {
+    // When moving back from advanced tab
+    if (isArrayOfStrings(formik.initialValues.spec.approvers.userGroups)) {
+      setOptionsInForm(formik.initialValues.spec.approvers.userGroups)
+    }
+  }, [formik.initialValues])
+
+  useEffect(() => {
+    if (isArrayOfStrings(formik.initialValues.spec.approvers.userGroups) && userGroupOptions.length) {
+      setOptionsInForm(formik.initialValues.spec.approvers.userGroups)
+    }
+  }, [userGroupOptions])
+
   useEffect(() => {
     if (userGroupsResponse?.data?.content) {
       const userGroupsContent = userGroupsResponse?.data?.content
@@ -55,18 +81,6 @@ const FormContent = ({
         ? userGroupsContent.map(ug => ({ label: ug.name || '', value: ug.identifier || '' }))
         : []
       setUserGroupOptions(options)
-      if (isArrayOfStrings(formik.values.spec.approvers.userGroups)) {
-        // When we open the form, we'll get the userGroups as string[] as saved in BE
-        // Convert the same as MultiSelectOption[], and update the formik values for auto populate
-        const selectedUgOptions: MultiSelectOption[] = []
-        formik.values.spec.approvers.userGroups.forEach(ugIdentifier => {
-          const matchedOption = options.find(opt => opt.value === ugIdentifier)
-          if (matchedOption) {
-            selectedUgOptions.push(matchedOption)
-          }
-        })
-        formik.setFieldValue('spec.approvers.userGroups', selectedUgOptions)
-      }
     }
   }, [userGroupsResponse?.data?.content])
 
@@ -84,6 +98,9 @@ const FormContent = ({
           name="timeout"
           label={getString('pipelineSteps.timeoutLabel')}
           disabled={isApprovalStepFieldDisabled(readonly)}
+          multiTypeDurationProps={{
+            expressions
+          }}
         />
       </div>
 
@@ -271,7 +288,7 @@ function HarnessApprovalStepMode(
 
   return (
     <Formik<HarnessApprovalData>
-      onSubmit={values => onUpdate?.(processFormData(values))}
+      onSubmit={values => onUpdate?.(values)}
       initialValues={props.initialValues}
       enableReinitialize={true}
       validationSchema={Yup.object().shape({

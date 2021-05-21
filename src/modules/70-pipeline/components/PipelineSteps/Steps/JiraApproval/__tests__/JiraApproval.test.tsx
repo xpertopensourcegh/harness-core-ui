@@ -169,7 +169,7 @@ describe('Jira Approval tests', () => {
   test('Open a saved jira approval step - edit stage view', async () => {
     const ref = React.createRef<StepFormikRef<unknown>>()
     const props = getJiraApprovalEditModePropsWithValues()
-    const { container, getByText, queryByDisplayValue, getByTestId } = render(
+    const { container, getByText, queryByDisplayValue } = render(
       <TestStepWidget
         initialValues={props.initialValues}
         type={StepType.JiraApproval}
@@ -190,10 +190,6 @@ describe('Jira Approval tests', () => {
 
     fireEvent.click(getByText('pipeline.jiraApprovalStep.approvalCriteria'))
     expect(queryByDisplayValue('somevalue for f1')).toBeTruthy()
-
-    act(() => {
-      fireEvent.click(getByTestId('add-conditions'))
-    })
 
     fireEvent.click(getByText('pipeline.jiraApprovalStep.rejectionCriteriaOptional'))
     expect(queryByDisplayValue("<+status> == 'Blocked'")).toBeTruthy()

@@ -30,13 +30,7 @@ import {
   JiraFormContentInterface,
   ApprovalRejectionCriteriaType
 } from './types'
-import {
-  getGenuineValue,
-  resetForm,
-  setIssueTypeOptions,
-  processFormData,
-  getApprovalRejectionCriteriaForInitialValues
-} from './helper'
+import { getGenuineValue, resetForm, setIssueTypeOptions, getApprovalRejectionCriteriaForInitialValues } from './helper'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './JiraApproval.module.scss'
 
@@ -167,6 +161,9 @@ const FormContent = ({
           name="timeout"
           label={getString('pipelineSteps.timeoutLabel')}
           disabled={isApprovalStepFieldDisabled(readonly)}
+          multiTypeDurationProps={{
+            expressions
+          }}
         />
       </div>
       <Accordion activeId="step-1" className={stepCss.accordion}>
@@ -347,7 +344,7 @@ function JiraApprovalStepMode(props: JiraApprovalStepModeProps, formikRef: StepF
 
   return (
     <Formik<JiraApprovalData>
-      onSubmit={values => onUpdate?.(processFormData(values))}
+      onSubmit={values => onUpdate?.(values)}
       initialValues={props.initialValues}
       enableReinitialize={true}
       validationSchema={Yup.object().shape({

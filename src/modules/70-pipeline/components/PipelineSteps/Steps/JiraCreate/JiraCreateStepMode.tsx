@@ -268,6 +268,9 @@ const FormContent = ({
           name="timeout"
           label={getString('pipelineSteps.timeoutLabel')}
           disabled={isApprovalStepFieldDisabled(readonly)}
+          multiTypeDurationProps={{
+            expressions
+          }}
         />
       </div>
       <Accordion activeId="step-1" className={stepCss.accordion}>
@@ -288,9 +291,13 @@ const FormContent = ({
                 type="Jira"
                 enableConfigureOptions={false}
                 selected={formik?.values?.spec.connectorRef as string}
-                onChange={_unused => {
+                onChange={value => {
                   // Clear dependent fields
                   resetForm(formik, 'connectorRef')
+                  if (value !== MultiTypeInputType.FIXED) {
+                    setProjectOptions([])
+                    setProjectMetadata(undefined)
+                  }
                 }}
                 disabled={isApprovalStepFieldDisabled(readonly)}
               />
@@ -312,6 +319,7 @@ const FormContent = ({
                 className={css.md}
                 disabled={isApprovalStepFieldDisabled(readonly, fetchingProjects)}
                 multiTypeInputProps={{
+                  expressions,
                   onChange: _unused => {
                     // Clear dependent fields
                     resetForm(formik, 'projectKey')
@@ -336,6 +344,7 @@ const FormContent = ({
                 className={css.md}
                 disabled={isApprovalStepFieldDisabled(readonly, fetchingProjectMetadata)}
                 multiTypeInputProps={{
+                  expressions,
                   onChange: (_unused: any) => {
                     // Clear dependent fields
                     resetForm(formik, 'issueType')

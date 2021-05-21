@@ -183,6 +183,9 @@ const FormContent = ({
           name="timeout"
           label={getString('pipelineSteps.timeoutLabel')}
           disabled={isApprovalStepFieldDisabled(readonly)}
+          multiTypeDurationProps={{
+            expressions
+          }}
         />
       </div>
       <Accordion activeId="step-1" className={stepCss.accordion}>
