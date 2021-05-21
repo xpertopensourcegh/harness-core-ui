@@ -1,6 +1,5 @@
 import React from 'react'
 import { render, findByText, fireEvent, waitFor, findAllByText } from '@testing-library/react'
-// import { act } from 'react-dom/test-utils'
 import { TestWrapper } from '@common/utils/testUtils'
 import {
   PipelineContext,

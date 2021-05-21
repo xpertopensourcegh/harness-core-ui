@@ -46,7 +46,7 @@ export function HttpStepWidget(
         name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
         spec: Yup.object().shape({
-          url: Yup.string().required(getString('validation.UrlRequired')),
+          url: Yup.string().required(getString('validation.UrlRequired')).url(getString('validation.urlIsNotValid')),
           method: Yup.mixed().required(getString('pipelineSteps.methodIsRequired')),
           headers: Yup.array().of(
             Yup.object().shape({
