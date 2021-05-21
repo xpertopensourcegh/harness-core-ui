@@ -53,7 +53,7 @@ describe('ArtifactsSelection tests', () => {
         </PipelineContext.Provider>
       </TestWrapper>
     )
-    const primaryArtifactContainer = await findByText(container, 'Primary')
+    const primaryArtifactContainer = await findByText(container, 'primary')
     expect(primaryArtifactContainer).toBeDefined()
     expect(container).toMatchSnapshot()
   })
@@ -117,7 +117,7 @@ describe('ArtifactsSelection tests', () => {
         </PipelineContext.Provider>
       </TestWrapper>
     )
-    const primaryArtifactContainer = await findByText(container, 'Primary')
+    const primaryArtifactContainer = await findByText(container, 'primary')
     expect(primaryArtifactContainer).toBeDefined()
     const editButton = container.querySelector('span[data-icon="Edit"]')
     expect(editButton).toBeDefined()

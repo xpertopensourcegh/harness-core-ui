@@ -30,13 +30,15 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
   return (
     <Layout.Vertical style={{ flexShrink: 'initial' }}>
       <Layout.Vertical spacing="small" style={{ flexShrink: 'initial' }}>
-        <div className={cx(css.artifactList, css.listHeader)}>
-          <span></span>
-          <span>{getString('artifactRepository')}</span>
-          <span> {getString('location')}</span>
-          <span></span>
-          <span></span>
-        </div>
+        {!!(sideCarArtifact?.length || primaryArtifact?.type) && (
+          <div className={cx(css.artifactList, css.listHeader)}>
+            <span></span>
+            <span>{getString('artifactRepository')}</span>
+            <span> {getString('location')}</span>
+            <span></span>
+            <span></span>
+          </div>
+        )}
 
         <Layout.Vertical style={{ flexShrink: 'initial' }}>
           <section>
@@ -44,7 +46,7 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
               <section className={cx(css.artifactList, css.rowItem)} key={'Dockerhub'}>
                 <div>
                   <Text width={200} className={css.type} color={Color.BLACK} lineClamp={1}>
-                    Primary
+                    {getString('primary')}
                   </Text>
                 </div>
 
@@ -148,22 +150,23 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
           )}
         </Layout.Vertical>
       </Layout.Vertical>
-      <Layout.Vertical>
+
+      <div>
         {!primaryArtifact && overrideSetIdentifier?.length === 0 && !isReadonly && (
-          <div className={css.rowItem}>
-            <Text onClick={() => addNewArtifact(ModalViewFor.PRIMARY)}>
+          <div className={css.addArtifact}>
+            <Text intent="primary" onClick={() => addNewArtifact(ModalViewFor.PRIMARY)}>
               <String stringID="pipelineSteps.serviceTab.artifactList.addPrimary" />
             </Text>
           </div>
         )}
         {(!sideCarArtifact || sideCarArtifact?.length === 0) && overrideSetIdentifier?.length === 0 && !isReadonly && (
-          <div className={css.rowItem}>
-            <Text onClick={() => addNewArtifact(ModalViewFor.SIDECAR)}>
+          <div className={css.addArtifact}>
+            <Text intent="primary" onClick={() => addNewArtifact(ModalViewFor.SIDECAR)}>
               <String stringID="pipelineSteps.serviceTab.artifactList.addSidecar" />
             </Text>
           </div>
         )}
-      </Layout.Vertical>
+      </div>
     </Layout.Vertical>
   )
 }

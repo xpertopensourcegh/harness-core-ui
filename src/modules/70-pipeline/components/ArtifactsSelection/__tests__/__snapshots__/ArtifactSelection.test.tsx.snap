@@ -34,7 +34,7 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
                 class="StyledProps--font Text--lineclamp StyledProps--main type StyledProps--color StyledProps--color-black"
                 style="--text-line-clamp: 1; width: 200px;"
               >
-                Primary
+                primary
               </p>
             </div>
             <span>
@@ -379,9 +379,7 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
         </div>
       </div>
     </div>
-    <div
-      class="Layout--vertical StyledProps--main"
-    />
+    <div />
   </div>
 </div>
 `;
@@ -420,7 +418,7 @@ exports[`ArtifactsSelection tests delete artifact list works correctly 1`] = `
                 class="StyledProps--font Text--lineclamp StyledProps--main type StyledProps--color StyledProps--color-black"
                 style="--text-line-clamp: 1; width: 200px;"
               >
-                Primary
+                primary
               </p>
             </div>
             <span>
@@ -615,14 +613,12 @@ exports[`ArtifactsSelection tests delete artifact list works correctly 1`] = `
         </section>
       </div>
     </div>
-    <div
-      class="Layout--vertical StyledProps--main"
-    >
+    <div>
       <div
-        class="rowItem"
+        class="addArtifact"
       >
         <p
-          class="StyledProps--font StyledProps--main"
+          class="StyledProps--font StyledProps--main StyledProps--intent-primary"
         >
           <span>
             pipelineSteps.serviceTab.artifactList.addSidecar
@@ -668,7 +664,7 @@ exports[`ArtifactsSelection tests edit artifact list works correctly 1`] = `
                 class="StyledProps--font Text--lineclamp StyledProps--main type StyledProps--color StyledProps--color-black"
                 style="--text-line-clamp: 1; width: 200px;"
               >
-                Primary
+                primary
               </p>
             </div>
             <span>
@@ -863,14 +859,12 @@ exports[`ArtifactsSelection tests edit artifact list works correctly 1`] = `
         </section>
       </div>
     </div>
-    <div
-      class="Layout--vertical StyledProps--main"
-    >
+    <div>
       <div
-        class="rowItem"
+        class="addArtifact"
       >
         <p
-          class="StyledProps--font StyledProps--main"
+          class="StyledProps--font StyledProps--main StyledProps--intent-primary"
         >
           <span>
             pipelineSteps.serviceTab.artifactList.addSidecar
@@ -891,33 +885,17 @@ exports[`ArtifactsSelection tests renders Artifact Connector popover 1`] = `
       class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
     >
       <div
-        class="artifactList listHeader"
-      >
-        <span />
-        <span>
-          artifactRepository
-        </span>
-        <span>
-           
-          location
-        </span>
-        <span />
-        <span />
-      </div>
-      <div
         class="Layout--vertical StyledProps--main"
       >
         <section />
       </div>
     </div>
-    <div
-      class="Layout--vertical StyledProps--main"
-    >
+    <div>
       <div
-        class="rowItem"
+        class="addArtifact"
       >
         <p
-          class="StyledProps--font StyledProps--main"
+          class="StyledProps--font StyledProps--main StyledProps--intent-primary"
         >
           <span>
             pipelineSteps.serviceTab.artifactList.addPrimary
@@ -925,10 +903,10 @@ exports[`ArtifactsSelection tests renders Artifact Connector popover 1`] = `
         </p>
       </div>
       <div
-        class="rowItem"
+        class="addArtifact"
       >
         <p
-          class="StyledProps--font StyledProps--main"
+          class="StyledProps--font StyledProps--main StyledProps--intent-primary"
         >
           <span>
             pipelineSteps.serviceTab.artifactList.addSidecar
@@ -974,7 +952,7 @@ exports[`ArtifactsSelection tests renders Artifact Listview with connectors Data
                 class="StyledProps--font Text--lineclamp StyledProps--main type StyledProps--color StyledProps--color-black"
                 style="--text-line-clamp: 1; width: 200px;"
               >
-                Primary
+                primary
               </p>
             </div>
             <span>
@@ -1086,9 +1064,7 @@ exports[`ArtifactsSelection tests renders Artifact Listview with connectors Data
         </section>
       </div>
     </div>
-    <div
-      class="Layout--vertical StyledProps--main"
-    />
+    <div />
   </div>
 </div>
 `;
@@ -1127,7 +1103,7 @@ exports[`ArtifactsSelection tests renders Artifact Listview without crashing 1`]
                 class="StyledProps--font Text--lineclamp StyledProps--main type StyledProps--color StyledProps--color-black"
                 style="--text-line-clamp: 1; width: 200px;"
               >
-                Primary
+                primary
               </p>
             </div>
             <span>
@@ -1186,9 +1162,7 @@ exports[`ArtifactsSelection tests renders Artifact Listview without crashing 1`]
         </section>
       </div>
     </div>
-    <div
-      class="Layout--vertical StyledProps--main"
-    />
+    <div />
   </div>
 </div>
 `;
@@ -1202,33 +1176,17 @@ exports[`ArtifactsSelection tests renders add Artifact option without crashing 1
       class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
     >
       <div
-        class="artifactList listHeader"
-      >
-        <span />
-        <span>
-          artifactRepository
-        </span>
-        <span>
-           
-          location
-        </span>
-        <span />
-        <span />
-      </div>
-      <div
         class="Layout--vertical StyledProps--main"
       >
         <section />
       </div>
     </div>
-    <div
-      class="Layout--vertical StyledProps--main"
-    >
+    <div>
       <div
-        class="rowItem"
+        class="addArtifact"
       >
         <p
-          class="StyledProps--font StyledProps--main"
+          class="StyledProps--font StyledProps--main StyledProps--intent-primary"
         >
           <span>
             pipelineSteps.serviceTab.artifactList.addPrimary
@@ -1236,10 +1194,10 @@ exports[`ArtifactsSelection tests renders add Artifact option without crashing 1
         </p>
       </div>
       <div
-        class="rowItem"
+        class="addArtifact"
       >
         <p
-          class="StyledProps--font StyledProps--main"
+          class="StyledProps--font StyledProps--main StyledProps--intent-primary"
         >
           <span>
             pipelineSteps.serviceTab.artifactList.addSidecar
@@ -1260,33 +1218,17 @@ exports[`ArtifactsSelection tests renders artifact with override without crashin
       class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
     >
       <div
-        class="artifactList listHeader"
-      >
-        <span />
-        <span>
-          artifactRepository
-        </span>
-        <span>
-           
-          location
-        </span>
-        <span />
-        <span />
-      </div>
-      <div
         class="Layout--vertical StyledProps--main"
       >
         <section />
       </div>
     </div>
-    <div
-      class="Layout--vertical StyledProps--main"
-    >
+    <div>
       <div
-        class="rowItem"
+        class="addArtifact"
       >
         <p
-          class="StyledProps--font StyledProps--main"
+          class="StyledProps--font StyledProps--main StyledProps--intent-primary"
         >
           <span>
             pipelineSteps.serviceTab.artifactList.addPrimary
@@ -1294,10 +1236,10 @@ exports[`ArtifactsSelection tests renders artifact with override without crashin
         </p>
       </div>
       <div
-        class="rowItem"
+        class="addArtifact"
       >
         <p
-          class="StyledProps--font StyledProps--main"
+          class="StyledProps--font StyledProps--main StyledProps--intent-primary"
         >
           <span>
             pipelineSteps.serviceTab.artifactList.addSidecar
@@ -1343,7 +1285,7 @@ exports[`ArtifactsSelection tests renders artifact without crashing 1`] = `
                 class="StyledProps--font Text--lineclamp StyledProps--main type StyledProps--color StyledProps--color-black"
                 style="--text-line-clamp: 1; width: 200px;"
               >
-                Primary
+                primary
               </p>
             </div>
             <span>
@@ -1468,14 +1410,12 @@ exports[`ArtifactsSelection tests renders artifact without crashing 1`] = `
         </section>
       </div>
     </div>
-    <div
-      class="Layout--vertical StyledProps--main"
-    >
+    <div>
       <div
-        class="rowItem"
+        class="addArtifact"
       >
         <p
-          class="StyledProps--font StyledProps--main"
+          class="StyledProps--font StyledProps--main StyledProps--intent-primary"
         >
           <span>
             pipelineSteps.serviceTab.artifactList.addSidecar
@@ -1521,7 +1461,7 @@ exports[`ArtifactsSelection tests renders edit modal without crashing: Edit Moda
                 class="StyledProps--font Text--lineclamp StyledProps--main type StyledProps--color StyledProps--color-black"
                 style="--text-line-clamp: 1; width: 200px;"
               >
-                Primary
+                primary
               </p>
             </div>
             <span>
@@ -1646,14 +1586,12 @@ exports[`ArtifactsSelection tests renders edit modal without crashing: Edit Moda
         </section>
       </div>
     </div>
-    <div
-      class="Layout--vertical StyledProps--main"
-    >
+    <div>
       <div
-        class="rowItem"
+        class="addArtifact"
       >
         <p
-          class="StyledProps--font StyledProps--main"
+          class="StyledProps--font StyledProps--main StyledProps--intent-primary"
         >
           <span>
             pipelineSteps.serviceTab.artifactList.addSidecar
@@ -1699,7 +1637,7 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
                 class="StyledProps--font Text--lineclamp StyledProps--main type StyledProps--color StyledProps--color-black"
                 style="--text-line-clamp: 1; width: 200px;"
               >
-                Primary
+                primary
               </p>
             </div>
             <span>
@@ -1824,14 +1762,12 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
         </section>
       </div>
     </div>
-    <div
-      class="Layout--vertical StyledProps--main"
-    >
+    <div>
       <div
-        class="rowItem"
+        class="addArtifact"
       >
         <p
-          class="StyledProps--font StyledProps--main"
+          class="StyledProps--font StyledProps--main StyledProps--intent-primary"
         >
           <span>
             pipelineSteps.serviceTab.artifactList.addSidecar

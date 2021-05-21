@@ -1,6 +1,5 @@
 .rowItem {
   padding: var(--spacing-medium) 0;
-  // background: white !important;
   border-bottom: solid 1px #d9dae5;
   span.type {
     color: var(--grey-900) !important;
@@ -27,6 +26,11 @@
       cursor: pointer;
     }
   }
+}
+.addArtifact {
+  cursor: pointer;
+  margin-top: var(--spacing-medium);
+  margin-bottom: var(--spacing-medium);
 }
 .artifactId {
   color: var(--pipeline-color-dark-grey);

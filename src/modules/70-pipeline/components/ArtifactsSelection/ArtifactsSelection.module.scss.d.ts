@@ -5,6 +5,7 @@ declare const styles: {
   readonly type: string
   readonly actionGrid: string
   readonly cloneIcon: string
+  readonly addArtifact: string
   readonly artifactId: string
   readonly paddingVertical: string
   readonly sideCarBtn: string

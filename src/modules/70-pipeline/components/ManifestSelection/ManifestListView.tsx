@@ -626,14 +626,16 @@ const ManifestListView = ({
 
   return (
     <Layout.Vertical spacing="small">
-      <div className={cx(css.manifestList, css.listHeader)}>
-        <span>{getString('common.ID')}</span>
-        <span>{getString('pipelineSteps.serviceTab.manifestList.manifestType')}</span>
-        <span>{getString('pipelineSteps.serviceTab.manifestList.manifestStore')}</span>
-        <span>{getString('location')}</span>
+      {!!listOfManifests?.length && (
+        <div className={cx(css.manifestList, css.listHeader)}>
+          <span>{getString('common.ID')}</span>
+          <span>{getString('pipelineSteps.serviceTab.manifestList.manifestType')}</span>
+          <span>{getString('pipelineSteps.serviceTab.manifestList.manifestStore')}</span>
+          <span>{getString('location')}</span>
 
-        <span></span>
-      </div>
+          <span></span>
+        </div>
+      )}
       <Layout.Vertical spacing="medium">
         <section>
           {listOfManifests &&
