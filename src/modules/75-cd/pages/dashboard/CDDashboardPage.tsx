@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Container, Text } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
@@ -19,6 +19,10 @@ import styles from './CDDashboardPage.module.scss'
 export const CDDashboardPage: React.FC = () => {
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
   const { selectedProject: project } = useAppStore()
+  const [range] = useState({
+    startTime: Date.now() - 30 * 24 * 60 * 60000,
+    endTime: Date.now()
+  })
   const history = useHistory()
   const { getString } = useStrings()
 
@@ -35,8 +39,7 @@ export const CDDashboardPage: React.FC = () => {
       accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier,
-      startTime: Date.now() - 30 * 24 * 60 * 60000,
-      endTime: Date.now()
+      ...range
     }
   })
 
@@ -74,8 +77,7 @@ export const CDDashboardPage: React.FC = () => {
               <WorkloadCard
                 key={i}
                 serviceName={workload.serviceName!}
-                lastExecuted={workload.lastExecuted!}
-                deploymentType={workload.deploymentType!}
+                lastExecuted={workload?.lastExecuted}
                 totalDeployments={workload.totalDeployments!}
                 percentSuccess={workload.percentSuccess!}
                 rateSuccess={workload.rateSuccess!}

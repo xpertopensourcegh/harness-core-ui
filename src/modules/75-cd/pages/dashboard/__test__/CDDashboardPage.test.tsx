@@ -19,7 +19,7 @@ const deploymentExecutionMock = {
   data: {
     executionDeploymentList: [
       {
-        date: '2020-01-19',
+        date: 1621125462238,
         deployments: {
           total: 0,
           success: 0,
@@ -27,7 +27,7 @@ const deploymentExecutionMock = {
         }
       },
       {
-        date: '2020-01-20',
+        date: 1621125462238,
         deployments: {
           total: 0,
           success: 0,
@@ -35,7 +35,7 @@ const deploymentExecutionMock = {
         }
       },
       {
-        date: '2020-01-21',
+        date: 1621125462238,
         deployments: {
           total: 0,
           success: 0,
@@ -51,35 +51,35 @@ const deploymentHealthMock = {
     healthDeploymentInfo: {
       total: {
         count: 19,
-        production: Math.floor(Math.random() * 10),
+        production: 5,
         nonProduction: 2,
         countList: [
           {
-            time: '2021-04-21',
+            time: 1621125462238,
             deployments: {
               count: 0
             }
           },
           {
-            time: '2021-04-22',
+            time: 1621125462238,
             deployments: {
               count: 6
             }
           },
           {
-            time: '2021-04-23',
+            time: 1621125462238,
             deployments: {
               count: 11
             }
           },
           {
-            time: '2021-04-24',
+            time: 1621125462238,
             deployments: {
               count: 0
             }
           },
           {
-            time: '2021-04-25',
+            time: 1621125462238,
             deployments: {
               count: 2
             }
@@ -91,31 +91,31 @@ const deploymentHealthMock = {
         rate: 700.0,
         countList: [
           {
-            time: '2021-04-21',
+            time: 1621125462238,
             deployments: {
               count: 0
             }
           },
           {
-            time: '2021-04-22',
+            time: 1621125462238,
             deployments: {
               count: 0
             }
           },
           {
-            time: '2021-04-23',
+            time: 1621125462238,
             deployments: {
               count: 6
             }
           },
           {
-            time: '2021-04-24',
+            time: 1621125462238,
             deployments: {
               count: 0
             }
           },
           {
-            time: '2021-04-25',
+            time: 1621125462238,
             deployments: {
               count: 2
             }
@@ -127,31 +127,31 @@ const deploymentHealthMock = {
         rate: 0.0,
         countList: [
           {
-            time: '2021-04-21',
+            time: 1621125462238,
             deployments: {
               count: 0
             }
           },
           {
-            time: '2021-04-22',
+            time: 1621125462238,
             deployments: {
               count: 0
             }
           },
           {
-            time: '2021-04-23',
+            time: 1621125462238,
             deployments: {
               count: 1
             }
           },
           {
-            time: '2021-04-24',
+            time: 1621125462238,
             deployments: {
               count: 0
             }
           },
           {
-            time: '2021-04-25',
+            time: 1621125462238,
             deployments: {
               count: 0
             }
@@ -167,8 +167,8 @@ const deploymentsMock = {
     failure: [
       {
         name: 'twoStagetwoSer',
-        startTs: '2021-04-28 14:53:42.575',
-        endTs: '2021-04-28 14:55:18.503',
+        startTs: 1621039062238,
+        endTs: 1621125462238,
         status: 'FAILED',
         serviceInfoList: [
           {
@@ -185,8 +185,8 @@ const deploymentsMock = {
     pending: [
       {
         name: 'p1',
-        startTs: '2021-04-23 20:59:59.654',
-        endTs: '2021-04-28 18:43:29.089',
+        startTs: 1621039062238,
+        endTs: 1621125462238,
         status: 'PENDING',
         serviceInfoList: [
           {
@@ -203,8 +203,8 @@ const deploymentsMock = {
     active: [
       {
         name: 'RunningPipeline',
-        startTs: '2021-04-23 20:59:59.654',
-        endTs: '2021-04-28 18:43:29.089',
+        startTs: 1621039062238,
+        endTs: 1621125462238,
         status: 'RUNNING',
         serviceInfoList: [
           {
@@ -230,51 +230,54 @@ const workloadsMock = {
         percentSuccess: 0.0,
         successRate: -100.0,
         lastCommit: 'Update test.txt',
+        lastExecuted: {
+          startTime: 1621556205569,
+          endTime: 1621555606947
+        },
         countList: [
           {
-            time: '2021-04-16',
+            time: 1621125462238,
             builds: {
               count: 3
             }
           },
           {
-            time: '2021-04-17',
+            time: 1621125462238,
             builds: {
               count: 0
             }
           },
           {
-            time: '2021-04-18',
+            time: 1621125462238,
             builds: {
               count: 1
             }
           },
           {
-            time: '2021-04-19',
+            time: 1621125462238,
             builds: {
               count: 0
             }
           },
           {
-            time: '2021-04-20',
+            time: 1621125462238,
             builds: {
               count: 0
             }
           },
           {
-            time: '2021-04-21',
+            time: 1621125462238,
             builds: {
               count: 3
             }
           },
           {
-            time: '2021-04-22',
+            time: 1621125462238,
             builds: {
               count: 0
             }
           }
-        ],
-        time: '2021-04-21 17:03:39.123'
+        ]
       }
     ]
   }

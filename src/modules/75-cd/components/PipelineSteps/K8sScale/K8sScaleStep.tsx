@@ -109,7 +109,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                     readonly={readonly}
                   />
                   {(getMultiTypeFromValue(
-                    (values?.spec?.instanceSelection?.spec as CountInstanceSelection | undefined)?.count
+                    (values?.spec?.instanceSelection?.spec as CountInstanceSelection | undefined)?.count as any
                   ) === MultiTypeInputType.RUNTIME ||
                     getMultiTypeFromValue(
                       (values?.spec?.instanceSelection?.spec as PercentageInstanceSelectionK8 | undefined)?.percentage
@@ -208,7 +208,7 @@ const K8ScaleInputStep: React.FC<K8sScaleProps> = ({ template, readonly, path })
         />
       ) : null}
       {(getMultiTypeFromValue(
-        (template?.spec?.instanceSelection?.spec as CountInstanceSelection | undefined)?.count
+        (template?.spec?.instanceSelection?.spec as CountInstanceSelection | undefined)?.count as any
       ) === MultiTypeInputType.RUNTIME ||
         getMultiTypeFromValue(
           (template?.spec?.instanceSelection?.spec as PercentageInstanceSelectionK8 | undefined)?.percentage
@@ -316,8 +316,9 @@ export class K8sScaleStep extends PipelineStep<K8sScaleData> {
         }
       }
     } else if (
-      getMultiTypeFromValue((template?.spec?.instanceSelection?.spec as CountInstanceSelection | undefined)?.count) ===
-        MultiTypeInputType.RUNTIME ||
+      getMultiTypeFromValue(
+        (template?.spec?.instanceSelection?.spec as CountInstanceSelection | undefined)?.count as any
+      ) === MultiTypeInputType.RUNTIME ||
       getMultiTypeFromValue(
         (template?.spec?.instanceSelection?.spec as PercentageInstanceSelectionK8 | undefined)?.percentage
       ) === MultiTypeInputType.RUNTIME

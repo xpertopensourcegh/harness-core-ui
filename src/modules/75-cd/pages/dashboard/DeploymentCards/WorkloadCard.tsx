@@ -2,18 +2,16 @@ import React, { useMemo } from 'react'
 import moment from 'moment'
 import { Layout, Icon, Color } from '@wings-software/uicore'
 import RepositoryCard from '@pipeline/components/Dashboards/BuildCards/RepositoryCard'
-import type { WorkloadDateCountInfo } from 'services/cd-ng'
+import type { WorkloadDateCountInfo, LastWorkloadInfo } from 'services/cd-ng'
 
 export interface WorkloadCardProps {
   serviceName: string
-  lastExecuted: string
+  lastExecuted?: LastWorkloadInfo
   lastMessage?: string
-  deploymentType: string
   totalDeployments: number
   percentSuccess: number
   rateSuccess: number
   username?: string
-  durationMin?: number
   workload?: WorkloadDateCountInfo[]
 }
 
@@ -25,19 +23,22 @@ export default function WorkloadCard({
   percentSuccess,
   rateSuccess,
   username,
-  durationMin,
   workload
 }: WorkloadCardProps) {
   const countList = useMemo(() => {
     if (workload) {
       return workload.map(val => ({
-        time: val.date,
+        time: moment(val.date).format('YYYY-MM-DD'),
         builds: {
           count: val?.execution?.count
         }
       }))
     }
   }, [workload])
+
+  const durationMin = lastExecuted?.startTime
+    ? lastExecuted?.endTime ?? Date.now() - lastExecuted?.startTime
+    : undefined
 
   return (
     <RepositoryCard
@@ -50,7 +51,7 @@ export default function WorkloadCard({
       message={lastMessage!}
       username={username}
       durationMin={durationMin}
-      startTime={moment(lastExecuted, 'YYYY-MM-DD HH:mm:ss').valueOf()}
+      startTime={lastExecuted?.startTime as number}
       count={totalDeployments}
       countLabel="Deployments"
       seriesName="Executions"

@@ -1,13 +1,12 @@
 import React from 'react'
-import moment from 'moment'
 import { Icon } from '@wings-software/uicore'
 import FailedBuildCard from '@pipeline/components/Dashboards/BuildCards/FailedBuildCard'
 import styles from '../CDDashboardPage.module.scss'
 
 export interface FailedDeploymentCardProps {
   name: string
-  startTime: string
-  endTime: string
+  startTime: number
+  endTime: number
   serviceInfoList: any
 }
 
@@ -21,8 +20,8 @@ export default function FailedDeploymentCard({ name, startTime, endTime, service
           {`${s.serviceName}${s.servicetag ? ' (' + s.serviceTag + ')' : ''}`}
         </span>
       ))}
-      startTime={moment(startTime, 'YYYY-MM-DD HH:mm:ss').valueOf()}
-      endTime={moment(endTime, 'YYYY-MM-DD HH:mm:ss').valueOf()}
+      startTime={startTime}
+      endTime={endTime}
       silentStatus
     />
   )

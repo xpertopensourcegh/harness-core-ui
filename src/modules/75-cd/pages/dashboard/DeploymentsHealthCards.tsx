@@ -5,10 +5,11 @@ import Highcharts from 'highcharts'
 import { useParams } from 'react-router-dom'
 import { Classes } from '@blueprintjs/core'
 import merge from 'lodash-es/merge'
+import moment from 'moment'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { RangeSelectorWithTitle } from '@pipeline/components/Dashboards/RangeSelector'
 import { roundNumber } from '@pipeline/components/Dashboards/shared'
-import { useGetDeploymentHealth } from 'services/cd-ng'
+import { useGetDeploymentHealth, DeploymentDateAndCount } from 'services/cd-ng'
 import styles from './CDDashboardPage.module.scss'
 
 export interface HealthCardProps {
@@ -35,6 +36,8 @@ export default function DeploymentsHealthCards() {
     }
   })
 
+  const mapTime = (value: DeploymentDateAndCount) => (value?.time ? moment(value.time).format('YYYY-MM-DD') : '')
+
   const chartsData = useMemo(() => {
     if (data?.data?.healthDeploymentInfo) {
       const ret: any = {}
@@ -46,7 +49,7 @@ export default function DeploymentsHealthCards() {
               height: 40
             },
             xAxis: {
-              categories: countList?.map(val => val.time)
+              categories: countList?.map(mapTime)
             },
             series: [
               {
@@ -81,7 +84,7 @@ export default function DeploymentsHealthCards() {
       if (data?.data?.healthDeploymentInfo?.success?.countList?.length) {
         ret.successChartOptions = merge({}, defaultChartOptions, primaryChartOptions, {
           xAxis: {
-            categories: data.data.healthDeploymentInfo.success.countList.map(val => val.time)
+            categories: data.data.healthDeploymentInfo.success.countList.map(mapTime)
           },
           series: [
             {
@@ -96,7 +99,7 @@ export default function DeploymentsHealthCards() {
       if (data?.data?.healthDeploymentInfo?.failure?.countList?.length) {
         ret.failureChartOptions = merge({}, defaultChartOptions, primaryChartOptions, {
           xAxis: {
-            categories: data.data.healthDeploymentInfo.failure.countList.map(val => val.time)
+            categories: data.data.healthDeploymentInfo.failure.countList.map(mapTime)
           },
           series: [
             {
