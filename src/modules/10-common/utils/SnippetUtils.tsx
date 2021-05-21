@@ -25,6 +25,7 @@ const entitySubTypeToTagMap: {
   Splunk: 'splunk',
   AppDynamics: 'appdynamics',
   Vault: 'vault',
+  AzureKeyVault: 'azurekeyvault',
   DockerRegistry: 'docker',
   Local: 'local',
   GcpKms: 'gcpkms',
