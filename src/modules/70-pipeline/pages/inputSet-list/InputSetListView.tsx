@@ -12,6 +12,8 @@ import {
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import { TagsPopover } from '@common/components'
+import { useQueryParams } from '@common/hooks'
+import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import RbacButton from '@rbac/components/Button/Button'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
@@ -120,6 +122,8 @@ const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row }) => {
     pipelineIdentifier: string
   }>()
 
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
+
   const runPipeline = useRunPipelineModal({
     inputSetSelected: [
       {
@@ -128,7 +132,9 @@ const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row }) => {
         label: data.name || /* istanbul ignore next */ ''
       }
     ],
-    pipelineIdentifier: (data.pipelineIdentifier || '') as string
+    pipelineIdentifier: (data.pipelineIdentifier || '') as string,
+    repoIdentifier,
+    branch
   })
 
   return (
