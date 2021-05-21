@@ -380,7 +380,7 @@ pluginImageInfo: The name of the Plugin Docker image. The image name should incl
 dependencyImagePlaceholder: mysql:5
 imageInfo: The name of the Docker image to use to run commands on. The image name should include the tag and will default to the latest tag if unspecified. You can use any docker image from any docker registry, including docker images from private registries.
 imageNameLabel: Image Name
-imageNameInfo: The image's name. It can be different than the image's local name.
+imageNameInfo: The name of the image that will be pushed to the target container registry.
 encryptedKeyLabel: Encrypted Key
 environment: 'Environment'
 environmentVariables: 'Environment Variables'
@@ -1025,7 +1025,7 @@ pipelineSteps:
   endpointPlaceholder: http://minio.company.com
   endpointInfo: Endpoint for S3 compatible providers (not needed for AWS).
   contextLabel: 'Context'
-  contextInfo: Either a path to a directory containing a Dockerfile, or a url to a git repository
+  contextInfo: By default, the context is set to the root of your git repository. Set context if you need to specify a different folder.
   labelsLabel: 'Labels'
   labelsInfo: Use Labels to add metadata to the Docker image
   regionPlaceholder: us-east-1

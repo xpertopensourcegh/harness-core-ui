@@ -254,7 +254,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                     projectIdentifier={projectIdentifier}
                     orgIdentifier={orgIdentifier}
                     onChange={(value, scope) => {
-                      setConnectionType(value.spec.type)
+                      setConnectionType(value.type === 'Git' ? value.spec.connectionType : value.spec.type)
                       setConnectorUrl(value.spec.url)
 
                       formikProps.setFieldValue('connectorRef', {

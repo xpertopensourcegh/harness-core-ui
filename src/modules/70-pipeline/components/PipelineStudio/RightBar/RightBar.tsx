@@ -130,7 +130,11 @@ export const RightBar = (): JSX.Element => {
 
   React.useEffect(() => {
     if (connector?.data?.connector) {
-      setConnectionType(connector?.data?.connector.spec.type)
+      setConnectionType(
+        connector?.data?.connector?.type === 'Git'
+          ? connector?.data?.connector.spec.connectionType
+          : connector?.data?.connector.spec.type
+      )
       setConnectorUrl(connector?.data?.connector.spec.url)
     }
   }, [
@@ -392,7 +396,7 @@ export const RightBar = (): JSX.Element => {
                       projectIdentifier={projectIdentifier}
                       orgIdentifier={orgIdentifier}
                       onChange={(value, scope) => {
-                        setConnectionType(value.spec.type)
+                        setConnectionType(value.type === 'Git' ? value.spec.connectionType : value.spec.type)
                         setConnectorUrl(value.spec.url)
 
                         setFieldValue('connectorRef', {
