@@ -23,6 +23,8 @@ export const getRoutePathByType = (type: DSConfig['type'] | ActivitySourceDTO['t
       return MonitoringSourceSetupRoutePaths.GOOGLE_CLOUD_OPERATIONS
     case 'NEW_RELIC':
       return MonitoringSourceSetupRoutePaths.NEW_RELIC
+    case 'PROMETHEUS':
+      return MonitoringSourceSetupRoutePaths.PROMETHEUS
     default:
       return ''
   }

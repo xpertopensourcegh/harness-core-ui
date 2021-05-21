@@ -100,13 +100,13 @@ function ensureFieldsAreFilled(values: GCOMetricInfo, getString: (key: StringKey
     ret.higherBaselineDeviation = getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validation.baseline')
   }
   if (!values?.environment) {
-    ret.environment = getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validation.env')
+    ret.environment = getString('cv.monitoringSources.envValidation')
   }
   if (!values.service) {
-    ret.service = getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validation.service')
+    ret.service = getString('cv.monitoringSources.serviceValidation')
   }
   if (!values.metricName?.length) {
-    ret.metricName = getString('cv.monitoringSources.gco.manualInputQueryModal.validation.metricName')
+    ret.metricName = getString('cv.monitoringSources.metricNameValidation')
   }
   if (!values.metricTags) {
     ret.metricTags = getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validation.tags')
@@ -159,7 +159,7 @@ function initializeSelectedMetrics(
   return updatedMap
 }
 
-function getRiskCategoryOptions(metricPacks?: MetricPackDTO[]): IOptionProps[] {
+export function getRiskCategoryOptions(metricPacks?: MetricPackDTO[]): IOptionProps[] {
   if (!metricPacks?.length) {
     return []
   }
@@ -224,22 +224,22 @@ function ConfigureRiskProfile(): JSX.Element {
         name={FieldNames.RISK_CATEGORY}
         items={riskCategoryOptions}
         className={css.inlineRadio}
-        label={getString('cv.monitoringSources.gco.mapMetricsToServicesPage.riskCategoryLabel')}
+        label={getString('cv.monitoringSources.riskCategoryLabel')}
       />
       <Container className={css.deviation}>
         <Text color={Color.BLACK} className={css.checkboxLabel}>
-          {getString('cv.monitoringSources.gco.mapMetricsToServicesPage.baselineDeviation')}
+          {getString('cv.monitoringSources.baselineDeviation')}
         </Text>
         <Container className={css.checkbox}>
           <FormInput.CheckBox
             name={FieldNames.HIGHER_BASELINE_DEVIATION}
             value="higher"
-            label={getString('cv.monitoringSources.gco.mapMetricsToServicesPage.higherCounts')}
+            label={getString('cv.monitoringSources.higherCounts')}
           />
           <FormInput.CheckBox
             name={FieldNames.LOWER_BASELINE_DEVIATION}
             value="lower"
-            label={getString('cv.monitoringSources.gco.mapMetricsToServicesPage.lowerCounts')}
+            label={getString('cv.monitoringSources.lowerCounts')}
           />
         </Container>
       </Container>
@@ -531,7 +531,7 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
                     }}
                   />
                   <FormInput.Text
-                    label={getString('cv.monitoringSources.gco.mapMetricsToServicesPage.metricNameLabel')}
+                    label={getString('cv.monitoringSources.metricNameLabel')}
                     name={FieldNames.METRIC_NAME}
                     onChange={(newMetricName: FormEvent<HTMLInputElement>) => {
                       const currentSelectedInfo = updatedData.get(selectedMetric || '')

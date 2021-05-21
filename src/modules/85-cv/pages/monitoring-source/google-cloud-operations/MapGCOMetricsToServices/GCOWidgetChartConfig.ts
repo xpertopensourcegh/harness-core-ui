@@ -58,9 +58,10 @@ export function chartsConfig(series: Highcharts.SeriesLineOptions[]): Highcharts
     },
     tooltip: {
       formatter: function tooltipFormatter(this: any): string {
-        return `<section class="serviceGuardTimeSeriesTooltip"><p>${this.series?.name}</p><br/><p>${moment(
-          this.x
-        ).format('M/D/YYYY h:m a')}</p><br/><p>Value: ${this.y.toFixed(2)}</p></section>`
+        const title = this.series?.name ? `<p>${this.series?.name}</p><br/>` : ''
+        return `<section class="serviceGuardTimeSeriesTooltip">${title}<p>${moment(this.x).format(
+          'M/D/YYYY h:m a'
+        )}</p><br/><p>Value: ${this.y.toFixed(2)}</p></section>`
       },
       outside: true
     },

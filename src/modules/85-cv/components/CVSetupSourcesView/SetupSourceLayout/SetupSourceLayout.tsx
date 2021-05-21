@@ -22,7 +22,7 @@ export function FooterCTA(props: FooterCTAProps): JSX.Element {
   return (
     <Container className={css.footerCta}>
       {onPrevious && (
-        <Button icon="chevron-left" onClick={() => onPrevious()}>
+        <Button icon="chevron-left" onClick={() => onPrevious()} minimal>
           {getString('previous')}
         </Button>
       )}

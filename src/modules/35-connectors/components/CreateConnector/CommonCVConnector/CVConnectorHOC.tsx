@@ -42,6 +42,7 @@ export function cvConnectorHOC(hocInput: CVConnectorHOCInput): (props: CreateCon
         <ConnectorCredentialsStep
           isEditMode={isEditMode}
           accountId={accountId}
+          name={getString('credentials')}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
           connectorInfo={connectorInfo}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import type { SelectOption } from '@wings-software/uicore'
+import { FormInput, SelectOption } from '@wings-software/uicore'
+import type { CustomRenderProps } from '@wings-software/uicore/dist/components/FormikForm/FormikForm'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -98,4 +99,50 @@ export function HarnessService(props: ServiceSelectOrCreateProps): JSX.Element {
 
 export function HarnessEnvironment(props: EnvironmentSelectProps): JSX.Element {
   return <EnvironmentSelect {...props} className={cx(css.serviceEnvDropdown, props.className)} />
+}
+
+export function HarnessServiceAsFormField(props: {
+  customRenderProps: Omit<CustomRenderProps, 'render'>
+  serviceProps: ServiceSelectOrCreateProps
+}): JSX.Element {
+  const { customRenderProps, serviceProps } = props
+
+  return (
+    <FormInput.CustomRender
+      {...customRenderProps}
+      key={`${serviceProps.item?.value as string}`}
+      render={formikProps => (
+        <ServiceSelectOrCreate
+          {...serviceProps}
+          onSelect={selectedOption => {
+            formikProps.setFieldValue(customRenderProps.name, selectedOption)
+            serviceProps.onSelect?.(selectedOption)
+          }}
+        />
+      )}
+    />
+  )
+}
+
+export function HarnessEnvironmentAsFormField(props: {
+  customRenderProps: Omit<CustomRenderProps, 'render'>
+  environmentProps: EnvironmentSelectProps
+}): JSX.Element {
+  const { customRenderProps, environmentProps } = props
+
+  return (
+    <FormInput.CustomRender
+      {...customRenderProps}
+      key={`${environmentProps.item?.value as string}`}
+      render={formikProps => (
+        <EnvironmentSelect
+          {...environmentProps}
+          onSelect={selectedOption => {
+            formikProps.setFieldValue(customRenderProps.name, selectedOption)
+            environmentProps.onSelect?.(selectedOption)
+          }}
+        />
+      )}
+    />
+  )
 }

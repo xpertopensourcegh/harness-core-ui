@@ -18,6 +18,8 @@ export const getIconBySourceType = (type: string) => {
       return 'bluegreen'
     case 'TEST':
       return 'lab-test'
+    case 'PROMETHEUS':
+      return 'service-prometheus'
     default:
       return ''
   }
@@ -46,6 +48,8 @@ export const getMonitoringSourceLabel = (type: string) => {
       return 'Splunk'
     case 'STACKDRIVER':
       return 'Google Cloud Operations'
+    case 'PROMETHEUS':
+      return 'Prometheus'
     default:
       return ''
   }

@@ -216,7 +216,13 @@ export function MapNewRelicAppsToServicesAndEnvs(): JSX.Element {
 
   return (
     <SetupSourceLayout
-      leftPanelContent={<SelectedAppsSideNav selectedApps={selectedApplicationNames} loading={loading} />}
+      leftPanelContent={
+        <SelectedAppsSideNav
+          selectedApps={selectedApplicationNames}
+          loading={loading}
+          headerText={getString('cv.monitoringSources.newRelic.selectedApplications')}
+        />
+      }
       content={
         <Layout.Vertical spacing="medium">
           <SelectMetricPack

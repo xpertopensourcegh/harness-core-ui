@@ -2080,6 +2080,7 @@ export interface StringsMap {
   'cv.activityTimeline.beforeChange': string
   'cv.activityTimeline.noChanges': string
   'cv.activityTimeline.otherChanges': string
+  'cv.addNew': string
   'cv.admin.activitySources.addActivitySource': string
   'cv.admin.activitySources.dialogDeleteContent': string
   'cv.admin.activitySources.dialogDeleteTitle': string
@@ -2171,6 +2172,7 @@ export interface StringsMap {
   'cv.methodLabel': string
   'cv.metricVerificationModal.modalTitle': string
   'cv.metricVerificationModal.viewCalls': string
+  'cv.monitoringSources.addMetric': string
   'cv.monitoringSources.appD.appDApplications': string
   'cv.monitoringSources.appD.appDTier': string
   'cv.monitoringSources.appD.connectToMonitoringSource': string
@@ -2212,6 +2214,9 @@ export interface StringsMap {
   'cv.monitoringSources.appD.verificationsInProgress': string
   'cv.monitoringSources.appDName': string
   'cv.monitoringSources.backToMapping': string
+  'cv.monitoringSources.baselineDeviation': string
+  'cv.monitoringSources.buildYourQuery': string
+  'cv.monitoringSources.envValidation': string
   'cv.monitoringSources.gco.addManualInputQuery': string
   'cv.monitoringSources.gco.connectToMonitoringSource': string
   'cv.monitoringSources.gco.createConnectorText': string
@@ -2222,27 +2227,19 @@ export interface StringsMap {
   'cv.monitoringSources.gco.manualInputQueryModal.subtitle1': string
   'cv.monitoringSources.gco.manualInputQueryModal.subtitle2': string
   'cv.monitoringSources.gco.manualInputQueryModal.subtitle3': string
-  'cv.monitoringSources.gco.manualInputQueryModal.validation.metricName': string
   'cv.monitoringSources.gco.manualInputQueryModal.validation.query': string
   'cv.monitoringSources.gco.manualInputQueryModal.validation.uniqueMetricName': string
-  'cv.monitoringSources.gco.mapMetricsToServicesPage.baselineDeviation': string
   'cv.monitoringSources.gco.mapMetricsToServicesPage.configureRiskProfile': string
   'cv.monitoringSources.gco.mapMetricsToServicesPage.enterQueryForValidation': string
-  'cv.monitoringSources.gco.mapMetricsToServicesPage.higherCounts': string
-  'cv.monitoringSources.gco.mapMetricsToServicesPage.lowerCounts': string
   'cv.monitoringSources.gco.mapMetricsToServicesPage.manuallyInputQueriesLabel': string
   'cv.monitoringSources.gco.mapMetricsToServicesPage.mapMetricToServiceAndEnvironment': string
-  'cv.monitoringSources.gco.mapMetricsToServicesPage.metricNameLabel': string
   'cv.monitoringSources.gco.mapMetricsToServicesPage.metricTagsLabel': string
   'cv.monitoringSources.gco.mapMetricsToServicesPage.noDataForQuery': string
   'cv.monitoringSources.gco.mapMetricsToServicesPage.operationsQueryLabel': string
   'cv.monitoringSources.gco.mapMetricsToServicesPage.querySpecifications': string
-  'cv.monitoringSources.gco.mapMetricsToServicesPage.riskCategoryLabel': string
   'cv.monitoringSources.gco.mapMetricsToServicesPage.validation.baseline': string
-  'cv.monitoringSources.gco.mapMetricsToServicesPage.validation.env': string
   'cv.monitoringSources.gco.mapMetricsToServicesPage.validation.mainSetupValidation': string
   'cv.monitoringSources.gco.mapMetricsToServicesPage.validation.riskCategory': string
-  'cv.monitoringSources.gco.mapMetricsToServicesPage.validation.service': string
   'cv.monitoringSources.gco.mapMetricsToServicesPage.validation.tags': string
   'cv.monitoringSources.gco.mapMetricsToServicesPage.validation.validJSON': string
   'cv.monitoringSources.gco.mapMetricsToServicesPage.viewQuery': string
@@ -2255,7 +2252,11 @@ export interface StringsMap {
   'cv.monitoringSources.gco.selectDashboardsPage.noDataText': string
   'cv.monitoringSources.gco.selectProduct': string
   'cv.monitoringSources.gco.tabName.selectDashboards': string
+  'cv.monitoringSources.higherCounts': string
+  'cv.monitoringSources.lowerCounts': string
   'cv.monitoringSources.mapMetricsToServices': string
+  'cv.monitoringSources.metricNameLabel': string
+  'cv.monitoringSources.metricNameValidation': string
   'cv.monitoringSources.metricPackValidation': string
   'cv.monitoringSources.nameYourMonitoringSource': string
   'cv.monitoringSources.newRelic.mapNewRelicAppsToServicesAndEnvs': string
@@ -2268,7 +2269,48 @@ export interface StringsMap {
   'cv.monitoringSources.oneMetricMappingValidation': string
   'cv.monitoringSources.oneMetricMappingValidationSubtext': string
   'cv.monitoringSources.oneMetricPackValidation': string
+  'cv.monitoringSources.prometheus.addMetricTooltip': string
+  'cv.monitoringSources.prometheus.additionalFilter': string
+  'cv.monitoringSources.prometheus.aggregator': string
+  'cv.monitoringSources.prometheus.avgAggregator': string
+  'cv.monitoringSources.prometheus.chartAndRecords': string
+  'cv.monitoringSources.prometheus.countAggregator': string
+  'cv.monitoringSources.prometheus.customizeQuery': string
+  'cv.monitoringSources.prometheus.environmentFilter': string
+  'cv.monitoringSources.prometheus.groupName': string
+  'cv.monitoringSources.prometheus.isManualQuery': string
+  'cv.monitoringSources.prometheus.mapPrometheusMetricsToServicesAndEnvs': string
+  'cv.monitoringSources.prometheus.mappingValidation': string
+  'cv.monitoringSources.prometheus.maxAggregator': string
+  'cv.monitoringSources.prometheus.minAggregator': string
+  'cv.monitoringSources.prometheus.newPrometheusGroupName': string
+  'cv.monitoringSources.prometheus.noRecordsForQuery': string
+  'cv.monitoringSources.prometheus.prometheusMetric': string
+  'cv.monitoringSources.prometheus.prometheusMetrics': string
+  'cv.monitoringSources.prometheus.provideQueryToSeeRecords': string
+  'cv.monitoringSources.prometheus.querySettingsNotEditable': string
+  'cv.monitoringSources.prometheus.querySettingsSubtext': string
+  'cv.monitoringSources.prometheus.querySpecificationsAndMappings': string
+  'cv.monitoringSources.prometheus.serviceFilter': string
+  'cv.monitoringSources.prometheus.stddevAggregator': string
+  'cv.monitoringSources.prometheus.stdvarAggregator': string
+  'cv.monitoringSources.prometheus.sumAggregator': string
+  'cv.monitoringSources.prometheus.validation.aggregator': string
+  'cv.monitoringSources.prometheus.validation.deviation': string
+  'cv.monitoringSources.prometheus.validation.filterOnEnvironment': string
+  'cv.monitoringSources.prometheus.validation.filterOnService': string
+  'cv.monitoringSources.prometheus.validation.groupName': string
+  'cv.monitoringSources.prometheus.validation.metricNameUnique': string
+  'cv.monitoringSources.prometheus.validation.promethusMetric': string
+  'cv.monitoringSources.prometheus.validation.recordCount': string
+  'cv.monitoringSources.prometheus.validation.serviceInstanceIdentifier': string
+  'cv.monitoringSources.prometheus.validation.uniqueName': string
   'cv.monitoringSources.reviewPageSubHeading': string
+  'cv.monitoringSources.riskCategoryLabel': string
+  'cv.monitoringSources.riskProfile': string
+  'cv.monitoringSources.serviceInstanceIdentifier': string
+  'cv.monitoringSources.serviceValidation': string
+  'cv.monitoringSources.totalMappedQueries': string
   'cv.navLinks.activities': string
   'cv.navLinks.adminSideNavLinks.activitySources': string
   'cv.navLinks.adminSideNavLinks.monitoringSources': string
@@ -2325,9 +2367,13 @@ export interface StringsMap {
   'cv.pinABaseline': string
   'cv.postDeployment': string
   'cv.preProductionTests': string
+  'cv.proceedToEdit': string
+  'cv.queries': string
+  'cv.query': string
   'cv.request': string
   'cv.response': string
   'cv.responseBody': string
+  'cv.responseTime': string
   'cv.riskCardTooltip.allServicesGreen': string
   'cv.riskCardTooltip.header': string
   'cv.riskScore': string
@@ -2360,6 +2406,7 @@ export interface StringsMap {
   'cv.thirdPartyCalls.noCallsWereMade': string
   'cv.thirdPartyCalls.requestMade': string
   'cv.thirdPartyCalls.timeTaken': string
+  'cv.throughput': string
   'cv.timeline': string
   'cv.trafficSplit': string
   'cv.trend': string

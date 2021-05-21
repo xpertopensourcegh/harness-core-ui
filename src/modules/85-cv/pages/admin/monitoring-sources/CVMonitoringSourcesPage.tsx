@@ -21,7 +21,8 @@ const getRouteType = (type: string) => {
   const typeMappings: any = {
     APP_DYNAMICS: 'APP_DYNAMICS',
     STACKDRIVER: 'STACKDRIVER',
-    NEW_RELIC: 'NEW_RELIC'
+    NEW_RELIC: 'NEW_RELIC',
+    PROMETHEUS: 'PROMETHEUS'
   }
   return getRoutePathByType(typeMappings[type])
 }
@@ -184,6 +185,7 @@ function TypeTableCell(tableProps: CellProps<MonitoringSource>): JSX.Element {
     <Container>
       {tableProps.value === 'APP_DYNAMICS' && <Icon name="service-appdynamics" size={18} />}
       {tableProps.value === 'STACKDRIVER' && <Icon name="service-stackdriver" size={18} />}
+      {tableProps.value === 'PROMETHEUS' && <Icon name="service-prometheus" size={18} />}
       {tableProps.value === 'NEW_RELIC' && <Icon name="service-newrelic" size={18} />}
     </Container>
   )

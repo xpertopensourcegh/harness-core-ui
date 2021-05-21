@@ -39,6 +39,8 @@ function dataSourceTypeToLabel(monitoringSourceType: MonitoringSourceTypes): str
       return 'Google Cloud Operations'
     case 'NEW_RELIC':
       return 'New Relic'
+    case 'PROMETHEUS':
+      return 'Prometheus'
     default:
       return ''
   }

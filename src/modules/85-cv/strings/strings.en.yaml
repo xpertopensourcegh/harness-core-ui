@@ -17,6 +17,7 @@ showMore: Show More
 showLess: Show Less
 baselineTest: Baseline test
 testsRan: Tests ran
+queries: Queries
 currentTest: Current test
 timeline: Timeline
 changeTimeline: Change Timeline
@@ -36,6 +37,7 @@ unexpected: Unexpected
 copyURL: Copy URL
 urlCopied: URL Copied
 anomalousMetrics: Anomalous metrics
+proceedToEdit: Proceed to Edit
 filter: Filter
 allMetrics: All Metrics
 riskTimeline: Risk Timeline
@@ -46,6 +48,10 @@ trafficSplit: Traffic Split Percentage (optional)
 pinABaseline: Pin a baseline
 lastSuccessfulRun: Last Successful Job Run
 jobNamePlaceholder: Enter a Job Name
+throughput: Throughput
+responseTime: Response Time
+query: Query
+addNew: + Add New
 serviceDashboardPage:
   fiveMinutes: 5 Minutes
   fifteenMinutes: 15 Minutes
@@ -238,7 +244,7 @@ onboarding:
       product: 'Product selection is required.'
 selectCreateService: Select or create a service
 monitoringSources:
-  mapMetricsToServices: Map Metrics to Harness Services
+  mapMetricsToServices: Map Metric(s) to Harness Services
   metricPackValidation: Metric Pack Validation
   nameYourMonitoringSource: Name your Monitoring Source
   oneMetricMappingValidation: At least one application must be mapped
@@ -248,6 +254,19 @@ monitoringSources:
   reviewPageSubHeading: You’ve done it! These services below are ready for your project. If it doesn’t look right, you can make changes now.
   appDName: AppDynamics
   newRelicName: New Relic
+  metricNameLabel: Metric Name
+  riskProfile: Risk Profile
+  riskCategoryLabel: Risk Category
+  baselineDeviation: Deviation Compared to Baseline
+  higherCounts: Higher value is higher risk
+  lowerCounts: Lower value is higher risk
+  metricNameValidation: Metric Name is required.
+  envValidation: Environment is required.
+  serviceValidation: Service is required.
+  buildYourQuery: Build your Query
+  serviceInstanceIdentifier: Service Instance Identifier
+  addMetric: Add Metric
+  totalMappedQueries: '{{total}} {{query}} mapped'
   appD:
     envDescription: An Environment is the representation of your production or non-production infrastructure.
     appDApplications: APPDYNAMICS APPLICATIONS
@@ -276,7 +295,7 @@ monitoringSources:
       selectApp: Please select application and its environment
       selectTier: Please select tier and its service
       selectMetricPack: Plese select metric packs
-    connectToMonitoringSource: 'Connect to your AppDynamics Monitoring Source'
+    connectToMonitoringSource: Connect to your AppDynamics Monitoring Source
     firstTimeSetupText: 'First time? You can setup a new connector to AppDynamics. It takes 2 minutes.'
     createConnectorText: '+ New AppDynamics Connector'
     selectProduct: 'Select the AppDynamics Product that you would like to select applications from'
@@ -292,7 +311,7 @@ monitoringSources:
       tiers: Tiers
     searchTiersPlaceHolder: 'Search for Tiers'
   gco:
-    connectToMonitoringSource: 'Connect to your Google Cloud Platform'
+    connectToMonitoringSource: Connect to your Google Cloud Platform
     defaultName: 'My Google Cloud Operations Monitoring Source'
     firstTimeSetupText: 'First time? You can setup a new connector to Google Cloud Platform. It takes 2 minutes.'
     createConnectorText: '+ New Google Cloud Platform Connector'
@@ -313,28 +332,20 @@ monitoringSources:
       exampleString: 'resource.label.\"pod_name\"=\"${host}\"".'
       validation:
         query: 'Query is required.'
-        metricName: 'Metric Name is required.'
         uniqueMetricName: '{{metricName}} is an already taken metric name'
     mapMetricsToServicesPage:
-      metricTagsLabel: 'Metric Tags'
-      metricNameLabel: 'Metric Name'
-      riskCategoryLabel: 'Risk Category'
+      metricTagsLabel: Metric Tags
       manuallyInputQueriesLabel: 'Manually input queries'
       viewQuery: 'View Query'
-      baselineDeviation: 'Deviation compared to baseline'
       operationsQueryLabel: 'Operations query'
       mapMetricToServiceAndEnvironment: 'Map Stackdriver Metric to a Harness Service and Environment'
       querySpecifications: 'Query Specifications'
       configureRiskProfile: 'Configure Risk Profile'
-      higherCounts: 'Higher counts = higher risk'
-      lowerCounts: 'Lower counts = lower risk'
       enterQueryForValidation: Please enter a query.
       validation:
         mainSetupValidation: 'All fields for at least one metric must be filled completely.'
         validJSON: Please provide valid json.
         riskCategory: Risk Category is required.
-        env: Environment is required.
-        service: Service is required.
         tags: Tags are required.
         baseline: One selection is required.
       noDataForQuery: 'No data for provided query.'
@@ -350,6 +361,44 @@ monitoringSources:
     selectedApplications: Selected Applications
     oneMetricMappingValidationSubtext: You need to map an application to a Harness Environment and Service.
     totalMappedApplications: '{{total}} Application(s) mapped'
+  prometheus:
+    prometheusMetrics: Prometheus Metrics
+    provideQueryToSeeRecords: Provide query to see records from Prometheus
+    querySpecificationsAndMappings: Query Specifications and Mapping
+    customizeQuery: Customize the query to get the desired output and map to Harness Service.
+    mapPrometheusMetricsToServicesAndEnvs: Map Prometheus metrics to Harness Environments and Services
+    chartAndRecords: Chart and Records
+    addMetricTooltip: Fill all required fields before adding a new metric
+    mappingValidation: At least one metric mapping must be entirely filled out
+    environmentFilter: Filter on Environment
+    serviceFilter: Filter on Service
+    additionalFilter: Additional Filter
+    prometheusMetric: Prometheus Metric
+    groupName: Group Name
+    aggregator: Aggregator
+    noRecordsForQuery: No records for given query
+    newPrometheusGroupName: New Prometheus Group Name
+    querySettingsNotEditable: Query Builder will not be available
+    querySettingsSubtext: Query Builder will not be available if you manually edit the query.
+    isManualQuery: Query Builder will not be available since this mapping contains a manually edited query.
+    sumAggregator: sum (calculate sum over dimensions)
+    minAggregator: min (select minimum over dimensions)
+    maxAggregator: max (select maximum over dimensions)
+    avgAggregator: avg (calculate the average over dimensions)
+    stddevAggregator: stddev (calculate population standard deviation over dimensions)
+    stdvarAggregator: stdvar (calculate population standard variance over dimensions)
+    countAggregator: count (count number of elements in the vector)
+    validation:
+      aggregator: Aggregator is required.
+      promethusMetric: Prometheus Metric is required.
+      filterOnEnvironment: Filter on Environment is required.
+      filterOnService: Filter on Service required.
+      serviceInstanceIdentifier: Service Instance Identifier is required.
+      deviation: Deviation Compared to Baseline is required.
+      metricNameUnique: Metric name must be unique.
+      groupName: Group Name is required.
+      uniqueName: '{{existingName}} already exists. Provide a unique name.'
+      recordCount: Current query yields too many records. Please change query to yield one record.
 activitySources:
   name: 'Name your Change Source'
   harnessCD:

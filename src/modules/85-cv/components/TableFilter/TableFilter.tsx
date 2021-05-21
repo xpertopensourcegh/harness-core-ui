@@ -13,7 +13,7 @@ export interface TableFilterProps {
 }
 
 export function TableFilter(props: TableFilterProps): JSX.Element {
-  const { appliedFilter, onFilter, className, placeholder } = props
+  const { appliedFilter, onFilter, className, placeholder, throttle } = props
   const [filter, setFilter] = useState<string | undefined>(appliedFilter)
   const [, setDebouncedFunc] = useState()
   return (
@@ -27,7 +27,7 @@ export function TableFilter(props: TableFilterProps): JSX.Element {
           setFilter(e.target.value)
           setDebouncedFunc((prevDebounce?: any) => {
             prevDebounce?.cancel()
-            const updatedDebouncedFunc = debounce(onFilter, 750)
+            const updatedDebouncedFunc = debounce(onFilter, throttle || 750)
             updatedDebouncedFunc(e.target.value)
             return updatedDebouncedFunc as any
           })

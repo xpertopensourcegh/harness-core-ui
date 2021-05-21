@@ -62,6 +62,10 @@ allowpaths:
   - /cvng-log
   - /verification-job/eligible-cdng-verification-jobs
   - /verification-job/{identifier}
+  - /prometheus/label-names
+  - /prometheus/label-values
+  - /prometheus/metric-list
+  - /prometheus/sample-data
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData

@@ -103,10 +103,10 @@ export function getManuallyCreatedQueries(selectedMetrics: GCOMonitoringSourceIn
   return manualQueries
 }
 
-export function formatJSON(val?: string): string | undefined {
+export function formatJSON(val?: string | Record<string, unknown>): string | undefined {
   try {
     if (!val) return
-    const res = JSON.parse(val)
+    const res = typeof val === 'string' ? JSON.parse(val) : val
     return JSON.stringify(res, null, 2)
   } catch (e) {
     return

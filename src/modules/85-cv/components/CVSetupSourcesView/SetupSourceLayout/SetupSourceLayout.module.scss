@@ -5,14 +5,25 @@ $footer-cta-height: 50px;
   .contentContainer {
     display: flex;
     height: 100%;
+    .leftPanel,
+    .rightPanel {
+      height: calc(100vh - #{$footer-cta-height} - 20px);
+      overflow-y: scroll;
+      position: sticky;
+      top: 0;
+    }
     .leftPanel {
       width: clamp(250px, 300px, 300px);
+      float: left;
     }
     .rightPanel {
       width: 120px;
+      float: right;
     }
     .content {
       flex: 1;
+      clear: left;
+      clear: right;
       margin: $footer-cta-height var(--spacing-medium);
       margin-bottom: 60px;
       overflow-y: scroll;

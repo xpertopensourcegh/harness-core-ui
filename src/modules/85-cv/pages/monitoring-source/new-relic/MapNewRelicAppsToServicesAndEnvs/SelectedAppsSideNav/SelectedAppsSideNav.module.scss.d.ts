@@ -5,5 +5,6 @@ declare const styles: {
   readonly navHeader: string
   readonly seletedAppContainer: string
   readonly selectedApp: string
+  readonly isSelected: string
 }
 export default styles

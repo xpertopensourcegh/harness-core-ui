@@ -9,13 +9,25 @@
   }
 
   .seletedAppContainer {
+    cursor: pointer;
     padding: var(--spacing-small) 0 !important;
     border-top: 1px solid var(--grey-300);
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    [data-icon='main-delete'] {
+      cursor: pointer;
+    }
+
     .selectedApp {
-      font-size: var(--font-size-medium) !important;
       color: var(--black) !important;
       border-left: 3px solid var(--grey-300);
       padding-left: var(--spacing-small) !important;
+    }
+    .isSelected {
+      border-left: 3px solid var(--primary-6);
     }
   }
 }

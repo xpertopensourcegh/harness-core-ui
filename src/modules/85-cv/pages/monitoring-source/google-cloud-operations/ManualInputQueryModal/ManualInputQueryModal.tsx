@@ -31,7 +31,7 @@ const DialogOptions: IDialogProps = {
 function getValidatitionSchema(getString: UseStringsReturn['getString'], manuallyInputQueries?: string[]) {
   return yupObject().shape({
     [FieldNames.METRIC_NAME]: yupString()
-      .required(getString('cv.monitoringSources.gco.manualInputQueryModal.validation.metricName'))
+      .required(getString('cv.monitoringSources.metricNameLabel'))
       .test({
         name: 'Ensure that input query is unique',
         test: function (value: string) {
@@ -85,10 +85,7 @@ export function ManualInputQueryModal(props: UseManualInputQueryModalProps): JSX
           validationSchema={getValidatitionSchema(getString, manuallyInputQueries)}
         >
           <FormikForm className={css.form}>
-            <FormInput.Text
-              name={FieldNames.METRIC_NAME}
-              label={getString('cv.monitoringSources.gco.mapMetricsToServicesPage.metricNameLabel')}
-            />
+            <FormInput.Text name={FieldNames.METRIC_NAME} label={getString('cv.monitoringSources.metricNameLabel')} />
             <Container className={css.buttonContainer}>
               <Button onClick={() => closeModal()}>{getString('cancel')}</Button>
               <Button type="submit" intent="primary">

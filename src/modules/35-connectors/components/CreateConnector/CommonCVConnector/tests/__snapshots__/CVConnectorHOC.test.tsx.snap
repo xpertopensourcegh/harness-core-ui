@@ -60,7 +60,7 @@ exports[`Unit tests for cv connector hoc should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Step 2
+          credentials
         </p>
       </div>
       <div
