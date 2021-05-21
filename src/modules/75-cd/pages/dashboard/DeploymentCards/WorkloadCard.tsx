@@ -36,9 +36,10 @@ export default function WorkloadCard({
     }
   }, [workload])
 
-  const durationMin = lastExecuted?.startTime
-    ? lastExecuted?.endTime ?? Date.now() - lastExecuted?.startTime
-    : undefined
+  const durationMin =
+    lastExecuted?.startTime && lastExecuted?.endTime
+      ? Math.floor((lastExecuted?.endTime - lastExecuted?.startTime) / 60000)
+      : undefined
 
   return (
     <RepositoryCard

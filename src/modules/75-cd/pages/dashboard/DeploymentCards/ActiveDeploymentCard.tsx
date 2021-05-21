@@ -5,7 +5,7 @@ import styles from '../CDDashboardPage.module.scss'
 
 export interface ActiveDeploymentCardProps {
   name: string
-  status: 'RUNNING' | 'PENDING'
+  status?: string
   serviceInfoList: any
 }
 
@@ -20,7 +20,21 @@ export default function ActiveDeploymentCard({ name, status, serviceInfoList }: 
           {`${s.serviceName}${s.servicetag ? ' (' + s.serviceTag + ')' : ''}`}
         </span>
       ))}
-      status={status}
+      status={mapDeploymentStatus(status)}
     />
   )
+}
+
+const mapDeploymentStatus = (status?: string) => {
+  switch (status) {
+    case 'RUNNING':
+    case 'PAUSED':
+      return 'RUNNING'
+    case 'INTERVENTION_WAITING':
+    case 'APPROVAL_WAITING':
+    case 'WAITING':
+      return 'PENDING'
+    default:
+      return undefined
+  }
 }

@@ -231,8 +231,8 @@ const workloadsMock = {
         successRate: -100.0,
         lastCommit: 'Update test.txt',
         lastExecuted: {
-          startTime: 1621556205569,
-          endTime: 1621555606947
+          startTime: 1621555606947,
+          endTime: 1621556205569
         },
         countList: [
           {

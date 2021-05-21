@@ -163,12 +163,12 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main cardText"
                 >
-                  100
+                  8
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--margin-left-xsmall"
                 >
-                  7
+                  700
                   %
                 </p>
                 <span
@@ -216,12 +216,12 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main cardText"
                 >
-                  100
+                  1
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--margin-left-xsmall"
                 >
-                  7
+                  0
                   %
                 </p>
                 <span
@@ -473,7 +473,7 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
                     />
                   </svg>
                 </span>
-                1621555606947m
+                9m
               </div>
             </div>
           </div>

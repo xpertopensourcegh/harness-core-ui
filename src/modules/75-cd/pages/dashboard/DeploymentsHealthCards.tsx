@@ -129,16 +129,16 @@ export default function DeploymentsHealthCards() {
         />
         <HealthCard
           title="Success Deployments"
-          text="100"
-          rate={7}
+          text={data?.data?.healthDeploymentInfo?.success?.count}
+          rate={data?.data?.healthDeploymentInfo?.success?.rate}
           isLoading={loading}
           layout="horizontal"
           primaryChartOptions={chartsData?.successChartOptions}
         />
         <HealthCard
           title="Failed Deployments"
-          text="100"
-          rate={7}
+          text={data?.data?.healthDeploymentInfo?.failure?.count}
+          rate={data?.data?.healthDeploymentInfo?.failure?.rate}
           isLoading={loading}
           layout="horizontal"
           primaryChartOptions={chartsData?.failureChartOptions}

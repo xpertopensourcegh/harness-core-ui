@@ -7,7 +7,7 @@ export interface ActiveBuildCardProps {
   title: string
   message: string
   icon?: React.ReactNode
-  status: 'PENDING' | 'RUNNING'
+  status?: 'PENDING' | 'RUNNING'
 }
 
 const PendingApprovalLabel = () => (
