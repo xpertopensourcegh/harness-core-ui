@@ -262,7 +262,7 @@ export const onSubmitTerraformData = (values: any): TFFormData => {
               ...values.spec?.configuration?.spec?.configFiles,
               store: {
                 ...values.spec?.configuration?.spec?.configFiles?.store,
-                type: connectorValue.connector?.type,
+                type: connectorValue?.connector?.type,
                 spec: {
                   ...values.spec?.configuration?.spec?.configFiles?.store?.spec,
                   connectorRef: values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
@@ -270,7 +270,7 @@ export const onSubmitTerraformData = (values: any): TFFormData => {
                         values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
                       ) === MultiTypeInputType.RUNTIME
                       ? values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
-                      : connectorValue.value
+                      : connectorValue?.value
                     : ''
                 }
               }
@@ -333,14 +333,14 @@ export const onSubmitTFPlanData = (values: any): TFPlanFormData => {
           ...values.spec?.configuration?.configFiles,
           store: {
             ...values.spec?.configuration?.configFiles?.store,
-            type: connectorValue.connector?.type,
+            type: connectorValue?.connector?.type,
             spec: {
               ...values.spec?.configuration?.configFiles?.store?.spec,
               connectorRef: values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef
                 ? getMultiTypeFromValue(values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef) ===
                   MultiTypeInputType.RUNTIME
                   ? values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef
-                  : connectorValue.value
+                  : connectorValue?.value
                 : ''
             }
           }
