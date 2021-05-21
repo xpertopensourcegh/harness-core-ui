@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { isEmpty, debounce, get } from 'lodash-es'
+import { isEmpty, get } from 'lodash-es'
 import { GraphLayoutNode, NodeRunInfo, useGetBarriersExecutionInfo } from 'services/pipeline-ng'
 import {
   getIconFromStageModule,
@@ -95,18 +95,22 @@ export default function ExecutionGraph(props: ExecutionGraphProps): React.ReactE
     allNodes: Object.keys(pipelineExecutionDetail?.pipelineExecutionSummary?.layoutNodeMap || {})
   }
 
-  const { data: barrierInfoData, refetch, loading: barrierInfoLoading } = useGetBarriersExecutionInfo({
-    queryParams: {
-      stageSetupId: stageSetupId || '',
-      planExecutionId: executionIdentifier
-    },
-    lazy: true
-  })
+  const { data: barrierInfoData, refetch: fetchBarrierInfo, loading: barrierInfoLoading } = useGetBarriersExecutionInfo(
+    {
+      lazy: true
+    }
+  )
 
-  const fetchBarrierInfo = debounce(refetch, 1000)
   React.useEffect(() => {
-    !barrierInfoLoading && stageSetupId && fetchBarrierInfo()
-  }, [stageSetupId])
+    if (stageSetupId) {
+      fetchBarrierInfo({
+        queryParams: {
+          stageSetupId: stageSetupId,
+          planExecutionId: executionIdentifier
+        }
+      })
+    }
+  }, [stageSetupId, executionIdentifier])
 
   const onMouseEnter = (event: any) => {
     const stage = event.stage

@@ -42,8 +42,8 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
     stepsGraphCanvasState
   } = useExecutionContext()
   const { setStepDetailsVisibility } = useExecutionLayoutContext()
-  const [barrierSetupId, setBarrierSetupId] = React.useState<string | null>(null)
-  const [resourceUnit, setResourceUnit] = React.useState({ id: null })
+  const [barrierSetupId, setBarrierSetupId] = React.useState<string | undefined>()
+  const [resourceUnit, setResourceUnit] = React.useState<string | undefined>()
   const [dynamicPopoverHandler, setDynamicPopoverHandler] = React.useState<
     DynamicPopoverHandlerBinding<unknown> | undefined
   >()
@@ -57,22 +57,14 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
 
   const { executionIdentifier, accountId } = useParams<ExecutionPathProps>()
   const stage = pipelineStagesMap.get(selectedStageId)
-  const { data: barrierInfo, loading: barrierInfoLoading, refetch } = useGetBarrierInfo({
-    queryParams: {
-      barrierSetupId: barrierSetupId || '',
-      planExecutionId: executionIdentifier
-    },
+  const { data: barrierInfo, loading: barrierInfoLoading, refetch: refetchBarrierInfo } = useGetBarrierInfo({
     lazy: true
   })
   const {
     data: resourceConstraintsData,
     loading: resourceConstraintsLoading,
-    refetch: fetchResourceData
+    refetch: fetchResourceConstraints
   } = useGetResourceConstraintsExecutionInfo({
-    queryParams: {
-      resourceUnit: resourceUnit.id || '',
-      accountId
-    },
     lazy: true
   })
   const data: ExecutionPipeline<ExecutionNode> = {
@@ -81,17 +73,33 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
     status: stage?.status as any,
     allNodes: Object.keys(allNodeMap)
   }
-  const fetchData = debounce(refetch, 1000)
-  const fetchResourceConstraints = debounce(fetchResourceData, 1000)
-  // open details view when a step is selected
+
+  const refetchBarrierInfoRef = React.useCallback(refetchBarrierInfo, [])
+  // load barrier info when barrier step is mouse over (when barrierSetupId is set)
   React.useEffect(() => {
     if (barrierSetupId) {
-      fetchData()
+      refetchBarrierInfoRef({
+        queryParams: {
+          barrierSetupId: barrierSetupId || '',
+          planExecutionId: executionIdentifier
+        }
+      })
     }
-    if (resourceUnit.id) {
-      fetchResourceConstraints()
+  }, [barrierSetupId, refetchBarrierInfoRef])
+
+  // TODO: consider removing debounce form next line
+  const fetchResourceConstraintsRef = React.useCallback(debounce(fetchResourceConstraints, 1000), [])
+  // load resource constrains when resource constrain step is mouse over (when resourceUnit is set)
+  React.useEffect(() => {
+    if (resourceUnit) {
+      fetchResourceConstraintsRef({
+        queryParams: {
+          resourceUnit,
+          accountId
+        }
+      })
     }
-  }, [barrierSetupId, resourceUnit, fetchResourceConstraints, fetchData])
+  }, [resourceUnit, fetchResourceConstraintsRef])
 
   // open details view when a step is selected
   React.useEffect(() => {
@@ -116,7 +124,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
         setBarrierSetupId(currentStage?.data?.setupId)
       }
       if (currentStage?.data?.stepType === StepType.ResourceConstraint) {
-        setResourceUnit({ id: currentStage?.data?.stepParameters?.resourceUnit })
+        setResourceUnit(currentStage?.data?.stepParameters?.spec?.resourceUnit)
       }
     }
   }
@@ -185,7 +193,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
           itemMouseEnter={onMouseEnter}
           itemMouseLeave={() => {
             dynamicPopoverHandler?.hide()
-            setBarrierSetupId(null)
+            setBarrierSetupId(undefined)
           }}
           stageSelectionOptions={stagesOptions}
           onChangeStageSelection={(item: StageOptions) => {
