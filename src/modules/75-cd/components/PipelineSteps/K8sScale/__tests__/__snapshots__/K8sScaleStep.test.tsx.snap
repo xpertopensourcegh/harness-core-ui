@@ -1455,7 +1455,7 @@ exports[`Test K8sBlueGreenDeployStep should render variable view 1`] = `
 </div>
 `;
 
-exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace type count 1`] = `
+exports[`Test K8sBlueGreenDeployStep should submit with valid payload for instance type count 1`] = `
 <div>
   <div
     class="OverlaySpinner--overlaySpinner"
@@ -1840,7 +1840,7 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace
 </div>
 `;
 
-exports[`Test K8sBlueGreenDeployStep should submit with valid paylod for instace type percentage 1`] = `
+exports[`Test K8sBlueGreenDeployStep should submit with valid payload for instance type percentage 1`] = `
 <div>
   <div
     class="OverlaySpinner--overlaySpinner"

@@ -3,7 +3,7 @@ import { IconName, Formik, FormInput, Layout, getMultiTypeFromValue, MultiTypeIn
 import * as Yup from 'yup'
 import cx from 'classnames'
 import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
-import { isEmpty } from 'lodash-es'
+import { get, has, isEmpty } from 'lodash-es'
 import { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
@@ -235,7 +235,7 @@ export class K8sCanaryDeployStep extends PipelineStep<K8sCanaryDeployData> {
     return (
       <K8CanaryDeployWidgetWithRef
         initialValues={initialValues}
-        onUpdate={onUpdate}
+        onUpdate={values => onUpdate?.(this.processFormData(values))}
         isNewStep={isNewStep}
         stepViewType={stepViewType}
         ref={formikRef}
@@ -249,6 +249,25 @@ export class K8sCanaryDeployStep extends PipelineStep<K8sCanaryDeployData> {
 
   protected stepIcon: IconName = 'canary'
   protected isHarnessSpecific = true
+
+  processFormData(values: K8sCanaryDeployData): K8sCanaryDeployData {
+    if (
+      get(values, 'spec.instanceSelection.type') === InstanceTypes.Instances &&
+      has(values, 'spec.instanceSelection.spec.percentage')
+    ) {
+      delete values.spec.instanceSelection.spec.percentage
+    }
+
+    if (
+      get(values, 'spec.instanceSelection.type') === InstanceTypes.Percentage &&
+      has(values, 'spec.instanceSelection.spec.count')
+    ) {
+      delete values.spec.instanceSelection.spec.count
+    }
+
+    return values
+  }
+
   validateInputSet(
     data: K8sCanaryDeployData,
     template: K8sCanaryDeployData,

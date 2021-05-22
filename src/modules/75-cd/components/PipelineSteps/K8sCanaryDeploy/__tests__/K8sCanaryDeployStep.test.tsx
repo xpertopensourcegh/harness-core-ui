@@ -164,7 +164,7 @@ describe('Test K8sCanaryDeployStep', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('should submit with valid paylod for instace type percentage', async () => {
+  test('should submit with valid payload for instance type percentage', async () => {
     const onUpdate = jest.fn()
     const ref = React.createRef<StepFormikRef<unknown>>()
     const { container } = render(

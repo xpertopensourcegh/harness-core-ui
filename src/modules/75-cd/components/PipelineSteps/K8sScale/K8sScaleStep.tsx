@@ -12,7 +12,7 @@ import {
 import cx from 'classnames'
 import * as Yup from 'yup'
 import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
-import { isEmpty } from 'lodash-es'
+import { get, has, isEmpty } from 'lodash-es'
 import { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
@@ -279,7 +279,7 @@ export class K8sScaleStep extends PipelineStep<K8sScaleData> {
       <K8ScaleDeployWidgetWithRef
         initialValues={initialValues}
         isNewStep={isNewStep}
-        onUpdate={onUpdate}
+        onUpdate={values => onUpdate?.(this.processFormData(values))}
         stepViewType={stepViewType}
         ref={formikRef}
         readonly={readonly}
@@ -292,6 +292,25 @@ export class K8sScaleStep extends PipelineStep<K8sScaleData> {
 
   protected stepIcon: IconName = 'swap-vertical'
   protected isHarnessSpecific = true
+
+  processFormData(values: K8sScaleData): K8sScaleData {
+    if (
+      get(values, 'spec.instanceSelection.type') === InstanceTypes.Instances &&
+      has(values, 'spec.instanceSelection.spec.percentage')
+    ) {
+      delete values.spec.instanceSelection.spec.percentage
+    }
+
+    if (
+      get(values, 'spec.instanceSelection.type') === InstanceTypes.Percentage &&
+      has(values, 'spec.instanceSelection.spec.count')
+    ) {
+      delete values.spec.instanceSelection.spec.count
+    }
+
+    return values
+  }
+
   /* istanbul ignore next */
   validateInputSet(
     data: K8sScaleData,

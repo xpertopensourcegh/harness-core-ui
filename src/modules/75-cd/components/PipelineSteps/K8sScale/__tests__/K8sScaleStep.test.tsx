@@ -7,6 +7,7 @@ import { InstanceTypes } from '@common/constants/InstanceTypes'
 import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
 import { K8sScaleStep } from '../K8sScaleStep'
 
+// eslint-disable-next-line react/display-name
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
 ))
@@ -131,7 +132,7 @@ describe('Test K8sBlueGreenDeployStep', () => {
     expect(onUpdate).not.toBeCalled()
   })
 
-  test('should submit with valid paylod for instace type count', async () => {
+  test('should submit with valid payload for instance type count', async () => {
     const onUpdate = jest.fn()
     const ref = React.createRef<StepFormikRef<unknown>>()
     const { container } = render(
@@ -177,7 +178,7 @@ describe('Test K8sBlueGreenDeployStep', () => {
     // expect(onUpdate).toBeCalled()
   })
 
-  test('should submit with valid paylod for instace type percentage', async () => {
+  test('should submit with valid payload for instance type percentage', async () => {
     const onUpdate = jest.fn()
     const ref = React.createRef<StepFormikRef<unknown>>()
     const { container } = render(
@@ -216,6 +217,7 @@ describe('Test K8sBlueGreenDeployStep', () => {
             },
             type: 'Percentage'
           },
+          skipSteadyStateCheck: false,
           workload: 'test'
         },
         timeout: '10m',
@@ -241,6 +243,7 @@ describe('Test K8sBlueGreenDeployStep', () => {
               },
               type: 'Percentage'
             },
+            skipSteadyStateCheck: false,
             workload: 'test'
           },
           timeout: '10m',
@@ -266,6 +269,7 @@ describe('Test K8sBlueGreenDeployStep', () => {
             },
             type: 'Percentage'
           },
+          skipSteadyStateCheck: false,
           workload: 'test'
         },
         timeout: '10m',
@@ -312,6 +316,7 @@ describe('Test K8sBlueGreenDeployStep', () => {
             },
             type: 'Count'
           },
+          skipSteadyStateCheck: false,
           workload: 'test'
         },
         timeout: '10m',
