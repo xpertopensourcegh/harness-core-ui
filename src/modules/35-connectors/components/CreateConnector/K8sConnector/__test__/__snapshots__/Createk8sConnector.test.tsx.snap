@@ -781,27 +781,6 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                     </div>
                   </div>
                 </div>
-                <div
-                  class="bp3-form-group"
-                  data-id="skipDefaultValidation-6"
-                >
-                  <div
-                    class="bp3-form-content"
-                  >
-                    <label
-                      class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
-                    >
-                      <input
-                        name="skipDefaultValidation"
-                        type="checkbox"
-                      />
-                      <span
-                        class="bp3-control-indicator"
-                      />
-                      connectors.k8.skipDefaultValidation
-                    </label>
-                  </div>
-                </div>
               </div>
               <div
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
@@ -1607,27 +1586,6 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                     </div>
                   </div>
                 </div>
-                <div
-                  class="bp3-form-group"
-                  data-id="skipDefaultValidation-10"
-                >
-                  <div
-                    class="bp3-form-content"
-                  >
-                    <label
-                      class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
-                    >
-                      <input
-                        name="skipDefaultValidation"
-                        type="checkbox"
-                      />
-                      <span
-                        class="bp3-control-indicator"
-                      />
-                      connectors.k8.skipDefaultValidation
-                    </label>
-                  </div>
-                </div>
               </div>
               <div
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
@@ -2090,27 +2048,6 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-                <div
-                  class="bp3-form-group"
-                  data-id="skipDefaultValidation-3"
-                >
-                  <div
-                    class="bp3-form-content"
-                  >
-                    <label
-                      class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
-                    >
-                      <input
-                        name="skipDefaultValidation"
-                        type="checkbox"
-                      />
-                      <span
-                        class="bp3-control-indicator"
-                      />
-                      connectors.k8.skipDefaultValidation
-                    </label>
                   </div>
                 </div>
               </div>
@@ -3009,27 +2946,6 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                     </div>
                   </div>
                 </div>
-                <div
-                  class="bp3-form-group"
-                  data-id="skipDefaultValidation-6"
-                >
-                  <div
-                    class="bp3-form-content"
-                  >
-                    <label
-                      class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
-                    >
-                      <input
-                        name="skipDefaultValidation"
-                        type="checkbox"
-                      />
-                      <span
-                        class="bp3-control-indicator"
-                      />
-                      connectors.k8.skipDefaultValidation
-                    </label>
-                  </div>
-                </div>
               </div>
               <div
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
@@ -3800,27 +3716,6 @@ exports[`should form for edit authtype clientKey 1`] = `
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-                <div
-                  class="bp3-form-group"
-                  data-id="skipDefaultValidation-7"
-                >
-                  <div
-                    class="bp3-form-content"
-                  >
-                    <label
-                      class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
-                    >
-                      <input
-                        name="skipDefaultValidation"
-                        type="checkbox"
-                      />
-                      <span
-                        class="bp3-control-indicator"
-                      />
-                      connectors.k8.skipDefaultValidation
-                    </label>
                   </div>
                 </div>
               </div>

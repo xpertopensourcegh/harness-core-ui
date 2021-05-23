@@ -84,7 +84,7 @@ testConnectionStep:
     bitbucket: 'URL : '
     gcr: 'GCR URL : '
   validationText:
-    k8s: Validating the cluster authentication and permissions
+    k8s: Validating the reachability of provided url
     docker: Validating the Docker Registry authentication and permissions
     artifactory: Validating the Artifactory Repository authentication and permissions
     nexus: Validating the Nexus Repository authentication and permissions

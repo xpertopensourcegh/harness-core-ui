@@ -359,11 +359,6 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
                   </Container>
 
                   <RenderK8AuthForm {...formikProps} isEditMode={props.isEditMode} />
-                  <FormInput.CheckBox
-                    name="skipDefaultValidation"
-                    label={getString('connectors.k8.skipDefaultValidation')}
-                    padding={{ left: 'xxlarge' }}
-                  />
                 </>
               ) : (
                 <></>

@@ -322,27 +322,6 @@ exports[`Stepk8ClusterDetails render  1`] = `
                 </div>
               </div>
             </div>
-            <div
-              class="bp3-form-group"
-              data-id="skipDefaultValidation-6"
-            >
-              <div
-                class="bp3-form-content"
-              >
-                <label
-                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
-                >
-                  <input
-                    name="skipDefaultValidation"
-                    type="checkbox"
-                  />
-                  <span
-                    class="bp3-control-indicator"
-                  />
-                  connectors.k8.skipDefaultValidation
-                </label>
-              </div>
-            </div>
           </div>
           <div
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
@@ -751,27 +730,6 @@ exports[`Stepk8ClusterDetails render  2`] = `
                 </div>
               </div>
             </div>
-            <div
-              class="bp3-form-group"
-              data-id="skipDefaultValidation-6"
-            >
-              <div
-                class="bp3-form-content"
-              >
-                <label
-                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
-                >
-                  <input
-                    name="skipDefaultValidation"
-                    type="checkbox"
-                  />
-                  <span
-                    class="bp3-control-indicator"
-                  />
-                  connectors.k8.skipDefaultValidation
-                </label>
-              </div>
-            </div>
           </div>
           <div
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
@@ -1178,27 +1136,6 @@ exports[`Stepk8ClusterDetails render  3`] = `
                     validation.password
                   </div>
                 </div>
-              </div>
-            </div>
-            <div
-              class="bp3-form-group"
-              data-id="skipDefaultValidation-6"
-            >
-              <div
-                class="bp3-form-content"
-              >
-                <label
-                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
-                >
-                  <input
-                    name="skipDefaultValidation"
-                    type="checkbox"
-                  />
-                  <span
-                    class="bp3-control-indicator"
-                  />
-                  connectors.k8.skipDefaultValidation
-                </label>
               </div>
             </div>
           </div>
@@ -1626,27 +1563,6 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
                 </div>
               </div>
             </div>
-            <div
-              class="bp3-form-group"
-              data-id="skipDefaultValidation-6"
-            >
-              <div
-                class="bp3-form-content"
-              >
-                <label
-                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
-                >
-                  <input
-                    name="skipDefaultValidation"
-                    type="checkbox"
-                  />
-                  <span
-                    class="bp3-control-indicator"
-                  />
-                  connectors.k8.skipDefaultValidation
-                </label>
-              </div>
-            </div>
           </div>
           <div
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
@@ -1980,27 +1896,6 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
                 </div>
               </div>
             </div>
-            <div
-              class="bp3-form-group"
-              data-id="skipDefaultValidation-3"
-            >
-              <div
-                class="bp3-form-content"
-              >
-                <label
-                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
-                >
-                  <input
-                    name="skipDefaultValidation"
-                    type="checkbox"
-                  />
-                  <span
-                    class="bp3-control-indicator"
-                  />
-                  connectors.k8.skipDefaultValidation
-                </label>
-              </div>
-            </div>
           </div>
           <div
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
@@ -2237,27 +2132,6 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div
-              class="bp3-form-group"
-              data-id="skipDefaultValidation-2"
-            >
-              <div
-                class="bp3-form-content"
-              >
-                <label
-                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
-                >
-                  <input
-                    name="skipDefaultValidation"
-                    type="checkbox"
-                  />
-                  <span
-                    class="bp3-control-indicator"
-                  />
-                  connectors.k8.skipDefaultValidation
-                </label>
               </div>
             </div>
           </div>
@@ -2932,27 +2806,6 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                     value="dhgjdd"
                   />
                 </div>
-              </div>
-            </div>
-            <div
-              class="bp3-form-group"
-              data-id="skipDefaultValidation-10"
-            >
-              <div
-                class="bp3-form-content"
-              >
-                <label
-                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--padding-left-xxlarge StyledProps--inline"
-                >
-                  <input
-                    name="skipDefaultValidation"
-                    type="checkbox"
-                  />
-                  <span
-                    class="bp3-control-indicator"
-                  />
-                  connectors.k8.skipDefaultValidation
-                </label>
               </div>
             </div>
           </div>
