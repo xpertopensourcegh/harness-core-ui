@@ -37,6 +37,9 @@ interface DeploymentTypeGroup {
   items: DeploymentTypeItem[]
 }
 
+// TODO: Add key once we have default value
+const DEFAULT_INFRA_KEY = ''
+
 export default function DeployInfraSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
   const isProvisionerEnabled = useFeatureFlag('NG_PROVISIONERS')
   const [initialInfrastructureDefinitionValues, setInitialInfrastructureDefinitionValues] = React.useState<
@@ -118,7 +121,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
       environmentRef: '',
       infrastructureDefinition: {},
       allowSimultaneousDeployments: false,
-      infrastructureKey: ''
+      infrastructureKey: DEFAULT_INFRA_KEY
     }
   }
 
@@ -141,8 +144,8 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
         type,
         spec: omit(extendedSpec, 'allowSimultaneousDeployments', 'infrastructureKey')
       }
-      infrastructure.allowSimultaneousDeployments = extendedSpec.allowSimultaneousDeployments || false
-      infrastructure.infrastructureKey = extendedSpec.infrastructureKey || ''
+      infrastructure.allowSimultaneousDeployments = extendedSpec.allowSimultaneousDeployments ?? false
+      infrastructure.infrastructureKey = extendedSpec.infrastructureKey ?? DEFAULT_INFRA_KEY
       debounceUpdatePipeline(pipeline)
     }
   }
@@ -314,7 +317,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
     const infrastructure = get(stageData, 'stage.spec.infrastructure.infrastructureDefinition', null)
     const type = infrastructure?.type || deploymentType
     const allowSimultaneousDeployments = get(stageData, 'stage.spec.infrastructure.allowSimultaneousDeployments', false)
-    const infrastructureKey = get(stageData, 'stage.spec.infrastructure.infrastructureKey', false)
+    const infrastructureKey = get(stageData, 'stage.spec.infrastructure.infrastructureKey', DEFAULT_INFRA_KEY)
     switch (type) {
       case 'KubernetesDirect': {
         const connectorRef = infrastructure?.spec?.connectorRef
