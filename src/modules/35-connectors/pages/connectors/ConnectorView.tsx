@@ -412,6 +412,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
                     })
                   : undefined
               }}
+              withoutBoxShadow
             />
           )}
         </Container>

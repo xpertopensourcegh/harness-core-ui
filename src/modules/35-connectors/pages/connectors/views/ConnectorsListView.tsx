@@ -410,6 +410,7 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
               status: 'PROCESS' // Replace when enum is added in uikit
             })
           }}
+          withoutBoxShadow
         />
       ) : null}
     </Layout.Horizontal>
