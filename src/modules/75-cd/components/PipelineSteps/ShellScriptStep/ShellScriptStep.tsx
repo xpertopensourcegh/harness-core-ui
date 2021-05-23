@@ -264,7 +264,7 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
       ...data,
       spec: {
         ...data.spec,
-        onDelegate: data.spec?.onDelegate === 'targethost' ? false : true,
+        onDelegate: data.spec?.onDelegate !== 'targethost',
 
         source: {
           ...data.spec?.source,

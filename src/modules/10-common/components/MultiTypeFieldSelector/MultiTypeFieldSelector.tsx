@@ -27,6 +27,7 @@ export interface MultiTypeFieldSelectorProps extends Omit<IFormGroupProps, 'labe
   defaultValueToReset?: unknown
   style?: CSSProperties
   disableTypeSelection?: boolean
+  skipRenderValueInExpressionLabel?: boolean
   expressionRender?(): React.ReactNode
   allowedTypes?: MultiTypeInputType[]
 }
@@ -81,6 +82,7 @@ export function MultiTypeFieldSelector(props: ConnectedMultiTypeFieldSelectorPro
     disableTypeSelection,
     allowedTypes = [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME],
     expressionRender,
+    skipRenderValueInExpressionLabel,
     ...restProps
   } = props
   const error = get(formik?.errors, name)
@@ -119,7 +121,8 @@ export function MultiTypeFieldSelector(props: ConnectedMultiTypeFieldSelectorPro
             label
           ) : (
             <span>
-              {label} <b>{value}</b>
+              {label}{' '}
+              {skipRenderValueInExpressionLabel && type === MultiTypeInputType.EXPRESSION ? null : <b>{value}</b>}
             </span>
           )}
           {disableTypeSelection ? null : (

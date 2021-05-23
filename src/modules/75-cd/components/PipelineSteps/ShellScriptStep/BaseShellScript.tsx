@@ -1,13 +1,7 @@
 import React from 'react'
 import type { FormikProps } from 'formik'
 import cx from 'classnames'
-import {
-  FormInput,
-  getMultiTypeFromValue,
-  MultiTypeInputType,
-  SelectOption,
-  ExpressionInput
-} from '@wings-software/uicore'
+import { FormInput, getMultiTypeFromValue, MultiTypeInputType, SelectOption } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
@@ -64,18 +58,24 @@ export default function BaseShellScript(props: {
           defaultValueToReset=""
           disabled={readonly}
           allowedTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]}
+          skipRenderValueInExpressionLabel
           expressionRender={() => {
             return (
-              <ExpressionInput
-                value={formValues?.spec?.source?.spec?.script || ''}
+              <ShellScriptMonacoField
                 name="spec.source.spec.script"
-                onChange={value => setFieldValue('spec.source.spec.script', value)}
+                scriptType={scriptType}
                 disabled={readonly}
+                expressions={expressions}
               />
             )
           }}
         >
-          <ShellScriptMonacoField name="spec.source.spec.script" scriptType={scriptType} disabled={readonly} />
+          <ShellScriptMonacoField
+            name="spec.source.spec.script"
+            scriptType={scriptType}
+            disabled={readonly}
+            expressions={expressions}
+          />
         </MultiTypeFieldSelector>
         {getMultiTypeFromValue(formValues.spec.source?.spec?.script) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
