@@ -27,7 +27,7 @@ exports[`DelegateSelectorStep should render DelegateSelectorStep component 1`] =
               connectors.delegate.configure
             </p>
             <div
-              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-small"
+              class="StyledProps--font StyledProps--main"
             >
               <div
                 class="Layout--horizontal StyledProps--main StyledProps--margin-bottom-medium StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -48,7 +48,7 @@ exports[`DelegateSelectorStep should render DelegateSelectorStep component 1`] =
                 </label>
               </div>
               <div
-                class="Layout--horizontal StyledProps--main StyledProps--margin-bottom-medium StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+                class="Layout--horizontal StyledProps--main StyledProps--margin-bottom-small StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
               >
                 <label
                   class="bp3-control bp3-radio radio"
@@ -63,30 +63,34 @@ exports[`DelegateSelectorStep should render DelegateSelectorStep component 1`] =
                   />
                   connectors.delegate.delegateSelectorSelective
                 </label>
+              </div>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--margin-bottom-small"
+            >
+              <div
+                data-name="DelegateSelectors"
+              >
                 <div
-                  data-name="DelegateSelectors"
+                  class="bp3-popover-wrapper formInput delegatePopover bp3-fill"
                 >
                   <div
-                    class="bp3-popover-wrapper formInput delegatePopover bp3-fill"
+                    class="bp3-popover-target"
                   >
                     <div
-                      class="bp3-popover-target"
+                      class=""
                     >
                       <div
-                        class=""
+                        class="bp3-input bp3-tag-input bp3-fill bp3-multi-select"
                       >
                         <div
-                          class="bp3-input bp3-tag-input bp3-fill bp3-multi-select"
+                          class="bp3-tag-input-values"
                         >
-                          <div
-                            class="bp3-tag-input-values"
-                          >
-                            <input
-                              class="bp3-input-ghost bp3-multi-select-tag-input-input"
-                              placeholder="delegate.DelegateselectionPlaceholder"
-                              value=""
-                            />
-                          </div>
+                          <input
+                            class="bp3-input-ghost bp3-multi-select-tag-input-input"
+                            placeholder="delegate.DelegateselectionPlaceholder"
+                            value=""
+                          />
                         </div>
                       </div>
                     </div>

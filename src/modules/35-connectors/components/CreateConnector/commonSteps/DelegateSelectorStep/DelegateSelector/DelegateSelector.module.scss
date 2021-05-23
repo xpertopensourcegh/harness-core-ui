@@ -4,8 +4,10 @@
   }
 
   .formInput {
-    width: 280px !important;
+    min-width: 310px;
+    max-width: 620px !important;
     margin: 0 var(--spacing-small);
+    padding-right: var(--spacing-medium);
     :global(.bp3-tag-input) {
       height: auto !important;
     }
@@ -19,6 +21,10 @@
 
   :global(.bp3-control) {
     margin-bottom: 0;
+  }
+
+  :global(.bp3-tag) {
+    max-width: 590px;
   }
 
   .table {

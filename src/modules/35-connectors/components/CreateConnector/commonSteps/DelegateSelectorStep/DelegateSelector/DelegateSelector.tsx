@@ -54,12 +54,12 @@ const shouldDelegateBeChecked = (delegateSelectors: Array<string>, tags: Array<s
 const CustomRadioGroup: React.FC<CustomRadioGroupProps> = props => {
   const { items, onClick } = props
   return (
-    <Container margin={{ bottom: 'small' }}>
+    <Container>
       {items.map((item, index) => {
         const { CustomComponent = NullRenderer } = item
         return (
           <Layout.Horizontal
-            margin={{ bottom: 'medium' }}
+            margin={index === items.length - 1 ? { bottom: 'small' } : { bottom: 'medium' }}
             flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
             key={index}
           >
@@ -165,10 +165,10 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
 
   const CustomComponent = useMemo(() => {
     return (
-      <>
+      <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }} margin={{ bottom: 'small' }}>
         {DelegateSelectorsCustomComponent}
         {DelegateSelectorCountComponent}
-      </>
+      </Layout.Horizontal>
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formattedData])
@@ -184,8 +184,7 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
       {
         label: getString('connectors.delegate.delegateSelectorSelective'),
         value: DelegateOptions.DelegateOptionsSelective,
-        checked: mode === DelegateOptions.DelegateOptionsSelective,
-        CustomComponent
+        checked: mode === DelegateOptions.DelegateOptionsSelective
       }
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -204,6 +203,7 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
         {getString('connectors.delegate.configure')}
       </Text>
       <CustomRadioGroup items={options} onClick={newMode => setMode(newMode)} />
+      {CustomComponent}
       <Layout.Horizontal flex={{ justifyContent: 'space-between' }} margin={{ bottom: 'medium' }}>
         <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
           {getString('connectors.delegate.testDelegateConnectivity')}
