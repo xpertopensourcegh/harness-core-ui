@@ -25,25 +25,17 @@ exports[`Connector Details Page Edit and save connector YAML 1`] = `
             class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
           >
             <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--intent-primary StyledProps--margin-top-large"
+              class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-top-large Button--with-current-color"
+              disabled=""
               id="saveYAMLChanges"
+              tabindex="-1"
               title=""
               type="button"
             >
               <span
                 class="bp3-button-text"
               >
-                Save Changes
-              </span>
-            </button>
-            <button
-              class="bp3-button StyledProps--font Button--button StyledProps--main StyledProps--margin-top-large"
-              type="button"
-            >
-              <span
-                class="bp3-button-text"
-              >
-                Cancel
+                saveChanges
               </span>
             </button>
           </div>

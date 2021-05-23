@@ -14,6 +14,13 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => {
   return ComponentToMock
 })
 
+jest.mock('services/cd-ng', () => ({
+  useListSecretsV2: jest.fn().mockImplementation(() => {
+    return { data: {} }
+  }),
+  useGetYamlSchema: jest.fn().mockImplementation(() => ({ refetch: jest.fn(), loading: false }))
+}))
+
 describe('Connector Details Page', () => {
   const setup = (type = 'Git') =>
     render(
@@ -55,7 +62,7 @@ describe('Connector Details Page', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('should verify switching to yaml display yaml builder', async () => {
+  test('should verify switching to yaml and display yaml builder', async () => {
     const { container } = setup()
     const getYamlBuilderContainer = () => container.querySelector('[data-test="yamlBuilderContainer"]')
     expect(getYamlBuilderContainer()).toBeFalsy()
@@ -67,13 +74,12 @@ describe('Connector Details Page', () => {
     expect(getYamlBuilderContainer()).toBeTruthy()
   })
 
-  // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('Edit and save connector YAML', async () => {
-    const { container, getByText } = setup()
-    const switchToYAML = getByText('YAML')
-    expect(switchToYAML).toBeDefined()
-    fireEvent.click(switchToYAML)
+  test('Edit and save connector YAML', async () => {
+    const { container } = setup()
     await waitFor(() => {
+      const switchToYAML = container.querySelector('[data-test="connectorViewYaml"]')
+      expect(switchToYAML).toBeTruthy()
+      fireEvent.click(switchToYAML!)
       const editDetailsBtn = container?.querySelector('#editDetailsBtn')
       fireEvent.click(editDetailsBtn!)
     })

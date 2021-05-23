@@ -1,38 +1,26 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Button, Layout, Container, Icon, Text, Color } from '@wings-software/uicore'
-import { parse, stringify } from 'yaml'
+import { parse } from 'yaml'
 import cx from 'classnames'
 import moment from 'moment'
-import { CompletionItemKind } from 'vscode-languageserver-types'
 import { useToaster, useConfirmationDialog, StringUtils } from '@common/exports'
 import {
   ConnectorInfoDTO,
   ConnectorRequestBody,
   ConnectorResponse,
-  useGetYamlSnippetMetadata,
-  useGetYamlSnippet,
   ResponseJsonNode,
   ResponseYamlSnippets,
-  useListSecretsV2,
   ResponsePageSecretResponseWrapper,
-  ConnectorConnectivityDetails
+  ConnectorConnectivityDetails,
+  useGetYamlSchema
 } from 'services/cd-ng'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import YamlBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import TestConnection from '@connectors/components/TestConnection/TestConnection'
-import type {
-  CompletionItemInterface,
-  InvocationMapFunction,
-  SnippetFetchResponse,
-  YamlBuilderHandlerBinding,
-  YamlBuilderProps
-} from '@common/interfaces/YAMLBuilderProps'
-import { getReference } from '@secrets/utils/SSHAuthUtils'
+import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
 import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
-import { useGetYamlSchema } from 'services/cd-ng'
 import type { UseGetMockData } from '@common/utils/testUtils'
-import { getSnippetTags } from '@common/utils/SnippetUtils'
 import { PageSpinner } from '@common/components'
 import { useStrings } from 'framework/strings'
 import { Connectors, ConnectorStatus } from '@connectors/constants'
@@ -40,7 +28,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacButton from '@rbac/components/Button/Button'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
-import { getInvocationPathsForSecrets, getUrlValueByType } from './utils/ConnectorUtils'
+import { getUrlValueByType } from './utils/ConnectorUtils'
 import SavedConnectorDetails from './views/savedDetailsView/SavedConnectorDetails'
 import css from './ConnectorView.module.scss'
 
@@ -88,7 +76,6 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
 
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const [isValidYAML] = React.useState<boolean>(true)
-  const [snippetFetchResponse, setSnippetFetchResponse] = React.useState<SnippetFetchResponse>()
   const [isUpdating, setIsUpdating] = React.useState<boolean>(false)
   const { getString } = useStrings()
   // TODO: remove the connector condition after migrating CEAWS connector to 35-connectors module
@@ -155,8 +142,8 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
         showError(err.name ? `${err.name}: ${err.message}` : err)
       }
     } else {
+      fetchingConnectorSchema()
       setSelectedView(targetMode)
-      fetchSecrets()
     }
   }
 
@@ -193,44 +180,6 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
     }
   }
 
-  const { data: secretsResponse, refetch: fetchSecrets } = useListSecretsV2({
-    queryParams: {
-      accountIdentifier: accountId,
-      pageIndex: 0,
-      pageSize: 100,
-      orgIdentifier,
-      projectIdentifier
-    },
-    mock: props.mockSecretData,
-    debounce: 300,
-    lazy: true
-  })
-
-  const currentScope = getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
-
-  const secrets: CompletionItemInterface[] = React.useMemo(() => {
-    return (
-      secretsResponse?.data?.content?.map(item => ({
-        label: getReference(currentScope, item.secret.name) || /* istanbul ignore next */ '',
-        insertText: getReference(currentScope, item.secret.identifier) || /* istanbul ignore next */ '',
-        kind: CompletionItemKind.Enum,
-        key: item.secret.identifier
-      })) || []
-    )
-  }, [secretsResponse?.data?.content?.map])
-
-  const invocationMap: YamlBuilderProps['invocationMap'] = new Map<RegExp, InvocationMapFunction>()
-  getInvocationPathsForSecrets(connector.type).forEach((path: RegExp) =>
-    invocationMap.set(
-      path,
-      (_matchingPath: string, _currentYaml: string): Promise<CompletionItemInterface[]> => {
-        return new Promise(resolve => {
-          resolve(secrets)
-        })
-      }
-    )
-  )
-
   const { openConnectorModal } = useCreateConnectorModal({
     onSuccess: data => {
       setConnector(data?.connector as ConnectorInfoDTO)
@@ -250,62 +199,64 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
     }
   }, [props.response])
 
-  const { data: snippet, refetch, cancel, loading: isFetchingSnippet, error: errorFetchingSnippet } = useGetYamlSnippet(
-    {
-      identifier: '',
-      requestOptions: { headers: { accept: 'application/json' } },
-      lazy: true,
-      // mock: props.mockSnippetData,
-      queryParams: {
-        projectIdentifier,
-        orgIdentifier,
-        scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
-      }
-    }
-  )
+  // TODO @vardan uncomment this section one snippets are re-enabled
+  // const { data: snippet, refetch, cancel, loading: isFetchingSnippet, error: errorFetchingSnippet } = useGetYamlSnippet(
+  //   {
+  //     identifier: '',
+  //     requestOptions: { headers: { accept: 'application/json' } },
+  //     lazy: true,
+  //     // mock: props.mockSnippetData,
+  //     queryParams: {
+  //       projectIdentifier,
+  //       orgIdentifier,
+  //       scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
+  //     }
+  //   }
+  // )
 
-  useEffect(() => {
-    let snippetStr = ''
-    try {
-      snippetStr = snippet?.data ? stringify(snippet.data, { indent: 4 }) : ''
-    } catch {
-      /**/
-    }
-    setSnippetFetchResponse({
-      snippet: snippetStr,
-      loading: isFetchingSnippet,
-      error: errorFetchingSnippet
-    })
-  }, [isFetchingSnippet])
+  // useEffect(() => {
+  //   let snippetStr = ''
+  //   try {
+  //     snippetStr = snippet?.data ? stringify(snippet.data, { indent: 4 }) : ''
+  //   } catch {
+  //     /**/
+  //   }
+  //   setSnippetFetchResponse({
+  //     snippet: snippetStr,
+  //     loading: isFetchingSnippet,
+  //     error: errorFetchingSnippet
+  //   })
+  // }, [isFetchingSnippet])
 
-  const onSnippetCopy = async (identifier: string): Promise<void> => {
-    cancel()
-    await refetch({
-      pathParams: {
-        identifier
-      }
-    })
-  }
+  // const onSnippetCopy = async (identifier: string): Promise<void> => {
+  //   cancel()
+  //   await refetch({
+  //     pathParams: {
+  //       identifier
+  //     }
+  //   })
+  // }
 
-  const { data: snippetMetaData, loading: isFetchingSnippets } = useGetYamlSnippetMetadata({
-    queryParams: {
-      tags: getSnippetTags('Connectors', props.type)
-    },
-    queryParamStringifyOptions: {
-      arrayFormat: 'repeat'
-    },
-    requestOptions: { headers: { accept: 'application/json' } },
-    mock: props.mockMetaData
-  })
+  // const { data: snippetMetaData, loading: isFetchingSnippets } = useGetYamlSnippetMetadata({
+  //   queryParams: {
+  //     tags: getSnippetTags('Connectors', props.type)
+  //   },
+  //   queryParamStringifyOptions: {
+  //     arrayFormat: 'repeat'
+  //   },
+  //   requestOptions: { headers: { accept: 'application/json' } },
+  //   mock: props.mockMetaData
+  // })
 
-  const { data: connectorSchema } = useGetYamlSchema({
+  const { data: connectorSchema, loading: isFetchingSchema, refetch: fetchingConnectorSchema } = useGetYamlSchema({
     queryParams: {
       entityType: 'Connectors',
       projectIdentifier,
       orgIdentifier,
       scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
     },
-    mock: props.mockSchemaData
+    mock: props.mockSchemaData,
+    lazy: true
   })
 
   const RenderConnectorStatus = (status: ConnectorConnectivityDetails['status']): React.ReactElement => {
@@ -467,19 +418,18 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
         <Layout.Horizontal height="100%">
           {isUpdating ? <PageSpinner message={getString('connectors.updating')} /> : null}
           {enableEdit ? (
-            selectedView === SelectedView.VISUAL ? null : isFetchingSnippets ? (
+            selectedView === SelectedView.VISUAL ? null : isFetchingSchema ? (
               <PageSpinner />
             ) : (
               <div className={css.fullWidth}>
                 <YamlBuilder
                   {...yamlBuilderReadOnlyModeProps}
-                  snippets={snippetMetaData?.data?.yamlSnippets}
-                  onSnippetCopy={onSnippetCopy}
-                  snippetFetchResponse={snippetFetchResponse}
+                  // snippets={snippetMetaData?.data?.yamlSnippets}
+                  // onSnippetCopy={onSnippetCopy}
+                  // snippetFetchResponse={snippetFetchResponse}
                   schema={connectorSchema?.data}
                   isReadOnlyMode={false}
                   bind={setYamlHandler}
-                  invocationMap={invocationMap}
                   onChange={onConnectorChange}
                   showSnippetSection={false}
                 />
@@ -503,6 +453,8 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
             <Layout.Horizontal spacing="medium" height="100%" width="100%">
               <SavedConnectorDetails connector={connector}></SavedConnectorDetails>
             </Layout.Horizontal>
+          ) : isFetchingSchema ? (
+            <PageSpinner />
           ) : (
             <Layout.Horizontal spacing="medium" className={css.fullWidth}>
               <div className={css.yamlView} data-test="yamlBuilderContainer">
