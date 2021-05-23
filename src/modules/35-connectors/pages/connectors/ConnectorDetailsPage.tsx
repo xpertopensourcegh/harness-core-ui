@@ -5,13 +5,20 @@ import cx from 'classnames'
 import { Link, useParams, useLocation } from 'react-router-dom'
 import { Page } from '@common/exports'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
-import { useGetConnector, ConnectorResponse, useUpdateConnector, useGetOrganizationAggregateDTO } from 'services/cd-ng'
+import {
+  useGetConnector,
+  ConnectorResponse,
+  useUpdateConnector,
+  useGetOrganizationAggregateDTO,
+  EntityGitDetails
+} from 'services/cd-ng'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { useStrings } from 'framework/strings'
 import ActivityHistory from '@connectors/components/activityHistory/ActivityHistory/ActivityHistory'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import type { ProjectPathProps, ConnectorPathProps } from '@common/interfaces/RouteInterfaces'
 import { PageError } from '@common/components/Page/PageError'
+import { useQueryParams } from '@common/hooks'
 import ReferencedBy from './ReferencedBy/ReferencedBy'
 import ConnectorView from './ConnectorView'
 import { getIconByType } from './utils/ConnectorUtils'
@@ -27,14 +34,18 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
   const { connectorId, accountId, orgIdentifier, projectIdentifier } = useParams<
     ProjectPathProps & ConnectorPathProps
   >()
+  const { repoIdentifier, branch } = useQueryParams<EntityGitDetails>()
   const { pathname } = useLocation()
+
+  const defaultQueryParam = {
+    accountIdentifier: accountId,
+    orgIdentifier: orgIdentifier as string,
+    projectIdentifier: projectIdentifier as string
+  }
+
   const { loading, data, refetch, error } = useGetConnector({
     identifier: connectorId as string,
-    queryParams: {
-      accountIdentifier: accountId,
-      orgIdentifier: orgIdentifier as string,
-      projectIdentifier: projectIdentifier as string
-    },
+    queryParams: repoIdentifier && branch ? { ...defaultQueryParam, repoIdentifier, branch } : defaultQueryParam,
     mock: props.mockData
   })
   const connectorName = data?.data?.connector?.name

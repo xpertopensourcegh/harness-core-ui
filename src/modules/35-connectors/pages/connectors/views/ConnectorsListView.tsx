@@ -15,7 +15,8 @@ import {
   useGetTestConnectionResult,
   ConnectorConnectivityDetails,
   ConnectorInfoDTO,
-  ConnectorValidationResult
+  ConnectorValidationResult,
+  EntityGitDetails
 } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
 import { useConfirmationDialog } from '@common/exports'
@@ -613,7 +614,10 @@ const ConnectorsListView: React.FC<ConnectorListViewProps> = props => {
       columns={columns}
       data={listData}
       onRowClick={connector => {
-        history.push(`${pathname}/${connector.connector?.identifier}`)
+        const url = `${pathname}/${connector.connector?.identifier}`
+        const gitInfo: EntityGitDetails = connector.gitDetails ?? {}
+        const urlForGit = `${pathname}/${connector.connector?.identifier}?repoIdentifier=${gitInfo.repoIdentifier}&branch=${gitInfo.branch}`
+        history.push(gitInfo?.objectId ? urlForGit : url)
       }}
       pagination={{
         itemCount: data?.totalItems || 0,
