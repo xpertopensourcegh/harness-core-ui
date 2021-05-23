@@ -6,8 +6,7 @@ import {
   Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  FormikForm,
-  ExpressionInput
+  FormikForm
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
@@ -158,21 +157,27 @@ export const RunStepBase = (
                     </Text>
                   }
                   defaultValueToReset=""
+                  skipRenderValueInExpressionLabel
                   allowedTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]}
                   expressionRender={() => {
                     return (
-                      <ExpressionInput
-                        value={formik?.values?.spec?.command || ''}
+                      <ShellScriptMonacoField
                         name="spec.command"
-                        items={expressions}
-                        onChange={value => formik?.setFieldValue('spec.command', value)}
+                        scriptType="Bash"
+                        expressions={expressions}
+                        disabled={readonly}
                       />
                     )
                   }}
                   style={{ flexGrow: 1, marginBottom: 0 }}
                   disableTypeSelection={readonly}
                 >
-                  <ShellScriptMonacoField name="spec.command" scriptType="Bash" disabled={readonly} />
+                  <ShellScriptMonacoField
+                    name="spec.command"
+                    scriptType="Bash"
+                    disabled={readonly}
+                    expressions={expressions}
+                  />
                 </MultiTypeFieldSelector>
                 {getMultiTypeFromValue(formik?.values?.spec?.command) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions

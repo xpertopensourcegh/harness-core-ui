@@ -290,20 +290,26 @@ export const RunTestsStepBase = (
                   }
                   defaultValueToReset=""
                   allowedTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]}
+                  skipRenderValueInExpressionLabel
                   expressionRender={() => {
                     return (
-                      <ExpressionInput
-                        value={formik?.values?.spec?.postCommand || ''}
+                      <ShellScriptMonacoField
                         name="spec.postCommand"
-                        items={expressions}
-                        onChange={value => formik?.setFieldValue('spec.postCommand', value)}
+                        scriptType="Bash"
+                        disabled={readonly}
+                        expressions={expressions}
                       />
                     )
                   }}
                   style={{ flexGrow: 1, marginBottom: 0 }}
                   disableTypeSelection={readonly}
                 >
-                  <ShellScriptMonacoField name="spec.postCommand" scriptType="Bash" disabled={readonly} />
+                  <ShellScriptMonacoField
+                    name="spec.postCommand"
+                    scriptType="Bash"
+                    disabled={readonly}
+                    expressions={expressions}
+                  />
                 </MultiTypeFieldSelector>
                 {getMultiTypeFromValue(formik?.values?.spec?.postCommand) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions

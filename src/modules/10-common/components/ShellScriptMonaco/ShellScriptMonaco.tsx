@@ -51,7 +51,7 @@ export function ShellScriptMonaco(props: ConnectedShellScriptMonacoProps): React
 
       Object.values(langMap).forEach(lang => {
         const disposable = (monaco?.languages as Languages)?.registerCompletionItemProvider(lang, {
-          triggerCharacters: ['<'],
+          triggerCharacters: ['+', '.'],
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           provideCompletionItems(model, position): any {
             const prevText = model.getValueInRange({
