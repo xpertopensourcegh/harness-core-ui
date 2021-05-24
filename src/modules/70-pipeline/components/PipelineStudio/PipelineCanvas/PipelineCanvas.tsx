@@ -283,13 +283,15 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       history.push(toPipelineList({ orgIdentifier, projectIdentifier, accountId, module }))
     }
     hideModal()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     accountId,
     hideModal,
     history,
     module,
     orgIdentifier,
-    pipeline.identifier,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    pipeline?.identifier,
     projectIdentifier,
     toPipelineList,
     getOtherModal,
