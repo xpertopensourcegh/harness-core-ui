@@ -162,9 +162,9 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
           showError(getString('yamlBuilder.yamlError'))
         } else {
           onSubmit(connectorJSONEq)
+          setConnector(connectorJSONEq?.connector)
+          setConnectorForYaml(connectorJSONEq?.connector)
         }
-        setConnector(connectorJSONEq?.connector)
-        setConnectorForYaml(connectorJSONEq?.connector)
       }
     } /* istanbul ignore next */ catch (err) {
       if (err?.toString().includes('YAMLSemanticError')) {
@@ -360,7 +360,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
     entityType: 'Connectors',
     existingJSON: { connector: connectorForYaml },
     isReadOnlyMode: true,
-    height: 'calc(100vh - 300px)',
+    height: 'calc(100vh - 350px)',
     yamlSanityConfig: {
       removeEmptyString: false
     }
