@@ -80,9 +80,9 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) 
   const sortByItems = useMemo(
     () => [
       { label: getString('common.failureRate'), value: SortByKey.FAILURE_RATE },
-      { label: getString('ci.testsReports.failedTests'), value: SortByKey.FAILED_TESTS },
+      { label: getString('pipeline.testsReports.failedTests'), value: SortByKey.FAILED_TESTS },
       { label: getString('pipeline.duration'), value: SortByKey.DURATION_MS },
-      { label: getString('ci.testsReports.totalTests'), value: SortByKey.TOTAL_TESTS }
+      { label: getString('pipeline.testsReports.totalTests'), value: SortByKey.TOTAL_TESTS }
     ],
     [getString]
   )
@@ -97,7 +97,7 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) 
         if (isMounted.current) {
           fetchExecutionSummary({ queryParams: params })
         }
-      }, 2000)
+      }, 250)
     },
     [isMounted, fetchExecutionSummary]
   )
@@ -108,7 +108,7 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) 
         fetchExecutionSummary({ queryParams })
       }
     }
-  }, [isMounted, status, executionSummary, error, loading, fetchExecutionSummary, queryParams, fetchExecutionSummary])
+  }, [status, executionSummary, error, loading, fetchExecutionSummary, queryParams])
 
   // When build/execution is not resolved from context, render nothing
   if (!status) {
@@ -119,12 +119,12 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) 
     <div className={cx(css.widgetWrapper, css.rightContainer)}>
       <Container flex={{ justifyContent: 'flex-start' }} margin={{ bottom: 'xsmall' }}>
         <Heading level={2} font={{ weight: 'semi-bold' }} color={Color.GREY_600}>
-          {getString('ci.testsReports.testCasesExecution')}
+          {getString('pipeline.testsReports.testCasesExecution')}
         </Heading>
         <Button
           icon="question"
           minimal
-          tooltip={getString('ci.testsReports.testCasesExecutionInfo')}
+          tooltip={getString('pipeline.testsReports.testCasesExecutionInfo')}
           iconProps={{ size: 14 }}
           margin={{ left: 'xsmall' }}
         />
@@ -134,7 +134,7 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) 
       <Container className={css.widget} padding="medium">
         <Container flex>
           <Switch
-            label={getString('ci.testsReports.showOnlyFailedTests')}
+            label={getString('pipeline.testsReports.showOnlyFailedTests')}
             style={{ alignSelf: 'center' }}
             checked={showFailedTestsOnly}
             onChange={e => {
@@ -150,7 +150,7 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) 
           />
 
           <Layout.Horizontal spacing="small">
-            <Text style={{ alignSelf: 'center' }}>{getString('ci.testsReports.sortBy')}</Text>
+            <Text style={{ alignSelf: 'center' }}>{getString('pipeline.testsReports.sortBy')}</Text>
             <Select
               className={css.select}
               items={sortByItems}
@@ -203,7 +203,7 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) 
             )}
             {executionSummary.content.length === 0 && showFailedTestsOnly && (
               <Text font={{ align: 'center' }} margin={{ top: 'medium' }}>
-                {getString('ci.testsReports.noFailedTestsFound')}
+                {getString('pipeline.testsReports.noFailedTestsFound')}
               </Text>
             )}
           </>
