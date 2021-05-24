@@ -19,8 +19,9 @@ import { useStrings } from 'framework/strings'
 import { PageError } from '@common/components/Page/PageError'
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import { TestSuiteSummaryQueryParams, useTestSuiteSummary } from 'services/ti-service'
+import { isExecutionComplete } from '@pipeline/utils/statusHelpers'
 import { TestsExecutionItem } from './TestsExecutionItem'
-import { SortByKey, isExecutionComplete } from './TestsUtils'
+import { SortByKey } from './TestsUtils'
 import css from './BuildTests.module.scss'
 
 const PAGE_SIZE = 20
@@ -33,7 +34,6 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) 
   const context = useExecutionContext()
   const { getString } = useStrings()
   const status = (context?.pipelineExecutionDetail?.pipelineExecutionSummary?.status || '').toUpperCase()
-  const isBuildComplete = isExecutionComplete(status)
   const [showFailedTestsOnly, setShowFailedTestsOnly] = useState(false)
   const [expandedIndex, setExpandedIndex] = useState<number | undefined>(0)
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{
@@ -74,7 +74,8 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) 
       headers: {
         'X-Harness-Token': serviceToken
       }
-    }
+    },
+    debounce: 500
   })
   const sortByItems = useMemo(
     () => [
@@ -96,28 +97,18 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) 
         if (isMounted.current) {
           fetchExecutionSummary({ queryParams: params })
         }
-      }, 250)
+      }, 2000)
     },
     [isMounted, fetchExecutionSummary]
   )
 
   useEffect(() => {
-    if (status && isBuildComplete) {
-      if (!executionSummary && !error && !loading) {
-        refetchData(queryParams)
+    if (status) {
+      if ((!isExecutionComplete(status) && !loading) || (!executionSummary && !error && !loading)) {
+        fetchExecutionSummary({ queryParams })
       }
     }
-  }, [
-    isMounted,
-    status,
-    isBuildComplete,
-    executionSummary,
-    error,
-    loading,
-    fetchExecutionSummary,
-    queryParams,
-    refetchData
-  ])
+  }, [isMounted, status, executionSummary, error, loading, fetchExecutionSummary, queryParams, fetchExecutionSummary])
 
   // When build/execution is not resolved from context, render nothing
   if (!status) {
