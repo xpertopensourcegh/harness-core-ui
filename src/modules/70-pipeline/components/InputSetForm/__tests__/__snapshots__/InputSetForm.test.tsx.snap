@@ -129,67 +129,6 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view 1`] = `
             class="editor"
           >
             <div
-              class="errorHeader"
-            >
-              <div
-                class="Accordion--accordion"
-              >
-                <div
-                  class="Accordion--panel"
-                  data-open="false"
-                  data-testid="errors-panel"
-                >
-                  <div
-                    class="Accordion--summary"
-                    data-testid="errors-summary"
-                  >
-                    <div
-                      class="Accordion--chevron"
-                    />
-                    <div
-                      class=""
-                    >
-                      <div
-                        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-                      >
-                        <span
-                          class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--intent-danger"
-                          icon="warning-sign"
-                        >
-                          <svg
-                            data-icon="warning-sign"
-                            height="16"
-                            viewBox="0 0 16 16"
-                            width="16"
-                          >
-                            <desc>
-                              warning-sign
-                            </desc>
-                            <path
-                              d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                        <span>
-                          1 problem with Input Set
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="bp3-collapse Accordion--collapse"
-                  >
-                    <div
-                      aria-hidden="false"
-                      class="bp3-collapse-body"
-                      style="transform: translateY(-undefinedpx);"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
               class="Layout--vertical StyledProps--main content StyledProps--padding-xlarge"
             >
               <div>
