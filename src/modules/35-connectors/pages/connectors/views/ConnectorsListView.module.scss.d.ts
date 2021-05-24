@@ -12,5 +12,6 @@ declare const styles: {
   readonly viewDetails: string
   readonly link: string
   readonly tooltip: string
+  readonly confirmText: string
 }
 export default styles
