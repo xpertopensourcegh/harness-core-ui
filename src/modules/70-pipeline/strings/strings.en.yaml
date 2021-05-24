@@ -405,6 +405,8 @@ dashboards:
   meanDuration: Mean Duration
   medianDuration: Median Duration
 savingInProgress: Saving in progress...
+gitExperience:
+  skipNow: SKIP NOW
 testsReports:
   description: Failure Description
   type: Failure Type

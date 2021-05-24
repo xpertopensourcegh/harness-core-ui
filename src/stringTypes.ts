@@ -1051,6 +1051,7 @@ export interface StringsMap {
   'pipeline.failureStrategies.validation.retryIntervalRequired': string
   'pipeline.failureStrategies.validation.timeoutRequired': string
   'pipeline.gitDetails': string
+  'pipeline.gitExperience.skipNow': string
   'pipeline.infrastructureKey': string
   'pipeline.jiraApprovalStep.allConditions': string
   'pipeline.jiraApprovalStep.anyCondition': string
