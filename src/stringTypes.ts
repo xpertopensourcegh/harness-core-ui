@@ -778,6 +778,7 @@ export interface StringsMap {
   'projectsOrgs.confirmDeleteTitle': string
   'projectsOrgs.createANewProject': string
   'projectsOrgs.createOrSelectAProject': string
+  'projectsOrgs.createOrgLoader': string
   'projectsOrgs.createProject': string
   'projectsOrgs.createProjectLoader': string
   'projectsOrgs.editTitle': string
