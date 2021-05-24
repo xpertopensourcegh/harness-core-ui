@@ -92,8 +92,16 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
       setTagList(data?.data?.buildDetailsList as [])
     }
   }, [data])
+
   React.useEffect(() => {
-    lastQueryData.registryHostname.length && lastQueryData.imagePath.length && refetch()
+    if (
+      lastQueryData.registryHostname.length &&
+      lastQueryData.imagePath.length &&
+      getMultiTypeFromValue(lastQueryData.registryHostname) === MultiTypeInputType.FIXED &&
+      getMultiTypeFromValue(lastQueryData.imagePath) === MultiTypeInputType.FIXED
+    ) {
+      refetch()
+    }
   }, [lastQueryData])
 
   const getSelectItems = React.useCallback(() => {
@@ -129,9 +137,10 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
     }
   }
 
-  const fetchTags = (imagePath = '', registryHostname = '') => {
+  const fetchTags = (imagePath = '', registryHostname = ''): void => {
     if (
       imagePath.length &&
+      getMultiTypeFromValue(imagePath) === MultiTypeInputType.FIXED &&
       registryHostname.length &&
       (lastQueryData.imagePath !== imagePath || lastQueryData.registryHostname !== registryHostname)
     ) {

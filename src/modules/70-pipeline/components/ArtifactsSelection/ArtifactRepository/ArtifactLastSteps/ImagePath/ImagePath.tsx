@@ -92,7 +92,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
   }, [data])
 
   React.useEffect(() => {
-    if (lastImagePath) {
+    if (lastImagePath && getMultiTypeFromValue(lastImagePath) === MultiTypeInputType.FIXED) {
       refetch()
     }
   }, [lastImagePath])
@@ -129,8 +129,12 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
     }
   }
 
-  const fetchTags = (imagePath = '') => {
-    if (imagePath.length && lastImagePath !== imagePath) {
+  const fetchTags = (imagePath = ''): void => {
+    if (
+      imagePath.length &&
+      lastImagePath !== imagePath &&
+      getMultiTypeFromValue(imagePath) === MultiTypeInputType.FIXED
+    ) {
       setLastImagePath(imagePath)
     }
   }

@@ -101,7 +101,14 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
   }, [ecrBuildData])
 
   React.useEffect(() => {
-    lastQueryData.region && lastQueryData.imagePath && refetch()
+    if (
+      lastQueryData.region &&
+      lastQueryData.imagePath &&
+      getMultiTypeFromValue(lastQueryData.imagePath) === MultiTypeInputType.FIXED &&
+      getMultiTypeFromValue(lastQueryData.region) === MultiTypeInputType.FIXED
+    ) {
+      refetch()
+    }
   }, [lastQueryData])
 
   const { data } = useListAwsRegions({
@@ -155,8 +162,13 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
     }
   }
 
-  const fetchTags = (imagePath = '', region = '') => {
-    if (imagePath && region && (lastQueryData.imagePath !== imagePath || lastQueryData.region !== region)) {
+  const fetchTags = (imagePath = '', region = ''): void => {
+    if (
+      imagePath &&
+      getMultiTypeFromValue(imagePath) === MultiTypeInputType.FIXED &&
+      region &&
+      (lastQueryData.imagePath !== imagePath || lastQueryData.region !== region)
+    ) {
       setLastQueryData({ imagePath, region })
     }
   }
