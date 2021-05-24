@@ -2495,10 +2495,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'activityHistory.connectionFailed': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'activityHistory.connectivityCheck': string
   /**
    * @deprecated migrate this string to module level file
