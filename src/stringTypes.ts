@@ -2295,6 +2295,7 @@ export interface StringsMap {
   'cv.monitoringSources.prometheus.stddevAggregator': string
   'cv.monitoringSources.prometheus.stdvarAggregator': string
   'cv.monitoringSources.prometheus.sumAggregator': string
+  'cv.monitoringSources.prometheus.undoManualQuery': string
   'cv.monitoringSources.prometheus.validation.aggregator': string
   'cv.monitoringSources.prometheus.validation.deviation': string
   'cv.monitoringSources.prometheus.validation.filterOnEnvironment': string
