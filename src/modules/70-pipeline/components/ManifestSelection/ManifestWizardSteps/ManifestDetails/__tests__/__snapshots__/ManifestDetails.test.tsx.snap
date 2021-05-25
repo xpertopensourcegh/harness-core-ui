@@ -177,9 +177,6 @@ exports[`Manifest Details tests expand advanced section - when type is k8smanife
           </div>
           <div
             class="formGroup"
-          />
-          <div
-            class="formGroup"
           >
             <div
               class="bp3-form-group"
@@ -696,9 +693,6 @@ exports[`Manifest Details tests initial rendering 1`] = `
           </div>
           <div
             class="formGroup"
-          />
-          <div
-            class="formGroup"
           >
             <div
               class="bp3-form-group"
@@ -1023,9 +1017,6 @@ exports[`Manifest Details tests renders form in edit mode - when gitfetchtype is
               </div>
             </div>
           </div>
-          <div
-            class="formGroup md"
-          />
           <div
             class="formGroup"
           >
@@ -1486,9 +1477,6 @@ exports[`Manifest Details tests renders form in edit mode 1`] = `
           </div>
           <div
             class="formGroup"
-          />
-          <div
-            class="formGroup"
           >
             <div
               class="bp3-form-group"
@@ -1813,9 +1801,6 @@ exports[`Manifest Details tests runtime value for connector should make runtime 
               </div>
             </div>
           </div>
-          <div
-            class="formGroup md"
-          />
           <div
             class="formGroup"
           >
@@ -2276,9 +2261,6 @@ exports[`Manifest Details tests when branch is runtime input 1`] = `
           </div>
           <div
             class="formGroup"
-          />
-          <div
-            class="formGroup"
           >
             <div
               class="bp3-form-group"
@@ -2603,9 +2585,6 @@ exports[`Manifest Details tests when connectionType is of repo 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="formGroup md"
-          />
           <div
             class="formGroup"
           >
@@ -2998,9 +2977,6 @@ exports[`Manifest Details tests when scope is of account 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="formGroup md"
-          />
           <div
             class="formGroup"
           >
