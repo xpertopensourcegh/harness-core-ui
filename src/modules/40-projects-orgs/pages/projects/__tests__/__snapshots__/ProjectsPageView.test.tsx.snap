@@ -200,6 +200,7 @@ exports[`Project Page List Create Project and Close 1`] = `
           class="bp3-input "
           dir="auto"
           placeholder="projectsOrgs.search"
+          style="padding-right: 42px;"
           type="search"
           value=""
         />
@@ -2941,6 +2942,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
           class="bp3-input "
           dir="auto"
           placeholder="projectsOrgs.search"
+          style="padding-right: 42px;"
           type="search"
           value=""
         />
@@ -5682,6 +5684,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
           class="bp3-input "
           dir="auto"
           placeholder="projectsOrgs.search"
+          style="padding-right: 42px;"
           type="search"
           value=""
         />
@@ -8423,6 +8426,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
           class="bp3-input "
           dir="auto"
           placeholder="projectsOrgs.search"
+          style="padding-right: 42px;"
           type="search"
           value=""
         />
