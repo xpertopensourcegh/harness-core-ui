@@ -593,9 +593,14 @@ export const RightDrawer: React.FC = (): JSX.Element => {
                 })
               }
 
+              const provisioner = get(pipelineStage?.stage, 'spec.infrastructure.infrastructureDefinition.provisioner')
+              // set empty arrays
+              if (!paletteData.isRollback && !provisioner.steps) provisioner.steps = []
+              if (paletteData.isRollback && !provisioner.rollbackSteps) provisioner.rollbackSteps = []
+
               addStepOrGroup(
                 paletteData.entity,
-                get(pipelineStage?.stage, 'spec.infrastructure.infrastructureDefinition.provisioner'),
+                provisioner,
                 newStepData,
                 paletteData.isParallelNodeClicked,
                 paletteData.isRollback
