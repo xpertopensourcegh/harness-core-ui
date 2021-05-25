@@ -132,7 +132,7 @@
 }
 
 .modal-card {
-  max-height: 85vh;
+  max-height: fit-content;
   height: calc(100% - 48px);
 
   &.bp3-dialog-header {
@@ -146,6 +146,8 @@
 }
 
 .run-modal-header {
+  min-height: var(--spacing-8);
+  display: flex;
   justify-content: space-between !important;
   padding-left: var(--spacing-xlarge) !important;
   padding-right: var(--spacing-xlarge) !important;
@@ -153,6 +155,17 @@
 
 .run-modal-sub-heading {
   justify-content: space-between !important;
+}
+
+.run-modal-header-title {
+  display: flex;
+  align-items: center;
+}
+
+.run-modal-form-content {
+  max-height: 65vh !important;
+  min-height: 145px;
+  overflow: scroll !important;
 }
 
 .no-pipeline-input-set-form {
