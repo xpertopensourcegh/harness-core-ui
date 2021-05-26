@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout } from '@wings-software/uicore'
+import { Button, Layout } from '@wings-software/uicore'
 
 import { useHistory, useParams } from 'react-router-dom'
 import type { SelectOption } from '@wings-software/uicore'
@@ -18,14 +18,14 @@ interface InputSetValue extends SelectOption {
 
 const runModalProps: IDialogProps = {
   isOpen: true,
-  usePortal: true,
+  // usePortal: true,
   autoFocus: true,
   canEscapeKeyClose: true,
   canOutsideClickClose: true,
   enforceFocus: true,
-  title: '',
   className: css.runModal,
-  style: { width: 872, height: 'fit-content', overflow: 'auto' }
+  style: { width: 872, height: 'fit-content', overflow: 'auto' },
+  isCloseButtonShown: false
 }
 
 export function RunPipelineModal(): React.ReactElement {
@@ -79,12 +79,16 @@ export function RunPipelineModal(): React.ReactElement {
     return []
   }
 
+  function handleClose(): void {
+    history.goBack()
+  }
+
   if (loading) {
     return <PageSpinner />
   }
 
   return (
-    <Dialog onClose={() => history.goBack()} {...runModalProps}>
+    <Dialog onClose={handleClose} {...runModalProps} className={css.dialog}>
       <Layout.Vertical className={css.modalCard}>
         <RunPipelineForm
           pipelineIdentifier={pipelineIdentifier}
@@ -96,6 +100,14 @@ export function RunPipelineModal(): React.ReactElement {
           inputSetSelected={getInputSetSelected()}
           repoIdentifier={query.repoIdentifier}
           branch={query.branch}
+        />
+        <Button
+          aria-label="close modal"
+          minimal
+          icon="cross"
+          iconProps={{ size: 18 }}
+          onClick={handleClose}
+          className={css.crossIcon}
         />
       </Layout.Vertical>
     </Dialog>

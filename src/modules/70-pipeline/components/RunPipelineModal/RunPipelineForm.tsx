@@ -515,7 +515,7 @@ function RunPipelineFormBasic({
                         </Layout.Horizontal>
                       </div>
                     </Layout.Horizontal>
-                    <Layout.Horizontal padding={{ left: 'xlarge', right: 'xlarge', bottom: 'medium' }}>
+                    <Layout.Horizontal padding={{ left: 'xlarge', right: 'xlarge' }}>
                       <div className={css.footer}>
                         <Layout.Horizontal style={{ width: '100%', justifyContent: 'start' }}>
                           <Layout.Horizontal spacing="xxxlarge" style={{ alignItems: 'center' }}>

@@ -32,5 +32,7 @@ declare const styles: {
   readonly helpSection: string
   readonly helpIcon: string
   readonly runModal: string
+  readonly crossIcon: string
+  readonly dialog: string
 }
 export default styles
