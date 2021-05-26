@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RBACTooltip RBACTooltip component 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main StyledProps--padding-small"
+  >
+    <p
+      class="StyledProps--font StyledProps--main"
+    >
+      rbac.youAreNotAuthorizedTo 
+      <span
+        class="textToLowercase"
+      >
+        core_project_create
+      </span>
+      <span
+        class="textToLowercase"
+      >
+         undefined.
+      </span>
+    </p>
+    <p
+      class="StyledProps--font StyledProps--main"
+    >
+      rbac.youAreMissingTheFollowingPermission
+    </p>
+    <p
+      class="StyledProps--font StyledProps--main"
+    >
+      "
+      core_project_create
+      <span
+        class="textToLowercase"
+      >
+         undefined
+      </span>
+      "
+      <span>
+         rbac.in rbac.account 
+      </span>
+      "dummy"
+    </p>
+  </div>
+</div>
+`;

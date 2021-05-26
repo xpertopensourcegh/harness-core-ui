@@ -83,7 +83,7 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
           label={[
             getString('ce.co.gatewayBasics.connect'),
             props.gatewayDetails.provider.name,
-            getString('ce.co.gatewayBasics.account')
+            getString('rbac.account')
           ].join(' ')}
           placeholder={getString('ce.co.gatewayBasics.select')}
           accountIdentifier={accountId}
@@ -114,7 +114,7 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
           '+',
           getString('ce.co.gatewayBasics.new'),
           props.gatewayDetails.provider.name,
-          getString('ce.co.gatewayBasics.account')
+          getString('rbac.account')
         ].join(' ')}
       </span>
     </div>

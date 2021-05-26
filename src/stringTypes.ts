@@ -248,11 +248,14 @@ export interface StringsMap {
   'notifications.validationSubject': string
   'notifications.validationTo': string
   'notifications.validationWebhook': string
+  'rbac.account': string
   'rbac.activeUsers': string
   'rbac.addRole': string
   'rbac.addUser': string
   'rbac.allResources': string
   'rbac.categoryLabels.sharedResources': string
+  'rbac.in': string
+  'rbac.org': string
   'rbac.pendingUsers': string
   'rbac.permissionLabels.access': string
   'rbac.permissionLabels.create': string
@@ -263,6 +266,7 @@ export interface StringsMap {
   'rbac.permissionLabels.manage': string
   'rbac.permissionLabels.pipelineExecution': string
   'rbac.permissionLabels.view': string
+  'rbac.project': string
   'rbac.roleAssignment.assignmentValidation': string
   'rbac.roleAssignment.deleteFailure': string
   'rbac.roleAssignment.deleteSuccess': string
@@ -310,6 +314,8 @@ export interface StringsMap {
   'rbac.usersPage.selectRole': string
   'rbac.usersPage.validation.resourceGroup': string
   'rbac.usersPage.validation.role': string
+  'rbac.youAreMissingTheFollowingPermission': string
+  'rbac.youAreNotAuthorizedTo': string
   'authSettings.SAMLProvider': string
   'authSettings.WhitelistedDomainsUpdated': string
   'authSettings.accountOrOAuthLogin': string
@@ -1473,7 +1479,6 @@ export interface StringsMap {
   'ce.co.gatewayAccess.rdp': string
   'ce.co.gatewayAccess.sshRdp': string
   'ce.co.gatewayAccess.subtitle': string
-  'ce.co.gatewayBasics.account': string
   'ce.co.gatewayBasics.connect': string
   'ce.co.gatewayBasics.new': string
   'ce.co.gatewayBasics.select': string
@@ -1659,7 +1664,6 @@ export interface StringsMap {
   'cf.clause.operators.endsWith': string
   'cf.clause.operators.equal': string
   'cf.clause.operators.equalSensitive': string
-  'cf.clause.operators.in': string
   'cf.clause.operators.match': string
   'cf.clause.operators.matchSegment': string
   'cf.clause.operators.startsWith': string

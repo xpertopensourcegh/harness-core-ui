@@ -105,7 +105,6 @@ clause:
     contains: 'contains'
     equal: 'equals'
     equalSensitive: 'equals (sensitive)'
-    in: 'in'
     matchSegment: 'Match Segment'
 featureFlags:
   newFlag: + Flag

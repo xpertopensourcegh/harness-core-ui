@@ -221,7 +221,7 @@ exports[`COProviderSelector Rendering should render COProviderSelector 1`] = `
             <label
               class="bp3-label"
             >
-              ce.co.gatewayBasics.connect AWS ce.co.gatewayBasics.account
+              ce.co.gatewayBasics.connect AWS rbac.account
                
               <span
                 class="bp3-text-muted"
@@ -310,7 +310,7 @@ exports[`COProviderSelector Rendering should render COProviderSelector 1`] = `
         <span
           style="font-size: 13px; color: rgb(2, 120, 213); line-height: 20px; cursor: pointer;"
         >
-          + ce.co.gatewayBasics.new AWS ce.co.gatewayBasics.account
+          + ce.co.gatewayBasics.new AWS rbac.account
         </span>
       </div>
     </div>
@@ -568,7 +568,7 @@ exports[`COProviderSelector passing a provider property shows the gateway basics
             <label
               class="bp3-label"
             >
-              ce.co.gatewayBasics.connect AWS ce.co.gatewayBasics.account
+              ce.co.gatewayBasics.connect AWS rbac.account
                
               <span
                 class="bp3-text-muted"
@@ -618,7 +618,7 @@ exports[`COProviderSelector passing a provider property shows the gateway basics
         <span
           style="font-size: 13px; color: rgb(2, 120, 213); line-height: 20px; cursor: pointer;"
         >
-          + ce.co.gatewayBasics.new AWS ce.co.gatewayBasics.account
+          + ce.co.gatewayBasics.new AWS rbac.account
         </span>
       </div>
     </div>
@@ -878,7 +878,7 @@ exports[`COProviderSelector selecting AWS provider shows option to select connec
             <label
               class="bp3-label"
             >
-              ce.co.gatewayBasics.connect AWS ce.co.gatewayBasics.account
+              ce.co.gatewayBasics.connect AWS rbac.account
                
               <span
                 class="bp3-text-muted"
@@ -928,7 +928,7 @@ exports[`COProviderSelector selecting AWS provider shows option to select connec
         <span
           style="font-size: 13px; color: rgb(2, 120, 213); line-height: 20px; cursor: pointer;"
         >
-          + ce.co.gatewayBasics.new AWS ce.co.gatewayBasics.account
+          + ce.co.gatewayBasics.new AWS rbac.account
         </span>
       </div>
     </div>

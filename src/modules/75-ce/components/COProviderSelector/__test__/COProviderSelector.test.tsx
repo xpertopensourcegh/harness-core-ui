@@ -84,8 +84,7 @@ describe('COProviderSelector', () => {
     })
     const connectorLabel = container.querySelector('label.bp3-label')
     expect(connectorLabel).toBeDefined()
-    if (connectorLabel)
-      expect(connectorLabel.textContent).toBe('ce.co.gatewayBasics.connect AWS ce.co.gatewayBasics.account ')
+    if (connectorLabel) expect(connectorLabel.textContent).toBe('ce.co.gatewayBasics.connect AWS rbac.account ')
     expect(container).toMatchSnapshot()
   })
 

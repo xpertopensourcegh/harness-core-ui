@@ -1,8 +1,7 @@
 import React from 'react'
 import { pick } from 'lodash-es'
-
-import { AvatarGroup, AvatarGroupProps, Text } from '@wings-software/uicore'
-import { useStrings } from 'framework/strings'
+import { AvatarGroup, AvatarGroupProps } from '@wings-software/uicore'
+import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
 import { usePermission, PermissionsRequest } from '@rbac/hooks/usePermission'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 
@@ -11,8 +10,6 @@ interface RbacAvatarGroupProps extends AvatarGroupProps {
 }
 
 const RbacAvatarGroup: React.FC<RbacAvatarGroupProps> = ({ permission: permissionRequest, ...restProps }) => {
-  const { getString } = useStrings()
-
   const [canDoAction] = usePermission(
     {
       ...pick(permissionRequest, ['resourceScope', 'resource', 'options']),
@@ -24,7 +21,15 @@ const RbacAvatarGroup: React.FC<RbacAvatarGroupProps> = ({ permission: permissio
   return (
     <AvatarGroup
       {...restProps}
-      onAddTooltip={canDoAction ? undefined : <Text padding="medium">{getString('noPermission')}</Text>}
+      onAddTooltip={
+        canDoAction ? undefined : (
+          <RBACTooltip
+            permission={permissionRequest.permission}
+            resourceType={permissionRequest.resource.resourceType}
+            resourceScope={permissionRequest.resourceScope}
+          />
+        )
+      }
       onAdd={event => {
         if (canDoAction) restProps.onAdd?.(event)
         else event.stopPropagation()
