@@ -39,7 +39,7 @@ import { ConnectorCardInterface, getCompleteGitPath, getRepoPath, gitCards } fro
 import { NameId } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { TestConnectionWidget, TestStatus } from '@common/components/TestConnectionWidget/TestConnectionWidget'
 import { HARNESS_FOLDER_SUFFIX } from '@gitsync/common/Constants'
-import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
+import { getScopeFromDTO, ScopedObjectDTO } from '@common/components/EntityReference/EntityReference'
 import css from './GitSyncRepoForm.module.scss'
 
 export interface GitSyncRepoFormProps {
@@ -328,7 +328,10 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                           onChange={e => {
                             formValues.gitConnector?.connector.identifier &&
                               debounceFetchBranches(
-                                formValues.gitConnector.connector.identifier,
+                                getConnectorIdentifierWithScope(
+                                  getScopeFromDTO(formValues?.gitConnector?.connector as ScopedObjectDTO),
+                                  formValues?.gitConnector?.connector?.identifier
+                                ),
                                 (e.target as HTMLInputElement)?.value
                               )
                           }}
