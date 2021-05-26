@@ -10,7 +10,8 @@ import {
   TextInput,
   FormInput,
   Text,
-  Popover
+  Popover,
+  Color
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { isEmpty, set } from 'lodash-es'
@@ -281,7 +282,8 @@ export const RightBar = (): JSX.Element => {
             })}
             font={{ weight: 'semi-bold', size: 'xsmall' }}
             icon="nav-git-sync"
-            iconProps={{ size: 30 }}
+            text={getString('gitsync.label')}
+            iconProps={{ size: 30, color: Color.RED_500 }}
             onClick={() => {
               updatePipelineView({
                 ...pipelineView,
