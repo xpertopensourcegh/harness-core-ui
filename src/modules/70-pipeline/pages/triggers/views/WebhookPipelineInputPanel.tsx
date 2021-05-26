@@ -51,12 +51,17 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
   }, [inputSetSelected])
 
   const { mutate: mergeInputSet } = useGetMergeInputSetFromPipelineTemplateWithListInput({
-    queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier, pipelineIdentifier }
+    queryParams: {
+      accountIdentifier: accountId,
+      projectIdentifier,
+      orgIdentifier,
+      pipelineIdentifier
+    }
   })
 
   useEffect(() => {
     if (template?.data?.inputSetTemplateYaml) {
-      if ((selectedInputSets && selectedInputSets.length > 1) || selectedInputSets?.[0].type === 'OVERLAY_INPUT_SET') {
+      if ((selectedInputSets && selectedInputSets.length > 1) || selectedInputSets?.[0]?.type === 'OVERLAY_INPUT_SET') {
         const fetchData = async (): Promise<void> => {
           const data = await mergeInputSet({
             inputSetReferences: selectedInputSets.map(item => item.value as string)

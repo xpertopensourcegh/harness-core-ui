@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { isEmpty } from 'lodash-es'
 import { Popover, Layout, TextInput, useModalHook } from '@wings-software/uicore'
 import { Menu, MenuItem, Position } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
@@ -39,8 +40,13 @@ const InputSetList: React.FC = (): JSX.Element => {
       pageIndex: page,
       pageSize: 10,
       searchTerm: searchParam,
-      repoIdentifier: gitFilter.repo,
-      branch: gitFilter.branch
+      ...(!isEmpty(repoIdentifier)
+        ? {
+            repoIdentifier: gitFilter.repo,
+            branch: gitFilter.branch,
+            getDefaultFromOtherRepo: true
+          }
+        : {})
     },
     debounce: 300
   })
@@ -71,7 +77,7 @@ const InputSetList: React.FC = (): JSX.Element => {
         })
       )
     },
-    [accountId, orgIdentifier, projectIdentifier, pipelineIdentifier, module, history]
+    [accountId, orgIdentifier, projectIdentifier, pipelineIdentifier, module, history, repoIdentifier, branch]
   )
 
   const [canUpdateInputSet] = usePermission(
@@ -94,8 +100,8 @@ const InputSetList: React.FC = (): JSX.Element => {
     () => (
       <OverlayInputSetForm
         identifier={selectedInputSet?.identifier}
-        repoIdentifier={selectedInputSet?.repoIdentifier}
-        branch={selectedInputSet?.branch}
+        overlayInputSetRepoIdentifier={selectedInputSet?.repoIdentifier}
+        overlayInputSetBranch={selectedInputSet?.branch}
         hideForm={() => {
           refetch()
           hideOverlayInputSetForm()
@@ -124,6 +130,7 @@ const InputSetList: React.FC = (): JSX.Element => {
                   <MenuItem
                     text={getString('inputSets.overlayInputSet')}
                     onClick={() => {
+                      setSelectedInputSet({ identifier: '', repoIdentifier, branch })
                       showOverlayInputSetForm()
                     }}
                   />
