@@ -112,7 +112,7 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadingBranchList])
 
-  useDocumentTitle([connectorName || '', getString('connectorsLabel')])
+  useDocumentTitle([connectorName || connectorData?.data?.connector?.name || '', getString('connectorsLabel')])
 
   const categories: Categories = {
     connection: getString('connection'),
@@ -222,10 +222,10 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
           ></Icon>
           <Container>
             <Text color={Color.GREY_800} font={{ size: 'medium', weight: 'bold' }}>
-              {connectorName}
+              {connectorData?.data?.gitDetails?.objectId ? connectorName : connectorData?.data?.connector?.name}
             </Text>
             <Layout.Horizontal spacing="small">
-              <Text color={Color.GREY_400}>{data?.connector?.identifier}</Text>
+              <Text color={Color.GREY_400}>{connectorData?.data?.connector?.identifier}</Text>
               {gitDetails?.objectId ? RenderGitDetails : null}
             </Layout.Horizontal>
           </Container>
