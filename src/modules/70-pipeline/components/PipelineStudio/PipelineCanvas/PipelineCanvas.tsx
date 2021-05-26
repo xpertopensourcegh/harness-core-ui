@@ -181,7 +181,11 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     let latestPipeline: PipelineInfoConfig = pipeline
 
     if (isYaml && yamlHandler) {
-      latestPipeline = parse(yamlHandler.getLatestYaml()).pipeline as NgPipeline
+      try {
+        latestPipeline = parse(yamlHandler.getLatestYaml()).pipeline as NgPipeline
+      } /* istanbul ignore next */ catch (err) {
+        showError(err.message || err)
+      }
     }
 
     await saveAndPublishPipeline(
@@ -199,7 +203,11 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     let latestPipeline: PipelineInfoConfig = pipeline
 
     if (isYaml && yamlHandler) {
-      latestPipeline = parse(yamlHandler.getLatestYaml()).pipeline as NgPipeline
+      try {
+        latestPipeline = parse(yamlHandler.getLatestYaml()).pipeline as NgPipeline
+      } /* istanbul ignore next */ catch (err) {
+        showError(err.message || err)
+      }
     }
 
     // if Git sync enabled then display modal
@@ -349,7 +357,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         updatePipeline(parsedYaml.pipeline)
       } catch (e) {
         setYamlError(true)
-        showError(getString('invalidYamlText'))
+        showError(e.message || getString('invalidYamlText'))
         return
       }
     }

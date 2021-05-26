@@ -157,6 +157,29 @@ const validateStage = (
     )
   }
 
+  if (stage.type === 'Deployment' && templateStageConfig?.serviceConfig?.serviceRef) {
+    const step = factory.getStep(StepType.DeployService)
+    const errorsResponse = step?.validateInputSet(
+      stageConfig?.serviceConfig,
+      templateStageConfig?.serviceConfig,
+      getString
+    )
+    if (!isEmpty(errorsResponse)) {
+      set(errors, 'spec.serviceConfig.serviceRef', errorsResponse)
+    }
+  }
+
+  if (stage.type === 'Deployment' && templateStageConfig?.infrastructure?.environmentRef) {
+    const step = factory.getStep(StepType.DeployEnvironment)
+    const errorsResponse = step?.validateInputSet(
+      stageConfig?.infrastructure,
+      templateStageConfig?.infrastructure,
+      getString
+    )
+    if (!isEmpty(errorsResponse)) {
+      set(errors, 'spec.infrastructure.environmentRef', errorsResponse)
+    }
+  }
   if (
     stageConfig?.infrastructure?.infrastructureDefinition?.spec &&
     originalStageConfig?.infrastructure?.infrastructureDefinition?.type
