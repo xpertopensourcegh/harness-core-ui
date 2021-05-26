@@ -87,8 +87,9 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
 
   const getDefaultSelected = (type?: SourceCodeTypes): AuthTypes | undefined => {
     switch (type) {
-      case SourceCodeTypes.BITBUCKET:
       case SourceCodeTypes.GITHUB:
+        return AuthTypes.USERNAME_TOKEN
+      case SourceCodeTypes.BITBUCKET:
       case SourceCodeTypes.GITLAB:
       case SourceCodeTypes.AZURE_DEV_OPS:
         return AuthTypes.USERNAME_PASSWORD
@@ -114,10 +115,10 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
         ]
       case SourceCodeTypes.GITHUB:
         return [
-          {
-            label: getString('usernamePassword'),
-            value: AuthTypes.USERNAME_PASSWORD
-          },
+          // {
+          //   label: getString('usernamePassword'),
+          //   value: AuthTypes.USERNAME_PASSWORD
+          // },
           {
             label: getString('usernameToken'),
             value: AuthTypes.USERNAME_TOKEN
