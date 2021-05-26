@@ -81,6 +81,7 @@ export function ManualInputQueryModal(props: UseManualInputQueryModalProps): JSX
             onSubmit(values)
             closeModal()
           }}
+          formName="manualInputQuery"
           initialValues={{ metricName: '' }}
           validationSchema={getValidatitionSchema(getString, manuallyInputQueries)}
         >

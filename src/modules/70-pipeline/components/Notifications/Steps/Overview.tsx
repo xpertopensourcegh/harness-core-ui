@@ -24,6 +24,7 @@ const Overview: React.FC<StepProps<NotificationRules> & OverviewProps> = ({
       </Text>
       <Formik
         initialValues={{ name: '', ...data, ...prevStepData }}
+        formName="notificationsOverview"
         validationSchema={Yup.object().shape({
           name: Yup.string()
             .required()

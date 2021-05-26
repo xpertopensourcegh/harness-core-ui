@@ -28,6 +28,7 @@ const StepSSHDetails: React.FC<StepProps<SSHCredSharedObj> & SSHCredSharedObj> =
         onSubmit={values => {
           nextStep?.({ detailsData: values, authData, isEdit: isEdit, ...prevStepData })
         }}
+        formName="sshStepDetailsForm"
         validationSchema={Yup.object().shape({
           name: Yup.string().trim().required(getString('secrets.createSSHCredWizard.validName')),
           identifier: Yup.string().when('name', {

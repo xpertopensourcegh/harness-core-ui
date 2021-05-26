@@ -36,6 +36,7 @@ export function PrometheusConfigStep(props: ConnectionConfigProps): JSX.Element 
         validationSchema={Yup.object().shape({
           url: Yup.string().trim().required(getString('connectors.prometheus.urlValidation'))
         })}
+        formName="prometheusConnForm"
         onSubmit={(formData: ConnectorConfigDTO) => nextStep?.({ ...connectorInfo, ...prevStepData, ...formData })}
       >
         <FormikForm className={css.form}>

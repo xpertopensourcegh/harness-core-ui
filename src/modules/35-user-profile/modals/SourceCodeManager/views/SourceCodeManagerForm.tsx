@@ -243,6 +243,7 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
           initialValues={{
             name: ''
           }}
+          formName="sourceCodeManagerForm"
           validationSchema={Yup.object().shape({
             name: Yup.string()
               .trim()

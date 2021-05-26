@@ -93,7 +93,12 @@ exports[`Test Barrier Step should render edit view 1`] = `
                 class="bp3-label"
                 for="name"
               >
-                name
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="barrierStep_name"
+                >
+                  name
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -128,7 +133,12 @@ exports[`Test Barrier Step should render edit view 1`] = `
               class="bp3-label"
               for="spec.barrierRef"
             >
-              pipeline.barrierStep.barrierReference
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="barrierStep_spec.barrierRef"
+              >
+                pipeline.barrierStep.barrierReference
+              </span>
                
               <span
                 class="bp3-text-muted"

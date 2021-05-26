@@ -118,7 +118,12 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
               class="bp3-label"
               for="name"
             >
-              name
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="k8Apply_name"
+              >
+                name
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -610,7 +615,12 @@ exports[`Test K8sApplyStep should render edit view as new step 1`] = `
               class="bp3-label"
               for="name"
             >
-              name
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="k8Apply_name"
+              >
+                name
+              </span>
                
               <span
                 class="bp3-text-muted"

@@ -68,6 +68,7 @@ export const RestoreCacheGCSStepBase = (
         transformValuesFieldsConfig,
         { archiveFormatOptions }
       )}
+      formName="restoreCacheGcs"
       validate={valuesToValidate => {
         return validate(valuesToValidate, editViewValidateFieldsConfig, {
           initialValues,

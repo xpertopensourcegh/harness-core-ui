@@ -218,7 +218,12 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                           class="bp3-label"
                           for="name"
                         >
-                          name
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="connectorDetailsStepForm_name"
+                          >
+                            name
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -624,7 +629,12 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                       class="bp3-label"
                       for="url"
                     >
-                      common.git.bitbucketAccountUrl
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="gitDetailsStepForm_url"
+                      >
+                        common.git.bitbucketAccountUrl
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -1157,7 +1167,12 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                       <span
                         class="bp3-control-indicator"
                       />
-                      common.git.enableAPIAccess
+                      <span
+                        class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                        data-tooltip-id="bitbAuthForm_enableAPIAccess"
+                      >
+                        common.git.enableAPIAccess
+                      </span>
                     </label>
                   </div>
                 </div>
@@ -1503,7 +1518,12 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                       class="bp3-label"
                       for="url"
                     >
-                      common.git.bitbucketAccountUrl
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="gitDetailsStepForm_url"
+                      >
+                        common.git.bitbucketAccountUrl
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -1882,7 +1902,12 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                       <span
                         class="bp3-control-indicator"
                       />
-                      common.git.enableAPIAccess
+                      <span
+                        class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                        data-tooltip-id="bitbAuthForm_enableAPIAccess"
+                      >
+                        common.git.enableAPIAccess
+                      </span>
                     </label>
                   </div>
                 </div>
@@ -2415,7 +2440,12 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
                       <span
                         class="bp3-control-indicator"
                       />
-                      common.git.enableAPIAccess
+                      <span
+                        class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                        data-tooltip-id="bitbAuthForm_enableAPIAccess"
+                      >
+                        common.git.enableAPIAccess
+                      </span>
                     </label>
                   </div>
                 </div>
@@ -2949,7 +2979,12 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                       <span
                         class="bp3-control-indicator"
                       />
-                      common.git.enableAPIAccess
+                      <span
+                        class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                        data-tooltip-id="bitbAuthForm_enableAPIAccess"
+                      >
+                        common.git.enableAPIAccess
+                      </span>
                     </label>
                   </div>
                 </div>

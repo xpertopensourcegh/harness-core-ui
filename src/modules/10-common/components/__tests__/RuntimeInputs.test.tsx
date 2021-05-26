@@ -13,7 +13,7 @@ const SampleComponent: React.FC<{
   textAreaValue?: string
 }> = props => {
   return (
-    <Formik initialValues={props} onSubmit={onSubmit}>
+    <Formik initialValues={props} onSubmit={onSubmit} formName="runtimeInputsTest">
       <FormikForm>
         <FormMultiTypeCheckboxField name="checkboxValue" label="CheckBox" />
         <FormMultiTypeRadioGroupField

@@ -172,7 +172,12 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
                           class="bp3-label"
                           for="name"
                         >
-                          name
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="connectorDetailsStepForm_name"
+                          >
+                            name
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -700,7 +705,12 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
                           class="bp3-label"
                           for="name"
                         >
-                          name
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="connectorDetailsStepForm_name"
+                          >
+                            name
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -959,7 +969,12 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                   class="bp3-label"
                   for="vaultUrl"
                 >
-                  connectors.hashiCorpVault.vaultUrl
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="vaultConfigForm_vaultUrl"
+                  >
+                    connectors.hashiCorpVault.vaultUrl
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -989,7 +1004,12 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                   class="bp3-label"
                   for="basePath"
                 >
-                  connectors.hashiCorpVault.baseSecretPath
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="vaultConfigForm_basePath"
+                  >
+                    connectors.hashiCorpVault.baseSecretPath
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1019,7 +1039,12 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                   class="bp3-label"
                   for="accessType"
                 >
-                  authentication
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="vaultConfigForm_accessType"
+                  >
+                    authentication
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1070,7 +1095,12 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                     class="bp3-label"
                     for="appRoleId"
                   >
-                    connectors.hashiCorpVault.appRoleId
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="vaultConfigForm_appRoleId"
+                    >
+                      connectors.hashiCorpVault.appRoleId
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -1100,7 +1130,12 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                     class="bp3-label"
                     for="secretId"
                   >
-                    connectors.hashiCorpVault.secretId
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="vaultConfigForm_secretId"
+                    >
+                      connectors.hashiCorpVault.secretId
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -1132,7 +1167,12 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                   class="bp3-label"
                   for="engineType"
                 >
-                  Secret Engine
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="vaultConfigForm_engineType"
+                  >
+                    Secret Engine
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1248,7 +1288,12 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                   class="bp3-label"
                   for="renewalIntervalMinutes"
                 >
-                  connectors.hashiCorpVault.renewal
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="vaultConfigForm_renewalIntervalMinutes"
+                  >
+                    connectors.hashiCorpVault.renewal
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1287,7 +1332,12 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                     <span
                       class="bp3-control-indicator"
                     />
-                    connectors.hashiCorpVault.readOnlyVault
+                    <span
+                      class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                      data-tooltip-id="vaultConfigForm_readOnly"
+                    >
+                      connectors.hashiCorpVault.readOnlyVault
+                    </span>
                   </label>
                 </div>
               </div>
@@ -1308,7 +1358,12 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                     <span
                       class="bp3-control-indicator"
                     />
-                    connectors.hashiCorpVault.defaultVault
+                    <span
+                      class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                      data-tooltip-id="vaultConfigForm_default"
+                    >
+                      connectors.hashiCorpVault.defaultVault
+                    </span>
                   </label>
                 </div>
               </div>

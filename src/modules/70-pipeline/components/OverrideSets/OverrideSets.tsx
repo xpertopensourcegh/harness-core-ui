@@ -270,6 +270,7 @@ export default function OverrideSets({
                   validationSchema={Yup.object().shape({
                     selectedOverrideSet: Yup.array()
                   })}
+                  formName="overrideSets"
                   onSubmit={(): void => {
                     // do nothing.
                   }}

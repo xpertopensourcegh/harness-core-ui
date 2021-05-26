@@ -106,6 +106,7 @@ const StepNexusAuthentication: React.FC<StepProps<StepNexusAuthenticationProps> 
           ...initialValues,
           ...prevStepData
         }}
+        formName="nexusAuth"
         validationSchema={Yup.object().shape({
           nexusServerUrl: Yup.string().trim().required(getString('validation.nexusServerURL')),
           nexusVersion: Yup.string().trim().required(getString('validation.nexusVersion')),

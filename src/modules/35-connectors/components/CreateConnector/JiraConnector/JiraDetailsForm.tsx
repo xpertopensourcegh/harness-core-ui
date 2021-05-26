@@ -88,6 +88,7 @@ const JiraDetailsForm: React.FC<StepProps<JiraFormProps> & AuthenticationProps> 
           ...initialValues,
           ...prevStepData
         }}
+        formName="jiraDetailsForm"
         validationSchema={Yup.object().shape({
           jiraUrl: Yup.string().trim().required(getString('validation.jiraUrl')),
           username: Yup.string().required(getString('validation.username')),

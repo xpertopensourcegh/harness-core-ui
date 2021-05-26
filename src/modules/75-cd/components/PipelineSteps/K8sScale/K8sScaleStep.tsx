@@ -76,6 +76,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
         onSubmit={(values: K8sScaleData) => {
           onUpdate?.(values)
         }}
+        formName="k8Scale"
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),

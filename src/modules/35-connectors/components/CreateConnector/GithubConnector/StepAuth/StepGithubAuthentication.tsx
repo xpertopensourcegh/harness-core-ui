@@ -210,6 +210,7 @@ const StepGithubAuthentication: React.FC<
           ...initialValues,
           ...prevStepData
         }}
+        formName="stepGithubAuthForm"
         validationSchema={Yup.object().shape({
           username: Yup.string()
             .nullable()

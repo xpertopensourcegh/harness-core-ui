@@ -55,7 +55,12 @@ exports[`Terraform var file creation testing form with right payload - for remot
             class="bp3-label"
             for="varFile.type"
           >
-            pipelineSteps.storeType
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="tfVarFile_varFile.type"
+            >
+              pipelineSteps.storeType
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -274,7 +279,12 @@ exports[`Terraform var file creation testing form with right payload - for remot
             class="bp3-label"
             for="varFile.store.spec.gitFetchType"
           >
-            pipeline.manifestType.gitFetchTypeLabel
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="tfVarFile_varFile.store.spec.gitFetchType"
+            >
+              pipeline.manifestType.gitFetchTypeLabel
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -374,7 +384,12 @@ exports[`Terraform var file creation testing form with right payload - for remot
             class="bp3-label"
             for="varFile.store.spec.branch"
           >
-            pipelineSteps.deploy.inputSet.branch
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="tfVarFile_varFile.store.spec.branch"
+            >
+              pipelineSteps.deploy.inputSet.branch
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -647,7 +662,12 @@ exports[`Terraform var file creation testing form with right payload - for remot
             class="bp3-label"
             for="varFile.type"
           >
-            pipelineSteps.storeType
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="tfVarFile_varFile.type"
+            >
+              pipelineSteps.storeType
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -866,7 +886,12 @@ exports[`Terraform var file creation testing form with right payload - for remot
             class="bp3-label"
             for="varFile.store.spec.gitFetchType"
           >
-            pipeline.manifestType.gitFetchTypeLabel
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="tfVarFile_varFile.store.spec.gitFetchType"
+            >
+              pipeline.manifestType.gitFetchTypeLabel
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -966,7 +991,12 @@ exports[`Terraform var file creation testing form with right payload - for remot
             class="bp3-label"
             for="varFile.store.spec.branch"
           >
-            pipelineSteps.deploy.inputSet.branch
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="tfVarFile_varFile.store.spec.branch"
+            >
+              pipelineSteps.deploy.inputSet.branch
+            </span>
              
             <span
               class="bp3-text-muted"

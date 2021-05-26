@@ -81,6 +81,7 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
     <Layout.Vertical>
       <Formik<EnvironmentYaml>
         initialValues={data}
+        formName="deployEnv"
         onSubmit={values => {
           onCreateOrUpdate(values)
         }}

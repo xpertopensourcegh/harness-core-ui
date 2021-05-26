@@ -80,6 +80,7 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
         tags: {},
         ...projectData
       }}
+      formName="projectsForm"
       enableReinitialize={true}
       validationSchema={Yup.object().shape({
         name: NameSchema(),

@@ -61,6 +61,7 @@ const FlagFilterDrawer: React.FC<FlagFilterDrawerProps> = props => {
     return (
       <Formik
         initialValues={{}}
+        formName="flagFilter"
         onSubmit={vals => {
           alert(JSON.stringify(vals, null, 2))
         }}

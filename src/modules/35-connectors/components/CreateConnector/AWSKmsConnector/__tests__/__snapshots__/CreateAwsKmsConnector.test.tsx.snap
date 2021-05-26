@@ -199,7 +199,12 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
                           class="bp3-label"
                           for="name"
                         >
-                          name
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="connectorDetailsStepForm_name"
+                          >
+                            name
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -532,7 +537,12 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
                           class="bp3-label"
                           for="name"
                         >
-                          name
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="connectorDetailsStepForm_name"
+                          >
+                            name
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -826,7 +836,12 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
                     class="bp3-label"
                     for="credType"
                   >
-                    credType
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="awsKmsConfigForm_credType"
+                    >
+                      credType
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -894,7 +909,12 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
                     class="bp3-label"
                     for="accessKey"
                   >
-                    connectors.awsKms.accessKeyLabel
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="awsKmsConfigForm_accessKey"
+                    >
+                      connectors.awsKms.accessKeyLabel
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -924,7 +944,12 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
                     class="bp3-label"
                     for="secretKey"
                   >
-                    connectors.awsKms.secretKeyLabel
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="awsKmsConfigForm_secretKey"
+                    >
+                      connectors.awsKms.secretKeyLabel
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -954,7 +979,12 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
                     class="bp3-label"
                     for="awsArn"
                   >
-                    connectors.awsKms.arnLabel
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="awsKmsConfigForm_awsArn"
+                    >
+                      connectors.awsKms.arnLabel
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -984,7 +1014,12 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
                     class="bp3-label"
                     for="region"
                   >
-                    regionLabel
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="awsKmsConfigForm_region"
+                    >
+                      regionLabel
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -1056,7 +1091,12 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
                       <span
                         class="bp3-control-indicator"
                       />
-                      connectors.hashiCorpVault.defaultVault
+                      <span
+                        class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                        data-tooltip-id="awsKmsConfigForm_default"
+                      >
+                        connectors.hashiCorpVault.defaultVault
+                      </span>
                     </label>
                   </div>
                 </div>

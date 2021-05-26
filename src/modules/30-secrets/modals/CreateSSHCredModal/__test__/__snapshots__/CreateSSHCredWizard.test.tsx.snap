@@ -204,7 +204,12 @@ exports[`Create SSH Cred Wizard should render form 1`] = `
                             class="bp3-label"
                             for="name"
                           >
-                            Name
+                            <span
+                              class="Tooltip--acenter"
+                              data-tooltip-id="sshStepDetailsForm_name"
+                            >
+                              Name
+                            </span>
                              
                             <span
                               class="bp3-text-muted"
@@ -434,7 +439,12 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                   class="bp3-label"
                   for="authScheme"
                 >
-                  secrets.sshAuthFormFields.labelType
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="stepAuthenticationForm_authScheme"
+                  >
+                    secrets.sshAuthFormFields.labelType
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -552,7 +562,12 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                   class="bp3-label"
                   for="userName"
                 >
-                  username
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="stepAuthenticationForm_userName"
+                  >
+                    username
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -698,7 +713,12 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                   class="bp3-label"
                   for="port"
                 >
-                  secrets.sshAuthFormFields.labelSSHPort
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="stepAuthenticationForm_port"
+                  >
+                    secrets.sshAuthFormFields.labelSSHPort
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -935,7 +955,12 @@ exports[`Create SSH Cred Wizard should render form 3`] = `
                     class="bp3-label"
                     for="host"
                   >
-                    secrets.createSSHCredWizard.labelHostname
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="sshVerifyConnectionForm_host"
+                    >
+                      secrets.createSSHCredWizard.labelHostname
+                    </span>
                      
                     <span
                       class="bp3-text-muted"

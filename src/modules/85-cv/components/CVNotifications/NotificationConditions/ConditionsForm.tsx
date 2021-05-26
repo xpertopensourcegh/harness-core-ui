@@ -278,6 +278,7 @@ const ConditionsForm: React.FC<StepProps<any> & ConditionsFormProps> = props => 
           enabledVerifications: props.ruleData?.enabledVerifications || false,
           threshold: props.ruleData?.threshold || 0
         }}
+        formName="cvNotificationConditions"
         enableReinitialize={true}
         onSubmit={formData => {
           const notificationData = { ...props.ruleData, ...formData }

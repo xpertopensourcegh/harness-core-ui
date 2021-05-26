@@ -97,6 +97,7 @@ const StepGitAuthentication: React.FC<StepProps<StepGitAuthenticationProps> & Gi
           ...initialValues,
           ...prevStepData
         }}
+        formName="stepGitAuthForm"
         validationSchema={Yup.object().shape({
           username: Yup.string().when('connectionType', {
             is: val => val === GitConnectionType.HTTP,

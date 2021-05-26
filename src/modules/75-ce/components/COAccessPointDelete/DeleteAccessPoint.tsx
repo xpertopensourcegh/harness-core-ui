@@ -70,6 +70,7 @@ const DeleteAccessPoint = (props: DeleteAccessPointProps) => {
         initialValues={{
           withResources: false
         }}
+        formName="deleteAccessPt"
         render={_ => (
           <FormikForm>
             <Layout.Vertical spacing="xlarge" margin="xlarge">

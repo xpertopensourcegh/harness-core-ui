@@ -28,7 +28,12 @@ exports[`InfraProvisioning Edit View should render properly - loading case 1`] =
               <span
                 class="bp3-control-indicator"
               />
-              pipelineSteps.deploy.provisioner.enableProvisionerLabel
+              <span
+                class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                data-tooltip-id="infraProvisionerBase_provisionerEnabled"
+              >
+                pipelineSteps.deploy.provisioner.enableProvisionerLabel
+              </span>
             </label>
           </div>
         </div>
@@ -94,7 +99,12 @@ exports[`InfraProvisioning Edit View should render properly - not enabled case 1
               <span
                 class="bp3-control-indicator"
               />
-              pipelineSteps.deploy.provisioner.enableProvisionerLabel
+              <span
+                class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                data-tooltip-id="infraProvisionerBase_provisionerEnabled"
+              >
+                pipelineSteps.deploy.provisioner.enableProvisionerLabel
+              </span>
             </label>
           </div>
         </div>

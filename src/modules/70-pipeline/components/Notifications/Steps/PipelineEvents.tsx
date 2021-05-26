@@ -85,6 +85,7 @@ const PipelineEvents: React.FC<PipelineEventsProps> = ({ nextStep, prevStepData,
       </Text>
       <Formik<PipelineEventsFormData>
         initialValues={{ ...initialValues, types }}
+        formName="pipelineEvents"
         onSubmit={values => {
           const pipelineEvents: PipelineEvent[] = Object.keys(values.types)
             .filter(function (k) {

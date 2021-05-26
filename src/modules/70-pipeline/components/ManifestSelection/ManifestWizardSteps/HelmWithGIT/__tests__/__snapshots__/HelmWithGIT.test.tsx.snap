@@ -24,7 +24,12 @@ exports[`helm with GIT tests expand advanced section 1`] = `
               class="bp3-label"
               for="identifier"
             >
-              pipeline.manifestType.manifestIdentifier
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="helmWithGit_identifier"
+              >
+                pipeline.manifestType.manifestIdentifier
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -60,7 +65,12 @@ exports[`helm with GIT tests expand advanced section 1`] = `
                   class="bp3-label"
                   for="gitFetchType"
                 >
-                  pipeline.manifestType.gitFetchTypeLabel
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGit_gitFetchType"
+                  >
+                    pipeline.manifestType.gitFetchTypeLabel
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -126,7 +136,12 @@ exports[`helm with GIT tests expand advanced section 1`] = `
                   class="bp3-label"
                   for="branch"
                 >
-                  pipelineSteps.deploy.inputSet.branch
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGit_branch"
+                  >
+                    pipelineSteps.deploy.inputSet.branch
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -195,7 +210,12 @@ exports[`helm with GIT tests expand advanced section 1`] = `
                   class="bp3-label"
                   for="folderPath"
                 >
-                  chartPath
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGit_folderPath"
+                  >
+                    chartPath
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -260,7 +280,12 @@ exports[`helm with GIT tests expand advanced section 1`] = `
                   class="bp3-label"
                   for="helmVersion"
                 >
-                  helmVersion
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGit_helmVersion"
+                  >
+                    helmVersion
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -484,7 +509,12 @@ exports[`helm with GIT tests expand advanced section 1`] = `
                                       class="bp3-label"
                                       for="commandFlags[0].commandType"
                                     >
-                                      pipeline.manifestType.helmCommandType
+                                      <span
+                                        class="Tooltip--acenter"
+                                        data-tooltip-id="helmWithGit_commandFlags[0].commandType"
+                                      >
+                                        pipeline.manifestType.helmCommandType
+                                      </span>
                                        
                                       <span
                                         class="bp3-text-muted"
@@ -585,7 +615,12 @@ exports[`helm with GIT tests expand advanced section 1`] = `
                                         class="bp3-label"
                                         for="commandFlags[0].flag"
                                       >
-                                        flag
+                                        <span
+                                          class="Tooltip--acenter"
+                                          data-tooltip-id="helmWithGit_commandFlags[0].flag"
+                                        >
+                                          flag
+                                        </span>
                                          
                                         <span
                                           class="bp3-text-muted"
@@ -744,7 +779,12 @@ exports[`helm with GIT tests renders correctly in edit case 1`] = `
               class="bp3-label"
               for="identifier"
             >
-              pipeline.manifestType.manifestIdentifier
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="helmWithGit_identifier"
+              >
+                pipeline.manifestType.manifestIdentifier
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -780,7 +820,12 @@ exports[`helm with GIT tests renders correctly in edit case 1`] = `
                   class="bp3-label"
                   for="gitFetchType"
                 >
-                  pipeline.manifestType.gitFetchTypeLabel
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGit_gitFetchType"
+                  >
+                    pipeline.manifestType.gitFetchTypeLabel
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -846,7 +891,12 @@ exports[`helm with GIT tests renders correctly in edit case 1`] = `
                   class="bp3-label"
                   for="branch"
                 >
-                  pipelineSteps.deploy.inputSet.branch
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGit_branch"
+                  >
+                    pipelineSteps.deploy.inputSet.branch
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -915,7 +965,12 @@ exports[`helm with GIT tests renders correctly in edit case 1`] = `
                   class="bp3-label"
                   for="folderPath"
                 >
-                  chartPath
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGit_folderPath"
+                  >
+                    chartPath
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -980,7 +1035,12 @@ exports[`helm with GIT tests renders correctly in edit case 1`] = `
                   class="bp3-label"
                   for="helmVersion"
                 >
-                  helmVersion
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGit_helmVersion"
+                  >
+                    helmVersion
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1163,7 +1223,12 @@ exports[`helm with GIT tests renders while adding step first time 1`] = `
               class="bp3-label"
               for="identifier"
             >
-              pipeline.manifestType.manifestIdentifier
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="helmWithGit_identifier"
+              >
+                pipeline.manifestType.manifestIdentifier
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -1199,7 +1264,12 @@ exports[`helm with GIT tests renders while adding step first time 1`] = `
                   class="bp3-label"
                   for="gitFetchType"
                 >
-                  pipeline.manifestType.gitFetchTypeLabel
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGit_gitFetchType"
+                  >
+                    pipeline.manifestType.gitFetchTypeLabel
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1265,7 +1335,12 @@ exports[`helm with GIT tests renders while adding step first time 1`] = `
                   class="bp3-label"
                   for="branch"
                 >
-                  pipelineSteps.deploy.inputSet.branch
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGit_branch"
+                  >
+                    pipelineSteps.deploy.inputSet.branch
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1334,7 +1409,12 @@ exports[`helm with GIT tests renders while adding step first time 1`] = `
                   class="bp3-label"
                   for="folderPath"
                 >
-                  chartPath
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGit_folderPath"
+                  >
+                    chartPath
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1399,7 +1479,12 @@ exports[`helm with GIT tests renders while adding step first time 1`] = `
                   class="bp3-label"
                   for="helmVersion"
                 >
-                  helmVersion
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGit_helmVersion"
+                  >
+                    helmVersion
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1582,7 +1667,12 @@ exports[`helm with GIT tests renders without crashing 1`] = `
               class="bp3-label"
               for="identifier"
             >
-              pipeline.manifestType.manifestIdentifier
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="helmWithGit_identifier"
+              >
+                pipeline.manifestType.manifestIdentifier
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -1618,7 +1708,12 @@ exports[`helm with GIT tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="gitFetchType"
                 >
-                  pipeline.manifestType.gitFetchTypeLabel
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGit_gitFetchType"
+                  >
+                    pipeline.manifestType.gitFetchTypeLabel
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1684,7 +1779,12 @@ exports[`helm with GIT tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="branch"
                 >
-                  pipelineSteps.deploy.inputSet.branch
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGit_branch"
+                  >
+                    pipelineSteps.deploy.inputSet.branch
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1753,7 +1853,12 @@ exports[`helm with GIT tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="folderPath"
                 >
-                  chartPath
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGit_folderPath"
+                  >
+                    chartPath
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1818,7 +1923,12 @@ exports[`helm with GIT tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="helmVersion"
                 >
-                  helmVersion
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGit_helmVersion"
+                  >
+                    helmVersion
+                  </span>
                    
                   <span
                     class="bp3-text-muted"

@@ -98,7 +98,11 @@ const LoginPage: React.FC = () => {
         </Text>
 
         <Container margin={{ top: 'xxxlarge' }}>
-          <Formik<LoginForm> initialValues={{ email: '', password: '' }} onSubmit={handleSubmit}>
+          <Formik<LoginForm>
+            initialValues={{ email: '', password: '' }}
+            formName="loginPageForm"
+            onSubmit={handleSubmit}
+          >
             <FormikForm>
               <FormInput.Text name="email" label={getString('signUp.form.emailLabel')} disabled={isLoading} />
               <FormInput.Text

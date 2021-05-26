@@ -102,7 +102,12 @@ exports[`Save to git form rendering form to git save form without git credential
                     class="bp3-label"
                     for="name"
                   >
-                    name
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="saveToGitForm_name"
+                    >
+                      name
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -142,7 +147,12 @@ exports[`Save to git form rendering form to git save form without git credential
                     class="bp3-label"
                     for="repoIdentifier"
                   >
-                    common.git.selectRepoLabel
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="saveToGitForm_repoIdentifier"
+                    >
+                      common.git.selectRepoLabel
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -206,7 +216,12 @@ exports[`Save to git form rendering form to git save form without git credential
                     class="bp3-label"
                     for="rootFolder"
                   >
-                    common.gitSync.harnessFolderLabel
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="saveToGitForm_rootFolder"
+                    >
+                      common.gitSync.harnessFolderLabel
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -270,7 +285,12 @@ exports[`Save to git form rendering form to git save form without git credential
                   class="bp3-label"
                   for="filePath"
                 >
-                  common.git.filePath
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="saveToGitForm_filePath"
+                  >
+                    common.git.filePath
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -305,7 +325,12 @@ exports[`Save to git form rendering form to git save form without git credential
                   class="bp3-label"
                   for="commitMsg"
                 >
-                  common.git.commitMessage
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="saveToGitForm_commitMsg"
+                  >
+                    common.git.commitMessage
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -390,7 +415,12 @@ exports[`Save to git form rendering form to git save form without git credential
                         <span
                           class="bp3-control-indicator"
                         />
-                        common.git.startPRLabel
+                        <span
+                          class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                          data-tooltip-id="saveToGitForm_createPr"
+                        >
+                          common.git.startPRLabel
+                        </span>
                       </label>
                     </div>
                   </div>
@@ -557,7 +587,12 @@ exports[`Save to git form rendering form to save resouces 1`] = `
                     class="bp3-label"
                     for="name"
                   >
-                    name
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="saveToGitForm_name"
+                    >
+                      name
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -597,7 +632,12 @@ exports[`Save to git form rendering form to save resouces 1`] = `
                     class="bp3-label"
                     for="repoIdentifier"
                   >
-                    common.git.selectRepoLabel
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="saveToGitForm_repoIdentifier"
+                    >
+                      common.git.selectRepoLabel
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -661,7 +701,12 @@ exports[`Save to git form rendering form to save resouces 1`] = `
                     class="bp3-label"
                     for="rootFolder"
                   >
-                    common.gitSync.harnessFolderLabel
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="saveToGitForm_rootFolder"
+                    >
+                      common.gitSync.harnessFolderLabel
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -725,7 +770,12 @@ exports[`Save to git form rendering form to save resouces 1`] = `
                   class="bp3-label"
                   for="filePath"
                 >
-                  common.git.filePath
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="saveToGitForm_filePath"
+                  >
+                    common.git.filePath
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -765,7 +815,12 @@ exports[`Save to git form rendering form to save resouces 1`] = `
                   class="bp3-label"
                   for="commitMsg"
                 >
-                  common.git.commitMessage
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="saveToGitForm_commitMsg"
+                  >
+                    common.git.commitMessage
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -850,7 +905,12 @@ exports[`Save to git form rendering form to save resouces 1`] = `
                         <span
                           class="bp3-control-indicator"
                         />
-                        common.git.startPRLabel
+                        <span
+                          class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                          data-tooltip-id="saveToGitForm_createPr"
+                        >
+                          common.git.startPRLabel
+                        </span>
                       </label>
                     </div>
                   </div>
@@ -1015,7 +1075,12 @@ exports[`Save to git form rendering form to save resouces 2`] = `
                     class="bp3-label"
                     for="name"
                   >
-                    name
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="saveToGitForm_name"
+                    >
+                      name
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -1055,7 +1120,12 @@ exports[`Save to git form rendering form to save resouces 2`] = `
                     class="bp3-label"
                     for="repoIdentifier"
                   >
-                    common.git.selectRepoLabel
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="saveToGitForm_repoIdentifier"
+                    >
+                      common.git.selectRepoLabel
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -1119,7 +1189,12 @@ exports[`Save to git form rendering form to save resouces 2`] = `
                     class="bp3-label"
                     for="rootFolder"
                   >
-                    common.gitSync.harnessFolderLabel
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="saveToGitForm_rootFolder"
+                    >
+                      common.gitSync.harnessFolderLabel
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -1183,7 +1258,12 @@ exports[`Save to git form rendering form to save resouces 2`] = `
                   class="bp3-label"
                   for="filePath"
                 >
-                  common.git.filePath
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="saveToGitForm_filePath"
+                  >
+                    common.git.filePath
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1223,7 +1303,12 @@ exports[`Save to git form rendering form to save resouces 2`] = `
                   class="bp3-label"
                   for="commitMsg"
                 >
-                  common.git.commitMessage
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="saveToGitForm_commitMsg"
+                  >
+                    common.git.commitMessage
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1308,7 +1393,12 @@ exports[`Save to git form rendering form to save resouces 2`] = `
                         <span
                           class="bp3-control-indicator"
                         />
-                        common.git.startPRLabel
+                        <span
+                          class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                          data-tooltip-id="saveToGitForm_createPr"
+                        >
+                          common.git.startPRLabel
+                        </span>
                       </label>
                     </div>
                   </div>

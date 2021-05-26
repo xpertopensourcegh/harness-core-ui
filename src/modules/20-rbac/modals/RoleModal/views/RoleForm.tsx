@@ -82,6 +82,7 @@ const RoleForm: React.FC<RoleModalData> = props => {
             tags: {},
             ...roleData
           }}
+          formName="roleForm"
           validationSchema={Yup.object().shape({
             name: NameSchema(),
             identifier: IdentifierSchema()

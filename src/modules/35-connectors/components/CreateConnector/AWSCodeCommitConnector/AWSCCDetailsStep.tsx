@@ -36,6 +36,7 @@ export default function AWSCCDetailsStep(props: AWSCCDetailsStepProps) {
         ...initialValues,
         ...props.prevStepData
       }}
+      formName="awsCCDetailsForm"
       validationSchema={Yup.object().shape({
         urlType: Yup.string().required(),
         url: Yup.string().required()

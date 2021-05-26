@@ -102,6 +102,7 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
           ...initialValues,
           ...props.prevStepData
         }}
+        formName="gcpAuthForm"
         validationSchema={Yup.object().shape({
           password: Yup.object().when('delegateType', {
             is: DelegateTypes.DELEGATE_OUT_CLUSTER,

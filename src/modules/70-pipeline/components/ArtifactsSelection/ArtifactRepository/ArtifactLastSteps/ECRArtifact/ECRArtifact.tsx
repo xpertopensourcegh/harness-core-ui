@@ -225,6 +225,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
       <Formik
         initialValues={getInitialValues()}
         validationSchema={context === 2 ? sideCarSchema : ecrSchema}
+        formName="ecrArtifact"
         onSubmit={formData => {
           submitFormData({
             ...prevStepData,

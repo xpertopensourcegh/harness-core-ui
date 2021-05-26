@@ -66,6 +66,7 @@ function K8CanaryDeployWidget(
         onSubmit={(values: K8sCanaryDeployData) => {
           onUpdate?.(values)
         }}
+        formName="k8CanaryDeploy"
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),

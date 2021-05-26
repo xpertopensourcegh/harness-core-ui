@@ -103,7 +103,12 @@ exports[`ConditionalExecution matches snapshot when no data 1`] = `
                 <span
                   class="bp3-control-indicator"
                 />
-                 pipeline.conditionalExecution.condition
+                <span
+                  class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                  data-tooltip-id="condExecStudio_enableJEXL"
+                >
+                   pipeline.conditionalExecution.condition
+                </span>
               </label>
             </div>
           </div>
@@ -225,7 +230,12 @@ exports[`ConditionalExecution matches snapshot with data 1`] = `
                 <span
                   class="bp3-control-indicator"
                 />
-                 pipeline.conditionalExecution.condition
+                <span
+                  class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                  data-tooltip-id="condExecStudio_enableJEXL"
+                >
+                   pipeline.conditionalExecution.condition
+                </span>
               </label>
             </div>
           </div>

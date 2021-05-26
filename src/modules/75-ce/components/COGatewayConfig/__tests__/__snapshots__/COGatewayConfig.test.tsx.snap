@@ -198,7 +198,12 @@ exports[`Auto stopping Rule creation Tests Config screen renders without crashin
                             class="bp3-label"
                             for="gatewayName"
                           >
-                            ce.co.gatewayConfig.name
+                            <span
+                              class="Tooltip--acenter"
+                              data-tooltip-id="coGatewayConfig_gatewayName"
+                            >
+                              ce.co.gatewayConfig.name
+                            </span>
                              
                             <span
                               class="bp3-text-muted"
@@ -254,16 +259,21 @@ exports[`Auto stopping Rule creation Tests Config screen renders without crashin
                             class="bp3-label"
                             for="idleTime"
                           >
-                            <div
-                              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                            <span
+                              class="Tooltip--acenter"
+                              data-tooltip-id="coGatewayConfig_idleTime"
                             >
-                              <p
-                                class="StyledProps--font StyledProps--main"
-                                style="font-size: 13px;"
+                              <div
+                                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                               >
-                                ce.co.autoStoppingRule.configuration.step1.form.idleTime.label
-                              </p>
-                            </div>
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  style="font-size: 13px;"
+                                >
+                                  ce.co.autoStoppingRule.configuration.step1.form.idleTime.label
+                                </p>
+                              </div>
+                            </span>
                              
                             <span
                               class="bp3-text-muted"
@@ -666,7 +676,12 @@ exports[`Auto stopping Rule creation Tests Fill remaining form for INSTANCES 1`]
                             class="bp3-label"
                             for="gatewayName"
                           >
-                            ce.co.gatewayConfig.name
+                            <span
+                              class="Tooltip--acenter"
+                              data-tooltip-id="coGatewayConfig_gatewayName"
+                            >
+                              ce.co.gatewayConfig.name
+                            </span>
                              
                             <span
                               class="bp3-text-muted"
@@ -722,16 +737,21 @@ exports[`Auto stopping Rule creation Tests Fill remaining form for INSTANCES 1`]
                             class="bp3-label"
                             for="idleTime"
                           >
-                            <div
-                              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                            <span
+                              class="Tooltip--acenter"
+                              data-tooltip-id="coGatewayConfig_idleTime"
                             >
-                              <p
-                                class="StyledProps--font StyledProps--main"
-                                style="font-size: 13px;"
+                              <div
+                                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                               >
-                                ce.co.autoStoppingRule.configuration.step1.form.idleTime.label
-                              </p>
-                            </div>
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  style="font-size: 13px;"
+                                >
+                                  ce.co.autoStoppingRule.configuration.step1.form.idleTime.label
+                                </p>
+                              </div>
+                            </span>
                              
                             <span
                               class="bp3-text-muted"
@@ -2028,7 +2048,12 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 1`] = `
                             class="bp3-label"
                             for="gatewayName"
                           >
-                            ce.co.gatewayConfig.name
+                            <span
+                              class="Tooltip--acenter"
+                              data-tooltip-id="coGatewayConfig_gatewayName"
+                            >
+                              ce.co.gatewayConfig.name
+                            </span>
                              
                             <span
                               class="bp3-text-muted"
@@ -2084,16 +2109,21 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 1`] = `
                             class="bp3-label"
                             for="idleTime"
                           >
-                            <div
-                              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                            <span
+                              class="Tooltip--acenter"
+                              data-tooltip-id="coGatewayConfig_idleTime"
                             >
-                              <p
-                                class="StyledProps--font StyledProps--main"
-                                style="font-size: 13px;"
+                              <div
+                                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                               >
-                                ce.co.autoStoppingRule.configuration.step1.form.idleTime.label
-                              </p>
-                            </div>
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  style="font-size: 13px;"
+                                >
+                                  ce.co.autoStoppingRule.configuration.step1.form.idleTime.label
+                                </p>
+                              </div>
+                            </span>
                              
                             <span
                               class="bp3-text-muted"
@@ -2368,18 +2398,23 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 1`] = `
                               class="bp3-label"
                               for="odInstance"
                             >
-                              <div
-                                class="Layout--horizontal StyledProps--main"
+                              <span
+                                class="Tooltip--acenter"
+                                data-tooltip-id="odInstance_odInstance"
                               >
-                                <img
-                                  src="test-file-stub"
-                                />
-                                <p
-                                  class="StyledProps--font StyledProps--main"
+                                <div
+                                  class="Layout--horizontal StyledProps--main"
                                 >
-                                  On-Demand
-                                </p>
-                              </div>
+                                  <img
+                                    src="test-file-stub"
+                                  />
+                                  <p
+                                    class="StyledProps--font StyledProps--main"
+                                  >
+                                    On-Demand
+                                  </p>
+                                </div>
+                              </span>
                                
                               <span
                                 class="bp3-text-muted"
@@ -2414,18 +2449,23 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 1`] = `
                               class="bp3-label"
                               for="spotInstance"
                             >
-                              <div
-                                class="Layout--horizontal StyledProps--main"
+                              <span
+                                class="Tooltip--acenter"
+                                data-tooltip-id="odInstance_spotInstance"
                               >
-                                <img
-                                  src="test-file-stub"
-                                />
-                                <p
-                                  class="StyledProps--font StyledProps--main"
+                                <div
+                                  class="Layout--horizontal StyledProps--main"
                                 >
-                                  Spot
-                                </p>
-                              </div>
+                                  <img
+                                    src="test-file-stub"
+                                  />
+                                  <p
+                                    class="StyledProps--font StyledProps--main"
+                                  >
+                                    Spot
+                                  </p>
+                                </div>
+                              </span>
                                
                               <span
                                 class="bp3-text-muted"
@@ -3104,7 +3144,12 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 2`] = `
                             class="bp3-label"
                             for="gatewayName"
                           >
-                            ce.co.gatewayConfig.name
+                            <span
+                              class="Tooltip--acenter"
+                              data-tooltip-id="coGatewayConfig_gatewayName"
+                            >
+                              ce.co.gatewayConfig.name
+                            </span>
                              
                             <span
                               class="bp3-text-muted"
@@ -3160,16 +3205,21 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 2`] = `
                             class="bp3-label"
                             for="idleTime"
                           >
-                            <div
-                              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                            <span
+                              class="Tooltip--acenter"
+                              data-tooltip-id="coGatewayConfig_idleTime"
                             >
-                              <p
-                                class="StyledProps--font StyledProps--main"
-                                style="font-size: 13px;"
+                              <div
+                                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                               >
-                                ce.co.autoStoppingRule.configuration.step1.form.idleTime.label
-                              </p>
-                            </div>
+                                <p
+                                  class="StyledProps--font StyledProps--main"
+                                  style="font-size: 13px;"
+                                >
+                                  ce.co.autoStoppingRule.configuration.step1.form.idleTime.label
+                                </p>
+                              </div>
+                            </span>
                              
                             <span
                               class="bp3-text-muted"
@@ -3444,18 +3494,23 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 2`] = `
                               class="bp3-label"
                               for="odInstance"
                             >
-                              <div
-                                class="Layout--horizontal StyledProps--main"
+                              <span
+                                class="Tooltip--acenter"
+                                data-tooltip-id="odInstance_odInstance"
                               >
-                                <img
-                                  src="test-file-stub"
-                                />
-                                <p
-                                  class="StyledProps--font StyledProps--main"
+                                <div
+                                  class="Layout--horizontal StyledProps--main"
                                 >
-                                  On-Demand
-                                </p>
-                              </div>
+                                  <img
+                                    src="test-file-stub"
+                                  />
+                                  <p
+                                    class="StyledProps--font StyledProps--main"
+                                  >
+                                    On-Demand
+                                  </p>
+                                </div>
+                              </span>
                                
                               <span
                                 class="bp3-text-muted"
@@ -3490,18 +3545,23 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 2`] = `
                               class="bp3-label"
                               for="spotInstance"
                             >
-                              <div
-                                class="Layout--horizontal StyledProps--main"
+                              <span
+                                class="Tooltip--acenter"
+                                data-tooltip-id="odInstance_spotInstance"
                               >
-                                <img
-                                  src="test-file-stub"
-                                />
-                                <p
-                                  class="StyledProps--font StyledProps--main"
+                                <div
+                                  class="Layout--horizontal StyledProps--main"
                                 >
-                                  Spot
-                                </p>
-                              </div>
+                                  <img
+                                    src="test-file-stub"
+                                  />
+                                  <p
+                                    class="StyledProps--font StyledProps--main"
+                                  >
+                                    Spot
+                                  </p>
+                                </div>
+                              </span>
                                
                               <span
                                 class="bp3-text-muted"

@@ -161,6 +161,7 @@ const StepBitbucketAuthentication: React.FC<
           ...initialValues,
           ...prevStepData
         }}
+        formName="bitbAuthForm"
         validationSchema={Yup.object().shape({
           username: Yup.string().when(['connectionType'], {
             is: connectionType => connectionType === GitConnectionType.HTTP,

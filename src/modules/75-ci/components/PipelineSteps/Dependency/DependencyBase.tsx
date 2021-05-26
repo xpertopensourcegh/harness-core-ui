@@ -64,6 +64,7 @@ export const DependencyBase = (
         initialValues,
         transformValuesFieldsConfig
       )}
+      formName="dependencyBase"
       validate={valuesToValidate => {
         return validate(valuesToValidate, editViewValidateFieldsConfig, {
           initialValues,

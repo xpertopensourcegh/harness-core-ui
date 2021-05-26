@@ -135,6 +135,7 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
             modalErrorHandler?.hide()
             handleSubmit(formData)
           }}
+          formName="stepAuthenticationForm"
           validationSchema={validationSchema}
           initialValues={{
             authScheme: 'SSH',

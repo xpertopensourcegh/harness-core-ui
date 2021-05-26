@@ -54,6 +54,7 @@ function K8BGDeployWidget(props: K8BGDeployProps, formikRef: StepFormikFowardRef
         onSubmit={(values: K8sBGDeployData) => {
           onUpdate?.(values)
         }}
+        formName="k8BG"
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),

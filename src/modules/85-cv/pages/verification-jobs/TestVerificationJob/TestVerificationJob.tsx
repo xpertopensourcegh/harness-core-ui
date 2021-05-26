@@ -30,6 +30,7 @@ const TestVerificationJob: React.FC<VerificationJobsDetailsProps> = props => {
     <Container style={{ position: 'relative', top: 80 }}>
       <Formik
         initialValues={{ ...props.stepData }}
+        formName="testVerify"
         validationSchema={Yup.object().shape({
           service: Yup.string().trim().required(getString('cv.verificationJobs.validation.service')),
           baseline: Yup.string().trim().required(getString('cv.verificationJobs.validation.baseline')),

@@ -26,6 +26,7 @@ const HarnessCDActivitySourceDetails: React.FC<HarnessCDActivitySourceDetailsPro
     <Container style={{ position: 'relative', top: 80 }}>
       <Formik
         initialValues={initialValues}
+        formName="cdActivity"
         validationSchema={Yup.object().shape({
           name: Yup.string().trim().required(getString('validation.nameRequired')),
           identifier: Yup.string().when('name', {

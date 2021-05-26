@@ -490,6 +490,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
 
           <Formik<OverlayInputSetDTO & GitContextProps>
             initialValues={{ ...omit(inputSet, 'gitDetails'), repo: repoIdentifier || '', branch: branch || '' }}
+            formName="overlayInputSet"
             enableReinitialize={true}
             validationSchema={Yup.object().shape({
               name: Yup.string().trim().required(getString('inputSets.nameIsRequired')),

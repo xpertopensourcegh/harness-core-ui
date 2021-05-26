@@ -122,6 +122,7 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
       </Text>
       <Formik
         initialValues={getInitialValues()}
+        formName="helmWithGcs"
         validationSchema={Yup.object().shape({
           identifier: Yup.string()
             .trim()

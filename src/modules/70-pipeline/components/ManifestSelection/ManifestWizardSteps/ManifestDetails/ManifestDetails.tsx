@@ -205,6 +205,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
       </Text>
       <Formik
         initialValues={getInitialValues()}
+        formName="manifestDetails"
         validationSchema={Yup.object().shape({
           identifier: Yup.string()
             .trim()

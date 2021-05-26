@@ -734,7 +734,12 @@ exports[`Jira Update tests Edit stage - readony view: editstage-readonly 1`] = `
             class="bp3-label"
             for="name"
           >
-            name
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="jiraUpdate_name"
+            >
+              name
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -988,7 +993,12 @@ exports[`Jira Update tests Edit stage - readony view: editstage-readonly 1`] = `
                     class="bp3-label"
                     for="spec.issueKey"
                   >
-                    pipeline.jiraApprovalStep.issueKey
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="jiraUpdate_spec.issueKey"
+                    >
+                      pipeline.jiraApprovalStep.issueKey
+                    </span>
                      
                     <span
                       class="bp3-text-muted"

@@ -746,7 +746,12 @@ exports[`Harness Approval tests Edit stage - readonly: edit stage readonly 1`] =
             class="bp3-label"
             for="name"
           >
-            name
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="harnessApproval_name"
+            >
+              name
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -935,7 +940,12 @@ exports[`Harness Approval tests Edit stage - readonly: edit stage readonly 1`] =
                       <span
                         class="bp3-control-indicator"
                       />
-                      pipeline.approvalStep.includePipelineExecutionHistory
+                      <span
+                        class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                        data-tooltip-id="harnessApproval_spec.includePipelineExecutionHistory"
+                      >
+                        pipeline.approvalStep.includePipelineExecutionHistory
+                      </span>
                     </label>
                   </div>
                 </div>

@@ -30,7 +30,12 @@ exports[`UsersPage Test Add Roles 1`] = `
                 class="bp3-label"
                 for="user"
               >
-                rbac.usersPage.forUser
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="userRoleAssignementForm_user"
+                >
+                  rbac.usersPage.forUser
+                </span>
                  
                 <span
                   class="bp3-text-muted"

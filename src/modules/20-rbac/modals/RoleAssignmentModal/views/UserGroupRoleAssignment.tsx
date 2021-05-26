@@ -90,6 +90,7 @@ const UserGroupRoleAssignment: React.FC<UserGroupRoleAssignmentData> = props => 
             name: userGroup.name,
             assignments: assignments
           }}
+          formName="userGroupRleAssignmentForm"
           validationSchema={Yup.object().shape({
             assignments: Yup.array().of(
               Yup.object().shape({

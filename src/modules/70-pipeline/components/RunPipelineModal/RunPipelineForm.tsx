@@ -390,6 +390,7 @@ function RunPipelineFormBasic({
             ? clearRuntimeInput(currentPipeline.pipeline)
             : {}
         }
+        formName="runPipeline"
         onSubmit={values => {
           handleRunPipeline(values as any)
         }}

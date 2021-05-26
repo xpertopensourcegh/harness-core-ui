@@ -184,7 +184,7 @@ export const FlagRerequisites: React.FC<FlagRerequisitesProps> = props => {
             {getString('cf.addPrerequisites.addPrerequisitesDesc')}
           </Text>
           {!loading && !error && (
-            <Formik initialValues={initialPrereqValues} onSubmit={handleAddPrerequisite}>
+            <Formik initialValues={initialPrereqValues} formName="flagRequisite" onSubmit={handleAddPrerequisite}>
               {formikProps => (
                 <Form>
                   <FieldArray name="prerequisites">

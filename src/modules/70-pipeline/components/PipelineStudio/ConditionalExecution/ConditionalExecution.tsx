@@ -47,6 +47,7 @@ export default function ConditionalExecution(props: ConditionalExecutionProps): 
         enableJEXL: !!stage.when?.condition,
         condition: stage.when?.condition
       }}
+      formName="condExecStudio"
       onSubmit={noop}
       validate={debouncedUpdate}
     >

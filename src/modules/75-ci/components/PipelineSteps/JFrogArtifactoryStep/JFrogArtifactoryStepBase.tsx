@@ -69,6 +69,7 @@ export const JFrogArtifactoryStepBase = (
         initialValues,
         transformValuesFieldsConfig
       )}
+      formName="jfrogArt"
       validate={valuesToValidate => {
         return validate(valuesToValidate, editViewValidateFieldsConfig, {
           initialValues,

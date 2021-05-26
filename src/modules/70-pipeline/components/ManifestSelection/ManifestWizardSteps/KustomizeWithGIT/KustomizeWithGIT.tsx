@@ -160,6 +160,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
       </Text>
       <Formik
         initialValues={getInitialValues()}
+        formName="kustomizeGit"
         validationSchema={Yup.object().shape({
           identifier: Yup.string()
             .trim()

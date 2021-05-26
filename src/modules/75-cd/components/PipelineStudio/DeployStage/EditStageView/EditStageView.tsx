@@ -111,6 +111,7 @@ export const EditStageView: React.FC<EditStageView> = ({
               tags: data?.stage?.tags || {},
               serviceType: newStageData[0]
             }}
+            formName="cdEditStage"
             onSubmit={values => {
               if (data) {
                 const newData = produce(data, draft => {

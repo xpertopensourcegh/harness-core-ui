@@ -127,6 +127,7 @@ export const FeatureAddEditStageView: React.FC<FeatureAddEditStageViewProps> = (
         <Formik
           enableReinitialize
           initialValues={initialValues}
+          formName="featureAddStage"
           validationSchema={validationSchema}
           validate={handleValidate}
           onSubmit={handleSubmit}

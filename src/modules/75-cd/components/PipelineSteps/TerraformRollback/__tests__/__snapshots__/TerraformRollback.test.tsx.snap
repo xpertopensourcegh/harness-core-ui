@@ -155,7 +155,12 @@ exports[`Test TerraformRollback should render edit view as edit step 1`] = `
               class="bp3-label"
               for="name"
             >
-              name
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="terraformRollback_name"
+              >
+                name
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -189,7 +194,12 @@ exports[`Test TerraformRollback should render edit view as edit step 1`] = `
             class="bp3-label"
             for="spec.provisionerIdentifier"
           >
-            pipelineSteps.provisionerIdentifier
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="terraformRollback_spec.provisionerIdentifier"
+            >
+              pipelineSteps.provisionerIdentifier
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -381,7 +391,12 @@ exports[`Test TerraformRollback should render edit view as new step 1`] = `
               class="bp3-label"
               for="name"
             >
-              name
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="terraformRollback_name"
+              >
+                name
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -415,7 +430,12 @@ exports[`Test TerraformRollback should render edit view as new step 1`] = `
             class="bp3-label"
             for="spec.provisionerIdentifier"
           >
-            pipelineSteps.provisionerIdentifier
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="terraformRollback_spec.provisionerIdentifier"
+            >
+              pipelineSteps.provisionerIdentifier
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -609,7 +629,12 @@ exports[`Test TerraformRollback should render edit view with runtime input value
               class="bp3-label"
               for="name"
             >
-              name
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="terraformRollback_name"
+              >
+                name
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -643,7 +668,12 @@ exports[`Test TerraformRollback should render edit view with runtime input value
             class="bp3-label"
             for="spec.provisionerIdentifier"
           >
-            pipelineSteps.provisionerIdentifier
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="terraformRollback_spec.provisionerIdentifier"
+            >
+              pipelineSteps.provisionerIdentifier
+            </span>
              
             <span
               class="bp3-text-muted"

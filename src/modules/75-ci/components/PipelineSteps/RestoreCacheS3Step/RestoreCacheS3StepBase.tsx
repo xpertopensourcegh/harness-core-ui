@@ -64,6 +64,7 @@ export const RestoreCacheS3StepBase = (
         transformValuesFieldsConfig,
         { archiveFormatOptions }
       )}
+      formName="restoreCacheS3"
       validate={valuesToValidate => {
         return validate(valuesToValidate, editViewValidateFieldsConfig, {
           initialValues,

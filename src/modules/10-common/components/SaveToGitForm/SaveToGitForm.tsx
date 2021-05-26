@@ -181,6 +181,7 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
       <Container className={css.modalBody}>
         <Formik<SaveToGitFormInterface>
           initialValues={defaultInitialFormData}
+          formName="saveToGitForm"
           validationSchema={Yup.object().shape({
             repoIdentifier: Yup.string().trim().required(getString('validation.repositoryName')),
             filePath: Yup.string().trim().required(getString('common.git.validation.filePath')),

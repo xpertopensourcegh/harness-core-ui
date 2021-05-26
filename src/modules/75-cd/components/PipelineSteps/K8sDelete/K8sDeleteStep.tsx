@@ -178,6 +178,7 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
         onSubmit={values => {
           onUpdate?.(values)
         }}
+        formName="k8DeleteData"
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),

@@ -236,6 +236,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
             ...initialValues,
             ...prevStepData
           }}
+          formName="delegateSelectorStepForm"
           //   Enable when delegateSelector adds form validation
           // validationSchema={Yup.object().shape({
           //   delegateSelector: Yup.string().when('delegateType', {

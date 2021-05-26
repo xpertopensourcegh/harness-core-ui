@@ -180,6 +180,7 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
           })
         )
       })}
+      formName="collaboratorsForm"
       onSubmit={(values, { resetForm }) => {
         modalErrorHandler?.hide()
         SendInvitation(values.collaborators)

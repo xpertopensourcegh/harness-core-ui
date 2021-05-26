@@ -141,6 +141,7 @@ const FlagElemAbout: React.FC<StepProps<any> & FlagElemAboutProps> = props => {
           permanent: false,
           ...prevStepData
         }}
+        formName="cfFlagElem"
         validationSchema={Yup.object().shape({
           name: Yup.string().trim().required(getString('cf.creationModal.aboutFlag.nameRequired')),
           identifier: Yup.string()

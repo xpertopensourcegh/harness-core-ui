@@ -60,6 +60,7 @@ export function PrometheusGroupName(props: PrometheusGroupNameProps): JSX.Elemen
         <Formik<CreateGroupName>
           initialValues={{ name: '' }}
           validate={values => validate(values, groupNames, getString)}
+          formName="prometheusGroupName"
           onSubmit={values => {
             const createdGroupName = { label: values.name, value: values.name }
             setPrometheusGroupNames(oldNames => [...oldNames, createdGroupName])

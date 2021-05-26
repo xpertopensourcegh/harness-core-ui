@@ -135,6 +135,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
       </Layout.Horizontal>
       <Formik
         initialValues={getInitialValues()}
+        formName="manifestStore"
         validationSchema={Yup.object().shape({
           connectorRef: Yup.string()
             .trim()

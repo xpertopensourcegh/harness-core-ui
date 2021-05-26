@@ -118,7 +118,12 @@ exports[`NewSegmentButton NewSegmentButton should render initial state correctly
                     class="bp3-label"
                     for="name"
                   >
-                    name
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="newSegmentButton_name"
+                    >
+                      name
+                    </span>
                      
                     <span
                       class="bp3-text-muted"

@@ -30,7 +30,12 @@ exports[`helm with http tests expand advanced section 1`] = `
                   class="bp3-label"
                   for="identifier"
                 >
-                  pipeline.manifestType.manifestIdentifier
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGcs_identifier"
+                  >
+                    pipeline.manifestType.manifestIdentifier
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -64,7 +69,12 @@ exports[`helm with http tests expand advanced section 1`] = `
                   class="bp3-label"
                   for="bucketName"
                 >
-                  pipeline.manifestType.bucketName (optional)
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGcs_bucketName"
+                  >
+                    pipeline.manifestType.bucketName (optional)
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -133,7 +143,12 @@ exports[`helm with http tests expand advanced section 1`] = `
                   class="bp3-label"
                   for="folderPath"
                 >
-                  pipeline.manifestType.path (optional)
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGcs_folderPath"
+                  >
+                    pipeline.manifestType.path (optional)
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -198,7 +213,12 @@ exports[`helm with http tests expand advanced section 1`] = `
                   class="bp3-label"
                   for="chartName"
                 >
-                  pipeline.manifestType.http.chartName
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGcs_chartName"
+                  >
+                    pipeline.manifestType.http.chartName
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -267,7 +287,12 @@ exports[`helm with http tests expand advanced section 1`] = `
                   class="bp3-label"
                   for="chartVersion"
                 >
-                  pipeline.manifestType.http.chartVersion (optional)
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGcs_chartVersion"
+                  >
+                    pipeline.manifestType.http.chartVersion (optional)
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -332,7 +357,12 @@ exports[`helm with http tests expand advanced section 1`] = `
                   class="bp3-label"
                   for="helmVersion"
                 >
-                  helmVersion
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGcs_helmVersion"
+                  >
+                    helmVersion
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -556,7 +586,12 @@ exports[`helm with http tests expand advanced section 1`] = `
                                       class="bp3-label"
                                       for="commandFlags[0].commandType"
                                     >
-                                      pipeline.manifestType.helmCommandType
+                                      <span
+                                        class="Tooltip--acenter"
+                                        data-tooltip-id="helmWithGcs_commandFlags[0].commandType"
+                                      >
+                                        pipeline.manifestType.helmCommandType
+                                      </span>
                                        
                                       <span
                                         class="bp3-text-muted"
@@ -657,7 +692,12 @@ exports[`helm with http tests expand advanced section 1`] = `
                                         class="bp3-label"
                                         for="commandFlags[0].flag"
                                       >
-                                        flag
+                                        <span
+                                          class="Tooltip--acenter"
+                                          data-tooltip-id="helmWithGcs_commandFlags[0].flag"
+                                        >
+                                          flag
+                                        </span>
                                          
                                         <span
                                           class="bp3-text-muted"
@@ -834,7 +874,12 @@ exports[`helm with http tests renders correctly in edit case 1`] = `
                   class="bp3-label"
                   for="identifier"
                 >
-                  pipeline.manifestType.manifestIdentifier
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGcs_identifier"
+                  >
+                    pipeline.manifestType.manifestIdentifier
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -868,7 +913,12 @@ exports[`helm with http tests renders correctly in edit case 1`] = `
                   class="bp3-label"
                   for="bucketName"
                 >
-                  pipeline.manifestType.bucketName (optional)
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGcs_bucketName"
+                  >
+                    pipeline.manifestType.bucketName (optional)
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -937,7 +987,12 @@ exports[`helm with http tests renders correctly in edit case 1`] = `
                   class="bp3-label"
                   for="folderPath"
                 >
-                  pipeline.manifestType.path (optional)
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGcs_folderPath"
+                  >
+                    pipeline.manifestType.path (optional)
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1002,7 +1057,12 @@ exports[`helm with http tests renders correctly in edit case 1`] = `
                   class="bp3-label"
                   for="chartName"
                 >
-                  pipeline.manifestType.http.chartName
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGcs_chartName"
+                  >
+                    pipeline.manifestType.http.chartName
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1071,7 +1131,12 @@ exports[`helm with http tests renders correctly in edit case 1`] = `
                   class="bp3-label"
                   for="chartVersion"
                 >
-                  pipeline.manifestType.http.chartVersion (optional)
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGcs_chartVersion"
+                  >
+                    pipeline.manifestType.http.chartVersion (optional)
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1136,7 +1201,12 @@ exports[`helm with http tests renders correctly in edit case 1`] = `
                   class="bp3-label"
                   for="helmVersion"
                 >
-                  helmVersion
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGcs_helmVersion"
+                  >
+                    helmVersion
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1325,7 +1395,12 @@ exports[`helm with http tests renders while adding step first time 1`] = `
                   class="bp3-label"
                   for="identifier"
                 >
-                  pipeline.manifestType.manifestIdentifier
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGcs_identifier"
+                  >
+                    pipeline.manifestType.manifestIdentifier
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1359,7 +1434,12 @@ exports[`helm with http tests renders while adding step first time 1`] = `
                   class="bp3-label"
                   for="bucketName"
                 >
-                  pipeline.manifestType.bucketName (optional)
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGcs_bucketName"
+                  >
+                    pipeline.manifestType.bucketName (optional)
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1428,7 +1508,12 @@ exports[`helm with http tests renders while adding step first time 1`] = `
                   class="bp3-label"
                   for="folderPath"
                 >
-                  pipeline.manifestType.path (optional)
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGcs_folderPath"
+                  >
+                    pipeline.manifestType.path (optional)
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1493,7 +1578,12 @@ exports[`helm with http tests renders while adding step first time 1`] = `
                   class="bp3-label"
                   for="chartName"
                 >
-                  pipeline.manifestType.http.chartName
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGcs_chartName"
+                  >
+                    pipeline.manifestType.http.chartName
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1562,7 +1652,12 @@ exports[`helm with http tests renders while adding step first time 1`] = `
                   class="bp3-label"
                   for="chartVersion"
                 >
-                  pipeline.manifestType.http.chartVersion (optional)
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGcs_chartVersion"
+                  >
+                    pipeline.manifestType.http.chartVersion (optional)
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1627,7 +1722,12 @@ exports[`helm with http tests renders while adding step first time 1`] = `
                   class="bp3-label"
                   for="helmVersion"
                 >
-                  helmVersion
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGcs_helmVersion"
+                  >
+                    helmVersion
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1816,7 +1916,12 @@ exports[`helm with http tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="identifier"
                 >
-                  pipeline.manifestType.manifestIdentifier
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGcs_identifier"
+                  >
+                    pipeline.manifestType.manifestIdentifier
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1850,7 +1955,12 @@ exports[`helm with http tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="bucketName"
                 >
-                  pipeline.manifestType.bucketName (optional)
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGcs_bucketName"
+                  >
+                    pipeline.manifestType.bucketName (optional)
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1919,7 +2029,12 @@ exports[`helm with http tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="folderPath"
                 >
-                  pipeline.manifestType.path (optional)
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGcs_folderPath"
+                  >
+                    pipeline.manifestType.path (optional)
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1984,7 +2099,12 @@ exports[`helm with http tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="chartName"
                 >
-                  pipeline.manifestType.http.chartName
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGcs_chartName"
+                  >
+                    pipeline.manifestType.http.chartName
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -2053,7 +2173,12 @@ exports[`helm with http tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="chartVersion"
                 >
-                  pipeline.manifestType.http.chartVersion (optional)
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGcs_chartVersion"
+                  >
+                    pipeline.manifestType.http.chartVersion (optional)
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -2118,7 +2243,12 @@ exports[`helm with http tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="helmVersion"
                 >
-                  helmVersion
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithGcs_helmVersion"
+                  >
+                    helmVersion
+                  </span>
                    
                   <span
                     class="bp3-text-muted"

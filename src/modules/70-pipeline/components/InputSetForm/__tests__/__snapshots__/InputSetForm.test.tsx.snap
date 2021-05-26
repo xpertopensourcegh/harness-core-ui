@@ -372,7 +372,12 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                             class="bp3-label"
                             for="name"
                           >
-                            inputSets.inputSetName
+                            <span
+                              class="Tooltip--acenter"
+                              data-tooltip-id="inputSetForm_name"
+                            >
+                              inputSets.inputSetName
+                            </span>
                              
                             <span
                               class="bp3-text-muted"
@@ -609,7 +614,12 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                       class="bp3-label"
                                       for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
                                     >
-                                      common.namespace
+                                      <span
+                                        class="Tooltip--acenter"
+                                        data-tooltip-id="inputSetForm_pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
+                                      >
+                                        common.namespace
+                                      </span>
                                        
                                       <span
                                         class="bp3-text-muted"
@@ -640,7 +650,12 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                       class="bp3-label"
                                       for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
                                     >
-                                      common.releaseName
+                                      <span
+                                        class="Tooltip--acenter"
+                                        data-tooltip-id="inputSetForm_pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
+                                      >
+                                        common.releaseName
+                                      </span>
                                        
                                       <span
                                         class="bp3-text-muted"
@@ -994,7 +1009,12 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                       class="bp3-label"
                       for="name"
                     >
-                      inputSets.overlaySetName
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="overlayInputSet_name"
+                      >
+                        inputSets.overlaySetName
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -1589,7 +1609,12 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                             class="bp3-label"
                             for="name"
                           >
-                            inputSets.inputSetName
+                            <span
+                              class="Tooltip--acenter"
+                              data-tooltip-id="inputSetForm_name"
+                            >
+                              inputSets.inputSetName
+                            </span>
                              
                             <span
                               class="bp3-text-muted"
@@ -1826,7 +1851,12 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                       class="bp3-label"
                                       for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
                                     >
-                                      common.namespace
+                                      <span
+                                        class="Tooltip--acenter"
+                                        data-tooltip-id="inputSetForm_pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
+                                      >
+                                        common.namespace
+                                      </span>
                                        
                                       <span
                                         class="bp3-text-muted"
@@ -1857,7 +1887,12 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                       class="bp3-label"
                                       for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
                                     >
-                                      common.releaseName
+                                      <span
+                                        class="Tooltip--acenter"
+                                        data-tooltip-id="inputSetForm_pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
+                                      >
+                                        common.releaseName
+                                      </span>
                                        
                                       <span
                                         class="bp3-text-muted"
@@ -2084,7 +2119,12 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                       class="bp3-label"
                       for="name"
                     >
-                      inputSets.overlaySetName
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="overlayInputSet_name"
+                      >
+                        inputSets.overlaySetName
+                      </span>
                        
                       <span
                         class="bp3-text-muted"

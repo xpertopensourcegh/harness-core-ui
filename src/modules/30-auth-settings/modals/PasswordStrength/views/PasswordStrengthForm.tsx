@@ -82,6 +82,7 @@ const PasswordStrengthForm: React.FC<Props> = ({ onSubmit, onCancel, loginSettin
         {getString('authSettings.passwordStrength')}
       </Heading>
       <Formik
+        formName="passwordStrengthForm"
         initialValues={{
           minNumberOfCharacters: passwordStrengthSettings?.minNumberOfCharacters || /* istanbul ignore next */ 12,
           atLeastOneUppercase: !!passwordStrengthSettings?.minNumberOfUppercaseCharacters,

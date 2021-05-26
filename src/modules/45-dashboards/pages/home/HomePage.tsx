@@ -71,6 +71,7 @@ const FirstStep = (props: any): JSX.Element => {
         validationSchema={Yup.object().shape({
           name: Yup.string().trim().required(getString('dashboards.createModal.nameValidation'))
         })}
+        formName="homePage"
         onSubmit={(formData: { name: string; description: string }) => {
           setErrorMessage('')
           const response = submitForm(formData)

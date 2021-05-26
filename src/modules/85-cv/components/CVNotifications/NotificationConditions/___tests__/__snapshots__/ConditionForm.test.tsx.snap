@@ -35,7 +35,12 @@ exports[`ConditionForm render ConditionForm  1`] = `
                 class="bp3-label"
                 for="services"
               >
-                Service
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="cvNotificationConditions_services"
+                >
+                  Service
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -114,7 +119,12 @@ exports[`ConditionForm render ConditionForm  1`] = `
                 class="bp3-label"
                 for="environments"
               >
-                environment
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="cvNotificationConditions_environments"
+                >
+                  environment
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -205,7 +215,12 @@ exports[`ConditionForm render ConditionForm  1`] = `
                     <span
                       class="bp3-control-indicator"
                     />
-                    cv.admin.notifications.create.stepThree.notifyVerification
+                    <span
+                      class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                      data-tooltip-id="cvNotificationConditions_enabledVerifications"
+                    >
+                      cv.admin.notifications.create.stepThree.notifyVerification
+                    </span>
                   </label>
                 </div>
               </div>
@@ -226,7 +241,12 @@ exports[`ConditionForm render ConditionForm  1`] = `
                     <span
                       class="bp3-control-indicator"
                     />
-                    cv.admin.notifications.create.stepThree.notifyRisk
+                    <span
+                      class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                      data-tooltip-id="cvNotificationConditions_enabledRisk"
+                    >
+                      cv.admin.notifications.create.stepThree.notifyRisk
+                    </span>
                   </label>
                 </div>
               </div>

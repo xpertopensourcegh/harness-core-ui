@@ -458,6 +458,7 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
     <Container className={css.main}>
       <Formik<GCOMetricInfo>
         enableReinitialize={true}
+        formName="mapGCOMetrics"
         initialValues={updatedData.get(selectedMetric || '') || {}}
         onSubmit={values => {
           if (selectedMetric) {

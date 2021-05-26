@@ -64,6 +64,7 @@ export const S3StepBase = (
         initialValues,
         transformValuesFieldsConfig
       )}
+      formName="ciS3Base"
       validate={valuesToValidate => {
         return validate(valuesToValidate, editViewValidateFieldsConfig, {
           initialValues,

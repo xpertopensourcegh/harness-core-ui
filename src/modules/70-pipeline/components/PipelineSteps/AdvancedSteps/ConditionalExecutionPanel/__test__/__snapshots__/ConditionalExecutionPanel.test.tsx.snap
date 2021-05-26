@@ -95,7 +95,12 @@ exports[`ConditionalExecutionPanel matches snapshot 1`] = `
               <span
                 class="bp3-control-indicator"
               />
-               pipeline.conditionalExecution.condition
+              <span
+                class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                data-tooltip-id="conditionalExecution_enableJEXL"
+              >
+                 pipeline.conditionalExecution.condition
+              </span>
             </label>
           </div>
         </div>

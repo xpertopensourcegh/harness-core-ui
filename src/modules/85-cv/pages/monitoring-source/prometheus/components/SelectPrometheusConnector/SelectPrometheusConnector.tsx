@@ -24,6 +24,7 @@ export function SelectPrometheusConnector(): JSX.Element {
           onSubmit={values => onNext(values, { tabStatus: 'SUCCESS' })}
           initialValues={sourceData}
           validationSchema={getValidationSchema(getString)}
+          formName="selectPrometheusConn"
           render={formikProps => (
             <FormikForm>
               <Layout.Vertical spacing="medium">

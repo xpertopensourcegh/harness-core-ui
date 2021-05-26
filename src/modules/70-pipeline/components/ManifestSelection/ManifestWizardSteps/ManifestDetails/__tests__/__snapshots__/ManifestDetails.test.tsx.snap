@@ -24,7 +24,12 @@ exports[`Manifest Details tests expand advanced section - when type is k8smanife
               class="bp3-label"
               for="identifier"
             >
-              pipeline.manifestType.manifestIdentifier
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="manifestDetails_identifier"
+              >
+                pipeline.manifestType.manifestIdentifier
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -54,7 +59,12 @@ exports[`Manifest Details tests expand advanced section - when type is k8smanife
               class="bp3-label"
               for="gitFetchType"
             >
-              pipeline.manifestType.gitFetchTypeLabel
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="manifestDetails_gitFetchType"
+              >
+                pipeline.manifestType.gitFetchTypeLabel
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -120,7 +130,12 @@ exports[`Manifest Details tests expand advanced section - when type is k8smanife
                 class="bp3-label"
                 for="branch"
               >
-                pipelineSteps.deploy.inputSet.branch
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="manifestDetails_branch"
+                >
+                  pipelineSteps.deploy.inputSet.branch
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -540,7 +555,12 @@ exports[`Manifest Details tests initial rendering 1`] = `
               class="bp3-label"
               for="identifier"
             >
-              pipeline.manifestType.manifestIdentifier
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="manifestDetails_identifier"
+              >
+                pipeline.manifestType.manifestIdentifier
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -570,7 +590,12 @@ exports[`Manifest Details tests initial rendering 1`] = `
               class="bp3-label"
               for="gitFetchType"
             >
-              pipeline.manifestType.gitFetchTypeLabel
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="manifestDetails_gitFetchType"
+              >
+                pipeline.manifestType.gitFetchTypeLabel
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -636,7 +661,12 @@ exports[`Manifest Details tests initial rendering 1`] = `
                 class="bp3-label"
                 for="branch"
               >
-                pipelineSteps.deploy.inputSet.branch
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="manifestDetails_branch"
+                >
+                  pipelineSteps.deploy.inputSet.branch
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -932,7 +962,12 @@ exports[`Manifest Details tests renders form in edit mode - when gitfetchtype is
               class="bp3-label"
               for="identifier"
             >
-              pipeline.manifestType.manifestIdentifier
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="manifestDetails_identifier"
+              >
+                pipeline.manifestType.manifestIdentifier
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -962,7 +997,12 @@ exports[`Manifest Details tests renders form in edit mode - when gitfetchtype is
               class="bp3-label"
               for="gitFetchType"
             >
-              pipeline.manifestType.gitFetchTypeLabel
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="manifestDetails_gitFetchType"
+              >
+                pipeline.manifestType.gitFetchTypeLabel
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -1028,7 +1068,12 @@ exports[`Manifest Details tests renders form in edit mode - when gitfetchtype is
                 class="bp3-label"
                 for="commitId"
               >
-                pipeline.manifestType.commitId
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="manifestDetails_commitId"
+                >
+                  pipeline.manifestType.commitId
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -1324,7 +1369,12 @@ exports[`Manifest Details tests renders form in edit mode 1`] = `
               class="bp3-label"
               for="identifier"
             >
-              pipeline.manifestType.manifestIdentifier
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="manifestDetails_identifier"
+              >
+                pipeline.manifestType.manifestIdentifier
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -1354,7 +1404,12 @@ exports[`Manifest Details tests renders form in edit mode 1`] = `
               class="bp3-label"
               for="gitFetchType"
             >
-              pipeline.manifestType.gitFetchTypeLabel
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="manifestDetails_gitFetchType"
+              >
+                pipeline.manifestType.gitFetchTypeLabel
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -1420,7 +1475,12 @@ exports[`Manifest Details tests renders form in edit mode 1`] = `
                 class="bp3-label"
                 for="branch"
               >
-                pipelineSteps.deploy.inputSet.branch
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="manifestDetails_branch"
+                >
+                  pipelineSteps.deploy.inputSet.branch
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -1716,7 +1776,12 @@ exports[`Manifest Details tests runtime value for connector should make runtime 
               class="bp3-label"
               for="identifier"
             >
-              pipeline.manifestType.manifestIdentifier
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="manifestDetails_identifier"
+              >
+                pipeline.manifestType.manifestIdentifier
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -1746,7 +1811,12 @@ exports[`Manifest Details tests runtime value for connector should make runtime 
               class="bp3-label"
               for="gitFetchType"
             >
-              pipeline.manifestType.gitFetchTypeLabel
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="manifestDetails_gitFetchType"
+              >
+                pipeline.manifestType.gitFetchTypeLabel
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -1812,7 +1882,12 @@ exports[`Manifest Details tests runtime value for connector should make runtime 
                 class="bp3-label"
                 for="commitId"
               >
-                pipeline.manifestType.commitId
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="manifestDetails_commitId"
+                >
+                  pipeline.manifestType.commitId
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -2108,7 +2183,12 @@ exports[`Manifest Details tests when branch is runtime input 1`] = `
               class="bp3-label"
               for="identifier"
             >
-              pipeline.manifestType.manifestIdentifier
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="manifestDetails_identifier"
+              >
+                pipeline.manifestType.manifestIdentifier
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -2138,7 +2218,12 @@ exports[`Manifest Details tests when branch is runtime input 1`] = `
               class="bp3-label"
               for="gitFetchType"
             >
-              pipeline.manifestType.gitFetchTypeLabel
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="manifestDetails_gitFetchType"
+              >
+                pipeline.manifestType.gitFetchTypeLabel
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -2204,7 +2289,12 @@ exports[`Manifest Details tests when branch is runtime input 1`] = `
                 class="bp3-label"
                 for="branch"
               >
-                pipelineSteps.deploy.inputSet.branch
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="manifestDetails_branch"
+                >
+                  pipelineSteps.deploy.inputSet.branch
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -2500,7 +2590,12 @@ exports[`Manifest Details tests when connectionType is of repo 1`] = `
               class="bp3-label"
               for="identifier"
             >
-              pipeline.manifestType.manifestIdentifier
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="manifestDetails_identifier"
+              >
+                pipeline.manifestType.manifestIdentifier
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -2530,7 +2625,12 @@ exports[`Manifest Details tests when connectionType is of repo 1`] = `
               class="bp3-label"
               for="gitFetchType"
             >
-              pipeline.manifestType.gitFetchTypeLabel
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="manifestDetails_gitFetchType"
+              >
+                pipeline.manifestType.gitFetchTypeLabel
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -2596,7 +2696,12 @@ exports[`Manifest Details tests when connectionType is of repo 1`] = `
                 class="bp3-label"
                 for="commitId"
               >
-                pipeline.manifestType.commitId
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="manifestDetails_commitId"
+                >
+                  pipeline.manifestType.commitId
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -2892,7 +2997,12 @@ exports[`Manifest Details tests when scope is of account 1`] = `
               class="bp3-label"
               for="identifier"
             >
-              pipeline.manifestType.manifestIdentifier
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="manifestDetails_identifier"
+              >
+                pipeline.manifestType.manifestIdentifier
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -2922,7 +3032,12 @@ exports[`Manifest Details tests when scope is of account 1`] = `
               class="bp3-label"
               for="gitFetchType"
             >
-              pipeline.manifestType.gitFetchTypeLabel
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="manifestDetails_gitFetchType"
+              >
+                pipeline.manifestType.gitFetchTypeLabel
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -2988,7 +3103,12 @@ exports[`Manifest Details tests when scope is of account 1`] = `
                 class="bp3-label"
                 for="commitId"
               >
-                pipeline.manifestType.commitId
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="manifestDetails_commitId"
+                >
+                  pipeline.manifestType.commitId
+                </span>
                  
                 <span
                   class="bp3-text-muted"

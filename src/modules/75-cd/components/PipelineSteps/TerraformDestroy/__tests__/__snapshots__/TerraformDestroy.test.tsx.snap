@@ -70,7 +70,12 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
               class="bp3-label"
               for="name"
             >
-              name
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="terraformEdit_name"
+              >
+                name
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -104,7 +109,12 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
             class="bp3-label"
             for="spec.provisionerIdentifier"
           >
-            pipelineSteps.provisionerIdentifier
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="terraformEdit_spec.provisionerIdentifier"
+            >
+              pipelineSteps.provisionerIdentifier
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -168,7 +178,12 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
             class="bp3-label"
             for="spec.configuration.type"
           >
-            pipelineSteps.configurationType
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="terraformEdit_spec.configuration.type"
+            >
+              pipelineSteps.configurationType
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -333,7 +348,12 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
                       class="bp3-label"
                       for="spec.configuration.spec.workspace"
                     >
-                      pipelineSteps.workspace
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="terraformEdit_spec.configuration.spec.workspace"
+                      >
+                        pipelineSteps.workspace
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -516,7 +536,12 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
                       class="bp3-label"
                       for="spec.configuration.spec.configFiles.store.spec.gitFetchType"
                     >
-                      pipeline.manifestType.gitFetchTypeLabel
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="terraformEdit_spec.configuration.spec.configFiles.store.spec.gitFetchType"
+                      >
+                        pipeline.manifestType.gitFetchTypeLabel
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -582,7 +607,12 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
                       class="bp3-label"
                       for="spec.configuration.spec.configFiles.store.spec.folderPath"
                     >
-                      cd.folderPath
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="terraformEdit_spec.configuration.spec.configFiles.store.spec.folderPath"
+                      >
+                        cd.folderPath
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -929,7 +959,12 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
               class="bp3-label"
               for="name"
             >
-              name
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="terraformEdit_name"
+              >
+                name
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -963,7 +998,12 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
             class="bp3-label"
             for="spec.provisionerIdentifier"
           >
-            pipelineSteps.provisionerIdentifier
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="terraformEdit_spec.provisionerIdentifier"
+            >
+              pipelineSteps.provisionerIdentifier
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -1027,7 +1067,12 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
             class="bp3-label"
             for="spec.configuration.type"
           >
-            pipelineSteps.configurationType
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="terraformEdit_spec.configuration.type"
+            >
+              pipelineSteps.configurationType
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -1192,7 +1237,12 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
                       class="bp3-label"
                       for="spec.configuration.spec.workspace"
                     >
-                      pipelineSteps.workspace
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="terraformEdit_spec.configuration.spec.workspace"
+                      >
+                        pipelineSteps.workspace
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -1375,7 +1425,12 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
                       class="bp3-label"
                       for="spec.configuration.spec.configFiles.store.spec.gitFetchType"
                     >
-                      pipeline.manifestType.gitFetchTypeLabel
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="terraformEdit_spec.configuration.spec.configFiles.store.spec.gitFetchType"
+                      >
+                        pipeline.manifestType.gitFetchTypeLabel
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -1441,7 +1496,12 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
                       class="bp3-label"
                       for="spec.configuration.spec.configFiles.store.spec.folderPath"
                     >
-                      cd.folderPath
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="terraformEdit_spec.configuration.spec.configFiles.store.spec.folderPath"
+                      >
+                        cd.folderPath
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -1760,7 +1820,12 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
               class="bp3-label"
               for="name"
             >
-              name
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="terraformEdit_name"
+              >
+                name
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -1794,7 +1859,12 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
             class="bp3-label"
             for="spec.provisionerIdentifier"
           >
-            pipelineSteps.provisionerIdentifier
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="terraformEdit_spec.provisionerIdentifier"
+            >
+              pipelineSteps.provisionerIdentifier
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -1858,7 +1928,12 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
             class="bp3-label"
             for="spec.configuration.type"
           >
-            pipelineSteps.configurationType
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="terraformEdit_spec.configuration.type"
+            >
+              pipelineSteps.configurationType
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -2054,7 +2129,12 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
               class="bp3-label"
               for="name"
             >
-              name
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="terraformEdit_name"
+              >
+                name
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -2088,7 +2168,12 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
             class="bp3-label"
             for="spec.provisionerIdentifier"
           >
-            pipelineSteps.provisionerIdentifier
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="terraformEdit_spec.provisionerIdentifier"
+            >
+              pipelineSteps.provisionerIdentifier
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -2152,7 +2237,12 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
             class="bp3-label"
             for="spec.configuration.type"
           >
-            pipelineSteps.configurationType
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="terraformEdit_spec.configuration.type"
+            >
+              pipelineSteps.configurationType
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -2346,7 +2436,12 @@ exports[`Test TerraformDestroy should render edit view as new step 1`] = `
               class="bp3-label"
               for="name"
             >
-              name
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="terraformEdit_name"
+              >
+                name
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -2380,7 +2475,12 @@ exports[`Test TerraformDestroy should render edit view as new step 1`] = `
             class="bp3-label"
             for="spec.provisionerIdentifier"
           >
-            pipelineSteps.provisionerIdentifier
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="terraformEdit_spec.provisionerIdentifier"
+            >
+              pipelineSteps.provisionerIdentifier
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -2444,7 +2544,12 @@ exports[`Test TerraformDestroy should render edit view as new step 1`] = `
             class="bp3-label"
             for="spec.configuration.type"
           >
-            pipelineSteps.configurationType
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="terraformEdit_spec.configuration.type"
+            >
+              pipelineSteps.configurationType
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -2836,7 +2941,12 @@ exports[`Test TerraformDestroy with inline config and expand config files sectio
               class="bp3-label"
               for="name"
             >
-              name
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="terraformEdit_name"
+              >
+                name
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -2870,7 +2980,12 @@ exports[`Test TerraformDestroy with inline config and expand config files sectio
             class="bp3-label"
             for="spec.provisionerIdentifier"
           >
-            pipelineSteps.provisionerIdentifier
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="terraformEdit_spec.provisionerIdentifier"
+            >
+              pipelineSteps.provisionerIdentifier
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -2934,7 +3049,12 @@ exports[`Test TerraformDestroy with inline config and expand config files sectio
             class="bp3-label"
             for="spec.configuration.type"
           >
-            pipelineSteps.configurationType
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="terraformEdit_spec.configuration.type"
+            >
+              pipelineSteps.configurationType
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -3099,7 +3219,12 @@ exports[`Test TerraformDestroy with inline config and expand config files sectio
                       class="bp3-label"
                       for="spec.configuration.spec.workspace"
                     >
-                      pipelineSteps.workspace
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="terraformEdit_spec.configuration.spec.workspace"
+                      >
+                        pipelineSteps.workspace
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -3282,7 +3407,12 @@ exports[`Test TerraformDestroy with inline config and expand config files sectio
                       class="bp3-label"
                       for="spec.configuration.spec.configFiles.store.spec.gitFetchType"
                     >
-                      pipeline.manifestType.gitFetchTypeLabel
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="terraformEdit_spec.configuration.spec.configFiles.store.spec.gitFetchType"
+                      >
+                        pipeline.manifestType.gitFetchTypeLabel
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -3348,7 +3478,12 @@ exports[`Test TerraformDestroy with inline config and expand config files sectio
                       class="bp3-label"
                       for="spec.configuration.spec.configFiles.store.spec.folderPath"
                     >
-                      cd.folderPath
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="terraformEdit_spec.configuration.spec.configFiles.store.spec.folderPath"
+                      >
+                        cd.folderPath
+                      </span>
                        
                       <span
                         class="bp3-text-muted"

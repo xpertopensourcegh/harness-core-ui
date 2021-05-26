@@ -154,7 +154,12 @@ exports[`Create Artifactory connector Wizard Should be able to edit connector 1`
                       class="bp3-label"
                       for="artifactoryServerUrl"
                     >
-                      connectors.artifactory.artifactoryServerUrl
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="stepArtifactoryAuthForm_artifactoryServerUrl"
+                      >
+                        connectors.artifactory.artifactoryServerUrl
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -690,7 +695,12 @@ exports[`Create Artifactory connector Wizard Should render form 1`] = `
                           class="bp3-label"
                           for="name"
                         >
-                          name
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="connectorDetailsStepForm_name"
+                          >
+                            name
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -976,7 +986,12 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
                       class="bp3-label"
                       for="artifactoryServerUrl"
                     >
-                      connectors.artifactory.artifactoryServerUrl
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="stepArtifactoryAuthForm_artifactoryServerUrl"
+                      >
+                        connectors.artifactory.artifactoryServerUrl
+                      </span>
                        
                       <span
                         class="bp3-text-muted"

@@ -88,6 +88,7 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
       <Formik
         initialValues={getInitialValues()}
         validationSchema={primarySchema}
+        formName="artifactConnForm"
         onSubmit={formData => {
           submitFirstStep(formData)
         }}

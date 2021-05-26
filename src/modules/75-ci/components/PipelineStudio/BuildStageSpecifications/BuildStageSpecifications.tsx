@@ -167,6 +167,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
           initialValues={getInitialValues()}
           validationSchema={validationSchema}
           validate={debounceHandleValidate}
+          formName="ciBuildStage"
           onSubmit={values => logger.info(JSON.stringify(values))}
         >
           {({ values: formValues, setFieldValue }) => (

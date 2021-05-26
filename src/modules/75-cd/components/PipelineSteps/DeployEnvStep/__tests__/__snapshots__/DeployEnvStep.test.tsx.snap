@@ -88,7 +88,12 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
                 class="bp3-label"
                 for="name"
               >
-                name
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="deployEnv_name"
+                >
+                  name
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -443,7 +448,12 @@ exports[`Test DeployEnvironment Step should render environment view and save 1`]
                 class="bp3-label"
                 for="name"
               >
-                name
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="deployEnv_name"
+                >
+                  name
+                </span>
                  
                 <span
                   class="bp3-text-muted"

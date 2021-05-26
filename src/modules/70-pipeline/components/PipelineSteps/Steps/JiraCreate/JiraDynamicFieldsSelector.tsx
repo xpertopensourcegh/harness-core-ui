@@ -159,6 +159,7 @@ const ProvideFieldList = (props: JiraDynamicFieldsSelectorContentInterface) => {
       onSubmit={values => {
         props.provideFieldList(values)
       }}
+      formName="jiraFields"
       initialValues={[]}
     >
       {(formik: FormikProps<{ fieldList: JiraCreateFieldType[] }>) => {

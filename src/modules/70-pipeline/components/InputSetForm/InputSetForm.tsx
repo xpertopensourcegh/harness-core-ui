@@ -430,6 +430,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
         <Formik<InputSetDTO & GitContextProps>
           initialValues={{ ...omit(inputSet, 'gitDetails'), repo: repoIdentifier || '', branch: branch || '' }}
           enableReinitialize={true}
+          formName="inputSetForm"
           validate={values => {
             const errors: FormikErrors<InputSetDTO> = {}
             if (isEmpty(values.name)) {

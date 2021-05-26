@@ -31,6 +31,7 @@ function StepGroupWidget(
         onSubmit={values => {
           onUpdate?.(values)
         }}
+        formName="stepGroup"
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('secret.validationName'))

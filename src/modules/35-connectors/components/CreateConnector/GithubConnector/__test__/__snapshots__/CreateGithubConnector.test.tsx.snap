@@ -200,7 +200,12 @@ exports[`Create Github connector Wizard Creating Github step one 1`] = `
                           class="bp3-label"
                           for="name"
                         >
-                          name
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="connectorDetailsStepForm_name"
+                          >
+                            name
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -588,7 +593,12 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                       class="bp3-label"
                       for="url"
                     >
-                      common.git.gitHubAccountUrl
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="gitDetailsStepForm_url"
+                      >
+                        common.git.gitHubAccountUrl
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -1103,7 +1113,12 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                       <span
                         class="bp3-control-indicator"
                       />
-                      common.git.enableAPIAccess
+                      <span
+                        class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                        data-tooltip-id="stepGithubAuthForm_enableAPIAccess"
+                      >
+                        common.git.enableAPIAccess
+                      </span>
                     </label>
                   </div>
                 </div>
@@ -1431,7 +1446,12 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
                       class="bp3-label"
                       for="url"
                     >
-                      common.git.gitHubAccountUrl
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="gitDetailsStepForm_url"
+                      >
+                        common.git.gitHubAccountUrl
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -1792,7 +1812,12 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 2`]
                       <span
                         class="bp3-control-indicator"
                       />
-                      common.git.enableAPIAccess
+                      <span
+                        class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                        data-tooltip-id="stepGithubAuthForm_enableAPIAccess"
+                      >
+                        common.git.enableAPIAccess
+                      </span>
                     </label>
                   </div>
                 </div>
@@ -2050,7 +2075,12 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                           class="bp3-label"
                           for="name"
                         >
-                          name
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="connectorDetailsStepForm_name"
+                          >
+                            name
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -2616,7 +2646,12 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                       <span
                         class="bp3-control-indicator"
                       />
-                      common.git.enableAPIAccess
+                      <span
+                        class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                        data-tooltip-id="stepGithubAuthForm_enableAPIAccess"
+                      >
+                        common.git.enableAPIAccess
+                      </span>
                     </label>
                   </div>
                 </div>
@@ -3132,7 +3167,12 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                       <span
                         class="bp3-control-indicator"
                       />
-                      common.git.enableAPIAccess
+                      <span
+                        class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                        data-tooltip-id="stepGithubAuthForm_enableAPIAccess"
+                      >
+                        common.git.enableAPIAccess
+                      </span>
                     </label>
                   </div>
                 </div>
@@ -3812,7 +3852,12 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                       <span
                         class="bp3-control-indicator"
                       />
-                      common.git.enableAPIAccess
+                      <span
+                        class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                        data-tooltip-id="stepGithubAuthForm_enableAPIAccess"
+                      >
+                        common.git.enableAPIAccess
+                      </span>
                     </label>
                   </div>
                 </div>
@@ -4492,7 +4537,12 @@ exports[`Create Github connector Wizard should render form for edit http and aut
                       <span
                         class="bp3-control-indicator"
                       />
-                      common.git.enableAPIAccess
+                      <span
+                        class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                        data-tooltip-id="stepGithubAuthForm_enableAPIAccess"
+                      >
+                        common.git.enableAPIAccess
+                      </span>
                     </label>
                   </div>
                 </div>
@@ -4578,7 +4628,12 @@ exports[`Create Github connector Wizard should render form for edit http and aut
                         class="bp3-label"
                         for="installationId"
                       >
-                        common.git.installationId
+                        <span
+                          class="Tooltip--acenter"
+                          data-tooltip-id="stepGithubAuthForm_installationId"
+                        >
+                          common.git.installationId
+                        </span>
                          
                         <span
                           class="bp3-text-muted"
@@ -4608,7 +4663,12 @@ exports[`Create Github connector Wizard should render form for edit http and aut
                         class="bp3-label"
                         for="applicationId"
                       >
-                        common.git.applicationId
+                        <span
+                          class="Tooltip--acenter"
+                          data-tooltip-id="stepGithubAuthForm_applicationId"
+                        >
+                          common.git.applicationId
+                        </span>
                          
                         <span
                           class="bp3-text-muted"

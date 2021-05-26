@@ -60,6 +60,7 @@ const NotificationDetails: React.FC<StepProps<any> & NotificationDetailsProps> =
           props.nextStep?.({ ...props.prevStepData, ...formData })
           props.setRuleData({ ...(props.ruleData as CVNotificationForm), ...formData })
         }}
+        formName="createCvNotification"
         validationSchema={Yup.object().shape({
           name: Yup.string().trim().required(getString('validation.nameRequired')),
           identifier: Yup.string().when('name', {

@@ -111,6 +111,7 @@ const SignupPage: React.FC = () => {
 
         <Container margin={{ top: 'xxxlarge' }}>
           <Formik
+            formName="signupPageForm"
             initialValues={{ name: '', email: '', password: '' }}
             onSubmit={handleSubmit}
             validationSchema={Yup.object().shape({

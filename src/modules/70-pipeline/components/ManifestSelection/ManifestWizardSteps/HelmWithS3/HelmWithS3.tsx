@@ -153,6 +153,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
       </Text>
       <Formik
         initialValues={getInitialValues()}
+        formName="helmWithS3"
         enableReinitialize={true}
         validationSchema={Yup.object().shape({
           identifier: Yup.string()

@@ -104,7 +104,12 @@ exports[`Http Step edit mode works 1`] = `
                         class="bp3-label"
                         for="name"
                       >
-                        name
+                        <span
+                          class="Tooltip--acenter"
+                          data-tooltip-id="httpWidget_name"
+                        >
+                          name
+                        </span>
                          
                         <span
                           class="bp3-text-muted"
@@ -138,7 +143,12 @@ exports[`Http Step edit mode works 1`] = `
                       class="bp3-label"
                       for="spec.url"
                     >
-                      UrlLabel
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="httpWidget_spec.url"
+                      >
+                        UrlLabel
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -232,7 +242,12 @@ exports[`Http Step edit mode works 1`] = `
                       class="bp3-label"
                       for="spec.method"
                     >
-                      methodLabel
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="httpWidget_spec.method"
+                      >
+                        methodLabel
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -597,7 +612,12 @@ exports[`Http Step edit mode works 1`] = `
                       class="bp3-label"
                       for="spec.assertion"
                     >
-                      assertionLabel
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="httpWidget_spec.assertion"
+                      >
+                        assertionLabel
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -1086,7 +1106,12 @@ exports[`Http Step renders runtime inputs 1`] = `
                         class="bp3-label"
                         for="name"
                       >
-                        name
+                        <span
+                          class="Tooltip--acenter"
+                          data-tooltip-id="httpWidget_name"
+                        >
+                          name
+                        </span>
                          
                         <span
                           class="bp3-text-muted"
@@ -1120,7 +1145,12 @@ exports[`Http Step renders runtime inputs 1`] = `
                       class="bp3-label"
                       for="spec.url"
                     >
-                      UrlLabel
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="httpWidget_spec.url"
+                      >
+                        UrlLabel
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -1214,7 +1244,12 @@ exports[`Http Step renders runtime inputs 1`] = `
                       class="bp3-label"
                       for="spec.method"
                     >
-                      methodLabel
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="httpWidget_spec.method"
+                      >
+                        methodLabel
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -1477,7 +1512,12 @@ exports[`Http Step renders runtime inputs 1`] = `
                       class="bp3-label"
                       for="spec.assertion"
                     >
-                      assertionLabel
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="httpWidget_spec.assertion"
+                      >
+                        assertionLabel
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -1766,7 +1806,12 @@ exports[`Http Step should render edit view as new step 1`] = `
                         class="bp3-label"
                         for="name"
                       >
-                        name
+                        <span
+                          class="Tooltip--acenter"
+                          data-tooltip-id="httpWidget_name"
+                        >
+                          name
+                        </span>
                          
                         <span
                           class="bp3-text-muted"
@@ -1800,7 +1845,12 @@ exports[`Http Step should render edit view as new step 1`] = `
                       class="bp3-label"
                       for="spec.url"
                     >
-                      UrlLabel
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="httpWidget_spec.url"
+                      >
+                        UrlLabel
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -1864,7 +1914,12 @@ exports[`Http Step should render edit view as new step 1`] = `
                       class="bp3-label"
                       for="spec.method"
                     >
-                      methodLabel
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="httpWidget_spec.method"
+                      >
+                        methodLabel
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -2093,7 +2148,12 @@ exports[`Http Step should render edit view as new step 1`] = `
                       class="bp3-label"
                       for="spec.assertion"
                     >
-                      assertionLabel
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="httpWidget_spec.assertion"
+                      >
+                        assertionLabel
+                      </span>
                        
                       <span
                         class="bp3-text-muted"

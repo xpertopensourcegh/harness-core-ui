@@ -70,7 +70,12 @@ exports[`Test K8sBlueGreenDeployStep should render edit view  1`] = `
               class="bp3-label"
               for="name"
             >
-              name
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="helmDeploy_name"
+              >
+                name
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -262,7 +267,12 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
               class="bp3-label"
               for="name"
             >
-              name
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="helmDeploy_name"
+              >
+                name
+              </span>
                
               <span
                 class="bp3-text-muted"

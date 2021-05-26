@@ -46,7 +46,12 @@ exports[`Create DelegateSetup Step render data 1`] = `
                               class="bp3-label"
                               for="name"
                             >
-                              delegate.delegateName
+                              <span
+                                class="Tooltip--acenter"
+                                data-tooltip-id="delegateSetupStepForm_name"
+                              >
+                                delegate.delegateName
+                              </span>
                                
                               <span
                                 class="bp3-text-muted"
@@ -317,7 +322,12 @@ exports[`Create DelegateSetup Step render data 1`] = `
                         class="bp3-label"
                         for="delegateConfigurationId"
                       >
-                        delegate.delegateConfigurations
+                        <span
+                          class="Tooltip--acenter"
+                          data-tooltip-id="delegateSetupStepForm_delegateConfigurationId"
+                        >
+                          delegate.delegateConfigurations
+                        </span>
                          
                         <span
                           class="bp3-text-muted"
@@ -482,7 +492,12 @@ exports[`Create DelegateSetup Step render data 1`] = `
                               class="bp3-label"
                               for="k8sConfigDetails.namespace"
                             >
-                              common.namespace
+                              <span
+                                class="Tooltip--acenter"
+                                data-tooltip-id="delegateSetupStepForm_k8sConfigDetails.namespace"
+                              >
+                                common.namespace
+                              </span>
                                
                               <span
                                 class="bp3-text-muted"

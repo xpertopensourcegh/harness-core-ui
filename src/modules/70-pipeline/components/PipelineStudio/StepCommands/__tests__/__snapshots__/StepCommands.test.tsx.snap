@@ -201,7 +201,12 @@ exports[`<StepCommands /> tests able to switch tab 1`] = `
                                       <span
                                         class="bp3-control-indicator"
                                       />
-                                       pipeline.conditionalExecution.condition
+                                      <span
+                                        class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                                        data-tooltip-id="conditionalExecution_enableJEXL"
+                                      >
+                                         pipeline.conditionalExecution.condition
+                                      </span>
                                     </label>
                                   </div>
                                 </div>
@@ -459,7 +464,12 @@ exports[`<StepCommands /> tests renders ok 1`] = `
                                       <span
                                         class="bp3-control-indicator"
                                       />
-                                       pipeline.conditionalExecution.condition
+                                      <span
+                                        class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                                        data-tooltip-id="conditionalExecution_enableJEXL"
+                                      >
+                                         pipeline.conditionalExecution.condition
+                                      </span>
                                     </label>
                                   </div>
                                 </div>

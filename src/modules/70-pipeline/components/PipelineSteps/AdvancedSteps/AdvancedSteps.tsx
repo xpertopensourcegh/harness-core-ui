@@ -60,6 +60,7 @@ export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: Step
       onSubmit={data => {
         onChange({ ...data, tab: TabTypes.Advanced })
       }}
+      formName="pipelineAdvancedSteps"
       validationSchema={Yup.object().shape({
         failureStrategies: getFailureStrategiesValidationSchema(getString)
       })}

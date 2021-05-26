@@ -82,7 +82,12 @@ exports[`CreatePipelineForm Rendering should closeModal when click Setup Later 1
                 class="bp3-label"
                 for="name"
               >
-                name
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="createPipeline_name"
+                >
+                  name
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -317,7 +322,12 @@ exports[`CreatePipelineForm Rendering should render CreatePipelineForm 1`] = `
                 class="bp3-label"
                 for="name"
               >
-                name
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="createPipeline_name"
+                >
+                  name
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -552,7 +562,12 @@ exports[`CreatePipelineForm Rendering should validate inputs 1`] = `
                 class="bp3-label"
                 for="name"
               >
-                name
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="createPipeline_name"
+                >
+                  name
+                </span>
                  
                 <span
                   class="bp3-text-muted"

@@ -24,6 +24,7 @@ const VerifyConnection: React.FC<VerifyConnectionProps> = ({ identifier, closeMo
               host: formData.host
             })
           }}
+          formName="sshVerifyConnectionForm"
           initialValues={{
             type: 'SSHKey',
             host: ''

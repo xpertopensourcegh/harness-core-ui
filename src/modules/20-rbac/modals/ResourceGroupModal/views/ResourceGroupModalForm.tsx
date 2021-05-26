@@ -88,6 +88,7 @@ const ResourceGroupForm: React.FC<ResourceGroupModalData> = props => {
             projectIdentifier,
             ...(editMode && data)
           }}
+          formName="resourceGroupModalForm"
           validationSchema={Yup.object().shape({
             name: NameSchema(),
             identifier: IdentifierSchema(),

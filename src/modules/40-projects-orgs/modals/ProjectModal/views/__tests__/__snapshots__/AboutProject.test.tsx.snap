@@ -87,7 +87,12 @@ exports[`About Project test create project  1`] = `
                     class="bp3-label"
                     for="name"
                   >
-                    Name
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="projectsForm_name"
+                    >
+                      Name
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -121,7 +126,12 @@ exports[`About Project test create project  1`] = `
                     class="bp3-label"
                     for="color"
                   >
-                    color
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="projectsForm_color"
+                    >
+                      color
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -181,7 +191,12 @@ exports[`About Project test create project  1`] = `
                     class="bp3-label"
                     for="orgIdentifier"
                   >
-                    orgLabel
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="projectsForm_orgIdentifier"
+                    >
+                      orgLabel
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -764,7 +779,12 @@ exports[`About Project test create project  2`] = `
                     class="bp3-label"
                     for="name"
                   >
-                    Name
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="projectsForm_name"
+                    >
+                      Name
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -798,7 +818,12 @@ exports[`About Project test create project  2`] = `
                     class="bp3-label"
                     for="color"
                   >
-                    color
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="projectsForm_color"
+                    >
+                      color
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -858,7 +883,12 @@ exports[`About Project test create project  2`] = `
                     class="bp3-label"
                     for="orgIdentifier"
                   >
-                    orgLabel
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="projectsForm_orgIdentifier"
+                    >
+                      orgLabel
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -1467,7 +1497,12 @@ exports[`About Project test edit project  1`] = `
                     class="bp3-label"
                     for="name"
                   >
-                    Name
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="projectsForm_name"
+                    >
+                      Name
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -1501,7 +1536,12 @@ exports[`About Project test edit project  1`] = `
                     class="bp3-label"
                     for="color"
                   >
-                    color
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="projectsForm_color"
+                    >
+                      color
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -1561,7 +1601,12 @@ exports[`About Project test edit project  1`] = `
                     class="bp3-label"
                     for="orgIdentifier"
                   >
-                    orgLabel
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="projectsForm_orgIdentifier"
+                    >
+                      orgLabel
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -1831,7 +1876,12 @@ exports[`About Project test edit project  2`] = `
                     class="bp3-label"
                     for="name"
                   >
-                    Name
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="projectsForm_name"
+                    >
+                      Name
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -1865,7 +1915,12 @@ exports[`About Project test edit project  2`] = `
                     class="bp3-label"
                     for="color"
                   >
-                    color
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="projectsForm_color"
+                    >
+                      color
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -1925,7 +1980,12 @@ exports[`About Project test edit project  2`] = `
                     class="bp3-label"
                     for="orgIdentifier"
                   >
-                    orgLabel
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="projectsForm_orgIdentifier"
+                    >
+                      orgLabel
+                    </span>
                      
                     <span
                       class="bp3-text-muted"

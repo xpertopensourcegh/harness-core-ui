@@ -161,6 +161,7 @@ const MapToProvider: React.FC<StepProps<MapToProviderProps> & Props> = props => 
           dnsProvider: props.accessPoint.metadata?.dns?.route53 ? 'route53' : 'others',
           route53Account: props.accessPoint.metadata?.dns?.route53?.hosted_zone_id // eslint-disable-line
         }}
+        formName="createAccPtWizard"
         enableReinitialize
         onSubmit={_ => {
           onSave()

@@ -66,7 +66,12 @@ exports[`Test Step 2 render after button is clicked 1`] = `
                 class="bp3-label"
                 for="externalID"
               >
-                ce.connector.AWS.crossAccountRole.externalID
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="connectionDetails_externalID"
+                >
+                  ce.connector.AWS.crossAccountRole.externalID
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -95,7 +100,12 @@ exports[`Test Step 2 render after button is clicked 1`] = `
                 class="bp3-label"
                 for="roleARN"
               >
-                ce.connector.AWS.crossAccountRole.arn
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="connectionDetails_roleARN"
+                >
+                  ce.connector.AWS.crossAccountRole.arn
+                </span>
                  
                 <span
                   class="bp3-text-muted"

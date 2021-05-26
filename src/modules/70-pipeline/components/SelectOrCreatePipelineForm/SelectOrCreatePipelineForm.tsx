@@ -31,6 +31,7 @@ export const SelectOrCreatePipelineForm: React.FC<SelectOrCreatePipelineFormProp
         handleSubmit(select)
         closeModal?.()
       }}
+      formName="selectCreatePipeline"
     >
       <Form>
         <Text style={{ color: Color.BLACK, paddingBottom: 8, fontWeight: 600, fontSize: 'large' }}>

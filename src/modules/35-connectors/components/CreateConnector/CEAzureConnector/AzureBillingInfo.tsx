@@ -93,6 +93,7 @@ const AzureBillingInfo: React.FC<StepProps<StepSecretManagerProps> & AzureBillin
             subscriptionId: props.prevStepData?.spec?.subscriptionId || '',
             featuresEnabled: ['OPTIMIZATION']
           }}
+          formName="azureBillingInfoForm"
           onSubmit={values => {
             handleSubmit(values)
           }}

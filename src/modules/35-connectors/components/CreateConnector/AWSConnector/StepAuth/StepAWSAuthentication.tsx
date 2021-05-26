@@ -85,6 +85,7 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & AW
           ...initialValues,
           ...prevStepData
         }}
+        formName="stepAwsAuthForm"
         validationSchema={Yup.object().shape({
           accessKey: Yup.string()
             .nullable()

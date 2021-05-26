@@ -273,6 +273,7 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
           ...pick(secret, ['name', 'identifier', 'description', 'tags']),
           ...pick(secret?.spec, ['valueType', 'secretManagerIdentifier'])
         }}
+        formName="createUpdateSecretForm"
         enableReinitialize={true}
         validationSchema={Yup.object().shape({
           name: NameSchema(),

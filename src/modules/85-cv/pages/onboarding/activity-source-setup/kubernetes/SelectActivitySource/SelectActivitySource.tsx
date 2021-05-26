@@ -97,6 +97,7 @@ export function SelectActivitySource(props: SelectActivitySourceProps): JSX.Elem
     <Formik
       initialValues={data || buildKubernetesActivitySourceInfo()}
       onSubmit={values => onSubmit?.(values)}
+      formName="activitySource"
       validationSchema={getValidationSchema(getString)}
     >
       {formik => (

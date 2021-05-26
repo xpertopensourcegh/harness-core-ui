@@ -172,6 +172,7 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
             user: user?.email || /* istanbul ignore next */ '',
             assignments: assignments
           }}
+          formName="userRoleAssignementForm"
           validationSchema={Yup.object().shape({
             user: Yup.string().required(getString('rbac.roleAssignment.userValidation')),
             assignments: Yup.array().of(

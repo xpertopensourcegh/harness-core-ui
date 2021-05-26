@@ -87,7 +87,12 @@ exports[`Signup Page The signup page renders  1`] = `
                       class="bp3-label"
                       for="email"
                     >
-                      signUp.form.emailLabel
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="signupPageForm_email"
+                      >
+                        signUp.form.emailLabel
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -118,7 +123,12 @@ exports[`Signup Page The signup page renders  1`] = `
                       class="bp3-label"
                       for="password"
                     >
-                      password
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="signupPageForm_password"
+                      >
+                        password
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -469,7 +479,12 @@ exports[`Signup Page handleSubmit should show error when api fails 1`] = `
                       class="bp3-label"
                       for="email"
                     >
-                      signUp.form.emailLabel
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="signupPageForm_email"
+                      >
+                        signUp.form.emailLabel
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -500,7 +515,12 @@ exports[`Signup Page handleSubmit should show error when api fails 1`] = `
                       class="bp3-label"
                       for="password"
                     >
-                      password
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="signupPageForm_password"
+                      >
+                        password
+                      </span>
                        
                       <span
                         class="bp3-text-muted"

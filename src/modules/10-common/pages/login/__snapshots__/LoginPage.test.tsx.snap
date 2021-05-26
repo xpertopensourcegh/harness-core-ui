@@ -59,7 +59,12 @@ exports[`Login Page The login page renders 1`] = `
                       class="bp3-label"
                       for="email"
                     >
-                      signUp.form.emailLabel
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="loginPageForm_email"
+                      >
+                        signUp.form.emailLabel
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -89,7 +94,12 @@ exports[`Login Page The login page renders 1`] = `
                       class="bp3-label"
                       for="password"
                     >
-                      password
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="loginPageForm_password"
+                      >
+                        password
+                      </span>
                        
                       <span
                         class="bp3-text-muted"

@@ -183,6 +183,7 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
         <Container width={'60%'}>
           <Formik<GitSyncFormInterface>
             initialValues={defaultInitialFormData}
+            formName="gitSyncRepoForm"
             validationSchema={Yup.object().shape({
               name: Yup.string().trim().required(getString('validation.nameRequired')),
               identifier: Yup.string().when('name', {

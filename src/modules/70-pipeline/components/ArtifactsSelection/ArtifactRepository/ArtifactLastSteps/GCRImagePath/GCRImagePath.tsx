@@ -199,6 +199,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
       <Formik
         initialValues={getInitialValues()}
         validationSchema={context === 2 ? sidecarSchema : primarySchema}
+        formName="gcrImagePath"
         onSubmit={formData => {
           submitFormData({
             ...prevStepData,

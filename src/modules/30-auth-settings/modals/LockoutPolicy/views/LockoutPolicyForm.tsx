@@ -73,6 +73,7 @@ const LockoutPolicyForm: React.FC<Props> = ({ onSubmit, onCancel, loginSettings,
         {getString('authSettings.lockoutPolicy')}
       </Heading>
       <Formik
+        formName="lockoutPolicyForm"
         initialValues={{
           numberOfFailedAttemptsBeforeLockout:
             userLockoutSettings.numberOfFailedAttemptsBeforeLockout || /* istanbul ignore next */ 1,

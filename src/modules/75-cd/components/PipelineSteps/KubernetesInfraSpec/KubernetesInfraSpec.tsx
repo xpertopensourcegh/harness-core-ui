@@ -125,6 +125,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
       <Formik
         enableReinitialize
         initialValues={initialValues}
+        formName="k8InfraSpec"
         validate={value => {
           const data: K8SDirectInfrastructure = {
             namespace: value.namespace,

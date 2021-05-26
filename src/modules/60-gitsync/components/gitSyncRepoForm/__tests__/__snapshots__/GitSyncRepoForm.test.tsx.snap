@@ -647,7 +647,12 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
                           class="bp3-label"
                           for="name"
                         >
-                          common.git.selectRepoLabel
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="gitSyncRepoForm_name"
+                          >
+                            common.git.selectRepoLabel
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -788,7 +793,12 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
                           class="bp3-label"
                           for="repo"
                         >
-                          repositoryUrlLabel
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="gitSyncRepoForm_repo"
+                          >
+                            repositoryUrlLabel
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -828,7 +838,12 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
                       class="bp3-label"
                       for="rootfolder"
                     >
-                      gitsync.selectHarnessFolder
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="gitSyncRepoForm_rootfolder"
+                      >
+                        gitsync.selectHarnessFolder
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -866,7 +881,12 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
                       class="bp3-label"
                       for="branch"
                     >
-                      gitsync.selectDefaultBranch
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="gitSyncRepoForm_branch"
+                      >
+                        gitsync.selectDefaultBranch
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -1298,7 +1318,12 @@ exports[`Git Sync - repo tab Repo type card should be enabled only for Github 1`
                           class="bp3-label"
                           for="name"
                         >
-                          common.git.selectRepoLabel
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="gitSyncRepoForm_name"
+                          >
+                            common.git.selectRepoLabel
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -1389,7 +1414,12 @@ exports[`Git Sync - repo tab Repo type card should be enabled only for Github 1`
                           class="bp3-label"
                           for="repo"
                         >
-                          repositoryUrlLabel
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="gitSyncRepoForm_repo"
+                          >
+                            repositoryUrlLabel
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -1421,7 +1451,12 @@ exports[`Git Sync - repo tab Repo type card should be enabled only for Github 1`
                       class="bp3-label"
                       for="rootfolder"
                     >
-                      gitsync.selectHarnessFolder
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="gitSyncRepoForm_rootfolder"
+                      >
+                        gitsync.selectHarnessFolder
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -1452,7 +1487,12 @@ exports[`Git Sync - repo tab Repo type card should be enabled only for Github 1`
                       class="bp3-label"
                       for="branch"
                     >
-                      gitsync.selectDefaultBranch
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="gitSyncRepoForm_branch"
+                      >
+                        gitsync.selectDefaultBranch
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -1845,7 +1885,12 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
                           class="bp3-label"
                           for="name"
                         >
-                          common.git.selectRepoLabel
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="gitSyncRepoForm_name"
+                          >
+                            common.git.selectRepoLabel
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -1936,7 +1981,12 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
                           class="bp3-label"
                           for="repo"
                         >
-                          repositoryUrlLabel
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="gitSyncRepoForm_repo"
+                          >
+                            repositoryUrlLabel
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -1968,7 +2018,12 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
                       class="bp3-label"
                       for="rootfolder"
                     >
-                      gitsync.selectHarnessFolder
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="gitSyncRepoForm_rootfolder"
+                      >
+                        gitsync.selectHarnessFolder
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -1999,7 +2054,12 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
                       class="bp3-label"
                       for="branch"
                     >
-                      gitsync.selectDefaultBranch
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="gitSyncRepoForm_branch"
+                      >
+                        gitsync.selectDefaultBranch
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -2392,7 +2452,12 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
                           class="bp3-label"
                           for="name"
                         >
-                          common.git.selectRepoLabel
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="gitSyncRepoForm_name"
+                          >
+                            common.git.selectRepoLabel
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -2488,7 +2553,12 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
                           class="bp3-label"
                           for="repo"
                         >
-                          repositoryUrlLabel
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="gitSyncRepoForm_repo"
+                          >
+                            repositoryUrlLabel
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -2525,7 +2595,12 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
                       class="bp3-label"
                       for="rootfolder"
                     >
-                      gitsync.selectHarnessFolder
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="gitSyncRepoForm_rootfolder"
+                      >
+                        gitsync.selectHarnessFolder
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -2556,7 +2631,12 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
                       class="bp3-label"
                       for="branch"
                     >
-                      gitsync.selectDefaultBranch
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="gitSyncRepoForm_branch"
+                      >
+                        gitsync.selectDefaultBranch
+                      </span>
                        
                       <span
                         class="bp3-text-muted"

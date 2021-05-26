@@ -132,6 +132,7 @@ const UserGroupForm: React.FC<UserGroupModalData> = props => {
             tags: {},
             ...userGroupData
           }}
+          formName="userGroupForm"
           validationSchema={Yup.object().shape({
             name: NameSchema(),
             identifier: IdentifierSchema()

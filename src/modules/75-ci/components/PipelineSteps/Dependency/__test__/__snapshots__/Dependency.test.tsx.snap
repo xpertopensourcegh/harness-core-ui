@@ -72,7 +72,12 @@ exports[`Dependency Edit view edit mode fails when cpu present but memory is not
                 class="bp3-label"
                 for="name"
               >
-                dependencyNameLabel
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="dependencyBase_name"
+                >
+                  dependencyNameLabel
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -1841,7 +1846,12 @@ exports[`Dependency Edit view edit mode works 1`] = `
                 class="bp3-label"
                 for="name"
               >
-                dependencyNameLabel
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="dependencyBase_name"
+                >
+                  dependencyNameLabel
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -3610,7 +3620,12 @@ exports[`Dependency Edit view edit mode works when memory present but cpu is not
                 class="bp3-label"
                 for="name"
               >
-                dependencyNameLabel
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="dependencyBase_name"
+                >
+                  dependencyNameLabel
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -5379,7 +5394,12 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
                 class="bp3-label"
                 for="name"
               >
-                dependencyNameLabel
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="dependencyBase_name"
+                >
+                  dependencyNameLabel
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -6456,7 +6476,12 @@ exports[`Dependency Edit view should render properly 1`] = `
                 class="bp3-label"
                 for="name"
               >
-                dependencyNameLabel
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="dependencyBase_name"
+                >
+                  dependencyNameLabel
+                </span>
                  
                 <span
                   class="bp3-text-muted"

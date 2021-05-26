@@ -395,6 +395,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
               : ''
           // accessPoint: props.gatewayDetails.accessPointID
         }}
+        formName="dnsLinkSetup"
         enableReinitialize={true}
         onSubmit={values => alert(JSON.stringify(values))}
         validationSchema={Yup.object().shape({

@@ -72,7 +72,12 @@ exports[`Save Cache S3 Step Edit View edit mode works 1`] = `
                 class="bp3-label"
                 for="name"
               >
-                pipelineSteps.stepNameLabel
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="savedS3Cache_name"
+                >
+                  pipelineSteps.stepNameLabel
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -1423,7 +1428,12 @@ exports[`Save Cache S3 Step Edit View renders runtime inputs 1`] = `
                 class="bp3-label"
                 for="name"
               >
-                pipelineSteps.stepNameLabel
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="savedS3Cache_name"
+                >
+                  pipelineSteps.stepNameLabel
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -2894,7 +2904,12 @@ exports[`Save Cache S3 Step Edit View should render properly 1`] = `
                 class="bp3-label"
                 for="name"
               >
-                pipelineSteps.stepNameLabel
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="savedS3Cache_name"
+                >
+                  pipelineSteps.stepNameLabel
+                </span>
                  
                 <span
                   class="bp3-text-muted"

@@ -264,6 +264,7 @@ const GitSyncRepoTab: React.FC = () => {
               validationSchema={Yup.object().shape({
                 rootFolder: Yup.string().trim().required(getString('validation.nameRequired'))
               })}
+              formName="gitSyncRepoTab"
               onSubmit={formData => {
                 if (repoData?.gitSyncFolderConfigDTOs?.length) {
                   const folders = formData.isDefault

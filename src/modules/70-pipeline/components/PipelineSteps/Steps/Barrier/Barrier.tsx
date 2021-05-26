@@ -115,6 +115,7 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
         onSubmit={(values: BarrierData) => {
           onUpdate?.(processBarrierFormData(values))
         }}
+        formName="barrierStep"
         initialValues={{ ...initialValuesFormik }}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),

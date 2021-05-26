@@ -69,6 +69,7 @@ export function ShellScriptWidget(
       onSubmit={submit => {
         onUpdate?.(submit)
       }}
+      formName="shellScriptForm"
       initialValues={values}
       validationSchema={validationSchema}
     >

@@ -207,6 +207,7 @@ const StepGitlabAuthentication: React.FC<
           ...initialValues,
           ...prevStepData
         }}
+        formName="stepGitlabAuth"
         validationSchema={Yup.object().shape({
           username: Yup.string().when(['connectionType', 'authType'], {
             is: (connectionType, authType) =>

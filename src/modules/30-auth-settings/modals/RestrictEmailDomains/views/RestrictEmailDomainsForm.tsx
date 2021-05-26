@@ -59,6 +59,7 @@ const RestrictEmailDomainsForm: React.FC<Props> = ({ onSubmit, onCancel, whiteli
         {getString('authSettings.allowLoginFromTheseDomains')}
       </Heading>
       <Formik
+        formName="restrictEmailDomainsForm"
         initialValues={{
           domains: whitelistedDomains
         }}

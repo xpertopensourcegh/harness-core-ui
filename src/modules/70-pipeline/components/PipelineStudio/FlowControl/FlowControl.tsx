@@ -194,6 +194,7 @@ const BarrierList: React.FC<BarrierListProps> = ({
       onSubmit={value => {
         console.log(value) //eslint-disable-line
       }}
+      formName="flowControl"
       validate={({ barriers }: { barriers: Barrier[] }) => {
         const errors: any = { barriers: [] }
         const identifierErrors = getErrors(barriers, getString)

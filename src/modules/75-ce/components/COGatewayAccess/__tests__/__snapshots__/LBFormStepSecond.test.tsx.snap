@@ -20,7 +20,12 @@ exports[`AWS Access Point Configuration screen first render and fill form 1`] = 
               class="bp3-label"
               for="accessPointRegion"
             >
-              ce.co.accessPoint.select.regionToInstall
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="lbFormSecond_accessPointRegion"
+              >
+                ce.co.accessPoint.select.regionToInstall
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -83,7 +88,12 @@ exports[`AWS Access Point Configuration screen first render and fill form 1`] = 
               class="bp3-label"
               for="certificate"
             >
-              ce.co.accessPoint.select.aCertificate
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="lbFormSecond_certificate"
+              >
+                ce.co.accessPoint.select.aCertificate
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -150,7 +160,12 @@ exports[`AWS Access Point Configuration screen first render and fill form 1`] = 
               class="bp3-label"
               for="vpc"
             >
-              ce.co.accessPoint.select.vpc
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="lbFormSecond_vpc"
+              >
+                ce.co.accessPoint.select.vpc
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -213,7 +228,12 @@ exports[`AWS Access Point Configuration screen first render and fill form 1`] = 
               class="bp3-label"
               for="securityGroups"
             >
-              ce.co.accessPoint.select.securityGroups
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="lbFormSecond_securityGroups"
+              >
+                ce.co.accessPoint.select.securityGroups
+              </span>
                
               <span
                 class="bp3-text-muted"

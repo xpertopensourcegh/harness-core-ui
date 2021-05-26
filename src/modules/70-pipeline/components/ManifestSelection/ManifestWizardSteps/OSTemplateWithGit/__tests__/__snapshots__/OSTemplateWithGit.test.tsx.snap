@@ -24,7 +24,12 @@ exports[`Open shift template with git tests expand advanced section 1`] = `
               class="bp3-label"
               for="identifier"
             >
-              pipeline.manifestType.manifestIdentifier
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="osTemplateWithGit_identifier"
+              >
+                pipeline.manifestType.manifestIdentifier
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -60,7 +65,12 @@ exports[`Open shift template with git tests expand advanced section 1`] = `
                   class="bp3-label"
                   for="gitFetchType"
                 >
-                  pipeline.manifestType.gitFetchTypeLabel
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="osTemplateWithGit_gitFetchType"
+                  >
+                    pipeline.manifestType.gitFetchTypeLabel
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -126,7 +136,12 @@ exports[`Open shift template with git tests expand advanced section 1`] = `
                   class="bp3-label"
                   for="branch"
                 >
-                  pipelineSteps.deploy.inputSet.branch
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="osTemplateWithGit_branch"
+                  >
+                    pipelineSteps.deploy.inputSet.branch
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -195,7 +210,12 @@ exports[`Open shift template with git tests expand advanced section 1`] = `
                   class="bp3-label"
                   for="path"
                 >
-                  pipeline.manifestType.osTemplatePath
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="osTemplateWithGit_path"
+                  >
+                    pipeline.manifestType.osTemplatePath
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -468,7 +488,12 @@ exports[`Open shift template with git tests renders correctly in edit case 1`] =
               class="bp3-label"
               for="identifier"
             >
-              pipeline.manifestType.manifestIdentifier
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="osTemplateWithGit_identifier"
+              >
+                pipeline.manifestType.manifestIdentifier
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -504,7 +529,12 @@ exports[`Open shift template with git tests renders correctly in edit case 1`] =
                   class="bp3-label"
                   for="gitFetchType"
                 >
-                  pipeline.manifestType.gitFetchTypeLabel
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="osTemplateWithGit_gitFetchType"
+                  >
+                    pipeline.manifestType.gitFetchTypeLabel
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -570,7 +600,12 @@ exports[`Open shift template with git tests renders correctly in edit case 1`] =
                   class="bp3-label"
                   for="branch"
                 >
-                  pipelineSteps.deploy.inputSet.branch
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="osTemplateWithGit_branch"
+                  >
+                    pipelineSteps.deploy.inputSet.branch
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -639,7 +674,12 @@ exports[`Open shift template with git tests renders correctly in edit case 1`] =
                   class="bp3-label"
                   for="path"
                 >
-                  pipeline.manifestType.osTemplatePath
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="osTemplateWithGit_path"
+                  >
+                    pipeline.manifestType.osTemplatePath
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -821,7 +861,12 @@ exports[`Open shift template with git tests renders without crashing 1`] = `
               class="bp3-label"
               for="identifier"
             >
-              pipeline.manifestType.manifestIdentifier
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="osTemplateWithGit_identifier"
+              >
+                pipeline.manifestType.manifestIdentifier
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -857,7 +902,12 @@ exports[`Open shift template with git tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="gitFetchType"
                 >
-                  pipeline.manifestType.gitFetchTypeLabel
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="osTemplateWithGit_gitFetchType"
+                  >
+                    pipeline.manifestType.gitFetchTypeLabel
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -923,7 +973,12 @@ exports[`Open shift template with git tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="branch"
                 >
-                  pipelineSteps.deploy.inputSet.branch
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="osTemplateWithGit_branch"
+                  >
+                    pipelineSteps.deploy.inputSet.branch
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -992,7 +1047,12 @@ exports[`Open shift template with git tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="path"
                 >
-                  pipeline.manifestType.osTemplatePath
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="osTemplateWithGit_path"
+                  >
+                    pipeline.manifestType.osTemplatePath
+                  </span>
                    
                   <span
                     class="bp3-text-muted"

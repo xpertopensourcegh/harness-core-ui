@@ -27,6 +27,7 @@ const DelegateConfigOverviewStep: React.FC<DelegateConfigOverviewStepProps> = ({
         description: prevStepData?.description || '',
         tags: prevStepData?.tags || {}
       }}
+      formName="delegateConfigOverviewForm"
       enableReinitialize={true}
       validationSchema={Yup.object().shape({
         name: Yup.string()

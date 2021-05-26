@@ -201,7 +201,12 @@ exports[`Create Git connector Wizard Creating Git step one 1`] = `
                           class="bp3-label"
                           for="name"
                         >
-                          name
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="connectorDetailsStepForm_name"
+                          >
+                            name
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -590,7 +595,12 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
                       class="bp3-label"
                       for="url"
                     >
-                      common.git.gitAccountUrl
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="gitDetailsStepForm_url"
+                      >
+                        common.git.gitAccountUrl
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -1278,7 +1288,12 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
                           class="bp3-label"
                           for="name"
                         >
-                          name
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="connectorDetailsStepForm_name"
+                          >
+                            name
+                          </span>
                            
                           <span
                             class="bp3-text-muted"

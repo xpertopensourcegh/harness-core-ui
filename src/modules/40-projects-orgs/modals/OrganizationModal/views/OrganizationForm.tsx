@@ -47,6 +47,7 @@ const OrganizationForm: React.FC<OrganizationFormData> = ({
         tags: {},
         ...data
       }}
+      formName="orgForm"
       enableReinitialize={true}
       validationSchema={Yup.object().shape({
         name: NameSchema(),

@@ -88,7 +88,12 @@ exports[`Test DeployService Step Should be able save even if there is 63 charact
                 class="bp3-label"
                 for="name"
               >
-                name
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="deployService_name"
+                >
+                  name
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -344,7 +349,12 @@ exports[`Test DeployService Step should render edit service view (service), then
                 class="bp3-label"
                 for="name"
               >
-                name
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="deployService_name"
+                >
+                  name
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -619,7 +629,12 @@ exports[`Test DeployService Step should render service view and save 1`] = `
                 class="bp3-label"
                 for="name"
               >
-                name
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="deployService_name"
+                >
+                  name
+                </span>
                  
                 <span
                   class="bp3-text-muted"

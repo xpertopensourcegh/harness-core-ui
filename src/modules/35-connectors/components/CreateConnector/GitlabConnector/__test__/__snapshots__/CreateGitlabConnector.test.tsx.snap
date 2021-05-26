@@ -225,7 +225,12 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one 1`] = `
                           class="bp3-label"
                           for="name"
                         >
-                          name
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="connectorDetailsStepForm_name"
+                          >
+                            name
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -638,7 +643,12 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                       class="bp3-label"
                       for="url"
                     >
-                      common.git.gitLabAccountUrl
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="gitDetailsStepForm_url"
+                      >
+                        common.git.gitLabAccountUrl
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -1178,7 +1188,12 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                       <span
                         class="bp3-control-indicator"
                       />
-                      common.git.enableAPIAccess
+                      <span
+                        class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                        data-tooltip-id="stepGitlabAuth_enableAPIAccess"
+                      >
+                        common.git.enableAPIAccess
+                      </span>
                     </label>
                   </div>
                 </div>
@@ -1531,7 +1546,12 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                       class="bp3-label"
                       for="url"
                     >
-                      common.git.gitLabAccountUrl
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="gitDetailsStepForm_url"
+                      >
+                        common.git.gitLabAccountUrl
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -1917,7 +1937,12 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
                       <span
                         class="bp3-control-indicator"
                       />
-                      common.git.enableAPIAccess
+                      <span
+                        class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                        data-tooltip-id="stepGitlabAuth_enableAPIAccess"
+                      >
+                        common.git.enableAPIAccess
+                      </span>
                     </label>
                   </div>
                 </div>
@@ -2457,7 +2482,12 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
                       <span
                         class="bp3-control-indicator"
                       />
-                      common.git.enableAPIAccess
+                      <span
+                        class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                        data-tooltip-id="stepGitlabAuth_enableAPIAccess"
+                      >
+                        common.git.enableAPIAccess
+                      </span>
                     </label>
                   </div>
                 </div>
@@ -2849,7 +2879,12 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                       <span
                         class="bp3-control-indicator"
                       />
-                      common.git.enableAPIAccess
+                      <span
+                        class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                        data-tooltip-id="stepGitlabAuth_enableAPIAccess"
+                      >
+                        common.git.enableAPIAccess
+                      </span>
                     </label>
                   </div>
                 </div>

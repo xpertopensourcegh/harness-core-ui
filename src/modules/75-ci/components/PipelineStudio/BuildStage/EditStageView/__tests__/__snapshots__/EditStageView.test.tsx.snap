@@ -117,7 +117,12 @@ exports[`EditStageView snapshot test should render properly 1`] = `
                   class="bp3-label"
                   for="name"
                 >
-                  stageNameLabel
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="ciEditStage_name"
+                  >
+                    stageNameLabel
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -383,7 +388,12 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                   class="bp3-label"
                   for="name"
                 >
-                  stageNameLabel
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="ciEditStage_name"
+                  >
+                    stageNameLabel
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -644,7 +654,12 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                   class="bp3-label"
                   for="repoName"
                 >
-                  Repository Name
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="ciEditStage_repoName"
+                  >
+                    Repository Name
+                  </span>
                    
                   <span
                     class="bp3-text-muted"

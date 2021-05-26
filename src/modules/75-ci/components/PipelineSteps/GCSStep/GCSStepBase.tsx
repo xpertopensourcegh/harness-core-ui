@@ -64,6 +64,7 @@ export const GCSStepBase = (
         initialValues,
         transformValuesFieldsConfig
       )}
+      formName="ciGcsStep"
       validate={valuesToValidate => {
         return validate(valuesToValidate, editViewValidateFieldsConfig, {
           initialValues,

@@ -52,6 +52,7 @@ export default function CreatePipelines({
         <div>
           <Formik
             initialValues={initialValues}
+            formName="pipelineCreate"
             validationSchema={Yup.object().shape({
               name: Yup.string().trim().required(getString('createPipeline.pipelineNameRequired')),
               identifier: Yup.string().when('name', {

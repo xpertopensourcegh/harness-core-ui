@@ -219,6 +219,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
           initialValues={getInitialValues}
           validationSchema={validationSchema}
           validate={handleValidate}
+          formName="ciBuildInfra"
           onSubmit={values => logger.info(JSON.stringify(values))}
         >
           {({ values: formValues, setFieldValue }) => (

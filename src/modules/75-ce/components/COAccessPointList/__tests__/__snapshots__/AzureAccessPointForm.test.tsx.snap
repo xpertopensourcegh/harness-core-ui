@@ -23,7 +23,12 @@ exports[`Azure Access Point Form render and fill azure ap form 1`] = `
                 class="bp3-label"
                 for="region"
               >
-                Region*
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="azureAccessPt_region"
+                >
+                  Region*
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -86,7 +91,12 @@ exports[`Azure Access Point Form render and fill azure ap form 1`] = `
                 class="bp3-label"
                 for="resourceGroup"
               >
-                Resource Group*
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="azureAccessPt_resourceGroup"
+                >
+                  Resource Group*
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -153,7 +163,12 @@ exports[`Azure Access Point Form render and fill azure ap form 1`] = `
                 class="bp3-label"
                 for="certificate"
               >
-                Certificate
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="azureAccessPt_certificate"
+                >
+                  Certificate
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -217,7 +232,12 @@ exports[`Azure Access Point Form render and fill azure ap form 1`] = `
                 class="bp3-label"
                 for="virtualNetwork"
               >
-                Virtual Network*
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="azureAccessPt_virtualNetwork"
+                >
+                  Virtual Network*
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -285,7 +305,12 @@ exports[`Azure Access Point Form render and fill azure ap form 1`] = `
                 class="bp3-label"
                 for="subnet"
               >
-                Subnet*
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="azureAccessPt_subnet"
+                >
+                  Subnet*
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -349,7 +374,12 @@ exports[`Azure Access Point Form render and fill azure ap form 1`] = `
                 class="bp3-label"
                 for="ip"
               >
-                Frontend IP*
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="azureAccessPt_ip"
+                >
+                  Frontend IP*
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -417,7 +447,12 @@ exports[`Azure Access Point Form render and fill azure ap form 1`] = `
                 class="bp3-label"
                 for="sku"
               >
-                SKU*
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="azureAccessPt_sku"
+                >
+                  SKU*
+                </span>
                  
                 <span
                   class="bp3-text-muted"

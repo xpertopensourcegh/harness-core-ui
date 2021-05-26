@@ -65,6 +65,7 @@ export const SaveCacheGCSStepBase = (
         transformValuesFieldsConfig,
         { archiveFormatOptions }
       )}
+      formName="savedCacheGcs"
       validate={valuesToValidate => {
         return validate(valuesToValidate, editViewValidateFieldsConfig, {
           initialValues,

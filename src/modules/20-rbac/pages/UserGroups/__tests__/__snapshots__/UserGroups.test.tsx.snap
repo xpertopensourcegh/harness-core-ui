@@ -30,7 +30,12 @@ exports[`UsersPage Test Add Roles 1`] = `
                 class="bp3-label"
                 for="name"
               >
-                common.userGroup
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="userGroupRleAssignmentForm_name"
+                >
+                  common.userGroup
+                </span>
                  
                 <span
                   class="bp3-text-muted"

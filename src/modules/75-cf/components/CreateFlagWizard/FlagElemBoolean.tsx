@@ -96,6 +96,7 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
         defaultOffVariation: FALSE,
         ...prevStepData
       }}
+      formName="cfFlagBool"
       validationSchema={yup.object().shape({
         variations: yup.array().of(
           yup.object().shape({

@@ -71,6 +71,7 @@ export const NewSegmentButton: React.FC<NewSegmentButtonProps> = ({
         <Formik
           initialValues={{ identifier: '', name: '', description: '', tags: [] }}
           onSubmit={handleCreateSegment}
+          formName="newSegmentButton"
           onReset={hideModal}
           validationSchema={yup.object().shape({
             name: yup.string().trim().required(getString('cf.segments.nameRequired')),

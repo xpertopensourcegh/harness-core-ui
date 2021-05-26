@@ -655,6 +655,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                   gatewayName: props.gatewayDetails.name,
                   idleTime: props.gatewayDetails.idleTimeMins
                 }}
+                formName="coGatewayConfig"
                 onSubmit={values => alert(JSON.stringify(values))}
                 render={formik => (
                   <FormikForm className={css.step1Form}>
@@ -912,6 +913,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                       odInstance: props.gatewayDetails.routing.instance.scale_group?.on_demand || selectedAsg.desired,
                       spotInstance: _get(props.gatewayDetails.routing.instance.scale_group, 'spot', 0)
                     }}
+                    formName="odInstance"
                     onSubmit={_ => {}} // eslint-disable-line
                     render={formik => (
                       <FormikForm>

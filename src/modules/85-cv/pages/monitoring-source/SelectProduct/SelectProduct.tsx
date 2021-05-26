@@ -174,6 +174,7 @@ export function SelectProduct<T>(props: SelectProductProps<T>): JSX.Element {
     <Formik
       // enableReinitialize={true}
       initialValues={{ ...InitialValues, ...props.stepData }}
+      formName="cvSelectProduct"
       validationSchema={Yup.object().shape(getValidationSchema(getString, props.productSelectValidationText))}
       onSubmit={formData => props.onCompleteStep({ ...formData } as any)}
     >

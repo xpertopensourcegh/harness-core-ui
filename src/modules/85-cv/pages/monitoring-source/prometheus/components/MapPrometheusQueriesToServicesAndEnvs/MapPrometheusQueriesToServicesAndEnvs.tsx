@@ -79,6 +79,7 @@ export function MapPrometheusQueriesToServicesAndEnvs(): JSX.Element {
         }
         onNext({ ...sourceData, mappedServicesAndEnvs: new Map(mappedMetrics) })
       }}
+      formName="mapPrometheus"
       initialValues={mappedMetrics.get(selectedMetric || '')}
       key={rerenderKey}
       isInitialValid={(args: any) => {

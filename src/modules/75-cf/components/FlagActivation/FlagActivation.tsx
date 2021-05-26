@@ -442,6 +442,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
     <Formik
       validateOnChange={false}
       validateOnBlur={false}
+      formName="flagActivation"
       initialValues={initialValues}
       validate={validateForm}
       onSubmit={onSaveChanges}

@@ -278,6 +278,7 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
           virtualNetwork: loadBalancer.vpc || '',
           certificate: loadBalancer.metadata?.certificate_id || ''
         }}
+        formName="azureAccessPt"
         onSubmit={props.handleFormSubmit}
         validationSchema={Yup.object().shape({
           ip: Yup.string().required(),

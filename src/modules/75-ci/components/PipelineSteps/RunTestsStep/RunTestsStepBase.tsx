@@ -82,6 +82,7 @@ export const RunTestsStepBase = (
         transformValuesFieldsConfig,
         { buildToolOptions, languageOptions }
       )}
+      formName="ciRunTests"
       validate={valuesToValidate => {
         return validate(valuesToValidate, editViewValidateFieldsConfig, {
           initialValues,

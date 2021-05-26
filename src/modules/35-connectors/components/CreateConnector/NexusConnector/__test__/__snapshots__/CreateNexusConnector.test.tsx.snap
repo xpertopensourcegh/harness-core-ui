@@ -204,7 +204,12 @@ exports[`Create Nexus connector Wizard Should render form 1`] = `
                           class="bp3-label"
                           for="name"
                         >
-                          name
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="connectorDetailsStepForm_name"
+                          >
+                            name
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -503,7 +508,12 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
                       class="bp3-label"
                       for="nexusServerUrl"
                     >
-                      connectors.nexus.nexusServerUrl
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="nexusAuth_nexusServerUrl"
+                      >
+                        connectors.nexus.nexusServerUrl
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -539,7 +549,12 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
                       class="bp3-label"
                       for="nexusVersion"
                     >
-                      version
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="nexusAuth_nexusVersion"
+                      >
+                        version
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -1082,7 +1097,12 @@ exports[`Create Nexus connector Wizard Should render form for edit  1`] = `
                           class="bp3-label"
                           for="name"
                         >
-                          name
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="connectorDetailsStepForm_name"
+                          >
+                            name
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -1377,7 +1397,12 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
                       class="bp3-label"
                       for="nexusServerUrl"
                     >
-                      connectors.nexus.nexusServerUrl
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="nexusAuth_nexusServerUrl"
+                      >
+                        connectors.nexus.nexusServerUrl
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -1408,7 +1433,12 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
                       class="bp3-label"
                       for="nexusVersion"
                     >
-                      version
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="nexusAuth_nexusVersion"
+                      >
+                        version
+                      </span>
                        
                       <span
                         class="bp3-text-muted"

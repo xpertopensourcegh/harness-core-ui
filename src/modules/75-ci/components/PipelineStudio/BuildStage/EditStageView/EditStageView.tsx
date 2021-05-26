@@ -192,6 +192,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
           initialValues={initialValues}
           validationSchema={validationSchema}
           validate={handleValidate}
+          formName="ciEditStage"
           onSubmit={handleSubmit}
         >
           {formikProps => (

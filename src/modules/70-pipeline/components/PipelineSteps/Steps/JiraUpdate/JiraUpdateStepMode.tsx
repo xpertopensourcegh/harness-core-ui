@@ -368,6 +368,7 @@ function JiraUpdateStepMode(props: JiraUpdateStepModeProps, formikRef: StepFormi
   return (
     <Formik<JiraUpdateData>
       onSubmit={values => onUpdate?.(processFormData(values))}
+      formName="jiraUpdate"
       initialValues={props.initialValues}
       enableReinitialize={true}
       validationSchema={Yup.object().shape({

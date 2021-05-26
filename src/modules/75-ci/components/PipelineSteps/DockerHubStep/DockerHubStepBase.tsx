@@ -67,6 +67,7 @@ export const DockerHubStepBase = (
         initialValues,
         transformValuesFieldsConfig
       )}
+      formName="dockerHubStep"
       validate={valuesToValidate => {
         return validate(valuesToValidate, editViewValidateFieldsConfig, {
           initialValues,

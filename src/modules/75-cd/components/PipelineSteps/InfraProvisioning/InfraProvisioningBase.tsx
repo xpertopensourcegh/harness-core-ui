@@ -53,6 +53,7 @@ export const InfraProvisioningBase = (
         initialValues,
         transformValuesFieldsConfig
       )}
+      formName="infraProvisionerBase"
       onSubmit={(_values: InfraProvisioningDataUI) => {
         const schemaValues = getFormValuesInCorrectFormat<InfraProvisioningDataUI, InfraProvisioningData>(
           _values,

@@ -169,6 +169,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
       </Text>
       <Formik
         initialValues={getInitialValues()}
+        formName="helmWithGit"
         validationSchema={Yup.object().shape({
           identifier: Yup.string()
             .trim()

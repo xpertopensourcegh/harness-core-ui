@@ -228,7 +228,12 @@ exports[`Create Jira Connector  Wizard Should render form 1`] = `
                           class="bp3-label"
                           for="name"
                         >
-                          name
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="connectorDetailsStepForm_name"
+                          >
+                            name
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -549,7 +554,12 @@ exports[`Create Jira Connector  Wizard Should render form 2`] = `
                     class="bp3-label"
                     for="jiraUrl"
                   >
-                    UrlLabel
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="jiraDetailsForm_jiraUrl"
+                    >
+                      UrlLabel
+                    </span>
                      
                     <span
                       class="bp3-text-muted"

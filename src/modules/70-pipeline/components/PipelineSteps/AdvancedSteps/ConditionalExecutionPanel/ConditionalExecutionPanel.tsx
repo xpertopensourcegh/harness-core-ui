@@ -40,6 +40,7 @@ export default function ConditionalExecutionPanel(props: ConditionalExecutionPan
           condition: formikProps.values.when?.condition
         } as ConditionalExecutionOption
       }
+      formName="conditionalExecution"
       onSubmit={noop}
       validate={debouncedUpdate}
     >

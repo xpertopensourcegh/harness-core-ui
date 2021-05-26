@@ -1238,7 +1238,12 @@ exports[`Create Access Point Wizard Tests renders for rule creation mode without
                     class="bp3-label"
                     for="accessPointName"
                   >
-                    ce.co.accessPoint.enterDomain
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="createAccessPt_accessPointName"
+                    >
+                      ce.co.accessPoint.enterDomain
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -1374,7 +1379,12 @@ exports[`Create Access Point Wizard Tests renders for rule creation mode without
                     class="bp3-label"
                     for="certificate"
                   >
-                    ce.co.accessPoint.select.aCertificate
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="createAccessPt_certificate"
+                    >
+                      ce.co.accessPoint.select.aCertificate
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -1437,7 +1447,12 @@ exports[`Create Access Point Wizard Tests renders for rule creation mode without
                     class="bp3-label"
                     for="securityGroups"
                   >
-                    ce.co.accessPoint.select.securityGroups
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="createAccessPt_securityGroups"
+                    >
+                      ce.co.accessPoint.select.securityGroups
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -1609,7 +1624,12 @@ exports[`Create Access Point Wizard Tests renders without crashing 1`] = `
                     class="bp3-label"
                     for="accessPointName"
                   >
-                    ce.co.accessPoint.enterDomain
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="createAccessPt_accessPointName"
+                    >
+                      ce.co.accessPoint.enterDomain
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -1693,7 +1713,12 @@ exports[`Create Access Point Wizard Tests renders without crashing 1`] = `
                     class="bp3-label"
                     for="accessPointRegion"
                   >
-                    ce.co.accessPoint.select.regionToInstall
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="createAccessPt_accessPointRegion"
+                    >
+                      ce.co.accessPoint.select.regionToInstall
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -1861,7 +1886,12 @@ exports[`Create Access Point Wizard Tests renders without crashing 1`] = `
                     class="bp3-label"
                     for="certificate"
                   >
-                    ce.co.accessPoint.select.aCertificate
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="createAccessPt_certificate"
+                    >
+                      ce.co.accessPoint.select.aCertificate
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -1924,7 +1954,12 @@ exports[`Create Access Point Wizard Tests renders without crashing 1`] = `
                     class="bp3-label"
                     for="vpc"
                   >
-                    ce.co.accessPoint.select.vpc
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="createAccessPt_vpc"
+                    >
+                      ce.co.accessPoint.select.vpc
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -1987,7 +2022,12 @@ exports[`Create Access Point Wizard Tests renders without crashing 1`] = `
                     class="bp3-label"
                     for="securityGroups"
                   >
-                    ce.co.accessPoint.select.securityGroups
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="createAccessPt_securityGroups"
+                    >
+                      ce.co.accessPoint.select.securityGroups
+                    </span>
                      
                     <span
                       class="bp3-text-muted"

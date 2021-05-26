@@ -230,6 +230,7 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
       <Heading level={2}>{props.name}</Heading>
       <Formik
         enableReinitialize
+        formName="createAccessPt"
         initialValues={{
           cloudConnector: {
             label: '',

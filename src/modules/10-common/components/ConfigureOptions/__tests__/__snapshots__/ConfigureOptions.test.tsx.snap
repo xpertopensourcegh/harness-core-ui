@@ -95,7 +95,12 @@ exports[`Test ConfigureOptions should render configure options 1`] = `
           class="bp3-label"
           for="defaultValue"
         >
-          configureOptions.defaultValue
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="configureOptionsForm_defaultValue"
+          >
+            configureOptions.defaultValue
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -160,7 +165,12 @@ exports[`Test ConfigureOptions should render configure options 1`] = `
             class="bp3-label"
             for="validation"
           >
-            configureOptions.validation
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="configureOptionsForm_validation"
+            >
+              configureOptions.validation
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -344,7 +354,12 @@ exports[`Test ConfigureOptions test allowed advanced values 1`] = `
             class="bp3-label"
             for="validation"
           >
-            configureOptions.validation
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="configureOptionsForm_validation"
+            >
+              configureOptions.validation
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -424,7 +439,12 @@ exports[`Test ConfigureOptions test allowed advanced values 1`] = `
               class="bp3-label"
               for="advancedValue"
             >
-              configureOptions.jexlLabel
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="configureOptionsForm_advancedValue"
+              >
+                configureOptions.jexlLabel
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -574,7 +594,12 @@ exports[`Test ConfigureOptions test allowed values 1`] = `
           class="bp3-label"
           for="defaultValue"
         >
-          configureOptions.defaultValue
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="configureOptionsForm_defaultValue"
+          >
+            configureOptions.defaultValue
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -646,7 +671,12 @@ exports[`Test ConfigureOptions test allowed values 1`] = `
             <span
               class="bp3-control-indicator"
             />
-            configureOptions.requiredDuringExecution
+            <span
+              class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+              data-tooltip-id="configureOptionsForm_isRequired"
+            >
+              configureOptions.requiredDuringExecution
+            </span>
           </label>
         </div>
       </div>
@@ -660,7 +690,12 @@ exports[`Test ConfigureOptions test allowed values 1`] = `
             class="bp3-label"
             for="validation"
           >
-            configureOptions.validation
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="configureOptionsForm_validation"
+            >
+              configureOptions.validation
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -749,7 +784,12 @@ exports[`Test ConfigureOptions test allowed values 1`] = `
               class="bp3-label"
               for="allowedValues"
             >
-              configureOptions.values
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="configureOptionsForm_allowedValues"
+              >
+                configureOptions.values
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -918,7 +958,12 @@ exports[`Test ConfigureOptions test regex expression 1`] = `
           class="bp3-label"
           for="defaultValue"
         >
-          configureOptions.defaultValue
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="configureOptionsForm_defaultValue"
+          >
+            configureOptions.defaultValue
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -983,7 +1028,12 @@ exports[`Test ConfigureOptions test regex expression 1`] = `
             class="bp3-label"
             for="validation"
           >
-            configureOptions.validation
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="configureOptionsForm_validation"
+            >
+              configureOptions.validation
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -1046,7 +1096,12 @@ exports[`Test ConfigureOptions test regex expression 1`] = `
             class="bp3-label"
             for="regExValues"
           >
-            configureOptions.regex
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="configureOptionsForm_regExValues"
+            >
+              configureOptions.regex
+            </span>
              
             <span
               class="bp3-text-muted"

@@ -28,7 +28,12 @@ exports[`GCR Image Path Artifact tests renders correctly in edit case 1`] = `
                 class="bp3-label"
                 for="identifier"
               >
-                artifactsSelection.existingDocker.sidecarId
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="gcrImagePath_identifier"
+                >
+                  artifactsSelection.existingDocker.sidecarId
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -62,7 +67,12 @@ exports[`GCR Image Path Artifact tests renders correctly in edit case 1`] = `
                 class="bp3-label"
                 for="registryHostname"
               >
-                connectors.GCR.registryHostname
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="gcrImagePath_registryHostname"
+                >
+                  connectors.GCR.registryHostname
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -127,7 +137,12 @@ exports[`GCR Image Path Artifact tests renders correctly in edit case 1`] = `
                 class="bp3-label"
                 for="imagePath"
               >
-                artifactsSelection.existingDocker.imageName
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="gcrImagePath_imagePath"
+                >
+                  artifactsSelection.existingDocker.imageName
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -233,7 +248,12 @@ exports[`GCR Image Path Artifact tests renders correctly in edit case 1`] = `
                 class="bp3-label"
                 for="tag"
               >
-                tagLabel
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="gcrImagePath_tag"
+                >
+                  tagLabel
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -411,7 +431,12 @@ exports[`GCR Image Path Artifact tests renders while adding step first time 1`] 
                 class="bp3-label"
                 for="identifier"
               >
-                artifactsSelection.existingDocker.sidecarId
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="gcrImagePath_identifier"
+                >
+                  artifactsSelection.existingDocker.sidecarId
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -445,7 +470,12 @@ exports[`GCR Image Path Artifact tests renders while adding step first time 1`] 
                 class="bp3-label"
                 for="registryHostname"
               >
-                connectors.GCR.registryHostname
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="gcrImagePath_registryHostname"
+                >
+                  connectors.GCR.registryHostname
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -510,7 +540,12 @@ exports[`GCR Image Path Artifact tests renders while adding step first time 1`] 
                 class="bp3-label"
                 for="imagePath"
               >
-                artifactsSelection.existingDocker.imageName
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="gcrImagePath_imagePath"
+                >
+                  artifactsSelection.existingDocker.imageName
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -616,7 +651,12 @@ exports[`GCR Image Path Artifact tests renders while adding step first time 1`] 
                 class="bp3-label"
                 for="tag"
               >
-                tagLabel
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="gcrImagePath_tag"
+                >
+                  tagLabel
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -794,7 +834,12 @@ exports[`GCR Image Path Artifact tests renders without crashing 1`] = `
                 class="bp3-label"
                 for="identifier"
               >
-                artifactsSelection.existingDocker.sidecarId
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="gcrImagePath_identifier"
+                >
+                  artifactsSelection.existingDocker.sidecarId
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -828,7 +873,12 @@ exports[`GCR Image Path Artifact tests renders without crashing 1`] = `
                 class="bp3-label"
                 for="registryHostname"
               >
-                connectors.GCR.registryHostname
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="gcrImagePath_registryHostname"
+                >
+                  connectors.GCR.registryHostname
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -893,7 +943,12 @@ exports[`GCR Image Path Artifact tests renders without crashing 1`] = `
                 class="bp3-label"
                 for="imagePath"
               >
-                artifactsSelection.existingDocker.imageName
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="gcrImagePath_imagePath"
+                >
+                  artifactsSelection.existingDocker.imageName
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -999,7 +1054,12 @@ exports[`GCR Image Path Artifact tests renders without crashing 1`] = `
                 class="bp3-label"
                 for="tag"
               >
-                tagLabel
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="gcrImagePath_tag"
+                >
+                  tagLabel
+                </span>
                  
                 <span
                   class="bp3-text-muted"

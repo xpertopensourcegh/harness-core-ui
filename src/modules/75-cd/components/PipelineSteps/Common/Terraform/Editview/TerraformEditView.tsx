@@ -97,6 +97,7 @@ export default function TerraformEditView(
         onSubmit={values => {
           onUpdate?.(values as any)
         }}
+        formName="terraformEdit"
         initialValues={setInitialValues(initialValues as any)}
         validationSchema={stepType === StepType.TerraformPlan ? planValidationSchema : regularValidationSchema}
       >

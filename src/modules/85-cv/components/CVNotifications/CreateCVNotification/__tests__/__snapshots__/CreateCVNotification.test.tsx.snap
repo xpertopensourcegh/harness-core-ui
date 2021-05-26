@@ -144,7 +144,12 @@ exports[`Create CV Notification Rule should render 1`] = `
                         class="bp3-label"
                         for="name"
                       >
-                        cv.admin.notifications.create.stepOne.name
+                        <span
+                          class="Tooltip--acenter"
+                          data-tooltip-id="createCvNotification_name"
+                        >
+                          cv.admin.notifications.create.stepOne.name
+                        </span>
                          
                         <span
                           class="bp3-text-muted"
@@ -175,7 +180,12 @@ exports[`Create CV Notification Rule should render 1`] = `
                       class="bp3-label"
                       for="notificationSettingType"
                     >
-                      cv.admin.notifications.create.type
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="createCvNotification_notificationSettingType"
+                      >
+                        cv.admin.notifications.create.type
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -397,7 +407,12 @@ exports[`Create CV Notification Rule should render 2`] = `
                         class="bp3-label"
                         for="name"
                       >
-                        cv.admin.notifications.create.stepOne.name
+                        <span
+                          class="Tooltip--acenter"
+                          data-tooltip-id="createCvNotification_name"
+                        >
+                          cv.admin.notifications.create.stepOne.name
+                        </span>
                          
                         <span
                           class="bp3-text-muted"
@@ -428,7 +443,12 @@ exports[`Create CV Notification Rule should render 2`] = `
                       class="bp3-label"
                       for="notificationSettingType"
                     >
-                      cv.admin.notifications.create.type
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="createCvNotification_notificationSettingType"
+                      >
+                        cv.admin.notifications.create.type
+                      </span>
                        
                       <span
                         class="bp3-text-muted"

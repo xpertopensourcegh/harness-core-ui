@@ -62,6 +62,7 @@ const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({ hideModal }) =>
           newPassword: '',
           confirmPassword: ''
         }}
+        formName="changePasswordForm"
         validationSchema={yup.object().shape({
           currentPassword: yup
             .string()

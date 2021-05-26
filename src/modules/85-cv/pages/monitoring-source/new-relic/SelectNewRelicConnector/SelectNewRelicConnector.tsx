@@ -70,6 +70,7 @@ export function SelectNewRelicConnector(): JSX.Element {
           onSubmit={values => {
             onNext(values, { tabStatus: 'SUCCESS' })
           }}
+          formName="selectNrConnector"
           initialValues={sourceData}
           validationSchema={getValidationSchema(getString)}
           render={formikProps => (

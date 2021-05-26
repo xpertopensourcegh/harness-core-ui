@@ -105,6 +105,7 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
       >
         <Formik
           initialValues={inputValues}
+          formName="configureOptionsForm"
           validationSchema={Yup.object().shape({
             validation: Yup.string().required(),
             regExValues: Yup.string()

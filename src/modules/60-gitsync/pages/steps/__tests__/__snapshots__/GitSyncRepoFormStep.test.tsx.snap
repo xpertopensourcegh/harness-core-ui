@@ -186,7 +186,12 @@ exports[`Test GitSyncRepoFormStep Initial render should match snapshot for GitSy
                           class="bp3-label"
                           for="name"
                         >
-                          common.git.selectRepoLabel
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="gitSyncRepoForm_name"
+                          >
+                            common.git.selectRepoLabel
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -277,7 +282,12 @@ exports[`Test GitSyncRepoFormStep Initial render should match snapshot for GitSy
                           class="bp3-label"
                           for="repo"
                         >
-                          repositoryUrlLabel
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="gitSyncRepoForm_repo"
+                          >
+                            repositoryUrlLabel
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -309,7 +319,12 @@ exports[`Test GitSyncRepoFormStep Initial render should match snapshot for GitSy
                       class="bp3-label"
                       for="rootfolder"
                     >
-                      gitsync.selectHarnessFolder
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="gitSyncRepoForm_rootfolder"
+                      >
+                        gitsync.selectHarnessFolder
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -340,7 +355,12 @@ exports[`Test GitSyncRepoFormStep Initial render should match snapshot for GitSy
                       class="bp3-label"
                       for="branch"
                     >
-                      gitsync.selectDefaultBranch
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="gitSyncRepoForm_branch"
+                      >
+                        gitsync.selectDefaultBranch
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -733,7 +753,12 @@ exports[`Test GitSyncRepoFormStep Initial render should match snapshot for GitSy
                           class="bp3-label"
                           for="name"
                         >
-                          common.git.selectRepoLabel
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="gitSyncRepoForm_name"
+                          >
+                            common.git.selectRepoLabel
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -829,7 +854,12 @@ exports[`Test GitSyncRepoFormStep Initial render should match snapshot for GitSy
                           class="bp3-label"
                           for="repo"
                         >
-                          repositoryUrlLabel
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="gitSyncRepoForm_repo"
+                          >
+                            repositoryUrlLabel
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -866,7 +896,12 @@ exports[`Test GitSyncRepoFormStep Initial render should match snapshot for GitSy
                       class="bp3-label"
                       for="rootfolder"
                     >
-                      gitsync.selectHarnessFolder
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="gitSyncRepoForm_rootfolder"
+                      >
+                        gitsync.selectHarnessFolder
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -897,7 +932,12 @@ exports[`Test GitSyncRepoFormStep Initial render should match snapshot for GitSy
                       class="bp3-label"
                       for="branch"
                     >
-                      gitsync.selectDefaultBranch
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="gitSyncRepoForm_branch"
+                      >
+                        gitsync.selectDefaultBranch
+                      </span>
                        
                       <span
                         class="bp3-text-muted"

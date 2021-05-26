@@ -177,7 +177,12 @@ exports[`Create AWS connector Wizard Should edit a connector with delegates 1`] 
                           class="bp3-label"
                           for="name"
                         >
-                          name
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="connectorDetailsStepForm_name"
+                          >
+                            name
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -507,7 +512,12 @@ exports[`Create AWS connector Wizard Should render form 1`] = `
                           class="bp3-label"
                           for="name"
                         >
-                          name
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="connectorDetailsStepForm_name"
+                          >
+                            name
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -1007,7 +1017,12 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
                         <span
                           class="bp3-control-indicator"
                         />
-                        connectors.aws.enableCrossAcc
+                        <span
+                          class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                          data-tooltip-id="stepAwsAuthForm_crossAccountAccess"
+                        >
+                          connectors.aws.enableCrossAcc
+                        </span>
                       </label>
                     </div>
                   </div>
@@ -1262,7 +1277,12 @@ exports[`Create AWS connector Wizard Should render form for edit  1`] = `
                           class="bp3-label"
                           for="name"
                         >
-                          name
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="connectorDetailsStepForm_name"
+                          >
+                            name
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -1791,7 +1811,12 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                         <span
                           class="bp3-control-indicator"
                         />
-                        connectors.aws.enableCrossAcc
+                        <span
+                          class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                          data-tooltip-id="stepAwsAuthForm_crossAccountAccess"
+                        >
+                          connectors.aws.enableCrossAcc
+                        </span>
                       </label>
                     </div>
                   </div>
@@ -1803,7 +1828,12 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                       class="bp3-label"
                       for="crossAccountRoleArn"
                     >
-                      connectors.aws.crossAccURN
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="stepAwsAuthForm_crossAccountRoleArn"
+                      >
+                        connectors.aws.crossAccURN
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -1833,7 +1863,12 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                       class="bp3-label"
                       for="externalId"
                     >
-                      connectors.aws.externalId
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="stepAwsAuthForm_externalId"
+                      >
+                        connectors.aws.externalId
+                      </span>
                        
                       <span
                         class="bp3-text-muted"

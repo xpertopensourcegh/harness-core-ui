@@ -76,6 +76,7 @@ export default function TfVarFile(props: TfVarFileProps): React.ReactElement {
       <Layout.Vertical padding={'huge'}>
         <Formik<VarFileArray>
           onSubmit={props.onHide}
+          formName="tfVarFile"
           initialValues={defaultValues}
           validationSchema={Yup.object().shape({
             type: Yup.string().required(getString('pipelineSteps.storeTypeRequired')),

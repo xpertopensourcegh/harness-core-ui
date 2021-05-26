@@ -74,6 +74,7 @@ const PasswordExpirationForm: React.FC<Props> = ({ onSubmit, onCancel, loginSett
         {getString('authSettings.passwordExpiration')}
       </Heading>
       <Formik
+        formName="passwordExpirationForm"
         initialValues={{
           daysBeforePasswordExpire:
             passwordExpirationSettings.daysBeforePasswordExpires || /* istanbul ignore next */ 30,

@@ -365,7 +365,12 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                             class="bp3-label"
                             for="name"
                           >
-                            stageNameLabel
+                            <span
+                              class="Tooltip--acenter"
+                              data-tooltip-id="ciBuildStage_name"
+                            >
+                              stageNameLabel
+                            </span>
                              
                             <span
                               class="bp3-text-muted"

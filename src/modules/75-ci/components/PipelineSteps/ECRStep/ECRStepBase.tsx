@@ -67,6 +67,7 @@ export const ECRStepBase = (
         initialValues,
         transformValuesFieldsConfig
       )}
+      formName="ciEcrStep"
       validate={valuesToValidate => {
         return validate(valuesToValidate, editViewValidateFieldsConfig, {
           initialValues,

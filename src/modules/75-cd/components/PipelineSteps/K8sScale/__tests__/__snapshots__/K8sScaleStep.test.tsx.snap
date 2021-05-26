@@ -245,7 +245,12 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
               class="bp3-label"
               for="name"
             >
-              name
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="k8Scale_name"
+              >
+                name
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -380,7 +385,12 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
             class="bp3-label"
             for="spec.workload"
           >
-            pipelineSteps.workload (optional)
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="k8Scale_spec.workload"
+            >
+              pipelineSteps.workload (optional)
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -629,7 +639,12 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
               class="bp3-label"
               for="name"
             >
-              name
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="k8Scale_name"
+              >
+                name
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -794,7 +809,12 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as edit step with a
             class="bp3-label"
             for="spec.workload"
           >
-            pipelineSteps.workload (optional)
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="k8Scale_spec.workload"
+            >
+              pipelineSteps.workload (optional)
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -1085,7 +1105,12 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
               class="bp3-label"
               for="name"
             >
-              name
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="k8Scale_name"
+              >
+                name
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -1220,7 +1245,12 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
             class="bp3-label"
             for="spec.workload"
           >
-            pipelineSteps.workload (optional)
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="k8Scale_spec.workload"
+            >
+              pipelineSteps.workload (optional)
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -1525,7 +1555,12 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid payload for instan
               class="bp3-label"
               for="name"
             >
-              name
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="k8Scale_name"
+              >
+                name
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -1660,7 +1695,12 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid payload for instan
             class="bp3-label"
             for="spec.workload"
           >
-            pipelineSteps.workload (optional)
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="k8Scale_spec.workload"
+            >
+              pipelineSteps.workload (optional)
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -1910,7 +1950,12 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid payload for instan
               class="bp3-label"
               for="name"
             >
-              name
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="k8Scale_name"
+              >
+                name
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -2045,7 +2090,12 @@ exports[`Test K8sBlueGreenDeployStep should submit with valid payload for instan
             class="bp3-label"
             for="spec.workload"
           >
-            pipelineSteps.workload (optional)
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="k8Scale_spec.workload"
+            >
+              pipelineSteps.workload (optional)
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -2294,7 +2344,12 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
               class="bp3-label"
               for="name"
             >
-              name
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="k8Scale_name"
+              >
+                name
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -2434,7 +2489,12 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
             class="bp3-label"
             for="spec.workload"
           >
-            pipelineSteps.workload (optional)
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="k8Scale_spec.workload"
+            >
+              pipelineSteps.workload (optional)
+            </span>
              
             <span
               class="bp3-text-muted"

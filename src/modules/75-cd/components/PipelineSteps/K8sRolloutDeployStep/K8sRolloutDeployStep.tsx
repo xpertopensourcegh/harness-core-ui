@@ -60,6 +60,7 @@ function K8RolloutDeployWidget(
         onSubmit={(values: K8RolloutDeployData) => {
           onUpdate?.(values)
         }}
+        formName="k8RolloutDeploy"
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),

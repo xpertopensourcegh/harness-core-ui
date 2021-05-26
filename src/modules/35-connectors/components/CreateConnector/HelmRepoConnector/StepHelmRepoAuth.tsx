@@ -103,6 +103,7 @@ const StepHelmAuthentication: React.FC<StepProps<StepHelmRepoAuthenticationProps
           ...prevStepData,
           helmRepoUrl: prevStepData?.spec?.helmRepoUrl
         }}
+        formName="helmRepoAuthForm"
         validationSchema={Yup.object().shape({
           helmRepoUrl: Yup.string().trim().required(getString('validation.helmRepoUrl')),
           authType: Yup.string().trim().required(getString('validation.authType')),

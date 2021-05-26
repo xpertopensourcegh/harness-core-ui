@@ -122,6 +122,7 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
           onSubmit={formData => {
             handleSubmit(formData)
           }}
+          formName="connectorDetailsStepForm"
           validationSchema={Yup.object().shape({
             name: Yup.string().trim().required(getString('validation.connectorName')),
             identifier: Yup.string().when('name', {

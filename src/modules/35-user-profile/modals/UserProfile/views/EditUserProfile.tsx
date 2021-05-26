@@ -57,6 +57,7 @@ const EditUserProfile: React.FC<UserProfileData> = props => {
           initialValues={{
             ...user
           }}
+          formName="editUserForm"
           validationSchema={Yup.object().shape({
             name: Yup.string().trim().required(getString('validation.nameRequired'))
           })}

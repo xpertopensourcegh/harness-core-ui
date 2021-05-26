@@ -67,6 +67,7 @@ export const PluginStepBase = (
         initialValues,
         transformValuesFieldsConfig
       )}
+      formName="pluginStep"
       validate={valuesToValidate => {
         return validate(valuesToValidate, editViewValidateFieldsConfig, {
           initialValues,

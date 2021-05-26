@@ -55,6 +55,7 @@ const GitSyncEntityTab: React.FC = () => {
           initialValues={{
             branch: gitRepo.branch
           }}
+          formName="gitSyncEntityForm"
           onSubmit={noop}
         >
           <FormikForm>

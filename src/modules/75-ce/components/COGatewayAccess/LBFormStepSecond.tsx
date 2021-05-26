@@ -182,6 +182,7 @@ const LBFormStepSecond: React.FC<LBFormStepSecondProps> = props => {
         })
         //   certificate: loadBalancer.metadata?.certificate_id, // eslint-disable-line
       }}
+      formName="lbFormSecond"
       onSubmit={values => handleSubmit?.(values)}
       render={({ submitForm, setFieldValue }) => (
         <FormikForm>

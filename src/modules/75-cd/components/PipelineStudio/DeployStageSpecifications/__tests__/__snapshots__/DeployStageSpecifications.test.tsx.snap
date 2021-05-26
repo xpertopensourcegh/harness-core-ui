@@ -67,7 +67,12 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                         class="bp3-label"
                         for="name"
                       >
-                        name
+                        <span
+                          class="Tooltip--acenter"
+                          data-tooltip-id="cdEditStage_name"
+                        >
+                          name
+                        </span>
                          
                         <span
                           class="bp3-text-muted"

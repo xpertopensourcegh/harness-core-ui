@@ -211,6 +211,7 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
             onSubmit(values)
             /** to do here */
           }}
+          formName="delegateSetupStepForm"
           validationSchema={Yup.object().shape({
             name: Yup.string()
               .trim()

@@ -67,6 +67,7 @@ export const NewEditServiceModal: React.FC<NewEditServiceModalProps> = ({
     <Layout.Vertical>
       <Formik<ServiceYaml>
         initialValues={data}
+        formName="deployService"
         onSubmit={values => {
           onCreateOrUpdate(values)
         }}

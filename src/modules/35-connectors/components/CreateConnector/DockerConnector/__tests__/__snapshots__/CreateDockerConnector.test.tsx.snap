@@ -193,7 +193,12 @@ exports[`Create Docker Connector  Wizard Should render form 1`] = `
                           class="bp3-label"
                           for="name"
                         >
-                          name
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="connectorDetailsStepForm_name"
+                          >
+                            name
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -479,7 +484,12 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                     class="bp3-label"
                     for="dockerRegistryUrl"
                   >
-                    connectors.docker.dockerRegistryURL
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="dockerAuthForm_dockerRegistryUrl"
+                    >
+                      connectors.docker.dockerRegistryURL
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -1043,7 +1053,12 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                           class="bp3-label"
                           for="name"
                         >
-                          name
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="connectorDetailsStepForm_name"
+                          >
+                            name
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -1325,7 +1340,12 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                     class="bp3-label"
                     for="dockerRegistryUrl"
                   >
-                    connectors.docker.dockerRegistryURL
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="dockerAuthForm_dockerRegistryUrl"
+                    >
+                      connectors.docker.dockerRegistryURL
+                    </span>
                      
                     <span
                       class="bp3-text-muted"

@@ -62,6 +62,7 @@ function K8sCanaryDeleteWidget(
         onSubmit={(values: K8sCanaryDeleteStepData) => {
           onUpdate?.({ ...values, spec: { skipDryRun: false } })
         }}
+        formName="k*CanaryDelete"
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),

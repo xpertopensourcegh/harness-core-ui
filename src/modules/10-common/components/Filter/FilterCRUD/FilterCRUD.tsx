@@ -395,6 +395,7 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
               }
               setIsEditEnabled(false)
             }}
+            formName="filterCrudForm"
             validationSchema={Yup.object().shape({
               name: Yup.string().trim().required(getString('filters.nameRequired')),
               filterVisibility: Yup.mixed()

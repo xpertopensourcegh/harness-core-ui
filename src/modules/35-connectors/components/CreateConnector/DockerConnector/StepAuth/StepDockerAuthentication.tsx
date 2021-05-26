@@ -128,6 +128,7 @@ const StepDockerAuthentication: React.FC<
           ...initialValues,
           ...prevStepData
         }}
+        formName="dockerAuthForm"
         validationSchema={Yup.object().shape({
           dockerRegistryUrl: Yup.string().trim().required(getString('validation.dockerRegistryUrl')),
           authType: Yup.string().trim().required(getString('validation.authType')),

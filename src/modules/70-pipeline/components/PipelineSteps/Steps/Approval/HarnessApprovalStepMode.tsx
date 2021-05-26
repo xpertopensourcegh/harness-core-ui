@@ -290,6 +290,7 @@ function HarnessApprovalStepMode(
     <Formik<HarnessApprovalData>
       onSubmit={values => onUpdate?.(values)}
       initialValues={props.initialValues}
+      formName="harnessApproval"
       enableReinitialize={true}
       validationSchema={Yup.object().shape({
         name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),

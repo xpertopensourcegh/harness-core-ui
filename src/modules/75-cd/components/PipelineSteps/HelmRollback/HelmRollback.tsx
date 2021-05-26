@@ -66,6 +66,7 @@ function HelmRollbackWidget(
           onUpdate?.({ ...values, spec: { skipDryRun: false } })
         }}
         initialValues={initialValues}
+        formName="helmRollback"
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
           timeout: getDurationValidationSchema({ minimum: '10s' }).required(

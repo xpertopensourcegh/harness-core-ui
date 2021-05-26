@@ -72,6 +72,7 @@ export const RunStepBase = (
         initialValues,
         transformValuesFieldsConfig
       )}
+      formName="ciRunStep"
       validate={valuesToValidate => {
         return validate(valuesToValidate, editViewValidateFieldsConfig, {
           initialValues,

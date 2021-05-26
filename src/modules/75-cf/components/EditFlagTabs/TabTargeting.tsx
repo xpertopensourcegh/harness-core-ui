@@ -57,7 +57,7 @@ const TabTargeting: React.FC<TabTargetingProps> = props => {
       <Layout.Vertical>
         <Text>{getString('cf.featureFlags.rules.serveToFollowing')}</Text>
 
-        <Formik initialValues={{}} onSubmit={() => alert('To be implemented...')}>
+        <Formik initialValues={{}} formName="tabTargeting" onSubmit={() => alert('To be implemented...')}>
           {() => (
             <Form>
               <FormInput.TextArea name="targets" />

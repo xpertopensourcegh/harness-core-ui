@@ -153,6 +153,7 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
       </Text>
       <Formik
         initialValues={getInitialValues()}
+        formName="osTemplateWithGit"
         validationSchema={Yup.object().shape({
           identifier: Yup.string()
             .trim()

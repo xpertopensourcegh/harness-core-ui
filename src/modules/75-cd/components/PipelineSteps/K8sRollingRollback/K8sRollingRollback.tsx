@@ -66,6 +66,7 @@ function K8sRollingRollbackWidget(
         onSubmit={(values: K8sRollingRollbackData) => {
           onUpdate?.({ ...values, spec: { skipDryRun: false } })
         }}
+        formName="k8RollingRB"
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),

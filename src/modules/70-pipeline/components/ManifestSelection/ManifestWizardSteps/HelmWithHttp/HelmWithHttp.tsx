@@ -119,6 +119,7 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
       </Text>
       <Formik
         initialValues={getInitialValues()}
+        formName="helmWithHttp"
         validationSchema={Yup.object().shape({
           chartName: Yup.string().trim().required(getString('pipeline.manifestType.http.chartNameRequired')),
           helmVersion: Yup.string().trim().required(getString('pipeline.manifestType.helmVersionRequired')),

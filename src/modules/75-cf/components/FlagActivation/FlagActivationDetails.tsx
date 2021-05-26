@@ -191,7 +191,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
 
     return (
       <Dialog onClose={hideEditDetailsModal} isOpen={true} title={''}>
-        <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+        <Formik initialValues={initialValues} formName="flagActivationDetails" onSubmit={handleSubmit}>
           {() => (
             <Form>
               <Layout.Vertical className={css.editDetailsModalContainer}>

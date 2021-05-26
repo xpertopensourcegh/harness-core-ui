@@ -25,6 +25,7 @@ const AzureApDnsMapping: React.FC<AzureApDnsMappingProps> = props => {
         customDomain: loadBalancer.host_name || '',
         name: loadBalancer.name || ''
       }}
+      formName="azureDnsMapping"
       onSubmit={handleSubmit}
       render={({ submitForm, values }) => (
         <FormikForm>

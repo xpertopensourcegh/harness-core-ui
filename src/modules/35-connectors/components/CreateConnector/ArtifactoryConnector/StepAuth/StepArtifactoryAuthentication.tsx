@@ -101,6 +101,7 @@ const StepArtifactoryAuthentication: React.FC<
           ...initialValues,
           ...prevStepData
         }}
+        formName="stepArtifactoryAuthForm"
         validationSchema={Yup.object().shape({
           artifactoryServerUrl: Yup.string().trim().required(getString('validation.artifactoryServerURL')),
           username: Yup.string()

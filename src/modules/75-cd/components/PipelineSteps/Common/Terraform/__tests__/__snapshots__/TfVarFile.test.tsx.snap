@@ -55,7 +55,12 @@ exports[`Terraform var file creation testing initial render 1`] = `
             class="bp3-label"
             for="varFile.type"
           >
-            pipelineSteps.storeType
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="tfVarFile_varFile.type"
+            >
+              pipelineSteps.storeType
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -195,7 +200,12 @@ exports[`Terraform var file creation testing removing path successfully 1`] = `
             class="bp3-label"
             for="varFile.type"
           >
-            pipelineSteps.storeType
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="tfVarFile_varFile.type"
+            >
+              pipelineSteps.storeType
+            </span>
              
             <span
               class="bp3-text-muted"

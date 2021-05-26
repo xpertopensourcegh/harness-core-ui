@@ -28,7 +28,12 @@ exports[`DockerRegistry Image Path Artifact tests renders correctly in edit case
                 class="bp3-label"
                 for="identifier"
               >
-                artifactsSelection.existingDocker.sidecarId
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="imagePath_identifier"
+                >
+                  artifactsSelection.existingDocker.sidecarId
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -62,7 +67,12 @@ exports[`DockerRegistry Image Path Artifact tests renders correctly in edit case
                 class="bp3-label"
                 for="imagePath"
               >
-                artifactsSelection.existingDocker.imageName
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="imagePath_imagePath"
+                >
+                  artifactsSelection.existingDocker.imageName
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -168,7 +178,12 @@ exports[`DockerRegistry Image Path Artifact tests renders correctly in edit case
                 class="bp3-label"
                 for="tag"
               >
-                tagLabel
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="imagePath_tag"
+                >
+                  tagLabel
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -346,7 +361,12 @@ exports[`DockerRegistry Image Path Artifact tests renders while adding step firs
                 class="bp3-label"
                 for="identifier"
               >
-                artifactsSelection.existingDocker.sidecarId
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="imagePath_identifier"
+                >
+                  artifactsSelection.existingDocker.sidecarId
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -380,7 +400,12 @@ exports[`DockerRegistry Image Path Artifact tests renders while adding step firs
                 class="bp3-label"
                 for="imagePath"
               >
-                artifactsSelection.existingDocker.imageName
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="imagePath_imagePath"
+                >
+                  artifactsSelection.existingDocker.imageName
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -486,7 +511,12 @@ exports[`DockerRegistry Image Path Artifact tests renders while adding step firs
                 class="bp3-label"
                 for="tag"
               >
-                tagLabel
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="imagePath_tag"
+                >
+                  tagLabel
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -664,7 +694,12 @@ exports[`DockerRegistry Image Path Artifact tests renders without crashing 1`] =
                 class="bp3-label"
                 for="identifier"
               >
-                artifactsSelection.existingDocker.sidecarId
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="imagePath_identifier"
+                >
+                  artifactsSelection.existingDocker.sidecarId
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -698,7 +733,12 @@ exports[`DockerRegistry Image Path Artifact tests renders without crashing 1`] =
                 class="bp3-label"
                 for="imagePath"
               >
-                artifactsSelection.existingDocker.imageName
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="imagePath_imagePath"
+                >
+                  artifactsSelection.existingDocker.imageName
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -804,7 +844,12 @@ exports[`DockerRegistry Image Path Artifact tests renders without crashing 1`] =
                 class="bp3-label"
                 for="tag"
               >
-                tagLabel
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="imagePath_tag"
+                >
+                  tagLabel
+                </span>
                  
                 <span
                   class="bp3-text-muted"

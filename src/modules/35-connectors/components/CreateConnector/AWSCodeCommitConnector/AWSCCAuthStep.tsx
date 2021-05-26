@@ -104,6 +104,7 @@ export default function AWSCCAuthStep(props: AWSCCAuthStepProps) {
         accessKey: Yup.object().required(),
         secretKey: Yup.mixed().required()
       })}
+      formName="awsCcAuthForm"
       onSubmit={formData => {
         handleSubmit({
           ...formData,

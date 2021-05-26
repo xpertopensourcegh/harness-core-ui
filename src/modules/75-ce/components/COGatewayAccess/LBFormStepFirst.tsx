@@ -133,6 +133,7 @@ const LBFormStepFirst: React.FC<LBFormStepFirstProps> = props => {
         customDomainPrefix: '',
         lbName: loadBalancer?.name || ''
       }}
+      formName="lbFormFirst"
       onSubmit={onSubmit}
       render={({ submitForm, values, setFieldValue }) => (
         <FormikForm>

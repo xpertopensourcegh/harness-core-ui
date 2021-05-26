@@ -175,6 +175,7 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
       >
         <Formik
           initialValues={initialValues}
+          formName="editVariations"
           validationSchema={yup.object().shape({
             variations: yup.array().of(
               yup.object().shape({

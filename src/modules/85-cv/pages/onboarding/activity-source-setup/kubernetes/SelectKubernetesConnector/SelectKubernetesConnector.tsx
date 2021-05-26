@@ -31,6 +31,7 @@ export function SelectKubernetesConnector(props: SelectKubernetesConnectorProps)
     <Formik
       initialValues={data || buildKubernetesActivitySourceInfo()}
       validationSchema={ValidationSchema}
+      formName="cvSelectk8"
       onSubmit={values => onSubmit({ ...values })}
     >
       {formikProps => (

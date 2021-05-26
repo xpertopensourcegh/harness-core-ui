@@ -33,6 +33,7 @@ export const CreatePipelineForm: React.FC<CreatePipelineFormProps> = props => {
         repo: '',
         branch: ''
       }}
+      formName="createPipeline"
       validationSchema={Yup.object().shape({
         name: Yup.string().trim().required(getString('createPipeline.pipelineNameRequired')),
         identifier: Yup.string().when('name', {

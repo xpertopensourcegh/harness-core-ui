@@ -70,6 +70,7 @@ function K8sBGSwapWidget(
           /* istanbul ignore next */
           onUpdate?.({ ...values, spec: { skipDryRun: false } })
         }}
+        formName="k8BgSwap"
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),

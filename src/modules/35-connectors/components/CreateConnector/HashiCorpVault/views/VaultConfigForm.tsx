@@ -129,6 +129,7 @@ const VaultConfigForm: React.FC<StepProps<StepSecretManagerProps> & CreateHashiC
           renewalIntervalMinutes: 10,
           ...prevStepData?.spec
         }}
+        formName="vaultConfigForm"
         validationSchema={Yup.object().shape({
           vaultUrl: Yup.string().trim().required(getString('validation.vaultUrl')),
           secretEngineName: Yup.string().when('engineType', {

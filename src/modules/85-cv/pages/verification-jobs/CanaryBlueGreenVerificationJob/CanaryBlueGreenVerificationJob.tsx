@@ -35,6 +35,7 @@ const CanaryBlueGreenVerificationJob: React.FC<VerificationJobsDetailsProps> = p
           duration: Yup.string().required(getString('cv.verificationJobs.validation.duration')),
           sensitivity: Yup.string().required(getString('cv.verificationJobs.validation.sensitivity'))
         })}
+        formName="canaryBGVerify"
         onSubmit={data => {
           onSubmit({ ...props.stepData, ...data })
         }}

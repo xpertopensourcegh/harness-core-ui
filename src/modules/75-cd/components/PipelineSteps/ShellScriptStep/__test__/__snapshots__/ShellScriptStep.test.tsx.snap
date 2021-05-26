@@ -408,7 +408,12 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
                       class="bp3-label"
                       for="name"
                     >
-                      pipelineSteps.stepNameLabel
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="shellScriptForm_name"
+                      >
+                        pipelineSteps.stepNameLabel
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -442,7 +447,12 @@ exports[`Test Shell Script Step renders runtime inputs 1`] = `
                     class="bp3-label"
                     for="spec.shell"
                   >
-                    scriptType
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="shellScriptForm_spec.shell"
+                    >
+                      scriptType
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -852,7 +862,12 @@ exports[`Test Shell Script Step should render edit view 1`] = `
                       class="bp3-label"
                       for="name"
                     >
-                      pipelineSteps.stepNameLabel
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="shellScriptForm_name"
+                      >
+                        pipelineSteps.stepNameLabel
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -886,7 +901,12 @@ exports[`Test Shell Script Step should render edit view 1`] = `
                     class="bp3-label"
                     for="spec.shell"
                   >
-                    scriptType
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="shellScriptForm_spec.shell"
+                    >
+                      scriptType
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -1298,7 +1318,12 @@ exports[`Test Shell Script Step should render edit view 2`] = `
                       class="bp3-label"
                       for="name"
                     >
-                      pipelineSteps.stepNameLabel
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="shellScriptForm_name"
+                      >
+                        pipelineSteps.stepNameLabel
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -1332,7 +1357,12 @@ exports[`Test Shell Script Step should render edit view 2`] = `
                     class="bp3-label"
                     for="spec.shell"
                   >
-                    scriptType
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="shellScriptForm_spec.shell"
+                    >
+                      scriptType
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -1744,7 +1774,12 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
                       class="bp3-label"
                       for="name"
                     >
-                      pipelineSteps.stepNameLabel
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="shellScriptForm_name"
+                      >
+                        pipelineSteps.stepNameLabel
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -1778,7 +1813,12 @@ exports[`Test Shell Script Step should render edit view as edit step 1`] = `
                     class="bp3-label"
                     for="spec.shell"
                   >
-                    scriptType
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="shellScriptForm_spec.shell"
+                    >
+                      scriptType
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -2186,7 +2226,12 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
                       class="bp3-label"
                       for="name"
                     >
-                      pipelineSteps.stepNameLabel
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="shellScriptForm_name"
+                      >
+                        pipelineSteps.stepNameLabel
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -2220,7 +2265,12 @@ exports[`Test Shell Script Step should render edit view as new step 1`] = `
                     class="bp3-label"
                     for="spec.shell"
                   >
-                    scriptType
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="shellScriptForm_spec.shell"
+                    >
+                      scriptType
+                    </span>
                      
                     <span
                       class="bp3-text-muted"

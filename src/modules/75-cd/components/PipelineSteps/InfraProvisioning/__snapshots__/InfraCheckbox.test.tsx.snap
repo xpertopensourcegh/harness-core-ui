@@ -26,7 +26,12 @@ exports[`InfraProvisioning  click on checkbox- should open up prov popup 1`] = `
               <span
                 class="bp3-control-indicator"
               />
-              pipelineSteps.deploy.provisioner.enableProvisionerLabel
+              <span
+                class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                data-tooltip-id="infraProvisionerBase_provisionerEnabled"
+              >
+                pipelineSteps.deploy.provisioner.enableProvisionerLabel
+              </span>
             </label>
           </div>
         </div>

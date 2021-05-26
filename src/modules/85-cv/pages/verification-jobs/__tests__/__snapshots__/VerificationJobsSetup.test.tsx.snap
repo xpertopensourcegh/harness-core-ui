@@ -243,7 +243,12 @@ exports[`VerificationJobsSetup Render initialy 1`] = `
                                   class="bp3-label"
                                   for="name"
                                 >
-                                  cv.verificationJobs.details.name
+                                  <span
+                                    class="Tooltip--acenter"
+                                    data-tooltip-id="verifyJobDetails_name"
+                                  >
+                                    cv.verificationJobs.details.name
+                                  </span>
                                    
                                   <span
                                     class="bp3-text-muted"
@@ -300,7 +305,12 @@ exports[`VerificationJobsSetup Render initialy 1`] = `
                               class="bp3-label"
                               for="activitySource"
                             >
-                              changeSource
+                              <span
+                                class="Tooltip--acenter"
+                                data-tooltip-id="verifyJobDetails_activitySource"
+                              >
+                                changeSource
+                              </span>
                                
                               <span
                                 class="bp3-text-muted"
@@ -369,7 +379,12 @@ exports[`VerificationJobsSetup Render initialy 1`] = `
                               class="bp3-label"
                               for="dataSource"
                             >
-                              monitoringSource
+                              <span
+                                class="Tooltip--acenter"
+                                data-tooltip-id="verifyJobDetails_dataSource"
+                              >
+                                monitoringSource
+                              </span>
                                
                               <span
                                 class="bp3-text-muted"
@@ -417,11 +432,16 @@ exports[`VerificationJobsSetup Render initialy 1`] = `
                           class="bp3-label"
                           for="type"
                         >
-                          <p
-                            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="verifyJobDetails_type"
                           >
-                            cv.verificationJobs.details.selectType
-                          </p>
+                            <p
+                              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+                            >
+                              cv.verificationJobs.details.selectType
+                            </p>
+                          </span>
                            
                           <span
                             class="bp3-text-muted"

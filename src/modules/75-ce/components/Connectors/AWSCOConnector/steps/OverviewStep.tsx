@@ -119,6 +119,7 @@ const OverviewStep: React.FC<StepProps<ConnectorConfigDTO> & OverviewStepProps> 
           eventsPermission: cePermission,
           optimizationPermission: coPermission
         }}
+        formName="connectorOverview"
         onSubmit={values => {
           handleSubmit(values)
         }}

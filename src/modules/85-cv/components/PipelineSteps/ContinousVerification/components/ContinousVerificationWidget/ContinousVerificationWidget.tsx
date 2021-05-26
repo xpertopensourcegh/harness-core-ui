@@ -94,6 +94,7 @@ export function ContinousVerificationWidget(
       onSubmit={submit => {
         onUpdate?.(submit)
       }}
+      formName="cvData"
       initialValues={values}
       validationSchema={validationSchema}
     >

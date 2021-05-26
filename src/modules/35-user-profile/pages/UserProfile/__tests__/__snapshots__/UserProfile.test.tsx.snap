@@ -37,7 +37,12 @@ exports[`User Profile Page Add BitBucket SCM 1`] = `
                     class="bp3-label"
                     for="name"
                   >
-                    name
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="sourceCodeManagerForm_name"
+                    >
+                      name
+                    </span>
                      
                     <span
                       class="bp3-text-muted"

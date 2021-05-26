@@ -28,6 +28,7 @@ const VerificationJobsDetails: React.FC<VerificationJobsDetailsProps> = props =>
     <Container style={{ position: 'relative', top: 50 }}>
       <Formik
         initialValues={{ ...props.stepData }}
+        formName="verifyJobDetails"
         validationSchema={Yup.object().shape({
           name: Yup.string().trim().required(getString('validation.nameRequired')),
           identifier: Yup.string().when('name', {

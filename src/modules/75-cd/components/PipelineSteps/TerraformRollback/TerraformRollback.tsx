@@ -71,6 +71,7 @@ function TerraformRollbackWidget(
         onSubmit={(values: TFRollbackData) => {
           onUpdate?.(values)
         }}
+        formName="terraformRollback"
         initialValues={setInitialValues(initialValues)}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),

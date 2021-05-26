@@ -1423,7 +1423,12 @@ exports[`Test GatewayDetails renders review screen 2`] = `
                                     class="bp3-label"
                                     for="gatewayName"
                                   >
-                                    ce.co.gatewayConfig.name
+                                    <span
+                                      class="Tooltip--acenter"
+                                      data-tooltip-id="coGatewayConfig_gatewayName"
+                                    >
+                                      ce.co.gatewayConfig.name
+                                    </span>
                                      
                                     <span
                                       class="bp3-text-muted"
@@ -1479,16 +1484,21 @@ exports[`Test GatewayDetails renders review screen 2`] = `
                                     class="bp3-label"
                                     for="idleTime"
                                   >
-                                    <div
-                                      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                                    <span
+                                      class="Tooltip--acenter"
+                                      data-tooltip-id="coGatewayConfig_idleTime"
                                     >
-                                      <p
-                                        class="StyledProps--font StyledProps--main"
-                                        style="font-size: 13px;"
+                                      <div
+                                        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                                       >
-                                        ce.co.autoStoppingRule.configuration.step1.form.idleTime.label
-                                      </p>
-                                    </div>
+                                        <p
+                                          class="StyledProps--font StyledProps--main"
+                                          style="font-size: 13px;"
+                                        >
+                                          ce.co.autoStoppingRule.configuration.step1.form.idleTime.label
+                                        </p>
+                                      </div>
+                                    </span>
                                      
                                     <span
                                       class="bp3-text-muted"
@@ -4044,7 +4054,12 @@ exports[`Test GatewayDetails renders setup access screen and move to previous st
                                     class="bp3-label"
                                     for="gatewayName"
                                   >
-                                    ce.co.gatewayConfig.name
+                                    <span
+                                      class="Tooltip--acenter"
+                                      data-tooltip-id="coGatewayConfig_gatewayName"
+                                    >
+                                      ce.co.gatewayConfig.name
+                                    </span>
                                      
                                     <span
                                       class="bp3-text-muted"
@@ -4100,16 +4115,21 @@ exports[`Test GatewayDetails renders setup access screen and move to previous st
                                     class="bp3-label"
                                     for="idleTime"
                                   >
-                                    <div
-                                      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                                    <span
+                                      class="Tooltip--acenter"
+                                      data-tooltip-id="coGatewayConfig_idleTime"
                                     >
-                                      <p
-                                        class="StyledProps--font StyledProps--main"
-                                        style="font-size: 13px;"
+                                      <div
+                                        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                                       >
-                                        ce.co.autoStoppingRule.configuration.step1.form.idleTime.label
-                                      </p>
-                                    </div>
+                                        <p
+                                          class="StyledProps--font StyledProps--main"
+                                          style="font-size: 13px;"
+                                        >
+                                          ce.co.autoStoppingRule.configuration.step1.form.idleTime.label
+                                        </p>
+                                      </div>
+                                    </span>
                                      
                                     <span
                                       class="bp3-text-muted"
@@ -5715,7 +5735,12 @@ exports[`Test GatewayDetails renders without crashing 1`] = `
                                     class="bp3-label"
                                     for="gatewayName"
                                   >
-                                    ce.co.gatewayConfig.name
+                                    <span
+                                      class="Tooltip--acenter"
+                                      data-tooltip-id="coGatewayConfig_gatewayName"
+                                    >
+                                      ce.co.gatewayConfig.name
+                                    </span>
                                      
                                     <span
                                       class="bp3-text-muted"
@@ -5771,16 +5796,21 @@ exports[`Test GatewayDetails renders without crashing 1`] = `
                                     class="bp3-label"
                                     for="idleTime"
                                   >
-                                    <div
-                                      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                                    <span
+                                      class="Tooltip--acenter"
+                                      data-tooltip-id="coGatewayConfig_idleTime"
                                     >
-                                      <p
-                                        class="StyledProps--font StyledProps--main"
-                                        style="font-size: 13px;"
+                                      <div
+                                        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                                       >
-                                        ce.co.autoStoppingRule.configuration.step1.form.idleTime.label
-                                      </p>
-                                    </div>
+                                        <p
+                                          class="StyledProps--font StyledProps--main"
+                                          style="font-size: 13px;"
+                                        >
+                                          ce.co.autoStoppingRule.configuration.step1.form.idleTime.label
+                                        </p>
+                                      </div>
+                                    </span>
                                      
                                     <span
                                       class="bp3-text-muted"

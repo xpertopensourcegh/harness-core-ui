@@ -30,7 +30,12 @@ exports[`Azure Access Point Configuration render configuration dialog and fill d
                   class="bp3-label"
                   for="name"
                 >
-                  Provide a name for the Load balancer
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="azureDnsMapping_name"
+                  >
+                    Provide a name for the Load balancer
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -73,7 +78,12 @@ exports[`Azure Access Point Configuration render configuration dialog and fill d
                       class="bp3-label"
                       for="customDomain"
                     >
-                      Enter Domain name
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="azureDnsMapping_customDomain"
+                      >
+                        Enter Domain name
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -207,7 +217,12 @@ exports[`Azure Access Point Configuration render configuration dialog and fill d
                   class="bp3-label"
                   for="name"
                 >
-                  Provide a name for the Load balancer
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="azureDnsMapping_name"
+                  >
+                    Provide a name for the Load balancer
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -250,7 +265,12 @@ exports[`Azure Access Point Configuration render configuration dialog and fill d
                       class="bp3-label"
                       for="customDomain"
                     >
-                      Enter Domain name
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="azureDnsMapping_customDomain"
+                      >
+                        Enter Domain name
+                      </span>
                        
                       <span
                         class="bp3-text-muted"

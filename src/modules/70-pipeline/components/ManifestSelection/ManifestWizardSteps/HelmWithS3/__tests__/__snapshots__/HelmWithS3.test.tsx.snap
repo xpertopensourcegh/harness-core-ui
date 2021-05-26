@@ -30,7 +30,12 @@ exports[`helm with http tests expand advanced section 1`] = `
                   class="bp3-label"
                   for="identifier"
                 >
-                  pipeline.manifestType.manifestIdentifier
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithS3_identifier"
+                  >
+                    pipeline.manifestType.manifestIdentifier
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -68,7 +73,12 @@ exports[`helm with http tests expand advanced section 1`] = `
                   class="bp3-label"
                   for="region"
                 >
-                  regionLabel (optional)
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithS3_region"
+                  >
+                    regionLabel (optional)
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -165,7 +175,12 @@ exports[`helm with http tests expand advanced section 1`] = `
                   class="bp3-label"
                   for="bucketName"
                 >
-                  pipeline.manifestType.bucketName (optional)
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithS3_bucketName"
+                  >
+                    pipeline.manifestType.bucketName (optional)
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -234,7 +249,12 @@ exports[`helm with http tests expand advanced section 1`] = `
                   class="bp3-label"
                   for="folderPath"
                 >
-                  chartPath
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithS3_folderPath"
+                  >
+                    chartPath
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -299,7 +319,12 @@ exports[`helm with http tests expand advanced section 1`] = `
                   class="bp3-label"
                   for="chartName"
                 >
-                  pipeline.manifestType.http.chartName
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithS3_chartName"
+                  >
+                    pipeline.manifestType.http.chartName
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -368,7 +393,12 @@ exports[`helm with http tests expand advanced section 1`] = `
                   class="bp3-label"
                   for="chartVersion"
                 >
-                  pipeline.manifestType.http.chartVersion
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithS3_chartVersion"
+                  >
+                    pipeline.manifestType.http.chartVersion
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -433,7 +463,12 @@ exports[`helm with http tests expand advanced section 1`] = `
                   class="bp3-label"
                   for="helmVersion"
                 >
-                  helmVersion
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithS3_helmVersion"
+                  >
+                    helmVersion
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -657,7 +692,12 @@ exports[`helm with http tests expand advanced section 1`] = `
                                       class="bp3-label"
                                       for="commandFlags[0].commandType"
                                     >
-                                      pipeline.manifestType.helmCommandType
+                                      <span
+                                        class="Tooltip--acenter"
+                                        data-tooltip-id="helmWithS3_commandFlags[0].commandType"
+                                      >
+                                        pipeline.manifestType.helmCommandType
+                                      </span>
                                        
                                       <span
                                         class="bp3-text-muted"
@@ -758,7 +798,12 @@ exports[`helm with http tests expand advanced section 1`] = `
                                         class="bp3-label"
                                         for="commandFlags[0].flag"
                                       >
-                                        flag
+                                        <span
+                                          class="Tooltip--acenter"
+                                          data-tooltip-id="helmWithS3_commandFlags[0].flag"
+                                        >
+                                          flag
+                                        </span>
                                          
                                         <span
                                           class="bp3-text-muted"
@@ -935,7 +980,12 @@ exports[`helm with http tests load form correctly in edit mode and fill region 1
                   class="bp3-label"
                   for="identifier"
                 >
-                  pipeline.manifestType.manifestIdentifier
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithS3_identifier"
+                  >
+                    pipeline.manifestType.manifestIdentifier
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -973,7 +1023,12 @@ exports[`helm with http tests load form correctly in edit mode and fill region 1
                   class="bp3-label"
                   for="region"
                 >
-                  regionLabel (optional)
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithS3_region"
+                  >
+                    regionLabel (optional)
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1070,7 +1125,12 @@ exports[`helm with http tests load form correctly in edit mode and fill region 1
                   class="bp3-label"
                   for="bucketName"
                 >
-                  pipeline.manifestType.bucketName (optional)
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithS3_bucketName"
+                  >
+                    pipeline.manifestType.bucketName (optional)
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1139,7 +1199,12 @@ exports[`helm with http tests load form correctly in edit mode and fill region 1
                   class="bp3-label"
                   for="folderPath"
                 >
-                  chartPath
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithS3_folderPath"
+                  >
+                    chartPath
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1204,7 +1269,12 @@ exports[`helm with http tests load form correctly in edit mode and fill region 1
                   class="bp3-label"
                   for="chartName"
                 >
-                  pipeline.manifestType.http.chartName
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithS3_chartName"
+                  >
+                    pipeline.manifestType.http.chartName
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1273,7 +1343,12 @@ exports[`helm with http tests load form correctly in edit mode and fill region 1
                   class="bp3-label"
                   for="chartVersion"
                 >
-                  pipeline.manifestType.http.chartVersion
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithS3_chartVersion"
+                  >
+                    pipeline.manifestType.http.chartVersion
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1338,7 +1413,12 @@ exports[`helm with http tests load form correctly in edit mode and fill region 1
                   class="bp3-label"
                   for="helmVersion"
                 >
-                  helmVersion
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithS3_helmVersion"
+                  >
+                    helmVersion
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1527,7 +1607,12 @@ exports[`helm with http tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="identifier"
                 >
-                  pipeline.manifestType.manifestIdentifier
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithS3_identifier"
+                  >
+                    pipeline.manifestType.manifestIdentifier
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1565,7 +1650,12 @@ exports[`helm with http tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="region"
                 >
-                  regionLabel (optional)
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithS3_region"
+                  >
+                    regionLabel (optional)
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1662,7 +1752,12 @@ exports[`helm with http tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="bucketName"
                 >
-                  pipeline.manifestType.bucketName (optional)
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithS3_bucketName"
+                  >
+                    pipeline.manifestType.bucketName (optional)
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1731,7 +1826,12 @@ exports[`helm with http tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="folderPath"
                 >
-                  chartPath
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithS3_folderPath"
+                  >
+                    chartPath
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1796,7 +1896,12 @@ exports[`helm with http tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="chartName"
                 >
-                  pipeline.manifestType.http.chartName
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithS3_chartName"
+                  >
+                    pipeline.manifestType.http.chartName
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1865,7 +1970,12 @@ exports[`helm with http tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="chartVersion"
                 >
-                  pipeline.manifestType.http.chartVersion
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithS3_chartVersion"
+                  >
+                    pipeline.manifestType.http.chartVersion
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1930,7 +2040,12 @@ exports[`helm with http tests renders without crashing 1`] = `
                   class="bp3-label"
                   for="helmVersion"
                 >
-                  helmVersion
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="helmWithS3_helmVersion"
+                  >
+                    helmVersion
+                  </span>
                    
                   <span
                     class="bp3-text-muted"

@@ -174,6 +174,7 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
       <Formik
         enableReinitialize
         initialValues={initialValues}
+        formName="awsKmsConfigForm"
         validationSchema={Yup.object().shape({
           accessKey: Yup.string().when(['credType'], {
             is: credentials => credentials === credTypeOptions[0].value,

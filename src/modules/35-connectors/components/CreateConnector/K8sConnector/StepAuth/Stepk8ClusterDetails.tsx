@@ -305,6 +305,7 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
           ...props.prevStepData
         }}
         validationSchema={validationSchema}
+        formName="k8ClusterForm"
         onSubmit={handleSubmit}
       >
         {formikProps => (

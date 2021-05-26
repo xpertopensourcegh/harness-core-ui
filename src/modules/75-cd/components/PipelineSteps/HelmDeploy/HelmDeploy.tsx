@@ -66,6 +66,7 @@ function HelmDeployWidget(
           /* istanbul ignore next */
           onUpdate?.({ ...values, spec: { skipDryRun: false } })
         }}
+        formName="helmDeploy"
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),

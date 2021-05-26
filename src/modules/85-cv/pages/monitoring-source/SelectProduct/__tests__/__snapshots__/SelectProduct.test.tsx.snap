@@ -150,7 +150,12 @@ exports[`SelectProduct Render for AppD monitoring source 1`] = `
                         class="bp3-label"
                         for="name"
                       >
-                        cv.monitoringSources.nameYourMonitoringSource
+                        <span
+                          class="Tooltip--acenter"
+                          data-tooltip-id="cvSelectProduct_name"
+                        >
+                          cv.monitoringSources.nameYourMonitoringSource
+                        </span>
                          
                         <span
                           class="bp3-text-muted"
@@ -314,7 +319,12 @@ exports[`SelectProduct Render for AppD monitoring source 1`] = `
               class="bp3-label"
               for="product"
             >
-              cv.monitoringSources.appD.selectProduct
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="cvSelectProduct_product"
+              >
+                cv.monitoringSources.appD.selectProduct
+              </span>
                
               <span
                 class="bp3-text-muted"

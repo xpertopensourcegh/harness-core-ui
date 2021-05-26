@@ -527,6 +527,7 @@ function JiraCreateStepMode(props: JiraCreateStepModeProps, formikRef: StepFormi
       onSubmit={values => {
         onUpdate?.(processFormData(values))
       }}
+      formName="jiraCreate"
       initialValues={props.initialValues}
       enableReinitialize={true}
       validationSchema={Yup.object().shape({

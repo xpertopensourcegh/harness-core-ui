@@ -188,6 +188,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
       <div className={css.heading}>{getString('artifactsSelection.artifactDetails')}</div>
       <Formik
         initialValues={getInitialValues()}
+        formName="imagePath"
         validationSchema={context === 2 ? sidecarSchema : primarySchema}
         onSubmit={formData => {
           submitFormData({

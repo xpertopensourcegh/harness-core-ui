@@ -24,7 +24,12 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests expand advanced secti
               class="bp3-label"
               for="identifier"
             >
-              pipeline.manifestType.manifestIdentifier
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="kustomizeGit_identifier"
+              >
+                pipeline.manifestType.manifestIdentifier
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -60,7 +65,12 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests expand advanced secti
                   class="bp3-label"
                   for="gitFetchType"
                 >
-                  pipeline.manifestType.gitFetchTypeLabel
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="kustomizeGit_gitFetchType"
+                  >
+                    pipeline.manifestType.gitFetchTypeLabel
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -126,7 +136,12 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests expand advanced secti
                   class="bp3-label"
                   for="branch"
                 >
-                  pipelineSteps.deploy.inputSet.branch
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="kustomizeGit_branch"
+                  >
+                    pipelineSteps.deploy.inputSet.branch
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -195,7 +210,12 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests expand advanced secti
                   class="bp3-label"
                   for="folderPath"
                 >
-                  pipeline.manifestType.kustomizeFolderPath
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="kustomizeGit_folderPath"
+                  >
+                    pipeline.manifestType.kustomizeFolderPath
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -288,7 +308,12 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests expand advanced secti
                   class="bp3-label"
                   for="pluginPath"
                 >
-                  pluginPath
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="kustomizeGit_pluginPath"
+                  >
+                    pluginPath
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -589,7 +614,12 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
               class="bp3-label"
               for="identifier"
             >
-              pipeline.manifestType.manifestIdentifier
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="kustomizeGit_identifier"
+              >
+                pipeline.manifestType.manifestIdentifier
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -625,7 +655,12 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
                   class="bp3-label"
                   for="gitFetchType"
                 >
-                  pipeline.manifestType.gitFetchTypeLabel
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="kustomizeGit_gitFetchType"
+                  >
+                    pipeline.manifestType.gitFetchTypeLabel
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -691,7 +726,12 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
                   class="bp3-label"
                   for="branch"
                 >
-                  pipelineSteps.deploy.inputSet.branch
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="kustomizeGit_branch"
+                  >
+                    pipelineSteps.deploy.inputSet.branch
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -760,7 +800,12 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
                   class="bp3-label"
                   for="folderPath"
                 >
-                  pipeline.manifestType.kustomizeFolderPath
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="kustomizeGit_folderPath"
+                  >
+                    pipeline.manifestType.kustomizeFolderPath
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -853,7 +898,12 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders correctly in 
                   class="bp3-label"
                   for="pluginPath"
                 >
-                  pluginPath
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="kustomizeGit_pluginPath"
+                  >
+                    pluginPath
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1063,7 +1113,12 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
               class="bp3-label"
               for="identifier"
             >
-              pipeline.manifestType.manifestIdentifier
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="kustomizeGit_identifier"
+              >
+                pipeline.manifestType.manifestIdentifier
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -1099,7 +1154,12 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
                   class="bp3-label"
                   for="gitFetchType"
                 >
-                  pipeline.manifestType.gitFetchTypeLabel
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="kustomizeGit_gitFetchType"
+                  >
+                    pipeline.manifestType.gitFetchTypeLabel
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1165,7 +1225,12 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
                   class="bp3-label"
                   for="branch"
                 >
-                  pipelineSteps.deploy.inputSet.branch
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="kustomizeGit_branch"
+                  >
+                    pipelineSteps.deploy.inputSet.branch
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1234,7 +1299,12 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
                   class="bp3-label"
                   for="folderPath"
                 >
-                  pipeline.manifestType.kustomizeFolderPath
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="kustomizeGit_folderPath"
+                  >
+                    pipeline.manifestType.kustomizeFolderPath
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1327,7 +1397,12 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders while adding 
                   class="bp3-label"
                   for="pluginPath"
                 >
-                  pluginPath
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="kustomizeGit_pluginPath"
+                  >
+                    pluginPath
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1537,7 +1612,12 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
               class="bp3-label"
               for="identifier"
             >
-              pipeline.manifestType.manifestIdentifier
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="kustomizeGit_identifier"
+              >
+                pipeline.manifestType.manifestIdentifier
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -1573,7 +1653,12 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
                   class="bp3-label"
                   for="gitFetchType"
                 >
-                  pipeline.manifestType.gitFetchTypeLabel
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="kustomizeGit_gitFetchType"
+                  >
+                    pipeline.manifestType.gitFetchTypeLabel
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1639,7 +1724,12 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
                   class="bp3-label"
                   for="branch"
                 >
-                  pipelineSteps.deploy.inputSet.branch
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="kustomizeGit_branch"
+                  >
+                    pipelineSteps.deploy.inputSet.branch
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1708,7 +1798,12 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
                   class="bp3-label"
                   for="folderPath"
                 >
-                  pipeline.manifestType.kustomizeFolderPath
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="kustomizeGit_folderPath"
+                  >
+                    pipeline.manifestType.kustomizeFolderPath
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -1801,7 +1896,12 @@ exports[`Kustomize with Git/ Github/Gitlab/Bitbucket tests renders without crash
                   class="bp3-label"
                   for="pluginPath"
                 >
-                  pluginPath
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="kustomizeGit_pluginPath"
+                  >
+                    pluginPath
+                  </span>
                    
                   <span
                     class="bp3-text-muted"

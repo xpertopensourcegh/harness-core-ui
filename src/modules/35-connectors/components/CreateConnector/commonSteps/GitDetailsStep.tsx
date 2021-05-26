@@ -190,6 +190,7 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
           onSubmit={formData => {
             handleSubmit(formData)
           }}
+          formName="gitDetailsStepForm"
           validationSchema={Yup.object().shape({
             url: Yup.string().trim().required(getString('validation.UrlRequired'))
           })}

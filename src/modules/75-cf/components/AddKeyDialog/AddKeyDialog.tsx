@@ -100,7 +100,7 @@ const AddKeyDialog: React.FC<Props> = ({ disabled, primary, environment, onCreat
           </Text>
         }
       >
-        <Formik initialValues={initialValues} onSubmit={handleSubmit} onReset={hideModal}>
+        <Formik initialValues={initialValues} formName="addKeyDialog" onSubmit={handleSubmit} onReset={hideModal}>
           {formikProps => (
             <Layout.Vertical spacing="large" padding="xxlarge">
               <Layout.Vertical spacing="small">

@@ -154,6 +154,7 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
       <Layout.Horizontal>
         <Layout.Vertical width={660} padding={{ right: 'xxxlarge' }}>
           <Formik
+            formName="samlProviderForm"
             initialValues={{
               displayName: samlProvider?.displayName || /* istanbul ignore next */ '',
               authorizationEnabled: samlProvider ? !!samlProvider?.authorizationEnabled : true,

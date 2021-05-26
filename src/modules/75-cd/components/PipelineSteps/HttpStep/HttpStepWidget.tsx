@@ -42,6 +42,7 @@ export function HttpStepWidget(
         onUpdate?.(values)
       }}
       initialValues={initialValues}
+      formName="httpWidget"
       validationSchema={Yup.object().shape({
         name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),

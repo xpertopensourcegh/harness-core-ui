@@ -140,6 +140,7 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
         defaultOnVariation: yup.string().trim().required(getString('cf.creationModal.defaultVariationIsRequired')),
         defaultOffVariation: yup.string().trim().required(getString('cf.creationModal.defaultVariationIsRequired'))
       })}
+      formName="flagElemMulti"
       validate={(values: typeof initialValues) => {
         return validateVariationValues(values.variations, values.kind)
       }}

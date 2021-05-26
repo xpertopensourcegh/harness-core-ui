@@ -1064,7 +1064,12 @@ exports[`Jira Create tests Edit Stage - readonly view: edit-stage-readonly 1`] =
             class="bp3-label"
             for="name"
           >
-            name
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="jiraCreate_name"
+            >
+              name
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -1318,7 +1323,12 @@ exports[`Jira Create tests Edit Stage - readonly view: edit-stage-readonly 1`] =
                     class="bp3-label"
                     for="spec.projectKey"
                   >
-                    pipeline.jiraApprovalStep.project
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="jiraCreate_spec.projectKey"
+                    >
+                      pipeline.jiraApprovalStep.project
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -1405,7 +1415,12 @@ exports[`Jira Create tests Edit Stage - readonly view: edit-stage-readonly 1`] =
                     class="bp3-label"
                     for="spec.issueType"
                   >
-                    pipeline.jiraApprovalStep.issueType
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="jiraCreate_spec.issueType"
+                    >
+                      pipeline.jiraApprovalStep.issueType
+                    </span>
                      
                     <span
                       class="bp3-text-muted"

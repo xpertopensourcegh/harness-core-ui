@@ -72,7 +72,12 @@ exports[`Run Step Edit View edit mode works 1`] = `
                 class="bp3-label"
                 for="name"
               >
-                pipelineSteps.stepNameLabel
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="ciRunStep_name"
+                >
+                  pipelineSteps.stepNameLabel
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -2391,7 +2396,12 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
                 class="bp3-label"
                 for="name"
               >
-                pipelineSteps.stepNameLabel
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="ciRunStep_name"
+                >
+                  pipelineSteps.stepNameLabel
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -3791,7 +3801,12 @@ exports[`Run Step Edit View should render properly 1`] = `
                 class="bp3-label"
                 for="name"
               >
-                pipelineSteps.stepNameLabel
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="ciRunStep_name"
+                >
+                  pipelineSteps.stepNameLabel
+                </span>
                  
                 <span
                   class="bp3-text-muted"

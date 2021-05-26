@@ -89,7 +89,12 @@ exports[`Test Step 1 renders without crashing 1`] = `
                         class="bp3-label"
                         for="name"
                       >
-                        ce.connector.AWS.overview.label
+                        <span
+                          class="Tooltip--acenter"
+                          data-tooltip-id="connectorOverview_name"
+                        >
+                          ce.connector.AWS.overview.label
+                        </span>
                          
                         <span
                           class="bp3-text-muted"

@@ -207,6 +207,7 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
       </Text>
       <Formik<K8sGcpInfrastructureUI>
         enableReinitialize
+        formName="gcpInfra"
         initialValues={getInitialValues()}
         validate={value => {
           const data: K8sGcpInfrastructure = {
