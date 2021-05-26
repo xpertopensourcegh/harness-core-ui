@@ -8,6 +8,7 @@ closeStepConfig: Step Config
 infrastructureKey: 'Infrastructure Key'
 stepConfigHasChanges: Form has some unsaved changed, Do you want to apply the changes?
 clickHere: Click here
+stepDetails: Step details
 barrierStep:
   barrierReference: Barrier Reference
   barrierReferenceRequired: Barrier Reference is required
@@ -206,6 +207,11 @@ execution:
     pauseStage: Pause Stage
     abortStage: Abort Stage
     downloadLogs: Download logs
+  layouts:
+    bottom: Align to bottom
+    right: Align to right
+    float: Floating window
+    minimize: Minimize window
 resourceConstraints:
   title: Resource Constraint
   infoText: 'You have {{executioncount}} executions in queue that have to complete before your execution begins. Only one execution on a K8s namespace is allowed at a time.'

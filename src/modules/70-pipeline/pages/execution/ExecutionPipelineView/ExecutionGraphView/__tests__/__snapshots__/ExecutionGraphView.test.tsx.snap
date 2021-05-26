@@ -372,7 +372,7 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                       >
                         <label
                           class="label"
-                          title="Align right"
+                          title="pipeline.execution.layouts.right"
                         >
                           <input
                             checked=""
@@ -411,7 +411,7 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                         </label>
                         <label
                           class="label"
-                          title="Align bottom"
+                          title="pipeline.execution.layouts.bottom"
                         >
                           <input
                             name="layout"
@@ -450,7 +450,7 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                         </label>
                         <label
                           class="label"
-                          title="Align floating"
+                          title="pipeline.execution.layouts.float"
                         >
                           <input
                             name="layout"
@@ -494,31 +494,36 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                             </svg>
                           </span>
                         </label>
-                      </div>
-                      <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-icon bp3-icon-cross StyledProps--main"
-                          icon="cross"
+                        <label
+                          class="label"
+                          title="pipeline.execution.layouts.minimize"
                         >
-                          <svg
-                            data-icon="cross"
-                            height="16"
-                            viewBox="0 0 16 16"
-                            width="16"
+                          <input
+                            name="layout"
+                            type="radio"
+                            value="MINIMIZE"
+                          />
+                          <span
+                            class="bp3-icon bp3-icon-minus StyledProps--main"
+                            icon="minus"
                           >
-                            <desc>
-                              cross
-                            </desc>
-                            <path
-                              d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                      </button>
+                            <svg
+                              data-icon="minus"
+                              height="16"
+                              viewBox="0 0 16 16"
+                              width="16"
+                            >
+                              <desc>
+                                minus
+                              </desc>
+                              <path
+                                d="M13 7H3c-.55 0-1 .45-1 1s.45 1 1 1h10c.55 0 1-.45 1-1s-.45-1-1-1z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </label>
+                      </div>
                     </div>
                   </div>
                   <div

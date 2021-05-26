@@ -1002,6 +1002,10 @@ export interface StringsMap {
   'pipeline.execution.actions.resumePipeline': string
   'pipeline.execution.actions.resumeStage': string
   'pipeline.execution.currentExecution': string
+  'pipeline.execution.layouts.bottom': string
+  'pipeline.execution.layouts.float': string
+  'pipeline.execution.layouts.minimize': string
+  'pipeline.execution.layouts.right': string
   'pipeline.execution.noInputsText': string
   'pipeline.execution.retryStepCount': string
   'pipeline.execution.stageTitlePrefix': string
@@ -1168,6 +1172,7 @@ export interface StringsMap {
   'pipeline.selectOrCreatePipeline.setupHeader': string
   'pipeline.startTime': string
   'pipeline.stepConfigHasChanges': string
+  'pipeline.stepDetails': string
   'pipeline.targets.title': string
   'pipeline.testsReports.className': string
   'pipeline.testsReports.commitId': string
