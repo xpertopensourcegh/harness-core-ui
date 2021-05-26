@@ -147,7 +147,7 @@ const LoadBalancerDnsConfig: React.FC<LoadBalancerDnsConfigProps> = props => {
       <Heading level={2} className={css.configHeading}>
         {createMode
           ? 'Create a new Application Load Balancer'
-          : `The Load Balancer ${loadBalancer?.id || ''} requires additional Configuration`}
+          : `The Load Balancer ${loadBalancer?.name || ''} requires additional Configuration`}
       </Heading>
       <div>
         {currentStep === FormStep.FIRST && (

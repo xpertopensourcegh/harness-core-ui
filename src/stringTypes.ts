@@ -1408,6 +1408,8 @@ export interface StringsMap {
   'ce.co.autoStoppingRule.configuration.asgSelectionInfoText': string
   'ce.co.autoStoppingRule.configuration.instanceModal.description': string
   'ce.co.autoStoppingRule.configuration.step1.form.idleTime.label': string
+  'ce.co.autoStoppingRule.configuration.step1.idleTimeInputPlaceholder': string
+  'ce.co.autoStoppingRule.configuration.step1.nameInputPlaceholder': string
   'ce.co.autoStoppingRule.configuration.step1.subTitle': string
   'ce.co.autoStoppingRule.configuration.step1.title': string
   'ce.co.autoStoppingRule.configuration.step2.addResourceCta.asg': string
