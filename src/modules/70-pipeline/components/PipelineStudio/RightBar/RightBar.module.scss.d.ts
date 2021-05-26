@@ -9,5 +9,6 @@ declare const styles: {
   readonly flowControlIcon: string
   readonly variablesIcon: string
   readonly predefinedValue: string
+  readonly gitSyncPopover: string
 }
 export default styles

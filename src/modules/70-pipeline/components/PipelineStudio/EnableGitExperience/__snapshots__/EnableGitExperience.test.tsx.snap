@@ -8,7 +8,7 @@ exports[`<EnableGitExperience /> should render EnableGitExperience component pro
     <div
       class="enableGitExpContent"
     >
-      Git Experience allows you to store the pipeline and other harness configurations in the git alongside with your code. With this, Git will act as the single source of truth for all your code and configurations.
+      common.enableGitSyncPipeline
     </div>
     <div
       class="Layout--horizontal StyledProps--main StyledProps--border StyledProps--border-top StyledProps--padding-top-medium StyledProps--margin-top-medium"
@@ -26,7 +26,7 @@ exports[`<EnableGitExperience /> should render EnableGitExperience component pro
         </span>
       </button>
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main bp3-popover-dismiss Button--with-current-color"
         data-test-id="skipNowBtn"
         data-tooltip-id="skipNowBtn"
         type="button"

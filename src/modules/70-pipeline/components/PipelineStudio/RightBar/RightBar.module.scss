@@ -39,6 +39,7 @@
 
     &.enableGitExpIcon {
       --right-bar-icon: var(--red-500);
+      width: 63px !important;
 
       span {
         line-height: 12px !important;
@@ -127,4 +128,7 @@
   color: var(--grey-500);
   margin-top: calc(var(--spacing-small) / -1);
   margin-bottom: var(--spacing-medium);
+}
+.git-sync-popover {
+  background-color: var(--white);
 }

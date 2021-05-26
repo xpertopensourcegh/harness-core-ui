@@ -3,8 +3,6 @@ import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { EnableGitExperience } from './EnableGitExperience'
 
-const closeDrawer = jest.fn()
-
 describe('<EnableGitExperience />', () => {
   test('should render EnableGitExperience component properly', () => {
     const { container } = render(
@@ -15,7 +13,7 @@ describe('<EnableGitExperience />', () => {
           pipelineIdentifier: -1
         }}
       >
-        <EnableGitExperience closeDrawer={closeDrawer} />
+        <EnableGitExperience />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()

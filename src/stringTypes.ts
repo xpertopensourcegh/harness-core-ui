@@ -44,6 +44,7 @@ export interface StringsMap {
   'common.durationPrefix': string
   'common.editVariable': string
   'common.editVariableType': string
+  'common.enableGitSyncPipeline': string
   'common.errorHandler.issueCouldBe': string
   'common.errorHandler.tryTheseSuggestions': string
   'common.execute': string

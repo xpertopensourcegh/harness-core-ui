@@ -34,8 +34,7 @@ export enum DrawerTypes {
   SkipCondition = 'SkipCondition',
   FlowControl = 'FlowControl',
   ProvisionerStepConfig = 'ProvisionerStepConfig',
-  AddProvisionerStep = 'AddProvisionerStep',
-  EnableGitExperience = 'EnableGitExperience'
+  AddProvisionerStep = 'AddProvisionerStep'
 }
 
 export const DrawerSizes: Record<DrawerTypes, React.CSSProperties['width']> = {
@@ -51,8 +50,7 @@ export const DrawerSizes: Record<DrawerTypes, React.CSSProperties['width']> = {
   [DrawerTypes.FailureStrategy]: 600,
   [DrawerTypes.PipelineNotifications]: 'calc(100% - 270px - 60px)', // has 60px more offset from right
   [DrawerTypes.SkipCondition]: 600,
-  [DrawerTypes.FlowControl]: 600,
-  [DrawerTypes.EnableGitExperience]: 501
+  [DrawerTypes.FlowControl]: 600
 }
 
 export enum SplitViewTypes {

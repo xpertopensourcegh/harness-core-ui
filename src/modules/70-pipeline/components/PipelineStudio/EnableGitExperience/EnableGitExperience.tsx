@@ -1,18 +1,15 @@
-import React, { SyntheticEvent } from 'react'
+import React from 'react'
 import { noop } from 'lodash-es'
 import { Button, Container, Layout } from '@wings-software/uicore'
+import { Classes } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import useCreateGitSyncModal from '@gitsync/modals/useCreateGitSyncModal'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
-
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import css from './EnableGitExperience.module.scss'
 
-interface EnableGitExperienceProps {
-  closeDrawer: (e?: SyntheticEvent<HTMLElement, Event> | undefined) => void
-}
-export const EnableGitExperience: React.FC<EnableGitExperienceProps> = (props): JSX.Element => {
+export const EnableGitExperience: React.FC = (): JSX.Element => {
   const { getString } = useStrings()
   const { updateAppStore } = useAppStore()
   const { refreshStore } = useGitSyncStore()
@@ -28,10 +25,7 @@ export const EnableGitExperience: React.FC<EnableGitExperienceProps> = (props): 
 
   return (
     <Container className={css.enableGitExpContainer}>
-      <div className={css.enableGitExpContent}>
-        Git Experience allows you to store the pipeline and other harness configurations in the git alongside with your
-        code. With this, Git will act as the single source of truth for all your code and configurations.
-      </div>
+      <div className={css.enableGitExpContent}>{getString('common.enableGitSyncPipeline')}</div>
       <Layout.Horizontal border={{ top: true }} padding={{ top: 'medium' }} margin={{ top: 'medium' }}>
         <Button
           margin={{ right: 'medium' }}
@@ -46,7 +40,7 @@ export const EnableGitExperience: React.FC<EnableGitExperienceProps> = (props): 
           text={getString('pipeline.gitExperience.skipNow')}
           data-tooltip-id="skipNowBtn"
           data-test-id="skipNowBtn"
-          onClick={() => props.closeDrawer()}
+          className={Classes.POPOVER_DISMISS}
           disabled={isReadonly}
         />
       </Layout.Horizontal>

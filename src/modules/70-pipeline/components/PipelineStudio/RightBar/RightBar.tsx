@@ -9,11 +9,12 @@ import {
   RUNTIME_INPUT_VALUE,
   TextInput,
   FormInput,
-  Text
+  Text,
+  Popover
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { isEmpty, set } from 'lodash-es'
-import { Classes, Dialog } from '@blueprintjs/core'
+import { Classes, Dialog, Position } from '@blueprintjs/core'
 import flatten from 'lodash-es/flatten'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
@@ -41,6 +42,7 @@ import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import { RightDrawer } from '../RightDrawer/RightDrawer'
 import { StageTypes } from '../Stages/StageTypes'
+import { EnableGitExperience } from '../EnableGitExperience/EnableGitExperience'
 import css from './RightBar.module.scss'
 
 interface CodebaseValues {
@@ -77,6 +79,7 @@ export const RightBar = (): JSX.Element => {
     updatePipelineView
   } = React.useContext(PipelineContext)
   const isFlowControlEnabled = useFeatureFlag('NG_BARRIERS')
+  const isGitSyncFeatureFlag = useFeatureFlag('GIT_SYNC_NG')
   const { isGitSyncEnabled } = useAppStore()
   const codebase = (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase
   const [codebaseStatus, setCodebaseStatus] = React.useState<CodebaseStatuses>(CodebaseStatuses.ZeroState)
@@ -261,28 +264,35 @@ export const RightBar = (): JSX.Element => {
   ])
 
   const { getString } = useStrings()
+  const [isGitExpOpen, setIsGitExpOpen] = React.useState(false)
 
   return (
     <div className={css.rightBar}>
-      {isGitSyncEnabled && (
-        <Button
-          className={cx(css.iconButton, css.enableGitExpIcon, {
-            [css.selected]: type === DrawerTypes.EnableGitExperience
-          })}
-          onClick={() => {
-            updatePipelineView({
-              ...pipelineView,
-              isDrawerOpened: true,
-              drawerData: { type: DrawerTypes.EnableGitExperience },
-              isSplitViewOpen: false,
-              splitViewData: {}
-            })
-          }}
-          font={{ weight: 'semi-bold', size: 'xsmall' }}
-          icon="nav-git-sync"
-          iconProps={{ size: 30 }}
-          withoutCurrentColor={true}
-        />
+      {!isGitSyncEnabled && isGitSyncFeatureFlag && (
+        <Popover
+          position={Position.LEFT}
+          onOpening={() => setIsGitExpOpen(true)}
+          onClosing={() => setIsGitExpOpen(false)}
+          popoverClassName={css.gitSyncPopover}
+        >
+          <Button
+            className={cx(css.iconButton, css.enableGitExpIcon, {
+              [css.selected]: isGitExpOpen
+            })}
+            font={{ weight: 'semi-bold', size: 'xsmall' }}
+            icon="nav-git-sync"
+            iconProps={{ size: 30 }}
+            onClick={() => {
+              updatePipelineView({
+                ...pipelineView,
+                isDrawerOpened: false,
+                drawerData: { type: DrawerTypes.AddStep }
+              })
+            }}
+            withoutCurrentColor={true}
+          />
+          <EnableGitExperience />
+        </Popover>
       )}
       {isCodebaseEnabled && (
         <Button

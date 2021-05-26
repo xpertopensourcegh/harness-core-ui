@@ -24,15 +24,13 @@ import { StepType } from '../../PipelineSteps/PipelineStepInterface'
 import { FlowControl } from '../FlowControl/FlowControl'
 import SkipCondition from '../SkipCondition/SkipCondition'
 import { StageTypes } from '../Stages/StageTypes'
-import { EnableGitExperience } from '../EnableGitExperience/EnableGitExperience'
 
 import css from './RightDrawer.module.scss'
 
 export const AlmostFullScreenDrawers: DrawerTypes[] = [
   DrawerTypes.PipelineVariables,
   DrawerTypes.PipelineNotifications,
-  DrawerTypes.FlowControl,
-  DrawerTypes.EnableGitExperience
+  DrawerTypes.FlowControl
 ]
 
 export const ConfigureStepScreenDrawers: DrawerTypes[] = [
@@ -159,9 +157,6 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         break
       case DrawerTypes.PipelineNotifications:
         title = getString('notifications.name')
-        break
-      case DrawerTypes.EnableGitExperience:
-        title = getString('enableGitExperience')
         break
       default:
         title = null
@@ -654,7 +649,6 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           domain={domain}
         />
       )}
-      {type === DrawerTypes.EnableGitExperience && <EnableGitExperience closeDrawer={closeDrawer} />}
     </Drawer>
   )
 }

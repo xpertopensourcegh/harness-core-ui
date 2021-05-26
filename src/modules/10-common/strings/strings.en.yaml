@@ -201,6 +201,9 @@ noRefData: 'No references found'
 references: 'References'
 labelTestConnection: 'Test Connection'
 path: 'Path'
+enableGitSyncPipeline:
+  Git Experience allows you to store the pipeline and other harness configurations in the git alongside with your
+  code. With this, Git will act as the single source of truth for all your code and configurations.
 saveAndClose: Save and Close
 pendingInvitation: Pending Invitation
 capsAll: ALL
