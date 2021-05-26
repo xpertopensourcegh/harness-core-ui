@@ -1088,7 +1088,7 @@ exports[`<ExecutionStepDetails /> tests approval steps renders normal error step
                       </p>
                       (
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-blue500"
+                        class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-primary7"
                         style="cursor: pointer;"
                       >
                         common.logs.delegateSelectionLogs
@@ -1105,7 +1105,7 @@ exports[`<ExecutionStepDetails /> tests approval steps renders normal error step
                       </p>
                       (
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-blue500"
+                        class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-primary7"
                         style="cursor: pointer;"
                       >
                         common.logs.delegateSelectionLogs

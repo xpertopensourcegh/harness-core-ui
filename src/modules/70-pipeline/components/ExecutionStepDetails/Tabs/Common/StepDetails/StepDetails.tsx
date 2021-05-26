@@ -80,7 +80,7 @@ export function StepDetails(props: StepDetailsProps): React.ReactElement {
                         ])
                       }
                       style={{ cursor: 'pointer' }}
-                      color={Color.BLUE_500}
+                      color={Color.PRIMARY_7}
                     >
                       {getString('common.logs.delegateSelectionLogs')}
                     </Text>
