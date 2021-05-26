@@ -341,7 +341,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                       <ConfigureOptions
                         value={formik.values.tag as string}
                         type="String"
-                        variableName="dockerConnector"
+                        variableName="tag"
                         showRequiredField={false}
                         showDefaultField={false}
                         showAdvanced={true}
@@ -367,7 +367,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                       <ConfigureOptions
                         value={formik.values.tagRegex as string}
                         type="String"
-                        variableName="dockerConnector"
+                        variableName="tagRegex"
                         showRequiredField={false}
                         showDefaultField={false}
                         showAdvanced={true}

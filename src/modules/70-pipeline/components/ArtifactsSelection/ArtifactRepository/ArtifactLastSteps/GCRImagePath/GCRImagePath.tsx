@@ -220,7 +220,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                   />
                 </div>
               )}
-              <div className={css.dockerSideCard}>
+              <div className={css.imagePathContainer}>
                 <FormInput.MultiTextInput
                   label={getString('connectors.GCR.registryHostname')}
                   placeholder={getString('UrlLabel')}
@@ -255,7 +255,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                     <ConfigureOptions
                       value={formik.values.imagePath as string}
                       type="String"
-                      variableName="dockerConnector"
+                      variableName="imagePath"
                       showRequiredField={false}
                       showDefaultField={false}
                       showAdvanced={true}
@@ -303,7 +303,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                       <ConfigureOptions
                         value={formik.values.tag as string}
                         type="String"
-                        variableName="dockerConnector"
+                        variableName="tag"
                         showRequiredField={false}
                         showDefaultField={false}
                         showAdvanced={true}
@@ -329,7 +329,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                       <ConfigureOptions
                         value={formik.values.tagRegex as string}
                         type="String"
-                        variableName="dockerConnector"
+                        variableName="tagRegex"
                         showRequiredField={false}
                         showDefaultField={false}
                         showAdvanced={true}
