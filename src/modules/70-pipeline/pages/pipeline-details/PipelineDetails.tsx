@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, Layout } from '@wings-software/uicore'
-import { NavLink, useParams } from 'react-router-dom'
+import { NavLink, useParams, useRouteMatch } from 'react-router-dom'
 import cx from 'classnames'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
@@ -78,6 +78,18 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
     }
   })
 
+  const { isExact: isPipelineStudioRoute } = useRouteMatch(
+    routes.toPipelineStudio({
+      orgIdentifier,
+      projectIdentifier,
+      pipelineIdentifier,
+      accountId,
+      module,
+      repoIdentifier,
+      branch
+    })
+  ) || { isExact: false }
+
   if (error?.data) {
     return <GenericErrorHandler errStatusCode={error?.status} errorMessage={(error?.data as Error)?.message} />
   }
@@ -90,7 +102,9 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
             <Layout.Vertical spacing="xsmall">
               <Breadcrumbs links={getBreadCrumbs()} />
             </Layout.Vertical>
-            <String tagName="div" className={css.pipelineStudioTitle} stringID="pipelineStudio" />
+            {isPipelineStudioRoute && (
+              <String tagName="div" className={css.pipelineStudioTitle} stringID="pipelineStudio" />
+            )}
           </>
         }
         toolbar={
