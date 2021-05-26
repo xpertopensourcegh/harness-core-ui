@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from 'react'
-import { isEmpty, map } from 'lodash-es'
+import { identity, isEmpty, map, sortBy, sortedUniq } from 'lodash-es'
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { usePipelineVariables } from '../../PipelineVariablesContext/PipelineVariablesContext'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
@@ -48,8 +48,13 @@ export function useVariablesExpression(): { expressions: string[] } {
   useEffect(() => {
     if (!initLoading && metadataMap) {
       setExpressions(
-        map(metadataMap, (item, index) =>
-          localStageKeys.indexOf(index) > -1 ? item.yamlProperties?.localName || '' : item.yamlProperties?.fqn || ''
+        sortedUniq(
+          sortBy(
+            map(metadataMap, (item, index) =>
+              localStageKeys.indexOf(index) > -1 ? item.yamlProperties?.localName || '' : item.yamlProperties?.fqn || ''
+            ).filter(p => p),
+            identity
+          )
         )
       )
     }
