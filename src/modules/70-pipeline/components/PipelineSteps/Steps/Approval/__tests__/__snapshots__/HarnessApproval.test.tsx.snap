@@ -37,7 +37,7 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode readonly: h
         common.userGroups
       </label>
       <div
-        class="bp3-popover-wrapper multiSelectDeploymentMode deploymentViewMedium MultiSelect--main bp3-fill"
+        class="bp3-popover-wrapper multiSelectDeploymentMode deploymentViewMedium multiSelect MultiSelect--main bp3-fill"
       >
         <div
           class="bp3-popover-target"
@@ -85,6 +85,7 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode readonly: h
           <input
             autocomplete="off"
             class="bp3-input"
+            min="1"
             name="spec.approvers.minimumCount"
             type="number"
             value="0"
@@ -151,7 +152,7 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
         common.userGroups
       </label>
       <div
-        class="bp3-popover-wrapper multiSelectDeploymentMode deploymentViewMedium MultiSelect--main bp3-fill"
+        class="bp3-popover-wrapper multiSelectDeploymentMode deploymentViewMedium multiSelect MultiSelect--main bp3-fill"
       >
         <div
           class="bp3-popover-target"
@@ -199,6 +200,7 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
           <input
             autocomplete="off"
             class="bp3-input"
+            min="1"
             name="spec.approvers.minimumCount"
             type="number"
             value="0"
@@ -588,7 +590,7 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: input set with e
         common.userGroups
       </label>
       <div
-        class="bp3-popover-wrapper multiSelectDeploymentMode deploymentViewMedium MultiSelect--main bp3-fill"
+        class="bp3-popover-wrapper multiSelectDeploymentMode deploymentViewMedium multiSelect MultiSelect--main bp3-fill"
       >
         <div
           class="bp3-popover-target"
@@ -636,6 +638,7 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: input set with e
           <input
             autocomplete="off"
             class="bp3-input"
+            min="1"
             name="spec.approvers.minimumCount"
             type="number"
             value="0"
@@ -658,6 +661,7 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: input set with e
   "spec": {
     "approvalMessage": "pipeline.approvalStep.validation.approvalMessage",
     "approvers": {
+      "userGroups": "pipeline.approvalStep.validation.userGroups",
       "minimumCount": "pipeline.approvalStep.validation.minimumCountRequired"
     }
   }

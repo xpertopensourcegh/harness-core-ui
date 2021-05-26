@@ -1,4 +1,5 @@
 import React from 'react'
+import { get } from 'lodash-es'
 import { Tabs } from '@blueprintjs/core'
 
 import type { ExecutionNode } from 'services/pipeline-ng'
@@ -42,6 +43,7 @@ export function StepDetailTabs(props: StepDetailTabs): React.ReactElement {
   const shouldShowApproval =
     isApproval &&
     (isWaitingOnApproval || isExecutionSuccess(step.status) || isExecutionCompletedWithBadState(step.status))
+  const isApprovalInstanceCreated = get(step, 'executableResponses[0].async.callbackIds[0]')
   const isManualInterruption = isExecutionWaitingForIntervention(step.status)
 
   React.useEffect(() => {
@@ -67,7 +69,7 @@ export function StepDetailTabs(props: StepDetailTabs): React.ReactElement {
       }}
       renderActiveTabPanelOnly
     >
-      {isApproval && shouldShowApproval ? (
+      {isApproval && shouldShowApproval && isApprovalInstanceCreated ? (
         <Tabs.Tab
           id={StepDetailTab.APPROVAL}
           title={getString('approvalStage.title')}

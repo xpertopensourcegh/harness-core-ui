@@ -6,7 +6,7 @@ exports[`Jira Create tests Basic snapshot - deploymentform mode: jira-create-dep
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="bp3-form-group"
+      class="bp3-form-group connectorDeployment"
     >
       <label
         class="bp3-label"
@@ -483,7 +483,7 @@ exports[`Jira Create tests Basic snapshot - inputset mode: input set with errors
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="bp3-form-group"
+      class="bp3-form-group connectorDeployment"
     >
       <label
         class="bp3-label"
@@ -752,7 +752,7 @@ exports[`Jira Create tests Deploymentform readonly mode: jira-create-deploymentf
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="bp3-form-group"
+      class="bp3-form-group connectorDeployment"
     >
       <label
         class="bp3-label"

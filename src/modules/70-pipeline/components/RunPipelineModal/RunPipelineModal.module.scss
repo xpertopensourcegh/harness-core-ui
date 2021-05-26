@@ -77,14 +77,9 @@
 }
 
 .errorsContent {
+  margin-right: var(--spacing-xlarge);
   :global(.Accordion--chevron) {
     display: none;
-  }
-  :global(.Accordion--summary) {
-    flex-direction: row-reverse;
-  }
-  :global(.Accordion--details) {
-    padding: 0 !important;
   }
 }
 

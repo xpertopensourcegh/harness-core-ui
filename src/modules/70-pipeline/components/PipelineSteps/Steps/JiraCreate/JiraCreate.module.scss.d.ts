@@ -13,5 +13,7 @@ declare const styles: {
   readonly headerRow: string
   readonly label: string
   readonly fetching: string
+  readonly alignCenter: string
+  readonly connectorDeployment: string
 }
 export default styles

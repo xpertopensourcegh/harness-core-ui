@@ -44,10 +44,13 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
   const [projectOptions, setProjectOptions] = useState<JiraProjectSelectOption[]>([])
   const [projectMetadata, setProjectMetadata] = useState<JiraProjectNG>()
 
+  const [selectedProjectValue, setSelectedProjectValue] = useState<JiraProjectSelectOption>()
+  const [selectedIssueTypeValue, setSelectedIssueTypeValue] = useState<JiraProjectSelectOption>()
+
   const connectorRefFixedValue = getGenuineValue(
-    initialValues.spec.connectorRef || (inputSetData?.allValues?.spec.connectorRef as string)
+    initialValues.spec?.connectorRef || (inputSetData?.allValues?.spec?.connectorRef as string)
   )
-  const projectKeyFixedValue = initialValues.spec.projectKey || inputSetData?.allValues?.spec.projectKey
+  const projectKeyFixedValue = initialValues.spec?.projectKey || inputSetData?.allValues?.spec?.projectKey
 
   useEffect(() => {
     // If connector value changes in form, fetch projects
@@ -85,12 +88,22 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
       })) || []
 
     setProjectOptions(options)
+    const matched = options?.find(opt => opt.key === projectKeyFixedValue)
+    if (matched) {
+      setSelectedProjectValue(matched)
+    }
   }, [projectsResponse?.data])
 
   useEffect(() => {
     if (projectKeyFixedValue && projectMetaResponse?.data?.projects) {
       const projectMD: JiraProjectNG = projectMetaResponse?.data?.projects[projectKeyFixedValue as string]
       setProjectMetadata(projectMD)
+
+      const issueTypeOptions = setIssueTypeOptions(projectMD?.issuetypes)
+      const matched = issueTypeOptions.find(opt => opt.key === initialValues?.spec?.issueType)
+      if (matched) {
+        setSelectedIssueTypeValue(matched)
+      }
     }
   }, [projectMetaResponse?.data])
   return (
@@ -108,8 +121,9 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
         <ConnectorReferenceField
           name={`${prefix}spec.conectorRef`}
           label={getString('pipeline.jiraApprovalStep.connectorRef')}
-          selected={(initialValues.spec.connectorRef as string) || ''}
-          placeholder={getString('select')}
+          className={css.connectorDeployment}
+          selected={(initialValues?.spec?.connectorRef as string) || ''}
+          placeholder={getString('pipeline.jiraApprovalStep.connectorRef')}
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
@@ -130,12 +144,8 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
           className={css.deploymentViewMedium}
           label={getString('pipeline.jiraApprovalStep.project')}
           name={`${prefix}spec.projectKey`}
+          value={selectedProjectValue}
           selectProps={{
-            // Need this to show the current selection when we switch from yaml to UI view
-            defaultSelectedItem: {
-              label: initialValues.spec.projectKey?.toString(),
-              value: initialValues.spec.projectKey?.toString()
-            },
             inputProps: {
               placeholder: fetchingProjects
                 ? getString('pipeline.jiraApprovalStep.fetchingProjectsPlaceholder')
@@ -146,6 +156,7 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
           }}
           disabled={isApprovalStepFieldDisabled(readonly)}
           onChange={(opt: SelectOption) => {
+            setSelectedProjectValue(opt as JiraProjectSelectOption)
             onUpdate?.({
               ...initialValues,
               spec: { ...initialValues.spec, projectKey: (opt as JiraProjectSelectOption).key.toString() }
@@ -162,12 +173,8 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
           label={getString('pipeline.jiraApprovalStep.issueType')}
           name={`${prefix}spec.issueType`}
           disabled={isApprovalStepFieldDisabled(readonly)}
+          value={selectedIssueTypeValue}
           selectProps={{
-            // Need this to show the current selection when we switch from yaml to UI view
-            defaultSelectedItem: {
-              label: initialValues.spec.issueType?.toString(),
-              value: initialValues.spec.issueType?.toString()
-            },
             inputProps: {
               placeholder: fetchingProjectMetadata
                 ? getString('pipeline.jiraApprovalStep.fetchingIssueTypePlaceholder')
@@ -177,6 +184,7 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
             }
           }}
           onChange={(opt: SelectOption) => {
+            setSelectedIssueTypeValue(opt as JiraProjectSelectOption)
             onUpdate?.({
               ...initialValues,
               spec: { ...initialValues.spec, issueType: (opt as JiraProjectSelectOption).key.toString() }

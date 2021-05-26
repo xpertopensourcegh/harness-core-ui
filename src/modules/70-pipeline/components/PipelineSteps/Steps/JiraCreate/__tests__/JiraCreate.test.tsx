@@ -132,8 +132,8 @@ describe('Jira Create tests', () => {
     )
 
     // Submit with empty form
-    await act(() => ref.current?.submitForm())
-    expect(queryByText('pipelineSteps.stepNameRequired')).toBeTruthy()
+    act(() => ref.current?.submitForm())
+    await waitFor(() => expect(queryByText('pipelineSteps.stepNameRequired')).toBeTruthy())
 
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
 
@@ -144,12 +144,11 @@ describe('Jira Create tests', () => {
     })
     fireEvent.change(queryByNameAttribute('timeout')!, { target: { value: '' } })
 
-    await act(() => ref.current?.submitForm())
-    expect(queryByText('validation.timeout10SecMinimum')).toBeTruthy()
+    act(() => ref.current?.submitForm())
+    await waitFor(() => expect(queryByText('validation.timeout10SecMinimum')).toBeTruthy())
 
     fireEvent.click(getByText('pipeline.jiraApprovalStep.connectToJira'))
-    await act(() => ref.current?.submitForm())
-
+    act(() => ref.current?.submitForm())
     await waitFor(() => {
       expect(queryByText('pipeline.jiraApprovalStep.validations.project')).toBeTruthy()
       expect(queryByText('pipeline.jiraApprovalStep.validations.issueType')).toBeTruthy()

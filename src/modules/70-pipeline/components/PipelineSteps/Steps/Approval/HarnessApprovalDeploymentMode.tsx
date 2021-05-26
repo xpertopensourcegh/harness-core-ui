@@ -62,7 +62,7 @@ const UGMultiSelect = ({
     <div className={css.deploymentModeUgSelectWrapper}>
       <label className={css.ugLabel}>{getString('common.userGroups')}</label>
       <MultiSelect
-        className={cx(css.multiSelectDeploymentMode, css.deploymentViewMedium)}
+        className={cx(css.multiSelectDeploymentMode, css.deploymentViewMedium, css.multiSelect)}
         value={getSelectedValue(initialValues.spec.approvers?.userGroups as string[])}
         name={`${prefix}spec.approvers.userGroups`}
         placeholder={
@@ -73,7 +73,7 @@ const UGMultiSelect = ({
             : getString('pipeline.approvalStep.addUserGroups')
         }
         tagRenderer={item => (
-          <Layout.Horizontal key={item.label?.toString()} spacing="small">
+          <Layout.Horizontal key={item.label?.toString()} spacing="small" className={css.align}>
             <Avatar email={item.label?.toString()} size="xsmall" hoverCard={false} />
             <Text>{item.label}</Text>
           </Layout.Horizontal>
@@ -179,7 +179,8 @@ export default function HarnessApprovalDeploymentMode(props: HarnessApprovalDepl
           disabled={isApprovalStepFieldDisabled(readonly)}
           className={css.deploymentViewMedium}
           inputGroup={{
-            type: 'number'
+            type: 'number',
+            min: 1
           }}
         />
       ) : null}

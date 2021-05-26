@@ -443,24 +443,24 @@ exports[`<ExecutionStepDetails /> tests approval steps renders approval complete
       >
         <div
           class="bp3-tab-indicator-wrapper"
-          style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+          style="display: none;"
         >
           <div
             class="bp3-tab-indicator"
           />
         </div>
         <div
-          aria-controls="bp3-tab-panel_step-details_APPROVAL"
+          aria-controls="bp3-tab-panel_step-details_STEP_DETAILS"
           aria-disabled="false"
-          aria-expanded="true"
-          aria-selected="true"
+          aria-expanded="false"
+          aria-selected="false"
           class="bp3-tab"
-          data-tab-id="APPROVAL"
-          id="bp3-tab-title_step-details_APPROVAL"
+          data-tab-id="STEP_DETAILS"
+          id="bp3-tab-title_step-details_STEP_DETAILS"
           role="tab"
           tabindex="0"
         >
-          approvalStage.title
+          details
         </div>
         <div
           aria-controls="bp3-tab-panel_step-details_PIPELINE_DETAILS"
@@ -501,17 +501,6 @@ exports[`<ExecutionStepDetails /> tests approval steps renders approval complete
         >
           outputLabel
         </div>
-      </div>
-      <div
-        aria-hidden="false"
-        aria-labelledby="bp3-tab-title_step-details_APPROVAL"
-        class="bp3-tab-panel"
-        id="bp3-tab-panel_step-details_APPROVAL"
-        role="tabpanel"
-      >
-        <div
-          class="approvalTab"
-        />
       </div>
     </div>
   </div>

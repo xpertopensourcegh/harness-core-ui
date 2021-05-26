@@ -68,9 +68,9 @@ export class JiraApproval extends PipelineStep<JiraApprovalData> {
     }
 
     if (
-      typeof template?.spec?.approvalCriteria.spec.expression === 'string' &&
-      getMultiTypeFromValue(template?.spec?.approvalCriteria.spec.expression) === MultiTypeInputType.RUNTIME &&
-      isEmpty(data?.spec?.approvalCriteria.spec.expression)
+      typeof template?.spec?.approvalCriteria?.spec?.expression === 'string' &&
+      getMultiTypeFromValue(template?.spec?.approvalCriteria?.spec?.expression) === MultiTypeInputType.RUNTIME &&
+      isEmpty(data?.spec?.approvalCriteria?.spec?.expression)
     ) {
       errors.spec = {
         ...errors.spec,

@@ -6,7 +6,7 @@ exports[`Jira Approval tests Basic snapshot - deploymentform mode: jira-approval
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="bp3-form-group"
+      class="bp3-form-group connectorDeployment"
     >
       <label
         class="bp3-label"
@@ -436,7 +436,7 @@ exports[`Jira Approval tests Basic snapshot - inputset mode: input set with erro
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="bp3-form-group"
+      class="bp3-form-group connectorDeployment"
     >
       <label
         class="bp3-label"
@@ -1227,7 +1227,7 @@ exports[`Jira Approval tests deploymentform mode - readonly: jira-approval-deplo
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="bp3-form-group"
+      class="bp3-form-group connectorDeployment"
     >
       <label
         class="bp3-label"

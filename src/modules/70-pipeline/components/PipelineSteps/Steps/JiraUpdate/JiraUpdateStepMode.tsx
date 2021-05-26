@@ -32,11 +32,12 @@ import type {
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { useQueryParams } from '@common/hooks'
 import type { JiraProjectSelectOption } from '../JiraApproval/types'
-import { getGenuineValue, setAllowedValuesOptions } from '../JiraApproval/helper'
+import { getGenuineValue } from '../JiraApproval/helper'
 import type { JiraCreateFieldType } from '../JiraCreate/types'
 import { getKVFieldsToBeAddedInForm, getSelectedFieldsToBeAddedInForm } from '../JiraCreate/helper'
 import { JiraDynamicFieldsSelector } from '../JiraCreate/JiraDynamicFieldsSelector'
 import { isApprovalStepFieldDisabled } from '../ApprovalCommons'
+import { JiraFieldsRenderer } from '../JiraCreate/JiraFieldsRenderer'
 import type { JiraUpdateFormContentInterface, JiraUpdateData, JiraUpdateStepModeProps } from './types'
 import { processFormData } from './helper'
 
@@ -264,57 +265,16 @@ const FormContent = ({
           summary={getString('pipeline.jiraCreateStep.fields')}
           details={
             <div>
-              {formik.values.spec.selectedFields?.map((selectedField: JiraFieldNG, index: number) => {
-                if (
-                  selectedField.schema.type === 'string' ||
-                  selectedField.schema.type === 'date' ||
-                  selectedField.schema.type === 'datetime' ||
-                  selectedField.schema.type === 'number'
-                ) {
-                  return (
-                    <FormInput.MultiTextInput
-                      label={selectedField.name}
-                      name={`spec.selectedFields[${index}].value`}
-                      placeholder={selectedField.name}
-                      className={css.md}
-                      multiTextInputProps={{
-                        expressions
-                      }}
-                      disabled={isApprovalStepFieldDisabled(readonly)}
-                    />
+              <JiraFieldsRenderer
+                selectedFields={formik.values.spec.selectedFields}
+                readonly={readonly}
+                onDelete={index => {
+                  const selectedFieldsAfterRemoval = formik.values.spec.selectedFields?.filter(
+                    (_unused, i) => i !== index
                   )
-                } else if (
-                  selectedField.allowedValues &&
-                  selectedField.schema.type === 'option' &&
-                  selectedField.schema.array
-                ) {
-                  return (
-                    <FormInput.MultiSelectTypeInput
-                      selectItems={setAllowedValuesOptions(selectedField.allowedValues)}
-                      label={selectedField.name}
-                      name={`spec.selectedFields[${index}].value`}
-                      placeholder={selectedField.name}
-                      className={cx(css.multiSelect, css.md)}
-                      multiSelectTypeInputProps={{
-                        expressions
-                      }}
-                      disabled={isApprovalStepFieldDisabled(readonly)}
-                    />
-                  )
-                } else if (selectedField.allowedValues && selectedField.schema.type === 'option') {
-                  return (
-                    <FormInput.MultiTypeInput
-                      selectItems={setAllowedValuesOptions(selectedField.allowedValues)}
-                      label={selectedField.name}
-                      name={`spec.selectedFields[${index}].value`}
-                      placeholder={selectedField.name}
-                      className={cx(css.multiSelect, css.md)}
-                      multiTypeInputProps={{ expressions }}
-                      disabled={isApprovalStepFieldDisabled(readonly)}
-                    />
-                  )
-                }
-              })}
+                  formik.setFieldValue('spec.selectedFields', selectedFieldsAfterRemoval)
+                }}
+              />
 
               {!isEmpty(formik.values.spec.fields) ? (
                 <FieldArray

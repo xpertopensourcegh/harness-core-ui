@@ -13,26 +13,27 @@ export const processFormData = (data: HarnessApprovalData): HarnessApprovalData 
       approvers: {
         ...data.spec.approvers,
         userGroups:
-          getMultiTypeFromValue(data.spec.approvers.userGroups as string) === MultiTypeInputType.RUNTIME
+          getMultiTypeFromValue(data.spec.approvers.userGroups as string) !== MultiTypeInputType.FIXED
             ? data.spec.approvers.userGroups
             : (data.spec.approvers.userGroups as MultiSelectOption[])?.map(ug => ug.value?.toString()),
         minimumCount:
           getMultiTypeFromValue(data.spec.approvers.minimumCount as string) === MultiTypeInputType.RUNTIME
             ? data.spec.approvers.minimumCount
             : Number(data.spec.approvers.minimumCount)
-      },
-      approverInputs:
-        getMultiTypeFromValue(data.spec.approverInputs as string) === MultiTypeInputType.RUNTIME
-          ? data.spec.approverInputs
-          : Array.isArray(data.spec.approverInputs)
-          ? (data.spec.approverInputs as ApproverInputsSubmitCallInterface[])?.map(
-              (input: ApproverInputsSubmitCallInterface) =>
-                ({
-                  name: input.name,
-                  defaultValue: input.defaultValue
-                } as ApproverInputsSubmitCallInterface)
-            )
-          : []
+      }
+    }
+  }
+  if (data.spec.approverInputs) {
+    if (getMultiTypeFromValue(data.spec.approverInputs as string) === MultiTypeInputType.RUNTIME) {
+      toReturn.spec.approverInputs = data.spec.approverInputs
+    } else if (Array.isArray(data.spec.approverInputs)) {
+      toReturn.spec.approverInputs = (data.spec.approverInputs as ApproverInputsSubmitCallInterface[])?.map(
+        (input: ApproverInputsSubmitCallInterface) =>
+          ({
+            name: input.name,
+            defaultValue: input.defaultValue
+          } as ApproverInputsSubmitCallInterface)
+      )
     }
   }
   return toReturn
@@ -52,19 +53,21 @@ export const processForInitialValues = (data: HarnessApprovalData): HarnessAppro
             : data.spec?.approvers?.minimumCount
             ? Number(data.spec?.approvers?.minimumCount)
             : 1
-      },
-      approverInputs:
-        getMultiTypeFromValue(data.spec?.approverInputs as string) === MultiTypeInputType.RUNTIME
-          ? data.spec?.approverInputs
-          : Array.isArray(data.spec?.approverInputs)
-          ? (data.spec?.approverInputs as ApproverInputsSubmitCallInterface[]).map(
-              (input: ApproverInputsSubmitCallInterface) =>
-                ({
-                  name: input.name,
-                  defaultValue: input.defaultValue
-                } as ApproverInputsSubmitCallInterface)
-            )
-          : []
+      }
+    }
+  }
+
+  if (data.spec?.approverInputs) {
+    if (getMultiTypeFromValue(data.spec?.approverInputs as string) === MultiTypeInputType.RUNTIME) {
+      toReturn.spec.approverInputs = data.spec?.approverInputs
+    } else if (Array.isArray(data.spec?.approverInputs)) {
+      toReturn.spec.approverInputs = (data.spec?.approverInputs as ApproverInputsSubmitCallInterface[])?.map(
+        (input: ApproverInputsSubmitCallInterface) =>
+          ({
+            name: input.name,
+            defaultValue: input.defaultValue
+          } as ApproverInputsSubmitCallInterface)
+      )
     }
   }
 

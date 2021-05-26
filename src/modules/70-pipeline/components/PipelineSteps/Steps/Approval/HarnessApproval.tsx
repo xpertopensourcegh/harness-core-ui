@@ -72,6 +72,7 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
       errors.spec = {
         ...errors.spec,
         approvers: {
+          ...errors.spec?.approvers,
           userGroups: getString?.('pipeline.approvalStep.validation.userGroups')
         }
       }
@@ -85,6 +86,7 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
         errors.spec = {
           ...errors.spec,
           approvers: {
+            ...errors.spec?.approvers,
             minimumCount: getString?.('pipeline.approvalStep.validation.minimumCountRequired')
           }
         }
@@ -92,6 +94,7 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
         errors.spec = {
           ...errors.spec,
           approvers: {
+            ...errors.spec?.approvers,
             minimumCount: getString?.('pipeline.approvalStep.validation.minimumCountOne')
           }
         }

@@ -1,20 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
-import { Dialog, Position } from '@blueprintjs/core'
+import { Dialog, Position, Popover } from '@blueprintjs/core'
 import cx from 'classnames'
 import * as Yup from 'yup'
 import { FieldArray, FormikProps } from 'formik'
-import {
-  Formik,
-  Accordion,
-  FormInput,
-  Popover,
-  useModalHook,
-  Text,
-  MultiTypeInputType,
-  Button
-} from '@wings-software/uicore'
+import { Formik, Accordion, FormInput, useModalHook, Text, MultiTypeInputType, Button } from '@wings-software/uicore'
 import { setFormikRef, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { String, useStrings } from 'framework/strings'
 import {
@@ -39,7 +30,7 @@ import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorRef
 import { FormMultiTypeTextAreaField } from '@common/components'
 import { useQueryParams } from '@common/hooks'
 import type { JiraProjectSelectOption } from '../JiraApproval/types'
-import { getGenuineValue, setAllowedValuesOptions, setIssueTypeOptions } from '../JiraApproval/helper'
+import { getGenuineValue, setIssueTypeOptions } from '../JiraApproval/helper'
 import { isApprovalStepFieldDisabled } from '../ApprovalCommons'
 import { JiraFieldSelector } from './JiraFieldSelector'
 import { JiraDynamicFieldsSelector } from './JiraDynamicFieldsSelector'
@@ -59,6 +50,7 @@ import {
   getKVFieldsToBeAddedInForm,
   getSelectedFieldsToBeAddedInForm
 } from './helper'
+import { JiraFieldsRenderer } from './JiraFieldsRenderer'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './JiraCreate.module.scss'
 
@@ -298,12 +290,14 @@ const FormContent = ({
                 type="Jira"
                 enableConfigureOptions={false}
                 selected={formik?.values?.spec.connectorRef as string}
-                onChange={value => {
+                onChange={(value: any) => {
                   // Clear dependent fields
-                  resetForm(formik, 'connectorRef')
-                  if (value !== MultiTypeInputType.FIXED) {
-                    setProjectOptions([])
-                    setProjectMetadata(undefined)
+                  if (value?.record?.identifier !== connectorRefFixedValue) {
+                    resetForm(formik, 'connectorRef')
+                    if (value !== MultiTypeInputType.FIXED) {
+                      setProjectOptions([])
+                      setProjectMetadata(undefined)
+                    }
                   }
                 }}
                 disabled={isApprovalStepFieldDisabled(readonly)}
@@ -328,9 +322,12 @@ const FormContent = ({
                 disabled={isApprovalStepFieldDisabled(readonly, fetchingProjects)}
                 multiTypeInputProps={{
                   expressions,
-                  onChange: _unused => {
+                  onChange: (value: unknown) => {
                     // Clear dependent fields
-                    resetForm(formik, 'projectKey')
+                    if ((value as JiraProjectSelectOption)?.key !== projectKeyFixedValue) {
+                      resetForm(formik, 'projectKey')
+                      setProjectMetadata(undefined)
+                    }
                   }
                 }}
               />
@@ -353,9 +350,11 @@ const FormContent = ({
                 disabled={isApprovalStepFieldDisabled(readonly, fetchingProjectMetadata)}
                 multiTypeInputProps={{
                   expressions,
-                  onChange: (_unused: any) => {
+                  onChange: (value: unknown) => {
                     // Clear dependent fields
-                    resetForm(formik, 'issueType')
+                    if ((value as JiraProjectSelectOption)?.key !== issueTypeFixedValue) {
+                      resetForm(formik, 'issueType')
+                    }
                   }
                 }}
               />
@@ -392,58 +391,18 @@ const FormContent = ({
                 <div className={css.fetching}>{getString('pipeline.jiraApprovalStep.fetchingFields')}</div>
               ) : null}
 
-              {!fetchingProjectMetadata &&
-                formik.values.spec.selectedFields?.map((selectedField: JiraFieldNG, index: number) => {
-                  if (
-                    selectedField.schema.type === 'string' ||
-                    selectedField.schema.type === 'date' ||
-                    selectedField.schema.type === 'datetime' ||
-                    selectedField.schema.type === 'number'
-                  ) {
-                    return (
-                      <FormInput.MultiTextInput
-                        label={selectedField.name}
-                        disabled={isApprovalStepFieldDisabled(readonly)}
-                        name={`spec.selectedFields[${index}].value`}
-                        placeholder={selectedField.name}
-                        className={css.md}
-                        multiTextInputProps={{
-                          expressions
-                        }}
-                      />
+              {!fetchingProjectMetadata && (
+                <JiraFieldsRenderer
+                  selectedFields={formik.values.spec.selectedFields}
+                  readonly={readonly}
+                  onDelete={index => {
+                    const selectedFieldsAfterRemoval = formik.values.spec.selectedFields?.filter(
+                      (_unused, i) => i !== index
                     )
-                  } else if (
-                    selectedField.allowedValues &&
-                    selectedField.schema.type === 'option' &&
-                    selectedField.schema.array
-                  ) {
-                    return (
-                      <FormInput.MultiSelectTypeInput
-                        selectItems={setAllowedValuesOptions(selectedField.allowedValues)}
-                        label={selectedField.name}
-                        disabled={isApprovalStepFieldDisabled(readonly)}
-                        name={`spec.selectedFields[${index}].value`}
-                        placeholder={selectedField.name}
-                        className={cx(css.multiSelect, css.md)}
-                        multiSelectTypeInputProps={{
-                          expressions
-                        }}
-                      />
-                    )
-                  } else if (selectedField.allowedValues && selectedField.schema.type === 'option') {
-                    return (
-                      <FormInput.MultiTypeInput
-                        selectItems={setAllowedValuesOptions(selectedField.allowedValues)}
-                        label={selectedField.name}
-                        name={`spec.selectedFields[${index}].value`}
-                        placeholder={selectedField.name}
-                        disabled={isApprovalStepFieldDisabled(readonly)}
-                        className={cx(css.multiSelect, css.md)}
-                        multiTypeInputProps={{ expressions }}
-                      />
-                    )
-                  }
-                })}
+                    formik.setFieldValue('spec.selectedFields', selectedFieldsAfterRemoval)
+                  }}
+                />
+              )}
 
               {!fetchingProjectMetadata &&
               !isEmpty(formik.values.spec.fields) &&
@@ -491,8 +450,9 @@ const FormContent = ({
 
               {fieldsSelector === JiraCreateFormFieldSelector.FIXED ? (
                 <Popover
-                  position={Position.LEFT_TOP}
+                  position={Position.LEFT}
                   usePortal={true}
+                  target=""
                   isOpen={fieldsPopoverOpen}
                   content={
                     <div className={css.jiraFieldSelectorSection}>

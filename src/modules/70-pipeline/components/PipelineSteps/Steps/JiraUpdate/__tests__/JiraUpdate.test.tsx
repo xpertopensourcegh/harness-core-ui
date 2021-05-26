@@ -107,7 +107,7 @@ describe('Jira Update tests', () => {
   })
 
   // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('Basic functions - edit stage view validations', async () => {
+  test('Basic functions - edit stage view validations', async () => {
     const ref = React.createRef<StepFormikRef<unknown>>()
     const props = getJiraUpdateEditModeProps()
     const { container, queryByText, getByText } = render(
@@ -120,8 +120,8 @@ describe('Jira Update tests', () => {
     )
 
     // Submit with empty form
-    await act(() => ref.current?.submitForm())
-    expect(queryByText('pipelineSteps.stepNameRequired')).toBeTruthy()
+    act(() => ref.current?.submitForm())
+    await waitFor(() => expect(queryByText('pipelineSteps.stepNameRequired')).toBeTruthy())
 
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
 
@@ -132,11 +132,11 @@ describe('Jira Update tests', () => {
     })
     fireEvent.change(queryByNameAttribute('timeout')!, { target: { value: '' } })
 
-    await act(() => ref.current?.submitForm())
-    expect(queryByText('validation.timeout10SecMinimum')).toBeTruthy()
+    act(() => ref.current?.submitForm())
+    await waitFor(() => expect(queryByText('validation.timeout10SecMinimum')).toBeTruthy())
 
     fireEvent.click(getByText('pipeline.jiraApprovalStep.connectToJira'))
-    await act(() => ref.current?.submitForm())
+    act(() => ref.current?.submitForm())
     await waitFor(() => expect(queryByText('pipeline.jiraApprovalStep.validations.issueKey')).toBeTruthy())
   })
 

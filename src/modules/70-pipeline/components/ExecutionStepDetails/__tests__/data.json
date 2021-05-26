@@ -7,7 +7,14 @@
     },
     "approvalStepWaiting": {
       "stepType": "HarnessApproval",
-      "status": "ApprovalWaiting"
+      "status": "ApprovalWaiting",
+      "executableResponses": [
+        {
+          "async": {
+            "callbackIds": ["approvalInstanceId"]
+          }
+        }
+      ]
     },
     "approvalStepComplete": {
       "stepType": "JiraApproval",

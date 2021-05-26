@@ -235,10 +235,10 @@ function RunPipelineFormBasic({
           <Accordion.Panel
             id="errors"
             summary={
-              <span>
+              <Layout.Horizontal spacing="small">
                 <Icon name="warning-sign" intent={Intent.DANGER} />
-                {errorString}
-              </span>
+                <Text intent="danger">{errorString}</Text>
+              </Layout.Horizontal>
             }
             details={
               <ul>

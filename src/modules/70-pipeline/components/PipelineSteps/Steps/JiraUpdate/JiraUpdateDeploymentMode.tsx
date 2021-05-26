@@ -37,7 +37,11 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
     orgIdentifier
   }
   const [statusOptions, setStatusOptions] = useState<SelectOption[]>([])
-  const connectorRefFixedValue = getGenuineValue(initialValues.spec.connectorRef)
+  const connectorRefFixedValue = getGenuineValue(
+    initialValues.spec?.connectorRef || (inputSetData?.allValues?.spec?.connectorRef as string)
+  )
+
+  const [statusValue, setStatusValue] = useState<SelectOption>()
 
   useEffect(() => {
     // If connector value changes in form, fetch projects
@@ -58,10 +62,14 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
     options =
       statusResponseList.map((status: JiraStatusNG) => ({
         label: status.name || '',
-        value: status.id || ''
+        value: status.name || ''
       })) || []
 
     setStatusOptions(options)
+    const matched = options?.find(opt => opt.value === initialValues.spec?.transitionTo?.status)
+    if (matched) {
+      setStatusValue(matched)
+    }
   }, [statusResponse?.data])
 
   return (
@@ -78,8 +86,9 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
       {getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME ? (
         <ConnectorReferenceField
           name={`${prefix}spec.conectorRef`}
+          className={css.connectorDeployment}
           label={getString('pipeline.jiraApprovalStep.connectorRef')}
-          selected={(initialValues.spec.connectorRef as string) || ''}
+          selected={(initialValues?.spec?.connectorRef as string) || ''}
           placeholder={getString('pipeline.jiraApprovalStep.connectorRef')}
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
@@ -110,15 +119,11 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
         <FormInput.Select
           items={statusOptions}
           className={css.deploymentViewMedium}
-          label={getString('pipeline.jiraApprovalStep.issueType')}
+          label={getString('status')}
           name={`${prefix}spec.transitionTo.status`}
           disabled={isApprovalStepFieldDisabled(readonly)}
+          value={statusValue}
           selectProps={{
-            // Need this to show the current selection when we switch from yaml to UI view
-            defaultSelectedItem: {
-              label: initialValues.spec.transitionTo?.status?.toString() || '',
-              value: initialValues.spec.transitionTo?.status?.toString() || ''
-            },
             inputProps: {
               placeholder: fetchingStatuses
                 ? getString('pipeline.jiraUpdateStep.fetchingStatus')
@@ -128,6 +133,7 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
             }
           }}
           onChange={(opt: SelectOption) => {
+            setStatusValue(opt)
             onUpdate?.({
               ...initialValues,
               spec: {

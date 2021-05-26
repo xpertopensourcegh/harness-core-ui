@@ -48,7 +48,10 @@ export const processFieldsForSubmit = (values: JiraCreateData): JiraCreateFieldT
     toReturn.push({ name, value })
   })
   values.spec.fields?.forEach((kvField: JiraCreateFieldType) => {
-    toReturn.push(kvField)
+    const alreadyExists = toReturn.find(ff => ff.name === kvField.name)
+    if (!alreadyExists) {
+      toReturn.push(kvField)
+    }
   })
   return toReturn
 }

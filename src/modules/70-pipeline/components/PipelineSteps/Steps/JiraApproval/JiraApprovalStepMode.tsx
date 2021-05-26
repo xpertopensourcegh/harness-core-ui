@@ -191,9 +191,15 @@ const FormContent = ({
                 type="Jira"
                 enableConfigureOptions={false}
                 selected={formik?.values?.spec.connectorRef as string}
-                onChange={_unused => {
+                onChange={(value: any) => {
                   // Clear dependent fields
-                  resetForm(formik, 'connectorRef')
+                  if (value?.record?.identifier !== connectorRefFixedValue) {
+                    resetForm(formik, 'connectorRef')
+                    if (value !== MultiTypeInputType.FIXED) {
+                      setProjectOptions([])
+                      setProjectMetadata(undefined)
+                    }
+                  }
                 }}
                 disabled={isApprovalStepFieldDisabled(readonly)}
                 gitScope={{ repo: repoIdentifier || '', branch }}
@@ -221,9 +227,12 @@ const FormContent = ({
                 isOptional={true}
                 multiTypeInputProps={{
                   allowableTypes: [MultiTypeInputType.FIXED],
-                  onChange: _unused => {
+                  onChange: (value: unknown) => {
                     // Clear dependent fields
-                    resetForm(formik, 'projectKey')
+                    if ((value as JiraProjectSelectOption)?.key !== projectKeyFixedValue) {
+                      resetForm(formik, 'projectKey')
+                      setProjectMetadata(undefined)
+                    }
                   }
                 }}
               />
@@ -250,9 +259,11 @@ const FormContent = ({
                 disabled={isApprovalStepFieldDisabled(readonly, fetchingProjectMetadata)}
                 multiTypeInputProps={{
                   allowableTypes: [MultiTypeInputType.FIXED],
-                  onChange: _unused => {
+                  onChange: (value: unknown) => {
                     // Clear dependent fields
-                    resetForm(formik, 'issueType')
+                    if ((value as JiraProjectSelectOption)?.key !== issueTypeFixedValue) {
+                      resetForm(formik, 'issueType')
+                    }
                   }
                 }}
               />
@@ -265,6 +276,9 @@ const FormContent = ({
                 placeholder={getString('pipeline.jiraApprovalStep.issueKeyPlaceholder')}
                 className={css.md}
                 disabled={isApprovalStepFieldDisabled(readonly)}
+                multiTextInputProps={{
+                  expressions
+                }}
               />
             </div>
           }
