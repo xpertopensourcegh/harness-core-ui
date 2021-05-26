@@ -88,6 +88,17 @@ RbacFactory.registerResourceTypeHandler(ResourceType.ROLE, {
   }
 })
 
+RbacFactory.registerResourceTypeHandler(ResourceType.AUTHSETTING, {
+  icon: 'nav-settings',
+  label: 'authSettings.authenticationSettings',
+  category: ResourceCategory.ADMINSTRATIVE_FUNCTIONS,
+  permissionLabels: {
+    [PermissionIdentifier.VIEW_AUTHSETTING]: <String stringID="rbac.permissionLabels.view" />,
+    [PermissionIdentifier.EDIT_AUTHSETTING]: <String stringID="rbac.permissionLabels.createEdit" />,
+    [PermissionIdentifier.DELETE_AUTHSETTING]: <String stringID="rbac.permissionLabels.delete" />
+  }
+})
+
 const RedirectToAccessControlHome = (): React.ReactElement => {
   const { accountId, orgIdentifier } = useParams<OrgPathProps>()
   return <Redirect to={routes.toUsers({ accountId, orgIdentifier })} />

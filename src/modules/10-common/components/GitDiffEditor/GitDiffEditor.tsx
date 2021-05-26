@@ -40,8 +40,8 @@ export const GitDiffEditor = ({
   }, [])
 
   const { openDialog } = useConfirmationDialog({
-    contentText: getString('common.changesUnsaved'),
-    titleText: getString('common.authSettings.confirmText'),
+    contentText: getString('common.unsavedChanges'),
+    titleText: getString('common.confirmText'),
     cancelButtonText: getString('cancel'),
     confirmButtonText: getString('confirm'),
     intent: Intent.WARNING,

@@ -11,96 +11,6 @@ export interface StringsMap {
   'common.accountName': string
   'common.addVariable': string
   'common.approve': string
-  'common.authSettings.SAMLProvider': string
-  'common.authSettings.WhitelistedDomainsUpdated': string
-  'common.authSettings.accountOrOAuthLogin': string
-  'common.authSettings.accountOrOAuthLoginEnabledSuccessfully': string
-  'common.authSettings.allowLoginFromTheseDomains': string
-  'common.authSettings.allowUsersWIthEmails': string
-  'common.authSettings.atLeastNChars': string
-  'common.authSettings.authorizationEnabledFor': string
-  'common.authSettings.authorizationNotEnabled': string
-  'common.authSettings.changeLoginToHarnessAccountOrOauth': string
-  'common.authSettings.changeLoginToHarnessAccountOrOauthDescription': string
-  'common.authSettings.clearSelection': string
-  'common.authSettings.confirmDisableLockoutPolicy': string
-  'common.authSettings.confirmDisableOAuthLogin': string
-  'common.authSettings.confirmDisablePasswordExpiration': string
-  'common.authSettings.confirmDisablePasswordStrength': string
-  'common.authSettings.confirmDisableUserPasswordLogin': string
-  'common.authSettings.confirmDisableWhitelistedDomains': string
-  'common.authSettings.confirmText': string
-  'common.authSettings.daysBeforePasswordExpires': string
-  'common.authSettings.daysBeforeUserNotified': string
-  'common.authSettings.deleteSamlProvider': string
-  'common.authSettings.deleteSamlProviderDescription': string
-  'common.authSettings.disableLockoutPolicy': string
-  'common.authSettings.disableOAuthLogin': string
-  'common.authSettings.disablePasswordExpiration': string
-  'common.authSettings.disablePasswordStrength': string
-  'common.authSettings.disableTwoFAEnforcement': string
-  'common.authSettings.disableUserPasswordLogin': string
-  'common.authSettings.disableWhitelistedDomains': string
-  'common.authSettings.doYouWantToEnforceTwoFAForAllMembers': string
-  'common.authSettings.domainNameRequired': string
-  'common.authSettings.enableAtLeastOneSsoBeforeDisablingUserPasswordLogin': string
-  'common.authSettings.enableHarnessAccountOrOauthLogin': string
-  'common.authSettings.enableSamlProvider': string
-  'common.authSettings.enableSamlProviderDescription': string
-  'common.authSettings.enforceLockoutPolicy': string
-  'common.authSettings.enforcePasswordStrength': string
-  'common.authSettings.enforceTwoFA': string
-  'common.authSettings.existingMembersWillReceiveAnEmailWithQRCode': string
-  'common.authSettings.failedLoginsBeforeLocked': string
-  'common.authSettings.failedLoginsBeforeLockedAccount': string
-  'common.authSettings.goToSettings': string
-  'common.authSettings.haveOneDigit': string
-  'common.authSettings.haveOneLowercase': string
-  'common.authSettings.haveOneSpecialChar': string
-  'common.authSettings.haveOneUppercase': string
-  'common.authSettings.keepAtLeastOneProviderEnabled': string
-  'common.authSettings.latest': string
-  'common.authSettings.lockoutDuration': string
-  'common.authSettings.lockoutPolicy': string
-  'common.authSettings.lockoutPolicyDisabled': string
-  'common.authSettings.lockoutPolicyEnabled': string
-  'common.authSettings.lockoutPolicyUpdated': string
-  'common.authSettings.loginSettingsHaveBeenUpdated': string
-  'common.authSettings.loginViaSAML': string
-  'common.authSettings.minLength': string
-  'common.authSettings.newMembersWillNeedToSetUpTwoFADuringSignup': string
-  'common.authSettings.notifyUsersWHenUserLocked': string
-  'common.authSettings.notifyUsersWhenTheyLocked': string
-  'common.authSettings.oauthSettingsHaveBeenUpdated': string
-  'common.authSettings.passwordExpiration': string
-  'common.authSettings.passwordExpirationDisabled': string
-  'common.authSettings.passwordExpirationEnabled': string
-  'common.authSettings.passwordExpirationUpdated': string
-  'common.authSettings.passwordMustFulfillReq': string
-  'common.authSettings.passwordStrength': string
-  'common.authSettings.passwordStrengthDisabled': string
-  'common.authSettings.passwordStrengthEnabled': string
-  'common.authSettings.passwordStrengthUpdated': string
-  'common.authSettings.periodicallyExpirePassword': string
-  'common.authSettings.periodicallyExpirePasswordNote': string
-  'common.authSettings.plusSAMLProvider': string
-  'common.authSettings.publicOAuthLoginDisabled': string
-  'common.authSettings.publicOAuthLoginEnabled': string
-  'common.authSettings.samlLoginEnabled': string
-  'common.authSettings.samlProviderDeleted': string
-  'common.authSettings.samlTestFailed': string
-  'common.authSettings.samlTestSuccessful': string
-  'common.authSettings.selectBranch': string
-  'common.authSettings.selectUserGroup': string
-  'common.authSettings.selectVersion': string
-  'common.authSettings.somethingWentWrong': string
-  'common.authSettings.sureToDisableTwoFAEnforcement': string
-  'common.authSettings.twoFAEnforcementDisabled': string
-  'common.authSettings.twoFAEnforcementEnabled': string
-  'common.authSettings.useHarnessUsernameAndPassword': string
-  'common.authSettings.usePublicOAuth': string
-  'common.authSettings.whitelistedDomainsDisabled': string
-  'common.authSettings.yourAccountWillBeLockedOut': string
   'common.banners.email.description': string
   'common.banners.email.resend': string
   'common.banners.email.success': string
@@ -115,9 +25,11 @@ export interface StringsMap {
   'common.ce.visibilityLaunchButton': string
   'common.ce.visibilityWarning': string
   'common.changesUnsaved': string
+  'common.clearSelection': string
   'common.cluster': string
   'common.comments': string
   'common.confictOccured': string
+  'common.confirmText': string
   'common.createPipeline': string
   'common.datePickerShortcuts.Last2Days': string
   'common.datePickerShortcuts.Last2Months': string
@@ -192,6 +104,7 @@ export interface StringsMap {
   'common.input': string
   'common.jexlExpression': string
   'common.labelTestConnection': string
+  'common.latest': string
   'common.launchFirstGen': string
   'common.letsGetYouStarted': string
   'common.link': string
@@ -263,32 +176,14 @@ export interface StringsMap {
   'common.repo_provider.gitlabLabel': string
   'common.resolveConflict': string
   'common.role': string
-  'common.samlProvider.addSAMLProvider': string
-  'common.samlProvider.azure': string
-  'common.samlProvider.chooseFile': string
-  'common.samlProvider.editSAMLProvider': string
-  'common.samlProvider.enableAuthorization': string
-  'common.samlProvider.enablingAuthorization': string
-  'common.samlProvider.enablingAuthorizationDescription': string
-  'common.samlProvider.enterSAMLEndPoint': string
-  'common.samlProvider.friendlyReminder': string
-  'common.samlProvider.friendlyReminderDescription': string
-  'common.samlProvider.groupAttributeName': string
-  'common.samlProvider.identityProvider': string
-  'common.samlProvider.okta': string
-  'common.samlProvider.oneLogin': string
-  'common.samlProvider.samlProviderAddedSuccessfully': string
-  'common.samlProvider.samlProviderUpdatedSuccessfully': string
-  'common.samlProvider.selectSAMLProvider': string
-  'common.samlProvider.testingSSO': string
-  'common.samlProvider.testingSSODescription': string
-  'common.samlProvider.uploadIdentityProvider': string
   'common.saveAndClose': string
   'common.savedSuccessfully': string
   'common.secretKey': string
   'common.secrets': string
   'common.seeWhatChanged': string
+  'common.selectBranch': string
   'common.selectStrategy': string
+  'common.selectVersion': string
   'common.specify': string
   'common.startTrial': string
   'common.submittingRequest': string
@@ -414,6 +309,111 @@ export interface StringsMap {
   'rbac.usersPage.selectRole': string
   'rbac.usersPage.validation.resourceGroup': string
   'rbac.usersPage.validation.role': string
+  'authSettings.SAMLProvider': string
+  'authSettings.WhitelistedDomainsUpdated': string
+  'authSettings.accountOrOAuthLogin': string
+  'authSettings.accountOrOAuthLoginEnabledSuccessfully': string
+  'authSettings.addSAMLProvider': string
+  'authSettings.allowLoginFromTheseDomains': string
+  'authSettings.allowUsersWIthEmails': string
+  'authSettings.atLeastNChars': string
+  'authSettings.authenticationSettings': string
+  'authSettings.authorizationEnabledFor': string
+  'authSettings.authorizationNotEnabled': string
+  'authSettings.azure': string
+  'authSettings.changeLoginToHarnessAccountOrOauth': string
+  'authSettings.changeLoginToHarnessAccountOrOauthDescription': string
+  'authSettings.chooseFile': string
+  'authSettings.confirmDisableLockoutPolicy': string
+  'authSettings.confirmDisableOAuthLogin': string
+  'authSettings.confirmDisablePasswordExpiration': string
+  'authSettings.confirmDisablePasswordStrength': string
+  'authSettings.confirmDisableUserPasswordLogin': string
+  'authSettings.confirmDisableWhitelistedDomains': string
+  'authSettings.daysBeforePasswordExpires': string
+  'authSettings.daysBeforeUserNotified': string
+  'authSettings.deleteSamlProvider': string
+  'authSettings.deleteSamlProviderDescription': string
+  'authSettings.disableLockoutPolicy': string
+  'authSettings.disableOAuthLogin': string
+  'authSettings.disablePasswordExpiration': string
+  'authSettings.disablePasswordStrength': string
+  'authSettings.disableTwoFAEnforcement': string
+  'authSettings.disableUserPasswordLogin': string
+  'authSettings.disableWhitelistedDomains': string
+  'authSettings.doYouWantToEnforceTwoFAForAllMembers': string
+  'authSettings.domainNameRequired': string
+  'authSettings.editSAMLProvider': string
+  'authSettings.enableAtLeastOneSsoBeforeDisablingUserPasswordLogin': string
+  'authSettings.enableAuthorization': string
+  'authSettings.enableHarnessAccountOrOauthLogin': string
+  'authSettings.enableSamlProvider': string
+  'authSettings.enableSamlProviderDescription': string
+  'authSettings.enablingAuthorization': string
+  'authSettings.enablingAuthorizationDescription': string
+  'authSettings.enforceLockoutPolicy': string
+  'authSettings.enforcePasswordStrength': string
+  'authSettings.enforceTwoFA': string
+  'authSettings.enterSAMLEndPoint': string
+  'authSettings.existingMembersWillReceiveAnEmailWithQRCode': string
+  'authSettings.failedLoginsBeforeLocked': string
+  'authSettings.failedLoginsBeforeLockedAccount': string
+  'authSettings.friendlyReminder': string
+  'authSettings.friendlyReminderDescription': string
+  'authSettings.goToSettings': string
+  'authSettings.groupAttributeName': string
+  'authSettings.haveOneDigit': string
+  'authSettings.haveOneLowercase': string
+  'authSettings.haveOneSpecialChar': string
+  'authSettings.haveOneUppercase': string
+  'authSettings.identityProvider': string
+  'authSettings.keepAtLeastOneProviderEnabled': string
+  'authSettings.lockoutDuration': string
+  'authSettings.lockoutPolicy': string
+  'authSettings.lockoutPolicyDisabled': string
+  'authSettings.lockoutPolicyEnabled': string
+  'authSettings.lockoutPolicyUpdated': string
+  'authSettings.loginSettingsHaveBeenUpdated': string
+  'authSettings.loginViaSAML': string
+  'authSettings.minLength': string
+  'authSettings.newMembersWillNeedToSetUpTwoFADuringSignup': string
+  'authSettings.notifyUsersWHenUserLocked': string
+  'authSettings.notifyUsersWhenTheyLocked': string
+  'authSettings.oauthSettingsHaveBeenUpdated': string
+  'authSettings.okta': string
+  'authSettings.oneLogin': string
+  'authSettings.passwordExpiration': string
+  'authSettings.passwordExpirationDisabled': string
+  'authSettings.passwordExpirationEnabled': string
+  'authSettings.passwordExpirationUpdated': string
+  'authSettings.passwordMustFulfillReq': string
+  'authSettings.passwordStrength': string
+  'authSettings.passwordStrengthDisabled': string
+  'authSettings.passwordStrengthEnabled': string
+  'authSettings.passwordStrengthUpdated': string
+  'authSettings.periodicallyExpirePassword': string
+  'authSettings.periodicallyExpirePasswordNote': string
+  'authSettings.plusSAMLProvider': string
+  'authSettings.publicOAuthLoginDisabled': string
+  'authSettings.publicOAuthLoginEnabled': string
+  'authSettings.samlLoginEnabled': string
+  'authSettings.samlProviderAddedSuccessfully': string
+  'authSettings.samlProviderDeleted': string
+  'authSettings.samlProviderUpdatedSuccessfully': string
+  'authSettings.samlTestFailed': string
+  'authSettings.samlTestSuccessful': string
+  'authSettings.selectSAMLProvider': string
+  'authSettings.selectUserGroup': string
+  'authSettings.sureToDisableTwoFAEnforcement': string
+  'authSettings.testingSSO': string
+  'authSettings.testingSSODescription': string
+  'authSettings.twoFAEnforcementDisabled': string
+  'authSettings.twoFAEnforcementEnabled': string
+  'authSettings.uploadIdentityProvider': string
+  'authSettings.useHarnessUsernameAndPassword': string
+  'authSettings.usePublicOAuth': string
+  'authSettings.whitelistedDomainsDisabled': string
+  'authSettings.yourAccountWillBeLockedOut': string
   'delegates.delegateInstances': string
   'delegates.delegateNameRegexIssue': string
   'delegates.delegateNamespaceRequired': string

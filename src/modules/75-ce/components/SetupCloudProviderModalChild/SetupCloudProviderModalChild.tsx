@@ -55,7 +55,7 @@ const SetupCloudProviderModalChild: React.FC<SetupCloudProviderModalChild> = pro
             <Icon name={`service-azure` as IconName} size={24} />
           </Card>
           <Text font={{ size: 'xsmall', weight: 'bold' }} style={{ marginTop: 8 }}>
-            {getString('common.samlProvider.azure')}
+            {getString('authSettings.azure')}
           </Text>
         </div>
         <div className={cx(css.cardContainer)}>

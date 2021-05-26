@@ -3,6 +3,7 @@ rules:
     - error
     - patterns:
         - lodash.*
+        - modules/30-auth-settings/*
         - modules/30-secrets/*
         - modules/35-connectors/*
         - modules/35-user-profile/*
@@ -15,6 +16,7 @@ rules:
         - modules/75-cf/*
         - modules/75-ci/*
         - modules/85-cv/*
+        - '@auth-settings/*'
         - '@secrets/*'
         - '@connectors/*'
         - '@user-profile/*'

@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom'
 import delegatesRoutes from '@delegates/RouteDestinations'
 import commonRoutes from '@common/RouteDestinations'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import authSettingsRoutes from '@auth-settings/RouteDestinations'
 import secretsRoutes from '@secrets/RouteDestinations'
 import rbacRoutes from '@rbac/RouteDestinations'
 import projectsOrgsRoutes from '@projects-orgs/RouteDestinations'
@@ -19,11 +20,20 @@ import DASHBOARDRoutes from '@dashboards/RouteDestinations'
 import NotFoundPage from '@common/pages/404/NotFoundPage'
 
 export default function RouteDestinations(): React.ReactElement {
-  const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED, NG_RBAC_ENABLED } = useFeatureFlags()
+  const {
+    CDNG_ENABLED,
+    CVNG_ENABLED,
+    CING_ENABLED,
+    CENG_ENABLED,
+    CFNG_ENABLED,
+    NG_RBAC_ENABLED,
+    NG_AUTH_SETTINGS
+  } = useFeatureFlags()
 
   return (
     <Switch>
       {...commonRoutes.props.children}
+      {...NG_AUTH_SETTINGS ? authSettingsRoutes.props.children : []}
       {...secretsRoutes.props.children}
       {...NG_RBAC_ENABLED ? rbacRoutes.props.children : []}
       {...delegatesRoutes.props.children}

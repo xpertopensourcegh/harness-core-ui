@@ -129,7 +129,7 @@ exports[`open and close the CE Trial Modal Rendering should open  the start tria
                 class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--font-weight-bold"
                 style="margin-top: 8px;"
               >
-                common.samlProvider.azure
+                authSettings.azure
               </p>
             </div>
             <div

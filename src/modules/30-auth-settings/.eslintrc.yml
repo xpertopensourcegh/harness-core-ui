@@ -1,0 +1,33 @@
+rules:
+  no-restricted-imports:
+    - error
+    - patterns:
+        - lodash.*
+        - modules/30-delegates/*
+        - modules/30-secrets/*
+        - modules/35-connectors/*
+        - modules/35-user-profile/*
+        - modules/40-projects-orgs/*
+        - modules/45-dashboards/*
+        - modules/60-gitsync/*
+        - modules/70-pipeline/*
+        - modules/75-cd/*
+        - modules/75-ce/*
+        - modules/75-cf/*
+        - modules/75-ci/*
+        - modules/85-cv/*
+        - '@delegates/*'
+        - '@secrets/*'
+        - '@connectors/*'
+        - '@user-profile/*'
+        - '@projects-orgs/*'
+        - '@dashboards/*'
+        - '@gitsync/*'
+        - '@pipeline/*'
+        - '@cd/*'
+        - '@ce/*'
+        - '@cf/*'
+        - '@ci/*'
+        - '@cv/*'
+      paths:
+        - lodash

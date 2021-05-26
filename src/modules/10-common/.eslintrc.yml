@@ -5,6 +5,7 @@ rules:
         - lodash.*
         - modules/15-notifications/*
         - modules/20-rbac/*
+        - modules/30-auth-settings/*
         - modules/30-delegates/*
         - modules/30-secrets/*
         - modules/35-connectors/*
@@ -20,6 +21,7 @@ rules:
         - modules/85-cv/*
         - '@notifications/*'
         - '@rbac/*'
+        - '@auth-settings/*'
         - '@delegates/*'
         - '@secrets/*'
         - '@connectors/*'

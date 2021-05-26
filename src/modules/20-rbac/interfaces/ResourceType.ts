@@ -12,7 +12,8 @@ export enum ResourceType {
   USER = 'USER',
   USERGROUP = 'USERGROUP',
   ROLE = 'ROLE',
-  RESOURCEGROUP = 'RESOURCEGROUP'
+  RESOURCEGROUP = 'RESOURCEGROUP',
+  AUTHSETTING = 'AUTHSETTING'
 }
 
 export enum ResourceCategory {

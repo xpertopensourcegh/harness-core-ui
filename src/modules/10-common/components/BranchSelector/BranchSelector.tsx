@@ -44,7 +44,7 @@ export const BranchSelector = ({
     <Menu>
       {selectedBranch ? (
         <Menu.Item
-          text={<Text>{getString('common.authSettings.clearSelection')}</Text>}
+          text={<Text>{getString('common.clearSelection')}</Text>}
           icon="cross"
           onClick={() => setSelectedBranch(undefined)}
           className={css.clear}
@@ -80,7 +80,7 @@ export const BranchSelector = ({
             {selectedBranch.name}
           </Text>
         ) : (
-          <Text>{getString('common.authSettings.selectBranch')}</Text>
+          <Text>{getString('common.selectBranch')}</Text>
         )}
       </Button>
     </BranchSelect>

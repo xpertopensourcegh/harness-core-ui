@@ -47,7 +47,7 @@ export const VersionSelector = ({
             <Icon name="git-commit" />
             &nbsp;
             <Text font={{ weight: 'bold' }}>{commitHash}</Text>
-            {isLatest ? <Text font={{ weight: 'bold' }}>{`(${getString('common.authSettings.latest')})`}</Text> : null}
+            {isLatest ? <Text font={{ weight: 'bold' }}>{`(${getString('common.latest')})`}</Text> : null}
           </Layout.Horizontal>
           <Layout.Horizontal style={{ alignItems: 'center' }}>
             <Avatar name={author} size="small" hoverCard={false} />
@@ -70,7 +70,7 @@ export const VersionSelector = ({
     <Menu>
       {selectedVersion ? (
         <Menu.Item
-          text={<Text>{getString('common.authSettings.clearSelection')}</Text>}
+          text={<Text>{getString('common.clearSelection')}</Text>}
           icon="cross"
           onClick={() => setSelectedVersion(undefined)}
           className={css.clear}
@@ -108,7 +108,7 @@ export const VersionSelector = ({
               &nbsp;
               <Text font={{ weight: 'bold' }}>{selectedVersion?.commitHash}</Text>
               {selectedVersion?.isLatest ? (
-                <Text font={{ weight: 'bold' }}>{`(${getString('common.authSettings.latest')})`}</Text>
+                <Text font={{ weight: 'bold' }}>{`(${getString('common.latest')})`}</Text>
               ) : null}
               &nbsp;
               <Text lineClamp={1} width="70%" alwaysShowTooltip={false}>
@@ -116,7 +116,7 @@ export const VersionSelector = ({
               </Text>
             </Layout.Horizontal>
           ) : (
-            getString('common.authSettings.selectVersion')
+            getString('common.selectVersion')
           )}
         </Text>
       </Button>
