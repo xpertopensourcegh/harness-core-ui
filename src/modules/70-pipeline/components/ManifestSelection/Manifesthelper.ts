@@ -1,5 +1,4 @@
 import * as Yup from 'yup'
-
 import type { IconName } from '@wings-software/uicore'
 import { Connectors } from '@connectors/constants'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
