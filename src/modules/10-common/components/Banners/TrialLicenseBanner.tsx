@@ -4,6 +4,7 @@ import { Text, Layout, Icon, Button } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type { ModuleName } from 'framework/types/ModuleName'
 import type { StringsMap } from 'stringTypes'
+import { useContactSalesModal, ContactSalesFormProps } from '@common/modals/ContactSales/useContactSalesModal'
 import { Page } from '../Page/Page'
 import css from './TrialLicenseBanner.module.scss'
 
@@ -22,6 +23,12 @@ export const TrialLicenseBanner = (trialBannerProps: TrialBannerProps): React.Re
 
   const days = Math.round(moment(expiryTime).diff(moment.now(), 'days', true))
 
+  const { openContactSalesModal } = useContactSalesModal({
+    onSubmit: (_values: ContactSalesFormProps) => {
+      // TO-DO: call the API
+    }
+  })
+
   if (licenseType !== 'TRIAL' || !display) {
     return <></>
   }
@@ -35,14 +42,18 @@ export const TrialLicenseBanner = (trialBannerProps: TrialBannerProps): React.Re
           <Layout.Horizontal spacing="small" padding={{ right: 'xxxlarge' }}>
             <Icon style={{ paddingTop: 6, color: 'var(--orange-500)' }} name="info" size={18} />
             <Text style={{ lineHeight: 2.5, fontWeight: 500 }}>
-              {getString('common.banners.trial.description' as keyof StringsMap, {
+              {getString('common.banners.trial.description', {
                 module,
                 days,
                 moduleDescription
               })}
             </Text>
           </Layout.Horizontal>
-          <Button padding="small" text={getString('common.banners.trial.contactSales' as keyof StringsMap)} />
+          <Button
+            padding="small"
+            text={getString('common.banners.trial.contactSales')}
+            onClick={openContactSalesModal}
+          />
         </Layout.Horizontal>
       }
       toolbar={

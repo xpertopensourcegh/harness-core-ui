@@ -10,6 +10,14 @@ export function NameSchema(): Yup.Schema<string> {
     .matches(regexName, getString('formValidation.name'))
 }
 
+export function EmailSchema(): Yup.Schema<string> {
+  const { getString } = useStrings()
+  return Yup.string()
+    .trim()
+    .required(getString('common.validation.email.required'))
+    .email(getString('common.validation.email.format'))
+}
+
 export function IdentifierSchema(): Yup.Schema<string | undefined> {
   const { getString } = useStrings()
   return Yup.string().when('name', {

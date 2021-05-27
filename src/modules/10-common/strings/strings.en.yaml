@@ -55,6 +55,9 @@ validation:
   formatMustBeAlphanumeric: Identifier can only contain alphanumerics, _ and $
   identifierIsRequired: Identifier is required
   urlIsRequired: Url is a required field
+  email:
+    required: Email is required
+    format: Please input valid email address
 specify: Specify
 role: Role
 projectViewer: Project Viewer
@@ -228,6 +231,39 @@ banners:
   trial:
     description: Your Enterprise {{ module }} trial expires in {{ days }} days. Contact Sales to continue using {{ moduleDescription }}
     contactSales: Contact Sales
+    contactSalesForm:
+      description: Let’s connect you with our Sales team
+      fullName: Full Name
+      email: Business Email Address
+      country: Country
+      phone: Phone
+      phonePlaceHolder: Add your contact number
+      role: Your role in the organization
+      orgName: Name of the Organization
+      companySize: Company Size
+      countryValidation: Country is required
+      phoneValidation:
+        required: Phone is required
+        number: Please input only numbers
+      roleValidation: Role is required
+      orgNameValidation: Organization Name is required
+      companySizeValidation: Company Size is required
+      roleItems:
+        it: IT
+        devOps: DevOps
+        devSecOps: DevSecOps
+        softwareDeveloper: Software Developer
+        softwareArchitect: Software Architect
+        engineeringManager: Engineering Manager
+        engineeringDirector: Engineering Director
+        vp: VP / Executive
+        others: '{{$.stepPalette.others}}'
+      companySizeItems:
+        below100: 1-100 employees
+        below500: 101-500 employees
+        below2000: 501-2,000 employees
+        below5000: 2,001-5,000 employees
+        above5000: '> 5,000 employees'
 test:
   inProgress: Testing in progress
   connectionSuccessful: Connection Successful

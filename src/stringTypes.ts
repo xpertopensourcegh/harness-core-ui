@@ -15,6 +15,35 @@ export interface StringsMap {
   'common.banners.email.resend': string
   'common.banners.email.success': string
   'common.banners.trial.contactSales': string
+  'common.banners.trial.contactSalesForm.companySize': string
+  'common.banners.trial.contactSalesForm.companySizeItems.above5000': string
+  'common.banners.trial.contactSalesForm.companySizeItems.below100': string
+  'common.banners.trial.contactSalesForm.companySizeItems.below2000': string
+  'common.banners.trial.contactSalesForm.companySizeItems.below500': string
+  'common.banners.trial.contactSalesForm.companySizeItems.below5000': string
+  'common.banners.trial.contactSalesForm.companySizeValidation': string
+  'common.banners.trial.contactSalesForm.country': string
+  'common.banners.trial.contactSalesForm.countryValidation': string
+  'common.banners.trial.contactSalesForm.description': string
+  'common.banners.trial.contactSalesForm.email': string
+  'common.banners.trial.contactSalesForm.fullName': string
+  'common.banners.trial.contactSalesForm.orgName': string
+  'common.banners.trial.contactSalesForm.orgNameValidation': string
+  'common.banners.trial.contactSalesForm.phone': string
+  'common.banners.trial.contactSalesForm.phonePlaceHolder': string
+  'common.banners.trial.contactSalesForm.phoneValidation.number': string
+  'common.banners.trial.contactSalesForm.phoneValidation.required': string
+  'common.banners.trial.contactSalesForm.role': string
+  'common.banners.trial.contactSalesForm.roleItems.devOps': string
+  'common.banners.trial.contactSalesForm.roleItems.devSecOps': string
+  'common.banners.trial.contactSalesForm.roleItems.engineeringDirector': string
+  'common.banners.trial.contactSalesForm.roleItems.engineeringManager': string
+  'common.banners.trial.contactSalesForm.roleItems.it': string
+  'common.banners.trial.contactSalesForm.roleItems.others': string
+  'common.banners.trial.contactSalesForm.roleItems.softwareArchitect': string
+  'common.banners.trial.contactSalesForm.roleItems.softwareDeveloper': string
+  'common.banners.trial.contactSalesForm.roleItems.vp': string
+  'common.banners.trial.contactSalesForm.roleValidation': string
   'common.banners.trial.description': string
   'common.blank': string
   'common.capsAll': string
@@ -200,6 +229,8 @@ export interface StringsMap {
   'common.unsavedChanges': string
   'common.userGroup': string
   'common.userGroups': string
+  'common.validation.email.format': string
+  'common.validation.email.required': string
   'common.validation.fileIsRequired': string
   'common.validation.formatMustBeAlphanumeric': string
   'common.validation.groupAttributeIsRequired': string
