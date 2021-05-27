@@ -11,10 +11,10 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import css from './TwoFactorAuthentication.module.scss'
 
 interface Props {
-  isTwoFactorAuthEnabledForCurrentAccount: boolean
+  twoFactorAuthenticationDisabled: boolean
 }
 
-const TwoFactorAuthentication: React.FC<Props> = ({ isTwoFactorAuthEnabledForCurrentAccount }) => {
+const TwoFactorAuthentication: React.FC<Props> = ({ twoFactorAuthenticationDisabled }) => {
   const { getString } = useStrings()
   const { openTwoFactorModal } = useQueryParams<{ openTwoFactorModal: string }>()
   const { showSuccess, showError } = useToaster()
@@ -58,7 +58,7 @@ const TwoFactorAuthentication: React.FC<Props> = ({ isTwoFactorAuthEnabledForCur
           className={css.switch}
           data-testid={'TwoFactorAuthSwitch'}
           checked={currentUserInfo.twoFactorAuthenticationEnabled}
-          disabled={isTwoFactorAuthEnabledForCurrentAccount}
+          disabled={twoFactorAuthenticationDisabled}
           onChange={event => {
             if (event.currentTarget.checked) {
               openEnableTwoFactorAuthModal(false)

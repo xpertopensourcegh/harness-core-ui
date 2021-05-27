@@ -25,7 +25,8 @@ const UserProfilePage: React.FC = () => {
   const {
     data: loginSettings,
     loading: fetchingAuthSettings,
-    error: errorWhileFetchingAuthSettings
+    error: errorWhileFetchingAuthSettings,
+    refetch: refetchLoginSettings
   } = useGetAuthenticationSettings({
     queryParams: {
       accountIdentifier: accountId
@@ -35,7 +36,7 @@ const UserProfilePage: React.FC = () => {
   return (
     <>
       <EmailVerificationBanner />
-      <Page.Body filled loading={fetchingAuthSettings} error={errorWhileFetchingAuthSettings?.message}>
+      <Page.Body filled error={errorWhileFetchingAuthSettings?.message} retryOnError={() => refetchLoginSettings()}>
         <Layout.Horizontal height="inherit">
           <Container width="30%" className={css.details}>
             <Layout.Vertical>
@@ -81,7 +82,7 @@ const UserProfilePage: React.FC = () => {
               </Layout.Vertical>
               <Layout.Horizontal spacing="huge" padding="large" className={css.authentication} flex>
                 <TwoFactorAuthentication
-                  isTwoFactorAuthEnabledForCurrentAccount={!!loginSettings?.resource?.twoFactorEnabled}
+                  twoFactorAuthenticationDisabled={!!loginSettings?.resource?.twoFactorEnabled || fetchingAuthSettings}
                 />
               </Layout.Horizontal>
             </Layout.Vertical>
