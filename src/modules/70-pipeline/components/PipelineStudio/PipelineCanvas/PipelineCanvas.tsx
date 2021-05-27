@@ -122,6 +122,34 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   const isYaml = view === 'yaml'
   const [isYamlError, setYamlError] = React.useState(false)
   const [saving, setSaving] = React.useState(false)
+  const [blockNavigation, setBlockNavigation] = React.useState(false)
+  const [selectedBranch, setSelectedBranch] = React.useState(branch || '')
+
+  const { openDialog: openUnsavedChangesDialog } = useConfirmationDialog({
+    cancelButtonText: getString('cancel'),
+    contentText: isYamlError ? getString('navigationYamlError') : getString('navigationCheckText'),
+    titleText: isYamlError ? getString('navigationYamlErrorTitle') : getString('navigationCheckTitle'),
+    confirmButtonText: getString('confirm'),
+    onCloseDialog: async isConfirmed => {
+      if (isConfirmed) {
+        deletePipelineCache().then(() => {
+          history.push(
+            routes.toPipelineStudio({
+              projectIdentifier,
+              orgIdentifier,
+              pipelineIdentifier: pipeline?.identifier || '-1',
+              accountId,
+              module,
+              branch: selectedBranch,
+              repoIdentifier: repoIdentifier
+            })
+          )
+          location.reload()
+        })
+      }
+      setBlockNavigation(false)
+    }
+  })
 
   const saveAndPublishPipeline = async (
     latestPipeline: NgPipeline,
@@ -276,6 +304,9 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       if (isBEPipelineUpdated && !discardBEUpdateDialog) {
         openConfirmBEUpdateError()
       }
+      if (blockNavigation && isUpdated) {
+        openUnsavedChangesDialog()
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -285,7 +316,8 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     isInitialized,
     isBEPipelineUpdated,
     openConfirmBEUpdateError,
-    discardBEUpdateDialog
+    discardBEUpdateDialog,
+    blockNavigation
   ])
 
   React.useEffect(() => {
@@ -404,18 +436,23 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
             ) : (
               <GitFilters
                 onChange={filter => {
-                  history.push(
-                    routes.toPipelineStudio({
-                      projectIdentifier,
-                      orgIdentifier,
-                      pipelineIdentifier: pipeline?.identifier || '-1',
-                      accountId,
-                      module,
-                      branch: filter?.branch,
-                      repoIdentifier: filter?.repo
-                    })
-                  )
-                  location.reload()
+                  setSelectedBranch(filter.branch as string)
+                  if (isUpdated && branch !== filter.branch) {
+                    setBlockNavigation(true)
+                  } else if (branch !== filter.branch) {
+                    history.push(
+                      routes.toPipelineStudio({
+                        projectIdentifier,
+                        orgIdentifier,
+                        pipelineIdentifier: pipeline?.identifier || '-1',
+                        accountId,
+                        module,
+                        branch: filter.branch,
+                        repoIdentifier: filter.repo
+                      })
+                    )
+                    location.reload()
+                  }
                 }}
                 showRepoSelector={false}
                 defaultValue={{ repo: repoIdentifier || '', branch }}
