@@ -215,7 +215,11 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
         initialValues={getInitialValues()}
         formName="manifestDetails"
         validationSchema={Yup.object().shape({
-          ...ManifestIdentifierValidation(manifestIdsList, getString('pipeline.uniqueIdentifier')),
+          ...ManifestIdentifierValidation(
+            manifestIdsList,
+            initialValues?.identifier,
+            getString('pipeline.uniqueIdentifier')
+          ),
           branch: Yup.string().when('gitFetchType', {
             is: 'Branch',
             then: Yup.string().trim().required(getString('validation.branchName'))

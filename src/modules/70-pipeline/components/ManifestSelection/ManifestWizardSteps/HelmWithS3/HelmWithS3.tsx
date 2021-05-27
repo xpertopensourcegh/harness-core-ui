@@ -158,7 +158,11 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
         formName="helmWithS3"
         enableReinitialize={true}
         validationSchema={Yup.object().shape({
-          ...ManifestIdentifierValidation(manifestIdsList, getString('pipeline.uniqueIdentifier')),
+          ...ManifestIdentifierValidation(
+            manifestIdsList,
+            initialValues?.identifier,
+            getString('pipeline.uniqueIdentifier')
+          ),
           folderPath: Yup.string().trim().required(getString('pipeline.manifestType.chartPathRequired')),
           chartName: Yup.string().trim().required(getString('pipeline.manifestType.http.chartNameRequired')),
           helmVersion: Yup.string().trim().required(getString('pipeline.manifestType.helmVersionRequired')),

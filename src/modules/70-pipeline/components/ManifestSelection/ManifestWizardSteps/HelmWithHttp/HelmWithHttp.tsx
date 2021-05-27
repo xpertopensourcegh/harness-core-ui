@@ -132,7 +132,11 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
               })
             })
           ),
-          ...ManifestIdentifierValidation(manifestIdsList, getString('pipeline.uniqueIdentifier'))
+          ...ManifestIdentifierValidation(
+            manifestIdsList,
+            initialValues?.identifier,
+            getString('pipeline.uniqueIdentifier')
+          )
         })}
         onSubmit={formData => {
           submitFormData({

@@ -158,7 +158,11 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
         initialValues={getInitialValues()}
         formName="osWithGit"
         validationSchema={Yup.object().shape({
-          ...ManifestIdentifierValidation(manifestIdsList, getString('pipeline.uniqueIdentifier')),
+          ...ManifestIdentifierValidation(
+            manifestIdsList,
+            initialValues?.identifier,
+            getString('pipeline.uniqueIdentifier')
+          ),
 
           branch: Yup.string().when('gitFetchType', {
             is: 'Branch',

@@ -125,7 +125,11 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
         initialValues={getInitialValues()}
         formName="helmWithGcs"
         validationSchema={Yup.object().shape({
-          ...ManifestIdentifierValidation(manifestIdsList, getString('pipeline.uniqueIdentifier')),
+          ...ManifestIdentifierValidation(
+            manifestIdsList,
+            initialValues?.identifier,
+            getString('pipeline.uniqueIdentifier')
+          ),
           chartName: Yup.string().trim().required(getString('pipeline.manifestType.http.chartNameRequired')),
           helmVersion: Yup.string().trim().required(getString('pipeline.manifestType.helmVersionRequired')),
           commandFlags: Yup.array().of(

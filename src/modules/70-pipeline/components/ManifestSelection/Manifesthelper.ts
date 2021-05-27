@@ -107,16 +107,25 @@ export const gitFetchTypeList = [
 
 export const ManifestIdentifierValidation = (
   manifestIdentifiers: Array<string>,
+  id: string | undefined,
   validationMsg: string
 ): { identifier: Yup.Schema<unknown> } => {
   const { getString } = useStrings()
 
+  if (!id) {
+    return {
+      identifier: Yup.string()
+        .trim()
+        .required(getString('validation.identifierRequired'))
+        .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
+        .notOneOf(StringUtils.illegalIdentifiers)
+        .notOneOf(manifestIdentifiers, validationMsg)
+    }
+  }
   return {
     identifier: Yup.string()
       .trim()
       .required(getString('validation.identifierRequired'))
       .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
-      .notOneOf(StringUtils.illegalIdentifiers)
-      .notOneOf(manifestIdentifiers, validationMsg)
   }
 }

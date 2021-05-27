@@ -169,7 +169,11 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
         initialValues={getInitialValues()}
         formName="kustomizeGit"
         validationSchema={Yup.object().shape({
-          ...ManifestIdentifierValidation(manifestIdsList, getString('pipeline.uniqueIdentifier')),
+          ...ManifestIdentifierValidation(
+            manifestIdsList,
+            initialValues?.identifier,
+            getString('pipeline.uniqueIdentifier')
+          ),
           folderPath: Yup.string().trim().required(getString('pipeline.manifestType.kustomizePathRequired')),
           branch: Yup.string().when('gitFetchType', {
             is: 'Branch',
