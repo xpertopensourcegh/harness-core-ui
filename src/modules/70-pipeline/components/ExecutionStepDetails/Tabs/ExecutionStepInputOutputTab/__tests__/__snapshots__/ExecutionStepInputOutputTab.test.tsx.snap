@@ -106,7 +106,7 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                       <div
                         class="text"
                       >
-                        Type
+                        type
                       </div>
                       <div
                         class="bp3-popover-wrapper btnWrapper"
@@ -240,7 +240,7 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                             <div
                               class="text"
                             >
-                              Connector Ref
+                              connectorRef
                             </div>
                             <div
                               class="bp3-popover-wrapper btnWrapper"
@@ -335,7 +335,7 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                             <div
                               class="text"
                             >
-                              Namespace
+                              namespace
                             </div>
                             <div
                               class="bp3-popover-wrapper btnWrapper"
@@ -430,7 +430,7 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                             <div
                               class="text"
                             >
-                              Release Name
+                              releaseName
                             </div>
                             <div
                               class="bp3-popover-wrapper btnWrapper"
@@ -525,7 +525,7 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                             <div
                               class="text"
                             >
-                              Release Number
+                              releaseNumber
                             </div>
                             <div
                               class="bp3-popover-wrapper btnWrapper"
@@ -620,7 +620,7 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                             <div
                               class="text"
                             >
-                              Foo
+                              foo
                             </div>
                             <div
                               class="bp3-popover-wrapper btnWrapper"
@@ -760,7 +760,7 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                       <div
                         class="text"
                       >
-                        Name
+                        name
                       </div>
                       <div
                         class="bp3-popover-wrapper btnWrapper"
@@ -855,7 +855,7 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                       <div
                         class="text"
                       >
-                        Identifier
+                        identifier
                       </div>
                       <div
                         class="bp3-popover-wrapper btnWrapper"
@@ -950,7 +950,7 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                       <div
                         class="text"
                       >
-                        Type
+                        type
                       </div>
                       <div
                         class="bp3-popover-wrapper btnWrapper"
@@ -1070,7 +1070,7 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
           <div
             class="text"
           >
-            Type
+            type
           </div>
           <div
             class="bp3-popover-wrapper btnWrapper"
@@ -1165,7 +1165,7 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
           <div
             class="text"
           >
-            Name
+            name
           </div>
           <div
             class="bp3-popover-wrapper btnWrapper"
@@ -1260,7 +1260,7 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
           <div
             class="text"
           >
-            Identifier
+            identifier
           </div>
           <div
             class="bp3-popover-wrapper btnWrapper"
@@ -1355,7 +1355,7 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
           <div
             class="text"
           >
-            Environment Type
+            environmentType
           </div>
           <div
             class="bp3-popover-wrapper btnWrapper"
@@ -1449,7 +1449,7 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
           <div
             class="text"
           >
-            Tags
+            tags
           </div>
           <div
             class="bp3-popover-wrapper btnWrapper"
@@ -1542,7 +1542,7 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
           <div
             class="text"
           >
-            Type
+            type
           </div>
           <div
             class="bp3-popover-wrapper btnWrapper"
@@ -1637,7 +1637,7 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
           <div
             class="text"
           >
-            Connector Ref
+            connectorRef
           </div>
           <div
             class="bp3-popover-wrapper btnWrapper"
@@ -1732,7 +1732,7 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
           <div
             class="text"
           >
-            Namespace
+            namespace
           </div>
           <div
             class="bp3-popover-wrapper btnWrapper"
@@ -1827,7 +1827,7 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
           <div
             class="text"
           >
-            Release Name
+            releaseName
           </div>
           <div
             class="bp3-popover-wrapper btnWrapper"
@@ -1922,7 +1922,7 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
           <div
             class="text"
           >
-            Kind
+            kind
           </div>
           <div
             class="bp3-popover-wrapper btnWrapper"
@@ -2016,7 +2016,7 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
           <div
             class="text"
           >
-            Path
+            path
           </div>
           <div
             class="bp3-popover-wrapper btnWrapper"

@@ -63,7 +63,7 @@ export function ExecutionStepInputOutputTabRow(props: ExecutionStepInputOutputTa
             return (
               <div className={css.ioRow} key={key}>
                 <div className={css.key}>
-                  <CopyText textToCopy={toVariableStr(newKey)}>{startCase(key)}</CopyText>
+                  <CopyText textToCopy={toVariableStr(newKey)}>{key}</CopyText>
                 </div>
                 <div className={css.value}>
                   <CopyText textToCopy={value.join(', ')}>{value.join(', ')}</CopyText>
@@ -91,7 +91,7 @@ export function ExecutionStepInputOutputTabRow(props: ExecutionStepInputOutputTa
         return (
           <div className={css.ioRow} key={key}>
             <div data-fqn={newKey} className={css.key}>
-              <CopyText textToCopy={toVariableStr(newKey)}>{startCase(key)}</CopyText>
+              <CopyText textToCopy={toVariableStr(newKey)}>{key}</CopyText>
             </div>
             <div className={css.value}>
               <CopyText textToCopy={value.toString()}>{value.toString()}</CopyText>
