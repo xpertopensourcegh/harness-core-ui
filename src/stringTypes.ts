@@ -1934,6 +1934,7 @@ export interface StringsMap {
   'cf.segments.nameRequired': string
   'cf.segments.noSegment': string
   'cf.segments.noSegmentForEnv': string
+  'cf.segments.pageDescription': string
   'cf.segments.targetDefinition': string
   'cf.segments.uploadImage': string
   'cf.segments.usingSegment': string
@@ -1960,6 +1961,8 @@ export interface StringsMap {
   'cf.shared.selectEnvironment': string
   'cf.shared.selected': string
   'cf.shared.target': string
+  'cf.shared.targetManagement': string
+  'cf.shared.targets': string
   'cf.shared.variation': string
   'cf.shared.variations': string
   'cf.targetDetail.addTargetToSegment': string
@@ -2005,6 +2008,7 @@ export interface StringsMap {
   'cf.targets.noSegmentFound': string
   'cf.targets.noTargetFound': string
   'cf.targets.noneDefined': string
+  'cf.targets.pageDescription': string
   'cf.targets.targetSegment': string
   'cf.targets.upload': string
   'cf.targets.uploadHeadline': string

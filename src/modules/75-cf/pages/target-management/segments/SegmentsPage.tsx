@@ -4,9 +4,9 @@ import moment from 'moment'
 import ReactTimeago from 'react-timeago'
 import { Intent } from '@blueprintjs/core'
 import { useHistory } from 'react-router-dom'
-import { Container, FlexExpander, Layout, Pagination, Text } from '@wings-software/uicore'
+import { Color, Container, Layout, Pagination, Text } from '@wings-software/uicore'
 import type { Cell, Column } from 'react-table'
-import { ListingPageTemplate, ListingPageTitle } from '@cf/components/ListingPageTemplate/ListingPageTemplate'
+import { ListingPageTemplate } from '@cf/components/ListingPageTemplate/ListingPageTemplate'
 import Table from '@common/components/Table/Table'
 import {
   CF_DEFAULT_PAGE_SIZE,
@@ -15,7 +15,7 @@ import {
   SEGMENT_PRIMARY_COLOR,
   showToaster
 } from '@cf/utils/CFUtils'
-import { useConfirmAction, useQueryParams } from '@common/hooks'
+import { useConfirmAction } from '@common/hooks'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
@@ -25,16 +25,15 @@ import {
   StackedCircleContainer
 } from '@cf/components/StackedCircleContainer/StackedCircleContainer'
 import { NoEnvironment } from '@cf/components/NoEnvironment/NoEnvironment'
-import type { EnvironmentResponseDTO } from 'services/cd-ng'
 import { useEnvironmentSelectV2 } from '@cf/hooks/useEnvironmentSelectV2'
-import { CFEnvironmentSelect } from '@cf/components/CFEnvironmentSelect/CFEnvironmentSelect'
 import { Segment, useDeleteSegment, useGetAllSegments } from 'services/cf'
+import TargetManagementHeader from '@cf/components/TargetManagementHeader/TargetManagementHeader'
+import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import { NoSegmentsView } from './NoSegmentsView'
 import { NewSegmentButton } from './NewSegmentButton'
 
 export const SegmentsPage: React.FC = () => {
-  const urlQuery: Record<string, string> = useQueryParams()
-  const [activeEnvironment, setActiveEnvironment] = useState<EnvironmentResponseDTO>()
+  const { activeEnvironment, withActiveEnvironment } = useActiveEnvironment()
   const {
     EnvironmentSelect,
     loading: loadingEnvironments,
@@ -42,9 +41,8 @@ export const SegmentsPage: React.FC = () => {
     refetch: refetchEnvs,
     environments
   } = useEnvironmentSelectV2({
-    selectedEnvironmentIdentifier: urlQuery.activeEnvironment || activeEnvironment?.identifier,
+    selectedEnvironmentIdentifier: activeEnvironment,
     onChange: (_value, _environment, _userEvent) => {
-      setActiveEnvironment(_environment)
       rewriteCurrentLocationWithActiveEnvironment(_environment)
     }
   })
@@ -54,14 +52,14 @@ export const SegmentsPage: React.FC = () => {
   const queryParams = useMemo(
     () => ({
       project: projectIdentifier,
-      environment: (activeEnvironment?.identifier || urlQuery.activeEnvironment || '') as string,
+      environment: activeEnvironment,
       pageNumber,
       pageSize: CF_DEFAULT_PAGE_SIZE,
       account: accountId,
       accountIdentifier: accountId,
       org: orgIdentifier
     }),
-    [accountId, orgIdentifier, projectIdentifier, activeEnvironment?.identifier, pageNumber, urlQuery.activeEnvironment] // eslint-disable-line react-hooks/exhaustive-deps
+    [accountId, orgIdentifier, projectIdentifier, activeEnvironment, pageNumber] // eslint-disable-line react-hooks/exhaustive-deps
   )
   const {
     data: segmentsData,
@@ -78,39 +76,35 @@ export const SegmentsPage: React.FC = () => {
   const noEnvironmentExists = !loadingEnvironments && environments?.length === 0
   const title = getString('cf.shared.segments')
 
-  const header = (
-    <Layout.Horizontal flex={{ align: 'center-center' }} style={{ flexGrow: 1 }} padding={{ right: 'xlarge' }}>
-      <ListingPageTitle style={{ borderBottom: 'none' }}>{title}</ListingPageTitle>
-      <FlexExpander />
-      {!!environments?.length && <CFEnvironmentSelect component={<EnvironmentSelect />} />}
-    </Layout.Horizontal>
-  )
   const gotoSegmentDetailPage = useCallback(
     (identifier: string): void => {
       history.push(
-        routes.toCFSegmentDetails({
-          segmentIdentifier: identifier as string,
-          environmentIdentifier: activeEnvironment?.identifier as string,
-          projectIdentifier,
-          orgIdentifier,
-          accountId
-        }) + `${activeEnvironment?.identifier ? `?activeEnvironment=${activeEnvironment?.identifier}` : ''}`
+        withActiveEnvironment(
+          routes.toCFSegmentDetails({
+            segmentIdentifier: identifier as string,
+            projectIdentifier,
+            orgIdentifier,
+            accountId
+          })
+        )
       )
     },
-    [history, accountId, orgIdentifier, projectIdentifier, activeEnvironment?.identifier] // eslint-disable-line react-hooks/exhaustive-deps
+    [history, accountId, orgIdentifier, projectIdentifier] // eslint-disable-line react-hooks/exhaustive-deps
   )
   const toolbar = (
-    <Layout.Horizontal>
+    <Layout.Horizontal spacing="medium">
       <NewSegmentButton
         accountId={accountId}
         orgIdentifier={orgIdentifier}
         projectIdentifier={projectIdentifier}
-        environmentIdentifier={activeEnvironment?.identifier}
         onCreated={segmentIdentifier => {
           gotoSegmentDetailPage(segmentIdentifier)
           showToaster(getString('cf.messages.segmentCreated'))
         }}
       />
+      <Text font={{ size: 'small' }} color={Color.GREY_400} style={{ alignSelf: 'center' }}>
+        {getString('cf.segments.pageDescription')}
+      </Text>
     </Layout.Horizontal>
   )
   const { showError, clear } = useToaster()
@@ -120,9 +114,9 @@ export const SegmentsPage: React.FC = () => {
       accountIdentifier: accountId,
       org: orgIdentifier,
       project: projectIdentifier,
-      environment: activeEnvironment?.identifier as string
+      environment: activeEnvironment
     }),
-    [accountId, orgIdentifier, projectIdentifier, activeEnvironment?.identifier] // eslint-disable-line react-hooks/exhaustive-deps
+    [accountId, orgIdentifier, projectIdentifier, activeEnvironment] // eslint-disable-line react-hooks/exhaustive-deps
   )
   const { mutate: deleteSegment } = useDeleteSegment({
     queryParams: deleteSegmentParams
@@ -133,7 +127,7 @@ export const SegmentsPage: React.FC = () => {
         Header: getString('cf.shared.segment').toUpperCase(),
         id: 'name',
         accessor: 'name',
-        width: '45%',
+        width: '35%',
         Cell: function NameCell(cell: Cell<Segment>) {
           const description = (cell.row.original as { description?: string })?.description
 
@@ -158,7 +152,7 @@ export const SegmentsPage: React.FC = () => {
         Header: getString('identifier').toUpperCase(),
         id: 'identifier',
         accessor: 'identifier',
-        width: '25%',
+        width: '35%',
         Cell: function IdCell(cell: Cell<Segment>) {
           return <Text>{cell.row.original.identifier}</Text>
         }
@@ -177,7 +171,7 @@ export const SegmentsPage: React.FC = () => {
                   dangerouslySetInnerHTML={{
                     __html: getString('cf.segments.delete.message', { segmentName: cell.row.original.name })
                   }}
-                ></span>
+                />
               </Text>
             ),
             intent: Intent.DANGER,
@@ -247,7 +241,6 @@ export const SegmentsPage: React.FC = () => {
     </Container>
   ) : noSegmentExists ? (
     <NoSegmentsView
-      environmentIdentifier={activeEnvironment?.identifier}
       hasEnvironment={!!environments?.length}
       onNewSegmentCreated={segmentIdentifier => {
         gotoSegmentDetailPage(segmentIdentifier)
@@ -269,7 +262,9 @@ export const SegmentsPage: React.FC = () => {
   return (
     <ListingPageTemplate
       pageTitle={title}
-      header={header}
+      header={
+        <TargetManagementHeader environmentSelect={<EnvironmentSelect />} hasEnvironments={!!environments?.length} />
+      }
       headerStyle={{ display: 'flex' }}
       toolbar={!error && !noEnvironmentExists && !noSegmentExists && toolbar}
       content={((!error || noEnvironmentExists) && content) || null}

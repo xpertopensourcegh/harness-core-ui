@@ -6,7 +6,7 @@ import { useRemoveTargetsFromIncludeList, TargetSegmentParams } from '@cf/utils/
 import { useToaster } from '@common/exports'
 import { useConfirmAction } from '@common/hooks'
 import type { Target, TargetDetailSegment } from 'services/cf'
-import { ItemBriefInfo } from '../../../components/ItemBriefInfo/ItemBriefInfo'
+import { ItemBriefInfo } from '@cf/components/ItemBriefInfo/ItemBriefInfo'
 
 export const IncludeSegmentRow: React.FC<{
   target?: Target | null
@@ -29,7 +29,7 @@ export const IncludeSegmentRow: React.FC<{
               segmentName: segment.name
             })
           }}
-        ></span>
+        />
       </Text>
     ),
     intent: Intent.DANGER,

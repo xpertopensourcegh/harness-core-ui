@@ -7,16 +7,11 @@ import { NewSegmentButton } from './NewSegmentButton'
 import imageURL from './segment.svg'
 
 export interface NoSegmentsViewProps {
-  environmentIdentifier?: string
   hasEnvironment: boolean
   onNewSegmentCreated: (segmentIdentifier: string) => void
 }
 
-export const NoSegmentsView: React.FC<NoSegmentsViewProps> = ({
-  environmentIdentifier,
-  hasEnvironment,
-  onNewSegmentCreated
-}) => {
+export const NoSegmentsView: React.FC<NoSegmentsViewProps> = ({ hasEnvironment, onNewSegmentCreated }) => {
   const { projectIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
   const { getString } = useStrings()
 
@@ -30,7 +25,6 @@ export const NoSegmentsView: React.FC<NoSegmentsViewProps> = ({
           accountId={accountId}
           orgIdentifier={orgIdentifier}
           projectIdentifier={projectIdentifier}
-          environmentIdentifier={environmentIdentifier}
           onCreated={onNewSegmentCreated}
         />
       </NoData>

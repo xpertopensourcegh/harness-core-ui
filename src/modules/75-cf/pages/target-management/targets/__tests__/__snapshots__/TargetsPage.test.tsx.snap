@@ -17,10 +17,42 @@ exports[`TargetsPage TargetsPage should render data correctly 1`] = `
         level="1"
         style="font-weight: bold; font-size: 20px; line-height: 28px; color: rgb(34, 39, 45); display: flex; align-items: center;"
       >
-        pipeline.targets.title
+        cf.shared.targetManagement
       </h1>
       <span
         style="flex-grow: 1;"
+      />
+      <ul
+        class="wrapper"
+        data-testid="CFSectionToggle"
+      >
+        <li
+          class="item"
+        >
+          <a
+            class="link"
+            href="/account/dummy/cf/orgs/dummy/projects/dummy/target-management/targets?activeEnvironment=undefined"
+          >
+            cf.shared.targets
+          </a>
+        </li>
+        <li
+          class="item"
+        >
+          <a
+            class="link"
+            href="/account/dummy/cf/orgs/dummy/projects/dummy/target-management/target-groups?activeEnvironment=undefined"
+          >
+            cf.shared.segments
+          </a>
+        </li>
+      </ul>
+      <span
+        style="flex-grow: 1;"
+      />
+      <div
+        data-testid="CFTargetManagementHeaderSpacer"
+        style="width: 325px;"
       />
     </div>
   </div>
@@ -35,7 +67,7 @@ exports[`TargetsPage TargetsPage should render data correctly 1`] = `
       style="height: 64px; border-bottom: 0.5px solid #d9dae6; align-items: center; top: 0px; z-index: 1;"
     >
       <div
-        class="Layout--horizontal StyledProps--main"
+        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
       >
         <button
           class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
@@ -47,6 +79,12 @@ exports[`TargetsPage TargetsPage should render data correctly 1`] = `
             cf.targets.create
           </span>
         </button>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey400"
+          style="align-self: center;"
+        >
+          cf.targets.pageDescription
+        </p>
       </div>
     </div>
     <div
@@ -68,7 +106,7 @@ exports[`TargetsPage TargetsPage should render data correctly 1`] = `
               class="cell"
               colspan="1"
               role="columnheader"
-              style="width: 40%;"
+              style="width: 30%;"
             >
               CF.SHARED.TARGET
             </div>
@@ -76,7 +114,7 @@ exports[`TargetsPage TargetsPage should render data correctly 1`] = `
               class="cell"
               colspan="1"
               role="columnheader"
-              style="width: 15%;"
+              style="width: 25%;"
             >
               IDENTIFIER
             </div>

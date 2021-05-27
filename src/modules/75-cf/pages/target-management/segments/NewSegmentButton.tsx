@@ -6,6 +6,7 @@ import { useStrings } from 'framework/strings'
 import { useCreateSegment, Tag, CreateSegmentQueryParams } from 'services/cf'
 import { useToaster } from '@common/exports'
 import { getErrorMessage } from '@cf/utils/CFUtils'
+import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import css from './NewSegmentButton.module.scss'
 
 const collapseProps = {
@@ -26,7 +27,6 @@ export interface NewSegmentButtonProps {
   accountId: string
   orgIdentifier: string
   projectIdentifier: string
-  environmentIdentifier?: string
   onCreated: (segmentIdentifier: string) => void
 }
 
@@ -34,7 +34,6 @@ export const NewSegmentButton: React.FC<NewSegmentButtonProps> = ({
   accountId,
   orgIdentifier,
   projectIdentifier,
-  environmentIdentifier,
   onCreated
 }) => {
   const { getString } = useStrings()
@@ -43,11 +42,12 @@ export const NewSegmentButton: React.FC<NewSegmentButtonProps> = ({
   const { mutate: createSegment } = useCreateSegment({
     queryParams: { account: accountId, accountIdentifier: accountId, org: orgIdentifier } as CreateSegmentQueryParams
   })
+  const { activeEnvironment } = useActiveEnvironment()
 
   const handleCreateSegment = (values: SegmentFormData): void => {
     createSegment({
       ...values,
-      environment: environmentIdentifier as string,
+      environment: activeEnvironment,
       project: projectIdentifier
     })
       .then(() => {
@@ -126,7 +126,7 @@ export const NewSegmentButton: React.FC<NewSegmentButtonProps> = ({
         </Formik>
       </Dialog>
     )
-  }, [environmentIdentifier])
+  }, [activeEnvironment])
 
   return <Button intent="primary" text={getString('cf.segments.create')} onClick={openModal} />
 }

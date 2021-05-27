@@ -17,10 +17,42 @@ exports[`SegmentsPage No data view should be rendered 1`] = `
         level="1"
         style="font-weight: bold; font-size: 20px; line-height: 28px; color: rgb(34, 39, 45); display: flex; align-items: center;"
       >
-        cf.shared.segments
+        cf.shared.targetManagement
       </h1>
       <span
         style="flex-grow: 1;"
+      />
+      <ul
+        class="wrapper"
+        data-testid="CFSectionToggle"
+      >
+        <li
+          class="item"
+        >
+          <a
+            class="link"
+            href="/account/dummy/cf/orgs/dummy/projects/dummy/target-management/targets?activeEnvironment=undefined"
+          >
+            cf.shared.targets
+          </a>
+        </li>
+        <li
+          class="item"
+        >
+          <a
+            class="link"
+            href="/account/dummy/cf/orgs/dummy/projects/dummy/target-management/target-groups?activeEnvironment=undefined"
+          >
+            cf.shared.segments
+          </a>
+        </li>
+      </ul>
+      <span
+        style="flex-grow: 1;"
+      />
+      <div
+        data-testid="CFTargetManagementHeaderSpacer"
+        style="width: 325px;"
       />
     </div>
   </div>
@@ -88,10 +120,42 @@ exports[`SegmentsPage No environment view should be rendered 1`] = `
         level="1"
         style="font-weight: bold; font-size: 20px; line-height: 28px; color: rgb(34, 39, 45); display: flex; align-items: center;"
       >
-        cf.shared.segments
+        cf.shared.targetManagement
       </h1>
       <span
         style="flex-grow: 1;"
+      />
+      <ul
+        class="wrapper"
+        data-testid="CFSectionToggle"
+      >
+        <li
+          class="item"
+        >
+          <a
+            class="link"
+            href="/account/dummy/cf/orgs/dummy/projects/dummy/target-management/targets?activeEnvironment=undefined"
+          >
+            cf.shared.targets
+          </a>
+        </li>
+        <li
+          class="item"
+        >
+          <a
+            class="link"
+            href="/account/dummy/cf/orgs/dummy/projects/dummy/target-management/target-groups?activeEnvironment=undefined"
+          >
+            cf.shared.segments
+          </a>
+        </li>
+      </ul>
+      <span
+        style="flex-grow: 1;"
+      />
+      <div
+        data-testid="CFTargetManagementHeaderSpacer"
+        style="width: 325px;"
       />
     </div>
   </div>
@@ -165,10 +229,42 @@ exports[`SegmentsPage No environment view should be rendered 2`] = `
         level="1"
         style="font-weight: bold; font-size: 20px; line-height: 28px; color: rgb(34, 39, 45); display: flex; align-items: center;"
       >
-        cf.shared.segments
+        cf.shared.targetManagement
       </h1>
       <span
         style="flex-grow: 1;"
+      />
+      <ul
+        class="wrapper"
+        data-testid="CFSectionToggle"
+      >
+        <li
+          class="item"
+        >
+          <a
+            class="link"
+            href="/account/dummy/cf/orgs/dummy/projects/dummy/target-management/targets?activeEnvironment=undefined"
+          >
+            cf.shared.targets
+          </a>
+        </li>
+        <li
+          class="item"
+        >
+          <a
+            class="link"
+            href="/account/dummy/cf/orgs/dummy/projects/dummy/target-management/target-groups?activeEnvironment=undefined"
+          >
+            cf.shared.segments
+          </a>
+        </li>
+      </ul>
+      <span
+        style="flex-grow: 1;"
+      />
+      <div
+        data-testid="CFTargetManagementHeaderSpacer"
+        style="width: 325px;"
       />
     </div>
   </div>
@@ -242,10 +338,42 @@ exports[`SegmentsPage SegmentsPage should render data correctly 1`] = `
         level="1"
         style="font-weight: bold; font-size: 20px; line-height: 28px; color: rgb(34, 39, 45); display: flex; align-items: center;"
       >
-        cf.shared.segments
+        cf.shared.targetManagement
       </h1>
       <span
         style="flex-grow: 1;"
+      />
+      <ul
+        class="wrapper"
+        data-testid="CFSectionToggle"
+      >
+        <li
+          class="item"
+        >
+          <a
+            class="link"
+            href="/account/dummy/cf/orgs/dummy/projects/dummy/target-management/targets?activeEnvironment=undefined"
+          >
+            cf.shared.targets
+          </a>
+        </li>
+        <li
+          class="item"
+        >
+          <a
+            class="link"
+            href="/account/dummy/cf/orgs/dummy/projects/dummy/target-management/target-groups?activeEnvironment=undefined"
+          >
+            cf.shared.segments
+          </a>
+        </li>
+      </ul>
+      <span
+        style="flex-grow: 1;"
+      />
+      <div
+        data-testid="CFTargetManagementHeaderSpacer"
+        style="width: 325px;"
       />
     </div>
   </div>
@@ -260,7 +388,7 @@ exports[`SegmentsPage SegmentsPage should render data correctly 1`] = `
       style="height: 64px; border-bottom: 0.5px solid #d9dae6; align-items: center; top: 0px; z-index: 1;"
     >
       <div
-        class="Layout--horizontal StyledProps--main"
+        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
       >
         <button
           class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
@@ -272,6 +400,12 @@ exports[`SegmentsPage SegmentsPage should render data correctly 1`] = `
             cf.segments.create
           </span>
         </button>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey400"
+          style="align-self: center;"
+        >
+          cf.segments.pageDescription
+        </p>
       </div>
     </div>
     <div
@@ -293,7 +427,7 @@ exports[`SegmentsPage SegmentsPage should render data correctly 1`] = `
               class="cell"
               colspan="1"
               role="columnheader"
-              style="width: 45%;"
+              style="width: 35%;"
             >
               CF.SHARED.SEGMENT
             </div>
@@ -301,7 +435,7 @@ exports[`SegmentsPage SegmentsPage should render data correctly 1`] = `
               class="cell"
               colspan="1"
               role="columnheader"
-              style="width: 25%;"
+              style="width: 35%;"
             >
               IDENTIFIER
             </div>
@@ -321,7 +455,7 @@ exports[`SegmentsPage SegmentsPage should render data correctly 1`] = `
             <div
               class="cell"
               role="cell"
-              style="width: 45%;"
+              style="width: 35%;"
             >
               <div
                 class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
@@ -361,7 +495,7 @@ exports[`SegmentsPage SegmentsPage should render data correctly 1`] = `
             <div
               class="cell"
               role="cell"
-              style="width: 25%;"
+              style="width: 35%;"
             >
               <p
                 class="StyledProps--font StyledProps--main"

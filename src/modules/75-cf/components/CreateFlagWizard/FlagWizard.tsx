@@ -34,12 +34,13 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
   const { showError } = useToaster()
   const { projectIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
   const history = useHistory()
-  const { withActiveEnvironment } = useActiveEnvironment()
+  const { activeEnvironment, withActiveEnvironment } = useActiveEnvironment()
   const { mutate: createFeatureFlag, loading: isLoadingCreateFeatureFlag } = useCreateFeatureFlag({
     queryParams: {
       account: accountId,
       accountIdentifier: accountId,
-      org: orgIdentifier
+      org: orgIdentifier,
+      environment: activeEnvironment
     } as CreateFeatureFlagQueryParams
   })
   const onWizardStepSubmit = (formData: FeatureFlagRequestRequestBody | undefined): void => {

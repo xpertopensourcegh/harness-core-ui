@@ -7,17 +7,12 @@ import { NewTargets } from './NewTarget'
 import imageURL from './target.svg'
 
 export interface NoTargetsViewProps {
-  environmentIdentifier?: string
   onNewTargetsCreated: () => void
   hasEnvironment: boolean
 }
 
-export const NoTargetsView: React.FC<NoTargetsViewProps> = ({
-  environmentIdentifier,
-  onNewTargetsCreated,
-  hasEnvironment
-}) => {
-  const { projectIdentifier, orgIdentifier, accountId } = useParams<any>()
+export const NoTargetsView: React.FC<NoTargetsViewProps> = ({ onNewTargetsCreated, hasEnvironment }) => {
+  const { projectIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
   const { getString } = useStrings()
 
   return (
@@ -27,7 +22,6 @@ export const NoTargetsView: React.FC<NoTargetsViewProps> = ({
           accountId={accountId}
           orgIdentifier={orgIdentifier}
           projectIdentifier={projectIdentifier}
-          environmentIdentifier={environmentIdentifier || undefined}
           onCreated={onNewTargetsCreated}
         />
       </NoData>

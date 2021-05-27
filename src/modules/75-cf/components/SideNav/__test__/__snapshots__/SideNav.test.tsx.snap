@@ -90,22 +90,12 @@ exports[`Sidenav render 1`] = `
     </a>
     <a
       class="link"
-      href="/account/dummy/cf/orgs/dummy/projects/dummy/targets"
+      href="/account/dummy/cf/orgs/dummy/projects/dummy/target-management"
     >
       <p
         class="StyledProps--font StyledProps--main text"
       >
-        pipeline.targets.title
-      </p>
-    </a>
-    <a
-      class="link"
-      href="/account/dummy/cf/orgs/dummy/projects/dummy/segments"
-    >
-      <p
-        class="StyledProps--font StyledProps--main text"
-      >
-        cf.shared.segments
+        cf.shared.targetManagement
       </p>
     </a>
     <a

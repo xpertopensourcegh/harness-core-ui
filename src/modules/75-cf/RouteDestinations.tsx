@@ -59,10 +59,11 @@ import ExecutionLandingPage from '@pipeline/pages/execution/ExecutionLandingPage
 import ExecutionPipelineView from '@pipeline/pages/execution/ExecutionPipelineView/ExecutionPipelineView'
 import ExecutionInputsView from '@pipeline/pages/execution/ExecutionInputsView/ExecutionInputsView'
 import ExecutionArtifactsView from '@pipeline/pages/execution/ExecutionArtifactsView/ExecutionArtifactsView'
-import { TargetsPage } from './pages/targets/TargetsPage'
+import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
+import { TargetsPage } from './pages/target-management/targets/TargetsPage'
 import CFPipelineStudio from './pages/pipeline-studio/CFPipelineStudio'
 import { TargetDetailPage } from './pages/target-details/TargetDetailPage'
-import { SegmentsPage } from './pages/segments/SegmentsPage'
+import { SegmentsPage } from './pages/target-management/segments/SegmentsPage'
 import { SegmentDetailPage } from './pages/segment-details/SegmentDetailPage'
 import { OnboardingPage } from './pages/onboarding/OnboardingPage'
 import { OnboardingDetailPage } from './pages/onboarding/OnboardingDetailPage'
@@ -103,6 +104,13 @@ const RedirectToPipelineDetailHome = (): React.ReactElement => {
   const params = useParams<PipelineType<PipelinePathProps>>()
 
   return <Redirect to={routes.toPipelineStudio(params)} />
+}
+
+const RedirectToTargets = (): React.ReactElement => {
+  const { withActiveEnvironment } = useActiveEnvironment()
+  const params = useParams<ProjectPathProps & AccountPathProps>()
+
+  return <Redirect to={withActiveEnvironment(routes.toCFTargets(params))} />
 }
 
 const CFSideNavProps: SidebarContext = {
@@ -159,8 +167,7 @@ export default (
       path={routes.toCFSegmentDetails({
         ...accountPathProps,
         ...projectPathProps,
-        ...segmentPathProps,
-        ...environmentPathProps
+        ...segmentPathProps
       })}
       exact
     >
@@ -172,13 +179,16 @@ export default (
       path={routes.toCFTargetDetails({
         ...accountPathProps,
         ...projectPathProps,
-        ...targetPathProps,
-        ...environmentPathProps
+        ...targetPathProps
       })}
       exact
     >
       <TargetDetailPage />
     </RouteWithLayout>
+
+    <Route path={routes.toCFTargetManagement({ ...accountPathProps, ...projectPathProps })} exact>
+      <RedirectToTargets />
+    </Route>
 
     <RouteWithLayout
       sidebarProps={CFSideNavProps}

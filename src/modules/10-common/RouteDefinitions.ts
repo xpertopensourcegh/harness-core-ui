@@ -762,31 +762,25 @@ const routes = {
     ({ orgIdentifier, projectIdentifier, featureFlagIdentifier }: ProjectPathProps & FeatureFlagPathProps) =>
       `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/feature-flags/${featureFlagIdentifier}`
   ),
+  toCFTargetManagement: withAccountId(
+    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
+      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/target-management`
+  ),
   toCFSegments: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/segments`
+      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/target-management/target-groups`
   ),
   toCFTargets: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/targets`
+      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/target-management/targets`
   ),
   toCFSegmentDetails: withAccountId(
-    ({
-      orgIdentifier,
-      projectIdentifier,
-      environmentIdentifier,
-      segmentIdentifier
-    }: ProjectPathProps & SegmentPathProps & EnvironmentPathProps) =>
-      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/segments/${segmentIdentifier}/environments/${environmentIdentifier}`
+    ({ orgIdentifier, projectIdentifier, segmentIdentifier }: ProjectPathProps & SegmentPathProps) =>
+      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/target-management/target-groups/${segmentIdentifier}`
   ),
   toCFTargetDetails: withAccountId(
-    ({
-      orgIdentifier,
-      projectIdentifier,
-      environmentIdentifier,
-      targetIdentifier
-    }: ProjectPathProps & TargetPathProps & EnvironmentPathProps) =>
-      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/targets/environments/${environmentIdentifier}/target/${targetIdentifier}`
+    ({ orgIdentifier, projectIdentifier, targetIdentifier }: ProjectPathProps & TargetPathProps) =>
+      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/target-management/targets/${targetIdentifier}`
   ),
   toCFEnvironments: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>

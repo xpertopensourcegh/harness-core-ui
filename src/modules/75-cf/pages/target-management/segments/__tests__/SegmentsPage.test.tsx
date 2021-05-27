@@ -328,7 +328,7 @@ describe('SegmentsPage', () => {
 
     const { container } = render(
       <TestWrapper
-        path="/account/:accountId/cf/orgs/:orgIdentifier/projects/:projectIdentifier/segments"
+        path="/account/:accountId/cf/orgs/:orgIdentifier/projects/:projectIdentifier/target-management/target-groups"
         pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}
       >
         <SegmentsPage />
@@ -340,7 +340,7 @@ describe('SegmentsPage', () => {
     fireEvent.click(container.querySelector('[role="row"]:not(:first-of-type)') as HTMLElement)
 
     expect(
-      getByText(container, '/account/dummy/cf/orgs/dummy/projects/dummy/segments/segment1/environments/undefined')
+      getByText(container, '/account/dummy/cf/orgs/dummy/projects/dummy/target-management/target-groups/segment1')
     ).toBeDefined()
   })
 
@@ -378,7 +378,7 @@ describe('SegmentsPage', () => {
 
     const { container } = render(
       <TestWrapper
-        path="/account/:accountId/cf/orgs/:orgIdentifier/projects/:projectIdentifier/segments"
+        path="/account/:accountId/cf/orgs/:orgIdentifier/projects/:projectIdentifier/target-management/target-groups"
         pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}
       >
         <SegmentsPage />
@@ -391,7 +391,7 @@ describe('SegmentsPage', () => {
     fireEvent.click(document.querySelector('[icon="edit"]') as HTMLElement)
 
     expect(
-      getByText(container, '/account/dummy/cf/orgs/dummy/projects/dummy/segments/segment1/environments/undefined')
+      getByText(container, '/account/dummy/cf/orgs/dummy/projects/dummy/target-management/target-groups/segment1')
     ).toBeDefined()
   })
 
@@ -434,7 +434,7 @@ describe('SegmentsPage', () => {
 
     const { container } = render(
       <TestWrapper
-        path="/account/:accountId/cf/orgs/:orgIdentifier/projects/:projectIdentifier/segments"
+        path="/account/:accountId/cf/orgs/:orgIdentifier/projects/:projectIdentifier/target-management/target-groups"
         pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}
       >
         <SegmentsPage />
