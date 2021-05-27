@@ -17,7 +17,7 @@ import { Form, FieldArrayRenderProps, FieldArray } from 'formik'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { Tooltip } from '@blueprintjs/core'
 import * as Yup from 'yup'
-import { get, set, isEmpty } from 'lodash-es'
+import { get, set, isEmpty, isArray } from 'lodash-es'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
@@ -224,11 +224,10 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
             is: 'Commit',
             then: Yup.string().trim().required(getString('validation.commitId'))
           }),
-          paths: Yup.array().of(
-            Yup.object().shape({
-              path: Yup.string().min(1).required(getString('pipeline.manifestType.pathRequired'))
-            })
-          ),
+          paths: Yup.mixed().test('paths', getString('pipeline.manifestType.pathRequired'), value => {
+            if (getMultiTypeFromValue(value) !== MultiTypeInputType.FIXED) return true
+            return isArray(value) && value.length > 0 && value.every(row => !isEmpty(row.path))
+          }),
           repoName: Yup.string().test('repoName', getString('pipeline.manifestType.reponameRequired'), value => {
             if (connectionType === GitRepoName.Repo) {
               return true
