@@ -14,7 +14,12 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { useUpdateQueryParams } from '@common/hooks'
 import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
-import type { ExecutionPipeline, ExecutionPipelineItem, StageOptions } from './ExecutionPipelineModel'
+import type {
+  ExecutionPipeline,
+  ExecutionPipelineGroupInfo,
+  ExecutionPipelineItem,
+  StageOptions
+} from './ExecutionPipelineModel'
 import { ExecutionStageDiagramModel, GridStyleInterface, NodeStyleInterface } from './ExecutionStageDiagramModel'
 import ExecutionActions from '../ExecutionActions/ExecutionActions'
 import {
@@ -39,6 +44,17 @@ abstract class ItemEvent<T> extends Event {
   }
 }
 
+abstract class GroupEvent<T> extends Event {
+  readonly group: ExecutionPipelineGroupInfo<T>
+  readonly stageTarget: HTMLElement
+
+  constructor(eventName: string, group: ExecutionPipelineGroupInfo<T>, target: HTMLElement) {
+    super(eventName)
+    this.group = group
+    this.stageTarget = target
+  }
+}
+
 const StageSelection = Select.ofType<StageOptions>()
 
 export class ItemClickEvent<T> extends ItemEvent<T> {
@@ -50,6 +66,12 @@ export class ItemClickEvent<T> extends ItemEvent<T> {
 export class ItemMouseEnterEvent<T> extends ItemEvent<T> {
   constructor(stage: ExecutionPipelineItem<T>, target: HTMLElement) {
     super('ItemMouseEnterEvent', stage, target)
+  }
+}
+
+export class GroupMouseEnterEvent<T> extends GroupEvent<T> {
+  constructor(group: ExecutionPipelineGroupInfo<T>, target: HTMLElement) {
+    super('GroupMouseEnterEvent', group, target)
   }
 }
 
@@ -75,6 +97,8 @@ export interface ExecutionStageDiagramProps<T> {
   itemClickHandler?: (event: ItemClickEvent<T>) => void
   itemMouseEnter?: (event: ItemMouseEnterEvent<T>) => void
   itemMouseLeave?: (event: ItemMouseLeaveEvent<T>) => void
+  mouseEnterStepGroupTitle?: (event: GroupMouseEnterEvent<T>) => void
+  mouseLeaveStepGroupTitle?: (event: GroupMouseEnterEvent<T>) => void
   canvasListener?: (action: CanvasButtonsActions) => void
   isWhiteBackground?: boolean // Default: false
   className?: string
@@ -100,6 +124,8 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
     itemClickHandler = noop,
     itemMouseEnter = noop,
     itemMouseLeave = noop,
+    mouseEnterStepGroupTitle = noop,
+    mouseLeaveStepGroupTitle = noop,
     canvasListener = noop,
     loading = false,
     selectedStage,
@@ -136,7 +162,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
   const { replaceQueryParams } = useUpdateQueryParams<ExecutionPageQueryParams>()
   const [autoPosition, setAutoPosition] = React.useState(true)
 
-  const [groupStage, setGroupStage] = React.useState<Map<string, GroupState<T>>>()
+  const [groupState, setGroupState] = React.useState<Map<string, GroupState<T>>>()
 
   function stopAutoSelection(): void {
     if (queryParams.stage && queryParams.step) {
@@ -154,18 +180,18 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
 
   React.useEffect(() => {
     const stageData = getGroupsFromData(data.items)
-    setGroupStage(stageData)
+    setGroupState(stageData)
   }, [data])
 
   const currentStage = pipelineStagesMap.get(selectedStage?.value || '')
   const updateGroupStage = (event: Diagram.DefaultNodeEvent): void => {
-    const group = groupStage?.get(event.entity.getIdentifier())
-    if (group && groupStage) {
-      groupStage?.set(event.entity.getIdentifier(), {
+    const group = groupState?.get(event.entity.getIdentifier())
+    if (group && groupState) {
+      groupState?.set(event.entity.getIdentifier(), {
         ...group,
         collapsed: !group.collapsed
       })
-      setGroupStage(new Map([...groupStage]))
+      setGroupState(new Map([...groupState]))
     }
   }
 
@@ -220,7 +246,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
       /* istanbul ignore else */ if (autoPosition) {
         setAutoPosition(false)
       }
-      const group = groupStage?.get(event.entity.getIdentifier())
+      const group = groupState?.get(event.entity.getIdentifier())
       if (group && group.collapsed) {
         updateGroupStage(event)
       } else {
@@ -241,7 +267,19 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
     }
   }
   const layerListeners: BaseModelListener = {
-    [Diagram.Event.StepGroupCollapsed]: (event: any) => updateGroupStage(event)
+    [Diagram.Event.StepGroupCollapsed]: (event: any) => updateGroupStage(event),
+    [Diagram.Event.MouseEnterStepGroupTitle]: (event: any) => {
+      const groupData = groupState?.get(event.entity.getIdentifier())
+      if (groupData?.group) {
+        mouseEnterStepGroupTitle(new GroupMouseEnterEvent(groupData?.group, event.target))
+      }
+    },
+    [Diagram.Event.MouseLeaveStepGroupTitle]: (event: any) => {
+      const groupData = groupState?.get(event.entity.getIdentifier())
+      if (groupData?.group) {
+        mouseLeaveStepGroupTitle(new GroupMouseEnterEvent(groupData?.group, event.target))
+      }
+    }
   }
 
   React.useEffect(() => {
@@ -267,12 +305,12 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
         diagramContainerHeight,
         showStartEndNode,
         showEndNode,
-        groupStage
+        groupState
       )
   }, [
     data,
     diagramContainerHeight,
-    groupStage,
+    groupState,
     layerListeners,
     loading,
     model,
@@ -367,11 +405,11 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
               canExecute={canExecute}
             />
           </div>
-          {groupStage && groupStage.size > 1 && (
+          {groupState && groupState.size > 1 && (
             // Do not render groupStage if the size is less than 1
             // In approval stage, we do not have service/infra/execution sections
             <div className={css.groupLabels}>
-              {[...groupStage]
+              {[...groupState]
                 .filter(item => item[1].showInLabel)
                 .map(item => (
                   <span

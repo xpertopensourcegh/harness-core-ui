@@ -232,6 +232,14 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
             e.stopPropagation()
             props.layer.fireEvent({}, Event.StepGroupClicked)
           }}
+          onMouseEnter={e => {
+            e.stopPropagation()
+            props.layer.fireEvent({ target: e.target }, Event.MouseEnterStepGroupTitle)
+          }}
+          onMouseLeave={e => {
+            e.stopPropagation()
+            props.layer.fireEvent({ target: e.target }, Event.MouseLeaveStepGroupTitle)
+          }}
         >
           {options.label} {options.rollBackProps?.active === StepsType.Rollback && `(${getString('rollbackLabel')})`}
         </Text>

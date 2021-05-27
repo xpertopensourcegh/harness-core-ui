@@ -9,7 +9,12 @@ import {
   statusToStatusMapping
 } from '@pipeline/components/PipelineSteps/AdvancedSteps/ConditionalExecutionPanel/ConditionalExecutionPanelUtils'
 import type { NodeRunInfo } from 'services/pipeline-ng'
-import type { ExecutionPipeline, ExecutionPipelineItem, ExecutionPipelineNode } from './ExecutionPipelineModel'
+import type {
+  ExecutionPipeline,
+  ExecutionPipelineGroupInfo,
+  ExecutionPipelineItem,
+  ExecutionPipelineNode
+} from './ExecutionPipelineModel'
 import * as Diagram from '../Diagram'
 import type { DefaultNodeModel } from '../Diagram'
 import { ExecutionPipelineNodeType } from './ExecutionPipelineModel'
@@ -238,6 +243,7 @@ export const getStageFromExecutionPipeline = <T>(
 
 export interface GroupState<T> {
   data?: T
+  group?: ExecutionPipelineGroupInfo<T>
   collapsed: boolean
   name: string
   showInLabel: boolean
@@ -258,7 +264,8 @@ export const getGroupsFromData = <T>(items: Array<ExecutionPipelineNode<T>>): Ma
         status: node.group.status,
         identifier: node.group.identifier,
         showInLabel: node.group.showInLabel ?? true,
-        data: node.group.data
+        data: node.group.data,
+        group: node.group
       })
       if (node.group.items.length > 0) {
         const itemsGroupState = getGroupsFromData(node.group.items)

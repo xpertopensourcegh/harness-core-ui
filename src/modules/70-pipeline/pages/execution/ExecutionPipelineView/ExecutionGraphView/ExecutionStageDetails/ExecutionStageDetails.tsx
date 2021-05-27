@@ -109,7 +109,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
   }, [selectedStepId, setStepDetailsVisibility])
 
   const onMouseEnter = (event: any): void => {
-    const currentStage = event.stage
+    const currentStage = event.stage || event.group
     const isFinished = currentStage?.data?.endTs
     const hasStarted = currentStage?.data?.startTs
     const status = currentStage?.data?.status
@@ -190,6 +190,10 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
           itemMouseLeave={() => {
             dynamicPopoverHandler?.hide()
             setBarrierSetupId(undefined)
+          }}
+          mouseEnterStepGroupTitle={onMouseEnter}
+          mouseLeaveStepGroupTitle={() => {
+            dynamicPopoverHandler?.hide()
           }}
           stageSelectionOptions={stagesOptions}
           onChangeStageSelection={(item: StageOptions) => {
