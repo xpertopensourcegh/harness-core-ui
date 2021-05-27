@@ -908,7 +908,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                         <List
                           label={getString('common.git.filePath')}
                           name={`${path}.manifests[${index}].manifest.spec.store.spec.paths`}
-                          placeholder={getString('pipeline.manifestType.filePathPlaceholder')}
+                          placeholder={getString('pipeline.manifestType.pathPlaceholder')}
                           disabled={readonly}
                           style={{ marginBottom: 'var(--spacing-small)' }}
                         />

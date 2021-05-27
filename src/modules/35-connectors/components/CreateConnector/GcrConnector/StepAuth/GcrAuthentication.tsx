@@ -94,7 +94,7 @@ const GcrAuthentication: React.FC<StepProps<StepConfigureProps> & GcrAuthenticat
   ) : (
     <Layout.Vertical height={'inherit'} spacing="medium" className={css.secondStep}>
       <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
-        {getString('connectors.GCR.stepTwoName')}
+        {getString('details')}
       </Text>
       <Formik
         initialValues={{

@@ -29,7 +29,7 @@ const CreateGcrConnector: React.FC<CreateConnectorModalProps> = props => {
         mock={props.mock}
       />
       <GcrAuthentication
-        name={getString('connectors.GCR.stepTwoName')}
+        name={getString('details')}
         identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
         {...commonProps}
       />

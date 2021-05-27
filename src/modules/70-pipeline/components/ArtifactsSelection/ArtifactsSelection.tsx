@@ -445,7 +445,7 @@ export default function ArtifactsSelection({
               isEditMode={isEditMode}
             />
             <GcrAuthentication
-              name={getString('connectors.GCR.stepTwoName')}
+              name={getString('details')}
               identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
               isEditMode={isEditMode}
               setIsEditMode={setIsEditMode}
