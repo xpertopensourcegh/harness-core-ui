@@ -104,33 +104,33 @@ manifestType:
   helmCommandFlags: By Default, Harness versions ConfigMaps and Secrets that are deployed into the Kubernetes Cluster.
   helmCommandFlagLabel: Helm Command Flags (optional)
   helmCommandType: Command Type
-  helmVersionRequired: 'Helm Version is required'
-  commandFlagRequired: 'Command Flag is required'
-  folderPathRequired: Folder Path is required
-  chartPathRequired: Chart Path is required
-  kustomizePathRequired: Kustomize Path is required
+  helmVersionRequired: 'Helm version is required'
+  commandFlagRequired: 'Command flag is required'
+  folderPathRequired: Folder path is required
+  chartPathRequired: Chart path is required
+  kustomizePathRequired: Kustomize path is required
   reponameRequired: Repository name is required
-  pathRequired: Path is required
+  pathRequired: File path is required
   path: '{{$.common.path}}'
-  osTemplatePath: 'Template File Path'
-  osTemplatePathPlaceHolder: 'Enter Template File Path'
-  osTemplatePathRequired: Template File Path is required
+  osTemplatePath: Template File Path
+  osTemplatePathPlaceHolder: Enter template file path
+  osTemplatePathRequired: Template file path is required
   pathPlaceholder: Enter file path
   bucketName: Bucket Name
   gitFetchTypeLabel: Git Fetch Type
   commitId: Commit ID
-  branchPlaceholder: Enter branch name here
-  commitPlaceholder: Enter Commit ID here
+  branchPlaceholder: Enter branch name
+  commitPlaceholder: Enter commit id
   filePathPlaceholder: Enter file or folder path
   kustomizeFolderPath: Kustomize Folder Path
-  repoNamePlacefolder: Enter repo name here
+  repoNamePlacefolder: Enter repo name
   http:
     chartName: 'Helm Chart Name'
     chartVersion: 'Helm Chart Version'
-    chartNameRequired: 'Chart Name is required'
-    chartNamePlaceHolder: 'Enter Chart Name'
-    chartVersionPlaceHolder: 'Enter Chart Version'
-    chartVersionRequired: 'Chart Version is required'
+    chartNameRequired: 'Chart name is required'
+    chartNamePlaceHolder: 'Enter chart name'
+    chartVersionPlaceHolder: 'Enter chart version'
+    chartVersionRequired: 'Chart version is required'
 failureStrategies:
   selectStrategy: '{{ $.common.selectStrategy }}'
   performAction: '{{ $.common.performAction }}'

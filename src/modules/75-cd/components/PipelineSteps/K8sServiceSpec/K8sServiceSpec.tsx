@@ -906,7 +906,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                       )}
                       {getMultiTypeFromValue(paths) === MultiTypeInputType.RUNTIME && (
                         <List
-                          label={getString('fileFolderPathText')}
+                          label={getString('common.git.filePath')}
                           name={`${path}.manifests[${index}].manifest.spec.store.spec.paths`}
                           placeholder={getString('pipeline.manifestType.filePathPlaceholder')}
                           disabled={readonly}
