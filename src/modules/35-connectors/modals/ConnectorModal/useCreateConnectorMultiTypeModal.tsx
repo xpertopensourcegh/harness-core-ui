@@ -36,18 +36,20 @@ const useCreateConnectorMultiTypeModal = (
   props: UseCreateConnectorMultiTypeModalProps
 ): UseCreateConnectorMultiTypeModalReturn => {
   const { getString } = useStrings()
+
+  const handleClose = (): void => {
+    props.onClose?.()
+    hideModal()
+  }
+
   const { openConnectorModal } = useCreateConnectorModal({
-    onSuccess: props.onSuccess
+    onSuccess: props.onSuccess,
+    onClose: handleClose
   })
 
   const handleSelect = (type: ConnectorInfoDTO['type']): void => {
     hideModal()
     openConnectorModal(false, type, undefined)
-  }
-
-  const handleClose = (): void => {
-    props.onClose?.()
-    hideModal()
   }
 
   const [showModal, hideModal] = useModalHook(

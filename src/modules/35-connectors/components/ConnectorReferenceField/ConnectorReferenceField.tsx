@@ -76,6 +76,10 @@ export interface ConnectorSelectedValue {
   live: boolean
   connector: ConnectorInfoDTO
 }
+export interface InlineSelectionInterface {
+  selected: boolean
+  inlineModalClosed: boolean
+}
 export interface ConnectorReferenceFieldProps extends Omit<IFormGroupProps, 'label'> {
   accountIdentifier: string
   name: string
@@ -373,11 +377,26 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
     disabled,
     ...rest
   } = props
+
+  const [inlineSelection, setInlineSelection] = React.useState<InlineSelectionInterface>({
+    selected: false,
+    inlineModalClosed: false
+  })
   const { openConnectorModal } = useCreateConnectorModal({
     onSuccess: (data?: ConnectorConfigDTO) => {
       if (data) {
         props.onChange?.({ ...data.connector, status: data.status }, Scope.PROJECT)
+        setInlineSelection({
+          selected: true,
+          inlineModalClosed: false
+        })
       }
+    },
+    onClose: () => {
+      setInlineSelection({
+        selected: inlineSelection.selected,
+        inlineModalClosed: true
+      })
     }
   })
 
@@ -386,7 +405,17 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
     onSuccess: (data?: ConnectorConfigDTO) => {
       if (data) {
         props.onChange?.({ ...data.connector, status: data.status }, Scope.PROJECT)
+        setInlineSelection({
+          selected: true,
+          inlineModalClosed: false
+        })
       }
+    },
+    onClose: () => {
+      setInlineSelection({
+        selected: inlineSelection.selected,
+        inlineModalClosed: true
+      })
     }
   })
 
@@ -514,6 +543,7 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
           category,
           openConnectorModal
         })}
+        hideModal={inlineSelection.selected && inlineSelection.inlineModalClosed}
         isNewConnectorLabelVisible={canUpdate}
         selectedRenderer={getSelectedRenderer(selectedValue as ConnectorSelectedValue)}
         {...optionalReferenceSelectProps}

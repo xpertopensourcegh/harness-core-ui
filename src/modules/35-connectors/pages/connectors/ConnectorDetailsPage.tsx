@@ -217,7 +217,7 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
         <Layout.Horizontal spacing="small">
           <Icon
             margin={{ left: 'xsmall', right: 'xsmall' }}
-            name={getIconByType(data?.connector?.type)}
+            name={getIconByType(connectorData?.data?.connector?.type)}
             size={35}
           ></Icon>
           <Container>

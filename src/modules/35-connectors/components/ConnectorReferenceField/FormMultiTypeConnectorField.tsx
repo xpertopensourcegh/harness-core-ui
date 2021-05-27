@@ -31,7 +31,8 @@ import {
   ConnectorReferenceFieldProps,
   getReferenceFieldProps,
   getEditRenderer,
-  getSelectedRenderer
+  getSelectedRenderer,
+  InlineSelectionInterface
 } from './ConnectorReferenceField'
 
 export interface MultiTypeConnectorFieldConfigureOptionsProps
@@ -84,7 +85,10 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
   const selected = get(formik?.values, name, '')
 
   const [selectedValue, setSelectedValue] = React.useState(selected)
-
+  const [inlineSelection, setInlineSelection] = React.useState<InlineSelectionInterface>({
+    selected: false,
+    inlineModalClosed: false
+  })
   const scopeFromSelected = typeof selected === 'string' && getScopeFromValue(selected || '')
   const selectedRef = typeof selected === 'string' && getIdentifierFromValue(selected || '')
   const [multiType, setMultiType] = React.useState<MultiTypeInputType>(MultiTypeInputType.FIXED)
@@ -160,11 +164,21 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
       }
       props.onChange?.(val, MultiTypeInputValue.SELECT_OPTION, MultiTypeInputType.FIXED)
       formik?.setFieldValue(name, val)
+      setInlineSelection({
+        selected: true,
+        inlineModalClosed: false
+      })
     }
   }
 
   const { openConnectorModal } = useCreateConnectorModal({
-    onSuccess: onConnectorCreateSuccess
+    onSuccess: onConnectorCreateSuccess,
+    onClose: () => {
+      setInlineSelection({
+        selected: inlineSelection.selected,
+        inlineModalClosed: true
+      })
+    }
   })
 
   const { openConnectorMultiTypeModal } = useCreateConnectorMultiTypeModal({
