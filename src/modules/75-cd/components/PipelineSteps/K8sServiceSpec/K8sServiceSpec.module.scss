@@ -10,8 +10,7 @@
   font-weight: bold !important;
   :global {
     .bp3-icon {
-      padding: 0 var(--spacing-medium) !important;
-      margin-left: var(--spacing-xsmall);
+      padding: 0 var(--spacing-small) !important;
     }
   }
 }
@@ -21,6 +20,11 @@
   margin-bottom: var(--spacing-small) !important;
   color: #000 !important;
   font-weight: bold !important;
+  :global {
+    .bp3-icon {
+      padding: 0 var(--spacing-small) !important;
+    }
+  }
 }
 
 .stages-tree-bullet-circle {
