@@ -326,33 +326,5 @@ $node-width: 40px;
 }
 
 .infoPopover {
-  padding: var(--spacing-small) var(--spacing-large);
-  width: 250px;
-
-  .title {
-    margin-bottom: var(--spacing-xsmall);
-    font-weight: 500;
-    line-height: 26px;
-    font-size: var(--font-size-normal);
-  }
-
-  .section {
-    margin-top: var(--spacing-small);
-    border-top: 1px solid var(--grey-200);
-    padding: var(--spacing-small) 0;
-  }
-
-  .sectionTitle {
-    font-size: var(--font-size-xsmall);
-    color: var(--grey-500);
-  }
-
-  .sectionData {
-    font-size: var(--font-size-normal);
-    line-height: 20px;
-
-    &:not(:last-child) {
-      margin-bottom: var(--spacing-medium);
-    }
-  }
+  max-width: 449px;
 }

@@ -145,7 +145,7 @@ export default function ExecutionGraph(props: ExecutionGraphProps): React.ReactE
     }
   }): JSX.Element => {
     return (
-      <HoverCard barrier={{ barrierInfoLoading, barrierData: barrierInfoData }} data={popoverData}>
+      <HoverCard data={popoverData}>
         {popoverData?.when && <ConditionalExecutionTooltip data={popoverData.when} mode={Modes.STAGE} />}
         {barrierSupportedStageTypes.indexOf(get(popoverData, 'data.nodeType', '')) !== -1 && (
           <CDInfo barrier={{ barrierInfoLoading, barrierData: barrierInfoData }} data={popoverData} />

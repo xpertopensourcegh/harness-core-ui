@@ -140,13 +140,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
     }
   }): JSX.Element => {
     return (
-      <HoverCard
-        barrier={{
-          barrierInfoLoading,
-          barrierData: barrierInfo?.data
-        }}
-        data={stepInfo}
-      >
+      <HoverCard data={stepInfo}>
         {stepInfo?.when && <ConditionalExecutionTooltip data={stepInfo.when} mode={Modes.STEP} />}
         {stepInfo?.data?.stepType === StepType.Barrier && stepInfo?.data?.status === 'Running' && (
           <BarrierStepTooltip
