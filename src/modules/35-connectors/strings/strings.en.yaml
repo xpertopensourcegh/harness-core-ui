@@ -25,6 +25,8 @@ splunkConnectorDetails: 'Splunk Connector Details'
 newRelicConnectorDetails: New Relic Connector Details
 prometheusConnectorDetails: Prometheus Connector Details
 prometheusLabel: Prometheus
+dynatraceLabel: Dynatrace
+dynatraceConnectorDetails: Dynatrace Connector Details
 connectorDetailsHeader: '{{type}} Connector Details'
 addConnectorDetails: Add {{type}} Verification Provider
 unableToCreateConnector: Unable to create connector
@@ -206,6 +208,10 @@ newRelic:
     fullStackObservability: 'Full Stack Observability: APM'
 prometheus:
   urlValidation: Prometheus URL is required.
+dynatrace:
+  apiToken: API Token
+  apiTokenValidation: API Token is required.
+  urlValidation: Dynatrace URL is required.
 cdng:
   jobName: Job Name
   deploymentTag: Deployment Tag

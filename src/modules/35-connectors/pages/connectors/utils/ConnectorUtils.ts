@@ -1002,6 +1002,24 @@ export const buildSplunkPayload = (formData: FormData, accountId: string) => ({
   }
 })
 
+export const buildDynatracePayload = (formData: FormData) => {
+  return {
+    connector: {
+      name: formData.name,
+      identifier: formData.identifier,
+      type: Connectors.PROMETHEUS,
+      projectIdentifier: formData.projectIdentifier,
+      orgIdentifier: formData.orgIdentifier,
+      spec: {
+        delegateSelectors: formData.delegateSelectors || {},
+        url: formData.url,
+        apiToken: formData.apiToken,
+        accountId: formData.accountId
+      }
+    }
+  }
+}
+
 export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconName => {
   switch (type) {
     case Connectors.KUBERNETES_CLUSTER:

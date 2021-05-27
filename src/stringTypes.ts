@@ -628,6 +628,11 @@ export interface StringsMap {
   'connectors.docker.harbour': string
   'connectors.docker.other': string
   'connectors.docker.quay': string
+  'connectors.dynatrace.apiToken': string
+  'connectors.dynatrace.apiTokenValidation': string
+  'connectors.dynatrace.urlValidation': string
+  'connectors.dynatraceConnectorDetails': string
+  'connectors.dynatraceLabel': string
   'connectors.gcrConnectorDetails': string
   'connectors.hashiCorpVault.appRoleId': string
   'connectors.hashiCorpVault.baseSecretPath': string

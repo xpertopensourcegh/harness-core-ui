@@ -1,19 +1,26 @@
 import React from 'react'
 import { noop } from 'lodash-es'
-import { render, fireEvent, waitFor } from '@testing-library/react'
+import { fireEvent, waitFor } from '@testing-library/dom'
+import { render } from '@testing-library/react'
+import { FormInput, Container } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import { InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 import { onNextMock } from '../../CommonCVConnector/__mocks__/CommonCVConnectorMocks'
 
-// tells jest we intent to mock CVConnectorHOC and use mock in __mocks__
 jest.mock('../../CommonCVConnector/CVConnectorHOC')
-// file that imports mocked component must be placed after jest.mock
-import CreatePrometheusConnector from '../CreatePrometheusConnector'
+import CreateDynatraceConnector from '../CreateDynatraceConnector'
 
-const PrometheusURL = 'http://1234.45.565.67:8080'
+const DynatraceURL = 'https://dyna.com'
+const ApiToken = 'apiToken'
 
-describe('Create prometheus connector Wizard', () => {
+jest.mock('@secrets/components/SecretInput/SecretInput', () => () => (
+  <Container className="secret-mock">
+    <FormInput.Text name="apiToken" />
+  </Container>
+))
+
+describe('Unit tests for CreateDynatraceConnector', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
@@ -21,7 +28,7 @@ describe('Create prometheus connector Wizard', () => {
   test('Ensure validation works', async () => {
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreatePrometheusConnector
+        <CreateDynatraceConnector
           accountId="dummyAccountId"
           orgIdentifier="dummyOrgId"
           projectIdentifier="dummyProjectId"
@@ -39,14 +46,15 @@ describe('Create prometheus connector Wizard', () => {
 
     // click submit and verify validation string is visible
     fireEvent.click(container.querySelector('button[type="submit"]')!)
-    await waitFor(() => expect(getByText('connectors.prometheus.urlValidation')).not.toBeNull())
+    await waitFor(() => expect(getByText('connectors.dynatrace.urlValidation')).not.toBeNull())
+    expect(getByText('connectors.dynatrace.apiTokenValidation')).not.toBeNull()
     expect(onNextMock).not.toHaveBeenCalled()
   })
 
   test('Ensure create flow works', async () => {
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreatePrometheusConnector
+        <CreateDynatraceConnector
           accountId="dummyAccountId"
           orgIdentifier="dummyOrgId"
           projectIdentifier="dummyProjectId"
@@ -61,7 +69,8 @@ describe('Create prometheus connector Wizard', () => {
 
     // fill out url field
     await waitFor(() => expect(getByText('UrlLabel')).not.toBeNull())
-    await setFieldValue({ container, fieldId: 'url', value: PrometheusURL, type: InputTypes.TEXTFIELD })
+    await setFieldValue({ container, fieldId: 'url', value: DynatraceURL, type: InputTypes.TEXTFIELD })
+    await setFieldValue({ container, fieldId: 'apiToken', value: ApiToken, type: InputTypes.TEXTFIELD })
 
     // click submit and verify submitted data
     fireEvent.click(container.querySelector('button[type="submit"]')!)
@@ -70,7 +79,8 @@ describe('Create prometheus connector Wizard', () => {
         accountId: 'dummyAccountId',
         orgIdentifier: 'dummyOrgId',
         projectIdentifier: 'dummyProjectId',
-        url: PrometheusURL
+        url: DynatraceURL,
+        apiToken: ApiToken
       })
     )
   })
@@ -78,7 +88,7 @@ describe('Create prometheus connector Wizard', () => {
   test('Ensure if there is existing data, fields are populated', async () => {
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreatePrometheusConnector
+        <CreateDynatraceConnector
           accountId="dummyAccountId"
           orgIdentifier="dummyOrgId"
           projectIdentifier="dummyProjectId"
@@ -86,7 +96,7 @@ describe('Create prometheus connector Wizard', () => {
           onSuccess={noop}
           isEditMode={false}
           setIsEditMode={noop}
-          connectorInfo={({ url: PrometheusURL + '/' } as unknown) as ConnectorInfoDTO}
+          connectorInfo={({ url: DynatraceURL + '/', apiToken: ApiToken } as unknown) as ConnectorInfoDTO}
         />
       </TestWrapper>
     )
@@ -94,7 +104,8 @@ describe('Create prometheus connector Wizard', () => {
     await waitFor(() => expect(getByText('UrlLabel')).not.toBeNull())
 
     // expect recieved value to be there
-    expect(container.querySelector(`input[value="${PrometheusURL + '/'}"]`)).not.toBeNull()
+    expect(container.querySelector(`input[value="${DynatraceURL + '/'}"]`)).not.toBeNull()
+    expect(container.querySelector(`input[value=${ApiToken}]`)).not.toBeNull()
 
     // update it with new value
     await setFieldValue({ container, fieldId: 'url', value: 'http://sfsfsf.com', type: InputTypes.TEXTFIELD })
@@ -103,7 +114,8 @@ describe('Create prometheus connector Wizard', () => {
     fireEvent.click(container.querySelector('button[type="submit"]')!)
     await waitFor(() =>
       expect(onNextMock).toHaveBeenCalledWith({
-        url: 'http://sfsfsf.com'
+        url: 'http://sfsfsf.com',
+        apiToken: ApiToken
       })
     )
   })
@@ -111,7 +123,7 @@ describe('Create prometheus connector Wizard', () => {
   test('Ensure edit flow works', async () => {
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreatePrometheusConnector
+        <CreateDynatraceConnector
           accountId="dummyAccountId"
           orgIdentifier="dummyOrgId"
           projectIdentifier="dummyProjectId"
@@ -119,7 +131,7 @@ describe('Create prometheus connector Wizard', () => {
           onSuccess={noop}
           isEditMode={false}
           setIsEditMode={noop}
-          connectorInfo={({ spec: { url: PrometheusURL } } as unknown) as ConnectorInfoDTO}
+          connectorInfo={({ spec: { url: DynatraceURL, apiToken: ApiToken } } as unknown) as ConnectorInfoDTO}
         />
       </TestWrapper>
     )
@@ -127,18 +139,21 @@ describe('Create prometheus connector Wizard', () => {
     await waitFor(() => expect(getByText('UrlLabel')).not.toBeNull())
 
     // expect recieved value to be there
-    expect(container.querySelector(`input[value="${PrometheusURL}"]`)).not.toBeNull()
+    expect(container.querySelector(`input[value="${DynatraceURL}"]`)).not.toBeNull()
     // update it with new value
     await setFieldValue({ container, fieldId: 'url', value: 'http://dgdgtrty.com', type: InputTypes.TEXTFIELD })
+    await setFieldValue({ container, fieldId: 'apiToken', value: 'newToken', type: InputTypes.TEXTFIELD })
 
     // click submit and verify submitted data
     fireEvent.click(container.querySelector('button[type="submit"]')!)
     await waitFor(() =>
       expect(onNextMock).toHaveBeenCalledWith({
         spec: {
-          url: 'http://1234.45.565.67:8080'
+          url: DynatraceURL,
+          apiToken: ApiToken
         },
-        url: 'http://dgdgtrty.com'
+        url: 'http://dgdgtrty.com',
+        apiToken: 'newToken'
       })
     )
   })
