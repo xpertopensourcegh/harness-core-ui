@@ -177,7 +177,9 @@ const RenderColumnMenu: Renderer<CellProps<InputSetLocal>> = ({ row, column }) =
     contentText: getString('inputSets.confirmDeleteText', {
       name: data.name,
       type:
-        data.inputSetType === 'OVERLAY_INPUT_SET' ? getString('inputSets.overlayInputSet') : getString('inputSetsText')
+        data.inputSetType === 'OVERLAY_INPUT_SET'
+          ? getString('inputSets.overlayInputSet')
+          : getString('inputSets.inputSetLabel')
     }),
 
     titleText: getString('inputSets.confirmDeleteTitle', {
