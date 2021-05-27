@@ -45,6 +45,13 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
   const { repoIdentifier, branch } = useQueryParams<EntityGitDetails>()
   const { pathname } = useLocation()
 
+  const { data: orgData } = useGetOrganizationAggregateDTO({
+    identifier: orgIdentifier,
+    queryParams: {
+      accountIdentifier: accountId
+    }
+  })
+
   const defaultQueryParam = {
     accountIdentifier: accountId,
     orgIdentifier: orgIdentifier as string,
@@ -131,13 +138,6 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
   }
 
   const RenderBreadCrumbForOrg: React.FC = () => {
-    const { data: orgData } = useGetOrganizationAggregateDTO({
-      identifier: orgIdentifier,
-      queryParams: {
-        accountIdentifier: accountId
-      }
-    })
-
     return (
       <Layout.Horizontal spacing="xsmall">
         <Link className={css.breadCrumb} to={`${pathname.substring(0, pathname.lastIndexOf('/resources'))}`}>
@@ -233,7 +233,7 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
       </Layout.Vertical>
     ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [connectorData, branchSelectOptions]
+    [orgData, connectorData, branchSelectOptions]
   )
 
   const getPageBody = (): React.ReactElement => {
