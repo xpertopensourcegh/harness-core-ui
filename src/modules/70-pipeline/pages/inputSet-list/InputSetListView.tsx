@@ -284,39 +284,27 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
       {
         Header: getString('inputSets.inputSetLabel').toUpperCase(),
         accessor: 'name',
-        width: isGitSyncEnabled ? '20%' : '25%',
+        width: isGitSyncEnabled ? '25%' : '30%',
         Cell: RenderColumnInputSet
       },
       {
         Header: getString('description').toUpperCase(),
         accessor: 'description',
-        width: '20%',
+        width: isGitSyncEnabled ? '30%' : '35%',
         Cell: RenderColumnDescription,
         disableSortBy: true
       },
       {
         Header: getString('common.gitSync.repoDetails').toUpperCase(),
         accessor: 'gitDetails',
-        width: '20%',
+        width: '25%',
         Cell: RenderGitDetails,
-        disableSortBy: true
-      },
-      {
-        Header: getString('lastUpdatedBy').toUpperCase(),
-        accessor: 'lastUpdatedBy',
-        width: '10%',
-        disableSortBy: true
-      },
-      {
-        Header: getString('createdBy').toUpperCase(),
-        accessor: 'createdBy',
-        width: '10%',
         disableSortBy: true
       },
       {
         Header: getString('action').toUpperCase(),
         accessor: 'identifier',
-        width: '15%',
+        width: isGitSyncEnabled ? '15%' : '30%',
         Cell: RenderColumnActions,
         disableSortBy: true,
         goToInputSetDetail
@@ -324,7 +312,7 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
       {
         Header: '',
         accessor: 'action',
-        width: isGitSyncEnabled ? '5%' : '20%',
+        width: '5%',
         Cell: RenderColumnMenu,
         disableSortBy: true,
         goToInputSetDetail,
