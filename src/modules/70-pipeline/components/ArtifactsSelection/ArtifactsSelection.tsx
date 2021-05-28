@@ -8,7 +8,14 @@ import set from 'lodash-es/set'
 
 import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
-import { useGetConnectorListV2, PageConnectorResponse, ConnectorInfoDTO, ConnectorConfigDTO } from 'services/cd-ng'
+import {
+  useGetConnectorListV2,
+  PageConnectorResponse,
+  ConnectorInfoDTO,
+  ConnectorConfigDTO,
+  SidecarArtifactWrapper,
+  PrimaryArtifact
+} from 'services/cd-ng'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { CONNECTOR_CREDENTIALS_STEP_IDENTIFIER } from '@connectors/constants'
 
@@ -77,7 +84,7 @@ export default function ArtifactsSelection({
 
   const { getString } = useStrings()
 
-  const getPrimaryArtifactByIdentifier = (): void => {
+  const getPrimaryArtifactByIdentifier = (): PrimaryArtifact => {
     return artifacts
       .map((artifact: { overrideSet: { identifier: string; artifacts: { primary: Record<string, any> } } }) => {
         if (artifact?.overrideSet?.identifier === identifierName) {
@@ -87,7 +94,7 @@ export default function ArtifactsSelection({
       .filter((x: { overrideSet: { identifier: string; artifacts: [] } }) => x !== undefined)[0]
   }
 
-  const getSidecarArtifactByIdentifier = (): void => {
+  const getSidecarArtifactByIdentifier = (): SidecarArtifactWrapper[] => {
     return artifacts
       .map(
         (artifact: {
@@ -131,7 +138,7 @@ export default function ArtifactsSelection({
     return get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts', {})
   }
 
-  const getPrimaryArtifactPath = useCallback((): any => {
+  const getPrimaryArtifactPath = useCallback((): PrimaryArtifact => {
     if (isForOverrideSets) {
       return getPrimaryArtifactByIdentifier()
     }
@@ -158,7 +165,7 @@ export default function ArtifactsSelection({
     return get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.primary', null)
   }, [stage])
 
-  const getSidecarPath = useCallback((): any => {
+  const getSidecarPath = useCallback((): SidecarArtifactWrapper[] => {
     if (isForOverrideSets) {
       return getSidecarArtifactByIdentifier()
     }
@@ -184,6 +191,8 @@ export default function ArtifactsSelection({
     if (!get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.sidecars', null)) {
       set(stage as any, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.sidecars', [])
     } else return get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.sidecars', [])
+
+    return []
   }, [stage])
 
   const artifacts = getArtifactsPath()
@@ -234,21 +243,10 @@ export default function ArtifactsSelection({
   const getConnectorList = () => {
     return sideCarArtifact && sideCarArtifact.length
       ? sideCarArtifact &&
-          sideCarArtifact.map(
-            (data: {
-              sidecar: {
-                type: string
-                identifier: string
-                spec: {
-                  connectorRef: string
-                  imagePath: string
-                }
-              }
-            }) => ({
-              scope: getScopeFromValue(data?.sidecar?.spec?.connectorRef),
-              identifier: getIdentifierFromValue(data?.sidecar?.spec?.connectorRef)
-            })
-          )
+          sideCarArtifact.map((data: SidecarArtifactWrapper) => ({
+            scope: getScopeFromValue(data?.sidecar?.spec?.connectorRef),
+            identifier: getIdentifierFromValue(data?.sidecar?.spec?.connectorRef)
+          }))
       : []
   }
 
@@ -340,8 +338,8 @@ export default function ArtifactsSelection({
       artifactType = primaryArtifact?.type
       spec = primaryArtifact?.spec
     } else {
-      artifactType = sideCarArtifact?.[sidecarIndex]?.sidecar.type
-      spec = sideCarArtifact?.[sidecarIndex]?.sidecar.spec
+      artifactType = sideCarArtifact?.[sidecarIndex]?.sidecar?.type
+      spec = sideCarArtifact?.[sidecarIndex]?.sidecar?.spec
     }
     if (!spec) {
       return {
@@ -360,7 +358,7 @@ export default function ArtifactsSelection({
     setConnectorView(false)
 
     if (viewType === ModalViewFor.SIDECAR) {
-      setEditIndex(sideCarArtifact?.length)
+      setEditIndex(sideCarArtifact?.length || 0)
     }
     showConnectorModal()
     refetchConnectorList()
@@ -412,7 +410,7 @@ export default function ArtifactsSelection({
     return iconProps
   }
 
-  const getImagePathProps = (): ImagePathProps => {
+  const artifactLastStepProps = (): ImagePathProps => {
     const imagePathProps: ImagePathProps = {
       key: getString('connectors.stepFourName'),
       name: getString('connectors.stepFourName'),
@@ -421,7 +419,8 @@ export default function ArtifactsSelection({
       initialValues: getLastStepInitialData(),
       handleSubmit: (data: any) => {
         addArtifact(data)
-      }
+      },
+      artifactIdentifiers: sideCarArtifact?.map((item: SidecarArtifactWrapper) => item.sidecar?.identifier as string)
     }
 
     return imagePathProps
@@ -545,14 +544,14 @@ export default function ArtifactsSelection({
 
     switch (selectedArtifact) {
       case ENABLED_ARTIFACT_TYPES.Gcr:
-        arr.push(<GCRImagePath {...getImagePathProps()} />)
+        arr.push(<GCRImagePath {...artifactLastStepProps()} />)
         break
       case ENABLED_ARTIFACT_TYPES.Ecr:
-        arr.push(<ECRArtifact {...getImagePathProps()} />)
+        arr.push(<ECRArtifact {...artifactLastStepProps()} />)
         break
       case ENABLED_ARTIFACT_TYPES.DockerRegistry:
       default:
-        arr.push(<ImagePath {...getImagePathProps()} />)
+        arr.push(<ImagePath {...artifactLastStepProps()} />)
         break
     }
     return arr

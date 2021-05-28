@@ -20,10 +20,9 @@ import { ArtifactConfig, ConnectorConfigDTO, useGetBuildDetailsForGcr } from 'se
 import { useStrings } from 'framework/strings'
 
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
-import { StringUtils } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { ImagePathProps, ImagePathTypes, TagTypes } from '../../../ArtifactInterface'
-import { tagOptions } from '../../../ArtifactHelper'
+import { ArtifactIdentifierValidation, tagOptions } from '../../../ArtifactHelper'
 import css from '../../GCRArtifact.module.scss'
 
 export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
@@ -33,7 +32,8 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
   handleSubmit,
   prevStepData,
   initialValues,
-  previousStep
+  previousStep,
+  artifactIdentifiers
 }) => {
   const { getString } = useStrings()
 
@@ -52,11 +52,11 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
   })
 
   const sidecarSchema = Yup.object().shape({
-    identifier: Yup.string()
-      .trim()
-      .required(getString('artifactsSelection.validation.sidecarId'))
-      .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
-      .notOneOf(StringUtils.illegalIdentifiers),
+    ...ArtifactIdentifierValidation(
+      artifactIdentifiers,
+      initialValues?.identifier,
+      getString('pipeline.uniqueIdentifier')
+    ),
     imagePath: Yup.string().trim().required(getString('artifactsSelection.validation.imagePath')),
     registryHostname: Yup.string().trim().required('GCR Registry URL is required'),
     tagType: Yup.string().required(),

@@ -12,7 +12,7 @@ export interface ArtifactListViewProps {
   stage: StageElementWrapper | undefined
   overrideSetIdentifier?: string
   primaryArtifact: PrimaryArtifact
-  sideCarArtifact: SidecarArtifactWrapper[]
+  sideCarArtifact: SidecarArtifactWrapper[] | undefined
   addNewArtifact: (view: number) => void
   editArtifact: (view: number, type: ArtifactType, index?: number) => void
   removePrimary: () => void
@@ -59,6 +59,7 @@ export interface ImagePathProps {
   context: number
   initialValues: ImagePathTypes
   handleSubmit: (data: ArtifactConfig) => void
+  artifactIdentifiers: string[]
 }
 
 export interface ConnectorRefLabelType {

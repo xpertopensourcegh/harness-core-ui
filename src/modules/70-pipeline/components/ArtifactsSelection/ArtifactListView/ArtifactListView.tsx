@@ -84,7 +84,7 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
               </section>
             )}
           </section>
-          {sideCarArtifact?.length > 0 && (
+          {sideCarArtifact && sideCarArtifact?.length > 0 && (
             <section>
               {sideCarArtifact?.map((data: SidecarArtifactWrapper, index: number) => {
                 const { sidecar } = data
@@ -141,7 +141,7 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
               })}
             </section>
           )}
-          {sideCarArtifact?.length > 0 && overrideSetIdentifier?.length === 0 && !isReadonly && (
+          {sideCarArtifact && sideCarArtifact?.length > 0 && overrideSetIdentifier?.length === 0 && !isReadonly && (
             <div className={css.paddingVertical}>
               <Text intent="primary" style={{ cursor: 'pointer' }} onClick={() => addNewArtifact(ModalViewFor.SIDECAR)}>
                 <String stringID="pipelineSteps.serviceTab.artifactList.addSidecar" />

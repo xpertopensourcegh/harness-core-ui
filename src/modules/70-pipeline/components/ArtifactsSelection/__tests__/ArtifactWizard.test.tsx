@@ -157,7 +157,8 @@ describe('Artifact ConnectorRefSteps tests', () => {
         tagType: 'value' as TagTypes,
         tagRegex: ''
       },
-      handleSubmit: jest.fn()
+      handleSubmit: jest.fn(),
+      artifactIdentifiers: []
     }
 
     const { container } = render(
