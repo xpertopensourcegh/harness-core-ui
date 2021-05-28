@@ -372,7 +372,10 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
                 /* istanbul ignore if */ if (exactMatch) {
                   return normalizedValue === normalizedQuery
                 } else {
-                  return normalizedValue.indexOf(normalizedQuery) > -1 || item.label.indexOf(normalizedQuery) > -1
+                  return (
+                    normalizedValue.indexOf(normalizedQuery) > -1 ||
+                    item.label.toLowerCase().indexOf(normalizedQuery) > -1
+                  )
                 }
               }}
               items={stageSelectionOptions || /* istanbul ignore next */ []}
