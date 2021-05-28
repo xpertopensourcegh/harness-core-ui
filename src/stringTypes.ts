@@ -2060,6 +2060,9 @@ export interface StringsMap {
   'ci.noData': string
   'ci.optimize': string
   'ci.optimizeInfo': string
+  'ci.pipelineSteps.failIfKeyNotFoundInfo': string
+  'ci.pipelineSteps.overrideCacheInfo': string
+  'ci.pipelineSteps.pathStyleInfo': string
   'ci.previous': string
   'ci.privileged': string
   'ci.privilegedInfo': string

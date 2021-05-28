@@ -3,13 +3,11 @@ import { Card, Icon, Layout } from '@wings-software/uicore'
 import { Link, useParams } from 'react-router-dom'
 
 import { isEmpty } from 'lodash-es'
-import type { PipelineExecutionSummary } from 'services/pipeline-ng'
+import type { PipelineExecutionSummary, ExecutionTriggerInfo } from 'services/pipeline-ng'
 import { UserLabel, Duration, TimeAgo } from '@common/exports'
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
 import ExecutionActions from '@pipeline/components/ExecutionActions/ExecutionActions'
 import { String } from 'framework/strings'
-import type { StringKeys } from 'framework/strings'
-
 import routes from '@common/RouteDefinitions'
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { TagsPopover } from '@common/components'
@@ -51,6 +49,18 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
         return build?.pullRequest?.commits || []
       default:
         return []
+    }
+  }
+
+  const mapTriggerTypeToStringID = (triggerType: ExecutionTriggerInfo['triggerType']) => {
+    switch (triggerType) {
+      case 'WEBHOOK':
+      case 'WEBHOOK_CUSTOM':
+        return 'execution.triggerType.WEBHOOK'
+      case 'SCHEDULER_CRON':
+        return 'pipeline.triggers.scheduledLabel'
+      default:
+        return 'execution.triggerType.MANUAL'
     }
   }
 
@@ -178,11 +188,7 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
               />
               <String
                 className={css.triggerType}
-                stringID={
-                  `execution.triggerType.${
-                    pipelineExecution.executionTriggerInfo?.triggerType ?? 'MANUAL'
-                  }` as StringKeys
-                } // TODO: fix this properly later
+                stringID={mapTriggerTypeToStringID(pipelineExecution.executionTriggerInfo?.triggerType)}
               />
             </div>
             <div className={css.timers}>
