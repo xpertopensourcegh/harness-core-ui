@@ -35,14 +35,6 @@ exports[`<ApprovalTab /> tests renders harness approval step 1`] = `
             </div>
           </td>
         </tr>
-        <tr>
-          <th>
-            common.timeout
-          </th>
-          <td>
-            -
-          </td>
-        </tr>
       </tbody>
     </table>
     <div
