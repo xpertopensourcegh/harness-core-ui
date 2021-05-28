@@ -18,6 +18,7 @@ import type { AbstractStepFactory } from '../AbstractSteps/AbstractStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
 import { StepViewType } from '../AbstractSteps/Step'
 import { getStageFromPipeline } from '../PipelineStudio/StepUtil'
+import { PipelineVariablesContextProvider } from '../PipelineVariablesContext/PipelineVariablesContext'
 import css from './PipelineInputSetForm.module.scss'
 
 export interface PipelineInputSetFormProps {
@@ -83,68 +84,70 @@ export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props =
   const { originalPipeline, template, path = '', readonly } = props
   const { getString } = useStrings()
   return (
-    <Layout.Vertical spacing="medium" padding="xlarge" className={css.container}>
-      {(originalPipeline as any)?.variables?.length > 0 && (
+    <PipelineVariablesContextProvider pipeline={originalPipeline}>
+      <Layout.Vertical spacing="medium" padding="xlarge" className={css.container}>
+        {(originalPipeline as any)?.variables?.length > 0 && (
+          <>
+            <div className={css.subheading}>{getString('customVariables.pipelineVariablesTitle')}</div>
+            <StepWidget<CustomVariablesData, CustomVariableInputSetExtraProps>
+              factory={(factory as unknown) as AbstractStepFactory}
+              initialValues={{
+                variables: (originalPipeline.variables || []) as AllNGVariables[],
+                canAddVariable: true
+              }}
+              readonly={readonly}
+              type={StepType.CustomVariable}
+              stepViewType={StepViewType.InputSet}
+              customStepProps={{
+                template: { variables: (template?.variables || []) as AllNGVariables[] },
+                path
+              }}
+            />
+          </>
+        )}
+        {getMultiTypeFromValue((template?.properties?.ci?.codebase?.build as unknown) as string) ===
+          MultiTypeInputType.RUNTIME && (
+          <>
+            <div className={css.header}>{getString('ciCodebase')}</div>
+            <CICodebaseInputSetForm path={path} readonly={readonly} />
+          </>
+        )}
         <>
-          <div className={css.subheading}>{getString('customVariables.pipelineVariablesTitle')}</div>
-          <StepWidget<CustomVariablesData, CustomVariableInputSetExtraProps>
-            factory={(factory as unknown) as AbstractStepFactory}
-            initialValues={{
-              variables: (originalPipeline.variables || []) as AllNGVariables[],
-              canAddVariable: true
-            }}
-            readonly={readonly}
-            type={StepType.CustomVariable}
-            stepViewType={StepViewType.InputSet}
-            customStepProps={{
-              template: { variables: (template?.variables || []) as AllNGVariables[] },
-              path
-            }}
-          />
-        </>
-      )}
-      {getMultiTypeFromValue((template?.properties?.ci?.codebase?.build as unknown) as string) ===
-        MultiTypeInputType.RUNTIME && (
-        <>
-          <div className={css.header}>{getString('ciCodebase')}</div>
-          <CICodebaseInputSetForm path={path} readonly={readonly} />
-        </>
-      )}
-      <>
-        <div className={css.header}>
-          <String stringID="pipeline-list.listStages" />
-        </div>
-        {template?.stages?.map((stageObj, index) => {
-          const pathPrefix = !isEmpty(path) ? `${path}.` : ''
-          if (stageObj.stage) {
-            const allValues = getStageFromPipeline(stageObj?.stage?.identifier || '', originalPipeline)
-            return (
-              <Layout.Vertical key={stageObj?.stage?.identifier || index}>
-                <StageForm
-                  template={stageObj}
-                  allValues={allValues}
-                  path={`${pathPrefix}stages[${index}].stage`}
-                  readonly={readonly}
-                />
-              </Layout.Vertical>
-            )
-          } else if (stageObj.parallel) {
-            return ((stageObj.parallel as unknown) as StageElementWrapperConfig[]).map((stageP, indexp) => {
-              const allValues = getStageFromPipeline(stageP?.stage?.identifier || '', originalPipeline)
+          <div className={css.header}>
+            <String stringID="pipeline-list.listStages" />
+          </div>
+          {template?.stages?.map((stageObj, index) => {
+            const pathPrefix = !isEmpty(path) ? `${path}.` : ''
+            if (stageObj.stage) {
+              const allValues = getStageFromPipeline(stageObj?.stage?.identifier || '', originalPipeline)
               return (
-                <Layout.Vertical key={`${stageObj?.stage?.identifier}-${stageP.stage?.identifier}-${indexp}`}>
+                <Layout.Vertical key={stageObj?.stage?.identifier || index}>
                   <StageForm
-                    template={stageP}
+                    template={stageObj}
                     allValues={allValues}
-                    path={`${pathPrefix}stages[${index}].parallel[${indexp}].stage`}
+                    path={`${pathPrefix}stages[${index}].stage`}
                     readonly={readonly}
                   />
                 </Layout.Vertical>
               )
-            })
-          }
-        })}
-      </>
-    </Layout.Vertical>
+            } else if (stageObj.parallel) {
+              return ((stageObj.parallel as unknown) as StageElementWrapperConfig[]).map((stageP, indexp) => {
+                const allValues = getStageFromPipeline(stageP?.stage?.identifier || '', originalPipeline)
+                return (
+                  <Layout.Vertical key={`${stageObj?.stage?.identifier}-${stageP.stage?.identifier}-${indexp}`}>
+                    <StageForm
+                      template={stageP}
+                      allValues={allValues}
+                      path={`${pathPrefix}stages[${index}].parallel[${indexp}].stage`}
+                      readonly={readonly}
+                    />
+                  </Layout.Vertical>
+                )
+              })
+            }
+          })}
+        </>
+      </Layout.Vertical>
+    </PipelineVariablesContextProvider>
   )
 }

@@ -113,7 +113,6 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
   const delayedOnUpdate = React.useRef(debounce(onUpdate || noop, 300)).current
   const { expressions } = useVariablesExpression()
   const { getString } = useStrings()
-  const onMountRef = React.useRef<boolean>(false)
 
   const {
     data: clusterNamesData,
@@ -226,10 +225,6 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
         onSubmit={noop}
       >
         {formik => {
-          if (!onMountRef.current) {
-            onMountRef.current = true
-            formik.setTouched({ connectorRef: true, namespace: true, releaseName: true, cluster: true })
-          }
           return (
             <FormikForm>
               <Layout.Horizontal className={css.formRow} spacing="medium">

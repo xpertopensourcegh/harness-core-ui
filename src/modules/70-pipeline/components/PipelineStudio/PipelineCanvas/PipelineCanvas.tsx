@@ -31,6 +31,7 @@ import routes from '@common/RouteDefinitions'
 import type { EntityGitDetails } from 'services/pipeline-ng'
 import { useQueryParams, useUpdateQueryParams } from '@common/hooks'
 import GitFilters from '@common/components/GitFilters/GitFilters'
+import { PipelineVariablesContextProvider } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import CreatePipelines from '../CreateModal/PipelineCreate'
 import { DefaultNewPipelineId, DrawerTypes } from '../PipelineContext/PipelineActions'
@@ -477,73 +478,117 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   }
 
   return (
-    <div
-      className={cx(Classes.POPOVER_DISMISS, css.content)}
-      onClick={e => {
-        e.stopPropagation()
-      }}
-    >
-      <NavigationCheck
-        when={getOtherModal && pipeline.identifier !== ''}
-        shouldBlockNavigation={nextLocation => {
-          const matchDefault = matchPath(nextLocation.pathname, {
-            path: toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams }),
-            exact: true
-          })
-          let localUpdated = isUpdated
-          if (isYaml && yamlHandler) {
-            try {
-              const parsedYaml = parse(yamlHandler.getLatestYaml())
-              if (!parsedYaml) {
-                clear()
-                showError(getString('invalidYamlText'))
-                return true
-              }
-              // TODO: only apply for CI as its schema is implemented
-              if (module === 'ci') {
-                if (yamlHandler.getYAMLValidationErrorMap()?.size > 0) {
-                  setYamlError(true)
+    <PipelineVariablesContextProvider pipeline={pipeline}>
+      <div
+        className={cx(Classes.POPOVER_DISMISS, css.content)}
+        onClick={e => {
+          e.stopPropagation()
+        }}
+      >
+        <NavigationCheck
+          when={getOtherModal && pipeline.identifier !== ''}
+          shouldBlockNavigation={nextLocation => {
+            const matchDefault = matchPath(nextLocation.pathname, {
+              path: toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams }),
+              exact: true
+            })
+            let localUpdated = isUpdated
+            if (isYaml && yamlHandler) {
+              try {
+                const parsedYaml = parse(yamlHandler.getLatestYaml())
+                if (!parsedYaml) {
+                  clear()
+                  showError(getString('invalidYamlText'))
                   return true
                 }
+                // TODO: only apply for CI as its schema is implemented
+                if (module === 'ci') {
+                  if (yamlHandler.getYAMLValidationErrorMap()?.size > 0) {
+                    setYamlError(true)
+                    return true
+                  }
+                }
+                localUpdated = !isEqual(omit(originalPipeline, 'repo', 'branch'), parsedYaml.pipeline)
+                updatePipeline(parsedYaml.pipeline)
+              } catch (e) {
+                setYamlError(true)
+                return true
               }
-              localUpdated = !isEqual(omit(originalPipeline, 'repo', 'branch'), parsedYaml.pipeline)
-              updatePipeline(parsedYaml.pipeline)
-            } catch (e) {
-              setYamlError(true)
-              return true
             }
-          }
-          setYamlError(false)
-          return !matchDefault?.isExact && localUpdated && !isReadonly
-        }}
-        textProps={{
-          contentText: isYamlError ? getString('navigationYamlError') : getString('navigationCheckText'),
-          titleText: isYamlError ? getString('navigationYamlErrorTitle') : getString('navigationCheckTitle')
-        }}
-        navigate={newPath => {
-          const isPipeline = matchPath(newPath, {
-            path: toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams }),
-            exact: true
-          })
-          !isPipeline?.isExact && deletePipelineCache()
-          history.push(newPath)
-        }}
-      />
-      <div className={css.titleBar}>
-        <div className={css.breadcrumbsMenu}>
-          <div className={css.pipelineNameContainer}>
-            <div>
-              <Icon className={css.pipelineIcon} padding={{ right: 'small' }} name="pipeline" size={32} />
-              <Text className={css.pipelineName} width="125px" lineClamp={1}>
-                {pipeline?.name}
-              </Text>
-              {isYaml ? null : (
+            setYamlError(false)
+            return !matchDefault?.isExact && localUpdated && !isReadonly
+          }}
+          textProps={{
+            contentText: isYamlError ? getString('navigationYamlError') : getString('navigationCheckText'),
+            titleText: isYamlError ? getString('navigationYamlErrorTitle') : getString('navigationCheckTitle')
+          }}
+          navigate={newPath => {
+            const isPipeline = matchPath(newPath, {
+              path: toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams }),
+              exact: true
+            })
+            !isPipeline?.isExact && deletePipelineCache()
+            history.push(newPath)
+          }}
+        />
+        <div className={css.titleBar}>
+          <div className={css.breadcrumbsMenu}>
+            <div className={css.pipelineNameContainer}>
+              <div>
+                <Icon className={css.pipelineIcon} padding={{ right: 'small' }} name="pipeline" size={32} />
+                <Text className={css.pipelineName} width="125px" lineClamp={1}>
+                  {pipeline?.name}
+                </Text>
+                {isYaml ? null : (
+                  <RbacButton
+                    minimal
+                    icon="Edit"
+                    withoutBoxShadow
+                    iconProps={{ size: 12 }}
+                    onClick={showModal}
+                    permission={{
+                      resource: {
+                        resourceType: ResourceType.PIPELINE,
+                        resourceIdentifier: pipeline?.identifier
+                      },
+                      permission: PermissionIdentifier.EDIT_PIPELINE
+                    }}
+                  />
+                )}
+              </div>
+
+              {isGitSyncEnabled && <RenderGitDetails />}
+            </div>
+
+            <div className={css.pipelineStudioTitleContainer}>
+              <div className={css.optionBtns}>
+                <div
+                  className={cx(css.item, { [css.selected]: !isYaml })}
+                  onClick={() => handleViewChange(PipelineStudioView.ui)}
+                >
+                  {getString('visual')}
+                </div>
+                <div
+                  className={cx(css.item, { [css.selected]: isYaml })}
+                  onClick={() => handleViewChange(PipelineStudioView.yaml)}
+                >
+                  {getString('yaml')}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className={css.savePublishContainer}>
+              {isUpdated && <div className={css.tagRender}>{getString('unsavedChanges')}</div>}
+              <div>
                 <RbacButton
                   minimal
-                  icon="Edit"
-                  withoutBoxShadow
-                  iconProps={{ size: 12 }}
-                  onClick={showModal}
+                  intent="primary"
+                  text={getString('save')}
+                  onClick={saveAndPublish}
+                  className={css.savePublishBtn}
+                  icon="send-data"
+                  disabled={isReadonly}
                   permission={{
                     resource: {
                       resourceType: ResourceType.PIPELINE,
@@ -552,82 +597,40 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                     permission: PermissionIdentifier.EDIT_PIPELINE
                   }}
                 />
-              )}
-            </div>
 
-            {isGitSyncEnabled && <RenderGitDetails />}
-          </div>
-
-          <div className={css.pipelineStudioTitleContainer}>
-            <div className={css.optionBtns}>
-              <div
-                className={cx(css.item, { [css.selected]: !isYaml })}
-                onClick={() => handleViewChange(PipelineStudioView.ui)}
-              >
-                {getString('visual')}
-              </div>
-              <div
-                className={cx(css.item, { [css.selected]: isYaml })}
-                onClick={() => handleViewChange(PipelineStudioView.yaml)}
-              >
-                {getString('yaml')}
+                <RbacButton
+                  data-testid="card-run-pipeline"
+                  intent="primary"
+                  icon="run-pipeline"
+                  disabled={isUpdated}
+                  className={css.runPipelineBtn}
+                  text={getString('runPipelineText')}
+                  tooltip={isUpdated ? 'Please click Save and then run the pipeline.' : ''}
+                  onClick={e => {
+                    e.stopPropagation()
+                    runPipeline()
+                  }}
+                  permission={{
+                    resourceScope: {
+                      accountIdentifier: accountId,
+                      orgIdentifier,
+                      projectIdentifier
+                    },
+                    resource: {
+                      resourceType: ResourceType.PIPELINE,
+                      resourceIdentifier: pipeline?.identifier as string
+                    },
+                    permission: PermissionIdentifier.EXECUTE_PIPELINE
+                  }}
+                />
               </div>
             </div>
           </div>
         </div>
-        <div>
-          <div className={css.savePublishContainer}>
-            {isUpdated && <div className={css.tagRender}>{getString('unsavedChanges')}</div>}
-            <div>
-              <RbacButton
-                minimal
-                intent="primary"
-                text={getString('save')}
-                onClick={saveAndPublish}
-                className={css.savePublishBtn}
-                icon="send-data"
-                disabled={isReadonly}
-                permission={{
-                  resource: {
-                    resourceType: ResourceType.PIPELINE,
-                    resourceIdentifier: pipeline?.identifier
-                  },
-                  permission: PermissionIdentifier.EDIT_PIPELINE
-                }}
-              />
-
-              <RbacButton
-                data-testid="card-run-pipeline"
-                intent="primary"
-                icon="run-pipeline"
-                disabled={isUpdated}
-                className={css.runPipelineBtn}
-                text={getString('runPipelineText')}
-                tooltip={isUpdated ? 'Please click Save and then run the pipeline.' : ''}
-                onClick={e => {
-                  e.stopPropagation()
-                  runPipeline()
-                }}
-                permission={{
-                  resourceScope: {
-                    accountIdentifier: accountId,
-                    orgIdentifier,
-                    projectIdentifier
-                  },
-                  resource: {
-                    resourceType: ResourceType.PIPELINE,
-                    resourceIdentifier: pipeline?.identifier as string
-                  },
-                  permission: PermissionIdentifier.EXECUTE_PIPELINE
-                }}
-              />
-            </div>
-          </div>
-        </div>
+        {isYaml ? <PipelineYamlView /> : <StageBuilder />}
+        <RightBar />
+        {saving ? <PageSpinner message={getString('pipeline.savingInProgress')} /> : null}
       </div>
-      {isYaml ? <PipelineYamlView /> : <StageBuilder />}
-      <RightBar />
-      {saving ? <PageSpinner message={getString('pipeline.savingInProgress')} /> : null}
-    </div>
+    </PipelineVariablesContextProvider>
   )
 }
