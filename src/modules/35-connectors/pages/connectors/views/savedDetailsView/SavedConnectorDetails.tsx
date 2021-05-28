@@ -531,18 +531,19 @@ const getSchema = (props: SavedConnectorDetailsProps): Array<ActivityDetailsRowI
   ]
 }
 
-const renderTags = (value: TagsInterface) => {
-  const tagKeys = Object.keys(value)
+const renderTags = (tags: TagsInterface) => {
+  const tagKeys = Object.keys(tags)
   return (
-    <Layout.Horizontal spacing="small">
-      {tagKeys.map((tag, index) => {
+    <Container>
+      {tagKeys.map(key => {
+        const value = tags[key]
         return (
-          <Tag minimal={true} key={tag + index}>
-            {tag}
+          <Tag className={css.tag} key={key}>
+            {value ? `${key}:${value}` : key}
           </Tag>
         )
       })}
-    </Layout.Horizontal>
+    </Container>
   )
 }
 

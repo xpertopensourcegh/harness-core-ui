@@ -230,18 +230,18 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
                     tagsLabel
                   </p>
                   <div
-                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                    class="StyledProps--font StyledProps--main"
                   >
                     <span
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag bp3-minimal"
+                        class="bp3-tag tag"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
                         >
-                          connector
+                          connector:dx
                         </span>
                       </span>
                     </span>
@@ -674,18 +674,18 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
                     tagsLabel
                   </p>
                   <div
-                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                    class="StyledProps--font StyledProps--main"
                   >
                     <span
                       class="Tag--main"
                     >
                       <span
-                        class="bp3-tag bp3-minimal"
+                        class="bp3-tag tag"
                       >
                         <span
                           class="bp3-text-overflow-ellipsis bp3-fill"
                         >
-                          connector
+                          connector:dx
                         </span>
                       </span>
                     </span>
