@@ -108,6 +108,20 @@ exports[`Sidenav render 1`] = `
         environments
       </p>
     </a>
+    <div
+      class="bp3-popover-wrapper bp3-fill"
+    >
+      <div
+        class="bp3-popover-target"
+      >
+        <a
+          class="adminLink"
+          href="/account/dummy/cd/orgs/dummy/projects/dummy/admin"
+        >
+          Admin
+        </a>
+      </div>
+    </div>
   </div>
 </div>
 `;

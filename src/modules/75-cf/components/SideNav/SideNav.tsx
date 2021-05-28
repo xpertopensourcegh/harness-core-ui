@@ -9,6 +9,7 @@ import { ModuleName } from 'framework/types/ModuleName'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
+import { AdminSelector, AdminSelectorLink } from '@common/navigation/AdminSelector/AdminSelector'
 import css from './SideNav.module.scss'
 
 export default function CFSideNav(): React.ReactElement {
@@ -66,6 +67,13 @@ export default function CFSideNav(): React.ReactElement {
               to={withActiveEnvironment(routes.toCFOnboarding(params))}
             />
           )}
+          <AdminSelector path={routes.toCDAdmin(params)}>
+            <AdminSelectorLink
+              label="Access Control"
+              iconName="user"
+              to={routes.toAccessControl({ orgIdentifier, projectIdentifier, module, accountId })}
+            />
+          </AdminSelector>
         </React.Fragment>
       ) : null}
     </Layout.Vertical>

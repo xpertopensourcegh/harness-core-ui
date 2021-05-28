@@ -1,5 +1,7 @@
 import { useStrings } from 'framework/strings'
 import type { StringKeys } from 'framework/strings'
+import SideNav from '@cf/components/SideNav/SideNav'
+import type { SidebarContext } from '@common/navigation/SidebarProvider'
 
 export type OperatorOption = {
   label: string
@@ -75,3 +77,10 @@ export const CFVariationColors = [
   '#ff8f3f',
   '#ed61b5'
 ]
+
+export const CFSideNavProps: SidebarContext = {
+  navComponent: SideNav,
+  subtitle: 'CONTINUOUS',
+  title: 'Features',
+  icon: 'cf-main'
+}

@@ -36,8 +36,6 @@ import FeatureFlagsDetailPage from '@cf/pages/feature-flags-detail/FeatureFlagsD
 import EnvironmentsPage from '@cf/pages/environments/EnvironmentsPage'
 import EnvironmentDetails from '@cf/pages/environment-details/EnvironmentDetails'
 import CFWorkflowsPage from '@cf/pages/workflows/CFWorkflowsPage'
-import type { SidebarContext } from '@common/navigation/SidebarProvider'
-import SideNav from '@cf/components/SideNav/SideNav'
 import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage'
 import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
 import { RedirectToSecretDetailHome } from '@secrets/RouteDestinations'
@@ -60,6 +58,8 @@ import ExecutionPipelineView from '@pipeline/pages/execution/ExecutionPipelineVi
 import ExecutionInputsView from '@pipeline/pages/execution/ExecutionInputsView/ExecutionInputsView'
 import ExecutionArtifactsView from '@pipeline/pages/execution/ExecutionArtifactsView/ExecutionArtifactsView'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
+import AdminRouteDestinations from '@cf/components/routing/AdminRouteDestinations'
+import { CFSideNavProps } from '@cf/constants'
 import { TargetsPage } from './pages/target-management/targets/TargetsPage'
 import CFPipelineStudio from './pages/pipeline-studio/CFPipelineStudio'
 import { TargetDetailPage } from './pages/target-details/TargetDetailPage'
@@ -111,13 +111,6 @@ const RedirectToTargets = (): React.ReactElement => {
   const params = useParams<ProjectPathProps & AccountPathProps>()
 
   return <Redirect to={withActiveEnvironment(routes.toCFTargets(params))} />
-}
-
-const CFSideNavProps: SidebarContext = {
-  navComponent: SideNav,
-  subtitle: 'CONTINUOUS',
-  title: 'Features',
-  icon: 'cf-main'
 }
 
 export default (
@@ -459,5 +452,7 @@ export default (
         <SecretReferences />
       </SecretDetailsHomePage>
     </RouteWithLayout>
+
+    <AdminRouteDestinations />
   </>
 )
