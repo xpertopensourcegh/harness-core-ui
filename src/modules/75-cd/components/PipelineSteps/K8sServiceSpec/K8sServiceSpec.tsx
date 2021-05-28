@@ -12,9 +12,7 @@ import {
   MultiTypeInputType,
   FormInput,
   Icon,
-  NestedAccordionPanel,
   SelectOption,
-  Accordion,
   Card,
   HarnessDocTooltip
 } from '@wings-software/uicore'
@@ -53,7 +51,7 @@ import type { CustomVariablesData } from '@pipeline/components/PipelineSteps/Ste
 import { Step, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { ArtifactToConnectorMap, ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
 
-import { String, useStrings } from 'framework/strings'
+import { useStrings } from 'framework/strings'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
 import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
@@ -152,19 +150,13 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
         </Layout.Horizontal>
       </Card>
 
-      <Accordion className={css.accordionTitle}>
-        <Accordion.Panel
-          id="advanced"
-          addDomId={true}
-          summary={getString('advancedTitle')}
-          details={
-            <Card className={css.sectionCard} id={getString('variablesText')}>
-              <div className={css.tabSubHeading}>{getString('variablesText')}</div>
-              <WorkflowVariables factory={factory as any} isPropagating={isPropagating} readonly={readonly} />
-            </Card>
-          }
-        />
-      </Accordion>
+      <div className={css.accordionTitle}>
+        <div id="advanced">{getString('advancedTitle')}</div>
+        <Card className={css.sectionCard} id={getString('variablesText')}>
+          <div className={css.tabSubHeading}>{getString('variablesText')}</div>
+          <WorkflowVariables factory={factory as any} isPropagating={isPropagating} readonly={readonly} />
+        </Card>
+      </div>
     </div>
   )
 }
@@ -432,85 +424,78 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
   return (
     <Layout.Vertical spacing="medium">
       {get(template, 'artifacts', false) && (
-        <NestedAccordionPanel
-          panelClassName={css.nestedAccordions}
-          summaryClassName={cx(css.nopadLeft, css.accordionSummary)}
-          isDefaultOpen
-          addDomId
-          id={`Stage.${stageIdentifier}.Service.Artifacts`}
-          summary={
-            <div className={css.stagesTreeBulletCircle}>
-              <String stringID="pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts" />
-            </div>
-          }
-          details={
-            <>
-              {template?.artifacts?.primary && (
-                <Text className={css.sectionHeader}>
-                  {getString('primaryArtifactText')}
-                  {!isEmpty(
-                    JSON.parse(
-                      getNonRuntimeFields(
-                        get(pipeline, `${path}.artifacts.primary.spec`),
-                        get(template, 'artifacts.primary.spec')
-                      )
+        <div className={cx(css.nopadLeft, css.accordionSummary)} id={`Stage.${stageIdentifier}.Service.Artifacts`}>
+          <div className={css.subheading}>
+            {getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')}{' '}
+          </div>
+
+          <div className={css.nestedAccordions}>
+            {template?.artifacts?.primary && (
+              <Text className={css.inputheader}>
+                {getString('primaryArtifactText')}
+                {!isEmpty(
+                  JSON.parse(
+                    getNonRuntimeFields(
+                      get(pipeline, `${path}.artifacts.primary.spec`),
+                      get(template, 'artifacts.primary.spec')
                     )
-                  ) && (
-                    <Tooltip
-                      position="top"
-                      content={getNonRuntimeFields(
-                        get(pipeline, `${path}.artifacts.primary.spec`),
-                        get(template, 'artifacts.primary.spec')
-                      )}
-                    >
-                      <Icon name="info" />
-                    </Tooltip>
-                  )}
-                </Text>
-              )}
-              {template?.artifacts?.primary && (
-                <Layout.Vertical key="primary" className={css.inputWidth}>
-                  {getMultiTypeFromValue(get(template, `artifacts.primary.spec.connectorRef`, '')) ===
-                    MultiTypeInputType.RUNTIME && (
-                    <FormGroup
-                      labelFor={'connectorRef'}
-                      label={getString('pipelineSteps.deploy.inputSet.artifactServer')}
-                    >
-                      <ConnectorReferenceField
-                        name={`connectorRef`}
-                        label={''}
-                        selected={get(initialValues, 'artifacts.primary.spec.connectorRef', '')}
-                        placeholder={''}
-                        accountIdentifier={accountId}
-                        projectIdentifier={projectIdentifier}
-                        orgIdentifier={orgIdentifier}
-                        width={400}
-                        disabled={readonly}
-                        type={ArtifactToConnectorMap[artifacts?.primary?.type] as ConnectorInfoDTO['type']}
-                        onChange={(record, scope) => {
-                          const connectorRef =
-                            scope === Scope.ORG || scope === Scope.ACCOUNT
-                              ? `${scope}.${record?.identifier}`
-                              : record?.identifier
-                          set(initialValues, 'artifacts.primary.spec.connectorRef', connectorRef)
-                          onUpdate?.({
-                            ...initialValues
-                          })
-                        }}
-                        gitScope={{ repo: repoIdentifier || '', branch: branchParam }}
-                      />
-                    </FormGroup>
-                  )}
-                  {getMultiTypeFromValue(get(template, `artifacts.primary.spec.imagePath`, '')) ===
-                    MultiTypeInputType.RUNTIME && (
-                    <FormGroup labelFor="imagePath" label={getString('pipelineSteps.deploy.inputSet.imagePath')}>
-                      <FormInput.Text
-                        disabled={readonly}
-                        className={css.width50}
-                        name={`${path}.artifacts.primary.spec.imagePath`}
-                      />
-                    </FormGroup>
-                  )}
+                  )
+                ) && (
+                  <Tooltip
+                    position="top"
+                    content={getNonRuntimeFields(
+                      get(pipeline, `${path}.artifacts.primary.spec`),
+                      get(template, 'artifacts.primary.spec')
+                    )}
+                  >
+                    <Icon name="info" />
+                  </Tooltip>
+                )}
+              </Text>
+            )}
+            {template?.artifacts?.primary && (
+              <Layout.Vertical key="primary" className={css.inputWidth}>
+                {getMultiTypeFromValue(get(template, `artifacts.primary.spec.connectorRef`, '')) ===
+                MultiTypeInputType.RUNTIME && (
+                  <FormGroup
+                    labelFor={'connectorRef'}
+                    label={getString('pipelineSteps.deploy.inputSet.artifactServer')}
+                  >
+                    <ConnectorReferenceField
+                      name={`connectorRef`}
+                      label={''}
+                      selected={get(initialValues, 'artifacts.primary.spec.connectorRef', '')}
+                      placeholder={''}
+                      accountIdentifier={accountId}
+                      projectIdentifier={projectIdentifier}
+                      orgIdentifier={orgIdentifier}
+                      width={400}
+                      disabled={readonly}
+                      type={ArtifactToConnectorMap[artifacts?.primary?.type] as ConnectorInfoDTO['type']}
+                      onChange={(record, scope) => {
+                        const connectorRef =
+                          scope === Scope.ORG || scope === Scope.ACCOUNT
+                            ? `${scope}.${record?.identifier}`
+                            : record?.identifier
+                        set(initialValues, 'artifacts.primary.spec.connectorRef', connectorRef)
+                        onUpdate?.({
+                          ...initialValues
+                        })
+                      }}
+                      gitScope={{ repo: repoIdentifier || '', branch: branchParam }}
+                    />
+                  </FormGroup>
+                )}
+                {getMultiTypeFromValue(get(template, `artifacts.primary.spec.imagePath`, '')) ===
+                MultiTypeInputType.RUNTIME && (
+                  <FormGroup labelFor="imagePath" label={getString('pipelineSteps.deploy.inputSet.imagePath')}>
+                    <FormInput.Text
+                      disabled={readonly}
+                      className={css.width50}
+                      name={`${path}.artifacts.primary.spec.imagePath`}
+                    />
+                  </FormGroup>
+                )}
 
                   {getMultiTypeFromValue(get(template, `artifacts.primary.spec.registryHostname`, '')) ===
                     MultiTypeInputType.RUNTIME && (
@@ -803,79 +788,66 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                   )
                 }
               )}
-            </>
-          }
-        />
+          </div>
+        </div>
       )}
       {!!template?.manifests?.length && (
-        <NestedAccordionPanel
-          isDefaultOpen
-          addDomId
-          id={`Stage.${stageIdentifier}.Service.Manifests`}
-          summaryClassName={cx(css.nopadLeft, css.accordionSummary)}
-          panelClassName={css.nestedAccordions}
-          summary={
-            <div className={css.stagesTreeBulletCircle}>
-              <String stringID="pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests" />
-            </div>
-          }
-          details={
-            <>
-              {
-                <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15, fontWeight: 'bold' }}>
-                  {getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
-                </Text>
-              }
-              {template?.manifests?.map?.(
-                (
-                  {
-                    manifest: {
-                      identifier = '',
-                      spec: {
-                        skipResourceVersioning = '',
-                        store: {
-                          spec: {
-                            branch = '',
-                            connectorRef = '',
-                            folderPath = '',
-                            commitId = '',
-                            repoName = '',
-                            paths = ''
-                          } = {},
-                          type = ''
-                        } = {}
+        <div className={cx(css.nopadLeft, css.accordionSummary)} id={`Stage.${stageIdentifier}.Service.Manifests`}>
+          <div className={css.subheading}>
+            {getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}{' '}
+          </div>
+          <div className={css.nestedAccordions}>
+            {
+              <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15, fontWeight: 'bold' }}>
+                {getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
+              </Text>
+            }
+            {template?.manifests?.map?.(
+              (
+                {
+                  manifest: {
+                    identifier = '',
+                    spec: {
+                      skipResourceVersioning = '',
+                      store: {
+                        spec: {
+                          branch = '',
+                          connectorRef = '',
+                          folderPath = '',
+                          commitId = '',
+                          repoName = '',
+                          paths = ''
+                        } = {},
+                        type = ''
                       } = {}
                     } = {}
-                  }: any,
-                  index: number
-                ) => {
-                  return (
-                    <Layout.Vertical key={identifier}>
-                      <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15 }}>{identifier}</Text>
-                      {getMultiTypeFromValue(connectorRef) === MultiTypeInputType.RUNTIME && (
-                        <FormGroup
-                          labelFor={'connectorRef'}
-                          label={getString('pipeline.manifestType.selectManifestStore')}
-                        >
-                          <ConnectorReferenceField
-                            disabled={readonly}
-                            name={`${path}.manifests[${index}].manifest.spec.store.spec.connectorRef`}
-                            selected={get(
-                              initialValues,
-                              `manifests[${index}].manifest.spec.store.spec.connectorRef`,
-                              ''
-                            )}
-                            label={''}
-                            placeholder={''}
-                            accountIdentifier={accountId}
-                            projectIdentifier={projectIdentifier}
-                            orgIdentifier={orgIdentifier}
-                            type={ManifestToConnectorMap[type as ManifestStores]}
-                            onChange={(record, scope) => {
-                              const connectorRefSelected =
-                                scope === Scope.ORG || scope === Scope.ACCOUNT
-                                  ? `${scope}.${record?.identifier}`
-                                  : record?.identifier
+                  } = {}
+                }: any,
+                index: number
+              ) => {
+                return (
+                  <Layout.Vertical key={identifier}>
+                    <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15 }}>{identifier}</Text>
+                    {getMultiTypeFromValue(connectorRef) === MultiTypeInputType.RUNTIME && (
+                      <FormGroup
+                        labelFor={'connectorRef'}
+                        label={getString('pipeline.manifestType.selectManifestStore')}
+                      >
+                        <ConnectorReferenceField
+                          disabled={readonly}
+                          name={`${path}.manifests[${index}].manifest.spec.store.spec.connectorRef`}
+                          selected={get(initialValues, `manifests[${index}].manifest.spec.store.spec.connectorRef`, '')}
+                          label={''}
+                          placeholder={''}
+                          accountIdentifier={accountId}
+                          projectIdentifier={projectIdentifier}
+                          orgIdentifier={orgIdentifier}
+                          type={ManifestToConnectorMap[type as ManifestStores]}
+                          onChange={(record, scope) => {
+                            const connectorRefSelected =
+                              scope === Scope.ORG || scope === Scope.ACCOUNT
+                                ? `${scope}.${record?.identifier}`
+                                : record?.identifier
 
                               if (record?.spec?.connectionType === GitRepoName.Repo) {
                                 setShowRepoName(false)
@@ -951,27 +923,18 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                           />
                         </div>
                       )}
-                    </Layout.Vertical>
-                  )
-                }
-              )}
-            </>
-          }
-        />
+                  </Layout.Vertical>
+                )
+              }
+            )}
+          </div>
+        </div>
       )}
       {!!initialValues?.variables?.length && (
-        <NestedAccordionPanel
-          isDefaultOpen
-          addDomId
-          id={`Stage.${stageIdentifier}.Service.Variables`}
-          summaryClassName={cx(css.nopadLeft, css.accordionSummary)}
-          panelClassName={css.nestedAccordions}
-          summary={
-            <div className={css.stagesTreeBulletCircle}>
-              <String stringID="variablesText" />
-            </div>
-          }
-          details={
+        <div id={`Stage.${stageIdentifier}.Service.Variables`} className={cx(css.nopadLeft, css.accordionSummary)}>
+          <div className={css.subheading}>{getString('variablesText')}</div>
+
+          <div className={css.nestedAccordions}>
             <StepWidget<CustomVariablesData, CustomVariableInputSetExtraProps>
               factory={(factory as unknown) as AbstractStepFactory}
               initialValues={{
@@ -992,8 +955,8 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
               }}
               readonly={readonly}
             />
-          }
-        />
+          </div>
+        </div>
       )}
     </Layout.Vertical>
   )
