@@ -14,7 +14,6 @@ import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import { useStrings } from 'framework/strings'
 import { EventSummary } from './EventSummary'
 import { translateEvents } from './AuditLogsUtils'
-import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 
 const RenderCellTime: Renderer<CellProps<AuditTrail>> = ({ row }) => {
   const data = row.original
