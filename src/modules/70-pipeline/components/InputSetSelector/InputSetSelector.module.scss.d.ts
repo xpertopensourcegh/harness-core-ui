@@ -3,7 +3,13 @@
 declare const styles: {
   readonly container: string
   readonly clearButton: string
+  readonly inputSetNumber: string
+  readonly inputSetButton: string
+  readonly inputSetName: string
+  readonly inputSetDots: string
+  readonly draggableList: string
   readonly placeholder: string
+  readonly placeholderIcon: string
   readonly popoverContainer: string
   readonly search: string
   readonly searchContainer: string

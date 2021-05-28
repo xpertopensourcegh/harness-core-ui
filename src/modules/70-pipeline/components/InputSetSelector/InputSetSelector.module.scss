@@ -11,31 +11,68 @@
     height: 32px;
     overflow: overlay;
     white-space: nowrap;
-    padding-top: 7px;
+    display: flex;
   }
 
   .clearButton {
     border: 0;
     background: none;
-    color: var(--grey-400);
     cursor: pointer;
-    visibility: hidden;
     padding-left: 8px;
     padding-right: 8px;
 
-    &:hover {
-      background-color: var(--blue-100);
+    :global(.bp3-icon) {
+      color: var(--primary) !important;
     }
   }
 
-  &:hover {
-    .clearButton {
-      visibility: visible;
-    }
+  .input-set-number {
+    background-color: var(--grey-200) !important;
+    width: 22px;
+    height: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    color: var(--primary) !important;
+  }
+
+  .input-set-button {
+    background-color: var(--grey-100) !important;
+    padding: 6px !important;
+    border-radius: 100px;
+    box-shadow: 0px 0px 1px rgb(40 41 61 / 8%), 0px 0.5px 2px rgb(96 97 112 / 16%);
+  }
+
+  .input-set-name {
+    color: var(--primary) !important;
+  }
+
+  .input-set-dots {
+    color: var(--grey-500) !important;
+    opacity: 0.4;
+    letter-spacing: -7.5px;
+    font-size: medium !important;
+  }
+
+  .draggable-list {
+    list-style-type: none;
+    display: flex;
+    padding: 0 !important;
   }
 
   .placeholder {
-    color: var(--grey-350);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+  }
+
+  .placeholder-icon {
+    margin: 0 !important;
+    background-color: var(--primary) !important;
+    color: white !important;
+    border-radius: var(--spacing-1) !important;
+    margin-right: var(--spacing-small) !important;
   }
 }
 
@@ -49,6 +86,7 @@
     height: var(--spacing-xxxlarge) !important;
     border: none !important;
     padding-left: 20px !important;
+    color: var(--primary) !important;
   }
 
   :global(.bp3-input-action) {

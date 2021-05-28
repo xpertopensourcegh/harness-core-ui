@@ -1,16 +1,5 @@
 import React from 'react'
-import {
-  Checkbox,
-  Color,
-  Icon,
-  IconName,
-  Layout,
-  Popover,
-  SelectOption,
-  Tag,
-  Text,
-  TextInput
-} from '@wings-software/uicore'
+import { Checkbox, Color, Icon, IconName, Layout, Popover, SelectOption, Text, TextInput } from '@wings-software/uicore'
 import { clone, isEmpty } from 'lodash-es'
 import cx from 'classnames'
 import { Button, Classes, Position } from '@blueprintjs/core'
@@ -47,39 +36,105 @@ const RenderValue = React.memo(function RenderValue({
   value: InputSetValue[]
   onChange?: (value?: InputSetValue[]) => void
 }): JSX.Element {
+  const onDragStart = React.useCallback((event: React.DragEvent<HTMLLIElement>, row: InputSetValue) => {
+    event.dataTransfer.setData('data', JSON.stringify(row))
+    event.currentTarget.classList.add(css.dragging)
+  }, [])
+
+  const onDragEnd = React.useCallback((event: React.DragEvent<HTMLLIElement>) => {
+    event.currentTarget.classList.remove(css.dragging)
+  }, [])
+
+  const onDragLeave = React.useCallback((event: React.DragEvent<HTMLLIElement>) => {
+    event.currentTarget.classList.remove(css.dragOver)
+  }, [])
+
+  const onDragOver = React.useCallback((event: React.DragEvent<HTMLLIElement>) => {
+    if (event.preventDefault) {
+      event.preventDefault()
+    }
+    event.currentTarget.classList.add(css.dragOver)
+    event.dataTransfer.dropEffect = 'move'
+  }, [])
+
+  const onDrop = React.useCallback(
+    (event: React.DragEvent<HTMLLIElement>, droppedLocation: InputSetValue) => {
+      if (event.preventDefault) {
+        event.preventDefault()
+      }
+      const data = event.dataTransfer.getData('data')
+      if (data) {
+        try {
+          const dropInputSet: InputSetValue = JSON.parse(data)
+          const selected = clone(value)
+          const droppedItem = selected.filter(item => item.value === dropInputSet.value)[0]
+          if (droppedItem) {
+            const droppedItemIndex = selected.indexOf(droppedItem)
+            selected.splice(droppedItemIndex, 1)
+            const droppedLocationIndex = selected.indexOf(droppedLocation)
+            selected.splice(droppedLocationIndex, 0, droppedItem)
+            onChange?.(selected)
+          }
+          // eslint-disable-next-line no-empty
+        } catch {}
+      }
+      event.currentTarget.classList.remove(css.dragOver)
+    },
+    [value]
+  )
+
   if (value.length > 1) {
     return (
-      <>
-        {value.map((item, index) => (
-          <Tag minimal className={css.tag} key={index}>
-            <Layout.Horizontal spacing="xsmall">
-              <Icon
-                name={getIconByType(item.type)}
-                size={12}
-                color={item.type === 'INPUT_SET' ? Color.BLACK : Color.BLUE_500}
-              />
-              <Text font={{ size: 'small' }}>{item.label}</Text>
+      <Layout.Horizontal padding={{ right: 'small', left: 'small' }}>
+        <ul className={css.draggableList}>
+          {value.map((item, index) => (
+            <Layout.Horizontal flex={{ distribution: 'space-between' }} padding={{ right: 'small' }} key={index}>
+              <li
+                draggable={true}
+                onDragStart={event => {
+                  onDragStart(event, item)
+                }}
+                onDragEnd={onDragEnd}
+                onDragOver={onDragOver}
+                onDragLeave={onDragLeave}
+                onDrop={event => onDrop(event, item)}
+              >
+                <Layout.Horizontal spacing="small" className={css.inputSetButton}>
+                  <Text className={css.inputSetDots}>&#x2807;&#x2807;</Text>
+                  <Text className={css.inputSetNumber}>{index + 1}</Text>
+                  <Text className={css.inputSetName}> {item.label}</Text>
+                  <div
+                    className={css.clearButton}
+                    onClick={event => {
+                      event.stopPropagation()
+                      onChange?.(value.filter(el => el !== value[index]))
+                    }}
+                  >
+                    <Icon name="cross" />
+                  </div>
+                </Layout.Horizontal>
+              </li>
             </Layout.Horizontal>
-          </Tag>
-        ))}
-      </>
+          ))}
+        </ul>
+      </Layout.Horizontal>
     )
   }
   return (
     <Layout.Horizontal flex={{ distribution: 'space-between' }} padding={{ right: 'small' }}>
-      <Layout.Horizontal spacing="small">
-        <Icon intent="primary" name={getIconByType(value[0]?.type)}></Icon>
-        <Text>{value[0]?.label}</Text>
+      <Layout.Horizontal spacing="small" className={css.inputSetButton}>
+        <Text className={css.inputSetDots}>&#x2807;&#x2807;</Text>
+        <Text className={css.inputSetName}>{value[0]?.label}</Text>{' '}
+        <div
+          className={css.clearButton}
+          onClick={event => {
+            event.stopPropagation()
+            onChange?.(value.filter(el => el !== value[0]))
+          }}
+        >
+          <Icon name="cross" />
+        </div>
       </Layout.Horizontal>
-      <div
-        className={css.clearButton}
-        onClick={event => {
-          event.stopPropagation()
-          onChange?.()
-        }}
-      >
-        <Icon name="cross" />
-      </div>
     </Layout.Horizontal>
   )
 })
@@ -119,53 +174,6 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
   })
 
   const { showError } = useToaster()
-
-  const onDragStart = React.useCallback((event: React.DragEvent<HTMLLIElement>, row: InputSetValue) => {
-    event.dataTransfer.setData('data', JSON.stringify(row))
-    event.currentTarget.classList.add(css.dragging)
-  }, [])
-
-  const onDragEnd = React.useCallback((event: React.DragEvent<HTMLLIElement>) => {
-    event.currentTarget.classList.remove(css.dragging)
-  }, [])
-
-  const onDragLeave = React.useCallback((event: React.DragEvent<HTMLLIElement>) => {
-    event.currentTarget.classList.remove(css.dragOver)
-  }, [])
-
-  const onDragOver = React.useCallback((event: React.DragEvent<HTMLLIElement>) => {
-    if (event.preventDefault) {
-      event.preventDefault()
-    }
-    event.currentTarget.classList.add(css.dragOver)
-    event.dataTransfer.dropEffect = 'move'
-  }, [])
-
-  const onDrop = React.useCallback(
-    (event: React.DragEvent<HTMLLIElement>, droppedLocation: InputSetValue) => {
-      if (event.preventDefault) {
-        event.preventDefault()
-      }
-      const data = event.dataTransfer.getData('data')
-      if (data) {
-        try {
-          const dropInputSet: InputSetValue = JSON.parse(data)
-          const selected = clone(selectedInputSets)
-          const droppedItem = selected.filter(item => item.value === dropInputSet.value)[0]
-          if (droppedItem) {
-            const droppedItemIndex = selected.indexOf(droppedItem)
-            selected.splice(droppedItemIndex, 1)
-            const droppedLocationIndex = selected.indexOf(droppedLocation)
-            selected.splice(droppedLocationIndex, 0, droppedItem)
-            setSelectedInputSets(selected)
-          }
-          // eslint-disable-next-line no-empty
-        } catch {}
-      }
-      event.currentTarget.classList.remove(css.dragOver)
-    },
-    [selectedInputSets]
-  )
 
   const onCheckBoxHandler = React.useCallback(
     (
@@ -213,14 +221,6 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
   const selectedMultipleList = selectedInputSets.map((selected, index) => (
     <li
       className={cx(css.item)}
-      draggable={true}
-      onDragStart={event => {
-        onDragStart(event, selected)
-      }}
-      onDragEnd={onDragEnd}
-      onDragOver={onDragOver}
-      onDragLeave={onDragLeave}
-      onDrop={event => onDrop(event, selected)}
       onClick={() => {
         onCheckBoxHandler(false, selected.label, selected.value as string, selected.type, selected.gitDetails ?? {})
       }}
@@ -316,11 +316,10 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
       }}
     >
       <Button minimal className={css.container} style={{ width: '100%' }}>
-        {value && value.length > 0 ? (
-          <RenderValue value={value} onChange={onChange} />
-        ) : (
-          <span className={css.placeholder}>{getString('inputSets.selectPlaceholder')}</span>
-        )}
+        {value && value.length > 0 && <RenderValue value={value} onChange={onChange} />}
+        <span className={css.placeholder}>
+          <Icon className={css.placeholderIcon} name={'plus'} size={18} /> {getString('inputSets.selectPlaceholder')}
+        </span>
       </Button>
       <Layout.Vertical spacing="small" className={css.popoverContainer}>
         <div className={!inputSets ? css.loadingSearchContainer : css.searchContainer}>
