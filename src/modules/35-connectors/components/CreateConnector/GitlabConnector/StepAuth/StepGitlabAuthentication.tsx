@@ -291,7 +291,7 @@ const StepGitlabAuthentication: React.FC<
                 onClick={() => props?.previousStep?.(props?.prevStepData)}
                 data-name="gitlabBackButton"
               />
-              <Button type="submit" intent="primary" text={getString('saveAndContinue')} rightIcon="chevron-right" />
+              <Button type="submit" intent="primary" text={getString('continue')} rightIcon="chevron-right" />
             </Layout.Horizontal>
           </Form>
         )}

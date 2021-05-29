@@ -317,7 +317,7 @@ function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
           </Layout.Vertical>
           <Layout.Horizontal spacing="large">
             <Button onClick={() => props.previousStep?.({ ...props.prevStepData })} text={getString('back')} />
-            <Button type="submit" intent="primary" text={getString('connectors.connectAndSave')} />
+            <Button type="submit" intent="primary" text={getString('continue')} />
           </Layout.Horizontal>
         </FormikForm>
       )}

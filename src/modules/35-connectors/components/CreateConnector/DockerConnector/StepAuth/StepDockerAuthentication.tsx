@@ -186,7 +186,7 @@ const StepDockerAuthentication: React.FC<
                 onClick={() => props?.previousStep?.(props?.prevStepData)}
                 data-name="dockerBackButton"
               />
-              <Button type="submit" intent="primary" text={getString('saveAndContinue')} rightIcon="chevron-right" />
+              <Button type="submit" intent="primary" text={getString('continue')} rightIcon="chevron-right" />
             </Layout.Horizontal>
           </Form>
         )}

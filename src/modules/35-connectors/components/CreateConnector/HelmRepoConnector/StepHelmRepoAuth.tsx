@@ -172,7 +172,7 @@ const StepHelmAuthentication: React.FC<StepProps<StepHelmRepoAuthenticationProps
               <Button
                 type="submit"
                 intent="primary"
-                text={getString('saveAndContinue')}
+                text={getString('continue')}
                 rightIcon="chevron-right"
                 disabled={loadConnector}
               />

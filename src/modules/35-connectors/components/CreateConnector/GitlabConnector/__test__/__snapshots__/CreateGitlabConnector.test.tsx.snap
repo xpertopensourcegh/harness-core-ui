@@ -333,7 +333,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one 1`] = `
                       class="bp3-button-text"
                     >
                       <span>
-                        saveAndContinue
+                        continue
                       </span>
                     </span>
                     <span
@@ -713,7 +713,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                       class="bp3-button-text"
                     >
                       <span>
-                        saveAndContinue
+                        continue
                       </span>
                     </span>
                     <span
@@ -1238,7 +1238,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                   <span
                     class="bp3-button-text"
                   >
-                    saveAndContinue
+                    continue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -1616,7 +1616,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                       class="bp3-button-text"
                     >
                       <span>
-                        saveAndContinue
+                        continue
                       </span>
                     </span>
                     <span
@@ -1987,7 +1987,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
                   <span
                     class="bp3-button-text"
                   >
-                    saveAndContinue
+                    continue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -2532,7 +2532,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
                   <span
                     class="bp3-button-text"
                   >
-                    saveAndContinue
+                    continue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -3093,7 +3093,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                   <span
                     class="bp3-button-text"
                   >
-                    saveAndContinue
+                    continue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"

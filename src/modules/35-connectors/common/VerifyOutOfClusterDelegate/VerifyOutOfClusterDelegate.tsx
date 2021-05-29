@@ -378,7 +378,6 @@ const VerifyOutOfClusterDelegate: React.FC<
         isLastStep ? (
           <Layout.Horizontal spacing="large" className={css.btnWrapper}>
             <Button
-              disabled={loading || stepDetails.status === 'ERROR'}
               intent="primary"
               onClick={() => {
                 props.onClose?.()

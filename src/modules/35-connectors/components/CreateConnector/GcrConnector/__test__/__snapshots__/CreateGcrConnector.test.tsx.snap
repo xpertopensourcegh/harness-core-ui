@@ -349,7 +349,7 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
                       class="bp3-button-text"
                     >
                       <span>
-                        saveAndContinue
+                        continue
                       </span>
                     </span>
                     <span
@@ -700,7 +700,7 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  saveAndContinue
+                  continue
                 </span>
                 <span
                   class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -1055,7 +1055,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                       class="bp3-button-text"
                     >
                       <span>
-                        saveAndContinue
+                        continue
                       </span>
                     </span>
                     <span
@@ -1406,7 +1406,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                 <span
                   class="bp3-button-text"
                 >
-                  saveAndContinue
+                  continue
                 </span>
                 <span
                   class="bp3-icon bp3-icon-chevron-right StyledProps--main"

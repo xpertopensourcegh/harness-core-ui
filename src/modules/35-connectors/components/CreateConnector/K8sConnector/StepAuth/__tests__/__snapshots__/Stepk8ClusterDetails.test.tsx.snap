@@ -368,7 +368,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
               <span
                 class="bp3-button-text"
               >
-                saveAndContinue
+                continue
               </span>
               <span
                 class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -781,7 +781,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
               <span
                 class="bp3-button-text"
               >
-                saveAndContinue
+                continue
               </span>
               <span
                 class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -1194,7 +1194,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
               <span
                 class="bp3-button-text"
               >
-                saveAndContinue
+                continue
               </span>
               <span
                 class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -1624,7 +1624,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
               <span
                 class="bp3-button-text"
               >
-                saveAndContinue
+                continue
               </span>
               <span
                 class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -1962,7 +1962,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
               <span
                 class="bp3-button-text"
               >
-                saveAndContinue
+                continue
               </span>
               <span
                 class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -2205,7 +2205,7 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
               <span
                 class="bp3-button-text"
               >
-                saveAndContinue
+                continue
               </span>
               <span
                 class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -2894,7 +2894,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
               <span
                 class="bp3-button-text"
               >
-                saveAndContinue
+                continue
               </span>
               <span
                 class="bp3-icon bp3-icon-chevron-right StyledProps--main"

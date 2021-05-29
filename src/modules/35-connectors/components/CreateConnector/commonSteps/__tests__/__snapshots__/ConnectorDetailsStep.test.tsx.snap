@@ -193,7 +193,7 @@ exports[`Connector details step Test for  create  connector step one required fe
                   class="bp3-button-text"
                 >
                   <span>
-                    saveAndContinue
+                    continue
                   </span>
                 </span>
                 <span
@@ -415,7 +415,7 @@ exports[`Connector details step Test for going to next step 1`] = `
                   class="bp3-button-text"
                 >
                   <span>
-                    saveAndContinue
+                    continue
                   </span>
                 </span>
                 <span

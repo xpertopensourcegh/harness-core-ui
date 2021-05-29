@@ -326,7 +326,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                       class="bp3-button-text"
                     >
                       <span>
-                        saveAndContinue
+                        continue
                       </span>
                     </span>
                     <span
@@ -699,7 +699,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                       class="bp3-button-text"
                     >
                       <span>
-                        saveAndContinue
+                        continue
                       </span>
                     </span>
                     <span
@@ -1217,7 +1217,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                   <span
                     class="bp3-button-text"
                   >
-                    saveAndContinue
+                    continue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -1588,7 +1588,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                       class="bp3-button-text"
                     >
                       <span>
-                        saveAndContinue
+                        continue
                       </span>
                     </span>
                     <span
@@ -1952,7 +1952,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                   <span
                     class="bp3-button-text"
                   >
-                    saveAndContinue
+                    continue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -2490,7 +2490,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
                   <span
                     class="bp3-button-text"
                   >
-                    saveAndContinue
+                    continue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"
@@ -3283,7 +3283,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                   <span
                     class="bp3-button-text"
                   >
-                    saveAndContinue
+                    continue
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-right StyledProps--main"

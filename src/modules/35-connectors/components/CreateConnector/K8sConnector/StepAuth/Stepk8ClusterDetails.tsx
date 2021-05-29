@@ -375,7 +375,7 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
               <Button
                 type="submit"
                 intent="primary"
-                text={getString('saveAndContinue')}
+                text={getString('continue')}
                 rightIcon="chevron-right"
                 margin={{ left: 'medium' }}
               />
