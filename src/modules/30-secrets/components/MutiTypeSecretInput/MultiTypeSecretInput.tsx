@@ -5,7 +5,8 @@ import {
   FixedTypeComponentProps,
   ExpressionAndRuntimeType,
   ButtonProps,
-  ExpressionAndRuntimeTypeProps
+  ExpressionAndRuntimeTypeProps,
+  MultiTypeInputType
 } from '@wings-software/uicore'
 import { get } from 'lodash-es'
 import { FormGroup, IFormGroupProps, Intent } from '@blueprintjs/core'
@@ -44,6 +45,8 @@ export function MultiTypeSecretInputFixedTypeComponent(
 export interface MultiTypeSecretInputProps extends IFormGroupProps {
   name: string
   label?: string
+  expressions?: string[]
+  allowableTypes?: MultiTypeInputType[]
   type?: SecretResponseWrapper['secret']['type']
   onSuccess?: (secret: SecretReference) => void
   secretsListMockData?: ResponsePageSecretResponseWrapper
@@ -60,6 +63,8 @@ export function MultiTypeSecretInput(props: ConnectedMultiTypeSecretInputProps):
     formik,
     label,
     name,
+    allowableTypes,
+    expressions = [],
     onSuccess,
     type = 'SecretText',
     secretsListMockData,
@@ -100,6 +105,8 @@ export function MultiTypeSecretInput(props: ConnectedMultiTypeSecretInputProps):
           value={value}
           disabled={disabled}
           onChange={handleChange}
+          expressions={expressions}
+          allowableTypes={allowableTypes}
           style={{ flexGrow: 1 }}
           fixedTypeComponentProps={{ onClick: openCreateOrSelectSecretModal }}
           fixedTypeComponent={MultiTypeSecretInputFixedTypeComponent}

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Label, FormInput, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
+import { Label, FormInput, getMultiTypeFromValue, MultiTypeInputType, Icon, Layout } from '@wings-software/uicore'
 import { connect } from 'formik'
 import { get, set, isEmpty, pickBy, identity } from 'lodash-es'
 import cx from 'classnames'
@@ -22,6 +22,7 @@ import { CollapseForm } from './CollapseForm'
 import { getStepFromStage } from '../PipelineStudio/StepUtil'
 import { StepWidget } from '../AbstractSteps/StepWidget'
 import { StepViewType } from '../AbstractSteps/Step'
+import { useVariablesExpression } from '../PipelineStudio/PiplineHooks/useVariablesExpression'
 import css from './PipelineInputSetForm.module.scss'
 // import { deployStageStep } from '@common/components/AddDrawer/__tests__/mockResponses'
 function StepForm({
@@ -39,21 +40,31 @@ function StepForm({
   readonly?: boolean
   path: string
 }): JSX.Element {
+  const { getString } = useStrings()
   return (
-    <>
-      <Label>{allValues?.step?.name}</Label>
-      <StepWidget<ExecutionWrapper>
-        factory={factory}
-        readonly={readonly}
-        path={path}
-        template={template?.step}
-        initialValues={values?.step || {}}
-        allValues={allValues?.step || {}}
-        type={(allValues?.step?.type as StepType) || ''}
-        onUpdate={onUpdate}
-        stepViewType={StepViewType.InputSet}
-      />
-    </>
+    <Layout.Vertical spacing="medium" padding={{ top: 'medium' }}>
+      <Label>
+        <Icon
+          padding={{ right: 'small' }}
+          name={factory.getStepIcon(allValues?.step?.type || /* istanbul ignore next */ '')}
+        />
+        {getString('pipeline.execution.stepTitlePrefix')}
+        {`${allValues?.step?.name} (${allValues?.step?.identifier})`}
+      </Label>
+      <div>
+        <StepWidget<ExecutionWrapper>
+          factory={factory}
+          readonly={readonly}
+          path={path}
+          template={template?.step}
+          initialValues={values?.step || {}}
+          allValues={allValues?.step || {}}
+          type={(allValues?.step?.type as StepType) || ''}
+          onUpdate={onUpdate}
+          stepViewType={StepViewType.InputSet}
+        />
+      </div>
+    </Layout.Vertical>
   )
 }
 export interface StageInputSetFormProps {
@@ -230,6 +241,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
 }) => {
   const deploymentStageInputSet = get(formik?.values, path, {})
   const { getString } = useStrings()
+  const { expressions } = useVariablesExpression()
   const isPropagating = deploymentStage?.serviceConfig?.useFromStage
   return (
     <>
@@ -332,7 +344,11 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
             )}
             {getMultiTypeFromValue(deploymentStageTemplate?.infrastructure?.infrastructureKey) ===
               MultiTypeInputType.RUNTIME && (
-              <FormInput.Text
+              <FormInput.MultiTextInput
+                multiTextInputProps={{
+                  allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+                  expressions
+                }}
                 name={`${path}.infrastructure.infrastructureKey`}
                 label={getString('pipeline.infrastructureKey')}
                 disabled={readonly}
