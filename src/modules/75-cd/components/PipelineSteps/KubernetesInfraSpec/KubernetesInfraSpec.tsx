@@ -10,36 +10,22 @@ import {
   MultiTypeInputType,
   Icon
 } from '@wings-software/uicore'
+import cx from 'classnames'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
 import { debounce, noop, isEmpty, get } from 'lodash-es'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
-import type { FormikErrors } from 'formik'
+import { FormikErrors, yupToFormErrors } from 'formik'
 import { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 
-import {
-  K8SDirectInfrastructure,
-  useGetConnector,
-  ConnectorInfoDTO,
-  getConnectorListV2Promise,
-  ConnectorResponse
-} from 'services/cd-ng'
+import { K8SDirectInfrastructure, getConnectorListV2Promise, ConnectorResponse } from 'services/cd-ng'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
-import {
-  getScopeFromDTO,
-  getIdentifierFromValue,
-  getScopeFromValue
-} from '@common/components/EntityReference/EntityReference'
 import { getIconByType } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
-import {
-  ConnectorReferenceField,
-  ConnectorReferenceFieldProps
-} from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { useQueryParams } from '@common/hooks'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
@@ -50,7 +36,9 @@ import { ModuleName } from 'framework/types/ModuleName'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
+import { getNameSpaceSchema, getReleaseNameSchema } from '../PipelineStepsUtil'
 import css from './KubernetesInfraSpec.module.scss'
+import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
 type K8SDirectInfrastructureTemplate = { [key in keyof K8SDirectInfrastructure]: string }
@@ -63,9 +51,6 @@ interface KubernetesInfraSpecEditableProps {
   metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
   variablesData: K8SDirectInfrastructure
 }
-
-const namespaceRegex = /^[a-z0-9]([-a-z0-9]*[a-z0-9])?$/
-const releaseNameRegex = /^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$/
 
 const getConnectorValue = (connector?: ConnectorResponse): string =>
   `${
@@ -101,22 +86,8 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
   const { getString } = useStrings()
   const validationSchema = Yup.object().shape({
     connectorRef: Yup.string().required(getString?.('fieldRequired', { field: getString('connector') })),
-    namespace: Yup.string()
-      .required(getString('fieldRequired', { field: getString('common.namespace') }))
-      .test('namespace', getString('cd.namespaceValidation'), function (value) {
-        if (getMultiTypeFromValue(value) !== MultiTypeInputType.FIXED) {
-          return true
-        }
-        return namespaceRegex.test(value)
-      }),
-    releaseName: Yup.string()
-      .required(getString('fieldRequired', { field: getString('common.releaseName') }))
-      .test('releaseName', getString('cd.releaseNameValidation'), function (value) {
-        if (getMultiTypeFromValue(value) !== MultiTypeInputType.FIXED) {
-          return true
-        }
-        return releaseNameRegex.test(value)
-      })
+    namespace: getNameSpaceSchema(getString),
+    releaseName: getReleaseNameSchema(getString)
   })
 
   return (
@@ -284,8 +255,6 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
 }
 
 const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps & { path: string }> = ({
-  onUpdate,
-  initialValues,
   template,
   readonly = false,
   path
@@ -296,85 +265,56 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps & 
     accountId: string
   }>()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
-  const connectorRef = getIdentifierFromValue(initialValues.connectorRef || '')
-  const initialScope = getScopeFromValue(initialValues.connectorRef || '')
-
-  const { data: connector, loading, refetch } = useGetConnector({
-    identifier: connectorRef,
-    queryParams: {
-      accountIdentifier: accountId,
-      orgIdentifier: initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
-      projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined
-    },
-    lazy: true,
-    debounce: 300
-  })
-
-  React.useEffect(() => {
-    if (
-      getMultiTypeFromValue(template?.connectorRef) === MultiTypeInputType.RUNTIME &&
-      getMultiTypeFromValue(initialValues?.connectorRef) !== MultiTypeInputType.RUNTIME
-    ) {
-      refetch()
-    }
-  }, [initialValues.connectorRef])
-
-  let connectorSelected: ConnectorReferenceFieldProps['selected'] = undefined
-  if (
-    connector?.data?.connector &&
-    getMultiTypeFromValue(template?.connectorRef) === MultiTypeInputType.RUNTIME &&
-    getMultiTypeFromValue(initialValues.connectorRef) === MultiTypeInputType.FIXED
-  ) {
-    const scope = getScopeFromDTO<ConnectorInfoDTO>(connector?.data?.connector)
-    connectorSelected = {
-      label: connector?.data?.connector.name || '',
-      value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${connector?.data?.connector.identifier}`,
-      scope: scope,
-      live: connector?.data?.status?.status === 'SUCCESS',
-      connector: connector?.data?.connector
-    }
-  }
+  const { expressions } = useVariablesExpression()
   const { getString } = useStrings()
   return (
     <Layout.Vertical padding="medium" spacing="small">
       {getMultiTypeFromValue(template?.connectorRef) === MultiTypeInputType.RUNTIME && (
-        <ConnectorReferenceField
-          accountIdentifier={accountId}
-          selected={connectorSelected}
-          projectIdentifier={projectIdentifier}
-          orgIdentifier={orgIdentifier}
-          width={400}
-          name="connectorRef"
-          label={getString('connector')}
-          placeholder={loading ? getString('loading') : getString('cd.steps.common.selectConnectorPlaceholder')}
-          disabled={readonly || loading}
-          onChange={(record, scope) => {
-            onUpdate?.({
-              ...initialValues,
-              connectorRef:
-                scope === Scope.ORG || scope === Scope.ACCOUNT ? `${scope}.${record?.identifier}` : record?.identifier
-            })
-          }}
-          gitScope={{ repo: repoIdentifier || '', branch }}
-        />
+        <div className={cx(stepCss.formGroup, stepCss.md)}>
+          <FormMultiTypeConnectorField
+            accountIdentifier={accountId}
+            projectIdentifier={projectIdentifier}
+            orgIdentifier={orgIdentifier}
+            tooltipProps={{
+              dataTooltipId: 'k8sDirectInfraConnector'
+            }}
+            name={`${path}.connectorRef`}
+            label={getString('connector')}
+            gitScope={{ repo: repoIdentifier || '', branch }}
+            placeholder={getString('cd.steps.common.selectConnectorPlaceholder')}
+            disabled={readonly}
+            setRefValue
+            multiTypeProps={{ allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED], expressions }}
+          />
+        </div>
       )}
       {getMultiTypeFromValue(template?.namespace) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
-          name={`${path}.namespace`}
-          label={getString('common.namespace')}
-          disabled={readonly}
-          className={css.inputWidth}
-          placeholder={getString('cd.steps.common.namespacePlaceholder')}
-        />
+        <div className={cx(stepCss.formGroup, stepCss.md)}>
+          <FormInput.MultiTextInput
+            name={`${path}.namespace`}
+            label={getString('common.namespace')}
+            disabled={readonly}
+            multiTextInputProps={{
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+              expressions
+            }}
+            placeholder={getString('cd.steps.common.namespacePlaceholder')}
+          />
+        </div>
       )}
       {getMultiTypeFromValue(template?.releaseName) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
-          name={`${path}.releaseName`}
-          label={getString('common.releaseName')}
-          disabled={readonly}
-          className={css.inputWidth}
-          placeholder={getString('cd.steps.common.releaseNamePlaceholder')}
-        />
+        <div className={cx(stepCss.formGroup, stepCss.md)}>
+          <FormInput.MultiTextInput
+            name={`${path}.releaseName`}
+            label={getString('common.releaseName')}
+            disabled={readonly}
+            multiTextInputProps={{
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+              expressions
+            }}
+            placeholder={getString('cd.steps.common.releaseNamePlaceholder')}
+          />
+        </div>
       )}
     </Layout.Vertical>
   )
@@ -474,11 +414,37 @@ export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureSte
     if (isEmpty(data.connectorRef) && getMultiTypeFromValue(template?.connectorRef) === MultiTypeInputType.RUNTIME) {
       errors.connectorRef = getString?.('fieldRequired', { field: getString('connector') })
     }
-    if (isEmpty(data.namespace) && getMultiTypeFromValue(template?.namespace) === MultiTypeInputType.RUNTIME) {
-      errors.namespace = getString?.('fieldRequired', { field: 'Namespace' })
+    if (getString && getMultiTypeFromValue(template?.namespace) === MultiTypeInputType.RUNTIME) {
+      const namespace = Yup.object().shape({
+        namespace: getNameSpaceSchema(getString)
+      })
+
+      try {
+        namespace.validateSync(data)
+      } catch (e) {
+        /* istanbul ignore else */
+        if (e instanceof Yup.ValidationError) {
+          const err = yupToFormErrors(e)
+
+          Object.assign(errors, err)
+        }
+      }
     }
-    if (isEmpty(data.releaseName) && getMultiTypeFromValue(template?.releaseName) === MultiTypeInputType.RUNTIME) {
-      errors.releaseName = getString?.('fieldRequired', { field: 'Release Name' })
+    if (getString && getMultiTypeFromValue(template?.releaseName) === MultiTypeInputType.RUNTIME) {
+      const releaseName = Yup.object().shape({
+        releaseName: getReleaseNameSchema(getString)
+      })
+
+      try {
+        releaseName.validateSync(data)
+      } catch (e) {
+        /* istanbul ignore else */
+        if (e instanceof Yup.ValidationError) {
+          const err = yupToFormErrors(e)
+
+          Object.assign(errors, err)
+        }
+      }
     }
     return errors
   }

@@ -46,6 +46,7 @@ export interface MultiTypeConnectorFieldProps extends Omit<ConnectorReferenceFie
   isNewConnectorLabelVisible?: boolean
   configureOptionsProps?: MultiTypeConnectorFieldConfigureOptionsProps
   enableConfigureOptions?: boolean
+  setRefValue?: boolean
   style?: React.CSSProperties
   tooltipProps?: DataTooltipInterface
 }
@@ -63,6 +64,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
     category,
     name,
     label,
+    setRefValue = false,
     onChange,
     width = 400,
     formik,
@@ -83,37 +85,41 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
     ...rest
   } = restProps
   const selected = get(formik?.values, name, '')
-
+  const mountRef = React.useRef<boolean>(false)
   const [selectedValue, setSelectedValue] = React.useState(selected)
   const [inlineSelection, setInlineSelection] = React.useState<InlineSelectionInterface>({
     selected: false,
     inlineModalClosed: false
   })
-  const scopeFromSelected = typeof selected === 'string' && getScopeFromValue(selected || '')
-  const selectedRef = typeof selected === 'string' && getIdentifierFromValue(selected || '')
+  const scopeFromSelected = typeof selectedValue === 'string' ? getScopeFromValue(selectedValue || '') : selected.scope
+  const selectedRef =
+    typeof selectedValue === 'string' ? getIdentifierFromValue(selected || '') : selectedValue?.connector?.identifier
   const [multiType, setMultiType] = React.useState<MultiTypeInputType>(MultiTypeInputType.FIXED)
   const { data: connectorData, loading, refetch } = useGetConnector({
     identifier: selectedRef as string,
     queryParams: {
       accountIdentifier,
       orgIdentifier: scopeFromSelected === Scope.ORG || scopeFromSelected === Scope.PROJECT ? orgIdentifier : undefined,
-      projectIdentifier: scopeFromSelected === Scope.PROJECT ? projectIdentifier : undefined
+      projectIdentifier: scopeFromSelected === Scope.PROJECT ? projectIdentifier : undefined,
+      branch: gitScope?.branch,
+      repoIdentifier: gitScope?.repo
     },
     lazy: true
   })
 
   React.useEffect(() => {
     if (
-      typeof selected == 'string' &&
+      typeof selected === 'string' &&
+      !mountRef.current &&
       multiType === MultiTypeInputType.FIXED &&
       getMultiTypeFromValue(selected) === MultiTypeInputType.FIXED &&
       selected.length > 0
     ) {
       refetch()
-    } else {
-      setSelectedValue(selected)
+      mountRef.current = true
     }
-  }, [selected])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   React.useEffect(() => {
     if (
@@ -134,9 +140,12 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
         live: connectorData?.data?.status?.status === 'SUCCESS',
         connector: connectorData?.data?.connector
       }
-      formik?.setFieldValue(name, value)
+      if (!setRefValue) {
+        formik?.setFieldValue(name, value)
+      }
       setSelectedValue(value)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     connectorData?.data?.connector?.name,
     loading,
@@ -241,7 +250,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
             openConnectorModal
           }),
           isNewConnectorLabelVisible: isNewConnectorLabelVisible,
-          selectedRenderer: getSelectedRenderer(selected),
+          selectedRenderer: getSelectedRenderer(selectedValue),
           ...optionalReferenceSelectProps,
           disabled: isDisabled
         }}
@@ -256,15 +265,19 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
               live: record?.status?.status === 'SUCCESS',
               connector: record
             }
-
-            formik?.setFieldValue(name, value)
+            if (setRefValue) {
+              formik?.setFieldValue(name, value.value)
+            } else {
+              formik?.setFieldValue(name, value)
+            }
+            setSelectedValue(value)
           } else {
             formik?.setFieldValue(name, val)
           }
           setMultiType(type1)
           onChange?.(val, valueType, type1)
         }}
-        value={selected}
+        value={selectedValue}
         {...multiTypeProps}
       />
     </FormGroup>

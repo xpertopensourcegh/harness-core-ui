@@ -32,7 +32,7 @@ const getInitialValues = () => ({
   connectorRef: 'connectorRef',
   cluster: 'cluster',
   namespace: 'namespace',
-  releaseName: 'releaseName'
+  releaseName: 'releasename'
 })
 
 const getEmptyInitialValues = () => ({
@@ -154,7 +154,6 @@ describe('Test GcpInfrastructureSpec behavior', () => {
     await act(async () => {
       fireEvent.click(getByText(container, 'Submit'))
     })
-
     expect(onUpdateHandler).toHaveBeenCalledWith(getInitialValues())
   })
 
@@ -208,7 +207,7 @@ describe('Test GcpInfrastructureSpec behavior', () => {
   })
 })
 
-describe('Test GcpInfrastructureSpec autocomplete', async () => {
+describe('Test GcpInfrastructureSpec autocomplete', () => {
   test('Test connector autocomplete', async () => {
     const step = new GcpInfrastructureSpec() as any
     let list: CompletionItemInterface[]
