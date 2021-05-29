@@ -12,7 +12,6 @@ import {
 import { useParams } from 'react-router'
 import * as Yup from 'yup'
 import { pick } from 'lodash-es'
-import { StringUtils } from '@common/exports'
 import {
   ConnectorConfigDTO,
   ConnectorInfoDTO,
@@ -26,8 +25,10 @@ import { NameIdDescriptionTags } from '@common/components'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import GitContextForm, { GitContextProps } from '@common/components/GitContextForm/GitContextForm'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { getHeadingIdByType } from '../../../pages/connectors/utils/ConnectorHelper'
 import css from './ConnectorDetailsStep.module.scss'
+
 export type DetailsForm = Pick<ConnectorInfoDTO, 'name' | 'identifier' | 'description' | 'tags'> & GitContextProps
 
 interface ConnectorDetailsStepProps extends StepProps<ConnectorInfoDTO> {
@@ -124,15 +125,8 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
           }}
           formName="connectorDetailsStepForm"
           validationSchema={Yup.object().shape({
-            name: Yup.string().trim().required(getString('validation.connectorName')),
-            identifier: Yup.string().when('name', {
-              is: val => val?.length,
-              then: Yup.string()
-                .trim()
-                .required(getString('validation.identifierRequired'))
-                .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
-                .notOneOf(StringUtils.illegalIdentifiers)
-            })
+            name: NameSchema(),
+            identifier: IdentifierSchema()
           })}
           initialValues={{
             ...(getInitialValues() as DetailsForm),
