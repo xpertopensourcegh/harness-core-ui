@@ -1,7 +1,7 @@
 import React from 'react'
 import { Classes, Dialog } from '@blueprintjs/core'
 import cx from 'classnames'
-import { useModalHook, Text, Icon, Layout, Color } from '@wings-software/uicore'
+import { useModalHook, Text, Icon, Layout, Color, Button } from '@wings-software/uicore'
 import { useHistory, useParams, matchPath } from 'react-router-dom'
 import { parse } from 'yaml'
 import { isEqual, merge, omit } from 'lodash-es'
@@ -582,11 +582,9 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
               {isUpdated && <div className={css.tagRender}>{getString('unsavedChanges')}</div>}
               <div>
                 <RbacButton
-                  minimal
                   intent="primary"
                   text={getString('save')}
                   onClick={saveAndPublish}
-                  className={css.savePublishBtn}
                   icon="send-data"
                   disabled={isReadonly}
                   permission={{
@@ -597,7 +595,12 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                     permission: PermissionIdentifier.EDIT_PIPELINE
                   }}
                 />
-
+                <Button
+                  disabled={!isUpdated}
+                  onClick={() => fetchPipeline({ forceFetch: true, forceUpdate: true })}
+                  className={css.discardBtn}
+                  text={getString('pipeline.discard')}
+                />
                 <RbacButton
                   data-testid="card-run-pipeline"
                   intent="primary"
