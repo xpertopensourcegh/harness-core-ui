@@ -31,6 +31,7 @@ export function MultiTypeSecretInputFixedTypeComponent(
   return (
     <Button
       {...rest}
+      withoutBoxShadow
       className={css.value}
       icon="key-main"
       iconProps={{ size: 24, height: 12 }}

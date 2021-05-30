@@ -792,141 +792,133 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
       )}
       {!!template?.manifests?.length && (
         <div className={cx(css.nopadLeft, css.accordionSummary)} id={`Stage.${stageIdentifier}.Service.Manifests`}>
-          <div className={css.subheading}>
-            {getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}{' '}
-          </div>
-          <div className={css.nestedAccordions}>
-            {
-              <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15, fontWeight: 'bold' }}>
-                {getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
-              </Text>
-            }
-            {template?.manifests?.map?.(
-              (
-                {
-                  manifest: {
-                    identifier = '',
-                    spec: {
-                      skipResourceVersioning = '',
-                      store: {
-                        spec: {
-                          branch = '',
-                          connectorRef = '',
-                          folderPath = '',
-                          commitId = '',
-                          repoName = '',
-                          paths = ''
-                        } = {},
-                        type = ''
-                      } = {}
+          {
+            <div className={css.subheading}>
+              {getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
+            </div>
+          }
+          {template?.manifests?.map?.(
+            (
+              {
+                manifest: {
+                  identifier = '',
+                  spec: {
+                    skipResourceVersioning = '',
+                    store: {
+                      spec: {
+                        branch = '',
+                        connectorRef = '',
+                        folderPath = '',
+                        commitId = '',
+                        repoName = '',
+                        paths = ''
+                      } = {},
+                      type = ''
                     } = {}
                   } = {}
-                }: any,
-                index: number
-              ) => {
-                return (
-                  <Layout.Vertical key={identifier}>
-                    <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15 }}>{identifier}</Text>
-                    {getMultiTypeFromValue(connectorRef) === MultiTypeInputType.RUNTIME && (
-                      <FormGroup
-                        labelFor={'connectorRef'}
-                        label={getString('pipeline.manifestType.selectManifestStore')}
-                      >
-                        <ConnectorReferenceField
-                          disabled={readonly}
-                          name={`${path}.manifests[${index}].manifest.spec.store.spec.connectorRef`}
-                          selected={get(initialValues, `manifests[${index}].manifest.spec.store.spec.connectorRef`, '')}
-                          label={''}
-                          placeholder={''}
-                          accountIdentifier={accountId}
-                          projectIdentifier={projectIdentifier}
-                          orgIdentifier={orgIdentifier}
-                          type={ManifestToConnectorMap[type as ManifestStores]}
-                          onChange={(record, scope) => {
-                            const connectorRefSelected =
-                              scope === Scope.ORG || scope === Scope.ACCOUNT
-                                ? `${scope}.${record?.identifier}`
-                                : record?.identifier
-
-                            if (record?.spec?.connectionType === GitRepoName.Repo) {
-                              setShowRepoName(false)
-                            } else {
-                              setShowRepoName(true)
-                            }
-                            set(
-                              initialValues,
-                              `manifests[${index}].manifest.spec.store.spec.connectorRef`,
-                              connectorRefSelected
-                            )
-                            onUpdate?.({
-                              ...initialValues
-                            })
-                          }}
-                          gitScope={{ repo: repoIdentifier || '', branch: branchParam }}
-                        />
-                      </FormGroup>
-                    )}
-                    {getMultiTypeFromValue(branch) === MultiTypeInputType.RUNTIME && (
-                      <FormGroup labelFor={'branch'} label={getString('pipelineSteps.deploy.inputSet.branch')}>
-                        <FormInput.Text
-                          disabled={readonly}
-                          className={css.inputWidth}
-                          name={`${path}.manifests[${index}].manifest.spec.store.spec.branch`}
-                        />
-                      </FormGroup>
-                    )}
-                    {getMultiTypeFromValue(paths) === MultiTypeInputType.RUNTIME && (
-                      <List
-                        label={getString('common.git.filePath')}
-                        name={`${path}.manifests[${index}].manifest.spec.store.spec.paths`}
-                        placeholder={getString('pipeline.manifestType.pathPlaceholder')}
+                } = {}
+              }: any,
+              index: number
+            ) => {
+              return (
+                <Layout.Vertical key={identifier}>
+                  <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15 }}>{identifier}</Text>
+                  {getMultiTypeFromValue(connectorRef) === MultiTypeInputType.RUNTIME && (
+                    <FormGroup labelFor={'connectorRef'} label={getString('pipeline.manifestType.selectManifestStore')}>
+                      <ConnectorReferenceField
                         disabled={readonly}
-                        style={{ marginBottom: 'var(--spacing-small)' }}
+                        name={`${path}.manifests[${index}].manifest.spec.store.spec.connectorRef`}
+                        selected={get(initialValues, `manifests[${index}].manifest.spec.store.spec.connectorRef`, '')}
+                        label={''}
+                        placeholder={''}
+                        accountIdentifier={accountId}
+                        projectIdentifier={projectIdentifier}
+                        orgIdentifier={orgIdentifier}
+                        type={ManifestToConnectorMap[type as ManifestStores]}
+                        onChange={(record, scope) => {
+                          const connectorRefSelected =
+                            scope === Scope.ORG || scope === Scope.ACCOUNT
+                              ? `${scope}.${record?.identifier}`
+                              : record?.identifier
+
+                          if (record?.spec?.connectionType === GitRepoName.Repo) {
+                            setShowRepoName(false)
+                          } else {
+                            setShowRepoName(true)
+                          }
+                          set(
+                            initialValues,
+                            `manifests[${index}].manifest.spec.store.spec.connectorRef`,
+                            connectorRefSelected
+                          )
+                          onUpdate?.({
+                            ...initialValues
+                          })
+                        }}
+                        gitScope={{ repo: repoIdentifier || '', branch: branchParam }}
                       />
-                    )}
-                    {getMultiTypeFromValue(repoName) === MultiTypeInputType.RUNTIME && showRepoName && (
-                      <FormGroup
-                        labelFor={'repoName'}
-                        label={getString('pipelineSteps.build.create.repositoryNameLabel')}
-                      >
-                        <FormInput.Text
-                          disabled={readonly}
-                          className={css.inputWidth}
-                          name={`${path}.manifests[${index}].manifest.spec.store.spec.repoName`}
-                        />
-                      </FormGroup>
-                    )}
-                    {getMultiTypeFromValue(commitId) === MultiTypeInputType.RUNTIME && (
-                      <FormGroup labelFor={'commitId'} label={getString('pipelineSteps.commitIdValue')}>
-                        <FormInput.Text
-                          disabled={readonly}
-                          className={css.inputWidth}
-                          name={`${path}.manifests[${index}].manifest.spec.store.spec.commitId`}
-                        />
-                      </FormGroup>
-                    )}
-                    {getMultiTypeFromValue(folderPath) === MultiTypeInputType.RUNTIME && (
-                      <FormGroup labelFor={'folderPath'} label={getString('chartPath')}>
-                        <FormInput.Text
-                          disabled={readonly}
-                          className={css.inputWidth}
-                          name={`${path}.manifests[${index}].manifest.spec.store.spec.folderPath`}
-                        />
-                      </FormGroup>
-                    )}
-                    {getMultiTypeFromValue(skipResourceVersioning) === MultiTypeInputType.RUNTIME && (
-                      <div className={css.skipVersioning}>
-                        <FormInput.CheckBox
-                          name={`${path}.manifests[${index}].manifest.spec.skipResourceVersioning`}
-                          label={getString('skipResourceVersion')}
-                        />
-                      </div>
-                    )}
-                  </Layout.Vertical>
-                )
-              }
-            )}
-          </div>
+                    </FormGroup>
+                  )}
+                  {getMultiTypeFromValue(branch) === MultiTypeInputType.RUNTIME && (
+                    <FormGroup labelFor={'branch'} label={getString('pipelineSteps.deploy.inputSet.branch')}>
+                      <FormInput.Text
+                        disabled={readonly}
+                        className={css.inputWidth}
+                        name={`${path}.manifests[${index}].manifest.spec.store.spec.branch`}
+                      />
+                    </FormGroup>
+                  )}
+                  {getMultiTypeFromValue(paths) === MultiTypeInputType.RUNTIME && (
+                    <List
+                      label={getString('common.git.filePath')}
+                      name={`${path}.manifests[${index}].manifest.spec.store.spec.paths`}
+                      placeholder={getString('pipeline.manifestType.pathPlaceholder')}
+                      disabled={readonly}
+                      style={{ marginBottom: 'var(--spacing-small)' }}
+                    />
+                  )}
+                  {getMultiTypeFromValue(repoName) === MultiTypeInputType.RUNTIME && showRepoName && (
+                    <FormGroup
+                      labelFor={'repoName'}
+                      label={getString('pipelineSteps.build.create.repositoryNameLabel')}
+                    >
+                      <FormInput.Text
+                        disabled={readonly}
+                        className={css.inputWidth}
+                        name={`${path}.manifests[${index}].manifest.spec.store.spec.repoName`}
+                      />
+                    </FormGroup>
+                  )}
+                  {getMultiTypeFromValue(commitId) === MultiTypeInputType.RUNTIME && (
+                    <FormGroup labelFor={'commitId'} label={getString('pipelineSteps.commitIdValue')}>
+                      <FormInput.Text
+                        disabled={readonly}
+                        className={css.inputWidth}
+                        name={`${path}.manifests[${index}].manifest.spec.store.spec.commitId`}
+                      />
+                    </FormGroup>
+                  )}
+                  {getMultiTypeFromValue(folderPath) === MultiTypeInputType.RUNTIME && (
+                    <FormGroup labelFor={'folderPath'} label={getString('chartPath')}>
+                      <FormInput.Text
+                        disabled={readonly}
+                        className={css.inputWidth}
+                        name={`${path}.manifests[${index}].manifest.spec.store.spec.folderPath`}
+                      />
+                    </FormGroup>
+                  )}
+                  {getMultiTypeFromValue(skipResourceVersioning) === MultiTypeInputType.RUNTIME && (
+                    <div className={css.skipVersioning}>
+                      <FormInput.CheckBox
+                        name={`${path}.manifests[${index}].manifest.spec.skipResourceVersioning`}
+                        label={getString('skipResourceVersion')}
+                      />
+                    </div>
+                  )}
+                </Layout.Vertical>
+              )
+            }
+          )}
         </div>
       )}
       {!!initialValues?.variables?.length && (

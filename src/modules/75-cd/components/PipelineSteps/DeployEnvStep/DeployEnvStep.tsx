@@ -402,6 +402,7 @@ const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps> = ({ inputSet
   >()
 
   const { showError } = useToaster()
+  const { expressions } = useVariablesExpression()
   const { data: environmentsResponse, error, refetch } = useGetEnvironmentListForProject({
     queryParams: { accountId, orgIdentifier, projectIdentifier },
     lazy: true
@@ -430,12 +431,20 @@ const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps> = ({ inputSet
   return (
     <>
       {getMultiTypeFromValue(inputSetData?.template?.environmentRef) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Select
+        <FormInput.MultiTypeInput
           label={getString('pipelineSteps.environmentTab.specifyYourEnvironment')}
           tooltipProps={{ dataTooltipId: 'specifyYourEnvironment' }}
           name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}environmentRef`}
           placeholder={getString('pipelineSteps.environmentTab.selectEnvironment')}
-          items={environments}
+          selectItems={environments}
+          multiTypeInputProps={{
+            allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+            selectProps: {
+              addClearBtn: !inputSetData?.readonly,
+              items: environments
+            },
+            expressions
+          }}
           disabled={inputSetData?.readonly}
           className={css.inputWidth}
         />

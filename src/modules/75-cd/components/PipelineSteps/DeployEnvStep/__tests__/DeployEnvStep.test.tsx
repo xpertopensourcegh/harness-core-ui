@@ -211,7 +211,9 @@ describe('Test DeployEnvironment Step', () => {
       fireEvent.click(getByText(container, 'Submit'))
     })
     expect(container.querySelector('.bp3-card > pre')?.innerHTML).toMatchInlineSnapshot(`
-      "environmentRef: selected_env
+      "environmentRef:
+        label: Selected Env
+        value: selected_env
       "
     `)
   })

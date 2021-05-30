@@ -51,6 +51,8 @@ jest.mock(
   }
 )
 
+jest.useFakeTimers()
+
 jest.mock('services/cd-ng', () => ({
   useGetConnector: jest.fn(() => ConnectorResponse)
 }))
@@ -109,7 +111,7 @@ describe('Render Forms - Snapshot Testing', () => {
         </PipelineContext.Provider>
       </TestWrapper>
     )
-
+    jest.runOnlyPendingTimers()
     // // Switch Mode
     // fireEvent.click(getByText('yaml'))
     // await waitFor(() => getAllByText('Yaml View'))
@@ -138,6 +140,7 @@ describe('Render Forms - Snapshot Testing', () => {
         <OverlayInputSetForm hideForm={jest.fn()} />
       </TestWrapper>
     )
+    jest.runOnlyPendingTimers()
     const container = findDialogContainer()
     await waitFor(() => getAllByText('inputSets.addInputSetPlus'))
     const addNew = getAllByText('inputSets.addInputSetPlus')[0]
@@ -176,6 +179,7 @@ describe('Render Forms - Snapshot Testing', () => {
         </PipelineContext.Provider>
       </TestWrapper>
     )
+    jest.runOnlyPendingTimers()
     // const stagePanel = container.querySelector('[data-testid="Stage.asd-summary"]')
     // act(() => {
     //   fireEvent.click(stagePanel as Element)
@@ -208,6 +212,7 @@ describe('Render Forms - Snapshot Testing', () => {
         <OverlayInputSetForm hideForm={jest.fn()} identifier="OverLayInput" />
       </TestWrapper>
     )
+    jest.runOnlyPendingTimers()
     const container = findDialogContainer()
     await waitFor(() => getAllByText('2.'))
     expect(container).toMatchSnapshot()
@@ -234,6 +239,7 @@ describe('Render Forms - Snapshot Testing', () => {
         <OverlayInputSetForm hideForm={jest.fn()} identifier="OverLayInput" />
       </TestWrapper>
     )
+    jest.runOnlyPendingTimers()
     await waitFor(() => getByTestId('asd'))
 
     const container = getByTestId('asd')

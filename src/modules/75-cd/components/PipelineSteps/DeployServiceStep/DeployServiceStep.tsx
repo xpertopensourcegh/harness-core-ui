@@ -348,6 +348,7 @@ const DeployServiceInputStep: React.FC<DeployServiceProps> = ({ inputSetData }) 
   >()
 
   const { showError } = useToaster()
+  const { expressions } = useVariablesExpression()
   const { data: serviceResponse, error, refetch } = useGetServiceListForProject({
     queryParams: { accountId, orgIdentifier, projectIdentifier },
     lazy: true
@@ -373,12 +374,20 @@ const DeployServiceInputStep: React.FC<DeployServiceProps> = ({ inputSetData }) 
   return (
     <>
       {getMultiTypeFromValue(inputSetData?.template?.serviceRef) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Select
+        <FormInput.MultiTypeInput
           tooltipProps={{ dataTooltipId: 'specifyYourService' }}
           label={getString('pipelineSteps.serviceTab.specifyYourService')}
           name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}serviceRef`}
           placeholder={getString('pipelineSteps.serviceTab.selectService')}
-          items={services}
+          selectItems={services}
+          multiTypeInputProps={{
+            expressions,
+            allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+            selectProps: {
+              addClearBtn: true && !inputSetData?.readonly,
+              items: services
+            }
+          }}
           disabled={inputSetData?.readonly}
           className={css.inputWidth}
         />

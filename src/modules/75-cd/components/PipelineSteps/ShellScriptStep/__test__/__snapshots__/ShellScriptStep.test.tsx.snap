@@ -258,7 +258,7 @@ exports[`Test Shell Script Step renders input sets 1`] = `
                 style="flex-grow: 1;"
               >
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main value Button--with-current-color Button--iconOnly"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main value Button--with-current-color Button--iconOnly Button--without-shadow"
                   data-testid="create-or-select-secret"
                   type="button"
                 >
