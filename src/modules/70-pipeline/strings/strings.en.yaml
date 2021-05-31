@@ -471,3 +471,5 @@ testsReports:
   resultInfo: Heat Map showing a graphical over of the test results
   sortBy: 'Sort by:'
 uniqueIdentifier: Identifier must be unique
+repoRequired: 'Repository name is a required field'
+branchRequired: 'Branch is a required field'

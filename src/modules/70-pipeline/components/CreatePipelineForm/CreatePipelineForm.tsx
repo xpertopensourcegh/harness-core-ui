@@ -43,7 +43,13 @@ export const CreatePipelineForm: React.FC<CreatePipelineFormProps> = props => {
             .required(getString('validation.identifierRequired'))
             .matches(StringUtils.regexIdentifier, getString('validation.validIdRegex'))
             .notOneOf(StringUtils.illegalIdentifiers)
-        })
+        }),
+        ...(isGitSyncEnabled
+          ? {
+              repo: Yup.string().trim().required(getString('pipeline.repoRequired')),
+              branch: Yup.string().trim().required(getString('pipeline.branchRequired'))
+            }
+          : {})
       })}
       enableReinitialize={true}
       onSubmit={values => {

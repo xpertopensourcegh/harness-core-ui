@@ -989,6 +989,7 @@ export interface StringsMap {
   'pipeline.barriers.tooltips.barrierWaiting': string
   'pipeline.barriers.tooltips.timeout': string
   'pipeline.barriers.validation.barrierNamerequired': string
+  'pipeline.branchRequired': string
   'pipeline.clickHere': string
   'pipeline.closeStepConfig': string
   'pipeline.conditionalExecution.belowExpression': string
@@ -1209,6 +1210,7 @@ export interface StringsMap {
   'pipeline.manifestType.specifyManifestRepoType': string
   'pipeline.manifestType.specifyManifestStore': string
   'pipeline.progressPercentage': string
+  'pipeline.repoRequired': string
   'pipeline.resourceConstraints.currentlyExecuting': string
   'pipeline.resourceConstraints.infoText': string
   'pipeline.resourceConstraints.title': string
