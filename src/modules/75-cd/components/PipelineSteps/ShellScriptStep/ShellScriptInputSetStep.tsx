@@ -33,7 +33,7 @@ export default function ShellScriptInputSetStep(props: ShellScriptInputSetStepPr
       {getMultiTypeFromValue(template?.spec?.source?.spec?.script) === MultiTypeInputType.RUNTIME ? (
         <div className={cx(stepCss.formGroup, stepCss.alignStart, stepCss.md)}>
           <MultiTypeFieldSelector
-            name="spec.source.spec.script"
+            name={`${isEmpty(path) ? '' : `${path}.`}spec.source.spec.script`}
             label={getString('script')}
             defaultValueToReset=""
             disabled={readonly}
@@ -43,7 +43,7 @@ export default function ShellScriptInputSetStep(props: ShellScriptInputSetStepPr
             expressionRender={() => {
               return (
                 <ShellScriptMonacoField
-                  name="spec.source.spec.script"
+                  name={`${isEmpty(path) ? '' : `${path}.`}spec.source.spec.script`}
                   scriptType={scriptType}
                   disabled={readonly}
                   expressions={expressions}
@@ -52,7 +52,7 @@ export default function ShellScriptInputSetStep(props: ShellScriptInputSetStepPr
             }}
           >
             <ShellScriptMonacoField
-              name="spec.source.spec.script"
+              name={`${isEmpty(path) ? '' : `${path}.`}spec.source.spec.script`}
               scriptType={scriptType}
               disabled={readonly}
               expressions={expressions}
