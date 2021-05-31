@@ -42,7 +42,7 @@ export interface ExecutionLayoutProps {
 function ExecutionLayout(props: React.PropsWithChildren<ExecutionLayoutProps>): React.ReactElement {
   const [child1, child2, child3] = React.Children.toArray(props.children)
   const [layouts, setLayoutState] = useLocalStorage<ExecutionLayoutState[]>(
-    'execution_layout_1', // increase the number in case data structure is changed
+    'execution_layout_2', // increase the number in case data structure is changed
     [props.defaultLayout || ExecutionLayoutState.RIGHT]
   )
   const [layoutState] = layouts

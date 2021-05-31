@@ -26,6 +26,13 @@ const labelMap: Record<ExecutionLayoutState, StringKeys> = {
   [ExecutionLayoutState.MINIMIZE]: 'pipeline.execution.layouts.minimize'
 }
 
+const layouts: ExecutionLayoutState[] = [
+  ExecutionLayoutState.RIGHT,
+  // ExecutionLayoutState.BOTTOM,
+  ExecutionLayoutState.FLOATING,
+  ExecutionLayoutState.MINIMIZE
+]
+
 export default function ExecutionLayoutToggle(props: ExecutionLayoutToggleProps): React.ReactElement {
   const { layout, setLayout } = useExecutionLayoutContext()
   const { getString } = useStrings()
@@ -37,12 +44,7 @@ export default function ExecutionLayoutToggle(props: ExecutionLayoutToggleProps)
 
   return (
     <div className={cx(css.toggle, props.className)}>
-      {[
-        ExecutionLayoutState.RIGHT,
-        ExecutionLayoutState.BOTTOM,
-        ExecutionLayoutState.FLOATING,
-        ExecutionLayoutState.MINIMIZE
-      ].map(key => (
+      {layouts.map(key => (
         <label key={key} className={css.label} title={getString(labelMap[key])}>
           <input type="radio" name="layout" value={key} onChange={handleViewChange} checked={layout === key} />
           <Icon name={iconNameMap[key]} />
