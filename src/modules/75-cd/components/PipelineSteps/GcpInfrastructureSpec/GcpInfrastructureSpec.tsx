@@ -258,7 +258,7 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                         <Text>{getString('pipelineSteps.gcpConnectorLabel')}</Text>
                       </Layout.Horizontal>
                     }
-                    variableName="dockerConnector"
+                    variableName="connectorRef"
                     showRequiredField={false}
                     showDefaultField={false}
                     showAdvanced={true}

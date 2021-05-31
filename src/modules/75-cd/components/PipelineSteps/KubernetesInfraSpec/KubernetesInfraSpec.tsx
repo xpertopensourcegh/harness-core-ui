@@ -142,7 +142,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                         <Text>{getString('pipelineSteps.kubernetesInfraStep.kubernetesConnector')}</Text>
                       </Layout.Horizontal>
                     }
-                    variableName="dockerConnector"
+                    variableName="connectorRef"
                     showRequiredField={false}
                     showDefaultField={false}
                     showAdvanced={true}
