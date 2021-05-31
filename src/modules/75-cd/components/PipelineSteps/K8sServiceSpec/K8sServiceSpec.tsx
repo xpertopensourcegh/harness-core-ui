@@ -20,7 +20,7 @@ import {
 import { parse } from 'yaml'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
-import { FormGroup, Tooltip, Menu } from '@blueprintjs/core'
+import { Tooltip, Menu } from '@blueprintjs/core'
 import memoize from 'lodash-es/memoize'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import type { FormikErrors } from 'formik'
@@ -42,9 +42,9 @@ import {
   useGetBuildDetailsForEcr,
   getBuildDetailsForDockerPromise,
   getBuildDetailsForGcrPromise,
-  getBuildDetailsForEcrPromise
+  getBuildDetailsForEcrPromise,
+  GitConfigDTO
 } from 'services/cd-ng'
-import { ConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import { getStageIndexByIdentifier } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type { CustomVariablesData } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
@@ -66,6 +66,9 @@ import type { ManifestStores } from '@pipeline/components/ManifestSelection/Mani
 import { GitRepoName, ManifestToConnectorMap } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import type { AllNGVariables } from '@pipeline/utils/types'
 import type { UseStringsReturn } from 'framework/strings'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
+import { FormMultiTypeCheckbox } from '@common/components/MultiTypeCheckbox/MultiTypeCheckbox'
 import { K8sServiceSpecVariablesForm, K8sServiceSpecVariablesFormProps } from './K8sServiceSpecVariablesForm'
 import css from './K8sServiceSpec.module.scss'
 
@@ -201,6 +204,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
     },
     lazy: true
   })
+  const { expressions } = useVariablesExpression()
 
   const {
     data: gcrdata,
@@ -459,72 +463,65 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
               <Layout.Vertical key="primary" className={css.inputWidth}>
                 {getMultiTypeFromValue(get(template, `artifacts.primary.spec.connectorRef`, '')) ===
                   MultiTypeInputType.RUNTIME && (
-                  <FormGroup
-                    labelFor={'connectorRef'}
+                  <FormMultiTypeConnectorField
+                    name={`${path}.artifacts.primary.spec.connectorRef`}
                     label={getString('pipelineSteps.deploy.inputSet.artifactServer')}
-                  >
-                    <ConnectorReferenceField
-                      name={`connectorRef`}
-                      label={''}
-                      selected={get(initialValues, 'artifacts.primary.spec.connectorRef', '')}
-                      placeholder={''}
-                      accountIdentifier={accountId}
-                      projectIdentifier={projectIdentifier}
-                      orgIdentifier={orgIdentifier}
-                      width={400}
-                      disabled={readonly}
-                      type={ArtifactToConnectorMap[artifacts?.primary?.type] as ConnectorInfoDTO['type']}
-                      onChange={(record, scope) => {
-                        const connectorRef =
-                          scope === Scope.ORG || scope === Scope.ACCOUNT
-                            ? `${scope}.${record?.identifier}`
-                            : record?.identifier
-                        set(initialValues, 'artifacts.primary.spec.connectorRef', connectorRef)
-                        onUpdate?.({
-                          ...initialValues
-                        })
-                      }}
-                      gitScope={{ repo: repoIdentifier || '', branch: branchParam }}
-                    />
-                  </FormGroup>
+                    selected={get(initialValues, 'artifacts.primary.spec.connectorRef', '')}
+                    placeholder={''}
+                    accountIdentifier={accountId}
+                    projectIdentifier={projectIdentifier}
+                    orgIdentifier={orgIdentifier}
+                    width={400}
+                    setRefValue
+                    disabled={readonly}
+                    multiTypeProps={{
+                      allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+                      expressions
+                    }}
+                    type={ArtifactToConnectorMap[artifacts?.primary?.type] as ConnectorInfoDTO['type']}
+                    gitScope={{ repo: repoIdentifier || '', branch: branchParam }}
+                  />
                 )}
                 {getMultiTypeFromValue(get(template, `artifacts.primary.spec.imagePath`, '')) ===
                   MultiTypeInputType.RUNTIME && (
-                  <FormGroup labelFor="imagePath" label={getString('pipelineSteps.deploy.inputSet.imagePath')}>
-                    <FormInput.Text
-                      disabled={readonly}
-                      className={css.width50}
-                      name={`${path}.artifacts.primary.spec.imagePath`}
-                    />
-                  </FormGroup>
+                  <FormInput.MultiTextInput
+                    label={getString('pipelineSteps.deploy.inputSet.imagePath')}
+                    disabled={readonly}
+                    multiTextInputProps={{
+                      expressions,
+                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                    }}
+                    className={css.width50}
+                    name={`${path}.artifacts.primary.spec.imagePath`}
+                  />
                 )}
 
                 {getMultiTypeFromValue(get(template, `artifacts.primary.spec.registryHostname`, '')) ===
                   MultiTypeInputType.RUNTIME && (
-                  <FormGroup labelFor="registryHostname" label={getString('connectors.GCR.registryHostname')}>
-                    <FormInput.Text
-                      disabled={readonly}
-                      className={css.width50}
-                      name={`${path}.artifacts.primary.spec.registryHostname`}
-                    />
-                  </FormGroup>
+                  <FormInput.MultiTextInput
+                    disabled={readonly}
+                    multiTextInputProps={{
+                      expressions,
+                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                    }}
+                    label={getString('connectors.GCR.registryHostname')}
+                    className={css.width50}
+                    name={`${path}.artifacts.primary.spec.registryHostname`}
+                  />
                 )}
                 {getMultiTypeFromValue(artifacts?.primary?.spec?.region) === MultiTypeInputType.RUNTIME && (
-                  <FormInput.Select
-                    selectProps={{
-                      usePortal: true,
-                      addClearBtn: true && !readonly
+                  <FormInput.MultiTypeInput
+                    multiTypeInputProps={{
+                      selectProps: {
+                        usePortal: true,
+                        addClearBtn: true && !readonly,
+                        items: regions
+                      },
+                      expressions,
+                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                     }}
                     disabled={readonly}
-                    value={
-                      initialValues?.artifacts?.primary?.spec?.region
-                        ? {
-                            label: initialValues?.artifacts?.primary?.spec?.region,
-                            value: initialValues?.artifacts?.primary?.spec?.region
-                          }
-                        : { label: '', value: '' }
-                    }
-                    items={regions}
+                    selectItems={regions}
                     label={getString('regionLabel')}
                     name={`${path}.artifacts.primary.spec.region`}
                   />
@@ -560,39 +557,43 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                         })
                     }}
                   >
-                    <FormInput.Select
+                    <FormInput.MultiTypeInput
                       disabled={readonly || isTagSelectionDisabled(artifacts?.primary?.type)}
-                      items={
+                      selectItems={
                         dockerLoading || gcrLoading || ecrLoading
                           ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }]
                           : getSelectItems('primary')
                       }
-                      selectProps={{
-                        usePortal: true,
-                        addClearBtn: !(readonly || isTagSelectionDisabled(artifacts?.primary?.type)),
-                        noResults: (
-                          <span className={css.padSmall}>{getString('pipelineSteps.deploy.errors.notags')}</span>
-                        ),
-                        itemRenderer: itemRenderer,
-                        allowCreatingNewItems: true,
-                        popoverClassName: css.selectPopover
+                      multiTypeInputProps={{
+                        selectProps: {
+                          items:
+                            dockerLoading || gcrLoading || ecrLoading
+                              ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }]
+                              : getSelectItems('primary'),
+                          usePortal: true,
+                          addClearBtn: !(readonly || isTagSelectionDisabled(artifacts?.primary?.type)),
+                          noResults: (
+                            <span className={css.padSmall}>{getString('pipelineSteps.deploy.errors.notags')}</span>
+                          ),
+                          itemRenderer: itemRenderer,
+                          allowCreatingNewItems: true,
+                          popoverClassName: css.selectPopover
+                        },
+                        expressions,
+                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                       }}
-                      value={
-                        initialValues?.artifacts?.primary?.spec?.tag
-                          ? {
-                              label: initialValues?.artifacts?.primary?.spec?.tag,
-                              value: initialValues?.artifacts?.primary?.spec?.tag
-                            }
-                          : { label: '', value: '' }
-                      }
                       label={getString('tagLabel')}
                       name={`${path}.artifacts.primary.spec.tag`}
                     />
                   </div>
                 )}
                 {getMultiTypeFromValue(artifacts?.primary?.spec?.tagRegex) === MultiTypeInputType.RUNTIME && (
-                  <FormInput.Text
+                  <FormInput.MultiTextInput
                     disabled={readonly}
+                    multiTextInputProps={{
+                      expressions,
+                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                    }}
                     label={getString('tagRegex')}
                     name={`${path}.artifacts.primary.spec.tagRegex`}
                   />
@@ -638,76 +639,65 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                       )}
                     </Text>
                     {getMultiTypeFromValue(connectorRef) === MultiTypeInputType.RUNTIME && (
-                      <FormGroup
-                        labelFor={'connectorRef'}
+                      <FormMultiTypeConnectorField
+                        name={`${path}.artifacts.sidecars[${index}].sidecar.spec.connectorRef`}
+                        selected={get(initialValues, `artifacts.sidecars[${index}].sidecar.spec.connectorRef`, '')}
                         label={getString('pipelineSteps.deploy.inputSet.artifactServer')}
-                      >
-                        <ConnectorReferenceField
-                          name={`${path}.artifacts.sidecars[${index}].sidecar.spec.connectorRef`}
-                          selected={get(initialValues, `artifacts.sidecars[${index}].sidecar.spec.connectorRef`, '')}
-                          label={''}
-                          placeholder={''}
-                          disabled={readonly}
-                          accountIdentifier={accountId}
-                          projectIdentifier={projectIdentifier}
-                          orgIdentifier={orgIdentifier}
-                          type={
-                            ArtifactToConnectorMap[
-                              artifacts?.sidecars?.[index]?.sidecar?.type
-                            ] as ConnectorInfoDTO['type']
-                          }
-                          onChange={(record, scope) => {
-                            const connectorRefSelected =
-                              scope === Scope.ORG || scope === Scope.ACCOUNT
-                                ? `${scope}.${record?.identifier}`
-                                : record?.identifier
-                            set(
-                              initialValues,
-                              `artifacts.sidecars[${index}].sidecar.spec.connectorRef`,
-                              connectorRefSelected
-                            )
-                            onUpdate?.({
-                              ...initialValues
-                            })
-                          }}
-                          gitScope={{ repo: repoIdentifier || '', branch: branchParam }}
-                        />
-                      </FormGroup>
+                        placeholder={''}
+                        setRefValue
+                        disabled={readonly}
+                        multiTypeProps={{
+                          allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+                          expressions
+                        }}
+                        accountIdentifier={accountId}
+                        projectIdentifier={projectIdentifier}
+                        orgIdentifier={orgIdentifier}
+                        type={
+                          ArtifactToConnectorMap[
+                            artifacts?.sidecars?.[index]?.sidecar?.type
+                          ] as ConnectorInfoDTO['type']
+                        }
+                        gitScope={{ repo: repoIdentifier || '', branch: branchParam }}
+                      />
                     )}
                     {getMultiTypeFromValue(imagePath) === MultiTypeInputType.RUNTIME && (
-                      <FormGroup labelFor="imagePath" label={getString('pipelineSteps.deploy.inputSet.imagePath')}>
-                        <FormInput.Text
-                          disabled={readonly}
-                          name={`${path}.artifacts.sidecars[${index}].sidecar.spec.imagePath`}
-                        />
-                      </FormGroup>
+                      <FormInput.MultiTextInput
+                        label={getString('pipelineSteps.deploy.inputSet.imagePath')}
+                        multiTextInputProps={{
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        }}
+                        disabled={readonly}
+                        name={`${path}.artifacts.sidecars[${index}].sidecar.spec.imagePath`}
+                      />
                     )}
                     {getMultiTypeFromValue(registryHostname) === MultiTypeInputType.RUNTIME && (
-                      <FormGroup labelFor="registryHostname" label={getString('connectors.GCR.registryHostname')}>
-                        <FormInput.Text
-                          disabled={readonly}
-                          className={css.width50}
-                          name={`${path}.artifacts.sidecars[${index}].sidecar.spec.registryHostname`}
-                        />
-                      </FormGroup>
+                      <FormInput.MultiTextInput
+                        disabled={readonly}
+                        className={css.width50}
+                        multiTextInputProps={{
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        }}
+                        label={getString('connectors.GCR.registryHostname')}
+                        name={`${path}.artifacts.sidecars[${index}].sidecar.spec.registryHostname`}
+                      />
                     )}
                     {getMultiTypeFromValue(artifacts?.sidecars?.[index]?.sidecar?.spec?.region) ===
                       MultiTypeInputType.RUNTIME && (
-                      <FormInput.Select
-                        selectProps={{
-                          usePortal: true,
-                          addClearBtn: true && !readonly
+                      <FormInput.MultiTypeInput
+                        multiTypeInputProps={{
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                          selectProps: {
+                            items: regions,
+                            usePortal: true,
+                            addClearBtn: true && !readonly
+                          }
                         }}
                         disabled={readonly}
-                        value={
-                          initialValues?.artifacts?.sidecars?.[index]?.sidecar?.spec?.region
-                            ? {
-                                label: initialValues?.artifacts?.sidecars?.[index]?.sidecar?.spec?.region,
-                                value: initialValues?.artifacts?.sidecars?.[index]?.sidecar?.spec?.region
-                              }
-                            : { label: '', value: '' }
-                        }
-                        items={regions}
+                        selectItems={regions}
                         label={getString('regionLabel')}
                         name={`${path}.artifacts.sidecars.[${index}].sidecar.spec.region`}
                       />
@@ -748,30 +738,33 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                             })
                         }}
                       >
-                        <FormInput.Select
+                        <FormInput.MultiTypeInput
                           disabled={
                             readonly || isTagSelectionDisabled(artifacts?.sidecars?.[index]?.sidecar?.type, index)
                           }
-                          items={
+                          selectItems={
                             dockerLoading || gcrLoading || ecrLoading
                               ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }]
                               : getSelectItems(`sidecars[${index}]`)
                           }
-                          selectProps={{
-                            usePortal: true,
-                            addClearBtn: true && !readonly,
-                            noResults: (
-                              <span className={css.padSmall}>{getString('pipelineSteps.deploy.errors.notags')}</span>
-                            ),
-                            itemRenderer: itemRenderer,
-                            allowCreatingNewItems: true,
-                            popoverClassName: css.selectPopover
+                          multiTypeInputProps={{
+                            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+                            expressions,
+                            selectProps: {
+                              items:
+                                dockerLoading || gcrLoading || ecrLoading
+                                  ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }]
+                                  : getSelectItems(`sidecars[${index}]`),
+                              usePortal: true,
+                              addClearBtn: true && !readonly,
+                              noResults: (
+                                <span className={css.padSmall}>{getString('pipelineSteps.deploy.errors.notags')}</span>
+                              ),
+                              itemRenderer: itemRenderer,
+                              allowCreatingNewItems: true,
+                              popoverClassName: css.selectPopover
+                            }
                           }}
-                          value={
-                            currentSidecarSpec?.tag
-                              ? { label: currentSidecarSpec.tag, value: currentSidecarSpec?.tag }
-                              : { label: '', value: '' }
-                          }
                           label={getString('tagLabel')}
                           name={`${path}.artifacts.sidecars.[${index}].sidecar.spec.tag`}
                         />
@@ -779,7 +772,11 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                     )}
                     {getMultiTypeFromValue(artifacts?.sidecars?.[index]?.sidecar?.spec?.tagRegex) ===
                       MultiTypeInputType.RUNTIME && (
-                      <FormInput.Text
+                      <FormInput.MultiTextInput
+                        multiTextInputProps={{
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        }}
                         disabled={readonly}
                         label={getString('tagRegex')}
                         name={`${path}.artifacts.sidecars.[${index}].sidecar.spec.tagRegex`}
@@ -826,49 +823,45 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                 <Layout.Vertical key={identifier}>
                   <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15 }}>{identifier}</Text>
                   {getMultiTypeFromValue(connectorRef) === MultiTypeInputType.RUNTIME && (
-                    <FormGroup labelFor={'connectorRef'} label={getString('pipeline.manifestType.selectManifestStore')}>
-                      <ConnectorReferenceField
-                        disabled={readonly}
-                        name={`${path}.manifests[${index}].manifest.spec.store.spec.connectorRef`}
-                        selected={get(initialValues, `manifests[${index}].manifest.spec.store.spec.connectorRef`, '')}
-                        label={''}
-                        placeholder={''}
-                        accountIdentifier={accountId}
-                        projectIdentifier={projectIdentifier}
-                        orgIdentifier={orgIdentifier}
-                        type={ManifestToConnectorMap[type as ManifestStores]}
-                        onChange={(record, scope) => {
-                          const connectorRefSelected =
-                            scope === Scope.ORG || scope === Scope.ACCOUNT
-                              ? `${scope}.${record?.identifier}`
-                              : record?.identifier
-
-                          if (record?.spec?.connectionType === GitRepoName.Repo) {
+                    <FormMultiTypeConnectorField
+                      disabled={readonly}
+                      name={`${path}.manifests[${index}].manifest.spec.store.spec.connectorRef`}
+                      selected={get(initialValues, `manifests[${index}].manifest.spec.store.spec.connectorRef`, '')}
+                      label={getString('pipeline.manifestType.selectManifestStore')}
+                      placeholder={''}
+                      setRefValue
+                      multiTypeProps={{
+                        allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+                        expressions
+                      }}
+                      accountIdentifier={accountId}
+                      projectIdentifier={projectIdentifier}
+                      orgIdentifier={orgIdentifier}
+                      type={ManifestToConnectorMap[type as ManifestStores]}
+                      onChange={(selected, _itemType, multiType) => {
+                        const item = (selected as unknown) as { record?: GitConfigDTO; scope: Scope }
+                        if (multiType === MultiTypeInputType.FIXED) {
+                          if (item.record?.spec?.type === GitRepoName.Repo) {
                             setShowRepoName(false)
                           } else {
                             setShowRepoName(true)
                           }
-                          set(
-                            initialValues,
-                            `manifests[${index}].manifest.spec.store.spec.connectorRef`,
-                            connectorRefSelected
-                          )
-                          onUpdate?.({
-                            ...initialValues
-                          })
-                        }}
-                        gitScope={{ repo: repoIdentifier || '', branch: branchParam }}
-                      />
-                    </FormGroup>
+                        }
+                      }}
+                      gitScope={{ repo: repoIdentifier || '', branch: branchParam }}
+                    />
                   )}
                   {getMultiTypeFromValue(branch) === MultiTypeInputType.RUNTIME && (
-                    <FormGroup labelFor={'branch'} label={getString('pipelineSteps.deploy.inputSet.branch')}>
-                      <FormInput.Text
-                        disabled={readonly}
-                        className={css.inputWidth}
-                        name={`${path}.manifests[${index}].manifest.spec.store.spec.branch`}
-                      />
-                    </FormGroup>
+                    <FormInput.MultiTextInput
+                      multiTextInputProps={{
+                        expressions,
+                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                      }}
+                      label={getString('pipelineSteps.deploy.inputSet.branch')}
+                      disabled={readonly}
+                      className={css.inputWidth}
+                      name={`${path}.manifests[${index}].manifest.spec.store.spec.branch`}
+                    />
                   )}
                   {getMultiTypeFromValue(paths) === MultiTypeInputType.RUNTIME && (
                     <List
@@ -880,42 +873,51 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                     />
                   )}
                   {getMultiTypeFromValue(repoName) === MultiTypeInputType.RUNTIME && showRepoName && (
-                    <FormGroup
-                      labelFor={'repoName'}
+                    <FormInput.MultiTextInput
+                      disabled={readonly}
+                      multiTextInputProps={{
+                        expressions,
+                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                      }}
                       label={getString('pipelineSteps.build.create.repositoryNameLabel')}
-                    >
-                      <FormInput.Text
-                        disabled={readonly}
-                        className={css.inputWidth}
-                        name={`${path}.manifests[${index}].manifest.spec.store.spec.repoName`}
-                      />
-                    </FormGroup>
+                      className={css.inputWidth}
+                      name={`${path}.manifests[${index}].manifest.spec.store.spec.repoName`}
+                    />
                   )}
                   {getMultiTypeFromValue(commitId) === MultiTypeInputType.RUNTIME && (
-                    <FormGroup labelFor={'commitId'} label={getString('pipelineSteps.commitIdValue')}>
-                      <FormInput.Text
-                        disabled={readonly}
-                        className={css.inputWidth}
-                        name={`${path}.manifests[${index}].manifest.spec.store.spec.commitId`}
-                      />
-                    </FormGroup>
+                    <FormInput.MultiTextInput
+                      disabled={readonly}
+                      multiTextInputProps={{
+                        expressions,
+                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                      }}
+                      label={getString('pipelineSteps.commitIdValue')}
+                      className={css.inputWidth}
+                      name={`${path}.manifests[${index}].manifest.spec.store.spec.commitId`}
+                    />
                   )}
                   {getMultiTypeFromValue(folderPath) === MultiTypeInputType.RUNTIME && (
-                    <FormGroup labelFor={'folderPath'} label={getString('chartPath')}>
-                      <FormInput.Text
-                        disabled={readonly}
-                        className={css.inputWidth}
-                        name={`${path}.manifests[${index}].manifest.spec.store.spec.folderPath`}
-                      />
-                    </FormGroup>
+                    <FormInput.MultiTextInput
+                      multiTextInputProps={{
+                        expressions,
+                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                      }}
+                      disabled={readonly}
+                      label={getString('chartPath')}
+                      className={css.inputWidth}
+                      name={`${path}.manifests[${index}].manifest.spec.store.spec.folderPath`}
+                    />
                   )}
                   {getMultiTypeFromValue(skipResourceVersioning) === MultiTypeInputType.RUNTIME && (
-                    <div className={css.skipVersioning}>
-                      <FormInput.CheckBox
-                        name={`${path}.manifests[${index}].manifest.spec.skipResourceVersioning`}
-                        label={getString('skipResourceVersion')}
-                      />
-                    </div>
+                    <FormMultiTypeCheckbox
+                      multiTypeTextbox={{
+                        expressions,
+                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                      }}
+                      className={css.inputWidth}
+                      name={`${path}.manifests[${index}].manifest.spec.skipResourceVersioning`}
+                      label={getString('skipResourceVersion')}
+                    />
                   )}
                 </Layout.Vertical>
               )
