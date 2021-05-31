@@ -74,13 +74,11 @@ export function StepDetails(props: StepDetailsProps): React.ReactElement {
                     <Text
                       font={{ size: 'small' }}
                       onClick={() =>
-                        openDelegateSelectionLogsModal([
-                          {
-                            taskId: item.taskId as string,
-                            taskName: item.taskName as string,
-                            delegateName: item.name as string
-                          }
-                        ])
+                        openDelegateSelectionLogsModal({
+                          taskId: item.taskId as string,
+                          taskName: item.taskName as string,
+                          delegateName: item.name as string
+                        })
                       }
                       style={{ cursor: 'pointer' }}
                       color={Color.PRIMARY_7}
