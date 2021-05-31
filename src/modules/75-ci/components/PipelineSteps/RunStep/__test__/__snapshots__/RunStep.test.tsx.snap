@@ -432,7 +432,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="spec.source.spec.script-4"
+              data-id="spec.command-4"
               style="flex-grow: 1; margin-bottom: 0px;"
             >
               <label
@@ -527,7 +527,7 @@ exports[`Run Step Edit View edit mode works 1`] = `
                   class="monacoWrapper"
                 >
                   <textarea
-                    name="spec.source.spec.script"
+                    name="spec.command"
                   >
                     command
                   </textarea>
@@ -4159,7 +4159,7 @@ exports[`Run Step Edit View should render properly 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="spec.source.spec.script-4"
+              data-id="spec.command-4"
               style="flex-grow: 1; margin-bottom: 0px;"
             >
               <label
@@ -4254,7 +4254,7 @@ exports[`Run Step Edit View should render properly 1`] = `
                   class="monacoWrapper"
                 >
                   <textarea
-                    name="spec.source.spec.script"
+                    name="spec.command"
                   />
                   <button
                     class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
@@ -5545,7 +5545,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
         </div>
         <div
           class="bp3-form-group"
-          data-id="spec.source.spec.script-3"
+          data-id="spec.command-3"
         >
           <label
             class="bp3-label"
@@ -5597,7 +5597,7 @@ exports[`Run Step InputSet View should render all fields 1`] = `
               class="monacoWrapper"
             >
               <textarea
-                name="spec.source.spec.script"
+                name="spec.command"
               />
               <button
                 class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"

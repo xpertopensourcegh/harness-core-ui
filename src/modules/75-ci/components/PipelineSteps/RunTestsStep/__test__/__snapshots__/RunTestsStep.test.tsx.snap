@@ -1026,7 +1026,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="spec.source.spec.script-10"
+              data-id="spec.preCommand-10"
               style="flex-grow: 1; margin-bottom: 0px;"
             >
               <label
@@ -1121,7 +1121,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                   class="monacoWrapper"
                 >
                   <textarea
-                    name="spec.source.spec.script"
+                    name="spec.preCommand"
                   >
                     pre command
                   </textarea>
@@ -1158,7 +1158,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="spec.source.spec.script-11"
+              data-id="spec.postCommand-11"
               style="flex-grow: 1; margin-bottom: 0px;"
             >
               <label
@@ -1253,7 +1253,7 @@ exports[`RunTests Step Edit View edit mode works 1`] = `
                   class="monacoWrapper"
                 >
                   <textarea
-                    name="spec.source.spec.script"
+                    name="spec.postCommand"
                   >
                     post command
                   </textarea>
@@ -6136,7 +6136,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="spec.source.spec.script-10"
+              data-id="spec.preCommand-10"
               style="flex-grow: 1; margin-bottom: 0px;"
             >
               <label
@@ -6231,7 +6231,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                   class="monacoWrapper"
                 >
                   <textarea
-                    name="spec.source.spec.script"
+                    name="spec.preCommand"
                   />
                   <button
                     class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
@@ -6266,7 +6266,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
           >
             <div
               class="bp3-form-group"
-              data-id="spec.source.spec.script-11"
+              data-id="spec.postCommand-11"
               style="flex-grow: 1; margin-bottom: 0px;"
             >
               <label
@@ -6361,7 +6361,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                   class="monacoWrapper"
                 >
                   <textarea
-                    name="spec.source.spec.script"
+                    name="spec.postCommand"
                   />
                   <button
                     class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
@@ -7969,7 +7969,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
         </div>
         <div
           class="bp3-form-group"
-          data-id="spec.source.spec.script-9"
+          data-id="spec.preCommand-9"
         >
           <label
             class="bp3-label"
@@ -8021,7 +8021,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
               class="monacoWrapper"
             >
               <textarea
-                name="spec.source.spec.script"
+                name="spec.preCommand"
               />
               <button
                 class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
@@ -8052,7 +8052,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
         </div>
         <div
           class="bp3-form-group"
-          data-id="spec.source.spec.script-10"
+          data-id="spec.postCommand-10"
         >
           <label
             class="bp3-label"
@@ -8104,7 +8104,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
               class="monacoWrapper"
             >
               <textarea
-                name="spec.source.spec.script"
+                name="spec.postCommand"
               />
               <button
                 class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"

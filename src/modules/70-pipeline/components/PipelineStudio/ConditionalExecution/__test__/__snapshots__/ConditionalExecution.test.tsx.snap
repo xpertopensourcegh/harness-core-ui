@@ -221,7 +221,9 @@ exports[`ConditionalExecution matches snapshot with data 1`] = `
             >
               <textarea
                 name="condition"
-              />
+              >
+                some condition
+              </textarea>
             </div>
           </div>
         </div>

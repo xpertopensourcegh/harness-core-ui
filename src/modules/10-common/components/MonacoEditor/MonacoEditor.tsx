@@ -7,7 +7,12 @@ export type ReactMonacoEditorRef =
   | MutableRefObject<ReactMonacoEditor | null>
   | null
 
-const MonacoEditor = (props: MonacoEditorProps, ref: ReactMonacoEditorRef) => {
+export interface ExtendedMonacoEditorProps extends MonacoEditorProps {
+  name?: string
+  'data-testid'?: string
+}
+
+const MonacoEditor = (props: ExtendedMonacoEditorProps, ref: ReactMonacoEditorRef) => {
   React.useEffect(() => {
     const remeasureFonts = () => {
       //@ts-ignore
