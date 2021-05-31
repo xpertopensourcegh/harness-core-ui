@@ -504,7 +504,8 @@ export interface StringsMap {
   'secrets.createSSHCredWizard.verifyStepTwo': string
   'secrets.incompleteSecret': string
   'secrets.labelPath': string
-  'secrets.labelSecretManager': string
+  'secrets.labelSecretName': string
+  'secrets.labelSecretsManager': string
   'secrets.labelType': string
   'secrets.labelValue': string
   'secrets.selectSecret': string
@@ -6422,23 +6423,11 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'secret.labelSecretName': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'secret.labelSecretReference': string
   /**
    * @deprecated migrate this string to module level file
    */
   'secret.labelSecretType': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.labelSecretValue': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'secret.labelSecretsManager': string
   /**
    * @deprecated migrate this string to module level file
    */

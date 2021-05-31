@@ -737,11 +737,8 @@ secret:
   referenceSecret: 'Reference Secret'
   secretCreated: Secret Created
   secretActivity: Secret Activity
-  labelSecretName: 'Secret Name*'
-  labelSecretValue: 'Secret Value*'
   labelSecretFile: 'Select File'
   labelSecretReference: 'Reference Secret Identifier'
-  labelSecretsManager: 'Secrets Manager*'
   saving: 'Saving'
   messageSelectSM: 'Please select a Secret Manager'
   placeholderSecretValue: 'Add your secret value'
