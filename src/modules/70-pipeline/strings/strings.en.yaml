@@ -254,6 +254,18 @@ executionStatus:
   NotStarted: NOT STARTED
   ApprovalRejected: REJECTED
   Unknown: UNKNOWN
+executionFilters:
+  labels:
+    Aborted: Aborted
+    Expired: Expired
+    Failed: '{{ $.failed }}'
+    Running: Running
+    Success: '{{ $.success }}'
+    ApprovalRejected: Approval Rejected
+    Paused: Paused
+    ApprovalWaiting: Waiting on approval
+    InterventionWaiting: Waiting on intervention
+    Waiting: Waiting for resources
 logs:
   fetchError: Could not fetch logs. Please try again later.
 conditionalExecution:

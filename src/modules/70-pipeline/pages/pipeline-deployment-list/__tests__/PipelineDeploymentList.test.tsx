@@ -197,7 +197,9 @@ describe('Test Pipeline Deployment list', () => {
     fireEvent.click(select)
 
     await waitFor(() => queryByAttribute('class', document.body, 'bp3-popover-content'))
-    const option1 = await findByTextGlobal(document.body, 'Failed', { selector: '.bp3-fill' })
+    const option1 = await findByTextGlobal(document.body, 'pipeline.executionFilters.labels.Failed', {
+      selector: '.bp3-fill > span'
+    })
 
     fireEvent.click(option1)
 

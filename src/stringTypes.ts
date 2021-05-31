@@ -1062,6 +1062,16 @@ export interface StringsMap {
   'pipeline.execution.stepTitlePrefix': string
   'pipeline.execution.timePrefix': string
   'pipeline.execution.upcomingStagesPrefix': string
+  'pipeline.executionFilters.labels.Aborted': string
+  'pipeline.executionFilters.labels.ApprovalRejected': string
+  'pipeline.executionFilters.labels.ApprovalWaiting': string
+  'pipeline.executionFilters.labels.Expired': string
+  'pipeline.executionFilters.labels.Failed': string
+  'pipeline.executionFilters.labels.InterventionWaiting': string
+  'pipeline.executionFilters.labels.Paused': string
+  'pipeline.executionFilters.labels.Running': string
+  'pipeline.executionFilters.labels.Success': string
+  'pipeline.executionFilters.labels.Waiting': string
   'pipeline.executionStatus.Aborted': string
   'pipeline.executionStatus.Aborting': string
   'pipeline.executionStatus.ApprovalRejected': string

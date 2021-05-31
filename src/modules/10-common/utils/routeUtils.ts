@@ -128,7 +128,7 @@ export const targetPathProps: TargetPathProps = {
 }
 
 export function withAccountId<T>(fn: (args: T) => string) {
-  return (params: T & { accountId: string }) => {
+  return (params: T & { accountId: string }): string => {
     const path = fn(params)
 
     return `/account/${params.accountId}/${path.replace(/^\//, '')}`
@@ -136,7 +136,7 @@ export function withAccountId<T>(fn: (args: T) => string) {
 }
 
 export function withOrgIdentifier<T>(fn: (args: T) => string) {
-  return (params: T & { orgIdentifier: string }) => {
+  return (params: T & { orgIdentifier: string }): string => {
     const path = fn(params)
 
     return `/orgs/${params.orgIdentifier}/${path.replace(/^\//, '')}`
@@ -144,7 +144,7 @@ export function withOrgIdentifier<T>(fn: (args: T) => string) {
 }
 
 export function withProjectIdentifier<T>(fn: (args: T) => string) {
-  return (params: T & { projectIdentifier: string }) => {
+  return (params: T & { projectIdentifier: string }): string => {
     const path = fn(params)
 
     return `/orgs/${params.projectIdentifier}/${path.replace(/^\//, '')}`
