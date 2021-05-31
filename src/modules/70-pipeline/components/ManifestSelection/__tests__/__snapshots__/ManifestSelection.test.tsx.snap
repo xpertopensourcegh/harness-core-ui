@@ -2120,7 +2120,7 @@ exports[`ManifestSelection tests renders Manifest Listview without crashing 1`] 
                   />
                 </svg>
               </span>
-              &lt;+input&gt;
+              
               <span
                 class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-xsmall StyledProps--color"
                 icon="full-circle"
@@ -2293,7 +2293,7 @@ exports[`ManifestSelection tests renders Manifest Listview without crashing 1`] 
                   />
                 </svg>
               </span>
-              &lt;+input&gt;
+              
               <span
                 class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-xsmall StyledProps--color"
                 icon="full-circle"
@@ -2466,7 +2466,7 @@ exports[`ManifestSelection tests renders Manifest Listview without crashing 1`] 
                   />
                 </svg>
               </span>
-              &lt;+input&gt;
+              
               <span
                 class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-xsmall StyledProps--color"
                 icon="full-circle"
@@ -2639,7 +2639,7 @@ exports[`ManifestSelection tests renders Manifest Listview without crashing 1`] 
                   />
                 </svg>
               </span>
-              &lt;+input&gt;
+              
               <span
                 class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-left-xsmall StyledProps--color"
                 icon="full-circle"

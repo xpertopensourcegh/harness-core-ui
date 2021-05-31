@@ -43,7 +43,8 @@ import { ManifestWizard } from './ManifestWizard/ManifestWizard'
 import {
   getStageIndexFromPipeline,
   getFlattenedStages,
-  getStatus
+  getStatus,
+  getConnectorNameFromValue
 } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 import {
   ManifestIconByType,
@@ -643,6 +644,7 @@ const ManifestListView = ({
               const manifest = data['manifest']
 
               const { color } = getStatus(manifest?.spec?.store?.spec?.connectorRef, connectors, accountId)
+              const connectorName = getConnectorNameFromValue(manifest?.spec?.store?.spec?.connectorRef, connectors)
 
               return (
                 <section className={cx(css.manifestList, css.rowItem)} key={`${manifest?.identifier}-${index}`}>
@@ -664,7 +666,7 @@ const ManifestListView = ({
                       rightIconProps={{ size: 12, color }}
                       style={{ color: Color.BLACK, fontWeight: 900 }}
                     >
-                      {manifest?.spec?.store.spec.connectorRef}
+                      {connectorName ?? manifest?.spec?.store.spec.connectorRef}
                     </Text>
                   </span>
 

@@ -233,3 +233,17 @@ export const resetDiagram = (engine: DiagramEngine): void => {
 export const isDuplicateStageId = (id: string, stages: StageElementWrapper[]): boolean => {
   return getFlattenedStages({ stages }).stages?.some(({ stage }) => stage.identifier === id)
 }
+
+export const getConnectorNameFromValue = (
+  connectorRef: string,
+  fetchedConnectorResponse: PageConnectorResponse | undefined
+): string | undefined => {
+  if (!connectorRef || !fetchedConnectorResponse) {
+    return ''
+  }
+
+  const connector = getIdentifierFromValue(connectorRef)
+  const filteredConnector = fetchedConnectorResponse?.content?.find(item => item.connector?.identifier === connector)
+  const connectorName = filteredConnector?.connector?.name
+  return connectorName
+}

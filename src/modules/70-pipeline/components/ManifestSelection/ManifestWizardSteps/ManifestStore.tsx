@@ -181,7 +181,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                       <ConfigureOptions
                         value={(formik.values.connectorRef as unknown) as string}
                         type={ManifestToConnectorMap[selectedManifest]}
-                        variableName="connectorId"
+                        variableName="connectorRef"
                         showRequiredField={false}
                         showDefaultField={false}
                         showAdvanced={true}
