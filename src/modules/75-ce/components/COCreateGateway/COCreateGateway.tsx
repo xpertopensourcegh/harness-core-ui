@@ -6,7 +6,7 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import COProviderSelector from '@ce/components/COProviderSelector/COProviderSelector'
 import { useQueryParams } from '@common/hooks'
 import COGatewayDetails from '@ce/components/COGatewayDetails/COGatewayDetails'
-import type { Provider } from '@ce/components/COCreateGateway/models'
+// import type { Provider } from '@ce/components/COCreateGateway/models'
 import type { GatewayDetails } from './models'
 
 function getString(val: string | undefined): string {
@@ -22,18 +22,22 @@ export const CECODashboardPage: React.FC = () => {
   const { provider } = useQueryParams<{ provider: string }>()
   const gatewayCreationTabs = ['providerSelector', 'gatewayConfig']
   const [currentTab, setCurrentTab] = useState<string | 'providerSelector'>('providerSelector')
-  const initialProvider: Provider = provider
-    ? {
-        name: 'AWS',
-        value: 'aws',
-        icon: 'service-aws'
-      }
-    : {
-        name: 'Azure',
-        value: 'azure',
-        icon: 'service-azure'
-      }
-
+  // const initialProvider: Provider = provider
+  //   ? {
+  //       name: 'AWS',
+  //       value: 'aws',
+  //       icon: 'service-aws'
+  //     }
+  //   : {
+  //       name: 'Azure',
+  //       value: 'azure',
+  //       icon: 'service-azure'
+  //     }
+  const initialProvider = {
+    name: 'AWS',
+    value: 'aws',
+    icon: 'service-aws'
+  }
   const initialGatewayDetails: GatewayDetails = {
     name: '',
     cloudAccount: {
