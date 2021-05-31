@@ -163,7 +163,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
         ? props.gatewayDetails.selectedInstances[0].region
         : props.gatewayDetails.routing.instance.scale_group?.region || '',
       cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
-      resource_group_name: props.gatewayDetails.selectedInstances[0].metadata?.resourceGroup,
+      resource_group_name: props.gatewayDetails.selectedInstances[0]?.metadata?.resourceGroup,
       accountIdentifier: accountId
     }
   })
