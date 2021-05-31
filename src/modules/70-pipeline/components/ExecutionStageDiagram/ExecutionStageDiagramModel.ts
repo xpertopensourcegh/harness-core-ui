@@ -101,7 +101,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
         iconStyle: getIconStyleBasedOnStatus(stage.status, isSelected),
         icon: stage.icon,
         skipCondition: stage?.skipCondition,
-        conditionalExecutionEnabled: getConditionalExecutionFlag(stage.when!)
+        conditionalExecutionEnabled: getConditionalExecutionFlag(stage.when!),
+        disableClick: stage.disableClick
       }
 
       if (!nodeRender) {
@@ -512,7 +513,12 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           lastNode,
           false,
           0,
-          getArrowsColor(pipeline.status || /* istanbul ignore next */ ExecutionStatusEnum.NotStarted)
+          getArrowsColor(
+            pipeline.status || /* istanbul ignore next */ ExecutionStatusEnum.NotStarted,
+            false,
+            false,
+            true
+          )
         )
       }
       this.addNode(stopNode)

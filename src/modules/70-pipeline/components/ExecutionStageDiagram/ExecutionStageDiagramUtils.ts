@@ -139,12 +139,19 @@ export const getNodeStyles = (isSelected: boolean, status: ExecutionStatus): Rea
   return style
 }
 
-export const getArrowsColor = (status: ExecutionStatus, isParallel = false, hideLines = false): string => {
+export const getArrowsColor = (
+  status: ExecutionStatus,
+  isParallel = false,
+  hideLines = false,
+  isLast = false
+): string => {
   if (hideLines) {
     return 'var(--pipeline-transparent-border)'
   } else if (status === ExecutionStatusEnum.NotStarted) {
     return 'var(--execution-pipeline-color-arrow-not-started)'
   } else if (isParallel && status === ExecutionStatusEnum.Running) {
+    return 'var(--execution-pipeline-color-arrow-not-started)'
+  } else if (isLast && status === ExecutionStatusEnum.Running) {
     return 'var(--execution-pipeline-color-arrow-not-started)'
   } else {
     return 'var(--execution-pipeline-color-arrow-complete)'

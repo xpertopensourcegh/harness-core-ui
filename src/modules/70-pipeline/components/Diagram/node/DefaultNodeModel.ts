@@ -35,6 +35,7 @@ export interface DefaultNodeModelOptions extends BasePositionModelOptions {
   selected?: boolean
   allowDropOnLink?: boolean
   allowDropOnNode?: boolean
+  disableClick?: boolean
 }
 
 export interface DefaultNodeModelGenerics extends NodeModelGenerics {
