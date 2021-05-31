@@ -301,7 +301,7 @@ const FormContent = ({
                   }
                 }}
                 disabled={isApprovalStepFieldDisabled(readonly)}
-                gitScope={{ repo: repoIdentifier || '', branch }}
+                gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
               />
               <FormInput.MultiTypeInput
                 selectItems={

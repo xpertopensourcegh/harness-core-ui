@@ -17,14 +17,13 @@ import {
   ConnectorInfoDTO,
   ResponseBoolean,
   validateTheIdentifierIsUniquePromise,
-  Failure,
-  EntityGitDetails
+  Failure
 } from 'services/cd-ng'
 import { String, useStrings } from 'framework/strings'
 import { NameIdDescriptionTags } from '@common/components'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
-import GitContextForm, { GitContextProps } from '@common/components/GitContextForm/GitContextForm'
+import GitContextForm, { GitContextProps, IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { getHeadingIdByType } from '../../../pages/connectors/utils/ConnectorHelper'
 import css from './ConnectorDetailsStep.module.scss'
@@ -38,7 +37,7 @@ interface ConnectorDetailsStepProps extends StepProps<ConnectorInfoDTO> {
   formData?: ConnectorConfigDTO
   isEditMode?: boolean
   connectorInfo?: ConnectorInfoDTO | void
-  gitDetails?: EntityGitDetails
+  gitDetails?: IGitContextFormProps
   mock?: ResponseBoolean
 }
 

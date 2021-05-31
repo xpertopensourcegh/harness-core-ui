@@ -112,9 +112,9 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
               </p>
               <p
                 class="StyledProps--font StyledProps--main name StyledProps--color StyledProps--color-grey400"
-                title="606312ffef03c30721080b85"
+                title="gitSyncRepoTest"
               >
-                606312ffef03c30721080b85
+                gitSyncRepoTest
               </p>
             </div>
           </div>
@@ -459,9 +459,9 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
               </p>
               <p
                 class="StyledProps--font StyledProps--main name StyledProps--color StyledProps--color-grey400"
-                title="6062f6e4ef03c30721080b81"
+                title="gitSyncRepo"
               >
-                6062f6e4ef03c30721080b81
+                gitSyncRepo
               </p>
             </div>
           </div>
@@ -886,9 +886,9 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
               </p>
               <p
                 class="StyledProps--font StyledProps--main name StyledProps--color StyledProps--color-grey400"
-                title="606312ffef03c30721080b85"
+                title="gitSyncRepoTest"
               >
-                606312ffef03c30721080b85
+                gitSyncRepoTest
               </p>
             </div>
           </div>
@@ -1210,9 +1210,9 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
               </p>
               <p
                 class="StyledProps--font StyledProps--main name StyledProps--color StyledProps--color-grey400"
-                title="6062f6e4ef03c30721080b81"
+                title="gitSyncRepo"
               >
-                6062f6e4ef03c30721080b81
+                gitSyncRepo
               </p>
             </div>
           </div>
@@ -1637,9 +1637,9 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
               </p>
               <p
                 class="StyledProps--font StyledProps--main name StyledProps--color StyledProps--color-grey400"
-                title="606312ffef03c30721080b85"
+                title="gitSyncRepoTest"
               >
-                606312ffef03c30721080b85
+                gitSyncRepoTest
               </p>
             </div>
           </div>
@@ -1993,9 +1993,9 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
               </p>
               <p
                 class="StyledProps--font StyledProps--main name StyledProps--color StyledProps--color-grey400"
-                title="6062f6e4ef03c30721080b81"
+                title="gitSyncRepo"
               >
-                6062f6e4ef03c30721080b81
+                gitSyncRepo
               </p>
             </div>
           </div>
@@ -2420,9 +2420,9 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
               </p>
               <p
                 class="StyledProps--font StyledProps--main name StyledProps--color StyledProps--color-grey400"
-                title="606312ffef03c30721080b85"
+                title="gitSyncRepoTest"
               >
-                606312ffef03c30721080b85
+                gitSyncRepoTest
               </p>
             </div>
           </div>
@@ -2767,9 +2767,9 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
               </p>
               <p
                 class="StyledProps--font StyledProps--main name StyledProps--color StyledProps--color-grey400"
-                title="6062f6e4ef03c30721080b81"
+                title="gitSyncRepo"
               >
-                6062f6e4ef03c30721080b81
+                gitSyncRepo
               </p>
             </div>
           </div>

@@ -192,7 +192,10 @@ const CreateConnectorFromYamlPage: React.FC = () => {
                       <GitSyncStoreProvider>
                         <GitContextForm
                           formikProps={formikProps}
-                          gitDetails={pick(formikProps.initialValues, ['repo', 'branch'])}
+                          gitDetails={{
+                            ...pick(formikProps.initialValues, ['repo', 'branch']),
+                            getDefaultFromOtherRepo: false
+                          }}
                         />
                       </GitSyncStoreProvider>
                     ) : null}

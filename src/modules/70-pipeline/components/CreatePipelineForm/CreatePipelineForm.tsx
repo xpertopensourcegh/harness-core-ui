@@ -73,7 +73,11 @@ export const CreatePipelineForm: React.FC<CreatePipelineFormProps> = props => {
               <GitSyncStoreProvider>
                 <GitContextForm
                   formikProps={formikProps}
-                  gitDetails={{ repoIdentifier: formikProps.values.repo, branch: formikProps.values.branch }}
+                  gitDetails={{
+                    repoIdentifier: formikProps.values.repo,
+                    branch: formikProps.values.branch,
+                    getDefaultFromOtherRepo: false
+                  }}
                 />
               </GitSyncStoreProvider>
             )}

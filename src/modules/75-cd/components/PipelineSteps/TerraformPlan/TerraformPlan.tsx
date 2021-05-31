@@ -157,7 +157,7 @@ function TerraformPlanWidget(
                   orgIdentifier={orgIdentifier}
                   style={{ marginBottom: 10 }}
                   multiTypeProps={{ expressions }}
-                  gitScope={{ repo: repoIdentifier || '', branch }}
+                  gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
                 />
               </div>
               <Accordion activeId="step-1" className={stepCss.accordion}>

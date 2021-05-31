@@ -1,7 +1,8 @@
 import React from 'react'
 import { pick } from 'lodash-es'
 import { Connectors } from '@connectors/constants'
-import type { ConnectorRequestBody, ConnectorInfoDTO, EntityGitDetails } from 'services/cd-ng'
+import type { ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
+import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import CreateGitConnector from '../CreateConnector/GitConnector/CreateGitConnector'
 import CreateGithubConnector from '../CreateConnector/GithubConnector/CreateGithubConnector'
 import CreateGitlabConnector from '../CreateConnector/GitlabConnector/CreateGitlabConnector'
@@ -32,7 +33,7 @@ interface CreateConnectorWizardProps {
   isEditMode: boolean
   setIsEditMode: (val: boolean) => void
   connectorInfo: ConnectorInfoDTO | void
-  gitDetails?: EntityGitDetails
+  gitDetails?: IGitContextFormProps
   onClose: () => void
   onSuccess: (data?: ConnectorRequestBody) => void | Promise<void>
 }

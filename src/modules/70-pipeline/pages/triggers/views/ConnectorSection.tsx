@@ -10,6 +10,8 @@ import {
 } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
+import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
+import { useQueryParams } from '@common/hooks'
 
 interface ConnectorSectionInterface {
   formikProps?: any
@@ -26,6 +28,7 @@ export const ConnectorSection: React.FC<ConnectorSectionInterface> = ({ formikPr
     orgIdentifier: string
     accountId: string
   }>()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
 
   // undefined scope means added from + Add
   const [liveRepoName, setLiveRepoName] = React.useState(repoName || '')
@@ -101,12 +104,15 @@ export const ConnectorSection: React.FC<ConnectorSectionInterface> = ({ formikPr
           setSelectedConnector(value, scope)
           formikProps.validateForm()
         }}
+        gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
       />
       <Text
         intent="primary"
         style={{ cursor: 'pointer', width: '70px', marginBottom: 'var(--spacing-medium)' }}
         onClick={() => {
-          openConnectorModal(false, Connectors[sourceRepo], undefined) // isEditMode, type, and connectorInfo
+          openConnectorModal(false, Connectors[sourceRepo], {
+            gitDetails: { repoIdentifier, branch, getDefaultFromOtherRepo: true }
+          }) // isEditMode, type, and connectorInfo
         }}
       >
         {getString('plusAdd')}

@@ -91,7 +91,10 @@ export default function CreatePipelines({
                 </div>
                 {isGitSyncEnabled && (
                   <GitSyncStoreProvider>
-                    <GitContextForm formikProps={formikProps} gitDetails={pick(initialValues, ['repo', 'branch'])} />
+                    <GitContextForm
+                      formikProps={formikProps}
+                      gitDetails={{ ...pick(initialValues, ['repo', 'branch']), getDefaultFromOtherRepo: false }}
+                    />
                   </GitSyncStoreProvider>
                 )}
                 <Button

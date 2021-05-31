@@ -7,6 +7,7 @@ import { useStrings } from 'framework/strings'
 import type { ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
 
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
+import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'
 import AwsKmsConfig from './views/AwsKmsConfig'
 import css from './CreateAwsKmsConnector.module.scss'
@@ -17,6 +18,7 @@ export interface CreateAwsKmsConnectorProps {
   isEditMode: boolean
   mock?: any
   connectorInfo?: ConnectorInfoDTO | void
+  gitDetails?: IGitContextFormProps
 }
 
 export interface StepSecretManagerProps extends ConnectorInfoDTO {
@@ -40,6 +42,7 @@ const CreateAwsKmsConnector: React.FC<CreateAwsKmsConnectorProps> = props => {
         isEditMode={props.isEditMode}
         connectorInfo={props.connectorInfo}
         mock={props.mock}
+        gitDetails={props.gitDetails}
       />
       <AwsKmsConfig
         name={getString('details')}

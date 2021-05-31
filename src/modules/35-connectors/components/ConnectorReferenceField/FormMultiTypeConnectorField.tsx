@@ -205,7 +205,13 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
 
   if (typeof type === 'string' && !category) {
     optionalReferenceSelectProps.createNewHandler = () => {
-      openConnectorModal(false, type, undefined)
+      openConnectorModal(false, type, {
+        gitDetails: {
+          repoIdentifier: gitScope?.repo,
+          branch: gitScope?.branch,
+          getDefaultFromOtherRepo: gitScope?.getDefaultFromOtherRepo || true
+        }
+      })
     }
   } else if (Array.isArray(type) && !category) {
     optionalReferenceSelectProps.createNewHandler = () => {

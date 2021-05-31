@@ -81,7 +81,8 @@ function RunPipelineFormBasic({
   )
   const [gitFilter, setGitFilter] = React.useState<GitFilterScope | null>({
     repo: inputSetRepoIdentifier || '',
-    branch: inputSetBranch || ''
+    branch: inputSetBranch || '',
+    getDefaultFromOtherRepo: true
   })
   const { showError, showSuccess, showWarning } = useToaster()
   const history = useHistory()

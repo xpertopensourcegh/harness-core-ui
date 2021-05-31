@@ -128,7 +128,7 @@ describe('Git Sync - repo tab', () => {
           rootFolder: 'rootfolder/.harness/'
         }
       ],
-      identifier: '606312ffef03c30721080b85',
+      identifier: 'gitSyncRepoTest',
       name: 'gitSyncRepoTest',
       orgIdentifier: 'default',
       projectIdentifier: 'dummyProject',

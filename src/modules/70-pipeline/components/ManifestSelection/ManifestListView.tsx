@@ -38,7 +38,8 @@ import {
 import DelegateSelectorStep from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 import GcpAuthentication from '@connectors/components/CreateConnector/GcpConnector/StepAuth/GcpAuthentication'
 
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useQueryParams } from '@common/hooks'
 import { ManifestWizard } from './ManifestWizard/ManifestWizard'
 import {
   getStageIndexFromPipeline,
@@ -118,6 +119,7 @@ const ManifestListView = ({
   }
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const { getString } = useStrings()
 
   let listOfManifests = useMemo(() => {
@@ -390,6 +392,7 @@ const ManifestListView = ({
               type={ManifestToConnectorMap[manifestStore]}
               name={getString('overview')}
               isEditMode={isEditMode}
+              gitDetails={{ repoIdentifier, branch, getDefaultFromOtherRepo: true }}
             />
             <StepHelmAuth
               name={getString('details')}
@@ -425,6 +428,7 @@ const ManifestListView = ({
               type={ManifestToConnectorMap[manifestStore]}
               name={getString('overview')}
               isEditMode={isEditMode}
+              gitDetails={{ repoIdentifier, branch, getDefaultFromOtherRepo: true }}
             />
             <StepAWSAuthentication
               name={getString('credentials')}
@@ -463,6 +467,7 @@ const ManifestListView = ({
               name={getString('overview')}
               isEditMode={isEditMode}
               connectorInfo={undefined}
+              gitDetails={{ repoIdentifier, branch, getDefaultFromOtherRepo: true }}
             />
             <GcpAuthentication
               name={getString('details')}
@@ -504,6 +509,7 @@ const ManifestListView = ({
               type={ManifestToConnectorMap[manifestStore]}
               name={getString('overview')}
               isEditMode={isEditMode}
+              gitDetails={{ repoIdentifier, branch, getDefaultFromOtherRepo: true }}
             />
             <GitDetailsStep
               type={ManifestToConnectorMap[manifestStore]}

@@ -444,7 +444,11 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                               <GitSyncStoreProvider>
                                 <GitContextForm
                                   formikProps={formikProps}
-                                  gitDetails={isEdit ? inputSet.gitDetails : { repoIdentifier, branch }}
+                                  gitDetails={
+                                    isEdit
+                                      ? { ...inputSet.gitDetails, getDefaultFromOtherRepo: false }
+                                      : { repoIdentifier, branch, getDefaultFromOtherRepo: false }
+                                  }
                                   className={css.gitContextForm}
                                 />
                               </GitSyncStoreProvider>

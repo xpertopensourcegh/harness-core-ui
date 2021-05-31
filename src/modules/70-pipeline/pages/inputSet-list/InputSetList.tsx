@@ -26,7 +26,11 @@ const InputSetList: React.FC = (): JSX.Element => {
   const [searchParam, setSearchParam] = React.useState('')
   const [page, setPage] = React.useState(0)
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
-  const [gitFilter, setGitFilter] = useState<GitFilterScope>({ repo: repoIdentifier || '', branch: branch || '' })
+  const [gitFilter, setGitFilter] = useState<GitFilterScope>({
+    repo: repoIdentifier || '',
+    branch: branch || '',
+    getDefaultFromOtherRepo: true
+  })
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier, module } = useParams<
     PipelineType<PipelinePathProps> & { accountId: string }
   >()
@@ -160,7 +164,7 @@ const InputSetList: React.FC = (): JSX.Element => {
                     setPage(0)
                   }}
                   className={css.gitFilter}
-                  defaultValue={{ repo: repoIdentifier || '', branch: branch }}
+                  defaultValue={{ repo: repoIdentifier || '', branch: branch, getDefaultFromOtherRepo: true }}
                 />
               </GitSyncStoreProvider>
             )}

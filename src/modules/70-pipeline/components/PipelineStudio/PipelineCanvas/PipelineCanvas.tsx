@@ -456,7 +456,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                   }
                 }}
                 showRepoSelector={false}
-                defaultValue={{ repo: repoIdentifier || '', branch }}
+                defaultValue={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
                 branchSelectClassName={css.branchSelector}
               />
             )}

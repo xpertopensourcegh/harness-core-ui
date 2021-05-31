@@ -174,7 +174,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                     isNewConnectorLabelVisible={false}
                     type={ManifestToConnectorMap[selectedManifest]}
                     enableConfigureOptions={false}
-                    gitScope={{ repo: repoIdentifier || '', branch }}
+                    gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
                   />
                   {getMultiTypeFromValue(formik.values.connectorRef) === MultiTypeInputType.RUNTIME ? (
                     <div className={css.configureOptions}>

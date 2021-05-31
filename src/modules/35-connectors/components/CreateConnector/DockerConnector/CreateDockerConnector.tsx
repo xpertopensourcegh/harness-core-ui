@@ -7,7 +7,8 @@ import { Connectors, CONNECTOR_CREDENTIALS_STEP_IDENTIFIER } from '@connectors/c
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { buildDockerPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { useStrings } from 'framework/strings'
-import type { ConnectorRequestBody, ConnectorInfoDTO, ResponseBoolean, EntityGitDetails } from 'services/cd-ng'
+import type { ConnectorRequestBody, ConnectorInfoDTO, ResponseBoolean } from 'services/cd-ng'
+import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import StepDockerAuthentication from './StepAuth/StepDockerAuthentication'
 import DelegateSelectorStep from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 
@@ -18,7 +19,7 @@ interface CreateDockerConnectorProps {
   isEditMode: boolean
   setIsEditMode: (val: boolean) => void
   connectorInfo?: ConnectorInfoDTO | void
-  gitDetails?: EntityGitDetails
+  gitDetails?: IGitContextFormProps
   accountId: string
   orgIdentifier: string
   projectIdentifier: string

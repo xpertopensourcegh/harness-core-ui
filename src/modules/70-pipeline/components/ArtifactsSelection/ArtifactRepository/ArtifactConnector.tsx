@@ -112,7 +112,7 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
                   type={connectorType}
                   enableConfigureOptions={false}
                   selected={formik?.values?.connectorId}
-                  gitScope={{ repo: repoIdentifier || '', branch }}
+                  gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
                 />
                 {getMultiTypeFromValue(formik.values.connectorId) === MultiTypeInputType.RUNTIME ? (
                   <div className={css.configureOptions}>

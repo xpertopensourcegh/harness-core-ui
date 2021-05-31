@@ -1,11 +1,11 @@
+import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import type {
   ConnectorInfoDTO,
   ConnectorConnectivityDetails,
   Activity,
   EntityDetail,
   ConnectorRequestBody,
-  ResponseBoolean,
-  EntityGitDetails
+  ResponseBoolean
 } from 'services/cd-ng'
 
 interface ConnectorType {
@@ -33,7 +33,7 @@ export interface CreateConnectorModalProps {
   isEditMode: boolean
   setIsEditMode: (val: boolean) => void
   connectorInfo: ConnectorInfoDTO | void
-  gitDetails?: EntityGitDetails
+  gitDetails?: IGitContextFormProps
   accountId: string
   orgIdentifier: string
   projectIdentifier: string

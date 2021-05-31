@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useModalHook, Button, Text, Card, Icon, Layout } from '@wings-software/uicore'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { useStrings } from 'framework/strings'
-import useCreateConnectorModal, { UseCreateConnectorModalProps } from './useCreateConnectorModal'
+import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
+import useCreateConnectorModal, { ConnectorModaldata, UseCreateConnectorModalProps } from './useCreateConnectorModal'
 import wizardCss from '../../components/CreateConnectorWizard/CreateConnectorWizard.module.scss'
 import css from './useCreateConnectorMultiTypeModal.module.scss'
 export interface UseCreateConnectorMultiTypeModalProps {
@@ -14,7 +15,7 @@ export interface UseCreateConnectorMultiTypeModalProps {
 }
 
 export interface UseCreateConnectorMultiTypeModalReturn {
-  openConnectorMultiTypeModal: () => void
+  openConnectorMultiTypeModal: (connector?: ConnectorModaldata) => void
   hideConnectorMultiTypeModal: () => void
 }
 
@@ -36,6 +37,7 @@ const useCreateConnectorMultiTypeModal = (
   props: UseCreateConnectorMultiTypeModalProps
 ): UseCreateConnectorMultiTypeModalReturn => {
   const { getString } = useStrings()
+  const [gitDetails, setGitDetails] = useState<IGitContextFormProps | undefined>()
 
   const handleClose = (): void => {
     props.onClose?.()
@@ -49,7 +51,7 @@ const useCreateConnectorMultiTypeModal = (
 
   const handleSelect = (type: ConnectorInfoDTO['type']): void => {
     hideModal()
-    openConnectorModal(false, type, undefined)
+    openConnectorModal(false, type, { gitDetails: gitDetails })
   }
 
   const [showModal, hideModal] = useModalHook(
@@ -80,7 +82,10 @@ const useCreateConnectorMultiTypeModal = (
   )
 
   return {
-    openConnectorMultiTypeModal: showModal,
+    openConnectorMultiTypeModal: (connector?: ConnectorModaldata) => {
+      setGitDetails(connector?.gitDetails)
+      showModal()
+    },
     hideConnectorMultiTypeModal: hideModal
   }
 }

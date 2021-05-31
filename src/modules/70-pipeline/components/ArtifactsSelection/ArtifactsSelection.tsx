@@ -19,7 +19,7 @@ import {
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { CONNECTOR_CREDENTIALS_STEP_IDENTIFIER } from '@connectors/constants'
 
-import type { PipelineType } from '@common/interfaces/RouteInterfaces'
+import type { GitQueryParams, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import { useStrings } from 'framework/strings'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
@@ -29,6 +29,7 @@ import GcrAuthentication from '@connectors/components/CreateConnector/GcrConnect
 import StepAWSAuthentication from '@connectors/components/CreateConnector/AWSConnector/StepAuth/StepAWSAuthentication'
 import { buildAWSPayload, buildDockerPayload, buildGcpPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import DelegateSelectorStep from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelectorStep'
+import { useQueryParams } from '@common/hooks'
 import { getStageIndexFromPipeline, getFlattenedStages } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 
 import ConnectorRefSteps from './ConnectorRefSteps/ConnectorRefSteps'
@@ -218,6 +219,7 @@ export default function ArtifactsSelection({
       accountId: string
     }>
   >()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const defaultQueryParams = {
     pageIndex: 0,
     pageSize: 10,
@@ -442,6 +444,7 @@ export default function ArtifactsSelection({
               type={('Gcr' as unknown) as ConnectorInfoDTO['type']}
               name={getString('overview')}
               isEditMode={isEditMode}
+              gitDetails={{ repoIdentifier, branch, getDefaultFromOtherRepo: true }}
             />
             <GcrAuthentication
               name={getString('details')}
@@ -472,6 +475,7 @@ export default function ArtifactsSelection({
               type={ArtifactToConnectorMap[selectedArtifact]}
               name={getString('overview')}
               isEditMode={isEditMode}
+              gitDetails={{ repoIdentifier, branch, getDefaultFromOtherRepo: true }}
             />
             <StepAWSAuthentication
               name={getString('credentials')}
@@ -510,6 +514,7 @@ export default function ArtifactsSelection({
               type={ArtifactToConnectorMap[selectedArtifact]}
               name={getString('overview')}
               isEditMode={isEditMode}
+              gitDetails={{ repoIdentifier, branch, getDefaultFromOtherRepo: true }}
             />
             <StepDockerAuthentication
               name={getString('details')}

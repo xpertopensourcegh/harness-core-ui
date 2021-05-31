@@ -7,6 +7,7 @@ import { useStrings } from 'framework/strings'
 import type { ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
 
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
+import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'
 import VaultConfigForm from './views/VaultConfigForm'
 
@@ -16,6 +17,7 @@ export interface CreateHashiCorpVaultProps {
   isEditMode: boolean
   mock?: any
   connectorInfo?: ConnectorInfoDTO | void
+  gitDetails?: IGitContextFormProps
 }
 
 export interface StepSecretManagerProps extends ConnectorInfoDTO {
@@ -37,6 +39,7 @@ const CreateHashiCorpVault: React.FC<CreateHashiCorpVaultProps> = props => {
         isEditMode={props.isEditMode}
         connectorInfo={props.connectorInfo}
         mock={props.mock}
+        gitDetails={props.gitDetails}
       />
       <VaultConfigForm
         name={getString('connectors.hashiCorpVault.stepTwoName')}

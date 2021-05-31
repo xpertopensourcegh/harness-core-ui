@@ -247,7 +247,7 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                     // NOTE: clear cluster on connector change
                     // formik.setFieldValue('cluster', '')
                   }}
-                  gitScope={{ repo: repoIdentifier || '', branch }}
+                  gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
                 />
                 {getMultiTypeFromValue(formik.values.connectorRef) === MultiTypeInputType.RUNTIME && !readonly && (
                   <ConfigureOptions
@@ -470,7 +470,7 @@ const GcpInfrastructureSpecInputForm: React.FC<GcpInfrastructureSpecEditableProp
                 setClusterOptions([])
               }
             }}
-            gitScope={{ repo: repoIdentifier || '', branch }}
+            gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
           />
         </div>
       )}

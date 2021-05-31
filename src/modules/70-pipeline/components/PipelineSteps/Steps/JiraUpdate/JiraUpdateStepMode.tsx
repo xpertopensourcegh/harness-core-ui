@@ -215,7 +215,7 @@ const FormContent = ({
                 enableConfigureOptions={false}
                 selected={formik?.values?.spec.connectorRef as string}
                 disabled={isApprovalStepFieldDisabled(readonly)}
-                gitScope={{ repo: repoIdentifier || '', branch }}
+                gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
               />
               <FormInput.MultiTextInput
                 label={getString('pipeline.jiraApprovalStep.issueKey')}

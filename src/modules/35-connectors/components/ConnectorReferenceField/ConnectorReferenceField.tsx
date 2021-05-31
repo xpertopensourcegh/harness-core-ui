@@ -41,6 +41,7 @@ import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { ResourceScope } from '@rbac/interfaces/ResourceScope'
+import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import css from './ConnectorReferenceField.module.scss'
 
 interface AdditionalParams {
@@ -74,7 +75,7 @@ export interface ConnectorSelectedValue {
   value: string
   scope: Scope
   live: boolean
-  connector: ConnectorInfoDTO
+  connector: ConnectorInfoDTO & { gitDetails?: IGitContextFormProps }
 }
 export interface InlineSelectionInterface {
   selected: boolean
@@ -120,7 +121,10 @@ export function getEditRenderer(
         icon="edit"
         onClick={e => {
           e.stopPropagation()
-          openConnectorModal(true, type, { connectorInfo: selected?.connector })
+          openConnectorModal(true, type, {
+            connectorInfo: selected?.connector,
+            gitDetails: selected?.connector?.gitDetails
+          })
         }}
         style={{
           color: 'var(--primary-7)'
@@ -201,7 +205,10 @@ const RecordRender: React.FC<RecordRenderProps> = props => {
               className={css.editBtn}
               onClick={e => {
                 e.stopPropagation()
-                openConnectorModal(true, item.record?.type || type, { connectorInfo: item.record })
+                openConnectorModal(true, item.record?.type || type, {
+                  connectorInfo: item.record,
+                  gitDetails: { ...item.record?.gitDetails, getDefaultFromOtherRepo: false }
+                })
               }}
               style={{
                 color: 'var(--primary-4)'
@@ -499,11 +506,16 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
 
   if (typeof type === 'string' && !category) {
     optionalReferenceSelectProps.createNewHandler = () => {
-      openConnectorModal(false, type, undefined)
+      gitScope && (gitScope.getDefaultFromOtherRepo = true)
+      openConnectorModal(false, type, {
+        gitDetails: { ...gitScope, getDefaultFromOtherRepo: !!gitScope?.getDefaultFromOtherRepo }
+      })
     }
   } else if (Array.isArray(type) && !category) {
     optionalReferenceSelectProps.createNewHandler = () => {
-      openConnectorMultiTypeModal()
+      openConnectorMultiTypeModal({
+        gitDetails: { ...gitScope, getDefaultFromOtherRepo: !!gitScope?.getDefaultFromOtherRepo }
+      })
     }
   }
 

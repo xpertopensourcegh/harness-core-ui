@@ -136,7 +136,7 @@ export default function TfVarFile(props: TfVarFileProps): React.ReactElement {
                       orgIdentifier={orgIdentifier}
                       style={{ marginBottom: 10 }}
                       multiTypeProps={{ expressions }}
-                      gitScope={{ repo: repoIdentifier || '', branch }}
+                      gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
                     />
 
                     <div className={cx(stepCss.formGroup, stepCss.md)}>

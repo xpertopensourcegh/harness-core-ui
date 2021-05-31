@@ -527,8 +527,12 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
                               formikProps={formikProps}
                               gitDetails={
                                 isEdit
-                                  ? overlayInputSetResponse?.data?.gitDetails
-                                  : { repoIdentifier: selectedRepo, branch: selectedBranch }
+                                  ? { ...overlayInputSetResponse?.data?.gitDetails, getDefaultFromOtherRepo: false }
+                                  : {
+                                      repoIdentifier: selectedRepo,
+                                      branch: selectedBranch,
+                                      getDefaultFromOtherRepo: false
+                                    }
                               }
                               onRepoChange={onRepoChange}
                               onBranchChange={onBranchChange}

@@ -131,7 +131,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   width={450}
                   enableConfigureOptions={false}
                   style={{ marginBottom: 'var(--spacing-small)' }}
-                  gitScope={{ repo: repoIdentifier || '', branch }}
+                  gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
                 />
                 {getMultiTypeFromValue(formik.values.connectorRef) === MultiTypeInputType.RUNTIME && !readonly && (
                   <ConfigureOptions
@@ -280,7 +280,7 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps & 
             }}
             name={`${path}.connectorRef`}
             label={getString('connector')}
-            gitScope={{ repo: repoIdentifier || '', branch }}
+            gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
             placeholder={getString('cd.steps.common.selectConnectorPlaceholder')}
             disabled={readonly}
             setRefValue

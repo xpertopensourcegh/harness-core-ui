@@ -479,7 +479,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                       expressions
                     }}
                     type={ArtifactToConnectorMap[artifacts?.primary?.type] as ConnectorInfoDTO['type']}
-                    gitScope={{ repo: repoIdentifier || '', branch: branchParam }}
+                    gitScope={{ repo: repoIdentifier || '', branch: branchParam, getDefaultFromOtherRepo: true }}
                   />
                 )}
                 {getMultiTypeFromValue(get(template, `artifacts.primary.spec.imagePath`, '')) ===
@@ -658,7 +658,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                             artifacts?.sidecars?.[index]?.sidecar?.type
                           ] as ConnectorInfoDTO['type']
                         }
-                        gitScope={{ repo: repoIdentifier || '', branch: branchParam }}
+                        gitScope={{ repo: repoIdentifier || '', branch: branchParam, getDefaultFromOtherRepo: true }}
                       />
                     )}
                     {getMultiTypeFromValue(imagePath) === MultiTypeInputType.RUNTIME && (
