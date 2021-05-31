@@ -273,7 +273,6 @@ describe('User Profile Page', () => {
       expect(disableAuthfn).toBeCalled()
       enabledAuth = false
     }),
-    // eslint-disable-next-line jest/no-disabled-tests
     test('Change Password', async () => {
       const password = queryByText(container, 'userProfile.changePassword')
       act(() => {

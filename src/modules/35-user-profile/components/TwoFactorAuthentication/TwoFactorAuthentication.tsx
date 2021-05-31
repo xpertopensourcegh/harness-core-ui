@@ -8,6 +8,7 @@ import { useToaster } from '@common/exports'
 import { useQueryParams } from '@common/hooks'
 import { useEnableTwoFactorAuthModal } from '@user-profile/modals/EnableTwoFactorAuth/useEnableTwoFactorAuthModal'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { shouldShowError } from '@common/utils/errorUtils'
 import css from './TwoFactorAuthentication.module.scss'
 
 interface Props {
@@ -38,7 +39,9 @@ const TwoFactorAuthentication: React.FC<Props> = ({ twoFactorAuthenticationDisab
             updateAppStore({ currentUserInfo: disabled.data })
           }
         } catch (e) {
-          /* istanbul ignore next */ showError(e.data.message || e.message)
+          /* istanbul ignore next */ if (shouldShowError(e)) {
+            showError(e.data.message || e.message)
+          }
         }
       }
     }

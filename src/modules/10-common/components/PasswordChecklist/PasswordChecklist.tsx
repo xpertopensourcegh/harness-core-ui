@@ -20,7 +20,7 @@ type PasswordStrengthKeys = keyof Omit<PasswordStrengthPolicy, 'enabled'>
 const PasswordChecklist: React.FC<Props> = ({ value, passwordStrengthPolicy }) => {
   const { getString } = useStrings()
   const {
-    minNumberOfCharacters = 0,
+    minNumberOfCharacters = 8,
     minNumberOfUppercaseCharacters = 0,
     minNumberOfLowercaseCharacters = 0,
     minNumberOfDigits = 0,

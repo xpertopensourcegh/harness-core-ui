@@ -19,6 +19,7 @@ import { PASSWORD_CHECKS_RGX } from '@common/constants/Utils'
 import { useChangeUserPassword } from 'services/cd-ng'
 import type { PasswordStrengthPolicy } from 'services/cd-ng'
 import { useToaster } from '@common/components'
+import { shouldShowError } from '@common/utils/errorUtils'
 import css from './ChangePasswordForm.module.scss'
 
 interface ChangePasswordFormProps {
@@ -86,7 +87,7 @@ const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({ hideModal, pass
       })
 
       /* istanbul ignore else */ if (response) {
-        if (response.data === ChangePasswordResponse.PASSWORD_CHANGED) {
+        /* istanbul ignore else */ if (response.data === ChangePasswordResponse.PASSWORD_CHANGED) {
           showSuccess(getString('userProfile.passwordChangedSuccessfully'), 5000)
           hideModal()
         } /* istanbul ignore next */ else if (response.data === ChangePasswordResponse.INCORRECT_CURRENT_PASSWORD) {
@@ -96,7 +97,9 @@ const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({ hideModal, pass
         }
       }
     } catch (e) {
-      /* istanbul ignore next */ modalErrorHandler?.showDanger(e.data?.message || e.message)
+      /* istanbul ignore next */ if (shouldShowError(e)) {
+        modalErrorHandler?.showDanger(e.data?.message || e.message)
+      }
     }
   }
 
