@@ -6,13 +6,13 @@ import cx from 'classnames'
 import List from '@common/components/List/List'
 import type {
   DeploymentStageConfig,
-  K8SDirectInfrastructure,
   ServiceSpec,
   StepElement,
   ExecutionWrapper,
   ExecutionWrapperConfig,
   ServiceConfig,
-  PipelineInfrastructure
+  PipelineInfrastructure,
+  Infrastructure
 } from 'services/cd-ng'
 import { String, useStrings } from 'framework/strings'
 import factory from '../PipelineSteps/PipelineStepFactory'
@@ -89,11 +89,11 @@ function ExecutionWrapperInputSetForm(props: {
   return (
     <>
       {stepsTemplate?.map((item, index) => {
-        if (item.step) {
-          const originalStep = getStepFromStage(item.step?.identifier || '', allValues)
-          const initialValues = getStepFromStage(item.step?.identifier || '', values)
-          return originalStep && originalStep.step ? (
-            <StepForm
+        /* istanbul ignore else */ if (item.step) {
+          const originalStep = getStepFromStage(item.step?.identifier || /* istanbul ignore next */ '', allValues)
+          const initialValues = getStepFromStage(item.step?.identifier || /* istanbul ignore next */ '', values)
+          return originalStep && /* istanbul ignore next */ originalStep.step ? (
+            /* istanbul ignore next */ <StepForm
               key={item.step.identifier || index}
               template={item}
               allValues={originalStep}
@@ -250,7 +250,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
           <div className={css.inputheader}>{getString('service')}</div>
           <div className={css.nestedAccordions}>
             {deploymentStage?.serviceConfig?.serviceRef && (
-              <StepWidget<ServiceConfig>
+              /* istanbul ignore next */ <StepWidget<ServiceConfig>
                 factory={factory}
                 initialValues={deploymentStageInputSet?.serviceConfig || {}}
                 template={deploymentStageTemplate?.serviceConfig || {}}
@@ -262,7 +262,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
               />
             )}
             {(deploymentStage?.serviceConfig?.serviceDefinition?.type === 'Kubernetes' || isPropagating) && (
-              <StepWidget<ServiceSpec>
+              /* istanbul ignore next */ <StepWidget<ServiceSpec>
                 factory={factory}
                 initialValues={
                   isPropagating && deploymentStageInputSet
@@ -305,13 +305,13 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
 
           <div className={css.nestedAccordions}>
             {(deploymentStageTemplate.infrastructure as any)?.spec?.namespace && (
-              <FormInput.Text
+              /* istanbul ignore next */ <FormInput.Text
                 label={<String stringID="pipelineSteps.build.infraSpecifications.namespace" />}
                 name={`${isEmpty(path) ? '' : `${path}.`}infrastructure.spec.namespace`}
               />
             )}
             {deploymentStageTemplate.infrastructure?.environmentRef && (
-              <StepWidget<PipelineInfrastructure>
+              /* istanbul ignore next */ <StepWidget<PipelineInfrastructure>
                 factory={factory}
                 initialValues={deploymentStageInputSet?.infrastructure || {}}
                 template={deploymentStageTemplate?.infrastructure || {}}
@@ -322,14 +322,16 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
               />
             )}
             {deploymentStageTemplate.infrastructure.infrastructureDefinition && (
-              <StepWidget<K8SDirectInfrastructure>
+              <StepWidget<Infrastructure>
                 factory={factory}
                 template={deploymentStageTemplate.infrastructure.infrastructureDefinition.spec}
                 initialValues={deploymentStageInputSet?.infrastructure?.infrastructureDefinition?.spec || {}}
-                allValues={deploymentStage?.infrastructure?.infrastructureDefinition?.spec || {}}
+                allValues={
+                  deploymentStage?.infrastructure?.infrastructureDefinition?.spec || /* istanbul ignore next */ {}
+                }
                 type={
                   (deploymentStage?.infrastructure?.infrastructureDefinition?.type as StepType) ||
-                  StepType.KubernetesDirect
+                  /* istanbul ignore next */ StepType.KubernetesDirect
                 }
                 path={`${path}.infrastructure.infrastructureDefinition.spec`}
                 readonly={readonly}
@@ -344,7 +346,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
             )}
             {getMultiTypeFromValue(deploymentStageTemplate?.infrastructure?.infrastructureKey) ===
               MultiTypeInputType.RUNTIME && (
-              <FormInput.MultiTextInput
+              /* istanbul ignore next */ <FormInput.MultiTextInput
                 multiTextInputProps={{
                   allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
                   expressions
@@ -359,7 +361,10 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
         </div>
       )}
       {(deploymentStageTemplate as any).sharedPaths && (
-        <div id={`Stage.${stageIdentifier}.SharedPaths`} className={cx(css.accordionSummary)}>
+        /* istanbul ignore next */ <div
+          id={`Stage.${stageIdentifier}.SharedPaths`}
+          className={cx(css.accordionSummary)}
+        >
           <div className={css.inputheader}>{getString('pipelineSteps.build.stageSpecifications.sharedPaths')}</div>
 
           <div className={css.nestedAccordions}>
@@ -368,7 +373,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
         </div>
       )}
       {(deploymentStageTemplate as ServiceSpec).variables && (
-        <div id={`Stage.${stageIdentifier}.Variables`} className={cx(css.accordionSummary)}>
+        /* istanbul ignore next */ <div id={`Stage.${stageIdentifier}.Variables`} className={cx(css.accordionSummary)}>
           <div className={css.inputheader}>{getString('variablesText')}</div>
 
           <div className={css.nestedAccordions}>WIP</div>

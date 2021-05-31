@@ -97,7 +97,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
         initialValues={initialValues}
         formName="k8InfraSpec"
         validate={value => {
-          const data: K8SDirectInfrastructure = {
+          const data: Partial<K8SDirectInfrastructure> = {
             namespace: value.namespace,
             releaseName: value.releaseName,
             connectorRef: undefined,
@@ -344,7 +344,7 @@ const KubernetesDirectType = 'KubernetesDirect'
 export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureStep> {
   lastFetched: number
   protected type = StepType.KubernetesDirect
-  protected defaultValues: K8SDirectInfrastructure = {}
+  protected defaultValues: K8SDirectInfrastructure = { connectorRef: '', namespace: '', releaseName: '' }
 
   protected stepIcon: IconName = 'service-kubernetes'
   protected stepName = 'Specify your Kubernetes Connector'
@@ -410,7 +410,7 @@ export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureSte
     template?: K8SDirectInfrastructureTemplate,
     getString?: UseStringsReturn['getString']
   ): FormikErrors<K8SDirectInfrastructure> {
-    const errors: K8SDirectInfrastructureTemplate = {}
+    const errors: Partial<K8SDirectInfrastructureTemplate> = {}
     if (isEmpty(data.connectorRef) && getMultiTypeFromValue(template?.connectorRef) === MultiTypeInputType.RUNTIME) {
       errors.connectorRef = getString?.('fieldRequired', { field: getString('connector') })
     }

@@ -788,7 +788,10 @@ export interface StringsMap {
   'userProfile.myTools': string
   'userProfile.mysourceCodeManagers': string
   'userProfile.newPassword': string
+  'userProfile.newPasswordShouldMeetTheRequirements': string
+  'userProfile.newPasswordShouldNotBeCurrentPassword': string
   'userProfile.noProjects': string
+  'userProfile.passwordChangedSuccessfully': string
   'userProfile.passwordMatch': string
   'userProfile.passwordReqs': string
   'userProfile.plusSCM': string
@@ -814,6 +817,7 @@ export interface StringsMap {
   'userProfile.twofactorAuth': string
   'userProfile.userEditFail': string
   'userProfile.userEditSuccess': string
+  'userProfile.yourCurrentPasswordIncorrect': string
   'projectsOrgs.aboutProject': string
   'projectsOrgs.aboutTitle': string
   'projectsOrgs.blank': string

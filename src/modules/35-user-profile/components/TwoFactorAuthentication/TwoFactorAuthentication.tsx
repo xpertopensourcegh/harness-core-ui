@@ -16,7 +16,7 @@ interface Props {
 
 const TwoFactorAuthentication: React.FC<Props> = ({ twoFactorAuthenticationDisabled }) => {
   const { getString } = useStrings()
-  const { openTwoFactorModal } = useQueryParams<{ openTwoFactorModal: string }>()
+  const { openTwoFactorModal } = useQueryParams<{ openTwoFactorModal?: string }>()
   const { showSuccess, showError } = useToaster()
   const { currentUserInfo, updateAppStore } = useAppStore()
 
@@ -30,22 +30,22 @@ const TwoFactorAuthentication: React.FC<Props> = ({ twoFactorAuthenticationDisab
     confirmButtonText: getString('common.disable'),
     cancelButtonText: getString('cancel'),
     onCloseDialog: async (isConfirmed: boolean) => {
-      if (isConfirmed) {
+      /* istanbul ignore else */ if (isConfirmed) {
         try {
           const disabled = await disableTwoFactorAuth('' as any, { headers: { 'content-type': 'application/json' } })
-          if (disabled) {
+          /* istanbul ignore else */ if (disabled) {
             showSuccess(getString('userProfile.twoFactor.disableSuccess'))
             updateAppStore({ currentUserInfo: disabled.data })
           }
         } catch (e) {
-          showError(e.data.message || e.message)
+          /* istanbul ignore next */ showError(e.data.message || e.message)
         }
       }
     }
   })
 
   React.useEffect(() => {
-    if (openTwoFactorModal === 'true') {
+    /* istanbul ignore else */ if (openTwoFactorModal === 'true') {
       openEnableTwoFactorAuthModal(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

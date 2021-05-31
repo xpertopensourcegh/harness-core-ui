@@ -9,6 +9,7 @@ import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import {
   ExecutionWrapper,
   getProvisionerExecutionStrategyYamlPromise,
+  Infrastructure,
   K8SDirectInfrastructure,
   K8sGcpInfrastructure,
   NgPipeline,
@@ -43,7 +44,7 @@ const DEFAULT_INFRA_KEY = ''
 export default function DeployInfraSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
   const isProvisionerEnabled = useFeatureFlag('NG_PROVISIONERS')
   const [initialInfrastructureDefinitionValues, setInitialInfrastructureDefinitionValues] = React.useState<
-    K8SDirectInfrastructure | K8sGcpInfrastructure
+    Infrastructure
   >({})
   const [selectedDeploymentType, setSelectedDeploymentType] = React.useState<string | undefined>()
   const [updateKey, setUpdateKey] = React.useState(0)
@@ -313,7 +314,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
   const getInfrastructureDefaultValue = (
     stageData: StageElementWrapper | undefined,
     deploymentType: string | undefined
-  ): K8SDirectInfrastructure | K8sGcpInfrastructure => {
+  ): Infrastructure => {
     const infrastructure = get(stageData, 'stage.spec.infrastructure.infrastructureDefinition', null)
     const type = infrastructure?.type || deploymentType
     const allowSimultaneousDeployments = get(stageData, 'stage.spec.infrastructure.allowSimultaneousDeployments', false)
@@ -360,7 +361,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
             factory={factory}
             key={updateKey}
             readonly={isReadonly}
-            initialValues={initialInfrastructureDefinitionValues}
+            initialValues={initialInfrastructureDefinitionValues as K8SDirectInfrastructure}
             type={StepType.KubernetesDirect}
             stepViewType={StepViewType.Edit}
             onUpdate={value =>
