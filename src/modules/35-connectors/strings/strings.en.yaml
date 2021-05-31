@@ -230,7 +230,6 @@ cdng:
     jobNameRequired: Job name is required
     durationRequired: Duration is required
     sensitivityRequired: Sensitivity is required
-    baselineRequired: Baseline is required
   verificationSensitivityLabel:
     high: High
     medium: Medium
