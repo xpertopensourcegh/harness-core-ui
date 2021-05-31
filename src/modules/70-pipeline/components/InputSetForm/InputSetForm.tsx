@@ -64,10 +64,12 @@ export interface InputSetDTO extends Omit<InputSetResponse, 'identifier' | 'pipe
   branch?: string
 }
 
-const getDefaultInputSet = (template: NgPipeline): InputSetDTO => ({
+const getDefaultInputSet = (template: NgPipeline, orgIdentifier: string, projectIdentifier: string): InputSetDTO => ({
   name: undefined,
   identifier: '',
   description: undefined,
+  orgIdentifier,
+  projectIdentifier,
   pipeline: template,
   repo: '',
   branch: ''
@@ -223,12 +225,16 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
         tags: inputSetObj.tags,
         identifier: inputSetObj.identifier || /* istanbul ignore next */ '',
         description: inputSetObj?.description,
+        orgIdentifier,
+        projectIdentifier,
         pipeline: clearRuntimeInput(inputYamlObj),
         gitDetails: inputSetObj.gitDetails ?? {}
       }
     }
     return getDefaultInputSet(
-      clearRuntimeInput(parse(template?.data?.inputSetTemplateYaml || /* istanbul ignore next */ '')?.pipeline as any)
+      clearRuntimeInput(parse(template?.data?.inputSetTemplateYaml || /* istanbul ignore next */ '')?.pipeline as any),
+      orgIdentifier,
+      projectIdentifier
     )
   }, [mergeTemplate, inputSetResponse?.data, template?.data?.inputSetTemplateYaml])
 
