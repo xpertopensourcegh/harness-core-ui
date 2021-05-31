@@ -365,8 +365,8 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
   )
 
   const renderErrors = React.useCallback(() => {
-    const errorList = getErrorsList(formErrors)
-    if (!errorList.length) {
+    const { errorStrings, errorCount } = getErrorsList(formErrors)
+    if (!errorCount) {
       return null
     }
     return (
@@ -377,12 +377,12 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
             summary={
               <Layout.Horizontal spacing="small">
                 <Icon name="warning-sign" intent={Intent.DANGER} />
-                <span>{`${errorList.length} problem${errorList.length > 1 ? 's' : ''} with Input Set`}</span>
+                <span>{`${errorCount} problem${errorCount > 1 ? 's' : ''} with Input Set`}</span>
               </Layout.Horizontal>
             }
             details={
               <ul>
-                {errorList.map((errorMessage, index) => (
+                {errorStrings.map((errorMessage, index) => (
                   <li key={index}>{errorMessage}</li>
                 ))}
               </ul>

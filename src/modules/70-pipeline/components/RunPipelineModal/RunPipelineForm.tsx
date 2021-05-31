@@ -17,7 +17,7 @@ import {
 import cx from 'classnames'
 import { useHistory } from 'react-router-dom'
 import { parse, stringify } from 'yaml'
-import { pick, merge, isEmpty, debounce } from 'lodash-es'
+import { pick, merge, isEmpty } from 'lodash-es'
 import type { FormikErrors } from 'formik'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { NgPipeline, ResponseJsonNode } from 'services/cd-ng'
@@ -49,7 +49,6 @@ import { PreFlightCheckModal } from '../PreFlightCheckModal/PreFlightCheckModal'
 import css from './RunPipelineModal.module.scss'
 
 export const POLL_INTERVAL = 1 /* sec */ * 1000 /* ms */
-const debouncedValidatePipeline = debounce(validatePipeline, 300)
 export interface RunPipelineFormProps extends PipelineType<PipelinePathProps & GitQueryParams> {
   inputSetSelected?: InputSetSelectorProps['value']
   inputSetYAML?: string
@@ -226,8 +225,7 @@ function RunPipelineFormBasic({
 
   const pipeline: NgPipeline | undefined = parse(pipelineResponse?.data?.yamlPipeline || '')?.pipeline
   const renderErrors = React.useCallback(() => {
-    const errorList = getErrorsList(formErrors)
-    const errorCount = errorList.length
+    const { errorStrings, errorCount } = getErrorsList(formErrors)
     if (!errorCount) {
       return null
     }
@@ -239,7 +237,7 @@ function RunPipelineFormBasic({
         <Utils.WrapOptionalTooltip
           tooltip={
             <div className={css.runPipelineErrorDesc}>
-              {errorList.map((errorMessage, index) => (
+              {errorStrings.map((errorMessage, index) => (
                 <Text intent="danger" key={index} font={{ weight: 'semi-bold' }} className={css.runPipelineErrorLine}>
                   {errorMessage}
                 </Text>
@@ -400,19 +398,29 @@ function RunPipelineFormBasic({
           handleRunPipeline(values as any)
         }}
         enableReinitialize
-        validate={values => {
+        validate={async values => {
           let errors: FormikErrors<InputSetDTO> = formErrors
 
           setCurrentPipeline({ ...currentPipeline, pipeline: values as NgPipeline })
-          if (values && yamlTemplate && pipeline) {
-            errors =
-              (debouncedValidatePipeline(
-                values as NgPipeline,
-                parse(template?.data?.inputSetTemplateYaml || '').pipeline,
-                pipeline,
-                getString
-              ) as any) || formErrors
+
+          function validateErrors() {
+            const promise: Promise<FormikErrors<InputSetDTO>> = new Promise(resolve => {
+              setTimeout(() => {
+                const validatedErrors =
+                  (validatePipeline(
+                    values as NgPipeline,
+                    parse(template?.data?.inputSetTemplateYaml || '').pipeline,
+                    pipeline,
+                    getString
+                  ) as any) || formErrors
+                resolve(validatedErrors)
+              }, 300)
+            })
+            return promise
           }
+
+          errors = await validateErrors()
+
           if (typeof errors !== undefined) setFormErrors(errors)
           return errors
         }}
@@ -566,7 +574,7 @@ function RunPipelineFormBasic({
                     <Tooltip position="top" content={getString('featureNA')}>
                       <Checkbox
                         background={Color.PRIMARY_2}
-                        color={Color.BLUE_500}
+                        color={Color.PRIMARY_7}
                         className={css.footerCheckbox}
                         margin={{ left: 'medium' }}
                         padding={{ top: 'small', bottom: 'small', left: 'xxlarge', right: 'medium' }}
@@ -603,7 +611,7 @@ function RunPipelineFormBasic({
                         },
                         permission: PermissionIdentifier.EXECUTE_PIPELINE
                       }}
-                      disabled={getErrorsList(formErrors).length > 0}
+                      disabled={getErrorsList(formErrors).errorCount > 0}
                     />
                     <div className={css.secondaryButton}>
                       <Button
