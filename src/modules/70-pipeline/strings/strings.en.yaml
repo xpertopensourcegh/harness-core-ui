@@ -197,6 +197,14 @@ execution:
   retryStepCount: 'Retry #{{ num }}'
   currentExecution: Current Execution
   timePrefix: 'Execution Time: '
+  pipelineActionMessages:
+    abortedMessage: Pipeline has been aborted successfully
+    pausedMessage: Pipeline has been paused successfully
+    resumedMessage: Pipeline has been resumed successfully
+  stageActionMessages:
+    abortedMessage: Stage "{{stageName}}" has been aborted successfully
+    pausedMessage: Stage "{{stageName}}" has been paused successfully
+    resumedMessage: Stage  "{{stageName}}" has been resumed successfully
   actions:
     resumePipeline: Resume Pipeline
     rerunPipeline: Re-run Pipeline

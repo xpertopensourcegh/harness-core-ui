@@ -1049,7 +1049,13 @@ export interface StringsMap {
   'pipeline.execution.layouts.minimize': string
   'pipeline.execution.layouts.right': string
   'pipeline.execution.noInputsText': string
+  'pipeline.execution.pipelineActionMessages.abortedMessage': string
+  'pipeline.execution.pipelineActionMessages.pausedMessage': string
+  'pipeline.execution.pipelineActionMessages.resumedMessage': string
   'pipeline.execution.retryStepCount': string
+  'pipeline.execution.stageActionMessages.abortedMessage': string
+  'pipeline.execution.stageActionMessages.pausedMessage': string
+  'pipeline.execution.stageActionMessages.resumedMessage': string
   'pipeline.execution.stageTitlePrefix': string
   'pipeline.execution.stagesExecuted': string
   'pipeline.execution.stepTitlePrefix': string
@@ -3917,18 +3923,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   executeScript: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'execution.actionMessages.abortedMessage': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'execution.actionMessages.pausedMessage': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'execution.actionMessages.resumedMessage': string
   /**
    * @deprecated migrate this string to module level file
    */

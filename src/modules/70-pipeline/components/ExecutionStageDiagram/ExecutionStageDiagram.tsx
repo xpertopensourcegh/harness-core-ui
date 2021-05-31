@@ -403,6 +403,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
                 branch: pipelineExecutionDetail?.pipelineExecutionSummary?.gitDetails?.branch
               }}
               noMenu
+              stageName={stageNode?.name}
               stageId={stageNode?.uuid}
               canEdit={canEdit}
               canExecute={canExecute}

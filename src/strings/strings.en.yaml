@@ -903,10 +903,6 @@ execution:
     WEBHOOK: Webhook
   stepLogs: Step Logs
   consoleLogs: Console Logs
-  actionMessages:
-    abortedMessage: Pipeline has been aborted successfully
-    pausedMessage: Pipeline has been paused successfully
-    resumedMessage: Pipeline has been resumed successfully
   iotab:
     noInputText: No input found for current step
     noOutputText: No output found for current step
