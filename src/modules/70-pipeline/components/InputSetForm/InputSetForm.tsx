@@ -1,14 +1,12 @@
 import React from 'react'
 import { isEmpty, isNull, isUndefined, omit, omitBy } from 'lodash-es'
 import cx from 'classnames'
-import { IconName, Intent } from '@blueprintjs/core'
+import { Intent } from '@blueprintjs/core'
 import {
   Button,
-  Collapse,
   Container,
   Formik,
   FormikForm,
-  FormInput,
   Layout,
   Text,
   NestedAccordionProvider,
@@ -73,42 +71,6 @@ const getDefaultInputSet = (template: NgPipeline): InputSetDTO => ({
   repo: '',
   branch: ''
 })
-
-const collapseProps = {
-  collapsedIcon: 'small-plus' as IconName,
-  expandedIcon: 'small-minus' as IconName,
-  isOpen: false,
-  isRemovable: false,
-  className: 'collapse'
-}
-
-export const BasicInputSetForm: React.FC<{ isEdit: boolean; values: InputSetDTO }> = ({ isEdit, values }) => {
-  const { getString } = useStrings()
-  const descriptionCollapseProps = Object.assign({}, collapseProps, { heading: getString('description') })
-  const tagCollapseProps = Object.assign({}, collapseProps, { heading: getString('tagsLabel') })
-  return (
-    <div className={css.basicForm}>
-      <FormInput.InputWithIdentifier
-        isIdentifierEditable={!isEdit}
-        inputLabel={getString('inputSets.inputSetName')}
-        inputGroupProps={{ placeholder: getString('name') }}
-      />
-      <div className={css.collapseDiv}>
-        <Collapse
-          {...descriptionCollapseProps}
-          isOpen={(values.description && values.description?.length > 0) || false}
-        >
-          <FormInput.TextArea name="description" />
-        </Collapse>
-      </div>
-      <div className={css.collapseDiv}>
-        <Collapse {...tagCollapseProps} isOpen={values.tags && Object.keys(values.tags).length > 0}>
-          <FormInput.KVTagInput name="tags" />
-        </Collapse>
-      </div>
-    </div>
-  )
-}
 
 enum SelectedView {
   VISUAL = 'VISUAL',
@@ -439,6 +401,9 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
             if (isEmpty(values.name)) {
               errors.name = getString('inputSets.nameIsRequired')
             }
+            if (isEmpty(values.identifier)) {
+              errors.name = getString('common.validation.identifierIsRequired')
+            }
             setFormErrors(errors)
             return errors
           }}
@@ -546,7 +511,19 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                         text={getString('save')}
                         onClick={() => {
                           const latestYaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''
-                          handleSubmit(parse(latestYaml)?.inputSet, {
+                          const inputSetDto: InputSetDTO = parse(latestYaml)?.inputSet
+                          const errors: FormikErrors<InputSetDTO> = {}
+                          if (isEmpty(inputSetDto.name)) {
+                            errors.name = getString('inputSets.nameIsRequired')
+                          }
+                          if (isEmpty(inputSetDto.identifier)) {
+                            errors.identifier = getString('common.validation.identifierIsRequired')
+                          }
+                          if (Object.keys(errors).length) {
+                            setFormErrors(errors)
+                            return
+                          }
+                          handleSubmit(inputSetDto, {
                             repoIdentifier: formikProps.values.repo,
                             branch: formikProps.values.branch
                           })

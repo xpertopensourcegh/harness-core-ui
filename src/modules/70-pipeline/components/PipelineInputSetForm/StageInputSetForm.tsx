@@ -246,7 +246,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
   return (
     <>
       {deploymentStageTemplate.serviceConfig && (
-        <div id={`Stage.${stageIdentifier}.Service`} className={cx(css.nopadLeft, css.accordionSummary)}>
+        <div id={`Stage.${stageIdentifier}.Service`} className={cx(css.accordionSummary)}>
           <div className={css.inputheader}>{getString('service')}</div>
           <div className={css.nestedAccordions}>
             {deploymentStage?.serviceConfig?.serviceRef && (
@@ -300,7 +300,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
       )}
 
       {deploymentStageTemplate.infrastructure && (
-        <div id={`Stage.${stageIdentifier}.Infrastructure`} className={cx(css.nopadLeft, css.accordionSummary)}>
+        <div id={`Stage.${stageIdentifier}.Infrastructure`} className={cx(css.accordionSummary)}>
           <div className={css.inputheader}>{getString('infrastructureText')}</div>
 
           <div className={css.nestedAccordions}>
@@ -359,7 +359,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
         </div>
       )}
       {(deploymentStageTemplate as any).sharedPaths && (
-        <div id={`Stage.${stageIdentifier}.SharedPaths`} className={cx(css.nopadLeft, css.accordionSummary)}>
+        <div id={`Stage.${stageIdentifier}.SharedPaths`} className={cx(css.accordionSummary)}>
           <div className={css.inputheader}>{getString('pipelineSteps.build.stageSpecifications.sharedPaths')}</div>
 
           <div className={css.nestedAccordions}>
@@ -368,14 +368,14 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
         </div>
       )}
       {(deploymentStageTemplate as ServiceSpec).variables && (
-        <div id={`Stage.${stageIdentifier}.Variables`} className={cx(css.nopadLeft, css.accordionSummary)}>
+        <div id={`Stage.${stageIdentifier}.Variables`} className={cx(css.accordionSummary)}>
           <div className={css.inputheader}>{getString('variablesText')}</div>
 
           <div className={css.nestedAccordions}>WIP</div>
         </div>
       )}
       {deploymentStageTemplate.execution && (
-        <div id={`Stage.${stageIdentifier}.Execution`} className={cx(css.nopadLeft, css.accordionSummary)}>
+        <div id={`Stage.${stageIdentifier}.Execution`} className={cx(css.accordionSummary)}>
           <div className={css.inputheader}>{getString('executionText')}</div>
 
           <div className={css.nestedAccordions}>

@@ -1310,6 +1310,16 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
           getString?.('fieldRequired', { field: 'Tag Regex' })
         )
       }
+      if (
+        isEmpty(sidecar?.sidecar?.spec?.registryHostname) &&
+        getMultiTypeFromValue(currentSidecarTemplate?.registryHostname) === MultiTypeInputType.RUNTIME
+      ) {
+        set(
+          errors,
+          `artifacts.sidecars[${index}].sidecar.spec.registryHostname`,
+          getString?.('fieldRequired', { field: 'GCR Registry URL' })
+        )
+      }
     })
 
     data?.manifests?.forEach((manifest, index) => {

@@ -1,8 +1,19 @@
 import React from 'react'
-import { Checkbox, Color, Icon, IconName, Layout, Popover, SelectOption, Text, TextInput } from '@wings-software/uicore'
+import {
+  Checkbox,
+  Color,
+  Icon,
+  IconName,
+  Layout,
+  Popover,
+  SelectOption,
+  Button,
+  Text,
+  TextInput
+} from '@wings-software/uicore'
 import { clone, isEmpty } from 'lodash-es'
 import cx from 'classnames'
-import { Button, Classes, Position } from '@blueprintjs/core'
+import { Classes, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { EntityGitDetails, InputSetSummaryResponse, useGetInputSetsListForPipeline } from 'services/pipeline-ng'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
@@ -82,61 +93,46 @@ const RenderValue = React.memo(function RenderValue({
     },
     [value]
   )
-
-  if (value.length > 1) {
+  if (value.length) {
     return (
-      <Layout.Horizontal padding={{ right: 'small', left: 'small' }}>
-        <ul className={css.draggableList}>
-          {value.map((item, index) => (
-            <Layout.Horizontal flex={{ distribution: 'space-between' }} padding={{ right: 'small' }} key={index}>
-              <li
-                draggable={true}
-                onDragStart={event => {
-                  onDragStart(event, item)
-                }}
-                onDragEnd={onDragEnd}
-                onDragOver={onDragOver}
-                onDragLeave={onDragLeave}
-                onDrop={event => onDrop(event, item)}
-              >
-                <Layout.Horizontal spacing="small" className={css.inputSetButton}>
-                  <Text className={css.inputSetDots}>&#x2807;&#x2807;</Text>
-                  <Text className={css.inputSetNumber}>{index + 1}</Text>
-                  <Text className={css.inputSetName}> {item.label}</Text>
-                  <div
-                    className={css.clearButton}
-                    onClick={event => {
-                      event.stopPropagation()
-                      onChange?.(value.filter(el => el !== value[index]))
-                    }}
-                  >
-                    <Icon name="cross" />
-                  </div>
-                </Layout.Horizontal>
-              </li>
-            </Layout.Horizontal>
-          ))}
-        </ul>
-      </Layout.Horizontal>
+      <>
+        {value.map(item => (
+          <li
+            key={item.label}
+            className={css.selectedInputSetLi}
+            draggable={true}
+            onDragStart={event => {
+              onDragStart(event, item)
+            }}
+            onDragEnd={onDragEnd}
+            onDragOver={onDragOver}
+            onDragLeave={onDragLeave}
+            onDrop={event => onDrop(event, item)}
+          >
+            <Button
+              key={item.label}
+              round={true}
+              rightIcon="cross"
+              iconProps={{
+                onClick: event => {
+                  event.stopPropagation()
+                  const valuesAfterRemoval = value.filter(inputset => inputset.label !== item.label)
+                  onChange?.(valuesAfterRemoval)
+                }
+              }}
+              icon={getIconByType(item.type)}
+              text={item.label}
+              margin={{ right: 'small' }}
+              className={css.selectedInputSetCard}
+              border={{ color: 'var(--form-field-border)', width: 1, style: 'solid' }}
+              color={Color.BLUE_500}
+            />
+          </li>
+        ))}
+      </>
     )
   }
-  return (
-    <Layout.Horizontal flex={{ distribution: 'space-between' }} padding={{ right: 'small' }}>
-      <Layout.Horizontal spacing="small" className={css.inputSetButton}>
-        <Text className={css.inputSetDots}>&#x2807;&#x2807;</Text>
-        <Text className={css.inputSetName}>{value[0]?.label}</Text>{' '}
-        <div
-          className={css.clearButton}
-          onClick={event => {
-            event.stopPropagation()
-            onChange?.(value.filter(el => el !== value[0]))
-          }}
-        >
-          <Icon name="cross" />
-        </div>
-      </Layout.Horizontal>
-    </Layout.Horizontal>
-  )
+  return <></>
 })
 
 export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
@@ -315,12 +311,12 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
         onChange?.(selectedInputSets)
       }}
     >
-      <Button minimal className={css.container} style={{ width: '100%' }}>
-        {value && value.length > 0 && <RenderValue value={value} onChange={onChange} />}
-        <span className={css.placeholder}>
-          <Icon className={css.placeholderIcon} name={'plus'} size={18} /> {getString('inputSets.selectPlaceholder')}
-        </span>
-      </Button>
+      <Layout.Horizontal className={css.selectedInputSetsContainer}>
+        {value?.length ? <RenderValue value={value} onChange={onChange} /> : null}
+        <Button icon="small-plus" withoutBoxShadow={true} className={css.addInputSetButton} minimal intent="primary">
+          {getString('inputSets.selectPlaceholder')}
+        </Button>
+      </Layout.Horizontal>
       <Layout.Vertical spacing="small" className={css.popoverContainer}>
         <div className={!inputSets ? css.loadingSearchContainer : css.searchContainer}>
           <TextInput

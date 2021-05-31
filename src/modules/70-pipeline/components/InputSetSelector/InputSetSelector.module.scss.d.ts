@@ -1,7 +1,10 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly container: string
+  readonly selectedInputSetsContainer: string
+  readonly selectedInputSetCard: string
+  readonly selectedInputSetLi: string
+  readonly addInputSetButton: string
   readonly clearButton: string
   readonly inputSetNumber: string
   readonly inputSetButton: string

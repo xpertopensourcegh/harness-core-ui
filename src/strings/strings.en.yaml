@@ -539,7 +539,7 @@ inputSets:
   newOverlayInputSet: New Overlay Input Set
   newInputSetLabel: New Input Set
   inputSetSaved: Input Set saved
-  nameIsRequired: InputSet Name is Required field
+  nameIsRequired: Input Set Name is Required field
   inputSetIsRequired: Input Set field cannot be empty
   inputSetName: Input set name
   overlaySetName: Overlay set name
@@ -555,7 +555,7 @@ inputSets:
   confirmDeleteTitle: 'Delete {{type}}'
   overlayInputSet: Overlay Input Set
   inputFieldSummary: Input Field Summary
-  selectPlaceholder: Select Input Set
+  selectPlaceholder: Add Input Set(s)
   noRecord: No Input Sets Created
   selectMultipleInputSets: select multiple input sets
   helpTextForMultiSelect: Selected inputs will be applied in the order listed. Drag to reorder the input sets.
@@ -568,8 +568,8 @@ duration: 'Duration:'
 runPipelineForm:
   pipelineRunSuccessFully: Pipeline started successfully
   runPipelineFailed: Failed to run pipeline
-  noRuntimeInput: No Runtime input in pipeline
-  notifyOnlyMe: Notify only me
+  noRuntimeInput: No Runtime inputs in pipeline
+  notifyOnlyMe: Notify only me about the status of the execution
 skipped: 'Step has been skipped.'
 skipCondition: 'Skip condition:'
 skipConditionValidation: 'Skip condition is required.'

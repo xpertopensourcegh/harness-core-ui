@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { Tooltip, Intent, Dialog, Classes, RadioGroup, Radio } from '@blueprintjs/core'
+import { Tooltip, Intent, Dialog, Classes, RadioGroup, Radio, PopoverPosition } from '@blueprintjs/core'
 import {
   Button,
   Checkbox,
@@ -8,9 +8,11 @@ import {
   Layout,
   Text,
   NestedAccordionProvider,
-  Accordion,
   Icon,
-  useModalHook
+  useModalHook,
+  Utils,
+  Heading,
+  Color
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useHistory } from 'react-router-dom'
@@ -231,26 +233,28 @@ function RunPipelineFormBasic({
     }
     const errorString = `Errors: ${errorCount}`
     return (
-      <div className={css.errorHeader}>
-        <Accordion className={css.errorsContent}>
-          <Accordion.Panel
-            id="errors"
-            summary={
-              <Layout.Horizontal spacing="small">
-                <Icon name="warning-sign" intent={Intent.DANGER} />
-                <Text intent="danger">{errorString}</Text>
-              </Layout.Horizontal>
-            }
-            details={
-              <ul>
-                {errorList.map((errorMessage, index) => (
-                  <li key={index}>{errorMessage}</li>
-                ))}
-              </ul>
-            }
-          />
-        </Accordion>
-      </div>
+      <Layout.Horizontal spacing="small" className={css.errorHeader}>
+        <Icon name="warning-sign" intent={Intent.DANGER} />
+        <Text intent="danger">{errorString}</Text>
+        <Utils.WrapOptionalTooltip
+          tooltip={
+            <div className={css.runPipelineErrorDesc}>
+              {errorList.map((errorMessage, index) => (
+                <Text intent="danger" key={index} font={{ weight: 'semi-bold' }} className={css.runPipelineErrorLine}>
+                  {errorMessage}
+                </Text>
+              ))}
+            </div>
+          }
+          tooltipProps={{
+            position: PopoverPosition.BOTTOM,
+            inheritDarkTheme: true,
+            popoverClassName: css.runPipelineErrorPopover
+          }}
+        >
+          <Text font={{ size: 'small' }}>See details</Text>
+        </Utils.WrapOptionalTooltip>
+      </Layout.Horizontal>
     )
   }, [formErrors])
 
@@ -416,12 +420,21 @@ function RunPipelineFormBasic({
         {({ submitForm }) => {
           return (
             <>
-              <Layout.Vertical style={{ background: 'white' }}>
-                {!executionView && (
-                  <div className={css.runModalHeader}>
-                    <Text className={css.runModalHeaderTitle}>{getString('runPipeline')}</Text>
+              <Layout.Vertical>
+                {executionView ? null : (
+                  <>
+                    <div className={css.runModalHeader}>
+                      <Heading
+                        level={2}
+                        font={{ weight: 'bold' }}
+                        color={Color.BLACK_100}
+                        className={css.runModalHeaderTitle}
+                      >
+                        {getString('runPipeline')}
+                      </Heading>
+                    </div>
                     {renderErrors()}
-                  </div>
+                  </>
                 )}
                 <div className={css.runModalFormContent}>
                   <FormikForm>
@@ -434,7 +447,7 @@ function RunPipelineFormBasic({
                                 className={css.pipelineHeader}
                                 padding={{ top: 'xlarge', left: 'xlarge', right: 'xlarge' }}
                               >
-                                <div className={css.divider}>
+                                <div>
                                   <Layout.Horizontal className={css.runModalSubHeading} id="use-input-set">
                                     <RadioGroup
                                       name="existingProvideRadio"
@@ -448,17 +461,44 @@ function RunPipelineFormBasic({
                                       }}
                                     >
                                       <Radio
-                                        label={getString('pipeline.triggers.pipelineInputPanel.existing')}
-                                        value="existing"
-                                      />
-                                      <Radio
                                         label={getString('pipeline.triggers.pipelineInputPanel.provide')}
                                         value="provide"
+                                        className={cx(
+                                          css.valueProviderRadio,
+                                          existingProvide === 'provide' ? css.selectedValueProvider : ''
+                                        )}
+                                      />
+                                      <Radio
+                                        label={getString('pipeline.triggers.pipelineInputPanel.existing')}
+                                        value="existing"
+                                        className={cx(
+                                          css.valueProviderRadio,
+                                          existingProvide === 'existing' ? css.selectedValueProvider : ''
+                                        )}
                                       />
                                     </RadioGroup>
                                     <span className={css.helpSection}>
                                       <Icon name="question" className={css.helpIcon} />
-                                      <Text>{getString('pipeline.triggers.pipelineInputPanel.whatAreInputsets')}</Text>
+                                      <Text
+                                        tooltipProps={{
+                                          position: PopoverPosition.BOTTOM
+                                        }}
+                                        tooltip={
+                                          <Text padding="medium" width={400}>
+                                            Harness Input Sets are collections of variables/values that can be provided
+                                            to one or more Pipelines before execution.
+                                            <a
+                                              href="https://ngdocs.harness.io/article/3fqwa8et3d-input-sets"
+                                              target="_blank"
+                                              rel="noopener noreferrer"
+                                            >
+                                              Learn more
+                                            </a>
+                                          </Text>
+                                        }
+                                      >
+                                        {getString('pipeline.triggers.pipelineInputPanel.whatAreInputsets')}
+                                      </Text>
                                     </span>
                                   </Layout.Horizontal>
                                   {isGitSyncEnabled && (
@@ -481,13 +521,15 @@ function RunPipelineFormBasic({
                                   existingProvide === 'existing' && (
                                     <InputSetSelector
                                       pipelineIdentifier={pipelineIdentifier}
-                                      onChange={setSelectedInputSets}
+                                      onChange={inputsets => {
+                                        setSelectedInputSets(inputsets)
+                                      }}
                                       value={selectedInputSets}
                                       gitFilter={gitFilter || undefined}
                                     />
                                   )}
                               </Layout.Vertical>
-                            )}{' '}
+                            )}
                           </>
                         )}
                         {(existingProvide === 'provide' ||
@@ -512,75 +554,73 @@ function RunPipelineFormBasic({
                   </FormikForm>
                 </div>
                 {executionView ? null : (
-                  <div>
-                    <Layout.Horizontal padding={{ left: 'xlarge', right: 'xlarge', bottom: 'medium' }}>
-                      <div className={css.footer}>
-                        <Layout.Horizontal padding={{ left: 'xxlarge' }}>
-                          <Checkbox
-                            label={getString('pre-flight-check.skipCheckBtn')}
-                            checked={skipPreFlightCheck}
-                            onChange={e => setSkipPreFlightCheck(e.currentTarget.checked)}
-                          />
-                          <Tooltip position="top" content={getString('featureNA')}>
-                            <Checkbox
-                              padding={{ left: 'xxlarge' }}
-                              disabled
-                              label={getString('runPipelineForm.notifyOnlyMe')}
-                              checked={notifyOnlyMe}
-                              onChange={e => setNotifyOnlyMe(e.currentTarget.checked)}
-                            />
-                          </Tooltip>
-                        </Layout.Horizontal>
-                      </div>
-                    </Layout.Horizontal>
-                    <Layout.Horizontal padding={{ left: 'xlarge', right: 'xlarge' }}>
-                      <div className={css.footer}>
-                        <Layout.Horizontal style={{ width: '100%', justifyContent: 'start' }}>
-                          <Layout.Horizontal spacing="xxxlarge" style={{ alignItems: 'center' }}>
-                            <RbacButton
-                              style={{ backgroundColor: 'var(--green-600' }}
-                              intent="primary"
-                              type="submit"
-                              text={getString('runPipeline')}
-                              onClick={event => {
-                                event.stopPropagation()
-                                if (
-                                  (!selectedInputSets || selectedInputSets.length === 0) &&
-                                  existingProvide === 'existing'
-                                ) {
-                                  setExistingProvide('provide')
-                                } else {
-                                  submitForm()
-                                }
-                              }}
-                              permission={{
-                                resource: {
-                                  resourceIdentifier: pipeline?.identifier as string,
-                                  resourceType: ResourceType.PIPELINE
-                                },
-                                permission: PermissionIdentifier.EXECUTE_PIPELINE
-                              }}
-                              disabled={getErrorsList(formErrors).length > 0}
-                            />
-                          </Layout.Horizontal>
-                          <Layout.Horizontal spacing="xxxlarge" style={{ alignItems: 'center' }}>
-                            <Button
-                              id="cancel-runpipeline"
-                              text={getString('cancel')}
-                              style={{ backgroundColor: 'var(--grey-50)', color: 'var(--grey-2)' }}
-                              onClick={() => {
-                                if (onClose) {
-                                  onClose()
-                                } else {
-                                  history.goBack()
-                                }
-                              }}
-                            />
-                          </Layout.Horizontal>
-                        </Layout.Horizontal>
-                      </div>
-                    </Layout.Horizontal>
-                  </div>
+                  <Layout.Horizontal padding={{ left: 'xlarge', right: 'xlarge', top: 'medium', bottom: 'medium' }}>
+                    <Checkbox
+                      label={getString('pre-flight-check.skipCheckBtn')}
+                      background={Color.GREY_200}
+                      className={css.footerCheckbox}
+                      padding={{ top: 'small', bottom: 'small', left: 'xxlarge', right: 'medium' }}
+                      checked={skipPreFlightCheck}
+                      onChange={e => setSkipPreFlightCheck(e.currentTarget.checked)}
+                    />
+                    <Tooltip position="top" content={getString('featureNA')}>
+                      <Checkbox
+                        background={Color.PRIMARY_2}
+                        color={Color.BLUE_500}
+                        className={css.footerCheckbox}
+                        margin={{ left: 'medium' }}
+                        padding={{ top: 'small', bottom: 'small', left: 'xxlarge', right: 'medium' }}
+                        disabled
+                        label={getString('runPipelineForm.notifyOnlyMe')}
+                        checked={notifyOnlyMe}
+                        onChange={e => setNotifyOnlyMe(e.currentTarget.checked)}
+                      />
+                    </Tooltip>
+                  </Layout.Horizontal>
+                )}
+                {executionView ? null : (
+                  <Layout.Horizontal
+                    className={cx(css.footer, css.actionButtons)}
+                    padding={{ left: 'xlarge', right: 'xlarge', top: 'medium', bottom: 'medium' }}
+                  >
+                    <RbacButton
+                      style={{ backgroundColor: 'var(--green-600' }}
+                      intent="primary"
+                      type="submit"
+                      text={getString('runPipeline')}
+                      onClick={event => {
+                        event.stopPropagation()
+                        if ((!selectedInputSets || selectedInputSets.length === 0) && existingProvide === 'existing') {
+                          setExistingProvide('provide')
+                        } else {
+                          submitForm()
+                        }
+                      }}
+                      permission={{
+                        resource: {
+                          resourceIdentifier: pipeline?.identifier as string,
+                          resourceType: ResourceType.PIPELINE
+                        },
+                        permission: PermissionIdentifier.EXECUTE_PIPELINE
+                      }}
+                      disabled={getErrorsList(formErrors).length > 0}
+                    />
+                    <div className={css.secondaryButton}>
+                      <Button
+                        id="cancel-runpipeline"
+                        text={getString('cancel')}
+                        margin={{ left: 'medium' }}
+                        background={Color.GREY_50}
+                        onClick={() => {
+                          if (onClose) {
+                            onClose()
+                          } else {
+                            history.goBack()
+                          }
+                        }}
+                      />
+                    </div>
+                  </Layout.Horizontal>
                 )}
               </Layout.Vertical>
             </>

@@ -1,9 +1,9 @@
 import React from 'react'
-import { Layout, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
+import { Layout, getMultiTypeFromValue, MultiTypeInputType, Text, Icon, Color, IconName } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import cx from 'classnames'
 import type { DeploymentStageConfig, PipelineInfoConfig, StageElementWrapperConfig } from 'services/cd-ng'
-import { String, useStrings } from 'framework/strings'
+import { useStrings } from 'framework/strings'
 import type { AllNGVariables } from '@pipeline/utils/types'
 
 import { StageInputSetForm } from './StageInputSetForm'
@@ -28,6 +28,14 @@ export interface PipelineInputSetFormProps {
   readonly?: boolean
 }
 
+const stageTypeToIconMap: Record<string, IconName> = {
+  Deployment: 'cd-main',
+  ci: 'ci-main',
+  Pipeline: 'pipeline',
+  Custom: 'pipeline-custom',
+  Approval: 'pipeline-approval'
+}
+
 function StageForm({
   allValues,
   path,
@@ -40,9 +48,15 @@ function StageForm({
   readonly?: boolean
 }): JSX.Element {
   const { getString } = useStrings()
+  const icon = stageTypeToIconMap[allValues?.stage?.type || 'Deployment']
   return (
-    <div id={`Stage.${allValues?.stage?.identifier}`} className={cx(css.accordionSummary)}>
-      <div className={css.subheading}>{allValues?.stage?.name || ''}</div>
+    <div id={`Stage.${allValues?.stage?.identifier}`}>
+      <Layout.Horizontal spacing="small" padding={{ top: 'medium', left: 'medium', right: 0, bottom: 0 }}>
+        <Icon name={icon} size={18} />
+        <Text color={Color.BLACK_100} font={{ weight: 'semi-bold' }}>
+          Stage: {allValues?.stage?.name || ''}
+        </Text>
+      </Layout.Horizontal>
 
       <div className={css.topAccordion}>
         {template?.stage?.variables && (
@@ -113,9 +127,6 @@ export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props =
           </>
         )}
         <>
-          <div className={css.header}>
-            <String stringID="pipeline-list.listStages" />
-          </div>
           {template?.stages?.map((stageObj, index) => {
             const pathPrefix = !isEmpty(path) ? `${path}.` : ''
             if (stageObj.stage) {

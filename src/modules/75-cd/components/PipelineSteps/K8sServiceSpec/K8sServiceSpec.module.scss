@@ -4,10 +4,10 @@
   cursor: not-allowed !important;
 }
 .section-header {
-  font-size: 14 !important;
-  color: #000 !important;
+  font-size: var(--font-size-normal) !important;
+  color: var(--black-100) !important;
   margin: var(--spacing-medium) 0 !important;
-  font-weight: bold !important;
+  font-weight: 600 !important;
   :global {
     .bp3-icon {
       padding: 0 var(--spacing-small) !important;
@@ -16,10 +16,10 @@
 }
 
 .sub-secton-header {
-  font-size: 13 !important;
+  font-size: 13px !important;
   margin-bottom: var(--spacing-small) !important;
-  color: #000 !important;
-  font-weight: bold !important;
+  color: var(--black-100) !important;
+  font-weight: 600 !important;
   :global {
     .bp3-icon {
       padding: 0 var(--spacing-small) !important;

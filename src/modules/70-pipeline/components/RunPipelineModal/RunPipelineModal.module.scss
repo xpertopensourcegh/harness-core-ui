@@ -67,7 +67,6 @@
   .footer {
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     width: 100%;
-    padding-top: var(--spacing-medium);
   }
 
   [class*='OverlaySpinner--overlaySpinner'] {
@@ -99,15 +98,6 @@
   .inputSetcard {
     margin: var(--spacing-large);
   }
-  .errorHeader {
-    background: #fff9e7;
-    color: #000;
-    :global {
-      .bp3-icon {
-        padding-right: var(--spacing-large);
-      }
-    }
-  }
 }
 
 .preFlightCheckModal {
@@ -133,6 +123,7 @@
   max-height: fit-content;
   min-height: 150px;
   height: calc(100% - 48px);
+  min-height: 150px;
   padding-top: var(--spacing-xlarge) !important;
 
   &.bp3-dialog-header {
@@ -155,6 +146,7 @@
 
 .run-modal-sub-heading {
   justify-content: space-between !important;
+  align-items: center;
 }
 
 .run-modal-header-title {
@@ -164,8 +156,10 @@
 
 .run-modal-form-content {
   max-height: 65vh !important;
-  min-height: 130px;
-  overflow: scroll !important;
+  min-height: 200px;
+  overflow-x: hidden;
+  overflow: auto !important;
+  border-top: 1px solid var(--grey-200);
 }
 
 .no-pipeline-input-set-form {
@@ -197,4 +191,51 @@
 .dialog {
   position: relative;
   padding-bottom: var(--spacing-xlarge) !important;
+  background-color: var(--form-bg) !important;
+}
+
+.runPipelineErrorPopover {
+  padding: 0 var(--spacing-medium);
+  background: white;
+  color: var(--red-400);
+  font-weight: 500;
+}
+
+.valueProviderRadio {
+  padding: var(--spacing-small) var(--spacing-xlarge) var(--spacing-small) var(--spacing-huge) !important;
+  border: 1px solid var(--grey-200);
+  border-radius: 4px;
+  background-color: white;
+}
+
+.selectedValueProvider {
+  border-color: var(--primary-7);
+  background-color: var(--primary-2) !important;
+  color: var(--form-body-text);
+}
+
+.runPipelineErrorDesc {
+  padding: var(--spacing-small);
+}
+
+.runPipelineErrorLine {
+  margin: var(--spacing-xsmall) 0 !important;
+}
+
+.errorHeader {
+  padding: var(--spacing-small) var(--spacing-large) !important;
+  background-color: var(--red-50) !important;
+}
+
+.actionButtons {
+  margin-top: 0 !important;
+}
+
+.secondaryButton {
+  margin-left: var(--spacing-medium) !important;
+}
+
+.footerCheckbox {
+  border-radius: 4px;
+  font-size: var(--font-size-small) !important;
 }
