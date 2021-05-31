@@ -152,6 +152,7 @@ export interface StringsMap {
   'common.options': string
   'common.orgViewer': string
   'common.other': string
+  'common.paste': string
   'common.path': string
   'common.pendingInvitation': string
   'common.performAction': string
