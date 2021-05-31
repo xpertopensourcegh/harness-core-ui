@@ -331,7 +331,7 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
       {!testing ? (
         <Layout.Vertical width="100px">
           <Layout.Horizontal spacing="small">
-            {data.status?.status || errorMessage ? (
+            {status || data.status?.status || errorMessage ? (
               <Text
                 inline
                 icon={isStatusSuccess ? 'full-circle' : 'warning-sign'}
