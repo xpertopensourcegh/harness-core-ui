@@ -634,7 +634,7 @@ function RunPipelineFormBasic({
                                     </span>
                                   </Layout.Horizontal>
                                   {isGitSyncEnabled && (
-                                    <div className={css.gitFilters}>
+                                    <Layout.Horizontal padding={{ bottom: 'small' }}>
                                       <GitSyncStoreProvider>
                                         <GitFilters
                                           onChange={filter => {
@@ -643,7 +643,7 @@ function RunPipelineFormBasic({
                                           defaultValue={gitFilter || undefined}
                                         />
                                       </GitSyncStoreProvider>
-                                    </div>
+                                    </Layout.Horizontal>
                                   )}
                                 </div>
                                 {!executionView &&
