@@ -485,3 +485,6 @@ testsReports:
 uniqueIdentifier: Identifier must be unique
 repoRequired: 'Repository name is a required field'
 branchRequired: 'Branch is a required field'
+inputSets:
+  noRuntimeInputsCurrently: No runtime inputs in the pipeline currently
+  noRuntimeInputsWhileExecution: No runtime inputs were present in the pipeline during this execution

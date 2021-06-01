@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { isEmpty } from 'lodash-es'
-import { Popover, Layout, TextInput, useModalHook } from '@wings-software/uicore'
+import { Popover, Layout, TextInput, useModalHook, Text } from '@wings-software/uicore'
 import { Menu, MenuItem, Position } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
-import { InputSetSummaryResponse, useGetInputSetsListForPipeline } from 'services/pipeline-ng'
+import {
+  InputSetSummaryResponse,
+  useGetInputSetsListForPipeline,
+  useGetTemplateFromPipeline
+} from 'services/pipeline-ng'
 import { OverlayInputSetForm } from '@pipeline/components/OverlayInputSetForm/OverlayInputSetForm'
 import routes from '@common/RouteDefinitions'
 import type { GitQueryParams, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
@@ -54,6 +58,25 @@ const InputSetList: React.FC = (): JSX.Element => {
     },
     debounce: 300
   })
+
+  const { data: template } = useGetTemplateFromPipeline({
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      pipelineIdentifier,
+      projectIdentifier,
+      repoIdentifier,
+      branch
+    }
+  })
+
+  // These flags will be used to disable the Add Input set buttons in the page.
+  const [pipelineHasRuntimeInputs, setPipelineHasRuntimeInputs] = useState(true)
+  useEffect(() => {
+    if (!template?.data?.inputSetTemplateYaml) {
+      setPipelineHasRuntimeInputs(false)
+    }
+  }, [template])
 
   const [selectedInputSet, setSelectedInputSet] = React.useState<{
     identifier?: string
@@ -154,6 +177,12 @@ const InputSetList: React.FC = (): JSX.Element => {
                   },
                   permission: PermissionIdentifier.EDIT_PIPELINE
                 }}
+                disabled={!pipelineHasRuntimeInputs}
+                tooltip={
+                  !pipelineHasRuntimeInputs ? (
+                    <Text padding="medium">{getString('pipeline.inputSets.noRuntimeInputsCurrently')}</Text>
+                  ) : undefined
+                }
               />
             </Popover>
             {isGitSyncEnabled && (
@@ -194,7 +223,8 @@ const InputSetList: React.FC = (): JSX.Element => {
           message: getString('inputSets.aboutInputSets'),
           buttonText: getString('inputSets.addInputSet'),
           onClick: () => goToInputSetForm(),
-          buttonDisabled: !canUpdateInputSet
+          buttonDisabled: !canUpdateInputSet || !pipelineHasRuntimeInputs,
+          buttonDisabledTooltip: getString('pipeline.inputSets.noRuntimeInputsCurrently')
         }}
       >
         <InputSetListView

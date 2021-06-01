@@ -1135,6 +1135,8 @@ export interface StringsMap {
   'pipeline.gitDetails': string
   'pipeline.gitExperience.skipNow': string
   'pipeline.infrastructureKey': string
+  'pipeline.inputSets.noRuntimeInputsCurrently': string
+  'pipeline.inputSets.noRuntimeInputsWhileExecution': string
   'pipeline.jiraApprovalStep.allConditions': string
   'pipeline.jiraApprovalStep.anyCondition': string
   'pipeline.jiraApprovalStep.approvalCriteria': string

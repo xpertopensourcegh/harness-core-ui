@@ -1,27 +1,32 @@
 .optionBtns {
   display: inline-block;
-  background-color: var(--grey-200);
-  border-radius: 10px;
   font-size: var(--font-size-xsmall);
   line-height: 14px;
-  width: 138px;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, 0);
+  width: 136px;
+  margin: 0 250px;
 
   .item {
     display: inline-block;
-    padding: var(--spacing-xsmall) var(--spacing-medium);
+    padding: 4px 8px;
     border-radius: 10px;
     margin: 2px;
     cursor: pointer;
+    border: solid 1px var(--primary-9);
+    color: var(--primary-9);
+    background: #fff;
+    width: 55px;
+    text-align: center;
   }
 
   .selected {
     font-weight: bold;
-    background-color: var(--grey-400);
+    background-color: var(--primary-9);
     color: var(--white);
     cursor: default;
+  }
+
+  .disabledMode {
+    cursor: not-allowed;
   }
 }
 
@@ -29,6 +34,8 @@
   min-height: initial;
   .editor {
     width: 100%;
+    // max height is same as the height in visual view
+    max-height: 65vh !important;
     padding-top: var(--spacing-medium);
     padding-bottom: var(--spacing-medium);
   }
@@ -139,7 +146,6 @@
 .run-modal-header {
   min-height: var(--spacing-8);
   display: flex;
-  justify-content: space-between !important;
   padding-left: var(--spacing-xlarge) !important;
   padding-right: var(--spacing-11) !important;
 }
