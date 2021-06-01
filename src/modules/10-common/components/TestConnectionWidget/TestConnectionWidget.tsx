@@ -20,7 +20,7 @@ export const TestConnectionWidget: React.FC<TestConnectionWidgetProps> = ({ test
   switch (testStatus) {
     case TestStatus.NOT_INITIATED:
       return (
-        <Layout.Horizontal spacing="small">
+        <Layout.Horizontal spacing="small" flex>
           <Icon name="test-connection" />
           <Text style={{ cursor: 'pointer' }} color={Color.BLUE_500} onClick={() => onTest()}>
             {getString('common.labelTestConnection')}
@@ -29,14 +29,14 @@ export const TestConnectionWidget: React.FC<TestConnectionWidgetProps> = ({ test
       )
     case TestStatus.IN_PROGRESS:
       return (
-        <Layout.Horizontal spacing="small">
+        <Layout.Horizontal spacing="small" flex>
           <Icon name="steps-spinner" color={Color.PRIMARY_7} />
           <Text>{getString('common.test.inProgress')}</Text>
         </Layout.Horizontal>
       )
     case TestStatus.FAILED:
       return (
-        <Layout.Horizontal spacing="small">
+        <Layout.Horizontal spacing="small" flex>
           <Icon name="circle-cross" color={Color.RED_450} />
           <Text>{getString('common.test.connectionFailed')}</Text>
           <Icon name="test-connection" />
@@ -47,7 +47,7 @@ export const TestConnectionWidget: React.FC<TestConnectionWidgetProps> = ({ test
       )
     case TestStatus.SUCCESS:
       return (
-        <Layout.Horizontal spacing="small">
+        <Layout.Horizontal spacing="small" flex>
           <Icon name="command-artifact-check" color={Color.GREEN_450} />
           <Text>{getString('common.test.connectionSuccessful')}</Text>
         </Layout.Horizontal>
