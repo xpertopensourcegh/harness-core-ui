@@ -306,8 +306,8 @@ function RunPipelineFormBasic({
     }
     const errorString = `Errors: ${errorCount}`
     return (
-      <Layout.Horizontal spacing="small" className={css.errorHeader}>
-        <Icon name="warning-sign" intent={Intent.DANGER} />
+      <Layout.Horizontal className={css.errorHeader}>
+        <Icon name="warning-sign" intent={Intent.DANGER} margin={{ right: 'small' }} />
         <Text intent="danger">{errorString}</Text>
         <Utils.WrapOptionalTooltip
           tooltip={
@@ -325,7 +325,9 @@ function RunPipelineFormBasic({
             popoverClassName: css.runPipelineErrorPopover
           }}
         >
-          <Text font={{ size: 'small' }}>See details</Text>
+          <Text font={{ size: 'small' }} margin={{ left: 'small' }}>
+            See details
+          </Text>
         </Utils.WrapOptionalTooltip>
       </Layout.Horizontal>
     )
@@ -709,7 +711,8 @@ function RunPipelineFormBasic({
                 <Layout.Horizontal padding={{ left: 'xlarge', right: 'xlarge', top: 'medium', bottom: 'medium' }}>
                   <Checkbox
                     label={getString('pre-flight-check.skipCheckBtn')}
-                    background={Color.GREY_200}
+                    background={skipPreFlightCheck ? Color.PRIMARY_2 : Color.GREY_100}
+                    color={skipPreFlightCheck ? Color.PRIMARY_7 : Color.BLACK}
                     className={css.footerCheckbox}
                     padding={{ top: 'small', bottom: 'small', left: 'xxlarge', right: 'medium' }}
                     checked={skipPreFlightCheck}
@@ -717,8 +720,8 @@ function RunPipelineFormBasic({
                   />
                   <Tooltip position="top" content={getString('featureNA')}>
                     <Checkbox
-                      background={Color.PRIMARY_2}
-                      color={Color.PRIMARY_7}
+                      background={notifyOnlyMe ? Color.PRIMARY_2 : Color.GREY_100}
+                      color={notifyOnlyMe ? Color.PRIMARY_7 : Color.BLACK}
                       className={css.footerCheckbox}
                       margin={{ left: 'medium' }}
                       padding={{ top: 'small', bottom: 'small', left: 'xxlarge', right: 'medium' }}
@@ -733,7 +736,7 @@ function RunPipelineFormBasic({
               {executionView ? null : (
                 <Layout.Horizontal
                   className={cx(css.footer, css.actionButtons)}
-                  padding={{ left: 'xlarge', right: 'xlarge', top: 'medium', bottom: 'medium' }}
+                  padding={{ left: 'xlarge', right: 'xlarge', top: 'large', bottom: 'large' }}
                 >
                   <RbacButton
                     style={{ backgroundColor: 'var(--green-600' }}
@@ -767,6 +770,15 @@ function RunPipelineFormBasic({
                         if (onClose) {
                           onClose()
                         }
+                        history.replace(
+                          routes.toPipelineStudio({
+                            accountId,
+                            projectIdentifier,
+                            orgIdentifier,
+                            module,
+                            pipelineIdentifier
+                          })
+                        )
                       }}
                     />
                   </div>

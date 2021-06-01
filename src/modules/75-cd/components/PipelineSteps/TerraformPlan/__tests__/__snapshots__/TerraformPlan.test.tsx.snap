@@ -5711,7 +5711,7 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
                           class="bp3-popover-target"
                         >
                           <p
-                            class="StyledProps--font StyledProps--main label"
+                            class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                             tabindex="0"
                           >
                             secret-1
@@ -5984,7 +5984,7 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
                                   class="bp3-popover-target"
                                 >
                                   <p
-                                    class="StyledProps--font StyledProps--main label"
+                                    class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                                     tabindex="0"
                                   >
                                     test

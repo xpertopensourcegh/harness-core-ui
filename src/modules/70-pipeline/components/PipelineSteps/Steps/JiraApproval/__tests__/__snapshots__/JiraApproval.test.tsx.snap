@@ -39,7 +39,7 @@ exports[`Jira Approval tests Basic snapshot - deploymentform mode: jira-approval
                   class="bp3-popover-target"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main label"
+                    class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                     tabindex="0"
                   >
                     c1
@@ -469,7 +469,7 @@ exports[`Jira Approval tests Basic snapshot - inputset mode: input set with erro
                   class="bp3-popover-target"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main label"
+                    class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                     tabindex="0"
                   >
                     c1
@@ -831,7 +831,7 @@ exports[`Jira Approval tests Edit stage - readonly: edit stage view readonly 1`]
                                   class="bp3-popover-target"
                                 >
                                   <p
-                                    class="StyledProps--font StyledProps--main label"
+                                    class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                                     tabindex="0"
                                   >
                                     c1
@@ -1270,7 +1270,7 @@ exports[`Jira Approval tests deploymentform mode - readonly: jira-approval-deplo
                   class="bp3-popover-target"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main label"
+                    class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                     tabindex="0"
                   >
                     c1

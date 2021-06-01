@@ -11,6 +11,7 @@ export interface StringsMap {
   'common.accountName': string
   'common.addVariable': string
   'common.approve': string
+  'common.artifactTag': string
   'common.banners.email.description': string
   'common.banners.email.resend': string
   'common.banners.email.success': string

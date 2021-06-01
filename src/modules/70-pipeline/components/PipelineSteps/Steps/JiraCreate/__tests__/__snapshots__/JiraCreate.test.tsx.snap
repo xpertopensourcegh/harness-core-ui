@@ -39,7 +39,7 @@ exports[`Jira Create tests Basic snapshot - deploymentform mode: jira-create-dep
                   class="bp3-popover-target"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main label"
+                    class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                     tabindex="0"
                   >
                     c1
@@ -516,7 +516,7 @@ exports[`Jira Create tests Basic snapshot - inputset mode: input set with errors
                   class="bp3-popover-target"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main label"
+                    class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                     tabindex="0"
                   >
                     c1
@@ -785,7 +785,7 @@ exports[`Jira Create tests Deploymentform readonly mode: jira-create-deploymentf
                   class="bp3-popover-target"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main label"
+                    class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                     tabindex="0"
                   >
                     c1
@@ -1231,7 +1231,7 @@ exports[`Jira Create tests Edit Stage - readonly view: edit-stage-readonly 1`] =
                                   class="bp3-popover-target"
                                 >
                                   <p
-                                    class="StyledProps--font StyledProps--main label"
+                                    class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
                                     tabindex="0"
                                   >
                                     c1
