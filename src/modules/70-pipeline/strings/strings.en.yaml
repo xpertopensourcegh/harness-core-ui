@@ -155,13 +155,13 @@ failureStrategies:
     MarkAsSuccess: Mark As Success
   errorTypeLabels:
     Authentication: Authentication Errors
-    Application: Application Errors
     Authorization: Authorization Errors
     Connectivity: Connectivity Errors
     Timeout: Timeout Errors
     Verification: Verification Errors
     DelegateProvisioning: Delegate Provisioning Errors
-    AnyOther: Any Other
+    AllErrors: All Errors
+    Unknown: Unknown Errors
   validation:
     errorsRequired: At least one failure type is required
     errorsMinimum: '{{ $.pipeline.failureStrategies.validation.errorsRequired }}'

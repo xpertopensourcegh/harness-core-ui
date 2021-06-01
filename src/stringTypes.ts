@@ -1103,13 +1103,13 @@ export interface StringsMap {
   'pipeline.executionStatus.Unknown': string
   'pipeline.executionStatus.Waiting': string
   'pipeline.failureStrategies.defaultStageText': string
-  'pipeline.failureStrategies.errorTypeLabels.AnyOther': string
-  'pipeline.failureStrategies.errorTypeLabels.Application': string
+  'pipeline.failureStrategies.errorTypeLabels.AllErrors': string
   'pipeline.failureStrategies.errorTypeLabels.Authentication': string
   'pipeline.failureStrategies.errorTypeLabels.Authorization': string
   'pipeline.failureStrategies.errorTypeLabels.Connectivity': string
   'pipeline.failureStrategies.errorTypeLabels.DelegateProvisioning': string
   'pipeline.failureStrategies.errorTypeLabels.Timeout': string
+  'pipeline.failureStrategies.errorTypeLabels.Unknown': string
   'pipeline.failureStrategies.errorTypeLabels.Verification': string
   'pipeline.failureStrategies.fieldLabels.onRetryFailureLabel': string
   'pipeline.failureStrategies.fieldLabels.onTimeoutLabel': string
