@@ -1285,8 +1285,8 @@ export interface StringsMap {
   'pipeline.testsReports.testCasesExecution': string
   'pipeline.testsReports.testCasesExecutionInfo': string
   'pipeline.testsReports.testSuite': string
-  'pipeline.testsReports.testsIntelligentlySkipped': string
   'pipeline.testsReports.timeSaved': string
+  'pipeline.testsReports.totalDuration': string
   'pipeline.testsReports.totalExecutedTest': string
   'pipeline.testsReports.totalTests': string
   'pipeline.testsReports.totalWithColon': string
