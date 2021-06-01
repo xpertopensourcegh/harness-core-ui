@@ -474,6 +474,23 @@ const getArtifactorySchema = (connector: ConnectorInfoDTO): Array<ActivityDetail
   ]
 }
 
+const getDataDogSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInterface> => {
+  return [
+    {
+      label: 'UrlLabel',
+      value: connector?.spec?.url
+    },
+    {
+      label: 'connectors.encryptedAPIKeyLabel',
+      value: connector?.spec?.apiKeyRef
+    },
+    {
+      label: 'connectors.datadog.encryptedAPPKeyLabel',
+      value: connector?.spec?.applicationKeyRef
+    }
+  ]
+}
+
 const getSchemaByType = (connector: ConnectorInfoDTO, type: string): Array<ActivityDetailsRowInterface> => {
   switch (type) {
     case Connectors.KUBERNETES_CLUSTER:
@@ -504,6 +521,8 @@ const getSchemaByType = (connector: ConnectorInfoDTO, type: string): Array<Activ
       return getVaultSchema(connector)
     case Connectors.AWS_KMS:
       return getAwsKmsSchema(connector)
+    case Connectors.DATADOG:
+      return getDataDogSchema(connector)
     default:
       return []
   }

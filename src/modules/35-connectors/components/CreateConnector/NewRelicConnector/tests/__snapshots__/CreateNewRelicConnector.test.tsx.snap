@@ -923,7 +923,7 @@ exports[`Create newrelic connector Wizard should render form 3`] = `
                     <div
                       class="bp3-form-helper-text"
                     >
-                      connectors.newRelic.encryptedKeyValidation
+                      connectors.encryptedAPIKeyValidation
                     </div>
                   </div>
                 </div>

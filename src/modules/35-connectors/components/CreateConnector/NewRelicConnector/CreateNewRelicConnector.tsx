@@ -166,7 +166,7 @@ function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
         validationSchema={Yup.object().shape({
           url: Yup.string().trim().required(getString('connectors.newRelic.urlValidation')),
           newRelicAccountId: Yup.string().trim().required(getString('connectors.newRelic.accountIdValidation')),
-          apiKeyRef: Yup.string().trim().required(getString('connectors.newRelic.encryptedKeyValidation'))
+          apiKeyRef: Yup.string().trim().required(getString('connectors.encryptedAPIKeyValidation'))
         })}
         onSubmit={(formData: ConnectorConfigDTO) => {
           nextStep?.({ ...connectorInfo, ...prevStepData, ...formData })
@@ -192,7 +192,7 @@ function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
                 }
                 name="newRelicAccountId"
               />
-              <SecretInput label={getString('connectors.newRelic.encryptedAPIKeyLabel')} name="apiKeyRef" />
+              <SecretInput label={getString('connectors.encryptedAPIKeyLabel')} name="apiKeyRef" />
             </Layout.Vertical>
             <Layout.Horizontal spacing="large">
               <Button onClick={() => props.previousStep?.({ ...props.prevStepData })} text={getString('back')} />

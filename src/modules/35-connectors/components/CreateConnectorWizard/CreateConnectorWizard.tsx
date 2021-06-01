@@ -22,6 +22,7 @@ import JiraConnector from '../CreateConnector/JiraConnector/JiraConnector'
 import CreateAwsKmsConnector from '../CreateConnector/AWSKmsConnector/CreateAwsKmsConnector'
 import CreateNewRelicConnector from '../CreateConnector/NewRelicConnector/CreateNewRelicConnector'
 import CreatePrometheusConnector from '../CreateConnector/PrometheusConnector/CreatePrometheusConnector'
+import CreateDataDogConnector from '../CreateConnector/DataDogConnector/CreateDataDogConnector'
 import CreateCeAzureConnector from '../CreateConnector/CEAzureConnector/CreateCeAzureConnector'
 import css from './CreateConnectorWizard.module.scss'
 
@@ -110,6 +111,8 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
       return <CreateAwsKmsConnector {...commonProps} />
     case Connectors.CE_AZURE:
       return <CreateCeAzureConnector {...commonProps} />
+    case Connectors.DATADOG:
+      return <CreateDataDogConnector {...commonProps} />
     default:
       return null
   }

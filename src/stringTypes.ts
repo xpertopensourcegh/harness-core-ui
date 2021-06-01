@@ -614,6 +614,10 @@ export interface StringsMap {
   'connectors.createFromYaml': string
   'connectors.createNewConnector': string
   'connectors.createdSuccessfully': string
+  'connectors.datadog.encryptedAPPKeyLabel': string
+  'connectors.datadog.encryptedAPPKeyValidation': string
+  'connectors.datadog.urlValidation': string
+  'connectors.datadogConnectorDetails': string
   'connectors.delegate.configure': string
   'connectors.delegate.delegateSelectorAny': string
   'connectors.delegate.delegateSelectorSelective': string
@@ -634,6 +638,8 @@ export interface StringsMap {
   'connectors.dynatrace.urlValidation': string
   'connectors.dynatraceConnectorDetails': string
   'connectors.dynatraceLabel': string
+  'connectors.encryptedAPIKeyLabel': string
+  'connectors.encryptedAPIKeyValidation': string
   'connectors.gcrConnectorDetails': string
   'connectors.hashiCorpVault.appRoleId': string
   'connectors.hashiCorpVault.baseSecretPath': string
@@ -690,8 +696,6 @@ export interface StringsMap {
   'connectors.newRelic.accountIdFieldLabel': string
   'connectors.newRelic.accountIdTooltip': string
   'connectors.newRelic.accountIdValidation': string
-  'connectors.newRelic.encryptedAPIKeyLabel': string
-  'connectors.newRelic.encryptedKeyValidation': string
   'connectors.newRelic.products.fullStackObservability': string
   'connectors.newRelic.subTitle': string
   'connectors.newRelic.urlFieldLabel': string
@@ -731,6 +735,7 @@ export interface StringsMap {
   'connectors.testConnectionStep.validationText.aws': string
   'connectors.testConnectionStep.validationText.azure': string
   'connectors.testConnectionStep.validationText.bitbucket': string
+  'connectors.testConnectionStep.validationText.datadog': string
   'connectors.testConnectionStep.validationText.docker': string
   'connectors.testConnectionStep.validationText.gcp': string
   'connectors.testConnectionStep.validationText.gcr': string
@@ -751,6 +756,7 @@ export interface StringsMap {
   'connectors.title.awsKms': string
   'connectors.title.bitbucketConnector': string
   'connectors.title.ceAzureConnector': string
+  'connectors.title.datadog': string
   'connectors.title.delegateSelection': string
   'connectors.title.gcpConnector': string
   'connectors.title.gitConnector': string

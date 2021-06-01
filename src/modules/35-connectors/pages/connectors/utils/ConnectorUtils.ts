@@ -987,6 +987,47 @@ export const buildPrometheusPayload = (formData: FormData) => {
   }
 }
 
+export interface DatadogInitialValue {
+  apiKeyRef?: SecretReferenceInterface | void
+  applicationKeyRef?: SecretReferenceInterface | void
+  accountId?: string | undefined
+  projectIdentifier?: string
+  orgIdentifier?: string
+  loading?: boolean
+}
+
+export const buildDatadogPayload = (formData: FormData) => {
+  const {
+    name,
+    identifier,
+    projectIdentifier,
+    orgIdentifier,
+    delegateSelectors,
+    url,
+    description,
+    tags,
+    apiKeyRef: { referenceString: apiReferenceKey },
+    applicationKeyRef: { referenceString: appReferenceKey }
+  } = formData
+  return {
+    connector: {
+      name,
+      identifier,
+      type: Connectors.DATADOG,
+      projectIdentifier,
+      orgIdentifier,
+      description,
+      tags,
+      spec: {
+        url,
+        apiKeyRef: apiReferenceKey,
+        applicationKeyRef: appReferenceKey,
+        delegateSelectors: delegateSelectors || {}
+      }
+    }
+  }
+}
+
 export const buildSplunkPayload = (formData: FormData, accountId: string) => ({
   connector: {
     ...pick(formData, ['name', 'identifier', 'orgIdentifier', 'projectIdentifier', 'description', 'tags']),
@@ -1065,6 +1106,8 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'aws-kms'
     case Connectors.CE_AZURE:
       return 'service-azure'
+    case Connectors.DATADOG:
+      return 'service-datadog'
     default:
       return 'cog'
   }
@@ -1193,6 +1236,8 @@ export function GetTestConnectionValidationTextByType(type: ConnectorConfigDTO['
       return getString('connectors.testConnectionStep.validationText.git')
     case Connectors.CE_AZURE:
       return getString('connectors.testConnectionStep.validationText.azure')
+    case Connectors.DATADOG:
+      return getString('connectors.testConnectionStep.validationText.datadog')
     default:
       return ''
   }

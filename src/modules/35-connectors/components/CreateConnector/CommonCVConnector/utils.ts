@@ -12,6 +12,8 @@ export function dsconfigTypeToConnectorDetailsTitle(
       return getString('connectors.appDynamicsDetails')
     case 'NewRelic':
       return getString('connectors.newRelicConnectorDetails')
+    case 'Datadog':
+      return getString('connectors.title.datadog')
     default:
       return ''
   }

@@ -63,7 +63,8 @@ export const Connectors: ConnectorType = {
   NEW_RELIC: 'NewRelic',
   AWS_KMS: 'AwsKms',
   PROMETHEUS: 'Prometheus',
-  CE_AZURE: 'CEAzure'
+  CE_AZURE: 'CEAzure',
+  DATADOG: 'Datadog'
 }
 
 export const ConnectorInfoText = {
