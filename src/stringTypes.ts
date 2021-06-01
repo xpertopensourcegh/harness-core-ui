@@ -114,16 +114,21 @@ export interface StringsMap {
   'common.git.selectRepoLabel': string
   'common.git.startPRLabel': string
   'common.git.urlType': string
+  'common.git.validation.commitMessage': string
   'common.git.validation.filePath': string
   'common.gitSync.allRepositories': string
   'common.gitSync.commitDetailsLabel': string
+  'common.gitSync.creatingPR': string
   'common.gitSync.defaultBranches': string
   'common.gitSync.gitRepositoryDetails': string
   'common.gitSync.harnessFolderLabel': string
+  'common.gitSync.pushingChangestoBranch': string
   'common.gitSync.repoDetails': string
   'common.gitSync.resourceLabel': string
   'common.gitSync.rootFolderLabel': string
+  'common.gitSync.savingInProgress': string
   'common.gitSync.selectBranchLabel': string
+  'common.gitSync.settingUpNewBranch': string
   'common.gitSync.sync': string
   'common.gitSync.syncStartSuccess': string
   'common.gitSync.syncing.header': string
@@ -131,6 +136,7 @@ export interface StringsMap {
   'common.gitSync.unSynced.header': string
   'common.gitSync.unSynced.message1': string
   'common.gitSync.unSynced.message2': string
+  'common.gitSync.unableToCreatePR': string
   'common.gitSync.updateResource': string
   'common.input': string
   'common.jexlExpression': string
@@ -615,6 +621,7 @@ export interface StringsMap {
   'connectors.createFromYaml': string
   'connectors.createNewConnector': string
   'connectors.createdSuccessfully': string
+  'connectors.creating': string
   'connectors.datadog.encryptedAPPKeyLabel': string
   'connectors.datadog.encryptedAPPKeyValidation': string
   'connectors.datadog.urlValidation': string

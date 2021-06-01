@@ -11,7 +11,8 @@ selectConnectorLabel: Select Artifact Repository Connector
 stepThreeName: '{{$.common.labelTestConnection}}'
 stepFourName: 'Artifact Location'
 name: Connector Name
-updating: Updating connector
+updating: 'Updating connector {{name}}'
+creating: 'Creating connector {{name}}'
 successfullCreate: 'Connector {{name}} created successfully'
 successfullUpdate: 'Connector {{name}} updated successfully'
 connectorNotFound: Connector not found.
