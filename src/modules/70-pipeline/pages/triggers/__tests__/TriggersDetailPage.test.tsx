@@ -8,9 +8,7 @@ import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import TriggersDetailPage from '../TriggersDetailPage'
 import { GetTriggerResponse, GetTriggerDetailsResponse } from './TriggerDetailPageMock'
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 const mockUpdateTriggerStatus = jest.fn().mockReturnValue(Promise.resolve({ data: {}, status: {} }))
 

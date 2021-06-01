@@ -3,7 +3,7 @@ import type { LogViewerAccordionStatus } from '@common/components/MultiLogsViewe
 import { ActionType, State, Action } from '../LogsState/types'
 import { reducer } from '../LogsState'
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => () => null)
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 function getCreateSectionsAction(statuses: LogViewerAccordionStatus[]): Action<ActionType.CreateSections> {
   return {

@@ -16,9 +16,8 @@ import {
 } from './sharedMockResponses'
 import { getTriggerConfigDefaultProps, pipelineInputInitialValues } from './webhookMockConstants'
 import WebhookPipelineInputPanel from '../views/WebhookPipelineInputPanel'
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
+
 jest.mock('@common/utils/YamlUtils', () => ({}))
 jest.mock('services/cd-ng', () => ({
   useGetConnector: jest.fn(() => ConnectorResponse)

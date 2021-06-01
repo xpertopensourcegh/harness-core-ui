@@ -10,9 +10,7 @@ import pipelineContextMock from './pipelineContext.json'
 import connectorsData from './connectors_mock.json'
 import ArtifactListView from '../ArtifactListView/ArtifactListView'
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 const getContextValue = (): PipelineContextInterface => {
   return {

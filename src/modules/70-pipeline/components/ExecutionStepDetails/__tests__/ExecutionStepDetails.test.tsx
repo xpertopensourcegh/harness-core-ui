@@ -9,7 +9,7 @@ import { ExecutionNode, useGetApprovalInstance, useGetExecutionNode } from 'serv
 import ExecutionStepDetails from '../ExecutionStepDetails'
 import data from './data.json'
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => () => null)
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 jest.mock('services/pipeline-ng', () => ({
   useGetApprovalInstance: jest.fn(() => ({ data: {}, loading: false })),
   useGetHarnessApprovalInstanceAuthorization: jest.fn(() => ({ data: {}, loading: false })),

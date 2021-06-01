@@ -8,9 +8,7 @@ import connectorsData from './connectors_mock.json'
 
 const fetchConnectors = (): Promise<unknown> => Promise.resolve(connectorsData)
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 jest.mock('services/cd-ng', () => ({
   useGetConnectorListV2: jest.fn().mockImplementation(() => ({ mutate: fetchConnectors }))

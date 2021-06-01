@@ -11,7 +11,7 @@ import mock from './mocks/schema.json'
 
 import ExecutionInputsView from '../ExecutionInputsView'
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => () => <div>Mock Monaco Editor</div>)
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 jest.mock('@common/utils/YamlUtils', () => ({}))
 jest.mock('services/pipeline-ng', () => ({
   useGetInputsetYaml: jest.fn(() => ({ data: null })),

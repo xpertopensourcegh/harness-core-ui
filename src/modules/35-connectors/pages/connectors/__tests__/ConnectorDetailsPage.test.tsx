@@ -4,10 +4,7 @@ import { TestWrapper } from '@common/utils/testUtils'
 import ConnectorDetailsPage from '../ConnectorDetailsPage'
 import connector from './mocks/get-connector-mock.json'
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => {
-  const ComponentToMock = () => <div />
-  return ComponentToMock
-})
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 jest.mock('services/cd-ng', () => ({
   useGetOrganizationAggregateDTO: jest.fn().mockImplementation(() => {

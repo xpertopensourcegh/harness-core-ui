@@ -6,10 +6,7 @@ import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Step
 import { InfraProvisioning } from './InfraProvisioning'
 
 jest.mock('@common/components/MonacoEditor/MonacoEditor')
-
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 jest.mock('@common/utils/YamlUtils', () => ({}))
 
 jest.mock('resize-observer-polyfill', () => {

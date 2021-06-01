@@ -8,9 +8,7 @@ import { fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
 import { DeployEnvironment } from '../DeployEnvStep.stories'
 import environments from './mock.json'
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
-  <div>{children}</div>
-))
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 jest.mock('services/cd-ng', () => ({
   useGetEnvironmentListForProject: jest

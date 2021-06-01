@@ -9,10 +9,7 @@ import * as mockMetaData from './snippets.metadata.json'
 import * as mockSnippetData from './snippet.json'
 import * as mockSecretData from './mocks/secret.json'
 
-jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => {
-  const ComponentToMock = () => <div />
-  return ComponentToMock
-})
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 jest.mock('services/cd-ng', () => ({
   useListSecretsV2: jest.fn().mockImplementation(() => {
