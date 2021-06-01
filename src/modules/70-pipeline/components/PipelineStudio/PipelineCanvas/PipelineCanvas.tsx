@@ -600,12 +600,14 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                     permission: PermissionIdentifier.EDIT_PIPELINE
                   }}
                 />
-                <Button
-                  disabled={!isUpdated}
-                  onClick={() => fetchPipeline({ forceFetch: true, forceUpdate: true })}
-                  className={css.discardBtn}
-                  text={getString('pipeline.discard')}
-                />
+                {pipelineIdentifier !== DefaultNewPipelineId && (
+                  <Button
+                    disabled={!isUpdated}
+                    onClick={() => fetchPipeline({ forceFetch: true, forceUpdate: true })}
+                    className={css.discardBtn}
+                    text={getString('pipeline.discard')}
+                  />
+                )}
                 <RbacButton
                   data-testid="card-run-pipeline"
                   intent="primary"
