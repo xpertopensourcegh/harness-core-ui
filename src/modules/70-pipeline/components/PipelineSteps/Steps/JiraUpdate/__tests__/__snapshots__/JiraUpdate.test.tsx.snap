@@ -863,7 +863,12 @@ exports[`Jira Update tests Edit stage - readony view: editstage-readonly 1`] = `
             >
               <div>
                 <div>
-                  pipeline.jiraApprovalStep.connectorRef
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="margin-bottom: 5px;"
+                  >
+                    pipeline.jiraApprovalStep.connectorRef
+                  </div>
                   <div
                     class="bp3-form-group connector"
                     style="margin-bottom: 0px;"

@@ -166,11 +166,16 @@ exports[`JFrogArtifactory Step Edit View edit mode works 1`] = `
             </div>
           </div>
           <div>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+            <div
+              class="StyledProps--font StyledProps--main"
+              style="margin-bottom: 5px;"
             >
-              pipelineSteps.connectorLabel
-            </p>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+              >
+                pipelineSteps.connectorLabel
+              </p>
+            </div>
             <div
               style="display: flex; align-items: center;"
             >
@@ -981,11 +986,16 @@ exports[`JFrogArtifactory Step Edit View renders runtime inputs 1`] = `
             </div>
           </div>
           <div>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+            <div
+              class="StyledProps--font StyledProps--main"
+              style="margin-bottom: 5px;"
             >
-              pipelineSteps.connectorLabel
-            </p>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+              >
+                pipelineSteps.connectorLabel
+              </p>
+            </div>
             <div
               style="display: flex; align-items: center;"
             >
@@ -1862,11 +1872,16 @@ exports[`JFrogArtifactory Step Edit View should render properly 1`] = `
             </div>
           </div>
           <div>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+            <div
+              class="StyledProps--font StyledProps--main"
+              style="margin-bottom: 5px;"
             >
-              pipelineSteps.connectorLabel
-            </p>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+              >
+                pipelineSteps.connectorLabel
+              </p>
+            </div>
             <div
               style="display: flex; align-items: center;"
             >
