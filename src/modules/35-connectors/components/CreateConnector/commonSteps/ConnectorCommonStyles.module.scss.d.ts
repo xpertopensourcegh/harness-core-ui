@@ -1,8 +1,7 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly secondStep: string
-  readonly authHeaderRow: string
-  readonly authTitle: string
+  readonly authTypeSelect: string
+  readonly authTypeSelectLarge: string
 }
 export default styles
