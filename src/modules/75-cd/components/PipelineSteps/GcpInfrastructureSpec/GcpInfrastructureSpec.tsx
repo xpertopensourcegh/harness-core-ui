@@ -3,7 +3,6 @@ import { Menu } from '@blueprintjs/core'
 import {
   IconName,
   Text,
-  Color,
   Layout,
   Formik,
   FormikForm,
@@ -11,8 +10,7 @@ import {
   getMultiTypeFromValue,
   MultiTypeInputType,
   Icon,
-  SelectOption,
-  Label
+  SelectOption
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import * as Yup from 'yup'
@@ -182,9 +180,6 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
 
   return (
     <Layout.Vertical spacing="medium">
-      <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15 }}>
-        {getString('cd.steps.kubernetesGcpStep.stepName')}
-      </Text>
       <Formik<K8sGcpInfrastructureUI>
         enableReinitialize
         formName="gcpInfra"
@@ -211,7 +206,7 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
               <Layout.Horizontal className={css.formRow} spacing="medium">
                 <FormMultiTypeConnectorField
                   name="connectorRef"
-                  label={<Label className={css.connectorLabel}>{getString('connector')}</Label>}
+                  label={getString('connector')}
                   placeholder={getString('cd.steps.common.selectConnectorPlaceholder')}
                   disabled={readonly}
                   accountIdentifier={accountId}

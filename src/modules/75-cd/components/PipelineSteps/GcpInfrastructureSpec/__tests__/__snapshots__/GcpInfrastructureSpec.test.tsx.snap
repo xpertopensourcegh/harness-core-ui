@@ -351,12 +351,6 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with empty 
   <div
     class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
   >
-    <p
-      class="StyledProps--font StyledProps--main"
-      style="font-size: 16px; color: black; margin-top: 15px;"
-    >
-      cd.steps.kubernetesGcpStep.stepName
-    </p>
     <div
       class="OverlaySpinner--overlaySpinner"
     >
@@ -372,11 +366,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with empty 
                 class="Tooltip--acenter"
                 data-tooltip-id="gcpInfraConnector"
               >
-                <label
-                  class="Label--main connectorLabel"
-                >
-                  connector
-                </label>
+                connector
               </span>
               <div
                 class="bp3-form-group"
@@ -795,12 +785,6 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with runtim
   <div
     class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
   >
-    <p
-      class="StyledProps--font StyledProps--main"
-      style="font-size: 16px; color: black; margin-top: 15px;"
-    >
-      cd.steps.kubernetesGcpStep.stepName
-    </p>
     <div
       class="OverlaySpinner--overlaySpinner"
     >
@@ -816,11 +800,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with runtim
                 class="Tooltip--acenter"
                 data-tooltip-id="gcpInfraConnector"
               >
-                <label
-                  class="Label--main connectorLabel"
-                >
-                  connector
-                </label>
+                connector
               </span>
               <div
                 class="bp3-form-group"
@@ -1251,12 +1231,6 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with values
   <div
     class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
   >
-    <p
-      class="StyledProps--font StyledProps--main"
-      style="font-size: 16px; color: black; margin-top: 15px;"
-    >
-      cd.steps.kubernetesGcpStep.stepName
-    </p>
     <div
       class="OverlaySpinner--overlaySpinner"
     >
@@ -1272,11 +1246,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with values
                 class="Tooltip--acenter"
                 data-tooltip-id="gcpInfraConnector"
               >
-                <label
-                  class="Label--main connectorLabel"
-                >
-                  connector
-                </label>
+                connector
               </span>
               <div
                 class="bp3-form-group"

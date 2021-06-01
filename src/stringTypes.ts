@@ -1415,6 +1415,8 @@ export interface StringsMap {
   'cd.releaseNameValidation': string
   'cd.scriptRequired': string
   'cd.setUpProvisionerBtnText': string
+  'cd.steps.common.clusterDetails': string
+  'cd.steps.common.infrastructureKeyPlaceholder': string
   'cd.steps.common.namespacePlaceholder': string
   'cd.steps.common.releaseNamePlaceholder': string
   'cd.steps.common.selectConnectorPlaceholder': string

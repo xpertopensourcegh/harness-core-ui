@@ -7,10 +7,12 @@ dashboard:
   orSelectExisting: '{{$.orSelectExisting}}'
 steps:
   common:
+    clusterDetails: Cluster Details
     selectConnectorPlaceholder: Select a connector
     selectOrEnterClusterPlaceholder: Select or add cluster
     releaseNamePlaceholder: Specify a release name
     namespacePlaceholder: Specify a namespace
+    infrastructureKeyPlaceholder: Specify an infrastructure key
   kubernetesGcpStep:
     stepName: Specify your GCP Connector
 folderPath: Folder Path

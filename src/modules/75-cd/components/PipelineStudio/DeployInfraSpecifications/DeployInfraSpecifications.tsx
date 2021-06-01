@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import YAML from 'yaml'
-import { Layout, Card, Icon, Text, Accordion, Button } from '@wings-software/uicore'
+import { Layout, Card, Icon, Text, Accordion, Button, Color } from '@wings-software/uicore'
 import type { IconName } from '@wings-software/uicore'
 import { clone, get, isEmpty, isNil, omit } from 'lodash-es'
 import debounce from 'p-debounce'
@@ -479,8 +479,10 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
 
         {selectedDeploymentType ? (
           <Card className={css.sectionCard} id="clusterDetails">
-            <div className={css.tabSubHeading}>Cluster details</div>
-            <Layout.Horizontal>{getClusterConfigurationStep(selectedDeploymentType)}</Layout.Horizontal>
+            <Text style={{ fontWeight: 600, fontSize: 16 }} color={Color.GREY_700} margin={{ bottom: 'medium' }}>
+              {getString('cd.steps.common.clusterDetails')}
+            </Text>
+            {getClusterConfigurationStep(selectedDeploymentType)}
           </Card>
         ) : null}
 

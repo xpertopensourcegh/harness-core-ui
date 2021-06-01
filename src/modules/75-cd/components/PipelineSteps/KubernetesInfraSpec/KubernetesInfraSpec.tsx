@@ -213,6 +213,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   className={css.inputWidth}
                   label={getString('pipeline.infrastructureKey')}
                   disabled={readonly}
+                  placeholder={getString('cd.steps.common.infrastructureKeyPlaceholder')}
                   multiTextInputProps={{
                     expressions,
                     textProps: { disabled: readonly },
