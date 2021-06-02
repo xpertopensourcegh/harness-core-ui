@@ -56,6 +56,7 @@ export interface StringsMap {
   'common.ce.visibilityWarning': string
   'common.changesUnsaved': string
   'common.clearSelection': string
+  'common.clientId': string
   'common.cluster': string
   'common.comments': string
   'common.confictOccured': string
@@ -599,6 +600,15 @@ export interface StringsMap {
   'connectors.awsKms.validation.selectAWSArn': string
   'connectors.awsKms.validation.selectDelegate': string
   'connectors.awsKms.validation.selectRegion': string
+  'connectors.azureKeyVault.labels.fetchVault': string
+  'connectors.azureKeyVault.labels.subscription': string
+  'connectors.azureKeyVault.labels.tenantId': string
+  'connectors.azureKeyVault.labels.vaultName': string
+  'connectors.azureKeyVault.validation.clientId': string
+  'connectors.azureKeyVault.validation.secretKey': string
+  'connectors.azureKeyVault.validation.subscription': string
+  'connectors.azureKeyVault.validation.tenantId': string
+  'connectors.azureKeyVault.validation.vaultName': string
   'connectors.cdng.baseline': string
   'connectors.cdng.baselineDefaultLabel.lastSuccess': string
   'connectors.cdng.continousVerificationStep': string
@@ -754,6 +764,7 @@ export interface StringsMap {
   'connectors.testConnectionStep.validationText.artifactory': string
   'connectors.testConnectionStep.validationText.aws': string
   'connectors.testConnectionStep.validationText.azure': string
+  'connectors.testConnectionStep.validationText.azureKeyVault': string
   'connectors.testConnectionStep.validationText.bitbucket': string
   'connectors.testConnectionStep.validationText.datadog': string
   'connectors.testConnectionStep.validationText.docker': string
@@ -774,6 +785,7 @@ export interface StringsMap {
   'connectors.title.aws': string
   'connectors.title.awsCodeCommit': string
   'connectors.title.awsKms': string
+  'connectors.title.azureKeyVault': string
   'connectors.title.bitbucketConnector': string
   'connectors.title.ceAzureConnector': string
   'connectors.title.datadog': string
@@ -1818,7 +1830,6 @@ export interface StringsMap {
   'cf.environments.adminEnvironments': string
   'cf.environments.apiKeys.addKey': string
   'cf.environments.apiKeys.addKeyTitle': string
-  'cf.environments.apiKeys.clientId': string
   'cf.environments.apiKeys.clientType': string
   'cf.environments.apiKeys.deleteMessage': string
   'cf.environments.apiKeys.deleteTitle': string
