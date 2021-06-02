@@ -1412,10 +1412,18 @@ export interface StringsMap {
   'pipeline.triggers.validation.triggerName': string
   'pipeline.uniqueIdentifier': string
   'pipeline.verificationResult': string
+  'cd.addInline': string
+  'cd.addRemote': string
+  'cd.addTFVarFileLabel': string
   'cd.allowSimultaneousDeployments': string
+  'cd.backEndConfig': string
   'cd.cdTrialHomePage.startTrial.description': string
   'cd.cdTrialHomePage.startTrial.startBtn.description': string
   'cd.chooseProvisionerText': string
+  'cd.configFilePlaceHolder': string
+  'cd.configIdentifer': string
+  'cd.configurationFile': string
+  'cd.contentRequired': string
   'cd.continuous': string
   'cd.createOrSelectProject': string
   'cd.dashboard.createProject': string
@@ -1425,12 +1433,16 @@ export interface StringsMap {
   'cd.filePathPlaceholder': string
   'cd.filePathRequired': string
   'cd.folderPath': string
+  'cd.gitFetchTypeRequired': string
   'cd.learnMore': string
   'cd.namespaceValidation': string
+  'cd.optionalConfig': string
   'cd.pathCannotBeEmpty': string
   'cd.releaseNameValidation': string
   'cd.scriptRequired': string
   'cd.setUpProvisionerBtnText': string
+  'cd.specifyTfVarStore': string
+  'cd.stepName': string
   'cd.steps.common.clusterDetails': string
   'cd.steps.common.infrastructureKeyPlaceholder': string
   'cd.steps.common.namespacePlaceholder': string
@@ -1438,6 +1450,9 @@ export interface StringsMap {
   'cd.steps.common.selectConnectorPlaceholder': string
   'cd.steps.common.selectOrEnterClusterPlaceholder': string
   'cd.steps.kubernetesGcpStep.stepName': string
+  'cd.terraformVarFiles': string
+  'cd.tfVarStore': string
+  'cd.varFileDetails': string
   'ce.ceTrialHomePage.startTrial.description': string
   'ce.co.accessPoint.ap': string
   'ce.co.accessPoint.aps': string
@@ -5091,10 +5106,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipelineSteps.addTFVarFileLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pipelineSteps.addTerraformVarFile': string
   /**
    * @deprecated migrate this string to module level file
@@ -5860,10 +5871,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'pipelineSteps.targetLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.terraformVarFiles': string
   /**
    * @deprecated migrate this string to module level file
    */
