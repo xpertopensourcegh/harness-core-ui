@@ -678,6 +678,7 @@ export interface StringsMap {
   'connectors.k8.clientKeyAlgorithm': string
   'connectors.k8.clientKeyCACertificate': string
   'connectors.k8.clientKeyPassphrase': string
+  'connectors.k8.clientSecretOptional': string
   'connectors.k8.delegateInClusterInfo': string
   'connectors.k8.delegateOutClusterInfo': string
   'connectors.k8.masterUrlLabel': string
