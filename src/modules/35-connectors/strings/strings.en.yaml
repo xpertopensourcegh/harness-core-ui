@@ -124,7 +124,7 @@ k8:
   OIDCSecret: 'OIDC Secret'
   OIDCScopes: 'OIDC Scopes (Optional)'
   clientKey: 'Client Key'
-  clientKeyPassphrase: 'Client Key passphrase'
+  clientKeyPassphrase: 'Client Key passphrase (optional)'
   clientCertificate: 'Client Certificate'
   clientKeyAlgorithm: 'Client Key Algorithm (optional)'
   clientKeyCACertificate: 'CA Certificate (optional)'
