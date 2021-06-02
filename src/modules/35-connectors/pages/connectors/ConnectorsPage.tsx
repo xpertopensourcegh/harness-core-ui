@@ -174,6 +174,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
         const { status, data } = await fetchConnectors(sanitizedFilterRequest, { queryParams: params })
         /* istanbul ignore else */ if (status === 'SUCCESS') {
           setFetchedConnectorResponse(data)
+          setErrorWhileFetchingConnectors(undefined)
         }
       } /* istanbul ignore next */ catch (e) {
         if (shouldShowError(e)) {
