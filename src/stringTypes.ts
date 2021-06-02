@@ -312,6 +312,17 @@ export interface StringsMap {
   'rbac.roleAssignment.userPlaceHolder': string
   'rbac.roleAssignment.userValidation': string
   'rbac.roleBinding': string
+  'rbac.userDetails.linkToSSOProviderModal.btnDisabledTooltipText': string
+  'rbac.userDetails.linkToSSOProviderModal.delinkLabel': string
+  'rbac.userDetails.linkToSSOProviderModal.delinkText': string
+  'rbac.userDetails.linkToSSOProviderModal.group': string
+  'rbac.userDetails.linkToSSOProviderModal.groupNameLabel': string
+  'rbac.userDetails.linkToSSOProviderModal.linkLabel': string
+  'rbac.userDetails.linkToSSOProviderModal.retainMembersLabel': string
+  'rbac.userDetails.linkToSSOProviderModal.saml': string
+  'rbac.userDetails.linkToSSOProviderModal.selectSSOSetting': string
+  'rbac.userDetails.linkToSSOProviderModal.validation.groupNameRequired': string
+  'rbac.userDetails.linkToSSOProviderModal.validation.ssoIdRequired': string
   'rbac.userDetails.noMembersMessage': string
   'rbac.userDetails.userGroup.addToGroup': string
   'rbac.userDetails.userGroup.confirmDeleteText': string
