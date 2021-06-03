@@ -91,7 +91,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
       const tertiaryIconProps = getTertiaryIconProps(stage)
       let nodeRender = this.getNodeFromId(stage.identifier)
       const commonOption: Diagram.DiamondNodeModelOptions = {
-        customNodeStyle: getNodeStyles(isSelected, stage.status),
+        customNodeStyle: getNodeStyles(isSelected, stage.status, type),
         canDelete: false,
         ...statusProps,
         ...tertiaryIconProps,
