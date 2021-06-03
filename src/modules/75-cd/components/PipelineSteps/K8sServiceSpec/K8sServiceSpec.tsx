@@ -845,7 +845,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                       onChange={(selected, _itemType, multiType) => {
                         const item = (selected as unknown) as { record?: GitConfigDTO; scope: Scope }
                         if (multiType === MultiTypeInputType.FIXED) {
-                          if (item.record?.spec?.type === GitRepoName.Repo) {
+                          if (item.record?.spec?.connectionType === GitRepoName.Repo) {
                             setShowRepoName(false)
                           } else {
                             setShowRepoName(true)
