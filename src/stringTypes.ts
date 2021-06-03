@@ -51,7 +51,6 @@ export interface StringsMap {
   'common.capsAll': string
   'common.ce.cost': string
   'common.ce.optimization': string
-  'common.ce.startTrial': string
   'common.ce.visibility': string
   'common.ce.visibilityLaunchButton': string
   'common.ce.visibilityWarning': string
@@ -156,6 +155,7 @@ export interface StringsMap {
   'common.logs.noLogsText': string
   'common.member': string
   'common.namespace': string
+  'common.new': string
   'common.newLines': string
   'common.newVersion': string
   'common.noRefData': string
@@ -176,10 +176,15 @@ export interface StringsMap {
   'common.projectSetup': string
   'common.projectViewer': string
   'common.provisioner': string
+  'common.purpose.cd.1stGen.description': string
+  'common.purpose.cd.1stGen.title': string
   'common.purpose.cd.continuous': string
   'common.purpose.cd.delivery': string
   'common.purpose.cd.description': string
+  'common.purpose.cd.newGen.description': string
+  'common.purpose.cd.newGen.title': string
   'common.purpose.cd.subtitle': string
+  'common.purpose.cd.supportedStack': string
   'common.purpose.ce.continuous': string
   'common.purpose.ce.description': string
   'common.purpose.ce.descriptionOnly': string
@@ -200,6 +205,7 @@ export interface StringsMap {
   'common.purpose.cv.description': string
   'common.purpose.cv.subtitle': string
   'common.purpose.cv.verification': string
+  'common.purpose.howToProceed': string
   'common.purpose.infoCardIntent': string
   'common.purpose.moduleSuccess': string
   'common.purpose.selectAModule': string

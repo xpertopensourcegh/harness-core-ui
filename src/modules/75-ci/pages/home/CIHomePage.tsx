@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { HomePageTemplate } from '@common/components/HomePageTemplate/HomePageTemplate'
 import { useStrings } from 'framework/strings'
@@ -29,6 +29,11 @@ const CIHomePage: React.FC = () => {
   const { data, error, refetch, loading } = useGetModuleLicenseByAccountAndModuleType({
     queryParams: getModuleLicenseQueryParams
   })
+  const { trial } = useQueryParams<{ trial?: boolean }>()
+
+  useEffect(() => {
+    refetch()
+  }, [trial])
 
   const { openProjectModal, closeProjectModal } = useProjectModal({
     onWizardComplete: (projectData?: Project) => {
@@ -54,7 +59,6 @@ const CIHomePage: React.FC = () => {
       onClick: openProjectModal
     }
   }
-  const { trial } = useQueryParams<{ trial?: boolean }>()
 
   const history = useHistory()
 

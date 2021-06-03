@@ -77,14 +77,15 @@ ce:
   cost: COST
   optimization: Optimization
   visibility: Visibility
-  startTrial: Start 14 day CE Enterprise trial
   visibilityWarning: Cost Visibility is currently only available in CE First Generation
   visibilityLaunchButton: Launch CE First Generation
 launchFirstGen: 'Launch {{module}} First Generation'
 startTrial: 'Start 14 day {{module}} Enterprise trial'
+new: new
 purpose:
   welcome: 'Welcome, let’s get you started!'
   infoCardIntent: 'How would you like to get started?'
+  howToProceed: 'How would you like to proceed?'
   continuous: CONTINUOUS
   moduleSuccess: Module Added Successfully
   startATrial: Start A Trial
@@ -93,9 +94,18 @@ purpose:
   cd:
     delivery: Delivery
     subtitle: Deploy your services with blazingly fast pipelines.
-    description: CD description placeholder
     continuous: Continuous Delivery
-
+    description:
+      'Define pipelines that enable you to improve your deployment times, manage your integrations and view your services all in one place.
+      <br><br>You can access this module via your free trial.
+      Benefits include: Your software delivery pipeline can now include build stages, Test intelligence - faster and more reliable build processes'
+    supportedStack: Supported Stack
+    1stGen:
+      title: CD First Generation
+      description: Self-Service Continuous Delivery that enables engineers to deploy on-demand without scripts. Setup and easily manage automated canary deployments, GitOps and Self service deployments.
+    newGen:
+      title: CD Next Generation
+      description: CD Next Generation simplifies the experience with simpler UI Information Architecture and shared resources across projects. Pipelines can be easily parameterized with Friendly YAML.
   cv:
     verification: Verification
     subtitle: Deploy in peace - verify activities that take place in your system. Identify risk early.

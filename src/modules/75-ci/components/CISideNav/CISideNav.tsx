@@ -22,6 +22,7 @@ export default function CISideNav(): React.ReactElement {
   const { updateAppStore } = useAppStore()
   const { CI_OVERVIEW_PAGE } = useFeatureFlags()
   const { trial } = useQueryParams<{ trial?: boolean }>()
+
   return (
     <Layout.Vertical spacing="small">
       <ProjectSelector
@@ -47,7 +48,7 @@ export default function CISideNav(): React.ReactElement {
                   projectIdentifier: data.identifier || '',
                   pipelineIdentifier: '-1',
                   accountId,
-                  module: 'ci'
+                  module
                 }),
                 search: '?modal=trial'
               })

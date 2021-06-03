@@ -12,7 +12,7 @@ import { Category, PageNames, PurposeActions } from '@common/constants/TrackingC
 import type { StringsMap } from 'stringTypes'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
-import ModuleInfoCards, { ModuleInfoCard, INFO_CARD_PROPS } from '../../components/ModuleInfoCards/ModuleInfoCards'
+import ModuleInfoCards, { ModuleInfoCard, getInfoCardsProps } from '../../components/ModuleInfoCards/ModuleInfoCards'
 import css from './PurposePage.module.scss'
 
 interface PurposeType {
@@ -35,14 +35,14 @@ const PurposeList: React.FC = () => {
 
   useEffect(() => {
     if (selected) {
-      const infoCardProps = INFO_CARD_PROPS[selected]
+      const infoCardProps = getInfoCardsProps(accountId)[selected]
 
       // Automatically select the first info card if none are selected
       if (!selectedInfoCard && infoCardProps) {
         setSelectedInfoCard(infoCardProps[0])
       }
     }
-  }, [selected, selectedInfoCard])
+  }, [selected, selectedInfoCard, accountId])
 
   const { getString } = useStrings()
   const { trackEvent } = useTelemetry()
@@ -114,10 +114,10 @@ const PurposeList: React.FC = () => {
             textAlign: 'center',
             color: Color.WHITE
           }}
-          to={routes.toModuleHome({ accountId, module, source: 'purpose' })}
           onClick={() => {
             trackEvent(PurposeActions.ModuleContinue, { category: Category.SIGNUP, module: module })
           }}
+          to={routes.toModuleHome({ accountId, module, source: 'purpose' })}
         >
           {getString('continue')}
         </Link>
@@ -134,7 +134,7 @@ const PurposeList: React.FC = () => {
           textAlign: 'center',
           color: Color.WHITE
         }}
-        href={selectedInfoCard.route}
+        href={selectedInfoCard.route?.()}
       >
         {getString('continue')}
       </a>
@@ -210,7 +210,7 @@ const PurposeList: React.FC = () => {
   return (
     <Layout.Vertical spacing="large">
       <Layout.Horizontal padding={{ top: 'large' }}>
-        <Container width="50%">
+        <Container width="40%">
           <div style={{ borderRight: 'inset', marginLeft: -15 }}>
             {getOptions().map(option => (
               <Card
@@ -235,14 +235,11 @@ const PurposeList: React.FC = () => {
                   <Text
                     width={100}
                     color={Color.WHITE}
-                    font={{ size: 'xsmall', weight: 'semi-bold' }}
-                    style={{
-                      textAlign: 'center',
-                      borderRadius: 4,
-                      height: 'var(--spacing-large)',
-                      backgroundColor: 'var(--purple-900)',
-                      padding: 'var(--spacing-xsmall)'
-                    }}
+                    font={{ size: 'xsmall', weight: 'semi-bold', align: 'center' }}
+                    border={{ radius: 4 }}
+                    height={25}
+                    background={Color.PURPLE_500}
+                    padding={'xsmall'}
                     icon={selected === option.module ? ('tick' as IconName) : ('' as IconName)}
                     iconProps={{ size: 10, padding: 'xsmall', color: Color.WHITE }}
                   >
@@ -257,7 +254,7 @@ const PurposeList: React.FC = () => {
             ))}
           </div>
         </Container>
-        <Container width={600} padding={{ left: 'huge', top: 'medium' }}>
+        <Container width={700} padding={{ left: 'huge', top: 'medium' }}>
           {selected ? (
             getModuleInfo(selected)
           ) : (

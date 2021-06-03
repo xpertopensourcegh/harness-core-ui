@@ -167,7 +167,7 @@ export default (
     </RouteWithLayout>
 
     <RouteWithLayout
-      layout={MinimalLayout}
+      sidebarProps={CDSideNavProps}
       path={routes.toModuleTrialHome({ ...accountPathProps, module: 'cd' })}
       exact
     >

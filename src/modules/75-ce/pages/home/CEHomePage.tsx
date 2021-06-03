@@ -96,12 +96,8 @@ const CEHomePage: React.FC = () => {
   const projectsExist = projectListData?.data?.content?.length !== 0
 
   useEffect(() => {
-    if (trial) {
-      if (projectsExist) {
-        showModal()
-      } else {
-        openProjectModal()
-      }
+    if (trial && projectsExist) {
+      showModal()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectsExist, trial])

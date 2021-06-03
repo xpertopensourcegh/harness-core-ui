@@ -35,7 +35,7 @@ exports[`PurposePage should render module description and continue button when s
         >
           <div
             class="StyledProps--font StyledProps--main"
-            style="width: 50%;"
+            style="width: 40%;"
           >
             <div
               style="border-right: inset; margin-left: -15px;"
@@ -102,8 +102,8 @@ exports[`PurposePage should render module description and continue button when s
                   common.purpose.cd.subtitle
                 </p>
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white StyledProps--font-size-xsmall StyledProps--font-weight-semi-bold"
-                  style="text-align: center; border-radius: 4px; width: 100px;"
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white StyledProps--font-size-xsmall StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--border StyledProps--background-purple500 StyledProps--padding-xsmall"
+                  style="width: 100px; height: 25px;"
                 >
                   
                   common.purpose.startATrial
@@ -177,8 +177,8 @@ exports[`PurposePage should render module description and continue button when s
                   common.purpose.ci.subtitle
                 </p>
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white StyledProps--font-size-xsmall StyledProps--font-weight-semi-bold"
-                  style="text-align: center; border-radius: 4px; width: 100px; display: flex; align-items: center;"
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white StyledProps--font-size-xsmall StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--border StyledProps--background-purple500 StyledProps--padding-xsmall"
+                  style="width: 100px; height: 25px; display: flex; align-items: center;"
                 >
                   <span
                     class="bp3-icon bp3-icon-tick StyledProps--main StyledProps--padding-xsmall StyledProps--color StyledProps--color-white"
@@ -270,8 +270,8 @@ exports[`PurposePage should render module description and continue button when s
                   common.purpose.cv.subtitle
                 </p>
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white StyledProps--font-size-xsmall StyledProps--font-weight-semi-bold"
-                  style="text-align: center; border-radius: 4px; width: 100px;"
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white StyledProps--font-size-xsmall StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--border StyledProps--background-purple500 StyledProps--padding-xsmall"
+                  style="width: 100px; height: 25px;"
                 >
                   
                   common.purpose.startATrial
@@ -345,8 +345,8 @@ exports[`PurposePage should render module description and continue button when s
                   common.purpose.cf.subtitle
                 </p>
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white StyledProps--font-size-xsmall StyledProps--font-weight-semi-bold"
-                  style="text-align: center; border-radius: 4px; width: 100px;"
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white StyledProps--font-size-xsmall StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--border StyledProps--background-purple500 StyledProps--padding-xsmall"
+                  style="width: 100px; height: 25px;"
                 >
                   
                   common.purpose.startATrial
@@ -420,8 +420,8 @@ exports[`PurposePage should render module description and continue button when s
                   common.purpose.ce.subtitle
                 </p>
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white StyledProps--font-size-xsmall StyledProps--font-weight-semi-bold"
-                  style="text-align: center; border-radius: 4px; width: 100px;"
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white StyledProps--font-size-xsmall StyledProps--font-weight-semi-bold StyledProps--font-align-center StyledProps--border StyledProps--background-purple500 StyledProps--padding-xsmall"
+                  style="width: 100px; height: 25px;"
                 >
                   
                   common.purpose.startATrial
@@ -437,7 +437,7 @@ exports[`PurposePage should render module description and continue button when s
           </div>
           <div
             class="StyledProps--font StyledProps--main StyledProps--padding-left-huge StyledProps--padding-top-medium"
-            style="width: 600px;"
+            style="width: 700px;"
           >
             <div
               class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--padding-bottom-xxxlarge"

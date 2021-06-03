@@ -46,7 +46,7 @@ const CETrialHomePage: React.FC = () => {
       url: 'https://ngdocs.harness.io/article/34bzscs2y9-ce-placeholder'
     },
     startBtn: {
-      description: source ? getString('common.ce.startTrial') : getString('getStarted'),
+      description: source ? getString('common.startTrial') : getString('getStarted'),
       onClick: source ? undefined : openStartTrialModal
     }
   }
