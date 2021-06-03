@@ -69,6 +69,7 @@ import type { UseStringsReturn } from 'framework/strings'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox/MultiTypeCheckbox'
+import { gcrUrlList } from '@pipeline/components/ArtifactsSelection/ArtifactRepository/ArtifactLastSteps/GCRImagePath/GCRImagePath'
 import { K8sServiceSpecVariablesForm, K8sServiceSpecVariablesFormProps } from './K8sServiceSpecVariablesForm'
 import css from './K8sServiceSpec.module.scss'
 
@@ -498,14 +499,16 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
 
                 {getMultiTypeFromValue(get(template, `artifacts.primary.spec.registryHostname`, '')) ===
                   MultiTypeInputType.RUNTIME && (
-                  <FormInput.MultiTextInput
+                  <FormInput.MultiTypeInput
                     disabled={readonly}
-                    multiTextInputProps={{
+                    selectItems={gcrUrlList}
+                    useValue
+                    multiTypeInputProps={{
                       expressions,
-                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                      selectProps: { allowCreatingNewItems: true, addClearBtn: true, items: gcrUrlList }
                     }}
                     label={getString('connectors.GCR.registryHostname')}
-                    className={css.width50}
                     name={`${path}.artifacts.primary.spec.registryHostname`}
                   />
                 )}
@@ -675,12 +678,14 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                       />
                     )}
                     {getMultiTypeFromValue(registryHostname) === MultiTypeInputType.RUNTIME && (
-                      <FormInput.MultiTextInput
+                      <FormInput.MultiTypeInput
                         disabled={readonly}
-                        className={css.width50}
-                        multiTextInputProps={{
+                        selectItems={gcrUrlList}
+                        useValue
+                        multiTypeInputProps={{
                           expressions,
-                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                          selectProps: { allowCreatingNewItems: true, addClearBtn: true, items: gcrUrlList }
                         }}
                         label={getString('connectors.GCR.registryHostname')}
                         name={`${path}.artifacts.sidecars[${index}].sidecar.spec.registryHostname`}
