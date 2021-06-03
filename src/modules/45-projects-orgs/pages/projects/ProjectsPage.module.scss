@@ -1,6 +1,4 @@
 .projectsPage {
-  --page-header-height: 137px;
-
   .filterTab {
     text-align: center;
     padding: 21px;
@@ -46,4 +44,12 @@
   max-height: 220px;
   overflow: auto;
   max-width: 200px;
+}
+
+.noBanner {
+  --page-header-height: 137px;
+}
+
+.hasBanner {
+  --page-header-height: 190px;
 }

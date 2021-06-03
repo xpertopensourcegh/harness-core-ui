@@ -239,7 +239,7 @@ banners:
   email:
     description: Please check your email and follow the link to verify your email. Didn’t receive it?
     resend: Resend Email
-    success: Thank you for verifying your email address.
+    success: Verification email re-sent
   trial:
     description: Your Enterprise {{ module }} trial expires in {{ days }} days. Contact Sales to continue using {{ moduleDescription }}
     contactSales: Contact Sales

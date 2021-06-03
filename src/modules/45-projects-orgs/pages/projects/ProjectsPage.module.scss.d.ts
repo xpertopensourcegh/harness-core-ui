@@ -9,5 +9,7 @@ declare const styles: {
   readonly headerLayout: string
   readonly search: string
   readonly customselect: string
+  readonly noBanner: string
+  readonly hasBanner: string
 }
 export default styles

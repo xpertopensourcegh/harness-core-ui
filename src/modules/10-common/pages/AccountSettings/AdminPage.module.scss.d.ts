@@ -1,6 +1,6 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly body: string
+  readonly hasBanner: string
 }
 export default styles

@@ -13,6 +13,7 @@ import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectMo
 import { useCollaboratorModal } from '@projects-orgs/modals/ProjectModal/useCollaboratorModal'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import type { AccountPathProps, OrgPathProps } from '@common/interfaces/RouteInterfaces'
 import { EmailVerificationBanner } from '@common/components/Banners/EmailVerificationBanner'
@@ -32,6 +33,7 @@ const ProjectsListPage: React.FC = () => {
   const [searchParam, setSearchParam] = useState<string>()
   const [page, setPage] = useState(0)
   const history = useHistory()
+  const { currentUserInfo: user } = useAppStore()
 
   const allOrgsSelectOption: SelectOption = useMemo(
     () => ({
@@ -106,6 +108,8 @@ const ProjectsListPage: React.FC = () => {
   const showCollaborators = (project: Project): void => {
     openCollaboratorModal({ projectIdentifier: project.identifier, orgIdentifier: project.orgIdentifier || 'default' })
   }
+
+  const bodyClassName = user.emailVerified ? css.noBanner : css.hasBanner
 
   return (
     <Container className={css.projectsPage}>
@@ -192,6 +196,7 @@ const ProjectsListPage: React.FC = () => {
                 message: getString('noProjects')
               }
         }
+        className={bodyClassName}
       >
         {view === Views.GRID ? (
           <ProjectsGridView

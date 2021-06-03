@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import moment from 'moment'
-import { Text, Layout, Icon, Button } from '@wings-software/uicore'
+import { Text, Layout, Button, Color } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type { ModuleName } from 'framework/types/ModuleName'
 import type { StringsMap } from 'stringTypes'
@@ -40,8 +40,7 @@ export const TrialLicenseBanner = (trialBannerProps: TrialBannerProps): React.Re
       content={
         <Layout.Horizontal spacing="xxxlarge">
           <Layout.Horizontal spacing="small" padding={{ right: 'xxxlarge' }}>
-            <Icon style={{ paddingTop: 6, color: 'var(--orange-500)' }} name="info" size={18} />
-            <Text style={{ lineHeight: 2.5, fontWeight: 500 }}>
+            <Text font={{ weight: 'semi-bold' }} icon="info" iconProps={{ size: 18, color: Color.ORANGE_500 }}>
               {getString('common.banners.trial.description', {
                 module,
                 days,

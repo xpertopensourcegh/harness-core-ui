@@ -17,27 +17,26 @@ exports[`TrialLicenseBanner should render banner if api call returns TRIAL 1`] =
       <div
         class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-right-xxxlarge"
       >
-        <span
-          class="bp3-icon StyledProps--main"
-          data-icon="info"
-          style="padding-top: 6px;"
-        >
-          <svg
-            height="18"
-            viewBox="0 0 12 12"
-            width="18"
-          >
-            <path
-              clip-rule="evenodd"
-              d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-              fill-rule="evenodd"
-            />
-          </svg>
-        </span>
         <p
-          class="StyledProps--font StyledProps--main"
-          style="line-height: 2.5; font-weight: 500;"
+          class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold"
+          style="display: flex; align-items: center;"
         >
+          <span
+            class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-orange500"
+            data-icon="info"
+          >
+            <svg
+              height="18"
+              viewBox="0 0 12 12"
+              width="18"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
           common.banners.trial.description
         </p>
       </div>
