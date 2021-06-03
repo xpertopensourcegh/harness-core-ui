@@ -115,14 +115,6 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
     if (projectIdentifier && orgIdentifier) {
       refetch()
     }
-    if (!projectIdentifier || !orgIdentifier) {
-      setState(prevState => ({
-        ...prevState,
-        selectedProject: undefined,
-        isGitSyncEnabled: false
-      }))
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectIdentifier, orgIdentifier])
 
   React.useEffect(() => {
@@ -141,7 +133,7 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
   ): void {
     setState(prevState => ({
       ...prevState,
-      selectedProject: data.selectedProject || prevState?.selectedProject,
+      selectedProject: data.selectedProject,
       isGitSyncEnabled: data.isGitSyncEnabled || prevState?.isGitSyncEnabled,
       currentUserInfo: data.currentUserInfo || prevState?.currentUserInfo
     }))

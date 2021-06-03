@@ -3,6 +3,16 @@
 exports[`Connectors Page Test Filter connector by name 1`] = `
 <div>
   <div
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+  >
+    <h2
+      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+      level="2"
+    >
+      connectorsLabel
+    </h2>
+  </div>
+  <div
     class="Layout--vertical StyledProps--main listPage"
   >
     <div
@@ -226,6 +236,16 @@ exports[`Connectors Page Test Filter connector by name 1`] = `
 
 exports[`Connectors Page Test Initial render should match snapshot 1`] = `
 <div>
+  <div
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+  >
+    <h2
+      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+      level="2"
+    >
+      connectorsLabel
+    </h2>
+  </div>
   <div
     class="Layout--vertical StyledProps--main listPage"
   >

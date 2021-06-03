@@ -20,7 +20,7 @@ import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { useStrings } from 'framework/strings'
 import ActivityHistory from '@connectors/components/activityHistory/ActivityHistory/ActivityHistory'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
-import type { ProjectPathProps, ConnectorPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ProjectPathProps, ConnectorPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PageError } from '@common/components/Page/PageError'
 import { useQueryParams } from '@common/hooks'
 import ReferencedBy from './ReferencedBy/ReferencedBy'
@@ -40,7 +40,7 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
   const [branchSelectOptions, setBranchSelectOptions] = React.useState<SelectOption[]>([])
   const [searchTerm, setSearchTerm] = React.useState<string>('')
   const { connectorId, accountId, orgIdentifier, projectIdentifier } = useParams<
-    ProjectPathProps & ConnectorPathProps
+    PipelineType<ProjectPathProps & ConnectorPathProps>
   >()
   const { repoIdentifier, branch } = useQueryParams<EntityGitDetails>()
   const { pathname } = useLocation()

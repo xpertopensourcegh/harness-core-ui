@@ -67,7 +67,7 @@ const LoginPage: React.FC = () => {
         if (returnUrl) {
           window.location.href = returnUrl
         } else {
-          history.push(routes.toProjects({ accountId: json.resource.defaultAccountId }))
+          history.push(routes.toHome({ accountId: json.resource.defaultAccountId }))
         }
       } else {
         throw response

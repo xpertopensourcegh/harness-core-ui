@@ -9,6 +9,7 @@ export interface StringsMap {
   'common.accViewer': string
   'common.accessKey': string
   'common.accountName': string
+  'common.accountSetup': string
   'common.addVariable': string
   'common.approve': string
   'common.artifactTag': string
@@ -62,6 +63,7 @@ export interface StringsMap {
   'common.confictOccured': string
   'common.confirmText': string
   'common.createPipeline': string
+  'common.dashboards': string
   'common.datePickerShortcuts.Last2Days': string
   'common.datePickerShortcuts.Last2Months': string
   'common.datePickerShortcuts.Last3Days': string
@@ -139,6 +141,7 @@ export interface StringsMap {
   'common.gitSync.unSynced.message2': string
   'common.gitSync.unableToCreatePR': string
   'common.gitSync.updateResource': string
+  'common.home': string
   'common.input': string
   'common.jexlExpression': string
   'common.labelTestConnection': string
@@ -158,6 +161,7 @@ export interface StringsMap {
   'common.note': string
   'common.ok': string
   'common.options': string
+  'common.orgSetup': string
   'common.orgViewer': string
   'common.other': string
   'common.paste': string
@@ -168,6 +172,7 @@ export interface StringsMap {
   'common.pipelineDetails': string
   'common.plusNumber': string
   'common.production': string
+  'common.projectSetup': string
   'common.projectViewer': string
   'common.provisioner': string
   'common.purpose.cd.continuous': string
@@ -250,6 +255,7 @@ export interface StringsMap {
   'common.validation.valueMustBeANumber': string
   'common.validation.valueMustBeGreaterThanOrEqualToN': string
   'common.validation.valueMustBeLessThanOrEqualTo64': string
+  'common.welcome': string
   'notifications.buttonSend': string
   'notifications.emailRecipients': string
   'notifications.emailTestSuccess': string
@@ -856,6 +862,64 @@ export interface StringsMap {
   'userProfile.userEditFail': string
   'userProfile.userEditSuccess': string
   'userProfile.yourCurrentPasswordIncorrect': string
+  'gitsync.addFolder': string
+  'gitsync.addNewHarnessFolderLabel': string
+  'gitsync.configureHarnessFolder': string
+  'gitsync.connectThroughDelegate': string
+  'gitsync.connectThroughDelegateLabel': string
+  'gitsync.connectThroughManager': string
+  'gitsync.connectThroughManagerLabel': string
+  'gitsync.connectToGitProvider': string
+  'gitsync.defaultFolder': string
+  'gitsync.entitiesByRepositories': string
+  'gitsync.folderDetails': string
+  'gitsync.harnessFolderHeader': string
+  'gitsync.harnessFolderText': string
+  'gitsync.label': string
+  'gitsync.learnMore': string
+  'gitsync.markAsDefault': string
+  'gitsync.markAsDefaultLabel': string
+  'gitsync.moveFolder': string
+  'gitsync.pathToHarnessFolder': string
+  'gitsync.repositoryPath': string
+  'gitsync.rootFolderListHeader': string
+  'gitsync.rootFolderUpdatedSuccessfully': string
+  'gitsync.rootfolderLabel': string
+  'gitsync.seeLess': string
+  'gitsync.seeMore': string
+  'gitsync.selectConnectivityMode': string
+  'gitsync.selectDefaultBranch': string
+  'gitsync.selectHarnessFolder': string
+  'gitsync.successfullCreate': string
+  'gitsync.successfullySavedConnectivityMode': string
+  'dashboards.createModal.dataSource': string
+  'dashboards.createModal.descriptionPlaceholder': string
+  'dashboards.createModal.fav': string
+  'dashboards.createModal.namePlaceholder': string
+  'dashboards.createModal.nameValidation': string
+  'dashboards.createModal.sampleDesc': string
+  'dashboards.createModal.sampleTitle': string
+  'dashboards.createModal.stepOne': string
+  'dashboards.createModal.submitFail': string
+  'dashboards.createModal.view': string
+  'dashboards.homePage.title': string
+  'dashboards.serviceDashboard.activeServiceInstancesLabel': string
+  'dashboards.serviceDashboard.day': string
+  'dashboards.serviceDashboard.executionId': string
+  'dashboards.serviceDashboard.frequency': string
+  'dashboards.serviceDashboard.in': string
+  'dashboards.serviceDashboard.lastDeployment': string
+  'dashboards.serviceDashboard.month': string
+  'dashboards.serviceDashboard.months': string
+  'dashboards.serviceDashboard.nonProd': string
+  'dashboards.serviceDashboard.prod': string
+  'dashboards.serviceDashboard.serviceInstances': string
+  'dashboards.serviceDashboard.servicesInLast': string
+  'dashboards.serviceDashboard.totalServices': string
+  'dashboards.serviceDashboard.week': string
+  'dashboards.sideNav.byHarness': string
+  'dashboards.sideNav.custom': string
+  'dashboards.sideNav.noDashboard': string
   'projectsOrgs.aboutProject': string
   'projectsOrgs.aboutTitle': string
   'projectsOrgs.blank': string
@@ -942,64 +1006,6 @@ export interface StringsMap {
   'projectsOrgs.viewProjects': string
   'projectsOrgs.welcome': string
   'projectsOrgs.welcomeSecondLine': string
-  'dashboards.createModal.dataSource': string
-  'dashboards.createModal.descriptionPlaceholder': string
-  'dashboards.createModal.fav': string
-  'dashboards.createModal.namePlaceholder': string
-  'dashboards.createModal.nameValidation': string
-  'dashboards.createModal.sampleDesc': string
-  'dashboards.createModal.sampleTitle': string
-  'dashboards.createModal.stepOne': string
-  'dashboards.createModal.submitFail': string
-  'dashboards.createModal.view': string
-  'dashboards.homePage.title': string
-  'dashboards.serviceDashboard.activeServiceInstancesLabel': string
-  'dashboards.serviceDashboard.day': string
-  'dashboards.serviceDashboard.executionId': string
-  'dashboards.serviceDashboard.frequency': string
-  'dashboards.serviceDashboard.in': string
-  'dashboards.serviceDashboard.lastDeployment': string
-  'dashboards.serviceDashboard.month': string
-  'dashboards.serviceDashboard.months': string
-  'dashboards.serviceDashboard.nonProd': string
-  'dashboards.serviceDashboard.prod': string
-  'dashboards.serviceDashboard.serviceInstances': string
-  'dashboards.serviceDashboard.servicesInLast': string
-  'dashboards.serviceDashboard.totalServices': string
-  'dashboards.serviceDashboard.week': string
-  'dashboards.sideNav.byHarness': string
-  'dashboards.sideNav.custom': string
-  'dashboards.sideNav.noDashboard': string
-  'gitsync.addFolder': string
-  'gitsync.addNewHarnessFolderLabel': string
-  'gitsync.configureHarnessFolder': string
-  'gitsync.connectThroughDelegate': string
-  'gitsync.connectThroughDelegateLabel': string
-  'gitsync.connectThroughManager': string
-  'gitsync.connectThroughManagerLabel': string
-  'gitsync.connectToGitProvider': string
-  'gitsync.defaultFolder': string
-  'gitsync.entitiesByRepositories': string
-  'gitsync.folderDetails': string
-  'gitsync.harnessFolderHeader': string
-  'gitsync.harnessFolderText': string
-  'gitsync.label': string
-  'gitsync.learnMore': string
-  'gitsync.markAsDefault': string
-  'gitsync.markAsDefaultLabel': string
-  'gitsync.moveFolder': string
-  'gitsync.pathToHarnessFolder': string
-  'gitsync.repositoryPath': string
-  'gitsync.rootFolderListHeader': string
-  'gitsync.rootFolderUpdatedSuccessfully': string
-  'gitsync.rootfolderLabel': string
-  'gitsync.seeLess': string
-  'gitsync.seeMore': string
-  'gitsync.selectConnectivityMode': string
-  'gitsync.selectDefaultBranch': string
-  'gitsync.selectHarnessFolder': string
-  'gitsync.successfullCreate': string
-  'gitsync.successfullySavedConnectivityMode': string
   'pipeline.and': string
   'pipeline.approvalStep.addUserGroups': string
   'pipeline.approvalStep.approverInputs': string
