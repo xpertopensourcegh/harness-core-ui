@@ -376,7 +376,7 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
             <Button
               intent="primary"
               icon="plus"
-              text={getString('filters.newFilter')}
+              text={getString('common.filters.saveNewFilter')}
               className={cx(css.addNewFilterBtn, { [css.isActive]: formHasInitialValues() })}
               onClick={onAddNewFilter}
               padding={{ left: 'large' }}

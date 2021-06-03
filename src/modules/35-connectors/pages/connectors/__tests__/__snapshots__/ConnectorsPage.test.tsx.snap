@@ -2587,7 +2587,7 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 1`] = `
                     <span
                       class="bp3-button-text"
                     >
-                      filters.newFilter
+                      common.filters.saveNewFilter
                     </span>
                   </button>
                 </div>
@@ -3123,7 +3123,7 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 2`] = `
                     <span
                       class="bp3-button-text"
                     >
-                      filters.newFilter
+                      common.filters.saveNewFilter
                     </span>
                   </button>
                 </div>

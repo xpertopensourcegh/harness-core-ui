@@ -289,3 +289,5 @@ confirmText: Are you sure?
 paste: Paste
 artifactTag: tag
 clientId: Client ID
+filters:
+  saveNewFilter: Save New Filter
