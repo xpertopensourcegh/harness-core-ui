@@ -28,3 +28,8 @@ export function IdentifierSchema(): Yup.Schema<string | undefined> {
       .notOneOf(illegalIdentifiers)
   })
 }
+
+export function URLValidationSchema(): Yup.Schema<string | undefined> {
+  const { getString } = useStrings()
+  return Yup.string().trim().required(getString('validation.UrlRequired')).url(getString('validation.urlIsNotValid'))
+}
