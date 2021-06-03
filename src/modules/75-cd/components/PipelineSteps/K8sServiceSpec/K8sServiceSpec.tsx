@@ -65,7 +65,11 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import type { CustomVariableInputSetExtraProps } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableInputSet'
 import { useListAwsRegions } from 'services/portal'
 import type { ManifestStores } from '@pipeline/components/ManifestSelection/ManifestInterface'
-import { GitRepoName, ManifestToConnectorMap } from '@pipeline/components/ManifestSelection/Manifesthelper'
+import {
+  GitRepoName,
+  ManifestDataType,
+  ManifestToConnectorMap
+} from '@pipeline/components/ManifestSelection/Manifesthelper'
 import type { AllNGVariables } from '@pipeline/utils/types'
 import type { UseStringsReturn } from 'framework/strings'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
@@ -871,6 +875,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
               {
                 manifest: {
                   identifier = '',
+                  type: manifestType = '',
                   spec: {
                     skipResourceVersioning = '',
                     store: {
@@ -935,7 +940,11 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                   )}
                   {getMultiTypeFromValue(paths) === MultiTypeInputType.RUNTIME && (
                     <List
-                      label={getString('common.git.filePath')}
+                      label={
+                        manifestType === ManifestDataType.K8sManifest
+                          ? getString('fileFolderPathText')
+                          : getString('common.git.filePath')
+                      }
                       name={`${path}.manifests[${index}].manifest.spec.store.spec.paths`}
                       placeholder={getString('pipeline.manifestType.pathPlaceholder')}
                       disabled={readonly}
