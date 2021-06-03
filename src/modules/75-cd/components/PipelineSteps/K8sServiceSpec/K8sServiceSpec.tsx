@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import get from 'lodash-es/get'
 import isEmpty from 'lodash-es/isEmpty'
 import set from 'lodash-es/set'
@@ -17,13 +17,14 @@ import {
   HarnessDocTooltip
 } from '@wings-software/uicore'
 
-import { parse } from 'yaml'
+import { parse, stringify } from 'yaml'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { Tooltip, Menu } from '@blueprintjs/core'
 import memoize from 'lodash-es/memoize'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import type { FormikErrors } from 'formik'
+import { cloneDeep } from 'lodash-es'
 import { useGetPipeline } from 'services/pipeline-ng'
 import List from '@common/components/List/List'
 import type { PipelineType, InputSetPathProps, GitQueryParams } from '@common/interfaces/RouteInterfaces'
@@ -34,17 +35,18 @@ import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import {
   ServiceSpec,
   NgPipeline,
-  useGetBuildDetailsForDocker,
-  useGetBuildDetailsForGcr,
   getConnectorListV2Promise,
   ConnectorInfoDTO,
   ConnectorResponse,
-  useGetBuildDetailsForEcr,
   getBuildDetailsForDockerPromise,
   getBuildDetailsForGcrPromise,
   getBuildDetailsForEcrPromise,
-  GitConfigDTO
+  GitConfigDTO,
+  useGetBuildDetailsForDockerWithYaml,
+  useGetBuildDetailsForGcrWithYaml,
+  useGetBuildDetailsForEcrWithYaml
 } from 'services/cd-ng'
+import { useGetTemplateFromPipeline } from 'services/pipeline-ng'
 import { getStageIndexByIdentifier } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type { CustomVariablesData } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
@@ -56,7 +58,7 @@ import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
 import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
-import { useDeepCompareEffect, useQueryParams } from '@common/hooks'
+import { useDeepCompareEffect, useMutateAsGet, useQueryParams } from '@common/hooks'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { useToaster } from '@common/exports'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
@@ -72,6 +74,12 @@ import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox
 import { gcrUrlList } from '@pipeline/components/ArtifactsSelection/ArtifactRepository/ArtifactLastSteps/GCRImagePath/GCRImagePath'
 import { K8sServiceSpecVariablesForm, K8sServiceSpecVariablesFormProps } from './K8sServiceSpecVariablesForm'
 import css from './K8sServiceSpec.module.scss'
+
+const clearRuntimeInput = (template: NgPipeline): NgPipeline => {
+  return JSON.parse(
+    JSON.stringify(template || {}).replace(/"<\+input>.?(?:allowedValues\((.*?)\)|regex\((.*?)\))?"/g, '""')
+  )
+}
 
 const logger = loggerFor(ModuleName.CD)
 
@@ -180,65 +188,124 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
     PipelineType<InputSetPathProps> & { accountId: string }
   >()
   const { repoIdentifier, branch: branchParam } = useQueryParams<GitQueryParams>()
+
   const [pipeline, setPipeline] = React.useState<{ pipeline: NgPipeline } | undefined>()
   const [tagListMap, setTagListMap] = React.useState<{ [key: string]: Record<string, any>[] | Record<string, any> }>({
     sidecars: [],
     primary: {}
   })
   const [lastQueryData, setLastQueryData] = React.useState<LastQueryData>({})
+
+  const { expressions } = useVariablesExpression()
+
+  const stagePath = pipeline ? getStagePathByIdentifier(stageIdentifier, pipeline?.pipeline) : ''
+  const isPropagatedStage = path?.includes('serviceConfig.stageOverrides')
+  const artifacts = isPropagatedStage
+    ? get(pipeline, `pipeline.${stagePath}.stage.spec.serviceConfig.stageOverrides.artifacts`, {})
+    : get(pipeline, `pipeline.${stagePath}.stage.spec.serviceConfig.serviceDefinition.spec.artifacts`, {})
+
+  const getFqnPath = useCallback((): string => {
+    let lastQueryDataPath
+    if (lastQueryData.path && lastQueryData.path !== 'primary') {
+      lastQueryDataPath = `sidecars.${get(template, `artifacts[${lastQueryData.path}].sidecar.identifier`)}`
+    } else {
+      lastQueryDataPath = lastQueryData.path
+    }
+    if (isPropagatedStage) {
+      return `pipeline.stages.${stageIdentifier}.spec.serviceConfig.stageOverrides.artifacts.${lastQueryDataPath}.spec.tag`
+    }
+    return `pipeline.stages.${stageIdentifier}.spec.serviceConfig.serviceDefinition.spec.artifacts.${lastQueryDataPath}.spec.tag`
+  }, [lastQueryData])
+
   const { data: pipelineResponse } = useGetPipeline({
     pipelineIdentifier,
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
+
+  const { data: templateYaml } = useGetTemplateFromPipeline({
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      pipelineIdentifier,
+      projectIdentifier,
+      repoIdentifier,
+      branch: branchParam
+    }
+  })
+
+  const yamlData = clearRuntimeInput(cloneDeep(parse(templateYaml?.data?.inputSetTemplateYaml || '')))
+  set(yamlData, `pipeline.${path}`, initialValues)
+
   const {
     data: dockerdata,
     loading: dockerLoading,
     refetch: refetchDockerBuildData,
     error: dockerError
-  } = useGetBuildDetailsForDocker({
+  } = useMutateAsGet(useGetBuildDetailsForDockerWithYaml, {
+    body: (stringify({ ...yamlData }) as unknown) as void,
+    requestOptions: {
+      headers: {
+        'content-type': 'application/json'
+      }
+    },
     queryParams: {
       imagePath: lastQueryData.imagePath,
       connectorRef: lastQueryData.connectorRef,
+      pipelineIdentifier,
+      fqnPath: getFqnPath(),
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier
     },
     lazy: true
   })
-  const { expressions } = useVariablesExpression()
 
-  const {
-    data: gcrdata,
-    loading: gcrLoading,
-    refetch: refetchGcrBuildData,
-    error: gcrError
-  } = useGetBuildDetailsForGcr({
-    queryParams: {
-      imagePath: lastQueryData.imagePath || '',
-      connectorRef: lastQueryData.connectorRef || '',
-      registryHostname: lastQueryData.registryHostname || '',
-      accountIdentifier: accountId,
-      orgIdentifier,
-      projectIdentifier
-    },
-    lazy: true
-  })
-  const {
-    data: ecrdata,
-    loading: ecrLoading,
-    refetch: refetchEcrBuildData,
-    error: ecrError
-  } = useGetBuildDetailsForEcr({
-    queryParams: {
-      imagePath: lastQueryData.imagePath || '',
-      connectorRef: lastQueryData.connectorRef || '',
-      region: lastQueryData.region || '',
-      accountIdentifier: accountId,
-      orgIdentifier,
-      projectIdentifier
-    },
-    lazy: true
-  })
+  const { data: gcrdata, loading: gcrLoading, refetch: refetchGcrBuildData, error: gcrError } = useMutateAsGet(
+    useGetBuildDetailsForGcrWithYaml,
+    {
+      body: (stringify({ ...yamlData }) as unknown) as void,
+      requestOptions: {
+        headers: {
+          'content-type': 'application/json'
+        }
+      },
+      queryParams: {
+        imagePath: lastQueryData.imagePath || '',
+        connectorRef: lastQueryData.connectorRef || '',
+        pipelineIdentifier,
+        fqnPath: getFqnPath(),
+        registryHostname: lastQueryData.registryHostname || '',
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier
+      },
+      lazy: true
+    }
+  )
+
+  const { data: ecrdata, loading: ecrLoading, refetch: refetchEcrBuildData, error: ecrError } = useMutateAsGet(
+    useGetBuildDetailsForEcrWithYaml,
+    {
+      body: (stringify({ ...yamlData }) as unknown) as void,
+      requestOptions: {
+        headers: {
+          'content-type': 'application/json'
+        }
+      },
+      queryParams: {
+        imagePath: lastQueryData.imagePath || '',
+        connectorRef: lastQueryData.connectorRef || '',
+        pipelineIdentifier,
+        fqnPath: getFqnPath(),
+        region: lastQueryData.region || '',
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier
+      },
+      lazy: true
+    }
+  )
+
   const { data: regionData } = useListAwsRegions({
     queryParams: {
       accountId
@@ -357,12 +424,6 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
       }
     }
   }
-
-  const stagePath = pipeline ? getStagePathByIdentifier(stageIdentifier, pipeline?.pipeline) : ''
-  const isPropagatedStage = path?.includes('serviceConfig.stageOverrides')
-  const artifacts = isPropagatedStage
-    ? get(pipeline, `pipeline.${stagePath}.stage.spec.serviceConfig.stageOverrides.artifacts`, {})
-    : get(pipeline, `pipeline.${stagePath}.stage.spec.serviceConfig.serviceDefinition.spec.artifacts`, {})
 
   const itemRenderer = memoize((item: { label: string }, { handleClick }) => (
     <div key={item.label.toString()}>
