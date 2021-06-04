@@ -1289,6 +1289,7 @@ export interface StringsMap {
   'pipeline.startTime': string
   'pipeline.stepConfigHasChanges': string
   'pipeline.stepDetails': string
+  'pipeline.stepLabel': string
   'pipeline.targets.title': string
   'pipeline.testsReports.className': string
   'pipeline.testsReports.commitId': string
