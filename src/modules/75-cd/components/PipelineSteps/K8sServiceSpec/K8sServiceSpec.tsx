@@ -322,9 +322,9 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
   }, [pipelineResponse?.data?.yamlPipeline])
 
   useDeepCompareEffect(() => {
-    if (gcrError || dockerError) {
-      clear()
-      showError(getString('errorTag'), undefined, 'cd.tag.fetch.error')
+    if (gcrError || dockerError || ecrError) {
+      const stageName = get(pipeline, `pipeline.${stagePath}.stage.name`, '')
+      showError(`Stage ${stageName}: ${getString('errorTag')}`, undefined, 'cd.tag.fetch.error')
       return
     }
     if (Array.isArray(dockerdata?.data?.buildDetailsList)) {
@@ -643,7 +643,10 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                           usePortal: true,
                           addClearBtn: !(readonly || isTagSelectionDisabled(artifacts?.primary?.type)),
                           noResults: (
-                            <span className={css.padSmall}>{getString('pipelineSteps.deploy.errors.notags')}</span>
+                            <Text lineClamp={1}>
+                              {get(ecrError || gcrError || dockerError, 'data.message', null) ||
+                                getString('pipelineSteps.deploy.errors.notags')}
+                            </Text>
                           ),
                           itemRenderer: itemRenderer,
                           allowCreatingNewItems: true,
@@ -832,7 +835,10 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                               usePortal: true,
                               addClearBtn: true && !readonly,
                               noResults: (
-                                <span className={css.padSmall}>{getString('pipelineSteps.deploy.errors.notags')}</span>
+                                <Text lineClamp={1}>
+                                  {get(ecrError || gcrError || dockerError, 'data.message', null) ||
+                                    getString('pipelineSteps.deploy.errors.notags')}
+                                </Text>
                               ),
                               itemRenderer: itemRenderer,
                               allowCreatingNewItems: true,
