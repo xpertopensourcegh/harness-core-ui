@@ -28,10 +28,8 @@
   }
   .connectorNameField {
     display: flex;
+    align-items: center;
 
-    .artifactIcon {
-      vertical-align: middle;
-    }
     .connectorName {
       display: inline-flex;
       color: var(--grey-500);

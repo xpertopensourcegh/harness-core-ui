@@ -67,7 +67,7 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
             class="connectorNameField"
           >
             <span
-              class="bp3-icon StyledProps--main manifestStoreIcon StyledProps--padding-right-small"
+              class="bp3-icon StyledProps--main StyledProps--padding-right-small"
               data-icon="service-github"
             >
               <svg
@@ -88,7 +88,7 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
               &lt;+input&gt;
             </p>
             <span
-              class="bp3-icon bp3-icon-full-circle StyledProps--main manifestStoreIcon StyledProps--color"
+              class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color"
               icon="full-circle"
             >
               <svg
@@ -242,7 +242,7 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
             class="connectorNameField"
           >
             <span
-              class="bp3-icon StyledProps--main manifestStoreIcon StyledProps--padding-right-small"
+              class="bp3-icon StyledProps--main StyledProps--padding-right-small"
               data-icon="service-github"
             >
               <svg
@@ -263,7 +263,7 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
               &lt;+input&gt;
             </p>
             <span
-              class="bp3-icon bp3-icon-full-circle StyledProps--main manifestStoreIcon StyledProps--color"
+              class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color"
               icon="full-circle"
             >
               <svg
@@ -417,7 +417,7 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
             class="connectorNameField"
           >
             <span
-              class="bp3-icon StyledProps--main manifestStoreIcon StyledProps--padding-right-small"
+              class="bp3-icon StyledProps--main StyledProps--padding-right-small"
               data-icon="service-github"
             >
               <svg
@@ -438,7 +438,7 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
               &lt;+input&gt;
             </p>
             <span
-              class="bp3-icon bp3-icon-full-circle StyledProps--main manifestStoreIcon StyledProps--color"
+              class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color"
               icon="full-circle"
             >
               <svg
@@ -592,7 +592,7 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
             class="connectorNameField"
           >
             <span
-              class="bp3-icon StyledProps--main manifestStoreIcon StyledProps--padding-right-small"
+              class="bp3-icon StyledProps--main StyledProps--padding-right-small"
               data-icon="service-github"
             >
               <svg
@@ -613,7 +613,7 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
               &lt;+input&gt;
             </p>
             <span
-              class="bp3-icon bp3-icon-full-circle StyledProps--main manifestStoreIcon StyledProps--color"
+              class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color"
               icon="full-circle"
             >
               <svg
@@ -807,7 +807,7 @@ exports[`ManifestSelection tests edit manifest list works correctly 1`] = `
             class="connectorNameField"
           >
             <span
-              class="bp3-icon StyledProps--main manifestStoreIcon StyledProps--padding-right-small"
+              class="bp3-icon StyledProps--main StyledProps--padding-right-small"
               data-icon="service-github"
             >
               <svg
@@ -828,7 +828,7 @@ exports[`ManifestSelection tests edit manifest list works correctly 1`] = `
               &lt;+input&gt;
             </p>
             <span
-              class="bp3-icon bp3-icon-full-circle StyledProps--main manifestStoreIcon StyledProps--color"
+              class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color"
               icon="full-circle"
             >
               <svg
@@ -982,7 +982,7 @@ exports[`ManifestSelection tests edit manifest list works correctly 1`] = `
             class="connectorNameField"
           >
             <span
-              class="bp3-icon StyledProps--main manifestStoreIcon StyledProps--padding-right-small"
+              class="bp3-icon StyledProps--main StyledProps--padding-right-small"
               data-icon="service-github"
             >
               <svg
@@ -1003,7 +1003,7 @@ exports[`ManifestSelection tests edit manifest list works correctly 1`] = `
               &lt;+input&gt;
             </p>
             <span
-              class="bp3-icon bp3-icon-full-circle StyledProps--main manifestStoreIcon StyledProps--color"
+              class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color"
               icon="full-circle"
             >
               <svg
@@ -1157,7 +1157,7 @@ exports[`ManifestSelection tests edit manifest list works correctly 1`] = `
             class="connectorNameField"
           >
             <span
-              class="bp3-icon StyledProps--main manifestStoreIcon StyledProps--padding-right-small"
+              class="bp3-icon StyledProps--main StyledProps--padding-right-small"
               data-icon="service-github"
             >
               <svg
@@ -1178,7 +1178,7 @@ exports[`ManifestSelection tests edit manifest list works correctly 1`] = `
               &lt;+input&gt;
             </p>
             <span
-              class="bp3-icon bp3-icon-full-circle StyledProps--main manifestStoreIcon StyledProps--color"
+              class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color"
               icon="full-circle"
             >
               <svg
@@ -1372,7 +1372,7 @@ exports[`ManifestSelection tests renders Manifest Listview with connectors Data 
             class="connectorNameField"
           >
             <span
-              class="bp3-icon StyledProps--main manifestStoreIcon StyledProps--padding-right-small"
+              class="bp3-icon StyledProps--main StyledProps--padding-right-small"
               data-icon="service-github"
             >
               <svg
@@ -1393,7 +1393,7 @@ exports[`ManifestSelection tests renders Manifest Listview with connectors Data 
               &lt;+input&gt;
             </p>
             <span
-              class="bp3-icon bp3-icon-full-circle StyledProps--main manifestStoreIcon StyledProps--color"
+              class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color"
               icon="full-circle"
             >
               <svg
@@ -1547,7 +1547,7 @@ exports[`ManifestSelection tests renders Manifest Listview with connectors Data 
             class="connectorNameField"
           >
             <span
-              class="bp3-icon StyledProps--main manifestStoreIcon StyledProps--padding-right-small"
+              class="bp3-icon StyledProps--main StyledProps--padding-right-small"
               data-icon="service-github"
             >
               <svg
@@ -1568,7 +1568,7 @@ exports[`ManifestSelection tests renders Manifest Listview with connectors Data 
               &lt;+input&gt;
             </p>
             <span
-              class="bp3-icon bp3-icon-full-circle StyledProps--main manifestStoreIcon StyledProps--color"
+              class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color"
               icon="full-circle"
             >
               <svg
@@ -1722,7 +1722,7 @@ exports[`ManifestSelection tests renders Manifest Listview with connectors Data 
             class="connectorNameField"
           >
             <span
-              class="bp3-icon StyledProps--main manifestStoreIcon StyledProps--padding-right-small"
+              class="bp3-icon StyledProps--main StyledProps--padding-right-small"
               data-icon="service-github"
             >
               <svg
@@ -1743,7 +1743,7 @@ exports[`ManifestSelection tests renders Manifest Listview with connectors Data 
               &lt;+input&gt;
             </p>
             <span
-              class="bp3-icon bp3-icon-full-circle StyledProps--main manifestStoreIcon StyledProps--color"
+              class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color"
               icon="full-circle"
             >
               <svg
@@ -1897,7 +1897,7 @@ exports[`ManifestSelection tests renders Manifest Listview with connectors Data 
             class="connectorNameField"
           >
             <span
-              class="bp3-icon StyledProps--main manifestStoreIcon StyledProps--padding-right-small"
+              class="bp3-icon StyledProps--main StyledProps--padding-right-small"
               data-icon="service-github"
             >
               <svg
@@ -1918,7 +1918,7 @@ exports[`ManifestSelection tests renders Manifest Listview with connectors Data 
               &lt;+input&gt;
             </p>
             <span
-              class="bp3-icon bp3-icon-full-circle StyledProps--main manifestStoreIcon StyledProps--color"
+              class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color"
               icon="full-circle"
             >
               <svg
@@ -2126,7 +2126,7 @@ exports[`ManifestSelection tests renders Manifest Listview without crashing 1`] 
             class="connectorNameField"
           >
             <span
-              class="bp3-icon StyledProps--main manifestStoreIcon StyledProps--padding-right-small"
+              class="bp3-icon StyledProps--main StyledProps--padding-right-small"
               data-icon="service-github"
             >
               <svg
@@ -2147,7 +2147,7 @@ exports[`ManifestSelection tests renders Manifest Listview without crashing 1`] 
               
             </p>
             <span
-              class="bp3-icon bp3-icon-full-circle StyledProps--main manifestStoreIcon StyledProps--color"
+              class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color"
               icon="full-circle"
             >
               <svg
@@ -2301,7 +2301,7 @@ exports[`ManifestSelection tests renders Manifest Listview without crashing 1`] 
             class="connectorNameField"
           >
             <span
-              class="bp3-icon StyledProps--main manifestStoreIcon StyledProps--padding-right-small"
+              class="bp3-icon StyledProps--main StyledProps--padding-right-small"
               data-icon="service-github"
             >
               <svg
@@ -2322,7 +2322,7 @@ exports[`ManifestSelection tests renders Manifest Listview without crashing 1`] 
               
             </p>
             <span
-              class="bp3-icon bp3-icon-full-circle StyledProps--main manifestStoreIcon StyledProps--color"
+              class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color"
               icon="full-circle"
             >
               <svg
@@ -2476,7 +2476,7 @@ exports[`ManifestSelection tests renders Manifest Listview without crashing 1`] 
             class="connectorNameField"
           >
             <span
-              class="bp3-icon StyledProps--main manifestStoreIcon StyledProps--padding-right-small"
+              class="bp3-icon StyledProps--main StyledProps--padding-right-small"
               data-icon="service-github"
             >
               <svg
@@ -2497,7 +2497,7 @@ exports[`ManifestSelection tests renders Manifest Listview without crashing 1`] 
               
             </p>
             <span
-              class="bp3-icon bp3-icon-full-circle StyledProps--main manifestStoreIcon StyledProps--color"
+              class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color"
               icon="full-circle"
             >
               <svg
@@ -2651,7 +2651,7 @@ exports[`ManifestSelection tests renders Manifest Listview without crashing 1`] 
             class="connectorNameField"
           >
             <span
-              class="bp3-icon StyledProps--main manifestStoreIcon StyledProps--padding-right-small"
+              class="bp3-icon StyledProps--main StyledProps--padding-right-small"
               data-icon="service-github"
             >
               <svg
@@ -2672,7 +2672,7 @@ exports[`ManifestSelection tests renders Manifest Listview without crashing 1`] 
               
             </p>
             <span
-              class="bp3-icon bp3-icon-full-circle StyledProps--main manifestStoreIcon StyledProps--color"
+              class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color"
               icon="full-circle"
             >
               <svg

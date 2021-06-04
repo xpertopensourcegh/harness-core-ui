@@ -55,16 +55,11 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
                   </Text>
                 </div>
                 <div className={css.connectorNameField}>
-                  <Icon
-                    className={css.artifactIcon}
-                    padding={{ right: 'small' }}
-                    name={ArtifactIconByType[primaryArtifact.type]}
-                    size={18}
-                  />
+                  <Icon padding={{ right: 'small' }} name={ArtifactIconByType[primaryArtifact.type]} size={18} />
                   <Text className={css.connectorName} lineClamp={1}>
                     {primaryConnectorName ?? primaryArtifact.spec?.connectorRef}
                   </Text>
-                  <Icon className={css.artifactIcon} name="full-circle" size={12} color={primaryConnectorColor} />
+                  <Icon name="full-circle" size={12} color={primaryConnectorColor} />
                 </div>
 
                 <div>
@@ -114,7 +109,6 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
 
                     <div className={css.connectorNameField}>
                       <Icon
-                        className={css.artifactIcon}
                         padding={{ right: 'small' }}
                         name={ArtifactIconByType[sidecar?.type as ArtifactType]}
                         size={18}
@@ -122,7 +116,7 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
                       <Text className={css.connectorName} lineClamp={1}>
                         {sidecarConnectorName ?? sidecar?.spec?.connectorRef}
                       </Text>
-                      <Icon className={css.artifactIcon} name="full-circle" size={12} color={sideCarConnectionColor} />
+                      <Icon name="full-circle" size={12} color={sideCarConnectionColor} />
                     </div>
 
                     <div>

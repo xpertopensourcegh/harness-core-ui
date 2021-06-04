@@ -42,10 +42,8 @@
   }
   .connectorNameField {
     display: flex;
+    align-items: center;
 
-    .manifestStoreIcon {
-      vertical-align: middle;
-    }
     .connectorName {
       display: inline-flex;
       color: var(--grey-500);

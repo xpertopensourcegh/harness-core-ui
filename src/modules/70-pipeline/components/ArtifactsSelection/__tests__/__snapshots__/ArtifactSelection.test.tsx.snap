@@ -41,7 +41,7 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
               class="connectorNameField"
             >
               <span
-                class="bp3-icon StyledProps--main artifactIcon StyledProps--padding-right-small"
+                class="bp3-icon StyledProps--main StyledProps--padding-right-small"
                 data-icon="ecr-step"
               >
                 <svg
@@ -94,7 +94,7 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
                 Test
               </p>
               <span
-                class="bp3-icon bp3-icon-full-circle StyledProps--main artifactIcon StyledProps--color"
+                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color"
                 icon="full-circle"
               >
                 <svg
@@ -231,7 +231,7 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
               class="connectorNameField"
             >
               <span
-                class="bp3-icon StyledProps--main artifactIcon StyledProps--padding-right-small"
+                class="bp3-icon StyledProps--main StyledProps--padding-right-small"
                 data-icon="service-dockerhub"
               >
                 <svg
@@ -257,7 +257,7 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
                 connectorRef
               </p>
               <span
-                class="bp3-icon bp3-icon-full-circle StyledProps--main artifactIcon StyledProps--color"
+                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color"
                 icon="full-circle"
               >
                 <svg
@@ -429,7 +429,7 @@ exports[`ArtifactsSelection tests delete artifact list works correctly 1`] = `
               class="connectorNameField"
             >
               <span
-                class="bp3-icon StyledProps--main artifactIcon StyledProps--padding-right-small"
+                class="bp3-icon StyledProps--main StyledProps--padding-right-small"
                 data-icon="service-gcp"
               >
                 <svg
@@ -508,7 +508,7 @@ exports[`ArtifactsSelection tests delete artifact list works correctly 1`] = `
                 
               </p>
               <span
-                class="bp3-icon bp3-icon-full-circle StyledProps--main artifactIcon StyledProps--color"
+                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color"
                 icon="full-circle"
               >
                 <svg
@@ -678,7 +678,7 @@ exports[`ArtifactsSelection tests edit artifact list works correctly 1`] = `
               class="connectorNameField"
             >
               <span
-                class="bp3-icon StyledProps--main artifactIcon StyledProps--padding-right-small"
+                class="bp3-icon StyledProps--main StyledProps--padding-right-small"
                 data-icon="service-gcp"
               >
                 <svg
@@ -757,7 +757,7 @@ exports[`ArtifactsSelection tests edit artifact list works correctly 1`] = `
                 
               </p>
               <span
-                class="bp3-icon bp3-icon-full-circle StyledProps--main artifactIcon StyledProps--color"
+                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color"
                 icon="full-circle"
               >
                 <svg
@@ -927,7 +927,7 @@ exports[`ArtifactsSelection tests renders Artifact Listview with connectors Data
               class="connectorNameField"
             >
               <span
-                class="bp3-icon StyledProps--main artifactIcon StyledProps--padding-right-small"
+                class="bp3-icon StyledProps--main StyledProps--padding-right-small"
                 data-icon="service-gcp"
               >
                 <svg
@@ -1006,7 +1006,7 @@ exports[`ArtifactsSelection tests renders Artifact Listview with connectors Data
                 
               </p>
               <span
-                class="bp3-icon bp3-icon-full-circle StyledProps--main artifactIcon StyledProps--color"
+                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color"
                 icon="full-circle"
               >
                 <svg
@@ -1093,7 +1093,7 @@ exports[`ArtifactsSelection tests renders Artifact Listview without crashing 1`]
               class="connectorNameField"
             >
               <span
-                class="bp3-icon StyledProps--main artifactIcon StyledProps--padding-right-small"
+                class="bp3-icon StyledProps--main StyledProps--padding-right-small"
                 data-icon="service-dockerhub"
               >
                 <svg
@@ -1119,7 +1119,7 @@ exports[`ArtifactsSelection tests renders Artifact Listview without crashing 1`]
                 
               </p>
               <span
-                class="bp3-icon bp3-icon-full-circle StyledProps--main artifactIcon StyledProps--color"
+                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color"
                 icon="full-circle"
               >
                 <svg
@@ -1296,7 +1296,7 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
                 
               </p>
               <span
-                class="bp3-icon bp3-icon-full-circle StyledProps--main artifactIcon StyledProps--color"
+                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color"
                 icon="full-circle"
               >
                 <svg

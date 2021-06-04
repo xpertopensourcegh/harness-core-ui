@@ -663,7 +663,6 @@ const ManifestListView = ({
                   <div>{manifestTypeLabels[manifest?.type as ManifestTypes]}</div>
                   <div className={css.connectorNameField}>
                     <Icon
-                      className={css.manifestStoreIcon}
                       padding={{ right: 'small' }}
                       name={ManifestIconByType[manifest?.spec?.store.type as ManifestStores]}
                       size={18}
@@ -671,7 +670,7 @@ const ManifestListView = ({
                     <Text className={css.connectorName} lineClamp={1}>
                       {connectorName ?? manifest?.spec?.store.spec.connectorRef}
                     </Text>
-                    <Icon className={css.manifestStoreIcon} name="full-circle" size={12} color={color} />
+                    <Icon name="full-circle" size={12} color={color} />
                   </div>
 
                   {!!manifest?.spec?.store.spec.paths?.length && (

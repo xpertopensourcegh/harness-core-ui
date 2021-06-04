@@ -8,7 +8,6 @@ declare const styles: {
   readonly actionGrid: string
   readonly cloneIcon: string
   readonly connectorNameField: string
-  readonly manifestStoreIcon: string
   readonly connectorName: string
   readonly modal: string
   readonly manifestList: string
