@@ -666,7 +666,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                           name="url"
                           placeholder="common.git.gitLabUrlPlaceholder"
                           type="text"
-                          value="githubTestUrl"
+                          value="http://www.github.com/"
                         />
                       </div>
                     </div>

@@ -618,7 +618,7 @@ exports[`Create Git connector Wizard Creating Github step one and step two for H
                           name="url"
                           placeholder="common.git.gitHubUrlPlaceholder"
                           type="text"
-                          value="githubTestUrl"
+                          value="http://www.github.com/"
                         />
                       </div>
                     </div>
