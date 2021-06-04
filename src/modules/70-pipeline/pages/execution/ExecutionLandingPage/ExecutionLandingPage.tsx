@@ -13,7 +13,7 @@ import { String, useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
 import ExecutionActions from '@pipeline/components/ExecutionActions/ExecutionActions'
-import { isExecutionComplete } from '@pipeline/utils/statusHelpers'
+import { ExecutionStatus, isExecutionComplete } from '@pipeline/utils/statusHelpers'
 import {
   getPipelineStagesMap,
   getActiveStageForPipeline,
@@ -160,7 +160,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
 
     const runningStage = getActiveStageForPipeline(
       data.data.pipelineExecutionSummary,
-      data.data?.pipelineExecutionSummary?.status
+      data.data?.pipelineExecutionSummary?.status as ExecutionStatus
     )
 
     const runningStep = getActiveStep(
@@ -286,7 +286,10 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
                 </div>
                 <div className={css.statusBar}>
                   {pipelineExecutionSummary.status && (
-                    <ExecutionStatusLabel className={css.statusLabel} status={pipelineExecutionSummary.status} />
+                    <ExecutionStatusLabel
+                      className={css.statusLabel}
+                      status={pipelineExecutionSummary.status as ExecutionStatus}
+                    />
                   )}
                   {pipelineExecutionSummary.startTs && (
                     <Layout.Horizontal spacing="small" padding={{ right: 'xxlarge' }}>
@@ -303,7 +306,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
                     durationText={' '}
                   />
                   <ExecutionActions
-                    executionStatus={pipelineExecutionSummary.status}
+                    executionStatus={pipelineExecutionSummary.status as ExecutionStatus}
                     refetch={refetch}
                     params={{
                       orgIdentifier,
