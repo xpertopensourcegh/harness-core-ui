@@ -388,7 +388,7 @@ export interface StringsMap {
   'authSettings.accountOrOAuthLoginEnabledSuccessfully': string
   'authSettings.addSAMLProvider': string
   'authSettings.allowLoginFromTheseDomains': string
-  'authSettings.allowUsersWIthEmails': string
+  'authSettings.allowUsersWithEmails': string
   'authSettings.atLeastNChars': string
   'authSettings.authenticationSettings': string
   'authSettings.authorizationEnabledFor': string
@@ -469,6 +469,7 @@ export interface StringsMap {
   'authSettings.plusSAMLProvider': string
   'authSettings.publicOAuthLoginDisabled': string
   'authSettings.publicOAuthLoginEnabled': string
+  'authSettings.restrictUsersToEmailDomains': string
   'authSettings.samlLoginEnabled': string
   'authSettings.samlProviderAddedSuccessfully': string
   'authSettings.samlProviderDeleted': string
@@ -482,6 +483,7 @@ export interface StringsMap {
   'authSettings.testingSSODescription': string
   'authSettings.twoFAEnforcementDisabled': string
   'authSettings.twoFAEnforcementEnabled': string
+  'authSettings.typeAndPressEnterToAddADomain': string
   'authSettings.uploadIdentityProvider': string
   'authSettings.useHarnessUsernameAndPassword': string
   'authSettings.usePublicOAuth': string
