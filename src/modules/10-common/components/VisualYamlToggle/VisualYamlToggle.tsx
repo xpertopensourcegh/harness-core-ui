@@ -21,6 +21,7 @@ export default function VisualYamlToggle(props: VisualYamlToggleInterface): JSX.
   return (
     <div className={css.optionBtns}>
       <div
+        data-name="visual-btn"
         className={cx(css.item, { [css.selected]: selectedView === SelectedView.VISUAL })}
         onClick={() => {
           beforeOnChange(SelectedView.VISUAL, setSelectedView)
@@ -31,6 +32,7 @@ export default function VisualYamlToggle(props: VisualYamlToggleInterface): JSX.
         {getString('visual')}
       </div>
       <div
+        data-name="yaml-btn"
         className={cx(css.item, { [css.selected]: selectedView === SelectedView.YAML })}
         onClick={() => {
           beforeOnChange(SelectedView.YAML, setSelectedView)

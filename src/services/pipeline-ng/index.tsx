@@ -103,8 +103,20 @@ export interface AsyncExecutableResponseOrBuilder {
   unknownFields?: UnknownFieldSet
 }
 
-export type AwsCodeCommitTriggerSpec = WebhookTriggerSpec & {
-  gitRepoSpec?: GitRepoSpec
+export interface AwsCodeCommitEventSpec {
+  [key: string]: any
+}
+
+export type AwsCodeCommitPushSpec = AwsCodeCommitEventSpec & {
+  connectorRef?: string
+  jexlCondition?: string
+  payloadConditions?: TriggerEventDataCondition[]
+  repoName?: string
+}
+
+export type AwsCodeCommitSpec = WebhookTriggerSpecV2 & {
+  spec?: AwsCodeCommitEventSpec
+  type?: 'Push'
 }
 
 export interface BarrierExecutionInfo {
@@ -128,8 +140,32 @@ export interface BarrierSetupInfo {
   stages?: StageDetail[]
 }
 
-export type BitbucketTriggerSpec = WebhookTriggerSpec & {
-  gitRepoSpec?: GitRepoSpec
+export interface BitbucketEventSpec {
+  [key: string]: any
+}
+
+export type BitbucketPRSpec = BitbucketEventSpec & {
+  actions?: ('Create' | 'Update' | 'Merge' | 'Decline')[]
+  autoAbortPreviousExecutions?: boolean
+  connectorRef?: string
+  headerConditions?: TriggerEventDataCondition[]
+  jexlCondition?: string
+  payloadConditions?: TriggerEventDataCondition[]
+  repoName?: string
+}
+
+export type BitbucketPushSpec = BitbucketEventSpec & {
+  autoAbortPreviousExecutions?: boolean
+  connectorRef?: string
+  headerConditions?: TriggerEventDataCondition[]
+  jexlCondition?: string
+  payloadConditions?: TriggerEventDataCondition[]
+  repoName?: string
+}
+
+export type BitbucketSpec = WebhookTriggerSpecV2 & {
+  spec?: BitbucketEventSpec
+  type?: 'PullRequest' | 'Push'
 }
 
 export interface ByteString {
@@ -404,7 +440,11 @@ export type CronTriggerSpec = ScheduledTriggerSpec & {
   expression?: string
 }
 
-export type CustomWebhookTriggerSpec = WebhookTriggerSpec & {}
+export type CustomTriggerSpec = WebhookTriggerSpecV2 & {
+  headerConditions?: TriggerEventDataCondition[]
+  jexlCondition?: string
+  payloadConditions?: TriggerEventDataCondition[]
+}
 
 export interface DashboardPipelineExecutionInfo {
   pipelineExecutionInfoList?: PipelineExecutionInfo[]
@@ -880,15 +920,11 @@ export interface ExecutionMetadata {
   gitSyncBranchContext?: ByteString
   initializationErrorString?: string
   initialized?: boolean
-  inputSetYaml?: string
-  inputSetYamlBytes?: ByteString
   parserForType?: ParserExecutionMetadata
   pipelineIdentifier?: string
   pipelineIdentifierBytes?: ByteString
   principalInfo?: ExecutionPrincipalInfo
   principalInfoOrBuilder?: ExecutionPrincipalInfoOrBuilder
-  processedYaml?: string
-  processedYamlBytes?: ByteString
   runSequence?: number
   serializedSize?: number
   triggerInfo?: ExecutionTriggerInfo
@@ -896,8 +932,6 @@ export interface ExecutionMetadata {
   triggerPayload?: TriggerPayload
   triggerPayloadOrBuilder?: TriggerPayloadOrBuilder
   unknownFields?: UnknownFieldSet
-  yaml?: string
-  yamlBytes?: ByteString
 }
 
 export interface ExecutionNode {
@@ -1524,17 +1558,70 @@ export interface FilterProperties {
   }
 }
 
-export interface GitRepoSpec {
-  identifier?: string
+export interface GithubEventSpec {
+  [key: string]: any
+}
+
+export type GithubIssueCommentSpec = GithubEventSpec & {
+  actions?: ('Create' | 'Edit' | 'Delete')[]
+  autoAbortPreviousExecutions?: boolean
+  connectorRef?: string
+  headerConditions?: TriggerEventDataCondition[]
+  jexlCondition?: string
+  payloadConditions?: TriggerEventDataCondition[]
   repoName?: string
 }
 
-export type GithubTriggerSpec = WebhookTriggerSpec & {
-  gitRepoSpec?: GitRepoSpec
+export type GithubPRSpec = GithubEventSpec & {
+  actions?: ('Close' | 'Edit' | 'Open' | 'Reopen' | 'Label' | 'Unlabel' | 'Synchronize')[]
+  autoAbortPreviousExecutions?: boolean
+  connectorRef?: string
+  headerConditions?: TriggerEventDataCondition[]
+  jexlCondition?: string
+  payloadConditions?: TriggerEventDataCondition[]
+  repoName?: string
 }
 
-export type GitlabTriggerSpec = WebhookTriggerSpec & {
-  gitRepoSpec?: GitRepoSpec
+export type GithubPushSpec = GithubEventSpec & {
+  autoAbortPreviousExecutions?: boolean
+  connectorRef?: string
+  headerConditions?: TriggerEventDataCondition[]
+  jexlCondition?: string
+  payloadConditions?: TriggerEventDataCondition[]
+  repoName?: string
+}
+
+export type GithubSpec = WebhookTriggerSpecV2 & {
+  spec?: GithubEventSpec
+  type?: 'PullRequest' | 'Push' | 'IssueComment'
+}
+
+export interface GitlabEventSpec {
+  [key: string]: any
+}
+
+export type GitlabPRSpec = GitlabEventSpec & {
+  actions?: ('Open' | 'Close' | 'Reopen' | 'Merge' | 'Update' | 'Sync')[]
+  autoAbortPreviousExecutions?: boolean
+  connectorRef?: string
+  headerConditions?: TriggerEventDataCondition[]
+  jexlCondition?: string
+  payloadConditions?: TriggerEventDataCondition[]
+  repoName?: string
+}
+
+export type GitlabPushSpec = GitlabEventSpec & {
+  autoAbortPreviousExecutions?: boolean
+  connectorRef?: string
+  headerConditions?: TriggerEventDataCondition[]
+  jexlCondition?: string
+  payloadConditions?: TriggerEventDataCondition[]
+  repoName?: string
+}
+
+export type GitlabSpec = WebhookTriggerSpecV2 & {
+  spec?: GitlabEventSpec
+  type?: 'MergeRequest' | 'Push'
 }
 
 export interface GraphLayoutNode {
@@ -1956,16 +2043,19 @@ export interface NGTag {
   value: string
 }
 
-export interface NGTriggerConfig {
+export interface NGTriggerConfigV2 {
   description?: string
   enabled?: boolean
   identifier: string
+  inputYaml?: string
   name?: string
-  source?: NGTriggerSource
+  orgIdentifier?: string
+  pipelineIdentifier?: string
+  projectIdentifier?: string
+  source?: NGTriggerSourceV2
   tags?: {
     [key: string]: string
   }
-  target?: NGTriggerTarget
 }
 
 export interface NGTriggerDetailsResponse {
@@ -1998,19 +2088,13 @@ export interface NGTriggerResponse {
   yaml?: string
 }
 
-export interface NGTriggerSource {
-  spec?: NGTriggerSpec
+export interface NGTriggerSourceV2 {
+  spec?: NGTriggerSpecV2
   type?: 'Webhook' | 'Scheduled'
 }
 
-export interface NGTriggerSpec {
+export interface NGTriggerSpecV2 {
   [key: string]: any
-}
-
-export interface NGTriggerTarget {
-  spec?: TargetSpec
-  targetIdentifier?: string
-  type?: 'Pipeline'
 }
 
 export interface NamePart {
@@ -2637,10 +2721,6 @@ export interface PipelineInputResponse {
   success?: boolean
 }
 
-export type PipelineTargetSpec = TargetSpec & {
-  runtimeInputYaml?: string
-}
-
 export interface PipelineWrapperResponse {
   label?: string
   pipelineInputResponse?: PipelineInputResponse[]
@@ -2993,11 +3073,6 @@ export interface ReferenceOrBuilder {
   unknownFields?: UnknownFieldSet
 }
 
-export interface RepoSpec {
-  identifier?: string
-  repoName?: string
-}
-
 export interface Repository {
   allFields?: {
     [key: string]: { [key: string]: any }
@@ -3168,6 +3243,55 @@ export interface ResponseListBarrierSetupInfo {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseListBitbucketPRAction {
+  correlationId?: string
+  data?: ('Create' | 'Update' | 'Merge' | 'Decline')[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseListBitbucketTriggerEvent {
+  correlationId?: string
+  data?: ('PullRequest' | 'Push')[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseListGithubIssueCommentAction {
+  correlationId?: string
+  data?: ('Create' | 'Edit' | 'Delete')[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseListGithubPRAction {
+  correlationId?: string
+  data?: ('Close' | 'Edit' | 'Open' | 'Reopen' | 'Label' | 'Unlabel' | 'Synchronize')[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseListGithubTriggerEvent {
+  correlationId?: string
+  data?: ('PullRequest' | 'Push' | 'IssueComment')[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseListGitlabPRAction {
+  correlationId?: string
+  data?: ('Open' | 'Close' | 'Reopen' | 'Merge' | 'Update' | 'Sync')[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseListGitlabTriggerEvent {
+  correlationId?: string
+  data?: ('MergeRequest' | 'Push')[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseListResourceConstraintExecutionInfo {
   correlationId?: string
   data?: ResourceConstraintExecutionInfo[]
@@ -3203,6 +3327,24 @@ export interface ResponseListWebhookAction {
     | 'created'
     | 'deleted'
   )[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseListWebhookTriggerType {
+  correlationId?: string
+  data?: ('Github' | 'Gitlab' | 'Bitbucket' | 'Custom' | 'AwsCodeCommit')[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseMapStringMapStringListString {
+  correlationId?: string
+  data?: {
+    [key: string]: {
+      [key: string]: string[]
+    }
+  }
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -3654,6 +3796,13 @@ export interface ResponseVariableMergeServiceResponse {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseWebhookEventProcessingDetails {
+  correlationId?: string
+  data?: WebhookEventProcessingDetails
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface RestResponse {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -3698,7 +3847,7 @@ export interface RetryInterruptConfigOrBuilder {
   unknownFields?: UnknownFieldSet
 }
 
-export type ScheduledTriggerConfig = NGTriggerSpec & {
+export type ScheduledTriggerConfig = NGTriggerSpecV2 & {
   spec?: ScheduledTriggerSpec
   type?: string
 }
@@ -3890,10 +4039,6 @@ export interface SyncExecutableResponseOrBuilder {
   unknownFields?: UnknownFieldSet
 }
 
-export interface TargetSpec {
-  [key: string]: any
-}
-
 export interface TaskChainExecutableResponse {
   allFields?: {
     [key: string]: { [key: string]: any }
@@ -4055,6 +4200,12 @@ export interface TotalHealthInfo {
   rate?: number
 }
 
+export interface TriggerEventDataCondition {
+  key?: string
+  operator?: 'In' | 'Equals' | 'NotEquals' | 'NotIn' | 'Regex' | 'EndsWith' | 'StartsWith' | 'Contains'
+  value?: string
+}
+
 export interface TriggerPayload {
   allFields?: {
     [key: string]: { [key: string]: any }
@@ -4076,7 +4227,7 @@ export interface TriggerPayload {
   parsedPayloadOrBuilder?: ParsedPayloadOrBuilder
   parserForType?: ParserTriggerPayload
   serializedSize?: number
-  sourceType?: 'CUSTOM_REPO' | 'GITHUB_REPO' | 'GITLAB_REPO' | 'BITBUCKET_REPO' | 'UNRECOGNIZED'
+  sourceType?: 'CUSTOM_REPO' | 'GITHUB_REPO' | 'GITLAB_REPO' | 'BITBUCKET_REPO' | 'AWS_CODECOMMIT_REPO' | 'UNRECOGNIZED'
   sourceTypeValue?: number
   type?: 'CUSTOM' | 'GIT' | 'SCHEDULED' | 'WEBHOOK' | 'UNRECOGNIZED'
   typeValue?: number
@@ -4102,7 +4253,7 @@ export interface TriggerPayloadOrBuilder {
   jsonPayloadBytes?: ByteString
   parsedPayload?: ParsedPayload
   parsedPayloadOrBuilder?: ParsedPayloadOrBuilder
-  sourceType?: 'CUSTOM_REPO' | 'GITHUB_REPO' | 'GITLAB_REPO' | 'BITBUCKET_REPO' | 'UNRECOGNIZED'
+  sourceType?: 'CUSTOM_REPO' | 'GITHUB_REPO' | 'GITLAB_REPO' | 'BITBUCKET_REPO' | 'AWS_CODECOMMIT_REPO' | 'UNRECOGNIZED'
   sourceTypeValue?: number
   type?: 'CUSTOM' | 'GIT' | 'SCHEDULED' | 'WEBHOOK' | 'UNRECOGNIZED'
   typeValue?: number
@@ -4293,56 +4444,35 @@ export interface VariableResponseMapValue {
   yamlProperties?: YamlProperties
 }
 
-export interface WebhookCondition {
-  key?: string
-  operator?: string
-  value?: string
-}
-
 export interface WebhookDetails {
   webhookSecret?: string
   webhookSourceRepo?: string
 }
 
-export type WebhookTriggerConfig = NGTriggerSpec & {
-  spec?: WebhookTriggerSpec
-  type?: string
+export interface WebhookEventProcessingDetails {
+  accountIdentifier?: string
+  eventCreatedAt?: number
+  eventFound?: boolean
+  eventId?: string
+  exceptionOccured?: boolean
+  message?: string
+  orgIdentifier?: string
+  payload?: string
+  pipelineExecutionId?: string
+  pipelineIdentifier?: string
+  projectIdentifier?: string
+  runtimeInput?: string
+  status?: string
+  triggerIdentifier?: string
 }
 
-export interface WebhookTriggerSpec {
-  actions?: (
-    | 'created'
-    | 'closed'
-    | 'edited'
-    | 'edited'
-    | 'opened'
-    | 'reopened'
-    | 'labeled'
-    | 'unlabeled'
-    | 'deleted'
-    | 'synchronized'
-    | 'synced'
-    | 'merged'
-    | 'sync'
-    | 'open'
-    | 'close'
-    | 'reopen'
-    | 'merge'
-    | 'update'
-    | 'pull request created'
-    | 'pull request updated'
-    | 'pull request merged'
-    | 'pull request declined'
-    | 'created'
-    | 'deleted'
-  )[]
-  event?: 'Pull Request' | 'Push' | 'Issue Comment' | 'Delete' | 'Merge Request' | 'Repository' | 'Branch' | 'Tag'
-  headerConditions?: WebhookCondition[]
-  jexlCondition?: string
-  pathFilters?: string[]
-  payloadConditions?: WebhookCondition[]
-  repoSpec?: RepoSpec
-  type?: 'GITHUB' | 'GITLAB' | 'BITBUCKET' | 'AWS_CODECOMMIT' | 'CUSTOM'
+export type WebhookTriggerConfigV2 = NGTriggerSpecV2 & {
+  spec?: WebhookTriggerSpecV2
+  type?: 'Github' | 'Gitlab' | 'Bitbucket' | 'Custom' | 'AwsCodeCommit'
+}
+
+export interface WebhookTriggerSpecV2 {
+  [key: string]: any
 }
 
 export interface YamlProperties {
@@ -4406,7 +4536,7 @@ export type FilterPropertiesRequestBody = FilterProperties
 
 export type MergeInputSetRequestRequestBody = MergeInputSetRequest
 
-export type NGTriggerConfigRequestBody = NGTriggerConfig
+export type NGTriggerConfigV2RequestBody = NGTriggerConfigV2
 
 export interface GetInitialStageYamlSnippetQueryParams {
   approvalType: 'HarnessApproval' | 'JiraApproval'
@@ -5785,6 +5915,7 @@ export interface DeleteInputSetForPipelineQueryParams {
   filePath?: string
   commitMsg?: string
   createPr?: boolean
+  lastObjectId?: string
 }
 
 export type DeleteInputSetForPipelineProps = Omit<
@@ -7551,6 +7682,7 @@ export interface SoftDeletePipelineQueryParams {
   filePath?: string
   commitMsg?: string
   createPr?: boolean
+  lastObjectId?: string
 }
 
 export type SoftDeletePipelineProps = Omit<
@@ -7879,7 +8011,7 @@ export interface CreateTriggerQueryParams {
 }
 
 export type CreateTriggerProps = Omit<
-  MutateProps<ResponseNGTriggerResponse, Failure | Error, CreateTriggerQueryParams, NGTriggerConfigRequestBody, void>,
+  MutateProps<ResponseNGTriggerResponse, Failure | Error, CreateTriggerQueryParams, NGTriggerConfigV2RequestBody, void>,
   'path' | 'verb'
 >
 
@@ -7887,7 +8019,7 @@ export type CreateTriggerProps = Omit<
  * Create Trigger
  */
 export const CreateTrigger = (props: CreateTriggerProps) => (
-  <Mutate<ResponseNGTriggerResponse, Failure | Error, CreateTriggerQueryParams, NGTriggerConfigRequestBody, void>
+  <Mutate<ResponseNGTriggerResponse, Failure | Error, CreateTriggerQueryParams, NGTriggerConfigV2RequestBody, void>
     verb="POST"
     path={`/triggers`}
     base={getConfig('pipeline/api')}
@@ -7900,7 +8032,7 @@ export type UseCreateTriggerProps = Omit<
     ResponseNGTriggerResponse,
     Failure | Error,
     CreateTriggerQueryParams,
-    NGTriggerConfigRequestBody,
+    NGTriggerConfigV2RequestBody,
     void
   >,
   'path' | 'verb'
@@ -7910,7 +8042,7 @@ export type UseCreateTriggerProps = Omit<
  * Create Trigger
  */
 export const useCreateTrigger = (props: UseCreateTriggerProps) =>
-  useMutate<ResponseNGTriggerResponse, Failure | Error, CreateTriggerQueryParams, NGTriggerConfigRequestBody, void>(
+  useMutate<ResponseNGTriggerResponse, Failure | Error, CreateTriggerQueryParams, NGTriggerConfigV2RequestBody, void>(
     'POST',
     `/triggers`,
     { base: getConfig('pipeline/api'), ...props }
@@ -7924,7 +8056,7 @@ export const createTriggerPromise = (
     ResponseNGTriggerResponse,
     Failure | Error,
     CreateTriggerQueryParams,
-    NGTriggerConfigRequestBody,
+    NGTriggerConfigV2RequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -7933,7 +8065,7 @@ export const createTriggerPromise = (
     ResponseNGTriggerResponse,
     Failure | Error,
     CreateTriggerQueryParams,
-    NGTriggerConfigRequestBody,
+    NGTriggerConfigV2RequestBody,
     void
   >('POST', getConfig('pipeline/api'), `/triggers`, props, signal)
 
@@ -8106,7 +8238,7 @@ export type UpdateTriggerProps = Omit<
     ResponseNGTriggerResponse,
     Failure | Error,
     UpdateTriggerQueryParams,
-    NGTriggerConfigRequestBody,
+    NGTriggerConfigV2RequestBody,
     UpdateTriggerPathParams
   >,
   'path' | 'verb'
@@ -8121,7 +8253,7 @@ export const UpdateTrigger = ({ triggerIdentifier, ...props }: UpdateTriggerProp
     ResponseNGTriggerResponse,
     Failure | Error,
     UpdateTriggerQueryParams,
-    NGTriggerConfigRequestBody,
+    NGTriggerConfigV2RequestBody,
     UpdateTriggerPathParams
   >
     verb="PUT"
@@ -8136,7 +8268,7 @@ export type UseUpdateTriggerProps = Omit<
     ResponseNGTriggerResponse,
     Failure | Error,
     UpdateTriggerQueryParams,
-    NGTriggerConfigRequestBody,
+    NGTriggerConfigV2RequestBody,
     UpdateTriggerPathParams
   >,
   'path' | 'verb'
@@ -8151,7 +8283,7 @@ export const useUpdateTrigger = ({ triggerIdentifier, ...props }: UseUpdateTrigg
     ResponseNGTriggerResponse,
     Failure | Error,
     UpdateTriggerQueryParams,
-    NGTriggerConfigRequestBody,
+    NGTriggerConfigV2RequestBody,
     UpdateTriggerPathParams
   >('PUT', (paramsInPath: UpdateTriggerPathParams) => `/triggers/${paramsInPath.triggerIdentifier}`, {
     base: getConfig('pipeline/api'),
@@ -8170,7 +8302,7 @@ export const updateTriggerPromise = (
     ResponseNGTriggerResponse,
     Failure | Error,
     UpdateTriggerQueryParams,
-    NGTriggerConfigRequestBody,
+    NGTriggerConfigV2RequestBody,
     UpdateTriggerPathParams
   > & { triggerIdentifier: string },
   signal?: RequestInit['signal']
@@ -8179,7 +8311,7 @@ export const updateTriggerPromise = (
     ResponseNGTriggerResponse,
     Failure | Error,
     UpdateTriggerQueryParams,
-    NGTriggerConfigRequestBody,
+    NGTriggerConfigV2RequestBody,
     UpdateTriggerPathParams
   >('PUT', getConfig('pipeline/api'), `/triggers/${triggerIdentifier}`, props, signal)
 
@@ -8377,6 +8509,352 @@ export const getActionsListPromise = (
     signal
   )
 
+export type GetBitbucketPRActionsProps = Omit<
+  GetProps<ResponseListBitbucketPRAction, Failure | Error, void, void>,
+  'path'
+>
+
+/**
+ * Get Source Repo types with Events
+ */
+export const GetBitbucketPRActions = (props: GetBitbucketPRActionsProps) => (
+  <Get<ResponseListBitbucketPRAction, Failure | Error, void, void>
+    path={`/webhook/bitbucketPRActions`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseGetBitbucketPRActionsProps = Omit<
+  UseGetProps<ResponseListBitbucketPRAction, Failure | Error, void, void>,
+  'path'
+>
+
+/**
+ * Get Source Repo types with Events
+ */
+export const useGetBitbucketPRActions = (props: UseGetBitbucketPRActionsProps) =>
+  useGet<ResponseListBitbucketPRAction, Failure | Error, void, void>(`/webhook/bitbucketPRActions`, {
+    base: getConfig('pipeline/api'),
+    ...props
+  })
+
+/**
+ * Get Source Repo types with Events
+ */
+export const getBitbucketPRActionsPromise = (
+  props: GetUsingFetchProps<ResponseListBitbucketPRAction, Failure | Error, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListBitbucketPRAction, Failure | Error, void, void>(
+    getConfig('pipeline/api'),
+    `/webhook/bitbucketPRActions`,
+    props,
+    signal
+  )
+
+export type GetBitbucketTriggerEventsProps = Omit<
+  GetProps<ResponseListBitbucketTriggerEvent, Failure | Error, void, void>,
+  'path'
+>
+
+/**
+ * Get Source Repo types with Events
+ */
+export const GetBitbucketTriggerEvents = (props: GetBitbucketTriggerEventsProps) => (
+  <Get<ResponseListBitbucketTriggerEvent, Failure | Error, void, void>
+    path={`/webhook/bitbucketTriggerEvents`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseGetBitbucketTriggerEventsProps = Omit<
+  UseGetProps<ResponseListBitbucketTriggerEvent, Failure | Error, void, void>,
+  'path'
+>
+
+/**
+ * Get Source Repo types with Events
+ */
+export const useGetBitbucketTriggerEvents = (props: UseGetBitbucketTriggerEventsProps) =>
+  useGet<ResponseListBitbucketTriggerEvent, Failure | Error, void, void>(`/webhook/bitbucketTriggerEvents`, {
+    base: getConfig('pipeline/api'),
+    ...props
+  })
+
+/**
+ * Get Source Repo types with Events
+ */
+export const getBitbucketTriggerEventsPromise = (
+  props: GetUsingFetchProps<ResponseListBitbucketTriggerEvent, Failure | Error, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListBitbucketTriggerEvent, Failure | Error, void, void>(
+    getConfig('pipeline/api'),
+    `/webhook/bitbucketTriggerEvents`,
+    props,
+    signal
+  )
+
+export type GetGitTriggerEventDetailsProps = Omit<
+  GetProps<ResponseMapStringMapStringListString, Failure | Error, void, void>,
+  'path'
+>
+
+/**
+ * Get trigger git actions with Events
+ */
+export const GetGitTriggerEventDetails = (props: GetGitTriggerEventDetailsProps) => (
+  <Get<ResponseMapStringMapStringListString, Failure | Error, void, void>
+    path={`/webhook/gitTriggerEventDetails`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseGetGitTriggerEventDetailsProps = Omit<
+  UseGetProps<ResponseMapStringMapStringListString, Failure | Error, void, void>,
+  'path'
+>
+
+/**
+ * Get trigger git actions with Events
+ */
+export const useGetGitTriggerEventDetails = (props: UseGetGitTriggerEventDetailsProps) =>
+  useGet<ResponseMapStringMapStringListString, Failure | Error, void, void>(`/webhook/gitTriggerEventDetails`, {
+    base: getConfig('pipeline/api'),
+    ...props
+  })
+
+/**
+ * Get trigger git actions with Events
+ */
+export const getGitTriggerEventDetailsPromise = (
+  props: GetUsingFetchProps<ResponseMapStringMapStringListString, Failure | Error, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseMapStringMapStringListString, Failure | Error, void, void>(
+    getConfig('pipeline/api'),
+    `/webhook/gitTriggerEventDetails`,
+    props,
+    signal
+  )
+
+export type GetGithubIssueCommentActionsProps = Omit<
+  GetProps<ResponseListGithubIssueCommentAction, Failure | Error, void, void>,
+  'path'
+>
+
+/**
+ * Get Source Repo types with Events
+ */
+export const GetGithubIssueCommentActions = (props: GetGithubIssueCommentActionsProps) => (
+  <Get<ResponseListGithubIssueCommentAction, Failure | Error, void, void>
+    path={`/webhook/githubIssueCommentActions`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseGetGithubIssueCommentActionsProps = Omit<
+  UseGetProps<ResponseListGithubIssueCommentAction, Failure | Error, void, void>,
+  'path'
+>
+
+/**
+ * Get Source Repo types with Events
+ */
+export const useGetGithubIssueCommentActions = (props: UseGetGithubIssueCommentActionsProps) =>
+  useGet<ResponseListGithubIssueCommentAction, Failure | Error, void, void>(`/webhook/githubIssueCommentActions`, {
+    base: getConfig('pipeline/api'),
+    ...props
+  })
+
+/**
+ * Get Source Repo types with Events
+ */
+export const getGithubIssueCommentActionsPromise = (
+  props: GetUsingFetchProps<ResponseListGithubIssueCommentAction, Failure | Error, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListGithubIssueCommentAction, Failure | Error, void, void>(
+    getConfig('pipeline/api'),
+    `/webhook/githubIssueCommentActions`,
+    props,
+    signal
+  )
+
+export type GetGithubPRActionsProps = Omit<GetProps<ResponseListGithubPRAction, Failure | Error, void, void>, 'path'>
+
+/**
+ * Get Source Repo types with Events
+ */
+export const GetGithubPRActions = (props: GetGithubPRActionsProps) => (
+  <Get<ResponseListGithubPRAction, Failure | Error, void, void>
+    path={`/webhook/githubPRActions`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseGetGithubPRActionsProps = Omit<
+  UseGetProps<ResponseListGithubPRAction, Failure | Error, void, void>,
+  'path'
+>
+
+/**
+ * Get Source Repo types with Events
+ */
+export const useGetGithubPRActions = (props: UseGetGithubPRActionsProps) =>
+  useGet<ResponseListGithubPRAction, Failure | Error, void, void>(`/webhook/githubPRActions`, {
+    base: getConfig('pipeline/api'),
+    ...props
+  })
+
+/**
+ * Get Source Repo types with Events
+ */
+export const getGithubPRActionsPromise = (
+  props: GetUsingFetchProps<ResponseListGithubPRAction, Failure | Error, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListGithubPRAction, Failure | Error, void, void>(
+    getConfig('pipeline/api'),
+    `/webhook/githubPRActions`,
+    props,
+    signal
+  )
+
+export type GetGithubTriggerEventsProps = Omit<
+  GetProps<ResponseListGithubTriggerEvent, Failure | Error, void, void>,
+  'path'
+>
+
+/**
+ * Get Source Repo types with Events
+ */
+export const GetGithubTriggerEvents = (props: GetGithubTriggerEventsProps) => (
+  <Get<ResponseListGithubTriggerEvent, Failure | Error, void, void>
+    path={`/webhook/githubTriggerEvents`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseGetGithubTriggerEventsProps = Omit<
+  UseGetProps<ResponseListGithubTriggerEvent, Failure | Error, void, void>,
+  'path'
+>
+
+/**
+ * Get Source Repo types with Events
+ */
+export const useGetGithubTriggerEvents = (props: UseGetGithubTriggerEventsProps) =>
+  useGet<ResponseListGithubTriggerEvent, Failure | Error, void, void>(`/webhook/githubTriggerEvents`, {
+    base: getConfig('pipeline/api'),
+    ...props
+  })
+
+/**
+ * Get Source Repo types with Events
+ */
+export const getGithubTriggerEventsPromise = (
+  props: GetUsingFetchProps<ResponseListGithubTriggerEvent, Failure | Error, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListGithubTriggerEvent, Failure | Error, void, void>(
+    getConfig('pipeline/api'),
+    `/webhook/githubTriggerEvents`,
+    props,
+    signal
+  )
+
+export type GetGitlabPRActionsProps = Omit<GetProps<ResponseListGitlabPRAction, Failure | Error, void, void>, 'path'>
+
+/**
+ * Get Source Repo types with Events
+ */
+export const GetGitlabPRActions = (props: GetGitlabPRActionsProps) => (
+  <Get<ResponseListGitlabPRAction, Failure | Error, void, void>
+    path={`/webhook/gitlabPRActions`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseGetGitlabPRActionsProps = Omit<
+  UseGetProps<ResponseListGitlabPRAction, Failure | Error, void, void>,
+  'path'
+>
+
+/**
+ * Get Source Repo types with Events
+ */
+export const useGetGitlabPRActions = (props: UseGetGitlabPRActionsProps) =>
+  useGet<ResponseListGitlabPRAction, Failure | Error, void, void>(`/webhook/gitlabPRActions`, {
+    base: getConfig('pipeline/api'),
+    ...props
+  })
+
+/**
+ * Get Source Repo types with Events
+ */
+export const getGitlabPRActionsPromise = (
+  props: GetUsingFetchProps<ResponseListGitlabPRAction, Failure | Error, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListGitlabPRAction, Failure | Error, void, void>(
+    getConfig('pipeline/api'),
+    `/webhook/gitlabPRActions`,
+    props,
+    signal
+  )
+
+export type GetGitlabTriggerEventsProps = Omit<
+  GetProps<ResponseListGitlabTriggerEvent, Failure | Error, void, void>,
+  'path'
+>
+
+/**
+ * Get Source Repo types with Events
+ */
+export const GetGitlabTriggerEvents = (props: GetGitlabTriggerEventsProps) => (
+  <Get<ResponseListGitlabTriggerEvent, Failure | Error, void, void>
+    path={`/webhook/gitlabTriggerEvents`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseGetGitlabTriggerEventsProps = Omit<
+  UseGetProps<ResponseListGitlabTriggerEvent, Failure | Error, void, void>,
+  'path'
+>
+
+/**
+ * Get Source Repo types with Events
+ */
+export const useGetGitlabTriggerEvents = (props: UseGetGitlabTriggerEventsProps) =>
+  useGet<ResponseListGitlabTriggerEvent, Failure | Error, void, void>(`/webhook/gitlabTriggerEvents`, {
+    base: getConfig('pipeline/api'),
+    ...props
+  })
+
+/**
+ * Get Source Repo types with Events
+ */
+export const getGitlabTriggerEventsPromise = (
+  props: GetUsingFetchProps<ResponseListGitlabTriggerEvent, Failure | Error, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListGitlabTriggerEvent, Failure | Error, void, void>(
+    getConfig('pipeline/api'),
+    `/webhook/gitlabTriggerEvents`,
+    props,
+    signal
+  )
+
 export type GetSourceRepoToEventProps = Omit<
   GetProps<ResponseMapWebhookSourceRepoListWebhookEvent, Failure | Error, void, void>,
   'path'
@@ -8469,6 +8947,104 @@ export const webhookEndpointPromise = (
     'POST',
     getConfig('pipeline/api'),
     `/webhook/trigger`,
+    props,
+    signal
+  )
+
+export interface TriggerProcessingDetailsQueryParams {
+  accountIdentifier: string
+  eventId: string
+}
+
+export type TriggerProcessingDetailsProps = Omit<
+  GetProps<ResponseWebhookEventProcessingDetails, Failure | Error, TriggerProcessingDetailsQueryParams, void>,
+  'path'
+>
+
+/**
+ * fetch webhook event details
+ */
+export const TriggerProcessingDetails = (props: TriggerProcessingDetailsProps) => (
+  <Get<ResponseWebhookEventProcessingDetails, Failure | Error, TriggerProcessingDetailsQueryParams, void>
+    path={`/webhook/triggerProcessingDetails`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseTriggerProcessingDetailsProps = Omit<
+  UseGetProps<ResponseWebhookEventProcessingDetails, Failure | Error, TriggerProcessingDetailsQueryParams, void>,
+  'path'
+>
+
+/**
+ * fetch webhook event details
+ */
+export const useTriggerProcessingDetails = (props: UseTriggerProcessingDetailsProps) =>
+  useGet<ResponseWebhookEventProcessingDetails, Failure | Error, TriggerProcessingDetailsQueryParams, void>(
+    `/webhook/triggerProcessingDetails`,
+    { base: getConfig('pipeline/api'), ...props }
+  )
+
+/**
+ * fetch webhook event details
+ */
+export const triggerProcessingDetailsPromise = (
+  props: GetUsingFetchProps<
+    ResponseWebhookEventProcessingDetails,
+    Failure | Error,
+    TriggerProcessingDetailsQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseWebhookEventProcessingDetails, Failure | Error, TriggerProcessingDetailsQueryParams, void>(
+    getConfig('pipeline/api'),
+    `/webhook/triggerProcessingDetails`,
+    props,
+    signal
+  )
+
+export type GetWebhookTriggerTypesProps = Omit<
+  GetProps<ResponseListWebhookTriggerType, Failure | Error, void, void>,
+  'path'
+>
+
+/**
+ * Get Source Repo types with Events
+ */
+export const GetWebhookTriggerTypes = (props: GetWebhookTriggerTypesProps) => (
+  <Get<ResponseListWebhookTriggerType, Failure | Error, void, void>
+    path={`/webhook/webhookTriggerTypes`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseGetWebhookTriggerTypesProps = Omit<
+  UseGetProps<ResponseListWebhookTriggerType, Failure | Error, void, void>,
+  'path'
+>
+
+/**
+ * Get Source Repo types with Events
+ */
+export const useGetWebhookTriggerTypes = (props: UseGetWebhookTriggerTypesProps) =>
+  useGet<ResponseListWebhookTriggerType, Failure | Error, void, void>(`/webhook/webhookTriggerTypes`, {
+    base: getConfig('pipeline/api'),
+    ...props
+  })
+
+/**
+ * Get Source Repo types with Events
+ */
+export const getWebhookTriggerTypesPromise = (
+  props: GetUsingFetchProps<ResponseListWebhookTriggerType, Failure | Error, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListWebhookTriggerType, Failure | Error, void, void>(
+    getConfig('pipeline/api'),
+    `/webhook/webhookTriggerTypes`,
     props,
     signal
   )

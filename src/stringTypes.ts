@@ -1345,8 +1345,8 @@ export interface StringsMap {
   'pipeline.triggers.cannotParseInputValues': string
   'pipeline.triggers.cannotParseTriggersData': string
   'pipeline.triggers.conditionsPanel.attribute': string
-  'pipeline.triggers.conditionsPanel.branchConditions': string
   'pipeline.triggers.conditionsPanel.branchName': string
+  'pipeline.triggers.conditionsPanel.changedFiles': string
   'pipeline.triggers.conditionsPanel.headerConditions': string
   'pipeline.triggers.conditionsPanel.jexlCondition': string
   'pipeline.triggers.conditionsPanel.matchesValue': string
@@ -1363,9 +1363,9 @@ export interface StringsMap {
   'pipeline.triggers.cronLabel': string
   'pipeline.triggers.deleteTrigger': string
   'pipeline.triggers.enableLabel': string
+  'pipeline.triggers.lastActivationAt': string
+  'pipeline.triggers.lastActivationDetails': string
   'pipeline.triggers.lastActivationLabel': string
-  'pipeline.triggers.lastExecutionAt': string
-  'pipeline.triggers.lastExecutionDetails': string
   'pipeline.triggers.newArtifactLabel': string
   'pipeline.triggers.newManifestLabel': string
   'pipeline.triggers.newTrigger': string
@@ -1428,14 +1428,13 @@ export interface StringsMap {
   'pipeline.triggers.triggerConfigurationLabel': string
   'pipeline.triggers.triggerConfigurationPanel.actions': string
   'pipeline.triggers.triggerConfigurationPanel.anyActions': string
-  'pipeline.triggers.triggerConfigurationPanel.copiedToken': string
+  'pipeline.triggers.triggerConfigurationPanel.autoAbortIssueComment': string
+  'pipeline.triggers.triggerConfigurationPanel.autoAbortPR': string
+  'pipeline.triggers.triggerConfigurationPanel.autoAbortPush': string
   'pipeline.triggers.triggerConfigurationPanel.event': string
   'pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook': string
   'pipeline.triggers.triggerConfigurationPanel.payloadType': string
   'pipeline.triggers.triggerConfigurationPanel.recurrenceLabel': string
-  'pipeline.triggers.triggerConfigurationPanel.regenerateToken': string
-  'pipeline.triggers.triggerConfigurationPanel.regeneratedToken': string
-  'pipeline.triggers.triggerConfigurationPanel.secureTokenRegenerateWarning': string
   'pipeline.triggers.triggerConfigurationPanel.selectTimezonePlaceholder': string
   'pipeline.triggers.triggerConfigurationPanel.title': string
   'pipeline.triggers.triggerConfigurationPanel.triggerName': string
