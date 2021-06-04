@@ -324,7 +324,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
   useDeepCompareEffect(() => {
     if (gcrError || dockerError) {
       clear()
-      showError(getString('errorTag'))
+      showError(getString('errorTag'), undefined, 'cd.tag.fetch.error')
       return
     }
     if (Array.isArray(dockerdata?.data?.buildDetailsList)) {
