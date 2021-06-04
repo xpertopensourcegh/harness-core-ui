@@ -259,7 +259,9 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
       fqnPath: getFqnPath(),
       accountIdentifier: accountId,
       orgIdentifier,
-      projectIdentifier
+      projectIdentifier,
+      repoIdentifier,
+      branch: branchParam
     },
     lazy: true
   })
@@ -281,7 +283,9 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
         registryHostname: lastQueryData.registryHostname || '',
         accountIdentifier: accountId,
         orgIdentifier,
-        projectIdentifier
+        projectIdentifier,
+        repoIdentifier,
+        branch: branchParam
       },
       lazy: true
     }
@@ -304,7 +308,9 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
         region: lastQueryData.region || '',
         accountIdentifier: accountId,
         orgIdentifier,
-        projectIdentifier
+        projectIdentifier,
+        repoIdentifier,
+        branch: branchParam
       },
       lazy: true
     }
