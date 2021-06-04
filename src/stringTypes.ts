@@ -142,6 +142,7 @@ export interface StringsMap {
   'common.gitSync.unableToCreatePR': string
   'common.gitSync.updateResource': string
   'common.home': string
+  'common.in': string
   'common.input': string
   'common.jexlExpression': string
   'common.labelTestConnection': string
@@ -1807,6 +1808,7 @@ export interface StringsMap {
   'cf.clause.operators.endsWith': string
   'cf.clause.operators.equal': string
   'cf.clause.operators.equalSensitive': string
+  'cf.clause.operators.in': string
   'cf.clause.operators.match': string
   'cf.clause.operators.matchSegment': string
   'cf.clause.operators.startsWith': string
