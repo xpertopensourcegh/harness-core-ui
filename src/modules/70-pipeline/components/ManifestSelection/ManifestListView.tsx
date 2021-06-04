@@ -661,20 +661,18 @@ const ManifestListView = ({
                     </Text>
                   </div>
                   <div>{manifestTypeLabels[manifest?.type as ManifestTypes]}</div>
-                  <span>
-                    <Text
-                      inline
-                      icon={ManifestIconByType[manifest?.spec?.store.type as ManifestStores]}
-                      iconProps={{ size: 18 }}
-                      width={300}
-                      lineClamp={1}
-                      rightIcon="full-circle"
-                      rightIconProps={{ size: 12, color }}
-                      style={{ color: Color.BLACK, fontWeight: 900 }}
-                    >
+                  <div className={css.connectorNameField}>
+                    <Icon
+                      className={css.manifestStoreIcon}
+                      padding={{ right: 'small' }}
+                      name={ManifestIconByType[manifest?.spec?.store.type as ManifestStores]}
+                      size={18}
+                    />
+                    <Text className={css.connectorName} lineClamp={1}>
                       {connectorName ?? manifest?.spec?.store.spec.connectorRef}
                     </Text>
-                  </span>
+                    <Icon className={css.manifestStoreIcon} name="full-circle" size={12} color={color} />
+                  </div>
 
                   {!!manifest?.spec?.store.spec.paths?.length && (
                     <span>
