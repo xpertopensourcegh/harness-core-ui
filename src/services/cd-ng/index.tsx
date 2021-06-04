@@ -762,6 +762,7 @@ export interface ConnectorCatalogueItem {
     | 'HttpHelmRepo'
     | 'NewRelic'
     | 'Datadog'
+    | 'SumoLogic'
   )[]
 }
 
@@ -868,6 +869,7 @@ export interface ConnectorInfoDTO {
     | 'HttpHelmRepo'
     | 'NewRelic'
     | 'Datadog'
+    | 'SumoLogic'
 }
 
 export interface ConnectorResponse {
@@ -1642,6 +1644,7 @@ export interface Error {
     | 'ENGINE_FUNCTOR_ERROR'
     | 'JIRA_CLIENT_ERROR'
     | 'SCM_NOT_MODIFIED'
+    | 'JIRA_STEP_ERROR'
   correlationId?: string
   detailedMessage?: string
   message?: string
@@ -2003,6 +2006,7 @@ export interface Failure {
     | 'ENGINE_FUNCTOR_ERROR'
     | 'JIRA_CLIENT_ERROR'
     | 'SCM_NOT_MODIFIED'
+    | 'JIRA_STEP_ERROR'
   correlationId?: string
   errors?: ValidationError[]
   message?: string
@@ -2211,12 +2215,12 @@ export interface GatewayAccountRequestDTO {
 
 export interface GcpBillingExportSpec {
   datasetId: string
-  projectId: string
 }
 
 export type GcpCloudCostConnector = ConnectorConfigDTO & {
   billingExportSpec?: GcpBillingExportSpec
-  featuresEnabled?: 'BILLING'[]
+  featuresEnabled?: ('BILLING' | 'OPTIMIZATION' | 'VISIBILITY')[]
+  projectId: string
 }
 
 export type GcpConnector = ConnectorConfigDTO & {
@@ -2757,8 +2761,8 @@ export interface Infrastructure {
 
 export interface InfrastructureDef {
   provisioner?: ExecutionElementConfig
-  spec?: Infrastructure
-  type?: string
+  spec: Infrastructure
+  type: string
 }
 
 export type InlineTerraformBackendConfigSpec = TerraformBackendConfigSpec & {
@@ -3517,10 +3521,9 @@ export type NumberNGVariable = NGVariable & {
   value: number
 }
 
-export interface OAuthSettings {
+export type OAuthSettings = NGAuthSettings & {
   allowedProviders?: ('AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN')[]
   filter?: string
-  settingsType?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
 }
 
 export interface OAuthSignupDTO {
@@ -4981,6 +4984,7 @@ export interface ResponseMessage {
     | 'ENGINE_FUNCTOR_ERROR'
     | 'JIRA_CLIENT_ERROR'
     | 'SCM_NOT_MODIFIED'
+    | 'JIRA_STEP_ERROR'
   exception?: Throwable
   failureTypes?: (
     | 'EXPIRED'
@@ -5251,13 +5255,6 @@ export interface ResponseRoleAssignmentResponse {
 export interface ResponseSaasGitDTO {
   correlationId?: string
   data?: SaasGitDTO
-  metaData?: { [key: string]: any }
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-}
-
-export interface ResponseScmGitWebhookTaskResponseData {
-  correlationId?: string
-  data?: ScmGitWebhookTaskResponseData
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -5636,11 +5633,6 @@ export type SamlSettings = SSOSettings & {
   groupMembershipAttr?: string
   logoutUrl?: string
   origin: string
-}
-
-export interface ScmGitWebhookTaskResponseData {
-  createWebhookResponse?: string[]
-  gitWebhookTaskType?: 'UPSERT' | 'CREATE'
 }
 
 export interface ScopeDTO {
@@ -15010,6 +15002,10 @@ export interface GetJiraIssueCreateMetadataQueryParams {
   issueType?: string
   expand?: string
   fetchStatus?: boolean
+  ignoreComment?: boolean
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
 }
 
 export type GetJiraIssueCreateMetadataProps = Omit<
@@ -15066,6 +15062,9 @@ export interface GetJiraProjectsQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
 }
 
 export type GetJiraProjectsProps = Omit<
@@ -15119,6 +15118,9 @@ export interface GetJiraStatusesQueryParams {
   projectIdentifier?: string
   projectKey?: string
   issueType?: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
 }
 
 export type GetJiraStatusesProps = Omit<
@@ -15171,6 +15173,9 @@ export interface GetJiraIssueUpdateMetadataQueryParams {
   orgIdentifier?: string
   projectIdentifier?: string
   issueKey?: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
 }
 
 export type GetJiraIssueUpdateMetadataProps = Omit<
@@ -15227,6 +15232,9 @@ export interface ValidateJiraCredentialsQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
 }
 
 export type ValidateJiraCredentialsProps = Omit<
@@ -20538,69 +20546,6 @@ export const webhookEndpointPromise = (
     signal
   )
 
-export interface WebhookUpsertQueryParams {
-  accountIdentifier: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  connectorIdentifierRef: string
-  target: string
-  hookEventType: 'TRIGGER_EVENTS'
-  repoURL?: string
-}
-
-export type WebhookUpsertProps = Omit<
-  MutateProps<ResponseScmGitWebhookTaskResponseData, Failure | Error, WebhookUpsertQueryParams, void, void>,
-  'path' | 'verb'
->
-
-/**
- * Upsert a webhook event
- */
-export const WebhookUpsert = (props: WebhookUpsertProps) => (
-  <Mutate<ResponseScmGitWebhookTaskResponseData, Failure | Error, WebhookUpsertQueryParams, void, void>
-    verb="POST"
-    path={`/webhook/UpsertWebhook`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseWebhookUpsertProps = Omit<
-  UseMutateProps<ResponseScmGitWebhookTaskResponseData, Failure | Error, WebhookUpsertQueryParams, void, void>,
-  'path' | 'verb'
->
-
-/**
- * Upsert a webhook event
- */
-export const useWebhookUpsert = (props: UseWebhookUpsertProps) =>
-  useMutate<ResponseScmGitWebhookTaskResponseData, Failure | Error, WebhookUpsertQueryParams, void, void>(
-    'POST',
-    `/webhook/UpsertWebhook`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * Upsert a webhook event
- */
-export const webhookUpsertPromise = (
-  props: MutateUsingFetchProps<
-    ResponseScmGitWebhookTaskResponseData,
-    Failure | Error,
-    WebhookUpsertQueryParams,
-    void,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<ResponseScmGitWebhookTaskResponseData, Failure | Error, WebhookUpsertQueryParams, void, void>(
-    'POST',
-    getConfig('ng/api'),
-    `/webhook/UpsertWebhook`,
-    props,
-    signal
-  )
-
 export interface GetYamlSchemaQueryParams {
   entityType:
     | 'Projects'
@@ -20741,6 +20686,7 @@ export interface GetYamlSnippetMetadataQueryParams {
     | 'gcpcloudcost'
     | 'prometheus'
     | 'datadog'
+    | 'sumologic'
   )[]
 }
 
