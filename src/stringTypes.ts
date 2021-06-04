@@ -791,6 +791,7 @@ export interface StringsMap {
   'connectors.testConnectionStep.validationText.git': string
   'connectors.testConnectionStep.validationText.github': string
   'connectors.testConnectionStep.validationText.gitlab': string
+  'connectors.testConnectionStep.validationText.jira': string
   'connectors.testConnectionStep.validationText.k8s': string
   'connectors.testConnectionStep.validationText.nexus': string
   'connectors.testConnectionStep.validationText.splunk': string

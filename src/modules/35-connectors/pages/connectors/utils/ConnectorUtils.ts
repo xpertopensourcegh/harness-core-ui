@@ -1227,6 +1227,8 @@ export function GetTestConnectionValidationTextByType(type: ConnectorConfigDTO['
       return getString('connectors.testConnectionStep.validationText.docker')
     case Connectors.AWS:
       return getString('connectors.testConnectionStep.validationText.aws')
+    case Connectors.Jira:
+      return getString('connectors.testConnectionStep.validationText.jira')
     case Connectors.NEXUS:
       return getString('connectors.testConnectionStep.validationText.nexus')
     case Connectors.ARTIFACTORY:
