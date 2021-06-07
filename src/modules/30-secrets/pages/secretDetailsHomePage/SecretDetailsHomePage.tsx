@@ -1,6 +1,6 @@
 import React from 'react'
-import { NavLink, useParams } from 'react-router-dom'
-import { Container, Layout, Text, Color, Icon } from '@wings-software/uicore'
+import { useParams } from 'react-router-dom'
+import { Container, Layout, Text, Color, Icon, TabNavigation } from '@wings-software/uicore'
 
 import { useStrings } from 'framework/strings'
 import { Page } from '@common/exports'
@@ -104,37 +104,30 @@ const SecretDetaislHomePage: React.FC<SecretDetailsProps> = ({ children }, props
           </Layout.Vertical>
         }
         toolbar={
-          <Container>
-            <Layout.Horizontal spacing="medium">
-              <NavLink
-                className={css.tags}
-                activeClassName={css.activeTag}
-                to={routes.toSecretDetailsOverview({
+          <TabNavigation
+            links={[
+              {
+                label: getString('overview'),
+                to: routes.toSecretDetailsOverview({
                   accountId,
                   projectIdentifier,
                   orgIdentifier,
                   secretId,
                   module
-                })}
-              >
-                {getString('overview')}
-              </NavLink>
-
-              <NavLink
-                className={css.tags}
-                activeClassName={css.activeTag}
-                to={routes.toSecretDetailsReferences({
+                })
+              },
+              {
+                label: getString('common.references'),
+                to: routes.toSecretDetailsReferences({
                   accountId,
                   projectIdentifier,
                   orgIdentifier,
                   secretId,
                   module
-                })}
-              >
-                {getString('common.references')}
-              </NavLink>
-            </Layout.Horizontal>
-          </Container>
+                })
+              }
+            ]}
+          />
         }
       />
       <Page.Body

@@ -92,7 +92,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
         class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
       >
         <span
-          class="bp3-tag tags activeTag"
+          class="bp3-tag tags active"
         >
           <span
             class="bp3-text-overflow-ellipsis bp3-fill"
@@ -561,7 +561,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
         class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
       >
         <span
-          class="bp3-tag tags activeTag"
+          class="bp3-tag tags active"
         >
           <span
             class="bp3-text-overflow-ellipsis bp3-fill"

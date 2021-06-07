@@ -294,7 +294,7 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
               {Object.keys(categories).map((item, index) => {
                 return (
                   <Tag
-                    className={cx(css.tags, { [css.activeTag]: activeCategory === index })}
+                    className={cx(css.tags, { [css.active]: activeCategory === index })}
                     onClick={() => setActiveCategory(index)}
                     key={item + index}
                   >
