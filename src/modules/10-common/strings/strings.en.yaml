@@ -24,6 +24,7 @@ reject: Reject
 disable: Disable
 remove: Remove
 member: Member
+subscriptions: Subscriptions
 PermissibleActions: Permissible Actions
 My: My
 ok: OK

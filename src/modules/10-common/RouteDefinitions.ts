@@ -49,6 +49,7 @@ const routes = {
     }
   ),
   toUser: withAccountId(() => '/user'),
+  toSubscriptions: withAccountId(() => '/home/setup/subscriptions'),
   toAuthenticationSettings: withAccountId(() => '/home/setup/authentication'),
   toAccountConfiguration: withAccountId(() => '/home/setup/authentication/configuration'),
   toAccountActivityLog: withAccountId(() => '/home/setup/authentication/activity-log'),
