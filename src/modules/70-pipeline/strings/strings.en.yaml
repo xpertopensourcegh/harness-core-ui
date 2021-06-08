@@ -160,7 +160,7 @@ failureStrategies:
     Authorization: Authorization Errors
     Connectivity: Connectivity Errors
     Timeout: Timeout Errors
-    Verification: Verification Errors
+    Verification: Verification Failures
     DelegateProvisioning: Delegate Provisioning Errors
     AllErrors: All Errors
     Unknown: Unknown Errors
