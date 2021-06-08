@@ -754,6 +754,7 @@ export interface StringsMap {
   'connectors.prometheus.urlValidation': string
   'connectors.prometheusConnectorDetails': string
   'connectors.prometheusLabel': string
+  'connectors.scopeError': string
   'connectors.secretManagerDetails': string
   'connectors.selectConnectorLabel': string
   'connectors.specifyArtifactRepo': string
