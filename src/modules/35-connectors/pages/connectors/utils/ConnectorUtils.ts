@@ -1048,13 +1048,13 @@ export const buildDynatracePayload = (formData: FormData) => {
     connector: {
       name: formData.name,
       identifier: formData.identifier,
-      type: Connectors.PROMETHEUS,
+      type: Connectors.DYNATRACE,
       projectIdentifier: formData.projectIdentifier,
       orgIdentifier: formData.orgIdentifier,
       spec: {
         delegateSelectors: formData.delegateSelectors || {},
         url: formData.url,
-        apiToken: formData.apiToken,
+        apiTokenRef: formData.apiTokenRef?.referenceString,
         accountId: formData.accountId
       }
     }
@@ -1121,6 +1121,8 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'service-datadog'
     case Connectors.AZURE_KEY_VAULT:
       return 'azure-key-vault'
+    case Connectors.DYNATRACE:
+      return 'service-dynatrace'
     default:
       return 'cog'
   }
@@ -1174,6 +1176,8 @@ export const getConnectorDisplayName = (type: string) => {
       return 'AWS KMS'
     case Connectors.AZURE_KEY_VAULT:
       return 'Azure Key Vault'
+    case Connectors.DYNATRACE:
+      return 'Dynatrace'
     default:
       return ''
   }
@@ -1281,7 +1285,8 @@ export const getUrlValueByType = (type: ConnectorInfoDTO['type'], connector: Con
       return connector.spec.url
     case Connectors.SPLUNK:
       return connector.spec.splunkUrl
-
+    case Connectors.DYNATRACE:
+      return connector.spec.url
     case Connectors.VAULT:
       return connector.spec.vaultUrl
     case Connectors.BITBUCKET:
