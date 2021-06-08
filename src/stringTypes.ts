@@ -1089,6 +1089,7 @@ export interface StringsMap {
   'pipeline.dashboards.totalBuilds': string
   'pipeline.dashboards.totalExecutions': string
   'pipeline.dashboards.workloads': string
+  'pipeline.depth': string
   'pipeline.discard': string
   'pipeline.duration': string
   'pipeline.enableVerificationOptions': string
@@ -1280,6 +1281,8 @@ export interface StringsMap {
   'pipeline.manifestType.selectManifestStore': string
   'pipeline.manifestType.specifyManifestRepoType': string
   'pipeline.manifestType.specifyManifestStore': string
+  'pipeline.onlyPositiveInteger': string
+  'pipeline.optionalLabel': string
   'pipeline.progressPercentage': string
   'pipeline.repoRequired': string
   'pipeline.resourceConstraints.currentlyExecuting': string
@@ -1291,6 +1294,7 @@ export interface StringsMap {
   'pipeline.selectOrCreatePipeline.pipelineNameRequired': string
   'pipeline.selectOrCreatePipeline.selectAPipeline': string
   'pipeline.selectOrCreatePipeline.setupHeader': string
+  'pipeline.sslVerify': string
   'pipeline.startTime': string
   'pipeline.stepConfigHasChanges': string
   'pipeline.stepDetails': string

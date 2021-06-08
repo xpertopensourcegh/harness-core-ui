@@ -11,6 +11,10 @@ stepConfigHasChanges: Form has some unsaved changed, Do you want to apply the ch
 clickHere: Click here
 stepDetails: Step details
 collapseIsDisabledWhileStageIsRunning: Collapse is disable while stage is running
+onlyPositiveInteger: Only positive integer values
+optionalLabel: (Optional)
+depth: Depth
+sslVerify: SSL Verify
 barrierStep:
   barrierReference: Barrier Reference
   barrierReferenceRequired: Barrier Reference is required
