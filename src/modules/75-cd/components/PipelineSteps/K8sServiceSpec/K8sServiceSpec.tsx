@@ -740,6 +740,25 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                         gitScope={{ repo: repoIdentifier || '', branch: branchParam, getDefaultFromOtherRepo: true }}
                       />
                     )}
+                    {getMultiTypeFromValue(artifacts?.sidecars?.[index]?.sidecar?.spec?.region) ===
+                      MultiTypeInputType.RUNTIME && (
+                      <FormInput.MultiTypeInput
+                        useValue
+                        multiTypeInputProps={{
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                          selectProps: {
+                            items: regions,
+                            usePortal: true,
+                            addClearBtn: true && !readonly
+                          }
+                        }}
+                        disabled={readonly}
+                        selectItems={regions}
+                        label={getString('regionLabel')}
+                        name={`${path}.artifacts.sidecars.[${index}].sidecar.spec.region`}
+                      />
+                    )}
                     {getMultiTypeFromValue(imagePath) === MultiTypeInputType.RUNTIME && (
                       <FormInput.MultiTextInput
                         label={getString('pipelineSteps.deploy.inputSet.imagePath')}
@@ -765,25 +784,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                         name={`${path}.artifacts.sidecars[${index}].sidecar.spec.registryHostname`}
                       />
                     )}
-                    {getMultiTypeFromValue(artifacts?.sidecars?.[index]?.sidecar?.spec?.region) ===
-                      MultiTypeInputType.RUNTIME && (
-                      <FormInput.MultiTypeInput
-                        useValue
-                        multiTypeInputProps={{
-                          expressions,
-                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
-                          selectProps: {
-                            items: regions,
-                            usePortal: true,
-                            addClearBtn: true && !readonly
-                          }
-                        }}
-                        disabled={readonly}
-                        selectItems={regions}
-                        label={getString('regionLabel')}
-                        name={`${path}.artifacts.sidecars.[${index}].sidecar.spec.region`}
-                      />
-                    )}
+
                     {getMultiTypeFromValue(template?.artifacts?.sidecars?.[index]?.sidecar?.spec?.tag) ===
                       MultiTypeInputType.RUNTIME && (
                       <div
