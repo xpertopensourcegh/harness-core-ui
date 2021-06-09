@@ -293,9 +293,18 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     } else {
       return (
         <Dialog
-          style={{ width: isGitSyncEnabled ? '614px' : '385px', paddingBottom: 0 }}
+          style={{
+            width: isGitSyncEnabled ? '614px' : '385px',
+            background: 'var(--form-bg)'
+          }}
           isOpen={true}
-          className={cx(css.dialog, Classes.DIALOG)}
+          className={'padded-dialog'}
+          onClose={onCloseCreate}
+          title={
+            pipeline.identifier === DefaultNewPipelineId
+              ? getString('moduleRenderer.newPipeLine')
+              : getString('editPipeline')
+          }
         >
           <CreatePipelines
             afterSave={onSubmit}

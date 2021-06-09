@@ -2,7 +2,7 @@
 
 exports[`Test ConfigureOptions should render configure options 1`] = `
 <div
-  class="bp3-dialog dialog bp3-dialog"
+  class="bp3-dialog dialog bp3-dialog padded-dialog"
 >
   <div
     class="bp3-dialog-header"
@@ -41,9 +41,7 @@ exports[`Test ConfigureOptions should render configure options 1`] = `
   <div
     class="OverlaySpinner--overlaySpinner"
   >
-    <div
-      class="bp3-dialog-body"
-    >
+    <div>
       <div
         class="bp3-form-group bp3-inline label"
       >
@@ -226,7 +224,7 @@ exports[`Test ConfigureOptions should render configure options 1`] = `
       </div>
     </div>
     <div
-      class="bp3-dialog-footer"
+      class="buttonsContainer"
     >
       <button
         class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
@@ -261,7 +259,7 @@ exports[`Test ConfigureOptions should render configure options 1`] = `
 
 exports[`Test ConfigureOptions test allowed advanced values 1`] = `
 <div
-  class="bp3-dialog dialog bp3-dialog"
+  class="bp3-dialog dialog bp3-dialog padded-dialog"
 >
   <div
     class="bp3-dialog-header"
@@ -300,9 +298,7 @@ exports[`Test ConfigureOptions test allowed advanced values 1`] = `
   <div
     class="OverlaySpinner--overlaySpinner"
   >
-    <div
-      class="bp3-dialog-body"
-    >
+    <div>
       <div
         class="bp3-form-group bp3-inline label"
       >
@@ -468,7 +464,7 @@ exports[`Test ConfigureOptions test allowed advanced values 1`] = `
       </div>
     </div>
     <div
-      class="bp3-dialog-footer"
+      class="buttonsContainer"
     >
       <button
         class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
@@ -503,7 +499,7 @@ exports[`Test ConfigureOptions test allowed advanced values 1`] = `
 
 exports[`Test ConfigureOptions test allowed values 1`] = `
 <div
-  class="bp3-dialog dialog bp3-dialog"
+  class="bp3-dialog dialog bp3-dialog padded-dialog"
 >
   <div
     class="bp3-dialog-header"
@@ -542,9 +538,7 @@ exports[`Test ConfigureOptions test allowed values 1`] = `
   <div
     class="OverlaySpinner--overlaySpinner"
   >
-    <div
-      class="bp3-dialog-body"
-    >
+    <div>
       <div
         class="bp3-form-group bp3-inline label"
       >
@@ -833,7 +827,7 @@ exports[`Test ConfigureOptions test allowed values 1`] = `
       </div>
     </div>
     <div
-      class="bp3-dialog-footer"
+      class="buttonsContainer"
     >
       <button
         class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
@@ -868,7 +862,7 @@ exports[`Test ConfigureOptions test allowed values 1`] = `
 
 exports[`Test ConfigureOptions test regex expression 1`] = `
 <div
-  class="bp3-dialog dialog bp3-dialog"
+  class="bp3-dialog dialog bp3-dialog padded-dialog"
 >
   <div
     class="bp3-dialog-header"
@@ -907,9 +901,7 @@ exports[`Test ConfigureOptions test regex expression 1`] = `
   <div
     class="OverlaySpinner--overlaySpinner"
   >
-    <div
-      class="bp3-dialog-body"
-    >
+    <div>
       <div
         class="bp3-form-group bp3-inline label"
       >
@@ -1125,7 +1117,7 @@ exports[`Test ConfigureOptions test regex expression 1`] = `
       </div>
     </div>
     <div
-      class="bp3-dialog-footer"
+      class="buttonsContainer"
     >
       <button
         class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"

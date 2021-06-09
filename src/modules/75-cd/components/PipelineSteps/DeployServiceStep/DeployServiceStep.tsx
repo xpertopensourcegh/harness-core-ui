@@ -8,12 +8,13 @@ import {
   getMultiTypeFromValue,
   MultiTypeInputType,
   SelectOption,
-  useModalHook
+  useModalHook,
+  Container
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { get, isEmpty, isNil, isNull, noop, omit, omitBy, pick } from 'lodash-es'
 import { useParams } from 'react-router-dom'
-import { Classes, Dialog } from '@blueprintjs/core'
+import { Dialog } from '@blueprintjs/core'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import type { FormikErrors } from 'formik'
@@ -51,12 +52,14 @@ interface NewEditServiceModalProps {
   data: ServiceYaml
   serviceIdentifier?: string
   onCreateOrUpdate(data: ServiceYaml): void
+  closeModal?: () => void
 }
 
 export const NewEditServiceModal: React.FC<NewEditServiceModalProps> = ({
   isEdit,
   data,
-  onCreateOrUpdate
+  onCreateOrUpdate,
+  closeModal
 }): JSX.Element => {
   const { getString } = useStrings()
   const inputRef = React.useRef<HTMLInputElement | null>(null)
@@ -64,54 +67,52 @@ export const NewEditServiceModal: React.FC<NewEditServiceModalProps> = ({
     inputRef.current?.focus()
   }, [])
   return (
-    <Layout.Vertical>
-      <Formik<ServiceYaml>
-        initialValues={data}
-        formName="deployService"
-        onSubmit={values => {
-          onCreateOrUpdate(values)
-        }}
-        validationSchema={Yup.object().shape({
-          name: Yup.string()
-            .trim()
-            .required(getString?.('fieldRequired', { field: 'Service' })),
-          ...IdentifierValidation()
-        })}
-      >
-        {formikProps => (
-          <Layout.Vertical
-            spacing="medium"
-            onKeyDown={e => {
-              if (e.key === 'Enter') {
-                formikProps.handleSubmit()
-              }
+    <Formik<ServiceYaml>
+      initialValues={data}
+      formName="deployService"
+      onSubmit={values => {
+        onCreateOrUpdate(values)
+      }}
+      validationSchema={Yup.object().shape({
+        name: Yup.string()
+          .trim()
+          .required(getString?.('fieldRequired', { field: 'Service' })),
+        ...IdentifierValidation()
+      })}
+    >
+      {formikProps => (
+        <Layout.Vertical
+          onKeyDown={e => {
+            if (e.key === 'Enter') {
+              formikProps.handleSubmit()
+            }
+          }}
+        >
+          <NameIdDescriptionTags
+            formikProps={formikProps}
+            identifierProps={{
+              inputLabel: getString('name'),
+              inputGroupProps: {
+                inputGroup: {
+                  inputRef: ref => (inputRef.current = ref)
+                }
+              },
+              isIdentifierEditable: !isEdit
             }}
-            padding={{ top: 'xlarge', left: 'xlarge', right: 'xlarge' }}
-          >
-            <NameIdDescriptionTags
-              formikProps={formikProps}
-              identifierProps={{
-                inputLabel: getString('name'),
-                inputGroupProps: {
-                  inputGroup: {
-                    inputRef: ref => (inputRef.current = ref)
-                  }
-                },
-                isIdentifierEditable: !isEdit
-              }}
+          />
+          <Container padding={{ top: 'xlarge' }}>
+            <Button
+              data-id="service-save"
+              onClick={() => formikProps.submitForm()}
+              intent="primary"
+              text={getString('save')}
             />
-            <div>
-              <Button
-                data-id="service-save"
-                onClick={() => formikProps.submitForm()}
-                intent="primary"
-                text={getString('save')}
-              />
-            </div>
-          </Layout.Vertical>
-        )}
-      </Formik>
-    </Layout.Vertical>
+            &nbsp; &nbsp;
+            <Button text={getString('cancel')} onClick={closeModal} />
+          </Container>
+        </Layout.Vertical>
+      )}
+    </Formik>
   )
 }
 
@@ -161,19 +162,17 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
 
   const [services, setService] = React.useState<SelectOption[]>([])
   const [state, setState] = React.useState<DeployServiceState>({ isEdit: false, data: { name: '', identifier: '' } })
+
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog
         isOpen={true}
         canEscapeKeyClose
         canOutsideClickClose
-        onClose={() => {
-          setState({ isEdit: false, data: { name: '', identifier: '' } })
-          hideModal()
-        }}
+        onClose={onClose}
         title={state.isEdit ? getString('editService') : getString('newService')}
         isCloseButtonShown
-        className={Classes.DIALOG}
+        className={'padded-dialog'}
       >
         <NewEditServiceModal
           data={state.data}
@@ -188,14 +187,19 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
               item.label = values.name || ''
               setService(services)
             }
-            setState({ isEdit: false, data: { name: '', identifier: '' } })
-            hideModal()
+            onClose.call(null)
           }}
+          closeModal={onClose}
         />
       </Dialog>
     ),
     [state.isEdit, state.data]
   )
+
+  const onClose = React.useCallback(() => {
+    setState({ isEdit: false, data: { name: '', identifier: '' } })
+    hideModal()
+  }, [hideModal])
 
   React.useEffect(() => {
     const identifier = initialValues.service?.identifier

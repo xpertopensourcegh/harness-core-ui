@@ -102,7 +102,7 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
       <Dialog
         isOpen={true}
         title={getString('configureOptions.configureOptions')}
-        className={cx(css.dialog, Classes.DIALOG)}
+        className={cx(css.dialog, Classes.DIALOG, 'padded-dialog')}
         onClose={() => closeModal()}
       >
         <Formik
@@ -164,7 +164,7 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
         >
           {({ submitForm, values, setFieldValue }) => (
             <>
-              <div className={Classes.DIALOG_BODY}>
+              <div>
                 <FormGroup className={css.label} label={getString('variableLabel')} inline>
                   <Text>{variableName}</Text>
                 </FormGroup>
@@ -286,7 +286,7 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                   )}
                 </div>
               </div>
-              <div className={Classes.DIALOG_FOOTER}>
+              <div className={css.buttonsContainer}>
                 <Button
                   intent="primary"
                   text={<String stringID="submit" />}
