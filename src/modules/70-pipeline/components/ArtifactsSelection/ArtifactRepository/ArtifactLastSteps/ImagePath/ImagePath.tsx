@@ -33,7 +33,8 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
   prevStepData,
   initialValues,
   previousStep,
-  artifactIdentifiers
+  artifactIdentifiers,
+  isReadonly = false
 }) => {
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
@@ -233,6 +234,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
                       onChange={value => {
                         formik.setFieldValue('imagePath', value)
                       }}
+                      isReadonly={isReadonly}
                     />
                   </div>
                 )}
@@ -286,6 +288,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
                         onChange={value => {
                           formik.setFieldValue('tag', value)
                         }}
+                        isReadonly={isReadonly}
                       />
                     </div>
                   )}
@@ -312,6 +315,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
                         onChange={value => {
                           formik.setFieldValue('tagRegex', value)
                         }}
+                        isReadonly={isReadonly}
                       />
                     </div>
                   )}

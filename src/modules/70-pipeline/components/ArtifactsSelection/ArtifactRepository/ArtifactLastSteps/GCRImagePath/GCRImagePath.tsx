@@ -46,7 +46,8 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
   prevStepData,
   initialValues,
   previousStep,
-  artifactIdentifiers
+  artifactIdentifiers,
+  isReadonly = false
 }) => {
   const { getString } = useStrings()
 
@@ -258,6 +259,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                       onChange={value => {
                         formik.setFieldValue('registryHostname', value)
                       }}
+                      isReadonly={isReadonly}
                     />
                   </div>
                 )}
@@ -281,6 +283,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                       onChange={value => {
                         formik.setFieldValue('imagePath', value)
                       }}
+                      isReadonly={isReadonly}
                     />
                   </div>
                 )}
@@ -329,6 +332,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                         onChange={value => {
                           formik.setFieldValue('tag', value)
                         }}
+                        isReadonly={isReadonly}
                       />
                     </div>
                   )}
@@ -355,6 +359,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                         onChange={value => {
                           formik.setFieldValue('tagRegex', value)
                         }}
+                        isReadonly={isReadonly}
                       />
                     </div>
                   )}

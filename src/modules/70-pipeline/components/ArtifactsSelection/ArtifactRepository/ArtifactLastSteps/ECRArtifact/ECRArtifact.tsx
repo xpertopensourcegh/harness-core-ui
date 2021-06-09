@@ -35,7 +35,8 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
   prevStepData,
   initialValues,
   previousStep,
-  artifactIdentifiers
+  artifactIdentifiers,
+  isReadonly = false
 }) => {
   const { getString } = useStrings()
 
@@ -273,6 +274,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                       onChange={value => {
                         formik.setFieldValue('region', value)
                       }}
+                      isReadonly={isReadonly}
                     />
                   </div>
                 )}
@@ -297,6 +299,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                       onChange={value => {
                         formik.setFieldValue('imagePath', value)
                       }}
+                      isReadonly={isReadonly}
                     />
                   </div>
                 )}
@@ -348,6 +351,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                         onChange={value => {
                           formik.setFieldValue('tag', value)
                         }}
+                        isReadonly={isReadonly}
                       />
                     </div>
                   )}
@@ -374,6 +378,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                         onChange={value => {
                           formik.setFieldValue('tagRegex', value)
                         }}
+                        isReadonly={isReadonly}
                       />
                     </div>
                   )}
