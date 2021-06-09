@@ -21,7 +21,8 @@ import { ArtifactConfig, ConnectorConfigDTO, useGetBuildDetailsForGcr } from 'se
 import { useStrings } from 'framework/strings'
 
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useQueryParams } from '@common/hooks'
 import { ImagePathProps, ImagePathTypes, TagTypes } from '../../../ArtifactInterface'
 import { ArtifactIdentifierValidation, tagOptions } from '../../../ArtifactHelper'
 import css from '../../GCRArtifact.module.scss'
@@ -85,6 +86,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
   })
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const [tagList, setTagList] = React.useState([])
   const [lastQueryData, setLastQueryData] = React.useState({ imagePath: '', registryHostname: '' })
   const { data, loading, refetch, error: gcrTagError } = useGetBuildDetailsForGcr({
@@ -96,7 +98,9 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
-      registryHostname: lastQueryData.registryHostname
+      registryHostname: lastQueryData.registryHostname,
+      repoIdentifier,
+      branch
     },
     lazy: true
   })
