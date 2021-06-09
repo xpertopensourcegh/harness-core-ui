@@ -55,7 +55,7 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
 import GitContextForm, { GitContextProps } from '@common/components/GitContextForm/GitContextForm'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
-import useSaveToGitDialog from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
+import { useSaveToGitDialog, UseSaveSuccessResponse } from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import { clearNullUndefined } from '@pipeline/pages/triggers/utils/TriggersWizardPageUtils'
 import type { InputSetDTO } from '../InputSetForm/InputSetForm'
 import { InputSetSelector, InputSetSelectorProps } from '../InputSetSelector/InputSetSelector'
@@ -164,10 +164,14 @@ const SaveAsInputSet = ({
   const [savedInputSetObj, setSavedInputSetObj] = React.useState<InputSetDTO>({})
   const [initialGitDetails, setInitialGitDetails] = React.useState<EntityGitDetails>({ repoIdentifier, branch })
 
-  const createUpdateInputSet = (inputSetObj: InputSetDTO, gitDetails?: SaveToGitFormInterface) => {
-    createInputSet(
+  const createUpdateInputSet = async (
+    inputSetObj: InputSetDTO,
+    gitDetails?: SaveToGitFormInterface,
+    payload?: Omit<InputSetDTO, 'repo' | 'branch'>
+  ): Promise<UseSaveSuccessResponse> => {
+    const response = await createInputSet(
       stringify({
-        inputSet: { ...clearNullUndefined(inputSetObj), orgIdentifier, projectIdentifier }
+        inputSet: { ...clearNullUndefined(payload || inputSetObj), orgIdentifier, projectIdentifier }
       }) as any,
       {
         queryParams: {
@@ -182,24 +186,25 @@ const SaveAsInputSet = ({
         }
       }
     )
-      .then(response => {
-        if (response.data?.errorResponse) {
-          showError(getString('inputSets.inputSetSavedError'))
-        } else {
-          showSuccess(getString('inputSets.inputSetSaved'))
-        }
-      })
-      .catch(e => {
-        showError(e?.data?.message || e?.message)
-      })
+    if (response.data?.errorResponse) {
+      showError(getString('inputSets.inputSetSavedError'))
+    } else {
+      showSuccess(getString('inputSets.inputSetSaved'))
+    }
+    return {
+      status: response?.status // nextCallback can be added if required
+    }
   }
 
-  const createUpdateInputSetWithGitDetails = (gitDetails: SaveToGitFormInterface) => {
-    createUpdateInputSet(savedInputSetObj, gitDetails)
+  const createUpdateInputSetWithGitDetails = (gitDetails: SaveToGitFormInterface): Promise<UseSaveSuccessResponse> => {
+    return createUpdateInputSet(savedInputSetObj, gitDetails)
   }
 
   const { openSaveToGitDialog } = useSaveToGitDialog({
-    onSuccess: (data: SaveToGitFormInterface) => createUpdateInputSetWithGitDetails(data)
+    onSuccess: (
+      data: SaveToGitFormInterface,
+      _payload?: Omit<InputSetDTO, 'repo' | 'branch'>
+    ): Promise<UseSaveSuccessResponse> => Promise.resolve(createUpdateInputSetWithGitDetails(data))
   })
 
   const handleSubmit = React.useCallback(
@@ -208,11 +213,15 @@ const SaveAsInputSet = ({
       setInitialGitDetails(gitDetails as EntityGitDetails)
       if (inputSetObj) {
         if (isGitSyncEnabled) {
-          openSaveToGitDialog(false, {
-            type: 'InputSets',
-            name: inputSetObj.name as string,
-            identifier: inputSetObj.identifier as string,
-            gitDetails: gitDetails
+          openSaveToGitDialog({
+            isEditing: false,
+            resource: {
+              type: 'InputSets',
+              name: inputSetObj.name as string,
+              identifier: inputSetObj.identifier as string,
+              gitDetails: gitDetails
+            },
+            payload: omit(inputSetObj, 'repo', 'branch')
           })
         } else {
           createUpdateInputSet(omit(inputSetObj, 'repo', 'branch'))

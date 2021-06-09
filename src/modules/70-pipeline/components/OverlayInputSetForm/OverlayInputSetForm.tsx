@@ -36,7 +36,7 @@ import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { NameIdDescriptionTags } from '@common/components'
 import { useStrings } from 'framework/strings'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
-import useSaveToGitDialog from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
+import { UseSaveSuccessResponse, useSaveToGitDialog } from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import GitContextForm, { GitContextProps } from '@common/components/GitContextForm/GitContextForm'
 import { useQueryParams } from '@common/hooks'
@@ -308,8 +308,8 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
     gitDetails?: SaveToGitFormInterface,
     objectId = ''
   ) => {
+    let response: ResponseOverlayInputSetResponse | null = null
     try {
-      let response: ResponseOverlayInputSetResponse | null = null
       /* istanbul ignore else */
       if (isEdit) {
         response = await updateOverlayInputSet(stringify({ overlayInputSet: clearNullUndefined(inputSetObj) }) as any, {
@@ -347,15 +347,17 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
     } catch (_e) {
       // showError(e?.message || i18n.commonError)
     }
+    return {
+      status: response?.status
+    }
   }
 
-  const createUpdateInputSetWithGitDetails = (gitDetails: SaveToGitFormInterface, objectId = '') => {
-    createUpdateOverlayInputSet(savedInputSetObj, gitDetails, objectId)
-  }
-
-  const { openSaveToGitDialog } = useSaveToGitDialog({
-    onSuccess: (data: SaveToGitFormInterface) =>
-      createUpdateInputSetWithGitDetails(data, overlayInputSetResponse?.data?.gitDetails?.objectId ?? '')
+  const { openSaveToGitDialog } = useSaveToGitDialog<OverlayInputSetDTO>({
+    onSuccess: (
+      gitData: SaveToGitFormInterface,
+      payload?: OverlayInputSetDTO,
+      objectId?: string
+    ): Promise<UseSaveSuccessResponse> => createUpdateOverlayInputSet(payload || savedInputSetObj, gitData, objectId)
   })
 
   const handleSubmit = React.useCallback(
@@ -364,11 +366,15 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
       if (inputSetObj) {
         delete inputSetObj.pipeline
         if (isGitSyncEnabled) {
-          openSaveToGitDialog(isEdit, {
-            type: 'InputSets',
-            name: inputSetObj.name as string,
-            identifier: inputSetObj.identifier as string,
-            gitDetails: isEdit ? overlayInputSetResponse?.data?.gitDetails : gitDetails
+          openSaveToGitDialog({
+            isEditing: isEdit,
+            resource: {
+              type: 'InputSets',
+              name: inputSetObj.name as string,
+              identifier: inputSetObj.identifier as string,
+              gitDetails: isEdit ? overlayInputSetResponse?.data?.gitDetails : gitDetails
+            },
+            payload: omit(inputSetObj, 'repo', 'branch')
           })
         } else {
           createUpdateOverlayInputSet(omit(inputSetObj, 'repo', 'branch'))

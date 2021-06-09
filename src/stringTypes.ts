@@ -64,6 +64,7 @@ export interface StringsMap {
   'common.confictOccured': string
   'common.confirmText': string
   'common.createPipeline': string
+  'common.creating': string
   'common.dashboards': string
   'common.datePickerShortcuts.Last2Days': string
   'common.datePickerShortcuts.Last2Months': string
@@ -243,6 +244,8 @@ export interface StringsMap {
   'common.submittingRequest': string
   'common.submittingRequestToGitViaDelegate': string
   'common.subscriptions': string
+  'common.successfullCreate': string
+  'common.successfullUpdate': string
   'common.test.connectionFailed': string
   'common.test.connectionSuccessful': string
   'common.test.inProgress': string
@@ -252,6 +255,7 @@ export interface StringsMap {
   'common.trialInProgress': string
   'common.trialInProgressDescription': string
   'common.unsavedChanges': string
+  'common.updating': string
   'common.userGroup': string
   'common.userGroups': string
   'common.validation.email.format': string

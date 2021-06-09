@@ -19,6 +19,10 @@ pipelineDetails: Pipeline Details
 accountName: Account Name
 provisioner: Provisioner
 comments: Comments
+updating: 'Updating {{entity}} {{name}}'
+creating: 'Creating {{entity}} {{name}}'
+successfullCreate: '{{entity}} {{name}} created successfully'
+successfullUpdate: '{{entity}} {{name}} updated successfully'
 approve: Approve
 reject: Reject
 disable: Disable
