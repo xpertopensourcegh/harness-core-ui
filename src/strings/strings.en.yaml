@@ -712,7 +712,7 @@ addResourceModal:
 projectCard:
   clone: 'Clone'
   projectName: 'Project Name'
-  confirmDelete: Deleting the Project '{{name}}' would mean that you are also deleting all the resources associated with it. Are you sure you want to delete the Project?
+  confirmDelete: Deleting the Project '{{name}}' will delete its resources also. Are you sure you want to delete the Project?
   confirmDeleteTitle: 'Delete Project'
   successMessage: 'Project {{projectName}} is deleted'
   cdRendererText: 'Deployments in last 7 days'
