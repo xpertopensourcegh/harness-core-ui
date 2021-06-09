@@ -309,4 +309,6 @@ artifactTag: tag
 clientId: Client ID
 filters:
   saveNewFilter: Save New Filter
+  noMatchingFilterData: No Results found matching the Filter criteria
+  clearFilters: Clear Filters
 in: in

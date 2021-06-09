@@ -84,6 +84,8 @@ export interface StringsMap {
   'common.errorHandler.tryTheseSuggestions': string
   'common.execute': string
   'common.failureRate': string
+  'common.filters.clearFilters': string
+  'common.filters.noMatchingFilterData': string
   'common.filters.saveNewFilter': string
   'common.git.APIAccessDescriptipn': string
   'common.git.APIAuthentication': string

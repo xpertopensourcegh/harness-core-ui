@@ -2,10 +2,10 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Text, Icon, OverlaySpinner, Container } from '@wings-software/uicore'
 
-import { useGetListOfExecutions, useGetFilterList } from 'services/pipeline-ng'
-import { useStrings } from 'framework/strings'
+import { useGetListOfExecutions, useGetFilterList, GetListOfExecutionsQueryParams } from 'services/pipeline-ng'
+import { String, useStrings } from 'framework/strings'
 import { Page, StringUtils } from '@common/exports'
-import { useQueryParams, useMutateAsGet } from '@common/hooks'
+import { useQueryParams, useMutateAsGet, useUpdateQueryParams } from '@common/hooks'
 import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
@@ -56,8 +56,11 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
       }
     }
   })
+  const { updateQueryParams } = useUpdateQueryParams<Partial<GetListOfExecutionsQueryParams>>()
+
   const { page, filterIdentifier, myDeployments, status } = queryParams
-  const hasFilters = false
+  const hasFilters = [pipelineIdentifier, status, filterIdentifier, myDeployments].some(filter => filter !== undefined)
+
   const isCIModule = module === 'ci'
   const { getString } = useStrings()
   const hasFilterIdentifier = filterIdentifier && filterIdentifier !== StringUtils.getIdentifierFromName(UNSAVED_FILTER)
@@ -121,6 +124,15 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, loading])
 
+  const clearFilters = (): void => {
+    updateQueryParams({
+      status: [] as any,
+      myDeployments: [] as any,
+      pipelineIdentifier: [] as any,
+      filterIdentifier: [] as any
+    }) // removes the param
+  }
+
   return (
     <Page.Body
       className={css.main}
@@ -147,9 +159,13 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
           </OverlaySpinner>
         ) : !pipelineExecutionSummary?.content?.length ? (
           hasFilters ? (
-            <Text padding={{ top: 'small', bottom: 'small' }} className={css.noData} font="medium">
-              {getString('filters.noDataFound')}
-            </Text>
+            <div className={css.noFilterData}>
+              <Icon size={50} name={isCIModule ? 'ci-main' : 'cd-hover'} />
+              <Text margin={{ top: 'large', bottom: 'small' }} font={{ weight: 'bold', size: 'medium' }}>
+                {getString('common.filters.noMatchingFilterData')}
+              </Text>
+              <String stringID="common.filters.clearFilters" className={css.clearFilterText} onClick={clearFilters} />
+            </div>
           ) : (
             <div className={css.noData}>
               <Icon size={20} name={isCIModule ? 'ci-main' : 'cd-hover'}></Icon>
@@ -175,7 +191,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
           )
         ) : (
           <React.Fragment>
-            <ExecutionsList hasFilters={hasFilters} pipelineExecutionSummary={pipelineExecutionSummary?.content} />
+            <ExecutionsList pipelineExecutionSummary={pipelineExecutionSummary?.content} />
             <ExecutionsPagination pipelineExecutionSummary={pipelineExecutionSummary} />
           </React.Fragment>
         )}

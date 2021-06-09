@@ -21,6 +21,18 @@
   align-items: center;
   margin: auto;
 }
+.noFilterData {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+}
+.clearFilterText {
+  color: var(--primary-7);
+  text-transform: uppercase;
+  font-size: var(--spacing-medium);
+  font-weight: 500;
+}
 
 .loading {
   margin: auto;
