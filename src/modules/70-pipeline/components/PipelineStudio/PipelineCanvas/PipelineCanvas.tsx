@@ -405,6 +405,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   )
 
   function handleViewChange(newView: PipelineStudioView): void {
+    if (newView === view) return
     if (newView === PipelineStudioView.ui && yamlHandler) {
       try {
         const parsedYaml = parse(yamlHandler.getLatestYaml())
@@ -569,7 +570,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                 <Text className={css.pipelineName} max-width="100%" lineClamp={1}>
                   {pipeline?.name}
                 </Text>
-                {!isEmpty(pipeline.tags) && pipeline.tags && <TagsPopover tags={pipeline.tags} />}
+                {!isEmpty(pipeline?.tags) && pipeline.tags && <TagsPopover tags={pipeline.tags} />}
                 {isYaml ? null : (
                   <RbacButton
                     minimal
