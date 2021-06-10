@@ -57,9 +57,9 @@ import type { CrudOperation } from '@common/components/Filter/FilterCRUD/FilterC
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import FilterSelector from '@common/components/Filter/FilterSelector/FilterSelector'
 import { shouldShowError } from '@common/utils/errorUtils'
+import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'

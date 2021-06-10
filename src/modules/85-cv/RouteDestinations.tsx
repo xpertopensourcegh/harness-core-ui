@@ -34,6 +34,7 @@ import MonitoringSource from '@cv/pages/monitoring-source/MonitoringSource'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import SideNav from '@cv/components/SideNav/SideNav'
 import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
+import CreateConnectorFromYamlPage from '@connectors/pages/createConnectorFromYaml/CreateConnectorFromYamlPage'
 import SecretsPage from '@secrets/pages/secrets/SecretsPage'
 import DelegatesPage from '@delegates/pages/delegates/DelegatesPage'
 import DelegateDetails from '@delegates/pages/delegates/DelegateDetails'
@@ -44,7 +45,6 @@ import { RedirectToSecretDetailHome } from '@secrets/RouteDestinations'
 import SecretReferences from '@secrets/pages/secretReferences/SecretReferences'
 import SecretDetailsHomePage from '@secrets/pages/secretDetailsHomePage/SecretDetailsHomePage'
 import CVActivitySourcesPage from '@cv/pages/admin/activity-sources/CVActivitySourcesPage'
-import CreateConnectorFromYamlPage from '@connectors/pages/createConnectorFromYaml/CreateConnectorFromYamlPage'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import AccessControlPage from '@rbac/pages/AccessControl/AccessControlPage'
@@ -256,6 +256,7 @@ export default (
     >
       <ConnectorsPage />
     </RouteWithLayout>
+
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}

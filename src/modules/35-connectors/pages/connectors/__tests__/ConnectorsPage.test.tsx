@@ -186,22 +186,25 @@ describe('Connectors Page Test', () => {
     expect(createViaYamlButton?.getAttribute('disabled')).toBe('')
   })
 
-  // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('should confirm that searching calls the api', async () => {
+  test('should confirm that searching calls the api', async () => {
     const getConnectorsListV2 = jest.fn()
     jest.spyOn(cdngServices, 'useGetConnectorListV2').mockImplementation(() => ({ mutate: getConnectorsListV2 } as any))
     const { container } = setup()
+    const searchText = 'abcd'
     const searchContainer = container.querySelector('[data-name="connectorSeachContainer"]')
     const searchIcon = searchContainer?.querySelector('span[icon="search"]')
-    const searchInput = searchContainer?.querySelector('input[placeholder="search"]')
+    const searchInput = searchContainer?.querySelector('input[placeholder="search"]') as HTMLInputElement
     expect(searchIcon).toBeTruthy()
     expect(searchInput).toBeTruthy()
-    expect(searchInput?.nodeValue).toBe(null)
+    expect(searchInput?.value).toBe('')
     expect(getConnectorsListV2).toBeCalledTimes(1)
-    fireEvent.click(searchIcon!)
     await act(async () => {
-      fireEvent.change(searchInput!, { target: { value: 'abcd' } })
+      fireEvent.click(searchIcon!)
     })
+    await act(async () => {
+      fireEvent.change(searchInput!, { target: { value: searchText } })
+    })
+    await waitFor(() => expect(searchInput?.value).toBe(searchText))
     await waitFor(() => expect(getConnectorsListV2).toBeCalledTimes(2))
   })
 })
