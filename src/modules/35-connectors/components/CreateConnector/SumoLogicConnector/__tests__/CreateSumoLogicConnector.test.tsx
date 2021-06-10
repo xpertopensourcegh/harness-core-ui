@@ -2,24 +2,24 @@ import React from 'react'
 import { noop } from 'lodash-es'
 import { render, fireEvent, waitFor } from '@testing-library/react'
 import { Container, FormInput } from '@wings-software/uicore'
+import type { UseGetReturn } from 'restful-react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
+import { fillAtForm, InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
-import * as dataDogutils from '../utils'
+import * as cvService from 'services/cv'
+import * as sumoLogicUtils from '../utils'
 import { onNextMock } from '../../CommonCVConnector/__mocks__/CommonCVConnectorMocks'
 
-const callBuildDatadogPayload = jest.fn()
+const callBuildSumoLogicPayload = jest.fn()
 // tells jest we intent to mock CVConnectorHOC and use mock in __mocks__
 jest.mock('../../CommonCVConnector/CVConnectorHOC')
 // file that imports mocked component must be placed after jest.mock
-import CreateDataDogConnector from '../CreateDataDogConnector'
+import CreateSumoLogicConnector from '../CreateSumoLogicConnector'
 
-const DatadogURL = 'https://app.datadoghq.com/api/v1/'
-
-const INIT_DATADOG_VALUE = {
-  url: '',
-  applicationKeyRef: null,
-  apiKeyRef: null,
+const INIT_SUMOLOGIC_VALUE = {
+  url: 'endpoint1',
+  accessIdRef: undefined,
+  accessKeyRef: undefined,
   delegateSelectors: [],
   name: '',
   identifier: '',
@@ -28,12 +28,12 @@ const INIT_DATADOG_VALUE = {
   orgIdentifier: 'dummyOrgId',
   projectIdentifier: 'dummyProjectId',
   tags: {},
-  type: 'Datadog',
+  type: 'SumoLogic',
   loading: false
 }
 
 jest.mock('@connectors/pages/connectors/utils/ConnectorUtils', () => ({
-  buildDatadogPayload: callBuildDatadogPayload
+  buildDatadogPayload: callBuildSumoLogicPayload
 }))
 
 jest.mock('@secrets/components/SecretInput/SecretInput', () => (b: { name: string }) => (
@@ -51,20 +51,32 @@ jest.mock('@connectors/pages/connectors/utils/ConnectorUtils', () => ({
   })
 }))
 
-describe('Create datadog connector Wizard', () => {
-  beforeEach(() => {
+describe('Create Sumo Logic connector Wizard', () => {
+  afterEach(() => {
     jest.clearAllMocks()
   })
 
+  beforeEach(() => {
+    jest
+      .spyOn(cvService, 'useGetSumoLogicEndPoints')
+      .mockReturnValue({ data: { data: ['endpoint1', 'endpoint2'] }, loading: false } as UseGetReturn<
+        any,
+        any,
+        any,
+        any
+      >)
+  })
+
   test('Ensure validation works', async () => {
-    jest.spyOn(dataDogutils, 'initializeDatadogConnectorWithStepData').mockReturnValue(
+    jest.spyOn(sumoLogicUtils, 'initializeSumoLogicConnectorWithStepData').mockReturnValue(
       new Promise<any>(resolve => {
-        resolve(INIT_DATADOG_VALUE)
+        resolve(INIT_SUMOLOGIC_VALUE)
       })
     )
+
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateDataDogConnector
+        <CreateSumoLogicConnector
           accountId="dummyAccountId"
           orgIdentifier="dummyOrgId"
           projectIdentifier="dummyProjectId"
@@ -77,22 +89,24 @@ describe('Create datadog connector Wizard', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(getByText('UrlLabel')).not.toBeNull())
+    await waitFor(() => expect(getByText('connectors.sumologic.urlLabel')).not.toBeNull())
     // click submit and verify validation string is visible
     fireEvent.click(container.querySelector('button[type="submit"]')!)
-    await waitFor(() => expect(getByText('connectors.datadog.urlValidation')).not.toBeNull())
+    // check error is visible for secrets
+    await waitFor(() => expect(getByText('connectors.sumologic.encryptedAccessIdValidation')).not.toBeNull())
+    await waitFor(() => expect(getByText('connectors.sumologic.encryptedAccessKeyValidation')).not.toBeNull())
     expect(onNextMock).not.toHaveBeenCalled()
   })
 
   test('Ensure create flow works', async () => {
-    jest.spyOn(dataDogutils, 'initializeDatadogConnectorWithStepData').mockReturnValue(
+    jest.spyOn(sumoLogicUtils, 'initializeSumoLogicConnectorWithStepData').mockReturnValue(
       new Promise<any>(resolve => {
-        resolve(INIT_DATADOG_VALUE)
+        resolve(INIT_SUMOLOGIC_VALUE)
       })
     )
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateDataDogConnector
+        <CreateSumoLogicConnector
           accountId="dummyAccountId"
           orgIdentifier="dummyOrgId"
           projectIdentifier="dummyProjectId"
@@ -106,20 +120,27 @@ describe('Create datadog connector Wizard', () => {
     )
 
     // fill out url field
-    await waitFor(() => expect(getByText('UrlLabel')).not.toBeNull())
-    await setFieldValue({ container, fieldId: 'url', value: DatadogURL, type: InputTypes.TEXTFIELD })
-    // fill out API Secret
+    await waitFor(() => expect(getByText('connectors.sumologic.urlLabel')).not.toBeNull())
+    await fillAtForm([
+      {
+        container,
+        type: InputTypes.SELECT,
+        fieldId: 'url',
+        value: 'endpoint2'
+      }
+    ])
+    // fill out ACCESS KEY Secret
     await setFieldValue({
       container,
       type: InputTypes.TEXTFIELD,
-      fieldId: 'apiKeyRef',
+      fieldId: 'accessKeyRef',
       value: 'dsf-auto'
     })
-    // fill out APP Secret
+    // fill out ACCESS ID Secret
     await setFieldValue({
       container,
       type: InputTypes.TEXTFIELD,
-      fieldId: 'applicationKeyRef',
+      fieldId: 'accessIdRef',
       value: 'dsf-new'
     })
 
@@ -128,30 +149,29 @@ describe('Create datadog connector Wizard', () => {
 
     await waitFor(() =>
       expect(onNextMock).toHaveBeenCalledWith({
-        ...INIT_DATADOG_VALUE,
-        apiKeyRef: 'dsf-auto',
-        applicationKeyRef: 'dsf-new',
-        url: DatadogURL
+        ...INIT_SUMOLOGIC_VALUE,
+        accessKeyRef: 'dsf-auto',
+        accessIdRef: 'dsf-new',
+        url: 'endpoint2'
       })
     )
-
     expect(container).toMatchSnapshot()
   })
 
   test('Ensure if there is existing data, fields are populated', async () => {
-    jest.spyOn(dataDogutils, 'initializeDatadogConnectorWithStepData').mockReturnValue(
+    jest.spyOn(sumoLogicUtils, 'initializeSumoLogicConnectorWithStepData').mockReturnValue(
       new Promise<any>(resolve => {
         resolve({
-          ...INIT_DATADOG_VALUE,
-          url: DatadogURL,
-          identifier: 'DataDogConnector101',
-          name: 'DataDogConnector101'
+          ...INIT_SUMOLOGIC_VALUE,
+          url: 'endpoint2',
+          identifier: 'SumoLogicConnector101',
+          name: 'SumoLogicConnector101'
         })
       })
     )
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateDataDogConnector
+        <CreateSumoLogicConnector
           accountId="dummyAccountId"
           orgIdentifier="dummyOrgId"
           projectIdentifier="dummyProjectId"
@@ -161,19 +181,19 @@ describe('Create datadog connector Wizard', () => {
           setIsEditMode={noop}
           connectorInfo={
             ({
-              name: 'DataDogConnector101',
-              identifier: 'DataDogConnector101',
+              name: 'SumoLogicConnector101',
+              identifier: 'SumoLogicConnector101',
               description: '',
               accountId: 'dummyAccountId',
               orgIdentifier: 'default',
               projectIdentifier: 'Test_101',
               tags: {},
-              type: 'Datadog',
+              type: 'SumoLogic',
               loading: false,
               spec: {
-                url: DatadogURL,
-                applicationKeyRef: 'datadog_app_secret',
-                apiKeyRef: 'datadog_api_secret',
+                url: 'endpoint2',
+                accessIdRef: 'sumologic_app_id',
+                accessKeyRef: 'sumologic_app_key',
                 delegateSelectors: []
               }
             } as unknown) as ConnectorInfoDTO
@@ -182,50 +202,56 @@ describe('Create datadog connector Wizard', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(getByText('UrlLabel')).not.toBeNull())
-
+    await waitFor(() => expect(getByText('connectors.sumologic.urlLabel')).not.toBeNull())
     // expect recieved value to be there
-    waitFor(() => expect(container.querySelector(`input[value="${DatadogURL}"]`)).not.toBeNull())
+    await waitFor(() => expect(container.querySelector(`input[value=endpoint2]`)).not.toBeNull())
 
-    // update it with new value
-    await setFieldValue({ container, fieldId: 'url', value: 'http://datadogapi.com', type: InputTypes.TEXTFIELD })
+    // change old url
+    await fillAtForm([
+      {
+        container,
+        type: InputTypes.SELECT,
+        fieldId: 'url',
+        value: 'endpoint2'
+      }
+    ])
     await setFieldValue({
       container,
       type: InputTypes.TEXTFIELD,
-      fieldId: 'apiKeyRef',
-      value: 'datadog_api_secret'
+      fieldId: 'accessKeyRef',
+      value: 'sumologic_app_key'
     })
     // fill out APP Secret
     await setFieldValue({
       container,
       type: InputTypes.TEXTFIELD,
-      fieldId: 'applicationKeyRef',
-      value: 'datadog_app_secret'
+      fieldId: 'accessIdRef',
+      value: 'sumologic_app_id'
     })
 
     // click submit and verify submitted data
     fireEvent.click(container.querySelector('button[type="submit"]')!)
     await waitFor(() =>
       expect(onNextMock).toHaveBeenCalledWith({
-        apiKeyRef: 'datadog_api_secret',
-        applicationKeyRef: 'datadog_app_secret',
+        accessKeyRef: 'sumologic_app_key',
+        accessIdRef: 'sumologic_app_id',
         delegateSelectors: [],
         description: '',
         accountId: 'dummyAccountId',
-        identifier: 'DataDogConnector101',
-        name: 'DataDogConnector101',
+        identifier: 'SumoLogicConnector101',
+        name: 'SumoLogicConnector101',
         orgIdentifier: 'dummyOrgId',
         projectIdentifier: 'dummyProjectId',
         loading: false,
         spec: {
-          apiKeyRef: 'datadog_api_secret',
-          applicationKeyRef: 'datadog_app_secret',
+          accessKeyRef: 'sumologic_app_key',
+          accessIdRef: 'sumologic_app_id',
           delegateSelectors: [],
-          url: 'https://app.datadoghq.com/api/v1/'
+          url: 'endpoint2'
         },
         tags: {},
-        type: 'Datadog',
-        url: 'http://datadogapi.com'
+        type: 'SumoLogic',
+        url: 'endpoint2'
       })
     )
   })
@@ -233,7 +259,7 @@ describe('Create datadog connector Wizard', () => {
   test('Ensure edit flow works', async () => {
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateDataDogConnector
+        <CreateSumoLogicConnector
           accountId="dummyAccountId"
           orgIdentifier="dummyOrgId"
           projectIdentifier="dummyProjectId"
@@ -243,18 +269,18 @@ describe('Create datadog connector Wizard', () => {
           setIsEditMode={noop}
           connectorInfo={
             ({
-              name: 'DataDogConnector101',
-              identifier: 'DataDogConnector101',
+              name: 'SumoLogicConnector101',
+              identifier: 'SumoLogicConnector101',
               description: '',
               orgIdentifier: 'dummyOrgId',
               projectIdentifier: 'dummyProjectId',
               tags: {},
-              type: 'Datadog',
+              type: 'SumoLogic',
               loading: false,
               spec: {
-                url: DatadogURL,
-                applicationKeyRef: 'datadog_app_secret',
-                apiKeyRef: 'datadog_api_secret',
+                url: 'endpoint1',
+                accessIdRef: 'sumologic_app_id',
+                accessKeyRef: 'sumologic_app_key',
                 delegateSelectors: []
               }
             } as unknown) as ConnectorInfoDTO
@@ -263,49 +289,57 @@ describe('Create datadog connector Wizard', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(getByText('UrlLabel')).not.toBeNull())
+    await waitFor(() => expect(getByText('connectors.sumologic.urlLabel')).not.toBeNull())
 
     // expect recieved value to be there
-    waitFor(() => expect(container.querySelector(`input[value="https://app.datadoghq.com/api/v1/"]`)).not.toBeNull())
+    await waitFor(() => expect(container.querySelector(`input[value="endpoint2"]`)).not.toBeNull())
     // update it with new value
-    await setFieldValue({ container, fieldId: 'url', value: 'http://dgdgtrty.com', type: InputTypes.TEXTFIELD })
+    await setFieldValue({ container, fieldId: 'url', value: 'endpoint2', type: InputTypes.SELECT })
+    await fillAtForm([
+      {
+        container,
+        type: InputTypes.SELECT,
+        fieldId: 'url',
+        value: 'endpoint2'
+      }
+    ])
     await setFieldValue({
       container,
       type: InputTypes.TEXTFIELD,
-      fieldId: 'apiKeyRef',
-      value: 'datadog_api_secret'
+      fieldId: 'accessKeyRef',
+      value: 'sumologic_app_key'
     })
     // fill out APP Secret
     await setFieldValue({
       container,
       type: InputTypes.TEXTFIELD,
-      fieldId: 'applicationKeyRef',
-      value: 'datadog_app_secret'
+      fieldId: 'accessIdRef',
+      value: 'sumologic_app_id'
     })
 
     // click submit and verify submitted data
     fireEvent.click(container.querySelector('button[type="submit"]')!)
     await waitFor(() =>
       expect(onNextMock).toHaveBeenCalledWith({
-        apiKeyRef: 'datadog_api_secret',
-        applicationKeyRef: 'datadog_app_secret',
+        accessKeyRef: 'sumologic_app_key',
+        accessIdRef: 'sumologic_app_id',
         delegateSelectors: [],
         description: '',
         accountId: 'dummyAccountId',
-        identifier: 'DataDogConnector101',
-        name: 'DataDogConnector101',
+        identifier: 'SumoLogicConnector101',
+        name: 'SumoLogicConnector101',
         orgIdentifier: 'dummyOrgId',
         projectIdentifier: 'dummyProjectId',
         loading: false,
         spec: {
-          apiKeyRef: 'datadog_api_secret',
-          applicationKeyRef: 'datadog_app_secret',
+          accessKeyRef: 'sumologic_app_key',
+          accessIdRef: 'sumologic_app_id',
           delegateSelectors: [],
-          url: 'https://app.datadoghq.com/api/v1/'
+          url: 'endpoint1'
         },
         tags: {},
-        type: 'Datadog',
-        url: 'http://dgdgtrty.com'
+        type: 'SumoLogic',
+        url: 'endpoint2'
       })
     )
   })
