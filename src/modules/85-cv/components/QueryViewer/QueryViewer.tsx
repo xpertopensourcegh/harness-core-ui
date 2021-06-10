@@ -28,7 +28,7 @@ export function QueryViewer(props: QueryViewerProps): JSX.Element {
       postFetchingRecords()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [query])
 
   return (
     <Container className={cx(css.main, className)}>
