@@ -460,8 +460,8 @@ export interface StringsMap {
   'authSettings.loginViaSAML': string
   'authSettings.minLength': string
   'authSettings.newMembersWillNeedToSetUpTwoFADuringSignup': string
-  'authSettings.notifyUsersWHenUserLocked': string
   'authSettings.notifyUsersWhenTheyLocked': string
+  'authSettings.notifyUsersWhenUserLocked': string
   'authSettings.oauthSettingsHaveBeenUpdated': string
   'authSettings.okta': string
   'authSettings.oneLogin': string
