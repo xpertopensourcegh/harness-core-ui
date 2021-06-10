@@ -141,6 +141,7 @@ export function CustomVariablesEditableStage(props: CustomVariableEditableProps)
                               setFieldValue(`variables[${index}].value`, value)
                               setFieldValue(`variables[${index}].default`, defaultValue)
                             }}
+                            isReadonly={readonly}
                           />
                         ) : null}
                         <div className={css.actionButtons}>

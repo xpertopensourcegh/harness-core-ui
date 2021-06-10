@@ -40,6 +40,7 @@ interface HelmRollbackProps {
     path?: string
     readonly?: boolean
   }
+  isReadonly?: boolean
 }
 
 export interface HelmRollbackVariableStepProps {
@@ -104,6 +105,7 @@ function HelmRollbackWidget(
                         /* istanbul ignore next */
                         setFieldValue('timeout', value)
                       }}
+                      isReadonly={props.isReadonly}
                     />
                   )}
                 </div>
@@ -184,6 +186,7 @@ export class HelmRollback extends PipelineStep<StepElementConfig> {
         onUpdate={onUpdate}
         stepViewType={stepViewType}
         ref={formikRef}
+        isReadonly={props.readonly}
       />
     )
   }

@@ -27,10 +27,11 @@ interface InlineVarFileProps {
   selectedVar: any
   onClose: () => void
   onSubmit: () => void
+  isReadonly?: boolean
 }
 
 const InlineVarFile = (props: InlineVarFileProps) => {
-  const { arrayHelpers, isEditMode, selectedVarIndex, onSubmit, selectedVar, onClose } = props
+  const { arrayHelpers, isEditMode, selectedVarIndex, onSubmit, selectedVar, onClose, isReadonly = false } = props
   const { expressions } = useVariablesExpression()
 
   const { getString } = useStrings()
@@ -81,6 +82,7 @@ const InlineVarFile = (props: InlineVarFileProps) => {
                       showDefaultField={false}
                       showAdvanced={true}
                       onChange={value => formikProps.setFieldValue('varFile.identifier', value)}
+                      isReadonly={isReadonly}
                     />
                   )}
                 </div>
@@ -113,6 +115,7 @@ const InlineVarFile = (props: InlineVarFileProps) => {
                       showDefaultField={false}
                       showAdvanced={true}
                       onChange={value => formikProps.setFieldValue('varFile.spec.content', value)}
+                      isReadonly={isReadonly}
                     />
                   )}
                 </div>

@@ -60,7 +60,7 @@ function TerraformRollbackWidget(
   props: TerraformRollbackProps,
   formikRef: StepFormikFowardRef<TFRollbackData>
 ): React.ReactElement {
-  const { initialValues, onUpdate, isNewStep = true } = props
+  const { initialValues, onUpdate, isNewStep = true, readonly = false } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
 
@@ -114,6 +114,7 @@ function TerraformRollbackWidget(
                         /* istanbul ignore next */
                         setFieldValue('spec.provisionerIdentifier', value)
                       }}
+                      isReadonly={readonly}
                     />
                   )}
                 </div>
@@ -136,6 +137,7 @@ function TerraformRollbackWidget(
                         /* istanbul ignore next */
                         setFieldValue('timeout', value)
                       }}
+                      isReadonly={readonly}
                     />
                   )}
                 </div>
@@ -256,6 +258,7 @@ export class TerraformRollback extends PipelineStep<TFRollbackData> {
         isNewStep={isNewStep}
         stepViewType={stepViewType}
         ref={formikRef}
+        readonly={props.readonly}
       />
     )
   }

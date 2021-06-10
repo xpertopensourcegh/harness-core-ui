@@ -203,6 +203,7 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
                       onChange={value => {
                         setFieldValue('timeout', value)
                       }}
+                      isReadonly={isDisabled}
                     />
                   )}
                 </div>

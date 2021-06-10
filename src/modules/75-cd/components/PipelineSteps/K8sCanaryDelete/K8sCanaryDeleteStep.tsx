@@ -104,6 +104,7 @@ function K8sCanaryDeleteWidget(
                     onChange={value => {
                       setFieldValue('timeout', value)
                     }}
+                    isReadonly={readonly}
                   />
                 )}
               </div>

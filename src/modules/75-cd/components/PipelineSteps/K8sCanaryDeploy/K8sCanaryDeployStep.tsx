@@ -115,6 +115,7 @@ function K8CanaryDeployWidget(
                     onChange={value => {
                       setFieldValue('instances', value)
                     }}
+                    isReadonly={readonly}
                   />
                 )}
               </div>
@@ -137,6 +138,7 @@ function K8CanaryDeployWidget(
                     onChange={value => {
                       setFieldValue('timeout', value)
                     }}
+                    isReadonly={readonly}
                   />
                 )}
               </div>

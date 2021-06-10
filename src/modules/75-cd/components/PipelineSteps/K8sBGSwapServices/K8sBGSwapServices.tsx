@@ -113,6 +113,7 @@ function K8sBGSwapWidget(
                         /* istanbul ignore next */
                         setFieldValue('timeout', value)
                       }}
+                      isReadonly={readonly}
                     />
                   )}
                 </div>

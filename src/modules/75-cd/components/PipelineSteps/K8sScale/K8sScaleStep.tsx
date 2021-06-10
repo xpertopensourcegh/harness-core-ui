@@ -131,6 +131,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                       onChange={value => {
                         setFieldValue('instances', value)
                       }}
+                      isReadonly={readonly}
                     />
                   )}
                 </div>
@@ -154,6 +155,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                       onChange={value => {
                         setFieldValue('spec.workload', value)
                       }}
+                      isReadonly={readonly}
                     />
                   )}
                 </div>
@@ -176,6 +178,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                       onChange={value => {
                         setFieldValue('timeout', value)
                       }}
+                      isReadonly={readonly}
                     />
                   )}
                 </div>

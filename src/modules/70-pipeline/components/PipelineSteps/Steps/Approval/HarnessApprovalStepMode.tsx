@@ -115,6 +115,7 @@ const FormContent = ({
             showDefaultField={false}
             showAdvanced={true}
             onChange={value => formik.setFieldValue('timeout', value)}
+            isReadonly={readonly}
           />
         )}
       </Layout.Horizontal>
@@ -143,6 +144,7 @@ const FormContent = ({
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => formik.setFieldValue('spec.approvalMessage', value)}
+                    isReadonly={readonly}
                   />
                 )}
               </Layout.Horizontal>
@@ -219,6 +221,7 @@ const FormContent = ({
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => formik.setFieldValue('spec.approvers.userGroups', value)}
+                    isReadonly={readonly}
                   />
                 )}
               </Layout.Horizontal>
@@ -245,6 +248,7 @@ const FormContent = ({
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => formik.setFieldValue('spec.approvers.minimumCount', value)}
+                    isReadonly={readonly}
                   />
                 )}
               </Layout.Horizontal>

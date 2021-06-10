@@ -170,6 +170,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                                 setFieldValue(`variables[${index}].value`, value)
                                 setFieldValue(`variables[${index}].default`, defaultValue)
                               }}
+                              isReadonly={readonly}
                             />
                           ) : null}
                         </div>

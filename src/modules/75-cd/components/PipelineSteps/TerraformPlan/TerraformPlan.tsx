@@ -78,7 +78,7 @@ function TerraformPlanWidget(
   props: TerraformPlanProps,
   formikRef: StepFormikFowardRef<TFPlanFormData>
 ): React.ReactElement {
-  const { initialValues, onUpdate, isNewStep } = props
+  const { initialValues, onUpdate, isNewStep, readonly = false } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
 
@@ -147,6 +147,7 @@ function TerraformPlanWidget(
                     onChange={value => {
                       setFieldValue('timeout', value)
                     }}
+                    isReadonly={readonly}
                   />
                 )}
               </div>
@@ -178,6 +179,7 @@ function TerraformPlanWidget(
                     onChange={value => {
                       setFieldValue('spec.provisionerIdentifier', value)
                     }}
+                    isReadonly={readonly}
                   />
                 )}
               </div>
@@ -263,11 +265,12 @@ function TerraformPlanWidget(
                                 /* istanbul ignore else */
                                 formik.setFieldValue('values.spec.configuration.workspace', value)
                               }}
+                              isReadonly={readonly}
                             />
                           )}
                         </div>
                         <div className={cx(css.fieldBorder, css.addMarginBottom)} />
-                        <TfVarFileList formik={formik} />
+                        <TfVarFileList formik={formik} isReadonly={props.readonly} />
                         <div className={cx(css.fieldBorder, css.addMarginBottom)} />
                         <div
                           className={cx(stepCss.formGroup, stepCss.alignStart, css.addMarginTop, css.addMarginBottom)}
@@ -306,6 +309,7 @@ function TerraformPlanWidget(
                               showDefaultField={false}
                               showAdvanced={true}
                               onChange={value => setFieldValue('spec.configuration.backendConfig.spec.content', value)}
+                              isReadonly={readonly}
                             />
                           )}
                         </div>
@@ -379,6 +383,7 @@ function TerraformPlanWidget(
                   }}
                   data={formik.values}
                   onHide={() => setShowModal(false)}
+                  isReadonly={props.readonly}
                 />
               </Dialog>
             )}
@@ -498,6 +503,7 @@ export class TerraformPlan extends PipelineStep<TFPlanFormData> {
         stepViewType={stepViewType}
         ref={formikRef}
         stepType={StepType.TerraformPlan}
+        readonly={props.readonly}
       />
     )
   }

@@ -59,6 +59,7 @@ interface BarrierProps {
     path?: string
     readonly?: boolean
   }
+  isReadonly?: boolean
 }
 
 const processBarrierFormData = (values: BarrierData): BarrierData => {
@@ -159,6 +160,7 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => formik?.setFieldValue('spec.barrierRef', value)}
+                    isReadonly={props.isReadonly}
                   />
                 )}
               </Layout.Horizontal>
@@ -183,6 +185,7 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
                     onChange={value => {
                       setFieldValue('timeout', value)
                     }}
+                    isReadonly={props.isReadonly}
                   />
                 )}
               </Layout.Horizontal>
@@ -259,7 +262,16 @@ export class BarrierStep extends PipelineStep<BarrierData> {
   }
 
   renderStep(props: StepProps<BarrierData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      readonly
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -286,6 +298,7 @@ export class BarrierStep extends PipelineStep<BarrierData> {
         isNewStep={isNewStep}
         stepViewType={stepViewType}
         ref={formikRef}
+        isReadonly={readonly}
       />
     )
   }

@@ -209,6 +209,7 @@ const FormContent = ({
             showDefaultField={false}
             showAdvanced={true}
             onChange={value => formik.setFieldValue('timeout', value)}
+            isReadonly={readonly}
           />
         )}
       </Layout.Horizontal>
@@ -243,6 +244,7 @@ const FormContent = ({
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => formik.setFieldValue('spec.connectorRef', value)}
+                    isReadonly={readonly}
                   />
                 )}
               </Layout.Horizontal>
@@ -264,6 +266,7 @@ const FormContent = ({
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => formik.setFieldValue('spec.issueKey', value)}
+                    isReadonly={readonly}
                   />
                 )}
               </Layout.Horizontal>
@@ -298,6 +301,7 @@ const FormContent = ({
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => formik.setFieldValue('spec.transitionTo.status', value)}
+                    isReadonly={readonly}
                   />
                 )}
               </Layout.Horizontal>
@@ -323,6 +327,7 @@ const FormContent = ({
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => formik.setFieldValue('spec.transitionTo.transitionName', value)}
+                    isReadonly={readonly}
                   />
                 )}
               </Layout.Horizontal>

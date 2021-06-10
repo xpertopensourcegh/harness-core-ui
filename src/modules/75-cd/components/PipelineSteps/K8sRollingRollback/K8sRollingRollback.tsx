@@ -106,6 +106,7 @@ function K8sRollingRollbackWidget(
                     onChange={value => {
                       setFieldValue('timeout', value)
                     }}
+                    isReadonly={readonly}
                   />
                 )}
               </div>

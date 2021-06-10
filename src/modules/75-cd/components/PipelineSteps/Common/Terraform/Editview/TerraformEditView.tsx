@@ -144,6 +144,7 @@ export default function TerraformEditView(
                     onChange={value => {
                       setFieldValue('timeout', value)
                     }}
+                    isReadonly={props.readonly}
                   />
                 )}
               </div>
@@ -175,6 +176,7 @@ export default function TerraformEditView(
                     onChange={value => {
                       setFieldValue('spec.provisionerIdentifier', value)
                     }}
+                    isReadonly={props.readonly}
                   />
                 )}
               </div>
@@ -230,12 +232,13 @@ export default function TerraformEditView(
                                     onChange={value => {
                                       formik.setFieldValue('values.spec.configuration.spec.workspace', value)
                                     }}
+                                    isReadonly={props.readonly}
                                   />
                                 )}
                               </div>
                             )}
                             <div className={cx(css.fieldBorder, css.addMarginBottom)} />
-                            <TfVarFileList formik={formik} />
+                            <TfVarFileList formik={formik} isReadonly={props.readonly} />
                             <div className={cx(css.fieldBorder, css.addMarginBottom)} />
                             <div
                               className={cx(
@@ -288,6 +291,7 @@ export default function TerraformEditView(
                                   onChange={value =>
                                     setFieldValue('spec.configuration.spec.backendConfig.spec.content', value)
                                   }
+                                  isReadonly={props.readonly}
                                 />
                               )}
                             </div>
@@ -364,6 +368,7 @@ export default function TerraformEditView(
                         }}
                         data={formik.values}
                         onHide={() => setShowModal(false)}
+                        isReadonly={props.readonly}
                       />
                     </Dialog>
                   )}

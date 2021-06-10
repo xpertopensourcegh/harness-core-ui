@@ -28,12 +28,14 @@ import css from './TerraformVarfile.module.scss'
 interface TFRemoteProps {
   onSubmitCallBack: (data: RemoteVar) => void
   isEditMode: boolean
+  isReadonly?: boolean
 }
 export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
   previousStep,
   prevStepData,
   onSubmitCallBack,
-  isEditMode
+  isEditMode,
+  isReadonly = false
 }) => {
   const { getString } = useStrings()
   const initialValues = isEditMode
@@ -167,6 +169,7 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
                       showDefaultField={false}
                       showAdvanced={true}
                       onChange={value => formik.setFieldValue('varFile.identifier', value)}
+                      isReadonly={isReadonly}
                     />
                   )}
                 </div>
@@ -197,6 +200,7 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
                         showDefaultField={false}
                         showAdvanced={true}
                         onChange={value => formik.setFieldValue('varFile.spec.store.spec.branch', value)}
+                        isReadonly={isReadonly}
                       />
                     )}
                   </div>
@@ -221,6 +225,7 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
                         showDefaultField={false}
                         showAdvanced={true}
                         onChange={value => formik.setFieldValue('varFile.spec.store.spec.commitId', value)}
+                        isReadonly={isReadonly}
                       />
                     )}
                   </div>

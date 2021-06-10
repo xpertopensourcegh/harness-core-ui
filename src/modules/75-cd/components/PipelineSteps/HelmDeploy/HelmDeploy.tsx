@@ -41,6 +41,7 @@ interface HelmDeployProps {
     path?: string
     readonly?: boolean
   }
+  isReadonly?: boolean
 }
 
 export interface HelmDeployVariableStepProps {
@@ -106,6 +107,7 @@ function HelmDeployWidget(
                         /* istanbul ignore next */
                         setFieldValue('timeout', value)
                       }}
+                      isReadonly={props.isReadonly}
                     />
                   )}
                 </div>
@@ -185,6 +187,7 @@ export class HelmDeploy extends PipelineStep<StepElementConfig> {
         isNewStep={isNewStep}
         stepViewType={stepViewType}
         ref={formikRef}
+        isReadonly={props.readonly}
       />
     )
   }

@@ -100,6 +100,7 @@ function K8RolloutDeployWidget(
                     onChange={value => {
                       setFieldValue('timeout', value)
                     }}
+                    isReadonly={readonly}
                   />
                 )}
               </div>

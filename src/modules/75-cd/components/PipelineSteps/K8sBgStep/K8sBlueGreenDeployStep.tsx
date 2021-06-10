@@ -93,6 +93,7 @@ function K8BGDeployWidget(props: K8BGDeployProps, formikRef: StepFormikFowardRef
                       onChange={value => {
                         setFieldValue('timeout', value)
                       }}
+                      isReadonly={readonly}
                     />
                   )}
                 </div>

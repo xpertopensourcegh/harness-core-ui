@@ -353,6 +353,7 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
                         onChange={value => {
                           formikProps.setFieldValue('timeout', value)
                         }}
+                        isReadonly={isDisabled}
                       />
                     )}
                   </Layout.Horizontal>
