@@ -5,7 +5,7 @@ import { ExpandingSearchInput, Icon, Text } from '@wings-software/uicore'
 import type { GroupedVirtuosoHandle, VirtuosoHandle } from 'react-virtuoso'
 
 import { String } from 'framework/strings'
-import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
+import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import { useStrings } from 'framework/strings'
 
 import { useLogsContent } from './useLogsContent'

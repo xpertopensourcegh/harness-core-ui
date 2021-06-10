@@ -5,7 +5,7 @@ import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 import { PQueue } from '@common/utils/PQueue'
 import { useGetToken, logBlobPromise } from 'services/logs'
 import SessionToken from 'framework/utils/SessionToken'
-import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
+import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import { useDeepCompareEffect } from '@common/hooks'
 
 import { useLogsStream } from './useLogsStream'
