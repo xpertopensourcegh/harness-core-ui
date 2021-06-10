@@ -599,6 +599,7 @@ export interface StringsMap {
   'connectors.appD.validation.clientSecret': string
   'connectors.appD.validation.controllerURL': string
   'connectors.appDynamicsDetails': string
+  'connectors.appdLabel': string
   'connectors.artifactRepoType': string
   'connectors.artifactRepository': string
   'connectors.artifactory.artifactoryServerUrl': string
@@ -2406,7 +2407,6 @@ export interface StringsMap {
   'cv.monitoringSources.appD.validationsFailed': string
   'cv.monitoringSources.appD.validationsPassed': string
   'cv.monitoringSources.appD.verificationsInProgress': string
-  'cv.monitoringSources.appDName': string
   'cv.monitoringSources.backToMapping': string
   'cv.monitoringSources.baselineDeviation': string
   'cv.monitoringSources.buildYourQuery': string
