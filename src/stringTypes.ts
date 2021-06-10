@@ -2365,6 +2365,7 @@ export interface StringsMap {
   'cv.metricVerificationModal.modalTitle': string
   'cv.metricVerificationModal.viewCalls': string
   'cv.monitoringSources.addMetric': string
+  'cv.monitoringSources.addQuery': string
   'cv.monitoringSources.appD.appDApplications': string
   'cv.monitoringSources.appD.appDTier': string
   'cv.monitoringSources.appD.connectToMonitoringSource': string
@@ -2435,6 +2436,7 @@ export interface StringsMap {
   'cv.monitoringSources.gco.mapMetricsToServicesPage.validation.tags': string
   'cv.monitoringSources.gco.mapMetricsToServicesPage.validation.validJSON': string
   'cv.monitoringSources.gco.mapMetricsToServicesPage.viewQuery': string
+  'cv.monitoringSources.gco.product.logs': string
   'cv.monitoringSources.gco.product.metrics': string
   'cv.monitoringSources.gco.productValidationText': string
   'cv.monitoringSources.gco.reviewPage.gcoMetrics': string
@@ -2444,9 +2446,34 @@ export interface StringsMap {
   'cv.monitoringSources.gco.selectDashboardsPage.noDataText': string
   'cv.monitoringSources.gco.selectProduct': string
   'cv.monitoringSources.gco.tabName.selectDashboards': string
+  'cv.monitoringSources.gcoLogs.addQueryTooltip': string
+  'cv.monitoringSources.gcoLogs.customizeQuery': string
+  'cv.monitoringSources.gcoLogs.fetchRecords': string
+  'cv.monitoringSources.gcoLogs.gcoLogsMessageIdentifer': string
+  'cv.monitoringSources.gcoLogs.gcoLogsQuery': string
+  'cv.monitoringSources.gcoLogs.gcoLogsServiceInstance': string
+  'cv.monitoringSources.gcoLogs.messageIdentifier': string
+  'cv.monitoringSources.gcoLogs.newGCOLogsMessage': string
+  'cv.monitoringSources.gcoLogs.newGCOLogsMessageIdentifier': string
+  'cv.monitoringSources.gcoLogs.newGCOLogsServiceInstance': string
+  'cv.monitoringSources.gcoLogs.noRecordsForQuery': string
+  'cv.monitoringSources.gcoLogs.query': string
+  'cv.monitoringSources.gcoLogs.querySpecificationsAndMappings': string
+  'cv.monitoringSources.gcoLogs.records': string
+  'cv.monitoringSources.gcoLogs.selectPathForMessageIdentifier': string
+  'cv.monitoringSources.gcoLogs.selectPathForServiceInstance': string
+  'cv.monitoringSources.gcoLogs.selectRecords': string
+  'cv.monitoringSources.gcoLogs.serviceInstance': string
+  'cv.monitoringSources.gcoLogs.submitQueryToSeeRecords': string
+  'cv.monitoringSources.gcoLogs.validation.messageIdentifier': string
+  'cv.monitoringSources.gcoLogs.validation.messageIdentifierUniqueName': string
+  'cv.monitoringSources.gcoLogs.validation.queryNameUnique': string
+  'cv.monitoringSources.gcoLogs.validation.serviceInstance': string
+  'cv.monitoringSources.gcoLogs.validation.serviceInstanceUniqueName': string
   'cv.monitoringSources.higherCounts': string
   'cv.monitoringSources.lowerCounts': string
   'cv.monitoringSources.mapMetricsToServices': string
+  'cv.monitoringSources.mapQueriesToServices': string
   'cv.monitoringSources.metricNameLabel': string
   'cv.monitoringSources.metricNameValidation': string
   'cv.monitoringSources.metricPackValidation': string
@@ -2498,6 +2525,8 @@ export interface StringsMap {
   'cv.monitoringSources.prometheus.validation.recordCount': string
   'cv.monitoringSources.prometheus.validation.serviceInstanceIdentifier': string
   'cv.monitoringSources.prometheus.validation.uniqueName': string
+  'cv.monitoringSources.queryNameLabel': string
+  'cv.monitoringSources.queryNameValidation': string
   'cv.monitoringSources.reviewPageSubHeading': string
   'cv.monitoringSources.riskCategoryLabel': string
   'cv.monitoringSources.riskProfile': string
