@@ -918,6 +918,10 @@ export interface CreateInvite {
   users: string[]
 }
 
+export interface CreatePRDTO {
+  prNumber?: number
+}
+
 export interface CriteriaSpec {
   [key: string]: any
 }
@@ -3880,6 +3884,13 @@ export interface ResponseConnectorStatistics {
 export interface ResponseConnectorValidationResult {
   correlationId?: string
   data?: ConnectorValidationResult
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseCreatePRDTO {
+  correlationId?: string
+  data?: CreatePRDTO
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -16014,7 +16025,7 @@ export interface CreatePRQueryParams {
 }
 
 export type CreatePRProps = Omit<
-  MutateProps<ResponseBoolean, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>,
+  MutateProps<ResponseCreatePRDTO, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>,
   'path' | 'verb'
 >
 
@@ -16022,7 +16033,7 @@ export type CreatePRProps = Omit<
  * creates a pull request
  */
 export const CreatePR = (props: CreatePRProps) => (
-  <Mutate<ResponseBoolean, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>
+  <Mutate<ResponseCreatePRDTO, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>
     verb="POST"
     path={`/scm/createPR`}
     base={getConfig('ng/api')}
@@ -16031,7 +16042,7 @@ export const CreatePR = (props: CreatePRProps) => (
 )
 
 export type UseCreatePRProps = Omit<
-  UseMutateProps<ResponseBoolean, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>,
+  UseMutateProps<ResponseCreatePRDTO, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>,
   'path' | 'verb'
 >
 
@@ -16039,19 +16050,20 @@ export type UseCreatePRProps = Omit<
  * creates a pull request
  */
 export const useCreatePR = (props: UseCreatePRProps) =>
-  useMutate<ResponseBoolean, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>('POST', `/scm/createPR`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
+  useMutate<ResponseCreatePRDTO, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>(
+    'POST',
+    `/scm/createPR`,
+    { base: getConfig('ng/api'), ...props }
+  )
 
 /**
  * creates a pull request
  */
 export const createPRPromise = (
-  props: MutateUsingFetchProps<ResponseBoolean, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>,
+  props: MutateUsingFetchProps<ResponseCreatePRDTO, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseBoolean, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>(
+  mutateUsingFetch<ResponseCreatePRDTO, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>(
     'POST',
     getConfig('ng/api'),
     `/scm/createPR`,
