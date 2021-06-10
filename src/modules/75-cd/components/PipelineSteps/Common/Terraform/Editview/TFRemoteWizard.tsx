@@ -17,6 +17,7 @@ import { FieldArray, Form } from 'formik'
 
 import { useStrings } from 'framework/strings'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { IdentifierSchema } from '@common/utils/Validation'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 
@@ -130,7 +131,7 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
         }}
         validationSchema={Yup.object().shape({
           varFile: Yup.object().shape({
-            identifier: Yup.string().required(getString('common.validation.identifierIsRequired')),
+            identifier: IdentifierSchema(),
             spec: Yup.object().shape({
               store: Yup.object().shape({
                 spec: Yup.object().shape({

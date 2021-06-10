@@ -19,6 +19,7 @@ import {
   useGetJiraProjects,
   useGetJiraIssueCreateMetadata
 } from 'services/cd-ng'
+import { NameSchema } from '@common/utils/Validation'
 import type {
   AccountPathProps,
   GitQueryParams,
@@ -415,7 +416,7 @@ function JiraApprovalStepMode(props: JiraApprovalStepModeProps, formikRef: StepF
       initialValues={props.initialValues}
       enableReinitialize={true}
       validationSchema={Yup.object().shape({
-        name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
+        name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
         spec: Yup.object().shape({
           connectorRef: Yup.string().required(getString('pipeline.jiraApprovalStep.validations.connectorRef')),
