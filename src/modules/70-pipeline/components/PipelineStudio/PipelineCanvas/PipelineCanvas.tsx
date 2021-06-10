@@ -71,6 +71,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     deletePipelineCache,
     fetchPipeline,
     view,
+    setSchemaErrorView,
     setView,
     isReadonly,
     updatePipelineView,
@@ -157,6 +158,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     updatedGitDetails?: SaveToGitFormInterface,
     lastObject?: { lastObjectId?: string }
   ): Promise<UseSaveSuccessResponse> => {
+    setSchemaErrorView(false)
     const response = await savePipeline(
       {
         accountIdentifier: accountId,
@@ -198,6 +200,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       }
     } else {
       clear()
+      setSchemaErrorView(true)
       showError(response?.message || getString('errorWhileSaving'))
     }
     return { status: response?.status }
