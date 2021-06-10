@@ -272,6 +272,7 @@ export interface StringsMap {
   'common.validation.valueMustBeANumber': string
   'common.validation.valueMustBeGreaterThanOrEqualToN': string
   'common.validation.valueMustBeLessThanOrEqualTo64': string
+  'common.validation.variableAlreadyExists': string
   'common.welcome': string
   'notifications.buttonSend': string
   'notifications.emailRecipients': string
