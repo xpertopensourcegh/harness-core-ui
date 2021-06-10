@@ -168,7 +168,9 @@ describe('Connectors Page Test', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('should verify that new connector button and create via yaml button are not disabled if connector edit permission is provided', async () => {
+  //Disabling as this has been reported as flaky multiple times
+  // eslint-disable-next-line jest/no-disabled-tests
+  test.skip('should verify that new connector button and create via yaml button are not disabled if connector edit permission is provided', async () => {
     jest.spyOn(usePermission, 'usePermission').mockImplementation(() => [true])
     const { container } = setup()
     const newConnectorButton = container.querySelector('[data-test="newConnectorButton"]')
