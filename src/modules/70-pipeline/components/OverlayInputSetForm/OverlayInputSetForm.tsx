@@ -131,6 +131,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
   }>()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
 
+  const [initialGitDetails, setInitialGitDetails] = React.useState<EntityGitDetails>({ repoIdentifier, branch })
   const [selectedView, setSelectedView] = React.useState<SelectedView>(SelectedView.VISUAL)
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const [selectedRepo, setSelectedRepo] = React.useState<string>(overlayInputSetRepoIdentifier || repoIdentifier || '')
@@ -319,7 +320,8 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
             orgIdentifier,
             pipelineIdentifier,
             projectIdentifier,
-            ...(gitDetails ? { ...gitDetails, lastObjectId: objectId } : {})
+            ...(gitDetails ? { ...gitDetails, lastObjectId: objectId } : {}),
+            ...(gitDetails && gitDetails.isNewBranch ? { baseBranch: initialGitDetails.branch } : {})
           }
         })
       } else {
@@ -329,7 +331,8 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
             orgIdentifier,
             pipelineIdentifier,
             projectIdentifier,
-            ...(gitDetails ?? {})
+            ...(gitDetails ?? {}),
+            ...(gitDetails && gitDetails.isNewBranch ? { baseBranch: initialGitDetails.branch } : {})
           }
         })
       }
@@ -343,12 +346,15 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
           showSuccess(getString('inputSets.overlayInputSetSaved'))
         }
       }
-      closeForm()
+      if (!isGitSyncEnabled) {
+        closeForm()
+      }
     } catch (_e) {
       // showError(e?.message || i18n.commonError)
     }
     return {
-      status: response?.status
+      status: response?.status,
+      nextCallback: () => closeForm()
     }
   }
 
@@ -363,6 +369,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
   const handleSubmit = React.useCallback(
     async (inputSetObj: OverlayInputSetDTO, gitDetails?: EntityGitDetails) => {
       setSavedInputSetObj(omit(inputSetObj, 'repo', 'branch'))
+      setInitialGitDetails(gitDetails as EntityGitDetails)
       if (inputSetObj) {
         delete inputSetObj.pipeline
         if (isGitSyncEnabled) {
