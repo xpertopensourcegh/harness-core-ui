@@ -13,8 +13,7 @@ import {
   useModalHook,
   ModalErrorHandlerBinding,
   ModalErrorHandler,
-  Tag,
-  Link
+  Tag
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { CellProps, Renderer, Column } from 'react-table'
@@ -423,24 +422,19 @@ const GitSyncRepoTab: React.FC = () => {
                         </Text>
                       </Container>
 
-                      <Container width={rootFolderData.isDefault ? '60%' : '75%'} padding={{ left: 'xsmall' }}>
-                        <Link href={linkToProvider} target="_blank" rel="noopener noreferrer" className={css.noShadow}>
-                          <Text
-                            width={rootFolderData.isDefault ? '70%' : '60%'}
-                            style={{
-                              overflow: 'hidden',
-                              textOverflow: 'ellipsis',
-                              whiteSpace: 'nowrap'
-                            }}
-                            title={linkToProvider}
-                            className={css.link}
-                          >
+                      <Container
+                        padding={{ left: 'xsmall' }}
+                        className={css.noOverflow}
+                        width={rootFolderData.isDefault ? '60%' : '75%'}
+                      >
+                        <a href={linkToProvider} target="_blank" rel="noopener noreferrer" className={css.noShadow}>
+                          <Text title={linkToProvider} className={css.link}>
                             {linkToProvider}
                           </Text>
-                        </Link>
+                        </a>
                       </Container>
 
-                      <Container width="5%">
+                      <Container width="5%" padding={{ left: 'xsmall' }}>
                         <CopyToClipboard content={linkToProvider} showFeedback={true} />
                       </Container>
                       {rootFolderData.isDefault && (
