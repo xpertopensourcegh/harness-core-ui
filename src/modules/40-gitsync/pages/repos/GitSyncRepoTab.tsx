@@ -52,10 +52,11 @@ interface RightMenuProps {
   repo: GitSyncConfig
   selectedFolderIndex: number
   handleRepoUpdate: (updatedFolders: GitSyncFolderConfigDTO[]) => unknown
+  isDefault?: boolean
 }
 
 const RightMenu: React.FC<RightMenuProps> = props => {
-  const { repo, selectedFolderIndex, handleRepoUpdate } = props
+  const { repo, selectedFolderIndex, handleRepoUpdate, isDefault } = props
   const [menuOpen, setMenuOpen] = useState(false)
   const { getString } = useStrings()
 
@@ -95,6 +96,7 @@ const RightMenu: React.FC<RightMenuProps> = props => {
             data-test="markDefaultBtn"
             text={getString('gitsync.markAsDefault')}
             onClick={handleMarkAsDefaultFolder}
+            disabled={isDefault}
           />
         </Menu>
       </Popover>
@@ -445,7 +447,12 @@ const GitSyncRepoTab: React.FC = () => {
                         </Container>
                       )}
                     </Layout.Horizontal>
-                    <RightMenu repo={repoData} selectedFolderIndex={index} handleRepoUpdate={handleRepoUpdate} />
+                    <RightMenu
+                      repo={repoData}
+                      selectedFolderIndex={index}
+                      handleRepoUpdate={handleRepoUpdate}
+                      isDefault={rootFolderData.isDefault}
+                    />
                   </Layout.Horizontal>
                 )
               })
