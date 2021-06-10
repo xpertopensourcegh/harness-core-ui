@@ -733,6 +733,7 @@ export interface StringsMap {
   'connectors.k8.delegateOutClusterInfo': string
   'connectors.k8.masterUrlLabel': string
   'connectors.k8.placeholder.masterUrl': string
+  'connectors.k8.serviceAccountKey': string
   'connectors.k8.serviceAccountToken': string
   'connectors.k8.skipDefaultValidation': string
   'connectors.name': string

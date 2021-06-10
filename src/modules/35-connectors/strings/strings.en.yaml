@@ -124,6 +124,7 @@ k8:
   delegateInClusterInfo: 'Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates'
   masterUrlLabel: 'Master URL'
   serviceAccountToken: 'Service Account Token'
+  serviceAccountKey: 'Service Account Key'
   skipDefaultValidation: 'Skip default namespace validation'
   OIDCIssuerUrl: OIDC Issuer URL
   OIDCUsername: 'OIDC Username'
