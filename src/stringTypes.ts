@@ -1305,6 +1305,7 @@ export interface StringsMap {
   'pipeline.onlyPositiveInteger': string
   'pipeline.optionalLabel': string
   'pipeline.progressPercentage': string
+  'pipeline.provisionerSteps': string
   'pipeline.repoRequired': string
   'pipeline.resourceConstraints.currentlyExecuting': string
   'pipeline.resourceConstraints.infoText': string
