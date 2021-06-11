@@ -531,6 +531,7 @@ export type BitbucketConnector = ConnectorConfigDTO & {
   delegateSelectors?: string[]
   type: 'Account' | 'Repo'
   url: string
+  validationRepo?: string
 }
 
 export interface BitbucketCredentialsDTO {
@@ -916,10 +917,6 @@ export interface CreateInvite {
   inviteType: 'USER_INITIATED_INVITE' | 'ADMIN_INITIATED_INVITE'
   roleBindings: RoleBinding[]
   users: string[]
-}
-
-export interface CreatePRDTO {
-  prNumber?: number
 }
 
 export interface CriteriaSpec {
@@ -2048,6 +2045,7 @@ export type GitConfigDTO = ConnectorConfigDTO & {
   spec: GitAuthenticationDTO
   type: 'Http' | 'Ssh'
   url: string
+  validationRepo?: string
 }
 
 export interface GitEntityBranchFilterSummaryProperties {
@@ -2265,6 +2263,7 @@ export type GithubConnector = ConnectorConfigDTO & {
   delegateSelectors?: string[]
   type: 'Account' | 'Repo'
   url: string
+  validationRepo?: string
 }
 
 export interface GithubCredentialsDTO {
@@ -2335,6 +2334,7 @@ export type GitlabConnector = ConnectorConfigDTO & {
   delegateSelectors?: string[]
   type: 'Account' | 'Repo'
   url: string
+  validationRepo?: string
 }
 
 export interface GitlabCredentialsDTO {
@@ -3139,10 +3139,9 @@ export type NumberNGVariable = NGVariable & {
   value: number
 }
 
-export interface OAuthSettings {
+export type OAuthSettings = NGAuthSettings & {
   allowedProviders?: ('AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN')[]
   filter?: string
-  settingsType?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
 }
 
 export interface OAuthSignupDTO {
@@ -3888,13 +3887,6 @@ export interface ResponseConnectorValidationResult {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
-export interface ResponseCreatePRDTO {
-  correlationId?: string
-  data?: CreatePRDTO
-  metaData?: { [key: string]: any }
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-}
-
 export interface ResponseDashboardDeploymentActiveFailedRunningInfo {
   correlationId?: string
   data?: DashboardDeploymentActiveFailedRunningInfo
@@ -4081,13 +4073,19 @@ export interface ResponseListExecutionStatus {
   correlationId?: string
   data?: (
     | 'Running'
+    | 'AsyncWaiting'
+    | 'TaskWaiting'
+    | 'TimedWaiting'
     | 'Failed'
+    | 'Errored'
+    | 'IgnoreFailed'
     | 'NotStarted'
     | 'Expired'
     | 'Aborted'
+    | 'Discontinuing'
     | 'Queued'
     | 'Paused'
-    | 'Waiting'
+    | 'ResourceWaiting'
     | 'InterventionWaiting'
     | 'ApprovalWaiting'
     | 'Success'
@@ -4099,6 +4097,7 @@ export interface ResponseListExecutionStatus {
     | 'INTERVENTION_WAITING'
     | 'APPROVAL_WAITING'
     | 'APPROVAL_REJECTED'
+    | 'WAITING'
   )[]
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
@@ -16025,7 +16024,7 @@ export interface CreatePRQueryParams {
 }
 
 export type CreatePRProps = Omit<
-  MutateProps<ResponseCreatePRDTO, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>,
+  MutateProps<ResponseBoolean, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>,
   'path' | 'verb'
 >
 
@@ -16033,7 +16032,7 @@ export type CreatePRProps = Omit<
  * creates a pull request
  */
 export const CreatePR = (props: CreatePRProps) => (
-  <Mutate<ResponseCreatePRDTO, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>
+  <Mutate<ResponseBoolean, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>
     verb="POST"
     path={`/scm/createPR`}
     base={getConfig('ng/api')}
@@ -16042,7 +16041,7 @@ export const CreatePR = (props: CreatePRProps) => (
 )
 
 export type UseCreatePRProps = Omit<
-  UseMutateProps<ResponseCreatePRDTO, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>,
+  UseMutateProps<ResponseBoolean, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>,
   'path' | 'verb'
 >
 
@@ -16050,20 +16049,19 @@ export type UseCreatePRProps = Omit<
  * creates a pull request
  */
 export const useCreatePR = (props: UseCreatePRProps) =>
-  useMutate<ResponseCreatePRDTO, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>(
-    'POST',
-    `/scm/createPR`,
-    { base: getConfig('ng/api'), ...props }
-  )
+  useMutate<ResponseBoolean, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>('POST', `/scm/createPR`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
 
 /**
  * creates a pull request
  */
 export const createPRPromise = (
-  props: MutateUsingFetchProps<ResponseCreatePRDTO, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>,
+  props: MutateUsingFetchProps<ResponseBoolean, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseCreatePRDTO, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>(
+  mutateUsingFetch<ResponseBoolean, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>(
     'POST',
     getConfig('ng/api'),
     `/scm/createPR`,
