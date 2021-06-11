@@ -4,7 +4,6 @@ import { fireEvent, waitFor } from '@testing-library/dom'
 import { render } from '@testing-library/react'
 import { FormInput, Container } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
-import * as connectorUtils from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 import { onNextMock } from '../../CommonCVConnector/__mocks__/CommonCVConnectorMocks'
@@ -15,11 +14,16 @@ import CreateDynatraceConnector from '../CreateDynatraceConnector'
 const DynatraceURL = 'https://dyna.com'
 const ApiToken = 'apiToken'
 
-jest.mock('@secrets/components/SecretInput/SecretInput', () => () => (
-  <Container className="secret-mock">
-    <FormInput.Text name="apiTokenRef" />
-  </Container>
-))
+jest.mock('../../CommonCVConnector/components/ConnectorSecretField/ConnectorSecretField', () => ({
+  ...(jest.requireActual('../../CommonCVConnector/components/ConnectorSecretField/ConnectorSecretField') as any),
+  ConnectorSecretField: function MockComponent(b: any) {
+    return (
+      <Container className="secret-mock">
+        <FormInput.Text name={b.secretInputProps.name} />
+      </Container>
+    )
+  }
+}))
 
 describe('Unit tests for CreateDynatraceConnector', () => {
   beforeEach(() => {
@@ -76,7 +80,7 @@ describe('Unit tests for CreateDynatraceConnector', () => {
     // click submit and verify submitted data
     fireEvent.click(container.querySelector('button[type="submit"]')!)
     await waitFor(() =>
-      expect(onNextMock).toHaveBeenCalledWith({
+      expect(onNextMock).toHaveBeenLastCalledWith({
         accountId: 'dummyAccountId',
         orgIdentifier: 'dummyOrgId',
         projectIdentifier: 'dummyProjectId',
@@ -87,7 +91,6 @@ describe('Unit tests for CreateDynatraceConnector', () => {
   })
 
   test('Ensure if there is existing data, fields are populated', async () => {
-    jest.spyOn(connectorUtils, 'setSecretField').mockResolvedValue(ApiToken as any)
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateDynatraceConnector
@@ -115,7 +118,7 @@ describe('Unit tests for CreateDynatraceConnector', () => {
     // click submit and verify submitted data
     fireEvent.click(container.querySelector('button[type="submit"]')!)
     await waitFor(() =>
-      expect(onNextMock).toHaveBeenCalledWith({
+      expect(onNextMock).toHaveBeenLastCalledWith({
         accountId: 'dummyAccountId',
         apiTokenRef: ApiToken,
         orgIdentifier: 'dummyOrgId',
@@ -126,7 +129,6 @@ describe('Unit tests for CreateDynatraceConnector', () => {
   })
 
   test('Ensure edit flow works', async () => {
-    jest.spyOn(connectorUtils, 'setSecretField').mockResolvedValue(ApiToken as any)
     const { container, getByText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateDynatraceConnector
@@ -165,45 +167,5 @@ describe('Unit tests for CreateDynatraceConnector', () => {
         url: 'http://dgdgtrty.com'
       })
     )
-  })
-
-  test('Ensure loading spinner is displayed when secrets api is loading', async () => {
-    jest.spyOn(connectorUtils, 'setSecretField').mockImplementation(() => new Promise(() => undefined))
-    const { container } = render(
-      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateDynatraceConnector
-          accountId="dummyAccountId"
-          orgIdentifier="dummyOrgId"
-          projectIdentifier="dummyProjectId"
-          onClose={noop}
-          onSuccess={noop}
-          isEditMode={false}
-          setIsEditMode={noop}
-          connectorInfo={({ spec: { url: DynatraceURL, apiTokenRef: ApiToken } } as unknown) as ConnectorInfoDTO}
-        />
-      </TestWrapper>
-    )
-
-    await waitFor(() => expect(container.querySelector('[data-icon="steps-spinner"]')).not.toBeNull())
-  })
-
-  test('Ensure toaster displays error when secrets api throows error', async () => {
-    jest.spyOn(connectorUtils, 'setSecretField').mockRejectedValue('mock error')
-    const { getByText } = render(
-      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateDynatraceConnector
-          accountId="dummyAccountId"
-          orgIdentifier="dummyOrgId"
-          projectIdentifier="dummyProjectId"
-          onClose={noop}
-          onSuccess={noop}
-          isEditMode={false}
-          setIsEditMode={noop}
-          connectorInfo={({ spec: { url: DynatraceURL, apiTokenRef: ApiToken } } as unknown) as ConnectorInfoDTO}
-        />
-      </TestWrapper>
-    )
-
-    await waitFor(() => expect(getByText('mock error')).not.toBeNull())
   })
 })
