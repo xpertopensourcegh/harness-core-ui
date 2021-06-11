@@ -1307,6 +1307,9 @@ export interface StringsMap {
   'pipeline.manifestType.selectManifestStore': string
   'pipeline.manifestType.specifyManifestRepoType': string
   'pipeline.manifestType.specifyManifestStore': string
+  'pipeline.noBuildsText': string
+  'pipeline.noDeploymentText': string
+  'pipeline.noPipelineText': string
   'pipeline.onlyPositiveInteger': string
   'pipeline.optionalLabel': string
   'pipeline.progressPercentage': string
@@ -1316,6 +1319,7 @@ export interface StringsMap {
   'pipeline.resourceConstraints.infoText': string
   'pipeline.resourceConstraints.title': string
   'pipeline.resourceConstraints.yourPipeline': string
+  'pipeline.runAPipeline': string
   'pipeline.savingInProgress': string
   'pipeline.selectOrCreateForm.description': string
   'pipeline.selectOrCreatePipeline.pipelineNameRequired': string

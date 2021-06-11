@@ -15,6 +15,10 @@ onlyPositiveInteger: Only positive integer values
 optionalLabel: (Optional)
 depth: Depth
 sslVerify: SSL Verify
+noPipelineText: There are no pipelines in your project
+noDeploymentText: There are no deployments in your project
+noBuildsText: There are no builds in your project
+runAPipeline: Run a Pipeline
 barrierStep:
   barrierReference: Barrier Reference
   barrierReferenceRequired: Barrier Reference is required
