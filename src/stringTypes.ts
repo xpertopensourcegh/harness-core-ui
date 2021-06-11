@@ -761,6 +761,7 @@ export interface StringsMap {
   'connectors.newRelic.urlFieldLabel': string
   'connectors.newRelic.urlValidation': string
   'connectors.newRelicConnectorDetails': string
+  'connectors.newRelicLabel': string
   'connectors.nexus.nexusServerUrl': string
   'connectors.prometheus.urlValidation': string
   'connectors.prometheusConnectorDetails': string
@@ -2495,7 +2496,6 @@ export interface StringsMap {
   'cv.monitoringSources.newRelic.oneMetricMappingValidationSubtext': string
   'cv.monitoringSources.newRelic.selectedApplications': string
   'cv.monitoringSources.newRelic.totalMappedApplications': string
-  'cv.monitoringSources.newRelicName': string
   'cv.monitoringSources.oneMetricMappingValidation': string
   'cv.monitoringSources.oneMetricMappingValidationSubtext': string
   'cv.monitoringSources.oneMetricPackValidation': string

@@ -31,6 +31,7 @@ prometheusConnectorDetails: Prometheus Connector Details
 prometheusLabel: Prometheus
 dynatraceLabel: Dynatrace
 appdLabel: AppDynamics
+newRelicLabel: New Relic
 dynatraceConnectorDetails: Dynatrace Connector Details
 connectorDetailsHeader: '{{type}} Connector Details'
 addConnectorDetails: Add {{type}} Verification Provider
