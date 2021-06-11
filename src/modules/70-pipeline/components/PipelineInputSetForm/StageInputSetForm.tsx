@@ -361,7 +361,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
         </div>
       )}
 
-      {deploymentStageTemplate.infrastructure.infrastructureDefinition?.provisioner && (
+      {deploymentStageTemplate.infrastructure?.infrastructureDefinition?.provisioner && (
         <div
           id={`Stage.${stageIdentifier}.infrastructure.infrastructureDefinition?.provisioner`}
           className={cx(css.accordionSummary)}
