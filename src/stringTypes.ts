@@ -1048,11 +1048,14 @@ export interface StringsMap {
   'pipeline.approvalStep.approvers': string
   'pipeline.approvalStep.approversWithColon': string
   'pipeline.approvalStep.disallowPipelineExecutor': string
+  'pipeline.approvalStep.disallowedApproverExecution': string
+  'pipeline.approvalStep.ensureUserGroups': string
   'pipeline.approvalStep.fetchUserGroupsFailed': string
   'pipeline.approvalStep.fetchingUserGroups': string
   'pipeline.approvalStep.includePipelineExecutionHistory': string
   'pipeline.approvalStep.message': string
   'pipeline.approvalStep.minimumCount': string
+  'pipeline.approvalStep.notAuthorizedExecution': string
   'pipeline.approvalStep.status.APPROVE': string
   'pipeline.approvalStep.status.REJECT': string
   'pipeline.approvalStep.validation.approvalMessage': string
@@ -1211,6 +1214,8 @@ export interface StringsMap {
   'pipeline.gitDetails': string
   'pipeline.gitExperience.skipNow': string
   'pipeline.infrastructureKey': string
+  'pipeline.inputSets.applyInputSet': string
+  'pipeline.inputSets.applyInputSets': string
   'pipeline.inputSets.noRuntimeInputsCurrently': string
   'pipeline.inputSets.noRuntimeInputsWhileExecution': string
   'pipeline.jiraApprovalStep.allConditions': string
