@@ -164,7 +164,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
   }
 
   React.useEffect(() => {
-    if (selectedStepId && selectedStage) {
+    if (selectedStepId && selectedStage && !pipelineView.isDrawerOpened) {
       let step: ExecutionWrapper | undefined
       let drawerType = DrawerTypes.StepConfig
       // 1. search for step in execution
