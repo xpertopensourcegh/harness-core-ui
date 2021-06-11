@@ -1069,7 +1069,7 @@ export const buildSumoLogicPayload = (formData: FormData) => {
   }
 }
 
-export const buildSplunkPayload = (formData: FormData, accountId: string) => ({
+export const buildSplunkPayload = (formData: FormData) => ({
   connector: {
     ...pick(formData, ['name', 'identifier', 'orgIdentifier', 'projectIdentifier', 'description', 'tags']),
     type: Connectors.SPLUNK,
@@ -1079,7 +1079,7 @@ export const buildSplunkPayload = (formData: FormData, accountId: string) => ({
       accountname: formData.accountName,
       passwordRef: formData.passwordRef.referenceString,
       splunkUrl: formData.url,
-      accountId
+      accountId: formData.accountId
     }
   }
 })

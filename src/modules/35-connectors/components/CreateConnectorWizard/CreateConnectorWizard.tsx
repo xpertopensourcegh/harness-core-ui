@@ -43,7 +43,7 @@ interface CreateConnectorWizardProps {
 }
 
 export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
-  const { type, accountId, orgIdentifier, projectIdentifier, onClose, ...rest } = props
+  const { type } = props
   const commonProps = pick(props, [
     'onSuccess',
     'onClose',
@@ -73,16 +73,7 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
     case Connectors.APP_DYNAMICS:
       return <CreateAppDynamicsConnector {...commonProps} />
     case Connectors.SPLUNK:
-      return (
-        <CreateSplunkConnector
-          {...rest}
-          onClose={onClose}
-          onConnectorCreated={props.onSuccess}
-          accountId={accountId}
-          orgIdentifier={orgIdentifier}
-          projectIdentifier={projectIdentifier}
-        />
-      )
+      return <CreateSplunkConnector {...commonProps} />
     case Connectors.NEW_RELIC:
       return <CreateNewRelicConnector {...commonProps} />
     case Connectors.PROMETHEUS:

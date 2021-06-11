@@ -16,6 +16,8 @@ export function dsconfigTypetoResourcesConnectorDetailsTitle(
       return getString('connectors.datadogConnectorDetails')
     case 'SumoLogic':
       return getString('connectors.sumoLogicConnectorDetails')
+    case 'Splunk':
+      return getString('connectors.splunkConnectorDetails')
     default:
       return ''
   }

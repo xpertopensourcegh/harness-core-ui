@@ -22,8 +22,8 @@ export function initializeAppDConnector({
     username: '',
     authType: AppDynamicsAuthType.USERNAME_PASSWORD,
     password: undefined,
-    projectIdentifier: projectIdentifier,
-    orgIdentifier: orgIdentifier
+    projectIdentifier,
+    orgIdentifier
   }
 
   if (!prevStepData) {
@@ -32,12 +32,12 @@ export function initializeAppDConnector({
   const { spec, ...prevData } = prevStepData
   return {
     ...defaultObj,
-    url: prevData.url || spec?.controllerUrl || '',
-    accountName: prevData.accountName || spec?.accountname || '',
-    password: prevData.password || spec?.passwordRef,
-    clientSecretRef: prevData.clientSecretRef || spec?.clientSecretRef,
-    authType: prevData.authType || spec?.authType || AppDynamicsAuthType.USERNAME_PASSWORD,
-    username: prevData.username || spec?.username || '',
-    clientId: prevData.clientId || spec?.clientId
+    url: prevData?.url || spec?.controllerUrl || '',
+    accountName: prevData?.accountName || spec?.accountname || '',
+    password: prevData?.password || spec?.passwordRef,
+    clientSecretRef: prevData?.clientSecretRef || spec?.clientSecretRef,
+    authType: prevData?.authType || spec?.authType || AppDynamicsAuthType.USERNAME_PASSWORD,
+    username: prevData?.username || spec?.username || '',
+    clientId: prevData?.clientId || spec?.clientId
   }
 }

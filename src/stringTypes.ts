@@ -773,6 +773,7 @@ export interface StringsMap {
   'connectors.specifyArtifactRepoType': string
   'connectors.splunk.connectorDetailsHeader': string
   'connectors.splunkConnectorDetails': string
+  'connectors.splunkLabel': string
   'connectors.stepFourName': string
   'connectors.stepThreeName': string
   'connectors.successfullCreate': string
