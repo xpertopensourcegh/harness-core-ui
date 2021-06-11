@@ -24,7 +24,7 @@ exports[`<HarnessApproval /> tests Non-Waiting Status form is not shown 1`] = `
       </tr>
       <tr>
         <th>
-          duration
+          pipeline.duration
         </th>
         <td>
           <div>

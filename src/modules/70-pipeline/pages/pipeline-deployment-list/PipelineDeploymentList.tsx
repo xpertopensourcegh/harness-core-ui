@@ -52,13 +52,15 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
         sort: [],
         status: params.status as QuickStatusParam,
         myDeployments: !!params.myDeployments,
-        filters
+        filters,
+        repoIdentifier: params.repoIdentifier,
+        branch: params.branch
       }
     }
   })
   const { updateQueryParams } = useUpdateQueryParams<Partial<GetListOfExecutionsQueryParams>>()
 
-  const { page, filterIdentifier, myDeployments, status } = queryParams
+  const { page, filterIdentifier, myDeployments, status, repoIdentifier, branch } = queryParams
   const hasFilters =
     [pipelineIdentifier, status, filterIdentifier].some(filter => filter !== undefined) || myDeployments
 
@@ -78,7 +80,9 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
       page: page ? page - 1 : 0,
       filterIdentifier: hasFilterIdentifier ? filterIdentifier : undefined,
       myDeployments,
-      status
+      status,
+      repoIdentifier,
+      branch
     },
     queryParamStringifyOptions: {
       arrayFormat: 'repeat'

@@ -7006,6 +7006,9 @@ export interface GetListOfExecutionsQueryParams {
     | 'APPROVAL_REJECTED'
     | 'WAITING'
   myDeployments?: boolean
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
 }
 
 export type GetListOfExecutionsProps = Omit<
