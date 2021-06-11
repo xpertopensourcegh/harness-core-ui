@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, FormInput, Icon, Intent, Layout, TextInput, Text } from '@wings-software/uicore'
+import { Button, FormInput, Layout, TextInput, Text, Color } from '@wings-software/uicore'
 import { Formik } from 'formik'
 import cx from 'classnames'
 
@@ -156,9 +156,8 @@ export function HarnessApproval(props: HarnessApprovalProps): React.ReactElement
           </Formik>
         ) : null}
         {isWaiting && isExecutionWaiting(approvalData.status) && !isCurrentUserAuthorized ? (
-          <Layout.Vertical padding={{ top: 'medium', bottom: 'medium', left: 'large', right: 'large' }} spacing="small">
-            <Icon name="warning-sign" intent={Intent.DANGER} flex={{ justifyContent: 'center' }} />
-            <Text intent="danger" font={{ align: 'center' }}>
+          <Layout.Vertical padding={{ top: 'medium', bottom: 'medium', left: 'large', right: 'large' }}>
+            <Text color={Color.ORANGE_700} font={{ align: 'center' }}>
               {currentUserUnAuthorizedReason
                 ? currentUserUnAuthorizedReason
                 : approvalData.details.approvers.disallowPipelineExecutor

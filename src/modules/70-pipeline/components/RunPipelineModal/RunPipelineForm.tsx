@@ -358,7 +358,8 @@ function RunPipelineFormBasic({
   const history = useHistory()
   const { getString } = useStrings()
   const { isGitSyncEnabled } = useAppStore()
-  const [triggerValidation, setTriggerValidation] = useState(true)
+  const [triggerValidation, setTriggerValidation] = useState(false)
+  const [runClicked, setRunClicked] = useState(false)
 
   const { mutate: createInputSet, loading: createInputSetLoading } = useCreateInputSetForPipeline({
     queryParams: {
@@ -696,7 +697,8 @@ function RunPipelineFormBasic({
       currentPipeline?.pipeline &&
       template?.data?.inputSetTemplateYaml &&
       yamlTemplate &&
-      pipeline
+      pipeline &&
+      runClicked
     ) {
       errors = validatePipeline(
         { ...clearRuntimeInput(currentPipeline.pipeline) },
@@ -916,6 +918,7 @@ function RunPipelineFormBasic({
                       {...yamlBuilderReadOnlyModeProps}
                       existingJSON={{ pipeline: values }}
                       bind={setYamlHandler}
+                      schema={{}}
                       invocationMap={factory.getInvocationMap()}
                       height="55vh"
                       width="32vw"
@@ -965,6 +968,7 @@ function RunPipelineFormBasic({
                       text={getString('runPipeline')}
                       onClick={event => {
                         event.stopPropagation()
+                        setRunClicked(true)
                         if ((!selectedInputSets || selectedInputSets.length === 0) && existingProvide === 'existing') {
                           setExistingProvide('provide')
                         } else {

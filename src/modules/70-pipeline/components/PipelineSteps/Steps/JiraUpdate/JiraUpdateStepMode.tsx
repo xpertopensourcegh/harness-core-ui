@@ -95,7 +95,8 @@ const FormContent = ({
           connectorRef: connectorRefFixedValue.toString()
         }
       })
-    } else {
+    } else if (connectorRefFixedValue !== undefined) {
+      // Undefined check is needed so that form is not set to dirty as soon as we open
       // This means we've cleared the value or marked runtime/expression
       // Flush the selected additional fields, and move everything to key value fields
       formik.setFieldValue('spec.selectedFields', [])
