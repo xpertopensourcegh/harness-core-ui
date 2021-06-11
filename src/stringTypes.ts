@@ -2070,6 +2070,14 @@ export interface StringsMap {
   'cf.pipeline.default': string
   'cf.pipeline.stages.execution.title': string
   'cf.pipeline.stages.setup.title': string
+  'cf.rbac.category': string
+  'cf.rbac.featureflag.delete': string
+  'cf.rbac.featureflag.edit': string
+  'cf.rbac.featureflag.label': string
+  'cf.rbac.featureflag.toggle': string
+  'cf.rbac.targetgroup.delete': string
+  'cf.rbac.targetgroup.edit': string
+  'cf.rbac.targetgroup.label': string
   'cf.segmentDetail.addSegmentToFlag': string
   'cf.segmentDetail.addToFlag': string
   'cf.segmentDetail.autoAdded': string

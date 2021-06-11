@@ -31,6 +31,17 @@ messages:
   segmentCreated: Target group created.
   segmentUpdated: Target group updated.
   segmentDeleted: Target group deleted.
+rbac:
+  category: '{{$.featureFlagsText}}'
+  featureflag:
+    label: Feature flags
+    edit: '{{ $.edit }}'
+    delete: '{{ $.delete }}'
+    toggle: Toggle
+  targetgroup:
+    label: '{{ $.cf.shared.targetManagement }}'
+    edit: '{{ $.edit }}'
+    delete: '{{ $.delete }}'
 creationModal:
   jsonType: JSON
   variationSettingsHeading: Variation settings
