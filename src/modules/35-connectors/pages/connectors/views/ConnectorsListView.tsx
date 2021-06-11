@@ -150,6 +150,13 @@ const getConnectorDisplaySummary = (connector: ConnectorInfoDTO): JSX.Element | 
       return getAWSDisplaySummary(connector)
     case Connectors.GCP:
       return getGCPDisplaySummary(connector)
+    case Connectors.NEW_RELIC:
+    case Connectors.DATADOG:
+      return getConnectorDisplaySummaryLabel('UrlLabel', linkRenderer(connector?.spec?.url))
+    case Connectors.APP_DYNAMICS:
+      return getConnectorDisplaySummaryLabel('UrlLabel', linkRenderer(connector?.spec?.controllerUrl))
+    case Connectors.SPLUNK:
+      return getConnectorDisplaySummaryLabel('UrlLabel', linkRenderer(connector?.spec?.splunkUrl))
     default:
       return ''
   }
