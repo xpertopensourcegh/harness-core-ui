@@ -906,6 +906,7 @@ export interface StringsMap {
   'gitsync.connectThroughManager': string
   'gitsync.connectThroughManagerLabel': string
   'gitsync.connectToGitProvider': string
+  'gitsync.defaultBranch': string
   'gitsync.defaultFolder': string
   'gitsync.entitiesByRepositories': string
   'gitsync.folderDetails': string
@@ -917,7 +918,6 @@ export interface StringsMap {
   'gitsync.markAsDefaultLabel': string
   'gitsync.moveFolder': string
   'gitsync.pathToHarnessFolder': string
-  'gitsync.repositoryPath': string
   'gitsync.rootFolderListHeader': string
   'gitsync.rootFolderUpdatedSuccessfully': string
   'gitsync.rootfolderLabel': string
@@ -6176,10 +6176,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   primaryArtifactText: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  primaryBranch: string
   /**
    * @deprecated migrate this string to module level file
    */

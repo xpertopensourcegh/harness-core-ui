@@ -484,21 +484,21 @@ const GitSyncRepoTab: React.FC = () => {
   const columns: Column<GitSyncConfig>[] = useMemo(
     () => [
       {
-        Header: getString('name').toUpperCase(),
+        Header: getString('repository').toUpperCase(),
         accessor: 'repo',
         id: 'reponame',
         width: '15%',
         Cell: RenderColumnReponame
       },
       {
-        Header: getString('gitsync.repositoryPath').toUpperCase(),
+        Header: getString('common.path').toUpperCase(),
         accessor: 'repo',
         id: 'repo',
         width: '20%',
         Cell: RenderColumnRepo
       },
       {
-        Header: getString('primaryBranch').toUpperCase(),
+        Header: getString('gitsync.defaultBranch').toUpperCase(),
         accessor: 'branch',
         id: 'branch',
         width: '15%',
