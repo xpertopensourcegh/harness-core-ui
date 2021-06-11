@@ -342,17 +342,17 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
                 }}
                 tooltip={
                   !isStatusSuccess ? (
-                    errorMessage?.errorSummary || data.status?.errorSummary ? (
+                    errorMessage?.errorSummary || data?.status?.errorSummary ? (
                       <Layout.Vertical font={{ size: 'small' }} spacing="small" padding="small">
                         <Text font={{ size: 'small' }} color={Color.WHITE}>
                           {errorMessage?.errorSummary || data.status?.errorSummary}
                         </Text>
-                        {errorMessage?.errors || data.status?.errors ? (
+                        {errorMessage?.errors || data?.status?.errors ? (
                           <Text
                             color={Color.BLUE_400}
                             onClick={e => {
                               e.stopPropagation()
-                              openErrorModal((errorMessage as ErrorMessage) || data.status)
+                              openErrorModal((errorMessage as ErrorMessage) || data?.status)
                             }}
                             className={css.viewDetails}
                           >
@@ -422,6 +422,7 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
   const data = row.original
   const gitDetails = data?.gitDetails ?? {}
   const isHarnessManaged = data.harnessManaged
+  const { isGitSyncEnabled } = useAppStore()
   const [menuOpen, setMenuOpen] = useState(false)
   const { showSuccess, showError } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
@@ -516,7 +517,8 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
   }
 
   return (
-    !isHarnessManaged && (
+    !isHarnessManaged && // if isGitSyncEnabled then gitobjectId should also be there to support edit/delete
+    !isGitSyncEnabled === !gitDetails?.objectId && (
       <Layout.Horizontal className={css.layout}>
         <Popover
           isOpen={menuOpen}
