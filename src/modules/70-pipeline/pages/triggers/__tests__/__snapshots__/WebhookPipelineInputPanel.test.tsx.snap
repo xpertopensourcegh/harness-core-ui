@@ -254,7 +254,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                           class="nestedAccordions"
                         >
                           <div
-                            class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-medium"
+                            class="Layout--vertical Layout--layout-spacing-small StyledProps--main containerPadding StyledProps--padding-medium"
                           >
                             <div
                               class="formGroup md"

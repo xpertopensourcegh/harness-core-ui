@@ -354,7 +354,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 name={`${path}.infrastructure.infrastructureKey`}
                 label={getString('pipeline.infrastructureKey')}
                 disabled={readonly}
-                className={css.inputWidth}
+                className={cx(css.inputWidth, css.noMarginLeft)}
               />
             )}
           </div>
