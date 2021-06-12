@@ -917,7 +917,7 @@ exports[`<ExecutionStepDetails /> tests approval steps renders normal error step
                 class="delegateRow"
               >
                 <th>
-                  delegateLabel
+                  delegate.DelegateName
                 </th>
                 <td>
                   <div

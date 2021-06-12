@@ -252,7 +252,6 @@ export interface StringsMap {
   'common.test.connectionSuccessful': string
   'common.test.inProgress': string
   'common.test.retest': string
-  'common.timeout': string
   'common.totalLines': string
   'common.trialInProgress': string
   'common.trialInProgressDescription': string
@@ -3853,10 +3852,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'delegate.verifyDelegateYamlCmnd': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  delegateLabel: string
   /**
    * @deprecated migrate this string to module level file
    */

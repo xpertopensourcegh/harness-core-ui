@@ -511,7 +511,6 @@ startedAt: 'Started at'
 endedAt: 'Ended at'
 lastUpdatedBy: Last Updated By
 loggedAt: 'Logged at {{time}}'
-delegateLabel: 'Delegate:'
 order: Order
 artifactsSelection:
   artifactDetails: Artifact Details

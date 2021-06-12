@@ -46,7 +46,6 @@ execute: Execute
 namespace: Namespace
 cluster: Cluster
 releaseName: Release name
-timeout: 'Timeout:'
 datePickerShortcuts:
   Today: Today
   Yesterday: Yesterday
