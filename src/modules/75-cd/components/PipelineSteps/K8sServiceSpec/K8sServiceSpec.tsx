@@ -78,7 +78,6 @@ import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox
 import { gcrUrlList } from '@pipeline/components/ArtifactsSelection/ArtifactRepository/ArtifactLastSteps/GCRImagePath/GCRImagePath'
 import { K8sServiceSpecVariablesForm, K8sServiceSpecVariablesFormProps } from './K8sServiceSpecVariablesForm'
 import css from './K8sServiceSpec.module.scss'
-import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 const clearRuntimeInput = (template: NgPipeline): NgPipeline => {
   return JSON.parse(
@@ -533,7 +532,7 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
               </Text>
             )}
             {template?.artifacts?.primary && (
-              <Layout.Vertical key="primary" className={cx(stepCss.formGroup, stepCss.md, css.serviceSection)}>
+              <Layout.Vertical key="primary" className={css.inputWidth}>
                 {getMultiTypeFromValue(get(template, `artifacts.primary.spec.connectorRef`, '')) ===
                   MultiTypeInputType.RUNTIME && (
                   <FormMultiTypeConnectorField
@@ -556,35 +555,6 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                     gitScope={{ repo: repoIdentifier || '', branch: branchParam, getDefaultFromOtherRepo: true }}
                   />
                 )}
-                {getMultiTypeFromValue(get(template, `artifacts.primary.spec.imagePath`, '')) ===
-                  MultiTypeInputType.RUNTIME && (
-                  <FormInput.MultiTextInput
-                    label={getString('pipelineSteps.deploy.inputSet.imagePath')}
-                    disabled={readonly}
-                    multiTextInputProps={{
-                      expressions,
-                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                    }}
-                    name={`${path}.artifacts.primary.spec.imagePath`}
-                    className={css.inputWidth}
-                  />
-                )}
-
-                {getMultiTypeFromValue(get(template, `artifacts.primary.spec.registryHostname`, '')) ===
-                  MultiTypeInputType.RUNTIME && (
-                  <FormInput.MultiTypeInput
-                    disabled={readonly}
-                    selectItems={gcrUrlList}
-                    useValue
-                    multiTypeInputProps={{
-                      expressions,
-                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
-                      selectProps: { allowCreatingNewItems: true, addClearBtn: true, items: gcrUrlList }
-                    }}
-                    label={getString('connectors.GCR.registryHostname')}
-                    name={`${path}.artifacts.primary.spec.registryHostname`}
-                  />
-                )}
                 {getMultiTypeFromValue(artifacts?.primary?.spec?.region) === MultiTypeInputType.RUNTIME && (
                   <FormInput.MultiTypeInput
                     multiTypeInputProps={{
@@ -603,6 +573,35 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                     name={`${path}.artifacts.primary.spec.region`}
                   />
                 )}
+                {getMultiTypeFromValue(get(template, `artifacts.primary.spec.imagePath`, '')) ===
+                  MultiTypeInputType.RUNTIME && (
+                  <FormInput.MultiTextInput
+                    label={getString('pipelineSteps.deploy.inputSet.imagePath')}
+                    disabled={readonly}
+                    multiTextInputProps={{
+                      expressions,
+                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                    }}
+                    name={`${path}.artifacts.primary.spec.imagePath`}
+                  />
+                )}
+
+                {getMultiTypeFromValue(get(template, `artifacts.primary.spec.registryHostname`, '')) ===
+                  MultiTypeInputType.RUNTIME && (
+                  <FormInput.MultiTypeInput
+                    disabled={readonly}
+                    selectItems={gcrUrlList}
+                    useValue
+                    multiTypeInputProps={{
+                      expressions,
+                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                      selectProps: { allowCreatingNewItems: true, addClearBtn: true, items: gcrUrlList }
+                    }}
+                    label={getString('connectors.GCR.registryHostname')}
+                    name={`${path}.artifacts.primary.spec.registryHostname`}
+                  />
+                )}
+
                 {getMultiTypeFromValue(template?.artifacts?.primary?.spec?.tag) === MultiTypeInputType.RUNTIME && (
                   <div
                     onClick={() => {
