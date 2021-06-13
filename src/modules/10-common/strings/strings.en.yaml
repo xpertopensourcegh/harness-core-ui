@@ -222,6 +222,7 @@ git:
   validation:
     filePath: '{{$.common.git.filePath}} is required'
     commitMessage: '{{$.common.git.commitMessage}} is required'
+    sameBranches: 'Source and target branches cannot be same for a pull request'
 other: Other
 options: Options
 note: Note

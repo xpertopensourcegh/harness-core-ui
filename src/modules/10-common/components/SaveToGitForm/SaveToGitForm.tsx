@@ -305,7 +305,10 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
                   return isValid
                 }
               }),
-            branch: Yup.string().trim().required(getString('validation.branchName')),
+            branch: Yup.string()
+              .trim()
+              .required(getString('validation.branchName'))
+              .notOneOf([Yup.ref('targetBranch')], getString('common.git.validation.sameBranches')),
             commitMsg: Yup.string().trim().min(1).required(getString('common.git.validation.commitMessage'))
           })}
           onSubmit={formData => {

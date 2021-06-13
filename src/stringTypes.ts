@@ -124,6 +124,7 @@ export interface StringsMap {
   'common.git.urlType': string
   'common.git.validation.commitMessage': string
   'common.git.validation.filePath': string
+  'common.git.validation.sameBranches': string
   'common.gitSync.allRepositories': string
   'common.gitSync.commitDetailsLabel': string
   'common.gitSync.creatingPR': string
