@@ -108,6 +108,7 @@ exports[`Test Access Point List Renders without errors 1`] = `
     </div>
     <div
       class="StyledProps--font StyledProps--main pageBody pageContainer"
+      data-name="page-body"
     >
       <div
         class="table table"

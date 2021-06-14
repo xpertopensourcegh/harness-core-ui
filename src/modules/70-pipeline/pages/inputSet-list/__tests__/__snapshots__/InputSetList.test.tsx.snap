@@ -86,6 +86,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
   </div>
   <div
     class="StyledProps--font StyledProps--main pageBody"
+    data-name="page-body"
   >
     <div
       class="table table"

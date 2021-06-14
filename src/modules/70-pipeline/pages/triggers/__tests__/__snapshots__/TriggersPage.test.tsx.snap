@@ -55,6 +55,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
     </div>
     <div
       class="StyledProps--font StyledProps--main pageBody"
+      data-name="page-body"
     >
       <div
         class="table table"

@@ -14,6 +14,7 @@ exports[`Configuration Configuration page 1`] = `
   </div>
   <div
     class="StyledProps--font StyledProps--main pageBody"
+    data-name="page-body"
   >
     <div
       class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"

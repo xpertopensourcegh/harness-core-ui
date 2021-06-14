@@ -4,6 +4,7 @@ exports[`CFHomePage should move to trial in progress page when query param trial
 <div>
   <div
     class="StyledProps--font StyledProps--main pageBody"
+    data-name="page-body"
   >
     <div
       class="StyledProps--font StyledProps--main body"
@@ -68,6 +69,7 @@ exports[`CFHomePage should render HomePageTemplate when return success with data
 <div>
   <div
     class="StyledProps--font StyledProps--main pageBody"
+    data-name="page-body"
   >
     <div
       class="StyledProps--font StyledProps--main body"
@@ -128,6 +130,7 @@ exports[`CFHomePage should render HomePageTemplate when return success with data
 <div>
   <div
     class="StyledProps--font StyledProps--main pageBody"
+    data-name="page-body"
   >
     <div
       class="StyledProps--font StyledProps--main body"
@@ -188,6 +191,7 @@ exports[`CFHomePage should render the home page template when the current user i
 <div>
   <div
     class="StyledProps--font StyledProps--main pageBody"
+    data-name="page-body"
   >
     <div
       class="StyledProps--font StyledProps--main body"

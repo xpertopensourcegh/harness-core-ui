@@ -61,6 +61,7 @@ exports[`Delegates Details Page render data 1`] = `
   </div>
   <div
     class="StyledProps--font StyledProps--main pageBody main"
+    data-name="page-body"
   >
     <div
       class="Layout--vertical StyledProps--main"

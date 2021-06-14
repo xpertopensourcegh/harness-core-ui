@@ -420,6 +420,7 @@ exports[`Autostopping rule analytics drawer render analytics drawer 1`] = `
         >
           <div
             class="StyledProps--font StyledProps--main pageBody pageContainer"
+            data-name="page-body"
           >
             <p
               class="StyledProps--font StyledProps--main"

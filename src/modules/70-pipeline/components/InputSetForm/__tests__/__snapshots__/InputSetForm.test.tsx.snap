@@ -125,6 +125,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view 1`] = `
   </div>
   <div
     class="StyledProps--font StyledProps--main pageBody"
+    data-name="page-body"
   >
     <div
       class="StyledProps--font StyledProps--main inputSetForm"
@@ -331,6 +332,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
   </div>
   <div
     class="StyledProps--font StyledProps--main pageBody"
+    data-name="page-body"
   >
     <div
       class="StyledProps--font StyledProps--main inputSetForm"
@@ -1665,6 +1667,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
   </div>
   <div
     class="StyledProps--font StyledProps--main pageBody"
+    data-name="page-body"
   >
     <div
       class="StyledProps--font StyledProps--main inputSetForm"

@@ -505,6 +505,7 @@ exports[`User Profile Page User Profile 1`] = `
   </div>
   <div
     class="StyledProps--font StyledProps--main pageBody hasBanner"
+    data-name="page-body"
   >
     <div
       class="Layout--horizontal StyledProps--main"

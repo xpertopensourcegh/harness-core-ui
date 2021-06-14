@@ -246,6 +246,7 @@ exports[`Project Page List Create Project and Close 1`] = `
     </div>
     <div
       class="StyledProps--font StyledProps--main pageBody hasBanner"
+      data-name="page-body"
     >
       <div
         class="StyledProps--font StyledProps--main masonry"
@@ -3024,6 +3025,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
     </div>
     <div
       class="StyledProps--font StyledProps--main pageBody hasBanner"
+      data-name="page-body"
     >
       <div
         class="StyledProps--font StyledProps--main masonry"
@@ -5802,6 +5804,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
     </div>
     <div
       class="StyledProps--font StyledProps--main pageBody hasBanner"
+      data-name="page-body"
     >
       <div
         class="StyledProps--font StyledProps--main masonry"
@@ -8580,6 +8583,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
     </div>
     <div
       class="StyledProps--font StyledProps--main pageBody hasBanner"
+      data-name="page-body"
     >
       <div
         class="StyledProps--font StyledProps--main masonry"

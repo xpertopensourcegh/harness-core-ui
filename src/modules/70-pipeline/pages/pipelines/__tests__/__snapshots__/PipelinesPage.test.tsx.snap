@@ -250,6 +250,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
   </div>
   <div
     class="StyledProps--font StyledProps--main pageBody pageBody"
+    data-name="page-body"
   >
     <div
       class="Layout--horizontal Layout--layout-spacing-large StyledProps--main topHeaderFields StyledProps--margin-left-large StyledProps--margin-top-large StyledProps--margin-bottom-large StyledProps--margin-right-large"
@@ -1741,6 +1742,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
   </div>
   <div
     class="StyledProps--font StyledProps--main pageBody pageBody"
+    data-name="page-body"
   >
     <div
       class="Layout--horizontal Layout--layout-spacing-large StyledProps--main topHeaderFields StyledProps--margin-left-large StyledProps--margin-top-large StyledProps--margin-bottom-large StyledProps--margin-right-large"

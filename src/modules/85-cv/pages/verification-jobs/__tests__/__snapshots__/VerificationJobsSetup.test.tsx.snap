@@ -46,6 +46,7 @@ exports[`VerificationJobsSetup Render initialy 1`] = `
     </div>
     <div
       class="StyledProps--font StyledProps--main pageBody"
+      data-name="page-body"
     >
       <div
         class="tabWrapper"

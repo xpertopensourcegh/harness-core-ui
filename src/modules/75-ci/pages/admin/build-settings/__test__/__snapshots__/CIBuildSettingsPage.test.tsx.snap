@@ -28,6 +28,7 @@ exports[`CIBuildSettingsPage snapshot test should render properly 1`] = `
   </div>
   <div
     class="StyledProps--font StyledProps--main pageBody"
+    data-name="page-body"
   >
     <div
       class="StyledProps--font StyledProps--main noDataCard StyledProps--flex StyledProps--flex-align-center-center"

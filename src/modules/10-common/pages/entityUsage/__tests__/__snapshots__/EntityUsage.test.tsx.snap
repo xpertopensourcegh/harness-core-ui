@@ -54,6 +54,7 @@ exports[`Entity Usage render for data 1`] = `
   </div>
   <div
     class="StyledProps--font StyledProps--main pageBody"
+    data-name="page-body"
   >
     <div
       class="table table"
@@ -209,6 +210,7 @@ exports[`Entity Usage render for no data 1`] = `
   </div>
   <div
     class="StyledProps--font StyledProps--main pageBody"
+    data-name="page-body"
   >
     <div
       class="StyledProps--font StyledProps--main noDataCard StyledProps--flex StyledProps--flex-align-center-center"

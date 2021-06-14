@@ -162,6 +162,7 @@ exports[`CEHomePage snapshot test should move to trial in progress page when que
 <div>
   <div
     class="StyledProps--font StyledProps--main pageBody"
+    data-name="page-body"
   >
     <div
       class="StyledProps--font StyledProps--main body"
@@ -226,6 +227,7 @@ exports[`CEHomePage snapshot test should render HomePageTemplate when return suc
 <div>
   <div
     class="StyledProps--font StyledProps--main pageBody"
+    data-name="page-body"
   >
     <div
       class="StyledProps--font StyledProps--main body"
@@ -384,6 +386,7 @@ exports[`CEHomePage snapshot test shouldn't show the trial home pagers if the us
 <div>
   <div
     class="StyledProps--font StyledProps--main pageBody"
+    data-name="page-body"
   >
     <div
       class="StyledProps--font StyledProps--main body"

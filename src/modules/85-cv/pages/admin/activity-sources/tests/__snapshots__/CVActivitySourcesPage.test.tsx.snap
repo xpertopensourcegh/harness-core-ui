@@ -73,6 +73,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
   </div>
   <div
     class="StyledProps--font StyledProps--main pageBody"
+    data-name="page-body"
   >
     <div
       class="StyledProps--font StyledProps--main main"

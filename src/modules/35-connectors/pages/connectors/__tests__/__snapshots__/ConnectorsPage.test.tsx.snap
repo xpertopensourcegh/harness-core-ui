@@ -191,6 +191,7 @@ exports[`Connectors Page Test Filter connector by name 1`] = `
     </div>
     <div
       class="StyledProps--font StyledProps--main pageBody listBody"
+      data-name="page-body"
     >
       <div
         style="position: relative; height: calc(100vh - 128px);"
@@ -481,6 +482,7 @@ exports[`Connectors Page Test Initial render should match snapshot 1`] = `
     </div>
     <div
       class="StyledProps--font StyledProps--main pageBody listBody"
+      data-name="page-body"
     >
       <div
         class="table table"

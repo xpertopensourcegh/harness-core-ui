@@ -123,6 +123,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
   </div>
   <div
     class="StyledProps--font StyledProps--main pageBody"
+    data-name="page-body"
   >
     <div
       class="Layout--horizontal StyledProps--main StyledProps--padding-large"
@@ -592,6 +593,7 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
   </div>
   <div
     class="StyledProps--font StyledProps--main pageBody"
+    data-name="page-body"
   >
     <div
       class="Layout--horizontal StyledProps--main StyledProps--padding-large"

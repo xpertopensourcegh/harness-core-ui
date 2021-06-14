@@ -102,6 +102,7 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
   </div>
   <div
     class="StyledProps--font StyledProps--main pageBody"
+    data-name="page-body"
   >
     <div
       class="table table"

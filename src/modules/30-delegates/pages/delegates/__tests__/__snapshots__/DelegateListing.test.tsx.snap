@@ -107,6 +107,7 @@ exports[`Delegates Listing With Groups render data 1`] = `
     </div>
     <div
       class="StyledProps--font StyledProps--main pageBody"
+      data-name="page-body"
     >
       <div
         class="table delegateTable"
@@ -526,6 +527,7 @@ exports[`Delegates Listing test actions render data and click delete 1`] = `
     </div>
     <div
       class="StyledProps--font StyledProps--main pageBody"
+      data-name="page-body"
     >
       <div
         class="table delegateTable"
@@ -917,6 +919,7 @@ exports[`Delegates Listing without tags render data 1`] = `
     </div>
     <div
       class="StyledProps--font StyledProps--main pageBody"
+      data-name="page-body"
     >
       <div
         class="table delegateTable"
@@ -1308,6 +1311,7 @@ exports[`Feature flag enabled render delegates list and check for activity colum
     </div>
     <div
       class="StyledProps--font StyledProps--main pageBody"
+      data-name="page-body"
     >
       <div
         class="table delegateTable"

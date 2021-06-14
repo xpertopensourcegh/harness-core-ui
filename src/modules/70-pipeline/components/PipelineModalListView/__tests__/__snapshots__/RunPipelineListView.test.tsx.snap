@@ -46,6 +46,7 @@ exports[`PipelineModal List View render list view 1`] = `
   </div>
   <div
     class="StyledProps--font StyledProps--main pageBody main"
+    data-name="page-body"
   >
     <div
       class="searchContainer"

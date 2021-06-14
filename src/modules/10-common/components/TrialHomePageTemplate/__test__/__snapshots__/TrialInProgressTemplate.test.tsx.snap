@@ -4,6 +4,7 @@ exports[`TrialInProgressTemplate snapshot test should render trial in progress 1
 <div>
   <div
     class="StyledProps--font StyledProps--main pageBody"
+    data-name="page-body"
   >
     <div
       class="StyledProps--font StyledProps--main body"

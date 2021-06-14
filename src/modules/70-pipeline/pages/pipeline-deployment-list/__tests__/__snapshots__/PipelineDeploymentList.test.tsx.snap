@@ -4,6 +4,7 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
 <div>
   <div
     class="StyledProps--font StyledProps--main pageBody main"
+    data-name="page-body"
   >
     <div
       class="main"

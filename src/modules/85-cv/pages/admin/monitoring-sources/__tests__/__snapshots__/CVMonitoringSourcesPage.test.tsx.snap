@@ -74,6 +74,7 @@ exports[`CVMonitoringSourcesPage Mathces snapshot 1`] = `
   </div>
   <div
     class="StyledProps--font StyledProps--main pageBody main"
+    data-name="page-body"
   >
     <button
       class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-bottom-small Button--with-current-color"

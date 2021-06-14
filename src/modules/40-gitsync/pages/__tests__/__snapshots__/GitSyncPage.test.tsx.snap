@@ -35,6 +35,7 @@ exports[`GitSync Page render GitSync page for new user 1`] = `
   </div>
   <div
     class="StyledProps--font StyledProps--main pageBody"
+    data-name="page-body"
   >
     <div
       class="StyledProps--font StyledProps--main pageContainer"
