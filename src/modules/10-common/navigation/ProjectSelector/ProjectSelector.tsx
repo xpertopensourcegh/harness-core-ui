@@ -4,13 +4,12 @@ import { useParams, useHistory } from 'react-router-dom'
 import { Select } from '@blueprintjs/select'
 import cx from 'classnames'
 
-import { Text, Layout, Color } from '@wings-software/uicore'
+import { Text, Layout, Color, Container, Icon } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { Project, useGetProjectList } from 'services/cd-ng'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useStrings } from 'framework/strings'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
-
 import pointerImage from './pointer.svg'
 import css from './ProjectSelector.module.scss'
 
@@ -27,7 +26,7 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ onSelect, modu
   const { getString } = useStrings()
   const history = useHistory()
   const [searchTerm, setSearchTerm] = useState<string>()
-  const { data } = useGetProjectList({
+  const { data, loading } = useGetProjectList({
     queryParams: {
       accountIdentifier: accountId,
       moduleType: moduleFilter,
@@ -86,7 +85,7 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ onSelect, modu
           }}
         />
         <ProjectSelect
-          items={projects || []}
+          items={loading ? [] : projects || []}
           className={css.projectSelect}
           popoverProps={{
             minimal: true,
@@ -112,7 +111,15 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ onSelect, modu
               onClick={handleClick}
             />
           )}
-          noResults={<Text padding="small">{getString('noSearchResultsFoundPeriod')}</Text>}
+          noResults={
+            loading ? (
+              <Container flex={{ align: 'center-center' }} padding="small">
+                <Icon name="spinner" size={24} color={Color.PRIMARY_7} />
+              </Container>
+            ) : (
+              <Text padding="small">{getString('noSearchResultsFoundPeriod')}</Text>
+            )
+          }
           inputProps={{
             placeholder: getString('projectSelector.placeholder', { number: data?.data?.totalItems })
           }}
