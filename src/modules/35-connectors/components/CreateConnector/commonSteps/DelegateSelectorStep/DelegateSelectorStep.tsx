@@ -31,7 +31,7 @@ import {
 import { useSaveToGitDialog, UseSaveSuccessResponse } from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import { Entities } from '@common/interfaces/GitSyncInterface'
 import { PageSpinner, useToaster } from '@common/components'
-import { shouldShowError } from '@common/utils/errorUtils'
+import { getErrorInfoFromErrorObject, shouldShowError } from '@common/utils/errorUtils'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import {
   DelegateOptions,
@@ -278,7 +278,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
                   })
                   .catch(e => {
                     if (shouldShowError(e)) {
-                      showError(e.data?.message || e.message)
+                      showError(getErrorInfoFromErrorObject(e))
                     }
                   })
               }

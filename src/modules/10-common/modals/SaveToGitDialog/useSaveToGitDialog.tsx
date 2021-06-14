@@ -10,6 +10,7 @@ import SaveToGitForm, {
 } from '@common/components/SaveToGitForm/SaveToGitForm'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { getErrorInfoFromErrorObject } from '@common/utils/errorUtils'
 import { EntityGitDetails, ResponseMessage, useCreatePR } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { ProgressOverlay, StepStatus } from '../ProgressOverlay/ProgressOverlay'
@@ -72,7 +73,8 @@ export function useSaveToGitDialog<T = Record<string, string>>(
     Pick<SaveToGitFormInterface, 'branch' | 'targetBranch' | 'isNewBranch'>
   >()
   const [nextCallback, setNextCallback] = useState<UseSaveSuccessResponse['nextCallback']>()
-  const [error, setError] = useState<Error>()
+  /* TODO Don't see proper types for this new errors format, replace Record<string, any> with more stricter type when available */
+  const [error, setError] = useState<Record<string, any>>({})
   const [createUpdateStatus, setCreateUpdateStatus] = useState<StepStatus>()
   const { mutate: createPullRequest, loading: creatingPR } = useCreatePR({})
   let entity = resource.type || ''
@@ -83,7 +85,7 @@ export function useSaveToGitDialog<T = Record<string, string>>(
     intermediateLabel: isEditMode
       ? getString('common.updating', { name: resource.name, entity })
       : getString('common.creating', { name: resource.name, entity }),
-    finalLabel: `${error?.message}`
+    finalLabel: getErrorInfoFromErrorObject(error)
   }
   const fromBranch = prMetaData?.branch || ''
   const toBranch = prMetaData?.targetBranch || ''

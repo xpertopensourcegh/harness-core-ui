@@ -10,3 +10,11 @@ export function shouldShowError(e: any): boolean {
   }
   return true
 }
+
+/* TODO Don't see proper types for this new errors format, replace Record<string, any> with more stricter type when available */
+export function getErrorInfoFromErrorObject(error: Record<string, any>): string {
+  /* TODO @vardan extend this to N errors instead of first error */
+  return error?.data?.message || error?.data?.errors?.[0]?.error
+    ? `${error?.data.errors[0].fieldId} ${error?.data.errors[0]?.error}`
+    : error?.message || ''
+}
