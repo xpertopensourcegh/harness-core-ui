@@ -317,3 +317,4 @@ filters:
   noMatchingFilterData: No Results found matching the Filter criteria
   clearFilters: Clear Filters
 in: in
+moreRefineSearch: '+{{number}} more (refine search)'

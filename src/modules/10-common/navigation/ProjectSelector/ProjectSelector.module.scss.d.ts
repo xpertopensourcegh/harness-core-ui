@@ -7,5 +7,9 @@ declare const styles: {
   readonly selectButton: string
   readonly projectSelect: string
   readonly pickProjectHelp: string
+  readonly dividerColorMargin: string
+  readonly addMargin: string
+  readonly addPadding: string
+  readonly removeMarginPadding: string
 }
 export default styles

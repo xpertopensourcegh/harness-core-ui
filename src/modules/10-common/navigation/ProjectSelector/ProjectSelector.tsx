@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Classes, Button, MenuItem, PopoverPosition } from '@blueprintjs/core'
 import { useParams, useHistory } from 'react-router-dom'
 import { Select } from '@blueprintjs/select'
+import { Menu } from '@blueprintjs/core'
 import cx from 'classnames'
 
 import { Text, Layout, Color, Container, Icon } from '@wings-software/uicore'
@@ -40,7 +41,7 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ onSelect, modu
 
   if (data?.data?.totalItems && data.data.totalItems > 10) {
     projects = projects?.concat({
-      name: getString('more', { number: data.data.totalItems - 10 }),
+      name: getString('common.moreRefineSearch', { number: data.data.totalItems - 10 }),
       identifier: '$disabled$'
     })
   }
@@ -100,11 +101,25 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ onSelect, modu
           }}
           itemRenderer={(item, { handleClick }) => (
             <MenuItem
+              className={item.identifier === '$disabled$' ? css.removeMarginPadding : css.addMargin}
               disabled={item.identifier === '$disabled$'}
               text={
                 <Layout.Vertical>
-                  <Text color={Color.WHITE}>{item.name}</Text>
-                  {item.orgIdentifier === 'default' ? null : <Text font={{ size: 'small' }}>{item.orgIdentifier}</Text>}
+                  {item.identifier === '$disabled$' ? (
+                    <>
+                      <Menu.Divider className={css.dividerColorMargin} />
+                      <Text className={css.addPadding} color={Color.GREY_400}>
+                        {item.name}
+                      </Text>
+                    </>
+                  ) : (
+                    <Text color={Color.WHITE}>{item.name}</Text>
+                  )}
+                  {item.orgIdentifier === 'default' ? null : (
+                    <Text font={{ size: 'small' }} color={Color.GREY_400}>
+                      {item.orgIdentifier}
+                    </Text>
+                  )}
                 </Layout.Vertical>
               }
               key={item.name}

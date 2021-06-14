@@ -163,6 +163,7 @@ export interface StringsMap {
   'common.logs.delegateSelectionLogs': string
   'common.logs.noLogsText': string
   'common.member': string
+  'common.moreRefineSearch': string
   'common.namespace': string
   'common.new': string
   'common.newLines': string

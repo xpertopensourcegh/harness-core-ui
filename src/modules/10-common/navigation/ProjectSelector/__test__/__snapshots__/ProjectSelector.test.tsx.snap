@@ -195,7 +195,7 @@ exports[`ProjectSelector render with projects 2`] = `
                     class=""
                   >
                     <a
-                      class="bp3-menu-item bp3-popover-dismiss"
+                      class="bp3-menu-item bp3-popover-dismiss addMargin"
                     >
                       <div
                         class="bp3-text-overflow-ellipsis bp3-fill"
@@ -216,7 +216,7 @@ exports[`ProjectSelector render with projects 2`] = `
                     class=""
                   >
                     <a
-                      class="bp3-menu-item bp3-popover-dismiss"
+                      class="bp3-menu-item bp3-popover-dismiss addMargin"
                     >
                       <div
                         class="bp3-text-overflow-ellipsis bp3-fill"
@@ -237,7 +237,7 @@ exports[`ProjectSelector render with projects 2`] = `
                     class=""
                   >
                     <a
-                      class="bp3-menu-item bp3-popover-dismiss"
+                      class="bp3-menu-item bp3-popover-dismiss addMargin"
                     >
                       <div
                         class="bp3-text-overflow-ellipsis bp3-fill"
@@ -258,7 +258,7 @@ exports[`ProjectSelector render with projects 2`] = `
                     class=""
                   >
                     <a
-                      class="bp3-menu-item bp3-popover-dismiss"
+                      class="bp3-menu-item bp3-popover-dismiss addMargin"
                     >
                       <div
                         class="bp3-text-overflow-ellipsis bp3-fill"
