@@ -32,6 +32,7 @@ import {
   getFormValuesInCorrectFormat
 } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import { useGitScope } from '@ci/services/CIUtils'
 import type { RunStepProps, RunStepData, RunStepDataUI } from './RunStep'
 import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './RunStepFunctionConfigs'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
@@ -49,6 +50,7 @@ export const RunStepBase = (
 
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
+  const gitScope = useGitScope()
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -132,6 +134,7 @@ export const RunStepBase = (
                 projectIdentifier={projectIdentifier}
                 orgIdentifier={orgIdentifier}
                 multiTypeProps={{ expressions, disabled: readonly }}
+                gitScope={gitScope}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
               <MultiTypeTextField

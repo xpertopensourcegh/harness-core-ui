@@ -26,6 +26,7 @@ import {
   getFormValuesInCorrectFormat
 } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import { useGitScope } from '@ci/services/CIUtils'
 import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './RestoreCacheGCSStepFunctionConfigs'
 import type {
   RestoreCacheGCSStepData,
@@ -47,6 +48,7 @@ export const RestoreCacheGCSStepBase = (
 
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
+  const gitScope = useGitScope()
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -121,6 +123,7 @@ export const RestoreCacheGCSStepBase = (
                 projectIdentifier={projectIdentifier}
                 orgIdentifier={orgIdentifier}
                 multiTypeProps={{ expressions, disabled: readonly }}
+                gitScope={gitScope}
                 style={{ marginBottom: 'var(--spacing-small)' }}
               />
               <MultiTypeTextField

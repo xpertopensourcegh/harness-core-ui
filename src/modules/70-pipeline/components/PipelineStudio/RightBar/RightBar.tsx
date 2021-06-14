@@ -47,6 +47,8 @@ import {
   generateSchemaForLimitCPU,
   generateSchemaForLimitMemory
 } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
+import { useQueryParams } from '@common/hooks'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import { RightDrawer } from '../RightDrawer/RightDrawer'
@@ -116,6 +118,8 @@ export const RightBar = (): JSX.Element => {
       accountId: string
     }>
   >()
+
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
 
   const [isCodebaseDialogOpen, setIsCodebaseDialogOpen] = React.useState(false)
   const codebaseInitialValues: CodebaseValues = {
@@ -515,6 +519,7 @@ export const RightBar = (): JSX.Element => {
                           connector: value
                         })
                       }}
+                      gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
                     />
                     {connectionType === 'Repo' ? (
                       <>

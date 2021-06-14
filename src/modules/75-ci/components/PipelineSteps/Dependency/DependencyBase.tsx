@@ -26,6 +26,7 @@ import {
 } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import { useGitScope } from '@ci/services/CIUtils'
 import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './DependencyFunctionConfigs'
 import type { DependencyProps, DependencyData, DependencyDataUI } from './Dependency'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
@@ -43,6 +44,7 @@ export const DependencyBase = (
 
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
+  const gitScope = useGitScope()
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -131,6 +133,7 @@ export const DependencyBase = (
                 orgIdentifier={orgIdentifier}
                 style={{ marginBottom: 0 }}
                 multiTypeProps={{ expressions, disabled: readonly }}
+                gitScope={gitScope}
               />
               <MultiTypeTextField
                 name="spec.image"

@@ -28,6 +28,7 @@ import {
   getScopeFromValue
 } from '@common/components/EntityReference/EntityReference'
 import type { MultiTypeMapType, MultiTypeMapUIType, MapType } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
+import { useGitScope } from '@ci/services/CIUtils'
 import css from './BuildInfraSpecifications.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
@@ -87,6 +88,7 @@ enum Modes {
 export default function BuildInfraSpecifications({ children }: React.PropsWithChildren<unknown>): JSX.Element {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
+  const gitScope = useGitScope()
 
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
 
@@ -375,6 +377,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                               scope: scope
                             })
                           }}
+                          gitScope={gitScope}
                         />
                         <Text font="small" margin={{ bottom: 'xsmall' }}>
                           {getString('pipelineSteps.build.infraSpecifications.namespace')}

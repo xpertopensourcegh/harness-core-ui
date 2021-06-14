@@ -1,4 +1,10 @@
+import { useContext } from 'react'
+import { isEmpty } from 'lodash-es'
 import moment from 'moment'
+import type { GitFilterScope } from '@common/components/GitFilters/GitFilters'
+import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
+import { useQueryParams } from '@common/hooks'
 
 // Returns first 7 letters of commit ID
 export function getShortCommitId(commitId: string): string {
@@ -22,5 +28,24 @@ export function getTimeAgo(timeStamp: number): string {
     }
   } else {
     return `${currentDate.diff(timeStampAsDate, 'days')} days ago`
+  }
+}
+
+export function useGitScope(): GitFilterScope | undefined {
+  const gitDetails = useContext(PipelineContext)?.state?.gitDetails
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
+
+  if (!isEmpty(gitDetails)) {
+    return {
+      repo: gitDetails.repoIdentifier!,
+      branch: gitDetails.branch!,
+      getDefaultFromOtherRepo: true
+    }
+  } else if (!!repoIdentifier && !!branch) {
+    return {
+      repo: repoIdentifier,
+      branch,
+      getDefaultFromOtherRepo: true
+    }
   }
 }
