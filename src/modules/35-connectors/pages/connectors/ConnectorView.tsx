@@ -75,7 +75,9 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
     projectIdentifier: string
     orgIdentifier: string
   }>()
-  const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
+  const { mutate: updateConnector, loading: updating } = useUpdateConnector({
+    queryParams: { accountIdentifier: accountId }
+  })
   const [enableEdit, setEnableEdit] = useState(false)
   const [selectedView, setSelectedView] = useState(SelectedView.VISUAL)
   const [connector, setConnector] = useState<ConnectorInfoDTO>(props.response?.connector || ({} as ConnectorInfoDTO))
@@ -131,7 +133,6 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
         showError(err.name ? `${err.name}: ${err.message}` : err)
       }
     } else {
-      fetchingConnectorSchema()
       setSelectedView(targetMode)
     }
   }
@@ -176,7 +177,8 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
           lastObjectId: objectId ?? props.response?.gitDetails?.objectId
         }
       })
-      if (response?.data?.connector) {
+      if (response.status === 'SUCCESS' && response?.data?.connector) {
+        setEnableEdit(false)
         setConnector(response?.data?.connector)
         setConnectorForYaml(response?.data?.connector)
       }
@@ -205,7 +207,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
     }
   }, [props.response])
 
-  const { data: connectorSchema, loading: isFetchingSchema, refetch: fetchingConnectorSchema } = useGetYamlSchema({
+  const { data: connectorSchema, loading: isFetchingSchema, refetch } = useGetYamlSchema({
     queryParams: {
       entityType: 'Connectors',
       projectIdentifier,
@@ -215,6 +217,12 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
     mock: props.mockSchemaData,
     lazy: true
   })
+
+  React.useEffect(() => {
+    if (selectedView === SelectedView.YAML && enableEdit) {
+      refetch()
+    }
+  }, [enableEdit])
 
   const RenderConnectorStatus = (status: ConnectorConnectivityDetails['status']): React.ReactElement => {
     if (status !== 'SUCCESS' && status !== 'FAILURE') {
@@ -374,77 +382,84 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
           )}
         </Container>
         <Layout.Horizontal height="100%">
+          {/* Edit mode */}
           {enableEdit ? (
-            selectedView === SelectedView.VISUAL ? null : isFetchingSchema ? (
-              <PageSpinner />
-            ) : (
-              <div className={css.fullWidth}>
-                <YamlBuilder
-                  {...yamlBuilderReadOnlyModeProps}
-                  // snippets={snippetMetaData?.data?.yamlSnippets}
-                  // onSnippetCopy={onSnippetCopy}
-                  // snippetFetchResponse={snippetFetchResponse}
-                  schema={connectorSchema?.data}
-                  isReadOnlyMode={false}
-                  bind={setYamlHandler}
-                  onChange={onConnectorChange}
-                  showSnippetSection={false}
-                />
-                <Layout.Horizontal spacing="small">
-                  <Button
-                    id="saveYAMLChanges"
-                    intent="primary"
-                    text={getString('saveChanges')}
-                    onClick={() => {
-                      if (isGitSyncEnabled) {
-                        openSaveToGitDialog({
-                          isEditing: true,
-                          resource: {
-                            type: 'Connectors',
-                            name: props.response.connector?.name || '',
-                            identifier: props.response.connector?.identifier || '',
-                            gitDetails: props.response.gitDetails
-                          },
-                          payload: parse(yamlHandler?.getLatestYaml?.() || '')
-                        })
-                      } else {
-                        handleSaveYaml()
-                          .then(res => {
-                            if (res.status === 'SUCCESS') {
-                              showSuccess(getString('connectors.updatedSuccessfully'))
-                              res.nextCallback?.()
-                            } else {
-                              /* TODO handle error with API status 200 */
-                            }
-                          })
-                          .catch(e => {
-                            if (shouldShowError(e)) {
-                              showError(e.data?.message || e.message)
-                            }
-                          })
-                      }
-                    }}
-                    margin={{ top: 'large' }}
-                    title={isValidYAML ? '' : getString('invalidYaml')}
-                    disabled={!hasConnectorChanged}
+            selectedView === SelectedView.YAML ? (
+              <>
+                {isFetchingSchema || (!isGitSyncEnabled && updating) ? (
+                  <PageSpinner
+                    message={
+                      updating ? getString('connectors.updating', { name: connector?.name }) : getString('loading')
+                    }
                   />
-                  <Button text={getString('cancel')} margin={{ top: 'large' }} onClick={resetEditor} />
-                </Layout.Horizontal>
-              </div>
-            )
-          ) : selectedView === SelectedView.VISUAL ? (
+                ) : null}
+                <div className={css.fullWidth}>
+                  <YamlBuilder
+                    {...yamlBuilderReadOnlyModeProps}
+                    // snippets={snippetMetaData?.data?.yamlSnippets}
+                    // onSnippetCopy={onSnippetCopy}
+                    // snippetFetchResponse={snippetFetchResponse}
+                    schema={connectorSchema?.data}
+                    isReadOnlyMode={false}
+                    bind={setYamlHandler}
+                    onChange={onConnectorChange}
+                    showSnippetSection={false}
+                  />
+                  <Layout.Horizontal spacing="small">
+                    <Button
+                      id="saveYAMLChanges"
+                      intent="primary"
+                      text={getString('saveChanges')}
+                      onClick={() => {
+                        if (isGitSyncEnabled) {
+                          openSaveToGitDialog({
+                            isEditing: true,
+                            resource: {
+                              type: 'Connectors',
+                              name: props.response.connector?.name || '',
+                              identifier: props.response.connector?.identifier || '',
+                              gitDetails: props.response.gitDetails
+                            },
+                            payload: parse(yamlHandler?.getLatestYaml?.() || '')
+                          })
+                        } else {
+                          handleSaveYaml()
+                            .then(res => {
+                              if (res.status === 'SUCCESS') {
+                                showSuccess(getString('connectors.updatedSuccessfully'))
+                                res.nextCallback?.()
+                              } else {
+                                /* TODO handle error with API status 200 */
+                              }
+                            })
+                            .catch(e => {
+                              if (shouldShowError(e)) {
+                                showError(e.data?.message || e.message)
+                              }
+                            })
+                        }
+                      }}
+                      margin={{ top: 'large' }}
+                      title={isValidYAML ? '' : getString('invalidYaml')}
+                      disabled={!hasConnectorChanged}
+                    />
+                    <Button text={getString('cancel')} margin={{ top: 'large' }} onClick={resetEditor} />
+                  </Layout.Horizontal>
+                </div>
+              </>
+            ) : null
+          ) : /* View-only mode */
+          selectedView === SelectedView.VISUAL ? (
             <Layout.Horizontal spacing="medium" height="100%" width="100%">
               <SavedConnectorDetails connector={connector}></SavedConnectorDetails>
             </Layout.Horizontal>
-          ) : isFetchingSchema ? (
-            <PageSpinner />
           ) : (
             <Layout.Horizontal spacing="medium" className={css.fullWidth}>
               <div className={css.yamlView} data-test="yamlBuilderContainer">
                 <YamlBuilder
                   {...yamlBuilderReadOnlyModeProps}
                   showSnippetSection={false}
-                  onEnableEditMode={() => setEnableEdit(true)}
+                  onEnableEditMode={() => state.setEnableEdit(true)}
                   isEditModeSupported={canEditConnector}
                 />
               </div>
@@ -452,9 +467,9 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
           )}
         </Layout.Horizontal>
       </Layout.Vertical>
-      {enableEdit && selectedView === SelectedView.YAML ? null : (
+      {selectedView === SelectedView.VISUAL ? (
         <ConnectorActivityDetails connector={props.response}></ConnectorActivityDetails>
-      )}
+      ) : null}
     </Layout.Horizontal>
   )
 }

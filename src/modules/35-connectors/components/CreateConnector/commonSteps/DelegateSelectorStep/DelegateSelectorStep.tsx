@@ -30,7 +30,7 @@ import {
 
 import { useSaveToGitDialog, UseSaveSuccessResponse } from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import { Entities } from '@common/interfaces/GitSyncInterface'
-import { useToaster } from '@common/components'
+import { PageSpinner, useToaster } from '@common/components'
 import { shouldShowError } from '@common/utils/errorUtils'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import {
@@ -194,112 +194,128 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
     (mode === DelegateOptions.DelegateOptionsSelective && delegateSelectors.length === 0) ||
     creating ||
     updating
+  const connectorName = creating
+    ? (prevStepData as ConnectorConfigDTO)?.name
+    : (connectorInfo as ConnectorInfoDTO)?.name
+
   return (
-    <Layout.Vertical height={'inherit'} padding={{ left: 'small' }}>
-      <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
-        {getString('delegate.DelegateselectionLabel')}
-      </Text>
-      <ModalErrorHandler bind={setModalErrorHandler} />
-      <Formik
-        initialValues={{
-          ...initialValues,
-          ...prevStepData
-        }}
-        formName="delegateSelectorStepForm"
-        //   Enable when delegateSelector adds form validation
-        // validationSchema={Yup.object().shape({
-        //   delegateSelector: Yup.string().when('delegateType', {
-        //     is: DelegateTypes.DELEGATE_IN_CLUSTER,
-        //     then: Yup.string().trim().required(i18n.STEP.TWO.validation.delegateSelector)
-        //   })
-        // })}
-        onSubmit={stepData => {
-          const updatedStepData = {
-            ...stepData,
-            delegateSelectors: mode === DelegateOptions.DelegateOptionsAny ? [] : delegateSelectors
+    <>
+      {!isGitSyncEnabled && (creating || updating) ? (
+        <PageSpinner
+          message={
+            creating
+              ? getString('connectors.creating', { name: connectorName })
+              : getString('connectors.updating', { name: connectorName })
           }
-
-          const connectorData: BuildPayloadProps = {
-            ...prevStepData,
-            ...updatedStepData,
-            projectIdentifier: projectIdentifier,
-            orgIdentifier: orgIdentifier
-          }
-
-          const data = buildPayload(connectorData)
-          setConnectorPayloadRef(data)
-          stepDataRef = updatedStepData
-          if (isGitSyncEnabled) {
-            // Using git context set at 1st step while creating new connector
-            if (!props.isEditMode) {
-              gitDetails = { branch: prevStepData?.branch, repoIdentifier: prevStepData?.repo }
+        />
+      ) : null}
+      <Layout.Vertical height={'inherit'} padding={{ left: 'small' }}>
+        <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
+          {getString('delegate.DelegateselectionLabel')}
+        </Text>
+        <ModalErrorHandler bind={setModalErrorHandler} />
+        <Formik
+          initialValues={{
+            ...initialValues,
+            ...prevStepData
+          }}
+          formName="delegateSelectorStepForm"
+          //   Enable when delegateSelector adds form validation
+          // validationSchema={Yup.object().shape({
+          //   delegateSelector: Yup.string().when('delegateType', {
+          //     is: DelegateTypes.DELEGATE_IN_CLUSTER,
+          //     then: Yup.string().trim().required(i18n.STEP.TWO.validation.delegateSelector)
+          //   })
+          // })}
+          onSubmit={stepData => {
+            const updatedStepData = {
+              ...stepData,
+              delegateSelectors: mode === DelegateOptions.DelegateOptionsAny ? [] : delegateSelectors
             }
-            openSaveToGitDialog({
-              isEditing: props.isEditMode,
-              resource: {
-                type: Entities.CONNECTORS,
-                name: data.connector?.name || '',
-                identifier: data.connector?.identifier || '',
-                gitDetails
-              },
-              payload: data
-            })
-          } else {
-            if (customHandleUpdate || customHandleCreate) {
-              props.isEditMode
-                ? customHandleUpdate?.(data, { ...prevStepData, ...updatedStepData }, props)
-                : customHandleCreate?.(data, { ...prevStepData, ...updatedStepData }, props)
+
+            const connectorData: BuildPayloadProps = {
+              ...prevStepData,
+              ...updatedStepData,
+              projectIdentifier: projectIdentifier,
+              orgIdentifier: orgIdentifier
+            }
+
+            const data = buildPayload(connectorData)
+            setConnectorPayloadRef(data)
+            stepDataRef = updatedStepData
+            if (isGitSyncEnabled) {
+              // Using git context set at 1st step while creating new connector
+              if (!props.isEditMode) {
+                gitDetails = { branch: prevStepData?.branch, repoIdentifier: prevStepData?.repo }
+              }
+              openSaveToGitDialog({
+                isEditing: props.isEditMode,
+                resource: {
+                  type: Entities.CONNECTORS,
+                  name: data.connector?.name || '',
+                  identifier: data.connector?.identifier || '',
+                  gitDetails
+                },
+                payload: data
+              })
             } else {
-              handleCreateOrEdit({ payload: data }) /* Handling non-git flow */
-                .then(res => {
-                  if (res.status === 'SUCCESS') {
-                    props.isEditMode
-                      ? showSuccess(getString('connectors.updatedSuccessfully'))
-                      : showSuccess(getString('connectors.createdSuccessfully'))
-                    res.nextCallback?.()
-                  } else {
-                    /* TODO handle error with API status 200 */
-                  }
-                })
-                .catch(e => {
-                  if (shouldShowError(e)) {
-                    showError(e.data?.message || e.message)
-                  }
-                })
+              if (customHandleUpdate || customHandleCreate) {
+                props.isEditMode
+                  ? customHandleUpdate?.(data, { ...prevStepData, ...updatedStepData }, props)
+                  : customHandleCreate?.(data, { ...prevStepData, ...updatedStepData }, props)
+              } else {
+                handleCreateOrEdit({ payload: data }) /* Handling non-git flow */
+                  .then(res => {
+                    if (res.status === 'SUCCESS') {
+                      props.isEditMode
+                        ? showSuccess(getString('connectors.updatedSuccessfully'))
+                        : showSuccess(getString('connectors.createdSuccessfully'))
+
+                      res.nextCallback?.()
+                    } else {
+                      /* TODO handle error with API status 200 */
+                    }
+                  })
+                  .catch(e => {
+                    if (shouldShowError(e)) {
+                      showError(e.data?.message || e.message)
+                    }
+                  })
+              }
             }
-          }
-        }}
-      >
-        <Form>
-          <DelegateSelector
-            mode={mode}
-            setMode={setMode}
-            delegateSelectors={delegateSelectors}
-            setDelegateSelectors={setDelegateSelectors}
-            setDelegatesFound={setDelegatesFound}
-            delegateSelectorMandatory={DelegateTypes.DELEGATE_IN_CLUSTER === prevStepData?.delegateType}
-          />
-          <Layout.Horizontal padding={{ top: 'small' }} margin={{ top: 'xxxlarge' }} spacing="medium">
-            <Button
-              text={getString('back')}
-              icon="chevron-left"
-              onClick={() => props?.previousStep?.(props?.prevStepData)}
-              data-name="awsBackButton"
+          }}
+        >
+          <Form>
+            <DelegateSelector
+              mode={mode}
+              setMode={setMode}
+              delegateSelectors={delegateSelectors}
+              setDelegateSelectors={setDelegateSelectors}
+              setDelegatesFound={setDelegatesFound}
+              delegateSelectorMandatory={DelegateTypes.DELEGATE_IN_CLUSTER === prevStepData?.delegateType}
             />
-            <Button
-              type="submit"
-              intent={'primary'}
-              text={getString('saveAndContinue')}
-              className={css.saveAndContinue}
-              disabled={isSaveButtonDisabled}
-              rightIcon="chevron-right"
-              data-name="delegateSaveAndContinue"
-            />
-            {!delegatesFound ? <NoMatchingDelegateWarning /> : <></>}
-          </Layout.Horizontal>
-        </Form>
-      </Formik>
-    </Layout.Vertical>
+            <Layout.Horizontal padding={{ top: 'small' }} margin={{ top: 'xxxlarge' }} spacing="medium">
+              <Button
+                text={getString('back')}
+                icon="chevron-left"
+                onClick={() => props?.previousStep?.(props?.prevStepData)}
+                data-name="awsBackButton"
+              />
+              <Button
+                type="submit"
+                intent={'primary'}
+                text={getString('saveAndContinue')}
+                className={css.saveAndContinue}
+                disabled={isSaveButtonDisabled}
+                rightIcon="chevron-right"
+                data-name="delegateSaveAndContinue"
+              />
+              {!delegatesFound ? <NoMatchingDelegateWarning /> : <></>}
+            </Layout.Horizontal>
+          </Form>
+        </Formik>
+      </Layout.Vertical>
+    </>
   )
 }
 

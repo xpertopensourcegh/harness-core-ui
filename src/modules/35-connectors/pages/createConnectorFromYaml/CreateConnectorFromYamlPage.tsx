@@ -10,10 +10,10 @@ import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import { PageBody } from '@common/components/Page/PageBody'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
-import { EntityGitDetails, useCreateConnector, useGetYamlSchema } from 'services/cd-ng'
+import { Connector, EntityGitDetails, useCreateConnector, useGetYamlSchema } from 'services/cd-ng'
 import { useToaster, useConfirmationDialog, StringUtils } from '@common/exports'
 import routes from '@common/RouteDefinitions'
-import { NameIdDescriptionTags } from '@common/components'
+import { NameIdDescriptionTags, PageSpinner } from '@common/components'
 import { useStrings } from 'framework/strings'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
@@ -46,6 +46,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
     identifier: ''
   })
   const [registeredWithGit, setRegisteredWithGit] = useState<boolean>()
+  const [connectorNameBeingCreated, setConnectorNameBeingCreated] = useState<string>()
 
   const onConnectorChange = (isEditorDirty: boolean): void => {
     if (isGitSyncEnabled && !registeredWithGit) {
@@ -67,12 +68,13 @@ const CreateConnectorFromYamlPage: React.FC = () => {
     const yamlData = yamlHandler?.getLatestYaml()
     let connectorJSON
     try {
-      connectorJSON = parse(yamlData || '')
+      connectorJSON = parse(yamlData || '') as Connector
     } catch (err) {
       return {
         status: 'ERROR'
       }
     }
+    setConnectorNameBeingCreated(connectorJSON?.connector?.name)
     const queryParams = gitData ? { accountIdentifier: accountId, ...gitData } : {}
     const response = await createConnector(connectorJSON, { queryParams })
     return {
@@ -218,6 +220,9 @@ const CreateConnectorFromYamlPage: React.FC = () => {
         }
       />
       <PageBody>
+        {!isGitSyncEnabled && creating ? (
+          <PageSpinner message={getString('connectors.creating', { name: connectorNameBeingCreated })} />
+        ) : null}
         <Container padding="xlarge">
           <YAMLBuilder
             fileName={`${gitResourceDetails.name}`.concat('.yaml')}
@@ -252,6 +257,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
                         .then(res => {
                           if (res.status === 'SUCCESS') {
                             showSuccess(getString('connectors.createdSuccessfully'))
+                            res.nextCallback?.()
                           } else {
                             /* TODO handle error with API status 200 */
                           }

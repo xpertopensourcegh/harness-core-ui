@@ -75,12 +75,14 @@ export function useSaveToGitDialog<T = Record<string, string>>(
   const [error, setError] = useState<Error>()
   const [createUpdateStatus, setCreateUpdateStatus] = useState<StepStatus>()
   const { mutate: createPullRequest, loading: creatingPR } = useCreatePR({})
+  let entity = resource.type || ''
+  entity = (entity.endsWith('s') ? entity.substring(0, entity.length - 1) : entity).toLowerCase()
 
   const entityCreateUpdateStage = {
     status: createUpdateStatus,
     intermediateLabel: isEditMode
-      ? getString('common.updating', { name: resource.name, entity: resource.type })
-      : getString('common.creating', { name: resource.name, entity: resource.type }),
+      ? getString('common.updating', { name: resource.name, entity })
+      : getString('common.creating', { name: resource.name, entity }),
     finalLabel: `${error?.message}`
   }
   const fromBranch = prMetaData?.branch || ''
@@ -160,6 +162,12 @@ export function useSaveToGitDialog<T = Record<string, string>>(
       >
         <ProgressOverlay
           firstStage={entityCreateUpdateStage}
+          postFirstStage={{
+            status: createUpdateStatus,
+            intermediateLabel: getString('common.gitSync.pushingChangestoBranch', {
+              branch: resource.gitDetails?.branch
+            })
+          }}
           onClose={() => {
             hideCreateUpdateModal()
             if (createUpdateStatus === 'SUCCESS') {
