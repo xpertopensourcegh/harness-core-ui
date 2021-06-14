@@ -26,11 +26,11 @@
       padding: var(--spacing-small);
       padding-left: var(--spacing-large) !important;
       &:hover {
-        background-color: var(--blue-200);
+        background-color: var(--primary-2);
         cursor: pointer;
       }
       &[data-selected='true'] {
-        background-color: var(--blue-200);
+        background-color: var(--primary-2);
       }
       &:not(:last-of-type) {
         border-bottom: 1px solid var(--grey-300);
