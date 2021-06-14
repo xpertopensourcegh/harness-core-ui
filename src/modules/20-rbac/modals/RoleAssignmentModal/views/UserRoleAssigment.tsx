@@ -24,6 +24,7 @@ import {
   RoleAssignmentMetadataDTO
 } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { EmailSchema } from '@common/utils/Validation'
 import RoleAssignmentForm, { InviteType } from './RoleAssignmentForm'
 
 interface UserRoleAssignmentData {
@@ -174,7 +175,7 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
           }}
           formName="userRoleAssignementForm"
           validationSchema={Yup.object().shape({
-            user: Yup.string().required(getString('rbac.roleAssignment.userValidation')),
+            user: EmailSchema(),
             assignments: Yup.array().of(
               Yup.object().shape({
                 role: Yup.object().nullable().required(),

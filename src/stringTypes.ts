@@ -340,7 +340,6 @@ export interface StringsMap {
   'rbac.roleAssignment.deleteFailure': string
   'rbac.roleAssignment.deleteSuccess': string
   'rbac.roleAssignment.userPlaceHolder': string
-  'rbac.roleAssignment.userValidation': string
   'rbac.roleBinding': string
   'rbac.userDetails.linkToSSOProviderModal.btnDisabledTooltipText': string
   'rbac.userDetails.linkToSSOProviderModal.delinkLabel': string
