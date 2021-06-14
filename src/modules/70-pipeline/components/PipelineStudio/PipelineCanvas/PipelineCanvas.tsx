@@ -202,6 +202,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       clear()
       setSchemaErrorView(true)
       showError(response?.message || getString('errorWhileSaving'))
+      throw response
     }
     return { status: response?.status }
   }
@@ -211,7 +212,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     payload?: PipelineInfoConfig,
     objectId?: string
   ): Promise<UseSaveSuccessResponse> => {
-    let latestPipeline: PipelineInfoConfig = pipeline || payload
+    let latestPipeline: PipelineInfoConfig = payload || pipeline
 
     if (isYaml && yamlHandler) {
       try {
@@ -238,7 +239,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       payload?: PipelineInfoConfig,
       objectId?: string
     ): Promise<UseSaveSuccessResponse> =>
-      Promise.resolve(saveAngPublishWithGitInfo(gitData, payload, objectId || gitDetails?.objectId || ''))
+      saveAngPublishWithGitInfo(gitData, payload, objectId || gitDetails?.objectId || '')
   })
 
   const saveAndPublish = React.useCallback(async () => {

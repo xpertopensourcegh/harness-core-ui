@@ -51,8 +51,7 @@ const InputSetList: React.FC = (): JSX.Element => {
       ...(!isEmpty(repoIdentifier)
         ? {
             repoIdentifier: gitFilter.repo,
-            branch: gitFilter.branch,
-            getDefaultFromOtherRepo: true
+            branch: gitFilter.branch
           }
         : {})
     },

@@ -233,9 +233,11 @@ export function useSaveToGitDialog<T = Record<string, string>>(
           setPRCreateStatus('ABORTED')
         }
         if (
-          ((e.data?.responseMessages as ResponseMessage[]) || [])?.findIndex(
-            (mssg: ResponseMessage) => mssg.code === 'SCM_CONFLICT_ERROR'
-          ) !== -1
+          (
+            (e?.responseMessages as ResponseMessage[]) ||
+            (e.data?.responseMessages as ResponseMessage[]) ||
+            []
+          )?.findIndex((mssg: ResponseMessage) => mssg.code === 'SCM_CONFLICT_ERROR') !== -1
         ) {
           openGitDiffDialog(payloadData, data)
         }

@@ -327,6 +327,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
       }
     } catch (e) {
       showError(e?.data?.message || e?.message || getString('commonError'))
+      throw e
     }
     return {
       status: response?.status, // nextCallback can be added if required
@@ -564,8 +565,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
         loadingInputSet ||
         loadingPipeline ||
         loadingTemplate ||
-        createInputSetLoading ||
-        updateInputSetLoading ||
+        (!isGitSyncEnabled && (createInputSetLoading || updateInputSetLoading)) ||
         loadingMerge
       }
       isEdit={isEdit}

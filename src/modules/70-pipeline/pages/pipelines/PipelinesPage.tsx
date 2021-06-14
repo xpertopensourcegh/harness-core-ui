@@ -187,8 +187,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
     ...(gitFilter?.repo &&
       gitFilter.branch && {
         repoIdentifier: gitFilter.repo,
-        branch: gitFilter.branch,
-        getDefaultFromOtherRepo: true
+        branch: gitFilter.branch
       })
   }
 

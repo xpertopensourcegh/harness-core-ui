@@ -352,8 +352,9 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
       if (!isGitSyncEnabled) {
         closeForm()
       }
-    } catch (_e) {
-      // showError(e?.message || i18n.commonError)
+    } catch (e) {
+      showError(e?.data?.message || e?.message || getString('commonError'))
+      throw e
     }
     return {
       status: response?.status,
