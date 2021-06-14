@@ -29,7 +29,7 @@ describe('Git Sync - repo tab', () => {
           {...pathParams}
           isEditMode={false}
           isNewUser={true}
-          gitSyncRepoInfo={undefined}
+          gitSyncRepoInfo={{ branch: 'branch', gitConnectorType: 'Github' }}
           onSuccess={noop}
           onClose={noop}
         />

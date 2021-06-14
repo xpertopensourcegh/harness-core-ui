@@ -8,7 +8,7 @@ import GitSyncRepoFormStep from '../GitSyncRepoFormStep'
 const pathParams = { accountId: 'dummy', orgIdentifier: 'default', projectIdentifier: 'dummyProject' }
 
 describe('Test GitSyncRepoFormStep', () => {
-  test('Initial render should match snapshot for GitSyncRepoFormStep', async () => {
+  test('Should not allow saving form if folder name is not specified', async () => {
     const { container, getByText } = render(
       <MemoryRouter>
         <TestWrapper
@@ -26,6 +26,7 @@ describe('Test GitSyncRepoFormStep', () => {
     await act(async () => {
       fireEvent.click(getByText('save'))
     })
+    expect(container.querySelector('[class*="bp3-intent-danger"]')).toBeTruthy()
     expect(container).toMatchSnapshot()
   })
 })

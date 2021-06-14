@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Test GitSyncRepoFormStep Initial render should match snapshot for GitSyncRepoFormStep 1`] = `
+exports[`Test GitSyncRepoFormStep Should not allow saving form if folder name is not specified 1`] = `
 <div>
   <div
     class="StyledProps--font StyledProps--main modalContainer StyledProps--margin-large"
@@ -567,7 +567,7 @@ exports[`Test GitSyncRepoFormStep Initial render should match snapshot for GitSy
 </div>
 `;
 
-exports[`Test GitSyncRepoFormStep Initial render should match snapshot for GitSyncRepoFormStep 2`] = `
+exports[`Test GitSyncRepoFormStep Should not allow saving form if folder name is not specified 2`] = `
 <div>
   <div
     class="StyledProps--font StyledProps--main modalContainer StyledProps--margin-large"
@@ -889,7 +889,7 @@ exports[`Test GitSyncRepoFormStep Initial render should match snapshot for GitSy
                     </div>
                   </div>
                   <div
-                    class="bp3-form-group placeholder"
+                    class="bp3-form-group bp3-intent-danger placeholder"
                     data-id="rootfolder-3"
                   >
                     <label
@@ -911,7 +911,7 @@ exports[`Test GitSyncRepoFormStep Initial render should match snapshot for GitSy
                       class="bp3-form-content"
                     >
                       <div
-                        class="bp3-input-group"
+                        class="bp3-input-group bp3-intent-danger"
                       >
                         <input
                           autocomplete="off"
@@ -921,6 +921,11 @@ exports[`Test GitSyncRepoFormStep Initial render should match snapshot for GitSy
                           type="text"
                           value=""
                         />
+                      </div>
+                      <div
+                        class="bp3-form-helper-text"
+                      >
+                        validation.nameRequired
                       </div>
                     </div>
                   </div>

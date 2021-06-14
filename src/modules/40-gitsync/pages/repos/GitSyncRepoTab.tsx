@@ -39,6 +39,7 @@ import { HARNESS_FOLDER_SUFFIX } from '@gitsync/common/Constants'
 import { TestConnectionWidget, TestStatus } from '@common/components/TestConnectionWidget/TestConnectionWidget'
 import { getIdentifierFromValue } from '@common/components/EntityReference/EntityReference'
 import CopyToClipboard from '@common/components/CopyToClipBoard/CopyToClipBoard'
+import { StringUtils } from '@common/exports'
 import { getExternalUrl } from '@gitsync/common/gitSyncUtils'
 import css from './GitSyncRepoTab.module.scss'
 
@@ -263,7 +264,10 @@ const GitSyncRepoTab: React.FC = () => {
             <Formik
               initialValues={{ rootFolder: '', isDefault: false, repo: repoData.repo || '' }}
               validationSchema={Yup.object().shape({
-                rootFolder: Yup.string().trim().required(getString('validation.nameRequired'))
+                rootFolder: Yup.string()
+                  .trim()
+                  .required(getString('validation.nameRequired'))
+                  .matches(StringUtils.regexName, getString('gitsync.validation.harnessFolder'))
               })}
               formName="gitSyncRepoTab"
               onSubmit={formData => {

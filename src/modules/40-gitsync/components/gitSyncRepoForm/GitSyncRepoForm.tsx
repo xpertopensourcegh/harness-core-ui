@@ -207,7 +207,11 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                   .notOneOf(StringUtils.illegalIdentifiers)
               }),
               repo: Yup.string().trim().required(getString('validation.repositoryName')),
-              branch: Yup.string().trim().required(getString('validation.branchName'))
+              branch: Yup.string().trim().required(getString('validation.branchName')),
+              rootfolder: Yup.string()
+                .trim()
+                .required(getString('validation.nameRequired'))
+                .matches(StringUtils.regexName, getString('gitsync.validation.harnessFolder'))
             })}
             onSubmit={formData => {
               const gitSyncRepoData = {

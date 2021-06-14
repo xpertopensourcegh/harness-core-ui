@@ -2626,7 +2626,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
                     </div>
                   </div>
                   <div
-                    class="bp3-form-group placeholder"
+                    class="bp3-form-group bp3-intent-danger placeholder"
                     data-id="rootfolder-3"
                   >
                     <label
@@ -2648,7 +2648,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
                       class="bp3-form-content"
                     >
                       <div
-                        class="bp3-input-group"
+                        class="bp3-input-group bp3-intent-danger"
                       >
                         <input
                           autocomplete="off"
@@ -2658,6 +2658,11 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
                           type="text"
                           value=""
                         />
+                      </div>
+                      <div
+                        class="bp3-form-helper-text"
+                      >
+                        validation.nameRequired
                       </div>
                     </div>
                   </div>

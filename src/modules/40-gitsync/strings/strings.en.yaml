@@ -28,3 +28,5 @@ selectHarnessFolder: Select Harness Folder
 selectDefaultBranch: Select Default Branch
 successfullySavedConnectivityMode: Successfully saved Connectivity Mode
 pathToHarnessFolder: Path to the Harness folder
+validation:
+  harnessFolder: Harness folder name must start with an alphabet or _ and can then be followed by alphanumerics or _
