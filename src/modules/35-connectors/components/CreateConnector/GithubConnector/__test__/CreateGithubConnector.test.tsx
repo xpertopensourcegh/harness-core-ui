@@ -33,8 +33,8 @@ jest.mock('services/portal', () => ({
     return { data: {}, refetch: jest.fn(), error: null, loading: false }
   }),
   useGetDelegateFromId: jest.fn().mockImplementation(() => jest.fn()),
-  useGetDelegateSelectors: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
-  useGetDelegatesStatusV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
+  useGetDelegateSelectorsUpTheHierarchy: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  useGetDelegatesUpTheHierarchy: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
 }))
 
 jest.mock('services/cd-ng', () => ({

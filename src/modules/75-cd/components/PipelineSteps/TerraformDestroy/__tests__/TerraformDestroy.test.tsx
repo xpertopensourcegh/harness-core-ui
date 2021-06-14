@@ -9,7 +9,7 @@ import { TerraformDestroy } from '../TerraformDestroy'
 const mockGetCallFunction = jest.fn()
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 jest.mock('services/portal', () => ({
-  useGetDelegateSelectors: jest.fn().mockImplementation(args => {
+  useGetDelegateSelectorsUpTheHierarchy: jest.fn().mockImplementation(args => {
     mockGetCallFunction(args)
     return []
   })

@@ -43,7 +43,7 @@ const fetchConnectors = (): Promise<unknown> => Promise.resolve({})
 window.HTMLElement.prototype.scrollTo = jest.fn()
 
 jest.mock('services/portal', () => ({
-  useGetDelegateSelectors: jest.fn(() => ({}))
+  useGetDelegateSelectorsUpTheHierarchy: jest.fn(() => ({}))
 }))
 
 jest.mock('services/cd-ng', () => ({

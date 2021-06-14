@@ -5,393 +5,223 @@ import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, Use
 
 import { getConfig } from '../config'
 export const SPEC_VERSION = '7.8'
-export interface ImportStatus {
-  collectionName?: string
-  imported?: number
-  idClashes?: number
+export interface APMFetchConfig {
+  body?: string
+  guid?: string
+  url?: string
 }
 
-export interface ImportStatusReport {
-  mode?: 'DRY_RUN' | 'UPSERT' | 'INSERT'
-  statuses?: ImportStatus[]
+export interface APMSetupTestNodeData {
+  apmMetricCollectionInfo?: MetricCollectionInfo
+  appId: string
+  fetchConfig?: APMFetchConfig
+  fromTime?: number
+  guid?: string
+  host?: string
+  hostExpression?: string
+  instanceElement?: Instance
+  instanceName?: string
+  isServiceLevel?: boolean
+  serviceLevel?: boolean
+  settingId: string
+  stateType?:
+    | 'SUB_WORKFLOW'
+    | 'REPEAT'
+    | 'FORK'
+    | 'WAIT'
+    | 'PAUSE'
+    | 'BARRIER'
+    | 'RESOURCE_CONSTRAINT'
+    | 'SHELL_SCRIPT'
+    | 'HTTP'
+    | 'TEMPLATIZED_SECRET_MANAGER'
+    | 'EMAIL'
+    | 'APP_DYNAMICS'
+    | 'NEW_RELIC'
+    | 'NEW_RELIC_DEPLOYMENT_MARKER'
+    | 'DYNA_TRACE'
+    | 'PROMETHEUS'
+    | 'SPLUNKV2'
+    | 'ELK'
+    | 'LOGZ'
+    | 'SUMO'
+    | 'DATA_DOG'
+    | 'DATA_DOG_LOG'
+    | 'CLOUD_WATCH'
+    | 'AWS_LAMBDA_VERIFICATION'
+    | 'APM_VERIFICATION'
+    | 'LOG_VERIFICATION'
+    | 'BUG_SNAG'
+    | 'STACK_DRIVER'
+    | 'STACK_DRIVER_LOG'
+    | 'INSTANA'
+    | 'SCALYR'
+    | 'ENV_STATE'
+    | 'ENV_LOOP_STATE'
+    | 'ENV_RESUME_STATE'
+    | 'ENV_LOOP_RESUME_STATE'
+    | 'COMMAND'
+    | 'APPROVAL'
+    | 'APPROVAL_RESUME'
+    | 'ELASTIC_LOAD_BALANCER'
+    | 'JENKINS'
+    | 'GCB'
+    | 'BAMBOO'
+    | 'ARTIFACT_COLLECTION'
+    | 'ARTIFACT_CHECK'
+    | 'AZURE_NODE_SELECT'
+    | 'AZURE_VMSS_SETUP'
+    | 'AZURE_VMSS_DEPLOY'
+    | 'AZURE_VMSS_ROLLBACK'
+    | 'AZURE_VMSS_SWITCH_ROUTES'
+    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
+    | 'AZURE_WEBAPP_SLOT_SETUP'
+    | 'AZURE_WEBAPP_SLOT_RESIZE'
+    | 'AZURE_WEBAPP_SLOT_SWAP'
+    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
+    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
+    | 'AWS_NODE_SELECT'
+    | 'DC_NODE_SELECT'
+    | 'ROLLING_NODE_SELECT'
+    | 'PHASE'
+    | 'PHASE_STEP'
+    | 'STAGING_ORIGINAL_EXECUTION'
+    | 'AWS_CODEDEPLOY_STATE'
+    | 'AWS_CODEDEPLOY_ROLLBACK'
+    | 'AWS_LAMBDA_STATE'
+    | 'AWS_LAMBDA_ROLLBACK'
+    | 'AWS_AMI_SERVICE_SETUP'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
+    | 'AWS_AMI_SERVICE_DEPLOY'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
+    | 'AWS_AMI_SWITCH_ROUTES'
+    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
+    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_SERVICE_ROLLBACK'
+    | 'ECS_SERVICE_SETUP'
+    | 'SPOTINST_SETUP'
+    | 'SPOTINST_ALB_SHIFT_SETUP'
+    | 'SPOTINST_DEPLOY'
+    | 'SPOTINST_ALB_SHIFT_DEPLOY'
+    | 'SPOTINST_LISTENER_UPDATE'
+    | 'SPOTINST_LISTENER_ALB_SHIFT'
+    | 'SPOTINST_ROLLBACK'
+    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
+    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
+    | 'ECS_SERVICE_SETUP_ROLLBACK'
+    | 'ECS_DAEMON_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
+    | 'ECS_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_ROLLBACK'
+    | 'ECS_LISTENER_UPDATE'
+    | 'ECS_LISTENER_UPDATE_ROLLBACK'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
+    | 'KUBERNETES_SETUP'
+    | 'KUBERNETES_SETUP_ROLLBACK'
+    | 'KUBERNETES_DEPLOY'
+    | 'KUBERNETES_DEPLOY_ROLLBACK'
+    | 'KUBERNETES_STEADY_STATE_CHECK'
+    | 'ECS_STEADY_STATE_CHECK'
+    | 'ECS_RUN_TASK'
+    | 'GCP_CLUSTER_SETUP'
+    | 'HELM_DEPLOY'
+    | 'HELM_ROLLBACK'
+    | 'PCF_SETUP'
+    | 'PCF_RESIZE'
+    | 'PCF_ROLLBACK'
+    | 'PCF_MAP_ROUTE'
+    | 'PCF_UNMAP_ROUTE'
+    | 'PCF_BG_MAP_ROUTE'
+    | 'PCF_PLUGIN'
+    | 'TERRAFORM_PROVISION'
+    | 'TERRAFORM_APPLY'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'TERRAFORM_DESTROY'
+    | 'CLOUD_FORMATION_CREATE_STACK'
+    | 'CLOUD_FORMATION_DELETE_STACK'
+    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'CLOUD_FORMATION_ROLLBACK_STACK'
+    | 'TERRAFORM_ROLLBACK'
+    | 'K8S_DEPLOYMENT_ROLLING'
+    | 'K8S_SCALE'
+    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
+    | 'K8S_BLUE_GREEN_DEPLOY'
+    | 'K8S_CANARY_DEPLOY'
+    | 'K8S_DELETE'
+    | 'JIRA_CREATE_UPDATE'
+    | 'SERVICENOW_CREATE_UPDATE'
+    | 'K8S_TRAFFIC_SPLIT'
+    | 'K8S_APPLY'
+    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
+  toTime?: number
+  workflowId?: string
 }
 
-export interface ResponseMessage {
-  code?:
-    | 'DEFAULT_ERROR_CODE'
-    | 'INVALID_ARGUMENT'
-    | 'INVALID_EMAIL'
-    | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
-    | 'USER_ALREADY_REGISTERED'
-    | 'USER_INVITATION_DOES_NOT_EXIST'
-    | 'USER_DOES_NOT_EXIST'
-    | 'USER_INVITE_OPERATION_FAILED'
-    | 'USER_DISABLED'
-    | 'ACCOUNT_DOES_NOT_EXIST'
-    | 'INACTIVE_ACCOUNT'
-    | 'ACCOUNT_MIGRATED'
-    | 'USER_DOMAIN_NOT_ALLOWED'
-    | 'MAX_FAILED_ATTEMPT_COUNT_EXCEEDED'
-    | 'RESOURCE_NOT_FOUND'
-    | 'ROLE_DOES_NOT_EXIST'
-    | 'EMAIL_NOT_VERIFIED'
-    | 'EMAIL_VERIFICATION_TOKEN_NOT_FOUND'
-    | 'INVALID_TOKEN'
-    | 'INVALID_CAPTCHA_TOKEN'
-    | 'NOT_ACCOUNT_MGR_NOR_HAS_ALL_APP_ACCESS'
-    | 'EXPIRED_TOKEN'
-    | 'TOKEN_ALREADY_REFRESHED_ONCE'
-    | 'ACCESS_DENIED'
-    | 'INVALID_CREDENTIAL'
-    | 'INVALID_KEY'
-    | 'INVALID_KEYPATH'
-    | 'INVALID_VARIABLE'
-    | 'UNKNOWN_HOST'
-    | 'UNREACHABLE_HOST'
-    | 'INVALID_PORT'
-    | 'SSH_SESSION_TIMEOUT'
-    | 'SOCKET_CONNECTION_ERROR'
-    | 'SOCKET_CONNECTION_TIMEOUT'
-    | 'CONNECTION_TIMEOUT'
-    | 'SSH_CONNECTION_ERROR'
-    | 'USER_GROUP_ERROR'
-    | 'INVALID_EXECUTION_ID'
-    | 'ERROR_IN_GETTING_CHANNEL_STREAMS'
-    | 'UNEXPECTED'
-    | 'UNKNOWN_ERROR'
-    | 'UNKNOWN_EXECUTOR_TYPE_ERROR'
-    | 'DUPLICATE_STATE_NAMES'
-    | 'TRANSITION_NOT_LINKED'
-    | 'TRANSITION_TO_INCORRECT_STATE'
-    | 'TRANSITION_TYPE_NULL'
-    | 'STATES_WITH_DUP_TRANSITIONS'
-    | 'BARRIERS_NOT_RUNNING_CONCURRENTLY'
-    | 'NON_FORK_STATES'
-    | 'NON_REPEAT_STATES'
-    | 'INITIAL_STATE_NOT_DEFINED'
-    | 'FILE_INTEGRITY_CHECK_FAILED'
-    | 'INVALID_URL'
-    | 'FILE_DOWNLOAD_FAILED'
-    | 'PLATFORM_SOFTWARE_DELETE_ERROR'
-    | 'INVALID_CSV_FILE'
-    | 'INVALID_REQUEST'
-    | 'INVALID_INFRA_STATE'
-    | 'PIPELINE_ALREADY_TRIGGERED'
-    | 'NON_EXISTING_PIPELINE'
-    | 'DUPLICATE_COMMAND_NAMES'
-    | 'INVALID_PIPELINE'
-    | 'COMMAND_DOES_NOT_EXIST'
-    | 'DUPLICATE_ARTIFACTSTREAM_NAMES'
-    | 'DUPLICATE_HOST_NAMES'
-    | 'STATE_NOT_FOR_TYPE'
-    | 'STATE_MACHINE_ISSUE'
-    | 'STATE_DISCONTINUE_FAILED'
-    | 'STATE_PAUSE_FAILED'
-    | 'PAUSE_ALL_ALREADY'
-    | 'RESUME_ALL_ALREADY'
-    | 'ROLLBACK_ALREADY'
-    | 'ABORT_ALL_ALREADY'
-    | 'RETRY_FAILED'
-    | 'UNKNOWN_ARTIFACT_TYPE'
-    | 'UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE'
-    | 'INIT_TIMEOUT'
-    | 'LICENSE_EXPIRED'
-    | 'NOT_LICENSED'
-    | 'REQUEST_TIMEOUT'
-    | 'WORKFLOW_ALREADY_TRIGGERED'
-    | 'JENKINS_ERROR'
-    | 'INVALID_ARTIFACT_SOURCE'
-    | 'INVALID_ARTIFACT_SERVER'
-    | 'INVALID_CLOUD_PROVIDER'
-    | 'UPDATE_NOT_ALLOWED'
-    | 'DELETE_NOT_ALLOWED'
-    | 'APPDYNAMICS_CONFIGURATION_ERROR'
-    | 'APM_CONFIGURATION_ERROR'
-    | 'SPLUNK_CONFIGURATION_ERROR'
-    | 'ELK_CONFIGURATION_ERROR'
-    | 'LOGZ_CONFIGURATION_ERROR'
-    | 'SUMO_CONFIGURATION_ERROR'
-    | 'INSTANA_CONFIGURATION_ERROR'
-    | 'APPDYNAMICS_ERROR'
-    | 'STACKDRIVER_ERROR'
-    | 'STACKDRIVER_CONFIGURATION_ERROR'
-    | 'NEWRELIC_CONFIGURATION_ERROR'
-    | 'NEWRELIC_ERROR'
-    | 'DYNA_TRACE_CONFIGURATION_ERROR'
-    | 'DYNA_TRACE_ERROR'
-    | 'CLOUDWATCH_ERROR'
-    | 'CLOUDWATCH_CONFIGURATION_ERROR'
-    | 'PROMETHEUS_CONFIGURATION_ERROR'
-    | 'DATA_DOG_CONFIGURATION_ERROR'
-    | 'SERVICE_GUARD_CONFIGURATION_ERROR'
-    | 'ENCRYPTION_NOT_CONFIGURED'
-    | 'UNAVAILABLE_DELEGATES'
-    | 'WORKFLOW_EXECUTION_IN_PROGRESS'
-    | 'PIPELINE_EXECUTION_IN_PROGRESS'
-    | 'AWS_ACCESS_DENIED'
-    | 'AWS_CLUSTER_NOT_FOUND'
-    | 'AWS_SERVICE_NOT_FOUND'
-    | 'INVALID_YAML_PAYLOAD'
-    | 'UNRECOGNIZED_YAML_FIELDS'
-    | 'COULD_NOT_MAP_BEFORE_YAML'
-    | 'MISSING_BEFORE_YAML'
-    | 'MISSING_YAML'
-    | 'NON_EMPTY_DELETIONS'
-    | 'GENERAL_YAML_ERROR'
-    | 'GENERAL_YAML_INFO'
-    | 'YAML_GIT_SYNC_ERROR'
-    | 'GIT_CONNECTION_ERROR'
-    | 'GIT_ERROR'
-    | 'ARTIFACT_SERVER_ERROR'
-    | 'ENCRYPT_DECRYPT_ERROR'
-    | 'SECRET_MANAGEMENT_ERROR'
-    | 'KMS_OPERATION_ERROR'
-    | 'GCP_KMS_OPERATION_ERROR'
-    | 'VAULT_OPERATION_ERROR'
-    | 'AWS_SECRETS_MANAGER_OPERATION_ERROR'
-    | 'AZURE_KEY_VAULT_OPERATION_ERROR'
-    | 'CYBERARK_OPERATION_ERROR'
-    | 'UNSUPPORTED_OPERATION_EXCEPTION'
-    | 'FEATURE_UNAVAILABLE'
-    | 'GENERAL_ERROR'
-    | 'BASELINE_CONFIGURATION_ERROR'
-    | 'SAML_IDP_CONFIGURATION_NOT_AVAILABLE'
-    | 'INVALID_AUTHENTICATION_MECHANISM'
-    | 'INVALID_SAML_CONFIGURATION'
-    | 'INVALID_OAUTH_CONFIGURATION'
-    | 'INVALID_LDAP_CONFIGURATION'
-    | 'USER_GROUP_SYNC_FAILURE'
-    | 'USER_GROUP_ALREADY_EXIST'
-    | 'INVALID_TWO_FACTOR_AUTHENTICATION_CONFIGURATION'
-    | 'EXPLANATION'
-    | 'HINT'
-    | 'NOT_WHITELISTED_IP'
-    | 'INVALID_TOTP_TOKEN'
-    | 'EMAIL_FAILED'
-    | 'SSL_HANDSHAKE_FAILED'
-    | 'NO_APPS_ASSIGNED'
-    | 'INVALID_INFRA_CONFIGURATION'
-    | 'TEMPLATES_LINKED'
-    | 'USER_HAS_NO_PERMISSIONS'
-    | 'USER_NOT_AUTHORIZED'
-    | 'USER_ALREADY_PRESENT'
-    | 'INVALID_USAGE_RESTRICTION'
-    | 'USAGE_RESTRICTION_ERROR'
-    | 'STATE_EXECUTION_INSTANCE_NOT_FOUND'
-    | 'DELEGATE_TASK_RETRY'
-    | 'KUBERNETES_YAML_ERROR'
-    | 'SAVE_FILE_INTO_GCP_STORAGE_FAILED'
-    | 'READ_FILE_FROM_GCP_STORAGE_FAILED'
-    | 'USAGE_LIMITS_EXCEEDED'
-    | 'EVENT_PUBLISH_FAILED'
-    | 'JIRA_ERROR'
-    | 'EXPRESSION_EVALUATION_FAILED'
-    | 'KUBERNETES_VALUES_ERROR'
-    | 'KUBERNETES_CLUSTER_ERROR'
-    | 'INCORRECT_SIGN_IN_MECHANISM'
-    | 'OAUTH_LOGIN_FAILED'
-    | 'INVALID_TERRAFORM_TARGETS_REQUEST'
-    | 'FILE_READ_FAILED'
-    | 'FILE_SIZE_EXCEEDS_LIMIT'
-    | 'CLUSTER_NOT_FOUND'
-    | 'MARKETPLACE_TOKEN_NOT_FOUND'
-    | 'INVALID_MARKETPLACE_TOKEN'
-    | 'INVALID_TICKETING_SERVER'
-    | 'SERVICENOW_ERROR'
-    | 'PASSWORD_EXPIRED'
-    | 'USER_LOCKED'
-    | 'PASSWORD_STRENGTH_CHECK_FAILED'
-    | 'ACCOUNT_DISABLED'
-    | 'INVALID_ACCOUNT_PERMISSION'
-    | 'PAGERDUTY_ERROR'
-    | 'HEALTH_ERROR'
-    | 'SAML_TEST_SUCCESS_MECHANISM_NOT_ENABLED'
-    | 'DOMAIN_WHITELIST_FILTER_CHECK_FAILED'
-    | 'INVALID_DASHBOARD_UPDATE_REQUEST'
-    | 'DUPLICATE_FIELD'
-    | 'INVALID_AZURE_VAULT_CONFIGURATION'
-    | 'USER_NOT_AUTHORIZED_DUE_TO_USAGE_RESTRICTIONS'
-    | 'INVALID_ROLLBACK'
-    | 'SUMO_DATA_COLLECTION_ERROR'
-    | 'DEPLOYMENT_GOVERNANCE_ERROR'
-    | 'BATCH_PROCESSING_ERROR'
-    | 'GRAPHQL_ERROR'
-    | 'FILE_CREATE_ERROR'
-    | 'ILLEGAL_STATE'
-    | 'GIT_DIFF_COMMIT_NOT_IN_ORDER'
-    | 'FAILED_TO_ACQUIRE_PERSISTENT_LOCK'
-    | 'FAILED_TO_ACQUIRE_NON_PERSISTENT_LOCK'
-    | 'POD_NOT_FOUND_ERROR'
-    | 'COMMAND_EXECUTION_ERROR'
-    | 'REGISTRY_EXCEPTION'
-    | 'ENGINE_INTERRUPT_PROCESSING_EXCEPTION'
-    | 'ENGINE_IO_EXCEPTION'
-    | 'ENGINE_OUTCOME_EXCEPTION'
-    | 'ENGINE_SWEEPING_OUTPUT_EXCEPTION'
-    | 'CACHE_NOT_FOUND_EXCEPTION'
-    | 'ENGINE_ENTITY_UPDATE_EXCEPTION'
-    | 'SHELL_EXECUTION_EXCEPTION'
-    | 'TEMPLATE_NOT_FOUND'
-    | 'AZURE_SERVICE_EXCEPTION'
-    | 'GIT_UNSEEN_REMOTE_HEAD_COMMIT'
-    | 'TIMEOUT_ENGINE_EXCEPTION'
-    | 'NO_AVAILABLE_DELEGATES'
-    | 'NO_INSTALLED_DELEGATES'
-    | 'DUPLICATE_DELEGATE_EXCEPTION'
-    | 'GCP_MARKETPLACE_EXCEPTION'
-    | 'MISSING_DEFAULT_GOOGLE_CREDENTIALS'
-    | 'INCORRECT_DEFAULT_GOOGLE_CREDENTIALS'
-    | 'OPTIMISTIC_LOCKING_EXCEPTION'
-    | 'RESOURCE_NOT_FOUND_EXCEPTION'
-  level?: 'INFO' | 'ERROR'
-  message?: string
-  exception?: Throwable
+export interface Aws {
+  completeDockerId?: string
+  containerId?: string
+  containerInstanceArn?: string
+  containerInstanceId?: string
+  dockerId?: string
+  ec2Instance?: Instance
+  ecsServiceName?: string
+  instanceId?: string
+  ip?: string
+  publicDns?: string
+  taskArn?: string
+  taskId?: string
 }
 
-export interface RestResponse {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: { [key: string]: any }
-  responseMessages?: ResponseMessage[]
+export interface AzureVmss {
+  instanceId?: string
+  ip?: string
+  publicDns?: string
 }
 
-export interface RestResponseImportStatusReport {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ImportStatusReport
-  responseMessages?: ResponseMessage[]
-}
-
-export interface KubDelegateYaml {
-  name?: string
-  identifier?: string
-  description?: string
-  delegateConfigurationId?: string
-  size?: string
-  sessionIdentifier?: string
-}
-
-// tslint:disable-next-line:no-empty-interface
-export interface DownloadYaml {}
-
-export interface StackTraceElement {
-  methodName?: string
-  fileName?: string
-  lineNumber?: number
-  className?: string
-  nativeMethod?: boolean
-}
-
-export interface DelegateSizesResponse {
-  cpu?: number
-  label?: string
-  ram?: number
-  replicas?: number
-  size?: string
-  taskLimit?: number
-}
-
-export interface Throwable {
-  cause?: Throwable
-  stackTrace?: StackTraceElement[]
-  message?: string
-  localizedMessage?: string
-  suppressed?: Throwable[]
-}
-
-export interface RestDelegateSizeResponse {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DelegateSizesResponse[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseBoolean {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: boolean
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseUserInfo {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource: {
-    uuid: string
-    name: string
-    email: string
-    token: string
-    defaultAccountId: string
-    admin: boolean
-    twoFactorAuthenticationEnabled: boolean
-  }
-  responseMessages?: ResponseMessage[]
-}
-
-export interface LicenseInfo {
-  accountType?: string
-  accountStatus?: string
-  expiryTime?: number
-  licenseUnits?: number
-}
-
-export interface LicenseUpdateInfo {
-  licenseInfo: LicenseInfo
-  requiredInfoToComply?: {
-    [key: string]: {
-      [key: string]: { [key: string]: any }
-    }
-  }
-}
-
-export interface InitializationResponse {
-  delegateId?: string
-  hostname?: string
-  initialized?: boolean
-  profileError?: boolean
-  profileExecutedAt?: string
-}
-
-export interface VerificationResponse {
-  numberOfRegisteredDelegates?: number
-  numberOfConnectedDelegates?: number
+export interface AccessTokenBean {
+  expirationTimeMillis?: number
+  projectId?: string
+  tokenValue?: string
 }
 
 export interface Account {
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  companyName: string
-  accountName: string
-  whitelistedDomains?: string[]
-  licenseId?: string
-  licenseInfo?: LicenseInfo
-  ceLicenseInfo?: CeLicenseInfo
   accountEvents?: AccountEvent[]
-  subdomainUrl?: string
-  twoFactorAdminEnforced?: boolean
-  forImport?: boolean
-  migratedToClusterUrl?: string
-  localEncryptionEnabled?: boolean
-  delegateConfiguration?: DelegateConfiguration
-  techStacks?: TechStack[]
-  oauthEnabled?: boolean
-  cloudCostEnabled?: boolean
+  accountName: string
+  appId: string
   ceAutoCollectK8sEvents?: boolean
-  trialSignupOptions?: TrialSignupOptions
-  serviceGuardLimit?: number
+  ceLicenseInfo?: CeLicenseInfo
+  cloudCostEnabled?: boolean
+  companyName: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
   defaults?: {
     [key: string]: string
   }
+  delegateConfiguration?: DelegateConfiguration
+  forImport?: boolean
   harnessSupportAccessAllowed?: boolean
+  lastUpdatedAt: number
+  licenseId?: string
+  licenseInfo?: LicenseInfo
+  localEncryptionEnabled?: boolean
+  migratedToClusterUrl?: string
+  oauthEnabled?: boolean
   povAccount?: boolean
+  serviceGuardLimit?: number
+  subdomainUrl?: string
+  techStacks?: TechStack[]
+  trialSignupOptions?: TrialSignupOptions
+  twoFactorAdminEnforced?: boolean
+  uuid: string
+  whitelistedDomains?: string[]
+}
+
+export interface AccountAuditFilter {
+  resourceIds?: string[]
+  resourceTypes?: string[]
 }
 
 export interface AccountEvent {
@@ -410,127 +240,174 @@ export interface AccountEvent {
     | 'INFRA_MAPPING_ADDED'
     | 'INFRA_DEFINITION_ADDED'
     | 'CUSTOM'
-  customMsg?: string
   category?: string
+  customMsg?: string
   properties?: {
     [key: string]: string
   }
 }
 
-export interface CeLicenseInfo {
-  licenseType?: 'FULL_TRIAL' | 'LIMITED_TRIAL' | 'PAID'
-  expiryTime?: number
-}
-
-export interface DelegateConfiguration {
-  watcherVersion?: string
-  delegateVersions?: string[]
-}
-
-export interface EmbeddedUser {
-  uuid?: string
-  name?: string
+export interface AccountJoinRequest {
+  accountAdminEmail?: string
+  companyName?: string
   email?: string
+  name?: string
+  note?: string
 }
 
-export interface RestResponseAccount {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Account
-  responseMessages?: ResponseMessage[]
+export interface AccountPermissionSummary {
+  permissions?: (
+    | 'ACCOUNT'
+    | 'LOGGED_IN'
+    | 'DELEGATE'
+    | 'NONE'
+    | 'APP'
+    | 'ALL_APP_ENTITIES'
+    | 'ENV'
+    | 'SERVICE'
+    | 'WORKFLOW'
+    | 'PIPELINE'
+    | 'DEPLOYMENT'
+    | 'APPLICATION_CREATE_DELETE'
+    | 'USER_PERMISSION_MANAGEMENT'
+    | 'ACCOUNT_MANAGEMENT'
+    | 'PROVISIONER'
+    | 'TEMPLATE_MANAGEMENT'
+    | 'USER_PERMISSION_READ'
+    | 'AUDIT_VIEWER'
+    | 'TAG_MANAGEMENT'
+    | 'CE_ADMIN'
+    | 'CE_VIEWER'
+    | 'MANAGE_CLOUD_PROVIDERS'
+    | 'MANAGE_CONNECTORS'
+    | 'MANAGE_APPLICATIONS'
+    | 'MANAGE_APPLICATION_STACKS'
+    | 'MANAGE_DELEGATES'
+    | 'MANAGE_ALERT_NOTIFICATION_RULES'
+    | 'MANAGE_DELEGATE_PROFILES'
+    | 'MANAGE_CONFIG_AS_CODE'
+    | 'MANAGE_SECRETS'
+    | 'MANAGE_SECRET_MANAGERS'
+    | 'MANAGE_AUTHENTICATION_SETTINGS'
+    | 'MANAGE_USER_AND_USER_GROUPS_AND_API_KEYS'
+    | 'VIEW_USER_AND_USER_GROUPS_AND_API_KEYS'
+    | 'MANAGE_IP_WHITELIST'
+    | 'MANAGE_IP_WHITELISTING'
+    | 'MANAGE_DEPLOYMENT_FREEZES'
+    | 'MANAGE_PIPELINE_GOVERNANCE_STANDARDS'
+    | 'MANAGE_API_KEYS'
+    | 'MANAGE_TAGS'
+    | 'MANAGE_CUSTOM_DASHBOARDS'
+    | 'CREATE_CUSTOM_DASHBOARDS'
+  )[]
 }
 
-export interface TechStack {
-  category?: string
-  technology?: string
+export interface AccountPermissions {
+  permissions?: (
+    | 'ACCOUNT'
+    | 'LOGGED_IN'
+    | 'DELEGATE'
+    | 'NONE'
+    | 'APP'
+    | 'ALL_APP_ENTITIES'
+    | 'ENV'
+    | 'SERVICE'
+    | 'WORKFLOW'
+    | 'PIPELINE'
+    | 'DEPLOYMENT'
+    | 'APPLICATION_CREATE_DELETE'
+    | 'USER_PERMISSION_MANAGEMENT'
+    | 'ACCOUNT_MANAGEMENT'
+    | 'PROVISIONER'
+    | 'TEMPLATE_MANAGEMENT'
+    | 'USER_PERMISSION_READ'
+    | 'AUDIT_VIEWER'
+    | 'TAG_MANAGEMENT'
+    | 'CE_ADMIN'
+    | 'CE_VIEWER'
+    | 'MANAGE_CLOUD_PROVIDERS'
+    | 'MANAGE_CONNECTORS'
+    | 'MANAGE_APPLICATIONS'
+    | 'MANAGE_APPLICATION_STACKS'
+    | 'MANAGE_DELEGATES'
+    | 'MANAGE_ALERT_NOTIFICATION_RULES'
+    | 'MANAGE_DELEGATE_PROFILES'
+    | 'MANAGE_CONFIG_AS_CODE'
+    | 'MANAGE_SECRETS'
+    | 'MANAGE_SECRET_MANAGERS'
+    | 'MANAGE_AUTHENTICATION_SETTINGS'
+    | 'MANAGE_USER_AND_USER_GROUPS_AND_API_KEYS'
+    | 'VIEW_USER_AND_USER_GROUPS_AND_API_KEYS'
+    | 'MANAGE_IP_WHITELIST'
+    | 'MANAGE_IP_WHITELISTING'
+    | 'MANAGE_DEPLOYMENT_FREEZES'
+    | 'MANAGE_PIPELINE_GOVERNANCE_STANDARDS'
+    | 'MANAGE_API_KEYS'
+    | 'MANAGE_TAGS'
+    | 'MANAGE_CUSTOM_DASHBOARDS'
+    | 'CREATE_CUSTOM_DASHBOARDS'
+  )[]
 }
 
-export interface TrialSignupOptions {
-  productsSelected?: ('CD' | 'CE' | 'CI')[]
-  assistedOption?: boolean
+export interface AccountPlugin {
+  accountId?: string
+  displayName?: string
+  enabled?: boolean
+  pluginCategories?: (
+    | 'Artifact'
+    | 'Verification'
+    | 'Collaboration'
+    | 'CloudProvider'
+    | 'ConnectionAttributes'
+    | 'LoadBalancer'
+    | 'SourceRepo'
+    | 'HelmRepo'
+    | 'AzureArtifacts'
+  )[]
+  type?: string
+  version?: Version
+}
+
+export interface AccountRole {
+  accountId?: string
+  accountName?: string
+  allApps?: boolean
+  applicationRoles?: ApplicationRole[]
+  resourceAccess?: ImmutablePairResourceTypeAction[]
 }
 
 export interface AccountSalesContactsInfo {
   salesContacts?: string[]
 }
 
-export interface RestResponseString {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: string
-  responseMessages?: ResponseMessage[]
+export interface AccountSettingsResponse {
+  allowedDomains?: string[]
+  authenticationMechanism?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
+  oauthProviderTypes?: ('AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN')[]
 }
 
-export interface RestResponsePageResponseAccount {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Account[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestVerificationResponse {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: VerificationResponse
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestInitializationResponse {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: InitializationResponse[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseSetString {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: string[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface SubdomainUrl {
-  url?: string
+export interface ActiveScope {
+  acquiredAt?: number
+  permits?: number
+  releaseEntityId?: string
+  releaseEntityName?: string
+  releaseEntityType?: string
+  unit?: string
 }
 
 export interface Activity {
-  uuid: string
+  accountId?: string
   appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedBy?: EmbeddedUser
-  lastUpdatedAt: number
-  type?: 'Command' | 'Verification' | 'Other'
   applicationName?: string
-  environmentId?: string
-  environmentName?: string
-  environmentType: 'PROD' | 'NON_PROD' | 'ALL'
+  artifactId?: string
+  artifactName?: string
+  artifactStreamId?: string
+  artifactStreamName?: string
   commandName?: string
-  commandUnits: CommandUnit[]
   commandNameVersionMap?: {
     [key: string]: number
   }
   commandType?: string
-  serviceId?: string
-  serviceName?: string
-  serviceTemplateId?: string
-  serviceTemplateName?: string
-  hostName?: string
-  publicDns?: string
-  serviceInstanceId?: string
-  workflowExecutionId?: string
-  workflowId?: string
-  workflowExecutionName?: string
-  workflowType: 'PIPELINE' | 'ORCHESTRATION'
-  stateExecutionInstanceId?: string
-  stateExecutionInstanceName?: string
-  version?: number
   commandUnitType?:
     | 'COMMAND'
     | 'JENKINS'
@@ -562,11 +439,25 @@ export interface Activity {
     | 'AZURE_VMSS_DEPLOY'
     | 'AZURE_VMSS_SWAP'
     | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
+  commandUnits: CommandUnit[]
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  environmentId?: string
+  environmentName?: string
+  environmentType: 'PROD' | 'NON_PROD' | 'ALL'
+  hostName?: string
+  lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   logPurged?: boolean
-  artifactStreamId?: string
-  artifactStreamName?: string
-  artifactId?: string
-  artifactName?: string
+  pipeline?: boolean
+  publicDns?: string
+  serviceId?: string
+  serviceInstanceId?: string
+  serviceName?: string
+  serviceTemplateId?: string
+  serviceTemplateName?: string
+  stateExecutionInstanceId?: string
+  stateExecutionInstanceName?: string
   status?:
     | 'ABORTED'
     | 'DISCONTINUING'
@@ -588,108 +479,1741 @@ export interface Activity {
     | 'EXPIRED'
     | 'PREPARING'
   triggeredBy?: TriggeredBy
-  accountId?: string
+  type?: 'Command' | 'Verification' | 'Other'
+  uuid: string
   validUntil?: string
-  pipeline?: boolean
+  version?: number
+  workflowExecutionId?: string
+  workflowExecutionName?: string
+  workflowId?: string
+  workflowType: 'PIPELINE' | 'ORCHESTRATION'
+}
+
+export type AddOperation = PatchOperation & {
+  value?: JsonNode
+}
+
+export interface AdvancedSearchQuery {
+  entities?: string[]
+  numResults?: number
+  offset?: number
+  searchQuery?: string
+}
+
+export interface Aggregate {
+  entityDeleted?: boolean
+  entityType?: string
+  id?: string
+  invocationCount?: number
+  invocationCountKey?: 'LAST_30_DAYS' | 'SINCE_LAST_DEPLOYED'
+  name?: string
+}
+
+export interface AggregatedDayStats {
+  daysStats?: DayStat[]
+  failedCount?: number
+  instancesCount?: number
+  totalCount?: number
+}
+
+export interface Aggregation {
+  crossSeriesReducer?: string
+  groupByFields?: string[]
+  perSeriesAligner?: string
+}
+
+export interface Alert {
+  accountId?: string
+  alertData?: AlertData
+  alertReconciliation?: AlertReconciliation
+  appId: string
+  category?: 'All' | 'Setup' | 'Approval' | 'ManualIntervention' | 'ContinuousVerification'
+  closedAt?: number
+  createdAt?: number
+  cvCleanUpIteration?: number
+  lastTriggeredAt?: number
+  lastUpdatedAt: number
+  resolutionTitle?: string
+  severity?: 'Warning' | 'Error'
+  status?: 'Open' | 'Closed' | 'Pending'
+  title?: string
+  triggerCount?: number
+  type?:
+    | 'ApprovalNeeded'
+    | 'ManualInterventionNeeded'
+    | 'NoActiveDelegates'
+    | 'NoInstalledDelegates'
+    | 'DelegatesDown'
+    | 'DelegatesScalingGroupDownAlert'
+    | 'DelegateProfileError'
+    | 'NoEligibleDelegates'
+    | 'PerpetualTaskAlert'
+    | 'InvalidKMS'
+    | 'GitSyncError'
+    | 'GitConnectionError'
+    | 'INVALID_SMTP_CONFIGURATION'
+    | 'EMAIL_NOT_SENT_ALERT'
+    | 'USERGROUP_SYNC_FAILED'
+    | 'USAGE_LIMIT_EXCEEDED'
+    | 'INSTANCE_USAGE_APPROACHING_LIMIT'
+    | 'RESOURCE_USAGE_APPROACHING_LIMIT'
+    | 'DEPLOYMENT_RATE_APPROACHING_LIMIT'
+    | 'SETTING_ATTRIBUTE_VALIDATION_FAILED'
+    | 'ARTIFACT_COLLECTION_FAILED'
+    | 'CONTINUOUS_VERIFICATION_ALERT'
+    | 'CONTINUOUS_VERIFICATION_DATA_COLLECTION_ALERT'
+    | 'MANIFEST_COLLECTION_FAILED'
+  uuid: string
+  validUntil?: string
+}
+
+export interface AlertData {
+  [key: string]: any
+}
+
+export interface AlertFilter {
+  alertType?:
+    | 'ApprovalNeeded'
+    | 'ManualInterventionNeeded'
+    | 'NoActiveDelegates'
+    | 'NoInstalledDelegates'
+    | 'DelegatesDown'
+    | 'DelegatesScalingGroupDownAlert'
+    | 'DelegateProfileError'
+    | 'NoEligibleDelegates'
+    | 'PerpetualTaskAlert'
+    | 'InvalidKMS'
+    | 'GitSyncError'
+    | 'GitConnectionError'
+    | 'INVALID_SMTP_CONFIGURATION'
+    | 'EMAIL_NOT_SENT_ALERT'
+    | 'USERGROUP_SYNC_FAILED'
+    | 'USAGE_LIMIT_EXCEEDED'
+    | 'INSTANCE_USAGE_APPROACHING_LIMIT'
+    | 'RESOURCE_USAGE_APPROACHING_LIMIT'
+    | 'DEPLOYMENT_RATE_APPROACHING_LIMIT'
+    | 'SETTING_ATTRIBUTE_VALIDATION_FAILED'
+    | 'ARTIFACT_COLLECTION_FAILED'
+    | 'CONTINUOUS_VERIFICATION_ALERT'
+    | 'CONTINUOUS_VERIFICATION_DATA_COLLECTION_ALERT'
+    | 'MANIFEST_COLLECTION_FAILED'
+  conditions?: Conditions
+}
+
+export interface AlertNotificationRule {
+  accountId?: string
+  alertCategory?: 'All' | 'Setup' | 'Approval' | 'ManualIntervention' | 'ContinuousVerification'
+  alertFilter?: AlertFilter
+  appId: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  default?: boolean
+  lastUpdatedAt: number
+  userGroupsToNotify?: string[]
+  uuid: string
+}
+
+export interface AlertReconciliation {
+  needed?: boolean
+  nextIteration?: number
+}
+
+export interface AlertRiskDetail {
+  metricName?: string
+  txnName?: string
+}
+
+export interface AlertThreshold {
+  alertsSent?: number
+  basedOn?: 'ACTUAL_COST' | 'FORECASTED_COST'
+  crossedAt?: number
+  percentage?: number
+}
+
+export interface AlertType {
+  alertType?:
+    | 'ApprovalNeeded'
+    | 'ManualInterventionNeeded'
+    | 'NoActiveDelegates'
+    | 'NoInstalledDelegates'
+    | 'DelegatesDown'
+    | 'DelegatesScalingGroupDownAlert'
+    | 'DelegateProfileError'
+    | 'NoEligibleDelegates'
+    | 'PerpetualTaskAlert'
+    | 'InvalidKMS'
+    | 'GitSyncError'
+    | 'GitConnectionError'
+    | 'INVALID_SMTP_CONFIGURATION'
+    | 'EMAIL_NOT_SENT_ALERT'
+    | 'USERGROUP_SYNC_FAILED'
+    | 'USAGE_LIMIT_EXCEEDED'
+    | 'INSTANCE_USAGE_APPROACHING_LIMIT'
+    | 'RESOURCE_USAGE_APPROACHING_LIMIT'
+    | 'DEPLOYMENT_RATE_APPROACHING_LIMIT'
+    | 'SETTING_ATTRIBUTE_VALIDATION_FAILED'
+    | 'ARTIFACT_COLLECTION_FAILED'
+    | 'CONTINUOUS_VERIFICATION_ALERT'
+    | 'CONTINUOUS_VERIFICATION_DATA_COLLECTION_ALERT'
+    | 'MANIFEST_COLLECTION_FAILED'
+  category?: 'All' | 'Setup' | 'Approval' | 'ManualIntervention' | 'ContinuousVerification'
+  severity?: 'Warning' | 'Error'
+}
+
+export interface ApiKeyAuditDetails {
+  apiKeyId?: string
+  apiKeyName?: string
+}
+
+export interface ApiKeyEntry {
+  accountId?: string
+  createdAt?: number
+  decryptedKey?: string
+  encryptedKey?: string[]
+  hashOfKey?: string
+  name?: string
+  userGroupIds?: string[]
+  userGroups?: UserGroup[]
+  uuid?: string
+}
+
+export interface ApiKeyInfo {
+  apiKeyName?: string
+  appKeyId?: string
 }
 
 export interface AppContainer {
-  uuid: string
+  accountId?: string
   appId: string
-  createdBy?: EmbeddedUser
+  checksum?: string
+  checksumType?: 'MD5' | 'SHA1' | 'SHA256'
   createdAt?: number
+  createdBy?: EmbeddedUser
+  description?: string
+  family?: 'TOMCAT' | 'JBOSS'
+  fileName?: string
+  fileType?: 'ZIP' | 'TAR_GZ' | 'TAR_BZ' | 'TAR' | 'UNKNOWN'
+  fileUuid?: string
+  hardened?: boolean
+  lastUpdatedAt: number
+  mimeType?: string
+  name?: string
+  size?: number
+  stackRootDirectory?: string
+  standard?: boolean
+  standardUpload?: boolean
+  systemCreated?: boolean
+  uuid: string
+  version?: string
+}
+
+export interface AppDynamicsApplication {
+  id?: number
+  name?: string
+}
+
+export type AppDynamicsConnectorDTO = ConnectorConfigDTO & {
+  accountId: string
+  accountname: string
+  controllerUrl: string
+  passwordRef: string
+  username: string
+}
+
+export interface AppDynamicsTier {
+  id?: number
+  name?: string
+}
+
+export interface AppEnvRestriction {
+  appFilter?: GenericEntityFilter
+  envFilter?: EnvFilter
+}
+
+export interface AppPermission {
+  actions?: (
+    | 'ALL'
+    | 'CREATE'
+    | 'READ'
+    | 'UPDATE'
+    | 'DELETE'
+    | 'EXECUTE'
+    | 'EXECUTE_WORKFLOW'
+    | 'EXECUTE_PIPELINE'
+    | 'DEFAULT'
+  )[]
+  appFilter?: GenericEntityFilter
+  entityFilter?: Filter
+  permissionType?:
+    | 'ACCOUNT'
+    | 'LOGGED_IN'
+    | 'DELEGATE'
+    | 'NONE'
+    | 'APP'
+    | 'ALL_APP_ENTITIES'
+    | 'ENV'
+    | 'SERVICE'
+    | 'WORKFLOW'
+    | 'PIPELINE'
+    | 'DEPLOYMENT'
+    | 'APPLICATION_CREATE_DELETE'
+    | 'USER_PERMISSION_MANAGEMENT'
+    | 'ACCOUNT_MANAGEMENT'
+    | 'PROVISIONER'
+    | 'TEMPLATE_MANAGEMENT'
+    | 'USER_PERMISSION_READ'
+    | 'AUDIT_VIEWER'
+    | 'TAG_MANAGEMENT'
+    | 'CE_ADMIN'
+    | 'CE_VIEWER'
+    | 'MANAGE_CLOUD_PROVIDERS'
+    | 'MANAGE_CONNECTORS'
+    | 'MANAGE_APPLICATIONS'
+    | 'MANAGE_APPLICATION_STACKS'
+    | 'MANAGE_DELEGATES'
+    | 'MANAGE_ALERT_NOTIFICATION_RULES'
+    | 'MANAGE_DELEGATE_PROFILES'
+    | 'MANAGE_CONFIG_AS_CODE'
+    | 'MANAGE_SECRETS'
+    | 'MANAGE_SECRET_MANAGERS'
+    | 'MANAGE_AUTHENTICATION_SETTINGS'
+    | 'MANAGE_USER_AND_USER_GROUPS_AND_API_KEYS'
+    | 'VIEW_USER_AND_USER_GROUPS_AND_API_KEYS'
+    | 'MANAGE_IP_WHITELIST'
+    | 'MANAGE_IP_WHITELISTING'
+    | 'MANAGE_DEPLOYMENT_FREEZES'
+    | 'MANAGE_PIPELINE_GOVERNANCE_STANDARDS'
+    | 'MANAGE_API_KEYS'
+    | 'MANAGE_TAGS'
+    | 'MANAGE_CUSTOM_DASHBOARDS'
+    | 'CREATE_CUSTOM_DASHBOARDS'
+}
+
+export interface AppPermissionSummaryForUI {
+  canCreateEnvironment?: boolean
+  canCreatePipeline?: boolean
+  canCreateProvisioner?: boolean
+  canCreateService?: boolean
+  canCreateWorkflow?: boolean
+  deploymentPermissions?: {
+    [key: string]: (
+      | 'ALL'
+      | 'CREATE'
+      | 'READ'
+      | 'UPDATE'
+      | 'DELETE'
+      | 'EXECUTE'
+      | 'EXECUTE_WORKFLOW'
+      | 'EXECUTE_PIPELINE'
+      | 'DEFAULT'
+    )[]
+  }
+  envPermissions?: {
+    [key: string]: (
+      | 'ALL'
+      | 'CREATE'
+      | 'READ'
+      | 'UPDATE'
+      | 'DELETE'
+      | 'EXECUTE'
+      | 'EXECUTE_WORKFLOW'
+      | 'EXECUTE_PIPELINE'
+      | 'DEFAULT'
+    )[]
+  }
+  pipelinePermissions?: {
+    [key: string]: (
+      | 'ALL'
+      | 'CREATE'
+      | 'READ'
+      | 'UPDATE'
+      | 'DELETE'
+      | 'EXECUTE'
+      | 'EXECUTE_WORKFLOW'
+      | 'EXECUTE_PIPELINE'
+      | 'DEFAULT'
+    )[]
+  }
+  provisionerPermissions?: {
+    [key: string]: (
+      | 'ALL'
+      | 'CREATE'
+      | 'READ'
+      | 'UPDATE'
+      | 'DELETE'
+      | 'EXECUTE'
+      | 'EXECUTE_WORKFLOW'
+      | 'EXECUTE_PIPELINE'
+      | 'DEFAULT'
+    )[]
+  }
+  servicePermissions?: {
+    [key: string]: (
+      | 'ALL'
+      | 'CREATE'
+      | 'READ'
+      | 'UPDATE'
+      | 'DELETE'
+      | 'EXECUTE'
+      | 'EXECUTE_WORKFLOW'
+      | 'EXECUTE_PIPELINE'
+      | 'DEFAULT'
+    )[]
+  }
+  workflowPermissions?: {
+    [key: string]: (
+      | 'ALL'
+      | 'CREATE'
+      | 'READ'
+      | 'UPDATE'
+      | 'DELETE'
+      | 'EXECUTE'
+      | 'EXECUTE_WORKFLOW'
+      | 'EXECUTE_PIPELINE'
+      | 'DEFAULT'
+    )[]
+  }
+}
+
+export interface AppRestrictionsSummary {
+  application?: EntityReference
+  environments?: EntityReference[]
+  hasAllNonProdEnvAccess?: boolean
+  hasAllProdEnvAccess?: boolean
+}
+
+export interface AppdynamicsMetricPackDataValidationRequest {
+  connector?: ConnectorConfigDTO
+  metricPacks?: MetricPackDTO[]
+}
+
+export interface AppdynamicsMetricValueValidationResponse {
+  apiResponseStatus?: 'SUCCESS' | 'NO_DATA' | 'FAILED'
+  errorMessage?: string
+  metricName?: string
+  value?: number
+}
+
+export interface AppdynamicsSetupTestNodeData {
+  appId: string
+  applicationId?: number
+  fromTime?: number
+  guid?: string
+  hostExpression?: string
+  instanceElement?: Instance
+  instanceName?: string
+  isServiceLevel?: boolean
+  serviceLevel?: boolean
+  settingId: string
+  stateType?:
+    | 'SUB_WORKFLOW'
+    | 'REPEAT'
+    | 'FORK'
+    | 'WAIT'
+    | 'PAUSE'
+    | 'BARRIER'
+    | 'RESOURCE_CONSTRAINT'
+    | 'SHELL_SCRIPT'
+    | 'HTTP'
+    | 'TEMPLATIZED_SECRET_MANAGER'
+    | 'EMAIL'
+    | 'APP_DYNAMICS'
+    | 'NEW_RELIC'
+    | 'NEW_RELIC_DEPLOYMENT_MARKER'
+    | 'DYNA_TRACE'
+    | 'PROMETHEUS'
+    | 'SPLUNKV2'
+    | 'ELK'
+    | 'LOGZ'
+    | 'SUMO'
+    | 'DATA_DOG'
+    | 'DATA_DOG_LOG'
+    | 'CLOUD_WATCH'
+    | 'AWS_LAMBDA_VERIFICATION'
+    | 'APM_VERIFICATION'
+    | 'LOG_VERIFICATION'
+    | 'BUG_SNAG'
+    | 'STACK_DRIVER'
+    | 'STACK_DRIVER_LOG'
+    | 'INSTANA'
+    | 'SCALYR'
+    | 'ENV_STATE'
+    | 'ENV_LOOP_STATE'
+    | 'ENV_RESUME_STATE'
+    | 'ENV_LOOP_RESUME_STATE'
+    | 'COMMAND'
+    | 'APPROVAL'
+    | 'APPROVAL_RESUME'
+    | 'ELASTIC_LOAD_BALANCER'
+    | 'JENKINS'
+    | 'GCB'
+    | 'BAMBOO'
+    | 'ARTIFACT_COLLECTION'
+    | 'ARTIFACT_CHECK'
+    | 'AZURE_NODE_SELECT'
+    | 'AZURE_VMSS_SETUP'
+    | 'AZURE_VMSS_DEPLOY'
+    | 'AZURE_VMSS_ROLLBACK'
+    | 'AZURE_VMSS_SWITCH_ROUTES'
+    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
+    | 'AZURE_WEBAPP_SLOT_SETUP'
+    | 'AZURE_WEBAPP_SLOT_RESIZE'
+    | 'AZURE_WEBAPP_SLOT_SWAP'
+    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
+    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
+    | 'AWS_NODE_SELECT'
+    | 'DC_NODE_SELECT'
+    | 'ROLLING_NODE_SELECT'
+    | 'PHASE'
+    | 'PHASE_STEP'
+    | 'STAGING_ORIGINAL_EXECUTION'
+    | 'AWS_CODEDEPLOY_STATE'
+    | 'AWS_CODEDEPLOY_ROLLBACK'
+    | 'AWS_LAMBDA_STATE'
+    | 'AWS_LAMBDA_ROLLBACK'
+    | 'AWS_AMI_SERVICE_SETUP'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
+    | 'AWS_AMI_SERVICE_DEPLOY'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
+    | 'AWS_AMI_SWITCH_ROUTES'
+    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
+    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_SERVICE_ROLLBACK'
+    | 'ECS_SERVICE_SETUP'
+    | 'SPOTINST_SETUP'
+    | 'SPOTINST_ALB_SHIFT_SETUP'
+    | 'SPOTINST_DEPLOY'
+    | 'SPOTINST_ALB_SHIFT_DEPLOY'
+    | 'SPOTINST_LISTENER_UPDATE'
+    | 'SPOTINST_LISTENER_ALB_SHIFT'
+    | 'SPOTINST_ROLLBACK'
+    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
+    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
+    | 'ECS_SERVICE_SETUP_ROLLBACK'
+    | 'ECS_DAEMON_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
+    | 'ECS_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_ROLLBACK'
+    | 'ECS_LISTENER_UPDATE'
+    | 'ECS_LISTENER_UPDATE_ROLLBACK'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
+    | 'KUBERNETES_SETUP'
+    | 'KUBERNETES_SETUP_ROLLBACK'
+    | 'KUBERNETES_DEPLOY'
+    | 'KUBERNETES_DEPLOY_ROLLBACK'
+    | 'KUBERNETES_STEADY_STATE_CHECK'
+    | 'ECS_STEADY_STATE_CHECK'
+    | 'ECS_RUN_TASK'
+    | 'GCP_CLUSTER_SETUP'
+    | 'HELM_DEPLOY'
+    | 'HELM_ROLLBACK'
+    | 'PCF_SETUP'
+    | 'PCF_RESIZE'
+    | 'PCF_ROLLBACK'
+    | 'PCF_MAP_ROUTE'
+    | 'PCF_UNMAP_ROUTE'
+    | 'PCF_BG_MAP_ROUTE'
+    | 'PCF_PLUGIN'
+    | 'TERRAFORM_PROVISION'
+    | 'TERRAFORM_APPLY'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'TERRAFORM_DESTROY'
+    | 'CLOUD_FORMATION_CREATE_STACK'
+    | 'CLOUD_FORMATION_DELETE_STACK'
+    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'CLOUD_FORMATION_ROLLBACK_STACK'
+    | 'TERRAFORM_ROLLBACK'
+    | 'K8S_DEPLOYMENT_ROLLING'
+    | 'K8S_SCALE'
+    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
+    | 'K8S_BLUE_GREEN_DEPLOY'
+    | 'K8S_CANARY_DEPLOY'
+    | 'K8S_DELETE'
+    | 'JIRA_CREATE_UPDATE'
+    | 'SERVICENOW_CREATE_UPDATE'
+    | 'K8S_TRAFFIC_SPLIT'
+    | 'K8S_APPLY'
+    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
+  tierId?: number
+  toTime?: number
+  workflowId?: string
+}
+
+export interface AppdynamicsTier {
+  agentType?: string
+  dependencyPath?: string
+  description?: string
+  externalTiers?: AppdynamicsTier[]
+  id?: number
+  name?: string
+  type?: string
+}
+
+export interface AppdynamicsValidationResponse {
+  metricPackName?: string
+  overallStatus?: 'SUCCESS' | 'NO_DATA' | 'FAILED'
+  values?: AppdynamicsMetricValueValidationResponse[]
+}
+
+export interface Application {
+  accountId?: string
+  appId: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  defaults?: {
+    [key: string]: string
+  }
+  description?: string
+  environments?: Environment[]
+  keywords?: string[]
   lastUpdatedAt: number
   name?: string
-  fileUuid?: string
-  fileName?: string
-  mimeType?: string
-  size?: number
-  checksumType?: 'MD5' | 'SHA1' | 'SHA256'
-  checksum?: string
+  nextDeploymentOn?: number
+  notifications?: Notification[]
+  recentExecutions?: WorkflowExecution[]
+  sample?: boolean
+  services?: Service[]
+  setup?: Setup
+  tagLinks?: HarnessTagLink[]
+  uuid: string
+  yamlGitConfig?: YamlGitConfig
+}
+
+export interface ApplicationAuditFilter {
+  appIds?: string[]
+  resourceIds?: string[]
+  resourceTypes?: string[]
+}
+
+export type ApplicationBudgetScope = BudgetScope & {
+  applicationIds?: string[]
+  environmentType?: 'PROD' | 'NON_PROD' | 'ALL'
+}
+
+export interface ApplicationManifest {
   accountId?: string
-  standard?: boolean
+  appId: string
+  collectionStatus?: 'UNSTABLE' | 'COLLECTING' | 'STABLE'
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  envId?: string
+  failedAttempts?: number
+  gitFileConfig?: GitFileConfig
+  helmChartConfig?: HelmChartConfig
+  kind?: 'VALUES' | 'K8S_MANIFEST' | 'PCF_OVERRIDE' | 'HELM_CHART_OVERRIDE' | 'OC_PARAMS'
+  kustomizeConfig?: KustomizeConfig
+  lastUpdatedAt: number
+  perpetualTaskId?: string
+  pollForChanges?: boolean
+  serviceId?: string
+  serviceName?: string
+  storeType?: 'Local' | 'Remote' | 'HelmSourceRepo' | 'HelmChartRepo' | 'KustomizeSourceRepo' | 'OC_TEMPLATES'
+  uuid: string
+}
+
+export interface ApplicationManifestSummary {
+  appManifestId?: string
+  defaultManifest?: ManifestSummary
+  lastCollectedManifest?: ManifestSummary
+  settingId?: string
+}
+
+export interface ApplicationRole {
+  allEnvironments?: boolean
+  appId?: string
+  appName?: string
+  environmentRoles?: EnvironmentRole[]
+  resourceAccess?: ImmutablePairResourceTypeAction[]
+}
+
+export interface ApprovalAuthorization {
+  authorized?: boolean
+}
+
+export interface ApprovalDetails {
+  action?: 'APPROVE' | 'REJECT'
+  approvalFromSlack?: boolean
+  approvalId?: string
+  approvedBy?: EmbeddedUser
+  comments?: string
+  variables?: NameValuePair[]
+}
+
+export interface Artifact {
+  accountId?: string
+  appId: string
+  artifactFileMetadata?: ArtifactFileMetadata[]
+  artifactFileSize?: number
+  artifactFiles?: ArtifactFile[]
+  artifactPath?: string
+  artifactSourceName?: string
+  artifactStreamId?: string
+  artifactStreamName?: string
+  artifactStreamType?: string
+  bucketName?: string
+  buildFullDisplayName?: string
+  buildIdentity?: string
+  buildNo?: string
+  contentStatus?: 'METADATA_ONLY' | 'NOT_DOWNLOADED' | 'DOWNLOADING' | 'DOWNLOADED' | 'DELETED' | 'FAILED'
+  createdAt?: number
+  createdBy?: EmbeddedUser
   description?: string
-  standardUpload?: boolean
-  family?: 'TOMCAT' | 'JBOSS'
-  stackRootDirectory?: string
-  fileType?: 'ZIP' | 'TAR_GZ' | 'TAR_BZ' | 'TAR' | 'UNKNOWN'
-  systemCreated?: boolean
-  version?: string
-  hardened?: boolean
+  displayName?: string
+  errorMessage?: string
+  fileName?: string
+  key?: string
+  labels?: {
+    [key: string]: string
+  }
+  lastUpdatedAt: number
+  metadata?: {
+    [key: string]: string
+  }
+  revision?: string
+  serviceIds?: string[]
+  services?: Service[]
+  settingId?: string
+  source?: {
+    [key: string]: string
+  }
+  status?: 'NEW' | 'RUNNING' | 'QUEUED' | 'WAITING' | 'READY' | 'APPROVED' | 'REJECTED' | 'ABORTED' | 'FAILED' | 'ERROR'
+  uiDisplayName?: string
+  url?: string
+  uuid: string
+}
+
+export interface ArtifactFile {
+  accountId?: string
+  appId: string
+  checksum?: string
+  checksumType?: 'MD5' | 'SHA1' | 'SHA256'
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  fileName?: string
+  fileUuid?: string
+  lastUpdatedAt: number
+  mimeType?: string
+  name?: string
+  size?: number
+  uuid: string
+}
+
+export interface ArtifactFileMetadata {
+  fileName?: string
+  url?: string
+}
+
+export interface ArtifactSelection {
+  artifactFilter?: string
+  artifactSourceName?: string
+  artifactStreamId?: string
+  pipelineId?: string
+  pipelineName?: string
+  regex?: boolean
+  serviceId?: string
+  serviceName?: string
+  type?: 'ARTIFACT_SOURCE' | 'LAST_COLLECTED' | 'LAST_DEPLOYED' | 'PIPELINE_SOURCE' | 'WEBHOOK_VARIABLE'
+  uiDisplayName?: string
+  workflowId?: string
+  workflowName?: string
+}
+
+export interface ArtifactSource {
+  [key: string]: any
+}
+
+export type ArtifactSourceTemplate = BaseTemplate & {
+  artifactSource?: ArtifactSource
 }
 
 export interface ArtifactStream {
-  artifactStreamId?: string
-  artifactStreamType?: string
-  sourceName?: string
-  settingId?: string
-  artifactServerName?: string
-  name?: string
-  autoPopulate?: boolean
-  serviceId?: string
-  service?: Service
-  autoDownload?: boolean
-  autoApproveForProduction?: boolean
-  metadataOnly?: boolean
-  failedCronAttempts?: number
-  nextIteration?: number
-  nextCleanupIteration?: number
-  templateUuid?: string
-  templateVersion?: string
-  templateVariables?: Variable[]
   accountId?: string
-  keywords?: string[]
-  artifactCount?: number
-  artifacts?: ArtifactSummary[]
-  sample?: boolean
-  perpetualTaskId?: string
-  collectionStatus?: string
-  artifactStreamParameterized?: boolean
-  uuid: string
   appId: string
-  createdBy?: EmbeddedUser
+  artifactCount?: number
+  artifactServerName?: string
+  artifactStreamId?: string
+  artifactStreamParameterized?: boolean
+  artifactStreamType?: string
+  artifacts?: ArtifactSummary[]
+  autoApproveForProduction?: boolean
+  autoDownload?: boolean
+  autoPopulate?: boolean
+  collectionStatus?: string
   createdAt?: number
+  createdBy?: EmbeddedUser
+  failedCronAttempts?: number
+  keywords?: string[]
   lastUpdatedAt: number
+  metadataOnly?: boolean
+  name?: string
+  nextCleanupIteration?: number
+  nextIteration?: number
+  perpetualTaskId?: string
+  sample?: boolean
+  service?: Service
+  serviceId?: string
+  settingId?: string
+  sourceName?: string
+  templateUuid?: string
+  templateVariables?: Variable[]
+  templateVersion?: string
+  uuid: string
 }
 
 export interface ArtifactStreamBinding {
-  name?: string
   artifactStreams?: ArtifactStreamSummary[]
+  name?: string
+}
+
+export interface ArtifactStreamMetadata {
+  artifactStreamId?: string
+  runtimeValues?: {
+    [key: string]: { [key: string]: any }
+  }
 }
 
 export interface ArtifactStreamSummary {
   artifactStreamId?: string
-  settingId?: string
-  displayName?: string
-  name?: string
-  lastCollectedArtifact?: string
   defaultArtifact?: ArtifactSummary
+  displayName?: string
+  lastCollectedArtifact?: string
+  name?: string
+  settingId?: string
 }
 
 export interface ArtifactSummary {
-  uuid?: string
-  uiDisplayName?: string
   buildNo?: string
+  uiDisplayName?: string
+  uuid?: string
+}
+
+export type ArtifactTriggerCondition = TriggerCondition & {
+  artifactFilter?: string
+  artifactSourceName?: string
+  artifactStreamId?: string
+  regex?: boolean
+}
+
+export interface ArtifactVariable {
+  allowMultipleValues?: boolean
+  allowedList?: string[]
+  allowedValues?: string
+  artifactStreamMetadata?: ArtifactStreamMetadata
+  artifactStreamSummaries?: ArtifactStreamSummary[]
+  description?: string
+  displayInfo?: {
+    [key: string]: string[]
+  }
+  entityId?: string
+  entityType?:
+    | 'SERVICE'
+    | 'PROVISIONER'
+    | 'ENVIRONMENT'
+    | 'HOST'
+    | 'RELEASE'
+    | 'ARTIFACT'
+    | 'SSH_USER'
+    | 'SSH_PASSWORD'
+    | 'SSH_APP_ACCOUNT'
+    | 'SSH_KEY_PASSPHRASE'
+    | 'SSH_APP_ACCOUNT_PASSOWRD'
+    | 'SIMPLE_DEPLOYMENT'
+    | 'ORCHESTRATED_DEPLOYMENT'
+    | 'PIPELINE'
+    | 'WORKFLOW'
+    | 'DEPLOYMENT'
+    | 'INSTANCE'
+    | 'APPLICATION'
+    | 'COMMAND'
+    | 'CONFIG'
+    | 'SERVICE_TEMPLATE'
+    | 'INFRASTRUCTURE_MAPPING'
+    | 'INFRASTRUCTURE_DEFINITION'
+    | 'USER'
+    | 'ARTIFACT_STREAM'
+    | 'APPDYNAMICS_CONFIGID'
+    | 'APPDYNAMICS_APPID'
+    | 'APPDYNAMICS_TIERID'
+    | 'ELK_CONFIGID'
+    | 'ELK_INDICES'
+    | 'NEWRELIC_CONFIGID'
+    | 'NEWRELIC_APPID'
+    | 'SS_SSH_CONNECTION_ATTRIBUTE'
+    | 'SS_WINRM_CONNECTION_ATTRIBUTE'
+    | 'SUMOLOGIC_CONFIGID'
+    | 'SPLUNK_CONFIGID'
+    | 'NEWRELIC_MARKER_CONFIGID'
+    | 'NEWRELIC_MARKER_APPID'
+    | 'API_KEY'
+    | 'ACCOUNT'
+    | 'APPLICATION_MANIFEST'
+    | 'USER_GROUP'
+    | 'WHITELISTED_IP'
+    | 'CF_AWS_CONFIG_ID'
+    | 'VERIFICATION_CONFIGURATION'
+    | 'HELM_GIT_CONFIG_ID'
+    | 'NOTIFICATION_GROUP'
+    | 'HELM_CHART_SPECIFICATION'
+    | 'PCF_SERVICE_SPECIFICATION'
+    | 'LAMBDA_SPECIFICATION'
+    | 'USER_DATA_SPECIFICATION'
+    | 'ECS_CONTAINER_SPECIFICATION'
+    | 'ECS_SERVICE_SPECIFICATION'
+    | 'K8S_CONTAINER_SPECIFICATION'
+    | 'CONFIG_FILE'
+    | 'SERVICE_COMMAND'
+    | 'MANIFEST_FILE'
+    | 'SERVICE_VARIABLE'
+    | 'TRIGGER'
+    | 'ROLE'
+    | 'TEMPLATE'
+    | 'TEMPLATE_FOLDER'
+    | 'SETTING_ATTRIBUTE'
+    | 'ENCRYPTED_RECORDS'
+    | 'CV_CONFIGURATION'
+    | 'TAG'
+    | 'CUSTOM_DASHBOARD'
+    | 'PIPELINE_GOVERNANCE_STANDARD'
+    | 'WORKFLOW_EXECUTION'
+    | 'SERVERLESS_INSTANCE'
+    | 'USER_INVITE'
+    | 'LOGIN_SETTINGS'
+    | 'SSO_SETTINGS'
+    | 'DELEGATE'
+    | 'DELEGATE_SCOPE'
+    | 'DELEGATE_PROFILE'
+    | 'EXPORT_EXECUTIONS_REQUEST'
+    | 'GCP_CONFIG'
+    | 'GIT_CONFIG'
+    | 'JENKINS_SERVER'
+    | 'SECRETS_MANAGER'
+    | 'HELM_CHART'
+    | 'SECRET'
+    | 'CONNECTOR'
+    | 'CLOUD_PROVIDER'
+  fixed?: boolean
+  lastDeployedArtifactInfo?: LastDeployedArtifactInformation
+  mandatory?: boolean
+  metadata?: {
+    [key: string]: { [key: string]: any }
+  }
+  name?: string
+  overriddenArtifactVariables?: ArtifactVariable[]
+  runtimeInput?: boolean
+  type?: 'TEXT' | 'NUMBER' | 'EMAIL' | 'ENTITY' | 'ARTIFACT' | 'MANIFEST'
+  uiDisplayName?: string
+  value?: string
+  workflowIds?: string[]
+}
+
+export interface ArtifactoryAuthCredentials {
+  [key: string]: any
+}
+
+export interface ArtifactoryAuthentication {
+  spec: ArtifactoryAuthCredentials
+  type: 'UsernamePassword'
+}
+
+export type ArtifactoryConnector = ConnectorConfigDTO & {
+  artifactoryServerUrl: string
+  auth?: ArtifactoryAuthentication
+}
+
+export interface AtomicInteger {
+  andDecrement?: number
+  andIncrement?: number
+}
+
+export interface AttributeMapping {
+  mappedAttribute?: string
+  relativePath?: string
+}
+
+export interface AuditHeader {
+  accountId?: string
+  apiKeyAuditDetails?: ApiKeyAuditDetails
+  appId: string
+  application?: Application
+  component?: Service
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  entityAuditRecords?: EntityAuditRecord[]
+  environment?: Environment
+  errorCode?: string
+  failureStatusMsg?: string
+  gitAuditDetails?: GitAuditDetails
+  headerString?: string
+  lastUpdatedAt: number
+  localHostName?: string
+  localIpAddress?: string
+  queryParams?: string
+  remoteHostName?: string
+  remoteHostPort?: number
+  remoteIpAddress?: string
+  remoteUser?: User
+  requestMethod?: 'OPTIONS' | 'HEAD' | 'GET' | 'PATCH' | 'POST' | 'PUT' | 'DELETE'
+  requestPayloadUuid?: string
+  requestTime?: number
+  resourcePath?: string
+  responsePayloadUuid?: string
+  responseStatusCode?: number
+  responseTime?: number
+  responseType?: 'SUCCESS' | 'FAILED' | 'COMPLETED_WITH_ERRORS'
+  url?: string
+  uuid: string
+}
+
+export interface AuditHeaderYamlResponse {
+  auditHeaderId?: string
+  entityId?: string
+  newYaml?: string
+  newYamlPath?: string
+  oldYaml?: string
+  oldYamlPath?: string
+}
+
+export type AuditPreference = Preference & {
+  accountAuditFilter?: AccountAuditFilter
+  applicationAuditFilter?: ApplicationAuditFilter
+  createdByUserIds?: string[]
+  endTime?: string
+  includeAccountLevelResources?: boolean
+  includeAppLevelResources?: boolean
+  lastNDays?: number
+  operationTypes?: string[]
+  startTime?: string
+}
+
+export interface AuditPreferenceResponse {
+  auditPreferences?: AuditPreference[]
+  resourceLookupMap?: {
+    [key: string]: ResourceLookup
+  }
+}
+
+export type AwsAmiInfrastructure = InfraMappingInfrastructureProvider & {
+  amiDeploymentType?: 'AWS_ASG' | 'SPOTINST'
+  asgIdentifiesWorkload?: boolean
+  autoScalingGroupName?: string
+  classicLoadBalancers?: string[]
+  expressions?: {
+    [key: string]: string
+  }
+  hostNameConvention?: string
+  region?: string
+  spotinstCloudProvider?: string
+  spotinstElastiGroupJson?: string
+  stageClassicLoadBalancers?: string[]
+  stageTargetGroupArns?: string[]
+  targetGroupArns?: string[]
+  useTrafficShift?: boolean
+}
+
+export interface AwsAsgGetRunningCountData {
+  asgDesired?: number
+  asgMax?: number
+  asgMin?: number
+  asgName?: string
+}
+
+export interface AwsCFTemplateParamsData {
+  defaultValue?: string
+  paramKey?: string
+  paramType?: string
+}
+
+export type AwsConnector = ConnectorConfigDTO & {
+  credential: AwsCredential
+}
+
+export interface AwsCredential {
+  crossAccountAccess?: CrossAccountAccess
+  spec: AwsCredentialSpec
+  type: 'InheritFromDelegate' | 'ManualConfig'
+}
+
+export interface AwsCredentialSpec {
+  [key: string]: any
+}
+
+export type AwsEcsInfrastructure = InfraMappingInfrastructureProvider & {
+  assignPublicIp?: boolean
+  clusterName?: string
+  executionRole?: string
+  expressions?: {
+    [key: string]: string
+  }
+  launchType?: string
+  region?: string
+  securityGroupIds?: string[]
+  subnetIds?: string[]
+  vpcId?: string
+}
+
+export interface AwsElbListener {
+  listenerArn?: string
+  loadBalancerArn?: string
+  port?: number
+  protocol?: string
+  rules?: AwsElbListenerRuleData[]
+}
+
+export interface AwsElbListenerRuleData {
+  default?: boolean
+  ruleArn?: string
+  rulePriority?: string
+  ruleTargetGroupArn?: string
+}
+
+export interface AwsInstanceFilter {
+  tags?: Tag[]
+  vpcIds?: string[]
+}
+
+export type AwsInstanceInfrastructure = InfraMappingInfrastructureProvider & {
+  autoScalingGroupName?: string
+  awsInstanceFilter?: AwsInstanceFilter
+  desiredCapacity?: number
+  expressions?: {
+    [key: string]: string
+  }
+  hostConnectionAttrs?: string
+  hostConnectionType?: string
+  hostNameConvention?: string
+  loadBalancerId?: string
+  loadBalancerName?: string
+  provisionInstances?: boolean
+  region?: string
+  setDesiredCapacity?: boolean
+  usePublicDns?: boolean
+}
+
+export interface AwsLambdaExecutionSummary {
+  functionMeta?: FunctionMeta
+  success?: boolean
+}
+
+export type AwsLambdaInfrastructure = InfraMappingInfrastructureProvider & {
+  expressions?: {
+    [key: string]: string
+  }
+  region?: string
+  role?: string
+  securityGroupIds?: string[]
+  subnetIds?: string[]
+  vpcId?: string
+}
+
+export interface AwsLambdaInstanceKey {
+  functionName?: string
+  functionVersion?: string
+}
+
+export interface AwsLoadBalancerDetails {
+  arn?: string
+  dnsname?: string
+  ipAddressType?: string
+  name?: string
+  scheme?: string
+  type?: string
+  vpcId?: string
+}
+
+export interface AwsRoute53HostedZoneData {
+  hostedZoneId?: string
+  hostedZoneName?: string
+}
+
+export interface AwsSecretsManagerConfig {
+  accessKey?: string
+  accountId?: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  default?: boolean
+  encryptedBy?: string
+  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  lastUpdatedAt?: number
+  lastUpdatedBy?: EmbeddedUser
+  manuallyEnteredSecretEngineMigrationIteration?: number
+  name?: string
+  nextTokenRenewIteration?: number
+  numOfEncryptedValue?: number
+  region?: string
+  scopedToAccount?: boolean
+  secretKey?: string
+  secretNamePrefix?: string
+  templatized?: boolean
+  templatizedFields?: string[]
+  usageRestrictions?: UsageRestrictions
+  uuid: string
+}
+
+export interface AwsSecurityGroup {
+  id?: string
+  name?: string
+}
+
+export interface AwsSubnet {
+  id?: string
+  name?: string
+}
+
+export interface AwsVPC {
+  id?: string
+  name?: string
+}
+
+export interface AzureArtifactsFeed {
+  fullyQualifiedName?: string
+  id?: string
+  name?: string
+  project?: AzureDevopsProject
+}
+
+export interface AzureArtifactsPackage {
+  id?: string
+  name?: string
+  protocolType?: string
+}
+
+export interface AzureContainerRegistry {
+  loginServer?: string
+  name?: string
+  resourceGroup?: string
+  resourceId?: string
+  subscriptionId?: string
+  type?: string
+}
+
+export interface AzureDevopsProject {
+  id?: string
+  name?: string
+}
+
+export interface AzureImageDefinition {
+  galleryName?: string
+  location?: string
+  name?: string
+  osType?: string
+  resourceGroupName?: string
+  subscriptionId?: string
+}
+
+export interface AzureImageGallery {
+  name?: string
+  regionName?: string
+  resourceGroupName?: string
+  subscriptionId?: string
+}
+
+export type AzureInstanceInfrastructure = InfraMappingInfrastructureProvider & {
+  hostConnectionAttrs?: string
+  resourceGroup?: string
+  subscriptionId?: string
+  tags?: AzureTag[]
+  usePublicDns?: boolean
+  winRmConnectionAttributes?: string
+}
+
+export type AzureKubernetesCluster = Cluster & {
+  resourceGroup?: string
+  subscriptionId?: string
+}
+
+export type AzureKubernetesService = InfraMappingInfrastructureProvider & {
+  clusterName?: string
+  namespace?: string
+  releaseName?: string
+  resourceGroup?: string
+  subscriptionId?: string
+}
+
+export interface AzureResourceGroup {
+  name?: string
+  subscriptionId?: string
+}
+
+export interface AzureTag {
+  key?: string
+  value?: string
 }
 
 export interface AzureVMInstanceData {
   instanceId?: string
-  publicDnsName?: string
   privateDnsName?: string
   privateIpAddress?: string
+  publicDnsName?: string
+}
+
+export type AzureVMSSInfra = InfraMappingInfrastructureProvider & {
+  baseVMSSName?: string
+  hostConnectionAttrs?: string
+  passwordSecretTextName?: string
+  resourceGroupName?: string
+  subscriptionId?: string
+  userName?: string
+  vmssAuthType?: 'PASSWORD' | 'SSH_PUBLIC_KEY'
+  vmssDeploymentType?: 'NATIVE_VMSS' | 'SPOTINST'
+}
+
+export interface AzureVaultConfig {
+  accountId?: string
+  azureEnvironmentType?: 'AZURE' | 'AZURE_US_GOVERNMENT'
+  clientId?: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  default?: boolean
+  encryptedBy?: string
+  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  lastUpdatedAt?: number
+  lastUpdatedBy?: EmbeddedUser
+  manuallyEnteredSecretEngineMigrationIteration?: number
+  name?: string
+  nextTokenRenewIteration?: number
+  numOfEncryptedValue?: number
+  scopedToAccount?: boolean
+  secretKey?: string
+  subscription?: string
+  templatized?: boolean
+  templatizedFields?: string[]
+  tenantId?: string
+  usageRestrictions?: UsageRestrictions
+  uuid: string
+  vaultName?: string
+}
+
+export type AzureWebAppInfra = InfraMappingInfrastructureProvider & {
+  deploymentSlot?: string
+  expressions?: {
+    [key: string]: string
+  }
+  resourceGroup?: string
+  subscriptionId?: string
+  webApp?: string
+}
+
+export interface Bar {
+  count?: number
+  timestamp?: number
+}
+
+export interface Base {
+  appId: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
+  uuid: string
+}
+
+export interface BaseTemplate {
+  [key: string]: any
+}
+
+export type BasicOrchestrationWorkflow = OrchestrationWorkflow & {
+  derivedVariables?: Variable[]
+  failureStrategies?: FailureStrategy[]
+  graph?: Graph
+  postDeploymentSteps?: PhaseStep
+  preDeploymentSteps?: PhaseStep
+  rollbackProvisioners?: PhaseStep
+  rollbackWorkflowPhaseIdMap?: {
+    [key: string]: WorkflowPhase
+  }
+  systemVariables?: Variable[]
+  workflowPhases?: WorkflowPhase[]
+}
+
+export type BlueGreenOrchestrationWorkflow = OrchestrationWorkflow & {
+  derivedVariables?: Variable[]
+  failureStrategies?: FailureStrategy[]
+  graph?: Graph
+  postDeploymentSteps?: PhaseStep
+  preDeploymentSteps?: PhaseStep
+  rollbackProvisioners?: PhaseStep
+  rollbackWorkflowPhaseIdMap?: {
+    [key: string]: WorkflowPhase
+  }
+  systemVariables?: Variable[]
+  workflowPhases?: WorkflowPhase[]
+}
+
+export interface BlueprintProperty {
+  fields?: NameValuePair[]
+  name?: string
+  value: string
+  valueType?: string
+}
+
+export interface Budget {
+  accountId?: string
+  alertIteration?: number
+  alertThresholds?: AlertThreshold[]
+  budgetAmount?: number
+  createdAt?: number
+  emailAddresses?: string[]
+  lastUpdatedAt?: number
+  name?: string
+  notifyOnSlack?: boolean
+  scope?: BudgetScope
+  type?: 'SPECIFIED_AMOUNT' | 'PREVIOUS_MONTH_SPEND'
+  userGroupIds?: string[]
+  uuid?: string
+}
+
+export interface BudgetScope {
+  budgetScopeFilter?: QLBillingDataFilter
+}
+
+export interface BugsnagApplication {
+  id?: string
+  name?: string
+}
+
+export interface BugsnagSetupTestData {
+  appId: string
+  browserApplication?: boolean
+  fromTime?: number
+  guid?: string
+  hostExpression?: string
+  instanceElement?: Instance
+  instanceName?: string
+  isServiceLevel?: boolean
+  orgId?: string
+  projectId?: string
+  query?: string
+  releaseStage?: string
+  serviceLevel?: boolean
+  settingId: string
+  stateType?:
+    | 'SUB_WORKFLOW'
+    | 'REPEAT'
+    | 'FORK'
+    | 'WAIT'
+    | 'PAUSE'
+    | 'BARRIER'
+    | 'RESOURCE_CONSTRAINT'
+    | 'SHELL_SCRIPT'
+    | 'HTTP'
+    | 'TEMPLATIZED_SECRET_MANAGER'
+    | 'EMAIL'
+    | 'APP_DYNAMICS'
+    | 'NEW_RELIC'
+    | 'NEW_RELIC_DEPLOYMENT_MARKER'
+    | 'DYNA_TRACE'
+    | 'PROMETHEUS'
+    | 'SPLUNKV2'
+    | 'ELK'
+    | 'LOGZ'
+    | 'SUMO'
+    | 'DATA_DOG'
+    | 'DATA_DOG_LOG'
+    | 'CLOUD_WATCH'
+    | 'AWS_LAMBDA_VERIFICATION'
+    | 'APM_VERIFICATION'
+    | 'LOG_VERIFICATION'
+    | 'BUG_SNAG'
+    | 'STACK_DRIVER'
+    | 'STACK_DRIVER_LOG'
+    | 'INSTANA'
+    | 'SCALYR'
+    | 'ENV_STATE'
+    | 'ENV_LOOP_STATE'
+    | 'ENV_RESUME_STATE'
+    | 'ENV_LOOP_RESUME_STATE'
+    | 'COMMAND'
+    | 'APPROVAL'
+    | 'APPROVAL_RESUME'
+    | 'ELASTIC_LOAD_BALANCER'
+    | 'JENKINS'
+    | 'GCB'
+    | 'BAMBOO'
+    | 'ARTIFACT_COLLECTION'
+    | 'ARTIFACT_CHECK'
+    | 'AZURE_NODE_SELECT'
+    | 'AZURE_VMSS_SETUP'
+    | 'AZURE_VMSS_DEPLOY'
+    | 'AZURE_VMSS_ROLLBACK'
+    | 'AZURE_VMSS_SWITCH_ROUTES'
+    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
+    | 'AZURE_WEBAPP_SLOT_SETUP'
+    | 'AZURE_WEBAPP_SLOT_RESIZE'
+    | 'AZURE_WEBAPP_SLOT_SWAP'
+    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
+    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
+    | 'AWS_NODE_SELECT'
+    | 'DC_NODE_SELECT'
+    | 'ROLLING_NODE_SELECT'
+    | 'PHASE'
+    | 'PHASE_STEP'
+    | 'STAGING_ORIGINAL_EXECUTION'
+    | 'AWS_CODEDEPLOY_STATE'
+    | 'AWS_CODEDEPLOY_ROLLBACK'
+    | 'AWS_LAMBDA_STATE'
+    | 'AWS_LAMBDA_ROLLBACK'
+    | 'AWS_AMI_SERVICE_SETUP'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
+    | 'AWS_AMI_SERVICE_DEPLOY'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
+    | 'AWS_AMI_SWITCH_ROUTES'
+    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
+    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_SERVICE_ROLLBACK'
+    | 'ECS_SERVICE_SETUP'
+    | 'SPOTINST_SETUP'
+    | 'SPOTINST_ALB_SHIFT_SETUP'
+    | 'SPOTINST_DEPLOY'
+    | 'SPOTINST_ALB_SHIFT_DEPLOY'
+    | 'SPOTINST_LISTENER_UPDATE'
+    | 'SPOTINST_LISTENER_ALB_SHIFT'
+    | 'SPOTINST_ROLLBACK'
+    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
+    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
+    | 'ECS_SERVICE_SETUP_ROLLBACK'
+    | 'ECS_DAEMON_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
+    | 'ECS_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_ROLLBACK'
+    | 'ECS_LISTENER_UPDATE'
+    | 'ECS_LISTENER_UPDATE_ROLLBACK'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
+    | 'KUBERNETES_SETUP'
+    | 'KUBERNETES_SETUP_ROLLBACK'
+    | 'KUBERNETES_DEPLOY'
+    | 'KUBERNETES_DEPLOY_ROLLBACK'
+    | 'KUBERNETES_STEADY_STATE_CHECK'
+    | 'ECS_STEADY_STATE_CHECK'
+    | 'ECS_RUN_TASK'
+    | 'GCP_CLUSTER_SETUP'
+    | 'HELM_DEPLOY'
+    | 'HELM_ROLLBACK'
+    | 'PCF_SETUP'
+    | 'PCF_RESIZE'
+    | 'PCF_ROLLBACK'
+    | 'PCF_MAP_ROUTE'
+    | 'PCF_UNMAP_ROUTE'
+    | 'PCF_BG_MAP_ROUTE'
+    | 'PCF_PLUGIN'
+    | 'TERRAFORM_PROVISION'
+    | 'TERRAFORM_APPLY'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'TERRAFORM_DESTROY'
+    | 'CLOUD_FORMATION_CREATE_STACK'
+    | 'CLOUD_FORMATION_DELETE_STACK'
+    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'CLOUD_FORMATION_ROLLBACK_STACK'
+    | 'TERRAFORM_ROLLBACK'
+    | 'K8S_DEPLOYMENT_ROLLING'
+    | 'K8S_SCALE'
+    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
+    | 'K8S_BLUE_GREEN_DEPLOY'
+    | 'K8S_CANARY_DEPLOY'
+    | 'K8S_DELETE'
+    | 'JIRA_CREATE_UPDATE'
+    | 'SERVICENOW_CREATE_UPDATE'
+    | 'K8S_TRAFFIC_SPLIT'
+    | 'K8S_APPLY'
+    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
+  toTime?: number
+  workflowId?: string
+}
+
+export interface BuildDetails {
+  artifactFileMetadataList?: ArtifactFileMetadata[]
+  artifactFileSize?: string
+  artifactPath?: string
+  buildDisplayName?: string
+  buildFullDisplayName?: string
+  buildParameters?: {
+    [key: string]: string
+  }
+  buildUrl?: string
+  description?: string
+  labels?: {
+    [key: string]: string
+  }
+  metadata?: {
+    [key: string]: string
+  }
+  number?: string
+  revision?: string
+  status?: 'FAILURE' | 'UNSTABLE' | 'SUCCESS'
+  uiDisplayName?: string
+}
+
+export interface BuildExecutionSummary {
+  artifactSource?: string
+  artifactStreamId?: string
+  buildName?: string
+  buildUrl?: string
+  metadata?: string
+  revision?: string
+}
+
+export interface BuildSourceExecutionResponse {
+  artifactStreamId?: string
+  buildSourceResponse?: BuildSourceResponse
+  commandExecutionStatus?: 'SUCCESS' | 'FAILURE' | 'RUNNING' | 'QUEUED' | 'SKIPPED'
+  delegateMetaInfo?: DelegateMetaInfo
+  errorMessage?: string
+}
+
+export interface BuildSourceResponse {
+  buildDetails?: BuildDetails[]
+  cleanup?: boolean
+  stable?: boolean
+  toBeDeletedKeys?: string[]
+}
+
+export type BuildWorkflow = OrchestrationWorkflow & {
+  derivedVariables?: Variable[]
+  failureStrategies?: FailureStrategy[]
+  graph?: Graph
+  postDeploymentSteps?: PhaseStep
+  preDeploymentSteps?: PhaseStep
+  rollbackProvisioners?: PhaseStep
+  rollbackWorkflowPhaseIdMap?: {
+    [key: string]: WorkflowPhase
+  }
+  systemVariables?: Variable[]
+  workflowPhases?: WorkflowPhase[]
+}
+
+export interface CECommunications {
+  accountId?: string
+  createdAt?: number
+  emailId?: string
+  enabled?: boolean
+  lastUpdatedAt?: number
+  selfEnabled?: boolean
+  type?: 'WEEKLY_REPORT'
+  uuid?: string
+}
+
+export interface CEDelegateStatus {
+  ceEnabled?: boolean
+  connections?: DelegateConnectionInner[]
+  delegateName?: string
+  delegateType?: string
+  found?: boolean
+  lastHeartBeat?: number
+  metricsServerCheck?: MetricsServerCheck
+  permissionRuleList?: Rule[]
+  status?: 'ENABLED' | 'WAITING_FOR_APPROVAL' | 'DISABLED' | 'DELETED'
+  uuid?: string
+}
+
+export interface CEReportSchedule {
+  accountId?: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  description?: string
+  enabled?: boolean
+  lastUpdatedAt?: number
+  lastUpdatedBy?: EmbeddedUser
+  name?: string
+  nextExecution?: string
+  recipients?: string[]
+  userCron?: string
+  uuid?: string
+  viewsId: string[]
+}
+
+export interface CESlackWebhook {
+  accountId?: string
+  createdAt?: number
+  lastUpdatedAt?: number
+  sendCostReport?: boolean
+  uuid?: string
+  webhookUrl?: string
+}
+
+export interface CEView {
+  accountId?: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  lastUpdatedAt?: number
+  lastUpdatedBy?: EmbeddedUser
+  name?: string
+  uuid?: string
+  viewRules?: ViewRule[]
+  viewState?: 'DRAFT' | 'COMPLETED'
+  viewTimeRange?: ViewTimeRange
+  viewType?: 'SAMPLE' | 'CUSTOMER'
+  viewVersion?: string
+  viewVisualization?: ViewVisualization
+}
+
+export interface CVActivityLog {
+  accountId?: string
+  ansiLog?: string
+  cvConfigId?: string
+  dataCollectionMinute?: number
+  log?: string
+  logLevel?: 'INFO' | 'WARN' | 'ERROR'
+  stateExecutionId?: string
+  timestamp?: number
+  timestampParams?: number[]
+  uuid?: string
+  validUntil?: string
+}
+
+export interface CVAlertFilters {
+  alertMinThreshold?: number
+  appIds?: string[]
+  cvConfigIds?: string[]
+  envIds?: string[]
+}
+
+export interface CVCertifiedDetailsForWorkflowState {
+  executionDetails?: StateExecutionInstance
+  phaseName?: string
+  pipelineExecutionId?: string
+  pipelineId?: string
+  pipelineName?: string
+  stateExecutionId?: string
+  workflowExecutionId?: string
+  workflowId?: string
+  workflowName?: string
+}
+
+export interface CVCollaborationProviderParameters {
+  collaborationProviderConfigId?: string
+  cvFeedbackRecord?: CVFeedbackRecord
+  jiraTaskParameters?: JiraTaskParameters
 }
 
 export interface CVConfiguration {
-  uuid: string
+  accountId: string
+  alertEnabled?: boolean
+  alertThreshold?: number
+  analysisTolerance: 'LOW' | 'MEDIUM' | 'HIGH'
   appId: string
-  createdBy?: EmbeddedUser
+  appName?: string
+  comparisonStrategy?: 'COMPARE_WITH_PREVIOUS' | 'COMPARE_WITH_CURRENT' | 'PREDICTIVE'
+  connectorId: string
+  connectorName?: string
+  contextId?: string
   createdAt?: number
+  createdBy?: EmbeddedUser
+  customThresholdRefId?: string
+  enabled24x7?: boolean
+  envId: string
+  envName?: string
   lastUpdatedAt: number
   name: string
-  accountId: string
-  connectorId: string
-  envId: string
+  numOfOccurrencesForAlert?: number
   serviceId: string
+  serviceName?: string
+  snoozeEndTime?: number
+  snoozeStartTime?: number
   stateType:
     | 'SUB_WORKFLOW'
     | 'REPEAT'
@@ -822,28 +2346,85 @@ export interface CVConfiguration {
     | 'K8S_TRAFFIC_SPLIT'
     | 'K8S_APPLY'
     | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
-  analysisTolerance: 'LOW' | 'MEDIUM' | 'HIGH'
-  customThresholdRefId?: string
-  enabled24x7?: boolean
-  comparisonStrategy?: 'COMPARE_WITH_PREVIOUS' | 'COMPARE_WITH_CURRENT' | 'PREDICTIVE'
-  contextId?: string
-  alertEnabled?: boolean
-  alertThreshold?: number
-  numOfOccurrencesForAlert?: number
-  snoozeStartTime?: number
-  snoozeEndTime?: number
-  connectorName?: string
-  serviceName?: string
-  envName?: string
-  appName?: string
+  uuid: string
   workflowConfig?: boolean
 }
 
-export interface CVEnabledService {
-  service?: Service
-  cvConfig?: CVConfiguration[]
-  appName?: string
+export interface CVDeploymentData {
+  accountId?: string
   appId?: string
+  envId?: string
+  pipelineExecutionId?: string
+  pipelineName?: string
+  serviceId?: string
+  startTs?: number
+  status?:
+    | 'ABORTED'
+    | 'DISCONTINUING'
+    | 'ERROR'
+    | 'FAILED'
+    | 'NEW'
+    | 'PAUSED'
+    | 'PAUSING'
+    | 'QUEUED'
+    | 'RESUMED'
+    | 'RUNNING'
+    | 'SCHEDULED'
+    | 'STARTING'
+    | 'SUCCESS'
+    | 'WAITING'
+    | 'SKIPPED'
+    | 'ABORTING'
+    | 'REJECTED'
+    | 'EXPIRED'
+    | 'PREPARING'
+  workflowExecutionId?: string
+  workflowName?: string
+}
+
+export interface CVEnabledService {
+  appId?: string
+  appName?: string
+  cvConfig?: CVConfiguration[]
+  service?: Service
+}
+
+export interface CVFeedbackRecord {
+  accountId?: string
+  actionTaken?: 'ADD_TO_BASELINE' | 'REMOVE_FROM_BASELINE' | 'UPDATE_PRIORITY'
+  analysisMinute?: number
+  clusterLabel?: number
+  clusterType?: 'CONTROL' | 'TEST' | 'UNKNOWN' | 'IGNORE'
+  comment?: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  cvConfigId?: string
+  duplicate?: boolean
+  envId?: string
+  feedbackNote?: string
+  jiraLink?: string
+  lastUpdatedAt?: number
+  lastUpdatedBy?: EmbeddedUser
+  logMessage?: string
+  priority?: 'BASELINE' | 'P5' | 'P4' | 'P3' | 'P2' | 'P1' | 'P0'
+  serviceId?: string
+  stateExecutionId?: string
+  supervisedLabel?: string
+  uuid?: string
+}
+
+export type CanaryOrchestrationWorkflow = OrchestrationWorkflow & {
+  derivedVariables?: Variable[]
+  failureStrategies?: FailureStrategy[]
+  graph?: Graph
+  postDeploymentSteps?: PhaseStep
+  preDeploymentSteps?: PhaseStep
+  rollbackProvisioners?: PhaseStep
+  rollbackWorkflowPhaseIdMap?: {
+    [key: string]: WorkflowPhase
+  }
+  systemVariables?: Variable[]
+  workflowPhases?: WorkflowPhase[]
 }
 
 export interface CapacityReservationSpecificationResponse {
@@ -856,13 +2437,286 @@ export interface CapacityReservationTargetResponse {
   capacityReservationResourceGroupArn?: string
 }
 
-export interface Command {
-  uuid: string
+export interface CeLicenseInfo {
+  expiryTime?: number
+  licenseType?: 'FULL_TRIAL' | 'LIMITED_TRIAL' | 'PAID'
+}
+
+export interface ChangeSetDTO {
+  changeSetId?: string
+  changesetInformation?: ChangesetInformation
+  gitDetail?: GitDetail
+  gitToHarness?: boolean
+  status?: 'QUEUED' | 'RUNNING' | 'FAILED' | 'COMPLETED' | 'SKIPPED'
+}
+
+export interface ChangesetInformation {
+  [key: string]: any
+}
+
+export interface CloneMetadata {
+  environment?: Environment
+  serviceMapping?: {
+    [key: string]: string
+  }
+  targetAppId?: string
+  workflow?: Workflow
+}
+
+export type CloudFormationInfrastructureProvisioner = InfrastructureProvisioner & {
+  gitFileConfig?: GitFileConfig
+  sourceType?: string
+  templateBody?: string
+  templateFilePath?: string
+}
+
+export interface CloudWatchMetric {
+  dimension?: string
+  dimensionDisplay?: string
+  displayName?: string
+  enabledDefault?: boolean
+  metricName?: string
+  metricType?: string
+  statistics?: string
+  unit?:
+    | 'Seconds'
+    | 'Microseconds'
+    | 'Milliseconds'
+    | 'Bytes'
+    | 'Kilobytes'
+    | 'Megabytes'
+    | 'Gigabytes'
+    | 'Terabytes'
+    | 'Bits'
+    | 'Kilobits'
+    | 'Megabits'
+    | 'Gigabits'
+    | 'Terabits'
+    | 'Percent'
+    | 'Count'
+    | 'BytesSecond'
+    | 'KilobytesSecond'
+    | 'MegabytesSecond'
+    | 'GigabytesSecond'
+    | 'TerabytesSecond'
+    | 'BitsSecond'
+    | 'KilobitsSecond'
+    | 'MegabitsSecond'
+    | 'GigabitsSecond'
+    | 'TerabitsSecond'
+    | 'CountSecond'
+    | 'None'
+}
+
+export interface CloudWatchSetupTestNodeData {
   appId: string
-  createdBy?: EmbeddedUser
+  ec2Metrics?: CloudWatchMetric[]
+  ecsMetrics?: {
+    [key: string]: CloudWatchMetric[]
+  }
+  fromTime?: number
+  guid?: string
+  hostExpression?: string
+  hostName?: string
+  instanceElement?: Instance
+  instanceName?: string
+  isServiceLevel?: boolean
+  lambdaFunctionsMetrics?: {
+    [key: string]: CloudWatchMetric[]
+  }
+  loadBalancerMetricsByLBName?: {
+    [key: string]: CloudWatchMetric[]
+  }
+  region?: string
+  serviceLevel?: boolean
+  settingId: string
+  stateType?:
+    | 'SUB_WORKFLOW'
+    | 'REPEAT'
+    | 'FORK'
+    | 'WAIT'
+    | 'PAUSE'
+    | 'BARRIER'
+    | 'RESOURCE_CONSTRAINT'
+    | 'SHELL_SCRIPT'
+    | 'HTTP'
+    | 'TEMPLATIZED_SECRET_MANAGER'
+    | 'EMAIL'
+    | 'APP_DYNAMICS'
+    | 'NEW_RELIC'
+    | 'NEW_RELIC_DEPLOYMENT_MARKER'
+    | 'DYNA_TRACE'
+    | 'PROMETHEUS'
+    | 'SPLUNKV2'
+    | 'ELK'
+    | 'LOGZ'
+    | 'SUMO'
+    | 'DATA_DOG'
+    | 'DATA_DOG_LOG'
+    | 'CLOUD_WATCH'
+    | 'AWS_LAMBDA_VERIFICATION'
+    | 'APM_VERIFICATION'
+    | 'LOG_VERIFICATION'
+    | 'BUG_SNAG'
+    | 'STACK_DRIVER'
+    | 'STACK_DRIVER_LOG'
+    | 'INSTANA'
+    | 'SCALYR'
+    | 'ENV_STATE'
+    | 'ENV_LOOP_STATE'
+    | 'ENV_RESUME_STATE'
+    | 'ENV_LOOP_RESUME_STATE'
+    | 'COMMAND'
+    | 'APPROVAL'
+    | 'APPROVAL_RESUME'
+    | 'ELASTIC_LOAD_BALANCER'
+    | 'JENKINS'
+    | 'GCB'
+    | 'BAMBOO'
+    | 'ARTIFACT_COLLECTION'
+    | 'ARTIFACT_CHECK'
+    | 'AZURE_NODE_SELECT'
+    | 'AZURE_VMSS_SETUP'
+    | 'AZURE_VMSS_DEPLOY'
+    | 'AZURE_VMSS_ROLLBACK'
+    | 'AZURE_VMSS_SWITCH_ROUTES'
+    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
+    | 'AZURE_WEBAPP_SLOT_SETUP'
+    | 'AZURE_WEBAPP_SLOT_RESIZE'
+    | 'AZURE_WEBAPP_SLOT_SWAP'
+    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
+    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
+    | 'AWS_NODE_SELECT'
+    | 'DC_NODE_SELECT'
+    | 'ROLLING_NODE_SELECT'
+    | 'PHASE'
+    | 'PHASE_STEP'
+    | 'STAGING_ORIGINAL_EXECUTION'
+    | 'AWS_CODEDEPLOY_STATE'
+    | 'AWS_CODEDEPLOY_ROLLBACK'
+    | 'AWS_LAMBDA_STATE'
+    | 'AWS_LAMBDA_ROLLBACK'
+    | 'AWS_AMI_SERVICE_SETUP'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
+    | 'AWS_AMI_SERVICE_DEPLOY'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
+    | 'AWS_AMI_SWITCH_ROUTES'
+    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
+    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_SERVICE_ROLLBACK'
+    | 'ECS_SERVICE_SETUP'
+    | 'SPOTINST_SETUP'
+    | 'SPOTINST_ALB_SHIFT_SETUP'
+    | 'SPOTINST_DEPLOY'
+    | 'SPOTINST_ALB_SHIFT_DEPLOY'
+    | 'SPOTINST_LISTENER_UPDATE'
+    | 'SPOTINST_LISTENER_ALB_SHIFT'
+    | 'SPOTINST_ROLLBACK'
+    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
+    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
+    | 'ECS_SERVICE_SETUP_ROLLBACK'
+    | 'ECS_DAEMON_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
+    | 'ECS_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_ROLLBACK'
+    | 'ECS_LISTENER_UPDATE'
+    | 'ECS_LISTENER_UPDATE_ROLLBACK'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
+    | 'KUBERNETES_SETUP'
+    | 'KUBERNETES_SETUP_ROLLBACK'
+    | 'KUBERNETES_DEPLOY'
+    | 'KUBERNETES_DEPLOY_ROLLBACK'
+    | 'KUBERNETES_STEADY_STATE_CHECK'
+    | 'ECS_STEADY_STATE_CHECK'
+    | 'ECS_RUN_TASK'
+    | 'GCP_CLUSTER_SETUP'
+    | 'HELM_DEPLOY'
+    | 'HELM_ROLLBACK'
+    | 'PCF_SETUP'
+    | 'PCF_RESIZE'
+    | 'PCF_ROLLBACK'
+    | 'PCF_MAP_ROUTE'
+    | 'PCF_UNMAP_ROUTE'
+    | 'PCF_BG_MAP_ROUTE'
+    | 'PCF_PLUGIN'
+    | 'TERRAFORM_PROVISION'
+    | 'TERRAFORM_APPLY'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'TERRAFORM_DESTROY'
+    | 'CLOUD_FORMATION_CREATE_STACK'
+    | 'CLOUD_FORMATION_DELETE_STACK'
+    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'CLOUD_FORMATION_ROLLBACK_STACK'
+    | 'TERRAFORM_ROLLBACK'
+    | 'K8S_DEPLOYMENT_ROLLING'
+    | 'K8S_SCALE'
+    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
+    | 'K8S_BLUE_GREEN_DEPLOY'
+    | 'K8S_CANARY_DEPLOY'
+    | 'K8S_DELETE'
+    | 'JIRA_CREATE_UPDATE'
+    | 'SERVICENOW_CREATE_UPDATE'
+    | 'K8S_TRAFFIC_SPLIT'
+    | 'K8S_APPLY'
+    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
+  toTime?: number
+  workflowId?: string
+}
+
+export interface Cluster {
+  cloudProviderId?: string
+  clusterName?: string
+  clusterType?: string
+}
+
+export type ClusterBudgetScope = BudgetScope & {
+  clusterIds?: string[]
+}
+
+export interface ClusterRecord {
+  accountId?: string
+  cluster?: Cluster
   createdAt?: number
-  lastUpdatedAt: number
-  name?: string
+  deactivated?: boolean
+  lastUpdatedAt?: number
+  perpetualTaskIds?: string[]
+  uuid?: string
+}
+
+export type CodeDeployInfrastructure = InfraMappingInfrastructureProvider & {
+  applicationName?: string
+  deploymentConfig?: string
+  deploymentGroup?: string
+  hostNameConvention?: string
+  region?: string
+}
+
+export interface Command {
+  accountId?: string
+  appId: string
+  artifactNeeded?: boolean
+  artifactType?:
+    | 'JAR'
+    | 'WAR'
+    | 'TAR'
+    | 'ZIP'
+    | 'DOCKER'
+    | 'RPM'
+    | 'AWS_LAMBDA'
+    | 'AWS_CODEDEPLOY'
+    | 'PCF'
+    | 'AMI'
+    | 'AZURE_MACHINE_IMAGE'
+    | 'AZURE_WEBAPP'
+    | 'IIS'
+    | 'OTHER'
+    | 'IIS_APP'
+    | 'IIS_VirtualDirectory'
+  commandExecutionStatus?: 'SUCCESS' | 'FAILURE' | 'RUNNING' | 'QUEUED' | 'SKIPPED'
+  commandType?: 'START' | 'STOP' | 'INSTALL' | 'ENABLE' | 'DISABLE' | 'VERIFY' | 'OTHER' | 'RESIZE' | 'SETUP'
   commandUnitType?:
     | 'EXEC'
     | 'SCP'
@@ -891,42 +2745,44 @@ export interface Command {
     | 'AZURE_VMSS_DUMMY'
     | 'AZURE_WEBAPP'
     | 'FETCH_INSTANCES_DUMMY'
-  commandExecutionStatus?: 'SUCCESS' | 'FAILURE' | 'RUNNING' | 'QUEUED' | 'SKIPPED'
-  artifactNeeded?: boolean
-  deploymentType?: string
-  originEntityId?: string
+  commandUnits?: CommandUnit[]
   containerFamily?: 'TOMCAT' | 'JBOSS'
-  artifactType?:
-    | 'JAR'
-    | 'WAR'
-    | 'TAR'
-    | 'ZIP'
-    | 'DOCKER'
-    | 'RPM'
-    | 'AWS_LAMBDA'
-    | 'AWS_CODEDEPLOY'
-    | 'PCF'
-    | 'AMI'
-    | 'AZURE_MACHINE_IMAGE'
-    | 'AZURE_WEBAPP'
-    | 'IIS'
-    | 'OTHER'
-    | 'IIS_APP'
-    | 'IIS_VirtualDirectory'
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  deploymentType?: string
+  graph?: Graph
+  lastUpdatedAt: number
+  name?: string
+  originEntityId?: string
   referenceId?: string
   referenceUuid?: string
-  templateReference?: TemplateReference
-  graph?: Graph
-  version?: number
-  commandUnits?: CommandUnit[]
-  commandType?: 'START' | 'STOP' | 'INSTALL' | 'ENABLE' | 'DISABLE' | 'VERIFY' | 'OTHER' | 'RESIZE' | 'SETUP'
-  templateVariables?: Variable[]
   templateMetadata?: TemplateMetadata
-  accountId?: string
+  templateReference?: TemplateReference
+  templateVariables?: Variable[]
+  uuid: string
   variables?: Variable[]
+  version?: number
+}
+
+export interface CommandCategory {
+  commandUnits?: CommandUnit[]
+  displayName?: string
+  type?: 'COMMANDS' | 'COPY' | 'SCRIPTS' | 'VERIFICATIONS'
+}
+
+export interface CommandLibraryConfigurationDTO {
+  clImplementationVersion?: number
+  supportedCommandStoreNameList?: string[]
+}
+
+export type CommandRefYaml = Yaml & {
+  templateUri?: string
+  variables?: TemplateVariableYaml[]
 }
 
 export interface CommandUnit {
+  artifactNeeded?: boolean
+  commandExecutionStatus?: 'SUCCESS' | 'FAILURE' | 'RUNNING' | 'QUEUED' | 'SKIPPED'
   commandUnitType?:
     | 'EXEC'
     | 'SCP'
@@ -955,1564 +2811,12 @@ export interface CommandUnit {
     | 'AZURE_VMSS_DUMMY'
     | 'AZURE_WEBAPP'
     | 'FETCH_INSTANCES_DUMMY'
-  commandExecutionStatus?: 'SUCCESS' | 'FAILURE' | 'RUNNING' | 'QUEUED' | 'SKIPPED'
-  artifactNeeded?: boolean
   deploymentType?: string
+  name?: string
   variables?: Variable[]
-  name?: string
-}
-
-export interface ConfigFile {
-  templateId?: string
-  envId?: string
-  entityType:
-    | 'SERVICE'
-    | 'PROVISIONER'
-    | 'ENVIRONMENT'
-    | 'HOST'
-    | 'RELEASE'
-    | 'ARTIFACT'
-    | 'SSH_USER'
-    | 'SSH_PASSWORD'
-    | 'SSH_APP_ACCOUNT'
-    | 'SSH_KEY_PASSPHRASE'
-    | 'SSH_APP_ACCOUNT_PASSOWRD'
-    | 'SIMPLE_DEPLOYMENT'
-    | 'ORCHESTRATED_DEPLOYMENT'
-    | 'PIPELINE'
-    | 'WORKFLOW'
-    | 'DEPLOYMENT'
-    | 'INSTANCE'
-    | 'APPLICATION'
-    | 'COMMAND'
-    | 'CONFIG'
-    | 'SERVICE_TEMPLATE'
-    | 'INFRASTRUCTURE_MAPPING'
-    | 'INFRASTRUCTURE_DEFINITION'
-    | 'USER'
-    | 'ARTIFACT_STREAM'
-    | 'APPDYNAMICS_CONFIGID'
-    | 'APPDYNAMICS_APPID'
-    | 'APPDYNAMICS_TIERID'
-    | 'ELK_CONFIGID'
-    | 'ELK_INDICES'
-    | 'NEWRELIC_CONFIGID'
-    | 'NEWRELIC_APPID'
-    | 'SS_SSH_CONNECTION_ATTRIBUTE'
-    | 'SS_WINRM_CONNECTION_ATTRIBUTE'
-    | 'SUMOLOGIC_CONFIGID'
-    | 'SPLUNK_CONFIGID'
-    | 'NEWRELIC_MARKER_CONFIGID'
-    | 'NEWRELIC_MARKER_APPID'
-    | 'API_KEY'
-    | 'ACCOUNT'
-    | 'APPLICATION_MANIFEST'
-    | 'USER_GROUP'
-    | 'WHITELISTED_IP'
-    | 'CF_AWS_CONFIG_ID'
-    | 'VERIFICATION_CONFIGURATION'
-    | 'HELM_GIT_CONFIG_ID'
-    | 'NOTIFICATION_GROUP'
-    | 'HELM_CHART_SPECIFICATION'
-    | 'PCF_SERVICE_SPECIFICATION'
-    | 'LAMBDA_SPECIFICATION'
-    | 'USER_DATA_SPECIFICATION'
-    | 'ECS_CONTAINER_SPECIFICATION'
-    | 'ECS_SERVICE_SPECIFICATION'
-    | 'K8S_CONTAINER_SPECIFICATION'
-    | 'CONFIG_FILE'
-    | 'SERVICE_COMMAND'
-    | 'MANIFEST_FILE'
-    | 'SERVICE_VARIABLE'
-    | 'TRIGGER'
-    | 'ROLE'
-    | 'TEMPLATE'
-    | 'TEMPLATE_FOLDER'
-    | 'SETTING_ATTRIBUTE'
-    | 'ENCRYPTED_RECORDS'
-    | 'CV_CONFIGURATION'
-    | 'TAG'
-    | 'CUSTOM_DASHBOARD'
-    | 'PIPELINE_GOVERNANCE_STANDARD'
-    | 'WORKFLOW_EXECUTION'
-    | 'SERVERLESS_INSTANCE'
-    | 'USER_INVITE'
-    | 'LOGIN_SETTINGS'
-    | 'SSO_SETTINGS'
-    | 'DELEGATE'
-    | 'DELEGATE_SCOPE'
-    | 'DELEGATE_PROFILE'
-    | 'EXPORT_EXECUTIONS_REQUEST'
-    | 'GCP_CONFIG'
-    | 'GIT_CONFIG'
-    | 'JENKINS_SERVER'
-    | 'SECRETS_MANAGER'
-    | 'HELM_CHART'
-    | 'SECRET'
-    | 'CONNECTOR'
-    | 'CLOUD_PROVIDER'
-  entityId?: string
-  description?: string
-  parentConfigFileId?: string
-  relativeFilePath?: string
-  targetToAllEnv?: boolean
-  defaultVersion?: number
-  envIdVersionMap?: {
-    [key: string]: EntityVersion
-  }
-  envIdVersionMapString?: string
-  setAsDefault?: boolean
-  notes?: string
-  overridePath?: string
-  configOverrideType?: 'ALL' | 'INSTANCES' | 'CUSTOM'
-  configOverrideExpression?: string
-  instances?: string[]
-  overriddenConfigFile?: ConfigFile
-  encrypted?: boolean
-  encryptedFileId?: string
-  secretFileName?: string
-  serviceId?: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
-  encryptedBy?: string
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  name?: string
-  fileUuid?: string
-  fileName?: string
-  mimeType?: string
-  size?: number
-  checksumType?: 'MD5' | 'SHA1' | 'SHA256'
-  checksum?: string
-  accountId?: string
-  settingType?:
-    | 'HOST_CONNECTION_ATTRIBUTES'
-    | 'BASTION_HOST_CONNECTION_ATTRIBUTES'
-    | 'SMTP'
-    | 'SFTP'
-    | 'JENKINS'
-    | 'BAMBOO'
-    | 'STRING'
-    | 'SPLUNK'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'APM_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'LOG_VERIFICATION'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'DYNA_TRACE'
-    | 'INSTANA'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'SCALYR'
-    | 'ELB'
-    | 'SLACK'
-    | 'AWS'
-    | 'GCS'
-    | 'GCP'
-    | 'AZURE'
-    | 'PCF'
-    | 'DIRECT'
-    | 'KUBERNETES_CLUSTER'
-    | 'DOCKER'
-    | 'ECR'
-    | 'GCR'
-    | 'ACR'
-    | 'PHYSICAL_DATA_CENTER'
-    | 'KUBERNETES'
-    | 'NEXUS'
-    | 'ARTIFACTORY'
-    | 'SMB'
-    | 'AMAZON_S3'
-    | 'GIT'
-    | 'SSH_SESSION_CONFIG'
-    | 'SERVICE_VARIABLE'
-    | 'CONFIG_FILE'
-    | 'KMS'
-    | 'GCP_KMS'
-    | 'JIRA'
-    | 'SERVICENOW'
-    | 'SECRET_TEXT'
-    | 'YAML_GIT_SYNC'
-    | 'VAULT'
-    | 'AWS_SECRETS_MANAGER'
-    | 'CYBERARK'
-    | 'WINRM_CONNECTION_ATTRIBUTES'
-    | 'WINRM_SESSION_CONFIG'
-    | 'PROMETHEUS'
-    | 'INFRASTRUCTURE_MAPPING'
-    | 'HTTP_HELM_REPO'
-    | 'AMAZON_S3_HELM_REPO'
-    | 'GCS_HELM_REPO'
-    | 'SPOT_INST'
-    | 'AZURE_ARTIFACTS_PAT'
-    | 'CUSTOM'
-    | 'CE_AWS'
-    | 'CE_GCP'
-    | 'AZURE_VAULT'
-    | 'KUBERNETES_CLUSTER_NG'
-    | 'GIT_NG'
-}
-
-export interface ContextElement {
-  uuid?: string
-  elementType?:
-    | 'SERVICE'
-    | 'INFRAMAPPING'
-    | 'SERVICE_TEMPLATE'
-    | 'TAG'
-    | 'SHELL'
-    | 'HOST'
-    | 'INSTANCE'
-    | 'STANDARD'
-    | 'PARAM'
-    | 'PARTITION'
-    | 'OTHER'
-    | 'FORK'
-    | 'CONTAINER_SERVICE'
-    | 'CLUSTER'
-    | 'AWS_LAMBDA_FUNCTION'
-    | 'AMI_SERVICE_SETUP'
-    | 'AMI_SERVICE_DEPLOY'
-    | 'ECS_SERVICE_SETUP'
-    | 'AMI_SWITCH_ROUTES'
-    | 'PCF_SERVICE_SETUP'
-    | 'PCF_SERVICE_DEPLOY'
-    | 'PCF_ROUTE_SWAP_ROLLBACK'
-    | 'PCF_INSTANCE'
-    | 'SPOTINST_SERVICE_SETUP'
-    | 'SPOTINST_SERVICE_DEPLOY'
-    | 'ARTIFACT'
-    | 'ARTIFACT_VARIABLE'
-    | 'HELM_DEPLOY'
-    | 'CLOUD_FORMATION_PROVISION'
-    | 'CLOUD_FORMATION_ROLLBACK'
-    | 'CLOUD_FORMATION_DEPROVISION'
-    | 'TERRAFORM_PROVISION'
-    | 'SHELL_SCRIPT_PROVISION'
-    | 'K8S'
-    | 'TERRAFORM_INHERIT_PLAN'
-    | 'AZURE_VMSS_SETUP'
-    | 'HELM_CHART'
-    | 'MANIFEST_VARIABLE'
-  name?: string
-}
-
-export type CopiedTemplateMetadata = TemplateMetadata & {
-  parentTemplateId?: string
-  parentTemplateVersion?: number
-  parentCommandVersion?: string
-  parentCommandName?: string
-  parentCommandStoreName?: string
-}
-
-export interface CpuOptions {
-  coreCount?: number
-  threadsPerCore?: number
-}
-
-export interface DelegateTaskDetails {
-  delegateTaskId?: string
-  taskDescription?: string
-  selectedDelegateId?: string
-  selectedDelegateName?: string
-  selectedDelegateHostName?: string
-  taskType?: string
-}
-
-export interface EbsInstanceBlockDevice {
-  attachTime?: string
-  deleteOnTermination?: boolean
-  status?: string
-  volumeId?: string
-}
-
-export interface EcsContainerDetails {
-  taskId?: string
-  taskArn?: string
-  dockerId?: string
-  completeDockerId?: string
-  containerId?: string
-  containerInstanceId?: string
-  containerInstanceArn?: string
-  ecsServiceName?: string
-}
-
-export interface ElasticGpuAssociation {
-  elasticGpuId?: string
-  elasticGpuAssociationId?: string
-  elasticGpuAssociationState?: string
-  elasticGpuAssociationTime?: string
-}
-
-export interface ElasticInferenceAcceleratorAssociation {
-  elasticInferenceAcceleratorArn?: string
-  elasticInferenceAcceleratorAssociationId?: string
-  elasticInferenceAcceleratorAssociationState?: string
-  elasticInferenceAcceleratorAssociationTime?: string
-}
-
-export interface ElementExecutionSummary {
-  contextElement?: ContextElement
-  instanceStatusSummaries?: InstanceStatusSummary[]
-  startTs?: number
-  endTs?: number
-  status?:
-    | 'ABORTED'
-    | 'DISCONTINUING'
-    | 'ERROR'
-    | 'FAILED'
-    | 'NEW'
-    | 'PAUSED'
-    | 'PAUSING'
-    | 'QUEUED'
-    | 'RESUMED'
-    | 'RUNNING'
-    | 'SCHEDULED'
-    | 'STARTING'
-    | 'SUCCESS'
-    | 'WAITING'
-    | 'SKIPPED'
-    | 'ABORTING'
-    | 'REJECTED'
-    | 'EXPIRED'
-    | 'PREPARING'
-  infraMappingSummaries?: InfraMappingSummary[]
-  infraDefinitionSummaries?: InfraDefinitionSummary[]
-  instancesCount?: number
-  totalTime?: number
-  avgTime?: number
-}
-
-export interface EntityVersion {
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  entityType?:
-    | 'SERVICE'
-    | 'PROVISIONER'
-    | 'ENVIRONMENT'
-    | 'HOST'
-    | 'RELEASE'
-    | 'ARTIFACT'
-    | 'SSH_USER'
-    | 'SSH_PASSWORD'
-    | 'SSH_APP_ACCOUNT'
-    | 'SSH_KEY_PASSPHRASE'
-    | 'SSH_APP_ACCOUNT_PASSOWRD'
-    | 'SIMPLE_DEPLOYMENT'
-    | 'ORCHESTRATED_DEPLOYMENT'
-    | 'PIPELINE'
-    | 'WORKFLOW'
-    | 'DEPLOYMENT'
-    | 'INSTANCE'
-    | 'APPLICATION'
-    | 'COMMAND'
-    | 'CONFIG'
-    | 'SERVICE_TEMPLATE'
-    | 'INFRASTRUCTURE_MAPPING'
-    | 'INFRASTRUCTURE_DEFINITION'
-    | 'USER'
-    | 'ARTIFACT_STREAM'
-    | 'APPDYNAMICS_CONFIGID'
-    | 'APPDYNAMICS_APPID'
-    | 'APPDYNAMICS_TIERID'
-    | 'ELK_CONFIGID'
-    | 'ELK_INDICES'
-    | 'NEWRELIC_CONFIGID'
-    | 'NEWRELIC_APPID'
-    | 'SS_SSH_CONNECTION_ATTRIBUTE'
-    | 'SS_WINRM_CONNECTION_ATTRIBUTE'
-    | 'SUMOLOGIC_CONFIGID'
-    | 'SPLUNK_CONFIGID'
-    | 'NEWRELIC_MARKER_CONFIGID'
-    | 'NEWRELIC_MARKER_APPID'
-    | 'API_KEY'
-    | 'ACCOUNT'
-    | 'APPLICATION_MANIFEST'
-    | 'USER_GROUP'
-    | 'WHITELISTED_IP'
-    | 'CF_AWS_CONFIG_ID'
-    | 'VERIFICATION_CONFIGURATION'
-    | 'HELM_GIT_CONFIG_ID'
-    | 'NOTIFICATION_GROUP'
-    | 'HELM_CHART_SPECIFICATION'
-    | 'PCF_SERVICE_SPECIFICATION'
-    | 'LAMBDA_SPECIFICATION'
-    | 'USER_DATA_SPECIFICATION'
-    | 'ECS_CONTAINER_SPECIFICATION'
-    | 'ECS_SERVICE_SPECIFICATION'
-    | 'K8S_CONTAINER_SPECIFICATION'
-    | 'CONFIG_FILE'
-    | 'SERVICE_COMMAND'
-    | 'MANIFEST_FILE'
-    | 'SERVICE_VARIABLE'
-    | 'TRIGGER'
-    | 'ROLE'
-    | 'TEMPLATE'
-    | 'TEMPLATE_FOLDER'
-    | 'SETTING_ATTRIBUTE'
-    | 'ENCRYPTED_RECORDS'
-    | 'CV_CONFIGURATION'
-    | 'TAG'
-    | 'CUSTOM_DASHBOARD'
-    | 'PIPELINE_GOVERNANCE_STANDARD'
-    | 'WORKFLOW_EXECUTION'
-    | 'SERVERLESS_INSTANCE'
-    | 'USER_INVITE'
-    | 'LOGIN_SETTINGS'
-    | 'SSO_SETTINGS'
-    | 'DELEGATE'
-    | 'DELEGATE_SCOPE'
-    | 'DELEGATE_PROFILE'
-    | 'EXPORT_EXECUTIONS_REQUEST'
-    | 'GCP_CONFIG'
-    | 'GIT_CONFIG'
-    | 'JENKINS_SERVER'
-    | 'SECRETS_MANAGER'
-    | 'HELM_CHART'
-    | 'SECRET'
-    | 'CONNECTOR'
-    | 'CLOUD_PROVIDER'
-  entityName?: string
-  changeType?: 'CREATED' | 'UPDATED'
-  entityUuid?: string
-  entityParentUuid?: string
-  entityData?: string
-  version?: number
-  accountId?: string
-}
-
-export interface Graph {
-  graphName?: string
-  nodes?: GraphNode[]
-  links?: GraphLink[]
-  subworkflows?: {
-    [key: string]: Graph
-  }
-}
-
-export interface GraphGroup {
-  id?: string
-  name?: string
-  type?: string
-  rollback?: boolean
-  status?: string
-  executionSummary?: { [key: string]: any }
-  executionDetails?: { [key: string]: any }
-  detailsReference?: string
-  origin?: boolean
-  executionHistoryCount?: number
-  interruptHistoryCount?: number
-  hasInspection?: boolean
-  valid?: boolean
-  validationMessage?: string
-  inValidFieldMessages?: {
-    [key: string]: string
-  }
-  elementStatusSummary?: ElementExecutionSummary[]
-  instanceStatusSummary?: InstanceStatusSummary[]
-  templateExpressions?: TemplateExpression[]
-  variableOverrides?: NameValuePair[]
-  templateVariables?: Variable[]
-  templateUuid?: string
-  templateVersion?: string
-  importedTemplateDetails?: ImportedTemplateDetails
-  templateMetadata?: TemplateMetadata
-  properties?: {
-    [key: string]: { [key: string]: any }
-  }
-  next?: GraphNode
-  group?: GraphGroup
-  delegateTaskId?: string
-  selectionLogsTrackingForTaskEnabled?: boolean
-  delegateTasksDetails?: DelegateTaskDetails[]
-  selectionLogsTrackingForTasksEnabled?: boolean
-  elements?: GraphNode[]
-  executionStrategy?: 'SERIAL' | 'PARALLEL'
-}
-
-export interface GraphLink {
-  id?: string
-  from?: string
-  to?: string
-  type?: string
-}
-
-export interface GraphNode {
-  id?: string
-  name?: string
-  type?: string
-  rollback?: boolean
-  status?: string
-  executionSummary?: { [key: string]: any }
-  executionDetails?: { [key: string]: any }
-  detailsReference?: string
-  origin?: boolean
-  executionHistoryCount?: number
-  interruptHistoryCount?: number
-  hasInspection?: boolean
-  valid?: boolean
-  validationMessage?: string
-  inValidFieldMessages?: {
-    [key: string]: string
-  }
-  elementStatusSummary?: ElementExecutionSummary[]
-  instanceStatusSummary?: InstanceStatusSummary[]
-  templateExpressions?: TemplateExpression[]
-  variableOverrides?: NameValuePair[]
-  templateVariables?: Variable[]
-  templateUuid?: string
-  templateVersion?: string
-  importedTemplateDetails?: ImportedTemplateDetails
-  templateMetadata?: TemplateMetadata
-  properties?: {
-    [key: string]: { [key: string]: any }
-  }
-  next?: GraphNode
-  group?: GraphGroup
-  delegateTaskId?: string
-  selectionLogsTrackingForTaskEnabled?: boolean
-  delegateTasksDetails?: DelegateTaskDetails[]
-  selectionLogsTrackingForTasksEnabled?: boolean
-}
-
-export interface GroupIdentifier {
-  groupName?: string
-  groupId?: string
-}
-
-export type HarnessImportedTemplateDetails = ImportedTemplateDetails & {
-  commandVersion?: string
-  commandName?: string
-  commandStoreName?: string
-  repoUrl?: string
-  tags?: string[]
-}
-
-export interface HarnessTagLink {
-  uuid?: string
-  accountId?: string
-  appId?: string
-  key?: string
-  value?: string
-  entityType:
-    | 'SERVICE'
-    | 'PROVISIONER'
-    | 'ENVIRONMENT'
-    | 'HOST'
-    | 'RELEASE'
-    | 'ARTIFACT'
-    | 'SSH_USER'
-    | 'SSH_PASSWORD'
-    | 'SSH_APP_ACCOUNT'
-    | 'SSH_KEY_PASSPHRASE'
-    | 'SSH_APP_ACCOUNT_PASSOWRD'
-    | 'SIMPLE_DEPLOYMENT'
-    | 'ORCHESTRATED_DEPLOYMENT'
-    | 'PIPELINE'
-    | 'WORKFLOW'
-    | 'DEPLOYMENT'
-    | 'INSTANCE'
-    | 'APPLICATION'
-    | 'COMMAND'
-    | 'CONFIG'
-    | 'SERVICE_TEMPLATE'
-    | 'INFRASTRUCTURE_MAPPING'
-    | 'INFRASTRUCTURE_DEFINITION'
-    | 'USER'
-    | 'ARTIFACT_STREAM'
-    | 'APPDYNAMICS_CONFIGID'
-    | 'APPDYNAMICS_APPID'
-    | 'APPDYNAMICS_TIERID'
-    | 'ELK_CONFIGID'
-    | 'ELK_INDICES'
-    | 'NEWRELIC_CONFIGID'
-    | 'NEWRELIC_APPID'
-    | 'SS_SSH_CONNECTION_ATTRIBUTE'
-    | 'SS_WINRM_CONNECTION_ATTRIBUTE'
-    | 'SUMOLOGIC_CONFIGID'
-    | 'SPLUNK_CONFIGID'
-    | 'NEWRELIC_MARKER_CONFIGID'
-    | 'NEWRELIC_MARKER_APPID'
-    | 'API_KEY'
-    | 'ACCOUNT'
-    | 'APPLICATION_MANIFEST'
-    | 'USER_GROUP'
-    | 'WHITELISTED_IP'
-    | 'CF_AWS_CONFIG_ID'
-    | 'VERIFICATION_CONFIGURATION'
-    | 'HELM_GIT_CONFIG_ID'
-    | 'NOTIFICATION_GROUP'
-    | 'HELM_CHART_SPECIFICATION'
-    | 'PCF_SERVICE_SPECIFICATION'
-    | 'LAMBDA_SPECIFICATION'
-    | 'USER_DATA_SPECIFICATION'
-    | 'ECS_CONTAINER_SPECIFICATION'
-    | 'ECS_SERVICE_SPECIFICATION'
-    | 'K8S_CONTAINER_SPECIFICATION'
-    | 'CONFIG_FILE'
-    | 'SERVICE_COMMAND'
-    | 'MANIFEST_FILE'
-    | 'SERVICE_VARIABLE'
-    | 'TRIGGER'
-    | 'ROLE'
-    | 'TEMPLATE'
-    | 'TEMPLATE_FOLDER'
-    | 'SETTING_ATTRIBUTE'
-    | 'ENCRYPTED_RECORDS'
-    | 'CV_CONFIGURATION'
-    | 'TAG'
-    | 'CUSTOM_DASHBOARD'
-    | 'PIPELINE_GOVERNANCE_STANDARD'
-    | 'WORKFLOW_EXECUTION'
-    | 'SERVERLESS_INSTANCE'
-    | 'USER_INVITE'
-    | 'LOGIN_SETTINGS'
-    | 'SSO_SETTINGS'
-    | 'DELEGATE'
-    | 'DELEGATE_SCOPE'
-    | 'DELEGATE_PROFILE'
-    | 'EXPORT_EXECUTIONS_REQUEST'
-    | 'GCP_CONFIG'
-    | 'GIT_CONFIG'
-    | 'JENKINS_SERVER'
-    | 'SECRETS_MANAGER'
-    | 'HELM_CHART'
-    | 'SECRET'
-    | 'CONNECTOR'
-    | 'CLOUD_PROVIDER'
-  entityId?: string
-  tagType?: 'USER' | 'HARNESS'
-  appName?: string
-  entityName?: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedBy?: EmbeddedUser
-  lastUpdatedAt: number
-}
-
-export interface HibernationOptions {
-  configured?: boolean
-}
-
-export interface HostElement {
-  uuid?: string
-  hostName?: string
-  ip?: string
-  instanceId?: string
-  publicDns?: string
-  properties?: {
-    [key: string]: { [key: string]: any }
-  }
-  ec2Instance?: Instance
-  pcfElement?: PcfInstanceElement
-  azureVMInstance?: AzureVMInstanceData
-  elementType?:
-    | 'SERVICE'
-    | 'INFRAMAPPING'
-    | 'SERVICE_TEMPLATE'
-    | 'TAG'
-    | 'SHELL'
-    | 'HOST'
-    | 'INSTANCE'
-    | 'STANDARD'
-    | 'PARAM'
-    | 'PARTITION'
-    | 'OTHER'
-    | 'FORK'
-    | 'CONTAINER_SERVICE'
-    | 'CLUSTER'
-    | 'AWS_LAMBDA_FUNCTION'
-    | 'AMI_SERVICE_SETUP'
-    | 'AMI_SERVICE_DEPLOY'
-    | 'ECS_SERVICE_SETUP'
-    | 'AMI_SWITCH_ROUTES'
-    | 'PCF_SERVICE_SETUP'
-    | 'PCF_SERVICE_DEPLOY'
-    | 'PCF_ROUTE_SWAP_ROLLBACK'
-    | 'PCF_INSTANCE'
-    | 'SPOTINST_SERVICE_SETUP'
-    | 'SPOTINST_SERVICE_DEPLOY'
-    | 'ARTIFACT'
-    | 'ARTIFACT_VARIABLE'
-    | 'HELM_DEPLOY'
-    | 'CLOUD_FORMATION_PROVISION'
-    | 'CLOUD_FORMATION_ROLLBACK'
-    | 'CLOUD_FORMATION_DEPROVISION'
-    | 'TERRAFORM_PROVISION'
-    | 'SHELL_SCRIPT_PROVISION'
-    | 'K8S'
-    | 'TERRAFORM_INHERIT_PLAN'
-    | 'AZURE_VMSS_SETUP'
-    | 'HELM_CHART'
-    | 'MANIFEST_VARIABLE'
-  name?: string
-}
-
-export interface IamInstanceProfile {
-  arn?: string
-  id?: string
-}
-
-export interface ImportedTemplateDetails {
-  [key: string]: any
-}
-
-export type ImportedTemplateMetadata = TemplateMetadata & {
-  defaultVersion?: number
-}
-
-export interface InfraDefinitionSummary {
-  infraDefinitionId?: string
-  cloudProviderType?: 'PHYSICAL_DATA_CENTER' | 'AWS' | 'AZURE' | 'GCP' | 'KUBERNETES_CLUSTER' | 'PCF' | 'CUSTOM'
-  deploymentType?:
-    | 'SSH'
-    | 'AWS_CODEDEPLOY'
-    | 'ECS'
-    | 'SPOTINST'
-    | 'KUBERNETES'
-    | 'HELM'
-    | 'AWS_LAMBDA'
-    | 'AMI'
-    | 'WINRM'
-    | 'PCF'
-    | 'AZURE_VMSS'
-    | 'AZURE_WEBAPP'
-    | 'CUSTOM'
-  cloudProviderName?: string
-  displayName?: string
-}
-
-export interface InfraMappingSummary {
-  infraMappingId?: string
-  computeProviderType?: string
-  infraMappingType?: string
-  deploymentType?: string
-  computeProviderName?: string
-  displayName?: string
-}
-
-export interface Instance {
-  amiLaunchIndex?: number
-  imageId?: string
-  instanceId?: string
-  instanceType?: string
-  kernelId?: string
-  keyName?: string
-  launchTime?: string
-  monitoring?: Monitoring
-  placement?: Placement
-  platform?: string
-  privateDnsName?: string
-  privateIpAddress?: string
-  productCodes?: ProductCode[]
-  publicDnsName?: string
-  publicIpAddress?: string
-  ramdiskId?: string
-  state?: InstanceState
-  stateTransitionReason?: string
-  subnetId?: string
-  vpcId?: string
-  architecture?: string
-  blockDeviceMappings?: InstanceBlockDeviceMapping[]
-  clientToken?: string
-  ebsOptimized?: boolean
-  enaSupport?: boolean
-  hypervisor?: string
-  iamInstanceProfile?: IamInstanceProfile
-  instanceLifecycle?: string
-  elasticGpuAssociations?: ElasticGpuAssociation[]
-  elasticInferenceAcceleratorAssociations?: ElasticInferenceAcceleratorAssociation[]
-  networkInterfaces?: InstanceNetworkInterface[]
-  outpostArn?: string
-  rootDeviceName?: string
-  rootDeviceType?: string
-  securityGroups?: GroupIdentifier[]
-  sourceDestCheck?: boolean
-  spotInstanceRequestId?: string
-  sriovNetSupport?: string
-  stateReason?: StateReason
-  tags?: Tag[]
-  virtualizationType?: string
-  cpuOptions?: CpuOptions
-  capacityReservationId?: string
-  capacityReservationSpecification?: CapacityReservationSpecificationResponse
-  hibernationOptions?: HibernationOptions
-  licenses?: LicenseConfiguration[]
-  metadataOptions?: InstanceMetadataOptionsResponse
-}
-
-export interface InstanceBlockDeviceMapping {
-  deviceName?: string
-  ebs?: EbsInstanceBlockDevice
-}
-
-export interface InstanceElement {
-  uuid?: string
-  displayName?: string
-  hostName?: string
-  dockerId?: string
-  host?: HostElement
-  serviceTemplateElement?: ServiceTemplateElement
-  podName?: string
-  workloadName?: string
-  ecsContainerDetails?: EcsContainerDetails
-  newInstance?: boolean
-  elementType?:
-    | 'SERVICE'
-    | 'INFRAMAPPING'
-    | 'SERVICE_TEMPLATE'
-    | 'TAG'
-    | 'SHELL'
-    | 'HOST'
-    | 'INSTANCE'
-    | 'STANDARD'
-    | 'PARAM'
-    | 'PARTITION'
-    | 'OTHER'
-    | 'FORK'
-    | 'CONTAINER_SERVICE'
-    | 'CLUSTER'
-    | 'AWS_LAMBDA_FUNCTION'
-    | 'AMI_SERVICE_SETUP'
-    | 'AMI_SERVICE_DEPLOY'
-    | 'ECS_SERVICE_SETUP'
-    | 'AMI_SWITCH_ROUTES'
-    | 'PCF_SERVICE_SETUP'
-    | 'PCF_SERVICE_DEPLOY'
-    | 'PCF_ROUTE_SWAP_ROLLBACK'
-    | 'PCF_INSTANCE'
-    | 'SPOTINST_SERVICE_SETUP'
-    | 'SPOTINST_SERVICE_DEPLOY'
-    | 'ARTIFACT'
-    | 'ARTIFACT_VARIABLE'
-    | 'HELM_DEPLOY'
-    | 'CLOUD_FORMATION_PROVISION'
-    | 'CLOUD_FORMATION_ROLLBACK'
-    | 'CLOUD_FORMATION_DEPROVISION'
-    | 'TERRAFORM_PROVISION'
-    | 'SHELL_SCRIPT_PROVISION'
-    | 'K8S'
-    | 'TERRAFORM_INHERIT_PLAN'
-    | 'AZURE_VMSS_SETUP'
-    | 'HELM_CHART'
-    | 'MANIFEST_VARIABLE'
-  name?: string
-}
-
-export interface InstanceIpv6Address {
-  ipv6Address?: string
-}
-
-export interface InstanceMetadataOptionsResponse {
-  state?: string
-  httpTokens?: string
-  httpPutResponseHopLimit?: number
-  httpEndpoint?: string
-}
-
-export interface InstanceNetworkInterface {
-  association?: InstanceNetworkInterfaceAssociation
-  attachment?: InstanceNetworkInterfaceAttachment
-  description?: string
-  groups?: GroupIdentifier[]
-  ipv6Addresses?: InstanceIpv6Address[]
-  macAddress?: string
-  networkInterfaceId?: string
-  ownerId?: string
-  privateDnsName?: string
-  privateIpAddress?: string
-  privateIpAddresses?: InstancePrivateIpAddress[]
-  sourceDestCheck?: boolean
-  status?: string
-  subnetId?: string
-  vpcId?: string
-  interfaceType?: string
-}
-
-export interface InstanceNetworkInterfaceAssociation {
-  ipOwnerId?: string
-  publicDnsName?: string
-  publicIp?: string
-}
-
-export interface InstanceNetworkInterfaceAttachment {
-  attachTime?: string
-  attachmentId?: string
-  deleteOnTermination?: boolean
-  deviceIndex?: number
-  status?: string
-}
-
-export interface InstancePrivateIpAddress {
-  association?: InstanceNetworkInterfaceAssociation
-  primary?: boolean
-  privateDnsName?: string
-  privateIpAddress?: string
-}
-
-export interface InstanceState {
-  code?: number
-  name?: string
-}
-
-export interface InstanceStatusSummary {
-  instanceElement?: InstanceElement
-  status?:
-    | 'ABORTED'
-    | 'DISCONTINUING'
-    | 'ERROR'
-    | 'FAILED'
-    | 'NEW'
-    | 'PAUSED'
-    | 'PAUSING'
-    | 'QUEUED'
-    | 'RESUMED'
-    | 'RUNNING'
-    | 'SCHEDULED'
-    | 'STARTING'
-    | 'SUCCESS'
-    | 'WAITING'
-    | 'SKIPPED'
-    | 'ABORTING'
-    | 'REJECTED'
-    | 'EXPIRED'
-    | 'PREPARING'
-}
-
-export interface LicenseConfiguration {
-  licenseConfigurationArn?: string
-}
-
-export interface Monitoring {
-  state?: string
-}
-
-export interface NameValuePair {
-  name?: string
-  value: string
-  valueType?: string
-}
-
-export interface PcfInstanceElement {
-  uuid?: string
-  applicationId?: string
-  instanceIndex?: string
-  displayName?: string
-  newInstance?: boolean
-  elementType?:
-    | 'SERVICE'
-    | 'INFRAMAPPING'
-    | 'SERVICE_TEMPLATE'
-    | 'TAG'
-    | 'SHELL'
-    | 'HOST'
-    | 'INSTANCE'
-    | 'STANDARD'
-    | 'PARAM'
-    | 'PARTITION'
-    | 'OTHER'
-    | 'FORK'
-    | 'CONTAINER_SERVICE'
-    | 'CLUSTER'
-    | 'AWS_LAMBDA_FUNCTION'
-    | 'AMI_SERVICE_SETUP'
-    | 'AMI_SERVICE_DEPLOY'
-    | 'ECS_SERVICE_SETUP'
-    | 'AMI_SWITCH_ROUTES'
-    | 'PCF_SERVICE_SETUP'
-    | 'PCF_SERVICE_DEPLOY'
-    | 'PCF_ROUTE_SWAP_ROLLBACK'
-    | 'PCF_INSTANCE'
-    | 'SPOTINST_SERVICE_SETUP'
-    | 'SPOTINST_SERVICE_DEPLOY'
-    | 'ARTIFACT'
-    | 'ARTIFACT_VARIABLE'
-    | 'HELM_DEPLOY'
-    | 'CLOUD_FORMATION_PROVISION'
-    | 'CLOUD_FORMATION_ROLLBACK'
-    | 'CLOUD_FORMATION_DEPROVISION'
-    | 'TERRAFORM_PROVISION'
-    | 'SHELL_SCRIPT_PROVISION'
-    | 'K8S'
-    | 'TERRAFORM_INHERIT_PLAN'
-    | 'AZURE_VMSS_SETUP'
-    | 'HELM_CHART'
-    | 'MANIFEST_VARIABLE'
-  name?: string
-  upsize?: boolean
-}
-
-export interface Placement {
-  availabilityZone?: string
-  affinity?: string
-  groupName?: string
-  partitionNumber?: number
-  hostId?: string
-  tenancy?: string
-  spreadDomain?: string
-  hostResourceGroupArn?: string
-}
-
-export interface ProductCode {
-  productCodeId?: string
-  productCodeType?: string
-}
-
-export interface RestResponsePageResponseCVEnabledService {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: CVEnabledService[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface Service {
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  name?: string
-  description?: string
-  artifactType?:
-    | 'JAR'
-    | 'WAR'
-    | 'TAR'
-    | 'ZIP'
-    | 'DOCKER'
-    | 'RPM'
-    | 'AWS_LAMBDA'
-    | 'AWS_CODEDEPLOY'
-    | 'PCF'
-    | 'AMI'
-    | 'AZURE_MACHINE_IMAGE'
-    | 'AZURE_WEBAPP'
-    | 'IIS'
-    | 'OTHER'
-    | 'IIS_APP'
-    | 'IIS_VirtualDirectory'
-  deploymentType?:
-    | 'SSH'
-    | 'AWS_CODEDEPLOY'
-    | 'ECS'
-    | 'SPOTINST'
-    | 'KUBERNETES'
-    | 'HELM'
-    | 'AWS_LAMBDA'
-    | 'AMI'
-    | 'WINRM'
-    | 'PCF'
-    | 'AZURE_VMSS'
-    | 'AZURE_WEBAPP'
-    | 'CUSTOM'
-  configMapYaml?: string
-  helmValueYaml?: string
-  version?: number
-  appContainer?: AppContainer
-  configFiles?: ConfigFile[]
-  serviceVariables?: ServiceVariable[]
-  artifactStreams?: ArtifactStream[]
-  serviceCommands?: ServiceCommand[]
-  lastDeploymentActivity?: Activity
-  lastProdDeploymentActivity?: Activity
-  setup?: Setup
-  keywords?: string[]
-  helmVersion?: 'V2' | 'V3'
-  accountId?: string
-  artifactStreamIds?: string[]
-  artifactStreamBindings?: ArtifactStreamBinding[]
-  sample?: boolean
-  tagLinks?: HarnessTagLink[]
-  deploymentTypeTemplateId?: string
-  customDeploymentName?: string
-  pcfV2?: boolean
-  k8sV2?: boolean
-}
-
-export interface ServiceCommand {
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  name?: string
-  serviceId?: string
-  envIdVersionMap?: {
-    [key: string]: EntityVersion
-  }
-  defaultVersion?: number
-  targetToAllEnv?: boolean
-  accountId?: string
-  command?: Command
-  templateUuid?: string
-  templateVersion?: string
-  importedTemplateDetails?: ImportedTemplateDetails
-  templateMetadata?: TemplateMetadata
-}
-
-export interface ServiceElement {
-  uuid?: string
-  name?: string
-  description?: string
-  elementType?:
-    | 'SERVICE'
-    | 'INFRAMAPPING'
-    | 'SERVICE_TEMPLATE'
-    | 'TAG'
-    | 'SHELL'
-    | 'HOST'
-    | 'INSTANCE'
-    | 'STANDARD'
-    | 'PARAM'
-    | 'PARTITION'
-    | 'OTHER'
-    | 'FORK'
-    | 'CONTAINER_SERVICE'
-    | 'CLUSTER'
-    | 'AWS_LAMBDA_FUNCTION'
-    | 'AMI_SERVICE_SETUP'
-    | 'AMI_SERVICE_DEPLOY'
-    | 'ECS_SERVICE_SETUP'
-    | 'AMI_SWITCH_ROUTES'
-    | 'PCF_SERVICE_SETUP'
-    | 'PCF_SERVICE_DEPLOY'
-    | 'PCF_ROUTE_SWAP_ROLLBACK'
-    | 'PCF_INSTANCE'
-    | 'SPOTINST_SERVICE_SETUP'
-    | 'SPOTINST_SERVICE_DEPLOY'
-    | 'ARTIFACT'
-    | 'ARTIFACT_VARIABLE'
-    | 'HELM_DEPLOY'
-    | 'CLOUD_FORMATION_PROVISION'
-    | 'CLOUD_FORMATION_ROLLBACK'
-    | 'CLOUD_FORMATION_DEPROVISION'
-    | 'TERRAFORM_PROVISION'
-    | 'SHELL_SCRIPT_PROVISION'
-    | 'K8S'
-    | 'TERRAFORM_INHERIT_PLAN'
-    | 'AZURE_VMSS_SETUP'
-    | 'HELM_CHART'
-    | 'MANIFEST_VARIABLE'
-}
-
-export interface ServiceTemplateElement {
-  uuid?: string
-  name?: string
-  serviceElement?: ServiceElement
-  elementType?:
-    | 'SERVICE'
-    | 'INFRAMAPPING'
-    | 'SERVICE_TEMPLATE'
-    | 'TAG'
-    | 'SHELL'
-    | 'HOST'
-    | 'INSTANCE'
-    | 'STANDARD'
-    | 'PARAM'
-    | 'PARTITION'
-    | 'OTHER'
-    | 'FORK'
-    | 'CONTAINER_SERVICE'
-    | 'CLUSTER'
-    | 'AWS_LAMBDA_FUNCTION'
-    | 'AMI_SERVICE_SETUP'
-    | 'AMI_SERVICE_DEPLOY'
-    | 'ECS_SERVICE_SETUP'
-    | 'AMI_SWITCH_ROUTES'
-    | 'PCF_SERVICE_SETUP'
-    | 'PCF_SERVICE_DEPLOY'
-    | 'PCF_ROUTE_SWAP_ROLLBACK'
-    | 'PCF_INSTANCE'
-    | 'SPOTINST_SERVICE_SETUP'
-    | 'SPOTINST_SERVICE_DEPLOY'
-    | 'ARTIFACT'
-    | 'ARTIFACT_VARIABLE'
-    | 'HELM_DEPLOY'
-    | 'CLOUD_FORMATION_PROVISION'
-    | 'CLOUD_FORMATION_ROLLBACK'
-    | 'CLOUD_FORMATION_DEPROVISION'
-    | 'TERRAFORM_PROVISION'
-    | 'SHELL_SCRIPT_PROVISION'
-    | 'K8S'
-    | 'TERRAFORM_INHERIT_PLAN'
-    | 'AZURE_VMSS_SETUP'
-    | 'HELM_CHART'
-    | 'MANIFEST_VARIABLE'
-}
-
-export interface ServiceVariable {
-  templateId?: string
-  envId?: string
-  entityType:
-    | 'SERVICE'
-    | 'PROVISIONER'
-    | 'ENVIRONMENT'
-    | 'HOST'
-    | 'RELEASE'
-    | 'ARTIFACT'
-    | 'SSH_USER'
-    | 'SSH_PASSWORD'
-    | 'SSH_APP_ACCOUNT'
-    | 'SSH_KEY_PASSPHRASE'
-    | 'SSH_APP_ACCOUNT_PASSOWRD'
-    | 'SIMPLE_DEPLOYMENT'
-    | 'ORCHESTRATED_DEPLOYMENT'
-    | 'PIPELINE'
-    | 'WORKFLOW'
-    | 'DEPLOYMENT'
-    | 'INSTANCE'
-    | 'APPLICATION'
-    | 'COMMAND'
-    | 'CONFIG'
-    | 'SERVICE_TEMPLATE'
-    | 'INFRASTRUCTURE_MAPPING'
-    | 'INFRASTRUCTURE_DEFINITION'
-    | 'USER'
-    | 'ARTIFACT_STREAM'
-    | 'APPDYNAMICS_CONFIGID'
-    | 'APPDYNAMICS_APPID'
-    | 'APPDYNAMICS_TIERID'
-    | 'ELK_CONFIGID'
-    | 'ELK_INDICES'
-    | 'NEWRELIC_CONFIGID'
-    | 'NEWRELIC_APPID'
-    | 'SS_SSH_CONNECTION_ATTRIBUTE'
-    | 'SS_WINRM_CONNECTION_ATTRIBUTE'
-    | 'SUMOLOGIC_CONFIGID'
-    | 'SPLUNK_CONFIGID'
-    | 'NEWRELIC_MARKER_CONFIGID'
-    | 'NEWRELIC_MARKER_APPID'
-    | 'API_KEY'
-    | 'ACCOUNT'
-    | 'APPLICATION_MANIFEST'
-    | 'USER_GROUP'
-    | 'WHITELISTED_IP'
-    | 'CF_AWS_CONFIG_ID'
-    | 'VERIFICATION_CONFIGURATION'
-    | 'HELM_GIT_CONFIG_ID'
-    | 'NOTIFICATION_GROUP'
-    | 'HELM_CHART_SPECIFICATION'
-    | 'PCF_SERVICE_SPECIFICATION'
-    | 'LAMBDA_SPECIFICATION'
-    | 'USER_DATA_SPECIFICATION'
-    | 'ECS_CONTAINER_SPECIFICATION'
-    | 'ECS_SERVICE_SPECIFICATION'
-    | 'K8S_CONTAINER_SPECIFICATION'
-    | 'CONFIG_FILE'
-    | 'SERVICE_COMMAND'
-    | 'MANIFEST_FILE'
-    | 'SERVICE_VARIABLE'
-    | 'TRIGGER'
-    | 'ROLE'
-    | 'TEMPLATE'
-    | 'TEMPLATE_FOLDER'
-    | 'SETTING_ATTRIBUTE'
-    | 'ENCRYPTED_RECORDS'
-    | 'CV_CONFIGURATION'
-    | 'TAG'
-    | 'CUSTOM_DASHBOARD'
-    | 'PIPELINE_GOVERNANCE_STANDARD'
-    | 'WORKFLOW_EXECUTION'
-    | 'SERVERLESS_INSTANCE'
-    | 'USER_INVITE'
-    | 'LOGIN_SETTINGS'
-    | 'SSO_SETTINGS'
-    | 'DELEGATE'
-    | 'DELEGATE_SCOPE'
-    | 'DELEGATE_PROFILE'
-    | 'EXPORT_EXECUTIONS_REQUEST'
-    | 'GCP_CONFIG'
-    | 'GIT_CONFIG'
-    | 'JENKINS_SERVER'
-    | 'SECRETS_MANAGER'
-    | 'HELM_CHART'
-    | 'SECRET'
-    | 'CONNECTOR'
-    | 'CLOUD_PROVIDER'
-  entityId?: string
-  parentServiceVariableId?: string
-  overriddenServiceVariable?: ServiceVariable
-  overrideType?: 'ALL' | 'INSTANCES' | 'CUSTOM'
-  instances?: string[]
-  expression?: string
-  accountId?: string
-  name?: string
-  value?: string[]
-  type?: 'TEXT' | 'LB' | 'ENCRYPTED_TEXT' | 'ARTIFACT'
-  allowedList?: string[]
-  encryptedValue?: string
-  secretTextName?: string
-  serviceId?: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
-  encryptedBy?: string
-  artifactStreamSummaries?: ArtifactStreamSummary[]
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  settingType?:
-    | 'HOST_CONNECTION_ATTRIBUTES'
-    | 'BASTION_HOST_CONNECTION_ATTRIBUTES'
-    | 'SMTP'
-    | 'SFTP'
-    | 'JENKINS'
-    | 'BAMBOO'
-    | 'STRING'
-    | 'SPLUNK'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'APM_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'LOG_VERIFICATION'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'DYNA_TRACE'
-    | 'INSTANA'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'SCALYR'
-    | 'ELB'
-    | 'SLACK'
-    | 'AWS'
-    | 'GCS'
-    | 'GCP'
-    | 'AZURE'
-    | 'PCF'
-    | 'DIRECT'
-    | 'KUBERNETES_CLUSTER'
-    | 'DOCKER'
-    | 'ECR'
-    | 'GCR'
-    | 'ACR'
-    | 'PHYSICAL_DATA_CENTER'
-    | 'KUBERNETES'
-    | 'NEXUS'
-    | 'ARTIFACTORY'
-    | 'SMB'
-    | 'AMAZON_S3'
-    | 'GIT'
-    | 'SSH_SESSION_CONFIG'
-    | 'SERVICE_VARIABLE'
-    | 'CONFIG_FILE'
-    | 'KMS'
-    | 'GCP_KMS'
-    | 'JIRA'
-    | 'SERVICENOW'
-    | 'SECRET_TEXT'
-    | 'YAML_GIT_SYNC'
-    | 'VAULT'
-    | 'AWS_SECRETS_MANAGER'
-    | 'CYBERARK'
-    | 'WINRM_CONNECTION_ATTRIBUTES'
-    | 'WINRM_SESSION_CONFIG'
-    | 'PROMETHEUS'
-    | 'INFRASTRUCTURE_MAPPING'
-    | 'HTTP_HELM_REPO'
-    | 'AMAZON_S3_HELM_REPO'
-    | 'GCS_HELM_REPO'
-    | 'SPOT_INST'
-    | 'AZURE_ARTIFACTS_PAT'
-    | 'CUSTOM'
-    | 'CE_AWS'
-    | 'CE_GCP'
-    | 'AZURE_VAULT'
-    | 'KUBERNETES_CLUSTER_NG'
-    | 'GIT_NG'
-}
-
-export interface Setup {
-  setupStatus?: 'COMPLETE' | 'INCOMPLETE'
-  actions?: SetupAction[]
-}
-
-export interface SetupAction {
-  displayText?: string
-  code?: string
-  url?: string
-  errorType?: 'INFO' | 'ERROR'
-}
-
-export interface StateReason {
-  code?: string
-  message?: string
-}
-
-export interface Tag {
-  key?: string
-  value?: string
-}
-
-export interface TemplateExpression {
-  fieldName?: string
-  expression?: string
-  expressionAllowed?: boolean
-  description?: string
-  mandatory?: boolean
-  metadata?: {
-    [key: string]: { [key: string]: any }
-  }
-}
-
-export interface TemplateMetadata {
-  [key: string]: any
-}
-
-export interface TemplateReference {
-  templateUuid?: string
-  templateVersion?: number
-}
-
-export interface TriggeredBy {
-  name?: string
-  email?: string
-}
-
-export interface Variable {
-  name?: string
-  description?: string
-  mandatory?: boolean
-  runtimeInput?: boolean
-  value?: string
-  fixed?: boolean
-  allowedValues?: string
-  allowedList?: string[]
-  allowMultipleValues?: boolean
-  artifactStreamSummaries?: ArtifactStreamSummary[]
-  metadata?: {
-    [key: string]: { [key: string]: any }
-  }
-  type?: 'TEXT' | 'NUMBER' | 'EMAIL' | 'ENTITY' | 'ARTIFACT' | 'MANIFEST'
-}
-
-export interface RestResponseListService {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Service[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ProvisionStep {
-  step?: string
-  done?: boolean
-}
-
-export interface RestResponseListProvisionStep {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ProvisionStep[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ServiceGuardLimitDTO {
-  serviceGuardLimit?: number
-}
-
-export interface RestResponseActivity {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Activity
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponsePageResponseActivity {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Activity[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface Log {
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedBy?: EmbeddedUser
-  lastUpdatedAt: number
-  activityId?: string
-  hostName?: string
-  commandUnitName?: string
-  logLine?: string
-  linesCount?: number
-  logLevel: 'DEBUG' | 'INFO' | 'WARN' | 'ERROR' | 'FATAL'
-  commandExecutionStatus: 'SUCCESS' | 'FAILURE' | 'RUNNING' | 'QUEUED' | 'SKIPPED'
-  accountId?: string
-}
-
-export interface RestResponsePageResponseLog {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Log[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponsePageResponseThirdPartyApiCallLog {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ThirdPartyApiCallLog[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ThirdPartyApiCallField {
-  name?: string
-  value?: string
-  type?: 'JSON' | 'XML' | 'NUMBER' | 'URL' | 'TEXT' | 'TIMESTAMP'
-}
-
-export interface ThirdPartyApiCallLog {
-  stateExecutionId?: string
-  accountId?: string
-  delegateId?: string
-  delegateTaskId?: string
-  title?: string
-  request?: ThirdPartyApiCallField[]
-  response?: ThirdPartyApiCallField[]
-  requestTimeStamp?: number
-  responseTimeStamp?: number
-  createdAt?: number
-  uuid?: string
-  validUntil?: string
-  status?:
-    | 'ABORTED'
-    | 'DISCONTINUING'
-    | 'ERROR'
-    | 'FAILED'
-    | 'NEW'
-    | 'PAUSED'
-    | 'PAUSING'
-    | 'QUEUED'
-    | 'RESUMED'
-    | 'RUNNING'
-    | 'SCHEDULED'
-    | 'STARTING'
-    | 'SUCCESS'
-    | 'WAITING'
-    | 'SKIPPED'
-    | 'ABORTING'
-    | 'REJECTED'
-    | 'EXPIRED'
-    | 'PREPARING'
 }
 
 export interface CommandUnitDetails {
-  name?: string
   commandExecutionStatus?: 'SUCCESS' | 'FAILURE' | 'RUNNING' | 'QUEUED' | 'SKIPPED'
   commandUnitType?:
     | 'COMMAND'
@@ -2545,515 +2849,2503 @@ export interface CommandUnitDetails {
     | 'AZURE_VMSS_DEPLOY'
     | 'AZURE_VMSS_SWAP'
     | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
+  name?: string
   variables?: Variable[]
 }
 
-export interface RestResponseListCommandUnitDetails {
-  metaData?: {
+export interface ConcurrencyStrategy {
+  holdingScope: 'PIPELINE' | 'WORKFLOW' | 'PHASE' | 'PHASE_SECTION' | 'NEXT_STEP'
+  notificationGroups?: string[]
+  notifyTriggeredByUser?: boolean
+  resourceUnit: string
+  strategy: 'ASAP' | 'FIFO'
+  unitType: 'INFRA' | 'CUSTOM' | 'NONE'
+}
+
+export interface ConcurrentExecutionResponse {
+  executions?: WorkflowExecution[]
+  infrastructureDetails?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: CommandUnitDetails[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface AlertFilter {
-  alertType?:
-    | 'ApprovalNeeded'
-    | 'ManualInterventionNeeded'
-    | 'NoActiveDelegates'
-    | 'NoInstalledDelegates'
-    | 'DelegatesDown'
-    | 'DelegatesScalingGroupDownAlert'
-    | 'DelegateProfileError'
-    | 'NoEligibleDelegates'
-    | 'PerpetualTaskAlert'
-    | 'InvalidKMS'
-    | 'GitSyncError'
-    | 'GitConnectionError'
-    | 'INVALID_SMTP_CONFIGURATION'
-    | 'EMAIL_NOT_SENT_ALERT'
-    | 'USERGROUP_SYNC_FAILED'
-    | 'USAGE_LIMIT_EXCEEDED'
-    | 'INSTANCE_USAGE_APPROACHING_LIMIT'
-    | 'RESOURCE_USAGE_APPROACHING_LIMIT'
-    | 'DEPLOYMENT_RATE_APPROACHING_LIMIT'
-    | 'SETTING_ATTRIBUTE_VALIDATION_FAILED'
-    | 'ARTIFACT_COLLECTION_FAILED'
-    | 'CONTINUOUS_VERIFICATION_ALERT'
-    | 'CONTINUOUS_VERIFICATION_DATA_COLLECTION_ALERT'
-    | 'MANIFEST_COLLECTION_FAILED'
-  conditions?: Conditions
-}
-
-export interface AlertNotificationRule {
-  accountId?: string
-  alertCategory?: 'All' | 'Setup' | 'Approval' | 'ManualIntervention' | 'ContinuousVerification'
-  alertFilter?: AlertFilter
-  userGroupsToNotify?: string[]
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  default?: boolean
-}
-
-export interface CVAlertFilters {
-  appIds?: string[]
-  envIds?: string[]
-  cvConfigIds?: string[]
-  alertMinThreshold?: number
+  state?: 'BLOCKED' | 'ACTIVE' | 'FINISHED'
+  unitType?: 'INFRA' | 'CUSTOM' | 'NONE'
 }
 
 export interface Conditions {
-  operator?: 'MATCHING' | 'NOT_MATCHING'
-  manualInterventionFilters?: ManualInterventionAlertFilters
   cvAlertFilters?: CVAlertFilters
+  manualInterventionFilters?: ManualInterventionAlertFilters
+  operator?: 'MATCHING' | 'NOT_MATCHING'
 }
 
-export interface ManualInterventionAlertFilters {
-  appIds?: string[]
-  envIds?: string[]
-}
-
-export interface RestResponseListAlertNotificationRule {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AlertNotificationRule[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface NotificationRulesStatus {
+export interface ConfigFile {
   accountId?: string
-  enabled?: boolean
-}
-
-export interface RestResponseNotificationRulesStatus {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: NotificationRulesStatus
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseAlertNotificationRule {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AlertNotificationRule
-  responseMessages?: ResponseMessage[]
-}
-
-export interface AccountPermissions {
-  permissions?: (
-    | 'ACCOUNT'
-    | 'LOGGED_IN'
-    | 'DELEGATE'
-    | 'NONE'
-    | 'APP'
-    | 'ALL_APP_ENTITIES'
-    | 'ENV'
-    | 'SERVICE'
-    | 'WORKFLOW'
-    | 'PIPELINE'
-    | 'DEPLOYMENT'
-    | 'APPLICATION_CREATE_DELETE'
-    | 'USER_PERMISSION_MANAGEMENT'
-    | 'ACCOUNT_MANAGEMENT'
-    | 'PROVISIONER'
-    | 'TEMPLATE_MANAGEMENT'
-    | 'USER_PERMISSION_READ'
-    | 'AUDIT_VIEWER'
-    | 'TAG_MANAGEMENT'
-    | 'CE_ADMIN'
-    | 'CE_VIEWER'
-    | 'MANAGE_CLOUD_PROVIDERS'
-    | 'MANAGE_CONNECTORS'
-    | 'MANAGE_APPLICATIONS'
-    | 'MANAGE_APPLICATION_STACKS'
-    | 'MANAGE_DELEGATES'
-    | 'MANAGE_ALERT_NOTIFICATION_RULES'
-    | 'MANAGE_DELEGATE_PROFILES'
-    | 'MANAGE_CONFIG_AS_CODE'
-    | 'MANAGE_SECRETS'
-    | 'MANAGE_SECRET_MANAGERS'
-    | 'MANAGE_AUTHENTICATION_SETTINGS'
-    | 'MANAGE_USER_AND_USER_GROUPS_AND_API_KEYS'
-    | 'VIEW_USER_AND_USER_GROUPS_AND_API_KEYS'
-    | 'MANAGE_IP_WHITELIST'
-    | 'MANAGE_IP_WHITELISTING'
-    | 'MANAGE_DEPLOYMENT_FREEZES'
-    | 'MANAGE_PIPELINE_GOVERNANCE_STANDARDS'
-    | 'MANAGE_API_KEYS'
-    | 'MANAGE_TAGS'
-    | 'MANAGE_CUSTOM_DASHBOARDS'
-    | 'CREATE_CUSTOM_DASHBOARDS'
-  )[]
-}
-
-export interface ApiKeyEntry {
-  uuid?: string
-  accountId?: string
-  name?: string
-  userGroupIds?: string[]
-  userGroups?: UserGroup[]
-  createdAt?: number
-  encryptedKey?: string[]
-  decryptedKey?: string
-  hashOfKey?: string
-}
-
-export interface AppPermission {
-  permissionType?:
-    | 'ACCOUNT'
-    | 'LOGGED_IN'
-    | 'DELEGATE'
-    | 'NONE'
-    | 'APP'
-    | 'ALL_APP_ENTITIES'
-    | 'ENV'
-    | 'SERVICE'
-    | 'WORKFLOW'
-    | 'PIPELINE'
-    | 'DEPLOYMENT'
-    | 'APPLICATION_CREATE_DELETE'
-    | 'USER_PERMISSION_MANAGEMENT'
-    | 'ACCOUNT_MANAGEMENT'
-    | 'PROVISIONER'
-    | 'TEMPLATE_MANAGEMENT'
-    | 'USER_PERMISSION_READ'
-    | 'AUDIT_VIEWER'
-    | 'TAG_MANAGEMENT'
-    | 'CE_ADMIN'
-    | 'CE_VIEWER'
-    | 'MANAGE_CLOUD_PROVIDERS'
-    | 'MANAGE_CONNECTORS'
-    | 'MANAGE_APPLICATIONS'
-    | 'MANAGE_APPLICATION_STACKS'
-    | 'MANAGE_DELEGATES'
-    | 'MANAGE_ALERT_NOTIFICATION_RULES'
-    | 'MANAGE_DELEGATE_PROFILES'
-    | 'MANAGE_CONFIG_AS_CODE'
-    | 'MANAGE_SECRETS'
-    | 'MANAGE_SECRET_MANAGERS'
-    | 'MANAGE_AUTHENTICATION_SETTINGS'
-    | 'MANAGE_USER_AND_USER_GROUPS_AND_API_KEYS'
-    | 'VIEW_USER_AND_USER_GROUPS_AND_API_KEYS'
-    | 'MANAGE_IP_WHITELIST'
-    | 'MANAGE_IP_WHITELISTING'
-    | 'MANAGE_DEPLOYMENT_FREEZES'
-    | 'MANAGE_PIPELINE_GOVERNANCE_STANDARDS'
-    | 'MANAGE_API_KEYS'
-    | 'MANAGE_TAGS'
-    | 'MANAGE_CUSTOM_DASHBOARDS'
-    | 'CREATE_CUSTOM_DASHBOARDS'
-  appFilter?: GenericEntityFilter
-  entityFilter?: Filter
-  actions?: (
-    | 'ALL'
-    | 'CREATE'
-    | 'READ'
-    | 'UPDATE'
-    | 'DELETE'
-    | 'EXECUTE'
-    | 'EXECUTE_WORKFLOW'
-    | 'EXECUTE_PIPELINE'
-    | 'DEFAULT'
-  )[]
-}
-
-export interface EnvFilter {
-  ids?: string[]
-  filterTypes?: string[]
-}
-
-export interface Filter {
-  ids?: string[]
-}
-
-export interface GenericEntityFilter {
-  ids?: string[]
-  filterType?: string
-}
-
-export interface NotificationSettings {
-  useIndividualEmails?: boolean
-  sendMailToNewMembers?: boolean
-  emailAddresses: string[]
-  slackConfig: SlackNotificationSetting
-  pagerDutyIntegrationKey?: string
-  microsoftTeamsWebhookUrl?: string
-}
-
-export interface RestResponseApiKeyEntry {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ApiKeyEntry
-  responseMessages?: ResponseMessage[]
-}
-
-export interface SlackNotificationSetting {
-  name?: string
-  outgoingWebhookUrl: string
-}
-
-export interface User {
-  uuid: string
   appId: string
-  createdBy?: EmbeddedUser
+  checksum?: string
+  checksumType?: 'MD5' | 'SHA1' | 'SHA256'
+  configOverrideExpression?: string
+  configOverrideType?: 'ALL' | 'INSTANCES' | 'CUSTOM'
   createdAt?: number
-  lastUpdatedAt: number
-  name?: string
-  givenName?: string
-  familyName?: string
-  email?: string
-  companyName?: string
-  accountName?: string
-  userGroups?: UserGroup[]
-  accounts?: Account[]
-  pendingAccounts?: Account[]
-  supportAccounts?: Account[]
-  lastLogin?: number
-  firstLogin?: boolean
-  password?: string[]
-  token?: string
-  twoFactorJwtToken?: string
-  emailVerified?: boolean
-  passwordExpired?: boolean
-  userLocked?: boolean
-  statsFetchedOn?: number
-  lastAccountId?: string
-  defaultAccountId?: string
-  lastAppId?: string
-  disabled?: boolean
-  imported?: boolean
-  userLockoutInfo?: UserLockoutInfo
-  twoFactorAuthenticationEnabled?: boolean
-  twoFactorAuthenticationMechanism?: 'TOTP'
-  oauthProvider?: string
-  reportedSegmentTracks?: string[]
-  utmInfo?: UtmInfo
-  accountIds?: string[]
-}
-
-export interface UserGroup {
-  uuid: string
-  appId: string
   createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  name?: string
+  defaultVersion?: number
   description?: string
-  linkedSsoType?: 'SAML' | 'LDAP' | 'OAUTH'
-  linkedSsoId?: string
-  linkedSsoDisplayName?: string
-  ssoGroupId?: string
-  ssoGroupName?: string
-  importedByScim?: boolean
-  accountId?: string
-  memberIds?: string[]
-  members?: User[]
-  appPermissions?: AppPermission[]
-  accountPermissions?: AccountPermissions
-  notificationSettings?: NotificationSettings
-  ssoLinked?: boolean
-  default?: boolean
-}
-
-export interface UserLockoutInfo {
-  numberOfFailedLoginAttempts?: number
-  userLockedAt?: number
-}
-
-export interface UtmInfo {
-  utmSource?: string
-  utmContent?: string
-  utmMedium?: string
-  utmTerm?: string
-  utmCampaign?: string
-}
-
-export type WorkflowFilter = Filter & {
-  filterTypes?: string[]
-}
-
-export interface RestResponseVoid {
-  metaData?: {
-    [key: string]: { [key: string]: any }
+  encrypted?: boolean
+  encryptedBy?: string
+  encryptedFileId?: string
+  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  entityId?: string
+  entityType:
+    | 'SERVICE'
+    | 'PROVISIONER'
+    | 'ENVIRONMENT'
+    | 'HOST'
+    | 'RELEASE'
+    | 'ARTIFACT'
+    | 'SSH_USER'
+    | 'SSH_PASSWORD'
+    | 'SSH_APP_ACCOUNT'
+    | 'SSH_KEY_PASSPHRASE'
+    | 'SSH_APP_ACCOUNT_PASSOWRD'
+    | 'SIMPLE_DEPLOYMENT'
+    | 'ORCHESTRATED_DEPLOYMENT'
+    | 'PIPELINE'
+    | 'WORKFLOW'
+    | 'DEPLOYMENT'
+    | 'INSTANCE'
+    | 'APPLICATION'
+    | 'COMMAND'
+    | 'CONFIG'
+    | 'SERVICE_TEMPLATE'
+    | 'INFRASTRUCTURE_MAPPING'
+    | 'INFRASTRUCTURE_DEFINITION'
+    | 'USER'
+    | 'ARTIFACT_STREAM'
+    | 'APPDYNAMICS_CONFIGID'
+    | 'APPDYNAMICS_APPID'
+    | 'APPDYNAMICS_TIERID'
+    | 'ELK_CONFIGID'
+    | 'ELK_INDICES'
+    | 'NEWRELIC_CONFIGID'
+    | 'NEWRELIC_APPID'
+    | 'SS_SSH_CONNECTION_ATTRIBUTE'
+    | 'SS_WINRM_CONNECTION_ATTRIBUTE'
+    | 'SUMOLOGIC_CONFIGID'
+    | 'SPLUNK_CONFIGID'
+    | 'NEWRELIC_MARKER_CONFIGID'
+    | 'NEWRELIC_MARKER_APPID'
+    | 'API_KEY'
+    | 'ACCOUNT'
+    | 'APPLICATION_MANIFEST'
+    | 'USER_GROUP'
+    | 'WHITELISTED_IP'
+    | 'CF_AWS_CONFIG_ID'
+    | 'VERIFICATION_CONFIGURATION'
+    | 'HELM_GIT_CONFIG_ID'
+    | 'NOTIFICATION_GROUP'
+    | 'HELM_CHART_SPECIFICATION'
+    | 'PCF_SERVICE_SPECIFICATION'
+    | 'LAMBDA_SPECIFICATION'
+    | 'USER_DATA_SPECIFICATION'
+    | 'ECS_CONTAINER_SPECIFICATION'
+    | 'ECS_SERVICE_SPECIFICATION'
+    | 'K8S_CONTAINER_SPECIFICATION'
+    | 'CONFIG_FILE'
+    | 'SERVICE_COMMAND'
+    | 'MANIFEST_FILE'
+    | 'SERVICE_VARIABLE'
+    | 'TRIGGER'
+    | 'ROLE'
+    | 'TEMPLATE'
+    | 'TEMPLATE_FOLDER'
+    | 'SETTING_ATTRIBUTE'
+    | 'ENCRYPTED_RECORDS'
+    | 'CV_CONFIGURATION'
+    | 'TAG'
+    | 'CUSTOM_DASHBOARD'
+    | 'PIPELINE_GOVERNANCE_STANDARD'
+    | 'WORKFLOW_EXECUTION'
+    | 'SERVERLESS_INSTANCE'
+    | 'USER_INVITE'
+    | 'LOGIN_SETTINGS'
+    | 'SSO_SETTINGS'
+    | 'DELEGATE'
+    | 'DELEGATE_SCOPE'
+    | 'DELEGATE_PROFILE'
+    | 'EXPORT_EXECUTIONS_REQUEST'
+    | 'GCP_CONFIG'
+    | 'GIT_CONFIG'
+    | 'JENKINS_SERVER'
+    | 'SECRETS_MANAGER'
+    | 'HELM_CHART'
+    | 'SECRET'
+    | 'CONNECTOR'
+    | 'CLOUD_PROVIDER'
+  envId?: string
+  envIdVersionMap?: {
+    [key: string]: EntityVersion
   }
-  resource?: Void
-  responseMessages?: ResponseMessage[]
+  envIdVersionMapString?: string
+  fileName?: string
+  fileUuid?: string
+  instances?: string[]
+  lastUpdatedAt: number
+  mimeType?: string
+  name?: string
+  notes?: string
+  overriddenConfigFile?: ConfigFile
+  overridePath?: string
+  parentConfigFileId?: string
+  relativeFilePath?: string
+  secretFileName?: string
+  serviceId?: string
+  setAsDefault?: boolean
+  settingType?:
+    | 'HOST_CONNECTION_ATTRIBUTES'
+    | 'BASTION_HOST_CONNECTION_ATTRIBUTES'
+    | 'SMTP'
+    | 'SFTP'
+    | 'JENKINS'
+    | 'BAMBOO'
+    | 'STRING'
+    | 'SPLUNK'
+    | 'ELK'
+    | 'LOGZ'
+    | 'SUMO'
+    | 'DATA_DOG'
+    | 'APM_VERIFICATION'
+    | 'BUG_SNAG'
+    | 'LOG_VERIFICATION'
+    | 'APP_DYNAMICS'
+    | 'NEW_RELIC'
+    | 'DYNA_TRACE'
+    | 'INSTANA'
+    | 'DATA_DOG_LOG'
+    | 'CLOUD_WATCH'
+    | 'SCALYR'
+    | 'ELB'
+    | 'SLACK'
+    | 'AWS'
+    | 'GCS'
+    | 'GCP'
+    | 'AZURE'
+    | 'PCF'
+    | 'DIRECT'
+    | 'KUBERNETES_CLUSTER'
+    | 'DOCKER'
+    | 'ECR'
+    | 'GCR'
+    | 'ACR'
+    | 'PHYSICAL_DATA_CENTER'
+    | 'KUBERNETES'
+    | 'NEXUS'
+    | 'ARTIFACTORY'
+    | 'SMB'
+    | 'AMAZON_S3'
+    | 'GIT'
+    | 'SSH_SESSION_CONFIG'
+    | 'SERVICE_VARIABLE'
+    | 'CONFIG_FILE'
+    | 'KMS'
+    | 'GCP_KMS'
+    | 'JIRA'
+    | 'SERVICENOW'
+    | 'SECRET_TEXT'
+    | 'YAML_GIT_SYNC'
+    | 'VAULT'
+    | 'AWS_SECRETS_MANAGER'
+    | 'CYBERARK'
+    | 'WINRM_CONNECTION_ATTRIBUTES'
+    | 'WINRM_SESSION_CONFIG'
+    | 'PROMETHEUS'
+    | 'INFRASTRUCTURE_MAPPING'
+    | 'HTTP_HELM_REPO'
+    | 'AMAZON_S3_HELM_REPO'
+    | 'GCS_HELM_REPO'
+    | 'SPOT_INST'
+    | 'AZURE_ARTIFACTS_PAT'
+    | 'CUSTOM'
+    | 'CE_AWS'
+    | 'CE_GCP'
+    | 'AZURE_VAULT'
+    | 'KUBERNETES_CLUSTER_NG'
+    | 'GIT_NG'
+  size?: number
+  targetToAllEnv?: boolean
+  templateId?: string
+  uuid: string
 }
 
-export interface Void {
+export interface ConnectivityValidationAttributes {
   [key: string]: any
 }
 
-export interface RestResponsePageResponseApiKeyEntry {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ApiKeyEntry[]
-  responseMessages?: ResponseMessage[]
+export interface ConnectorConfigDTO {
+  accountId: string
+  passwordRef: string
+  splunkUrl?: string
+  username?: string
 }
 
-export interface RestResponseMapStringObject {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: {
-    [key: string]: { [key: string]: any }
-  }
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseAppContainer {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AppContainer
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponsePageResponseAppContainer {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AppContainer[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ApiKeyInfo {
-  appKeyId?: string
-  apiKeyName?: string
-}
-
-export interface Application {
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  name?: string
+export interface ConnectorInfoDTO {
   description?: string
-  accountId?: string
-  services?: Service[]
-  environments?: Environment[]
-  setup?: Setup
-  recentExecutions?: WorkflowExecution[]
-  notifications?: Notification[]
-  nextDeploymentOn?: number
-  keywords?: string[]
-  yamlGitConfig?: YamlGitConfig
-  defaults?: {
-    [key: string]: string
-  }
-  sample?: boolean
-  tagLinks?: HarnessTagLink[]
+  identifier: string
+  name: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  spec: ConnectorConfigDTO
+  tags?: string[]
+  type:
+    | 'K8sCluster'
+    | 'Git'
+    | 'Splunk'
+    | 'AppDynamics'
+    | 'Vault'
+    | 'DockerRegistry'
+    | 'Local'
+    | 'AwsKms'
+    | 'GcpKms'
+    | 'Awssecretsmanager'
+    | 'Azurevault'
+    | 'Cyberark'
+    | 'CustomSecretManager'
+    | 'Gcp'
+    | 'Aws'
+    | 'Artifactory'
+    | 'Jira'
+    | 'Nexus'
 }
 
-export interface ApplicationManifest {
+export interface ContainerDefinition {
+  commands?: string[]
+  cpu?: number
+  logConfiguration?: LogConfiguration
+  memory?: number
+  name?: string
+  portMappings?: PortMapping[]
+  storageConfigurations?: StorageConfiguration[]
+}
+
+export interface ContainerInfo {
+  containerId?: string
+  containerTasksReachable?: boolean
+  ec2Instance?: Instance
+  ecsContainerDetails?: EcsContainerDetails
+  hostName?: string
+  ip?: string
+  newContainer?: boolean
+  podName?: string
+  releaseName?: string
+  status?: 'SUCCESS' | 'FAILURE'
+  workloadName?: string
+}
+
+export interface ContainerInstanceKey {
+  containerId?: string
+  namespace?: string
+}
+
+export interface ContainerTask {
   accountId?: string
+  advancedConfig?: string
+  appId: string
+  containerDefinitions?: ContainerDefinition[]
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  deploymentType?: string
+  lastUpdatedAt: number
   serviceId?: string
-  envId?: string
-  kind?: 'VALUES' | 'K8S_MANIFEST' | 'PCF_OVERRIDE' | 'HELM_CHART_OVERRIDE' | 'OC_PARAMS'
-  storeType?: 'Local' | 'Remote' | 'HelmSourceRepo' | 'HelmChartRepo' | 'KustomizeSourceRepo' | 'OC_TEMPLATES'
-  gitFileConfig?: GitFileConfig
-  helmChartConfig?: HelmChartConfig
-  kustomizeConfig?: KustomizeConfig
-  pollForChanges?: boolean
-  serviceName?: string
-  collectionStatus?: 'UNSTABLE' | 'COLLECTING' | 'STABLE'
-  perpetualTaskId?: string
-  failedAttempts?: number
   uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
 }
 
-export interface ApplicationManifestSummary {
-  appManifestId?: string
-  settingId?: string
-  lastCollectedManifest?: ManifestSummary
-  defaultManifest?: ManifestSummary
-}
-
-export interface Artifact {
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  artifactStreamId?: string
-  artifactSourceName?: string
-  artifactStreamName?: string
-  metadata?: {
-    [key: string]: string
-  }
-  labels?: {
-    [key: string]: string
-  }
-  displayName?: string
-  revision?: string
-  serviceIds?: string[]
-  services?: Service[]
-  artifactFiles?: ArtifactFile[]
-  artifactFileMetadata?: ArtifactFileMetadata[]
-  status?: 'NEW' | 'RUNNING' | 'QUEUED' | 'WAITING' | 'READY' | 'APPROVED' | 'REJECTED' | 'ABORTED' | 'FAILED' | 'ERROR'
-  description?: string
-  errorMessage?: string
-  contentStatus?: 'METADATA_ONLY' | 'NOT_DOWNLOADED' | 'DOWNLOADING' | 'DOWNLOADED' | 'DELETED' | 'FAILED'
-  source?: {
-    [key: string]: string
-  }
-  settingId?: string
-  accountId?: string
-  artifactStreamType?: string
-  uiDisplayName?: string
-  buildIdentity?: string
-  url?: string
-  bucketName?: string
-  buildFullDisplayName?: string
-  artifactFileSize?: number
-  artifactPath?: string
-  key?: string
-  fileName?: string
-  buildNo?: string
-}
-
-export interface ArtifactFile {
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
+export interface ContextElement {
+  elementType?:
+    | 'SERVICE'
+    | 'INFRAMAPPING'
+    | 'SERVICE_TEMPLATE'
+    | 'TAG'
+    | 'SHELL'
+    | 'HOST'
+    | 'INSTANCE'
+    | 'STANDARD'
+    | 'PARAM'
+    | 'PARTITION'
+    | 'OTHER'
+    | 'FORK'
+    | 'CONTAINER_SERVICE'
+    | 'CLUSTER'
+    | 'AWS_LAMBDA_FUNCTION'
+    | 'AMI_SERVICE_SETUP'
+    | 'AMI_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_SETUP'
+    | 'AMI_SWITCH_ROUTES'
+    | 'PCF_SERVICE_SETUP'
+    | 'PCF_SERVICE_DEPLOY'
+    | 'PCF_ROUTE_SWAP_ROLLBACK'
+    | 'PCF_INSTANCE'
+    | 'SPOTINST_SERVICE_SETUP'
+    | 'SPOTINST_SERVICE_DEPLOY'
+    | 'ARTIFACT'
+    | 'ARTIFACT_VARIABLE'
+    | 'HELM_DEPLOY'
+    | 'CLOUD_FORMATION_PROVISION'
+    | 'CLOUD_FORMATION_ROLLBACK'
+    | 'CLOUD_FORMATION_DEPROVISION'
+    | 'TERRAFORM_PROVISION'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'K8S'
+    | 'TERRAFORM_INHERIT_PLAN'
+    | 'AZURE_VMSS_SETUP'
+    | 'HELM_CHART'
+    | 'MANIFEST_VARIABLE'
   name?: string
-  fileUuid?: string
-  fileName?: string
-  mimeType?: string
-  size?: number
-  checksumType?: 'MD5' | 'SHA1' | 'SHA256'
-  checksum?: string
+  uuid?: string
+}
+
+export interface ContinuousVerificationAlertData {
   accountId?: string
+  alertStatus?: 'Open' | 'Closed' | 'Pending'
+  analysisEndTime?: number
+  analysisStartTime?: number
+  cvConfiguration?: CVConfiguration
+  highRiskTxns?: AlertRiskDetail[]
+  hosts?: string[]
+  logAnomaly?: string
+  mlAnalysisType?: 'TIME_SERIES' | 'LOG_CLUSTER' | 'LOG_ML' | 'FEEDBACK_ANALYSIS'
+  portalUrl?: string
+  riskScore?: number
+  tag?: string
 }
 
-export interface ArtifactFileMetadata {
+export interface ContinuousVerificationExecutionMetaData {
+  accountId?: string
+  appId: string
+  appName?: string
+  applicationId?: string
+  artifactName?: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  envId?: string
+  envName?: string
+  executionStatus?:
+    | 'ABORTED'
+    | 'DISCONTINUING'
+    | 'ERROR'
+    | 'FAILED'
+    | 'NEW'
+    | 'PAUSED'
+    | 'PAUSING'
+    | 'QUEUED'
+    | 'RESUMED'
+    | 'RUNNING'
+    | 'SCHEDULED'
+    | 'STARTING'
+    | 'SUCCESS'
+    | 'WAITING'
+    | 'SKIPPED'
+    | 'ABORTING'
+    | 'REJECTED'
+    | 'EXPIRED'
+    | 'PREPARING'
+  lastUpdatedAt: number
+  manualOverride?: boolean
+  noData?: boolean
+  phaseId?: string
+  phaseName?: string
+  pipelineExecutionId?: string
+  pipelineId?: string
+  pipelineName?: string
+  pipelineStartTs?: number
+  serviceId?: string
+  serviceName?: string
+  stateExecutionId?: string
+  stateStartTs?: number
+  stateType?:
+    | 'SUB_WORKFLOW'
+    | 'REPEAT'
+    | 'FORK'
+    | 'WAIT'
+    | 'PAUSE'
+    | 'BARRIER'
+    | 'RESOURCE_CONSTRAINT'
+    | 'SHELL_SCRIPT'
+    | 'HTTP'
+    | 'TEMPLATIZED_SECRET_MANAGER'
+    | 'EMAIL'
+    | 'APP_DYNAMICS'
+    | 'NEW_RELIC'
+    | 'NEW_RELIC_DEPLOYMENT_MARKER'
+    | 'DYNA_TRACE'
+    | 'PROMETHEUS'
+    | 'SPLUNKV2'
+    | 'ELK'
+    | 'LOGZ'
+    | 'SUMO'
+    | 'DATA_DOG'
+    | 'DATA_DOG_LOG'
+    | 'CLOUD_WATCH'
+    | 'AWS_LAMBDA_VERIFICATION'
+    | 'APM_VERIFICATION'
+    | 'LOG_VERIFICATION'
+    | 'BUG_SNAG'
+    | 'STACK_DRIVER'
+    | 'STACK_DRIVER_LOG'
+    | 'INSTANA'
+    | 'SCALYR'
+    | 'ENV_STATE'
+    | 'ENV_LOOP_STATE'
+    | 'ENV_RESUME_STATE'
+    | 'ENV_LOOP_RESUME_STATE'
+    | 'COMMAND'
+    | 'APPROVAL'
+    | 'APPROVAL_RESUME'
+    | 'ELASTIC_LOAD_BALANCER'
+    | 'JENKINS'
+    | 'GCB'
+    | 'BAMBOO'
+    | 'ARTIFACT_COLLECTION'
+    | 'ARTIFACT_CHECK'
+    | 'AZURE_NODE_SELECT'
+    | 'AZURE_VMSS_SETUP'
+    | 'AZURE_VMSS_DEPLOY'
+    | 'AZURE_VMSS_ROLLBACK'
+    | 'AZURE_VMSS_SWITCH_ROUTES'
+    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
+    | 'AZURE_WEBAPP_SLOT_SETUP'
+    | 'AZURE_WEBAPP_SLOT_RESIZE'
+    | 'AZURE_WEBAPP_SLOT_SWAP'
+    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
+    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
+    | 'AWS_NODE_SELECT'
+    | 'DC_NODE_SELECT'
+    | 'ROLLING_NODE_SELECT'
+    | 'PHASE'
+    | 'PHASE_STEP'
+    | 'STAGING_ORIGINAL_EXECUTION'
+    | 'AWS_CODEDEPLOY_STATE'
+    | 'AWS_CODEDEPLOY_ROLLBACK'
+    | 'AWS_LAMBDA_STATE'
+    | 'AWS_LAMBDA_ROLLBACK'
+    | 'AWS_AMI_SERVICE_SETUP'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
+    | 'AWS_AMI_SERVICE_DEPLOY'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
+    | 'AWS_AMI_SWITCH_ROUTES'
+    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
+    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_SERVICE_ROLLBACK'
+    | 'ECS_SERVICE_SETUP'
+    | 'SPOTINST_SETUP'
+    | 'SPOTINST_ALB_SHIFT_SETUP'
+    | 'SPOTINST_DEPLOY'
+    | 'SPOTINST_ALB_SHIFT_DEPLOY'
+    | 'SPOTINST_LISTENER_UPDATE'
+    | 'SPOTINST_LISTENER_ALB_SHIFT'
+    | 'SPOTINST_ROLLBACK'
+    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
+    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
+    | 'ECS_SERVICE_SETUP_ROLLBACK'
+    | 'ECS_DAEMON_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
+    | 'ECS_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_ROLLBACK'
+    | 'ECS_LISTENER_UPDATE'
+    | 'ECS_LISTENER_UPDATE_ROLLBACK'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
+    | 'KUBERNETES_SETUP'
+    | 'KUBERNETES_SETUP_ROLLBACK'
+    | 'KUBERNETES_DEPLOY'
+    | 'KUBERNETES_DEPLOY_ROLLBACK'
+    | 'KUBERNETES_STEADY_STATE_CHECK'
+    | 'ECS_STEADY_STATE_CHECK'
+    | 'ECS_RUN_TASK'
+    | 'GCP_CLUSTER_SETUP'
+    | 'HELM_DEPLOY'
+    | 'HELM_ROLLBACK'
+    | 'PCF_SETUP'
+    | 'PCF_RESIZE'
+    | 'PCF_ROLLBACK'
+    | 'PCF_MAP_ROUTE'
+    | 'PCF_UNMAP_ROUTE'
+    | 'PCF_BG_MAP_ROUTE'
+    | 'PCF_PLUGIN'
+    | 'TERRAFORM_PROVISION'
+    | 'TERRAFORM_APPLY'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'TERRAFORM_DESTROY'
+    | 'CLOUD_FORMATION_CREATE_STACK'
+    | 'CLOUD_FORMATION_DELETE_STACK'
+    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'CLOUD_FORMATION_ROLLBACK_STACK'
+    | 'TERRAFORM_ROLLBACK'
+    | 'K8S_DEPLOYMENT_ROLLING'
+    | 'K8S_SCALE'
+    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
+    | 'K8S_BLUE_GREEN_DEPLOY'
+    | 'K8S_CANARY_DEPLOY'
+    | 'K8S_DELETE'
+    | 'JIRA_CREATE_UPDATE'
+    | 'SERVICENOW_CREATE_UPDATE'
+    | 'K8S_TRAFFIC_SPLIT'
+    | 'K8S_APPLY'
+    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
+  uuid: string
+  validUntil?: string
+  workflowExecutionId?: string
+  workflowId?: string
+  workflowName?: string
+  workflowStartTs?: number
+}
+
+export type CopiedTemplateMetadata = TemplateMetadata & {
+  parentCommandName?: string
+  parentCommandStoreName?: string
+  parentCommandVersion?: string
+  parentTemplateId?: string
+  parentTemplateVersion?: number
+}
+
+export interface CountsByStatuses {
+  failed?: number
+  inprogress?: number
+  queued?: number
+  success?: number
+}
+
+export interface CpuOptions {
+  coreCount?: number
+  threadsPerCore?: number
+}
+
+export interface CrossAccountAccess {
+  crossAccountRoleArn: string
+  externalId?: string
+}
+
+export interface CurrentActiveInstances {
+  artifact?: ArtifactSummary
+  deployedAt?: string
+  environment?: EntitySummary
+  instanceCount?: number
+  lastWorkflowExecution?: EntitySummary
+  manifest?: ManifestSummary
+  onDemandRollbackAvailable?: boolean
+  serviceInfra?: EntitySummary
+  workflow?: EntitySummary
+}
+
+export type CustomArtifactSourceTemplate = ArtifactSource & {
+  customRepositoryMapping?: CustomRepositoryMapping
+  script?: string
+  timeoutSeconds?: string
+}
+
+export interface CustomCommitAttributes {
+  authorEmail?: string
+  authorName?: string
+  commitMessage?: string
+}
+
+export interface CustomDeploymentTypeDTO {
+  infraVariables?: Variable[]
+  name?: string
+  uuid?: string
+}
+
+export type CustomDeploymentTypeTemplate = BaseTemplate & {
+  fetchInstanceScript?: string
+  hostAttributes?: {
+    [key: string]: string
+  }
+  hostObjectArrayPath?: string
+}
+
+export type CustomInfrastructure = InfraMappingInfrastructureProvider & {
+  customDeploymentName?: string
+  deploymentTypeTemplateVersion?: string
+  infraVariables?: NameValuePair[]
+}
+
+export interface CustomLogSetupTestNodeData {
+  appId: string
+  fromTime?: number
+  guid?: string
+  host?: string
+  hostExpression?: string
+  instanceElement?: Instance
+  instanceName?: string
+  isServiceLevel?: boolean
+  logCollectionInfo?: LogCollectionInfo
+  serviceLevel?: boolean
+  settingId: string
+  stateType?:
+    | 'SUB_WORKFLOW'
+    | 'REPEAT'
+    | 'FORK'
+    | 'WAIT'
+    | 'PAUSE'
+    | 'BARRIER'
+    | 'RESOURCE_CONSTRAINT'
+    | 'SHELL_SCRIPT'
+    | 'HTTP'
+    | 'TEMPLATIZED_SECRET_MANAGER'
+    | 'EMAIL'
+    | 'APP_DYNAMICS'
+    | 'NEW_RELIC'
+    | 'NEW_RELIC_DEPLOYMENT_MARKER'
+    | 'DYNA_TRACE'
+    | 'PROMETHEUS'
+    | 'SPLUNKV2'
+    | 'ELK'
+    | 'LOGZ'
+    | 'SUMO'
+    | 'DATA_DOG'
+    | 'DATA_DOG_LOG'
+    | 'CLOUD_WATCH'
+    | 'AWS_LAMBDA_VERIFICATION'
+    | 'APM_VERIFICATION'
+    | 'LOG_VERIFICATION'
+    | 'BUG_SNAG'
+    | 'STACK_DRIVER'
+    | 'STACK_DRIVER_LOG'
+    | 'INSTANA'
+    | 'SCALYR'
+    | 'ENV_STATE'
+    | 'ENV_LOOP_STATE'
+    | 'ENV_RESUME_STATE'
+    | 'ENV_LOOP_RESUME_STATE'
+    | 'COMMAND'
+    | 'APPROVAL'
+    | 'APPROVAL_RESUME'
+    | 'ELASTIC_LOAD_BALANCER'
+    | 'JENKINS'
+    | 'GCB'
+    | 'BAMBOO'
+    | 'ARTIFACT_COLLECTION'
+    | 'ARTIFACT_CHECK'
+    | 'AZURE_NODE_SELECT'
+    | 'AZURE_VMSS_SETUP'
+    | 'AZURE_VMSS_DEPLOY'
+    | 'AZURE_VMSS_ROLLBACK'
+    | 'AZURE_VMSS_SWITCH_ROUTES'
+    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
+    | 'AZURE_WEBAPP_SLOT_SETUP'
+    | 'AZURE_WEBAPP_SLOT_RESIZE'
+    | 'AZURE_WEBAPP_SLOT_SWAP'
+    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
+    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
+    | 'AWS_NODE_SELECT'
+    | 'DC_NODE_SELECT'
+    | 'ROLLING_NODE_SELECT'
+    | 'PHASE'
+    | 'PHASE_STEP'
+    | 'STAGING_ORIGINAL_EXECUTION'
+    | 'AWS_CODEDEPLOY_STATE'
+    | 'AWS_CODEDEPLOY_ROLLBACK'
+    | 'AWS_LAMBDA_STATE'
+    | 'AWS_LAMBDA_ROLLBACK'
+    | 'AWS_AMI_SERVICE_SETUP'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
+    | 'AWS_AMI_SERVICE_DEPLOY'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
+    | 'AWS_AMI_SWITCH_ROUTES'
+    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
+    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_SERVICE_ROLLBACK'
+    | 'ECS_SERVICE_SETUP'
+    | 'SPOTINST_SETUP'
+    | 'SPOTINST_ALB_SHIFT_SETUP'
+    | 'SPOTINST_DEPLOY'
+    | 'SPOTINST_ALB_SHIFT_DEPLOY'
+    | 'SPOTINST_LISTENER_UPDATE'
+    | 'SPOTINST_LISTENER_ALB_SHIFT'
+    | 'SPOTINST_ROLLBACK'
+    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
+    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
+    | 'ECS_SERVICE_SETUP_ROLLBACK'
+    | 'ECS_DAEMON_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
+    | 'ECS_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_ROLLBACK'
+    | 'ECS_LISTENER_UPDATE'
+    | 'ECS_LISTENER_UPDATE_ROLLBACK'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
+    | 'KUBERNETES_SETUP'
+    | 'KUBERNETES_SETUP_ROLLBACK'
+    | 'KUBERNETES_DEPLOY'
+    | 'KUBERNETES_DEPLOY_ROLLBACK'
+    | 'KUBERNETES_STEADY_STATE_CHECK'
+    | 'ECS_STEADY_STATE_CHECK'
+    | 'ECS_RUN_TASK'
+    | 'GCP_CLUSTER_SETUP'
+    | 'HELM_DEPLOY'
+    | 'HELM_ROLLBACK'
+    | 'PCF_SETUP'
+    | 'PCF_RESIZE'
+    | 'PCF_ROLLBACK'
+    | 'PCF_MAP_ROUTE'
+    | 'PCF_UNMAP_ROUTE'
+    | 'PCF_BG_MAP_ROUTE'
+    | 'PCF_PLUGIN'
+    | 'TERRAFORM_PROVISION'
+    | 'TERRAFORM_APPLY'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'TERRAFORM_DESTROY'
+    | 'CLOUD_FORMATION_CREATE_STACK'
+    | 'CLOUD_FORMATION_DELETE_STACK'
+    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'CLOUD_FORMATION_ROLLBACK_STACK'
+    | 'TERRAFORM_ROLLBACK'
+    | 'K8S_DEPLOYMENT_ROLLING'
+    | 'K8S_SCALE'
+    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
+    | 'K8S_BLUE_GREEN_DEPLOY'
+    | 'K8S_CANARY_DEPLOY'
+    | 'K8S_DELETE'
+    | 'JIRA_CREATE_UPDATE'
+    | 'SERVICENOW_CREATE_UPDATE'
+    | 'K8S_TRAFFIC_SPLIT'
+    | 'K8S_APPLY'
+    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
+  toTime?: number
+  workflowId?: string
+}
+
+export type CustomOrchestrationWorkflow = OrchestrationWorkflow & {
+  graph?: Graph
+}
+
+export interface CustomRepositoryMapping {
+  artifactAttributes?: AttributeMapping[]
+  artifactRoot?: string
+  buildNoPath?: string
+}
+
+export interface CustomSecretsManagerConfig {
+  accountId?: string
+  commandPath?: string
+  connectorId?: string
+  connectorTemplatized?: boolean
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  customSecretsManagerShellScript?: CustomSecretsManagerShellScript
+  default?: boolean
+  delegateSelectors?: string[]
+  encryptedBy?: string
+  encryptionServiceUrl?: string
+  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  executeOnDelegate?: boolean
+  host?: string
+  lastUpdatedAt?: number
+  lastUpdatedBy?: EmbeddedUser
+  manuallyEnteredSecretEngineMigrationIteration?: number
+  name?: string
+  nextTokenRenewIteration?: number
+  numOfEncryptedValue?: number
+  remoteHostConnector?: EncryptableSetting
+  scopedToAccount?: boolean
+  templateId?: string
+  templatized?: boolean
+  templatizedFields?: string[]
+  testVariables?: EncryptedDataParams[]
+  usageRestrictions?: UsageRestrictions
+  uuid: string
+  validationCriteria?: string
+}
+
+export interface CustomSecretsManagerShellScript {
+  scriptString?: string
+  scriptType?: 'BASH' | 'POWERSHELL'
+  timeoutMillis?: number
+  variables?: string[]
+}
+
+export interface CyberArkConfig {
+  accountId?: string
+  appId?: string
+  certValidationRequired?: boolean
+  clientCertificate?: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  cyberArkUrl?: string
+  default?: boolean
+  encryptedBy?: string
+  encryptionServiceUrl?: string
+  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  lastUpdatedAt?: number
+  lastUpdatedBy?: EmbeddedUser
+  manuallyEnteredSecretEngineMigrationIteration?: number
+  name?: string
+  nextTokenRenewIteration?: number
+  numOfEncryptedValue?: number
+  scopedToAccount?: boolean
+  templatized?: boolean
+  templatizedFields?: string[]
+  usageRestrictions?: UsageRestrictions
+  uuid: string
+  validationCriteria?: string
+}
+
+export interface DashboardAccessPermissions {
+  allowedActions?: ('READ' | 'UPDATE' | 'DELETE' | 'MANAGE')[]
+  userGroups?: string[]
+}
+
+export interface DashboardSettings {
+  accountId?: string
+  canDelete?: boolean
+  canManage?: boolean
+  canUpdate?: boolean
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  data?: string
+  description?: string
+  lastUpdatedAt?: number
+  name?: string
+  owner?: boolean
+  permissions?: DashboardAccessPermissions[]
+  shared?: boolean
+  uuid: string
+}
+
+export interface DataCollectionConnectorBundle {
+  connectorDTO?: ConnectorInfoDTO
+  dataCollectionType?: 'CV' | 'KUBERNETES'
+  params?: {
+    [key: string]: string
+  }
+}
+
+export interface DataCollectionInfoV2 {
+  accountId?: string
+  applicationId?: string
+  connectorId?: string
+  cvConfigId?: string
+  cvTaskId?: string
+  dataCollectionStartTime?: number
+  encryptedDataDetails?: EncryptedDataDetail[]
+  endTime?: number
+  envId?: string
+  hosts?: string[]
+  serviceId?: string
+  shouldSendHeartbeat?: boolean
+  startTime?: number
+  stateExecutionId?: string
+  workflowExecutionId?: string
+  workflowId?: string
+}
+
+export interface DataCollectionRequest {
+  baseUrl?: string
+  connectorConfigDTO?: ConnectorConfigDTO
+  connectorInfoDTO?: ConnectorInfoDTO
+  dsl?: string
+  dslEnvVariables?: {
+    [key: string]: { [key: string]: any }
+  }
+  tracingId?: string
+  type?: 'SPLUNK_SAVED_SEARCHES'
+}
+
+export interface DataDogSetupTestNodeData {
+  appId: string
+  customMetrics?: {
+    [key: string]: Metric[]
+  }
+  customMetricsMap?: {
+    [key: string]: Metric[]
+  }
+  datadogServiceName?: string
+  deploymentType?: string
+  dockerMetrics?: {
+    [key: string]: string
+  }
+  ecsMetrics?: {
+    [key: string]: string
+  }
+  fromTime?: number
+  guid?: string
+  hostExpression?: string
+  hostNameField?: string
+  instanceElement?: Instance
+  instanceName?: string
+  isServiceLevel?: boolean
+  metrics?: string
+  query?: string
+  serviceLevel?: boolean
+  settingId: string
+  stateType?:
+    | 'SUB_WORKFLOW'
+    | 'REPEAT'
+    | 'FORK'
+    | 'WAIT'
+    | 'PAUSE'
+    | 'BARRIER'
+    | 'RESOURCE_CONSTRAINT'
+    | 'SHELL_SCRIPT'
+    | 'HTTP'
+    | 'TEMPLATIZED_SECRET_MANAGER'
+    | 'EMAIL'
+    | 'APP_DYNAMICS'
+    | 'NEW_RELIC'
+    | 'NEW_RELIC_DEPLOYMENT_MARKER'
+    | 'DYNA_TRACE'
+    | 'PROMETHEUS'
+    | 'SPLUNKV2'
+    | 'ELK'
+    | 'LOGZ'
+    | 'SUMO'
+    | 'DATA_DOG'
+    | 'DATA_DOG_LOG'
+    | 'CLOUD_WATCH'
+    | 'AWS_LAMBDA_VERIFICATION'
+    | 'APM_VERIFICATION'
+    | 'LOG_VERIFICATION'
+    | 'BUG_SNAG'
+    | 'STACK_DRIVER'
+    | 'STACK_DRIVER_LOG'
+    | 'INSTANA'
+    | 'SCALYR'
+    | 'ENV_STATE'
+    | 'ENV_LOOP_STATE'
+    | 'ENV_RESUME_STATE'
+    | 'ENV_LOOP_RESUME_STATE'
+    | 'COMMAND'
+    | 'APPROVAL'
+    | 'APPROVAL_RESUME'
+    | 'ELASTIC_LOAD_BALANCER'
+    | 'JENKINS'
+    | 'GCB'
+    | 'BAMBOO'
+    | 'ARTIFACT_COLLECTION'
+    | 'ARTIFACT_CHECK'
+    | 'AZURE_NODE_SELECT'
+    | 'AZURE_VMSS_SETUP'
+    | 'AZURE_VMSS_DEPLOY'
+    | 'AZURE_VMSS_ROLLBACK'
+    | 'AZURE_VMSS_SWITCH_ROUTES'
+    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
+    | 'AZURE_WEBAPP_SLOT_SETUP'
+    | 'AZURE_WEBAPP_SLOT_RESIZE'
+    | 'AZURE_WEBAPP_SLOT_SWAP'
+    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
+    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
+    | 'AWS_NODE_SELECT'
+    | 'DC_NODE_SELECT'
+    | 'ROLLING_NODE_SELECT'
+    | 'PHASE'
+    | 'PHASE_STEP'
+    | 'STAGING_ORIGINAL_EXECUTION'
+    | 'AWS_CODEDEPLOY_STATE'
+    | 'AWS_CODEDEPLOY_ROLLBACK'
+    | 'AWS_LAMBDA_STATE'
+    | 'AWS_LAMBDA_ROLLBACK'
+    | 'AWS_AMI_SERVICE_SETUP'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
+    | 'AWS_AMI_SERVICE_DEPLOY'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
+    | 'AWS_AMI_SWITCH_ROUTES'
+    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
+    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_SERVICE_ROLLBACK'
+    | 'ECS_SERVICE_SETUP'
+    | 'SPOTINST_SETUP'
+    | 'SPOTINST_ALB_SHIFT_SETUP'
+    | 'SPOTINST_DEPLOY'
+    | 'SPOTINST_ALB_SHIFT_DEPLOY'
+    | 'SPOTINST_LISTENER_UPDATE'
+    | 'SPOTINST_LISTENER_ALB_SHIFT'
+    | 'SPOTINST_ROLLBACK'
+    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
+    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
+    | 'ECS_SERVICE_SETUP_ROLLBACK'
+    | 'ECS_DAEMON_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
+    | 'ECS_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_ROLLBACK'
+    | 'ECS_LISTENER_UPDATE'
+    | 'ECS_LISTENER_UPDATE_ROLLBACK'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
+    | 'KUBERNETES_SETUP'
+    | 'KUBERNETES_SETUP_ROLLBACK'
+    | 'KUBERNETES_DEPLOY'
+    | 'KUBERNETES_DEPLOY_ROLLBACK'
+    | 'KUBERNETES_STEADY_STATE_CHECK'
+    | 'ECS_STEADY_STATE_CHECK'
+    | 'ECS_RUN_TASK'
+    | 'GCP_CLUSTER_SETUP'
+    | 'HELM_DEPLOY'
+    | 'HELM_ROLLBACK'
+    | 'PCF_SETUP'
+    | 'PCF_RESIZE'
+    | 'PCF_ROLLBACK'
+    | 'PCF_MAP_ROUTE'
+    | 'PCF_UNMAP_ROUTE'
+    | 'PCF_BG_MAP_ROUTE'
+    | 'PCF_PLUGIN'
+    | 'TERRAFORM_PROVISION'
+    | 'TERRAFORM_APPLY'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'TERRAFORM_DESTROY'
+    | 'CLOUD_FORMATION_CREATE_STACK'
+    | 'CLOUD_FORMATION_DELETE_STACK'
+    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'CLOUD_FORMATION_ROLLBACK_STACK'
+    | 'TERRAFORM_ROLLBACK'
+    | 'K8S_DEPLOYMENT_ROLLING'
+    | 'K8S_SCALE'
+    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
+    | 'K8S_BLUE_GREEN_DEPLOY'
+    | 'K8S_CANARY_DEPLOY'
+    | 'K8S_DELETE'
+    | 'JIRA_CREATE_UPDATE'
+    | 'SERVICENOW_CREATE_UPDATE'
+    | 'K8S_TRAFFIC_SPLIT'
+    | 'K8S_APPLY'
+    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
+  toTime?: number
+  workflowId?: string
+}
+
+export interface DataPoint {
+  accountId?: string
+  aggregateInvocationCountList?: Aggregate[]
+  invocationCountKey?: 'LAST_30_DAYS' | 'SINCE_LAST_DEPLOYED'
+  timestamp?: number
+  totalInvocationCount?: number
+}
+
+export interface DayStat {
+  date?: number
+  failedCount?: number
+  instancesCount?: number
+  totalCount?: number
+}
+
+export interface DecryptableEntity {
+  [key: string]: any
+}
+
+export interface DefaultSpecification {
+  memorySize?: number
+  runtime?: string
+  timeout?: number
+}
+
+export interface Delegate {
+  accountId?: string
+  ceEnabled?: boolean
+  createdAt?: number
+  currentlyExecutingDelegateTasks?: string[]
+  delegateGroupName?: string
+  delegateName?: string
+  delegateProfileId?: string
+  delegateRandomToken?: string
+  delegateType?: string
+  description?: string
+  excludeScopes?: DelegateScope[]
+  hostName?: string
+  includeScopes?: DelegateScope[]
+  ip?: string
+  keepAlivePacket?: boolean
+  keywords?: string[]
+  lastHeartBeat?: number
+  location?: string
+  polllingModeEnabled?: boolean
+  profileError?: boolean
+  profileExecutedAt?: number
+  profileResult?: string
+  proxy?: boolean
+  sampleDelegate?: boolean
+  sequenceNum?: string
+  status?: 'ENABLED' | 'WAITING_FOR_APPROVAL' | 'DISABLED' | 'DELETED'
+  supportedTaskTypes?: string[]
+  tags?: string[]
+  useCdn?: boolean
+  useJreVersion?: string
+  uuid: string
+  validUntil?: string
+  version?: string
+}
+
+export interface DelegateConfiguration {
+  delegateVersions?: string[]
+  watcherVersion?: string
+}
+
+export interface DelegateConnectionHeartbeat {
+  delegateConnectionId?: string
+  location?: string
+  version?: string
+}
+
+export interface DelegateConnectionInner {
+  lastHeartbeat?: number
+  uuid?: string
+  version?: string
+}
+
+export interface DelegateConnectionResult {
+  accountId?: string
+  criteria?: string
+  delegateId?: string
+  duration?: number
+  lastUpdatedAt: number
+  uuid?: string
+  validUntil?: string
+  validated?: boolean
+}
+
+export interface DelegateFile {
+  accountId?: string
+  appId?: string
+  bucket?:
+    | 'LOB'
+    | 'ARTIFACTS'
+    | 'AUDITS'
+    | 'CONFIGS'
+    | 'LOGS'
+    | 'PLATFORMS'
+    | 'TERRAFORM_STATE'
+    | 'PROFILE_RESULTS'
+    | 'TERRAFORM_PLAN'
+    | 'EXPORT_EXECUTIONS'
+  checksum?: string
+  checksumType?: 'MD5' | 'SHA1' | 'SHA256'
+  delegateId?: string
+  entityId?: string
+  fileId?: string
+  fileLength?: number
   fileName?: string
-  url?: string
+  fileUuid?: string
+  length?: number
+  localFilePath?: string
+  metadata?: {
+    [key: string]: { [key: string]: any }
+  }
+  mimeType?: string
+  relativePath?: string
+  taskId?: string
 }
 
-export interface ArtifactStreamMetadata {
-  artifactStreamId?: string
-  runtimeValues?: {
+export interface DelegateGroupDetails {
+  activelyConnected?: boolean
+  delegateConfigurationId?: string
+  delegateDescription?: string
+  delegateInsightsDetails?: DelegateInsightsDetails
+  delegateInstanceDetails?: DelegateInner[]
+  delegateType?: string
+  groupHostName?: string
+  groupId?: string
+  groupImplicitSelectors?: {
+    [key: string]: 'PROFILE_NAME' | 'DELEGATE_NAME' | 'HOST_NAME' | 'GROUP_NAME' | 'PROFILE_SELECTORS'
+  }
+  groupName?: string
+  lastHeartBeat?: number
+  sizeDetails?: DelegateSizeDetails
+}
+
+export interface DelegateGroupListing {
+  delegateGroupDetails?: DelegateGroupDetails[]
+}
+
+export interface DelegateHeartbeatDetails {
+  numberOfConnectedDelegates?: number
+  numberOfRegisteredDelegates?: number
+}
+
+export interface DelegateInitializationDetails {
+  delegateId?: string
+  hostname?: string
+  initialized?: boolean
+  profileError?: boolean
+  profileExecutedAt?: number
+}
+
+export interface DelegateInner {
+  activelyConnected?: boolean
+  ceEnabled?: boolean
+  connections?: DelegateConnectionInner[]
+  delegateGroupName?: string
+  delegateName?: string
+  delegateProfileId?: string
+  delegateType?: string
+  description?: string
+  excludeScopes?: DelegateScope[]
+  hostName?: string
+  implicitSelectors?: {
+    [key: string]: 'PROFILE_NAME' | 'DELEGATE_NAME' | 'HOST_NAME' | 'GROUP_NAME' | 'PROFILE_SELECTORS'
+  }
+  includeScopes?: DelegateScope[]
+  ip?: string
+  lastHeartBeat?: number
+  polllingModeEnabled?: boolean
+  profileError?: boolean
+  profileExecutedAt?: number
+  proxy?: boolean
+  sampleDelegate?: boolean
+  status?: 'ENABLED' | 'WAITING_FOR_APPROVAL' | 'DISABLED' | 'DELETED'
+  tags?: string[]
+  uuid?: string
+}
+
+export interface DelegateInsightsBarDetails {
+  counts?: PairDelegateInsightsTypeLong[]
+  timeStamp?: number
+}
+
+export interface DelegateInsightsDetails {
+  insights?: DelegateInsightsBarDetails[]
+}
+
+export interface DelegateMetaInfo {
+  hostName?: string
+  id?: string
+}
+
+export interface DelegateParams {
+  accountId?: string
+  ceEnabled?: boolean
+  currentlyExecutingDelegateTasks?: string[]
+  delegateGroupName?: string
+  delegateId?: string
+  delegateName?: string
+  delegateProfileId?: string
+  delegateRandomToken?: string
+  delegateType?: string
+  description?: string
+  hostName?: string
+  ip?: string
+  keepAlivePacket?: boolean
+  lastHeartBeat?: number
+  location?: string
+  polllingModeEnabled?: boolean
+  proxy?: boolean
+  sampleDelegate?: boolean
+  sequenceNum?: string
+  version?: string
+}
+
+export interface DelegateProfile {
+  accountId?: string
+  approvalRequired?: boolean
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  description?: string
+  lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
+  name?: string
+  primary?: boolean
+  scopingRules?: DelegateProfileScopingRule[]
+  selectors?: string[]
+  startupScript?: string
+  uuid: string
+}
+
+export interface DelegateProfileDetails {
+  accountId?: string
+  approvalRequired?: boolean
+  description?: string
+  name?: string
+  primary?: boolean
+  scopingRules?: ScopingRuleDetails[]
+  selectors?: string[]
+  startupScript?: string
+  uuid?: string
+}
+
+export interface DelegateProfileParams {
+  name?: string
+  profileId?: string
+  profileLastUpdatedAt?: number
+  scriptContent?: string
+}
+
+export interface DelegateProfileScopingRule {
+  description?: string
+  scopingEntities?: {
+    [key: string]: string[]
+  }
+}
+
+export interface DelegateRegisterResponse {
+  action?: 'SELF_DESTRUCT' | 'MIGRATE'
+  delegateId?: string
+  delegateRandomToken?: string
+  migrateUrl?: string
+  sequenceNum?: string
+}
+
+export interface DelegateResponseData {
+  [key: string]: any
+}
+
+export interface DelegateScalingGroup {
+  delegates?: DelegateInner[]
+  groupName?: string
+}
+
+export interface DelegateScope {
+  accountId?: string
+  applications?: string[]
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  environmentTypes?: ('PROD' | 'NON_PROD' | 'ALL')[]
+  environments?: string[]
+  infrastructureDefinitions?: string[]
+  lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
+  name?: string
+  serviceInfrastructures?: string[]
+  services?: string[]
+  taskTypes?: (
+    | 'SCRIPT'
+    | 'HTTP'
+    | 'SPLUNK'
+    | 'APPDYNAMICS'
+    | 'INSTANA'
+    | 'NEWRELIC'
+    | 'STACKDRIVER'
+    | 'DYNA_TRACE'
+    | 'PROMETHEUS'
+    | 'CLOUD_WATCH'
+    | 'JENKINS'
+    | 'COMMAND'
+    | 'BAMBOO'
+    | 'DOCKER'
+    | 'ECR'
+    | 'GCR'
+    | 'GCS'
+    | 'GCB'
+    | 'GCP'
+    | 'ACR'
+    | 'NEXUS'
+    | 'S3'
+    | 'AZURE_ARTIFACTS'
+    | 'AZURE_VMSS'
+    | 'AZURE_APP_SERVICE'
+    | 'ELK'
+    | 'LOGZ'
+    | 'SUMO'
+    | 'ARTIFACTORY'
+    | 'HOST_VALIDATION'
+    | 'KMS'
+    | 'GIT'
+    | 'CONTAINER'
+    | 'AMI'
+    | 'HELM'
+    | 'COLLABORATION_PROVIDER'
+    | 'PCF'
+    | 'SPOTINST'
+    | 'APM'
+    | 'LOG'
+    | 'CLOUD_FORMATION'
+    | 'TERRAFORM'
+    | 'AWS'
+    | 'LDAP'
+    | 'K8S'
+    | 'SMB'
+    | 'SFTP'
+    | 'TRIGGER'
+    | 'JIRA'
+    | 'CONNECTIVITY_VALIDATION'
+    | 'BUILD_SOURCE'
+    | 'CUSTOM'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'SERVICENOW'
+    | 'HELM_REPO_CONFIG_VALIDATION'
+    | 'HELM_VALUES_FETCH_TASK'
+    | 'GUARD_24x7'
+    | 'CI'
+    | 'SLACK'
+    | 'ARTIFACT_COLLECT_NG'
+    | 'K8S_NG'
+    | 'CAPABILITY_VALIDATION'
+    | 'JIRA_NG'
+    | 'CVNG'
+  )[]
+  uuid: string
+  valid?: boolean
+}
+
+export interface DelegateScopes {
+  excludeScopeIds?: string[]
+  includeScopeIds?: string[]
+}
+
+export interface DelegateScripts {
+  delegateScript?: string
+  doUpgrade?: boolean
+  setupProxyScript?: string
+  startScript?: string
+  stopScript?: string
+  version?: string
+}
+
+export interface DelegateSelectionLogParams {
+  conclusion?: string
+  delegateHostName?: string
+  delegateId?: string
+  delegateName?: string
+  delegateProfileName?: string
+  delegateType?: string
+  eventTimestamp?: number
+  message?: string
+  profileScopingRulesDetails?: ProfileScopingRulesDetails
+}
+
+export interface DelegateSelectionLogResponse {
+  delegateSelectionLogs?: DelegateSelectionLogParams[]
+  taskSetupAbstractions?: {
+    [key: string]: string
+  }
+}
+
+export interface DelegateSetupDetails {
+  delegateConfigurationId: string
+  description?: string
+  k8sConfigDetails?: K8sConfigDetails
+  name: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  sessionIdentifier?: string
+  size: 'EXTRA_SMALL' | 'LAPTOP' | 'SMALL' | 'MEDIUM' | 'LARGE'
+}
+
+export interface DelegateSizeDetails {
+  cpu?: number
+  label?: string
+  ram?: number
+  replicas?: number
+  size?: 'EXTRA_SMALL' | 'LAPTOP' | 'SMALL' | 'MEDIUM' | 'LARGE'
+  taskLimit?: number
+}
+
+export interface DelegateSizesResponse {
+  cpu?: number
+  label?: string
+  ram?: number
+  replicas?: number
+  size?: string
+  taskLimit?: number
+}
+
+export interface DelegateStatus {
+  delegates?: DelegateInner[]
+  publishedVersions?: string[]
+  scalingGroups?: DelegateScalingGroup[]
+}
+
+export interface DelegateTags {
+  tags?: string[]
+}
+
+export type DelegateTaskAbortEvent = DelegateTaskEvent & {}
+
+export interface DelegateTaskDetails {
+  delegateTaskId?: string
+  selectedDelegateHostName?: string
+  selectedDelegateId?: string
+  selectedDelegateName?: string
+  taskDescription?: string
+  taskType?: string
+}
+
+export interface DelegateTaskEvent {
+  accountId?: string
+  delegateTaskId?: string
+  sync?: boolean
+}
+
+export interface DelegateTaskPackage {
+  accountId?: string
+  data?: TaskData
+  delegateId?: string
+  delegateTaskId?: string
+  encryptionConfigs?: {
+    [key: string]: EncryptionConfig
+  }
+  executionCapabilities?: ExecutionCapability[]
+  logStreamingAbstractions?: {
+    [key: string]: string
+  }
+  logStreamingToken?: string
+  secretDetails?: {
+    [key: string]: SecretDetail
+  }
+  secrets?: string[]
+}
+
+export interface DelegateTaskResponse {
+  accountId?: string
+  response?: DelegateResponseData
+  responseCode?: 'OK' | 'FAILED' | 'RETRY_ON_OTHER_DELEGATE'
+}
+
+export interface DeploymentHistory {
+  artifact?: ArtifactSummary
+  deployedAt?: string
+  envs?: EntitySummary[]
+  inframappings?: EntitySummary[]
+  instanceCount?: number
+  manifest?: ManifestSummary
+  pipeline?: EntitySummary
+  rolledBack?: boolean
+  status?: string
+  triggeredBy?: EntitySummary
+  workflow?: EntitySummary
+}
+
+export interface DeploymentMetadata {
+  artifactRequiredServiceIds?: string[]
+  artifactRequiredServices?: Service[]
+  artifactVariables?: ArtifactVariable[]
+  deploymentTypes?: (
+    | 'SSH'
+    | 'AWS_CODEDEPLOY'
+    | 'ECS'
+    | 'SPOTINST'
+    | 'KUBERNETES'
+    | 'HELM'
+    | 'AWS_LAMBDA'
+    | 'AMI'
+    | 'WINRM'
+    | 'PCF'
+    | 'AZURE_VMSS'
+    | 'AZURE_WEBAPP'
+    | 'CUSTOM'
+  )[]
+  envIds?: string[]
+  envSummaries?: EnvSummary[]
+  manifestRequiredServiceIds?: string[]
+  manifestVariables?: ManifestVariable[]
+}
+
+export type DeploymentPreference = Preference & {
+  appIds?: string[]
+  endTime?: string
+  envIds?: string[]
+  harnessTagFilter?: HarnessTagFilter
+  includeIndirectExecutions?: boolean
+  keywords?: string[]
+  pipelineIds?: string[]
+  serviceIds?: string[]
+  startTime?: string
+  status?: string[]
+  uiDisplayTagString?: string
+  workflowIds?: string[]
+}
+
+export interface DeploymentStatistics {
+  statsMap?: {
+    [key: string]: AggregatedDayStats
+  }
+  type?: 'DEPLOYMENT' | 'SERVICE_INSTANCE_STATISTICS'
+}
+
+export interface DeploymentTimeSeriesAnalysis {
+  baseLineExecutionId?: string
+  customThresholdRefId?: string
+  message?: string
+  metricAnalyses?: NewRelicMetricAnalysis[]
+  riskLevel?: 'HIGH' | 'MEDIUM' | 'LOW' | 'NA'
+  stateExecutionId?: string
+  total?: number
+}
+
+export type DirectKubernetesCluster = Cluster & {}
+
+export type DirectKubernetesInfrastructure = InfraMappingInfrastructureProvider & {
+  clusterName?: string
+  expressions?: {
+    [key: string]: string
+  }
+  namespace?: string
+  releaseName?: string
+}
+
+export interface DirectoryNode {
+  accountId?: string
+  className?: string
+  directoryPath?: DirectoryPath
+  name?: string
+  restName?: string
+  shortClassName?: string
+  type?: 'FOLDER' | 'YAML' | 'FILE'
+}
+
+export interface DirectoryPath {
+  path?: string
+}
+
+export interface DockerAuthCredentialsDTO {
+  [key: string]: any
+}
+
+export interface DockerAuthenticationDTO {
+  spec: DockerAuthCredentialsDTO
+  type: 'UsernamePassword'
+}
+
+export type DockerConnectorDTO = ConnectorConfigDTO & {
+  auth?: DockerAuthenticationDTO
+  dockerRegistryUrl: string
+}
+
+// tslint:disable-next-line:no-empty-interface
+export interface DownloadYaml {}
+
+export interface Duration {
+  nano?: number
+  negative?: boolean
+  seconds?: number
+  units?: TemporalUnit[]
+  zero?: boolean
+}
+
+export interface DynaTraceApplication {
+  displayName?: string
+  entityId?: string
+}
+
+export interface DynaTraceSetupTestNodeData {
+  appId: string
+  fromTime?: number
+  guid?: string
+  hostExpression?: string
+  instanceElement?: Instance
+  instanceName?: string
+  isServiceLevel?: boolean
+  serviceEntityId?: string
+  serviceLevel?: boolean
+  serviceMethods?: string
+  settingId: string
+  stateType?:
+    | 'SUB_WORKFLOW'
+    | 'REPEAT'
+    | 'FORK'
+    | 'WAIT'
+    | 'PAUSE'
+    | 'BARRIER'
+    | 'RESOURCE_CONSTRAINT'
+    | 'SHELL_SCRIPT'
+    | 'HTTP'
+    | 'TEMPLATIZED_SECRET_MANAGER'
+    | 'EMAIL'
+    | 'APP_DYNAMICS'
+    | 'NEW_RELIC'
+    | 'NEW_RELIC_DEPLOYMENT_MARKER'
+    | 'DYNA_TRACE'
+    | 'PROMETHEUS'
+    | 'SPLUNKV2'
+    | 'ELK'
+    | 'LOGZ'
+    | 'SUMO'
+    | 'DATA_DOG'
+    | 'DATA_DOG_LOG'
+    | 'CLOUD_WATCH'
+    | 'AWS_LAMBDA_VERIFICATION'
+    | 'APM_VERIFICATION'
+    | 'LOG_VERIFICATION'
+    | 'BUG_SNAG'
+    | 'STACK_DRIVER'
+    | 'STACK_DRIVER_LOG'
+    | 'INSTANA'
+    | 'SCALYR'
+    | 'ENV_STATE'
+    | 'ENV_LOOP_STATE'
+    | 'ENV_RESUME_STATE'
+    | 'ENV_LOOP_RESUME_STATE'
+    | 'COMMAND'
+    | 'APPROVAL'
+    | 'APPROVAL_RESUME'
+    | 'ELASTIC_LOAD_BALANCER'
+    | 'JENKINS'
+    | 'GCB'
+    | 'BAMBOO'
+    | 'ARTIFACT_COLLECTION'
+    | 'ARTIFACT_CHECK'
+    | 'AZURE_NODE_SELECT'
+    | 'AZURE_VMSS_SETUP'
+    | 'AZURE_VMSS_DEPLOY'
+    | 'AZURE_VMSS_ROLLBACK'
+    | 'AZURE_VMSS_SWITCH_ROUTES'
+    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
+    | 'AZURE_WEBAPP_SLOT_SETUP'
+    | 'AZURE_WEBAPP_SLOT_RESIZE'
+    | 'AZURE_WEBAPP_SLOT_SWAP'
+    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
+    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
+    | 'AWS_NODE_SELECT'
+    | 'DC_NODE_SELECT'
+    | 'ROLLING_NODE_SELECT'
+    | 'PHASE'
+    | 'PHASE_STEP'
+    | 'STAGING_ORIGINAL_EXECUTION'
+    | 'AWS_CODEDEPLOY_STATE'
+    | 'AWS_CODEDEPLOY_ROLLBACK'
+    | 'AWS_LAMBDA_STATE'
+    | 'AWS_LAMBDA_ROLLBACK'
+    | 'AWS_AMI_SERVICE_SETUP'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
+    | 'AWS_AMI_SERVICE_DEPLOY'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
+    | 'AWS_AMI_SWITCH_ROUTES'
+    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
+    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_SERVICE_ROLLBACK'
+    | 'ECS_SERVICE_SETUP'
+    | 'SPOTINST_SETUP'
+    | 'SPOTINST_ALB_SHIFT_SETUP'
+    | 'SPOTINST_DEPLOY'
+    | 'SPOTINST_ALB_SHIFT_DEPLOY'
+    | 'SPOTINST_LISTENER_UPDATE'
+    | 'SPOTINST_LISTENER_ALB_SHIFT'
+    | 'SPOTINST_ROLLBACK'
+    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
+    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
+    | 'ECS_SERVICE_SETUP_ROLLBACK'
+    | 'ECS_DAEMON_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
+    | 'ECS_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_ROLLBACK'
+    | 'ECS_LISTENER_UPDATE'
+    | 'ECS_LISTENER_UPDATE_ROLLBACK'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
+    | 'KUBERNETES_SETUP'
+    | 'KUBERNETES_SETUP_ROLLBACK'
+    | 'KUBERNETES_DEPLOY'
+    | 'KUBERNETES_DEPLOY_ROLLBACK'
+    | 'KUBERNETES_STEADY_STATE_CHECK'
+    | 'ECS_STEADY_STATE_CHECK'
+    | 'ECS_RUN_TASK'
+    | 'GCP_CLUSTER_SETUP'
+    | 'HELM_DEPLOY'
+    | 'HELM_ROLLBACK'
+    | 'PCF_SETUP'
+    | 'PCF_RESIZE'
+    | 'PCF_ROLLBACK'
+    | 'PCF_MAP_ROUTE'
+    | 'PCF_UNMAP_ROUTE'
+    | 'PCF_BG_MAP_ROUTE'
+    | 'PCF_PLUGIN'
+    | 'TERRAFORM_PROVISION'
+    | 'TERRAFORM_APPLY'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'TERRAFORM_DESTROY'
+    | 'CLOUD_FORMATION_CREATE_STACK'
+    | 'CLOUD_FORMATION_DELETE_STACK'
+    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'CLOUD_FORMATION_ROLLBACK_STACK'
+    | 'TERRAFORM_ROLLBACK'
+    | 'K8S_DEPLOYMENT_ROLLING'
+    | 'K8S_SCALE'
+    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
+    | 'K8S_BLUE_GREEN_DEPLOY'
+    | 'K8S_CANARY_DEPLOY'
+    | 'K8S_DELETE'
+    | 'JIRA_CREATE_UPDATE'
+    | 'SERVICENOW_CREATE_UPDATE'
+    | 'K8S_TRAFFIC_SPLIT'
+    | 'K8S_APPLY'
+    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
+  toTime?: number
+  workflowId?: string
+}
+
+export interface EbsInstanceBlockDevice {
+  attachTime?: string
+  deleteOnTermination?: boolean
+  status?: string
+  volumeId?: string
+}
+
+export type EcsBlueGreenOrchestrationWorkflow = OrchestrationWorkflow & {
+  derivedVariables?: Variable[]
+  ecsBGType?: string
+  failureStrategies?: FailureStrategy[]
+  graph?: Graph
+  postDeploymentSteps?: PhaseStep
+  preDeploymentSteps?: PhaseStep
+  rollbackProvisioners?: PhaseStep
+  rollbackWorkflowPhaseIdMap?: {
+    [key: string]: WorkflowPhase
+  }
+  systemVariables?: Variable[]
+  workflowPhases?: WorkflowPhase[]
+}
+
+export type EcsCluster = Cluster & {
+  region?: string
+}
+
+export interface EcsContainerDetails {
+  completeDockerId?: string
+  containerId?: string
+  containerInstanceArn?: string
+  containerInstanceId?: string
+  dockerId?: string
+  ecsServiceName?: string
+  taskArn?: string
+  taskId?: string
+}
+
+export interface EcsServiceSpecification {
+  accountId?: string
+  appId: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  lastUpdatedAt: number
+  schedulingStrategy?: string
+  serviceId: string
+  serviceSpecJson?: string
+  uuid: string
+}
+
+export interface ElastiGroup {
+  capacity?: ElastiGroupCapacity
+  id?: string
+  name?: string
+}
+
+export interface ElastiGroupCapacity {
+  maximum?: number
+  minimum?: number
+  target?: number
+}
+
+export interface ElasticGpuAssociation {
+  elasticGpuAssociationId?: string
+  elasticGpuAssociationState?: string
+  elasticGpuAssociationTime?: string
+  elasticGpuId?: string
+}
+
+export interface ElasticInferenceAcceleratorAssociation {
+  elasticInferenceAcceleratorArn?: string
+  elasticInferenceAcceleratorAssociationId?: string
+  elasticInferenceAcceleratorAssociationState?: string
+  elasticInferenceAcceleratorAssociationTime?: string
+}
+
+export interface ElementExecutionSummary {
+  avgTime?: number
+  contextElement?: ContextElement
+  endTs?: number
+  infraDefinitionSummaries?: InfraDefinitionSummary[]
+  infraMappingSummaries?: InfraMappingSummary[]
+  instanceStatusSummaries?: InstanceStatusSummary[]
+  instancesCount?: number
+  startTs?: number
+  status?:
+    | 'ABORTED'
+    | 'DISCONTINUING'
+    | 'ERROR'
+    | 'FAILED'
+    | 'NEW'
+    | 'PAUSED'
+    | 'PAUSING'
+    | 'QUEUED'
+    | 'RESUMED'
+    | 'RUNNING'
+    | 'SCHEDULED'
+    | 'STARTING'
+    | 'SUCCESS'
+    | 'WAITING'
+    | 'SKIPPED'
+    | 'ABORTING'
+    | 'REJECTED'
+    | 'EXPIRED'
+    | 'PREPARING'
+  totalTime?: number
+}
+
+export interface ElkIndexTemplate {
+  name?: string
+  properties?: {
     [key: string]: { [key: string]: any }
   }
 }
 
-export interface ArtifactVariable {
+export interface ElkSetupTestNodeData {
+  appId: string
+  fromTime?: number
+  guid?: string
+  hostExpression?: string
+  hostNameField?: string
+  indices?: string
+  instanceElement?: Instance
+  instanceName?: string
+  isServiceLevel?: boolean
+  messageField?: string
+  query?: string
+  queryType?: 'TERM' | 'MATCH' | 'MATCH_PHRASE'
+  serviceLevel?: boolean
+  settingId: string
+  stateType?:
+    | 'SUB_WORKFLOW'
+    | 'REPEAT'
+    | 'FORK'
+    | 'WAIT'
+    | 'PAUSE'
+    | 'BARRIER'
+    | 'RESOURCE_CONSTRAINT'
+    | 'SHELL_SCRIPT'
+    | 'HTTP'
+    | 'TEMPLATIZED_SECRET_MANAGER'
+    | 'EMAIL'
+    | 'APP_DYNAMICS'
+    | 'NEW_RELIC'
+    | 'NEW_RELIC_DEPLOYMENT_MARKER'
+    | 'DYNA_TRACE'
+    | 'PROMETHEUS'
+    | 'SPLUNKV2'
+    | 'ELK'
+    | 'LOGZ'
+    | 'SUMO'
+    | 'DATA_DOG'
+    | 'DATA_DOG_LOG'
+    | 'CLOUD_WATCH'
+    | 'AWS_LAMBDA_VERIFICATION'
+    | 'APM_VERIFICATION'
+    | 'LOG_VERIFICATION'
+    | 'BUG_SNAG'
+    | 'STACK_DRIVER'
+    | 'STACK_DRIVER_LOG'
+    | 'INSTANA'
+    | 'SCALYR'
+    | 'ENV_STATE'
+    | 'ENV_LOOP_STATE'
+    | 'ENV_RESUME_STATE'
+    | 'ENV_LOOP_RESUME_STATE'
+    | 'COMMAND'
+    | 'APPROVAL'
+    | 'APPROVAL_RESUME'
+    | 'ELASTIC_LOAD_BALANCER'
+    | 'JENKINS'
+    | 'GCB'
+    | 'BAMBOO'
+    | 'ARTIFACT_COLLECTION'
+    | 'ARTIFACT_CHECK'
+    | 'AZURE_NODE_SELECT'
+    | 'AZURE_VMSS_SETUP'
+    | 'AZURE_VMSS_DEPLOY'
+    | 'AZURE_VMSS_ROLLBACK'
+    | 'AZURE_VMSS_SWITCH_ROUTES'
+    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
+    | 'AZURE_WEBAPP_SLOT_SETUP'
+    | 'AZURE_WEBAPP_SLOT_RESIZE'
+    | 'AZURE_WEBAPP_SLOT_SWAP'
+    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
+    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
+    | 'AWS_NODE_SELECT'
+    | 'DC_NODE_SELECT'
+    | 'ROLLING_NODE_SELECT'
+    | 'PHASE'
+    | 'PHASE_STEP'
+    | 'STAGING_ORIGINAL_EXECUTION'
+    | 'AWS_CODEDEPLOY_STATE'
+    | 'AWS_CODEDEPLOY_ROLLBACK'
+    | 'AWS_LAMBDA_STATE'
+    | 'AWS_LAMBDA_ROLLBACK'
+    | 'AWS_AMI_SERVICE_SETUP'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
+    | 'AWS_AMI_SERVICE_DEPLOY'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
+    | 'AWS_AMI_SWITCH_ROUTES'
+    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
+    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_SERVICE_ROLLBACK'
+    | 'ECS_SERVICE_SETUP'
+    | 'SPOTINST_SETUP'
+    | 'SPOTINST_ALB_SHIFT_SETUP'
+    | 'SPOTINST_DEPLOY'
+    | 'SPOTINST_ALB_SHIFT_DEPLOY'
+    | 'SPOTINST_LISTENER_UPDATE'
+    | 'SPOTINST_LISTENER_ALB_SHIFT'
+    | 'SPOTINST_ROLLBACK'
+    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
+    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
+    | 'ECS_SERVICE_SETUP_ROLLBACK'
+    | 'ECS_DAEMON_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
+    | 'ECS_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_ROLLBACK'
+    | 'ECS_LISTENER_UPDATE'
+    | 'ECS_LISTENER_UPDATE_ROLLBACK'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
+    | 'KUBERNETES_SETUP'
+    | 'KUBERNETES_SETUP_ROLLBACK'
+    | 'KUBERNETES_DEPLOY'
+    | 'KUBERNETES_DEPLOY_ROLLBACK'
+    | 'KUBERNETES_STEADY_STATE_CHECK'
+    | 'ECS_STEADY_STATE_CHECK'
+    | 'ECS_RUN_TASK'
+    | 'GCP_CLUSTER_SETUP'
+    | 'HELM_DEPLOY'
+    | 'HELM_ROLLBACK'
+    | 'PCF_SETUP'
+    | 'PCF_RESIZE'
+    | 'PCF_ROLLBACK'
+    | 'PCF_MAP_ROUTE'
+    | 'PCF_UNMAP_ROUTE'
+    | 'PCF_BG_MAP_ROUTE'
+    | 'PCF_PLUGIN'
+    | 'TERRAFORM_PROVISION'
+    | 'TERRAFORM_APPLY'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'TERRAFORM_DESTROY'
+    | 'CLOUD_FORMATION_CREATE_STACK'
+    | 'CLOUD_FORMATION_DELETE_STACK'
+    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'CLOUD_FORMATION_ROLLBACK_STACK'
+    | 'TERRAFORM_ROLLBACK'
+    | 'K8S_DEPLOYMENT_ROLLING'
+    | 'K8S_SCALE'
+    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
+    | 'K8S_BLUE_GREEN_DEPLOY'
+    | 'K8S_CANARY_DEPLOY'
+    | 'K8S_DELETE'
+    | 'JIRA_CREATE_UPDATE'
+    | 'SERVICENOW_CREATE_UPDATE'
+    | 'K8S_TRAFFIC_SPLIT'
+    | 'K8S_APPLY'
+    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
+  timeStampField?: string
+  timeStampFieldFormat?: string
+  toTime?: number
+  workflowId?: string
+}
+
+export interface EmbeddedUser {
+  email?: string
+  name?: string
+  uuid?: string
+}
+
+export interface EncryptableSetting {
+  accountId?: string
+  settingType?:
+    | 'HOST_CONNECTION_ATTRIBUTES'
+    | 'BASTION_HOST_CONNECTION_ATTRIBUTES'
+    | 'SMTP'
+    | 'SFTP'
+    | 'JENKINS'
+    | 'BAMBOO'
+    | 'STRING'
+    | 'SPLUNK'
+    | 'ELK'
+    | 'LOGZ'
+    | 'SUMO'
+    | 'DATA_DOG'
+    | 'APM_VERIFICATION'
+    | 'BUG_SNAG'
+    | 'LOG_VERIFICATION'
+    | 'APP_DYNAMICS'
+    | 'NEW_RELIC'
+    | 'DYNA_TRACE'
+    | 'INSTANA'
+    | 'DATA_DOG_LOG'
+    | 'CLOUD_WATCH'
+    | 'SCALYR'
+    | 'ELB'
+    | 'SLACK'
+    | 'AWS'
+    | 'GCS'
+    | 'GCP'
+    | 'AZURE'
+    | 'PCF'
+    | 'DIRECT'
+    | 'KUBERNETES_CLUSTER'
+    | 'DOCKER'
+    | 'ECR'
+    | 'GCR'
+    | 'ACR'
+    | 'PHYSICAL_DATA_CENTER'
+    | 'KUBERNETES'
+    | 'NEXUS'
+    | 'ARTIFACTORY'
+    | 'SMB'
+    | 'AMAZON_S3'
+    | 'GIT'
+    | 'SSH_SESSION_CONFIG'
+    | 'SERVICE_VARIABLE'
+    | 'CONFIG_FILE'
+    | 'KMS'
+    | 'GCP_KMS'
+    | 'JIRA'
+    | 'SERVICENOW'
+    | 'SECRET_TEXT'
+    | 'YAML_GIT_SYNC'
+    | 'VAULT'
+    | 'AWS_SECRETS_MANAGER'
+    | 'CYBERARK'
+    | 'WINRM_CONNECTION_ATTRIBUTES'
+    | 'WINRM_SESSION_CONFIG'
+    | 'PROMETHEUS'
+    | 'INFRASTRUCTURE_MAPPING'
+    | 'HTTP_HELM_REPO'
+    | 'AMAZON_S3_HELM_REPO'
+    | 'GCS_HELM_REPO'
+    | 'SPOT_INST'
+    | 'AZURE_ARTIFACTS_PAT'
+    | 'CUSTOM'
+    | 'CE_AWS'
+    | 'CE_GCP'
+    | 'AZURE_VAULT'
+    | 'KUBERNETES_CLUSTER_NG'
+    | 'GIT_NG'
+}
+
+export interface EncryptedData {
+  accountId?: string
+  appIds?: string[]
+  backupEncryptedValue?: string[]
+  backupEncryptionKey?: string
+  backupEncryptionType?:
+    | 'LOCAL'
+    | 'KMS'
+    | 'GCP_KMS'
+    | 'AWS_SECRETS_MANAGER'
+    | 'AZURE_VAULT'
+    | 'CYBERARK'
+    | 'VAULT'
+    | 'CUSTOM'
+  backupKmsId?: string
+  base64Encoded?: boolean
+  changeLog?: number
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  enabled?: boolean
+  encryptedBy?: string
+  encryptedValue?: string[]
+  encryptionKey?: string
+  encryptionType: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  envIds?: string[]
+  fileSize?: number
+  hideFromListing?: boolean
+  inheritScopesFromSM?: boolean
+  inlineSecret?: boolean
+  keywords?: string[]
+  kmsId?: string
+  lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
+  name?: string
+  nextAwsToGcpKmsMigrationIteration?: number
+  nextMigrationIteration?: number
+  ngMetadata?: NGEncryptedDataMetadata
+  parameterizedSecret?: boolean
+  parameters?: EncryptedDataParams[]
+  parents?: EncryptedDataParent[]
+  path?: string
+  referencedSecret?: boolean
+  runTimeUsage?: number
+  scopedToAccount?: boolean
+  searchTags?: {
+    [key: string]: AtomicInteger
+  }
+  serviceIds?: string[]
+  serviceVariableIds?: string[]
+  setupUsage?: number
+  type:
+    | 'HOST_CONNECTION_ATTRIBUTES'
+    | 'BASTION_HOST_CONNECTION_ATTRIBUTES'
+    | 'SMTP'
+    | 'SFTP'
+    | 'JENKINS'
+    | 'BAMBOO'
+    | 'STRING'
+    | 'SPLUNK'
+    | 'ELK'
+    | 'LOGZ'
+    | 'SUMO'
+    | 'DATA_DOG'
+    | 'APM_VERIFICATION'
+    | 'BUG_SNAG'
+    | 'LOG_VERIFICATION'
+    | 'APP_DYNAMICS'
+    | 'NEW_RELIC'
+    | 'DYNA_TRACE'
+    | 'INSTANA'
+    | 'DATA_DOG_LOG'
+    | 'CLOUD_WATCH'
+    | 'SCALYR'
+    | 'ELB'
+    | 'SLACK'
+    | 'AWS'
+    | 'GCS'
+    | 'GCP'
+    | 'AZURE'
+    | 'PCF'
+    | 'DIRECT'
+    | 'KUBERNETES_CLUSTER'
+    | 'DOCKER'
+    | 'ECR'
+    | 'GCR'
+    | 'ACR'
+    | 'PHYSICAL_DATA_CENTER'
+    | 'KUBERNETES'
+    | 'NEXUS'
+    | 'ARTIFACTORY'
+    | 'SMB'
+    | 'AMAZON_S3'
+    | 'GIT'
+    | 'SSH_SESSION_CONFIG'
+    | 'SERVICE_VARIABLE'
+    | 'CONFIG_FILE'
+    | 'KMS'
+    | 'GCP_KMS'
+    | 'JIRA'
+    | 'SERVICENOW'
+    | 'SECRET_TEXT'
+    | 'YAML_GIT_SYNC'
+    | 'VAULT'
+    | 'AWS_SECRETS_MANAGER'
+    | 'CYBERARK'
+    | 'WINRM_CONNECTION_ATTRIBUTES'
+    | 'WINRM_SESSION_CONFIG'
+    | 'PROMETHEUS'
+    | 'INFRASTRUCTURE_MAPPING'
+    | 'HTTP_HELM_REPO'
+    | 'AMAZON_S3_HELM_REPO'
+    | 'GCS_HELM_REPO'
+    | 'SPOT_INST'
+    | 'AZURE_ARTIFACTS_PAT'
+    | 'CUSTOM'
+    | 'CE_AWS'
+    | 'CE_GCP'
+    | 'AZURE_VAULT'
+    | 'KUBERNETES_CLUSTER_NG'
+    | 'GIT_NG'
+  usageRestrictions?: UsageRestrictions
+  uuid: string
+}
+
+export interface EncryptedDataDTO {
+  account?: string
+  description?: string
+  draft?: boolean
+  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  identifier?: string
+  lastUpdatedAt?: number
+  name?: string
+  org?: string
+  project?: string
+  secretManager?: string
+  secretManagerName?: string
+  tags?: string[]
+  type?: 'SecretFile' | 'SecretText' | 'SSHKey'
+  value?: string
+  valueType?: 'Inline' | 'Reference'
+}
+
+export interface EncryptedDataDetail {
+  encryptedData?: EncryptedRecordData
+  encryptionConfig?: EncryptionConfig
+  fieldName?: string
+  identifier?: SecretUniqueIdentifier
+}
+
+export interface EncryptedDataParams {
+  name?: string
+  value?: string
+}
+
+export interface EncryptedDataParent {
+  fieldName?: string
+  id?: string
+  type?:
+    | 'HOST_CONNECTION_ATTRIBUTES'
+    | 'BASTION_HOST_CONNECTION_ATTRIBUTES'
+    | 'SMTP'
+    | 'SFTP'
+    | 'JENKINS'
+    | 'BAMBOO'
+    | 'STRING'
+    | 'SPLUNK'
+    | 'ELK'
+    | 'LOGZ'
+    | 'SUMO'
+    | 'DATA_DOG'
+    | 'APM_VERIFICATION'
+    | 'BUG_SNAG'
+    | 'LOG_VERIFICATION'
+    | 'APP_DYNAMICS'
+    | 'NEW_RELIC'
+    | 'DYNA_TRACE'
+    | 'INSTANA'
+    | 'DATA_DOG_LOG'
+    | 'CLOUD_WATCH'
+    | 'SCALYR'
+    | 'ELB'
+    | 'SLACK'
+    | 'AWS'
+    | 'GCS'
+    | 'GCP'
+    | 'AZURE'
+    | 'PCF'
+    | 'DIRECT'
+    | 'KUBERNETES_CLUSTER'
+    | 'DOCKER'
+    | 'ECR'
+    | 'GCR'
+    | 'ACR'
+    | 'PHYSICAL_DATA_CENTER'
+    | 'KUBERNETES'
+    | 'NEXUS'
+    | 'ARTIFACTORY'
+    | 'SMB'
+    | 'AMAZON_S3'
+    | 'GIT'
+    | 'SSH_SESSION_CONFIG'
+    | 'SERVICE_VARIABLE'
+    | 'CONFIG_FILE'
+    | 'KMS'
+    | 'GCP_KMS'
+    | 'JIRA'
+    | 'SERVICENOW'
+    | 'SECRET_TEXT'
+    | 'YAML_GIT_SYNC'
+    | 'VAULT'
+    | 'AWS_SECRETS_MANAGER'
+    | 'CYBERARK'
+    | 'WINRM_CONNECTION_ATTRIBUTES'
+    | 'WINRM_SESSION_CONFIG'
+    | 'PROMETHEUS'
+    | 'INFRASTRUCTURE_MAPPING'
+    | 'HTTP_HELM_REPO'
+    | 'AMAZON_S3_HELM_REPO'
+    | 'GCS_HELM_REPO'
+    | 'SPOT_INST'
+    | 'AZURE_ARTIFACTS_PAT'
+    | 'CUSTOM'
+    | 'CE_AWS'
+    | 'CE_GCP'
+    | 'AZURE_VAULT'
+    | 'KUBERNETES_CLUSTER_NG'
+    | 'GIT_NG'
+}
+
+export interface EncryptedRecord {
+  backupEncryptedValue?: string[]
+  backupEncryptionKey?: string
+  backupEncryptionType?:
+    | 'LOCAL'
+    | 'KMS'
+    | 'GCP_KMS'
+    | 'AWS_SECRETS_MANAGER'
+    | 'AZURE_VAULT'
+    | 'CYBERARK'
+    | 'VAULT'
+    | 'CUSTOM'
+  backupKmsId?: string
+  base64Encoded?: boolean
+  encryptedValue?: string[]
+  encryptionKey?: string
+  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  kmsId?: string
+  name?: string
+  parameters?: EncryptedDataParams[]
+  path?: string
+  uuid?: string
+}
+
+export interface EncryptedRecordData {
+  backupEncryptedValue?: string[]
+  backupEncryptionKey?: string
+  backupEncryptionType?:
+    | 'LOCAL'
+    | 'KMS'
+    | 'GCP_KMS'
+    | 'AWS_SECRETS_MANAGER'
+    | 'AZURE_VAULT'
+    | 'CYBERARK'
+    | 'VAULT'
+    | 'CUSTOM'
+  backupKmsId?: string
+  base64Encoded?: boolean
+  encryptedValue?: string[]
+  encryptionKey?: string
+  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  kmsId?: string
+  name?: string
+  parameters?: EncryptedDataParams[]
+  path?: string
+  uuid?: string
+}
+
+export interface EncryptionConfig {
+  accountId?: string
+  default?: boolean
+  encryptionServiceUrl?: string
+  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  globalKms?: boolean
+  name?: string
+  numOfEncryptedValue?: number
+  type?: 'KMS' | 'VAULT' | 'CUSTOM'
+  uuid?: string
+  validationCriteria?: string
+}
+
+export interface EntityAuditRecord {
+  affectedResourceId?: string
+  affectedResourceName?: string
+  affectedResourceOperation?: string
+  affectedResourceType?: string
+  appId?: string
+  appName?: string
+  createdAt?: number
+  entityId?: string
+  entityName?: string
+  entityNewYamlRecordId?: string
+  entityOldYamlRecordId?: string
+  entityType?: string
+  failure?: boolean
+  operationType?: string
+  yamlError?: string
+  yamlPath?: string
+}
+
+export interface EntityReference {
+  appId?: string
+  entityType?: string
+  id?: string
+  name?: string
+}
+
+export interface EntitySummary {
+  id?: string
+  name?: string
+  type?: string
+}
+
+export interface EntitySummaryStats {
+  count?: number
+  entitySummary?: EntitySummary
+}
+
+export interface EntityVersion {
+  accountId?: string
+  appId: string
+  changeType?: 'CREATED' | 'UPDATED'
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  entityData?: string
+  entityName?: string
+  entityParentUuid?: string
   entityType?:
     | 'SERVICE'
     | 'PROVISIONER'
@@ -3140,360 +5432,244 @@ export interface ArtifactVariable {
     | 'SECRET'
     | 'CONNECTOR'
     | 'CLOUD_PROVIDER'
-  entityId?: string
-  overriddenArtifactVariables?: ArtifactVariable[]
-  artifactStreamSummaries?: ArtifactStreamSummary[]
-  displayInfo?: {
-    [key: string]: string[]
-  }
-  workflowIds?: string[]
-  uiDisplayName?: string
-  artifactStreamMetadata?: ArtifactStreamMetadata
-  lastDeployedArtifactInfo?: LastDeployedArtifactInformation
-  name?: string
-  description?: string
-  mandatory?: boolean
-  runtimeInput?: boolean
-  value?: string
-  fixed?: boolean
-  allowedValues?: string
-  allowedList?: string[]
-  allowMultipleValues?: boolean
-  metadata?: {
-    [key: string]: { [key: string]: any }
-  }
-  type?: 'TEXT' | 'NUMBER' | 'EMAIL' | 'ENTITY' | 'ARTIFACT' | 'MANIFEST'
+  entityUuid?: string
+  lastUpdatedAt: number
+  uuid: string
+  version?: number
 }
 
-export type AwsAmiInfrastructure = InfraMappingInfrastructureProvider & {
-  region?: string
-  autoScalingGroupName?: string
-  classicLoadBalancers?: string[]
-  targetGroupArns?: string[]
-  hostNameConvention?: string
-  stageClassicLoadBalancers?: string[]
-  stageTargetGroupArns?: string[]
-  amiDeploymentType?: 'AWS_ASG' | 'SPOTINST'
-  spotinstElastiGroupJson?: string
-  spotinstCloudProvider?: string
-  asgIdentifiesWorkload?: boolean
-  useTrafficShift?: boolean
-  expressions?: {
-    [key: string]: string
-  }
+export interface EntityVersionCollection {
+  accountId?: string
+  appId: string
+  changeType?: 'CREATED' | 'UPDATED'
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  entityData?: string
+  entityName?: string
+  entityParentUuid?: string
+  entityType?:
+    | 'SERVICE'
+    | 'PROVISIONER'
+    | 'ENVIRONMENT'
+    | 'HOST'
+    | 'RELEASE'
+    | 'ARTIFACT'
+    | 'SSH_USER'
+    | 'SSH_PASSWORD'
+    | 'SSH_APP_ACCOUNT'
+    | 'SSH_KEY_PASSPHRASE'
+    | 'SSH_APP_ACCOUNT_PASSOWRD'
+    | 'SIMPLE_DEPLOYMENT'
+    | 'ORCHESTRATED_DEPLOYMENT'
+    | 'PIPELINE'
+    | 'WORKFLOW'
+    | 'DEPLOYMENT'
+    | 'INSTANCE'
+    | 'APPLICATION'
+    | 'COMMAND'
+    | 'CONFIG'
+    | 'SERVICE_TEMPLATE'
+    | 'INFRASTRUCTURE_MAPPING'
+    | 'INFRASTRUCTURE_DEFINITION'
+    | 'USER'
+    | 'ARTIFACT_STREAM'
+    | 'APPDYNAMICS_CONFIGID'
+    | 'APPDYNAMICS_APPID'
+    | 'APPDYNAMICS_TIERID'
+    | 'ELK_CONFIGID'
+    | 'ELK_INDICES'
+    | 'NEWRELIC_CONFIGID'
+    | 'NEWRELIC_APPID'
+    | 'SS_SSH_CONNECTION_ATTRIBUTE'
+    | 'SS_WINRM_CONNECTION_ATTRIBUTE'
+    | 'SUMOLOGIC_CONFIGID'
+    | 'SPLUNK_CONFIGID'
+    | 'NEWRELIC_MARKER_CONFIGID'
+    | 'NEWRELIC_MARKER_APPID'
+    | 'API_KEY'
+    | 'ACCOUNT'
+    | 'APPLICATION_MANIFEST'
+    | 'USER_GROUP'
+    | 'WHITELISTED_IP'
+    | 'CF_AWS_CONFIG_ID'
+    | 'VERIFICATION_CONFIGURATION'
+    | 'HELM_GIT_CONFIG_ID'
+    | 'NOTIFICATION_GROUP'
+    | 'HELM_CHART_SPECIFICATION'
+    | 'PCF_SERVICE_SPECIFICATION'
+    | 'LAMBDA_SPECIFICATION'
+    | 'USER_DATA_SPECIFICATION'
+    | 'ECS_CONTAINER_SPECIFICATION'
+    | 'ECS_SERVICE_SPECIFICATION'
+    | 'K8S_CONTAINER_SPECIFICATION'
+    | 'CONFIG_FILE'
+    | 'SERVICE_COMMAND'
+    | 'MANIFEST_FILE'
+    | 'SERVICE_VARIABLE'
+    | 'TRIGGER'
+    | 'ROLE'
+    | 'TEMPLATE'
+    | 'TEMPLATE_FOLDER'
+    | 'SETTING_ATTRIBUTE'
+    | 'ENCRYPTED_RECORDS'
+    | 'CV_CONFIGURATION'
+    | 'TAG'
+    | 'CUSTOM_DASHBOARD'
+    | 'PIPELINE_GOVERNANCE_STANDARD'
+    | 'WORKFLOW_EXECUTION'
+    | 'SERVERLESS_INSTANCE'
+    | 'USER_INVITE'
+    | 'LOGIN_SETTINGS'
+    | 'SSO_SETTINGS'
+    | 'DELEGATE'
+    | 'DELEGATE_SCOPE'
+    | 'DELEGATE_PROFILE'
+    | 'EXPORT_EXECUTIONS_REQUEST'
+    | 'GCP_CONFIG'
+    | 'GIT_CONFIG'
+    | 'JENKINS_SERVER'
+    | 'SECRETS_MANAGER'
+    | 'HELM_CHART'
+    | 'SECRET'
+    | 'CONNECTOR'
+    | 'CLOUD_PROVIDER'
+  entityUuid?: string
+  lastUpdatedAt: number
+  uuid: string
+  version?: number
 }
 
-export type AwsEcsInfrastructure = InfraMappingInfrastructureProvider & {
-  region?: string
-  vpcId?: string
-  subnetIds?: string[]
-  securityGroupIds?: string[]
-  assignPublicIp?: boolean
-  executionRole?: string
-  launchType?: string
-  clusterName?: string
-  expressions?: {
-    [key: string]: string
-  }
-}
-
-export interface AwsInstanceFilter {
-  vpcIds?: string[]
-  tags?: Tag[]
-}
-
-export type AwsInstanceInfrastructure = InfraMappingInfrastructureProvider & {
-  region?: string
-  hostConnectionAttrs?: string
-  loadBalancerId?: string
-  loadBalancerName?: string
-  usePublicDns?: boolean
-  hostConnectionType?: string
-  awsInstanceFilter?: AwsInstanceFilter
-  autoScalingGroupName?: string
-  setDesiredCapacity?: boolean
-  desiredCapacity?: number
-  hostNameConvention?: string
-  provisionInstances?: boolean
-  expressions?: {
-    [key: string]: string
-  }
-}
-
-export interface AwsLambdaExecutionSummary {
-  functionMeta?: FunctionMeta
-  success?: boolean
-}
-
-export type AwsLambdaInfrastructure = InfraMappingInfrastructureProvider & {
-  region?: string
-  vpcId?: string
-  subnetIds?: string[]
-  securityGroupIds?: string[]
-  role?: string
-  expressions?: {
-    [key: string]: string
-  }
-}
-
-export type AzureInstanceInfrastructure = InfraMappingInfrastructureProvider & {
-  subscriptionId?: string
-  resourceGroup?: string
-  tags?: AzureTag[]
-  hostConnectionAttrs?: string
-  winRmConnectionAttributes?: string
-  usePublicDns?: boolean
-}
-
-export type AzureKubernetesService = InfraMappingInfrastructureProvider & {
-  clusterName?: string
-  namespace?: string
-  releaseName?: string
-  subscriptionId?: string
-  resourceGroup?: string
-}
-
-export interface AzureTag {
-  key?: string
-  value?: string
-}
-
-export type AzureVMSSInfra = InfraMappingInfrastructureProvider & {
-  baseVMSSName?: string
-  userName?: string
-  resourceGroupName?: string
-  subscriptionId?: string
-  passwordSecretTextName?: string
-  hostConnectionAttrs?: string
-  vmssAuthType?: 'PASSWORD' | 'SSH_PUBLIC_KEY'
-  vmssDeploymentType?: 'NATIVE_VMSS' | 'SPOTINST'
-}
-
-export type AzureWebAppInfra = InfraMappingInfrastructureProvider & {
-  webApp?: string
-  subscriptionId?: string
-  resourceGroup?: string
-  deploymentSlot?: string
-  expressions?: {
-    [key: string]: string
-  }
-}
-
-export type BasicOrchestrationWorkflow = OrchestrationWorkflow & {
-  graph?: Graph
-  preDeploymentSteps?: PhaseStep
-  rollbackProvisioners?: PhaseStep
-  rollbackWorkflowPhaseIdMap?: {
-    [key: string]: WorkflowPhase
-  }
-  workflowPhases?: WorkflowPhase[]
-  postDeploymentSteps?: PhaseStep
-  failureStrategies?: FailureStrategy[]
-  systemVariables?: Variable[]
-  derivedVariables?: Variable[]
-}
-
-export type BlueGreenOrchestrationWorkflow = OrchestrationWorkflow & {
-  graph?: Graph
-  preDeploymentSteps?: PhaseStep
-  rollbackProvisioners?: PhaseStep
-  rollbackWorkflowPhaseIdMap?: {
-    [key: string]: WorkflowPhase
-  }
-  workflowPhases?: WorkflowPhase[]
-  postDeploymentSteps?: PhaseStep
-  failureStrategies?: FailureStrategy[]
-  systemVariables?: Variable[]
-  derivedVariables?: Variable[]
-}
-
-export interface BuildExecutionSummary {
-  artifactStreamId?: string
-  artifactSource?: string
-  revision?: string
-  buildUrl?: string
-  buildName?: string
-  metadata?: string
-}
-
-export type BuildWorkflow = OrchestrationWorkflow & {
-  graph?: Graph
-  preDeploymentSteps?: PhaseStep
-  rollbackProvisioners?: PhaseStep
-  rollbackWorkflowPhaseIdMap?: {
-    [key: string]: WorkflowPhase
-  }
-  workflowPhases?: WorkflowPhase[]
-  postDeploymentSteps?: PhaseStep
-  failureStrategies?: FailureStrategy[]
-  systemVariables?: Variable[]
-  derivedVariables?: Variable[]
-}
-
-export type CanaryOrchestrationWorkflow = OrchestrationWorkflow & {
-  graph?: Graph
-  preDeploymentSteps?: PhaseStep
-  rollbackProvisioners?: PhaseStep
-  rollbackWorkflowPhaseIdMap?: {
-    [key: string]: WorkflowPhase
-  }
-  workflowPhases?: WorkflowPhase[]
-  postDeploymentSteps?: PhaseStep
-  failureStrategies?: FailureStrategy[]
-  systemVariables?: Variable[]
-  derivedVariables?: Variable[]
-}
-
-export type CodeDeployInfrastructure = InfraMappingInfrastructureProvider & {
-  region?: string
-  applicationName?: string
-  deploymentGroup?: string
-  deploymentConfig?: string
-  hostNameConvention?: string
-}
-
-export interface ConcurrencyStrategy {
-  unitType: 'INFRA' | 'CUSTOM' | 'NONE'
-  holdingScope: 'PIPELINE' | 'WORKFLOW' | 'PHASE' | 'PHASE_SECTION' | 'NEXT_STEP'
-  strategy: 'ASAP' | 'FIFO'
-  resourceUnit: string
-  notificationGroups?: string[]
-  notifyTriggeredByUser?: boolean
-}
-
-export interface ContainerInfo {
-  hostName?: string
-  ip?: string
-  containerId?: string
-  ec2Instance?: Instance
-  status?: 'SUCCESS' | 'FAILURE'
-  podName?: string
-  workloadName?: string
-  newContainer?: boolean
-  ecsContainerDetails?: EcsContainerDetails
-  containerTasksReachable?: boolean
-  releaseName?: string
-}
-
-export interface CountsByStatuses {
-  success?: number
-  failed?: number
-  inprogress?: number
-  queued?: number
-}
-
-export type CustomInfrastructure = InfraMappingInfrastructureProvider & {
-  infraVariables?: NameValuePair[]
-  deploymentTypeTemplateVersion?: string
-  customDeploymentName?: string
-}
-
-export type CustomOrchestrationWorkflow = OrchestrationWorkflow & {
-  graph?: Graph
-}
-
-export interface DelegateMetaInfo {
-  id?: string
-  hostName?: string
-}
-
-export type DirectKubernetesInfrastructure = InfraMappingInfrastructureProvider & {
-  clusterName?: string
-  namespace?: string
-  releaseName?: string
-  expressions?: {
-    [key: string]: string
-  }
-}
-
-export type EcsBlueGreenOrchestrationWorkflow = OrchestrationWorkflow & {
-  graph?: Graph
-  preDeploymentSteps?: PhaseStep
-  rollbackProvisioners?: PhaseStep
-  rollbackWorkflowPhaseIdMap?: {
-    [key: string]: WorkflowPhase
-  }
-  workflowPhases?: WorkflowPhase[]
-  postDeploymentSteps?: PhaseStep
-  failureStrategies?: FailureStrategy[]
-  systemVariables?: Variable[]
-  derivedVariables?: Variable[]
-  ecsBGType?: string
+export interface EnvFilter {
+  filterTypes?: string[]
+  ids?: string[]
 }
 
 export interface EnvSummary {
+  environmentType?: 'PROD' | 'NON_PROD' | 'ALL'
   name?: string
   uuid?: string
-  environmentType?: 'PROD' | 'NON_PROD' | 'ALL'
 }
 
 export interface Environment {
-  uuid: string
+  accountId?: string
   appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  name?: string
-  description?: string
+  configFiles?: ConfigFile[]
   configMapYaml?: string
-  helmValueYaml?: string
   configMapYamlByServiceTemplateId?: {
     [key: string]: string
   }
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  description?: string
+  environmentType: 'PROD' | 'NON_PROD' | 'ALL'
+  helmValueYaml?: string
   helmValueYamlByServiceTemplateId?: {
     [key: string]: string
   }
-  environmentType: 'PROD' | 'NON_PROD' | 'ALL'
-  serviceTemplates?: ServiceTemplate[]
-  configFiles?: ConfigFile[]
-  setup?: Setup
-  infrastructureDefinitions?: InfrastructureDefinition[]
   infraDefinitionsCount?: number
+  infrastructureDefinitions?: InfrastructureDefinition[]
   keywords?: string[]
-  accountId?: string
+  lastUpdatedAt: number
+  name?: string
   sample?: boolean
+  serviceTemplates?: ServiceTemplate[]
+  setup?: Setup
   tagLinks?: HarnessTagLink[]
+  uuid: string
+}
+
+export interface EnvironmentRole {
+  envId?: string
+  envName?: string
+  environmentType?: 'PROD' | 'NON_PROD' | 'ALL'
+  resourceAccess?: {
+    [key: string]:
+      | 'ALL'
+      | 'CREATE'
+      | 'READ'
+      | 'UPDATE'
+      | 'DELETE'
+      | 'EXECUTE'
+      | 'EXECUTE_WORKFLOW'
+      | 'EXECUTE_PIPELINE'
+      | 'DEFAULT'
+  }
+}
+
+export interface EnvironmentSummary {
+  id?: string
+  name?: string
+  prod?: boolean
+  type?: string
 }
 
 export interface ExecutionArgs {
-  workflowType?: 'PIPELINE' | 'ORCHESTRATION'
-  serviceId?: string
-  commandName?: string
-  executionStrategy?: 'SERIAL' | 'PARALLEL'
-  artifacts?: Artifact[]
   artifactIdNames?: {
     [key: string]: string
   }
-  orchestrationId?: string
-  serviceInstances?: ServiceInstance[]
-  serviceInstanceIdNames?: {
-    [key: string]: string
-  }
-  executionCredential?: ExecutionCredential
-  errorStrategy?: 'CONTINUE' | 'FAIL' | 'PAUSE' | 'RETRY'
-  triggeredFromPipeline?: boolean
-  pipelineId?: string
-  pipelinePhaseElementId?: string
-  pipelinePhaseParallelIndex?: number
-  stageName?: string
-  workflowVariables?: {
-    [key: string]: string
-  }
-  notes?: string
-  triggeredBy?: EmbeddedUser
-  createdByType?: 'USER' | 'API_KEY' | 'TRIGGER'
-  triggeringApiKeyId?: string
-  excludeHostsWithSameArtifact?: boolean
-  notifyTriggeredUserOnly?: boolean
   artifactVariables?: ArtifactVariable[]
-  targetToSpecificHosts?: boolean
-  hosts?: string[]
+  artifacts?: Artifact[]
+  commandName?: string
   continueWithDefaultValues?: boolean
-  helmCharts?: HelmChart[]
-  manifestVariables?: ManifestVariable[]
+  createdByType?: 'USER' | 'API_KEY' | 'TRIGGER'
+  errorStrategy?: 'CONTINUE' | 'FAIL' | 'PAUSE' | 'RETRY'
+  excludeHostsWithSameArtifact?: boolean
+  executionCredential?: ExecutionCredential
+  executionStrategy?: 'SERIAL' | 'PARALLEL'
   helmChartIdNames?: {
     [key: string]: string
   }
+  helmCharts?: HelmChart[]
+  hosts?: string[]
+  manifestVariables?: ManifestVariable[]
+  notes?: string
+  notifyTriggeredUserOnly?: boolean
+  orchestrationId?: string
+  pipelineId?: string
+  pipelinePhaseElementId?: string
+  pipelinePhaseParallelIndex?: number
+  serviceId?: string
+  serviceInstanceIdNames?: {
+    [key: string]: string
+  }
+  serviceInstances?: ServiceInstance[]
+  stageName?: string
+  targetToSpecificHosts?: boolean
+  triggeredBy?: EmbeddedUser
+  triggeredFromPipeline?: boolean
+  triggeringApiKeyId?: string
+  workflowType?: 'PIPELINE' | 'ORCHESTRATION'
+  workflowVariables?: {
+    [key: string]: string
+  }
+}
+
+export interface ExecutionCapability {
+  capabilityType?:
+    | 'SOCKET'
+    | 'ALWAYS_TRUE'
+    | 'PROCESS_EXECUTOR'
+    | 'AWS_REGION'
+    | 'SYSTEM_ENV'
+    | 'HTTP'
+    | 'HELM_INSTALL'
+    | 'CHART_MUSEUM'
+    | 'ALWAYS_FALSE'
+    | 'SMTP'
+    | 'WINRM_HOST_CONNECTION'
+    | 'SSH_HOST_CONNECTION'
+    | 'SFTP'
+    | 'PCF_AUTO_SCALAR'
+    | 'PCF_CONNECTIVITY'
+    | 'POWERSHELL'
+    | 'HELM_COMMAND'
+    | 'CLUSTER_MASTER_URL'
+    | 'SHELL_CONNECTION'
+    | 'GIT_CONNECTION'
+    | 'KUSTOMIZE'
+    | 'SMB'
+    | 'SELECTORS'
+    | 'GIT_CONNECTION_NG'
 }
 
 export interface ExecutionCredential {
@@ -3505,11 +5681,430 @@ export interface ExecutionDataValue {
   value?: { [key: string]: any }
 }
 
+export interface ExecutionEventAdvisor {
+  [key: string]: any
+}
+
+export interface ExecutionInterrupt {
+  accountId?: string
+  appId: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  envId?: string
+  executionInterruptType:
+    | 'ABORT'
+    | 'ABORT_ALL'
+    | 'PAUSE'
+    | 'PAUSE_FOR_INPUTS'
+    | 'PAUSE_ALL'
+    | 'RESUME'
+    | 'RESUME_ALL'
+    | 'RETRY'
+    | 'IGNORE'
+    | 'MARK_FAILED'
+    | 'MARK_SUCCESS'
+    | 'ROLLBACK'
+    | 'NEXT_STEP'
+    | 'END_EXECUTION'
+    | 'ROLLBACK_DONE'
+    | 'MARK_EXPIRED'
+    | 'CONTINUE_WITH_DEFAULTS'
+    | 'CONTINUE_PIPELINE_STAGE'
+  executionUuid: string
+  lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
+  properties?: {
+    [key: string]: { [key: string]: any }
+  }
+  seized?: boolean
+  stateExecutionInstanceId?: string
+  uuid: string
+}
+
+export interface ExecutionInterruptEffect {
+  interruptId?: string
+  tookEffectAt?: string
+}
+
+export interface ExecutionStatusResponse {
+  status?: string
+}
+
+export interface ExpAnalysisInfo {
+  appId?: string
+  createdAt?: number
+  envId?: string
+  expName?: string
+  mismatch?: boolean
+  stateExecutionId?: string
+  stateType?:
+    | 'SUB_WORKFLOW'
+    | 'REPEAT'
+    | 'FORK'
+    | 'WAIT'
+    | 'PAUSE'
+    | 'BARRIER'
+    | 'RESOURCE_CONSTRAINT'
+    | 'SHELL_SCRIPT'
+    | 'HTTP'
+    | 'TEMPLATIZED_SECRET_MANAGER'
+    | 'EMAIL'
+    | 'APP_DYNAMICS'
+    | 'NEW_RELIC'
+    | 'NEW_RELIC_DEPLOYMENT_MARKER'
+    | 'DYNA_TRACE'
+    | 'PROMETHEUS'
+    | 'SPLUNKV2'
+    | 'ELK'
+    | 'LOGZ'
+    | 'SUMO'
+    | 'DATA_DOG'
+    | 'DATA_DOG_LOG'
+    | 'CLOUD_WATCH'
+    | 'AWS_LAMBDA_VERIFICATION'
+    | 'APM_VERIFICATION'
+    | 'LOG_VERIFICATION'
+    | 'BUG_SNAG'
+    | 'STACK_DRIVER'
+    | 'STACK_DRIVER_LOG'
+    | 'INSTANA'
+    | 'SCALYR'
+    | 'ENV_STATE'
+    | 'ENV_LOOP_STATE'
+    | 'ENV_RESUME_STATE'
+    | 'ENV_LOOP_RESUME_STATE'
+    | 'COMMAND'
+    | 'APPROVAL'
+    | 'APPROVAL_RESUME'
+    | 'ELASTIC_LOAD_BALANCER'
+    | 'JENKINS'
+    | 'GCB'
+    | 'BAMBOO'
+    | 'ARTIFACT_COLLECTION'
+    | 'ARTIFACT_CHECK'
+    | 'AZURE_NODE_SELECT'
+    | 'AZURE_VMSS_SETUP'
+    | 'AZURE_VMSS_DEPLOY'
+    | 'AZURE_VMSS_ROLLBACK'
+    | 'AZURE_VMSS_SWITCH_ROUTES'
+    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
+    | 'AZURE_WEBAPP_SLOT_SETUP'
+    | 'AZURE_WEBAPP_SLOT_RESIZE'
+    | 'AZURE_WEBAPP_SLOT_SWAP'
+    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
+    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
+    | 'AWS_NODE_SELECT'
+    | 'DC_NODE_SELECT'
+    | 'ROLLING_NODE_SELECT'
+    | 'PHASE'
+    | 'PHASE_STEP'
+    | 'STAGING_ORIGINAL_EXECUTION'
+    | 'AWS_CODEDEPLOY_STATE'
+    | 'AWS_CODEDEPLOY_ROLLBACK'
+    | 'AWS_LAMBDA_STATE'
+    | 'AWS_LAMBDA_ROLLBACK'
+    | 'AWS_AMI_SERVICE_SETUP'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
+    | 'AWS_AMI_SERVICE_DEPLOY'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
+    | 'AWS_AMI_SWITCH_ROUTES'
+    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
+    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_SERVICE_ROLLBACK'
+    | 'ECS_SERVICE_SETUP'
+    | 'SPOTINST_SETUP'
+    | 'SPOTINST_ALB_SHIFT_SETUP'
+    | 'SPOTINST_DEPLOY'
+    | 'SPOTINST_ALB_SHIFT_DEPLOY'
+    | 'SPOTINST_LISTENER_UPDATE'
+    | 'SPOTINST_LISTENER_ALB_SHIFT'
+    | 'SPOTINST_ROLLBACK'
+    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
+    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
+    | 'ECS_SERVICE_SETUP_ROLLBACK'
+    | 'ECS_DAEMON_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
+    | 'ECS_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_ROLLBACK'
+    | 'ECS_LISTENER_UPDATE'
+    | 'ECS_LISTENER_UPDATE_ROLLBACK'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
+    | 'KUBERNETES_SETUP'
+    | 'KUBERNETES_SETUP_ROLLBACK'
+    | 'KUBERNETES_DEPLOY'
+    | 'KUBERNETES_DEPLOY_ROLLBACK'
+    | 'KUBERNETES_STEADY_STATE_CHECK'
+    | 'ECS_STEADY_STATE_CHECK'
+    | 'ECS_RUN_TASK'
+    | 'GCP_CLUSTER_SETUP'
+    | 'HELM_DEPLOY'
+    | 'HELM_ROLLBACK'
+    | 'PCF_SETUP'
+    | 'PCF_RESIZE'
+    | 'PCF_ROLLBACK'
+    | 'PCF_MAP_ROUTE'
+    | 'PCF_UNMAP_ROUTE'
+    | 'PCF_BG_MAP_ROUTE'
+    | 'PCF_PLUGIN'
+    | 'TERRAFORM_PROVISION'
+    | 'TERRAFORM_APPLY'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'TERRAFORM_DESTROY'
+    | 'CLOUD_FORMATION_CREATE_STACK'
+    | 'CLOUD_FORMATION_DELETE_STACK'
+    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'CLOUD_FORMATION_ROLLBACK_STACK'
+    | 'TERRAFORM_ROLLBACK'
+    | 'K8S_DEPLOYMENT_ROLLING'
+    | 'K8S_SCALE'
+    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
+    | 'K8S_BLUE_GREEN_DEPLOY'
+    | 'K8S_CANARY_DEPLOY'
+    | 'K8S_DELETE'
+    | 'JIRA_CREATE_UPDATE'
+    | 'SERVICENOW_CREATE_UPDATE'
+    | 'K8S_TRAFFIC_SPLIT'
+    | 'K8S_APPLY'
+    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
+  workflowExecutionId?: string
+}
+
+export interface ExperimentPerformance {
+  [key: string]: any
+}
+
+export interface ExperimentalMessageComparisonResult {
+  cluster_type?: string
+  createdAt?: number
+  cvConfigId?: string
+  logCollectionMinute?: number
+  message1?: string
+  message2?: string
+  modelVersion?: string
+  numVotes?: number
+  prediction?: string
+  similarity?: number
+  stateExecutionId?: string
+  userVotes?: {
+    [key: string]: string
+  }
+  uuid?: string
+}
+
+export interface ExperimentalMetricAnalysis {
+  displayName?: string
+  experimentalRiskLevel?: 'HIGH' | 'MEDIUM' | 'LOW' | 'NA'
+  fullMetricName?: string
+  metricName?: string
+  metricValues?: ExperimentalMetricAnalysisValue[]
+  mismatch?: boolean
+  riskLevel?: 'HIGH' | 'MEDIUM' | 'LOW' | 'NA'
+  tag?: string
+}
+
+export interface ExperimentalMetricAnalysisValue {
+  alertType?: string
+  controlValue?: number
+  experimentalRiskLevel?: 'HIGH' | 'MEDIUM' | 'LOW' | 'NA'
+  hostAnalysisValues?: ExperimentalMetricHostAnalysisValue[]
+  mismatch?: boolean
+  name?: string
+  riskLevel?: 'HIGH' | 'MEDIUM' | 'LOW' | 'NA'
+  testValue?: number
+  type?: string
+}
+
+export interface ExperimentalMetricHostAnalysisValue {
+  anomalies?: number[]
+  controlHostName?: string
+  controlValues?: number[]
+  experimentalRiskLevel?: 'HIGH' | 'MEDIUM' | 'LOW' | 'NA'
+  mismatch?: boolean
+  riskLevel?: 'HIGH' | 'MEDIUM' | 'LOW' | 'NA'
+  testHostName?: string
+  testStartIndex?: number
+  testValues?: number[]
+}
+
+export interface ExperimentalMetricRecord {
+  analysisMinute?: number
+  baseLineExecutionId?: string
+  cvConfigId?: string
+  experimentStatus?: 'UNDETERMINED' | 'SUCCESS' | 'FAILURE'
+  experimentalRiskLevel?: 'HIGH' | 'MEDIUM' | 'LOW' | 'NA'
+  metricAnalysis?: ExperimentalMetricAnalysis[]
+  mismatch?: boolean
+  mlAnalysisType?: 'COMPARATIVE' | 'PREDICTIVE' | 'TIMESERIES_24x7'
+  riskLevel?: 'HIGH' | 'MEDIUM' | 'LOW' | 'NA'
+  stateExecutionId?: string
+  stateType?:
+    | 'SUB_WORKFLOW'
+    | 'REPEAT'
+    | 'FORK'
+    | 'WAIT'
+    | 'PAUSE'
+    | 'BARRIER'
+    | 'RESOURCE_CONSTRAINT'
+    | 'SHELL_SCRIPT'
+    | 'HTTP'
+    | 'TEMPLATIZED_SECRET_MANAGER'
+    | 'EMAIL'
+    | 'APP_DYNAMICS'
+    | 'NEW_RELIC'
+    | 'NEW_RELIC_DEPLOYMENT_MARKER'
+    | 'DYNA_TRACE'
+    | 'PROMETHEUS'
+    | 'SPLUNKV2'
+    | 'ELK'
+    | 'LOGZ'
+    | 'SUMO'
+    | 'DATA_DOG'
+    | 'DATA_DOG_LOG'
+    | 'CLOUD_WATCH'
+    | 'AWS_LAMBDA_VERIFICATION'
+    | 'APM_VERIFICATION'
+    | 'LOG_VERIFICATION'
+    | 'BUG_SNAG'
+    | 'STACK_DRIVER'
+    | 'STACK_DRIVER_LOG'
+    | 'INSTANA'
+    | 'SCALYR'
+    | 'ENV_STATE'
+    | 'ENV_LOOP_STATE'
+    | 'ENV_RESUME_STATE'
+    | 'ENV_LOOP_RESUME_STATE'
+    | 'COMMAND'
+    | 'APPROVAL'
+    | 'APPROVAL_RESUME'
+    | 'ELASTIC_LOAD_BALANCER'
+    | 'JENKINS'
+    | 'GCB'
+    | 'BAMBOO'
+    | 'ARTIFACT_COLLECTION'
+    | 'ARTIFACT_CHECK'
+    | 'AZURE_NODE_SELECT'
+    | 'AZURE_VMSS_SETUP'
+    | 'AZURE_VMSS_DEPLOY'
+    | 'AZURE_VMSS_ROLLBACK'
+    | 'AZURE_VMSS_SWITCH_ROUTES'
+    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
+    | 'AZURE_WEBAPP_SLOT_SETUP'
+    | 'AZURE_WEBAPP_SLOT_RESIZE'
+    | 'AZURE_WEBAPP_SLOT_SWAP'
+    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
+    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
+    | 'AWS_NODE_SELECT'
+    | 'DC_NODE_SELECT'
+    | 'ROLLING_NODE_SELECT'
+    | 'PHASE'
+    | 'PHASE_STEP'
+    | 'STAGING_ORIGINAL_EXECUTION'
+    | 'AWS_CODEDEPLOY_STATE'
+    | 'AWS_CODEDEPLOY_ROLLBACK'
+    | 'AWS_LAMBDA_STATE'
+    | 'AWS_LAMBDA_ROLLBACK'
+    | 'AWS_AMI_SERVICE_SETUP'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
+    | 'AWS_AMI_SERVICE_DEPLOY'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
+    | 'AWS_AMI_SWITCH_ROUTES'
+    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
+    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_SERVICE_ROLLBACK'
+    | 'ECS_SERVICE_SETUP'
+    | 'SPOTINST_SETUP'
+    | 'SPOTINST_ALB_SHIFT_SETUP'
+    | 'SPOTINST_DEPLOY'
+    | 'SPOTINST_ALB_SHIFT_DEPLOY'
+    | 'SPOTINST_LISTENER_UPDATE'
+    | 'SPOTINST_LISTENER_ALB_SHIFT'
+    | 'SPOTINST_ROLLBACK'
+    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
+    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
+    | 'ECS_SERVICE_SETUP_ROLLBACK'
+    | 'ECS_DAEMON_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
+    | 'ECS_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_ROLLBACK'
+    | 'ECS_LISTENER_UPDATE'
+    | 'ECS_LISTENER_UPDATE_ROLLBACK'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
+    | 'KUBERNETES_SETUP'
+    | 'KUBERNETES_SETUP_ROLLBACK'
+    | 'KUBERNETES_DEPLOY'
+    | 'KUBERNETES_DEPLOY_ROLLBACK'
+    | 'KUBERNETES_STEADY_STATE_CHECK'
+    | 'ECS_STEADY_STATE_CHECK'
+    | 'ECS_RUN_TASK'
+    | 'GCP_CLUSTER_SETUP'
+    | 'HELM_DEPLOY'
+    | 'HELM_ROLLBACK'
+    | 'PCF_SETUP'
+    | 'PCF_RESIZE'
+    | 'PCF_ROLLBACK'
+    | 'PCF_MAP_ROUTE'
+    | 'PCF_UNMAP_ROUTE'
+    | 'PCF_BG_MAP_ROUTE'
+    | 'PCF_PLUGIN'
+    | 'TERRAFORM_PROVISION'
+    | 'TERRAFORM_APPLY'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'TERRAFORM_DESTROY'
+    | 'CLOUD_FORMATION_CREATE_STACK'
+    | 'CLOUD_FORMATION_DELETE_STACK'
+    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'CLOUD_FORMATION_ROLLBACK_STACK'
+    | 'TERRAFORM_ROLLBACK'
+    | 'K8S_DEPLOYMENT_ROLLING'
+    | 'K8S_SCALE'
+    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
+    | 'K8S_BLUE_GREEN_DEPLOY'
+    | 'K8S_CANARY_DEPLOY'
+    | 'K8S_DELETE'
+    | 'JIRA_CREATE_UPDATE'
+    | 'SERVICENOW_CREATE_UPDATE'
+    | 'K8S_TRAFFIC_SPLIT'
+    | 'K8S_APPLY'
+    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
+  workflowExecutionId?: string
+}
+
+export interface ExportExecutionsRequestLimitChecks {
+  executionCount?: LimitCheck
+  queuedRequests?: LimitCheck
+}
+
+export interface ExportExecutionsRequestSummary {
+  downloadLink?: string
+  errorMessage?: string
+  expiresAt?: string
+  requestId?: string
+  status?: 'QUEUED' | 'READY' | 'FAILED' | 'EXPIRED'
+  statusLink?: string
+  totalExecutions?: number
+  triggeredAt?: string
+}
+
+export interface ExportExecutionsUserParams {
+  createdByType?: 'USER' | 'API_KEY' | 'TRIGGER'
+  notifyOnlyTriggeringUser?: boolean
+  outputFormat?: 'JSON'
+  userGroupIds?: string[]
+}
+
 export interface FailureCriteria {
   failureThresholdPercentage?: number
 }
 
 export interface FailureStrategy {
+  executionScope?: 'WORKFLOW' | 'WORKFLOW_PHASE'
+  failureCriteria?: FailureCriteria
   failureTypes: (
     | 'EXPIRED'
     | 'DELEGATE_PROVISIONING'
@@ -3519,8 +6114,16 @@ export interface FailureStrategy {
     | 'APPLICATION_ERROR'
     | 'AUTHORIZATION_ERROR'
   )[]
-  executionScope?: 'WORKFLOW' | 'WORKFLOW_PHASE'
   repairActionCode?:
+    | 'MANUAL_INTERVENTION'
+    | 'ROLLBACK_WORKFLOW'
+    | 'ROLLBACK_PHASE'
+    | 'IGNORE'
+    | 'RETRY'
+    | 'END_EXECUTION'
+    | 'CONTINUE_WITH_DEFAULTS'
+    | 'ABORT_WORKFLOW_EXECUTION'
+  repairActionCodeAfterRetry?:
     | 'MANUAL_INTERVENTION'
     | 'ROLLBACK_WORKFLOW'
     | 'ROLLBACK_PHASE'
@@ -3531,123 +6134,1065 @@ export interface FailureStrategy {
     | 'ABORT_WORKFLOW_EXECUTION'
   retryCount?: number
   retryIntervals?: number[]
-  repairActionCodeAfterRetry?:
-    | 'MANUAL_INTERVENTION'
-    | 'ROLLBACK_WORKFLOW'
-    | 'ROLLBACK_PHASE'
-    | 'IGNORE'
-    | 'RETRY'
-    | 'END_EXECUTION'
-    | 'CONTINUE_WITH_DEFAULTS'
-    | 'ABORT_WORKFLOW_EXECUTION'
-  failureCriteria?: FailureCriteria
   specificSteps?: string[]
 }
 
+export interface FeatureFlag {
+  enabled?: boolean
+  lastUpdatedAt?: number
+  name?: string
+  uuid?: string
+}
+
+export interface FeatureUsageComplianceReport {
+  featureName?: string
+  properties?: {
+    [key: string]: { [key: string]: any }
+  }
+}
+
+export interface FeaturesUsageComplianceReport {
+  accountId?: string
+  featureUsageComplianceReports?: FeatureUsageComplianceReport[]
+  targetAccountType?: string
+}
+
+export interface FileOperationStatus {
+  errorMssg?: string
+  status?: 'FAILED' | 'SUCCESS' | 'SKIPPED'
+  yamlFilePath?: string
+}
+
+export interface Filter {
+  ids?: string[]
+}
+
 export interface FunctionMeta {
-  functionName?: string
   functionArn?: string
+  functionName?: string
   version?: string
 }
 
-export interface GitFileConfig {
-  connectorId?: string
+export interface FunctionSpecification {
+  functionName?: string
+  handler?: string
+  memorySize?: number
+  runtime?: string
+  timeout?: number
+}
+
+export interface GcpBillingAccount {
+  accountId?: string
+  bqDataSetRegion?: string
+  bqDatasetId?: string
+  bqProjectId?: string
+  createdAt?: number
+  exportEnabled?: boolean
+  gcpBillingAccountId?: string
+  gcpBillingAccountName?: string
+  lastUpdatedAt?: number
+  organizationSettingId?: string
+  uuid?: string
+}
+
+export type GcpConnector = ConnectorConfigDTO & {
+  credential?: GcpConnectorCredential
+}
+
+export interface GcpConnectorCredential {
+  spec: GcpCredentialSpec
+  type: 'InheritFromDelegate' | 'ManualConfig'
+}
+
+export interface GcpCredentialSpec {
+  [key: string]: any
+}
+
+export type GcpKmsConfigDTO = SecretManagerConfigDTO & {
+  credentials?: string[]
+  keyName?: string
+  keyRing?: string
+  projectId?: string
+  region?: string
+}
+
+export type GcpKmsConfigUpdateDTO = SecretManagerConfigUpdateDTO & {
+  credentials?: string[]
+  keyName?: string
+  keyRing?: string
+  projectId?: string
+  region?: string
+}
+
+export type GcpKmsConnectorDTO = ConnectorConfigDTO & {
+  credentials?: string[]
+  default?: boolean
+  keyName?: string
+  keyRing?: string
+  projectId?: string
+  region?: string
+}
+
+export type GcpKubernetesCluster = Cluster & {}
+
+export interface GcpOrganization {
+  accountId?: string
+  createdAt?: number
+  lastUpdatedAt?: number
+  organizationId?: string
+  organizationName?: string
+  serviceAccountEmail?: string
+  uuid?: string
+}
+
+export interface GenericEntityFilter {
+  filterType?: string
+  ids?: string[]
+}
+
+export interface GitAuditDetails {
+  author?: string
+  gitCommitId?: string
+  repoUrl?: string
+}
+
+export interface GitAuthenticationDTO {
+  [key: string]: any
+}
+
+export type GitConfigDTO = ConnectorConfigDTO & {
+  branchName?: string
+  connectionType: 'Account' | 'Repo'
+  gitSync?: GitSyncConfig
+  spec: GitAuthenticationDTO
+  type: 'Http' | 'Ssh'
+  url: string
+}
+
+export interface GitDetail {
+  appId?: string
+  branchName?: string
+  connectorName?: string
+  entityName?: string
+  entityType?:
+    | 'SERVICE'
+    | 'PROVISIONER'
+    | 'ENVIRONMENT'
+    | 'HOST'
+    | 'RELEASE'
+    | 'ARTIFACT'
+    | 'SSH_USER'
+    | 'SSH_PASSWORD'
+    | 'SSH_APP_ACCOUNT'
+    | 'SSH_KEY_PASSPHRASE'
+    | 'SSH_APP_ACCOUNT_PASSOWRD'
+    | 'SIMPLE_DEPLOYMENT'
+    | 'ORCHESTRATED_DEPLOYMENT'
+    | 'PIPELINE'
+    | 'WORKFLOW'
+    | 'DEPLOYMENT'
+    | 'INSTANCE'
+    | 'APPLICATION'
+    | 'COMMAND'
+    | 'CONFIG'
+    | 'SERVICE_TEMPLATE'
+    | 'INFRASTRUCTURE_MAPPING'
+    | 'INFRASTRUCTURE_DEFINITION'
+    | 'USER'
+    | 'ARTIFACT_STREAM'
+    | 'APPDYNAMICS_CONFIGID'
+    | 'APPDYNAMICS_APPID'
+    | 'APPDYNAMICS_TIERID'
+    | 'ELK_CONFIGID'
+    | 'ELK_INDICES'
+    | 'NEWRELIC_CONFIGID'
+    | 'NEWRELIC_APPID'
+    | 'SS_SSH_CONNECTION_ATTRIBUTE'
+    | 'SS_WINRM_CONNECTION_ATTRIBUTE'
+    | 'SUMOLOGIC_CONFIGID'
+    | 'SPLUNK_CONFIGID'
+    | 'NEWRELIC_MARKER_CONFIGID'
+    | 'NEWRELIC_MARKER_APPID'
+    | 'API_KEY'
+    | 'ACCOUNT'
+    | 'APPLICATION_MANIFEST'
+    | 'USER_GROUP'
+    | 'WHITELISTED_IP'
+    | 'CF_AWS_CONFIG_ID'
+    | 'VERIFICATION_CONFIGURATION'
+    | 'HELM_GIT_CONFIG_ID'
+    | 'NOTIFICATION_GROUP'
+    | 'HELM_CHART_SPECIFICATION'
+    | 'PCF_SERVICE_SPECIFICATION'
+    | 'LAMBDA_SPECIFICATION'
+    | 'USER_DATA_SPECIFICATION'
+    | 'ECS_CONTAINER_SPECIFICATION'
+    | 'ECS_SERVICE_SPECIFICATION'
+    | 'K8S_CONTAINER_SPECIFICATION'
+    | 'CONFIG_FILE'
+    | 'SERVICE_COMMAND'
+    | 'MANIFEST_FILE'
+    | 'SERVICE_VARIABLE'
+    | 'TRIGGER'
+    | 'ROLE'
+    | 'TEMPLATE'
+    | 'TEMPLATE_FOLDER'
+    | 'SETTING_ATTRIBUTE'
+    | 'ENCRYPTED_RECORDS'
+    | 'CV_CONFIGURATION'
+    | 'TAG'
+    | 'CUSTOM_DASHBOARD'
+    | 'PIPELINE_GOVERNANCE_STANDARD'
+    | 'WORKFLOW_EXECUTION'
+    | 'SERVERLESS_INSTANCE'
+    | 'USER_INVITE'
+    | 'LOGIN_SETTINGS'
+    | 'SSO_SETTINGS'
+    | 'DELEGATE'
+    | 'DELEGATE_SCOPE'
+    | 'DELEGATE_PROFILE'
+    | 'EXPORT_EXECUTIONS_REQUEST'
+    | 'GCP_CONFIG'
+    | 'GIT_CONFIG'
+    | 'JENKINS_SERVER'
+    | 'SECRETS_MANAGER'
+    | 'HELM_CHART'
+    | 'SECRET'
+    | 'CONNECTOR'
+    | 'CLOUD_PROVIDER'
+  gitCommitId?: string
+  gitConnectorId?: string
+  repositoryInfo?: GitRepositoryInfo
+  repositoryUrl?: string
+  yamlGitConfigId?: string
+}
+
+export interface GitFileActivity {
+  accountId?: string
+  appId?: string
+  branchName?: string
+  changeFromAnotherCommit?: boolean
+  changeType?: 'ADD' | 'RENAME' | 'MODIFY' | 'DELETE'
   commitId?: string
-  branch?: string
+  commitMessage?: string
+  connectorName?: string
+  createdAt?: number
+  errorMessage?: string
+  fileContent?: string
   filePath?: string
-  repoName?: string
+  gitConnectorId?: string
+  lastUpdatedAt?: number
+  processingCommitId?: string
+  processingCommitMessage?: string
+  repositoryInfo?: GitRepositoryInfo
+  repositoryName?: string
+  status?: 'SUCCESS' | 'FAILED' | 'DISCARDED' | 'EXPIRED' | 'SKIPPED' | 'QUEUED'
+  triggeredBy?: 'USER' | 'GIT' | 'FULL_SYNC'
+  userDoesNotHavePermForFile?: boolean
+  uuid?: string
+}
+
+export interface GitFileActivitySummary {
+  accountId?: string
+  appId?: string
+  branchName?: string
+  commitId?: string
+  commitMessage?: string
+  connectorName?: string
+  createdAt?: number
+  fileProcessingSummary?: GitFileProcessingSummary
+  gitConnectorId?: string
+  gitToHarness?: boolean
+  lastUpdatedAt?: number
+  repositoryInfo?: GitRepositoryInfo
+  repositoryName?: string
+  status?: 'QUEUED' | 'RUNNING' | 'COMPLETED' | 'FAILED' | 'COMPLETED_WITH_ERRORS' | 'SKIPPED'
+  uuid: string
+}
+
+export interface GitFileConfig {
+  branch?: string
+  commitId?: string
+  connectorId?: string
+  connectorName?: string
+  filePath?: string
   filePathList?: string[]
+  repoName?: string
   serviceSpecFilePath?: string
   taskSpecFilePath?: string
   useBranch?: boolean
   useInlineServiceDefinition?: boolean
+}
+
+export interface GitFileProcessingSummary {
+  failureCount?: number
+  queuedCount?: number
+  skippedCount?: number
+  successCount?: number
+  totalCount?: number
+}
+
+export interface GitProcessingError {
+  accountId?: string
+  branchName?: string
   connectorName?: string
+  createdAt?: number
+  gitConnectorId?: string
+  message?: string
+  repositoryInfo?: GitRepositoryInfo
+  repositoryName?: string
+}
+
+export interface GitRepositoryInfo {
+  displayUrl?: string
+  provider?: 'GITHUB' | 'BITBUCKET' | 'GITLAB' | 'UNKNOWN'
+  url?: string
+}
+
+export interface GitSyncConfig {
+  customCommitAttributes?: CustomCommitAttributes
+  enabled?: boolean
+  syncEnabled?: boolean
+}
+
+export interface GitSyncError {
+  accountId?: string
+  additionalErrorDetails?: GitSyncErrorDetails
+  appId: string
+  branchName?: string
+  changeType?: string
+  commitTime?: number
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  failureReason?: string
+  fullSyncPath?: boolean
+  gitCommitId?: string
+  gitConnectorId?: string
+  gitConnectorName?: string
+  gitSyncDirection?: string
+  lastAttemptedYaml?: string
+  lastUpdatedAt: number
+  nextIteration?: number
+  repositoryInfo?: GitRepositoryInfo
+  repositoryName?: string
+  status?: 'ACTIVE' | 'DISCARDED' | 'EXPIRED' | 'RESOLVED' | 'OVERRIDDEN'
+  userDoesNotHavePermForFile?: boolean
+  uuid: string
+  yamlContent?: string
+  yamlFilePath?: string
+  yamlGitConfigId?: string
+}
+
+export interface GitSyncErrorDetails {
+  [key: string]: any
+}
+
+export interface GitSyncWebhook {
+  accountId?: string
+  appId: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  entityId?: string
+  lastUpdatedAt: number
+  uuid: string
+  webhookToken?: string
+}
+
+export interface GitToHarnessErrorCommitStats {
+  branchName?: string
+  commitMessage?: string
+  commitTime?: number
+  errorsForSummaryView?: GitSyncError[]
+  failedCount?: number
+  gitCommitId?: string
+  gitConnectorId?: string
+  gitConnectorName?: string
+  repositoryInfo?: GitRepositoryInfo
+  repositoryName?: string
 }
 
 export type GoogleKubernetesEngine = InfraMappingInfrastructureProvider & {
   clusterName?: string
-  namespace?: string
-  releaseName?: string
   expressions?: {
     [key: string]: string
   }
+  namespace?: string
+  releaseName?: string
 }
 
-export interface HelmChart {
-  uuid?: string
-  version?: string
-  applicationManifestId?: string
-  name?: string
-  displayName?: string
+export interface GovernanceConfig {
   accountId?: string
-  appId?: string
-  serviceId?: string
-  createdAt?: number
-  lastUpdatedAt?: number
-  appVersion?: string
+  deploymentFreeze?: boolean
+  lastUpdatedBy?: EmbeddedUser
+  timeRangeBasedFreezeConfigs?: TimeRangeBasedFreezeConfig[]
+  uuid?: string
+  weeklyFreezeConfigs?: WeeklyFreezeConfig[]
+}
+
+export interface GovernanceRuleStatus {
+  matchType?: 'ANY' | 'ALL'
+  tags?: Tag[]
+  tagsIncluded?: boolean
+  tagsLocations?: Usage[]
+  weight?: number
+}
+
+export interface GovernanceStandard {
   description?: string
-  metadata?: {
-    [key: string]: string
+  id?: string
+  name?: string
+}
+
+export interface Graph {
+  graphName?: string
+  links?: GraphLink[]
+  nodes?: GraphNode[]
+  subworkflows?: {
+    [key: string]: Graph
   }
 }
 
+export interface GraphGroup {
+  delegateTaskId?: string
+  delegateTasksDetails?: DelegateTaskDetails[]
+  detailsReference?: string
+  elementStatusSummary?: ElementExecutionSummary[]
+  elements?: GraphNode[]
+  executionDetails?: { [key: string]: any }
+  executionHistoryCount?: number
+  executionStrategy?: 'SERIAL' | 'PARALLEL'
+  executionSummary?: { [key: string]: any }
+  group?: GraphGroup
+  hasInspection?: boolean
+  id?: string
+  importedTemplateDetails?: ImportedTemplateDetails
+  inValidFieldMessages?: {
+    [key: string]: string
+  }
+  instanceStatusSummary?: InstanceStatusSummary[]
+  interruptHistoryCount?: number
+  name?: string
+  next?: GraphNode
+  origin?: boolean
+  properties?: {
+    [key: string]: { [key: string]: any }
+  }
+  rollback?: boolean
+  selectionLogsTrackingForTaskEnabled?: boolean
+  selectionLogsTrackingForTasksEnabled?: boolean
+  status?: string
+  templateExpressions?: TemplateExpression[]
+  templateMetadata?: TemplateMetadata
+  templateUuid?: string
+  templateVariables?: Variable[]
+  templateVersion?: string
+  type?: string
+  valid?: boolean
+  validationMessage?: string
+  variableOverrides?: NameValuePair[]
+}
+
+export interface GraphLink {
+  from?: string
+  id?: string
+  to?: string
+  type?: string
+}
+
+export interface GraphNode {
+  delegateTaskId?: string
+  delegateTasksDetails?: DelegateTaskDetails[]
+  detailsReference?: string
+  elementStatusSummary?: ElementExecutionSummary[]
+  executionDetails?: { [key: string]: any }
+  executionHistoryCount?: number
+  executionSummary?: { [key: string]: any }
+  group?: GraphGroup
+  hasInspection?: boolean
+  id?: string
+  importedTemplateDetails?: ImportedTemplateDetails
+  inValidFieldMessages?: {
+    [key: string]: string
+  }
+  instanceStatusSummary?: InstanceStatusSummary[]
+  interruptHistoryCount?: number
+  name?: string
+  next?: GraphNode
+  origin?: boolean
+  properties?: {
+    [key: string]: { [key: string]: any }
+  }
+  rollback?: boolean
+  selectionLogsTrackingForTaskEnabled?: boolean
+  selectionLogsTrackingForTasksEnabled?: boolean
+  status?: string
+  templateExpressions?: TemplateExpression[]
+  templateMetadata?: TemplateMetadata
+  templateUuid?: string
+  templateVariables?: Variable[]
+  templateVersion?: string
+  type?: string
+  valid?: boolean
+  validationMessage?: string
+  variableOverrides?: NameValuePair[]
+}
+
+export interface GraphQLQuery {
+  operationName?: string
+  query?: string
+  variables?: {
+    [key: string]: { [key: string]: any }
+  }
+}
+
+export interface GroupIdentifier {
+  groupId?: string
+  groupName?: string
+}
+
+export type HarnessImportedTemplateDetails = ImportedTemplateDetails & {
+  commandName?: string
+  commandStoreName?: string
+  commandVersion?: string
+  repoUrl?: string
+  tags?: string[]
+}
+
+export interface HarnessTag {
+  accountId?: string
+  allowedValues?: string[]
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  inUseValues?: string[]
+  key?: string
+  lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
+  tagType?: 'USER' | 'HARNESS'
+  uuid?: string
+}
+
+export interface HarnessTagFilter {
+  conditions?: TagFilterCondition[]
+  matchAll?: boolean
+}
+
+export interface HarnessTagLink {
+  accountId?: string
+  appId?: string
+  appName?: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  entityId?: string
+  entityName?: string
+  entityType:
+    | 'SERVICE'
+    | 'PROVISIONER'
+    | 'ENVIRONMENT'
+    | 'HOST'
+    | 'RELEASE'
+    | 'ARTIFACT'
+    | 'SSH_USER'
+    | 'SSH_PASSWORD'
+    | 'SSH_APP_ACCOUNT'
+    | 'SSH_KEY_PASSPHRASE'
+    | 'SSH_APP_ACCOUNT_PASSOWRD'
+    | 'SIMPLE_DEPLOYMENT'
+    | 'ORCHESTRATED_DEPLOYMENT'
+    | 'PIPELINE'
+    | 'WORKFLOW'
+    | 'DEPLOYMENT'
+    | 'INSTANCE'
+    | 'APPLICATION'
+    | 'COMMAND'
+    | 'CONFIG'
+    | 'SERVICE_TEMPLATE'
+    | 'INFRASTRUCTURE_MAPPING'
+    | 'INFRASTRUCTURE_DEFINITION'
+    | 'USER'
+    | 'ARTIFACT_STREAM'
+    | 'APPDYNAMICS_CONFIGID'
+    | 'APPDYNAMICS_APPID'
+    | 'APPDYNAMICS_TIERID'
+    | 'ELK_CONFIGID'
+    | 'ELK_INDICES'
+    | 'NEWRELIC_CONFIGID'
+    | 'NEWRELIC_APPID'
+    | 'SS_SSH_CONNECTION_ATTRIBUTE'
+    | 'SS_WINRM_CONNECTION_ATTRIBUTE'
+    | 'SUMOLOGIC_CONFIGID'
+    | 'SPLUNK_CONFIGID'
+    | 'NEWRELIC_MARKER_CONFIGID'
+    | 'NEWRELIC_MARKER_APPID'
+    | 'API_KEY'
+    | 'ACCOUNT'
+    | 'APPLICATION_MANIFEST'
+    | 'USER_GROUP'
+    | 'WHITELISTED_IP'
+    | 'CF_AWS_CONFIG_ID'
+    | 'VERIFICATION_CONFIGURATION'
+    | 'HELM_GIT_CONFIG_ID'
+    | 'NOTIFICATION_GROUP'
+    | 'HELM_CHART_SPECIFICATION'
+    | 'PCF_SERVICE_SPECIFICATION'
+    | 'LAMBDA_SPECIFICATION'
+    | 'USER_DATA_SPECIFICATION'
+    | 'ECS_CONTAINER_SPECIFICATION'
+    | 'ECS_SERVICE_SPECIFICATION'
+    | 'K8S_CONTAINER_SPECIFICATION'
+    | 'CONFIG_FILE'
+    | 'SERVICE_COMMAND'
+    | 'MANIFEST_FILE'
+    | 'SERVICE_VARIABLE'
+    | 'TRIGGER'
+    | 'ROLE'
+    | 'TEMPLATE'
+    | 'TEMPLATE_FOLDER'
+    | 'SETTING_ATTRIBUTE'
+    | 'ENCRYPTED_RECORDS'
+    | 'CV_CONFIGURATION'
+    | 'TAG'
+    | 'CUSTOM_DASHBOARD'
+    | 'PIPELINE_GOVERNANCE_STANDARD'
+    | 'WORKFLOW_EXECUTION'
+    | 'SERVERLESS_INSTANCE'
+    | 'USER_INVITE'
+    | 'LOGIN_SETTINGS'
+    | 'SSO_SETTINGS'
+    | 'DELEGATE'
+    | 'DELEGATE_SCOPE'
+    | 'DELEGATE_PROFILE'
+    | 'EXPORT_EXECUTIONS_REQUEST'
+    | 'GCP_CONFIG'
+    | 'GIT_CONFIG'
+    | 'JENKINS_SERVER'
+    | 'SECRETS_MANAGER'
+    | 'HELM_CHART'
+    | 'SECRET'
+    | 'CONNECTOR'
+    | 'CLOUD_PROVIDER'
+  key?: string
+  lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
+  tagType?: 'USER' | 'HARNESS'
+  uuid?: string
+  value?: string
+}
+
+export interface HeatMap {
+  cvConfiguration?: CVConfiguration
+  observedTimeSeries?: {
+    [key: string]: {
+      [key: string]: TimeSeriesDataPoint[]
+    }
+  }
+  predictedTimeSeries?: {
+    [key: string]: {
+      [key: string]: TimeSeriesDataPoint[]
+    }
+  }
+  riskLevelSummary?: HeatMapUnit[]
+}
+
+export interface HeatMapUnit {
+  endTime?: number
+  highRisk?: number
+  keyTransactionScore?: number
+  keyTransactionScoreList?: number[]
+  lowRisk?: number
+  mediumRisk?: number
+  na?: number
+  overallScore?: number
+  scoreList?: number[]
+  startTime?: number
+}
+
+export interface HelmChart {
+  accountId?: string
+  appId?: string
+  appVersion?: string
+  applicationManifestId?: string
+  createdAt?: number
+  description?: string
+  displayName?: string
+  lastUpdatedAt?: number
+  metadata?: {
+    [key: string]: string
+  }
+  name?: string
+  serviceId?: string
+  uuid?: string
+  version?: string
+}
+
 export interface HelmChartConfig {
-  connectorId?: string
-  chartName?: string
-  chartVersion?: string
-  chartUrl?: string
-  connectorName?: string
   basePath?: string
+  chartName?: string
+  chartUrl?: string
+  chartVersion?: string
+  connectorId?: string
+  connectorName?: string
 }
 
 export interface HelmChartInfo {
   name?: string
-  version?: string
   repoUrl?: string
+  version?: string
+}
+
+export interface HelmChartSpecification {
+  accountId?: string
+  appId: string
+  chartName: string
+  chartUrl: string
+  chartVersion: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  lastUpdatedAt: number
+  serviceId?: string
+  uuid: string
 }
 
 export interface HelmExecutionSummary {
+  containerInfoList?: ContainerInfo[]
   helmChartInfo?: HelmChartInfo
   releaseName?: string
-  containerInfoList?: ContainerInfo[]
+}
+
+export interface HibernationOptions {
+  configured?: boolean
+}
+
+export interface Histogram {
+  bars?: Bar[]
+  count?: number
+  errorMessage?: string
+  intervalMs?: number
+  query?: string
+  splunkQuery?: string
 }
 
 export interface Host {
-  uuid: string
   appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  envId?: string
-  serviceTemplateId?: string
-  infraMappingId?: string
-  infraDefinitionId?: string
-  computeProviderId?: string
-  hostName?: string
-  publicDns?: string
-  hostConnAttr?: string
   bastionConnAttr?: string
-  winrmConnAttr?: string
+  computeProviderId?: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  ec2Instance?: Instance
+  envId?: string
+  hostConnAttr?: string
+  hostName?: string
+  infraDefinitionId?: string
+  infraMappingId?: string
+  lastUpdatedAt: number
   properties?: {
     [key: string]: { [key: string]: any }
   }
+  publicDns?: string
+  serviceTemplateId?: string
+  uuid: string
+  winrmConnAttr?: string
+}
+
+export interface HostElement {
+  azureVMInstance?: AzureVMInstanceData
   ec2Instance?: Instance
+  elementType?:
+    | 'SERVICE'
+    | 'INFRAMAPPING'
+    | 'SERVICE_TEMPLATE'
+    | 'TAG'
+    | 'SHELL'
+    | 'HOST'
+    | 'INSTANCE'
+    | 'STANDARD'
+    | 'PARAM'
+    | 'PARTITION'
+    | 'OTHER'
+    | 'FORK'
+    | 'CONTAINER_SERVICE'
+    | 'CLUSTER'
+    | 'AWS_LAMBDA_FUNCTION'
+    | 'AMI_SERVICE_SETUP'
+    | 'AMI_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_SETUP'
+    | 'AMI_SWITCH_ROUTES'
+    | 'PCF_SERVICE_SETUP'
+    | 'PCF_SERVICE_DEPLOY'
+    | 'PCF_ROUTE_SWAP_ROLLBACK'
+    | 'PCF_INSTANCE'
+    | 'SPOTINST_SERVICE_SETUP'
+    | 'SPOTINST_SERVICE_DEPLOY'
+    | 'ARTIFACT'
+    | 'ARTIFACT_VARIABLE'
+    | 'HELM_DEPLOY'
+    | 'CLOUD_FORMATION_PROVISION'
+    | 'CLOUD_FORMATION_ROLLBACK'
+    | 'CLOUD_FORMATION_DEPROVISION'
+    | 'TERRAFORM_PROVISION'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'K8S'
+    | 'TERRAFORM_INHERIT_PLAN'
+    | 'AZURE_VMSS_SETUP'
+    | 'HELM_CHART'
+    | 'MANIFEST_VARIABLE'
+  hostName?: string
+  instanceId?: string
+  ip?: string
+  name?: string
+  pcfElement?: PcfInstanceElement
+  properties?: {
+    [key: string]: { [key: string]: any }
+  }
+  publicDns?: string
+  uuid?: string
+}
+
+export interface HostInstanceKey {
+  hostName?: string
+  infraMappingId?: string
+}
+
+export interface HostValidationRequest {
+  appId?: string
+  computeProviderSettingId?: string
+  deploymentType?: string
+  envId?: string
+  executionCredential?: ExecutionCredential
+  hostConnectionAttrs?: string
+  hostNames?: string[]
+}
+
+export interface HostValidationResponse {
+  errorCode?: string
+  errorDescription?: string
+  hostName?: string
+  status?: string
+}
+
+export type HttpTemplate = BaseTemplate & {
+  assertion?: string
+  body?: string
+  executeWithPreviousSteps?: boolean
+  header?: string
+  method?: string
+  timeoutMillis?: number
+  url?: string
+}
+
+export interface IamInstanceProfile {
+  arn?: string
+  id?: string
+}
+
+export interface IdNameReference {
+  id?: string
+  name?: string
+}
+
+export interface ImmutablePair {
+  key?: { [key: string]: any }
+  left?: { [key: string]: any }
+  right?: { [key: string]: any }
+  value?: { [key: string]: any }
+}
+
+export interface ImmutablePairResourceTypeAction {
+  key?:
+    | 'APPLICATION'
+    | 'SERVICE'
+    | 'CONFIGURATION'
+    | 'CONFIGURATION_OVERRIDE'
+    | 'WORKFLOW'
+    | 'ENVIRONMENT'
+    | 'ROLE'
+    | 'DEPLOYMENT'
+    | 'ARTIFACT'
+    | 'CLOUD'
+    | 'USER'
+    | 'CD'
+    | 'PIPELINE'
+    | 'SETTING'
+    | 'LIMIT'
+    | 'APP_STACK'
+    | 'NOTIFICATION_GROUP'
+    | 'DELEGATE'
+    | 'DELEGATE_SCOPE'
+    | 'WHITE_LIST'
+    | 'SSO'
+    | 'API_KEY'
+    | 'PROVISIONER'
+    | 'PREFERENCE'
+    | 'TEMPLATE'
+    | 'CUSTOM_DASHBOARD'
+    | 'BUDGET'
+    | 'GCP_RESOURCE'
+    | 'CLUSTERRECORD'
+    | 'K8S_LABEL'
+    | 'K8S_EVENT_YAML_DIFF'
+    | 'K8S_RECOMMENDATION'
+    | 'CE_CLUSTER'
+    | 'CE_CONNECTOR'
+    | 'CE_BATCH'
+    | 'LINKED_ACCOUNT'
+  left?:
+    | 'APPLICATION'
+    | 'SERVICE'
+    | 'CONFIGURATION'
+    | 'CONFIGURATION_OVERRIDE'
+    | 'WORKFLOW'
+    | 'ENVIRONMENT'
+    | 'ROLE'
+    | 'DEPLOYMENT'
+    | 'ARTIFACT'
+    | 'CLOUD'
+    | 'USER'
+    | 'CD'
+    | 'PIPELINE'
+    | 'SETTING'
+    | 'LIMIT'
+    | 'APP_STACK'
+    | 'NOTIFICATION_GROUP'
+    | 'DELEGATE'
+    | 'DELEGATE_SCOPE'
+    | 'WHITE_LIST'
+    | 'SSO'
+    | 'API_KEY'
+    | 'PROVISIONER'
+    | 'PREFERENCE'
+    | 'TEMPLATE'
+    | 'CUSTOM_DASHBOARD'
+    | 'BUDGET'
+    | 'GCP_RESOURCE'
+    | 'CLUSTERRECORD'
+    | 'K8S_LABEL'
+    | 'K8S_EVENT_YAML_DIFF'
+    | 'K8S_RECOMMENDATION'
+    | 'CE_CLUSTER'
+    | 'CE_CONNECTOR'
+    | 'CE_BATCH'
+    | 'LINKED_ACCOUNT'
+  right?:
+    | 'ALL'
+    | 'CREATE'
+    | 'READ'
+    | 'UPDATE'
+    | 'DELETE'
+    | 'EXECUTE'
+    | 'EXECUTE_WORKFLOW'
+    | 'EXECUTE_PIPELINE'
+    | 'DEFAULT'
+  value?:
+    | 'ALL'
+    | 'CREATE'
+    | 'READ'
+    | 'UPDATE'
+    | 'DELETE'
+    | 'EXECUTE'
+    | 'EXECUTE_WORKFLOW'
+    | 'EXECUTE_PIPELINE'
+    | 'DEFAULT'
+}
+
+export interface ImportStatus {
+  collectionName?: string
+  idClashes?: number
+  imported?: number
+}
+
+export interface ImportStatusReport {
+  mode?: 'DRY_RUN' | 'UPSERT' | 'INSERT'
+  statuses?: ImportStatus[]
+}
+
+export interface ImportedCommand {
+  appId?: string
+  commandName?: string
+  commandStoreName?: string
+  createdAt?: string
+  createdBy?: string
+  description?: string
+  highestVersion?: string
+  importedCommandVersionList?: ImportedCommandVersion[]
+  name?: string
+  repoUrl?: string
+  tags?: string[]
+  templateId?: string
+}
+
+export interface ImportedCommandVersion {
+  commandDisplayName?: string
+  commandName?: string
+  commandStoreName?: string
+  createdAt?: string
+  createdBy?: string
+  description?: string
+  templateId?: string
+  templateObject?: BaseTemplate
+  variables?: Variable[]
+  version?: string
+  yamlContent?: string
+}
+
+export interface ImportedTemplateDetails {
+  [key: string]: any
+}
+
+export type ImportedTemplateMetadata = TemplateMetadata & {
+  defaultVersion?: number
+}
+
+export interface InfraDefinitionDetail {
+  countDerivedInfraMappings?: number
+  derivedInfraMappingDetailList?: InfraMappingDetail[]
+  infrastructureDefinition?: InfrastructureDefinition
+}
+
+export interface InfraDefinitionSummary {
+  cloudProviderName?: string
+  cloudProviderType?: 'PHYSICAL_DATA_CENTER' | 'AWS' | 'AZURE' | 'GCP' | 'KUBERNETES_CLUSTER' | 'PCF' | 'CUSTOM'
+  deploymentType?:
+    | 'SSH'
+    | 'AWS_CODEDEPLOY'
+    | 'ECS'
+    | 'SPOTINST'
+    | 'KUBERNETES'
+    | 'HELM'
+    | 'AWS_LAMBDA'
+    | 'AMI'
+    | 'WINRM'
+    | 'PCF'
+    | 'AZURE_VMSS'
+    | 'AZURE_WEBAPP'
+    | 'CUSTOM'
+  displayName?: string
+  infraDefinitionId?: string
+}
+
+export interface InfraMappingDetail {
+  infrastructureMapping?: InfrastructureMapping
+  workflowExecutionList?: WorkflowExecution[]
 }
 
 export interface InfraMappingInfrastructureProvider {
   cloudProviderId?: string
 }
 
+export interface InfraMappingSummary {
+  computeProviderName?: string
+  computeProviderType?: string
+  deploymentType?: string
+  displayName?: string
+  infraMappingId?: string
+  infraMappingType?: string
+}
+
 export interface InfrastructureDefinition {
-  uuid?: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  name?: string
-  lastUpdatedBy?: EmbeddedUser
-  lastUpdatedAt: number
+  accountId?: string
   appId: string
-  provisionerId?: string
   cloudProviderType: 'PHYSICAL_DATA_CENTER' | 'AWS' | 'AZURE' | 'GCP' | 'KUBERNETES_CLUSTER' | 'PCF' | 'CUSTOM'
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  customDeploymentName?: string
   deploymentType:
     | 'SSH'
     | 'AWS_CODEDEPLOY'
@@ -3662,40 +7207,43 @@ export interface InfrastructureDefinition {
     | 'AZURE_VMSS'
     | 'AZURE_WEBAPP'
     | 'CUSTOM'
-  infrastructure: InfraMappingInfrastructureProvider
-  scopedToServices?: string[]
-  envId: string
-  sample?: boolean
-  accountId?: string
   deploymentTypeTemplateId?: string
-  customDeploymentName?: string
+  envId: string
+  infrastructure: InfraMappingInfrastructureProvider
+  lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
+  name?: string
+  provisionerId?: string
+  sample?: boolean
+  scopedToServices?: string[]
+  uuid?: string
 }
 
 export interface InfrastructureMapping {
   accountId?: string
-  infraMappingType?: string
-  computeProviderType?: string
-  computeProviderSettingId?: string
-  envId?: string
-  deploymentType?: string
-  uuid: string
   appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  serviceTemplateId?: string
-  serviceId?: string
-  computeProviderName?: string
-  name?: string
-  displayName?: string
   autoPopulate?: boolean
-  provisionerId?: string
   blueprints?: {
     [key: string]: { [key: string]: any }
   }
-  infrastructureDefinitionId?: string
-  sample?: boolean
+  computeProviderName?: string
+  computeProviderSettingId?: string
+  computeProviderType?: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
   customDeploymentTemplateId?: string
+  deploymentType?: string
+  displayName?: string
+  envId?: string
+  hostConnectionAttrs?: string
+  infraMappingType?: string
+  infrastructureDefinitionId?: string
+  lastUpdatedAt: number
+  name?: string
+  provisionerId?: string
+  sample?: boolean
+  serviceId?: string
+  serviceTemplateId?: string
   settingType?:
     | 'HOST_CONNECTION_ATTRIBUTES'
     | 'BASTION_HOST_CONNECTION_ATTRIBUTES'
@@ -3766,12 +7314,364 @@ export interface InfrastructureMapping {
     | 'AZURE_VAULT'
     | 'KUBERNETES_CLUSTER_NG'
     | 'GIT_NG'
-  hostConnectionAttrs?: string
+  uuid: string
+}
+
+export interface InfrastructureMappingBlueprint {
+  cloudProviderType: 'AWS' | 'GCP' | 'PHYSICAL_DATA_CENTER'
+  deploymentType:
+    | 'SSH'
+    | 'AWS_CODEDEPLOY'
+    | 'ECS'
+    | 'SPOTINST'
+    | 'KUBERNETES'
+    | 'HELM'
+    | 'AWS_LAMBDA'
+    | 'AMI'
+    | 'WINRM'
+    | 'PCF'
+    | 'AZURE_VMSS'
+    | 'AZURE_WEBAPP'
+    | 'CUSTOM'
+  nodeFilteringType?:
+    | 'AWS_INSTANCE_FILTER'
+    | 'AWS_AUTOSCALING_GROUP'
+    | 'AWS_ECS_EC2'
+    | 'AWS_ECS_FARGATE'
+    | 'AWS_ASG_AMI'
+  properties: BlueprintProperty[]
+  serviceId?: string
+}
+
+export interface InfrastructureProvisioner {
+  accountId?: string
+  appId: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  description?: string
+  infrastructureProvisionerType?: string
+  lastUpdatedAt: number
+  mappingBlueprints?: InfrastructureMappingBlueprint[]
+  name?: string
+  tagLinks?: HarnessTagLink[]
+  uuid: string
+  variables?: NameValuePair[]
+}
+
+export interface InfrastructureProvisionerDetails {
+  cloudFormationSourceType?: string
+  description?: string
+  infrastructureProvisionerType?: string
+  name?: string
+  repository?: string
+  services?: {
+    [key: string]: string
+  }
+  tagLinks?: HarnessTagLink[]
+  uuid?: string
+}
+
+export interface InitializationResponse {
+  delegateId?: string
+  hostname?: string
+  initialized?: boolean
+  profileError?: boolean
+  profileExecutedAt?: string
+}
+
+export interface InstanaApplicationParams {
+  hostTagFilter?: string
+  tagFilters?: InstanaTagFilter[]
+}
+
+export interface InstanaInfraParams {
+  metrics?: string[]
+  query?: string
+}
+
+export interface InstanaSetupTestNodeData {
+  appId: string
+  applicationParams?: InstanaApplicationParams
+  fromTime?: number
+  guid?: string
+  hostExpression?: string
+  infraParams?: InstanaInfraParams
+  instanceElement?: Instance
+  instanceName?: string
+  isServiceLevel?: boolean
+  serviceLevel?: boolean
+  settingId: string
+  stateType?:
+    | 'SUB_WORKFLOW'
+    | 'REPEAT'
+    | 'FORK'
+    | 'WAIT'
+    | 'PAUSE'
+    | 'BARRIER'
+    | 'RESOURCE_CONSTRAINT'
+    | 'SHELL_SCRIPT'
+    | 'HTTP'
+    | 'TEMPLATIZED_SECRET_MANAGER'
+    | 'EMAIL'
+    | 'APP_DYNAMICS'
+    | 'NEW_RELIC'
+    | 'NEW_RELIC_DEPLOYMENT_MARKER'
+    | 'DYNA_TRACE'
+    | 'PROMETHEUS'
+    | 'SPLUNKV2'
+    | 'ELK'
+    | 'LOGZ'
+    | 'SUMO'
+    | 'DATA_DOG'
+    | 'DATA_DOG_LOG'
+    | 'CLOUD_WATCH'
+    | 'AWS_LAMBDA_VERIFICATION'
+    | 'APM_VERIFICATION'
+    | 'LOG_VERIFICATION'
+    | 'BUG_SNAG'
+    | 'STACK_DRIVER'
+    | 'STACK_DRIVER_LOG'
+    | 'INSTANA'
+    | 'SCALYR'
+    | 'ENV_STATE'
+    | 'ENV_LOOP_STATE'
+    | 'ENV_RESUME_STATE'
+    | 'ENV_LOOP_RESUME_STATE'
+    | 'COMMAND'
+    | 'APPROVAL'
+    | 'APPROVAL_RESUME'
+    | 'ELASTIC_LOAD_BALANCER'
+    | 'JENKINS'
+    | 'GCB'
+    | 'BAMBOO'
+    | 'ARTIFACT_COLLECTION'
+    | 'ARTIFACT_CHECK'
+    | 'AZURE_NODE_SELECT'
+    | 'AZURE_VMSS_SETUP'
+    | 'AZURE_VMSS_DEPLOY'
+    | 'AZURE_VMSS_ROLLBACK'
+    | 'AZURE_VMSS_SWITCH_ROUTES'
+    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
+    | 'AZURE_WEBAPP_SLOT_SETUP'
+    | 'AZURE_WEBAPP_SLOT_RESIZE'
+    | 'AZURE_WEBAPP_SLOT_SWAP'
+    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
+    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
+    | 'AWS_NODE_SELECT'
+    | 'DC_NODE_SELECT'
+    | 'ROLLING_NODE_SELECT'
+    | 'PHASE'
+    | 'PHASE_STEP'
+    | 'STAGING_ORIGINAL_EXECUTION'
+    | 'AWS_CODEDEPLOY_STATE'
+    | 'AWS_CODEDEPLOY_ROLLBACK'
+    | 'AWS_LAMBDA_STATE'
+    | 'AWS_LAMBDA_ROLLBACK'
+    | 'AWS_AMI_SERVICE_SETUP'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
+    | 'AWS_AMI_SERVICE_DEPLOY'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
+    | 'AWS_AMI_SWITCH_ROUTES'
+    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
+    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_SERVICE_ROLLBACK'
+    | 'ECS_SERVICE_SETUP'
+    | 'SPOTINST_SETUP'
+    | 'SPOTINST_ALB_SHIFT_SETUP'
+    | 'SPOTINST_DEPLOY'
+    | 'SPOTINST_ALB_SHIFT_DEPLOY'
+    | 'SPOTINST_LISTENER_UPDATE'
+    | 'SPOTINST_LISTENER_ALB_SHIFT'
+    | 'SPOTINST_ROLLBACK'
+    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
+    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
+    | 'ECS_SERVICE_SETUP_ROLLBACK'
+    | 'ECS_DAEMON_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
+    | 'ECS_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_ROLLBACK'
+    | 'ECS_LISTENER_UPDATE'
+    | 'ECS_LISTENER_UPDATE_ROLLBACK'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
+    | 'KUBERNETES_SETUP'
+    | 'KUBERNETES_SETUP_ROLLBACK'
+    | 'KUBERNETES_DEPLOY'
+    | 'KUBERNETES_DEPLOY_ROLLBACK'
+    | 'KUBERNETES_STEADY_STATE_CHECK'
+    | 'ECS_STEADY_STATE_CHECK'
+    | 'ECS_RUN_TASK'
+    | 'GCP_CLUSTER_SETUP'
+    | 'HELM_DEPLOY'
+    | 'HELM_ROLLBACK'
+    | 'PCF_SETUP'
+    | 'PCF_RESIZE'
+    | 'PCF_ROLLBACK'
+    | 'PCF_MAP_ROUTE'
+    | 'PCF_UNMAP_ROUTE'
+    | 'PCF_BG_MAP_ROUTE'
+    | 'PCF_PLUGIN'
+    | 'TERRAFORM_PROVISION'
+    | 'TERRAFORM_APPLY'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'TERRAFORM_DESTROY'
+    | 'CLOUD_FORMATION_CREATE_STACK'
+    | 'CLOUD_FORMATION_DELETE_STACK'
+    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'CLOUD_FORMATION_ROLLBACK_STACK'
+    | 'TERRAFORM_ROLLBACK'
+    | 'K8S_DEPLOYMENT_ROLLING'
+    | 'K8S_SCALE'
+    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
+    | 'K8S_BLUE_GREEN_DEPLOY'
+    | 'K8S_CANARY_DEPLOY'
+    | 'K8S_DELETE'
+    | 'JIRA_CREATE_UPDATE'
+    | 'SERVICENOW_CREATE_UPDATE'
+    | 'K8S_TRAFFIC_SPLIT'
+    | 'K8S_APPLY'
+    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
+  tagFilters?: InstanaTagFilter[]
+  toTime?: number
+  workflowId?: string
+}
+
+export interface InstanaTagFilter {
+  name?: string
+  operator?: 'EQUALS' | 'CONTAINS' | 'NOT_EQUAL' | 'NOT_CONTAIN' | 'NOT_EMPTY' | 'IS_EMPTY'
+  value?: string
+}
+
+export interface Instance {
+  amiLaunchIndex?: number
+  architecture?: string
+  blockDeviceMappings?: InstanceBlockDeviceMapping[]
+  capacityReservationId?: string
+  capacityReservationSpecification?: CapacityReservationSpecificationResponse
+  clientToken?: string
+  cpuOptions?: CpuOptions
+  ebsOptimized?: boolean
+  elasticGpuAssociations?: ElasticGpuAssociation[]
+  elasticInferenceAcceleratorAssociations?: ElasticInferenceAcceleratorAssociation[]
+  enaSupport?: boolean
+  hibernationOptions?: HibernationOptions
+  hypervisor?: string
+  iamInstanceProfile?: IamInstanceProfile
+  imageId?: string
+  instanceId?: string
+  instanceLifecycle?: string
+  instanceType?: string
+  kernelId?: string
+  keyName?: string
+  launchTime?: string
+  licenses?: LicenseConfiguration[]
+  metadataOptions?: InstanceMetadataOptionsResponse
+  monitoring?: Monitoring
+  networkInterfaces?: InstanceNetworkInterface[]
+  outpostArn?: string
+  placement?: Placement
+  platform?: string
+  privateDnsName?: string
+  privateIpAddress?: string
+  productCodes?: ProductCode[]
+  publicDnsName?: string
+  publicIpAddress?: string
+  ramdiskId?: string
+  rootDeviceName?: string
+  rootDeviceType?: string
+  securityGroups?: GroupIdentifier[]
+  sourceDestCheck?: boolean
+  spotInstanceRequestId?: string
+  sriovNetSupport?: string
+  state?: InstanceState
+  stateReason?: StateReason
+  stateTransitionReason?: string
+  subnetId?: string
+  tags?: Tag[]
+  virtualizationType?: string
+  vpcId?: string
+}
+
+export interface InstanceBlockDeviceMapping {
+  deviceName?: string
+  ebs?: EbsInstanceBlockDevice
+}
+
+export interface InstanceDetails {
+  aws?: Aws
+  azureVmss?: AzureVmss
+  hostName?: string
+  instanceType?: 'PCF' | 'AWS' | 'K8s' | 'PHYSICAL_HOST' | 'AZURE_VMSS'
+  k8s?: K8s
+  newInstance?: boolean
+  pcf?: Pcf
+  physicalHost?: PhysicalHost
+  properties?: {
+    [key: string]: { [key: string]: any }
+  }
+  serviceId?: string
+  serviceName?: string
+  serviceTemplateId?: string
+  serviceTemplateName?: string
+  workloadName?: string
+}
+
+export interface InstanceElement {
+  displayName?: string
+  dockerId?: string
+  ecsContainerDetails?: EcsContainerDetails
+  elementType?:
+    | 'SERVICE'
+    | 'INFRAMAPPING'
+    | 'SERVICE_TEMPLATE'
+    | 'TAG'
+    | 'SHELL'
+    | 'HOST'
+    | 'INSTANCE'
+    | 'STANDARD'
+    | 'PARAM'
+    | 'PARTITION'
+    | 'OTHER'
+    | 'FORK'
+    | 'CONTAINER_SERVICE'
+    | 'CLUSTER'
+    | 'AWS_LAMBDA_FUNCTION'
+    | 'AMI_SERVICE_SETUP'
+    | 'AMI_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_SETUP'
+    | 'AMI_SWITCH_ROUTES'
+    | 'PCF_SERVICE_SETUP'
+    | 'PCF_SERVICE_DEPLOY'
+    | 'PCF_ROUTE_SWAP_ROLLBACK'
+    | 'PCF_INSTANCE'
+    | 'SPOTINST_SERVICE_SETUP'
+    | 'SPOTINST_SERVICE_DEPLOY'
+    | 'ARTIFACT'
+    | 'ARTIFACT_VARIABLE'
+    | 'HELM_DEPLOY'
+    | 'CLOUD_FORMATION_PROVISION'
+    | 'CLOUD_FORMATION_ROLLBACK'
+    | 'CLOUD_FORMATION_DEPROVISION'
+    | 'TERRAFORM_PROVISION'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'K8S'
+    | 'TERRAFORM_INHERIT_PLAN'
+    | 'AZURE_VMSS_SETUP'
+    | 'HELM_CHART'
+    | 'MANIFEST_VARIABLE'
+  host?: HostElement
+  hostName?: string
+  name?: string
+  newInstance?: boolean
+  podName?: string
+  serviceTemplateElement?: ServiceTemplateElement
+  uuid?: string
+  workloadName?: string
 }
 
 export interface InstanceExecutionHistory {
-  intanceCount?: number
-  stateName?: string
   errorCode?:
     | 'DEFAULT_ERROR_CODE'
     | 'INVALID_ARGUMENT'
@@ -4017,732 +7917,9 @@ export interface InstanceExecutionHistory {
     | 'MARK_EXPIRED'
     | 'CONTINUE_WITH_DEFAULTS'
     | 'CONTINUE_PIPELINE_STAGE'
-  status?:
-    | 'ABORTED'
-    | 'DISCONTINUING'
-    | 'ERROR'
-    | 'FAILED'
-    | 'NEW'
-    | 'PAUSED'
-    | 'PAUSING'
-    | 'QUEUED'
-    | 'RESUMED'
-    | 'RUNNING'
-    | 'SCHEDULED'
-    | 'STARTING'
-    | 'SUCCESS'
-    | 'WAITING'
-    | 'SKIPPED'
-    | 'ABORTING'
-    | 'REJECTED'
-    | 'EXPIRED'
-    | 'PREPARING'
+  intanceCount?: number
   message?: string
-}
-
-export interface KustomizeConfig {
-  pluginRootDir?: string
-  kustomizeDirPath?: string
-}
-
-export interface LastDeployedArtifactInformation {
-  artifact?: Artifact
-  executionStartTime?: number
-  envId?: string
-  executionId?: string
-  executionEntityId?: string
-  executionEntityType?: 'PIPELINE' | 'ORCHESTRATION'
-  executionEntityName?: string
-}
-
-export interface LastDeployedHelmChartInformation {
-  helmchart?: HelmChart
-  executionStartTime?: number
-  envId?: string
-  executionId?: string
-  executionEntityId?: string
-  executionEntityType?: 'PIPELINE' | 'ORCHESTRATION'
-  executionEntityName?: string
-}
-
-export interface ManifestFile {
-  fileName?: string
-  fileContent?: string
-  applicationManifestId?: string
-  accountId?: string
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-}
-
-export interface ManifestSummary {
-  uuid?: string
-  versionNo?: string
-  name?: string
-  source?: string
-}
-
-export interface ManifestVariable {
-  workflowIds?: string[]
-  serviceId?: string
-  serviceName?: string
-  applicationManifestSummary?: ApplicationManifestSummary
-  lastDeployedHelmChartInfo?: LastDeployedHelmChartInformation
-  name?: string
-  description?: string
-  mandatory?: boolean
-  runtimeInput?: boolean
-  value?: string
-  fixed?: boolean
-  allowedValues?: string
-  allowedList?: string[]
-  allowMultipleValues?: boolean
-  artifactStreamSummaries?: ArtifactStreamSummary[]
-  metadata?: {
-    [key: string]: { [key: string]: any }
-  }
-  type?: 'TEXT' | 'NUMBER' | 'EMAIL' | 'ENTITY' | 'ARTIFACT' | 'MANIFEST'
-}
-
-export type MultiServiceOrchestrationWorkflow = OrchestrationWorkflow & {
-  graph?: Graph
-  preDeploymentSteps?: PhaseStep
-  rollbackProvisioners?: PhaseStep
-  rollbackWorkflowPhaseIdMap?: {
-    [key: string]: WorkflowPhase
-  }
-  workflowPhases?: WorkflowPhase[]
-  postDeploymentSteps?: PhaseStep
-  failureStrategies?: FailureStrategy[]
-  systemVariables?: Variable[]
-  derivedVariables?: Variable[]
-}
-
-export interface Notification {
-  environmentId?: string
-  entityId?: string
-  entityType?:
-    | 'SERVICE'
-    | 'PROVISIONER'
-    | 'ENVIRONMENT'
-    | 'HOST'
-    | 'RELEASE'
-    | 'ARTIFACT'
-    | 'SSH_USER'
-    | 'SSH_PASSWORD'
-    | 'SSH_APP_ACCOUNT'
-    | 'SSH_KEY_PASSPHRASE'
-    | 'SSH_APP_ACCOUNT_PASSOWRD'
-    | 'SIMPLE_DEPLOYMENT'
-    | 'ORCHESTRATED_DEPLOYMENT'
-    | 'PIPELINE'
-    | 'WORKFLOW'
-    | 'DEPLOYMENT'
-    | 'INSTANCE'
-    | 'APPLICATION'
-    | 'COMMAND'
-    | 'CONFIG'
-    | 'SERVICE_TEMPLATE'
-    | 'INFRASTRUCTURE_MAPPING'
-    | 'INFRASTRUCTURE_DEFINITION'
-    | 'USER'
-    | 'ARTIFACT_STREAM'
-    | 'APPDYNAMICS_CONFIGID'
-    | 'APPDYNAMICS_APPID'
-    | 'APPDYNAMICS_TIERID'
-    | 'ELK_CONFIGID'
-    | 'ELK_INDICES'
-    | 'NEWRELIC_CONFIGID'
-    | 'NEWRELIC_APPID'
-    | 'SS_SSH_CONNECTION_ATTRIBUTE'
-    | 'SS_WINRM_CONNECTION_ATTRIBUTE'
-    | 'SUMOLOGIC_CONFIGID'
-    | 'SPLUNK_CONFIGID'
-    | 'NEWRELIC_MARKER_CONFIGID'
-    | 'NEWRELIC_MARKER_APPID'
-    | 'API_KEY'
-    | 'ACCOUNT'
-    | 'APPLICATION_MANIFEST'
-    | 'USER_GROUP'
-    | 'WHITELISTED_IP'
-    | 'CF_AWS_CONFIG_ID'
-    | 'VERIFICATION_CONFIGURATION'
-    | 'HELM_GIT_CONFIG_ID'
-    | 'NOTIFICATION_GROUP'
-    | 'HELM_CHART_SPECIFICATION'
-    | 'PCF_SERVICE_SPECIFICATION'
-    | 'LAMBDA_SPECIFICATION'
-    | 'USER_DATA_SPECIFICATION'
-    | 'ECS_CONTAINER_SPECIFICATION'
-    | 'ECS_SERVICE_SPECIFICATION'
-    | 'K8S_CONTAINER_SPECIFICATION'
-    | 'CONFIG_FILE'
-    | 'SERVICE_COMMAND'
-    | 'MANIFEST_FILE'
-    | 'SERVICE_VARIABLE'
-    | 'TRIGGER'
-    | 'ROLE'
-    | 'TEMPLATE'
-    | 'TEMPLATE_FOLDER'
-    | 'SETTING_ATTRIBUTE'
-    | 'ENCRYPTED_RECORDS'
-    | 'CV_CONFIGURATION'
-    | 'TAG'
-    | 'CUSTOM_DASHBOARD'
-    | 'PIPELINE_GOVERNANCE_STANDARD'
-    | 'WORKFLOW_EXECUTION'
-    | 'SERVERLESS_INSTANCE'
-    | 'USER_INVITE'
-    | 'LOGIN_SETTINGS'
-    | 'SSO_SETTINGS'
-    | 'DELEGATE'
-    | 'DELEGATE_SCOPE'
-    | 'DELEGATE_PROFILE'
-    | 'EXPORT_EXECUTIONS_REQUEST'
-    | 'GCP_CONFIG'
-    | 'GIT_CONFIG'
-    | 'JENKINS_SERVER'
-    | 'SECRETS_MANAGER'
-    | 'HELM_CHART'
-    | 'SECRET'
-    | 'CONNECTOR'
-    | 'CLOUD_PROVIDER'
-  accountId?: string
-  eventType?:
-    | 'USER_INVITED_FROM_EXISTING_ACCOUNT'
-    | 'COMPLETE_USER_REGISTRATION'
-    | 'FIRST_DELEGATE_REGISTERED'
-    | 'FIRST_WORKFLOW_CREATED'
-    | 'FIRST_DEPLOYMENT_EXECUTED'
-    | 'FIRST_VERIFIED_DEPLOYMENT'
-    | 'FIRST_ROLLED_BACK_DEPLOYMENT'
-    | 'SETUP_CV_24X7'
-    | 'SETUP_2FA'
-    | 'SETUP_SSO'
-    | 'SETUP_IP_WHITELISTING'
-    | 'SETUP_RBAC'
-    | 'TRIAL_TO_PAID'
-    | 'TRIAL_TO_COMMUNITY'
-    | 'COMMUNITY_TO_PAID'
-    | 'COMMUNITY_TO_ESSENTIALS'
-    | 'ESSENTIALS_TO_PAID'
-    | 'PAID_TO_ESSENTIALS'
-    | 'TRIAL_TO_ESSENTIALS'
-    | 'CV_META_DATA'
-    | 'OPEN_ALERT'
-    | 'CLOSE_ALERT'
-    | 'NEW_TRIAL_SIGNUP'
-    | 'LICENSE_UPDATE'
-    | 'DEPLOYMENT_VERIFIED'
-    | 'JOIN_ACCOUNT_REQUEST'
-    | 'SERVICE_GUARD_SETUP'
-    | 'DEPLOYMENT_EVENT'
-    | 'INSTANCE_EVENT'
-    | 'CUSTOM'
-    | 'TECH_STACK'
-    | 'ACCOUNT_ENTITY_CHANGE'
-    | 'BLACKOUT_WINDOW_UPDATED'
-    | 'SECRET_MANAGER_TYPE'
-    | 'USER_INVITE_ACCEPTED_FOR_TRIAL_ACCOUNT'
-  notificationType: 'APPROVAL' | 'CHANGE' | 'FAILURE' | 'INFORMATION'
-  complete: boolean
-  actionable: boolean
-  notificationTemplateId?: string
-  notificationTemplateVariables?: {
-    [key: string]: string
-  }
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-}
-
-export interface NotificationGroup {
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  accountId?: string
-  name: string
-  editable?: boolean
-  roles?: Role[]
-  defaultNotificationGroupForAccount?: boolean
-  addressesByChannelType: {
-    [key: string]: string[]
-  }
-}
-
-export interface NotificationRule {
-  uuid?: string
-  conditions?: (
-    | 'ABORTED'
-    | 'DISCONTINUING'
-    | 'ERROR'
-    | 'FAILED'
-    | 'NEW'
-    | 'PAUSED'
-    | 'PAUSING'
-    | 'QUEUED'
-    | 'RESUMED'
-    | 'RUNNING'
-    | 'SCHEDULED'
-    | 'STARTING'
-    | 'SUCCESS'
-    | 'WAITING'
-    | 'SKIPPED'
-    | 'ABORTING'
-    | 'REJECTED'
-    | 'EXPIRED'
-    | 'PREPARING'
-  )[]
-  executionScope?: 'WORKFLOW' | 'WORKFLOW_PHASE'
-  notificationGroupAsExpression?: boolean
-  userGroupAsExpression?: boolean
-  notificationGroups: NotificationGroup[]
-  userGroupIds: string[]
-  userGroupExpression: string
-  batchNotifications?: boolean
-  active?: boolean
-}
-
-export interface OrchestrationWorkflow {
-  concurrencyStrategy?: ConcurrencyStrategy
-  orchestrationWorkflowType?: 'BUILD' | 'BASIC' | 'CANARY' | 'MULTI_SERVICE' | 'BLUE_GREEN' | 'ROLLING' | 'CUSTOM'
-  valid?: boolean
-  validationMessage?: string
-  linkedTemplateUuids?: string[]
-  serviceIds?: string[]
-  requiredEntityTypes?: (
-    | 'SERVICE'
-    | 'PROVISIONER'
-    | 'ENVIRONMENT'
-    | 'HOST'
-    | 'RELEASE'
-    | 'ARTIFACT'
-    | 'SSH_USER'
-    | 'SSH_PASSWORD'
-    | 'SSH_APP_ACCOUNT'
-    | 'SSH_KEY_PASSPHRASE'
-    | 'SSH_APP_ACCOUNT_PASSOWRD'
-    | 'SIMPLE_DEPLOYMENT'
-    | 'ORCHESTRATED_DEPLOYMENT'
-    | 'PIPELINE'
-    | 'WORKFLOW'
-    | 'DEPLOYMENT'
-    | 'INSTANCE'
-    | 'APPLICATION'
-    | 'COMMAND'
-    | 'CONFIG'
-    | 'SERVICE_TEMPLATE'
-    | 'INFRASTRUCTURE_MAPPING'
-    | 'INFRASTRUCTURE_DEFINITION'
-    | 'USER'
-    | 'ARTIFACT_STREAM'
-    | 'APPDYNAMICS_CONFIGID'
-    | 'APPDYNAMICS_APPID'
-    | 'APPDYNAMICS_TIERID'
-    | 'ELK_CONFIGID'
-    | 'ELK_INDICES'
-    | 'NEWRELIC_CONFIGID'
-    | 'NEWRELIC_APPID'
-    | 'SS_SSH_CONNECTION_ATTRIBUTE'
-    | 'SS_WINRM_CONNECTION_ATTRIBUTE'
-    | 'SUMOLOGIC_CONFIGID'
-    | 'SPLUNK_CONFIGID'
-    | 'NEWRELIC_MARKER_CONFIGID'
-    | 'NEWRELIC_MARKER_APPID'
-    | 'API_KEY'
-    | 'ACCOUNT'
-    | 'APPLICATION_MANIFEST'
-    | 'USER_GROUP'
-    | 'WHITELISTED_IP'
-    | 'CF_AWS_CONFIG_ID'
-    | 'VERIFICATION_CONFIGURATION'
-    | 'HELM_GIT_CONFIG_ID'
-    | 'NOTIFICATION_GROUP'
-    | 'HELM_CHART_SPECIFICATION'
-    | 'PCF_SERVICE_SPECIFICATION'
-    | 'LAMBDA_SPECIFICATION'
-    | 'USER_DATA_SPECIFICATION'
-    | 'ECS_CONTAINER_SPECIFICATION'
-    | 'ECS_SERVICE_SPECIFICATION'
-    | 'K8S_CONTAINER_SPECIFICATION'
-    | 'CONFIG_FILE'
-    | 'SERVICE_COMMAND'
-    | 'MANIFEST_FILE'
-    | 'SERVICE_VARIABLE'
-    | 'TRIGGER'
-    | 'ROLE'
-    | 'TEMPLATE'
-    | 'TEMPLATE_FOLDER'
-    | 'SETTING_ATTRIBUTE'
-    | 'ENCRYPTED_RECORDS'
-    | 'CV_CONFIGURATION'
-    | 'TAG'
-    | 'CUSTOM_DASHBOARD'
-    | 'PIPELINE_GOVERNANCE_STANDARD'
-    | 'WORKFLOW_EXECUTION'
-    | 'SERVERLESS_INSTANCE'
-    | 'USER_INVITE'
-    | 'LOGIN_SETTINGS'
-    | 'SSO_SETTINGS'
-    | 'DELEGATE'
-    | 'DELEGATE_SCOPE'
-    | 'DELEGATE_PROFILE'
-    | 'EXPORT_EXECUTIONS_REQUEST'
-    | 'GCP_CONFIG'
-    | 'GIT_CONFIG'
-    | 'JENKINS_SERVER'
-    | 'SECRETS_MANAGER'
-    | 'HELM_CHART'
-    | 'SECRET'
-    | 'CONNECTOR'
-    | 'CLOUD_PROVIDER'
-  )[]
-  userVariables?: Variable[]
-  infraMappingIds?: string[]
-  infraDefinitionIds?: string[]
-  notificationRules?: NotificationRule[]
-}
-
-export interface ParallelInfo {
-  groupIndex?: number
-}
-
-export type PcfInfraStructure = InfraMappingInfrastructureProvider & {
-  organization?: string
-  space?: string
-  tempRouteMap?: string[]
-  routeMaps?: string[]
-}
-
-export interface Permission {
-  resourceType?:
-    | 'APPLICATION'
-    | 'SERVICE'
-    | 'CONFIGURATION'
-    | 'CONFIGURATION_OVERRIDE'
-    | 'WORKFLOW'
-    | 'ENVIRONMENT'
-    | 'ROLE'
-    | 'DEPLOYMENT'
-    | 'ARTIFACT'
-    | 'CLOUD'
-    | 'USER'
-    | 'CD'
-    | 'PIPELINE'
-    | 'SETTING'
-    | 'LIMIT'
-    | 'APP_STACK'
-    | 'NOTIFICATION_GROUP'
-    | 'DELEGATE'
-    | 'DELEGATE_SCOPE'
-    | 'WHITE_LIST'
-    | 'SSO'
-    | 'API_KEY'
-    | 'PROVISIONER'
-    | 'PREFERENCE'
-    | 'TEMPLATE'
-    | 'CUSTOM_DASHBOARD'
-    | 'BUDGET'
-    | 'GCP_RESOURCE'
-    | 'CLUSTERRECORD'
-    | 'K8S_LABEL'
-    | 'K8S_EVENT_YAML_DIFF'
-    | 'K8S_RECOMMENDATION'
-    | 'CE_CLUSTER'
-    | 'CE_CONNECTOR'
-    | 'CE_BATCH'
-    | 'LINKED_ACCOUNT'
-  action?:
-    | 'ALL'
-    | 'CREATE'
-    | 'READ'
-    | 'UPDATE'
-    | 'DELETE'
-    | 'EXECUTE'
-    | 'EXECUTE_WORKFLOW'
-    | 'EXECUTE_PIPELINE'
-    | 'DEFAULT'
-  envId?: string
-  appId?: string
-  accountId?: string
-  environmentType?: 'PROD' | 'NON_PROD' | 'ALL'
-  permissionScope?:
-    | 'ACCOUNT'
-    | 'LOGGED_IN'
-    | 'DELEGATE'
-    | 'NONE'
-    | 'APP'
-    | 'ALL_APP_ENTITIES'
-    | 'ENV'
-    | 'SERVICE'
-    | 'WORKFLOW'
-    | 'PIPELINE'
-    | 'DEPLOYMENT'
-    | 'APPLICATION_CREATE_DELETE'
-    | 'USER_PERMISSION_MANAGEMENT'
-    | 'ACCOUNT_MANAGEMENT'
-    | 'PROVISIONER'
-    | 'TEMPLATE_MANAGEMENT'
-    | 'USER_PERMISSION_READ'
-    | 'AUDIT_VIEWER'
-    | 'TAG_MANAGEMENT'
-    | 'CE_ADMIN'
-    | 'CE_VIEWER'
-    | 'MANAGE_CLOUD_PROVIDERS'
-    | 'MANAGE_CONNECTORS'
-    | 'MANAGE_APPLICATIONS'
-    | 'MANAGE_APPLICATION_STACKS'
-    | 'MANAGE_DELEGATES'
-    | 'MANAGE_ALERT_NOTIFICATION_RULES'
-    | 'MANAGE_DELEGATE_PROFILES'
-    | 'MANAGE_CONFIG_AS_CODE'
-    | 'MANAGE_SECRETS'
-    | 'MANAGE_SECRET_MANAGERS'
-    | 'MANAGE_AUTHENTICATION_SETTINGS'
-    | 'MANAGE_USER_AND_USER_GROUPS_AND_API_KEYS'
-    | 'VIEW_USER_AND_USER_GROUPS_AND_API_KEYS'
-    | 'MANAGE_IP_WHITELIST'
-    | 'MANAGE_IP_WHITELISTING'
-    | 'MANAGE_DEPLOYMENT_FREEZES'
-    | 'MANAGE_PIPELINE_GOVERNANCE_STANDARDS'
-    | 'MANAGE_API_KEYS'
-    | 'MANAGE_TAGS'
-    | 'MANAGE_CUSTOM_DASHBOARDS'
-    | 'CREATE_CUSTOM_DASHBOARDS'
-}
-
-export interface PhaseStep {
-  uuid?: string
-  name?: string
-  phaseStepType?:
-    | 'SELECT_NODE'
-    | 'INFRASTRUCTURE_NODE'
-    | 'PROVISION_NODE'
-    | 'DISABLE_SERVICE'
-    | 'DEPLOY_SERVICE'
-    | 'ENABLE_SERVICE'
-    | 'VERIFY_SERVICE'
-    | 'WRAP_UP'
-    | 'PRE_DEPLOYMENT'
-    | 'ROLLBACK_PROVISIONERS'
-    | 'POST_DEPLOYMENT'
-    | 'STOP_SERVICE'
-    | 'DE_PROVISION_NODE'
-    | 'CLUSTER_SETUP'
-    | 'CONTAINER_SETUP'
-    | 'CONTAINER_DEPLOY'
-    | 'PCF_SETUP'
-    | 'PCF_RESIZE'
-    | 'PCF_ROUTE_UPDATE'
-    | 'PCF_SWICH_ROUTES'
-    | 'START_SERVICE'
-    | 'DEPLOY_AWSCODEDEPLOY'
-    | 'PREPARE_STEPS'
-    | 'DEPLOY_AWS_LAMBDA'
-    | 'COLLECT_ARTIFACT'
-    | 'AMI_AUTOSCALING_GROUP_SETUP'
-    | 'AMI_DEPLOY_AUTOSCALING_GROUP'
-    | 'AMI_SWITCH_AUTOSCALING_GROUP_ROUTES'
-    | 'ECS_UPDATE_LISTENER_BG'
-    | 'ECS_UPDATE_ROUTE_53_DNS_WEIGHT'
-    | 'HELM_DEPLOY'
-    | 'ROUTE_UPDATE'
-    | 'K8S_PHASE_STEP'
-    | 'PROVISION_INFRASTRUCTURE'
-    | 'ROLLBACK_PROVISION_INFRASTRUCTURE'
-    | 'SPOTINST_SETUP'
-    | 'SPOTINST_DEPLOY'
-    | 'SPOTINST_ROLLBACK'
-    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
-    | 'SPOTINST_LISTENER_UPDATE'
-    | 'STAGE_EXECUTION'
-    | 'AZURE_VMSS_SETUP'
-    | 'AZURE_VMSS_DEPLOY'
-    | 'AZURE_VMSS_ROLLBACK'
-    | 'AZURE_VMSS_SWITCH_ROUTES'
-    | 'AZURE_VMSS_SWITCH_ROLLBACK'
-    | 'CUSTOM_DEPLOYMENT_PHASE_STEP'
-    | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
-    | 'AZURE_WEBAPP_SLOT_SWAP'
-    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
-    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
-  steps?: GraphNode[]
-  stepsInParallel?: boolean
-  failureStrategies?: FailureStrategy[]
-  stepSkipStrategies?: StepSkipStrategy[]
-  rollback?: boolean
-  phaseStepNameForRollback?: string
-  statusForRollback?:
-    | 'ABORTED'
-    | 'DISCONTINUING'
-    | 'ERROR'
-    | 'FAILED'
-    | 'NEW'
-    | 'PAUSED'
-    | 'PAUSING'
-    | 'QUEUED'
-    | 'RESUMED'
-    | 'RUNNING'
-    | 'SCHEDULED'
-    | 'STARTING'
-    | 'SUCCESS'
-    | 'WAITING'
-    | 'SKIPPED'
-    | 'ABORTING'
-    | 'REJECTED'
-    | 'EXPIRED'
-    | 'PREPARING'
-  artifactNeeded?: boolean
-  valid?: boolean
-  validationMessage?: string
-  waitInterval?: number
-}
-
-export type PhysicalInfra = InfraMappingInfrastructureProvider & {
-  hostNames?: string[]
-  hosts?: Host[]
-  loadBalancerId?: string
-  loadBalancerName?: string
-  hostConnectionAttrs?: string
-  expressions?: {
-    [key: string]: string
-  }
-}
-
-export type PhysicalInfraWinrm = InfraMappingInfrastructureProvider & {
-  hostNames?: string[]
-  hosts?: Host[]
-  loadBalancerId?: string
-  loadBalancerName?: string
-  winRmConnectionAttributes?: string
-}
-
-export interface Pipeline {
-  name: string
-  description?: string
-  pipelineStages?: PipelineStage[]
-  stateEtaMap?: {
-    [key: string]: number
-  }
-  services?: Service[]
-  workflowExecutions?: WorkflowExecution[]
-  valid?: boolean
-  validationMessage?: string
-  templatized?: boolean
-  hasSshInfraMapping?: boolean
-  failureStrategies?: FailureStrategy[]
-  pipelineVariables?: Variable[]
-  envIds?: string[]
-  workflowIds?: string[]
-  envParameterized?: boolean
-  deploymentTypes?: (
-    | 'SSH'
-    | 'AWS_CODEDEPLOY'
-    | 'ECS'
-    | 'SPOTINST'
-    | 'KUBERNETES'
-    | 'HELM'
-    | 'AWS_LAMBDA'
-    | 'AMI'
-    | 'WINRM'
-    | 'PCF'
-    | 'AZURE_VMSS'
-    | 'AZURE_WEBAPP'
-    | 'CUSTOM'
-  )[]
-  envSummaries?: EnvSummary[]
-  hasBuildWorkflow?: boolean
-  infraMappingIds?: string[]
-  infraDefinitionIds?: string[]
-  keywords?: string[]
-  accountId?: string
-  sample?: boolean
-  tagLinks?: HarnessTagLink[]
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-}
-
-export interface PipelineExecution {
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  pipelineId?: string
-  workflowExecutionId?: string
-  stateMachineId?: string
-  pipeline?: Pipeline
-  pipelineStageExecutions?: PipelineStageExecution[]
-  appName?: string
-  workflowType?: 'PIPELINE' | 'ORCHESTRATION'
-  status?:
-    | 'ABORTED'
-    | 'DISCONTINUING'
-    | 'ERROR'
-    | 'FAILED'
-    | 'NEW'
-    | 'PAUSED'
-    | 'PAUSING'
-    | 'QUEUED'
-    | 'RESUMED'
-    | 'RUNNING'
-    | 'SCHEDULED'
-    | 'STARTING'
-    | 'SUCCESS'
-    | 'WAITING'
-    | 'SKIPPED'
-    | 'ABORTING'
-    | 'REJECTED'
-    | 'EXPIRED'
-    | 'PREPARING'
-  name?: string
-  startTs?: number
-  endTs?: number
-  estimatedTime?: number
-}
-
-export interface PipelineStage {
-  name?: string
-  parallel?: boolean
-  pipelineStageElements?: PipelineStageElement[]
-  valid?: boolean
-  validationMessage?: string
-  looped?: boolean
-  loopedVarName?: string
-}
-
-export interface PipelineStageElement {
-  uuid?: string
-  name?: string
-  type?: string
-  parallelIndex?: number
-  properties?: {
-    [key: string]: { [key: string]: any }
-  }
-  workflowVariables?: {
-    [key: string]: string
-  }
-  runtimeInputsConfig?: RuntimeInputsConfig
-  disable?: boolean
-  disableAssertion?: string
-  valid?: boolean
-  validationMessage?: string
-}
-
-export interface PipelineStageExecution {
-  pipelineStageElementId?: string
-  stateUuid?: string
   stateName?: string
-  stateType?: string
   status?:
     | 'ABORTED'
     | 'DISCONTINUING'
@@ -4763,346 +7940,94 @@ export interface PipelineStageExecution {
     | 'REJECTED'
     | 'EXPIRED'
     | 'PREPARING'
-  startTs?: number
-  expiryTs?: number
-  endTs?: number
-  estimatedTime?: number
-  workflowExecutions?: WorkflowExecution[]
-  stateExecutionData?: StateExecutionData
-  message?: string
-  looped?: boolean
-  waitingForInputs?: boolean
-  parallelInfo?: ParallelInfo
-  triggeredBy?: EmbeddedUser
 }
 
-export interface PipelineSummary {
-  pipelineId?: string
-  pipelineName?: string
+export interface InstanceInfo {
+  [key: string]: any
 }
 
-export interface RestResponseApplication {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Application
-  responseMessages?: ResponseMessage[]
+export interface InstanceIpv6Address {
+  ipv6Address?: string
 }
 
-export interface Role {
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  name?: string
+export interface InstanceMetadataOptionsResponse {
+  httpEndpoint?: string
+  httpPutResponseHopLimit?: number
+  httpTokens?: string
+  state?: string
+}
+
+export interface InstanceNetworkInterface {
+  association?: InstanceNetworkInterfaceAssociation
+  attachment?: InstanceNetworkInterfaceAttachment
   description?: string
-  accountId?: string
-  appName?: string
-  permissions?: Permission[]
-  roleType?: 'ACCOUNT_ADMIN' | 'APPLICATION_ADMIN' | 'PROD_SUPPORT' | 'NON_PROD_SUPPORT' | 'CUSTOM'
-  allApps?: boolean
+  groups?: GroupIdentifier[]
+  interfaceType?: string
+  ipv6Addresses?: InstanceIpv6Address[]
+  macAddress?: string
+  networkInterfaceId?: string
+  ownerId?: string
+  privateDnsName?: string
+  privateIpAddress?: string
+  privateIpAddresses?: InstancePrivateIpAddress[]
+  sourceDestCheck?: boolean
+  status?: string
+  subnetId?: string
+  vpcId?: string
 }
 
-export interface RollbackWorkflowExecutionInfo {
-  rollbackType?: 'MANUAL' | 'AUTO'
-  rollbackStateExecutionId?: string
-  rollbackStartTs?: number
-  rollbackDuration?: number
+export interface InstanceNetworkInterfaceAssociation {
+  ipOwnerId?: string
+  publicDnsName?: string
+  publicIp?: string
 }
 
-export type RollingOrchestrationWorkflow = OrchestrationWorkflow & {
-  graph?: Graph
-  preDeploymentSteps?: PhaseStep
-  rollbackProvisioners?: PhaseStep
-  rollbackWorkflowPhaseIdMap?: {
-    [key: string]: WorkflowPhase
-  }
-  workflowPhases?: WorkflowPhase[]
-  postDeploymentSteps?: PhaseStep
-  failureStrategies?: FailureStrategy[]
-  systemVariables?: Variable[]
-  derivedVariables?: Variable[]
+export interface InstanceNetworkInterfaceAttachment {
+  attachTime?: string
+  attachmentId?: string
+  deleteOnTermination?: boolean
+  deviceIndex?: number
+  status?: string
 }
 
-export interface RuntimeInputsConfig {
-  runtimeInputVariables?: string[]
-  timeout?: number
-  userGroupIds?: string[]
-  timeoutAction?:
-    | 'MANUAL_INTERVENTION'
-    | 'ROLLBACK_WORKFLOW'
-    | 'ROLLBACK_PHASE'
-    | 'IGNORE'
-    | 'RETRY'
-    | 'END_EXECUTION'
-    | 'CONTINUE_WITH_DEFAULTS'
-    | 'ABORT_WORKFLOW_EXECUTION'
+export interface InstancePrivateIpAddress {
+  association?: InstanceNetworkInterfaceAssociation
+  primary?: boolean
+  privateDnsName?: string
+  privateIpAddress?: string
 }
 
-export interface ServiceInstance {
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  envId?: string
-  serviceTemplateId?: string
-  serviceTemplateName?: string
-  serviceId?: string
-  serviceName?: string
-  hostId?: string
-  hostName?: string
-  publicDns?: string
-  infraMappingId?: string
-  infraMappingType?: string
-  artifactStreamId?: string
-  artifactStreamName?: string
-  artifactId?: string
-  artifactName?: string
-  artifactDeployedOn?: number
-  artifactDeploymentStatus?:
-    | 'ABORTED'
-    | 'DISCONTINUING'
-    | 'ERROR'
-    | 'FAILED'
-    | 'NEW'
-    | 'PAUSED'
-    | 'PAUSING'
-    | 'QUEUED'
-    | 'RESUMED'
-    | 'RUNNING'
-    | 'SCHEDULED'
-    | 'STARTING'
-    | 'SUCCESS'
-    | 'WAITING'
-    | 'SKIPPED'
-    | 'ABORTING'
-    | 'REJECTED'
-    | 'EXPIRED'
-    | 'PREPARING'
-  artifactDeploymentActivityId?: string
-  lastActivityId?: string
-  lastActivityStatus?:
-    | 'ABORTED'
-    | 'DISCONTINUING'
-    | 'ERROR'
-    | 'FAILED'
-    | 'NEW'
-    | 'PAUSED'
-    | 'PAUSING'
-    | 'QUEUED'
-    | 'RESUMED'
-    | 'RUNNING'
-    | 'SCHEDULED'
-    | 'STARTING'
-    | 'SUCCESS'
-    | 'WAITING'
-    | 'SKIPPED'
-    | 'ABORTING'
-    | 'REJECTED'
-    | 'EXPIRED'
-    | 'PREPARING'
-  lastActivityCreatedAt?: number
-  commandName?: string
-  commandType?: string
-  lastDeployedOn?: number
-  accountId?: string
-  displayName?: string
-}
-
-export interface ServiceTemplate {
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  accountId?: string
-  envId?: string
+export interface InstanceState {
+  code?: number
   name?: string
-  description?: string
-  serviceId?: string
-  serviceConfigFiles?: ConfigFile[]
-  serviceVariables?: ServiceVariable[]
-  serviceArtifactType?:
-    | 'JAR'
-    | 'WAR'
-    | 'TAR'
-    | 'ZIP'
-    | 'DOCKER'
-    | 'RPM'
-    | 'AWS_LAMBDA'
-    | 'AWS_CODEDEPLOY'
-    | 'PCF'
-    | 'AMI'
-    | 'AZURE_MACHINE_IMAGE'
-    | 'AZURE_WEBAPP'
-    | 'IIS'
-    | 'OTHER'
-    | 'IIS_APP'
-    | 'IIS_VirtualDirectory'
-  configFilesOverrides?: ConfigFile[]
-  serviceVariablesOverrides?: ServiceVariable[]
-  configMapYamlOverride?: string
-  helmValueYamlOverride?: string
-  infrastructureMappings?: InfrastructureMapping[]
-  valuesOverrideAppManifest?: ApplicationManifest
-  helmChartOverride?: ApplicationManifest
-  valuesOverrideManifestFile?: ManifestFile
-  ocParamsOverrideAppManifest?: ApplicationManifest
-  ocParamsOverrideFile?: ManifestFile
-  defaultServiceTemplate?: boolean
 }
 
-export interface State {
-  id?: string
-  parentId?: string
-  name?: string
-  requiredContextElementType?:
-    | 'SERVICE'
-    | 'INFRAMAPPING'
-    | 'SERVICE_TEMPLATE'
-    | 'TAG'
-    | 'SHELL'
-    | 'HOST'
-    | 'INSTANCE'
-    | 'STANDARD'
-    | 'PARAM'
-    | 'PARTITION'
-    | 'OTHER'
-    | 'FORK'
-    | 'CONTAINER_SERVICE'
-    | 'CLUSTER'
-    | 'AWS_LAMBDA_FUNCTION'
-    | 'AMI_SERVICE_SETUP'
-    | 'AMI_SERVICE_DEPLOY'
-    | 'ECS_SERVICE_SETUP'
-    | 'AMI_SWITCH_ROUTES'
-    | 'PCF_SERVICE_SETUP'
-    | 'PCF_SERVICE_DEPLOY'
-    | 'PCF_ROUTE_SWAP_ROLLBACK'
-    | 'PCF_INSTANCE'
-    | 'SPOTINST_SERVICE_SETUP'
-    | 'SPOTINST_SERVICE_DEPLOY'
-    | 'ARTIFACT'
-    | 'ARTIFACT_VARIABLE'
-    | 'HELM_DEPLOY'
-    | 'CLOUD_FORMATION_PROVISION'
-    | 'CLOUD_FORMATION_ROLLBACK'
-    | 'CLOUD_FORMATION_DEPROVISION'
-    | 'TERRAFORM_PROVISION'
-    | 'SHELL_SCRIPT_PROVISION'
-    | 'K8S'
-    | 'TERRAFORM_INHERIT_PLAN'
-    | 'AZURE_VMSS_SETUP'
-    | 'HELM_CHART'
-    | 'MANIFEST_VARIABLE'
-  stateType?: string
-  rollback?: boolean
-  waitInterval?: number
-  timeoutMillis?: number
-  ignoreFailure?: boolean
-  templateExpressions?: TemplateExpression[]
-  executeWithPreviousSteps?: boolean
-  templateUuid?: string
-  templateVersion?: string
-  templateVariables?: Variable[]
-  patternsForRequiredContextElementType?: string[]
-  requiredExecutionArgumentTypes?: (
-    | 'SERVICE'
-    | 'PROVISIONER'
-    | 'ENVIRONMENT'
-    | 'HOST'
-    | 'RELEASE'
-    | 'ARTIFACT'
-    | 'SSH_USER'
-    | 'SSH_PASSWORD'
-    | 'SSH_APP_ACCOUNT'
-    | 'SSH_KEY_PASSPHRASE'
-    | 'SSH_APP_ACCOUNT_PASSOWRD'
-    | 'SIMPLE_DEPLOYMENT'
-    | 'ORCHESTRATED_DEPLOYMENT'
-    | 'PIPELINE'
-    | 'WORKFLOW'
-    | 'DEPLOYMENT'
-    | 'INSTANCE'
-    | 'APPLICATION'
-    | 'COMMAND'
-    | 'CONFIG'
-    | 'SERVICE_TEMPLATE'
-    | 'INFRASTRUCTURE_MAPPING'
-    | 'INFRASTRUCTURE_DEFINITION'
-    | 'USER'
-    | 'ARTIFACT_STREAM'
-    | 'APPDYNAMICS_CONFIGID'
-    | 'APPDYNAMICS_APPID'
-    | 'APPDYNAMICS_TIERID'
-    | 'ELK_CONFIGID'
-    | 'ELK_INDICES'
-    | 'NEWRELIC_CONFIGID'
-    | 'NEWRELIC_APPID'
-    | 'SS_SSH_CONNECTION_ATTRIBUTE'
-    | 'SS_WINRM_CONNECTION_ATTRIBUTE'
-    | 'SUMOLOGIC_CONFIGID'
-    | 'SPLUNK_CONFIGID'
-    | 'NEWRELIC_MARKER_CONFIGID'
-    | 'NEWRELIC_MARKER_APPID'
-    | 'API_KEY'
-    | 'ACCOUNT'
-    | 'APPLICATION_MANIFEST'
-    | 'USER_GROUP'
-    | 'WHITELISTED_IP'
-    | 'CF_AWS_CONFIG_ID'
-    | 'VERIFICATION_CONFIGURATION'
-    | 'HELM_GIT_CONFIG_ID'
-    | 'NOTIFICATION_GROUP'
-    | 'HELM_CHART_SPECIFICATION'
-    | 'PCF_SERVICE_SPECIFICATION'
-    | 'LAMBDA_SPECIFICATION'
-    | 'USER_DATA_SPECIFICATION'
-    | 'ECS_CONTAINER_SPECIFICATION'
-    | 'ECS_SERVICE_SPECIFICATION'
-    | 'K8S_CONTAINER_SPECIFICATION'
-    | 'CONFIG_FILE'
-    | 'SERVICE_COMMAND'
-    | 'MANIFEST_FILE'
-    | 'SERVICE_VARIABLE'
-    | 'TRIGGER'
-    | 'ROLE'
-    | 'TEMPLATE'
-    | 'TEMPLATE_FOLDER'
-    | 'SETTING_ATTRIBUTE'
-    | 'ENCRYPTED_RECORDS'
-    | 'CV_CONFIGURATION'
-    | 'TAG'
-    | 'CUSTOM_DASHBOARD'
-    | 'PIPELINE_GOVERNANCE_STANDARD'
-    | 'WORKFLOW_EXECUTION'
-    | 'SERVERLESS_INSTANCE'
-    | 'USER_INVITE'
-    | 'LOGIN_SETTINGS'
-    | 'SSO_SETTINGS'
-    | 'DELEGATE'
-    | 'DELEGATE_SCOPE'
-    | 'DELEGATE_PROFILE'
-    | 'EXPORT_EXECUTIONS_REQUEST'
-    | 'GCP_CONFIG'
-    | 'GIT_CONFIG'
-    | 'JENKINS_SERVER'
-    | 'SECRETS_MANAGER'
-    | 'HELM_CHART'
-    | 'SECRET'
-    | 'CONNECTOR'
-    | 'CLOUD_PROVIDER'
-  )[]
-  selectionLogsTrackingForTasksEnabled?: boolean
+export interface InstanceStats {
+  entitySummaryList?: EntitySummary[]
+  invocationCount?: InvocationCount
+  totalCount?: number
 }
 
-export interface StateExecutionData {
-  stateName?: string
-  stateType?: string
-  startTs?: number
-  endTs?: number
+export interface InstanceStatsByArtifact {
+  entitySummary?: ArtifactSummary
+  instanceStats?: InstanceStats
+}
+
+export interface InstanceStatsByEnvironment {
+  environmentSummary?: EnvironmentSummary
+  hasSyncIssues?: boolean
+  infraMappingSyncStatusList?: SyncStatus[]
+  instanceStatsByArtifactList?: InstanceStatsByArtifact[]
+}
+
+export interface InstanceStatsByService {
+  instanceStatsByEnvList?: InstanceStatsByEnvironment[]
+  serviceSummary?: ServiceSummary
+  totalCount?: number
+}
+
+export interface InstanceStatusSummary {
+  instanceElement?: InstanceElement
   status?:
     | 'ABORTED'
     | 'DISCONTINUING'
@@ -5123,341 +8048,42 @@ export interface StateExecutionData {
     | 'REJECTED'
     | 'EXPIRED'
     | 'PREPARING'
-  errorMsg?: string
-  waitInterval?: number
-  element?: ContextElement
-  stateParams?: {
+}
+
+export interface InstanceSummaryStats {
+  countMap?: {
+    [key: string]: EntitySummaryStats[]
+  }
+  totalCount?: number
+}
+
+export interface InstanceSummaryStatsByService {
+  invocationCount?: InvocationCount
+  nonprodCount?: number
+  prodCount?: number
+  serviceSummary?: ServiceSummary
+  totalCount?: number
+}
+
+export interface InstanceTimeline {
+  localPercentile?: {
     [key: string]: { [key: string]: any }
   }
-  delegateMetaInfo?: DelegateMetaInfo
-  templateVariable?: {
-    [key: string]: { [key: string]: any }
-  }
-  executionSummary?: {
-    [key: string]: ExecutionDataValue
-  }
-  executionDetails?: {
-    [key: string]: ExecutionDataValue
-  }
+  points?: DataPoint[]
 }
 
-export interface StateMachine {
-  uuid?: string
-  appId: string
-  createdAt?: number
+export interface InvocationCount {
+  count?: number
+  from?: number
+  key?: 'LAST_30_DAYS' | 'SINCE_LAST_DEPLOYED'
+  to?: number
+}
+
+export interface JiraConfig {
   accountId?: string
-  originId?: string
-  originVersion?: number
-  name?: string
-  orchestrationWorkflow?: OrchestrationWorkflow
-  valid?: boolean
-  states?: State[]
-  transitions?: Transition[]
-  childStateMachines?: {
-    [key: string]: StateMachine
-  }
-  initialStateName?: string
-  cachedStatesMap?: {
-    [key: string]: State
-  }
-  cachedTransitionFlowMap?: {
-    [key: string]: {
-      [key: string]: State[]
-    }
-  }
-  initialState?: State
-  statesMap?: {
-    [key: string]: State
-  }
-  transitionFlowMap?: {
-    [key: string]: {
-      [key: string]: State[]
-    }
-  }
-}
-
-export interface StatusInstanceBreakdown {
-  status?:
-    | 'ABORTED'
-    | 'DISCONTINUING'
-    | 'ERROR'
-    | 'FAILED'
-    | 'NEW'
-    | 'PAUSED'
-    | 'PAUSING'
-    | 'QUEUED'
-    | 'RESUMED'
-    | 'RUNNING'
-    | 'SCHEDULED'
-    | 'STARTING'
-    | 'SUCCESS'
-    | 'WAITING'
-    | 'SKIPPED'
-    | 'ABORTING'
-    | 'REJECTED'
-    | 'EXPIRED'
-    | 'PREPARING'
-  instanceCount?: number
-  instanceExecutionHistories?: InstanceExecutionHistory[]
-}
-
-export interface StepSkipStrategy {
-  scope: 'ALL_STEPS' | 'SPECIFIC_STEPS'
-  stepIds?: string[]
-  assertionExpression: string
-  phaseStep?: PhaseStep
-}
-
-export interface Transition {
-  fromState?: State
-  toState?: State
-  transitionType?: 'SUCCESS' | 'FAILURE' | 'ABORT' | 'REPEAT' | 'FORK' | 'CONDITIONAL'
-}
-
-export interface WorkflowExecution {
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdByType?: 'USER' | 'API_KEY' | 'TRIGGER'
-  createdAt?: number
-  accountId?: string
-  workflowId?: string
-  stateMachineId?: string
-  stateMachine?: StateMachine
-  envId?: string
-  envIds?: string[]
-  workflowIds?: string[]
-  cloudProviderIds?: string[]
-  serviceIds?: string[]
-  infraMappingIds?: string[]
-  infraDefinitionIds?: string[]
-  appName?: string
-  envName?: string
-  envType?: 'PROD' | 'NON_PROD' | 'ALL'
-  workflowType?: 'PIPELINE' | 'ORCHESTRATION'
-  status?:
-    | 'ABORTED'
-    | 'DISCONTINUING'
-    | 'ERROR'
-    | 'FAILED'
-    | 'NEW'
-    | 'PAUSED'
-    | 'PAUSING'
-    | 'QUEUED'
-    | 'RESUMED'
-    | 'RUNNING'
-    | 'SCHEDULED'
-    | 'STARTING'
-    | 'SUCCESS'
-    | 'WAITING'
-    | 'SKIPPED'
-    | 'ABORTING'
-    | 'REJECTED'
-    | 'EXPIRED'
-    | 'PREPARING'
-  graph?: Graph
-  executionNode?: GraphNode
-  pipelineExecution?: PipelineExecution
-  pipelineExecutionId?: string
-  stageName?: string
-  errorStrategy?: 'CONTINUE' | 'FAIL' | 'PAUSE' | 'RETRY'
-  name?: string
-  releaseNo?: string
-  total?: number
-  breakdown?: CountsByStatuses
-  executionArgs?: ExecutionArgs
-  serviceExecutionSummaries?: ElementExecutionSummary[]
-  statusInstanceBreakdownMap?: {
-    [key: string]: StatusInstanceBreakdown
-  }
-  startTs?: number
-  rollbackStartTs?: number
-  endTs?: number
-  duration?: number
-  rollbackDuration?: number
-  triggeredBy?: EmbeddedUser
-  pipelineSummary?: PipelineSummary
-  environments?: EnvSummary[]
-  deployedEnvironments?: EnvSummary[]
-  deployedServices?: string[]
-  deployedCloudProviders?: string[]
-  buildExecutionSummaries?: BuildExecutionSummary[]
-  orchestrationType?: 'BUILD' | 'BASIC' | 'CANARY' | 'MULTI_SERVICE' | 'BLUE_GREEN' | 'ROLLING' | 'CUSTOM'
-  deploymentTriggerId?: string
-  triggeringApiKeyInfo?: ApiKeyInfo
-  artifacts?: Artifact[]
-  helmCharts?: HelmChart[]
-  keywords?: string[]
-  onDemandRollback?: boolean
-  useSweepingOutputs?: boolean
-  originalExecution?: WorkflowExecutionInfo
-  helmExecutionSummary?: HelmExecutionSummary
-  awsLambdaExecutionSummaries?: AwsLambdaExecutionSummary[]
-  concurrencyStrategy?: ConcurrencyStrategy
-  pipelineResumeId?: string
-  latestPipelineResume?: boolean
-  cdPageCandidate?: boolean
-  nextIteration?: number
-  tags?: NameValuePair[]
-  message?: string
-  validUntil?: string
-  baseline?: boolean
-}
-
-export interface WorkflowExecutionInfo {
-  name?: string
-  executionId?: string
-  startTs?: number
-  rollbackWorkflowExecutionInfo?: RollbackWorkflowExecutionInfo
-  accountId?: string
-  appId?: string
-  workflowId?: string
-}
-
-export interface WorkflowPhase {
-  uuid?: string
-  name?: string
-  serviceId?: string
-  daemonSet?: boolean
-  statefulSet?: boolean
-  infraMappingId?: string
-  infraMappingName?: string
-  infraDefinitionId?: string
-  infraDefinitionName?: string
-  deploymentType?:
-    | 'SSH'
-    | 'AWS_CODEDEPLOY'
-    | 'ECS'
-    | 'SPOTINST'
-    | 'KUBERNETES'
-    | 'HELM'
-    | 'AWS_LAMBDA'
-    | 'AMI'
-    | 'WINRM'
-    | 'PCF'
-    | 'AZURE_VMSS'
-    | 'AZURE_WEBAPP'
-    | 'CUSTOM'
-  srvTemplatised?: boolean
-  infraTemplatised?: boolean
-  computeProviderId?: string
-  provisionNodes?: boolean
-  rollback?: boolean
-  phaseNameForRollback?: string
-  valid?: boolean
-  validationMessage?: string
-  templateExpressions?: TemplateExpression[]
-  variableOverrides?: NameValuePair[]
-  phaseSteps?: PhaseStep[]
-}
-
-export interface YamlGitConfig {
-  url?: string
-  branchName?: string
-  repositoryName?: string
-  username?: string
-  password?: string[]
-  sshSettingId?: string
-  keyAuth?: boolean
-  gitConnectorId?: string
+  baseUrl?: string
   encryptedPassword?: string
-  syncMode?: 'GIT_TO_HARNESS' | 'HARNESS_TO_GIT' | 'BOTH' | 'NONE'
-  enabled?: boolean
-  webhookToken?: string
-  accountId?: string
-  entityId?: string
-  entityType:
-    | 'SERVICE'
-    | 'PROVISIONER'
-    | 'ENVIRONMENT'
-    | 'HOST'
-    | 'RELEASE'
-    | 'ARTIFACT'
-    | 'SSH_USER'
-    | 'SSH_PASSWORD'
-    | 'SSH_APP_ACCOUNT'
-    | 'SSH_KEY_PASSPHRASE'
-    | 'SSH_APP_ACCOUNT_PASSOWRD'
-    | 'SIMPLE_DEPLOYMENT'
-    | 'ORCHESTRATED_DEPLOYMENT'
-    | 'PIPELINE'
-    | 'WORKFLOW'
-    | 'DEPLOYMENT'
-    | 'INSTANCE'
-    | 'APPLICATION'
-    | 'COMMAND'
-    | 'CONFIG'
-    | 'SERVICE_TEMPLATE'
-    | 'INFRASTRUCTURE_MAPPING'
-    | 'INFRASTRUCTURE_DEFINITION'
-    | 'USER'
-    | 'ARTIFACT_STREAM'
-    | 'APPDYNAMICS_CONFIGID'
-    | 'APPDYNAMICS_APPID'
-    | 'APPDYNAMICS_TIERID'
-    | 'ELK_CONFIGID'
-    | 'ELK_INDICES'
-    | 'NEWRELIC_CONFIGID'
-    | 'NEWRELIC_APPID'
-    | 'SS_SSH_CONNECTION_ATTRIBUTE'
-    | 'SS_WINRM_CONNECTION_ATTRIBUTE'
-    | 'SUMOLOGIC_CONFIGID'
-    | 'SPLUNK_CONFIGID'
-    | 'NEWRELIC_MARKER_CONFIGID'
-    | 'NEWRELIC_MARKER_APPID'
-    | 'API_KEY'
-    | 'ACCOUNT'
-    | 'APPLICATION_MANIFEST'
-    | 'USER_GROUP'
-    | 'WHITELISTED_IP'
-    | 'CF_AWS_CONFIG_ID'
-    | 'VERIFICATION_CONFIGURATION'
-    | 'HELM_GIT_CONFIG_ID'
-    | 'NOTIFICATION_GROUP'
-    | 'HELM_CHART_SPECIFICATION'
-    | 'PCF_SERVICE_SPECIFICATION'
-    | 'LAMBDA_SPECIFICATION'
-    | 'USER_DATA_SPECIFICATION'
-    | 'ECS_CONTAINER_SPECIFICATION'
-    | 'ECS_SERVICE_SPECIFICATION'
-    | 'K8S_CONTAINER_SPECIFICATION'
-    | 'CONFIG_FILE'
-    | 'SERVICE_COMMAND'
-    | 'MANIFEST_FILE'
-    | 'SERVICE_VARIABLE'
-    | 'TRIGGER'
-    | 'ROLE'
-    | 'TEMPLATE'
-    | 'TEMPLATE_FOLDER'
-    | 'SETTING_ATTRIBUTE'
-    | 'ENCRYPTED_RECORDS'
-    | 'CV_CONFIGURATION'
-    | 'TAG'
-    | 'CUSTOM_DASHBOARD'
-    | 'PIPELINE_GOVERNANCE_STANDARD'
-    | 'WORKFLOW_EXECUTION'
-    | 'SERVERLESS_INSTANCE'
-    | 'USER_INVITE'
-    | 'LOGIN_SETTINGS'
-    | 'SSO_SETTINGS'
-    | 'DELEGATE'
-    | 'DELEGATE_SCOPE'
-    | 'DELEGATE_PROFILE'
-    | 'EXPORT_EXECUTIONS_REQUEST'
-    | 'GCP_CONFIG'
-    | 'GIT_CONFIG'
-    | 'JENKINS_SERVER'
-    | 'SECRETS_MANAGER'
-    | 'HELM_CHART'
-    | 'SECRET'
-    | 'CONNECTOR'
-    | 'CLOUD_PROVIDER'
-  entityName?: string
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
+  password?: string[]
   settingType?:
     | 'HOST_CONNECTION_ATTRIBUTES'
     | 'BASTION_HOST_CONNECTION_ATTRIBUTES'
@@ -5528,1128 +8154,972 @@ export interface YamlGitConfig {
     | 'AZURE_VAULT'
     | 'KUBERNETES_CLUSTER_NG'
     | 'GIT_NG'
-}
-
-export interface RestResponsePageResponseApplication {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Application[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface AppDynamicsApplication {
-  name?: string
-  id?: number
-}
-
-export interface RestResponseListAppDynamicsApplication {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AppDynamicsApplication[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ConnectorConfigDTO {
-  splunkUrl?: string
+  type?: string
   username?: string
-  accountId: string
+}
+
+export type JiraConnector = ConnectorConfigDTO & {
+  jiraUrl: string
   passwordRef: string
+  username?: string
 }
 
-export interface NewRelicApplication {
-  name?: string
-  id?: number
+export interface JiraCustomFieldValue {
+  fieldType?: string
+  fieldValue?: string
 }
 
-export interface RestResponseListNewRelicApplication {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: NewRelicApplication[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseVerificationNodeDataSetupResponse {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: VerificationNodeDataSetupResponse
-  responseMessages?: ResponseMessage[]
-}
-
-export interface VerificationLoadResponse {
-  loadResponse?: { [key: string]: any }
-  totalHits?: number
-  totalHitsThreshold?: number
-  loadPresent?: boolean
-}
-
-export interface VerificationNodeDataSetupResponse {
-  providerReachable?: boolean
-  loadResponse?: VerificationLoadResponse
-  dataForNode?: { [key: string]: any }
-  configurationCorrect?: boolean
-}
-
-export interface Aws {
-  ec2Instance?: Instance
-  ip?: string
-  instanceId?: string
-  publicDns?: string
-  taskId?: string
-  taskArn?: string
-  dockerId?: string
-  completeDockerId?: string
-  containerId?: string
-  containerInstanceId?: string
-  containerInstanceArn?: string
-  ecsServiceName?: string
-}
-
-export interface AzureVmss {
-  ip?: string
-  instanceId?: string
-  publicDns?: string
-}
-
-export interface AppdynamicsSetupTestNodeData {
-  appId: string
-  settingId: string
-  instanceName?: string
-  isServiceLevel?: boolean
-  instanceElement?: Instance
-  hostExpression?: string
-  workflowId?: string
-  guid?: string
-  stateType?:
-    | 'SUB_WORKFLOW'
-    | 'REPEAT'
-    | 'FORK'
-    | 'WAIT'
-    | 'PAUSE'
-    | 'BARRIER'
-    | 'RESOURCE_CONSTRAINT'
-    | 'SHELL_SCRIPT'
-    | 'HTTP'
-    | 'TEMPLATIZED_SECRET_MANAGER'
-    | 'EMAIL'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'NEW_RELIC_DEPLOYMENT_MARKER'
-    | 'DYNA_TRACE'
-    | 'PROMETHEUS'
-    | 'SPLUNKV2'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'AWS_LAMBDA_VERIFICATION'
-    | 'APM_VERIFICATION'
-    | 'LOG_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'STACK_DRIVER'
-    | 'STACK_DRIVER_LOG'
-    | 'INSTANA'
-    | 'SCALYR'
-    | 'ENV_STATE'
-    | 'ENV_LOOP_STATE'
-    | 'ENV_RESUME_STATE'
-    | 'ENV_LOOP_RESUME_STATE'
-    | 'COMMAND'
-    | 'APPROVAL'
-    | 'APPROVAL_RESUME'
-    | 'ELASTIC_LOAD_BALANCER'
-    | 'JENKINS'
-    | 'GCB'
-    | 'BAMBOO'
-    | 'ARTIFACT_COLLECTION'
-    | 'ARTIFACT_CHECK'
-    | 'AZURE_NODE_SELECT'
-    | 'AZURE_VMSS_SETUP'
-    | 'AZURE_VMSS_DEPLOY'
-    | 'AZURE_VMSS_ROLLBACK'
-    | 'AZURE_VMSS_SWITCH_ROUTES'
-    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
-    | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
-    | 'AZURE_WEBAPP_SLOT_SWAP'
-    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
-    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
-    | 'AWS_NODE_SELECT'
-    | 'DC_NODE_SELECT'
-    | 'ROLLING_NODE_SELECT'
-    | 'PHASE'
-    | 'PHASE_STEP'
-    | 'STAGING_ORIGINAL_EXECUTION'
-    | 'AWS_CODEDEPLOY_STATE'
-    | 'AWS_CODEDEPLOY_ROLLBACK'
-    | 'AWS_LAMBDA_STATE'
-    | 'AWS_LAMBDA_ROLLBACK'
-    | 'AWS_AMI_SERVICE_SETUP'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
-    | 'AWS_AMI_SERVICE_DEPLOY'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
-    | 'AWS_AMI_SWITCH_ROUTES'
-    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
-    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_SERVICE_ROLLBACK'
-    | 'ECS_SERVICE_SETUP'
-    | 'SPOTINST_SETUP'
-    | 'SPOTINST_ALB_SHIFT_SETUP'
-    | 'SPOTINST_DEPLOY'
-    | 'SPOTINST_ALB_SHIFT_DEPLOY'
-    | 'SPOTINST_LISTENER_UPDATE'
-    | 'SPOTINST_LISTENER_ALB_SHIFT'
-    | 'SPOTINST_ROLLBACK'
-    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
-    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
-    | 'ECS_SERVICE_SETUP_ROLLBACK'
-    | 'ECS_DAEMON_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
-    | 'ECS_SERVICE_DEPLOY'
-    | 'ECS_SERVICE_ROLLBACK'
-    | 'ECS_LISTENER_UPDATE'
-    | 'ECS_LISTENER_UPDATE_ROLLBACK'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
-    | 'KUBERNETES_SETUP'
-    | 'KUBERNETES_SETUP_ROLLBACK'
-    | 'KUBERNETES_DEPLOY'
-    | 'KUBERNETES_DEPLOY_ROLLBACK'
-    | 'KUBERNETES_STEADY_STATE_CHECK'
-    | 'ECS_STEADY_STATE_CHECK'
-    | 'ECS_RUN_TASK'
-    | 'GCP_CLUSTER_SETUP'
-    | 'HELM_DEPLOY'
-    | 'HELM_ROLLBACK'
-    | 'PCF_SETUP'
-    | 'PCF_RESIZE'
-    | 'PCF_ROLLBACK'
-    | 'PCF_MAP_ROUTE'
-    | 'PCF_UNMAP_ROUTE'
-    | 'PCF_BG_MAP_ROUTE'
-    | 'PCF_PLUGIN'
-    | 'TERRAFORM_PROVISION'
-    | 'TERRAFORM_APPLY'
-    | 'SHELL_SCRIPT_PROVISION'
-    | 'TERRAFORM_DESTROY'
-    | 'CLOUD_FORMATION_CREATE_STACK'
-    | 'CLOUD_FORMATION_DELETE_STACK'
-    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
-    | 'CLOUD_FORMATION_ROLLBACK_STACK'
-    | 'TERRAFORM_ROLLBACK'
-    | 'K8S_DEPLOYMENT_ROLLING'
-    | 'K8S_SCALE'
-    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
-    | 'K8S_BLUE_GREEN_DEPLOY'
-    | 'K8S_CANARY_DEPLOY'
-    | 'K8S_DELETE'
-    | 'JIRA_CREATE_UPDATE'
-    | 'SERVICENOW_CREATE_UPDATE'
-    | 'K8S_TRAFFIC_SPLIT'
-    | 'K8S_APPLY'
-    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
-  toTime?: number
-  fromTime?: number
-  applicationId?: number
-  tierId?: number
-  serviceLevel?: boolean
-}
-
-export interface InstanceDetails {
-  hostName?: string
-  workloadName?: string
-  newInstance?: boolean
-  properties?: {
-    [key: string]: { [key: string]: any }
-  }
-  serviceTemplateName?: string
-  serviceTemplateId?: string
-  serviceName?: string
-  serviceId?: string
-  pcf?: Pcf
-  aws?: Aws
-  physicalHost?: PhysicalHost
-  k8s?: K8s
-  azureVmss?: AzureVmss
-  instanceType?: 'PCF' | 'AWS' | 'K8s' | 'PHYSICAL_HOST' | 'AZURE_VMSS'
-}
-
-export interface K8s {
-  ip?: string
-  podName?: string
-  dockerId?: string
-}
-
-export interface Pcf {
-  applicationId?: string
-  applicationName?: string
-  instanceIndex?: string
-}
-
-export interface PhysicalHost {
-  publicDns?: string
-  instanceId?: string
-}
-
-export interface AppdynamicsMetricValueValidationResponse {
-  metricName?: string
-  apiResponseStatus?: 'SUCCESS' | 'NO_DATA' | 'FAILED'
-  value?: number
-  errorMessage?: string
-}
-
-export interface AppdynamicsValidationResponse {
-  metricPackName?: string
-  overallStatus?: 'SUCCESS' | 'NO_DATA' | 'FAILED'
-  values?: AppdynamicsMetricValueValidationResponse[]
-}
-
-export interface RestResponseSetAppdynamicsValidationResponse {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AppdynamicsValidationResponse[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface AppdynamicsMetricPackDataValidationRequest {
-  metricPacks?: MetricPackDTO[]
-  connector?: ConnectorConfigDTO
-}
-
-export interface MetricDefinitionDTO {
-  name?: string
-  type?: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX'
-  path?: string
-  validationPath?: string
-  thresholds?: TimeSeriesThresholdDTO[]
-  included?: boolean
-}
-
-export interface MetricPackDTO {
+export interface JiraTaskParameters {
   accountId?: string
-  projectIdentifier?: string
-  dataSourceType?: 'APP_DYNAMICS' | 'SPLUNK'
-  identifier?: string
-  category?: 'PERFORMANCE' | 'ERRORS' | 'INFRASTRUCTURE'
-  metrics?: MetricDefinitionDTO[]
-  thresholds?: TimeSeriesThresholdDTO[]
-}
-
-export interface TimeSeriesThresholdCriteria {
-  type?: 'RATIO' | 'DELTA' | 'ABSOLUTE'
-  action?: 'FAIL_IMMEDIATELY' | 'FAIL_AFTER_OCCURRENCES' | 'FAIL_AFTER_CONSECUTIVE_OCCURRENCES'
-  occurrenceCount?: number
-  criteria?: string
-}
-
-export interface TimeSeriesThresholdDTO {
-  accountId?: string
-  projectIdentifier?: string
-  dataSourceType?: 'APP_DYNAMICS' | 'SPLUNK'
-  metricPackIdentifier?: string
-  metricName?: string
-  metricType?: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX'
-  metricGroupName?: string
-  action?: 'IGNORE' | 'FAIL'
-  criteria?: TimeSeriesThresholdCriteria
-}
-
-export interface AppdynamicsTier {
-  id?: number
-  name?: string
-  description?: string
-  type?: string
-  agentType?: string
-  externalTiers?: AppdynamicsTier[]
-  dependencyPath?: string
-}
-
-export interface RestResponseSetAppdynamicsTier {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AppdynamicsTier[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface AppDynamicsTier {
-  id?: number
-  name?: string
-}
-
-export interface RestResponseSetAppDynamicsTier {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AppDynamicsTier[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseApplicationManifest {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ApplicationManifest
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseManifestFile {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ManifestFile
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponsePageResponseApplicationManifest {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ApplicationManifest[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface DirectoryNode {
-  accountId?: string
-  type?: 'FOLDER' | 'YAML' | 'FILE'
-  name?: string
-  className?: string
-  shortClassName?: string
-  restName?: string
-  directoryPath?: DirectoryPath
-}
-
-export interface DirectoryPath {
-  path?: string
-}
-
-export interface RestResponseDirectoryNode {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DirectoryNode
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListManifestFile {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ManifestFile[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseArtifact {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Artifact
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponsePageResponseArtifact {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Artifact[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseMapStringString {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: {
-    [key: string]: string
-  }
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListArtifactStreamSummary {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ArtifactStreamSummary[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListString {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: string[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseArtifactStream {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ArtifactStream
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponsePageResponseArtifactStream {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ArtifactStream[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ApiKeyAuditDetails {
-  apiKeyId?: string
-  apiKeyName?: string
-}
-
-export interface AuditHeader {
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  remoteUser?: User
-  application?: Application
-  component?: Service
-  environment?: Environment
-  url?: string
-  resourcePath?: string
-  queryParams?: string
-  requestMethod?: 'OPTIONS' | 'HEAD' | 'GET' | 'PATCH' | 'POST' | 'PUT' | 'DELETE'
-  headerString?: string
-  responseType?: 'SUCCESS' | 'FAILED' | 'COMPLETED_WITH_ERRORS'
-  responseStatusCode?: number
-  errorCode?: string
-  remoteHostName?: string
-  remoteHostPort?: number
-  remoteIpAddress?: string
-  localHostName?: string
-  localIpAddress?: string
-  requestPayloadUuid?: string
-  responsePayloadUuid?: string
-  requestTime?: number
-  responseTime?: number
-  failureStatusMsg?: string
-  accountId?: string
-  gitAuditDetails?: GitAuditDetails
-  entityAuditRecords?: EntityAuditRecord[]
-  apiKeyAuditDetails?: ApiKeyAuditDetails
-}
-
-export interface EntityAuditRecord {
-  entityId?: string
-  entityType?: string
-  entityName?: string
-  operationType?: string
-  entityOldYamlRecordId?: string
-  entityNewYamlRecordId?: string
-  yamlPath?: string
-  yamlError?: string
-  failure?: boolean
+  activityId?: string
   appId?: string
-  appName?: string
-  affectedResourceId?: string
-  affectedResourceName?: string
-  affectedResourceType?: string
-  affectedResourceOperation?: string
-  createdAt?: number
-}
-
-export interface GitAuditDetails {
-  author?: string
-  gitCommitId?: string
-  repoUrl?: string
-}
-
-export interface RestResponsePageResponseAuditHeader {
-  metaData?: {
-    [key: string]: { [key: string]: any }
+  approvalField?: string
+  approvalId?: string
+  approvalValue?: string
+  comment?: string
+  createmetaExpandParam?: string
+  customFields?: {
+    [key: string]: JiraCustomFieldValue
   }
-  resource?: AuditHeader[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface AuditHeaderYamlResponse {
-  auditHeaderId?: string
-  entityId?: string
-  oldYaml?: string
-  oldYamlPath?: string
-  newYaml?: string
-  newYamlPath?: string
-}
-
-export interface RestResponseAuditHeaderYamlResponse {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AuditHeaderYamlResponse
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListNameValuePair {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: NameValuePair[]
-  responseMessages?: ResponseMessage[]
-}
-
-export type AzureKubernetesCluster = Cluster & {
-  resourceGroup?: string
-  subscriptionId?: string
-}
-
-export interface RestResponseListAzureKubernetesCluster {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AzureKubernetesCluster[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface AzureResourceGroup {
-  name?: string
-  subscriptionId?: string
-}
-
-export interface RestResponseListAzureResourceGroup {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AzureResourceGroup[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface AzureImageGallery {
-  name?: string
-  subscriptionId?: string
-  resourceGroupName?: string
-  regionName?: string
-}
-
-export interface RestResponseListAzureImageGallery {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AzureImageGallery[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface AzureImageDefinition {
-  name?: string
-  subscriptionId?: string
-  resourceGroupName?: string
-  location?: string
-  osType?: string
-  galleryName?: string
-}
-
-export interface RestResponseListAzureImageDefinition {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AzureImageDefinition[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface AzureContainerRegistry {
-  name?: string
-  resourceGroup?: string
-  subscriptionId?: string
-  type?: string
-  resourceId?: string
-  loginServer?: string
-}
-
-export interface RestResponseListAzureContainerRegistry {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AzureContainerRegistry[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface AlertThreshold {
-  percentage?: number
-  basedOn?: 'ACTUAL_COST' | 'FORECASTED_COST'
-  alertsSent?: number
-  crossedAt?: number
-}
-
-export type ApplicationBudgetScope = BudgetScope & {
-  applicationIds?: string[]
-  environmentType?: 'PROD' | 'NON_PROD' | 'ALL'
-}
-
-export interface Budget {
-  uuid?: string
-  accountId?: string
-  name?: string
-  scope?: BudgetScope
-  type?: 'SPECIFIED_AMOUNT' | 'PREVIOUS_MONTH_SPEND'
-  budgetAmount?: number
-  alertThresholds?: AlertThreshold[]
-  emailAddresses?: string[]
-  userGroupIds?: string[]
-  notifyOnSlack?: boolean
-  createdAt?: number
-  lastUpdatedAt?: number
-  alertIteration?: number
-}
-
-export interface BudgetScope {
-  budgetScopeFilter?: QLBillingDataFilter
-}
-
-export type ClusterBudgetScope = BudgetScope & {
-  clusterIds?: string[]
-}
-
-export interface Number {
-  [key: string]: any
-}
-
-export interface QLBillingDataFilter {
-  application?: QLIdFilter
-  service?: QLIdFilter
-  environment?: QLIdFilter
-  cluster?: QLIdFilter
-  cloudServiceName?: QLIdFilter
-  launchType?: QLIdFilter
-  taskId?: QLIdFilter
-  instanceType?: QLIdFilter
-  instanceName?: QLIdFilter
-  namespace?: QLIdFilter
-  workloadName?: QLIdFilter
-  cloudProvider?: QLIdFilter
-  nodeInstanceId?: QLIdFilter
-  podInstanceId?: QLIdFilter
-  parentInstanceId?: QLIdFilter
-  labelSearch?: QLIdFilter
-  tagSearch?: QLIdFilter
-  startTime?: QLTimeFilter
-  endTime?: QLTimeFilter
-  tag?: QLBillingDataTagFilter
-  label?: QLBillingDataLabelFilter
-  envType?: QLCEEnvironmentTypeFilter
-  alertTime?: QLTimeFilter
-}
-
-export interface QLBillingDataLabelFilter {
-  labels?: QLK8sLabelInput[]
-  operator?: 'EQUALS' | 'IN' | 'NOT_NULL' | 'NOT_IN' | 'LIKE'
-  values?: { [key: string]: any }[]
-}
-
-export interface QLBillingDataTagFilter {
-  entityType?: 'APPLICATION' | 'SERVICE' | 'ENVIRONMENT'
-  tags?: QLTagInput[]
-  operator?: 'EQUALS' | 'IN' | 'NOT_NULL' | 'NOT_IN' | 'LIKE'
-  values?: { [key: string]: any }[]
-}
-
-export interface QLCEEnvironmentTypeFilter {
-  operator?: 'EQUALS' | 'IN' | 'NOT_NULL' | 'NOT_IN' | 'LIKE'
-  values?: { [key: string]: any }[]
-}
-
-export interface QLIdFilter {
-  operator?: 'EQUALS' | 'IN' | 'NOT_NULL' | 'NOT_IN' | 'LIKE'
-  values?: string[]
-}
-
-export interface QLK8sLabelInput {
-  name?: string
-  values?: string[]
-}
-
-export interface QLTagInput {
-  name?: string
-  value?: string
-}
-
-export interface QLTimeFilter {
-  operator?: 'EQUALS' | 'BEFORE' | 'AFTER'
-  value?: Number
-  values?: Number[]
-}
-
-export interface RestResponseBudget {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Budget
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListBudget {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Budget[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface BugsnagApplication {
-  name?: string
-  id?: string
-}
-
-export interface RestResponseSetBugsnagApplication {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: BugsnagApplication[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface BugsnagSetupTestData {
-  appId: string
-  settingId: string
-  instanceName?: string
-  isServiceLevel?: boolean
-  instanceElement?: Instance
-  hostExpression?: string
-  workflowId?: string
-  guid?: string
-  stateType?:
-    | 'SUB_WORKFLOW'
-    | 'REPEAT'
-    | 'FORK'
-    | 'WAIT'
-    | 'PAUSE'
-    | 'BARRIER'
-    | 'RESOURCE_CONSTRAINT'
-    | 'SHELL_SCRIPT'
-    | 'HTTP'
-    | 'TEMPLATIZED_SECRET_MANAGER'
-    | 'EMAIL'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'NEW_RELIC_DEPLOYMENT_MARKER'
-    | 'DYNA_TRACE'
-    | 'PROMETHEUS'
-    | 'SPLUNKV2'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'AWS_LAMBDA_VERIFICATION'
-    | 'APM_VERIFICATION'
-    | 'LOG_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'STACK_DRIVER'
-    | 'STACK_DRIVER_LOG'
-    | 'INSTANA'
-    | 'SCALYR'
-    | 'ENV_STATE'
-    | 'ENV_LOOP_STATE'
-    | 'ENV_RESUME_STATE'
-    | 'ENV_LOOP_RESUME_STATE'
-    | 'COMMAND'
-    | 'APPROVAL'
-    | 'APPROVAL_RESUME'
-    | 'ELASTIC_LOAD_BALANCER'
-    | 'JENKINS'
-    | 'GCB'
-    | 'BAMBOO'
-    | 'ARTIFACT_COLLECTION'
-    | 'ARTIFACT_CHECK'
-    | 'AZURE_NODE_SELECT'
-    | 'AZURE_VMSS_SETUP'
-    | 'AZURE_VMSS_DEPLOY'
-    | 'AZURE_VMSS_ROLLBACK'
-    | 'AZURE_VMSS_SWITCH_ROUTES'
-    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
-    | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
-    | 'AZURE_WEBAPP_SLOT_SWAP'
-    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
-    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
-    | 'AWS_NODE_SELECT'
-    | 'DC_NODE_SELECT'
-    | 'ROLLING_NODE_SELECT'
-    | 'PHASE'
-    | 'PHASE_STEP'
-    | 'STAGING_ORIGINAL_EXECUTION'
-    | 'AWS_CODEDEPLOY_STATE'
-    | 'AWS_CODEDEPLOY_ROLLBACK'
-    | 'AWS_LAMBDA_STATE'
-    | 'AWS_LAMBDA_ROLLBACK'
-    | 'AWS_AMI_SERVICE_SETUP'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
-    | 'AWS_AMI_SERVICE_DEPLOY'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
-    | 'AWS_AMI_SWITCH_ROUTES'
-    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
-    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_SERVICE_ROLLBACK'
-    | 'ECS_SERVICE_SETUP'
-    | 'SPOTINST_SETUP'
-    | 'SPOTINST_ALB_SHIFT_SETUP'
-    | 'SPOTINST_DEPLOY'
-    | 'SPOTINST_ALB_SHIFT_DEPLOY'
-    | 'SPOTINST_LISTENER_UPDATE'
-    | 'SPOTINST_LISTENER_ALB_SHIFT'
-    | 'SPOTINST_ROLLBACK'
-    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
-    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
-    | 'ECS_SERVICE_SETUP_ROLLBACK'
-    | 'ECS_DAEMON_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
-    | 'ECS_SERVICE_DEPLOY'
-    | 'ECS_SERVICE_ROLLBACK'
-    | 'ECS_LISTENER_UPDATE'
-    | 'ECS_LISTENER_UPDATE_ROLLBACK'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
-    | 'KUBERNETES_SETUP'
-    | 'KUBERNETES_SETUP_ROLLBACK'
-    | 'KUBERNETES_DEPLOY'
-    | 'KUBERNETES_DEPLOY_ROLLBACK'
-    | 'KUBERNETES_STEADY_STATE_CHECK'
-    | 'ECS_STEADY_STATE_CHECK'
-    | 'ECS_RUN_TASK'
-    | 'GCP_CLUSTER_SETUP'
-    | 'HELM_DEPLOY'
-    | 'HELM_ROLLBACK'
-    | 'PCF_SETUP'
-    | 'PCF_RESIZE'
-    | 'PCF_ROLLBACK'
-    | 'PCF_MAP_ROUTE'
-    | 'PCF_UNMAP_ROUTE'
-    | 'PCF_BG_MAP_ROUTE'
-    | 'PCF_PLUGIN'
-    | 'TERRAFORM_PROVISION'
-    | 'TERRAFORM_APPLY'
-    | 'SHELL_SCRIPT_PROVISION'
-    | 'TERRAFORM_DESTROY'
-    | 'CLOUD_FORMATION_CREATE_STACK'
-    | 'CLOUD_FORMATION_DELETE_STACK'
-    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
-    | 'CLOUD_FORMATION_ROLLBACK_STACK'
-    | 'TERRAFORM_ROLLBACK'
-    | 'K8S_DEPLOYMENT_ROLLING'
-    | 'K8S_SCALE'
-    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
-    | 'K8S_BLUE_GREEN_DEPLOY'
-    | 'K8S_CANARY_DEPLOY'
-    | 'K8S_DELETE'
-    | 'JIRA_CREATE_UPDATE'
-    | 'SERVICENOW_CREATE_UPDATE'
-    | 'K8S_TRAFFIC_SPLIT'
-    | 'K8S_APPLY'
-    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
-  toTime?: number
-  fromTime?: number
-  orgId?: string
-  projectId?: string
-  releaseStage?: string
-  query?: string
-  browserApplication?: boolean
-  serviceLevel?: boolean
-}
-
-export interface BuildDetails {
-  number?: string
-  revision?: string
   description?: string
-  artifactPath?: string
-  buildUrl?: string
-  buildDisplayName?: string
-  buildFullDisplayName?: string
-  artifactFileSize?: string
-  uiDisplayName?: string
-  status?: 'FAILURE' | 'UNSTABLE' | 'SUCCESS'
-  buildParameters?: {
-    [key: string]: string
-  }
-  metadata?: {
-    [key: string]: string
-  }
-  labels?: {
-    [key: string]: string
-  }
-  artifactFileMetadataList?: ArtifactFileMetadata[]
-}
-
-export interface RestResponseListBuildDetails {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: BuildDetails[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface AzureDevopsProject {
-  id?: string
-  name?: string
-}
-
-export interface RestResponseListAzureDevopsProject {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AzureDevopsProject[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface AzureArtifactsFeed {
-  id?: string
-  name?: string
-  fullyQualifiedName?: string
-  project?: AzureDevopsProject
-}
-
-export interface RestResponseListAzureArtifactsFeed {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AzureArtifactsFeed[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface AzureArtifactsPackage {
-  id?: string
-  name?: string
-  protocolType?: string
-}
-
-export interface RestResponseListAzureArtifactsPackage {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AzureArtifactsPackage[]
-  responseMessages?: ResponseMessage[]
+  encryptionDetails?: EncryptedDataDetail[]
+  issueId?: string
+  issueType?: string
+  jiraAction?:
+    | 'CREATE_TICKET'
+    | 'UPDATE_TICKET'
+    | 'AUTH'
+    | 'GET_PROJECTS'
+    | 'GET_FIELDS_OPTIONS'
+    | 'GET_STATUSES'
+    | 'GET_CREATE_METADATA'
+    | 'FETCH_ISSUE'
+    | 'CHECK_APPROVAL'
+  jiraConfig?: JiraConfig
+  labels?: string[]
+  priority?: string
+  project?: string
+  rejectionField?: string
+  rejectionValue?: string
+  status?: string
+  summary?: string
+  updateIssueIds?: string[]
 }
 
 export interface JobDetails {
-  jobName?: string
-  url?: string
-  parameters?: JobParameter[]
   folder?: boolean
+  jobName?: string
+  parameters?: JobParameter[]
+  url?: string
 }
 
 export interface JobParameter {
-  name?: string
-  options?: string[]
   defaultValue?: string
   description?: string
-}
-
-export interface RestResponseSetJobDetails {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: JobDetails[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseJobDetails {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: JobDetails
-  responseMessages?: ResponseMessage[]
-}
-
-export interface CECommunications {
-  uuid?: string
-  accountId?: string
-  emailId?: string
-  type?: 'WEEKLY_REPORT'
-  enabled?: boolean
-  selfEnabled?: boolean
-  createdAt?: number
-  lastUpdatedAt?: number
-}
-
-export interface RestResponseListCECommunications {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: CECommunications[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface CEReportSchedule {
-  uuid?: string
   name?: string
-  enabled?: boolean
-  description?: string
-  viewsId: string[]
-  userCron?: string
-  recipients?: string[]
+  options?: string[]
+}
+
+export interface JsonNode {
+  array?: boolean
+  bigDecimal?: boolean
+  bigInteger?: boolean
+  binary?: boolean
+  boolean?: boolean
+  containerNode?: boolean
+  double?: boolean
+  float?: boolean
+  floatingPointNumber?: boolean
+  int?: boolean
+  integralNumber?: boolean
+  long?: boolean
+  missingNode?: boolean
+  nodeType?: 'ARRAY' | 'BINARY' | 'BOOLEAN' | 'MISSING' | 'NULL' | 'NUMBER' | 'OBJECT' | 'POJO' | 'STRING'
+  null?: boolean
+  number?: boolean
+  object?: boolean
+  pojo?: boolean
+  short?: boolean
+  textual?: boolean
+  valueNode?: boolean
+}
+
+export interface K8s {
+  dockerId?: string
+  ip?: string
+  podName?: string
+}
+
+export interface K8sConfigDetails {
+  k8sPermissionType?: 'CLUSTER_ADMIN' | 'CLUSTER_VIEWER' | 'NAMESPACE_ADMIN'
+  namespace?: string
+}
+
+export interface KmsConfig {
+  accessKey?: string
   accountId?: string
   createdAt?: number
-  lastUpdatedAt?: number
   createdBy?: EmbeddedUser
-  lastUpdatedBy?: EmbeddedUser
-  nextExecution?: string
-}
-
-export interface CESlackWebhook {
-  uuid?: string
-  accountId?: string
-  webhookUrl?: string
-  sendCostReport?: boolean
-  createdAt?: number
+  default?: boolean
+  encryptedBy?: string
+  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  kmsArn?: string
   lastUpdatedAt?: number
+  lastUpdatedBy?: EmbeddedUser
+  manuallyEnteredSecretEngineMigrationIteration?: number
+  name?: string
+  nextTokenRenewIteration?: number
+  numOfEncryptedValue?: number
+  region?: string
+  scopedToAccount?: boolean
+  secretKey?: string
+  templatized?: boolean
+  templatizedFields?: string[]
+  usageRestrictions?: UsageRestrictions
+  uuid: string
 }
 
-export interface RestResponseCESlackWebhook {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: CESlackWebhook
-  responseMessages?: ResponseMessage[]
+export interface KubDelegateYaml {
+  delegateConfigurationId?: string
+  description?: string
+  identifier?: string
+  name?: string
+  sessionIdentifier?: string
+  size?: string
 }
 
-export interface CVActivityLog {
-  uuid?: string
-  cvConfigId?: string
-  stateExecutionId?: string
-  timestamp?: number
-  dataCollectionMinute?: number
-  log?: string
-  logLevel?: 'INFO' | 'WARN' | 'ERROR'
-  timestampParams?: number[]
+export type KubernetesClusterConfigDTO = ConnectorConfigDTO & {
+  credential?: KubernetesCredentialDTO
+}
+
+export interface KubernetesCredentialDTO {
+  spec: KubernetesCredentialSpecDTO
+  type: 'InheritFromDelegate' | 'ManualConfig'
+}
+
+export interface KubernetesCredentialSpecDTO {
+  [key: string]: any
+}
+
+export interface KubernetesPayload {
+  advancedConfig?: string
+}
+
+export interface KustomizeConfig {
+  kustomizeDirPath?: string
+  pluginRootDir?: string
+}
+
+export interface LDAPTestAuthenticationRequest {
+  email?: string
+  password?: string
+}
+
+export interface LabeledLogRecord {
   accountId?: string
-  validUntil?: string
-  ansiLog?: string
+  createdAt?: number
+  envId?: string
+  feedbackIds?: string[]
+  label?: string
+  lastUpdatedAt?: number
+  logDataRecordIds?: string[]
+  serviceId?: string
+  uuid?: string
 }
 
-export interface RestResponseListCVActivityLog {
-  metaData?: {
-    [key: string]: { [key: string]: any }
+export interface LambdaSpecification {
+  accountId?: string
+  appId: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  defaults?: DefaultSpecification
+  functions?: FunctionSpecification[]
+  lastUpdatedAt: number
+  serviceId?: string
+  uuid: string
+}
+
+export interface LastDeployedArtifactInformation {
+  artifact?: Artifact
+  envId?: string
+  executionEntityId?: string
+  executionEntityName?: string
+  executionEntityType?: 'PIPELINE' | 'ORCHESTRATION'
+  executionId?: string
+  executionStartTime?: number
+}
+
+export interface LastDeployedHelmChartInformation {
+  envId?: string
+  executionEntityId?: string
+  executionEntityName?: string
+  executionEntityType?: 'PIPELINE' | 'ORCHESTRATION'
+  executionId?: string
+  executionStartTime?: number
+  helmchart?: HelmChart
+}
+
+export interface LdapConnectionSettings {
+  bindDN?: string
+  bindPassword?: string
+  connectTimeout?: number
+  host: string
+  maxReferralHops?: number
+  port?: number
+  referralsEnabled?: boolean
+  responseTimeout?: number
+  sslEnabled?: boolean
+}
+
+export interface LdapGroupResponse {
+  description?: string
+  dn?: string
+  message?: string
+  name?: string
+  selectable?: boolean
+  totalMembers?: number
+  users?: LdapUserResponse[]
+}
+
+export interface LdapGroupSettings {
+  baseDN?: string
+  descriptionAttr?: string
+  nameAttr?: string
+  referencedUserAttr?: string
+  searchFilter?: string
+  userMembershipAttr?: string
+}
+
+export interface LdapLinkGroupRequest {
+  ldapGroupDN?: string
+  ldapGroupName?: string
+}
+
+export interface LdapResponse {
+  message?: string
+  status?: 'SUCCESS' | 'FAILURE'
+}
+
+export interface LdapSettings {
+  accountId?: string
+  appId: string
+  connectionSettings: LdapConnectionSettings
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  displayName?: string
+  groupSettings?: LdapGroupSettings
+  groupSettingsList?: LdapGroupSettings[]
+  lastUpdatedAt: number
+  type: 'SAML' | 'LDAP' | 'OAUTH'
+  url?: string
+  userSettings?: LdapUserSettings
+  userSettingsList?: LdapUserSettings[]
+  uuid: string
+}
+
+export interface LdapTestResponse {
+  message?: string
+  status?: 'SUCCESS' | 'FAILURE'
+}
+
+export interface LdapUserResponse {
+  dn?: string
+  email?: string
+  name?: string
+}
+
+export interface LdapUserSettings {
+  baseDN?: string
+  displayNameAttr?: string
+  emailAttr?: string
+  groupMembershipAttr?: string
+  searchFilter?: string
+}
+
+export interface LicenseConfiguration {
+  licenseConfigurationArn?: string
+}
+
+export interface LicenseInfo {
+  accountStatus?: string
+  accountType?: string
+  expiryTime?: number
+  licenseUnits?: number
+}
+
+export interface LicenseUpdateInfo {
+  licenseInfo: LicenseInfo
+  requiredInfoToComply?: {
+    [key: string]: {
+      [key: string]: { [key: string]: any }
+    }
   }
-  resource?: CVActivityLog[]
-  responseMessages?: ResponseMessage[]
+}
+
+export interface LimitCheck {
+  limit?: number
+  value?: number
+}
+
+export interface ListInfraDefinitionParams {
+  deploymentTypeFromMetaData?: string[]
+  serviceIds?: string[]
+}
+
+export type LocalConfigDTO = SecretManagerConfigDTO & {}
+
+export type LocalConnectorDTO = ConnectorConfigDTO & {
+  default?: boolean
+}
+
+export interface LocalTime {
+  hour?: number
+  minute?: number
+  nano?: number
+  second?: number
+}
+
+export interface Log {
+  accountId?: string
+  activityId?: string
+  appId: string
+  commandExecutionStatus: 'SUCCESS' | 'FAILURE' | 'RUNNING' | 'QUEUED' | 'SKIPPED'
+  commandUnitName?: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  hostName?: string
+  lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
+  linesCount?: number
+  logLevel: 'DEBUG' | 'INFO' | 'WARN' | 'ERROR' | 'FATAL'
+  logLine?: string
+  uuid: string
+}
+
+export interface LogCollectionInfo {
+  collectionBody?: string
+  collectionUrl?: string
+  method?: 'POST' | 'GET'
+  responseMapping?: ResponseMapping
+  responseType?: 'JSON'
+}
+
+export interface LogConfiguration {
+  logDriver?: string
+  options?: LogOption[]
+}
+
+export interface LogDataRecord {
+  accountId?: string
+  appId: string
+  clusterLabel?: string
+  clusterLevel?: 'L0' | 'L1' | 'L2' | 'H0' | 'H1' | 'H2' | 'HF'
+  count?: number
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  cvConfigId?: string
+  host?: string
+  lastUpdatedAt: number
+  logCollectionMinute?: number
+  logMD5Hash?: string
+  logMessage?: string
+  query?: string
+  serviceId?: string
+  stateExecutionId?: string
+  stateType?:
+    | 'SUB_WORKFLOW'
+    | 'REPEAT'
+    | 'FORK'
+    | 'WAIT'
+    | 'PAUSE'
+    | 'BARRIER'
+    | 'RESOURCE_CONSTRAINT'
+    | 'SHELL_SCRIPT'
+    | 'HTTP'
+    | 'TEMPLATIZED_SECRET_MANAGER'
+    | 'EMAIL'
+    | 'APP_DYNAMICS'
+    | 'NEW_RELIC'
+    | 'NEW_RELIC_DEPLOYMENT_MARKER'
+    | 'DYNA_TRACE'
+    | 'PROMETHEUS'
+    | 'SPLUNKV2'
+    | 'ELK'
+    | 'LOGZ'
+    | 'SUMO'
+    | 'DATA_DOG'
+    | 'DATA_DOG_LOG'
+    | 'CLOUD_WATCH'
+    | 'AWS_LAMBDA_VERIFICATION'
+    | 'APM_VERIFICATION'
+    | 'LOG_VERIFICATION'
+    | 'BUG_SNAG'
+    | 'STACK_DRIVER'
+    | 'STACK_DRIVER_LOG'
+    | 'INSTANA'
+    | 'SCALYR'
+    | 'ENV_STATE'
+    | 'ENV_LOOP_STATE'
+    | 'ENV_RESUME_STATE'
+    | 'ENV_LOOP_RESUME_STATE'
+    | 'COMMAND'
+    | 'APPROVAL'
+    | 'APPROVAL_RESUME'
+    | 'ELASTIC_LOAD_BALANCER'
+    | 'JENKINS'
+    | 'GCB'
+    | 'BAMBOO'
+    | 'ARTIFACT_COLLECTION'
+    | 'ARTIFACT_CHECK'
+    | 'AZURE_NODE_SELECT'
+    | 'AZURE_VMSS_SETUP'
+    | 'AZURE_VMSS_DEPLOY'
+    | 'AZURE_VMSS_ROLLBACK'
+    | 'AZURE_VMSS_SWITCH_ROUTES'
+    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
+    | 'AZURE_WEBAPP_SLOT_SETUP'
+    | 'AZURE_WEBAPP_SLOT_RESIZE'
+    | 'AZURE_WEBAPP_SLOT_SWAP'
+    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
+    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
+    | 'AWS_NODE_SELECT'
+    | 'DC_NODE_SELECT'
+    | 'ROLLING_NODE_SELECT'
+    | 'PHASE'
+    | 'PHASE_STEP'
+    | 'STAGING_ORIGINAL_EXECUTION'
+    | 'AWS_CODEDEPLOY_STATE'
+    | 'AWS_CODEDEPLOY_ROLLBACK'
+    | 'AWS_LAMBDA_STATE'
+    | 'AWS_LAMBDA_ROLLBACK'
+    | 'AWS_AMI_SERVICE_SETUP'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
+    | 'AWS_AMI_SERVICE_DEPLOY'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
+    | 'AWS_AMI_SWITCH_ROUTES'
+    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
+    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_SERVICE_ROLLBACK'
+    | 'ECS_SERVICE_SETUP'
+    | 'SPOTINST_SETUP'
+    | 'SPOTINST_ALB_SHIFT_SETUP'
+    | 'SPOTINST_DEPLOY'
+    | 'SPOTINST_ALB_SHIFT_DEPLOY'
+    | 'SPOTINST_LISTENER_UPDATE'
+    | 'SPOTINST_LISTENER_ALB_SHIFT'
+    | 'SPOTINST_ROLLBACK'
+    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
+    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
+    | 'ECS_SERVICE_SETUP_ROLLBACK'
+    | 'ECS_DAEMON_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
+    | 'ECS_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_ROLLBACK'
+    | 'ECS_LISTENER_UPDATE'
+    | 'ECS_LISTENER_UPDATE_ROLLBACK'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
+    | 'KUBERNETES_SETUP'
+    | 'KUBERNETES_SETUP_ROLLBACK'
+    | 'KUBERNETES_DEPLOY'
+    | 'KUBERNETES_DEPLOY_ROLLBACK'
+    | 'KUBERNETES_STEADY_STATE_CHECK'
+    | 'ECS_STEADY_STATE_CHECK'
+    | 'ECS_RUN_TASK'
+    | 'GCP_CLUSTER_SETUP'
+    | 'HELM_DEPLOY'
+    | 'HELM_ROLLBACK'
+    | 'PCF_SETUP'
+    | 'PCF_RESIZE'
+    | 'PCF_ROLLBACK'
+    | 'PCF_MAP_ROUTE'
+    | 'PCF_UNMAP_ROUTE'
+    | 'PCF_BG_MAP_ROUTE'
+    | 'PCF_PLUGIN'
+    | 'TERRAFORM_PROVISION'
+    | 'TERRAFORM_APPLY'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'TERRAFORM_DESTROY'
+    | 'CLOUD_FORMATION_CREATE_STACK'
+    | 'CLOUD_FORMATION_DELETE_STACK'
+    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'CLOUD_FORMATION_ROLLBACK_STACK'
+    | 'TERRAFORM_ROLLBACK'
+    | 'K8S_DEPLOYMENT_ROLLING'
+    | 'K8S_SCALE'
+    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
+    | 'K8S_BLUE_GREEN_DEPLOY'
+    | 'K8S_CANARY_DEPLOY'
+    | 'K8S_DELETE'
+    | 'JIRA_CREATE_UPDATE'
+    | 'SERVICENOW_CREATE_UPDATE'
+    | 'K8S_TRAFFIC_SPLIT'
+    | 'K8S_APPLY'
+    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
+  supervisedLabel?: string
+  timeStamp?: number
+  timesLabeled?: number
+  uuid: string
+  validUntil?: string
+  workflowExecutionId?: string
+  workflowId?: string
+}
+
+export interface LogMLAnalysisSummary {
+  analysisComparisonStrategy?: 'COMPARE_WITH_PREVIOUS' | 'COMPARE_WITH_CURRENT' | 'PREDICTIVE'
+  analysisMinute?: number
+  analysisSummaryMessage?: string
+  baseLineExecutionId?: string
+  baselineEndTime?: number
+  baselineStartTime?: number
+  controlClusters?: LogMLClusterSummary[]
+  emptyResult?: boolean
+  highRiskClusters?: number
+  ignoreClusters?: LogMLClusterSummary[]
+  lowRiskClusters?: number
+  mediumRiskClusters?: number
+  newVersionNodes?: string[]
+  previousVersionNodes?: string[]
+  progress?: number
+  query?: string
+  riskLevel?: 'HIGH' | 'MEDIUM' | 'LOW' | 'NA'
+  score?: number
+  stateType?:
+    | 'SUB_WORKFLOW'
+    | 'REPEAT'
+    | 'FORK'
+    | 'WAIT'
+    | 'PAUSE'
+    | 'BARRIER'
+    | 'RESOURCE_CONSTRAINT'
+    | 'SHELL_SCRIPT'
+    | 'HTTP'
+    | 'TEMPLATIZED_SECRET_MANAGER'
+    | 'EMAIL'
+    | 'APP_DYNAMICS'
+    | 'NEW_RELIC'
+    | 'NEW_RELIC_DEPLOYMENT_MARKER'
+    | 'DYNA_TRACE'
+    | 'PROMETHEUS'
+    | 'SPLUNKV2'
+    | 'ELK'
+    | 'LOGZ'
+    | 'SUMO'
+    | 'DATA_DOG'
+    | 'DATA_DOG_LOG'
+    | 'CLOUD_WATCH'
+    | 'AWS_LAMBDA_VERIFICATION'
+    | 'APM_VERIFICATION'
+    | 'LOG_VERIFICATION'
+    | 'BUG_SNAG'
+    | 'STACK_DRIVER'
+    | 'STACK_DRIVER_LOG'
+    | 'INSTANA'
+    | 'SCALYR'
+    | 'ENV_STATE'
+    | 'ENV_LOOP_STATE'
+    | 'ENV_RESUME_STATE'
+    | 'ENV_LOOP_RESUME_STATE'
+    | 'COMMAND'
+    | 'APPROVAL'
+    | 'APPROVAL_RESUME'
+    | 'ELASTIC_LOAD_BALANCER'
+    | 'JENKINS'
+    | 'GCB'
+    | 'BAMBOO'
+    | 'ARTIFACT_COLLECTION'
+    | 'ARTIFACT_CHECK'
+    | 'AZURE_NODE_SELECT'
+    | 'AZURE_VMSS_SETUP'
+    | 'AZURE_VMSS_DEPLOY'
+    | 'AZURE_VMSS_ROLLBACK'
+    | 'AZURE_VMSS_SWITCH_ROUTES'
+    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
+    | 'AZURE_WEBAPP_SLOT_SETUP'
+    | 'AZURE_WEBAPP_SLOT_RESIZE'
+    | 'AZURE_WEBAPP_SLOT_SWAP'
+    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
+    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
+    | 'AWS_NODE_SELECT'
+    | 'DC_NODE_SELECT'
+    | 'ROLLING_NODE_SELECT'
+    | 'PHASE'
+    | 'PHASE_STEP'
+    | 'STAGING_ORIGINAL_EXECUTION'
+    | 'AWS_CODEDEPLOY_STATE'
+    | 'AWS_CODEDEPLOY_ROLLBACK'
+    | 'AWS_LAMBDA_STATE'
+    | 'AWS_LAMBDA_ROLLBACK'
+    | 'AWS_AMI_SERVICE_SETUP'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
+    | 'AWS_AMI_SERVICE_DEPLOY'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
+    | 'AWS_AMI_SWITCH_ROUTES'
+    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
+    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_SERVICE_ROLLBACK'
+    | 'ECS_SERVICE_SETUP'
+    | 'SPOTINST_SETUP'
+    | 'SPOTINST_ALB_SHIFT_SETUP'
+    | 'SPOTINST_DEPLOY'
+    | 'SPOTINST_ALB_SHIFT_DEPLOY'
+    | 'SPOTINST_LISTENER_UPDATE'
+    | 'SPOTINST_LISTENER_ALB_SHIFT'
+    | 'SPOTINST_ROLLBACK'
+    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
+    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
+    | 'ECS_SERVICE_SETUP_ROLLBACK'
+    | 'ECS_DAEMON_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
+    | 'ECS_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_ROLLBACK'
+    | 'ECS_LISTENER_UPDATE'
+    | 'ECS_LISTENER_UPDATE_ROLLBACK'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
+    | 'KUBERNETES_SETUP'
+    | 'KUBERNETES_SETUP_ROLLBACK'
+    | 'KUBERNETES_DEPLOY'
+    | 'KUBERNETES_DEPLOY_ROLLBACK'
+    | 'KUBERNETES_STEADY_STATE_CHECK'
+    | 'ECS_STEADY_STATE_CHECK'
+    | 'ECS_RUN_TASK'
+    | 'GCP_CLUSTER_SETUP'
+    | 'HELM_DEPLOY'
+    | 'HELM_ROLLBACK'
+    | 'PCF_SETUP'
+    | 'PCF_RESIZE'
+    | 'PCF_ROLLBACK'
+    | 'PCF_MAP_ROUTE'
+    | 'PCF_UNMAP_ROUTE'
+    | 'PCF_BG_MAP_ROUTE'
+    | 'PCF_PLUGIN'
+    | 'TERRAFORM_PROVISION'
+    | 'TERRAFORM_APPLY'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'TERRAFORM_DESTROY'
+    | 'CLOUD_FORMATION_CREATE_STACK'
+    | 'CLOUD_FORMATION_DELETE_STACK'
+    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'CLOUD_FORMATION_ROLLBACK_STACK'
+    | 'TERRAFORM_ROLLBACK'
+    | 'K8S_DEPLOYMENT_ROLLING'
+    | 'K8S_SCALE'
+    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
+    | 'K8S_BLUE_GREEN_DEPLOY'
+    | 'K8S_CANARY_DEPLOY'
+    | 'K8S_DELETE'
+    | 'JIRA_CREATE_UPDATE'
+    | 'SERVICENOW_CREATE_UPDATE'
+    | 'K8S_TRAFFIC_SPLIT'
+    | 'K8S_APPLY'
+    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
+  testClusters?: LogMLClusterSummary[]
+  timeDuration?: number
+  unknownClusters?: LogMLClusterSummary[]
+}
+
+export interface LogMLClusterSummary {
+  clusterLabel?: number
+  feedbackSummary?: LogMLFeedbackSummary
+  hostSummary?: {
+    [key: string]: LogMLHostSummary
+  }
+  jiraLink?: string
+  logMLFeedbackId?: string
+  logMLFeedbackType?:
+    | 'IGNORE_SERVICE'
+    | 'IGNORE_WORKFLOW'
+    | 'IGNORE_WORKFLOW_EXECUTION'
+    | 'IGNORE_ALWAYS'
+    | 'DISMISS'
+    | 'PRIORITIZE'
+    | 'THUMBS_UP'
+    | 'THUMBS_DOWN'
+    | 'UNDO_IGNORE'
+  logText?: string
+  priority?: 'BASELINE' | 'P5' | 'P4' | 'P3' | 'P2' | 'P1' | 'P0'
+  riskLevel?: 'HIGH' | 'MEDIUM' | 'LOW' | 'NA'
+  score?: number
+  tags?: string[]
+}
+
+export interface LogMLFeedback {
+  analysisMinute?: number
+  appId?: string
+  clusterLabel?: number
+  clusterType?: 'CONTROL' | 'TEST' | 'UNKNOWN' | 'IGNORE'
+  comment?: string
+  envId?: string
+  logMLFeedbackId?: string
+  logMLFeedbackType?:
+    | 'IGNORE_SERVICE'
+    | 'IGNORE_WORKFLOW'
+    | 'IGNORE_WORKFLOW_EXECUTION'
+    | 'IGNORE_ALWAYS'
+    | 'DISMISS'
+    | 'PRIORITIZE'
+    | 'THUMBS_UP'
+    | 'THUMBS_DOWN'
+    | 'UNDO_IGNORE'
+  serviceId?: string
+  stateExecutionId?: string
+}
+
+export interface LogMLFeedbackRecord {
+  actionTaken?: 'ADD_TO_BASELINE' | 'REMOVE_FROM_BASELINE' | 'UPDATE_PRIORITY'
+  analysisMinute?: number
+  appId: string
+  clusterLabel?: number
+  clusterType?: 'CONTROL' | 'TEST' | 'UNKNOWN' | 'IGNORE'
+  comment?: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  cvConfigId?: string
+  envId?: string
+  jiraLink?: string
+  lastUpdatedAt: number
+  logMD5Hash?: string
+  logMLFeedbackType?:
+    | 'IGNORE_SERVICE'
+    | 'IGNORE_WORKFLOW'
+    | 'IGNORE_WORKFLOW_EXECUTION'
+    | 'IGNORE_ALWAYS'
+    | 'DISMISS'
+    | 'PRIORITIZE'
+    | 'THUMBS_UP'
+    | 'THUMBS_DOWN'
+    | 'UNDO_IGNORE'
+  logMessage?: string
+  metadata?: { [key: string]: any }
+  priority?: 'BASELINE' | 'P5' | 'P4' | 'P3' | 'P2' | 'P1' | 'P0'
+  serviceId?: string
+  stateExecutionId?: string
+  stateType?:
+    | 'SUB_WORKFLOW'
+    | 'REPEAT'
+    | 'FORK'
+    | 'WAIT'
+    | 'PAUSE'
+    | 'BARRIER'
+    | 'RESOURCE_CONSTRAINT'
+    | 'SHELL_SCRIPT'
+    | 'HTTP'
+    | 'TEMPLATIZED_SECRET_MANAGER'
+    | 'EMAIL'
+    | 'APP_DYNAMICS'
+    | 'NEW_RELIC'
+    | 'NEW_RELIC_DEPLOYMENT_MARKER'
+    | 'DYNA_TRACE'
+    | 'PROMETHEUS'
+    | 'SPLUNKV2'
+    | 'ELK'
+    | 'LOGZ'
+    | 'SUMO'
+    | 'DATA_DOG'
+    | 'DATA_DOG_LOG'
+    | 'CLOUD_WATCH'
+    | 'AWS_LAMBDA_VERIFICATION'
+    | 'APM_VERIFICATION'
+    | 'LOG_VERIFICATION'
+    | 'BUG_SNAG'
+    | 'STACK_DRIVER'
+    | 'STACK_DRIVER_LOG'
+    | 'INSTANA'
+    | 'SCALYR'
+    | 'ENV_STATE'
+    | 'ENV_LOOP_STATE'
+    | 'ENV_RESUME_STATE'
+    | 'ENV_LOOP_RESUME_STATE'
+    | 'COMMAND'
+    | 'APPROVAL'
+    | 'APPROVAL_RESUME'
+    | 'ELASTIC_LOAD_BALANCER'
+    | 'JENKINS'
+    | 'GCB'
+    | 'BAMBOO'
+    | 'ARTIFACT_COLLECTION'
+    | 'ARTIFACT_CHECK'
+    | 'AZURE_NODE_SELECT'
+    | 'AZURE_VMSS_SETUP'
+    | 'AZURE_VMSS_DEPLOY'
+    | 'AZURE_VMSS_ROLLBACK'
+    | 'AZURE_VMSS_SWITCH_ROUTES'
+    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
+    | 'AZURE_WEBAPP_SLOT_SETUP'
+    | 'AZURE_WEBAPP_SLOT_RESIZE'
+    | 'AZURE_WEBAPP_SLOT_SWAP'
+    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
+    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
+    | 'AWS_NODE_SELECT'
+    | 'DC_NODE_SELECT'
+    | 'ROLLING_NODE_SELECT'
+    | 'PHASE'
+    | 'PHASE_STEP'
+    | 'STAGING_ORIGINAL_EXECUTION'
+    | 'AWS_CODEDEPLOY_STATE'
+    | 'AWS_CODEDEPLOY_ROLLBACK'
+    | 'AWS_LAMBDA_STATE'
+    | 'AWS_LAMBDA_ROLLBACK'
+    | 'AWS_AMI_SERVICE_SETUP'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
+    | 'AWS_AMI_SERVICE_DEPLOY'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
+    | 'AWS_AMI_SWITCH_ROUTES'
+    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
+    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_SERVICE_ROLLBACK'
+    | 'ECS_SERVICE_SETUP'
+    | 'SPOTINST_SETUP'
+    | 'SPOTINST_ALB_SHIFT_SETUP'
+    | 'SPOTINST_DEPLOY'
+    | 'SPOTINST_ALB_SHIFT_DEPLOY'
+    | 'SPOTINST_LISTENER_UPDATE'
+    | 'SPOTINST_LISTENER_ALB_SHIFT'
+    | 'SPOTINST_ROLLBACK'
+    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
+    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
+    | 'ECS_SERVICE_SETUP_ROLLBACK'
+    | 'ECS_DAEMON_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
+    | 'ECS_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_ROLLBACK'
+    | 'ECS_LISTENER_UPDATE'
+    | 'ECS_LISTENER_UPDATE_ROLLBACK'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
+    | 'KUBERNETES_SETUP'
+    | 'KUBERNETES_SETUP_ROLLBACK'
+    | 'KUBERNETES_DEPLOY'
+    | 'KUBERNETES_DEPLOY_ROLLBACK'
+    | 'KUBERNETES_STEADY_STATE_CHECK'
+    | 'ECS_STEADY_STATE_CHECK'
+    | 'ECS_RUN_TASK'
+    | 'GCP_CLUSTER_SETUP'
+    | 'HELM_DEPLOY'
+    | 'HELM_ROLLBACK'
+    | 'PCF_SETUP'
+    | 'PCF_RESIZE'
+    | 'PCF_ROLLBACK'
+    | 'PCF_MAP_ROUTE'
+    | 'PCF_UNMAP_ROUTE'
+    | 'PCF_BG_MAP_ROUTE'
+    | 'PCF_PLUGIN'
+    | 'TERRAFORM_PROVISION'
+    | 'TERRAFORM_APPLY'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'TERRAFORM_DESTROY'
+    | 'CLOUD_FORMATION_CREATE_STACK'
+    | 'CLOUD_FORMATION_DELETE_STACK'
+    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'CLOUD_FORMATION_ROLLBACK_STACK'
+    | 'TERRAFORM_ROLLBACK'
+    | 'K8S_DEPLOYMENT_ROLLING'
+    | 'K8S_SCALE'
+    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
+    | 'K8S_BLUE_GREEN_DEPLOY'
+    | 'K8S_CANARY_DEPLOY'
+    | 'K8S_DELETE'
+    | 'JIRA_CREATE_UPDATE'
+    | 'SERVICENOW_CREATE_UPDATE'
+    | 'K8S_TRAFFIC_SPLIT'
+    | 'K8S_APPLY'
+    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
+  supervisedLabel?: string
+  uuid: string
+  workflowExecutionId?: string
+  workflowId?: string
+}
+
+export interface LogMLFeedbackSummary {
+  feedbackNote?: string
+  jiraLink?: string
+  lastUpdatedAt?: number
+  lastUpdatedBy?: EmbeddedUser
+  logMLFeedbackId?: string
+  priority?: 'BASELINE' | 'P5' | 'P4' | 'P3' | 'P2' | 'P1' | 'P0'
+}
+
+export interface LogMLHostSummary {
+  count?: number
+  frequencies?: number[]
+  frequencyMap?: {
+    [key: string]: number
+  }
+  unexpectedFreq?: boolean
+  xcordinate?: number
+  ycordinate?: number
+}
+
+export interface LogOption {
+  key?: string
+  value?: string
+}
+
+export interface LoginRequest {
+  authorization?: string
+}
+
+export interface LoginSettings {
+  accountId: string
+  lastUpdatedAt?: number
+  lastUpdatedBy?: EmbeddedUser
+  passwordExpirationPolicy: PasswordExpirationPolicy
+  passwordStrengthPolicy: PasswordStrengthPolicy
+  userLockoutPolicy: UserLockoutPolicy
+  uuid: string
+}
+
+export interface LoginTypeRequest {
+  userName?: string
+}
+
+export interface LoginTypeResponse {
+  authenticationMechanism?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
+  oauthEnabled?: boolean
+  showCaptcha?: boolean
+  ssorequest?: SSORequest
+}
+
+export interface LogoutResponse {
+  logoutUrl?: string
 }
 
 export interface LogsCVConfiguration {
-  uuid: string
+  accountId: string
+  alertEnabled?: boolean
+  alertPriority?: 'BASELINE' | 'P5' | 'P4' | 'P3' | 'P2' | 'P1' | 'P0'
+  alertThreshold?: number
+  analysisTolerance: 'LOW' | 'MEDIUM' | 'HIGH'
   appId: string
-  createdBy?: EmbeddedUser
+  appName?: string
+  baselineEndMinute?: number
+  baselineStartMinute?: number
+  comparisonStrategy?: 'COMPARE_WITH_PREVIOUS' | 'COMPARE_WITH_CURRENT' | 'PREDICTIVE'
+  connectorId: string
+  connectorName?: string
+  contextId?: string
   createdAt?: number
+  createdBy?: EmbeddedUser
+  customThresholdRefId?: string
+  enabled24x7?: boolean
+  envId: string
+  envName?: string
+  is247LogsV2?: boolean
   lastUpdatedAt: number
   name: string
-  accountId: string
-  connectorId: string
-  envId: string
+  numOfOccurrencesForAlert?: number
+  query?: string
   serviceId: string
+  serviceName?: string
+  snoozeEndTime?: number
+  snoozeStartTime?: number
   stateType:
     | 'SUB_WORKFLOW'
     | 'REPEAT'
@@ -6782,2406 +9252,136 @@ export interface LogsCVConfiguration {
     | 'K8S_TRAFFIC_SPLIT'
     | 'K8S_APPLY'
     | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
-  analysisTolerance: 'LOW' | 'MEDIUM' | 'HIGH'
-  customThresholdRefId?: string
-  enabled24x7?: boolean
-  comparisonStrategy?: 'COMPARE_WITH_PREVIOUS' | 'COMPARE_WITH_CURRENT' | 'PREDICTIVE'
-  contextId?: string
-  alertEnabled?: boolean
-  alertThreshold?: number
-  numOfOccurrencesForAlert?: number
-  snoozeStartTime?: number
-  snoozeEndTime?: number
-  connectorName?: string
-  serviceName?: string
-  envName?: string
-  appName?: string
-  query?: string
-  baselineStartMinute?: number
-  baselineEndMinute?: number
-  alertPriority?: 'BASELINE' | 'P5' | 'P4' | 'P3' | 'P2' | 'P1' | 'P0'
-  is247LogsV2?: boolean
-  workflowConfig?: boolean
-}
-
-export interface RestResponseCVConfiguration {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: CVConfiguration
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListCVConfiguration {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: CVConfiguration[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface CloudWatchMetric {
-  metricName?: string
-  displayName?: string
-  dimension?: string
-  dimensionDisplay?: string
-  metricType?: string
-  enabledDefault?: boolean
-  statistics?: string
-  unit?:
-    | 'Seconds'
-    | 'Microseconds'
-    | 'Milliseconds'
-    | 'Bytes'
-    | 'Kilobytes'
-    | 'Megabytes'
-    | 'Gigabytes'
-    | 'Terabytes'
-    | 'Bits'
-    | 'Kilobits'
-    | 'Megabits'
-    | 'Gigabits'
-    | 'Terabits'
-    | 'Percent'
-    | 'Count'
-    | 'BytesSecond'
-    | 'KilobytesSecond'
-    | 'MegabytesSecond'
-    | 'GigabytesSecond'
-    | 'TerabytesSecond'
-    | 'BitsSecond'
-    | 'KilobitsSecond'
-    | 'MegabitsSecond'
-    | 'GigabitsSecond'
-    | 'TerabitsSecond'
-    | 'CountSecond'
-    | 'None'
-}
-
-export interface CloudWatchSetupTestNodeData {
-  appId: string
-  settingId: string
-  instanceName?: string
-  isServiceLevel?: boolean
-  instanceElement?: Instance
-  hostExpression?: string
-  workflowId?: string
-  guid?: string
-  stateType?:
-    | 'SUB_WORKFLOW'
-    | 'REPEAT'
-    | 'FORK'
-    | 'WAIT'
-    | 'PAUSE'
-    | 'BARRIER'
-    | 'RESOURCE_CONSTRAINT'
-    | 'SHELL_SCRIPT'
-    | 'HTTP'
-    | 'TEMPLATIZED_SECRET_MANAGER'
-    | 'EMAIL'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'NEW_RELIC_DEPLOYMENT_MARKER'
-    | 'DYNA_TRACE'
-    | 'PROMETHEUS'
-    | 'SPLUNKV2'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'AWS_LAMBDA_VERIFICATION'
-    | 'APM_VERIFICATION'
-    | 'LOG_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'STACK_DRIVER'
-    | 'STACK_DRIVER_LOG'
-    | 'INSTANA'
-    | 'SCALYR'
-    | 'ENV_STATE'
-    | 'ENV_LOOP_STATE'
-    | 'ENV_RESUME_STATE'
-    | 'ENV_LOOP_RESUME_STATE'
-    | 'COMMAND'
-    | 'APPROVAL'
-    | 'APPROVAL_RESUME'
-    | 'ELASTIC_LOAD_BALANCER'
-    | 'JENKINS'
-    | 'GCB'
-    | 'BAMBOO'
-    | 'ARTIFACT_COLLECTION'
-    | 'ARTIFACT_CHECK'
-    | 'AZURE_NODE_SELECT'
-    | 'AZURE_VMSS_SETUP'
-    | 'AZURE_VMSS_DEPLOY'
-    | 'AZURE_VMSS_ROLLBACK'
-    | 'AZURE_VMSS_SWITCH_ROUTES'
-    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
-    | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
-    | 'AZURE_WEBAPP_SLOT_SWAP'
-    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
-    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
-    | 'AWS_NODE_SELECT'
-    | 'DC_NODE_SELECT'
-    | 'ROLLING_NODE_SELECT'
-    | 'PHASE'
-    | 'PHASE_STEP'
-    | 'STAGING_ORIGINAL_EXECUTION'
-    | 'AWS_CODEDEPLOY_STATE'
-    | 'AWS_CODEDEPLOY_ROLLBACK'
-    | 'AWS_LAMBDA_STATE'
-    | 'AWS_LAMBDA_ROLLBACK'
-    | 'AWS_AMI_SERVICE_SETUP'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
-    | 'AWS_AMI_SERVICE_DEPLOY'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
-    | 'AWS_AMI_SWITCH_ROUTES'
-    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
-    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_SERVICE_ROLLBACK'
-    | 'ECS_SERVICE_SETUP'
-    | 'SPOTINST_SETUP'
-    | 'SPOTINST_ALB_SHIFT_SETUP'
-    | 'SPOTINST_DEPLOY'
-    | 'SPOTINST_ALB_SHIFT_DEPLOY'
-    | 'SPOTINST_LISTENER_UPDATE'
-    | 'SPOTINST_LISTENER_ALB_SHIFT'
-    | 'SPOTINST_ROLLBACK'
-    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
-    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
-    | 'ECS_SERVICE_SETUP_ROLLBACK'
-    | 'ECS_DAEMON_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
-    | 'ECS_SERVICE_DEPLOY'
-    | 'ECS_SERVICE_ROLLBACK'
-    | 'ECS_LISTENER_UPDATE'
-    | 'ECS_LISTENER_UPDATE_ROLLBACK'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
-    | 'KUBERNETES_SETUP'
-    | 'KUBERNETES_SETUP_ROLLBACK'
-    | 'KUBERNETES_DEPLOY'
-    | 'KUBERNETES_DEPLOY_ROLLBACK'
-    | 'KUBERNETES_STEADY_STATE_CHECK'
-    | 'ECS_STEADY_STATE_CHECK'
-    | 'ECS_RUN_TASK'
-    | 'GCP_CLUSTER_SETUP'
-    | 'HELM_DEPLOY'
-    | 'HELM_ROLLBACK'
-    | 'PCF_SETUP'
-    | 'PCF_RESIZE'
-    | 'PCF_ROLLBACK'
-    | 'PCF_MAP_ROUTE'
-    | 'PCF_UNMAP_ROUTE'
-    | 'PCF_BG_MAP_ROUTE'
-    | 'PCF_PLUGIN'
-    | 'TERRAFORM_PROVISION'
-    | 'TERRAFORM_APPLY'
-    | 'SHELL_SCRIPT_PROVISION'
-    | 'TERRAFORM_DESTROY'
-    | 'CLOUD_FORMATION_CREATE_STACK'
-    | 'CLOUD_FORMATION_DELETE_STACK'
-    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
-    | 'CLOUD_FORMATION_ROLLBACK_STACK'
-    | 'TERRAFORM_ROLLBACK'
-    | 'K8S_DEPLOYMENT_ROLLING'
-    | 'K8S_SCALE'
-    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
-    | 'K8S_BLUE_GREEN_DEPLOY'
-    | 'K8S_CANARY_DEPLOY'
-    | 'K8S_DELETE'
-    | 'JIRA_CREATE_UPDATE'
-    | 'SERVICENOW_CREATE_UPDATE'
-    | 'K8S_TRAFFIC_SPLIT'
-    | 'K8S_APPLY'
-    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
-  toTime?: number
-  fromTime?: number
-  region?: string
-  hostName?: string
-  loadBalancerMetricsByLBName?: {
-    [key: string]: CloudWatchMetric[]
-  }
-  ecsMetrics?: {
-    [key: string]: CloudWatchMetric[]
-  }
-  lambdaFunctionsMetrics?: {
-    [key: string]: CloudWatchMetric[]
-  }
-  ec2Metrics?: CloudWatchMetric[]
-  serviceLevel?: boolean
-}
-
-export interface RestResponseListCloudWatchMetric {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: CloudWatchMetric[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface Cluster {
-  clusterName?: string
-  clusterType?: string
-  cloudProviderId?: string
-}
-
-export interface ClusterRecord {
-  uuid?: string
-  accountId?: string
-  cluster?: Cluster
-  perpetualTaskIds?: string[]
-  createdAt?: number
-  lastUpdatedAt?: number
-  deactivated?: boolean
-}
-
-export type DirectKubernetesCluster = Cluster & {}
-
-export type EcsCluster = Cluster & {
-  region?: string
-}
-
-export type GcpKubernetesCluster = Cluster & {}
-
-export interface RestResponseClusterRecord {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ClusterRecord
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListClusterRecord {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ClusterRecord[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseConfigFile {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ConfigFile
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponsePageResponseConfigFile {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ConfigFile[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ContinuousVerificationExecutionMetaData {
-  workflowStartTs?: number
-  pipelineStartTs?: number
-  accountId?: string
-  envId?: string
-  applicationId?: string
-  serviceId?: string
-  workflowId?: string
-  workflowExecutionId?: string
-  stateExecutionId?: string
-  stateType?:
-    | 'SUB_WORKFLOW'
-    | 'REPEAT'
-    | 'FORK'
-    | 'WAIT'
-    | 'PAUSE'
-    | 'BARRIER'
-    | 'RESOURCE_CONSTRAINT'
-    | 'SHELL_SCRIPT'
-    | 'HTTP'
-    | 'TEMPLATIZED_SECRET_MANAGER'
-    | 'EMAIL'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'NEW_RELIC_DEPLOYMENT_MARKER'
-    | 'DYNA_TRACE'
-    | 'PROMETHEUS'
-    | 'SPLUNKV2'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'AWS_LAMBDA_VERIFICATION'
-    | 'APM_VERIFICATION'
-    | 'LOG_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'STACK_DRIVER'
-    | 'STACK_DRIVER_LOG'
-    | 'INSTANA'
-    | 'SCALYR'
-    | 'ENV_STATE'
-    | 'ENV_LOOP_STATE'
-    | 'ENV_RESUME_STATE'
-    | 'ENV_LOOP_RESUME_STATE'
-    | 'COMMAND'
-    | 'APPROVAL'
-    | 'APPROVAL_RESUME'
-    | 'ELASTIC_LOAD_BALANCER'
-    | 'JENKINS'
-    | 'GCB'
-    | 'BAMBOO'
-    | 'ARTIFACT_COLLECTION'
-    | 'ARTIFACT_CHECK'
-    | 'AZURE_NODE_SELECT'
-    | 'AZURE_VMSS_SETUP'
-    | 'AZURE_VMSS_DEPLOY'
-    | 'AZURE_VMSS_ROLLBACK'
-    | 'AZURE_VMSS_SWITCH_ROUTES'
-    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
-    | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
-    | 'AZURE_WEBAPP_SLOT_SWAP'
-    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
-    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
-    | 'AWS_NODE_SELECT'
-    | 'DC_NODE_SELECT'
-    | 'ROLLING_NODE_SELECT'
-    | 'PHASE'
-    | 'PHASE_STEP'
-    | 'STAGING_ORIGINAL_EXECUTION'
-    | 'AWS_CODEDEPLOY_STATE'
-    | 'AWS_CODEDEPLOY_ROLLBACK'
-    | 'AWS_LAMBDA_STATE'
-    | 'AWS_LAMBDA_ROLLBACK'
-    | 'AWS_AMI_SERVICE_SETUP'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
-    | 'AWS_AMI_SERVICE_DEPLOY'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
-    | 'AWS_AMI_SWITCH_ROUTES'
-    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
-    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_SERVICE_ROLLBACK'
-    | 'ECS_SERVICE_SETUP'
-    | 'SPOTINST_SETUP'
-    | 'SPOTINST_ALB_SHIFT_SETUP'
-    | 'SPOTINST_DEPLOY'
-    | 'SPOTINST_ALB_SHIFT_DEPLOY'
-    | 'SPOTINST_LISTENER_UPDATE'
-    | 'SPOTINST_LISTENER_ALB_SHIFT'
-    | 'SPOTINST_ROLLBACK'
-    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
-    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
-    | 'ECS_SERVICE_SETUP_ROLLBACK'
-    | 'ECS_DAEMON_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
-    | 'ECS_SERVICE_DEPLOY'
-    | 'ECS_SERVICE_ROLLBACK'
-    | 'ECS_LISTENER_UPDATE'
-    | 'ECS_LISTENER_UPDATE_ROLLBACK'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
-    | 'KUBERNETES_SETUP'
-    | 'KUBERNETES_SETUP_ROLLBACK'
-    | 'KUBERNETES_DEPLOY'
-    | 'KUBERNETES_DEPLOY_ROLLBACK'
-    | 'KUBERNETES_STEADY_STATE_CHECK'
-    | 'ECS_STEADY_STATE_CHECK'
-    | 'ECS_RUN_TASK'
-    | 'GCP_CLUSTER_SETUP'
-    | 'HELM_DEPLOY'
-    | 'HELM_ROLLBACK'
-    | 'PCF_SETUP'
-    | 'PCF_RESIZE'
-    | 'PCF_ROLLBACK'
-    | 'PCF_MAP_ROUTE'
-    | 'PCF_UNMAP_ROUTE'
-    | 'PCF_BG_MAP_ROUTE'
-    | 'PCF_PLUGIN'
-    | 'TERRAFORM_PROVISION'
-    | 'TERRAFORM_APPLY'
-    | 'SHELL_SCRIPT_PROVISION'
-    | 'TERRAFORM_DESTROY'
-    | 'CLOUD_FORMATION_CREATE_STACK'
-    | 'CLOUD_FORMATION_DELETE_STACK'
-    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
-    | 'CLOUD_FORMATION_ROLLBACK_STACK'
-    | 'TERRAFORM_ROLLBACK'
-    | 'K8S_DEPLOYMENT_ROLLING'
-    | 'K8S_SCALE'
-    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
-    | 'K8S_BLUE_GREEN_DEPLOY'
-    | 'K8S_CANARY_DEPLOY'
-    | 'K8S_DELETE'
-    | 'JIRA_CREATE_UPDATE'
-    | 'SERVICENOW_CREATE_UPDATE'
-    | 'K8S_TRAFFIC_SPLIT'
-    | 'K8S_APPLY'
-    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
-  pipelineId?: string
-  pipelineExecutionId?: string
-  phaseId?: string
-  artifactName?: string
-  envName?: string
-  workflowName?: string
-  appName?: string
-  serviceName?: string
-  phaseName?: string
-  stateStartTs?: number
-  pipelineName?: string
-  executionStatus?:
-    | 'ABORTED'
-    | 'DISCONTINUING'
-    | 'ERROR'
-    | 'FAILED'
-    | 'NEW'
-    | 'PAUSED'
-    | 'PAUSING'
-    | 'QUEUED'
-    | 'RESUMED'
-    | 'RUNNING'
-    | 'SCHEDULED'
-    | 'STARTING'
-    | 'SUCCESS'
-    | 'WAITING'
-    | 'SKIPPED'
-    | 'ABORTING'
-    | 'REJECTED'
-    | 'EXPIRED'
-    | 'PREPARING'
-  noData?: boolean
-  manualOverride?: boolean
-  validUntil?: string
   uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-}
-
-export interface RestResponseLinkedHashMapLongLinkedHashMapStringLinkedHashMapStringLinkedHashMapStringLinkedHashMapStringListContinuousVerificationExecutionMetaData {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: {
-    [key: string]: {
-      [key: string]: {
-        [key: string]: {
-          [key: string]: {
-            [key: string]: ContinuousVerificationExecutionMetaData[]
-          }
-        }
-      }
-    }
-  }
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponsePageResponseContinuousVerificationExecutionMetaData {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ContinuousVerificationExecutionMetaData[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface HeatMap {
-  cvConfiguration?: CVConfiguration
-  riskLevelSummary?: HeatMapUnit[]
-  observedTimeSeries?: {
-    [key: string]: {
-      [key: string]: TimeSeriesDataPoint[]
-    }
-  }
-  predictedTimeSeries?: {
-    [key: string]: {
-      [key: string]: TimeSeriesDataPoint[]
-    }
-  }
-}
-
-export interface HeatMapUnit {
-  startTime?: number
-  endTime?: number
-  highRisk?: number
-  mediumRisk?: number
-  lowRisk?: number
-  na?: number
-  overallScore?: number
-  scoreList?: number[]
-  keyTransactionScore?: number
-  keyTransactionScoreList?: number[]
-}
-
-export interface RestResponseListHeatMap {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: HeatMap[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface TimeSeriesDataPoint {
-  timestamp?: number
-  value?: number
-  risk?: number
-}
-
-export interface CVDeploymentData {
-  appId?: string
-  envId?: string
-  serviceId?: string
-  accountId?: string
-  status?:
-    | 'ABORTED'
-    | 'DISCONTINUING'
-    | 'ERROR'
-    | 'FAILED'
-    | 'NEW'
-    | 'PAUSED'
-    | 'PAUSING'
-    | 'QUEUED'
-    | 'RESUMED'
-    | 'RUNNING'
-    | 'SCHEDULED'
-    | 'STARTING'
-    | 'SUCCESS'
-    | 'WAITING'
-    | 'SKIPPED'
-    | 'ABORTING'
-    | 'REJECTED'
-    | 'EXPIRED'
-    | 'PREPARING'
-  startTs?: number
-  workflowExecutionId?: string
-  pipelineExecutionId?: string
-  workflowName?: string
-  pipelineName?: string
-}
-
-export interface RestResponseListCVDeploymentData {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: CVDeploymentData[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListWorkflowExecution {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: WorkflowExecution[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseSortedSetTransactionTimeSeries {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: TransactionTimeSeries[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface TimeSeriesOfMetric {
-  risk?: number
-  metricName?: string
-  metricType?: string
-  metricDeeplinkUrl?: string
-  lastSeenTime?: number
-  timeSeries?: TimeSeriesDataPoint[]
-  risksForTimeSeries?: TimeSeriesRisk[]
-  longTermPattern?: boolean
-}
-
-export interface TimeSeriesRisk {
-  startTime?: number
-  endTime?: number
-  risk?: number
-}
-
-export interface TransactionTimeSeries {
-  tag?: string
-  transactionName?: string
-  metricTimeSeries?: TimeSeriesOfMetric[]
-}
-
-export interface RestResponseServiceGuardTimeSeries {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ServiceGuardTimeSeries
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ServiceGuardTimeSeries {
-  timeSeriesSet?: TransactionTimeSeries[]
-  transactionsInAnalysis?: string[]
-  totalRecords?: number
-}
-
-export interface TimeSeriesFilter {
-  cvConfigId?: string
-  startTime?: number
-  endTime?: number
-  historyStartTime?: number
-  txnNames?: string[]
-  metricNames?: string[]
-  tags?: string[]
-}
-
-export interface LogMLAnalysisSummary {
-  query?: string
-  riskLevel?: 'HIGH' | 'MEDIUM' | 'LOW' | 'NA'
-  analysisSummaryMessage?: string
-  baseLineExecutionId?: string
-  score?: number
-  highRiskClusters?: number
-  mediumRiskClusters?: number
-  lowRiskClusters?: number
-  controlClusters?: LogMLClusterSummary[]
-  testClusters?: LogMLClusterSummary[]
-  unknownClusters?: LogMLClusterSummary[]
-  ignoreClusters?: LogMLClusterSummary[]
-  stateType?:
-    | 'SUB_WORKFLOW'
-    | 'REPEAT'
-    | 'FORK'
-    | 'WAIT'
-    | 'PAUSE'
-    | 'BARRIER'
-    | 'RESOURCE_CONSTRAINT'
-    | 'SHELL_SCRIPT'
-    | 'HTTP'
-    | 'TEMPLATIZED_SECRET_MANAGER'
-    | 'EMAIL'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'NEW_RELIC_DEPLOYMENT_MARKER'
-    | 'DYNA_TRACE'
-    | 'PROMETHEUS'
-    | 'SPLUNKV2'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'AWS_LAMBDA_VERIFICATION'
-    | 'APM_VERIFICATION'
-    | 'LOG_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'STACK_DRIVER'
-    | 'STACK_DRIVER_LOG'
-    | 'INSTANA'
-    | 'SCALYR'
-    | 'ENV_STATE'
-    | 'ENV_LOOP_STATE'
-    | 'ENV_RESUME_STATE'
-    | 'ENV_LOOP_RESUME_STATE'
-    | 'COMMAND'
-    | 'APPROVAL'
-    | 'APPROVAL_RESUME'
-    | 'ELASTIC_LOAD_BALANCER'
-    | 'JENKINS'
-    | 'GCB'
-    | 'BAMBOO'
-    | 'ARTIFACT_COLLECTION'
-    | 'ARTIFACT_CHECK'
-    | 'AZURE_NODE_SELECT'
-    | 'AZURE_VMSS_SETUP'
-    | 'AZURE_VMSS_DEPLOY'
-    | 'AZURE_VMSS_ROLLBACK'
-    | 'AZURE_VMSS_SWITCH_ROUTES'
-    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
-    | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
-    | 'AZURE_WEBAPP_SLOT_SWAP'
-    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
-    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
-    | 'AWS_NODE_SELECT'
-    | 'DC_NODE_SELECT'
-    | 'ROLLING_NODE_SELECT'
-    | 'PHASE'
-    | 'PHASE_STEP'
-    | 'STAGING_ORIGINAL_EXECUTION'
-    | 'AWS_CODEDEPLOY_STATE'
-    | 'AWS_CODEDEPLOY_ROLLBACK'
-    | 'AWS_LAMBDA_STATE'
-    | 'AWS_LAMBDA_ROLLBACK'
-    | 'AWS_AMI_SERVICE_SETUP'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
-    | 'AWS_AMI_SERVICE_DEPLOY'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
-    | 'AWS_AMI_SWITCH_ROUTES'
-    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
-    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_SERVICE_ROLLBACK'
-    | 'ECS_SERVICE_SETUP'
-    | 'SPOTINST_SETUP'
-    | 'SPOTINST_ALB_SHIFT_SETUP'
-    | 'SPOTINST_DEPLOY'
-    | 'SPOTINST_ALB_SHIFT_DEPLOY'
-    | 'SPOTINST_LISTENER_UPDATE'
-    | 'SPOTINST_LISTENER_ALB_SHIFT'
-    | 'SPOTINST_ROLLBACK'
-    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
-    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
-    | 'ECS_SERVICE_SETUP_ROLLBACK'
-    | 'ECS_DAEMON_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
-    | 'ECS_SERVICE_DEPLOY'
-    | 'ECS_SERVICE_ROLLBACK'
-    | 'ECS_LISTENER_UPDATE'
-    | 'ECS_LISTENER_UPDATE_ROLLBACK'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
-    | 'KUBERNETES_SETUP'
-    | 'KUBERNETES_SETUP_ROLLBACK'
-    | 'KUBERNETES_DEPLOY'
-    | 'KUBERNETES_DEPLOY_ROLLBACK'
-    | 'KUBERNETES_STEADY_STATE_CHECK'
-    | 'ECS_STEADY_STATE_CHECK'
-    | 'ECS_RUN_TASK'
-    | 'GCP_CLUSTER_SETUP'
-    | 'HELM_DEPLOY'
-    | 'HELM_ROLLBACK'
-    | 'PCF_SETUP'
-    | 'PCF_RESIZE'
-    | 'PCF_ROLLBACK'
-    | 'PCF_MAP_ROUTE'
-    | 'PCF_UNMAP_ROUTE'
-    | 'PCF_BG_MAP_ROUTE'
-    | 'PCF_PLUGIN'
-    | 'TERRAFORM_PROVISION'
-    | 'TERRAFORM_APPLY'
-    | 'SHELL_SCRIPT_PROVISION'
-    | 'TERRAFORM_DESTROY'
-    | 'CLOUD_FORMATION_CREATE_STACK'
-    | 'CLOUD_FORMATION_DELETE_STACK'
-    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
-    | 'CLOUD_FORMATION_ROLLBACK_STACK'
-    | 'TERRAFORM_ROLLBACK'
-    | 'K8S_DEPLOYMENT_ROLLING'
-    | 'K8S_SCALE'
-    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
-    | 'K8S_BLUE_GREEN_DEPLOY'
-    | 'K8S_CANARY_DEPLOY'
-    | 'K8S_DELETE'
-    | 'JIRA_CREATE_UPDATE'
-    | 'SERVICENOW_CREATE_UPDATE'
-    | 'K8S_TRAFFIC_SPLIT'
-    | 'K8S_APPLY'
-    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
-  analysisComparisonStrategy?: 'COMPARE_WITH_PREVIOUS' | 'COMPARE_WITH_CURRENT' | 'PREDICTIVE'
-  analysisMinute?: number
-  progress?: number
-  timeDuration?: number
-  newVersionNodes?: string[]
-  previousVersionNodes?: string[]
-  baselineStartTime?: number
-  baselineEndTime?: number
-  emptyResult?: boolean
-}
-
-export interface LogMLClusterSummary {
-  hostSummary?: {
-    [key: string]: LogMLHostSummary
-  }
-  logText?: string
-  tags?: string[]
-  score?: number
-  riskLevel?: 'HIGH' | 'MEDIUM' | 'LOW' | 'NA'
-  priority?: 'BASELINE' | 'P5' | 'P4' | 'P3' | 'P2' | 'P1' | 'P0'
-  clusterLabel?: number
-  logMLFeedbackType?:
-    | 'IGNORE_SERVICE'
-    | 'IGNORE_WORKFLOW'
-    | 'IGNORE_WORKFLOW_EXECUTION'
-    | 'IGNORE_ALWAYS'
-    | 'DISMISS'
-    | 'PRIORITIZE'
-    | 'THUMBS_UP'
-    | 'THUMBS_DOWN'
-    | 'UNDO_IGNORE'
-  logMLFeedbackId?: string
-  jiraLink?: string
-  feedbackSummary?: LogMLFeedbackSummary
-}
-
-export interface LogMLFeedbackSummary {
-  priority?: 'BASELINE' | 'P5' | 'P4' | 'P3' | 'P2' | 'P1' | 'P0'
-  logMLFeedbackId?: string
-  jiraLink?: string
-  feedbackNote?: string
-  lastUpdatedBy?: EmbeddedUser
-  lastUpdatedAt?: number
-}
-
-export interface LogMLHostSummary {
-  count?: number
-  unexpectedFreq?: boolean
-  frequencies?: number[]
-  frequencyMap?: {
-    [key: string]: number
-  }
-  xcordinate?: number
-  ycordinate?: number
-}
-
-export interface RestResponseLogMLAnalysisSummary {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: LogMLAnalysisSummary
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseMapStringDouble {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: {
-    [key: string]: number
-  }
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseLong {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: number
-  responseMessages?: ResponseMessage[]
-}
-
-export interface APMFetchConfig {
-  url?: string
-  body?: string
-  guid?: string
-}
-
-export interface APMSetupTestNodeData {
-  fetchConfig?: APMFetchConfig
-  apmMetricCollectionInfo?: MetricCollectionInfo
-  host?: string
-  appId: string
-  settingId: string
-  instanceName?: string
-  isServiceLevel?: boolean
-  instanceElement?: Instance
-  hostExpression?: string
-  workflowId?: string
-  guid?: string
-  stateType?:
-    | 'SUB_WORKFLOW'
-    | 'REPEAT'
-    | 'FORK'
-    | 'WAIT'
-    | 'PAUSE'
-    | 'BARRIER'
-    | 'RESOURCE_CONSTRAINT'
-    | 'SHELL_SCRIPT'
-    | 'HTTP'
-    | 'TEMPLATIZED_SECRET_MANAGER'
-    | 'EMAIL'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'NEW_RELIC_DEPLOYMENT_MARKER'
-    | 'DYNA_TRACE'
-    | 'PROMETHEUS'
-    | 'SPLUNKV2'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'AWS_LAMBDA_VERIFICATION'
-    | 'APM_VERIFICATION'
-    | 'LOG_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'STACK_DRIVER'
-    | 'STACK_DRIVER_LOG'
-    | 'INSTANA'
-    | 'SCALYR'
-    | 'ENV_STATE'
-    | 'ENV_LOOP_STATE'
-    | 'ENV_RESUME_STATE'
-    | 'ENV_LOOP_RESUME_STATE'
-    | 'COMMAND'
-    | 'APPROVAL'
-    | 'APPROVAL_RESUME'
-    | 'ELASTIC_LOAD_BALANCER'
-    | 'JENKINS'
-    | 'GCB'
-    | 'BAMBOO'
-    | 'ARTIFACT_COLLECTION'
-    | 'ARTIFACT_CHECK'
-    | 'AZURE_NODE_SELECT'
-    | 'AZURE_VMSS_SETUP'
-    | 'AZURE_VMSS_DEPLOY'
-    | 'AZURE_VMSS_ROLLBACK'
-    | 'AZURE_VMSS_SWITCH_ROUTES'
-    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
-    | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
-    | 'AZURE_WEBAPP_SLOT_SWAP'
-    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
-    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
-    | 'AWS_NODE_SELECT'
-    | 'DC_NODE_SELECT'
-    | 'ROLLING_NODE_SELECT'
-    | 'PHASE'
-    | 'PHASE_STEP'
-    | 'STAGING_ORIGINAL_EXECUTION'
-    | 'AWS_CODEDEPLOY_STATE'
-    | 'AWS_CODEDEPLOY_ROLLBACK'
-    | 'AWS_LAMBDA_STATE'
-    | 'AWS_LAMBDA_ROLLBACK'
-    | 'AWS_AMI_SERVICE_SETUP'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
-    | 'AWS_AMI_SERVICE_DEPLOY'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
-    | 'AWS_AMI_SWITCH_ROUTES'
-    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
-    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_SERVICE_ROLLBACK'
-    | 'ECS_SERVICE_SETUP'
-    | 'SPOTINST_SETUP'
-    | 'SPOTINST_ALB_SHIFT_SETUP'
-    | 'SPOTINST_DEPLOY'
-    | 'SPOTINST_ALB_SHIFT_DEPLOY'
-    | 'SPOTINST_LISTENER_UPDATE'
-    | 'SPOTINST_LISTENER_ALB_SHIFT'
-    | 'SPOTINST_ROLLBACK'
-    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
-    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
-    | 'ECS_SERVICE_SETUP_ROLLBACK'
-    | 'ECS_DAEMON_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
-    | 'ECS_SERVICE_DEPLOY'
-    | 'ECS_SERVICE_ROLLBACK'
-    | 'ECS_LISTENER_UPDATE'
-    | 'ECS_LISTENER_UPDATE_ROLLBACK'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
-    | 'KUBERNETES_SETUP'
-    | 'KUBERNETES_SETUP_ROLLBACK'
-    | 'KUBERNETES_DEPLOY'
-    | 'KUBERNETES_DEPLOY_ROLLBACK'
-    | 'KUBERNETES_STEADY_STATE_CHECK'
-    | 'ECS_STEADY_STATE_CHECK'
-    | 'ECS_RUN_TASK'
-    | 'GCP_CLUSTER_SETUP'
-    | 'HELM_DEPLOY'
-    | 'HELM_ROLLBACK'
-    | 'PCF_SETUP'
-    | 'PCF_RESIZE'
-    | 'PCF_ROLLBACK'
-    | 'PCF_MAP_ROUTE'
-    | 'PCF_UNMAP_ROUTE'
-    | 'PCF_BG_MAP_ROUTE'
-    | 'PCF_PLUGIN'
-    | 'TERRAFORM_PROVISION'
-    | 'TERRAFORM_APPLY'
-    | 'SHELL_SCRIPT_PROVISION'
-    | 'TERRAFORM_DESTROY'
-    | 'CLOUD_FORMATION_CREATE_STACK'
-    | 'CLOUD_FORMATION_DELETE_STACK'
-    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
-    | 'CLOUD_FORMATION_ROLLBACK_STACK'
-    | 'TERRAFORM_ROLLBACK'
-    | 'K8S_DEPLOYMENT_ROLLING'
-    | 'K8S_SCALE'
-    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
-    | 'K8S_BLUE_GREEN_DEPLOY'
-    | 'K8S_CANARY_DEPLOY'
-    | 'K8S_DELETE'
-    | 'JIRA_CREATE_UPDATE'
-    | 'SERVICENOW_CREATE_UPDATE'
-    | 'K8S_TRAFFIC_SPLIT'
-    | 'K8S_APPLY'
-    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
-  toTime?: number
-  fromTime?: number
-  serviceLevel?: boolean
-}
-
-export interface MetricCollectionInfo {
-  metricName?: string
-  metricType?: 'INFRA' | 'VALUE' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX' | 'VALUE_LOWER'
-  tag?: string
-  collectionUrl?: string
-  baselineCollectionUrl?: string
-  collectionBody?: string
-  responseType?: 'JSON'
-  responseMapping?: ResponseMapping
-  method?: 'POST' | 'GET'
-}
-
-export interface ResponseMapping {
-  logMessageJsonPath?: string
-  hostJsonPath?: string
-  hostRegex?: string
-  timestampJsonPath?: string
-  timestampFormat?: string
-}
-
-export interface CVCertifiedDetailsForWorkflowState {
-  workflowName?: string
-  workflowId?: string
-  workflowExecutionId?: string
-  pipelineId?: string
-  pipelineName?: string
-  pipelineExecutionId?: string
-  phaseName?: string
-  stateExecutionId?: string
-  executionDetails?: StateExecutionInstance
-}
-
-export interface ExecutionEventAdvisor {
-  [key: string]: any
-}
-
-export interface ExecutionInterruptEffect {
-  interruptId?: string
-  tookEffectAt?: string
+  workflowConfig?: boolean
 }
 
 export interface LoopParams {
   [key: string]: any
 }
 
-export interface RestResponseListCVCertifiedDetailsForWorkflowState {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: CVCertifiedDetailsForWorkflowState[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface StateExecutionInstance {
-  uuid?: string
-  appId?: string
-  createdAt?: number
-  lastUpdatedAt?: number
-  accountId?: string
-  childStateMachineId?: string
-  displayName?: string
-  stateName?: string
-  stateType?: string
-  contextElement?: ContextElement
-  contextTransition?: boolean
-  rollback?: boolean
-  waitingForInputs?: boolean
-  actionOnTimeout?:
-    | 'MANUAL_INTERVENTION'
-    | 'ROLLBACK_WORKFLOW'
-    | 'ROLLBACK_PHASE'
-    | 'IGNORE'
-    | 'RETRY'
-    | 'END_EXECUTION'
-    | 'CONTINUE_WITH_DEFAULTS'
-    | 'ABORT_WORKFLOW_EXECUTION'
-  continued?: boolean
-  delegateTaskId?: string
-  delegateTasksDetails?: DelegateTaskDetails[]
-  selectionLogsTrackingForTasksEnabled?: boolean
-  rollbackPhaseName?: string
-  parentLoopedState?: boolean
-  loopedStateParams?: LoopParams
-  contextElements?: ContextElement[]
-  stateExecutionMap?: {
-    [key: string]: StateExecutionData
-  }
-  stateExecutionDataHistory?: StateExecutionData[]
-  dedicatedInterruptCount?: number
-  interruptHistory?: ExecutionInterruptEffect[]
-  executionEventAdvisors?: ExecutionEventAdvisor[]
-  notifyElements?: ContextElement[]
-  callback?: StateMachineExecutionCallback
-  executionName?: string
-  executionType?: 'PIPELINE' | 'ORCHESTRATION'
-  executionUuid?: string
-  parentInstanceId?: string
-  subGraphFilterId?: string
-  prevInstanceId?: string
-  nextInstanceId?: string
-  cloneInstanceId?: string
-  notifyId?: string
-  status?:
-    | 'ABORTED'
-    | 'DISCONTINUING'
-    | 'ERROR'
-    | 'FAILED'
-    | 'NEW'
-    | 'PAUSED'
-    | 'PAUSING'
-    | 'QUEUED'
-    | 'RESUMED'
-    | 'RUNNING'
-    | 'SCHEDULED'
-    | 'STARTING'
-    | 'SUCCESS'
-    | 'WAITING'
-    | 'SKIPPED'
-    | 'ABORTING'
-    | 'REJECTED'
-    | 'EXPIRED'
-    | 'PREPARING'
-  stateParams?: {
-    [key: string]: { [key: string]: any }
-  }
-  startTs?: number
-  endTs?: number
-  expiryTs?: number
-  stateTimeout?: number
-  retry?: boolean
-  retryCount?: number
-  hasInspection?: boolean
-  workflowId?: string
-  pipelineStageElementId?: string
-  pipelineStageParallelIndex?: number
-  stageName?: string
-  phaseSubWorkflowId?: string
-  stepId?: string
-  orchestrationWorkflowType?: 'BUILD' | 'BASIC' | 'CANARY' | 'MULTI_SERVICE' | 'BLUE_GREEN' | 'ROLLING' | 'CUSTOM'
-}
-
-export interface StateMachineExecutionCallback {
-  [key: string]: any
-}
-
-export interface Store {
-  name?: string
-}
-
-export interface VerificationDataAnalysisResponse {
-  executionStatus?:
-    | 'ABORTED'
-    | 'DISCONTINUING'
-    | 'ERROR'
-    | 'FAILED'
-    | 'NEW'
-    | 'PAUSED'
-    | 'PAUSING'
-    | 'QUEUED'
-    | 'RESUMED'
-    | 'RUNNING'
-    | 'SCHEDULED'
-    | 'STARTING'
-    | 'SUCCESS'
-    | 'WAITING'
-    | 'SKIPPED'
-    | 'ABORTING'
-    | 'REJECTED'
-    | 'EXPIRED'
-    | 'PREPARING'
-  stateExecutionData?: VerificationStateAnalysisExecutionData
-}
-
-export interface VerificationStateAnalysisExecutionData {
-  wingsPersistence?: WingsPersistence
-  correlationId?: string
-  stateExecutionInstanceId?: string
-  baselineExecutionId?: string
-  serverConfigId?: string
-  canaryNewHostNames?: string[]
-  lastExecutionNodes?: string[]
-  analysisMinute?: number
-  query?: string
-  progressPercentage?: number
-  comparisonStrategy?: 'COMPARE_WITH_PREVIOUS' | 'COMPARE_WITH_CURRENT' | 'PREDICTIVE'
-  remainingMinutes?: number
-  customThresholdRefId?: string
-  stateName?: string
-  stateType?: string
-  startTs?: number
-  endTs?: number
-  status?:
-    | 'ABORTED'
-    | 'DISCONTINUING'
-    | 'ERROR'
-    | 'FAILED'
-    | 'NEW'
-    | 'PAUSED'
-    | 'PAUSING'
-    | 'QUEUED'
-    | 'RESUMED'
-    | 'RUNNING'
-    | 'SCHEDULED'
-    | 'STARTING'
-    | 'SUCCESS'
-    | 'WAITING'
-    | 'SKIPPED'
-    | 'ABORTING'
-    | 'REJECTED'
-    | 'EXPIRED'
-    | 'PREPARING'
-  errorMsg?: string
-  waitInterval?: number
-  element?: ContextElement
-  stateParams?: {
-    [key: string]: { [key: string]: any }
-  }
-  delegateMetaInfo?: DelegateMetaInfo
-  templateVariable?: {
-    [key: string]: { [key: string]: any }
-  }
-}
-
-export interface WingsPersistence {
-  classStores?: {
-    [key: string]: Store
-  }
-}
-
-export interface DataCollectionInfoV2 {
-  accountId?: string
-  applicationId?: string
-  envId?: string
-  startTime?: number
-  endTime?: number
-  hosts?: string[]
-  cvConfigId?: string
-  stateExecutionId?: string
-  workflowId?: string
-  workflowExecutionId?: string
-  serviceId?: string
-  cvTaskId?: string
-  connectorId?: string
-  encryptedDataDetails?: EncryptedDataDetail[]
-  dataCollectionStartTime?: number
-  shouldSendHeartbeat?: boolean
-}
-
-export interface EncryptedDataDetail {
-  encryptedData?: EncryptedRecordData
-  encryptionConfig?: EncryptionConfig
-  fieldName?: string
-  identifier?: SecretUniqueIdentifier
-}
-
-export interface EncryptedDataParams {
-  name?: string
-  value?: string
-}
-
-export interface EncryptedRecordData {
-  uuid?: string
-  name?: string
-  path?: string
-  parameters?: EncryptedDataParams[]
-  encryptionKey?: string
-  encryptedValue?: string[]
-  kmsId?: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
-  backupEncryptedValue?: string[]
-  backupEncryptionKey?: string
-  backupKmsId?: string
-  backupEncryptionType?:
-    | 'LOCAL'
-    | 'KMS'
-    | 'GCP_KMS'
-    | 'AWS_SECRETS_MANAGER'
-    | 'AZURE_VAULT'
-    | 'CYBERARK'
-    | 'VAULT'
-    | 'CUSTOM'
-  base64Encoded?: boolean
-}
-
-export interface EncryptionConfig {
-  numOfEncryptedValue?: number
-  encryptionServiceUrl?: string
-  validationCriteria?: string
-  globalKms?: boolean
-  uuid?: string
-  name?: string
-  default?: boolean
-  type?: 'KMS' | 'VAULT' | 'CUSTOM'
-  accountId?: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
-}
-
-export interface SecretUniqueIdentifier {
-  kmsId?: string
-}
-
-export interface RestResponseStateExecutionData {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: StateExecutionData
-  responseMessages?: ResponseMessage[]
-}
-
-export interface EntitySummary {
-  id?: string
-  name?: string
-  type?: string
-}
-
-export interface EnvironmentSummary {
-  id?: string
-  name?: string
-  type?: string
-  prod?: boolean
-}
-
-export interface InstanceStats {
-  totalCount?: number
-  entitySummaryList?: EntitySummary[]
-  invocationCount?: InvocationCount
-}
-
-export interface InstanceStatsByArtifact {
-  entitySummary?: ArtifactSummary
-  instanceStats?: InstanceStats
-}
-
-export interface InstanceStatsByEnvironment {
-  environmentSummary?: EnvironmentSummary
-  instanceStatsByArtifactList?: InstanceStatsByArtifact[]
-  infraMappingSyncStatusList?: SyncStatus[]
-  hasSyncIssues?: boolean
-}
-
-export interface InstanceStatsByService {
-  totalCount?: number
-  serviceSummary?: ServiceSummary
-  instanceStatsByEnvList?: InstanceStatsByEnvironment[]
-}
-
-export interface InvocationCount {
-  key?: 'LAST_30_DAYS' | 'SINCE_LAST_DEPLOYED'
-  count?: number
-  from?: number
-  to?: number
-}
-
-export interface RestResponseListInstanceStatsByService {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: InstanceStatsByService[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ServiceSummary {
-  id?: string
-  name?: string
-  type?: string
-  appSummary?: EntitySummary
-}
-
-export interface SyncStatus {
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  envId?: string
-  serviceId?: string
-  infraMappingId?: string
-  infraMappingName?: string
-  lastSyncedAt?: number
-  lastSuccessfullySyncedAt?: number
-  syncFailureReason?: string
-}
-
-export interface RestResponseListInstanceStatsByEnvironment {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: InstanceStatsByEnvironment[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface InstanceSummaryStatsByService {
-  totalCount?: number
-  prodCount?: number
-  nonprodCount?: number
-  serviceSummary?: ServiceSummary
-  invocationCount?: InvocationCount
-}
-
-export interface RestResponsePageResponseInstanceSummaryStatsByService {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: InstanceSummaryStatsByService[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListBoolean {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: boolean[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface Aggregate {
-  entityType?: string
-  name?: string
-  id?: string
-  entityDeleted?: boolean
-  invocationCount?: number
-  invocationCountKey?: 'LAST_30_DAYS' | 'SINCE_LAST_DEPLOYED'
-}
-
-export interface DataPoint {
-  timestamp?: number
-  accountId?: string
-  aggregateInvocationCountList?: Aggregate[]
-  totalInvocationCount?: number
-  invocationCountKey?: 'LAST_30_DAYS' | 'SINCE_LAST_DEPLOYED'
-}
-
-export interface InstanceTimeline {
-  points?: DataPoint[]
-  localPercentile?: {
-    [key: string]: { [key: string]: any }
-  }
-}
-
-export interface RestResponseInstanceTimeline {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: InstanceTimeline
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListTimeRange {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: TimeRange[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface TimeRange {
-  from?: number
-  to?: number
-  timeZone?: string
-  label?: string
-}
-
-export interface EntitySummaryStats {
-  entitySummary?: EntitySummary
-  count?: number
-}
-
-export interface InstanceSummaryStats {
-  totalCount?: number
-  countMap?: {
-    [key: string]: EntitySummaryStats[]
-  }
-}
-
-export interface RestResponseInstanceSummaryStats {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: InstanceSummaryStats
-  responseMessages?: ResponseMessage[]
-}
-
-export interface CurrentActiveInstances {
-  environment?: EntitySummary
-  instanceCount?: number
-  artifact?: ArtifactSummary
-  manifest?: ManifestSummary
-  serviceInfra?: EntitySummary
-  workflow?: EntitySummary
-  deployedAt?: string
-  lastWorkflowExecution?: EntitySummary
-  onDemandRollbackAvailable?: boolean
-}
-
-export interface DeploymentHistory {
-  artifact?: ArtifactSummary
-  manifest?: ManifestSummary
-  deployedAt?: string
-  status?: string
-  triggeredBy?: EntitySummary
-  pipeline?: EntitySummary
-  workflow?: EntitySummary
-  instanceCount?: number
-  inframappings?: EntitySummary[]
-  envs?: EntitySummary[]
-  rolledBack?: boolean
-}
-
-export interface RestResponseServiceInstanceDashboard {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ServiceInstanceDashboard
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ServiceInstanceDashboard {
-  serviceSummary?: EntitySummary
-  currentActiveInstancesList?: CurrentActiveInstances[]
-  deploymentHistoryList?: DeploymentHistory[]
-}
-
-export interface ContainerInstanceKey {
-  containerId?: string
-  namespace?: string
-}
-
-export interface HostInstanceKey {
-  hostName?: string
-  infraMappingId?: string
-}
-
-export interface InstanceInfo {
-  [key: string]: any
-}
-
-export interface PcfInstanceKey {
-  id?: string
-}
-
-export interface PodInstanceKey {
-  podName?: string
-  namespace?: string
-}
-
-export interface RestResponseInstance {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Instance
-  responseMessages?: ResponseMessage[]
-}
-
-export interface DataDogSetupTestNodeData {
-  appId: string
-  settingId: string
-  instanceName?: string
-  isServiceLevel?: boolean
-  instanceElement?: Instance
-  hostExpression?: string
-  workflowId?: string
-  guid?: string
-  stateType?:
-    | 'SUB_WORKFLOW'
-    | 'REPEAT'
-    | 'FORK'
-    | 'WAIT'
-    | 'PAUSE'
-    | 'BARRIER'
-    | 'RESOURCE_CONSTRAINT'
-    | 'SHELL_SCRIPT'
-    | 'HTTP'
-    | 'TEMPLATIZED_SECRET_MANAGER'
-    | 'EMAIL'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'NEW_RELIC_DEPLOYMENT_MARKER'
-    | 'DYNA_TRACE'
-    | 'PROMETHEUS'
-    | 'SPLUNKV2'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'AWS_LAMBDA_VERIFICATION'
-    | 'APM_VERIFICATION'
-    | 'LOG_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'STACK_DRIVER'
-    | 'STACK_DRIVER_LOG'
-    | 'INSTANA'
-    | 'SCALYR'
-    | 'ENV_STATE'
-    | 'ENV_LOOP_STATE'
-    | 'ENV_RESUME_STATE'
-    | 'ENV_LOOP_RESUME_STATE'
-    | 'COMMAND'
-    | 'APPROVAL'
-    | 'APPROVAL_RESUME'
-    | 'ELASTIC_LOAD_BALANCER'
-    | 'JENKINS'
-    | 'GCB'
-    | 'BAMBOO'
-    | 'ARTIFACT_COLLECTION'
-    | 'ARTIFACT_CHECK'
-    | 'AZURE_NODE_SELECT'
-    | 'AZURE_VMSS_SETUP'
-    | 'AZURE_VMSS_DEPLOY'
-    | 'AZURE_VMSS_ROLLBACK'
-    | 'AZURE_VMSS_SWITCH_ROUTES'
-    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
-    | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
-    | 'AZURE_WEBAPP_SLOT_SWAP'
-    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
-    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
-    | 'AWS_NODE_SELECT'
-    | 'DC_NODE_SELECT'
-    | 'ROLLING_NODE_SELECT'
-    | 'PHASE'
-    | 'PHASE_STEP'
-    | 'STAGING_ORIGINAL_EXECUTION'
-    | 'AWS_CODEDEPLOY_STATE'
-    | 'AWS_CODEDEPLOY_ROLLBACK'
-    | 'AWS_LAMBDA_STATE'
-    | 'AWS_LAMBDA_ROLLBACK'
-    | 'AWS_AMI_SERVICE_SETUP'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
-    | 'AWS_AMI_SERVICE_DEPLOY'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
-    | 'AWS_AMI_SWITCH_ROUTES'
-    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
-    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_SERVICE_ROLLBACK'
-    | 'ECS_SERVICE_SETUP'
-    | 'SPOTINST_SETUP'
-    | 'SPOTINST_ALB_SHIFT_SETUP'
-    | 'SPOTINST_DEPLOY'
-    | 'SPOTINST_ALB_SHIFT_DEPLOY'
-    | 'SPOTINST_LISTENER_UPDATE'
-    | 'SPOTINST_LISTENER_ALB_SHIFT'
-    | 'SPOTINST_ROLLBACK'
-    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
-    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
-    | 'ECS_SERVICE_SETUP_ROLLBACK'
-    | 'ECS_DAEMON_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
-    | 'ECS_SERVICE_DEPLOY'
-    | 'ECS_SERVICE_ROLLBACK'
-    | 'ECS_LISTENER_UPDATE'
-    | 'ECS_LISTENER_UPDATE_ROLLBACK'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
-    | 'KUBERNETES_SETUP'
-    | 'KUBERNETES_SETUP_ROLLBACK'
-    | 'KUBERNETES_DEPLOY'
-    | 'KUBERNETES_DEPLOY_ROLLBACK'
-    | 'KUBERNETES_STEADY_STATE_CHECK'
-    | 'ECS_STEADY_STATE_CHECK'
-    | 'ECS_RUN_TASK'
-    | 'GCP_CLUSTER_SETUP'
-    | 'HELM_DEPLOY'
-    | 'HELM_ROLLBACK'
-    | 'PCF_SETUP'
-    | 'PCF_RESIZE'
-    | 'PCF_ROLLBACK'
-    | 'PCF_MAP_ROUTE'
-    | 'PCF_UNMAP_ROUTE'
-    | 'PCF_BG_MAP_ROUTE'
-    | 'PCF_PLUGIN'
-    | 'TERRAFORM_PROVISION'
-    | 'TERRAFORM_APPLY'
-    | 'SHELL_SCRIPT_PROVISION'
-    | 'TERRAFORM_DESTROY'
-    | 'CLOUD_FORMATION_CREATE_STACK'
-    | 'CLOUD_FORMATION_DELETE_STACK'
-    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
-    | 'CLOUD_FORMATION_ROLLBACK_STACK'
-    | 'TERRAFORM_ROLLBACK'
-    | 'K8S_DEPLOYMENT_ROLLING'
-    | 'K8S_SCALE'
-    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
-    | 'K8S_BLUE_GREEN_DEPLOY'
-    | 'K8S_CANARY_DEPLOY'
-    | 'K8S_DELETE'
-    | 'JIRA_CREATE_UPDATE'
-    | 'SERVICENOW_CREATE_UPDATE'
-    | 'K8S_TRAFFIC_SPLIT'
-    | 'K8S_APPLY'
-    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
-  toTime?: number
-  fromTime?: number
-  datadogServiceName?: string
-  dockerMetrics?: {
-    [key: string]: string
-  }
-  ecsMetrics?: {
-    [key: string]: string
-  }
-  customMetricsMap?: {
-    [key: string]: Metric[]
-  }
-  metrics?: string
-  hostNameField?: string
-  query?: string
-  customMetrics?: {
-    [key: string]: Metric[]
-  }
-  deploymentType?: string
-  serviceLevel?: boolean
-}
-
-export interface Metric {
-  metricName?: string
-  mlMetricType?: 'INFRA' | 'VALUE' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX' | 'VALUE_LOWER'
-  displayName?: string
-  tags?: string[]
-}
-
-export interface RestResponseListMetric {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Metric[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseDelegateConfiguration {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DelegateConfiguration
-  responseMessages?: ResponseMessage[]
-}
-
-export interface Delegate {
-  uuid: string
-  createdAt?: number
-  accountId?: string
-  status?: 'ENABLED' | 'WAITING_FOR_APPROVAL' | 'DISABLED' | 'DELETED'
-  description?: string
-  ip?: string
-  hostName?: string
-  delegateGroupName?: string
-  delegateName?: string
-  delegateProfileId?: string
-  lastHeartBeat?: number
-  version?: string
-  sequenceNum?: string
-  delegateType?: string
-  delegateRandomToken?: string
-  keepAlivePacket?: boolean
-  polllingModeEnabled?: boolean
-  proxy?: boolean
-  ceEnabled?: boolean
-  supportedTaskTypes?: string[]
-  currentlyExecutingDelegateTasks?: string[]
-  useCdn?: boolean
-  useJreVersion?: string
-  location?: string
-  includeScopes?: DelegateScope[]
-  excludeScopes?: DelegateScope[]
-  tags?: string[]
-  profileResult?: string
-  profileError?: boolean
-  profileExecutedAt?: number
-  sampleDelegate?: boolean
-  validUntil?: string
-  keywords?: string[]
-}
-
-export interface DelegateScope {
-  uuid: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedBy?: EmbeddedUser
-  lastUpdatedAt: number
-  accountId?: string
-  name?: string
-  taskTypes?: (
-    | 'SCRIPT'
-    | 'HTTP'
-    | 'SPLUNK'
-    | 'APPDYNAMICS'
-    | 'INSTANA'
-    | 'NEWRELIC'
-    | 'STACKDRIVER'
-    | 'DYNA_TRACE'
-    | 'PROMETHEUS'
-    | 'CLOUD_WATCH'
-    | 'JENKINS'
-    | 'COMMAND'
-    | 'BAMBOO'
-    | 'DOCKER'
-    | 'ECR'
-    | 'GCR'
-    | 'GCS'
-    | 'GCB'
-    | 'GCP'
-    | 'ACR'
-    | 'NEXUS'
-    | 'S3'
-    | 'AZURE_ARTIFACTS'
-    | 'AZURE_VMSS'
-    | 'AZURE_APP_SERVICE'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'ARTIFACTORY'
-    | 'HOST_VALIDATION'
-    | 'KMS'
-    | 'GIT'
-    | 'CONTAINER'
-    | 'AMI'
-    | 'HELM'
-    | 'COLLABORATION_PROVIDER'
-    | 'PCF'
-    | 'SPOTINST'
-    | 'APM'
-    | 'LOG'
-    | 'CLOUD_FORMATION'
-    | 'TERRAFORM'
-    | 'AWS'
-    | 'LDAP'
-    | 'K8S'
-    | 'SMB'
-    | 'SFTP'
-    | 'TRIGGER'
-    | 'JIRA'
-    | 'CONNECTIVITY_VALIDATION'
-    | 'BUILD_SOURCE'
-    | 'CUSTOM'
-    | 'SHELL_SCRIPT_PROVISION'
-    | 'SERVICENOW'
-    | 'HELM_REPO_CONFIG_VALIDATION'
-    | 'HELM_VALUES_FETCH_TASK'
-    | 'GUARD_24x7'
-    | 'CI'
-    | 'SLACK'
-    | 'ARTIFACT_COLLECT_NG'
-    | 'K8S_NG'
-    | 'CAPABILITY_VALIDATION'
-    | 'JIRA_NG'
-    | 'CVNG'
-  )[]
-  environmentTypes?: ('PROD' | 'NON_PROD' | 'ALL')[]
-  applications?: string[]
-  environments?: string[]
-  serviceInfrastructures?: string[]
-  services?: string[]
-  infrastructureDefinitions?: string[]
-  valid?: boolean
-}
-
-export interface DelegateInsightsDetails {
-  insights?: DelegateInsightsBarDetails[]
-}
-
-export interface PairDelegateInsightsTypeLong {
-  value?: number
-  key?: 'SUCCESSFUL' | 'FAILED' | 'IN_PROGRESS' | 'PERPETUAL_TASK_ASSIGNED'
-  left?: 'SUCCESSFUL' | 'FAILED' | 'IN_PROGRESS' | 'PERPETUAL_TASK_ASSIGNED'
-  right?: number
-}
-
-export interface DelegateInsightsBarDetails {
-  timeStamp?: number
-  counts?: PairDelegateInsightsTypeLong[]
-}
-
-export interface DelegateSizeDetails {
-  size?: 'EXTRA_SMALL' | 'LAPTOP' | 'SMALL' | 'MEDIUM' | 'LARGE'
-  label?: string
-  taskLimit?: number
-  replicas?: number
-  ram?: number
-  cpu?: number
-}
-
-export interface RestResponseDelegate {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Delegate
-  responseMessages?: ResponseMessage[]
-}
-
-export interface DelegateRegisterResponse {
-  delegateId?: string
-  action?: 'SELF_DESTRUCT' | 'MIGRATE'
-  migrateUrl?: string
-  sequenceNum?: string
-  delegateRandomToken?: string
-}
-
-export interface RestResponseDelegateRegisterResponse {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DelegateRegisterResponse
-  responseMessages?: ResponseMessage[]
-}
-
-export interface DelegateParams {
-  delegateId?: string
-  accountId?: string
-  ip?: string
-  hostName?: string
-  delegateName?: string
-  delegateGroupName?: string
-  delegateProfileId?: string
-  description?: string
-  version?: string
-  delegateType?: string
-  delegateRandomToken?: string
-  sequenceNum?: string
-  location?: string
-  lastHeartBeat?: number
-  sampleDelegate?: boolean
-  keepAlivePacket?: boolean
-  polllingModeEnabled?: boolean
-  proxy?: boolean
-  ceEnabled?: boolean
-  currentlyExecutingDelegateTasks?: string[]
-}
-
-export interface DelegateProfileParams {
-  name?: string
-  profileId?: string
-  profileLastUpdatedAt?: number
-  scriptContent?: string
-}
-
-export interface RestResponseDelegateProfileParams {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DelegateProfileParams
-  responseMessages?: ResponseMessage[]
-}
-
-export interface DelegateConnectionHeartbeat {
-  delegateConnectionId?: string
-  version?: string
-  location?: string
-}
-
-export interface RestResponseDelegateGroupListing {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DelegateGroupListing
-  responseMessages?: ResponseMessage[]
-}
-
-export interface DelegateResponseData {
-  [key: string]: any
-}
-
-export interface DelegateTaskResponse {
-  accountId?: string
-  response?: DelegateResponseData
-  responseCode?: 'OK' | 'FAILED' | 'RETRY_ON_OTHER_DELEGATE'
-}
-
-export interface DelegateTaskPackage {
-  accountId?: string
-  delegateTaskId?: string
-  delegateId?: string
-  logStreamingToken?: string
-  data?: TaskData
-  encryptionConfigs?: {
-    [key: string]: EncryptionConfig
-  }
-  secretDetails?: {
-    [key: string]: SecretDetail
-  }
-  secrets?: string[]
-  executionCapabilities?: ExecutionCapability[]
-  logStreamingAbstractions?: {
-    [key: string]: string
-  }
-}
-
-export interface EncryptedRecord {
-  uuid?: string
-  encryptionKey?: string
-  encryptedValue?: string[]
-  backupEncryptedValue?: string[]
-  backupEncryptionKey?: string
-  backupKmsId?: string
-  backupEncryptionType?:
-    | 'LOCAL'
-    | 'KMS'
-    | 'GCP_KMS'
-    | 'AWS_SECRETS_MANAGER'
-    | 'AZURE_VAULT'
-    | 'CYBERARK'
-    | 'VAULT'
-    | 'CUSTOM'
-  base64Encoded?: boolean
-  name?: string
-  parameters?: EncryptedDataParams[]
-  path?: string
-  kmsId?: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
-}
-
-export interface ExecutionCapability {
-  capabilityType?:
-    | 'SOCKET'
-    | 'ALWAYS_TRUE'
-    | 'PROCESS_EXECUTOR'
-    | 'AWS_REGION'
-    | 'SYSTEM_ENV'
-    | 'HTTP'
-    | 'HELM_INSTALL'
-    | 'CHART_MUSEUM'
-    | 'ALWAYS_FALSE'
-    | 'SMTP'
-    | 'WINRM_HOST_CONNECTION'
-    | 'SSH_HOST_CONNECTION'
-    | 'SFTP'
-    | 'PCF_AUTO_SCALAR'
-    | 'PCF_CONNECTIVITY'
-    | 'POWERSHELL'
-    | 'HELM_COMMAND'
-    | 'CLUSTER_MASTER_URL'
-    | 'SHELL_CONNECTION'
-    | 'GIT_CONNECTION'
-    | 'KUSTOMIZE'
-    | 'SMB'
-    | 'SELECTORS'
-    | 'GIT_CONNECTION_NG'
-}
-
-export interface SecretDetail {
-  configUuid?: string
-  encryptedRecord?: EncryptedRecord
-}
-
-export interface TaskData {
-  parked?: boolean
-  async?: boolean
-  taskType: string
-  parameters?: { [key: string]: any }[]
-  timeout?: number
-  expressionFunctorToken?: number
-  expressions?: {
-    [key: string]: string
-  }
-}
-
-export interface DelegateConnectionResult {
-  uuid?: string
-  lastUpdatedAt: number
-  accountId?: string
-  delegateId?: string
-  criteria?: string
-  validated?: boolean
-  duration?: number
-  validUntil?: string
-}
-
-export interface DelegateScripts {
-  version?: string
-  doUpgrade?: boolean
-  stopScript?: string
-  startScript?: string
-  delegateScript?: string
-  setupProxyScript?: string
-}
-
-export interface RestResponseDelegateScripts {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DelegateScripts
-  responseMessages?: ResponseMessage[]
-}
-
-export type DelegateTaskAbortEvent = DelegateTaskEvent & {}
-
-export interface DelegateTaskEvent {
-  accountId?: string
-  delegateTaskId?: string
-  sync?: boolean
-}
-
-export interface BuildSourceExecutionResponse {
-  delegateMetaInfo?: DelegateMetaInfo
-  buildSourceResponse?: BuildSourceResponse
-  errorMessage?: string
-  commandExecutionStatus?: 'SUCCESS' | 'FAILURE' | 'RUNNING' | 'QUEUED' | 'SKIPPED'
-  artifactStreamId?: string
-}
-
-export interface BuildSourceResponse {
-  buildDetails?: BuildDetails[]
-  toBeDeletedKeys?: string[]
-  cleanup?: boolean
-  stable?: boolean
-}
-
 export interface ManifestCollectionExecutionResponse {
-  delegateMetaInfo?: DelegateMetaInfo
-  manifestCollectionResponse?: ManifestCollectionResponse
-  errorMessage?: string
-  commandExecutionStatus?: 'SUCCESS' | 'FAILURE' | 'RUNNING' | 'QUEUED' | 'SKIPPED'
-  appManifestId?: string
   appId?: string
+  appManifestId?: string
+  commandExecutionStatus?: 'SUCCESS' | 'FAILURE' | 'RUNNING' | 'QUEUED' | 'SKIPPED'
+  delegateMetaInfo?: DelegateMetaInfo
+  errorMessage?: string
+  manifestCollectionResponse?: ManifestCollectionResponse
 }
 
 export interface ManifestCollectionResponse {
   helmCharts?: HelmChart[]
-  toBeDeletedKeys?: string[]
   stable?: boolean
+  toBeDeletedKeys?: string[]
 }
 
-export interface StreamingOutput {
-  [key: string]: any
-}
-
-export interface DelegateFile {
-  fileUuid?: string
-  fileName?: string
-  fileLength?: number
+export interface ManifestFile {
   accountId?: string
-  mimeType?: string
-  checksumType?: 'MD5' | 'SHA1' | 'SHA256'
-  checksum?: string
-  relativePath?: string
+  appId: string
+  applicationManifestId?: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  fileContent?: string
+  fileName?: string
+  lastUpdatedAt: number
+  uuid: string
+}
+
+export interface ManifestSelection {
+  appManifestId?: string
+  pipelineId?: string
+  pipelineName?: string
+  serviceId?: string
+  serviceName?: string
+  type?: 'FROM_APP_MANIFEST' | 'LAST_COLLECTED' | 'LAST_DEPLOYED' | 'PIPELINE_SOURCE' | 'WEBHOOK_VARIABLE'
+  versionRegex?: string
+  workflowId?: string
+  workflowName?: string
+}
+
+export interface ManifestSummary {
+  name?: string
+  source?: string
+  uuid?: string
+  versionNo?: string
+}
+
+export type ManifestTriggerCondition = TriggerCondition & {
+  appManifestId?: string
+  serviceId?: string
+  serviceName?: string
+  versionRegex?: string
+}
+
+export interface ManifestVariable {
+  allowMultipleValues?: boolean
+  allowedList?: string[]
+  allowedValues?: string
+  applicationManifestSummary?: ApplicationManifestSummary
+  artifactStreamSummaries?: ArtifactStreamSummary[]
+  description?: string
+  fixed?: boolean
+  lastDeployedHelmChartInfo?: LastDeployedHelmChartInformation
+  mandatory?: boolean
   metadata?: {
     [key: string]: { [key: string]: any }
   }
-  fileId?: string
-  bucket?:
-    | 'LOB'
-    | 'ARTIFACTS'
-    | 'AUDITS'
-    | 'CONFIGS'
-    | 'LOGS'
-    | 'PLATFORMS'
-    | 'TERRAFORM_STATE'
-    | 'PROFILE_RESULTS'
-    | 'TERRAFORM_PLAN'
-    | 'EXPORT_EXECUTIONS'
-  entityId?: string
-  localFilePath?: string
-  delegateId?: string
-  taskId?: string
-  appId?: string
-  length?: number
-}
-
-export interface RestResponseDelegateFile {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DelegateFile
-  responseMessages?: ResponseMessage[]
-}
-
-export interface DelegateProfileDetails {
-  uuid?: string
-  accountId?: string
   name?: string
-  description?: string
-  primary?: boolean
-  approvalRequired?: boolean
-  startupScript?: string
-  scopingRules?: ScopingRuleDetails[]
-  selectors?: string[]
+  runtimeInput?: boolean
+  serviceId?: string
+  serviceName?: string
+  type?: 'TEXT' | 'NUMBER' | 'EMAIL' | 'ENTITY' | 'ARTIFACT' | 'MANIFEST'
+  value?: string
+  workflowIds?: string[]
 }
 
-export interface RestResponseDelegateProfileDetails {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DelegateProfileDetails
-  responseMessages?: ResponseMessage[]
+export interface ManualInterventionAlertFilters {
+  appIds?: string[]
+  envIds?: string[]
 }
 
-export interface ScopingRuleDetails {
-  description?: string
-  applicationId?: string
-  serviceIds?: string[]
-  environmentTypeId?: string
-  environmentIds?: string[]
+export interface Member {
+  display?: string
+  ref?: string
+  value?: string
 }
 
-export interface ScopingRules {
-  scopingRuleDetails?: ScopingRuleDetails[]
-}
-
-export interface RestResponsePageResponseDelegateProfileDetails {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DelegateProfileDetails[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface DelegateProfile {
-  uuid: string
-  accountId?: string
-  name?: string
-  description?: string
-  primary?: boolean
-  approvalRequired?: boolean
-  startupScript?: string
-  scopingRules?: DelegateProfileScopingRule[]
-  selectors?: string[]
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedBy?: EmbeddedUser
-  lastUpdatedAt: number
-}
-
-export interface DelegateProfileScopingRule {
-  description?: string
-  scopingEntities?: {
-    [key: string]: string[]
-  }
-}
-
-export interface RestResponseDelegateProfile {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DelegateProfile
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponsePageResponseDelegateProfile {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DelegateProfile[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseDelegateScope {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DelegateScope
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponsePageResponseDelegateScope {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DelegateScope[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface DelegateSelectionLogParams {
-  delegateId?: string
-  delegateName?: string
-  delegateHostName?: string
-  delegateProfileName?: string
-  conclusion?: string
-  message?: string
-  eventTimestamp?: number
-  profileScopingRulesDetails?: ProfileScopingRulesDetails
-  delegateType?: string
-}
-
-export interface ProfileScopingRulesDetails {
-  profileId?: string
-  profileName?: string
-  scopingRulesDescriptions?: string[]
-}
-
-export interface RestResponseDelegateSelectionLogResponse {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DelegateSelectionLogResponse
-  responseMessages?: ResponseMessage[]
-}
-
-export interface DelegateSelectionLogResponse {
-  delegateSelectionLogs?: DelegateSelectionLogParams[]
-  taskSetupAbstractions?: {
-    [key: string]: string
-  }
-}
-
-export interface RestResponseListDelegateSelectionLogParams {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DelegateSelectionLogParams[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface DelegateConnectionInner {
-  uuid?: string
-  version?: string
-  lastHeartbeat?: number
-}
-
-export interface DelegateInner {
-  uuid?: string
-  ip?: string
-  hostName?: string
-  delegateName?: string
-  delegateGroupName?: string
-  description?: string
-  status?: 'ENABLED' | 'WAITING_FOR_APPROVAL' | 'DISABLED' | 'DELETED'
-  lastHeartBeat?: number
-  activelyConnected?: boolean
-  delegateProfileId?: string
-  delegateType?: string
-  polllingModeEnabled?: boolean
-  proxy?: boolean
-  ceEnabled?: boolean
-  includeScopes?: DelegateScope[]
-  excludeScopes?: DelegateScope[]
+export interface Metric {
+  displayName?: string
+  metricName?: string
+  mlMetricType?: 'INFRA' | 'VALUE' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX' | 'VALUE_LOWER'
   tags?: string[]
-  implicitSelectors?: {
-    [key: string]: 'PROFILE_NAME' | 'DELEGATE_NAME' | 'HOST_NAME' | 'GROUP_NAME' | 'PROFILE_SELECTORS'
-  }
-  profileExecutedAt?: number
-  profileError?: boolean
-  sampleDelegate?: boolean
-  connections?: DelegateConnectionInner[]
 }
 
-export interface DelegateScalingGroup {
-  groupName?: string
-  delegates?: DelegateInner[]
+export interface MetricCollectionInfo {
+  baselineCollectionUrl?: string
+  collectionBody?: string
+  collectionUrl?: string
+  method?: 'POST' | 'GET'
+  metricName?: string
+  metricType?: 'INFRA' | 'VALUE' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX' | 'VALUE_LOWER'
+  responseMapping?: ResponseMapping
+  responseType?: 'JSON'
+  tag?: string
 }
 
-export interface DelegateStatus {
-  publishedVersions?: string[]
-  delegates?: DelegateInner[]
-  scalingGroups?: DelegateScalingGroup[]
+export interface MetricDefinitionDTO {
+  included?: boolean
+  name?: string
+  path?: string
+  thresholds?: TimeSeriesThresholdDTO[]
+  type?: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX'
+  validationPath?: string
 }
 
-export interface RestResponseDelegateStatus {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DelegateStatus
-  responseMessages?: ResponseMessage[]
-}
-
-export interface CEDelegateStatus {
-  uuid?: string
-  found?: boolean
-  ceEnabled?: boolean
-  lastHeartBeat?: number
-  delegateName?: string
-  delegateType?: string
-  status?: 'ENABLED' | 'WAITING_FOR_APPROVAL' | 'DISABLED' | 'DELETED'
-  connections?: DelegateConnectionInner[]
-  metricsServerCheck?: MetricsServerCheck
-  permissionRuleList?: Rule[]
+export interface MetricPackDTO {
+  accountId?: string
+  category?: 'PERFORMANCE' | 'ERRORS' | 'INFRASTRUCTURE'
+  dataSourceType?: 'APP_DYNAMICS' | 'SPLUNK'
+  identifier?: string
+  metrics?: MetricDefinitionDTO[]
+  projectIdentifier?: string
+  thresholds?: TimeSeriesThresholdDTO[]
 }
 
 export interface MetricsServerCheck {
@@ -9189,424 +9389,277 @@ export interface MetricsServerCheck {
   message?: string
 }
 
-export interface RestResponseCEDelegateStatus {
-  metaData?: {
-    [key: string]: { [key: string]: any }
+export interface Monitoring {
+  state?: string
+}
+
+export type MultiServiceOrchestrationWorkflow = OrchestrationWorkflow & {
+  derivedVariables?: Variable[]
+  failureStrategies?: FailureStrategy[]
+  graph?: Graph
+  postDeploymentSteps?: PhaseStep
+  preDeploymentSteps?: PhaseStep
+  rollbackProvisioners?: PhaseStep
+  rollbackWorkflowPhaseIdMap?: {
+    [key: string]: WorkflowPhase
   }
-  resource?: CEDelegateStatus
-  responseMessages?: ResponseMessage[]
+  systemVariables?: Variable[]
+  workflowPhases?: WorkflowPhase[]
 }
 
-export interface Rule {
-  apiGroups?: string
-  resources?: string
-  verbs?: string
-  message?: string
-}
-
-export interface RestResponseListDelegateSizeDetails {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DelegateSizeDetails[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface DelegateScopes {
-  includeScopeIds?: string[]
-  excludeScopeIds?: string[]
-}
-
-export interface DelegateGroupDetails {
-  groupId?: string
-  delegateType?: string
-  groupName?: string
-  groupHostName?: string
-  delegateDescription?: string
-  delegateConfigurationId?: string
-  sizeDetails?: DelegateSizeDetails
-  groupImplicitSelectors?: {
-    [key: string]: 'PROFILE_NAME' | 'DELEGATE_NAME' | 'HOST_NAME' | 'GROUP_NAME' | 'PROFILE_SELECTORS'
-  }
-  delegateInsightsDetails?: DelegateInsightsDetails
-  lastHeartBeat?: number
-  activelyConnected?: boolean
-  delegateInstanceDetails?: DelegateInner[]
-}
-
-export interface DelegateSetupDetails {
-  sessionIdentifier?: string
+export interface NGAccess {
+  accountIdentifier?: string
+  identifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
-  name: string
+}
+
+export interface NGAccessWithEncryptionConsumer {
+  decryptableEntity?: DecryptableEntity
+  ngAccess?: NGAccess
+}
+
+export interface NGEncryptedDataMetadata {
+  accountIdentifier?: string
   description?: string
-  size: 'EXTRA_SMALL' | 'LAPTOP' | 'SMALL' | 'MEDIUM' | 'LARGE'
-  delegateConfigurationId: string
-  k8sConfigDetails?: K8sConfigDetails
-}
-
-export interface K8sConfigDetails {
-  k8sPermissionType?: 'CLUSTER_ADMIN' | 'CLUSTER_VIEWER' | 'NAMESPACE_ADMIN'
-  namespace?: string
-}
-
-export interface RestResponseDelegateGroupDetails {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DelegateGroupDetails
-  responseMessages?: ResponseMessage[]
-}
-
-export interface DelegateGroupListing {
-  delegateGroupDetails?: DelegateGroupDetails[]
-}
-
-export interface RestResponseDelegateSetupDetails {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DelegateSetupDetails
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponsePageResponseDelegate {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Delegate[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface DelegateTags {
+  draft?: boolean
+  identifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  secretManagerIdentifier?: string
+  secretManagerName?: string
   tags?: string[]
 }
 
-export interface RestResponseTaskSelectorMap {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: TaskSelectorMap
-  responseMessages?: ResponseMessage[]
+export interface NGSecretManagerMetadata {
+  accountIdentifier?: string
+  description?: string
+  identifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  tags?: string[]
 }
 
-export interface RestResponseKubDelegateYaml {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: KubDelegateYaml
-  responseMessages?: ResponseMessage[]
-}
-
-export type RestResponseKubDownload = string
-
-export interface TaskSelectorMap {
-  uuid: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedBy?: EmbeddedUser
-  lastUpdatedAt: number
-  accountId?: string
-  taskGroup?:
-    | 'SCRIPT'
-    | 'HTTP'
-    | 'SPLUNK'
-    | 'APPDYNAMICS'
-    | 'INSTANA'
-    | 'NEWRELIC'
-    | 'STACKDRIVER'
-    | 'DYNA_TRACE'
-    | 'PROMETHEUS'
-    | 'CLOUD_WATCH'
-    | 'JENKINS'
-    | 'COMMAND'
-    | 'BAMBOO'
-    | 'DOCKER'
-    | 'ECR'
-    | 'GCR'
-    | 'GCS'
-    | 'GCB'
-    | 'GCP'
-    | 'ACR'
-    | 'NEXUS'
-    | 'S3'
-    | 'AZURE_ARTIFACTS'
-    | 'AZURE_VMSS'
-    | 'AZURE_APP_SERVICE'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'ARTIFACTORY'
-    | 'HOST_VALIDATION'
-    | 'KMS'
-    | 'GIT'
-    | 'CONTAINER'
-    | 'AMI'
-    | 'HELM'
-    | 'COLLABORATION_PROVIDER'
-    | 'PCF'
-    | 'SPOTINST'
-    | 'APM'
-    | 'LOG'
-    | 'CLOUD_FORMATION'
-    | 'TERRAFORM'
-    | 'AWS'
-    | 'LDAP'
-    | 'K8S'
-    | 'SMB'
-    | 'SFTP'
-    | 'TRIGGER'
-    | 'JIRA'
-    | 'CONNECTIVITY_VALIDATION'
-    | 'BUILD_SOURCE'
-    | 'CUSTOM'
-    | 'SHELL_SCRIPT_PROVISION'
-    | 'SERVICENOW'
-    | 'HELM_REPO_CONFIG_VALIDATION'
-    | 'HELM_VALUES_FETCH_TASK'
-    | 'GUARD_24x7'
-    | 'CI'
-    | 'SLACK'
-    | 'ARTIFACT_COLLECT_NG'
-    | 'K8S_NG'
-    | 'CAPABILITY_VALIDATION'
-    | 'JIRA_NG'
-    | 'CVNG'
-  selectors?: string[]
-}
-
-export interface RestResponseListTaskSelectorMap {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: TaskSelectorMap[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface DelegateHeartbeatDetails {
-  numberOfRegisteredDelegates?: number
-  numberOfConnectedDelegates?: number
-}
-
-export interface RestResponseDelegateHeartbeatDetails {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DelegateHeartbeatDetails
-  responseMessages?: ResponseMessage[]
-}
-
-export interface DelegateInitializationDetails {
-  delegateId?: string
-  hostname?: string
-  initialized?: boolean
-  profileError?: boolean
-  profileExecutedAt?: number
-}
-
-export interface RestResponseListDelegateInitializationDetails {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DelegateInitializationDetails[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface DynaTraceSetupTestNodeData {
-  appId: string
-  settingId: string
-  instanceName?: string
-  isServiceLevel?: boolean
-  instanceElement?: Instance
-  hostExpression?: string
-  workflowId?: string
-  guid?: string
-  stateType?:
-    | 'SUB_WORKFLOW'
-    | 'REPEAT'
-    | 'FORK'
-    | 'WAIT'
-    | 'PAUSE'
-    | 'BARRIER'
-    | 'RESOURCE_CONSTRAINT'
-    | 'SHELL_SCRIPT'
-    | 'HTTP'
-    | 'TEMPLATIZED_SECRET_MANAGER'
-    | 'EMAIL'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'NEW_RELIC_DEPLOYMENT_MARKER'
-    | 'DYNA_TRACE'
-    | 'PROMETHEUS'
-    | 'SPLUNKV2'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'AWS_LAMBDA_VERIFICATION'
-    | 'APM_VERIFICATION'
-    | 'LOG_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'STACK_DRIVER'
-    | 'STACK_DRIVER_LOG'
-    | 'INSTANA'
-    | 'SCALYR'
-    | 'ENV_STATE'
-    | 'ENV_LOOP_STATE'
-    | 'ENV_RESUME_STATE'
-    | 'ENV_LOOP_RESUME_STATE'
-    | 'COMMAND'
-    | 'APPROVAL'
-    | 'APPROVAL_RESUME'
-    | 'ELASTIC_LOAD_BALANCER'
-    | 'JENKINS'
-    | 'GCB'
-    | 'BAMBOO'
-    | 'ARTIFACT_COLLECTION'
-    | 'ARTIFACT_CHECK'
-    | 'AZURE_NODE_SELECT'
-    | 'AZURE_VMSS_SETUP'
-    | 'AZURE_VMSS_DEPLOY'
-    | 'AZURE_VMSS_ROLLBACK'
-    | 'AZURE_VMSS_SWITCH_ROUTES'
-    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
-    | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
-    | 'AZURE_WEBAPP_SLOT_SWAP'
-    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
-    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
-    | 'AWS_NODE_SELECT'
-    | 'DC_NODE_SELECT'
-    | 'ROLLING_NODE_SELECT'
-    | 'PHASE'
-    | 'PHASE_STEP'
-    | 'STAGING_ORIGINAL_EXECUTION'
-    | 'AWS_CODEDEPLOY_STATE'
-    | 'AWS_CODEDEPLOY_ROLLBACK'
-    | 'AWS_LAMBDA_STATE'
-    | 'AWS_LAMBDA_ROLLBACK'
-    | 'AWS_AMI_SERVICE_SETUP'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
-    | 'AWS_AMI_SERVICE_DEPLOY'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
-    | 'AWS_AMI_SWITCH_ROUTES'
-    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
-    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_SERVICE_ROLLBACK'
-    | 'ECS_SERVICE_SETUP'
-    | 'SPOTINST_SETUP'
-    | 'SPOTINST_ALB_SHIFT_SETUP'
-    | 'SPOTINST_DEPLOY'
-    | 'SPOTINST_ALB_SHIFT_DEPLOY'
-    | 'SPOTINST_LISTENER_UPDATE'
-    | 'SPOTINST_LISTENER_ALB_SHIFT'
-    | 'SPOTINST_ROLLBACK'
-    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
-    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
-    | 'ECS_SERVICE_SETUP_ROLLBACK'
-    | 'ECS_DAEMON_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
-    | 'ECS_SERVICE_DEPLOY'
-    | 'ECS_SERVICE_ROLLBACK'
-    | 'ECS_LISTENER_UPDATE'
-    | 'ECS_LISTENER_UPDATE_ROLLBACK'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
-    | 'KUBERNETES_SETUP'
-    | 'KUBERNETES_SETUP_ROLLBACK'
-    | 'KUBERNETES_DEPLOY'
-    | 'KUBERNETES_DEPLOY_ROLLBACK'
-    | 'KUBERNETES_STEADY_STATE_CHECK'
-    | 'ECS_STEADY_STATE_CHECK'
-    | 'ECS_RUN_TASK'
-    | 'GCP_CLUSTER_SETUP'
-    | 'HELM_DEPLOY'
-    | 'HELM_ROLLBACK'
-    | 'PCF_SETUP'
-    | 'PCF_RESIZE'
-    | 'PCF_ROLLBACK'
-    | 'PCF_MAP_ROUTE'
-    | 'PCF_UNMAP_ROUTE'
-    | 'PCF_BG_MAP_ROUTE'
-    | 'PCF_PLUGIN'
-    | 'TERRAFORM_PROVISION'
-    | 'TERRAFORM_APPLY'
-    | 'SHELL_SCRIPT_PROVISION'
-    | 'TERRAFORM_DESTROY'
-    | 'CLOUD_FORMATION_CREATE_STACK'
-    | 'CLOUD_FORMATION_DELETE_STACK'
-    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
-    | 'CLOUD_FORMATION_ROLLBACK_STACK'
-    | 'TERRAFORM_ROLLBACK'
-    | 'K8S_DEPLOYMENT_ROLLING'
-    | 'K8S_SCALE'
-    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
-    | 'K8S_BLUE_GREEN_DEPLOY'
-    | 'K8S_CANARY_DEPLOY'
-    | 'K8S_DELETE'
-    | 'JIRA_CREATE_UPDATE'
-    | 'SERVICENOW_CREATE_UPDATE'
-    | 'K8S_TRAFFIC_SPLIT'
-    | 'K8S_APPLY'
-    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
-  toTime?: number
-  fromTime?: number
-  serviceMethods?: string
-  serviceEntityId?: string
-  serviceLevel?: boolean
-}
-
-export interface DynaTraceApplication {
-  entityId?: string
-  displayName?: string
-}
-
-export interface RestResponseListDynaTraceApplication {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DynaTraceApplication[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ElkIndexTemplate {
+export interface NameValuePair {
   name?: string
-  properties?: {
-    [key: string]: { [key: string]: any }
-  }
+  value: string
+  valueType?: string
 }
 
-export interface RestResponseMapStringElkIndexTemplate {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: {
-    [key: string]: ElkIndexTemplate
-  }
-  responseMessages?: ResponseMessage[]
+export type NewInstanceTriggerCondition = TriggerCondition & {}
+
+export interface NewRelicApplication {
+  id?: number
+  name?: string
 }
 
-export interface RestResponseObject {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: { [key: string]: any }
-  responseMessages?: ResponseMessage[]
+export interface NewRelicApplicationInstance {
+  host?: string
+  id?: number
+  port?: number
 }
 
-export interface ElkSetupTestNodeData {
+export interface NewRelicMetric {
+  name?: string
+}
+
+export interface NewRelicMetricAnalysis {
+  displayName?: string
+  fullMetricName?: string
+  metricName?: string
+  metricValues?: NewRelicMetricAnalysisValue[]
+  riskLevel?: 'HIGH' | 'MEDIUM' | 'LOW' | 'NA'
+  tag?: string
+}
+
+export interface NewRelicMetricAnalysisRecord {
+  accountId?: string
+  analysisMinute?: number
   appId: string
-  settingId: string
+  baseLineExecutionId?: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  cvConfigId?: string
+  dependencyPath?: string
+  groupName?: string
+  lastUpdatedAt: number
+  message?: string
+  metricAnalyses?: NewRelicMetricAnalysis[]
+  mlAnalysisType?: 'COMPARATIVE' | 'PREDICTIVE' | 'TIMESERIES_24x7'
+  progress?: number
+  riskLevel?: 'HIGH' | 'MEDIUM' | 'LOW' | 'NA'
+  showTimeSeries?: boolean
+  stateExecutionId?: string
+  stateType?:
+    | 'SUB_WORKFLOW'
+    | 'REPEAT'
+    | 'FORK'
+    | 'WAIT'
+    | 'PAUSE'
+    | 'BARRIER'
+    | 'RESOURCE_CONSTRAINT'
+    | 'SHELL_SCRIPT'
+    | 'HTTP'
+    | 'TEMPLATIZED_SECRET_MANAGER'
+    | 'EMAIL'
+    | 'APP_DYNAMICS'
+    | 'NEW_RELIC'
+    | 'NEW_RELIC_DEPLOYMENT_MARKER'
+    | 'DYNA_TRACE'
+    | 'PROMETHEUS'
+    | 'SPLUNKV2'
+    | 'ELK'
+    | 'LOGZ'
+    | 'SUMO'
+    | 'DATA_DOG'
+    | 'DATA_DOG_LOG'
+    | 'CLOUD_WATCH'
+    | 'AWS_LAMBDA_VERIFICATION'
+    | 'APM_VERIFICATION'
+    | 'LOG_VERIFICATION'
+    | 'BUG_SNAG'
+    | 'STACK_DRIVER'
+    | 'STACK_DRIVER_LOG'
+    | 'INSTANA'
+    | 'SCALYR'
+    | 'ENV_STATE'
+    | 'ENV_LOOP_STATE'
+    | 'ENV_RESUME_STATE'
+    | 'ENV_LOOP_RESUME_STATE'
+    | 'COMMAND'
+    | 'APPROVAL'
+    | 'APPROVAL_RESUME'
+    | 'ELASTIC_LOAD_BALANCER'
+    | 'JENKINS'
+    | 'GCB'
+    | 'BAMBOO'
+    | 'ARTIFACT_COLLECTION'
+    | 'ARTIFACT_CHECK'
+    | 'AZURE_NODE_SELECT'
+    | 'AZURE_VMSS_SETUP'
+    | 'AZURE_VMSS_DEPLOY'
+    | 'AZURE_VMSS_ROLLBACK'
+    | 'AZURE_VMSS_SWITCH_ROUTES'
+    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
+    | 'AZURE_WEBAPP_SLOT_SETUP'
+    | 'AZURE_WEBAPP_SLOT_RESIZE'
+    | 'AZURE_WEBAPP_SLOT_SWAP'
+    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
+    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
+    | 'AWS_NODE_SELECT'
+    | 'DC_NODE_SELECT'
+    | 'ROLLING_NODE_SELECT'
+    | 'PHASE'
+    | 'PHASE_STEP'
+    | 'STAGING_ORIGINAL_EXECUTION'
+    | 'AWS_CODEDEPLOY_STATE'
+    | 'AWS_CODEDEPLOY_ROLLBACK'
+    | 'AWS_LAMBDA_STATE'
+    | 'AWS_LAMBDA_ROLLBACK'
+    | 'AWS_AMI_SERVICE_SETUP'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
+    | 'AWS_AMI_SERVICE_DEPLOY'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
+    | 'AWS_AMI_SWITCH_ROUTES'
+    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
+    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_SERVICE_ROLLBACK'
+    | 'ECS_SERVICE_SETUP'
+    | 'SPOTINST_SETUP'
+    | 'SPOTINST_ALB_SHIFT_SETUP'
+    | 'SPOTINST_DEPLOY'
+    | 'SPOTINST_ALB_SHIFT_DEPLOY'
+    | 'SPOTINST_LISTENER_UPDATE'
+    | 'SPOTINST_LISTENER_ALB_SHIFT'
+    | 'SPOTINST_ROLLBACK'
+    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
+    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
+    | 'ECS_SERVICE_SETUP_ROLLBACK'
+    | 'ECS_DAEMON_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
+    | 'ECS_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_ROLLBACK'
+    | 'ECS_LISTENER_UPDATE'
+    | 'ECS_LISTENER_UPDATE_ROLLBACK'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
+    | 'KUBERNETES_SETUP'
+    | 'KUBERNETES_SETUP_ROLLBACK'
+    | 'KUBERNETES_DEPLOY'
+    | 'KUBERNETES_DEPLOY_ROLLBACK'
+    | 'KUBERNETES_STEADY_STATE_CHECK'
+    | 'ECS_STEADY_STATE_CHECK'
+    | 'ECS_RUN_TASK'
+    | 'GCP_CLUSTER_SETUP'
+    | 'HELM_DEPLOY'
+    | 'HELM_ROLLBACK'
+    | 'PCF_SETUP'
+    | 'PCF_RESIZE'
+    | 'PCF_ROLLBACK'
+    | 'PCF_MAP_ROUTE'
+    | 'PCF_UNMAP_ROUTE'
+    | 'PCF_BG_MAP_ROUTE'
+    | 'PCF_PLUGIN'
+    | 'TERRAFORM_PROVISION'
+    | 'TERRAFORM_APPLY'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'TERRAFORM_DESTROY'
+    | 'CLOUD_FORMATION_CREATE_STACK'
+    | 'CLOUD_FORMATION_DELETE_STACK'
+    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'CLOUD_FORMATION_ROLLBACK_STACK'
+    | 'TERRAFORM_ROLLBACK'
+    | 'K8S_DEPLOYMENT_ROLLING'
+    | 'K8S_SCALE'
+    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
+    | 'K8S_BLUE_GREEN_DEPLOY'
+    | 'K8S_CANARY_DEPLOY'
+    | 'K8S_DELETE'
+    | 'JIRA_CREATE_UPDATE'
+    | 'SERVICENOW_CREATE_UPDATE'
+    | 'K8S_TRAFFIC_SPLIT'
+    | 'K8S_APPLY'
+    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
+  uuid: string
+  workflowExecutionId?: string
+}
+
+export interface NewRelicMetricAnalysisValue {
+  alertType?: string
+  controlValue?: number
+  hostAnalysisValues?: NewRelicMetricHostAnalysisValue[]
+  name?: string
+  riskLevel?: 'HIGH' | 'MEDIUM' | 'LOW' | 'NA'
+  testValue?: number
+  type?: string
+}
+
+export interface NewRelicMetricHostAnalysisValue {
+  anomalies?: number[]
+  controlHostName?: string
+  controlValues?: number[]
+  failFastCriteriaDescription?: string
+  lowerThresholds?: number[]
+  riskLevel?: 'HIGH' | 'MEDIUM' | 'LOW' | 'NA'
+  testHostName?: string
+  testStartIndex?: number
+  testValues?: number[]
+  upperThresholds?: number[]
+}
+
+export interface NewRelicSetupTestNodeData {
+  appId: string
+  fromTime?: number
+  guid?: string
+  hostExpression?: string
+  instanceElement?: Instance
   instanceName?: string
   isServiceLevel?: boolean
-  instanceElement?: Instance
-  hostExpression?: string
-  workflowId?: string
-  guid?: string
+  newRelicAppId?: number
+  serviceLevel?: boolean
+  settingId: string
   stateType?:
     | 'SUB_WORKFLOW'
     | 'REPEAT'
@@ -9740,62 +9793,700 @@ export interface ElkSetupTestNodeData {
     | 'K8S_APPLY'
     | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
   toTime?: number
-  fromTime?: number
-  query?: string
-  indices?: string
-  messageField?: string
-  timeStampField?: string
-  timeStampFieldFormat?: string
-  queryType?: 'TERM' | 'MATCH' | 'MATCH_PHRASE'
-  hostNameField?: string
-  serviceLevel?: boolean
+  workflowId?: string
 }
 
-export interface RestResponseEnvironment {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Environment
-  responseMessages?: ResponseMessage[]
+export interface NexusAuthCredentials {
+  [key: string]: any
 }
 
-export interface CloneMetadata {
-  targetAppId?: string
-  serviceMapping?: {
+export interface NexusAuthentication {
+  spec: NexusAuthCredentials
+  type: 'UsernamePassword'
+}
+
+export type NexusConnector = ConnectorConfigDTO & {
+  auth?: NexusAuthentication
+  nexusServerUrl: string
+  version: string
+}
+
+export interface Notification {
+  accountId?: string
+  actionable: boolean
+  appId: string
+  complete: boolean
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  entityId?: string
+  entityType?:
+    | 'SERVICE'
+    | 'PROVISIONER'
+    | 'ENVIRONMENT'
+    | 'HOST'
+    | 'RELEASE'
+    | 'ARTIFACT'
+    | 'SSH_USER'
+    | 'SSH_PASSWORD'
+    | 'SSH_APP_ACCOUNT'
+    | 'SSH_KEY_PASSPHRASE'
+    | 'SSH_APP_ACCOUNT_PASSOWRD'
+    | 'SIMPLE_DEPLOYMENT'
+    | 'ORCHESTRATED_DEPLOYMENT'
+    | 'PIPELINE'
+    | 'WORKFLOW'
+    | 'DEPLOYMENT'
+    | 'INSTANCE'
+    | 'APPLICATION'
+    | 'COMMAND'
+    | 'CONFIG'
+    | 'SERVICE_TEMPLATE'
+    | 'INFRASTRUCTURE_MAPPING'
+    | 'INFRASTRUCTURE_DEFINITION'
+    | 'USER'
+    | 'ARTIFACT_STREAM'
+    | 'APPDYNAMICS_CONFIGID'
+    | 'APPDYNAMICS_APPID'
+    | 'APPDYNAMICS_TIERID'
+    | 'ELK_CONFIGID'
+    | 'ELK_INDICES'
+    | 'NEWRELIC_CONFIGID'
+    | 'NEWRELIC_APPID'
+    | 'SS_SSH_CONNECTION_ATTRIBUTE'
+    | 'SS_WINRM_CONNECTION_ATTRIBUTE'
+    | 'SUMOLOGIC_CONFIGID'
+    | 'SPLUNK_CONFIGID'
+    | 'NEWRELIC_MARKER_CONFIGID'
+    | 'NEWRELIC_MARKER_APPID'
+    | 'API_KEY'
+    | 'ACCOUNT'
+    | 'APPLICATION_MANIFEST'
+    | 'USER_GROUP'
+    | 'WHITELISTED_IP'
+    | 'CF_AWS_CONFIG_ID'
+    | 'VERIFICATION_CONFIGURATION'
+    | 'HELM_GIT_CONFIG_ID'
+    | 'NOTIFICATION_GROUP'
+    | 'HELM_CHART_SPECIFICATION'
+    | 'PCF_SERVICE_SPECIFICATION'
+    | 'LAMBDA_SPECIFICATION'
+    | 'USER_DATA_SPECIFICATION'
+    | 'ECS_CONTAINER_SPECIFICATION'
+    | 'ECS_SERVICE_SPECIFICATION'
+    | 'K8S_CONTAINER_SPECIFICATION'
+    | 'CONFIG_FILE'
+    | 'SERVICE_COMMAND'
+    | 'MANIFEST_FILE'
+    | 'SERVICE_VARIABLE'
+    | 'TRIGGER'
+    | 'ROLE'
+    | 'TEMPLATE'
+    | 'TEMPLATE_FOLDER'
+    | 'SETTING_ATTRIBUTE'
+    | 'ENCRYPTED_RECORDS'
+    | 'CV_CONFIGURATION'
+    | 'TAG'
+    | 'CUSTOM_DASHBOARD'
+    | 'PIPELINE_GOVERNANCE_STANDARD'
+    | 'WORKFLOW_EXECUTION'
+    | 'SERVERLESS_INSTANCE'
+    | 'USER_INVITE'
+    | 'LOGIN_SETTINGS'
+    | 'SSO_SETTINGS'
+    | 'DELEGATE'
+    | 'DELEGATE_SCOPE'
+    | 'DELEGATE_PROFILE'
+    | 'EXPORT_EXECUTIONS_REQUEST'
+    | 'GCP_CONFIG'
+    | 'GIT_CONFIG'
+    | 'JENKINS_SERVER'
+    | 'SECRETS_MANAGER'
+    | 'HELM_CHART'
+    | 'SECRET'
+    | 'CONNECTOR'
+    | 'CLOUD_PROVIDER'
+  environmentId?: string
+  eventType?:
+    | 'USER_INVITED_FROM_EXISTING_ACCOUNT'
+    | 'COMPLETE_USER_REGISTRATION'
+    | 'FIRST_DELEGATE_REGISTERED'
+    | 'FIRST_WORKFLOW_CREATED'
+    | 'FIRST_DEPLOYMENT_EXECUTED'
+    | 'FIRST_VERIFIED_DEPLOYMENT'
+    | 'FIRST_ROLLED_BACK_DEPLOYMENT'
+    | 'SETUP_CV_24X7'
+    | 'SETUP_2FA'
+    | 'SETUP_SSO'
+    | 'SETUP_IP_WHITELISTING'
+    | 'SETUP_RBAC'
+    | 'TRIAL_TO_PAID'
+    | 'TRIAL_TO_COMMUNITY'
+    | 'COMMUNITY_TO_PAID'
+    | 'COMMUNITY_TO_ESSENTIALS'
+    | 'ESSENTIALS_TO_PAID'
+    | 'PAID_TO_ESSENTIALS'
+    | 'TRIAL_TO_ESSENTIALS'
+    | 'CV_META_DATA'
+    | 'OPEN_ALERT'
+    | 'CLOSE_ALERT'
+    | 'NEW_TRIAL_SIGNUP'
+    | 'LICENSE_UPDATE'
+    | 'DEPLOYMENT_VERIFIED'
+    | 'JOIN_ACCOUNT_REQUEST'
+    | 'SERVICE_GUARD_SETUP'
+    | 'DEPLOYMENT_EVENT'
+    | 'INSTANCE_EVENT'
+    | 'CUSTOM'
+    | 'TECH_STACK'
+    | 'ACCOUNT_ENTITY_CHANGE'
+    | 'BLACKOUT_WINDOW_UPDATED'
+    | 'SECRET_MANAGER_TYPE'
+    | 'USER_INVITE_ACCEPTED_FOR_TRIAL_ACCOUNT'
+  lastUpdatedAt: number
+  notificationTemplateId?: string
+  notificationTemplateVariables?: {
     [key: string]: string
   }
-  workflow?: Workflow
-  environment?: Environment
+  notificationType: 'APPROVAL' | 'CHANGE' | 'FAILURE' | 'INFORMATION'
+  uuid: string
 }
 
-export interface Workflow {
-  uuid: string
+export interface NotificationGroup {
+  accountId?: string
+  addressesByChannelType: {
+    [key: string]: string[]
+  }
   appId: string
-  createdBy?: EmbeddedUser
   createdAt?: number
+  createdBy?: EmbeddedUser
+  defaultNotificationGroupForAccount?: boolean
+  editable?: boolean
   lastUpdatedAt: number
   name: string
-  description?: string
-  workflowType?: 'PIPELINE' | 'ORCHESTRATION'
-  envId?: string
-  defaultVersion?: number
-  templatized?: boolean
-  templateExpressions?: TemplateExpression[]
-  keywords?: string[]
-  notes?: string
-  orchestration?: OrchestrationWorkflow
-  orchestrationWorkflow?: OrchestrationWorkflow
-  services?: Service[]
-  workflowExecutions?: WorkflowExecution[]
-  serviceId?: string
-  infraMappingId?: string
-  infraDefinitionId?: string
-  creationFlags?: WorkflowCreationFlags
-  envTemplatized?: boolean
-  tagLinks?: HarnessTagLink[]
-  templatizedServiceIds?: string[]
+  roles?: Role[]
+  uuid: string
+}
+
+export interface NotificationRule {
+  active?: boolean
+  batchNotifications?: boolean
+  conditions?: (
+    | 'ABORTED'
+    | 'DISCONTINUING'
+    | 'ERROR'
+    | 'FAILED'
+    | 'NEW'
+    | 'PAUSED'
+    | 'PAUSING'
+    | 'QUEUED'
+    | 'RESUMED'
+    | 'RUNNING'
+    | 'SCHEDULED'
+    | 'STARTING'
+    | 'SUCCESS'
+    | 'WAITING'
+    | 'SKIPPED'
+    | 'ABORTING'
+    | 'REJECTED'
+    | 'EXPIRED'
+    | 'PREPARING'
+  )[]
+  executionScope?: 'WORKFLOW' | 'WORKFLOW_PHASE'
+  notificationGroupAsExpression?: boolean
+  notificationGroups: NotificationGroup[]
+  userGroupAsExpression?: boolean
+  userGroupExpression: string
+  userGroupIds: string[]
+  uuid?: string
+}
+
+export interface NotificationRulesStatus {
+  accountId?: string
+  enabled?: boolean
+}
+
+export interface NotificationSettings {
+  emailAddresses: string[]
+  microsoftTeamsWebhookUrl?: string
+  pagerDutyIntegrationKey?: string
+  sendMailToNewMembers?: boolean
+  slackConfig: SlackNotificationSetting
+  useIndividualEmails?: boolean
+}
+
+export interface Number {
+  [key: string]: any
+}
+
+export interface OauthSettings {
+  accountId?: string
+  allowedProviders?: ('AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN')[]
+  appId: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  displayName?: string
+  filter?: string
+  lastUpdatedAt: number
+  type: 'SAML' | 'LDAP' | 'OAUTH'
+  url?: string
+  uuid: string
+}
+
+export interface OauthUserInfo {
+  email?: string
+  freemiumAssistedOption?: boolean
+  freemiumProducts?: ('CD' | 'CE' | 'CI')[]
+  login?: string
+  name?: string
+  utmInfo?: UtmInfo
+}
+
+export type OktaAddOperation = PatchOperation & {
+  value?: JsonNode
+}
+
+export type OktaRemoveOperation = PatchOperation & {
+  value?: JsonNode
+}
+
+export type OktaReplaceOperation = PatchOperation & {
+  value?: JsonNode
+}
+
+export interface OrchestrationWorkflow {
+  concurrencyStrategy?: ConcurrencyStrategy
+  infraDefinitionIds?: string[]
+  infraMappingIds?: string[]
   linkedTemplateUuids?: string[]
-  linkedArtifactStreamIds?: string[]
+  notificationRules?: NotificationRule[]
+  orchestrationWorkflowType?: 'BUILD' | 'BASIC' | 'CANARY' | 'MULTI_SERVICE' | 'BLUE_GREEN' | 'ROLLING' | 'CUSTOM'
+  requiredEntityTypes?: (
+    | 'SERVICE'
+    | 'PROVISIONER'
+    | 'ENVIRONMENT'
+    | 'HOST'
+    | 'RELEASE'
+    | 'ARTIFACT'
+    | 'SSH_USER'
+    | 'SSH_PASSWORD'
+    | 'SSH_APP_ACCOUNT'
+    | 'SSH_KEY_PASSPHRASE'
+    | 'SSH_APP_ACCOUNT_PASSOWRD'
+    | 'SIMPLE_DEPLOYMENT'
+    | 'ORCHESTRATED_DEPLOYMENT'
+    | 'PIPELINE'
+    | 'WORKFLOW'
+    | 'DEPLOYMENT'
+    | 'INSTANCE'
+    | 'APPLICATION'
+    | 'COMMAND'
+    | 'CONFIG'
+    | 'SERVICE_TEMPLATE'
+    | 'INFRASTRUCTURE_MAPPING'
+    | 'INFRASTRUCTURE_DEFINITION'
+    | 'USER'
+    | 'ARTIFACT_STREAM'
+    | 'APPDYNAMICS_CONFIGID'
+    | 'APPDYNAMICS_APPID'
+    | 'APPDYNAMICS_TIERID'
+    | 'ELK_CONFIGID'
+    | 'ELK_INDICES'
+    | 'NEWRELIC_CONFIGID'
+    | 'NEWRELIC_APPID'
+    | 'SS_SSH_CONNECTION_ATTRIBUTE'
+    | 'SS_WINRM_CONNECTION_ATTRIBUTE'
+    | 'SUMOLOGIC_CONFIGID'
+    | 'SPLUNK_CONFIGID'
+    | 'NEWRELIC_MARKER_CONFIGID'
+    | 'NEWRELIC_MARKER_APPID'
+    | 'API_KEY'
+    | 'ACCOUNT'
+    | 'APPLICATION_MANIFEST'
+    | 'USER_GROUP'
+    | 'WHITELISTED_IP'
+    | 'CF_AWS_CONFIG_ID'
+    | 'VERIFICATION_CONFIGURATION'
+    | 'HELM_GIT_CONFIG_ID'
+    | 'NOTIFICATION_GROUP'
+    | 'HELM_CHART_SPECIFICATION'
+    | 'PCF_SERVICE_SPECIFICATION'
+    | 'LAMBDA_SPECIFICATION'
+    | 'USER_DATA_SPECIFICATION'
+    | 'ECS_CONTAINER_SPECIFICATION'
+    | 'ECS_SERVICE_SPECIFICATION'
+    | 'K8S_CONTAINER_SPECIFICATION'
+    | 'CONFIG_FILE'
+    | 'SERVICE_COMMAND'
+    | 'MANIFEST_FILE'
+    | 'SERVICE_VARIABLE'
+    | 'TRIGGER'
+    | 'ROLE'
+    | 'TEMPLATE'
+    | 'TEMPLATE_FOLDER'
+    | 'SETTING_ATTRIBUTE'
+    | 'ENCRYPTED_RECORDS'
+    | 'CV_CONFIGURATION'
+    | 'TAG'
+    | 'CUSTOM_DASHBOARD'
+    | 'PIPELINE_GOVERNANCE_STANDARD'
+    | 'WORKFLOW_EXECUTION'
+    | 'SERVERLESS_INSTANCE'
+    | 'USER_INVITE'
+    | 'LOGIN_SETTINGS'
+    | 'SSO_SETTINGS'
+    | 'DELEGATE'
+    | 'DELEGATE_SCOPE'
+    | 'DELEGATE_PROFILE'
+    | 'EXPORT_EXECUTIONS_REQUEST'
+    | 'GCP_CONFIG'
+    | 'GIT_CONFIG'
+    | 'JENKINS_SERVER'
+    | 'SECRETS_MANAGER'
+    | 'HELM_CHART'
+    | 'SECRET'
+    | 'CONNECTOR'
+    | 'CLOUD_PROVIDER'
+  )[]
+  serviceIds?: string[]
+  userVariables?: Variable[]
+  valid?: boolean
+  validationMessage?: string
+}
+
+export interface Pcf {
+  applicationId?: string
+  applicationName?: string
+  instanceIndex?: string
+}
+
+export interface PhysicalHost {
+  instanceId?: string
+  publicDns?: string
+}
+
+export interface PairDelegateInsightsTypeLong {
+  key?: 'SUCCESSFUL' | 'FAILED' | 'IN_PROGRESS' | 'PERPETUAL_TASK_ASSIGNED'
+  left?: 'SUCCESSFUL' | 'FAILED' | 'IN_PROGRESS' | 'PERPETUAL_TASK_ASSIGNED'
+  right?: number
+  value?: number
+}
+
+export interface ParallelInfo {
+  groupIndex?: number
+}
+
+export interface PasswordExpirationPolicy {
+  daysBeforePasswordExpires?: number
+  daysBeforeUserNotifiedOfPasswordExpiration?: number
+  enabled?: boolean
+}
+
+export interface PasswordStrengthPolicy {
+  enabled?: boolean
+  minNumberOfCharacters?: number
+  minNumberOfDigits?: number
+  minNumberOfLowercaseCharacters?: number
+  minNumberOfSpecialCharacters?: number
+  minNumberOfUppercaseCharacters?: number
+}
+
+export interface PatchOperation {
+  path?: string
+}
+
+export interface PatchRequest {
+  Operations: PatchOperation[]
+  externalId?: string
+  id?: string
+  meta?: JsonNode
+  schemas: string[]
+}
+
+export type PcfCommandTemplate = BaseTemplate & {
+  scriptString?: string
+  timeoutIntervalInMinutes?: number
+}
+
+export type PcfInfraStructure = InfraMappingInfrastructureProvider & {
+  organization?: string
+  routeMaps?: string[]
+  space?: string
+  tempRouteMap?: string[]
+}
+
+export interface PcfInstanceElement {
+  applicationId?: string
+  displayName?: string
+  elementType?:
+    | 'SERVICE'
+    | 'INFRAMAPPING'
+    | 'SERVICE_TEMPLATE'
+    | 'TAG'
+    | 'SHELL'
+    | 'HOST'
+    | 'INSTANCE'
+    | 'STANDARD'
+    | 'PARAM'
+    | 'PARTITION'
+    | 'OTHER'
+    | 'FORK'
+    | 'CONTAINER_SERVICE'
+    | 'CLUSTER'
+    | 'AWS_LAMBDA_FUNCTION'
+    | 'AMI_SERVICE_SETUP'
+    | 'AMI_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_SETUP'
+    | 'AMI_SWITCH_ROUTES'
+    | 'PCF_SERVICE_SETUP'
+    | 'PCF_SERVICE_DEPLOY'
+    | 'PCF_ROUTE_SWAP_ROLLBACK'
+    | 'PCF_INSTANCE'
+    | 'SPOTINST_SERVICE_SETUP'
+    | 'SPOTINST_SERVICE_DEPLOY'
+    | 'ARTIFACT'
+    | 'ARTIFACT_VARIABLE'
+    | 'HELM_DEPLOY'
+    | 'CLOUD_FORMATION_PROVISION'
+    | 'CLOUD_FORMATION_ROLLBACK'
+    | 'CLOUD_FORMATION_DEPROVISION'
+    | 'TERRAFORM_PROVISION'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'K8S'
+    | 'TERRAFORM_INHERIT_PLAN'
+    | 'AZURE_VMSS_SETUP'
+    | 'HELM_CHART'
+    | 'MANIFEST_VARIABLE'
+  instanceIndex?: string
+  name?: string
+  newInstance?: boolean
+  upsize?: boolean
+  uuid?: string
+}
+
+export interface PcfInstanceKey {
+  id?: string
+}
+
+export interface PcfServiceSpecification {
+  accountId?: string
+  appId: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  lastUpdatedAt: number
+  manifestYaml: string
+  serviceId: string
+  uuid: string
+}
+
+export interface Permission {
+  accountId?: string
+  action?:
+    | 'ALL'
+    | 'CREATE'
+    | 'READ'
+    | 'UPDATE'
+    | 'DELETE'
+    | 'EXECUTE'
+    | 'EXECUTE_WORKFLOW'
+    | 'EXECUTE_PIPELINE'
+    | 'DEFAULT'
+  appId?: string
+  envId?: string
+  environmentType?: 'PROD' | 'NON_PROD' | 'ALL'
+  permissionScope?:
+    | 'ACCOUNT'
+    | 'LOGGED_IN'
+    | 'DELEGATE'
+    | 'NONE'
+    | 'APP'
+    | 'ALL_APP_ENTITIES'
+    | 'ENV'
+    | 'SERVICE'
+    | 'WORKFLOW'
+    | 'PIPELINE'
+    | 'DEPLOYMENT'
+    | 'APPLICATION_CREATE_DELETE'
+    | 'USER_PERMISSION_MANAGEMENT'
+    | 'ACCOUNT_MANAGEMENT'
+    | 'PROVISIONER'
+    | 'TEMPLATE_MANAGEMENT'
+    | 'USER_PERMISSION_READ'
+    | 'AUDIT_VIEWER'
+    | 'TAG_MANAGEMENT'
+    | 'CE_ADMIN'
+    | 'CE_VIEWER'
+    | 'MANAGE_CLOUD_PROVIDERS'
+    | 'MANAGE_CONNECTORS'
+    | 'MANAGE_APPLICATIONS'
+    | 'MANAGE_APPLICATION_STACKS'
+    | 'MANAGE_DELEGATES'
+    | 'MANAGE_ALERT_NOTIFICATION_RULES'
+    | 'MANAGE_DELEGATE_PROFILES'
+    | 'MANAGE_CONFIG_AS_CODE'
+    | 'MANAGE_SECRETS'
+    | 'MANAGE_SECRET_MANAGERS'
+    | 'MANAGE_AUTHENTICATION_SETTINGS'
+    | 'MANAGE_USER_AND_USER_GROUPS_AND_API_KEYS'
+    | 'VIEW_USER_AND_USER_GROUPS_AND_API_KEYS'
+    | 'MANAGE_IP_WHITELIST'
+    | 'MANAGE_IP_WHITELISTING'
+    | 'MANAGE_DEPLOYMENT_FREEZES'
+    | 'MANAGE_PIPELINE_GOVERNANCE_STANDARDS'
+    | 'MANAGE_API_KEYS'
+    | 'MANAGE_TAGS'
+    | 'MANAGE_CUSTOM_DASHBOARDS'
+    | 'CREATE_CUSTOM_DASHBOARDS'
+  resourceType?:
+    | 'APPLICATION'
+    | 'SERVICE'
+    | 'CONFIGURATION'
+    | 'CONFIGURATION_OVERRIDE'
+    | 'WORKFLOW'
+    | 'ENVIRONMENT'
+    | 'ROLE'
+    | 'DEPLOYMENT'
+    | 'ARTIFACT'
+    | 'CLOUD'
+    | 'USER'
+    | 'CD'
+    | 'PIPELINE'
+    | 'SETTING'
+    | 'LIMIT'
+    | 'APP_STACK'
+    | 'NOTIFICATION_GROUP'
+    | 'DELEGATE'
+    | 'DELEGATE_SCOPE'
+    | 'WHITE_LIST'
+    | 'SSO'
+    | 'API_KEY'
+    | 'PROVISIONER'
+    | 'PREFERENCE'
+    | 'TEMPLATE'
+    | 'CUSTOM_DASHBOARD'
+    | 'BUDGET'
+    | 'GCP_RESOURCE'
+    | 'CLUSTERRECORD'
+    | 'K8S_LABEL'
+    | 'K8S_EVENT_YAML_DIFF'
+    | 'K8S_RECOMMENDATION'
+    | 'CE_CLUSTER'
+    | 'CE_CONNECTOR'
+    | 'CE_BATCH'
+    | 'LINKED_ACCOUNT'
+}
+
+export interface PhaseStep {
+  artifactNeeded?: boolean
+  failureStrategies?: FailureStrategy[]
+  name?: string
+  phaseStepNameForRollback?: string
+  phaseStepType?:
+    | 'SELECT_NODE'
+    | 'INFRASTRUCTURE_NODE'
+    | 'PROVISION_NODE'
+    | 'DISABLE_SERVICE'
+    | 'DEPLOY_SERVICE'
+    | 'ENABLE_SERVICE'
+    | 'VERIFY_SERVICE'
+    | 'WRAP_UP'
+    | 'PRE_DEPLOYMENT'
+    | 'ROLLBACK_PROVISIONERS'
+    | 'POST_DEPLOYMENT'
+    | 'STOP_SERVICE'
+    | 'DE_PROVISION_NODE'
+    | 'CLUSTER_SETUP'
+    | 'CONTAINER_SETUP'
+    | 'CONTAINER_DEPLOY'
+    | 'PCF_SETUP'
+    | 'PCF_RESIZE'
+    | 'PCF_ROUTE_UPDATE'
+    | 'PCF_SWICH_ROUTES'
+    | 'START_SERVICE'
+    | 'DEPLOY_AWSCODEDEPLOY'
+    | 'PREPARE_STEPS'
+    | 'DEPLOY_AWS_LAMBDA'
+    | 'COLLECT_ARTIFACT'
+    | 'AMI_AUTOSCALING_GROUP_SETUP'
+    | 'AMI_DEPLOY_AUTOSCALING_GROUP'
+    | 'AMI_SWITCH_AUTOSCALING_GROUP_ROUTES'
+    | 'ECS_UPDATE_LISTENER_BG'
+    | 'ECS_UPDATE_ROUTE_53_DNS_WEIGHT'
+    | 'HELM_DEPLOY'
+    | 'ROUTE_UPDATE'
+    | 'K8S_PHASE_STEP'
+    | 'PROVISION_INFRASTRUCTURE'
+    | 'ROLLBACK_PROVISION_INFRASTRUCTURE'
+    | 'SPOTINST_SETUP'
+    | 'SPOTINST_DEPLOY'
+    | 'SPOTINST_ROLLBACK'
+    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
+    | 'SPOTINST_LISTENER_UPDATE'
+    | 'STAGE_EXECUTION'
+    | 'AZURE_VMSS_SETUP'
+    | 'AZURE_VMSS_DEPLOY'
+    | 'AZURE_VMSS_ROLLBACK'
+    | 'AZURE_VMSS_SWITCH_ROUTES'
+    | 'AZURE_VMSS_SWITCH_ROLLBACK'
+    | 'CUSTOM_DEPLOYMENT_PHASE_STEP'
+    | 'AZURE_WEBAPP_SLOT_SETUP'
+    | 'AZURE_WEBAPP_SLOT_RESIZE'
+    | 'AZURE_WEBAPP_SLOT_SWAP'
+    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
+    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
+  rollback?: boolean
+  statusForRollback?:
+    | 'ABORTED'
+    | 'DISCONTINUING'
+    | 'ERROR'
+    | 'FAILED'
+    | 'NEW'
+    | 'PAUSED'
+    | 'PAUSING'
+    | 'QUEUED'
+    | 'RESUMED'
+    | 'RUNNING'
+    | 'SCHEDULED'
+    | 'STARTING'
+    | 'SUCCESS'
+    | 'WAITING'
+    | 'SKIPPED'
+    | 'ABORTING'
+    | 'REJECTED'
+    | 'EXPIRED'
+    | 'PREPARING'
+  stepSkipStrategies?: StepSkipStrategy[]
+  steps?: GraphNode[]
+  stepsInParallel?: boolean
+  uuid?: string
+  valid?: boolean
+  validationMessage?: string
+  waitInterval?: number
+}
+
+export type PhysicalInfra = InfraMappingInfrastructureProvider & {
+  expressions?: {
+    [key: string]: string
+  }
+  hostConnectionAttrs?: string
+  hostNames?: string[]
+  hosts?: Host[]
+  loadBalancerId?: string
+  loadBalancerName?: string
+}
+
+export type PhysicalInfraWinrm = InfraMappingInfrastructureProvider & {
+  hostNames?: string[]
+  hosts?: Host[]
+  loadBalancerId?: string
+  loadBalancerName?: string
+  winRmConnectionAttributes?: string
+}
+
+export interface Pipeline {
+  accountId?: string
+  appId: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
   deploymentTypes?: (
     | 'SSH'
     | 'AWS_CODEDEPLOY'
@@ -9811,85 +10502,467 @@ export interface Workflow {
     | 'AZURE_WEBAPP'
     | 'CUSTOM'
   )[]
-  accountId?: string
+  description?: string
+  envIds?: string[]
+  envParameterized?: boolean
+  envSummaries?: EnvSummary[]
+  failureStrategies?: FailureStrategy[]
+  hasBuildWorkflow?: boolean
+  hasSshInfraMapping?: boolean
+  infraDefinitionIds?: string[]
+  infraMappingIds?: string[]
+  keywords?: string[]
+  lastUpdatedAt: number
+  name: string
+  pipelineStages?: PipelineStage[]
+  pipelineVariables?: Variable[]
   sample?: boolean
+  services?: Service[]
+  stateEtaMap?: {
+    [key: string]: number
+  }
+  tagLinks?: HarnessTagLink[]
+  templatized?: boolean
+  uuid: string
+  valid?: boolean
+  validationMessage?: string
+  workflowExecutions?: WorkflowExecution[]
+  workflowIds?: string[]
 }
 
-export interface WorkflowCreationFlags {
-  ecsBGType?: string
-  awsTrafficShiftType?: string
-  ecsBgDnsType?: boolean
-  awsTrafficShiftAlbType?: boolean
+export interface PipelineExecution {
+  appId: string
+  appName?: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  endTs?: number
+  estimatedTime?: number
+  name?: string
+  pipeline?: Pipeline
+  pipelineId?: string
+  pipelineStageExecutions?: PipelineStageExecution[]
+  startTs?: number
+  stateMachineId?: string
+  status?:
+    | 'ABORTED'
+    | 'DISCONTINUING'
+    | 'ERROR'
+    | 'FAILED'
+    | 'NEW'
+    | 'PAUSED'
+    | 'PAUSING'
+    | 'QUEUED'
+    | 'RESUMED'
+    | 'RUNNING'
+    | 'SCHEDULED'
+    | 'STARTING'
+    | 'SUCCESS'
+    | 'WAITING'
+    | 'SKIPPED'
+    | 'ABORTING'
+    | 'REJECTED'
+    | 'EXPIRED'
+    | 'PREPARING'
+  uuid: string
+  workflowExecutionId?: string
+  workflowType?: 'PIPELINE' | 'ORCHESTRATION'
 }
 
-export interface KubernetesPayload {
-  advancedConfig?: string
+export interface PipelineGovernanceConfig {
+  accountId?: string
+  description?: string
+  enabled?: boolean
+  name?: string
+  restrictions?: Restriction[]
+  rules?: PipelineGovernanceRule[]
+  uuid?: string
 }
 
-export interface RestResponsePageResponseEnvironment {
-  metaData?: {
+export interface PipelineGovernanceRule {
+  matchType?: 'ANY' | 'ALL'
+  note?: string
+  tags?: Tag[]
+  weight?: number
+}
+
+export interface PipelineReportCard {
+  governanceStandard?: GovernanceStandard
+  pipelineId?: string
+  ruleStatuses?: GovernanceRuleStatus[]
+}
+
+export interface PipelineStage {
+  looped?: boolean
+  loopedVarName?: string
+  name?: string
+  parallel?: boolean
+  pipelineStageElements?: PipelineStageElement[]
+  valid?: boolean
+  validationMessage?: string
+}
+
+export interface PipelineStageElement {
+  disable?: boolean
+  disableAssertion?: string
+  name?: string
+  parallelIndex?: number
+  properties?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: Environment[]
-  responseMessages?: ResponseMessage[]
+  runtimeInputsConfig?: RuntimeInputsConfig
+  type?: string
+  uuid?: string
+  valid?: boolean
+  validationMessage?: string
+  workflowVariables?: {
+    [key: string]: string
+  }
 }
 
-export interface RestResponseWorkflowExecution {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: WorkflowExecution
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponsePageResponseWorkflowExecution {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: WorkflowExecution[]
-  responseMessages?: ResponseMessage[]
+export interface PipelineStageExecution {
+  endTs?: number
+  estimatedTime?: number
+  expiryTs?: number
+  looped?: boolean
+  message?: string
+  parallelInfo?: ParallelInfo
+  pipelineStageElementId?: string
+  startTs?: number
+  stateExecutionData?: StateExecutionData
+  stateName?: string
+  stateType?: string
+  stateUuid?: string
+  status?:
+    | 'ABORTED'
+    | 'DISCONTINUING'
+    | 'ERROR'
+    | 'FAILED'
+    | 'NEW'
+    | 'PAUSED'
+    | 'PAUSING'
+    | 'QUEUED'
+    | 'RESUMED'
+    | 'RUNNING'
+    | 'SCHEDULED'
+    | 'STARTING'
+    | 'SUCCESS'
+    | 'WAITING'
+    | 'SKIPPED'
+    | 'ABORTING'
+    | 'REJECTED'
+    | 'EXPIRED'
+    | 'PREPARING'
+  triggeredBy?: EmbeddedUser
+  waitingForInputs?: boolean
+  workflowExecutions?: WorkflowExecution[]
 }
 
 export interface PipelineStageGroupedInfo {
   name?: string
-  pipelineStageElementNames?: string[]
   parallelIndex?: number
+  pipelineStageElementNames?: string[]
 }
 
-export interface RestResponseListPipelineStageGroupedInfo {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: PipelineStageGroupedInfo[]
-  responseMessages?: ResponseMessage[]
+export interface PipelineSummary {
+  pipelineId?: string
+  pipelineName?: string
 }
 
-export interface RestResponseRollbackConfirmation {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: RollbackConfirmation
-  responseMessages?: ResponseMessage[]
+export type PipelineTriggerCondition = TriggerCondition & {
+  pipelineId?: string
+  pipelineName?: string
 }
 
-export interface RollbackConfirmation {
-  validationMessage?: string
-  activeWorkflowExecution?: WorkflowExecution
+export interface Placement {
+  affinity?: string
+  availabilityZone?: string
+  groupName?: string
+  hostId?: string
+  hostResourceGroupArn?: string
+  partitionNumber?: number
+  spreadDomain?: string
+  tenancy?: string
+}
+
+export interface PodInstanceKey {
+  namespace?: string
+  podName?: string
+}
+
+export interface PortMapping {
+  containerPort?: number
+  hostPort?: number
+}
+
+export interface Preference {
+  accountId?: string
+  appId: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  lastUpdatedAt: number
+  name?: string
+  preferenceType?: string
+  userId?: string
+  uuid: string
+}
+
+export interface ProductCode {
+  productCodeId?: string
+  productCodeType?: string
+}
+
+export interface ProfileScopingRulesDetails {
+  profileId?: string
+  profileName?: string
+  scopingRulesDescriptions?: string[]
+}
+
+export interface PrometheusSetupTestNodeData {
+  appId: string
+  fromTime?: number
+  guid?: string
+  hostExpression?: string
+  instanceElement?: Instance
+  instanceName?: string
+  isServiceLevel?: boolean
+  serviceLevel?: boolean
+  settingId: string
+  stateType?:
+    | 'SUB_WORKFLOW'
+    | 'REPEAT'
+    | 'FORK'
+    | 'WAIT'
+    | 'PAUSE'
+    | 'BARRIER'
+    | 'RESOURCE_CONSTRAINT'
+    | 'SHELL_SCRIPT'
+    | 'HTTP'
+    | 'TEMPLATIZED_SECRET_MANAGER'
+    | 'EMAIL'
+    | 'APP_DYNAMICS'
+    | 'NEW_RELIC'
+    | 'NEW_RELIC_DEPLOYMENT_MARKER'
+    | 'DYNA_TRACE'
+    | 'PROMETHEUS'
+    | 'SPLUNKV2'
+    | 'ELK'
+    | 'LOGZ'
+    | 'SUMO'
+    | 'DATA_DOG'
+    | 'DATA_DOG_LOG'
+    | 'CLOUD_WATCH'
+    | 'AWS_LAMBDA_VERIFICATION'
+    | 'APM_VERIFICATION'
+    | 'LOG_VERIFICATION'
+    | 'BUG_SNAG'
+    | 'STACK_DRIVER'
+    | 'STACK_DRIVER_LOG'
+    | 'INSTANA'
+    | 'SCALYR'
+    | 'ENV_STATE'
+    | 'ENV_LOOP_STATE'
+    | 'ENV_RESUME_STATE'
+    | 'ENV_LOOP_RESUME_STATE'
+    | 'COMMAND'
+    | 'APPROVAL'
+    | 'APPROVAL_RESUME'
+    | 'ELASTIC_LOAD_BALANCER'
+    | 'JENKINS'
+    | 'GCB'
+    | 'BAMBOO'
+    | 'ARTIFACT_COLLECTION'
+    | 'ARTIFACT_CHECK'
+    | 'AZURE_NODE_SELECT'
+    | 'AZURE_VMSS_SETUP'
+    | 'AZURE_VMSS_DEPLOY'
+    | 'AZURE_VMSS_ROLLBACK'
+    | 'AZURE_VMSS_SWITCH_ROUTES'
+    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
+    | 'AZURE_WEBAPP_SLOT_SETUP'
+    | 'AZURE_WEBAPP_SLOT_RESIZE'
+    | 'AZURE_WEBAPP_SLOT_SWAP'
+    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
+    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
+    | 'AWS_NODE_SELECT'
+    | 'DC_NODE_SELECT'
+    | 'ROLLING_NODE_SELECT'
+    | 'PHASE'
+    | 'PHASE_STEP'
+    | 'STAGING_ORIGINAL_EXECUTION'
+    | 'AWS_CODEDEPLOY_STATE'
+    | 'AWS_CODEDEPLOY_ROLLBACK'
+    | 'AWS_LAMBDA_STATE'
+    | 'AWS_LAMBDA_ROLLBACK'
+    | 'AWS_AMI_SERVICE_SETUP'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
+    | 'AWS_AMI_SERVICE_DEPLOY'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
+    | 'AWS_AMI_SWITCH_ROUTES'
+    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
+    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_SERVICE_ROLLBACK'
+    | 'ECS_SERVICE_SETUP'
+    | 'SPOTINST_SETUP'
+    | 'SPOTINST_ALB_SHIFT_SETUP'
+    | 'SPOTINST_DEPLOY'
+    | 'SPOTINST_ALB_SHIFT_DEPLOY'
+    | 'SPOTINST_LISTENER_UPDATE'
+    | 'SPOTINST_LISTENER_ALB_SHIFT'
+    | 'SPOTINST_ROLLBACK'
+    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
+    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
+    | 'ECS_SERVICE_SETUP_ROLLBACK'
+    | 'ECS_DAEMON_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
+    | 'ECS_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_ROLLBACK'
+    | 'ECS_LISTENER_UPDATE'
+    | 'ECS_LISTENER_UPDATE_ROLLBACK'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
+    | 'KUBERNETES_SETUP'
+    | 'KUBERNETES_SETUP_ROLLBACK'
+    | 'KUBERNETES_DEPLOY'
+    | 'KUBERNETES_DEPLOY_ROLLBACK'
+    | 'KUBERNETES_STEADY_STATE_CHECK'
+    | 'ECS_STEADY_STATE_CHECK'
+    | 'ECS_RUN_TASK'
+    | 'GCP_CLUSTER_SETUP'
+    | 'HELM_DEPLOY'
+    | 'HELM_ROLLBACK'
+    | 'PCF_SETUP'
+    | 'PCF_RESIZE'
+    | 'PCF_ROLLBACK'
+    | 'PCF_MAP_ROUTE'
+    | 'PCF_UNMAP_ROUTE'
+    | 'PCF_BG_MAP_ROUTE'
+    | 'PCF_PLUGIN'
+    | 'TERRAFORM_PROVISION'
+    | 'TERRAFORM_APPLY'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'TERRAFORM_DESTROY'
+    | 'CLOUD_FORMATION_CREATE_STACK'
+    | 'CLOUD_FORMATION_DELETE_STACK'
+    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'CLOUD_FORMATION_ROLLBACK_STACK'
+    | 'TERRAFORM_ROLLBACK'
+    | 'K8S_DEPLOYMENT_ROLLING'
+    | 'K8S_SCALE'
+    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
+    | 'K8S_BLUE_GREEN_DEPLOY'
+    | 'K8S_CANARY_DEPLOY'
+    | 'K8S_DELETE'
+    | 'JIRA_CREATE_UPDATE'
+    | 'SERVICENOW_CREATE_UPDATE'
+    | 'K8S_TRAFFIC_SPLIT'
+    | 'K8S_APPLY'
+    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
+  timeSeriesToAnalyze?: TimeSeries[]
+  toTime?: number
   workflowId?: string
-  valid?: boolean
-  artifacts?: Artifact[]
 }
 
-export interface ApprovalDetails {
-  approvalId?: string
-  approvedBy?: EmbeddedUser
-  comments?: string
-  action?: 'APPROVE' | 'REJECT'
-  approvalFromSlack?: boolean
-  variables?: NameValuePair[]
+export interface ProvisionStep {
+  done?: boolean
+  step?: string
+}
+
+export interface PublicUser {
+  inviteAccepted?: boolean
+  user?: User
+}
+
+export interface QLBillingDataFilter {
+  alertTime?: QLTimeFilter
+  application?: QLIdFilter
+  cloudProvider?: QLIdFilter
+  cloudServiceName?: QLIdFilter
+  cluster?: QLIdFilter
+  endTime?: QLTimeFilter
+  envType?: QLCEEnvironmentTypeFilter
+  environment?: QLIdFilter
+  instanceName?: QLIdFilter
+  instanceType?: QLIdFilter
+  label?: QLBillingDataLabelFilter
+  labelSearch?: QLIdFilter
+  launchType?: QLIdFilter
+  namespace?: QLIdFilter
+  nodeInstanceId?: QLIdFilter
+  parentInstanceId?: QLIdFilter
+  podInstanceId?: QLIdFilter
+  service?: QLIdFilter
+  startTime?: QLTimeFilter
+  tag?: QLBillingDataTagFilter
+  tagSearch?: QLIdFilter
+  taskId?: QLIdFilter
+  workloadName?: QLIdFilter
+}
+
+export interface QLBillingDataLabelFilter {
+  labels?: QLK8sLabelInput[]
+  operator?: 'EQUALS' | 'IN' | 'NOT_NULL' | 'NOT_IN' | 'LIKE'
+  values?: { [key: string]: any }[]
+}
+
+export interface QLBillingDataTagFilter {
+  entityType?: 'APPLICATION' | 'SERVICE' | 'ENVIRONMENT'
+  operator?: 'EQUALS' | 'IN' | 'NOT_NULL' | 'NOT_IN' | 'LIKE'
+  tags?: QLTagInput[]
+  values?: { [key: string]: any }[]
+}
+
+export interface QLCEEnvironmentTypeFilter {
+  operator?: 'EQUALS' | 'IN' | 'NOT_NULL' | 'NOT_IN' | 'LIKE'
+  values?: { [key: string]: any }[]
+}
+
+export interface QLIdFilter {
+  operator?: 'EQUALS' | 'IN' | 'NOT_NULL' | 'NOT_IN' | 'LIKE'
+  values?: string[]
+}
+
+export interface QLK8sLabelInput {
+  name?: string
+  values?: string[]
+}
+
+export interface QLTagInput {
+  name?: string
+  value?: string
+}
+
+export interface QLTimeFilter {
+  operator?: 'EQUALS' | 'BEFORE' | 'AFTER'
+  value?: Number
+  values?: Number[]
+}
+
+export interface RateLimit {
+  count?: number
+  duration?: number
+  durationUnit: 'NANOSECONDS' | 'MICROSECONDS' | 'MILLISECONDS' | 'SECONDS' | 'MINUTES' | 'HOURS' | 'DAYS'
+  limitType?: 'STATIC' | 'RATE_LIMIT'
+}
+
+export interface ReferencedTemplate {
+  templateReference?: TemplateReference
+  variableMapping?: {
+    [key: string]: Variable
+  }
+}
+
+export type RemoveOperation = PatchOperation & {
+  value?: JsonNode
+}
+
+export type ReplaceOperation = PatchOperation & {
+  value?: JsonNode
 }
 
 export interface RequiredExecutionArgs {
+  defaultExecutionArgs?: ExecutionArgs
   entityTypes?: (
     | 'SERVICE'
     | 'PROVISIONER'
@@ -9977,210 +11050,397 @@ export interface RequiredExecutionArgs {
     | 'CONNECTOR'
     | 'CLOUD_PROVIDER'
   )[]
-  defaultExecutionArgs?: ExecutionArgs
 }
 
-export interface RestResponseRequiredExecutionArgs {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: RequiredExecutionArgs
-  responseMessages?: ResponseMessage[]
+export interface ResendInvitationEmailRequest {
+  email?: string
 }
 
-export interface DeploymentMetadata {
-  artifactRequiredServices?: Service[]
-  artifactRequiredServiceIds?: string[]
-  envSummaries?: EnvSummary[]
-  envIds?: string[]
-  deploymentTypes?: (
-    | 'SSH'
-    | 'AWS_CODEDEPLOY'
-    | 'ECS'
-    | 'SPOTINST'
-    | 'KUBERNETES'
-    | 'HELM'
-    | 'AWS_LAMBDA'
-    | 'AMI'
-    | 'WINRM'
-    | 'PCF'
-    | 'AZURE_VMSS'
-    | 'AZURE_WEBAPP'
-    | 'CUSTOM'
-  )[]
-  artifactVariables?: ArtifactVariable[]
-  manifestVariables?: ManifestVariable[]
-  manifestRequiredServiceIds?: string[]
+export interface ResetPasswordRequest {
+  email?: string
 }
 
-export interface RestResponseDeploymentMetadata {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DeploymentMetadata
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseGraphNode {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: GraphNode
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListStateExecutionData {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: StateExecutionData[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ExecutionInterrupt {
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
+export interface ResourceConstraint {
+  accountId?: string
+  capacity?: number
+  claimant?: string
   createdAt?: number
+  createdBy?: EmbeddedUser
+  harnessOwned?: boolean
+  lastUpdatedAt: number
   lastUpdatedBy?: EmbeddedUser
-  lastUpdatedAt: number
-  executionInterruptType:
-    | 'ABORT'
-    | 'ABORT_ALL'
-    | 'PAUSE'
-    | 'PAUSE_FOR_INPUTS'
-    | 'PAUSE_ALL'
-    | 'RESUME'
-    | 'RESUME_ALL'
-    | 'RETRY'
-    | 'IGNORE'
-    | 'MARK_FAILED'
-    | 'MARK_SUCCESS'
-    | 'ROLLBACK'
-    | 'NEXT_STEP'
-    | 'END_EXECUTION'
-    | 'ROLLBACK_DONE'
-    | 'MARK_EXPIRED'
-    | 'CONTINUE_WITH_DEFAULTS'
-    | 'CONTINUE_PIPELINE_STAGE'
-  seized?: boolean
-  envId?: string
-  executionUuid: string
-  stateExecutionInstanceId?: string
-  accountId?: string
-  properties?: {
-    [key: string]: { [key: string]: any }
-  }
-}
-
-export interface RestResponseListStateExecutionInterrupt {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: StateExecutionInterrupt[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface StateExecutionInterrupt {
-  interrupt?: ExecutionInterrupt
-  tookAffectAt?: string
-}
-
-export interface RestResponseStateInspection {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: StateInspection
-  responseMessages?: ResponseMessage[]
-}
-
-export interface StateInspection {
-  stateExecutionInstanceId?: string
-  data?: {
-    [key: string]: StateInspectionData
-  }
-  validUntil?: string
-}
-
-export interface StateInspectionData {
-  [key: string]: any
-}
-
-export interface RestResponseListStateExecutionElement {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: StateExecutionElement[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface StateExecutionElement {
-  executionContextElementId?: string
-  status?:
-    | 'ABORTED'
-    | 'DISCONTINUING'
-    | 'ERROR'
-    | 'FAILED'
-    | 'NEW'
-    | 'PAUSED'
-    | 'PAUSING'
-    | 'QUEUED'
-    | 'RESUMED'
-    | 'RUNNING'
-    | 'SCHEDULED'
-    | 'STARTING'
-    | 'SUCCESS'
-    | 'WAITING'
-    | 'SKIPPED'
-    | 'ABORTING'
-    | 'REJECTED'
-    | 'EXPIRED'
-    | 'PREPARING'
   name?: string
-  progress?: number
-  runningSteps?: string[]
-}
-
-export interface RestResponseSetWorkflowExecutionBaseline {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: WorkflowExecutionBaseline[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface WorkflowExecutionBaseline {
-  workflowId?: string
-  envId?: string
-  serviceId?: string
-  workflowExecutionId?: string
-  accountId?: string
-  pipelineExecutionId?: string
+  strategy?: 'ASAP' | 'FIFO'
   uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
+}
+
+export interface ResourceConstraintUsage {
+  activeScopes?: ActiveScope[]
+  resourceConstraintId?: string
+}
+
+export interface ResourceLookup {
+  accountId?: string
+  appId?: string
   createdAt?: number
-  lastUpdatedAt: number
+  lastUpdatedAt?: number
+  resourceId?: string
+  resourceName?: string
+  resourceType?: string
+  tags?: NameValuePair[]
+  uuid: string
 }
 
-export interface RestResponseWorkflowExecutionBaseline {
+export interface ResponseMapping {
+  hostJsonPath?: string
+  hostRegex?: string
+  logMessageJsonPath?: string
+  timestampFormat?: string
+  timestampJsonPath?: string
+}
+
+export interface ResponseMessage {
+  code?:
+    | 'DEFAULT_ERROR_CODE'
+    | 'INVALID_ARGUMENT'
+    | 'INVALID_EMAIL'
+    | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'USER_ALREADY_REGISTERED'
+    | 'USER_INVITATION_DOES_NOT_EXIST'
+    | 'USER_DOES_NOT_EXIST'
+    | 'USER_INVITE_OPERATION_FAILED'
+    | 'USER_DISABLED'
+    | 'ACCOUNT_DOES_NOT_EXIST'
+    | 'INACTIVE_ACCOUNT'
+    | 'ACCOUNT_MIGRATED'
+    | 'USER_DOMAIN_NOT_ALLOWED'
+    | 'MAX_FAILED_ATTEMPT_COUNT_EXCEEDED'
+    | 'RESOURCE_NOT_FOUND'
+    | 'ROLE_DOES_NOT_EXIST'
+    | 'EMAIL_NOT_VERIFIED'
+    | 'EMAIL_VERIFICATION_TOKEN_NOT_FOUND'
+    | 'INVALID_TOKEN'
+    | 'INVALID_CAPTCHA_TOKEN'
+    | 'NOT_ACCOUNT_MGR_NOR_HAS_ALL_APP_ACCESS'
+    | 'EXPIRED_TOKEN'
+    | 'TOKEN_ALREADY_REFRESHED_ONCE'
+    | 'ACCESS_DENIED'
+    | 'INVALID_CREDENTIAL'
+    | 'INVALID_KEY'
+    | 'INVALID_KEYPATH'
+    | 'INVALID_VARIABLE'
+    | 'UNKNOWN_HOST'
+    | 'UNREACHABLE_HOST'
+    | 'INVALID_PORT'
+    | 'SSH_SESSION_TIMEOUT'
+    | 'SOCKET_CONNECTION_ERROR'
+    | 'SOCKET_CONNECTION_TIMEOUT'
+    | 'CONNECTION_TIMEOUT'
+    | 'SSH_CONNECTION_ERROR'
+    | 'USER_GROUP_ERROR'
+    | 'INVALID_EXECUTION_ID'
+    | 'ERROR_IN_GETTING_CHANNEL_STREAMS'
+    | 'UNEXPECTED'
+    | 'UNKNOWN_ERROR'
+    | 'UNKNOWN_EXECUTOR_TYPE_ERROR'
+    | 'DUPLICATE_STATE_NAMES'
+    | 'TRANSITION_NOT_LINKED'
+    | 'TRANSITION_TO_INCORRECT_STATE'
+    | 'TRANSITION_TYPE_NULL'
+    | 'STATES_WITH_DUP_TRANSITIONS'
+    | 'BARRIERS_NOT_RUNNING_CONCURRENTLY'
+    | 'NON_FORK_STATES'
+    | 'NON_REPEAT_STATES'
+    | 'INITIAL_STATE_NOT_DEFINED'
+    | 'FILE_INTEGRITY_CHECK_FAILED'
+    | 'INVALID_URL'
+    | 'FILE_DOWNLOAD_FAILED'
+    | 'PLATFORM_SOFTWARE_DELETE_ERROR'
+    | 'INVALID_CSV_FILE'
+    | 'INVALID_REQUEST'
+    | 'INVALID_INFRA_STATE'
+    | 'PIPELINE_ALREADY_TRIGGERED'
+    | 'NON_EXISTING_PIPELINE'
+    | 'DUPLICATE_COMMAND_NAMES'
+    | 'INVALID_PIPELINE'
+    | 'COMMAND_DOES_NOT_EXIST'
+    | 'DUPLICATE_ARTIFACTSTREAM_NAMES'
+    | 'DUPLICATE_HOST_NAMES'
+    | 'STATE_NOT_FOR_TYPE'
+    | 'STATE_MACHINE_ISSUE'
+    | 'STATE_DISCONTINUE_FAILED'
+    | 'STATE_PAUSE_FAILED'
+    | 'PAUSE_ALL_ALREADY'
+    | 'RESUME_ALL_ALREADY'
+    | 'ROLLBACK_ALREADY'
+    | 'ABORT_ALL_ALREADY'
+    | 'RETRY_FAILED'
+    | 'UNKNOWN_ARTIFACT_TYPE'
+    | 'UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE'
+    | 'INIT_TIMEOUT'
+    | 'LICENSE_EXPIRED'
+    | 'NOT_LICENSED'
+    | 'REQUEST_TIMEOUT'
+    | 'WORKFLOW_ALREADY_TRIGGERED'
+    | 'JENKINS_ERROR'
+    | 'INVALID_ARTIFACT_SOURCE'
+    | 'INVALID_ARTIFACT_SERVER'
+    | 'INVALID_CLOUD_PROVIDER'
+    | 'UPDATE_NOT_ALLOWED'
+    | 'DELETE_NOT_ALLOWED'
+    | 'APPDYNAMICS_CONFIGURATION_ERROR'
+    | 'APM_CONFIGURATION_ERROR'
+    | 'SPLUNK_CONFIGURATION_ERROR'
+    | 'ELK_CONFIGURATION_ERROR'
+    | 'LOGZ_CONFIGURATION_ERROR'
+    | 'SUMO_CONFIGURATION_ERROR'
+    | 'INSTANA_CONFIGURATION_ERROR'
+    | 'APPDYNAMICS_ERROR'
+    | 'STACKDRIVER_ERROR'
+    | 'STACKDRIVER_CONFIGURATION_ERROR'
+    | 'NEWRELIC_CONFIGURATION_ERROR'
+    | 'NEWRELIC_ERROR'
+    | 'DYNA_TRACE_CONFIGURATION_ERROR'
+    | 'DYNA_TRACE_ERROR'
+    | 'CLOUDWATCH_ERROR'
+    | 'CLOUDWATCH_CONFIGURATION_ERROR'
+    | 'PROMETHEUS_CONFIGURATION_ERROR'
+    | 'DATA_DOG_CONFIGURATION_ERROR'
+    | 'SERVICE_GUARD_CONFIGURATION_ERROR'
+    | 'ENCRYPTION_NOT_CONFIGURED'
+    | 'UNAVAILABLE_DELEGATES'
+    | 'WORKFLOW_EXECUTION_IN_PROGRESS'
+    | 'PIPELINE_EXECUTION_IN_PROGRESS'
+    | 'AWS_ACCESS_DENIED'
+    | 'AWS_CLUSTER_NOT_FOUND'
+    | 'AWS_SERVICE_NOT_FOUND'
+    | 'INVALID_YAML_PAYLOAD'
+    | 'UNRECOGNIZED_YAML_FIELDS'
+    | 'COULD_NOT_MAP_BEFORE_YAML'
+    | 'MISSING_BEFORE_YAML'
+    | 'MISSING_YAML'
+    | 'NON_EMPTY_DELETIONS'
+    | 'GENERAL_YAML_ERROR'
+    | 'GENERAL_YAML_INFO'
+    | 'YAML_GIT_SYNC_ERROR'
+    | 'GIT_CONNECTION_ERROR'
+    | 'GIT_ERROR'
+    | 'ARTIFACT_SERVER_ERROR'
+    | 'ENCRYPT_DECRYPT_ERROR'
+    | 'SECRET_MANAGEMENT_ERROR'
+    | 'KMS_OPERATION_ERROR'
+    | 'GCP_KMS_OPERATION_ERROR'
+    | 'VAULT_OPERATION_ERROR'
+    | 'AWS_SECRETS_MANAGER_OPERATION_ERROR'
+    | 'AZURE_KEY_VAULT_OPERATION_ERROR'
+    | 'CYBERARK_OPERATION_ERROR'
+    | 'UNSUPPORTED_OPERATION_EXCEPTION'
+    | 'FEATURE_UNAVAILABLE'
+    | 'GENERAL_ERROR'
+    | 'BASELINE_CONFIGURATION_ERROR'
+    | 'SAML_IDP_CONFIGURATION_NOT_AVAILABLE'
+    | 'INVALID_AUTHENTICATION_MECHANISM'
+    | 'INVALID_SAML_CONFIGURATION'
+    | 'INVALID_OAUTH_CONFIGURATION'
+    | 'INVALID_LDAP_CONFIGURATION'
+    | 'USER_GROUP_SYNC_FAILURE'
+    | 'USER_GROUP_ALREADY_EXIST'
+    | 'INVALID_TWO_FACTOR_AUTHENTICATION_CONFIGURATION'
+    | 'EXPLANATION'
+    | 'HINT'
+    | 'NOT_WHITELISTED_IP'
+    | 'INVALID_TOTP_TOKEN'
+    | 'EMAIL_FAILED'
+    | 'SSL_HANDSHAKE_FAILED'
+    | 'NO_APPS_ASSIGNED'
+    | 'INVALID_INFRA_CONFIGURATION'
+    | 'TEMPLATES_LINKED'
+    | 'USER_HAS_NO_PERMISSIONS'
+    | 'USER_NOT_AUTHORIZED'
+    | 'USER_ALREADY_PRESENT'
+    | 'INVALID_USAGE_RESTRICTION'
+    | 'USAGE_RESTRICTION_ERROR'
+    | 'STATE_EXECUTION_INSTANCE_NOT_FOUND'
+    | 'DELEGATE_TASK_RETRY'
+    | 'KUBERNETES_YAML_ERROR'
+    | 'SAVE_FILE_INTO_GCP_STORAGE_FAILED'
+    | 'READ_FILE_FROM_GCP_STORAGE_FAILED'
+    | 'USAGE_LIMITS_EXCEEDED'
+    | 'EVENT_PUBLISH_FAILED'
+    | 'JIRA_ERROR'
+    | 'EXPRESSION_EVALUATION_FAILED'
+    | 'KUBERNETES_VALUES_ERROR'
+    | 'KUBERNETES_CLUSTER_ERROR'
+    | 'INCORRECT_SIGN_IN_MECHANISM'
+    | 'OAUTH_LOGIN_FAILED'
+    | 'INVALID_TERRAFORM_TARGETS_REQUEST'
+    | 'FILE_READ_FAILED'
+    | 'FILE_SIZE_EXCEEDS_LIMIT'
+    | 'CLUSTER_NOT_FOUND'
+    | 'MARKETPLACE_TOKEN_NOT_FOUND'
+    | 'INVALID_MARKETPLACE_TOKEN'
+    | 'INVALID_TICKETING_SERVER'
+    | 'SERVICENOW_ERROR'
+    | 'PASSWORD_EXPIRED'
+    | 'USER_LOCKED'
+    | 'PASSWORD_STRENGTH_CHECK_FAILED'
+    | 'ACCOUNT_DISABLED'
+    | 'INVALID_ACCOUNT_PERMISSION'
+    | 'PAGERDUTY_ERROR'
+    | 'HEALTH_ERROR'
+    | 'SAML_TEST_SUCCESS_MECHANISM_NOT_ENABLED'
+    | 'DOMAIN_WHITELIST_FILTER_CHECK_FAILED'
+    | 'INVALID_DASHBOARD_UPDATE_REQUEST'
+    | 'DUPLICATE_FIELD'
+    | 'INVALID_AZURE_VAULT_CONFIGURATION'
+    | 'USER_NOT_AUTHORIZED_DUE_TO_USAGE_RESTRICTIONS'
+    | 'INVALID_ROLLBACK'
+    | 'SUMO_DATA_COLLECTION_ERROR'
+    | 'DEPLOYMENT_GOVERNANCE_ERROR'
+    | 'BATCH_PROCESSING_ERROR'
+    | 'GRAPHQL_ERROR'
+    | 'FILE_CREATE_ERROR'
+    | 'ILLEGAL_STATE'
+    | 'GIT_DIFF_COMMIT_NOT_IN_ORDER'
+    | 'FAILED_TO_ACQUIRE_PERSISTENT_LOCK'
+    | 'FAILED_TO_ACQUIRE_NON_PERSISTENT_LOCK'
+    | 'POD_NOT_FOUND_ERROR'
+    | 'COMMAND_EXECUTION_ERROR'
+    | 'REGISTRY_EXCEPTION'
+    | 'ENGINE_INTERRUPT_PROCESSING_EXCEPTION'
+    | 'ENGINE_IO_EXCEPTION'
+    | 'ENGINE_OUTCOME_EXCEPTION'
+    | 'ENGINE_SWEEPING_OUTPUT_EXCEPTION'
+    | 'CACHE_NOT_FOUND_EXCEPTION'
+    | 'ENGINE_ENTITY_UPDATE_EXCEPTION'
+    | 'SHELL_EXECUTION_EXCEPTION'
+    | 'TEMPLATE_NOT_FOUND'
+    | 'AZURE_SERVICE_EXCEPTION'
+    | 'GIT_UNSEEN_REMOTE_HEAD_COMMIT'
+    | 'TIMEOUT_ENGINE_EXCEPTION'
+    | 'NO_AVAILABLE_DELEGATES'
+    | 'NO_INSTALLED_DELEGATES'
+    | 'DUPLICATE_DELEGATE_EXCEPTION'
+    | 'GCP_MARKETPLACE_EXCEPTION'
+    | 'MISSING_DEFAULT_GOOGLE_CREDENTIALS'
+    | 'INCORRECT_DEFAULT_GOOGLE_CREDENTIALS'
+    | 'OPTIMISTIC_LOCKING_EXCEPTION'
+    | 'RESOURCE_NOT_FOUND_EXCEPTION'
+  exception?: Throwable
+  level?: 'INFO' | 'ERROR'
+  message?: string
+}
+
+export interface RestDelegateSizeResponse {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: WorkflowExecutionBaseline
+  resource?: DelegateSizesResponse[]
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseListArtifact {
+export interface RestInitializationResponse {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: Artifact[]
+  resource?: InitializationResponse[]
   responseMessages?: ResponseMessage[]
 }
 
-export interface ApprovalAuthorization {
-  authorized?: boolean
+export interface RestResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: { [key: string]: any }
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseAccessTokenBean {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AccessTokenBean
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseAccount {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Account
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseAccountRole {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AccountRole
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseAccountSettingsResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AccountSettingsResponse
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseActivity {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Activity
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseAlertNotificationRule {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AlertNotificationRule
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseApiKeyEntry {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ApiKeyEntry
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseAppContainer {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AppContainer
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseApplication {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Application
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseApplicationManifest {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ApplicationManifest
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseApplicationRole {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ApplicationRole
+  responseMessages?: ResponseMessage[]
 }
 
 export interface RestResponseApprovalAuthorization {
@@ -10191,13 +11451,156 @@ export interface RestResponseApprovalAuthorization {
   responseMessages?: ResponseMessage[]
 }
 
-export interface ConcurrentExecutionResponse {
-  state?: 'BLOCKED' | 'ACTIVE' | 'FINISHED'
-  unitType?: 'INFRA' | 'CUSTOM' | 'NONE'
-  executions?: WorkflowExecution[]
-  infrastructureDetails?: {
+export interface RestResponseArtifact {
+  metaData?: {
     [key: string]: { [key: string]: any }
   }
+  resource?: Artifact
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseArtifactStream {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ArtifactStream
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseArtifactStreamBinding {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ArtifactStreamBinding
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseAuditHeaderYamlResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AuditHeaderYamlResponse
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseAuditPreferenceResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AuditPreferenceResponse
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseAwsAsgGetRunningCountData {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AwsAsgGetRunningCountData
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseBase {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Base
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseBoolean {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: boolean
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseBudget {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Budget
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseCEDelegateStatus {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: CEDelegateStatus
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseCESlackWebhook {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: CESlackWebhook
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseCEView {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: CEView
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseCVConfiguration {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: CVConfiguration
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseClusterRecord {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ClusterRecord
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseCollectionFeatureFlag {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: FeatureFlag[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseCollectionLdapGroupResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LdapGroupResponse[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseCollectionSettingAttribute {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: SettingAttribute[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseCommandLibraryConfigurationDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: CommandLibraryConfigurationDTO
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseConcurrencyStrategy {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ConcurrencyStrategy
+  responseMessages?: ResponseMessage[]
 }
 
 export interface RestResponseConcurrentExecutionResponse {
@@ -10208,36 +11611,220 @@ export interface RestResponseConcurrentExecutionResponse {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseMapStringGraphGroup {
+export interface RestResponseConfigFile {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: {
-    [key: string]: GraphGroup
-  }
+  resource?: ConfigFile
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseWorkflowExecutionInfo {
+export interface RestResponseContainerTask {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: WorkflowExecutionInfo
+  resource?: ContainerTask
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseWorkflowVariablesMetadata {
+export interface RestResponseCustomDeploymentTypeDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: WorkflowVariablesMetadata
+  resource?: CustomDeploymentTypeDTO
   responseMessages?: ResponseMessage[]
 }
 
-export interface WorkflowVariablesMetadata {
-  workflowVariables?: Variable[]
-  changed?: boolean
-  changedMessage?: string
+export interface RestResponseCustomSecretsManagerConfig {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: CustomSecretsManagerConfig
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseDashboardSettings {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DashboardSettings
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseDelegate {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Delegate
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseDelegateConfiguration {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DelegateConfiguration
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseDelegateFile {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DelegateFile
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseDelegateGroupDetails {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DelegateGroupDetails
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseDelegateGroupListing {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DelegateGroupListing
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseDelegateHeartbeatDetails {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DelegateHeartbeatDetails
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseDelegateProfile {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DelegateProfile
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseDelegateProfileDetails {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DelegateProfileDetails
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseDelegateProfileParams {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DelegateProfileParams
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseDelegateRegisterResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DelegateRegisterResponse
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseDelegateScope {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DelegateScope
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseDelegateScripts {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DelegateScripts
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseDelegateSelectionLogResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DelegateSelectionLogResponse
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseDelegateSetupDetails {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DelegateSetupDetails
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseDelegateStatus {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DelegateStatus
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseDeploymentMetadata {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DeploymentMetadata
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseDeploymentStatistics {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DeploymentStatistics
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseDeploymentTimeSeriesAnalysis {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DeploymentTimeSeriesAnalysis
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseDirectoryNode {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DirectoryNode
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseEcsServiceSpecification {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: EcsServiceSpecification
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseEncryptedDataDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: EncryptedDataDTO
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseEnvironment {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Environment
+  responseMessages?: ResponseMessage[]
 }
 
 export interface RestResponseExecutionInterrupt {
@@ -10248,361 +11835,12 @@ export interface RestResponseExecutionInterrupt {
   responseMessages?: ResponseMessage[]
 }
 
-export interface ExpAnalysisInfo {
-  stateExecutionId?: string
-  appId?: string
-  stateType?:
-    | 'SUB_WORKFLOW'
-    | 'REPEAT'
-    | 'FORK'
-    | 'WAIT'
-    | 'PAUSE'
-    | 'BARRIER'
-    | 'RESOURCE_CONSTRAINT'
-    | 'SHELL_SCRIPT'
-    | 'HTTP'
-    | 'TEMPLATIZED_SECRET_MANAGER'
-    | 'EMAIL'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'NEW_RELIC_DEPLOYMENT_MARKER'
-    | 'DYNA_TRACE'
-    | 'PROMETHEUS'
-    | 'SPLUNKV2'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'AWS_LAMBDA_VERIFICATION'
-    | 'APM_VERIFICATION'
-    | 'LOG_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'STACK_DRIVER'
-    | 'STACK_DRIVER_LOG'
-    | 'INSTANA'
-    | 'SCALYR'
-    | 'ENV_STATE'
-    | 'ENV_LOOP_STATE'
-    | 'ENV_RESUME_STATE'
-    | 'ENV_LOOP_RESUME_STATE'
-    | 'COMMAND'
-    | 'APPROVAL'
-    | 'APPROVAL_RESUME'
-    | 'ELASTIC_LOAD_BALANCER'
-    | 'JENKINS'
-    | 'GCB'
-    | 'BAMBOO'
-    | 'ARTIFACT_COLLECTION'
-    | 'ARTIFACT_CHECK'
-    | 'AZURE_NODE_SELECT'
-    | 'AZURE_VMSS_SETUP'
-    | 'AZURE_VMSS_DEPLOY'
-    | 'AZURE_VMSS_ROLLBACK'
-    | 'AZURE_VMSS_SWITCH_ROUTES'
-    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
-    | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
-    | 'AZURE_WEBAPP_SLOT_SWAP'
-    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
-    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
-    | 'AWS_NODE_SELECT'
-    | 'DC_NODE_SELECT'
-    | 'ROLLING_NODE_SELECT'
-    | 'PHASE'
-    | 'PHASE_STEP'
-    | 'STAGING_ORIGINAL_EXECUTION'
-    | 'AWS_CODEDEPLOY_STATE'
-    | 'AWS_CODEDEPLOY_ROLLBACK'
-    | 'AWS_LAMBDA_STATE'
-    | 'AWS_LAMBDA_ROLLBACK'
-    | 'AWS_AMI_SERVICE_SETUP'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
-    | 'AWS_AMI_SERVICE_DEPLOY'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
-    | 'AWS_AMI_SWITCH_ROUTES'
-    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
-    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_SERVICE_ROLLBACK'
-    | 'ECS_SERVICE_SETUP'
-    | 'SPOTINST_SETUP'
-    | 'SPOTINST_ALB_SHIFT_SETUP'
-    | 'SPOTINST_DEPLOY'
-    | 'SPOTINST_ALB_SHIFT_DEPLOY'
-    | 'SPOTINST_LISTENER_UPDATE'
-    | 'SPOTINST_LISTENER_ALB_SHIFT'
-    | 'SPOTINST_ROLLBACK'
-    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
-    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
-    | 'ECS_SERVICE_SETUP_ROLLBACK'
-    | 'ECS_DAEMON_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
-    | 'ECS_SERVICE_DEPLOY'
-    | 'ECS_SERVICE_ROLLBACK'
-    | 'ECS_LISTENER_UPDATE'
-    | 'ECS_LISTENER_UPDATE_ROLLBACK'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
-    | 'KUBERNETES_SETUP'
-    | 'KUBERNETES_SETUP_ROLLBACK'
-    | 'KUBERNETES_DEPLOY'
-    | 'KUBERNETES_DEPLOY_ROLLBACK'
-    | 'KUBERNETES_STEADY_STATE_CHECK'
-    | 'ECS_STEADY_STATE_CHECK'
-    | 'ECS_RUN_TASK'
-    | 'GCP_CLUSTER_SETUP'
-    | 'HELM_DEPLOY'
-    | 'HELM_ROLLBACK'
-    | 'PCF_SETUP'
-    | 'PCF_RESIZE'
-    | 'PCF_ROLLBACK'
-    | 'PCF_MAP_ROUTE'
-    | 'PCF_UNMAP_ROUTE'
-    | 'PCF_BG_MAP_ROUTE'
-    | 'PCF_PLUGIN'
-    | 'TERRAFORM_PROVISION'
-    | 'TERRAFORM_APPLY'
-    | 'SHELL_SCRIPT_PROVISION'
-    | 'TERRAFORM_DESTROY'
-    | 'CLOUD_FORMATION_CREATE_STACK'
-    | 'CLOUD_FORMATION_DELETE_STACK'
-    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
-    | 'CLOUD_FORMATION_ROLLBACK_STACK'
-    | 'TERRAFORM_ROLLBACK'
-    | 'K8S_DEPLOYMENT_ROLLING'
-    | 'K8S_SCALE'
-    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
-    | 'K8S_BLUE_GREEN_DEPLOY'
-    | 'K8S_CANARY_DEPLOY'
-    | 'K8S_DELETE'
-    | 'JIRA_CREATE_UPDATE'
-    | 'SERVICENOW_CREATE_UPDATE'
-    | 'K8S_TRAFFIC_SPLIT'
-    | 'K8S_APPLY'
-    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
-  expName?: string
-  envId?: string
-  workflowExecutionId?: string
-  createdAt?: number
-  mismatch?: boolean
-}
-
-export interface RestResponseListExpAnalysisInfo {
+export interface RestResponseExperimentPerformance {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: ExpAnalysisInfo[]
+  resource?: ExperimentPerformance
   responseMessages?: ResponseMessage[]
-}
-
-export interface ExperimentalMessageComparisonResult {
-  stateExecutionId?: string
-  cvConfigId?: string
-  logCollectionMinute?: number
-  numVotes?: number
-  message1?: string
-  message2?: string
-  prediction?: string
-  cluster_type?: string
-  similarity?: number
-  modelVersion?: string
-  userVotes?: {
-    [key: string]: string
-  }
-  uuid?: string
-  createdAt?: number
-}
-
-export interface RestResponseListExperimentalMessageComparisonResult {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ExperimentalMessageComparisonResult[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ExperimentalMetricAnalysis {
-  metricName?: string
-  riskLevel?: 'HIGH' | 'MEDIUM' | 'LOW' | 'NA'
-  experimentalRiskLevel?: 'HIGH' | 'MEDIUM' | 'LOW' | 'NA'
-  metricValues?: ExperimentalMetricAnalysisValue[]
-  displayName?: string
-  fullMetricName?: string
-  tag?: string
-  mismatch?: boolean
-}
-
-export interface ExperimentalMetricAnalysisValue {
-  name?: string
-  type?: string
-  alertType?: string
-  riskLevel?: 'HIGH' | 'MEDIUM' | 'LOW' | 'NA'
-  experimentalRiskLevel?: 'HIGH' | 'MEDIUM' | 'LOW' | 'NA'
-  testValue?: number
-  controlValue?: number
-  hostAnalysisValues?: ExperimentalMetricHostAnalysisValue[]
-  mismatch?: boolean
-}
-
-export interface ExperimentalMetricHostAnalysisValue {
-  riskLevel?: 'HIGH' | 'MEDIUM' | 'LOW' | 'NA'
-  experimentalRiskLevel?: 'HIGH' | 'MEDIUM' | 'LOW' | 'NA'
-  testHostName?: string
-  controlHostName?: string
-  testValues?: number[]
-  controlValues?: number[]
-  anomalies?: number[]
-  testStartIndex?: number
-  mismatch?: boolean
-}
-
-export interface ExperimentalMetricRecord {
-  workflowExecutionId?: string
-  stateExecutionId?: string
-  cvConfigId?: string
-  analysisMinute?: number
-  stateType?:
-    | 'SUB_WORKFLOW'
-    | 'REPEAT'
-    | 'FORK'
-    | 'WAIT'
-    | 'PAUSE'
-    | 'BARRIER'
-    | 'RESOURCE_CONSTRAINT'
-    | 'SHELL_SCRIPT'
-    | 'HTTP'
-    | 'TEMPLATIZED_SECRET_MANAGER'
-    | 'EMAIL'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'NEW_RELIC_DEPLOYMENT_MARKER'
-    | 'DYNA_TRACE'
-    | 'PROMETHEUS'
-    | 'SPLUNKV2'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'AWS_LAMBDA_VERIFICATION'
-    | 'APM_VERIFICATION'
-    | 'LOG_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'STACK_DRIVER'
-    | 'STACK_DRIVER_LOG'
-    | 'INSTANA'
-    | 'SCALYR'
-    | 'ENV_STATE'
-    | 'ENV_LOOP_STATE'
-    | 'ENV_RESUME_STATE'
-    | 'ENV_LOOP_RESUME_STATE'
-    | 'COMMAND'
-    | 'APPROVAL'
-    | 'APPROVAL_RESUME'
-    | 'ELASTIC_LOAD_BALANCER'
-    | 'JENKINS'
-    | 'GCB'
-    | 'BAMBOO'
-    | 'ARTIFACT_COLLECTION'
-    | 'ARTIFACT_CHECK'
-    | 'AZURE_NODE_SELECT'
-    | 'AZURE_VMSS_SETUP'
-    | 'AZURE_VMSS_DEPLOY'
-    | 'AZURE_VMSS_ROLLBACK'
-    | 'AZURE_VMSS_SWITCH_ROUTES'
-    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
-    | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
-    | 'AZURE_WEBAPP_SLOT_SWAP'
-    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
-    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
-    | 'AWS_NODE_SELECT'
-    | 'DC_NODE_SELECT'
-    | 'ROLLING_NODE_SELECT'
-    | 'PHASE'
-    | 'PHASE_STEP'
-    | 'STAGING_ORIGINAL_EXECUTION'
-    | 'AWS_CODEDEPLOY_STATE'
-    | 'AWS_CODEDEPLOY_ROLLBACK'
-    | 'AWS_LAMBDA_STATE'
-    | 'AWS_LAMBDA_ROLLBACK'
-    | 'AWS_AMI_SERVICE_SETUP'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
-    | 'AWS_AMI_SERVICE_DEPLOY'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
-    | 'AWS_AMI_SWITCH_ROUTES'
-    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
-    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_SERVICE_ROLLBACK'
-    | 'ECS_SERVICE_SETUP'
-    | 'SPOTINST_SETUP'
-    | 'SPOTINST_ALB_SHIFT_SETUP'
-    | 'SPOTINST_DEPLOY'
-    | 'SPOTINST_ALB_SHIFT_DEPLOY'
-    | 'SPOTINST_LISTENER_UPDATE'
-    | 'SPOTINST_LISTENER_ALB_SHIFT'
-    | 'SPOTINST_ROLLBACK'
-    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
-    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
-    | 'ECS_SERVICE_SETUP_ROLLBACK'
-    | 'ECS_DAEMON_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
-    | 'ECS_SERVICE_DEPLOY'
-    | 'ECS_SERVICE_ROLLBACK'
-    | 'ECS_LISTENER_UPDATE'
-    | 'ECS_LISTENER_UPDATE_ROLLBACK'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
-    | 'KUBERNETES_SETUP'
-    | 'KUBERNETES_SETUP_ROLLBACK'
-    | 'KUBERNETES_DEPLOY'
-    | 'KUBERNETES_DEPLOY_ROLLBACK'
-    | 'KUBERNETES_STEADY_STATE_CHECK'
-    | 'ECS_STEADY_STATE_CHECK'
-    | 'ECS_RUN_TASK'
-    | 'GCP_CLUSTER_SETUP'
-    | 'HELM_DEPLOY'
-    | 'HELM_ROLLBACK'
-    | 'PCF_SETUP'
-    | 'PCF_RESIZE'
-    | 'PCF_ROLLBACK'
-    | 'PCF_MAP_ROUTE'
-    | 'PCF_UNMAP_ROUTE'
-    | 'PCF_BG_MAP_ROUTE'
-    | 'PCF_PLUGIN'
-    | 'TERRAFORM_PROVISION'
-    | 'TERRAFORM_APPLY'
-    | 'SHELL_SCRIPT_PROVISION'
-    | 'TERRAFORM_DESTROY'
-    | 'CLOUD_FORMATION_CREATE_STACK'
-    | 'CLOUD_FORMATION_DELETE_STACK'
-    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
-    | 'CLOUD_FORMATION_ROLLBACK_STACK'
-    | 'TERRAFORM_ROLLBACK'
-    | 'K8S_DEPLOYMENT_ROLLING'
-    | 'K8S_SCALE'
-    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
-    | 'K8S_BLUE_GREEN_DEPLOY'
-    | 'K8S_CANARY_DEPLOY'
-    | 'K8S_DELETE'
-    | 'JIRA_CREATE_UPDATE'
-    | 'SERVICENOW_CREATE_UPDATE'
-    | 'K8S_TRAFFIC_SPLIT'
-    | 'K8S_APPLY'
-    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
-  riskLevel?: 'HIGH' | 'MEDIUM' | 'LOW' | 'NA'
-  experimentalRiskLevel?: 'HIGH' | 'MEDIUM' | 'LOW' | 'NA'
-  mlAnalysisType?: 'COMPARATIVE' | 'PREDICTIVE' | 'TIMESERIES_24x7'
-  metricAnalysis?: ExperimentalMetricAnalysis[]
-  baseLineExecutionId?: string
-  mismatch?: boolean
-  experimentStatus?: 'UNDETERMINED' | 'SUCCESS' | 'FAILURE'
 }
 
 export interface RestResponseExperimentalMetricRecord {
@@ -10613,62 +11851,6 @@ export interface RestResponseExperimentalMetricRecord {
   responseMessages?: ResponseMessage[]
 }
 
-export interface ExperimentPerformance {
-  [key: string]: any
-}
-
-export interface RestResponseExperimentPerformance {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ExperimentPerformance
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponsePageResponseExpAnalysisInfo {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ExpAnalysisInfo[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ExportExecutionsRequestSummary {
-  requestId?: string
-  status?: 'QUEUED' | 'READY' | 'FAILED' | 'EXPIRED'
-  totalExecutions?: number
-  triggeredAt?: string
-  statusLink?: string
-  downloadLink?: string
-  expiresAt?: string
-  errorMessage?: string
-}
-
-export interface RestResponseExportExecutionsRequestSummary {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ExportExecutionsRequestSummary
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ExportExecutionsUserParams {
-  outputFormat?: 'JSON'
-  notifyOnlyTriggeringUser?: boolean
-  userGroupIds?: string[]
-  createdByType?: 'USER' | 'API_KEY' | 'TRIGGER'
-}
-
-export interface ExportExecutionsRequestLimitChecks {
-  queuedRequests?: LimitCheck
-  executionCount?: LimitCheck
-}
-
-export interface LimitCheck {
-  limit?: number
-  value?: number
-}
-
 export interface RestResponseExportExecutionsRequestLimitChecks {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -10677,8 +11859,12 @@ export interface RestResponseExportExecutionsRequestLimitChecks {
   responseMessages?: ResponseMessage[]
 }
 
-export interface ExecutionStatusResponse {
-  status?: string
+export interface RestResponseExportExecutionsRequestSummary {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ExportExecutionsRequestSummary
+  responseMessages?: ResponseMessage[]
 }
 
 export interface RestResponseFeatureRestrictions {
@@ -10695,19 +11881,6 @@ export interface RestResponseFeatureRestrictions {
   responseMessages?: ResponseMessage[]
 }
 
-export interface FeatureUsageComplianceReport {
-  featureName?: string
-  properties?: {
-    [key: string]: { [key: string]: any }
-  }
-}
-
-export interface FeaturesUsageComplianceReport {
-  accountId?: string
-  targetAccountType?: string
-  featureUsageComplianceReports?: FeatureUsageComplianceReport[]
-}
-
 export interface RestResponseFeaturesUsageComplianceReport {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -10716,18 +11889,12 @@ export interface RestResponseFeaturesUsageComplianceReport {
   responseMessages?: ResponseMessage[]
 }
 
-export interface GcpBillingAccount {
-  uuid?: string
-  accountId?: string
-  organizationSettingId?: string
-  gcpBillingAccountId?: string
-  gcpBillingAccountName?: string
-  exportEnabled?: boolean
-  bqProjectId?: string
-  bqDatasetId?: string
-  bqDataSetRegion?: string
-  createdAt?: number
-  lastUpdatedAt?: number
+export interface RestResponseFileOperationStatus {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: FileOperationStatus
+  responseMessages?: ResponseMessage[]
 }
 
 export interface RestResponseGcpBillingAccount {
@@ -10738,24 +11905,6 @@ export interface RestResponseGcpBillingAccount {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseListGcpBillingAccount {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: GcpBillingAccount[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface GcpOrganization {
-  uuid?: string
-  accountId?: string
-  organizationId?: string
-  organizationName?: string
-  serviceAccountEmail?: string
-  createdAt?: number
-  lastUpdatedAt?: number
-}
-
 export interface RestResponseGcpOrganization {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -10764,346 +11913,28 @@ export interface RestResponseGcpOrganization {
   responseMessages?: ResponseMessage[]
 }
 
-export interface GitDetail {
-  entityName?: string
-  entityType?:
-    | 'SERVICE'
-    | 'PROVISIONER'
-    | 'ENVIRONMENT'
-    | 'HOST'
-    | 'RELEASE'
-    | 'ARTIFACT'
-    | 'SSH_USER'
-    | 'SSH_PASSWORD'
-    | 'SSH_APP_ACCOUNT'
-    | 'SSH_KEY_PASSPHRASE'
-    | 'SSH_APP_ACCOUNT_PASSOWRD'
-    | 'SIMPLE_DEPLOYMENT'
-    | 'ORCHESTRATED_DEPLOYMENT'
-    | 'PIPELINE'
-    | 'WORKFLOW'
-    | 'DEPLOYMENT'
-    | 'INSTANCE'
-    | 'APPLICATION'
-    | 'COMMAND'
-    | 'CONFIG'
-    | 'SERVICE_TEMPLATE'
-    | 'INFRASTRUCTURE_MAPPING'
-    | 'INFRASTRUCTURE_DEFINITION'
-    | 'USER'
-    | 'ARTIFACT_STREAM'
-    | 'APPDYNAMICS_CONFIGID'
-    | 'APPDYNAMICS_APPID'
-    | 'APPDYNAMICS_TIERID'
-    | 'ELK_CONFIGID'
-    | 'ELK_INDICES'
-    | 'NEWRELIC_CONFIGID'
-    | 'NEWRELIC_APPID'
-    | 'SS_SSH_CONNECTION_ATTRIBUTE'
-    | 'SS_WINRM_CONNECTION_ATTRIBUTE'
-    | 'SUMOLOGIC_CONFIGID'
-    | 'SPLUNK_CONFIGID'
-    | 'NEWRELIC_MARKER_CONFIGID'
-    | 'NEWRELIC_MARKER_APPID'
-    | 'API_KEY'
-    | 'ACCOUNT'
-    | 'APPLICATION_MANIFEST'
-    | 'USER_GROUP'
-    | 'WHITELISTED_IP'
-    | 'CF_AWS_CONFIG_ID'
-    | 'VERIFICATION_CONFIGURATION'
-    | 'HELM_GIT_CONFIG_ID'
-    | 'NOTIFICATION_GROUP'
-    | 'HELM_CHART_SPECIFICATION'
-    | 'PCF_SERVICE_SPECIFICATION'
-    | 'LAMBDA_SPECIFICATION'
-    | 'USER_DATA_SPECIFICATION'
-    | 'ECS_CONTAINER_SPECIFICATION'
-    | 'ECS_SERVICE_SPECIFICATION'
-    | 'K8S_CONTAINER_SPECIFICATION'
-    | 'CONFIG_FILE'
-    | 'SERVICE_COMMAND'
-    | 'MANIFEST_FILE'
-    | 'SERVICE_VARIABLE'
-    | 'TRIGGER'
-    | 'ROLE'
-    | 'TEMPLATE'
-    | 'TEMPLATE_FOLDER'
-    | 'SETTING_ATTRIBUTE'
-    | 'ENCRYPTED_RECORDS'
-    | 'CV_CONFIGURATION'
-    | 'TAG'
-    | 'CUSTOM_DASHBOARD'
-    | 'PIPELINE_GOVERNANCE_STANDARD'
-    | 'WORKFLOW_EXECUTION'
-    | 'SERVERLESS_INSTANCE'
-    | 'USER_INVITE'
-    | 'LOGIN_SETTINGS'
-    | 'SSO_SETTINGS'
-    | 'DELEGATE'
-    | 'DELEGATE_SCOPE'
-    | 'DELEGATE_PROFILE'
-    | 'EXPORT_EXECUTIONS_REQUEST'
-    | 'GCP_CONFIG'
-    | 'GIT_CONFIG'
-    | 'JENKINS_SERVER'
-    | 'SECRETS_MANAGER'
-    | 'HELM_CHART'
-    | 'SECRET'
-    | 'CONNECTOR'
-    | 'CLOUD_PROVIDER'
-  repositoryUrl?: string
-  branchName?: string
-  yamlGitConfigId?: string
-  gitConnectorId?: string
-  appId?: string
-  gitCommitId?: string
-  connectorName?: string
-  repositoryInfo?: GitRepositoryInfo
-}
-
-export interface GitRepositoryInfo {
-  url?: string
-  displayUrl?: string
-  provider?: 'GITHUB' | 'BITBUCKET' | 'GITLAB' | 'UNKNOWN'
-}
-
-export interface RestResponseListGitDetail {
+export interface RestResponseGitSyncWebhook {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: GitDetail[]
+  resource?: GitSyncWebhook
   responseMessages?: ResponseMessage[]
 }
 
-export interface GitSyncError {
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  accountId?: string
-  yamlFilePath?: string
-  changeType?: string
-  failureReason?: string
-  yamlContent?: string
-  gitCommitId?: string
-  nextIteration?: number
-  fullSyncPath?: boolean
-  lastAttemptedYaml?: string
-  status?: 'ACTIVE' | 'DISCARDED' | 'EXPIRED' | 'RESOLVED' | 'OVERRIDDEN'
-  gitConnectorId?: string
-  repositoryName?: string
-  gitConnectorName?: string
-  repositoryInfo?: GitRepositoryInfo
-  branchName?: string
-  yamlGitConfigId?: string
-  commitTime?: number
-  additionalErrorDetails?: GitSyncErrorDetails
-  gitSyncDirection?: string
-  userDoesNotHavePermForFile?: boolean
-}
-
-export interface GitSyncErrorDetails {
-  [key: string]: any
-}
-
-export interface RestResponsePageResponseGitSyncError {
+export interface RestResponseGovernanceConfig {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: GitSyncError[]
+  resource?: GovernanceConfig
   responseMessages?: ResponseMessage[]
 }
 
-export interface GitToHarnessErrorCommitStats {
-  gitCommitId?: string
-  failedCount?: number
-  commitTime?: number
-  gitConnectorId?: string
-  branchName?: string
-  repositoryName?: string
-  gitConnectorName?: string
-  commitMessage?: string
-  errorsForSummaryView?: GitSyncError[]
-  repositoryInfo?: GitRepositoryInfo
-}
-
-export interface RestResponsePageResponseGitToHarnessErrorCommitStats {
+export interface RestResponseGraphNode {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: GitToHarnessErrorCommitStats[]
+  resource?: GraphNode
   responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseInteger {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: number
-  responseMessages?: ResponseMessage[]
-}
-
-export interface GitProcessingError {
-  accountId?: string
-  message?: string
-  createdAt?: number
-  gitConnectorId?: string
-  branchName?: string
-  repositoryName?: string
-  connectorName?: string
-  repositoryInfo?: GitRepositoryInfo
-}
-
-export interface RestResponsePageResponseGitProcessingError {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: GitProcessingError[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface GitFileActivity {
-  uuid?: string
-  accountId?: string
-  filePath?: string
-  fileContent?: string
-  commitId?: string
-  processingCommitId?: string
-  changeType?: 'ADD' | 'RENAME' | 'MODIFY' | 'DELETE'
-  errorMessage?: string
-  status?: 'SUCCESS' | 'FAILED' | 'DISCARDED' | 'EXPIRED' | 'SKIPPED' | 'QUEUED'
-  triggeredBy?: 'USER' | 'GIT' | 'FULL_SYNC'
-  changeFromAnotherCommit?: boolean
-  commitMessage?: string
-  processingCommitMessage?: string
-  appId?: string
-  createdAt?: number
-  lastUpdatedAt?: number
-  gitConnectorId?: string
-  repositoryName?: string
-  branchName?: string
-  connectorName?: string
-  repositoryInfo?: GitRepositoryInfo
-  userDoesNotHavePermForFile?: boolean
-}
-
-export interface RestResponsePageResponseGitFileActivity {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: GitFileActivity[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface GitFileActivitySummary {
-  uuid: string
-  accountId?: string
-  commitId?: string
-  branchName?: string
-  repositoryName?: string
-  gitConnectorId?: string
-  appId?: string
-  createdAt?: number
-  commitMessage?: string
-  lastUpdatedAt?: number
-  gitToHarness?: boolean
-  status?: 'QUEUED' | 'RUNNING' | 'COMPLETED' | 'FAILED' | 'COMPLETED_WITH_ERRORS' | 'SKIPPED'
-  fileProcessingSummary?: GitFileProcessingSummary
-  connectorName?: string
-  repositoryInfo?: GitRepositoryInfo
-}
-
-export interface GitFileProcessingSummary {
-  failureCount?: number
-  successCount?: number
-  totalCount?: number
-  skippedCount?: number
-  queuedCount?: number
-}
-
-export interface RestResponsePageResponseGitFileActivitySummary {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: GitFileActivitySummary[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ChangeSetDTO {
-  gitDetail?: GitDetail
-  status?: 'QUEUED' | 'RUNNING' | 'FAILED' | 'COMPLETED' | 'SKIPPED'
-  changeSetId?: string
-  gitToHarness?: boolean
-  changesetInformation?: ChangesetInformation
-}
-
-export interface ChangesetInformation {
-  [key: string]: any
-}
-
-export interface RestResponseListChangeSetDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ChangeSetDTO[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface AccessTokenBean {
-  projectId?: string
-  tokenValue?: string
-  expirationTimeMillis?: number
-}
-
-export interface RestResponseAccessTokenBean {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AccessTokenBean
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseSampleAppStatus {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: SampleAppStatus
-  responseMessages?: ResponseMessage[]
-}
-
-export interface SampleAppEntityStatus {
-  entityName?: string
-  entityType?: string
-  health?: 'GOOD' | 'BAD'
-}
-
-export interface SampleAppStatus {
-  deploymentType?: string
-  health?: 'GOOD' | 'BAD'
-  statusList?: SampleAppEntityStatus[]
-}
-
-export interface RestResponsePageResponseHarnessTagLink {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: HarnessTagLink[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface HarnessTag {
-  uuid?: string
-  accountId?: string
-  key?: string
-  tagType?: 'USER' | 'HARNESS'
-  allowedValues?: string[]
-  inUseValues?: string[]
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedBy?: EmbeddedUser
-  lastUpdatedAt: number
 }
 
 export interface RestResponseHarnessTag {
@@ -11114,11 +11945,11 @@ export interface RestResponseHarnessTag {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponsePageResponseHarnessTag {
+export interface RestResponseHelmChartSpecification {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: HarnessTag[]
+  resource?: HelmChartSpecification
   responseMessages?: ResponseMessage[]
 }
 
@@ -11130,150 +11961,20 @@ export interface RestResponseHost {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponsePageResponseHost {
+export interface RestResponseImportStatusReport {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: Host[]
+  resource?: ImportStatusReport
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseListAccount {
+export interface RestResponseImportedCommand {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: Account[]
+  resource?: ImportedCommand
   responseMessages?: ResponseMessage[]
-}
-
-export interface LogoutResponse {
-  logoutUrl?: string
-}
-
-export interface RestResponseLogoutResponse {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: LogoutResponse
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseModuleLicense {
-  id: string
-  accountIdentifier: string
-  moduleType: string
-  edition: string
-  licenseType: string
-  startTime: number
-  expiryTime: number
-  status: string
-  createdAt: number
-  lastModifiedAt: number
-  numberOfCommitters?: number
-  numberOfClientMAUs?: number
-  numberOfUsers?: number
-  updateChannels?: string[]
-}
-
-export interface RestResponseUser {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: User
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseModuleLicenseInfo {
-  status: string
-  data?: RestResponseModuleLicense
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  correlationId?: string
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseAccountLicenseInfo {
-  status: string
-  data: {
-    accountId: string
-    moduleLicenses: {
-      [key: string]: RestResponseModuleLicense
-    }
-  }
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  correlationId?: string
-  responseMessages?: ResponseMessage[]
-}
-
-export interface AccountSettingsResponse {
-  authenticationMechanism?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
-  allowedDomains?: string[]
-  oauthProviderTypes?: ('AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN')[]
-}
-
-export interface RestResponseAccountSettingsResponse {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AccountSettingsResponse
-  responseMessages?: ResponseMessage[]
-}
-
-export interface OauthUserInfo {
-  email?: string
-  name?: string
-  login?: string
-  utmInfo?: UtmInfo
-  freemiumProducts?: ('CD' | 'CE' | 'CI')[]
-  freemiumAssistedOption?: boolean
-}
-
-export interface RestResponseListUser {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: User[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface AwsSubnet {
-  id?: string
-  name?: string
-}
-
-export interface RestResponseListAwsSubnet {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AwsSubnet[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponsePageResponseInfrastructureDefinition {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: InfrastructureDefinition[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ListInfraDefinitionParams {
-  deploymentTypeFromMetaData?: string[]
-  serviceIds?: string[]
-}
-
-export interface InfraDefinitionDetail {
-  infrastructureDefinition?: InfrastructureDefinition
-  derivedInfraMappingDetailList?: InfraMappingDetail[]
-  countDerivedInfraMappings?: number
-}
-
-export interface InfraMappingDetail {
-  infrastructureMapping?: InfrastructureMapping
-  workflowExecutionList?: WorkflowExecution[]
 }
 
 export interface RestResponseInfraDefinitionDetail {
@@ -11284,243 +11985,11 @@ export interface RestResponseInfraDefinitionDetail {
   responseMessages?: ResponseMessage[]
 }
 
-export interface AwsLoadBalancerDetails {
-  arn?: string
-  name?: string
-  type?: string
-  scheme?: string
-  vpcId?: string
-  ipAddressType?: string
-  dnsname?: string
-}
-
-export interface RestResponseListAwsLoadBalancerDetails {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AwsLoadBalancerDetails[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ElastiGroup {
-  id?: string
-  name?: string
-  capacity?: ElastiGroupCapacity
-}
-
-export interface ElastiGroupCapacity {
-  minimum?: number
-  maximum?: number
-  target?: number
-}
-
-export interface RestResponseListElastiGroup {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ElastiGroup[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseSpotinstElastigroupRunningCountData {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: SpotinstElastigroupRunningCountData
-  responseMessages?: ResponseMessage[]
-}
-
-export interface SpotinstElastigroupRunningCountData {
-  elastigroupMin?: number
-  elastigroupMax?: number
-  elastigroupTarget?: number
-  elastigroupName?: string
-}
-
-export interface RestResponseVirtualMachineScaleSetData {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: VirtualMachineScaleSetData
-  responseMessages?: ResponseMessage[]
-}
-
-export interface VirtualMachineScaleSetData {
-  id?: string
-  name?: string
-  virtualMachineAdministratorUsername?: string
-}
-
 export interface RestResponseInfrastructureDefinition {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
   resource?: InfrastructureDefinition
-  responseMessages?: ResponseMessage[]
-}
-
-export interface AwsAsgGetRunningCountData {
-  asgMin?: number
-  asgMax?: number
-  asgDesired?: number
-  asgName?: string
-}
-
-export interface RestResponseAwsAsgGetRunningCountData {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AwsAsgGetRunningCountData
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseMapDeploymentTypeListSettingVariableTypes {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: {
-    [key: string]: (
-      | 'HOST_CONNECTION_ATTRIBUTES'
-      | 'BASTION_HOST_CONNECTION_ATTRIBUTES'
-      | 'SMTP'
-      | 'SFTP'
-      | 'JENKINS'
-      | 'BAMBOO'
-      | 'STRING'
-      | 'SPLUNK'
-      | 'ELK'
-      | 'LOGZ'
-      | 'SUMO'
-      | 'DATA_DOG'
-      | 'APM_VERIFICATION'
-      | 'BUG_SNAG'
-      | 'LOG_VERIFICATION'
-      | 'APP_DYNAMICS'
-      | 'NEW_RELIC'
-      | 'DYNA_TRACE'
-      | 'INSTANA'
-      | 'DATA_DOG_LOG'
-      | 'CLOUD_WATCH'
-      | 'SCALYR'
-      | 'ELB'
-      | 'SLACK'
-      | 'AWS'
-      | 'GCS'
-      | 'GCP'
-      | 'AZURE'
-      | 'PCF'
-      | 'DIRECT'
-      | 'KUBERNETES_CLUSTER'
-      | 'DOCKER'
-      | 'ECR'
-      | 'GCR'
-      | 'ACR'
-      | 'PHYSICAL_DATA_CENTER'
-      | 'KUBERNETES'
-      | 'NEXUS'
-      | 'ARTIFACTORY'
-      | 'SMB'
-      | 'AMAZON_S3'
-      | 'GIT'
-      | 'SSH_SESSION_CONFIG'
-      | 'SERVICE_VARIABLE'
-      | 'CONFIG_FILE'
-      | 'KMS'
-      | 'GCP_KMS'
-      | 'JIRA'
-      | 'SERVICENOW'
-      | 'SECRET_TEXT'
-      | 'YAML_GIT_SYNC'
-      | 'VAULT'
-      | 'AWS_SECRETS_MANAGER'
-      | 'CYBERARK'
-      | 'WINRM_CONNECTION_ATTRIBUTES'
-      | 'WINRM_SESSION_CONFIG'
-      | 'PROMETHEUS'
-      | 'INFRASTRUCTURE_MAPPING'
-      | 'HTTP_HELM_REPO'
-      | 'AMAZON_S3_HELM_REPO'
-      | 'GCS_HELM_REPO'
-      | 'SPOT_INST'
-      | 'AZURE_ARTIFACTS_PAT'
-      | 'CUSTOM'
-      | 'CE_AWS'
-      | 'CE_GCP'
-      | 'AZURE_VAULT'
-      | 'KUBERNETES_CLUSTER_NG'
-      | 'GIT_NG'
-    )[]
-  }
-  responseMessages?: ResponseMessage[]
-}
-
-export interface AwsVPC {
-  id?: string
-  name?: string
-}
-
-export interface RestResponseListAwsVPC {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AwsVPC[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface AwsSecurityGroup {
-  id?: string
-  name?: string
-}
-
-export interface RestResponseListAwsSecurityGroup {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AwsSecurityGroup[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface AwsRoute53HostedZoneData {
-  hostedZoneId?: string
-  hostedZoneName?: string
-}
-
-export interface RestResponseListAwsRoute53HostedZoneData {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AwsRoute53HostedZoneData[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponsePageResponseInfraDefinitionDetail {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: InfraDefinitionDetail[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface AwsElbListener {
-  listenerArn?: string
-  loadBalancerArn?: string
-  port?: number
-  protocol?: string
-  rules?: AwsElbListenerRuleData[]
-}
-
-export interface AwsElbListenerRuleData {
-  ruleArn?: string
-  rulePriority?: string
-  ruleTargetGroupArn?: string
-  default?: boolean
-}
-
-export interface RestResponseListAwsElbListener {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AwsElbListener[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -11532,94 +12001,6 @@ export interface RestResponseInfrastructureMapping {
   responseMessages?: ResponseMessage[]
 }
 
-export interface HostValidationResponse {
-  hostName?: string
-  status?: string
-  errorCode?: string
-  errorDescription?: string
-}
-
-export interface RestResponseListHostValidationResponse {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: HostValidationResponse[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface HostValidationRequest {
-  appId?: string
-  envId?: string
-  computeProviderSettingId?: string
-  deploymentType?: string
-  hostConnectionAttrs?: string
-  executionCredential?: ExecutionCredential
-  hostNames?: string[]
-}
-
-export interface RestResponsePageResponseInfrastructureMapping {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: InfrastructureMapping[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface BlueprintProperty {
-  name?: string
-  value: string
-  valueType?: string
-  fields?: NameValuePair[]
-}
-
-export type CloudFormationInfrastructureProvisioner = InfrastructureProvisioner & {
-  sourceType?: string
-  templateBody?: string
-  templateFilePath?: string
-  gitFileConfig?: GitFileConfig
-}
-
-export interface InfrastructureMappingBlueprint {
-  serviceId?: string
-  deploymentType:
-    | 'SSH'
-    | 'AWS_CODEDEPLOY'
-    | 'ECS'
-    | 'SPOTINST'
-    | 'KUBERNETES'
-    | 'HELM'
-    | 'AWS_LAMBDA'
-    | 'AMI'
-    | 'WINRM'
-    | 'PCF'
-    | 'AZURE_VMSS'
-    | 'AZURE_WEBAPP'
-    | 'CUSTOM'
-  cloudProviderType: 'AWS' | 'GCP' | 'PHYSICAL_DATA_CENTER'
-  nodeFilteringType?:
-    | 'AWS_INSTANCE_FILTER'
-    | 'AWS_AUTOSCALING_GROUP'
-    | 'AWS_ECS_EC2'
-    | 'AWS_ECS_FARGATE'
-    | 'AWS_ASG_AMI'
-  properties: BlueprintProperty[]
-}
-
-export interface InfrastructureProvisioner {
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  name?: string
-  description?: string
-  infrastructureProvisionerType?: string
-  variables?: NameValuePair[]
-  mappingBlueprints?: InfrastructureMappingBlueprint[]
-  accountId?: string
-  tagLinks?: HarnessTagLink[]
-}
-
 export interface RestResponseInfrastructureProvisioner {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -11628,69 +12009,198 @@ export interface RestResponseInfrastructureProvisioner {
   responseMessages?: ResponseMessage[]
 }
 
-export type ShellScriptInfrastructureProvisioner = InfrastructureProvisioner & {
-  scriptBody?: string
-}
-
-export type TerraformInfrastructureProvisioner = InfrastructureProvisioner & {
-  sourceRepoSettingId?: string
-  sourceRepoBranch?: string
-  commitId?: string
-  repoName?: string
-  path: string
-  normalizedPath?: string
-  backendConfigs?: NameValuePair[]
-  environmentVariables?: NameValuePair[]
-  templatized?: boolean
-  workspaces?: string[]
-  skipRefreshBeforeApplyingPlan?: boolean
-}
-
-export interface RestResponsePageResponseInfrastructureProvisioner {
+export interface RestResponseInstance {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: InfrastructureProvisioner[]
+  resource?: Instance
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseMapPairDeploymentTypeCloudProviderTypeMapStringString {
+export interface RestResponseInstanceSummaryStats {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: InstanceSummaryStats
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseInstanceTimeline {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: InstanceTimeline
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseInteger {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: number
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseInviteOperationResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?:
+    | 'ACCOUNT_INVITE_ACCEPTED_NEED_PASSWORD'
+    | 'ACCOUNT_INVITE_ACCEPTED'
+    | 'USER_INVITED_SUCCESSFULLY'
+    | 'USER_ALREADY_ADDED'
+    | 'USER_ALREADY_INVITED'
+    | 'FAIL'
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseJobDetails {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: JobDetails
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseKubDelegateYaml {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: KubDelegateYaml
+  responseMessages?: ResponseMessage[]
+}
+
+export type RestResponseKubDownload = string
+
+export interface RestResponseLambdaSpecification {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LambdaSpecification
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseLdapResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LdapResponse
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseLdapSettings {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LdapSettings
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseLdapTestResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LdapTestResponse
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseLinkedHashMapLongLinkedHashMapStringLinkedHashMapStringLinkedHashMapStringLinkedHashMapStringListContinuousVerificationExecutionMetaData {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
   resource?: {
     [key: string]: {
-      [key: string]: string
+      [key: string]: {
+        [key: string]: {
+          [key: string]: {
+            [key: string]: ContinuousVerificationExecutionMetaData[]
+          }
+        }
+      }
     }
   }
   responseMessages?: ResponseMessage[]
 }
 
-export interface InfrastructureProvisionerDetails {
-  uuid?: string
-  name?: string
-  description?: string
-  infrastructureProvisionerType?: string
-  repository?: string
-  services?: {
-    [key: string]: string
-  }
-  cloudFormationSourceType?: string
-  tagLinks?: HarnessTagLink[]
-}
-
-export interface RestResponsePageResponseInfrastructureProvisionerDetails {
+export interface RestResponseListAccount {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: InfrastructureProvisionerDetails[]
+  resource?: Account[]
   responseMessages?: ResponseMessage[]
 }
 
-export interface AwsCFTemplateParamsData {
-  paramKey?: string
-  paramType?: string
-  defaultValue?: string
+export interface RestResponseListAccountPlugin {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AccountPlugin[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListAlertNotificationRule {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AlertNotificationRule[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListAlertType {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AlertType[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListAppDynamicsApplication {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AppDynamicsApplication[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListApplicationManifest {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ApplicationManifest[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListArtifact {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Artifact[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListArtifactStream {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ArtifactStream[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListArtifactStreamBinding {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ArtifactStreamBinding[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListArtifactStreamSummary {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ArtifactStreamSummary[]
+  responseMessages?: ResponseMessage[]
 }
 
 export interface RestResponseListAwsCFTemplateParamsData {
@@ -11701,221 +12211,180 @@ export interface RestResponseListAwsCFTemplateParamsData {
   responseMessages?: ResponseMessage[]
 }
 
-export interface InstanaApplicationParams {
-  hostTagFilter?: string
-  tagFilters?: InstanaTagFilter[]
-}
-
-export interface InstanaInfraParams {
-  metrics?: string[]
-  query?: string
-}
-
-export interface InstanaSetupTestNodeData {
-  infraParams?: InstanaInfraParams
-  applicationParams?: InstanaApplicationParams
-  tagFilters?: InstanaTagFilter[]
-  appId: string
-  settingId: string
-  instanceName?: string
-  isServiceLevel?: boolean
-  instanceElement?: Instance
-  hostExpression?: string
-  workflowId?: string
-  guid?: string
-  stateType?:
-    | 'SUB_WORKFLOW'
-    | 'REPEAT'
-    | 'FORK'
-    | 'WAIT'
-    | 'PAUSE'
-    | 'BARRIER'
-    | 'RESOURCE_CONSTRAINT'
-    | 'SHELL_SCRIPT'
-    | 'HTTP'
-    | 'TEMPLATIZED_SECRET_MANAGER'
-    | 'EMAIL'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'NEW_RELIC_DEPLOYMENT_MARKER'
-    | 'DYNA_TRACE'
-    | 'PROMETHEUS'
-    | 'SPLUNKV2'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'AWS_LAMBDA_VERIFICATION'
-    | 'APM_VERIFICATION'
-    | 'LOG_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'STACK_DRIVER'
-    | 'STACK_DRIVER_LOG'
-    | 'INSTANA'
-    | 'SCALYR'
-    | 'ENV_STATE'
-    | 'ENV_LOOP_STATE'
-    | 'ENV_RESUME_STATE'
-    | 'ENV_LOOP_RESUME_STATE'
-    | 'COMMAND'
-    | 'APPROVAL'
-    | 'APPROVAL_RESUME'
-    | 'ELASTIC_LOAD_BALANCER'
-    | 'JENKINS'
-    | 'GCB'
-    | 'BAMBOO'
-    | 'ARTIFACT_COLLECTION'
-    | 'ARTIFACT_CHECK'
-    | 'AZURE_NODE_SELECT'
-    | 'AZURE_VMSS_SETUP'
-    | 'AZURE_VMSS_DEPLOY'
-    | 'AZURE_VMSS_ROLLBACK'
-    | 'AZURE_VMSS_SWITCH_ROUTES'
-    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
-    | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
-    | 'AZURE_WEBAPP_SLOT_SWAP'
-    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
-    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
-    | 'AWS_NODE_SELECT'
-    | 'DC_NODE_SELECT'
-    | 'ROLLING_NODE_SELECT'
-    | 'PHASE'
-    | 'PHASE_STEP'
-    | 'STAGING_ORIGINAL_EXECUTION'
-    | 'AWS_CODEDEPLOY_STATE'
-    | 'AWS_CODEDEPLOY_ROLLBACK'
-    | 'AWS_LAMBDA_STATE'
-    | 'AWS_LAMBDA_ROLLBACK'
-    | 'AWS_AMI_SERVICE_SETUP'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
-    | 'AWS_AMI_SERVICE_DEPLOY'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
-    | 'AWS_AMI_SWITCH_ROUTES'
-    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
-    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_SERVICE_ROLLBACK'
-    | 'ECS_SERVICE_SETUP'
-    | 'SPOTINST_SETUP'
-    | 'SPOTINST_ALB_SHIFT_SETUP'
-    | 'SPOTINST_DEPLOY'
-    | 'SPOTINST_ALB_SHIFT_DEPLOY'
-    | 'SPOTINST_LISTENER_UPDATE'
-    | 'SPOTINST_LISTENER_ALB_SHIFT'
-    | 'SPOTINST_ROLLBACK'
-    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
-    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
-    | 'ECS_SERVICE_SETUP_ROLLBACK'
-    | 'ECS_DAEMON_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
-    | 'ECS_SERVICE_DEPLOY'
-    | 'ECS_SERVICE_ROLLBACK'
-    | 'ECS_LISTENER_UPDATE'
-    | 'ECS_LISTENER_UPDATE_ROLLBACK'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
-    | 'KUBERNETES_SETUP'
-    | 'KUBERNETES_SETUP_ROLLBACK'
-    | 'KUBERNETES_DEPLOY'
-    | 'KUBERNETES_DEPLOY_ROLLBACK'
-    | 'KUBERNETES_STEADY_STATE_CHECK'
-    | 'ECS_STEADY_STATE_CHECK'
-    | 'ECS_RUN_TASK'
-    | 'GCP_CLUSTER_SETUP'
-    | 'HELM_DEPLOY'
-    | 'HELM_ROLLBACK'
-    | 'PCF_SETUP'
-    | 'PCF_RESIZE'
-    | 'PCF_ROLLBACK'
-    | 'PCF_MAP_ROUTE'
-    | 'PCF_UNMAP_ROUTE'
-    | 'PCF_BG_MAP_ROUTE'
-    | 'PCF_PLUGIN'
-    | 'TERRAFORM_PROVISION'
-    | 'TERRAFORM_APPLY'
-    | 'SHELL_SCRIPT_PROVISION'
-    | 'TERRAFORM_DESTROY'
-    | 'CLOUD_FORMATION_CREATE_STACK'
-    | 'CLOUD_FORMATION_DELETE_STACK'
-    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
-    | 'CLOUD_FORMATION_ROLLBACK_STACK'
-    | 'TERRAFORM_ROLLBACK'
-    | 'K8S_DEPLOYMENT_ROLLING'
-    | 'K8S_SCALE'
-    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
-    | 'K8S_BLUE_GREEN_DEPLOY'
-    | 'K8S_CANARY_DEPLOY'
-    | 'K8S_DELETE'
-    | 'JIRA_CREATE_UPDATE'
-    | 'SERVICENOW_CREATE_UPDATE'
-    | 'K8S_TRAFFIC_SPLIT'
-    | 'K8S_APPLY'
-    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
-  toTime?: number
-  fromTime?: number
-  serviceLevel?: boolean
-}
-
-export interface InstanaTagFilter {
-  name?: string
-  value?: string
-  operator?: 'EQUALS' | 'CONTAINS' | 'NOT_EQUAL' | 'NOT_CONTAIN' | 'NOT_EMPTY' | 'IS_EMPTY'
-}
-
-export interface RestResponseListLogLabel {
+export interface RestResponseListAwsElbListener {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: (
-    | 'NOISE'
-    | 'CLEAN'
-    | 'INFRA'
-    | 'THIRD_PARTY'
-    | 'IMPORTANT'
-    | 'BACKGROUND'
-    | 'JAVA_THROWABLE'
-    | 'ERROR'
-    | 'EXCEPTION'
-    | 'RUNTIME'
-    | 'HTTP'
-    | 'UPSTREAM'
-    | 'DOWNSTREAM'
-    | 'DATABASE'
-    | 'NETWORK'
-    | 'APM'
-    | 'LOGS'
-    | 'JVM'
-    | 'WARN'
-  )[]
+  resource?: AwsElbListener[]
   responseMessages?: ResponseMessage[]
 }
 
-export interface CVFeedbackRecord {
-  uuid?: string
-  accountId?: string
-  serviceId?: string
-  envId?: string
-  stateExecutionId?: string
-  cvConfigId?: string
-  clusterLabel?: number
-  clusterType?: 'CONTROL' | 'TEST' | 'UNKNOWN' | 'IGNORE'
-  logMessage?: string
-  comment?: string
-  supervisedLabel?: string
-  priority?: 'BASELINE' | 'P5' | 'P4' | 'P3' | 'P2' | 'P1' | 'P0'
-  jiraLink?: string
-  analysisMinute?: number
-  actionTaken?: 'ADD_TO_BASELINE' | 'REMOVE_FROM_BASELINE' | 'UPDATE_PRIORITY'
-  feedbackNote?: string
-  createdAt?: number
-  lastUpdatedAt?: number
-  createdBy?: EmbeddedUser
-  lastUpdatedBy?: EmbeddedUser
-  duplicate?: boolean
+export interface RestResponseListAwsLoadBalancerDetails {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AwsLoadBalancerDetails[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListAwsRoute53HostedZoneData {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AwsRoute53HostedZoneData[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListAwsSecurityGroup {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AwsSecurityGroup[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListAwsSubnet {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AwsSubnet[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListAwsVPC {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AwsVPC[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListAzureArtifactsFeed {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AzureArtifactsFeed[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListAzureArtifactsPackage {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AzureArtifactsPackage[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListAzureContainerRegistry {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AzureContainerRegistry[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListAzureDevopsProject {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AzureDevopsProject[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListAzureImageDefinition {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AzureImageDefinition[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListAzureImageGallery {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AzureImageGallery[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListAzureKubernetesCluster {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AzureKubernetesCluster[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListAzureResourceGroup {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AzureResourceGroup[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListBoolean {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: boolean[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListBudget {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Budget[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListBuildDetails {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: BuildDetails[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListCECommunications {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: CECommunications[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListCVActivityLog {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: CVActivityLog[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListCVCertifiedDetailsForWorkflowState {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: CVCertifiedDetailsForWorkflowState[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListCVConfiguration {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: CVConfiguration[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListCVDeploymentData {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: CVDeploymentData[]
+  responseMessages?: ResponseMessage[]
 }
 
 export interface RestResponseListCVFeedbackRecord {
@@ -11926,1040 +12395,108 @@ export interface RestResponseListCVFeedbackRecord {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseMapStringListCVFeedbackRecord {
+export interface RestResponseListChangeSetDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: {
-    [key: string]: CVFeedbackRecord[]
-  }
+  resource?: ChangeSetDTO[]
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseMapPairStringStringInteger {
+export interface RestResponseListCloudWatchMetric {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: {
-    [key: string]: number
-  }
+  resource?: CloudWatchMetric[]
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseMapStringListString {
+export interface RestResponseListClusterRecord {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: {
-    [key: string]: string[]
-  }
+  resource?: ClusterRecord[]
   responseMessages?: ResponseMessage[]
 }
 
-export interface LabeledLogRecord {
-  label?: string
-  accountId?: string
-  feedbackIds?: string[]
-  logDataRecordIds?: string[]
-  createdAt?: number
-  lastUpdatedAt?: number
-  serviceId?: string
-  envId?: string
-  uuid?: string
-}
-
-export interface LogDataRecord {
-  stateType?:
-    | 'SUB_WORKFLOW'
-    | 'REPEAT'
-    | 'FORK'
-    | 'WAIT'
-    | 'PAUSE'
-    | 'BARRIER'
-    | 'RESOURCE_CONSTRAINT'
-    | 'SHELL_SCRIPT'
-    | 'HTTP'
-    | 'TEMPLATIZED_SECRET_MANAGER'
-    | 'EMAIL'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'NEW_RELIC_DEPLOYMENT_MARKER'
-    | 'DYNA_TRACE'
-    | 'PROMETHEUS'
-    | 'SPLUNKV2'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'AWS_LAMBDA_VERIFICATION'
-    | 'APM_VERIFICATION'
-    | 'LOG_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'STACK_DRIVER'
-    | 'STACK_DRIVER_LOG'
-    | 'INSTANA'
-    | 'SCALYR'
-    | 'ENV_STATE'
-    | 'ENV_LOOP_STATE'
-    | 'ENV_RESUME_STATE'
-    | 'ENV_LOOP_RESUME_STATE'
-    | 'COMMAND'
-    | 'APPROVAL'
-    | 'APPROVAL_RESUME'
-    | 'ELASTIC_LOAD_BALANCER'
-    | 'JENKINS'
-    | 'GCB'
-    | 'BAMBOO'
-    | 'ARTIFACT_COLLECTION'
-    | 'ARTIFACT_CHECK'
-    | 'AZURE_NODE_SELECT'
-    | 'AZURE_VMSS_SETUP'
-    | 'AZURE_VMSS_DEPLOY'
-    | 'AZURE_VMSS_ROLLBACK'
-    | 'AZURE_VMSS_SWITCH_ROUTES'
-    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
-    | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
-    | 'AZURE_WEBAPP_SLOT_SWAP'
-    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
-    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
-    | 'AWS_NODE_SELECT'
-    | 'DC_NODE_SELECT'
-    | 'ROLLING_NODE_SELECT'
-    | 'PHASE'
-    | 'PHASE_STEP'
-    | 'STAGING_ORIGINAL_EXECUTION'
-    | 'AWS_CODEDEPLOY_STATE'
-    | 'AWS_CODEDEPLOY_ROLLBACK'
-    | 'AWS_LAMBDA_STATE'
-    | 'AWS_LAMBDA_ROLLBACK'
-    | 'AWS_AMI_SERVICE_SETUP'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
-    | 'AWS_AMI_SERVICE_DEPLOY'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
-    | 'AWS_AMI_SWITCH_ROUTES'
-    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
-    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_SERVICE_ROLLBACK'
-    | 'ECS_SERVICE_SETUP'
-    | 'SPOTINST_SETUP'
-    | 'SPOTINST_ALB_SHIFT_SETUP'
-    | 'SPOTINST_DEPLOY'
-    | 'SPOTINST_ALB_SHIFT_DEPLOY'
-    | 'SPOTINST_LISTENER_UPDATE'
-    | 'SPOTINST_LISTENER_ALB_SHIFT'
-    | 'SPOTINST_ROLLBACK'
-    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
-    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
-    | 'ECS_SERVICE_SETUP_ROLLBACK'
-    | 'ECS_DAEMON_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
-    | 'ECS_SERVICE_DEPLOY'
-    | 'ECS_SERVICE_ROLLBACK'
-    | 'ECS_LISTENER_UPDATE'
-    | 'ECS_LISTENER_UPDATE_ROLLBACK'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
-    | 'KUBERNETES_SETUP'
-    | 'KUBERNETES_SETUP_ROLLBACK'
-    | 'KUBERNETES_DEPLOY'
-    | 'KUBERNETES_DEPLOY_ROLLBACK'
-    | 'KUBERNETES_STEADY_STATE_CHECK'
-    | 'ECS_STEADY_STATE_CHECK'
-    | 'ECS_RUN_TASK'
-    | 'GCP_CLUSTER_SETUP'
-    | 'HELM_DEPLOY'
-    | 'HELM_ROLLBACK'
-    | 'PCF_SETUP'
-    | 'PCF_RESIZE'
-    | 'PCF_ROLLBACK'
-    | 'PCF_MAP_ROUTE'
-    | 'PCF_UNMAP_ROUTE'
-    | 'PCF_BG_MAP_ROUTE'
-    | 'PCF_PLUGIN'
-    | 'TERRAFORM_PROVISION'
-    | 'TERRAFORM_APPLY'
-    | 'SHELL_SCRIPT_PROVISION'
-    | 'TERRAFORM_DESTROY'
-    | 'CLOUD_FORMATION_CREATE_STACK'
-    | 'CLOUD_FORMATION_DELETE_STACK'
-    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
-    | 'CLOUD_FORMATION_ROLLBACK_STACK'
-    | 'TERRAFORM_ROLLBACK'
-    | 'K8S_DEPLOYMENT_ROLLING'
-    | 'K8S_SCALE'
-    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
-    | 'K8S_BLUE_GREEN_DEPLOY'
-    | 'K8S_CANARY_DEPLOY'
-    | 'K8S_DELETE'
-    | 'JIRA_CREATE_UPDATE'
-    | 'SERVICENOW_CREATE_UPDATE'
-    | 'K8S_TRAFFIC_SPLIT'
-    | 'K8S_APPLY'
-    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
-  workflowId?: string
-  workflowExecutionId?: string
-  serviceId?: string
-  stateExecutionId?: string
-  cvConfigId?: string
-  query?: string
-  clusterLabel?: string
-  host?: string
-  timeStamp?: number
-  supervisedLabel?: string
-  timesLabeled?: number
-  count?: number
-  logMessage?: string
-  logMD5Hash?: string
-  clusterLevel?: 'L0' | 'L1' | 'L2' | 'H0' | 'H1' | 'H2' | 'HF'
-  logCollectionMinute?: number
-  accountId?: string
-  validUntil?: string
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-}
-
-export interface RestResponseListLogDataRecord {
+export interface RestResponseListCommandCategory {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: LogDataRecord[]
+  resource?: CommandCategory[]
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseMapStringMapStringInstanceDetails {
+export interface RestResponseListCommandUnitDetails {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: {
-    [key: string]: {
-      [key: string]: InstanceDetails
-    }
-  }
+  resource?: CommandUnitDetails[]
   responseMessages?: ResponseMessage[]
 }
 
-export interface LogMLFeedback {
-  appId?: string
-  stateExecutionId?: string
-  clusterType?: 'CONTROL' | 'TEST' | 'UNKNOWN' | 'IGNORE'
-  clusterLabel?: number
-  logMLFeedbackType?:
-    | 'IGNORE_SERVICE'
-    | 'IGNORE_WORKFLOW'
-    | 'IGNORE_WORKFLOW_EXECUTION'
-    | 'IGNORE_ALWAYS'
-    | 'DISMISS'
-    | 'PRIORITIZE'
-    | 'THUMBS_UP'
-    | 'THUMBS_DOWN'
-    | 'UNDO_IGNORE'
-  comment?: string
-  logMLFeedbackId?: string
-  analysisMinute?: number
-  serviceId?: string
-  envId?: string
-}
-
-export interface LogMLFeedbackRecord {
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  serviceId?: string
-  envId?: string
-  workflowId?: string
-  workflowExecutionId?: string
-  stateExecutionId?: string
-  stateType?:
-    | 'SUB_WORKFLOW'
-    | 'REPEAT'
-    | 'FORK'
-    | 'WAIT'
-    | 'PAUSE'
-    | 'BARRIER'
-    | 'RESOURCE_CONSTRAINT'
-    | 'SHELL_SCRIPT'
-    | 'HTTP'
-    | 'TEMPLATIZED_SECRET_MANAGER'
-    | 'EMAIL'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'NEW_RELIC_DEPLOYMENT_MARKER'
-    | 'DYNA_TRACE'
-    | 'PROMETHEUS'
-    | 'SPLUNKV2'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'AWS_LAMBDA_VERIFICATION'
-    | 'APM_VERIFICATION'
-    | 'LOG_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'STACK_DRIVER'
-    | 'STACK_DRIVER_LOG'
-    | 'INSTANA'
-    | 'SCALYR'
-    | 'ENV_STATE'
-    | 'ENV_LOOP_STATE'
-    | 'ENV_RESUME_STATE'
-    | 'ENV_LOOP_RESUME_STATE'
-    | 'COMMAND'
-    | 'APPROVAL'
-    | 'APPROVAL_RESUME'
-    | 'ELASTIC_LOAD_BALANCER'
-    | 'JENKINS'
-    | 'GCB'
-    | 'BAMBOO'
-    | 'ARTIFACT_COLLECTION'
-    | 'ARTIFACT_CHECK'
-    | 'AZURE_NODE_SELECT'
-    | 'AZURE_VMSS_SETUP'
-    | 'AZURE_VMSS_DEPLOY'
-    | 'AZURE_VMSS_ROLLBACK'
-    | 'AZURE_VMSS_SWITCH_ROUTES'
-    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
-    | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
-    | 'AZURE_WEBAPP_SLOT_SWAP'
-    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
-    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
-    | 'AWS_NODE_SELECT'
-    | 'DC_NODE_SELECT'
-    | 'ROLLING_NODE_SELECT'
-    | 'PHASE'
-    | 'PHASE_STEP'
-    | 'STAGING_ORIGINAL_EXECUTION'
-    | 'AWS_CODEDEPLOY_STATE'
-    | 'AWS_CODEDEPLOY_ROLLBACK'
-    | 'AWS_LAMBDA_STATE'
-    | 'AWS_LAMBDA_ROLLBACK'
-    | 'AWS_AMI_SERVICE_SETUP'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
-    | 'AWS_AMI_SERVICE_DEPLOY'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
-    | 'AWS_AMI_SWITCH_ROUTES'
-    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
-    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_SERVICE_ROLLBACK'
-    | 'ECS_SERVICE_SETUP'
-    | 'SPOTINST_SETUP'
-    | 'SPOTINST_ALB_SHIFT_SETUP'
-    | 'SPOTINST_DEPLOY'
-    | 'SPOTINST_ALB_SHIFT_DEPLOY'
-    | 'SPOTINST_LISTENER_UPDATE'
-    | 'SPOTINST_LISTENER_ALB_SHIFT'
-    | 'SPOTINST_ROLLBACK'
-    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
-    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
-    | 'ECS_SERVICE_SETUP_ROLLBACK'
-    | 'ECS_DAEMON_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
-    | 'ECS_SERVICE_DEPLOY'
-    | 'ECS_SERVICE_ROLLBACK'
-    | 'ECS_LISTENER_UPDATE'
-    | 'ECS_LISTENER_UPDATE_ROLLBACK'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
-    | 'KUBERNETES_SETUP'
-    | 'KUBERNETES_SETUP_ROLLBACK'
-    | 'KUBERNETES_DEPLOY'
-    | 'KUBERNETES_DEPLOY_ROLLBACK'
-    | 'KUBERNETES_STEADY_STATE_CHECK'
-    | 'ECS_STEADY_STATE_CHECK'
-    | 'ECS_RUN_TASK'
-    | 'GCP_CLUSTER_SETUP'
-    | 'HELM_DEPLOY'
-    | 'HELM_ROLLBACK'
-    | 'PCF_SETUP'
-    | 'PCF_RESIZE'
-    | 'PCF_ROLLBACK'
-    | 'PCF_MAP_ROUTE'
-    | 'PCF_UNMAP_ROUTE'
-    | 'PCF_BG_MAP_ROUTE'
-    | 'PCF_PLUGIN'
-    | 'TERRAFORM_PROVISION'
-    | 'TERRAFORM_APPLY'
-    | 'SHELL_SCRIPT_PROVISION'
-    | 'TERRAFORM_DESTROY'
-    | 'CLOUD_FORMATION_CREATE_STACK'
-    | 'CLOUD_FORMATION_DELETE_STACK'
-    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
-    | 'CLOUD_FORMATION_ROLLBACK_STACK'
-    | 'TERRAFORM_ROLLBACK'
-    | 'K8S_DEPLOYMENT_ROLLING'
-    | 'K8S_SCALE'
-    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
-    | 'K8S_BLUE_GREEN_DEPLOY'
-    | 'K8S_CANARY_DEPLOY'
-    | 'K8S_DELETE'
-    | 'JIRA_CREATE_UPDATE'
-    | 'SERVICENOW_CREATE_UPDATE'
-    | 'K8S_TRAFFIC_SPLIT'
-    | 'K8S_APPLY'
-    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
-  clusterLabel?: number
-  clusterType?: 'CONTROL' | 'TEST' | 'UNKNOWN' | 'IGNORE'
-  logMLFeedbackType?:
-    | 'IGNORE_SERVICE'
-    | 'IGNORE_WORKFLOW'
-    | 'IGNORE_WORKFLOW_EXECUTION'
-    | 'IGNORE_ALWAYS'
-    | 'DISMISS'
-    | 'PRIORITIZE'
-    | 'THUMBS_UP'
-    | 'THUMBS_DOWN'
-    | 'UNDO_IGNORE'
-  logMessage?: string
-  logMD5Hash?: string
-  cvConfigId?: string
-  comment?: string
-  supervisedLabel?: string
-  priority?: 'BASELINE' | 'P5' | 'P4' | 'P3' | 'P2' | 'P1' | 'P0'
-  jiraLink?: string
-  analysisMinute?: number
-  actionTaken?: 'ADD_TO_BASELINE' | 'REMOVE_FROM_BASELINE' | 'UPDATE_PRIORITY'
-  metadata?: { [key: string]: any }
-}
-
-export interface RestResponseListLogMLFeedbackRecord {
+export interface RestResponseListConfigFile {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: LogMLFeedbackRecord[]
+  resource?: ConfigFile[]
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseMapFeedbackActionListFeedbackAction {
+export interface RestResponseListCustomDeploymentTypeDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: {
-    [key: string]: ('ADD_TO_BASELINE' | 'REMOVE_FROM_BASELINE' | 'UPDATE_PRIORITY')[]
-  }
+  resource?: CustomDeploymentTypeDTO[]
   responseMessages?: ResponseMessage[]
 }
 
-export interface CVCollaborationProviderParameters {
-  collaborationProviderConfigId?: string
-  jiraTaskParameters?: JiraTaskParameters
-  cvFeedbackRecord?: CVFeedbackRecord
-}
-
-export interface JiraConfig {
-  type?: string
-  baseUrl?: string
-  username?: string
-  password?: string[]
-  encryptedPassword?: string
-  accountId?: string
-  settingType?:
-    | 'HOST_CONNECTION_ATTRIBUTES'
-    | 'BASTION_HOST_CONNECTION_ATTRIBUTES'
-    | 'SMTP'
-    | 'SFTP'
-    | 'JENKINS'
-    | 'BAMBOO'
-    | 'STRING'
-    | 'SPLUNK'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'APM_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'LOG_VERIFICATION'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'DYNA_TRACE'
-    | 'INSTANA'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'SCALYR'
-    | 'ELB'
-    | 'SLACK'
-    | 'AWS'
-    | 'GCS'
-    | 'GCP'
-    | 'AZURE'
-    | 'PCF'
-    | 'DIRECT'
-    | 'KUBERNETES_CLUSTER'
-    | 'DOCKER'
-    | 'ECR'
-    | 'GCR'
-    | 'ACR'
-    | 'PHYSICAL_DATA_CENTER'
-    | 'KUBERNETES'
-    | 'NEXUS'
-    | 'ARTIFACTORY'
-    | 'SMB'
-    | 'AMAZON_S3'
-    | 'GIT'
-    | 'SSH_SESSION_CONFIG'
-    | 'SERVICE_VARIABLE'
-    | 'CONFIG_FILE'
-    | 'KMS'
-    | 'GCP_KMS'
-    | 'JIRA'
-    | 'SERVICENOW'
-    | 'SECRET_TEXT'
-    | 'YAML_GIT_SYNC'
-    | 'VAULT'
-    | 'AWS_SECRETS_MANAGER'
-    | 'CYBERARK'
-    | 'WINRM_CONNECTION_ATTRIBUTES'
-    | 'WINRM_SESSION_CONFIG'
-    | 'PROMETHEUS'
-    | 'INFRASTRUCTURE_MAPPING'
-    | 'HTTP_HELM_REPO'
-    | 'AMAZON_S3_HELM_REPO'
-    | 'GCS_HELM_REPO'
-    | 'SPOT_INST'
-    | 'AZURE_ARTIFACTS_PAT'
-    | 'CUSTOM'
-    | 'CE_AWS'
-    | 'CE_GCP'
-    | 'AZURE_VAULT'
-    | 'KUBERNETES_CLUSTER_NG'
-    | 'GIT_NG'
-}
-
-export interface JiraCustomFieldValue {
-  fieldType?: string
-  fieldValue?: string
-}
-
-export interface JiraTaskParameters {
-  jiraConfig?: JiraConfig
-  jiraAction?:
-    | 'CREATE_TICKET'
-    | 'UPDATE_TICKET'
-    | 'AUTH'
-    | 'GET_PROJECTS'
-    | 'GET_FIELDS_OPTIONS'
-    | 'GET_STATUSES'
-    | 'GET_CREATE_METADATA'
-    | 'FETCH_ISSUE'
-    | 'CHECK_APPROVAL'
-  project?: string
-  summary?: string
-  description?: string
-  issueType?: string
-  priority?: string
-  labels?: string[]
-  customFields?: {
-    [key: string]: JiraCustomFieldValue
-  }
-  issueId?: string
-  updateIssueIds?: string[]
-  status?: string
-  comment?: string
-  createmetaExpandParam?: string
-  encryptionDetails?: EncryptedDataDetail[]
-  accountId?: string
-  appId?: string
-  activityId?: string
-  approvalId?: string
-  approvalField?: string
-  approvalValue?: string
-  rejectionField?: string
-  rejectionValue?: string
-}
-
-export interface CustomLogSetupTestNodeData {
-  logCollectionInfo?: LogCollectionInfo
-  host?: string
-  appId: string
-  settingId: string
-  instanceName?: string
-  isServiceLevel?: boolean
-  instanceElement?: Instance
-  hostExpression?: string
-  workflowId?: string
-  guid?: string
-  stateType?:
-    | 'SUB_WORKFLOW'
-    | 'REPEAT'
-    | 'FORK'
-    | 'WAIT'
-    | 'PAUSE'
-    | 'BARRIER'
-    | 'RESOURCE_CONSTRAINT'
-    | 'SHELL_SCRIPT'
-    | 'HTTP'
-    | 'TEMPLATIZED_SECRET_MANAGER'
-    | 'EMAIL'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'NEW_RELIC_DEPLOYMENT_MARKER'
-    | 'DYNA_TRACE'
-    | 'PROMETHEUS'
-    | 'SPLUNKV2'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'AWS_LAMBDA_VERIFICATION'
-    | 'APM_VERIFICATION'
-    | 'LOG_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'STACK_DRIVER'
-    | 'STACK_DRIVER_LOG'
-    | 'INSTANA'
-    | 'SCALYR'
-    | 'ENV_STATE'
-    | 'ENV_LOOP_STATE'
-    | 'ENV_RESUME_STATE'
-    | 'ENV_LOOP_RESUME_STATE'
-    | 'COMMAND'
-    | 'APPROVAL'
-    | 'APPROVAL_RESUME'
-    | 'ELASTIC_LOAD_BALANCER'
-    | 'JENKINS'
-    | 'GCB'
-    | 'BAMBOO'
-    | 'ARTIFACT_COLLECTION'
-    | 'ARTIFACT_CHECK'
-    | 'AZURE_NODE_SELECT'
-    | 'AZURE_VMSS_SETUP'
-    | 'AZURE_VMSS_DEPLOY'
-    | 'AZURE_VMSS_ROLLBACK'
-    | 'AZURE_VMSS_SWITCH_ROUTES'
-    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
-    | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
-    | 'AZURE_WEBAPP_SLOT_SWAP'
-    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
-    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
-    | 'AWS_NODE_SELECT'
-    | 'DC_NODE_SELECT'
-    | 'ROLLING_NODE_SELECT'
-    | 'PHASE'
-    | 'PHASE_STEP'
-    | 'STAGING_ORIGINAL_EXECUTION'
-    | 'AWS_CODEDEPLOY_STATE'
-    | 'AWS_CODEDEPLOY_ROLLBACK'
-    | 'AWS_LAMBDA_STATE'
-    | 'AWS_LAMBDA_ROLLBACK'
-    | 'AWS_AMI_SERVICE_SETUP'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
-    | 'AWS_AMI_SERVICE_DEPLOY'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
-    | 'AWS_AMI_SWITCH_ROUTES'
-    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
-    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_SERVICE_ROLLBACK'
-    | 'ECS_SERVICE_SETUP'
-    | 'SPOTINST_SETUP'
-    | 'SPOTINST_ALB_SHIFT_SETUP'
-    | 'SPOTINST_DEPLOY'
-    | 'SPOTINST_ALB_SHIFT_DEPLOY'
-    | 'SPOTINST_LISTENER_UPDATE'
-    | 'SPOTINST_LISTENER_ALB_SHIFT'
-    | 'SPOTINST_ROLLBACK'
-    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
-    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
-    | 'ECS_SERVICE_SETUP_ROLLBACK'
-    | 'ECS_DAEMON_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
-    | 'ECS_SERVICE_DEPLOY'
-    | 'ECS_SERVICE_ROLLBACK'
-    | 'ECS_LISTENER_UPDATE'
-    | 'ECS_LISTENER_UPDATE_ROLLBACK'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
-    | 'KUBERNETES_SETUP'
-    | 'KUBERNETES_SETUP_ROLLBACK'
-    | 'KUBERNETES_DEPLOY'
-    | 'KUBERNETES_DEPLOY_ROLLBACK'
-    | 'KUBERNETES_STEADY_STATE_CHECK'
-    | 'ECS_STEADY_STATE_CHECK'
-    | 'ECS_RUN_TASK'
-    | 'GCP_CLUSTER_SETUP'
-    | 'HELM_DEPLOY'
-    | 'HELM_ROLLBACK'
-    | 'PCF_SETUP'
-    | 'PCF_RESIZE'
-    | 'PCF_ROLLBACK'
-    | 'PCF_MAP_ROUTE'
-    | 'PCF_UNMAP_ROUTE'
-    | 'PCF_BG_MAP_ROUTE'
-    | 'PCF_PLUGIN'
-    | 'TERRAFORM_PROVISION'
-    | 'TERRAFORM_APPLY'
-    | 'SHELL_SCRIPT_PROVISION'
-    | 'TERRAFORM_DESTROY'
-    | 'CLOUD_FORMATION_CREATE_STACK'
-    | 'CLOUD_FORMATION_DELETE_STACK'
-    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
-    | 'CLOUD_FORMATION_ROLLBACK_STACK'
-    | 'TERRAFORM_ROLLBACK'
-    | 'K8S_DEPLOYMENT_ROLLING'
-    | 'K8S_SCALE'
-    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
-    | 'K8S_BLUE_GREEN_DEPLOY'
-    | 'K8S_CANARY_DEPLOY'
-    | 'K8S_DELETE'
-    | 'JIRA_CREATE_UPDATE'
-    | 'SERVICENOW_CREATE_UPDATE'
-    | 'K8S_TRAFFIC_SPLIT'
-    | 'K8S_APPLY'
-    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
-  toTime?: number
-  fromTime?: number
-  serviceLevel?: boolean
-}
-
-export interface LogCollectionInfo {
-  collectionUrl?: string
-  collectionBody?: string
-  responseType?: 'JSON'
-  responseMapping?: ResponseMapping
-  method?: 'POST' | 'GET'
-}
-
-export interface LoginSettings {
-  uuid: string
-  accountId: string
-  lastUpdatedBy?: EmbeddedUser
-  lastUpdatedAt?: number
-  userLockoutPolicy: UserLockoutPolicy
-  passwordExpirationPolicy: PasswordExpirationPolicy
-  passwordStrengthPolicy: PasswordStrengthPolicy
-}
-
-export interface PasswordExpirationPolicy {
-  enabled?: boolean
-  daysBeforePasswordExpires?: number
-  daysBeforeUserNotifiedOfPasswordExpiration?: number
-}
-
-export interface PasswordStrengthPolicy {
-  enabled?: boolean
-  minNumberOfCharacters?: number
-  minNumberOfUppercaseCharacters?: number
-  minNumberOfLowercaseCharacters?: number
-  minNumberOfSpecialCharacters?: number
-  minNumberOfDigits?: number
-}
-
-export interface RestResponseLoginSettings {
+export interface RestResponseListDelegateInitializationDetails {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: LoginSettings
+  resource?: DelegateInitializationDetails[]
   responseMessages?: ResponseMessage[]
 }
 
-export interface UserLockoutPolicy {
-  enableLockoutPolicy?: boolean
-  numberOfFailedAttemptsBeforeLockout?: number
-  lockOutPeriod?: number
-  notifyUser?: boolean
-  userGroupsToNotify?: UserGroup[]
-}
-
-export interface NewRelicSetupTestNodeData {
-  appId: string
-  settingId: string
-  instanceName?: string
-  isServiceLevel?: boolean
-  instanceElement?: Instance
-  hostExpression?: string
-  workflowId?: string
-  guid?: string
-  stateType?:
-    | 'SUB_WORKFLOW'
-    | 'REPEAT'
-    | 'FORK'
-    | 'WAIT'
-    | 'PAUSE'
-    | 'BARRIER'
-    | 'RESOURCE_CONSTRAINT'
-    | 'SHELL_SCRIPT'
-    | 'HTTP'
-    | 'TEMPLATIZED_SECRET_MANAGER'
-    | 'EMAIL'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'NEW_RELIC_DEPLOYMENT_MARKER'
-    | 'DYNA_TRACE'
-    | 'PROMETHEUS'
-    | 'SPLUNKV2'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'AWS_LAMBDA_VERIFICATION'
-    | 'APM_VERIFICATION'
-    | 'LOG_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'STACK_DRIVER'
-    | 'STACK_DRIVER_LOG'
-    | 'INSTANA'
-    | 'SCALYR'
-    | 'ENV_STATE'
-    | 'ENV_LOOP_STATE'
-    | 'ENV_RESUME_STATE'
-    | 'ENV_LOOP_RESUME_STATE'
-    | 'COMMAND'
-    | 'APPROVAL'
-    | 'APPROVAL_RESUME'
-    | 'ELASTIC_LOAD_BALANCER'
-    | 'JENKINS'
-    | 'GCB'
-    | 'BAMBOO'
-    | 'ARTIFACT_COLLECTION'
-    | 'ARTIFACT_CHECK'
-    | 'AZURE_NODE_SELECT'
-    | 'AZURE_VMSS_SETUP'
-    | 'AZURE_VMSS_DEPLOY'
-    | 'AZURE_VMSS_ROLLBACK'
-    | 'AZURE_VMSS_SWITCH_ROUTES'
-    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
-    | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
-    | 'AZURE_WEBAPP_SLOT_SWAP'
-    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
-    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
-    | 'AWS_NODE_SELECT'
-    | 'DC_NODE_SELECT'
-    | 'ROLLING_NODE_SELECT'
-    | 'PHASE'
-    | 'PHASE_STEP'
-    | 'STAGING_ORIGINAL_EXECUTION'
-    | 'AWS_CODEDEPLOY_STATE'
-    | 'AWS_CODEDEPLOY_ROLLBACK'
-    | 'AWS_LAMBDA_STATE'
-    | 'AWS_LAMBDA_ROLLBACK'
-    | 'AWS_AMI_SERVICE_SETUP'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
-    | 'AWS_AMI_SERVICE_DEPLOY'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
-    | 'AWS_AMI_SWITCH_ROUTES'
-    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
-    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_SERVICE_ROLLBACK'
-    | 'ECS_SERVICE_SETUP'
-    | 'SPOTINST_SETUP'
-    | 'SPOTINST_ALB_SHIFT_SETUP'
-    | 'SPOTINST_DEPLOY'
-    | 'SPOTINST_ALB_SHIFT_DEPLOY'
-    | 'SPOTINST_LISTENER_UPDATE'
-    | 'SPOTINST_LISTENER_ALB_SHIFT'
-    | 'SPOTINST_ROLLBACK'
-    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
-    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
-    | 'ECS_SERVICE_SETUP_ROLLBACK'
-    | 'ECS_DAEMON_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
-    | 'ECS_SERVICE_DEPLOY'
-    | 'ECS_SERVICE_ROLLBACK'
-    | 'ECS_LISTENER_UPDATE'
-    | 'ECS_LISTENER_UPDATE_ROLLBACK'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
-    | 'KUBERNETES_SETUP'
-    | 'KUBERNETES_SETUP_ROLLBACK'
-    | 'KUBERNETES_DEPLOY'
-    | 'KUBERNETES_DEPLOY_ROLLBACK'
-    | 'KUBERNETES_STEADY_STATE_CHECK'
-    | 'ECS_STEADY_STATE_CHECK'
-    | 'ECS_RUN_TASK'
-    | 'GCP_CLUSTER_SETUP'
-    | 'HELM_DEPLOY'
-    | 'HELM_ROLLBACK'
-    | 'PCF_SETUP'
-    | 'PCF_RESIZE'
-    | 'PCF_ROLLBACK'
-    | 'PCF_MAP_ROUTE'
-    | 'PCF_UNMAP_ROUTE'
-    | 'PCF_BG_MAP_ROUTE'
-    | 'PCF_PLUGIN'
-    | 'TERRAFORM_PROVISION'
-    | 'TERRAFORM_APPLY'
-    | 'SHELL_SCRIPT_PROVISION'
-    | 'TERRAFORM_DESTROY'
-    | 'CLOUD_FORMATION_CREATE_STACK'
-    | 'CLOUD_FORMATION_DELETE_STACK'
-    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
-    | 'CLOUD_FORMATION_ROLLBACK_STACK'
-    | 'TERRAFORM_ROLLBACK'
-    | 'K8S_DEPLOYMENT_ROLLING'
-    | 'K8S_SCALE'
-    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
-    | 'K8S_BLUE_GREEN_DEPLOY'
-    | 'K8S_CANARY_DEPLOY'
-    | 'K8S_DELETE'
-    | 'JIRA_CREATE_UPDATE'
-    | 'SERVICENOW_CREATE_UPDATE'
-    | 'K8S_TRAFFIC_SPLIT'
-    | 'K8S_APPLY'
-    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
-  toTime?: number
-  fromTime?: number
-  newRelicAppId?: number
-  serviceLevel?: boolean
-}
-
-export interface NewRelicApplicationInstance {
-  id?: number
-  host?: string
-  port?: number
-}
-
-export interface RestResponseListNewRelicApplicationInstance {
+export interface RestResponseListDelegateSelectionLogParams {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: NewRelicApplicationInstance[]
+  resource?: DelegateSelectionLogParams[]
   responseMessages?: ResponseMessage[]
 }
 
-export interface NewRelicMetric {
-  name?: string
-}
-
-export interface RestResponseListNewRelicMetric {
+export interface RestResponseListDelegateSizeDetails {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: NewRelicMetric[]
+  resource?: DelegateSizeDetails[]
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseNewRelicApplication {
+export interface RestResponseListDynaTraceApplication {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: NewRelicApplication
+  resource?: DynaTraceApplication[]
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseNotification {
+export interface RestResponseListElastiGroup {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: Notification
+  resource?: ElastiGroup[]
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponsePageResponseNotification {
+export interface RestResponseListEncryptedDataDetail {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: Notification[]
+  resource?: EncryptedDataDetail[]
   responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponsePageResponseNotificationGroup {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: NotificationGroup[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseNotificationGroup {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: NotificationGroup
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListFailureStrategy {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: FailureStrategy[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface JsonNode {
-  object?: boolean
-  containerNode?: boolean
-  valueNode?: boolean
-  missingNode?: boolean
-  nodeType?: 'ARRAY' | 'BINARY' | 'BOOLEAN' | 'MISSING' | 'NULL' | 'NUMBER' | 'OBJECT' | 'POJO' | 'STRING'
-  pojo?: boolean
-  number?: boolean
-  integralNumber?: boolean
-  floatingPointNumber?: boolean
-  short?: boolean
-  int?: boolean
-  long?: boolean
-  float?: boolean
-  double?: boolean
-  bigDecimal?: boolean
-  bigInteger?: boolean
-  textual?: boolean
-  boolean?: boolean
-  binary?: boolean
-  array?: boolean
-  null?: boolean
-}
-
-export interface RestResponseListStencil {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Stencil[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface Stencil {
-  name?: string
-  type?: string
-  stencilCategory?:
-    | 'BUILD'
-    | 'CLOUD'
-    | 'COLLABORATION'
-    | 'COLLECTIONS'
-    | 'COMMANDS'
-    | 'COMMONS'
-    | 'CONFIGURATIONS'
-    | 'CONTAINERS'
-    | 'CONTROLS'
-    | 'COPY'
-    | 'ENVIRONMENTS'
-    | 'FLOW_CONTROLS'
-    | 'KUBERNETES'
-    | 'OTHERS'
-    | 'PROVISIONERS'
-    | 'SCRIPTS'
-    | 'SUB_WORKFLOW'
-    | 'VERIFICATIONS'
-    | 'ECS'
-    | 'SPOTINST'
-    | 'STAGING_ORIGINAL_EXECUTION'
-    | 'AZURE_VMSS'
-    | 'AZURE_WEBAPP'
-  jsonSchema?: JsonNode
-  uiSchema?: { [key: string]: any }
-  displayOrder?: number
 }
 
 export interface RestResponseListEntityType {
@@ -13056,56 +12593,637 @@ export interface RestResponseListEntityType {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponsePipeline {
+export interface RestResponseListExpAnalysisInfo {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: Pipeline
+  resource?: ExpAnalysisInfo[]
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponsePageResponsePipeline {
+export interface RestResponseListExperimentalMessageComparisonResult {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: Pipeline[]
+  resource?: ExperimentalMessageComparisonResult[]
   responseMessages?: ResponseMessage[]
 }
 
-export interface AccountPlugin {
-  type?: string
-  displayName?: string
-  pluginCategories?: (
-    | 'Artifact'
-    | 'Verification'
-    | 'Collaboration'
-    | 'CloudProvider'
-    | 'ConnectionAttributes'
-    | 'LoadBalancer'
-    | 'SourceRepo'
-    | 'HelmRepo'
-    | 'AzureArtifacts'
+export interface RestResponseListFailureStrategy {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: FailureStrategy[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListGcpBillingAccount {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: GcpBillingAccount[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListGitDetail {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: GitDetail[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListGitSyncError {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: GitSyncError[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListHeatMap {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: HeatMap[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListHostValidationResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: HostValidationResponse[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListImportedCommand {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ImportedCommand[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListInstanceElement {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: InstanceElement[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListInstanceStatsByEnvironment {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: InstanceStatsByEnvironment[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListInstanceStatsByService {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: InstanceStatsByService[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListInviteOperationResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: (
+    | 'ACCOUNT_INVITE_ACCEPTED_NEED_PASSWORD'
+    | 'ACCOUNT_INVITE_ACCEPTED'
+    | 'USER_INVITED_SUCCESSFULLY'
+    | 'USER_ALREADY_ADDED'
+    | 'USER_ALREADY_INVITED'
+    | 'FAIL'
   )[]
-  accountId?: string
-  version?: Version
-  enabled?: boolean
-}
-
-export interface RestResponseListAccountPlugin {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AccountPlugin[]
   responseMessages?: ResponseMessage[]
 }
 
-export interface Version {
-  majorVersion?: number
-  minorVersion?: number
-  preReleaseVersion?: string
-  buildMetadata?: string
-  patchVersion?: number
-  normalVersion?: string
+export interface RestResponseListLogDataRecord {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LogDataRecord[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListLogLabel {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: (
+    | 'NOISE'
+    | 'CLEAN'
+    | 'INFRA'
+    | 'THIRD_PARTY'
+    | 'IMPORTANT'
+    | 'BACKGROUND'
+    | 'JAVA_THROWABLE'
+    | 'ERROR'
+    | 'EXCEPTION'
+    | 'RUNTIME'
+    | 'HTTP'
+    | 'UPSTREAM'
+    | 'DOWNSTREAM'
+    | 'DATABASE'
+    | 'NETWORK'
+    | 'APM'
+    | 'LOGS'
+    | 'JVM'
+    | 'WARN'
+  )[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListLogMLFeedbackRecord {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LogMLFeedbackRecord[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListManifestFile {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ManifestFile[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListMetric {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Metric[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListNameValuePair {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: NameValuePair[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListNewRelicApplication {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: NewRelicApplication[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListNewRelicApplicationInstance {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: NewRelicApplicationInstance[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListNewRelicMetric {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: NewRelicMetric[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListNewRelicMetricHostAnalysisValue {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: NewRelicMetricHostAnalysisValue[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListNotificationRule {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: NotificationRule[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListPipelineGovernanceConfig {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: PipelineGovernanceConfig[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListPipelineReportCard {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: PipelineReportCard[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListPipelineStageGroupedInfo {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: PipelineStageGroupedInfo[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListProvisionStep {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ProvisionStep[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListResourceConstraintUsage {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ResourceConstraintUsage[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListSecretChangeLog {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: SecretChangeLog[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListSecretEngineSummary {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: SecretEngineSummary[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListSecretManagerConfig {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: SecretManagerConfig[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListSecretManagerConfigDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: SecretManagerConfigDTO[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListService {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Service[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListSplunkSavedSearch {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: SplunkSavedSearch[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListStackDriverMetric {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: StackDriverMetric[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListStateExecutionData {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: StateExecutionData[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListStateExecutionElement {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: StateExecutionElement[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListStateExecutionInterrupt {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: StateExecutionInterrupt[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListStencil {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Stencil[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListString {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: string[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListTaskSelectorMap {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: TaskSelectorMap[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListTimeRange {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: TimeRange[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListTimeSeriesMLTransactionThresholds {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: TimeSeriesMLTransactionThresholds[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListUser {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: User[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListUuidAware {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: UuidAware[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListVariable {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Variable[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListWorkflowExecution {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: WorkflowExecution[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseLogMLAnalysisSummary {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LogMLAnalysisSummary
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseLoginSettings {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LoginSettings
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseLoginTypeResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LoginTypeResponse
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseLogoutResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LogoutResponse
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseLong {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: number
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseManifestFile {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ManifestFile
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseMapDeploymentTypeListSettingVariableTypes {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: {
+    [key: string]: (
+      | 'HOST_CONNECTION_ATTRIBUTES'
+      | 'BASTION_HOST_CONNECTION_ATTRIBUTES'
+      | 'SMTP'
+      | 'SFTP'
+      | 'JENKINS'
+      | 'BAMBOO'
+      | 'STRING'
+      | 'SPLUNK'
+      | 'ELK'
+      | 'LOGZ'
+      | 'SUMO'
+      | 'DATA_DOG'
+      | 'APM_VERIFICATION'
+      | 'BUG_SNAG'
+      | 'LOG_VERIFICATION'
+      | 'APP_DYNAMICS'
+      | 'NEW_RELIC'
+      | 'DYNA_TRACE'
+      | 'INSTANA'
+      | 'DATA_DOG_LOG'
+      | 'CLOUD_WATCH'
+      | 'SCALYR'
+      | 'ELB'
+      | 'SLACK'
+      | 'AWS'
+      | 'GCS'
+      | 'GCP'
+      | 'AZURE'
+      | 'PCF'
+      | 'DIRECT'
+      | 'KUBERNETES_CLUSTER'
+      | 'DOCKER'
+      | 'ECR'
+      | 'GCR'
+      | 'ACR'
+      | 'PHYSICAL_DATA_CENTER'
+      | 'KUBERNETES'
+      | 'NEXUS'
+      | 'ARTIFACTORY'
+      | 'SMB'
+      | 'AMAZON_S3'
+      | 'GIT'
+      | 'SSH_SESSION_CONFIG'
+      | 'SERVICE_VARIABLE'
+      | 'CONFIG_FILE'
+      | 'KMS'
+      | 'GCP_KMS'
+      | 'JIRA'
+      | 'SERVICENOW'
+      | 'SECRET_TEXT'
+      | 'YAML_GIT_SYNC'
+      | 'VAULT'
+      | 'AWS_SECRETS_MANAGER'
+      | 'CYBERARK'
+      | 'WINRM_CONNECTION_ATTRIBUTES'
+      | 'WINRM_SESSION_CONFIG'
+      | 'PROMETHEUS'
+      | 'INFRASTRUCTURE_MAPPING'
+      | 'HTTP_HELM_REPO'
+      | 'AMAZON_S3_HELM_REPO'
+      | 'GCS_HELM_REPO'
+      | 'SPOT_INST'
+      | 'AZURE_ARTIFACTS_PAT'
+      | 'CUSTOM'
+      | 'CE_AWS'
+      | 'CE_GCP'
+      | 'AZURE_VAULT'
+      | 'KUBERNETES_CLUSTER_NG'
+      | 'GIT_NG'
+    )[]
+  }
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseMapFeedbackActionListFeedbackAction {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: {
+    [key: string]: ('ADD_TO_BASELINE' | 'REMOVE_FROM_BASELINE' | 'UPDATE_PRIORITY')[]
+  }
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseMapPairDeploymentTypeCloudProviderTypeMapStringString {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: {
+    [key: string]: {
+      [key: string]: string
+    }
+  }
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseMapPairStringStringInteger {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: {
+    [key: string]: number
+  }
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseMapStringDouble {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: {
+    [key: string]: number
+  }
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseMapStringElkIndexTemplate {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: {
+    [key: string]: ElkIndexTemplate
+  }
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseMapStringGraphGroup {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: {
+    [key: string]: GraphGroup
+  }
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseMapStringListCVFeedbackRecord {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: {
+    [key: string]: CVFeedbackRecord[]
+  }
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseMapStringListString {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: {
+    [key: string]: string[]
+  }
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseMapStringMapStringInstanceDetails {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: {
+    [key: string]: {
+      [key: string]: InstanceDetails
+    }
+  }
+  responseMessages?: ResponseMessage[]
 }
 
 export interface RestResponseMapStringMapStringObject {
@@ -13120,86 +13238,440 @@ export interface RestResponseMapStringMapStringObject {
   responseMessages?: ResponseMessage[]
 }
 
-export interface AccountAuditFilter {
-  resourceTypes?: string[]
-  resourceIds?: string[]
-}
-
-export interface ApplicationAuditFilter {
-  appIds?: string[]
-  resourceTypes?: string[]
-  resourceIds?: string[]
-}
-
-export type AuditPreference = Preference & {
-  startTime?: string
-  endTime?: string
-  lastNDays?: number
-  createdByUserIds?: string[]
-  operationTypes?: string[]
-  includeAccountLevelResources?: boolean
-  includeAppLevelResources?: boolean
-  accountAuditFilter?: AccountAuditFilter
-  applicationAuditFilter?: ApplicationAuditFilter
-}
-
-export interface AuditPreferenceResponse {
-  auditPreferences?: AuditPreference[]
-  resourceLookupMap?: {
-    [key: string]: ResourceLookup
-  }
-}
-
-export interface ResourceLookup {
-  uuid: string
-  accountId?: string
-  appId?: string
-  resourceId?: string
-  resourceType?: string
-  resourceName?: string
-  tags?: NameValuePair[]
-  createdAt?: number
-  lastUpdatedAt?: number
-}
-
-export interface RestResponseAuditPreferenceResponse {
+export interface RestResponseMapStringObject {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: AuditPreferenceResponse
+  resource?: {
+    [key: string]: { [key: string]: any }
+  }
   responseMessages?: ResponseMessage[]
 }
 
-export type DeploymentPreference = Preference & {
-  appIds?: string[]
-  pipelineIds?: string[]
-  workflowIds?: string[]
-  serviceIds?: string[]
-  envIds?: string[]
-  status?: string[]
-  startTime?: string
-  endTime?: string
-  includeIndirectExecutions?: boolean
-  harnessTagFilter?: HarnessTagFilter
-  uiDisplayTagString?: string
-  keywords?: string[]
+export interface RestResponseMapStringString {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: {
+    [key: string]: string
+  }
+  responseMessages?: ResponseMessage[]
 }
 
-export interface HarnessTagFilter {
-  matchAll?: boolean
-  conditions?: TagFilterCondition[]
+export interface RestResponseNewRelicApplication {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: NewRelicApplication
+  responseMessages?: ResponseMessage[]
 }
 
-export interface Preference {
-  name?: string
-  accountId?: string
-  userId?: string
-  preferenceType?: string
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
+export interface RestResponseNotification {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Notification
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseNotificationGroup {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: NotificationGroup
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseNotificationRulesStatus {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: NotificationRulesStatus
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseOauthSettings {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: OauthSettings
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseObject {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: { [key: string]: any }
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseOptionalUser {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: User
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseAccount {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Account[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseActivity {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Activity[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseAlert {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Alert[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseApiKeyEntry {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ApiKeyEntry[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseAppContainer {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AppContainer[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseApplication {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Application[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseApplicationManifest {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ApplicationManifest[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseArtifact {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Artifact[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseArtifactStream {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ArtifactStream[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseAuditHeader {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AuditHeader[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseCVEnabledService {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: CVEnabledService[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseConfigFile {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ConfigFile[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseContainerTask {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ContainerTask[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseContinuousVerificationExecutionMetaData {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ContinuousVerificationExecutionMetaData[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseDashboardSettings {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DashboardSettings[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseDelegate {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Delegate[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseDelegateProfile {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DelegateProfile[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseDelegateProfileDetails {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DelegateProfileDetails[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseDelegateScope {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DelegateScope[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseEncryptedData {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: EncryptedData[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseEncryptedDataDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: EncryptedDataDTO[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseEntityVersionCollection {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: EntityVersionCollection[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseEnvironment {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Environment[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseExpAnalysisInfo {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ExpAnalysisInfo[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseGitFileActivity {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: GitFileActivity[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseGitFileActivitySummary {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: GitFileActivitySummary[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseGitProcessingError {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: GitProcessingError[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseGitSyncError {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: GitSyncError[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseGitToHarnessErrorCommitStats {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: GitToHarnessErrorCommitStats[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseHarnessTag {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: HarnessTag[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseHarnessTagLink {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: HarnessTagLink[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseHelmChart {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: HelmChart[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseHelmChartSpecification {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: HelmChartSpecification[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseHost {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Host[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseInfraDefinitionDetail {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: InfraDefinitionDetail[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseInfrastructureDefinition {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: InfrastructureDefinition[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseInfrastructureMapping {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: InfrastructureMapping[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseInfrastructureProvisioner {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: InfrastructureProvisioner[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseInfrastructureProvisionerDetails {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: InfrastructureProvisionerDetails[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseInstanceSummaryStatsByService {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: InstanceSummaryStatsByService[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseLambdaSpecification {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LambdaSpecification[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseLog {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Log[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseNotification {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Notification[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseNotificationGroup {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: NotificationGroup[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponsePipeline {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Pipeline[]
+  responseMessages?: ResponseMessage[]
 }
 
 export interface RestResponsePageResponsePreference {
@@ -13210,233 +13682,11 @@ export interface RestResponsePageResponsePreference {
   responseMessages?: ResponseMessage[]
 }
 
-export interface TagFilterCondition {
-  name?: string
-  tagType?: 'USER' | 'HARNESS'
-  values?: string[]
-  operator?:
-    | 'EQ'
-    | 'NOT_EQ'
-    | 'LT'
-    | 'LT_EQ'
-    | 'GE'
-    | 'GT'
-    | 'CONTAINS'
-    | 'STARTS_WITH'
-    | 'HAS'
-    | 'IN'
-    | 'NOT_IN'
-    | 'EXISTS'
-    | 'NOT_EXISTS'
-    | 'HAS_ALL'
-    | 'OR'
-    | 'AND'
-    | 'ELEMENT_MATCH'
-}
-
-export interface RestResponsePreference {
+export interface RestResponsePageResponsePublicUser {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: Preference
-  responseMessages?: ResponseMessage[]
-}
-
-export interface PrometheusSetupTestNodeData {
-  appId: string
-  settingId: string
-  instanceName?: string
-  isServiceLevel?: boolean
-  instanceElement?: Instance
-  hostExpression?: string
-  workflowId?: string
-  guid?: string
-  stateType?:
-    | 'SUB_WORKFLOW'
-    | 'REPEAT'
-    | 'FORK'
-    | 'WAIT'
-    | 'PAUSE'
-    | 'BARRIER'
-    | 'RESOURCE_CONSTRAINT'
-    | 'SHELL_SCRIPT'
-    | 'HTTP'
-    | 'TEMPLATIZED_SECRET_MANAGER'
-    | 'EMAIL'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'NEW_RELIC_DEPLOYMENT_MARKER'
-    | 'DYNA_TRACE'
-    | 'PROMETHEUS'
-    | 'SPLUNKV2'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'AWS_LAMBDA_VERIFICATION'
-    | 'APM_VERIFICATION'
-    | 'LOG_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'STACK_DRIVER'
-    | 'STACK_DRIVER_LOG'
-    | 'INSTANA'
-    | 'SCALYR'
-    | 'ENV_STATE'
-    | 'ENV_LOOP_STATE'
-    | 'ENV_RESUME_STATE'
-    | 'ENV_LOOP_RESUME_STATE'
-    | 'COMMAND'
-    | 'APPROVAL'
-    | 'APPROVAL_RESUME'
-    | 'ELASTIC_LOAD_BALANCER'
-    | 'JENKINS'
-    | 'GCB'
-    | 'BAMBOO'
-    | 'ARTIFACT_COLLECTION'
-    | 'ARTIFACT_CHECK'
-    | 'AZURE_NODE_SELECT'
-    | 'AZURE_VMSS_SETUP'
-    | 'AZURE_VMSS_DEPLOY'
-    | 'AZURE_VMSS_ROLLBACK'
-    | 'AZURE_VMSS_SWITCH_ROUTES'
-    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
-    | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
-    | 'AZURE_WEBAPP_SLOT_SWAP'
-    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
-    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
-    | 'AWS_NODE_SELECT'
-    | 'DC_NODE_SELECT'
-    | 'ROLLING_NODE_SELECT'
-    | 'PHASE'
-    | 'PHASE_STEP'
-    | 'STAGING_ORIGINAL_EXECUTION'
-    | 'AWS_CODEDEPLOY_STATE'
-    | 'AWS_CODEDEPLOY_ROLLBACK'
-    | 'AWS_LAMBDA_STATE'
-    | 'AWS_LAMBDA_ROLLBACK'
-    | 'AWS_AMI_SERVICE_SETUP'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
-    | 'AWS_AMI_SERVICE_DEPLOY'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
-    | 'AWS_AMI_SWITCH_ROUTES'
-    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
-    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_SERVICE_ROLLBACK'
-    | 'ECS_SERVICE_SETUP'
-    | 'SPOTINST_SETUP'
-    | 'SPOTINST_ALB_SHIFT_SETUP'
-    | 'SPOTINST_DEPLOY'
-    | 'SPOTINST_ALB_SHIFT_DEPLOY'
-    | 'SPOTINST_LISTENER_UPDATE'
-    | 'SPOTINST_LISTENER_ALB_SHIFT'
-    | 'SPOTINST_ROLLBACK'
-    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
-    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
-    | 'ECS_SERVICE_SETUP_ROLLBACK'
-    | 'ECS_DAEMON_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
-    | 'ECS_SERVICE_DEPLOY'
-    | 'ECS_SERVICE_ROLLBACK'
-    | 'ECS_LISTENER_UPDATE'
-    | 'ECS_LISTENER_UPDATE_ROLLBACK'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
-    | 'KUBERNETES_SETUP'
-    | 'KUBERNETES_SETUP_ROLLBACK'
-    | 'KUBERNETES_DEPLOY'
-    | 'KUBERNETES_DEPLOY_ROLLBACK'
-    | 'KUBERNETES_STEADY_STATE_CHECK'
-    | 'ECS_STEADY_STATE_CHECK'
-    | 'ECS_RUN_TASK'
-    | 'GCP_CLUSTER_SETUP'
-    | 'HELM_DEPLOY'
-    | 'HELM_ROLLBACK'
-    | 'PCF_SETUP'
-    | 'PCF_RESIZE'
-    | 'PCF_ROLLBACK'
-    | 'PCF_MAP_ROUTE'
-    | 'PCF_UNMAP_ROUTE'
-    | 'PCF_BG_MAP_ROUTE'
-    | 'PCF_PLUGIN'
-    | 'TERRAFORM_PROVISION'
-    | 'TERRAFORM_APPLY'
-    | 'SHELL_SCRIPT_PROVISION'
-    | 'TERRAFORM_DESTROY'
-    | 'CLOUD_FORMATION_CREATE_STACK'
-    | 'CLOUD_FORMATION_DELETE_STACK'
-    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
-    | 'CLOUD_FORMATION_ROLLBACK_STACK'
-    | 'TERRAFORM_ROLLBACK'
-    | 'K8S_DEPLOYMENT_ROLLING'
-    | 'K8S_SCALE'
-    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
-    | 'K8S_BLUE_GREEN_DEPLOY'
-    | 'K8S_CANARY_DEPLOY'
-    | 'K8S_DELETE'
-    | 'JIRA_CREATE_UPDATE'
-    | 'SERVICENOW_CREATE_UPDATE'
-    | 'K8S_TRAFFIC_SPLIT'
-    | 'K8S_APPLY'
-    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
-  toTime?: number
-  fromTime?: number
-  timeSeriesToAnalyze?: TimeSeries[]
-  serviceLevel?: boolean
-}
-
-export interface TimeSeries {
-  txnName: string
-  url: string
-  metricName: string
-  metricType: string
-}
-
-export interface ActiveScope {
-  releaseEntityType?: string
-  releaseEntityId?: string
-  releaseEntityName?: string
-  unit?: string
-  permits?: number
-  acquiredAt?: number
-}
-
-export interface ResourceConstraintUsage {
-  resourceConstraintId?: string
-  activeScopes?: ActiveScope[]
-}
-
-export interface RestResponseListResourceConstraintUsage {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ResourceConstraintUsage[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ResourceConstraint {
-  uuid: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedBy?: EmbeddedUser
-  lastUpdatedAt: number
-  accountId?: string
-  name?: string
-  capacity?: number
-  strategy?: 'ASAP' | 'FIFO'
-  harnessOwned?: boolean
-  claimant?: string
-}
-
-export interface RestResponseResourceConstraint {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ResourceConstraint
+  resource?: PublicUser[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -13456,6 +13706,222 @@ export interface RestResponsePageResponseResourceLookup {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponsePageResponseRole {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Role[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseSecretUsageLog {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: SecretUsageLog[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseService {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Service[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseServiceInstance {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ServiceInstance[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseServiceTemplate {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ServiceTemplate[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseServiceVariable {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ServiceVariable[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseSettingAttribute {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: SettingAttribute[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseTemplate {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Template[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseTemplateGallery {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: TemplateGallery[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseTemplateVersion {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: TemplateVersion[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseThirdPartyApiCallLog {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ThirdPartyApiCallLog[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseTrigger {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Trigger[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseUser {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: User[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseUserDataSpecification {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: UserDataSpecification[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseUserGroup {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: UserGroup[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseUserInvite {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: UserInvite[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseWhitelist {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Whitelist[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseWorkflow {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Workflow[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseWorkflowExecution {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: WorkflowExecution[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePcfServiceSpecification {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: PcfServiceSpecification
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePhaseStep {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: PhaseStep
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePipeline {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Pipeline
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePipelineGovernanceConfig {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: PipelineGovernanceConfig
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePreference {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Preference
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseRequiredExecutionArgs {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: RequiredExecutionArgs
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseResourceConstraint {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ResourceConstraint
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseRestrictionsSummary {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: RestrictionsSummary
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseRole {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -13464,11 +13930,11 @@ export interface RestResponseRole {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponsePageResponseRole {
+export interface RestResponseRollbackConfirmation {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: Role[]
+  resource?: RollbackConfirmation
   responseMessages?: ResponseMessage[]
 }
 
@@ -13480,240 +13946,12 @@ export interface RestResponseSSOConfig {
   responseMessages?: ResponseMessage[]
 }
 
-export interface SSOConfig {
-  accountId?: string
-  ssoSettings?: SSOSettings[]
-  authenticationMechanism?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
-}
-
-export interface SSOSettings {
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  type: 'SAML' | 'LDAP' | 'OAUTH'
-  displayName?: string
-  url?: string
-  accountId?: string
-}
-
-export interface LdapConnectionSettings {
-  host: string
-  port?: number
-  sslEnabled?: boolean
-  referralsEnabled?: boolean
-  maxReferralHops?: number
-  bindDN?: string
-  bindPassword?: string
-  connectTimeout?: number
-  responseTimeout?: number
-}
-
-export interface LdapGroupSettings {
-  baseDN?: string
-  searchFilter?: string
-  nameAttr?: string
-  descriptionAttr?: string
-  userMembershipAttr?: string
-  referencedUserAttr?: string
-}
-
-export interface LdapSettings {
-  displayName?: string
-  accountId?: string
-  connectionSettings: LdapConnectionSettings
-  userSettingsList?: LdapUserSettings[]
-  groupSettingsList?: LdapGroupSettings[]
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  type: 'SAML' | 'LDAP' | 'OAUTH'
-  url?: string
-  userSettings?: LdapUserSettings
-  groupSettings?: LdapGroupSettings
-}
-
-export interface LdapUserSettings {
-  baseDN?: string
-  searchFilter?: string
-  emailAttr?: string
-  displayNameAttr?: string
-  groupMembershipAttr?: string
-}
-
-export interface RestResponseLdapSettings {
+export interface RestResponseSampleAppStatus {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: LdapSettings
+  resource?: SampleAppStatus
   responseMessages?: ResponseMessage[]
-}
-
-export interface LdapTestResponse {
-  status?: 'SUCCESS' | 'FAILURE'
-  message?: string
-}
-
-export interface RestResponseLdapTestResponse {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: LdapTestResponse
-  responseMessages?: ResponseMessage[]
-}
-
-export interface LdapResponse {
-  status?: 'SUCCESS' | 'FAILURE'
-  message?: string
-}
-
-export interface RestResponseLdapResponse {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: LdapResponse
-  responseMessages?: ResponseMessage[]
-}
-
-export interface LDAPTestAuthenticationRequest {
-  email?: string
-  password?: string
-}
-
-export interface OauthSettings {
-  displayName?: string
-  filter?: string
-  allowedProviders?: ('AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN')[]
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  type: 'SAML' | 'LDAP' | 'OAUTH'
-  url?: string
-  accountId?: string
-}
-
-export interface RestResponseOauthSettings {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: OauthSettings
-  responseMessages?: ResponseMessage[]
-}
-
-export interface LdapGroupResponse {
-  dn?: string
-  name?: string
-  description?: string
-  totalMembers?: number
-  selectable?: boolean
-  message?: string
-  users?: LdapUserResponse[]
-}
-
-export interface LdapUserResponse {
-  dn?: string
-  email?: string
-  name?: string
-}
-
-export interface RestResponseCollectionLdapGroupResponse {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: LdapGroupResponse[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface LoginTypeResponse {
-  authenticationMechanism?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
-  showCaptcha?: boolean
-  oauthEnabled?: boolean
-  ssorequest?: SSORequest
-}
-
-export interface RestResponseLoginTypeResponse {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: LoginTypeResponse
-  responseMessages?: ResponseMessage[]
-}
-
-export interface SSORequest {
-  oauthProviderType?: 'AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN'
-  idpRedirectUrl?: string
-  oauthProviderTypes?: ('AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN')[]
-}
-
-export type AddOperation = PatchOperation & {
-  value?: JsonNode
-}
-
-export type OktaAddOperation = PatchOperation & {
-  value?: JsonNode
-}
-
-export type OktaRemoveOperation = PatchOperation & {
-  value?: JsonNode
-}
-
-export type OktaReplaceOperation = PatchOperation & {
-  value?: JsonNode
-}
-
-export interface PatchOperation {
-  path?: string
-}
-
-export interface PatchRequest {
-  Operations: PatchOperation[]
-  id?: string
-  externalId?: string
-  meta?: JsonNode
-  schemas: string[]
-}
-
-export type RemoveOperation = PatchOperation & {
-  value?: JsonNode
-}
-
-export type ReplaceOperation = PatchOperation & {
-  value?: JsonNode
-}
-
-export interface Member {
-  value?: string
-  ref?: string
-  display?: string
-}
-
-export interface ScimGroup {
-  id?: string
-  externalId?: string
-  meta?: JsonNode
-  schemas?: string[]
-  displayName?: string
-  members?: Member[]
-}
-
-export interface ScimUser {
-  schemas?: string[]
-  userName?: string
-  displayName?: string
-  active?: boolean
-  emails?: JsonNode
-  roles?: JsonNode
-  name?: JsonNode
-  groups?: JsonNode
-  password?: JsonNode
-  id?: string
-  externalId?: string
-  meta?: JsonNode
 }
 
 export interface RestResponseSearchResults {
@@ -13724,13 +13962,748 @@ export interface RestResponseSearchResults {
   responseMessages?: ResponseMessage[]
 }
 
-export interface SearchResult {
-  id?: string
-  name?: string
+export interface RestResponseSecretManagerConfig {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: SecretManagerConfig
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseSecretManagerConfigDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: SecretManagerConfigDTO
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseSecretManagerMetadataDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: SecretManagerMetadataDTO
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseServerInfo {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ServerInfo
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseServerlessInstance {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ServerlessInstance
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseServerlessInstanceTimeline {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ServerlessInstanceTimeline
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseService {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Service
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseServiceCommand {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ServiceCommand
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseServiceGuardTimeSeries {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ServiceGuardTimeSeries
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseServiceInstanceDashboard {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ServiceInstanceDashboard
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseServiceInstanceStatistics {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ServiceInstanceStatistics
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseServiceTemplate {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ServiceTemplate
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseServiceVariable {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ServiceVariable
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseSetAppDynamicsTier {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AppDynamicsTier[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseSetAppdynamicsTier {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AppdynamicsTier[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseSetAppdynamicsValidationResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AppdynamicsValidationResponse[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseSetBugsnagApplication {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: BugsnagApplication[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseSetJobDetails {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: JobDetails[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseSetNewRelicMetricAnalysisRecord {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: NewRelicMetricAnalysisRecord[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseSetSecretSetupUsage {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: SecretSetupUsage[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseSetString {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: string[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseSetWorkflowExecutionBaseline {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: WorkflowExecutionBaseline[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseSettingAttribute {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: SettingAttribute
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseSortedSetTransactionTimeSeries {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: TransactionTimeSeries[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseSplunkValidationResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: SplunkValidationResponse
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseSpotinstElastigroupRunningCountData {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: SpotinstElastigroupRunningCountData
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseStateExecutionData {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: StateExecutionData
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseStateInspection {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: StateInspection
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseString {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: string
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseTaskSelectorMap {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: TaskSelectorMap
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseTemplate {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Template
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseTemplateFolder {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: TemplateFolder
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseTemplateGallery {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: TemplateGallery
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseTimeSeriesKeyTransactions {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: TimeSeriesKeyTransactions
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseTimeSeriesMLTransactionThresholds {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: TimeSeriesMLTransactionThresholds
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseTrafficShiftMetadata {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: TrafficShiftMetadata
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseTrigger {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Trigger
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseTwoFactorAdminOverrideSettings {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: TwoFactorAdminOverrideSettings
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseTwoFactorAuthenticationSettings {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: TwoFactorAuthenticationSettings
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseUsageRestrictions {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: UsageRestrictions
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseUsageRestrictionsReferenceSummary {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: UsageRestrictionsReferenceSummary
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseUser {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: User
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseUserDataSpecification {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: UserDataSpecification
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseUserGroup {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: UserGroup
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseUserInvite {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: UserInvite
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseUserPermissionInfo {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: UserPermissionInfo
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseValidationResult {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ValidationResult
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseVerificationNodeDataSetupResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: VerificationNodeDataSetupResponse
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseVersionPackage {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: VersionPackage
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseViewCustomField {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ViewCustomField
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseVirtualMachineScaleSetData {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: VirtualMachineScaleSetData
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseVoid {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Void
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseWebHookToken {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: WebHookToken
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseWebhookEventType {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: 'PULL_REQUEST' | 'PUSH' | 'REPO' | 'ISSUE' | 'PING' | 'DELETE' | 'ANY' | 'OTHER' | 'RELEASE' | 'PACKAGE'
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseWebhookParameters {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: WebhookParameters
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseWhitelist {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Whitelist
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseWorkflow {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Workflow
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseWorkflowCategorySteps {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: WorkflowCategorySteps
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseWorkflowExecution {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: WorkflowExecution
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseWorkflowExecutionBaseline {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: WorkflowExecutionBaseline
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseWorkflowExecutionInfo {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: WorkflowExecutionInfo
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseWorkflowPhase {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: WorkflowPhase
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseWorkflowVariablesMetadata {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: WorkflowVariablesMetadata
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseYamlGitConfig {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: YamlGitConfig
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseYamlHistory {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: YamlHistory
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseYamlOperationResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: YamlOperationResponse
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseYamlPayload {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: YamlPayload
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseYamlVersion {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: YamlVersion
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseZendeskSsoLoginResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ZendeskSsoLoginResponse
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestVerificationResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: VerificationResponse
+  responseMessages?: ResponseMessage[]
+}
+
+export interface Restriction {
+  appIds?: string[]
+  tags?: Tag[]
+  type?: 'APP_BASED' | 'TAG_BASED'
+}
+
+export interface RestrictionsSummary {
+  applications?: AppRestrictionsSummary[]
+  hasAllAppAccess?: boolean
+  hasAllNonProdEnvAccess?: boolean
+  hasAllProdEnvAccess?: boolean
+}
+
+export interface Role {
+  accountId?: string
+  allApps?: boolean
+  appId: string
+  appName?: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
   description?: string
+  lastUpdatedAt: number
+  name?: string
+  permissions?: Permission[]
+  roleType?: 'ACCOUNT_ADMIN' | 'APPLICATION_ADMIN' | 'PROD_SUPPORT' | 'NON_PROD_SUPPORT' | 'CUSTOM'
+  uuid: string
+}
+
+export interface RollbackConfirmation {
+  activeWorkflowExecution?: WorkflowExecution
+  artifacts?: Artifact[]
+  valid?: boolean
+  validationMessage?: string
+  workflowId?: string
+}
+
+export interface RollbackWorkflowExecutionInfo {
+  rollbackDuration?: number
+  rollbackStartTs?: number
+  rollbackStateExecutionId?: string
+  rollbackType?: 'MANUAL' | 'AUTO'
+}
+
+export type RollingOrchestrationWorkflow = OrchestrationWorkflow & {
+  derivedVariables?: Variable[]
+  failureStrategies?: FailureStrategy[]
+  graph?: Graph
+  postDeploymentSteps?: PhaseStep
+  preDeploymentSteps?: PhaseStep
+  rollbackProvisioners?: PhaseStep
+  rollbackWorkflowPhaseIdMap?: {
+    [key: string]: WorkflowPhase
+  }
+  systemVariables?: Variable[]
+  workflowPhases?: WorkflowPhase[]
+}
+
+export interface Rule {
+  apiGroups?: string
+  message?: string
+  resources?: string
+  verbs?: string
+}
+
+export interface RuntimeInfo {
+  deployMode?: string
+  primary?: boolean
+  primaryVersion?: string
+}
+
+export interface RuntimeInputsConfig {
+  runtimeInputVariables?: string[]
+  timeout?: number
+  timeoutAction?:
+    | 'MANUAL_INTERVENTION'
+    | 'ROLLBACK_WORKFLOW'
+    | 'ROLLBACK_PHASE'
+    | 'IGNORE'
+    | 'RETRY'
+    | 'END_EXECUTION'
+    | 'CONTINUE_WITH_DEFAULTS'
+    | 'ABORT_WORKFLOW_EXECUTION'
+  userGroupIds?: string[]
+}
+
+export interface SSOConfig {
+  accountId?: string
+  authenticationMechanism?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
+  ssoSettings?: SSOSettings[]
+}
+
+export interface SSORequest {
+  idpRedirectUrl?: string
+  oauthProviderType?: 'AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN'
+  oauthProviderTypes?: ('AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN')[]
+}
+
+export interface SSOSettings {
+  accountId?: string
+  appId: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  displayName?: string
+  lastUpdatedAt: number
+  type: 'SAML' | 'LDAP' | 'OAUTH'
+  url?: string
+  uuid: string
+}
+
+export interface SamlLinkGroupRequest {
+  samlGroupName?: string
+}
+
+export interface SampleAppEntityStatus {
+  entityName?: string
+  entityType?: string
+  health?: 'GOOD' | 'BAD'
+}
+
+export interface SampleAppStatus {
+  deploymentType?: string
+  health?: 'GOOD' | 'BAD'
+  statusList?: SampleAppEntityStatus[]
+}
+
+export interface SampleLog {
+  raw?: string
+  timestamp?: number
+}
+
+export type ScheduledTriggerCondition = TriggerCondition & {
+  cronDescription?: string
+  cronExpression?: string
+  onNewArtifactOnly?: boolean
+}
+
+export interface ScimGroup {
+  displayName?: string
+  externalId?: string
+  id?: string
+  members?: Member[]
+  meta?: JsonNode
+  schemas?: string[]
+}
+
+export interface ScimUser {
+  active?: boolean
+  displayName?: string
+  emails?: JsonNode
+  externalId?: string
+  groups?: JsonNode
+  id?: string
+  meta?: JsonNode
+  name?: JsonNode
+  password?: JsonNode
+  roles?: JsonNode
+  schemas?: string[]
+  userName?: string
+}
+
+export interface ScopingRuleDetails {
+  applicationId?: string
+  description?: string
+  environmentIds?: string[]
+  environmentTypeId?: string
+  serviceIds?: string[]
+}
+
+export interface ScopingRules {
+  scopingRuleDetails?: ScopingRuleDetails[]
+}
+
+export interface SearchResult {
   accountId?: string
   createdAt?: number
+  createdBy?: EmbeddedUser
+  description?: string
+  id?: string
   lastUpdatedAt?: number
+  lastUpdatedBy?: EmbeddedUser
+  name?: string
+  searchScore?: number
   type?:
     | 'SERVICE'
     | 'PROVISIONER'
@@ -13817,9 +14790,6 @@ export interface SearchResult {
     | 'SECRET'
     | 'CONNECTOR'
     | 'CLOUD_PROVIDER'
-  createdBy?: EmbeddedUser
-  lastUpdatedBy?: EmbeddedUser
-  searchScore?: number
 }
 
 export interface SearchResults {
@@ -13828,536 +14798,99 @@ export interface SearchResults {
   }
 }
 
-export interface AdvancedSearchQuery {
-  searchQuery?: string
-  numResults?: number
-  offset?: number
-  entities?: string[]
-}
-
-export interface Duration {
-  seconds?: number
-  nano?: number
-  units?: TemporalUnit[]
-  zero?: boolean
-  negative?: boolean
-}
-
-export interface LocalTime {
-  hour?: number
-  minute?: number
-  second?: number
-  nano?: number
-}
-
-export interface RestResponseServerInfo {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ServerInfo
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ServerInfo {
-  zoneId?: ZoneId
-}
-
-export interface TemporalUnit {
-  dateBased?: boolean
-  durationEstimated?: boolean
-  timeBased?: boolean
-  duration?: Duration
-}
-
-export interface ZoneId {
-  rules?: ZoneRules
-  id?: string
-}
-
-export interface ZoneOffset {
-  totalSeconds?: number
-  id?: string
-  rules?: ZoneRules
-}
-
-export interface ZoneOffsetTransition {
-  offsetBefore?: ZoneOffset
-  offsetAfter?: ZoneOffset
-  gap?: boolean
-  overlap?: boolean
-  dateTimeAfter?: string
-  duration?: Duration
-  dateTimeBefore?: string
-  instant?: number
-}
-
-export interface ZoneOffsetTransitionRule {
-  month?:
-    | 'JANUARY'
-    | 'FEBRUARY'
-    | 'MARCH'
-    | 'APRIL'
-    | 'MAY'
-    | 'JUNE'
-    | 'JULY'
-    | 'AUGUST'
-    | 'SEPTEMBER'
-    | 'OCTOBER'
-    | 'NOVEMBER'
-    | 'DECEMBER'
-  timeDefinition?: 'UTC' | 'WALL' | 'STANDARD'
-  standardOffset?: ZoneOffset
-  offsetBefore?: ZoneOffset
-  offsetAfter?: ZoneOffset
-  dayOfWeek?: 'MONDAY' | 'TUESDAY' | 'WEDNESDAY' | 'THURSDAY' | 'FRIDAY' | 'SATURDAY' | 'SUNDAY'
-  dayOfMonthIndicator?: number
-  localTime?: LocalTime
-  midnightEndOfDay?: boolean
-}
-
-export interface ZoneRules {
-  transitions?: ZoneOffsetTransition[]
-  fixedOffset?: boolean
-  transitionRules?: ZoneOffsetTransitionRule[]
-}
-
-export interface RestResponseServerlessInstanceTimeline {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ServerlessInstanceTimeline
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ServerlessInstanceTimeline {
-  points?: DataPoint[]
-}
-
-export interface AwsLambdaInstanceKey {
-  functionName?: string
-  functionVersion?: string
-}
-
-export interface RestResponseServerlessInstance {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ServerlessInstance
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ServerlessInstance {
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
+export interface SecretChangeLog {
+  accountId?: string
   createdAt?: number
+  createdBy?: EmbeddedUser
+  description?: string
+  encryptedDataId?: string
+  external?: boolean
+  lastUpdatedAt: number
   lastUpdatedBy?: EmbeddedUser
-  lastUpdatedAt: number
-  instanceType?: 'AWS_LAMBDA'
-  lambdaInstanceKey?: AwsLambdaInstanceKey
-  envId?: string
-  envName?: string
-  envType?: 'PROD' | 'NON_PROD' | 'ALL'
-  accountId?: string
-  appName?: string
-  serviceId?: string
-  serviceName?: string
-  computeProviderId?: string
-  computeProviderName?: string
-  infraMappingId?: string
-  infraMappingName?: string
-  infraMappingType?: string
-  lastPipelineExecutionId?: string
-  lastPipelineExecutionName?: string
-  lastDeployedAt?: number
-  lastDeployedById?: string
-  lastDeployedByName?: string
-  lastWorkflowExecutionId?: string
-  lastWorkflowExecutionName?: string
-  lastArtifactSourceName?: string
-  lastArtifactStreamId?: string
-  lastArtifactBuildNum?: string
-  lastArtifactId?: string
-  lastArtifactName?: string
-  instanceInfo?: ServerlessInstanceInfo
-  deletedAt?: number
-  deleted?: boolean
-}
-
-export interface ServerlessInstanceInfo {
-  invocationCountMap?: {
-    [key: string]: InvocationCount
-  }
-}
-
-export interface RestResponsePageResponseServiceInstance {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ServiceInstance[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface PcfServiceSpecification {
-  serviceId: string
-  manifestYaml: string
+  user: EmbeddedUser
   uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  accountId?: string
 }
 
-export interface RestResponsePcfServiceSpecification {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: PcfServiceSpecification
-  responseMessages?: ResponseMessage[]
+export interface SecretDetail {
+  configUuid?: string
+  encryptedRecord?: EncryptedRecord
 }
 
-export interface EcsServiceSpecification {
-  serviceId: string
-  serviceSpecJson?: string
-  schedulingStrategy?: string
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  accountId?: string
-}
-
-export interface RestResponseEcsServiceSpecification {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: EcsServiceSpecification
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseServiceCommand {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ServiceCommand
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseService {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Service
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponsePageResponseService {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Service[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListArtifactStream {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ArtifactStream[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ContainerDefinition {
-  portMappings?: PortMapping[]
+export interface SecretEngineSummary {
+  description?: string
   name?: string
-  commands?: string[]
-  cpu?: number
-  memory?: number
-  logConfiguration?: LogConfiguration
-  storageConfigurations?: StorageConfiguration[]
+  type?: string
+  version?: number
 }
 
-export interface ContainerTask {
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
+export interface SecretManagerConfig {
   accountId?: string
-  deploymentType?: string
-  serviceId?: string
-  advancedConfig?: string
-  containerDefinitions?: ContainerDefinition[]
-}
-
-export interface LogConfiguration {
-  logDriver?: string
-  options?: LogOption[]
-}
-
-export interface LogOption {
-  key?: string
-  value?: string
-}
-
-export interface PortMapping {
-  containerPort?: number
-  hostPort?: number
-}
-
-export interface RestResponseContainerTask {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ContainerTask
-  responseMessages?: ResponseMessage[]
-}
-
-export interface StorageConfiguration {
-  hostSourcePath?: string
-  containerPath?: string
-  readonly?: boolean
-}
-
-export interface RestResponsePageResponseContainerTask {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ContainerTask[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface HelmChartSpecification {
-  serviceId?: string
-  chartUrl: string
-  chartName: string
-  chartVersion: string
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
   createdAt?: number
-  lastUpdatedAt: number
-  accountId?: string
-}
-
-export interface RestResponseHelmChartSpecification {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: HelmChartSpecification
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponsePageResponseHelmChartSpecification {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: HelmChartSpecification[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface DefaultSpecification {
-  runtime?: string
-  memorySize?: number
-  timeout?: number
-}
-
-export interface FunctionSpecification {
-  runtime?: string
-  memorySize?: number
-  timeout?: number
-  functionName?: string
-  handler?: string
-}
-
-export interface LambdaSpecification {
-  serviceId?: string
-  defaults?: DefaultSpecification
-  functions?: FunctionSpecification[]
-  uuid: string
-  appId: string
   createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  accountId?: string
-}
-
-export interface RestResponseLambdaSpecification {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: LambdaSpecification
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponsePageResponseLambdaSpecification {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: LambdaSpecification[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseUserDataSpecification {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: UserDataSpecification
-  responseMessages?: ResponseMessage[]
-}
-
-export interface UserDataSpecification {
-  serviceId?: string
-  data: string
+  default?: boolean
+  encryptedBy?: string
+  encryptionServiceUrl?: string
+  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  lastUpdatedAt?: number
+  lastUpdatedBy?: EmbeddedUser
+  manuallyEnteredSecretEngineMigrationIteration?: number
+  name?: string
+  nextTokenRenewIteration?: number
+  ngMetadata?: NGSecretManagerMetadata
+  numOfEncryptedValue?: number
+  scopedToAccount?: boolean
+  templatized?: boolean
+  templatizedFields?: string[]
+  usageRestrictions?: UsageRestrictions
   uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  accountId?: string
+  validationCriteria?: string
 }
 
-export interface RestResponsePageResponseUserDataSpecification {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: UserDataSpecification[]
-  responseMessages?: ResponseMessage[]
+export interface SecretManagerConfigDTO {
+  accountIdentifier?: string
+  default?: boolean
+  description?: string
+  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  identifier?: string
+  name?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  tags?: string[]
 }
 
-export interface CommandCategory {
-  type?: 'COMMANDS' | 'COPY' | 'SCRIPTS' | 'VERIFICATIONS'
-  displayName?: string
-  commandUnits?: CommandUnit[]
+export interface SecretManagerConfigUpdateDTO {
+  default?: boolean
+  description?: string
+  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  tags?: string[]
 }
 
-export interface RestResponseListCommandCategory {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: CommandCategory[]
-  responseMessages?: ResponseMessage[]
+export interface SecretManagerMetadataDTO {
+  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  spec?: SecretManagerMetadataSpecDTO
 }
 
-export interface RestResponseListApplicationManifest {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ApplicationManifest[]
-  responseMessages?: ResponseMessage[]
+export interface SecretManagerMetadataRequestDTO {
+  encryptionType: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  identifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  spec: SecretManagerMetadataRequestSpecDTO
 }
 
-export interface RestResponseListArtifactStreamBinding {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ArtifactStreamBinding[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseArtifactStreamBinding {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ArtifactStreamBinding
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponsePageResponseHelmChart {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: HelmChart[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseServiceTemplate {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ServiceTemplate
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponsePageResponseServiceTemplate {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ServiceTemplate[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListConfigFile {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ConfigFile[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseServiceVariable {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ServiceVariable
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponsePageResponseServiceVariable {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ServiceVariable[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface AppEnvRestriction {
-  appFilter?: GenericEntityFilter
-  envFilter?: EnvFilter
-}
-
-export interface ConnectivityValidationAttributes {
+export interface SecretManagerMetadataRequestSpecDTO {
   [key: string]: any
 }
 
-export interface RestResponseSettingAttribute {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: SettingAttribute
-  responseMessages?: ResponseMessage[]
+export interface SecretManagerMetadataSpecDTO {
+  [key: string]: any
 }
 
-export interface SettingAttribute {
-  envId?: string
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  accountId?: string
-  name?: string
-  value?: SettingValue
-  validationAttributes?: ConnectivityValidationAttributes
-  category?: 'CLOUD_PROVIDER' | 'CONNECTOR' | 'SETTING' | 'HELM_REPO' | 'AZURE_ARTIFACTS' | 'CE_CONNECTOR'
-  appIds?: string[]
-  usageRestrictions?: UsageRestrictions
-  artifactStreamCount?: number
-  artifactStreams?: ArtifactStreamSummary[]
-  sample?: boolean
-  nextIteration?: number
-  nextSecretMigrationIteration?: number
-  secretsMigrated?: boolean
-  connectivityError?: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
-  encryptedBy?: string
-}
-
-export interface SettingValue {
-  type?: string
-  settingType?:
+export interface SecretSetupUsage {
+  entity?: UuidAware
+  entityId?: string
+  fieldName?: string
+  type?:
     | 'HOST_CONNECTION_ATTRIBUTES'
     | 'BASTION_HOST_CONNECTION_ATTRIBUTES'
     | 'SMTP'
@@ -14429,1103 +14962,257 @@ export interface SettingValue {
     | 'GIT_NG'
 }
 
-export interface UsageRestrictions {
-  appEnvRestrictions?: AppEnvRestriction[]
-}
-
-export interface RestResponsePageResponseSettingAttribute {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: SettingAttribute[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseValidationResult {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ValidationResult
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ValidationResult {
-  valid?: boolean
-  errorMessage?: string
-}
-
-export interface UpdatePasswordRequest {
-  password?: string
-}
-
-export interface UserInvite {
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  accountId?: string
-  email?: string
-  roles?: Role[]
-  userGroups?: UserGroup[]
-  completed?: boolean
-  source?: UserInviteSource
-  agreement?: boolean
+export interface SecretText {
+  hideFromListing?: boolean
+  inheritScopesFromSM?: boolean
+  inlineSecret?: boolean
+  kmsId?: string
   name?: string
-  givenName?: string
-  familyName?: string
-  phone?: string
-  country?: string
-  state?: string
-  freemiumProducts?: string[]
-  freemiumAssistedOption?: boolean
-  password?: string[]
-  accountName?: string
-  companyName?: string
-  marketPlaceToken?: string
-  importedByScim?: boolean
-  utmInfo?: UtmInfo
-}
-
-export interface SignupUser {
-  email: string
-  password: string
-}
-
-export interface UserInviteSource {
-  type?: 'MANUAL' | 'SSO' | 'TRIAL' | 'MARKETPLACE' | 'MARKETO_LINKEDIN' | 'AZURE_MARKETPLACE' | 'ONPREM'
-  uuid?: string
-}
-
-export interface SplunkSetupTestNodeData {
-  appId: string
-  settingId: string
-  instanceName?: string
-  isServiceLevel?: boolean
-  instanceElement?: Instance
-  hostExpression?: string
-  workflowId?: string
-  guid?: string
-  stateType?:
-    | 'SUB_WORKFLOW'
-    | 'REPEAT'
-    | 'FORK'
-    | 'WAIT'
-    | 'PAUSE'
-    | 'BARRIER'
-    | 'RESOURCE_CONSTRAINT'
-    | 'SHELL_SCRIPT'
-    | 'HTTP'
-    | 'TEMPLATIZED_SECRET_MANAGER'
-    | 'EMAIL'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'NEW_RELIC_DEPLOYMENT_MARKER'
-    | 'DYNA_TRACE'
-    | 'PROMETHEUS'
-    | 'SPLUNKV2'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'AWS_LAMBDA_VERIFICATION'
-    | 'APM_VERIFICATION'
-    | 'LOG_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'STACK_DRIVER'
-    | 'STACK_DRIVER_LOG'
-    | 'INSTANA'
-    | 'SCALYR'
-    | 'ENV_STATE'
-    | 'ENV_LOOP_STATE'
-    | 'ENV_RESUME_STATE'
-    | 'ENV_LOOP_RESUME_STATE'
-    | 'COMMAND'
-    | 'APPROVAL'
-    | 'APPROVAL_RESUME'
-    | 'ELASTIC_LOAD_BALANCER'
-    | 'JENKINS'
-    | 'GCB'
-    | 'BAMBOO'
-    | 'ARTIFACT_COLLECTION'
-    | 'ARTIFACT_CHECK'
-    | 'AZURE_NODE_SELECT'
-    | 'AZURE_VMSS_SETUP'
-    | 'AZURE_VMSS_DEPLOY'
-    | 'AZURE_VMSS_ROLLBACK'
-    | 'AZURE_VMSS_SWITCH_ROUTES'
-    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
-    | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
-    | 'AZURE_WEBAPP_SLOT_SWAP'
-    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
-    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
-    | 'AWS_NODE_SELECT'
-    | 'DC_NODE_SELECT'
-    | 'ROLLING_NODE_SELECT'
-    | 'PHASE'
-    | 'PHASE_STEP'
-    | 'STAGING_ORIGINAL_EXECUTION'
-    | 'AWS_CODEDEPLOY_STATE'
-    | 'AWS_CODEDEPLOY_ROLLBACK'
-    | 'AWS_LAMBDA_STATE'
-    | 'AWS_LAMBDA_ROLLBACK'
-    | 'AWS_AMI_SERVICE_SETUP'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
-    | 'AWS_AMI_SERVICE_DEPLOY'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
-    | 'AWS_AMI_SWITCH_ROUTES'
-    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
-    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_SERVICE_ROLLBACK'
-    | 'ECS_SERVICE_SETUP'
-    | 'SPOTINST_SETUP'
-    | 'SPOTINST_ALB_SHIFT_SETUP'
-    | 'SPOTINST_DEPLOY'
-    | 'SPOTINST_ALB_SHIFT_DEPLOY'
-    | 'SPOTINST_LISTENER_UPDATE'
-    | 'SPOTINST_LISTENER_ALB_SHIFT'
-    | 'SPOTINST_ROLLBACK'
-    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
-    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
-    | 'ECS_SERVICE_SETUP_ROLLBACK'
-    | 'ECS_DAEMON_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
-    | 'ECS_SERVICE_DEPLOY'
-    | 'ECS_SERVICE_ROLLBACK'
-    | 'ECS_LISTENER_UPDATE'
-    | 'ECS_LISTENER_UPDATE_ROLLBACK'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
-    | 'KUBERNETES_SETUP'
-    | 'KUBERNETES_SETUP_ROLLBACK'
-    | 'KUBERNETES_DEPLOY'
-    | 'KUBERNETES_DEPLOY_ROLLBACK'
-    | 'KUBERNETES_STEADY_STATE_CHECK'
-    | 'ECS_STEADY_STATE_CHECK'
-    | 'ECS_RUN_TASK'
-    | 'GCP_CLUSTER_SETUP'
-    | 'HELM_DEPLOY'
-    | 'HELM_ROLLBACK'
-    | 'PCF_SETUP'
-    | 'PCF_RESIZE'
-    | 'PCF_ROLLBACK'
-    | 'PCF_MAP_ROUTE'
-    | 'PCF_UNMAP_ROUTE'
-    | 'PCF_BG_MAP_ROUTE'
-    | 'PCF_PLUGIN'
-    | 'TERRAFORM_PROVISION'
-    | 'TERRAFORM_APPLY'
-    | 'SHELL_SCRIPT_PROVISION'
-    | 'TERRAFORM_DESTROY'
-    | 'CLOUD_FORMATION_CREATE_STACK'
-    | 'CLOUD_FORMATION_DELETE_STACK'
-    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
-    | 'CLOUD_FORMATION_ROLLBACK_STACK'
-    | 'TERRAFORM_ROLLBACK'
-    | 'K8S_DEPLOYMENT_ROLLING'
-    | 'K8S_SCALE'
-    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
-    | 'K8S_BLUE_GREEN_DEPLOY'
-    | 'K8S_CANARY_DEPLOY'
-    | 'K8S_DELETE'
-    | 'JIRA_CREATE_UPDATE'
-    | 'SERVICENOW_CREATE_UPDATE'
-    | 'K8S_TRAFFIC_SPLIT'
-    | 'K8S_APPLY'
-    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
-  toTime?: number
-  fromTime?: number
-  query: string
-  hostNameField?: string
-  advancedQuery?: boolean
-  serviceLevel?: boolean
-}
-
-export interface Aggregation {
-  perSeriesAligner?: string
-  crossSeriesReducer?: string
-  groupByFields?: string[]
-}
-
-export interface StackDriverMetric {
-  metricName?: string
-  metric?: string
-  displayName?: string
-  unit?: string
-  kind?: string
-  valueType?: string
-}
-
-export interface StackDriverMetricDefinition {
-  metricType?: string
-  metricName?: string
-  txnName?: string
-  filterJson?: string
-  filter?: string
-  aggregation?: Aggregation
-}
-
-export interface StackDriverSetupTestNodeData {
-  appId: string
-  settingId: string
-  instanceName?: string
-  isServiceLevel?: boolean
-  instanceElement?: Instance
-  hostExpression?: string
-  workflowId?: string
-  guid?: string
-  stateType?:
-    | 'SUB_WORKFLOW'
-    | 'REPEAT'
-    | 'FORK'
-    | 'WAIT'
-    | 'PAUSE'
-    | 'BARRIER'
-    | 'RESOURCE_CONSTRAINT'
-    | 'SHELL_SCRIPT'
-    | 'HTTP'
-    | 'TEMPLATIZED_SECRET_MANAGER'
-    | 'EMAIL'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'NEW_RELIC_DEPLOYMENT_MARKER'
-    | 'DYNA_TRACE'
-    | 'PROMETHEUS'
-    | 'SPLUNKV2'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'AWS_LAMBDA_VERIFICATION'
-    | 'APM_VERIFICATION'
-    | 'LOG_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'STACK_DRIVER'
-    | 'STACK_DRIVER_LOG'
-    | 'INSTANA'
-    | 'SCALYR'
-    | 'ENV_STATE'
-    | 'ENV_LOOP_STATE'
-    | 'ENV_RESUME_STATE'
-    | 'ENV_LOOP_RESUME_STATE'
-    | 'COMMAND'
-    | 'APPROVAL'
-    | 'APPROVAL_RESUME'
-    | 'ELASTIC_LOAD_BALANCER'
-    | 'JENKINS'
-    | 'GCB'
-    | 'BAMBOO'
-    | 'ARTIFACT_COLLECTION'
-    | 'ARTIFACT_CHECK'
-    | 'AZURE_NODE_SELECT'
-    | 'AZURE_VMSS_SETUP'
-    | 'AZURE_VMSS_DEPLOY'
-    | 'AZURE_VMSS_ROLLBACK'
-    | 'AZURE_VMSS_SWITCH_ROUTES'
-    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
-    | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
-    | 'AZURE_WEBAPP_SLOT_SWAP'
-    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
-    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
-    | 'AWS_NODE_SELECT'
-    | 'DC_NODE_SELECT'
-    | 'ROLLING_NODE_SELECT'
-    | 'PHASE'
-    | 'PHASE_STEP'
-    | 'STAGING_ORIGINAL_EXECUTION'
-    | 'AWS_CODEDEPLOY_STATE'
-    | 'AWS_CODEDEPLOY_ROLLBACK'
-    | 'AWS_LAMBDA_STATE'
-    | 'AWS_LAMBDA_ROLLBACK'
-    | 'AWS_AMI_SERVICE_SETUP'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
-    | 'AWS_AMI_SERVICE_DEPLOY'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
-    | 'AWS_AMI_SWITCH_ROUTES'
-    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
-    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_SERVICE_ROLLBACK'
-    | 'ECS_SERVICE_SETUP'
-    | 'SPOTINST_SETUP'
-    | 'SPOTINST_ALB_SHIFT_SETUP'
-    | 'SPOTINST_DEPLOY'
-    | 'SPOTINST_ALB_SHIFT_DEPLOY'
-    | 'SPOTINST_LISTENER_UPDATE'
-    | 'SPOTINST_LISTENER_ALB_SHIFT'
-    | 'SPOTINST_ROLLBACK'
-    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
-    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
-    | 'ECS_SERVICE_SETUP_ROLLBACK'
-    | 'ECS_DAEMON_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
-    | 'ECS_SERVICE_DEPLOY'
-    | 'ECS_SERVICE_ROLLBACK'
-    | 'ECS_LISTENER_UPDATE'
-    | 'ECS_LISTENER_UPDATE_ROLLBACK'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
-    | 'KUBERNETES_SETUP'
-    | 'KUBERNETES_SETUP_ROLLBACK'
-    | 'KUBERNETES_DEPLOY'
-    | 'KUBERNETES_DEPLOY_ROLLBACK'
-    | 'KUBERNETES_STEADY_STATE_CHECK'
-    | 'ECS_STEADY_STATE_CHECK'
-    | 'ECS_RUN_TASK'
-    | 'GCP_CLUSTER_SETUP'
-    | 'HELM_DEPLOY'
-    | 'HELM_ROLLBACK'
-    | 'PCF_SETUP'
-    | 'PCF_RESIZE'
-    | 'PCF_ROLLBACK'
-    | 'PCF_MAP_ROUTE'
-    | 'PCF_UNMAP_ROUTE'
-    | 'PCF_BG_MAP_ROUTE'
-    | 'PCF_PLUGIN'
-    | 'TERRAFORM_PROVISION'
-    | 'TERRAFORM_APPLY'
-    | 'SHELL_SCRIPT_PROVISION'
-    | 'TERRAFORM_DESTROY'
-    | 'CLOUD_FORMATION_CREATE_STACK'
-    | 'CLOUD_FORMATION_DELETE_STACK'
-    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
-    | 'CLOUD_FORMATION_ROLLBACK_STACK'
-    | 'TERRAFORM_ROLLBACK'
-    | 'K8S_DEPLOYMENT_ROLLING'
-    | 'K8S_SCALE'
-    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
-    | 'K8S_BLUE_GREEN_DEPLOY'
-    | 'K8S_CANARY_DEPLOY'
-    | 'K8S_DELETE'
-    | 'JIRA_CREATE_UPDATE'
-    | 'SERVICENOW_CREATE_UPDATE'
-    | 'K8S_TRAFFIC_SPLIT'
-    | 'K8S_APPLY'
-    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
-  toTime?: number
-  fromTime?: number
-  loadBalancerMetrics?: {
-    [key: string]: StackDriverMetric[]
+  parameterizedSecret?: boolean
+  parameters?: EncryptedDataParams[]
+  path?: string
+  referencedSecret?: boolean
+  runtimeParameters?: {
+    [key: string]: string
   }
-  podMetrics?: StackDriverMetric[]
-  query?: string
-  hostnameField?: string
-  messageField?: string
-  metricDefinitions?: StackDriverMetricDefinition[]
-  logConfiguration?: boolean
-  serviceLevel?: boolean
+  scopedToAccount?: boolean
+  usageRestrictions?: UsageRestrictions
+  value?: string
 }
 
-export interface RestResponseListStackDriverMetric {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: StackDriverMetric[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseServiceInstanceStatistics {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ServiceInstanceStatistics
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ServiceInstanceStatistics {
-  statsMap?: {
-    [key: string]: TopConsumer[]
-  }
-  type?: 'DEPLOYMENT' | 'SERVICE_INSTANCE_STATISTICS'
-}
-
-export interface TopConsumer {
-  appId?: string
-  appName?: string
-  serviceId?: string
-  serviceName?: string
-  successfulActivityCount?: number
-  failedActivityCount?: number
-  totalCount?: number
-}
-
-export interface AggregatedDayStats {
-  totalCount?: number
-  failedCount?: number
-  instancesCount?: number
-  daysStats?: DayStat[]
-}
-
-export interface DayStat {
-  totalCount?: number
-  failedCount?: number
-  instancesCount?: number
-  date?: number
-}
-
-export interface DeploymentStatistics {
-  statsMap?: {
-    [key: string]: AggregatedDayStats
-  }
-  type?: 'DEPLOYMENT' | 'SERVICE_INSTANCE_STATISTICS'
-}
-
-export interface RestResponseDeploymentStatistics {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DeploymentStatistics
-  responseMessages?: ResponseMessage[]
-}
-
-export interface SumoLogicSetupTestNodedata {
-  appId: string
-  settingId: string
-  instanceName?: string
-  isServiceLevel?: boolean
-  instanceElement?: Instance
-  hostExpression?: string
-  workflowId?: string
-  guid?: string
-  stateType?:
-    | 'SUB_WORKFLOW'
-    | 'REPEAT'
-    | 'FORK'
-    | 'WAIT'
-    | 'PAUSE'
-    | 'BARRIER'
-    | 'RESOURCE_CONSTRAINT'
-    | 'SHELL_SCRIPT'
-    | 'HTTP'
-    | 'TEMPLATIZED_SECRET_MANAGER'
-    | 'EMAIL'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'NEW_RELIC_DEPLOYMENT_MARKER'
-    | 'DYNA_TRACE'
-    | 'PROMETHEUS'
-    | 'SPLUNKV2'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'AWS_LAMBDA_VERIFICATION'
-    | 'APM_VERIFICATION'
-    | 'LOG_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'STACK_DRIVER'
-    | 'STACK_DRIVER_LOG'
-    | 'INSTANA'
-    | 'SCALYR'
-    | 'ENV_STATE'
-    | 'ENV_LOOP_STATE'
-    | 'ENV_RESUME_STATE'
-    | 'ENV_LOOP_RESUME_STATE'
-    | 'COMMAND'
-    | 'APPROVAL'
-    | 'APPROVAL_RESUME'
-    | 'ELASTIC_LOAD_BALANCER'
-    | 'JENKINS'
-    | 'GCB'
-    | 'BAMBOO'
-    | 'ARTIFACT_COLLECTION'
-    | 'ARTIFACT_CHECK'
-    | 'AZURE_NODE_SELECT'
-    | 'AZURE_VMSS_SETUP'
-    | 'AZURE_VMSS_DEPLOY'
-    | 'AZURE_VMSS_ROLLBACK'
-    | 'AZURE_VMSS_SWITCH_ROUTES'
-    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
-    | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
-    | 'AZURE_WEBAPP_SLOT_SWAP'
-    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
-    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
-    | 'AWS_NODE_SELECT'
-    | 'DC_NODE_SELECT'
-    | 'ROLLING_NODE_SELECT'
-    | 'PHASE'
-    | 'PHASE_STEP'
-    | 'STAGING_ORIGINAL_EXECUTION'
-    | 'AWS_CODEDEPLOY_STATE'
-    | 'AWS_CODEDEPLOY_ROLLBACK'
-    | 'AWS_LAMBDA_STATE'
-    | 'AWS_LAMBDA_ROLLBACK'
-    | 'AWS_AMI_SERVICE_SETUP'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
-    | 'AWS_AMI_SERVICE_DEPLOY'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
-    | 'AWS_AMI_SWITCH_ROUTES'
-    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
-    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_SERVICE_ROLLBACK'
-    | 'ECS_SERVICE_SETUP'
-    | 'SPOTINST_SETUP'
-    | 'SPOTINST_ALB_SHIFT_SETUP'
-    | 'SPOTINST_DEPLOY'
-    | 'SPOTINST_ALB_SHIFT_DEPLOY'
-    | 'SPOTINST_LISTENER_UPDATE'
-    | 'SPOTINST_LISTENER_ALB_SHIFT'
-    | 'SPOTINST_ROLLBACK'
-    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
-    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
-    | 'ECS_SERVICE_SETUP_ROLLBACK'
-    | 'ECS_DAEMON_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
-    | 'ECS_SERVICE_DEPLOY'
-    | 'ECS_SERVICE_ROLLBACK'
-    | 'ECS_LISTENER_UPDATE'
-    | 'ECS_LISTENER_UPDATE_ROLLBACK'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
-    | 'KUBERNETES_SETUP'
-    | 'KUBERNETES_SETUP_ROLLBACK'
-    | 'KUBERNETES_DEPLOY'
-    | 'KUBERNETES_DEPLOY_ROLLBACK'
-    | 'KUBERNETES_STEADY_STATE_CHECK'
-    | 'ECS_STEADY_STATE_CHECK'
-    | 'ECS_RUN_TASK'
-    | 'GCP_CLUSTER_SETUP'
-    | 'HELM_DEPLOY'
-    | 'HELM_ROLLBACK'
-    | 'PCF_SETUP'
-    | 'PCF_RESIZE'
-    | 'PCF_ROLLBACK'
-    | 'PCF_MAP_ROUTE'
-    | 'PCF_UNMAP_ROUTE'
-    | 'PCF_BG_MAP_ROUTE'
-    | 'PCF_PLUGIN'
-    | 'TERRAFORM_PROVISION'
-    | 'TERRAFORM_APPLY'
-    | 'SHELL_SCRIPT_PROVISION'
-    | 'TERRAFORM_DESTROY'
-    | 'CLOUD_FORMATION_CREATE_STACK'
-    | 'CLOUD_FORMATION_DELETE_STACK'
-    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
-    | 'CLOUD_FORMATION_ROLLBACK_STACK'
-    | 'TERRAFORM_ROLLBACK'
-    | 'K8S_DEPLOYMENT_ROLLING'
-    | 'K8S_SCALE'
-    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
-    | 'K8S_BLUE_GREEN_DEPLOY'
-    | 'K8S_CANARY_DEPLOY'
-    | 'K8S_DELETE'
-    | 'JIRA_CREATE_UPDATE'
-    | 'SERVICENOW_CREATE_UPDATE'
-    | 'K8S_TRAFFIC_SPLIT'
-    | 'K8S_APPLY'
-    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
-  toTime?: number
-  fromTime?: number
-  query?: string
-  hostNameField?: string
-  serviceLevel?: boolean
-}
-
-export interface NewRelicMetricAnalysis {
-  metricName?: string
-  riskLevel?: 'HIGH' | 'MEDIUM' | 'LOW' | 'NA'
-  metricValues?: NewRelicMetricAnalysisValue[]
-  displayName?: string
-  fullMetricName?: string
-  tag?: string
-}
-
-export interface NewRelicMetricAnalysisRecord {
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  stateType?:
-    | 'SUB_WORKFLOW'
-    | 'REPEAT'
-    | 'FORK'
-    | 'WAIT'
-    | 'PAUSE'
-    | 'BARRIER'
-    | 'RESOURCE_CONSTRAINT'
-    | 'SHELL_SCRIPT'
-    | 'HTTP'
-    | 'TEMPLATIZED_SECRET_MANAGER'
-    | 'EMAIL'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'NEW_RELIC_DEPLOYMENT_MARKER'
-    | 'DYNA_TRACE'
-    | 'PROMETHEUS'
-    | 'SPLUNKV2'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'AWS_LAMBDA_VERIFICATION'
-    | 'APM_VERIFICATION'
-    | 'LOG_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'STACK_DRIVER'
-    | 'STACK_DRIVER_LOG'
-    | 'INSTANA'
-    | 'SCALYR'
-    | 'ENV_STATE'
-    | 'ENV_LOOP_STATE'
-    | 'ENV_RESUME_STATE'
-    | 'ENV_LOOP_RESUME_STATE'
-    | 'COMMAND'
-    | 'APPROVAL'
-    | 'APPROVAL_RESUME'
-    | 'ELASTIC_LOAD_BALANCER'
-    | 'JENKINS'
-    | 'GCB'
-    | 'BAMBOO'
-    | 'ARTIFACT_COLLECTION'
-    | 'ARTIFACT_CHECK'
-    | 'AZURE_NODE_SELECT'
-    | 'AZURE_VMSS_SETUP'
-    | 'AZURE_VMSS_DEPLOY'
-    | 'AZURE_VMSS_ROLLBACK'
-    | 'AZURE_VMSS_SWITCH_ROUTES'
-    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
-    | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
-    | 'AZURE_WEBAPP_SLOT_SWAP'
-    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
-    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
-    | 'AWS_NODE_SELECT'
-    | 'DC_NODE_SELECT'
-    | 'ROLLING_NODE_SELECT'
-    | 'PHASE'
-    | 'PHASE_STEP'
-    | 'STAGING_ORIGINAL_EXECUTION'
-    | 'AWS_CODEDEPLOY_STATE'
-    | 'AWS_CODEDEPLOY_ROLLBACK'
-    | 'AWS_LAMBDA_STATE'
-    | 'AWS_LAMBDA_ROLLBACK'
-    | 'AWS_AMI_SERVICE_SETUP'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
-    | 'AWS_AMI_SERVICE_DEPLOY'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
-    | 'AWS_AMI_SWITCH_ROUTES'
-    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
-    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_SERVICE_ROLLBACK'
-    | 'ECS_SERVICE_SETUP'
-    | 'SPOTINST_SETUP'
-    | 'SPOTINST_ALB_SHIFT_SETUP'
-    | 'SPOTINST_DEPLOY'
-    | 'SPOTINST_ALB_SHIFT_DEPLOY'
-    | 'SPOTINST_LISTENER_UPDATE'
-    | 'SPOTINST_LISTENER_ALB_SHIFT'
-    | 'SPOTINST_ROLLBACK'
-    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
-    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
-    | 'ECS_SERVICE_SETUP_ROLLBACK'
-    | 'ECS_DAEMON_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
-    | 'ECS_SERVICE_DEPLOY'
-    | 'ECS_SERVICE_ROLLBACK'
-    | 'ECS_LISTENER_UPDATE'
-    | 'ECS_LISTENER_UPDATE_ROLLBACK'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
-    | 'KUBERNETES_SETUP'
-    | 'KUBERNETES_SETUP_ROLLBACK'
-    | 'KUBERNETES_DEPLOY'
-    | 'KUBERNETES_DEPLOY_ROLLBACK'
-    | 'KUBERNETES_STEADY_STATE_CHECK'
-    | 'ECS_STEADY_STATE_CHECK'
-    | 'ECS_RUN_TASK'
-    | 'GCP_CLUSTER_SETUP'
-    | 'HELM_DEPLOY'
-    | 'HELM_ROLLBACK'
-    | 'PCF_SETUP'
-    | 'PCF_RESIZE'
-    | 'PCF_ROLLBACK'
-    | 'PCF_MAP_ROUTE'
-    | 'PCF_UNMAP_ROUTE'
-    | 'PCF_BG_MAP_ROUTE'
-    | 'PCF_PLUGIN'
-    | 'TERRAFORM_PROVISION'
-    | 'TERRAFORM_APPLY'
-    | 'SHELL_SCRIPT_PROVISION'
-    | 'TERRAFORM_DESTROY'
-    | 'CLOUD_FORMATION_CREATE_STACK'
-    | 'CLOUD_FORMATION_DELETE_STACK'
-    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
-    | 'CLOUD_FORMATION_ROLLBACK_STACK'
-    | 'TERRAFORM_ROLLBACK'
-    | 'K8S_DEPLOYMENT_ROLLING'
-    | 'K8S_SCALE'
-    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
-    | 'K8S_BLUE_GREEN_DEPLOY'
-    | 'K8S_CANARY_DEPLOY'
-    | 'K8S_DELETE'
-    | 'JIRA_CREATE_UPDATE'
-    | 'SERVICENOW_CREATE_UPDATE'
-    | 'K8S_TRAFFIC_SPLIT'
-    | 'K8S_APPLY'
-    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
-  message?: string
-  riskLevel?: 'HIGH' | 'MEDIUM' | 'LOW' | 'NA'
-  workflowExecutionId?: string
-  stateExecutionId?: string
-  accountId?: string
-  cvConfigId?: string
-  metricAnalyses?: NewRelicMetricAnalysis[]
-  analysisMinute?: number
-  showTimeSeries?: boolean
-  baseLineExecutionId?: string
-  groupName?: string
-  dependencyPath?: string
-  mlAnalysisType?: 'COMPARATIVE' | 'PREDICTIVE' | 'TIMESERIES_24x7'
-  progress?: number
-}
-
-export interface NewRelicMetricAnalysisValue {
+export interface SecretTextDTO {
+  account?: string
+  description?: string
+  identifier?: string
   name?: string
-  type?: string
-  alertType?: string
-  riskLevel?: 'HIGH' | 'MEDIUM' | 'LOW' | 'NA'
-  testValue?: number
-  controlValue?: number
-  hostAnalysisValues?: NewRelicMetricHostAnalysisValue[]
-}
-
-export interface NewRelicMetricHostAnalysisValue {
-  riskLevel?: 'HIGH' | 'MEDIUM' | 'LOW' | 'NA'
-  testHostName?: string
-  controlHostName?: string
-  testValues?: number[]
-  controlValues?: number[]
-  upperThresholds?: number[]
-  lowerThresholds?: number[]
-  anomalies?: number[]
-  testStartIndex?: number
-  failFastCriteriaDescription?: string
-}
-
-export interface RestResponseSetNewRelicMetricAnalysisRecord {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: NewRelicMetricAnalysisRecord[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListNewRelicMetricHostAnalysisValue {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: NewRelicMetricHostAnalysisValue[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface Threshold {
-  thresholdType?: 'ALERT_WHEN_LOWER' | 'ALERT_WHEN_HIGHER' | 'ALERT_HIGHER_OR_LOWER' | 'NO_ALERT'
-  comparisonType?: 'RATIO' | 'DELTA' | 'ABSOLUTE'
-  ml?: number
-  customThresholdType?: 'ACCEPTABLE' | 'ANOMALOUS'
-  thresholdCriteria?: TimeSeriesCustomThresholdCriteria
-}
-
-export interface TimeSeriesCustomThresholdCriteria {
-  actionToTake?: 'FAIL_IMMEDIATELY' | 'FAIL_AFTER_OCCURRENCES' | 'FAIL_AFTER_CONSECUTIVE_OCCURRENCES'
-  occurrences?: number
-}
-
-export interface TimeSeriesMLTransactionThresholds {
-  serviceId?: string
-  workflowId?: string
-  stateType?:
-    | 'SUB_WORKFLOW'
-    | 'REPEAT'
-    | 'FORK'
-    | 'WAIT'
-    | 'PAUSE'
-    | 'BARRIER'
-    | 'RESOURCE_CONSTRAINT'
-    | 'SHELL_SCRIPT'
-    | 'HTTP'
-    | 'TEMPLATIZED_SECRET_MANAGER'
-    | 'EMAIL'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'NEW_RELIC_DEPLOYMENT_MARKER'
-    | 'DYNA_TRACE'
-    | 'PROMETHEUS'
-    | 'SPLUNKV2'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'AWS_LAMBDA_VERIFICATION'
-    | 'APM_VERIFICATION'
-    | 'LOG_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'STACK_DRIVER'
-    | 'STACK_DRIVER_LOG'
-    | 'INSTANA'
-    | 'SCALYR'
-    | 'ENV_STATE'
-    | 'ENV_LOOP_STATE'
-    | 'ENV_RESUME_STATE'
-    | 'ENV_LOOP_RESUME_STATE'
-    | 'COMMAND'
-    | 'APPROVAL'
-    | 'APPROVAL_RESUME'
-    | 'ELASTIC_LOAD_BALANCER'
-    | 'JENKINS'
-    | 'GCB'
-    | 'BAMBOO'
-    | 'ARTIFACT_COLLECTION'
-    | 'ARTIFACT_CHECK'
-    | 'AZURE_NODE_SELECT'
-    | 'AZURE_VMSS_SETUP'
-    | 'AZURE_VMSS_DEPLOY'
-    | 'AZURE_VMSS_ROLLBACK'
-    | 'AZURE_VMSS_SWITCH_ROUTES'
-    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
-    | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
-    | 'AZURE_WEBAPP_SLOT_SWAP'
-    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
-    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
-    | 'AWS_NODE_SELECT'
-    | 'DC_NODE_SELECT'
-    | 'ROLLING_NODE_SELECT'
-    | 'PHASE'
-    | 'PHASE_STEP'
-    | 'STAGING_ORIGINAL_EXECUTION'
-    | 'AWS_CODEDEPLOY_STATE'
-    | 'AWS_CODEDEPLOY_ROLLBACK'
-    | 'AWS_LAMBDA_STATE'
-    | 'AWS_LAMBDA_ROLLBACK'
-    | 'AWS_AMI_SERVICE_SETUP'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
-    | 'AWS_AMI_SERVICE_DEPLOY'
-    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
-    | 'AWS_AMI_SWITCH_ROUTES'
-    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
-    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
-    | 'AWS_AMI_SERVICE_ROLLBACK'
-    | 'ECS_SERVICE_SETUP'
-    | 'SPOTINST_SETUP'
-    | 'SPOTINST_ALB_SHIFT_SETUP'
-    | 'SPOTINST_DEPLOY'
-    | 'SPOTINST_ALB_SHIFT_DEPLOY'
-    | 'SPOTINST_LISTENER_UPDATE'
-    | 'SPOTINST_LISTENER_ALB_SHIFT'
-    | 'SPOTINST_ROLLBACK'
-    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
-    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
-    | 'ECS_SERVICE_SETUP_ROLLBACK'
-    | 'ECS_DAEMON_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP'
-    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
-    | 'ECS_SERVICE_DEPLOY'
-    | 'ECS_SERVICE_ROLLBACK'
-    | 'ECS_LISTENER_UPDATE'
-    | 'ECS_LISTENER_UPDATE_ROLLBACK'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
-    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
-    | 'KUBERNETES_SETUP'
-    | 'KUBERNETES_SETUP_ROLLBACK'
-    | 'KUBERNETES_DEPLOY'
-    | 'KUBERNETES_DEPLOY_ROLLBACK'
-    | 'KUBERNETES_STEADY_STATE_CHECK'
-    | 'ECS_STEADY_STATE_CHECK'
-    | 'ECS_RUN_TASK'
-    | 'GCP_CLUSTER_SETUP'
-    | 'HELM_DEPLOY'
-    | 'HELM_ROLLBACK'
-    | 'PCF_SETUP'
-    | 'PCF_RESIZE'
-    | 'PCF_ROLLBACK'
-    | 'PCF_MAP_ROUTE'
-    | 'PCF_UNMAP_ROUTE'
-    | 'PCF_BG_MAP_ROUTE'
-    | 'PCF_PLUGIN'
-    | 'TERRAFORM_PROVISION'
-    | 'TERRAFORM_APPLY'
-    | 'SHELL_SCRIPT_PROVISION'
-    | 'TERRAFORM_DESTROY'
-    | 'CLOUD_FORMATION_CREATE_STACK'
-    | 'CLOUD_FORMATION_DELETE_STACK'
-    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
-    | 'CLOUD_FORMATION_ROLLBACK_STACK'
-    | 'TERRAFORM_ROLLBACK'
-    | 'K8S_DEPLOYMENT_ROLLING'
-    | 'K8S_SCALE'
-    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
-    | 'K8S_BLUE_GREEN_DEPLOY'
-    | 'K8S_CANARY_DEPLOY'
-    | 'K8S_DELETE'
-    | 'JIRA_CREATE_UPDATE'
-    | 'SERVICENOW_CREATE_UPDATE'
-    | 'K8S_TRAFFIC_SPLIT'
-    | 'K8S_APPLY'
-    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
-  groupName?: string
-  transactionName?: string
-  metricName?: string
-  cvConfigId?: string
-  accountId?: string
-  thresholds?: TimeSeriesMetricDefinition
-  thresholdType?: 'ACCEPTABLE' | 'ANOMALOUS'
-  customThresholdRefId?: string
-  version?: number
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-}
-
-export interface TimeSeriesMetricDefinition {
-  metricName?: string
-  metricType?: string
+  org?: string
+  project?: string
+  secretManager?: string
   tags?: string[]
-  customThresholds?: Threshold[]
-  categorizedThresholds?: {
-    [key: string]: Threshold[]
-  }
-  thresholds?: Threshold[]
+  type: 'SecretFile' | 'SecretText' | 'SSHKey'
+  value?: string
+  valueType: 'Inline' | 'Reference'
 }
 
-export interface RestResponseListTimeSeriesMLTransactionThresholds {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: TimeSeriesMLTransactionThresholds[]
-  responseMessages?: ResponseMessage[]
+export interface SecretTextUpdateDTO {
+  description?: string
+  draft?: boolean
+  name: string
+  path?: string
+  tags?: string[]
+  value: string
+  valueType: 'Inline' | 'Reference'
 }
 
-export interface RestResponseTimeSeriesKeyTransactions {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: TimeSeriesKeyTransactions
-  responseMessages?: ResponseMessage[]
+export interface SecretUniqueIdentifier {
+  kmsId?: string
 }
 
-export interface TimeSeriesKeyTransactions {
-  uuid?: string
-  createdAt?: number
-  lastUpdatedAt?: number
-  createdBy?: EmbeddedUser
-  lastUpdatedBy?: EmbeddedUser
-  cvConfigId?: string
-  serviceId?: string
+export interface SecretUsageLog {
   accountId?: string
-  keyTransactions?: string[]
+  appId: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  encryptedDataId?: string
+  entityName?: string
+  envId?: string
+  lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
+  uuid: string
+  validUntil?: string
+  workflowExecutionId?: string
+  workflowExecutionName?: string
 }
 
-export interface DeploymentTimeSeriesAnalysis {
-  stateExecutionId?: string
-  customThresholdRefId?: string
-  baseLineExecutionId?: string
-  message?: string
-  riskLevel?: 'HIGH' | 'MEDIUM' | 'LOW' | 'NA'
-  total?: number
-  metricAnalyses?: NewRelicMetricAnalysis[]
+export interface ServerInfo {
+  zoneId?: ZoneId
 }
 
-export interface RestResponseDeploymentTimeSeriesAnalysis {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DeploymentTimeSeriesAnalysis
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseTimeSeriesMLTransactionThresholds {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: TimeSeriesMLTransactionThresholds
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ArtifactSelection {
+export interface ServerlessInstance {
+  accountId?: string
+  appId: string
+  appName?: string
+  computeProviderId?: string
+  computeProviderName?: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  deleted?: boolean
+  deletedAt?: number
+  envId?: string
+  envName?: string
+  envType?: 'PROD' | 'NON_PROD' | 'ALL'
+  infraMappingId?: string
+  infraMappingName?: string
+  infraMappingType?: string
+  instanceInfo?: ServerlessInstanceInfo
+  instanceType?: 'AWS_LAMBDA'
+  lambdaInstanceKey?: AwsLambdaInstanceKey
+  lastArtifactBuildNum?: string
+  lastArtifactId?: string
+  lastArtifactName?: string
+  lastArtifactSourceName?: string
+  lastArtifactStreamId?: string
+  lastDeployedAt?: number
+  lastDeployedById?: string
+  lastDeployedByName?: string
+  lastPipelineExecutionId?: string
+  lastPipelineExecutionName?: string
+  lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
+  lastWorkflowExecutionId?: string
+  lastWorkflowExecutionName?: string
   serviceId?: string
   serviceName?: string
-  type?: 'ARTIFACT_SOURCE' | 'LAST_COLLECTED' | 'LAST_DEPLOYED' | 'PIPELINE_SOURCE' | 'WEBHOOK_VARIABLE'
-  artifactStreamId?: string
-  artifactSourceName?: string
-  artifactFilter?: string
-  pipelineId?: string
-  pipelineName?: string
-  workflowId?: string
-  workflowName?: string
-  regex?: boolean
-  uiDisplayName?: string
+  uuid: string
 }
 
-export type ArtifactTriggerCondition = TriggerCondition & {
-  artifactStreamId?: string
-  artifactSourceName?: string
-  artifactFilter?: string
-  regex?: boolean
-}
-
-export interface ManifestSelection {
-  serviceId?: string
-  serviceName?: string
-  type?: 'FROM_APP_MANIFEST' | 'LAST_COLLECTED' | 'LAST_DEPLOYED' | 'PIPELINE_SOURCE' | 'WEBHOOK_VARIABLE'
-  appManifestId?: string
-  versionRegex?: string
-  pipelineId?: string
-  pipelineName?: string
-  workflowId?: string
-  workflowName?: string
-}
-
-export type ManifestTriggerCondition = TriggerCondition & {
-  appManifestId?: string
-  serviceId?: string
-  serviceName?: string
-  versionRegex?: string
-}
-
-export type NewInstanceTriggerCondition = TriggerCondition & {}
-
-export type PipelineTriggerCondition = TriggerCondition & {
-  pipelineId?: string
-  pipelineName?: string
-}
-
-export interface RestResponseTrigger {
-  metaData?: {
-    [key: string]: { [key: string]: any }
+export interface ServerlessInstanceInfo {
+  invocationCountMap?: {
+    [key: string]: InvocationCount
   }
-  resource?: Trigger
-  responseMessages?: ResponseMessage[]
 }
 
-export type ScheduledTriggerCondition = TriggerCondition & {
-  cronExpression?: string
-  cronDescription?: string
-  onNewArtifactOnly?: boolean
+export interface ServerlessInstanceTimeline {
+  points?: DataPoint[]
+}
+
+export interface Service {
+  accountId?: string
+  appContainer?: AppContainer
+  appId: string
+  artifactStreamBindings?: ArtifactStreamBinding[]
+  artifactStreamIds?: string[]
+  artifactStreams?: ArtifactStream[]
+  artifactType?:
+    | 'JAR'
+    | 'WAR'
+    | 'TAR'
+    | 'ZIP'
+    | 'DOCKER'
+    | 'RPM'
+    | 'AWS_LAMBDA'
+    | 'AWS_CODEDEPLOY'
+    | 'PCF'
+    | 'AMI'
+    | 'AZURE_MACHINE_IMAGE'
+    | 'AZURE_WEBAPP'
+    | 'IIS'
+    | 'OTHER'
+    | 'IIS_APP'
+    | 'IIS_VirtualDirectory'
+  configFiles?: ConfigFile[]
+  configMapYaml?: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  customDeploymentName?: string
+  deploymentType?:
+    | 'SSH'
+    | 'AWS_CODEDEPLOY'
+    | 'ECS'
+    | 'SPOTINST'
+    | 'KUBERNETES'
+    | 'HELM'
+    | 'AWS_LAMBDA'
+    | 'AMI'
+    | 'WINRM'
+    | 'PCF'
+    | 'AZURE_VMSS'
+    | 'AZURE_WEBAPP'
+    | 'CUSTOM'
+  deploymentTypeTemplateId?: string
+  description?: string
+  helmValueYaml?: string
+  helmVersion?: 'V2' | 'V3'
+  k8sV2?: boolean
+  keywords?: string[]
+  lastDeploymentActivity?: Activity
+  lastProdDeploymentActivity?: Activity
+  lastUpdatedAt: number
+  name?: string
+  pcfV2?: boolean
+  sample?: boolean
+  serviceCommands?: ServiceCommand[]
+  serviceVariables?: ServiceVariable[]
+  setup?: Setup
+  tagLinks?: HarnessTagLink[]
+  uuid: string
+  version?: number
+}
+
+export interface ServiceCommand {
+  accountId?: string
+  appId: string
+  command?: Command
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  defaultVersion?: number
+  envIdVersionMap?: {
+    [key: string]: EntityVersion
+  }
+  importedTemplateDetails?: ImportedTemplateDetails
+  lastUpdatedAt: number
+  name?: string
+  serviceId?: string
+  targetToAllEnv?: boolean
+  templateMetadata?: TemplateMetadata
+  templateUuid?: string
+  templateVersion?: string
+  uuid: string
+}
+
+export interface ServiceElement {
+  description?: string
+  elementType?:
+    | 'SERVICE'
+    | 'INFRAMAPPING'
+    | 'SERVICE_TEMPLATE'
+    | 'TAG'
+    | 'SHELL'
+    | 'HOST'
+    | 'INSTANCE'
+    | 'STANDARD'
+    | 'PARAM'
+    | 'PARTITION'
+    | 'OTHER'
+    | 'FORK'
+    | 'CONTAINER_SERVICE'
+    | 'CLUSTER'
+    | 'AWS_LAMBDA_FUNCTION'
+    | 'AMI_SERVICE_SETUP'
+    | 'AMI_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_SETUP'
+    | 'AMI_SWITCH_ROUTES'
+    | 'PCF_SERVICE_SETUP'
+    | 'PCF_SERVICE_DEPLOY'
+    | 'PCF_ROUTE_SWAP_ROLLBACK'
+    | 'PCF_INSTANCE'
+    | 'SPOTINST_SERVICE_SETUP'
+    | 'SPOTINST_SERVICE_DEPLOY'
+    | 'ARTIFACT'
+    | 'ARTIFACT_VARIABLE'
+    | 'HELM_DEPLOY'
+    | 'CLOUD_FORMATION_PROVISION'
+    | 'CLOUD_FORMATION_ROLLBACK'
+    | 'CLOUD_FORMATION_DEPROVISION'
+    | 'TERRAFORM_PROVISION'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'K8S'
+    | 'TERRAFORM_INHERIT_PLAN'
+    | 'AZURE_VMSS_SETUP'
+    | 'HELM_CHART'
+    | 'MANIFEST_VARIABLE'
+  name?: string
+  uuid?: string
+}
+
+export interface ServiceGuardLimitDTO {
+  serviceGuardLimit?: number
+}
+
+export interface ServiceGuardTimeSeries {
+  timeSeriesSet?: TransactionTimeSeries[]
+  totalRecords?: number
+  transactionsInAnalysis?: string[]
 }
 
 export interface ServiceInfraWorkflow {
@@ -15536,63 +15223,2589 @@ export interface ServiceInfraWorkflow {
   workflowType?: 'PIPELINE' | 'ORCHESTRATION'
 }
 
-export interface Trigger {
-  uuid: string
+export interface ServiceInstance {
+  accountId?: string
   appId: string
-  createdBy?: EmbeddedUser
+  artifactDeployedOn?: number
+  artifactDeploymentActivityId?: string
+  artifactDeploymentStatus?:
+    | 'ABORTED'
+    | 'DISCONTINUING'
+    | 'ERROR'
+    | 'FAILED'
+    | 'NEW'
+    | 'PAUSED'
+    | 'PAUSING'
+    | 'QUEUED'
+    | 'RESUMED'
+    | 'RUNNING'
+    | 'SCHEDULED'
+    | 'STARTING'
+    | 'SUCCESS'
+    | 'WAITING'
+    | 'SKIPPED'
+    | 'ABORTING'
+    | 'REJECTED'
+    | 'EXPIRED'
+    | 'PREPARING'
+  artifactId?: string
+  artifactName?: string
+  artifactStreamId?: string
+  artifactStreamName?: string
+  commandName?: string
+  commandType?: string
   createdAt?: number
+  createdBy?: EmbeddedUser
+  displayName?: string
+  envId?: string
+  hostId?: string
+  hostName?: string
+  infraMappingId?: string
+  infraMappingType?: string
+  lastActivityCreatedAt?: number
+  lastActivityId?: string
+  lastActivityStatus?:
+    | 'ABORTED'
+    | 'DISCONTINUING'
+    | 'ERROR'
+    | 'FAILED'
+    | 'NEW'
+    | 'PAUSED'
+    | 'PAUSING'
+    | 'QUEUED'
+    | 'RESUMED'
+    | 'RUNNING'
+    | 'SCHEDULED'
+    | 'STARTING'
+    | 'SUCCESS'
+    | 'WAITING'
+    | 'SKIPPED'
+    | 'ABORTING'
+    | 'REJECTED'
+    | 'EXPIRED'
+    | 'PREPARING'
+  lastDeployedOn?: number
+  lastUpdatedAt: number
+  publicDns?: string
+  serviceId?: string
+  serviceName?: string
+  serviceTemplateId?: string
+  serviceTemplateName?: string
+  uuid: string
+}
+
+export interface ServiceInstanceDashboard {
+  currentActiveInstancesList?: CurrentActiveInstances[]
+  deploymentHistoryList?: DeploymentHistory[]
+  serviceSummary?: EntitySummary
+}
+
+export interface ServiceInstanceStatistics {
+  statsMap?: {
+    [key: string]: TopConsumer[]
+  }
+  type?: 'DEPLOYMENT' | 'SERVICE_INSTANCE_STATISTICS'
+}
+
+export interface ServiceSummary {
+  appSummary?: EntitySummary
+  id?: string
+  name?: string
+  type?: string
+}
+
+export interface ServiceTemplate {
+  accountId?: string
+  appId: string
+  configFilesOverrides?: ConfigFile[]
+  configMapYamlOverride?: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  defaultServiceTemplate?: boolean
+  description?: string
+  envId?: string
+  helmChartOverride?: ApplicationManifest
+  helmValueYamlOverride?: string
+  infrastructureMappings?: InfrastructureMapping[]
   lastUpdatedAt: number
   name?: string
+  ocParamsOverrideAppManifest?: ApplicationManifest
+  ocParamsOverrideFile?: ManifestFile
+  serviceArtifactType?:
+    | 'JAR'
+    | 'WAR'
+    | 'TAR'
+    | 'ZIP'
+    | 'DOCKER'
+    | 'RPM'
+    | 'AWS_LAMBDA'
+    | 'AWS_CODEDEPLOY'
+    | 'PCF'
+    | 'AMI'
+    | 'AZURE_MACHINE_IMAGE'
+    | 'AZURE_WEBAPP'
+    | 'IIS'
+    | 'OTHER'
+    | 'IIS_APP'
+    | 'IIS_VirtualDirectory'
+  serviceConfigFiles?: ConfigFile[]
+  serviceId?: string
+  serviceVariables?: ServiceVariable[]
+  serviceVariablesOverrides?: ServiceVariable[]
+  uuid: string
+  valuesOverrideAppManifest?: ApplicationManifest
+  valuesOverrideManifestFile?: ManifestFile
+}
+
+export interface ServiceTemplateElement {
+  elementType?:
+    | 'SERVICE'
+    | 'INFRAMAPPING'
+    | 'SERVICE_TEMPLATE'
+    | 'TAG'
+    | 'SHELL'
+    | 'HOST'
+    | 'INSTANCE'
+    | 'STANDARD'
+    | 'PARAM'
+    | 'PARTITION'
+    | 'OTHER'
+    | 'FORK'
+    | 'CONTAINER_SERVICE'
+    | 'CLUSTER'
+    | 'AWS_LAMBDA_FUNCTION'
+    | 'AMI_SERVICE_SETUP'
+    | 'AMI_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_SETUP'
+    | 'AMI_SWITCH_ROUTES'
+    | 'PCF_SERVICE_SETUP'
+    | 'PCF_SERVICE_DEPLOY'
+    | 'PCF_ROUTE_SWAP_ROLLBACK'
+    | 'PCF_INSTANCE'
+    | 'SPOTINST_SERVICE_SETUP'
+    | 'SPOTINST_SERVICE_DEPLOY'
+    | 'ARTIFACT'
+    | 'ARTIFACT_VARIABLE'
+    | 'HELM_DEPLOY'
+    | 'CLOUD_FORMATION_PROVISION'
+    | 'CLOUD_FORMATION_ROLLBACK'
+    | 'CLOUD_FORMATION_DEPROVISION'
+    | 'TERRAFORM_PROVISION'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'K8S'
+    | 'TERRAFORM_INHERIT_PLAN'
+    | 'AZURE_VMSS_SETUP'
+    | 'HELM_CHART'
+    | 'MANIFEST_VARIABLE'
+  name?: string
+  serviceElement?: ServiceElement
+  uuid?: string
+}
+
+export interface ServiceVariable {
   accountId?: string
+  allowedList?: string[]
+  appId: string
+  artifactStreamSummaries?: ArtifactStreamSummary[]
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  encryptedBy?: string
+  encryptedValue?: string
+  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  entityId?: string
+  entityType:
+    | 'SERVICE'
+    | 'PROVISIONER'
+    | 'ENVIRONMENT'
+    | 'HOST'
+    | 'RELEASE'
+    | 'ARTIFACT'
+    | 'SSH_USER'
+    | 'SSH_PASSWORD'
+    | 'SSH_APP_ACCOUNT'
+    | 'SSH_KEY_PASSPHRASE'
+    | 'SSH_APP_ACCOUNT_PASSOWRD'
+    | 'SIMPLE_DEPLOYMENT'
+    | 'ORCHESTRATED_DEPLOYMENT'
+    | 'PIPELINE'
+    | 'WORKFLOW'
+    | 'DEPLOYMENT'
+    | 'INSTANCE'
+    | 'APPLICATION'
+    | 'COMMAND'
+    | 'CONFIG'
+    | 'SERVICE_TEMPLATE'
+    | 'INFRASTRUCTURE_MAPPING'
+    | 'INFRASTRUCTURE_DEFINITION'
+    | 'USER'
+    | 'ARTIFACT_STREAM'
+    | 'APPDYNAMICS_CONFIGID'
+    | 'APPDYNAMICS_APPID'
+    | 'APPDYNAMICS_TIERID'
+    | 'ELK_CONFIGID'
+    | 'ELK_INDICES'
+    | 'NEWRELIC_CONFIGID'
+    | 'NEWRELIC_APPID'
+    | 'SS_SSH_CONNECTION_ATTRIBUTE'
+    | 'SS_WINRM_CONNECTION_ATTRIBUTE'
+    | 'SUMOLOGIC_CONFIGID'
+    | 'SPLUNK_CONFIGID'
+    | 'NEWRELIC_MARKER_CONFIGID'
+    | 'NEWRELIC_MARKER_APPID'
+    | 'API_KEY'
+    | 'ACCOUNT'
+    | 'APPLICATION_MANIFEST'
+    | 'USER_GROUP'
+    | 'WHITELISTED_IP'
+    | 'CF_AWS_CONFIG_ID'
+    | 'VERIFICATION_CONFIGURATION'
+    | 'HELM_GIT_CONFIG_ID'
+    | 'NOTIFICATION_GROUP'
+    | 'HELM_CHART_SPECIFICATION'
+    | 'PCF_SERVICE_SPECIFICATION'
+    | 'LAMBDA_SPECIFICATION'
+    | 'USER_DATA_SPECIFICATION'
+    | 'ECS_CONTAINER_SPECIFICATION'
+    | 'ECS_SERVICE_SPECIFICATION'
+    | 'K8S_CONTAINER_SPECIFICATION'
+    | 'CONFIG_FILE'
+    | 'SERVICE_COMMAND'
+    | 'MANIFEST_FILE'
+    | 'SERVICE_VARIABLE'
+    | 'TRIGGER'
+    | 'ROLE'
+    | 'TEMPLATE'
+    | 'TEMPLATE_FOLDER'
+    | 'SETTING_ATTRIBUTE'
+    | 'ENCRYPTED_RECORDS'
+    | 'CV_CONFIGURATION'
+    | 'TAG'
+    | 'CUSTOM_DASHBOARD'
+    | 'PIPELINE_GOVERNANCE_STANDARD'
+    | 'WORKFLOW_EXECUTION'
+    | 'SERVERLESS_INSTANCE'
+    | 'USER_INVITE'
+    | 'LOGIN_SETTINGS'
+    | 'SSO_SETTINGS'
+    | 'DELEGATE'
+    | 'DELEGATE_SCOPE'
+    | 'DELEGATE_PROFILE'
+    | 'EXPORT_EXECUTIONS_REQUEST'
+    | 'GCP_CONFIG'
+    | 'GIT_CONFIG'
+    | 'JENKINS_SERVER'
+    | 'SECRETS_MANAGER'
+    | 'HELM_CHART'
+    | 'SECRET'
+    | 'CONNECTOR'
+    | 'CLOUD_PROVIDER'
+  envId?: string
+  expression?: string
+  instances?: string[]
+  lastUpdatedAt: number
+  name?: string
+  overriddenServiceVariable?: ServiceVariable
+  overrideType?: 'ALL' | 'INSTANCES' | 'CUSTOM'
+  parentServiceVariableId?: string
+  secretTextName?: string
+  serviceId?: string
+  settingType?:
+    | 'HOST_CONNECTION_ATTRIBUTES'
+    | 'BASTION_HOST_CONNECTION_ATTRIBUTES'
+    | 'SMTP'
+    | 'SFTP'
+    | 'JENKINS'
+    | 'BAMBOO'
+    | 'STRING'
+    | 'SPLUNK'
+    | 'ELK'
+    | 'LOGZ'
+    | 'SUMO'
+    | 'DATA_DOG'
+    | 'APM_VERIFICATION'
+    | 'BUG_SNAG'
+    | 'LOG_VERIFICATION'
+    | 'APP_DYNAMICS'
+    | 'NEW_RELIC'
+    | 'DYNA_TRACE'
+    | 'INSTANA'
+    | 'DATA_DOG_LOG'
+    | 'CLOUD_WATCH'
+    | 'SCALYR'
+    | 'ELB'
+    | 'SLACK'
+    | 'AWS'
+    | 'GCS'
+    | 'GCP'
+    | 'AZURE'
+    | 'PCF'
+    | 'DIRECT'
+    | 'KUBERNETES_CLUSTER'
+    | 'DOCKER'
+    | 'ECR'
+    | 'GCR'
+    | 'ACR'
+    | 'PHYSICAL_DATA_CENTER'
+    | 'KUBERNETES'
+    | 'NEXUS'
+    | 'ARTIFACTORY'
+    | 'SMB'
+    | 'AMAZON_S3'
+    | 'GIT'
+    | 'SSH_SESSION_CONFIG'
+    | 'SERVICE_VARIABLE'
+    | 'CONFIG_FILE'
+    | 'KMS'
+    | 'GCP_KMS'
+    | 'JIRA'
+    | 'SERVICENOW'
+    | 'SECRET_TEXT'
+    | 'YAML_GIT_SYNC'
+    | 'VAULT'
+    | 'AWS_SECRETS_MANAGER'
+    | 'CYBERARK'
+    | 'WINRM_CONNECTION_ATTRIBUTES'
+    | 'WINRM_SESSION_CONFIG'
+    | 'PROMETHEUS'
+    | 'INFRASTRUCTURE_MAPPING'
+    | 'HTTP_HELM_REPO'
+    | 'AMAZON_S3_HELM_REPO'
+    | 'GCS_HELM_REPO'
+    | 'SPOT_INST'
+    | 'AZURE_ARTIFACTS_PAT'
+    | 'CUSTOM'
+    | 'CE_AWS'
+    | 'CE_GCP'
+    | 'AZURE_VAULT'
+    | 'KUBERNETES_CLUSTER_NG'
+    | 'GIT_NG'
+  templateId?: string
+  type?: 'TEXT' | 'LB' | 'ENCRYPTED_TEXT' | 'ARTIFACT'
+  uuid: string
+  value?: string[]
+}
+
+export interface SettingAttribute {
+  accountId?: string
+  appId: string
+  appIds?: string[]
+  artifactStreamCount?: number
+  artifactStreams?: ArtifactStreamSummary[]
+  category?: 'CLOUD_PROVIDER' | 'CONNECTOR' | 'SETTING' | 'HELM_REPO' | 'AZURE_ARTIFACTS' | 'CE_CONNECTOR'
+  connectivityError?: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  encryptedBy?: string
+  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  envId?: string
+  lastUpdatedAt: number
+  name?: string
+  nextIteration?: number
+  nextSecretMigrationIteration?: number
+  sample?: boolean
+  secretsMigrated?: boolean
+  usageRestrictions?: UsageRestrictions
+  uuid: string
+  validationAttributes?: ConnectivityValidationAttributes
+  value?: SettingValue
+}
+
+export interface SettingValue {
+  settingType?:
+    | 'HOST_CONNECTION_ATTRIBUTES'
+    | 'BASTION_HOST_CONNECTION_ATTRIBUTES'
+    | 'SMTP'
+    | 'SFTP'
+    | 'JENKINS'
+    | 'BAMBOO'
+    | 'STRING'
+    | 'SPLUNK'
+    | 'ELK'
+    | 'LOGZ'
+    | 'SUMO'
+    | 'DATA_DOG'
+    | 'APM_VERIFICATION'
+    | 'BUG_SNAG'
+    | 'LOG_VERIFICATION'
+    | 'APP_DYNAMICS'
+    | 'NEW_RELIC'
+    | 'DYNA_TRACE'
+    | 'INSTANA'
+    | 'DATA_DOG_LOG'
+    | 'CLOUD_WATCH'
+    | 'SCALYR'
+    | 'ELB'
+    | 'SLACK'
+    | 'AWS'
+    | 'GCS'
+    | 'GCP'
+    | 'AZURE'
+    | 'PCF'
+    | 'DIRECT'
+    | 'KUBERNETES_CLUSTER'
+    | 'DOCKER'
+    | 'ECR'
+    | 'GCR'
+    | 'ACR'
+    | 'PHYSICAL_DATA_CENTER'
+    | 'KUBERNETES'
+    | 'NEXUS'
+    | 'ARTIFACTORY'
+    | 'SMB'
+    | 'AMAZON_S3'
+    | 'GIT'
+    | 'SSH_SESSION_CONFIG'
+    | 'SERVICE_VARIABLE'
+    | 'CONFIG_FILE'
+    | 'KMS'
+    | 'GCP_KMS'
+    | 'JIRA'
+    | 'SERVICENOW'
+    | 'SECRET_TEXT'
+    | 'YAML_GIT_SYNC'
+    | 'VAULT'
+    | 'AWS_SECRETS_MANAGER'
+    | 'CYBERARK'
+    | 'WINRM_CONNECTION_ATTRIBUTES'
+    | 'WINRM_SESSION_CONFIG'
+    | 'PROMETHEUS'
+    | 'INFRASTRUCTURE_MAPPING'
+    | 'HTTP_HELM_REPO'
+    | 'AMAZON_S3_HELM_REPO'
+    | 'GCS_HELM_REPO'
+    | 'SPOT_INST'
+    | 'AZURE_ARTIFACTS_PAT'
+    | 'CUSTOM'
+    | 'CE_AWS'
+    | 'CE_GCP'
+    | 'AZURE_VAULT'
+    | 'KUBERNETES_CLUSTER_NG'
+    | 'GIT_NG'
+  type?: string
+}
+
+export interface Setup {
+  actions?: SetupAction[]
+  setupStatus?: 'COMPLETE' | 'INCOMPLETE'
+}
+
+export interface SetupAction {
+  code?: string
+  displayText?: string
+  errorType?: 'INFO' | 'ERROR'
+  url?: string
+}
+
+export type ShellScriptInfrastructureProvisioner = InfrastructureProvisioner & {
+  scriptBody?: string
+}
+
+export type ShellScriptTemplate = BaseTemplate & {
+  outputVars?: string
+  scriptString?: string
+  scriptType?: string
+  timeoutMillis?: number
+}
+
+export interface SlackNotificationSetting {
+  name?: string
+  outgoingWebhookUrl: string
+}
+
+export type SplunkConnectorDTO = ConnectorConfigDTO & {
+  accountId: string
+  passwordRef: string
+  splunkUrl?: string
+  username?: string
+}
+
+export interface SplunkSampleResponse {
+  errorMessage?: string
+  rawSampleLogs?: SampleLog[]
+  sample?: {
+    [key: string]: string
+  }
+  splunkQuery?: string
+}
+
+export interface SplunkSavedSearch {
+  searchQuery?: string
+  title?: string
+}
+
+export interface SplunkSetupTestNodeData {
+  advancedQuery?: boolean
+  appId: string
+  fromTime?: number
+  guid?: string
+  hostExpression?: string
+  hostNameField?: string
+  instanceElement?: Instance
+  instanceName?: string
+  isServiceLevel?: boolean
+  query: string
+  serviceLevel?: boolean
+  settingId: string
+  stateType?:
+    | 'SUB_WORKFLOW'
+    | 'REPEAT'
+    | 'FORK'
+    | 'WAIT'
+    | 'PAUSE'
+    | 'BARRIER'
+    | 'RESOURCE_CONSTRAINT'
+    | 'SHELL_SCRIPT'
+    | 'HTTP'
+    | 'TEMPLATIZED_SECRET_MANAGER'
+    | 'EMAIL'
+    | 'APP_DYNAMICS'
+    | 'NEW_RELIC'
+    | 'NEW_RELIC_DEPLOYMENT_MARKER'
+    | 'DYNA_TRACE'
+    | 'PROMETHEUS'
+    | 'SPLUNKV2'
+    | 'ELK'
+    | 'LOGZ'
+    | 'SUMO'
+    | 'DATA_DOG'
+    | 'DATA_DOG_LOG'
+    | 'CLOUD_WATCH'
+    | 'AWS_LAMBDA_VERIFICATION'
+    | 'APM_VERIFICATION'
+    | 'LOG_VERIFICATION'
+    | 'BUG_SNAG'
+    | 'STACK_DRIVER'
+    | 'STACK_DRIVER_LOG'
+    | 'INSTANA'
+    | 'SCALYR'
+    | 'ENV_STATE'
+    | 'ENV_LOOP_STATE'
+    | 'ENV_RESUME_STATE'
+    | 'ENV_LOOP_RESUME_STATE'
+    | 'COMMAND'
+    | 'APPROVAL'
+    | 'APPROVAL_RESUME'
+    | 'ELASTIC_LOAD_BALANCER'
+    | 'JENKINS'
+    | 'GCB'
+    | 'BAMBOO'
+    | 'ARTIFACT_COLLECTION'
+    | 'ARTIFACT_CHECK'
+    | 'AZURE_NODE_SELECT'
+    | 'AZURE_VMSS_SETUP'
+    | 'AZURE_VMSS_DEPLOY'
+    | 'AZURE_VMSS_ROLLBACK'
+    | 'AZURE_VMSS_SWITCH_ROUTES'
+    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
+    | 'AZURE_WEBAPP_SLOT_SETUP'
+    | 'AZURE_WEBAPP_SLOT_RESIZE'
+    | 'AZURE_WEBAPP_SLOT_SWAP'
+    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
+    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
+    | 'AWS_NODE_SELECT'
+    | 'DC_NODE_SELECT'
+    | 'ROLLING_NODE_SELECT'
+    | 'PHASE'
+    | 'PHASE_STEP'
+    | 'STAGING_ORIGINAL_EXECUTION'
+    | 'AWS_CODEDEPLOY_STATE'
+    | 'AWS_CODEDEPLOY_ROLLBACK'
+    | 'AWS_LAMBDA_STATE'
+    | 'AWS_LAMBDA_ROLLBACK'
+    | 'AWS_AMI_SERVICE_SETUP'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
+    | 'AWS_AMI_SERVICE_DEPLOY'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
+    | 'AWS_AMI_SWITCH_ROUTES'
+    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
+    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_SERVICE_ROLLBACK'
+    | 'ECS_SERVICE_SETUP'
+    | 'SPOTINST_SETUP'
+    | 'SPOTINST_ALB_SHIFT_SETUP'
+    | 'SPOTINST_DEPLOY'
+    | 'SPOTINST_ALB_SHIFT_DEPLOY'
+    | 'SPOTINST_LISTENER_UPDATE'
+    | 'SPOTINST_LISTENER_ALB_SHIFT'
+    | 'SPOTINST_ROLLBACK'
+    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
+    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
+    | 'ECS_SERVICE_SETUP_ROLLBACK'
+    | 'ECS_DAEMON_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
+    | 'ECS_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_ROLLBACK'
+    | 'ECS_LISTENER_UPDATE'
+    | 'ECS_LISTENER_UPDATE_ROLLBACK'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
+    | 'KUBERNETES_SETUP'
+    | 'KUBERNETES_SETUP_ROLLBACK'
+    | 'KUBERNETES_DEPLOY'
+    | 'KUBERNETES_DEPLOY_ROLLBACK'
+    | 'KUBERNETES_STEADY_STATE_CHECK'
+    | 'ECS_STEADY_STATE_CHECK'
+    | 'ECS_RUN_TASK'
+    | 'GCP_CLUSTER_SETUP'
+    | 'HELM_DEPLOY'
+    | 'HELM_ROLLBACK'
+    | 'PCF_SETUP'
+    | 'PCF_RESIZE'
+    | 'PCF_ROLLBACK'
+    | 'PCF_MAP_ROUTE'
+    | 'PCF_UNMAP_ROUTE'
+    | 'PCF_BG_MAP_ROUTE'
+    | 'PCF_PLUGIN'
+    | 'TERRAFORM_PROVISION'
+    | 'TERRAFORM_APPLY'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'TERRAFORM_DESTROY'
+    | 'CLOUD_FORMATION_CREATE_STACK'
+    | 'CLOUD_FORMATION_DELETE_STACK'
+    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'CLOUD_FORMATION_ROLLBACK_STACK'
+    | 'TERRAFORM_ROLLBACK'
+    | 'K8S_DEPLOYMENT_ROLLING'
+    | 'K8S_SCALE'
+    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
+    | 'K8S_BLUE_GREEN_DEPLOY'
+    | 'K8S_CANARY_DEPLOY'
+    | 'K8S_DELETE'
+    | 'JIRA_CREATE_UPDATE'
+    | 'SERVICENOW_CREATE_UPDATE'
+    | 'K8S_TRAFFIC_SPLIT'
+    | 'K8S_APPLY'
+    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
+  toTime?: number
+  workflowId?: string
+}
+
+export interface SplunkValidationResponse {
+  errorMessage?: string
+  histogram?: Histogram
+  queryDurationMillis?: number
+  samples?: SplunkSampleResponse
+}
+
+export interface SpotinstElastigroupRunningCountData {
+  elastigroupMax?: number
+  elastigroupMin?: number
+  elastigroupName?: string
+  elastigroupTarget?: number
+}
+
+export type SshCommandTemplate = BaseTemplate & {
+  commandType?: 'START' | 'STOP' | 'INSTALL' | 'ENABLE' | 'DISABLE' | 'VERIFY' | 'OTHER' | 'RESIZE' | 'SETUP'
+  commandUnits?: CommandUnit[]
+  commands?: Yaml[]
+  referencedTemplateList?: ReferencedTemplate[]
+}
+
+export interface SsoRedirectRequest {
+  jwtToken?: string
+}
+
+export interface StackDriverMetric {
+  displayName?: string
+  kind?: string
+  metric?: string
+  metricName?: string
+  unit?: string
+  valueType?: string
+}
+
+export interface StackDriverMetricDefinition {
+  aggregation?: Aggregation
+  filter?: string
+  filterJson?: string
+  metricName?: string
+  metricType?: string
+  txnName?: string
+}
+
+export interface StackDriverSetupTestNodeData {
+  appId: string
+  fromTime?: number
+  guid?: string
+  hostExpression?: string
+  hostnameField?: string
+  instanceElement?: Instance
+  instanceName?: string
+  isServiceLevel?: boolean
+  loadBalancerMetrics?: {
+    [key: string]: StackDriverMetric[]
+  }
+  logConfiguration?: boolean
+  messageField?: string
+  metricDefinitions?: StackDriverMetricDefinition[]
+  podMetrics?: StackDriverMetric[]
+  query?: string
+  serviceLevel?: boolean
+  settingId: string
+  stateType?:
+    | 'SUB_WORKFLOW'
+    | 'REPEAT'
+    | 'FORK'
+    | 'WAIT'
+    | 'PAUSE'
+    | 'BARRIER'
+    | 'RESOURCE_CONSTRAINT'
+    | 'SHELL_SCRIPT'
+    | 'HTTP'
+    | 'TEMPLATIZED_SECRET_MANAGER'
+    | 'EMAIL'
+    | 'APP_DYNAMICS'
+    | 'NEW_RELIC'
+    | 'NEW_RELIC_DEPLOYMENT_MARKER'
+    | 'DYNA_TRACE'
+    | 'PROMETHEUS'
+    | 'SPLUNKV2'
+    | 'ELK'
+    | 'LOGZ'
+    | 'SUMO'
+    | 'DATA_DOG'
+    | 'DATA_DOG_LOG'
+    | 'CLOUD_WATCH'
+    | 'AWS_LAMBDA_VERIFICATION'
+    | 'APM_VERIFICATION'
+    | 'LOG_VERIFICATION'
+    | 'BUG_SNAG'
+    | 'STACK_DRIVER'
+    | 'STACK_DRIVER_LOG'
+    | 'INSTANA'
+    | 'SCALYR'
+    | 'ENV_STATE'
+    | 'ENV_LOOP_STATE'
+    | 'ENV_RESUME_STATE'
+    | 'ENV_LOOP_RESUME_STATE'
+    | 'COMMAND'
+    | 'APPROVAL'
+    | 'APPROVAL_RESUME'
+    | 'ELASTIC_LOAD_BALANCER'
+    | 'JENKINS'
+    | 'GCB'
+    | 'BAMBOO'
+    | 'ARTIFACT_COLLECTION'
+    | 'ARTIFACT_CHECK'
+    | 'AZURE_NODE_SELECT'
+    | 'AZURE_VMSS_SETUP'
+    | 'AZURE_VMSS_DEPLOY'
+    | 'AZURE_VMSS_ROLLBACK'
+    | 'AZURE_VMSS_SWITCH_ROUTES'
+    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
+    | 'AZURE_WEBAPP_SLOT_SETUP'
+    | 'AZURE_WEBAPP_SLOT_RESIZE'
+    | 'AZURE_WEBAPP_SLOT_SWAP'
+    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
+    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
+    | 'AWS_NODE_SELECT'
+    | 'DC_NODE_SELECT'
+    | 'ROLLING_NODE_SELECT'
+    | 'PHASE'
+    | 'PHASE_STEP'
+    | 'STAGING_ORIGINAL_EXECUTION'
+    | 'AWS_CODEDEPLOY_STATE'
+    | 'AWS_CODEDEPLOY_ROLLBACK'
+    | 'AWS_LAMBDA_STATE'
+    | 'AWS_LAMBDA_ROLLBACK'
+    | 'AWS_AMI_SERVICE_SETUP'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
+    | 'AWS_AMI_SERVICE_DEPLOY'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
+    | 'AWS_AMI_SWITCH_ROUTES'
+    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
+    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_SERVICE_ROLLBACK'
+    | 'ECS_SERVICE_SETUP'
+    | 'SPOTINST_SETUP'
+    | 'SPOTINST_ALB_SHIFT_SETUP'
+    | 'SPOTINST_DEPLOY'
+    | 'SPOTINST_ALB_SHIFT_DEPLOY'
+    | 'SPOTINST_LISTENER_UPDATE'
+    | 'SPOTINST_LISTENER_ALB_SHIFT'
+    | 'SPOTINST_ROLLBACK'
+    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
+    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
+    | 'ECS_SERVICE_SETUP_ROLLBACK'
+    | 'ECS_DAEMON_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
+    | 'ECS_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_ROLLBACK'
+    | 'ECS_LISTENER_UPDATE'
+    | 'ECS_LISTENER_UPDATE_ROLLBACK'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
+    | 'KUBERNETES_SETUP'
+    | 'KUBERNETES_SETUP_ROLLBACK'
+    | 'KUBERNETES_DEPLOY'
+    | 'KUBERNETES_DEPLOY_ROLLBACK'
+    | 'KUBERNETES_STEADY_STATE_CHECK'
+    | 'ECS_STEADY_STATE_CHECK'
+    | 'ECS_RUN_TASK'
+    | 'GCP_CLUSTER_SETUP'
+    | 'HELM_DEPLOY'
+    | 'HELM_ROLLBACK'
+    | 'PCF_SETUP'
+    | 'PCF_RESIZE'
+    | 'PCF_ROLLBACK'
+    | 'PCF_MAP_ROUTE'
+    | 'PCF_UNMAP_ROUTE'
+    | 'PCF_BG_MAP_ROUTE'
+    | 'PCF_PLUGIN'
+    | 'TERRAFORM_PROVISION'
+    | 'TERRAFORM_APPLY'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'TERRAFORM_DESTROY'
+    | 'CLOUD_FORMATION_CREATE_STACK'
+    | 'CLOUD_FORMATION_DELETE_STACK'
+    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'CLOUD_FORMATION_ROLLBACK_STACK'
+    | 'TERRAFORM_ROLLBACK'
+    | 'K8S_DEPLOYMENT_ROLLING'
+    | 'K8S_SCALE'
+    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
+    | 'K8S_BLUE_GREEN_DEPLOY'
+    | 'K8S_CANARY_DEPLOY'
+    | 'K8S_DELETE'
+    | 'JIRA_CREATE_UPDATE'
+    | 'SERVICENOW_CREATE_UPDATE'
+    | 'K8S_TRAFFIC_SPLIT'
+    | 'K8S_APPLY'
+    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
+  toTime?: number
+  workflowId?: string
+}
+
+export interface StackTraceElement {
+  className?: string
+  fileName?: string
+  lineNumber?: number
+  methodName?: string
+  nativeMethod?: boolean
+}
+
+export interface State {
+  executeWithPreviousSteps?: boolean
+  id?: string
+  ignoreFailure?: boolean
+  name?: string
+  parentId?: string
+  patternsForRequiredContextElementType?: string[]
+  requiredContextElementType?:
+    | 'SERVICE'
+    | 'INFRAMAPPING'
+    | 'SERVICE_TEMPLATE'
+    | 'TAG'
+    | 'SHELL'
+    | 'HOST'
+    | 'INSTANCE'
+    | 'STANDARD'
+    | 'PARAM'
+    | 'PARTITION'
+    | 'OTHER'
+    | 'FORK'
+    | 'CONTAINER_SERVICE'
+    | 'CLUSTER'
+    | 'AWS_LAMBDA_FUNCTION'
+    | 'AMI_SERVICE_SETUP'
+    | 'AMI_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_SETUP'
+    | 'AMI_SWITCH_ROUTES'
+    | 'PCF_SERVICE_SETUP'
+    | 'PCF_SERVICE_DEPLOY'
+    | 'PCF_ROUTE_SWAP_ROLLBACK'
+    | 'PCF_INSTANCE'
+    | 'SPOTINST_SERVICE_SETUP'
+    | 'SPOTINST_SERVICE_DEPLOY'
+    | 'ARTIFACT'
+    | 'ARTIFACT_VARIABLE'
+    | 'HELM_DEPLOY'
+    | 'CLOUD_FORMATION_PROVISION'
+    | 'CLOUD_FORMATION_ROLLBACK'
+    | 'CLOUD_FORMATION_DEPROVISION'
+    | 'TERRAFORM_PROVISION'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'K8S'
+    | 'TERRAFORM_INHERIT_PLAN'
+    | 'AZURE_VMSS_SETUP'
+    | 'HELM_CHART'
+    | 'MANIFEST_VARIABLE'
+  requiredExecutionArgumentTypes?: (
+    | 'SERVICE'
+    | 'PROVISIONER'
+    | 'ENVIRONMENT'
+    | 'HOST'
+    | 'RELEASE'
+    | 'ARTIFACT'
+    | 'SSH_USER'
+    | 'SSH_PASSWORD'
+    | 'SSH_APP_ACCOUNT'
+    | 'SSH_KEY_PASSPHRASE'
+    | 'SSH_APP_ACCOUNT_PASSOWRD'
+    | 'SIMPLE_DEPLOYMENT'
+    | 'ORCHESTRATED_DEPLOYMENT'
+    | 'PIPELINE'
+    | 'WORKFLOW'
+    | 'DEPLOYMENT'
+    | 'INSTANCE'
+    | 'APPLICATION'
+    | 'COMMAND'
+    | 'CONFIG'
+    | 'SERVICE_TEMPLATE'
+    | 'INFRASTRUCTURE_MAPPING'
+    | 'INFRASTRUCTURE_DEFINITION'
+    | 'USER'
+    | 'ARTIFACT_STREAM'
+    | 'APPDYNAMICS_CONFIGID'
+    | 'APPDYNAMICS_APPID'
+    | 'APPDYNAMICS_TIERID'
+    | 'ELK_CONFIGID'
+    | 'ELK_INDICES'
+    | 'NEWRELIC_CONFIGID'
+    | 'NEWRELIC_APPID'
+    | 'SS_SSH_CONNECTION_ATTRIBUTE'
+    | 'SS_WINRM_CONNECTION_ATTRIBUTE'
+    | 'SUMOLOGIC_CONFIGID'
+    | 'SPLUNK_CONFIGID'
+    | 'NEWRELIC_MARKER_CONFIGID'
+    | 'NEWRELIC_MARKER_APPID'
+    | 'API_KEY'
+    | 'ACCOUNT'
+    | 'APPLICATION_MANIFEST'
+    | 'USER_GROUP'
+    | 'WHITELISTED_IP'
+    | 'CF_AWS_CONFIG_ID'
+    | 'VERIFICATION_CONFIGURATION'
+    | 'HELM_GIT_CONFIG_ID'
+    | 'NOTIFICATION_GROUP'
+    | 'HELM_CHART_SPECIFICATION'
+    | 'PCF_SERVICE_SPECIFICATION'
+    | 'LAMBDA_SPECIFICATION'
+    | 'USER_DATA_SPECIFICATION'
+    | 'ECS_CONTAINER_SPECIFICATION'
+    | 'ECS_SERVICE_SPECIFICATION'
+    | 'K8S_CONTAINER_SPECIFICATION'
+    | 'CONFIG_FILE'
+    | 'SERVICE_COMMAND'
+    | 'MANIFEST_FILE'
+    | 'SERVICE_VARIABLE'
+    | 'TRIGGER'
+    | 'ROLE'
+    | 'TEMPLATE'
+    | 'TEMPLATE_FOLDER'
+    | 'SETTING_ATTRIBUTE'
+    | 'ENCRYPTED_RECORDS'
+    | 'CV_CONFIGURATION'
+    | 'TAG'
+    | 'CUSTOM_DASHBOARD'
+    | 'PIPELINE_GOVERNANCE_STANDARD'
+    | 'WORKFLOW_EXECUTION'
+    | 'SERVERLESS_INSTANCE'
+    | 'USER_INVITE'
+    | 'LOGIN_SETTINGS'
+    | 'SSO_SETTINGS'
+    | 'DELEGATE'
+    | 'DELEGATE_SCOPE'
+    | 'DELEGATE_PROFILE'
+    | 'EXPORT_EXECUTIONS_REQUEST'
+    | 'GCP_CONFIG'
+    | 'GIT_CONFIG'
+    | 'JENKINS_SERVER'
+    | 'SECRETS_MANAGER'
+    | 'HELM_CHART'
+    | 'SECRET'
+    | 'CONNECTOR'
+    | 'CLOUD_PROVIDER'
+  )[]
+  rollback?: boolean
+  selectionLogsTrackingForTasksEnabled?: boolean
+  stateType?: string
+  templateExpressions?: TemplateExpression[]
+  templateUuid?: string
+  templateVariables?: Variable[]
+  templateVersion?: string
+  timeoutMillis?: number
+  waitInterval?: number
+}
+
+export interface StateExecutionData {
+  delegateMetaInfo?: DelegateMetaInfo
+  element?: ContextElement
+  endTs?: number
+  errorMsg?: string
+  executionDetails?: {
+    [key: string]: ExecutionDataValue
+  }
+  executionSummary?: {
+    [key: string]: ExecutionDataValue
+  }
+  startTs?: number
+  stateName?: string
+  stateParams?: {
+    [key: string]: { [key: string]: any }
+  }
+  stateType?: string
+  status?:
+    | 'ABORTED'
+    | 'DISCONTINUING'
+    | 'ERROR'
+    | 'FAILED'
+    | 'NEW'
+    | 'PAUSED'
+    | 'PAUSING'
+    | 'QUEUED'
+    | 'RESUMED'
+    | 'RUNNING'
+    | 'SCHEDULED'
+    | 'STARTING'
+    | 'SUCCESS'
+    | 'WAITING'
+    | 'SKIPPED'
+    | 'ABORTING'
+    | 'REJECTED'
+    | 'EXPIRED'
+    | 'PREPARING'
+  templateVariable?: {
+    [key: string]: { [key: string]: any }
+  }
+  waitInterval?: number
+}
+
+export interface StateExecutionElement {
+  executionContextElementId?: string
+  name?: string
+  progress?: number
+  runningSteps?: string[]
+  status?:
+    | 'ABORTED'
+    | 'DISCONTINUING'
+    | 'ERROR'
+    | 'FAILED'
+    | 'NEW'
+    | 'PAUSED'
+    | 'PAUSING'
+    | 'QUEUED'
+    | 'RESUMED'
+    | 'RUNNING'
+    | 'SCHEDULED'
+    | 'STARTING'
+    | 'SUCCESS'
+    | 'WAITING'
+    | 'SKIPPED'
+    | 'ABORTING'
+    | 'REJECTED'
+    | 'EXPIRED'
+    | 'PREPARING'
+}
+
+export interface StateExecutionInstance {
+  accountId?: string
+  actionOnTimeout?:
+    | 'MANUAL_INTERVENTION'
+    | 'ROLLBACK_WORKFLOW'
+    | 'ROLLBACK_PHASE'
+    | 'IGNORE'
+    | 'RETRY'
+    | 'END_EXECUTION'
+    | 'CONTINUE_WITH_DEFAULTS'
+    | 'ABORT_WORKFLOW_EXECUTION'
+  appId?: string
+  callback?: StateMachineExecutionCallback
+  childStateMachineId?: string
+  cloneInstanceId?: string
+  contextElement?: ContextElement
+  contextElements?: ContextElement[]
+  contextTransition?: boolean
+  continued?: boolean
+  createdAt?: number
+  dedicatedInterruptCount?: number
+  delegateTaskId?: string
+  delegateTasksDetails?: DelegateTaskDetails[]
+  displayName?: string
+  endTs?: number
+  executionEventAdvisors?: ExecutionEventAdvisor[]
+  executionName?: string
+  executionType?: 'PIPELINE' | 'ORCHESTRATION'
+  executionUuid?: string
+  expiryTs?: number
+  hasInspection?: boolean
+  interruptHistory?: ExecutionInterruptEffect[]
+  lastUpdatedAt?: number
+  loopedStateParams?: LoopParams
+  nextInstanceId?: string
+  notifyElements?: ContextElement[]
+  notifyId?: string
+  orchestrationWorkflowType?: 'BUILD' | 'BASIC' | 'CANARY' | 'MULTI_SERVICE' | 'BLUE_GREEN' | 'ROLLING' | 'CUSTOM'
+  parentInstanceId?: string
+  parentLoopedState?: boolean
+  phaseSubWorkflowId?: string
+  pipelineStageElementId?: string
+  pipelineStageParallelIndex?: number
+  prevInstanceId?: string
+  retry?: boolean
+  retryCount?: number
+  rollback?: boolean
+  rollbackPhaseName?: string
+  selectionLogsTrackingForTasksEnabled?: boolean
+  stageName?: string
+  startTs?: number
+  stateExecutionDataHistory?: StateExecutionData[]
+  stateExecutionMap?: {
+    [key: string]: StateExecutionData
+  }
+  stateName?: string
+  stateParams?: {
+    [key: string]: { [key: string]: any }
+  }
+  stateTimeout?: number
+  stateType?: string
+  status?:
+    | 'ABORTED'
+    | 'DISCONTINUING'
+    | 'ERROR'
+    | 'FAILED'
+    | 'NEW'
+    | 'PAUSED'
+    | 'PAUSING'
+    | 'QUEUED'
+    | 'RESUMED'
+    | 'RUNNING'
+    | 'SCHEDULED'
+    | 'STARTING'
+    | 'SUCCESS'
+    | 'WAITING'
+    | 'SKIPPED'
+    | 'ABORTING'
+    | 'REJECTED'
+    | 'EXPIRED'
+    | 'PREPARING'
+  stepId?: string
+  subGraphFilterId?: string
+  uuid?: string
+  waitingForInputs?: boolean
+  workflowId?: string
+}
+
+export interface StateExecutionInterrupt {
+  interrupt?: ExecutionInterrupt
+  tookAffectAt?: string
+}
+
+export interface StateInspection {
+  data?: {
+    [key: string]: StateInspectionData
+  }
+  stateExecutionInstanceId?: string
+  validUntil?: string
+}
+
+export interface StateInspectionData {
+  [key: string]: any
+}
+
+export interface StateMachine {
+  accountId?: string
+  appId: string
+  cachedStatesMap?: {
+    [key: string]: State
+  }
+  cachedTransitionFlowMap?: {
+    [key: string]: {
+      [key: string]: State[]
+    }
+  }
+  childStateMachines?: {
+    [key: string]: StateMachine
+  }
+  createdAt?: number
+  initialState?: State
+  initialStateName?: string
+  name?: string
+  orchestrationWorkflow?: OrchestrationWorkflow
+  originId?: string
+  originVersion?: number
+  states?: State[]
+  statesMap?: {
+    [key: string]: State
+  }
+  transitionFlowMap?: {
+    [key: string]: {
+      [key: string]: State[]
+    }
+  }
+  transitions?: Transition[]
+  uuid?: string
+  valid?: boolean
+}
+
+export interface StateMachineExecutionCallback {
+  [key: string]: any
+}
+
+export interface StateReason {
+  code?: string
+  message?: string
+}
+
+export interface StaticLimit {
+  count?: number
+  limitType?: 'STATIC' | 'RATE_LIMIT'
+}
+
+export interface StatusInstanceBreakdown {
+  instanceCount?: number
+  instanceExecutionHistories?: InstanceExecutionHistory[]
+  status?:
+    | 'ABORTED'
+    | 'DISCONTINUING'
+    | 'ERROR'
+    | 'FAILED'
+    | 'NEW'
+    | 'PAUSED'
+    | 'PAUSING'
+    | 'QUEUED'
+    | 'RESUMED'
+    | 'RUNNING'
+    | 'SCHEDULED'
+    | 'STARTING'
+    | 'SUCCESS'
+    | 'WAITING'
+    | 'SKIPPED'
+    | 'ABORTING'
+    | 'REJECTED'
+    | 'EXPIRED'
+    | 'PREPARING'
+}
+
+export interface Stencil {
+  displayOrder?: number
+  jsonSchema?: JsonNode
+  name?: string
+  stencilCategory?:
+    | 'BUILD'
+    | 'CLOUD'
+    | 'COLLABORATION'
+    | 'COLLECTIONS'
+    | 'COMMANDS'
+    | 'COMMONS'
+    | 'CONFIGURATIONS'
+    | 'CONTAINERS'
+    | 'CONTROLS'
+    | 'COPY'
+    | 'ENVIRONMENTS'
+    | 'FLOW_CONTROLS'
+    | 'KUBERNETES'
+    | 'OTHERS'
+    | 'PROVISIONERS'
+    | 'SCRIPTS'
+    | 'SUB_WORKFLOW'
+    | 'VERIFICATIONS'
+    | 'ECS'
+    | 'SPOTINST'
+    | 'STAGING_ORIGINAL_EXECUTION'
+    | 'AZURE_VMSS'
+    | 'AZURE_WEBAPP'
+  type?: string
+  uiSchema?: { [key: string]: any }
+}
+
+export interface StepSkipStrategy {
+  assertionExpression: string
+  phaseStep?: PhaseStep
+  scope: 'ALL_STEPS' | 'SPECIFIC_STEPS'
+  stepIds?: string[]
+}
+
+export interface StorageConfiguration {
+  containerPath?: string
+  hostSourcePath?: string
+  readonly?: boolean
+}
+
+export interface Store {
+  name?: string
+}
+
+export interface StreamingOutput {
+  [key: string]: any
+}
+
+export interface SubdomainUrl {
+  url?: string
+}
+
+export interface SumoLogicSetupTestNodedata {
+  appId: string
+  fromTime?: number
+  guid?: string
+  hostExpression?: string
+  hostNameField?: string
+  instanceElement?: Instance
+  instanceName?: string
+  isServiceLevel?: boolean
+  query?: string
+  serviceLevel?: boolean
+  settingId: string
+  stateType?:
+    | 'SUB_WORKFLOW'
+    | 'REPEAT'
+    | 'FORK'
+    | 'WAIT'
+    | 'PAUSE'
+    | 'BARRIER'
+    | 'RESOURCE_CONSTRAINT'
+    | 'SHELL_SCRIPT'
+    | 'HTTP'
+    | 'TEMPLATIZED_SECRET_MANAGER'
+    | 'EMAIL'
+    | 'APP_DYNAMICS'
+    | 'NEW_RELIC'
+    | 'NEW_RELIC_DEPLOYMENT_MARKER'
+    | 'DYNA_TRACE'
+    | 'PROMETHEUS'
+    | 'SPLUNKV2'
+    | 'ELK'
+    | 'LOGZ'
+    | 'SUMO'
+    | 'DATA_DOG'
+    | 'DATA_DOG_LOG'
+    | 'CLOUD_WATCH'
+    | 'AWS_LAMBDA_VERIFICATION'
+    | 'APM_VERIFICATION'
+    | 'LOG_VERIFICATION'
+    | 'BUG_SNAG'
+    | 'STACK_DRIVER'
+    | 'STACK_DRIVER_LOG'
+    | 'INSTANA'
+    | 'SCALYR'
+    | 'ENV_STATE'
+    | 'ENV_LOOP_STATE'
+    | 'ENV_RESUME_STATE'
+    | 'ENV_LOOP_RESUME_STATE'
+    | 'COMMAND'
+    | 'APPROVAL'
+    | 'APPROVAL_RESUME'
+    | 'ELASTIC_LOAD_BALANCER'
+    | 'JENKINS'
+    | 'GCB'
+    | 'BAMBOO'
+    | 'ARTIFACT_COLLECTION'
+    | 'ARTIFACT_CHECK'
+    | 'AZURE_NODE_SELECT'
+    | 'AZURE_VMSS_SETUP'
+    | 'AZURE_VMSS_DEPLOY'
+    | 'AZURE_VMSS_ROLLBACK'
+    | 'AZURE_VMSS_SWITCH_ROUTES'
+    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
+    | 'AZURE_WEBAPP_SLOT_SETUP'
+    | 'AZURE_WEBAPP_SLOT_RESIZE'
+    | 'AZURE_WEBAPP_SLOT_SWAP'
+    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
+    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
+    | 'AWS_NODE_SELECT'
+    | 'DC_NODE_SELECT'
+    | 'ROLLING_NODE_SELECT'
+    | 'PHASE'
+    | 'PHASE_STEP'
+    | 'STAGING_ORIGINAL_EXECUTION'
+    | 'AWS_CODEDEPLOY_STATE'
+    | 'AWS_CODEDEPLOY_ROLLBACK'
+    | 'AWS_LAMBDA_STATE'
+    | 'AWS_LAMBDA_ROLLBACK'
+    | 'AWS_AMI_SERVICE_SETUP'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
+    | 'AWS_AMI_SERVICE_DEPLOY'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
+    | 'AWS_AMI_SWITCH_ROUTES'
+    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
+    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_SERVICE_ROLLBACK'
+    | 'ECS_SERVICE_SETUP'
+    | 'SPOTINST_SETUP'
+    | 'SPOTINST_ALB_SHIFT_SETUP'
+    | 'SPOTINST_DEPLOY'
+    | 'SPOTINST_ALB_SHIFT_DEPLOY'
+    | 'SPOTINST_LISTENER_UPDATE'
+    | 'SPOTINST_LISTENER_ALB_SHIFT'
+    | 'SPOTINST_ROLLBACK'
+    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
+    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
+    | 'ECS_SERVICE_SETUP_ROLLBACK'
+    | 'ECS_DAEMON_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
+    | 'ECS_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_ROLLBACK'
+    | 'ECS_LISTENER_UPDATE'
+    | 'ECS_LISTENER_UPDATE_ROLLBACK'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
+    | 'KUBERNETES_SETUP'
+    | 'KUBERNETES_SETUP_ROLLBACK'
+    | 'KUBERNETES_DEPLOY'
+    | 'KUBERNETES_DEPLOY_ROLLBACK'
+    | 'KUBERNETES_STEADY_STATE_CHECK'
+    | 'ECS_STEADY_STATE_CHECK'
+    | 'ECS_RUN_TASK'
+    | 'GCP_CLUSTER_SETUP'
+    | 'HELM_DEPLOY'
+    | 'HELM_ROLLBACK'
+    | 'PCF_SETUP'
+    | 'PCF_RESIZE'
+    | 'PCF_ROLLBACK'
+    | 'PCF_MAP_ROUTE'
+    | 'PCF_UNMAP_ROUTE'
+    | 'PCF_BG_MAP_ROUTE'
+    | 'PCF_PLUGIN'
+    | 'TERRAFORM_PROVISION'
+    | 'TERRAFORM_APPLY'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'TERRAFORM_DESTROY'
+    | 'CLOUD_FORMATION_CREATE_STACK'
+    | 'CLOUD_FORMATION_DELETE_STACK'
+    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'CLOUD_FORMATION_ROLLBACK_STACK'
+    | 'TERRAFORM_ROLLBACK'
+    | 'K8S_DEPLOYMENT_ROLLING'
+    | 'K8S_SCALE'
+    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
+    | 'K8S_BLUE_GREEN_DEPLOY'
+    | 'K8S_CANARY_DEPLOY'
+    | 'K8S_DELETE'
+    | 'JIRA_CREATE_UPDATE'
+    | 'SERVICENOW_CREATE_UPDATE'
+    | 'K8S_TRAFFIC_SPLIT'
+    | 'K8S_APPLY'
+    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
+  toTime?: number
+  workflowId?: string
+}
+
+export interface SyncStatus {
+  appId: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  envId?: string
+  infraMappingId?: string
+  infraMappingName?: string
+  lastSuccessfullySyncedAt?: number
+  lastSyncedAt?: number
+  lastUpdatedAt: number
+  serviceId?: string
+  syncFailureReason?: string
+  uuid: string
+}
+
+export interface Tag {
+  key?: string
+  value?: string
+}
+
+export interface TagFilterCondition {
+  name?: string
+  operator?:
+    | 'EQ'
+    | 'NOT_EQ'
+    | 'LT'
+    | 'LT_EQ'
+    | 'GE'
+    | 'GT'
+    | 'CONTAINS'
+    | 'STARTS_WITH'
+    | 'HAS'
+    | 'IN'
+    | 'NOT_IN'
+    | 'EXISTS'
+    | 'NOT_EXISTS'
+    | 'HAS_ALL'
+    | 'OR'
+    | 'AND'
+    | 'ELEMENT_MATCH'
+  tagType?: 'USER' | 'HARNESS'
+  values?: string[]
+}
+
+export interface TaskData {
+  async?: boolean
+  expressionFunctorToken?: number
+  expressions?: {
+    [key: string]: string
+  }
+  parameters?: { [key: string]: any }[]
+  parked?: boolean
+  taskType: string
+  timeout?: number
+}
+
+export interface TaskSelectorMap {
+  accountId?: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
+  selectors?: string[]
+  taskGroup?:
+    | 'SCRIPT'
+    | 'HTTP'
+    | 'SPLUNK'
+    | 'APPDYNAMICS'
+    | 'INSTANA'
+    | 'NEWRELIC'
+    | 'STACKDRIVER'
+    | 'DYNA_TRACE'
+    | 'PROMETHEUS'
+    | 'CLOUD_WATCH'
+    | 'JENKINS'
+    | 'COMMAND'
+    | 'BAMBOO'
+    | 'DOCKER'
+    | 'ECR'
+    | 'GCR'
+    | 'GCS'
+    | 'GCB'
+    | 'GCP'
+    | 'ACR'
+    | 'NEXUS'
+    | 'S3'
+    | 'AZURE_ARTIFACTS'
+    | 'AZURE_VMSS'
+    | 'AZURE_APP_SERVICE'
+    | 'ELK'
+    | 'LOGZ'
+    | 'SUMO'
+    | 'ARTIFACTORY'
+    | 'HOST_VALIDATION'
+    | 'KMS'
+    | 'GIT'
+    | 'CONTAINER'
+    | 'AMI'
+    | 'HELM'
+    | 'COLLABORATION_PROVIDER'
+    | 'PCF'
+    | 'SPOTINST'
+    | 'APM'
+    | 'LOG'
+    | 'CLOUD_FORMATION'
+    | 'TERRAFORM'
+    | 'AWS'
+    | 'LDAP'
+    | 'K8S'
+    | 'SMB'
+    | 'SFTP'
+    | 'TRIGGER'
+    | 'JIRA'
+    | 'CONNECTIVITY_VALIDATION'
+    | 'BUILD_SOURCE'
+    | 'CUSTOM'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'SERVICENOW'
+    | 'HELM_REPO_CONFIG_VALIDATION'
+    | 'HELM_VALUES_FETCH_TASK'
+    | 'GUARD_24x7'
+    | 'CI'
+    | 'SLACK'
+    | 'ARTIFACT_COLLECT_NG'
+    | 'K8S_NG'
+    | 'CAPABILITY_VALIDATION'
+    | 'JIRA_NG'
+    | 'CVNG'
+  uuid: string
+}
+
+export interface TechStack {
+  category?: string
+  technology?: string
+}
+
+export interface Template {
+  accountId?: string
+  appId: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
   description?: string
+  folderId?: string
+  folderPath?: string
+  folderPathId?: string
+  gallery?: string
+  galleryId?: string
+  importedTemplateDetails?: ImportedTemplateDetails
+  keywords?: string[]
+  lastUpdatedAt: number
+  name: string
+  referencedTemplateId?: string
+  referencedTemplateUri?: string
+  referencedTemplateVersion?: number
+  templateMetadata?: TemplateMetadata
+  templateObject: BaseTemplate
+  type?: string
+  uuid: string
+  variables?: Variable[]
+  version?: number
+  versionDetails?: string
+  versionedTemplate?: VersionedTemplate
+}
+
+export interface TemplateExpression {
+  description?: string
+  expression?: string
+  expressionAllowed?: boolean
+  fieldName?: string
+  mandatory?: boolean
+  metadata?: {
+    [key: string]: { [key: string]: any }
+  }
+}
+
+export interface TemplateFolder {
+  accountId?: string
+  appId: string
+  children?: TemplateFolder[]
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  description?: string
+  galleryId?: string
+  keywords?: string[]
+  lastUpdatedAt: number
+  name?: string
+  nodeType?: string
+  parentId?: string
+  pathId?: string
+  templatesCount?: number
+  uuid: string
+}
+
+export interface TemplateGallery {
+  accountId?: string
+  appId: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  description?: string
+  galleryKey?: string
+  global?: boolean
+  keywords?: string[]
+  lastUpdatedAt: number
+  name?: string
+  referencedGalleryId?: string
+  uuid: string
+}
+
+export interface TemplateMetadata {
+  [key: string]: any
+}
+
+export interface TemplateReference {
+  templateUuid?: string
+  templateVersion?: number
+}
+
+export interface TemplateVariableYaml {
+  description?: string
+  name?: string
+  value?: string
+}
+
+export interface TemplateVersion {
+  accountId?: string
+  appId: string
+  changeType?: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  galleryId?: string
+  importedTemplateVersion?: string
+  lastUpdatedAt: number
+  templateName?: string
+  templateType?: string
+  templateUuid?: string
+  uuid: string
+  version?: number
+  versionDetails?: string
+}
+
+export interface TemporalUnit {
+  dateBased?: boolean
+  duration?: Duration
+  durationEstimated?: boolean
+  timeBased?: boolean
+}
+
+export type TerraformInfrastructureProvisioner = InfrastructureProvisioner & {
+  backendConfigs?: NameValuePair[]
+  commitId?: string
+  environmentVariables?: NameValuePair[]
+  normalizedPath?: string
+  path: string
+  repoName?: string
+  skipRefreshBeforeApplyingPlan?: boolean
+  sourceRepoBranch?: string
+  sourceRepoSettingId?: string
+  templatized?: boolean
+  workspaces?: string[]
+}
+
+export interface ThirdPartyApiCallField {
+  name?: string
+  type?: 'JSON' | 'XML' | 'NUMBER' | 'URL' | 'TEXT' | 'TIMESTAMP'
+  value?: string
+}
+
+export interface ThirdPartyApiCallLog {
+  accountId?: string
+  createdAt?: number
+  delegateId?: string
+  delegateTaskId?: string
+  request?: ThirdPartyApiCallField[]
+  requestTimeStamp?: number
+  response?: ThirdPartyApiCallField[]
+  responseTimeStamp?: number
+  stateExecutionId?: string
+  status?:
+    | 'ABORTED'
+    | 'DISCONTINUING'
+    | 'ERROR'
+    | 'FAILED'
+    | 'NEW'
+    | 'PAUSED'
+    | 'PAUSING'
+    | 'QUEUED'
+    | 'RESUMED'
+    | 'RUNNING'
+    | 'SCHEDULED'
+    | 'STARTING'
+    | 'SUCCESS'
+    | 'WAITING'
+    | 'SKIPPED'
+    | 'ABORTING'
+    | 'REJECTED'
+    | 'EXPIRED'
+    | 'PREPARING'
+  title?: string
+  uuid?: string
+  validUntil?: string
+}
+
+export interface Threshold {
+  comparisonType?: 'RATIO' | 'DELTA' | 'ABSOLUTE'
+  customThresholdType?: 'ACCEPTABLE' | 'ANOMALOUS'
+  ml?: number
+  thresholdCriteria?: TimeSeriesCustomThresholdCriteria
+  thresholdType?: 'ALERT_WHEN_LOWER' | 'ALERT_WHEN_HIGHER' | 'ALERT_HIGHER_OR_LOWER' | 'NO_ALERT'
+}
+
+export interface Throwable {
+  cause?: Throwable
+  localizedMessage?: string
+  message?: string
+  stackTrace?: StackTraceElement[]
+  suppressed?: Throwable[]
+}
+
+export interface TimeRange {
+  from?: number
+  label?: string
+  timeZone?: string
+  to?: number
+}
+
+export interface TimeRangeBasedFreezeConfig {
+  appIds?: string[]
+  environmentTypes?: ('PROD' | 'NON_PROD' | 'ALL')[]
+  freezeForAllApps?: boolean
+  timeRange?: TimeRange
+}
+
+export interface TimeSeries {
+  metricName: string
+  metricType: string
+  txnName: string
+  url: string
+}
+
+export interface TimeSeriesCustomThresholdCriteria {
+  actionToTake?: 'FAIL_IMMEDIATELY' | 'FAIL_AFTER_OCCURRENCES' | 'FAIL_AFTER_CONSECUTIVE_OCCURRENCES'
+  occurrences?: number
+}
+
+export interface TimeSeriesDataPoint {
+  risk?: number
+  timestamp?: number
+  value?: number
+}
+
+export interface TimeSeriesFilter {
+  cvConfigId?: string
+  endTime?: number
+  historyStartTime?: number
+  metricNames?: string[]
+  startTime?: number
+  tags?: string[]
+  txnNames?: string[]
+}
+
+export interface TimeSeriesKeyTransactions {
+  accountId?: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  cvConfigId?: string
+  keyTransactions?: string[]
+  lastUpdatedAt?: number
+  lastUpdatedBy?: EmbeddedUser
+  serviceId?: string
+  uuid?: string
+}
+
+export interface TimeSeriesMLTransactionThresholds {
+  accountId?: string
+  appId: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  customThresholdRefId?: string
+  cvConfigId?: string
+  groupName?: string
+  lastUpdatedAt: number
+  metricName?: string
+  serviceId?: string
+  stateType?:
+    | 'SUB_WORKFLOW'
+    | 'REPEAT'
+    | 'FORK'
+    | 'WAIT'
+    | 'PAUSE'
+    | 'BARRIER'
+    | 'RESOURCE_CONSTRAINT'
+    | 'SHELL_SCRIPT'
+    | 'HTTP'
+    | 'TEMPLATIZED_SECRET_MANAGER'
+    | 'EMAIL'
+    | 'APP_DYNAMICS'
+    | 'NEW_RELIC'
+    | 'NEW_RELIC_DEPLOYMENT_MARKER'
+    | 'DYNA_TRACE'
+    | 'PROMETHEUS'
+    | 'SPLUNKV2'
+    | 'ELK'
+    | 'LOGZ'
+    | 'SUMO'
+    | 'DATA_DOG'
+    | 'DATA_DOG_LOG'
+    | 'CLOUD_WATCH'
+    | 'AWS_LAMBDA_VERIFICATION'
+    | 'APM_VERIFICATION'
+    | 'LOG_VERIFICATION'
+    | 'BUG_SNAG'
+    | 'STACK_DRIVER'
+    | 'STACK_DRIVER_LOG'
+    | 'INSTANA'
+    | 'SCALYR'
+    | 'ENV_STATE'
+    | 'ENV_LOOP_STATE'
+    | 'ENV_RESUME_STATE'
+    | 'ENV_LOOP_RESUME_STATE'
+    | 'COMMAND'
+    | 'APPROVAL'
+    | 'APPROVAL_RESUME'
+    | 'ELASTIC_LOAD_BALANCER'
+    | 'JENKINS'
+    | 'GCB'
+    | 'BAMBOO'
+    | 'ARTIFACT_COLLECTION'
+    | 'ARTIFACT_CHECK'
+    | 'AZURE_NODE_SELECT'
+    | 'AZURE_VMSS_SETUP'
+    | 'AZURE_VMSS_DEPLOY'
+    | 'AZURE_VMSS_ROLLBACK'
+    | 'AZURE_VMSS_SWITCH_ROUTES'
+    | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
+    | 'AZURE_WEBAPP_SLOT_SETUP'
+    | 'AZURE_WEBAPP_SLOT_RESIZE'
+    | 'AZURE_WEBAPP_SLOT_SWAP'
+    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
+    | 'AZURE_WEBAPP_SLOT_ROLLBACK'
+    | 'AWS_NODE_SELECT'
+    | 'DC_NODE_SELECT'
+    | 'ROLLING_NODE_SELECT'
+    | 'PHASE'
+    | 'PHASE_STEP'
+    | 'STAGING_ORIGINAL_EXECUTION'
+    | 'AWS_CODEDEPLOY_STATE'
+    | 'AWS_CODEDEPLOY_ROLLBACK'
+    | 'AWS_LAMBDA_STATE'
+    | 'AWS_LAMBDA_ROLLBACK'
+    | 'AWS_AMI_SERVICE_SETUP'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_SETUP'
+    | 'AWS_AMI_SERVICE_DEPLOY'
+    | 'ASG_AMI_SERVICE_ALB_SHIFT_DEPLOY'
+    | 'AWS_AMI_SWITCH_ROUTES'
+    | 'ASG_AMI_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_ROLLBACK_SWITCH_ROUTES'
+    | 'ASG_AMI_ROLLBACK_ALB_SHIFT_SWITCH_ROUTES'
+    | 'AWS_AMI_SERVICE_ROLLBACK'
+    | 'ECS_SERVICE_SETUP'
+    | 'SPOTINST_SETUP'
+    | 'SPOTINST_ALB_SHIFT_SETUP'
+    | 'SPOTINST_DEPLOY'
+    | 'SPOTINST_ALB_SHIFT_DEPLOY'
+    | 'SPOTINST_LISTENER_UPDATE'
+    | 'SPOTINST_LISTENER_ALB_SHIFT'
+    | 'SPOTINST_ROLLBACK'
+    | 'SPOTINST_LISTENER_UPDATE_ROLLBACK'
+    | 'SPOTINST_LISTENER_ALB_SHIFT_ROLLBACK'
+    | 'ECS_SERVICE_SETUP_ROLLBACK'
+    | 'ECS_DAEMON_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP'
+    | 'ECS_BG_SERVICE_SETUP_ROUTE53'
+    | 'ECS_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_ROLLBACK'
+    | 'ECS_LISTENER_UPDATE'
+    | 'ECS_LISTENER_UPDATE_ROLLBACK'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE'
+    | 'ECS_ROUTE53_DNS_WEIGHT_UPDATE_ROLLBACK'
+    | 'KUBERNETES_SETUP'
+    | 'KUBERNETES_SETUP_ROLLBACK'
+    | 'KUBERNETES_DEPLOY'
+    | 'KUBERNETES_DEPLOY_ROLLBACK'
+    | 'KUBERNETES_STEADY_STATE_CHECK'
+    | 'ECS_STEADY_STATE_CHECK'
+    | 'ECS_RUN_TASK'
+    | 'GCP_CLUSTER_SETUP'
+    | 'HELM_DEPLOY'
+    | 'HELM_ROLLBACK'
+    | 'PCF_SETUP'
+    | 'PCF_RESIZE'
+    | 'PCF_ROLLBACK'
+    | 'PCF_MAP_ROUTE'
+    | 'PCF_UNMAP_ROUTE'
+    | 'PCF_BG_MAP_ROUTE'
+    | 'PCF_PLUGIN'
+    | 'TERRAFORM_PROVISION'
+    | 'TERRAFORM_APPLY'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'TERRAFORM_DESTROY'
+    | 'CLOUD_FORMATION_CREATE_STACK'
+    | 'CLOUD_FORMATION_DELETE_STACK'
+    | 'KUBERNETES_SWAP_SERVICE_SELECTORS'
+    | 'CLOUD_FORMATION_ROLLBACK_STACK'
+    | 'TERRAFORM_ROLLBACK'
+    | 'K8S_DEPLOYMENT_ROLLING'
+    | 'K8S_SCALE'
+    | 'K8S_DEPLOYMENT_ROLLING_ROLLBACK'
+    | 'K8S_BLUE_GREEN_DEPLOY'
+    | 'K8S_CANARY_DEPLOY'
+    | 'K8S_DELETE'
+    | 'JIRA_CREATE_UPDATE'
+    | 'SERVICENOW_CREATE_UPDATE'
+    | 'K8S_TRAFFIC_SPLIT'
+    | 'K8S_APPLY'
+    | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
+  thresholdType?: 'ACCEPTABLE' | 'ANOMALOUS'
+  thresholds?: TimeSeriesMetricDefinition
+  transactionName?: string
+  uuid: string
+  version?: number
+  workflowId?: string
+}
+
+export interface TimeSeriesMetricDefinition {
+  categorizedThresholds?: {
+    [key: string]: Threshold[]
+  }
+  customThresholds?: Threshold[]
+  metricName?: string
+  metricType?: string
+  tags?: string[]
+  thresholds?: Threshold[]
+}
+
+export interface TimeSeriesOfMetric {
+  lastSeenTime?: number
+  longTermPattern?: boolean
+  metricDeeplinkUrl?: string
+  metricName?: string
+  metricType?: string
+  risk?: number
+  risksForTimeSeries?: TimeSeriesRisk[]
+  timeSeries?: TimeSeriesDataPoint[]
+}
+
+export interface TimeSeriesRisk {
+  endTime?: number
+  risk?: number
+  startTime?: number
+}
+
+export interface TimeSeriesThresholdCriteria {
+  action?: 'FAIL_IMMEDIATELY' | 'FAIL_AFTER_OCCURRENCES' | 'FAIL_AFTER_CONSECUTIVE_OCCURRENCES'
+  criteria?: string
+  occurrenceCount?: number
+  type?: 'RATIO' | 'DELTA' | 'ABSOLUTE'
+}
+
+export interface TimeSeriesThresholdDTO {
+  accountId?: string
+  action?: 'IGNORE' | 'FAIL'
+  criteria?: TimeSeriesThresholdCriteria
+  dataSourceType?: 'APP_DYNAMICS' | 'SPLUNK'
+  metricGroupName?: string
+  metricName?: string
+  metricPackIdentifier?: string
+  metricType?: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX'
+  projectIdentifier?: string
+}
+
+export interface TopConsumer {
+  appId?: string
+  appName?: string
+  failedActivityCount?: number
+  serviceId?: string
+  serviceName?: string
+  successfulActivityCount?: number
+  totalCount?: number
+}
+
+export interface TrafficShiftMetadata {
+  phaseIdsWithTrafficShift?: string[]
+}
+
+export interface TransactionTimeSeries {
+  metricTimeSeries?: TimeSeriesOfMetric[]
+  tag?: string
+  transactionName?: string
+}
+
+export interface Transition {
+  fromState?: State
+  toState?: State
+  transitionType?: 'SUCCESS' | 'FAILURE' | 'ABORT' | 'REPEAT' | 'FORK' | 'CONDITIONAL'
+}
+
+export interface TrialSignupOptions {
+  assistedOption?: boolean
+  productsSelected?: ('CD' | 'CE' | 'CI')[]
+}
+
+export interface Trigger {
+  accountId?: string
+  appId: string
+  artifactSelections?: ArtifactSelection[]
   condition: TriggerCondition
+  continueWithDefaultValues?: boolean
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  description?: string
+  disabled?: boolean
+  excludeHostsWithSameArtifact?: boolean
+  lastUpdatedAt: number
+  manifestSelections?: ManifestSelection[]
+  name?: string
   pipelineId?: string
   pipelineName?: string
+  serviceInfraWorkflows?: ServiceInfraWorkflow[]
+  tagLinks?: HarnessTagLink[]
+  uuid: string
   workflowId?: string
   workflowName?: string
-  artifactSelections?: ArtifactSelection[]
-  manifestSelections?: ManifestSelection[]
   workflowType?: 'PIPELINE' | 'ORCHESTRATION'
   workflowVariables?: {
     [key: string]: string
   }
-  continueWithDefaultValues?: boolean
-  serviceInfraWorkflows?: ServiceInfraWorkflow[]
-  excludeHostsWithSameArtifact?: boolean
-  tagLinks?: HarnessTagLink[]
-  disabled?: boolean
 }
 
 export interface TriggerCondition {
-  conditionType: 'NEW_ARTIFACT' | 'PIPELINE_COMPLETION' | 'SCHEDULED' | 'WEBHOOK' | 'NEW_INSTANCE' | 'NEW_MANIFEST'
   conditionDisplayName?: string
+  conditionType: 'NEW_ARTIFACT' | 'PIPELINE_COMPLETION' | 'SCHEDULED' | 'WEBHOOK' | 'NEW_INSTANCE' | 'NEW_MANIFEST'
 }
 
-export interface WebHookToken {
-  webHookToken?: string
-  httpMethod?: string
-  payload?: string
+export interface TriggeredBy {
+  email?: string
+  name?: string
 }
 
-export type WebHookTriggerCondition = TriggerCondition & {
-  webHookToken?: WebHookToken
-  artifactStreamId?: string
+export interface TwoFactorAdminOverrideSettings {
+  adminOverrideTwoFactorEnabled?: boolean
+}
+
+export interface TwoFactorAuthenticationSettings {
+  email?: string
+  mechanism?: 'TOTP'
+  totpSecretKey?: string
+  totpqrurl?: string
+  twoFactorAuthenticationEnabled?: boolean
+  userId?: string
+}
+
+export interface UpdatePasswordRequest {
+  password?: string
+}
+
+export interface Usage {
+  entityId?: string
+  entityName?: string
+  entityType?: string
+  properties?: {
+    [key: string]: string
+  }
+}
+
+export interface UsageRestrictions {
+  appEnvRestrictions?: AppEnvRestriction[]
+}
+
+export interface UsageRestrictionsReferenceSummary {
+  numOfSecrets?: number
+  numOfSettings?: number
+  secrets?: IdNameReference[]
+  settings?: IdNameReference[]
+  total?: number
+}
+
+export interface User {
+  accountIds?: string[]
+  accountName?: string
+  accounts?: Account[]
+  appId: string
+  companyName?: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  defaultAccountId?: string
+  disabled?: boolean
+  email?: string
+  emailVerified?: boolean
+  familyName?: string
+  firstLogin?: boolean
+  givenName?: string
+  imported?: boolean
+  lastAccountId?: string
+  lastAppId?: string
+  lastLogin?: number
+  lastUpdatedAt: number
+  name?: string
+  oauthProvider?: string
+  password?: string[]
+  passwordExpired?: boolean
+  pendingAccounts?: Account[]
+  reportedSegmentTracks?: string[]
+  statsFetchedOn?: number
+  supportAccounts?: Account[]
+  token?: string
+  twoFactorAuthenticationEnabled?: boolean
+  twoFactorAuthenticationMechanism?: 'TOTP'
+  twoFactorJwtToken?: string
+  userGroups?: UserGroup[]
+  userLocked?: boolean
+  userLockoutInfo?: UserLockoutInfo
+  utmInfo?: UtmInfo
+  uuid: string
+}
+
+export interface UserDataSpecification {
+  accountId?: string
+  appId: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  data: string
+  lastUpdatedAt: number
+  serviceId?: string
+  uuid: string
+}
+
+export interface UserGroup {
+  accountId?: string
+  accountPermissions?: AccountPermissions
+  appId: string
+  appPermissions?: AppPermission[]
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  default?: boolean
+  description?: string
+  importedByScim?: boolean
+  lastUpdatedAt: number
+  linkedSsoDisplayName?: string
+  linkedSsoId?: string
+  linkedSsoType?: 'SAML' | 'LDAP' | 'OAUTH'
+  memberIds?: string[]
+  members?: User[]
+  name?: string
+  notificationSettings?: NotificationSettings
+  ssoGroupId?: string
+  ssoGroupName?: string
+  ssoLinked?: boolean
+  uuid: string
+}
+
+export interface UserInvite {
+  accountId?: string
+  accountName?: string
+  agreement?: boolean
+  appId: string
+  companyName?: string
+  completed?: boolean
+  country?: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  email?: string
+  familyName?: string
+  freemiumAssistedOption?: boolean
+  freemiumProducts?: string[]
+  givenName?: string
+  importedByScim?: boolean
+  lastUpdatedAt: number
+  marketPlaceToken?: string
+  name?: string
+  password?: string[]
+  phone?: string
+  roles?: Role[]
+  source?: UserInviteSource
+  state?: string
+  userGroups?: UserGroup[]
+  utmInfo?: UtmInfo
+  uuid: string
+}
+
+export interface UserInviteSource {
+  type?: 'MANUAL' | 'SSO' | 'TRIAL' | 'MARKETPLACE' | 'MARKETO_LINKEDIN' | 'AZURE_MARKETPLACE' | 'ONPREM'
+  uuid?: string
+}
+
+export interface UserLockoutInfo {
+  numberOfFailedLoginAttempts?: number
+  userLockedAt?: number
+}
+
+export interface UserLockoutPolicy {
+  enableLockoutPolicy?: boolean
+  lockOutPeriod?: number
+  notifyUser?: boolean
+  numberOfFailedAttemptsBeforeLockout?: number
+  userGroupsToNotify?: UserGroup[]
+}
+
+export interface UserPermissionInfo {
+  accountId?: string
+  accountPermissionSummary?: AccountPermissionSummary
+  appPermissionMap?: {
+    [key: string]: AppPermissionSummaryForUI
+  }
+  dashboardPermissions?: {
+    [key: string]: ('READ' | 'UPDATE' | 'DELETE' | 'MANAGE')[]
+  }
+  hasAllAppAccess?: boolean
+}
+
+export interface UtmInfo {
+  utmCampaign?: string
+  utmContent?: string
+  utmMedium?: string
+  utmSource?: string
+  utmTerm?: string
+}
+
+export interface UuidAware {
+  uuid?: string
+}
+
+export interface ValidationResult {
+  errorMessage?: string
+  valid?: boolean
+}
+
+export interface Variable {
+  allowMultipleValues?: boolean
+  allowedList?: string[]
+  allowedValues?: string
+  artifactStreamSummaries?: ArtifactStreamSummary[]
+  description?: string
+  fixed?: boolean
+  mandatory?: boolean
+  metadata?: {
+    [key: string]: { [key: string]: any }
+  }
+  name?: string
+  runtimeInput?: boolean
+  type?: 'TEXT' | 'NUMBER' | 'EMAIL' | 'ENTITY' | 'ARTIFACT' | 'MANIFEST'
+  value?: string
+}
+
+export interface VaultConfig {
+  accountId?: string
+  appRoleId?: string
+  authToken?: string
+  basePath?: string
+  certValidationRequired?: boolean
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  default?: boolean
+  encryptedBy?: string
+  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  engineManuallyEntered?: boolean
+  lastUpdatedAt?: number
+  lastUpdatedBy?: EmbeddedUser
+  manuallyEnteredSecretEngineMigrationIteration?: number
+  name?: string
+  nextTokenRenewIteration?: number
+  numOfEncryptedValue?: number
+  readOnly?: boolean
+  renewIntervalHours?: number
+  renewalInterval?: number
+  renewedAt?: number
+  scopedToAccount?: boolean
+  secretEngineName?: string
+  secretEngineVersion?: number
+  secretId?: string
+  templatized?: boolean
+  templatizedFields?: string[]
+  usageRestrictions?: UsageRestrictions
+  uuid: string
+  vaultUrl?: string
+}
+
+export type VaultConfigDTO = SecretManagerConfigDTO & {
+  appRoleId?: string
+  authToken?: string
+  basePath?: string
+  readOnly?: boolean
+  renewIntervalHours?: number
+  secretEngineName?: string
+  secretEngineVersion?: number
+  secretId?: string
+  vaultUrl?: string
+}
+
+export type VaultConfigUpdateDTO = SecretManagerConfigUpdateDTO & {
+  appRoleId?: string
+  authToken?: string
+  basePath?: string
+  readOnly?: boolean
+  renewIntervalHours?: number
+  secretEngineName?: string
+  secretEngineVersion?: number
+  secretId?: string
+  vaultUrl?: string
+}
+
+export type VaultConnectorDTO = ConnectorConfigDTO & {
+  appRoleId?: string
+  authToken?: string
+  basePath?: string
+  default?: boolean
+  readOnly?: boolean
+  renewIntervalHours?: number
+  secretEngineName?: string
+  secretEngineVersion?: number
+  secretId?: string
+  vaultUrl?: string
+}
+
+export interface VerificationDataAnalysisResponse {
+  executionStatus?:
+    | 'ABORTED'
+    | 'DISCONTINUING'
+    | 'ERROR'
+    | 'FAILED'
+    | 'NEW'
+    | 'PAUSED'
+    | 'PAUSING'
+    | 'QUEUED'
+    | 'RESUMED'
+    | 'RUNNING'
+    | 'SCHEDULED'
+    | 'STARTING'
+    | 'SUCCESS'
+    | 'WAITING'
+    | 'SKIPPED'
+    | 'ABORTING'
+    | 'REJECTED'
+    | 'EXPIRED'
+    | 'PREPARING'
+  stateExecutionData?: VerificationStateAnalysisExecutionData
+}
+
+export interface VerificationLoadResponse {
+  loadPresent?: boolean
+  loadResponse?: { [key: string]: any }
+  totalHits?: number
+  totalHitsThreshold?: number
+}
+
+export interface VerificationNodeDataSetupResponse {
+  configurationCorrect?: boolean
+  dataForNode?: { [key: string]: any }
+  loadResponse?: VerificationLoadResponse
+  providerReachable?: boolean
+}
+
+export interface VerificationResponse {
+  numberOfConnectedDelegates?: number
+  numberOfRegisteredDelegates?: number
+}
+
+export interface VerificationStateAnalysisExecutionData {
+  analysisMinute?: number
+  baselineExecutionId?: string
+  canaryNewHostNames?: string[]
+  comparisonStrategy?: 'COMPARE_WITH_PREVIOUS' | 'COMPARE_WITH_CURRENT' | 'PREDICTIVE'
+  correlationId?: string
+  customThresholdRefId?: string
+  delegateMetaInfo?: DelegateMetaInfo
+  element?: ContextElement
+  endTs?: number
+  errorMsg?: string
+  lastExecutionNodes?: string[]
+  progressPercentage?: number
+  query?: string
+  remainingMinutes?: number
+  serverConfigId?: string
+  startTs?: number
+  stateExecutionInstanceId?: string
+  stateName?: string
+  stateParams?: {
+    [key: string]: { [key: string]: any }
+  }
+  stateType?: string
+  status?:
+    | 'ABORTED'
+    | 'DISCONTINUING'
+    | 'ERROR'
+    | 'FAILED'
+    | 'NEW'
+    | 'PAUSED'
+    | 'PAUSING'
+    | 'QUEUED'
+    | 'RESUMED'
+    | 'RUNNING'
+    | 'SCHEDULED'
+    | 'STARTING'
+    | 'SUCCESS'
+    | 'WAITING'
+    | 'SKIPPED'
+    | 'ABORTING'
+    | 'REJECTED'
+    | 'EXPIRED'
+    | 'PREPARING'
+  templateVariable?: {
+    [key: string]: { [key: string]: any }
+  }
+  waitInterval?: number
+  wingsPersistence?: WingsPersistence
+}
+
+export interface Version {
+  buildMetadata?: string
+  majorVersion?: number
+  minorVersion?: number
+  normalVersion?: string
+  patchVersion?: number
+  preReleaseVersion?: string
+}
+
+export interface VersionInfo {
+  buildNo?: string
+  gitBranch?: string
+  gitCommit?: string
+  timestamp?: string
+  version?: string
+}
+
+export interface VersionPackage {
+  runtimeInfo?: RuntimeInfo
+  versionInfo?: VersionInfo
+}
+
+export interface VersionedTemplate {
+  accountId?: string
+  appId: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  galleryId?: string
+  importedTemplateVersion?: string
+  lastUpdatedAt: number
+  templateId?: string
+  templateObject: BaseTemplate
+  uuid: string
+  variables?: Variable[]
+  version?: number
+}
+
+export interface ViewCondition {
+  type?: string
+}
+
+export interface ViewCustomField {
+  accountId?: string
+  createdAt?: number
+  description?: string
+  displayFormula?: string
+  lastUpdatedAt?: number
+  name?: string
+  sqlFormula?: string
+  userDefinedExpression?: string
+  uuid?: string
+  viewFields?: ViewField[]
+  viewId?: string
+}
+
+export interface ViewField {
+  fieldId?: string
+  fieldName?: string
+  identifier?: 'CLUSTER' | 'AWS' | 'GCP' | 'COMMON' | 'CUSTOM' | 'LABEL'
+  identifierName?: string
+}
+
+export type ViewIdCondition = ViewCondition & {
+  values?: string[]
+  viewField?: ViewField
+  viewOperator?: 'IN' | 'NOT_IN' | 'NOT_NULL'
+}
+
+export interface ViewRule {
+  viewConditions?: ViewCondition[]
+}
+
+export interface ViewTimeRange {
+  endTime?: number
+  startTime?: number
+  viewTimeRangeType?: 'CUSTOM' | 'LAST_7' | 'LAST_30' | 'LAST_MONTH'
+}
+
+export interface ViewVisualization {
+  chartType?: 'STACKED_TIME_SERIES'
+  granularity?: 'DAY' | 'MONTH'
+  groupBy?: ViewField
+}
+
+export interface VirtualMachineScaleSetData {
+  id?: string
+  name?: string
+  virtualMachineAdministratorUsername?: string
+}
+
+export interface Void {
+  [key: string]: any
+}
+
+export interface WebHookRequest {
+  application?: string
+  artifacts?: {
+    [key: string]: { [key: string]: any }
+  }[]
+  manifests?: {
+    [key: string]: { [key: string]: any }
+  }[]
   parameters?: {
     [key: string]: string
   }
-  webhookSource?: 'GITHUB' | 'GITLAB' | 'BITBUCKET'
-  eventTypes?: (
-    | 'PULL_REQUEST'
-    | 'PUSH'
-    | 'REPO'
-    | 'ISSUE'
-    | 'PING'
-    | 'DELETE'
-    | 'ANY'
-    | 'OTHER'
-    | 'RELEASE'
-    | 'PACKAGE'
-  )[]
+}
+
+export interface WebHookToken {
+  httpMethod?: string
+  payload?: string
+  webHookToken?: string
+}
+
+export type WebHookTriggerCondition = TriggerCondition & {
   actions?: (
     | 'CLOSED'
     | 'EDITED'
@@ -15607,7 +17820,7 @@ export type WebHookTriggerCondition = TriggerCondition & {
     | 'REVIEW_REQUESTED_REMOVED'
     | 'PACKAGE_PUBLISHED'
   )[]
-  releaseActions?: ('CREATED' | 'PUBLISHED' | 'RELEASED' | 'UNPUBLISHED' | 'EDITED' | 'DELETED' | 'PRE_RELEASED')[]
+  artifactStreamId?: string
   bitBucketEvents?: (
     | 'PING'
     | 'DIAGNOSTICS_PING'
@@ -15636,634 +17849,325 @@ export type WebHookTriggerCondition = TriggerCondition & {
     | 'PULL_REQUEST_COMMENT_UPDATED'
     | 'PULL_REQUEST_COMMENT_DELETED'
   )[]
-  filePaths?: string[]
-  gitConnectorId?: string
-  repoName?: string
   branchName?: string
   branchRegex?: string
   checkFileContentChanged?: boolean
-}
-
-export interface RestResponsePageResponseTrigger {
-  metaData?: {
-    [key: string]: { [key: string]: any }
+  eventTypes?: (
+    | 'PULL_REQUEST'
+    | 'PUSH'
+    | 'REPO'
+    | 'ISSUE'
+    | 'PING'
+    | 'DELETE'
+    | 'ANY'
+    | 'OTHER'
+    | 'RELEASE'
+    | 'PACKAGE'
+  )[]
+  filePaths?: string[]
+  gitConnectorId?: string
+  parameters?: {
+    [key: string]: string
   }
-  resource?: Trigger[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseWebHookToken {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: WebHookToken
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseWebhookParameters {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: WebhookParameters
-  responseMessages?: ResponseMessage[]
+  releaseActions?: ('CREATED' | 'PUBLISHED' | 'RELEASED' | 'UNPUBLISHED' | 'EDITED' | 'DELETED' | 'PRE_RELEASED')[]
+  repoName?: string
+  webHookToken?: WebHookToken
+  webhookSource?: 'GITHUB' | 'GITLAB' | 'BITBUCKET'
 }
 
 export interface WebhookParameters {
-  params?: string[]
   expressions?: string[]
+  params?: string[]
 }
 
-export interface RestResponseWebhookEventType {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: 'PULL_REQUEST' | 'PUSH' | 'REPO' | 'ISSUE' | 'PING' | 'DELETE' | 'ANY' | 'OTHER' | 'RELEASE' | 'PACKAGE'
-  responseMessages?: ResponseMessage[]
+export interface WeeklyFreezeConfig {
+  appIds?: string[]
+  environmentTypes?: ('PROD' | 'NON_PROD' | 'ALL')[]
+  freezeForAllApps?: boolean
+  weeklyRange?: WeeklyRange
 }
 
-export interface IdNameReference {
-  id?: string
-  name?: string
+export interface WeeklyRange {
+  endDay?: string
+  endTime?: string
+  startDay?: string
+  startTime?: string
+  timeZone?: string
 }
 
-export interface RestResponseUsageRestrictionsReferenceSummary {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: UsageRestrictionsReferenceSummary
-  responseMessages?: ResponseMessage[]
-}
-
-export interface UsageRestrictionsReferenceSummary {
-  total?: number
-  numOfSettings?: number
-  numOfSecrets?: number
-  settings?: IdNameReference[]
-  secrets?: IdNameReference[]
-}
-
-export interface AppRestrictionsSummary {
-  application?: EntityReference
-  hasAllProdEnvAccess?: boolean
-  hasAllNonProdEnvAccess?: boolean
-  environments?: EntityReference[]
-}
-
-export interface EntityReference {
-  id?: string
-  name?: string
-  appId?: string
-  entityType?: string
-}
-
-export interface RestResponseRestrictionsSummary {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: RestrictionsSummary
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestrictionsSummary {
-  hasAllAppAccess?: boolean
-  hasAllProdEnvAccess?: boolean
-  hasAllNonProdEnvAccess?: boolean
-  applications?: AppRestrictionsSummary[]
-}
-
-export interface RestResponseUsageRestrictions {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: UsageRestrictions
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseUserGroup {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: UserGroup
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponsePageResponseUserGroup {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: UserGroup[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface LdapLinkGroupRequest {
-  ldapGroupDN?: string
-  ldapGroupName?: string
-}
-
-export interface SamlLinkGroupRequest {
-  samlGroupName?: string
-}
-
-export interface LoginRequest {
-  authorization?: string
-}
-
-export interface FeatureFlag {
-  uuid?: string
-  name?: string
-  enabled?: boolean
-  lastUpdatedAt?: number
-}
-
-export interface RestResponseCollectionFeatureFlag {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: FeatureFlag[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface AccountJoinRequest {
-  name?: string
-  email?: string
-  companyName?: string
-  note?: string
-  accountAdminEmail?: string
-}
-
-export interface ResetPasswordRequest {
-  email?: string
-}
-
-export interface ResendInvitationEmailRequest {
-  email?: string
-}
-
-export interface AccountRole {
+export interface Whitelist {
   accountId?: string
-  accountName?: string
-  allApps?: boolean
-  applicationRoles?: ApplicationRole[]
-  resourceAccess?: ImmutablePairResourceTypeAction[]
-}
-
-export interface ApplicationRole {
-  appId?: string
-  appName?: string
-  allEnvironments?: boolean
-  environmentRoles?: EnvironmentRole[]
-  resourceAccess?: ImmutablePairResourceTypeAction[]
-}
-
-export interface EnvironmentRole {
-  envId?: string
-  envName?: string
-  environmentType?: 'PROD' | 'NON_PROD' | 'ALL'
-  resourceAccess?: {
-    [key: string]:
-      | 'ALL'
-      | 'CREATE'
-      | 'READ'
-      | 'UPDATE'
-      | 'DELETE'
-      | 'EXECUTE'
-      | 'EXECUTE_WORKFLOW'
-      | 'EXECUTE_PIPELINE'
-      | 'DEFAULT'
-  }
-}
-
-export interface ImmutablePair {
-  left?: { [key: string]: any }
-  right?: { [key: string]: any }
-  value?: { [key: string]: any }
-  key?: { [key: string]: any }
-}
-
-export interface ImmutablePairResourceTypeAction {
-  left?:
-    | 'APPLICATION'
-    | 'SERVICE'
-    | 'CONFIGURATION'
-    | 'CONFIGURATION_OVERRIDE'
-    | 'WORKFLOW'
-    | 'ENVIRONMENT'
-    | 'ROLE'
-    | 'DEPLOYMENT'
-    | 'ARTIFACT'
-    | 'CLOUD'
-    | 'USER'
-    | 'CD'
-    | 'PIPELINE'
-    | 'SETTING'
-    | 'LIMIT'
-    | 'APP_STACK'
-    | 'NOTIFICATION_GROUP'
-    | 'DELEGATE'
-    | 'DELEGATE_SCOPE'
-    | 'WHITE_LIST'
-    | 'SSO'
-    | 'API_KEY'
-    | 'PROVISIONER'
-    | 'PREFERENCE'
-    | 'TEMPLATE'
-    | 'CUSTOM_DASHBOARD'
-    | 'BUDGET'
-    | 'GCP_RESOURCE'
-    | 'CLUSTERRECORD'
-    | 'K8S_LABEL'
-    | 'K8S_EVENT_YAML_DIFF'
-    | 'K8S_RECOMMENDATION'
-    | 'CE_CLUSTER'
-    | 'CE_CONNECTOR'
-    | 'CE_BATCH'
-    | 'LINKED_ACCOUNT'
-  right?:
-    | 'ALL'
-    | 'CREATE'
-    | 'READ'
-    | 'UPDATE'
-    | 'DELETE'
-    | 'EXECUTE'
-    | 'EXECUTE_WORKFLOW'
-    | 'EXECUTE_PIPELINE'
-    | 'DEFAULT'
-  value?:
-    | 'ALL'
-    | 'CREATE'
-    | 'READ'
-    | 'UPDATE'
-    | 'DELETE'
-    | 'EXECUTE'
-    | 'EXECUTE_WORKFLOW'
-    | 'EXECUTE_PIPELINE'
-    | 'DEFAULT'
-  key?:
-    | 'APPLICATION'
-    | 'SERVICE'
-    | 'CONFIGURATION'
-    | 'CONFIGURATION_OVERRIDE'
-    | 'WORKFLOW'
-    | 'ENVIRONMENT'
-    | 'ROLE'
-    | 'DEPLOYMENT'
-    | 'ARTIFACT'
-    | 'CLOUD'
-    | 'USER'
-    | 'CD'
-    | 'PIPELINE'
-    | 'SETTING'
-    | 'LIMIT'
-    | 'APP_STACK'
-    | 'NOTIFICATION_GROUP'
-    | 'DELEGATE'
-    | 'DELEGATE_SCOPE'
-    | 'WHITE_LIST'
-    | 'SSO'
-    | 'API_KEY'
-    | 'PROVISIONER'
-    | 'PREFERENCE'
-    | 'TEMPLATE'
-    | 'CUSTOM_DASHBOARD'
-    | 'BUDGET'
-    | 'GCP_RESOURCE'
-    | 'CLUSTERRECORD'
-    | 'K8S_LABEL'
-    | 'K8S_EVENT_YAML_DIFF'
-    | 'K8S_RECOMMENDATION'
-    | 'CE_CLUSTER'
-    | 'CE_CONNECTOR'
-    | 'CE_BATCH'
-    | 'LINKED_ACCOUNT'
-}
-
-export interface RestResponseAccountRole {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AccountRole
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseApplicationRole {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ApplicationRole
-  responseMessages?: ResponseMessage[]
-}
-
-export interface LoginTypeRequest {
-  userName?: string
-}
-
-export interface SsoRedirectRequest {
-  jwtToken?: string
-}
-
-export interface RestResponseTwoFactorAuthenticationSettings {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: TwoFactorAuthenticationSettings
-  responseMessages?: ResponseMessage[]
-}
-
-export interface TwoFactorAuthenticationSettings {
-  userId?: string
-  email?: string
-  twoFactorAuthenticationEnabled?: boolean
-  mechanism?: 'TOTP'
-  totpSecretKey?: string
-  totpqrurl?: string
-}
-
-export interface RestResponseTwoFactorAdminOverrideSettings {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: TwoFactorAdminOverrideSettings
-  responseMessages?: ResponseMessage[]
-}
-
-export interface TwoFactorAdminOverrideSettings {
-  adminOverrideTwoFactorEnabled?: boolean
-}
-
-export interface RestResponsePageResponseUserInvite {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: UserInvite[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseUserInvite {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: UserInvite
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListInviteOperationResponse {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: (
-    | 'ACCOUNT_INVITE_ACCEPTED_NEED_PASSWORD'
-    | 'ACCOUNT_INVITE_ACCEPTED'
-    | 'USER_INVITED_SUCCESSFULLY'
-    | 'USER_ALREADY_ADDED'
-    | 'USER_ALREADY_INVITED'
-    | 'FAIL'
-  )[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseInviteOperationResponse {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?:
-    | 'ACCOUNT_INVITE_ACCEPTED_NEED_PASSWORD'
-    | 'ACCOUNT_INVITE_ACCEPTED'
-    | 'USER_INVITED_SUCCESSFULLY'
-    | 'USER_ALREADY_ADDED'
-    | 'USER_ALREADY_INVITED'
-    | 'FAIL'
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseZendeskSsoLoginResponse {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ZendeskSsoLoginResponse
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ZendeskSsoLoginResponse {
-  redirectUrl?: string
-  userId?: string
-}
-
-export interface PublicUser {
-  user?: User
-  inviteAccepted?: boolean
-}
-
-export interface RestResponsePageResponsePublicUser {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: PublicUser[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface AccountPermissionSummary {
-  permissions?: (
-    | 'ACCOUNT'
-    | 'LOGGED_IN'
-    | 'DELEGATE'
-    | 'NONE'
-    | 'APP'
-    | 'ALL_APP_ENTITIES'
-    | 'ENV'
-    | 'SERVICE'
-    | 'WORKFLOW'
-    | 'PIPELINE'
-    | 'DEPLOYMENT'
-    | 'APPLICATION_CREATE_DELETE'
-    | 'USER_PERMISSION_MANAGEMENT'
-    | 'ACCOUNT_MANAGEMENT'
-    | 'PROVISIONER'
-    | 'TEMPLATE_MANAGEMENT'
-    | 'USER_PERMISSION_READ'
-    | 'AUDIT_VIEWER'
-    | 'TAG_MANAGEMENT'
-    | 'CE_ADMIN'
-    | 'CE_VIEWER'
-    | 'MANAGE_CLOUD_PROVIDERS'
-    | 'MANAGE_CONNECTORS'
-    | 'MANAGE_APPLICATIONS'
-    | 'MANAGE_APPLICATION_STACKS'
-    | 'MANAGE_DELEGATES'
-    | 'MANAGE_ALERT_NOTIFICATION_RULES'
-    | 'MANAGE_DELEGATE_PROFILES'
-    | 'MANAGE_CONFIG_AS_CODE'
-    | 'MANAGE_SECRETS'
-    | 'MANAGE_SECRET_MANAGERS'
-    | 'MANAGE_AUTHENTICATION_SETTINGS'
-    | 'MANAGE_USER_AND_USER_GROUPS_AND_API_KEYS'
-    | 'VIEW_USER_AND_USER_GROUPS_AND_API_KEYS'
-    | 'MANAGE_IP_WHITELIST'
-    | 'MANAGE_IP_WHITELISTING'
-    | 'MANAGE_DEPLOYMENT_FREEZES'
-    | 'MANAGE_PIPELINE_GOVERNANCE_STANDARDS'
-    | 'MANAGE_API_KEYS'
-    | 'MANAGE_TAGS'
-    | 'MANAGE_CUSTOM_DASHBOARDS'
-    | 'CREATE_CUSTOM_DASHBOARDS'
-  )[]
-}
-
-export interface AppPermissionSummaryForUI {
-  canCreateService?: boolean
-  canCreateProvisioner?: boolean
-  canCreateEnvironment?: boolean
-  canCreateWorkflow?: boolean
-  canCreatePipeline?: boolean
-  servicePermissions?: {
-    [key: string]: (
-      | 'ALL'
-      | 'CREATE'
-      | 'READ'
-      | 'UPDATE'
-      | 'DELETE'
-      | 'EXECUTE'
-      | 'EXECUTE_WORKFLOW'
-      | 'EXECUTE_PIPELINE'
-      | 'DEFAULT'
-    )[]
-  }
-  provisionerPermissions?: {
-    [key: string]: (
-      | 'ALL'
-      | 'CREATE'
-      | 'READ'
-      | 'UPDATE'
-      | 'DELETE'
-      | 'EXECUTE'
-      | 'EXECUTE_WORKFLOW'
-      | 'EXECUTE_PIPELINE'
-      | 'DEFAULT'
-    )[]
-  }
-  envPermissions?: {
-    [key: string]: (
-      | 'ALL'
-      | 'CREATE'
-      | 'READ'
-      | 'UPDATE'
-      | 'DELETE'
-      | 'EXECUTE'
-      | 'EXECUTE_WORKFLOW'
-      | 'EXECUTE_PIPELINE'
-      | 'DEFAULT'
-    )[]
-  }
-  workflowPermissions?: {
-    [key: string]: (
-      | 'ALL'
-      | 'CREATE'
-      | 'READ'
-      | 'UPDATE'
-      | 'DELETE'
-      | 'EXECUTE'
-      | 'EXECUTE_WORKFLOW'
-      | 'EXECUTE_PIPELINE'
-      | 'DEFAULT'
-    )[]
-  }
-  deploymentPermissions?: {
-    [key: string]: (
-      | 'ALL'
-      | 'CREATE'
-      | 'READ'
-      | 'UPDATE'
-      | 'DELETE'
-      | 'EXECUTE'
-      | 'EXECUTE_WORKFLOW'
-      | 'EXECUTE_PIPELINE'
-      | 'DEFAULT'
-    )[]
-  }
-  pipelinePermissions?: {
-    [key: string]: (
-      | 'ALL'
-      | 'CREATE'
-      | 'READ'
-      | 'UPDATE'
-      | 'DELETE'
-      | 'EXECUTE'
-      | 'EXECUTE_WORKFLOW'
-      | 'EXECUTE_PIPELINE'
-      | 'DEFAULT'
-    )[]
-  }
-}
-
-export interface RestResponseUserPermissionInfo {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: UserPermissionInfo
-  responseMessages?: ResponseMessage[]
-}
-
-export interface UserPermissionInfo {
-  accountId?: string
-  accountPermissionSummary?: AccountPermissionSummary
-  appPermissionMap?: {
-    [key: string]: AppPermissionSummaryForUI
-  }
-  hasAllAppAccess?: boolean
-  dashboardPermissions?: {
-    [key: string]: ('READ' | 'UPDATE' | 'DELETE' | 'MANAGE')[]
-  }
-}
-
-export interface RestResponseOptionalUser {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: User
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponsePageResponseUser {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: User[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseVersionPackage {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: VersionPackage
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RuntimeInfo {
-  primary?: boolean
-  primaryVersion?: string
-  deployMode?: string
-}
-
-export interface VersionInfo {
-  version?: string
-  buildNo?: string
-  gitCommit?: string
-  gitBranch?: string
-  timestamp?: string
-}
-
-export interface VersionPackage {
-  versionInfo?: VersionInfo
-  runtimeInfo?: RuntimeInfo
-}
-
-export interface EntityVersionCollection {
-  uuid: string
   appId: string
-  createdBy?: EmbeddedUser
   createdAt?: number
+  createdBy?: EmbeddedUser
+  description?: string
+  filter?: string
   lastUpdatedAt: number
-  entityType?:
+  status?: 'ACTIVE' | 'DISABLED'
+  uuid: string
+}
+
+export interface WingsPersistence {
+  classStores?: {
+    [key: string]: Store
+  }
+}
+
+export interface Workflow {
+  accountId?: string
+  appId: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  creationFlags?: WorkflowCreationFlags
+  defaultVersion?: number
+  deploymentTypes?: (
+    | 'SSH'
+    | 'AWS_CODEDEPLOY'
+    | 'ECS'
+    | 'SPOTINST'
+    | 'KUBERNETES'
+    | 'HELM'
+    | 'AWS_LAMBDA'
+    | 'AMI'
+    | 'WINRM'
+    | 'PCF'
+    | 'AZURE_VMSS'
+    | 'AZURE_WEBAPP'
+    | 'CUSTOM'
+  )[]
+  description?: string
+  envId?: string
+  envTemplatized?: boolean
+  infraDefinitionId?: string
+  infraMappingId?: string
+  keywords?: string[]
+  lastUpdatedAt: number
+  linkedArtifactStreamIds?: string[]
+  linkedTemplateUuids?: string[]
+  name: string
+  notes?: string
+  orchestration?: OrchestrationWorkflow
+  orchestrationWorkflow?: OrchestrationWorkflow
+  sample?: boolean
+  serviceId?: string
+  services?: Service[]
+  tagLinks?: HarnessTagLink[]
+  templateExpressions?: TemplateExpression[]
+  templatized?: boolean
+  templatizedServiceIds?: string[]
+  uuid: string
+  workflowExecutions?: WorkflowExecution[]
+  workflowType?: 'PIPELINE' | 'ORCHESTRATION'
+}
+
+export interface WorkflowCategorySteps {
+  categories?: WorkflowCategoryStepsMeta[]
+  steps?: {
+    [key: string]: WorkflowStepMeta
+  }
+}
+
+export interface WorkflowCategoryStepsMeta {
+  id?: string
+  name?: string
+  stepIds?: string[]
+}
+
+export interface WorkflowCreationFlags {
+  awsTrafficShiftAlbType?: boolean
+  awsTrafficShiftType?: string
+  ecsBGType?: string
+  ecsBgDnsType?: boolean
+}
+
+export interface WorkflowExecution {
+  accountId?: string
+  appId: string
+  appName?: string
+  artifacts?: Artifact[]
+  awsLambdaExecutionSummaries?: AwsLambdaExecutionSummary[]
+  baseline?: boolean
+  breakdown?: CountsByStatuses
+  buildExecutionSummaries?: BuildExecutionSummary[]
+  cdPageCandidate?: boolean
+  cloudProviderIds?: string[]
+  concurrencyStrategy?: ConcurrencyStrategy
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  createdByType?: 'USER' | 'API_KEY' | 'TRIGGER'
+  deployedCloudProviders?: string[]
+  deployedEnvironments?: EnvSummary[]
+  deployedServices?: string[]
+  deploymentTriggerId?: string
+  duration?: number
+  endTs?: number
+  envId?: string
+  envIds?: string[]
+  envName?: string
+  envType?: 'PROD' | 'NON_PROD' | 'ALL'
+  environments?: EnvSummary[]
+  errorStrategy?: 'CONTINUE' | 'FAIL' | 'PAUSE' | 'RETRY'
+  executionArgs?: ExecutionArgs
+  executionNode?: GraphNode
+  graph?: Graph
+  helmCharts?: HelmChart[]
+  helmExecutionSummary?: HelmExecutionSummary
+  infraDefinitionIds?: string[]
+  infraMappingIds?: string[]
+  keywords?: string[]
+  latestPipelineResume?: boolean
+  message?: string
+  name?: string
+  nextIteration?: number
+  onDemandRollback?: boolean
+  orchestrationType?: 'BUILD' | 'BASIC' | 'CANARY' | 'MULTI_SERVICE' | 'BLUE_GREEN' | 'ROLLING' | 'CUSTOM'
+  originalExecution?: WorkflowExecutionInfo
+  pipelineExecution?: PipelineExecution
+  pipelineExecutionId?: string
+  pipelineResumeId?: string
+  pipelineSummary?: PipelineSummary
+  releaseNo?: string
+  rollbackDuration?: number
+  rollbackStartTs?: number
+  serviceExecutionSummaries?: ElementExecutionSummary[]
+  serviceIds?: string[]
+  stageName?: string
+  startTs?: number
+  stateMachine?: StateMachine
+  stateMachineId?: string
+  status?:
+    | 'ABORTED'
+    | 'DISCONTINUING'
+    | 'ERROR'
+    | 'FAILED'
+    | 'NEW'
+    | 'PAUSED'
+    | 'PAUSING'
+    | 'QUEUED'
+    | 'RESUMED'
+    | 'RUNNING'
+    | 'SCHEDULED'
+    | 'STARTING'
+    | 'SUCCESS'
+    | 'WAITING'
+    | 'SKIPPED'
+    | 'ABORTING'
+    | 'REJECTED'
+    | 'EXPIRED'
+    | 'PREPARING'
+  statusInstanceBreakdownMap?: {
+    [key: string]: StatusInstanceBreakdown
+  }
+  tags?: NameValuePair[]
+  total?: number
+  triggeredBy?: EmbeddedUser
+  triggeringApiKeyInfo?: ApiKeyInfo
+  useSweepingOutputs?: boolean
+  uuid: string
+  validUntil?: string
+  workflowId?: string
+  workflowIds?: string[]
+  workflowType?: 'PIPELINE' | 'ORCHESTRATION'
+}
+
+export interface WorkflowExecutionBaseline {
+  accountId?: string
+  appId: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  envId?: string
+  lastUpdatedAt: number
+  pipelineExecutionId?: string
+  serviceId?: string
+  uuid: string
+  workflowExecutionId?: string
+  workflowId?: string
+}
+
+export interface WorkflowExecutionInfo {
+  accountId?: string
+  appId?: string
+  executionId?: string
+  name?: string
+  rollbackWorkflowExecutionInfo?: RollbackWorkflowExecutionInfo
+  startTs?: number
+  workflowId?: string
+}
+
+export type WorkflowFilter = Filter & {
+  filterTypes?: string[]
+}
+
+export interface WorkflowPhase {
+  computeProviderId?: string
+  daemonSet?: boolean
+  deploymentType?:
+    | 'SSH'
+    | 'AWS_CODEDEPLOY'
+    | 'ECS'
+    | 'SPOTINST'
+    | 'KUBERNETES'
+    | 'HELM'
+    | 'AWS_LAMBDA'
+    | 'AMI'
+    | 'WINRM'
+    | 'PCF'
+    | 'AZURE_VMSS'
+    | 'AZURE_WEBAPP'
+    | 'CUSTOM'
+  infraDefinitionId?: string
+  infraDefinitionName?: string
+  infraMappingId?: string
+  infraMappingName?: string
+  infraTemplatised?: boolean
+  name?: string
+  phaseNameForRollback?: string
+  phaseSteps?: PhaseStep[]
+  provisionNodes?: boolean
+  rollback?: boolean
+  serviceId?: string
+  srvTemplatised?: boolean
+  statefulSet?: boolean
+  templateExpressions?: TemplateExpression[]
+  uuid?: string
+  valid?: boolean
+  validationMessage?: string
+  variableOverrides?: NameValuePair[]
+}
+
+export interface WorkflowStepMeta {
+  available?: boolean
+  favorite?: boolean
+  name?: string
+}
+
+export interface WorkflowVariablesMetadata {
+  changed?: boolean
+  changedMessage?: string
+  workflowVariables?: Variable[]
+}
+
+export interface WorkflowVersion {
+  defaultVersion?: number
+}
+
+export interface Yaml {
+  commandUnitType?: string
+  deploymentType?: string
+  name?: string
+}
+
+export interface YamlGitConfig {
+  accountId?: string
+  appId: string
+  branchName?: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  enabled?: boolean
+  encryptedPassword?: string
+  entityId?: string
+  entityName?: string
+  entityType:
     | 'SERVICE'
     | 'PROVISIONER'
     | 'ENVIRONMENT'
@@ -16349,1040 +18253,11 @@ export interface EntityVersionCollection {
     | 'SECRET'
     | 'CONNECTOR'
     | 'CLOUD_PROVIDER'
-  entityName?: string
-  changeType?: 'CREATED' | 'UPDATED'
-  entityUuid?: string
-  entityParentUuid?: string
-  entityData?: string
-  version?: number
-  accountId?: string
-}
-
-export interface RestResponsePageResponseEntityVersionCollection {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: EntityVersionCollection[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface WebHookRequest {
-  application?: string
-  artifacts?: {
-    [key: string]: { [key: string]: any }
-  }[]
-  manifests?: {
-    [key: string]: { [key: string]: any }
-  }[]
-  parameters?: {
-    [key: string]: string
-  }
-}
-
-export interface RestResponseWhitelist {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Whitelist
-  responseMessages?: ResponseMessage[]
-}
-
-export interface Whitelist {
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
+  gitConnectorId?: string
+  keyAuth?: boolean
   lastUpdatedAt: number
-  accountId?: string
-  description?: string
-  status?: 'ACTIVE' | 'DISABLED'
-  filter?: string
-}
-
-export interface RestResponsePageResponseWhitelist {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Whitelist[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseConcurrencyStrategy {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ConcurrencyStrategy
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListVariable {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Variable[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseWorkflowCategorySteps {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: WorkflowCategorySteps
-  responseMessages?: ResponseMessage[]
-}
-
-export interface WorkflowCategorySteps {
-  steps?: {
-    [key: string]: WorkflowStepMeta
-  }
-  categories?: WorkflowCategoryStepsMeta[]
-}
-
-export interface WorkflowCategoryStepsMeta {
-  id?: string
-  name?: string
-  stepIds?: string[]
-}
-
-export interface WorkflowStepMeta {
-  name?: string
-  favorite?: boolean
-  available?: boolean
-}
-
-export interface RestResponseTrafficShiftMetadata {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: TrafficShiftMetadata
-  responseMessages?: ResponseMessage[]
-}
-
-export interface TrafficShiftMetadata {
-  phaseIdsWithTrafficShift?: string[]
-}
-
-export interface RestResponseWorkflow {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Workflow
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponsePhaseStep {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: PhaseStep
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseWorkflowPhase {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: WorkflowPhase
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListNotificationRule {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: NotificationRule[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListInstanceElement {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: InstanceElement[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface WorkflowVersion {
-  defaultVersion?: number
-}
-
-export interface RestResponsePageResponseWorkflow {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Workflow[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface AlertType {
-  alertType?:
-    | 'ApprovalNeeded'
-    | 'ManualInterventionNeeded'
-    | 'NoActiveDelegates'
-    | 'NoInstalledDelegates'
-    | 'DelegatesDown'
-    | 'DelegatesScalingGroupDownAlert'
-    | 'DelegateProfileError'
-    | 'NoEligibleDelegates'
-    | 'PerpetualTaskAlert'
-    | 'InvalidKMS'
-    | 'GitSyncError'
-    | 'GitConnectionError'
-    | 'INVALID_SMTP_CONFIGURATION'
-    | 'EMAIL_NOT_SENT_ALERT'
-    | 'USERGROUP_SYNC_FAILED'
-    | 'USAGE_LIMIT_EXCEEDED'
-    | 'INSTANCE_USAGE_APPROACHING_LIMIT'
-    | 'RESOURCE_USAGE_APPROACHING_LIMIT'
-    | 'DEPLOYMENT_RATE_APPROACHING_LIMIT'
-    | 'SETTING_ATTRIBUTE_VALIDATION_FAILED'
-    | 'ARTIFACT_COLLECTION_FAILED'
-    | 'CONTINUOUS_VERIFICATION_ALERT'
-    | 'CONTINUOUS_VERIFICATION_DATA_COLLECTION_ALERT'
-    | 'MANIFEST_COLLECTION_FAILED'
-  category?: 'All' | 'Setup' | 'Approval' | 'ManualIntervention' | 'ContinuousVerification'
-  severity?: 'Warning' | 'Error'
-}
-
-export interface RestResponseListAlertType {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AlertType[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface AlertRiskDetail {
-  metricName?: string
-  txnName?: string
-}
-
-export interface ContinuousVerificationAlertData {
-  cvConfiguration?: CVConfiguration
-  mlAnalysisType?: 'TIME_SERIES' | 'LOG_CLUSTER' | 'LOG_ML' | 'FEEDBACK_ANALYSIS'
-  alertStatus?: 'Open' | 'Closed' | 'Pending'
-  logAnomaly?: string
-  tag?: string
-  hosts?: string[]
-  portalUrl?: string
-  accountId?: string
-  highRiskTxns?: AlertRiskDetail[]
-  riskScore?: number
-  analysisStartTime?: number
-  analysisEndTime?: number
-}
-
-export interface Alert {
-  uuid: string
-  appId: string
-  createdAt?: number
-  lastUpdatedAt: number
-  accountId?: string
-  type?:
-    | 'ApprovalNeeded'
-    | 'ManualInterventionNeeded'
-    | 'NoActiveDelegates'
-    | 'NoInstalledDelegates'
-    | 'DelegatesDown'
-    | 'DelegatesScalingGroupDownAlert'
-    | 'DelegateProfileError'
-    | 'NoEligibleDelegates'
-    | 'PerpetualTaskAlert'
-    | 'InvalidKMS'
-    | 'GitSyncError'
-    | 'GitConnectionError'
-    | 'INVALID_SMTP_CONFIGURATION'
-    | 'EMAIL_NOT_SENT_ALERT'
-    | 'USERGROUP_SYNC_FAILED'
-    | 'USAGE_LIMIT_EXCEEDED'
-    | 'INSTANCE_USAGE_APPROACHING_LIMIT'
-    | 'RESOURCE_USAGE_APPROACHING_LIMIT'
-    | 'DEPLOYMENT_RATE_APPROACHING_LIMIT'
-    | 'SETTING_ATTRIBUTE_VALIDATION_FAILED'
-    | 'ARTIFACT_COLLECTION_FAILED'
-    | 'CONTINUOUS_VERIFICATION_ALERT'
-    | 'CONTINUOUS_VERIFICATION_DATA_COLLECTION_ALERT'
-    | 'MANIFEST_COLLECTION_FAILED'
-  status?: 'Open' | 'Closed' | 'Pending'
-  title?: string
-  resolutionTitle?: string
-  category?: 'All' | 'Setup' | 'Approval' | 'ManualIntervention' | 'ContinuousVerification'
-  severity?: 'Warning' | 'Error'
-  alertData?: AlertData
-  alertReconciliation?: AlertReconciliation
-  closedAt?: number
-  triggerCount?: number
-  lastTriggeredAt?: number
-  validUntil?: string
-  cvCleanUpIteration?: number
-}
-
-export interface AlertData {
-  [key: string]: any
-}
-
-export interface AlertReconciliation {
-  needed?: boolean
-  nextIteration?: number
-}
-
-export interface RestResponsePageResponseAlert {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Alert[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface CommandLibraryConfigurationDTO {
-  supportedCommandStoreNameList?: string[]
-  clImplementationVersion?: number
-}
-
-export interface RestResponseCommandLibraryConfigurationDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: CommandLibraryConfigurationDTO
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ArtifactSource {
-  [key: string]: any
-}
-
-export type ArtifactSourceTemplate = BaseTemplate & {
-  artifactSource?: ArtifactSource
-}
-
-export interface AttributeMapping {
-  relativePath?: string
-  mappedAttribute?: string
-}
-
-export interface BaseTemplate {
-  [key: string]: any
-}
-
-export type CommandRefYaml = Yaml & {
-  variables?: TemplateVariableYaml[]
-  templateUri?: string
-}
-
-export type CustomArtifactSourceTemplate = ArtifactSource & {
-  script?: string
-  timeoutSeconds?: string
-  customRepositoryMapping?: CustomRepositoryMapping
-}
-
-export type CustomDeploymentTypeTemplate = BaseTemplate & {
-  fetchInstanceScript?: string
-  hostObjectArrayPath?: string
-  hostAttributes?: {
-    [key: string]: string
-  }
-}
-
-export interface CustomRepositoryMapping {
-  artifactRoot?: string
-  buildNoPath?: string
-  artifactAttributes?: AttributeMapping[]
-}
-
-export type HttpTemplate = BaseTemplate & {
-  url?: string
-  method?: string
-  header?: string
-  body?: string
-  assertion?: string
-  executeWithPreviousSteps?: boolean
-  timeoutMillis?: number
-}
-
-export interface ImportedCommand {
-  commandStoreName?: string
-  commandName?: string
-  templateId?: string
-  name?: string
-  appId?: string
-  description?: string
-  createdAt?: string
-  createdBy?: string
-  repoUrl?: string
-  tags?: string[]
-  importedCommandVersionList?: ImportedCommandVersion[]
-  highestVersion?: string
-}
-
-export interface ImportedCommandVersion {
-  commandStoreName?: string
-  commandName?: string
-  commandDisplayName?: string
-  templateId?: string
-  version?: string
-  description?: string
-  yamlContent?: string
-  templateObject?: BaseTemplate
-  variables?: Variable[]
-  createdAt?: string
-  createdBy?: string
-}
-
-export type PcfCommandTemplate = BaseTemplate & {
-  scriptString?: string
-  timeoutIntervalInMinutes?: number
-}
-
-export interface ReferencedTemplate {
-  templateReference?: TemplateReference
-  variableMapping?: {
-    [key: string]: Variable
-  }
-}
-
-export interface RestResponseListImportedCommand {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ImportedCommand[]
-  responseMessages?: ResponseMessage[]
-}
-
-export type ShellScriptTemplate = BaseTemplate & {
-  scriptType?: string
-  scriptString?: string
-  outputVars?: string
-  timeoutMillis?: number
-}
-
-export type SshCommandTemplate = BaseTemplate & {
-  commandType?: 'START' | 'STOP' | 'INSTALL' | 'ENABLE' | 'DISABLE' | 'VERIFY' | 'OTHER' | 'RESIZE' | 'SETUP'
-  commands?: Yaml[]
-  commandUnits?: CommandUnit[]
-  referencedTemplateList?: ReferencedTemplate[]
-}
-
-export interface TemplateVariableYaml {
-  name?: string
-  description?: string
-  value?: string
-}
-
-export interface Yaml {
-  name?: string
-  commandUnitType?: string
-  deploymentType?: string
-}
-
-export interface RestResponseImportedCommand {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ImportedCommand
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseTemplate {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Template
-  responseMessages?: ResponseMessage[]
-}
-
-export interface Template {
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  name: string
-  accountId?: string
-  type?: string
-  folderId?: string
-  version?: number
-  versionDetails?: string
-  description?: string
-  folderPathId?: string
-  folderPath?: string
-  gallery?: string
-  templateObject: BaseTemplate
-  variables?: Variable[]
-  versionedTemplate?: VersionedTemplate
-  galleryId?: string
-  referencedTemplateId?: string
-  referencedTemplateVersion?: number
-  importedTemplateDetails?: ImportedTemplateDetails
-  templateMetadata?: TemplateMetadata
-  referencedTemplateUri?: string
-  keywords?: string[]
-}
-
-export interface VersionedTemplate {
-  templateId?: string
-  version?: number
-  importedTemplateVersion?: string
-  accountId?: string
-  galleryId?: string
-  templateObject: BaseTemplate
-  variables?: Variable[]
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-}
-
-export interface CustomDeploymentTypeDTO {
-  uuid?: string
-  name?: string
-  infraVariables?: Variable[]
-}
-
-export interface RestResponseCustomDeploymentTypeDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: CustomDeploymentTypeDTO
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListCustomDeploymentTypeDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: CustomDeploymentTypeDTO[]
-  responseMessages?: ResponseMessage[]
-}
-
-export type AppDynamicsConnectorDTO = ConnectorConfigDTO & {
-  username: string
-  accountname: string
-  controllerUrl: string
-  accountId: string
-  passwordRef: string
-}
-
-export interface ArtifactoryAuthCredentials {
-  [key: string]: any
-}
-
-export interface ArtifactoryAuthentication {
-  type: 'UsernamePassword'
-  spec: ArtifactoryAuthCredentials
-}
-
-export type ArtifactoryConnector = ConnectorConfigDTO & {
-  artifactoryServerUrl: string
-  auth?: ArtifactoryAuthentication
-}
-
-export type AwsConnector = ConnectorConfigDTO & {
-  credential: AwsCredential
-}
-
-export interface AwsCredential {
-  crossAccountAccess?: CrossAccountAccess
-  type: 'InheritFromDelegate' | 'ManualConfig'
-  spec: AwsCredentialSpec
-}
-
-export interface AwsCredentialSpec {
-  [key: string]: any
-}
-
-export interface ConnectorInfoDTO {
-  name: string
-  identifier: string
-  description?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  tags?: string[]
-  type:
-    | 'K8sCluster'
-    | 'Git'
-    | 'Splunk'
-    | 'AppDynamics'
-    | 'Vault'
-    | 'DockerRegistry'
-    | 'Local'
-    | 'AwsKms'
-    | 'GcpKms'
-    | 'Awssecretsmanager'
-    | 'Azurevault'
-    | 'Cyberark'
-    | 'CustomSecretManager'
-    | 'Gcp'
-    | 'Aws'
-    | 'Artifactory'
-    | 'Jira'
-    | 'Nexus'
-  spec: ConnectorConfigDTO
-}
-
-export interface CrossAccountAccess {
-  crossAccountRoleArn: string
-  externalId?: string
-}
-
-export interface CustomCommitAttributes {
-  authorName?: string
-  authorEmail?: string
-  commitMessage?: string
-}
-
-export interface DataCollectionConnectorBundle {
-  connectorDTO?: ConnectorInfoDTO
-  params?: {
-    [key: string]: string
-  }
-  dataCollectionType?: 'CV' | 'KUBERNETES'
-}
-
-export interface DockerAuthCredentialsDTO {
-  [key: string]: any
-}
-
-export interface DockerAuthenticationDTO {
-  type: 'UsernamePassword'
-  spec: DockerAuthCredentialsDTO
-}
-
-export type DockerConnectorDTO = ConnectorConfigDTO & {
-  dockerRegistryUrl: string
-  auth?: DockerAuthenticationDTO
-}
-
-export type GcpConnector = ConnectorConfigDTO & {
-  credential?: GcpConnectorCredential
-}
-
-export interface GcpConnectorCredential {
-  type: 'InheritFromDelegate' | 'ManualConfig'
-  spec: GcpCredentialSpec
-}
-
-export interface GcpCredentialSpec {
-  [key: string]: any
-}
-
-export type GcpKmsConnectorDTO = ConnectorConfigDTO & {
-  projectId?: string
-  region?: string
-  keyRing?: string
-  keyName?: string
-  credentials?: string[]
-  default?: boolean
-}
-
-export interface GitAuthenticationDTO {
-  [key: string]: any
-}
-
-export type GitConfigDTO = ConnectorConfigDTO & {
-  url: string
-  branchName?: string
-  type: 'Http' | 'Ssh'
-  connectionType: 'Account' | 'Repo'
-  spec: GitAuthenticationDTO
-  gitSync?: GitSyncConfig
-}
-
-export interface GitSyncConfig {
-  enabled?: boolean
-  customCommitAttributes?: CustomCommitAttributes
-  syncEnabled?: boolean
-}
-
-export type JiraConnector = ConnectorConfigDTO & {
-  jiraUrl: string
-  username?: string
-  passwordRef: string
-}
-
-export type KubernetesClusterConfigDTO = ConnectorConfigDTO & {
-  credential?: KubernetesCredentialDTO
-}
-
-export interface KubernetesCredentialDTO {
-  type: 'InheritFromDelegate' | 'ManualConfig'
-  spec: KubernetesCredentialSpecDTO
-}
-
-export interface KubernetesCredentialSpecDTO {
-  [key: string]: any
-}
-
-export type LocalConnectorDTO = ConnectorConfigDTO & {
-  default?: boolean
-}
-
-export interface NexusAuthCredentials {
-  [key: string]: any
-}
-
-export interface NexusAuthentication {
-  type: 'UsernamePassword'
-  spec: NexusAuthCredentials
-}
-
-export type NexusConnector = ConnectorConfigDTO & {
-  nexusServerUrl: string
-  version: string
-  auth?: NexusAuthentication
-}
-
-export type SplunkConnectorDTO = ConnectorConfigDTO & {
-  splunkUrl?: string
-  username?: string
-  accountId: string
-  passwordRef: string
-}
-
-export type VaultConnectorDTO = ConnectorConfigDTO & {
-  authToken?: string
-  basePath?: string
-  vaultUrl?: string
-  renewIntervalHours?: number
-  secretEngineName?: string
-  appRoleId?: string
-  secretId?: string
-  secretEngineVersion?: number
-  default?: boolean
-  readOnly?: boolean
-}
-
-export interface DataCollectionRequest {
-  connectorInfoDTO?: ConnectorInfoDTO
-  tracingId?: string
-  type?: 'SPLUNK_SAVED_SEARCHES'
-  baseUrl?: string
-  dslEnvVariables?: {
-    [key: string]: { [key: string]: any }
-  }
-  connectorConfigDTO?: ConnectorConfigDTO
-  dsl?: string
-}
-
-export interface RestResponseListSplunkSavedSearch {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: SplunkSavedSearch[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface SplunkSavedSearch {
-  title?: string
-  searchQuery?: string
-}
-
-export interface Bar {
-  timestamp?: number
-  count?: number
-}
-
-export interface Histogram {
-  query?: string
-  intervalMs?: number
-  bars?: Bar[]
-  errorMessage?: string
-  splunkQuery?: string
-  count?: number
-}
-
-export interface RestResponseSplunkValidationResponse {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: SplunkValidationResponse
-  responseMessages?: ResponseMessage[]
-}
-
-export interface SampleLog {
-  raw?: string
-  timestamp?: number
-}
-
-export interface SplunkSampleResponse {
-  rawSampleLogs?: SampleLog[]
-  sample?: {
-    [key: string]: string
-  }
-  splunkQuery?: string
-  errorMessage?: string
-}
-
-export interface SplunkValidationResponse {
-  histogram?: Histogram
-  samples?: SplunkSampleResponse
-  errorMessage?: string
-  queryDurationMillis?: number
-}
-
-export interface DashboardAccessPermissions {
-  userGroups?: string[]
-  allowedActions?: ('READ' | 'UPDATE' | 'DELETE' | 'MANAGE')[]
-}
-
-export interface DashboardSettings {
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt?: number
-  accountId?: string
-  data?: string
-  description?: string
-  name?: string
-  canUpdate?: boolean
-  canDelete?: boolean
-  canManage?: boolean
-  permissions?: DashboardAccessPermissions[]
-  uuid: string
-  owner?: boolean
-  shared?: boolean
-}
-
-export interface RestResponseDashboardSettings {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DashboardSettings
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponsePageResponseDashboardSettings {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DashboardSettings[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface GovernanceConfig {
-  uuid?: string
-  accountId?: string
-  deploymentFreeze?: boolean
-  lastUpdatedBy?: EmbeddedUser
-  timeRangeBasedFreezeConfigs?: TimeRangeBasedFreezeConfig[]
-  weeklyFreezeConfigs?: WeeklyFreezeConfig[]
-}
-
-export interface RestResponseGovernanceConfig {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: GovernanceConfig
-  responseMessages?: ResponseMessage[]
-}
-
-export interface TimeRangeBasedFreezeConfig {
-  freezeForAllApps?: boolean
-  appIds?: string[]
-  environmentTypes?: ('PROD' | 'NON_PROD' | 'ALL')[]
-  timeRange?: TimeRange
-}
-
-export interface WeeklyFreezeConfig {
-  freezeForAllApps?: boolean
-  appIds?: string[]
-  environmentTypes?: ('PROD' | 'NON_PROD' | 'ALL')[]
-  weeklyRange?: WeeklyRange
-}
-
-export interface WeeklyRange {
-  endDay?: string
-  endTime?: string
-  startDay?: string
-  startTime?: string
-  timeZone?: string
-}
-
-export interface PipelineGovernanceConfig {
-  uuid?: string
-  accountId?: string
-  name?: string
-  description?: string
-  rules?: PipelineGovernanceRule[]
-  restrictions?: Restriction[]
-  enabled?: boolean
-}
-
-export interface PipelineGovernanceRule {
-  tags?: Tag[]
-  matchType?: 'ANY' | 'ALL'
-  weight?: number
-  note?: string
-}
-
-export interface RestResponsePipelineGovernanceConfig {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: PipelineGovernanceConfig
-  responseMessages?: ResponseMessage[]
-}
-
-export interface Restriction {
-  type?: 'APP_BASED' | 'TAG_BASED'
-  appIds?: string[]
-  tags?: Tag[]
-}
-
-export interface RestResponseListPipelineGovernanceConfig {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: PipelineGovernanceConfig[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface GovernanceRuleStatus {
-  tags?: Tag[]
-  weight?: number
-  tagsIncluded?: boolean
-  matchType?: 'ANY' | 'ALL'
-  tagsLocations?: Usage[]
-}
-
-export interface GovernanceStandard {
-  id?: string
-  name?: string
-  description?: string
-}
-
-export interface PipelineReportCard {
-  governanceStandard?: GovernanceStandard
-  pipelineId?: string
-  ruleStatuses?: GovernanceRuleStatus[]
-}
-
-export interface RestResponseListPipelineReportCard {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: PipelineReportCard[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface Usage {
-  entityId?: string
-  entityType?: string
-  entityName?: string
-  properties?: {
-    [key: string]: string
-  }
-}
-
-export interface GraphQLQuery {
-  operationName?: string
-  query?: string
-  variables?: {
-    [key: string]: { [key: string]: any }
-  }
-}
-
-export interface StaticLimit {
-  count?: number
-  limitType?: 'STATIC' | 'RATE_LIMIT'
-}
-
-export interface RateLimit {
-  count?: number
-  duration?: number
-  durationUnit: 'NANOSECONDS' | 'MICROSECONDS' | 'MILLISECONDS' | 'SECONDS' | 'MINUTES' | 'HOURS' | 'DAYS'
-  limitType?: 'STATIC' | 'RATE_LIMIT'
-}
-
-export interface AwsSecretsManagerConfig {
-  name?: string
-  accessKey?: string
-  secretKey?: string
-  region?: string
-  secretNamePrefix?: string
-  uuid: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
-  accountId?: string
-  numOfEncryptedValue?: number
-  encryptedBy?: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedBy?: EmbeddedUser
-  lastUpdatedAt?: number
-  nextTokenRenewIteration?: number
-  manuallyEnteredSecretEngineMigrationIteration?: number
-  usageRestrictions?: UsageRestrictions
-  scopedToAccount?: boolean
-  templatizedFields?: string[]
-  default?: boolean
-  templatized?: boolean
-}
-
-export interface AzureVaultConfig {
-  name?: string
-  clientId?: string
-  secretKey?: string
-  tenantId?: string
-  vaultName?: string
-  subscription?: string
-  azureEnvironmentType?: 'AZURE' | 'AZURE_US_GOVERNMENT'
-  uuid: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
-  accountId?: string
-  numOfEncryptedValue?: number
-  encryptedBy?: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedBy?: EmbeddedUser
-  lastUpdatedAt?: number
-  nextTokenRenewIteration?: number
-  manuallyEnteredSecretEngineMigrationIteration?: number
-  usageRestrictions?: UsageRestrictions
-  scopedToAccount?: boolean
-  templatizedFields?: string[]
-  default?: boolean
-  templatized?: boolean
-}
-
-export interface CustomSecretsManagerConfig {
-  name?: string
-  templateId?: string
-  delegateSelectors?: string[]
-  testVariables?: EncryptedDataParams[]
-  executeOnDelegate?: boolean
-  host?: string
-  commandPath?: string
-  connectorId?: string
-  customSecretsManagerShellScript?: CustomSecretsManagerShellScript
-  remoteHostConnector?: EncryptableSetting
-  uuid: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
-  accountId?: string
-  numOfEncryptedValue?: number
-  encryptedBy?: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedBy?: EmbeddedUser
-  lastUpdatedAt?: number
-  nextTokenRenewIteration?: number
-  manuallyEnteredSecretEngineMigrationIteration?: number
-  usageRestrictions?: UsageRestrictions
-  scopedToAccount?: boolean
-  templatizedFields?: string[]
-  encryptionServiceUrl?: string
-  validationCriteria?: string
-  connectorTemplatized?: boolean
-  default?: boolean
-  templatized?: boolean
-}
-
-export interface CustomSecretsManagerShellScript {
-  scriptType?: 'BASH' | 'POWERSHELL'
-  scriptString?: string
-  variables?: string[]
-  timeoutMillis?: number
-}
-
-export interface EncryptableSetting {
+  password?: string[]
+  repositoryName?: string
   settingType?:
     | 'HOST_CONNECTION_ATTRIBUTES'
     | 'BASTION_HOST_CONNECTION_ATTRIBUTES'
@@ -17453,939 +18328,39 @@ export interface EncryptableSetting {
     | 'AZURE_VAULT'
     | 'KUBERNETES_CLUSTER_NG'
     | 'GIT_NG'
-  accountId?: string
-}
-
-export interface RestResponseCustomSecretsManagerConfig {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: CustomSecretsManagerConfig
-  responseMessages?: ResponseMessage[]
-}
-
-export interface CyberArkConfig {
-  name?: string
-  cyberArkUrl?: string
-  appId?: string
-  clientCertificate?: string
+  sshSettingId?: string
+  syncMode?: 'GIT_TO_HARNESS' | 'HARNESS_TO_GIT' | 'BOTH' | 'NONE'
+  url?: string
+  username?: string
   uuid: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
-  accountId?: string
-  numOfEncryptedValue?: number
-  encryptedBy?: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedBy?: EmbeddedUser
-  lastUpdatedAt?: number
-  nextTokenRenewIteration?: number
-  manuallyEnteredSecretEngineMigrationIteration?: number
-  usageRestrictions?: UsageRestrictions
-  scopedToAccount?: boolean
-  templatizedFields?: string[]
-  encryptionServiceUrl?: string
-  validationCriteria?: string
-  certValidationRequired?: boolean
-  default?: boolean
-  templatized?: boolean
-}
-
-export interface KmsConfig {
-  name?: string
-  accessKey?: string
-  secretKey?: string
-  kmsArn?: string
-  region?: string
-  uuid: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
-  accountId?: string
-  numOfEncryptedValue?: number
-  encryptedBy?: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedBy?: EmbeddedUser
-  lastUpdatedAt?: number
-  nextTokenRenewIteration?: number
-  manuallyEnteredSecretEngineMigrationIteration?: number
-  usageRestrictions?: UsageRestrictions
-  scopedToAccount?: boolean
-  templatizedFields?: string[]
-  default?: boolean
-  templatized?: boolean
-}
-
-export interface EncryptedDataDTO {
-  type?: 'SecretFile' | 'SecretText' | 'SSHKey'
-  valueType?: 'Inline' | 'Reference'
-  value?: string
-  draft?: boolean
-  account?: string
-  org?: string
-  project?: string
-  identifier?: string
-  secretManager?: string
-  secretManagerName?: string
-  name?: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
-  tags?: string[]
-  lastUpdatedAt?: number
-  description?: string
-}
-
-export interface RestResponseEncryptedDataDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: EncryptedDataDTO
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListUuidAware {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: UuidAware[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface UuidAware {
-  uuid?: string
-}
-
-export interface NGSecretManagerMetadata {
-  identifier?: string
-  accountIdentifier?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  tags?: string[]
-  description?: string
-}
-
-export interface RestResponseSecretManagerConfig {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: SecretManagerConfig
-  responseMessages?: ResponseMessage[]
-}
-
-export interface SecretManagerConfig {
-  uuid: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
-  accountId?: string
-  numOfEncryptedValue?: number
-  encryptedBy?: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedBy?: EmbeddedUser
-  lastUpdatedAt?: number
-  nextTokenRenewIteration?: number
-  manuallyEnteredSecretEngineMigrationIteration?: number
-  ngMetadata?: NGSecretManagerMetadata
-  usageRestrictions?: UsageRestrictions
-  scopedToAccount?: boolean
-  templatizedFields?: string[]
-  default?: boolean
-  templatized?: boolean
-  encryptionServiceUrl?: string
-  validationCriteria?: string
-  name?: string
-}
-
-export interface RestResponsePageResponseSecretUsageLog {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: SecretUsageLog[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface SecretUsageLog {
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedBy?: EmbeddedUser
-  lastUpdatedAt: number
-  encryptedDataId?: string
-  accountId?: string
-  workflowExecutionId?: string
-  envId?: string
-  entityName?: string
-  workflowExecutionName?: string
-  validUntil?: string
-}
-
-export interface RestResponseListSecretChangeLog {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: SecretChangeLog[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface SecretChangeLog {
-  uuid: string
-  accountId?: string
-  encryptedDataId?: string
-  user: EmbeddedUser
-  description?: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedBy?: EmbeddedUser
-  lastUpdatedAt: number
-  external?: boolean
-}
-
-export interface RestResponseCollectionSettingAttribute {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: SettingAttribute[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListSecretManagerConfig {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: SecretManagerConfig[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface SecretText {
-  name?: string
-  kmsId?: string
-  usageRestrictions?: UsageRestrictions
-  scopedToAccount?: boolean
-  hideFromListing?: boolean
-  inheritScopesFromSM?: boolean
-  runtimeParameters?: {
-    [key: string]: string
-  }
-  value?: string
-  path?: string
-  parameters?: EncryptedDataParams[]
-  inlineSecret?: boolean
-  referencedSecret?: boolean
-  parameterizedSecret?: boolean
-}
-
-export interface RestResponseSetSecretSetupUsage {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: SecretSetupUsage[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface SecretSetupUsage {
-  entityId?: string
-  type?:
-    | 'HOST_CONNECTION_ATTRIBUTES'
-    | 'BASTION_HOST_CONNECTION_ATTRIBUTES'
-    | 'SMTP'
-    | 'SFTP'
-    | 'JENKINS'
-    | 'BAMBOO'
-    | 'STRING'
-    | 'SPLUNK'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'APM_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'LOG_VERIFICATION'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'DYNA_TRACE'
-    | 'INSTANA'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'SCALYR'
-    | 'ELB'
-    | 'SLACK'
-    | 'AWS'
-    | 'GCS'
-    | 'GCP'
-    | 'AZURE'
-    | 'PCF'
-    | 'DIRECT'
-    | 'KUBERNETES_CLUSTER'
-    | 'DOCKER'
-    | 'ECR'
-    | 'GCR'
-    | 'ACR'
-    | 'PHYSICAL_DATA_CENTER'
-    | 'KUBERNETES'
-    | 'NEXUS'
-    | 'ARTIFACTORY'
-    | 'SMB'
-    | 'AMAZON_S3'
-    | 'GIT'
-    | 'SSH_SESSION_CONFIG'
-    | 'SERVICE_VARIABLE'
-    | 'CONFIG_FILE'
-    | 'KMS'
-    | 'GCP_KMS'
-    | 'JIRA'
-    | 'SERVICENOW'
-    | 'SECRET_TEXT'
-    | 'YAML_GIT_SYNC'
-    | 'VAULT'
-    | 'AWS_SECRETS_MANAGER'
-    | 'CYBERARK'
-    | 'WINRM_CONNECTION_ATTRIBUTES'
-    | 'WINRM_SESSION_CONFIG'
-    | 'PROMETHEUS'
-    | 'INFRASTRUCTURE_MAPPING'
-    | 'HTTP_HELM_REPO'
-    | 'AMAZON_S3_HELM_REPO'
-    | 'GCS_HELM_REPO'
-    | 'SPOT_INST'
-    | 'AZURE_ARTIFACTS_PAT'
-    | 'CUSTOM'
-    | 'CE_AWS'
-    | 'CE_GCP'
-    | 'AZURE_VAULT'
-    | 'KUBERNETES_CLUSTER_NG'
-    | 'GIT_NG'
-  fieldName?: string
-  entity?: UuidAware
-}
-
-export interface AtomicInteger {
-  andIncrement?: number
-  andDecrement?: number
-}
-
-export interface EncryptedData {
-  uuid: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedBy?: EmbeddedUser
-  lastUpdatedAt: number
-  name?: string
-  encryptionKey?: string
-  encryptedValue?: string[]
-  path?: string
-  parameters?: EncryptedDataParams[]
-  type:
-    | 'HOST_CONNECTION_ATTRIBUTES'
-    | 'BASTION_HOST_CONNECTION_ATTRIBUTES'
-    | 'SMTP'
-    | 'SFTP'
-    | 'JENKINS'
-    | 'BAMBOO'
-    | 'STRING'
-    | 'SPLUNK'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'APM_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'LOG_VERIFICATION'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'DYNA_TRACE'
-    | 'INSTANA'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'SCALYR'
-    | 'ELB'
-    | 'SLACK'
-    | 'AWS'
-    | 'GCS'
-    | 'GCP'
-    | 'AZURE'
-    | 'PCF'
-    | 'DIRECT'
-    | 'KUBERNETES_CLUSTER'
-    | 'DOCKER'
-    | 'ECR'
-    | 'GCR'
-    | 'ACR'
-    | 'PHYSICAL_DATA_CENTER'
-    | 'KUBERNETES'
-    | 'NEXUS'
-    | 'ARTIFACTORY'
-    | 'SMB'
-    | 'AMAZON_S3'
-    | 'GIT'
-    | 'SSH_SESSION_CONFIG'
-    | 'SERVICE_VARIABLE'
-    | 'CONFIG_FILE'
-    | 'KMS'
-    | 'GCP_KMS'
-    | 'JIRA'
-    | 'SERVICENOW'
-    | 'SECRET_TEXT'
-    | 'YAML_GIT_SYNC'
-    | 'VAULT'
-    | 'AWS_SECRETS_MANAGER'
-    | 'CYBERARK'
-    | 'WINRM_CONNECTION_ATTRIBUTES'
-    | 'WINRM_SESSION_CONFIG'
-    | 'PROMETHEUS'
-    | 'INFRASTRUCTURE_MAPPING'
-    | 'HTTP_HELM_REPO'
-    | 'AMAZON_S3_HELM_REPO'
-    | 'GCS_HELM_REPO'
-    | 'SPOT_INST'
-    | 'AZURE_ARTIFACTS_PAT'
-    | 'CUSTOM'
-    | 'CE_AWS'
-    | 'CE_GCP'
-    | 'AZURE_VAULT'
-    | 'KUBERNETES_CLUSTER_NG'
-    | 'GIT_NG'
-  parents?: EncryptedDataParent[]
-  accountId?: string
-  enabled?: boolean
-  kmsId?: string
-  encryptionType: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
-  fileSize?: number
-  appIds?: string[]
-  serviceIds?: string[]
-  envIds?: string[]
-  backupEncryptedValue?: string[]
-  backupEncryptionKey?: string
-  backupKmsId?: string
-  backupEncryptionType?:
-    | 'LOCAL'
-    | 'KMS'
-    | 'GCP_KMS'
-    | 'AWS_SECRETS_MANAGER'
-    | 'AZURE_VAULT'
-    | 'CYBERARK'
-    | 'VAULT'
-    | 'CUSTOM'
-  serviceVariableIds?: string[]
-  searchTags?: {
-    [key: string]: AtomicInteger
-  }
-  scopedToAccount?: boolean
-  usageRestrictions?: UsageRestrictions
-  inheritScopesFromSM?: boolean
-  nextMigrationIteration?: number
-  nextAwsToGcpKmsMigrationIteration?: number
-  base64Encoded?: boolean
-  encryptedBy?: string
-  setupUsage?: number
-  runTimeUsage?: number
-  changeLog?: number
-  keywords?: string[]
-  ngMetadata?: NGEncryptedDataMetadata
-  hideFromListing?: boolean
-  inlineSecret?: boolean
-  referencedSecret?: boolean
-  parameterizedSecret?: boolean
-}
-
-export interface EncryptedDataParent {
-  id?: string
-  type?:
-    | 'HOST_CONNECTION_ATTRIBUTES'
-    | 'BASTION_HOST_CONNECTION_ATTRIBUTES'
-    | 'SMTP'
-    | 'SFTP'
-    | 'JENKINS'
-    | 'BAMBOO'
-    | 'STRING'
-    | 'SPLUNK'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'APM_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'LOG_VERIFICATION'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'DYNA_TRACE'
-    | 'INSTANA'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'SCALYR'
-    | 'ELB'
-    | 'SLACK'
-    | 'AWS'
-    | 'GCS'
-    | 'GCP'
-    | 'AZURE'
-    | 'PCF'
-    | 'DIRECT'
-    | 'KUBERNETES_CLUSTER'
-    | 'DOCKER'
-    | 'ECR'
-    | 'GCR'
-    | 'ACR'
-    | 'PHYSICAL_DATA_CENTER'
-    | 'KUBERNETES'
-    | 'NEXUS'
-    | 'ARTIFACTORY'
-    | 'SMB'
-    | 'AMAZON_S3'
-    | 'GIT'
-    | 'SSH_SESSION_CONFIG'
-    | 'SERVICE_VARIABLE'
-    | 'CONFIG_FILE'
-    | 'KMS'
-    | 'GCP_KMS'
-    | 'JIRA'
-    | 'SERVICENOW'
-    | 'SECRET_TEXT'
-    | 'YAML_GIT_SYNC'
-    | 'VAULT'
-    | 'AWS_SECRETS_MANAGER'
-    | 'CYBERARK'
-    | 'WINRM_CONNECTION_ATTRIBUTES'
-    | 'WINRM_SESSION_CONFIG'
-    | 'PROMETHEUS'
-    | 'INFRASTRUCTURE_MAPPING'
-    | 'HTTP_HELM_REPO'
-    | 'AMAZON_S3_HELM_REPO'
-    | 'GCS_HELM_REPO'
-    | 'SPOT_INST'
-    | 'AZURE_ARTIFACTS_PAT'
-    | 'CUSTOM'
-    | 'CE_AWS'
-    | 'CE_GCP'
-    | 'AZURE_VAULT'
-    | 'KUBERNETES_CLUSTER_NG'
-    | 'GIT_NG'
-  fieldName?: string
-}
-
-export interface NGEncryptedDataMetadata {
-  identifier?: string
-  accountIdentifier?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  tags?: string[]
-  secretManagerIdentifier?: string
-  secretManagerName?: string
-  description?: string
-  draft?: boolean
-}
-
-export interface RestResponsePageResponseEncryptedData {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: EncryptedData[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseSecretManagerMetadataDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: SecretManagerMetadataDTO
-  responseMessages?: ResponseMessage[]
-}
-
-export interface SecretManagerMetadataDTO {
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
-  spec?: SecretManagerMetadataSpecDTO
-}
-
-export interface SecretManagerMetadataSpecDTO {
-  [key: string]: any
-}
-
-export interface SecretManagerMetadataRequestDTO {
-  encryptionType: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
-  orgIdentifier?: string
-  projectIdentifier?: string
-  identifier: string
-  spec: SecretManagerMetadataRequestSpecDTO
-}
-
-export interface SecretManagerMetadataRequestSpecDTO {
-  [key: string]: any
-}
-
-export type GcpKmsConfigDTO = SecretManagerConfigDTO & {
-  projectId?: string
-  region?: string
-  keyRing?: string
-  keyName?: string
-  credentials?: string[]
-}
-
-export type LocalConfigDTO = SecretManagerConfigDTO & {}
-
-export interface RestResponseSecretManagerConfigDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: SecretManagerConfigDTO
-  responseMessages?: ResponseMessage[]
-}
-
-export interface SecretManagerConfigDTO {
-  name?: string
-  accountIdentifier?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  tags?: string[]
-  identifier?: string
-  description?: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
-  default?: boolean
-}
-
-export type VaultConfigDTO = SecretManagerConfigDTO & {
-  authToken?: string
-  basePath?: string
-  vaultUrl?: string
-  renewIntervalHours?: number
-  secretEngineName?: string
-  appRoleId?: string
-  secretId?: string
-  secretEngineVersion?: number
-  readOnly?: boolean
-}
-
-export interface RestResponseListSecretManagerConfigDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: SecretManagerConfigDTO[]
-  responseMessages?: ResponseMessage[]
-}
-
-export type GcpKmsConfigUpdateDTO = SecretManagerConfigUpdateDTO & {
-  projectId?: string
-  region?: string
-  keyRing?: string
-  keyName?: string
-  credentials?: string[]
-}
-
-export interface SecretManagerConfigUpdateDTO {
-  tags?: string[]
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
-  description?: string
-  default?: boolean
-}
-
-export type VaultConfigUpdateDTO = SecretManagerConfigUpdateDTO & {
-  authToken?: string
-  basePath?: string
-  vaultUrl?: string
-  renewIntervalHours?: number
-  secretEngineName?: string
-  secretEngineVersion?: number
-  appRoleId?: string
-  secretId?: string
-  readOnly?: boolean
-}
-
-export interface SecretTextDTO {
-  account?: string
-  org?: string
-  project?: string
-  identifier?: string
-  secretManager?: string
-  name?: string
-  tags?: string[]
-  description?: string
-  type: 'SecretFile' | 'SecretText' | 'SSHKey'
-  valueType: 'Inline' | 'Reference'
-  value?: string
-}
-
-export interface RestResponseListEncryptedDataDetail {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: EncryptedDataDetail[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface DecryptableEntity {
-  [key: string]: any
-}
-
-export interface NGAccess {
-  identifier?: string
-  accountIdentifier?: string
-  projectIdentifier?: string
-  orgIdentifier?: string
-}
-
-export interface NGAccessWithEncryptionConsumer {
-  ngAccess?: NGAccess
-  decryptableEntity?: DecryptableEntity
-}
-
-export interface SecretTextUpdateDTO {
-  value: string
-  valueType: 'Inline' | 'Reference'
-  path?: string
-  description?: string
-  name: string
-  tags?: string[]
-  draft?: boolean
-}
-
-export interface RestResponsePageResponseEncryptedDataDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: EncryptedDataDTO[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface VaultConfig {
-  name?: string
-  vaultUrl?: string
-  authToken?: string
-  appRoleId?: string
-  secretId?: string
-  basePath?: string
-  renewIntervalHours?: number
-  renewalInterval?: number
-  secretEngineVersion?: number
-  secretEngineName?: string
-  engineManuallyEntered?: boolean
-  renewedAt?: number
-  uuid: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
-  accountId?: string
-  numOfEncryptedValue?: number
-  encryptedBy?: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedBy?: EmbeddedUser
-  lastUpdatedAt?: number
-  nextTokenRenewIteration?: number
-  manuallyEnteredSecretEngineMigrationIteration?: number
-  usageRestrictions?: UsageRestrictions
-  scopedToAccount?: boolean
-  templatizedFields?: string[]
-  certValidationRequired?: boolean
-  readOnly?: boolean
-  default?: boolean
-  templatized?: boolean
-}
-
-export interface RestResponseListSecretEngineSummary {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: SecretEngineSummary[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface SecretEngineSummary {
-  name?: string
-  description?: string
-  type?: string
-  version?: number
-}
-
-export interface RestResponseTemplateGallery {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: TemplateGallery
-  responseMessages?: ResponseMessage[]
-}
-
-export interface TemplateGallery {
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  name?: string
-  accountId?: string
-  description?: string
-  referencedGalleryId?: string
-  global?: boolean
-  keywords?: string[]
-  galleryKey?: string
-}
-
-export interface RestResponseTemplateFolder {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: TemplateFolder
-  responseMessages?: ResponseMessage[]
-}
-
-export interface TemplateFolder {
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-  accountId?: string
-  name?: string
-  description?: string
-  parentId?: string
-  nodeType?: string
-  galleryId?: string
-  templatesCount?: number
-  pathId?: string
-  children?: TemplateFolder[]
-  keywords?: string[]
-}
-
-export interface RestResponsePageResponseTemplateGallery {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: TemplateGallery[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponsePageResponseTemplate {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Template[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponsePageResponseTemplateVersion {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: TemplateVersion[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface TemplateVersion {
-  changeType?: string
-  templateUuid?: string
-  templateName?: string
-  templateType?: string
-  version?: number
-  versionDetails?: string
-  importedTemplateVersion?: string
-  accountId?: string
-  galleryId?: string
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
-}
-
-export interface CEView {
-  uuid?: string
-  name?: string
-  accountId?: string
-  viewVersion?: string
-  viewTimeRange?: ViewTimeRange
-  viewRules?: ViewRule[]
-  viewVisualization?: ViewVisualization
-  viewType?: 'SAMPLE' | 'CUSTOMER'
-  viewState?: 'DRAFT' | 'COMPLETED'
-  createdAt?: number
-  lastUpdatedAt?: number
-  createdBy?: EmbeddedUser
-  lastUpdatedBy?: EmbeddedUser
-}
-
-export interface RestResponseCEView {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: CEView
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ViewCondition {
-  type?: string
-}
-
-export interface ViewField {
-  fieldId?: string
-  fieldName?: string
-  identifier?: 'CLUSTER' | 'AWS' | 'GCP' | 'COMMON' | 'CUSTOM' | 'LABEL'
-  identifierName?: string
-}
-
-export type ViewIdCondition = ViewCondition & {
-  viewField?: ViewField
-  viewOperator?: 'IN' | 'NOT_IN' | 'NOT_NULL'
-  values?: string[]
-}
-
-export interface ViewRule {
-  viewConditions?: ViewCondition[]
-}
-
-export interface ViewTimeRange {
-  viewTimeRangeType?: 'CUSTOM' | 'LAST_7' | 'LAST_30' | 'LAST_MONTH'
-  startTime?: number
-  endTime?: number
-}
-
-export interface ViewVisualization {
-  granularity?: 'DAY' | 'MONTH'
-  groupBy?: ViewField
-  chartType?: 'STACKED_TIME_SERIES'
-}
-
-export interface RestResponseViewCustomField {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ViewCustomField
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ViewCustomField {
-  uuid?: string
-  accountId?: string
-  viewId?: string
-  name?: string
-  description?: string
-  sqlFormula?: string
-  displayFormula?: string
-  userDefinedExpression?: string
-  viewFields?: ViewField[]
-  createdAt?: number
-  lastUpdatedAt?: number
-}
-
-export interface RestResponseYamlHistory {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: YamlHistory
-  responseMessages?: ResponseMessage[]
+  webhookToken?: string
 }
 
 export interface YamlHistory {
   [key: string]: any
 }
 
-export interface RestResponseYamlVersion {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: YamlVersion
-  responseMessages?: ResponseMessage[]
+export interface YamlOperationResponse {
+  errorMessage?: string
+  filesStatus?: FileOperationStatus[]
+  responseStatus?: 'FAILED' | 'SUCCESS'
+}
+
+export interface YamlPayload {
+  name?: string
+  path?: string
+  yaml?: string
 }
 
 export interface YamlVersion {
-  uuid: string
+  accountId?: string
   appId: string
-  createdBy?: EmbeddedUser
   createdAt?: number
+  createdBy?: EmbeddedUser
+  entityId?: string
+  inEffectEnd?: number
+  inEffectStart?: number
   lastUpdatedAt: number
-  yamlVersionId?: string
-  version?: number
   type?:
     | 'SETUP'
     | 'APP'
@@ -18412,826 +18387,258 @@ export interface YamlVersion {
     | 'TAGS'
     | 'GLOBAL_TEMPLATE_LIBRARY'
     | 'APPLICATION_TEMPLATE_LIBRARY'
-  entityId?: string
-  inEffectStart?: number
-  inEffectEnd?: number
-  yaml?: string
-  accountId?: string
-}
-
-export interface RestResponseYamlPayload {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: YamlPayload
-  responseMessages?: ResponseMessage[]
-}
-
-export interface YamlPayload {
-  name?: string
-  yaml?: string
-  path?: string
-}
-
-export interface GitSyncWebhook {
-  accountId?: string
-  webhookToken?: string
-  entityId?: string
   uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedAt: number
+  version?: number
+  yaml?: string
+  yamlVersionId?: string
 }
 
-export interface RestResponseGitSyncWebhook {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: GitSyncWebhook
-  responseMessages?: ResponseMessage[]
+export interface ZendeskSsoLoginResponse {
+  redirectUrl?: string
+  userId?: string
 }
 
-export interface RestResponseListGitSyncError {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: GitSyncError[]
-  responseMessages?: ResponseMessage[]
+export interface ZoneId {
+  id?: string
+  rules?: ZoneRules
 }
 
-export interface Base {
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedBy?: EmbeddedUser
-  lastUpdatedAt: number
+export interface ZoneOffset {
+  id?: string
+  rules?: ZoneRules
+  totalSeconds?: number
 }
 
-export interface RestResponseBase {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: Base
-  responseMessages?: ResponseMessage[]
+export interface ZoneOffsetTransition {
+  dateTimeAfter?: string
+  dateTimeBefore?: string
+  duration?: Duration
+  gap?: boolean
+  instant?: number
+  offsetAfter?: ZoneOffset
+  offsetBefore?: ZoneOffset
+  overlap?: boolean
 }
 
-export interface RestResponseYamlGitConfig {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: YamlGitConfig
-  responseMessages?: ResponseMessage[]
+export interface ZoneOffsetTransitionRule {
+  dayOfMonthIndicator?: number
+  dayOfWeek?: 'MONDAY' | 'TUESDAY' | 'WEDNESDAY' | 'THURSDAY' | 'FRIDAY' | 'SATURDAY' | 'SUNDAY'
+  localTime?: LocalTime
+  midnightEndOfDay?: boolean
+  month?:
+    | 'JANUARY'
+    | 'FEBRUARY'
+    | 'MARCH'
+    | 'APRIL'
+    | 'MAY'
+    | 'JUNE'
+    | 'JULY'
+    | 'AUGUST'
+    | 'SEPTEMBER'
+    | 'OCTOBER'
+    | 'NOVEMBER'
+    | 'DECEMBER'
+  offsetAfter?: ZoneOffset
+  offsetBefore?: ZoneOffset
+  standardOffset?: ZoneOffset
+  timeDefinition?: 'UTC' | 'WALL' | 'STANDARD'
 }
 
-export interface FileOperationStatus {
-  yamlFilePath?: string
-  status?: 'FAILED' | 'SUCCESS' | 'SKIPPED'
-  errorMssg?: string
+export interface ZoneRules {
+  fixedOffset?: boolean
+  transitionRules?: ZoneOffsetTransitionRule[]
+  transitions?: ZoneOffsetTransition[]
 }
-
-export interface RestResponseYamlOperationResponse {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: YamlOperationResponse
-  responseMessages?: ResponseMessage[]
-}
-
-export interface YamlOperationResponse {
-  responseStatus?: 'FAILED' | 'SUCCESS'
-  errorMessage?: string
-  filesStatus?: FileOperationStatus[]
-}
-
-export interface RestResponseFileOperationStatus {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: FileOperationStatus
-  responseMessages?: ResponseMessage[]
-}
-
-export type BuildDetailsRequestBody = BuildDetails
-
-export type CustomSecretsManagerConfigRequestBody = CustomSecretsManagerConfig
-
-export type PreferenceRequestBody = Preference
-
-export type LogMLFeedbackRequestBody = LogMLFeedback
-
-export type FailureStrategyArrayRequestBody = FailureStrategy[]
-
-export type PatchRequestRequestBody = PatchRequest
-
-export type HelmChartSpecificationRequestBody = HelmChartSpecification
-
-export type DelegateProfileDetailsRequestBody = DelegateProfileDetails
-
-export type TemplateFolderRequestBody = TemplateFolder
-
-export type NotificationGroupRequestBody = NotificationGroup
-
-export type UserGroupRequestBody = UserGroup
-
-export type UploadSamlMetaDataRequestBody = void
-
-export type ViewCustomFieldRequestBody = ViewCustomField
-
-export type ApplicationManifestRequestBody = ApplicationManifest
-
-export type KubernetesPayloadRequestBody = KubernetesPayload
-
-export type ApiKeyEntryRequestBody = ApiKeyEntry
-
-export type ArtifactStreamBindingRequestBody = ArtifactStreamBinding
-
-export type ManifestFileRequestBody = ManifestFile
-
-export type VaultConfigRequestBody = VaultConfig
-
-export type InfrastructureProvisionerRequestBody = InfrastructureProvisioner
-
-export type UserInviteRequestBody = UserInvite
-
-export type LicenseInfoRequestBody = LicenseInfo
-
-export type WhitelistRequestBody = Whitelist
-
-export type InfrastructureMappingRequestBody = InfrastructureMapping
-
-export type UpdateDescriptionBodyRequestBody = string
-
-export type TemplateGalleryRequestBody = TemplateGallery
-
-export type TemplateRequestBody = Template
-
-export type AlertNotificationRuleRequestBody = AlertNotificationRule
-
-export type CVConfigurationRequestBody = CVConfiguration
-
-export type InfrastructureDefinitionRequestBody = InfrastructureDefinition
-
-export interface UpdateCVConfigurationBodyRequestBody {
-  [key: string]: any
-}
-
-export type TaskSelectorMapRequestBody = TaskSelectorMap
-
-export type PhaseStepRequestBody = PhaseStep
-
-export type YamlGitConfigRequestBody = YamlGitConfig
-
-export type EcsServiceSpecificationRequestBody = EcsServiceSpecification
-
-export type DelegateRequestBody = Delegate
-
-export type LdapSettingsRequestBody = LdapSettings
-
-export type CVFeedbackRecordRequestBody = CVFeedbackRecord
-
-export type ServiceRequestBody = Service
-
-export type TriggerRequestBody = Trigger
-
-export type ServiceTemplateRequestBody = ServiceTemplate
-
-export type GcpOrganizationRequestBody = GcpOrganization
-
-export type BudgetRequestBody = Budget
-
-export type KmsConfigRequestBody = KmsConfig
-
-export type ArtifactRequestBody = Artifact
-
-export type WorkflowPhaseRequestBody = WorkflowPhase
-
-export type ImportAccountDataRequestBody = void
-
-export type UpdateWhitelistedDomainsBodyRequestBody = string[]
 
 export type AccountRequestBody = Account
 
-export type GcpSignUpRequestBody = void
+export type AlertNotificationRuleRequestBody = AlertNotificationRule
 
-export type UpdatePlatformRequestBody = void
+export type ApiKeyEntryRequestBody = ApiKeyEntry
 
-export type ConnectorConfigDTORequestBody = ConnectorConfigDTO
+export type ApplicationManifestRequestBody = ApplicationManifest
+
+export type ArtifactRequestBody = Artifact
 
 export type ArtifactStreamRequestBody = ArtifactStream
 
+export type ArtifactStreamBindingRequestBody = ArtifactStreamBinding
+
+export type AzureVaultConfigRequestBody = AzureVaultConfig
+
+export type BudgetRequestBody = Budget
+
+export type BuildDetailsRequestBody = BuildDetails
+
 export type CEReportScheduleRequestBody = CEReportSchedule
 
-export type SaveApiCallLogsBodyRequestBody = string[]
+export type CEViewRequestBody = CEView
+
+export type CVConfigurationRequestBody = CVConfiguration
+
+export type CVFeedbackRecordRequestBody = CVFeedbackRecord
+
+export type CloneMetadataRequestBody = CloneMetadata
+
+export type ConnectorConfigDTORequestBody = ConnectorConfigDTO
+
+export type ContainerTaskRequestBody = ContainerTask
+
+export type ContinuousVerificationAlertDataRequestBody = ContinuousVerificationAlertData
+
+export type CustomSecretsManagerConfigRequestBody = CustomSecretsManagerConfig
+
+export type DashboardSettingsRequestBody = DashboardSettings
+
+export type DataCollectionConnectorBundleRequestBody = DataCollectionConnectorBundle
+
+export type DelegateRequestBody = Delegate
 
 export type DelegateProfileRequestBody = DelegateProfile
+
+export type DelegateProfileDetailsRequestBody = DelegateProfileDetails
 
 export type DelegateScopeRequestBody = DelegateScope
 
 export type DelegateSetupDetailsRequestBody = DelegateSetupDetails
 
-export type CloneMetadataRequestBody = CloneMetadata
+export type EcsServiceSpecificationRequestBody = EcsServiceSpecification
 
 export type EnvironmentRequestBody = Environment
 
 export type ExecutionArgsRequestBody = ExecutionArgs
 
-export interface SaveMessageComparisonListBodyRequestBody {
-  [key: string]: string
-}
+export type FailureStrategyArrayRequestBody = FailureStrategy[]
 
 export type GcpBillingAccountRequestBody = GcpBillingAccount
 
-export type HarnessTagLinkRequestBody = HarnessTagLink
+export type GcpOrganizationRequestBody = GcpOrganization
 
 export type HarnessTagRequestBody = HarnessTag
 
+export type HarnessTagLinkRequestBody = HarnessTagLink
+
+export type HelmChartSpecificationRequestBody = HelmChartSpecification
+
+export type InfrastructureDefinitionRequestBody = InfrastructureDefinition
+
+export type InfrastructureMappingRequestBody = InfrastructureMapping
+
+export type InfrastructureProvisionerRequestBody = InfrastructureProvisioner
+
+export type KmsConfigRequestBody = KmsConfig
+
+export type KubernetesPayloadRequestBody = KubernetesPayload
+
+export type LDAPTestAuthenticationRequestRequestBody = LDAPTestAuthenticationRequest
+
+export type LambdaSpecificationRequestBody = LambdaSpecification
+
+export type LdapSettingsRequestBody = LdapSettings
+
+export type LicenseInfoRequestBody = LicenseInfo
+
+export type LogMLFeedbackRequestBody = LogMLFeedback
+
+export type LoginRequestRequestBody = LoginRequest
+
+export type ManifestFileRequestBody = ManifestFile
+
+export type NotificationGroupRequestBody = NotificationGroup
+
+export type OauthSettingsRequestBody = OauthSettings
+
+export type PatchRequestRequestBody = PatchRequest
+
+export type PcfServiceSpecificationRequestBody = PcfServiceSpecification
+
+export type PhaseStepRequestBody = PhaseStep
+
 export type PipelineRequestBody = Pipeline
+
+export type PreferenceRequestBody = Preference
 
 export type ResourceConstraintRequestBody = ResourceConstraint
 
 export type RoleRequestBody = Role
 
-export type LDAPTestAuthenticationRequestRequestBody = LDAPTestAuthenticationRequest
-
-export type OauthSettingsRequestBody = OauthSettings
-
 export type ScimGroupRequestBody = ScimGroup
 
 export type ScimUserRequestBody = ScimUser
 
-export type PcfServiceSpecificationRequestBody = PcfServiceSpecification
+export type SecretTextRequestBody = SecretText
 
-export type ContainerTaskRequestBody = ContainerTask
+export type ServiceRequestBody = Service
 
-export type LambdaSpecificationRequestBody = LambdaSpecification
-
-export type UserDataSpecificationRequestBody = UserDataSpecification
+export type ServiceTemplateRequestBody = ServiceTemplate
 
 export type ServiceVariableRequestBody = ServiceVariable
 
 export type SettingAttributeRequestBody = SettingAttribute
 
-export type Update26RequestBody = void
+export type StackDriverSetupTestNodeDataRequestBody = StackDriverSetupTestNodeData
+
+export type TaskSelectorMapRequestBody = TaskSelectorMap
+
+export type TemplateRequestBody = Template
+
+export type TemplateFolderRequestBody = TemplateFolder
+
+export type TemplateGalleryRequestBody = TemplateGallery
+
+export type TriggerRequestBody = Trigger
 
 export type UpdatePasswordRequestRequestBody = UpdatePasswordRequest
 
-export type StackDriverSetupTestNodeDataRequestBody = StackDriverSetupTestNodeData
-
 export type UserRequestBody = User
 
-export type LoginRequestRequestBody = LoginRequest
+export type UserDataSpecificationRequestBody = UserDataSpecification
+
+export type UserGroupRequestBody = UserGroup
+
+export type UserInviteRequestBody = UserInvite
+
+export type VaultConfigRequestBody = VaultConfig
+
+export type ViewCustomFieldRequestBody = ViewCustomField
 
 export type WebHookRequestRequestBody = WebHookRequest
 
+export type WhitelistRequestBody = Whitelist
+
 export type WorkflowRequestBody = Workflow
 
-export type ContinuousVerificationAlertDataRequestBody = ContinuousVerificationAlertData
+export type WorkflowPhaseRequestBody = WorkflowPhase
 
-export type DataCollectionConnectorBundleRequestBody = DataCollectionConnectorBundle
-
-export type DashboardSettingsRequestBody = DashboardSettings
-
-export type AzureVaultConfigRequestBody = AzureVaultConfig
-
-export type SaveGlobalKmsConfigRequestBody = void
-
-export type SecretTextRequestBody = SecretText
-
-export type CEViewRequestBody = CEView
+export type YamlGitConfigRequestBody = YamlGitConfig
 
 export type YamlPayloadRequestBody = YamlPayload
 
-export type SignupUserRequestBody = SignupUser
+export type GcpSignUpRequestBody = void
 
-export interface GetDelegatesQueryParams {
-  offset?: string
-  limit?: string
-  fieldsIncluded?: string[]
-  fieldsExcluded?: string[]
-  accountId: string
+export type ImportAccountDataRequestBody = void
+
+export type SaveApiCallLogsBodyRequestBody = string[]
+
+export type SaveGlobalKmsConfigRequestBody = void
+
+export interface SaveMessageComparisonListBodyRequestBody {
+  [key: string]: string
 }
 
-export type GetDelegatesProps = Omit<
-  GetProps<RestResponsePageResponseDelegate, unknown, GetDelegatesQueryParams, void>,
-  'path'
->
-
-export const GetDelegates = (props: GetDelegatesProps) => (
-  <Get<RestResponsePageResponseDelegate, unknown, GetDelegatesQueryParams, void>
-    path={`/setup/delegates`}
-    base={getConfig('api')}
-    {...props}
-  />
-)
-
-export type UseGetDelegatesProps = Omit<
-  UseGetProps<RestResponsePageResponseDelegate, unknown, GetDelegatesQueryParams, void>,
-  'path'
->
-
-export const useGetDelegates = (props: UseGetDelegatesProps) =>
-  useGet<RestResponsePageResponseDelegate, unknown, GetDelegatesQueryParams, void>(`/setup/delegates`, {
-    base: getConfig('api'),
-    ...props
-  })
-
-export interface GetSelectionLogsV2QueryParams {
-  accountId?: string
-  taskId?: string
+export interface UpdateCVConfigurationBodyRequestBody {
+  [key: string]: any
 }
 
-export type GetSelectionLogsV2Props = Omit<
-  GetProps<RestResponseDelegateSelectionLogResponse, unknown, GetSelectionLogsV2QueryParams, void>,
-  'path'
->
+export type UpdateDescriptionBodyRequestBody = string
 
-export const GetSelectionLogsV2 = (props: GetSelectionLogsV2Props) => (
-  <Get<RestResponseDelegateSelectionLogResponse, unknown, GetSelectionLogsV2QueryParams, void>
-    path={`/selection-logs/v2`}
-    base={getConfig('api')}
-    {...props}
-  />
-)
+export type UpdatePlatformRequestBody = void
 
-export type UseGetSelectionLogsV2Props = Omit<
-  UseGetProps<RestResponseDelegateSelectionLogResponse, unknown, GetSelectionLogsV2QueryParams, void>,
-  'path'
->
+export type UpdateWhitelistedDomainsBodyRequestBody = string[]
 
-export const useGetSelectionLogsV2 = (props: UseGetSelectionLogsV2Props) =>
-  useGet<RestResponseDelegateSelectionLogResponse, unknown, GetSelectionLogsV2QueryParams, void>(`/selection-logs/v2`, {
-    base: getConfig('api'),
-    ...props
-  })
+export type Update26RequestBody = void
 
-export interface GetDelegatesStatusQueryParams {
-  accountId?: string
-}
-
-export type GetDelegatesStatusProps = Omit<
-  GetProps<RestResponseDelegateStatus, unknown, GetDelegatesStatusQueryParams, void>,
-  'path'
->
-
-export const GetDelegatesStatus = (props: GetDelegatesStatusProps) => (
-  <Get<RestResponseDelegateStatus, unknown, GetDelegatesStatusQueryParams, void>
-    path={`/setup/delegates/status`}
-    base={getConfig('api')}
-    {...props}
-  />
-)
-
-export type UseGetDelegatesStatusProps = Omit<
-  UseGetProps<RestResponseDelegateStatus, unknown, GetDelegatesStatusQueryParams, void>,
-  'path'
->
-
-export const useGetDelegatesStatus = (props: UseGetDelegatesStatusProps) =>
-  useGet<RestResponseDelegateStatus, unknown, GetDelegatesStatusQueryParams, void>(`/setup/delegates/status`, {
-    base: getConfig('api'),
-    ...props
-  })
-
-export interface GetDelegatesStatusV2QueryParams {
-  accountId?: string
-}
-
-export type GetDelegatesStatusV2Props = Omit<
-  GetProps<RestResponseDelegateStatus, unknown, GetDelegatesStatusV2QueryParams, void>,
-  'path'
->
-
-export const GetDelegatesStatusV2 = (props: GetDelegatesStatusV2Props) => (
-  <Get<RestResponseDelegateStatus, unknown, GetDelegatesStatusV2QueryParams, void>
-    path={`/setup/delegates/status2`}
-    base={getConfig('api')}
-    {...props}
-  />
-)
-
-export type UseGetDelegatesStatusV2Props = Omit<
-  UseGetProps<RestResponseDelegateStatus, unknown, GetDelegatesStatusV2QueryParams, void>,
-  'path'
->
-
-export const useGetDelegatesStatusV2 = (props: UseGetDelegatesStatusV2Props) =>
-  useGet<RestResponseDelegateStatus, unknown, GetDelegatesStatusV2QueryParams, void>(`/setup/delegates/status2`, {
-    base: getConfig('api'),
-    ...props
-  })
-
-export interface GetDelegateGroupsV2QueryParams {
-  accountId?: string
-  orgId?: string
-  projectId?: string
-}
-
-export type GetDelegateGroupsV2Props = Omit<
-  GetProps<RestResponseDelegateGroupListing, unknown, GetDelegateGroupsV2QueryParams, void>,
-  'path'
->
-
-export const GetDelegateGroupsV2 = (props: GetDelegateGroupsV2Props) => (
-  <Get<RestResponseDelegateGroupListing, unknown, GetDelegateGroupsV2QueryParams, void>
-    path={`/setup/delegates/v2`}
-    base={getConfig('api')}
-    {...props}
-  />
-)
-
-export type UseGetDelegateGroupsV2Props = Omit<
-  UseGetProps<RestResponseDelegateGroupListing, unknown, GetDelegateGroupsV2QueryParams, void>,
-  'path'
->
-
-export const useGetDelegateGroupsV2 = (props: UseGetDelegateGroupsV2Props) =>
-  useGet<RestResponseDelegateGroupListing, unknown, GetDelegateGroupsV2QueryParams, void>(`/setup/delegates/v2`, {
-    base: getConfig('api'),
-    ...props
-  })
-
-export interface GetDelegateGroupFromIdV2QueryParams {
-  accountId?: string
-}
-
-export interface GetDelegateGroupFromIdV2PathParams {
-  delegateGroupId: string
-}
-
-export type GetDelegateGroupFromIdV2Props = Omit<
-  GetProps<
-    RestResponseDelegateGroupDetails,
-    unknown,
-    GetDelegateGroupFromIdV2QueryParams,
-    GetDelegateGroupFromIdV2PathParams
-  >,
-  'path'
-> &
-  GetDelegateGroupFromIdV2PathParams
-
-export const GetDelegateGroupFromIdV2 = ({ delegateGroupId, ...props }: GetDelegateGroupFromIdV2Props) => (
-  <Get<
-    RestResponseDelegateGroupDetails,
-    unknown,
-    GetDelegateGroupFromIdV2QueryParams,
-    GetDelegateGroupFromIdV2PathParams
-  >
-    path={`/setup/delegates/v2/${delegateGroupId}`}
-    base={getConfig('api')}
-    {...props}
-  />
-)
-
-export type UseGetDelegateGroupFromIdV2Props = Omit<
-  UseGetProps<
-    RestResponseDelegateGroupDetails,
-    unknown,
-    GetDelegateGroupFromIdV2QueryParams,
-    GetDelegateGroupFromIdV2PathParams
-  >,
-  'path'
-> &
-  GetDelegateGroupFromIdV2PathParams
-
-export const useGetDelegateGroupFromIdV2 = ({ delegateGroupId, ...props }: UseGetDelegateGroupFromIdV2Props) =>
-  useGet<
-    RestResponseDelegateGroupDetails,
-    unknown,
-    GetDelegateGroupFromIdV2QueryParams,
-    GetDelegateGroupFromIdV2PathParams
-  >((paramsInPath: GetDelegateGroupFromIdV2PathParams) => `/setup/delegates/v2/${paramsInPath.delegateGroupId}`, {
-    base: getConfig('api'),
-    pathParams: { delegateGroupId },
-    ...props
-  })
-
-export interface DeleteDelegateGroupQueryParams {
-  accountId?: string
-  forceDelete?: boolean
-}
-
-export type DeleteDelegateGroupProps = Omit<
-  MutateProps<RestResponseVoid, unknown, DeleteDelegateGroupQueryParams, string, void>,
-  'path' | 'verb'
->
-
-export const DeleteDelegateGroup = (props: DeleteDelegateGroupProps) => (
-  <Mutate<RestResponseVoid, unknown, DeleteDelegateGroupQueryParams, string, void>
-    verb="DELETE"
-    path={`/setup/delegates/groups`}
-    base={getConfig('api')}
-    {...props}
-  />
-)
-
-export type UseDeleteDelegateGroupProps = Omit<
-  UseMutateProps<RestResponseVoid, unknown, DeleteDelegateGroupQueryParams, string, void>,
-  'path' | 'verb'
->
-
-export const useDeleteDelegateGroup = (props: UseDeleteDelegateGroupProps) =>
-  useMutate<RestResponseVoid, unknown, DeleteDelegateGroupQueryParams, string, void>(
-    'DELETE',
-    `/setup/delegates/groups`,
-    { base: getConfig('api'), ...props }
-  )
-
-export interface GetDelegatesDownloadUrlQueryParams {
-  accountId?: string
-}
-
-export type GetDelegatesDownloadUrlProps = Omit<
-  GetProps<RestResponseMapStringString, unknown, GetDelegatesDownloadUrlQueryParams, void>,
-  'path'
->
-
-export const GetDelegatesDownloadUrl = (props: GetDelegatesDownloadUrlProps) => (
-  <Get<RestResponseMapStringString, unknown, GetDelegatesDownloadUrlQueryParams, void>
-    path={`/setup/delegates/downloadUrl`}
-    base={getConfig('api')}
-    {...props}
-  />
-)
-
-export type UseGetDelegatesDownloadUrlProps = Omit<
-  UseGetProps<RestResponseMapStringString, unknown, GetDelegatesDownloadUrlQueryParams, void>,
-  'path'
->
-
-export const useGetDelegatesDownloadUrl = (props: UseGetDelegatesDownloadUrlProps) =>
-  useGet<RestResponseMapStringString, unknown, GetDelegatesDownloadUrlQueryParams, void>(
-    `/setup/delegates/downloadUrl`,
-    { base: getConfig('api'), ...props }
-  )
-
-export interface GetDelegateProfilesQueryParams {
-  offset?: string
-  limit?: string
-  fieldsIncluded?: string[]
-  fieldsExcluded?: string[]
-  accountId: string
-}
-
-export type GetDelegateProfilesProps = Omit<
-  GetProps<RestResponsePageResponseDelegateProfile, unknown, GetDelegateProfilesQueryParams, void>,
-  'path'
->
-
-export const GetDelegateProfiles = (props: GetDelegateProfilesProps) => (
-  <Get<RestResponsePageResponseDelegateProfile, unknown, GetDelegateProfilesQueryParams, void>
-    path={`/delegate-profiles`}
-    base={getConfig('api')}
-    {...props}
-  />
-)
-
-export type UseGetDelegateProfilesProps = Omit<
-  UseGetProps<RestResponsePageResponseDelegateProfile, unknown, GetDelegateProfilesQueryParams, void>,
-  'path'
->
-
-export const useGetDelegateProfiles = (props: UseGetDelegateProfilesProps) =>
-  useGet<RestResponsePageResponseDelegateProfile, unknown, GetDelegateProfilesQueryParams, void>(`/delegate-profiles`, {
-    base: getConfig('api'),
-    ...props
-  })
-
-export interface GetDelegateProfilesV2QueryParams {
-  offset?: string
-  limit?: string
-  fieldsIncluded?: string[]
-  fieldsExcluded?: string[]
-  accountId?: string
-}
-
-export type GetDelegateProfilesV2Props = Omit<
-  GetProps<RestResponsePageResponseDelegateProfileDetails, unknown, GetDelegateProfilesV2QueryParams, void>,
-  'path'
->
-
-export const GetDelegateProfilesV2 = (props: GetDelegateProfilesV2Props) => (
-  <Get<RestResponsePageResponseDelegateProfileDetails, unknown, GetDelegateProfilesV2QueryParams, void>
-    path={`/delegate-profiles/v2`}
-    base={getConfig('api')}
-    {...props}
-  />
-)
-
-export type UseGetDelegateProfilesV2Props = Omit<
-  UseGetProps<RestResponsePageResponseDelegateProfileDetails, unknown, GetDelegateProfilesV2QueryParams, void>,
-  'path'
->
-
-export const useGetDelegateProfilesV2 = (props: UseGetDelegateProfilesV2Props) =>
-  useGet<RestResponsePageResponseDelegateProfileDetails, unknown, GetDelegateProfilesV2QueryParams, void>(
-    `/delegate-profiles/v2`,
-    { base: getConfig('api'), ...props }
-  )
-
-export interface GetDelegateConfigFromIdQueryParams {
-  accountId?: string
-}
-
-export interface GetDelegateConfigFromIdPathParams {
-  delegateProfileId: string
-}
-
-export type GetDelegateConfigFromIdProps = Omit<
-  GetProps<RestResponseDelegateProfile, unknown, GetDelegateConfigFromIdQueryParams, GetDelegateConfigFromIdPathParams>,
-  'path'
-> &
-  GetDelegateConfigFromIdPathParams
-
-export const GetDelegateConfigFromId = ({ delegateProfileId, ...props }: GetDelegateConfigFromIdProps) => (
-  <Get<RestResponseDelegateProfile, unknown, GetDelegateConfigFromIdQueryParams, GetDelegateConfigFromIdPathParams>
-    path={`/delegate-profiles/${delegateProfileId}`}
-    base={getConfig('api')}
-    {...props}
-  />
-)
-
-export type UseGetDelegateConfigFromIdProps = Omit<
-  UseGetProps<
-    RestResponseDelegateProfile,
-    unknown,
-    GetDelegateConfigFromIdQueryParams,
-    GetDelegateConfigFromIdPathParams
-  >,
-  'path'
-> &
-  GetDelegateConfigFromIdPathParams
-
-export const useGetDelegateConfigFromId = ({ delegateProfileId, ...props }: UseGetDelegateConfigFromIdProps) =>
-  useGet<RestResponseDelegateProfile, unknown, GetDelegateConfigFromIdQueryParams, GetDelegateConfigFromIdPathParams>(
-    (paramsInPath: GetDelegateConfigFromIdPathParams) => `/delegate-profiles/${paramsInPath.delegateProfileId}`,
-    { base: getConfig('api'), pathParams: { delegateProfileId }, ...props }
-  )
-
-export interface GetKubernetesDelegateNamesQueryParams {
-  accountId?: string
-}
-
-export type GetKubernetesDelegateNamesProps = Omit<
-  GetProps<RestResponseListString, unknown, GetKubernetesDelegateNamesQueryParams, void>,
-  'path'
->
-
-export const GetKubernetesDelegateNames = (props: GetKubernetesDelegateNamesProps) => (
-  <Get<RestResponseListString, unknown, GetKubernetesDelegateNamesQueryParams, void>
-    path={`/setup/delegates/kubernetes-delegates`}
-    base={getConfig('api')}
-    {...props}
-  />
-)
-
-export type UseGetKubernetesDelegateNamesProps = Omit<
-  UseGetProps<RestResponseListString, unknown, GetKubernetesDelegateNamesQueryParams, void>,
-  'path'
->
-
-export const useGetKubernetesDelegateNames = (props: UseGetKubernetesDelegateNamesProps) =>
-  useGet<RestResponseListString, unknown, GetKubernetesDelegateNamesQueryParams, void>(
-    `/setup/delegates/kubernetes-delegates`,
-    { base: getConfig('api'), ...props }
-  )
-
-export type GetUserProps = Omit<GetProps<RestResponseUser, unknown, void, void>, 'path'>
-
-export const GetUser = (props: GetUserProps) => (
-  <Get<RestResponseUser, unknown, void, void> path={`/users/user`} base={getConfig('api')} {...props} />
-)
-
-export type UseGetUserProps = Omit<UseGetProps<RestResponseUser, unknown, void, void>, 'path'>
-
-export const useGetUser = (props: UseGetUserProps) =>
-  useGet<RestResponseUser, unknown, void, void>(`/users/user`, { base: getConfig('api'), ...props })
-
-export interface SetDefaultAccountForCurrentUserPathParams {
-  accountId: string
-}
-
-export type SetDefaultAccountForCurrentUserProps = Omit<
-  MutateProps<RestResponseBoolean, unknown, void, void, SetDefaultAccountForCurrentUserPathParams>,
-  'path' | 'verb'
-> &
-  SetDefaultAccountForCurrentUserPathParams
-
-export const SetDefaultAccountForCurrentUser = ({ accountId, ...props }: SetDefaultAccountForCurrentUserProps) => (
-  <Mutate<RestResponseBoolean, unknown, void, void, SetDefaultAccountForCurrentUserPathParams>
-    verb="PUT"
-    path={`/users/set-default-account/${accountId}`}
-    base={getConfig('api')}
-    {...props}
-  />
-)
-
-export type UseSetDefaultAccountForCurrentUserProps = Omit<
-  UseMutateProps<RestResponseBoolean, unknown, void, void, SetDefaultAccountForCurrentUserPathParams>,
-  'path' | 'verb'
-> &
-  SetDefaultAccountForCurrentUserPathParams
-
-export const useSetDefaultAccountForCurrentUser = ({ accountId, ...props }: UseSetDefaultAccountForCurrentUserProps) =>
-  useMutate<RestResponseBoolean, unknown, void, void, SetDefaultAccountForCurrentUserPathParams>(
-    'PUT',
-    (paramsInPath: SetDefaultAccountForCurrentUserPathParams) => `/users/set-default-account/${paramsInPath.accountId}`,
-    { base: getConfig('api'), pathParams: { accountId }, ...props }
-  )
-
-export type TrialSignupProps = Omit<
-  MutateProps<RestResponseBoolean, unknown, void, UserInviteRequestBody, void>,
-  'path' | 'verb'
->
-
-export const TrialSignup = (props: TrialSignupProps) => (
-  <Mutate<RestResponseBoolean, unknown, void, UserInviteRequestBody, void>
-    verb="POST"
-    path={`/users/new-trial`}
-    base={getConfig('api')}
-    {...props}
-  />
-)
-
-export type UseTrialSignupProps = Omit<
-  UseMutateProps<RestResponseBoolean, unknown, void, UserInviteRequestBody, void>,
-  'path' | 'verb'
->
-
-export const useTrialSignup = (props: UseTrialSignupProps) =>
-  useMutate<RestResponseBoolean, unknown, void, UserInviteRequestBody, void>('POST', `/users/new-trial`, {
-    base: getConfig('api'),
-    ...props
-  })
-
-export interface Logout1PathParams {
-  userId: string
-}
-
-export type Logout1Props = Omit<MutateProps<RestResponse, unknown, void, void, Logout1PathParams>, 'path' | 'verb'> &
-  Logout1PathParams
-
-export const Logout1 = ({ userId, ...props }: Logout1Props) => (
-  <Mutate<RestResponse, unknown, void, void, Logout1PathParams>
-    verb="POST"
-    path={`/users/${userId}/logout`}
-    base={getConfig('api')}
-    {...props}
-  />
-)
-
-export type UseLogout1Props = Omit<
-  UseMutateProps<RestResponse, unknown, void, void, Logout1PathParams>,
-  'path' | 'verb'
-> &
-  Logout1PathParams
-
-export const useLogout1 = ({ userId, ...props }: UseLogout1Props) =>
-  useMutate<RestResponse, unknown, void, void, Logout1PathParams>(
-    'POST',
-    (paramsInPath: Logout1PathParams) => `/users/${paramsInPath.userId}/logout`,
-    { base: getConfig('api'), pathParams: { userId }, ...props }
-  )
-
-export type RefreshTokenProps = Omit<GetProps<RestResponseString, unknown, void, void>, 'path'>
-
-export const RefreshToken = (props: RefreshTokenProps) => (
-  <Get<RestResponseString, unknown, void, void> path={`/users/refresh-token`} base={getConfig('api')} {...props} />
-)
-
-export type UseRefreshTokenProps = Omit<UseGetProps<RestResponseString, unknown, void, void>, 'path'>
-
-export const useRefreshToken = (props: UseRefreshTokenProps) =>
-  useGet<RestResponseString, unknown, void, void>(`/users/refresh-token`, { base: getConfig('api'), ...props })
-
-export interface GetDelegateTagsQueryParams {
-  accountId?: string
-}
-
-export type GetDelegateTagsProps = Omit<
-  GetProps<RestResponseSetString, unknown, GetDelegateTagsQueryParams, void>,
-  'path'
->
-
-export const GetDelegateTags = (props: GetDelegateTagsProps) => (
-  <Get<RestResponseSetString, unknown, GetDelegateTagsQueryParams, void>
-    path={`/setup/delegates/delegate-tags`}
-    base={getConfig('api')}
-    {...props}
-  />
-)
-
-export type UseGetDelegateTagsProps = Omit<
-  UseGetProps<RestResponseSetString, unknown, GetDelegateTagsQueryParams, void>,
-  'path'
->
-
-export const useGetDelegateTags = (props: UseGetDelegateTagsProps) =>
-  useGet<RestResponseSetString, unknown, GetDelegateTagsQueryParams, void>(`/setup/delegates/delegate-tags`, {
-    base: getConfig('api'),
-    ...props
-  })
+export type UploadSamlMetaDataRequestBody = void
 
 export interface GetListApplicationsQueryParams {
   offset?: string
@@ -19298,225 +18705,126 @@ export const useSave = (props: UseSaveProps) =>
     ...props
   })
 
-export interface GetListServicesQueryParams {
-  appId?: string[]
-  tagFilter?: string
-  withTags?: boolean
+export interface ListAwsRegionsQueryParams {
+  accountId?: string
+}
+
+export type ListAwsRegionsProps = Omit<
+  GetProps<RestResponseListNameValuePair, unknown, ListAwsRegionsQueryParams, void>,
+  'path'
+>
+
+export const ListAwsRegions = (props: ListAwsRegionsProps) => (
+  <Get<RestResponseListNameValuePair, unknown, ListAwsRegionsQueryParams, void>
+    path={`/awshelper/aws-regions`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseListAwsRegionsProps = Omit<
+  UseGetProps<RestResponseListNameValuePair, unknown, ListAwsRegionsQueryParams, void>,
+  'path'
+>
+
+export const useListAwsRegions = (props: UseListAwsRegionsProps) =>
+  useGet<RestResponseListNameValuePair, unknown, ListAwsRegionsQueryParams, void>(`/awshelper/aws-regions`, {
+    base: getConfig('api'),
+    ...props
+  })
+
+export interface GetDelegateProfilesQueryParams {
   offset?: string
   limit?: string
   fieldsIncluded?: string[]
   fieldsExcluded?: string[]
-  details?: boolean
-}
-
-export type GetListServicesProps = Omit<
-  GetProps<RestResponsePageResponseService, unknown, GetListServicesQueryParams, void>,
-  'path'
->
-
-export const GetListServices = (props: GetListServicesProps) => (
-  <Get<RestResponsePageResponseService, unknown, GetListServicesQueryParams, void>
-    path={`/services`}
-    base={getConfig('api')}
-    {...props}
-  />
-)
-
-export type UseGetListServicesProps = Omit<
-  UseGetProps<RestResponsePageResponseService, unknown, GetListServicesQueryParams, void>,
-  'path'
->
-
-export const useGetListServices = (props: UseGetListServicesProps) =>
-  useGet<RestResponsePageResponseService, unknown, GetListServicesQueryParams, void>(`/services`, {
-    base: getConfig('api'),
-    ...props
-  })
-
-export interface Save14QueryParams {
-  appId?: string
-}
-
-export type Save14Props = Omit<
-  MutateProps<RestResponseService, unknown, Save14QueryParams, ServiceRequestBody, void>,
-  'path' | 'verb'
->
-
-export const Save14 = (props: Save14Props) => (
-  <Mutate<RestResponseService, unknown, Save14QueryParams, ServiceRequestBody, void>
-    verb="POST"
-    path={`/services`}
-    base={getConfig('api')}
-    {...props}
-  />
-)
-
-export type UseSave14Props = Omit<
-  UseMutateProps<RestResponseService, unknown, Save14QueryParams, ServiceRequestBody, void>,
-  'path' | 'verb'
->
-
-export const useSave14 = (props: UseSave14Props) =>
-  useMutate<RestResponseService, unknown, Save14QueryParams, ServiceRequestBody, void>('POST', `/services`, {
-    base: getConfig('api'),
-    ...props
-  })
-
-export interface GetListEnvironmentsQueryParams {
-  appId?: string[]
-  offset?: string
-  limit?: string
-  fieldsIncluded?: string[]
-  fieldsExcluded?: string[]
-  details?: boolean
-  tagFilter?: string
-  withTags?: boolean
-}
-
-export type GetListEnvironmentsProps = Omit<
-  GetProps<RestResponsePageResponseEnvironment, unknown, GetListEnvironmentsQueryParams, void>,
-  'path'
->
-
-export const GetListEnvironments = (props: GetListEnvironmentsProps) => (
-  <Get<RestResponsePageResponseEnvironment, unknown, GetListEnvironmentsQueryParams, void>
-    path={`/environments`}
-    base={getConfig('api')}
-    {...props}
-  />
-)
-
-export type UseGetListEnvironmentsProps = Omit<
-  UseGetProps<RestResponsePageResponseEnvironment, unknown, GetListEnvironmentsQueryParams, void>,
-  'path'
->
-
-export const useGetListEnvironments = (props: UseGetListEnvironmentsProps) =>
-  useGet<RestResponsePageResponseEnvironment, unknown, GetListEnvironmentsQueryParams, void>(`/environments`, {
-    base: getConfig('api'),
-    ...props
-  })
-
-export interface Save6QueryParams {
-  appId?: string
-}
-
-export type Save6Props = Omit<
-  MutateProps<RestResponseEnvironment, unknown, Save6QueryParams, EnvironmentRequestBody, void>,
-  'path' | 'verb'
->
-
-export const Save6 = (props: Save6Props) => (
-  <Mutate<RestResponseEnvironment, unknown, Save6QueryParams, EnvironmentRequestBody, void>
-    verb="POST"
-    path={`/environments`}
-    base={getConfig('api')}
-    {...props}
-  />
-)
-
-export type UseSave6Props = Omit<
-  UseMutateProps<RestResponseEnvironment, unknown, Save6QueryParams, EnvironmentRequestBody, void>,
-  'path' | 'verb'
->
-
-export const useSave6 = (props: UseSave6Props) =>
-  useMutate<RestResponseEnvironment, unknown, Save6QueryParams, EnvironmentRequestBody, void>('POST', `/environments`, {
-    base: getConfig('api'),
-    ...props
-  })
-
-export interface GetDelegateFromIdQueryParams {
-  accountId?: string
-}
-
-export interface GetDelegateFromIdPathParams {
-  delegateId: string
-}
-
-export type GetDelegateFromIdProps = Omit<
-  GetProps<RestResponseDelegate, unknown, GetDelegateFromIdQueryParams, GetDelegateFromIdPathParams>,
-  'path'
-> &
-  GetDelegateFromIdPathParams
-
-export const GetDelegateFromId = ({ delegateId, ...props }: GetDelegateFromIdProps) => (
-  <Get<RestResponseDelegate, unknown, GetDelegateFromIdQueryParams, GetDelegateFromIdPathParams>
-    path={`/setup/delegates/${delegateId}`}
-    base={getConfig('api')}
-    {...props}
-  />
-)
-
-export type UseGetDelegateFromIdProps = Omit<
-  UseGetProps<RestResponseDelegate, unknown, GetDelegateFromIdQueryParams, GetDelegateFromIdPathParams>,
-  'path'
-> &
-  GetDelegateFromIdPathParams
-
-export const useGetDelegateFromId = ({ delegateId, ...props }: UseGetDelegateFromIdProps) =>
-  useGet<RestResponseDelegate, unknown, GetDelegateFromIdQueryParams, GetDelegateFromIdPathParams>(
-    (paramsInPath: GetDelegateFromIdPathParams) => `/setup/delegates/${paramsInPath.delegateId}`,
-    { base: getConfig('api'), pathParams: { delegateId }, ...props }
-  )
-
-export interface DeleteDelegateQueryParams {
-  accountId?: string
-}
-
-export type DeleteDelegateProps = Omit<
-  MutateProps<RestResponseVoid, unknown, DeleteDelegateQueryParams, string, void>,
-  'path' | 'verb'
->
-
-export const DeleteDelegate = (props: DeleteDelegateProps) => (
-  <Mutate<RestResponseVoid, unknown, DeleteDelegateQueryParams, string, void>
-    verb="DELETE"
-    path={`/setup/delegates`}
-    base={getConfig('api')}
-    {...props}
-  />
-)
-
-export type UseDeleteDelegateProps = Omit<
-  UseMutateProps<RestResponseVoid, unknown, DeleteDelegateQueryParams, string, void>,
-  'path' | 'verb'
->
-
-export const useDeleteDelegate = (props: UseDeleteDelegateProps) =>
-  useMutate<RestResponseVoid, unknown, DeleteDelegateQueryParams, string, void>('DELETE', `/setup/delegates`, {
-    base: getConfig('api'),
-    ...props
-  })
-
-export interface GetFeatureFlagsPathParams {
   accountId: string
 }
 
-export type GetFeatureFlagsProps = Omit<
-  GetProps<RestResponseCollectionFeatureFlag, unknown, void, GetFeatureFlagsPathParams>,
+export type GetDelegateProfilesProps = Omit<
+  GetProps<RestResponsePageResponseDelegateProfile, unknown, GetDelegateProfilesQueryParams, void>,
   'path'
-> &
-  GetFeatureFlagsPathParams
+>
 
-export const GetFeatureFlags = ({ accountId, ...props }: GetFeatureFlagsProps) => (
-  <Get<RestResponseCollectionFeatureFlag, unknown, void, GetFeatureFlagsPathParams>
-    path={`/users/feature-flags/${accountId}`}
+export const GetDelegateProfiles = (props: GetDelegateProfilesProps) => (
+  <Get<RestResponsePageResponseDelegateProfile, unknown, GetDelegateProfilesQueryParams, void>
+    path={`/delegate-profiles`}
     base={getConfig('api')}
     {...props}
   />
 )
 
-export type UseGetFeatureFlagsProps = Omit<
-  UseGetProps<RestResponseCollectionFeatureFlag, unknown, void, GetFeatureFlagsPathParams>,
+export type UseGetDelegateProfilesProps = Omit<
+  UseGetProps<RestResponsePageResponseDelegateProfile, unknown, GetDelegateProfilesQueryParams, void>,
   'path'
-> &
-  GetFeatureFlagsPathParams
+>
 
-export const useGetFeatureFlags = ({ accountId, ...props }: UseGetFeatureFlagsProps) =>
-  useGet<RestResponseCollectionFeatureFlag, unknown, void, GetFeatureFlagsPathParams>(
-    (paramsInPath: GetFeatureFlagsPathParams) => `/users/feature-flags/${paramsInPath.accountId}`,
-    { base: getConfig('api'), pathParams: { accountId }, ...props }
+export const useGetDelegateProfiles = (props: UseGetDelegateProfilesProps) =>
+  useGet<RestResponsePageResponseDelegateProfile, unknown, GetDelegateProfilesQueryParams, void>(`/delegate-profiles`, {
+    base: getConfig('api'),
+    ...props
+  })
+
+export interface GetDelegateProfilesV2QueryParams {
+  offset?: string
+  limit?: string
+  fieldsIncluded?: string[]
+  fieldsExcluded?: string[]
+  accountId?: string
+}
+
+export type GetDelegateProfilesV2Props = Omit<
+  GetProps<RestResponsePageResponseDelegateProfileDetails, unknown, GetDelegateProfilesV2QueryParams, void>,
+  'path'
+>
+
+export const GetDelegateProfilesV2 = (props: GetDelegateProfilesV2Props) => (
+  <Get<RestResponsePageResponseDelegateProfileDetails, unknown, GetDelegateProfilesV2QueryParams, void>
+    path={`/delegate-profiles/v2`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetDelegateProfilesV2Props = Omit<
+  UseGetProps<RestResponsePageResponseDelegateProfileDetails, unknown, GetDelegateProfilesV2QueryParams, void>,
+  'path'
+>
+
+export const useGetDelegateProfilesV2 = (props: UseGetDelegateProfilesV2Props) =>
+  useGet<RestResponsePageResponseDelegateProfileDetails, unknown, GetDelegateProfilesV2QueryParams, void>(
+    `/delegate-profiles/v2`,
+    { base: getConfig('api'), ...props }
+  )
+
+export interface DeleteDelegateProfileQueryParams {
+  accountId?: string
+}
+
+export type DeleteDelegateProfileProps = Omit<
+  MutateProps<RestResponseVoid, unknown, DeleteDelegateProfileQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+export const DeleteDelegateProfile = (props: DeleteDelegateProfileProps) => (
+  <Mutate<RestResponseVoid, unknown, DeleteDelegateProfileQueryParams, string, void>
+    verb="DELETE"
+    path={`/delegate-profiles/v2`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseDeleteDelegateProfileProps = Omit<
+  UseMutateProps<RestResponseVoid, unknown, DeleteDelegateProfileQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+export const useDeleteDelegateProfile = (props: UseDeleteDelegateProfileProps) =>
+  useMutate<RestResponseVoid, unknown, DeleteDelegateProfileQueryParams, string, void>(
+    'DELETE',
+    `/delegate-profiles/v2`,
+    { base: getConfig('api'), ...props }
   )
 
 export interface GetV2QueryParams {
@@ -19613,192 +18921,44 @@ export const useUpdateV2 = ({ delegateProfileId, ...props }: UseUpdateV2Props) =
     ...props
   })
 
-export interface DeleteDelegateProfileQueryParams {
+export interface GetDelegateConfigFromIdQueryParams {
   accountId?: string
 }
 
-export type DeleteDelegateProfileProps = Omit<
-  MutateProps<RestResponseVoid, unknown, DeleteDelegateProfileQueryParams, string, void>,
-  'path' | 'verb'
->
+export interface GetDelegateConfigFromIdPathParams {
+  delegateProfileId: string
+}
 
-export const DeleteDelegateProfile = (props: DeleteDelegateProfileProps) => (
-  <Mutate<RestResponseVoid, unknown, DeleteDelegateProfileQueryParams, string, void>
-    verb="DELETE"
-    path={`/delegate-profiles/v2`}
+export type GetDelegateConfigFromIdProps = Omit<
+  GetProps<RestResponseDelegateProfile, unknown, GetDelegateConfigFromIdQueryParams, GetDelegateConfigFromIdPathParams>,
+  'path'
+> &
+  GetDelegateConfigFromIdPathParams
+
+export const GetDelegateConfigFromId = ({ delegateProfileId, ...props }: GetDelegateConfigFromIdProps) => (
+  <Get<RestResponseDelegateProfile, unknown, GetDelegateConfigFromIdQueryParams, GetDelegateConfigFromIdPathParams>
+    path={`/delegate-profiles/${delegateProfileId}`}
     base={getConfig('api')}
     {...props}
   />
 )
 
-export type UseDeleteDelegateProfileProps = Omit<
-  UseMutateProps<RestResponseVoid, unknown, DeleteDelegateProfileQueryParams, string, void>,
-  'path' | 'verb'
->
+export type UseGetDelegateConfigFromIdProps = Omit<
+  UseGetProps<
+    RestResponseDelegateProfile,
+    unknown,
+    GetDelegateConfigFromIdQueryParams,
+    GetDelegateConfigFromIdPathParams
+  >,
+  'path'
+> &
+  GetDelegateConfigFromIdPathParams
 
-export const useDeleteDelegateProfile = (props: UseDeleteDelegateProfileProps) =>
-  useMutate<RestResponseVoid, unknown, DeleteDelegateProfileQueryParams, string, void>(
-    'DELETE',
-    `/delegate-profiles/v2`,
-    { base: getConfig('api'), ...props }
+export const useGetDelegateConfigFromId = ({ delegateProfileId, ...props }: UseGetDelegateConfigFromIdProps) =>
+  useGet<RestResponseDelegateProfile, unknown, GetDelegateConfigFromIdQueryParams, GetDelegateConfigFromIdPathParams>(
+    (paramsInPath: GetDelegateConfigFromIdPathParams) => `/delegate-profiles/${paramsInPath.delegateProfileId}`,
+    { base: getConfig('api'), pathParams: { delegateProfileId }, ...props }
   )
-
-export interface GetDelegateSelectorsQueryParams {
-  accountId?: string
-}
-
-export type GetDelegateSelectorsProps = Omit<
-  GetProps<RestResponseSetString, unknown, GetDelegateSelectorsQueryParams, void>,
-  'path'
->
-
-export const GetDelegateSelectors = (props: GetDelegateSelectorsProps) => (
-  <Get<RestResponseSetString, unknown, GetDelegateSelectorsQueryParams, void>
-    path={`/setup/delegates/delegate-selectors`}
-    base={getConfig('api')}
-    {...props}
-  />
-)
-
-export type UseGetDelegateSelectorsProps = Omit<
-  UseGetProps<RestResponseSetString, unknown, GetDelegateSelectorsQueryParams, void>,
-  'path'
->
-
-export const useGetDelegateSelectors = (props: UseGetDelegateSelectorsProps) =>
-  useGet<RestResponseSetString, unknown, GetDelegateSelectorsQueryParams, void>(`/setup/delegates/delegate-selectors`, {
-    base: getConfig('api'),
-    ...props
-  })
-
-export interface GetDelegateSizesQueryParams {
-  accountId?: string
-}
-
-export type GetDelegateSizesProps = Omit<
-  GetProps<RestResponseListDelegateSizeDetails, unknown, GetDelegateSizesQueryParams, void>,
-  'path'
->
-
-export const GetDelegateSizes = (props: GetDelegateSizesProps) => (
-  <Get<RestResponseListDelegateSizeDetails, unknown, GetDelegateSizesQueryParams, void>
-    path={`/setup/delegates/delegate-sizes`}
-    base={getConfig('api')}
-    {...props}
-  />
-)
-
-export type UseGetDelegateSizesProps = Omit<
-  UseGetProps<RestResponseListDelegateSizeDetails, unknown, GetDelegateSizesQueryParams, void>,
-  'path'
->
-
-export const useGetDelegateSizes = (props: UseGetDelegateSizesProps) =>
-  useGet<RestResponseListDelegateSizeDetails, unknown, GetDelegateSizesQueryParams, void>(
-    `/setup/delegates/delegate-sizes`,
-    { base: getConfig('api'), ...props }
-  )
-
-export interface ValidateKubernetesYamlQueryParams {
-  accountId?: string
-}
-
-export type ValidateKubernetesYamlProps = Omit<
-  MutateProps<
-    RestResponseDelegateSetupDetails,
-    unknown,
-    ValidateKubernetesYamlQueryParams,
-    DelegateSetupDetailsRequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-export const ValidateKubernetesYaml = (props: ValidateKubernetesYamlProps) => (
-  <Mutate<
-    RestResponseDelegateSetupDetails,
-    unknown,
-    ValidateKubernetesYamlQueryParams,
-    DelegateSetupDetailsRequestBody,
-    void
-  >
-    verb="POST"
-    path={`/setup/delegates/validate-kubernetes-yaml`}
-    base={getConfig('api')}
-    {...props}
-  />
-)
-
-export type UseValidateKubernetesYamlProps = Omit<
-  UseMutateProps<
-    RestResponseDelegateSetupDetails,
-    unknown,
-    ValidateKubernetesYamlQueryParams,
-    DelegateSetupDetailsRequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-export const useValidateKubernetesYaml = (props: UseValidateKubernetesYamlProps) =>
-  useMutate<
-    RestResponseDelegateSetupDetails,
-    unknown,
-    ValidateKubernetesYamlQueryParams,
-    DelegateSetupDetailsRequestBody,
-    void
-  >('POST', `/setup/delegates/validate-kubernetes-yaml`, { base: getConfig('api'), ...props })
-
-export interface GenerateKubernetesYamlQueryParams {
-  accountId?: string
-  fileFormat?: string
-}
-
-export type GenerateKubernetesYamlProps = Omit<
-  MutateProps<
-    RestResponseDelegateSetupDetails,
-    void,
-    GenerateKubernetesYamlQueryParams,
-    DelegateSetupDetailsRequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-export const GenerateKubernetesYaml = (props: GenerateKubernetesYamlProps) => (
-  <Mutate<
-    RestResponseDelegateSetupDetails,
-    void,
-    GenerateKubernetesYamlQueryParams,
-    DelegateSetupDetailsRequestBody,
-    void
-  >
-    verb="POST"
-    path={`/setup/delegates/generate-kubernetes-yaml`}
-    base={getConfig('api')}
-    {...props}
-  />
-)
-
-export type UseGenerateKubernetesYamlProps = Omit<
-  UseMutateProps<
-    RestResponseDelegateSetupDetails,
-    void,
-    GenerateKubernetesYamlQueryParams,
-    DelegateSetupDetailsRequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-export const useGenerateKubernetesYaml = (props: UseGenerateKubernetesYamlProps) =>
-  useMutate<
-    RestResponseDelegateSetupDetails,
-    void,
-    GenerateKubernetesYamlQueryParams,
-    DelegateSetupDetailsRequestBody,
-    void
-  >('POST', `/setup/delegates/generate-kubernetes-yaml`, { base: getConfig('api'), ...props })
 
 export interface GetDelegatesHeartbeatDetailsQueryParams {
   accountId?: string
@@ -19863,30 +19023,865 @@ export const useGetDelegatesInitializationDetails = (props: UseGetDelegatesIniti
     { base: getConfig('api'), ...props }
   )
 
-export interface ListAwsRegionsQueryParams {
-  accountId?: string
+export interface GetListEnvironmentsQueryParams {
+  appId?: string[]
+  offset?: string
+  limit?: string
+  fieldsIncluded?: string[]
+  fieldsExcluded?: string[]
+  details?: boolean
+  tagFilter?: string
+  withTags?: boolean
 }
 
-export type ListAwsRegionsProps = Omit<
-  GetProps<RestResponseListNameValuePair, unknown, ListAwsRegionsQueryParams, void>,
+export type GetListEnvironmentsProps = Omit<
+  GetProps<RestResponsePageResponseEnvironment, unknown, GetListEnvironmentsQueryParams, void>,
   'path'
 >
 
-export const ListAwsRegions = (props: ListAwsRegionsProps) => (
-  <Get<RestResponseListNameValuePair, unknown, ListAwsRegionsQueryParams, void>
-    path={`/awshelper/aws-regions`}
+export const GetListEnvironments = (props: GetListEnvironmentsProps) => (
+  <Get<RestResponsePageResponseEnvironment, unknown, GetListEnvironmentsQueryParams, void>
+    path={`/environments`}
     base={getConfig('api')}
     {...props}
   />
 )
 
-export type UseListAwsRegionsProps = Omit<
-  UseGetProps<RestResponseListNameValuePair, unknown, ListAwsRegionsQueryParams, void>,
+export type UseGetListEnvironmentsProps = Omit<
+  UseGetProps<RestResponsePageResponseEnvironment, unknown, GetListEnvironmentsQueryParams, void>,
   'path'
 >
 
-export const useListAwsRegions = (props: UseListAwsRegionsProps) =>
-  useGet<RestResponseListNameValuePair, unknown, ListAwsRegionsQueryParams, void>(`/awshelper/aws-regions`, {
+export const useGetListEnvironments = (props: UseGetListEnvironmentsProps) =>
+  useGet<RestResponsePageResponseEnvironment, unknown, GetListEnvironmentsQueryParams, void>(`/environments`, {
     base: getConfig('api'),
     ...props
   })
+
+export interface Save6QueryParams {
+  appId?: string
+}
+
+export type Save6Props = Omit<
+  MutateProps<RestResponseEnvironment, unknown, Save6QueryParams, EnvironmentRequestBody, void>,
+  'path' | 'verb'
+>
+
+export const Save6 = (props: Save6Props) => (
+  <Mutate<RestResponseEnvironment, unknown, Save6QueryParams, EnvironmentRequestBody, void>
+    verb="POST"
+    path={`/environments`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseSave6Props = Omit<
+  UseMutateProps<RestResponseEnvironment, unknown, Save6QueryParams, EnvironmentRequestBody, void>,
+  'path' | 'verb'
+>
+
+export const useSave6 = (props: UseSave6Props) =>
+  useMutate<RestResponseEnvironment, unknown, Save6QueryParams, EnvironmentRequestBody, void>('POST', `/environments`, {
+    base: getConfig('api'),
+    ...props
+  })
+
+export interface GetSelectionLogsV2QueryParams {
+  accountId?: string
+  taskId?: string
+}
+
+export type GetSelectionLogsV2Props = Omit<
+  GetProps<RestResponseDelegateSelectionLogResponse, unknown, GetSelectionLogsV2QueryParams, void>,
+  'path'
+>
+
+export const GetSelectionLogsV2 = (props: GetSelectionLogsV2Props) => (
+  <Get<RestResponseDelegateSelectionLogResponse, unknown, GetSelectionLogsV2QueryParams, void>
+    path={`/selection-logs/v2`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetSelectionLogsV2Props = Omit<
+  UseGetProps<RestResponseDelegateSelectionLogResponse, unknown, GetSelectionLogsV2QueryParams, void>,
+  'path'
+>
+
+export const useGetSelectionLogsV2 = (props: UseGetSelectionLogsV2Props) =>
+  useGet<RestResponseDelegateSelectionLogResponse, unknown, GetSelectionLogsV2QueryParams, void>(`/selection-logs/v2`, {
+    base: getConfig('api'),
+    ...props
+  })
+
+export interface GetListServicesQueryParams {
+  appId?: string[]
+  tagFilter?: string
+  withTags?: boolean
+  offset?: string
+  limit?: string
+  fieldsIncluded?: string[]
+  fieldsExcluded?: string[]
+  details?: boolean
+}
+
+export type GetListServicesProps = Omit<
+  GetProps<RestResponsePageResponseService, unknown, GetListServicesQueryParams, void>,
+  'path'
+>
+
+export const GetListServices = (props: GetListServicesProps) => (
+  <Get<RestResponsePageResponseService, unknown, GetListServicesQueryParams, void>
+    path={`/services`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetListServicesProps = Omit<
+  UseGetProps<RestResponsePageResponseService, unknown, GetListServicesQueryParams, void>,
+  'path'
+>
+
+export const useGetListServices = (props: UseGetListServicesProps) =>
+  useGet<RestResponsePageResponseService, unknown, GetListServicesQueryParams, void>(`/services`, {
+    base: getConfig('api'),
+    ...props
+  })
+
+export interface Save14QueryParams {
+  appId?: string
+}
+
+export type Save14Props = Omit<
+  MutateProps<RestResponseService, unknown, Save14QueryParams, ServiceRequestBody, void>,
+  'path' | 'verb'
+>
+
+export const Save14 = (props: Save14Props) => (
+  <Mutate<RestResponseService, unknown, Save14QueryParams, ServiceRequestBody, void>
+    verb="POST"
+    path={`/services`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseSave14Props = Omit<
+  UseMutateProps<RestResponseService, unknown, Save14QueryParams, ServiceRequestBody, void>,
+  'path' | 'verb'
+>
+
+export const useSave14 = (props: UseSave14Props) =>
+  useMutate<RestResponseService, unknown, Save14QueryParams, ServiceRequestBody, void>('POST', `/services`, {
+    base: getConfig('api'),
+    ...props
+  })
+
+export interface GetDelegatesQueryParams {
+  offset?: string
+  limit?: string
+  fieldsIncluded?: string[]
+  fieldsExcluded?: string[]
+  accountId: string
+}
+
+export type GetDelegatesProps = Omit<
+  GetProps<RestResponsePageResponseDelegate, unknown, GetDelegatesQueryParams, void>,
+  'path'
+>
+
+export const GetDelegates = (props: GetDelegatesProps) => (
+  <Get<RestResponsePageResponseDelegate, unknown, GetDelegatesQueryParams, void>
+    path={`/setup/delegates`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetDelegatesProps = Omit<
+  UseGetProps<RestResponsePageResponseDelegate, unknown, GetDelegatesQueryParams, void>,
+  'path'
+>
+
+export const useGetDelegates = (props: UseGetDelegatesProps) =>
+  useGet<RestResponsePageResponseDelegate, unknown, GetDelegatesQueryParams, void>(`/setup/delegates`, {
+    base: getConfig('api'),
+    ...props
+  })
+
+export interface GetDelegateSelectorsQueryParams {
+  accountId?: string
+}
+
+export type GetDelegateSelectorsProps = Omit<
+  GetProps<RestResponseSetString, unknown, GetDelegateSelectorsQueryParams, void>,
+  'path'
+>
+
+export const GetDelegateSelectors = (props: GetDelegateSelectorsProps) => (
+  <Get<RestResponseSetString, unknown, GetDelegateSelectorsQueryParams, void>
+    path={`/setup/delegates/delegate-selectors`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetDelegateSelectorsProps = Omit<
+  UseGetProps<RestResponseSetString, unknown, GetDelegateSelectorsQueryParams, void>,
+  'path'
+>
+
+export const useGetDelegateSelectors = (props: UseGetDelegateSelectorsProps) =>
+  useGet<RestResponseSetString, unknown, GetDelegateSelectorsQueryParams, void>(`/setup/delegates/delegate-selectors`, {
+    base: getConfig('api'),
+    ...props
+  })
+
+export interface GetDelegateSelectorsUpTheHierarchyQueryParams {
+  accountId?: string
+  orgId?: string
+  projectId?: string
+}
+
+export type GetDelegateSelectorsUpTheHierarchyProps = Omit<
+  GetProps<RestResponseSetString, unknown, GetDelegateSelectorsUpTheHierarchyQueryParams, void>,
+  'path'
+>
+
+export const GetDelegateSelectorsUpTheHierarchy = (props: GetDelegateSelectorsUpTheHierarchyProps) => (
+  <Get<RestResponseSetString, unknown, GetDelegateSelectorsUpTheHierarchyQueryParams, void>
+    path={`/setup/delegates/delegate-selectors-up-the-hierarchy`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetDelegateSelectorsUpTheHierarchyProps = Omit<
+  UseGetProps<RestResponseSetString, unknown, GetDelegateSelectorsUpTheHierarchyQueryParams, void>,
+  'path'
+>
+
+export const useGetDelegateSelectorsUpTheHierarchy = (props: UseGetDelegateSelectorsUpTheHierarchyProps) =>
+  useGet<RestResponseSetString, unknown, GetDelegateSelectorsUpTheHierarchyQueryParams, void>(
+    `/setup/delegates/delegate-selectors-up-the-hierarchy`,
+    { base: getConfig('api'), ...props }
+  )
+
+export interface GetDelegateSizesQueryParams {
+  accountId?: string
+}
+
+export type GetDelegateSizesProps = Omit<
+  GetProps<RestResponseListDelegateSizeDetails, unknown, GetDelegateSizesQueryParams, void>,
+  'path'
+>
+
+export const GetDelegateSizes = (props: GetDelegateSizesProps) => (
+  <Get<RestResponseListDelegateSizeDetails, unknown, GetDelegateSizesQueryParams, void>
+    path={`/setup/delegates/delegate-sizes`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetDelegateSizesProps = Omit<
+  UseGetProps<RestResponseListDelegateSizeDetails, unknown, GetDelegateSizesQueryParams, void>,
+  'path'
+>
+
+export const useGetDelegateSizes = (props: UseGetDelegateSizesProps) =>
+  useGet<RestResponseListDelegateSizeDetails, unknown, GetDelegateSizesQueryParams, void>(
+    `/setup/delegates/delegate-sizes`,
+    { base: getConfig('api'), ...props }
+  )
+
+export interface GetDelegateTagsQueryParams {
+  accountId?: string
+}
+
+export type GetDelegateTagsProps = Omit<
+  GetProps<RestResponseSetString, unknown, GetDelegateTagsQueryParams, void>,
+  'path'
+>
+
+export const GetDelegateTags = (props: GetDelegateTagsProps) => (
+  <Get<RestResponseSetString, unknown, GetDelegateTagsQueryParams, void>
+    path={`/setup/delegates/delegate-tags`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetDelegateTagsProps = Omit<
+  UseGetProps<RestResponseSetString, unknown, GetDelegateTagsQueryParams, void>,
+  'path'
+>
+
+export const useGetDelegateTags = (props: UseGetDelegateTagsProps) =>
+  useGet<RestResponseSetString, unknown, GetDelegateTagsQueryParams, void>(`/setup/delegates/delegate-tags`, {
+    base: getConfig('api'),
+    ...props
+  })
+
+export interface GetDelegatesDownloadUrlQueryParams {
+  accountId?: string
+}
+
+export type GetDelegatesDownloadUrlProps = Omit<
+  GetProps<RestResponseMapStringString, unknown, GetDelegatesDownloadUrlQueryParams, void>,
+  'path'
+>
+
+export const GetDelegatesDownloadUrl = (props: GetDelegatesDownloadUrlProps) => (
+  <Get<RestResponseMapStringString, unknown, GetDelegatesDownloadUrlQueryParams, void>
+    path={`/setup/delegates/downloadUrl`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetDelegatesDownloadUrlProps = Omit<
+  UseGetProps<RestResponseMapStringString, unknown, GetDelegatesDownloadUrlQueryParams, void>,
+  'path'
+>
+
+export const useGetDelegatesDownloadUrl = (props: UseGetDelegatesDownloadUrlProps) =>
+  useGet<RestResponseMapStringString, unknown, GetDelegatesDownloadUrlQueryParams, void>(
+    `/setup/delegates/downloadUrl`,
+    { base: getConfig('api'), ...props }
+  )
+
+export interface GenerateKubernetesYamlQueryParams {
+  accountId?: string
+  fileFormat?: string
+}
+
+export type GenerateKubernetesYamlProps = Omit<
+  MutateProps<
+    RestResponseDelegateSetupDetails,
+    void,
+    GenerateKubernetesYamlQueryParams,
+    DelegateSetupDetailsRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+export const GenerateKubernetesYaml = (props: GenerateKubernetesYamlProps) => (
+  <Mutate<
+    RestResponseDelegateSetupDetails,
+    void,
+    GenerateKubernetesYamlQueryParams,
+    DelegateSetupDetailsRequestBody,
+    void
+  >
+    verb="POST"
+    path={`/setup/delegates/generate-kubernetes-yaml`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGenerateKubernetesYamlProps = Omit<
+  UseMutateProps<
+    RestResponseDelegateSetupDetails,
+    void,
+    GenerateKubernetesYamlQueryParams,
+    DelegateSetupDetailsRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+export const useGenerateKubernetesYaml = (props: UseGenerateKubernetesYamlProps) =>
+  useMutate<
+    RestResponseDelegateSetupDetails,
+    void,
+    GenerateKubernetesYamlQueryParams,
+    DelegateSetupDetailsRequestBody,
+    void
+  >('POST', `/setup/delegates/generate-kubernetes-yaml`, { base: getConfig('api'), ...props })
+
+export interface DeleteDelegateGroupQueryParams {
+  accountId?: string
+  forceDelete?: boolean
+}
+
+export type DeleteDelegateGroupProps = Omit<
+  MutateProps<RestResponseVoid, unknown, DeleteDelegateGroupQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+export const DeleteDelegateGroup = (props: DeleteDelegateGroupProps) => (
+  <Mutate<RestResponseVoid, unknown, DeleteDelegateGroupQueryParams, string, void>
+    verb="DELETE"
+    path={`/setup/delegates/groups`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseDeleteDelegateGroupProps = Omit<
+  UseMutateProps<RestResponseVoid, unknown, DeleteDelegateGroupQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+export const useDeleteDelegateGroup = (props: UseDeleteDelegateGroupProps) =>
+  useMutate<RestResponseVoid, unknown, DeleteDelegateGroupQueryParams, string, void>(
+    'DELETE',
+    `/setup/delegates/groups`,
+    { base: getConfig('api'), ...props }
+  )
+
+export interface GetKubernetesDelegateNamesQueryParams {
+  accountId?: string
+}
+
+export type GetKubernetesDelegateNamesProps = Omit<
+  GetProps<RestResponseListString, unknown, GetKubernetesDelegateNamesQueryParams, void>,
+  'path'
+>
+
+export const GetKubernetesDelegateNames = (props: GetKubernetesDelegateNamesProps) => (
+  <Get<RestResponseListString, unknown, GetKubernetesDelegateNamesQueryParams, void>
+    path={`/setup/delegates/kubernetes-delegates`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetKubernetesDelegateNamesProps = Omit<
+  UseGetProps<RestResponseListString, unknown, GetKubernetesDelegateNamesQueryParams, void>,
+  'path'
+>
+
+export const useGetKubernetesDelegateNames = (props: UseGetKubernetesDelegateNamesProps) =>
+  useGet<RestResponseListString, unknown, GetKubernetesDelegateNamesQueryParams, void>(
+    `/setup/delegates/kubernetes-delegates`,
+    { base: getConfig('api'), ...props }
+  )
+
+export interface GetDelegatesStatusQueryParams {
+  accountId?: string
+}
+
+export type GetDelegatesStatusProps = Omit<
+  GetProps<RestResponseDelegateStatus, unknown, GetDelegatesStatusQueryParams, void>,
+  'path'
+>
+
+export const GetDelegatesStatus = (props: GetDelegatesStatusProps) => (
+  <Get<RestResponseDelegateStatus, unknown, GetDelegatesStatusQueryParams, void>
+    path={`/setup/delegates/status`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetDelegatesStatusProps = Omit<
+  UseGetProps<RestResponseDelegateStatus, unknown, GetDelegatesStatusQueryParams, void>,
+  'path'
+>
+
+export const useGetDelegatesStatus = (props: UseGetDelegatesStatusProps) =>
+  useGet<RestResponseDelegateStatus, unknown, GetDelegatesStatusQueryParams, void>(`/setup/delegates/status`, {
+    base: getConfig('api'),
+    ...props
+  })
+
+export interface GetDelegatesStatusV2QueryParams {
+  accountId?: string
+}
+
+export type GetDelegatesStatusV2Props = Omit<
+  GetProps<RestResponseDelegateStatus, unknown, GetDelegatesStatusV2QueryParams, void>,
+  'path'
+>
+
+export const GetDelegatesStatusV2 = (props: GetDelegatesStatusV2Props) => (
+  <Get<RestResponseDelegateStatus, unknown, GetDelegatesStatusV2QueryParams, void>
+    path={`/setup/delegates/status2`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetDelegatesStatusV2Props = Omit<
+  UseGetProps<RestResponseDelegateStatus, unknown, GetDelegatesStatusV2QueryParams, void>,
+  'path'
+>
+
+export const useGetDelegatesStatusV2 = (props: UseGetDelegatesStatusV2Props) =>
+  useGet<RestResponseDelegateStatus, unknown, GetDelegatesStatusV2QueryParams, void>(`/setup/delegates/status2`, {
+    base: getConfig('api'),
+    ...props
+  })
+
+export interface GetDelegateGroupsV2QueryParams {
+  accountId?: string
+  orgId?: string
+  projectId?: string
+}
+
+export type GetDelegateGroupsV2Props = Omit<
+  GetProps<RestResponseDelegateGroupListing, unknown, GetDelegateGroupsV2QueryParams, void>,
+  'path'
+>
+
+export const GetDelegateGroupsV2 = (props: GetDelegateGroupsV2Props) => (
+  <Get<RestResponseDelegateGroupListing, unknown, GetDelegateGroupsV2QueryParams, void>
+    path={`/setup/delegates/v2`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetDelegateGroupsV2Props = Omit<
+  UseGetProps<RestResponseDelegateGroupListing, unknown, GetDelegateGroupsV2QueryParams, void>,
+  'path'
+>
+
+export const useGetDelegateGroupsV2 = (props: UseGetDelegateGroupsV2Props) =>
+  useGet<RestResponseDelegateGroupListing, unknown, GetDelegateGroupsV2QueryParams, void>(`/setup/delegates/v2`, {
+    base: getConfig('api'),
+    ...props
+  })
+
+export interface GetDelegatesUpTheHierarchyQueryParams {
+  accountId?: string
+  orgId?: string
+  projectId?: string
+}
+
+export type GetDelegatesUpTheHierarchyProps = Omit<
+  GetProps<RestResponseDelegateGroupListing, unknown, GetDelegatesUpTheHierarchyQueryParams, void>,
+  'path'
+>
+
+export const GetDelegatesUpTheHierarchy = (props: GetDelegatesUpTheHierarchyProps) => (
+  <Get<RestResponseDelegateGroupListing, unknown, GetDelegatesUpTheHierarchyQueryParams, void>
+    path={`/setup/delegates/v2/up-the-hierarchy`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetDelegatesUpTheHierarchyProps = Omit<
+  UseGetProps<RestResponseDelegateGroupListing, unknown, GetDelegatesUpTheHierarchyQueryParams, void>,
+  'path'
+>
+
+export const useGetDelegatesUpTheHierarchy = (props: UseGetDelegatesUpTheHierarchyProps) =>
+  useGet<RestResponseDelegateGroupListing, unknown, GetDelegatesUpTheHierarchyQueryParams, void>(
+    `/setup/delegates/v2/up-the-hierarchy`,
+    { base: getConfig('api'), ...props }
+  )
+
+export interface GetDelegateGroupFromIdV2QueryParams {
+  accountId?: string
+}
+
+export interface GetDelegateGroupFromIdV2PathParams {
+  delegateGroupId: string
+}
+
+export type GetDelegateGroupFromIdV2Props = Omit<
+  GetProps<
+    RestResponseDelegateGroupDetails,
+    unknown,
+    GetDelegateGroupFromIdV2QueryParams,
+    GetDelegateGroupFromIdV2PathParams
+  >,
+  'path'
+> &
+  GetDelegateGroupFromIdV2PathParams
+
+export const GetDelegateGroupFromIdV2 = ({ delegateGroupId, ...props }: GetDelegateGroupFromIdV2Props) => (
+  <Get<
+    RestResponseDelegateGroupDetails,
+    unknown,
+    GetDelegateGroupFromIdV2QueryParams,
+    GetDelegateGroupFromIdV2PathParams
+  >
+    path={`/setup/delegates/v2/${delegateGroupId}`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetDelegateGroupFromIdV2Props = Omit<
+  UseGetProps<
+    RestResponseDelegateGroupDetails,
+    unknown,
+    GetDelegateGroupFromIdV2QueryParams,
+    GetDelegateGroupFromIdV2PathParams
+  >,
+  'path'
+> &
+  GetDelegateGroupFromIdV2PathParams
+
+export const useGetDelegateGroupFromIdV2 = ({ delegateGroupId, ...props }: UseGetDelegateGroupFromIdV2Props) =>
+  useGet<
+    RestResponseDelegateGroupDetails,
+    unknown,
+    GetDelegateGroupFromIdV2QueryParams,
+    GetDelegateGroupFromIdV2PathParams
+  >((paramsInPath: GetDelegateGroupFromIdV2PathParams) => `/setup/delegates/v2/${paramsInPath.delegateGroupId}`, {
+    base: getConfig('api'),
+    pathParams: { delegateGroupId },
+    ...props
+  })
+
+export interface ValidateKubernetesYamlQueryParams {
+  accountId?: string
+}
+
+export type ValidateKubernetesYamlProps = Omit<
+  MutateProps<
+    RestResponseDelegateSetupDetails,
+    unknown,
+    ValidateKubernetesYamlQueryParams,
+    DelegateSetupDetailsRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+export const ValidateKubernetesYaml = (props: ValidateKubernetesYamlProps) => (
+  <Mutate<
+    RestResponseDelegateSetupDetails,
+    unknown,
+    ValidateKubernetesYamlQueryParams,
+    DelegateSetupDetailsRequestBody,
+    void
+  >
+    verb="POST"
+    path={`/setup/delegates/validate-kubernetes-yaml`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseValidateKubernetesYamlProps = Omit<
+  UseMutateProps<
+    RestResponseDelegateSetupDetails,
+    unknown,
+    ValidateKubernetesYamlQueryParams,
+    DelegateSetupDetailsRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+export const useValidateKubernetesYaml = (props: UseValidateKubernetesYamlProps) =>
+  useMutate<
+    RestResponseDelegateSetupDetails,
+    unknown,
+    ValidateKubernetesYamlQueryParams,
+    DelegateSetupDetailsRequestBody,
+    void
+  >('POST', `/setup/delegates/validate-kubernetes-yaml`, { base: getConfig('api'), ...props })
+
+export interface DeleteDelegateQueryParams {
+  accountId?: string
+}
+
+export type DeleteDelegateProps = Omit<
+  MutateProps<RestResponseVoid, unknown, DeleteDelegateQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+export const DeleteDelegate = (props: DeleteDelegateProps) => (
+  <Mutate<RestResponseVoid, unknown, DeleteDelegateQueryParams, string, void>
+    verb="DELETE"
+    path={`/setup/delegates`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseDeleteDelegateProps = Omit<
+  UseMutateProps<RestResponseVoid, unknown, DeleteDelegateQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+export const useDeleteDelegate = (props: UseDeleteDelegateProps) =>
+  useMutate<RestResponseVoid, unknown, DeleteDelegateQueryParams, string, void>('DELETE', `/setup/delegates`, {
+    base: getConfig('api'),
+    ...props
+  })
+
+export interface GetDelegateFromIdQueryParams {
+  accountId?: string
+}
+
+export interface GetDelegateFromIdPathParams {
+  delegateId: string
+}
+
+export type GetDelegateFromIdProps = Omit<
+  GetProps<RestResponseDelegate, unknown, GetDelegateFromIdQueryParams, GetDelegateFromIdPathParams>,
+  'path'
+> &
+  GetDelegateFromIdPathParams
+
+export const GetDelegateFromId = ({ delegateId, ...props }: GetDelegateFromIdProps) => (
+  <Get<RestResponseDelegate, unknown, GetDelegateFromIdQueryParams, GetDelegateFromIdPathParams>
+    path={`/setup/delegates/${delegateId}`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetDelegateFromIdProps = Omit<
+  UseGetProps<RestResponseDelegate, unknown, GetDelegateFromIdQueryParams, GetDelegateFromIdPathParams>,
+  'path'
+> &
+  GetDelegateFromIdPathParams
+
+export const useGetDelegateFromId = ({ delegateId, ...props }: UseGetDelegateFromIdProps) =>
+  useGet<RestResponseDelegate, unknown, GetDelegateFromIdQueryParams, GetDelegateFromIdPathParams>(
+    (paramsInPath: GetDelegateFromIdPathParams) => `/setup/delegates/${paramsInPath.delegateId}`,
+    { base: getConfig('api'), pathParams: { delegateId }, ...props }
+  )
+
+export interface GetFeatureFlagsPathParams {
+  accountId: string
+}
+
+export type GetFeatureFlagsProps = Omit<
+  GetProps<RestResponseCollectionFeatureFlag, unknown, void, GetFeatureFlagsPathParams>,
+  'path'
+> &
+  GetFeatureFlagsPathParams
+
+export const GetFeatureFlags = ({ accountId, ...props }: GetFeatureFlagsProps) => (
+  <Get<RestResponseCollectionFeatureFlag, unknown, void, GetFeatureFlagsPathParams>
+    path={`/users/feature-flags/${accountId}`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetFeatureFlagsProps = Omit<
+  UseGetProps<RestResponseCollectionFeatureFlag, unknown, void, GetFeatureFlagsPathParams>,
+  'path'
+> &
+  GetFeatureFlagsPathParams
+
+export const useGetFeatureFlags = ({ accountId, ...props }: UseGetFeatureFlagsProps) =>
+  useGet<RestResponseCollectionFeatureFlag, unknown, void, GetFeatureFlagsPathParams>(
+    (paramsInPath: GetFeatureFlagsPathParams) => `/users/feature-flags/${paramsInPath.accountId}`,
+    { base: getConfig('api'), pathParams: { accountId }, ...props }
+  )
+
+export type TrialSignupProps = Omit<
+  MutateProps<RestResponseBoolean, unknown, void, UserInviteRequestBody, void>,
+  'path' | 'verb'
+>
+
+export const TrialSignup = (props: TrialSignupProps) => (
+  <Mutate<RestResponseBoolean, unknown, void, UserInviteRequestBody, void>
+    verb="POST"
+    path={`/users/new-trial`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseTrialSignupProps = Omit<
+  UseMutateProps<RestResponseBoolean, unknown, void, UserInviteRequestBody, void>,
+  'path' | 'verb'
+>
+
+export const useTrialSignup = (props: UseTrialSignupProps) =>
+  useMutate<RestResponseBoolean, unknown, void, UserInviteRequestBody, void>('POST', `/users/new-trial`, {
+    base: getConfig('api'),
+    ...props
+  })
+
+export type RefreshTokenProps = Omit<GetProps<RestResponseString, unknown, void, void>, 'path'>
+
+export const RefreshToken = (props: RefreshTokenProps) => (
+  <Get<RestResponseString, unknown, void, void> path={`/users/refresh-token`} base={getConfig('api')} {...props} />
+)
+
+export type UseRefreshTokenProps = Omit<UseGetProps<RestResponseString, unknown, void, void>, 'path'>
+
+export const useRefreshToken = (props: UseRefreshTokenProps) =>
+  useGet<RestResponseString, unknown, void, void>(`/users/refresh-token`, { base: getConfig('api'), ...props })
+
+export interface SetDefaultAccountForCurrentUserPathParams {
+  accountId: string
+}
+
+export type SetDefaultAccountForCurrentUserProps = Omit<
+  MutateProps<RestResponseBoolean, unknown, void, void, SetDefaultAccountForCurrentUserPathParams>,
+  'path' | 'verb'
+> &
+  SetDefaultAccountForCurrentUserPathParams
+
+export const SetDefaultAccountForCurrentUser = ({ accountId, ...props }: SetDefaultAccountForCurrentUserProps) => (
+  <Mutate<RestResponseBoolean, unknown, void, void, SetDefaultAccountForCurrentUserPathParams>
+    verb="PUT"
+    path={`/users/set-default-account/${accountId}`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseSetDefaultAccountForCurrentUserProps = Omit<
+  UseMutateProps<RestResponseBoolean, unknown, void, void, SetDefaultAccountForCurrentUserPathParams>,
+  'path' | 'verb'
+> &
+  SetDefaultAccountForCurrentUserPathParams
+
+export const useSetDefaultAccountForCurrentUser = ({ accountId, ...props }: UseSetDefaultAccountForCurrentUserProps) =>
+  useMutate<RestResponseBoolean, unknown, void, void, SetDefaultAccountForCurrentUserPathParams>(
+    'PUT',
+    (paramsInPath: SetDefaultAccountForCurrentUserPathParams) => `/users/set-default-account/${paramsInPath.accountId}`,
+    { base: getConfig('api'), pathParams: { accountId }, ...props }
+  )
+
+export type GetUserProps = Omit<GetProps<RestResponseUser, unknown, void, void>, 'path'>
+
+export const GetUser = (props: GetUserProps) => (
+  <Get<RestResponseUser, unknown, void, void> path={`/users/user`} base={getConfig('api')} {...props} />
+)
+
+export type UseGetUserProps = Omit<UseGetProps<RestResponseUser, unknown, void, void>, 'path'>
+
+export const useGetUser = (props: UseGetUserProps) =>
+  useGet<RestResponseUser, unknown, void, void>(`/users/user`, { base: getConfig('api'), ...props })
+
+export interface Logout1PathParams {
+  userId: string
+}
+
+export type Logout1Props = Omit<MutateProps<RestResponse, unknown, void, void, Logout1PathParams>, 'path' | 'verb'> &
+  Logout1PathParams
+
+export const Logout1 = ({ userId, ...props }: Logout1Props) => (
+  <Mutate<RestResponse, unknown, void, void, Logout1PathParams>
+    verb="POST"
+    path={`/users/${userId}/logout`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseLogout1Props = Omit<
+  UseMutateProps<RestResponse, unknown, void, void, Logout1PathParams>,
+  'path' | 'verb'
+> &
+  Logout1PathParams
+
+export const useLogout1 = ({ userId, ...props }: UseLogout1Props) =>
+  useMutate<RestResponse, unknown, void, void, Logout1PathParams>(
+    'POST',
+    (paramsInPath: Logout1PathParams) => `/users/${paramsInPath.userId}/logout`,
+    { base: getConfig('api'), pathParams: { userId }, ...props }
+  )

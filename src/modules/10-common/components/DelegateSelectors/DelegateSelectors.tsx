@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom'
 import { SimpleTagInput, Text, Icon, Color } from '@wings-software/uicore'
 import { useToaster } from '@common/exports'
 import { useStrings } from 'framework/strings'
-import { useGetDelegateSelectors } from 'services/portal'
+import { useGetDelegateSelectorsUpTheHierarchy } from 'services/portal'
 
-import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './DelegateSelectors.module.scss'
 
 const isValidExpression = (tag: string, showError: any, errorMsg: string) => {
@@ -31,11 +31,17 @@ interface DelegateSelectorsProps {
 export const DelegateSelectors = (
   props: Partial<React.ComponentProps<typeof SimpleTagInput> & DelegateSelectorsProps>
 ): JSX.Element => {
-  const { accountId } = useParams<AccountPathProps>()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const { showError } = useToaster()
 
-  const { data, loading } = useGetDelegateSelectors({ queryParams: { accountId } })
+  const { data, loading } = useGetDelegateSelectorsUpTheHierarchy({
+    queryParams: {
+      accountId,
+      orgId: orgIdentifier,
+      projectId: projectIdentifier
+    }
+  })
 
   const selectors = formatSelectors(data)
 

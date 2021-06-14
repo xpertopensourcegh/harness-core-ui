@@ -17,7 +17,7 @@ import {
 import type { ConnectorRequestBody } from 'services/cd-ng'
 import { GitSyncTestWrapper } from '@common/utils/gitSyncTestUtils'
 
-jest.spyOn(portalServices, 'useGetDelegateSelectors').mockImplementation(
+jest.spyOn(portalServices, 'useGetDelegateSelectorsUpTheHierarchy').mockImplementation(
   () =>
     ({
       loading: false,
@@ -27,7 +27,7 @@ jest.spyOn(portalServices, 'useGetDelegateSelectors').mockImplementation(
     } as any)
 )
 
-jest.spyOn(portalServices, 'useGetDelegatesStatusV2').mockImplementation(
+jest.spyOn(portalServices, 'useGetDelegatesUpTheHierarchy').mockImplementation(
   () =>
     ({
       loading: false,
@@ -106,7 +106,7 @@ describe('DelegateSelectorStep', () => {
 
   test('should confirm that error state is visible in table', async () => {
     const refetch = jest.fn()
-    jest.spyOn(portalServices, 'useGetDelegatesStatusV2').mockImplementation(
+    jest.spyOn(portalServices, 'useGetDelegatesUpTheHierarchy').mockImplementation(
       () =>
         ({
           loading: false,
@@ -134,7 +134,7 @@ describe('DelegateSelectorStep', () => {
   })
 
   test('should confirm that loading state is visible in table while the data fetching is in process', async () => {
-    jest.spyOn(portalServices, 'useGetDelegatesStatusV2').mockImplementation(
+    jest.spyOn(portalServices, 'useGetDelegatesUpTheHierarchy').mockImplementation(
       () =>
         ({
           loading: true,
@@ -168,11 +168,11 @@ describe('DelegateSelectorStep', () => {
     const tags = container.querySelectorAll('[data-name="DelegateSelectors"] [data-tag-index]')
     expect(container.querySelector('[value="DelegateOptions.DelegateOptionsAny"]')?.getAttribute('disabled')).toBe('')
     expect(tags.length).toBe(1)
-    expect(tags[0].firstElementChild?.textContent).toEqual('primary')
+    expect(tags[0].firstElementChild?.textContent).toEqual('primary configuration')
   })
 
   test('should have two rows in delegate table and should show checked for both rows', async () => {
-    jest.spyOn(portalServices, 'useGetDelegatesStatusV2').mockImplementation(
+    jest.spyOn(portalServices, 'useGetDelegatesUpTheHierarchy').mockImplementation(
       () =>
         ({
           loading: false,
@@ -202,7 +202,7 @@ describe('DelegateSelectorStep', () => {
   })
 
   test('should not show matches column if choose any delegate option is selected', async () => {
-    jest.spyOn(portalServices, 'useGetDelegatesStatusV2').mockImplementation(
+    jest.spyOn(portalServices, 'useGetDelegatesUpTheHierarchy').mockImplementation(
       () =>
         ({
           loading: false,

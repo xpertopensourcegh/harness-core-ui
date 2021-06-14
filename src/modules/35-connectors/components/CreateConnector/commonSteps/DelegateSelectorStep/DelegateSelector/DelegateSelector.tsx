@@ -5,8 +5,9 @@ import { IOptionProps, Radio } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import { DelegateSelectors } from '@common/components'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import useCreateDelegateModal from '@delegates/modals/DelegateModal/useCreateDelegateModal'
-import { DelegateInner, GetDelegatesStatusV2QueryParams, useGetDelegatesStatusV2 } from 'services/portal'
+import { DelegateGroupDetails, useGetDelegatesUpTheHierarchy } from 'services/portal'
 import {
   DelegateSelectorTable,
   DelegateSelectorTableProps
@@ -26,7 +27,7 @@ export interface DelegateSelectorProps {
   delegateSelectorMandatory: boolean
 }
 
-export interface DelegateInnerCustom extends DelegateInner {
+export interface DelegateGroupDetailsCustom extends DelegateGroupDetails {
   checked: boolean
 }
 
@@ -89,24 +90,39 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
     setDelegatesFound,
     delegateSelectorMandatory = false
   } = props
-  const [formattedData, setFormattedData] = useState<DelegateInnerCustom[]>([])
+  const [formattedData, setFormattedData] = useState<DelegateGroupDetailsCustom[]>([])
   const { getString } = useStrings()
-  const { accountId, module } = useParams<Record<string, string>>()
-  const queryParams: GetDelegatesStatusV2QueryParams = { accountId, module } as GetDelegatesStatusV2QueryParams
-  const { data, loading, error, refetch } = useGetDelegatesStatusV2({ queryParams })
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { data, loading, error, refetch } = useGetDelegatesUpTheHierarchy({
+    queryParams: {
+      accountId,
+      orgId: orgIdentifier,
+      projectId: projectIdentifier
+    }
+  })
   const { CDNG_ENABLED, NG_SHOW_DELEGATE } = useFeatureFlags()
   const { openDelegateModal } = useCreateDelegateModal({
     onClose: refetch
   })
 
   useEffect(() => {
-    const parsedData = (data?.resource?.delegates || []).map(delegate => ({
-      ...delegate,
-      checked: shouldDelegateBeChecked(delegateSelectors, [
-        ...(delegate.tags || []),
-        ...Object.keys(delegate?.implicitSelectors || {})
-      ])
+    const parsedData = (data?.resource?.delegateGroupDetails || []).map(delegateGroupDetails => ({
+      ...delegateGroupDetails,
+      checked: shouldDelegateBeChecked(
+        delegateSelectors,
+        Object.keys(delegateGroupDetails?.groupImplicitSelectors || {})
+      )
     }))
+    parsedData.sort((parsedDataItemA, parsedDataItemB) => {
+      const [checkedA, checkedB] = [parsedDataItemA.checked, parsedDataItemB.checked]
+      if (checkedA && !checkedB) {
+        return -1
+      }
+      if (checkedB && !checkedA) {
+        return 1
+      }
+      return 0
+    })
     setFormattedData(parsedData)
     const updatedMode =
       delegateSelectors.length || delegateSelectorMandatory

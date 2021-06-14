@@ -6,5 +6,7 @@ declare const styles: {
   readonly formInput: string
   readonly radio: string
   readonly table: string
+  readonly delegateNameContainer: string
+  readonly delegateName: string
 }
 export default styles

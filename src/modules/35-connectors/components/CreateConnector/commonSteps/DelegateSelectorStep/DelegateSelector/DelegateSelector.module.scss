@@ -36,5 +36,15 @@
       border-radius: 0px;
       border-bottom: 1px solid var(--grey-200);
     }
+    .delegateNameContainer {
+      .delegateName {
+        white-space: nowrap !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      :global(.bp3-popover-target) {
+        width: 100% !important;
+      }
+    }
   }
 }

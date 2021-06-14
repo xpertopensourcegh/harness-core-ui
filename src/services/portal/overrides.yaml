@@ -11,6 +11,8 @@ allowpaths:
   - '/delegate-profiles/v2.get'
   - '/delegate-profiles/{delegateProfileId}.get'
   - '/setup/delegates/kubernetes-delegates'
+  - '/setup/delegates/delegate-selectors-up-the-hierarchy'
+  - '/setup/delegates/v2/up-the-hierarchy'
   - '/users/user.get'
   - '/users/set-default-account/{accountId}'
   - '/users/new-trial'
@@ -46,6 +48,8 @@ operationIdOverrides:
   /delegate-profiles.get: getDelegateProfiles
   /delegate-profiles/v2.get: getDelegateProfilesV2
   /setup/delegates/kubernetes-delegates.get: getKubernetesDelegateNames
+  /setup/delegates/delegate-selectors-up-the-hierarchy.get: getDelegateSelectorsUpTheHierarchy
+  /setup/delegates/v2/up-the-hierarchy.get: getDelegatesUpTheHierarchy
   /users/user.get: getUser
   /users/{userId}/logout: logout
   /setup/delegates/delegate-tags.get: getDelegateTags

@@ -11419,6 +11419,42 @@
         }
       }
     },
+    "/setup/delegates/delegate-selectors-up-the-hierarchy": {
+      "get": {
+        "tags": ["setupdelegates"],
+        "operationId": "delegateSelectorsUpTheHierarchy",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "orgId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "schema": {
+              "$ref": "#/definitions/RestResponseSetString"
+            }
+          }
+        }
+      }
+    },
     "/setup/delegates/status": {
       "get": {
         "tags": ["setupdelegates"],
@@ -11553,6 +11589,42 @@
             "headers": {},
             "schema": {
               "$ref": "#/definitions/RestResponseDelegateGroupDetails"
+            }
+          }
+        }
+      }
+    },
+    "/setup/delegates/v2/up-the-hierarchy": {
+      "get": {
+        "tags": ["setupdelegatesv2"],
+        "operationId": "listUpTheHierarchy",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "orgId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "schema": {
+              "$ref": "#/definitions/RestResponseDelegateGroupListing"
             }
           }
         }
@@ -66942,6 +67014,9 @@
       "type": "object",
       "properties": {
         "delegateId": {
+          "type": "string"
+        },
+        "delegateType": {
           "type": "string"
         },
         "delegateName": {

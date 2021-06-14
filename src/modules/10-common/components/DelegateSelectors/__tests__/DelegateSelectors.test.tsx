@@ -10,7 +10,7 @@ import { DelegateSelectors } from '../DelegateSelectors'
 
 const mockGetCallFunction = jest.fn()
 jest.mock('services/portal', () => ({
-  useGetDelegateSelectors: jest.fn().mockImplementation(args => {
+  useGetDelegateSelectorsUpTheHierarchy: jest.fn().mockImplementation(args => {
     mockGetCallFunction(args)
     return []
   })

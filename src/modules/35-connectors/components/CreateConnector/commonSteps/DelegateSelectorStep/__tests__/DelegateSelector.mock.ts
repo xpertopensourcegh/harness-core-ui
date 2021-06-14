@@ -16,7 +16,7 @@ export const connectorInfo = {
   type: 'Aws' as ConnectorInfoDTO['type'],
   spec: {
     credential: { crossAccountAccess: null, type: 'InheritFromDelegate', spec: null },
-    delegateSelectors: ['primary']
+    delegateSelectors: ['primary configuration']
   },
   delegateType: 'InheritFromDelegate',
   crossAccountAccess: false
@@ -56,48 +56,40 @@ export const connectorInfoCredentials = {
 export const mockedDelegates = {
   metaData: {},
   resource: {
-    publishedVersions: ['1.0.0-dev'],
-    delegates: [
+    delegateGroupDetails: [
       {
-        uuid: 'l0AoC725RNi4eKV-YZI46w',
-        ip: '192.168.1.14',
-        hostName: 'delegate-sample-name-1',
-        delegateName: '',
-        description: 'description here',
-        status: 'ENABLED',
-        lastHeartBeat: 1620085638848,
+        groupId: 'nhJQFrnqRsibPbQR1Erl8g',
+        delegateType: 'KUBERNETES',
+        groupName: 'delegate-sample-name-1',
+        groupHostName: 'delegate-sample-name-1-{n}',
+        delegateConfigurationId: 'o7ObEntuSuWdnOOrY8Cy1Q',
+        sizeDetails: { size: 'SMALL', label: 'Small', taskLimit: 100, replicas: 2, ram: 3300, cpu: 1.0 },
+        groupImplicitSelectors: {
+          'primary configuration': 'PROFILE_NAME',
+          'delegate-sample-name-1': 'DELEGATE_NAME'
+        },
+        delegateInsightsDetails: { insights: [] },
+        lastHeartBeat: 1623575011349,
         activelyConnected: false,
-        delegateProfileId: '7w2xc3NoRumD8C26WguugQ',
-        polllingModeEnabled: false,
-        proxy: false,
-        ceEnabled: false,
-        implicitSelectors: { 'delegate-sample-name-1': 'HOST_NAME', primary: 'PROFILE_NAME' },
-        profileExecutedAt: 1619772118758,
-        profileError: false,
-        sampleDelegate: false,
-        connections: []
+        delegateInstanceDetails: []
       },
       {
-        uuid: 'l0AoC725RNi4eKV-YZI46w',
-        ip: '192.168.1.14',
-        hostName: 'delegate-sample-name-2',
-        delegateName: '',
-        description: 'description here',
-        status: 'ENABLED',
-        lastHeartBeat: 1620085638848,
+        groupId: 'nhJQFrnqRsibPbQR1Erl8g',
+        delegateType: 'KUBERNETES',
+        groupName: 'delegate-sample-name-2',
+        groupHostName: 'delegate-sample-name-2-{n}',
+        delegateConfigurationId: 'o7ObEntuSuWdnOOrY8Cy1Q',
+        sizeDetails: { size: 'SMALL', label: 'Small', taskLimit: 100, replicas: 2, ram: 3300, cpu: 1.0 },
+        groupImplicitSelectors: {
+          'primary configuration': 'PROFILE_NAME',
+          'delegate-sample-name-2': 'DELEGATE_NAME'
+        },
+        delegateInsightsDetails: { insights: [] },
+        lastHeartBeat: 1623575011349,
         activelyConnected: false,
-        delegateProfileId: '7w2xc3NoRumD8C26WguugQ',
-        polllingModeEnabled: false,
-        proxy: false,
-        ceEnabled: false,
-        implicitSelectors: { 'delegate-sample-name-2': 'HOST_NAME', primary: 'PROFILE_NAME' },
-        profileExecutedAt: 1619772118758,
-        profileError: false,
-        sampleDelegate: false,
-        connections: []
+        delegateInstanceDetails: []
       }
-    ],
-    scalingGroups: []
+    ]
   },
   responseMessages: []
 }

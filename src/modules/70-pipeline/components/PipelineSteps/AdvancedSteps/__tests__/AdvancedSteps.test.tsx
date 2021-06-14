@@ -10,7 +10,7 @@ jest.mock('@common/components/MonacoEditor/MonacoEditor')
 
 const mockGetCallFunction = jest.fn()
 jest.mock('services/portal', () => ({
-  useGetDelegateSelectors: jest.fn().mockImplementation(args => {
+  useGetDelegateSelectorsUpTheHierarchy: jest.fn().mockImplementation(args => {
     mockGetCallFunction(args)
     return []
   })
