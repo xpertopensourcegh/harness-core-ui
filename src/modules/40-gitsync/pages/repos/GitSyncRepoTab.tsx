@@ -267,7 +267,7 @@ const GitSyncRepoTab: React.FC = () => {
                 rootFolder: Yup.string()
                   .trim()
                   .required(getString('validation.nameRequired'))
-                  .matches(StringUtils.regexName, getString('gitsync.validation.harnessFolder'))
+                  .matches(StringUtils.regexName, getString('common.validation.namePatternIsNotValid'))
               })}
               formName="gitSyncRepoTab"
               onSubmit={formData => {

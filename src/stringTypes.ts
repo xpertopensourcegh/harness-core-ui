@@ -931,7 +931,6 @@ export interface StringsMap {
   'gitsync.selectHarnessFolder': string
   'gitsync.successfullCreate': string
   'gitsync.successfullySavedConnectivityMode': string
-  'gitsync.validation.harnessFolder': string
   'dashboards.createModal.dataSource': string
   'dashboards.createModal.descriptionPlaceholder': string
   'dashboards.createModal.fav': string

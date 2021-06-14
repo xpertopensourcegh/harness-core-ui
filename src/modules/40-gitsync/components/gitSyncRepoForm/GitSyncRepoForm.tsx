@@ -211,7 +211,7 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
               rootfolder: Yup.string()
                 .trim()
                 .required(getString('validation.nameRequired'))
-                .matches(StringUtils.regexName, getString('gitsync.validation.harnessFolder'))
+                .matches(StringUtils.regexName, getString('common.validation.namePatternIsNotValid'))
             })}
             onSubmit={formData => {
               const gitSyncRepoData = {
