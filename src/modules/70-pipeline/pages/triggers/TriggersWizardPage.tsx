@@ -875,27 +875,29 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   useEffect(() => {
     if (connectorData?.data?.connector?.name && onEditInitialValues?.connectorRef?.identifier) {
       // Assigns label on Visual mode for onEdit
-      const { connector } = connectorData.data
+      const { connector, status } = connectorData.data
       const connectorRef: ConnectorRefInterface = {
         ...(onEditInitialValues || initialValues).connectorRef,
         label: connector.name,
-        connector
+        connector,
+        live: status?.status === 'SUCCESS'
       }
       if (onEditInitialValues?.connectorRef?.identifier) {
         setOnEditInitialValues({ ...onEditInitialValues, connectorRef })
       }
     } else if (wizardKey > 0 && connectorData?.data?.connector?.name && initialValues?.connectorRef?.identifier) {
       // means we switched from yaml to visual and need to get the label
-      const { connector } = connectorData.data
+      const { connector, status } = connectorData.data
       const connectorRef: ConnectorRefInterface = {
         ...initialValues.connectorRef,
         label: connector.name,
-        connector
+        connector,
+        live: status?.status === 'SUCCESS'
       }
       setInitialValues({ ...initialValues, connectorRef })
     }
   }, [
-    connectorData?.data?.connector?.name,
+    connectorData?.data?.connector,
     onEditInitialValues?.connectorRef?.identifier,
     initialValues?.connectorRef?.identifier
   ])

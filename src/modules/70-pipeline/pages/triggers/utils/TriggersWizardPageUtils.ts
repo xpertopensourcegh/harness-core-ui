@@ -22,6 +22,7 @@ export interface ConnectorRefInterface {
   value?: string
   connector?: ConnectorInfoDTO
   label?: string
+  live?: boolean
 }
 
 export interface FlatInitialValuesInterface {

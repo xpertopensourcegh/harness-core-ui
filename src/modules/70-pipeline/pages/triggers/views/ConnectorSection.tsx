@@ -40,7 +40,8 @@ export const ConnectorSection: React.FC<ConnectorSectionInterface> = ({ formikPr
       connectorRef: {
         label: value.name || '',
         value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${value.identifier}`,
-        connector: value
+        connector: value,
+        live: value?.status?.status === 'SUCCESS'
       },
       repoName: ''
     })
