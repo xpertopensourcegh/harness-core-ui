@@ -424,7 +424,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
         Object.keys(result.response).forEach(instance => {
           result.response?.[instance].forEach(sg => {
             sg?.inbound_rules?.forEach(rule => {
-              if (rule.protocol == '-1') {
+              if (rule.protocol == '-1' || rule.from === '*') {
                 addAllPorts()
                 return
               } else if (rule && rule.from && [80, 443].includes(+rule.from)) {
