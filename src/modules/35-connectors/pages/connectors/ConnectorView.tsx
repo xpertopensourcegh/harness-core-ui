@@ -183,7 +183,8 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
         setConnectorForYaml(response?.data?.connector)
       }
       return {
-        status: response.status
+        status: response.status,
+        nextCallback: () => props.refetchConnector()
       }
     }
   }
