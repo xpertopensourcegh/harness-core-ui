@@ -1,33 +1,7 @@
 .optionBtns {
   display: inline-block;
-  font-size: var(--font-size-xsmall);
-  line-height: 14px;
-  width: 136px;
+  width: fit-content;
   margin: 0 250px;
-
-  .item {
-    display: inline-block;
-    padding: 4px 8px;
-    border-radius: 10px;
-    margin: 2px;
-    cursor: pointer;
-    border: solid 1px var(--primary-9);
-    color: var(--primary-9);
-    background: #fff;
-    width: 55px;
-    text-align: center;
-  }
-
-  .selected {
-    font-weight: bold;
-    background-color: var(--primary-9);
-    color: var(--white);
-    cursor: default;
-  }
-
-  .disabledMode {
-    cursor: not-allowed;
-  }
 }
 
 .run-form {

@@ -8,8 +8,5 @@ declare const styles: {
   readonly overview: string
   readonly inputSet: string
   readonly editor: string
-  readonly optionBtns: string
-  readonly item: string
-  readonly selected: string
 }
 export default styles

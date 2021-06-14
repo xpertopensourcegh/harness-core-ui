@@ -28,6 +28,7 @@ import {
 } from 'services/pipeline-ng'
 import { useGlobalEventListener, useLocalStorage, useQueryParams } from '@common/hooks'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
+import { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
@@ -45,7 +46,6 @@ import {
 } from './PipelineActions'
 import type { AbstractStepFactory } from '../../AbstractSteps/AbstractStepFactory'
 import type { PipelineStagesProps } from '../../PipelineStages/PipelineStages'
-import { PipelineStudioView } from '../PipelineUtils'
 import { usePipelineQuestParamState } from '../PipelineQueryParamState/usePipelineQueryParam'
 import {
   getStagePathFromPipeline as _getStagePathFromPipeline,
@@ -163,7 +163,7 @@ export interface PipelineContextInterface {
   view: string
   isReadonly: boolean
   setSchemaErrorView: (flag: boolean) => void
-  setView: (view: PipelineStudioView) => void
+  setView: (view: SelectedView) => void
   renderPipelineStage: (args: Omit<PipelineStagesProps, 'children'>) => React.ReactElement<PipelineStagesProps>
   fetchPipeline: (args: FetchPipelineUnboundProps) => Promise<void>
   setYamlHandler: (yamlHandler: YamlBuilderHandlerBinding) => void
@@ -500,7 +500,7 @@ export const PipelineContext = React.createContext<PipelineContextInterface>({
   stagesMap: {},
   setSchemaErrorView: () => undefined,
   isReadonly: false,
-  view: PipelineStudioView.ui,
+  view: SelectedView.VISUAL,
   updateGitDetails: () => new Promise<void>(() => undefined),
   setView: () => void 0,
   runPipeline: () => undefined,
@@ -546,7 +546,7 @@ export const PipelineProvider: React.FC<{
       initialState
     )
   )
-  const [view, setView] = useLocalStorage<PipelineStudioView>('pipeline_studio_view', PipelineStudioView.ui)
+  const [view, setView] = useLocalStorage<SelectedView>('pipeline_studio_view', SelectedView.VISUAL)
   state.pipelineIdentifier = pipelineIdentifier
   const fetchPipeline = _fetchPipeline.bind(null, {
     dispatch,

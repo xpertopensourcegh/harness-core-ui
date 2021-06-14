@@ -100,14 +100,24 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view 1`] = `
           class="optionBtns"
         >
           <div
-            class="item"
+            class="optionBtns"
           >
-            visual
-          </div>
-          <div
-            class="item selected"
-          >
-            yaml
+            <div
+              class="item"
+              data-name="visual-btn"
+              role="button"
+              tabindex="0"
+            >
+              visual
+            </div>
+            <div
+              class="item selected"
+              data-name="yaml-btn"
+              role="button"
+              tabindex="0"
+            >
+              yaml
+            </div>
           </div>
         </div>
       </div>
@@ -296,14 +306,24 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
           class="optionBtns"
         >
           <div
-            class="item selected"
+            class="optionBtns"
           >
-            visual
-          </div>
-          <div
-            class="item"
-          >
-            yaml
+            <div
+              class="item selected"
+              data-name="visual-btn"
+              role="button"
+              tabindex="0"
+            >
+              visual
+            </div>
+            <div
+              class="item"
+              data-name="yaml-btn"
+              role="button"
+              tabindex="0"
+            >
+              yaml
+            </div>
           </div>
         </div>
       </div>
@@ -1045,14 +1065,24 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
         class="optionBtns"
       >
         <div
-          class="item selected"
+          class="optionBtns"
         >
-          visual
-        </div>
-        <div
-          class="item"
-        >
-          yaml
+          <div
+            class="item selected"
+            data-name="visual-btn"
+            role="button"
+            tabindex="0"
+          >
+            visual
+          </div>
+          <div
+            class="item"
+            data-name="yaml-btn"
+            role="button"
+            tabindex="0"
+          >
+            yaml
+          </div>
         </div>
       </div>
       <div
@@ -1610,14 +1640,24 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
           class="optionBtns"
         >
           <div
-            class="item selected"
+            class="optionBtns"
           >
-            visual
-          </div>
-          <div
-            class="item"
-          >
-            yaml
+            <div
+              class="item selected"
+              data-name="visual-btn"
+              role="button"
+              tabindex="0"
+            >
+              visual
+            </div>
+            <div
+              class="item"
+              data-name="yaml-btn"
+              role="button"
+              tabindex="0"
+            >
+              yaml
+            </div>
           </div>
         </div>
       </div>
@@ -2232,14 +2272,24 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
         class="optionBtns"
       >
         <div
-          class="item selected"
+          class="optionBtns"
         >
-          visual
-        </div>
-        <div
-          class="item"
-        >
-          yaml
+          <div
+            class="item selected"
+            data-name="visual-btn"
+            role="button"
+            tabindex="0"
+          >
+            visual
+          </div>
+          <div
+            class="item"
+            data-name="yaml-btn"
+            role="button"
+            tabindex="0"
+          >
+            yaml
+          </div>
         </div>
       </div>
       <div

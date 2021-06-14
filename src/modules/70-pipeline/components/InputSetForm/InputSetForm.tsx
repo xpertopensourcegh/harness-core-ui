@@ -1,6 +1,5 @@
 import React from 'react'
 import { cloneDeep, isEmpty, isNull, isUndefined, omit, omitBy } from 'lodash-es'
-import cx from 'classnames'
 import { Intent } from '@blueprintjs/core'
 import {
   Button,
@@ -49,6 +48,7 @@ import { useQueryParams } from '@common/hooks'
 import { UseSaveSuccessResponse, useSaveToGitDialog } from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import GitContextForm, { GitContextProps } from '@common/components/GitContextForm/GitContextForm'
+import VisualYamlToggle from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { changeEmptyValuesToRunTimeInput } from '@pipeline/utils/stageHelpers'
 import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
 import { clearRuntimeInput, getErrorsList } from '../PipelineStudio/StepUtil'
@@ -639,18 +639,13 @@ export function InputSetFormWrapper(props: InputSetFormWrapperProps): React.Reac
                 <GitPopover data={inputSet.gitDetails || {}} iconMargin={{ left: 'small', top: 'xsmall' }} />
               )}
               <div className={css.optionBtns}>
-                <div
-                  className={cx(css.item, { [css.selected]: selectedView === SelectedView.VISUAL })}
-                  onClick={() => handleModeSwitch(SelectedView.VISUAL)}
-                >
-                  {getString('visual')}
-                </div>
-                <div
-                  className={cx(css.item, { [css.selected]: selectedView === SelectedView.YAML })}
-                  onClick={() => handleModeSwitch(SelectedView.YAML)}
-                >
-                  {getString('yaml')}
-                </div>
+                <VisualYamlToggle
+                  initialSelectedView={selectedView}
+                  beforeOnChange={(nextMode, callback) => {
+                    handleModeSwitch(nextMode)
+                    callback(nextMode)
+                  }}
+                ></VisualYamlToggle>
               </div>
             </Layout.Horizontal>
           </Layout.Vertical>

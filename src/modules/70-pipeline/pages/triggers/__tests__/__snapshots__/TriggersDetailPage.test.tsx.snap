@@ -170,11 +170,17 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
           >
             <div
               class="item selected"
+              data-name="visual-btn"
+              role="button"
+              tabindex="0"
             >
               visual
             </div>
             <div
               class="item"
+              data-name="yaml-btn"
+              role="button"
+              tabindex="0"
             >
               yaml
             </div>

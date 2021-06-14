@@ -11,10 +11,11 @@ export enum SelectedView {
 interface VisualYamlToggleInterface {
   initialSelectedView?: SelectedView
   beforeOnChange: (val: SelectedView, callbackFn: Dispatch<SetStateAction<SelectedView>>) => void
+  disableYaml?: boolean
 }
 
 export default function VisualYamlToggle(props: VisualYamlToggleInterface): JSX.Element {
-  const { initialSelectedView, beforeOnChange } = props
+  const { initialSelectedView, beforeOnChange, disableYaml = false } = props
   const [selectedView, setSelectedView] = React.useState<SelectedView>(initialSelectedView || SelectedView.VISUAL)
   const { getString } = useStrings()
 
@@ -33,7 +34,10 @@ export default function VisualYamlToggle(props: VisualYamlToggleInterface): JSX.
       </div>
       <div
         data-name="yaml-btn"
-        className={cx(css.item, { [css.selected]: selectedView === SelectedView.YAML })}
+        className={cx(css.item, {
+          [css.selected]: selectedView === SelectedView.YAML,
+          [css.disabledMode]: disableYaml
+        })}
         onClick={() => {
           beforeOnChange(SelectedView.YAML, setSelectedView)
         }}

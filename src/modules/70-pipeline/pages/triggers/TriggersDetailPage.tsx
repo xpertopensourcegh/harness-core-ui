@@ -1,6 +1,5 @@
 import { Button, Card, Color, Container, Icon, Layout, Switch, Text } from '@wings-software/uicore'
 import React from 'react'
-import cx from 'classnames'
 import { useHistory, useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
 import { parse, stringify } from 'yaml'
@@ -25,15 +24,12 @@ import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { useQueryParams } from '@common/hooks'
+import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { TriggerBreadcrumbs } from '../trigger-details/TriggerDetails'
 import { getTriggerIcon, getEnabledStatusTriggerValues } from './utils/TriggersListUtils'
 import { clearNullUndefined, ResponseStatus } from './utils/TriggersWizardPageUtils'
 import css from './TriggersDetailPage.module.scss'
 
-enum SelectedView {
-  VISUAL = 'VISUAL',
-  YAML = 'YAML'
-}
 export interface ConditionInterface {
   key: string
   operator: string
@@ -248,20 +244,13 @@ export default function TriggersDetailPage(): JSX.Element {
         <Layout.Horizontal className={css.panel}>
           <Layout.Vertical spacing="medium" className={css.information}>
             <Layout.Horizontal flex={{ distribution: 'space-between' }}>
-              <div className={css.optionBtns}>
-                <div
-                  className={cx(css.item, { [css.selected]: selectedView === SelectedView.VISUAL })}
-                  onClick={() => setSelectedView(SelectedView.VISUAL)}
-                >
-                  {getString('visual')}
-                </div>
-                <div
-                  className={cx(css.item, { [css.selected]: selectedView === SelectedView.YAML })}
-                  onClick={() => setSelectedView(SelectedView.YAML)}
-                >
-                  {getString('yaml')}
-                </div>
-              </div>
+              <VisualYamlToggle
+                initialSelectedView={selectedView}
+                beforeOnChange={(nextMode, callback) => {
+                  setSelectedView(nextMode)
+                  callback(nextMode)
+                }}
+              ></VisualYamlToggle>
               <Button
                 className={css.edit}
                 intent="primary"

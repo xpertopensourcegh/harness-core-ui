@@ -2,6 +2,7 @@ import React from 'react'
 import { render } from '@testing-library/react'
 
 import { TestWrapper } from '@common/utils/testUtils'
+import { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { PipelineVariablesContext } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import { factory } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
 import { CustomVariables } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariables'
@@ -10,7 +11,6 @@ import { PipelineContext, PipelineContextInterface } from '../../PipelineContext
 import variablesPipeline from './variables.json'
 import pipeline from './pipeline.json'
 import metadataMap from './metadataMap.json'
-import { PipelineStudioView } from '../../PipelineUtils'
 
 const pipelineContext: PipelineContextInterface = {
   updatePipeline: jest.fn(),
@@ -19,7 +19,7 @@ const pipelineContext: PipelineContextInterface = {
   stagesMap: {},
   isReadonly: false,
   setSchemaErrorView: jest.fn(),
-  view: PipelineStudioView.ui,
+  view: SelectedView.VISUAL,
   renderPipelineStage: jest.fn(),
   setView: jest.fn(),
   updateGitDetails: jest.fn(),

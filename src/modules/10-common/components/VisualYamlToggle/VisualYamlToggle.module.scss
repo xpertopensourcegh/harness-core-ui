@@ -23,4 +23,8 @@
     color: var(--white);
     cursor: default;
   }
+
+  .disabledMode {
+    pointer-events: none;
+  }
 }

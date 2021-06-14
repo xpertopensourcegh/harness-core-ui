@@ -1,6 +1,5 @@
 import React from 'react'
 import { isNull, isUndefined, omit, omitBy } from 'lodash-es'
-import cx from 'classnames'
 import { Classes, Dialog, IDialogProps } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import { Button, Color, Formik, FormikForm, FormInput, Icon, Layout, SelectOption, Text } from '@wings-software/uicore'
@@ -41,6 +40,7 @@ import { UseSaveSuccessResponse, useSaveToGitDialog } from '@common/modals/SaveT
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import GitContextForm, { GitContextProps } from '@common/components/GitContextForm/GitContextForm'
 import { useQueryParams } from '@common/hooks'
+import VisualYamlToggle from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import type { InputSetDTO } from '../InputSetForm/InputSetForm'
@@ -501,18 +501,13 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
       <div className={Classes.DIALOG_BODY}>
         <Layout.Vertical spacing="medium">
           <div className={css.optionBtns}>
-            <div
-              className={cx(css.item, { [css.selected]: selectedView === SelectedView.VISUAL })}
-              onClick={() => handleModeSwitch(SelectedView.VISUAL)}
-            >
-              {getString('visual')}
-            </div>
-            <div
-              className={cx(css.item, { [css.selected]: selectedView === SelectedView.YAML })}
-              onClick={() => handleModeSwitch(SelectedView.YAML)}
-            >
-              {getString('yaml')}
-            </div>
+            <VisualYamlToggle
+              initialSelectedView={selectedView}
+              beforeOnChange={(nextMode, callback) => {
+                handleModeSwitch(nextMode)
+                callback(nextMode)
+              }}
+            ></VisualYamlToggle>
           </div>
 
           <Formik<OverlayInputSetDTO & GitContextProps>

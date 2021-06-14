@@ -32,6 +32,7 @@ import type { EntityGitDetails } from 'services/pipeline-ng'
 import { useQueryParams, useUpdateQueryParams } from '@common/hooks'
 import GitFilters from '@common/components/GitFilters/GitFilters'
 import { TagsPopover } from '@common/components'
+import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { PipelineVariablesContextProvider } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import CreatePipelines from '../CreateModal/PipelineCreate'
@@ -39,7 +40,6 @@ import { DefaultNewPipelineId, DrawerTypes } from '../PipelineContext/PipelineAc
 import { RightBar } from '../RightBar/RightBar'
 import PipelineYamlView from '../PipelineYamlView/PipelineYamlView'
 import StageBuilder from '../StageBuilder/StageBuilder'
-import { PipelineStudioView } from '../PipelineUtils'
 import css from './PipelineCanvas.module.scss'
 
 interface OtherModalProps {
@@ -122,7 +122,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   })
 
   const history = useHistory()
-  const isYaml = view === 'yaml'
+  const isYaml = view === SelectedView.YAML
   const [isYamlError, setYamlError] = React.useState(false)
   const [blockNavigation, setBlockNavigation] = React.useState(false)
   const [selectedBranch, setSelectedBranch] = React.useState(branch || '')
@@ -323,7 +323,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   React.useEffect(() => {
     // for new pipeline always use UI as default view
     if (pipelineIdentifier === DefaultNewPipelineId) {
-      setView(PipelineStudioView.ui)
+      setView(SelectedView.VISUAL)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pipelineIdentifier])
@@ -408,9 +408,9 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     [hideModal, pipeline, updatePipeline]
   )
 
-  function handleViewChange(newView: PipelineStudioView): void {
+  function handleViewChange(newView: SelectedView): void {
     if (newView === view) return
-    if (newView === PipelineStudioView.ui && yamlHandler) {
+    if (newView === SelectedView.VISUAL && yamlHandler) {
       try {
         const parsedYaml = parse(yamlHandler.getLatestYaml())
         if (!parsedYaml) {
@@ -596,22 +596,13 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
               {isGitSyncEnabled && <RenderGitDetails />}
             </div>
 
-            <div className={css.pipelineStudioTitleContainer}>
-              <div className={css.optionBtns}>
-                <div
-                  className={cx(css.item, { [css.selected]: !isYaml })}
-                  onClick={() => handleViewChange(PipelineStudioView.ui)}
-                >
-                  {getString('visual')}
-                </div>
-                <div
-                  className={cx(css.item, { [css.selected]: isYaml })}
-                  onClick={() => handleViewChange(PipelineStudioView.yaml)}
-                >
-                  {getString('yaml')}
-                </div>
-              </div>
-            </div>
+            <VisualYamlToggle
+              initialSelectedView={isYaml ? SelectedView.YAML : SelectedView.VISUAL}
+              beforeOnChange={(nextMode, callback) => {
+                handleViewChange(nextMode)
+                callback(nextMode)
+              }}
+            ></VisualYamlToggle>
           </div>
           <div>
             <div className={css.savePublishContainer}>

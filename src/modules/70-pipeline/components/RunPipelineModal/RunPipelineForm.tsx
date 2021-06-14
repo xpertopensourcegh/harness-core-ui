@@ -57,6 +57,7 @@ import RbacButton from '@rbac/components/Button/Button'
 import GitContextForm, { GitContextProps } from '@common/components/GitContextForm/GitContextForm'
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import { useSaveToGitDialog, UseSaveSuccessResponse } from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
+import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { clearNullUndefined } from '@pipeline/pages/triggers/utils/TriggersWizardPageUtils'
 import type { InputSetDTO } from '../InputSetForm/InputSetForm'
 import { InputSetSelector, InputSetSelectorProps } from '../InputSetSelector/InputSetSelector'
@@ -86,47 +87,6 @@ const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
     removeEmptyObject: false,
     removeEmptyArray: false
   }
-}
-
-enum SelectedView {
-  VISUAL = 'VISUAL',
-  YAML = 'YAML'
-}
-
-interface ModeSelectorProps {
-  selectedView: SelectedView
-  handleModeSwitch: (view: SelectedView) => void
-  template: ResponseInputSetTemplateResponse | null
-}
-
-const ModeSelector = ({ selectedView, handleModeSwitch, template }: ModeSelectorProps) => {
-  const { getString } = useStrings()
-  const noRuntimeInputs = !template?.data?.inputSetTemplateYaml
-  return (
-    <div className={css.optionBtns}>
-      <div
-        className={cx(css.item, { [css.selected]: selectedView === SelectedView.VISUAL })}
-        onClick={() => handleModeSwitch(SelectedView.VISUAL)}
-      >
-        {getString('visual')}
-      </div>
-      <div
-        className={cx(css.item, {
-          [css.selected]: selectedView === SelectedView.YAML,
-          [css.disabledMode]: noRuntimeInputs
-        })}
-        onClick={() => {
-          if (noRuntimeInputs) {
-            // No runtime inputs in the pipeline, do not allow the user to switch to YAML mode
-            return
-          }
-          handleModeSwitch(SelectedView.YAML)
-        }}
-      >
-        {getString('yaml')}
-      </div>
-    </div>
-  )
 }
 
 interface SaveAsInputSetProps {
@@ -784,7 +744,16 @@ function RunPipelineFormBasic({
                     >
                       {getString('runPipeline')}
                     </Heading>
-                    <ModeSelector selectedView={selectedView} handleModeSwitch={handleModeSwitch} template={template} />
+                    <div className={css.optionBtns}>
+                      <VisualYamlToggle
+                        initialSelectedView={selectedView}
+                        beforeOnChange={(nextMode, callback) => {
+                          handleModeSwitch(nextMode)
+                          callback(nextMode)
+                        }}
+                        disableYaml={!template?.data?.inputSetTemplateYaml}
+                      ></VisualYamlToggle>
+                    </div>
                   </div>
                   {renderErrors()}
                 </>

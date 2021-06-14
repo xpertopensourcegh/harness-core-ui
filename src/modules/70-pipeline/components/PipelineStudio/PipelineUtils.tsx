@@ -6,10 +6,6 @@ import type { UseStringsReturn } from 'framework/strings'
 
 import type { NgPipeline, StageElement, StageElementWrapper } from 'services/cd-ng'
 
-export enum PipelineStudioView {
-  ui = 'ui',
-  yaml = 'yaml'
-}
 export interface NodeClasses {
   primary?: string
   secondary?: string
