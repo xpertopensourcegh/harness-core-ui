@@ -287,11 +287,11 @@ conditionalExecution:
   statusOption:
     success: Execute this {{entity}} if the {{parentEntity}} execution is successful thus far
     all: Always execute this {{entity}}
-    failure: Execute this {{entity}} only if {{parentEntity}} execution failed in prior stages
+    failure: Execute this {{entity}} only if {{parentEntity}} execution failed in prior {{entity}}s
   condition: And execute this {{entity}} only if the following JEXL Condition evaluates to True
   toolTip:
-    stageTitle: Conditions for Stage Execution
-    stepTitle: Conditions for Step Execution
+    stageTitle: Conditions for stage execution
+    stepTitle: Conditions for step execution
     resolvedVariables: RESOLVED VARIABLES
   belowExpression: below expression is true
 startTime: Start time

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container } from '@wings-software/uicore'
+import { Container, HarnessDocTooltip } from '@wings-software/uicore'
 import { Checkbox } from '@blueprintjs/core'
 import type { FormikProps } from 'formik'
 import cx from 'classnames'
@@ -29,7 +29,12 @@ export default function ConditionalExecutionCondition(props: ConditionalExecutio
         checked={formikProps.values.enableJEXL}
         disabled={isReadonly}
         className={cx(css.blackText, { [css.active]: formikProps.values.enableJEXL })}
-        label={getString('pipeline.conditionalExecution.condition', { entity: ModeEntityNameMap[mode] })}
+        labelElement={
+          <span data-tooltip-id="conditionalExecution">
+            {getString('pipeline.conditionalExecution.condition', { entity: ModeEntityNameMap[mode] })}
+            <HarnessDocTooltip tooltipId="conditionalExecution" useStandAlone={true} />
+          </span>
+        }
         onChange={e => {
           const isChecked = e.currentTarget.checked
           formikProps.setFieldValue('enableJEXL', isChecked)

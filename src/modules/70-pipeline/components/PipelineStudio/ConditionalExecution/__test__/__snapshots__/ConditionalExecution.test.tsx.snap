@@ -95,7 +95,11 @@ exports[`ConditionalExecution matches snapshot when no data 1`] = `
             <span
               class="bp3-control-indicator"
             />
-            pipeline.conditionalExecution.condition
+            <span
+              data-tooltip-id="conditionalExecution"
+            >
+              pipeline.conditionalExecution.condition
+            </span>
           </label>
           <div
             class="StyledProps--font StyledProps--main StyledProps--padding-top-small StyledProps--padding-left-large"
@@ -211,7 +215,11 @@ exports[`ConditionalExecution matches snapshot with data 1`] = `
             <span
               class="bp3-control-indicator"
             />
-            pipeline.conditionalExecution.condition
+            <span
+              data-tooltip-id="conditionalExecution"
+            >
+              pipeline.conditionalExecution.condition
+            </span>
           </label>
           <div
             class="StyledProps--font StyledProps--main StyledProps--padding-top-small StyledProps--padding-left-large"
