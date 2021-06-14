@@ -15,7 +15,7 @@ import {
 import cx from 'classnames'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
-import { debounce, noop, isEmpty, get, memoize } from 'lodash-es'
+import { debounce, noop, isEmpty, get, memoize, set } from 'lodash-es'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import { FormikErrors, yupToFormErrors } from 'formik'
@@ -239,8 +239,7 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                       setClusterOptions([])
                     }
 
-                    // NOTE: clear cluster on connector change
-                    // formik.setFieldValue('cluster', '')
+                    formik.setFieldValue('cluster', '')
                   }}
                   gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
                 />
@@ -259,6 +258,7 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                     showAdvanced={true}
                     onChange={value => {
                       formik.setFieldValue('connectorRef', value)
+                      formik.setFieldValue('cluster', '')
                     }}
                     isReadonly={readonly}
                   />
@@ -383,7 +383,8 @@ const GcpInfrastructureSpecInputForm: React.FC<GcpInfrastructureSpecEditableProp
   template,
   initialValues,
   readonly = false,
-  path
+  path,
+  onUpdate
 }) => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -421,6 +422,12 @@ const GcpInfrastructureSpecInputForm: React.FC<GcpInfrastructureSpecEditableProp
           connectorRef: initialValues.connectorRef
         }
       })
+
+      // reset cluster on connectorRef change
+      if (getMultiTypeFromValue(template?.cluster) === MultiTypeInputType.RUNTIME) {
+        set(initialValues, 'cluster', '')
+        onUpdate?.(initialValues)
+      }
     } else {
       setClusterOptions([])
     }
