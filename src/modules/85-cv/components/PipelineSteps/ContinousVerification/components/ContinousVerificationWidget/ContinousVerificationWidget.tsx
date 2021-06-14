@@ -10,7 +10,7 @@ import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineCon
 import { useStrings } from 'framework/strings'
 
 import { useCDNGVerificationJobs } from 'services/cv'
-import { IdentifierSchema } from '@common/utils/Validation'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import type { ContinousVerificationData } from '../../types'
 import type { ContinousVerificationWidgetProps, VerificationJob } from './types'
@@ -29,7 +29,7 @@ export function ContinousVerificationWidget(
   const values = { ...initialValues, spec: { ...initialValues.spec } }
   const { getString } = useStrings()
   const defaultCVSchema = Yup.object().shape({
-    name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
+    name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
     spec: Yup.object().shape({
       verificationJobRef: Yup.string().required(getString('connectors.cdng.validations.jobNameRequired')),
       spec: Yup.object().shape({

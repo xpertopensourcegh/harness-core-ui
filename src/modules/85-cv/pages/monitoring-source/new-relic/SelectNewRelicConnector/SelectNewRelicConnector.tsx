@@ -14,7 +14,7 @@ import type { StepLabelProps } from '@cv/components/CVSetupSourcesView/StepLabel
 import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import { buildConnectorRef } from '@cv/pages/onboarding/CVOnBoardingUtils'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { StringUtils } from '@common/exports'
+import { IdentifierSchemaWithoutHook } from '@common/utils/Validation'
 import { SelectMonitoringSourceProduct } from '@cv/components/CVSetupSourcesView/SelectMonitoringSourceProduct/SelectMonitoringSourceProduct'
 import { NewRelicProductNames } from '../NewRelicMonitoringSourceUtils'
 
@@ -43,16 +43,9 @@ const SelectMonitoringSourceStepProps: StepLabelProps = {
 function getValidationSchema(getString: UseStringsReturn['getString']): Record<string, any> {
   return Yup.object({
     monitoringSourceName: Yup.string().required(getString('cv.onboarding.selectProductScreen.validationText.name')),
-    identifier: Yup.string().when('name', {
-      is: val => val?.length,
-      then: Yup.string()
-        .trim()
-        .required(getString('cv.onboarding.selectProductScreen.validationText.identifier'))
-        .matches(
-          /^(?![0-9])[0-9a-zA-Z_$]*$/,
-          getString('cv.onboarding.selectProductScreen.validationText.validIdRegex')
-        )
-        .notOneOf(StringUtils.illegalIdentifiers)
+    identifier: IdentifierSchemaWithoutHook(getString, {
+      requiredErrorMsg: getString('cv.onboarding.selectProductScreen.validationText.identifier'),
+      regexErrorMsg: getString('cv.onboarding.selectProductScreen.validationText.validIdRegex')
     }),
     connectorRef: Yup.object().required(getString('cv.onboarding.selectProductScreen.validationText.connectorRef')),
     productName: Yup.string().required(getString('cv.onboarding.selectProductScreen.validationText.product'))

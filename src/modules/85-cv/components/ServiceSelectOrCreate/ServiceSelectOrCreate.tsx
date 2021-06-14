@@ -5,6 +5,7 @@ import { Dialog } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
 import { AddDescriptionAndTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useCreateService, ServiceResponseDTO, CreateServiceQueryParams } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
@@ -80,8 +81,8 @@ export const ServiceSelectOrCreate: React.FC<ServiceSelectOrCreateProps> = props
           tags: []
         }}
         validationSchema={Yup.object().shape({
-          name: Yup.string().required(),
-          identifier: Yup.string().required()
+          name: NameSchema(),
+          identifier: IdentifierSchema()
         })}
         onSubmit={onSubmit}
       >

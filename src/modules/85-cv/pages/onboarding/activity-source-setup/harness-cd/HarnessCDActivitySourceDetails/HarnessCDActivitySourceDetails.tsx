@@ -4,7 +4,7 @@ import * as Yup from 'yup'
 import { useHistory, useParams } from 'react-router-dom'
 import SyncStepDataValues from '@cv/utils/SyncStepDataValues'
 import routes from '@common/RouteDefinitions'
-import { StringUtils } from '@common/exports'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -28,15 +28,8 @@ const HarnessCDActivitySourceDetails: React.FC<HarnessCDActivitySourceDetailsPro
         initialValues={initialValues}
         formName="cdActivity"
         validationSchema={Yup.object().shape({
-          name: Yup.string().trim().required(getString('validation.nameRequired')),
-          identifier: Yup.string().when('name', {
-            is: val => val?.length,
-            then: Yup.string()
-              .trim()
-              .required(getString('validation.identifierRequired'))
-              .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
-              .notOneOf(StringUtils.illegalIdentifiers)
-          })
+          name: NameSchema(),
+          identifier: IdentifierSchema()
         })}
         onSubmit={values => {
           props.onSubmit?.(values)

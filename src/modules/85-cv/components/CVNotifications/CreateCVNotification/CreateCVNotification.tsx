@@ -14,10 +14,8 @@ import {
 import * as Yup from 'yup'
 import { pick } from 'lodash-es'
 import { useStrings } from 'framework/strings'
-
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import ConditionsForm from '@cv/components/CVNotifications/NotificationConditions/ConditionsForm'
-
-import { StringUtils } from '@common/exports'
 
 import { NotificationTypeSelectOptions } from '@notifications/constants'
 import { NotificationType } from '@notifications/interfaces/Notifications'
@@ -62,15 +60,8 @@ const NotificationDetails: React.FC<StepProps<any> & NotificationDetailsProps> =
         }}
         formName="createCvNotification"
         validationSchema={Yup.object().shape({
-          name: Yup.string().trim().required(getString('validation.nameRequired')),
-          identifier: Yup.string().when('name', {
-            is: val => val?.length,
-            then: Yup.string()
-              .trim()
-              .required(getString('validation.identifierRequired'))
-              .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
-              .notOneOf(StringUtils.illegalIdentifiers)
-          }),
+          name: NameSchema(),
+          identifier: IdentifierSchema(),
           notificationSettingType: Yup.string().required(getString('cv.admin.notifications.create.validation.type'))
         })}
       >

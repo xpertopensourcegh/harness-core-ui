@@ -2,10 +2,10 @@ import React from 'react'
 import { Layout, Container, FormikForm, Formik, FormInput, SelectOption } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useParams, useHistory } from 'react-router-dom'
-import { StringUtils } from '@common/exports'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
+import { IdentifierSchemaWithoutHook, NameSchemaWithoutHook } from '@common/utils/Validation'
 import {
   SelectOrCreateConnector,
   SelectOrCreateConnectorProps
@@ -55,17 +55,12 @@ export function getValidationSchema(
   productSelectValidationText?: string
 ): Record<string, any> {
   return {
-    name: Yup.string().trim().required(getString('cv.onboarding.selectProductScreen.validationText.name')),
-    identifier: Yup.string().when('name', {
-      is: val => val?.length,
-      then: Yup.string()
-        .trim()
-        .required(getString('cv.onboarding.selectProductScreen.validationText.identifier'))
-        .matches(
-          /^(?![0-9])[0-9a-zA-Z_$]*$/,
-          getString('cv.onboarding.selectProductScreen.validationText.validIdRegex')
-        )
-        .notOneOf(StringUtils.illegalIdentifiers)
+    name: NameSchemaWithoutHook(getString, {
+      requiredErrorMsg: getString('cv.onboarding.selectProductScreen.validationText.name')
+    }),
+    identifier: IdentifierSchemaWithoutHook(getString, {
+      requiredErrorMsg: getString('cv.onboarding.selectProductScreen.validationText.identifier'),
+      regexErrorMsg: getString('cv.onboarding.selectProductScreen.validationText.validIdRegex')
     }),
     connectorRef: Yup.object().required(getString('cv.onboarding.selectProductScreen.validationText.connectorRef')),
     product: Yup.string().required(

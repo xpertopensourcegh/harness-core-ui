@@ -173,7 +173,7 @@ describe('VerificationJobsDetails', () => {
     }
 
     fireEvent.click(submitButton)
-    await waitFor(() => getByText('validation.nameRequired'))
+    await waitFor(() => getByText('common.validation.nameIsRequired'))
     getByText('cv.verificationJobs.validation.dataSource')
     getByText('cv.verificationJobs.validation.type')
   })

@@ -6,6 +6,7 @@ import { Dialog } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { AddDescriptionAndTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 import { EnvironmentResponseDTO, useCreateEnvironment, CreateEnvironmentQueryParams } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
@@ -90,8 +91,8 @@ export function EnvironmentSelect({
           environmentType: EnvironmentTypes[0].value
         }}
         validationSchema={Yup.object().shape({
-          name: Yup.string().required(),
-          identifier: Yup.string().required()
+          name: NameSchema(),
+          identifier: IdentifierSchema()
         })}
         onSubmit={onSubmit}
       >

@@ -4,7 +4,6 @@ import * as Yup from 'yup'
 import { useParams, useHistory } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { AddDescriptionAndTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
-import { StringUtils } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import routes from '@common/RouteDefinitions'
@@ -15,6 +14,7 @@ import {
   DataSources,
   iconNameToActivityType
 } from '@cv/pages/verification-jobs/VerificationJobForms/VerificationJobFields'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 interface VerificationJobsDetailsProps {
   stepData: any
   onNext: (data: any) => void
@@ -30,15 +30,8 @@ const VerificationJobsDetails: React.FC<VerificationJobsDetailsProps> = props =>
         initialValues={{ ...props.stepData }}
         formName="verifyJobDetails"
         validationSchema={Yup.object().shape({
-          name: Yup.string().trim().required(getString('validation.nameRequired')),
-          identifier: Yup.string().when('name', {
-            is: val => val?.length,
-            then: Yup.string()
-              .trim()
-              .required(getString('validation.identifierRequired'))
-              .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
-              .notOneOf(StringUtils.illegalIdentifiers)
-          }),
+          name: NameSchema(),
+          identifier: IdentifierSchema(),
           type: Yup.string().required(getString('cv.verificationJobs.validation.type')),
           dataSource: Yup.string().nullable().required(getString('cv.verificationJobs.validation.dataSource')),
           activitySource: Yup.string().nullable().required(getString('cv.verificationJobs.validation.changeSource'))
