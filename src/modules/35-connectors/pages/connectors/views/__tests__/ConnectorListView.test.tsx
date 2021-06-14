@@ -76,8 +76,7 @@ jest.mock('services/cd-ng', () => ({
   useGetTestConnectionResult: jest.fn()
 }))
 
-// eslint-disable-next-line jest/no-disabled-tests
-describe.skip('Connectors List Test', () => {
+describe('Connectors List Test', () => {
   const props = {
     data: connectorsData.data as any,
     reload: jest.fn(),
@@ -129,7 +128,7 @@ describe.skip('Connectors List Test', () => {
     expect(getByText('connectors.testInProgress')).toBeDefined()
 
     await waitFor(() => expect(getAllByText('TEST')[0]).not.toBeNull())
-    await waitFor(() => expect(getAllByText('error')[0]).not.toBeNull())
+    await waitFor(() => expect(getAllByText('failed')[0]).not.toBeNull())
 
     expect(container).toMatchSnapshot()
   })
@@ -150,7 +149,7 @@ describe.skip('Connectors List Test', () => {
     expect(getByText('connectors.testInProgress')).toBeDefined()
     await waitFor(() => expect(getAllByText('TEST')[0]).not.toBeNull())
 
-    await waitFor(() => expect(getAllByText('active')[0]).not.toBeNull())
+    await waitFor(() => expect(getAllByText('success')[0]).not.toBeNull())
 
     expect(container).toMatchSnapshot()
   })

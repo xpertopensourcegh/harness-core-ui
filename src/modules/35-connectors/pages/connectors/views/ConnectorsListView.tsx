@@ -378,7 +378,7 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
                 }
                 tooltipProps={{ isDark: true, position: 'bottom', popoverClassName: css.tooltip }}
               >
-                {isStatusSuccess ? getString('active').toLowerCase() : getString('error').toLowerCase()}
+                {isStatusSuccess ? getString('success').toLowerCase() : getString('failed').toLowerCase()}
               </Text>
             ) : null}
           </Layout.Horizontal>
