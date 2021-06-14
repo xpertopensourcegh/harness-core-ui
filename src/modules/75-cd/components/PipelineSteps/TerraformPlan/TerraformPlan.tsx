@@ -108,12 +108,12 @@ function TerraformPlanWidget(
       validationSchema={Yup.object().shape({
         name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
-
         identifier: IdentifierSchema(),
         spec: Yup.object().shape({
           provisionerIdentifier: Yup.string().required(getString('pipelineSteps.provisionerIdentifierRequired')),
           configuration: Yup.object().shape({
-            command: Yup.string().required(getString('pipelineSteps.commandRequired'))
+            command: Yup.string().required(getString('pipelineSteps.commandRequired')),
+            secretManagerRef: Yup.string().required(getString('cd.secretManagerRequired'))
           })
         })
       })}
@@ -367,6 +367,15 @@ function TerraformPlanWidget(
               >
                 <ConfigForm
                   onClick={data => {
+                    const configObject = {
+                      ...data.spec?.configuration?.configFiles
+                    }
+
+                    if (configObject?.store.spec.gitFetchType === 'Branch') {
+                      delete configObject.store.spec.commitId
+                    } else if (configObject?.store.spec.gitFetchType === 'Commit') {
+                      delete configObject.store.spec.branch
+                    }
                     const valObj = {
                       ...formik.values,
                       spec: {
@@ -374,7 +383,7 @@ function TerraformPlanWidget(
                         configuration: {
                           ...formik.values?.spec?.configuration,
 
-                          configFiles: data.spec?.configuration?.configFiles
+                          configFiles: { ...configObject }
                         }
                       }
                     }

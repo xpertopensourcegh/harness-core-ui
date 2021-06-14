@@ -1530,6 +1530,7 @@ export interface StringsMap {
   'cd.pathCannotBeEmpty': string
   'cd.releaseNameValidation': string
   'cd.scriptRequired': string
+  'cd.secretManagerRequired': string
   'cd.setUpProvisionerBtnText': string
   'cd.specifyTfVarStore': string
   'cd.stepName': string
