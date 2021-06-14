@@ -11,7 +11,7 @@ import { PageBody } from '@common/components/Page/PageBody'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import { Connector, EntityGitDetails, useCreateConnector, useGetYamlSchema } from 'services/cd-ng'
-import { useToaster, useConfirmationDialog, StringUtils } from '@common/exports'
+import { useToaster, useConfirmationDialog } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { NameIdDescriptionTags, PageSpinner } from '@common/components'
 import { useStrings } from 'framework/strings'
@@ -20,11 +20,11 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import GitContextForm from '@common/components/GitContextForm/GitContextForm'
 import { useSaveToGitDialog, UseSaveSuccessResponse } from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
-import { sanitize } from '@common/utils/JSONUtils'
 import type { SaveToGitFormInterface, GitResourceInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import { Entities } from '@common/interfaces/GitSyncInterface'
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { shouldShowError } from '@common/utils/errorUtils'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import css from './CreateConnectorFromYamlPage.module.scss'
 
 const CreateConnectorFromYamlPage: React.FC = () => {
@@ -129,18 +129,21 @@ const CreateConnectorFromYamlPage: React.FC = () => {
           <Container padding="xsmall" className={css.layout}>
             <div>
               <Formik
-                initialValues={{ identifier: '', name: '', description: '', tags: {}, repo: '', branch: '' }}
+                initialValues={{
+                  identifier: '',
+                  name: '',
+                  description: '',
+                  tags: {},
+                  repo: '',
+                  branch: ''
+                }}
                 validationSchema={Yup.object().shape({
-                  name: Yup.string().trim().required(getString('validation.connectorName')),
-                  identifier: Yup.string().when('name', {
-                    is: val => val?.length,
-                    then: Yup.string()
-                      .trim()
-                      .required(getString('validation.identifierRequired'))
-                      .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
-                      .notOneOf(StringUtils.illegalIdentifiers)
-                  })
+                  name: NameSchema({ requiredErrorMsg: getString('validation.connectorName') }),
+                  identifier: IdentifierSchema(),
+                  repo: Yup.string().trim().required(getString('common.git.validation.repoRequired')),
+                  branch: Yup.string().trim().required(getString('common.git.validation.branchRequired'))
                 })}
+                enableReinitialize={true}
                 onSubmit={values => {
                   setRegisteredWithGit(true)
                   setGitResourceDetails(prevState => ({
@@ -150,7 +153,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
                   }))
                   try {
                     setEditorContent({
-                      connector: sanitize({ ...omit(values, 'repo', 'branch'), projectIdentifier, orgIdentifier })
+                      connector: { ...omit(values, 'repo', 'branch'), projectIdentifier, orgIdentifier }
                     })
                     setHasConnectorChanged(true)
                     hideModal()
@@ -235,6 +238,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
             onChange={onConnectorChange}
             showSnippetSection={false}
             isReadOnlyMode={creating}
+            yamlSanityConfig={{ removeEmptyString: false }}
           />
           <Layout.Horizontal spacing="small">
             <Button

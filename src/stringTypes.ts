@@ -122,8 +122,10 @@ export interface StringsMap {
   'common.git.selectRepoLabel': string
   'common.git.startPRLabel': string
   'common.git.urlType': string
+  'common.git.validation.branchRequired': string
   'common.git.validation.commitMessage': string
   'common.git.validation.filePath': string
+  'common.git.validation.repoRequired': string
   'common.git.validation.sameBranches': string
   'common.gitSync.allRepositories': string
   'common.gitSync.commitDetailsLabel': string
@@ -1073,7 +1075,6 @@ export interface StringsMap {
   'pipeline.barriers.tooltips.barrierWaiting': string
   'pipeline.barriers.tooltips.timeout': string
   'pipeline.barriers.validation.barrierNamerequired': string
-  'pipeline.branchRequired': string
   'pipeline.clickHere': string
   'pipeline.closeStepConfig': string
   'pipeline.collapseIsDisabledWhileStageIsRunning': string
@@ -1316,7 +1317,6 @@ export interface StringsMap {
   'pipeline.optionalLabel': string
   'pipeline.progressPercentage': string
   'pipeline.provisionerSteps': string
-  'pipeline.repoRequired': string
   'pipeline.resourceConstraints.currentlyExecuting': string
   'pipeline.resourceConstraints.infoText': string
   'pipeline.resourceConstraints.title': string
@@ -7442,10 +7442,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'validation.renewalNumber': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'validation.repoRequired': string
   /**
    * @deprecated migrate this string to module level file
    */

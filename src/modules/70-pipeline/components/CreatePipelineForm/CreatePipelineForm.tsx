@@ -39,8 +39,8 @@ export const CreatePipelineForm: React.FC<CreatePipelineFormProps> = props => {
         identifier: IdentifierSchema(),
         ...(isGitSyncEnabled
           ? {
-              repo: Yup.string().trim().required(getString('pipeline.repoRequired')),
-              branch: Yup.string().trim().required(getString('pipeline.branchRequired'))
+              repo: Yup.string().trim().required(getString('common.git.validation.repoRequired')),
+              branch: Yup.string().trim().required(getString('common.git.validation.branchRequired'))
             }
           : {})
       })}

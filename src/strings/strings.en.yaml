@@ -1270,7 +1270,6 @@ validation:
   regionRequired: Region is a required field
   dockerRegistryRequired: Docker Registry is a required field
   accountRequired: Account ID is a required field
-  repoRequired: Repository is a required field
   bucketRequired: Bucket is a required field
   sourcePathRequired: Source Path is a required field
   targetRequired: Target is a required field
