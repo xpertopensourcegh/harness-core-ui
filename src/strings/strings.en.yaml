@@ -966,7 +966,7 @@ pipelineSteps:
       manifestFormat: MANIFEST FORMAT
       manifestType: MANIFEST TYPE
       manifestStore: STORE
-      addManifest: + Add Manifest/Config File
+      addManifest: + Add Manifest
   destroy: 'Destroy'
   configTypes:
     fromPlan: 'Inherit From Plan'
