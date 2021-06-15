@@ -22,6 +22,7 @@ export default function ExecutionInputsView(props: ExecutionInputsViewInterface)
     planExecutionId: executionIdentifier,
     queryParams: {
       orgIdentifier,
+      resolveExpressions: true,
       projectIdentifier,
       accountIdentifier: accountId
     },

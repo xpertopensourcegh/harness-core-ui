@@ -135,7 +135,7 @@ export type AuditFilterProperties = FilterProperties & {
   )[]
   endTime?: number
   environments?: Environment[]
-  modules?: ('CD' | 'CI' | 'CORE' | 'CV' | 'CF' | 'CE')[]
+  modules?: ('CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS')[]
   principals?: Principal[]
   resources?: ResourceDTO[]
   scopes?: ResourceScopeDTO[]
@@ -730,6 +730,8 @@ export interface Error {
     | 'IMAGE_TAG_NOT_FOUND'
     | 'DELEGATE_NOT_AVAILABLE'
     | 'INVALID_YAML_PAYLOAD'
+    | 'AUTHENTICATION_ERROR'
+    | 'AUTHORIZATION_ERROR'
     | 'UNRECOGNIZED_YAML_FIELDS'
     | 'COULD_NOT_MAP_BEFORE_YAML'
     | 'MISSING_BEFORE_YAML'
@@ -1270,6 +1272,8 @@ export interface Failure {
     | 'IMAGE_TAG_NOT_FOUND'
     | 'DELEGATE_NOT_AVAILABLE'
     | 'INVALID_YAML_PAYLOAD'
+    | 'AUTHENTICATION_ERROR'
+    | 'AUTHORIZATION_ERROR'
     | 'UNRECOGNIZED_YAML_FIELDS'
     | 'COULD_NOT_MAP_BEFORE_YAML'
     | 'MISSING_BEFORE_YAML'
@@ -3601,6 +3605,8 @@ export interface ResponseMessage {
     | 'IMAGE_TAG_NOT_FOUND'
     | 'DELEGATE_NOT_AVAILABLE'
     | 'INVALID_YAML_PAYLOAD'
+    | 'AUTHENTICATION_ERROR'
+    | 'AUTHORIZATION_ERROR'
     | 'UNRECOGNIZED_YAML_FIELDS'
     | 'COULD_NOT_MAP_BEFORE_YAML'
     | 'MISSING_BEFORE_YAML'
@@ -7164,6 +7170,7 @@ export interface GetInputsetYamlQueryParams {
   accountIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
+  resolveExpressions?: boolean
 }
 
 export interface GetInputsetYamlPathParams {
@@ -7723,6 +7730,7 @@ export interface GetYamlSchemaQueryParams {
     | 'DeploymentSteps'
     | 'DeploymentStage'
     | 'ApprovalStage'
+    | 'FeatureFlagStage'
     | 'Triggers'
   projectIdentifier?: string
   orgIdentifier?: string
@@ -9167,6 +9175,7 @@ export interface GetSchemaYamlQueryParams {
     | 'DeploymentSteps'
     | 'DeploymentStage'
     | 'ApprovalStage'
+    | 'FeatureFlagStage'
     | 'Triggers'
   projectIdentifier?: string
   orgIdentifier?: string
