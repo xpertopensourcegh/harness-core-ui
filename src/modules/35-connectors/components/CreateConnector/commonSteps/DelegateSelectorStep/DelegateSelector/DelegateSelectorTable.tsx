@@ -63,11 +63,12 @@ const RenderDelegateName: Renderer<CellProps<DelegateGroupDetailsCustom>> = ({ r
 
 const RenderHeartbeat: Renderer<CellProps<DelegateGroupDetailsCustom>> = ({ row }) => {
   const { activelyConnected, lastHeartBeat } = row.original
+  const { getString } = useStrings()
   const color: Color = activelyConnected ? Color.GREEN_600 : Color.GREY_400
   return (
     <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
-      <Icon name="full-circle" size={10} color={color} margin={{ right: lastHeartBeat ? 'small' : 0 }} />
-      {lastHeartBeat && <ReactTimeago date={lastHeartBeat} live />}
+      <Icon name="full-circle" size={10} color={color} margin={{ right: 'small' }} />
+      {lastHeartBeat ? <ReactTimeago date={lastHeartBeat} live /> : <Text>{getString('delegate.notConnected')}</Text>}
     </Layout.Horizontal>
   )
 }

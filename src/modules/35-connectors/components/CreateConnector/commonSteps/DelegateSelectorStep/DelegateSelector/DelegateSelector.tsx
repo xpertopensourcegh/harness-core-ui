@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Button, Color, Container, Layout, Text } from '@wings-software/uicore'
+import { Color, Container, Layout, Text } from '@wings-software/uicore'
 import { IOptionProps, Radio } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import { DelegateSelectors } from '@common/components'
@@ -12,6 +12,9 @@ import {
   DelegateSelectorTable,
   DelegateSelectorTableProps
 } from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelectorTable'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import RbacButton from '@rbac/components/Button/Button'
 import css from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector.module.scss'
 
 export enum DelegateOptions {
@@ -213,6 +216,19 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
     refetch,
     showMatchesSelectorColumn: mode === DelegateOptions.DelegateOptionsSelective
   }
+
+  const permissionRequestNewDelegate = {
+    resourceScope: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier
+    },
+    permission: PermissionIdentifier.UPDATE_DELEGATE,
+    resource: {
+      resourceType: ResourceType.DELEGATE
+    }
+  }
+
   return (
     <Layout.Vertical className={css.delegateSelectorContainer}>
       <Text color={Color.GREY_800} margin={{ top: 'xlarge', bottom: 'medium' }}>
@@ -225,16 +241,17 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
           {getString('connectors.delegate.testDelegateConnectivity')}
         </Text>
         {CDNG_ENABLED && NG_SHOW_DELEGATE ? (
-          <Button
+          <RbacButton
             icon="plus"
             withoutBoxShadow
             font={{ weight: 'semi-bold' }}
             iconProps={{ margin: { right: 'xsmall' } }}
+            permission={permissionRequestNewDelegate}
             onClick={() => openDelegateModal()}
             data-name="installNewDelegateButton"
           >
             {getString('connectors.testConnectionStep.installNewDelegate')}
-          </Button>
+          </RbacButton>
         ) : (
           <></>
         )}
