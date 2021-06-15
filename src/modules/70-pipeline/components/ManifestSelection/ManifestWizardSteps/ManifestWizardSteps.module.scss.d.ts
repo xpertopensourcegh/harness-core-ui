@@ -2,6 +2,7 @@
 // this is an auto-generated file
 declare const styles: {
   readonly optionsViewContainer: string
+  readonly halfWidth: string
   readonly manifestStore: string
   readonly formContainerStepOne: string
   readonly manifestDetailsForm: string
@@ -28,6 +29,7 @@ declare const styles: {
   readonly disabled: string
   readonly manifestIcon: string
   readonly advancedStepOpen: string
+  readonly runtimeInput: string
   readonly checkbox: string
   readonly tooltip: string
   readonly tooltipContent: string

@@ -270,11 +270,13 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
           return (
             <Form>
               <div className={css.manifestDetailsForm}>
-                <FormInput.Text
-                  name="identifier"
-                  label={getString('pipeline.manifestType.manifestIdentifier')}
-                  placeholder={getString('pipeline.manifestType.manifestPlaceholder')}
-                />
+                <div className={css.halfWidth}>
+                  <FormInput.Text
+                    name="identifier"
+                    label={getString('pipeline.manifestType.manifestIdentifier')}
+                    placeholder={getString('pipeline.manifestType.manifestPlaceholder')}
+                  />
+                </div>
 
                 {!!(connectionType === GitRepoName.Account && accountUrl) && (
                   <div className={css.repoName}>
@@ -309,61 +311,74 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                     )}
                   </div>
                 )}
-                <FormInput.Select
-                  name="gitFetchType"
-                  label={getString('pipeline.manifestType.gitFetchTypeLabel')}
-                  items={gitFetchTypeList}
-                />
-
-                {formik.values?.gitFetchType === GitFetchTypes.Branch && (
-                  <div className={cx(stepCss.formGroup)}>
-                    <FormInput.MultiTextInput
-                      multiTextInputProps={{ expressions }}
-                      label={getString('pipelineSteps.deploy.inputSet.branch')}
-                      placeholder={getString('pipeline.manifestType.branchPlaceholder')}
-                      name="branch"
-                      style={{ width: 370 }}
+                <Layout.Horizontal flex spacing="huge" margin={{ top: 'small', bottom: 'small' }}>
+                  <div className={css.halfWidth}>
+                    <FormInput.Select
+                      name="gitFetchType"
+                      label={getString('pipeline.manifestType.gitFetchTypeLabel')}
+                      items={gitFetchTypeList}
                     />
-
-                    {getMultiTypeFromValue(formik.values?.branch) === MultiTypeInputType.RUNTIME && (
-                      <ConfigureOptions
-                        value={formik.values?.branch as string}
-                        type="String"
-                        variableName="branch"
-                        showRequiredField={false}
-                        showDefaultField={false}
-                        showAdvanced={true}
-                        onChange={value => formik.setFieldValue('branch', value)}
-                        isReadonly={isReadonly}
-                      />
-                    )}
                   </div>
-                )}
 
-                {formik.values?.gitFetchType === GitFetchTypes.Commit && (
-                  <div className={cx(stepCss.formGroup)}>
-                    <FormInput.MultiTextInput
-                      multiTextInputProps={{ expressions }}
-                      label={getString('pipeline.manifestType.commitId')}
-                      placeholder={getString('pipeline.manifestType.commitPlaceholder')}
-                      name="commitId"
-                      style={{ width: 370 }}
-                    />
-
-                    {getMultiTypeFromValue(formik.values?.commitId) === MultiTypeInputType.RUNTIME && (
-                      <ConfigureOptions
-                        value={formik.values?.commitId as string}
-                        type="String"
-                        variableName="commitId"
-                        showRequiredField={false}
-                        showDefaultField={false}
-                        showAdvanced={true}
-                        onChange={value => formik.setFieldValue('commitId', value)}
-                        isReadonly={isReadonly}
+                  {formik.values?.gitFetchType === GitFetchTypes.Branch && (
+                    <div
+                      className={cx(css.halfWidth, {
+                        [css.runtimeInput]: getMultiTypeFromValue(formik.values?.branch) === MultiTypeInputType.RUNTIME
+                      })}
+                    >
+                      <FormInput.MultiTextInput
+                        multiTextInputProps={{ expressions }}
+                        label={getString('pipelineSteps.deploy.inputSet.branch')}
+                        placeholder={getString('pipeline.manifestType.branchPlaceholder')}
+                        name="branch"
                       />
-                    )}
-                  </div>
-                )}
+
+                      {getMultiTypeFromValue(formik.values?.branch) === MultiTypeInputType.RUNTIME && (
+                        <ConfigureOptions
+                          style={{ alignSelf: 'center' }}
+                          value={formik.values?.branch as string}
+                          type="String"
+                          variableName="branch"
+                          showRequiredField={false}
+                          showDefaultField={false}
+                          showAdvanced={true}
+                          onChange={value => formik.setFieldValue('branch', value)}
+                          isReadonly={isReadonly}
+                        />
+                      )}
+                    </div>
+                  )}
+
+                  {formik.values?.gitFetchType === GitFetchTypes.Commit && (
+                    <div
+                      className={cx(css.halfWidth, {
+                        [css.runtimeInput]:
+                          getMultiTypeFromValue(formik.values?.commitId) === MultiTypeInputType.RUNTIME
+                      })}
+                    >
+                      <FormInput.MultiTextInput
+                        multiTextInputProps={{ expressions }}
+                        label={getString('pipeline.manifestType.commitId')}
+                        placeholder={getString('pipeline.manifestType.commitPlaceholder')}
+                        name="commitId"
+                      />
+
+                      {getMultiTypeFromValue(formik.values?.commitId) === MultiTypeInputType.RUNTIME && (
+                        <ConfigureOptions
+                          style={{ alignSelf: 'center' }}
+                          value={formik.values?.commitId as string}
+                          type="String"
+                          variableName="commitId"
+                          showRequiredField={false}
+                          showDefaultField={false}
+                          showAdvanced={true}
+                          onChange={value => formik.setFieldValue('commitId', value)}
+                          isReadonly={isReadonly}
+                        />
+                      )}
+                    </div>
+                  )}
+                </Layout.Horizontal>
                 <div className={cx(stepCss.formGroup)}>
                   <MultiTypeFieldSelector
                     defaultValueToReset={defaultValueToReset}

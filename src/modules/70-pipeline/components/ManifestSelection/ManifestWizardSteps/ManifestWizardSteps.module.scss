@@ -4,6 +4,11 @@
   margin-left: 20px !important;
   margin-top: 10px !important;
 }
+
+.halfWidth {
+  width: 45%;
+}
+
 .manifestStore {
   padding: var(--spacing-small) 0 0 var(--spacing-small) !important;
   height: 100%;
@@ -22,7 +27,6 @@
   .manifestDetailsForm {
     height: 100%;
     min-height: 400px;
-    width: 50%;
   }
   .connectorContainer {
     display: grid;
@@ -141,6 +145,11 @@
 .advancedStepOpen {
   min-height: 100px;
   margin-top: var(--spacing-medium);
+}
+
+.runtimeInput {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
 }
 
 .checkbox {
