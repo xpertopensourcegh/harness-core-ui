@@ -10,19 +10,18 @@ import {
   ModalErrorHandlerBinding,
   Text,
   MultiSelectOption,
-  FormInput,
-  Avatar
+  FormInput
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
 import { pick } from 'lodash-es'
-import { Menu } from '@blueprintjs/core'
 import { NameIdDescriptionTags, useToaster } from '@common/components'
 import { useStrings } from 'framework/strings'
 import { UserGroupDTO, usePostUserGroup, usePutUserGroup, useGetUsers } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useMutateAsGet } from '@common/hooks'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
+import { UserItem, UserItemRenderer, UserTagRenderer } from '@rbac/utils/utils'
 import css from '@rbac/modals/UserGroupModal/useUserGroupModal.module.scss'
 
 interface UserGroupModalData {
@@ -74,11 +73,12 @@ const UserGroupForm: React.FC<UserGroupModalData> = props => {
     return getString('rbac.userGroupPage.newUserGroup')
   }
 
-  const users: MultiSelectOption[] =
+  const users: UserItem[] =
     userList?.data?.content?.map(value => {
       return {
         label: value.name || '',
-        value: value.uuid
+        value: value.uuid,
+        email: value.email
       }
     }) || []
 
@@ -165,27 +165,8 @@ const UserGroupForm: React.FC<UserGroupModalData> = props => {
                         onQueryChange: (query: string) => {
                           setSearch(query)
                         },
-                        // eslint-disable-next-line react/display-name
-                        tagRenderer: item => (
-                          <Layout.Horizontal key={item.label.toString()} spacing="small">
-                            <Avatar name={item.label} size="xsmall" hoverCard={false} />
-                            <Text>{item.label}</Text>
-                          </Layout.Horizontal>
-                        ),
-                        // eslint-disable-next-line react/display-name
-                        itemRender: (item, { handleClick }) => (
-                          <div key={item.label.toString()}>
-                            <Menu.Item
-                              text={
-                                <Layout.Horizontal spacing="small">
-                                  <Avatar name={item.label} size="small" hoverCard={false} />
-                                  <Text>{item.label}</Text>
-                                </Layout.Horizontal>
-                              }
-                              onClick={handleClick}
-                            />
-                          </div>
-                        )
+                        tagRenderer: UserTagRenderer,
+                        itemRender: UserItemRenderer
                       }}
                     />
                   )}

@@ -25,6 +25,7 @@ import {
 } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { EmailSchema } from '@common/utils/Validation'
+import { UserItemRenderer } from '@rbac/utils/utils'
 import RoleAssignmentForm, { InviteType } from './RoleAssignmentForm'
 
 interface UserRoleAssignmentData {
@@ -210,7 +211,8 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
                     allowCreatingNewItems: true,
                     onQueryChange: val => {
                       setQuery(val)
-                    }
+                    },
+                    itemRenderer: UserItemRenderer
                   }}
                   disabled={!isInvite}
                 />

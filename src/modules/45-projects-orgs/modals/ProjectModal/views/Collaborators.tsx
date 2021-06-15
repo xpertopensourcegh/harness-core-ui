@@ -41,6 +41,7 @@ import { InviteType } from '@rbac/modals/RoleAssignmentModal/views/RoleAssignmen
 import { useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { UserItemRenderer } from '@rbac/utils/utils'
 import InviteListRenderer from './InviteListRenderer'
 import css from './Steps.module.scss'
 
@@ -275,27 +276,14 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
                     },
                     // eslint-disable-next-line react/display-name
                     tagRenderer: item => (
-                      <Layout.Horizontal key={item.label.toString()} spacing="small">
+                      <Layout.Horizontal key={item.label.toString()} flex spacing="small">
                         <Avatar email={item.value.toString()} size="xsmall" hoverCard={false} />
                         <Text color={isEmail(item.value.toString().toLowerCase()) ? Color.BLACK : Color.RED_500}>
                           {item.label}
                         </Text>
                       </Layout.Horizontal>
                     ),
-                    // eslint-disable-next-line react/display-name
-                    itemRender: (item, { handleClick }) => (
-                      <div key={item.label.toString()}>
-                        <Menu.Item
-                          text={
-                            <Layout.Horizontal spacing="small" className={css.align}>
-                              <Avatar email={item.value.toString()} size="small" hoverCard={false} />
-                              <Text>{item.label}</Text>
-                            </Layout.Horizontal>
-                          }
-                          onClick={handleClick}
-                        />
-                      </div>
-                    )
+                    itemRender: UserItemRenderer
                   }}
                   className={css.input}
                 />
