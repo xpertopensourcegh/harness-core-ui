@@ -239,6 +239,8 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
                     <DelegateSelectors
                       fill
                       allowNewTag={false}
+                      orgIdentifier={orgIdentifier}
+                      projectIdentifier={projectIdentifier}
                       placeholder={getString('delegate.DelegateselectionPlaceholder')}
                       selectedItems={formik.values.delegate}
                       onChange={tags => {

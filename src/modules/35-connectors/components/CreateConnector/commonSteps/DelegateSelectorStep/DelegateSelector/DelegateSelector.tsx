@@ -5,7 +5,7 @@ import { IOptionProps, Radio } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import { DelegateSelectors } from '@common/components'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import useCreateDelegateModal from '@delegates/modals/DelegateModal/useCreateDelegateModal'
 import { DelegateGroupDetails, useGetDelegatesUpTheHierarchy } from 'services/portal'
 import {
@@ -21,7 +21,7 @@ export enum DelegateOptions {
   DelegateOptionsAny = 'DelegateOptions.DelegateOptionsAny',
   DelegateOptionsSelective = 'DelegateOptions.DelegateOptionsSelective'
 }
-export interface DelegateSelectorProps {
+export interface DelegateSelectorProps extends ProjectPathProps {
   mode: DelegateOptions
   setMode: (mode: DelegateOptions) => void
   delegateSelectors: Array<string>
@@ -95,7 +95,11 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
   } = props
   const [formattedData, setFormattedData] = useState<DelegateGroupDetailsCustom[]>([])
   const { getString } = useStrings()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { accountId } = useParams<AccountPathProps>()
+  const { orgIdentifier, projectIdentifier } = props
+
+  const scope = { projectIdentifier, orgIdentifier }
+
   const { data, loading, error, refetch } = useGetDelegatesUpTheHierarchy({
     queryParams: {
       accountId,
@@ -176,6 +180,7 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
           setDelegateSelectors(selectors as Array<string>)
           setMode(DelegateOptions.DelegateOptionsSelective)
         }}
+        {...scope}
       ></DelegateSelectors>
     ),
     // eslint-disable-next-line react-hooks/exhaustive-deps

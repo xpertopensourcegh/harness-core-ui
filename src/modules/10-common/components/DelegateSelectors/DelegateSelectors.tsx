@@ -5,7 +5,7 @@ import { useToaster } from '@common/exports'
 import { useStrings } from 'framework/strings'
 import { useGetDelegateSelectorsUpTheHierarchy } from 'services/portal'
 
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './DelegateSelectors.module.scss'
 
 const isValidExpression = (tag: string, showError: any, errorMsg: string) => {
@@ -29,9 +29,11 @@ interface DelegateSelectorsProps {
 }
 
 export const DelegateSelectors = (
-  props: Partial<React.ComponentProps<typeof SimpleTagInput> & DelegateSelectorsProps>
+  props: Partial<React.ComponentProps<typeof SimpleTagInput> & DelegateSelectorsProps & ProjectPathProps>
 ): JSX.Element => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
+  const { accountId } = useParams<AccountPathProps>()
+  const { orgIdentifier, projectIdentifier } = props
+
   const { getString } = useStrings()
   const { showError } = useToaster()
 
