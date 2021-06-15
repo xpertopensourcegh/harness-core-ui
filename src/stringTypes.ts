@@ -1045,6 +1045,8 @@ export interface StringsMap {
   'projectsOrgs.viewProjects': string
   'projectsOrgs.welcome': string
   'projectsOrgs.welcomeSecondLine': string
+  'pipeline.addStage.description': string
+  'pipeline.addStage.title': string
   'pipeline.and': string
   'pipeline.approvalStep.addUserGroups': string
   'pipeline.approvalStep.approverInputs': string
@@ -5526,10 +5528,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.deploy.serviceSpecifications.propagate': string
   /**
    * @deprecated migrate this string to module level file
    */

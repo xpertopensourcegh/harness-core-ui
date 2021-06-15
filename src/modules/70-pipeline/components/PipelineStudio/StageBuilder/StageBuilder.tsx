@@ -16,6 +16,7 @@ import HoverCard from '@pipeline/components/HoverCard/HoverCard'
 import { Modes } from '@pipeline/components/PipelineSteps/AdvancedSteps/common'
 import { PipelineOrStageStatus } from '@pipeline/components/PipelineSteps/AdvancedSteps/ConditionalExecutionPanel/ConditionalExecutionPanelUtils'
 import ConditionalExecutionTooltip from '@pipeline/pages/execution/ExecutionPipelineView/ExecutionGraphView/common/components/ConditionalExecutionToolTip/ConditionalExecutionTooltip'
+import { useGlobalEventListener } from '@common/hooks'
 import {
   CanvasWidget,
   createEngine,
@@ -45,6 +46,11 @@ import css from './StageBuilder.module.scss'
 
 export type StageStateMap = Map<string, StageState>
 
+declare global {
+  interface WindowEventMap {
+    CLOSE_CREATE_STAGE_POPOVER: CustomEvent<string>
+  }
+}
 const initializeStageStateMap = (pipeline: NgPipeline, mapState: StageStateMap): void => {
   /* istanbul ignore else */ if (pipeline?.stages) {
     pipeline.stages.forEach?.((node: StageElementWrapper) => {
@@ -156,6 +162,9 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
   const [dynamicPopoverHandler, setDynamicPopoverHandler] = React.useState<
     DynamicPopoverHandlerBinding<PopoverData> | undefined
   >()
+  useGlobalEventListener('CLOSE_CREATE_STAGE_POPOVER', () => {
+    dynamicPopoverHandler?.hide()
+  })
 
   const [deleteId, setDeleteId] = React.useState<string | undefined>(undefined)
   const { showSuccess, showError } = useToaster()
@@ -338,7 +347,7 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
               renderPipelineStage,
               stagesMap
             },
-            { useArrows: false, darkMode: false, fixedPosition: false }
+            { useArrows: true, darkMode: false, fixedPosition: false }
           )
         } else if (eventTemp.entity.getType() === DiagramType.GroupNode && selectedStageId) {
           const parent = getStageFromPipeline(eventTemp.entity.getIdentifier()).parent

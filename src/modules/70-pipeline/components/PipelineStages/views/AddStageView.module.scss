@@ -1,5 +1,5 @@
 .create-new-content {
-  max-width: 490px;
+  max-width: 500px;
   background: #fff;
   display: grid;
   grid-template-columns: 320px 1fr;
@@ -28,14 +28,18 @@
       }
     }
     .cardTitle {
+      font-size: var(--font-size-small);
       justify-content: center;
       display: grid;
       padding: 8px;
+      &.selected {
+        font-weight: 600 !important;
+      }
     }
   }
 
   .create-new-message {
-    font-size: var(--font-size-medium);
+    font-size: var(--font-size-normal);
     border-left: dashed 1px #ccc;
     padding: var(--spacing-xlarge);
     .stageTitle {
@@ -46,9 +50,14 @@
     }
     .stageDescription {
       font-size: var(--font-size-small);
-      font-weight: 600;
       color: var(--grey-500);
       margin-bottom: 12px;
     }
   }
+}
+.closeIcon {
+  position: absolute;
+  right: 11px;
+  top: 10px;
+  cursor: pointer;
 }

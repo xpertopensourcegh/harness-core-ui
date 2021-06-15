@@ -177,7 +177,7 @@ export const EditStageView: React.FC<EditStageView> = ({
                     />
                   )}
 
-                  <Card className={cx(css.sectionCard)}>
+                  <Card className={cx(css.sectionCard, css.nopadleft)}>
                     <div
                       className={cx(css.tabSubHeading, 'ng-tooltip-native')}
                       id="whatToDeploy"

@@ -6,8 +6,10 @@ declare const styles: {
   readonly createNewCards: string
   readonly cardNew: string
   readonly cardTitle: string
+  readonly selected: string
   readonly createNewMessage: string
   readonly stageTitle: string
   readonly stageDescription: string
+  readonly closeIcon: string
 }
 export default styles

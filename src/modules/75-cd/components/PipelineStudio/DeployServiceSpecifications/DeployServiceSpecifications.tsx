@@ -6,7 +6,6 @@ import {
   Text,
   SelectOption,
   IconName,
-  Radio,
   Select,
   Checkbox,
   HarnessDocTooltip
@@ -14,14 +13,13 @@ import {
 
 import isEmpty from 'lodash-es/isEmpty'
 import cx from 'classnames'
-import { cloneDeep, get, set } from 'lodash-es'
-import debounce from 'p-debounce'
+import { cloneDeep, get, set, debounce } from 'lodash-es'
 import { FormGroup, Intent } from '@blueprintjs/core'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
 
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
-import type { NgPipeline, ServiceConfig } from 'services/cd-ng'
+import type { NgPipeline, ServiceConfig, StageElementConfig } from 'services/cd-ng'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import {
@@ -39,7 +37,11 @@ const setupMode = {
 export default function DeployServiceSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
   const { getString } = useStrings()
 
-  const supportedDeploymentTypes: { name: string; icon: IconName; enabled: boolean }[] = [
+  const supportedDeploymentTypes: {
+    name: string
+    icon: IconName
+    enabled: boolean
+  }[] = [
     {
       name: getString('serviceDeploymentTypes.kubernetes'),
       icon: 'service-kubernetes',
@@ -82,13 +84,18 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     }
   ]
   const [setupModeType, setSetupMode] = React.useState('')
-  const [checkedItems, setCheckedItems] = React.useState({ overrideSetCheckbox: false })
+  const [checkedItems, setCheckedItems] = React.useState({
+    overrideSetCheckbox: false
+  })
   const [isConfigVisible, setConfigVisibility] = React.useState(false)
   const [selectedPropagatedState, setSelectedPropagatedState] = React.useState<SelectOption>()
   const [canPropagate, setCanPropagate] = React.useState(false)
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
 
-  const previousStageList: { label: string; value: string }[] = []
+  const previousStageList: {
+    label: string
+    value: string
+  }[] = []
   const {
     state: {
       pipeline,
@@ -96,7 +103,8 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     },
     isReadonly,
     getStageFromPipeline,
-    updatePipeline
+    updatePipeline,
+    updateStage
   } = React.useContext(PipelineContext)
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -104,11 +112,18 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     debounce((pipelineData: NgPipeline) => updatePipeline(cloneDeep(pipelineData)), 500),
     [updatePipeline]
   )
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debounceUpdateStage = React.useCallback(
+    debounce((stageData: StageElementConfig) => updateStage(cloneDeep(stageData)), 500),
+    [updatePipeline]
+  )
 
   const { stage = {} } = getStageFromPipeline(selectedStageId || '')
   const { index: stageIndex } = getStageIndexFromPipeline(pipeline, selectedStageId || '')
   const { stages } = getFlattenedStages(pipeline)
-  const [parentStage, setParentStage] = React.useState<{ [key: string]: any }>({})
+  const [parentStage, setParentStage] = React.useState<{
+    [key: string]: any
+  }>({})
 
   React.useEffect(() => {
     if (stages && stages.length > 0) {
@@ -144,7 +159,10 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
         !stage.stage.spec.serviceConfig?.useFromStage?.stage
       ) {
         setDefaultServiceSchema()
-        setSelectedPropagatedState({ label: '', value: '' })
+        setSelectedPropagatedState({
+          label: '',
+          value: ''
+        })
         setSetupMode(setupMode.DIFFERENT)
       } else if (
         setupModeType === setupMode.PROPAGATE &&
@@ -210,10 +228,10 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     if (stage.stage.spec?.serviceConfig.serviceDefinition) {
       delete stage.stage.spec?.serviceConfig.serviceDefinition
     }
-    return debounceUpdatePipeline(pipeline)
+    return debounceUpdateStage(stage as StageElementConfig)
   }
 
-  const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.FormEvent<HTMLInputElement>): void => {
     const _isChecked = (event.target as HTMLInputElement).checked
     setCheckedItems({
       ...checkedItems,
@@ -305,13 +323,18 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
         }
       }
     } else if (serviceDefinition) {
-      setSelectedPropagatedState({ label: '', value: '' })
+      setSelectedPropagatedState({
+        label: '',
+        value: ''
+      })
       setSetupMode(setupMode.DIFFERENT)
     }
   }, [stage?.stage?.spec])
   const selectPropagatedStep = (item: SelectOption): void => {
     if (item && item.value) {
-      set(stage as any, 'stage.spec.serviceConfig.useFromStage', { stage: item.value })
+      set(stage as any, 'stage.spec.serviceConfig.useFromStage', {
+        stage: item.value
+      })
 
       setSelectedPropagatedState({
         label: `Stage [${item.value as string}] - Service`,
@@ -328,7 +351,10 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   }
   const initWithServiceDefinition = (): void => {
     setDefaultServiceSchema().then(() => {
-      setSelectedPropagatedState({ label: '', value: '' })
+      setSelectedPropagatedState({
+        label: '',
+        value: ''
+      })
       setSetupMode(setupMode.DIFFERENT)
     })
   }
@@ -337,15 +363,34 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     <>
       {stageIndex > 0 && canPropagate && (
         <div className={css.stageSelection}>
-          <section className={cx(css.stageSelectionGrid)}>
-            <div className={css.radioColumn}>
-              <Radio
-                checked={setupModeType === setupMode.PROPAGATE}
-                onChange={() => setSetupMode(setupMode.PROPAGATE)}
-              />
-              <Text style={{ fontSize: 14, color: 'var(-grey-300)' }}>
-                {getString('pipelineSteps.deploy.serviceSpecifications.propagate')}
-              </Text>
+          <section
+            onClick={() => setSetupMode(setupMode.PROPAGATE)}
+            className={cx(css.stageSelectionGrid, {
+              [css.selected]: setupModeType === setupMode.PROPAGATE
+            })}
+          >
+            <div className={css.cardTitleContainer}>
+              <div className={css.cardTitleColumn}>
+                <Text
+                  className={css.cardTitle}
+                  font="normal"
+                  color="black"
+                  margin={{
+                    bottom: 'large'
+                  }}
+                >
+                  {getString('pipelineSteps.build.infraSpecifications.propagate')}
+                </Text>
+              </div>
+              <div
+                className={cx(css.cardTitleColumn, {
+                  [css.checkIcon]: setupModeType === setupMode.PROPAGATE
+                })}
+              >
+                {setupModeType === setupMode.PROPAGATE && (
+                  <Icon className={css.checkedSectionIcon} name="tick-circle" />
+                )}
+              </div>
             </div>
             <FormGroup
               intent={
@@ -365,15 +410,35 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
             </FormGroup>
           </section>
 
-          <section className={css.radioColumn}>
-            <Radio
-              checked={setupModeType === setupMode.DIFFERENT}
-              disabled={isReadonly}
-              onClick={() => initWithServiceDefinition()}
-            />
-            <Text style={{ fontSize: 14, color: 'var(-grey-300)' }}>
-              {getString('serviceDeploymentTypes.deployDifferentLabel')}
-            </Text>
+          <section
+            onClick={() => initWithServiceDefinition()}
+            className={cx(css.stageSelectionGrid, css.sectionDiff, {
+              [css.selected]: setupModeType === setupMode.DIFFERENT
+            })}
+          >
+            <div className={css.cardTitleContainer}>
+              <div className={css.cardTitleColumn}>
+                <Text
+                  className={css.cardTitle}
+                  font="normal"
+                  color="black"
+                  margin={{
+                    bottom: 'large'
+                  }}
+                >
+                  {getString('pipelineSteps.build.infraSpecifications.newConfiguration')}
+                </Text>
+              </div>
+              <div
+                className={cx(css.cardTitleColumn, {
+                  [css.checkIcon]: setupModeType === setupMode.DIFFERENT
+                })}
+              >
+                {setupModeType === setupMode.DIFFERENT && (
+                  <Icon className={css.checkedSectionIcon} name="tick-circle" />
+                )}
+              </div>
+            </div>
           </section>
         </div>
       )}
@@ -384,13 +449,15 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
             checked={checkedItems.overrideSetCheckbox}
             onChange={handleChange}
           />
-          {!checkedItems.overrideSetCheckbox && (
-            <div className={cx(css.navigationButtons, css.propagationPadding)}>{props.children}</div>
-          )}
+          {!checkedItems.overrideSetCheckbox && <div className={cx(css.navigationButtons)}>{props.children}</div>}
         </div>
       )}
       {setupModeType === setupMode.DIFFERENT ? (
-        <div className={cx(css.serviceOverrides, { [css.heightStageOverrides2]: stageIndex > 0 })}>
+        <div
+          className={cx(css.serviceOverrides, {
+            [css.heightStageOverrides2]: stageIndex > 0
+          })}
+        >
           <div className={css.overFlowScroll} ref={scrollRef}>
             <div className={css.contentSection}>
               <div className={css.tabHeading}>{getString('pipelineSteps.serviceTab.aboutYourService')}</div>
@@ -398,7 +465,10 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                 <StepWidget
                   type={StepType.DeployService}
                   readonly={isReadonly}
-                  initialValues={{ serviceRef: '', ...get(stage, 'stage.spec.serviceConfig', {}) }}
+                  initialValues={{
+                    serviceRef: '',
+                    ...get(stage, 'stage.spec.serviceConfig', {})
+                  }}
                   onUpdate={(value: ServiceConfig) => {
                     const serviceObj = get(stage, 'stage.spec.serviceConfig', {})
                     if (value.service) {
@@ -435,7 +505,12 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                         interactive={true}
                         selected={type.name === getString('serviceDeploymentTypes.kubernetes') ? true : false}
                         cornerSelected={type.name === getString('serviceDeploymentTypes.kubernetes') ? true : false}
-                        className={cx({ [css.disabled]: !type.enabled }, css.squareCard)}
+                        className={cx(
+                          {
+                            [css.disabled]: !type.enabled
+                          },
+                          css.squareCard
+                        )}
                       >
                         <Icon name={type.icon as IconName} size={26} height={26} />
                       </Card>
@@ -456,7 +531,10 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                 <StepWidget<K8SDirectServiceStep>
                   factory={factory}
                   readonly={isReadonly}
-                  initialValues={{ stageIndex, setupModeType }}
+                  initialValues={{
+                    stageIndex,
+                    setupModeType
+                  }}
                   type={StepType.K8sServiceSpec}
                   stepViewType={StepViewType.Edit}
                 />
@@ -475,7 +553,10 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                   <StepWidget<K8SDirectServiceStep>
                     factory={factory}
                     readonly={isReadonly}
-                    initialValues={{ stageIndex, setupModeType }}
+                    initialValues={{
+                      stageIndex,
+                      setupModeType
+                    }}
                     type={StepType.K8sServiceSpec}
                     stepViewType={StepViewType.Edit}
                   />

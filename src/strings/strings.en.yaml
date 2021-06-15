@@ -1170,7 +1170,6 @@ pipelineSteps:
     serviceSpecifications:
       serviceDefinition: Service Definition
       useFromStageLabel: 'Use from Stage'
-      propagate: 'Propagate from:'
       deploymentTypes:
         artifacts: '{{ $.artifacts }}'
         manifests: '{{ $.manifests }}'

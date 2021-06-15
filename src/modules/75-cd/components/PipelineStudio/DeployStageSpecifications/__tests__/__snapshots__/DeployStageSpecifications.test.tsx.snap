@@ -160,7 +160,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                 </div>
               </div>
               <div
-                class="bp3-card bp3-elevation-0 Card--card sectionCard"
+                class="bp3-card bp3-elevation-0 Card--card sectionCard nopadleft"
               >
                 <div
                   class="tabSubHeading ng-tooltip-native"

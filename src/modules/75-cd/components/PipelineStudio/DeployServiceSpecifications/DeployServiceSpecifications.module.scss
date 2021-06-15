@@ -218,11 +218,68 @@
     left: 35px;
   }
 }
-.propagationPadding {
-  padding-left: var(--spacing-3);
-}
 
 .propagateDropdown {
   margin-top: var(--spacing-small);
   bottom: 13px !important;
+}
+
+.stageSelectionGrid {
+  background: var(--grey-50);
+  border: 1px solid #d9dae6;
+  box-shadow: 0px 0px 1px rgb(40 41 61 / 8%), 0px 0.5px 2px rgb(96 97 112 / 16%);
+  border-radius: 8px;
+  padding: var(--spacing-large);
+  flex-grow: 1;
+  min-height: 150px;
+  cursor: pointer;
+  margin-bottom: var(--spacing-medium);
+  &.selected {
+    background: #f1f9ff;
+    border: 1px solid #25a6f7;
+  }
+  &.sectionDiff {
+    width: 450px;
+  }
+}
+
+.cardTitle {
+  font-weight: 'semi-bold';
+
+  &:before {
+    // TODO: Replace color once it is available in UIKit
+    background-color: #0278d5;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    display: block;
+    width: 8px;
+    left: -27px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--white);
+    box-shadow: 0px 1px 2px rgba(40, 41, 61, 0.4), 0px 2px 4px rgba(96, 97, 112, 0.2);
+    transform: translateY(-50%);
+  }
+}
+.checkedSectionIcon {
+  position: relative;
+  display: inline-block;
+  left: 42%;
+  top: 0;
+  color: #0278d5 !important;
+}
+.cardTitleContainer {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  .cardTitleColumn {
+    display: grid;
+    &.checkIcon {
+      justify-content: end;
+      padding-right: var(--spacing-small);
+    }
+  }
 }

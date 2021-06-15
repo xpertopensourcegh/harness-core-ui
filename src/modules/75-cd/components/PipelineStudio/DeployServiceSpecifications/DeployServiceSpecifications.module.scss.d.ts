@@ -33,7 +33,13 @@ declare const styles: {
   readonly stageSelectionGrid: string
   readonly radioColumn: string
   readonly useoverrideCheckbox: string
-  readonly propagationPadding: string
   readonly propagateDropdown: string
+  readonly stageSelectionGrid: string
+  readonly sectionDiff: string
+  readonly cardTitle: string
+  readonly checkedSectionIcon: string
+  readonly cardTitleContainer: string
+  readonly cardTitleColumn: string
+  readonly checkIcon: string
 }
 export default styles
