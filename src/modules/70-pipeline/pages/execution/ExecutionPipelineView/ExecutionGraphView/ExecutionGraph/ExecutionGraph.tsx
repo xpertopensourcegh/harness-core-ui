@@ -21,7 +21,7 @@ import {
 import { useExecutionLayoutContext } from '@pipeline/components/ExecutionLayout/ExecutionLayoutContext'
 import ExecutionStageDiagram from '@pipeline/components/ExecutionStageDiagram/ExecutionStageDiagram'
 import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
-import ConditionalExecutionTooltip from '@pipeline/pages/execution/ExecutionPipelineView/ExecutionGraphView/common/components/ConditionalExecutionToolTip/ConditionalExecutionTooltip'
+import ConditionalExecutionTooltipWrapper from '@pipeline/pages/execution/ExecutionPipelineView/ExecutionGraphView/common/components/ConditionalExecutionToolTip/ConditionalExecutionTooltipWrapper'
 import { Modes } from '@pipeline/components/PipelineSteps/AdvancedSteps/common'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import CDInfo from './components/CD/CDInfo/CDInfo'
@@ -148,7 +148,7 @@ export default function ExecutionGraph(props: ExecutionGraphProps): React.ReactE
   }): JSX.Element => {
     return (
       <HoverCard data={popoverData}>
-        {popoverData?.when && <ConditionalExecutionTooltip data={popoverData.when} mode={Modes.STAGE} />}
+        {popoverData?.when && <ConditionalExecutionTooltipWrapper data={popoverData.when} mode={Modes.STAGE} />}
         {barrierSupportedStageTypes.indexOf(get(popoverData, 'data.nodeType', '')) !== -1 && (
           <CDInfo barrier={{ barrierInfoLoading, barrierData: barrierInfoData }} data={popoverData} />
         )}

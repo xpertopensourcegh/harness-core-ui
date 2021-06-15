@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import type { BaseModelListener } from '@projectstorm/react-canvas-core'
 import { Button, Layout, Text } from '@wings-software/uicore'
+import { isEmpty } from 'lodash-es'
 import type { StageElementWrapper } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
@@ -9,6 +10,10 @@ import { DynamicPopover, DynamicPopoverHandlerBinding } from '@common/components
 import { useToaster } from '@common/exports'
 import type { ExecutionWrapper } from 'services/cd-ng'
 import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
+import { PipelineOrStageStatus } from '@pipeline/components/PipelineSteps/AdvancedSteps/ConditionalExecutionPanel/ConditionalExecutionPanelUtils'
+import HoverCard from '@pipeline/components/HoverCard/HoverCard'
+import { Modes } from '@pipeline/components/PipelineSteps/AdvancedSteps/common'
+import ConditionalExecutionTooltip from '@pipeline/pages/execution/ExecutionPipelineView/ExecutionGraphView/common/components/ConditionalExecutionToolTip/ConditionalExecutionTooltip'
 import { ExecutionStepModel, GridStyleInterface } from './ExecutionStepModel'
 import { StepType as PipelineStepType } from '../../PipelineSteps/PipelineStepInterface'
 import {
@@ -58,39 +63,53 @@ export type ExecutionGraphForwardRef =
 interface PopoverData {
   event?: DefaultNodeEvent
   isParallelNodeClicked?: boolean
-  labels: {
+  labels?: {
     addStep: string
     addStepGroup: string
   }
   onPopoverSelection?: (isStepGroup: boolean, isParallelNodeClicked: boolean, event?: DefaultNodeEvent) => void
+  isHoverView?: boolean
+  data?: ExecutionWrapper
 }
 
 const renderPopover = ({
   onPopoverSelection,
   isParallelNodeClicked = false,
   event,
-  labels
+  labels,
+  isHoverView,
+  data
 }: PopoverData): JSX.Element => {
-  return (
-    <>
-      <Layout.Vertical spacing="small" padding="small">
-        <Button
-          minimal
-          icon="Edit"
-          text={labels.addStep}
-          onClick={() => onPopoverSelection?.(false, isParallelNodeClicked, event)}
-          withoutBoxShadow
-        />
-        <Button
-          minimal
-          icon="step-group"
-          text={labels.addStepGroup}
-          onClick={() => onPopoverSelection?.(true, isParallelNodeClicked, event)}
-          withoutBoxShadow
-        />
-      </Layout.Vertical>
-    </>
-  )
+  if (isHoverView && !!data?.when) {
+    return (
+      <HoverCard>
+        <ConditionalExecutionTooltip status={data.when.stageStatus} condition={data.when.condition} mode={Modes.STEP} />
+      </HoverCard>
+    )
+  } else if (labels) {
+    return (
+      <>
+        <Layout.Vertical spacing="small" padding="small">
+          <Button
+            minimal
+            icon="Edit"
+            text={labels.addStep}
+            onClick={() => onPopoverSelection?.(false, isParallelNodeClicked, event)}
+            withoutBoxShadow
+          />
+          <Button
+            minimal
+            icon="step-group"
+            text={labels.addStepGroup}
+            onClick={() => onPopoverSelection?.(true, isParallelNodeClicked, event)}
+            withoutBoxShadow
+          />
+        </Layout.Vertical>
+      </>
+    )
+  } else {
+    return <></>
+  }
 }
 
 export interface ExecutionGraphAddStepEvent {
@@ -293,6 +312,34 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
     }
   }
 
+  const mouseEnterNodeListener = (event: any) => {
+    const eventTemp = event as DefaultNodeEvent
+    eventTemp.stopPropagation()
+    dynamicPopoverHandler?.hide()
+    const node = getStepFromNode(state.stepsData, eventTemp.entity).node
+    if (node?.when) {
+      const { stageStatus, condition } = node.when
+      if (stageStatus === PipelineOrStageStatus.SUCCESS && isEmpty(condition)) {
+        return
+      }
+      dynamicPopoverHandler?.show(
+        eventTemp.target,
+        {
+          event: eventTemp,
+          isHoverView: true,
+          data: node
+        },
+        { useArrows: true, darkMode: false, fixedPosition: false }
+      )
+    }
+  }
+
+  const mouseLeaveNodeListener = (event: any) => {
+    const eventTemp = event as DefaultNodeEvent
+    eventTemp.stopPropagation()
+    dynamicPopoverHandler?.hide()
+  }
+
   const nodeListeners: NodeModelListener = {
     [Event.ClickNode]: (event: any) => {
       const eventTemp = event as DefaultNodeEvent
@@ -376,7 +423,9 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
         }
       }
     },
-    [Event.DropLinkEvent]: dropNodeListener
+    [Event.DropLinkEvent]: dropNodeListener,
+    [Event.MouseEnterNode]: mouseEnterNodeListener,
+    [Event.MouseLeaveNode]: mouseLeaveNodeListener
   }
 
   const linkListeners: LinkModelListener = {
@@ -465,7 +514,9 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
         handleAdd(true, eventTemp.target, event, eventTemp.callback)
       }
     },
-    [Event.DropLinkEvent]: dropNodeListener
+    [Event.DropLinkEvent]: dropNodeListener,
+    [Event.MouseEnterNode]: mouseEnterNodeListener,
+    [Event.MouseLeaveNode]: mouseLeaveNodeListener
   }
 
   useEffect(() => {
@@ -654,6 +705,7 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
           darkMode={true}
           render={renderPopover}
           bind={setDynamicPopoverHandler}
+          placement={'right'}
         />
       </div>
     </div>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Layout } from '@wings-software/uicore'
 import cx from 'classnames'
-import { debounce, isNil } from 'lodash-es'
+import { debounce, isEmpty, isNil } from 'lodash-es'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import SplitPane from 'react-split-pane'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
@@ -12,6 +12,10 @@ import { useConfirmationDialog } from '@common/exports'
 import { CanvasButtons } from '@pipeline/components/CanvasButtons/CanvasButtons'
 import { moveStageToFocusDelayed } from '@pipeline/components/ExecutionStageDiagram/ExecutionStageDiagramUtils'
 import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
+import HoverCard from '@pipeline/components/HoverCard/HoverCard'
+import { Modes } from '@pipeline/components/PipelineSteps/AdvancedSteps/common'
+import { PipelineOrStageStatus } from '@pipeline/components/PipelineSteps/AdvancedSteps/ConditionalExecutionPanel/ConditionalExecutionPanelUtils'
+import ConditionalExecutionTooltip from '@pipeline/pages/execution/ExecutionPipelineView/ExecutionGraphView/common/components/ConditionalExecutionToolTip/ConditionalExecutionTooltip'
 import {
   CanvasWidget,
   createEngine,
@@ -69,7 +73,8 @@ export const renderPopover = ({
   event,
   isStageView,
   onSubmitPrimaryData,
-  renderPipelineStage
+  renderPipelineStage,
+  isHoverView
 }: PopoverData): JSX.Element => {
   if (isStageView && data) {
     const stageData = {
@@ -100,6 +105,16 @@ export const renderPopover = ({
         selectedStageId={groupSelectedStageId}
         onClick={onClickGroupStage}
       />
+    )
+  } else if (isHoverView && !!data?.stage.when) {
+    return (
+      <HoverCard>
+        <ConditionalExecutionTooltip
+          status={data.stage.when.pipelineStatus}
+          condition={data.stage.when.condition}
+          mode={Modes.STAGE}
+        />
+      </HoverCard>
     )
   }
   return renderPipelineStage({
@@ -511,6 +526,35 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
           }
         }
       }
+    },
+    [Event.MouseEnterNode]: (event: any) => {
+      const eventTemp = event as DefaultNodeEvent
+      eventTemp.stopPropagation()
+      dynamicPopoverHandler?.hide()
+      const current = getStageFromPipeline(eventTemp.entity.getIdentifier())
+      if (current.stage?.stage?.when) {
+        const { pipelineStatus, condition } = current.stage.stage.when
+        if (pipelineStatus === PipelineOrStageStatus.SUCCESS && isEmpty(condition)) {
+          return
+        }
+        dynamicPopoverHandler?.show(
+          `[data-nodeid="${eventTemp.entity.getID()}"]`,
+          {
+            event: eventTemp,
+            data: current.stage,
+            isStageView: false,
+            isHoverView: true,
+            stagesMap,
+            renderPipelineStage
+          },
+          { useArrows: true, darkMode: false, fixedPosition: false }
+        )
+      }
+    },
+    [Event.MouseLeaveNode]: (event: any) => {
+      const eventTemp = event as DefaultNodeEvent
+      eventTemp.stopPropagation()
+      dynamicPopoverHandler?.hide()
     }
   }
 
@@ -599,6 +643,7 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
         className={css.renderPopover}
         render={renderPopover}
         bind={setDynamicPopoverHandler}
+        placement={'right'}
       />
 
       <CanvasButtons tooltipPosition="left" engine={engine} callback={() => dynamicPopoverHandler?.hide()} />

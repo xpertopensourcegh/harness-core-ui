@@ -37,6 +37,7 @@ export interface PopoverData {
   onSubmitPrimaryData?: (values: StageElementWrapper, identifier: string) => void
   onClickGroupStage?: (stageId: string, type: StageTypes) => void
   renderPipelineStage: PipelineContextInterface['renderPipelineStage']
+  isHoverView?: boolean
 }
 
 export const getStageIndexByIdentifier = (pipeline: NgPipeline, identifier: string) => {

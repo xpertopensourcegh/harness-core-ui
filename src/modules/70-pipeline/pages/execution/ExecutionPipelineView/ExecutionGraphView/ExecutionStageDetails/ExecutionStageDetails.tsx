@@ -22,7 +22,7 @@ import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 import { Modes } from '@pipeline/components/PipelineSteps/AdvancedSteps/common'
 import BarrierStepTooltip from './components/BarrierStepTooltip'
 import ResourceConstraintTooltip from './components/ResourceConstraints/ResourceConstraints'
-import ConditionalExecutionTooltip from '../common/components/ConditionalExecutionToolTip/ConditionalExecutionTooltip'
+import ConditionalExecutionTooltipWrapper from '../common/components/ConditionalExecutionToolTip/ConditionalExecutionTooltipWrapper'
 import css from './ExecutionStageDetails.module.scss'
 
 export interface ExecutionStageDetailsProps {
@@ -141,7 +141,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
   }): JSX.Element => {
     return (
       <HoverCard data={stepInfo}>
-        {stepInfo?.when && <ConditionalExecutionTooltip data={stepInfo.when} mode={Modes.STEP} />}
+        {stepInfo?.when && <ConditionalExecutionTooltipWrapper data={stepInfo.when} mode={Modes.STEP} />}
         {stepInfo?.data?.stepType === StepType.Barrier && stepInfo?.data?.status === 'Running' && (
           <BarrierStepTooltip
             loading={barrierInfoLoading}

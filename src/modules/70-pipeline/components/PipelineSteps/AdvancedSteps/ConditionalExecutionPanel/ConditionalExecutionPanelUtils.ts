@@ -4,10 +4,13 @@ export enum PipelineOrStageStatus {
   FAILURE = 'Failure'
 }
 
-export interface ConditionalExecutionOption {
+export interface ConditionalExecutionConfig {
   status: PipelineOrStageStatus
-  enableJEXL: boolean
   condition: string
+}
+
+export interface ConditionalExecutionOption extends ConditionalExecutionConfig {
+  enableJEXL: boolean
 }
 
 export const ModeEntityNameMap = {
@@ -20,14 +23,6 @@ export const ParentModeEntityNameMap = {
   STAGE: 'pipeline',
   STEP_GROUP: 'stage',
   STEP: 'stage'
-}
-
-export const statusToStringIdMapping: any = {
-  OnPipelineSuccess: 'pipeline.conditionalExecution.statusOption.success',
-  OnStageSuccess: 'pipeline.conditionalExecution.statusOption.success',
-  OnPipelineFailure: 'pipeline.conditionalExecution.statusOption.failure',
-  OnStageFailure: 'pipeline.conditionalExecution.statusOption.failure',
-  Always: 'pipeline.conditionalExecution.statusOption.all'
 }
 
 export const statusToStatusMapping: any = {

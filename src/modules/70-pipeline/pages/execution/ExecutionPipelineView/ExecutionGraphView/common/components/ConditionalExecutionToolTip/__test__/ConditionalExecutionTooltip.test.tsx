@@ -2,9 +2,11 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { Modes } from '@pipeline/components/PipelineSteps/AdvancedSteps/common'
-import ConditionalExecutionTooltip, { ConditionalExecutionToolTipProps } from '../ConditionalExecutionTooltip'
+import ConditionalExecutionTooltipWrapper, {
+  ConditionalExecutionToolTipWrapperProps
+} from '../ConditionalExecutionTooltipWrapper'
 
-const getProps = (): ConditionalExecutionToolTipProps => ({
+const getProps = (): ConditionalExecutionToolTipWrapperProps => ({
   mode: Modes.STAGE,
   data: {
     whenCondition: '<+OnPipelineSuccess> && (some JEXL condition)',
@@ -22,7 +24,7 @@ describe('ConditionalExecutionToolTip', () => {
     const props = getProps()
     const { container } = render(
       <TestWrapper>
-        <ConditionalExecutionTooltip {...props} />
+        <ConditionalExecutionTooltipWrapper {...props} />
       </TestWrapper>
     )
 

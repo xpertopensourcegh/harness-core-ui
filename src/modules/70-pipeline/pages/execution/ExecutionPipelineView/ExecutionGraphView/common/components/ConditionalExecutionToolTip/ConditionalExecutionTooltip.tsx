@@ -4,70 +4,27 @@ import { useStrings } from 'framework/strings'
 import {
   ModeEntityNameMap,
   ParentModeEntityNameMap,
-  PipelineOrStageStatus,
-  statusToStatusMapping,
-  statusToStringIdMapping
+  PipelineOrStageStatus
 } from '@pipeline/components/PipelineSteps/AdvancedSteps/ConditionalExecutionPanel/ConditionalExecutionPanelUtils'
 import { Modes } from '@pipeline/components/PipelineSteps/AdvancedSteps/common'
-import type { StringsMap } from 'stringTypes'
-import type { ConditionalExecutionNodeRunInfo } from '@pipeline/utils/types'
-import type { ExpressionBlock } from 'services/pipeline-ng'
+import type { ResolvedVariableInterface } from '@pipeline/pages/execution/ExecutionPipelineView/ExecutionGraphView/common/components/ConditionalExecutionToolTip/ConditionalExecutionTooltipWrapper'
 
-export interface ConditionalExecutionToolTipProps {
+export interface ConditionalExecutionTooltipProps {
   mode: Modes
-  data: ConditionalExecutionNodeRunInfo
-}
-
-const processConditionData = (
-  whenCondition: string
-): {
   status: PipelineOrStageStatus
-  statusStringId: keyof StringsMap
-  condition: string | null
-} => {
-  const whenConditionInfo: string[] = whenCondition.split(' && ')
-  const statusInfo: string = whenConditionInfo.shift()!.replace(/[^a-zA-Z]/g, '')
-  return {
-    status: statusToStatusMapping[statusInfo],
-    statusStringId: statusToStringIdMapping[statusInfo],
-    condition: whenConditionInfo.length > 0 ? whenConditionInfo.join(' && ').slice(1, -1) : null
-  }
+  condition?: string
+  resolvedVariables?: ResolvedVariableInterface[]
 }
 
-export interface ResolvedVariableInterface {
-  fullExpression: string
-  trimmedExpression: string
-  expressionValue: string
+const statusMapping: any = {
+  Success: 'pipeline.conditionalExecution.statusOption.success',
+  Failure: 'pipeline.conditionalExecution.statusOption.failure',
+  All: 'pipeline.conditionalExecution.statusOption.all'
 }
 
-const processResolvedVariables = (expressions: ExpressionBlock[] | undefined) => {
-  const resolvedVariables: ResolvedVariableInterface[] = []
-  expressions?.forEach(expression => {
-    const expressionStr: string | undefined = expression.expression
-    if (!!expressionStr && !statusToStatusMapping[expressionStr]) {
-      resolvedVariables.push({
-        fullExpression: expressionStr,
-        trimmedExpression: expressionStr.split('.').pop() || '',
-        expressionValue: expression.expressionValue || ''
-      })
-    }
-  })
-  return resolvedVariables
-}
-
-export default function ConditionalExecutionTooltip(props: ConditionalExecutionToolTipProps): React.ReactElement {
-  const {
-    mode,
-    data: { whenCondition, expressions }
-  } = props
+export default function ConditionalExecutionTooltip(props: ConditionalExecutionTooltipProps): React.ReactElement {
+  const { mode, status, condition, resolvedVariables } = props
   const { getString } = useStrings()
-  const { status, statusStringId, condition } = processConditionData(whenCondition!)
-  const resolvedVariables = processResolvedVariables(expressions)
-
-  if (status === PipelineOrStageStatus.SUCCESS && !condition?.trim()) {
-    return <></>
-  }
-
   return (
     <Layout.Horizontal
       border={{ top: true, width: 0.5, color: Color.GREY_100 }}
@@ -95,7 +52,7 @@ export default function ConditionalExecutionTooltip(props: ConditionalExecutionT
           style={{ lineHeight: '16px' }}
           color={Color.GREY_900}
         >
-          {getString(statusStringId, {
+          {getString(statusMapping[status], {
             entity: ModeEntityNameMap[mode],
             parentEntity: ParentModeEntityNameMap[mode]
           })}
@@ -125,7 +82,7 @@ export default function ConditionalExecutionTooltip(props: ConditionalExecutionT
             {condition}
           </Container>
         )}
-        {resolvedVariables.length > 0 && (
+        {!!resolvedVariables && resolvedVariables.length > 0 && (
           <Layout.Vertical spacing={'xsmall'} padding={{ top: 'medium' }}>
             <Text padding={{ bottom: 'xsmall' }} font={{ size: 'xsmall', weight: 'semi-bold' }} color={Color.GREY_500}>
               {getString('pipeline.conditionalExecution.toolTip.resolvedVariables')}

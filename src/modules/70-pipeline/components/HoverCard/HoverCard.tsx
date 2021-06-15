@@ -12,7 +12,7 @@ export default function HoverCard(props: HoverCardProps): React.ReactElement {
   const { data } = props
   return (
     <Container className={css.hovercard}>
-      <StageHeader data={data} />
+      {!!data && <StageHeader data={data} />}
       {props?.children}
     </Container>
   )

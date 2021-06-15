@@ -30,6 +30,21 @@ const onAddNodeClick = (
   )
 }
 
+const onMouseOverNode = (e: MouseEvent, layer: StepGroupNodeLayerModel): void => {
+  e.stopPropagation()
+  layer.fireEvent({ target: e.target }, Event.MouseOverNode)
+}
+
+const onMouseEnterNode = (e: MouseEvent, layer: StepGroupNodeLayerModel): void => {
+  e.stopPropagation()
+  layer.fireEvent({ target: e.target }, Event.MouseEnterNode)
+}
+
+const onMouseLeaveNode = (e: MouseEvent, layer: StepGroupNodeLayerModel): void => {
+  e.stopPropagation()
+  layer.fireEvent({ target: e.target }, Event.MouseLeaveNode)
+}
+
 export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): JSX.Element => {
   const options = props.layer.getOptions()
   const allowAdd = options.allowAdd
@@ -50,24 +65,33 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
   React.useEffect(() => {
     const nodeLayer = layerRef.current
 
-    const onMouseOver = (): void => {
+    const onMouseOver = (e: MouseEvent): void => {
       if (!addClicked) {
         setVisibilityOfAdd(true)
       }
+      onMouseOverNode(e, props.layer)
     }
-    const onMouseLeave = (): void => {
+
+    const onMouseEnter = (e: MouseEvent): void => {
+      onMouseEnterNode(e, props.layer)
+    }
+
+    const onMouseLeave = (e: MouseEvent): void => {
       if (!addClicked) {
         setVisibilityOfAdd(false)
       }
+      onMouseLeaveNode(e, props.layer)
     }
 
     if (nodeLayer && allowAdd) {
-      nodeLayer.addEventListener('mouseenter', onMouseOver)
+      nodeLayer.addEventListener('mouseenter', onMouseEnter)
+      nodeLayer.addEventListener('mouseover', onMouseOver)
       nodeLayer.addEventListener('mouseleave', onMouseLeave)
     }
     return () => {
       if (nodeLayer && allowAdd) {
-        nodeLayer.removeEventListener('mouseenter', onMouseOver)
+        nodeLayer.removeEventListener('mouseenter', onMouseEnter)
+        nodeLayer.removeEventListener('mouseover', onMouseOver)
         nodeLayer.removeEventListener('mouseleave', onMouseLeave)
       }
     }

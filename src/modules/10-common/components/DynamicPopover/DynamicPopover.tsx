@@ -28,6 +28,7 @@ export interface DynamicPopoverProps<T> {
   fixedPosition?: boolean
   bind: (dynamicPopoverHandler: DynamicPopoverHandlerBinding<T>) => void
   closeOnMouseOut?: boolean
+  placement?: PopperJS.Placement
 }
 
 export function DynamicPopover<T>(props: DynamicPopoverProps<T>): JSX.Element {
@@ -38,7 +39,8 @@ export function DynamicPopover<T>(props: DynamicPopoverProps<T>): JSX.Element {
     darkMode = false,
     useArrows = true,
     fixedPosition = false,
-    closeOnMouseOut
+    closeOnMouseOut,
+    placement = 'auto'
   } = props
   const [darkModeState, setDarkMode] = useState<boolean>(darkMode)
   const [useArrowsState, setArrowVisibility] = useState<boolean>(useArrows)
@@ -55,7 +57,7 @@ export function DynamicPopover<T>(props: DynamicPopoverProps<T>): JSX.Element {
 
   const { styles, attributes, forceUpdate } = usePopper(referenceElement, popperElement, {
     modifiers: [{ name: 'arrow', options: { element: arrowElement } }],
-    placement: 'auto'
+    placement
   })
 
   useGlobalEventListener('UPDATE_POPOVER_POSITION', () => {
