@@ -1,3 +1,5 @@
+import { isEmpty } from 'lodash-es'
+
 export function shouldShowError(e: any): boolean {
   const hideMessagesForStatusCodes = [502, 503]
   if (
@@ -14,7 +16,10 @@ export function shouldShowError(e: any): boolean {
 /* TODO Don't see proper types for this new errors format, replace Record<string, any> with more stricter type when available */
 export function getErrorInfoFromErrorObject(error: Record<string, any>): string {
   /* TODO @vardan extend this to N errors instead of first error */
-  return error?.data?.message || error?.data?.errors?.[0]?.error
-    ? `${error?.data.errors[0].fieldId} ${error?.data.errors[0]?.error}`
-    : error?.message || ''
+  if (error?.data?.message) {
+    return error.data.message
+  } else if (!isEmpty(error?.data?.errors)) {
+    return `${error?.data.errors[0]?.fieldId} ${error?.data.errors[0]?.error}`
+  }
+  return error?.message || ''
 }

@@ -116,6 +116,7 @@ export interface StringsMap {
   'common.git.gitRepoUrl': string
   'common.git.installationId': string
   'common.git.newBranchCommitLabel': string
+  'common.git.noBranchesFound': string
   'common.git.noUserLabel': string
   'common.git.privateKey': string
   'common.git.saveResourceLabel': string
@@ -127,6 +128,7 @@ export interface StringsMap {
   'common.git.validation.filePath': string
   'common.git.validation.repoRequired': string
   'common.git.validation.sameBranches': string
+  'common.git.validation.targetBranch': string
   'common.gitSync.allRepositories': string
   'common.gitSync.commitDetailsLabel': string
   'common.gitSync.creatingPR': string

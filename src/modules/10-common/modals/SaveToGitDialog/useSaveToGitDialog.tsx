@@ -67,7 +67,7 @@ export function useSaveToGitDialog<T = Record<string, string>>(
   })
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
 
-  // Status Dialog States
+  /* Progress dialog states */
   const [prCreateStatus, setPRCreateStatus] = useState<StepStatus>()
   const [prMetaData, setPRMetaData] = useState<
     Pick<SaveToGitFormInterface, 'branch' | 'targetBranch' | 'isNewBranch'>
@@ -80,6 +80,7 @@ export function useSaveToGitDialog<T = Record<string, string>>(
   let entity = resource.type || ''
   entity = (entity.endsWith('s') ? entity.substring(0, entity.length - 1) : entity).toLowerCase()
 
+  /* Stages for an entity updated/created and/or saved to git */
   const entityCreateUpdateStage = {
     status: createUpdateStatus,
     intermediateLabel: isEditMode
@@ -109,8 +110,9 @@ export function useSaveToGitDialog<T = Record<string, string>>(
     }),
     finalLabel: getString('common.gitSync.unableToCreatePR')
   }
+
   // Dialogs
-  // modal to show when a git conflict occurs
+  // Modal to show when a git conflict occurs
   const { openGitDiffDialog } = useGitDiffEditorDialog({
     onSuccess: (payload, objectId: EntityGitDetails['objectId'], gitData?: SaveToGitFormInterface): void => {
       try {
@@ -123,7 +125,8 @@ export function useSaveToGitDialog<T = Record<string, string>>(
     },
     onClose: noop
   })
-  // modal to show while creating/updating an entity and creating a PR
+
+  // Modal to show while creating/updating an entity and creating a PR
   const [showCreateUpdateWithPRCreationModal, hideCreateUpdateWithPRCreationModal] = useModalHook(() => {
     return (
       <Dialog
@@ -150,7 +153,8 @@ export function useSaveToGitDialog<T = Record<string, string>>(
       </Dialog>
     )
   }, [creatingPR, createUpdateStatus, error, prCreateStatus, prMetaData])
-  //modal to show while only creating/updating an entity
+
+  // Modal to show while only creating/updating an entity
   const [showCreateUpdateModal, hideCreateUpdateModal] = useModalHook(() => {
     return (
       <Dialog
@@ -164,12 +168,7 @@ export function useSaveToGitDialog<T = Record<string, string>>(
       >
         <ProgressOverlay
           firstStage={entityCreateUpdateStage}
-          postFirstStage={{
-            status: createUpdateStatus,
-            intermediateLabel: getString('common.gitSync.pushingChangestoBranch', {
-              branch: resource.gitDetails?.branch
-            })
-          }}
+          postFirstStage={pushingChangesToBranch}
           onClose={() => {
             hideCreateUpdateModal()
             if (createUpdateStatus === 'SUCCESS') {
@@ -180,10 +179,11 @@ export function useSaveToGitDialog<T = Record<string, string>>(
       </Dialog>
     )
   }, [createUpdateStatus, error])
+
   const handleSuccess = (data: SaveToGitFormInterface, diffData?: T, objectId?: EntityGitDetails['objectId']): void => {
+    setPRMetaData({ branch: data?.branch, targetBranch: data?.targetBranch, isNewBranch: data?.isNewBranch })
     setCreateUpdateStatus('IN_PROGRESS')
     if (data?.createPr) {
-      setPRMetaData({ branch: data?.branch, targetBranch: data?.targetBranch, isNewBranch: data?.isNewBranch })
       setPRCreateStatus('IN_PROGRESS')
       showCreateUpdateWithPRCreationModal()
     } else {

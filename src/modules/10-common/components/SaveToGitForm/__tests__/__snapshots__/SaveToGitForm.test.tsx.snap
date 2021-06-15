@@ -399,7 +399,7 @@ exports[`Save to git form rendering form to git save form without git credential
                     </span>
                   </label>
                   <div
-                    class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--padding-top-small"
+                    class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline StyledProps--flex-justifyContent-flex-start StyledProps--padding-top-small"
                   >
                     <div
                       class="bp3-form-group"
@@ -428,47 +428,56 @@ exports[`Save to git form rendering form to git save form without git credential
                       </div>
                     </div>
                     <div
-                      class="bp3-popover-wrapper branchSelector Select--main bp3-fill"
+                      class="bp3-form-group bp3-disabled branchSelector"
+                      data-id="targetBranch-6"
                     >
                       <div
-                        class="bp3-popover-target"
+                        class="bp3-form-content"
                       >
                         <div
-                          class="bp3-input-group bp3-disabled"
+                          class="bp3-popover-wrapper Select--main bp3-fill"
                         >
-                          <input
-                            autocomplete="off"
-                            class="bp3-input"
-                            disabled=""
-                            name="targetBranch"
-                            placeholder="Search..."
-                            style="padding-right: 0px;"
-                            type="text"
-                            value=""
-                          />
-                          <span
-                            class="bp3-input-action"
+                          <div
+                            class="bp3-popover-target"
                           >
-                            <span
-                              class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                              icon="caret-down"
+                            <div
+                              class="bp3-input-group bp3-disabled"
                             >
-                              <svg
-                                data-icon="caret-down"
-                                height="14"
-                                viewBox="0 0 16 16"
-                                width="14"
+                              <input
+                                autocomplete="off"
+                                class="bp3-input"
+                                disabled=""
+                                name="targetBranch"
+                                placeholder="Search..."
+                                style="padding-right: 0px;"
+                                type="text"
+                                value=""
+                              />
+                              <span
+                                class="bp3-input-action"
                               >
-                                <desc>
-                                  caret-down
-                                </desc>
-                                <path
-                                  d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                                  fill-rule="evenodd"
-                                />
-                              </svg>
-                            </span>
-                          </span>
+                                <span
+                                  class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                                  icon="caret-down"
+                                >
+                                  <svg
+                                    data-icon="caret-down"
+                                    height="14"
+                                    viewBox="0 0 16 16"
+                                    width="14"
+                                  >
+                                    <desc>
+                                      caret-down
+                                    </desc>
+                                    <path
+                                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </span>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -914,7 +923,7 @@ exports[`Save to git form rendering form to save resouces 1`] = `
                     </span>
                   </label>
                   <div
-                    class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--padding-top-small"
+                    class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline StyledProps--flex-justifyContent-flex-start StyledProps--padding-top-small"
                   >
                     <div
                       class="bp3-form-group"
@@ -943,47 +952,56 @@ exports[`Save to git form rendering form to save resouces 1`] = `
                       </div>
                     </div>
                     <div
-                      class="bp3-popover-wrapper branchSelector Select--main bp3-fill"
+                      class="bp3-form-group bp3-disabled branchSelector"
+                      data-id="targetBranch-6"
                     >
                       <div
-                        class="bp3-popover-target"
+                        class="bp3-form-content"
                       >
                         <div
-                          class="bp3-input-group bp3-disabled"
+                          class="bp3-popover-wrapper Select--main bp3-fill"
                         >
-                          <input
-                            autocomplete="off"
-                            class="bp3-input"
-                            disabled=""
-                            name="targetBranch"
-                            placeholder="Search..."
-                            style="padding-right: 0px;"
-                            type="text"
-                            value=""
-                          />
-                          <span
-                            class="bp3-input-action"
+                          <div
+                            class="bp3-popover-target"
                           >
-                            <span
-                              class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                              icon="caret-down"
+                            <div
+                              class="bp3-input-group bp3-disabled"
                             >
-                              <svg
-                                data-icon="caret-down"
-                                height="14"
-                                viewBox="0 0 16 16"
-                                width="14"
+                              <input
+                                autocomplete="off"
+                                class="bp3-input"
+                                disabled=""
+                                name="targetBranch"
+                                placeholder="Search..."
+                                style="padding-right: 0px;"
+                                type="text"
+                                value=""
+                              />
+                              <span
+                                class="bp3-input-action"
                               >
-                                <desc>
-                                  caret-down
-                                </desc>
-                                <path
-                                  d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                                  fill-rule="evenodd"
-                                />
-                              </svg>
-                            </span>
-                          </span>
+                                <span
+                                  class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                                  icon="caret-down"
+                                >
+                                  <svg
+                                    data-icon="caret-down"
+                                    height="14"
+                                    viewBox="0 0 16 16"
+                                    width="14"
+                                  >
+                                    <desc>
+                                      caret-down
+                                    </desc>
+                                    <path
+                                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </span>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1427,7 +1445,7 @@ exports[`Save to git form rendering form to save resouces 2`] = `
                     </span>
                   </label>
                   <div
-                    class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--padding-top-small"
+                    class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline StyledProps--flex-justifyContent-flex-start StyledProps--padding-top-small"
                   >
                     <div
                       class="bp3-form-group"
@@ -1456,47 +1474,56 @@ exports[`Save to git form rendering form to save resouces 2`] = `
                       </div>
                     </div>
                     <div
-                      class="bp3-popover-wrapper branchSelector Select--main bp3-fill"
+                      class="bp3-form-group bp3-disabled branchSelector"
+                      data-id="targetBranch-6"
                     >
                       <div
-                        class="bp3-popover-target"
+                        class="bp3-form-content"
                       >
                         <div
-                          class="bp3-input-group bp3-disabled"
+                          class="bp3-popover-wrapper Select--main bp3-fill"
                         >
-                          <input
-                            autocomplete="off"
-                            class="bp3-input"
-                            disabled=""
-                            name="targetBranch"
-                            placeholder="Search..."
-                            style="padding-right: 0px;"
-                            type="text"
-                            value=""
-                          />
-                          <span
-                            class="bp3-input-action"
+                          <div
+                            class="bp3-popover-target"
                           >
-                            <span
-                              class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                              icon="caret-down"
+                            <div
+                              class="bp3-input-group bp3-disabled"
                             >
-                              <svg
-                                data-icon="caret-down"
-                                height="14"
-                                viewBox="0 0 16 16"
-                                width="14"
+                              <input
+                                autocomplete="off"
+                                class="bp3-input"
+                                disabled=""
+                                name="targetBranch"
+                                placeholder="Search..."
+                                style="padding-right: 0px;"
+                                type="text"
+                                value=""
+                              />
+                              <span
+                                class="bp3-input-action"
                               >
-                                <desc>
-                                  caret-down
-                                </desc>
-                                <path
-                                  d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                                  fill-rule="evenodd"
-                                />
-                              </svg>
-                            </span>
-                          </span>
+                                <span
+                                  class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                                  icon="caret-down"
+                                >
+                                  <svg
+                                    data-icon="caret-down"
+                                    height="14"
+                                    viewBox="0 0 16 16"
+                                    width="14"
+                                  >
+                                    <desc>
+                                      caret-down
+                                    </desc>
+                                    <path
+                                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </span>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>

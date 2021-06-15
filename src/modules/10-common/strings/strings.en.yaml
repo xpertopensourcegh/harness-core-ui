@@ -219,12 +219,14 @@ git:
   existingBranchCommitLabel: Commit to an existing branch
   newBranchCommitLabel: Commit to a new branch for this commit
   startPRLabel: Start a pull request to merge to
+  noBranchesFound: No branches found for configured git repository
   validation:
     filePath: '{{$.common.git.filePath}} is required'
     commitMessage: '{{$.common.git.commitMessage}} is required'
     sameBranches: 'Source and target branches cannot be same for a pull request'
     repoRequired: Repository is a required field
     branchRequired: Branch is a required field
+    targetBranch: Target branch is required for a pull request
 other: Other
 options: Options
 note: Note

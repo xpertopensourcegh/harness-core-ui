@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {
   Container,
   Text,
@@ -12,13 +12,11 @@ import {
   Radio,
   Icon,
   Avatar,
-  Select,
   ModalErrorHandler,
   ModalErrorHandlerBinding
 } from '@wings-software/uicore'
-import { Menu } from '@blueprintjs/core'
 import * as Yup from 'yup'
-import { debounce, pick } from 'lodash-es'
+import { debounce, isEmpty, pick } from 'lodash-es'
 import type { FormikContext } from 'formik'
 import { Link } from 'react-router-dom'
 import {
@@ -26,8 +24,9 @@ import {
   GitSyncEntityDTO,
   GitSyncFolderConfigDTO,
   EntityGitDetails,
-  useGetListOfBranchesWithStatus,
-  GitBranchDTO
+  GitBranchDTO,
+  getListOfBranchesWithStatusPromise,
+  ResponseGitBranchListDTO
 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
@@ -85,6 +84,7 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
   const [selectedBranch, setSelectedBranch] = React.useState<string>('')
   const [modalErrorHandler, setModalErrorHandler] = React.useState<ModalErrorHandlerBinding>()
   const formikRef = useRef<FormikContext<SaveToGitFormInterface>>()
+  const [loading, setLoading] = useState<boolean>()
 
   const defaultInitialFormData: SaveToGitFormInterface = {
     name: resource.name,
@@ -151,32 +151,40 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gitSyncRepos, projectIdentifier])
 
-  const {
-    data: branchList,
-    loading: isFetching,
-    refetch: fetchBranchList,
-    cancel: abortFetch
-  } = useGetListOfBranchesWithStatus({
-    lazy: true
-  })
-
   const fetchBranches = (query?: string): void => {
-    abortFetch()
-    try {
-      fetchBranchList({
-        queryParams: {
-          accountIdentifier: accountId,
-          orgIdentifier,
-          projectIdentifier,
-          yamlGitConfigIdentifier: resource.gitDetails?.repoIdentifier || '',
-          page: 0,
-          size: 20,
-          searchTerm: query
+    setLoading(true)
+    getListOfBranchesWithStatusPromise({
+      queryParams: {
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier,
+        yamlGitConfigIdentifier: resource.gitDetails?.repoIdentifier || '',
+        page: 0,
+        size: 20,
+        searchTerm: query
+      }
+    })
+      .then((response: ResponseGitBranchListDTO) => {
+        const branchesInResponse = response?.data?.branches?.content
+        /* Show error in case no branches exist on a git repo at all */
+        /* A valid git repo should have atleast one branch in it(a.k.a default branch) */
+        if (!query && isEmpty(branchesInResponse)) {
+          modalErrorHandler?.showDanger(getString('common.git.noBranchesFound'))
+          return
         }
+        const branchOptions = branchesInResponse?.map((branch: GitBranchDTO) => {
+          return { label: branch?.branchName, value: branch?.branchName }
+        }) as SelectOption[]
+        const filteredBranches = isNewBranch
+          ? branchOptions
+          : // filter out the current commit branch, since PR from a branch to itself can't be raised
+            branchOptions?.filter((branch: SelectOption) => branch.value !== resource.gitDetails?.branch)
+        setBranches(filteredBranches)
       })
-    } catch (e) {
-      /* istanbul ignore next */ modalErrorHandler?.showDanger(e.data?.message || e.message)
-    }
+      .catch(e => {
+        /* istanbul ignore next */ modalErrorHandler?.showDanger(e.data?.message || e.message)
+      })
+    setLoading(false)
   }
 
   const debounceFetchBranches = debounce((query?: string): void => {
@@ -187,24 +195,13 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
     }
   }, 1000)
 
-  React.useEffect(() => {
-    const branchOptions = branchList?.data?.branches?.content?.map((branch: GitBranchDTO) => {
-      return { label: branch?.branchName, value: branch?.branchName }
-    }) as SelectOption[]
-    const filteredBranches = isNewBranch
-      ? branchOptions
-      : // filter out the current commit branch, since PR from a branch to itself can't be raised
-        branchOptions?.filter((branch: SelectOption) => branch.value !== resource.gitDetails?.branch)
-    setBranches(filteredBranches)
-  }, [isFetching])
-
   const onBranchSelect = (branch: SelectOption): void => {
     setSelectedBranch(branch.value as string)
   }
 
   const CreatePR = React.useMemo(() => {
     return (
-      <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }} padding={{ top: 'small' }}>
+      <Layout.Horizontal flex={{ alignItems: 'baseline', justifyContent: 'flex-start' }} padding={{ top: 'small' }}>
         <FormInput.CheckBox
           name="createPr"
           label={getString('common.git.startPRLabel')}
@@ -215,35 +212,21 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
             }
           }}
         />
-        <Select
+        <FormInput.Select
           name="targetBranch"
           value={branches?.find((branch: SelectOption) => branch.value === selectedBranch)}
           items={branches || []}
           disabled={!formikRef.current?.values.createPr}
           data-id="create-pr-branch-select"
           onQueryChange={(query: string) => debounceFetchBranches(query)}
-          itemRenderer={(item: SelectOption, _props): React.ReactElement => {
-            return (
-              <Menu.Item
-                title={item.label}
-                text={item.label}
-                active={_props.modifiers.active}
-                onClick={() => {
-                  formikRef.current?.setFieldValue('targetBranch', item.value)
-                  onBranchSelect(item)
-                }}
-              />
-            )
-          }}
+          onChange={(item: SelectOption) => onBranchSelect(item)}
           usePortal={true}
           className={css.branchSelector}
         />
-        {isFetching ? (
-          <Icon name="steps-spinner" color={Color.PRIMARY_7} size={18} padding={{ left: 'small' }} />
-        ) : null}
+        {loading ? <Icon name="steps-spinner" color={Color.PRIMARY_7} size={18} padding={{ left: 'small' }} /> : null}
       </Layout.Horizontal>
     )
-  }, [formikRef.current?.values, branches, isFetching, selectedBranch])
+  }, [formikRef.current?.values, branches, loading, selectedBranch])
 
   return loadingRepos ? (
     <PageSpinner />
@@ -308,7 +291,16 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
             branch: Yup.string()
               .trim()
               .required(getString('validation.branchName'))
-              .notOneOf([Yup.ref('targetBranch')], getString('common.git.validation.sameBranches')),
+              .when('createPr', {
+                is: true,
+                then: Yup.string().notOneOf([Yup.ref('targetBranch')], getString('common.git.validation.sameBranches'))
+              }),
+            targetBranch: Yup.string()
+              .trim()
+              .when('createPr', {
+                is: true,
+                then: Yup.string().required(getString('common.git.validation.targetBranch'))
+              }),
             commitMsg: Yup.string().trim().min(1).required(getString('common.git.validation.commitMessage'))
           })}
           onSubmit={formData => {
