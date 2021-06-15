@@ -121,10 +121,7 @@ const RenderColumnMembers: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, 
 }
 
 const RenderColumnRoleAssignments: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, column }) => {
-  const data = row.original.roleAssignmentsMetadataDTO?.map(item => ({
-    item: `${item.roleName} - ${item.resourceGroupName}`,
-    managed: item.managedRole
-  }))
+  const data = row.original.roleAssignmentsMetadataDTO
   const { getString } = useStrings()
 
   return (

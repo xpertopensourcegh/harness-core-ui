@@ -37,10 +37,6 @@ const UserDetails: React.FC = () => {
   })
 
   const user = data?.data?.user
-  const roleBindings = data?.data?.roleAssignmentMetadata?.map(item => ({
-    item: `${item.roleName} - ${item.resourceGroupName}`,
-    managed: item.managedRole
-  }))
 
   useDocumentTitle([user?.name || '', getString('users')])
 
@@ -90,7 +86,7 @@ const UserDetails: React.FC = () => {
               {getString('rbac.roleBinding')}
             </Text>
             <Card className={css.card}>
-              <RoleBindingsList data={roleBindings} />
+              <RoleBindingsList data={data?.data?.roleAssignmentMetadata} />
             </Card>
             <Layout.Horizontal
               flex={{ alignItems: 'center', justifyContent: 'flex-start' }}

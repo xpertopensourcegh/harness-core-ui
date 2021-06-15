@@ -50,10 +50,7 @@ const RenderColumnUser: Renderer<CellProps<UserAggregate>> = ({ row }) => {
   )
 }
 const RenderColumnRoleAssignments: Renderer<CellProps<UserAggregate>> = ({ row, column }) => {
-  const data = row.original.roleAssignmentMetadata?.map(item => ({
-    item: `${item.roleName} - ${item.resourceGroupName}`,
-    managed: item.managedRole
-  }))
+  const data = row.original.roleAssignmentMetadata
   const { getString } = useStrings()
 
   const handleAddRole = (e: React.MouseEvent<Element, MouseEvent>): void => {

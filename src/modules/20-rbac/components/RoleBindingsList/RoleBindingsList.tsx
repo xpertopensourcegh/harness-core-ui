@@ -1,16 +1,54 @@
 import React from 'react'
-import cx from 'classnames'
 import { Tag, Popover, PopoverInteractionKind } from '@blueprintjs/core'
 import { Layout } from '@wings-software/uicore'
+import { Link, useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
+import type { RoleAssignmentMetadataDTO, RoleBinding } from 'services/cd-ng'
+import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import routes from '@common/RouteDefinitions'
 import css from './RoleBindingsList.module.scss'
 
 interface RoleBindingsListProps {
-  data?: {
-    item: string
-    managed: boolean
-  }[]
+  data?: RoleAssignmentMetadataDTO[] | RoleBinding[]
   length?: number
+}
+
+const RoleBindingTag = ({ roleAssignment }: { roleAssignment: RoleBinding }): React.ReactElement => {
+  const { accountId, orgIdentifier, projectIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
+  return (
+    <Tag
+      className={roleAssignment.managedRole ? css.harnesstag : css.customtag}
+      onClick={e => {
+        e.stopPropagation()
+      }}
+    >
+      <Link
+        to={routes.toRoleDetails({
+          accountId,
+          orgIdentifier,
+          projectIdentifier,
+          module,
+          roleIdentifier: roleAssignment.roleIdentifier
+        })}
+        className={css.link}
+      >
+        {roleAssignment.roleName}
+      </Link>
+      {` - `}
+      <Link
+        to={routes.toResourceGroupDetails({
+          accountId,
+          orgIdentifier,
+          projectIdentifier,
+          module,
+          resourceGroupIdentifier: roleAssignment.resourceGroupIdentifier
+        })}
+        className={css.link}
+      >
+        {roleAssignment.resourceGroupName}
+      </Link>
+    </Tag>
+  )
 }
 
 const RoleBindingsList: React.FC<RoleBindingsListProps> = ({ data, length = data?.length }) => {
@@ -19,10 +57,11 @@ const RoleBindingsList: React.FC<RoleBindingsListProps> = ({ data, length = data
   const { getString } = useStrings()
   return (
     <>
-      {baseData?.map(({ item, managed }) => (
-        <Tag key={item} className={managed ? css.harnesstag : css.customtag}>
-          {item}
-        </Tag>
+      {baseData?.map(roleAssignment => (
+        <RoleBindingTag
+          key={`${roleAssignment.roleIdentifier} ${roleAssignment.resourceGroupIdentifier}`}
+          roleAssignment={roleAssignment}
+        />
       ))}
       {popoverData?.length ? (
         <Popover interactionKind={PopoverInteractionKind.HOVER}>
@@ -30,10 +69,11 @@ const RoleBindingsList: React.FC<RoleBindingsListProps> = ({ data, length = data
             <Tag className={css.tag}>{getString('common.plusNumber', { number: popoverData?.length })}</Tag>
           </Layout.Horizontal>
           <Layout.Vertical padding="small" spacing="small">
-            {popoverData?.map(({ item, managed }) => (
-              <Tag key={item} className={cx(css.tag, managed ? css.harnesstag : css.customtag)}>
-                {item}
-              </Tag>
+            {popoverData?.map(roleAssignment => (
+              <RoleBindingTag
+                key={`${roleAssignment.roleIdentifier} ${roleAssignment.resourceGroupIdentifier}`}
+                roleAssignment={roleAssignment}
+              />
             ))}
           </Layout.Vertical>
         </Popover>

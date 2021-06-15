@@ -205,7 +205,19 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
               <span
                 class="bp3-text-overflow-ellipsis bp3-fill"
               >
-                Account Viewer - New 123
+                <a
+                  class="link"
+                  href="/account/testAcc/home/setup/access-control/roles/_account_viewer"
+                >
+                  Account Viewer
+                </a>
+                 - 
+                <a
+                  class="link"
+                  href="/account/testAcc/home/setup/access-control/resource-groups/New_123"
+                >
+                  New 123
+                </a>
               </span>
             </span>
           </div>
@@ -336,7 +348,19 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
               <span
                 class="bp3-text-overflow-ellipsis bp3-fill"
               >
-                New Role - New 123
+                <a
+                  class="link"
+                  href="/account/testAcc/home/setup/access-control/roles/New_Role"
+                >
+                  New Role
+                </a>
+                 - 
+                <a
+                  class="link"
+                  href="/account/testAcc/home/setup/access-control/resource-groups/New_123"
+                >
+                  New 123
+                </a>
               </span>
             </span>
           </div>

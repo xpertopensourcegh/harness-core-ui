@@ -51,10 +51,6 @@ const UserGroupDetails: React.FC = () => {
 
   const userGroupAggregateResponse: UserGroupAggregateDTO | undefined = data?.data
   const userGroup = userGroupAggregateResponse?.userGroupDTO
-  const roleBindings = userGroupAggregateResponse?.roleAssignmentsMetadataDTO?.map(item => ({
-    item: `${item.roleName} - ${item.resourceGroupName}`,
-    managed: item.managedRole
-  }))
 
   useDocumentTitle([userGroup?.name || '', getString('common.userGroups')])
 
@@ -170,7 +166,7 @@ const UserGroupDetails: React.FC = () => {
               {getString('rbac.roleBinding')}
             </Text>
             <Card className={css.card}>
-              <RoleBindingsList data={roleBindings} />
+              <RoleBindingsList data={userGroupAggregateResponse?.roleAssignmentsMetadataDTO} />
             </Card>
             <Layout.Horizontal
               flex={{ alignItems: 'center', justifyContent: 'flex-start' }}

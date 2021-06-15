@@ -37,10 +37,7 @@ const RenderColumnUser: Renderer<CellProps<Invite>> = ({ row }) => {
   )
 }
 const RenderColumnRoleAssignments: Renderer<CellProps<Invite>> = ({ row }) => {
-  const data = row.original.roleBindings?.map(item => ({
-    item: `${item.roleName} - ${item.resourceGroupName}`,
-    managed: item.managedRole
-  }))
+  const data = row.original.roleBindings
 
   return (
     <Layout.Horizontal

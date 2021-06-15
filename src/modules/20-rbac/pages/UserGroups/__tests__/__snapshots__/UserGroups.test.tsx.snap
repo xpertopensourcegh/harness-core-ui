@@ -692,7 +692,19 @@ exports[`UsersPage Test render data 1`] = `
               <span
                 class="bp3-text-overflow-ellipsis bp3-fill"
               >
-                Custom Role - All Resources
+                <a
+                  class="link"
+                  href="/account/testAcc/home/setup/access-control/roles/Custom_Role"
+                >
+                  Custom Role
+                </a>
+                 - 
+                <a
+                  class="link"
+                  href="/account/testAcc/home/setup/access-control/resource-groups/_all_resources"
+                >
+                  All Resources
+                </a>
               </span>
             </span>
             <button
@@ -1044,7 +1056,19 @@ exports[`UsersPage Test render data 1`] = `
               <span
                 class="bp3-text-overflow-ellipsis bp3-fill"
               >
-                Custom Role - All Resources
+                <a
+                  class="link"
+                  href="/account/testAcc/home/setup/access-control/roles/Custom_Role"
+                >
+                  Custom Role
+                </a>
+                 - 
+                <a
+                  class="link"
+                  href="/account/testAcc/home/setup/access-control/resource-groups/_all_resources"
+                >
+                  All Resources
+                </a>
               </span>
             </span>
             <button
