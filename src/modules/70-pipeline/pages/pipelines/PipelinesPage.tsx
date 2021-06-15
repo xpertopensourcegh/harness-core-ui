@@ -225,6 +225,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
 
   const reset = (): void => {
     setAppliedFilter(null)
+    setGitFilter(null)
     setError(null)
   }
 
@@ -512,7 +513,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
           <HarnessDocTooltip tooltipId="pipelinesPageHeading" useStandAlone={true} />
         </div>
       </div>
-      {(!!pipelineList?.content?.length || appliedFilter) && (
+      {(!!pipelineList?.content?.length || appliedFilter || isGitSyncEnabled) && (
         <Layout.Horizontal className={css.header} flex={{ distribution: 'space-between' }}>
           <Layout.Horizontal>
             <RbacButton
@@ -538,6 +539,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
                     setPage(0)
                   }}
                   className={css.gitFilter}
+                  defaultValue={gitFilter || undefined}
                 />
               </GitSyncStoreProvider>
             )}
@@ -625,7 +627,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
           </OverlaySpinner>
         ) : !pipelineList?.content?.length ? (
           <div className={css.noPipelineSection}>
-            {appliedFilter ? (
+            {appliedFilter || isGitSyncEnabled ? (
               <Layout.Vertical spacing="small" flex>
                 <Icon size={50} name={isCIModule ? 'ci-main' : 'cd-hover'} margin={{ bottom: 'large' }} />
                 <Text

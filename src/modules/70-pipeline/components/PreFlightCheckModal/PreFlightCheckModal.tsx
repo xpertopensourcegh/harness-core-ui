@@ -7,6 +7,7 @@ import { PopoverInteractionKind, Position, ProgressBar } from '@blueprintjs/core
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import { Accordion, Button, Color, Container, Layout, Popover, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { NgPipeline } from 'services/cd-ng'
 import {
   ConnectorCheckResponse,
@@ -507,7 +508,7 @@ export const PreFlightCheckModal: React.FC<PreFlightCheckModalProps & GitQueryPa
 
   const { showError } = useToaster()
   const { getString } = useStrings()
-
+  const { isGitSyncEnabled } = useAppStore()
   const processResponseError = (error?: { message?: string }) => {
     showError(error?.message ? error?.message : getString('somethingWentWrong'))
     onCloseButtonClick()
@@ -522,8 +523,7 @@ export const PreFlightCheckModal: React.FC<PreFlightCheckModalProps & GitQueryPa
           orgIdentifier,
           projectIdentifier,
           pipelineIdentifier,
-          repoIdentifier,
-          branch
+          ...(isGitSyncEnabled ? { repoIdentifier, branch, getDefaultFromOtherRepo: true } : {})
         },
         body: !isEmpty(pipeline) ? (stringify({ pipeline }) as any) : ''
       })
