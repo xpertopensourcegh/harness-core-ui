@@ -381,6 +381,7 @@ function RunPipelineFormBasic({
       accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier,
+      moduleType: module,
       repoIdentifier,
       branch
     },

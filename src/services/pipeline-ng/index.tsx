@@ -968,6 +968,8 @@ export interface ExecutionMetadata {
   gitSyncBranchContext?: ByteString
   initializationErrorString?: string
   initialized?: boolean
+  moduleType?: string
+  moduleTypeBytes?: ByteString
   parserForType?: ParserExecutionMetadata
   pipelineIdentifier?: string
   pipelineIdentifierBytes?: ByteString
@@ -6714,6 +6716,7 @@ export interface PostPipelineExecuteWithInputSetYamlQueryParams {
   accountIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
+  moduleType: string
   branch?: string
   repoIdentifier?: string
   getDefaultFromOtherRepo?: boolean
@@ -6816,6 +6819,7 @@ export interface PostPipelineExecuteWithInputSetListQueryParams {
   accountIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
+  moduleType: string
   branch?: string
   repoIdentifier?: string
   getDefaultFromOtherRepo?: boolean
