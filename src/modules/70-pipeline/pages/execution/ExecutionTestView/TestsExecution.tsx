@@ -196,7 +196,8 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ serviceToken }) 
                 refetchData({
                   ...queryParams,
                   sort: item.value as SortByKey,
-                  pageIndex: 0
+                  pageIndex: 0,
+                  status: showFailedTestsOnly ? 'failed' : undefined
                 })
               }}
             />
