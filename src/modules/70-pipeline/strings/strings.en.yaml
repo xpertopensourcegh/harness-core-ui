@@ -131,7 +131,7 @@ manifestType:
   pathPlaceholder: Enter file path
   bucketName: Bucket Name
   gitFetchTypeLabel: Git Fetch Type
-  commitId: Commit ID
+  commitId: Commit Id
   branchPlaceholder: Enter branch name
   commitPlaceholder: Enter commit id
   filePathPlaceholder: Enter file or folder path
