@@ -73,7 +73,8 @@ const CFHomePage: React.FC = () => {
       ModuleName.CF.toString() as Module,
       data?.data
     )
-  }, [data, licenseInformation, updateLicenseStore])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data])
 
   useEffect(() => {
     refetch()

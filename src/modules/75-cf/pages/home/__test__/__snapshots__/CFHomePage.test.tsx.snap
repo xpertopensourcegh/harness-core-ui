@@ -296,3 +296,64 @@ exports[`CFHomePage should return error page if call fails 1`] = `
   </div>
 </div>
 `;
+
+exports[`CFHomePage should update the license store 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main pageBody"
+    data-name="page-body"
+  >
+    <div
+      class="StyledProps--font StyledProps--main body"
+      style="--image-url: url(test-file-stub);"
+    >
+      <div
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+      >
+        <h1
+          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color"
+        >
+          cf.continuous
+        </h1>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color"
+        >
+          cf.homepage.slogan
+        </p>
+        <a
+          class="bp3-button Button--button StyledProps--font StyledProps--main link StyledProps--color StyledProps--font StyledProps--font-size-normal Button--with-current-color Button--link"
+          href="https://ngdocs.harness.io/article/0a2u2ppp8s-getting-started-with-continuous-features"
+          rel="noreferrer noopener"
+          role="button"
+          tabindex="0"
+          target="_blank"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            cf.homepage.learnMore
+          </span>
+        </a>
+        <div
+          class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--flex"
+        >
+          <a
+            class="createBtn"
+            href="/account/undefined/home/projects"
+          >
+            createProject
+          </a>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
+          >
+            orSelectExisting
+          </p>
+          <span
+            style="flex-grow: 1;"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

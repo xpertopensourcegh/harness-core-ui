@@ -235,3 +235,68 @@ exports[`CIHomePage should return error page if call fails 1`] = `
   </div>
 </div>
 `;
+
+exports[`CIHomePage should update the license store 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main pageBody"
+    data-name="page-body"
+  >
+    <div
+      class="StyledProps--font StyledProps--main body"
+      style="--image-url: url(test-file-stub);"
+    >
+      <div
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+      >
+        <div
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+          style="align-items: center;"
+        >
+          <h1
+            class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black100"
+          >
+            ci.continuous
+          </h1>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--border StyledProps--color StyledProps--color-white StyledProps--background-orange500 StyledProps--font-align-center"
+            style="width: 120px; height: 18px;"
+          >
+            common.trialInProgress
+          </p>
+        </div>
+        <div
+          class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--padding-bottom-xxlarge"
+            style="line-height: 2; width: 500px;"
+          >
+            common.trialInProgressDescription
+          </p>
+          <div
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+          >
+            <button
+              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+              style="width: 200px; height: 45px;"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                createProject
+              </span>
+            </button>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-size-normal StyledProps--color StyledProps--color-black StyledProps--padding-small"
+            >
+              orSelectExisting
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

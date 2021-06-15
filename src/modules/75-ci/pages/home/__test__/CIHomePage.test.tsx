@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { useGetModuleLicenseByAccountAndModuleType } from 'services/cd-ng'
 import CIHomePage from '../CIHomePage'
@@ -107,5 +107,36 @@ describe('CIHomePage', () => {
     )
     expect(getByText('common.trialInProgress')).toBeDefined()
     expect(container).toMatchSnapshot()
+  })
+
+  test('should update the license store', async () => {
+    useGetModuleLicenseInfoMock.mockImplementation(() => {
+      return {
+        data: {
+          data: {},
+          status: 'SUCCESS'
+        },
+        error: null,
+        refetch: jest.fn()
+      }
+    })
+
+    const updateLicenseStoreSpy = jest.fn()
+
+    const { container, getByText } = render(
+      <TestWrapper
+        defaultAppStoreValues={{ currentUserInfo: currentUser }}
+        queryParams={{ trial: true }}
+        defaultLicenseStoreValues={{
+          updateLicenseStore: updateLicenseStoreSpy
+        }}
+      >
+        <CIHomePage />
+      </TestWrapper>
+    )
+    expect(getByText('common.trialInProgress')).toBeDefined()
+    expect(container).toMatchSnapshot()
+
+    await waitFor(() => expect(updateLicenseStoreSpy).toHaveBeenCalledTimes(1))
   })
 })

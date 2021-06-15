@@ -6,6 +6,7 @@ import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 
 import { AccountLicensesDTO, ModuleLicenseDTO, useGetAccountLicenses } from 'services/cd-ng'
+import { ModuleName } from 'framework/types/ModuleName'
 
 export enum LICENSE_STATE_VALUES {
   ACTIVE = 'ACTIVE',
@@ -21,6 +22,18 @@ export interface LicenseStoreContextProps {
   readonly FF_LICENSE_STATE: LICENSE_STATE_VALUES
 
   updateLicenseStore(data: Partial<Pick<LicenseStoreContextProps, 'licenseInformation'>>): void
+}
+
+export interface LicenseRedirectProps {
+  licenseStateName: keyof Omit<LicenseStoreContextProps, 'licenseInformation' | 'updateLicenseStore'>
+  startTrialRedirect: () => React.ReactElement
+}
+
+type licenseStateNames = keyof Omit<LicenseStoreContextProps, 'licenseInformation' | 'updateLicenseStore'>
+
+export const LICENSE_STATE_NAMES: { [T in licenseStateNames]: T } = {
+  CI_LICENSE_STATE: 'CI_LICENSE_STATE',
+  FF_LICENSE_STATE: 'FF_LICENSE_STATE'
 }
 
 export const LicenseStoreContext = React.createContext<LicenseStoreContextProps>({
@@ -151,15 +164,15 @@ export function handleUpdateLicenseStore(
     | Partial<Pick<LicenseStoreContextProps, 'licenseInformation' | 'CI_LICENSE_STATE' | 'FF_LICENSE_STATE'>>
     | undefined
 
-  if (module === 'ci') {
-    newLicenseInformation['CI'] = data
+  if (module.toUpperCase() === ModuleName.CI) {
+    newLicenseInformation[ModuleName.CI] = data
 
     licenseStoreData = {
       licenseInformation: newLicenseInformation,
       CI_LICENSE_STATE: LICENSE_STATE_VALUES.ACTIVE
     }
-  } else if (module === 'cf') {
-    newLicenseInformation['CF'] = data
+  } else if (module.toUpperCase() === ModuleName.CF) {
+    newLicenseInformation[ModuleName.CF] = data
 
     licenseStoreData = {
       licenseInformation: newLicenseInformation,

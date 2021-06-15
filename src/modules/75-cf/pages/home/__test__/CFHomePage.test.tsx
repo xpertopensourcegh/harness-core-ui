@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { useGetModuleLicenseByAccountAndModuleType } from 'services/cd-ng'
 import CFHomePage from '../CFHomePage'
@@ -123,5 +123,34 @@ describe('CFHomePage', () => {
     )
     expect(getByText('cf.homepage.slogan')).toBeDefined()
     expect(container).toMatchSnapshot()
+  })
+
+  test('should update the license store', async () => {
+    useGetModuleLicenseInfoMock.mockImplementation(() => {
+      return {
+        data: {
+          data: {},
+          status: 'SUCCESS'
+        },
+        refetch: jest.fn()
+      }
+    })
+
+    const updateLicenseStoreSpy = jest.fn()
+
+    const { container, getByText } = render(
+      <TestWrapper
+        defaultAppStoreValues={{ currentUserInfo: currentUser }}
+        defaultLicenseStoreValues={{
+          updateLicenseStore: updateLicenseStoreSpy
+        }}
+      >
+        <CFHomePage />
+      </TestWrapper>
+    )
+    expect(getByText('cf.homepage.slogan')).toBeDefined()
+    expect(container).toMatchSnapshot()
+
+    await waitFor(() => expect(updateLicenseStoreSpy).toHaveBeenCalledTimes(1))
   })
 })

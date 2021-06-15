@@ -9,6 +9,11 @@ import qs from 'qs'
 
 import { enableMapSet } from 'immer'
 import { AppStoreContext, AppStoreContextProps } from 'framework/AppStore/AppStoreContext'
+import {
+  LicenseStoreContext,
+  LicenseStoreContextProps,
+  LICENSE_STATE_VALUES
+} from 'framework/LicenseStore/LicenseStoreContext'
 import { withAccountId, accountPathProps } from '@common/utils/routeUtils'
 import type { Project } from 'services/cd-ng'
 import { StringsContext } from 'framework/strings'
@@ -37,6 +42,7 @@ export interface TestWrapperProps {
   pathParams?: Record<string, string | number>
   queryParams?: Record<string, unknown>
   defaultAppStoreValues?: Partial<AppStoreContextProps>
+  defaultLicenseStoreValues?: Partial<LicenseStoreContextProps>
   projects?: Project[]
   enableBrowserView?: boolean
 }
@@ -87,7 +93,7 @@ export function BrowserView(props: BrowserViewProps): React.ReactElement {
 
 export const TestWrapper: React.FC<TestWrapperProps> = props => {
   enableMapSet()
-  const { path = '/', pathParams = {}, defaultAppStoreValues, queryParams = {} } = props
+  const { path = '/', pathParams = {}, defaultAppStoreValues, queryParams = {}, defaultLicenseStoreValues } = props
 
   const search = qs.stringify(queryParams, { addQueryPrefix: true })
   const routePath = compile(path)(pathParams) + search
@@ -111,22 +117,32 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
           ...defaultAppStoreValues
         }}
       >
-        <Router history={history}>
-          <ModalProvider>
-            <RestfulProvider base="/">
-              <BrowserView enable={props.enableBrowserView}>
-                <Switch>
-                  <Route exact path={path}>
-                    {props.children}
-                  </Route>
-                  <Route>
-                    <CurrentLocation />
-                  </Route>
-                </Switch>
-              </BrowserView>
-            </RestfulProvider>
-          </ModalProvider>
-        </Router>
+        <LicenseStoreContext.Provider
+          value={{
+            licenseInformation: {},
+            CI_LICENSE_STATE: LICENSE_STATE_VALUES.ACTIVE,
+            FF_LICENSE_STATE: LICENSE_STATE_VALUES.ACTIVE,
+            updateLicenseStore: () => void 0,
+            ...defaultLicenseStoreValues
+          }}
+        >
+          <Router history={history}>
+            <ModalProvider>
+              <RestfulProvider base="/">
+                <BrowserView enable={props.enableBrowserView}>
+                  <Switch>
+                    <Route exact path={path}>
+                      {props.children}
+                    </Route>
+                    <Route>
+                      <CurrentLocation />
+                    </Route>
+                  </Switch>
+                </BrowserView>
+              </RestfulProvider>
+            </ModalProvider>
+          </Router>
+        </LicenseStoreContext.Provider>
       </AppStoreContext.Provider>
     </StringsContext.Provider>
   )

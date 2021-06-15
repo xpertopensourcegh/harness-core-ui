@@ -68,6 +68,7 @@ import RbacFactory from '@rbac/factories/RbacFactory'
 import { ResourceCategory, ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { String } from 'framework/strings'
+import { LicenseRedirectProps, LICENSE_STATE_NAMES } from 'framework/LicenseStore/LicenseStoreContext'
 import { TargetsPage } from './pages/target-management/targets/TargetsPage'
 import CFPipelineStudio from './pages/pipeline-studio/CFPipelineStudio'
 import { TargetDetailPage } from './pages/target-details/TargetDetailPage'
@@ -119,6 +120,26 @@ const cfModuleParams: ModulePathParams = {
   module: ':module(cf)'
 }
 
+const RedirectToModuleTrialHome = (): React.ReactElement => {
+  const { accountId } = useParams<{
+    accountId: string
+  }>()
+
+  return (
+    <Redirect
+      to={routes.toModuleTrialHome({
+        accountId,
+        module: 'cf'
+      })}
+    />
+  )
+}
+
+const licenseRedirectData: LicenseRedirectProps = {
+  licenseStateName: LICENSE_STATE_NAMES.FF_LICENSE_STATE,
+  startTrialRedirect: RedirectToModuleTrialHome
+}
+
 RbacFactory.registerResourceCategory(ResourceCategory.FEATUREFLAG_FUNCTIONS, {
   icon: 'nav-cf',
   label: 'cf.rbac.category'
@@ -147,11 +168,15 @@ RbacFactory.registerResourceTypeHandler(ResourceType.TARGETGROUP, {
 
 export default (
   <>
-    <Route path={routes.toCF({ ...accountPathProps })} exact>
+    <Route licenseRedirectData={licenseRedirectData} path={routes.toCF({ ...accountPathProps })} exact>
       <RedirectToCFHome />
     </Route>
 
-    <Route path={routes.toCFProject({ ...accountPathProps, ...projectPathProps })} exact>
+    <Route
+      licenseRedirectData={licenseRedirectData}
+      path={routes.toCFProject({ ...accountPathProps, ...projectPathProps })}
+      exact
+    >
       <RedirectToCFProject />
     </Route>
 
@@ -163,11 +188,17 @@ export default (
       <CFTrialHomePage />
     </RouteWithLayout>
 
-    <RouteWithLayout sidebarProps={CFSideNavProps} path={routes.toCFHome({ ...accountPathProps })} exact>
+    <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
+      sidebarProps={CFSideNavProps}
+      path={routes.toCFHome({ ...accountPathProps })}
+      exact
+    >
       <CFHomePage />
     </RouteWithLayout>
 
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CFSideNavProps}
       path={routes.toCFFeatureFlags({ ...accountPathProps, ...projectPathProps })}
       exact
@@ -176,6 +207,7 @@ export default (
     </RouteWithLayout>
 
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CFSideNavProps}
       path={routes.toCFFeatureFlagsDetail({
         ...accountPathProps,
@@ -188,6 +220,7 @@ export default (
     </RouteWithLayout>
 
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CFSideNavProps}
       path={routes.toCFSegmentDetails({
         ...accountPathProps,
@@ -200,6 +233,7 @@ export default (
     </RouteWithLayout>
 
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CFSideNavProps}
       path={routes.toCFTargetDetails({
         ...accountPathProps,
@@ -211,11 +245,16 @@ export default (
       <TargetDetailPage />
     </RouteWithLayout>
 
-    <Route path={routes.toCFTargetManagement({ ...accountPathProps, ...projectPathProps })} exact>
+    <Route
+      licenseRedirectData={licenseRedirectData}
+      path={routes.toCFTargetManagement({ ...accountPathProps, ...projectPathProps })}
+      exact
+    >
       <RedirectToTargets />
     </Route>
 
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CFSideNavProps}
       path={routes.toCFSegments({ ...accountPathProps, ...projectPathProps })}
       exact
@@ -224,6 +263,7 @@ export default (
     </RouteWithLayout>
 
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CFSideNavProps}
       path={routes.toCFTargets({ ...accountPathProps, ...projectPathProps })}
       exact
@@ -232,6 +272,7 @@ export default (
     </RouteWithLayout>
 
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CFSideNavProps}
       path={routes.toCFEnvironments({ ...accountPathProps, ...projectPathProps })}
       exact
@@ -240,6 +281,7 @@ export default (
     </RouteWithLayout>
 
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CFSideNavProps}
       path={routes.toCFEnvironmentDetails({ ...accountPathProps, ...projectPathProps, ...environmentPathProps })}
       exact
@@ -248,6 +290,7 @@ export default (
     </RouteWithLayout>
 
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CFSideNavProps}
       path={routes.toCFOnboarding({ ...accountPathProps, ...projectPathProps, ...environmentPathProps })}
       exact
@@ -256,6 +299,7 @@ export default (
     </RouteWithLayout>
 
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CFSideNavProps}
       path={routes.toCFOnboardingDetail({ ...accountPathProps, ...projectPathProps, ...environmentPathProps })}
       exact
@@ -264,6 +308,7 @@ export default (
     </RouteWithLayout>
 
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CFSideNavProps}
       path={routes.toCFWorkflows({ ...accountPathProps, ...projectPathProps })}
       exact
@@ -272,6 +317,7 @@ export default (
     </RouteWithLayout>
 
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CFSideNavProps}
       exact
       path={routes.toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
@@ -282,6 +328,7 @@ export default (
     </RouteWithLayout>
 
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       exact
       sidebarProps={CFSideNavProps}
       path={routes.toPipelines({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
@@ -290,6 +337,7 @@ export default (
     </RouteWithLayout>
 
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       exact
       sidebarProps={CFSideNavProps}
       path={routes.toInputSetList({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
@@ -300,6 +348,7 @@ export default (
     </RouteWithLayout>
 
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CFSideNavProps}
       path={routes.toDeployments({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
       exact
@@ -308,17 +357,19 @@ export default (
     </RouteWithLayout>
 
     <RouteWithLayout
-      exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CFSideNavProps}
       path={routes.toInputSetForm({ ...accountPathProps, ...inputSetFormPathProps, ...pipelineModuleParams })}
+      exact
     >
       <EnhancedInputSetForm />
     </RouteWithLayout>
 
     <RouteWithLayout
-      exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CFSideNavProps}
       path={routes.toTriggersPage({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
+      exact
     >
       <PipelineDetails>
         <TriggersPage />
@@ -326,14 +377,16 @@ export default (
     </RouteWithLayout>
 
     <RouteWithLayout
-      exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CFSideNavProps}
       path={routes.toTriggersDetailPage({ ...accountPathProps, ...triggerPathProps, ...pipelineModuleParams })}
+      exact
     >
       <TriggersDetailPage />
     </RouteWithLayout>
 
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CFSideNavProps}
       path={routes.toTriggersWizardPage({ ...accountPathProps, ...triggerPathProps, ...pipelineModuleParams })}
     >
@@ -343,17 +396,19 @@ export default (
     </RouteWithLayout>
 
     <Route
-      exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CFSideNavProps}
       path={routes.toExecution({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })}
+      exact
     >
       <RedirectToExecutionPipeline />
     </Route>
 
     <RouteWithLayout
-      exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CFSideNavProps}
       path={routes.toRunPipeline({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
+      exact
     >
       <PipelineDetails>
         <CFPipelineStudio />
@@ -363,9 +418,10 @@ export default (
     </RouteWithLayout>
 
     <RouteWithLayout
-      exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CFSideNavProps}
       path={routes.toExecutionPipelineView({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })}
+      exact
     >
       <ExecutionLandingPage>
         <ExecutionPipelineView />
@@ -373,9 +429,10 @@ export default (
     </RouteWithLayout>
 
     <RouteWithLayout
-      exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CFSideNavProps}
       path={routes.toExecutionInputsView({ ...accountPathProps, ...executionPathProps, ...pipelineModuleParams })}
+      exact
     >
       <ExecutionLandingPage>
         <ExecutionInputsView />
@@ -383,13 +440,14 @@ export default (
     </RouteWithLayout>
 
     <RouteWithLayout
-      exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CFSideNavProps}
       path={routes.toExecutionArtifactsView({
         ...accountPathProps,
         ...executionPathProps,
         ...pipelineModuleParams
       })}
+      exact
     >
       <ExecutionLandingPage>
         <ExecutionArtifactsView />
@@ -397,50 +455,54 @@ export default (
     </RouteWithLayout>
 
     <RouteWithLayout
-      exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CFSideNavProps}
       path={routes.toPipelineDetail({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
+      exact
     >
       <RedirectToPipelineDetailHome />
     </RouteWithLayout>
 
     <RouteWithLayout
-      exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CFSideNavProps}
       path={routes.toPipelineDeploymentList({
         ...accountPathProps,
         ...pipelinePathProps,
         ...pipelineModuleParams
       })}
+      exact
     >
       <PipelineDetails>{/*<CFPipelineDeploymentList />*/}</PipelineDetails>
     </RouteWithLayout>
 
     <RouteWithLayout
-      exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CFSideNavProps}
       path={routes.toPipelineDetail({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
+      exact
     >
       <RedirectToPipelineDetailHome />
     </RouteWithLayout>
 
     <RouteWithLayout
-      exact
-      sidebarProps={CFSideNavProps}
+      licenseRedirectData={licenseRedirectData}
       path={routes.toConnectors({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+      exact
     >
       <ConnectorsPage />
     </RouteWithLayout>
     <RouteWithLayout
-      exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CFSideNavProps}
       path={routes.toCreateConnectorFromYaml({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+      exact
     >
       <CreateConnectorFromYamlPage />
     </RouteWithLayout>
 
     <RouteWithLayout
-      exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CFSideNavProps}
       path={routes.toConnectorDetails({
         ...accountPathProps,
@@ -448,19 +510,22 @@ export default (
         ...connectorPathProps,
         ...cfModuleParams
       })}
+      exact
     >
       <ConnectorDetailsPage />
     </RouteWithLayout>
 
     <RouteWithLayout
-      exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CFSideNavProps}
       path={routes.toSecrets({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+      exact
     >
       <SecretsPage module="cf" />
     </RouteWithLayout>
 
     <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CFSideNavProps}
       path={routes.toCreateSecretFromYaml({
         ...accountPathProps,
@@ -473,7 +538,7 @@ export default (
     </RouteWithLayout>
 
     <RouteWithLayout
-      exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CFSideNavProps}
       path={routes.toSecretDetails({
         ...accountPathProps,
@@ -481,11 +546,12 @@ export default (
         ...secretPathProps,
         ...modulePathProps
       })}
+      exact
     >
       <RedirectToSecretDetailHome />
     </RouteWithLayout>
     <RouteWithLayout
-      exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CFSideNavProps}
       path={routes.toSecretDetailsOverview({
         ...accountPathProps,
@@ -493,13 +559,14 @@ export default (
         ...secretPathProps,
         ...modulePathProps
       })}
+      exact
     >
       <SecretDetailsHomePage>
         <SecretDetails />
       </SecretDetailsHomePage>
     </RouteWithLayout>
     <RouteWithLayout
-      exact
+      licenseRedirectData={licenseRedirectData}
       sidebarProps={CFSideNavProps}
       path={routes.toSecretDetailsReferences({
         ...accountPathProps,
@@ -507,6 +574,7 @@ export default (
         ...secretPathProps,
         ...modulePathProps
       })}
+      exact
     >
       <SecretDetailsHomePage>
         <SecretReferences />

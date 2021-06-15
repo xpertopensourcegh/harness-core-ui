@@ -1,8 +1,11 @@
 import React from 'react'
 import { render } from '@testing-library/react'
+import { Redirect } from 'react-router-dom'
 import { TestWrapper } from '@common/utils/testUtils'
 import { MinimalLayout, EmptyLayout } from '@common/layouts'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
+import routes from '@common/RouteDefinitions'
+import { LICENSE_STATE_NAMES, LICENSE_STATE_VALUES } from 'framework/LicenseStore/LicenseStoreContext'
 import { RouteWithLayout } from './RouteWithLayout'
 
 describe('RouteWithLayout', () => {
@@ -52,6 +55,147 @@ describe('RouteWithLayout', () => {
         <RouteWithLayout
           sidebarProps={{ navComponent: SideNav, title: 'TITLE', subtitle: 'SUBTITLE' }}
           path="/account/:accountId/projects"
+        >
+          <div>matched-route</div>
+        </RouteWithLayout>
+      </TestWrapper>
+    )
+
+    expect(container).toMatchSnapshot()
+    expect(getByText('matched-route')).toBeTruthy()
+    expect(getByText('sidenav')).toBeTruthy()
+    expect(getByText('TITLE')).toBeTruthy()
+    expect(getByText('SUBTITLE')).toBeTruthy()
+  })
+
+  test('that the license store will route to the CI trial page if the license has not started', () => {
+    const RedirectToModuleTrialHome = (): React.ReactElement => {
+      return (
+        <Redirect
+          to={routes.toModuleTrialHome({
+            accountId: '123',
+            module: 'ci'
+          })}
+        />
+      )
+    }
+
+    const licenseRedirectData = {
+      licenseStateName: LICENSE_STATE_NAMES.CI_LICENSE_STATE,
+      startTrialRedirect: RedirectToModuleTrialHome
+    }
+
+    const { container, getByText, queryByText } = render(
+      <TestWrapper
+        path="/account/:accountId/projects"
+        pathParams={{ accountId: 'dummy' }}
+        defaultAppStoreValues={defaultAppStoreValues}
+        defaultLicenseStoreValues={{
+          CI_LICENSE_STATE: LICENSE_STATE_VALUES.NOT_STARTED
+        }}
+      >
+        <RouteWithLayout path="/account/:accountId/projects" licenseRedirectData={licenseRedirectData}>
+          <div>matched-route</div>
+        </RouteWithLayout>
+      </TestWrapper>
+    )
+
+    expect(container).toMatchSnapshot()
+    expect(getByText('/account/123/ci/home/trial')).toBeTruthy()
+    expect(queryByText('matched-route')).not.toBeInTheDocument()
+  })
+
+  test('that the license store will route to the CF trial page if the license has not started', () => {
+    const RedirectToModuleTrialHome = (): React.ReactElement => {
+      return (
+        <Redirect
+          to={routes.toModuleTrialHome({
+            accountId: '123',
+            module: 'cf'
+          })}
+        />
+      )
+    }
+
+    const licenseRedirectData = {
+      licenseStateName: LICENSE_STATE_NAMES.FF_LICENSE_STATE,
+      startTrialRedirect: RedirectToModuleTrialHome
+    }
+
+    const { container, getByText, queryByText } = render(
+      <TestWrapper
+        path="/account/:accountId/projects"
+        pathParams={{ accountId: 'dummy' }}
+        defaultAppStoreValues={defaultAppStoreValues}
+        defaultLicenseStoreValues={{
+          FF_LICENSE_STATE: LICENSE_STATE_VALUES.NOT_STARTED
+        }}
+      >
+        <RouteWithLayout path="/account/:accountId/projects" licenseRedirectData={licenseRedirectData}>
+          <div>matched-route</div>
+        </RouteWithLayout>
+      </TestWrapper>
+    )
+
+    expect(container).toMatchSnapshot()
+    expect(getByText('/account/123/cf/home/trial')).toBeTruthy()
+    expect(queryByText('matched-route')).not.toBeInTheDocument()
+  })
+
+  test('that the license store will render the child if the license value is expired', () => {
+    const SideNav = () => <div>sidenav</div>
+
+    const licenseRedirectData = {
+      licenseStateName: LICENSE_STATE_NAMES.FF_LICENSE_STATE,
+      // eslint-disable-next-line react/display-name
+      startTrialRedirect: () => <div />
+    }
+
+    const { container, getByText } = render(
+      <TestWrapper
+        path="/account/:accountId/projects"
+        pathParams={{ accountId: 'dummy' }}
+        defaultAppStoreValues={defaultAppStoreValues}
+        defaultLicenseStoreValues={{
+          FF_LICENSE_STATE: LICENSE_STATE_VALUES.EXPIRED
+        }}
+      >
+        <RouteWithLayout
+          path="/account/:accountId/projects"
+          licenseRedirectData={licenseRedirectData}
+          sidebarProps={{ navComponent: SideNav, title: 'TITLE', subtitle: 'SUBTITLE' }}
+        >
+          <div>matched-route</div>
+        </RouteWithLayout>
+      </TestWrapper>
+    )
+
+    expect(container).toMatchSnapshot()
+    expect(getByText('matched-route')).toBeTruthy()
+    expect(getByText('sidenav')).toBeTruthy()
+    expect(getByText('TITLE')).toBeTruthy()
+    expect(getByText('SUBTITLE')).toBeTruthy()
+  })
+
+  test('that the license store will render the child if the license value is not present', () => {
+    const SideNav = () => <div>sidenav</div>
+
+    const licenseRedirectData = {
+      licenseStateName: LICENSE_STATE_NAMES.FF_LICENSE_STATE,
+      startTrialRedirect: () => <div />
+    }
+
+    const { container, getByText } = render(
+      <TestWrapper
+        path="/account/:accountId/projects"
+        pathParams={{ accountId: 'dummy' }}
+        defaultAppStoreValues={defaultAppStoreValues}
+        defaultLicenseStoreValues={{}}
+      >
+        <RouteWithLayout
+          path="/account/:accountId/projects"
+          licenseRedirectData={licenseRedirectData}
+          sidebarProps={{ navComponent: SideNav, title: 'TITLE', subtitle: 'SUBTITLE' }}
         >
           <div>matched-route</div>
         </RouteWithLayout>
