@@ -458,7 +458,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
               class="StyledProps--font Text--lineclamp StyledProps--main subHeading StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
               style="--text-line-clamp: 1; width: 600px;"
             >
-              http://localhost:8200
+              https://vaultqa.harness.io
             </p>
           </div>
           <div
@@ -989,7 +989,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                       class="bp3-input"
                       name="vaultUrl"
                       type="text"
-                      value="http://localhost:8200"
+                      value="https://vaultqa.harness.io"
                     />
                   </div>
                 </div>
@@ -1566,7 +1566,7 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
               class="StyledProps--font Text--lineclamp StyledProps--main subHeading StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small"
               style="--text-line-clamp: 1; width: 600px;"
             >
-              http://localhost:8200
+              https://vaultqa.harness.io
             </p>
           </div>
           <div

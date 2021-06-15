@@ -24,6 +24,7 @@ import {
 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { URLValidationSchema } from '@common/utils/Validation'
 import VaultConnectorFormFields from './VaultConnectorFormFields'
 import type { CreateHashiCorpVaultProps, StepSecretManagerProps } from '../CreateHashiCorpVault'
 
@@ -132,7 +133,7 @@ const VaultConfigForm: React.FC<StepProps<StepSecretManagerProps> & CreateHashiC
         }}
         formName="vaultConfigForm"
         validationSchema={Yup.object().shape({
-          vaultUrl: Yup.string().trim().required(getString('validation.vaultUrl')),
+          vaultUrl: URLValidationSchema(),
           secretEngineName: Yup.string().when('engineType', {
             is: 'manual',
             then: Yup.string().trim().required(getString('validation.secretEngineName'))

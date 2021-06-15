@@ -14,7 +14,7 @@ const secretManagerInfo = {
   description: 'asd',
   type: Connectors.Vault,
   spec: {
-    vaultUrl: 'http://localhost:8200',
+    vaultUrl: 'https://vaultqa.harness.io',
     renewalIntervalMinutes: 10,
     secretEngineName: 'secret',
     secretEngineVersion: 2,
@@ -102,7 +102,7 @@ describe('Create Secret Manager Wizard', () => {
         container,
         type: InputTypes.TEXTFIELD,
         fieldId: 'vaultUrl',
-        value: 'http://localhost:8200'
+        value: 'https://vaultqa.harness.io'
       },
       {
         container,
