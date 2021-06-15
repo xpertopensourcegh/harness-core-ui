@@ -7,7 +7,6 @@ import {
   IconName,
   Layout,
   Text,
-  Color,
   getMultiTypeFromValue,
   MultiTypeInputType,
   FormInput,
@@ -912,8 +911,8 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
               index: number
             ) => {
               return (
-                <Layout.Vertical key={identifier}>
-                  <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15 }}>{identifier}</Text>
+                <Layout.Vertical key={identifier} className={css.inputWidth}>
+                  <Text className={css.inputheader}>{identifier}</Text>
                   {getMultiTypeFromValue(connectorRef) === MultiTypeInputType.RUNTIME && (
                     <FormMultiTypeConnectorField
                       disabled={readonly}
@@ -1020,7 +1019,6 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                       }}
                       disabled={readonly}
                       label={getString('pipeline.manifestType.bucketName')}
-                      className={css.inputWidth}
                       name={`${path}.manifests[${index}].manifest.spec.store.spec.bucketName`}
                     />
                   )}
@@ -1032,7 +1030,6 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                       }}
                       disabled={readonly}
                       label={getString('chartPath')}
-                      className={css.inputWidth}
                       name={`${path}.manifests[${index}].manifest.spec.store.spec.folderPath`}
                     />
                   )}
@@ -1044,7 +1041,6 @@ const KubernetesServiceSpecInputForm: React.FC<KubernetesServiceInputFormProps> 
                       }}
                       disabled={readonly}
                       label={getString('pipeline.manifestType.http.chartName')}
-                      className={css.inputWidth}
                       name={`${path}.manifests[${index}].manifest.spec.chartName`}
                     />
                   )}
