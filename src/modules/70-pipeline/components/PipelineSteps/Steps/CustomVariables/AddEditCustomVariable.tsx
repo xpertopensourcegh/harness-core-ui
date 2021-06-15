@@ -64,7 +64,7 @@ export default function AddEditCustomVariable(props: AddEditCustomVariableProps)
         }}
       >
         {({ submitForm }) => (
-          <FormikForm>
+          <FormikForm data-testid="add-edit-variable">
             <FormInput.Text
               name="name"
               label={getString('variableNameLabel')}
