@@ -224,6 +224,7 @@ export interface StringsMap {
   'common.purpose.setup': string
   'common.purpose.startATrial': string
   'common.purpose.welcome': string
+  'common.readonlyPermissions': string
   'common.references': string
   'common.refresh': string
   'common.reject': string

@@ -575,21 +575,8 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                   {pipeline?.name}
                 </Text>
                 {!isEmpty(pipeline?.tags) && pipeline.tags && <TagsPopover tags={pipeline.tags} />}
-                {isYaml ? null : (
-                  <RbacButton
-                    minimal
-                    icon="Edit"
-                    withoutBoxShadow
-                    iconProps={{ size: 12 }}
-                    onClick={showModal}
-                    permission={{
-                      resource: {
-                        resourceType: ResourceType.PIPELINE,
-                        resourceIdentifier: pipeline?.identifier
-                      },
-                      permission: PermissionIdentifier.EDIT_PIPELINE
-                    }}
-                  />
+                {isYaml || isReadonly ? null : (
+                  <Button minimal icon="Edit" withoutBoxShadow iconProps={{ size: 12 }} onClick={showModal} />
                 )}
               </div>
 
@@ -606,23 +593,18 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
           </div>
           <div>
             <div className={css.savePublishContainer}>
-              {isUpdated && <div className={css.tagRender}>{getString('unsavedChanges')}</div>}
+              {isReadonly && (
+                <div className={css.readonlyAccessTag}>
+                  <Icon name="eye-open" size={16} />
+                  <div className={css.readonlyAccessText}>{getString('common.readonlyPermissions')}</div>
+                </div>
+              )}
+              {isUpdated && !isReadonly && <div className={css.tagRender}>{getString('unsavedChanges')}</div>}
               <div>
-                <RbacButton
-                  intent="primary"
-                  text={getString('save')}
-                  onClick={saveAndPublish}
-                  icon="send-data"
-                  disabled={isReadonly}
-                  permission={{
-                    resource: {
-                      resourceType: ResourceType.PIPELINE,
-                      resourceIdentifier: pipeline?.identifier
-                    },
-                    permission: PermissionIdentifier.EDIT_PIPELINE
-                  }}
-                />
-                {pipelineIdentifier !== DefaultNewPipelineId && (
+                {!isReadonly && (
+                  <Button intent="primary" text={getString('save')} onClick={saveAndPublish} icon="send-data" />
+                )}
+                {pipelineIdentifier !== DefaultNewPipelineId && !isReadonly && (
                   <Button
                     disabled={!isUpdated}
                     onClick={() => fetchPipeline({ forceFetch: true, forceUpdate: true })}

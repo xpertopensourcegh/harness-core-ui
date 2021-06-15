@@ -105,6 +105,21 @@
   align-items: center;
   justify-content: flex-end;
 
+  .readonlyAccessTag {
+    display: flex;
+    color: var(--orange-800);
+    margin-right: var(--spacing-xlarge);
+    font-size: var(--font-size-small);
+    line-height: 18px;
+    align-items: center;
+    span {
+      color: var(--orange-800);
+    }
+    .readonlyAccessText {
+      margin-left: var(--spacing-small);
+    }
+  }
+
   .tagRender {
     color: var(--orange-700);
     margin-right: var(--spacing-xlarge);
