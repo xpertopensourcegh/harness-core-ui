@@ -29,7 +29,7 @@ const Roles: React.FC = () => {
       projectIdentifier,
       orgIdentifier,
       pageIndex: page,
-      pageSize: 10,
+      pageSize: 12,
       searchTerm
     }
   })
@@ -112,18 +112,16 @@ const Roles: React.FC = () => {
         }
         className={css.pageContainer}
       >
-        <Container className={css.masonry}>
-          <Layout.Masonry
-            center
-            gutter={40}
-            className={css.centerContainer}
-            items={data?.data?.content || []}
-            renderItem={(roleResponse: RoleResponse) => (
-              <RoleCard data={roleResponse} reloadRoles={refetch} editRoleModal={editRoleModal} />
-            )}
-            keyOf={(roleResponse: RoleResponse) => roleResponse.role.identifier}
-          />
-        </Container>
+        <div className={css.masonry}>
+          {data?.data?.content?.map((roleResponse: RoleResponse) => (
+            <RoleCard
+              key={roleResponse.role.identifier}
+              data={roleResponse}
+              reloadRoles={refetch}
+              editRoleModal={editRoleModal}
+            />
+          ))}
+        </div>
         <Container className={css.pagination}>
           <Pagination
             itemCount={data?.data?.totalItems || 0}

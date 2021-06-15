@@ -4,7 +4,14 @@
 }
 
 .masonry {
-  height: calc(100vh - 128px - 64px);
+  min-height: calc(100vh - 128px - 64px);
+  overflow: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 200px);
+  grid-template-rows: repeat(3, 250px);
+  grid-gap: 30px;
+  justify-content: center;
+  padding: var(--spacing-xxxlarge);
 }
 
 .pagination {
