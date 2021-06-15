@@ -1,5 +1,6 @@
 import React from 'react'
 import { LogLine } from '@common/components/LogViewer/LogLine'
+import { formatDatetoLocale } from '@common/utils/dateUtils'
 
 import { getRegexForSearch } from '../../LogsState/utils'
 import type { LogLineData } from '../../LogsState/types'
@@ -90,7 +91,7 @@ export function MultiLogLine(props: MultiLogLineProps): React.ReactElement {
       <span
         dangerouslySetInnerHTML={{
           __html: getTextWithSearchMarkers({
-            txt: text.time,
+            txt: formatDatetoLocale(text.time as string),
             searchText,
             searchIndices: searchIndices?.time,
             currentSearchIndex

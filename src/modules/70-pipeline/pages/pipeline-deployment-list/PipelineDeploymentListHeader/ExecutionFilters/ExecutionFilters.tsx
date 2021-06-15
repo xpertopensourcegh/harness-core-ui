@@ -214,7 +214,6 @@ export function ExecutionFilters(): React.ReactElement {
 
   function reset(): void {
     replaceQueryParams({})
-    hideFilterDrawer()
   }
 
   return (

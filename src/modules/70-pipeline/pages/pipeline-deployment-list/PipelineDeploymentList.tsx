@@ -58,7 +58,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
       }
     }
   })
-  const { updateQueryParams } = useUpdateQueryParams<Partial<GetListOfExecutionsQueryParams>>()
+  const { replaceQueryParams } = useUpdateQueryParams<Partial<GetListOfExecutionsQueryParams>>()
 
   const { page, filterIdentifier, myDeployments, status, repoIdentifier, branch } = queryParams
   const hasFilters =
@@ -129,12 +129,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   }, [page, loading])
 
   const clearFilters = (): void => {
-    updateQueryParams({
-      status: [] as any,
-      myDeployments: [] as any,
-      pipelineIdentifier: [] as any,
-      filterIdentifier: [] as any
-    }) // removes the param
+    replaceQueryParams({})
   }
 
   return (
