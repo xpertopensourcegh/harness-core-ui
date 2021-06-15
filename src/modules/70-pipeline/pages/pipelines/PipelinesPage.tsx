@@ -512,7 +512,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
           <HarnessDocTooltip tooltipId="pipelinesPageHeading" useStandAlone={true} />
         </div>
       </div>
-      {!!pipelineList?.content?.length && (
+      {(!!pipelineList?.content?.length || appliedFilter) && (
         <Layout.Horizontal className={css.header} flex={{ distribution: 'space-between' }}>
           <Layout.Horizontal>
             <RbacButton

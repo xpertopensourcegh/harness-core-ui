@@ -157,7 +157,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
         refetchFilters={refetchFilters}
         queryParams={queryParams}
       >
-        {!!pipelineExecutionSummary?.content?.length && (
+        {(!!pipelineExecutionSummary?.content?.length || hasFilters) && (
           <PipelineDeploymentListHeader onRunPipeline={props.onRunPipeline} />
         )}
         {loading && !pollingRequest ? (
