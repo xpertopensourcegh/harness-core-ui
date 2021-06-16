@@ -1378,6 +1378,7 @@ export interface StringsMap {
   'pipeline.testsReports.testCaseName': string
   'pipeline.testsReports.testCasesExecution': string
   'pipeline.testsReports.testCasesExecutionInfo': string
+  'pipeline.testsReports.testExecutions': string
   'pipeline.testsReports.testMethods': string
   'pipeline.testsReports.testSuite': string
   'pipeline.testsReports.timeSaved': string
