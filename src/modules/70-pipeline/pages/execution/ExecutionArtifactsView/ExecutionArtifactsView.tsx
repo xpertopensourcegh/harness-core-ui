@@ -18,7 +18,8 @@ export const getStageNodesWithArtifacts: (data: ExecutionGraph, stageIds: string
     const { setupId = '', outcomes = [] } = entry
     const outcomeWithArtifacts = Array.isArray(outcomes)
       ? outcomes?.some((outcome: any) => outcome.fileArtifacts?.length || outcome.imageArtifacts?.length)
-      : outcomes?.outcome?.fileArtifacts?.length || outcomes?.outcome?.imageArtifacts?.length
+      : outcomes?.integrationStageOutcome?.fileArtifacts?.length ||
+        outcomes?.integrationStageOutcome?.imageArtifacts?.length
     return stageIds.includes(setupId) && outcomeWithArtifacts
   })
 }
@@ -27,7 +28,7 @@ export const getArtifactGroups: (stages: ExecutionNode[]) => ArtifactGroup[] = s
   return stages.map(node => {
     const outcomeWithImageArtifacts = Array.isArray(node.outcomes)
       ? node.outcomes?.find(outcome => outcome.imageArtifacts)
-      : node.outcomes?.outcome
+      : node.outcomes?.integrationStageOutcome
     const imageArtifacts =
       outcomeWithImageArtifacts?.imageArtifacts?.map((artifact: any) => ({
         image: artifact.imageName,
@@ -37,7 +38,7 @@ export const getArtifactGroups: (stages: ExecutionNode[]) => ArtifactGroup[] = s
       })) ?? []
     const outcomeWithFileArtifacts = Array.isArray(node.outcomes)
       ? node.outcomes?.find(outcome => outcome.fileArtifacts)
-      : node.outcomes?.outcome
+      : node.outcomes?.integrationStageOutcome
     const fileArtifacts = outcomeWithFileArtifacts?.fileArtifacts // TODO: fix typing once BE type is available
       ?.map((artifact: any) => ({
         type: 'File',

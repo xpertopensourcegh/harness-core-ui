@@ -56,11 +56,18 @@ export default function ExecutionMetadata(): React.ReactElement {
 
   const ciBuildData = pipelineExecutionSummary?.moduleInfo?.ci?.ciExecutionInfoDTO as CIBuildResponseDTO
   // getting branch name (used if ciExecutionInfoDTO object in not present)
+  const ciRepoName = (pipelineExecutionSummary?.moduleInfo?.ci?.repoName as unknown) as string
   const ciBranchName = (pipelineExecutionSummary?.moduleInfo?.ci?.branch as unknown) as string
 
   // CI entries
   const ciEntries: { label?: string; value: JSX.Element }[] = []
   if (HAS_CI) {
+    if (ciRepoName) {
+      ciEntries.push({
+        label: getString('repository'),
+        value: <Text>{ciRepoName}</Text>
+      })
+    }
     switch (ciBuildData?.event) {
       case 'branch': {
         const lastCommit = first(ciBuildData?.branch?.commits)
