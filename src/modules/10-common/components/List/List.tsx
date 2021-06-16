@@ -1,6 +1,6 @@
 import React from 'react'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
-import { Text, TextInput, Card, Button, Intent } from '@wings-software/uicore'
+import { Text, TextInput, Card, Button, Intent, FormInput, MultiTypeInputType } from '@wings-software/uicore'
 import { get, isEmpty } from 'lodash-es'
 import { connect, FormikContext } from 'formik'
 import { useStrings } from 'framework/strings'
@@ -16,6 +16,7 @@ export interface ListProps {
   disabled?: boolean
   style?: React.CSSProperties
   formik?: FormikContext<any>
+  expressions?: any
 }
 
 const generateNewValue: () => { id: string; value: string } = () => ({
@@ -24,9 +25,8 @@ const generateNewValue: () => { id: string; value: string } = () => ({
 })
 
 export const List = (props: ListProps): React.ReactElement => {
-  const { name, label, placeholder, disabled, style, formik } = props
+  const { name, label, placeholder, disabled, style, formik, expressions } = props
   const { getString } = useStrings()
-
   const [value, setValue] = React.useState<ListUIType>(() => {
     const initialValueInCorrectFormat = [
       {
@@ -108,19 +108,31 @@ export const List = (props: ListProps): React.ReactElement => {
       <Card style={{ width: '100%' }}>
         {value.map(({ id, value: valueValue }, index: number) => {
           const valueError = get(error, `[${index}].value`)
-
           return (
             <div className={css.group} key={id}>
               <div style={{ flexGrow: 1 }}>
-                <TextInput
-                  value={valueValue}
-                  placeholder={placeholder}
-                  onChange={e => changeValue(id, (e.currentTarget as HTMLInputElement).value.trim())}
-                  data-testid={`value-${name}-[${index}]`}
-                  intent={(touched || hasSubmitted) && error ? Intent.DANGER : Intent.NONE}
-                  disabled={disabled}
-                  errorText={(touched || hasSubmitted) && valueError ? valueError : undefined}
-                />
+                {!expressions && (
+                  <TextInput
+                    value={valueValue}
+                    placeholder={placeholder}
+                    onChange={e => changeValue(id, (e.currentTarget as HTMLInputElement).value.trim())}
+                    data-testid={`value-${name}-[${index}]`}
+                    intent={(touched || hasSubmitted) && error ? Intent.DANGER : Intent.NONE}
+                    disabled={disabled}
+                    errorText={(touched || hasSubmitted) && valueError ? valueError : undefined}
+                  />
+                )}
+                {expressions && (
+                  <FormInput.MultiTextInput
+                    label={''}
+                    placeholder={placeholder}
+                    name={`${name}-${index}`}
+                    multiTextInputProps={{
+                      expressions,
+                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                    }}
+                  />
+                )}
               </div>
               {!disabled && (
                 <Button
