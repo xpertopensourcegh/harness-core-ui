@@ -2,99 +2,36 @@ import React from 'react'
 import get from 'lodash-es/get'
 import isEmpty from 'lodash-es/isEmpty'
 import set from 'lodash-es/set'
-import {
-  IconName,
-  Layout,
-  getMultiTypeFromValue,
-  MultiTypeInputType,
-  Card,
-  HarnessDocTooltip
-} from '@wings-software/uicore'
+import { IconName, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 
 import { parse } from 'yaml'
-import cx from 'classnames'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import type { FormikErrors } from 'formik'
-import WorkflowVariables from '@pipeline/components/WorkflowVariablesSelection/WorkflowVariables'
-import ArtifactsSelection from '@pipeline/components/ArtifactsSelection/ArtifactsSelection'
-import ManifestSelection from '@pipeline/components/ManifestSelection/ManifestSelection'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import {
   ServiceSpec,
   getConnectorListV2Promise,
-  ConnectorResponse,
   getBuildDetailsForDockerPromise,
   getBuildDetailsForGcrPromise,
   getBuildDetailsForEcrPromise
 } from 'services/cd-ng'
-import { Scope } from '@common/interfaces/SecretsInterface'
 import { Step, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { ArtifactToConnectorMap, ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
 
-import { useStrings } from 'framework/strings'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { UseStringsReturn } from 'framework/strings'
+import { getConnectorName, getConnectorValue } from '@pipeline/pages/triggers/utils/TriggersWizardPageUtils'
 import { K8sServiceSpecVariablesForm, K8sServiceSpecVariablesFormProps } from './K8sServiceSpecVariablesForm'
 import { KubernetesServiceSpecInputForm } from './K8sServiceSpecForms/KubernetesServiceSpecInputForm'
-import type { K8SDirectServiceStep, KubernetesServiceInputFormProps } from './K8sServiceSpecInterface'
-import css from './K8sServiceSpec.module.scss'
+import type { K8SDirectServiceStep } from './K8sServiceSpecInterface'
+import { ArtifactConnectorTypes } from './K8sServiceSpecHelper'
+import KubernetesServiceSpecEditable from './K8sServiceSpecForms/KubernetesServiceSpecEditable'
 
 const logger = loggerFor(ModuleName.CD)
 const tagExists = (value: unknown): boolean => typeof value === 'number' || !isEmpty(value)
-
-const setupMode = {
-  PROPAGATE: 'PROPAGATE',
-  DIFFERENT: 'DIFFERENT'
-}
-const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> = ({
-  initialValues: { stageIndex = 0, setupModeType },
-  factory,
-  readonly
-}) => {
-  const { getString } = useStrings()
-  const isPropagating = stageIndex > 0 && setupModeType === setupMode.PROPAGATE
-  return (
-    <div className={css.serviceDefinition}>
-      <Card
-        className={cx(css.sectionCard, css.shadow)}
-        id={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
-      >
-        <div className={cx(css.tabSubHeading, 'ng-tooltip-native')} data-tooltip-id="deploymentTypeManifests">
-          {getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
-          <HarnessDocTooltip tooltipId="deploymentTypeManifests" useStandAlone={true} />
-        </div>
-        <Layout.Horizontal>
-          <ManifestSelection isPropagating={isPropagating} />
-        </Layout.Horizontal>
-      </Card>
-      <Card
-        className={cx(css.sectionCard, css.shadow)}
-        id={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')}
-      >
-        <div className={cx(css.tabSubHeading, 'ng-tooltip-native')} data-tooltip-id="deploymentTypeArtifacts">
-          {getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')}
-          <HarnessDocTooltip tooltipId="deploymentTypeArtifacts" useStandAlone={true} />
-        </div>
-        <Layout.Horizontal>
-          <ArtifactsSelection isPropagating={isPropagating} />
-        </Layout.Horizontal>
-      </Card>
-
-      <div className={css.accordionTitle}>
-        <div className={css.tabHeading} id="advanced">
-          {getString('advancedTitle')}
-        </div>
-        <Card className={cx(css.sectionCard, css.shadow)} id={getString('variablesText')}>
-          <div className={css.tabSubHeading}>{getString('variablesText')}</div>
-          <WorkflowVariables factory={factory as any} isPropagating={isPropagating} readonly={readonly} />
-        </Card>
-      </div>
-    </div>
-  )
-}
 
 const ManifestConnectorRefRegex = /^.+manifest\.spec\.store\.spec\.connectorRef$/
 const ManifestConnectorRefType = 'Git'
@@ -102,29 +39,6 @@ const ArtifactsSidecarRegex = /^.+.sidecar\.spec\.connectorRef$/
 const ArtifactsPrimaryRegex = /^.+artifacts\.primary\.spec\.connectorRef$/
 const ArtifactsSidecarTagRegex = /^.+.sidecar\.spec\.tag$/
 const ArtifactsPrimaryTagRegex = /^.+artifacts\.primary\.spec\.tag$/
-
-const ArtifactConnectorTypes = [
-  ENABLED_ARTIFACT_TYPES.DockerRegistry,
-  ENABLED_ARTIFACT_TYPES.Gcr,
-  ENABLED_ARTIFACT_TYPES.Ecr
-]
-const getConnectorValue = (connector?: ConnectorResponse): string =>
-  `${
-    connector?.connector?.orgIdentifier && connector?.connector?.projectIdentifier
-      ? connector?.connector?.identifier
-      : connector?.connector?.orgIdentifier
-      ? `${Scope.ORG}.${connector?.connector?.identifier}`
-      : `${Scope.ACCOUNT}.${connector?.connector?.identifier}`
-  }` || ''
-
-const getConnectorName = (connector?: ConnectorResponse): string =>
-  `${
-    connector?.connector?.orgIdentifier && connector?.connector?.projectIdentifier
-      ? `${connector?.connector?.type}: ${connector?.connector?.name}`
-      : connector?.connector?.orgIdentifier
-      ? `${connector?.connector?.type}[Org]: ${connector?.connector?.name}`
-      : `${connector?.connector?.type}[Account]: ${connector?.connector?.name}`
-  }` || ''
 
 export class KubernetesServiceSpec extends Step<ServiceSpec> {
   protected type = StepType.K8sServiceSpec

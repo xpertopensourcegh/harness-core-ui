@@ -55,37 +55,9 @@ import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorRef
 import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox/MultiTypeCheckbox'
 import { gcrUrlList } from '@pipeline/components/ArtifactsSelection/ArtifactRepository/ArtifactLastSteps/GCRImagePath/GCRImagePath'
 import type { Scope } from '@common/interfaces/SecretsInterface'
-import { getStageIndexByIdentifier } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import type { KubernetesServiceInputFormProps, LastQueryData } from '../K8sServiceSpecInterface'
+import { clearRuntimeInputValue, getNonRuntimeFields, getStagePathByIdentifier } from '../K8sServiceSpecHelper'
 import css from '../K8sServiceSpec.module.scss'
-
-export const getStagePathByIdentifier = memoize((stageIdentifier = '', pipeline: NgPipeline) => {
-  let finalPath = ''
-  if (pipeline) {
-    const { stageIndex, parallelStageIndex } = getStageIndexByIdentifier(pipeline, stageIdentifier)
-    finalPath =
-      parallelStageIndex > -1 ? `stages[${stageIndex}].parallel[${parallelStageIndex}]` : `stages[${stageIndex}]`
-  }
-
-  return finalPath
-})
-
-export const getNonRuntimeFields = (spec: { [key: string]: any } = {}, template: { [key: string]: any }): string => {
-  const fields: { [key: string]: any } = {}
-
-  Object.entries(spec).forEach(([key]): void => {
-    if (getMultiTypeFromValue(template?.[key]) !== MultiTypeInputType.RUNTIME) {
-      fields[key] = spec[key]
-    }
-  })
-  return JSON.stringify(fields, null, 2)
-}
-
-const clearRuntimeInput = (template: NgPipeline): NgPipeline => {
-  return JSON.parse(
-    JSON.stringify(template || {}).replace(/"<\+input>.?(?:allowedValues\((.*?)\)|regex\((.*?)\))?"/g, '""')
-  )
-}
 
 const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormProps> = ({
   template,
@@ -137,7 +109,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
 
-  const yamlData = clearRuntimeInput(
+  const yamlData = clearRuntimeInputValue(
     cloneDeep(
       parse(
         JSON.stringify({
@@ -293,6 +265,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
       }
     }
   }, [lastQueryData])
+
   const getSelectItems = (tagsPath: string): SelectOption[] => {
     return get(tagListMap, `${tagsPath}.tags`, []) as SelectOption[]
   }
@@ -306,13 +279,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
     region
   }: LastQueryData): void => {
     if (connectorType === ENABLED_ARTIFACT_TYPES.DockerRegistry) {
-      if (
-        imagePath?.length &&
-        connectorRef?.length &&
-        (lastQueryData?.imagePath !== imagePath ||
-          lastQueryData?.connectorRef !== connectorRef ||
-          lastQueryData.path !== tagsPath)
-      ) {
+      if (imagePath?.length && connectorRef?.length) {
         setLastQueryData({
           path: tagsPath,
           imagePath,
@@ -322,27 +289,11 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
         })
       }
     } else if (connectorType === ENABLED_ARTIFACT_TYPES.Gcr) {
-      if (
-        imagePath?.length &&
-        connectorRef?.length &&
-        registryHostname?.length &&
-        (lastQueryData?.imagePath !== imagePath ||
-          lastQueryData?.connectorRef !== connectorRef ||
-          lastQueryData?.registryHostname !== registryHostname ||
-          lastQueryData.path !== tagsPath)
-      ) {
+      if (imagePath?.length && connectorRef?.length && registryHostname?.length) {
         setLastQueryData({ path: tagsPath, imagePath, connectorRef, connectorType, registryHostname })
       }
     } else {
-      if (
-        imagePath?.length &&
-        connectorRef?.length &&
-        region?.length &&
-        (lastQueryData?.imagePath !== imagePath ||
-          lastQueryData?.connectorRef !== connectorRef ||
-          lastQueryData?.region !== region ||
-          lastQueryData.path !== tagsPath)
-      ) {
+      if (imagePath?.length && connectorRef?.length && region?.length) {
         setLastQueryData({ path: tagsPath, imagePath, connectorRef, connectorType, region })
       }
     }
