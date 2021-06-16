@@ -206,7 +206,7 @@ exports[`Manifest Details tests expand advanced section - when type is k8smanife
           >
             <div
               class="bp3-form-group"
-              style="width: 370px;"
+              style="width: 330px;"
             >
               <label
                 class="bp3-label"
@@ -304,7 +304,7 @@ exports[`Manifest Details tests expand advanced section - when type is k8smanife
                       </p>
                       <div
                         class="bp3-form-group"
-                        style="width: 312px;"
+                        style="width: 275px;"
                       >
                         
                         <div
@@ -410,7 +410,7 @@ exports[`Manifest Details tests expand advanced section - when type is k8smanife
                   >
                     <div
                       class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-flex-start"
-                      style="height: 90px;"
+                      style="width: 50%; height: 90px;"
                     >
                       <div
                         class="bp3-form-group checkbox"
@@ -772,7 +772,7 @@ exports[`Manifest Details tests initial rendering 1`] = `
           >
             <div
               class="bp3-form-group"
-              style="width: 370px;"
+              style="width: 330px;"
             >
               <label
                 class="bp3-label"
@@ -870,7 +870,7 @@ exports[`Manifest Details tests initial rendering 1`] = `
                       </p>
                       <div
                         class="bp3-form-group"
-                        style="width: 312px;"
+                        style="width: 275px;"
                       >
                         
                         <div
@@ -1214,7 +1214,7 @@ exports[`Manifest Details tests renders form in edit mode - when gitfetchtype is
           >
             <div
               class="bp3-form-group"
-              style="width: 370px;"
+              style="width: 330px;"
             >
               <label
                 class="bp3-label"
@@ -1312,7 +1312,7 @@ exports[`Manifest Details tests renders form in edit mode - when gitfetchtype is
                       </p>
                       <div
                         class="bp3-form-group"
-                        style="width: 312px;"
+                        style="width: 275px;"
                       >
                         
                         <div
@@ -1656,7 +1656,7 @@ exports[`Manifest Details tests renders form in edit mode 1`] = `
           >
             <div
               class="bp3-form-group"
-              style="width: 370px;"
+              style="width: 330px;"
             >
               <label
                 class="bp3-label"
@@ -1754,7 +1754,7 @@ exports[`Manifest Details tests renders form in edit mode 1`] = `
                       </p>
                       <div
                         class="bp3-form-group"
-                        style="width: 312px;"
+                        style="width: 275px;"
                       >
                         
                         <div
@@ -2098,7 +2098,7 @@ exports[`Manifest Details tests runtime value for connector should make runtime 
           >
             <div
               class="bp3-form-group"
-              style="width: 370px;"
+              style="width: 330px;"
             >
               <label
                 class="bp3-label"
@@ -2196,7 +2196,7 @@ exports[`Manifest Details tests runtime value for connector should make runtime 
                       </p>
                       <div
                         class="bp3-form-group"
-                        style="width: 312px;"
+                        style="width: 275px;"
                       >
                         
                         <div
@@ -2540,7 +2540,7 @@ exports[`Manifest Details tests when branch is runtime input 1`] = `
           >
             <div
               class="bp3-form-group"
-              style="width: 370px;"
+              style="width: 330px;"
             >
               <label
                 class="bp3-label"
@@ -2638,7 +2638,7 @@ exports[`Manifest Details tests when branch is runtime input 1`] = `
                       </p>
                       <div
                         class="bp3-form-group"
-                        style="width: 312px;"
+                        style="width: 275px;"
                       >
                         
                         <div
@@ -2982,7 +2982,7 @@ exports[`Manifest Details tests when connectionType is of repo 1`] = `
           >
             <div
               class="bp3-form-group"
-              style="width: 370px;"
+              style="width: 330px;"
             >
               <label
                 class="bp3-label"
@@ -3080,7 +3080,7 @@ exports[`Manifest Details tests when connectionType is of repo 1`] = `
                       </p>
                       <div
                         class="bp3-form-group"
-                        style="width: 312px;"
+                        style="width: 275px;"
                       >
                         
                         <div
@@ -3424,7 +3424,7 @@ exports[`Manifest Details tests when scope is of account 1`] = `
           >
             <div
               class="bp3-form-group"
-              style="width: 370px;"
+              style="width: 330px;"
             >
               <label
                 class="bp3-label"
@@ -3522,7 +3522,7 @@ exports[`Manifest Details tests when scope is of account 1`] = `
                       </p>
                       <div
                         class="bp3-form-group"
-                        style="width: 312px;"
+                        style="width: 275px;"
                       >
                         
                         <div

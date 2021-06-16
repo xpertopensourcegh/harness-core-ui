@@ -37,5 +37,6 @@ declare const styles: {
   readonly addmarginTop: string
   readonly tooltipCls: string
   readonly helmToolTip: string
+  readonly folderRunTimeInput: string
 }
 export default styles

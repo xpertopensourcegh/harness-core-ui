@@ -51,12 +51,12 @@
     color: var(--grey-700);
   }
   .reponameField {
-    width: 370px;
+    width: 336px;
     margin-bottom: var(--spacing-xsmall) !important;
   }
   .repoName {
     margin-bottom: var(--spacing-medium);
-    width: 370px;
+    width: 330px;
   }
   .repo-name-url {
     margin-left: 6px;
@@ -185,4 +185,9 @@
 .helmToolTip {
   position: relative;
   top: 5px;
+}
+
+.folderRunTimeInput {
+  display: flex;
+  width: 700px;
 }

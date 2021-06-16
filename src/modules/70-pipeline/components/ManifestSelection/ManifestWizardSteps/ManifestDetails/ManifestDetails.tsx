@@ -280,7 +280,12 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
 
                 {!!(connectionType === GitRepoName.Account && accountUrl) && (
                   <div className={css.repoName}>
-                    <div className={cx(stepCss.formGroup)}>
+                    <div
+                      className={cx(css.halfWidth, {
+                        [css.runtimeInput]:
+                          getMultiTypeFromValue(formik.values?.repoName) === MultiTypeInputType.RUNTIME
+                      })}
+                    >
                       <FormInput.MultiTextInput
                         multiTextInputProps={{ expressions }}
                         label={getString('pipelineSteps.build.create.repositoryNameLabel')}
@@ -379,7 +384,11 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                     </div>
                   )}
                 </Layout.Horizontal>
-                <div className={cx(stepCss.formGroup)}>
+                <div
+                  className={cx(stepCss.formGroup, {
+                    [css.folderRunTimeInput]: getMultiTypeFromValue(formik.values?.paths) === MultiTypeInputType.RUNTIME
+                  })}
+                >
                   <MultiTypeFieldSelector
                     defaultValueToReset={defaultValueToReset}
                     name={'paths'}
@@ -390,7 +399,11 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                           : getString('common.git.filePath')}
                       </Text>
                     }
-                    style={{ width: 370 }}
+                    style={
+                      getMultiTypeFromValue(formik.values?.paths) !== MultiTypeInputType.RUNTIME
+                        ? { width: 330 }
+                        : { width: 500 }
+                    }
                   >
                     <FieldArray
                       name="paths"
@@ -420,7 +433,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                                   label={''}
                                   placeholder={getString('pipeline.manifestType.pathPlaceholder')}
                                   name={`paths[${index}].path`}
-                                  style={{ width: 312 }}
+                                  style={{ width: 275 }}
                                   multiTextInputProps={{
                                     expressions,
                                     allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
@@ -470,6 +483,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                       details={
                         <Layout.Horizontal
                           height={90}
+                          width={'50%'}
                           flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}
                         >
                           <FormMultiTypeCheckboxField
