@@ -428,7 +428,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                                 onDrop={event => onDrop(event, arrayHelpers, index)}
                               >
                                 <Icon name="drag-handle-vertical" className={css.drag} />
-                                <Text>{`${index + 1}.`}</Text>
+                                <Text width={12}>{`${index + 1}.`}</Text>
                                 <FormInput.MultiTextInput
                                   label={''}
                                   placeholder={getString('pipeline.manifestType.pathPlaceholder')}

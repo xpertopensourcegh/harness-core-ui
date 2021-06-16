@@ -299,6 +299,7 @@ exports[`Manifest Details tests expand advanced section - when type is k8smanife
                       </span>
                       <p
                         class="StyledProps--font StyledProps--main"
+                        style="width: 12px;"
                       >
                         1.
                       </p>
@@ -865,6 +866,7 @@ exports[`Manifest Details tests initial rendering 1`] = `
                       </span>
                       <p
                         class="StyledProps--font StyledProps--main"
+                        style="width: 12px;"
                       >
                         1.
                       </p>
@@ -1307,6 +1309,7 @@ exports[`Manifest Details tests renders form in edit mode - when gitfetchtype is
                       </span>
                       <p
                         class="StyledProps--font StyledProps--main"
+                        style="width: 12px;"
                       >
                         1.
                       </p>
@@ -1749,6 +1752,7 @@ exports[`Manifest Details tests renders form in edit mode 1`] = `
                       </span>
                       <p
                         class="StyledProps--font StyledProps--main"
+                        style="width: 12px;"
                       >
                         1.
                       </p>
@@ -2191,6 +2195,7 @@ exports[`Manifest Details tests runtime value for connector should make runtime 
                       </span>
                       <p
                         class="StyledProps--font StyledProps--main"
+                        style="width: 12px;"
                       >
                         1.
                       </p>
@@ -2633,6 +2638,7 @@ exports[`Manifest Details tests when branch is runtime input 1`] = `
                       </span>
                       <p
                         class="StyledProps--font StyledProps--main"
+                        style="width: 12px;"
                       >
                         1.
                       </p>
@@ -3075,6 +3081,7 @@ exports[`Manifest Details tests when connectionType is of repo 1`] = `
                       </span>
                       <p
                         class="StyledProps--font StyledProps--main"
+                        style="width: 12px;"
                       >
                         1.
                       </p>
@@ -3517,6 +3524,7 @@ exports[`Manifest Details tests when scope is of account 1`] = `
                       </span>
                       <p
                         class="StyledProps--font StyledProps--main"
+                        style="width: 12px;"
                       >
                         1.
                       </p>
