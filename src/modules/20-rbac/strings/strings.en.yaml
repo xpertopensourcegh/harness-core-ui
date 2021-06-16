@@ -6,7 +6,7 @@ permissionLabels:
   delete: '{{ $.delete}}'
   access: Access
   execute: '{{$.common.execute}}'
-  manage: Manage
+  manage: '{{$.common.manage}}'
   invite: Invite
 categoryLabels:
   sharedResources: Shared Resources

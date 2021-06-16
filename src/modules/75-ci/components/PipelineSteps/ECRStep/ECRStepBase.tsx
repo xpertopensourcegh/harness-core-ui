@@ -148,7 +148,7 @@ export const ECRStepBase = (
                 name="spec.account"
                 label={
                   <Text margin={{ top: 'small' }}>
-                    {getString('pipelineSteps.accountLabel')}
+                    {getString('common.accountId')}
                     <Button
                       icon="question"
                       minimal

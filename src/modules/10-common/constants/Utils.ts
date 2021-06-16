@@ -53,3 +53,8 @@ export const PASSWORD_CHECKS_RGX = ({
 
   return new RegExp(result)
 }
+
+export enum Versions {
+  CG = 'CG',
+  NG = 'NG'
+}

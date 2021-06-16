@@ -51,6 +51,14 @@ export interface Account {
   whitelistedDomains?: string[]
 }
 
+export interface AccountDTO {
+  cluster?: string
+  companyName?: string
+  defaultExperience?: 'NG' | 'CG'
+  identifier?: string
+  name?: string
+}
+
 export interface AccountEvent {
   accountEventType?:
     | 'APP_CREATED'
@@ -158,6 +166,7 @@ export interface ActivitySummary {
 }
 
 export type AddSegmentToVariationTargetMapYaml = PatchInstruction & {
+  identifier: string
   spec: AddSegmentToVariationTargetMapYamlSpec
   type:
     | 'SetFeatureFlagState'
@@ -175,6 +184,7 @@ export interface AddSegmentToVariationTargetMapYamlSpec {
 }
 
 export type AddTargetsToVariationTargetMapYaml = PatchInstruction & {
+  identifier: string
   spec: AddTargetsToVariationTargetMapYamlSpec
   type:
     | 'SetFeatureFlagState'
@@ -198,7 +208,6 @@ export interface AggregateACLRequest {
 }
 
 export type AppDynamicsConnectorDTO = ConnectorConfigDTO & {
-  accountId: string
   accountname: string
   authType?: 'UsernamePassword' | 'ApiClientToken'
   clientId?: string
@@ -352,7 +361,7 @@ export type AuditFilterProperties = FilterProperties & {
   )[]
   endTime?: number
   environments?: Environment[]
-  modules?: ('CD' | 'CI' | 'CORE' | 'CV' | 'CF' | 'CE')[]
+  modules?: ('CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS')[]
   principals?: Principal[]
   resources?: ResourceDTO[]
   scopes?: ResourceScopeDTO[]
@@ -509,6 +518,7 @@ export interface BillingExportSpec {
   directoryName: string
   reportName: string
   storageAccountName: string
+  subscriptionId: string
 }
 
 export interface BitbucketApiAccess {
@@ -919,6 +929,10 @@ export interface CreateInvite {
   users: string[]
 }
 
+export interface CreatePRDTO {
+  prNumber?: number
+}
+
 export interface CriteriaSpec {
   [key: string]: any
 }
@@ -931,12 +945,6 @@ export interface CriteriaSpecWrapper {
 export interface CrossAccountAccess {
   crossAccountRoleArn: string
   externalId?: string
-}
-
-export interface CustomCommitAttributes {
-  authorEmail?: string
-  authorName?: string
-  commitMessage?: string
 }
 
 export interface DashboardDeploymentActiveFailedRunningInfo {
@@ -1182,6 +1190,7 @@ export interface EntityDetail {
     | 'DeploymentSteps'
     | 'DeploymentStage'
     | 'ApprovalStage'
+    | 'FeatureFlagStage'
     | 'Triggers'
 }
 
@@ -1395,6 +1404,8 @@ export interface Error {
     | 'IMAGE_TAG_NOT_FOUND'
     | 'DELEGATE_NOT_AVAILABLE'
     | 'INVALID_YAML_PAYLOAD'
+    | 'AUTHENTICATION_ERROR'
+    | 'AUTHORIZATION_ERROR'
     | 'UNRECOGNIZED_YAML_FIELDS'
     | 'COULD_NOT_MAP_BEFORE_YAML'
     | 'MISSING_BEFORE_YAML'
@@ -1726,6 +1737,8 @@ export interface Failure {
     | 'IMAGE_TAG_NOT_FOUND'
     | 'DELEGATE_NOT_AVAILABLE'
     | 'INVALID_YAML_PAYLOAD'
+    | 'AUTHENTICATION_ERROR'
+    | 'AUTHORIZATION_ERROR'
     | 'UNRECOGNIZED_YAML_FIELDS'
     | 'COULD_NOT_MAP_BEFORE_YAML'
     | 'MISSING_BEFORE_YAML'
@@ -1925,7 +1938,6 @@ export type FlagConfigurationStepInfo = StepSpecType & {
   environment: string
   feature: string
   instructions: PatchInstruction[]
-  state: string
 }
 
 export interface FlowControlConfig {
@@ -2041,7 +2053,6 @@ export type GitConfigDTO = ConnectorConfigDTO & {
   branchName?: string
   connectionType: 'Account' | 'Repo'
   delegateSelectors?: string[]
-  gitSync?: GitSyncConfig
   spec: GitAuthenticationDTO
   type: 'Http' | 'Ssh'
   url: string
@@ -2068,9 +2079,10 @@ export interface GitEntityBranchFilterSummaryProperties {
     | 'DeploymentSteps'
     | 'DeploymentStage'
     | 'ApprovalStage'
+    | 'FeatureFlagStage'
     | 'Triggers'
   )[]
-  moduleType?: 'CD' | 'CI' | 'CORE' | 'CV' | 'CF' | 'CE'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS'
   searchTerm?: string
 }
 
@@ -2094,10 +2106,11 @@ export interface GitEntityFilterProperties {
     | 'DeploymentSteps'
     | 'DeploymentStage'
     | 'ApprovalStage'
+    | 'FeatureFlagStage'
     | 'Triggers'
   )[]
   gitSyncConfigIdentifiers?: string[]
-  moduleType?: 'CD' | 'CI' | 'CORE' | 'CV' | 'CF' | 'CE'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS'
   searchTerm?: string
 }
 
@@ -2181,6 +2194,7 @@ export interface GitSyncEntityDTO {
     | 'DeploymentSteps'
     | 'DeploymentStage'
     | 'ApprovalStage'
+    | 'FeatureFlagStage'
     | 'Triggers'
   folderPath?: string
   gitConnectorId?: string
@@ -2209,6 +2223,7 @@ export interface GitSyncEntityListDTO {
     | 'DeploymentSteps'
     | 'DeploymentStage'
     | 'ApprovalStage'
+    | 'FeatureFlagStage'
     | 'Triggers'
   gitSyncEntities?: GitSyncEntityDTO[]
 }
@@ -2227,7 +2242,7 @@ export interface GitSyncRepoFiles {
 
 export interface GitSyncRepoFilesList {
   gitSyncRepoFilesList?: GitSyncRepoFiles[]
-  moduleType?: 'CD' | 'CI' | 'CORE' | 'CV' | 'CF' | 'CE'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS'
 }
 
 export interface GitSyncSettingsDTO {
@@ -2820,7 +2835,7 @@ export type KubernetesClientKeyCertDTO = KubernetesAuthCredentialDTO & {
   caCertRef?: string
   clientCertRef: string
   clientKeyAlgo?: string
-  clientKeyPassphraseRef: string
+  clientKeyPassphraseRef?: string
   clientKeyRef: string
 }
 
@@ -3709,7 +3724,7 @@ export interface Project {
   color?: string
   description?: string
   identifier: string
-  modules?: ('CD' | 'CI' | 'CORE' | 'CV' | 'CF' | 'CE')[]
+  modules?: ('CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS')[]
   name: string
   orgIdentifier?: string
   tags?: {
@@ -3745,6 +3760,7 @@ export type RemoteTerraformVarFileSpec = TerraformVarFileSpec & {
 }
 
 export type RemoveSegmentToVariationTargetMapYaml = PatchInstruction & {
+  identifier: string
   spec: RemoveSegmentToVariationTargetMapYamlSpec
   type:
     | 'SetFeatureFlagState'
@@ -3762,6 +3778,7 @@ export interface RemoveSegmentToVariationTargetMapYamlSpec {
 }
 
 export type RemoveTargetsToVariationTargetMapYaml = PatchInstruction & {
+  identifier: string
   spec: RemoveTargetsToVariationTargetMapYamlSpec
   type:
     | 'SetFeatureFlagState'
@@ -3810,9 +3827,9 @@ export interface Response {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
-export interface ResponseAccount {
+export interface ResponseAccountDTO {
   correlationId?: string
-  data?: Account
+  data?: AccountDTO
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -3883,6 +3900,13 @@ export interface ResponseConnectorStatistics {
 export interface ResponseConnectorValidationResult {
   correlationId?: string
   data?: ConnectorValidationResult
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseCreatePRDTO {
+  correlationId?: string
+  data?: CreatePRDTO
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -4325,6 +4349,8 @@ export interface ResponseMessage {
     | 'IMAGE_TAG_NOT_FOUND'
     | 'DELEGATE_NOT_AVAILABLE'
     | 'INVALID_YAML_PAYLOAD'
+    | 'AUTHENTICATION_ERROR'
+    | 'AUTHORIZATION_ERROR'
     | 'UNRECOGNIZED_YAML_FIELDS'
     | 'COULD_NOT_MAP_BEFORE_YAML'
     | 'MISSING_BEFORE_YAML'
@@ -4952,6 +4978,14 @@ export interface RestResponseUserInfo {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseVerifyTokenResponseDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: VerifyTokenResponseDTO
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseVoid {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -5360,6 +5394,7 @@ export interface ServiceYaml {
 }
 
 export type SetFeatureFlagStateYaml = PatchInstruction & {
+  identifier: string
   spec: SetFeatureFlagStateYamlSpec
   type:
     | 'SetFeatureFlagState'
@@ -5456,7 +5491,7 @@ export type SplunkConnectorDTO = ConnectorConfigDTO & {
   accountId: string
   delegateSelectors?: string[]
   passwordRef: string
-  splunkUrl?: string
+  splunkUrl: string
   username?: string
 }
 
@@ -5993,6 +6028,10 @@ export interface VaultSecretEngineDTO {
   version?: number
 }
 
+export interface VerifyTokenResponseDTO {
+  accountIdentifier?: string
+}
+
 export interface Void {
   [key: string]: any
 }
@@ -6040,6 +6079,8 @@ export interface YamlSnippets {
   yamlSnippets?: YamlSnippetMetaData[]
 }
 
+export type AccountDTORequestBody = AccountDTO
+
 export type ConnectorRequestBody = Connector
 
 export type DelegateProfileDetailsNgRequestBody = DelegateProfileDetailsNg
@@ -6086,52 +6127,206 @@ export type UploadSamlMetaDataRequestBody = void
 
 export type WebhookCatcherBodyRequestBody = string
 
-export interface GetAccountPathParams {
+export interface GetAccountNGPathParams {
   accountIdentifier: string
 }
 
-export type GetAccountProps = Omit<GetProps<ResponseAccount, Failure | Error, void, GetAccountPathParams>, 'path'> &
-  GetAccountPathParams
+export type GetAccountNGProps = Omit<
+  GetProps<ResponseAccountDTO, Failure | Error, void, GetAccountNGPathParams>,
+  'path'
+> &
+  GetAccountNGPathParams
 
 /**
  * Get Account
  */
-export const GetAccount = ({ accountIdentifier, ...props }: GetAccountProps) => (
-  <Get<ResponseAccount, Failure | Error, void, GetAccountPathParams>
+export const GetAccountNG = ({ accountIdentifier, ...props }: GetAccountNGProps) => (
+  <Get<ResponseAccountDTO, Failure | Error, void, GetAccountNGPathParams>
     path={`/accounts/${accountIdentifier}`}
     base={getConfig('ng/api')}
     {...props}
   />
 )
 
-export type UseGetAccountProps = Omit<
-  UseGetProps<ResponseAccount, Failure | Error, void, GetAccountPathParams>,
+export type UseGetAccountNGProps = Omit<
+  UseGetProps<ResponseAccountDTO, Failure | Error, void, GetAccountNGPathParams>,
   'path'
 > &
-  GetAccountPathParams
+  GetAccountNGPathParams
 
 /**
  * Get Account
  */
-export const useGetAccount = ({ accountIdentifier, ...props }: UseGetAccountProps) =>
-  useGet<ResponseAccount, Failure | Error, void, GetAccountPathParams>(
-    (paramsInPath: GetAccountPathParams) => `/accounts/${paramsInPath.accountIdentifier}`,
+export const useGetAccountNG = ({ accountIdentifier, ...props }: UseGetAccountNGProps) =>
+  useGet<ResponseAccountDTO, Failure | Error, void, GetAccountNGPathParams>(
+    (paramsInPath: GetAccountNGPathParams) => `/accounts/${paramsInPath.accountIdentifier}`,
     { base: getConfig('ng/api'), pathParams: { accountIdentifier }, ...props }
   )
 
 /**
  * Get Account
  */
-export const getAccountPromise = (
+export const getAccountNGPromise = (
   {
     accountIdentifier,
     ...props
-  }: GetUsingFetchProps<ResponseAccount, Failure | Error, void, GetAccountPathParams> & { accountIdentifier: string },
+  }: GetUsingFetchProps<ResponseAccountDTO, Failure | Error, void, GetAccountNGPathParams> & {
+    accountIdentifier: string
+  },
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseAccount, Failure | Error, void, GetAccountPathParams>(
+  getUsingFetch<ResponseAccountDTO, Failure | Error, void, GetAccountNGPathParams>(
     getConfig('ng/api'),
     `/accounts/${accountIdentifier}`,
+    props,
+    signal
+  )
+
+export interface UpdateAccountDefaultExperienceNGPathParams {
+  accountIdentifier: string
+}
+
+export type UpdateAccountDefaultExperienceNGProps = Omit<
+  MutateProps<
+    ResponseAccountDTO,
+    Failure | Error,
+    void,
+    AccountDTORequestBody,
+    UpdateAccountDefaultExperienceNGPathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateAccountDefaultExperienceNGPathParams
+
+/**
+ * Update Default Experience
+ */
+export const UpdateAccountDefaultExperienceNG = ({
+  accountIdentifier,
+  ...props
+}: UpdateAccountDefaultExperienceNGProps) => (
+  <Mutate<ResponseAccountDTO, Failure | Error, void, AccountDTORequestBody, UpdateAccountDefaultExperienceNGPathParams>
+    verb="PUT"
+    path={`/accounts/${accountIdentifier}/default-experience`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseUpdateAccountDefaultExperienceNGProps = Omit<
+  UseMutateProps<
+    ResponseAccountDTO,
+    Failure | Error,
+    void,
+    AccountDTORequestBody,
+    UpdateAccountDefaultExperienceNGPathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateAccountDefaultExperienceNGPathParams
+
+/**
+ * Update Default Experience
+ */
+export const useUpdateAccountDefaultExperienceNG = ({
+  accountIdentifier,
+  ...props
+}: UseUpdateAccountDefaultExperienceNGProps) =>
+  useMutate<
+    ResponseAccountDTO,
+    Failure | Error,
+    void,
+    AccountDTORequestBody,
+    UpdateAccountDefaultExperienceNGPathParams
+  >(
+    'PUT',
+    (paramsInPath: UpdateAccountDefaultExperienceNGPathParams) =>
+      `/accounts/${paramsInPath.accountIdentifier}/default-experience`,
+    { base: getConfig('ng/api'), pathParams: { accountIdentifier }, ...props }
+  )
+
+/**
+ * Update Default Experience
+ */
+export const updateAccountDefaultExperienceNGPromise = (
+  {
+    accountIdentifier,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponseAccountDTO,
+    Failure | Error,
+    void,
+    AccountDTORequestBody,
+    UpdateAccountDefaultExperienceNGPathParams
+  > & { accountIdentifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseAccountDTO,
+    Failure | Error,
+    void,
+    AccountDTORequestBody,
+    UpdateAccountDefaultExperienceNGPathParams
+  >('PUT', getConfig('ng/api'), `/accounts/${accountIdentifier}/default-experience`, props, signal)
+
+export interface UpdateAccountNameNGPathParams {
+  accountIdentifier: string
+}
+
+export type UpdateAccountNameNGProps = Omit<
+  MutateProps<ResponseAccountDTO, Failure | Error, void, AccountDTORequestBody, UpdateAccountNameNGPathParams>,
+  'path' | 'verb'
+> &
+  UpdateAccountNameNGPathParams
+
+/**
+ * Update Account Name
+ */
+export const UpdateAccountNameNG = ({ accountIdentifier, ...props }: UpdateAccountNameNGProps) => (
+  <Mutate<ResponseAccountDTO, Failure | Error, void, AccountDTORequestBody, UpdateAccountNameNGPathParams>
+    verb="PUT"
+    path={`/accounts/${accountIdentifier}/name`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseUpdateAccountNameNGProps = Omit<
+  UseMutateProps<ResponseAccountDTO, Failure | Error, void, AccountDTORequestBody, UpdateAccountNameNGPathParams>,
+  'path' | 'verb'
+> &
+  UpdateAccountNameNGPathParams
+
+/**
+ * Update Account Name
+ */
+export const useUpdateAccountNameNG = ({ accountIdentifier, ...props }: UseUpdateAccountNameNGProps) =>
+  useMutate<ResponseAccountDTO, Failure | Error, void, AccountDTORequestBody, UpdateAccountNameNGPathParams>(
+    'PUT',
+    (paramsInPath: UpdateAccountNameNGPathParams) => `/accounts/${paramsInPath.accountIdentifier}/name`,
+    { base: getConfig('ng/api'), pathParams: { accountIdentifier }, ...props }
+  )
+
+/**
+ * Update Account Name
+ */
+export const updateAccountNameNGPromise = (
+  {
+    accountIdentifier,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponseAccountDTO,
+    Failure | Error,
+    void,
+    AccountDTORequestBody,
+    UpdateAccountNameNGPathParams
+  > & { accountIdentifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseAccountDTO, Failure | Error, void, AccountDTORequestBody, UpdateAccountNameNGPathParams>(
+    'PUT',
+    getConfig('ng/api'),
+    `/accounts/${accountIdentifier}/name`,
     props,
     signal
   )
@@ -6165,6 +6360,7 @@ export interface ListActivitiesQueryParams {
     | 'DeploymentSteps'
     | 'DeploymentStage'
     | 'ApprovalStage'
+    | 'FeatureFlagStage'
     | 'Triggers'
   referredByEntityType?:
     | 'Projects'
@@ -6185,6 +6381,7 @@ export interface ListActivitiesQueryParams {
     | 'DeploymentSteps'
     | 'DeploymentStage'
     | 'ApprovalStage'
+    | 'FeatureFlagStage'
     | 'Triggers'
 }
 
@@ -6352,6 +6549,7 @@ export interface GetActivitiesSummaryQueryParams {
     | 'DeploymentSteps'
     | 'DeploymentStage'
     | 'ApprovalStage'
+    | 'FeatureFlagStage'
     | 'Triggers'
   referredByEntityType?:
     | 'Projects'
@@ -6372,6 +6570,7 @@ export interface GetActivitiesSummaryQueryParams {
     | 'DeploymentSteps'
     | 'DeploymentStage'
     | 'ApprovalStage'
+    | 'FeatureFlagStage'
     | 'Triggers'
 }
 
@@ -6976,7 +7175,7 @@ export interface GetProjectAggregateDTOListQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
   hasModule?: boolean
-  moduleType?: 'CD' | 'CI' | 'CORE' | 'CV' | 'CF' | 'CE'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS'
   searchTerm?: string
   pageIndex?: number
   pageSize?: number
@@ -11035,6 +11234,7 @@ export interface ListReferredByEntitiesQueryParams {
     | 'DeploymentSteps'
     | 'DeploymentStage'
     | 'ApprovalStage'
+    | 'FeatureFlagStage'
     | 'Triggers'
   searchTerm?: string
 }
@@ -12846,6 +13046,7 @@ export interface ListGitSyncEntitiesByTypePathParams {
     | 'DeploymentSteps'
     | 'DeploymentStage'
     | 'ApprovalStage'
+    | 'FeatureFlagStage'
     | 'Triggers'
 }
 
@@ -12934,6 +13135,7 @@ export const listGitSyncEntitiesByTypePromise = (
       | 'DeploymentSteps'
       | 'DeploymentStage'
       | 'ApprovalStage'
+      | 'FeatureFlagStage'
       | 'Triggers'
   },
   signal?: RequestInit['signal']
@@ -15478,7 +15680,7 @@ export interface GetProjectListQueryParams {
   orgIdentifier?: string
   hasModule?: boolean
   identifiers?: string[]
-  moduleType?: 'CD' | 'CI' | 'CORE' | 'CV' | 'CF' | 'CE'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS'
   searchTerm?: string
   pageIndex?: number
   pageSize?: number
@@ -16024,7 +16226,7 @@ export interface CreatePRQueryParams {
 }
 
 export type CreatePRProps = Omit<
-  MutateProps<ResponseBoolean, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>,
+  MutateProps<ResponseCreatePRDTO, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>,
   'path' | 'verb'
 >
 
@@ -16032,7 +16234,7 @@ export type CreatePRProps = Omit<
  * creates a pull request
  */
 export const CreatePR = (props: CreatePRProps) => (
-  <Mutate<ResponseBoolean, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>
+  <Mutate<ResponseCreatePRDTO, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>
     verb="POST"
     path={`/scm/createPR`}
     base={getConfig('ng/api')}
@@ -16041,7 +16243,7 @@ export const CreatePR = (props: CreatePRProps) => (
 )
 
 export type UseCreatePRProps = Omit<
-  UseMutateProps<ResponseBoolean, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>,
+  UseMutateProps<ResponseCreatePRDTO, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>,
   'path' | 'verb'
 >
 
@@ -16049,19 +16251,20 @@ export type UseCreatePRProps = Omit<
  * creates a pull request
  */
 export const useCreatePR = (props: UseCreatePRProps) =>
-  useMutate<ResponseBoolean, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>('POST', `/scm/createPR`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
+  useMutate<ResponseCreatePRDTO, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>(
+    'POST',
+    `/scm/createPR`,
+    { base: getConfig('ng/api'), ...props }
+  )
 
 /**
  * creates a pull request
  */
 export const createPRPromise = (
-  props: MutateUsingFetchProps<ResponseBoolean, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>,
+  props: MutateUsingFetchProps<ResponseCreatePRDTO, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseBoolean, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>(
+  mutateUsingFetch<ResponseCreatePRDTO, Failure | Error, CreatePRQueryParams, GitPRCreateRequest, void>(
     'POST',
     getConfig('ng/api'),
     `/scm/createPR`,
@@ -17320,6 +17523,55 @@ export const signupOAuthPromise = (
     'POST',
     getConfig('ng/api'),
     `/signup/oauth`,
+    props,
+    signal
+  )
+
+export interface VerifyTokenPathParams {
+  token: string
+}
+
+export type VerifyTokenProps = Omit<
+  MutateProps<RestResponseVerifyTokenResponseDTO, Failure | Error, void, void, VerifyTokenPathParams>,
+  'path' | 'verb'
+> &
+  VerifyTokenPathParams
+
+export const VerifyToken = ({ token, ...props }: VerifyTokenProps) => (
+  <Mutate<RestResponseVerifyTokenResponseDTO, Failure | Error, void, void, VerifyTokenPathParams>
+    verb="POST"
+    path={`/signup/verify/${token}`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseVerifyTokenProps = Omit<
+  UseMutateProps<RestResponseVerifyTokenResponseDTO, Failure | Error, void, void, VerifyTokenPathParams>,
+  'path' | 'verb'
+> &
+  VerifyTokenPathParams
+
+export const useVerifyToken = ({ token, ...props }: UseVerifyTokenProps) =>
+  useMutate<RestResponseVerifyTokenResponseDTO, Failure | Error, void, void, VerifyTokenPathParams>(
+    'POST',
+    (paramsInPath: VerifyTokenPathParams) => `/signup/verify/${paramsInPath.token}`,
+    { base: getConfig('ng/api'), pathParams: { token }, ...props }
+  )
+
+export const verifyTokenPromise = (
+  {
+    token,
+    ...props
+  }: MutateUsingFetchProps<RestResponseVerifyTokenResponseDTO, Failure | Error, void, void, VerifyTokenPathParams> & {
+    token: string
+  },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<RestResponseVerifyTokenResponseDTO, Failure | Error, void, void, VerifyTokenPathParams>(
+    'POST',
+    getConfig('ng/api'),
+    `/signup/verify/${token}`,
     props,
     signal
   )
@@ -19886,6 +20138,7 @@ export interface GetYamlSchemaQueryParams {
     | 'DeploymentSteps'
     | 'DeploymentStage'
     | 'ApprovalStage'
+    | 'FeatureFlagStage'
     | 'Triggers'
   subtype?:
     | 'K8sCluster'

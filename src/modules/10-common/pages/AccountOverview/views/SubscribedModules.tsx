@@ -1,0 +1,148 @@
+import React from 'react'
+import { capitalize } from 'lodash-es'
+import { Container, Text, Color, Card, Layout, Icon, Button } from '@wings-software/uicore'
+import type { IconName } from '@wings-software/uicore'
+import moment from 'moment'
+import { useParams } from 'react-router-dom'
+import { useStrings } from 'framework/strings'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { PageError } from '@common/components/Page/PageError'
+import { PageSpinner } from '@common/components/Page/PageSpinner'
+import type { StringsMap } from 'framework/strings/StringsContext'
+import { useGetAccountLicenses } from 'services/cd-ng'
+import type { ModuleLicenseDTO } from 'services/cd-ng'
+import css from '../AccountOverview.module.scss'
+
+interface ModuleCardProps {
+  module: ModuleLicenseDTO
+}
+
+const MODULE_PROPS: {
+  [key in 'CD' | 'CI' | 'CV' | 'CE' | 'CF']: {
+    icon: string
+    title: string
+  }
+} = {
+  CD: {
+    icon: 'cd-main',
+    title: 'common.purpose.cd.delivery'
+  },
+  CE: {
+    icon: 'ce-main',
+    title: 'common.purpose.ce.efficiency'
+  },
+  CV: {
+    icon: 'cv-main',
+    title: 'common.purpose.cv.verification'
+  },
+  CF: {
+    icon: 'cf-main',
+    title: 'common.purpose.cf.features'
+  },
+  CI: {
+    icon: 'ci-main',
+    title: 'common.purpose.ci.integration'
+  }
+}
+
+const ModuleCard: React.FC<ModuleCardProps> = ({ module }) => {
+  const { getString } = useStrings()
+  const getPlanDescription = (): string => {
+    const days = Math.round(moment(module.expiryTime).diff(moment(module.startTime), 'days', true)).toString()
+    return capitalize(module.edition)
+      .concat('(')
+      .concat(days)
+      .concat(' day ')
+      .concat(capitalize(module.licenseType))
+      .concat(')')
+  }
+
+  const moduleTypeStr =
+    module.moduleType && MODULE_PROPS[module.moduleType]
+      ? getString(MODULE_PROPS[module.moduleType].title as keyof StringsMap)
+      : ''
+
+  return (
+    <Card className={css.subscribedModules}>
+      <Container padding={'large'}>
+        <Layout.Vertical>
+          <Layout.Horizontal>
+            {module.moduleType && MODULE_PROPS[module.moduleType] && (
+              <Icon name={MODULE_PROPS[module.moduleType].icon as IconName} size={25} margin={{ right: 'small' }} />
+            )}
+            <Layout.Vertical>
+              <Text font={{ size: 'xsmall' }}>{getString('common.purpose.continuous')}</Text>
+              <Text font={{ size: 'small', weight: 'semi-bold' }} padding={{ bottom: 'large' }} color={Color.BLACK}>
+                {moduleTypeStr}
+              </Text>
+            </Layout.Vertical>
+          </Layout.Horizontal>
+          <Layout.Horizontal padding="xsmall" margin={{ bottom: 'large' }} border={{ color: Color.GREY_200 }}>
+            <Text font={{ size: 'xsmall' }} margin={{ right: 'xsmall' }}>{`${getString('common.plan')}:`}</Text>
+            <Text font={{ size: 'xsmall', weight: 'bold' }} color={Color.BLACK}>
+              {getPlanDescription()}
+            </Text>
+          </Layout.Horizontal>
+        </Layout.Vertical>
+      </Container>
+      <Container
+        border={{ top: true, color: Color.GREY_250 }}
+        padding={{ top: 'large', bottom: 'large', left: 'large' }}
+      >
+        <Button intent="none" text={getString('common.manage')} font={{ size: 'xsmall' }} className={css.manageBtn} />
+      </Container>
+    </Card>
+  )
+}
+
+const SubscribedModules: React.FC = () => {
+  const { getString } = useStrings()
+  const { accountId } = useParams<AccountPathProps>()
+
+  const { data: accountLicenses, loading, error, refetch } = useGetAccountLicenses({
+    queryParams: {
+      accountIdentifier: accountId
+    }
+  })
+
+  if (loading) {
+    return <PageSpinner />
+  }
+
+  if (error) {
+    return (
+      <Container height={300}>
+        <PageError message={(error.data as Error)?.message || error.message} onClick={() => refetch()} />
+      </Container>
+    )
+  }
+
+  const modules: {
+    [key: string]: ModuleLicenseDTO
+  } = accountLicenses?.data?.moduleLicenses || {}
+
+  return (
+    <Container margin="xlarge" padding="xlarge" className={css.container} background="white">
+      <Text color={Color.BLACK} font={{ weight: 'semi-bold', size: 'medium' }} margin={{ bottom: 'xlarge' }}>
+        {getString('common.account.subscribedModules')}
+      </Text>
+      <Layout.Horizontal spacing="large">
+        {Object.values(modules).length > 0 ? (
+          Object.values(modules).map(module => (
+            <div key={module.moduleType}>
+              <ModuleCard module={module} />
+            </div>
+          ))
+        ) : (
+          // TO-DO: add link to subscription page
+          <Layout.Horizontal spacing="xsmall">
+            <a href="">{getString('common.account.visitSubscriptions.link')}</a>
+            <Text>{getString('common.account.visitSubscriptions.description')}</Text>
+          </Layout.Horizontal>
+        )}
+      </Layout.Horizontal>
+    </Container>
+  )
+}
+
+export default SubscribedModules
