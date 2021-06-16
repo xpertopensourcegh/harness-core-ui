@@ -27,8 +27,9 @@ import {
   getFlattenedStages
 } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
-import type { K8SDirectServiceStep } from '../../PipelineSteps/K8sServiceSpec/K8sServiceSpec'
+import type { K8SDirectServiceStep } from '@cd/components/PipelineSteps/K8sServiceSpec/K8sServiceSpecInterface'
 import css from './DeployServiceSpecifications.module.scss'
+
 const setupMode = {
   PROPAGATE: 'PROPAGATE',
   DIFFERENT: 'DIFFERENT'

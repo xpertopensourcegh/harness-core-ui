@@ -8,12 +8,13 @@ import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { ResponseConnectorResponse } from 'services/cd-ng'
-import { KubernetesServiceSpec, K8SDirectServiceStep } from '../K8sServiceSpec'
+import { KubernetesServiceSpec } from '../K8sServiceSpec'
 import PipelineMock from './mock.json'
 import TemplateMock from './template.mock.json'
 import connectorListJSON from './connectorList.json'
 import secretMockdata from './secretMockdata.json'
 import { PipelineResponse } from './pipelineMock'
+import type { K8SDirectServiceStep } from '../K8sServiceSpecInterface'
 
 const fetchConnectors = (): Promise<unknown> => Promise.resolve({})
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
