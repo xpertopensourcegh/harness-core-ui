@@ -140,6 +140,7 @@
   grid-template-columns: auto 1fr;
 }
 .content-section {
+  background-color: var(--form-bg);
   padding: 48px;
   height: 100%;
 }
@@ -165,7 +166,7 @@
   &.notwide {
     width: auto;
   }
-  background-color: var(--grey-50);
+  background-color: var(--white);
   box-shadow: none;
   -webkit-box-shadow: none;
 }

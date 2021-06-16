@@ -33,7 +33,7 @@ const DeployAdvancedSpecifications: React.FC<AdvancedSpecifications> = ({ childr
       <div className={css.contentSection} ref={scrollRef}>
         <div className={css.tabHeading}>{getString('pipeline.conditionalExecution.title')}</div>
         {!!stage && (
-          <Card className={css.sectionCard} id="conditionalExecution">
+          <Card className={cx(css.sectionCard, css.shadow)} id="conditionalExecution">
             <Layout.Horizontal>
               <div className={css.stageSection}>
                 <div className={cx(css.stageCreate, css.stageDetails)}>
@@ -54,7 +54,7 @@ const DeployAdvancedSpecifications: React.FC<AdvancedSpecifications> = ({ childr
           </Card>
         )}
         <div className={css.tabHeading}>Failure Strategy</div>
-        <Card className={css.sectionCard} id="failureStrategy">
+        <Card className={cx(css.sectionCard, css.shadow)} id="failureStrategy">
           <Layout.Horizontal>
             <div className={css.stageSection}>
               <div className={cx(css.stageCreate, css.stageDetails)}>

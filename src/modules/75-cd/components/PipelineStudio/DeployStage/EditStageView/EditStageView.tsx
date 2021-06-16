@@ -154,7 +154,7 @@ export const EditStageView: React.FC<EditStageView> = ({
               return (
                 <FormikForm>
                   {context ? (
-                    <Card className={cx(css.sectionCard)}>
+                    <Card className={cx(css.sectionCard, css.shadow)}>
                       <NameIdDescriptionTags
                         formikProps={formikProps}
                         identifierProps={{
@@ -177,7 +177,7 @@ export const EditStageView: React.FC<EditStageView> = ({
                     />
                   )}
 
-                  <Card className={cx(css.sectionCard, css.nopadleft)}>
+                  <Card className={cx(css.sectionCard, css.shadow)}>
                     <div
                       className={cx(css.tabSubHeading, 'ng-tooltip-native')}
                       id="whatToDeploy"
@@ -247,7 +247,7 @@ export const EditStageView: React.FC<EditStageView> = ({
             addDomId={true}
             summary={'Advanced'}
             details={
-              <Card className={css.sectionCard} id="variables">
+              <Card className={cx(css.sectionCard, css.shadow)} id="variables">
                 <div className={cx(css.tabSubHeading, 'ng-tooltip-native')} data-tooltip-id="overviewStageVariables">
                   Stage Variables
                   <HarnessDocTooltip tooltipId="overviewStageVariables" useStandAlone={true} />

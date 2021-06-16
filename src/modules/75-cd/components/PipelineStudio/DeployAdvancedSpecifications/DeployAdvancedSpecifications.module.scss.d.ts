@@ -20,6 +20,7 @@ declare const styles: {
   readonly tabHeading: string
   readonly tabSubHeading: string
   readonly sectionCard: string
+  readonly shadow: string
   readonly createStageGrid: string
 }
 export default styles

@@ -462,7 +462,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
           <div className={css.overFlowScroll} ref={scrollRef}>
             <div className={css.contentSection}>
               <div className={css.tabHeading}>{getString('pipelineSteps.serviceTab.aboutYourService')}</div>
-              <Card className={css.sectionCard} id="aboutService">
+              <Card className={cx(css.sectionCard, css.shadow)} id="aboutService">
                 <StepWidget
                   type={StepType.DeployService}
                   readonly={isReadonly}
@@ -490,7 +490,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                 {getString('pipelineSteps.deploy.serviceSpecifications.serviceDefinition')}
               </div>
 
-              <Card className={css.sectionCard} id="deploymentType">
+              <Card className={cx(css.sectionCard, css.shadow)} id="deploymentType">
                 <div
                   className={cx(css.tabSubHeading, 'ng-tooltip-native')}
                   data-tooltip-id="stageOverviewDeploymentType"

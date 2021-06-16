@@ -417,7 +417,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
           <div className={css.tabHeading} id="environment">
             <String stringID="environment" />
           </div>
-          <Card className={cx(css.sectionCard)}>
+          <Card className={cx(css.sectionCard, css.shadow)}>
             <StepWidget
               type={StepType.DeployEnvironment}
               readonly={isReadonly}
@@ -441,7 +441,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
         <div className={css.tabHeading} id="infrastructureDefinition">
           <String stringID="pipelineSteps.deploy.infrastructure.infraDefinition" />
         </div>
-        <Card className={cx(css.sectionCard)}>
+        <Card className={cx(css.sectionCard, css.shadow)}>
           <div className={css.stepContainer}>
             <div className={css.subheading}>
               <String stringID="pipelineSteps.deploy.infrastructure.selectMethod" />

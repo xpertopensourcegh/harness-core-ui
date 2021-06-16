@@ -120,7 +120,7 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
     class="serviceDefinition"
   >
     <div
-      class="bp3-card bp3-elevation-0 Card--card sectionCard"
+      class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
       id="pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests"
     >
       <div
@@ -156,7 +156,7 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
       </div>
     </div>
     <div
-      class="bp3-card bp3-elevation-0 Card--card sectionCard"
+      class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
       id="pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts"
     >
       <div
@@ -211,12 +211,13 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
       class="accordionTitle"
     >
       <div
+        class="tabHeading"
         id="advanced"
       >
         advancedTitle
       </div>
       <div
-        class="bp3-card bp3-elevation-0 Card--card sectionCard"
+        class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
         id="variablesText"
       >
         <div

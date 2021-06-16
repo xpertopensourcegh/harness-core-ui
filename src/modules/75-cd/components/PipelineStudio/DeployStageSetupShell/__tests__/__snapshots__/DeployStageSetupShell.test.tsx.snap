@@ -253,7 +253,7 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
                 pipelineSteps.serviceTab.aboutYourService
               </div>
               <div
-                class="bp3-card bp3-elevation-0 Card--card sectionCard"
+                class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
                 id="aboutService"
               />
               <div
@@ -263,7 +263,7 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
                 pipelineSteps.deploy.serviceSpecifications.serviceDefinition
               </div>
               <div
-                class="bp3-card bp3-elevation-0 Card--card sectionCard"
+                class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
                 id="deploymentType"
               >
                 <div

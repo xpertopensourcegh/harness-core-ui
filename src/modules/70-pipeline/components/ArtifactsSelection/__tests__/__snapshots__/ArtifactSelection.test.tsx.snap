@@ -11,16 +11,26 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
       <div
         class="artifactList listHeader"
       >
-        <span />
-        <span>
+        <span
+          class="tableHeader"
+        />
+        <span
+          class="tableHeader"
+        >
           artifactRepository
         </span>
-        <span>
+        <span
+          class="tableHeader"
+        >
            
           location
         </span>
-        <span />
-        <span />
+        <span
+          class="tableHeader"
+        />
+        <span
+          class="tableHeader"
+        />
       </div>
       <div
         class="Layout--vertical StyledProps--main"
@@ -466,16 +476,26 @@ exports[`ArtifactsSelection tests delete artifact list works correctly 1`] = `
       <div
         class="artifactList listHeader"
       >
-        <span />
-        <span>
+        <span
+          class="tableHeader"
+        />
+        <span
+          class="tableHeader"
+        >
           artifactRepository
         </span>
-        <span>
+        <span
+          class="tableHeader"
+        >
            
           location
         </span>
-        <span />
-        <span />
+        <span
+          class="tableHeader"
+        />
+        <span
+          class="tableHeader"
+        />
       </div>
       <div
         class="Layout--vertical StyledProps--main"
@@ -715,16 +735,26 @@ exports[`ArtifactsSelection tests edit artifact list works correctly 1`] = `
       <div
         class="artifactList listHeader"
       >
-        <span />
-        <span>
+        <span
+          class="tableHeader"
+        />
+        <span
+          class="tableHeader"
+        >
           artifactRepository
         </span>
-        <span>
+        <span
+          class="tableHeader"
+        >
            
           location
         </span>
-        <span />
-        <span />
+        <span
+          class="tableHeader"
+        />
+        <span
+          class="tableHeader"
+        />
       </div>
       <div
         class="Layout--vertical StyledProps--main"
@@ -964,16 +994,26 @@ exports[`ArtifactsSelection tests renders Artifact Listview with connectors Data
       <div
         class="artifactList listHeader"
       >
-        <span />
-        <span>
+        <span
+          class="tableHeader"
+        />
+        <span
+          class="tableHeader"
+        >
           artifactRepository
         </span>
-        <span>
+        <span
+          class="tableHeader"
+        >
            
           location
         </span>
-        <span />
-        <span />
+        <span
+          class="tableHeader"
+        />
+        <span
+          class="tableHeader"
+        />
       </div>
       <div
         class="Layout--vertical StyledProps--main"
@@ -1130,16 +1170,26 @@ exports[`ArtifactsSelection tests renders Artifact Listview without crashing 1`]
       <div
         class="artifactList listHeader"
       >
-        <span />
-        <span>
+        <span
+          class="tableHeader"
+        />
+        <span
+          class="tableHeader"
+        >
           artifactRepository
         </span>
-        <span>
+        <span
+          class="tableHeader"
+        >
            
           location
         </span>
-        <span />
-        <span />
+        <span
+          class="tableHeader"
+        />
+        <span
+          class="tableHeader"
+        />
       </div>
       <div
         class="Layout--vertical StyledProps--main"
@@ -1327,16 +1377,26 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
       <div
         class="artifactList listHeader"
       >
-        <span />
-        <span>
+        <span
+          class="tableHeader"
+        />
+        <span
+          class="tableHeader"
+        >
           artifactRepository
         </span>
-        <span>
+        <span
+          class="tableHeader"
+        >
            
           location
         </span>
-        <span />
-        <span />
+        <span
+          class="tableHeader"
+        />
+        <span
+          class="tableHeader"
+        />
       </div>
       <div
         class="Layout--vertical StyledProps--main"

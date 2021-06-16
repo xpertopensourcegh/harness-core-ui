@@ -121,7 +121,12 @@
     }
 
     &.header-row {
-      font-weight: bold;
+      font-style: normal;
+      font-weight: 600;
+      font-size: var(--font-size-xsmall);
+      letter-spacing: 0.2px;
+      color: var(--grey-600);
+      text-transform: uppercase;
     }
   }
 }

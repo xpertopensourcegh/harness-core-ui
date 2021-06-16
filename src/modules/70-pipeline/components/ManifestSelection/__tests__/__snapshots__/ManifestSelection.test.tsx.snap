@@ -8,16 +8,24 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
     <div
       class="manifestList listHeader"
     >
-      <span>
+      <span
+        class="tableHeader"
+      >
         common.ID
       </span>
-      <span>
+      <span
+        class="tableHeader"
+      >
         pipelineSteps.serviceTab.manifestList.manifestType
       </span>
-      <span>
+      <span
+        class="tableHeader"
+      >
         pipelineSteps.serviceTab.manifestList.manifestStore
       </span>
-      <span>
+      <span
+        class="tableHeader"
+      >
         location
       </span>
       <span />
@@ -748,16 +756,24 @@ exports[`ManifestSelection tests edit manifest list works correctly 1`] = `
     <div
       class="manifestList listHeader"
     >
-      <span>
+      <span
+        class="tableHeader"
+      >
         common.ID
       </span>
-      <span>
+      <span
+        class="tableHeader"
+      >
         pipelineSteps.serviceTab.manifestList.manifestType
       </span>
-      <span>
+      <span
+        class="tableHeader"
+      >
         pipelineSteps.serviceTab.manifestList.manifestStore
       </span>
-      <span>
+      <span
+        class="tableHeader"
+      >
         location
       </span>
       <span />
@@ -1313,16 +1329,24 @@ exports[`ManifestSelection tests renders Manifest Listview with connectors Data 
     <div
       class="manifestList listHeader"
     >
-      <span>
+      <span
+        class="tableHeader"
+      >
         common.ID
       </span>
-      <span>
+      <span
+        class="tableHeader"
+      >
         pipelineSteps.serviceTab.manifestList.manifestType
       </span>
-      <span>
+      <span
+        class="tableHeader"
+      >
         pipelineSteps.serviceTab.manifestList.manifestStore
       </span>
-      <span>
+      <span
+        class="tableHeader"
+      >
         location
       </span>
       <span />
@@ -2067,16 +2091,24 @@ exports[`ManifestSelection tests renders Manifest Listview without crashing 1`] 
     <div
       class="manifestList listHeader"
     >
-      <span>
+      <span
+        class="tableHeader"
+      >
         common.ID
       </span>
-      <span>
+      <span
+        class="tableHeader"
+      >
         pipelineSteps.serviceTab.manifestList.manifestType
       </span>
-      <span>
+      <span
+        class="tableHeader"
+      >
         pipelineSteps.serviceTab.manifestList.manifestStore
       </span>
-      <span>
+      <span
+        class="tableHeader"
+      >
         location
       </span>
       <span />

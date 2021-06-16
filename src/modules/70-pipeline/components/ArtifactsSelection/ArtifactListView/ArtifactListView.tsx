@@ -37,11 +37,11 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
       <Layout.Vertical spacing="small" style={{ flexShrink: 'initial' }}>
         {!!(sideCarArtifact?.length || primaryArtifact?.type) && (
           <div className={cx(css.artifactList, css.listHeader)}>
-            <span></span>
-            <span>{getString('artifactRepository')}</span>
-            <span> {getString('location')}</span>
-            <span></span>
-            <span></span>
+            <span className={css.tableHeader}></span>
+            <span className={css.tableHeader}>{getString('artifactRepository')}</span>
+            <span className={css.tableHeader}> {getString('location')}</span>
+            <span className={css.tableHeader}></span>
+            <span className={css.tableHeader}></span>
           </div>
         )}
 

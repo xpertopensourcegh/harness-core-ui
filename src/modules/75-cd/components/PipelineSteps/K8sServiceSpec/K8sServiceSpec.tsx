@@ -59,7 +59,7 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
   return (
     <div className={css.serviceDefinition}>
       <Card
-        className={css.sectionCard}
+        className={cx(css.sectionCard, css.shadow)}
         id={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
       >
         <div className={cx(css.tabSubHeading, 'ng-tooltip-native')} data-tooltip-id="deploymentTypeManifests">
@@ -71,7 +71,7 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
         </Layout.Horizontal>
       </Card>
       <Card
-        className={css.sectionCard}
+        className={cx(css.sectionCard, css.shadow)}
         id={getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')}
       >
         <div className={cx(css.tabSubHeading, 'ng-tooltip-native')} data-tooltip-id="deploymentTypeArtifacts">
@@ -84,8 +84,10 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
       </Card>
 
       <div className={css.accordionTitle}>
-        <div id="advanced">{getString('advancedTitle')}</div>
-        <Card className={css.sectionCard} id={getString('variablesText')}>
+        <div className={css.tabHeading} id="advanced">
+          {getString('advancedTitle')}
+        </div>
+        <Card className={cx(css.sectionCard, css.shadow)} id={getString('variablesText')}>
           <div className={css.tabSubHeading}>{getString('variablesText')}</div>
           <WorkflowVariables factory={factory as any} isPropagating={isPropagating} readonly={readonly} />
         </Card>

@@ -32,7 +32,6 @@
 
 .stage-create {
   max-width: 1024px;
-  padding: var(--spacing-xlarge);
 }
 
 .btn-setup {
@@ -246,6 +245,7 @@
   height: calc(100% - 70px);
 }
 .content-section {
+  background-color: var(--form-bg);
   padding: 48px;
   height: 100%;
 }
@@ -264,14 +264,13 @@
 .section-card {
   width: 100%;
   margin-bottom: 20px;
+  background-color: var(--white);
   &.shadow {
     box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
   }
   &.notwide {
     width: auto;
   }
-  box-shadow: none;
-  -webkit-box-shadow: none;
 }
 .nopadleft {
   padding-left: 0 !important;
@@ -288,5 +287,5 @@
 }
 .accordionTitle {
   background-color: transparent;
-  max-width: 1000px;
+  max-width: 1024px;
 }
