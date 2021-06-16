@@ -172,11 +172,10 @@ export const IconNodeWidget: React.FC<IconNodeWidgetProps> = (props): JSX.Elemen
             cursor: 'pointer',
             lineHeight: '1.6',
             overflowWrap: 'break-word',
-            marginLeft: '-30px',
-            marginRight: '-30px'
+            marginLeft: '0px',
+            marginRight: '0px'
           }}
           padding="xsmall"
-          width={125}
           lineClamp={2}
           tooltipProps={{ position: Position.RIGHT, portalClassName: css.hoverName }}
         >

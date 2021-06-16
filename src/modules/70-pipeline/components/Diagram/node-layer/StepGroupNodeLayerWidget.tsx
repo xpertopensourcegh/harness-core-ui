@@ -212,7 +212,7 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
         <Button
           minimal
           icon="minus"
-          disabled={options.inComplete || options.disableCollapseButton}
+          disabled={options.disableCollapseButton}
           withoutCurrentColor
           tooltip={
             options.disableCollapseButton ? getString('pipeline.collapseIsDisabledWhileStageIsRunning') : undefined
