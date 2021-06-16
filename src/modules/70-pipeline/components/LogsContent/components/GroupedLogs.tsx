@@ -46,7 +46,7 @@ export function GroupedLogs(
       overscan={5}
       ref={ref}
       groupCounts={groupedCounts}
-      followOutput={() => 'auto'}
+      followOutput="auto"
       groupContent={index => {
         const logKey = state.logKeys[index]
         const unit = state.dataMap[logKey]
@@ -59,6 +59,10 @@ export function GroupedLogs(
         const previousCount = sum(groupedCounts.slice(0, groupIndex))
         const lineNumber = index - previousCount
         const logData = unit.data[lineNumber]
+
+        if (!unit.isOpen) {
+          return <div style={{ height: '1px' }} />
+        }
 
         return (
           <MultiLogLine

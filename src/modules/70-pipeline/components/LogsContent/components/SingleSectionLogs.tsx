@@ -24,7 +24,7 @@ export function SingleSectionLogs(
     <Virtuoso
       totalCount={length}
       ref={ref}
-      followOutput={() => 'auto'}
+      followOutput="auto"
       itemContent={index => (
         <MultiLogLine
           {...unit.data[index]}
