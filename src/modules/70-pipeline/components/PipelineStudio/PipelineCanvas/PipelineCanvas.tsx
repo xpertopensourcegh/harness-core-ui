@@ -47,6 +47,11 @@ interface OtherModalProps {
   initialValues?: NgPipeline
   onClose?: () => void
 }
+
+interface SavePipelineObj {
+  pipeline: PipelineInfoConfig | NgPipeline
+}
+
 export interface PipelineCanvasProps {
   toPipelineStudio: PathFn<PipelineType<PipelinePathProps> & PipelineStudioQueryParams>
   toPipelineDetail: PathFn<PipelineType<PipelinePathProps>>
@@ -154,7 +159,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   })
 
   const saveAndPublishPipeline = async (
-    latestPipeline: NgPipeline,
+    latestPipeline: SavePipelineObj,
     updatedGitDetails?: SaveToGitFormInterface,
     lastObject?: { lastObjectId?: string }
   ): Promise<UseSaveSuccessResponse> => {
@@ -168,10 +173,10 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         ...(lastObject ?? {}),
         ...(updatedGitDetails && updatedGitDetails.isNewBranch ? { baseBranch: branch } : {})
       },
-      omit(latestPipeline, 'repo', 'branch'),
+      omit(latestPipeline.pipeline, 'repo', 'branch'),
       pipelineIdentifier !== DefaultNewPipelineId
     )
-    const newPipelineId = latestPipeline?.identifier
+    const newPipelineId = latestPipeline?.pipeline?.identifier
 
     if (response && response.status === 'SUCCESS') {
       if (pipelineIdentifier === DefaultNewPipelineId) {
@@ -209,10 +214,10 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
 
   const saveAngPublishWithGitInfo = async (
     updatedGitDetails: SaveToGitFormInterface,
-    payload?: PipelineInfoConfig,
+    payload?: SavePipelineObj,
     objectId?: string
   ): Promise<UseSaveSuccessResponse> => {
-    let latestPipeline: PipelineInfoConfig = payload || pipeline
+    let latestPipeline: PipelineInfoConfig = payload?.pipeline || pipeline
 
     if (isYaml && yamlHandler) {
       try {
@@ -223,7 +228,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     }
 
     const response = await saveAndPublishPipeline(
-      latestPipeline,
+      { pipeline: latestPipeline },
       omit(updatedGitDetails, 'name', 'identifier'),
       pipelineIdentifier !== DefaultNewPipelineId ? { lastObjectId: objectId } : {}
     )
@@ -233,10 +238,10 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     }
   }
 
-  const { openSaveToGitDialog } = useSaveToGitDialog<PipelineInfoConfig>({
+  const { openSaveToGitDialog } = useSaveToGitDialog<SavePipelineObj>({
     onSuccess: (
       gitData: SaveToGitFormInterface,
-      payload?: PipelineInfoConfig,
+      payload?: SavePipelineObj,
       objectId?: string
     ): Promise<UseSaveSuccessResponse> =>
       saveAngPublishWithGitInfo(gitData, payload, objectId || gitDetails?.objectId || '')
@@ -258,6 +263,10 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       }
     }
 
+    // Did this because local version in git diff editor does not start with pipeline as root object
+    // which gives false information on UI
+    const pipelineObj: SavePipelineObj = { pipeline: latestPipeline }
+
     // if Git sync enabled then display modal
     if (isGitSyncEnabled) {
       openSaveToGitDialog({
@@ -268,10 +277,10 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
           identifier: latestPipeline.identifier,
           gitDetails: gitDetails ?? {}
         },
-        payload: latestPipeline
+        payload: pipelineObj
       })
     } else {
-      await saveAndPublishPipeline(latestPipeline)
+      await saveAndPublishPipeline(pipelineObj)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
