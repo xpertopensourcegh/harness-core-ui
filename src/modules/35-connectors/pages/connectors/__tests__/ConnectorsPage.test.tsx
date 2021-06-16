@@ -41,6 +41,14 @@ describe('Connectors Page Test', () => {
       loading: false
     }
   }
+  const renderProps = {
+    ...Object.assign(props, {
+      filtersMockData: {
+        data: filters as any,
+        loading: false
+      }
+    })
+  }
   const setup = () =>
     render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
@@ -93,14 +101,6 @@ describe('Connectors Page Test', () => {
 
   /* Connector filters test */
   test('Select and apply a filter', async () => {
-    const renderProps = {
-      ...Object.assign(props, {
-        filtersMockData: {
-          data: filters as any,
-          loading: false
-        }
-      })
-    }
     const { container, getByPlaceholderText } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <ConnectorsPage {...renderProps} />
@@ -122,14 +122,6 @@ describe('Connectors Page Test', () => {
   })
 
   test('Render and check filter panel', async () => {
-    const renderProps = {
-      ...Object.assign(props, {
-        filtersMockData: {
-          data: filters as any,
-          loading: false
-        }
-      })
-    }
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <ConnectorsPage {...renderProps} />
@@ -189,25 +181,46 @@ describe('Connectors Page Test', () => {
     expect(createViaYamlButton?.getAttribute('disabled')).toBe('')
   })
 
-  test('should confirm that searching calls the api', async () => {
+  test('should confirm that searching the expandable search input calls the api', async () => {
     const getConnectorsListV2 = jest.fn()
     jest.spyOn(cdngServices, 'useGetConnectorListV2').mockImplementation(() => ({ mutate: getConnectorsListV2 } as any))
-    const { container } = setup()
-    const searchText = 'abcd'
+    const { container } = render(
+      <TestWrapper
+        path="/account/:accountId/home/orgs/:orgIdentifier/projects/:projectIdentifier/setup/connectors"
+        pathParams={{ accountId: 'dummy', orgIdentifier: 'orgId', projectIdentifier: 'projectId' }}
+      >
+        <ConnectorsPage {...renderProps} />
+      </TestWrapper>
+    )
+    const query = 'abcd'
     const searchContainer = container.querySelector('[data-name="connectorSeachContainer"]')
     const searchIcon = searchContainer?.querySelector('span[icon="search"]')
     const searchInput = searchContainer?.querySelector('input[placeholder="search"]') as HTMLInputElement
     expect(searchIcon).toBeTruthy()
     expect(searchInput).toBeTruthy()
     expect(searchInput?.value).toBe('')
-    expect(getConnectorsListV2).toBeCalledTimes(1)
+    const expectedResponse = {
+      filterType: 'Connector',
+      queryParams: {
+        accountIdentifier: 'dummy',
+        orgIdentifier: 'orgId',
+        pageIndex: 0,
+        pageSize: 10,
+        projectIdentifier: 'projectId',
+        searchTerm: ''
+      }
+    }
+    expect(getConnectorsListV2).toBeCalledWith(
+      { filterType: expectedResponse.filterType },
+      { queryParams: expectedResponse.queryParams }
+    )
     await act(async () => {
       fireEvent.click(searchIcon!)
     })
     await act(async () => {
-      fireEvent.change(searchInput!, { target: { value: searchText } })
+      fireEvent.change(searchInput!, { target: { value: query } })
     })
-    await waitFor(() => expect(searchInput?.value).toBe(searchText))
+    await waitFor(() => expect(searchInput?.value).toBe(query))
     await waitFor(() => expect(getConnectorsListV2).toBeCalledTimes(2))
   })
 })
