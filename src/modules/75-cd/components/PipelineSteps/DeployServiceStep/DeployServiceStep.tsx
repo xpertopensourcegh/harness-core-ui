@@ -264,6 +264,15 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
                 : values.serviceRef
             onUpdate?.({ ...omit(values, 'service'), serviceRef })
           }
+          const errors: { [key: string]: string } = {}
+          if (typeof values.serviceRef === 'object') {
+            if (isEmpty((values.serviceRef as SelectOption).value as string)) {
+              errors.serviceRef = getString('pipelineSteps.serviceTab.serviceIsRequired')
+            }
+          } else if (isEmpty(values.serviceRef)) {
+            errors.serviceRef = getString('pipelineSteps.serviceTab.serviceIsRequired')
+          }
+          return errors
         }}
         initialValues={{
           ...initialValues,
@@ -282,9 +291,6 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
             : {})
         }}
         enableReinitialize
-        validationSchema={Yup.object().shape({
-          serviceRef: Yup.string().required(getString('pipelineSteps.serviceTab.serviceIsRequired'))
-        })}
       >
         {formik => {
           window.dispatchEvent(new CustomEvent('UPDATE_ERRORS_STRIP', { detail: DeployTabs.SERVICE }))

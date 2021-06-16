@@ -316,6 +316,15 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
                 : values.environmentRef
             onUpdate?.({ ...omit(values, 'environment'), environmentRef })
           }
+          const errors: { [key: string]: string } = {}
+          if (typeof values.environmentRef === 'object') {
+            if (isEmpty((values.environmentRef as SelectOption).value as string)) {
+              errors.environmentRef = getString('pipelineSteps.environmentTab.environmentIsRequired')
+            }
+          } else if (isEmpty(values.environmentRef)) {
+            errors.environmentRef = getString('pipelineSteps.environmentTab.environmentIsRequired')
+          }
+          return errors
         }}
         initialValues={{
           ...initialValues,
@@ -335,9 +344,6 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
             : {})
         }}
         enableReinitialize
-        validationSchema={Yup.object().shape({
-          environmentRef: Yup.string().required(getString('pipelineSteps.environmentTab.environmentIsRequired'))
-        })}
       >
         {formik => {
           window.dispatchEvent(new CustomEvent('UPDATE_ERRORS_STRIP', { detail: DeployTabs.INFRASTRUCTURE }))
