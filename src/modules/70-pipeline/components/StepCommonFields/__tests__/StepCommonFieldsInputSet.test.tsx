@@ -48,9 +48,7 @@ describe('<StepCommonFieldsInputSet /> tests', () => {
     expect(
       (getByPlaceholderText(container, 'pipelineSteps.limitCPUPlaceholder') as HTMLInputElement).disabled
     ).toBeTruthy()
-    expect(
-      (getByPlaceholderText(container, 'pipelineSteps.timeoutPlaceholder') as HTMLInputElement).disabled
-    ).toBeTruthy()
+    expect((getByPlaceholderText(container, 'Enter w/d/h/m/s/ms') as HTMLInputElement).disabled).toBeTruthy()
     expect(container).toMatchSnapshot()
   })
 })

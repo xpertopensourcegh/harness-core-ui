@@ -26,6 +26,7 @@ interface MultiTypeSelectConfigureOptionsProps
 }
 
 export interface MultiTypeSelectProps {
+  className?: string
   name: string
   label: string | React.ReactElement
   formik?: FormikContext<any>
@@ -38,6 +39,7 @@ export interface MultiTypeSelectProps {
 
 export function MultiTypeSelect(props: MultiTypeSelectProps): React.ReactElement {
   const {
+    className,
     label,
     name,
     formik,
@@ -53,7 +55,7 @@ export function MultiTypeSelect(props: MultiTypeSelectProps): React.ReactElement
   const { getString } = useStrings()
 
   return (
-    <div style={style}>
+    <div className={className} style={style}>
       {label}
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <FormInput.MultiTypeInput

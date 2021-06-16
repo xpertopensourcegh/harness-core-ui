@@ -1,14 +1,19 @@
 import React from 'react'
-import { Text, FormInput, Button, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
+import { Text, Button, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
-import { FormGroup } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import { ShellScriptMonacoField } from '@common/components/ShellScriptMonaco/ShellScriptMonaco'
-import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
+import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import StepCommonFieldsInputSet from '@pipeline/components/StepCommonFields/StepCommonFieldsInputSet'
-import List from '@common/components/List/List'
-import Map from '@common/components/Map/Map'
+import MultiTypeMapInputSet from '@common/components/MultiTypeMapInputSet/MultiTypeMapInputSet'
+import MultiTypeListInputSet from '@common/components/MultiTypeListInputSet/MultiTypeListInputSet'
+import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
+import { FormMultiTypeCheckboxField } from '@common/components'
+import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
+import { MultiTypeSelectField } from '@common/components/MultiTypeSelect/MultiTypeSelect'
+import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea/MultiTypeTextArea'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { RunTestsStepProps } from './RunTestsStep'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
@@ -21,6 +26,8 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
     accountId: string
   }>()
 
+  const { expressions } = useVariablesExpression()
+
   const buildToolOptions = [
     { label: 'Bazel', value: 'bazel' },
     { label: 'Maven', value: 'maven' }
@@ -30,15 +37,19 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
   return (
     <FormikForm className={css.removeBpPopoverWrapperTopMargin}>
       {getMultiTypeFromValue(template?.description) === MultiTypeInputType.RUNTIME && (
-        <FormInput.TextArea
+        <FormMultiTypeTextAreaField
           name={`${isEmpty(path) ? '' : `${path}.`}description`}
           label={getString('description')}
-          disabled={readonly}
+          multiTypeTextArea={{
+            expressions,
+            disabled: readonly,
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+          }}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && (
-        <FormConnectorReferenceField
+        <FormMultiTypeConnectorField
           label={
             <Text style={{ display: 'flex', alignItems: 'center' }}>
               {getString('pipelineSteps.connectorLabel')}
@@ -57,11 +68,15 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
           width={560}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.connectorRef`}
           placeholder={getString('select')}
-          disabled={readonly}
+          multiTypeProps={{
+            expressions,
+            disabled: readonly,
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+          }}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.image) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
+        <MultiTypeTextField
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.image`}
           label={
@@ -70,12 +85,19 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
               <Button icon="question" minimal tooltip={getString('imageInfo')} iconProps={{ size: 14 }} />
             </Text>
           }
-          disabled={readonly}
+          multiTextInputProps={{
+            placeholder: getString('imagePlaceholder'),
+            multiTextInputProps: {
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            },
+            disabled: readonly
+          }}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.args) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
+        <MultiTypeTextField
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.args`}
           label={
@@ -84,12 +106,18 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
               <Button icon="question" minimal tooltip={getString('runTestsArgsInfo')} iconProps={{ size: 14 }} />
             </Text>
           }
-          disabled={readonly}
+          multiTextInputProps={{
+            multiTextInputProps: {
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            },
+            disabled: readonly
+          }}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.buildTool) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Select
+        <MultiTypeSelectField
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.buildTool`}
           label={
@@ -98,13 +126,19 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
               <Button icon="question" minimal tooltip={getString('buildToolInfo')} iconProps={{ size: 14 }} />
             </Text>
           }
-          items={buildToolOptions}
-          disabled={readonly}
+          multiTypeInputProps={{
+            selectItems: buildToolOptions,
+            multiTypeInputProps: {
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            },
+            disabled: readonly
+          }}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.language) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Select
+        <MultiTypeSelectField
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.language`}
           label={
@@ -113,13 +147,19 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
               <Button icon="question" minimal tooltip={getString('languageInfo')} iconProps={{ size: 14 }} />
             </Text>
           }
-          items={languageOptions}
-          disabled={readonly}
+          multiTypeInputProps={{
+            selectItems: languageOptions,
+            multiTypeInputProps: {
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            },
+            disabled: readonly
+          }}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.packages) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
+        <MultiTypeTextField
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.packages`}
           label={
@@ -128,20 +168,30 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
               <Button icon="question" minimal tooltip={getString('packagesInfo')} iconProps={{ size: 14 }} />
             </Text>
           }
-          disabled={readonly}
+          multiTextInputProps={{
+            multiTextInputProps: {
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            },
+            disabled: readonly
+          }}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.runOnlySelectedTests) === MultiTypeInputType.RUNTIME && (
-        <FormInput.CheckBox
+        <FormMultiTypeCheckboxField
           name={`${isEmpty(path) ? '' : `${path}.`}spec.runOnlySelectedTests`}
           label={getString('runOnlySelectedTestsLabel')}
-          disabled={readonly}
+          multiTypeTextbox={{
+            expressions,
+            disabled: readonly,
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+          }}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.testAnnotations) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
+        <MultiTypeTextField
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.testAnnotations`}
           label={
@@ -150,95 +200,152 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
               <Button icon="question" minimal tooltip={getString('testAnnotationsInfo')} iconProps={{ size: 14 }} />
             </Text>
           }
-          disabled={readonly}
+          multiTextInputProps={{
+            multiTextInputProps: {
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            },
+            disabled: readonly
+          }}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.preCommand) === MultiTypeInputType.RUNTIME && (
-        <FormGroup
+        <MultiTypeFieldSelector
+          name={`${isEmpty(path) ? '' : `${path}.`}spec.preCommand`}
           label={
             <Text style={{ display: 'flex', alignItems: 'center' }}>
               {getString('preCommandLabel')}
               <Button icon="question" minimal tooltip={getString('preCommandInfo')} iconProps={{ size: 14 }} />
             </Text>
           }
-          style={{ marginBottom: 'var(--spacing-small)' }}
+          defaultValueToReset=""
+          allowedTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]}
+          expressionRender={() => {
+            return (
+              <ShellScriptMonacoField
+                name={`${isEmpty(path) ? '' : `${path}.`}spec.preCommand`}
+                scriptType="Bash"
+                expressions={expressions}
+                disabled={readonly}
+              />
+            )
+          }}
+          style={{ flexGrow: 1, marginBottom: 0 }}
+          disableTypeSelection={readonly}
         >
           <ShellScriptMonacoField
             name={`${isEmpty(path) ? '' : `${path}.`}spec.preCommand`}
             scriptType="Bash"
+            expressions={expressions}
             disabled={readonly}
           />
-        </FormGroup>
+        </MultiTypeFieldSelector>
       )}
       {getMultiTypeFromValue(template?.spec?.postCommand) === MultiTypeInputType.RUNTIME && (
-        <FormGroup
+        <MultiTypeFieldSelector
+          name={`${isEmpty(path) ? '' : `${path}.`}spec.postCommand`}
           label={
             <Text style={{ display: 'flex', alignItems: 'center' }}>
               {getString('postCommandLabel')}
               <Button icon="question" minimal tooltip={getString('postCommandInfo')} iconProps={{ size: 14 }} />
             </Text>
           }
-          style={{ marginBottom: 'var(--spacing-small)' }}
+          defaultValueToReset=""
+          allowedTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]}
+          expressionRender={() => {
+            return (
+              <ShellScriptMonacoField
+                name={`${isEmpty(path) ? '' : `${path}.`}spec.postCommand`}
+                scriptType="Bash"
+                expressions={expressions}
+                disabled={readonly}
+              />
+            )
+          }}
+          style={{ flexGrow: 1, marginBottom: 0 }}
+          disableTypeSelection={readonly}
         >
           <ShellScriptMonacoField
             name={`${isEmpty(path) ? '' : `${path}.`}spec.postCommand`}
             scriptType="Bash"
+            expressions={expressions}
             disabled={readonly}
           />
-        </FormGroup>
+        </MultiTypeFieldSelector>
       )}
       {getMultiTypeFromValue(template?.spec?.reports?.spec?.paths as string) === MultiTypeInputType.RUNTIME && (
-        <List
+        <MultiTypeListInputSet
           name={`${isEmpty(path) ? '' : `${path}.`}spec.reports.spec.paths`}
-          label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
-              {getString('pipelineSteps.reportPathsLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.reportPathsInfo')}
-                iconProps={{ size: 14 }}
-              />
-            </Text>
-          }
+          multiTextInputProps={{
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+            expressions
+          }}
+          multiTypeFieldSelectorProps={{
+            label: (
+              <Text style={{ display: 'flex', alignItems: 'center' }}>
+                {getString('pipelineSteps.reportPathsLabel')}
+                <Button
+                  icon="question"
+                  minimal
+                  tooltip={getString('pipelineSteps.reportPathsInfo')}
+                  iconProps={{ size: 14 }}
+                />
+              </Text>
+            ),
+            allowedTypes: [MultiTypeInputType.FIXED]
+          }}
           placeholder={getString('pipelineSteps.reportPathsPlaceholder')}
           disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.envVariables as string) === MultiTypeInputType.RUNTIME && (
-        <Map
+        <MultiTypeMapInputSet
           name={`${isEmpty(path) ? '' : `${path}.`}spec.envVariables`}
-          label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
-              {getString('environmentVariables')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('environmentVariablesInfo')}
-                iconProps={{ size: 14 }}
-              />
-            </Text>
-          }
+          valueMultiTextInputProps={{
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+            expressions
+          }}
+          multiTypeFieldSelectorProps={{
+            label: (
+              <Text style={{ display: 'flex', alignItems: 'center' }}>
+                {getString('environmentVariables')}
+                <Button
+                  icon="question"
+                  minimal
+                  tooltip={getString('environmentVariablesInfo')}
+                  iconProps={{ size: 14 }}
+                />
+              </Text>
+            ),
+            allowedTypes: [MultiTypeInputType.FIXED]
+          }}
           disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.outputVariables as string) === MultiTypeInputType.RUNTIME && (
-        <List
+        <MultiTypeListInputSet
           name={`${isEmpty(path) ? '' : `${path}.`}spec.outputVariables`}
-          label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
-              {getString('pipelineSteps.outputVariablesLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.outputVariablesInfo')}
-                iconProps={{ size: 14 }}
-              />
-            </Text>
-          }
+          multiTextInputProps={{
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+            expressions
+          }}
+          multiTypeFieldSelectorProps={{
+            label: (
+              <Text style={{ display: 'flex', alignItems: 'center' }}>
+                {getString('pipelineSteps.outputVariablesLabel')}
+                <Button
+                  icon="question"
+                  minimal
+                  tooltip={getString('pipelineSteps.outputVariablesInfo')}
+                  iconProps={{ size: 14 }}
+                />
+              </Text>
+            ),
+            allowedTypes: [MultiTypeInputType.FIXED]
+          }}
           disabled={readonly}
         />
       )}

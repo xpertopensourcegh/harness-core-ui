@@ -1,15 +1,21 @@
 import React from 'react'
-import { Text, FormInput, Button, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
+import { Text, Button, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
-import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
+import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox/MultiTypeCheckbox'
+import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
+import { MultiTypeSelectField } from '@common/components/MultiTypeSelect/MultiTypeSelect'
+import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import StepCommonFieldsInputSet from '@pipeline/components/StepCommonFields/StepCommonFieldsInputSet'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { RestoreCacheGCSStepProps } from './RestoreCacheGCSStep'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const RestoreCacheGCSStepInputSet: React.FC<RestoreCacheGCSStepProps> = ({ template, path, readonly }) => {
   const { getString } = useStrings()
+
+  const { expressions } = useVariablesExpression()
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -25,7 +31,7 @@ export const RestoreCacheGCSStepInputSet: React.FC<RestoreCacheGCSStepProps> = (
   return (
     <FormikForm className={css.removeBpPopoverWrapperTopMargin}>
       {getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && (
-        <FormConnectorReferenceField
+        <FormMultiTypeConnectorField
           label={
             <Text style={{ display: 'flex', alignItems: 'center' }}>
               {getString('pipelineSteps.gcpConnectorLabel')}
@@ -44,11 +50,15 @@ export const RestoreCacheGCSStepInputSet: React.FC<RestoreCacheGCSStepProps> = (
           width={560}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.connectorRef`}
           placeholder={getString('select')}
-          disabled={readonly}
+          multiTypeProps={{
+            expressions,
+            disabled: readonly,
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+          }}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.bucket) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
+        <MultiTypeTextField
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.bucket`}
           label={
@@ -62,12 +72,18 @@ export const RestoreCacheGCSStepInputSet: React.FC<RestoreCacheGCSStepProps> = (
               />
             </Text>
           }
-          disabled={readonly}
+          multiTextInputProps={{
+            disabled: readonly,
+            multiTextInputProps: {
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            }
+          }}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.key) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
+        <MultiTypeTextField
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.key`}
           label={
@@ -81,12 +97,18 @@ export const RestoreCacheGCSStepInputSet: React.FC<RestoreCacheGCSStepProps> = (
               />
             </Text>
           }
-          disabled={readonly}
+          multiTextInputProps={{
+            disabled: readonly,
+            multiTextInputProps: {
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            }
+          }}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.archiveFormat) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Select
+        <MultiTypeSelectField
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.archiveFormat`}
           label={
@@ -95,16 +117,34 @@ export const RestoreCacheGCSStepInputSet: React.FC<RestoreCacheGCSStepProps> = (
               <Button icon="question" minimal tooltip={getString('archiveFormatInfo')} iconProps={{ size: 14 }} />
             </Text>
           }
-          items={archiveFormatOptions}
-          disabled={readonly}
+          multiTypeInputProps={{
+            selectItems: archiveFormatOptions,
+            multiTypeInputProps: {
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            },
+            disabled: readonly
+          }}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.failIfKeyNotFound) === MultiTypeInputType.RUNTIME && (
-        <FormInput.CheckBox
-          className={css.checkbox}
+        <FormMultiTypeCheckboxField
           name={`${isEmpty(path) ? '' : `${path}.`}spec.failIfKeyNotFound`}
           label={getString('failIfKeyNotFound')}
+          multiTypeTextbox={{
+            children: (
+              <Button
+                icon="question"
+                minimal
+                tooltip={getString('ci.pipelineSteps.failIfKeyNotFoundInfo')}
+                iconProps={{ size: 14 }}
+              />
+            ),
+            expressions,
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+            disabled: readonly
+          }}
           disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />

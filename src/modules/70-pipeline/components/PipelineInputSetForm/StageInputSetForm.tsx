@@ -3,7 +3,6 @@ import { Label, FormInput, getMultiTypeFromValue, MultiTypeInputType, Icon, Layo
 import { connect } from 'formik'
 import { get, set, isEmpty, pickBy, identity } from 'lodash-es'
 import cx from 'classnames'
-import List from '@common/components/List/List'
 import type {
   DeploymentStageConfig,
   ServiceSpec,
@@ -14,7 +13,8 @@ import type {
   PipelineInfrastructure,
   Infrastructure
 } from 'services/cd-ng'
-import { String, useStrings } from 'framework/strings'
+import { useStrings } from 'framework/strings'
+import MultiTypeListInputSet from '@common/components/MultiTypeListInputSet/MultiTypeListInputSet'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
 
@@ -305,9 +305,14 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
 
           <div className={css.nestedAccordions}>
             {(deploymentStageTemplate.infrastructure as any)?.spec?.namespace && (
-              /* istanbul ignore next */ <FormInput.Text
-                label={<String stringID="pipelineSteps.build.infraSpecifications.namespace" />}
+              /* istanbul ignore next */ <FormInput.MultiTextInput
+                label={getString('pipelineSteps.build.infraSpecifications.namespace')}
                 name={`${isEmpty(path) ? '' : `${path}.`}infrastructure.spec.namespace`}
+                multiTextInputProps={{
+                  expressions,
+                  allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+                }}
+                disabled={readonly}
               />
             )}
             {deploymentStageTemplate.infrastructure?.environmentRef && (
@@ -399,10 +404,23 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
           id={`Stage.${stageIdentifier}.SharedPaths`}
           className={cx(css.accordionSummary)}
         >
-          <div className={css.inputheader}>{getString('pipelineSteps.build.stageSpecifications.sharedPaths')}</div>
-
           <div className={css.nestedAccordions}>
-            <List name={`${isEmpty(path) ? '' : `${path}.`}sharedPaths`} />
+            <MultiTypeListInputSet
+              name={`${isEmpty(path) ? '' : `${path}.`}sharedPaths`}
+              multiTextInputProps={{
+                allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+                expressions
+              }}
+              multiTypeFieldSelectorProps={{
+                label: (
+                  <div className={css.inputheader} style={{ padding: 0 }}>
+                    {getString('pipelineSteps.build.stageSpecifications.sharedPaths')}
+                  </div>
+                ),
+                allowedTypes: [MultiTypeInputType.FIXED]
+              }}
+              disabled={readonly}
+            />
           </div>
         </div>
       )}

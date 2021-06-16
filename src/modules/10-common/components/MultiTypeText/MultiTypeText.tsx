@@ -22,6 +22,7 @@ interface MultiTypeTextConfigureOptionsProps
 }
 
 export interface MultiTypeTextProps {
+  className?: string
   name: string
   label: string | React.ReactElement
   formik?: FormikContext<any>
@@ -33,6 +34,7 @@ export interface MultiTypeTextProps {
 
 export function MultiTypeText(props: MultiTypeTextProps): React.ReactElement {
   const {
+    className,
     label,
     name,
     formik,
@@ -47,7 +49,7 @@ export function MultiTypeText(props: MultiTypeTextProps): React.ReactElement {
   const { getString } = useStrings()
 
   return (
-    <div style={style}>
+    <div className={className} style={style}>
       {label}
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <FormInput.MultiTextInput

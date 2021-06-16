@@ -1,15 +1,20 @@
 import React from 'react'
-import { Text, FormInput, Button, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
+import { Text, Button, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
-import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
+import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea/MultiTypeTextArea'
+import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import StepCommonFieldsInputSet from '@pipeline/components/StepCommonFields/StepCommonFieldsInputSet'
 import type { JFrogArtifactoryStepProps } from './JFrogArtifactoryStep'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const JFrogArtifactoryStepInputSet: React.FC<JFrogArtifactoryStepProps> = ({ template, path, readonly }) => {
   const { getString } = useStrings()
+
+  const { expressions } = useVariablesExpression()
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -20,15 +25,19 @@ export const JFrogArtifactoryStepInputSet: React.FC<JFrogArtifactoryStepProps> =
   return (
     <FormikForm className={css.removeBpPopoverWrapperTopMargin}>
       {getMultiTypeFromValue(template?.description) === MultiTypeInputType.RUNTIME && (
-        <FormInput.TextArea
+        <FormMultiTypeTextAreaField
           name={`${isEmpty(path) ? '' : `${path}.`}description`}
           label={getString('description')}
-          disabled={readonly}
+          multiTypeTextArea={{
+            expressions,
+            disabled: readonly,
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+          }}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && (
-        <FormConnectorReferenceField
+        <FormMultiTypeConnectorField
           label={<Text>{getString('pipelineSteps.connectorLabel')}</Text>}
           type={'Artifactory'}
           accountIdentifier={accountId}
@@ -37,11 +46,15 @@ export const JFrogArtifactoryStepInputSet: React.FC<JFrogArtifactoryStepProps> =
           width={560}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.connectorRef`}
           placeholder={getString('select')}
-          disabled={readonly}
+          multiTypeProps={{
+            expressions,
+            disabled: readonly,
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+          }}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.target) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
+        <MultiTypeTextField
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.target`}
           label={
@@ -55,12 +68,18 @@ export const JFrogArtifactoryStepInputSet: React.FC<JFrogArtifactoryStepProps> =
               />
             </Text>
           }
-          disabled={readonly}
+          multiTextInputProps={{
+            disabled: readonly,
+            multiTextInputProps: {
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            }
+          }}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.sourcePath) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
+        <MultiTypeTextField
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.sourcePath`}
           label={
@@ -74,7 +93,13 @@ export const JFrogArtifactoryStepInputSet: React.FC<JFrogArtifactoryStepProps> =
               />
             </Text>
           }
-          disabled={readonly}
+          multiTextInputProps={{
+            disabled: readonly,
+            multiTextInputProps: {
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            }
+          }}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}

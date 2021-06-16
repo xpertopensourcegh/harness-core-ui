@@ -6,8 +6,7 @@ import {
   Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  FormikForm,
-  ExpressionInput
+  FormikForm
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
@@ -260,11 +259,11 @@ export const RunTestsStepBase = (
                   allowedTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]}
                   expressionRender={() => {
                     return (
-                      <ExpressionInput
-                        value={formik?.values?.spec?.preCommand || ''}
+                      <ShellScriptMonacoField
                         name="spec.preCommand"
-                        items={expressions}
-                        onChange={value => formik?.setFieldValue('spec.preCommand', value)}
+                        scriptType="Bash"
+                        disabled={readonly}
+                        expressions={expressions}
                       />
                     )
                   }}

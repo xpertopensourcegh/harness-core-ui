@@ -1,16 +1,22 @@
 import React from 'react'
-import { Text, FormInput, Button, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
+import { Text, Button, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
-import Map from '@common/components/Map/Map'
-import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
+import MultiTypeMapInputSet from '@common/components/MultiTypeMapInputSet/MultiTypeMapInputSet'
+import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox/MultiTypeCheckbox'
+import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import StepCommonFieldsInputSet from '@pipeline/components/StepCommonFields/StepCommonFieldsInputSet'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea/MultiTypeTextArea'
+import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import type { PluginStepProps } from './PluginStep'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const PluginStepInputSet: React.FC<PluginStepProps> = ({ template, path, readonly }) => {
   const { getString } = useStrings()
+
+  const { expressions } = useVariablesExpression()
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -20,8 +26,20 @@ export const PluginStepInputSet: React.FC<PluginStepProps> = ({ template, path, 
 
   return (
     <FormikForm className={css.removeBpPopoverWrapperTopMargin}>
+      {getMultiTypeFromValue(template?.description) === MultiTypeInputType.RUNTIME && (
+        <FormMultiTypeTextAreaField
+          multiTypeTextArea={{
+            expressions,
+            disabled: readonly,
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+          }}
+          className={css.removeBpLabelMargin}
+          name={`${isEmpty(path) ? '' : `${path}.`}description`}
+          label={<Text margin={{ bottom: 'xsmall' }}>{getString('description')}</Text>}
+        />
+      )}
       {getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && (
-        <FormConnectorReferenceField
+        <FormMultiTypeConnectorField
           label={
             <Text style={{ display: 'flex', alignItems: 'center' }}>
               {getString('pipelineSteps.connectorLabel')}
@@ -40,11 +58,15 @@ export const PluginStepInputSet: React.FC<PluginStepProps> = ({ template, path, 
           width={560}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.connectorRef`}
           placeholder={getString('select')}
-          disabled={readonly}
+          multiTypeProps={{
+            expressions,
+            disabled: readonly,
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+          }}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.image) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
+        <MultiTypeTextField
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.image`}
           label={
@@ -53,33 +75,52 @@ export const PluginStepInputSet: React.FC<PluginStepProps> = ({ template, path, 
               <Button icon="question" minimal tooltip={getString('pluginImageInfo')} iconProps={{ size: 14 }} />
             </Text>
           }
-          placeholder={getString('pluginImagePlaceholder')}
-          disabled={readonly}
+          multiTextInputProps={{
+            placeholder: getString('pluginImagePlaceholder'),
+            disabled: readonly,
+            multiTextInputProps: {
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            }
+          }}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.privileged) === MultiTypeInputType.RUNTIME && (
-        <FormInput.CheckBox
-          className={css.checkbox}
+        <FormMultiTypeCheckboxField
           name={`${isEmpty(path) ? '' : `${path}.`}spec.privileged`}
           label={getString('ci.privileged')}
+          multiTypeTextbox={{
+            children: (
+              <Button icon="question" minimal tooltip={getString('ci.privilegedInfo')} iconProps={{ size: 14 }} />
+            ),
+            expressions,
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+          }}
           disabled={readonly}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.settings as string) === MultiTypeInputType.RUNTIME && (
-        <Map
+        <MultiTypeMapInputSet
           name={`${isEmpty(path) ? '' : `${path}.`}spec.settings`}
-          label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
-              {getString('settingsLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.settingsInfo')}
-                iconProps={{ size: 14 }}
-              />
-            </Text>
-          }
+          valueMultiTextInputProps={{
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+            expressions
+          }}
+          multiTypeFieldSelectorProps={{
+            label: (
+              <Text style={{ display: 'flex', alignItems: 'center' }}>
+                {getString('settingsLabel')}
+                <Button
+                  icon="question"
+                  minimal
+                  tooltip={getString('pipelineSteps.settingsInfo')}
+                  iconProps={{ size: 14 }}
+                />
+              </Text>
+            ),
+            allowedTypes: [MultiTypeInputType.FIXED]
+          }}
           disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />

@@ -3321,12 +3321,10 @@ exports[`S3 Step InputSet View should render all fields 1`] = `
       class="FormikForm--main removeBpPopoverWrapperTopMargin"
     >
       <div>
-        <div
-          class="bp3-form-group"
-          data-id="null-0"
-        >
-          <label
-            class="bp3-label"
+        <div>
+          <div
+            class="StyledProps--font StyledProps--main"
+            style="margin-bottom: 5px;"
           >
             <p
               class="StyledProps--font StyledProps--main"
@@ -3363,421 +3361,619 @@ exports[`S3 Step InputSet View should render all fields 1`] = `
                 </span>
               </span>
             </p>
-             
-            <span
-              class="bp3-text-muted"
-            />
-          </label>
+          </div>
           <div
-            class="bp3-form-content"
+            style="display: flex; align-items: center;"
           >
-            <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
-              data-testid="cr-field-spec.connectorRef"
-              style="width: 560px;"
-              type="button"
+            <div
+              class="bp3-form-group"
+              data-id="undefined-0"
+              style="margin-bottom: 0px;"
             >
-              <span
-                class="bp3-button-text"
+              <div
+                class="bp3-form-content"
               >
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main selectWrapper StyledProps--flex StyledProps--flex-distribution-space-between"
+                  class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+                  style="width: 560px;"
                 >
-                  <span
-                    class="bp3-popover-wrapper"
+                  <button
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                    data-testid="cr-field-spec.connectorRef"
+                    style="width: 532px;"
+                    type="button"
                   >
                     <span
-                      class="bp3-popover-target"
+                      class="bp3-button-text"
                     >
-                      <p
-                        class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
-                        tabindex="0"
+                      <div
+                        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main selectWrapper StyledProps--flex StyledProps--flex-distribution-space-between"
                       >
-                        connectorRef
-                      </p>
+                        <span
+                          class="bp3-popover-wrapper"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <p
+                              class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
+                              tabindex="0"
+                            >
+                              connectorRef
+                            </p>
+                          </span>
+                        </span>
+                        <div
+                          class="rightStatus"
+                        >
+                          <span
+                            class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
+                            data-testid="crf-status"
+                            icon="full-circle"
+                          >
+                            <svg
+                              data-icon="full-circle"
+                              height="6"
+                              viewBox="0 0 16 16"
+                              width="6"
+                            >
+                              <desc>
+                                full-circle
+                              </desc>
+                              <path
+                                d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                          <span
+                            class="Tag--main"
+                          >
+                            <span
+                              class="bp3-tag bp3-minimal tag"
+                            >
+                              <span
+                                class="bp3-text-overflow-ellipsis bp3-fill"
+                              >
+                                project
+                              </span>
+                            </span>
+                          </span>
+                        </div>
+                      </div>
                     </span>
-                  </span>
-                  <div
-                    class="rightStatus"
-                  >
                     <span
-                      class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
-                      data-testid="crf-status"
-                      icon="full-circle"
+                      class="bp3-icon bp3-icon-caret-down StyledProps--main"
+                      icon="caret-down"
                     >
                       <svg
-                        data-icon="full-circle"
-                        height="6"
+                        data-icon="caret-down"
+                        height="16"
                         viewBox="0 0 16 16"
-                        width="6"
+                        width="16"
                       >
                         <desc>
-                          full-circle
+                          caret-down
                         </desc>
                         <path
-                          d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                          d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
                           fill-rule="evenodd"
                         />
                       </svg>
                     </span>
+                  </button>
+                  <span
+                    class="bp3-popover-wrapper MultiTypeInput--wrapper"
+                  >
                     <span
-                      class="Tag--main"
+                      class="bp3-popover-target"
                     >
-                      <span
-                        class="bp3-tag bp3-minimal tag"
+                      <button
+                        class="MultiTypeInput--btn MultiTypeInput--FIXED"
                       >
                         <span
-                          class="bp3-text-overflow-ellipsis bp3-fill"
+                          class="bp3-icon StyledProps--main"
+                          data-icon="fixed-input"
                         >
-                          project
+                          <svg
+                            height="12"
+                            viewBox="0 0 9 9"
+                            width="12"
+                          >
+                            <path
+                              d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                              fill="currentColor"
+                            />
+                          </svg>
                         </span>
-                      </span>
+                      </button>
                     </span>
-                  </div>
+                  </span>
                 </div>
-              </span>
-              <span
-                class="bp3-icon bp3-icon-caret-down StyledProps--main"
-                icon="caret-down"
-              >
-                <svg
-                  data-icon="caret-down"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                >
-                  <desc>
-                    caret-down
-                  </desc>
-                  <path
-                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
-          </div>
-        </div>
-        <div
-          class="bp3-form-group removeBpLabelMargin"
-          data-id="spec.region-1"
-        >
-          <label
-            class="bp3-label"
-            for="spec.region"
-          >
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center;"
-            >
-              regionLabel
-              <span
-                class="bp3-popover-wrapper"
-              >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                    tabindex="0"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="question"
-                    >
-                      <svg
-                        height="14"
-                        viewBox="0 0 14 14"
-                        width="14"
-                      >
-                        <path
-                          d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                          fill="#9AA5B5"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
-            </p>
-             
-            <span
-              class="bp3-text-muted"
-            />
-          </label>
-          <div
-            class="bp3-form-content"
-          >
-            <div
-              class="bp3-input-group"
-            >
-              <input
-                autocomplete="off"
-                class="bp3-input"
-                name="spec.region"
-                placeholder="pipelineSteps.regionPlaceholder"
-                type="text"
-                value=""
-              />
+              </div>
             </div>
           </div>
         </div>
         <div
-          class="bp3-form-group removeBpLabelMargin"
-          data-id="spec.bucket-2"
+          class="removeBpLabelMargin"
         >
-          <label
-            class="bp3-label"
-            for="spec.bucket"
+          <p
+            class="StyledProps--font StyledProps--main"
+            style="display: flex; align-items: center;"
           >
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center;"
-            >
-              pipelineSteps.bucketLabel
-              <span
-                class="bp3-popover-wrapper"
-              >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                    tabindex="0"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="question"
-                    >
-                      <svg
-                        height="14"
-                        viewBox="0 0 14 14"
-                        width="14"
-                      >
-                        <path
-                          d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                          fill="#9AA5B5"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
-            </p>
-             
+            regionLabel
             <span
-              class="bp3-text-muted"
-            />
-          </label>
+              class="bp3-popover-wrapper"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                  tabindex="0"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main"
+                    data-icon="question"
+                  >
+                    <svg
+                      height="14"
+                      viewBox="0 0 14 14"
+                      width="14"
+                    >
+                      <path
+                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
+                        fill="#9AA5B5"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </p>
           <div
-            class="bp3-form-content"
+            style="display: flex; align-items: center;"
           >
             <div
-              class="bp3-input-group"
+              class="bp3-form-group"
+              data-id="spec.region-1"
+              style="margin-bottom: 0px; flex-grow: 1;"
             >
-              <input
-                autocomplete="off"
-                class="bp3-input"
-                name="spec.bucket"
-                type="text"
-                value=""
-              />
+              
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+                >
+                  <div
+                    class="bp3-input-group MultiTypeInput--input"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name="spec.region"
+                      placeholder="pipelineSteps.regionPlaceholder"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <span
+                    class="bp3-popover-wrapper MultiTypeInput--wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <button
+                        class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                      >
+                        <span
+                          class="bp3-icon StyledProps--main"
+                          data-icon="fixed-input"
+                        >
+                          <svg
+                            height="12"
+                            viewBox="0 0 9 9"
+                            width="12"
+                          >
+                            <path
+                              d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
         <div
-          class="bp3-form-group removeBpLabelMargin"
-          data-id="spec.sourcePath-3"
+          class="removeBpLabelMargin"
         >
-          <label
-            class="bp3-label"
-            for="spec.sourcePath"
+          <p
+            class="StyledProps--font StyledProps--main"
+            style="display: flex; align-items: center;"
           >
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center;"
-            >
-              pipelineSteps.sourcePathLabel
-              <span
-                class="bp3-popover-wrapper"
-              >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                    tabindex="0"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="question"
-                    >
-                      <svg
-                        height="14"
-                        viewBox="0 0 14 14"
-                        width="14"
-                      >
-                        <path
-                          d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                          fill="#9AA5B5"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
-            </p>
-             
+            pipelineSteps.bucketLabel
             <span
-              class="bp3-text-muted"
-            />
-          </label>
+              class="bp3-popover-wrapper"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                  tabindex="0"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main"
+                    data-icon="question"
+                  >
+                    <svg
+                      height="14"
+                      viewBox="0 0 14 14"
+                      width="14"
+                    >
+                      <path
+                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
+                        fill="#9AA5B5"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </p>
           <div
-            class="bp3-form-content"
+            style="display: flex; align-items: center;"
           >
             <div
-              class="bp3-input-group"
+              class="bp3-form-group"
+              data-id="spec.bucket-2"
+              style="margin-bottom: 0px; flex-grow: 1;"
             >
-              <input
-                autocomplete="off"
-                class="bp3-input"
-                name="spec.sourcePath"
-                type="text"
-                value=""
-              />
+              
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+                >
+                  <div
+                    class="bp3-input-group MultiTypeInput--input"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name="spec.bucket"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <span
+                    class="bp3-popover-wrapper MultiTypeInput--wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <button
+                        class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                      >
+                        <span
+                          class="bp3-icon StyledProps--main"
+                          data-icon="fixed-input"
+                        >
+                          <svg
+                            height="12"
+                            viewBox="0 0 9 9"
+                            width="12"
+                          >
+                            <path
+                              d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
         <div
-          class="bp3-form-group removeBpLabelMargin"
-          data-id="spec.endpoint-4"
+          class="removeBpLabelMargin"
         >
-          <label
-            class="bp3-label"
-            for="spec.endpoint"
+          <p
+            class="StyledProps--font StyledProps--main"
+            style="display: flex; align-items: center;"
           >
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center;"
-            >
-              pipelineSteps.endpointLabel
-              <span
-                class="bp3-popover-wrapper"
-              >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                    tabindex="0"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="question"
-                    >
-                      <svg
-                        height="14"
-                        viewBox="0 0 14 14"
-                        width="14"
-                      >
-                        <path
-                          d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                          fill="#9AA5B5"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
-            </p>
-             
+            pipelineSteps.sourcePathLabel
             <span
-              class="bp3-text-muted"
-            />
-          </label>
+              class="bp3-popover-wrapper"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                  tabindex="0"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main"
+                    data-icon="question"
+                  >
+                    <svg
+                      height="14"
+                      viewBox="0 0 14 14"
+                      width="14"
+                    >
+                      <path
+                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
+                        fill="#9AA5B5"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </p>
           <div
-            class="bp3-form-content"
+            style="display: flex; align-items: center;"
           >
             <div
-              class="bp3-input-group"
+              class="bp3-form-group"
+              data-id="spec.sourcePath-3"
+              style="margin-bottom: 0px; flex-grow: 1;"
             >
-              <input
-                autocomplete="off"
-                class="bp3-input"
-                name="spec.endpoint"
-                placeholder="pipelineSteps.endpointPlaceholder"
-                type="text"
-                value=""
-              />
+              
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+                >
+                  <div
+                    class="bp3-input-group MultiTypeInput--input"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name="spec.sourcePath"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <span
+                    class="bp3-popover-wrapper MultiTypeInput--wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <button
+                        class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                      >
+                        <span
+                          class="bp3-icon StyledProps--main"
+                          data-icon="fixed-input"
+                        >
+                          <svg
+                            height="12"
+                            viewBox="0 0 9 9"
+                            width="12"
+                          >
+                            <path
+                              d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
         <div
-          class="bp3-form-group removeBpLabelMargin"
-          data-id="spec.target-5"
+          class="removeBpLabelMargin"
         >
-          <label
-            class="bp3-label"
-            for="spec.target"
+          <p
+            class="StyledProps--font StyledProps--main"
+            style="display: flex; align-items: center;"
           >
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center;"
-            >
-              pipelineSteps.targetLabel
-              <span
-                class="bp3-popover-wrapper"
-              >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                    tabindex="0"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="question"
-                    >
-                      <svg
-                        height="14"
-                        viewBox="0 0 14 14"
-                        width="14"
-                      >
-                        <path
-                          d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                          fill="#9AA5B5"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
-            </p>
-             
+            pipelineSteps.endpointLabel
             <span
-              class="bp3-text-muted"
-            />
-          </label>
+              class="bp3-popover-wrapper"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                  tabindex="0"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main"
+                    data-icon="question"
+                  >
+                    <svg
+                      height="14"
+                      viewBox="0 0 14 14"
+                      width="14"
+                    >
+                      <path
+                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
+                        fill="#9AA5B5"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </p>
           <div
-            class="bp3-form-content"
+            style="display: flex; align-items: center;"
           >
             <div
-              class="bp3-input-group"
+              class="bp3-form-group"
+              data-id="spec.endpoint-4"
+              style="margin-bottom: 0px; flex-grow: 1;"
             >
-              <input
-                autocomplete="off"
-                class="bp3-input"
-                name="spec.target"
-                placeholder="pipelineSteps.artifactsTargetPlaceholder"
-                type="text"
-                value=""
-              />
+              
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+                >
+                  <div
+                    class="bp3-input-group MultiTypeInput--input"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name="spec.endpoint"
+                      placeholder="pipelineSteps.endpointPlaceholder"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <span
+                    class="bp3-popover-wrapper MultiTypeInput--wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <button
+                        class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                      >
+                        <span
+                          class="bp3-icon StyledProps--main"
+                          data-icon="fixed-input"
+                        >
+                          <svg
+                            height="12"
+                            viewBox="0 0 9 9"
+                            width="12"
+                          >
+                            <path
+                              d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="removeBpLabelMargin"
+        >
+          <p
+            class="StyledProps--font StyledProps--main"
+            style="display: flex; align-items: center;"
+          >
+            pipelineSteps.targetLabel
+            <span
+              class="bp3-popover-wrapper"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                  tabindex="0"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main"
+                    data-icon="question"
+                  >
+                    <svg
+                      height="14"
+                      viewBox="0 0 14 14"
+                      width="14"
+                    >
+                      <path
+                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
+                        fill="#9AA5B5"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </p>
+          <div
+            style="display: flex; align-items: center;"
+          >
+            <div
+              class="bp3-form-group"
+              data-id="spec.target-5"
+              style="margin-bottom: 0px; flex-grow: 1;"
+            >
+              
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+                >
+                  <div
+                    class="bp3-input-group MultiTypeInput--input"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name="spec.target"
+                      placeholder="pipelineSteps.artifactsTargetPlaceholder"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <span
+                    class="bp3-popover-wrapper MultiTypeInput--wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <button
+                        class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                      >
+                        <span
+                          class="bp3-icon StyledProps--main"
+                          data-icon="fixed-input"
+                        >
+                          <svg
+                            height="12"
+                            viewBox="0 0 9 9"
+                            width="12"
+                          >
+                            <path
+                              d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -3819,76 +4015,138 @@ exports[`S3 Step InputSet View should render all fields 1`] = `
           class="fieldsGroup withoutSpacing withoutAligning"
         >
           <div
-            class="bp3-form-group"
-            data-id="spec.resources.limits.memory-6"
             style="flex-grow: 1; flex-basis: 50%;"
           >
-            <label
-              class="bp3-label"
-              for="spec.resources.limits.memory"
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="display: flex; align-items: center;"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
-              >
-                pipelineSteps.limitMemoryLabel
-              </p>
-               
-              <span
-                class="bp3-text-muted"
-              />
-            </label>
+              pipelineSteps.limitMemoryLabel
+            </p>
             <div
-              class="bp3-form-content"
+              style="display: flex; align-items: center;"
             >
               <div
-                class="bp3-input-group"
+                class="bp3-form-group"
+                data-id="spec.resources.limits.memory-6"
+                style="margin-bottom: 0px; flex-grow: 1;"
               >
-                <input
-                  autocomplete="off"
-                  class="bp3-input"
-                  name="spec.resources.limits.memory"
-                  placeholder="pipelineSteps.limitMemoryPlaceholder"
-                  type="text"
-                  value=""
-                />
+                
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+                  >
+                    <div
+                      class="bp3-input-group MultiTypeInput--input"
+                    >
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        name="spec.resources.limits.memory"
+                        placeholder="pipelineSteps.limitMemoryPlaceholder"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                    <span
+                      class="bp3-popover-wrapper MultiTypeInput--wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <button
+                          class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                        >
+                          <span
+                            class="bp3-icon StyledProps--main"
+                            data-icon="fixed-input"
+                          >
+                            <svg
+                              height="12"
+                              viewBox="0 0 9 9"
+                              width="12"
+                            >
+                              <path
+                                d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                                fill="currentColor"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                      </span>
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
           <div
-            class="bp3-form-group"
-            data-id="spec.resources.limits.cpu-7"
             style="flex-grow: 1; flex-basis: 50%;"
           >
-            <label
-              class="bp3-label"
-              for="spec.resources.limits.cpu"
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="display: flex; align-items: center;"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
-              >
-                pipelineSteps.limitCPULabel
-              </p>
-               
-              <span
-                class="bp3-text-muted"
-              />
-            </label>
+              pipelineSteps.limitCPULabel
+            </p>
             <div
-              class="bp3-form-content"
+              style="display: flex; align-items: center;"
             >
               <div
-                class="bp3-input-group"
+                class="bp3-form-group"
+                data-id="spec.resources.limits.cpu-7"
+                style="margin-bottom: 0px; flex-grow: 1;"
               >
-                <input
-                  autocomplete="off"
-                  class="bp3-input"
-                  name="spec.resources.limits.cpu"
-                  placeholder="pipelineSteps.limitCPUPlaceholder"
-                  type="text"
-                  value=""
-                />
+                
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+                  >
+                    <div
+                      class="bp3-input-group MultiTypeInput--input"
+                    >
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        name="spec.resources.limits.cpu"
+                        placeholder="pipelineSteps.limitCPUPlaceholder"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                    <span
+                      class="bp3-popover-wrapper MultiTypeInput--wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <button
+                          class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                        >
+                          <span
+                            class="bp3-icon StyledProps--main"
+                            data-icon="fixed-input"
+                          >
+                            <svg
+                              height="12"
+                              viewBox="0 0 9 9"
+                              width="12"
+                            >
+                              <path
+                                d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                                fill="currentColor"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                      </span>
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -3945,15 +4203,51 @@ exports[`S3 Step InputSet View should render all fields 1`] = `
             class="bp3-form-content"
           >
             <div
-              class="bp3-input-group bp3-fill"
+              style="display: flex; align-items: center;"
             >
-              <input
-                class="bp3-input"
-                name="timeout"
-                placeholder="pipelineSteps.timeoutPlaceholder"
-                type="text"
-                value=""
-              />
+              <div
+                class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+                style="flex-grow: 1;"
+              >
+                <div
+                  class="bp3-input-group bp3-fill"
+                >
+                  <input
+                    class="bp3-input"
+                    name="timeout"
+                    placeholder="Enter w/d/h/m/s/ms"
+                    type="text"
+                    value=""
+                  />
+                </div>
+                <span
+                  class="bp3-popover-wrapper MultiTypeInput--wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <button
+                      class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                    >
+                      <span
+                        class="bp3-icon StyledProps--main"
+                        data-icon="fixed-input"
+                      >
+                        <svg
+                          height="12"
+                          viewBox="0 0 9 9"
+                          width="12"
+                        >
+                          <path
+                            d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </span>
+                </span>
+              </div>
             </div>
           </div>
         </div>

@@ -1,15 +1,19 @@
 import React from 'react'
-import { Text, FormInput, Button, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
+import { Text, Button, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
-import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
+import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import StepCommonFieldsInputSet from '@pipeline/components/StepCommonFields/StepCommonFieldsInputSet'
 import type { GCSStepProps } from './GCSStep'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const GCSStepInputSet: React.FC<GCSStepProps> = ({ template, path, readonly }) => {
   const { getString } = useStrings()
+
+  const { expressions } = useVariablesExpression()
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -20,7 +24,7 @@ export const GCSStepInputSet: React.FC<GCSStepProps> = ({ template, path, readon
   return (
     <FormikForm className={css.removeBpPopoverWrapperTopMargin}>
       {getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && (
-        <FormConnectorReferenceField
+        <FormMultiTypeConnectorField
           label={
             <Text style={{ display: 'flex', alignItems: 'center' }}>
               {getString('pipelineSteps.gcpConnectorLabel')}
@@ -39,11 +43,15 @@ export const GCSStepInputSet: React.FC<GCSStepProps> = ({ template, path, readon
           width={560}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.connectorRef`}
           placeholder={getString('select')}
-          disabled={readonly}
+          multiTypeProps={{
+            expressions,
+            disabled: readonly,
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+          }}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.bucket) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
+        <MultiTypeTextField
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.bucket`}
           label={
@@ -57,12 +65,18 @@ export const GCSStepInputSet: React.FC<GCSStepProps> = ({ template, path, readon
               />
             </Text>
           }
-          disabled={readonly}
+          multiTextInputProps={{
+            disabled: readonly,
+            multiTextInputProps: {
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            }
+          }}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.sourcePath) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
+        <MultiTypeTextField
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.sourcePath`}
           label={
@@ -76,12 +90,18 @@ export const GCSStepInputSet: React.FC<GCSStepProps> = ({ template, path, readon
               />
             </Text>
           }
-          disabled={readonly}
+          multiTextInputProps={{
+            disabled: readonly,
+            multiTextInputProps: {
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            }
+          }}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.target) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
+        <MultiTypeTextField
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.target`}
           label={
@@ -95,8 +115,14 @@ export const GCSStepInputSet: React.FC<GCSStepProps> = ({ template, path, readon
               />
             </Text>
           }
-          placeholder={getString('pipelineSteps.artifactsTargetPlaceholder')}
-          disabled={readonly}
+          multiTextInputProps={{
+            placeholder: getString('pipelineSteps.artifactsTargetPlaceholder'),
+            disabled: readonly,
+            multiTextInputProps: {
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            }
+          }}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}

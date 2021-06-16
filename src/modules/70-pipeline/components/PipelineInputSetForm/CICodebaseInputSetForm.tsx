@@ -1,8 +1,9 @@
 import React from 'react'
 import { get, isEmpty } from 'lodash-es'
-import { FormInput, Color, Text } from '@wings-software/uicore'
+import { FormInput, Color, Text, MultiTypeInputType } from '@wings-software/uicore'
 import { connect, FormikContext } from 'formik'
 import { useStrings } from 'framework/strings'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { TriggerTypes } from '../../pages/triggers/utils/TriggersWizardPageUtils'
 
 export interface CICodebaseInputSetFormProps {
@@ -30,6 +31,8 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
     }
   ]
 
+  const { expressions } = useVariablesExpression()
+
   const inputLabels = {
     branch: getString('gitBranch'),
     tag: getString('gitTag')
@@ -48,11 +51,15 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
         style={{ marginBottom: 0 }}
       />
       {type && (
-        <FormInput.Text
+        <FormInput.MultiTextInput
           label={inputLabels[type]}
           name={`${isEmpty(path) ? '' : `${path}.`}properties.ci.codebase.build.spec.${type}`}
-          disabled={readonly || disableOnWebhookTrigger}
+          multiTextInputProps={{
+            expressions,
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+          }}
           style={{ marginBottom: 0 }}
+          disabled={readonly || disableOnWebhookTrigger}
         />
       )}
       {disableOnWebhookTrigger && (

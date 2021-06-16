@@ -1,17 +1,22 @@
 import React from 'react'
-import { Text, FormInput, Button, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
+import { Text, Button, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
-import Map from '@common/components/Map/Map'
-import List from '@common/components/List/List'
-import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
+import MultiTypeListInputSet from '@common/components/MultiTypeListInputSet/MultiTypeListInputSet'
+import MultiTypeMapInputSet from '@common/components/MultiTypeMapInputSet/MultiTypeMapInputSet'
+import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox/MultiTypeCheckbox'
+import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import StepCommonFieldsInputSet from '@pipeline/components/StepCommonFields/StepCommonFieldsInputSet'
 import type { DockerHubStepProps } from './DockerHubStep'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, path, readonly }) => {
   const { getString } = useStrings()
+
+  const { expressions } = useVariablesExpression()
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -22,7 +27,7 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
   return (
     <FormikForm className={css.removeBpPopoverWrapperTopMargin}>
       {getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && (
-        <FormConnectorReferenceField
+        <FormMultiTypeConnectorField
           label={
             <Text style={{ display: 'flex', alignItems: 'center' }}>
               {getString('pipelineSteps.dockerHubConnectorLabel')}
@@ -41,11 +46,15 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
           width={560}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.connectorRef`}
           placeholder={getString('select')}
-          disabled={readonly}
+          multiTypeProps={{
+            expressions,
+            disabled: readonly,
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+          }}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.repo) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
+        <MultiTypeTextField
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.repo`}
           label={
@@ -59,25 +68,38 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
               />
             </Text>
           }
-          disabled={readonly}
+          multiTextInputProps={{
+            disabled: readonly,
+            multiTextInputProps: {
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            }
+          }}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.tags as string) === MultiTypeInputType.RUNTIME && (
-        <List
+        <MultiTypeListInputSet
           name={`${isEmpty(path) ? '' : `${path}.`}spec.tags`}
-          label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
-              {getString('tagsLabel')}
-              <Button icon="question" minimal tooltip={getString('tagsInfo')} iconProps={{ size: 14 }} />
-            </Text>
-          }
+          multiTextInputProps={{
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+            expressions
+          }}
+          multiTypeFieldSelectorProps={{
+            label: (
+              <Text style={{ display: 'flex', alignItems: 'center' }}>
+                {getString('tagsLabel')}
+                <Button icon="question" minimal tooltip={getString('tagsInfo')} iconProps={{ size: 14 }} />
+              </Text>
+            ),
+            allowedTypes: [MultiTypeInputType.FIXED]
+          }}
           disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.dockerfile) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
+        <MultiTypeTextField
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.dockerfile`}
           label={
@@ -91,12 +113,18 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
               />
             </Text>
           }
-          disabled={readonly}
+          multiTextInputProps={{
+            disabled: readonly,
+            multiTextInputProps: {
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            }
+          }}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.context) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
+        <MultiTypeTextField
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.context`}
           label={
@@ -110,56 +138,79 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
               />
             </Text>
           }
-          disabled={readonly}
+          multiTextInputProps={{
+            disabled: readonly,
+            multiTextInputProps: {
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            }
+          }}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.labels as string) === MultiTypeInputType.RUNTIME && (
-        <Map
+        <MultiTypeMapInputSet
           name={`${isEmpty(path) ? '' : `${path}.`}spec.labels`}
-          label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
-              {getString('pipelineSteps.labelsLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.labelsInfo')}
-                iconProps={{ size: 14 }}
-              />
-            </Text>
-          }
+          valueMultiTextInputProps={{
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+            expressions
+          }}
+          multiTypeFieldSelectorProps={{
+            label: (
+              <Text style={{ display: 'flex', alignItems: 'center' }}>
+                {getString('pipelineSteps.labelsLabel')}
+                <Button
+                  icon="question"
+                  minimal
+                  tooltip={getString('pipelineSteps.labelsInfo')}
+                  iconProps={{ size: 14 }}
+                />
+              </Text>
+            ),
+            allowedTypes: [MultiTypeInputType.FIXED]
+          }}
           disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.buildArgs as string) === MultiTypeInputType.RUNTIME && (
-        <Map
+        <MultiTypeMapInputSet
           name={`${isEmpty(path) ? '' : `${path}.`}spec.buildArgs`}
-          label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
-              {getString('pipelineSteps.buildArgsLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.buildArgsInfo')}
-                iconProps={{ size: 14 }}
-              />
-            </Text>
-          }
+          valueMultiTextInputProps={{
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+            expressions
+          }}
+          multiTypeFieldSelectorProps={{
+            label: (
+              <Text style={{ display: 'flex', alignItems: 'center' }}>
+                {getString('pipelineSteps.buildArgsLabel')}
+                <Button
+                  icon="question"
+                  minimal
+                  tooltip={getString('pipelineSteps.buildArgsInfo')}
+                  iconProps={{ size: 14 }}
+                />
+              </Text>
+            ),
+            allowedTypes: [MultiTypeInputType.FIXED]
+          }}
           disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.optimize) === MultiTypeInputType.RUNTIME && (
-        <FormInput.CheckBox
-          className={css.checkbox}
+        <FormMultiTypeCheckboxField
           name={`${isEmpty(path) ? '' : `${path}.`}spec.optimize`}
           label={getString('ci.optimize')}
           disabled={readonly}
+          multiTypeTextbox={{
+            expressions,
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+          }}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.target) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
+        <MultiTypeTextField
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.target`}
           label={
@@ -173,12 +224,18 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
               />
             </Text>
           }
-          disabled={readonly}
+          multiTextInputProps={{
+            disabled: readonly,
+            multiTextInputProps: {
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            }
+          }}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.remoteCacheImage) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
+        <MultiTypeTextField
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.remoteCacheImage`}
           label={
@@ -192,7 +249,13 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
               />
             </Text>
           }
-          disabled={readonly}
+          multiTextInputProps={{
+            disabled: readonly,
+            multiTextInputProps: {
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            }
+          }}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}

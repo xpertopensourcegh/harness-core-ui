@@ -1,0 +1,19 @@
+.group {
+  display: flex;
+
+  &:not(:first-child):not(.without-spacing) {
+    margin-top: var(--spacing-medium);
+  }
+
+  &:not(.withoutAligning) {
+    align-items: center;
+  }
+
+  > * {
+    margin-bottom: 0;
+
+    &:not(:last-child) {
+      margin-right: var(--spacing-medium) !important;
+    }
+  }
+}

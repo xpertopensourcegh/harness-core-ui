@@ -8,11 +8,12 @@ export interface DurationProps extends Omit<TextProps, 'icon'> {
   endTime?: number // if endTime is nullable, endTime is Date.now() and the duration is re-calculated by an interval
   durationText?: string // optional text to override the default `Duration: ` prefix
   showMilliSeconds?: boolean
+  showZeroSecondsResult?: boolean
   icon?: TextProps['icon'] | null
 }
 
 export function Duration(props: DurationProps): React.ReactElement {
-  const { startTime, endTime, durationText, icon, showMilliSeconds, ...textProps } = props
+  const { startTime, endTime, durationText, icon, showMilliSeconds, showZeroSecondsResult, ...textProps } = props
   const [_endTime, setEndTime] = useState(endTime || Date.now())
   const { getString } = useStrings()
 
@@ -39,7 +40,7 @@ export function Duration(props: DurationProps): React.ReactElement {
     delta = Math.round(delta / 1000) * 1000
   }
 
-  const text = timeToDisplayText(delta)
+  const text = showZeroSecondsResult ? timeToDisplayText(delta) || '0s' : timeToDisplayText(delta)
 
   return (
     <Text inline icon={isNil(icon) ? undefined : icon || 'hourglass'} {...textProps}>

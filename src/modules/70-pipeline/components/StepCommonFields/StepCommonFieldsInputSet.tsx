@@ -1,11 +1,13 @@
 import React from 'react'
-import { Text, Button, FormInput, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
+import { Text, Button, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import cx from 'classnames'
 import { isEmpty } from 'lodash-es'
 import { connect } from 'formik'
 import { useStrings } from 'framework/strings'
-import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
+import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import type { InputSetData } from '@pipeline/components/AbstractSteps/Step'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import css from '../PipelineSteps/Steps/Steps.module.scss'
 
 interface StepCommonFieldsInputSetProps<T> extends Omit<InputSetData<T>, 'path' | 'template'> {
@@ -19,6 +21,7 @@ interface StepCommonFieldsInputSetProps<T> extends Omit<InputSetData<T>, 'path' 
 function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): JSX.Element | null {
   const { path, template, readonly, withoutTimeout } = props
   const { getString } = useStrings()
+  const { expressions } = useVariablesExpression()
   // const pullOptions = usePullOptions()
   const isLimitMemoryRuntime =
     getMultiTypeFromValue(template?.spec?.resources?.limits?.memory) === MultiTypeInputType.RUNTIME
@@ -47,36 +50,48 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
             style={{ marginBottom: 'var(--spacing-small)' }}
           >
             {isLimitMemoryRuntime && (
-              <FormInput.Text
+              <MultiTypeTextField
                 name={`${isEmpty(path) ? '' : `${path}.`}spec.resources.limits.memory`}
                 label={
-                  <Text style={{ display: 'flex', alignItems: 'center' }}>
+                  <Text style={{ display: 'flex', alignItems: 'center', marginBottom: 'var(--spacing-xsmall)' }}>
                     {getString('pipelineSteps.limitMemoryLabel')}
                   </Text>
                 }
                 style={{ flexGrow: 1, flexBasis: '50%' }}
-                placeholder={getString('pipelineSteps.limitMemoryPlaceholder')}
-                disabled={readonly}
+                multiTextInputProps={{
+                  placeholder: getString('pipelineSteps.limitMemoryPlaceholder'),
+                  disabled: readonly,
+                  multiTextInputProps: {
+                    expressions,
+                    allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+                  }
+                }}
               />
             )}
             {isLimitCPURuntime && (
-              <FormInput.Text
+              <MultiTypeTextField
                 name={`${isEmpty(path) ? '' : `${path}.`}spec.resources.limits.cpu`}
                 label={
-                  <Text style={{ display: 'flex', alignItems: 'center' }}>
+                  <Text style={{ display: 'flex', alignItems: 'center', marginBottom: 'var(--spacing-xsmall)' }}>
                     {getString('pipelineSteps.limitCPULabel')}
                   </Text>
                 }
                 style={{ flexGrow: 1, flexBasis: '50%' }}
-                placeholder={getString('pipelineSteps.limitCPUPlaceholder')}
-                disabled={readonly}
+                multiTextInputProps={{
+                  placeholder: getString('pipelineSteps.limitCPUPlaceholder'),
+                  disabled: readonly,
+                  multiTextInputProps: {
+                    expressions,
+                    allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+                  }
+                }}
               />
             )}
           </div>
         </>
       )}
       {!withoutTimeout && isTimeoutRuntime && (
-        <DurationInputFieldForInputSet
+        <FormMultiTypeDurationField
           className={css.removeBpLabelMargin}
           label={
             <Text style={{ display: 'flex', alignItems: 'center' }}>
@@ -90,7 +105,11 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
             </Text>
           }
           name={`${isEmpty(path) ? '' : `${path}.`}timeout`}
-          inputProps={{ placeholder: getString('pipelineSteps.timeoutPlaceholder') }}
+          placeholder={getString('pipelineSteps.timeoutPlaceholder')}
+          multiTypeDurationProps={{
+            expressions,
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+          }}
           disabled={readonly}
         />
       )}

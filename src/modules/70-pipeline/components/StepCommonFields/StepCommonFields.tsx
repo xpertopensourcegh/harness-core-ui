@@ -86,7 +86,7 @@ const StepCommonFields = ({ withoutTimeout, disabled }: StepCommonFieldsProps): 
         <FormMultiTypeDurationField
           className={css.removeBpLabelMargin}
           name="timeout"
-          multiTypeDurationProps={{ expressions, disabled }}
+          multiTypeDurationProps={{ expressions }}
           label={
             <Text style={{ display: 'flex', alignItems: 'center' }}>
               {getString('pipelineSteps.timeoutLabel')}
@@ -98,6 +98,7 @@ const StepCommonFields = ({ withoutTimeout, disabled }: StepCommonFieldsProps): 
               />
             </Text>
           }
+          disabled={disabled}
           style={{ marginBottom: 0 }}
         />
       )}

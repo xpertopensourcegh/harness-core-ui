@@ -109,7 +109,13 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
               ) : col === 'result' ? (
                 row.original[col]?.status
               ) : col === 'duration_ms' ? (
-                <Duration icon={undefined} durationText=" " startTime={NOW} endTime={NOW + (row.original[col] || 0)} />
+                <Duration
+                  icon={undefined}
+                  durationText=" "
+                  startTime={NOW}
+                  endTime={NOW + (row.original[col] || 0)}
+                  showZeroSecondsResult
+                />
               ) : (
                 row.original[col]
               )}
@@ -223,6 +229,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
             font={{ size: 'small' }}
             color={Color.GREY_500}
             iconProps={{ color: Color.GREY_500, size: 12 }}
+            showZeroSecondsResult
           />
           <ProgressBar
             className={css.progressBar}
