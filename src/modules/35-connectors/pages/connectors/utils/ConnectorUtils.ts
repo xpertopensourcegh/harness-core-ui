@@ -100,9 +100,9 @@ const buildAuthTypePayload = (formData: FormData) => {
         oidcIssuerUrl: formData.oidcIssuerUrl,
         oidcUsername: formData.oidcUsername.type === ValueType.TEXT ? formData.oidcUsername.value : undefined,
         oidcUsernameRef: formData.oidcUsername.type === ValueType.ENCRYPTED ? formData.oidcUsername.value : undefined,
-        oidcPasswordRef: formData.oidcPassword.referenceString,
-        oidcClientIdRef: formData.oidcCleintId.referenceString,
-        oidcSecretRef: formData.oidcCleintSecret.referenceString,
+        oidcPasswordRef: formData.oidcPassword?.referenceString,
+        oidcClientIdRef: formData.oidcCleintId?.referenceString,
+        oidcSecretRef: formData.oidcCleintSecret?.referenceString,
         oidcScopes: formData.oidcScopes
       }
 
