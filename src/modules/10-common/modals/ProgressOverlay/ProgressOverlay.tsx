@@ -1,5 +1,5 @@
 import React from 'react'
-import { capitalize, startCase } from 'lodash-es'
+import { capitalize, isUndefined, startCase } from 'lodash-es'
 import { Button, Color, Container, Icon, Layout, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type { ResponseBoolean } from 'services/cd-ng'
@@ -111,14 +111,25 @@ export const ProgressOverlay: React.FC<ProgressOverlay> = ({
   const opnIsSuccessful = firstStage.status === 'SUCCESS' || (secondStage && secondStage.status === 'SUCCESS')
 
   React.useEffect(() => {
+    let shouldClose = false
     let id: NodeJS.Timeout
-    if (opnIsSuccessful) {
+
+    /* This logic will wait for first and second stage(if present) to run to completion */
+    if (firstStage.status === 'SUCCESS') {
+      if (!isUndefined(secondStage)) {
+        shouldClose = secondStage.status === 'SUCCESS'
+      } else {
+        shouldClose = true
+      }
+    }
+
+    if (shouldClose) {
       id = setTimeout(() => onClose(), 3000)
     }
     return () => {
       clearTimeout(id)
     }
-  }, [opnIsSuccessful])
+  }, [firstStage.status, secondStage?.status])
 
   return (
     <Container className={css.prModal}>
