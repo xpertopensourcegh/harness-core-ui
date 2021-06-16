@@ -59,9 +59,17 @@ export function SetupSourceMappingList<T extends Record<string, unknown>>(
     if (error?.message) {
       return <PageError {...error} className={css.error} />
     } else if (!loading && !tableProps?.data?.length && noData) {
-      return <NoDataCard {...noData} className={css.noData} icon="warning-sign" />
+      return (
+        <Container className={css.noData}>
+          <NoDataCard {...noData} icon="warning-sign" />
+        </Container>
+      )
     } else if (!loading && !filteredData?.length) {
-      return <NoDataCard className={css.noData} icon="warning-sign" message={getString('filters.noDataFound')} />
+      return (
+        <Container className={css.noData}>
+          <NoDataCard icon="warning-sign" message={getString('filters.noDataFound')} />
+        </Container>
+      )
     }
     return (
       <Table

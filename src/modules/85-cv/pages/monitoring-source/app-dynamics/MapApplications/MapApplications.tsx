@@ -462,7 +462,7 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
           {renderError(`${selectedAppName}.uniqueService`)}
           {renderError('selectTier')}
           {!loadingTiers && !tiersError?.data && !tableData?.length && (
-            <Container height={250}>
+            <Container height={250} className={styles.noDataContainer}>
               <NoDataCard
                 message={getString('cv.monitoringSources.appD.noTiersMsg')}
                 icon="warning-sign"

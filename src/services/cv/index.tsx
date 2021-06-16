@@ -141,7 +141,6 @@ export interface AppDynamicsApplication {
 }
 
 export type AppDynamicsConnectorDTO = ConnectorConfigDTO & {
-  accountId: string
   accountname: string
   authType?: 'UsernamePassword' | 'ApiClientToken'
   clientId?: string
@@ -300,7 +299,9 @@ export interface Bar {
 export interface BillingExportSpec {
   containerName: string
   directoryName: string
+  reportName: string
   storageAccountName: string
+  subscriptionId: string
 }
 
 export interface BitbucketApiAccess {
@@ -323,6 +324,7 @@ export type BitbucketConnector = ConnectorConfigDTO & {
   delegateSelectors?: string[]
   type: 'Account' | 'Repo'
   url: string
+  validationRepo?: string
 }
 
 export interface BitbucketCredentialsDTO {
@@ -474,6 +476,7 @@ export interface ConnectorInfoDTO {
     | 'Splunk'
     | 'AppDynamics'
     | 'Prometheus'
+    | 'Dynatrace'
     | 'Vault'
     | 'AzureKeyVault'
     | 'DockerRegistry'
@@ -512,12 +515,6 @@ export interface CountByTag {
 export interface CrossAccountAccess {
   crossAccountRoleArn: string
   externalId?: string
-}
-
-export interface CustomCommitAttributes {
-  authorEmail?: string
-  authorName?: string
-  commitMessage?: string
 }
 
 export interface DSConfig {
@@ -700,6 +697,12 @@ export type DockerUserNamePasswordDTO = DockerAuthCredentialsDTO & {
   usernameRef?: string
 }
 
+export type DynatraceConnectorDTO = ConnectorConfigDTO & {
+  apiTokenRef: string
+  delegateSelectors?: string[]
+  url: string
+}
+
 export interface EnvServiceRiskDTO {
   envIdentifier?: string
   envName?: string
@@ -866,6 +869,8 @@ export interface Error {
     | 'IMAGE_TAG_NOT_FOUND'
     | 'DELEGATE_NOT_AVAILABLE'
     | 'INVALID_YAML_PAYLOAD'
+    | 'AUTHENTICATION_ERROR'
+    | 'AUTHORIZATION_ERROR'
     | 'UNRECOGNIZED_YAML_FIELDS'
     | 'COULD_NOT_MAP_BEFORE_YAML'
     | 'MISSING_BEFORE_YAML'
@@ -1007,6 +1012,7 @@ export interface Error {
     | 'SCM_NOT_FOUND_ERROR'
     | 'SCM_CONFLICT_ERROR'
     | 'SCM_UNPROCESSABLE_ENTITY'
+    | 'PROCESS_EXECUTION_EXCEPTION'
     | 'SCM_UNAUTHORIZED'
     | 'DATA'
     | 'CONTEXT'
@@ -1017,6 +1023,7 @@ export interface Error {
     | 'ENGINE_FUNCTOR_ERROR'
     | 'JIRA_CLIENT_ERROR'
     | 'SCM_NOT_MODIFIED'
+    | 'JIRA_STEP_ERROR'
   correlationId?: string
   detailedMessage?: string
   message?: string
@@ -1153,6 +1160,8 @@ export interface Failure {
     | 'IMAGE_TAG_NOT_FOUND'
     | 'DELEGATE_NOT_AVAILABLE'
     | 'INVALID_YAML_PAYLOAD'
+    | 'AUTHENTICATION_ERROR'
+    | 'AUTHORIZATION_ERROR'
     | 'UNRECOGNIZED_YAML_FIELDS'
     | 'COULD_NOT_MAP_BEFORE_YAML'
     | 'MISSING_BEFORE_YAML'
@@ -1294,6 +1303,7 @@ export interface Failure {
     | 'SCM_NOT_FOUND_ERROR'
     | 'SCM_CONFLICT_ERROR'
     | 'SCM_UNPROCESSABLE_ENTITY'
+    | 'PROCESS_EXECUTION_EXCEPTION'
     | 'SCM_UNAUTHORIZED'
     | 'DATA'
     | 'CONTEXT'
@@ -1304,6 +1314,7 @@ export interface Failure {
     | 'ENGINE_FUNCTOR_ERROR'
     | 'JIRA_CLIENT_ERROR'
     | 'SCM_NOT_MODIFIED'
+    | 'JIRA_STEP_ERROR'
   correlationId?: string
   errors?: ValidationError[]
   message?: string
@@ -1366,10 +1377,10 @@ export type GitConfigDTO = ConnectorConfigDTO & {
   branchName?: string
   connectionType: 'Account' | 'Repo'
   delegateSelectors?: string[]
-  gitSync?: GitSyncConfig
   spec: GitAuthenticationDTO
   type: 'Http' | 'Ssh'
   url: string
+  validationRepo?: string
 }
 
 export type GitHTTPAuthenticationDTO = GitAuthenticationDTO & {
@@ -1380,12 +1391,6 @@ export type GitHTTPAuthenticationDTO = GitAuthenticationDTO & {
 
 export type GitSSHAuthenticationDTO = GitAuthenticationDTO & {
   sshKeyRef: string
-}
-
-export interface GitSyncConfig {
-  customCommitAttributes?: CustomCommitAttributes
-  enabled?: boolean
-  syncEnabled?: boolean
 }
 
 export interface GithubApiAccess {
@@ -1414,6 +1419,7 @@ export type GithubConnector = ConnectorConfigDTO & {
   delegateSelectors?: string[]
   type: 'Account' | 'Repo'
   url: string
+  validationRepo?: string
 }
 
 export interface GithubCredentialsDTO {
@@ -1469,6 +1475,7 @@ export type GitlabConnector = ConnectorConfigDTO & {
   delegateSelectors?: string[]
   type: 'Account' | 'Repo'
   url: string
+  validationRepo?: string
 }
 
 export interface GitlabCredentialsDTO {
@@ -1679,7 +1686,7 @@ export type KubernetesClientKeyCertDTO = KubernetesAuthCredentialDTO & {
   caCertRef?: string
   clientCertRef: string
   clientKeyAlgo?: string
-  clientKeyPassphraseRef: string
+  clientKeyPassphraseRef?: string
   clientKeyRef: string
 }
 
@@ -1740,6 +1747,7 @@ export interface LearningEngineTask {
   createdAt?: number
   failureUrl?: string
   lastUpdatedAt?: number
+  pickedAt?: number
   taskPriority?: number
   taskStatus?: 'QUEUED' | 'RUNNING' | 'FAILED' | 'SUCCESS' | 'TIMEOUT'
   type?:
@@ -1839,7 +1847,7 @@ export interface LogRecordDTO {
   verificationTaskId?: string
 }
 
-export interface LogSampleDTO {
+export interface LogSampleRequestDTO {
   query?: string
 }
 
@@ -2358,6 +2366,8 @@ export interface ResponseMessage {
     | 'IMAGE_TAG_NOT_FOUND'
     | 'DELEGATE_NOT_AVAILABLE'
     | 'INVALID_YAML_PAYLOAD'
+    | 'AUTHENTICATION_ERROR'
+    | 'AUTHORIZATION_ERROR'
     | 'UNRECOGNIZED_YAML_FIELDS'
     | 'COULD_NOT_MAP_BEFORE_YAML'
     | 'MISSING_BEFORE_YAML'
@@ -2499,6 +2509,7 @@ export interface ResponseMessage {
     | 'SCM_NOT_FOUND_ERROR'
     | 'SCM_CONFLICT_ERROR'
     | 'SCM_UNPROCESSABLE_ENTITY'
+    | 'PROCESS_EXECUTION_EXCEPTION'
     | 'SCM_UNAUTHORIZED'
     | 'DATA'
     | 'CONTEXT'
@@ -2509,6 +2520,7 @@ export interface ResponseMessage {
     | 'ENGINE_FUNCTOR_ERROR'
     | 'JIRA_CLIENT_ERROR'
     | 'SCM_NOT_MODIFIED'
+    | 'JIRA_STEP_ERROR'
   exception?: Throwable
   failureTypes?: (
     | 'EXPIRED'
@@ -3169,7 +3181,7 @@ export type SplunkConnectorDTO = ConnectorConfigDTO & {
   accountId: string
   delegateSelectors?: string[]
   passwordRef: string
-  splunkUrl?: string
+  splunkUrl: string
   username?: string
 }
 
@@ -6501,7 +6513,7 @@ export interface GetNewRelicApplicationsQueryParams {
   pageSize: number
   offset: number
   filter?: string
-  tracingId?: string
+  tracingId: string
 }
 
 export type GetNewRelicApplicationsProps = Omit<
@@ -6594,7 +6606,6 @@ export interface GetNewRelicMetricDataQueryParams {
   appName: string
   appId: string
   requestGuid: string
-  tracingId?: string
 }
 
 export type GetNewRelicMetricDataProps = Omit<
@@ -6675,7 +6686,7 @@ export interface GetLabelNamesQueryParams {
   connectorIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
-  tracingId?: string
+  tracingId: string
 }
 
 export type GetLabelNamesProps = Omit<
@@ -6728,7 +6739,7 @@ export interface GetLabeValuesQueryParams {
   orgIdentifier: string
   projectIdentifier: string
   labelName: string
-  tracingId?: string
+  tracingId: string
 }
 
 export type GetLabeValuesProps = Omit<
@@ -6781,7 +6792,7 @@ export interface GetMetricNamesQueryParams {
   orgIdentifier: string
   projectIdentifier: string
   filter?: string
-  tracingId?: string
+  tracingId: string
 }
 
 export type GetMetricNamesProps = Omit<
@@ -6834,7 +6845,7 @@ export interface GetSampleDataQueryParams {
   orgIdentifier: string
   projectIdentifier: string
   query: string
-  tracingId?: string
+  tracingId: string
 }
 
 export type GetSampleDataProps = Omit<
@@ -7091,11 +7102,17 @@ export interface GetStackdriverLogSampleDataQueryParams {
   connectorIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
-  tracingId?: string
+  tracingId: string
 }
 
 export type GetStackdriverLogSampleDataProps = Omit<
-  MutateProps<ResponseListLinkedHashMap, Failure | Error, GetStackdriverLogSampleDataQueryParams, LogSampleDTO, void>,
+  MutateProps<
+    ResponseListLinkedHashMap,
+    Failure | Error,
+    GetStackdriverLogSampleDataQueryParams,
+    LogSampleRequestDTO,
+    void
+  >,
   'path' | 'verb'
 >
 
@@ -7103,7 +7120,7 @@ export type GetStackdriverLogSampleDataProps = Omit<
  * get sample data for a query
  */
 export const GetStackdriverLogSampleData = (props: GetStackdriverLogSampleDataProps) => (
-  <Mutate<ResponseListLinkedHashMap, Failure | Error, GetStackdriverLogSampleDataQueryParams, LogSampleDTO, void>
+  <Mutate<ResponseListLinkedHashMap, Failure | Error, GetStackdriverLogSampleDataQueryParams, LogSampleRequestDTO, void>
     verb="POST"
     path={`/stackdriver-log/sample-data`}
     base={getConfig('cv/api')}
@@ -7116,7 +7133,7 @@ export type UseGetStackdriverLogSampleDataProps = Omit<
     ResponseListLinkedHashMap,
     Failure | Error,
     GetStackdriverLogSampleDataQueryParams,
-    LogSampleDTO,
+    LogSampleRequestDTO,
     void
   >,
   'path' | 'verb'
@@ -7126,11 +7143,13 @@ export type UseGetStackdriverLogSampleDataProps = Omit<
  * get sample data for a query
  */
 export const useGetStackdriverLogSampleData = (props: UseGetStackdriverLogSampleDataProps) =>
-  useMutate<ResponseListLinkedHashMap, Failure | Error, GetStackdriverLogSampleDataQueryParams, LogSampleDTO, void>(
-    'POST',
-    `/stackdriver-log/sample-data`,
-    { base: getConfig('cv/api'), ...props }
-  )
+  useMutate<
+    ResponseListLinkedHashMap,
+    Failure | Error,
+    GetStackdriverLogSampleDataQueryParams,
+    LogSampleRequestDTO,
+    void
+  >('POST', `/stackdriver-log/sample-data`, { base: getConfig('cv/api'), ...props })
 
 /**
  * get sample data for a query
@@ -7140,7 +7159,7 @@ export const getStackdriverLogSampleDataPromise = (
     ResponseListLinkedHashMap,
     Failure | Error,
     GetStackdriverLogSampleDataQueryParams,
-    LogSampleDTO,
+    LogSampleRequestDTO,
     void
   >,
   signal?: RequestInit['signal']
@@ -7149,7 +7168,7 @@ export const getStackdriverLogSampleDataPromise = (
     ResponseListLinkedHashMap,
     Failure | Error,
     GetStackdriverLogSampleDataQueryParams,
-    LogSampleDTO,
+    LogSampleRequestDTO,
     void
   >('POST', getConfig('cv/api'), `/stackdriver-log/sample-data`, props, signal)
 
@@ -7159,7 +7178,7 @@ export interface GetStackdriverDashboardDetailQueryParams {
   orgIdentifier: string
   projectIdentifier: string
   path: string
-  tracingId?: string
+  tracingId: string
 }
 
 export type GetStackdriverDashboardDetailProps = Omit<
@@ -7219,7 +7238,7 @@ export interface GetStackdriverDashboardsQueryParams {
   pageSize: number
   offset: number
   filter?: string
-  tracingId?: string
+  tracingId: string
 }
 
 export type GetStackdriverDashboardsProps = Omit<
@@ -7276,7 +7295,7 @@ export interface GetStackdriverSampleDataQueryParams {
   connectorIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
-  tracingId?: string
+  tracingId: string
 }
 
 export interface GetStackdriverSampleDataRequestBody {

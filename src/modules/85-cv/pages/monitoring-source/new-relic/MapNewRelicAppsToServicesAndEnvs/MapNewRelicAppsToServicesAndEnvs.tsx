@@ -96,16 +96,21 @@ export function MapNewRelicAppsToServicesAndEnvs(): JSX.Element {
   const [selectedApps, setSelectedApps] = useState<Map<number, NewRelicServiceEnvMapping>>(
     sourceData?.mappedServicesAndEnvs || new Map()
   )
-  const { data, error, loading, refetch } = useGetNewRelicApplications({
-    queryParams: {
+  const queryParams = useMemo(
+    () => ({
       projectIdentifier,
       orgIdentifier,
       accountId,
       filter: applicationFilter,
       connectorIdentifier: sourceData.connectorRef?.value,
+      tracingId: Utils.randomId(),
       offset: 0,
       pageSize: 100
-    }
+    }),
+    [applicationFilter, sourceData.connectorRef?.value, projectIdentifier, orgIdentifier, accountId]
+  )
+  const { data, error, loading, refetch } = useGetNewRelicApplications({
+    queryParams
   })
 
   useEffect(() => {
@@ -233,11 +238,11 @@ export function MapNewRelicAppsToServicesAndEnvs(): JSX.Element {
           <SetupSourceMappingList<TableData>
             loading={loading}
             error={{
-              onClick: () => refetch(),
+              onClick: () => refetch({ queryParams: { ...queryParams, tracingId: Utils.randomId() } }),
               message: getErrorMessage(error)
             }}
             noData={{
-              onClick: () => refetch(),
+              onClick: () => refetch({ queryParams: { ...queryParams, tracingId: Utils.randomId() } }),
               buttonText: getString('retry'),
               message: getString('cv.monitoringSources.appD.noAppsMsg')
             }}

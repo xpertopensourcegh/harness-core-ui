@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Color, Container, Link, Text } from '@wings-software/uicore'
+import { Color, Container, Link, Text, Utils } from '@wings-software/uicore'
 import type { CellProps } from 'react-table'
 import { Classes } from '@blueprintjs/core'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -74,16 +74,21 @@ export function SelectGCODashboards(props: SelectDashboardProps): JSX.Element {
     pageOffset: 0,
     filteredDashboard: undefined
   })
-  const { data, loading, error, refetch: refetchDashboards } = useGetStackdriverDashboards({
-    queryParams: {
+  const queryParams = useMemo(
+    () => ({
       accountId,
       projectIdentifier,
       orgIdentifier,
       connectorIdentifier: (propsData?.connectorRef?.value as string) || '',
       pageSize: TOTAL_ITEMS_PER_PAGE,
       offset: pageOffset,
+      tracingId: Utils.randomId(),
       filter: filteredDashboard
-    }
+    }),
+    [filteredDashboard, propsData?.connectorRef?.value, pageOffset, accountId, projectIdentifier, orgIdentifier]
+  )
+  const { data, loading, error, refetch: refetchDashboards } = useGetStackdriverDashboards({
+    queryParams
   })
   const [selectedDashboards, setSelectedDashboards] = useState<Map<string, StackdriverDashboardDTO>>(
     initializeSelectedDashboards(propsData.selectedDashboards)
@@ -192,7 +197,7 @@ export function SelectGCODashboards(props: SelectDashboardProps): JSX.Element {
         <PageError
           className={css.loadingErrorNoData}
           message={getErrorMessage(error)}
-          onClick={() => refetchDashboards()}
+          onClick={() => refetchDashboards({ queryParams: { ...queryParams, tracingId: Utils.randomId() } })}
         />
       )}
       {!loading && !error?.data && !content?.length && (

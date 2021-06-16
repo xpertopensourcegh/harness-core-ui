@@ -9,6 +9,9 @@
 
   .noData {
     margin: var(--spacing-large) !important;
+    > div:first-child {
+      height: 200px !important;
+    }
   }
 
   .header {

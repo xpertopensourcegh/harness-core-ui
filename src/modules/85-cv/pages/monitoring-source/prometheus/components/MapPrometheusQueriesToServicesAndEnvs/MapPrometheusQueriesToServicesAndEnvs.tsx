@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useMemo, useState } from 'react'
 import { useParams } from 'react-router'
 import { Accordion, Container, Formik, FormikForm, Layout, SelectOption, Text, Utils } from '@wings-software/uicore'
 import { useGetLabelNames, useGetMetricNames, useGetMetricPacks } from 'services/cv'
@@ -49,15 +49,16 @@ export function MapPrometheusQueriesToServicesAndEnvs(): JSX.Element {
 
   const connectorIdentifier = sourceData.connectorRef.value
   const [rerenderKey, setRerenderKey] = useState('')
-
+  const tracingIds = useMemo(() => [Utils.randomId(), Utils.randomId()], [])
   const labelNamesResponse = useGetLabelNames({
-    queryParams: { projectIdentifier, orgIdentifier, accountId, connectorIdentifier }
+    queryParams: { projectIdentifier, orgIdentifier, accountId, connectorIdentifier, tracingId: tracingIds[0] }
   })
   const metricNamesResponse = useGetMetricNames({
     queryParams: {
       projectIdentifier,
       orgIdentifier,
       accountId,
+      tracingId: tracingIds[1],
       connectorIdentifier
     }
   })

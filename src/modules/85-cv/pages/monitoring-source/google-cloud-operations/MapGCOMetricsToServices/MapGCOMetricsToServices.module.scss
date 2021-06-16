@@ -85,6 +85,10 @@
           max-width: 550px;
         }
 
+        .chartContainer.noDataContainer > div:first-child {
+          height: unset !important;
+        }
+
         .sampleDataSpinner {
           margin: 0 auto;
         }

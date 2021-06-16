@@ -1,4 +1,4 @@
-import { Accordion, Container, Layout } from '@wings-software/uicore'
+import { Accordion, Container, Layout, Utils } from '@wings-software/uicore'
 import React, { useCallback, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useGetStackdriverLogSampleData } from 'services/cv'
@@ -28,18 +28,26 @@ export default function MapQueriesToHarnessServiceLayout(props: MapQueriesToHarn
 
   const query = useMemo(() => (values?.query?.length ? values.query : ''), [values])
   const sampleRecord = useMemo(() => (records?.length ? records[0] : null), [records])
-
-  const { mutate: queryStackdriver, loading, error } = useGetStackdriverLogSampleData({
-    queryParams: {
+  const queryParams = useMemo(
+    () => ({
       accountId,
       projectIdentifier,
       orgIdentifier,
+      tracingId: Utils.randomId(),
       connectorIdentifier: connectorIdentifier as string
-    }
+    }),
+    [accountId, projectIdentifier, orgIdentifier, connectorIdentifier]
+  )
+
+  const { mutate: queryStackdriver, loading, error } = useGetStackdriverLogSampleData({
+    queryParams
   })
 
   const fetchStackDriverRecords = useCallback(async () => {
-    const recordsData = await queryStackdriver({ query })
+    const recordsData = await queryStackdriver(
+      { query },
+      { queryParams: { ...queryParams, tracingId: Utils.randomId() } }
+    )
     setRecords(recordsData?.data as Record<string, any>[])
     setIsQueryExecuted(true)
     // eslint-disable-next-line react-hooks/exhaustive-deps

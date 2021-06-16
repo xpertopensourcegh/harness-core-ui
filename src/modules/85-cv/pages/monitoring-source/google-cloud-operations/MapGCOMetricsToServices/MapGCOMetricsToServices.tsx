@@ -1,4 +1,4 @@
-import React, { FormEvent, useCallback, useEffect, useState } from 'react'
+import React, { FormEvent, useCallback, useEffect, useMemo, useState } from 'react'
 import {
   Color,
   Container,
@@ -9,8 +9,10 @@ import {
   Link,
   SelectOption,
   Text,
-  Icon
+  Icon,
+  Utils
 } from '@wings-software/uicore'
+import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { debounce, isNumber } from 'lodash-es'
 import HighchartsReact from 'highcharts-react-official'
@@ -359,7 +361,7 @@ function ValidationChart(props: ValidationChartProps): JSX.Element {
 
   if (!queryValue?.length) {
     return (
-      <Container className={css.chartContainer}>
+      <Container className={cx(css.chartContainer, css.noDataContainer)}>
         <NoDataCard
           icon="main-notes"
           message={getString('cv.monitoringSources.gco.mapMetricsToServicesPage.enterQueryForValidation')}
@@ -370,7 +372,7 @@ function ValidationChart(props: ValidationChartProps): JSX.Element {
 
   if (!sampleData?.series?.length) {
     return (
-      <Container className={css.chartContainer}>
+      <Container className={cx(css.chartContainer, css.noDataContainer)}>
         <NoDataCard
           icon="warning-sign"
           message={getString('cv.monitoringSources.gco.mapMetricsToServicesPage.noDataForQuery')}
@@ -410,13 +412,18 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
   const [error, setError] = useState<string | undefined>()
   const [loading, setLoading] = useState<boolean>(false)
-  const { mutate, cancel } = useGetStackdriverSampleData({
-    queryParams: {
+  const queryParams = useMemo(
+    () => ({
       orgIdentifier,
       projectIdentifier,
       accountId,
+      tracingId: Utils.randomId(),
       connectorIdentifier: data.connectorRef?.value as string
-    }
+    }),
+    [data?.connectorRef?.value, projectIdentifier, orgIdentifier, accountId]
+  )
+  const { mutate, cancel } = useGetStackdriverSampleData({
+    queryParams
   })
   const [isQueryExpanded, setIsQueryExpanded] = useState(false)
   const [sampleData, setSampleData] = useState<Highcharts.Options | undefined>()
@@ -428,7 +435,9 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
         if (updatedQueryValue?.length) {
           setLoading(true)
           setError(undefined)
-          const response = await mutate(JSON.parse(updatedQueryValue))
+          const response = await mutate(JSON.parse(updatedQueryValue), {
+            queryParams: { ...queryParams, tracingId: Utils.randomId() }
+          })
           if (response?.data) {
             setError(undefined)
             setSampleData(transformSampleDataIntoHighchartOptions(response?.data || []))

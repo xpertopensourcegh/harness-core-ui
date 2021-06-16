@@ -8,5 +8,6 @@ declare const styles: {
   readonly metricPacks: string
   readonly columnHeaderWithFilter: string
   readonly serviceSelect: string
+  readonly noDataContainer: string
 }
 export default styles

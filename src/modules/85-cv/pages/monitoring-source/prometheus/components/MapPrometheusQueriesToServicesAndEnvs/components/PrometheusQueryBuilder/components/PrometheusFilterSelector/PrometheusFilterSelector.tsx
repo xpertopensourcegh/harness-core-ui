@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { Container, FormInput, MultiSelectOption, Popover, Text } from '@wings-software/uicore'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
+import { Container, FormInput, MultiSelectOption, Popover, Text, Utils } from '@wings-software/uicore'
 import { useParams } from 'react-router'
 import { ITagInputProps, PopoverInteractionKind, PopoverPosition } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
@@ -47,14 +47,19 @@ function ValuePopover(props: ValuePopoverProps): JSX.Element {
   const [itemsToRender, setItemsToRender] = useState<string[]>([])
   const { getString } = useStrings()
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
-  const { error, data, loading, refetch } = useGetLabeValues({
-    queryParams: {
+  const queryParams = useMemo(
+    () => ({
       projectIdentifier,
       orgIdentifier,
       accountId,
       connectorIdentifier,
-      labelName: prometheusLabel
-    }
+      labelName: prometheusLabel,
+      tracingId: Utils.randomId()
+    }),
+    [prometheusLabel]
+  )
+  const { error, data, loading, refetch } = useGetLabeValues({
+    queryParams
   })
 
   useEffect(() => {
@@ -68,7 +73,7 @@ function ValuePopover(props: ValuePopoverProps): JSX.Element {
           message={getErrorMessage(error)}
           onClick={e => {
             e.stopPropagation()
-            refetch()
+            refetch({ queryParams: { ...queryParams, tracingId: Utils.randomId() } })
           }}
           className={css.popoverError}
         />
