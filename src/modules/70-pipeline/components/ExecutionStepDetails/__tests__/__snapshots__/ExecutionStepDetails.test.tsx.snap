@@ -6,23 +6,13 @@ exports[`<ExecutionStepDetails /> tests approval steps click on refresh triggers
     class="main"
   >
     <div
-      class="header isApproval"
+      class="header"
     >
       <div
         class="title"
       >
         pipeline.execution.stepTitlePrefix
       </div>
-      <button
-        class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-        type="button"
-      >
-        <span
-          class="bp3-button-text"
-        >
-          common.refresh
-        </span>
-      </button>
       <div
         class="actions"
       >
@@ -445,23 +435,13 @@ exports[`<ExecutionStepDetails /> tests approval steps renders approval waiting 
     class="main"
   >
     <div
-      class="header isApproval"
+      class="header"
     >
       <div
         class="title"
       >
         pipeline.execution.stepTitlePrefix
       </div>
-      <button
-        class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-        type="button"
-      >
-        <span
-          class="bp3-button-text"
-        >
-          common.refresh
-        </span>
-      </button>
       <div
         class="actions"
       >

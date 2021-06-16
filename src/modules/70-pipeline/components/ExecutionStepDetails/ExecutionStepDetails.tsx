@@ -7,16 +7,14 @@ import { useParams } from 'react-router-dom'
 
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import ExecutionLayout from '@pipeline/components/ExecutionLayout/ExecutionLayout'
-import { isExecutionWaitingForApproval } from '@pipeline/utils/statusHelpers'
-import { isHarnessApproval } from '@pipeline/utils/stepUtils'
 import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
 import { useUpdateQueryParams } from '@common/hooks'
 import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetExecutionNode } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
+import factory from '@pipeline/factories/ExecutionStepDetailsFactory'
+import type { StepType } from '../PipelineSteps/PipelineStepInterface'
 
-import { REFRESH_APPROVAL } from './Tabs/ApprovalTab/ApprovalTab'
-import { StepDetailTabs } from './StepDetailTabs'
 import css from './ExecutionStepDetails.module.scss'
 
 export default function ExecutionStepDetails(): React.ReactElement {
@@ -41,18 +39,17 @@ export default function ExecutionStepDetails(): React.ReactElement {
   })
   const originalStep = allNodeMap?.[selectedStepId] || /* istanbul ignore next */ {}
   const selectedStep = (retryStep ? allNodeMap[retryStep] : originalStep) || /* istanbul ignore next */ {}
-  const isWaitingOnApproval = isExecutionWaitingForApproval(selectedStep.status)
-  const isHarnessApprovalStep = isHarnessApproval(selectedStep.stepType)
+  const stepDetails = factory.getStepDetails(selectedStep.stepType as StepType)
   const interruptHistories = reverse([...(originalStep.interruptHistories || [])]).filter(
     ({ interruptConfig }) => interruptConfig.retryInterruptConfig
   )
 
-  function handleRefresh(): void {
-    /* istanbul ignore else */
-    if (isHarnessApprovalStep && isWaitingOnApproval) {
-      window.dispatchEvent(new CustomEvent(REFRESH_APPROVAL))
-    }
-  }
+  // function handleRefresh(): void {
+  //   /* istanbul ignore else */
+  //   if (isHarnessApprovalStep && isWaitingOnApproval) {
+  //     window.dispatchEvent(new CustomEvent(REFRESH_APPROVAL))
+  //   }
+  // }
 
   function goToRetryStepExecution(id: string): void {
     updateQueryParams({ retryStep: id })
@@ -69,18 +66,15 @@ export default function ExecutionStepDetails(): React.ReactElement {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [executionNode?.data])
 
+  const StepDetails = stepDetails.component
+
   return (
     <div className={css.main}>
-      <div className={cx(css.header, { [css.isApproval]: isHarnessApprovalStep && isWaitingOnApproval })}>
+      <div className={css.header}>
         <div className={css.title}>
           {getString('pipeline.execution.stepTitlePrefix')}
           {selectedStep.name}
         </div>
-        {isHarnessApprovalStep && isWaitingOnApproval ? (
-          <Button minimal small intent="primary" onClick={handleRefresh}>
-            {getString('common.refresh')}
-          </Button>
-        ) : null}
         <div className={css.actions}>
           <ExecutionLayout.Toggle />
           {interruptHistories.length > 0 ? (
@@ -111,7 +105,7 @@ export default function ExecutionStepDetails(): React.ReactElement {
           ) : null}
         </div>
       </div>
-      {loading ? <Spinner /> : <StepDetailTabs step={selectedStep} />}
+      {loading ? <Spinner /> : <StepDetails step={selectedStep} />}
     </div>
   )
 }

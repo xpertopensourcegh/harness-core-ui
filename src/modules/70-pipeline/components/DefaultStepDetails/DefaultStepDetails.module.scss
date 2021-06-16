@@ -1,0 +1,31 @@
+.tabs {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 60px);
+
+  & > :global(.bp3-tab-list) {
+    width: 100%;
+    height: 34px;
+    padding: var(--spacing-none) var(--spacing-large);
+    align-items: center;
+    box-shadow: inset var(--grey-200) 0px -4px 0px;
+  }
+
+  & :global(.bp3-tab-panel) {
+    margin-top: var(--spacing-none);
+    flex: 1 1 0;
+    max-height: calc(100% - 30px);
+    overflow-y: auto;
+  }
+
+  & :global(.bp3-tab) {
+    line-height: 24px;
+    padding: var(--spacing-none) var(--spacing-small) var(--spacing-small) var(--spacing-small);
+  }
+
+  & :global(.bp3-tab-indicator-wrapper .bp3-tab-indicator) {
+    background-color: var(--primary-7);
+    height: 4px;
+  }
+}

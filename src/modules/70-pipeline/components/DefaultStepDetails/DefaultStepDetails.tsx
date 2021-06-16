@@ -18,7 +18,7 @@ import ExecutionStepInputOutputTab from './Tabs/ExecutionStepInputOutputTab/Exec
 import { ManualInterventionTab } from './Tabs/ManualInterventionTab/ManualInterventionTab'
 import { PipelineDetailsTab } from './Tabs/PipelineDetailsTab/PipelineDetailsTab'
 
-import css from './ExecutionStepDetails.module.scss'
+import css from './DefaultStepDetails.module.scss'
 
 enum StepDetailTab {
   APPROVAL = 'APPROVAL',
@@ -29,11 +29,11 @@ enum StepDetailTab {
   PIPELINE_DETAILS = 'PIPELINE_DETAILS'
 }
 
-export interface StepDetailTabs {
+export interface DefaultStepDetailsProps {
   step: ExecutionNode
 }
 
-export function StepDetailTabs(props: StepDetailTabs): React.ReactElement {
+export function DefaultStepDetails(props: DefaultStepDetailsProps): React.ReactElement {
   const { step } = props
   const { getString } = useStrings()
   const [activeTab, setActiveTab] = React.useState(StepDetailTab.STEP_DETAILS)

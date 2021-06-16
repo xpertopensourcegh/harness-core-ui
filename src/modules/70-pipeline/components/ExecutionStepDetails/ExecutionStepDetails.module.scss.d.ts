@@ -8,6 +8,5 @@ declare const styles: {
   readonly actions: string
   readonly title: string
   readonly more: string
-  readonly tabs: string
 }
 export default styles
