@@ -159,7 +159,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   })
 
   const saveAndPublishPipeline = async (
-    latestPipeline: SavePipelineObj,
+    latestPipeline: NgPipeline,
     updatedGitDetails?: SaveToGitFormInterface,
     lastObject?: { lastObjectId?: string }
   ): Promise<UseSaveSuccessResponse> => {
@@ -173,10 +173,10 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         ...(lastObject ?? {}),
         ...(updatedGitDetails && updatedGitDetails.isNewBranch ? { baseBranch: branch } : {})
       },
-      omit(latestPipeline.pipeline, 'repo', 'branch'),
+      omit(latestPipeline, 'repo', 'branch'),
       pipelineIdentifier !== DefaultNewPipelineId
     )
-    const newPipelineId = latestPipeline?.pipeline?.identifier
+    const newPipelineId = latestPipeline?.identifier
 
     if (response && response.status === 'SUCCESS') {
       if (pipelineIdentifier === DefaultNewPipelineId) {
@@ -228,7 +228,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     }
 
     const response = await saveAndPublishPipeline(
-      { pipeline: latestPipeline },
+      latestPipeline,
       omit(updatedGitDetails, 'name', 'identifier'),
       pipelineIdentifier !== DefaultNewPipelineId ? { lastObjectId: objectId } : {}
     )
@@ -263,10 +263,6 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       }
     }
 
-    // Did this because local version in git diff editor does not start with pipeline as root object
-    // which gives false information on UI
-    const pipelineObj: SavePipelineObj = { pipeline: latestPipeline }
-
     // if Git sync enabled then display modal
     if (isGitSyncEnabled) {
       openSaveToGitDialog({
@@ -277,10 +273,10 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
           identifier: latestPipeline.identifier,
           gitDetails: gitDetails ?? {}
         },
-        payload: pipelineObj
+        payload: { pipeline: latestPipeline }
       })
     } else {
-      await saveAndPublishPipeline(pipelineObj)
+      await saveAndPublishPipeline(latestPipeline)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [

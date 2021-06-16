@@ -64,6 +64,10 @@ export interface InputSetDTO extends Omit<InputSetResponse, 'identifier' | 'pipe
   branch?: string
 }
 
+interface SaveInputSetDTO {
+  inputSet: InputSetDTO
+}
+
 const getDefaultInputSet = (template: NgPipeline, orgIdentifier: string, projectIdentifier: string): InputSetDTO => ({
   name: undefined,
   identifier: '',
@@ -335,12 +339,12 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
     }
   }
 
-  const { openSaveToGitDialog } = useSaveToGitDialog<InputSetDTO>({
+  const { openSaveToGitDialog } = useSaveToGitDialog<SaveInputSetDTO>({
     onSuccess: (
       gitData: SaveToGitFormInterface,
-      payload?: InputSetDTO,
+      payload?: SaveInputSetDTO,
       objectId?: string
-    ): Promise<UseSaveSuccessResponse> => createUpdateInputSet(payload || savedInputSetObj, gitData, objectId)
+    ): Promise<UseSaveSuccessResponse> => createUpdateInputSet(payload?.inputSet || savedInputSetObj, gitData, objectId)
   })
 
   const handleSubmit = React.useCallback(
@@ -357,7 +361,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
               identifier: inputSetObj.identifier as string,
               gitDetails: isEdit ? inputSetResponse?.data?.gitDetails : gitDetails
             },
-            payload: omit(inputSetObj, 'repo', 'branch')
+            payload: { inputSet: omit(inputSetObj, 'repo', 'branch') }
           })
         } else {
           createUpdateInputSet(omit(inputSetObj, 'repo', 'branch'))

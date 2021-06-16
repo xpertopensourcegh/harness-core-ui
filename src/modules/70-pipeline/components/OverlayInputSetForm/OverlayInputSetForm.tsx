@@ -53,6 +53,10 @@ export interface OverlayInputSetDTO extends Omit<OverlayInputSetResponse, 'ident
   branch?: string
 }
 
+interface SaveOverlayInputSetDTO {
+  overlayInputSet: OverlayInputSetDTO
+}
+
 const getDefaultInputSet = (
   orgIdentifier: string,
   projectIdentifier: string,
@@ -362,12 +366,13 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
     }
   }
 
-  const { openSaveToGitDialog } = useSaveToGitDialog<OverlayInputSetDTO>({
+  const { openSaveToGitDialog } = useSaveToGitDialog<SaveOverlayInputSetDTO>({
     onSuccess: (
       gitData: SaveToGitFormInterface,
-      payload?: OverlayInputSetDTO,
+      payload?: SaveOverlayInputSetDTO,
       objectId?: string
-    ): Promise<UseSaveSuccessResponse> => createUpdateOverlayInputSet(payload || savedInputSetObj, gitData, objectId)
+    ): Promise<UseSaveSuccessResponse> =>
+      createUpdateOverlayInputSet(payload?.overlayInputSet || savedInputSetObj, gitData, objectId)
   })
 
   const handleSubmit = React.useCallback(
@@ -385,7 +390,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
               identifier: inputSetObj.identifier as string,
               gitDetails: isEdit ? overlayInputSetResponse?.data?.gitDetails : gitDetails
             },
-            payload: omit(inputSetObj, 'repo', 'branch')
+            payload: { overlayInputSet: omit(inputSetObj, 'repo', 'branch') }
           })
         } else {
           createUpdateOverlayInputSet(omit(inputSetObj, 'repo', 'branch'))
