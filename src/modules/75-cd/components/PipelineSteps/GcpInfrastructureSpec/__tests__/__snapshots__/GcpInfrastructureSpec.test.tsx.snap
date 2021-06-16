@@ -102,7 +102,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view for inputse
         </div>
       </div>
       <div
-        class="formGroup md"
+        class="formGroup md clusterInputWrapper"
       >
         <div
           class="bp3-form-group"
@@ -508,7 +508,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with empty 
             </div>
           </div>
           <div
-            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main formRow"
+            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main clusterInputWrapper"
           >
             <div
               class="bp3-form-group inputWidth"
@@ -904,7 +904,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with runtim
             </button>
           </div>
           <div
-            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main formRow"
+            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main clusterInputWrapper"
           >
             <div
               class="bp3-form-group inputWidth"
@@ -1398,7 +1398,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with values
             </div>
           </div>
           <div
-            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main formRow"
+            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main clusterInputWrapper"
           >
             <div
               class="bp3-form-group inputWidth"

@@ -264,7 +264,7 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                   />
                 )}
               </Layout.Horizontal>
-              <Layout.Horizontal className={css.formRow} spacing="medium">
+              <Layout.Horizontal className={(css.formRow, css.clusterInputWrapper)} spacing="medium">
                 <FormInput.MultiTypeInput
                   name="cluster"
                   tooltipProps={{
@@ -482,7 +482,7 @@ const GcpInfrastructureSpecInputForm: React.FC<GcpInfrastructureSpecEditableProp
         </div>
       )}
       {getMultiTypeFromValue(template?.cluster) === MultiTypeInputType.RUNTIME && (
-        <div className={cx(stepCss.formGroup, stepCss.md)}>
+        <div className={cx(stepCss.formGroup, stepCss.md, css.clusterInputWrapper)}>
           <FormInput.MultiTypeInput
             name={`${path}.cluster`}
             disabled={loadingClusterNames || readonly}
