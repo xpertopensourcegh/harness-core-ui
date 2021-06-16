@@ -28,6 +28,7 @@ import {
 } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import type { K8SDirectServiceStep } from '@cd/components/PipelineSteps/K8sServiceSpec/K8sServiceSpecInterface'
+import DeployServiceErrors from '@cd/components/PipelineStudio/DeployServiceSpecifications/DeployServiceErrors'
 import css from './DeployServiceSpecifications.module.scss'
 
 const setupMode = {
@@ -362,6 +363,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
 
   return (
     <>
+      <DeployServiceErrors />
       {stageIndex > 0 && canPropagate && (
         <div className={css.stageSelection}>
           <section
@@ -467,8 +469,8 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                   type={StepType.DeployService}
                   readonly={isReadonly}
                   initialValues={{
-                    serviceRef: '',
-                    ...get(stage, 'stage.spec.serviceConfig', {})
+                    service: get(stage, 'stage.spec.serviceConfig.service', {}),
+                    serviceRef: get(stage, 'stage.spec.serviceConfig.serviceRef', '')
                   }}
                   onUpdate={(value: ServiceConfig) => {
                     const serviceObj = get(stage, 'stage.spec.serviceConfig', {})
@@ -476,8 +478,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                       serviceObj.service = value.service
                       delete serviceObj.serviceRef
                     } else if (value.serviceRef) {
-                      const selectOptionValue = ((value.serviceRef as unknown) as SelectOption)?.value
-                      serviceObj.serviceRef = selectOptionValue !== undefined ? selectOptionValue : value.serviceRef
+                      serviceObj.serviceRef = value.serviceRef
                       delete serviceObj.service
                     }
                     debounceUpdatePipeline(pipeline)

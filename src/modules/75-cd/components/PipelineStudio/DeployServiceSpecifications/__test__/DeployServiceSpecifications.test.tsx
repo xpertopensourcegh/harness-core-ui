@@ -17,6 +17,9 @@ const getOverrideContextValue = (): PipelineContextInterface => {
   return { ...overridePipelineContext, updatePipeline: jest.fn() } as any
 }
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
+jest.mock('@wings-software/monaco-yaml/lib/esm/languageservice/yamlLanguageService', () => ({
+  getLanguageService: jest.fn()
+}))
 
 jest.mock('services/cd-ng', () => ({
   getConnectorListPromise: () => Promise.resolve(connectorListJSON),

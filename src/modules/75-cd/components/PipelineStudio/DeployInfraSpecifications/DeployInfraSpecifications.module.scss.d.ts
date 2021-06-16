@@ -15,6 +15,7 @@ declare const styles: {
   readonly serviceCards: string
   readonly bp3Card: string
   readonly disabled: string
+  readonly deploymentTypeError: string
   readonly deploymentTypeGroups: string
   readonly deploymentTypeGroup: string
   readonly connectionType: string
@@ -29,6 +30,7 @@ declare const styles: {
   readonly sectionCard: string
   readonly shadow: string
   readonly notwide: string
+  readonly error: string
   readonly nopadleft: string
   readonly subheading: string
 }

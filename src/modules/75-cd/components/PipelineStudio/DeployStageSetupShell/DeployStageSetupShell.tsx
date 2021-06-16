@@ -13,6 +13,8 @@ import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineCon
 import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import { useStrings } from 'framework/strings'
 import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
+import { StageErrorContext } from '@pipeline/context/StageErrorContext'
+import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
 import DeployInfraSpecifications from '../DeployInfraSpecifications/DeployInfraSpecifications'
 import DeployServiceSpecifications from '../DeployServiceSpecifications/DeployServiceSpecifications'
 import DeployStageSpecifications from '../DeployStageSpecifications/DeployStageSpecifications'
@@ -25,14 +27,6 @@ export const MapStepTypeToIcon: { [key: string]: HarnessIconName } = {
   Approval: 'pipeline-approval',
   Pipeline: 'pipeline',
   Custom: 'pipeline-custom'
-}
-
-export enum DeployTabs {
-  OVERVIEW = 'OVERVIEW',
-  SERVICE = 'SERVICE',
-  INFRASTRUCTURE = 'INFRASTRUCTURE',
-  EXECUTION = 'EXECUTION',
-  ADVANCED = 'ADVANCED'
 }
 
 const TabsOrder = [
@@ -74,8 +68,12 @@ export default function DeployStageSetupShell(): JSX.Element {
     }
   }, [selectedStepId])
 
-  const handleTabChange = (data: DeployTabs): void => {
-    setSelectedTabId(data)
+  const { checkErrorsForTab } = React.useContext(StageErrorContext)
+
+  const handleTabChange = (nextTab: DeployTabs): void => {
+    checkErrorsForTab(selectedTabId).then(_ => {
+      setSelectedTabId(nextTab)
+    })
   }
 
   React.useEffect(() => {
@@ -133,7 +131,7 @@ export default function DeployStageSetupShell(): JSX.Element {
         disabled={selectedTabId === DeployTabs.OVERVIEW}
         onClick={() => {
           updatePipeline(pipeline)
-          setSelectedTabId(TabsOrder[Math.max(0, TabsOrder.indexOf(selectedTabId) - 1)])
+          handleTabChange(TabsOrder[Math.max(0, TabsOrder.indexOf(selectedTabId) - 1)])
         }}
       />
       {selectedTabId === DeployTabs.ADVANCED ? (
@@ -154,7 +152,7 @@ export default function DeployStageSetupShell(): JSX.Element {
             if (selectedTabId === DeployTabs.EXECUTION) {
               updatePipelineView({ ...pipelineView, isSplitViewOpen: false, splitViewData: {} })
             } else {
-              setSelectedTabId(TabsOrder[Math.min(TabsOrder.length, TabsOrder.indexOf(selectedTabId) + 1)])
+              handleTabChange(TabsOrder[Math.min(TabsOrder.length, TabsOrder.indexOf(selectedTabId) + 1)])
             }
           }}
         />

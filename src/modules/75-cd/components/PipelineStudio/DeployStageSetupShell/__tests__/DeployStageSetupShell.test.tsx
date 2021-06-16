@@ -8,6 +8,17 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 jest.mock('@common/utils/YamlUtils', () => ({
   validateJSONWithSchema: jest.fn(() => Promise.resolve(new Map()))
 }))
+const fetchConnectors = () => Promise.resolve({})
+
+jest.mock('services/cd-ng', () => ({
+  useGetConnectorListV2: jest.fn().mockImplementation(() => ({ mutate: fetchConnectors })),
+
+  useGetConnector: jest.fn().mockImplementation(() => {
+    return { data: {}, refetch: jest.fn(), error: null }
+  }),
+  useGetServiceListForProject: jest.fn().mockImplementation(() => ({ loading: false, data: {}, refetch: jest.fn() }))
+}))
+
 window.HTMLElement.prototype.scrollTo = jest.fn()
 
 describe('DeployStageSetupShell tests', () => {

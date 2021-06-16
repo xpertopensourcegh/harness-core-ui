@@ -1,0 +1,19 @@
+.errorHeader {
+  padding: var(--spacing-small) var(--spacing-large) !important;
+  background-color: var(--red-50) !important;
+}
+
+.runPipelineErrorDesc {
+  padding: var(--spacing-small);
+}
+
+.runPipelineErrorLine {
+  margin: var(--spacing-xsmall) 0 !important;
+}
+
+.runPipelineErrorPopover {
+  padding: 0 var(--spacing-medium);
+  background: white;
+  color: var(--red-400);
+  font-weight: 500;
+}

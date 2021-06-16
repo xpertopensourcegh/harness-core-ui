@@ -90,6 +90,11 @@
   }
 }
 
+.deploymentTypeError {
+  color: #c23030 !important;
+  margin-top: var(--spacing-4) !important;
+}
+
 .deploymentTypeGroups {
   display: flex;
 
@@ -169,6 +174,10 @@
   background-color: var(--white);
   box-shadow: none;
   -webkit-box-shadow: none;
+  &.error {
+    box-shadow: 0 0 0 0 rgb(219 55 55 / 0%), 0 0 0 0 rgb(219 55 55 / 0%), inset 0 0 0 1px #db3737,
+      inset 0 0 0 1px rgb(16 22 26 / 15%), inset 0 1px 1px rgb(16 22 26 / 20%);
+  }
 }
 .nopadleft {
   padding-left: 0 !important;

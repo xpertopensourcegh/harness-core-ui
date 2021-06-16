@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import YAML from 'yaml'
-import { Layout, Card, Icon, Text, Accordion, Button, Color } from '@wings-software/uicore'
-import type { IconName } from '@wings-software/uicore'
+import { Layout, Card, Text, Accordion, Color } from '@wings-software/uicore'
 import { clone, get, isEmpty, isNil, omit } from 'lodash-es'
 import debounce from 'p-debounce'
 import cx from 'classnames'
@@ -24,19 +23,9 @@ import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { String, useStrings } from 'framework/strings'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
+import DeployServiceErrors from '@cd/components/PipelineStudio/DeployServiceSpecifications/DeployServiceErrors'
+import SelectDeploymentType from '@cd/components/PipelineStudio/DeployInfraSpecifications/SelectDeployementType'
 import css from './DeployInfraSpecifications.module.scss'
-
-interface DeploymentTypeItem {
-  name: string
-  icon: IconName
-  type: string
-  enabled: boolean
-}
-
-interface DeploymentTypeGroup {
-  name: string
-  items: DeploymentTypeItem[]
-}
 
 // TODO: Add key once we have default value
 const DEFAULT_INFRA_KEY = ''
@@ -50,30 +39,6 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
   const [updateKey, setUpdateKey] = React.useState(0)
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
   const { getString } = useStrings()
-  const deploymentTypes: DeploymentTypeGroup[] = [
-    {
-      name: getString('pipelineSteps.deploy.infrastructure.directConnection'),
-      items: [
-        {
-          name: getString('pipelineSteps.deploymentTypes.kubernetes'),
-          icon: 'service-kubernetes',
-          type: 'KubernetesDirect',
-          enabled: true
-        }
-      ]
-    },
-    {
-      name: getString('pipelineSteps.deploy.infrastructure.viaCloudProvider'),
-      items: [
-        {
-          name: getString('pipelineSteps.deploymentTypes.gk8engine'),
-          icon: 'google-kubernetes-engine',
-          type: 'KubernetesGcp',
-          enabled: true
-        }
-      ]
-    }
-  ]
 
   const {
     state: {
@@ -149,80 +114,6 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
       infrastructure.infrastructureKey = extendedSpec.infrastructureKey ?? DEFAULT_INFRA_KEY
       debounceUpdatePipeline(pipeline)
     }
-  }
-
-  const filterSelectedDeploymentType = (
-    deploymentTypeGroups: DeploymentTypeGroup[],
-    selDeploymentType: string
-  ): DeploymentTypeGroup[] => {
-    const groups = deploymentTypeGroups.filter(group => group?.items?.find(type => type.type === selDeploymentType))
-    if (groups[0]) {
-      groups[0].items = groups[0].items.filter(type => type.type === selDeploymentType)
-      return groups
-    }
-
-    return deploymentTypeGroups
-  }
-
-  const renderInfraSelection = (): JSX.Element => {
-    const visibleDeploymentTypes = selectedDeploymentType
-      ? filterSelectedDeploymentType(deploymentTypes, selectedDeploymentType)
-      : deploymentTypes
-
-    return (
-      <div className={css.deploymentTypeGroups}>
-        {visibleDeploymentTypes.map(deploymentTypeGroup => {
-          return (
-            <div className={css.deploymentTypeGroup} key={deploymentTypeGroup.name}>
-              <div className={css.connectionType}>{deploymentTypeGroup.name}</div>
-              <Layout.Horizontal>
-                {deploymentTypeGroup.items.map(deploymentType => (
-                  <div key={deploymentType.name} className={css.squareCardContainer}>
-                    <Card
-                      disabled={!deploymentType.enabled || isReadonly}
-                      interactive={true}
-                      selected={deploymentType.type === selectedDeploymentType}
-                      onClick={() => {
-                        if (selectedDeploymentType !== deploymentType.type) {
-                          setSelectedDeploymentType(deploymentType.type)
-                          resetInfrastructureDefinition(deploymentType.type, true)
-                        }
-                      }}
-                      cornerSelected={deploymentType.type === selectedDeploymentType}
-                      className={cx({ [css.disabled]: !deploymentType.enabled }, css.squareCard)}
-                    >
-                      <Icon name={deploymentType.icon as IconName} size={26} height={26} />
-                    </Card>
-                    <Text
-                      style={{
-                        fontSize: '12px',
-                        color: deploymentType.enabled ? 'var(--grey-900)' : 'var(--grey-350)',
-                        textAlign: 'center'
-                      }}
-                    >
-                      {deploymentType.name}
-                    </Text>
-                  </div>
-                ))}
-              </Layout.Horizontal>
-            </div>
-          )
-        })}
-        {selectedDeploymentType ? (
-          <Button
-            className={css.changeButton}
-            disabled={isReadonly}
-            minimal
-            intent="primary"
-            onClick={() => {
-              setSelectedDeploymentType(undefined)
-              resetInfrastructureDefinition(undefined, true)
-            }}
-            text={getString('change')}
-          />
-        ) : null}
-      </div>
-    )
   }
 
   const [provisionerEnabled, setProvisionerEnabled] = useState<boolean>(false)
@@ -412,6 +303,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
 
   return (
     <div className={css.serviceOverrides} key="1">
+      <DeployServiceErrors />
       <div className={css.contentSection} ref={scrollRef}>
         <Layout.Vertical>
           <div className={css.tabHeading} id="environment">
@@ -421,9 +313,12 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
             <StepWidget
               type={StepType.DeployEnvironment}
               readonly={isReadonly}
-              initialValues={get(stage, 'stage.spec.infrastructure', {})}
+              initialValues={{
+                environment: get(stage, 'stage.spec.infrastructure.environment', {}),
+                environmentRef: get(stage, 'stage.spec.infrastructure.environmentRef', '')
+              }}
               onUpdate={(value: PipelineInfrastructure) => {
-                const infraObj: PipelineInfrastructure = get(stage, 'stage.spec.infrastructure', {})
+                const infraObj = get(stage, 'stage.spec.infrastructure', {})
                 if (value.environment) {
                   infraObj.environment = value.environment
                   delete infraObj.environmentRef
@@ -441,14 +336,14 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
         <div className={css.tabHeading} id="infrastructureDefinition">
           <String stringID="pipelineSteps.deploy.infrastructure.infraDefinition" />
         </div>
-        <Card className={cx(css.sectionCard, css.shadow)}>
-          <div className={css.stepContainer}>
-            <div className={css.subheading}>
-              <String stringID="pipelineSteps.deploy.infrastructure.selectMethod" />
-            </div>
-            {renderInfraSelection()}
-          </div>
-        </Card>
+        <SelectDeploymentType
+          isReadonly={isReadonly}
+          selectedDeploymentType={selectedDeploymentType}
+          onChange={deploymentType => {
+            setSelectedDeploymentType(deploymentType)
+            resetInfrastructureDefinition(deploymentType, true)
+          }}
+        />
         {!!selectedDeploymentType && isProvisionerEnabled ? (
           <Accordion className={css.sectionCard} activeId="dynamicProvisioning">
             <Accordion.Panel

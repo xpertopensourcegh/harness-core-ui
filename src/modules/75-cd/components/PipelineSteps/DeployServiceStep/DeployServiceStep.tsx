@@ -17,7 +17,7 @@ import { useParams } from 'react-router-dom'
 import { Dialog } from '@blueprintjs/core'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
-import type { FormikErrors } from 'formik'
+import type { FormikErrors, FormikProps } from 'formik'
 import {
   ServiceConfig,
   useGetServiceListForProject,
@@ -40,6 +40,8 @@ import { NameIdDescriptionTags } from '@common/components'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { StageErrorContext } from '@pipeline/context/StageErrorContext'
+import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
 import css from './DeployServiceStep.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
@@ -239,20 +241,28 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
     permissions: [PermissionIdentifier.EDIT_SERVICE]
   })
 
+  const { subscribeForm, unSubscribeForm } = React.useContext(StageErrorContext)
+
+  const formikRef = React.useRef<FormikProps<unknown> | null>(null)
+
+  React.useEffect(() => {
+    subscribeForm({ tab: DeployTabs.SERVICE, form: formikRef })
+    return () => unSubscribeForm({ tab: DeployTabs.SERVICE, form: formikRef })
+  }, [])
+
   return (
     <>
       <Formik<DeployServiceData>
         onSubmit={noop}
         validate={values => {
-          const selectedValue = ((values.serviceRef as unknown) as SelectOption).value as string
-          if (selectedValue && !values.service) {
-            onUpdate?.({ ...omit(initialValues, 'service'), serviceRef: selectedValue })
+          if (!isEmpty(values.service)) {
+            onUpdate?.({ ...omit(values, 'serviceRef') })
           } else {
-            if (isEmpty(values.serviceRef)) {
-              onUpdate?.({ ...omit(initialValues, 'serviceRef') })
-            } else {
-              onUpdate?.({ ...omit(initialValues, 'service'), serviceRef: values.serviceRef })
-            }
+            const serviceRef =
+              typeof values.serviceRef === 'object'
+                ? ((values.serviceRef as SelectOption).value as string)
+                : values.serviceRef
+            onUpdate?.({ ...omit(values, 'service'), serviceRef })
           }
         }}
         initialValues={{
@@ -276,7 +286,10 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
           serviceRef: Yup.string().required(getString('pipelineSteps.serviceTab.serviceIsRequired'))
         })}
       >
-        {({ values, setFieldValue }) => {
+        {formik => {
+          window.dispatchEvent(new CustomEvent('UPDATE_ERRORS_STRIP', { detail: DeployTabs.SERVICE }))
+          const { values, setFieldValue } = formik
+          formikRef.current = formik
           return (
             <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
               <FormInput.MultiTypeInput

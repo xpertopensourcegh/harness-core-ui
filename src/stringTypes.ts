@@ -80,6 +80,7 @@ export interface StringsMap {
   'common.editVariable': string
   'common.editVariableType': string
   'common.enableGitSyncPipeline': string
+  'common.errorCount': string
   'common.errorHandler.issueCouldBe': string
   'common.errorHandler.tryTheseSuggestions': string
   'common.execute': string
@@ -244,6 +245,7 @@ export interface StringsMap {
   'common.savedSuccessfully': string
   'common.secretKey': string
   'common.secrets': string
+  'common.seeDetails': string
   'common.seeWhatChanged': string
   'common.selectBranch': string
   'common.selectStrategy': string
@@ -1534,6 +1536,7 @@ export interface StringsMap {
   'cd.namespaceValidation': string
   'cd.optionalConfig': string
   'cd.pathCannotBeEmpty': string
+  'cd.pipelineSteps.serviceTab.deploymentType': string
   'cd.releaseNameValidation': string
   'cd.scriptRequired': string
   'cd.secretManagerRequired': string

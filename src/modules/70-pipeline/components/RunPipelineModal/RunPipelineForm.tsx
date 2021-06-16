@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react'
 import type { MutateMethod } from 'restful-react'
 import * as Yup from 'yup'
-import { Tooltip, Intent, Dialog, Classes, RadioGroup, Radio, PopoverPosition } from '@blueprintjs/core'
+import { Tooltip, Dialog, Classes, RadioGroup, Radio, PopoverPosition } from '@blueprintjs/core'
 import {
   Button,
   Checkbox,
@@ -12,7 +12,6 @@ import {
   NestedAccordionProvider,
   Icon,
   useModalHook,
-  Utils,
   Heading,
   Color,
   Popover
@@ -59,6 +58,7 @@ import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/Sa
 import { useSaveToGitDialog, UseSaveSuccessResponse } from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
 import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { clearNullUndefined } from '@pipeline/pages/triggers/utils/TriggersWizardPageUtils'
+import { ErrorsStrip } from '@pipeline/components/ErrorsStrip/ErrorsStrip'
 import type { InputSetDTO } from '../InputSetForm/InputSetForm'
 import { InputSetSelector, InputSetSelectorProps } from '../InputSetSelector/InputSetSelector'
 import { clearRuntimeInput, validatePipeline, getErrorsList } from '../PipelineStudio/StepUtil'
@@ -518,39 +518,6 @@ function RunPipelineFormBasic({
   })
 
   const pipeline: NgPipeline | undefined = parse(pipelineResponse?.data?.yamlPipeline || '')?.pipeline
-  const renderErrors = React.useCallback(() => {
-    const { errorStrings, errorCount } = getErrorsList(formErrors)
-    if (!errorCount) {
-      return null
-    }
-    const errorString = `Errors: ${errorCount}`
-    return (
-      <Layout.Horizontal className={css.errorHeader}>
-        <Icon name="warning-sign" intent={Intent.DANGER} margin={{ right: 'small' }} />
-        <Text intent="danger">{errorString}</Text>
-        <Utils.WrapOptionalTooltip
-          tooltip={
-            <div className={css.runPipelineErrorDesc}>
-              {errorStrings.map((errorMessage, index) => (
-                <Text intent="danger" key={index} font={{ weight: 'semi-bold' }} className={css.runPipelineErrorLine}>
-                  {errorMessage}
-                </Text>
-              ))}
-            </div>
-          }
-          tooltipProps={{
-            position: PopoverPosition.BOTTOM,
-            inheritDarkTheme: true,
-            popoverClassName: css.runPipelineErrorPopover
-          }}
-        >
-          <Text font={{ size: 'small' }} margin={{ left: 'small' }}>
-            See details
-          </Text>
-        </Utils.WrapOptionalTooltip>
-      </Layout.Horizontal>
-    )
-  }, [formErrors])
 
   const valuesPipelineRef = useRef<NgPipeline>()
 
@@ -772,7 +739,7 @@ function RunPipelineFormBasic({
                       ></VisualYamlToggle>
                     </div>
                   </div>
-                  {renderErrors()}
+                  <ErrorsStrip formErrors={formErrors} />
                 </>
               )}
               {selectedView === SelectedView.VISUAL ? (

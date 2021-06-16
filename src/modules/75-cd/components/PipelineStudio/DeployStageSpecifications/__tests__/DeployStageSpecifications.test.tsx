@@ -12,6 +12,9 @@ import { CustomVariables } from '@pipeline/components/PipelineSteps/Steps/Custom
 import DeployStageSpecifications from '../DeployStageSpecifications'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
+jest.mock('@wings-software/monaco-yaml/lib/esm/languageservice/yamlLanguageService', () => ({
+  getLanguageService: jest.fn()
+}))
 
 factory.registerStep(new CustomVariables())
 

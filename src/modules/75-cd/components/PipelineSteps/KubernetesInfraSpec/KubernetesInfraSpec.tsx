@@ -16,7 +16,7 @@ import { useParams } from 'react-router-dom'
 import { debounce, noop, isEmpty, get } from 'lodash-es'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
-import { FormikErrors, yupToFormErrors } from 'formik'
+import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
 import { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
@@ -36,6 +36,8 @@ import { ModuleName } from 'framework/types/ModuleName'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
+import { StageErrorContext } from '@pipeline/context/StageErrorContext'
+import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
 import { getNameSpaceSchema, getReleaseNameSchema } from '../PipelineStepsUtil'
 import css from './KubernetesInfraSpec.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
@@ -90,6 +92,15 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
     releaseName: getReleaseNameSchema(getString)
   })
 
+  const { subscribeForm, unSubscribeForm } = React.useContext(StageErrorContext)
+
+  const formikRef = React.useRef<FormikProps<unknown> | null>(null)
+
+  React.useEffect(() => {
+    subscribeForm({ tab: DeployTabs.INFRASTRUCTURE, form: formikRef })
+    return () => unSubscribeForm({ tab: DeployTabs.INFRASTRUCTURE, form: formikRef })
+  }, [])
+
   return (
     <Layout.Vertical spacing="medium">
       <Formik
@@ -113,6 +124,8 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
         onSubmit={noop}
       >
         {formik => {
+          window.dispatchEvent(new CustomEvent('UPDATE_ERRORS_STRIP', { detail: DeployTabs.INFRASTRUCTURE }))
+          formikRef.current = formik
           return (
             <FormikForm>
               <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>

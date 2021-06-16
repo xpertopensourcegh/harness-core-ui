@@ -19,7 +19,7 @@ import { useParams } from 'react-router-dom'
 import { Dialog, FormGroup, Intent } from '@blueprintjs/core'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
-import type { FormikErrors } from 'formik'
+import type { FormikErrors, FormikProps } from 'formik'
 import {
   PipelineInfrastructure,
   useGetEnvironmentListForProject,
@@ -44,6 +44,8 @@ import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProp
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { StageErrorContext } from '@pipeline/context/StageErrorContext'
+import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
 import css from './DeployEnvStep.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
@@ -291,20 +293,28 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
     permissions: [PermissionIdentifier.EDIT_ENVIRONMENT]
   })
 
+  const { subscribeForm, unSubscribeForm } = React.useContext(StageErrorContext)
+
+  const formikRef = React.useRef<FormikProps<unknown> | null>(null)
+
+  React.useEffect(() => {
+    subscribeForm({ tab: DeployTabs.INFRASTRUCTURE, form: formikRef })
+    return () => unSubscribeForm({ tab: DeployTabs.INFRASTRUCTURE, form: formikRef })
+  }, [])
+
   return (
     <>
       <Formik<DeployEnvData>
         onSubmit={noop}
         validate={values => {
-          const selectedValue = ((values.environmentRef as unknown) as SelectOption).value as string
-          if (selectedValue && !values.environment) {
-            onUpdate?.({ ...omit(initialValues, 'environment'), environmentRef: selectedValue })
+          if (!isEmpty(values.environment)) {
+            onUpdate?.({ ...omit(values, 'environmentRef') })
           } else {
-            if (isEmpty(values.environmentRef)) {
-              onUpdate?.({ ...omit(initialValues, 'environmentRef') })
-            } else {
-              onUpdate?.({ ...omit(initialValues, 'environment'), environmentRef: values.environmentRef })
-            }
+            const environmentRef =
+              typeof values.environmentRef === 'object'
+                ? ((values.environmentRef as SelectOption).value as string)
+                : values.environmentRef
+            onUpdate?.({ ...omit(values, 'environment'), environmentRef })
           }
         }}
         initialValues={{
@@ -329,7 +339,10 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
           environmentRef: Yup.string().required(getString('pipelineSteps.environmentTab.environmentIsRequired'))
         })}
       >
-        {({ values, setFieldValue }) => {
+        {formik => {
+          window.dispatchEvent(new CustomEvent('UPDATE_ERRORS_STRIP', { detail: DeployTabs.INFRASTRUCTURE }))
+          formikRef.current = formik
+          const { values, setFieldValue } = formik
           return (
             <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
               <FormInput.MultiTypeInput

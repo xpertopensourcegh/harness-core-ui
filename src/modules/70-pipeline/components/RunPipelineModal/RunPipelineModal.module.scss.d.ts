@@ -31,12 +31,8 @@ declare const styles: {
   readonly runModal: string
   readonly crossIcon: string
   readonly dialog: string
-  readonly runPipelineErrorPopover: string
   readonly valueProviderRadio: string
   readonly selectedValueProvider: string
-  readonly runPipelineErrorDesc: string
-  readonly runPipelineErrorLine: string
-  readonly errorHeader: string
   readonly actionButtons: string
   readonly secondaryButton: string
   readonly footerCheckbox: string

@@ -1,6 +1,7 @@
 import React from 'react'
 import { PipelineStage } from '@pipeline/components/PipelineStages/PipelineStage'
 import type { StageElementWrapper } from 'services/cd-ng'
+import { DeployStageErrorProvider } from '@pipeline/context/StageErrorContext'
 import { EditStageView } from './EditStageView/EditStageView'
 import DeployStageSetupShell from '../DeployStageSetupShell/DeployStageSetupShell'
 
@@ -15,6 +16,10 @@ export class DeployStage extends PipelineStage<DeployStageProps> {
     if (minimal) {
       return <EditStageView isReadonly={false} {...stageProps} />
     }
-    return <DeployStageSetupShell />
+    return (
+      <DeployStageErrorProvider>
+        <DeployStageSetupShell />
+      </DeployStageErrorProvider>
+    )
   }
 }
