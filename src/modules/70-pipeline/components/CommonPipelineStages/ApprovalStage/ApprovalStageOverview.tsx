@@ -1,7 +1,8 @@
 import React, { useCallback, useRef } from 'react'
 import cx from 'classnames'
+import * as Yup from 'yup'
 import { Formik } from 'formik'
-import { cloneDeep, debounce } from 'lodash-es'
+import { cloneDeep, debounce, noop } from 'lodash-es'
 import { Accordion, Card, Container, FormikForm, Layout } from '@wings-software/uicore'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { NameIdDescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
@@ -59,13 +60,13 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
               skipCondition: cloneOriginalData?.stage.skipCondition,
               tags: cloneOriginalData?.stage.tags || {}
             }}
-            validationSchema={{
-              name: NameSchema({ requiredErrorMsg: getString('approvalStage.stageNameRequired') }),
+            validationSchema={Yup.object().shape({
+              name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.build.create.stageNameRequiredError') }),
               identifier: IdentifierSchema()
-            }}
+            })}
             validate={values => {
               const errors: { name?: string } = {}
-              if (isDuplicateStageId(values.identifier, stages)) {
+              if (isDuplicateStageId(values.identifier, stages, true)) {
                 errors.name = getString('validation.identifierDuplicate')
               }
               if (cloneOriginalData) {
@@ -79,17 +80,7 @@ export const ApprovalStageOverview: React.FC<ApprovalStageOverviewProps> = props
               }
               return errors
             }}
-            onSubmit={values => {
-              if (cloneOriginalData) {
-                updateStageDebounced({
-                  ...cloneOriginalData.stage,
-                  name: values?.name,
-                  identifier: values?.identifier,
-                  description: values?.description,
-                  skipCondition: values?.skipCondition
-                })
-              }
-            }}
+            onSubmit={() => noop}
           >
             {formikProps => (
               <FormikForm>

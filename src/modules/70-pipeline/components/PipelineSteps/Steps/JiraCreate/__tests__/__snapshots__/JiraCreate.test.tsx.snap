@@ -231,6 +231,60 @@ exports[`Jira Create tests Basic snapshot - deploymentform mode: jira-create-dep
         </div>
       </div>
     </div>
+    <div
+      class="bp3-form-group deploymentViewMedium"
+    >
+      <label
+        class="bp3-label"
+        for="spec.summary"
+      >
+        summary
+         
+        <span
+          class="bp3-text-muted"
+        />
+      </label>
+      <div
+        class="bp3-form-content"
+      >
+        <div
+          class="bp3-input-group"
+        >
+          <input
+            autocomplete="off"
+            class="bp3-input"
+            name="spec.summary"
+            placeholder="pipeline.jiraCreateStep.summaryPlaceholder"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="bp3-form-group deploymentViewMedium"
+    >
+      <label
+        class="bp3-label"
+        for="spec.description"
+      >
+        description
+         
+        <span
+          class="bp3-text-muted"
+        />
+      </label>
+      <div
+        class="bp3-form-content"
+      >
+        <textarea
+          autocomplete="off"
+          class="bp3-input bp3-fill"
+          name="spec.description"
+          placeholder="pipeline.enterDescription"
+        />
+      </div>
+    </div>
     <p
       class="StyledProps--font StyledProps--main"
     >
@@ -718,6 +772,65 @@ exports[`Jira Create tests Basic snapshot - inputset mode: input set with errors
         </div>
       </div>
     </div>
+    <div
+      class="bp3-form-group bp3-intent-danger deploymentViewMedium"
+    >
+      <label
+        class="bp3-label"
+        for="spec.summary"
+      >
+        summary
+         
+        <span
+          class="bp3-text-muted"
+        />
+      </label>
+      <div
+        class="bp3-form-content"
+      >
+        <div
+          class="bp3-input-group bp3-intent-danger"
+        >
+          <input
+            autocomplete="off"
+            class="bp3-input"
+            name="spec.summary"
+            placeholder="pipeline.jiraCreateStep.summaryPlaceholder"
+            type="text"
+            value=""
+          />
+        </div>
+        <div
+          class="bp3-form-helper-text"
+        >
+          pipeline.jiraCreateStep.validations.summary
+        </div>
+      </div>
+    </div>
+    <div
+      class="bp3-form-group deploymentViewMedium"
+    >
+      <label
+        class="bp3-label"
+        for="spec.description"
+      >
+        description
+         
+        <span
+          class="bp3-text-muted"
+        />
+      </label>
+      <div
+        class="bp3-form-content"
+      >
+        <textarea
+          autocomplete="off"
+          class="bp3-input bp3-fill"
+          name="spec.description"
+          placeholder="pipeline.enterDescription"
+        />
+      </div>
+    </div>
     <p
       class="StyledProps--font StyledProps--main"
     >
@@ -728,7 +841,8 @@ exports[`Jira Create tests Basic snapshot - inputset mode: input set with errors
   "spec": {
     "connectorRef": "pipeline.jiraApprovalStep.validations.connectorRef",
     "projectKey": "pipeline.jiraApprovalStep.validations.project",
-    "issueType": "pipeline.jiraApprovalStep.validations.issueType"
+    "issueType": "pipeline.jiraApprovalStep.validations.issueType",
+    "summary": "pipeline.jiraCreateStep.validations.summary"
   }
 }
     </pre>
@@ -975,6 +1089,60 @@ exports[`Jira Create tests Deploymentform readonly mode: jira-create-deploymentf
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div
+      class="bp3-form-group deploymentViewMedium"
+    >
+      <label
+        class="bp3-label"
+        for="spec.summary"
+      >
+        summary
+         
+        <span
+          class="bp3-text-muted"
+        />
+      </label>
+      <div
+        class="bp3-form-content"
+      >
+        <div
+          class="bp3-input-group"
+        >
+          <input
+            autocomplete="off"
+            class="bp3-input"
+            name="spec.summary"
+            placeholder="pipeline.jiraCreateStep.summaryPlaceholder"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="bp3-form-group deploymentViewMedium"
+    >
+      <label
+        class="bp3-label"
+        for="spec.description"
+      >
+        description
+         
+        <span
+          class="bp3-text-muted"
+        />
+      </label>
+      <div
+        class="bp3-form-content"
+      >
+        <textarea
+          autocomplete="off"
+          class="bp3-input bp3-fill"
+          name="spec.description"
+          placeholder="pipeline.enterDescription"
+        />
       </div>
     </div>
     <p

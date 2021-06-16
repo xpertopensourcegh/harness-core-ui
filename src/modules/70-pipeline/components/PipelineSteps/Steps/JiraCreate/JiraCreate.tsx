@@ -46,6 +46,10 @@ export class JiraCreate extends PipelineStep<JiraCreateData> {
   ): FormikErrors<JiraCreateData> {
     const errors: FormikErrors<JiraCreateData> = {}
 
+    const isSummaryRuntime =
+      getMultiTypeFromValue(template?.spec?.fields?.find(field => field.name === 'Summary')?.value as string) ===
+      MultiTypeInputType.RUNTIME
+
     if (
       typeof template?.spec?.connectorRef === 'string' &&
       getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME &&
@@ -75,6 +79,13 @@ export class JiraCreate extends PipelineStep<JiraCreateData> {
       errors.spec = {
         ...errors.spec,
         issueType: getString?.('pipeline.jiraApprovalStep.validations.issueType')
+      }
+    }
+
+    if (isSummaryRuntime && isEmpty(data?.spec?.summary)) {
+      errors.spec = {
+        ...errors.spec,
+        summary: getString?.('pipeline.jiraCreateStep.validations.summary')
       }
     }
 

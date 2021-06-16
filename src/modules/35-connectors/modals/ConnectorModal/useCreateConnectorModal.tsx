@@ -36,6 +36,7 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
   const [gitDetails, setGitDetails] = useState<IGitContextFormProps | undefined>()
   const [modalProps, setModalProps] = useState<IDialogProps>({
     isOpen: true,
+    enforceFocus: false,
     style: {
       width: 1175,
       minHeight: 640,

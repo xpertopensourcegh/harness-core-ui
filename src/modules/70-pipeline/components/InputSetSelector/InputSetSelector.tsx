@@ -45,13 +45,13 @@ const RenderValue = React.memo(function RenderValue({
   value,
   onChange,
   setSelectedInputSets,
-  setApplyInputSets,
+  setOpenInputSetsList,
   selectedValueClass
 }: {
   value: InputSetValue[]
   onChange?: (value?: InputSetValue[]) => void
   setSelectedInputSets: Dispatch<SetStateAction<InputSetValue[]>>
-  setApplyInputSets: Dispatch<SetStateAction<boolean>>
+  setOpenInputSetsList: Dispatch<SetStateAction<boolean>>
   selectedValueClass?: string
 }): JSX.Element {
   const onDragStart = React.useCallback((event: React.DragEvent<HTMLLIElement>, row: InputSetValue) => {
@@ -88,8 +88,8 @@ const RenderValue = React.memo(function RenderValue({
           const droppedItem = selected.filter(item => item.value === dropInputSet.value)[0]
           if (droppedItem) {
             const droppedItemIndex = selected.indexOf(droppedItem)
-            selected.splice(droppedItemIndex, 1)
             const droppedLocationIndex = selected.indexOf(droppedLocation)
+            selected.splice(droppedItemIndex, 1)
             selected.splice(droppedLocationIndex, 0, droppedItem)
             onChange?.(selected)
           }
@@ -157,7 +157,7 @@ const RenderValue = React.memo(function RenderValue({
       <Button
         icon="small-plus"
         className={css.addInputSetButton}
-        onClick={() => setApplyInputSets(false)}
+        onClick={() => setOpenInputSetsList(false)}
         color={Color.PRIMARY_7}
         minimal
         intent="primary"
@@ -167,6 +167,25 @@ const RenderValue = React.memo(function RenderValue({
     </div>
   )
 })
+
+const InputSetGitDetails = ({ gitDetails }: { gitDetails: GitQueryParams }) => {
+  return (
+    <Layout.Vertical margin={{ left: 'xsmall' }} spacing="small">
+      <Layout.Horizontal spacing="xsmall">
+        <Icon name="repository" size={12}></Icon>
+        <Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
+          {gitDetails?.repoIdentifier || ''}
+        </Text>
+      </Layout.Horizontal>
+      <Layout.Horizontal spacing="xsmall">
+        <Icon size={12} name="git-new-branch"></Icon>
+        <Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
+          {gitDetails?.branch || ''}
+        </Text>
+      </Layout.Horizontal>
+    </Layout.Vertical>
+  )
+}
 
 export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
   value,
@@ -229,24 +248,54 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
     showError(error.message)
   }
 
-  const showGitDeailsForInputSet = (gitDetails?: GitQueryParams) => (
-    <Layout.Vertical margin={{ left: 'xsmall' }} spacing="small">
-      <Layout.Horizontal spacing="xsmall">
-        <Icon name="repository" size={12}></Icon>
-        <Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
-          {gitDetails?.repoIdentifier || ''}
-        </Text>
-      </Layout.Horizontal>
-      <Layout.Horizontal spacing="xsmall">
-        <Icon size={12} name="git-new-branch"></Icon>
-        <Text font={{ size: 'small', weight: 'light' }} color={Color.GREY_450}>
-          {gitDetails?.branch || ''}
-        </Text>
-      </Layout.Horizontal>
-    </Layout.Vertical>
-  )
-
   const inputSets = inputSetResponse?.data?.content
+
+  const onDragStartPreSelect = React.useCallback((event: React.DragEvent<HTMLLIElement>, row: InputSetValue) => {
+    event.dataTransfer.setData('data', JSON.stringify(row))
+    event.currentTarget.classList.add(css.dragging)
+  }, [])
+
+  const onDragEndPreSelect = React.useCallback((event: React.DragEvent<HTMLLIElement>) => {
+    event.currentTarget.classList.remove(css.dragging)
+  }, [])
+
+  const onDragLeavePreSelect = React.useCallback((event: React.DragEvent<HTMLLIElement>) => {
+    event.currentTarget.classList.remove(css.dragOver)
+  }, [])
+
+  const onDragOverPreSelect = React.useCallback((event: React.DragEvent<HTMLLIElement>) => {
+    if (event.preventDefault) {
+      event.preventDefault()
+    }
+    event.currentTarget.classList.add(css.dragOver)
+    event.dataTransfer.dropEffect = 'move'
+  }, [])
+
+  const onDropPreSelect = React.useCallback(
+    (event: React.DragEvent<HTMLLIElement>, droppedLocation: InputSetValue) => {
+      if (event.preventDefault) {
+        event.preventDefault()
+      }
+      const data = event.dataTransfer.getData('data')
+      if (data) {
+        try {
+          const dropInputSet: InputSetValue = JSON.parse(data)
+          const clonedSelectedInputSets = clone(selectedInputSets)
+          const droppedItem = clonedSelectedInputSets.filter(item => item.value === dropInputSet.value)[0]
+          if (droppedItem) {
+            const droppedItemIndex = clonedSelectedInputSets.indexOf(droppedItem)
+            const droppedLocationIndex = clonedSelectedInputSets.indexOf(droppedLocation)
+            clonedSelectedInputSets.splice(droppedItemIndex, 1)
+            clonedSelectedInputSets.splice(droppedLocationIndex, 0, droppedItem)
+            setSelectedInputSets(clonedSelectedInputSets)
+          }
+          // eslint-disable-next-line no-empty
+        } catch {}
+      }
+      event.currentTarget.classList.remove(css.dragOver)
+    },
+    [selectedInputSets]
+  )
 
   const selectedMultipleList = selectedInputSets.map((selected, index) => (
     <li
@@ -255,6 +304,14 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
         onCheckBoxHandler(false, selected.label, selected.value as string, selected.type, selected.gitDetails ?? {})
       }}
       key={`${index}-${selected.value as string}`}
+      draggable={true}
+      onDragStart={event => {
+        onDragStartPreSelect(event, selected)
+      }}
+      onDragEnd={onDragEndPreSelect}
+      onDragOver={onDragOverPreSelect}
+      onDragLeave={onDragLeavePreSelect}
+      onDrop={event => onDropPreSelect(event, selected)}
     >
       <Layout.Horizontal flex={{ distribution: 'space-between' }}>
         <Checkbox
@@ -275,7 +332,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
             )
           }}
         />
-        {selected.gitDetails?.repoIdentifier && showGitDeailsForInputSet(selected.gitDetails)}
+        {selected.gitDetails?.repoIdentifier ? <InputSetGitDetails gitDetails={selected.gitDetails} /> : null}
         <span className={css.order}>
           <Text className={css.orderText}>{index + 1}</Text>
           <Icon name="main-reorder" size={12} />
@@ -329,12 +386,12 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
                 )
               }}
             />
-            {inputSet.gitDetails?.repoIdentifier && showGitDeailsForInputSet(inputSet.gitDetails)}
+            {inputSet.gitDetails?.repoIdentifier ? <InputSetGitDetails gitDetails={inputSet.gitDetails} /> : null}
           </Layout.Horizontal>
         </li>
       ))
 
-  const [applyInputSets, setApplyInputSets] = useState(false)
+  const [openInputSetsList, setOpenInputSetsList] = useState(false)
   return (
     <Popover
       position={Position.BOTTOM}
@@ -352,10 +409,10 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
         value={value || []}
         onChange={onChange}
         setSelectedInputSets={setSelectedInputSets}
-        setApplyInputSets={setApplyInputSets}
+        setOpenInputSetsList={setOpenInputSetsList}
         selectedValueClass={selectedValueClass}
       />
-      {applyInputSets ? null : (
+      {openInputSetsList ? null : (
         <Layout.Vertical spacing="small" className={css.popoverContainer}>
           <div className={!inputSets ? css.loadingSearchContainer : css.searchContainer}>
             <TextInput
@@ -389,7 +446,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
                     intent="primary"
                     disabled={!selectedInputSets?.length}
                     onClick={() => {
-                      setApplyInputSets(true)
+                      setOpenInputSetsList(true)
                       onChange?.(selectedInputSets)
                     }}
                   />

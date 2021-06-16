@@ -202,6 +202,28 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
           }}
         />
       ) : null}
+
+      {getMultiTypeFromValue(template?.spec?.fields?.find(field => field.name === 'Summary')?.value as string) ===
+      MultiTypeInputType.RUNTIME ? (
+        <FormInput.Text
+          label={getString('summary')}
+          className={css.deploymentViewMedium}
+          name={`${prefix}spec.summary`}
+          disabled={isApprovalStepFieldDisabled(readonly)}
+          placeholder={getString('pipeline.jiraCreateStep.summaryPlaceholder')}
+        />
+      ) : null}
+
+      {getMultiTypeFromValue(template?.spec?.fields?.find(field => field.name === 'Description')?.value as string) ===
+      MultiTypeInputType.RUNTIME ? (
+        <FormInput.TextArea
+          label={getString('description')}
+          className={css.deploymentViewMedium}
+          name={`${prefix}spec.description`}
+          disabled={isApprovalStepFieldDisabled(readonly)}
+          placeholder={getString('pipeline.enterDescription')}
+        />
+      ) : null}
     </React.Fragment>
   )
 }

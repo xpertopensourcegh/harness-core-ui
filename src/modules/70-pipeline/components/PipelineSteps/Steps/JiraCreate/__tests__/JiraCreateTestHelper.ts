@@ -50,7 +50,16 @@ export const getJiraCreateDeploymentModeProps = (): JiraCreateDeploymentModeProp
       connectorRef: '',
       projectKey: '',
       issueType: '',
-      fields: []
+      fields: [
+        {
+          name: 'Summary',
+          value: ''
+        },
+        {
+          name: 'Description',
+          value: ''
+        }
+      ]
     }
   },
   inputSetData: {
@@ -60,7 +69,16 @@ export const getJiraCreateDeploymentModeProps = (): JiraCreateDeploymentModeProp
         connectorRef: RUNTIME_INPUT_VALUE,
         projectKey: RUNTIME_INPUT_VALUE,
         issueType: RUNTIME_INPUT_VALUE,
-        fields: []
+        fields: [
+          {
+            name: 'Summary',
+            value: RUNTIME_INPUT_VALUE
+          },
+          {
+            name: 'Description',
+            value: RUNTIME_INPUT_VALUE
+          }
+        ]
       }
     }
   },

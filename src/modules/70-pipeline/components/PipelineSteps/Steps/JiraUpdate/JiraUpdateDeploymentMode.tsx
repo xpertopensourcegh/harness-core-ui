@@ -149,8 +149,8 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
               ...initialValues,
               spec: {
                 ...initialValues.spec,
-                transitionTo: initialValues.spec.transitionTo
-                  ? { ...initialValues.spec.transitionTo, status: (opt as SelectOption).value?.toString() }
+                transitionTo: initialValues?.spec?.transitionTo
+                  ? { ...initialValues?.spec?.transitionTo, status: (opt as SelectOption).value?.toString() }
                   : undefined
               }
             })
@@ -158,7 +158,7 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
         />
       ) : null}
 
-      {getMultiTypeFromValue(template?.spec.transitionTo?.transitionName) === MultiTypeInputType.RUNTIME ? (
+      {getMultiTypeFromValue(template?.spec?.transitionTo?.transitionName) === MultiTypeInputType.RUNTIME ? (
         <FormInput.Text
           placeholder={getString('pipeline.jiraUpdateStep.transitionLabel')}
           className={css.deploymentViewMedium}

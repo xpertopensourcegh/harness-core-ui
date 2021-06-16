@@ -43,7 +43,7 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
     identifier: '',
     timeout: '1d',
     spec: {
-      approvalMessage: '',
+      approvalMessage: 'Please review the following information and approve the pipeline progression',
       includePipelineExecutionHistory: true,
       approvers: {
         userGroups: [],

@@ -545,6 +545,9 @@ function RunPipelineFormBasic({
 
   const handleRunPipeline = React.useCallback(
     async (valuesPipeline?: NgPipeline, forceSkipFlightCheck = false) => {
+      if (Object.keys(formErrors).length) {
+        return
+      }
       valuesPipelineRef.current = valuesPipeline
       if (!skipPreFlightCheck && !forceSkipFlightCheck) {
         // Not skipping pre-flight check - open the new modal
@@ -588,7 +591,8 @@ function RunPipelineFormBasic({
       projectIdentifier,
       onClose,
       accountId,
-      skipPreFlightCheck
+      skipPreFlightCheck,
+      formErrors
     ]
   )
 
@@ -736,7 +740,7 @@ function RunPipelineFormBasic({
                           callback(nextMode)
                         }}
                         disableYaml={!template?.data?.inputSetTemplateYaml}
-                      ></VisualYamlToggle>
+                      />
                     </div>
                   </div>
                   <ErrorsStrip formErrors={formErrors} />
@@ -874,7 +878,7 @@ function RunPipelineFormBasic({
                       schema={{}}
                       invocationMap={factory.getInvocationMap()}
                       height="55vh"
-                      width="32vw"
+                      width="100%"
                       showSnippetSection={false}
                       isEditModeSupported={canEdit}
                     />

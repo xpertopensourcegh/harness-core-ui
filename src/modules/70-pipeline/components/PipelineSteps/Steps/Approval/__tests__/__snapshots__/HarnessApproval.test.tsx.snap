@@ -327,7 +327,7 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
       class="StyledProps--font Text--lineclamp StyledProps--main"
       style="--text-line-clamp: 1;"
     >
-      
+      Please review the following information and approve the pipeline progression
     </p>
     <div
       class="main"
