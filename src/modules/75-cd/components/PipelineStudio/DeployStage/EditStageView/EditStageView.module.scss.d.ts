@@ -8,6 +8,7 @@ declare const styles: {
   readonly createModal: string
   readonly squareCard: string
   readonly stageCreate: string
+  readonly padding: string
   readonly btnSetup: string
   readonly stageSection: string
   readonly stagePopover: string

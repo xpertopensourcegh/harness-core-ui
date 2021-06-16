@@ -93,7 +93,7 @@ export const EditStageView: React.FC<EditStageView> = ({
 
   return (
     <div className={cx({ [css.contentSection]: context })} ref={scrollRef}>
-      <div className={cx({ [css.stageCreate]: true, [css.stageDetails]: !!context })}>
+      <div className={cx({ [css.stageCreate]: true, [css.stageDetails]: !!context, [css.padding]: !context })}>
         {context ? (
           <div className={css.tabHeading} id="stageOverview">
             {getString('stageOverview')}

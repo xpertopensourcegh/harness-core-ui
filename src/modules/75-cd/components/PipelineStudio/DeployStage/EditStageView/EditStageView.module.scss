@@ -34,6 +34,10 @@
   max-width: 1024px;
 }
 
+.padding {
+  padding: var(--spacing-xlarge);
+}
+
 .btn-setup {
   padding-top: var(--spacing-medium);
 }
