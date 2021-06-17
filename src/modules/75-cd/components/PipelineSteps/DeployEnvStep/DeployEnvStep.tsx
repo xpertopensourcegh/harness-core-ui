@@ -177,8 +177,15 @@ interface DeployEnvironmentState {
 }
 
 function isEditEnvironment(data: DeployEnvData): boolean {
-  if (getMultiTypeFromValue(data.environmentRef) !== MultiTypeInputType.RUNTIME && !isEmpty(data.environmentRef)) {
-    return true
+  if (getMultiTypeFromValue(data.environmentRef) !== MultiTypeInputType.RUNTIME) {
+    if (typeof data.environmentRef === 'object') {
+      const environmentRef = (data.environmentRef as SelectOption).value as string
+      if (!isEmpty(environmentRef)) {
+        return true
+      }
+    } else if (!isEmpty(data.environmentRef)) {
+      return true
+    }
   } else if (data.environment && !isEmpty(data.environment.identifier)) {
     return true
   }
@@ -316,15 +323,6 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
                 : values.environmentRef
             onUpdate?.({ ...omit(values, 'environment'), environmentRef })
           }
-          const errors: { [key: string]: string } = {}
-          if (typeof values.environmentRef === 'object') {
-            if (isEmpty((values.environmentRef as SelectOption).value as string)) {
-              errors.environmentRef = getString('pipelineSteps.environmentTab.environmentIsRequired')
-            }
-          } else if (isEmpty(values.environmentRef)) {
-            errors.environmentRef = getString('pipelineSteps.environmentTab.environmentIsRequired')
-          }
-          return errors
         }}
         initialValues={{
           ...initialValues,
@@ -344,6 +342,25 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
             : {})
         }}
         enableReinitialize
+        validationSchema={Yup.object().shape({
+          environmentRef: Yup.lazy(
+            (value): Yup.Schema<unknown> => {
+              if (typeof value === 'string') {
+                return Yup.string().trim().required(getString('pipelineSteps.environmentTab.environmentIsRequired'))
+              }
+              return Yup.object().test({
+                test(valueObj: SelectOption): boolean | Yup.ValidationError {
+                  if (isEmpty(valueObj) || isEmpty(valueObj.value)) {
+                    return this.createError({
+                      message: getString('pipelineSteps.environmentTab.environmentIsRequired')
+                    })
+                  }
+                  return true
+                }
+              })
+            }
+          )
+        })}
       >
         {formik => {
           window.dispatchEvent(new CustomEvent('UPDATE_ERRORS_STRIP', { detail: DeployTabs.INFRASTRUCTURE }))

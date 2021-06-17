@@ -134,8 +134,15 @@ interface DeployServiceState {
 }
 
 function isEditService(data: DeployServiceData): boolean {
-  if (getMultiTypeFromValue(data.serviceRef) !== MultiTypeInputType.RUNTIME && !isEmpty(data.serviceRef)) {
-    return true
+  if (getMultiTypeFromValue(data.serviceRef) !== MultiTypeInputType.RUNTIME) {
+    if (typeof data.serviceRef === 'object') {
+      const serviceRef = (data.serviceRef as SelectOption).value as string
+      if (!isEmpty(serviceRef)) {
+        return true
+      }
+    } else if (!isEmpty(data.serviceRef)) {
+      return true
+    }
   } else if (data.service && !isEmpty(data.service.identifier)) {
     return true
   }
@@ -264,15 +271,6 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
                 : values.serviceRef
             onUpdate?.({ ...omit(values, 'service'), serviceRef })
           }
-          const errors: { [key: string]: string } = {}
-          if (typeof values.serviceRef === 'object') {
-            if (isEmpty((values.serviceRef as SelectOption).value as string)) {
-              errors.serviceRef = getString('pipelineSteps.serviceTab.serviceIsRequired')
-            }
-          } else if (isEmpty(values.serviceRef)) {
-            errors.serviceRef = getString('pipelineSteps.serviceTab.serviceIsRequired')
-          }
-          return errors
         }}
         initialValues={{
           ...initialValues,
@@ -291,6 +289,25 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
             : {})
         }}
         enableReinitialize
+        validationSchema={Yup.object().shape({
+          serviceRef: Yup.lazy(
+            (value): Yup.Schema<unknown> => {
+              if (typeof value === 'string') {
+                return Yup.string().trim().required(getString('pipelineSteps.serviceTab.serviceIsRequired'))
+              }
+              return Yup.object().test({
+                test(valueObj: SelectOption): boolean | Yup.ValidationError {
+                  if (isEmpty(valueObj) || isEmpty(valueObj.value)) {
+                    return this.createError({
+                      message: getString('pipelineSteps.serviceTab.serviceIsRequired')
+                    })
+                  }
+                  return true
+                }
+              })
+            }
+          )
+        })}
       >
         {formik => {
           window.dispatchEvent(new CustomEvent('UPDATE_ERRORS_STRIP', { detail: DeployTabs.SERVICE }))
