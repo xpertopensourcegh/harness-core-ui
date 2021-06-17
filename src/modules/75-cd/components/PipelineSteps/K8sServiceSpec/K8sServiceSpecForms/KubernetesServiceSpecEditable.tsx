@@ -5,6 +5,7 @@ import WorkflowVariables from '@pipeline/components/WorkflowVariablesSelection/W
 import ArtifactsSelection from '@pipeline/components/ArtifactsSelection/ArtifactsSelection'
 import ManifestSelection from '@pipeline/components/ManifestSelection/ManifestSelection'
 import { useStrings } from 'framework/strings'
+import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
 import { setupMode } from '../K8sServiceSpecHelper'
 import type { KubernetesServiceInputFormProps } from '../K8sServiceSpecInterface'
 import css from '../K8sServiceSpec.module.scss'
@@ -49,7 +50,12 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
         </div>
         <Card className={cx(css.sectionCard, css.shadow)} id={getString('variablesText')}>
           <div className={css.tabSubHeading}>{getString('variablesText')}</div>
-          <WorkflowVariables factory={factory as any} isPropagating={isPropagating} readonly={readonly} />
+          <WorkflowVariables
+            tabName={DeployTabs.SERVICE}
+            factory={factory as any}
+            isPropagating={isPropagating}
+            readonly={readonly}
+          />
         </Card>
       </div>
     </div>

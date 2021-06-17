@@ -137,6 +137,10 @@
 }
 
 .custom-variables-input-sets {
+  padding: var(--spacing-large);
+  margin: 0 var(--spacing-large);
+  background-color: var(--white);
+
   .variable-list-table {
     display: grid;
     grid-auto-flow: column;

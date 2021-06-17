@@ -9,7 +9,6 @@ import {
   Card,
   CardSelectType,
   CardSelect,
-  Layout,
   Accordion,
   HarnessDocTooltip
 } from '@wings-software/uicore'
@@ -269,37 +268,36 @@ export const EditStageView: React.FC<EditStageView> = ({
                     Stage Variables
                     <HarnessDocTooltip tooltipId="overviewStageVariables" useStandAlone={true} />
                   </div>
-                  <Layout.Horizontal>
-                    <div className={css.stageSection}>
-                      <div className={cx(css.stageDetails)}>
-                        {context ? (
-                          <StepWidget<CustomVariablesData, CustomVariableEditableExtraProps>
-                            factory={stepsFactory}
-                            initialValues={{
-                              variables: allNGVariables,
-                              canAddVariable: true
-                            }}
-                            readonly={isReadonly}
-                            type={StepType.CustomVariable}
-                            stepViewType={StepViewType.StageVariable}
-                            onUpdate={({ variables }: CustomVariablesData) => {
-                              onChange?.({ ...data?.stage, variables } as StageElementConfig)
-                            }}
-                            customStepProps={{
-                              yamlProperties:
-                                getStageFromPipeline(
-                                  data?.stage?.identifier,
-                                  variablesPipeline
-                                )?.stage?.stage?.variables?.map?.(
-                                  (variable: AllNGVariables) => metadataMap[variable.value || '']?.yamlProperties || {}
-                                ) || [],
-                              enableValidation: true
-                            }}
-                          />
-                        ) : null}
-                      </div>
+                  <div className={css.stageSection}>
+                    <div className={cx(css.stageDetails)}>
+                      {context ? (
+                        <StepWidget<CustomVariablesData, CustomVariableEditableExtraProps>
+                          factory={stepsFactory}
+                          initialValues={{
+                            variables: allNGVariables,
+                            canAddVariable: true
+                          }}
+                          readonly={isReadonly}
+                          type={StepType.CustomVariable}
+                          stepViewType={StepViewType.StageVariable}
+                          onUpdate={({ variables }: CustomVariablesData) => {
+                            onChange?.({ ...data?.stage, variables } as StageElementConfig)
+                          }}
+                          customStepProps={{
+                            tabName: DeployTabs.OVERVIEW,
+                            yamlProperties:
+                              getStageFromPipeline(
+                                data?.stage?.identifier,
+                                variablesPipeline
+                              )?.stage?.stage?.variables?.map?.(
+                                (variable: AllNGVariables) => metadataMap[variable.value || '']?.yamlProperties || {}
+                              ) || [],
+                            enableValidation: true
+                          }}
+                        />
+                      ) : null}
                     </div>
-                  </Layout.Horizontal>
+                  </div>
                 </Card>
               }
             />

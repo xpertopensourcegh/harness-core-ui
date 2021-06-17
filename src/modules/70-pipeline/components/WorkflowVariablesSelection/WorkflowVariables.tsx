@@ -26,6 +26,7 @@ export interface WorkflowVariablesProps {
   isForPredefinedSets?: boolean
   overrideSetIdentifier?: string
   isPropagating?: boolean
+  tabName?: string
   factory: AbstractStepFactory
   readonly?: boolean
 }
@@ -36,6 +37,7 @@ export default function WorkflowVariables({
   isForPredefinedSets = false,
   overrideSetIdentifier = '',
   isPropagating = false,
+  tabName,
   factory,
   readonly
 }: WorkflowVariablesProps): JSX.Element {
@@ -165,6 +167,7 @@ export default function WorkflowVariables({
             updateVariables(variables)
           }}
           customStepProps={{
+            tabName,
             yamlProperties: getYamlPropertiesForVariables().map(
               variable => metadataMap[variable.value || '']?.yamlProperties || {}
             ),

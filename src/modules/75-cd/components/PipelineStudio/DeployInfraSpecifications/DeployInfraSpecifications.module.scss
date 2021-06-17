@@ -1,8 +1,5 @@
 .serviceOverrides {
   display: grid;
-  // grid-template-columns: auto 1fr;
-  // tabs height 50px + margin-top 20px = 70px
-  height: calc(100% - 70px);
   :global {
     .bp3-tab-panel {
       margin: 0;

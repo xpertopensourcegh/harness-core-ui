@@ -74,7 +74,7 @@ export function DeployStageErrorProvider(props: DeployStageErrorProviderProps): 
         let errors = {}
         let errorsCount = 0
         values.forEach(value => {
-          errorsCount += Object.keys(value!).length
+          errorsCount += Object.keys(value ?? {}).length
           errors = merge(errors, value)
         })
         setState({ ...state, errors })

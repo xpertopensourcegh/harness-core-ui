@@ -30,6 +30,7 @@ export interface CustomVariablesData {
 export interface CustomVariableEditableExtraProps {
   variableNamePrefix?: string
   domId?: string
+  tabName?: string
   heading?: React.ReactNode
   className?: string
   yamlProperties?: YamlProperties[]
