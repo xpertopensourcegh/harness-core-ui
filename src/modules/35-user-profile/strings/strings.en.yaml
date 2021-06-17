@@ -2,6 +2,7 @@ mysourceCodeManagers: My Source Code Managers
 basicInformation: Basic Information
 changePassword: Change Password
 passwordReqs: 'Password must meet the requirements.'
+passwordMustBeBetweenMinAndMax: The password must be between {{ min }} and {{ max }} characters long
 passwordMatch: 'Passwords must match.'
 currentPassword: 'Current Password'
 requiredField: 'is a required field.'

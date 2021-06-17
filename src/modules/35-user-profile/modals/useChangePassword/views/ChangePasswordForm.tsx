@@ -15,7 +15,7 @@ import {
 import { Divider } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import PasswordChecklist from '@common/components/PasswordChecklist/PasswordChecklist'
-import { PASSWORD_CHECKS_RGX } from '@common/constants/Utils'
+import { PASSWORD_CHECKS_RGX, MIN_NUMBER_OF_CHARACTERS, MAX_NUMBER_OF_CHARACTERS } from '@common/constants/Utils'
 import { useChangeUserPassword } from 'services/cd-ng'
 import type { PasswordStrengthPolicy } from 'services/cd-ng'
 import { useToaster } from '@common/components'
@@ -122,7 +122,15 @@ const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({ hideModal, pass
             .required(`${getString('userProfile.currentPassword')} ${getString('userProfile.requiredField')}`),
           newPassword: yup
             .string()
-            .matches(PASSWORD_CHECKS_RGX(passwordStrengthPolicy), getString('userProfile.passwordReqs'))
+            .matches(
+              PASSWORD_CHECKS_RGX(passwordStrengthPolicy),
+              passwordStrengthPolicy.enabled
+                ? getString('userProfile.passwordReqs')
+                : getString('userProfile.passwordMustBeBetweenMinAndMax', {
+                    min: MIN_NUMBER_OF_CHARACTERS,
+                    max: MAX_NUMBER_OF_CHARACTERS
+                  })
+            )
             .test(
               'passwords-should-not-be-same',
               getString('userProfile.newPasswordShouldNotBeCurrentPassword'),

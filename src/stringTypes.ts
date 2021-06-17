@@ -907,6 +907,7 @@ export interface StringsMap {
   'userProfile.noProjects': string
   'userProfile.passwordChangedSuccessfully': string
   'userProfile.passwordMatch': string
+  'userProfile.passwordMustBeBetweenMinAndMax': string
   'userProfile.passwordReqs': string
   'userProfile.plusSCM': string
   'userProfile.qrCode': string
