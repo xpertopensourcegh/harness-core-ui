@@ -1,5 +1,5 @@
 .status {
-  --execution-status-color: var(--green-500);
+  --execution-status-color: var(--grey-350);
   white-space: nowrap !important;
   font-size: var(--font-size-xsmall);
   color: var(--execution-status-color) !important;
@@ -20,12 +20,12 @@
   &.errored,
   &.rejected,
   &.expired,
-  &.approvalrejected,
-  &.ignorefailed {
+  &.approvalrejected {
     --execution-status-color: var(--red-500);
   }
 
-  &.success {
+  &.success,
+  &.ignorefailed {
     --execution-status-color: var(--green-500);
   }
 
