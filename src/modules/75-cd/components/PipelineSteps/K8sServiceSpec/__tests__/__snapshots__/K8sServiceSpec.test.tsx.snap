@@ -144,6 +144,7 @@ exports[`StepWidget tests renders ServiceStep for Service Tab  1`] = `
               <section />
               <p
                 class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+                data-test-id="addManifest"
                 style="cursor: pointer;"
               >
                 <span>

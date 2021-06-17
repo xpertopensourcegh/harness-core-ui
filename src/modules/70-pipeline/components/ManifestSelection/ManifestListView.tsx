@@ -728,6 +728,7 @@ const ManifestListView = ({
             intent="primary"
             style={{ cursor: 'pointer', marginBottom: 'var(--spacing-medium)' }}
             onClick={() => addNewManifest()}
+            data-test-id="addManifest"
           >
             <String stringID="pipelineSteps.serviceTab.manifestList.addManifest" />
           </Text>

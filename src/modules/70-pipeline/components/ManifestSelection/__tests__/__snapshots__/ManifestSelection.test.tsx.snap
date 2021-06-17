@@ -737,6 +737,7 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
       </section>
       <p
         class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+        data-test-id="addManifest"
         style="cursor: pointer;"
       >
         <span>
@@ -1310,6 +1311,7 @@ exports[`ManifestSelection tests edit manifest list works correctly 1`] = `
       </section>
       <p
         class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+        data-test-id="addManifest"
         style="cursor: pointer;"
       >
         <span>
@@ -2058,6 +2060,7 @@ exports[`ManifestSelection tests renders Manifest Listview with connectors Data 
       </section>
       <p
         class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+        data-test-id="addManifest"
         style="cursor: pointer;"
       >
         <span>
@@ -2820,6 +2823,7 @@ exports[`ManifestSelection tests renders Manifest Listview without crashing 1`] 
       </section>
       <p
         class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+        data-test-id="addManifest"
         style="cursor: pointer;"
       >
         <span>
@@ -2845,6 +2849,7 @@ exports[`ManifestSelection tests renders add Manifest option without crashing 1`
         <section />
         <p
           class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+          data-test-id="addManifest"
           style="cursor: pointer;"
         >
           <span>
@@ -2871,6 +2876,7 @@ exports[`ManifestSelection tests renders without crashing 1`] = `
         <section />
         <p
           class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+          data-test-id="addManifest"
           style="cursor: pointer;"
         >
           <span>

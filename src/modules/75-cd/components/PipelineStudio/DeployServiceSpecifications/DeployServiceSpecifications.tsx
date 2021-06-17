@@ -371,6 +371,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
             className={cx(css.stageSelectionGrid, {
               [css.selected]: setupModeType === setupMode.PROPAGATE
             })}
+            data-test-id="propagateFromExistingStage"
           >
             <div className={css.cardTitleContainer}>
               <div className={css.cardTitleColumn}>
@@ -418,6 +419,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
             className={cx(css.stageSelectionGrid, css.sectionDiff, {
               [css.selected]: setupModeType === setupMode.DIFFERENT
             })}
+            data-test-id="newConfiguration"
           >
             <div className={css.cardTitleContainer}>
               <div className={css.cardTitleColumn}>
