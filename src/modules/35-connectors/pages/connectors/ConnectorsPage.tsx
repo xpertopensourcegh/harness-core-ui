@@ -109,7 +109,8 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     pageSize: 10,
     projectIdentifier,
     orgIdentifier,
-    accountIdentifier: accountId
+    accountIdentifier: accountId,
+    searchTerm: ''
   }
   const history = useHistory()
   useDocumentTitle(getString('connectorsLabel'))
@@ -184,37 +185,50 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     [fetchConnectors]
   )
 
+  /* Different ways to trigger filter search */
+
+  /* Initial page load and through page browsing*/
+  useEffect(() => {
+    const updatedQueryParams = {
+      ...(shouldApplyGitFilters ? queryParamsWithGitContext : defaultQueryParams),
+      projectIdentifier,
+      orgIdentifier,
+      searchTerm,
+      pageIndex: page
+    }
+    refetchConnectorList(updatedQueryParams, appliedFilter?.filterProperties)
+  }, [page, projectIdentifier, orgIdentifier])
+
+  /* Through git filter */
   useEffect(() => {
     const shouldApply = isGitSyncEnabled && !!gitFilter.repo && !!gitFilter.branch
+    const updatedQueryParams = { ...defaultQueryParams, repoIdentifier: gitFilter.repo, branch: gitFilter.branch }
+    refetchConnectorList(shouldApply ? updatedQueryParams : defaultQueryParams, appliedFilter?.filterProperties)
     setShouldApplyGitFilters(shouldApply)
-    setQueryParamsWithGitContext({
-      ...defaultQueryParams,
-      ...(shouldApply ? { repoIdentifier: gitFilter.repo, branch: gitFilter.branch } : {})
-    })
+    setQueryParamsWithGitContext(updatedQueryParams)
   }, [gitFilter])
-
-  useEffect(() => {
-    refetchConnectorList(
-      Object.assign(
-        { searchTerm },
-        { ...(shouldApplyGitFilters ? queryParamsWithGitContext : defaultQueryParams) },
-        appliedFilter?.filterProperties
-      )
-    )
-  }, [page, projectIdentifier, orgIdentifier, queryParamsWithGitContext])
 
   const debouncedConnectorSearch = useCallback(
     debounce((query: string): void => {
-      refetchConnectorList(
-        Object.assign(
-          { searchTerm: query },
-          { ...(shouldApplyGitFilters ? queryParamsWithGitContext : defaultQueryParams) },
-          appliedFilter?.filterProperties
-        )
-      )
+      const updatedQueryParams = {
+        ...(shouldApplyGitFilters ? queryParamsWithGitContext : defaultQueryParams),
+        searchTerm: query,
+        pageIndex: 0
+      }
+      refetchConnectorList(updatedQueryParams, appliedFilter?.filterProperties)
+      if (!query) {
+        setPage(0)
+      }
     }, 500),
-    [refetchConnectorList]
+    [refetchConnectorList, appliedFilter?.filterProperties, shouldApplyGitFilters]
   )
+
+  /* Clearing filter from Connector Filter Panel */
+  const reset = (): void => {
+    refetchConnectorList(shouldApplyGitFilters ? queryParamsWithGitContext : defaultQueryParams)
+    setAppliedFilter(undefined)
+    setConnectorFetchError(undefined)
+  }
 
   /* #endregion */
 
@@ -439,8 +453,14 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
       if (!isObjectEmpty(formData)) {
         const filterFromFormData = getValidFilterArguments({ ...formData })
         const aggregatedFilter = getAggregatedConnectorFilter(searchTerm, { ...filterFromFormData })
+        const updatedQueryParams = {
+          ...(shouldApplyGitFilters ? queryParamsWithGitContext : defaultQueryParams),
+          searchTerm,
+          pageIndex: 0
+        }
+        refetchConnectorList(updatedQueryParams, aggregatedFilter, false)
         setAppliedFilter({ ...unsavedFilter, filterProperties: aggregatedFilter || {} })
-        refetchConnectorList(defaultQueryParams, aggregatedFilter, false)
+        setPage(0)
         hideFilterDrawer()
       } else {
         showError(getString('filters.invalidCriteria'))
@@ -541,12 +561,6 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   fieldToLabelMapping.set('types', getString('typeLabel'))
   fieldToLabelMapping.set('tags', getString('tagsLabel'))
   fieldToLabelMapping.set('connectivityStatuses', getString('connectivityStatus'))
-
-  const reset = (): void => {
-    setAppliedFilter(null)
-    refetchConnectorList()
-    setConnectorFetchError(undefined)
-  }
 
   /* #endregion */
 
