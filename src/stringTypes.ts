@@ -699,6 +699,52 @@ export interface StringsMap {
   'connectors.cdng.verificationSensitivityLabel.high': string
   'connectors.cdng.verificationSensitivityLabel.low': string
   'connectors.cdng.verificationSensitivityLabel.medium': string
+  'connectors.ceAws.crossAccountRoleStep1.cost': string
+  'connectors.ceAws.crossAccountRoleStep1.description': string
+  'connectors.ceAws.crossAccountRoleStep1.heading': string
+  'connectors.ceAws.crossAccountRoleStep1.optimization': string
+  'connectors.ceAws.crossAccountRoleStep1.optimizationDes': string
+  'connectors.ceAws.crossAccountRoleStep1.subHeading': string
+  'connectors.ceAws.crossAccountRoleStep1.visibility': string
+  'connectors.ceAws.crossAccountRoleStep1.visibilityDes': string
+  'connectors.ceAws.crossAccountRoleStep2.dontHaveAccess': string
+  'connectors.ceAws.crossAccountRoleStep2.extId': string
+  'connectors.ceAws.crossAccountRoleStep2.heading': string
+  'connectors.ceAws.crossAccountRoleStep2.roleArn': string
+  'connectors.ceAws.crossAccountRoleStep2.subHeading': string
+  'connectors.ceAws.crossAccountRoleStep2.validation.roleArnPattern': string
+  'connectors.ceAws.crossAccountRoleStep2.validation.roleArnRequired': string
+  'connectors.ceAws.cur.bucketName': string
+  'connectors.ceAws.cur.createNew': string
+  'connectors.ceAws.cur.followInstruction': string
+  'connectors.ceAws.cur.heading': string
+  'connectors.ceAws.cur.launchTemplate': string
+  'connectors.ceAws.cur.login': string
+  'connectors.ceAws.cur.reportName': string
+  'connectors.ceAws.cur.subheading': string
+  'connectors.ceAws.cur.validation.bucketRequired': string
+  'connectors.ceAws.cur.validation.reportRequired': string
+  'connectors.ceAws.curExising.accountID': string
+  'connectors.ceAws.curExising.subHeading': string
+  'connectors.ceAws.overview.alreadyExist': string
+  'connectors.ceAws.overview.alreadyExistInfo': string
+  'connectors.ceAws.overview.awsAccountId': string
+  'connectors.ceAws.overview.editConnector': string
+  'connectors.ceAws.overview.heading': string
+  'connectors.ceAws.overview.ifReq': string
+  'connectors.ceAws.overview.trySuggestion': string
+  'connectors.ceAws.overview.validation.numeric': string
+  'connectors.ceAws.overview.validation.positive': string
+  'connectors.ceAws.overview.validation.required': string
+  'connectors.ceAws.steps.cur': string
+  'connectors.ceAws.steps.overview': string
+  'connectors.ceAws.steps.req': string
+  'connectors.ceAws.steps.roleARN': string
+  'connectors.ceAws.steps.test': string
+  'connectors.ceAws.testConnection.heading': string
+  'connectors.ceAws.testConnection.step1': string
+  'connectors.ceAws.testConnection.step2': string
+  'connectors.ceAws.testConnection.step3': string
   'connectors.ceK8.infoText': string
   'connectors.ceK8.selectConnectorLabel': string
   'connectors.confirmDelete': string

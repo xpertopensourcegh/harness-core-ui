@@ -33,15 +33,15 @@
     min-height: 50px;
     resize: vertical;
   }
+}
 
-  .editOpen {
-    cursor: pointer;
-    margin-left: 8px !important;
-    position: relative;
-    top: -2px;
+.editOpen {
+  cursor: pointer;
+  margin-left: 8px !important;
+  position: relative;
+  top: -2px;
 
-    &:hover {
-      color: var(--primary-7) !important;
-    }
+  &:hover {
+    color: var(--primary-7) !important;
   }
 }

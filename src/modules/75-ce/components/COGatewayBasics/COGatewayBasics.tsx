@@ -117,6 +117,20 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
           getString('rbac.account')
         ].join(' ')}
       </span>
+      {localStorage.CENGAWSCONNECTOR && (
+        <div>
+          <span
+            onClick={() => {
+              openAzureConnectorModal(false, Connectors.CEAWS, {
+                connectorInfo: ({ orgIdentifier: '', projectIdentifier: '' } as unknown) as ConnectorInfoDTO
+              })
+            }}
+            style={{ fontSize: '13px', color: '#0278D5', lineHeight: '20px', cursor: 'pointer' }}
+          >
+            Try AWS New Connector
+          </span>
+        </div>
+      )}
     </div>
   )
 }

@@ -93,6 +93,7 @@ export const getConnectorTitleIdByType = (type: string): StringKeys => {
       return 'connectors.title.splunk'
     case Connectors.DOCKER:
       return 'dockerRegistry'
+    case Connectors.CEAWS:
     case Connectors.AWS:
       return 'connectors.title.aws'
     case Connectors.AWS_CODECOMMIT:
@@ -178,6 +179,8 @@ export const getConnectorIconByType = (type: string): IconName => {
       return 'azure-key-vault'
     case Connectors.SUMOLOGIC:
       return 'service-sumologic'
+    case Connectors.CEAWS:
+      return 'service-aws'
     default:
       return 'placeholder'
   }

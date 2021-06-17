@@ -38,8 +38,9 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
     isOpen: true,
     enforceFocus: false,
     style: {
-      width: 1175,
+      width: 'auto',
       minHeight: 640,
+      minWidth: 1175,
       borderLeft: 0,
       paddingBottom: 0,
       position: 'relative',

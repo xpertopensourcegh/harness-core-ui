@@ -318,3 +318,68 @@ azureKeyVault:
     subscription: Subscription is required
     secretKey: Key is required
     vaultName: Vault Name is required
+ceAws:
+  steps:
+    overview: '{{ $.overview }}'
+    cur: 'Cost and Usage Report'
+    req: 'Choose requirements'
+    roleARN: 'Create Cross Account Role'
+    test: '{{ $.common.labelTestConnection }}'
+  overview:
+    heading: '{{ $.overview }}'
+    awsAccountId: 'Specify the AWS account ID'
+    alreadyExist: 'Connector already exists for the cloud account'
+    alreadyExistInfo:
+      'The cloud account {{awsAccountID}} already has a connector “{{existingConnectorName}}” configured for
+      Cost Visibility.'
+    trySuggestion: '{{ $.common.errorHandler.tryTheseSuggestions }}'
+    editConnector: 'Edit the connector'
+    ifReq: 'if required.'
+    validation:
+      numeric: 'AWS Account ID must be numeric'
+      positive: 'AWS Account ID must be a positive number'
+      required: 'AWS Account ID is required'
+  cur:
+    heading: '{{ $.connectors.ceAws.steps.cur }}'
+    subheading: 'Cost and Usage Report provides detailed billing data across AWS accounts to help you analyze your spend.'
+    followInstruction: 'Please follow the instructions to provide access to the Cost and Usage Report for the specified account ID'
+    launchTemplate: 'Launch Template In AWS console'
+    login: 'and login to your master account'
+    createNew: '+ Create new Cost and Usage report'
+    reportName: 'Cost and Usage Report Name'
+    bucketName: 'Cost and Usage S3 bucket Name'
+    validation:
+      reportRequired: 'Report name is required'
+      bucketRequired: 'Bucket name is required'
+  curExising:
+    subHeading:
+      'A billing report already exists for this AWS account. Click on “Continue” to use this Cost and Usage Report
+      for the connector. If not, you can choose to create a new Cost and Usage Report.'
+    accountID: 'Account ID '
+  crossAccountRoleStep1:
+    heading: 'Create Cross Account Role - Choose Permissions'
+    subHeading:
+      'Harness uses the secure cross-account role to access your AWS account. The role includes a restricted policy to
+      access the cost and usage reports and resources for the sole purpose of cost analysis and cost optimization'
+    description:
+      'Select the Cloud Cost Management features you would like to use on the AWS account. Each requires specific
+      permissions to the cross account role (optional )'
+    cost: 'Cost'
+    visibility: '{{ $.common.ce.visibility }}'
+    optimization: '{{ $.common.ce.optimization }}'
+    visibilityDes: 'Cost insights, anomaly detection, Service insights,Creating budgets and perspectives and alerts, utilised/wasted resources.'
+    optimizationDes: '{{ $.common.purpose.ce.optimizationCard.description }}'
+  crossAccountRoleStep2:
+    heading: 'Create Cross Account Role - Create role'
+    subHeading: '{{ $.connectors.ceAws.crossAccountRoleStep1.subHeading }}'
+    roleArn: '{{ $.connectors.awsKms.roleArnLabel }}'
+    extId: 'External ID'
+    dontHaveAccess: 'Don’t have access to add an AWS account?'
+    validation:
+      roleArnPattern: 'Role ARN does not match the pattern'
+      roleArnRequired: 'Role ARN is Required'
+  testConnection:
+    heading: '{{ $.common.labelTestConnection }}'
+    step1: 'Validating AWS Cloud Provider authentication'
+    step2: 'Verifying the CUR report and S3 bucket name '
+    step3: 'Validating the Cross-account role ARN '

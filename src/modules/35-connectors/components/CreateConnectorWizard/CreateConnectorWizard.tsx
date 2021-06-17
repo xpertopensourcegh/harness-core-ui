@@ -28,6 +28,7 @@ import CreateCEK8sConnector from '../CreateConnector/CEK8sConnector/CreateCEK8sC
 import CreateAzureKeyVaultConnector from '../CreateConnector/CreateAzureKeyConnector/CreateAzureKeyVaultConnector'
 import CreateDynatraceConnector from '../CreateConnector/DynatraceConnector/CreateDynatraceConnector'
 import CreateSumoLogicConnector from '../CreateConnector/SumoLogicConnector/CreateSumoLogicConnector'
+import CENGAwsConnector from '../CreateConnector/CENGAwsConnector/CreateCeAwsConnector'
 import css from './CreateConnectorWizard.module.scss'
 
 interface CreateConnectorWizardProps {
@@ -107,6 +108,8 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
       return <CreateDynatraceConnector {...commonProps} />
     case Connectors.SUMOLOGIC:
       return <CreateSumoLogicConnector {...commonProps} />
+    case Connectors.CEAWS:
+      return <CENGAwsConnector {...commonProps} />
     default:
       return null
   }
