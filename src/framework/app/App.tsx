@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import { HashRouter, Route, Switch } from 'react-router-dom'
+import { useParams } from 'react-router'
 import { RestfulProvider } from 'restful-react'
 import { FocusStyleManager } from '@blueprintjs/core'
 import { TooltipContextProvider } from '@wings-software/uicore'
@@ -21,9 +22,10 @@ import { PermissionsProvider } from '@rbac/interfaces/PermissionsContext'
 import { getLoginPageURL } from 'framework/utils/SessionUtils'
 import { NGTooltipEditorPortal } from 'framework/tooltip/TooltipEditor'
 import AppStorage from 'framework/utils/AppStorage'
+import { useRefreshToken } from 'services/portal'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 
 import './App.scss'
-import { useRefreshToken } from 'services/portal'
 
 FocusStyleManager.onlyShowFocusOnTabs()
 
@@ -40,7 +42,9 @@ const Harness = (window.Harness = window.Harness || {})
 
 function AppWithAuthentication(props: AppProps): React.ReactElement {
   const token = SessionToken.getToken()
-  const accountId = SessionToken.accountId()
+  // always use accountId from URL, and not from local storage
+  // if user lands on /, they'll first get redirected to a path with accountId
+  const { accountId } = useParams<AccountPathProps>()
 
   const getRequestOptions = React.useCallback((): Partial<RequestInit> => {
     const headers: RequestInit['headers'] = {}
@@ -96,15 +100,9 @@ function AppWithAuthentication(props: AppProps): React.ReactElement {
       queryParamStringifyOptions={{ skipNulls: true }}
       onResponse={response => {
         if (!response.ok && response.status === 401) {
-          // 401 might be returned due to RBAC maybe?
-          // check response body to confirm invalid token
-          // response.json().then(body => {
-          //   if (['INVALID_TOKEN', 'EXPIRED_TOKEN'].indexOf(body?.code) > -1) {
           AppStorage.clear()
           window.location.href = getLoginPageURL()
           return
-          // }
-          // })
         }
 
         checkAndRefreshToken()

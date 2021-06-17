@@ -118,29 +118,10 @@ export default class AppStorage {
   }
 
   static get(name) {
-    // AppStorage.get('acctId') is deprecated => don't use it.
-    // => This is a patch to get accountId from URL & return it:
-    if (name !== 'DataStore_apps') {
-      if (name === 'acctId') {
-        const arr = window.location.href.split('/account/')
-        if (arr.length >= 2) {
-          const accountId = arr[1].split('/')[0]
-          return accountId
-        }
-      }
-      try {
-        return secureStorage.getItem(name)
-      } catch (event) {
-        // console.log('Invalid Token, Please login again')
-        window.location = buildLoginUrlFrom401Response()
-      }
-    } else {
-      try {
-        return localStorage.getItem(name)
-      } catch (event) {
-        // console.log('Invalid Token, Please login again')
-        window.location = buildLoginUrlFrom401Response()
-      }
+    try {
+      return secureStorage.getItem(name)
+    } catch (event) {
+      window.location = buildLoginUrlFrom401Response()
     }
   }
 
