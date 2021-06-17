@@ -22,6 +22,7 @@ noDeploymentText: There are no deployments in your project
 noBuildsText: There are no builds in your project
 runAPipeline: Run a Pipeline
 regionPlaceholder: Select Region
+lastSevenDays: In Last 7 days
 barrierStep:
   barrierReference: Barrier Reference
   barrierReferenceRequired: Barrier Reference is required

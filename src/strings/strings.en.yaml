@@ -255,7 +255,6 @@ pluginPath: Kustomize plugin path
 addFileText: + Add File
 lastExecutionTs: 'Last Run'
 lastRunAtDate: '{{$.lastExecutionTs}}: '
-lastRunExecutionNever: '{{$.lastExecutionTs}}: {{$.pipelineSteps.pullNeverLabel}}'
 emptyDeployments: _ _ _ _ _ _
 recentActivity: Recent Activity
 newUser: New User
@@ -430,7 +429,6 @@ selectResource: Select Resource
 closeSelection: 'Close Selection'
 mapApplications: 'Map Applications to Harness Services'
 mapApplicationsToEnvs: Map Applications to Harness Environments
-lastSevenDays: 'last 7 days'
 total: 'Total'
 credentials: Credentials
 editCredentials: Edit Credentials

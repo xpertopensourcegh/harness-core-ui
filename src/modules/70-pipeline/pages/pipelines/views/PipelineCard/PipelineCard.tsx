@@ -1,9 +1,10 @@
 import React from 'react'
-import { Card, Text, Color, Container, Layout, SparkChart, CardBody, Icon } from '@wings-software/uicore'
-import { Classes, Menu, Position } from '@blueprintjs/core'
+import { Card, Text, Color, Container, Layout, SparkChart, CardBody, Icon, Button } from '@wings-software/uicore'
+import { Classes, Intent, Menu, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
 import { useHistory } from 'react-router-dom'
+import cx from 'classnames'
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
@@ -17,7 +18,7 @@ import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
-import { getIconsForPipeline, getStatusColor } from '../../PipelineListUtils'
+import { getIconsForPipeline } from '../../PipelineListUtils'
 import css from '../../PipelinesPage.module.scss'
 
 interface PipelineDTO extends PMSPipelineSummaryResponse {
@@ -193,199 +194,230 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
 
   return (
     <Card className={css.pipelineCard} interactive onClick={() => goToPipelineStudio(pipeline)}>
-      <Container padding={{ bottom: 'medium' }} className={css.pipelineTitle}>
-        <span>
-          {getIconsForPipeline(pipeline).map(iconObj => (
-            <Icon key={iconObj.icon} name={iconObj.icon} size={iconObj.size} />
-          ))}
-        </span>
+      <div className={cx(css.sectionMargin, css.sectionBorder)}>
+        <Container padding={{ bottom: 'medium' }} className={css.pipelineTitle}>
+          <span>
+            {getIconsForPipeline(pipeline).map(iconObj => (
+              <Icon key={iconObj.icon} name={iconObj.icon} size={iconObj.size} />
+            ))}
+          </span>
 
-        <CardBody.Menu
-          menuContent={
-            <ContextMenu
-              pipeline={pipeline}
-              goToPipelineStudio={goToPipelineStudio}
-              goToPipelineDetail={goToPipelineDetail}
-              refetchPipeline={refetchPipeline}
-              projectIdentifier={projectIdentifier}
-              accountIdentifier={accountId}
-              orgIdentifier={orgIdentifier}
-            />
-          }
-          menuPopoverProps={{
-            className: Classes.DARK
-          }}
-          className={css.menu}
-        />
-      </Container>
-      <Layout.Horizontal padding={{ bottom: 'medium' }}>
-        <div className={css.pipelineNameSections}>
-          <Text
-            lineClamp={2}
-            font="medium"
-            color={Color.BLACK}
-            data-testid={pipeline.identifier}
-            className={css.pipelineName}
-          >
-            {pipeline.name}
-          </Text>
-          <Text font="small" color={Color.GREY_500}>
-            {getString('idLabel')}
-            {pipeline.identifier}
-          </Text>
-        </div>
-        {!isEmpty(pipeline.tags) && pipeline.tags && <TagsPopover tags={pipeline.tags} />}
-      </Layout.Horizontal>
-
-      {!isEmpty(pipeline.description) ? (
-        <Layout.Horizontal padding={{ bottom: 'medium', right: 'large' }}>
-          <Text font="small" color={Color.GREY_400} lineClamp={2} tooltipProps={{ position: Position.BOTTOM }}>
-            {pipeline.description}
-          </Text>
+          <CardBody.Menu
+            menuContent={
+              <ContextMenu
+                pipeline={pipeline}
+                goToPipelineStudio={goToPipelineStudio}
+                goToPipelineDetail={goToPipelineDetail}
+                refetchPipeline={refetchPipeline}
+                projectIdentifier={projectIdentifier}
+                accountIdentifier={accountId}
+                orgIdentifier={orgIdentifier}
+              />
+            }
+            menuPopoverProps={{
+              className: Classes.DARK
+            }}
+            className={css.menu}
+          />
+        </Container>
+        <Layout.Horizontal padding={{ bottom: 'medium' }}>
+          <div className={css.pipelineNameSections}>
+            <Text
+              lineClamp={2}
+              font="medium"
+              color={Color.GREY_800}
+              data-testid={pipeline.identifier}
+              className={css.pipelineName}
+            >
+              {pipeline.name}
+            </Text>
+            <Text font="small" color={Color.GREY_500}>
+              {getString('idLabel')}
+              {pipeline.identifier}
+            </Text>
+          </div>
+          {!isEmpty(pipeline.tags) && pipeline.tags && <TagsPopover tags={pipeline.tags} />}
         </Layout.Horizontal>
-      ) : null}
 
-      {pipeline.stageNames?.length ? (
-        <Layout.Horizontal padding={{ bottom: 'medium', right: 'medium' }}>
-          <Text font="small" color={Color.GREY_400} className={css.serviceLabel}>
-            {getString('stages')}
-          </Text>
-          <Text color={Color.GREY_500} className={css.serviceName} width={100} lineClamp={1}>
-            {pipeline.stageNames?.join(', ')}
-          </Text>
-        </Layout.Horizontal>
-      ) : null}
+        {!isEmpty(pipeline.description) ? (
+          <Layout.Horizontal padding={{ bottom: 'medium', right: 'large' }}>
+            <Text font="small" color={Color.GREY_700} lineClamp={2} tooltipProps={{ position: Position.BOTTOM }}>
+              {pipeline.description}
+            </Text>
+          </Layout.Horizontal>
+        ) : null}
 
-      {pipeline.filters?.[module]?.serviceNames?.length ? (
-        <Layout.Horizontal padding={{ bottom: 'medium', right: 'medium' }}>
-          <Text font="small" color={Color.GREY_400} className={css.serviceLabel}>
-            {getString('services')}
-          </Text>
-          <Text color={Color.GREY_500} className={css.serviceName} lineClamp={1}>
-            {pipeline.filters?.[module]?.serviceNames.join(', ')}
-          </Text>
-        </Layout.Horizontal>
-      ) : null}
+        {pipeline.stageNames?.length ? (
+          <Layout.Horizontal padding={{ bottom: 'medium', right: 'medium' }}>
+            <Text font="small" color={Color.GREY_500} className={css.serviceLabel}>
+              {getString('stages')}
+            </Text>
+            <Text color={Color.GREY_900} className={css.serviceName} width={100} lineClamp={1}>
+              {pipeline.stageNames?.join(', ')}
+            </Text>
+          </Layout.Horizontal>
+        ) : null}
+
+        {pipeline.filters?.[module]?.serviceNames?.length ? (
+          <Layout.Horizontal padding={{ bottom: 'medium', right: 'medium' }}>
+            <Text font="small" color={Color.GREY_500} className={css.serviceLabel}>
+              {getString('services')}
+            </Text>
+            <Text color={Color.GREY_900} className={css.serviceName} lineClamp={1}>
+              {pipeline.filters?.[module]?.serviceNames.join(', ')}
+            </Text>
+          </Layout.Horizontal>
+        ) : null}
+      </div>
 
       {isGitSyncEnabled && !!pipeline.gitDetails?.repoIdentifier && !!pipeline.gitDetails.branch && (
-        <Layout.Horizontal
-          className={css.pipelineGitDetails}
-          style={{ alignItems: 'center', justifyContent: 'space-between' }}
-          border={{ top: true, color: Color.GREY_300 }}
-          padding={{ top: 'medium', bottom: 'medium' }}
-        >
-          <Layout.Horizontal style={{ alignItems: 'center' }} spacing={'small'}>
-            <Icon name="repository" size={16} color={Color.GREY_600} />
-            <Text
-              style={{ maxWidth: '70px' }}
-              font={{ size: 'small' }}
-              color={Color.GREY_900}
-              title={pipeline.gitDetails.repoIdentifier}
-              lineClamp={1}
-            >
-              {pipeline.gitDetails.repoIdentifier}
-            </Text>
+        <div className={cx(css.sectionMargin, css.sectionBorder)}>
+          <Layout.Horizontal
+            className={css.pipelineGitDetails}
+            style={{ alignItems: 'center', justifyContent: 'space-between' }}
+            padding={{ top: 'medium', bottom: 'medium' }}
+          >
+            <Layout.Horizontal style={{ alignItems: 'center' }} spacing={'small'}>
+              <Icon name="repository" size={16} color={Color.GREY_800} />
+              <Text
+                style={{ maxWidth: 70 }}
+                font={{ size: 'small' }}
+                color={Color.GREY_900}
+                title={pipeline.gitDetails.repoIdentifier}
+                lineClamp={1}
+              >
+                {pipeline.gitDetails.repoIdentifier}
+              </Text>
+            </Layout.Horizontal>
+            <Layout.Horizontal style={{ alignItems: 'center' }} spacing={'small'}>
+              <Icon name="git-new-branch" size={14} color={Color.GREY_800} />
+              <Text
+                style={{ wordWrap: 'break-word', maxWidth: '70px' }}
+                font={{ size: 'small' }}
+                color={Color.GREY_900}
+                title={pipeline.gitDetails.branch}
+                lineClamp={1}
+              >
+                {pipeline.gitDetails.branch}
+              </Text>
+            </Layout.Horizontal>
           </Layout.Horizontal>
-          <Layout.Horizontal style={{ alignItems: 'center' }} spacing={'small'}>
-            <Icon name="git-new-branch" size={14} color={Color.GREY_600} />
-            <Text
-              style={{ wordWrap: 'break-word', maxWidth: '70px' }}
-              font={{ size: 'small' }}
-              color={Color.GREY_900}
-              title={pipeline.gitDetails.branch}
-              lineClamp={1}
-            >
-              {pipeline.gitDetails.branch}
-            </Text>
-          </Layout.Horizontal>
-        </Layout.Horizontal>
+        </div>
       )}
 
-      <Container
-        padding={{ right: 'large', top: 'medium', bottom: 'small' }}
-        border={{ top: true, color: Color.GREY_300 }}
-      >
-        <Layout.Horizontal spacing="xsmall">
-          <String stringID="lastRunAtDate" />
-          <Text
-            rightIcon={pipeline.executionSummaryInfo?.lastExecutionTs ? 'full-circle' : undefined}
-            rightIconProps={{ color: getStatusColor(pipeline), size: 8, padding: { left: 'medium' } }}
-            color={pipeline.executionSummaryInfo?.lastExecutionId ? Color.PRIMARY_7 : Color.GREY_400}
-            onClick={event => {
-              event.stopPropagation()
-              goToExecutionPipelineView(pipeline.executionSummaryInfo?.lastExecutionId)
-            }}
-          >
-            {pipeline.executionSummaryInfo?.lastExecutionTs
-              ? formatDatetoLocale(pipeline.executionSummaryInfo?.lastExecutionTs)
-              : getString('lastRunExecutionNever')}
-          </Text>
-        </Layout.Horizontal>
-        <Layout.Horizontal
-          flex={{ distribution: 'space-between' }}
-          padding={{ top: 'large', bottom: 'small' }}
-          spacing="medium"
-          style={{ alignItems: 'flex-end' }}
-        >
-          <Layout.Horizontal>
-            <div style={{ marginRight: 12 }}>
-              <Text color={Color.GREY_400} className={`${deployments ? css.clickable : ''}`} font="small" lineClamp={2}>
-                {getString('executionsText')}
-              </Text>
-              <Text color={Color.GREY_400} className={`${deployments ? css.clickable : ''}`} font="small" lineClamp={2}>
-                ({getString('lastSevenDays')})
-              </Text>
-            </div>
+      <div className={cx(css.sectionMargin, css.sectionBorder)}>
+        <Container padding={{ right: 'small', top: 'medium', bottom: 'small' }}>
+          <Layout.Horizontal spacing="xsmall">
+            <String
+              stringID="lastRunAtDate"
+              color={Color.GREY_500}
+              style={{ width: pipeline.executionSummaryInfo?.lastExecutionId ? 160 : 100 }}
+            />
             <Text
-              color={deployments ? Color.PRIMARY_7 : Color.GREY_400}
-              font="medium"
-              iconProps={{ size: 18 }}
+              color={pipeline.executionSummaryInfo?.lastExecutionId ? Color.PRIMARY_7 : Color.GREY_900}
               onClick={event => {
                 event.stopPropagation()
-                goToPipelineDetail(pipeline)
+                goToExecutionPipelineView(pipeline.executionSummaryInfo?.lastExecutionId)
               }}
             >
-              {deployments}
+              {pipeline.executionSummaryInfo?.lastExecutionTs
+                ? formatDatetoLocale(pipeline.executionSummaryInfo?.lastExecutionTs)
+                : getString('pipelineSteps.pullNeverLabel')}
             </Text>
-          </Layout.Horizontal>
 
-          {deployments ? (
-            <span className={css.activityChart}>
-              <SparkChart
-                data={pipeline.executionSummaryInfo?.deployments || []}
-                data2={pipeline.executionSummaryInfo?.numOfErrors || []}
-                color={Color.GREEN_500}
-                color2={Color.RED_600}
+            {!!pipeline.executionSummaryInfo?.lastExecutionTs && (
+              <Icon
+                name={
+                  pipeline.executionSummaryInfo?.lastExecutionStatus === 'Success'
+                    ? 'deployment-success-legacy'
+                    : 'warning-sign'
+                }
+                intent={pipeline.executionSummaryInfo?.lastExecutionStatus === 'Failed' ? Intent.DANGER : Intent.NONE}
+                size={20}
               />
-            </span>
-          ) : (
-            <Text color={Color.GREY_400} font={{ size: 'xsmall' }}>
-              {getString('emptyDeployments')}
-            </Text>
-          )}
-        </Layout.Horizontal>
-      </Container>
-      <Container padding={{ left: 'large', right: 'large', bottom: 'small' }}>
-        <RbacButton
-          data-testid="card-run-pipeline"
-          intent="primary"
-          minimal
-          icon="run-pipeline"
-          className={css.runPipelineBtn}
-          text={<String stringID="runPipelineText" />}
-          permission={{
-            resource: {
-              resourceType: ResourceType.PIPELINE,
-              resourceIdentifier: pipeline.identifier as string
-            },
-            permission: PermissionIdentifier.EXECUTE_PIPELINE
-          }}
-          onClick={e => {
-            e.stopPropagation()
-            runPipeline()
-          }}
-        />
-      </Container>
+            )}
+          </Layout.Horizontal>
+          <Layout.Horizontal
+            flex={{ distribution: 'space-between' }}
+            padding={{ top: 'medium', bottom: 'small' }}
+            spacing="medium"
+            style={{ alignItems: 'flex-end' }}
+          >
+            <Layout.Horizontal>
+              <div style={{ marginRight: 12, width: 90 }}>
+                <Text color={Color.GREY_500} font="small" lineClamp={2}>
+                  {getString('executionsText')}
+                </Text>
+                <Text color={Color.GREY_500} font="small" lineClamp={2}>
+                  ({getString('pipeline.lastSevenDays')})
+                </Text>
+              </div>
+              <Text
+                color={deployments ? Color.PRIMARY_7 : Color.GREY_500}
+                className={`${deployments ? css.clickable : ''}`}
+                font="medium"
+                iconProps={{ size: 18 }}
+                onClick={event => {
+                  event.stopPropagation()
+                  goToPipelineDetail(pipeline)
+                }}
+              >
+                {deployments}
+              </Text>
+            </Layout.Horizontal>
+
+            {deployments ? (
+              <span className={css.activityChart}>
+                <SparkChart
+                  data={pipeline.executionSummaryInfo?.deployments || []}
+                  data2={pipeline.executionSummaryInfo?.numOfErrors || []}
+                  color={Color.GREEN_500}
+                  color2={Color.RED_600}
+                />
+              </span>
+            ) : (
+              <Text color={Color.GREY_400} font={{ size: 'xsmall' }}>
+                {getString('emptyDeployments')}
+              </Text>
+            )}
+          </Layout.Horizontal>
+        </Container>
+      </div>
+
+      <div className={css.sectionMargin}>
+        <Container flex={{ align: 'center-center', justifyContent: 'space-between' }} padding={{ top: 'large' }}>
+          <RbacButton
+            data-testid="card-run-pipeline"
+            icon="run-pipeline"
+            round
+            className={css.runPipelineBtn}
+            text={<String stringID="runPipelineText" />}
+            font={{ size: 'normal' }}
+            permission={{
+              resource: {
+                resourceType: ResourceType.PIPELINE,
+                resourceIdentifier: pipeline.identifier as string
+              },
+              permission: PermissionIdentifier.EXECUTE_PIPELINE
+            }}
+            onClick={e => {
+              e.stopPropagation()
+              runPipeline()
+            }}
+          />
+          <Button
+            round
+            color={Color.PRIMARY_7}
+            font={{ size: 'normal' }}
+            className={css.viewExecutionBtn}
+            text={getString('viewExecutions')}
+            onClick={(e: React.MouseEvent) => {
+              e.stopPropagation()
+              goToPipelineDetail(pipeline)
+            }}
+          />
+        </Container>
+      </div>
     </Card>
   )
 }

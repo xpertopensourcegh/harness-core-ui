@@ -1367,6 +1367,7 @@ export interface StringsMap {
   'pipeline.jiraUpdateStep.transitionPlaceholder': string
   'pipeline.jiraUpdateStep.validations.status': string
   'pipeline.keyPlaceholder': string
+  'pipeline.lastSevenDays': string
   'pipeline.logs.sectionName': string
   'pipeline.manifestType.bitBucketLabel': string
   'pipeline.manifestType.branchPlaceholder': string
@@ -4784,14 +4785,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   lastRunAtDate: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  lastRunExecutionNever: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  lastSevenDays: string
   /**
    * @deprecated migrate this string to module level file
    */

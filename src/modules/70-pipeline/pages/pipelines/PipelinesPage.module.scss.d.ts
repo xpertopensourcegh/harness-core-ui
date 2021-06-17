@@ -9,11 +9,14 @@ declare const styles: {
   readonly pipelineNameSections: string
   readonly pipelineTitle: string
   readonly menu: string
+  readonly sectionMargin: string
+  readonly sectionBorder: string
   readonly pipelineGitDetails: string
   readonly pipelineName: string
   readonly serviceLabel: string
   readonly serviceName: string
   readonly runPipelineBtn: string
+  readonly viewExecutionBtn: string
   readonly runPipelineListBtn: string
   readonly topHeaderFields: string
   readonly sortSelector: string

@@ -233,7 +233,7 @@ const RenderActivity: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => {
           lineClamp={2}
           style={{ maxWidth: 100 }}
         >
-          ({getString('lastSevenDays')})
+          ({getString('pipeline.lastSevenDays')})
         </Text>
       </div>
 
