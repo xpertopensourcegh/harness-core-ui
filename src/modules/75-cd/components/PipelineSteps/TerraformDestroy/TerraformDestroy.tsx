@@ -119,6 +119,7 @@ export class TerraformDestroy extends PipelineStep<TFDestroyData> {
           stepViewType={stepViewType}
           readonly={inputSetData?.readonly}
           inputSetData={inputSetData}
+          path={inputSetData?.path}
         />
       )
     } else if (stepViewType === StepViewType.InputVariable) {

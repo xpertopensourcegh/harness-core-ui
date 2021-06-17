@@ -1,10 +1,11 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { get } from 'lodash-es'
-import { getMultiTypeFromValue, MultiTypeInputType, FormInput, Color, Label } from '@wings-software/uicore'
+import { getMultiTypeFromValue, MultiTypeInputType, FormInput } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
 import { Connectors } from '@connectors/constants'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 
 import type { TerraformPlanProps } from '../../Common/Terraform/TerraformInterfaces'
 
@@ -16,15 +17,19 @@ export default function ConfigSection(props: TerraformPlanProps): React.ReactEle
     orgIdentifier: string
     accountId: string
   }>()
+  const { expressions } = useVariablesExpression()
 
   return (
     <>
-      <Label style={{ color: Color.GREY_900 }}>{getString('cd.configurationFile')}</Label>
       {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.workspace) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
+        <FormInput.MultiTextInput
           name={`${path}.configuration.spec.workspace`}
           label={getString('pipelineSteps.workspace')}
           disabled={readonly}
+          multiTextInputProps={{
+            expressions,
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+          }}
         />
       )}
       {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.configFiles?.store?.spec?.connectorRef) ===
@@ -45,37 +50,57 @@ export default function ConfigSection(props: TerraformPlanProps): React.ReactEle
 
       {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.configFiles?.store?.spec?.branch) ===
         MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
+        <FormInput.MultiTextInput
+          label=""
           name={`${path}.spec.configuration.configFiles.store.spec.branch`}
           placeholder={getString('pipeline.manifestType.branchPlaceholder')}
           disabled={readonly}
+          multiTextInputProps={{
+            expressions,
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+          }}
         />
       )}
 
       {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.configFiles?.store?.spec?.commitId) ===
         MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
+        <FormInput.MultiTextInput
+          label=""
           name={`${path}.spec.configuration.spec.configFiles.store.spec.commitId`}
           placeholder={getString('pipeline.manifestType.commitPlaceholder')}
           disabled={readonly}
+          multiTextInputProps={{
+            expressions,
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+          }}
         />
       )}
 
       {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.configFiles?.store?.spec?.commitId) ===
         MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
+        <FormInput.MultiTextInput
+          label=""
           name={`${path}.spec.configuration.spec.configFiles.store.spec.commitId`}
           placeholder={getString('pipeline.manifestType.commitPlaceholder')}
           disabled={readonly}
+          multiTextInputProps={{
+            expressions,
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+          }}
         />
       )}
 
       {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.configFiles?.store?.spec?.folderPath) ===
         MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
+        <FormInput.MultiTextInput
+          label=""
           name={`${path}.spec.configuration.spec.configFiles.store.spec.folderPath`}
           placeholder={getString('pipeline.manifestType.pathPlaceholder')}
           disabled={readonly}
+          multiTextInputProps={{
+            expressions,
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+          }}
         />
       )}
     </>

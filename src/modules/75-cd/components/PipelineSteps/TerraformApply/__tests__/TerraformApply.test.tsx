@@ -360,6 +360,22 @@ describe('Test TerraformApply', () => {
             }
           }
         }}
+        inputSetData={{
+          template: {
+            type: 'TerraformApply',
+            name: 'Test A',
+            identifier: 'Test_A',
+            timeout: '10m',
+            delegateSelectors: ['test-1', 'test-2'],
+            spec: {
+              provisionerIdentifier: RUNTIME_INPUT_VALUE,
+              configuration: {
+                type: 'InheritFromPlan'
+              }
+            }
+          },
+          path: 'test'
+        }}
         template={{
           type: 'TerraformApply',
           name: 'Test A',

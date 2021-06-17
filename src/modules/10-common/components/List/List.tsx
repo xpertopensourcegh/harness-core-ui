@@ -16,7 +16,8 @@ export interface ListProps {
   disabled?: boolean
   style?: React.CSSProperties
   formik?: FormikContext<any>
-  expressions?: any
+  expressions?: string[]
+  enableExpressions?: boolean
 }
 
 const generateNewValue: () => { id: string; value: string } = () => ({
@@ -73,7 +74,6 @@ export const List = (props: ListProps): React.ReactElement => {
   React.useEffect(() => {
     const initialValue = get(formik?.values, name, '') as ListType
     const valueWithoutEmptyItems = value.filter(item => !!item.value)
-
     if (isEmpty(valueWithoutEmptyItems) && initialValue) {
       const initialValueInCorrectFormat = (Array.isArray(initialValue) ? initialValue : []).map(item => ({
         id: uuid('', nameSpace()),

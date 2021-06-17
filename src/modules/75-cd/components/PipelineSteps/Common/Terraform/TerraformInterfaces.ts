@@ -51,7 +51,7 @@ export interface TerraformPlanProps {
   configTypes?: SelectOption[]
   isNewStep?: boolean
   inputSetData?: {
-    template?: TFPlanFormData
+    template?: TerraformPlanData
     path?: string
   }
   path?: string
@@ -188,13 +188,12 @@ export interface TerraformData extends StepElementConfig {
 export interface TerraformPlanData extends StepElementConfig {
   spec?: {
     provisionerIdentifier?: string
-    configuration?: {
+    configuration?: TFDataSpec & {
       command?: 'Apply' | 'Destroy'
       secretManagerRef?: string
-    } & TFDataSpec
+    }
   }
 }
-
 export interface TFDataSpec {
   workspace?: string
   backendConfig?: TerraformBackendConfig
@@ -422,6 +421,8 @@ export const onSubmitTFPlanData = (values: any): TFPlanFormData => {
 
   if (targetMap.length) {
     configObject['targets'] = targetMap
+  } else if (getMultiTypeFromValue(values?.spec?.configuration?.targets) === MultiTypeInputType.RUNTIME) {
+    configObject['targets'] = values?.spec?.configuration?.targets
   }
 
   if (values?.spec?.configuration?.varFiles?.length) {

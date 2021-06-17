@@ -183,7 +183,8 @@ describe('Test TerraformDestroy', () => {
             configuration: {
               type: 'InheritFromPlan'
             }
-          }
+          },
+          path: 'test'
         }}
         allValues={{
           type: 'TerraformDestroy',
@@ -200,6 +201,22 @@ describe('Test TerraformDestroy', () => {
         }}
         type={StepType.TerraformDestroy}
         stepViewType={StepViewType.InputSet}
+        inputSetData={{
+          template: {
+            type: 'TerraformDestroy',
+            name: 'Test A',
+            identifier: 'Test_A',
+            timeout: RUNTIME_INPUT_VALUE,
+            delegateSelectors: ['test-1', 'test-2'],
+            spec: {
+              provisionerIdentifier: RUNTIME_INPUT_VALUE,
+              configuration: {
+                type: 'InheritFromPlan'
+              }
+            }
+          },
+          path: 'test'
+        }}
         path="test"
       />
     )
@@ -365,6 +382,7 @@ describe('Test TerraformDestroy', () => {
             }
           }
         }}
+        path="test"
         type={StepType.TerraformDestroy}
         stepViewType={StepViewType.InputVariable}
       />

@@ -6,6 +6,7 @@ import { Color, FormInput, getMultiTypeFromValue, Label, List, MultiTypeInputTyp
 import { useStrings } from 'framework/strings'
 import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
 import { Connectors } from '@connectors/constants'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 
 import { TerraformPlanProps, TerraformStoreTypes } from '../../Common/Terraform/TerraformInterfaces'
 
@@ -17,6 +18,8 @@ export default function TfVarFile(props: TerraformPlanProps): React.ReactElement
     orgIdentifier: string
     accountId: string
   }>()
+  const { expressions } = useVariablesExpression()
+
   return (
     <>
       <Label style={{ color: Color.GREY_900 }}>{getString('cd.terraformVarFiles')}</Label>
@@ -25,15 +28,23 @@ export default function TfVarFile(props: TerraformPlanProps): React.ReactElement
           return (
             <>
               {getMultiTypeFromValue(varFile?.varFile?.identifier) === MultiTypeInputType.RUNTIME && (
-                <FormInput.Text
+                <FormInput.MultiTextInput
                   name={`${path}.configuration?.spec?.varFiles[${index}].varFile.identifier`}
                   label={getString('identifier')}
+                  multiTextInputProps={{
+                    expressions,
+                    allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+                  }}
                 />
               )}
               {getMultiTypeFromValue(varFile?.varFile?.spec?.content) === MultiTypeInputType.RUNTIME && (
-                <FormInput.Text
+                <FormInput.MultiTextInput
                   name={`${path}.configuration?.spec?.varFiles[${index}].varFile.spec.content`}
                   label={getString('pipelineSteps.content')}
+                  multiTextInputProps={{
+                    expressions,
+                    allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+                  }}
                 />
               )}
             </>
@@ -43,9 +54,13 @@ export default function TfVarFile(props: TerraformPlanProps): React.ReactElement
           return (
             <>
               {getMultiTypeFromValue(varFile?.varFile?.identifier) === MultiTypeInputType.RUNTIME && (
-                <FormInput.Text
+                <FormInput.MultiTextInput
                   name={`${path}.configuration?.spec?.varFiles[${index}].varFile.identifier`}
                   label={getString('identifier')}
+                  multiTextInputProps={{
+                    expressions,
+                    allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+                  }}
                 />
               )}
 
@@ -65,15 +80,23 @@ export default function TfVarFile(props: TerraformPlanProps): React.ReactElement
               )}
 
               {getMultiTypeFromValue(remoteVarFile?.spec?.store?.spec?.branch) === MultiTypeInputType.RUNTIME && (
-                <FormInput.Text
+                <FormInput.MultiTextInput
                   name={`${path}.configuration?.spec?.varFiles[${index}].varFile.store.spec.branch`}
                   label={getString('pipelineSteps.deploy.inputSet.branch')}
+                  multiTextInputProps={{
+                    expressions,
+                    allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+                  }}
                 />
               )}
               {getMultiTypeFromValue(remoteVarFile?.spec?.store?.spec?.commitId) === MultiTypeInputType.RUNTIME && (
-                <FormInput.Text
+                <FormInput.MultiTextInput
                   name={`${path}.configuration?.spec?.varFiles[${index}].varFile.store.spec.commitId`}
                   label={getString('pipeline.manifestType.commitId')}
+                  multiTextInputProps={{
+                    expressions,
+                    allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+                  }}
                 />
               )}
               {getMultiTypeFromValue(remoteVarFile?.spec?.store?.spec?.paths) === MultiTypeInputType.RUNTIME && (

@@ -157,6 +157,33 @@ describe('Test TerraformPlan', () => {
             }
           }
         }}
+        inputSetData={{
+          template: {
+            type: 'TerraformPlan',
+            name: 'Test A',
+            identifier: 'Test_A',
+            timeout: RUNTIME_INPUT_VALUE,
+            delegateSelectors: ['test-1', 'test-2'],
+            spec: {
+              provisionerIdentifier: RUNTIME_INPUT_VALUE,
+              configuration: {
+                command: 'Apply',
+                spec: {
+                  targets: RUNTIME_INPUT_VALUE,
+                  environmentVariables: RUNTIME_INPUT_VALUE,
+                  configFiles: {
+                    store: {
+                      spec: {
+                        connectorRef: RUNTIME_INPUT_VALUE
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          path: 'test'
+        }}
         type={StepType.TerraformPlan}
         stepViewType={StepViewType.InputSet}
       />

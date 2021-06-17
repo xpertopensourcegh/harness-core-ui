@@ -14,10 +14,13 @@ import {
 } from '@common/components/EntityReference/EntityReference'
 import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
 import { Scope } from '@common/interfaces/SecretsInterface'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { Connector, TerraformProps } from '../TerraformInterfaces'
 
 export default function ConfigSection(props: TerraformProps): React.ReactElement {
   const { getString } = useStrings()
+  const { expressions } = useVariablesExpression()
+
   const { inputSetData, readonly, initialValues, gitScope, path } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -71,10 +74,14 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
     <>
       {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.spec?.workspace) ===
         MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
+        <FormInput.MultiTextInput
           name={`${path}.spec.configuration.spec.workspace`}
           label={getString('pipelineSteps.workspace')}
           disabled={readonly}
+          multiTextInputProps={{
+            expressions,
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+          }}
         />
       )}
       {getMultiTypeFromValue(
@@ -97,38 +104,58 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
 
       {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.spec?.configFiles?.store?.spec?.branch) ===
         MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
+        <FormInput.MultiTextInput
+          label={''}
           name={`${path}.configuration.spec.configFiles.store.spec.branch`}
           placeholder={getString('pipeline.manifestType.branchPlaceholder')}
           disabled={readonly}
+          multiTextInputProps={{
+            expressions,
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+          }}
         />
       )}
 
       {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.spec?.configFiles?.store?.spec?.commitId) ===
         MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
+        <FormInput.MultiTextInput
+          label=""
           name={`${path}.configuration.spec.configFiles.store.spec.commitId`}
           placeholder={getString('pipeline.manifestType.commitPlaceholder')}
           disabled={readonly}
+          multiTextInputProps={{
+            expressions,
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+          }}
         />
       )}
 
       {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.spec?.configFiles?.store?.spec?.commitId) ===
         MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
+        <FormInput.MultiTextInput
+          label=""
           name={`${path}.configuration.spec.configFiles.store.spec.commitId`}
           placeholder={getString('pipeline.manifestType.commitPlaceholder')}
           disabled={readonly}
+          multiTextInputProps={{
+            expressions,
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+          }}
         />
       )}
 
       {getMultiTypeFromValue(
         inputSetData?.template?.spec?.configuration?.spec?.configFiles?.store?.spec?.folderPath
       ) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
+        <FormInput.MultiTextInput
+          label=""
           name={`${path}.configuration.spec.configFiles.store.spec.folderPath`}
           placeholder={getString('pipeline.manifestType.pathPlaceholder')}
           disabled={readonly}
+          multiTextInputProps={{
+            expressions,
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+          }}
         />
       )}
     </>
