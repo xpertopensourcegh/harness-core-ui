@@ -627,7 +627,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
           </OverlaySpinner>
         ) : !pipelineList?.content?.length ? (
           <div className={css.noPipelineSection}>
-            {appliedFilter || isGitSyncEnabled ? (
+            {appliedFilter ? (
               <Layout.Vertical spacing="small" flex>
                 <Icon size={50} name={isCIModule ? 'ci-main' : 'cd-hover'} margin={{ bottom: 'large' }} />
                 <Text

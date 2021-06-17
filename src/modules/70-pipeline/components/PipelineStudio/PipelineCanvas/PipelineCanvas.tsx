@@ -413,26 +413,28 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     [hideModal, pipeline, updatePipeline]
   )
 
-  function handleViewChange(newView: SelectedView): void {
-    if (newView === view) return
+  function handleViewChange(newView: SelectedView): boolean {
+    if (newView === view) return false
     if (newView === SelectedView.VISUAL && yamlHandler) {
       try {
         const parsedYaml = parse(yamlHandler.getLatestYaml())
         if (!parsedYaml) {
           clear()
           showError(getString('invalidYamlText'))
-          return
+          return false
         }
         if (yamlHandler.getYAMLValidationErrorMap()?.size > 0) {
+          clear()
           setYamlError(true)
           showError(getString('invalidYamlText'))
-          return
+          return false
         }
         updatePipeline(parsedYaml.pipeline)
       } catch (e) {
+        clear()
         setYamlError(true)
         showError(e.message || getString('invalidYamlText'))
-        return
+        return false
       }
     }
     setView(newView)
@@ -443,6 +445,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       drawerData: { type: DrawerTypes.AddStep }
     })
     setSelectedStageId(undefined)
+    return true
   }
 
   const runPipeline = useRunPipelineModal({
@@ -591,8 +594,8 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
             <VisualYamlToggle
               initialSelectedView={isYaml ? SelectedView.YAML : SelectedView.VISUAL}
               beforeOnChange={(nextMode, callback) => {
-                handleViewChange(nextMode)
-                callback(nextMode)
+                const shoudSwitchcMode = handleViewChange(nextMode)
+                shoudSwitchcMode && callback(nextMode)
               }}
             ></VisualYamlToggle>
           </div>
