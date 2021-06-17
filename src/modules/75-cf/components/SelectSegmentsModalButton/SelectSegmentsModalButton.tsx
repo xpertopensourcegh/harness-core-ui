@@ -17,6 +17,9 @@ import { useStrings } from 'framework/strings'
 import { Segment, useGetTargetAvailableSegments } from 'services/cf'
 import { useToaster } from '@common/exports'
 import { PageError } from '@common/components/Page/PageError'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import RbacButton from '@rbac/components/Button/Button'
 import { SegmentRow } from './SegmentRow'
 import { NoDataFoundRow } from '../NoDataFoundRow/NoDataFoundRow'
 
@@ -243,5 +246,14 @@ export const SelectSegmentsModalButton: React.FC<SelectSegmentsModalButtonProps>
 
   const [openModal, hideModal] = useModalHook(ModalComponent, [])
 
-  return <Button onClick={openModal} {...props} />
+  return (
+    <RbacButton
+      permission={{
+        resource: { resourceType: ResourceType.ENVIRONMENT, resourceIdentifier: environmentIdentifier },
+        permission: PermissionIdentifier.EDIT_FF_TARGETGROUP
+      }}
+      onClick={openModal}
+      {...props}
+    />
+  )
 }

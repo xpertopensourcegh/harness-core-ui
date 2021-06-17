@@ -444,7 +444,7 @@ describe('SegmentsPage', () => {
     await waitFor(() => expect(getAllByText(container, 'segment1')).toBeTruthy())
 
     fireEvent.click(container.querySelector('[role="row"]:not(:first-of-type) [data-icon="Options"]') as HTMLElement)
-    fireEvent.click(document.querySelector('[icon="cross"]') as HTMLElement)
+    fireEvent.click(document.querySelector('[icon="trash"]') as HTMLElement)
 
     fireEvent.click(document.querySelector('button[class*=intent-danger]') as HTMLButtonElement)
     await waitFor(() => expect(mutate).toBeCalledTimes(1))

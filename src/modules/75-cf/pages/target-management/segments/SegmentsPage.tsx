@@ -19,7 +19,6 @@ import { useConfirmAction } from '@common/hooks'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
-import { OptionsMenuButton } from '@common/components'
 import {
   makeStackedCircleShortName,
   StackedCircleContainer
@@ -29,6 +28,9 @@ import { useEnvironmentSelectV2 } from '@cf/hooks/useEnvironmentSelectV2'
 import { Segment, useDeleteSegment, useGetAllSegments } from 'services/cf'
 import TargetManagementHeader from '@cf/components/TargetManagementHeader/TargetManagementHeader'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
 import { NoSegmentsView } from './NoSegmentsView'
 import { NewSegmentButton } from './NewSegmentButton'
 
@@ -205,19 +207,27 @@ export const SegmentsPage: React.FC = () => {
                   e.stopPropagation()
                 }}
               >
-                <OptionsMenuButton
+                <RbacOptionsMenuButton
                   items={[
                     {
                       icon: 'edit',
                       text: getString('edit'),
                       onClick: () => {
                         gotoSegmentDetailPage(cell.row.original.identifier as string)
+                      },
+                      permission: {
+                        resource: { resourceType: ResourceType.ENVIRONMENT, resourceIdentifier: activeEnvironment },
+                        permission: PermissionIdentifier.EDIT_FF_TARGETGROUP
                       }
                     },
                     {
-                      icon: 'cross',
+                      icon: 'trash',
                       text: getString('delete'),
-                      onClick: deleteSegmentConfirm
+                      onClick: deleteSegmentConfirm,
+                      permission: {
+                        resource: { resourceType: ResourceType.ENVIRONMENT, resourceIdentifier: activeEnvironment },
+                        permission: PermissionIdentifier.DELETE_FF_TARGETGROUP
+                      }
                     }
                   ]}
                 />

@@ -55,7 +55,7 @@ import {
 import { FlagTypeVariations } from '@cf/components/CreateFlagDialog/FlagDialogUtils'
 // import FlagDrawerFilter from '../../components/FlagFilterDrawer/FlagFilterDrawer'
 import FlagDialog from '@cf/components/CreateFlagDialog/FlagDialog'
-import FeatureFlagRowOptions from '@cf/components/FeatureFlagRowOptions/FeatureFlagRowOptions'
+import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
 import imageURL from './flag.svg'
 import { FeatureFlagStatus, FlagStatus } from './FlagStatus'
 import { FlagResult } from './FlagResult'
@@ -375,7 +375,28 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
 
   return (
     <Container style={{ textAlign: 'right' }} onClick={Utils.stopEvent}>
-      <FeatureFlagRowOptions onEdit={gotoDetailPage} onDelete={deleteFlag} />
+      <RbacOptionsMenuButton
+        items={[
+          {
+            icon: 'edit',
+            text: getString('edit'),
+            onClick: gotoDetailPage,
+            permission: {
+              resource: { resourceType: ResourceType.ENVIRONMENT, resourceIdentifier: environment },
+              permission: PermissionIdentifier.EDIT_FF_FEATUREFLAG
+            }
+          },
+          {
+            icon: 'trash',
+            text: getString('delete'),
+            onClick: deleteFlag,
+            permission: {
+              resource: { resourceType: ResourceType.FEATUREFLAG },
+              permission: PermissionIdentifier.DELETE_FF_FEATUREFLAG
+            }
+          }
+        ]}
+      />
     </Container>
   )
 }

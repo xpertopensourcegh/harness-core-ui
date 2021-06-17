@@ -30,11 +30,11 @@ import {
   Variation
 } from 'services/cf'
 import { VariationWithIcon } from '@cf/components/VariationWithIcon/VariationWithIcon'
-import FeatureFlagDetailOptions from '@cf/components/FeatureFlagDetailOptions/FeatureFlagDetailOptions'
 import { useConfirmAction, useQueryParams } from '@common/hooks'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { getErrorMessage, showToaster, useFeatureFlagTypeToStringMapping } from '@cf/utils/CFUtils'
+import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
 import patch from '../../utils/instructions'
 import { VariationTypeIcon } from '../VariationTypeIcon/VariationTypeIcon'
@@ -267,7 +267,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
           dangerouslySetInnerHTML={{
             __html: getString('cf.featureFlags.archiveFlagMessage', { name: featureFlag.name })
           }}
-        ></span>
+        />
       </Text>
     ),
     intent: Intent.DANGER,
@@ -297,7 +297,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
           dangerouslySetInnerHTML={{
             __html: getString('cf.featureFlags.deleteFlagMessage', { name: featureFlag.name })
           }}
-        ></span>
+        />
       </Text>
     ),
     intent: Intent.DANGER,
@@ -341,11 +341,38 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
         </Link>
         <span style={{ display: 'inline-block', paddingLeft: 'var(--spacing-xsmall)' }}>/</span>
         <FlexExpander />
-        <FeatureFlagDetailOptions
-          onEdit={openEditDetailsModal}
-          onArchive={archiveFlag}
-          onDelete={deleteFlag}
-          archived={featureFlag.archived}
+        <RbacOptionsMenuButton
+          items={[
+            {
+              icon: 'edit',
+              text: getString('edit'),
+              onClick: openEditDetailsModal,
+              disabled: featureFlag.archived,
+              permission: {
+                resource: { resourceType: ResourceType.FEATUREFLAG },
+                permission: PermissionIdentifier.EDIT_FF_FEATUREFLAG
+              }
+            },
+            {
+              icon: 'archive',
+              text: getString('archive'),
+              onClick: archiveFlag,
+              // Disable for now per https://harness.atlassian.net/browse/FFM-772
+              disabled: true,
+              title: getString('cf.featureNotReady')
+            },
+            '-',
+            {
+              icon: 'trash',
+              text: getString('delete'),
+              onClick: deleteFlag,
+              disabled: featureFlag.archived,
+              permission: {
+                resource: { resourceType: ResourceType.FEATUREFLAG },
+                permission: PermissionIdentifier.DELETE_FF_FEATUREFLAG
+              }
+            }
+          ]}
         />
       </Layout.Horizontal>
 

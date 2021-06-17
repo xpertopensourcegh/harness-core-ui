@@ -20,7 +20,6 @@ import { useConfirmAction } from '@common/hooks'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
-import { OptionsMenuButton } from '@common/components'
 import { Segment, Target, useDeleteTarget, useGetAllTargets } from 'services/cf'
 import {
   makeStackedCircleShortName,
@@ -30,6 +29,9 @@ import { useEnvironmentSelectV2 } from '@cf/hooks/useEnvironmentSelectV2'
 import { NoEnvironment } from '@cf/components/NoEnvironment/NoEnvironment'
 import TargetManagementHeader from '@cf/components/TargetManagementHeader/TargetManagementHeader'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
+import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { NoTargetsView } from './NoTargetsView'
 import { NewTargets } from './NewTarget'
 
@@ -238,19 +240,27 @@ export const TargetsPage: React.FC = () => {
                   e.stopPropagation()
                 }}
               >
-                <OptionsMenuButton
+                <RbacOptionsMenuButton
                   items={[
                     {
                       icon: 'edit',
                       text: getString('edit'),
                       onClick: () => {
                         gotoTargetDetailPage(cell.row.original.identifier as string)
+                      },
+                      permission: {
+                        resource: { resourceType: ResourceType.ENVIRONMENT, resourceIdentifier: activeEnvironment },
+                        permission: PermissionIdentifier.EDIT_FF_TARGETGROUP
                       }
                     },
                     {
-                      icon: 'cross',
+                      icon: 'trash',
                       text: getString('delete'),
-                      onClick: deleteTargetConfirm
+                      onClick: deleteTargetConfirm,
+                      permission: {
+                        resource: { resourceType: ResourceType.ENVIRONMENT, resourceIdentifier: activeEnvironment },
+                        permission: PermissionIdentifier.DELETE_FF_TARGETGROUP
+                      }
                     }
                   ]}
                 />

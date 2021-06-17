@@ -1,18 +1,21 @@
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { Container, Layout, Text, Avatar, Intent } from '@wings-software/uicore'
+import { Avatar, Container, Intent, Layout, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { DeleteTargetQueryParams, GetTargetQueryParams, useDeleteTarget, useGetTarget } from 'services/cf'
 import routes from '@common/RouteDefinitions'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { PageError } from '@common/components/Page/PageError'
-import { OptionsMenuButton, PageSpinner, useToaster } from '@common/components'
+import { PageSpinner, useToaster } from '@common/components'
 import { DISABLE_AVATAR_PROPS, formatDate, formatTime, getErrorMessage, showToaster } from '@cf/utils/CFUtils'
 import { useConfirmAction } from '@common/hooks'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { useGetEnvironment } from 'services/cd-ng'
 import { DetailPageTemplate } from '@cf/components/DetailPageTemplate/DetailPageTemplate'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
+import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { TargetSettings } from './target-settings/TargetSettings'
 import { FlagSettings } from './flag-settings/FlagSettings'
 import css from './TargetDetailPage.module.scss'
@@ -152,12 +155,16 @@ export const TargetDetailPage: React.FC = () => {
       headerExtras={
         <>
           <Container style={{ position: 'absolute', top: '15px', right: '25px' }}>
-            <OptionsMenuButton
+            <RbacOptionsMenuButton
               items={[
                 {
                   icon: 'cross',
                   text: getString('delete'),
-                  onClick: deleteTargetConfirm
+                  onClick: deleteTargetConfirm,
+                  permission: {
+                    resource: { resourceType: ResourceType.ENVIRONMENT, resourceIdentifier: activeEnvironment },
+                    permission: PermissionIdentifier.DELETE_FF_TARGETGROUP
+                  }
                 }
               ]}
             />

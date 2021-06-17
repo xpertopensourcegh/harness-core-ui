@@ -1,9 +1,12 @@
 import React from 'react'
 import { Avatar, Container, Layout, Text } from '@wings-software/uicore'
-import { OptionsMenuButton } from '@common/components'
 import { useStrings } from 'framework/strings'
 import { DISABLE_AVATAR_PROPS } from '@cf/utils/CFUtils'
 import { ItemContainer, ItemContainerProps } from '@cf/components/ItemContainer/ItemContainer'
+import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import css from './ItemBriefInfo.module.scss'
 
 interface ItemBriefInfoProps extends ItemContainerProps {
@@ -23,6 +26,7 @@ export const ItemBriefInfo: React.FC<ItemBriefInfoProps> = ({
   ...props
 }) => {
   const { getString } = useStrings()
+  const { activeEnvironment } = useActiveEnvironment()
 
   return (
     <ItemContainer style={{ paddingRight: 'var(--spacing-xsmall)' }} {...props}>
@@ -50,8 +54,18 @@ export const ItemBriefInfo: React.FC<ItemBriefInfoProps> = ({
           <Text style={{ color: disabled ? 'var(--grey-350)' : '#22222ac7', fontSize: '12px' }}>{description}</Text>
         </Container>
         {onRemoveClick && (
-          <OptionsMenuButton
-            items={[{ text: getString('cf.targetDetail.removeSegment'), icon: 'cross', onClick: onRemoveClick }]}
+          <RbacOptionsMenuButton
+            items={[
+              {
+                text: getString('cf.targetDetail.removeSegment'),
+                icon: 'cross',
+                onClick: onRemoveClick,
+                permission: {
+                  resource: { resourceType: ResourceType.ENVIRONMENT, resourceIdentifier: activeEnvironment },
+                  permission: PermissionIdentifier.EDIT_FF_TARGETGROUP
+                }
+              }
+            ]}
           />
         )}
       </Layout.Horizontal>

@@ -3,6 +3,9 @@ import { Button, Container, Layout, useModalHook, FormInput, Formik, Collapse, I
 import * as yup from 'yup'
 import { Dialog } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
+import RbacButton from '@rbac/components/Button/Button'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { useCreateSegment, Tag, CreateSegmentQueryParams } from 'services/cf'
 import { useToaster } from '@common/exports'
 import { getErrorMessage } from '@cf/utils/CFUtils'
@@ -128,5 +131,15 @@ export const NewSegmentButton: React.FC<NewSegmentButtonProps> = ({
     )
   }, [activeEnvironment])
 
-  return <Button intent="primary" text={getString('cf.segments.create')} onClick={openModal} />
+  return (
+    <RbacButton
+      intent="primary"
+      text={getString('cf.segments.create')}
+      onClick={openModal}
+      permission={{
+        resource: { resourceType: ResourceType.ENVIRONMENT, resourceIdentifier: activeEnvironment },
+        permission: PermissionIdentifier.EDIT_FF_TARGETGROUP
+      }}
+    />
+  )
 }

@@ -7,11 +7,11 @@ import { usePermission, PermissionsRequest } from '@rbac/hooks/usePermission'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import css from './MenuItem.module.scss'
 
-interface MenuItemProps extends IMenuItemProps {
+export interface RbacMenuItemProps extends IMenuItemProps {
   permission: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
 }
 
-const RbacMenuItem: React.FC<MenuItemProps> = ({ permission: permissionRequest, ...restProps }) => {
+const RbacMenuItem: React.FC<RbacMenuItemProps> = ({ permission: permissionRequest, ...restProps }) => {
   const [canDoAction] = usePermission(
     {
       ...pick(permissionRequest, ['resourceScope', 'resource', 'options']),

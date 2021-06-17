@@ -268,7 +268,7 @@ exports[`SegmentDetailsPage SegmentDetailsPage should render data correctly 1`] 
                       <span
                         class="bp3-button-text"
                       >
-                        Edit Rules
+                        cf.featureFlags.rules.editRules
                       </span>
                     </button>
                   </div>

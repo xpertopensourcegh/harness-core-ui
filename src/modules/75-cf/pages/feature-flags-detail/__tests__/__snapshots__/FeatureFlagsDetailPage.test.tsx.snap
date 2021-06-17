@@ -32,7 +32,7 @@ exports[`FeatureFlagsDetailPage FeatureFlagsDetailPage should render data correc
             style="flex-grow: 1;"
           />
           <span
-            class="bp3-popover-wrapper bp3-dark"
+            class="bp3-popover-wrapper"
           >
             <span
               class="bp3-popover-target"

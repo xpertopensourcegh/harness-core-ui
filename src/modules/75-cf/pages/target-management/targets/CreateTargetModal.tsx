@@ -1,19 +1,23 @@
 import React, { useState } from 'react'
 import {
   Button,
+  Color,
   Container,
+  FlexExpander,
   Layout,
-  useModalHook,
+  SimpleTagInput,
   Text,
   TextInput,
-  Color,
-  FlexExpander,
-  SimpleTagInput
+  useModalHook
 } from '@wings-software/uicore'
-import { Radio, RadioGroup, Spinner, Dialog } from '@blueprintjs/core'
-import { useStrings } from 'framework/strings'
+import { Dialog, Radio, RadioGroup, Spinner } from '@blueprintjs/core'
 import type { StringKeys } from 'framework/strings'
+import { useStrings } from 'framework/strings'
+import RbacButton from '@rbac/components/Button/Button'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { Target } from 'services/cf'
+import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import uploadImageUrl from './upload.svg'
 import css from './TargetsPage.module.scss'
 
@@ -157,7 +161,7 @@ const FileUpload: React.FC<{ onChange: (targets: TargetData[]) => void }> = ({ o
               height={uploadContainerHeight}
               style={{ border: '1px solid #D9DAE6', borderRadius: '4px', background: '#FAFBFC', margin: '0 28px' }}
             >
-              <img src={uploadImageUrl} width={100} height={100} />
+              <img src={uploadImageUrl} width={100} height={100} alt="upload" />
               <Text padding={{ top: 'large' }} color={Color.BLUE_500} style={{ fontSize: '14px' }}>
                 {getString('cf.targets.uploadYourFile')}
               </Text>
@@ -216,6 +220,7 @@ const CreateTargetModal: React.FC<CreateTargetModalProps> = ({ loading, onSubmit
   const { getString } = useStrings()
   const getPageString = (key: string): string =>
     getString(`cf.targets.${key}` as StringKeys /* TODO: fix this by using a map */)
+  const { activeEnvironment } = useActiveEnvironment()
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
     setIsList((e.target as HTMLInputElement).value === LIST)
@@ -277,7 +282,7 @@ const CreateTargetModal: React.FC<CreateTargetModalProps> = ({ loading, onSubmit
                       inline
                       tooltip={getString('cf.targets.uploadHelp')}
                       style={{ transform: 'translateY(2px)', cursor: 'pointer' }}
-                    ></Text>
+                    />
                   </Text>
                   <FileUpload onChange={_targets => setTargets(_targets)} />
                 </Layout.Vertical>
@@ -295,7 +300,17 @@ const CreateTargetModal: React.FC<CreateTargetModalProps> = ({ loading, onSubmit
     )
   }, [isList, targets, loading, addDisabled])
 
-  return <Button intent="primary" text={getString('cf.targets.create')} onClick={openModal} />
+  return (
+    <RbacButton
+      intent="primary"
+      text={getString('cf.targets.create')}
+      onClick={openModal}
+      permission={{
+        resource: { resourceType: ResourceType.ENVIRONMENT, resourceIdentifier: activeEnvironment },
+        permission: PermissionIdentifier.EDIT_FF_TARGETGROUP
+      }}
+    />
+  )
 }
 
 export default CreateTargetModal

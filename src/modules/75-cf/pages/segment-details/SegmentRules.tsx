@@ -34,6 +34,9 @@ import {
 } from 'services/cf'
 import { getErrorMessage } from '@cf/utils/CFUtils'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
+import RbacButton from '@rbac/components/Button/Button'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import patch, { getDiff } from '../../utils/instructions'
 import css from './SegmentDetailsPage.module.scss'
 
@@ -303,6 +306,8 @@ const RulesTab: React.FC<RulesTabProps> = ({
     )
   }, [tempExcluded, availableTargets])
 
+  const { activeEnvironment } = useActiveEnvironment()
+
   const [includedAvatars, excludedAvatars] = [included, excluded].map(x => x.map(toAvatar))
 
   const handleClauseChange = (idx: number) => ({ kind, payload }: ClauseMutation) => {
@@ -337,7 +342,17 @@ const RulesTab: React.FC<RulesTabProps> = ({
   return (
     <Layout.Vertical spacing="medium" padding="large">
       <Layout.Horizontal style={{ alignItems: 'center', justifyContent: 'flex-end' }}>
-        {!editing && <Button text="Edit Rules" icon="edit" onClick={onEdit} />}
+        {!editing && (
+          <RbacButton
+            text={getString('cf.featureFlags.rules.editRules')}
+            icon="edit"
+            onClick={onEdit}
+            permission={{
+              resource: { resourceType: ResourceType.ENVIRONMENT, resourceIdentifier: activeEnvironment },
+              permission: PermissionIdentifier.EDIT_FF_TARGETGROUP
+            }}
+          />
+        )}
       </Layout.Horizontal>
       <Card style={{ width: '100%', padding: 'var(--spacing-medium)' }}>
         <Layout.Vertical spacing="small">

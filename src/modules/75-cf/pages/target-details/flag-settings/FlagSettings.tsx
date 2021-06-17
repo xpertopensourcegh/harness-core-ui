@@ -23,6 +23,10 @@ import { CFVariationColors } from '@cf/constants'
 import { FlagPatchParams, useServeFeatureFlagVariationToTargets } from '@cf/utils/FlagUtils'
 import { useToaster } from '@common/exports'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
+import { usePermission } from '@rbac/hooks/usePermission'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
 import { DetailHeading } from '../DetailHeading'
 import css from './FlagSettings.module.scss'
 
@@ -306,35 +310,49 @@ export const VariationSelect: React.FC<VariationSelectProps> = ({ variations, se
           }
         }
       : undefined
+  const { activeEnvironment } = useActiveEnvironment()
+  const [canEdit] = usePermission({
+    resource: { resourceType: ResourceType.ENVIRONMENT, resourceIdentifier: activeEnvironment },
+    permissions: [PermissionIdentifier.EDIT_FF_FEATUREFLAG]
+  })
 
   return (
-    <Select
-      items={variations.map<SelectOption>((variation, _index) => ({
-        label: variation.name as string,
-        value: variation.identifier as string,
-        icon: {
-          name: 'full-circle',
-          style: {
-            color: CFVariationColors[_index]
+    <Text
+      tooltip={
+        !canEdit ? (
+          <RBACTooltip resourceType={ResourceType.ENVIRONMENT} permission={PermissionIdentifier.EDIT_FF_FEATUREFLAG} />
+        ) : undefined
+      }
+    >
+      <Select
+        disabled={!canEdit}
+        items={variations.map<SelectOption>((variation, _index) => ({
+          label: variation.name as string,
+          value: variation.identifier as string,
+          icon: {
+            name: 'full-circle',
+            style: {
+              color: CFVariationColors[_index]
+            }
           }
-        }
-      }))}
-      value={value as SelectOption}
-      onChange={async ({ value: _value }) => {
-        const oldIndex = index
-        const newIndex = variations.findIndex(v => v.identifier === _value)
+        }))}
+        value={value as SelectOption}
+        onChange={async ({ value: _value }) => {
+          const oldIndex = index
+          const newIndex = variations.findIndex(v => v.identifier === _value)
 
-        if (newIndex !== -1 && newIndex !== index) {
-          setIndex(newIndex)
+          if (newIndex !== -1 && newIndex !== index) {
+            setIndex(newIndex)
 
-          const result = await onChange(variations[newIndex])
+            const result = await onChange(variations[newIndex])
 
-          // If onChange does not return true, meaning it fails => go back to previous value
-          if (result !== true) {
-            setIndex(oldIndex)
+            // If onChange does not return true, meaning it fails => go back to previous value
+            if (result !== true) {
+              setIndex(oldIndex)
+            }
           }
-        }
-      }}
-    />
+        }}
+      />
+    </Text>
   )
 }
