@@ -1,8 +1,7 @@
 import React from 'react'
-import Draggable from 'react-draggable'
+import Draggable, { DraggableData } from 'react-draggable'
 import { usePopper } from 'react-popper'
 import { Button } from '@wings-software/uicore'
-import cx from 'classnames'
 
 import { String } from 'framework/strings'
 import { useLocalStorage } from '@common/hooks'
@@ -19,7 +18,7 @@ export default function ExecutionLayoutFloatingView(props: React.PropsWithChildr
   const [isOpen, setIsOpen] = React.useState(true)
   const [referenceElement, setReferenceElement] = React.useState<HTMLElement | null>(null)
   const [popperElement, setPopperElement] = React.useState<HTMLElement | null>(null)
-  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+  const { styles, attributes, forceUpdate } = usePopper(referenceElement, popperElement, {
     placement: 'bottom-end',
     modifiers: [
       {
@@ -39,6 +38,11 @@ export default function ExecutionLayoutFloatingView(props: React.PropsWithChildr
     }
   }
 
+  function handlePosition(data: DraggableData): void {
+    setPosition({ x: data.x, y: data.y })
+    forceUpdate?.()
+  }
+
   React.useEffect(() => {
     setIsOpen(layout !== ExecutionLayoutState.MINIMIZE)
   }, [layout])
@@ -49,20 +53,23 @@ export default function ExecutionLayoutFloatingView(props: React.PropsWithChildr
         <Draggable
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           offsetParent={document.getElementById('pipeline-execution-container')!}
-          disabled={isOpen}
           position={position}
-          onStop={(_e, data) => setPosition({ x: data.x, y: data.y })}
+          onStop={(_e, data) => handlePosition(data)}
+          handle="#pipeline-step-details-drag"
         >
-          <div className={cx(css.stepDetails, { [css.draggable]: !isOpen })} ref={setReferenceElement}>
-            <String stringID="pipeline.stepDetails" />
+          <div className={css.stepDetails} ref={setReferenceElement}>
+            <Button minimal icon="drag-handle-vertical" id="pipeline-step-details-drag" />
             <Button
               onClick={toggleDialog}
+              className={css.toggleButton}
               rightIcon={isOpen ? 'minus' : 'plus'}
               minimal
               small
               intent="primary"
               data-testid="restore"
-            />
+            >
+              <String stringID="pipeline.stepDetails" />
+            </Button>
           </div>
         </Draggable>
       }

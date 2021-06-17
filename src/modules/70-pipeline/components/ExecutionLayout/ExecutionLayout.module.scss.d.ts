@@ -10,7 +10,7 @@ declare const styles: {
   readonly pane22: string
   readonly floatingView: string
   readonly stepDetails: string
-  readonly draggable: string
+  readonly toggleButton: string
   readonly toggle: string
   readonly label: string
 }

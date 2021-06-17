@@ -123,7 +123,7 @@ describe('<ExecutionLayout /> tests', () => {
     expect(getByTestId('child-3').innerHTML).toBe('Child 3')
     expect(container).toMatchSnapshot('Child 3 is shown')
 
-    const btn = container.querySelector('.stepDetails button')!
+    const btn = container.querySelector('button.toggleButton')!
 
     act(() => {
       fireEvent.click(btn)
