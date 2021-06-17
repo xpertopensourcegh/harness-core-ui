@@ -4,6 +4,7 @@ import '@pipeline/components/CommonPipelineStages/CustomStage'
 import '@pipeline/components/CommonPipelineStages/PipelineStage'
 
 import RbacFactory from '@rbac/factories/RbacFactory'
+import ESDFactory from '@pipeline/factories/ExecutionStepDetailsFactory'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { String } from 'framework/strings'
@@ -11,7 +12,13 @@ import { String } from 'framework/strings'
 import PipelineResourceModal from '@pipeline/components/RbacResourceModals/PipelineResourceModal/PipelineResourceModal'
 import ServiceResourceModal from '@pipeline/components/RbacResourceModals/ServiceResourceModal/ServiceResourceModal'
 import EnvironmentResourceModal from '@pipeline/components/RbacResourceModals/EnvironmentResourceModal/EnvironmentResourceModal'
+import { HarnessApprovalView } from '@pipeline/components/execution/StepDetails/views/HarnessApprovalView/HarnessApprovalView'
+import { JiraApprovalView } from '@pipeline/components/execution/StepDetails/views/JiraApprovalView/JiraApprovalView'
+import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 
+/**
+ * Register RBAC resources
+ */
 RbacFactory.registerResourceTypeHandler(ResourceType.PIPELINE, {
   icon: 'pipeline-deployment',
   label: 'pipelines',
@@ -49,4 +56,15 @@ RbacFactory.registerResourceTypeHandler(ResourceType.ENVIRONMENT, {
   },
   // eslint-disable-next-line react/display-name
   addResourceModalBody: props => <EnvironmentResourceModal {...props} />
+})
+
+/**
+ * Register execution step detail views
+ */
+ESDFactory.registerStepDetails(StepType.HarnessApproval, {
+  component: HarnessApprovalView
+})
+
+ESDFactory.registerStepDetails(StepType.JiraApproval, {
+  component: JiraApprovalView
 })

@@ -1,0 +1,62 @@
+.approver {
+  font-size: var(--font-size-small);
+  border-bottom: 1px solid var(--grey-200);
+
+  .label {
+    color: var(--grey-500);
+    margin-bottom: var(--spacing-xsmall);
+  }
+
+  .approverName {
+    font-weight: bold;
+    text-align: left;
+  }
+
+  .summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    padding: var(--spacing-xsmall) 0;
+  }
+
+  .time {
+    justify-self: end;
+  }
+
+  .status {
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    column-gap: var(--spacing-xsmall);
+
+    &[data-status='APPROVE'] {
+      --intent-color: var(--green-500);
+    }
+
+    &[data-status='REJECT'] {
+      --intent-color: var(--red-500);
+    }
+
+    :global(.bp3-icon) {
+      path {
+        fill: currentColor;
+      }
+    }
+  }
+
+  .approverInputs {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--spacing-medium) 0;
+
+    & > li {
+      display: flex;
+      line-height: 22px;
+      column-gap: var(--spacing-xsmall);
+    }
+  }
+
+  .comments {
+    margin: 0 0 var(--spacing-medium) 0;
+  }
+}

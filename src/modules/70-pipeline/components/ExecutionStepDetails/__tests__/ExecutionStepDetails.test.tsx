@@ -1,11 +1,11 @@
 import React from 'react'
-import { render, fireEvent, waitFor, findAllByText as findAllByTextGlobal } from '@testing-library/react'
+import { render, fireEvent, findAllByText as findAllByTextGlobal } from '@testing-library/react'
 
 import { TestWrapper, CurrentLocation } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import ExecutionContext, { ExecutionContextParams } from '@pipeline/context/ExecutionContext'
 import { accountPathProps, executionPathProps, pipelineModuleParams } from '@common/utils/routeUtils'
-import { ExecutionNode, useGetApprovalInstance, useGetExecutionNode } from 'services/pipeline-ng'
+import { ExecutionNode, useGetExecutionNode } from 'services/pipeline-ng'
 import ExecutionStepDetails from '../ExecutionStepDetails'
 import data from './data.json'
 
@@ -78,37 +78,6 @@ describe('<ExecutionStepDetails /> tests', () => {
   test('renders normal step', () => {
     const { container } = render(<TestComponent selectedStep="normalStep" />)
     expect(container).toMatchSnapshot()
-  })
-
-  describe('approval steps', () => {
-    test('renders approval waiting step', () => {
-      const { container } = render(<TestComponent selectedStep="approvalStepWaiting" />)
-      expect(container).toMatchSnapshot()
-    })
-
-    test('renders approval complete step', () => {
-      const { container } = render(<TestComponent selectedStep="approvalStepComplete" />)
-      expect(container).toMatchSnapshot()
-    })
-    test('renders normal error step', () => {
-      const { container } = render(<TestComponent selectedStep="errorStep" />)
-      expect(container).toMatchSnapshot()
-    })
-
-    // eslint-disable-next-line jest/no-disabled-tests
-    test.skip('click on refresh triggers new approval call', async () => {
-      const refetch = jest.fn()
-      ;(useGetApprovalInstance as jest.Mock).mockImplementation(() => ({ data: {}, loading: false, refetch }))
-
-      const { container, findByText } = render(<TestComponent selectedStep="approvalStepWaiting" />)
-      expect(container).toMatchSnapshot()
-
-      const refresh = await findByText('common.refresh')
-
-      fireEvent.click(refresh)
-
-      await waitFor(() => expect(refetch).toHaveBeenCalled())
-    })
   })
 
   describe('retried steps', () => {
