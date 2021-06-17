@@ -371,7 +371,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
                 <SparkChart
                   data={pipeline.executionSummaryInfo?.deployments || []}
                   data2={pipeline.executionSummaryInfo?.numOfErrors || []}
-                  color={Color.GREEN_500}
+                  color={Color.PRIMARY_4}
                   color2={Color.RED_600}
                 />
               </span>
