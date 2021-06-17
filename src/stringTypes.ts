@@ -698,6 +698,8 @@ export interface StringsMap {
   'connectors.cdng.verificationSensitivityLabel.high': string
   'connectors.cdng.verificationSensitivityLabel.low': string
   'connectors.cdng.verificationSensitivityLabel.medium': string
+  'connectors.ceK8.infoText': string
+  'connectors.ceK8.selectConnectorLabel': string
   'connectors.confirmDelete': string
   'connectors.confirmDeleteTitle': string
   'connectors.connectAndSave': string

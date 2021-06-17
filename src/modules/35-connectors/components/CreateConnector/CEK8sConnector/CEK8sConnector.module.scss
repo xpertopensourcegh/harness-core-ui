@@ -1,0 +1,84 @@
+.overviewStep {
+  .infoSection {
+    padding: 15px 20px;
+    background: #effbff;
+    color: var(--grey-800);
+    line-height: 24px;
+  }
+  .selectConnector {
+    width: 54%;
+    margin-top: var(--spacing-large) !important;
+  }
+}
+
+.providePermissionContainer {
+  position: relative;
+  height: 100%;
+  :global {
+    .OverlaySpinner--overlaySpinner {
+      height: 100%;
+    }
+  }
+  .heading {
+    font-weight: 600 !important;
+    color: var(--grey-800) !important;
+    span {
+      font-weight: 400 !important;
+    }
+  }
+  ul {
+    li {
+      margin-bottom: var(--spacing-medium);
+    }
+  }
+  .stepBtn {
+    background-color: transparent !important;
+    border: 1px solid var(--primary-7) !important;
+    color: var(--primary-7) !important;
+    box-shadow: none !important;
+    border-radius: 8px !important;
+  }
+  .successTextContainer {
+    padding-left: var(--spacing-xlarge) !important;
+    svg path {
+      fill: var(--green-700);
+      transform-origin: 50% 50%;
+      stroke-dasharray: 48;
+      stroke-dashoffset: 48;
+      animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+    }
+    span:not([icon='tick']) {
+      color: var(--green-700) !important;
+      margin-left: 10px !important;
+    }
+  }
+  .commandSection {
+    margin-top: var(--spacing-xlarge) !important;
+    .copyCommand {
+      background: var(--primary-1);
+      padding: var(--spacing-medium);
+      border-radius: 4px;
+      font-family: 'Courier New', Courier, monospace;
+      margin-top: var(--spacing-large);
+      margin-bottom: var(--spacing-large);
+      width: 70%;
+      span {
+        cursor: pointer;
+      }
+      p {
+        color: #343a41 !important;
+      }
+    }
+  }
+  .submitBtn {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 150px;
+  }
+}
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}

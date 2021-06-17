@@ -1,0 +1,112 @@
+import React from 'react'
+import { act } from 'react-dom/test-utils'
+jest.mock('copy-to-clipboard')
+import c2cMock from 'copy-to-clipboard'
+import type { UseMutateReturn } from 'restful-react'
+import { findByText, fireEvent, queryByAttribute, render, waitFor } from '@testing-library/react'
+import * as ccmService from 'services/ce'
+import { TestWrapper } from '@common/utils/testUtils'
+import { clickSubmit } from '@common/utils/JestFormHelper'
+import CreateCEK8sConnector from '../CreateCEK8sConnector'
+import { mockedConnectors, mockResponse, commonProps } from './mocks'
+
+const updateConnector = jest.fn()
+const createConnector = jest.fn()
+
+jest.mock('@common/hooks', () => ({
+  ...(jest.requireActual('@common/hooks') as any),
+  useMutateAsGet: jest.fn().mockImplementation(() => {
+    return { data: { data: mockedConnectors }, refetch: jest.fn(), error: null }
+  })
+}))
+
+jest.mock('@common/utils/downloadYamlUtils', () => ({
+  downloadYamlAsFile: jest.fn().mockImplementation(() => Promise.resolve({ status: true }))
+}))
+
+jest.mock('services/cd-ng', () => ({
+  validateTheIdentifierIsUniquePromise: jest.fn().mockImplementation(() => Promise.resolve(mockResponse)),
+  useCreateConnector: jest.fn().mockImplementation(() => ({ mutate: createConnector })),
+  useUpdateConnector: jest.fn().mockImplementation(() => ({ mutate: updateConnector })),
+  useGetTestConnectionResult: jest.fn().mockImplementation(() => jest.fn()),
+  useGetConnectorListV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
+}))
+const mockMutateFn = jest.fn().mockReturnValue(Promise.resolve('')) as unknown
+const useDownloadYamlSpy = jest.spyOn(ccmService, 'useDownloadYaml') as any
+useDownloadYamlSpy.mockReturnValue({ mutate: mockMutateFn } as UseMutateReturn<any, any, any, any, any>)
+
+describe('Create CE K8s Connector Wizard', () => {
+  test('Step One', async () => {
+    const { container } = render(
+      <TestWrapper pathParams={{ accountId: 'dummy' }}>
+        <CreateCEK8sConnector {...commonProps} isEditMode={false} connectorInfo={undefined} mock={mockResponse} />
+      </TestWrapper>
+    )
+
+    await act(async () => {
+      clickSubmit(container)
+    })
+
+    expect(container).toMatchSnapshot() // Form validation for all required fields in step one
+  })
+
+  test('Step one and step two', async () => {
+    ;(c2cMock as jest.Mock).mockImplementationOnce(() => true)
+    const { container } = render(
+      <TestWrapper pathParams={{ accountId: 'dummy' }}>
+        <CreateCEK8sConnector {...commonProps} isEditMode={false} connectorInfo={undefined} mock={mockResponse} />
+      </TestWrapper>
+    )
+
+    // fill step 1
+    const nameInput = queryByAttribute('name', container, 'name')
+    expect(nameInput).toBeTruthy()
+    if (nameInput) fireEvent.change(nameInput, { target: { value: 'dummy name' } })
+
+    const connectorDropdown = container.querySelector('input[name="referenceConnector"]') as HTMLInputElement
+    const selectCaret = container
+      .querySelector(`[name="referenceConnector"] + [class*="bp3-input-action"]`)
+      ?.querySelector('[data-icon="caret-down"]')
+    expect(selectCaret).toBeTruthy()
+    if (selectCaret) {
+      await waitFor(() => {
+        fireEvent.click(selectCaret!)
+      })
+      const connectorToSelect = await findByText(container, 'rishabhk8s')
+      act(() => {
+        fireEvent.click(connectorToSelect)
+      })
+      expect(connectorDropdown.value).toBe('rishabhk8s')
+    }
+
+    expect(container).toMatchSnapshot() // matching snapshot with data
+    await act(async () => {
+      clickSubmit(container)
+    })
+
+    //step 2
+    expect(container).toMatchSnapshot() // Form validation for all required fields
+    const downloadBtn = await findByText(container, 'Download YAML', { selector: 'button span' })
+    expect(downloadBtn).toBeTruthy()
+    act(() => {
+      fireEvent.click(downloadBtn)
+    })
+    expect(await findByText(container, 'Download Complete')).toBeDefined()
+
+    const doneBtn = await findByText(container, 'Done', { selector: 'button span' })
+    expect(doneBtn).toBeTruthy()
+    act(() => {
+      fireEvent.click(doneBtn)
+    })
+    expect(await findByText(container, 'Command executed successfully')).toBeDefined()
+
+    expect(container).toMatchSnapshot()
+
+    const submit = await findByText(container, 'continue', { selector: 'button span' })
+    expect(submit).toBeDefined()
+    await act(async () => {
+      fireEvent.click(submit)
+    })
+    expect(createConnector).toBeCalledTimes(1)
+  })
+})

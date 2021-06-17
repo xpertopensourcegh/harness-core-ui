@@ -24,6 +24,7 @@ import CreateNewRelicConnector from '../CreateConnector/NewRelicConnector/Create
 import CreatePrometheusConnector from '../CreateConnector/PrometheusConnector/CreatePrometheusConnector'
 import CreateDataDogConnector from '../CreateConnector/DataDogConnector/CreateDataDogConnector'
 import CreateCeAzureConnector from '../CreateConnector/CEAzureConnector/CreateCeAzureConnector'
+import CreateCEK8sConnector from '../CreateConnector/CEK8sConnector/CreateCEK8sConnector'
 import CreateAzureKeyVaultConnector from '../CreateConnector/CreateAzureKeyConnector/CreateAzureKeyVaultConnector'
 import CreateDynatraceConnector from '../CreateConnector/DynatraceConnector/CreateDynatraceConnector'
 import CreateSumoLogicConnector from '../CreateConnector/SumoLogicConnector/CreateSumoLogicConnector'
@@ -96,6 +97,8 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
       return <CreateAwsKmsConnector {...commonProps} />
     case Connectors.CE_AZURE:
       return <CreateCeAzureConnector {...commonProps} />
+    case Connectors.CE_KUBERNETES:
+      return <CreateCEK8sConnector {...commonProps} />
     case Connectors.DATADOG:
       return <CreateDataDogConnector {...commonProps} />
     case Connectors.AZURE_KEY_VAULT:

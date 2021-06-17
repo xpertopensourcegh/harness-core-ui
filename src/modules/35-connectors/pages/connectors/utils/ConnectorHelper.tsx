@@ -125,6 +125,7 @@ export const getConnectorTitleIdByType = (type: string): StringKeys => {
 export const getConnectorIconByType = (type: string): IconName => {
   switch (type) {
     case Connectors.KUBERNETES_CLUSTER:
+    case Connectors.CE_KUBERNETES:
       return 'app-kubernetes'
     case Connectors.GIT:
       return 'service-github'

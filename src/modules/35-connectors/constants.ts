@@ -64,6 +64,7 @@ export const Connectors: ConnectorType = {
   AWS_KMS: 'AwsKms',
   PROMETHEUS: 'Prometheus',
   CE_AZURE: 'CEAzure',
+  CE_KUBERNETES: 'CEK8sCluster',
   DATADOG: 'Datadog',
   AZURE_KEY_VAULT: 'AzureKeyVault',
   DYNATRACE: 'Dynatrace',

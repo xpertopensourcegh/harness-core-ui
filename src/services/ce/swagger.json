@@ -1,0 +1,45 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Cloud Cost Management API documentation",
+    "version": "1.0.0",
+    "title": "Cloud Cost Management APIs"
+  },
+  "tags": [
+    {
+      "name": "services",
+      "description": "CCM APIs"
+    }
+  ],
+  "schemes": ["https", "http"],
+  "paths": {
+    "/yaml/generate-cost-optimisation-yaml": {
+      "post": {
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "connectorIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": ["YAMLDownload"],
+        "summary": "Downloads YAML file for connector",
+        "description": "Downloads YAML file for connector",
+        "operationId": "DownloadYaml",
+        "produces": ["application/yaml"],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          }
+        }
+      }
+    }
+  }
+}
