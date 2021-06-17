@@ -13,7 +13,7 @@ import {
 import cx from 'classnames'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
-import { debounce, noop, isEmpty, get } from 'lodash-es'
+import { debounce, noop, isEmpty, get, isEqual } from 'lodash-es'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
@@ -118,7 +118,9 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
           if (value.connectorRef) {
             data.connectorRef = (value.connectorRef as any)?.value || value.connectorRef
           }
-          delayedOnUpdate(data)
+          if (!isEqual(data, initialValues)) {
+            delayedOnUpdate(data)
+          }
         }}
         validationSchema={validationSchema}
         onSubmit={noop}
