@@ -37,7 +37,7 @@ export const activityData: ActivityStackItems[] = [
     name: 'Lawrence Wilfred',
     icon: 'cf-main',
     lastUpdatedAt: '40 minutes ago',
-    activity: 'Continuous Features Activity',
+    activity: 'Feature Flags Activity',
     updatedBy: 'by Lawrence Wilfred',
     color: 'var(--yellow-300)'
   },

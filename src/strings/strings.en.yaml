@@ -25,7 +25,7 @@ dashboardLabel: 'Dashboard'
 regionLabel: 'Region'
 createdBy: 'Created by'
 ciCodebase: CI Codebase
-featureFlagsText: Feature Flags
+featureFlagsText: '{{ $.common.purpose.cf.continuous }}'
 flag: Flag
 newLabel: New
 featureNA: This feature is not available as of now

@@ -44,7 +44,7 @@ confirmDelete: Deleting the Organization '{{name}}' would mean that you are also
 aboutProject: 'About the Project'
 gotoCV: 'Go to Continuous Verification'
 gotoCD: 'Go to Continuous Delivery'
-gotoCF: 'Go to Continuous Features'
+gotoCF: 'Go to Feature Flags'
 gotoCI: 'Go to Continuous Integration'
 gotoCE: 'Go to Continuous Efficiency'
 invite: 'Invite Collaborators'
@@ -83,6 +83,6 @@ selectAnExistingProject: Select an existing project
 createANewProject: Create A New Project
 gotoDeployments: Go to Deployments
 gotoBuilds: Go to Builds
-gotoFeatureFlags: Go to Feature Flags
+gotoFeatureFlags: '{{ $.projectsOrgs.gotoCF }}'
 gotoCloudCosts: Go to Cloud Costs
 goto: Go to

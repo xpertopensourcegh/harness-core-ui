@@ -107,7 +107,7 @@ noFlag: You currently have no flags
 noTarget: There are currently no targets
 noTargetForEnv: There are currently no targets for this environment
 homepage:
-  slogan: 'Take your feature rollout processes to the next level using our Harness Continuous Features.'
+  slogan: 'Take your feature rollout processes to the next level using our Harness Feature Flags.'
   learnMore: Learn more about Feature Flags
 clause:
   operators:
@@ -396,7 +396,7 @@ onboarding:
   allSet: Congratulations! You’re all set!
   tryTarget: Try out our robust <a href='{{ link }}'>targeting rules for this flag</a> for more granular rollouts.
   backToStart: Back to Start Guide
-  title: Continuous Features Quick Guide
+  title: Feature Flags Quick Guide
   subTitle: Everything you need to know in less than 15 minutes.
   upAndRunning: Get a flag up and running in 3 steps
   tryItOut: Try it Out
@@ -1103,9 +1103,9 @@ onboarding:
       # Install
 
       To be defined...
-learnMore: Learn more about Continuous Features
+learnMore: '{{ $.cf.homepage.learnMore }}'
 cfTrialHomePage:
   startTrial:
-    description: Take your feature release processes to the next level using our Harness Continuous Features.
+    description: Take your feature release processes to the next level using our Harness Feature Flags.
     startBtn:
       description: Start 14 day CF Enterprise trial
