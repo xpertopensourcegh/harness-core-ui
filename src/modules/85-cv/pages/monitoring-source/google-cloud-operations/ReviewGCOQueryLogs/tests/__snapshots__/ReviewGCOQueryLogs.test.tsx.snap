@@ -93,7 +93,7 @@ exports[`Unit tests for ReviewGCOQueryLogs Ensure output payload is correct whil
                 role="columnheader"
                 style="width: 25%;"
               >
-                CV.MONITORINGSOURCES.METRICNAMELABEL
+                CV.MONITORINGSOURCES.QUERYNAME
               </div>
               <div
                 class="cell"
@@ -339,7 +339,7 @@ exports[`Unit tests for ReviewGCOQueryLogs Ensure output payload is correct whil
                 role="columnheader"
                 style="width: 25%;"
               >
-                CV.MONITORINGSOURCES.METRICNAMELABEL
+                CV.MONITORINGSOURCES.QUERYNAME
               </div>
               <div
                 class="cell"

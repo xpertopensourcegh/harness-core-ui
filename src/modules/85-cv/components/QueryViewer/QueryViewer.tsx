@@ -42,7 +42,7 @@ export function QueryViewer(props: QueryViewerProps): JSX.Element {
             onClick={() => setIsDialogOpen(true)}
           />
         </Layout.Horizontal>
-        <FormInput.TextArea name={MapGCPLogsToServiceFieldNames.QUERY} className={cx(css.formQueryBox)} />
+        <FormInput.TextArea name={MapGCPLogsToServiceFieldNames.QUERY} className={cx(css.formQueryBox)} autoFocus />
         <Button
           intent="primary"
           text={getString('cv.monitoringSources.gcoLogs.fetchRecords')}

@@ -2593,6 +2593,7 @@ export interface StringsMap {
   'cv.monitoringSources.prometheus.validation.recordCount': string
   'cv.monitoringSources.prometheus.validation.serviceInstanceIdentifier': string
   'cv.monitoringSources.prometheus.validation.uniqueName': string
+  'cv.monitoringSources.queryName': string
   'cv.monitoringSources.queryNameLabel': string
   'cv.monitoringSources.queryNameValidation': string
   'cv.monitoringSources.reviewPageSubHeading': string

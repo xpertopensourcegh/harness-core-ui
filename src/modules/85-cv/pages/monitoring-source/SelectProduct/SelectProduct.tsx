@@ -115,7 +115,7 @@ const getInfoSchemaByType = (type: string, getString: UseStringsReturn['getStrin
 
 export function SelectProductFields(props: SelectProductFieldProps): JSX.Element {
   const { getString } = useStrings()
-  const { type, onConnectorCreate, updateSelectedProduct } = props
+  const { type, onConnectorCreate, updateSelectedProduct, isEditMode } = props
   const monitoringSource = getInfoSchemaByType(type, getString)
 
   return (
@@ -127,8 +127,8 @@ export function SelectProductFields(props: SelectProductFieldProps): JSX.Element
         createConnectorText={monitoringSource.createConnectorText}
         firstTimeSetupText={monitoringSource.firstTimeSetupText}
         connectToMonitoringSourceText={monitoringSource.connectToMonitoringSourceText}
-        identifierDisabled={props.isEditMode}
-        disableConnector={props.isEditMode}
+        identifierDisabled={isEditMode}
+        disableConnector={isEditMode}
         value={props.connectorValue}
         onSuccess={data => onConnectorCreate?.(data)}
       />
@@ -154,6 +154,8 @@ export function SelectProductFields(props: SelectProductFieldProps): JSX.Element
                       formikProps.setFieldValue('product', isSelected ? item.value : undefined)
                       updateSelectedProduct && updateSelectedProduct(isSelected ? item.value : '')
                     }}
+                    // other cards are disabled in edit mode
+                    cardProps={{ disabled: formikProps.values.product !== item.value && isEditMode }}
                   />
                 )
               })}

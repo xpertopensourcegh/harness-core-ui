@@ -83,7 +83,7 @@ export function ReviewGCOQueryLogs(props: ReviewGCOQueryLogsProps): JSX.Element 
             data: tableData,
             columns: [
               {
-                Header: getString('cv.monitoringSources.metricNameLabel').toLocaleUpperCase(),
+                Header: getString('cv.monitoringSources.queryName').toLocaleUpperCase(),
                 accessor: 'metricName',
                 width: '25%',
                 disableSortBy: true,
@@ -150,7 +150,7 @@ export function ReviewGCOQueryLogs(props: ReviewGCOQueryLogsProps): JSX.Element 
               await createDSConfig(dsConfig)
             }
             onSubmit({
-              ...dsConfig,
+              ...{ ...dsConfig, name: sourceData.name },
               sourceType: ONBOARDING_ENTITIES.MONITORING_SOURCE as BaseSetupTabsObject['sourceType']
             })
             history.push(`${routes.toCVAdminSetup(params)}?step=2`)
