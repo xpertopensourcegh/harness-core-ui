@@ -12,10 +12,11 @@ import { useToaster } from '@common/components/Toaster/useToaster'
 import CIDashboardSummaryCards from '@pipeline/components/Dashboards/CIDashboardSummaryCards/CIDashboardSummaryCards'
 import CardRailView from '@pipeline/components/Dashboards/CardRailView/CardRailView'
 import FailedBuildCard from '@pipeline/components/Dashboards/BuildCards/FailedBuildCard'
-import ActiveBuildCard, { ActiveBuildCardProps } from '@pipeline/components/Dashboards/BuildCards/ActiveBuildCard'
+import ActiveBuildCard from '@pipeline/components/Dashboards/BuildCards/ActiveBuildCard'
 import BuildExecutionsChart from '@pipeline/components/Dashboards/BuildExecutionsChart/BuildExecutionsChart'
 import RepositoryCard from '@pipeline/components/Dashboards/BuildCards/RepositoryCard'
 import RangeSelector from '@pipeline/components/Dashboards/RangeSelector'
+import { mapActiveCardStatus } from '@pipeline/components/Dashboards/shared'
 import styles from './CIDashboardPage.module.scss'
 
 export const CIDashboardPage: React.FC = () => {
@@ -95,6 +96,8 @@ export const CIDashboardPage: React.FC = () => {
                 lastBuildStatus={repo?.lastRepository?.status}
                 startTime={repo?.lastRepository?.startTime}
                 endTime={repo?.lastRepository?.endTime}
+                username={(repo?.lastRepository as any)?.author?.name}
+                avatarUrl={(repo?.lastRepository as any)?.author?.url}
                 count={repo.buildCount!}
                 successRate={repo.percentSuccess!}
                 successRateDiff={repo.successRate!}
@@ -124,6 +127,8 @@ export const CIDashboardPage: React.FC = () => {
                 commitId={build.commitID}
                 startTime={build.startTs}
                 endTime={build.endTs}
+                username={(build as any)?.author?.name}
+                avatarUrl={(build as any)?.author?.url}
               />
             ))}
           </CardRailView>
@@ -145,7 +150,7 @@ export const CIDashboardPage: React.FC = () => {
                 key={index}
                 title={build.piplineName!}
                 message={build.commit!}
-                status={build.status as ActiveBuildCardProps['status']}
+                status={mapActiveCardStatus(build.status)}
               />
             ))}
           </CardRailView>

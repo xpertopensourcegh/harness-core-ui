@@ -35,6 +35,12 @@ export function formatDuration(value?: number | string) {
     value = value % 60
   }
   s = value
+
+  if (h > 0) {
+    // truncate seconds for large intervals
+    s = 0
+  }
+
   const labelStyle = {
     fontSize: '0.7em',
     marginRight: '0.2em'
@@ -43,21 +49,23 @@ export function formatDuration(value?: number | string) {
     <>
       {signPrefix}
       {h > 0 && (
-        <>
+        <span>
           {h}
           <span style={labelStyle}>h</span>
-        </>
+        </span>
       )}
       {m > 0 && (
-        <>
+        <span style={{ fontSize: h > 0 ? '0.8em' : '1em' }}>
           {m}
           <span style={labelStyle}>m</span>
-        </>
+        </span>
       )}
-      <>
-        {s}
-        <span style={labelStyle}>s</span>
-      </>
+      {s > 0 && (
+        <span style={{ fontSize: m > 0 ? '0.8em' : '1em' }}>
+          {s}
+          <span style={labelStyle}>s</span>
+        </span>
+      )}
     </>
   )
 }
@@ -72,5 +80,47 @@ export function diffStartAndEndTime(startTime?: number, endTime?: number): strin
     } else {
       return `${moment(endTime).diff(startTime, 'hours')}h`
     }
+  }
+}
+
+export type NarrowedCardStatus = 'PENDING' | 'ACTIVE' | 'FAILED' | 'SUCCESS'
+
+export function mapCardStatus(status?: string): NarrowedCardStatus | undefined {
+  switch (status) {
+    case 'INTERVENTIONWAITING':
+    case 'APPROVALWAITING':
+    case 'WAITING':
+    case 'RESOURCEWAITING':
+    case 'NOTSTARTED':
+    case 'QUEUED':
+    case 'SKIPPED':
+      return 'PENDING'
+    case 'RUNNING':
+    case 'ASYNCWAITING':
+    case 'TASKWAITING':
+    case 'TIMEDWAITING':
+    case 'PAUSED':
+    case 'PAUSING':
+    case 'DISCONTINUING':
+    case 'SUSPENDED':
+      return 'ACTIVE'
+    case 'FAILED':
+    case 'ABORTED':
+    case 'EXPIRED':
+    case 'IGNOREFAILED':
+    case 'ERRORED':
+    case 'APPROVALREJECTED':
+      return 'FAILED'
+    case 'SUCCESS':
+      return 'SUCCESS'
+  }
+}
+
+export function mapActiveCardStatus(status?: string): 'RUNNING' | 'PENDING' | undefined {
+  const narrowedStatus = mapCardStatus(status)
+  if (narrowedStatus === 'ACTIVE') {
+    return 'RUNNING'
+  } else if (narrowedStatus === 'PENDING') {
+    return 'PENDING'
   }
 }

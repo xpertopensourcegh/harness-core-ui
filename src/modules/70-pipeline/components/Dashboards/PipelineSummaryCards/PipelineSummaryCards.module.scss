@@ -1,6 +1,6 @@
 .summaryCards {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(max-content, 1fr));
   grid-template-rows: 100px 100px;
   grid-gap: var(--spacing-medium);
 }

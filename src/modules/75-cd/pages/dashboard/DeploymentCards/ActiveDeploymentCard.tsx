@@ -1,6 +1,7 @@
 import React from 'react'
 import { Icon, Color } from '@wings-software/uicore'
 import ActiveBuildCard from '@pipeline/components/Dashboards/BuildCards/ActiveBuildCard'
+import { mapActiveCardStatus } from '@pipeline/components/Dashboards/shared'
 import styles from '../CDDashboardPage.module.scss'
 
 export interface ActiveDeploymentCardProps {
@@ -20,21 +21,7 @@ export default function ActiveDeploymentCard({ name, status, serviceInfoList }: 
           {`${s.serviceName}${s.servicetag ? ' (' + s.serviceTag + ')' : ''}`}
         </span>
       ))}
-      status={mapDeploymentStatus(status)}
+      status={mapActiveCardStatus(status)}
     />
   )
-}
-
-const mapDeploymentStatus = (status?: string) => {
-  switch (status) {
-    case 'RUNNING':
-    case 'PAUSED':
-      return 'RUNNING'
-    case 'INTERVENTION_WAITING':
-    case 'APPROVAL_WAITING':
-    case 'WAITING':
-      return 'PENDING'
-    default:
-      return undefined
-  }
 }

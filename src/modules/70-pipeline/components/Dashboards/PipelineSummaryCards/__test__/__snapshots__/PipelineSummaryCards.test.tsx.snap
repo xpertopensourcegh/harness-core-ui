@@ -182,23 +182,23 @@ exports[`PipelineSummaryCards shows data correctly 1`] = `
             <p
               class="StyledProps--font StyledProps--main contentMainText"
             >
-              1
-              <span
-                style="font-size: 0.7em; margin-right: 0.2em;"
-              >
-                h
+              <span>
+                1
+                <span
+                  style="font-size: 0.7em; margin-right: 0.2em;"
+                >
+                  h
+                </span>
               </span>
-              32
               <span
-                style="font-size: 0.7em; margin-right: 0.2em;"
+                style="font-size: 0.8em;"
               >
-                m
-              </span>
-              2
-              <span
-                style="font-size: 0.7em; margin-right: 0.2em;"
-              >
-                s
+                32
+                <span
+                  style="font-size: 0.7em; margin-right: 0.2em;"
+                >
+                  m
+                </span>
               </span>
             </p>
             <div
@@ -231,17 +231,25 @@ exports[`PipelineSummaryCards shows data correctly 1`] = `
             <p
               class="StyledProps--font StyledProps--main contentMainText"
             >
-              2
               <span
-                style="font-size: 0.7em; margin-right: 0.2em;"
+                style="font-size: 1em;"
               >
-                m
+                2
+                <span
+                  style="font-size: 0.7em; margin-right: 0.2em;"
+                >
+                  m
+                </span>
               </span>
-              15
               <span
-                style="font-size: 0.7em; margin-right: 0.2em;"
+                style="font-size: 0.8em;"
               >
-                s
+                15
+                <span
+                  style="font-size: 0.7em; margin-right: 0.2em;"
+                >
+                  s
+                </span>
               </span>
             </p>
             <div

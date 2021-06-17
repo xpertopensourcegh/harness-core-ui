@@ -5,13 +5,14 @@ import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import merge from 'lodash-es/merge'
 import type { RepositoryBuildInfo } from 'services/ci'
-import { diffStartAndEndTime, roundNumber } from '../shared'
+import { diffStartAndEndTime, roundNumber, mapCardStatus } from '../shared'
 import styles from './BuildCards.module.scss'
 
 export interface RepositoryCardProps {
   title: React.ReactNode
   message?: string
   username?: string
+  avatarUrl?: string
   startTime?: number
   endTime?: number
   count: number
@@ -27,6 +28,7 @@ export default function RepositoryCard({
   title,
   message,
   username,
+  avatarUrl,
   startTime,
   endTime,
   count,
@@ -105,7 +107,7 @@ export default function RepositoryCard({
       </Container>
       <Container className={styles.cardFooter}>
         <Container className={styles.avatarWrapper}>
-          {username && <Avatar name={username} size="small" />}
+          {username && <Avatar name={username} src={avatarUrl} size="small" />}
           <Text font={{ size: 'small' }} color={Color.BLACK} lineClamp={2}>
             {message}
           </Text>
@@ -128,29 +130,13 @@ export default function RepositoryCard({
 }
 
 function mapStatusToColor(status?: string) {
-  switch (status) {
+  switch (mapCardStatus(status)) {
     case 'SUCCESS':
       return 'var(--ci-color-green-400)'
     case 'FAILED':
-    case 'ABORTED':
-    case 'EXPIRED':
-    case 'SUSPENDED':
-    case 'SKIPPED':
-    case 'APPROVAL_REJECTED':
       return 'var(--ci-color-red-400)'
-    case 'RUNNING':
-    case 'INTERVENTION_WAITING':
-    case 'RESOURCE_WAITING':
-    case 'ASYNC_WAITING':
-    case 'TASK_WAITING':
-    case 'TIMED_WAITING':
-    case 'DISCONTINUING':
-    case 'APPROVAL_WAITING':
-    case 'NOT_STARTED':
-    case 'QUEUED':
-    case 'PAUSED':
-    case 'WAITING':
-    case 'PAUSING':
+    case 'ACTIVE':
+    case 'PENDING':
     default:
       return 'var(--ci-color-orange-500)'
   }

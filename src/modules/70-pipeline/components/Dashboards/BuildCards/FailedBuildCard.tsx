@@ -9,6 +9,7 @@ export interface FailedBuildCardProps {
   title: string
   message: string
   username?: string
+  avatarUrl?: string
   branchName?: string
   commitId?: string
   startTime?: number
@@ -20,6 +21,7 @@ export default function FailedBuildCard({
   title,
   message,
   username,
+  avatarUrl,
   branchName,
   commitId,
   startTime,
@@ -29,7 +31,7 @@ export default function FailedBuildCard({
   const duration = diffStartAndEndTime(startTime, endTime)
   return (
     <Container className={styles.failedBuildCard}>
-      {username && <Avatar name={username} />}
+      {username && <Avatar name={username} src={avatarUrl} />}
       <Container className={styles.titleAndMessage}>
         <Text className={styles.title} margin={{ bottom: 'xsmall' }} color={Color.BLACK} lineClamp={1}>
           {title}
