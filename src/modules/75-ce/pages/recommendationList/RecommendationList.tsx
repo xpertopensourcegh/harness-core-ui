@@ -1,17 +1,17 @@
 import React from 'react'
 import { Card, Text, Layout, Container, Color } from '@wings-software/uicore'
-import { useHistory, useLocation, useParams } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
+import { useQuery } from 'urql'
 
 import { useStrings } from 'framework/strings'
 import FETCH_ALL_RECOMMENDATIONS from 'queries/ce/fetch_all_recommendations.gql'
 import type { RecommendationsQuery, RecommendationItemDto } from 'services/ce/services'
 
-import { useGraphQLQuery } from '@common/hooks/useGraphQLQuery'
+// import { useGraphQLQuery } from '@common/hooks/useGraphQLQuery'
 import { Page } from '@common/exports'
 import Table from '@common/components/Table/Table'
 import formatCost from '@ce/utils/formatCost'
-import { getGraphQLAPIConfig } from '@ce/constants'
 import RecommendationSavingsCard from '../../components/RecommendationSavingsCard/RecommendationSavingsCard'
 
 interface RecommendationListProps {
@@ -115,24 +115,24 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({ data }) => {
 }
 
 const RecommendationList: React.FC = () => {
-  const { accountId } = useParams<{ accountId: string }>()
-
-  const { data, initLoading } = useGraphQLQuery<{ data: RecommendationsQuery }>({
-    ...getGraphQLAPIConfig(accountId),
-    body: { query: FETCH_ALL_RECOMMENDATIONS }
+  const [result] = useQuery<RecommendationsQuery>({
+    query: FETCH_ALL_RECOMMENDATIONS,
+    requestPolicy: 'network-only'
   })
+
+  const { data, fetching } = result
 
   const { getString } = useStrings()
 
-  const totalMonthlyCost = data?.data.recommendationStats?.totalMonthlyCost || 0
-  const totalSavings = data?.data.recommendationStats?.totalMonthlySaving || 0
+  const totalMonthlyCost = data?.recommendationStats?.totalMonthlyCost || 0
+  const totalSavings = data?.recommendationStats?.totalMonthlySaving || 0
 
-  const recommendationItems = data?.data.recommendations?.items || []
+  const recommendationItems = data?.recommendations?.items || []
 
   return (
     <>
       <Page.Header title="Recommendations"></Page.Header>
-      <Page.Body loading={initLoading}>
+      <Page.Body loading={fetching}>
         <Container padding="xlarge" background={Color.WHITE} height="100%">
           {recommendationItems.length ? (
             <Layout.Vertical spacing="large">

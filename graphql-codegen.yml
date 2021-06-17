@@ -7,6 +7,7 @@ generates:
       afterOneFileWrite:
         - prettier --write
     plugins:
+      - 'typescript-urql'
       - 'typescript-operations'
       - 'typescript'
     config:

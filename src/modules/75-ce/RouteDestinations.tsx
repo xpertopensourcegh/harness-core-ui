@@ -1,16 +1,20 @@
 import React from 'react'
-import { Route, useParams, Redirect } from 'react-router-dom'
-
+import { Route, useParams, Redirect, Switch } from 'react-router-dom'
+import { createClient, Provider, dedupExchange, cacheExchange, fetchExchange } from 'urql'
+import { requestPolicyExchange } from '@urql/exchange-request-policy'
 import routes from '@common/RouteDefinitions'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import { RouteWithLayout } from '@common/router'
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import NotFoundPage from '@common/pages/404/NotFoundPage'
 import { MinimalLayout } from '@common/layouts'
+import SessionToken from 'framework/utils/SessionToken'
 
 import CESideNav from '@ce/components/CESideNav/CESideNav'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { ModuleName } from 'framework/types/ModuleName'
+import { getConfig } from 'services/config'
 import CEHomePage from './pages/home/CEHomePage'
 import CEDashboardPage from './pages/dashboard/CEDashboardPage'
 import CECODashboardPage from './pages/co-dashboard/CECODashboardPage'
@@ -46,92 +50,129 @@ const CESideNavProps: SidebarContext = {
   icon: 'ce-main'
 }
 
-export default (
-  <>
-    <Route path={routes.toCE({ ...accountPathProps })} exact>
-      <RedirectToCEHome />
-    </Route>
-    <Route path={routes.toCEProject({ ...accountPathProps, ...projectPathProps })} exact>
-      <RedirectToCEProject />
-    </Route>
-    <RouteWithLayout sidebarProps={CESideNavProps} path={routes.toCEHome({ ...accountPathProps })} exact>
-      <CEHomePage />
-    </RouteWithLayout>
-    <RouteWithLayout
-      layout={MinimalLayout}
-      path={routes.toModuleTrialHome({ ...accountPathProps, module: 'ce' })}
-      exact
-    >
-      <CETrialHomePage />
-    </RouteWithLayout>
-    <RouteWithLayout
-      sidebarProps={CESideNavProps}
-      path={routes.toCEDashboard({ ...accountPathProps, ...projectPathProps })}
-      exact
-    >
-      <CEDashboardPage />
-    </RouteWithLayout>
-    <RouteWithLayout
-      sidebarProps={CESideNavProps}
-      path={routes.toCECODashboard({ ...accountPathProps, ...projectPathProps })}
-      exact
-    >
-      <CEHomePage />
-    </RouteWithLayout>
-    <RouteWithLayout
-      sidebarProps={CESideNavProps}
-      path={routes.toCECORules({ ...accountPathProps, ...projectPathProps })}
-      exact
-    >
-      <CECODashboardPage />
-    </RouteWithLayout>
-    <RouteWithLayout
-      sidebarProps={CESideNavProps}
-      path={routes.toCECOCreateGateway({ ...accountPathProps, ...projectPathProps })}
-      exact
-    >
-      <CECOCreateGatewayPage />
-    </RouteWithLayout>
-    <RouteWithLayout
-      sidebarProps={CESideNavProps}
-      path={routes.toCECOEditGateway({
-        ...accountPathProps,
-        ...projectPathProps,
-        gatewayIdentifier: ':gatewayIdentifier'
-      })}
-      exact
-    >
-      <CECOEditGatewayPage />
-    </RouteWithLayout>
-    <RouteWithLayout
-      sidebarProps={CESideNavProps}
-      path={routes.toCECOAccessPoints({ ...accountPathProps, ...projectPathProps })}
-      exact
-    >
-      <CECOLoadBalancersPage />
-    </RouteWithLayout>
+const CERoutes: React.FC = () => {
+  const token = SessionToken.getToken()
+  const accountId = SessionToken.accountId()
 
-    <RouteWithLayout sidebarProps={CESideNavProps} path={routes.toCEBudgets({ ...accountPathProps })} exact>
-      <Budgets />
-    </RouteWithLayout>
+  const getRequestOptions = React.useCallback((): Partial<RequestInit> => {
+    const headers: RequestInit['headers'] = {}
 
-    <RouteWithLayout
-      sidebarProps={CESideNavProps}
-      path={routes.toCERecommendations({ ...accountPathProps, ...projectPathProps })}
-      exact
-    >
-      <RecommendationList />
-    </RouteWithLayout>
-    <RouteWithLayout
-      sidebarProps={CESideNavProps}
-      path={routes.toCERecommendationDetails({
-        ...accountPathProps,
-        ...projectPathProps,
-        recommendation: ':recommendation'
-      })}
-      exact
-    >
-      <RecommendationDetailsPage />
-    </RouteWithLayout>
-  </>
-)
+    if (token && token.length > 0) {
+      headers.Authorization = `Bearer ${token}`
+    }
+
+    return { headers }
+  }, [token])
+
+  const urqlClient = React.useCallback(() => {
+    let url = getConfig(`ccm/api/graphql?accountIdentifier=${accountId}`)
+    if (url.startsWith('/')) {
+      url = url.substr(1)
+    }
+    return createClient({
+      url: url,
+      fetchOptions: () => {
+        return getRequestOptions()
+      },
+      exchanges: [dedupExchange, requestPolicyExchange({}), cacheExchange, fetchExchange],
+      requestPolicy: 'cache-first'
+    })
+  }, [token])
+
+  return (
+    <Provider value={urqlClient()}>
+      <Switch>
+        <Route path={routes.toCE({ ...accountPathProps })} exact>
+          <RedirectToCEHome />
+        </Route>
+        <Route path={routes.toCEProject({ ...accountPathProps, ...projectPathProps })} exact>
+          <RedirectToCEProject />
+        </Route>
+        <RouteWithLayout sidebarProps={CESideNavProps} path={routes.toCEHome({ ...accountPathProps })} exact>
+          <CEHomePage />
+        </RouteWithLayout>
+        <RouteWithLayout
+          layout={MinimalLayout}
+          path={routes.toModuleTrialHome({ ...accountPathProps, module: 'ce' })}
+          exact
+        >
+          <CETrialHomePage />
+        </RouteWithLayout>
+        <RouteWithLayout
+          sidebarProps={CESideNavProps}
+          path={routes.toCEDashboard({ ...accountPathProps, ...projectPathProps })}
+          exact
+        >
+          <CEDashboardPage />
+        </RouteWithLayout>
+        <RouteWithLayout
+          sidebarProps={CESideNavProps}
+          path={routes.toCECODashboard({ ...accountPathProps, ...projectPathProps })}
+          exact
+        >
+          <CEHomePage />
+        </RouteWithLayout>
+        <RouteWithLayout
+          sidebarProps={CESideNavProps}
+          path={routes.toCECORules({ ...accountPathProps, ...projectPathProps })}
+          exact
+        >
+          <CECODashboardPage />
+        </RouteWithLayout>
+        <RouteWithLayout
+          sidebarProps={CESideNavProps}
+          path={routes.toCECOCreateGateway({ ...accountPathProps, ...projectPathProps })}
+          exact
+        >
+          <CECOCreateGatewayPage />
+        </RouteWithLayout>
+        <RouteWithLayout
+          sidebarProps={CESideNavProps}
+          path={routes.toCECOEditGateway({
+            ...accountPathProps,
+            ...projectPathProps,
+            gatewayIdentifier: ':gatewayIdentifier'
+          })}
+          exact
+        >
+          <CECOEditGatewayPage />
+        </RouteWithLayout>
+        <RouteWithLayout
+          sidebarProps={CESideNavProps}
+          path={routes.toCECOAccessPoints({ ...accountPathProps, ...projectPathProps })}
+          exact
+        >
+          <CECOLoadBalancersPage />
+        </RouteWithLayout>
+
+        <RouteWithLayout sidebarProps={CESideNavProps} path={routes.toCEBudgets({ ...accountPathProps })} exact>
+          <Budgets />
+        </RouteWithLayout>
+
+        <RouteWithLayout
+          sidebarProps={CESideNavProps}
+          path={routes.toCERecommendations({ ...accountPathProps, ...projectPathProps })}
+          exact
+        >
+          <RecommendationList />
+        </RouteWithLayout>
+        <RouteWithLayout
+          sidebarProps={CESideNavProps}
+          path={routes.toCERecommendationDetails({
+            ...accountPathProps,
+            ...projectPathProps,
+            recommendation: ':recommendation'
+          })}
+          exact
+        >
+          <RecommendationDetailsPage />
+        </RouteWithLayout>
+        <Route path="*">
+          <NotFoundPage />
+        </Route>
+      </Switch>
+    </Provider>
+  )
+}
+
+export default CERoutes

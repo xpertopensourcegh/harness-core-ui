@@ -1,7 +1,74 @@
+import gql from 'graphql-tag'
+import * as Urql from 'urql'
 export type Maybe<T> = T | null
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] }
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> }
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> }
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
+
+export const RecommendationsDocument = gql`
+  query Recommendations {
+    recommendationStats {
+      totalMonthlyCost
+      totalMonthlySaving
+    }
+    recommendations {
+      items {
+        id
+        resourceType
+        resourceName
+        monthlyCost
+        monthlySaving
+      }
+    }
+  }
+`
+
+export function useRecommendationsQuery(options: Omit<Urql.UseQueryArgs<RecommendationsQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<RecommendationsQuery>({ query: RecommendationsDocument, ...options })
+}
+export const FetchRecommendationDocument = gql`
+  query FetchRecommendation($id: String!) {
+    recommendationStats(id: $id) {
+      totalMonthlyCost
+      totalMonthlySaving
+    }
+    recommendationDetails(id: $id, resourceType: WORKLOAD) {
+      ... on WorkloadRecommendationDTO {
+        containerRecommendations
+        items {
+          containerName
+          cpuHistogram {
+            bucketWeights
+            firstBucketSize
+            growthRatio
+            maxBucket
+            minBucket
+            numBuckets
+            precomputed
+            totalWeight
+          }
+          memoryHistogram {
+            bucketWeights
+            firstBucketSize
+            growthRatio
+            maxBucket
+            minBucket
+            numBuckets
+            precomputed
+            totalWeight
+          }
+        }
+      }
+    }
+  }
+`
+
+export function useFetchRecommendationQuery(
+  options: Omit<Urql.UseQueryArgs<FetchRecommendationQueryVariables>, 'query'> = {}
+) {
+  return Urql.useQuery<FetchRecommendationQuery>({ query: FetchRecommendationDocument, ...options })
+}
 export type RecommendationsQueryVariables = Exact<{ [key: string]: never }>
 
 export type RecommendationsQuery = {

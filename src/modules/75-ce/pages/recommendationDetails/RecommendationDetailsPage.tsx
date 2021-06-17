@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { useQuery } from 'urql'
 
 import { Container, Layout, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
@@ -10,8 +11,6 @@ import formatCost from '@ce/utils/formatCost'
 import { GET_DATE_RANGE } from '@ce/utils/momentUtils'
 import type { RecommendationItem, TimeRangeValue } from '@ce/types'
 import { TimeRange, TimeRangeType } from '@ce/types'
-import { getGraphQLAPIConfig } from '@ce/constants'
-import { useGraphQLQuery } from '@common/hooks/useGraphQLQuery'
 import FETCH_RECOMMENDATIONS from 'queries/ce/fetch_recommendation.gql'
 import type { FetchRecommendationQuery, RecommendationOverviewStats } from 'services/ce/services'
 import CustomizeRecommendationsImg from './images/custom-recommendations.gif'
@@ -136,26 +135,22 @@ const RecommendationDetailsPage: React.FC = () => {
 
   const timeRangeFilter = GET_DATE_RANGE[timeRange.value]
 
-  const { data, initLoading } = useGraphQLQuery<{ data: FetchRecommendationQuery }>({
-    ...getGraphQLAPIConfig(accountId),
-    queryParams: {
-      accountIdentifier: accountId
-    },
-    body: {
-      query: FETCH_RECOMMENDATIONS,
-      variables: { id: recommendation, startTime: timeRangeFilter[0], endTime: timeRangeFilter[1] }
-    }
+  const [result] = useQuery<FetchRecommendationQuery>({
+    query: FETCH_RECOMMENDATIONS,
+    variables: { id: recommendation, startTime: timeRangeFilter[0], endTime: timeRangeFilter[1] }
   })
 
-  const recommendationDetails = (data?.data?.recommendationDetails as RecommendationDetails) || []
+  const { data, fetching } = result
 
-  const recommendationStats = data?.data?.recommendationStats as RecommendationOverviewStats
+  const recommendationDetails = (data?.recommendationDetails as RecommendationDetails) || []
+
+  const recommendationStats = data?.recommendationStats as RecommendationOverviewStats
 
   const recommendationItems = recommendationDetails?.items || []
 
   return (
     <Container className={css.pageBody} style={{ overflow: 'scroll', height: '100vh' }}>
-      {initLoading && <Page.Spinner />}
+      {fetching && <Page.Spinner />}
       <Container background="white">
         <Breadcrumbs
           className={css.breadCrumb}

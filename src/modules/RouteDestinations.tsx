@@ -36,7 +36,11 @@ export default function RouteDestinations(): React.ReactElement {
       {...CING_ENABLED ? CIRoutes.props.children : []}
       {...CDNG_ENABLED ? CDRoutes.props.children : []}
       {...CVNG_ENABLED ? CVRoutes.props.children : []}
-      {...CENG_ENABLED ? CERoutes.props.children : []}
+      {CENG_ENABLED ? (
+        <Route path="/account/:accountId/:module(ce)">
+          <CERoutes />
+        </Route>
+      ) : null}
       {...CFNG_ENABLED ? CFRoutes.props.children : []}
       <Route path="*">
         <NotFoundPage />
