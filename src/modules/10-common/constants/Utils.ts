@@ -1,6 +1,8 @@
 import type { PasswordStrengthPolicy } from 'services/cd-ng'
 
 export const DEFAULT_COLOR = '#0063f7'
+export const MIN_NUMBER_OF_CHARACTERS = 8
+export const MAX_NUMBER_OF_CHARACTERS = 128
 
 const getUppercaseRgx = (n: number): string => `^(.*?[A-Z]){${n},}`
 const getLowercaseRgx = (n: number): string => `^(.*?[a-z]){${n},}`
@@ -20,10 +22,8 @@ export const PASSWORD_CHECKS_RGX = ({
   minNumberOfDigits,
   minNumberOfSpecialCharacters
 }: PasswordStrengthPolicy): RegExp => {
-  let result = ''
-
   if (!enabled) {
-    return new RegExp(result)
+    return new RegExp('')
   }
 
   const getRegExp = (): string => {
@@ -45,13 +45,9 @@ export const PASSWORD_CHECKS_RGX = ({
     return regExp
   }
 
-  if (minNumberOfCharacters) {
-    result += `^${getRegExp()}.{${minNumberOfCharacters},}$`
-  } else {
-    result += getRegExp()
-  }
-
-  return new RegExp(result)
+  return new RegExp(
+    `^${getRegExp()}.{${minNumberOfCharacters || MIN_NUMBER_OF_CHARACTERS},${MAX_NUMBER_OF_CHARACTERS}}$`
+  )
 }
 
 export enum Versions {

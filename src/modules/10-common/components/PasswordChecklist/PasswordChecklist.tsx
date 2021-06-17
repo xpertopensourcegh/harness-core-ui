@@ -3,7 +3,14 @@ import * as yup from 'yup'
 import { Text, Color, Layout } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type { PasswordStrengthPolicy } from 'services/cd-ng'
-import { SPECIAL_CHAR_RGX, UPPERCASE_RGX, LOWERCASE_RGX, DIGIT_RGX } from '@common/constants/Utils'
+import {
+  SPECIAL_CHAR_RGX,
+  UPPERCASE_RGX,
+  LOWERCASE_RGX,
+  DIGIT_RGX,
+  MIN_NUMBER_OF_CHARACTERS,
+  MAX_NUMBER_OF_CHARACTERS
+} from '@common/constants/Utils'
 
 interface Props {
   value: string
@@ -20,7 +27,7 @@ type PasswordStrengthKeys = keyof Omit<PasswordStrengthPolicy, 'enabled'>
 const PasswordChecklist: React.FC<Props> = ({ value, passwordStrengthPolicy }) => {
   const { getString } = useStrings()
   const {
-    minNumberOfCharacters = 8,
+    minNumberOfCharacters = MIN_NUMBER_OF_CHARACTERS,
     minNumberOfUppercaseCharacters = 0,
     minNumberOfLowercaseCharacters = 0,
     minNumberOfDigits = 0,
@@ -28,7 +35,7 @@ const PasswordChecklist: React.FC<Props> = ({ value, passwordStrengthPolicy }) =
   } = passwordStrengthPolicy
 
   const schema = yup.object().shape({
-    minNumberOfCharacters: yup.string().min(minNumberOfCharacters),
+    minNumberOfCharacters: yup.string().min(minNumberOfCharacters).max(MAX_NUMBER_OF_CHARACTERS),
     minNumberOfUppercaseCharacters: yup.string().matches(UPPERCASE_RGX(minNumberOfUppercaseCharacters)),
     minNumberOfLowercaseCharacters: yup.string().matches(LOWERCASE_RGX(minNumberOfLowercaseCharacters)),
     minNumberOfDigits: yup.string().matches(DIGIT_RGX(minNumberOfDigits)),
@@ -36,7 +43,7 @@ const PasswordChecklist: React.FC<Props> = ({ value, passwordStrengthPolicy }) =
   })
 
   const titles = {
-    minNumberOfCharacters: `${minNumberOfCharacters}-64 ${getString('characters')}`,
+    minNumberOfCharacters: `${minNumberOfCharacters}-${MAX_NUMBER_OF_CHARACTERS} ${getString('characters')}`,
     minNumberOfUppercaseCharacters: `${minNumberOfUppercaseCharacters} ${getString('uppercase')}`,
     minNumberOfLowercaseCharacters: `${minNumberOfLowercaseCharacters} ${getString('lowercase')}`,
     minNumberOfDigits: `${minNumberOfDigits} ${getString('number')}`,

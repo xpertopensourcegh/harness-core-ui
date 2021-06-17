@@ -18,6 +18,7 @@ import type { LoginSettings, PasswordStrengthPolicy } from 'services/cd-ng'
 import { usePutLoginSettings } from 'services/cd-ng'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
+import { MIN_NUMBER_OF_CHARACTERS, MAX_NUMBER_OF_CHARACTERS } from '@common/constants/Utils'
 
 interface Props {
   onSubmit?: () => void
@@ -84,7 +85,8 @@ const PasswordStrengthForm: React.FC<Props> = ({ onSubmit, onCancel, loginSettin
       <Formik
         formName="passwordStrengthForm"
         initialValues={{
-          minNumberOfCharacters: passwordStrengthSettings?.minNumberOfCharacters || /* istanbul ignore next */ 12,
+          minNumberOfCharacters:
+            passwordStrengthSettings?.minNumberOfCharacters || /* istanbul ignore next */ MIN_NUMBER_OF_CHARACTERS,
           atLeastOneUppercase: !!passwordStrengthSettings?.minNumberOfUppercaseCharacters,
           atLeastOneLowercase: !!passwordStrengthSettings?.minNumberOfLowercaseCharacters,
           atLeastOneDigit: !!passwordStrengthSettings?.minNumberOfDigits,
@@ -94,8 +96,14 @@ const PasswordStrengthForm: React.FC<Props> = ({ onSubmit, onCancel, loginSettin
           minNumberOfCharacters: yup
             .number()
             .typeError(getString('common.validation.valueMustBeANumber'))
-            .min(8, getString('common.validation.valueMustBeGreaterThanOrEqualToN', { n: 8 }))
-            .max(64, getString('common.validation.valueMustBeLessThanOrEqualTo64'))
+            .min(
+              MIN_NUMBER_OF_CHARACTERS,
+              getString('common.validation.valueMustBeGreaterThanOrEqualToN', { n: MIN_NUMBER_OF_CHARACTERS })
+            )
+            .max(
+              MAX_NUMBER_OF_CHARACTERS,
+              getString('common.validation.valueMustBeLessThanOrEqualToN', { n: MAX_NUMBER_OF_CHARACTERS })
+            )
             .required(getString('validation.minLengthRequired'))
         })}
         onSubmit={values => {

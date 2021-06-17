@@ -308,7 +308,7 @@ export interface StringsMap {
   'common.validation.valueIsRequired': string
   'common.validation.valueMustBeANumber': string
   'common.validation.valueMustBeGreaterThanOrEqualToN': string
-  'common.validation.valueMustBeLessThanOrEqualTo64': string
+  'common.validation.valueMustBeLessThanOrEqualToN': string
   'common.validation.variableAlreadyExists': string
   'common.validation.yamlFilePath': string
   'common.welcome': string
