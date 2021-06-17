@@ -469,13 +469,13 @@ const FeatureFlagsPage: React.FC = () => {
       {
         Header: getString('details').toUpperCase(),
         accessor: row => row.kind,
-        width: '20%',
+        width: '22%',
         Cell: RenderColumnDetails
       },
       {
         Header: getString('status').toUpperCase(),
         accessor: 'status',
-        width: '19%',
+        width: '21%',
         Cell: function StatusCell(cell: Cell<Feature>) {
           return (
             <FlagStatus
@@ -488,7 +488,7 @@ const FeatureFlagsPage: React.FC = () => {
       {
         Header: getString('cf.featureFlags.results').toUpperCase(),
         accessor: row => row.results,
-        width: '16%',
+        width: '12%',
         Cell: function ResultCell(cell: Cell<Feature>) {
           return <FlagResult feature={cell.row.original} />
         }

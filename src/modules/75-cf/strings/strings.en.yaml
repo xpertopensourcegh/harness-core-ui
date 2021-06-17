@@ -208,9 +208,10 @@ featureFlags:
     cancel: '{{ $.cancel }}'
   metrics:
     title: 'Metrics '
-    noMetrics: No metrics
+    noMetrics: No Evaluations
+    last7Days: For the last 7 days
     evaluations: '{{ count }} evaluations'
-    evaluationStatistics: Evaluation Statistic
+    evaluationStatistics: Evaluation Statistics
     flagEvaluations: Flag Evaluations ({{ count }})
     targetServed: Target Served  ({{ count }})
     noData: No metrics found in this time range.

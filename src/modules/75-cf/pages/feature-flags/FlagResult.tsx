@@ -19,6 +19,7 @@ export const FlagResult: React.FC<FlagResultProps> = ({ feature, style, ...props
   const metricsCount = results?.map(({ count }) => count).reduce((sum = 0, count = 0) => sum + count, 0) || 0
   const singleVariationDistribution = results?.length === 1
   const tooltip = metricsCount ? <FlagResultTooltip feature={feature} /> : undefined
+  const hasMoreThanTwoResults = (results?.length as number) > 2
 
   return (
     <Container style={{ display: 'inline-block', ...style }} {...props}>
@@ -40,7 +41,7 @@ export const FlagResult: React.FC<FlagResultProps> = ({ feature, style, ...props
             <>
               <span
                 style={{
-                  width: 54,
+                  width: hasMoreThanTwoResults ? 54 : 71,
                   height: 12,
                   display: 'inline-block',
                   backgroundColor: '#6739B7',
@@ -57,15 +58,17 @@ export const FlagResult: React.FC<FlagResultProps> = ({ feature, style, ...props
                   margin: '0 1px'
                 }}
               />
-              <span
-                style={{
-                  width: 17,
-                  height: 12,
-                  display: 'inline-block',
-                  backgroundColor: '#D1C3E9',
-                  borderRadius: '3px'
-                }}
-              />
+              {hasMoreThanTwoResults && (
+                <span
+                  style={{
+                    width: 17,
+                    height: 12,
+                    display: 'inline-block',
+                    backgroundColor: '#D1C3E9',
+                    borderRadius: '3px'
+                  }}
+                />
+              )}
             </>
           )}
         </span>
@@ -90,10 +93,12 @@ export const FlagResult: React.FC<FlagResultProps> = ({ feature, style, ...props
 const FlagResultTooltip: React.FC<FlagResultProps> = ({ feature }) => {
   const { getString } = useStrings()
   const results = feature.results
+  const len = results?.length || 1
   const metricsCount = results?.map(({ count }) => count).reduce((sum = 0, count = 0) => sum + count, 0) || 0
+  const height = len > 2 ? 204 : 126 + len * 26
 
   return (
-    <Container padding="xlarge" style={{ overflow: 'auto', width: 325, height: 187 }} onClick={Utils.stopEvent}>
+    <Container padding="xlarge" style={{ overflow: 'auto', width: 325, height }} onClick={Utils.stopEvent}>
       <Heading
         level={3}
         color={Color.WHITE}
@@ -108,6 +113,9 @@ const FlagResultTooltip: React.FC<FlagResultProps> = ({ feature }) => {
           color={Color.WHITE}
         >
           ({new Intl.NumberFormat().format(metricsCount)})
+        </Text>
+        <Text color={Color.WHITE} font={{ size: 'xsmall' }} padding={{ top: 'xsmall' }}>
+          {getString('cf.featureFlags.metrics.last7Days')}
         </Text>
       </Heading>
       <Container>
