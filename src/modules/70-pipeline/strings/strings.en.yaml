@@ -10,6 +10,9 @@ infrastructureKey: 'Infrastructure Key'
 stepConfigHasChanges: Form has some unsaved changed, Do you want to apply the changes?
 clickHere: Click here
 stepDetails: Step details
+scriptInputVariables: Script Input Variables
+scriptOutputVariables: Script Output Variables
+executionTarget: Execution Target
 collapseIsDisabledWhileStageIsRunning: Collapse is disable while stage is running
 onlyPositiveInteger: Only positive integer values
 depth: Depth

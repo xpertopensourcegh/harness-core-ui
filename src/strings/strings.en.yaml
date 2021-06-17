@@ -569,9 +569,6 @@ skipConditionText: |
 preRequisitesTitle: Pre-requisites
 advancedTitle: Advanced
 responseMapping: Response Mapping
-scriptInputVariables: Script Input Variables
-scriptOutputVariables: Script Output Variables
-executionTarget: Execution Target
 basic: Basic
 stepConfiguration: Step Parameters
 stepGroupConfiguration: Step Group Configuration
@@ -638,10 +635,8 @@ resourcePage:
 stepType: 'Step Type'
 scriptType: 'Script Type'
 shellScriptStep: 'Shell Script'
-executeScript: 'Where would you like to execute the script?'
 targetHost: 'Target Host'
 workingDirectory: 'Working Directory'
-exportScript: 'You can export script outputs as variables which can be used later in the pipeline.'
 sshConnector: 'SSH Connection Attribute'
 addOutputVar: 'Add Output Variable'
 addInputVar: 'Add Input Variable'

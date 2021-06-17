@@ -11,9 +11,7 @@ import { useStrings } from 'framework/strings'
 
 import type { ShellScriptFormData } from './shellScriptTypes'
 import BaseShellScript from './BaseShellScript'
-import ShellScriptInput from './ShellScriptInput'
-import ExecutionTarget from './ExecutionTarget'
-import ShellScriptOutput from './ShellScriptOutput'
+import OptionalConfiguration from './OptionalConfiguration'
 
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
@@ -77,28 +75,16 @@ export function ShellScriptWidget(
         setFormikRef(formikRef, formik)
 
         return (
-          <Accordion activeId="step-1" className={stepCss.accordion}>
-            <Accordion.Panel
-              id="step-1"
-              summary={getString('basic')}
-              details={<BaseShellScript isNewStep={isNewStep} formik={formik} readonly={readonly} />}
-            />
-            <Accordion.Panel
-              id="step-2"
-              summary={getString('scriptInputVariables')}
-              details={<ShellScriptInput formik={formik} readonly={readonly} />}
-            />
-            <Accordion.Panel
-              id="step-4"
-              summary={getString('scriptOutputVariables')}
-              details={<ShellScriptOutput formik={formik} readonly={readonly} />}
-            />
-            <Accordion.Panel
-              id="step-3"
-              summary={getString('executionTarget')}
-              details={<ExecutionTarget formik={formik} readonly={readonly} />}
-            />
-          </Accordion>
+          <React.Fragment>
+            <BaseShellScript isNewStep={isNewStep} formik={formik} readonly={readonly} />
+            <Accordion className={stepCss.accordion}>
+              <Accordion.Panel
+                id="optional-config"
+                summary={getString('common.optionalConfig')}
+                details={<OptionalConfiguration formik={formik} readonly={readonly} />}
+              />
+            </Accordion>
+          </React.Fragment>
         )
       }}
     </Formik>

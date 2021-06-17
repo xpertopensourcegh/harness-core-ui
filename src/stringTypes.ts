@@ -1268,6 +1268,7 @@ export interface StringsMap {
   'pipeline.executionStatus.Suspended': string
   'pipeline.executionStatus.Unknown': string
   'pipeline.executionStatus.Waiting': string
+  'pipeline.executionTarget': string
   'pipeline.failureStrategies.defaultStageText': string
   'pipeline.failureStrategies.errorTypeLabels.AllErrors': string
   'pipeline.failureStrategies.errorTypeLabels.Authentication': string
@@ -1430,6 +1431,8 @@ export interface StringsMap {
   'pipeline.resourceConstraints.yourPipeline': string
   'pipeline.runAPipeline': string
   'pipeline.savingInProgress': string
+  'pipeline.scriptInputVariables': string
+  'pipeline.scriptOutputVariables': string
   'pipeline.selectOrCreateForm.description': string
   'pipeline.selectOrCreatePipeline.pipelineNameRequired': string
   'pipeline.selectOrCreatePipeline.selectAPipeline': string
@@ -4159,10 +4162,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  executeScript: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'execution.approvals.allConditionsMsg': string
   /**
    * @deprecated migrate this string to module level file
@@ -4283,19 +4282,11 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  executionTarget: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   executionText: string
   /**
    * @deprecated migrate this string to module level file
    */
   executionsText: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  exportScript: string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -6572,14 +6563,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   script: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  scriptInputVariables: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  scriptOutputVariables: string
   /**
    * @deprecated migrate this string to module level file
    */
