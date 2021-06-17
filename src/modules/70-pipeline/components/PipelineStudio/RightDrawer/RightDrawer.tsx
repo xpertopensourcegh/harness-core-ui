@@ -6,7 +6,6 @@ import cx from 'classnames'
 
 import produce from 'immer'
 import { useStrings, UseStringsReturn } from 'framework/strings'
-import { FailureStrategyWithRef } from '@pipeline/components/PipelineStudio/FailureStrategy/FailureStrategy'
 import type { ExecutionElementConfig, ExecutionWrapper } from 'services/cd-ng'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
@@ -22,7 +21,6 @@ import { ExecutionStrategy } from '../ExecutionStrategy/ExecutionStategy'
 import type { StepData } from '../../AbstractSteps/AbstractStepFactory'
 import { StepType } from '../../PipelineSteps/PipelineStepInterface'
 import { FlowControl } from '../FlowControl/FlowControl'
-import SkipCondition from '../SkipCondition/SkipCondition'
 import { StageTypes } from '../Stages/StageTypes'
 
 import css from './RightDrawer.module.scss'
@@ -139,22 +137,6 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     )
   } else {
     switch (type) {
-      case DrawerTypes.FailureStrategy:
-        title = (
-          <div className={css.title}>
-            <Icon name="failure-strategy" size={40} />
-            {getString('stageName', selectedStage?.stage)} / {getString('pipeline.failureStrategies.title')}
-          </div>
-        )
-        break
-      case DrawerTypes.SkipCondition:
-        title = (
-          <div className={css.title}>
-            <Icon name="conditional-skip" size={20} />
-            {getString('stageName', selectedStage?.stage)} / {getString('skipConditionTitle')}
-          </div>
-        )
-        break
       case DrawerTypes.PipelineNotifications:
         title = getString('notifications.name')
         break
@@ -518,34 +500,6 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       {type === DrawerTypes.ExecutionStrategy && <ExecutionStrategy selectedStage={selectedStage || {}} />}
       {type === DrawerTypes.PipelineNotifications && <PipelineNotifications />}
       {type === DrawerTypes.FlowControl && <FlowControl />}
-      {type === DrawerTypes.FailureStrategy && selectedStageId ? (
-        <FailureStrategyWithRef
-          selectedStage={selectedStage}
-          isReadonly={isReadonly}
-          ref={formikRef}
-          onUpdate={({ failureStrategies }) => {
-            const { stage: pipelineStage } = getStageFromPipeline(selectedStageId)
-            if (pipelineStage && pipelineStage.stage) {
-              pipelineStage.stage.failureStrategies = failureStrategies
-              updatePipeline(pipeline)
-            }
-          }}
-        />
-      ) : null}
-
-      {type === DrawerTypes.SkipCondition && selectedStageId ? (
-        <SkipCondition
-          isReadonly={isReadonly}
-          selectedStage={selectedStage || {}}
-          onUpdate={({ skipCondition }) => {
-            const { stage: pipelineStage } = getStageFromPipeline(selectedStageId)
-            if (pipelineStage && pipelineStage.stage) {
-              pipelineStage.stage.skipCondition = skipCondition?.trim()
-              updatePipeline(pipeline)
-            }
-          }}
-        />
-      ) : null}
       {type === DrawerTypes.ConfigureService && selectedStageId && data?.stepConfig && data?.stepConfig.node && (
         <StepCommands
           key={`step-form-${data.stepConfig.node.identifier}`}
