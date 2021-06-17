@@ -2,6 +2,7 @@ import React from 'react'
 import { act } from 'react-dom/test-utils'
 import { fireEvent, getAllByText, getByText, render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
+import { ASRuleTabs } from '@ce/constants'
 import COGatewayDetails from '../COGatewayDetails'
 
 const accessDetails = {
@@ -235,25 +236,10 @@ describe('Test GatewayDetails', () => {
           gatewayDetails={initialGatewayDetails}
           setGatewayDetails={jest.fn()}
           previousTab={jest.fn()}
+          activeTab={ASRuleTabs.REVIEW}
         />
       </TestWrapper>
     )
-    const nextBtn = getByText(container, 'next')
-    expect(nextBtn).toBeDefined()
-    act(() => {
-      fireEvent.click(nextBtn)
-    })
-
-    const dnsCheckBox = container.querySelector('#DNSLink')
-    expect(dnsCheckBox).toBeDefined()
-    act(() => {
-      fireEvent.click(dnsCheckBox!)
-    })
-
-    const reviewTab = getByText(container, '3. review')
-    act(() => {
-      fireEvent.click(reviewTab)
-    })
 
     expect(container).toMatchSnapshot()
 

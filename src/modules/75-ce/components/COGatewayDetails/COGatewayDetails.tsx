@@ -13,23 +13,25 @@ import { useStrings } from 'framework/strings'
 import { useSaveService, Service, useAttachTags, RoutingData } from 'services/lw'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { Utils } from '@ce/common/Utils'
+import { ASRuleTabs } from '@ce/constants'
 import css from './COGatewayDetails.module.scss'
 
 interface COGatewayDetailsProps {
   previousTab: () => void
   gatewayDetails: GatewayDetails
   setGatewayDetails: (gwDetails: GatewayDetails) => void
+  activeTab?: ASRuleTabs
 }
 const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
   const history = useHistory()
   const { getString } = useStrings()
   const { showError } = useToaster()
-  const [selectedTabId, setSelectedTabId] = useState<string>('configuration')
+  const [selectedTabId, setSelectedTabId] = useState<string>(props.activeTab ?? ASRuleTabs.CONFIGURATION)
   const [validConfig, setValidConfig] = useState<boolean>(false)
   const [validAccessSetup, setValidAccessSetup] = useState<boolean>(false)
   const [saveInProgress, setSaveInProgress] = useState<boolean>(false)
   const [activeConfigStep, setActiveConfigStep] = useState<{ count?: number; tabId?: string } | null>(null)
-  const tabs = ['configuration', 'setupAccess', 'review']
+  const tabs = [ASRuleTabs.CONFIGURATION, ASRuleTabs.SETUP_ACCESS, ASRuleTabs.REVIEW]
   const { trackEvent } = useTelemetry()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{
     accountId: string
@@ -193,6 +195,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
         <Tabs id="tabsId1" selectedTabId={selectedTabId} onChange={selectTab}>
           <Tab
             id="configuration"
+            disabled
             title={
               <Layout.Horizontal>
                 {validConfig ? (
@@ -215,6 +218,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
           />
           <Tab
             id="setupAccess"
+            disabled
             title={
               <Layout.Horizontal>
                 {validAccessSetup ? (
@@ -236,6 +240,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
           />
           <Tab
             id="review"
+            disabled
             title={
               <Layout.Horizontal>
                 {validConfig && validAccessSetup ? (
