@@ -12,12 +12,10 @@ import React from 'react'
 import cx from 'classnames'
 import * as Yup from 'yup'
 import { v4 as uuid } from 'uuid'
-import { merge } from 'lodash-es'
 import { FieldArray, Form } from 'formik'
 
 import { useStrings } from 'framework/strings'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
-import { IdentifierSchema } from '@common/utils/Validation'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 
@@ -90,7 +88,11 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
       <Formik
         initialValues={initialValues}
         onSubmit={values => {
-          const payload = merge(prevStepData, values)
+          /* istanbul ignore else */
+          const payload = {
+            ...values,
+            connectorRef: prevStepData?.varFile?.spec?.store?.spec?.connectorRef
+          }
 
           const data = {
             varFile: {
@@ -98,25 +100,26 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
               identifier: payload.varFile.identifier,
               spec: {
                 store: {
-                  type: payload?.varFile?.spec?.store?.spec?.connectorRef?.connector?.type,
+                  type: payload.connectorRef?.connector?.type,
                   spec: {
                     ...payload.varFile.spec?.store?.spec,
-                    connectorRef: payload?.varFile?.spec?.store?.spec?.connectorRef
-                      ? getMultiTypeFromValue(payload?.varFile?.spec?.store?.spec?.connectorRef) ===
-                        MultiTypeInputType.RUNTIME
-                        ? payload?.varFile?.spec?.store?.spec?.connectorRef
-                        : payload?.varFile?.spec?.store?.spec?.connectorRef?.value
+                    connectorRef: payload.connectorRef
+                      ? getMultiTypeFromValue(payload?.connectorRef) === MultiTypeInputType.RUNTIME
+                        ? payload?.connectorRef
+                        : payload.connectorRef?.value
                       : ''
                   }
                 }
               }
             }
           }
+          /* istanbul ignore else */
           if (payload.varFile.spec?.store?.spec?.gitFetchType === gitFetchTypes[0].value) {
             delete data?.varFile?.spec?.store?.spec?.commitId
           } else if (payload.varFile.spec?.store?.spec?.gitFetchType === gitFetchTypes[1].value) {
             delete data?.varFile?.spec?.store?.spec?.branch
           }
+          /* istanbul ignore else */
           if (
             getMultiTypeFromValue(payload.varFile.spec?.store?.spec?.paths) === MultiTypeInputType.FIXED &&
             payload.varFile.spec?.store?.spec?.paths?.length
@@ -127,11 +130,12 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
           } else if (getMultiTypeFromValue(payload.varFile.spec?.store?.spec?.paths) === MultiTypeInputType.RUNTIME) {
             data.varFile.spec.store.spec['paths'] = payload.varFile.spec?.store?.spec?.paths
           }
+          /* istanbul ignore else */
           onSubmitCallBack(data)
         }}
         validationSchema={Yup.object().shape({
           varFile: Yup.object().shape({
-            identifier: IdentifierSchema(),
+            identifier: Yup.string().required(getString('common.validation.identifierIsRequired')),
             spec: Yup.object().shape({
               store: Yup.object().shape({
                 spec: Yup.object().shape({
@@ -161,18 +165,6 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
                     label={getString('identifier')}
                     multiTextInputProps={{ expressions }}
                   />
-                  {getMultiTypeFromValue(formik.values.varFile?.identifier) === MultiTypeInputType.RUNTIME && (
-                    <ConfigureOptions
-                      value={formik.values.varFile?.identifier as string}
-                      type="String"
-                      variableName="varFile.identifier"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value => formik.setFieldValue('varFile.identifier', value)}
-                      isReadonly={isReadonly}
-                    />
-                  )}
                 </div>
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormInput.Select
@@ -244,7 +236,11 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
                           <div>
                             {(formik.values?.varFile?.spec?.store?.spec?.paths || []).map(
                               (path: PathInterface, i: number) => (
-                                <div key={`${path}-${i}`} className={css.pathRow}>
+                                <Layout.Horizontal
+                                  key={`${path}-${i}`}
+                                  flex={{ distribution: 'space-between' }}
+                                  style={{ alignItems: 'end' }}
+                                >
                                   <FormInput.MultiTextInput
                                     name={`varFile.spec.store.spec.paths[${i}].path`}
                                     label=""
@@ -252,6 +248,7 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
                                       expressions,
                                       allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                                     }}
+                                    style={{ width: 370 }}
                                   />
                                   <Button
                                     minimal
@@ -259,7 +256,7 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
                                     data-testid={`remove-header-${i}`}
                                     onClick={() => remove(i)}
                                   />
-                                </div>
+                                </Layout.Horizontal>
                               )
                             )}
                             <Button
