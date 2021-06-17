@@ -68,5 +68,8 @@ export function EmailSchema(emailProps: EmailProps = {}): Yup.Schema<string> {
 
 export function URLValidationSchema(): Yup.Schema<string | undefined> {
   const { getString } = useStrings()
-  return Yup.string().trim().required(getString('validation.UrlRequired')).url(getString('validation.urlIsNotValid'))
+  return Yup.string()
+    .trim()
+    .required(getString('common.validation.urlIsRequired'))
+    .url(getString('validation.urlIsNotValid'))
 }

@@ -304,6 +304,7 @@ export interface StringsMap {
   'common.validation.identifierIsRequired': string
   'common.validation.nameIsRequired': string
   'common.validation.namePatternIsNotValid': string
+  'common.validation.repositoryName': string
   'common.validation.urlIsRequired': string
   'common.validation.valueIsRequired': string
   'common.validation.valueMustBeANumber': string
@@ -1092,6 +1093,16 @@ export interface StringsMap {
   'pipeline.approvalStep.validation.minimumCountOne': string
   'pipeline.approvalStep.validation.minimumCountRequired': string
   'pipeline.approvalStep.validation.userGroups': string
+  'pipeline.artifactsSelection.artifactDetails': string
+  'pipeline.artifactsSelection.existingDocker.enterTagRegex': string
+  'pipeline.artifactsSelection.existingDocker.imageNamePlaceholder': string
+  'pipeline.artifactsSelection.existingDocker.sidecarId': string
+  'pipeline.artifactsSelection.existingDocker.sidecarIdPlaceholder': string
+  'pipeline.artifactsSelection.validation.imagePath': string
+  'pipeline.artifactsSelection.validation.region': string
+  'pipeline.artifactsSelection.validation.sidecarId': string
+  'pipeline.artifactsSelection.validation.tag': string
+  'pipeline.artifactsSelection.validation.tagRegex': string
   'pipeline.barrierStep.barrierReference': string
   'pipeline.barrierStep.barrierReferencePlaceholder': string
   'pipeline.barrierStep.barrierReferenceRequired': string
@@ -1242,6 +1253,7 @@ export interface StringsMap {
   'pipeline.failureStrategies.validation.timeoutRequired': string
   'pipeline.gitDetails': string
   'pipeline.gitExperience.skipNow': string
+  'pipeline.imagePathLabel': string
   'pipeline.infrastructureKey': string
   'pipeline.inputSets.applyInputSet': string
   'pipeline.inputSets.applyInputSets': string
@@ -1332,7 +1344,6 @@ export interface StringsMap {
   'pipeline.manifestType.pathRequired': string
   'pipeline.manifestType.pluginPathHelperText': string
   'pipeline.manifestType.repoNamePlacefolder': string
-  'pipeline.manifestType.reponameRequired': string
   'pipeline.manifestType.selectManifestStore': string
   'pipeline.manifestType.specifyManifestRepoType': string
   'pipeline.manifestType.specifyManifestStore': string
@@ -1343,6 +1354,7 @@ export interface StringsMap {
   'pipeline.optionalLabel': string
   'pipeline.progressPercentage': string
   'pipeline.provisionerSteps': string
+  'pipeline.regionPlaceholder': string
   'pipeline.resourceConstraints.currentlyExecuting': string
   'pipeline.resourceConstraints.infoText': string
   'pipeline.resourceConstraints.title': string
@@ -1605,7 +1617,6 @@ export interface StringsMap {
   'ce.co.accessPoint.select.connector': string
   'ce.co.accessPoint.select.dnsProvider': string
   'ce.co.accessPoint.select.existingALB': string
-  'ce.co.accessPoint.select.region': string
   'ce.co.accessPoint.select.regionToInstall': string
   'ce.co.accessPoint.select.route53': string
   'ce.co.accessPoint.select.route53zone': string
@@ -2988,50 +2999,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   artifacts: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'artifactsSelection.artifactDetails': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'artifactsSelection.existingDocker.enterTagRegex': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'artifactsSelection.existingDocker.imageName': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'artifactsSelection.existingDocker.imageNamePlaceholder': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'artifactsSelection.existingDocker.sidecarId': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'artifactsSelection.existingDocker.sidecarIdPlaceholder': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'artifactsSelection.validation.imagePath': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'artifactsSelection.validation.region': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'artifactsSelection.validation.sidecarId': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'artifactsSelection.validation.tag': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'artifactsSelection.validation.tagRegex': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -5543,10 +5510,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipelineSteps.deploy.inputSet.imagePath': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pipelineSteps.deploy.provisioner.enableProvisionerLabel': string
   /**
    * @deprecated migrate this string to module level file
@@ -7243,10 +7206,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'validation.UrlRequired': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'validation.accessToken': string
   /**
    * @deprecated migrate this string to module level file
@@ -7468,10 +7427,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'validation.renewalNumber': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'validation.repositoryName': string
   /**
    * @deprecated migrate this string to module level file
    */

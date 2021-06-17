@@ -2619,7 +2619,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
                           <div
                             class="bp3-form-helper-text"
                           >
-                            validation.repositoryName
+                            common.validation.repositoryName
                           </div>
                         </div>
                       </div>

@@ -60,10 +60,9 @@ export const ArtifactIdentifierValidation = (
 
   if (!id) {
     return {
-      identifier: IdentifierSchema({ requiredErrorMsg: getString('artifactsSelection.validation.sidecarId') }).notOneOf(
-        artifactIdentifiers,
-        validationMsg
-      )
+      identifier: IdentifierSchema({
+        requiredErrorMsg: getString('pipeline.artifactsSelection.validation.sidecarId')
+      }).notOneOf(artifactIdentifiers, validationMsg)
     }
   }
   return {

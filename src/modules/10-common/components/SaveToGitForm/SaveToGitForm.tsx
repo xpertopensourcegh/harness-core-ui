@@ -270,7 +270,7 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
           initialValues={defaultInitialFormData}
           formName="saveToGitForm"
           validationSchema={Yup.object().shape({
-            repoIdentifier: Yup.string().trim().required(getString('validation.repositoryName')),
+            repoIdentifier: Yup.string().trim().required(getString('common.validation.repositoryName')),
             filePath: Yup.string()
               .trim()
               .required(getString('common.git.validation.filePath'))

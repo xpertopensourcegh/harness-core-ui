@@ -213,7 +213,7 @@ const LBFormStepSecond: React.FC<LBFormStepSecondProps> = props => {
             <FormInput.Select
               name="accessPointRegion"
               label={getString('ce.co.accessPoint.select.regionToInstall')}
-              placeholder={getString('ce.co.accessPoint.select.region')}
+              placeholder={getString('pipeline.regionPlaceholder')}
               items={regionOptions}
               onChange={e => {
                 const updatedLb = { ...loadBalancer }

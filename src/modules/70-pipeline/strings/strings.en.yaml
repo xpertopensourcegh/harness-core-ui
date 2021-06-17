@@ -19,6 +19,7 @@ noPipelineText: There are no pipelines in your project
 noDeploymentText: There are no deployments in your project
 noBuildsText: There are no builds in your project
 runAPipeline: Run a Pipeline
+regionPlaceholder: Select Region
 barrierStep:
   barrierReference: Barrier Reference
   barrierReferenceRequired: Barrier Reference is required
@@ -117,33 +118,32 @@ manifestType:
   helmCommandFlags: By Default, Harness versions ConfigMaps and Secrets that are deployed into the Kubernetes Cluster.
   helmCommandFlagLabel: Helm Command Flags (optional)
   helmCommandType: Command Type
-  helmVersionRequired: 'Helm version is required'
-  commandFlagRequired: 'Command flag is required'
-  folderPathRequired: Folder path is required
-  chartPathRequired: Chart path is required
-  kustomizePathRequired: Kustomize path is required
-  reponameRequired: Repository name is required
-  pathRequired: File path is required
+  helmVersionRequired: 'Helm Version is required'
+  commandFlagRequired: 'Command Flag is required'
+  folderPathRequired: Folder Path is required
+  chartPathRequired: Chart Path is required
+  kustomizePathRequired: Kustomize Path is required
+  pathRequired: File Path is required
   path: '{{$.common.path}}'
   osTemplatePath: Template File Path
-  osTemplatePathPlaceHolder: Enter template file path
-  osTemplatePathRequired: Template file path is required
-  pathPlaceholder: Enter file path
+  osTemplatePathPlaceHolder: Enter Template File Path
+  osTemplatePathRequired: Template File Path is required
+  pathPlaceholder: Enter File Path
   bucketName: Bucket Name
   gitFetchTypeLabel: Git Fetch Type
   commitId: Commit Id
-  branchPlaceholder: Enter branch name
-  commitPlaceholder: Enter commit id
-  filePathPlaceholder: Enter file or folder path
+  branchPlaceholder: Enter Branch Name
+  commitPlaceholder: Enter Commit Id
+  filePathPlaceholder: Enter File or Folder Path
   kustomizeFolderPath: Kustomize Folder Path
-  repoNamePlacefolder: Enter repo name
+  repoNamePlacefolder: Enter Repo Name
   http:
     chartName: 'Helm Chart Name'
     chartVersion: 'Helm Chart Version'
-    chartNameRequired: 'Chart name is required'
-    chartNamePlaceHolder: 'Enter chart name'
-    chartVersionPlaceHolder: 'Enter chart version'
-    chartVersionRequired: 'Chart version is required'
+    chartNameRequired: 'Chart Name is required'
+    chartNamePlaceHolder: 'Enter Chart Name'
+    chartVersionPlaceHolder: 'Enter Chart Version'
+    chartVersionRequired: 'Chart Version is required'
 failureStrategies:
   selectStrategy: '{{ $.common.selectStrategy }}'
   performAction: '{{ $.common.performAction }}'
@@ -320,8 +320,8 @@ triggers:
   scheduledLabel: 'Scheduled'
   triggerConfigurationLabel: 'Trigger Configuration'
   pipelineInputLabel: 'Pipeline Input'
-  updateTrigger: 'Update trigger'
-  createTrigger: 'Create trigger'
+  updateTrigger: 'Update Trigger'
+  createTrigger: 'Create Trigger'
   deleteTrigger: 'Delete Trigger'
   confirmDelete: 'Are you sure you want to delete trigger' # followed by name
   pageNotFound: 'Page not found'
@@ -513,3 +513,17 @@ provisionerSteps: Provisioner Steps
 addStage:
   title: Select a Stage
   description: In a pipeline, a stage involves a series of tasks or tests that must be satisfied in order to proceed to the next stage.
+imagePathLabel: Image Path
+artifactsSelection:
+  artifactDetails: Artifact Details
+  existingDocker:
+    sidecarId: Sidecar Identifier
+    sidecarIdPlaceholder: Enter Artifact Identifier
+    imageNamePlaceholder: Enter Image Path
+    enterTagRegex: Enter Tag Regex
+  validation:
+    imagePath: Image Path is a required
+    region: Region is required
+    tag: Tag is required
+    tagRegex: Tag Regex is required
+    sidecarId: Sidecar Identifier is required

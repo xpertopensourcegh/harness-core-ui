@@ -185,7 +185,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
             is: 'Commit',
             then: Yup.string().trim().required(getString('validation.commitId'))
           }),
-          repoName: Yup.string().test('repoName', getString('pipeline.manifestType.reponameRequired'), value => {
+          repoName: Yup.string().test('repoName', getString('common.validation.repositoryName'), value => {
             if (connectionType === GitRepoName.Repo) {
               return true
             }

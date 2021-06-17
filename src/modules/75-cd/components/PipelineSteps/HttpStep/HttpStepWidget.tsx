@@ -51,10 +51,10 @@ export function HttpStepWidget(
             (value): Yup.Schema<unknown> => {
               if (getMultiTypeFromValue(value as any) === MultiTypeInputType.FIXED) {
                 return Yup.string()
-                  .required(getString('validation.UrlRequired'))
+                  .required(getString('common.validation.urlIsRequired'))
                   .url(getString('validation.urlIsNotValid'))
               }
-              return Yup.string().required(getString('validation.UrlRequired'))
+              return Yup.string().required(getString('common.validation.urlIsRequired'))
             }
           ),
           method: Yup.mixed().required(getString('pipelineSteps.methodIsRequired')),

@@ -192,7 +192,7 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
           }}
           formName="gitDetailsStepForm"
           validationSchema={Yup.object().shape({
-            url: Yup.string().trim().required(getString('validation.UrlRequired'))
+            url: Yup.string().trim().required(getString('common.validation.urlIsRequired'))
           })}
           initialValues={{
             ...getInitialValues(),

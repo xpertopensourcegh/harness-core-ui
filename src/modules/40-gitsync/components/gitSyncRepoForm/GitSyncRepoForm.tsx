@@ -206,7 +206,7 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                   .matches(StringUtils.regexIdentifier, getString('validation.validIdRegex'))
                   .notOneOf(StringUtils.illegalIdentifiers)
               }),
-              repo: Yup.string().trim().required(getString('validation.repositoryName')),
+              repo: Yup.string().trim().required(getString('common.validation.repositoryName')),
               branch: Yup.string().trim().required(getString('validation.branchName')),
               rootfolder: Yup.string()
                 .trim()

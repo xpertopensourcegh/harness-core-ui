@@ -213,6 +213,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
                   <FormInput.MultiTypeInput
                     name="region"
                     selectItems={regions}
+                    placeholder={getString('pipeline.regionPlaceholder')}
                     multiTypeInputProps={{
                       selectProps: {
                         defaultSelectedItem: formik.values.region,

@@ -69,10 +69,11 @@ validation:
   valueMustBeANumber: Value must be number
   formatMustBeAlphanumeric: Identifier can only contain alphanumerics, _ and $
   identifierIsRequired: Identifier is required
-  urlIsRequired: URL is a required field
+  urlIsRequired: URL is required
   email:
     required: Email is required
     format: Please input valid email address
+  repositoryName: Repository Name is required
 specify: Specify
 role: Role
 projectViewer: Project Viewer
@@ -224,8 +225,8 @@ git:
     filePath: '{{$.common.git.filePath}} is required'
     commitMessage: '{{$.common.git.commitMessage}} is required'
     sameBranches: 'Source and target branches cannot be same for a pull request'
-    repoRequired: Repository is a required field
-    branchRequired: Branch is a required field
+    repoRequired: Repository is required
+    branchRequired: Branch is required
     targetBranch: Target branch is required for a pull request
 other: Other
 options: Options

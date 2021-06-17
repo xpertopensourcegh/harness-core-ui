@@ -42,16 +42,16 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
   const { getString } = useStrings()
 
   const ecrSchema = Yup.object().shape({
-    imagePath: Yup.string().trim().required(getString('artifactsSelection.validation.imagePath')),
-    region: Yup.mixed().required(getString('artifactsSelection.validation.region')),
+    imagePath: Yup.string().trim().required(getString('pipeline.artifactsSelection.validation.imagePath')),
+    region: Yup.mixed().required(getString('pipeline.artifactsSelection.validation.region')),
     tagType: Yup.string().required(),
     tagRegex: Yup.string().when('tagType', {
       is: 'regex',
-      then: Yup.string().trim().required(getString('artifactsSelection.validation.tagRegex'))
+      then: Yup.string().trim().required(getString('pipeline.artifactsSelection.validation.tagRegex'))
     }),
     tag: Yup.mixed().when('tagType', {
       is: 'value',
-      then: Yup.mixed().required(getString('artifactsSelection.validation.tag'))
+      then: Yup.mixed().required(getString('pipeline.artifactsSelection.validation.tag'))
     })
   })
 
@@ -61,16 +61,16 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
       initialValues?.identifier,
       getString('pipeline.uniqueIdentifier')
     ),
-    imagePath: Yup.string().trim().required(getString('artifactsSelection.validation.imagePath')),
-    region: Yup.mixed().required(getString('artifactsSelection.validation.region')),
+    imagePath: Yup.string().trim().required(getString('pipeline.artifactsSelection.validation.imagePath')),
+    region: Yup.mixed().required(getString('pipeline.artifactsSelection.validation.region')),
     tagType: Yup.string().required(),
     tagRegex: Yup.string().when('tagType', {
       is: 'regex',
-      then: Yup.string().trim().required(getString('artifactsSelection.validation.tagRegex'))
+      then: Yup.string().trim().required(getString('pipeline.artifactsSelection.validation.tagRegex'))
     }),
     tag: Yup.mixed().when('tagType', {
       is: 'value',
-      then: Yup.mixed().required(getString('artifactsSelection.validation.tag'))
+      then: Yup.mixed().required(getString('pipeline.artifactsSelection.validation.tag'))
     })
   })
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
@@ -225,7 +225,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
 
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep} data-id={name}>
-      <div className={css.heading}>{getString('artifactsSelection.artifactDetails')}</div>
+      <div className={css.heading}>{getString('pipeline.artifactsSelection.artifactDetails')}</div>
       <Formik
         initialValues={getInitialValues()}
         validationSchema={context === 2 ? sideCarSchema : ecrSchema}
@@ -245,8 +245,8 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
               {context === 2 && (
                 <div className={css.dockerSideCard}>
                   <FormInput.Text
-                    label={getString('artifactsSelection.existingDocker.sidecarId')}
-                    placeholder={getString('artifactsSelection.existingDocker.sidecarIdPlaceholder')}
+                    label={getString('pipeline.artifactsSelection.existingDocker.sidecarId')}
+                    placeholder={getString('pipeline.artifactsSelection.existingDocker.sidecarIdPlaceholder')}
                     name="identifier"
                   />
                 </div>
@@ -286,9 +286,9 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
 
               <div className={css.imagePathContainer}>
                 <FormInput.MultiTextInput
-                  label={getString('artifactsSelection.existingDocker.imageName')}
+                  label={getString('pipeline.imagePathLabel')}
                   name="imagePath"
-                  placeholder={getString('artifactsSelection.existingDocker.imageNamePlaceholder')}
+                  placeholder={getString('pipeline.artifactsSelection.existingDocker.imageNamePlaceholder')}
                   multiTextInputProps={{ expressions }}
                 />
                 {getMultiTypeFromValue(formik.values.imagePath) === MultiTypeInputType.RUNTIME && (
@@ -367,7 +367,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                   <FormInput.MultiTextInput
                     label={getString('tagRegex')}
                     name="tagRegex"
-                    placeholder={getString('artifactsSelection.existingDocker.enterTagRegex')}
+                    placeholder={getString('pipeline.artifactsSelection.existingDocker.enterTagRegex')}
                     multiTextInputProps={{ expressions }}
                   />
                   {getMultiTypeFromValue(formik.values.tagRegex) === MultiTypeInputType.RUNTIME && (

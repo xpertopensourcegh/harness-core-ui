@@ -44,15 +44,15 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
   const [lastImagePath, setLastImagePath] = React.useState('')
 
   const primarySchema = Yup.object().shape({
-    imagePath: Yup.string().trim().required(getString('artifactsSelection.validation.imagePath')),
+    imagePath: Yup.string().trim().required(getString('pipeline.artifactsSelection.validation.imagePath')),
     tagType: Yup.string().required(),
     tagRegex: Yup.string().when('tagType', {
       is: 'regex',
-      then: Yup.string().trim().required(getString('artifactsSelection.validation.tagRegex'))
+      then: Yup.string().trim().required(getString('pipeline.artifactsSelection.validation.tagRegex'))
     }),
     tag: Yup.mixed().when('tagType', {
       is: 'value',
-      then: Yup.mixed().required(getString('artifactsSelection.validation.tag'))
+      then: Yup.mixed().required(getString('pipeline.artifactsSelection.validation.tag'))
     })
   })
 
@@ -62,15 +62,15 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
       initialValues?.identifier,
       getString('pipeline.uniqueIdentifier')
     ),
-    imagePath: Yup.string().trim().required(getString('artifactsSelection.validation.imagePath')),
+    imagePath: Yup.string().trim().required(getString('pipeline.artifactsSelection.validation.imagePath')),
     tagType: Yup.string().required(),
     tagRegex: Yup.string().when('tagType', {
       is: 'regex',
-      then: Yup.string().trim().required(getString('artifactsSelection.validation.tagRegex'))
+      then: Yup.string().trim().required(getString('pipeline.artifactsSelection.validation.tagRegex'))
     }),
     tag: Yup.mixed().when('tagType', {
       is: 'value',
-      then: Yup.mixed().required(getString('artifactsSelection.validation.tag'))
+      then: Yup.mixed().required(getString('pipeline.artifactsSelection.validation.tag'))
     })
   })
 
@@ -190,7 +190,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
   ))
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep} data-id={name}>
-      <div className={css.heading}>{getString('artifactsSelection.artifactDetails')}</div>
+      <div className={css.heading}>{getString('pipeline.artifactsSelection.artifactDetails')}</div>
       <Formik
         initialValues={getInitialValues()}
         formName="imagePath"
@@ -210,17 +210,17 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
               {context === 2 && (
                 <div className={css.dockerSideCard}>
                   <FormInput.Text
-                    label={getString('artifactsSelection.existingDocker.sidecarId')}
-                    placeholder={getString('artifactsSelection.existingDocker.sidecarIdPlaceholder')}
+                    label={getString('pipeline.artifactsSelection.existingDocker.sidecarId')}
+                    placeholder={getString('pipeline.artifactsSelection.existingDocker.sidecarIdPlaceholder')}
                     name="identifier"
                   />
                 </div>
               )}
               <div className={css.imagePathContainer}>
                 <FormInput.MultiTextInput
-                  label={getString('artifactsSelection.existingDocker.imageName')}
+                  label={getString('pipeline.imagePathLabel')}
                   name="imagePath"
-                  placeholder={getString('artifactsSelection.existingDocker.imageNamePlaceholder')}
+                  placeholder={getString('pipeline.artifactsSelection.existingDocker.imageNamePlaceholder')}
                   multiTextInputProps={{ expressions }}
                   onChange={val => {
                     setLastImagePath(val as string)
@@ -305,7 +305,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
                   <FormInput.MultiTextInput
                     label={getString('tagRegex')}
                     name="tagRegex"
-                    placeholder={getString('artifactsSelection.existingDocker.enterTagRegex')}
+                    placeholder={getString('pipeline.artifactsSelection.existingDocker.enterTagRegex')}
                     multiTextInputProps={{ expressions }}
                   />
                   {getMultiTypeFromValue(formik.values.tagRegex) === MultiTypeInputType.RUNTIME && (

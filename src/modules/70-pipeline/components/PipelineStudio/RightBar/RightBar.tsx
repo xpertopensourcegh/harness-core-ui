@@ -422,7 +422,7 @@ export const RightBar = (): JSX.Element => {
             validationSchema={Yup.object().shape({
               connectorRef: Yup.mixed().required(getString('fieldRequired', { field: getString('connector') })),
               ...(connectionType === 'Account' && {
-                repoName: Yup.string().required(getString('validation.repositoryName'))
+                repoName: Yup.string().required(getString('common.validation.repositoryName'))
               })
             })}
             validate={values => {

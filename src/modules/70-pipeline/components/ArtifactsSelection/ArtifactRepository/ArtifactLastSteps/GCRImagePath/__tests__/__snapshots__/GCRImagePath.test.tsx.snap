@@ -9,7 +9,7 @@ exports[`GCR Image Path Artifact tests renders correctly in edit case 1`] = `
     <div
       class="heading"
     >
-      artifactsSelection.artifactDetails
+      pipeline.artifactsSelection.artifactDetails
     </div>
     <div
       class="OverlaySpinner--overlaySpinner"
@@ -32,7 +32,7 @@ exports[`GCR Image Path Artifact tests renders correctly in edit case 1`] = `
                   class="Tooltip--acenter"
                   data-tooltip-id="gcrImagePath_identifier"
                 >
-                  artifactsSelection.existingDocker.sidecarId
+                  pipeline.artifactsSelection.existingDocker.sidecarId
                 </span>
                  
                 <span
@@ -49,7 +49,7 @@ exports[`GCR Image Path Artifact tests renders correctly in edit case 1`] = `
                     autocomplete="off"
                     class="bp3-input"
                     name="identifier"
-                    placeholder="artifactsSelection.existingDocker.sidecarIdPlaceholder"
+                    placeholder="pipeline.artifactsSelection.existingDocker.sidecarIdPlaceholder"
                     type="text"
                     value=""
                   />
@@ -97,7 +97,7 @@ exports[`GCR Image Path Artifact tests renders correctly in edit case 1`] = `
                           autocomplete="off"
                           class="bp3-input"
                           name="registryHostname"
-                          placeholder="UrlLabel"
+                          placeholder="common.validation.urlIsRequired"
                           style="padding-right: 0px;"
                           type="text"
                           value=""
@@ -173,7 +173,7 @@ exports[`GCR Image Path Artifact tests renders correctly in edit case 1`] = `
                   class="Tooltip--acenter"
                   data-tooltip-id="gcrImagePath_imagePath"
                 >
-                  artifactsSelection.existingDocker.imageName
+                  pipeline.imagePathLabel
                 </span>
                  
                 <span
@@ -193,7 +193,7 @@ exports[`GCR Image Path Artifact tests renders correctly in edit case 1`] = `
                       autocomplete="off"
                       class="bp3-input"
                       name="imagePath"
-                      placeholder="artifactsSelection.existingDocker.imageNamePlaceholder"
+                      placeholder="pipeline.artifactsSelection.existingDocker.imageNamePlaceholder"
                       type="text"
                       value=""
                     />
@@ -444,7 +444,7 @@ exports[`GCR Image Path Artifact tests renders while adding step first time 1`] 
     <div
       class="heading"
     >
-      artifactsSelection.artifactDetails
+      pipeline.artifactsSelection.artifactDetails
     </div>
     <div
       class="OverlaySpinner--overlaySpinner"
@@ -467,7 +467,7 @@ exports[`GCR Image Path Artifact tests renders while adding step first time 1`] 
                   class="Tooltip--acenter"
                   data-tooltip-id="gcrImagePath_identifier"
                 >
-                  artifactsSelection.existingDocker.sidecarId
+                  pipeline.artifactsSelection.existingDocker.sidecarId
                 </span>
                  
                 <span
@@ -484,7 +484,7 @@ exports[`GCR Image Path Artifact tests renders while adding step first time 1`] 
                     autocomplete="off"
                     class="bp3-input"
                     name="identifier"
-                    placeholder="artifactsSelection.existingDocker.sidecarIdPlaceholder"
+                    placeholder="pipeline.artifactsSelection.existingDocker.sidecarIdPlaceholder"
                     type="text"
                     value=""
                   />
@@ -532,7 +532,7 @@ exports[`GCR Image Path Artifact tests renders while adding step first time 1`] 
                           autocomplete="off"
                           class="bp3-input"
                           name="registryHostname"
-                          placeholder="UrlLabel"
+                          placeholder="common.validation.urlIsRequired"
                           style="padding-right: 0px;"
                           type="text"
                           value=""
@@ -608,7 +608,7 @@ exports[`GCR Image Path Artifact tests renders while adding step first time 1`] 
                   class="Tooltip--acenter"
                   data-tooltip-id="gcrImagePath_imagePath"
                 >
-                  artifactsSelection.existingDocker.imageName
+                  pipeline.imagePathLabel
                 </span>
                  
                 <span
@@ -628,7 +628,7 @@ exports[`GCR Image Path Artifact tests renders while adding step first time 1`] 
                       autocomplete="off"
                       class="bp3-input"
                       name="imagePath"
-                      placeholder="artifactsSelection.existingDocker.imageNamePlaceholder"
+                      placeholder="pipeline.artifactsSelection.existingDocker.imageNamePlaceholder"
                       type="text"
                       value=""
                     />
@@ -879,7 +879,7 @@ exports[`GCR Image Path Artifact tests renders without crashing 1`] = `
     <div
       class="heading"
     >
-      artifactsSelection.artifactDetails
+      pipeline.artifactsSelection.artifactDetails
     </div>
     <div
       class="OverlaySpinner--overlaySpinner"
@@ -902,7 +902,7 @@ exports[`GCR Image Path Artifact tests renders without crashing 1`] = `
                   class="Tooltip--acenter"
                   data-tooltip-id="gcrImagePath_identifier"
                 >
-                  artifactsSelection.existingDocker.sidecarId
+                  pipeline.artifactsSelection.existingDocker.sidecarId
                 </span>
                  
                 <span
@@ -919,7 +919,7 @@ exports[`GCR Image Path Artifact tests renders without crashing 1`] = `
                     autocomplete="off"
                     class="bp3-input"
                     name="identifier"
-                    placeholder="artifactsSelection.existingDocker.sidecarIdPlaceholder"
+                    placeholder="pipeline.artifactsSelection.existingDocker.sidecarIdPlaceholder"
                     type="text"
                     value=""
                   />
@@ -967,7 +967,7 @@ exports[`GCR Image Path Artifact tests renders without crashing 1`] = `
                           autocomplete="off"
                           class="bp3-input"
                           name="registryHostname"
-                          placeholder="UrlLabel"
+                          placeholder="common.validation.urlIsRequired"
                           style="padding-right: 0px;"
                           type="text"
                           value=""
@@ -1043,7 +1043,7 @@ exports[`GCR Image Path Artifact tests renders without crashing 1`] = `
                   class="Tooltip--acenter"
                   data-tooltip-id="gcrImagePath_imagePath"
                 >
-                  artifactsSelection.existingDocker.imageName
+                  pipeline.imagePathLabel
                 </span>
                  
                 <span
@@ -1063,7 +1063,7 @@ exports[`GCR Image Path Artifact tests renders without crashing 1`] = `
                       autocomplete="off"
                       class="bp3-input"
                       name="imagePath"
-                      placeholder="artifactsSelection.existingDocker.imageNamePlaceholder"
+                      placeholder="pipeline.artifactsSelection.existingDocker.imageNamePlaceholder"
                       type="text"
                       value=""
                     />

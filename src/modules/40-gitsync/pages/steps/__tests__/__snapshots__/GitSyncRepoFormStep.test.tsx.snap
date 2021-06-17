@@ -882,7 +882,7 @@ exports[`Test GitSyncRepoFormStep Should not allow saving form if folder name is
                           <div
                             class="bp3-form-helper-text"
                           >
-                            validation.repositoryName
+                            common.validation.repositoryName
                           </div>
                         </div>
                       </div>

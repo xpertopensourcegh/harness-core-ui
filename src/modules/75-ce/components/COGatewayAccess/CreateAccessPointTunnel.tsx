@@ -294,7 +294,7 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
                 <FormInput.Select
                   name="accessPointRegion"
                   label={getString('ce.co.accessPoint.select.regionToInstall')}
-                  placeholder={getString('ce.co.accessPoint.select.region')}
+                  placeholder={getString('pipeline.regionPlaceholder')}
                   items={regionOptions}
                   onChange={e => {
                     props.accessPoint.region = e.value as string

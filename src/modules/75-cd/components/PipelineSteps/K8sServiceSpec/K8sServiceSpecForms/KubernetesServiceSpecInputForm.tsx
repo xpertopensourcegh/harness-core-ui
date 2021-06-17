@@ -440,7 +440,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                 {getMultiTypeFromValue(get(template, `artifacts.primary.spec.imagePath`, '')) ===
                   MultiTypeInputType.RUNTIME && (
                   <FormInput.MultiTextInput
-                    label={getString('pipelineSteps.deploy.inputSet.imagePath')}
+                    label={getString('pipeline.imagePathLabel')}
                     disabled={readonly}
                     multiTextInputProps={{
                       expressions,
@@ -626,7 +626,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                     )}
                     {getMultiTypeFromValue(imagePath) === MultiTypeInputType.RUNTIME && (
                       <FormInput.MultiTextInput
-                        label={getString('pipelineSteps.deploy.inputSet.imagePath')}
+                        label={getString('pipeline.imagePathLabel')}
                         multiTextInputProps={{
                           expressions,
                           allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]

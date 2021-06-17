@@ -9,7 +9,7 @@ exports[`DockerRegistry Image Path Artifact tests renders correctly in edit case
     <div
       class="heading"
     >
-      artifactsSelection.artifactDetails
+      pipeline.artifactsSelection.artifactDetails
     </div>
     <div
       class="OverlaySpinner--overlaySpinner"
@@ -32,7 +32,7 @@ exports[`DockerRegistry Image Path Artifact tests renders correctly in edit case
                   class="Tooltip--acenter"
                   data-tooltip-id="imagePath_identifier"
                 >
-                  artifactsSelection.existingDocker.sidecarId
+                  pipeline.artifactsSelection.existingDocker.sidecarId
                 </span>
                  
                 <span
@@ -49,7 +49,7 @@ exports[`DockerRegistry Image Path Artifact tests renders correctly in edit case
                     autocomplete="off"
                     class="bp3-input"
                     name="identifier"
-                    placeholder="artifactsSelection.existingDocker.sidecarIdPlaceholder"
+                    placeholder="pipeline.artifactsSelection.existingDocker.sidecarIdPlaceholder"
                     type="text"
                     value=""
                   />
@@ -71,7 +71,7 @@ exports[`DockerRegistry Image Path Artifact tests renders correctly in edit case
                   class="Tooltip--acenter"
                   data-tooltip-id="imagePath_imagePath"
                 >
-                  artifactsSelection.existingDocker.imageName
+                  pipeline.imagePathLabel
                 </span>
                  
                 <span
@@ -91,7 +91,7 @@ exports[`DockerRegistry Image Path Artifact tests renders correctly in edit case
                       autocomplete="off"
                       class="bp3-input"
                       name="imagePath"
-                      placeholder="artifactsSelection.existingDocker.imageNamePlaceholder"
+                      placeholder="pipeline.artifactsSelection.existingDocker.imageNamePlaceholder"
                       type="text"
                       value=""
                     />
@@ -342,7 +342,7 @@ exports[`DockerRegistry Image Path Artifact tests renders while adding step firs
     <div
       class="heading"
     >
-      artifactsSelection.artifactDetails
+      pipeline.artifactsSelection.artifactDetails
     </div>
     <div
       class="OverlaySpinner--overlaySpinner"
@@ -365,7 +365,7 @@ exports[`DockerRegistry Image Path Artifact tests renders while adding step firs
                   class="Tooltip--acenter"
                   data-tooltip-id="imagePath_identifier"
                 >
-                  artifactsSelection.existingDocker.sidecarId
+                  pipeline.artifactsSelection.existingDocker.sidecarId
                 </span>
                  
                 <span
@@ -382,7 +382,7 @@ exports[`DockerRegistry Image Path Artifact tests renders while adding step firs
                     autocomplete="off"
                     class="bp3-input"
                     name="identifier"
-                    placeholder="artifactsSelection.existingDocker.sidecarIdPlaceholder"
+                    placeholder="pipeline.artifactsSelection.existingDocker.sidecarIdPlaceholder"
                     type="text"
                     value=""
                   />
@@ -404,7 +404,7 @@ exports[`DockerRegistry Image Path Artifact tests renders while adding step firs
                   class="Tooltip--acenter"
                   data-tooltip-id="imagePath_imagePath"
                 >
-                  artifactsSelection.existingDocker.imageName
+                  pipeline.imagePathLabel
                 </span>
                  
                 <span
@@ -424,7 +424,7 @@ exports[`DockerRegistry Image Path Artifact tests renders while adding step firs
                       autocomplete="off"
                       class="bp3-input"
                       name="imagePath"
-                      placeholder="artifactsSelection.existingDocker.imageNamePlaceholder"
+                      placeholder="pipeline.artifactsSelection.existingDocker.imageNamePlaceholder"
                       type="text"
                       value=""
                     />
@@ -675,7 +675,7 @@ exports[`DockerRegistry Image Path Artifact tests renders without crashing 1`] =
     <div
       class="heading"
     >
-      artifactsSelection.artifactDetails
+      pipeline.artifactsSelection.artifactDetails
     </div>
     <div
       class="OverlaySpinner--overlaySpinner"
@@ -698,7 +698,7 @@ exports[`DockerRegistry Image Path Artifact tests renders without crashing 1`] =
                   class="Tooltip--acenter"
                   data-tooltip-id="imagePath_identifier"
                 >
-                  artifactsSelection.existingDocker.sidecarId
+                  pipeline.artifactsSelection.existingDocker.sidecarId
                 </span>
                  
                 <span
@@ -715,7 +715,7 @@ exports[`DockerRegistry Image Path Artifact tests renders without crashing 1`] =
                     autocomplete="off"
                     class="bp3-input"
                     name="identifier"
-                    placeholder="artifactsSelection.existingDocker.sidecarIdPlaceholder"
+                    placeholder="pipeline.artifactsSelection.existingDocker.sidecarIdPlaceholder"
                     type="text"
                     value=""
                   />
@@ -737,7 +737,7 @@ exports[`DockerRegistry Image Path Artifact tests renders without crashing 1`] =
                   class="Tooltip--acenter"
                   data-tooltip-id="imagePath_imagePath"
                 >
-                  artifactsSelection.existingDocker.imageName
+                  pipeline.imagePathLabel
                 </span>
                  
                 <span
@@ -757,7 +757,7 @@ exports[`DockerRegistry Image Path Artifact tests renders without crashing 1`] =
                       autocomplete="off"
                       class="bp3-input"
                       name="imagePath"
-                      placeholder="artifactsSelection.existingDocker.imageNamePlaceholder"
+                      placeholder="pipeline.artifactsSelection.existingDocker.imageNamePlaceholder"
                       type="text"
                       value=""
                     />
