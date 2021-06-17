@@ -905,7 +905,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
             id={CONFIG_STEP_IDS[2]}
           >
             {!selectedAsg && (
-              <Layout.Vertical>
+              <div>
                 <CardSelect
                   data={instanceTypeCardData.filter(_instanceType =>
                     _instanceType.providers?.includes(props.gatewayDetails.provider.value)
@@ -926,7 +926,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                   selected={selectedInstanceType}
                   cornerSelected={true}
                 ></CardSelect>
-                <Layout.Horizontal spacing="small" className={css.instanceTypeNameGrid}>
+                <div className={css.instanceTypeNameGrid}>
                   {instanceTypeCardData
                     .filter(_instanceType => _instanceType.providers?.includes(props.gatewayDetails.provider.value))
                     .map(_item => {
@@ -936,8 +936,8 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                         </Text>
                       )
                     })}
-                </Layout.Horizontal>
-              </Layout.Vertical>
+                </div>
+              </div>
             )}
             {selectedAsg && (
               <Layout.Horizontal className={css.asgInstanceSelectionContianer}>

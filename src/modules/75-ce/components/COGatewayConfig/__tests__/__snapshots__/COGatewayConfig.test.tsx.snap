@@ -335,9 +335,7 @@ exports[`Auto stopping Rule creation Tests Config screen renders without crashin
           <div
             class="childrenContainer"
           >
-            <div
-              class="Layout--vertical StyledProps--main"
-            >
+            <div>
               <div
                 class="instanceTypeViewGrid"
               >
@@ -373,7 +371,7 @@ exports[`Auto stopping Rule creation Tests Config screen renders without crashin
                 </div>
               </div>
               <div
-                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main instanceTypeNameGrid"
+                class="instanceTypeNameGrid"
               >
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-align-center"
@@ -942,9 +940,7 @@ exports[`Auto stopping Rule creation Tests Fill remaining form for INSTANCES 1`]
           <div
             class="childrenContainer"
           >
-            <div
-              class="Layout--vertical StyledProps--main"
-            >
+            <div>
               <div
                 class="instanceTypeViewGrid"
               >
@@ -1006,7 +1002,7 @@ exports[`Auto stopping Rule creation Tests Fill remaining form for INSTANCES 1`]
                 </div>
               </div>
               <div
-                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main instanceTypeNameGrid"
+                class="instanceTypeNameGrid"
               >
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-align-center"

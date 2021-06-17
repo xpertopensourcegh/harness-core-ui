@@ -18,7 +18,7 @@
 }
 .instanceTypeViewGrid {
   display: grid;
-  grid-template-columns: repeat(14, 1fr);
+  grid-template-columns: repeat(2, 70px);
   grid-template-rows: 1fr;
   grid-column-gap: var(--spacing-xlarge);
   grid-row-gap: 0px;
@@ -32,12 +32,13 @@
   }
 }
 .instanceTypeNameGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: grid !important;
+  grid-template-columns: repeat(2, 70px);
   grid-template-rows: 1fr;
-  grid-column-gap: var(--spacing-xxxlarge);
+  grid-column-gap: var(--spacing-xlarge);
   grid-row-gap: 0px;
-  margin-left: var(--spacing-large) !important;
+  margin-top: var(--spacing-small) !important;
+  text-align: center;
 }
 .card {
   padding: 0px;

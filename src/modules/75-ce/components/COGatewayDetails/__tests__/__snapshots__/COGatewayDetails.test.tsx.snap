@@ -1719,9 +1719,7 @@ exports[`Test GatewayDetails renders review screen 2`] = `
                   <div
                     class="childrenContainer"
                   >
-                    <div
-                      class="Layout--vertical StyledProps--main"
-                    >
+                    <div>
                       <div
                         class="instanceTypeViewGrid"
                       >
@@ -1783,7 +1781,7 @@ exports[`Test GatewayDetails renders review screen 2`] = `
                         </div>
                       </div>
                       <div
-                        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main instanceTypeNameGrid"
+                        class="instanceTypeNameGrid"
                       >
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--font-align-center"
@@ -4071,9 +4069,7 @@ exports[`Test GatewayDetails renders setup access screen and move to previous st
                   <div
                     class="childrenContainer"
                   >
-                    <div
-                      class="Layout--vertical StyledProps--main"
-                    >
+                    <div>
                       <div
                         class="instanceTypeViewGrid"
                       >
@@ -4135,7 +4131,7 @@ exports[`Test GatewayDetails renders setup access screen and move to previous st
                         </div>
                       </div>
                       <div
-                        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main instanceTypeNameGrid"
+                        class="instanceTypeNameGrid"
                       >
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--font-align-center"
@@ -5687,9 +5683,7 @@ exports[`Test GatewayDetails renders without crashing 1`] = `
                   <div
                     class="childrenContainer"
                   >
-                    <div
-                      class="Layout--vertical StyledProps--main"
-                    >
+                    <div>
                       <div
                         class="instanceTypeViewGrid"
                       >
@@ -5751,7 +5745,7 @@ exports[`Test GatewayDetails renders without crashing 1`] = `
                         </div>
                       </div>
                       <div
-                        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main instanceTypeNameGrid"
+                        class="instanceTypeNameGrid"
                       >
                         <p
                           class="StyledProps--font StyledProps--main StyledProps--font-align-center"
