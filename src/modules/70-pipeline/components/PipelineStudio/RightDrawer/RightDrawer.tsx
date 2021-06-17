@@ -63,13 +63,11 @@ const checkDuplicateStep = (
 export const RightDrawer: React.FC = (): JSX.Element => {
   const {
     state: {
-      pipeline,
       pipelineView: { drawerData, isDrawerOpened },
       pipelineView,
       selectionState: { selectedStageId, selectedStepId }
     },
     isReadonly,
-    updatePipeline,
     updateStage,
     updatePipelineView,
     getStageFromPipeline,

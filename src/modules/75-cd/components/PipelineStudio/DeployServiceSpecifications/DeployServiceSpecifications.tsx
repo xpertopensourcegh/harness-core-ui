@@ -249,21 +249,18 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     }
   }
   React.useEffect(() => {
-    if (
-      !stage?.stage?.spec?.serviceConfig?.serviceDefinition?.type &&
-      !stage?.stage?.spec.serviceConfig?.useFromStage
-    ) {
-      const stageData = produce(stage, draft => {
+    const stageData = produce(stage, draft => {
+      if (
+        !draft?.stage?.spec?.serviceConfig?.serviceDefinition?.type &&
+        !draft?.stage?.spec.serviceConfig?.useFromStage
+      ) {
         set(draft, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
-      })
-      debounceUpdateStage(stageData.stage)
-    }
-    if (!stage?.stage?.spec?.serviceConfig?.serviceDefinition && !stage?.stage?.spec.serviceConfig?.useFromStage) {
-      const stageData = produce(stage, draft => {
+      }
+      if (!draft?.stage?.spec?.serviceConfig?.serviceDefinition && !stage?.stage?.spec.serviceConfig?.useFromStage) {
         set(draft, 'stage.spec.serviceConfig.serviceDefinition', {})
-      })
-      debounceUpdateStage(stageData.stage)
-    }
+      }
+    })
+    debounceUpdateStage(stageData.stage)
     let hasStageOfSameType = false
     const currentStageType = stage?.stage?.type
 
