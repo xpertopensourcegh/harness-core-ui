@@ -8,7 +8,7 @@ import { TriggerTypes, AWS_CODECOMMIT, AwsCodeCommit } from './TriggersWizardPag
 export const GitSourceProviders: Record<string, { value: string; iconName: IconName }> = {
   GITHUB: { value: 'Github', iconName: 'github' },
   GITLAB: { value: 'Gitlab', iconName: 'service-gotlab' },
-  BITBUCKET: { value: 'Bitbucket', iconName: 'bitbucket' },
+  BITBUCKET: { value: 'Bitbucket', iconName: 'bitbucket-selected' },
   AWS_CODECOMMIT: { value: 'AwsCodeCommit', iconName: 'service-aws-code-deploy' },
   CUSTOM: { value: 'Custom', iconName: 'build' }
 }

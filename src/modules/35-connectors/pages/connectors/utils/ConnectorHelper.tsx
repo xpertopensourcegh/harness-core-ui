@@ -137,7 +137,7 @@ export const getConnectorIconByType = (type: string): IconName => {
     case Connectors.GITLAB:
       return 'service-gotlab'
     case Connectors.BITBUCKET:
-      return 'bitbucket-new'
+      return 'bitbucket-selected'
     case Connectors.VAULT:
       return 'hashiCorpVault'
     case Connectors.GCP_KMS:

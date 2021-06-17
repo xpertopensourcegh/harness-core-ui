@@ -15,7 +15,7 @@ import { buildBitbucketPayload } from '@connectors/pages/connectors/utils/Connec
 import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'
 import GitDetailsStep from '../commonSteps/GitDetailsStep'
 import StepBitbucketAuthentication from './StepAuth/StepBitbucketAuthentication'
-
+import css from './CreateBitbucketConnector.module.scss'
 const CreateBitbucketConnector = (props: CreateConnectorModalProps): JSX.Element => {
   const { getString } = useStrings()
   const commonProps = pick(props, [
@@ -32,6 +32,7 @@ const CreateBitbucketConnector = (props: CreateConnectorModalProps): JSX.Element
     <StepWizard
       icon={getConnectorIconByType(Connectors.BITBUCKET)}
       iconProps={{ size: 50 }}
+      className={css.bitbucketConnector}
       title={getString(getConnectorTitleIdByType(Connectors.BITBUCKET))}
     >
       <ConnectorDetailsStep
