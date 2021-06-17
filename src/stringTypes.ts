@@ -173,6 +173,7 @@ export interface StringsMap {
   'common.headerAccountName': string
   'common.headerCompanyName': string
   'common.headerDefaultAccount': string
+  'common.headers': string
   'common.home': string
   'common.in': string
   'common.input': string
@@ -196,6 +197,8 @@ export interface StringsMap {
   'common.noRefData': string
   'common.note': string
   'common.ok': string
+  'common.optionalConfig': string
+  'common.optionalLabel': string
   'common.options': string
   'common.orgSetup': string
   'common.orgViewer': string
@@ -1412,7 +1415,6 @@ export interface StringsMap {
   'pipeline.noPipelineText': string
   'pipeline.onlyPositiveInteger': string
   'pipeline.operatorPlaceholder': string
-  'pipeline.optionalLabel': string
   'pipeline.overrideSets.configure': string
   'pipeline.overrideSets.createOverrideSet': string
   'pipeline.overrideSets.createOverrideSetPlus': string
@@ -1635,7 +1637,6 @@ export interface StringsMap {
   'cd.gitFetchTypeRequired': string
   'cd.learnMore': string
   'cd.namespaceValidation': string
-  'cd.optionalConfig': string
   'cd.pathCannotBeEmpty': string
   'cd.pipelineSteps.serviceTab.deploymentType': string
   'cd.releaseNameValidation': string

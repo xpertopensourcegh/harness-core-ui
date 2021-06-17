@@ -9,7 +9,7 @@ import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
 import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
-import ResponseMapping from './ResponseMapping'
+import OptionalConfiguration from './OptionalConfiguration'
 import type { HttpStepData, HttpStepFormData } from './types'
 import HttpStepBase from './HttpStepBase'
 
@@ -80,16 +80,12 @@ export function HttpStepWidget(
 
         return (
           <React.Fragment>
+            <HttpStepBase formik={formik} isNewStep={isNewStep} readonly={isDisabled} />
             <Accordion activeId="step-1" className={stepCss.accordion}>
               <Accordion.Panel
-                id="step-1"
-                summary={getString('basic')}
-                details={<HttpStepBase formik={formik} isNewStep={isNewStep} readonly={isDisabled} />}
-              />
-              <Accordion.Panel
-                id="step-2"
-                summary={getString('responseMapping')}
-                details={<ResponseMapping formik={formik} readonly={isDisabled} />}
+                id="optional-config"
+                summary={getString('common.optionalConfig')}
+                details={<OptionalConfiguration formik={formik} readonly={isDisabled} />}
               />
             </Accordion>
           </React.Fragment>

@@ -30,6 +30,8 @@ export interface MultiTypeFieldSelectorProps extends Omit<IFormGroupProps, 'labe
   skipRenderValueInExpressionLabel?: boolean
   expressionRender?(): React.ReactNode
   allowedTypes?: MultiTypeInputType[]
+  isOptional?: boolean
+  optionalLabel?: string
 }
 
 export interface ConnectedMultiTypeFieldSelectorProps extends MultiTypeFieldSelectorProps {
@@ -83,11 +85,13 @@ export function MultiTypeFieldSelector(props: ConnectedMultiTypeFieldSelectorPro
     allowedTypes = [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME],
     expressionRender,
     skipRenderValueInExpressionLabel,
+    isOptional,
+    optionalLabel = '(optional)',
     ...restProps
   } = props
   const error = get(formik?.errors, name)
   const hasError = errorCheck(name, formik) && typeof error === 'string'
-
+  const labelText = !isOptional ? label : `${label} ${optionalLabel}`
   const {
     intent = hasError ? Intent.DANGER : Intent.NONE,
     helperText = hasError ? get(formik?.errors, name) : null,
@@ -118,10 +122,10 @@ export function MultiTypeFieldSelector(props: ConnectedMultiTypeFieldSelectorPro
       label={
         <div className={css.formLabel}>
           {type === MultiTypeInputType.FIXED ? (
-            label
+            labelText
           ) : (
             <span>
-              {label}{' '}
+              {labelText}{' '}
               {skipRenderValueInExpressionLabel && type === MultiTypeInputType.EXPRESSION ? null : <b>{value}</b>}
             </span>
           )}

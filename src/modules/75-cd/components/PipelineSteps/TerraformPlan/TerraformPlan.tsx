@@ -241,7 +241,7 @@ function TerraformPlanWidget(
                 <Accordion activeId="step-1" className={stepCss.accordion}>
                   <Accordion.Panel
                     id="step-1"
-                    summary={getString('cd.optionalConfig')}
+                    summary={getString('common.optionalConfig')}
                     details={
                       <>
                         <div className={cx(stepCss.formGroup, stepCss.md)}>

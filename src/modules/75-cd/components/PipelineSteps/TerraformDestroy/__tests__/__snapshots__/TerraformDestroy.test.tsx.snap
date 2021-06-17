@@ -381,7 +381,7 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
             <div
               class="Accordion--label"
             >
-              cd.optionalConfig
+              common.optionalConfig
             </div>
           </div>
           <div
@@ -1442,7 +1442,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
             <div
               class="Accordion--label"
             >
-              cd.optionalConfig
+              common.optionalConfig
             </div>
           </div>
           <div

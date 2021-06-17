@@ -14,6 +14,9 @@ addVariable: Add Variable
 editVariable: Edit variable
 editVariableType: Edit variable type
 removeThisVariable: Remove This Variable
+optionalConfig: Optional Configuration
+optionalLabel: (optional)
+headers: Headers
 durationPrefix: 'Duration: '
 pipelineDetails: Pipeline Details
 accountName: Account Name

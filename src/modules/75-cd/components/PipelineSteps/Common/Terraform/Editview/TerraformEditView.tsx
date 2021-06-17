@@ -208,7 +208,7 @@ export default function TerraformEditView(
                     <Accordion activeId="step-1" className={stepCss.accordion}>
                       <Accordion.Panel
                         id="step-1"
-                        summary={getString('cd.optionalConfig')}
+                        summary={getString('common.optionalConfig')}
                         details={
                           <>
                             {formik.values?.spec?.configuration?.type === ConfigurationTypes.Inline && (

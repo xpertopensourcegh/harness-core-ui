@@ -26,10 +26,17 @@
 
     :global(.bp3-tab) {
       margin-bottom: var(--spacing-xsmall);
+      min-width: auto;
+      margin-right: 0 !important;
+
+      &[aria-selected='true'] {
+        font-weight: bold;
+      }
     }
 
     :global(.bp3-tab-list) {
       border-bottom: 1px solid var(--grey-300);
+      margin: 0 var(--spacing-5);
     }
     :global(.bp3-tab-panel) {
       padding: var(--spacing-large);

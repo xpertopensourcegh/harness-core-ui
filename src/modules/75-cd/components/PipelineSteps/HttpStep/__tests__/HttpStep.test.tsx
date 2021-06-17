@@ -91,15 +91,17 @@ describe('Http Step', () => {
 
     fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'My Http Step' } })
     fireEvent.change(queryByNameAttribute('spec.url')!, { target: { value: 'https://someapi.com/v3' } })
-    fireEvent.change(queryByNameAttribute('spec.assertion')!, { target: { value: '${httpResponseBody} == 200' } })
-    fireEvent.click(getByTestId('add-header'))
-    fireEvent.change(queryByNameAttribute('spec.headers[0].key')!, { target: { value: 'Content-Type' } })
-    fireEvent.change(queryByNameAttribute('spec.headers[0].value')!, { target: { value: 'application/json' } })
     fireEvent.change(queryByNameAttribute('spec.requestBody')!, {
       target: { value: '{ "message": "Hello world!" }' }
     })
 
-    fireEvent.click(getByText('responseMapping'))
+    fireEvent.click(getByText('common.optionalConfig'))
+
+    fireEvent.change(queryByNameAttribute('spec.assertion')!, { target: { value: '${httpResponseBody} == 200' } })
+    fireEvent.click(getByTestId('add-header'))
+    fireEvent.change(queryByNameAttribute('spec.headers[0].key')!, { target: { value: 'Content-Type' } })
+    fireEvent.change(queryByNameAttribute('spec.headers[0].value')!, { target: { value: 'application/json' } })
+
     fireEvent.click(getByTestId('add-response-mapping'))
 
     fireEvent.change(queryByNameAttribute('spec.outputVariables[0].name')!, { target: { value: 'myVar' } })

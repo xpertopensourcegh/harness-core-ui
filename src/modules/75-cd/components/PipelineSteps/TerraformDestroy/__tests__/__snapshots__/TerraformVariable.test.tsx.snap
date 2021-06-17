@@ -381,7 +381,7 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
             <div
               class="Accordion--label"
             >
-              cd.optionalConfig
+              common.optionalConfig
             </div>
           </div>
           <div

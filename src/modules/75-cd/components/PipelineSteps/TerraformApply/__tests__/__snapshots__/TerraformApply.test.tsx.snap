@@ -381,7 +381,7 @@ exports[`Test TerraformApply expand backend Spec config 1`] = `
             <div
               class="Accordion--label"
             >
-              cd.optionalConfig
+              common.optionalConfig
             </div>
           </div>
           <div
@@ -1389,7 +1389,7 @@ exports[`Test TerraformApply rendering more than one varfile 1`] = `
             <div
               class="Accordion--label"
             >
-              cd.optionalConfig
+              common.optionalConfig
             </div>
           </div>
           <div
@@ -2575,7 +2575,7 @@ exports[`Test TerraformApply rendering more than one varfile 2`] = `
             <div
               class="Accordion--label"
             >
-              cd.optionalConfig
+              common.optionalConfig
             </div>
           </div>
           <div
@@ -4480,7 +4480,7 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
             <div
               class="Accordion--label"
             >
-              cd.optionalConfig
+              common.optionalConfig
             </div>
           </div>
           <div
@@ -6220,7 +6220,7 @@ exports[`Test TerraformApply should submit form for inline config 1`] = `
             <div
               class="Accordion--label"
             >
-              cd.optionalConfig
+              common.optionalConfig
             </div>
           </div>
           <div

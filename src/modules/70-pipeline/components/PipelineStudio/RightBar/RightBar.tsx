@@ -550,7 +550,7 @@ export const RightBar = (): JSX.Element => {
                         summary={
                           <Layout.Horizontal>
                             <Text font={{ weight: 'bold' }}>{getString('advancedTitle')}</Text>&nbsp;
-                            <Text>{getString('pipeline.optionalLabel')}</Text>
+                            <Text>{getString('common.optionalLabel')}</Text>
                           </Layout.Horizontal>
                         }
                         details={
