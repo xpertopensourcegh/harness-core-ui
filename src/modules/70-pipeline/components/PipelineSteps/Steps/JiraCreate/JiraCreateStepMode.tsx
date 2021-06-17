@@ -315,7 +315,7 @@ const FormContent = ({
                   name="spec.connectorRef"
                   label={getString('pipeline.jiraApprovalStep.connectorRef')}
                   className={css.connector}
-                  placeholder={getString('select')}
+                  placeholder={getString('connectors.selectConnector')}
                   accountIdentifier={accountId}
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}
@@ -363,7 +363,7 @@ const FormContent = ({
                       ? getString('pipeline.jiraApprovalStep.fetchingProjectsPlaceholder')
                       : projectsFetchError?.message
                       ? projectsFetchError?.message
-                      : getString('select')
+                      : getString('pipeline.jiraCreateStep.selectProject')
                   }
                   className={css.md}
                   disabled={isApprovalStepFieldDisabled(readonly, fetchingProjects)}
@@ -405,7 +405,7 @@ const FormContent = ({
                       ? getString('pipeline.jiraApprovalStep.fetchingIssueTypePlaceholder')
                       : projectMetadataFetchError?.message
                       ? projectMetadataFetchError?.message
-                      : getString('select')
+                      : getString('pipeline.jiraApprovalStep.issueTypePlaceholder')
                   }
                   className={css.md}
                   disabled={isApprovalStepFieldDisabled(readonly, fetchingProjectMetadata)}
@@ -525,12 +525,12 @@ const FormContent = ({
                             <FormInput.Text
                               name={`spec.fields[${i}].name`}
                               disabled={isApprovalStepFieldDisabled(readonly)}
-                              placeholder={getString('keyLabel')}
+                              placeholder={getString('pipeline.keyPlaceholder')}
                             />
                             <FormInput.MultiTextInput
                               name={`spec.fields[${i}].value`}
                               label=""
-                              placeholder={getString('valueLabel')}
+                              placeholder={getString('common.valuePlaceholder')}
                               disabled={isApprovalStepFieldDisabled(readonly)}
                               multiTextInputProps={{
                                 allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],

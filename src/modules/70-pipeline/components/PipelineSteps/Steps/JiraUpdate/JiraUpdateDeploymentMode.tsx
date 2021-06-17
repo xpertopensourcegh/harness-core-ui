@@ -99,7 +99,7 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
           className={css.connectorDeployment}
           label={getString('pipeline.jiraApprovalStep.connectorRef')}
           selected={(initialValues?.spec?.connectorRef as string) || ''}
-          placeholder={getString('pipeline.jiraApprovalStep.connectorRef')}
+          placeholder={getString('connectors.selectConnector')}
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
@@ -122,7 +122,7 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
           className={css.deploymentViewMedium}
           name={`${prefix}spec.issueKey`}
           disabled={isApprovalStepFieldDisabled(readonly)}
-          placeholder={getString('pipeline.jiraApprovalStep.issueKey')}
+          placeholder={getString('pipeline.jiraApprovalStep.issueKeyPlaceholder')}
         />
       ) : null}
 
@@ -140,7 +140,7 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
                 ? getString('pipeline.jiraUpdateStep.fetchingStatus')
                 : statusFetchError?.message
                 ? statusFetchError.message
-                : getString('status')
+                : getString('pipeline.jiraUpdateStep.selectStatus')
             }
           }}
           onChange={(opt: SelectOption) => {
@@ -160,7 +160,7 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
 
       {getMultiTypeFromValue(template?.spec?.transitionTo?.transitionName) === MultiTypeInputType.RUNTIME ? (
         <FormInput.Text
-          placeholder={getString('pipeline.jiraUpdateStep.transitionLabel')}
+          placeholder={getString('pipeline.jiraUpdateStep.transitionPlaceholder')}
           className={css.deploymentViewMedium}
           name={`${prefix}spec.transitionTo.transitionName`}
           disabled={isApprovalStepFieldDisabled(readonly)}

@@ -246,7 +246,7 @@ exports[`SelectProduct Render for AppD monitoring source 1`] = `
                             <span
                               class="placeholder"
                             >
-                              cv.selectConnector
+                              connectors.selectConnector
                             </span>
                           </span>
                           <span

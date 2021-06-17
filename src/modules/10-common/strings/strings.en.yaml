@@ -352,3 +352,4 @@ account:
   visitSubscriptions:
     link: Visit Subscriptions
     description: to add and manage your subscriptions
+valuePlaceholder: Enter Value(s)

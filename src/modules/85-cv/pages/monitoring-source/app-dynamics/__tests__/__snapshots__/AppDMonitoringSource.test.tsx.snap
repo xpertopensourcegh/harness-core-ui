@@ -385,7 +385,7 @@ exports[`AppDMonitoringSOurce render initial state 1`] = `
                                   <span
                                     class="placeholder"
                                   >
-                                    cv.selectConnector
+                                    connectors.selectConnector
                                   </span>
                                 </span>
                                 <span

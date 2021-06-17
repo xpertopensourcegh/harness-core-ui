@@ -601,7 +601,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
                                           items={inputSetListOptions}
                                           name={`inputSetReferences[${index}]`}
                                           style={{ width: 400 }}
-                                          placeholder={getString('inputSetsText')}
+                                          placeholder={getString('pipeline.inputSets.inputSetPlaceholder')}
                                           disabled={isReadOnly}
                                         />
                                       </Layout.Horizontal>

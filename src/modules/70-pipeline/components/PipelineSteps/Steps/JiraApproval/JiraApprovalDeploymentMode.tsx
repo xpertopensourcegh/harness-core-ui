@@ -46,7 +46,7 @@ const FormContent = (formContentProps: JiraApprovalDeploymentModeProps) => {
           className={css.connectorDeployment}
           label={getString('pipeline.jiraApprovalStep.connectorRef')}
           selected={(initialValues?.spec?.connectorRef as string) || ''}
-          placeholder={getString('select')}
+          placeholder={getString('connectors.selectConnector')}
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}

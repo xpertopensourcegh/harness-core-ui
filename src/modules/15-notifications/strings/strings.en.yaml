@@ -24,7 +24,7 @@ notificationName: Give your notification a name
 nameOftheRule: Name of the Rule
 pipelineEvents: Pipeline Events
 selectPipelineEvents: Select Pipeline Events
-selectStagesPlaceholder: 'Select stages'
+selectStagesPlaceholder: 'Select Stages'
 notificationMethod: '{{$.notificationMethod}}'
 emailRecipients: Type emails of your recipients
 emailTestSuccess: Email test is successfully executed

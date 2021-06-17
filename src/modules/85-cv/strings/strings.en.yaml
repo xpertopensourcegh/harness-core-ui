@@ -21,7 +21,6 @@ queries: Queries
 currentTest: Current test
 timeline: Timeline
 changeTimeline: Change Timeline
-selectConnector: Select connector
 selectedTimeInterval: Selected time interval
 anomalous: Anomalous
 nonAnomalous: Non-Anomalous

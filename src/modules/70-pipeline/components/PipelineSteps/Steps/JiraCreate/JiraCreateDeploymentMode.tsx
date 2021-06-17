@@ -132,7 +132,7 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
           label={getString('pipeline.jiraApprovalStep.connectorRef')}
           className={css.connectorDeployment}
           selected={(initialValues?.spec?.connectorRef as string) || ''}
-          placeholder={getString('pipeline.jiraApprovalStep.connectorRef')}
+          placeholder={getString('pipeline.jiraApprovalStep.jiraConnectorPlaceholder')}
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
@@ -161,7 +161,7 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
                 ? getString('pipeline.jiraApprovalStep.fetchingProjectsPlaceholder')
                 : projectsFetchError?.message
                 ? projectsFetchError?.message
-                : getString('select')
+                : getString('pipeline.jiraCreateStep.selectProject')
             }
           }}
           disabled={isApprovalStepFieldDisabled(readonly)}
@@ -179,7 +179,7 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
         <FormInput.Select
           items={setIssueTypeOptions(projectMetadata?.issuetypes)}
           className={css.deploymentViewMedium}
-          placeholder={getString('select')}
+          placeholder={getString('pipeline.jiraApprovalStep.issueTypePlaceholder')}
           label={getString('pipeline.jiraApprovalStep.issueType')}
           name={`${prefix}spec.issueType`}
           disabled={isApprovalStepFieldDisabled(readonly)}
@@ -190,7 +190,7 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
                 ? getString('pipeline.jiraApprovalStep.fetchingIssueTypePlaceholder')
                 : projectMetadataFetchError?.message
                 ? projectMetadataFetchError?.message
-                : getString('select')
+                : getString('pipeline.jiraApprovalStep.issueTypePlaceholder')
             }
           }}
           onChange={(opt: SelectOption) => {

@@ -103,7 +103,7 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({
                         name={`commandFlags[${index}].commandType`}
                         label={index === 0 ? getString('pipeline.manifestType.helmCommandType') : ''}
                         selectItems={commandFlagOptions}
-                        placeholder={getString('pipeline.manifestType.helmCommandType')}
+                        placeholder={getString('pipeline.manifestType.helmCommandTypePlaceholder')}
                         multiTypeInputProps={{
                           width: 300,
                           onChange: value => {

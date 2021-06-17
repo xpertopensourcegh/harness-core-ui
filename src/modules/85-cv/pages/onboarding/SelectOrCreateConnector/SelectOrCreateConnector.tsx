@@ -120,7 +120,7 @@ export function ConnectorSelection(props: ConnectorSelectionProps): JSX.Element 
         <FormMultiTypeConnectorField
           name={SelectOrCreateConnectorFieldNames.CONNECTOR_REF}
           label=""
-          placeholder={getString('cv.selectConnector')}
+          placeholder={getString('connectors.selectConnector')}
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}

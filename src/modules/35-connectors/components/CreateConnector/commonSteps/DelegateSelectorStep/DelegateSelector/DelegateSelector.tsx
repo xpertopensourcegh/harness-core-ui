@@ -174,7 +174,7 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
         className={css.formInput}
         fill
         allowNewTag={false}
-        placeholder={getString('delegate.DelegateselectionPlaceholder')}
+        placeholder={getString('connectors.delegate.delegateselectionPlaceholder')}
         selectedItems={delegateSelectors}
         onChange={selectors => {
           setDelegateSelectors(selectors as Array<string>)

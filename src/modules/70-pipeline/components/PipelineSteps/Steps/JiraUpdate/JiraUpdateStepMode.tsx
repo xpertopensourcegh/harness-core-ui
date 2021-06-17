@@ -230,7 +230,7 @@ const FormContent = ({
                   name="spec.connectorRef"
                   label={getString('pipeline.jiraApprovalStep.connectorRef')}
                   className={css.connector}
-                  placeholder={getString('select')}
+                  placeholder={getString('connectors.selectConnector')}
                   accountIdentifier={accountId}
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}
@@ -259,7 +259,7 @@ const FormContent = ({
                 <FormInput.MultiTextInput
                   label={getString('pipeline.jiraApprovalStep.issueKey')}
                   name="spec.issueKey"
-                  placeholder={getString('pipeline.jiraApprovalStep.issueKey')}
+                  placeholder={getString('pipeline.jiraApprovalStep.issueKeyPlaceholder')}
                   className={css.md}
                   disabled={isApprovalStepFieldDisabled(readonly)}
                 />
@@ -290,7 +290,9 @@ const FormContent = ({
                   label={getString('status')}
                   name="spec.transitionTo.status"
                   placeholder={
-                    fetchingStatuses ? getString('pipeline.jiraUpdateStep.fetchingStatus') : getString('status')
+                    fetchingStatuses
+                      ? getString('pipeline.jiraUpdateStep.fetchingStatus')
+                      : getString('pipeline.jiraUpdateStep.selectStatus')
                   }
                   className={css.md}
                   multiTypeInputProps={{
@@ -316,7 +318,7 @@ const FormContent = ({
                 <FormInput.MultiTextInput
                   label={getString('pipeline.jiraUpdateStep.transitionLabel')}
                   name="spec.transitionTo.transitionName"
-                  placeholder={getString('pipeline.jiraUpdateStep.transitionLabel')}
+                  placeholder={getString('pipeline.jiraUpdateStep.transitionPlaceholder')}
                   className={css.md}
                   multiTextInputProps={{
                     expressions
@@ -374,13 +376,13 @@ const FormContent = ({
                           <div className={css.headerRow} key={i}>
                             <FormInput.Text
                               name={`spec.fields[${i}].name`}
-                              placeholder={getString('keyLabel')}
+                              placeholder={getString('pipeline.keyPlaceholder')}
                               disabled={isApprovalStepFieldDisabled(readonly)}
                             />
                             <FormInput.MultiTextInput
                               name={`spec.fields[${i}].value`}
                               label=""
-                              placeholder={getString('valueLabel')}
+                              placeholder={getString('common.valuePlaceholder')}
                               multiTextInputProps={{
                                 allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
                                 expressions

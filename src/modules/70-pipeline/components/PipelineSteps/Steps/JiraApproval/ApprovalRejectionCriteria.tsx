@@ -24,7 +24,7 @@ import {
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './ApprovalRejectionCriteria.module.scss'
 
-const renderValueSelects = (
+const RenderValueSelects = (
   condition: ApprovalRejectionCriteriaCondition,
   allowedValuesForFields: Record<string, SelectOption[]>,
   mode: string,
@@ -32,6 +32,7 @@ const renderValueSelects = (
   expressions: string[],
   readonly?: boolean
 ) => {
+  const { getString } = useStrings()
   if (condition.operator === 'in' || condition.operator === 'not in') {
     return (
       <FormInput.MultiSelectTypeInput
@@ -39,7 +40,7 @@ const renderValueSelects = (
         className={css.multiSelect}
         name={`spec.${mode}.spec.conditions[${i}].value`}
         selectItems={allowedValuesForFields[condition.key]}
-        placeholder="Value(s)"
+        placeholder={getString('common.valuePlaceholder')}
         multiSelectTypeInputProps={{
           allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
           expressions
@@ -53,7 +54,7 @@ const renderValueSelects = (
       label=""
       name={`spec.${mode}.spec.conditions[${i}].value`}
       selectItems={allowedValuesForFields[condition.key]}
-      placeholder="Value(s)"
+      placeholder={getString('common.valuePlaceholder')}
       multiTypeInputProps={{
         allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
         expressions
@@ -116,32 +117,32 @@ export const Conditions = ({
                       <FormInput.Text
                         disabled={isApprovalStepFieldDisabled(readonly)}
                         name={`spec.${mode}.spec.conditions[${i}].key`}
-                        placeholder="Key"
+                        placeholder={getString('pipeline.keyPlaceholder')}
                       />
                     ) : (
                       <FormInput.Select
                         items={allowedFieldKeys}
                         name={`spec.${mode}.spec.conditions[${i}].key`}
-                        placeholder="Key"
+                        placeholder={getString('pipeline.keyPlaceholder')}
                         disabled={isApprovalStepFieldDisabled(readonly)}
                       />
                     )}
                     <FormInput.Select
                       items={allowedValuesForFields[condition.key] ? operatorValues : filterOutMultiOperators()}
                       name={`spec.${mode}.spec.conditions[${i}].operator`}
-                      placeholder="Operator"
+                      placeholder={getString('pipeline.operatorPlaceholder')}
                       disabled={isApprovalStepFieldDisabled(readonly)}
                       onChange={(selectedOperator: SelectOption) => {
                         handleOperatorChange(selectedOperator, onChange, values, i)
                       }}
                     />
                     {allowedValuesForFields[condition.key] ? (
-                      renderValueSelects(condition, allowedValuesForFields, mode, i, expressions, readonly)
+                      RenderValueSelects(condition, allowedValuesForFields, mode, i, expressions, readonly)
                     ) : (
                       <FormInput.MultiTextInput
                         label=""
                         name={`spec.${mode}.spec.conditions[${i}].value`}
-                        placeholder="Value(s)"
+                        placeholder={getString('common.valuePlaceholder')}
                         disabled={isApprovalStepFieldDisabled(readonly)}
                         multiTextInputProps={{
                           expressions,

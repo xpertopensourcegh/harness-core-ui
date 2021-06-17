@@ -23,7 +23,7 @@ export default function DelegateSelectorPanel(props: DelegatePanelProps): React.
     <DelegateSelectors
       fill
       allowNewTag={false}
-      placeholder={getString('delegate.DelegateselectionPlaceholder')}
+      placeholder={getString('connectors.delegate.delegateselectionPlaceholder')}
       onChange={data => {
         setFieldValue('delegateSelectors', data)
       }}

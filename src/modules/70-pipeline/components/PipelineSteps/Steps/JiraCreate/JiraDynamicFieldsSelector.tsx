@@ -104,7 +104,7 @@ const SelectFieldList = (props: JiraDynamicFieldsSelectorContentInterface) => {
             setProjectValue(value as JiraProjectSelectOption)
           }}
           inputProps={{
-            placeholder: 'Select Project'
+            placeholder: getString('pipeline.jiraCreateStep.selectProject')
           }}
         />
       </div>
@@ -118,7 +118,9 @@ const SelectFieldList = (props: JiraDynamicFieldsSelectorContentInterface) => {
               : setIssueTypeOptions(projectMetadata?.issuetypes)
           }
           inputProps={{
-            placeholder: fetchingProjectMetadata ? 'Fetching Issue Types...' : 'Select Issue Type'
+            placeholder: fetchingProjectMetadata
+              ? getString('pipeline.jiraApprovalStep.fetchingIssueTypePlaceholder')
+              : getString('pipeline.jiraApprovalStep.issueTypePlaceholder')
           }}
           defaultSelectedItem={{
             label: selectedIssueTypeKey,
@@ -176,11 +178,14 @@ const ProvideFieldList = (props: JiraDynamicFieldsSelectorContentInterface) => {
                     </div>
                     {formik.values.fieldList?.map((_unused: JiraCreateFieldType, i: number) => (
                       <div className={css.headerRow} key={i}>
-                        <FormInput.Text name={`fieldList[${i}].name`} placeholder={getString('keyLabel')} />
+                        <FormInput.Text
+                          name={`fieldList[${i}].name`}
+                          placeholder={getString('pipeline.keyPlaceholder')}
+                        />
                         <FormInput.MultiTextInput
                           name={`fieldList[${i}].value`}
                           label=""
-                          placeholder={getString('valueLabel')}
+                          placeholder={getString('common.valuePlaceholder')}
                           multiTextInputProps={{
                             allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
                             expressions

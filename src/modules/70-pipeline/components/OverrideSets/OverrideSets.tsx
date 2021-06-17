@@ -124,7 +124,7 @@ export default function OverrideSets({
     usePortal: true,
     autoFocus: true,
     canEscapeKeyClose: true,
-    title: getString('overrideSets.createOverrideSet'),
+    title: getString('pipeline.overrideSets.createOverrideSet'),
     canOutsideClickClose: true,
     enforceFocus: true,
     onClose: () => {
@@ -245,10 +245,10 @@ export default function OverrideSets({
           summary={
             <>
               <Text style={{ color: 'var(--grey-400)', lineHeight: '24px' }}>
-                {getString('overrideSets.configure')}
+                {getString('pipeline.overrideSets.configure')}
               </Text>
               <Text style={{ color: 'var(--grey-500)', lineHeight: '24px', paddingBottom: 'var(--spacing-medium)' }}>
-                {getString('overrideSets.overrideSetInfo')}
+                {getString('pipeline.overrideSets.overrideSetInfo')}
               </Text>
             </>
           }
@@ -261,7 +261,7 @@ export default function OverrideSets({
                   onClick={() => setModalState(true)}
                   className={css.overrideBtn}
                 >
-                  {getString('overrideSets.createOverrideSetPlus')}
+                  {getString('pipeline.overrideSets.createOverrideSetPlus')}
                 </Text>
               )}
               {isPropagating && (
@@ -474,7 +474,7 @@ export default function OverrideSets({
                   <Layout.Vertical spacing="small" padding="large">
                     <Label>Override Set Name</Label>
                     <TextInput
-                      placeholder={getString('overrideSets.overrideSetPlaceholder')}
+                      placeholder={getString('pipeline.overrideSets.overrideSetPlaceholder')}
                       value={overrideName}
                       onChange={e => {
                         e.preventDefault()
@@ -495,7 +495,7 @@ export default function OverrideSets({
                       />
                     </Layout.Horizontal>
                     {isErrorVisible && (
-                      <section className={css.error}>{getString('overrideSets.overrideSetError')}</section>
+                      <section className={css.error}>{getString('pipeline.overrideSets.overrideSetError')}</section>
                     )}
                   </Layout.Vertical>
                 </Dialog>

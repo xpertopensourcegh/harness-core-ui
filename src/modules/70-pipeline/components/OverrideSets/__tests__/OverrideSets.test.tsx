@@ -21,7 +21,7 @@ describe('OverrideSet tests', () => {
         <OverrideSets selectedTab={selectedTab} />
       </TestWrapper>
     )
-    const creationButton = await findByText(container, 'overrideSets.createOverrideSetPlus')
+    const creationButton = await findByText(container, 'pipeline.overrideSets.createOverrideSetPlus')
     fireEvent.click(creationButton)
     const creationModalInputTitle = await findByText(document.body, 'Override Set Name')
     expect(creationModalInputTitle).toBeDefined()
@@ -33,7 +33,7 @@ describe('OverrideSet tests', () => {
       </TestWrapper>
     )
     //create artifact override
-    const creationButton = await findByText(container, 'overrideSets.createOverrideSetPlus')
+    const creationButton = await findByText(container, 'pipeline.overrideSets.createOverrideSetPlus')
     fireEvent.click(creationButton)
     const creationModalInputTitle = await findByText(document.body, 'Override Set Name')
     expect(creationModalInputTitle).toBeDefined()
@@ -55,7 +55,7 @@ describe('OverrideSet tests', () => {
       </TestWrapper>
     )
     //create artifact override
-    const creationButton = await findByText(container, 'overrideSets.createOverrideSetPlus')
+    const creationButton = await findByText(container, 'pipeline.overrideSets.createOverrideSetPlus')
     fireEvent.click(creationButton)
     const creationModalInputTitle = await findByText(document.body, 'Override Set Name')
     expect(creationModalInputTitle).toBeDefined()
@@ -77,7 +77,7 @@ describe('OverrideSet tests', () => {
       </TestWrapper>
     )
     //create artifact override
-    const creationButton = await findByText(container, 'overrideSets.createOverrideSetPlus')
+    const creationButton = await findByText(container, 'pipeline.overrideSets.createOverrideSetPlus')
     fireEvent.click(creationButton)
     const creationModalInputTitle = await findByText(document.body, 'Override Set Name')
     expect(creationModalInputTitle).toBeDefined()

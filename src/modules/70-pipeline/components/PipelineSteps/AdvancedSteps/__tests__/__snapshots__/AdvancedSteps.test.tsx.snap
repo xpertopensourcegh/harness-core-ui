@@ -64,7 +64,7 @@ exports[`<AdvancedSteps /> tests snapshot test 1`] = `
                               >
                                 <input
                                   class="bp3-input-ghost bp3-multi-select-tag-input-input"
-                                  placeholder="delegate.DelegateselectionPlaceholder"
+                                  placeholder="connectors.delegate.delegateselectionPlaceholder"
                                   value=""
                                 />
                               </div>

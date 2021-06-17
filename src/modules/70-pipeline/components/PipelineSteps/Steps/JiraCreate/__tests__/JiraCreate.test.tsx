@@ -226,8 +226,8 @@ describe('Jira Create tests', () => {
     act(() => {
       fireEvent.click(getByText('Field'))
     })
-    fireEvent.change(getByPlaceholderText('keyLabel'), { target: { value: 'issueKey1' } })
-    fireEvent.change(getByPlaceholderText('valueLabel'), { target: { value: 'issueKey1Value' } })
+    fireEvent.change(getByPlaceholderText('pipeline.keyPlaceholder'), { target: { value: 'issueKey1' } })
+    fireEvent.change(getByPlaceholderText('common.valuePlaceholder'), { target: { value: 'issueKey1Value' } })
     const addButton = dialogContainerPostUpdate?.querySelector('.bp3-button-text')
     fireEvent.click(addButton!)
 

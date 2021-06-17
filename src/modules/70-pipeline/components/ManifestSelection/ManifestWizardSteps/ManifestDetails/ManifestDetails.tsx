@@ -289,7 +289,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                       <FormInput.MultiTextInput
                         multiTextInputProps={{ expressions }}
                         label={getString('pipelineSteps.build.create.repositoryNameLabel')}
-                        placeholder={getString('pipeline.manifestType.repoNamePlacefolder')}
+                        placeholder={getString('pipeline.manifestType.repoNamePlaceholder')}
                         name="repoName"
                         className={css.reponameField}
                       />

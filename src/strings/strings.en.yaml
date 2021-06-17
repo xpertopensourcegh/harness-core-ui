@@ -258,13 +258,6 @@ lastRunAtDate: '{{$.lastExecutionTs}}: '
 lastRunExecutionNever: '{{$.lastExecutionTs}}: {{$.pipelineSteps.pullNeverLabel}}'
 emptyDeployments: _ _ _ _ _ _
 recentActivity: Recent Activity
-overrideSets:
-  createOverrideSet: Create Override Set
-  overrideSetPlaceholder: Enter override set name
-  overrideSetError: Override Set cannot be empty
-  createOverrideSetPlus: + Create new override set
-  configure: 'Configure pre-defined override sets (Advanced)'
-  overrideSetInfo: Override sets provide flexibility when specifying the service configuration. It can be used when stages requires different configuration from the initial specifications.
 newUser: New User
 allNotificationFormat: All Notification Format
 lastUpdatedSort: '{{$.lastUpdated}}'
@@ -782,7 +775,6 @@ delegate:
   DelegateSelector: 'Delegate Selector'
   DelegateselectionLabel: 'Setup Delegates'
   DelegateselectionConnectorText: 'Limit usage of this connector to the delegates which have the following tags'
-  DelegateselectionPlaceholder: 'Select or create the delegate selectors'
   DelegateSelectorErrorMessage: 'Delegate Selector has an invalid expression, it does not include'
   DelegateSelectorErrMsgSplChars: 'has invalid characters, the selector property cannot contain'
   Delegate_Selector_placeholder: 'Add specific selectors or leave empty to target any delegate'

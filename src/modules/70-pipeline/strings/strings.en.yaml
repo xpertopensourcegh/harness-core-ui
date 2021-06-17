@@ -23,7 +23,7 @@ regionPlaceholder: Select Region
 barrierStep:
   barrierReference: Barrier Reference
   barrierReferenceRequired: Barrier Reference is required
-  barrierReferencePlaceholder: Select Barrier Reference
+  barrierReferencePlaceholder: Select or Enter Barrier Reference
 approvalStep:
   message: 'Approval Message'
   approvers: 'Approver(s)'
@@ -31,9 +31,9 @@ approvalStep:
   approversWithColon: '{{$.pipeline.approvalStep.approvers}}:'
   approverInputs: 'Inputs to be provided by approver'
   includePipelineExecutionHistory: 'Include pipeline execution history in approval details'
-  addUserGroups: Add User Groups
-  fetchingUserGroups: Fetching user groups
-  fetchUserGroupsFailed: Failed to fetch user groups
+  addUserGroups: Enter User Group
+  fetchingUserGroups: Select User Group
+  fetchUserGroupsFailed: Failed to fetch User Groups
   minimumCount: 'Number of approvers that are required at this step'
   disallowPipelineExecutor: 'Disallow the executor from approving the pipeline'
   validation:
@@ -49,13 +49,15 @@ approvalStep:
 jiraApprovalStep:
   connectToJira: Connect to Jira
   connectorRef: Jira Connector
+  jiraConnectorPlaceholder: Select Jira Connector
   project: Jira Project
   issueType: Issue Type
+  issueTypePlaceholder: Select Issue Type
   issueKey: Issue Key
-  issueKeyPlaceholder: Enter Jira Issue key
-  fetchingProjectsPlaceholder: Fetching projects...
+  issueKeyPlaceholder: Enter Issue Key
+  fetchingProjectsPlaceholder: Fetching Projects...
   fetchProjectsError: Failed to fetch projects
-  fetchingIssueTypePlaceholder: Fetching issue types...
+  fetchingIssueTypePlaceholder: Fetching Issue Types...
   fetchIssueTypesError: Failed to fetch issue types
   approvalCriteria: Approval Criteria
   rejectionCriteria: Rejection Criteria
@@ -89,12 +91,15 @@ jiraCreateStep:
   selectFieldListHelp: Select your project and issue type to list available fields to choose from.
   fetchingFields: Fetching your fields
   fieldsSelectorPlaceholder: Your fields will be populated here
+  selectProject: Select Project
   validations:
     summary: Summary is required.
 jiraUpdateStep:
   statusTransitionAccordion: Status and Transition (optional)
   transitionLabel: Transition Name
-  fetchingStatus: Fetching status list...
+  transitionPlaceholder: Enter Transition Name
+  fetchingStatus: Fetching Status List...
+  selectStatus: Select Status
   projectIssueTypeDisclaimer:
     Please ensure the values for your project and issuetype matches the values in your issue key. If the
     values don’t match, there will be an error at runtime.
@@ -118,6 +123,7 @@ manifestType:
   helmCommandFlags: By Default, Harness versions ConfigMaps and Secrets that are deployed into the Kubernetes Cluster.
   helmCommandFlagLabel: Helm Command Flags (optional)
   helmCommandType: Command Type
+  helmCommandTypePlaceholder: Enter Command Type
   helmVersionRequired: 'Helm Version is required'
   commandFlagRequired: 'Command Flag is required'
   folderPathRequired: Folder Path is required
@@ -136,7 +142,7 @@ manifestType:
   commitPlaceholder: Enter Commit Id
   filePathPlaceholder: Enter File or Folder Path
   kustomizeFolderPath: Kustomize Folder Path
-  repoNamePlacefolder: Enter Repo Name
+  repoNamePlaceholder: Enter Repository Name
   http:
     chartName: 'Helm Chart Name'
     chartVersion: 'Helm Chart Version'
@@ -509,6 +515,7 @@ inputSets:
   applyInputSets: Apply Input Sets
   noRuntimeInputsCurrently: No runtime inputs in the pipeline currently
   noRuntimeInputsWhileExecution: No runtime inputs were present in the pipeline during this execution
+  inputSetPlaceholder: Enter Input Sets
 provisionerSteps: Provisioner Steps
 addStage:
   title: Select a Stage
@@ -527,3 +534,15 @@ artifactsSelection:
     tag: Tag is required
     tagRegex: Tag Regex is required
     sidecarId: Sidecar Identifier is required
+overrideSets:
+  createOverrideSet: Create Override Set
+  overrideSetPlaceholder: Enter Override Set Name
+  overrideSetError: Override Set is required
+  createOverrideSetPlus: + Create New Override Set
+  configure: Configure pre-defined Override Sets (Advanced)
+  overrideSetInfo: Override sets provide flexibility when specifying the service configuration. It can be used when stages requires different configuration from the initial specifications.
+keyPlaceholder: Enter Key
+operatorPlaceholder: Select Operator
+variable:
+  variableNamePlaceholder: Enter Variable Name
+  typePlaceholder: Enter Type

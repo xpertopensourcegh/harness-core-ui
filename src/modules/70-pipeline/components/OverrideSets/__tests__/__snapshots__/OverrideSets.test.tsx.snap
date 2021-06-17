@@ -26,13 +26,13 @@ exports[`OverrideSet tests renders without crashing 1`] = `
             class="StyledProps--font StyledProps--main"
             style="line-height: 24px;"
           >
-            overrideSets.configure
+            pipeline.overrideSets.configure
           </p>
           <p
             class="StyledProps--font StyledProps--main"
             style="line-height: 24px;"
           >
-            overrideSets.overrideSetInfo
+            pipeline.overrideSets.overrideSetInfo
           </p>
         </div>
       </div>
@@ -54,7 +54,7 @@ exports[`OverrideSet tests renders without crashing 1`] = `
                 class="StyledProps--font StyledProps--main overrideBtn StyledProps--intent-primary"
                 style="cursor: pointer;"
               >
-                overrideSets.createOverrideSetPlus
+                pipeline.overrideSets.createOverrideSetPlus
               </p>
               <section
                 class="collapseContainer"

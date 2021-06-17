@@ -68,13 +68,13 @@ export default function AddEditCustomVariable(props: AddEditCustomVariableProps)
             <FormInput.Text
               name="name"
               label={getString('variableNameLabel')}
-              placeholder={getString('variableNameLabel')}
+              placeholder={getString('pipeline.variable.variableNamePlaceholder')}
             />
             <FormInput.Select
               name="type"
               items={getVaribaleTypeOptions(getString)}
               label={getString('typeLabel')}
-              placeholder={getString('typeLabel')}
+              placeholder={getString('pipeline.variable.typePlaceholder')}
             />
             <div className="buttons-container">
               <Button intent="primary" text={getString('save')} onClick={submitForm} /> &nbsp; &nbsp;

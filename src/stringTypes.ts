@@ -312,6 +312,7 @@ export interface StringsMap {
   'common.validation.valueMustBeLessThanOrEqualToN': string
   'common.validation.variableAlreadyExists': string
   'common.validation.yamlFilePath': string
+  'common.valuePlaceholder': string
   'common.welcome': string
   'notifications.buttonSend': string
   'notifications.emailRecipients': string
@@ -717,6 +718,7 @@ export interface StringsMap {
   'connectors.delegate.configure': string
   'connectors.delegate.delegateSelectorAny': string
   'connectors.delegate.delegateSelectorSelective': string
+  'connectors.delegate.delegateselectionPlaceholder': string
   'connectors.delegate.hearbeat': string
   'connectors.delegate.matchesSelectors': string
   'connectors.delegate.matchingDelegates': string
@@ -806,6 +808,7 @@ export interface StringsMap {
   'connectors.prometheusLabel': string
   'connectors.scopeError': string
   'connectors.secretManagerDetails': string
+  'connectors.selectConnector': string
   'connectors.selectConnectorLabel': string
   'connectors.specifyArtifactRepo': string
   'connectors.specifyArtifactRepoType': string
@@ -1260,6 +1263,7 @@ export interface StringsMap {
   'pipeline.infrastructureKey': string
   'pipeline.inputSets.applyInputSet': string
   'pipeline.inputSets.applyInputSets': string
+  'pipeline.inputSets.inputSetPlaceholder': string
   'pipeline.inputSets.noRuntimeInputsCurrently': string
   'pipeline.inputSets.noRuntimeInputsWhileExecution': string
   'pipeline.jiraApprovalStep.allConditions': string
@@ -1275,11 +1279,13 @@ export interface StringsMap {
   'pipeline.jiraApprovalStep.issueKey': string
   'pipeline.jiraApprovalStep.issueKeyPlaceholder': string
   'pipeline.jiraApprovalStep.issueType': string
+  'pipeline.jiraApprovalStep.issueTypePlaceholder': string
   'pipeline.jiraApprovalStep.jexlExpressionApprovalCriteria': string
   'pipeline.jiraApprovalStep.jexlExpressionLabelApproval': string
   'pipeline.jiraApprovalStep.jexlExpressionLabelRejection': string
   'pipeline.jiraApprovalStep.jexlExpressionPlaceholder': string
   'pipeline.jiraApprovalStep.jexlExpressionRejectionCriteria': string
+  'pipeline.jiraApprovalStep.jiraConnectorPlaceholder': string
   'pipeline.jiraApprovalStep.jiraField': string
   'pipeline.jiraApprovalStep.match': string
   'pipeline.jiraApprovalStep.project': string
@@ -1300,13 +1306,17 @@ export interface StringsMap {
   'pipeline.jiraCreateStep.selectFieldListHelp': string
   'pipeline.jiraCreateStep.selectFieldsHeading': string
   'pipeline.jiraCreateStep.selectFromFieldList': string
+  'pipeline.jiraCreateStep.selectProject': string
   'pipeline.jiraCreateStep.summaryPlaceholder': string
   'pipeline.jiraCreateStep.validations.summary': string
   'pipeline.jiraUpdateStep.fetchingStatus': string
   'pipeline.jiraUpdateStep.projectIssueTypeDisclaimer': string
+  'pipeline.jiraUpdateStep.selectStatus': string
   'pipeline.jiraUpdateStep.statusTransitionAccordion': string
   'pipeline.jiraUpdateStep.transitionLabel': string
+  'pipeline.jiraUpdateStep.transitionPlaceholder': string
   'pipeline.jiraUpdateStep.validations.status': string
+  'pipeline.keyPlaceholder': string
   'pipeline.logs.sectionName': string
   'pipeline.manifestType.bitBucketLabel': string
   'pipeline.manifestType.branchPlaceholder': string
@@ -1322,6 +1332,7 @@ export interface StringsMap {
   'pipeline.manifestType.helmCommandFlagLabel': string
   'pipeline.manifestType.helmCommandFlags': string
   'pipeline.manifestType.helmCommandType': string
+  'pipeline.manifestType.helmCommandTypePlaceholder': string
   'pipeline.manifestType.helmSkipResourceVersion': string
   'pipeline.manifestType.helmVersionRequired': string
   'pipeline.manifestType.http.chartName': string
@@ -1346,7 +1357,7 @@ export interface StringsMap {
   'pipeline.manifestType.pathPlaceholder': string
   'pipeline.manifestType.pathRequired': string
   'pipeline.manifestType.pluginPathHelperText': string
-  'pipeline.manifestType.repoNamePlacefolder': string
+  'pipeline.manifestType.repoNamePlaceholder': string
   'pipeline.manifestType.selectManifestStore': string
   'pipeline.manifestType.specifyManifestRepoType': string
   'pipeline.manifestType.specifyManifestStore': string
@@ -1354,7 +1365,14 @@ export interface StringsMap {
   'pipeline.noDeploymentText': string
   'pipeline.noPipelineText': string
   'pipeline.onlyPositiveInteger': string
+  'pipeline.operatorPlaceholder': string
   'pipeline.optionalLabel': string
+  'pipeline.overrideSets.configure': string
+  'pipeline.overrideSets.createOverrideSet': string
+  'pipeline.overrideSets.createOverrideSetPlus': string
+  'pipeline.overrideSets.overrideSetError': string
+  'pipeline.overrideSets.overrideSetInfo': string
+  'pipeline.overrideSets.overrideSetPlaceholder': string
   'pipeline.progressPercentage': string
   'pipeline.provisionerSteps': string
   'pipeline.regionPlaceholder': string
@@ -1544,6 +1562,8 @@ export interface StringsMap {
   'pipeline.triggers.validation.repoName': string
   'pipeline.triggers.validation.triggerName': string
   'pipeline.uniqueIdentifier': string
+  'pipeline.variable.typePlaceholder': string
+  'pipeline.variable.variableNamePlaceholder': string
   'pipeline.verificationResult': string
   'cd.addInline': string
   'cd.addRemote': string
@@ -2686,7 +2706,6 @@ export interface StringsMap {
   'cv.sampleEvent': string
   'cv.sampleMessage': string
   'cv.searchForAService': string
-  'cv.selectConnector': string
   'cv.selectCreateService': string
   'cv.selectOrCreateEnv': string
   'cv.selectedTimeInterval': string
@@ -3434,10 +3453,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'delegate.DelegateselectionLabel': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.DelegateselectionPlaceholder': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -5102,30 +5117,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'overrideSet.selectMultipleInputSets': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'overrideSets.configure': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'overrideSets.createOverrideSet': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'overrideSets.createOverrideSetPlus': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'overrideSets.overrideSetError': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'overrideSets.overrideSetInfo': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'overrideSets.overrideSetPlaceholder': string
   /**
    * @deprecated migrate this string to module level file
    */
