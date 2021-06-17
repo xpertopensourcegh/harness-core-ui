@@ -1,4 +1,5 @@
 import React from 'react'
+import type { StageElementWrapper } from 'services/cd-ng'
 import ExecutionGraph, {
   ExecutionGraphAddStepEvent,
   ExecutionGraphEditStepEvent,
@@ -11,14 +12,13 @@ import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands
 export const ApprovalStageExecution: React.FC = () => {
   const {
     state: {
-      pipeline,
       originalPipeline,
       pipelineView,
       selectionState: { selectedStageId = '' }
     },
     isReadonly,
     stepsFactory,
-    updatePipeline,
+    updateStage,
     updatePipelineView,
     getStageFromPipeline,
     setSelectedStepId,
@@ -40,8 +40,8 @@ export const ApprovalStageExecution: React.FC = () => {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       stage={selectedStage!}
       originalStage={originalStage}
-      updateStage={() => {
-        updatePipeline(pipeline)
+      updateStage={(stageData: StageElementWrapper) => {
+        updateStage(stageData.stage)
       }}
       onAddStep={(event: ExecutionGraphAddStepEvent) => {
         updatePipelineView({

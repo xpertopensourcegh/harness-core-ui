@@ -13,13 +13,14 @@ import {
 
 import isEmpty from 'lodash-es/isEmpty'
 import cx from 'classnames'
-import { cloneDeep, get, set, debounce } from 'lodash-es'
+import produce from 'immer'
+import { get, set, debounce } from 'lodash-es'
 import { FormGroup, Intent } from '@blueprintjs/core'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
 
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
-import type { NgPipeline, ServiceConfig, StageElementConfig } from 'services/cd-ng'
+import type { ServiceConfig, StageElementConfig } from 'services/cd-ng'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import {
@@ -105,19 +106,13 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     },
     isReadonly,
     getStageFromPipeline,
-    updatePipeline,
     updateStage
   } = React.useContext(PipelineContext)
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const debounceUpdatePipeline = React.useCallback(
-    debounce((pipelineData: NgPipeline) => updatePipeline(cloneDeep(pipelineData)), 500),
-    [updatePipeline]
-  )
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceUpdateStage = React.useCallback(
-    debounce((stageData: StageElementConfig) => updateStage(cloneDeep(stageData)), 500),
-    [updatePipeline]
+    debounce((stage: StageElementConfig) => updateStage(stage), 300),
+    [updateStage]
   )
 
   const { stage = {} } = getStageFromPipeline(selectedStageId || '')
@@ -172,65 +167,71 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
         !stage.stage.spec.serviceConfig?.serviceDefinition &&
         !stage.stage.spec.serviceConfig?.useFromStage?.stage
       ) {
-        stage.stage.spec = {
-          serviceConfig: {
-            useFromStage: {
-              stage: null
-            },
-            stageOverrides: {}
+        const stageData = produce(stage, draft => {
+          draft.stage.spec = {
+            serviceConfig: {
+              useFromStage: {
+                stage: null
+              },
+              stageOverrides: {}
+            }
           }
-        }
-        debounceUpdatePipeline(pipeline)
-
+        })
+        debounceUpdateStage(stageData.stage)
         setSetupMode(setupMode.PROPAGATE)
       }
     }
   }, [setupModeType, stageIndex, stage?.stage])
 
   const setDefaultServiceSchema = (): Promise<void> => {
-    stage.stage.spec = {
-      ...stage.stage.spec,
-      serviceConfig: {
-        serviceRef: '',
-        serviceDefinition: {
-          type: 'Kubernetes',
-          spec: {
+    const stageData = produce(stage, draft => {
+      draft.stage.spec = {
+        ...stage.stage.spec,
+        serviceConfig: {
+          serviceRef: '',
+          serviceDefinition: {
+            type: 'Kubernetes',
+            spec: {
+              artifacts: {
+                // primary: null,
+                sidecars: []
+              },
+              manifests: [],
+              // variables: [],
+              artifactOverrideSets: [],
+              manifestOverrideSets: []
+              // variableOverrideSets: []
+            }
+          }
+        }
+      }
+    })
+
+    return debounceUpdateStage(stageData.stage)
+  }
+
+  const setStageOverrideSchema = (): Promise<void> => {
+    const stageData = produce(stage, draft => {
+      draft.stage.spec = {
+        ...stage.stage.spec,
+        serviceConfig: {
+          ...stage?.stage?.spec.serviceConfig,
+          stageOverrides: {
             artifacts: {
               // primary: null,
               sidecars: []
             },
             manifests: [],
-            // variables: [],
-            artifactOverrideSets: [],
-            manifestOverrideSets: []
-            // variableOverrideSets: []
+            variables: []
           }
         }
       }
-    }
-
-    return debounceUpdatePipeline(pipeline)
-  }
-
-  const setStageOverrideSchema = (): Promise<void> => {
-    stage.stage.spec = {
-      ...stage.stage.spec,
-      serviceConfig: {
-        ...stage?.stage?.spec.serviceConfig,
-        stageOverrides: {
-          artifacts: {
-            // primary: null,
-            sidecars: []
-          },
-          manifests: [],
-          variables: []
-        }
+      if (draft.stage.spec?.serviceConfig.serviceDefinition) {
+        delete draft.stage.spec?.serviceConfig.serviceDefinition
       }
-    }
-    if (stage.stage.spec?.serviceConfig.serviceDefinition) {
-      delete stage.stage.spec?.serviceConfig.serviceDefinition
-    }
-    return debounceUpdateStage(stage as StageElementConfig)
+    })
+
+    return debounceUpdateStage(stageData.stage)
   }
 
   const handleChange = (event: React.FormEvent<HTMLInputElement>): void => {
@@ -252,12 +253,16 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       !stage?.stage?.spec?.serviceConfig?.serviceDefinition?.type &&
       !stage?.stage?.spec.serviceConfig?.useFromStage
     ) {
-      set(stage as any, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
-      debounceUpdatePipeline(pipeline)
+      const stageData = produce(stage, draft => {
+        set(draft, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
+      })
+      debounceUpdateStage(stageData.stage)
     }
     if (!stage?.stage?.spec?.serviceConfig?.serviceDefinition && !stage?.stage?.spec.serviceConfig?.useFromStage) {
-      set(stage as any, 'stage.spec.serviceConfig.serviceDefinition', {})
-      debounceUpdatePipeline(pipeline)
+      const stageData = produce(stage, draft => {
+        set(draft, 'stage.spec.serviceConfig.serviceDefinition', {})
+      })
+      debounceUpdateStage(stageData.stage)
     }
     let hasStageOfSameType = false
     const currentStageType = stage?.stage?.type
@@ -307,7 +312,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
             })
             setConfigVisibility(false)
           }
-          debounceUpdatePipeline(pipeline)
+          debounceUpdateStage(stage.stage)
         }
       }
       if (stageOverrides) {
@@ -332,23 +337,25 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       setSetupMode(setupMode.DIFFERENT)
     }
   }, [stage?.stage?.spec])
+
   const selectPropagatedStep = (item: SelectOption): void => {
     if (item && item.value) {
-      set(stage as any, 'stage.spec.serviceConfig.useFromStage', {
-        stage: item.value
+      const stageData = produce(stage, draft => {
+        set(draft, 'stage.spec.serviceConfig.useFromStage', { stage: item.value })
+
+        setSelectedPropagatedState({
+          label: `Stage [${item.value as string}] - Service`,
+          value: item.value
+        })
+        if (draft?.stage?.spec?.serviceConfig?.serviceDefinition) {
+          delete draft.stage.spec.serviceConfig.serviceDefinition
+        }
+        if (draft?.stage?.spec?.serviceConfig?.serviceRef !== undefined) {
+          delete draft.stage.spec.serviceConfig.serviceRef
+        }
       })
 
-      setSelectedPropagatedState({
-        label: `Stage [${item.value as string}] - Service`,
-        value: item.value
-      })
-      if (stage?.stage?.spec?.serviceConfig?.serviceDefinition) {
-        delete stage.stage.spec.serviceConfig.serviceDefinition
-      }
-      if (stage?.stage?.spec?.serviceConfig?.serviceRef !== undefined) {
-        delete stage.stage.spec.serviceConfig.serviceRef
-      }
-      debounceUpdatePipeline(pipeline)
+      debounceUpdateStage(stageData.stage)
     }
   }
   const initWithServiceDefinition = (): void => {
@@ -475,15 +482,18 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                     serviceRef: get(stage, 'stage.spec.serviceConfig.serviceRef', '')
                   }}
                   onUpdate={(value: ServiceConfig) => {
-                    const serviceObj = get(stage, 'stage.spec.serviceConfig', {})
-                    if (value.service) {
-                      serviceObj.service = value.service
-                      delete serviceObj.serviceRef
-                    } else if (value.serviceRef) {
-                      serviceObj.serviceRef = value.serviceRef
-                      delete serviceObj.service
-                    }
-                    debounceUpdatePipeline(pipeline)
+                    const stageData = produce(stage, draft => {
+                      const serviceObj = get(draft, 'stage.spec.serviceConfig', {})
+                      if (value.service) {
+                        serviceObj.service = value.service
+                        delete serviceObj.serviceRef
+                      } else if (value.serviceRef) {
+                        const selectOptionValue = ((value.serviceRef as unknown) as SelectOption)?.value
+                        serviceObj.serviceRef = selectOptionValue !== undefined ? selectOptionValue : value.serviceRef
+                        delete serviceObj.service
+                      }
+                    })
+                    debounceUpdateStage(stageData.stage)
                   }}
                   factory={factory}
                   stepViewType={StepViewType.Edit}

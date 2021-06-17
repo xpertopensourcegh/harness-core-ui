@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { cloneDeep } from 'lodash-es'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import type { BaseModelListener } from '@projectstorm/react-canvas-core'
 import { Button, Layout, Text } from '@wings-software/uicore'
@@ -51,6 +52,7 @@ import {
 } from '../../Diagram'
 import { CanvasButtons } from '../../CanvasButtons/CanvasButtons'
 import css from './ExecutionGraph.module.scss'
+
 export interface ExecutionGraphRefObj {
   stepGroupUpdated: (stepOrGroup: ExecutionWrapper) => void
 }
@@ -176,6 +178,16 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
     pathToStage
   } = props
 
+  // NOTE: we are using ref as DynamicPopover use memo
+  const stageCloneRef = React.useRef<StageElementWrapper>({})
+  stageCloneRef.current = cloneDeep(stage)
+
+  const updateStageWithNewData = (stateToApply: ExecutionGraphState) => {
+    stageCloneRef.current.stage.spec.execution = stateToApply.stepsData
+    stageCloneRef.current.stage.spec.serviceDependencies = stateToApply.dependenciesData
+    updateStage(stageCloneRef.current)
+  }
+
   const { getString } = useStrings()
   const { errorMap } = useValidationErrors()
 
@@ -240,7 +252,8 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
         addOrEdit: 'edit',
         stepType: StepType.STEP
       })
-      updateStage(stage)
+      stepGroupUpdated(node)
+      updateStageWithNewData(state)
     }
     dynamicPopoverHandler?.hide()
   }
@@ -295,15 +308,15 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
                   if (index > -1) {
                     // Remove current Stage also and make it parallel
                     current.parent?.splice(index, 1, { parallel: [current.node, dropNode] })
-                    updateStage(stage)
+                    updateStageWithNewData(state)
                   }
                 } else if (current.node.parallel && current.node.parallel.length > 0) {
                   current.node.parallel.push(dropNode)
-                  updateStage(stage)
+                  updateStageWithNewData(state)
                 }
               } else {
                 addStepOrGroup(eventTemp.entity, state.stepsData, dropNode, false, state.isRollback)
-                updateStage(stage)
+                updateStageWithNewData(state)
               }
             }
           }
@@ -400,7 +413,7 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
           ...prevState,
           states: newStateMap
         }))
-        updateStage(stage)
+        updateStageWithNewData(state)
       }
     },
     [Event.AddParallelNode]: (event: any) => {
@@ -460,7 +473,7 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
             const isRemove = removeStepOrGroup(state, dropEntity)
             if (isRemove && dropNode) {
               addStepOrGroup(eventTemp.entity, state.stepsData, dropNode, false, state.isRollback)
-              updateStage(stage)
+              updateStageWithNewData(state)
             }
           }
         }
@@ -552,14 +565,12 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
   engine.setModel(model)
 
   useEffect(() => {
-    if (stage) {
-      const data = stage
-
-      if (data?.stage?.spec?.execution) {
+    if (stageCloneRef.current) {
+      if (stageCloneRef.current?.stage?.spec?.execution) {
         const newStateMap = new Map<string, StepState>()
-        getStepsState(data.stage.spec.execution, newStateMap)
-        if (hasDependencies && data?.stage?.spec?.serviceDependencies) {
-          getDependenciesState(data.stage.spec.serviceDependencies, newStateMap)
+        getStepsState(stageCloneRef.current.stage.spec.execution, newStateMap)
+        if (hasDependencies && stageCloneRef.current?.stage?.spec?.serviceDependencies) {
+          getDependenciesState(stageCloneRef.current.stage.spec.serviceDependencies, newStateMap)
           if (originalStage?.stage?.spec?.serviceDependencies) {
             updateDependenciesState(originalStage.stage.spec.serviceDependencies, newStateMap)
           }
@@ -570,19 +581,23 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
 
         setState(prevState => ({
           ...prevState,
-          states: newStateMap,
-          stepsData: data.stage.spec.execution,
-          dependenciesData: data.stage.spec.serviceDependencies
+          states: newStateMap
         }))
-      } else {
-        // there is a bag
-        data.stage.spec = {
-          ...data.stage.spec
-        }
-        updateStage(stage)
       }
     }
-  }, [stage, ref, originalStage])
+  }, [originalStage, ref])
+
+  useEffect(() => {
+    if (stageCloneRef.current) {
+      if (stageCloneRef.current?.stage?.spec?.execution) {
+        setState(prevState => ({
+          ...prevState,
+          stepsData: stageCloneRef.current.stage.spec.execution,
+          dependenciesData: stageCloneRef.current.stage.spec.serviceDependencies
+        }))
+      }
+    }
+  }, [stage, ref])
 
   const stepGroupUpdated = React.useCallback(
     stepOrGroup => {

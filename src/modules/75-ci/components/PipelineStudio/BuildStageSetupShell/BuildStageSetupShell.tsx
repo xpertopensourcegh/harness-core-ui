@@ -1,5 +1,5 @@
 import React from 'react'
-import { set } from 'lodash-es'
+import { cloneDeep, isEqual, set } from 'lodash-es'
 import { Tabs, Tab, Icon, Button, Layout, Color } from '@wings-software/uicore'
 import type { HarnessIconName } from '@wings-software/uicore/dist/icons/HarnessIcons'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
@@ -60,7 +60,7 @@ export default function BuildStageSetupShell(): JSX.Element {
     getStageFromPipeline,
     updatePipelineView,
     isReadonly,
-    updatePipeline,
+    updateStage,
     setSelectedStepId,
     getStagePathFromPipeline
   } = React.useContext(PipelineContext)
@@ -94,9 +94,9 @@ export default function BuildStageSetupShell(): JSX.Element {
 
   React.useEffect(() => {
     if (selectedStageId && isSplitViewOpen) {
-      const { stage } = getStageFromPipeline(selectedStageId)
+      const { stage } = cloneDeep(getStageFromPipeline(selectedStageId))
       const key = Object.keys(stage || {})[0]
-      if (key && stage) {
+      if (key && stage && !isEqual(stage[key], stageData)) {
         setStageData(stage[key])
       }
     }
@@ -119,7 +119,7 @@ export default function BuildStageSetupShell(): JSX.Element {
   }, [selectedTabId])
 
   React.useEffect(() => {
-    const { stage: data } = getStageFromPipeline(selectedStageId)
+    const { stage: data } = cloneDeep(getStageFromPipeline(selectedStageId))
     if (data) {
       let shouldUpdate = false
       if (!data?.stage?.spec?.execution?.steps) {
@@ -132,7 +132,7 @@ export default function BuildStageSetupShell(): JSX.Element {
       }
 
       if (shouldUpdate) {
-        updatePipeline(pipeline)
+        updateStage(data.stage)
       }
     }
   }, [pipeline, selectedStageId])
@@ -253,8 +253,8 @@ export default function BuildStageSetupShell(): JSX.Element {
               stage={selectedStage || {}}
               originalStage={originalStage}
               ref={executionRef}
-              updateStage={() => {
-                updatePipeline(pipeline)
+              updateStage={(newStageData: StageElementWrapper) => {
+                updateStage(newStageData?.stage)
               }}
               // Check and update the correct stage path here
               pathToStage={`${stagePath}.stage.spec.execution`}

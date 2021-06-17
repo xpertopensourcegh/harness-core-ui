@@ -2,6 +2,7 @@ import React from 'react'
 import { Layout, Tabs, Tab, Button, Icon } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { HarnessIconName } from '@wings-software/uicore/dist/icons/HarnessIcons'
+import type { StageElementWrapper } from 'services/cd-ng'
 import ExecutionGraph, {
   ExecutionGraphAddStepEvent,
   ExecutionGraphEditStepEvent,
@@ -52,7 +53,7 @@ export default function DeployStageSetupShell(): JSX.Element {
     stagesMap,
     isReadonly,
     stepsFactory,
-    updatePipeline,
+    updateStage,
     getStageFromPipeline,
     updatePipelineView,
     setSelectedStepId,
@@ -130,7 +131,6 @@ export default function DeployStageSetupShell(): JSX.Element {
         icon="chevron-left"
         disabled={selectedTabId === DeployTabs.OVERVIEW}
         onClick={() => {
-          updatePipeline(pipeline)
           handleTabChange(TabsOrder[Math.max(0, TabsOrder.indexOf(selectedTabId) - 1)])
         }}
       />
@@ -148,7 +148,6 @@ export default function DeployStageSetupShell(): JSX.Element {
           intent="primary"
           rightIcon="chevron-right"
           onClick={() => {
-            updatePipeline(pipeline)
             if (selectedTabId === DeployTabs.EXECUTION) {
               updatePipelineView({ ...pipelineView, isSplitViewOpen: false, splitViewData: {} })
             } else {
@@ -233,8 +232,8 @@ export default function DeployStageSetupShell(): JSX.Element {
               pathToStage={`${stagePath}.stage.spec.execution`}
               // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               stage={selectedStage!}
-              updateStage={() => {
-                updatePipeline(pipeline)
+              updateStage={(stageData: StageElementWrapper) => {
+                updateStage(stageData.stage)
               }}
               onAddStep={(event: ExecutionGraphAddStepEvent) => {
                 updatePipelineView({

@@ -2,6 +2,7 @@ import React from 'react'
 import { Layout, Tabs, Tab, Button, Icon } from '@wings-software/uicore'
 import cx from 'classnames'
 import { set } from 'lodash-es'
+import type { StageElementWrapper } from 'services/cd-ng'
 import ExecutionGraph, {
   ExecutionGraphAddStepEvent,
   ExecutionGraphEditStepEvent,
@@ -36,6 +37,7 @@ export default function FeatureStageSetupShell(): JSX.Element {
     stepsFactory,
     isReadonly,
     updatePipeline,
+    updateStage,
     getStageFromPipeline,
     updatePipelineView,
     setSelectedStepId,
@@ -166,8 +168,8 @@ export default function FeatureStageSetupShell(): JSX.Element {
               // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               stage={selectedStage!}
               originalStage={originalStage}
-              updateStage={() => {
-                updatePipeline(pipeline)
+              updateStage={(stageData: StageElementWrapper) => {
+                updateStage(stageData.stage)
               }}
               // Check and update the correct stage path here
               pathToStage={`${stagePath}.stage.spec.execution`}

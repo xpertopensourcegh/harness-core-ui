@@ -1,7 +1,7 @@
 import React, { SyntheticEvent } from 'react'
 import { Drawer, Position } from '@blueprintjs/core'
 import { Button, Icon, Text, Color } from '@wings-software/uicore'
-import { get, isEmpty, isNil, set } from 'lodash-es'
+import { cloneDeep, get, isEmpty, isNil, set } from 'lodash-es'
 import cx from 'classnames'
 
 import produce from 'immer'
@@ -306,9 +306,9 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     }
   }
 
-  const onServiceDependencySubmit = (item: ExecutionWrapper): void => {
+  const onServiceDependencySubmit = async (item: ExecutionWrapper): Promise<void> => {
     if (data?.stepConfig?.addOrEdit === 'add' && selectedStageId) {
-      const { stage: pipelineStage } = getStageFromPipeline(selectedStageId)
+      const { stage: pipelineStage } = cloneDeep(getStageFromPipeline(selectedStageId))
       const newServiceData = {
         identifier: item.identifier,
         name: item.name,
@@ -317,25 +317,30 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         spec: item.spec
       }
       addService(pipelineStage?.stage.spec.serviceDependencies, newServiceData)
-      updatePipeline(pipeline)
+      await updateStage(pipelineStage?.stage)
       updatePipelineView({
         ...pipelineView,
         isDrawerOpened: false,
         drawerData: { type: DrawerTypes.ConfigureService }
       })
       data.stepConfig?.onUpdate?.(newServiceData)
-    } else if (data?.stepConfig?.addOrEdit === 'edit') {
+    } else if (data?.stepConfig?.addOrEdit === 'edit' && selectedStageId) {
+      const { stage: pipelineStage } = cloneDeep(getStageFromPipeline(selectedStageId))
       const node = data?.stepConfig?.node
       if (node) {
-        if (item.identifier) node.identifier = item.identifier
-        if (item.name) node.name = item.name
-        if (item.description) node.description = item.description
-        if (item.spec) node.spec = item.spec
+        const serviceDependency = pipelineStage?.stage.spec.serviceDependencies.find(
+          // NOTE: "node.identifier" is used as item.identifier may contain changed identifier
+          (dep: ExecutionWrapper) => dep.identifier === node.identifier
+        )
 
+        if (item.identifier) serviceDependency.identifier = item.identifier
+        if (item.name) serviceDependency.name = item.name
+        if (item.description) serviceDependency.description = item.description
+        if (item.spec) serviceDependency.spec = item.spec
         // Delete values if they were already added and now removed
         if (node.description && !item.description) delete node.description
 
-        updatePipeline(pipeline)
+        await updateStage(pipelineStage?.stage)
       }
       updatePipelineView({
         ...pipelineView,
@@ -431,10 +436,10 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           selectedStage={selectedStage || {}}
           stepsFactory={stepsFactory}
           stageType={stageType as StageTypes}
-          onSelect={(item: StepData) => {
+          onSelect={async (item: StepData) => {
             const paletteData = data.paletteData
             if (paletteData?.entity) {
-              const { stage: pipelineStage } = getStageFromPipeline(selectedStageId)
+              const { stage: pipelineStage } = cloneDeep(getStageFromPipeline(selectedStageId))
               const newStepData = {
                 step: {
                   type: item.type,
@@ -462,25 +467,25 @@ export const RightDrawer: React.FC = (): JSX.Element => {
                 paletteData.isParallelNodeClicked,
                 paletteData.isRollback
               )
-              updatePipeline(pipeline).then(() => {
-                updatePipelineView({
-                  ...pipelineView,
-                  isDrawerOpened: true,
-                  drawerData: {
-                    type: DrawerTypes.StepConfig,
-                    data: {
-                      stepConfig: {
-                        node: newStepData.step,
-                        stepsMap: paletteData.stepsMap,
-                        onUpdate: data?.paletteData?.onUpdate,
-                        isStepGroup: false,
-                        addOrEdit: 'edit',
-                        hiddenAdvancedPanels: data.paletteData?.hiddenAdvancedPanels
-                      }
+              await updateStage(pipelineStage?.stage)
+              updatePipelineView({
+                ...pipelineView,
+                isDrawerOpened: true,
+                drawerData: {
+                  type: DrawerTypes.StepConfig,
+                  data: {
+                    stepConfig: {
+                      node: newStepData.step,
+                      stepsMap: paletteData.stepsMap,
+                      onUpdate: data?.paletteData?.onUpdate,
+                      isStepGroup: false,
+                      addOrEdit: 'edit',
+                      hiddenAdvancedPanels: data.paletteData?.hiddenAdvancedPanels
                     }
                   }
-                })
+                }
               })
+
               return
             }
             updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
@@ -521,10 +526,10 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           stepsFactory={stepsFactory}
           stageType={stageType as StageTypes}
           isProvisioner={true}
-          onSelect={(item: StepData) => {
+          onSelect={async (item: StepData) => {
             const paletteData = data.paletteData
             if (paletteData?.entity) {
-              const { stage: pipelineStage } = getStageFromPipeline(selectedStageId)
+              const { stage: pipelineStage } = cloneDeep(getStageFromPipeline(selectedStageId))
               const newStepData = {
                 step: {
                   type: item.type,
@@ -556,25 +561,26 @@ export const RightDrawer: React.FC = (): JSX.Element => {
                 paletteData.isRollback
               )
 
-              updatePipeline(pipeline).then(() => {
-                updatePipelineView({
-                  ...pipelineView,
-                  isDrawerOpened: true,
-                  drawerData: {
-                    type: DrawerTypes.ProvisionerStepConfig,
-                    data: {
-                      stepConfig: {
-                        node: newStepData.step,
-                        stepsMap: paletteData.stepsMap,
-                        onUpdate: data?.paletteData?.onUpdate,
-                        isStepGroup: false,
-                        addOrEdit: 'edit',
-                        hiddenAdvancedPanels: data.paletteData?.hiddenAdvancedPanels
-                      }
+              await updateStage(pipelineStage?.stage)
+
+              updatePipelineView({
+                ...pipelineView,
+                isDrawerOpened: true,
+                drawerData: {
+                  type: DrawerTypes.ProvisionerStepConfig,
+                  data: {
+                    stepConfig: {
+                      node: newStepData.step,
+                      stepsMap: paletteData.stepsMap,
+                      onUpdate: data?.paletteData?.onUpdate,
+                      isStepGroup: false,
+                      addOrEdit: 'edit',
+                      hiddenAdvancedPanels: data.paletteData?.hiddenAdvancedPanels
                     }
                   }
-                })
+                }
               })
+
               return
             }
             updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })

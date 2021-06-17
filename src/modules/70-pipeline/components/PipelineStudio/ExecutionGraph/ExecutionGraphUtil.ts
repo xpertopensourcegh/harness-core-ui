@@ -311,6 +311,7 @@ export const updateDependenciesState = (services: DependenciesWrapper[], mapStat
     }
   })
 }
+
 export const getStepsState = (node: ExecutionWrapper, mapState: StepStateMap): void => {
   if (node.step) {
     mapState.set(node.step.identifier, getDefaultStepState())
@@ -338,6 +339,7 @@ export const getStepsState = (node: ExecutionWrapper, mapState: StepStateMap): v
     node.stepGroup.rollbackSteps?.forEach?.((step: ExecutionWrapper) => {
       getStepsState(step, mapState)
     })
+
     mapState.set(node.stepGroup.identifier, mapState.get(node.stepGroup.identifier) || getDefaultStepGroupState())
   }
 }
