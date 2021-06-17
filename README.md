@@ -4,10 +4,9 @@ Grouped Code Coverage report for master branch: [Coverage Report](https://github
 
 ## Important Links
 
-- [Workflow for creating docker image from any branch](https://uat.harness.io/ng/#/account/sjmVqavzTuS1segZNyZqbA/ci/orgs/default/projects/uiprchecks/pipelines/NG_Docker_Image/executions)
-- [PR check workflows](https://uat.harness.io/ng/#/account/sjmVqavzTuS1segZNyZqbA/ci/orgs/default/projects/uiprchecks/pipelines/Ui_Ng_PR_Check/executions)
-- [Release Build Workflows](https://uat.harness.io/ng/#/account/sjmVqavzTuS1segZNyZqbA/ci/orgs/default/projects/uiprchecks/pipelines/build_release_branch/executions)
-- [New Release Workflow](https://uat.harness.io/ng/#/account/sjmVqavzTuS1segZNyZqbA/ci/orgs/default/projects/uiprchecks/pipelines/create_new_release/executions)
+- [Workflow for creating docker image from any branch](https://app.harness.io/ng/#/account/vpCkHKsDSxK9_KYfjCTMKA/ci/orgs/default/projects/NextGenUI/pipelines/NG_Docker_Image/executions)
+- [Release Build Workflows](https://stage.harness.io/ng/#/account/wFHXHD0RRQWoO8tIZT5YVw/ci/orgs/Harness/projects/R[…]EBUILDS/pipelines/nextGenUI_release_build/executions)
+- [New Branch Cut Workflow](https://stage.harness.io/ng/#/account/wFHXHD0RRQWoO8tIZT5YVw/ci/orgs/Harness/projects/RELEASEBUILDS/pipelines/nextGenUI_cutBranch/executions)
 
 ## Documentation
 
