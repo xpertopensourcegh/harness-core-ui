@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
-import { Button, Container, Layout, SimpleTagInput, Text, TextInput, useToggle } from '@wings-software/uicore'
+import { Container, Layout, SimpleTagInput, Text, TextInput, useToggle } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import {
   SectionContainer,
@@ -23,6 +23,9 @@ import { fullSizeContentStyle } from '@delegates/constants'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { useToaster } from '@common/exports'
 import DelegateConfigScope from '@delegates/components/DelegateConfigScope'
+import RbacButton from '@rbac/components/Button/Button'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { DelegateTab } from './utils/DelegateHelper'
 import { DetailPageTemplate } from '../../components/DetailPageTemplate/DetailPageTemplate'
 import css from './DelegateConfigurationDetailPage.module.scss'
@@ -168,6 +171,18 @@ export default function DelegateProfileDetails(): JSX.Element {
     )
   }
 
+  const permissionRequestEditConfiguration = {
+    resourceScope: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier
+    },
+    permission: PermissionIdentifier.UPDATE_DELEGATE_CONFIGURATION,
+    resource: {
+      resourceType: ResourceType.DELEGATECONFIGURATION
+    }
+  }
+
   return (
     <>
       {showSpinner && <PageSpinner />}
@@ -178,9 +193,12 @@ export default function DelegateProfileDetails(): JSX.Element {
           subTittle={profile?.description}
           tags={profile?.selectors}
           headerExtras={
-            <Button
+            <RbacButton
               icon={editMode ? 'floppy-disk' : 'edit'}
               text={editMode ? getString('save') : getString('edit')}
+              permission={permissionRequestEditConfiguration}
+              id="editDelegateConfigurationBtn"
+              data-test="editDelegateConfigurationButton"
               style={{
                 position: 'absolute',
                 top: '50px',

@@ -45,6 +45,8 @@ exports[`Delegates Profile Detail Render and click Edit 1`] = `
     </div>
     <button
       class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+      data-test="editDelegateConfigurationButton"
+      id="editDelegateConfigurationBtn"
       style="position: absolute; top: 50px; right: 50px;"
       type="button"
     >
@@ -367,6 +369,8 @@ exports[`Delegates Profile Detail initial render 1`] = `
     </div>
     <button
       class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+      data-test="editDelegateConfigurationButton"
+      id="editDelegateConfigurationBtn"
       style="position: absolute; top: 50px; right: 50px;"
       type="button"
     >
