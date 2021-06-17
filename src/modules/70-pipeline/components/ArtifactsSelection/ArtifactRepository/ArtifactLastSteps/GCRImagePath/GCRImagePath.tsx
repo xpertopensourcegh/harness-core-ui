@@ -248,7 +248,12 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                   useValue
                   multiTypeInputProps={{
                     expressions,
-                    selectProps: { allowCreatingNewItems: true, addClearBtn: true, items: gcrUrlList, usePortal: true }
+                    selectProps: {
+                      allowCreatingNewItems: true,
+                      addClearBtn: true,
+                      items: gcrUrlList,
+                      itemRenderer: itemRenderer
+                    }
                   }}
                 />
                 {getMultiTypeFromValue(formik.values.registryHostname) === MultiTypeInputType.RUNTIME && (
