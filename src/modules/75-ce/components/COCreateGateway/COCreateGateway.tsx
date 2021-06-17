@@ -34,11 +34,7 @@ export const CECODashboardPage: React.FC = () => {
   //       value: 'azure',
   //       icon: 'service-azure'
   //     }
-  const initialProvider = {
-    name: 'AWS',
-    value: 'aws',
-    icon: 'service-aws'
-  }
+
   const initialGatewayDetails: GatewayDetails = {
     name: '',
     cloudAccount: {
@@ -69,7 +65,11 @@ export const CECODashboardPage: React.FC = () => {
       deleteCloudResources: false,
       alwaysUsePrivateIP: false
     },
-    provider: initialProvider,
+    provider: {
+      icon: '',
+      name: '',
+      value: ''
+    },
     selectedInstances: [],
     accessPointID: '',
     metadata: {},
@@ -91,22 +91,22 @@ export const CECODashboardPage: React.FC = () => {
 
   return (
     <Container background={Color.WHITE} height="100vh">
-      {currentTab === 'providerSelector' ? (
+      {currentTab === 'providerSelector' && (
         <COProviderSelector
           nextTab={nextTab}
           setGatewayDetails={setGatewayDetails}
           gatewayDetails={gatewayDetails}
           provider={provider}
         />
-      ) : null}
+      )}
 
-      {currentTab == 'gatewayConfig' ? (
+      {currentTab == 'gatewayConfig' && (
         <COGatewayDetails
           previousTab={previousTab}
           gatewayDetails={gatewayDetails}
           setGatewayDetails={setGatewayDetails}
         />
-      ) : null}
+      )}
     </Container>
   )
 }

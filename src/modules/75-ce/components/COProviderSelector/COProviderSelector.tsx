@@ -38,18 +38,18 @@ const data: Provider[] = [
   // }
 ]
 
-function getProvider(name: string): Provider | undefined {
+function getProvider(name: string | unknown): Provider | undefined {
   return data.find(p => p.name === name)
 }
 
 const COProviderSelector: React.FC<COProviderSelectorProps> = props => {
+  const { getString } = useStrings()
+  const { trackEvent } = useTelemetry()
   const [selectedCard, setSelectedCard] = useState<Provider | undefined>(
     getProvider(props.gatewayDetails.provider.name)
   )
   const [cloudAccountID, setCloudAccountID] = useState<string>(props.gatewayDetails.cloudAccount.id)
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
-  const { getString } = useStrings()
-  const { trackEvent } = useTelemetry()
   useEffect(() => {
     if (selectedCard) trackEvent('SelectedCloudCard', { cloudProvider: selectedCard.name })
   }, [selectedCard, trackEvent])
@@ -97,8 +97,7 @@ const COProviderSelector: React.FC<COProviderSelectorProps> = props => {
                 className={css.providersViewGrid}
                 onChange={item => {
                   setSelectedCard(item)
-                  const updatedGatewayDetails = { ...props.gatewayDetails }
-                  updatedGatewayDetails.provider = item
+                  const updatedGatewayDetails = { ...props.gatewayDetails, provider: item }
                   clearCloudAccountDetails(updatedGatewayDetails)
                   props.setGatewayDetails(updatedGatewayDetails)
                 }}
