@@ -163,7 +163,7 @@ const RenderColumnMenu: Renderer<CellProps<Required<DelegateGroupDetails>>> = ({
   const { getString } = useStrings()
   const [menuOpen, setMenuOpen] = useState(false)
   const { showSuccess, showError } = useToaster()
-  const { accountId } = useParams<Record<string, string>>()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<Record<string, string>>()
   const { mutate: deleteDelegate } = useDeleteDelegateGroup({
     queryParams: { accountId: accountId }
   })
@@ -214,10 +214,13 @@ const RenderColumnMenu: Renderer<CellProps<Required<DelegateGroupDetails>>> = ({
           <RbacMenuItem
             permission={{
               resourceScope: {
-                accountIdentifier: accountId
+                accountIdentifier: accountId,
+                orgIdentifier,
+                projectIdentifier
               },
               resource: {
-                resourceType: ResourceType.DELEGATE
+                resourceType: ResourceType.DELEGATE,
+                resourceIdentifier: row.original.groupId
               },
               permission: PermissionIdentifier.VIEW_DELEGATE
             }}
@@ -227,10 +230,13 @@ const RenderColumnMenu: Renderer<CellProps<Required<DelegateGroupDetails>>> = ({
           <RbacMenuItem
             permission={{
               resourceScope: {
-                accountIdentifier: accountId
+                accountIdentifier: accountId,
+                orgIdentifier,
+                projectIdentifier
               },
               resource: {
-                resourceType: ResourceType.DELEGATE
+                resourceType: ResourceType.DELEGATE,
+                resourceIdentifier: row.original.groupId
               },
               permission: PermissionIdentifier.DELETE_DELEGATE
             }}

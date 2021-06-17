@@ -179,7 +179,8 @@ export default function DelegateProfileDetails(): JSX.Element {
     },
     permission: PermissionIdentifier.UPDATE_DELEGATE_CONFIGURATION,
     resource: {
-      resourceType: ResourceType.DELEGATECONFIGURATION
+      resourceType: ResourceType.DELEGATECONFIGURATION,
+      resourceIdentifier: delegateConfigId
     }
   }
 

@@ -183,10 +183,13 @@ export default function DelegateConfigurations(): JSX.Element {
                     <RbacMenuItem
                       permission={{
                         resourceScope: {
-                          accountIdentifier: accountId
+                          accountIdentifier: accountId,
+                          orgIdentifier,
+                          projectIdentifier
                         },
                         resource: {
-                          resourceType: ResourceType.DELEGATECONFIGURATION
+                          resourceType: ResourceType.DELEGATECONFIGURATION,
+                          resourceIdentifier: profile.uuid
                         },
                         permission: PermissionIdentifier.UPDATE_DELEGATE_CONFIGURATION
                       }}
@@ -198,10 +201,13 @@ export default function DelegateConfigurations(): JSX.Element {
                       <RbacMenuItem
                         permission={{
                           resourceScope: {
-                            accountIdentifier: accountId
+                            accountIdentifier: accountId,
+                            orgIdentifier,
+                            projectIdentifier
                           },
                           resource: {
-                            resourceType: ResourceType.DELEGATECONFIGURATION
+                            resourceType: ResourceType.DELEGATECONFIGURATION,
+                            resourceIdentifier: profile.uuid
                           },
                           permission: PermissionIdentifier.DELETE_DELEGATE_CONFIGURATION
                         }}
