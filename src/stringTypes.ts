@@ -58,6 +58,7 @@ export interface StringsMap {
   'common.banners.trial.description': string
   'common.banners.trial.expired.description': string
   'common.banners.trial.expired.extendTrial': string
+  'common.banners.trial.success': string
   'common.blank': string
   'common.capsAll': string
   'common.ce.cost': string

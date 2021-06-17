@@ -13,6 +13,7 @@ import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectMo
 import { useCollaboratorModal } from '@projects-orgs/modals/ProjectModal/useCollaboratorModal'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
+import { useToaster } from '@common/components'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import type { AccountPathProps, OrgPathProps } from '@common/interfaces/RouteInterfaces'
@@ -27,6 +28,7 @@ const CustomSelect = Select.ofType<SelectOption>()
 const ProjectsListPage: React.FC = () => {
   const { accountId } = useParams<AccountPathProps>()
   const { orgIdentifier } = useQueryParams<OrgPathProps>()
+  const { verify } = useQueryParams<{ verify?: boolean }>()
   const { getString } = useStrings()
   useDocumentTitle(getString('projectsText'))
   const [view, setView] = useState(Views.GRID)
@@ -51,6 +53,17 @@ const ProjectsListPage: React.FC = () => {
       accountIdentifier: accountId
     }
   })
+  const { showSuccess } = useToaster()
+
+  useEffect(
+    () => {
+      if (verify) {
+        showSuccess(getString('common.banners.trial.success'))
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [verify]
+  )
 
   useEffect(() => {
     if (orgIdentifier === 'ALL' && orgFilter.value !== 'ALL') {
