@@ -18,6 +18,7 @@ interface COAsgSelectorprops {
   gatewayDetails: GatewayDetails
   onAsgAddSuccess?: (updatedGatewayDetails: GatewayDetails) => void
   loading: boolean
+  refresh?: () => void
 }
 
 function TableCell(tableProps: CellProps<ASGMinimal>): JSX.Element {
@@ -65,6 +66,15 @@ const COAsgSelector: React.FC<COAsgSelectorprops> = props => {
     props.onAsgAddSuccess?.(updatedGatewayDetails)
   }
 
+  const refreshPageParams = () => {
+    setPageIndex(0)
+  }
+
+  const handleRefresh = () => {
+    refreshPageParams()
+    props.refresh?.()
+  }
+
   return (
     <Container>
       <Layout.Vertical spacing="large">
@@ -83,16 +93,23 @@ const COAsgSelector: React.FC<COAsgSelectorprops> = props => {
             justifyContent: 'space-between'
           }}
         >
-          <Button
-            onClick={addAsg}
-            disabled={!isAsgSelected}
-            style={{
-              backgroundColor: isAsgSelected ? '#0278D5' : 'inherit',
-              color: isAsgSelected ? '#F3F3FA' : 'inherit'
-            }}
-          >
-            {'Add selected'}
-          </Button>
+          <Layout.Horizontal flex={{ alignItems: 'center' }}>
+            <Button
+              onClick={addAsg}
+              disabled={!isAsgSelected}
+              style={{
+                backgroundColor: isAsgSelected ? '#0278D5' : 'inherit',
+                color: isAsgSelected ? '#F3F3FA' : 'inherit',
+                marginRight: 20
+              }}
+            >
+              {'Add selected'}
+            </Button>
+            <div onClick={handleRefresh}>
+              <Icon name="refresh" color="primary7" size={14} />
+              <span style={{ color: 'var(--primary-7)', margin: '0 5px', cursor: 'pointer' }}>Refresh</span>
+            </div>
+          </Layout.Horizontal>
           <ExpandingSearchInput onChange={(text: string) => props.search(text)} />
         </Layout.Horizontal>
         <Container>

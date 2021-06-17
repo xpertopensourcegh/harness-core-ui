@@ -236,6 +236,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
             closeInstancesModal()
           }}
           loading={loadingInstances}
+          refresh={refreshInstances}
         />
         <Button
           minimal
@@ -271,7 +272,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
           selectedScalingGroup={selectedAsg}
           setSelectedAsg={setSelectedAsg}
           setGatewayDetails={props.setGatewayDetails}
-          scalingGroups={!_isEmpty(asgToShow) ? asgToShow : allAsg}
+          scalingGroups={asgToShow}
           gatewayDetails={props.gatewayDetails}
           search={handleAsgSearch}
           onAsgAddSuccess={updatedGatewayDetails => {
@@ -280,6 +281,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
             closeAsgModal()
           }}
           loading={loadingFetchASGs}
+          refresh={fetchAndSetAsgItems}
         />
         <Button
           minimal
@@ -385,6 +387,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
       if (result?.response) {
         const filteredAsgs = result.response.filter((item: ASGMinimal) => !_isEmpty(item.target_groups))
         setAllAsg(filteredAsgs)
+        setAsgToShow(filteredAsgs)
       }
     } catch (err) {
       showError(err.data?.message || err.message, undefined, 'ce.fetchAndSetAsgItems.error')

@@ -17,6 +17,7 @@ interface COInstanceSelectorprops {
   gatewayDetails: GatewayDetails
   onInstancesAddSuccess?: () => void
   loading?: boolean
+  refresh?: () => void
 }
 
 function TableCell(tableProps: CellProps<InstanceDetails>): JSX.Element {
@@ -78,6 +79,16 @@ const COInstanceSelector: React.FC<COInstanceSelectorprops> = props => {
   useEffect(() => {
     trackEvent('SelectedInstances', {})
   }, [])
+
+  const refreshPageParams = () => {
+    setPageIndex(0)
+  }
+
+  const handleRefresh = () => {
+    refreshPageParams()
+    props.refresh?.()
+  }
+
   return (
     <Container>
       <Layout.Vertical spacing="large">
@@ -95,16 +106,23 @@ const COInstanceSelector: React.FC<COInstanceSelectorprops> = props => {
             justifyContent: 'space-between'
           }}
         >
-          <Button
-            onClick={addInstances}
-            disabled={_isEmpty(selectedInstances)}
-            style={{
-              backgroundColor: selectedInstances.length ? '#0278D5' : 'inherit',
-              color: selectedInstances.length ? '#F3F3FA' : 'inherit'
-            }}
-          >
-            {`Add selected ${selectedInstances.length ? '(' + selectedInstances.length + ')' : ''}`}
-          </Button>
+          <Layout.Horizontal flex={{ alignItems: 'center' }}>
+            <Button
+              onClick={addInstances}
+              disabled={_isEmpty(selectedInstances)}
+              style={{
+                backgroundColor: selectedInstances.length ? '#0278D5' : 'inherit',
+                color: selectedInstances.length ? '#F3F3FA' : 'inherit',
+                marginRight: 20
+              }}
+            >
+              {`Add selected ${selectedInstances.length ? '(' + selectedInstances.length + ')' : ''}`}
+            </Button>
+            <div onClick={handleRefresh}>
+              <Icon name="refresh" color="primary7" size={14} />
+              <span style={{ color: 'var(--primary-7)', margin: '0 5px', cursor: 'pointer' }}>Refresh</span>
+            </div>
+          </Layout.Horizontal>
           <ExpandingSearchInput className={css.search} onChange={handleSearch} />
         </Layout.Horizontal>
         <Container>
