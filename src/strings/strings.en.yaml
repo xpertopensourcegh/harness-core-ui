@@ -350,7 +350,7 @@ preCommandInfo: Commands used for setting up the environment before running the 
 postCommandLabel: PostCommand
 postCommandInfo: Commands used for cleaning up the environment after running the tests
 consoleView: Console View
-commandInfo: Posix shell script executed inside the container. The script is invoked as if it were the container’s entrypoint
+commandInfo: POSIX shell script executed inside the container. The script is invoked as if it were the container’s entrypoint.
 commandPlaceholder: |
   npm install
   npm test
@@ -368,13 +368,13 @@ imagePlaceholder: maven:3.6.3-jdk-8
 pluginImagePlaceholder: plugins/slack
 pluginImageInfo: The name of the Plugin Docker image. The image name should include the tag and will default to the latest tag if unspecified. You can use any docker image from any docker registry, including docker images from private registries
 dependencyImagePlaceholder: mysql:5
-imageInfo: The name of the Docker image to use to run commands on. The image name should include the tag and will default to the latest tag if unspecified. You can use any docker image from any docker registry, including docker images from private registries.
+imageInfo: 'The name and tag of the Docker image to run commands on. Include the image name and tag. Harness will default to the latest tag if unspecified. You can use any Docker image from any public or private Docker registry.'
 imageNameLabel: Image Name
 imageNameInfo: The name of the image that will be pushed to the target container registry.
 encryptedKeyLabel: Encrypted Key
 environment: 'Environment'
 environmentVariables: 'Environment Variables'
-environmentVariablesInfo: Environment variables injected into the container to be used in the “command” property
+environmentVariablesInfo: Environment variables injected into the container to be used in the commands.
 dependencyEnvironmentVariablesInfo: Environment variables injected into the container
 service: 'Service'
 plusAdd: '+ Add'
@@ -384,7 +384,7 @@ descriptionLabel: 'Description: {{description}}'
 launchStudio: Launch Studio
 viewExecutions: View Executions
 entryPointLabel: 'Entry Point'
-entryPointInfo: Overrides the image ENTRYPOINT
+entryPointInfo: 'Overrides the image ENTRYPOINT. Commands should be in exec form. Each command and parameter should be added separately. [Learn More](https://ngdocs.harness.io/article/vo4sjbd09g-configure-service-dependency-step-settings)'
 argsLabel: 'Arguments'
 argsInfo: Overrides the image COMMAND
 dependencyNameLabel: 'Dependency Name'
@@ -415,9 +415,9 @@ createPipeline:
 helmVersion: Helm Version
 executionStrategy:
   strategies:
-    blueGreen: With Blue/Green Deployment, two identical environments called blue (staging) and green (production) run simultaneously with different versions or service/artifact. QA and UAT are typically done on the blue environment. When satisfied, traffic is flipped (via a load balancer) from the green environment (current version) to the blue environment (new version). You can then decommission the old environment once deployment is successful.
-    rolling: In a Rolling Deployment Strategy, the deployed artifact will be spun up incrementally until the desired count is met. As new ones spin up, the older version gets terminated.
-    canary: In a Canary Deployment, the new artifact is deployed in the target environment and is incrementally updated based on the testing and verification in each phase.
+    blueGreen: With Blue Green strategy, two identical environments run simultaneously with different app versions. When a new version is verified in the stage environment, traffic is flipped from the prod environment to the stage environment. The new version now receives the prod traffic.
+    rolling: In a Rolling strategy, the deployed artifact will be spun up incrementally until the desired count is met. As new ones spin up, the older version gets terminated.
+    canary: In a Canary strategy, the new artifact is deployed in the target environment and is incrementally updated based on the testing and verification in each phase.
     default: With a blank canvas, you get to orchestrate your deployment with any combination of steps from the palette. It allows maximum flexibility - only recommended for advanced users.
   preview: 'Preview'
   strategyType: 'Common'
@@ -961,7 +961,7 @@ pipelineSteps:
   addTerraformVarFile: 'Add Terraform Var File'
   connectorLabel: 'Container Registry'
   connectorInfo: 'Container Registry to use to download the image use to run commands on'
-  dependencyConnectorInfo: Container Registry to use to pull the service dependency image from
+  dependencyConnectorInfo: 'Container registry to pull the service dependency image from'
   gcrConnectorInfo: GCP connector to use for uploading the image to GCR
   ecrConnectorInfo: AWS connector to use for uploading the image to ECR
   s3ConnectorInfo: AWS connector to use for uploading the artifact(s) to S3
@@ -989,7 +989,7 @@ pipelineSteps:
   regionInfo: AWS Region
   accountInfo: AWS Account ID
   reportPathsLabel: Report Paths
-  reportPathsInfo: Each path should lead to file(s) that stores results in the JUnit XML format.  Regex is supported.
+  reportPathsInfo: Enter paths to file(s) that store results in the JUnit XML format. Regex is supported.
   reportPathsPlaceholder: '**/*.xml'
   buildArgsLabel: 'Build Arguments'
   buildArgsInfo: Build-time variables
@@ -1113,7 +1113,7 @@ pipelineSteps:
       stageNamePlaceholder: 'Enter your stage name'
       variableNamePlaceholder: 'Enter Variable name'
       sharedPaths: 'Shared Paths'
-      sharedPathsInfo: By default, all of a stage’s steps use the same workspace to share data. If you need to share additional paths between steps, add Shared Paths
+      sharedPathsInfo: 'By default, all of a stage’s steps use the same workspace to share data. If you need to share additional paths between steps, add Shared Paths.'
       addSharedPath: '+ Path'
       addDescription: 'description'
       addTags: 'tags'
