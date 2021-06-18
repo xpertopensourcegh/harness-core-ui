@@ -28,6 +28,7 @@ interface JiraFormData {
   jiraUrl: string
   username: TextReferenceInterface | void
   password: SecretReferenceInterface | void
+  usernamefieldType?: string
 }
 
 interface AuthenticationProps {
@@ -48,7 +49,8 @@ interface JiraFormProps extends ConnectorInfoDTO {
 const defaultInitialFormData: JiraFormData = {
   jiraUrl: '',
   username: undefined,
-  password: undefined
+  password: undefined,
+  usernamefieldType: ValueType.TEXT
 }
 
 const JiraDetailsForm: React.FC<StepProps<JiraFormProps> & AuthenticationProps> = props => {
@@ -70,6 +72,7 @@ const JiraDetailsForm: React.FC<StepProps<JiraFormProps> & AuthenticationProps> 
             setLoadingConnectorSecrets(false)
           })
         } else {
+          setInitialValues(prevStepData as any)
           setLoadingConnectorSecrets(false)
         }
       }
@@ -98,33 +101,35 @@ const JiraDetailsForm: React.FC<StepProps<JiraFormProps> & AuthenticationProps> 
           nextStep?.({ ...props.connectorInfo, ...prevStepData, ...stepData } as JiraFormProps)
         }}
       >
-        {() => (
-          <Form>
-            <ModalErrorHandler bind={setModalErrorHandler} />
-            <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} className={css.secondStep} width={'56%'}>
-              <FormInput.Text name="jiraUrl" placeholder={getString('UrlLabel')} label={getString('UrlLabel')} />
+        {formik => {
+          return (
+            <Form>
+              <ModalErrorHandler bind={setModalErrorHandler} />
+              <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} className={css.secondStep} width={'56%'}>
+                <FormInput.Text name="jiraUrl" placeholder={getString('UrlLabel')} label={getString('UrlLabel')} />
 
-              <TextReference name="username" label={getString('username')} type={ValueType.TEXT} />
-              <SecretInput name={'passwordRef'} label={getString('password')} />
-            </Layout.Vertical>
+                <TextReference name="username" label={getString('username')} type={formik.values?.usernamefieldType} />
+                <SecretInput name={'passwordRef'} label={getString('password')} />
+              </Layout.Vertical>
 
-            <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
-              <Button
-                text={getString('back')}
-                icon="chevron-left"
-                onClick={() => props?.previousStep?.(props?.prevStepData)}
-                data-name="jiraBackButton"
-              />
-              <Button
-                type="submit"
-                intent="primary"
-                text={getString('continue')}
-                rightIcon="chevron-right"
-                disabled={loadConnector}
-              />
-            </Layout.Horizontal>
-          </Form>
-        )}
+              <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
+                <Button
+                  text={getString('back')}
+                  icon="chevron-left"
+                  onClick={() => props?.previousStep?.(props?.prevStepData)}
+                  data-name="jiraBackButton"
+                />
+                <Button
+                  type="submit"
+                  intent="primary"
+                  text={getString('continue')}
+                  rightIcon="chevron-right"
+                  disabled={loadConnector}
+                />
+              </Layout.Horizontal>
+            </Form>
+          )
+        }}
       </Formik>
     </Layout.Vertical>
   )

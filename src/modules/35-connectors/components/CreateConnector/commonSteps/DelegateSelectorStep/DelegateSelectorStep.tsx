@@ -197,7 +197,6 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
   const connectorName = creating
     ? (prevStepData as ConnectorConfigDTO)?.name
     : (connectorInfo as ConnectorInfoDTO)?.name
-
   return (
     <>
       {!isGitSyncEnabled && (creating || updating) ? (
