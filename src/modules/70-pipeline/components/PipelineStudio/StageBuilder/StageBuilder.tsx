@@ -563,7 +563,6 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
     [Event.MouseLeaveNode]: (event: any) => {
       const eventTemp = event as DefaultNodeEvent
       eventTemp.stopPropagation()
-      dynamicPopoverHandler?.hide()
     }
   }
 
