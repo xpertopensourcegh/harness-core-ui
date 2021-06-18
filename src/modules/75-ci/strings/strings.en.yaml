@@ -33,7 +33,7 @@ welcome: 'Welcome to Continuous Integration'
 description: 'Build your applications with blazing fast pipelines.'
 createPipeline: '{{ $.common.createPipeline }}'
 privileged: Privileged
-privilegedInfo: Enable privilege mode
+privilegedInfo: 'Enable this option to run the container with escalated privileges. This is the equivalent of running a container with the Docker --privileged flag.'
 annotations: Annotations
 labels: '{{ $.pipelineSteps.labelsLabel }}'
 optimize: Optimize
