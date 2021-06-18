@@ -20,7 +20,8 @@ import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import TextReference, { TextReferenceInterface, ValueType } from '@secrets/components/TextReference/TextReference'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 
-import { SecretReferenceInterface, setupJiraFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import { setupJiraFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
 
 import css from './JiraConnector.module.scss'
 

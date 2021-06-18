@@ -2,11 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Layout, Button, Formik, Text, FormikForm as Form, StepProps, Color, Container } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
-import {
-  SecretReferenceInterface,
-  setupGitFormData,
-  GitConnectionType
-} from '@connectors/pages/connectors/utils/ConnectorUtils'
+import { setupGitFormData, GitConnectionType } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
 import type { ConnectorConfigDTO, ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
 
 import SecretInput from '@secrets/components/SecretInput/SecretInput'

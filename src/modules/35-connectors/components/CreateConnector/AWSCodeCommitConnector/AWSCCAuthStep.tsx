@@ -23,9 +23,10 @@ import { useStrings } from 'framework/strings'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import TextReference, { ValueType } from '@secrets/components/TextReference/TextReference'
-import { setSecretField, buildAWSCodeCommitPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import { buildAWSCodeCommitPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/exports'
+import { setSecretField } from '@secrets/utils/SecretField'
 
 interface AWSCCAuthStepProps extends StepProps<ConnectorConfigDTO> {
   isEditMode: boolean

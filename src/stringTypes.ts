@@ -970,9 +970,12 @@ export interface StringsMap {
   'userProfile.scmCreateSuccess': string
   'userProfile.scmDeleteFailure': string
   'userProfile.scmDeleteSuccess': string
+  'userProfile.scmUpdateFail': string
+  'userProfile.scmUpdateSuccess': string
   'userProfile.scmValidation.accessKey': string
   'userProfile.scmValidation.secretKey': string
   'userProfile.selectSCM': string
+  'userProfile.selectedSCM': string
   'userProfile.twoFactor.description': string
   'userProfile.twoFactor.disableSuccess': string
   'userProfile.twoFactor.disableText': string

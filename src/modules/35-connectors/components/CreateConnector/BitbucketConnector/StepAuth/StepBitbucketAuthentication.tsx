@@ -13,11 +13,8 @@ import {
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
-import {
-  SecretReferenceInterface,
-  setupBitbucketFormData,
-  GitConnectionType
-} from '@connectors/pages/connectors/utils/ConnectorUtils'
+import { setupBitbucketFormData, GitConnectionType } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
 import type { ConnectorConfigDTO, ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
 
 import SecretInput from '@secrets/components/SecretInput/SecretInput'

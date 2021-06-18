@@ -21,9 +21,9 @@ import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import {
   DelegateTypes,
   setupKubFormData,
-  SecretReferenceInterface,
   DelegateCardInterface
 } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
 import { useStrings } from 'framework/strings'
 import { AuthTypes } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import TextReference, { ValueType, TextReferenceInterface } from '@secrets/components/TextReference/TextReference'

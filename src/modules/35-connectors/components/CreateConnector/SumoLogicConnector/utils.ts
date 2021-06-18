@@ -1,5 +1,6 @@
 import type { ConnectorConfigDTO } from 'services/cd-ng'
-import { SumoLogicInitialValue, setSecretField } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import type { SumoLogicInitialValue } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import { setSecretField } from '@secrets/utils/SecretField'
 
 export interface SpecData {
   url: string

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { FormInput } from '@wings-software/uicore'
 import SecretInput, { SecretInputProps } from '@secrets/components/SecretInput/SecretInput'
 import { useToaster } from '@common/exports'
-import { setSecretField } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import { setSecretField } from '@secrets/utils/SecretField'
 import { useStrings } from 'framework/strings'
 
 export interface ConnectorSecretFieldProps {

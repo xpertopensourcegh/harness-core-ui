@@ -13,11 +13,8 @@ import {
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { IOptionProps } from '@blueprintjs/core'
-import {
-  SecretReferenceInterface,
-  setupDockerFormData,
-  DockerProviderType
-} from '@connectors/pages/connectors/utils/ConnectorUtils'
+import { setupDockerFormData, DockerProviderType } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
 import type { ConnectorConfigDTO, ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
 
 import SecretInput from '@secrets/components/SecretInput/SecretInput'

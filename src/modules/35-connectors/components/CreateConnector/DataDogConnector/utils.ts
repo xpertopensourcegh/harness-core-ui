@@ -1,5 +1,6 @@
 import type { ConnectorConfigDTO } from 'services/cd-ng'
-import { DatadogInitialValue, setSecretField } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import type { DatadogInitialValue } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import { setSecretField } from '@secrets/utils/SecretField'
 
 export interface SpecData {
   url: string

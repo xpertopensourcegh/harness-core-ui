@@ -1,7 +1,8 @@
 import type { IconName } from '@wings-software/uicore'
 import { ValueType } from '@secrets/components/TextReference/TextReference'
 import type { SCMData } from '@user-profile/modals/SourceCodeManager/views/SourceCodeManagerForm'
-import type { SourceCodeManagerAuthentication } from 'services/cd-ng'
+import type { SourceCodeManagerAuthentication, SourceCodeManagerDTO } from 'services/cd-ng'
+import { setSecretField } from '@secrets/utils/SecretField'
 
 export enum ConnectionType {
   HTTPS = 'HTTPS',
@@ -102,5 +103,30 @@ export const getAuthentication = (values: SCMData): SourceCodeManagerAuthenticat
       }
     default:
       return undefined
+  }
+}
+
+const getGithubFormData = async (sourceCodeManagerData: SourceCodeManagerDTO, accountIdentifier: string) => {
+  const { name, authentication } = sourceCodeManagerData
+  return {
+    name: name,
+    authType: authentication?.spec?.type,
+    accessToken: await setSecretField(
+      authentication?.spec?.spec?.tokenRef || authentication?.spec?.apiAccess?.spec?.tokenRef,
+      { accountIdentifier }
+    ),
+    username: {
+      value: authentication?.spec?.spec?.username || authentication?.spec?.spec?.usernameRef,
+      type: authentication?.spec?.spec?.usernameRef ? ValueType.ENCRYPTED : ValueType.TEXT
+    }
+  }
+}
+
+export const getFormDataBasedOnSCMType = (sourceCodeManagerData: SourceCodeManagerDTO, accountIdentifier: string) => {
+  switch (sourceCodeManagerData.type) {
+    case SourceCodeTypes.GITHUB:
+      return getGithubFormData(sourceCodeManagerData, accountIdentifier)
+    default:
+      return Promise.resolve({})
   }
 }

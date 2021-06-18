@@ -1,9 +1,8 @@
 import { pick } from 'lodash-es'
 import type { IconName } from '@wings-software/uicore'
 import { Connectors, EntityTypes } from '@connectors/constants'
-import {
+import type {
   ConnectorInfoDTO,
-  getSecretV2Promise,
   GetSecretV2QueryParams,
   ConnectorConfigDTO,
   AwsCredential,
@@ -13,18 +12,11 @@ import {
   AwsKmsConnectorDTO
 } from 'services/cd-ng'
 import type { FormData } from '@connectors/interfaces/ConnectorInterface'
-import { Scope } from '@common/interfaces/SecretsInterface'
+import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
 import { ValueType } from '@secrets/components/TextReference/TextReference'
 import { useStrings } from 'framework/strings'
+import { setSecretField } from '@secrets/utils/SecretField'
 import { AuthTypes, GitAuthTypes, GitAPIAuthTypes } from './ConnectorHelper'
-
-export const getScopeFromString = (value: string) => {
-  return value?.indexOf('.') < 0 ? Scope.PROJECT : value?.split('.')[0]
-}
-
-export const getSecretIdFromString = (value: string) => {
-  return value?.indexOf('.') < 0 ? value : value?.split('.')[1]
-}
 
 export interface DelegateCardInterface {
   type: string
@@ -70,15 +62,6 @@ export const GitConnectionType = {
 export const AppDynamicsAuthType = {
   USERNAME_PASSWORD: 'UsernamePassword',
   API_CLIENT_TOKEN: 'ApiClientToken'
-}
-
-export interface SecretReferenceInterface {
-  identifier: string
-  name: string
-  referenceString: string
-  accountIdentifier: string
-  orgIdentifier?: string
-  projectIdentifier?: string
 }
 
 const buildAuthTypePayload = (formData: FormData) => {
@@ -302,39 +285,6 @@ export const buildBitbucketPayload = (formData: FormData) => {
     delete savedData.spec.apiAccess
   }
   return { connector: savedData }
-}
-
-export const setSecretField = async (
-  secretString: string,
-  scopeQueryParams: GetSecretV2QueryParams
-): Promise<SecretReferenceInterface | void> => {
-  if (!secretString) {
-    return undefined
-  } else {
-    const secretScope = getScopeFromString(secretString)
-
-    switch (secretScope) {
-      case Scope.ACCOUNT:
-        delete scopeQueryParams.orgIdentifier
-        delete scopeQueryParams.projectIdentifier
-        break
-      case Scope.ORG:
-        delete scopeQueryParams.projectIdentifier
-    }
-
-    const identifier = secretString.indexOf('.') < 0 ? secretString : secretString.split('.')[1]
-    const response = await getSecretV2Promise({
-      identifier,
-      queryParams: scopeQueryParams
-    })
-
-    return {
-      identifier,
-      name: response.data?.secret.name || secretString.split('.')[1],
-      referenceString: secretString,
-      ...scopeQueryParams
-    }
-  }
 }
 
 export const setupGitFormData = async (connectorInfo: ConnectorInfoDTO, accountId: string): Promise<FormData> => {

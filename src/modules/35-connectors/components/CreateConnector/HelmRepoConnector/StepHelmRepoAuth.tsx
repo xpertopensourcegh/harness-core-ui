@@ -14,7 +14,8 @@ import {
   SelectOption
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { SecretReferenceInterface, setupDockerFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import { setupDockerFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
 import type { ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
 
 import SecretInput from '@secrets/components/SecretInput/SecretInput'

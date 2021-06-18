@@ -160,6 +160,13 @@ export const sourceCodeManagers: ResponseListSourceCodeManagerDTO = {
   correlationId: ''
 }
 
+export const emptySourceCodeManagers: ResponseListSourceCodeManagerDTO = {
+  status: 'SUCCESS',
+  data: [],
+  metaData: undefined,
+  correlationId: ''
+}
+
 export const connectorMockData = {
   status: 'SUCCESS',
   data: {

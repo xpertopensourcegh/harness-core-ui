@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { isEmpty } from 'lodash-es'
 import {
   Button,
   Color,
@@ -18,17 +20,29 @@ import {
 import * as Yup from 'yup'
 import { useStrings } from 'framework/strings'
 import { NameSchema } from '@common/utils/Validation'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { PageSpinner } from '@common/components'
 import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
-import { SourceCodeManagerDTO, useSaveSourceCodeManagers } from 'services/cd-ng'
-import { AuthTypes, getAuthentication, getIconBySCM, SourceCodeTypes } from '@user-profile/utils/utils'
+import { SourceCodeManagerDTO, useSaveSourceCodeManagers, useUpdateSourceCodeManagers } from 'services/cd-ng'
+import {
+  AuthTypes,
+  getAuthentication,
+  getFormDataBasedOnSCMType,
+  getIconBySCM,
+  SourceCodeTypes
+} from '@user-profile/utils/utils'
 import type { TextReferenceInterface } from '@secrets/components/TextReference/TextReference'
 import { useToaster } from '@common/exports'
 import Authentication from './Authentication'
 import css from '../useSourceCodeManager.module.scss'
 
+// We only support github scm ATM, remove this constant and its occurrences logically once more scms are supported
+const MULTIPLE_SCM_TYPES_SUPPORTED = false
+
 interface SourceCodeManagerProps {
   onSubmit: () => void
   onClose: () => void
+  initialValues?: SourceCodeManagerDTO
 }
 
 export interface SCMData {
@@ -49,13 +63,17 @@ interface SourceCodeType {
 }
 
 const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
-  const { onSubmit, onClose } = props
+  const { onSubmit, onClose, initialValues } = props
   const { getString } = useStrings()
-  const [selected, setSelected] = useState<SourceCodeType>()
   const { showSuccess, showError } = useToaster()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
+  const { accountId } = useParams<AccountPathProps>()
+  const [data, setData] = useState({})
+  const isEditMode = !isEmpty(initialValues)
+  const [loading, setLoading] = useState(isEditMode)
 
   const { mutate: saveSourceCodeManager } = useSaveSourceCodeManagers({})
+  const { mutate: updateSourceCodeManage } = useUpdateSourceCodeManagers({ identifier: initialValues?.id as string })
 
   const sourceCodeManagers: SourceCodeType[] = [
     {
@@ -84,6 +102,20 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
       icon: getIconBySCM(SourceCodeTypes.AZURE_DEV_OPS)
     }
   ]
+
+  const [selected, setSelected] = useState<SourceCodeType | undefined>(
+    MULTIPLE_SCM_TYPES_SUPPORTED ? undefined : sourceCodeManagers[0]
+  )
+
+  useEffect(() => {
+    if (loading && initialValues) {
+      getFormDataBasedOnSCMType(initialValues, accountId).then(formData => {
+        setData(formData)
+        setLoading(false)
+      })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading])
 
   const getDefaultSelected = (type?: SourceCodeTypes): AuthTypes | undefined => {
     switch (type) {
@@ -219,35 +251,46 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
       }
 
       try {
+        const successMessage = isEditMode
+          ? getString('userProfile.scmUpdateSuccess')
+          : getString('userProfile.scmCreateSuccess')
+        const failMessage = isEditMode ? getString('userProfile.scmUpdateFail') : getString('userProfile.scmCreateFail')
         /* istanbul ignore else */ if (dataToSubmit) {
-          const saved = await saveSourceCodeManager(dataToSubmit)
-          /* istanbul ignore else */ if (saved) {
+          const parsedDataToSubmit = isEditMode
+            ? { ...dataToSubmit, userIdentifier: initialValues?.userIdentifier }
+            : dataToSubmit
+          const saved = await (isEditMode ? updateSourceCodeManage : saveSourceCodeManager)(parsedDataToSubmit)
+          if (saved) {
             onSubmit()
-            showSuccess(getString('userProfile.scmCreateSuccess'))
-          } /* istanbul ignore next */ else showError(getString('userProfile.scmCreateFail'))
+            showSuccess(successMessage)
+          } else showError(failMessage)
         }
       } catch (e) {
-        /* istanbul ignore next */
         modalErrorHandler?.showDanger(e.data?.message || e.message)
       }
     } else modalErrorHandler?.showDanger(getString('userProfile.selectSCM'))
   }
+  const formInitialValues = {
+    name: '',
+    ...(MULTIPLE_SCM_TYPES_SUPPORTED ? {} : { authType: getDefaultSelected(selected?.value) }),
+    ...data
+  }
 
-  return (
+  return loading ? (
+    <PageSpinner />
+  ) : (
     <Layout.Vertical padding="xxxlarge">
       <Layout.Vertical spacing="large">
         <Text color={Color.BLACK} font="medium">
           {getString('userProfile.addSCM')}
         </Text>
         <Formik<SCMData>
-          initialValues={{
-            name: ''
-          }}
+          initialValues={formInitialValues}
           formName="sourceCodeManagerForm"
           validationSchema={Yup.object().shape({
             name: NameSchema(),
             username: Yup.string().when(['authType'], {
-              is: AuthTypes.USERNAME_PASSWORD || AuthTypes.USERNAME_TOKEN,
+              is: authType => authType === AuthTypes.USERNAME_PASSWORD || authType === AuthTypes.USERNAME_TOKEN,
               then: Yup.string().trim().required(getString('validation.username')),
               otherwise: Yup.string().nullable()
             }),
@@ -295,7 +338,11 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
                   <Container width={400}>
                     <FormInput.Text name="name" label={getString('name')} />
                   </Container>
-                  <Text color={Color.BLACK}>{getString('userProfile.selectSCM')}</Text>
+                  <Text color={Color.BLACK}>
+                    {MULTIPLE_SCM_TYPES_SUPPORTED
+                      ? getString('userProfile.selectSCM')
+                      : getString('userProfile.selectedSCM')}
+                  </Text>
                   <Layout.Horizontal spacing="medium" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
                     <CardSelect
                       data={selected ? [selected] : sourceCodeManagers}
@@ -323,7 +370,7 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
                       }}
                       selected={selected}
                     />
-                    {selected ? (
+                    {selected && MULTIPLE_SCM_TYPES_SUPPORTED ? (
                       <Button
                         text={getString('change')}
                         minimal
@@ -340,7 +387,7 @@ const SourceCodeManagerForm: React.FC<SourceCodeManagerProps> = props => {
                   <Authentication formikProps={formikProps} authOptions={getAuthOptions(selected.value)} />
                 ) : null}
                 <Layout.Horizontal spacing="small" padding={{ top: 'huge' }}>
-                  <Button intent="primary" text={getString('add')} type="submit" />
+                  <Button intent="primary" text={isEditMode ? getString('update') : getString('add')} type="submit" />
                   <Button text={getString('cancel')} onClick={onClose} />
                 </Layout.Horizontal>
               </Form>

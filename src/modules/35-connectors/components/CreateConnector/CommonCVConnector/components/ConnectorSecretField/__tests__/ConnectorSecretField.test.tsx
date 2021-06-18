@@ -1,7 +1,7 @@
 import React from 'react'
 import { Formik, FormikForm } from '@wings-software/uicore'
 import { render, waitFor } from '@testing-library/react'
-import * as connectorUtils from '@connectors/pages/connectors/utils/ConnectorUtils'
+import * as secretUtils from '@secrets/utils/SecretField'
 import { TestWrapper } from '@common/utils/testUtils'
 import { ConnectorSecretField, ConnectorSecretFieldProps } from '../ConnectorSecretField'
 
@@ -26,7 +26,7 @@ describe('Unit tests for ConnectorSecretField', () => {
     jest.clearAllMocks()
   })
   test('Ensure that if api errors out toaster displays meessage', async () => {
-    jest.spyOn(connectorUtils, 'setSecretField').mockRejectedValue('mock error')
+    jest.spyOn(secretUtils, 'setSecretField').mockRejectedValue('mock error')
     const { getByText } = render(
       <WrapperComponent
         secretInputProps={{
@@ -45,7 +45,7 @@ describe('Unit tests for ConnectorSecretField', () => {
   })
 
   test('Ensure that if api is loading field has loading placeholder', async () => {
-    jest.spyOn(connectorUtils, 'setSecretField').mockImplementation(() => new Promise(() => undefined))
+    jest.spyOn(secretUtils, 'setSecretField').mockImplementation(() => new Promise(() => undefined))
     const { container } = render(
       <WrapperComponent
         secretInputProps={{
@@ -64,7 +64,7 @@ describe('Unit tests for ConnectorSecretField', () => {
   })
 
   test('Ensure that when api returns valid value the onsuccess function is called', async () => {
-    jest.spyOn(connectorUtils, 'setSecretField').mockResolvedValue('someValue' as any)
+    jest.spyOn(secretUtils, 'setSecretField').mockResolvedValue('someValue' as any)
     const onSuccessMck = jest.fn()
     render(
       <WrapperComponent
@@ -84,7 +84,7 @@ describe('Unit tests for ConnectorSecretField', () => {
   })
 
   test('Ensure that when scret value isnt provided api is not callede', async () => {
-    const mockfn = jest.spyOn(connectorUtils, 'setSecretField').mockResolvedValue('someValue' as any)
+    const mockfn = jest.spyOn(secretUtils, 'setSecretField').mockResolvedValue('someValue' as any)
     const onSuccessMck = jest.fn()
     const { container } = render(
       <WrapperComponent

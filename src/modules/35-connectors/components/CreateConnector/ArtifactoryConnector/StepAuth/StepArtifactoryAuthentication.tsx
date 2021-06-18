@@ -12,13 +12,14 @@ import {
   SelectOption
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { SecretReferenceInterface, setupArtifactoryFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import { setupArtifactoryFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import type { ConnectorConfigDTO, ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import TextReference, { ValueType, TextReferenceInterface } from '@secrets/components/TextReference/TextReference'
 import { useStrings } from 'framework/strings'
 import { PageSpinner } from '@common/components'
 import { AuthTypes } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
 import commonStyles from '@connectors/components/CreateConnector/commonSteps/ConnectorCommonStyles.module.scss'
 import css from '../../NexusConnector/StepAuth/StepNexusConnector.module.scss'
 

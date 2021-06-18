@@ -18,9 +18,9 @@ import { PageSpinner } from '@common/components/Page/PageSpinner'
 import {
   DelegateTypes,
   DelegateCardInterface,
-  SecretReferenceInterface,
   setupGCPFormData
 } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
 import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
 
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'

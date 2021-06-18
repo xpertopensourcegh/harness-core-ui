@@ -3,11 +3,8 @@ import { useParams } from 'react-router'
 import { Layout, Button, Formik, FormInput, Text, FormikForm as Form, StepProps, Color } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useStrings } from 'framework/strings'
-import {
-  DelegateTypes,
-  SecretReferenceInterface,
-  setupAWSFormData
-} from '@connectors/pages/connectors/utils/ConnectorUtils'
+import { DelegateTypes, setupAWSFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
 import { PageSpinner } from '@common/components'
 import type { ConnectorConfigDTO, ConnectorRequestBody, ConnectorInfoDTO, AwsCredential } from 'services/cd-ng'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'

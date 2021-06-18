@@ -27,13 +27,21 @@ const Authentication: React.FC<AuthenticationData> = ({ formikProps, authOptions
         </Layout.Horizontal>
         {formikProps.values.authType === AuthTypes.USERNAME_PASSWORD ? (
           <>
-            <TextReference name="username" label={getString('username')} type={ValueType.TEXT} />
+            <TextReference
+              name="username"
+              label={getString('username')}
+              type={formikProps.values.username ? formikProps.values.username.type : ValueType.TEXT}
+            />
             <SecretInput name="password" label={getString('password')} />
           </>
         ) : null}
         {formikProps.values.authType === AuthTypes.USERNAME_TOKEN ? (
           <>
-            <TextReference name="username" label={getString('username')} type={ValueType.TEXT} />
+            <TextReference
+              name="username"
+              label={getString('username')}
+              type={formikProps.values.username ? formikProps.values.username.type : ValueType.TEXT}
+            />
             <SecretInput name="accessToken" label={getString('personalAccessToken')} />
           </>
         ) : null}
@@ -45,7 +53,11 @@ const Authentication: React.FC<AuthenticationData> = ({ formikProps, authOptions
         ) : null}
         {formikProps.values.authType === AuthTypes.AWSCredentials ? (
           <>
-            <TextReference name="accessKey" label={getString('common.accessKey')} type={ValueType.TEXT} />
+            <TextReference
+              name="accessKey"
+              label={getString('common.accessKey')}
+              type={formikProps.values.authType || ValueType.TEXT}
+            />
             <SecretInput name="secretKey" label={getString('common.secretKey')} />
           </>
         ) : null}

@@ -24,6 +24,22 @@ const RenderColumnName: Renderer<CellProps<SourceCodeManagerDTO>> = ({ row }) =>
   )
 }
 
+const RenderColumnEdit: Renderer<CellProps<SourceCodeManagerDTO>> = ({ row, column }) => {
+  const sourceCodeManagerData = row.original
+
+  const { openSourceCodeModal } = useSourceCodeModal({
+    initialValues: sourceCodeManagerData,
+    onSuccess: (column as any).reload
+  })
+
+  const handleEdit = (e: React.MouseEvent<Element, MouseEvent>): void => {
+    e.stopPropagation()
+    openSourceCodeModal()
+  }
+
+  return <Button icon="edit" data-testid={`${sourceCodeManagerData.name}-edit`} minimal onClick={handleEdit} />
+}
+
 const RenderColumnDelete: Renderer<CellProps<SourceCodeManagerDTO>> = ({ row, column }) => {
   const data = row.original
   const { showSuccess, showError } = useToaster()
@@ -72,7 +88,7 @@ const RenderColumnDelete: Renderer<CellProps<SourceCodeManagerDTO>> = ({ row, co
 
 const SourceCodeManagerList: React.FC = () => {
   const { getString } = useStrings()
-  const { data, refetch } = useGetSourceCodeManagers({})
+  const { data, loading, refetch } = useGetSourceCodeManagers({})
 
   const { openSourceCodeModal } = useSourceCodeModal({ onSuccess: refetch })
 
@@ -82,8 +98,16 @@ const SourceCodeManagerList: React.FC = () => {
         Header: '',
         id: 'name',
         accessor: 'name',
-        width: '95%',
+        width: '90%',
         Cell: RenderColumnName
+      },
+      {
+        Header: '',
+        id: 'edit',
+        accessor: 'type',
+        width: '5%',
+        Cell: RenderColumnEdit,
+        reload: refetch
       },
       {
         Header: '',
@@ -96,17 +120,33 @@ const SourceCodeManagerList: React.FC = () => {
     ],
     [refetch]
   )
+
+  const getContent = (): React.ReactElement => {
+    if (data?.data?.length) {
+      return <Table<SourceCodeManagerDTO> data={data.data} columns={columns} hideHeaders={true} />
+    }
+    if (!loading) {
+      return (
+        <Layout.Horizontal padding={{ top: 'large' }}>
+          <Button
+            text={getString('userProfile.plusSCM')}
+            data-test="userProfileAddSCM"
+            minimal
+            intent="primary"
+            onClick={openSourceCodeModal}
+          />
+        </Layout.Horizontal>
+      )
+    }
+    return <></>
+  }
+
   return (
     <Layout.Vertical spacing="large">
       <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
         {getString('userProfile.mysourceCodeManagers')}
       </Text>
-      {data?.data?.length ? (
-        <Table<SourceCodeManagerDTO> data={data.data} columns={columns} hideHeaders={true} />
-      ) : null}
-      <Layout.Horizontal padding={{ top: 'large' }}>
-        <Button text={getString('userProfile.plusSCM')} minimal intent="primary" onClick={openSourceCodeModal} />
-      </Layout.Horizontal>
+      {getContent()}
     </Layout.Vertical>
   )
 }
