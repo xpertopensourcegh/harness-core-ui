@@ -114,7 +114,7 @@ const AzureKeyVaultForm: React.FC<StepProps<StepSecretManagerProps> & CreateAzur
           subscription: Yup.string().required(getString('connectors.azureKeyVault.validation.subscription')),
           secretKey: Yup.string().when('vaultName', {
             is: () => !(prevStepData?.spec as AzureKeyVaultConnectorDTO)?.vaultName,
-            then: Yup.string().trim().required(getString('connectors.azureKeyVault.validation.secretKey'))
+            then: Yup.string().trim().required(getString('common.validation.keyIsRequired'))
           }),
           vaultName: Yup.string().required(getString('connectors.azureKeyVault.validation.vaultName'))
         })}

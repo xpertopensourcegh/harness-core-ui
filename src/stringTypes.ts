@@ -306,9 +306,11 @@ export interface StringsMap {
   'common.validation.formatMustBeAlphanumeric': string
   'common.validation.groupAttributeIsRequired': string
   'common.validation.identifierIsRequired': string
+  'common.validation.keyIsRequired': string
   'common.validation.nameIsRequired': string
   'common.validation.namePatternIsNotValid': string
   'common.validation.repositoryName': string
+  'common.validation.typeIsRequired': string
   'common.validation.urlIsRequired': string
   'common.validation.valueIsRequired': string
   'common.validation.valueMustBeANumber': string
@@ -675,7 +677,6 @@ export interface StringsMap {
   'connectors.azureKeyVault.labels.tenantId': string
   'connectors.azureKeyVault.labels.vaultName': string
   'connectors.azureKeyVault.validation.clientId': string
-  'connectors.azureKeyVault.validation.secretKey': string
   'connectors.azureKeyVault.validation.subscription': string
   'connectors.azureKeyVault.validation.tenantId': string
   'connectors.azureKeyVault.validation.vaultName': string

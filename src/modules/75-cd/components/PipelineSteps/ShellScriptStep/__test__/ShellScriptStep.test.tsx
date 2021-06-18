@@ -241,21 +241,21 @@ describe('Test Shell Script Step', () => {
       })
 
       await fireEvent.click(getByText('common.optionalConfig'))
-
-      fireEvent.change(queryByNameAttribute('spec.environmentVariables[0].name')!, { target: { value: 'testInput1' } })
-
       await fireEvent.click(getByText('addInputVar'))
 
-      fireEvent.change(queryByNameAttribute('spec.environmentVariables[1].name')!, { target: { value: 'testInput2' } })
-      fireEvent.change(queryByNameAttribute('spec.environmentVariables[1].type')!, { target: { value: 'String' } })
+      fireEvent.change(queryByNameAttribute('spec.environmentVariables[0].name')!, { target: { value: 'testInput1' } })
+      fireEvent.change(queryByNameAttribute('spec.environmentVariables[0].value')!, {
+        target: { value: 'testInputValue' }
+      })
+      fireEvent.change(queryByNameAttribute('spec.environmentVariables[0].type')!, { target: { value: 'String' } })
 
+      await fireEvent.click(getByText('addOutputVar'))
       fireEvent.change(queryByNameAttribute('spec.outputVariables[0].name')!, { target: { value: 'testOutput1' } })
       fireEvent.change(queryByNameAttribute('spec.outputVariables[0].value')!, {
         target: { value: 'response.message' }
       })
 
       await fireEvent.click(getByText('addOutputVar'))
-
       fireEvent.change(queryByNameAttribute('spec.outputVariables[1].name')!, { target: { value: 'testOutput2' } })
       fireEvent.change(queryByNameAttribute('spec.outputVariables[1].value')!, {
         target: { value: 'response.message' }
@@ -280,7 +280,13 @@ describe('Test Shell Script Step', () => {
         executionTarget: {
           connectorRef: undefined
         },
-        environmentVariables: [],
+        environmentVariables: [
+          {
+            name: 'testInput1',
+            type: 'String',
+            value: 'testInputValue'
+          }
+        ],
         outputVariables: [
           {
             name: 'testOutput1',
@@ -322,27 +328,13 @@ describe('Test Shell Script Step', () => {
       })
 
       await fireEvent.click(getByText('common.optionalConfig'))
-
-      fireEvent.change(queryByNameAttribute('spec.environmentVariables[0].name')!, { target: { value: 'testInput1' } })
-
       await fireEvent.click(getByText('addInputVar'))
 
-      fireEvent.change(queryByNameAttribute('spec.environmentVariables[1].name')!, { target: { value: 'testInput2' } })
-      fireEvent.change(queryByNameAttribute('spec.environmentVariables[1].type')!, { target: { value: 'String' } })
+      fireEvent.change(queryByNameAttribute('spec.environmentVariables[0].name')!, { target: { value: 'testInput1' } })
+      fireEvent.change(queryByNameAttribute('spec.environmentVariables[0].value')!, { target: { value: 'testInput2' } })
+      fireEvent.change(queryByNameAttribute('spec.environmentVariables[0].type')!, { target: { value: 'String' } })
 
-      // const executeScript = getByText('executeScript')
-      // expect(executeScript).toBeDefined()
-
-      const radioButtons = container.querySelectorAll('input[type="radio"]')
-
-      await fireEvent.click(radioButtons[0])
-
-      const connectorRef = getByText('sshConnector')
-      expect(connectorRef).toBeDefined()
-
-      fireEvent.change(queryByNameAttribute('spec.executionTarget.host')!, { target: { value: 'targethost' } })
-      fireEvent.change(queryByNameAttribute('spec.executionTarget.workingDirectory')!, { target: { value: './temp' } })
-
+      await fireEvent.click(getByText('addOutputVar'))
       fireEvent.change(queryByNameAttribute('spec.outputVariables[0].name')!, { target: { value: 'testOutput1' } })
       fireEvent.change(queryByNameAttribute('spec.outputVariables[0].value')!, {
         target: { value: 'response.message' }
@@ -354,6 +346,16 @@ describe('Test Shell Script Step', () => {
       fireEvent.change(queryByNameAttribute('spec.outputVariables[1].value')!, {
         target: { value: 'response.message' }
       })
+
+      const radioButtons = container.querySelectorAll('input[type="radio"]')
+
+      await fireEvent.click(radioButtons[0])
+
+      const connectorRef = getByText('sshConnector')
+      expect(connectorRef).toBeDefined()
+
+      fireEvent.change(queryByNameAttribute('spec.executionTarget.host')!, { target: { value: 'targethost' } })
+      fireEvent.change(queryByNameAttribute('spec.executionTarget.workingDirectory')!, { target: { value: './temp' } })
 
       await ref.current?.submitForm()
     })
@@ -376,7 +378,13 @@ describe('Test Shell Script Step', () => {
           connectorRef: undefined,
           workingDirectory: './temp'
         },
-        environmentVariables: [],
+        environmentVariables: [
+          {
+            name: 'testInput1',
+            type: 'String',
+            value: 'testInput2'
+          }
+        ],
         outputVariables: [
           {
             name: 'testOutput1',

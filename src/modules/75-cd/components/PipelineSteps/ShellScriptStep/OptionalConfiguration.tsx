@@ -13,8 +13,10 @@ import {
 } from '@wings-software/uicore'
 import { v4 as uuid } from 'uuid'
 import cx from 'classnames'
-import type { IOptionProps } from '@blueprintjs/core'
+import { FormGroup, Intent, IOptionProps } from '@blueprintjs/core'
+import { get } from 'lodash-es'
 
+import { errorCheck } from '@common/utils/formikHelpers'
 import { useStrings } from 'framework/strings'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
@@ -48,10 +50,8 @@ export default function OptionalConfiguration(props: {
   formik: FormikProps<ShellScriptFormData>
   readonly?: boolean
 }): React.ReactElement {
-  const {
-    formik: { values: formValues, setFieldValue },
-    readonly
-  } = props
+  const { formik, readonly } = props
+  const { values: formValues, setFieldValue } = formik
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const updateInputFieldValue = (value: string | number, index: number, path: string): void => {
@@ -84,38 +84,53 @@ export default function OptionalConfiguration(props: {
                     <span className={css.label}>Type</span>
                     <span className={css.label}>Value</span>
                   </div>
-                  {formValues.spec.environmentVariables?.map(({ id }: ShellScriptStepVariable, i: number) => (
-                    <div className={css.environmentVarHeader} key={id}>
-                      <FormInput.Text name={`spec.environmentVariables[${i}].name`} disabled={readonly} />
-                      <FormInput.Select
-                        items={scriptInputType}
-                        name={`spec.environmentVariables[${i}].type`}
-                        placeholder={getString('typeLabel')}
-                        disabled={readonly}
-                      />
-                      <MultiTextInput
-                        name={`spec.environmentVariables[${i}].value`}
-                        expressions={expressions}
-                        textProps={{
-                          type: formValues.spec.environmentVariables?.[i].type === 'Number' ? 'number' : 'text',
-                          name: `spec.environmentVariables[${i}].value`
-                        }}
-                        allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
-                        value={formValues.spec.environmentVariables?.[i].value as string}
-                        onChange={value =>
-                          updateInputFieldValue(value as string | number, i, `spec.environmentVariables[${i}].value`)
-                        }
-                        disabled={readonly}
-                      />
-                      <Button
-                        minimal
-                        icon="cross"
-                        data-testid={`remove-environmentVar-${i}`}
-                        onClick={() => remove(i)}
-                        disabled={readonly}
-                      />
-                    </div>
-                  ))}
+                  {formValues.spec.environmentVariables?.map(({ id }: ShellScriptStepVariable, i: number) => {
+                    const valueFieldName = `spec.environmentVariables[${i}].value`
+                    const valueHasError = errorCheck(valueFieldName, formik)
+
+                    return (
+                      <div className={css.environmentVarHeader} key={id}>
+                        <FormInput.Text name={`spec.environmentVariables[${i}].name`} disabled={readonly} />
+                        <FormInput.Select
+                          items={scriptInputType}
+                          name={`spec.environmentVariables[${i}].type`}
+                          placeholder={getString('typeLabel')}
+                          disabled={readonly}
+                        />
+                        <FormGroup
+                          intent={valueHasError ? Intent.DANGER : Intent.NONE}
+                          helperText={valueHasError ? get(formik?.errors, valueFieldName) : null}
+                        >
+                          <MultiTextInput
+                            name={valueFieldName}
+                            expressions={expressions}
+                            textProps={{
+                              type: formValues.spec.environmentVariables?.[i].type === 'Number' ? 'number' : 'text',
+                              name: valueFieldName
+                            }}
+                            allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
+                            value={formValues.spec.environmentVariables?.[i].value as string}
+                            intent={valueHasError ? Intent.DANGER : Intent.NONE}
+                            onChange={value =>
+                              updateInputFieldValue(
+                                value as string | number,
+                                i,
+                                `spec.environmentVariables[${i}].value`
+                              )
+                            }
+                            disabled={readonly}
+                          />
+                        </FormGroup>
+                        <Button
+                          minimal
+                          icon="cross"
+                          data-testid={`remove-environmentVar-${i}`}
+                          onClick={() => remove(i)}
+                          disabled={readonly}
+                        />
+                      </div>
+                    )
+                  })}
                   <Button
                     icon="plus"
                     minimal

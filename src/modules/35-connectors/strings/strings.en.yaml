@@ -316,7 +316,6 @@ azureKeyVault:
     clientId: Client ID is required
     tenantId: Tenant ID is required
     subscription: Subscription is required
-    secretKey: Key is required
     vaultName: Vault Name is required
 ceAws:
   steps:

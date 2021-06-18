@@ -43,7 +43,21 @@ export function ShellScriptWidget(
         spec: Yup.object().shape({
           script: Yup.string().trim().required(getString('cd.scriptRequired'))
         })
-      })
+      }),
+      environmentVariables: Yup.array().of(
+        Yup.object({
+          name: Yup.string().required(getString('common.validation.nameIsRequired')),
+          value: Yup.string().required(getString('common.validation.valueIsRequired')),
+          type: Yup.string().trim().required(getString('common.validation.typeIsRequired'))
+        })
+      ),
+      outputVariables: Yup.array().of(
+        Yup.object({
+          name: Yup.string().required(getString('common.validation.nameIsRequired')),
+          value: Yup.string().required(getString('common.validation.valueIsRequired')),
+          type: Yup.string().trim().required(getString('common.validation.typeIsRequired'))
+        })
+      )
     }),
     identifier: IdentifierSchema()
   })

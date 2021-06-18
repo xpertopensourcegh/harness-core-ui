@@ -247,14 +247,14 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
               ...variable,
               id: uuid()
             }))
-          : [{ name: '', type: 'String', value: '', id: uuid() }],
+          : [],
 
         outputVariables: Array.isArray(initialValues.spec?.outputVariables)
           ? initialValues.spec?.outputVariables.map(variable => ({
               ...variable,
               id: uuid()
             }))
-          : [{ name: '', type: 'String', value: '', id: uuid() }]
+          : []
       }
     }
   }

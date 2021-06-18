@@ -60,14 +60,14 @@ export function HttpStepWidget(
           method: Yup.mixed().required(getString('pipelineSteps.methodIsRequired')),
           headers: Yup.array().of(
             Yup.object().shape({
-              key: Yup.string().required(getString('validation.keyRequired')),
-              value: Yup.string().required(getString('validation.valueRequired'))
+              key: Yup.string().required(getString('common.validation.keyIsRequired')),
+              value: Yup.string().required(getString('common.validation.valueIsRequired'))
             })
           ),
           outputVariables: Yup.array().of(
             Yup.object().shape({
-              name: Yup.string().required(getString('validation.nameRequired')),
-              value: Yup.string().required(getString('validation.valueRequired'))
+              name: Yup.string().required(getString('common.validation.nameIsRequired')),
+              value: Yup.string().required(getString('common.validation.valueIsRequired'))
             })
           )
         }),
