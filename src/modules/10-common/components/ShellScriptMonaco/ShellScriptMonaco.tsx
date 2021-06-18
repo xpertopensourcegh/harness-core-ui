@@ -19,6 +19,7 @@ const langMap: Record<ScriptType, string> = {
 }
 
 export interface ShellScriptMonacoProps {
+  title?: string
   scriptType: ScriptType
   name: string
   disabled?: boolean
@@ -32,7 +33,7 @@ export interface ConnectedShellScriptMonacoProps extends ShellScriptMonacoProps 
 const VAR_REGEX = /.*<\+.*?/
 
 export function ShellScriptMonaco(props: ConnectedShellScriptMonacoProps): React.ReactElement {
-  const { scriptType, formik, name, disabled, expressions } = props
+  const { scriptType, formik, name, disabled, expressions, title } = props
   const [isFullScreen, setFullScreen] = React.useState(false)
   const { getString } = useStrings()
   const value = get(formik.values, name) || ''
@@ -118,7 +119,7 @@ export function ShellScriptMonaco(props: ConnectedShellScriptMonacoProps): React
         isCloseButtonShown
         canOutsideClickClose={false}
         onClose={() => setFullScreen(false)}
-        title={`${getString('script')} (${scriptType})`}
+        title={title ? title : `${getString('script')} (${scriptType})`}
         className={css.monacoDialog}
       >
         <div className={Classes.DIALOG_BODY}>{editor}</div>

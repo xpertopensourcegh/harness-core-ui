@@ -169,6 +169,7 @@ export const RunStepBase = (
                   expressionRender={() => {
                     return (
                       <ShellScriptMonacoField
+                        title={getString('commandLabel')}
                         name="spec.command"
                         scriptType="Bash"
                         expressions={expressions}
@@ -180,6 +181,7 @@ export const RunStepBase = (
                   disableTypeSelection={readonly}
                 >
                   <ShellScriptMonacoField
+                    title={getString('commandLabel')}
                     name="spec.command"
                     scriptType="Bash"
                     disabled={readonly}
