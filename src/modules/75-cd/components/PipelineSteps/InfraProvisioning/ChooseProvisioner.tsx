@@ -16,17 +16,17 @@ const provisionerTypes: { name: string; icon: IconName; enabled: boolean }[] = [
   },
   {
     name: ProvisionerTypes.CloudFormation,
-    icon: 'dot',
+    icon: 'cloudformation',
     enabled: false
   },
   {
     name: ProvisionerTypes.ARM,
-    icon: 'dot',
+    icon: 'arm',
     enabled: false
   },
   {
     name: ProvisionerTypes.Script,
-    icon: 'dot',
+    icon: 'command-shell-script',
     enabled: false
   }
 ]
