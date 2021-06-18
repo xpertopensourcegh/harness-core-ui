@@ -214,7 +214,7 @@ describe('Test TerraformApply', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('rendering more than one varfile', () => {
+  test('rendering more than one varfile', async () => {
     const { container, getByText } = render(
       <TestStepWidget
         initialValues={{
@@ -258,6 +258,7 @@ describe('Test TerraformApply', () => {
       />
     )
     expect(container).toMatchSnapshot()
+    fireEvent.click(getByText('common.optionalConfig'))
 
     fireEvent.click(getByText('pipelineSteps.addTerraformVarFile'))
     const trashIcon = container.querySelector('[data-testid="remove-tfvar-file-0"]')
@@ -299,6 +300,7 @@ describe('Test TerraformApply', () => {
         stepViewType={StepViewType.Edit}
       />
     )
+    fireEvent.click(getByText('common.optionalConfig'))
     fireEvent.click(getByText('cd.backEndConfig'))
     expect(container).toMatchSnapshot()
   })

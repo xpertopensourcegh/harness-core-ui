@@ -386,12 +386,12 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
           </div>
           <div
             class="bp3-collapse Accordion--collapse"
-            style="height: auto; overflow-y: visible; transition: none;"
+            style="height: 0px;"
           >
             <div
               aria-hidden="false"
               class="bp3-collapse-body"
-              style="transform: translateY(0); transition: none;"
+              style="transform: translateY(0);"
             >
               <div
                 class="Accordion--details"
@@ -1447,12 +1447,12 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
           </div>
           <div
             class="bp3-collapse Accordion--collapse"
-            style="height: auto; overflow-y: visible; transition: none;"
+            style="height: 0px;"
           >
             <div
               aria-hidden="false"
               class="bp3-collapse-body"
-              style="transform: translateY(0); transition: none;"
+              style="transform: translateY(0);"
             >
               <div
                 class="Accordion--details"

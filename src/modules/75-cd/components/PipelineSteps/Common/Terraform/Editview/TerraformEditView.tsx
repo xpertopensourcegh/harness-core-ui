@@ -205,7 +205,7 @@ export default function TerraformEditView(
                   </Layout.Vertical>
                   <div className={cx(css.fieldBorder, css.addMarginBottom)} />
                   <div className={css.addMarginTop}>
-                    <Accordion activeId="step-1" className={stepCss.accordion}>
+                    <Accordion className={stepCss.accordion}>
                       <Accordion.Panel
                         id="step-1"
                         summary={getString('common.optionalConfig')}

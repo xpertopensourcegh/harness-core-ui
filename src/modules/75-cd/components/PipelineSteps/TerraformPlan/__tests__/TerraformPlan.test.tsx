@@ -476,6 +476,7 @@ describe('Test TerraformPlan', () => {
         stepViewType={StepViewType.Edit}
       />
     )
+    fireEvent.click(getByText('common.optionalConfig'))
     fireEvent.click(getByText('cd.terraformVarFiles'))
 
     expect(container).toMatchSnapshot()
@@ -517,6 +518,7 @@ describe('Test TerraformPlan', () => {
         stepViewType={StepViewType.Edit}
       />
     )
+    fireEvent.click(getByText('common.optionalConfig'))
     fireEvent.click(getByText('cd.terraformVarFiles'))
     fireEvent.click(getByText('pipelineSteps.addTerraformVarFile'))
     expect(container).toMatchSnapshot()
