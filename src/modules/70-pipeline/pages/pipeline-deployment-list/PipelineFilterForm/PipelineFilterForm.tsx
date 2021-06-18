@@ -51,13 +51,13 @@ export default function PipelineFilterForm<
               name={'sourceBranch'}
               label={getString('pipeline.triggers.conditionsPanel.sourceBranch')}
               key={'sourceBranch'}
-              placeholder={getString('enterNamePlaceholder')}
+              placeholder={getString('pipeline.triggers.conditionsPanel.sourceBranchPlaceholder')}
             />
             <FormInput.Text
               name={'targetBranch'}
               label={getString('pipeline.triggers.conditionsPanel.targetBranch')}
               key={'targetBranch'}
-              placeholder={getString('enterNamePlaceholder')}
+              placeholder={getString('pipeline.triggers.conditionsPanel.targetBranchPlaceholder')}
             />
           </div>
         )
@@ -69,7 +69,7 @@ export default function PipelineFilterForm<
               name={'branch'}
               label={getString('pipelineSteps.deploy.inputSet.branch')}
               key={'branch'}
-              placeholder={getString('enterNamePlaceholder')}
+              placeholder={getString('pipeline.manifestType.branchPlaceholder')}
             />
           </div>
         )
@@ -100,7 +100,7 @@ export default function PipelineFilterForm<
               name={'repositoryName'}
               label={getString('pipelineSteps.build.create.repositoryNameLabel')}
               key={'repositoryName'}
-              placeholder={getString('enterNamePlaceholder')}
+              placeholder={getString('pipeline.manifestType.repoNamePlaceholder')}
             />
           ) : null}
           <FormInput.Select
@@ -110,6 +110,7 @@ export default function PipelineFilterForm<
             items={buildTypeOptions}
             name="buildType"
             label={getString('filters.executions.buildType')}
+            placeholder={getString('pipeline.filters.builtTypePlaceholder')}
             key="buildType"
             value={
               buildType ? buildTypeOptions.find((option: SelectOption) => option.value === buildType) : NO_SELECTION
@@ -135,6 +136,7 @@ export default function PipelineFilterForm<
           items={[deploymentTypeLabel] || []}
           name="deploymentType"
           label={getString('deploymentTypeText')}
+          placeholder={getString('pipeline.filters.deploymentTypePlaceholder')}
           key="deploymentType"
           multiSelectProps={{
             allowCreatingNewItems: false
@@ -156,6 +158,7 @@ export default function PipelineFilterForm<
           name="services"
           label={getString('services')}
           key="services"
+          placeholder={getString('pipeline.filters.servicePlaceholder')}
           multiSelectProps={{
             allowCreatingNewItems: false
           }}
@@ -164,6 +167,7 @@ export default function PipelineFilterForm<
           items={environments || []}
           name="environments"
           label={getString('environments')}
+          placeholder={getString('pipeline.filters.environmentPlaceholder')}
           key="environments"
           multiSelectProps={{
             allowCreatingNewItems: false
@@ -181,11 +185,16 @@ export default function PipelineFilterForm<
           name={isPipeSetupType ? 'name' : 'pipelineName'}
           label={isPipeSetupType ? getString('name') : getString('filters.executions.pipelineName')}
           key={isPipeSetupType ? 'name' : 'pipelineName'}
-          placeholder={getString('enterNamePlaceholder')}
+          placeholder={getString('pipeline.filters.pipelineNamePlaceholder')}
         />
         {isPipeSetupType ? (
           <>
-            <FormInput.Text name={'description'} label={getString('description')} key={'description'} />
+            <FormInput.Text
+              name={'description'}
+              label={getString('description')}
+              placeholder={getString('pipeline.enterDescription')}
+              key={'description'}
+            />
             <FormInput.KVTagInput name="pipelineTags" label={getString('tagsLabel')} key="pipelineTags" />
           </>
         ) : null}
@@ -194,6 +203,7 @@ export default function PipelineFilterForm<
             items={getOptionsForMultiSelect()}
             name="status"
             label={getString('status')}
+            placeholder={getString('pipeline.jiraUpdateStep.selectStatus')}
             key="status"
             multiSelectProps={{
               allowCreatingNewItems: false

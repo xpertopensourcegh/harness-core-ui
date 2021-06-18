@@ -38,6 +38,7 @@ export const ConditionRow = ({
         items={mockOperators}
         name={operatorKey}
         label={getString('pipeline.triggers.conditionsPanel.operator')}
+        placeholder={getString('pipeline.operatorPlaceholder')}
         onChange={() => {
           formikProps.setFieldTouched(valueKey, true)
         }}
@@ -135,6 +136,7 @@ const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = (
         style={{ width: '100%' }}
         name="jexlCondition"
         label={getString('pipeline.triggers.conditionsPanel.jexlCondition')}
+        placeholder={getString('pipeline.triggers.conditionsPanel.jexlConditionPlaceholder')}
       />
     </Layout.Vertical>
   )

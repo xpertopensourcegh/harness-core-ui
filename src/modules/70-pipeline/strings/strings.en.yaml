@@ -22,7 +22,14 @@ noDeploymentText: There are no deployments in your project
 noBuildsText: There are no builds in your project
 runAPipeline: Run a Pipeline
 regionPlaceholder: Select Region
+repositoryUrlPlaceholder: Enter Repository URL
 lastSevenDays: In Last 7 days
+filters:
+  pipelineNamePlaceholder: Enter Pipeline Name
+  deploymentTypePlaceholder: Search/Select Deployment Type
+  servicePlaceholder: Search/Select Service
+  environmentPlaceholder: Search/Select Environment
+  builtTypePlaceholder: Select Build Type
 barrierStep:
   barrierReference: Barrier Reference
   barrierReferenceRequired: Barrier Reference is required
@@ -376,8 +383,10 @@ triggers:
     autoAbortIssueComment: 'If a PR is updated with a new comment, Harness will automatically cancel active builds for the same PR.'
   conditionsPanel:
     subtitle: 'Specify the conditions for executing the pipeline - you can choose to trigger the pipeline only when your artifact build or tag or label matches a certain value or pattern.'
-    sourceBranch: 'Source Branch'
-    targetBranch: 'Target Branch'
+    sourceBranch: Source Branch
+    sourceBranchPlaceholder: Enter Source Branch
+    targetBranch: Target Branch
+    targetBranchPlaceholder: Enter Target Branch
     changedFiles: 'Changed Files'
     branchName: 'Branch Name'
     tagName: 'Tag Name'
@@ -387,6 +396,7 @@ triggers:
     operator: 'Operator'
     matchesValue: 'Matches Value'
     jexlCondition: 'JEXL Condition'
+    jexlConditionPlaceholder: Enter JEXL Condition
   pipelineInputPanel:
     noRuntimeInputs: 'No Runtime Inputs'
     automaticallyExtractedFromText: Automatically extracted from event payload

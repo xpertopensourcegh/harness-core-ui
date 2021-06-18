@@ -593,6 +593,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                   autocomplete="off"
                                   class="bp3-input"
                                   name="repoName"
+                                  placeholder="pipeline.manifestType.repoNamePlaceholder"
                                   type="text"
                                   value="reponame"
                                 />
@@ -1475,6 +1476,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                               <input
                                 class="bp3-input"
                                 disabled=""
+                                placeholder="pipeline.repositoryUrlPlaceholder"
                                 type="text"
                                 value="https://github.com/account"
                               />

@@ -502,7 +502,7 @@ export const RightBar = (): JSX.Element => {
                       width={460}
                       error={errors?.connectorRef}
                       label={getString('connector')}
-                      placeholder={loading ? getString('loading') : getString('select')}
+                      placeholder={loading ? getString('loading') : getString('connectors.selectConnector')}
                       disabled={loading}
                       accountIdentifier={accountId}
                       projectIdentifier={projectIdentifier}

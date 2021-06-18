@@ -33,7 +33,7 @@ exports[`<PipelineFilterForm /> test snapshot testing 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="pipelineName"
-                placeholder="enterNamePlaceholder"
+                placeholder="pipeline.filters.pipelineNamePlaceholder"
                 type="text"
                 value=""
               />
@@ -272,7 +272,7 @@ exports[`<PipelineFilterForm /> test snapshot testing 1`] = `
                     autocomplete="off"
                     class="bp3-input"
                     name="buildType"
-                    placeholder="Search..."
+                    placeholder="pipeline.filters.builtTypePlaceholder"
                     style="padding-right: 0px;"
                     type="text"
                     value=""

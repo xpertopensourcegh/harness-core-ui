@@ -512,7 +512,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                         <span
                           class="placeholder"
                         >
-                          select
+                          connectors.selectConnector
                         </span>
                       </span>
                       <span

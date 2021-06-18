@@ -67,6 +67,7 @@ export const ConnectorSection: React.FC<ConnectorSectionInterface> = ({ formikPr
           <TextInput
             style={{ marginBottom: 'var(--spacing-medium)', borderColor: 'var(--bp3-intent-color, #dddddd)' }}
             value={connectorUrl}
+            placeholder={getString('pipeline.repositoryUrlPlaceholder')}
             disabled
           />
         </>
@@ -77,6 +78,7 @@ export const ConnectorSection: React.FC<ConnectorSectionInterface> = ({ formikPr
           <FormInput.Text
             style={{ marginBottom: 'var(--spacing-xsmall)' }}
             label={getString('pipelineSteps.build.create.repositoryNameLabel')}
+            placeholder={getString('pipeline.manifestType.repoNamePlaceholder')}
             name="repoName"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLiveRepoName(e.target.value)}
           />
@@ -99,7 +101,7 @@ export const ConnectorSection: React.FC<ConnectorSectionInterface> = ({ formikPr
         type={Connectors[updatedSourceRepo?.toUpperCase()]}
         selected={formikProps.values.connectorRef}
         label={getString('connector')}
-        placeholder={getString('select')}
+        placeholder={getString('connectors.selectConnector')}
         accountIdentifier={accountId}
         projectIdentifier={projectIdentifier}
         orgIdentifier={orgIdentifier}

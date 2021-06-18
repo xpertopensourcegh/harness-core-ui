@@ -1309,6 +1309,11 @@ export interface StringsMap {
   'pipeline.failureStrategies.validation.retryIntervalMinimum': string
   'pipeline.failureStrategies.validation.retryIntervalRequired': string
   'pipeline.failureStrategies.validation.timeoutRequired': string
+  'pipeline.filters.builtTypePlaceholder': string
+  'pipeline.filters.deploymentTypePlaceholder': string
+  'pipeline.filters.environmentPlaceholder': string
+  'pipeline.filters.pipelineNamePlaceholder': string
+  'pipeline.filters.servicePlaceholder': string
   'pipeline.gitDetails': string
   'pipeline.gitExperience.skipNow': string
   'pipeline.imagePathLabel': string
@@ -1428,6 +1433,7 @@ export interface StringsMap {
   'pipeline.progressPercentage': string
   'pipeline.provisionerSteps': string
   'pipeline.regionPlaceholder': string
+  'pipeline.repositoryUrlPlaceholder': string
   'pipeline.resourceConstraints.currentlyExecuting': string
   'pipeline.resourceConstraints.infoText': string
   'pipeline.resourceConstraints.title': string
@@ -1510,13 +1516,16 @@ export interface StringsMap {
   'pipeline.triggers.conditionsPanel.changedFiles': string
   'pipeline.triggers.conditionsPanel.headerConditions': string
   'pipeline.triggers.conditionsPanel.jexlCondition': string
+  'pipeline.triggers.conditionsPanel.jexlConditionPlaceholder': string
   'pipeline.triggers.conditionsPanel.matchesValue': string
   'pipeline.triggers.conditionsPanel.operator': string
   'pipeline.triggers.conditionsPanel.payloadConditions': string
   'pipeline.triggers.conditionsPanel.sourceBranch': string
+  'pipeline.triggers.conditionsPanel.sourceBranchPlaceholder': string
   'pipeline.triggers.conditionsPanel.subtitle': string
   'pipeline.triggers.conditionsPanel.tagName': string
   'pipeline.triggers.conditionsPanel.targetBranch': string
+  'pipeline.triggers.conditionsPanel.targetBranchPlaceholder': string
   'pipeline.triggers.confirmDelete': string
   'pipeline.triggers.copyAsCurl': string
   'pipeline.triggers.copyAsUrl': string
@@ -4071,10 +4080,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   endedAt: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  enterNamePlaceholder: string
   /**
    * @deprecated migrate this string to module level file
    */

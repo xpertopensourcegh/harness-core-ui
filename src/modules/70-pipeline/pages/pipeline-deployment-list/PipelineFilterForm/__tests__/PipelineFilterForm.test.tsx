@@ -59,7 +59,7 @@ describe('<PipelineFilterForm /> test', () => {
     expect(tagInputValues).toHaveLength(3)
 
     // Filter Name
-    const nameInput = getByPlaceholderText(container, 'enterNamePlaceholder')
+    const nameInput = getByPlaceholderText(container, 'pipeline.filters.pipelineNamePlaceholder')
     await act(async () => {
       fireEvent.change(nameInput, { target: { value: 'test name' } })
     })
