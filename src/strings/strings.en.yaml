@@ -1101,7 +1101,7 @@ pipelineSteps:
       stageNameRegExpError: 'Stage Name can only contain alphanumerics, _ and $'
       stageDescriptionRegExpError: 'Stage Description can only contain alphanumerics, _ and $'
       configureCodebase: 'Configure Codebase'
-      configureCodebaseHelperText: 'Help text to tell the user this is only for the first time.'
+      configureCodebaseHelperText: 'Connect Harness with your code repo.'
       connectorRequiredError: 'Connector is required'
       repositoryNameLabel: 'Repository Name'
       repositoryUrlWrongUrlError: 'Please enter valid URL'
