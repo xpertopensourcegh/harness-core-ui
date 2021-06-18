@@ -4,7 +4,7 @@ import { useStrings } from 'framework/strings'
 import { ModeEntityNameMap } from './ConditionalExecutionPanelUtils'
 import type { Modes } from '../common'
 
-const DOCUMENT_URL = 'https://ngdocs.harness.io/'
+const DOCUMENT_URL = 'https://ngdocs.harness.io/article/i36ibenkq2-step-skip-condition-settings'
 
 export interface ConditionalExecutionStatusProps {
   mode: Modes
