@@ -187,100 +187,10 @@
   }
 }
 
-.stageSelection {
-  display: grid;
-  grid-template-columns: 450px 1fr;
-  margin-top: 20px;
-  padding: 0 var(--spacing-xxlarge) 0 var(--spacing-xxlarge);
-  padding-top: 0;
-  column-gap: var(--spacing-huge);
-  align-items: center;
-  .stage-selection-grid {
-    display: grid;
-    grid-template-columns: 150px 1fr;
-    align-items: start;
-    height: 42px;
-  }
-  .radio-column {
-    display: grid;
-    align-items: start;
-    grid-template-columns: 30px 1fr;
-    height: 42px;
-    label {
-      position: relative;
-      left: 35px;
-    }
-  }
-}
 .useoverrideCheckbox {
   padding: 0 var(--spacing-xxlarge) var(--spacing-large) var(--spacing-xxlarge);
   label {
     position: relative;
     left: 35px;
-  }
-}
-
-.propagateDropdown {
-  margin-top: var(--spacing-small);
-  bottom: 13px !important;
-}
-
-.stageSelectionGrid {
-  background: var(--white);
-  border: 1px solid #d9dae6;
-  box-shadow: 0px 0px 1px rgb(40 41 61 / 8%), 0px 0.5px 2px rgb(96 97 112 / 16%);
-  border-radius: 8px;
-  padding: var(--spacing-large);
-  flex-grow: 1;
-  min-height: 150px;
-  cursor: pointer;
-  margin-bottom: var(--spacing-medium);
-  &.selected {
-    background: #f1f9ff;
-    border: 1px solid #25a6f7;
-  }
-  &.sectionDiff {
-    width: 450px;
-  }
-}
-
-.cardTitle {
-  font-weight: 'semi-bold';
-
-  &:before {
-    // TODO: Replace color once it is available in UIKit
-    background-color: #0278d5;
-  }
-
-  &:after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    display: block;
-    width: 8px;
-    left: -27px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: var(--form-bg);
-    box-shadow: 0px 1px 2px rgba(40, 41, 61, 0.4), 0px 2px 4px rgba(96, 97, 112, 0.2);
-    transform: translateY(-50%);
-  }
-}
-.checkedSectionIcon {
-  position: relative;
-  display: inline-block;
-  left: 42%;
-  top: 0;
-  color: #0278d5 !important;
-}
-.cardTitleContainer {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  .cardTitleColumn {
-    display: grid;
-    &.checkIcon {
-      justify-content: end;
-      padding-right: var(--spacing-small);
-    }
   }
 }

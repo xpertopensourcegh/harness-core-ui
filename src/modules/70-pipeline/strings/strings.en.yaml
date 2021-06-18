@@ -30,6 +30,7 @@ filters:
   servicePlaceholder: Search/Select Service
   environmentPlaceholder: Search/Select Environment
   builtTypePlaceholder: Select Build Type
+selectStagePlaceholder: Search/Select Stage
 barrierStep:
   barrierReference: Barrier Reference
   barrierReferenceRequired: Barrier Reference is required

@@ -597,7 +597,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                 const shoudSwitchcMode = handleViewChange(nextMode)
                 shoudSwitchcMode && callback(nextMode)
               }}
-            ></VisualYamlToggle>
+            />
           </div>
           <div>
             <div className={css.savePublishContainer}>

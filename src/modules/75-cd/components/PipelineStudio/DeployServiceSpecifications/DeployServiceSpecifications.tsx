@@ -1,21 +1,10 @@
 import React from 'react'
-import {
-  Layout,
-  Card,
-  Icon,
-  Text,
-  SelectOption,
-  IconName,
-  Select,
-  Checkbox,
-  HarnessDocTooltip
-} from '@wings-software/uicore'
+import { Layout, Card, Icon, Text, SelectOption, IconName, Checkbox, HarnessDocTooltip } from '@wings-software/uicore'
 
 import isEmpty from 'lodash-es/isEmpty'
 import cx from 'classnames'
 import produce from 'immer'
 import { get, set, debounce } from 'lodash-es'
-import { FormGroup, Intent } from '@blueprintjs/core'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
 
@@ -30,12 +19,10 @@ import {
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import type { K8SDirectServiceStep } from '@cd/components/PipelineSteps/K8sServiceSpec/K8sServiceSpecInterface'
 import DeployServiceErrors from '@cd/components/PipelineStudio/DeployServiceSpecifications/DeployServiceErrors'
+import PropagateWidget, {
+  setupMode
+} from '@cd/components/PipelineStudio/DeployServiceSpecifications/PropagateWidget/PropagateWidget'
 import css from './DeployServiceSpecifications.module.scss'
-
-const setupMode = {
-  PROPAGATE: 'PROPAGATE',
-  DIFFERENT: 'DIFFERENT'
-}
 
 export default function DeployServiceSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
   const { getString } = useStrings()
@@ -335,15 +322,10 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     }
   }, [stage?.stage?.spec])
 
-  const selectPropagatedStep = (item: SelectOption): void => {
-    if (item && item.value) {
+  React.useEffect(() => {
+    if (selectedPropagatedState && selectedPropagatedState.value) {
       const stageData = produce(stage, draft => {
-        set(draft, 'stage.spec.serviceConfig.useFromStage', { stage: item.value })
-
-        setSelectedPropagatedState({
-          label: `Stage [${item.value as string}] - Service`,
-          value: item.value
-        })
+        set(draft, 'stage.spec.serviceConfig.useFromStage', { stage: selectedPropagatedState.value })
         if (draft?.stage?.spec?.serviceConfig?.serviceDefinition) {
           delete draft.stage.spec.serviceConfig.serviceDefinition
         }
@@ -351,10 +333,10 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
           delete draft.stage.spec.serviceConfig.serviceRef
         }
       })
-
       debounceUpdateStage(stageData.stage)
     }
-  }
+  }, [selectedPropagatedState])
+
   const initWithServiceDefinition = (): void => {
     setDefaultServiceSchema().then(() => {
       setSelectedPropagatedState({
@@ -369,87 +351,15 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     <>
       <DeployServiceErrors />
       {stageIndex > 0 && canPropagate && (
-        <div className={css.stageSelection}>
-          <section
-            onClick={() => setSetupMode(setupMode.PROPAGATE)}
-            className={cx(css.stageSelectionGrid, {
-              [css.selected]: setupModeType === setupMode.PROPAGATE
-            })}
-            data-test-id="propagateFromExistingStage"
-          >
-            <div className={css.cardTitleContainer}>
-              <div className={css.cardTitleColumn}>
-                <Text
-                  className={css.cardTitle}
-                  font="normal"
-                  color="black"
-                  margin={{
-                    bottom: 'large'
-                  }}
-                >
-                  {getString('pipelineSteps.build.infraSpecifications.propagate')}
-                </Text>
-              </div>
-              <div
-                className={cx(css.cardTitleColumn, {
-                  [css.checkIcon]: setupModeType === setupMode.PROPAGATE
-                })}
-              >
-                {setupModeType === setupMode.PROPAGATE && (
-                  <Icon className={css.checkedSectionIcon} name="tick-circle" />
-                )}
-              </div>
-            </div>
-            <FormGroup
-              intent={
-                setupModeType === setupMode.PROPAGATE && !selectedPropagatedState?.value ? Intent.DANGER : Intent.NONE
-              }
-              helperText={
-                setupModeType === setupMode.PROPAGATE && !selectedPropagatedState?.value ? 'Stage is required' : ''
-              }
-            >
-              <Select
-                disabled={setupModeType === setupMode.DIFFERENT || isReadonly}
-                items={previousStageList}
-                className={css.propagateDropdown}
-                value={selectedPropagatedState}
-                onChange={(item: SelectOption) => selectPropagatedStep(item)}
-              />
-            </FormGroup>
-          </section>
-
-          <section
-            onClick={() => initWithServiceDefinition()}
-            className={cx(css.stageSelectionGrid, css.sectionDiff, {
-              [css.selected]: setupModeType === setupMode.DIFFERENT
-            })}
-            data-test-id="newConfiguration"
-          >
-            <div className={css.cardTitleContainer}>
-              <div className={css.cardTitleColumn}>
-                <Text
-                  className={css.cardTitle}
-                  font="normal"
-                  color="black"
-                  margin={{
-                    bottom: 'large'
-                  }}
-                >
-                  {getString('pipelineSteps.build.infraSpecifications.newConfiguration')}
-                </Text>
-              </div>
-              <div
-                className={cx(css.cardTitleColumn, {
-                  [css.checkIcon]: setupModeType === setupMode.DIFFERENT
-                })}
-              >
-                {setupModeType === setupMode.DIFFERENT && (
-                  <Icon className={css.checkedSectionIcon} name="tick-circle" />
-                )}
-              </div>
-            </div>
-          </section>
-        </div>
+        <PropagateWidget
+          setupModeType={setupModeType}
+          selectedPropagatedState={selectedPropagatedState}
+          previousStageList={previousStageList}
+          isReadonly={isReadonly}
+          setSetupMode={setSetupMode}
+          setSelectedPropagatedState={setSelectedPropagatedState}
+          initWithServiceDefinition={initWithServiceDefinition}
+        />
       )}
       {setupModeType === setupMode.PROPAGATE && selectedPropagatedState?.value && (
         <div className={css.useoverrideCheckbox}>

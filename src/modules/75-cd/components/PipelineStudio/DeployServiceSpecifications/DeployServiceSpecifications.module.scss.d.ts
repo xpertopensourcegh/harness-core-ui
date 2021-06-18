@@ -29,17 +29,6 @@ declare const styles: {
   readonly stageOverridesTab: string
   readonly squareCardContainer: string
   readonly squareCard: string
-  readonly stageSelection: string
-  readonly stageSelectionGrid: string
-  readonly radioColumn: string
   readonly useoverrideCheckbox: string
-  readonly propagateDropdown: string
-  readonly stageSelectionGrid: string
-  readonly sectionDiff: string
-  readonly cardTitle: string
-  readonly checkedSectionIcon: string
-  readonly cardTitleContainer: string
-  readonly cardTitleColumn: string
-  readonly checkIcon: string
 }
 export default styles

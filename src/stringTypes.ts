@@ -1446,6 +1446,7 @@ export interface StringsMap {
   'pipeline.selectOrCreatePipeline.pipelineNameRequired': string
   'pipeline.selectOrCreatePipeline.selectAPipeline': string
   'pipeline.selectOrCreatePipeline.setupHeader': string
+  'pipeline.selectStagePlaceholder': string
   'pipeline.sslVerify': string
   'pipeline.startTime': string
   'pipeline.stepConfigHasChanges': string
@@ -1654,6 +1655,7 @@ export interface StringsMap {
   'cd.namespaceValidation': string
   'cd.pathCannotBeEmpty': string
   'cd.pipelineSteps.serviceTab.deploymentType': string
+  'cd.pipelineSteps.serviceTab.propateStage': string
   'cd.releaseNameValidation': string
   'cd.scriptRequired': string
   'cd.secretManagerRequired': string

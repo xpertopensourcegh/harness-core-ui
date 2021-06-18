@@ -51,3 +51,4 @@ secretManagerRequired: 'Secret Manager is required.'
 pipelineSteps:
   serviceTab:
     deploymentType: Deployment type is not selected
+    propateStage: Stage is required
