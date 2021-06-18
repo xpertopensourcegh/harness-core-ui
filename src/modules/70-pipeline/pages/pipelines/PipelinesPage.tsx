@@ -214,7 +214,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
         }
       } catch (e) {
         if (shouldShowError(e)) {
-          showError(e.data?.message || e.message)
+          showError(e.data?.message || e.message, undefined, 'pipeline.fetch.pipeline.error')
           setError(e)
         }
       }
@@ -246,7 +246,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
     queryParams: defaultQueryParamsForFilters
   })
   if (errorFetchingFilters && shouldShowError(errorFetchingFilters)) {
-    showError(errorFetchingFilters?.data || errorFetchingFilters?.message)
+    showError(errorFetchingFilters?.data || errorFetchingFilters?.message, undefined, 'pipeline.fetch.filter.error')
   }
 
   useEffect(() => {
@@ -339,7 +339,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
         setAppliedFilter({ ...unsavedFilter, filterProperties: filterFromFormData || {} })
         hideFilterDrawer()
       } else {
-        showError(getString('filters.invalidCriteria'))
+        showError(getString('filters.invalidCriteria'), undefined, 'pipeline.invalid.criteria.error')
       }
     }
 

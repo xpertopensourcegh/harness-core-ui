@@ -206,7 +206,7 @@ const RenderColumnMenu: Renderer<CellProps<InputSetLocal>> = ({ row, column }) =
           ;(column as any).refetchInputSet?.()
         } catch (err) {
           /* istanbul ignore next */
-          showError(err?.data?.message)
+          showError(err?.data?.message, undefined, 'pipeline.delete.inputset.error')
         }
       }
     }

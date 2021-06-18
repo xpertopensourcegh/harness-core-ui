@@ -245,7 +245,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
   )
 
   if (error) {
-    showError(error.message)
+    showError(error.message, undefined, 'pipeline.get.inputsetlist')
   }
 
   const inputSets = inputSetResponse?.data?.content

@@ -510,7 +510,7 @@ export const PreFlightCheckModal: React.FC<PreFlightCheckModalProps & GitQueryPa
   const { getString } = useStrings()
   const { isGitSyncEnabled } = useAppStore()
   const processResponseError = (error?: { message?: string }) => {
-    showError(error?.message ? error?.message : getString('somethingWentWrong'))
+    showError(error?.message ? error?.message : getString('somethingWentWrong'), undefined, 'pipeline.preflight.error')
     onCloseButtonClick()
   }
 

@@ -347,7 +347,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
       if (response) {
         if (response.data?.errorResponse) {
           clear()
-          showError(getString('inputSets.overlayInputSetSavedError'))
+          showError(getString('inputSets.overlayInputSetSavedError'), undefined, 'pipeline.overlayinputset.error')
         } else {
           clear()
           showSuccess(getString('inputSets.overlayInputSetSaved'))
@@ -357,7 +357,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
         closeForm()
       }
     } catch (e) {
-      showError(e?.data?.message || e?.message || getString('commonError'))
+      showError(e?.data?.message || e?.message || getString('commonError'), undefined, 'pipeline.common.error')
       throw e
     }
     return {
@@ -464,7 +464,9 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
         (updateOverlayInputSetError?.data as Failure)?.message ||
         (errorOverlayInputSet?.data as Failure)?.message ||
         (errorInputSetList?.data as Failure)?.message ||
-        getString('commonError')
+        getString('commonError'),
+      undefined,
+      'pipeline.common.error'
     )
   }
 

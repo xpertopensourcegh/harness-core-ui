@@ -210,7 +210,7 @@ export default function TriggersDetailPage(): JSX.Element {
                           getString
                         })
                         if (error) {
-                          showError(error)
+                          showError(error, undefined, 'pipeline.enable.status.error')
                           return
                         }
                         try {
@@ -227,7 +227,7 @@ export default function TriggersDetailPage(): JSX.Element {
                             refetchTrigger()
                           }
                         } catch (err) {
-                          showError(err?.data?.message)
+                          showError(err?.data?.message, undefined, 'pipeline.common.trigger.error')
                         }
                       }}
                     />

@@ -253,7 +253,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
           setMergeTemplate(response.data?.pipelineYaml)
         })
         .catch(e => {
-          showError(e?.data?.message || e?.message)
+          showError(e?.data?.message || e?.message, undefined, 'pipeline.get.template')
         })
     } else {
       refetchTemplate()
@@ -320,7 +320,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
           if (Object.keys(errors).length) {
             setFormErrors(errors)
           } else {
-            showError(getString('inputSets.inputSetSavedError'))
+            showError(getString('inputSets.inputSetSavedError'), undefined, 'pipeline.create.inputset')
           }
         } else {
           showSuccess(getString('inputSets.inputSetSaved'))
@@ -330,7 +330,11 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
         }
       }
     } catch (e) {
-      showError(e?.data?.message || e?.message || getString('commonError'))
+      showError(
+        e?.data?.message || e?.message || getString('commonError'),
+        undefined,
+        'pipeline.update.create.inputset'
+      )
       throw e
     }
     return {

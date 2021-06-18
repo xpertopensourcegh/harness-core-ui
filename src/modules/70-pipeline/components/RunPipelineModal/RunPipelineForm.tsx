@@ -156,7 +156,7 @@ const SaveAsInputSet = ({
       if (Object.keys(errors).length) {
         setFormErrors(errors)
       } else {
-        showError(getString('inputSets.inputSetSavedError'))
+        showError(getString('inputSets.inputSetSavedError'), undefined, 'pipeline.save.inputset.error')
       }
     } else {
       showSuccess(getString('inputSets.inputSetSaved'))
@@ -458,7 +458,7 @@ function RunPipelineFormBasic({
               setCurrentPipeline(toBeUpdated)
             }
           } catch (e) {
-            showError(e?.data?.message || e?.message)
+            showError(e?.data?.message || e?.message, undefined, 'pipeline.feth.inputSetTemplateYaml.error')
           }
         }
         fetchData()

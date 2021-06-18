@@ -184,7 +184,7 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
           updatePipeline(pipeline)
           showSuccess(getString('deleteStageSuccess'))
         } else {
-          showError(getString('deleteStageFailure'))
+          showError(getString('deleteStageFailure'), undefined, 'pipeline.delete.stage.error')
         }
       }
     }

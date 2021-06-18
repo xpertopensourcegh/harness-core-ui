@@ -298,7 +298,7 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
         // Check Drop Node and Current node should not be same
         if (event.node.identifier !== eventTemp.entity.getIdentifier() && dropNode) {
           if (dropNode?.stepGroup && eventTemp.entity.getParent() instanceof StepGroupNodeLayerModel) {
-            showError(getString('stepGroupInAnotherStepGroup'))
+            showError(getString('stepGroupInAnotherStepGroup'), undefined, 'pipeline.setgroup.error')
           } else {
             const isRemove = removeStepOrGroup(state, dropEntity, skipFlattenIfSameParallel)
             if (isRemove) {
@@ -468,7 +468,7 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
         if (dropEntity) {
           const dropNode = getStepFromNode(state.stepsData, dropEntity, true).node
           if (dropNode?.stepGroup && isLinkUnderStepGroup(eventTemp.entity)) {
-            showError(getString('stepGroupInAnotherStepGroup'))
+            showError(getString('stepGroupInAnotherStepGroup'), undefined, 'pipeline.setgroup.error')
           } else {
             const isRemove = removeStepOrGroup(state, dropEntity)
             if (isRemove && dropNode) {

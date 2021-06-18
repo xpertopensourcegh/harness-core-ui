@@ -75,7 +75,7 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
           refetchPipeline()
         } catch (err) {
           /* istanbul ignore next */
-          showError(err?.data?.message)
+          showError(err?.data?.message, undefined, 'pipeline.delete.title.error')
         }
       }
     }

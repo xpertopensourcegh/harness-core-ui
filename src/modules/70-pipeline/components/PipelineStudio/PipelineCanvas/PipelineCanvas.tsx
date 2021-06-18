@@ -206,7 +206,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     } else {
       clear()
       setSchemaErrorView(true)
-      showError(response?.message || getString('errorWhileSaving'))
+      showError(response?.message || getString('errorWhileSaving'), undefined, 'pipeline.save.pipeline.error')
       throw response
     }
     return { status: response?.status }
@@ -223,7 +223,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       try {
         latestPipeline = parse(yamlHandler.getLatestYaml()).pipeline as NgPipeline
       } /* istanbul ignore next */ catch (err) {
-        showError(err.message || err)
+        showError(err.message || err, undefined, 'pipeline.save.gitinfo.error')
       }
     }
 
@@ -259,7 +259,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       try {
         latestPipeline = parse(yamlHandler.getLatestYaml()).pipeline as NgPipeline
       } /* istanbul ignore next */ catch (err) {
-        showError(err.message || err)
+        showError(err.message || err, undefined, 'pipeline.save.pipeline.error')
       }
     }
 
@@ -420,20 +420,20 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         const parsedYaml = parse(yamlHandler.getLatestYaml())
         if (!parsedYaml) {
           clear()
-          showError(getString('invalidYamlText'))
+          showError(getString('invalidYamlText'), undefined, 'pipeline.parse.yaml.error')
           return false
         }
         if (yamlHandler.getYAMLValidationErrorMap()?.size > 0) {
           clear()
           setYamlError(true)
-          showError(getString('invalidYamlText'))
+          showError(getString('invalidYamlText'), undefined, 'pipeline.parse.yaml.error')
           return false
         }
         updatePipeline(parsedYaml.pipeline)
       } catch (e) {
         clear()
         setYamlError(true)
-        showError(e.message || getString('invalidYamlText'))
+        showError(e.message || getString('invalidYamlText'), undefined, 'pipeline.parse.yaml.error')
         return false
       }
     }
@@ -541,7 +541,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                 const parsedYaml = parse(yamlHandler.getLatestYaml())
                 if (!parsedYaml) {
                   clear()
-                  showError(getString('invalidYamlText'))
+                  showError(getString('invalidYamlText'), undefined, 'pipeline.parse.yaml.error')
                   return true
                 }
                 // TODO: only apply for CI as its schema is implemented

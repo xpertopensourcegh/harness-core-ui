@@ -50,7 +50,7 @@ export function ManualInterventionTab(props: ManualInterventionTabProps): React.
 
   React.useEffect(() => {
     if (error) {
-      showError((error as any).data?.message || error.message)
+      showError((error as any).data?.message || error.message, undefined, 'pipeline.error.intervention')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error])

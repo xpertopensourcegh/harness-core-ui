@@ -34,7 +34,9 @@ export const CommitsList: React.FC<CommitsListProps> = props => {
   const { showSuccess, showError } = useToaster()
 
   const copy2Clipboard = (text: string): void => {
-    copy(`${text}`) ? showSuccess(getString('clipboardCopySuccess')) : showError(getString('clipboardCopyFail'))
+    copy(`${text}`)
+      ? showSuccess(getString('clipboardCopySuccess'))
+      : showError(getString('clipboardCopyFail'), undefined, 'pipeline.copy.commit.error')
   }
 
   // NOTE: absolute positioning requires explicit height to be set on parent

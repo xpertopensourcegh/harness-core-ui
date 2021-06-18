@@ -73,7 +73,7 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
           ;(column as any).refetchPipeline()
         } catch (err) {
           /* istanbul ignore next */
-          showError(err?.data?.message)
+          showError(err?.data?.message, undefined, 'pipeline.delete.pipeline.error')
         }
       }
     }

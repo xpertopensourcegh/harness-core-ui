@@ -14,7 +14,9 @@ export const TestsCoverageItem: React.FC<TestsCoverageItemProps> = ({ data }) =>
   const { showSuccess, showError } = useToaster()
 
   const copy2Clipboard = (text: string): void => {
-    copy(`${text}`) ? showSuccess(getString('clipboardCopySuccess')) : showError(getString('clipboardCopyFail'))
+    copy(`${text}`)
+      ? showSuccess(getString('clipboardCopySuccess'))
+      : showError(getString('clipboardCopyFail'), undefined, 'pipeline.copy.test.error')
   }
 
   return (

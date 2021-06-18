@@ -31,7 +31,7 @@ export function PipelineSchemaContextProvider(props: React.PropsWithChildren<unk
     }
   })
   if (error?.message) {
-    showError(error?.message)
+    showError(error?.message, undefined, 'pipeline.get.yaml.error')
   }
   return <PipelineSchemaContext.Provider value={{ pipelineSchema }}>{props.children}</PipelineSchemaContext.Provider>
 }
