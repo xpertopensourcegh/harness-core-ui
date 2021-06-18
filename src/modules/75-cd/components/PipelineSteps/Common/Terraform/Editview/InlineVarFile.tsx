@@ -7,19 +7,16 @@ import {
   Formik,
   MultiTypeInputType,
   ExpressionInput,
-  getMultiTypeFromValue,
-  FormikForm
+  getMultiTypeFromValue
 } from '@wings-software/uicore'
 import cx from 'classnames'
 
 import { Classes, Dialog } from '@blueprintjs/core'
 
 import { useStrings } from 'framework/strings'
-import { IdentifierSchema } from '@common/utils/Validation'
 import { MultiTypeFieldSelector } from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
-import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { InlineVar } from '../TerraformInterfaces'
 import { TFMonaco } from './TFMonacoEditor'
 
@@ -38,7 +35,6 @@ interface InlineVarFileProps {
 
 const InlineVarFile = (props: InlineVarFileProps) => {
   const { arrayHelpers, isEditMode, selectedVarIndex, onSubmit, selectedVar, onClose, isReadonly = false } = props
-  const { expressions } = useVariablesExpression()
 
   const { getString } = useStrings()
 
@@ -54,16 +50,20 @@ const InlineVarFile = (props: InlineVarFileProps) => {
         <Formik<InlineVar>
           initialValues={selectedVar}
           onSubmit={(values: any) => {
+            /* istanbul ignore else */
             if (!isEditMode) {
+              /* istanbul ignore else */
               arrayHelpers && arrayHelpers.push(values)
             } else {
+              /* istanbul ignore else */
               arrayHelpers && arrayHelpers.replace(selectedVarIndex, values)
             }
+            /* istanbul ignore else */
             onSubmit()
           }}
           validationSchema={Yup.object().shape({
             varFile: Yup.object().shape({
-              identifier: IdentifierSchema(),
+              identifier: Yup.string().required(getString('common.validation.identifierIsRequired')),
               spec: Yup.object().shape({
                 content: Yup.string().required(getString('cd.contentRequired'))
               })
@@ -72,25 +72,9 @@ const InlineVarFile = (props: InlineVarFileProps) => {
         >
           {formikProps => {
             return (
-              <FormikForm>
+              <>
                 <div className={stepCss.formGroup}>
-                  <FormInput.MultiTextInput
-                    name="varFile.identifier"
-                    label={getString('identifier')}
-                    multiTextInputProps={{ expressions }}
-                  />
-                  {getMultiTypeFromValue(formikProps.values.varFile?.identifier) === MultiTypeInputType.RUNTIME && (
-                    <ConfigureOptions
-                      value={formikProps.values.varFile?.identifier as string}
-                      type="String"
-                      variableName="varFile.identifier"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value => formikProps.setFieldValue('varFile.identifier', value)}
-                      isReadonly={isReadonly}
-                    />
-                  )}
+                  <FormInput.Text name="varFile.identifier" label={getString('identifier')} />
                 </div>
                 <div className={cx(stepCss.formGroup)}>
                   <MultiTypeFieldSelector
@@ -135,7 +119,7 @@ const InlineVarFile = (props: InlineVarFileProps) => {
                     {getString('submit')}
                   </Button>
                 </Layout.Horizontal>
-              </FormikForm>
+              </>
             )
           }}
         </Formik>

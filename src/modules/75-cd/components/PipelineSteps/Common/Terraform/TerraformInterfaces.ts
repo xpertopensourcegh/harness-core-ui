@@ -417,6 +417,8 @@ export const onSubmitTFPlanData = (values: any): TFPlanFormData => {
 
   if (envMap.length) {
     configObject['environmentVariables'] = envMap
+  } else if (getMultiTypeFromValue(values?.spec?.configuration?.environmentVariables) === MultiTypeInputType.RUNTIME) {
+    configObject['environmentVariables'] = values?.spec?.configuration?.environmentVariables
   }
 
   if (targetMap.length) {

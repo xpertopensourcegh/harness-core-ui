@@ -261,7 +261,7 @@ function TerraformPlanWidget(
                               showAdvanced={true}
                               onChange={value => {
                                 /* istanbul ignore else */
-                                formik.setFieldValue('values.spec.configuration.workspace', value)
+                                formik.setFieldValue('spec.configuration.workspace', value)
                               }}
                               isReadonly={readonly}
                             />
@@ -452,6 +452,10 @@ export class TerraformPlan extends PipelineStep<TFPlanFormData> {
 
   private getInitialValues(data: TFPlanFormData): TerraformPlanData {
     const envVars = data.spec?.configuration?.environmentVariables as StringNGVariable[]
+    const isEnvRunTime =
+      getMultiTypeFromValue(data.spec?.configuration?.environmentVariables as any) === MultiTypeInputType.RUNTIME
+    const isTargetRunTime =
+      getMultiTypeFromValue(data.spec?.configuration?.targets as any) === MultiTypeInputType.RUNTIME
     return {
       ...data,
       spec: {
@@ -461,19 +465,23 @@ export class TerraformPlan extends PipelineStep<TFPlanFormData> {
 
           configFiles: data.spec?.configuration?.configFiles,
           command: data.spec?.configuration?.command,
-          targets: Array.isArray(data.spec?.configuration?.targets)
-            ? data.spec?.configuration?.targets.map(target => ({
-                value: target,
-                id: uuid()
-              }))
-            : [{ value: '', id: uuid() }],
-          environmentVariables: Array.isArray(envVars)
-            ? envVars.map(variable => ({
-                key: variable.name,
-                value: variable?.value,
-                id: uuid()
-              }))
-            : [{ key: '', value: '', id: uuid() }]
+          targets: !isTargetRunTime
+            ? Array.isArray(data.spec?.configuration?.targets)
+              ? data.spec?.configuration?.targets.map(target => ({
+                  value: target,
+                  id: uuid()
+                }))
+              : [{ value: '', id: uuid() }]
+            : data?.spec?.configuration?.targets,
+          environmentVariables: !isEnvRunTime
+            ? Array.isArray(envVars)
+              ? envVars.map(variable => ({
+                  key: variable.name,
+                  value: variable?.value,
+                  id: uuid()
+                }))
+              : [{ key: '', value: '', id: uuid() }]
+            : data?.spec?.configuration?.environmentVariables
         }
       }
     }
