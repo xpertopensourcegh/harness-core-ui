@@ -74,7 +74,7 @@ function K8CanaryDeployWidget(
             getString('validation.timeout10SecMinimum')
           ),
           spec: Yup.object().shape({
-            instanceSelection: getInstanceDropdownSchema()
+            instanceSelection: getInstanceDropdownSchema({ required: true })
           }),
           identifier: IdentifierSchema()
         })}

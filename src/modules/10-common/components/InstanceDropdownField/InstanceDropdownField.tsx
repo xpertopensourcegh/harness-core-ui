@@ -64,7 +64,7 @@ export function getInstanceDropdownSchema(props: GetDurationValidationSchemaProp
           }
           if (required && isNil(value)) {
             return this.createError({
-              message: requiredErrorMessage || `Instance is an required field"`
+              message: requiredErrorMessage || `Instance is an required field`
             })
           } else if (value < 1) {
             return this.createError({
@@ -79,7 +79,7 @@ export function getInstanceDropdownSchema(props: GetDurationValidationSchemaProp
           const value = this.parent?.spec?.percentage
           if (required && isNil(value)) {
             return this.createError({
-              message: requiredErrorMessage || `Instance is a required field"`
+              message: requiredErrorMessage || `Instance is a required field`
             })
           } else if (value < 1) {
             return this.createError({
@@ -145,18 +145,16 @@ export const InstanceDropdownField: React.FC<InstanceDropdownFieldProps> = ({
           min: 1
         }}
         onChange={(val, _valType, typeInput) => {
-          if (typeInput === MultiTypeInputType.FIXED && typeof val === 'string') {
-            if (isPercentageType && val) {
-              onChange?.({ ...value, spec: { percentage: parseFloat(val) } })
-            } else {
-              onChange?.({ ...value, spec: { count: parseFloat(val) } })
-            }
+          let finalValue: string | number | undefined
+          if (typeInput === MultiTypeInputType.FIXED) {
+            finalValue = val && typeof val === 'string' ? parseFloat(val) : undefined
+          } else if (val) {
+            finalValue = val as string
+          }
+          if (isPercentageType) {
+            onChange?.({ ...value, spec: { percentage: finalValue } })
           } else {
-            if (isPercentageType && val) {
-              onChange?.({ ...value, spec: { percentage: (val as unknown) as number } })
-            } else {
-              onChange?.({ ...value, spec: { count: (val as unknown) as number } })
-            }
+            onChange?.({ ...value, spec: { count: finalValue } })
           }
         }}
         expressions={expressions}
@@ -173,7 +171,7 @@ export const InstanceDropdownField: React.FC<InstanceDropdownFieldProps> = ({
             <MenuItem
               text={getString('instanceFieldOptions.percentageText')}
               onClick={() => {
-                onChange?.({ spec: { percentage: undefined }, type: InstanceTypes.Percentage })
+                onChange?.({ spec: { percentage: 100 }, type: InstanceTypes.Percentage })
               }}
               data-name="percentage"
               disabled={readonly}
@@ -181,7 +179,7 @@ export const InstanceDropdownField: React.FC<InstanceDropdownFieldProps> = ({
             <MenuItem
               text={getString('instanceFieldOptions.instanceText')}
               onClick={() => {
-                onChange?.({ spec: { count: undefined }, type: InstanceTypes.Instances })
+                onChange?.({ spec: { count: 1 }, type: InstanceTypes.Instances })
               }}
               data-name="instances"
               disabled={readonly}

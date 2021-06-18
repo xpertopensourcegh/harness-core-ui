@@ -277,7 +277,7 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                   />
                 )}
               </Layout.Horizontal>
-              <Layout.Horizontal className={(css.formRow, css.clusterInputWrapper)} spacing="medium">
+              <Layout.Horizontal className={css.formRow} spacing="medium">
                 <FormInput.MultiTypeInput
                   name="cluster"
                   tooltipProps={{

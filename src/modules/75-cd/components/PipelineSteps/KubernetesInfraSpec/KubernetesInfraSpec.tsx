@@ -130,7 +130,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
           formikRef.current = formik
           return (
             <FormikForm>
-              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+              <Layout.Horizontal spacing="medium" className={css.formRow}>
                 <FormMultiTypeConnectorField
                   name="connectorRef"
                   label={getString('connector')}
@@ -145,7 +145,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   orgIdentifier={orgIdentifier}
                   width={450}
                   enableConfigureOptions={false}
-                  style={{ marginBottom: 'var(--spacing-small)' }}
+                  style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-medium)' }}
                   gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
                 />
                 {getMultiTypeFromValue(formik.values.connectorRef) === MultiTypeInputType.RUNTIME && !readonly && (
@@ -168,7 +168,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   />
                 )}
               </Layout.Horizontal>
-              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+              <Layout.Horizontal spacing="medium" className={css.formRow}>
                 <FormInput.MultiTextInput
                   name="namespace"
                   tooltipProps={{
@@ -195,7 +195,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   />
                 )}
               </Layout.Horizontal>
-              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+              <Layout.Horizontal spacing="medium" className={css.formRow}>
                 <FormInput.MultiTextInput
                   name="releaseName"
                   tooltipProps={{
@@ -222,7 +222,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   />
                 )}
               </Layout.Horizontal>
-              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+              <Layout.Horizontal spacing="medium" className={css.formRow}>
                 <FormInput.MultiTextInput
                   name="infrastructureKey"
                   tooltipProps={{

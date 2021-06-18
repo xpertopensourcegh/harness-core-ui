@@ -83,7 +83,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
             getString('validation.timeout10SecMinimum')
           ),
           spec: Yup.object().shape({
-            instanceSelection: getInstanceDropdownSchema()
+            instanceSelection: getInstanceDropdownSchema({ required: true })
           }),
           identifier: IdentifierSchema()
         })}
@@ -402,7 +402,7 @@ export class K8sScaleStep extends PipelineStep<K8sScaleData> {
     spec: {
       workload: '',
       skipSteadyStateCheck: false,
-      instanceSelection: { type: InstanceTypes.Instances, spec: { count: 0 } as any }
+      instanceSelection: { type: InstanceTypes.Instances, spec: { count: 1 } as any }
     }
   }
 }

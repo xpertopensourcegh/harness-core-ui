@@ -343,7 +343,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 2`] = `
                   min="1"
                   placeholder="instanceFieldOptions.instanceHolder"
                   type="number"
-                  value="0"
+                  value="1"
                 />
               </div>
               <span
@@ -1203,7 +1203,7 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
                   min="1"
                   placeholder="instanceFieldOptions.instanceHolder"
                   type="number"
-                  value="0"
+                  value="1"
                 />
               </div>
               <span
@@ -2421,7 +2421,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
         class="formGroup md"
       >
         <div
-          class="bp3-form-group bp3-intent-danger formGroup"
+          class="bp3-form-group formGroup"
         >
           <label
             class="bp3-label"
@@ -2447,7 +2447,7 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
                   min="1"
                   placeholder="instanceFieldOptions.instanceHolder"
                   type="number"
-                  value="0"
+                  value="1"
                 />
               </div>
               <span
@@ -2515,11 +2515,6 @@ exports[`Test K8sBlueGreenDeployStep should throw validation error without insta
                 </button>
               </span>
             </span>
-            <div
-              class="bp3-form-helper-text"
-            >
-              Instances must be greater than or equal to 1
-            </div>
           </div>
         </div>
       </div>
