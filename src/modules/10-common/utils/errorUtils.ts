@@ -6,6 +6,7 @@ export function shouldShowError(e: any): boolean {
     e?.message === 'Failed to fetch: The user aborted a request.' ||
     e?.message === 'Failed to fetch: Failed to fetch' ||
     e?.message === 'Failed to fetch: 504 Gateway Timeout' ||
+    e?.message === "Failed to fetch: Failed to execute 'fetch' on 'Window': The user aborted a request." ||
     hideMessagesForStatusCodes.includes(e?.status)
   ) {
     return false

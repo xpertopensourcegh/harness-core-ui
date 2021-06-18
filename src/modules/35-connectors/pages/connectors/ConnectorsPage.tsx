@@ -72,7 +72,6 @@ import {
   ConnectorFormType,
   getValidFilterArguments,
   renderItemByType,
-  getAggregatedConnectorFilter,
   ConnectorStatCategories,
   getOptionsForMultiSelect,
   validateForm
@@ -111,6 +110,11 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     orgIdentifier,
     accountIdentifier: accountId,
     searchTerm: ''
+  }
+  const defaultQueryParamsForConnectorStats: GetConnectorListV2QueryParams = {
+    projectIdentifier,
+    orgIdentifier,
+    accountIdentifier: accountId
   }
   const history = useHistory()
   useDocumentTitle(getString('connectorsLabel'))
@@ -187,45 +191,77 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
 
   /* Different ways to trigger filter search */
 
-  /* Initial page load and through page browsing*/
+  /* Initial page load */
+  useEffect(() => {
+    refetchConnectorList({ ...defaultQueryParams, searchTerm, pageIndex: 0 })
+    setPage(0)
+  }, [projectIdentifier, orgIdentifier])
+
+  /* Through page browsing */
   useEffect(() => {
     const updatedQueryParams = {
       ...(shouldApplyGitFilters ? queryParamsWithGitContext : defaultQueryParams),
-      projectIdentifier,
-      orgIdentifier,
       searchTerm,
       pageIndex: page
     }
     refetchConnectorList(updatedQueryParams, appliedFilter?.filterProperties)
-  }, [page, projectIdentifier, orgIdentifier])
+  }, [page])
 
   /* Through git filter */
   useEffect(() => {
     const shouldApply = isGitSyncEnabled && !!gitFilter.repo && !!gitFilter.branch
     const updatedQueryParams = { ...defaultQueryParams, repoIdentifier: gitFilter.repo, branch: gitFilter.branch }
-    refetchConnectorList(shouldApply ? updatedQueryParams : defaultQueryParams, appliedFilter?.filterProperties)
+    /* Fetch all connectors and stats for filter panel per repo and branch */
+    Promise.all([
+      refetchConnectorList(
+        {
+          ...(shouldApply ? updatedQueryParams : defaultQueryParams),
+          searchTerm,
+          /* For every git-filter, always start from first page(index 0) */
+          pageIndex: 0
+        },
+        appliedFilter?.filterProperties
+      ),
+      fetchConnectorStats({
+        queryParams: shouldApply
+          ? {
+              ...defaultQueryParamsForConnectorStats,
+              repoIdentifier: gitFilter.repo,
+              branch: gitFilter.branch
+            }
+          : defaultQueryParamsForConnectorStats
+      })
+    ])
     setShouldApplyGitFilters(shouldApply)
     setQueryParamsWithGitContext(updatedQueryParams)
   }, [gitFilter])
 
+  /* Through expandable filter text search */
   const debouncedConnectorSearch = useCallback(
     debounce((query: string): void => {
+      /* For a non-empty query string, always start from first page(index 0) */
       const updatedQueryParams = {
         ...(shouldApplyGitFilters ? queryParamsWithGitContext : defaultQueryParams),
         searchTerm: query,
         pageIndex: 0
       }
-      refetchConnectorList(updatedQueryParams, appliedFilter?.filterProperties)
-      if (!query) {
-        setPage(0)
+      if (query) {
+        refetchConnectorList(updatedQueryParams, appliedFilter?.filterProperties)
+      } /* on clearing query */ else {
+        page === 0
+          ? /* fetch connectors for 1st page */ refetchConnectorList(
+              updatedQueryParams,
+              appliedFilter?.filterProperties
+            )
+          : /* or navigate to first page */ setPage(0)
       }
     }, 500),
-    [refetchConnectorList, appliedFilter?.filterProperties, shouldApplyGitFilters]
+    [refetchConnectorList, appliedFilter?.filterProperties, shouldApplyGitFilters, queryParamsWithGitContext]
   )
 
   /* Clearing filter from Connector Filter Panel */
   const reset = (): void => {
-    refetchConnectorList(shouldApplyGitFilters ? queryParamsWithGitContext : defaultQueryParams)
+    refetchConnectorList({ ...(shouldApplyGitFilters ? queryParamsWithGitContext : defaultQueryParams), searchTerm })
     setAppliedFilter(undefined)
     setConnectorFetchError(undefined)
   }
@@ -277,25 +313,40 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     mock: catalogueMockData
   })
 
-  const { loading: isFetchingConnectorStats, data: metaData, refetch: fetchConnectorStats } = useGetConnectorStatistics(
-    {
-      queryParams: shouldApplyGitFilters ? queryParamsWithGitContext : defaultQueryParams,
-      mock: statisticsMockData
-    }
-  )
+  const {
+    loading: isFetchingConnectorStats,
+    data: metaData,
+    refetch: fetchConnectorStats
+  } = useGetConnectorStatistics({ queryParams: defaultQueryParamsForConnectorStats, mock: statisticsMockData })
 
   useEffect(() => {
     setIsFetchingStats(isFetchingConnectorStats)
   }, [isFetchingConnectorStats])
 
+  const refetchAllConnectorsWithStats = async (): Promise<void> => {
+    const __params = shouldApplyGitFilters ? queryParamsWithGitContext : defaultQueryParams
+    Promise.all([
+      refetchConnectorList(
+        {
+          ...__params,
+          searchTerm
+        },
+        appliedFilter?.filterProperties
+      ),
+      fetchConnectorStats({
+        queryParams: shouldApplyGitFilters
+          ? {
+              ...defaultQueryParamsForConnectorStats,
+              repoIdentifier: queryParamsWithGitContext.repoIdentifier,
+              branch: queryParamsWithGitContext.branch
+            }
+          : defaultQueryParamsForConnectorStats
+      })
+    ])
+  }
+
   const { openConnectorModal } = useCreateConnectorModal({
-    onSuccess: async () => {
-      const _params = shouldApplyGitFilters ? queryParamsWithGitContext : defaultQueryParams
-      Promise.all([
-        refetchConnectorList(_params, appliedFilter?.filterProperties),
-        fetchConnectorStats({ queryParams: _params })
-      ])
-    },
+    onSuccess: refetchAllConnectorsWithStats,
     onClose: noop
   })
 
@@ -452,14 +503,13 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     const onFilterApply = (formData: Record<string, any>) => {
       if (!isObjectEmpty(formData)) {
         const filterFromFormData = getValidFilterArguments({ ...formData })
-        const aggregatedFilter = getAggregatedConnectorFilter(searchTerm, { ...filterFromFormData })
         const updatedQueryParams = {
           ...(shouldApplyGitFilters ? queryParamsWithGitContext : defaultQueryParams),
           searchTerm,
           pageIndex: 0
         }
-        refetchConnectorList(updatedQueryParams, aggregatedFilter, false)
-        setAppliedFilter({ ...unsavedFilter, filterProperties: aggregatedFilter || {} })
+        refetchConnectorList(updatedQueryParams, filterFromFormData, false)
+        setAppliedFilter({ ...unsavedFilter, filterProperties: filterFromFormData })
         setPage(0)
         hideFilterDrawer()
       } else {
@@ -530,7 +580,15 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
         onClear={reset}
       />
     )
-  }, [isRefreshingFilters, filters, appliedFilter, isFetchingStats, searchTerm])
+  }, [
+    isRefreshingFilters,
+    filters,
+    appliedFilter,
+    isFetchingStats,
+    searchTerm,
+    shouldApplyGitFilters,
+    queryParamsWithGitContext
+  ])
 
   const handleFilterSelection = (
     option: SelectOption,
@@ -541,14 +599,13 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     /* istanbul ignore else */
     if (option.value) {
       const selectedFilter = getFilterByIdentifier(option.value?.toString())
-      const aggregatedFilter = getAggregatedConnectorFilter(searchTerm, selectedFilter?.filterProperties || {})
-      const combinedFilter = Object.assign(selectedFilter, { filterProperties: aggregatedFilter })
-      setAppliedFilter(combinedFilter)
-      refetchConnectorList(
-        shouldApplyGitFilters ? queryParamsWithGitContext : defaultQueryParams,
-        aggregatedFilter,
-        false
-      )
+      setAppliedFilter(selectedFilter)
+      const updatedQueryParams = {
+        ...(shouldApplyGitFilters ? queryParamsWithGitContext : defaultQueryParams),
+        searchTerm,
+        pageIndex: 0
+      }
+      refetchConnectorList(updatedQueryParams, selectedFilter?.filterProperties, false)
     } else {
       reset()
     }
@@ -659,15 +716,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
           ) : connectors?.content?.length ? (
             <ConnectorsListView
               data={connectors}
-              reload={async () => {
-                const __params = shouldApplyGitFilters ? queryParamsWithGitContext : defaultQueryParams
-                Promise.all([
-                  refetchConnectorList(__params, appliedFilter?.filterProperties),
-                  fetchConnectorStats({
-                    queryParams: __params
-                  })
-                ])
-              }}
+              reload={refetchAllConnectorsWithStats}
               openConnectorModal={openConnectorModal}
               gotoPage={pageNumber => setPage(pageNumber)}
             />

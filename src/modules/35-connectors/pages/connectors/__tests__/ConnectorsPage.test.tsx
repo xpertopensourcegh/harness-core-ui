@@ -12,10 +12,10 @@ import { connectorsData, catalogueData, statisticsMockData, filters } from './mo
 
 const fetchConnectors = () => Promise.resolve(connectorsData)
 const fetchBranches = jest.fn(() => Promise.resolve([] as ResponseListString))
-
+const fetchConnectorStats = jest.fn()
 jest
   .spyOn(cdngServices, 'useGetConnectorStatistics')
-  .mockImplementation(() => ({ mutate: () => statisticsMockData } as any))
+  .mockImplementation(() => ({ refetch: fetchConnectorStats } as any))
 jest.spyOn(cdngServices, 'useGetConnectorCatalogue').mockImplementation(() => ({ mutate: () => catalogueData } as any))
 jest.spyOn(cdngServices, 'useGetConnectorListV2').mockImplementation(() => ({ mutate: fetchConnectors } as any))
 jest.spyOn(cdngServices, 'useGetFilterList').mockImplementation(() => ({ data: filters, loading: false } as any))
@@ -149,18 +149,6 @@ describe('Connectors Page Test', () => {
     })
   })
 
-  test('Filter connector by name', async () => {
-    const { container } = setup()
-    const input = container.querySelector('[class*="ExpandingSearchInput"]')
-    expect(input).toBeTruthy()
-    waitFor(() =>
-      fireEvent.change(input!, {
-        target: { value: 'SomeConnector' }
-      })
-    )
-    expect(container).toMatchSnapshot()
-  })
-
   //Disabling as this has been reported as flaky multiple times
   // eslint-disable-next-line jest/no-disabled-tests
   test.skip('should verify that new connector button and create via yaml button are not disabled if connector edit permission is provided', async () => {
@@ -221,6 +209,6 @@ describe('Connectors Page Test', () => {
       fireEvent.change(searchInput!, { target: { value: query } })
     })
     await waitFor(() => expect(searchInput?.value).toBe(query))
-    await waitFor(() => expect(getConnectorsListV2).toBeCalledTimes(2))
+    await waitFor(() => expect(getConnectorsListV2).toBeCalledTimes(4))
   })
 })
