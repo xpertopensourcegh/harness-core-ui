@@ -10,6 +10,8 @@ import { useStrings } from 'framework/strings'
 import List from '@common/components/List/List'
 
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import { useQueryParams } from '@common/hooks'
+import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
 
@@ -27,6 +29,7 @@ export default function TfPlanInputStep(props: TerraformPlanProps): React.ReactE
     orgIdentifier: string
     accountId: string
   }>()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   return (
     <FormikForm>
       {getMultiTypeFromValue(inputSetData?.template?.spec?.provisionerIdentifier) === MultiTypeInputType.RUNTIME && (
@@ -72,6 +75,7 @@ export default function TfPlanInputStep(props: TerraformPlanProps): React.ReactE
             name="spec.configuration.secretManagerRef"
             placeholder={getString('select')}
             disabled={readonly}
+            gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
           />
         </div>
       )}

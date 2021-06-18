@@ -4,6 +4,8 @@ import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { get } from 'lodash-es'
 import { getMultiTypeFromValue, MultiTypeInputType, FormInput } from '@wings-software/uicore'
+import { useQueryParams } from '@common/hooks'
+import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
 import { Connectors } from '@connectors/constants'
@@ -20,6 +22,7 @@ export default function ConfigSection(props: TerraformPlanProps): React.ReactEle
     orgIdentifier: string
     accountId: string
   }>()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const { expressions } = useVariablesExpression()
 
   return (
@@ -51,6 +54,7 @@ export default function ConfigSection(props: TerraformPlanProps): React.ReactEle
             label={getString('connector')}
             placeholder={getString('select')}
             disabled={readonly}
+            gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
           />
         </div>
       )}

@@ -158,6 +158,32 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     }
   })
 
+  const isValidYaml = function () {
+    if (yamlHandler) {
+      try {
+        const parsedYaml = parse(yamlHandler.getLatestYaml())
+        if (!parsedYaml) {
+          clear()
+          showError(getString('invalidYamlText'))
+          return false
+        }
+        if (yamlHandler.getYAMLValidationErrorMap()?.size > 0) {
+          clear()
+          setYamlError(true)
+          showError(getString('invalidYamlText'))
+          return false
+        }
+        updatePipeline(parsedYaml.pipeline)
+      } catch (e) {
+        clear()
+        setYamlError(true)
+        showError(e.message || getString('invalidYamlText'))
+        return false
+      }
+    }
+    return true
+  }
+
   const saveAndPublishPipeline = async (
     latestPipeline: NgPipeline,
     updatedGitDetails?: SaveToGitFormInterface,
@@ -251,12 +277,10 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     let latestPipeline: PipelineInfoConfig = pipeline
 
     if (isYaml && yamlHandler) {
-      if (!parse(yamlHandler.getLatestYaml())) {
-        clear()
-        showError(getString('invalidYamlText'))
-        return
-      }
       try {
+        if (!isValidYaml()) {
+          return
+        }
         latestPipeline = parse(yamlHandler.getLatestYaml()).pipeline as NgPipeline
       } /* istanbul ignore next */ catch (err) {
         showError(err.message || err, undefined, 'pipeline.save.pipeline.error')
@@ -310,7 +334,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
           className={'padded-dialog'}
           onClose={onCloseCreate}
           title={
-            pipeline.identifier === DefaultNewPipelineId
+            pipelineIdentifier === DefaultNewPipelineId
               ? getString('moduleRenderer.newPipeLine')
               : getString('editPipeline')
           }
@@ -416,26 +440,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   function handleViewChange(newView: SelectedView): boolean {
     if (newView === view) return false
     if (newView === SelectedView.VISUAL && yamlHandler) {
-      try {
-        const parsedYaml = parse(yamlHandler.getLatestYaml())
-        if (!parsedYaml) {
-          clear()
-          showError(getString('invalidYamlText'), undefined, 'pipeline.parse.yaml.error')
-          return false
-        }
-        if (yamlHandler.getYAMLValidationErrorMap()?.size > 0) {
-          clear()
-          setYamlError(true)
-          showError(getString('invalidYamlText'), undefined, 'pipeline.parse.yaml.error')
-          return false
-        }
-        updatePipeline(parsedYaml.pipeline)
-      } catch (e) {
-        clear()
-        setYamlError(true)
-        showError(e.message || getString('invalidYamlText'), undefined, 'pipeline.parse.yaml.error')
-        return false
-      }
+      if (!isValidYaml()) return false
     }
     setView(newView)
     updatePipelineView({
@@ -454,7 +459,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     branch
   })
 
-  const RenderGitDetails: React.FC = () => {
+  const RenderGitDetails: React.FC = React.useCallback(() => {
     if (gitDetails?.objectId || (pipelineIdentifier === DefaultNewPipelineId && gitDetails.repoIdentifier)) {
       return (
         <Layout.Horizontal border={{ left: true, color: Color.GREY_300 }} spacing="medium" className={css.gitDetails}>
@@ -509,7 +514,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     } else {
       return <></>
     }
-  }
+  }, [gitDetails, pipelineIdentifier, repoIdentifier, branch])
 
   if (isLoading) {
     return (
