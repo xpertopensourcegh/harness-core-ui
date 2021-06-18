@@ -1,4 +1,5 @@
 import React from 'react'
+import { Position } from '@blueprintjs/core'
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
 import { Icon, Text, Button } from '@wings-software/uicore'
 import cx from 'classnames'
@@ -146,10 +147,12 @@ export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
         </div>
         <Text
           font={{ size: 'normal', align: 'center' }}
-          style={{ cursor: 'pointer' }}
-          padding="small"
+          style={{ cursor: 'pointer', lineHeight: '1.6', overflowWrap: 'break-word' }}
+          margin={{ top: 'xsmall' }}
+          padding="xsmall"
           width={125}
           lineClamp={2}
+          tooltipProps={{ position: Position.RIGHT, portalClassName: cssDefault.hoverName }}
         >
           {options.name}
         </Text>
