@@ -11,12 +11,13 @@ import { delegateTypeToIcon } from '@common/utils/delegateUtils'
 import { useStrings } from 'framework/strings'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
 import type { DelegateGroupDetailsCustom } from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector'
+import { useTroubleshootModal } from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/TroubleshootModal'
 import { PageError } from '@common/components/Page/PageError'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import css from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector.module.scss'
 
 export interface DelegateSelectorTableProps {
-  data: DelegateGroupDetailsCustom[]
+  data: DelegateGroupDetailsCustom[] | null
   loading: boolean
   error: GetDataError<unknown> | null
   refetch: () => Promise<void>
@@ -61,14 +62,31 @@ const RenderDelegateName: Renderer<CellProps<DelegateGroupDetailsCustom>> = ({ r
   )
 }
 
-const RenderHeartbeat: Renderer<CellProps<DelegateGroupDetailsCustom>> = ({ row }) => {
+const RenderHeartbeat: Renderer<CellProps<DelegateGroupDetailsCustom>> = ({ row, column }) => {
   const { activelyConnected, lastHeartBeat } = row.original
   const { getString } = useStrings()
+  const { onClick } = (column as unknown) as { onClick: () => void }
+  if (!lastHeartBeat) {
+    return (
+      <Layout.Vertical>
+        <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }} margin={{ bottom: 'xsmall' }}>
+          <Icon name="spinner" size={10} margin={{ right: 'xsmall' }} />
+          <Text font={{ size: 'small', weight: 'bold' }}>{getString('connectors.delegate.waitingForConnection')}</Text>
+        </Layout.Horizontal>
+        <Text
+          font={{ size: 'xsmall', weight: 'semi-bold' }}
+          color={Color.PRIMARY_6}
+          className={css.troubleshoot}
+          onClick={() => onClick?.()}
+        >{`(${getString('delegate.delegateNotInstalled.tabs.commonProblems.troubleshoot')})`}</Text>
+      </Layout.Vertical>
+    )
+  }
   const color: Color = activelyConnected ? Color.GREEN_600 : Color.GREY_400
   return (
     <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
       <Icon name="full-circle" size={10} color={color} margin={{ right: 'small' }} />
-      {lastHeartBeat ? <ReactTimeago date={lastHeartBeat} live /> : <Text>{getString('delegate.notConnected')}</Text>}
+      <ReactTimeago date={lastHeartBeat} live />
     </Layout.Horizontal>
   )
 }
@@ -81,6 +99,7 @@ const RenderTags: Renderer<CellProps<DelegateGroupDetailsCustom>> = ({ row }) =>
 export const DelegateSelectorTable: React.FC<DelegateSelectorTableProps> = props => {
   const { data, error, loading, refetch, showMatchesSelectorColumn = true } = props
   const { getString } = useStrings()
+  const { showModal } = useTroubleshootModal()
   const columns: TableProps<DelegateGroupDetailsCustom>['columns'] = useMemo(
     () => {
       const cols = [
@@ -94,7 +113,8 @@ export const DelegateSelectorTable: React.FC<DelegateSelectorTableProps> = props
           Header: getString('connectors.delegate.hearbeat').toLocaleUpperCase(),
           id: 'connectivity',
           width: '20%',
-          Cell: RenderHeartbeat
+          Cell: RenderHeartbeat,
+          onClick: showModal
         },
         {
           Header: getString('tagsLabel').toLocaleUpperCase(),
@@ -117,11 +137,11 @@ export const DelegateSelectorTable: React.FC<DelegateSelectorTableProps> = props
     [data, showMatchesSelectorColumn]
   )
   const getContent = (): React.ReactElement => {
-    if (loading) {
-      return <ContainerSpinner data-name="delegateTableLoadingState" />
-    }
     if (data && data.length) {
       return <Table columns={columns} data={data} className={css.table} />
+    }
+    if (!data && loading) {
+      return <ContainerSpinner data-name="delegateTableLoadingState" />
     }
     if (error) {
       return <PageError message={error?.message} onClick={() => refetch()} data-name="delegateTableErrorState" />

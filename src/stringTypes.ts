@@ -270,6 +270,7 @@ export interface StringsMap {
   'common.role': string
   'common.saveAndClose': string
   'common.savedSuccessfully': string
+  'common.seconds': string
   'common.secretKey': string
   'common.secrets': string
   'common.seeDetails': string
@@ -767,6 +768,7 @@ export interface StringsMap {
   'connectors.datadog.urlValidation': string
   'connectors.datadogConnectorDetails': string
   'connectors.delegate.configure': string
+  'connectors.delegate.couldNotFetch': string
   'connectors.delegate.delegateSelectorAny': string
   'connectors.delegate.delegateSelectorSelective': string
   'connectors.delegate.delegateselectionPlaceholder': string
@@ -775,7 +777,9 @@ export interface StringsMap {
   'connectors.delegate.matchingDelegates': string
   'connectors.delegate.noDelegates': string
   'connectors.delegate.noMatchingDelegate': string
+  'connectors.delegate.noMatchingDelegatesActive': string
   'connectors.delegate.testDelegateConnectivity': string
+  'connectors.delegate.waitingForConnection': string
   'connectors.docker.dockerHub': string
   'connectors.docker.dockerProvideType': string
   'connectors.docker.dockerRegistryURL': string

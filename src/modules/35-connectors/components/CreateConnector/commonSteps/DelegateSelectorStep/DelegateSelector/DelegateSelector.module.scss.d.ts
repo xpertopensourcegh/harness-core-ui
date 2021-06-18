@@ -8,5 +8,6 @@ declare const styles: {
   readonly table: string
   readonly delegateNameContainer: string
   readonly delegateName: string
+  readonly troubleshoot: string
 }
 export default styles

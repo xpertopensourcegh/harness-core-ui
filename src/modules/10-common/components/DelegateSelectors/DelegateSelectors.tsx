@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { SimpleTagInput, Text, Icon, Color } from '@wings-software/uicore'
 import { useToaster } from '@common/exports'
@@ -19,25 +19,21 @@ const isValidExpression = (tag: string, showError: any, errorMsg: string) => {
   return validExpression
 }
 
-const formatSelectors = (data: any) => {
-  const selectors: Array<string> = data?.resource
-  return selectors
-}
-
 interface DelegateSelectorsProps {
   placeholder?: string
+  pollingInterval?: number
 }
 
 export const DelegateSelectors = (
   props: Partial<React.ComponentProps<typeof SimpleTagInput> & DelegateSelectorsProps & ProjectPathProps>
 ): JSX.Element => {
   const { accountId } = useParams<AccountPathProps>()
-  const { orgIdentifier, projectIdentifier } = props
+  const { orgIdentifier, projectIdentifier, pollingInterval = null } = props
 
   const { getString } = useStrings()
   const { showError } = useToaster()
 
-  const { data, loading } = useGetDelegateSelectorsUpTheHierarchy({
+  const { data: apiData, loading, refetch } = useGetDelegateSelectorsUpTheHierarchy({
     queryParams: {
       accountId,
       orgId: orgIdentifier,
@@ -45,11 +41,29 @@ export const DelegateSelectors = (
     }
   })
 
-  const selectors = formatSelectors(data)
+  const [data, setData] = useState(apiData)
+
+  useEffect(() => {
+    if (apiData) {
+      setData(apiData)
+    }
+  }, [apiData])
+
+  // polling logic
+  useEffect(() => {
+    if (pollingInterval === null) {
+      return
+    }
+    let id: NodeJS.Timeout
+    if (!loading) {
+      id = setTimeout(() => refetch(), pollingInterval)
+    }
+    return () => clearTimeout(id)
+  }, [data, loading, refetch, pollingInterval])
 
   return (
     <div data-name="DelegateSelectors">
-      {loading ? (
+      {loading && !data ? (
         <Icon margin="medium" name="spinner" size={15} color={Color.BLUE_500} />
       ) : (
         <SimpleTagInput
@@ -60,7 +74,7 @@ export const DelegateSelectors = (
             position: 'bottom-left',
             className: css.delegatePopover
           }}
-          items={selectors}
+          items={data?.resource || []}
           {...props}
           allowNewTag
           getTagProps={(value, _index, _selectedItems, createdItems, items) => {

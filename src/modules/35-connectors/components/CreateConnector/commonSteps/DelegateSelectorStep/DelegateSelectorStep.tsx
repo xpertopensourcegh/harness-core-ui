@@ -35,7 +35,8 @@ import { getErrorInfoFromErrorObject, shouldShowError } from '@common/utils/erro
 import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
 import {
   DelegateOptions,
-  DelegateSelector
+  DelegateSelector,
+  DelegatesFoundState
 } from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector'
 import css from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector.module.scss'
 
@@ -76,16 +77,26 @@ const defaultInitialFormData: InitialFormData = {
   delegateSelectors: []
 }
 
-const NoMatchingDelegateWarning: React.FC = () => {
+const NoMatchingDelegateWarning: React.FC<{ delegatesFound: DelegatesFoundState }> = props => {
   const { getString } = useStrings()
+  const { delegatesFound } = props
+  if (delegatesFound === DelegatesFoundState.ActivelyConnected) {
+    return <></>
+  }
+  const message =
+    delegatesFound === DelegatesFoundState.NotConnected
+      ? getString('connectors.delegate.noMatchingDelegatesActive')
+      : getString('connectors.delegate.noMatchingDelegate')
+  const dataName =
+    delegatesFound === DelegatesFoundState.NotConnected ? 'delegateNoActiveMatchWarning' : 'delegateNoMatchWarning'
   return (
     <Text
       icon="warning-sign"
       iconProps={{ margin: { right: 'xsmall' }, color: Color.YELLOW_900 }}
       font={{ size: 'small', weight: 'semi-bold' }}
-      data-name="delegateNoMatchWarning"
+      data-name={dataName}
     >
-      {getString('connectors.delegate.noMatchingDelegate')}
+      {message}
     </Text>
   )
 }
@@ -115,7 +126,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
       ? DelegateOptions.DelegateOptionsSelective
       : DelegateOptions.DelegateOptionsAny
   )
-  const [delegatesFound, setDelegatesFound] = useState<boolean>(true)
+  const [delegatesFound, setDelegatesFound] = useState<DelegatesFoundState>(DelegatesFoundState.ActivelyConnected)
   let stepDataRef: ConnectorConfigDTO | null = null
   const [connectorPayloadRef, setConnectorPayloadRef] = useState<Connector | undefined>()
 
@@ -312,7 +323,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
                 rightIcon="chevron-right"
                 data-name="delegateSaveAndContinue"
               />
-              {!delegatesFound ? <NoMatchingDelegateWarning /> : <></>}
+              <NoMatchingDelegateWarning delegatesFound={delegatesFound} />
             </Layout.Horizontal>
           </Form>
         </Formik>

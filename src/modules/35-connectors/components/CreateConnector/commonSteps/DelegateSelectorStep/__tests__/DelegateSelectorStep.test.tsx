@@ -17,13 +17,14 @@ import {
 import type { ConnectorRequestBody } from 'services/cd-ng'
 import { GitSyncTestWrapper } from '@common/utils/gitSyncTestUtils'
 
+const mockData = { metaData: {}, resource: ['delegate-selector-sample', 'primary'], responseMessages: [] }
+const emptyData: [] = []
+
 jest.spyOn(portalServices, 'useGetDelegateSelectorsUpTheHierarchy').mockImplementation(
   () =>
     ({
       loading: false,
-      mutate: () => ({
-        data: { metaData: {}, resource: ['delegate-selector-sample', 'primary'], responseMessages: [] }
-      })
+      data: mockData
     } as any)
 )
 
@@ -32,9 +33,7 @@ jest.spyOn(portalServices, 'useGetDelegatesUpTheHierarchy').mockImplementation(
     ({
       loading: false,
       error: undefined,
-      mutate: () => ({
-        data: []
-      })
+      data: emptyData
     } as any)
 )
 
@@ -74,6 +73,7 @@ describe('DelegateSelectorStep', () => {
         <DelegateSelectorStep {...defaultProps} buildPayload={jest.fn()} />
       </TestWrapper>
     )
+    expect(container.querySelector('[data-name="DelegateSelectors"] input')).toBeTruthy()
     expect(container).toMatchSnapshot()
     expect(container.querySelector('[value="DelegateOptions.DelegateOptionsAny"]')?.getAttribute('disabled')).toBe(null)
     expect(container.querySelectorAll('[data-name="DelegateSelectors"] [data-tag-index]').length).toBe(0)
@@ -112,9 +112,7 @@ describe('DelegateSelectorStep', () => {
           loading: false,
           error: {},
           refetch,
-          mutate: () => ({
-            data: []
-          })
+          data: emptyData
         } as any)
     )
     const { container } = render(
@@ -139,9 +137,7 @@ describe('DelegateSelectorStep', () => {
         ({
           loading: true,
           error: undefined,
-          mutate: () => ({
-            data: []
-          })
+          data: undefined
         } as any)
     )
     const { container } = render(
@@ -198,6 +194,7 @@ describe('DelegateSelectorStep', () => {
       '2/2 connectors.delegate.matchingDelegates'
     )
     expect(container.querySelector('[data-name="delegateNoMatchWarning"]')).toBeFalsy()
+    expect(container.querySelector('[data-name="delegateNoActiveMatchWarning"]')).toBeTruthy()
     expect(rows[0]?.childElementCount).toBe(4)
   })
 

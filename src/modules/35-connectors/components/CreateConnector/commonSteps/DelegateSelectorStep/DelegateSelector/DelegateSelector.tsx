@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { Color, Container, Layout, Text } from '@wings-software/uicore'
 import { IOptionProps, Radio } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
-import { DelegateSelectors } from '@common/components'
+import { DelegateSelectors, useToaster } from '@common/components'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import useCreateDelegateModal from '@delegates/modals/DelegateModal/useCreateDelegateModal'
@@ -21,18 +21,27 @@ export enum DelegateOptions {
   DelegateOptionsAny = 'DelegateOptions.DelegateOptionsAny',
   DelegateOptionsSelective = 'DelegateOptions.DelegateOptionsSelective'
 }
+
+export enum DelegatesFoundState {
+  ActivelyConnected = 'DelegatesFoundState.ActivelyConnected',
+  NotConnected = 'DelegatesFoundState.NotConnected',
+  NotFound = 'DelegatesFoundState.NotFound'
+}
+
 export interface DelegateSelectorProps extends ProjectPathProps {
   mode: DelegateOptions
   setMode: (mode: DelegateOptions) => void
   delegateSelectors: Array<string>
   setDelegateSelectors: (delegateSelectors: Array<string>) => void
-  setDelegatesFound: (delegatesFound: boolean) => void
+  setDelegatesFound: (delegatesFound: DelegatesFoundState) => void
   delegateSelectorMandatory: boolean
 }
 
 export interface DelegateGroupDetailsCustom extends DelegateGroupDetails {
   checked: boolean
 }
+
+const DELEGATE_POLLING_INTERVAL_IN_MS = 5000
 
 const NullRenderer = () => <></>
 
@@ -100,17 +109,49 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
 
   const scope = { projectIdentifier, orgIdentifier }
 
-  const { data, loading, error, refetch } = useGetDelegatesUpTheHierarchy({
+  const { data: apiData, loading, error, refetch } = useGetDelegatesUpTheHierarchy({
     queryParams: {
       accountId,
       orgId: orgIdentifier,
       projectId: projectIdentifier
     }
   })
+  const [data, setData] = useState(apiData)
   const { CDNG_ENABLED, NG_SHOW_DELEGATE } = useFeatureFlags()
   const { openDelegateModal } = useCreateDelegateModal({
     onClose: refetch
   })
+  const { showError } = useToaster()
+
+  // used to set data only if no error occurs
+  // previous data should persist in data state even if api fails while polling
+  useEffect(() => {
+    if (apiData) {
+      setData(apiData)
+    }
+  }, [apiData])
+
+  // show error in toast if error occurs while polling
+  useEffect(() => {
+    if (error && data) {
+      showError(
+        getString('connectors.delegate.couldNotFetch', {
+          pollingInterval: `${DELEGATE_POLLING_INTERVAL_IN_MS / 1000} ${getString('common.seconds')}`
+        }),
+        DELEGATE_POLLING_INTERVAL_IN_MS
+      )
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error])
+
+  // polling logic
+  useEffect(() => {
+    let id: NodeJS.Timeout
+    if (!loading) {
+      id = setTimeout(() => refetch(), DELEGATE_POLLING_INTERVAL_IN_MS)
+    }
+    return () => clearTimeout(id)
+  }, [data, loading, refetch])
 
   useEffect(() => {
     const parsedData = (data?.resource?.delegateGroupDetails || []).map(delegateGroupDetails => ({
@@ -120,6 +161,7 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
         Object.keys(delegateGroupDetails?.groupImplicitSelectors || {})
       )
     }))
+
     parsedData.sort((parsedDataItemA, parsedDataItemB) => {
       const [checkedA, checkedB] = [parsedDataItemA.checked, parsedDataItemB.checked]
       if (checkedA && !checkedB) {
@@ -130,6 +172,7 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
       }
       return 0
     })
+
     setFormattedData(parsedData)
     const updatedMode =
       delegateSelectors.length || delegateSelectorMandatory
@@ -141,15 +184,18 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
 
   useEffect(() => {
     const totalChecked = formattedData.filter(item => item.checked).length
+    const isAtleastOneActive = formattedData.filter(item => item.checked && item.activelyConnected).length > 0
     const isSaveButtonDisabled = mode === DelegateOptions.DelegateOptionsSelective && delegateSelectors.length === 0
     if (
       !loading &&
       !isSaveButtonDisabled &&
       (!formattedData.length || (mode === DelegateOptions.DelegateOptionsSelective && !totalChecked))
     ) {
-      setDelegatesFound(false)
+      setDelegatesFound(DelegatesFoundState.NotFound)
     } else {
-      setDelegatesFound(true)
+      setDelegatesFound(
+        totalChecked && !isAtleastOneActive ? DelegatesFoundState.NotConnected : DelegatesFoundState.ActivelyConnected
+      )
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode, formattedData])
@@ -180,6 +226,7 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
           setDelegateSelectors(selectors as Array<string>)
           setMode(DelegateOptions.DelegateOptionsSelective)
         }}
+        pollingInterval={DELEGATE_POLLING_INTERVAL_IN_MS}
         {...scope}
       ></DelegateSelectors>
     ),
@@ -215,7 +262,7 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
     [mode, formattedData]
   )
   const delegateSelectorTableProps: DelegateSelectorTableProps = {
-    data: formattedData,
+    data: data ? formattedData : data,
     loading,
     error,
     refetch,
