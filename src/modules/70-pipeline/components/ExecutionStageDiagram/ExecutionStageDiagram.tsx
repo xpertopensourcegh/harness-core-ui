@@ -171,7 +171,6 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
     if (queryParams.stage && queryParams.step) {
       return
     }
-
     if (selectedStageId && selectedStepId) {
       replaceQueryParams({
         ...queryParams,
@@ -348,6 +347,9 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
   return (
     <div
       className={classNames(css.main, { [css.whiteBackground]: isWhiteBackground }, className)}
+      onMouseDown={() => {
+        setAutoPosition(false)
+      }}
       onClick={stopAutoSelection}
     >
       <Diagram.CanvasWidget engine={engine} className={css.canvas} />
