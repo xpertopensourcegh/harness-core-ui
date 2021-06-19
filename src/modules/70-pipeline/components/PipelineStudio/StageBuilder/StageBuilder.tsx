@@ -839,7 +839,6 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
         render={renderPopover}
         bind={setDynamicPopoverHandler}
         placement={'right'}
-        closeOnMouseOut
       />
 
       <CanvasButtons tooltipPosition="left" engine={engine} callback={() => dynamicPopoverHandler?.hide()} />
