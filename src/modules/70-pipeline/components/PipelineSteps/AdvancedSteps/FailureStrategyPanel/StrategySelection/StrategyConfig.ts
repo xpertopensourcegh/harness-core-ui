@@ -1,7 +1,7 @@
 import { mapValues } from 'lodash-es'
 import { Strategy, ErrorType, FailureErrorType } from '@pipeline/utils/FailureStrategyUtils'
 import { StageType } from '@pipeline/utils/stageHelpers'
-import { Modes } from '../../common'
+import { StepMode as Modes } from '@pipeline/utils/stepUtils'
 
 export const allowedStrategiesAsPerStep: (domain: StageType) => Record<Modes, Strategy[]> = (
   domain = StageType.DEPLOY

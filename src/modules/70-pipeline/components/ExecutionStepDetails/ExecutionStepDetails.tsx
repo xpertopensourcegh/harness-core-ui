@@ -13,12 +13,20 @@ import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetExecutionNode } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
 import factory from '@pipeline/factories/ExecutionStepDetailsFactory'
-import type { StepType } from '../PipelineSteps/PipelineStepInterface'
+import { isCDStage, isCIStage, StageType } from '@pipeline/utils/stageHelpers'
 
+import type { StepType } from '../PipelineSteps/PipelineStepInterface'
 import css from './ExecutionStepDetails.module.scss'
 
 export default function ExecutionStepDetails(): React.ReactElement {
-  const { allNodeMap, addNewNodeToMap, queryParams, selectedStepId } = useExecutionContext()
+  const {
+    allNodeMap,
+    addNewNodeToMap,
+    queryParams,
+    selectedStepId,
+    selectedStageId,
+    pipelineStagesMap
+  } = useExecutionContext()
   const { retryStep } = queryParams
   const { getString } = useStrings()
   const { updateQueryParams } = useUpdateQueryParams<ExecutionPageQueryParams>()
@@ -43,13 +51,11 @@ export default function ExecutionStepDetails(): React.ReactElement {
   const interruptHistories = reverse([...(originalStep.interruptHistories || [])]).filter(
     ({ interruptConfig }) => interruptConfig.retryInterruptConfig
   )
+  const selectedStage = pipelineStagesMap.get(selectedStageId)
+  let stageType: StageType | undefined
 
-  // function handleRefresh(): void {
-  //   /* istanbul ignore else */
-  //   if (isHarnessApprovalStep && isWaitingOnApproval) {
-  //     window.dispatchEvent(new CustomEvent(REFRESH_APPROVAL))
-  //   }
-  // }
+  if (isCDStage(selectedStage)) stageType = StageType.DEPLOY
+  else if (isCIStage(selectedStage)) stageType = StageType.BUILD
 
   function goToRetryStepExecution(id: string): void {
     updateQueryParams({ retryStep: id })
@@ -105,7 +111,7 @@ export default function ExecutionStepDetails(): React.ReactElement {
           ) : null}
         </div>
       </div>
-      {loading ? <Spinner /> : <StepDetails step={selectedStep} />}
+      {loading ? <Spinner /> : <StepDetails step={selectedStep} stageType={stageType} />}
     </div>
   )
 }

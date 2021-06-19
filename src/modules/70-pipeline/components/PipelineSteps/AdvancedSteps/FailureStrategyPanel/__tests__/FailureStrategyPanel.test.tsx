@@ -2,8 +2,8 @@ import React from 'react'
 import { act, fireEvent, queryAllByAttribute, queryByAttribute, render, waitFor } from '@testing-library/react'
 
 import { StageType } from '@pipeline/utils/stageHelpers'
+import { StepMode as Modes } from '@pipeline/utils/stepUtils'
 import { Basic } from '../FailureStrategyPanel.stories'
-import { Modes } from '../../common'
 
 describe('<FailureStrategyPanel /> tests', () => {
   test('initial render with no data', () => {

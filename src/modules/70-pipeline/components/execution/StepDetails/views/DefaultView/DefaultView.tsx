@@ -9,16 +9,11 @@ import { StepDetailsTab } from '@pipeline/components/execution/StepDetails/tabs/
 import { InputOutputTab } from '@pipeline/components/execution/StepDetails/tabs/InputOutputTab/InputOutputTab'
 import { ManualInterventionTab } from '@pipeline/components/execution/StepDetails/tabs/ManualInterventionTab/ManualInterventionTab'
 import { Strategy } from '@pipeline/utils/FailureStrategyUtils'
+import { allowedStrategiesAsPerStep } from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/StrategySelection/StrategyConfig'
+import { StageType } from '@pipeline/utils/stageHelpers'
+import { StepMode } from '@pipeline/utils/stepUtils'
 
 import css from './DefaultView.module.scss'
-
-const failureStrategies = [
-  // Strategy.Retry,
-  Strategy.Ignore,
-  Strategy.MarkAsSuccess,
-  Strategy.Abort,
-  Strategy.StageRollback
-]
 
 enum StepDetailTab {
   STEP_DETAILS = 'STEP_DETAILS',
@@ -28,12 +23,15 @@ enum StepDetailTab {
 }
 
 export function DefaultView(props: StepDetailProps): React.ReactElement {
-  const { step } = props
+  const { step, stageType = StageType.DEPLOY } = props
   const { getString } = useStrings()
   const [activeTab, setActiveTab] = React.useState(StepDetailTab.STEP_DETAILS)
   const manuallySelected = React.useRef(false)
   const shouldShowInputOutput = ((step?.stepType ?? '') as string) !== 'liteEngineTask'
   const isManualInterruption = isExecutionWaitingForIntervention(step.status)
+  const failureStrategies = allowedStrategiesAsPerStep(stageType)[StepMode.STEP].filter(
+    st => st !== Strategy.ManualIntervention && st !== Strategy.Retry
+  )
 
   React.useEffect(() => {
     if (!manuallySelected.current) {

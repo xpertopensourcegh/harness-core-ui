@@ -7,6 +7,7 @@ import { flatMap, get, isEmpty } from 'lodash-es'
 import { String, useStrings } from 'framework/strings'
 import type { FailureStrategyConfig } from 'services/cd-ng'
 import { StageType } from '@pipeline/utils/stageHelpers'
+import { StepMode as Modes } from '@pipeline/utils/stepUtils'
 
 import FailureTypeMultiSelect from './FailureTypeMultiSelect'
 import {
@@ -15,7 +16,6 @@ import {
   errorTypesOrderForCI
 } from './StrategySelection/StrategyConfig'
 import StrategySelection from './StrategySelection/StrategySelection'
-import { Modes } from '../common'
 import css from './FailureStrategyPanel.module.scss'
 
 /**

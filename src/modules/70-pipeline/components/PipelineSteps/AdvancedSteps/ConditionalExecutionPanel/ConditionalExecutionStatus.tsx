@@ -3,7 +3,7 @@ import { Radio, RadioGroup } from '@blueprintjs/core'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
 import { useStrings } from 'framework/strings'
-import { Modes } from '../common'
+import { StepMode as Modes } from '@pipeline/utils/stepUtils'
 import {
   ConditionalExecutionOption,
   ModeEntityNameMap,

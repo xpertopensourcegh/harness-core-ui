@@ -9,7 +9,7 @@ import { useStrings } from 'framework/strings'
 import FailureStrategyPanel from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/FailureStrategyPanel'
 import { ErrorType, Strategy } from '@pipeline/utils/FailureStrategyUtils'
 import { getFailureStrategiesValidationSchema } from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/validation'
-import { Modes } from '@pipeline/components/PipelineSteps/AdvancedSteps/common'
+import { StepMode as Modes } from '@pipeline/utils/stepUtils'
 import { StageType } from '@pipeline/utils/stageHelpers'
 
 import type { StepCommandsRef } from '../StepCommands/StepCommands'

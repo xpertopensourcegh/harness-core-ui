@@ -6,8 +6,8 @@ import { Card, H3 } from '@blueprintjs/core'
 
 import { TestWrapper } from '@common/utils/testUtils'
 import { StageType } from '@pipeline/utils/stageHelpers'
+import type { StepMode as Modes } from '@pipeline/utils/stepUtils'
 import FailureStrategyPanel from './FailureStrategyPanel'
-import type { Modes } from '../common'
 
 export default {
   title: 'Pipelines / Pipeline Steps / Failure Strategies',

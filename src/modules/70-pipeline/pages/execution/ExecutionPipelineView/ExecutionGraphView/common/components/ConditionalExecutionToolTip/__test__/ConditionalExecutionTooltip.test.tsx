@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { Modes } from '@pipeline/components/PipelineSteps/AdvancedSteps/common'
+import { StepMode as Modes } from '@pipeline/utils/stepUtils'
 import ConditionalExecutionTooltipWrapper, {
   ConditionalExecutionToolTipWrapperProps
 } from '../ConditionalExecutionTooltipWrapper'

@@ -11,13 +11,12 @@ import {
 } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import { TabTypes } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import { StepFormikFowardRef, setFormikRef } from '@pipeline/components/AbstractSteps/Step'
-
+import { StepMode as Modes } from '@pipeline/utils/stepUtils'
 import type { ExecutionWrapper } from 'services/cd-ng'
-import DelegateSelectorPanel from './DelegateSelectorPanel/DelegateSelectorPanel'
 
+import DelegateSelectorPanel from './DelegateSelectorPanel/DelegateSelectorPanel'
 import FailureStrategyPanel from './FailureStrategyPanel/FailureStrategyPanel'
 import { getFailureStrategiesValidationSchema } from './FailureStrategyPanel/validation'
-import { Modes } from './common'
 import { StepType } from '../PipelineStepInterface'
 import ConditionalExecutionPanel from './ConditionalExecutionPanel/ConditionalExecutionPanel'
 import css from './AdvancedSteps.module.scss'

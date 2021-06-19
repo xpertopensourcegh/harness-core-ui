@@ -19,7 +19,7 @@ import { isExecutionPaused, isExecutionRunning } from '@pipeline/utils/statusHel
 import { DynamicPopover } from '@common/exports'
 import HoverCard from '@pipeline/components/HoverCard/HoverCard'
 import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
-import { Modes } from '@pipeline/components/PipelineSteps/AdvancedSteps/common'
+import { StepMode as Modes } from '@pipeline/utils/stepUtils'
 import BarrierStepTooltip from './components/BarrierStepTooltip'
 import ResourceConstraintTooltip from './components/ResourceConstraints/ResourceConstraints'
 import ConditionalExecutionTooltipWrapper from '../common/components/ConditionalExecutionToolTip/ConditionalExecutionTooltipWrapper'

@@ -1,8 +1,8 @@
 import React from 'react'
 import { Color, Link, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
+import type { StepMode as Modes } from '@pipeline/utils/stepUtils'
 import { ModeEntityNameMap } from './ConditionalExecutionPanelUtils'
-import type { Modes } from '../common'
 
 const DOCUMENT_URL = 'https://ngdocs.harness.io/article/i36ibenkq2-step-skip-condition-settings'
 

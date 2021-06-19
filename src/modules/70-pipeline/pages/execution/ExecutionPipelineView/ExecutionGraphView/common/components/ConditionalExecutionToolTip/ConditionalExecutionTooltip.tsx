@@ -6,7 +6,7 @@ import {
   ParentModeEntityNameMap,
   PipelineOrStageStatus
 } from '@pipeline/components/PipelineSteps/AdvancedSteps/ConditionalExecutionPanel/ConditionalExecutionPanelUtils'
-import { Modes } from '@pipeline/components/PipelineSteps/AdvancedSteps/common'
+import { StepMode as Modes } from '@pipeline/utils/stepUtils'
 import type { ResolvedVariableInterface } from '@pipeline/pages/execution/ExecutionPipelineView/ExecutionGraphView/common/components/ConditionalExecutionToolTip/ConditionalExecutionTooltipWrapper'
 
 export interface ConditionalExecutionTooltipProps {

@@ -1,5 +1,11 @@
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 
+export enum StepMode {
+  STAGE = 'STAGE',
+  STEP_GROUP = 'STEP_GROUP',
+  STEP = 'STEP'
+}
+
 export function isHarnessApproval(stepType?: string): boolean {
   return stepType === StepType.HarnessApproval
 }

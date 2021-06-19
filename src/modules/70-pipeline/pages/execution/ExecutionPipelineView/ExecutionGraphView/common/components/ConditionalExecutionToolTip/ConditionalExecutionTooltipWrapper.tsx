@@ -3,7 +3,7 @@ import {
   PipelineOrStageStatus,
   statusToStatusMapping
 } from '@pipeline/components/PipelineSteps/AdvancedSteps/ConditionalExecutionPanel/ConditionalExecutionPanelUtils'
-import type { Modes } from '@pipeline/components/PipelineSteps/AdvancedSteps/common'
+import type { StepMode as Modes } from '@pipeline/utils/stepUtils'
 import type { StringsMap } from 'stringTypes'
 import type { ConditionalExecutionNodeRunInfo } from '@pipeline/utils/types'
 import type { ExpressionBlock } from 'services/pipeline-ng'

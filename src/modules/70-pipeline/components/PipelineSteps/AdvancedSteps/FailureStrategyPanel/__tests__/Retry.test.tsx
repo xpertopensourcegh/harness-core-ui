@@ -2,9 +2,9 @@ import React from 'react'
 import { render, fireEvent, act, queryByAttribute } from '@testing-library/react'
 
 import { Strategy } from '@pipeline/utils/FailureStrategyUtils'
+import { StepMode as Modes } from '@pipeline/utils/stepUtils'
 import { testIds } from '../StrategySelection/StrategyConfig'
 import { Basic } from '../FailureStrategyPanel.stories'
-import { Modes } from '../../common'
 
 describe('Failure Strategy: Retry', () => {
   test('strategy works with simple fallback', async () => {
