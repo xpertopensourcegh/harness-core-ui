@@ -11,9 +11,25 @@ import services from './serviceMock'
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 jest.mock('services/cd-ng', () => ({
-  useGetServiceListForProject: jest
-    .fn()
-    .mockImplementation(() => ({ loading: false, data: services, refetch: jest.fn() }))
+  useGetServiceList: jest.fn().mockImplementation(() => ({ loading: false, data: services, refetch: jest.fn() })),
+  useCreateServicesV2: jest.fn().mockImplementation(() => ({
+    cancel: jest.fn(),
+    loading: false,
+    mutate: jest.fn().mockImplementation(() => {
+      return {
+        status: 'SUCCESS'
+      }
+    })
+  })),
+  useUpsertServiceV2: jest.fn().mockImplementation(() => ({
+    cancel: jest.fn(),
+    loading: false,
+    mutate: jest.fn().mockImplementation(() => {
+      return {
+        status: 'SUCCESS'
+      }
+    })
+  }))
 }))
 describe('Test DeployService Step', () => {
   test('should render service view and save', async () => {
@@ -35,9 +51,7 @@ describe('Test DeployService Step', () => {
       fireEvent.click(getByText(dialog!, 'save'))
     })
     expect(container.querySelector('pre')?.innerHTML).toMatchInlineSnapshot(`
-      "service:
-        name: New Service
-        identifier: New_Service
+      "serviceRef: New_Service
       "
     `)
   })
@@ -63,13 +77,7 @@ describe('Test DeployService Step', () => {
       fireEvent.click(getByText(dialog!, 'save'))
     })
     expect(container.querySelector('pre')?.innerHTML).toMatchInlineSnapshot(`
-      "service:
-        name: Edit Service
-        identifier: selected_service
-        description: test
-        tags:
-          tag1: \\"\\"
-          tag2: asd
+      "serviceRef: selected_service
       "
     `)
   })
@@ -106,13 +114,7 @@ describe('Test DeployService Step', () => {
       fireEvent.click(getByText(dialog!, 'save'))
     })
     expect(container.querySelector('pre')?.innerHTML).toMatchInlineSnapshot(`
-      "service:
-        name: Edit Service
-        identifier: pass_service
-        description: test
-        tags:
-          tag1: \\"\\"
-          tag2: asd
+      "serviceRef: pass_service
       "
     `)
   })
@@ -154,13 +156,7 @@ describe('Test DeployService Step', () => {
     })
 
     expect(container.querySelector('pre')?.innerHTML).toMatchInlineSnapshot(`
-      "service:
-        name: ljdlkcjv vldjvldkj dlvjdlvkj vljdlkvjd vlmdlfvm vlmdlkvj dlvdkl
-        identifier: pass_service
-        description: test
-        tags:
-          tag1: \\"\\"
-          tag2: asd
+      "serviceRef: pass_service
       "
     `)
   })
@@ -178,10 +174,10 @@ describe('Test DeployService Step', () => {
         .querySelector(`[name="serviceRef"] + [class*="bp3-input-action"]`)
         ?.querySelector('[data-icon="caret-down"]')!
     )
-    fireEvent.click(getByText(document.body, 'Other Service'))
+    fireEvent.click(getByText(document.body, 'QA asd TEst'))
 
     expect(container.querySelector('pre')?.innerHTML).toMatchInlineSnapshot(`
-      "serviceRef: other_service
+      "serviceRef: QA
       "
     `)
   })
@@ -215,10 +211,10 @@ describe('Test DeployService Step', () => {
         .querySelector(`[name="serviceRef"] + [class*="bp3-input-action"]`)
         ?.querySelector('[data-icon="caret-down"]')!
     )
-    fireEvent.click(getByText(document.body, 'Other Service'))
+    fireEvent.click(getByText(document.body, 'QA asd TEst'))
 
     expect(container.querySelector('pre')?.innerHTML).toMatchInlineSnapshot(`
-      "serviceRef: other_service
+      "serviceRef: QA
       "
     `)
   })
@@ -243,12 +239,12 @@ describe('Test DeployService Step', () => {
         .querySelector(`[name="serviceRef"] + [class*="bp3-input-action"]`)
         ?.querySelector('[data-icon="caret-down"]')!
     )
-    fireEvent.click(getByText(document.body, 'Selected Service'))
+    fireEvent.click(getByText(document.body, 'QA asd TEst'))
     await act(async () => {
       fireEvent.click(getByText(container, 'Submit'))
     })
     expect(container.querySelector('.bp3-card > pre')?.innerHTML).toMatchInlineSnapshot(`
-      "serviceRef: selected_service
+      "serviceRef: QA
       "
     `)
   })

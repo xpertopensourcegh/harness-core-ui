@@ -394,9 +394,8 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                       if (value.service) {
                         serviceObj.service = value.service
                         delete serviceObj.serviceRef
-                      } else if (value.serviceRef) {
-                        const selectOptionValue = ((value.serviceRef as unknown) as SelectOption)?.value
-                        serviceObj.serviceRef = selectOptionValue !== undefined ? selectOptionValue : value.serviceRef
+                      } else {
+                        serviceObj.serviceRef = value.serviceRef
                         delete serviceObj.service
                       }
                     })

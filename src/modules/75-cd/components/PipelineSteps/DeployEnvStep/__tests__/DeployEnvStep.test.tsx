@@ -11,9 +11,27 @@ import environments from './mock.json'
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 jest.mock('services/cd-ng', () => ({
-  useGetEnvironmentListForProject: jest
+  useGetEnvironmentList: jest
     .fn()
-    .mockImplementation(() => ({ loading: false, data: environments, refetch: jest.fn() }))
+    .mockImplementation(() => ({ loading: false, data: environments, refetch: jest.fn() })),
+  useCreateEnvironmentV2: jest.fn().mockImplementation(() => ({
+    cancel: jest.fn(),
+    loading: false,
+    mutate: jest.fn().mockImplementation(() => {
+      return {
+        status: 'SUCCESS'
+      }
+    })
+  })),
+  useUpsertEnvironmentV2: jest.fn().mockImplementation(() => ({
+    cancel: jest.fn(),
+    loading: false,
+    mutate: jest.fn().mockImplementation(() => {
+      return {
+        status: 'SUCCESS'
+      }
+    })
+  }))
 }))
 describe('Test DeployEnvironment Step', () => {
   test('should render environment view and save', async () => {
@@ -36,10 +54,7 @@ describe('Test DeployEnvironment Step', () => {
       fireEvent.click(getByText(dialog!, 'save'))
     })
     expect(container.querySelector('pre')?.innerHTML).toMatchInlineSnapshot(`
-      "environment:
-        name: New Project
-        identifier: New_Project
-        type: Production
+      "environmentRef: New_Project
       "
     `)
   })
@@ -66,13 +81,7 @@ describe('Test DeployEnvironment Step', () => {
       fireEvent.click(getByText(dialog!, 'save'))
     })
     expect(container.querySelector('pre')?.innerHTML).toMatchInlineSnapshot(`
-      "environment:
-        name: New Environment
-        identifier: selected_env
-        tags:
-          cloud: GCP
-          team: cdp
-        type: PreProduction
+      "environmentRef: selected_env
       "
     `)
   })
@@ -111,14 +120,7 @@ describe('Test DeployEnvironment Step', () => {
       fireEvent.click(getByText(dialog!, 'save'))
     })
     expect(container.querySelector('pre')?.innerHTML).toMatchInlineSnapshot(`
-      "environment:
-        name: Edit Environment
-        identifier: pass_env
-        description: test
-        tags:
-          tag1: \\"\\"
-          tag2: asd
-        type: Production
+      "environmentRef: pass_env
       "
     `)
   })
@@ -136,10 +138,10 @@ describe('Test DeployEnvironment Step', () => {
         .querySelector(`[name="environmentRef"] + [class*="bp3-input-action"]`)
         ?.querySelector('[data-icon="caret-down"]')!
     )
-    fireEvent.click(getByText(document.body, 'Other Env'))
+    fireEvent.click(getByText(document.body, 'qa'))
 
     expect(container.querySelector('pre')?.innerHTML).toMatchInlineSnapshot(`
-      "environmentRef: other_env
+      "environmentRef: qa
       "
     `)
   })
@@ -174,10 +176,10 @@ describe('Test DeployEnvironment Step', () => {
         .querySelector(`[name="environmentRef"] + [class*="bp3-input-action"]`)
         ?.querySelector('[data-icon="caret-down"]')!
     )
-    fireEvent.click(getByText(document.body, 'Other Env'))
+    fireEvent.click(getByText(document.body, 'qa'))
 
     expect(container.querySelector('pre')?.innerHTML).toMatchInlineSnapshot(`
-      "environmentRef: other_env
+      "environmentRef: qa
       "
     `)
   })
@@ -202,13 +204,13 @@ describe('Test DeployEnvironment Step', () => {
         .querySelector(`[name="environmentRef"] + [class*="bp3-input-action"]`)
         ?.querySelector('[data-icon="caret-down"]')!
     )
-    fireEvent.click(getByText(document.body, 'Selected Env'))
+    fireEvent.click(getByText(document.body, 'qa'))
 
     await act(async () => {
       fireEvent.click(getByText(container, 'Submit'))
     })
     expect(container.querySelector('.bp3-card > pre')?.innerHTML).toMatchInlineSnapshot(`
-      "environmentRef: selected_env
+      "environmentRef: qa
       "
     `)
   })

@@ -5,7 +5,7 @@ import type {
   ResponsePageInputSetSummaryResponse,
   ResponsePageNGTriggerDetailsResponse
 } from 'services/pipeline-ng'
-import type { ResponseConnectorResponse, ResponsePageEnvironmentResponseDTO } from 'services/cd-ng'
+import type { ResponseConnectorResponse, ResponsePageEnvironmentResponse } from 'services/cd-ng'
 import type { ResponsePMSPipelineResponseDTO, PMSPipelineResponseDTO } from 'services/pipeline-ng'
 
 export const GetPipelineResponse: UseGetReturnData<ResponsePMSPipelineResponseDTO> = {
@@ -229,7 +229,7 @@ export const GetInputSetsResponse: UseGetReturnData<ResponsePageInputSetSummaryR
   }
 }
 
-export const GetEnvironmentListForProject: UseGetReturnData<ResponsePageEnvironmentResponseDTO> = {
+export const GetEnvironmentList: UseGetReturnData<ResponsePageEnvironmentResponse> = {
   loading: false,
   refetch: jest.fn(),
   error: null,
@@ -242,17 +242,19 @@ export const GetEnvironmentListForProject: UseGetReturnData<ResponsePageEnvironm
       pageSize: 100,
       content: [
         {
-          accountId: 'accountId',
-          orgIdentifier: 'default',
-          projectIdentifier: 'p1',
-          identifier: 'prod',
-          name: 'prod',
-          description: (null as unknown) as undefined,
-          color: '#0063F7',
-          type: 'Production',
-          deleted: false,
-          tags: {},
-          version: 2
+          environment: {
+            accountId: 'accountId',
+            orgIdentifier: 'default',
+            projectIdentifier: 'p1',
+            identifier: 'prod',
+            name: 'prod',
+            description: (null as unknown) as undefined,
+            color: '#0063F7',
+            type: 'Production',
+            deleted: false,
+            tags: {},
+            version: 2
+          }
         }
       ],
       pageIndex: 0,

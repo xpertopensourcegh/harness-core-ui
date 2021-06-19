@@ -14,7 +14,7 @@ import {
   Container
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { get, isEmpty, isNull, noop, omit, omitBy, pick } from 'lodash-es'
+import { get, isEmpty, noop, omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { Dialog, FormGroup, Intent } from '@blueprintjs/core'
 import { parse } from 'yaml'
@@ -22,12 +22,14 @@ import { CompletionItemKind } from 'vscode-languageserver-types'
 import type { FormikErrors, FormikProps } from 'formik'
 import {
   PipelineInfrastructure,
-  useGetEnvironmentListForProject,
-  EnvironmentYaml,
-  getEnvironmentListForProjectPromise
+  EnvironmentResponseDTO,
+  useGetEnvironmentList,
+  getEnvironmentListPromise,
+  useCreateEnvironmentV2,
+  useUpsertEnvironmentV2
 } from 'services/cd-ng'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
-import { NameIdDescriptionTags } from '@common/components'
+import { NameIdDescriptionTags, PageSpinner } from '@common/components'
 import { useStrings } from 'framework/strings'
 import type { UseStringsReturn } from 'framework/strings'
 import { loggerFor } from 'framework/logging/logging'
@@ -55,24 +57,74 @@ export interface DeployEnvData extends Omit<PipelineInfrastructure, 'environment
 
 interface NewEditEnvironmentModalProps {
   isEdit: boolean
-  data: EnvironmentYaml
+  isEnvironment: boolean
+  data: EnvironmentResponseDTO
   envIdentifier?: string
-  onCreateOrUpdate(data: EnvironmentYaml): void
+  onCreateOrUpdate(data: EnvironmentResponseDTO): void
   closeModal?: () => void
 }
 
 export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = ({
   isEdit,
   data,
+  isEnvironment,
   onCreateOrUpdate,
   closeModal
 }): JSX.Element => {
   const { getString } = useStrings()
   const inputRef = React.useRef<HTMLInputElement | null>(null)
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<{
+    orgIdentifier: string
+    projectIdentifier: string
+    accountId: string
+  }>()
+
+  const { loading: createLoading, mutate: createEnvironment } = useCreateEnvironmentV2({
+    queryParams: {
+      accountIdentifier: accountId
+    }
+  })
+
+  const { loading: updateLoading, mutate: updateEnvironment } = useUpsertEnvironmentV2({
+    queryParams: {
+      accountIdentifier: accountId
+    }
+  })
+  const { showSuccess, showError, clear } = useToaster()
+
+  const onSubmit = React.useCallback(
+    async (values: Required<EnvironmentResponseDTO>) => {
+      try {
+        if (isEdit && !isEnvironment) {
+          const response = await updateEnvironment({
+            ...omit(values, 'accountId', 'deleted'),
+            orgIdentifier,
+            projectIdentifier
+          })
+          if (response.status === 'SUCCESS') {
+            clear()
+            showSuccess('cd.serviceCreated')
+            onCreateOrUpdate(values)
+          }
+        } else {
+          const response = await createEnvironment({ ...values, orgIdentifier, projectIdentifier })
+          if (response.status === 'SUCCESS') {
+            clear()
+            showSuccess('cd.serviceUpdated')
+            onCreateOrUpdate(values)
+          }
+        }
+      } catch (e) {
+        showError(e?.data?.message || e?.message || getString('commonError'))
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [onCreateOrUpdate, orgIdentifier, projectIdentifier, isEdit, isEnvironment]
+  )
   React.useEffect(() => {
     inputRef.current?.focus()
   }, [])
-  const typeList: { text: string; value: EnvironmentYaml['type'] }[] = [
+  const typeList: { text: string; value: EnvironmentResponseDTO['type'] }[] = [
     {
       text: getString('production'),
       value: 'Production'
@@ -82,13 +134,18 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
       value: 'PreProduction'
     }
   ]
+
+  if (createLoading || updateLoading) {
+    return <PageSpinner />
+  }
   return (
     <Layout.Vertical>
-      <Formik<EnvironmentYaml>
-        initialValues={data}
+      <Formik<Required<EnvironmentResponseDTO>>
+        initialValues={data as Required<EnvironmentResponseDTO>}
+        enableReinitialize={false}
         formName="deployEnv"
         onSubmit={values => {
-          onCreateOrUpdate(values)
+          onSubmit(values)
         }}
         validationSchema={Yup.object().shape({
           name: NameSchema({ requiredErrorMsg: getString?.('fieldRequired', { field: 'Environment' }) }),
@@ -173,19 +230,13 @@ interface DeployEnvironmentProps {
 
 interface DeployEnvironmentState {
   isEdit: boolean
-  data: EnvironmentYaml
+  isEnvironment: boolean
+  data?: EnvironmentResponseDTO
 }
 
 function isEditEnvironment(data: DeployEnvData): boolean {
-  if (getMultiTypeFromValue(data.environmentRef) !== MultiTypeInputType.RUNTIME) {
-    if (typeof data.environmentRef === 'object') {
-      const environmentRef = (data.environmentRef as SelectOption).value as string
-      if (!isEmpty(environmentRef)) {
-        return true
-      }
-    } else if (!isEmpty(data.environmentRef)) {
-      return true
-    }
+  if (getMultiTypeFromValue(data.environmentRef) !== MultiTypeInputType.RUNTIME && !isEmpty(data.environmentRef)) {
+    return true
   } else if (data.environment && !isEmpty(data.environment.identifier)) {
     return true
   }
@@ -208,13 +259,14 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
   >()
 
   const { showError } = useToaster()
-  const { data: environmentsResponse, error } = useGetEnvironmentListForProject({
-    queryParams: { accountId, orgIdentifier, projectIdentifier }
+  const { data: environmentsResponse, error, refetch } = useGetEnvironmentList({
+    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
 
   const [environments, setEnvironments] = React.useState<SelectOption[]>([])
   const [state, setState] = React.useState<DeployEnvironmentState>({
     isEdit: false,
+    isEnvironment: false,
     data: { name: '', identifier: '', type: 'PreProduction' }
   })
   const [showModal, hideModal] = useModalHook(
@@ -229,18 +281,12 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
         className={'padded-dialog'}
       >
         <NewEditEnvironmentModal
-          data={state.data}
+          data={state.data || { name: '', identifier: '' }}
+          isEnvironment={state.isEnvironment}
           isEdit={state.isEdit}
           onCreateOrUpdate={values => {
-            onUpdate?.({
-              ...omit(initialValues, 'environmentRef'),
-              environment: pick(omitBy(values, isNull), ['name', 'identifier', 'description', 'tags', 'type'])
-            })
-            const item = environments.filter(env => env.value === values.identifier)[0]
-            if (item) {
-              item.label = values.name || ''
-              setEnvironments(environments)
-            }
+            refetch()
+            onUpdate?.({ ...omit(initialValues, 'environment'), environmentRef: values.identifier })
             onClose.call(null)
           }}
           closeModal={onClose}
@@ -251,30 +297,30 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
   )
 
   const onClose = React.useCallback(() => {
-    setState({ isEdit: false, data: { name: '', identifier: '', type: 'PreProduction' } })
+    setState({ isEdit: false, isEnvironment: false })
     hideModal()
   }, [hideModal])
 
   React.useEffect(() => {
-    const identifier = initialValues.environment?.identifier
-    const isExist = environments.filter(env => env.value === identifier).length > 0
-    if (initialValues.environment && identifier && !isExist) {
-      const value = { label: initialValues.environment.name || '', value: initialValues.environment.identifier || '' }
-      environments.push(value)
-      setEnvironments([...environments])
-    }
-  }, [initialValues.environment, initialValues.environment?.identifier, environments])
-
-  React.useEffect(() => {
     if (environmentsResponse?.data?.content?.length) {
-      setEnvironments(
-        environmentsResponse.data.content.map(env => ({
-          label: env.name || env.identifier || '',
-          value: env.identifier || ''
-        }))
-      )
+      const envList = environmentsResponse.data.content.map(env => ({
+        label: env.environment?.name || env.environment?.identifier || '',
+        value: env.environment?.identifier || ''
+      }))
+      const identifier = initialValues.environment?.identifier
+      const isExist = envList.filter(env => env.value === identifier).length > 0
+      if (initialValues.environment && identifier && !isExist) {
+        const value = { label: initialValues.environment.name || '', value: initialValues.environment.identifier || '' }
+        envList.push(value)
+      }
+      setEnvironments(envList)
     }
-  }, [environmentsResponse, environmentsResponse?.data?.content?.length, initialValues.environmentRef])
+  }, [
+    environmentsResponse,
+    environmentsResponse?.data?.content?.length,
+    initialValues.environment,
+    initialValues.environmentRef
+  ])
 
   if (error?.message) {
     showError(error.message, undefined, 'cd.env.list.error')
@@ -317,49 +363,16 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
           if (!isEmpty(values.environment)) {
             onUpdate?.({ ...omit(values, 'environmentRef') })
           } else {
-            const environmentRef =
-              typeof values.environmentRef === 'object'
-                ? ((values.environmentRef as SelectOption).value as string)
-                : values.environmentRef
-            onUpdate?.({ ...omit(values, 'environment'), environmentRef })
+            onUpdate?.({ ...omit(values, 'environment'), environmentRef: values.environmentRef })
           }
         }}
         initialValues={{
           ...initialValues,
-          ...(initialValues.environment && !isEmpty(initialValues.environment?.identifier)
-            ? {
-                environmentRef: {
-                  label: initialValues.environment.name || '',
-                  value: initialValues.environment.identifier || ''
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                } as any
-              }
-            : initialValues.environmentRef &&
-              getMultiTypeFromValue(initialValues.environmentRef) === MultiTypeInputType.FIXED
-            ? {
-                environmentRef: environments.filter(env => env.value === initialValues.environmentRef)[0]
-              }
-            : {})
+          ...{ environmentRef: initialValues?.environment?.identifier || initialValues?.environmentRef }
         }}
         enableReinitialize
         validationSchema={Yup.object().shape({
-          environmentRef: Yup.lazy(
-            (value): Yup.Schema<unknown> => {
-              if (typeof value === 'string') {
-                return Yup.string().trim().required(getString('pipelineSteps.environmentTab.environmentIsRequired'))
-              }
-              return Yup.object().test({
-                test(valueObj: SelectOption): boolean | Yup.ValidationError {
-                  if (isEmpty(valueObj) || isEmpty(valueObj.value)) {
-                    return this.createError({
-                      message: getString('pipelineSteps.environmentTab.environmentIsRequired')
-                    })
-                  }
-                  return true
-                }
-              })
-            }
-          )
+          environmentRef: Yup.string().trim().required(getString('pipelineSteps.environmentTab.environmentIsRequired'))
         })}
       >
         {formik => {
@@ -373,14 +386,15 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
                 tooltipProps={{ dataTooltipId: 'specifyYourEnvironment' }}
                 name="environmentRef"
                 disabled={readonly}
+                useValue
                 placeholder={getString('pipelineSteps.environmentTab.selectEnvironment')}
                 multiTypeInputProps={{
                   width: 300,
-                  onChange: value => {
-                    if (isEmpty(value)) {
-                      setFieldValue('environmentRef', '')
+                  onChange: () => {
+                    if (values.environment?.identifier) {
+                      setEnvironments(environments.filter(env => env.value !== values.environment?.identifier))
+                      setFieldValue('environment', undefined)
                     }
-                    setFieldValue('environment', undefined)
                   },
                   selectProps: {
                     addClearBtn: !readonly,
@@ -398,17 +412,19 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
                   onClick={() => {
                     const isEdit = isEditEnvironment(values)
                     if (isEdit) {
-                      if (values.environment) {
+                      if (values.environment?.identifier) {
                         setState({
                           isEdit,
+                          isEnvironment: true,
                           data: values.environment
                         })
                       } else {
                         setState({
                           isEdit,
-                          data: ((environmentsResponse?.data?.content?.filter(
-                            env => env.identifier === ((values.environmentRef as unknown) as SelectOption).value
-                          )?.[0] as unknown) as EnvironmentYaml) || { name: '', identifier: '', type: 'PreProduction' }
+                          isEnvironment: false,
+                          data: environmentsResponse?.data?.content?.filter(
+                            env => env.environment?.identifier === values.environmentRef
+                          )?.[0]?.environment as EnvironmentResponseDTO
                         })
                       }
                     }
@@ -429,7 +445,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
   )
 }
 
-const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps> = ({ inputSetData }) => {
+const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps> = ({ inputSetData, initialValues, onUpdate }) => {
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
     PipelineType<{
@@ -441,9 +457,14 @@ const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps> = ({ inputSet
   >()
 
   const { showError } = useToaster()
+  const [state, setState] = React.useState<DeployEnvironmentState>({
+    isEdit: false,
+    isEnvironment: false,
+    data: { name: '', identifier: '', type: 'PreProduction' }
+  })
   const { expressions } = useVariablesExpression()
-  const { data: environmentsResponse, error, refetch } = useGetEnvironmentListForProject({
-    queryParams: { accountId, orgIdentifier, projectIdentifier },
+  const { data: environmentsResponse, error, refetch } = useGetEnvironmentList({
+    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
     lazy: true
   })
   const [environments, setEnvironments] = React.useState<SelectOption[]>([])
@@ -453,41 +474,116 @@ const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps> = ({ inputSet
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const [showModal, hideModal] = useModalHook(
+    () => (
+      <Dialog
+        isOpen={true}
+        canEscapeKeyClose
+        canOutsideClickClose
+        onClose={onClose}
+        isCloseButtonShown
+        title={state.isEdit ? getString('editEnvironment') : getString('newEnvironment')}
+        className={'padded-dialog'}
+      >
+        <NewEditEnvironmentModal
+          data={state.data || { name: '', identifier: '' }}
+          isEnvironment={state.isEnvironment}
+          isEdit={state.isEdit}
+          onCreateOrUpdate={values => {
+            refetch()
+            onUpdate?.({ ...omit(initialValues, 'environment'), environmentRef: values.identifier })
+            onClose.call(null)
+          }}
+          closeModal={onClose}
+        />
+      </Dialog>
+    ),
+    [state.isEdit, state.data]
+  )
+
+  const onClose = React.useCallback(() => {
+    setState({ isEdit: false, isEnvironment: false })
+    hideModal()
+  }, [hideModal])
+
   React.useEffect(() => {
     if (environmentsResponse?.data?.content?.length) {
       setEnvironments(
         environmentsResponse.data.content.map(env => ({
-          label: env.name || env.identifier || '',
-          value: env.identifier || ''
+          label: env.environment?.name || env.environment?.identifier || '',
+          value: env.environment?.identifier || ''
         }))
       )
     }
   }, [environmentsResponse, environmentsResponse?.data?.content?.length])
+  const [canEdit] = usePermission({
+    resource: {
+      resourceType: ResourceType.ENVIRONMENT,
+      resourceIdentifier: environments[0]?.value as string
+    },
+    permissions: [PermissionIdentifier.EDIT_ENVIRONMENT],
+    options: {
+      skipCondition: ({ resourceIdentifier }) => !resourceIdentifier
+    }
+  })
 
+  const [canCreate] = usePermission({
+    resource: {
+      resourceType: ResourceType.ENVIRONMENT
+    },
+    permissions: [PermissionIdentifier.EDIT_ENVIRONMENT]
+  })
   if (error?.message) {
     showError(error.message, undefined, 'cd.env.list.error')
   }
   return (
     <>
       {getMultiTypeFromValue(inputSetData?.template?.environmentRef) === MultiTypeInputType.RUNTIME && (
-        <FormInput.MultiTypeInput
-          label={getString('pipelineSteps.environmentTab.specifyYourEnvironment')}
-          tooltipProps={{ dataTooltipId: 'specifyYourEnvironment' }}
-          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}environmentRef`}
-          placeholder={getString('pipelineSteps.environmentTab.selectEnvironment')}
-          selectItems={environments}
-          useValue
-          multiTypeInputProps={{
-            allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
-            selectProps: {
-              addClearBtn: !inputSetData?.readonly,
-              items: environments
-            },
-            expressions
-          }}
-          disabled={inputSetData?.readonly}
-          className={css.inputWidth}
-        />
+        <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+          <FormInput.MultiTypeInput
+            label={getString('pipelineSteps.environmentTab.specifyYourEnvironment')}
+            tooltipProps={{ dataTooltipId: 'specifyYourEnvironment' }}
+            name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}environmentRef`}
+            placeholder={getString('pipelineSteps.environmentTab.selectEnvironment')}
+            selectItems={environments}
+            useValue
+            multiTypeInputProps={{
+              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+              selectProps: {
+                addClearBtn: !inputSetData?.readonly,
+                items: environments
+              },
+              expressions
+            }}
+            disabled={inputSetData?.readonly}
+            className={css.inputWidth}
+          />
+          {getMultiTypeFromValue(initialValues?.environmentRef) === MultiTypeInputType.FIXED && (
+            <Button
+              minimal
+              intent="primary"
+              disabled={inputSetData?.readonly || (isEditEnvironment(initialValues) ? !canEdit : !canCreate)}
+              onClick={() => {
+                const isEdit = isEditEnvironment(initialValues)
+                if (isEdit) {
+                  setState({
+                    isEdit,
+                    isEnvironment: false,
+                    data: environmentsResponse?.data?.content?.filter(
+                      env => env.environment?.identifier === initialValues.environmentRef
+                    )?.[0]?.environment as EnvironmentResponseDTO
+                  })
+                }
+                showModal()
+              }}
+              text={
+                isEditEnvironment(initialValues)
+                  ? getString('editEnvironment')
+                  : getString('pipelineSteps.environmentTab.newEnvironment')
+              }
+            />
+          )}
+        </Layout.Horizontal>
       )}
     </>
   )
@@ -525,17 +621,17 @@ export class DeployEnvironmentStep extends Step<DeployEnvData> {
     if (pipelineObj) {
       const obj = get(pipelineObj, path.replace('.spec.infrastructure.environmentRef', ''))
       if (obj.type === 'Deployment') {
-        return getEnvironmentListForProjectPromise({
+        return getEnvironmentListPromise({
           queryParams: {
-            accountId,
+            accountIdentifier: accountId,
             orgIdentifier,
             projectIdentifier
           }
         }).then(response => {
           const data =
             response?.data?.content?.map(service => ({
-              label: service.name || '',
-              insertText: service.identifier || '',
+              label: service.environment?.name || '',
+              insertText: service.environment?.identifier || '',
               kind: CompletionItemKind.Field
             })) || []
           return data

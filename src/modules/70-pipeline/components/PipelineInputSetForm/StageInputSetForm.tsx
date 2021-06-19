@@ -259,6 +259,12 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 path={`${path}.serviceConfig`}
                 readonly={readonly}
                 customStepProps={{ stageIdentifier }}
+                onUpdate={value => {
+                  if (deploymentStageInputSet?.serviceConfig) {
+                    deploymentStageInputSet.serviceConfig.serviceRef = value.serviceRef
+                    formik?.setValues(set(formik?.values, path, deploymentStageInputSet))
+                  }
+                }}
               />
             )}
             {(deploymentStage?.serviceConfig?.serviceDefinition?.type === 'Kubernetes' || isPropagating) && (
@@ -324,6 +330,12 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 stepViewType={StepViewType.InputSet}
                 path={`${path}.infrastructure`}
                 readonly={readonly}
+                onUpdate={value => {
+                  if (deploymentStageInputSet?.infrastructure) {
+                    deploymentStageInputSet.infrastructure.environmentRef = value.environmentRef
+                    formik?.setValues(set(formik?.values, path, deploymentStageInputSet))
+                  }
+                }}
               />
             )}
             {deploymentStageTemplate.infrastructure.infrastructureDefinition && (

@@ -325,10 +325,10 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
               onUpdate={(value: PipelineInfrastructure) => {
                 const stageData = produce(stage, draft => {
                   const infraObj: PipelineInfrastructure = get(draft, 'stage.spec.infrastructure', {})
-                  if (value.environment) {
+                  if (value.environment?.identifier) {
                     infraObj.environment = value.environment
                     delete infraObj.environmentRef
-                  } else if (value.environmentRef) {
+                  } else {
                     infraObj.environmentRef = value.environmentRef
                     delete infraObj.environment
                   }

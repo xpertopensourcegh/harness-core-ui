@@ -14,7 +14,7 @@ import {
   GetMergeInputSetFromPipelineTemplateWithListInputResponse,
   ConnectorResponse,
   GetInputSetsResponse,
-  GetEnvironmentListForProject
+  GetEnvironmentList
 } from './sharedMockResponses'
 import { getTriggerConfigDefaultProps, pipelineInputInitialValues } from './webhookMockConstants'
 import WebhookPipelineInputPanel from '../views/WebhookPipelineInputPanel'
@@ -22,7 +22,7 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 jest.mock('@common/utils/YamlUtils', () => ({}))
 jest.mock('services/cd-ng', () => ({
-  useGetEnvironmentListForProject: jest.fn(() => GetEnvironmentListForProject),
+  useGetEnvironmentList: jest.fn(() => GetEnvironmentList),
   useGetConnector: jest.fn(() => ConnectorResponse)
 }))
 

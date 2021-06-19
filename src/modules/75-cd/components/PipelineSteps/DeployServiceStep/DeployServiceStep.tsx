@@ -12,7 +12,7 @@ import {
   Container
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { get, isEmpty, isNil, isNull, noop, omit, omitBy, pick } from 'lodash-es'
+import { get, isEmpty, noop, omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { Dialog } from '@blueprintjs/core'
 import { parse } from 'yaml'
@@ -20,9 +20,11 @@ import { CompletionItemKind } from 'vscode-languageserver-types'
 import type { FormikErrors, FormikProps } from 'formik'
 import {
   ServiceConfig,
-  useGetServiceListForProject,
-  ServiceYaml,
-  getServiceListForProjectPromise
+  useCreateServicesV2,
+  ServiceRequestDTO,
+  useGetServiceList,
+  getServiceListPromise,
+  useUpsertServiceV2
 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import type { UseStringsReturn } from 'framework/strings'
@@ -36,7 +38,7 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 
-import { NameIdDescriptionTags } from '@common/components'
+import { NameIdDescriptionTags, PageSpinner } from '@common/components'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
@@ -51,29 +53,86 @@ export interface DeployServiceData extends Omit<ServiceConfig, 'serviceRef'> {
 
 interface NewEditServiceModalProps {
   isEdit: boolean
-  data: ServiceYaml
+  isService: boolean
+  data: ServiceRequestDTO
   serviceIdentifier?: string
-  onCreateOrUpdate(data: ServiceYaml): void
+  onCreateOrUpdate(data: ServiceRequestDTO): void
   closeModal?: () => void
 }
 
 export const NewEditServiceModal: React.FC<NewEditServiceModalProps> = ({
   isEdit,
   data,
+  isService,
   onCreateOrUpdate,
   closeModal
 }): JSX.Element => {
   const { getString } = useStrings()
   const inputRef = React.useRef<HTMLInputElement | null>(null)
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<{
+    orgIdentifier: string
+    projectIdentifier: string
+    accountId: string
+  }>()
+
+  const { loading: createLoading, mutate: createService } = useCreateServicesV2({
+    queryParams: {
+      accountIdentifier: accountId
+    }
+  })
+
+  const { loading: updateLoading, mutate: updateService } = useUpsertServiceV2({
+    queryParams: {
+      accountIdentifier: accountId
+    }
+  })
+
   React.useEffect(() => {
     inputRef.current?.focus()
   }, [])
+  const { showSuccess, showError, clear } = useToaster()
+
+  const onSubmit = React.useCallback(
+    async (values: ServiceRequestDTO) => {
+      try {
+        if (isEdit && !isService) {
+          const response = await updateService({
+            ...omit(values, 'accountId', 'deleted'),
+            orgIdentifier,
+            projectIdentifier
+          })
+          if (response.status === 'SUCCESS') {
+            clear()
+            showSuccess('cd.serviceCreated')
+            onCreateOrUpdate(values)
+          }
+        } else {
+          const response = await createService([{ ...values, orgIdentifier, projectIdentifier }])
+          if (response.status === 'SUCCESS') {
+            clear()
+            showSuccess('cd.serviceUpdated')
+            onCreateOrUpdate(values)
+          }
+        }
+      } catch (e) {
+        showError(e?.data?.message || e?.message || getString('commonError'))
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [onCreateOrUpdate, orgIdentifier, projectIdentifier, isEdit, isService]
+  )
+
+  if (createLoading || updateLoading) {
+    return <PageSpinner />
+  }
+
   return (
-    <Formik<ServiceYaml>
+    <Formik<ServiceRequestDTO>
       initialValues={data}
       formName="deployService"
+      enableReinitialize={false}
       onSubmit={values => {
-        onCreateOrUpdate(values)
+        onSubmit(values)
       }}
       validationSchema={Yup.object().shape({
         name: NameSchema({ requiredErrorMsg: getString?.('fieldRequired', { field: 'Service' }) }),
@@ -130,7 +189,8 @@ interface DeployServiceProps {
 
 interface DeployServiceState {
   isEdit: boolean
-  data: ServiceYaml
+  data?: ServiceRequestDTO
+  isService: boolean
 }
 
 function isEditService(data: DeployServiceData): boolean {
@@ -161,14 +221,14 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
   >()
 
   const { showError } = useToaster()
-  const { data: serviceResponse, error } = useGetServiceListForProject({
-    queryParams: { accountId, orgIdentifier, projectIdentifier }
+  const { data: serviceResponse, error, refetch } = useGetServiceList({
+    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
 
   const { expressions } = useVariablesExpression()
 
   const [services, setService] = React.useState<SelectOption[]>([])
-  const [state, setState] = React.useState<DeployServiceState>({ isEdit: false, data: { name: '', identifier: '' } })
+  const [state, setState] = React.useState<DeployServiceState>({ isEdit: false, isService: false })
 
   const [showModal, hideModal] = useModalHook(
     () => (
@@ -182,18 +242,12 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
         className={'padded-dialog'}
       >
         <NewEditServiceModal
-          data={state.data}
+          data={state.data || { name: '', identifier: '', orgIdentifier, projectIdentifier }}
           isEdit={state.isEdit}
+          isService={state.isService}
           onCreateOrUpdate={values => {
-            onUpdate?.({
-              ...omit(initialValues, 'serviceRef'),
-              service: pick(omitBy(values, isNull), ['name', 'identifier', 'description', 'tags'])
-            })
-            const item = services.filter(service => service.value === values.identifier)[0]
-            if (item) {
-              item.label = values.name || ''
-              setService(services)
-            }
+            refetch()
+            onUpdate?.({ ...omit(initialValues, 'service'), serviceRef: values.identifier })
             onClose.call(null)
           }}
           closeModal={onClose}
@@ -204,7 +258,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
   )
 
   const onClose = React.useCallback(() => {
-    setState({ isEdit: false, data: { name: '', identifier: '' } })
+    setState({ isEdit: false, isService: false })
     hideModal()
   }, [hideModal])
 
@@ -219,12 +273,20 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
   }, [initialValues.service, initialValues.service?.identifier, services])
 
   React.useEffect(() => {
-    if (serviceResponse?.data?.content?.length && !isNil(initialValues.serviceRef)) {
-      setService(
-        serviceResponse.data.content.map(service => ({ label: service.name || '', value: service.identifier || '' }))
-      )
+    if (serviceResponse?.data?.content?.length) {
+      const serviceList = serviceResponse.data.content.map(service => ({
+        label: service.service?.name || '',
+        value: service.service?.identifier || ''
+      }))
+      const identifier = initialValues.service?.identifier
+      const isExist = serviceList.filter(service => service.value === identifier).length > 0
+      if (initialValues.service && identifier && !isExist) {
+        const value = { label: initialValues.service.name || '', value: initialValues.service.identifier || '' }
+        serviceList.push(value)
+      }
+      setService(serviceList)
     }
-  }, [serviceResponse, serviceResponse?.data?.content?.length, initialValues.serviceRef])
+  }, [initialValues.service, serviceResponse, serviceResponse?.data?.content?.length])
 
   if (error?.message) {
     showError(error.message, undefined, 'cd.svc.list.error')
@@ -255,6 +317,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
   React.useEffect(() => {
     subscribeForm({ tab: DeployTabs.SERVICE, form: formikRef })
     return () => unSubscribeForm({ tab: DeployTabs.SERVICE, form: formikRef })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -265,48 +328,18 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
           if (!isEmpty(values.service)) {
             onUpdate?.({ ...omit(values, 'serviceRef') })
           } else {
-            const serviceRef =
-              typeof values.serviceRef === 'object'
-                ? ((values.serviceRef as SelectOption).value as string)
-                : values.serviceRef
-            onUpdate?.({ ...omit(values, 'service'), serviceRef })
+            onUpdate?.({ ...omit(values, 'service'), serviceRef: values.serviceRef })
           }
         }}
         initialValues={{
           ...initialValues,
-          ...(initialValues.service && !isEmpty(initialValues.service?.identifier)
-            ? {
-                serviceRef: {
-                  label: initialValues.service.name || '',
-                  value: initialValues.service.identifier || ''
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                } as any
-              }
-            : initialValues.serviceRef && getMultiTypeFromValue(initialValues.serviceRef) === MultiTypeInputType.FIXED
-            ? {
-                serviceRef: services.filter(service => service.value === initialValues.serviceRef)[0]
-              }
-            : {})
+          ...{
+            serviceRef: initialValues.service?.identifier || initialValues.serviceRef
+          }
         }}
         enableReinitialize
         validationSchema={Yup.object().shape({
-          serviceRef: Yup.lazy(
-            (value): Yup.Schema<unknown> => {
-              if (typeof value === 'string') {
-                return Yup.string().trim().required(getString('pipelineSteps.serviceTab.serviceIsRequired'))
-              }
-              return Yup.object().test({
-                test(valueObj: SelectOption): boolean | Yup.ValidationError {
-                  if (isEmpty(valueObj) || isEmpty(valueObj.value)) {
-                    return this.createError({
-                      message: getString('pipelineSteps.serviceTab.serviceIsRequired')
-                    })
-                  }
-                  return true
-                }
-              })
-            }
-          )
+          serviceRef: Yup.string().trim().required(getString('pipelineSteps.serviceTab.serviceIsRequired'))
         })}
       >
         {formik => {
@@ -319,17 +352,18 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
                 tooltipProps={{ dataTooltipId: 'specifyYourService' }}
                 label={getString('pipelineSteps.serviceTab.specifyYourService')}
                 name="serviceRef"
+                useValue
                 disabled={readonly}
                 placeholder={getString('pipelineSteps.serviceTab.selectService')}
                 multiTypeInputProps={{
                   width: 300,
-                  onChange: value => {
-                    if (isEmpty(value)) {
-                      setFieldValue('serviceRef', '')
-                    }
-                    setFieldValue('service', undefined)
-                  },
                   expressions,
+                  onChange: () => {
+                    if (values.service?.identifier) {
+                      setService(services.filter(service => service.value !== values.service?.identifier))
+                      setFieldValue('service', undefined)
+                    }
+                  },
                   selectProps: {
                     addClearBtn: true && !readonly,
                     items: services
@@ -337,7 +371,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
                 }}
                 selectItems={services}
               />
-              {getMultiTypeFromValue(values?.serviceRef) === MultiTypeInputType.FIXED && (
+              {getMultiTypeFromValue(values?.serviceRef) === MultiTypeInputType.FIXED ? (
                 <Button
                   minimal
                   intent="primary"
@@ -345,17 +379,19 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
                   onClick={() => {
                     const isEdit = isEditService(values)
                     if (isEdit) {
-                      if (values.service) {
+                      if (values.service?.identifier) {
                         setState({
                           isEdit,
-                          data: values.service
+                          isService: true,
+                          data: { ...values.service, projectIdentifier, orgIdentifier } as ServiceRequestDTO
                         })
                       } else {
                         setState({
                           isEdit,
-                          data: ((serviceResponse?.data?.content?.filter(
-                            service => service.identifier === ((values.serviceRef as unknown) as SelectOption).value
-                          )?.[0] as unknown) as ServiceYaml) || { name: '', identifier: '' }
+                          isService: false,
+                          data: serviceResponse?.data?.content?.filter(
+                            service => service.service?.identifier === values.serviceRef
+                          )?.[0]?.service as ServiceRequestDTO
                         })
                       }
                     }
@@ -365,7 +401,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
                     isEditService(values) ? getString('editService') : getString('pipelineSteps.serviceTab.newService')
                   }
                 />
-              )}
+              ) : null}
             </Layout.Horizontal>
           )
         }}
@@ -374,7 +410,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
   )
 }
 
-const DeployServiceInputStep: React.FC<DeployServiceProps> = ({ inputSetData }) => {
+const DeployServiceInputStep: React.FC<DeployServiceProps> = ({ inputSetData, initialValues, onUpdate }) => {
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
     PipelineType<{
@@ -387,8 +423,8 @@ const DeployServiceInputStep: React.FC<DeployServiceProps> = ({ inputSetData }) 
 
   const { showError, clear } = useToaster()
   const { expressions } = useVariablesExpression()
-  const { data: serviceResponse, error, refetch } = useGetServiceListForProject({
-    queryParams: { accountId, orgIdentifier, projectIdentifier },
+  const { data: serviceResponse, error, refetch } = useGetServiceList({
+    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
     lazy: true
   })
   const [services, setService] = React.useState<SelectOption[]>([])
@@ -401,11 +437,64 @@ const DeployServiceInputStep: React.FC<DeployServiceProps> = ({ inputSetData }) 
   React.useEffect(() => {
     if (serviceResponse?.data?.content?.length) {
       setService(
-        serviceResponse.data.content.map(service => ({ label: service.name || '', value: service.identifier || '' }))
+        serviceResponse.data.content.map(service => ({
+          label: service.service?.name || '',
+          value: service.service?.identifier || ''
+        }))
       )
     }
   }, [serviceResponse, serviceResponse?.data?.content?.length])
 
+  const [canEdit] = usePermission({
+    resource: {
+      resourceType: ResourceType.SERVICE,
+      resourceIdentifier: services[0]?.value as string
+    },
+    permissions: [PermissionIdentifier.EDIT_SERVICE],
+    options: {
+      skipCondition: ({ resourceIdentifier }) => !resourceIdentifier
+    }
+  })
+
+  const [canCreate] = usePermission({
+    resource: {
+      resourceType: ResourceType.SERVICE
+    },
+    permissions: [PermissionIdentifier.EDIT_SERVICE]
+  })
+  const [state, setState] = React.useState<DeployServiceState>({ isEdit: false, isService: false })
+
+  const [showModal, hideModal] = useModalHook(
+    () => (
+      <Dialog
+        isOpen={true}
+        canEscapeKeyClose
+        canOutsideClickClose
+        onClose={onClose}
+        title={state.isEdit ? getString('editService') : getString('newService')}
+        isCloseButtonShown
+        className={'padded-dialog'}
+      >
+        <NewEditServiceModal
+          data={state.data || { name: '', identifier: '', orgIdentifier, projectIdentifier }}
+          isEdit={state.isEdit}
+          isService={state.isService}
+          onCreateOrUpdate={values => {
+            refetch()
+            onUpdate?.({ ...omit(initialValues, 'service'), serviceRef: values.identifier })
+            onClose.call(null)
+          }}
+          closeModal={onClose}
+        />
+      </Dialog>
+    ),
+    [state.isEdit, state.data]
+  )
+
+  const onClose = React.useCallback(() => {
+    setState({ isEdit: false, isService: false })
+    hideModal()
+  }, [hideModal])
   if (error?.message) {
     clear()
     showError(error.message, undefined, 'cd.svc.list.error')
@@ -413,24 +502,51 @@ const DeployServiceInputStep: React.FC<DeployServiceProps> = ({ inputSetData }) 
   return (
     <>
       {getMultiTypeFromValue(inputSetData?.template?.serviceRef) === MultiTypeInputType.RUNTIME && (
-        <FormInput.MultiTypeInput
-          tooltipProps={{ dataTooltipId: 'specifyYourService' }}
-          label={getString('pipelineSteps.serviceTab.specifyYourService')}
-          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}serviceRef`}
-          placeholder={getString('pipelineSteps.serviceTab.selectService')}
-          selectItems={services}
-          useValue
-          multiTypeInputProps={{
-            expressions,
-            allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
-            selectProps: {
-              addClearBtn: true && !inputSetData?.readonly,
-              items: services
-            }
-          }}
-          disabled={inputSetData?.readonly}
-          className={css.inputWidth}
-        />
+        <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+          <FormInput.MultiTypeInput
+            tooltipProps={{ dataTooltipId: 'specifyYourService' }}
+            label={getString('pipelineSteps.serviceTab.specifyYourService')}
+            name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}serviceRef`}
+            placeholder={getString('pipelineSteps.serviceTab.selectService')}
+            selectItems={services}
+            useValue
+            multiTypeInputProps={{
+              expressions,
+              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+              selectProps: {
+                addClearBtn: true && !inputSetData?.readonly,
+                items: services
+              }
+            }}
+            disabled={inputSetData?.readonly}
+            className={css.inputWidth}
+          />
+          {getMultiTypeFromValue(initialValues?.serviceRef) === MultiTypeInputType.FIXED && (
+            <Button
+              minimal
+              intent="primary"
+              disabled={inputSetData?.readonly || (isEditService(initialValues) ? !canEdit : !canCreate)}
+              onClick={() => {
+                const isEdit = isEditService(initialValues)
+                if (isEdit) {
+                  setState({
+                    isEdit,
+                    isService: false,
+                    data: serviceResponse?.data?.content?.filter(
+                      service => service.service?.identifier === initialValues.serviceRef
+                    )?.[0]?.service as ServiceRequestDTO
+                  })
+                }
+                showModal()
+              }}
+              text={
+                isEditService(initialValues)
+                  ? getString('editService')
+                  : getString('pipelineSteps.serviceTab.newService')
+              }
+            />
+          )}
+        </Layout.Horizontal>
       )}
     </>
   )
@@ -467,17 +583,17 @@ export class DeployServiceStep extends Step<DeployServiceData> {
     if (pipelineObj) {
       const obj = get(pipelineObj, path.replace('.spec.serviceConfig.serviceRef', ''))
       if (obj.type === 'Deployment') {
-        return getServiceListForProjectPromise({
+        return getServiceListPromise({
           queryParams: {
-            accountId,
+            accountIdentifier: accountId,
             orgIdentifier,
             projectIdentifier
           }
         }).then(response => {
           const data =
             response?.data?.content?.map(service => ({
-              label: service.name || '',
-              insertText: service.identifier || '',
+              label: service.service?.name || '',
+              insertText: service.service?.identifier || '',
               kind: CompletionItemKind.Field
             })) || []
           return data

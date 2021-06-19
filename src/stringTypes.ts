@@ -1685,6 +1685,8 @@ export interface StringsMap {
   'cd.releaseNameValidation': string
   'cd.scriptRequired': string
   'cd.secretManagerRequired': string
+  'cd.serviceCreated': string
+  'cd.serviceUpdated': string
   'cd.setUpProvisionerBtnText': string
   'cd.specifyTfVarStore': string
   'cd.stepName': string
