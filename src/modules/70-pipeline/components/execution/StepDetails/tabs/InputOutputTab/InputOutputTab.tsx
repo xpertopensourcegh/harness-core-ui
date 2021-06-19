@@ -117,7 +117,9 @@ export function InputOutputTab(props: InputOutputTabProps): React.ReactElement {
   if (!data || isEmpty(data)) {
     return (
       <div className={css.ioTab} data-empty="true">
-        {getString(mode === 'output' ? 'execution.iotab.noOutputText' : 'execution.iotab.noInputText')}
+        {getString(
+          mode === 'output' ? 'pipeline.execution.iotab.noOutputText' : 'pipeline.execution.iotab.noInputText'
+        )}
       </div>
     )
   }

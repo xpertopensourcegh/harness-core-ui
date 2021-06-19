@@ -35,6 +35,7 @@ barrierStep:
   barrierReference: Barrier Reference
   barrierReferenceRequired: Barrier Reference is required
   barrierReferencePlaceholder: Select or Enter Barrier Reference
+timeRemainingSuffix: remaining till timeout
 approvalStep:
   message: 'Approval Message'
   approvers: 'Approver(s)'
@@ -47,6 +48,9 @@ approvalStep:
   fetchUserGroupsFailed: Failed to fetch User Groups
   minimumCount: 'Number of approvers that are required at this step'
   disallowPipelineExecutor: 'Disallow the executor from approving the pipeline'
+  execution:
+    inputsTitle: Approval inputs
+    statusMsg: '{{ count }} of {{ total }} approvals complete'
   validation:
     approvalMessage: Approval message is required.
     userGroups: 'Please provide user groups.'
@@ -84,6 +88,18 @@ jiraApprovalStep:
   jiraField: Jira Field
   jexlExpressionApprovalCriteria: JEXL Expression for approval criteria
   jexlExpressionRejectionCriteria: JEXL Expression for rejection criteria
+  execution:
+    criteriaMsg: Approval/Rejection Criteria Listed Below
+    wasApproved: 'Approval Criteria was met for Jira Ticket:'
+    wasRejected: 'Rejection Criteria was met for Jira Ticket:'
+    jiraTicket: 'JIRA Ticket Pending Approval:'
+    allConditionsMsg: 'If all of the following conditions are met:'
+    anyConditionsMsg: 'If any of the following conditions is met:'
+    conditions:
+      equals: '{{ key }} equals'
+      not_equals: '{{ key }} does not equals'
+      in: '{{ key }} is in'
+      not_in: '{{ key }} is not in'
   validations:
     connectorRef: Jira Connector is required.
     project: Project is required.
@@ -227,6 +243,9 @@ execution:
   retryStepCount: 'Retry #{{ num }}'
   currentExecution: Current Execution
   timePrefix: 'Execution Time: '
+  iotab:
+    noInputText: No input found for current step
+    noOutputText: No output found for current step
   pipelineActionMessages:
     abortedMessage: Pipeline has been aborted successfully
     pausedMessage: Pipeline has been paused successfully
@@ -527,9 +546,12 @@ uniqueIdentifier: Identifier must be unique
 inputSets:
   applyInputSet: Apply Input Set
   applyInputSets: Apply Input Sets
+  applyingInputSets: Applying Inputs Sets
   noRuntimeInputsCurrently: No runtime inputs in the pipeline currently
   noRuntimeInputsWhileExecution: No runtime inputs were present in the pipeline during this execution
   inputSetPlaceholder: Enter Input Sets
+  selectPlaceholder: Select Input Set(s)
+  aboutInputSets: Harness Input Sets are collections of variables/values that can be provided to one or more Pipelines before execution.
 provisionerSteps: Provisioner Steps
 addStage:
   title: Select a Stage

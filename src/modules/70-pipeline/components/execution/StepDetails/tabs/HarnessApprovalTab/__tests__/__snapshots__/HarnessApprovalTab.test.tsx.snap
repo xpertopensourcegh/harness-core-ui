@@ -232,7 +232,7 @@ exports[`<HarnessApprovalTab /> tests Waiting Status does not shows form if user
       <div
         class="statusMsg"
       >
-        execution.approvals.statusMsg
+        pipeline.approvalStep.execution.statusMsg
       </div>
       <div
         class="timer"
@@ -241,7 +241,7 @@ exports[`<HarnessApprovalTab /> tests Waiting Status does not shows form if user
           MOCK DURATION
         </div>
         <span>
-          execution.approvals.timeRemainingSuffix
+          pipeline.timeRemainingSuffix
         </span>
       </div>
     </div>
@@ -458,7 +458,7 @@ exports[`<HarnessApprovalTab /> tests Waiting Status shows form if user is autho
       <div
         class="statusMsg"
       >
-        execution.approvals.statusMsg
+        pipeline.approvalStep.execution.statusMsg
       </div>
       <div
         class="timer"
@@ -467,7 +467,7 @@ exports[`<HarnessApprovalTab /> tests Waiting Status shows form if user is autho
           MOCK DURATION
         </div>
         <span>
-          execution.approvals.timeRemainingSuffix
+          pipeline.timeRemainingSuffix
         </span>
       </div>
     </div>
@@ -665,7 +665,7 @@ exports[`<HarnessApprovalTab /> tests Waiting Status shows form if user is autho
       <div
         class="heading"
       >
-        execution.approvals.inputsTitle
+        pipeline.approvalStep.execution.inputsTitle
       </div>
       <div
         class="formRow labels"

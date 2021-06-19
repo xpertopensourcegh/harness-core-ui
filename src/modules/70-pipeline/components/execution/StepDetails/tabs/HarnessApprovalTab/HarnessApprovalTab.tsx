@@ -57,7 +57,7 @@ export function HarnessApprovalTab(props: HarnessApprovalTabProps): React.ReactE
               <String
                 tagName="div"
                 className={css.statusMsg}
-                stringID="execution.approvals.statusMsg"
+                stringID="pipeline.approvalStep.execution.statusMsg"
                 vars={{
                   count: approvalData?.details?.approvalActivities?.length || 0,
                   total: approvalData?.details?.approvers?.minimumCount || 1
@@ -72,7 +72,7 @@ export function HarnessApprovalTab(props: HarnessApprovalTabProps): React.ReactE
                     startTime={approvalData?.deadline}
                     iconProps={{ size: 12 }}
                   />
-                  <String stringID="execution.approvals.timeRemainingSuffix" />
+                  <String stringID="pipeline.timeRemainingSuffix" />
                 </div>
               ) : null}
             </div>
@@ -128,10 +128,13 @@ export function HarnessApprovalTab(props: HarnessApprovalTabProps): React.ReactE
 
               return (
                 <div className={css.inputs}>
-                  <String tagName="div" className={css.heading} stringID="execution.approvals.inputsTitle" />
-
                   {Array.isArray(values.approverInputs) && values.approverInputs.length > 0 ? (
                     <React.Fragment>
+                      <String
+                        tagName="div"
+                        className={css.heading}
+                        stringID="pipeline.approvalStep.execution.inputsTitle"
+                      />
                       <div className={cx(css.formRow, css.labels)}>
                         <String stringID="variableNameLabel" />
                         <String stringID="configureOptions.defaultValue" />

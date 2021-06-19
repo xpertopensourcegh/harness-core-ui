@@ -132,7 +132,6 @@ const RenderValue = React.memo(function RenderValue({
                 cursor: 'pointer'
               }
             }}
-            icon={getIconByType(item.type)}
             text={
               <Layout.Horizontal flex={{ alignItems: 'center' }} spacing="small">
                 <Button
@@ -145,7 +144,13 @@ const RenderValue = React.memo(function RenderValue({
                 >
                   {index + 1}
                 </Button>
-                <Text color={Color.PRIMARY_7}>{item.label}</Text>
+                <Text
+                  color={Color.PRIMARY_7}
+                  icon={getIconByType(item.type)}
+                  iconProps={{ className: css.selectedInputSetTypeIcon }}
+                >
+                  {item.label}
+                </Text>
               </Layout.Horizontal>
             }
             margin={{ top: 'small', bottom: 'small', left: 0, right: 'small' }}
@@ -162,7 +167,7 @@ const RenderValue = React.memo(function RenderValue({
         minimal
         intent="primary"
       >
-        {getString('inputSets.selectPlaceholder')}
+        {getString('pipeline.inputSets.selectPlaceholder')}
       </Button>
     </div>
   )

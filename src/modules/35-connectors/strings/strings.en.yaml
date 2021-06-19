@@ -41,6 +41,7 @@ unableToUpdateConnector: Unable to update connector
 encryptedAPIKeyLabel: Encrypted API Key
 encryptedAPIKeyValidation: Encrypted API Key is required.
 selectConnector: Select connector
+apiKey: API Key
 title:
   k8sCluster: 'Kubernetes Cluster'
   gcpConnector: 'Google Cloud Provider'

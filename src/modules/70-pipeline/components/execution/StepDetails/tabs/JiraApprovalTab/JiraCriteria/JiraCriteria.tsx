@@ -1,4 +1,5 @@
 import React from 'react'
+import { isEmpty } from 'lodash-es'
 
 import type {
   KeyValueCriteriaSpec,
@@ -19,10 +20,10 @@ const titles: Record<JiraCriteriaProps['type'], StringKeys> = {
 }
 
 const conditionStr: Record<ConditionDTO['operator'], StringKeys> = {
-  equals: 'execution.approvals.conditions.equals',
-  'not equals': 'execution.approvals.conditions.not_equals',
-  in: 'execution.approvals.conditions.in',
-  'not in': 'execution.approvals.conditions.not_in'
+  equals: 'pipeline.jiraApprovalStep.execution.conditions.equals',
+  'not equals': 'pipeline.jiraApprovalStep.execution.conditions.not_equals',
+  in: 'pipeline.jiraApprovalStep.execution.conditions.in',
+  'not in': 'pipeline.jiraApprovalStep.execution.conditions.not_in'
 }
 
 function isJexlCriteria(type: CriteriaSpecWrapperDTO['type'], criteria: CriteriaSpecDTO): criteria is JexlCriteriaSpec {
@@ -41,8 +42,14 @@ export interface JiraCriteriaProps {
   criteria: CriteriaSpecWrapperDTO
 }
 
-export function JiraCriteria(props: JiraCriteriaProps): React.ReactElement {
+export function JiraCriteria(props: JiraCriteriaProps): React.ReactElement | null {
   const { type, criteria } = props
+
+  if (isEmpty(criteria.spec.conditions) && isEmpty(criteria.spec.expression)) {
+    // Rejection criteria can be optional
+    // So render nothing if we do not have conditions or expression
+    return null
+  }
 
   return (
     <Collapse className={css.jiraCriteria} title={<String stringID={titles[type]} />} isDefaultOpen>
@@ -52,8 +59,8 @@ export function JiraCriteria(props: JiraCriteriaProps): React.ReactElement {
             tagName="div"
             stringID={
               criteria.spec.matchAnyCondition
-                ? 'execution.approvals.anyConditionsMsg'
-                : 'execution.approvals.allConditionsMsg'
+                ? 'pipeline.jiraApprovalStep.execution.anyConditionsMsg'
+                : 'pipeline.jiraApprovalStep.execution.allConditionsMsg'
             }
           />
           <ul className={css.conditions}>

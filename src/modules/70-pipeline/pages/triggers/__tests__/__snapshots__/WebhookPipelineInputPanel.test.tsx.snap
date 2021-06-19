@@ -95,7 +95,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                         <span
                           class="bp3-button-text"
                         >
-                          inputSets.selectPlaceholder
+                          pipeline.inputSets.selectPlaceholder
                         </span>
                       </button>
                     </div>
@@ -176,7 +176,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                         <span
                           class="bp3-button-text"
                         >
-                          inputSets.selectPlaceholder
+                          pipeline.inputSets.selectPlaceholder
                         </span>
                       </button>
                     </div>

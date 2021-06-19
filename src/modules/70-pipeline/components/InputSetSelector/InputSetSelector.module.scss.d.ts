@@ -2,6 +2,7 @@
 // this is an auto-generated file
 declare const styles: {
   readonly isPopoverParent: string
+  readonly selectedInputSetTypeIcon: string
   readonly selectedInputSetCard: string
   readonly selectedInputSetOrder: string
   readonly selectedInputSetLi: string

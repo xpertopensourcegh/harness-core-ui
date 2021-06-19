@@ -30,6 +30,7 @@ declare const styles: {
   readonly helpIcon: string
   readonly runModal: string
   readonly crossIcon: string
+  readonly inputSetsUpdatingSpinner: string
   readonly dialog: string
   readonly valueProviderRadio: string
   readonly selectedValueProvider: string

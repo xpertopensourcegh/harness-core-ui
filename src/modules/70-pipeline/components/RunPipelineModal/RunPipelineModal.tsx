@@ -107,7 +107,7 @@ export function RunPipelineModal(): React.ReactElement {
   }
 
   return (
-    <Dialog onClose={handleClose} {...runModalProps} className={css.dialog}>
+    <Dialog onClose={handleClose} {...runModalProps} className={css.dialog} canOutsideClickClose={false}>
       <Layout.Vertical className={css.modalCard}>
         <RunPipelineForm
           pipelineIdentifier={pipelineIdentifier}

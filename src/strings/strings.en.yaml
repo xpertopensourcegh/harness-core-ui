@@ -527,7 +527,6 @@ inputSets:
   confirmDeleteTitle: 'Delete {{type}}'
   overlayInputSet: Overlay Input Set
   inputFieldSummary: Input Field Summary
-  selectPlaceholder: Apply Input Set(s)
   noRecord: No Input Sets Created
   selectMultipleInputSets: select multiple input sets
   helpTextForMultiSelect: Selected inputs will be applied in the order listed. Drag to reorder the input sets.
@@ -869,22 +868,6 @@ execution:
     WEBHOOK: Webhook
   stepLogs: Step Logs
   consoleLogs: Console Logs
-  iotab:
-    noInputText: No input found for current step
-    noOutputText: No output found for current step
-  approvals:
-    timeRemainingSuffix: remaining till timeout
-    inputsTitle: Approval inputs
-    statusMsg: '{{ count }} of {{ total }} approvals complete'
-    criteriaMsg: Approval/Rejection Criteria Listed Below
-    jiraTicket: 'JIRA Ticket Pending Approval:'
-    allConditionsMsg: 'If all conditions are met for the following:'
-    anyConditionsMsg: 'If any condition is met for the following:'
-    conditions:
-      equals: 'If {{ key }} equals'
-      not_equals: 'If {{ key }} does not equals'
-      in: 'If {{ key }} is in'
-      not_in: 'If {{ key }} is not in'
 pre-flight-check:
   preFlightCheckTitle: 'Pre-flight check'
   errorFoundCounter: '{{errorCount}} error found'

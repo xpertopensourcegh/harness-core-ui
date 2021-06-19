@@ -4,6 +4,7 @@
   "approvalMessage": "Please review the following information and approve the pipeline progression",
   "includePipelineExecutionHistory": true,
   "deadline": 1615979161158,
+  "status": "APPROVED",
   "details": {
     "issue": {
       "url": "https://harness.atlassian.net/browse/CDNG-1234",

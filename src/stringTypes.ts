@@ -633,6 +633,7 @@ export interface StringsMap {
   'connectors.GCS.name': string
   'connectors.S3': string
   'connectors.addConnectorDetails': string
+  'connectors.apiKey': string
   'connectors.appD.accountName': string
   'connectors.appD.apiClient': string
   'connectors.appD.clientId': string
@@ -1145,6 +1146,8 @@ export interface StringsMap {
   'pipeline.approvalStep.disallowPipelineExecutor': string
   'pipeline.approvalStep.disallowedApproverExecution': string
   'pipeline.approvalStep.ensureUserGroups': string
+  'pipeline.approvalStep.execution.inputsTitle': string
+  'pipeline.approvalStep.execution.statusMsg': string
   'pipeline.approvalStep.fetchUserGroupsFailed': string
   'pipeline.approvalStep.fetchingUserGroups': string
   'pipeline.approvalStep.includePipelineExecutionHistory': string
@@ -1233,6 +1236,8 @@ export interface StringsMap {
   'pipeline.execution.actions.resumePipeline': string
   'pipeline.execution.actions.resumeStage': string
   'pipeline.execution.currentExecution': string
+  'pipeline.execution.iotab.noInputText': string
+  'pipeline.execution.iotab.noOutputText': string
   'pipeline.execution.layouts.bottom': string
   'pipeline.execution.layouts.float': string
   'pipeline.execution.layouts.minimize': string
@@ -1325,16 +1330,29 @@ export interface StringsMap {
   'pipeline.gitExperience.skipNow': string
   'pipeline.imagePathLabel': string
   'pipeline.infrastructureKey': string
+  'pipeline.inputSets.aboutInputSets': string
   'pipeline.inputSets.applyInputSet': string
   'pipeline.inputSets.applyInputSets': string
+  'pipeline.inputSets.applyingInputSets': string
   'pipeline.inputSets.inputSetPlaceholder': string
   'pipeline.inputSets.noRuntimeInputsCurrently': string
   'pipeline.inputSets.noRuntimeInputsWhileExecution': string
+  'pipeline.inputSets.selectPlaceholder': string
   'pipeline.jiraApprovalStep.allConditions': string
   'pipeline.jiraApprovalStep.anyCondition': string
   'pipeline.jiraApprovalStep.approvalCriteria': string
   'pipeline.jiraApprovalStep.connectToJira': string
   'pipeline.jiraApprovalStep.connectorRef': string
+  'pipeline.jiraApprovalStep.execution.allConditionsMsg': string
+  'pipeline.jiraApprovalStep.execution.anyConditionsMsg': string
+  'pipeline.jiraApprovalStep.execution.conditions.equals': string
+  'pipeline.jiraApprovalStep.execution.conditions.in': string
+  'pipeline.jiraApprovalStep.execution.conditions.not_equals': string
+  'pipeline.jiraApprovalStep.execution.conditions.not_in': string
+  'pipeline.jiraApprovalStep.execution.criteriaMsg': string
+  'pipeline.jiraApprovalStep.execution.jiraTicket': string
+  'pipeline.jiraApprovalStep.execution.wasApproved': string
+  'pipeline.jiraApprovalStep.execution.wasRejected': string
   'pipeline.jiraApprovalStep.fetchIssueTypesError': string
   'pipeline.jiraApprovalStep.fetchProjectsError': string
   'pipeline.jiraApprovalStep.fetchingFields': string
@@ -1513,6 +1531,7 @@ export interface StringsMap {
   'pipeline.testsReports.updatedTests': string
   'pipeline.testsReports.viewCallgraph': string
   'pipeline.testsReports.willBeDisplayedIfAvailable': string
+  'pipeline.timeRemainingSuffix': string
   'pipeline.triggers.aboutTriggers': string
   'pipeline.triggers.activityActivation': string
   'pipeline.triggers.activityDays': string
@@ -4180,59 +4199,7 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'execution.approvals.allConditionsMsg': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'execution.approvals.anyConditionsMsg': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'execution.approvals.conditions.equals': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'execution.approvals.conditions.in': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'execution.approvals.conditions.not_equals': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'execution.approvals.conditions.not_in': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'execution.approvals.criteriaMsg': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'execution.approvals.inputsTitle': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'execution.approvals.jiraTicket': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'execution.approvals.statusMsg': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'execution.approvals.timeRemainingSuffix': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'execution.consoleLogs': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'execution.iotab.noInputText': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'execution.iotab.noOutputText': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -4693,10 +4660,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'inputSets.selectMultipleInputSets': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'inputSets.selectPlaceholder': string
   /**
    * @deprecated migrate this string to module level file
    */

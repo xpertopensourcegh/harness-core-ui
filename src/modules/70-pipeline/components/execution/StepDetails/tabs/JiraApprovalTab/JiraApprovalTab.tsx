@@ -2,6 +2,7 @@ import React from 'react'
 
 import type { ApprovalInstanceResponse, JiraApprovalInstanceDetails } from 'services/pipeline-ng'
 import { Duration } from '@common/exports'
+import { ApprovalStatus } from '@pipeline/utils/approvalUtils'
 import { String } from 'framework/strings'
 
 export type ApprovalData =
@@ -20,27 +21,54 @@ import css from './JiraApprovalTab.module.scss'
 
 export function JiraApprovalTab(props: JiraApprovalTabProps): React.ReactElement {
   const { approvalData, isWaiting } = props
+  const wasApproved = !isWaiting && approvalData?.status === ApprovalStatus.APPROVED
+  const wasRejected = !isWaiting && approvalData?.status === ApprovalStatus.REJECTED
+
+  const jiraKey = approvalData?.details.issue.key
+  const jiraUrl = approvalData?.details.issue.url
 
   return (
     <React.Fragment>
       <div className={css.info} data-type="jira">
         {isWaiting ? (
-          <div className={css.timer}>
-            <Duration
-              className={css.duration}
-              durationText=""
-              icon="hourglass"
-              startTime={approvalData?.deadline}
-              iconProps={{ size: 8 }}
-            />
-            <String stringID="execution.approvals.timeRemainingSuffix" />
+          <>
+            <div className={css.timer}>
+              <Duration
+                className={css.duration}
+                durationText=""
+                icon="hourglass"
+                startTime={approvalData?.deadline}
+                iconProps={{ size: 8 }}
+              />
+              <String stringID="pipeline.timeRemainingSuffix" />
+            </div>
+            {jiraKey && jiraUrl ? (
+              <div className={css.jiraTicket}>
+                <String stringID="pipeline.jiraApprovalStep.execution.jiraTicket" />
+
+                <a href={jiraUrl} target="_blank" rel="noopener noreferrer">
+                  {jiraKey}
+                </a>
+              </div>
+            ) : null}
+          </>
+        ) : null}
+        {wasApproved && jiraUrl && jiraKey ? (
+          <div className={css.jiraTicket}>
+            <String stringID="pipeline.jiraApprovalStep.execution.wasApproved" />
+
+            <a href={jiraUrl} target="_blank" rel="noopener noreferrer">
+              {jiraKey}
+            </a>
           </div>
         ) : null}
-        {approvalData?.details?.issue ? (
+
+        {wasRejected && jiraUrl && jiraKey ? (
           <div className={css.jiraTicket}>
-            <String stringID="execution.approvals.jiraTicket" />
-            <a href={approvalData.details.issue.url} target="_blank" rel="noopener noreferrer">
-              {approvalData.details.issue.key}
+            <String stringID="pipeline.jiraApprovalStep.execution.wasRejected" />
+
+            <a href={jiraUrl} target="_blank" rel="noopener noreferrer">
+              {jiraKey}
             </a>
           </div>
         ) : null}

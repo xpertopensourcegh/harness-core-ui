@@ -33,4 +33,16 @@ describe('<JiraApprovalTab/> tests', () => {
 
     expect(container).toMatchSnapshot()
   })
+
+  test('not isWaiting test - rejected', () => {
+    const rejectedData = { ...approvalData } as any
+    rejectedData.status = 'REJECTED'
+    const { container } = render(
+      <TestWrapper>
+        <JiraApprovalTab isWaiting={false} approvalData={rejectedData as any} />
+      </TestWrapper>
+    )
+
+    expect(container).toMatchSnapshot()
+  })
 })

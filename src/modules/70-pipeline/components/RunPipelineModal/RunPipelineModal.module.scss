@@ -1,6 +1,6 @@
 .optionBtns {
-  display: inline-block;
-  width: fit-content;
+  display: flex;
+  align-items: center;
   margin: 0 250px;
 }
 
@@ -131,7 +131,7 @@
 
 .run-modal-form-content {
   max-height: 65vh !important;
-  min-height: 200px;
+  min-height: 30vh;
   overflow-x: hidden;
   overflow: auto !important;
   border-top: 1px solid var(--grey-200);
@@ -167,8 +167,12 @@
 
 .crossIcon {
   position: absolute;
-  right: var(--spacing-large);
-  top: var(--spacing-large);
+  right: var(--spacing-small);
+  top: 12px;
+}
+
+.inputSetsUpdatingSpinner {
+  transform: scale(0.6);
 }
 
 .dialog {

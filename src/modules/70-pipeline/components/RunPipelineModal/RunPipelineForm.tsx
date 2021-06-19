@@ -134,35 +134,41 @@ const SaveAsInputSet = ({
     gitDetails?: SaveToGitFormInterface,
     payload?: Omit<InputSetDTO, 'repo' | 'branch'>
   ): Promise<UseSaveSuccessResponse> => {
-    const response = await createInputSet(
-      stringify({
-        inputSet: { ...clearNullUndefined(payload || inputSetObj), orgIdentifier, projectIdentifier }
-      }) as any,
-      {
-        queryParams: {
-          accountIdentifier: accountId,
-          orgIdentifier,
-          projectIdentifier,
-          pipelineIdentifier: pipeline?.identifier as string,
-          pipelineRepoID: repoIdentifier,
-          pipelineBranch: branch,
-          ...(gitDetails ?? {}),
-          ...(gitDetails && gitDetails.isNewBranch ? { baseBranch: initialGitDetails.branch } : {})
+    try {
+      const response = await createInputSet(
+        stringify({
+          inputSet: { ...clearNullUndefined(payload || inputSetObj), orgIdentifier, projectIdentifier }
+        }) as any,
+        {
+          queryParams: {
+            accountIdentifier: accountId,
+            orgIdentifier,
+            projectIdentifier,
+            pipelineIdentifier: pipeline?.identifier as string,
+            pipelineRepoID: repoIdentifier,
+            pipelineBranch: branch,
+            ...(gitDetails ?? {}),
+            ...(gitDetails && gitDetails.isNewBranch ? { baseBranch: initialGitDetails.branch } : {})
+          }
         }
-      }
-    )
-    if (response.data?.errorResponse) {
-      const errors = getFormattedErrors(response.data.inputSetErrorWrapper?.uuidToErrorResponseMap)
-      if (Object.keys(errors).length) {
-        setFormErrors(errors)
+      )
+      if (response.data?.errorResponse) {
+        const errors = getFormattedErrors(response.data.inputSetErrorWrapper?.uuidToErrorResponseMap)
+        if (Object.keys(errors).length) {
+          setFormErrors(errors)
+        } else {
+          showError(getString('inputSets.inputSetSavedError'), undefined, 'pipeline.save.inputset.error')
+        }
       } else {
-        showError(getString('inputSets.inputSetSavedError'), undefined, 'pipeline.save.inputset.error')
+        showSuccess(getString('inputSets.inputSetSaved'))
       }
-    } else {
-      showSuccess(getString('inputSets.inputSetSaved'))
-    }
-    return {
-      status: response?.status // nextCallback can be added if required
+      return {
+        status: response?.status // nextCallback can be added if required
+      }
+    } catch (e) {
+      showError(e?.data?.message)
+      // throw error here so that it's uncaught in handleSubmit and we don'tr end up reloading the modal
+      throw e
     }
   }
 
@@ -184,6 +190,7 @@ const SaveAsInputSet = ({
     async (inputSetObj: InputSetDTO, gitDetails?: EntityGitDetails) => {
       setSavedInputSetObj(omit(inputSetObj, 'repo', 'branch'))
       setInitialGitDetails(gitDetails as EntityGitDetails)
+
       if (inputSetObj) {
         if (isGitSyncEnabled) {
           openSaveToGitDialog({
@@ -670,8 +677,29 @@ function RunPipelineFormBasic({
     existingProvide
   ])
 
-  if (loadingPipeline || loadingTemplate || loadingUpdate || runLoading || inputSetLoading) {
+  if (loadingPipeline || loadingTemplate || runLoading || inputSetLoading) {
     return <PageSpinner />
+  }
+
+  const renderPipelineInputSetForm = () => {
+    if (loadingUpdate) {
+      return (
+        <PageSpinner
+          className={css.inputSetsUpdatingSpinner}
+          message={getString('pipeline.inputSets.applyingInputSets')}
+        />
+      )
+    }
+    if (pipeline && template?.data?.inputSetTemplateYaml) {
+      return (
+        <PipelineInputSetForm
+          originalPipeline={pipeline}
+          template={parse(template.data.inputSetTemplateYaml).pipeline}
+          readonly={executionView}
+          path=""
+        />
+      )
+    }
   }
 
   const child = (
@@ -796,14 +824,13 @@ function RunPipelineFormBasic({
                                         }}
                                         tooltip={
                                           <Text padding="medium" width={400}>
-                                            Harness Input Sets are collections of variables/values that can be provided
-                                            to one or more Pipelines before execution.
+                                            {getString('pipeline.inputSets.aboutInputSets')}
                                             <a
                                               href="https://ngdocs.harness.io/article/3fqwa8et3d-input-sets"
                                               target="_blank"
                                               rel="noopener noreferrer"
                                             >
-                                              Learn more
+                                              {getString('learnMore')}
                                             </a>
                                           </Text>
                                         }
@@ -843,16 +870,11 @@ function RunPipelineFormBasic({
                             )}
                           </>
                         )}
-                        {(existingProvide === 'provide' ||
-                          (selectedInputSets && selectedInputSets?.length > 0) ||
-                          executionView) && (
-                          <PipelineInputSetForm
-                            originalPipeline={pipeline}
-                            template={parse(template.data.inputSetTemplateYaml).pipeline}
-                            readonly={executionView}
-                            path=""
-                          />
-                        )}
+                        {existingProvide === 'provide' ||
+                        (selectedInputSets && selectedInputSets?.length > 0) ||
+                        executionView
+                          ? renderPipelineInputSetForm()
+                          : null}
                         {existingProvide === 'existing' && selectedInputSets && selectedInputSets?.length > 0 && (
                           <div className={css.noPipelineInputSetForm} />
                         )}
