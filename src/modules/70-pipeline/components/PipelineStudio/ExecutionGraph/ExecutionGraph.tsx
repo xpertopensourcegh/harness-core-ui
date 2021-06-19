@@ -350,7 +350,6 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
   const mouseLeaveNodeListener = (event: any) => {
     const eventTemp = event as DefaultNodeEvent
     eventTemp.stopPropagation()
-    dynamicPopoverHandler?.hide()
   }
 
   const nodeListeners: NodeModelListener = {

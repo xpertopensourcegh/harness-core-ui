@@ -148,6 +148,7 @@ export class StageBuilderModel extends DiagramModel {
                 ? `${parallelStageNames[0]}, ${parallelStageNames[1]}, +${parallelStageNames.length - 2}`
                 : parallelStageNames.join(', '),
             width: 114,
+            allowAdd: true,
             height: 50,
             icons
           })

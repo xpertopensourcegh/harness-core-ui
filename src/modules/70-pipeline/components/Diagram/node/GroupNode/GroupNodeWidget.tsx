@@ -6,7 +6,7 @@ import type { GroupNodeModel } from './GroupNodeModel'
 import { DefaultPortLabel } from '../../port/DefaultPortLabelWidget'
 import type { DefaultPortModel } from '../../port/DefaultPortModel'
 
-import { Event } from '../../Constants'
+import { DiagramDrag, Event } from '../../Constants'
 import css from '../DefaultNode.module.scss'
 
 export interface GroupNodeProps {
@@ -25,9 +25,42 @@ const onClickNode = (e: React.MouseEvent<Element, MouseEvent>, node: GroupNodeMo
 
 export const GroupNodeWidget = (props: GroupNodeProps): JSX.Element => {
   const options = props.node.getOptions()
-
+  const allowAdd = options.allowAdd ?? false
+  const [showAdd, setVisibilityOfAdd] = React.useState(false)
   return (
-    <div className={css.defaultNode} onClick={e => onClickNode(e, props.node)}>
+    <div
+      className={css.defaultNode}
+      onClick={e => onClickNode(e, props.node)}
+      onMouseDown={e => {
+        e.stopPropagation()
+        props.node.setSelected(true)
+      }}
+      onDragOver={event => {
+        if (event.dataTransfer.types.indexOf(DiagramDrag.AllowDropOnNode) !== -1) {
+          if (allowAdd) {
+            setVisibilityOfAdd(true)
+            event.preventDefault()
+          }
+        }
+      }}
+      onDragLeave={event => {
+        if (event.dataTransfer.types.indexOf(DiagramDrag.AllowDropOnNode) !== -1) {
+          if (allowAdd) {
+            setVisibilityOfAdd(false)
+          }
+        }
+      }}
+      onDrop={event => {
+        event.stopPropagation()
+        if (event.dataTransfer.types.indexOf(DiagramDrag.AllowDropOnNode) !== -1) {
+          const dropData: { id: string; identifier: string } = JSON.parse(
+            event.dataTransfer.getData(DiagramDrag.NodeDrag)
+          )
+          props.node.setSelected(false)
+          props.node.fireEvent({ node: dropData }, Event.DropLinkEvent)
+        }
+      }}
+    >
       <div
         className={css.defaultCard}
         style={{
@@ -73,6 +106,23 @@ export const GroupNodeWidget = (props: GroupNodeProps): JSX.Element => {
       >
         {options.name}
       </Text>
+      {allowAdd && (
+        <div
+          onClick={() => {
+            setVisibilityOfAdd(true)
+          }}
+          className={css.addNode}
+          data-nodeid="add-parallel"
+          style={{
+            width: options.width,
+            height: options.height,
+            display: showAdd ? 'flex' : 'none',
+            marginLeft: (126 - (options.width || 64)) / 2
+          }}
+        >
+          <Icon name="plus" style={{ color: 'var(--diagram-add-node-color)' }} />
+        </div>
+      )}
     </div>
   )
 }
