@@ -1,7 +1,8 @@
-import { flatMap, findIndex } from 'lodash-es'
+import { flatMap, findIndex, cloneDeep } from 'lodash-es'
 import { Color } from '@wings-software/uicore'
 import { v4 as uuid } from 'uuid'
 import type { NodeModelListener, LinkModelListener, DiagramEngine } from '@projectstorm/react-diagrams-core'
+import produce from 'immer'
 import type { StageElementWrapper, NgPipeline, PageConnectorResponse } from 'services/cd-ng'
 import type * as Diagram from '@pipeline/components/Diagram'
 import {
@@ -12,6 +13,7 @@ import {
 import type { StageType } from '@pipeline/utils/stageHelpers'
 import { EmptyStageName } from '../PipelineConstants'
 import type { PipelineContextInterface, StagesMap } from '../PipelineContext/PipelineContext'
+import { getStageFromPipeline } from '../PipelineContext/helpers'
 
 export interface StageState {
   isConfigured: boolean
@@ -218,7 +220,9 @@ export const removeNodeFromPipeline = (
 }
 export const getDependantStages = (pipeline: NgPipeline | StageElementWrapper, node: StageElementWrapper): string[] => {
   const dependantStages: string[] = []
-  pipeline.stages?.map((currentStage: StageState) => {
+  const flattenedStages = getFlattenedStages(pipeline).stages
+
+  flattenedStages?.forEach((currentStage: StageElementWrapper) => {
     if (currentStage.stage?.spec?.serviceConfig?.useFromStage?.stage === node?.stage?.identifier) {
       dependantStages.push(currentStage.stage.name)
     }
@@ -258,3 +262,77 @@ export const getConnectorNameFromValue = (
   const connectorName = filteredConnector?.connector?.name
   return connectorName
 }
+
+export const resetServiceSelectionForStages = (stages: string[] = [], pipeline: NgPipeline): StageElementWrapper[] => {
+  const stagesCopy = cloneDeep(pipeline.stages) || []
+  stages.forEach(stageId => {
+    const { stage, parent = null } = getStageFromPipeline(stageId, pipeline)
+    if (!stage) {
+      return
+    }
+
+    if (parent) {
+      const { parallelStageIndex, stageIndex: parentStageIndex } = getStageIndexByIdentifier(pipeline, stageId)
+      const updatedStage = resetStageServiceSpec(stagesCopy[parentStageIndex].parallel[parallelStageIndex])
+      stagesCopy[parentStageIndex].parallel[parallelStageIndex] = updatedStage
+      return
+    }
+    let stageIndex = pipeline.stages?.indexOf(stage)
+    stageIndex = stageIndex !== undefined ? stageIndex : -1
+    const updatedStage = resetStageServiceSpec(stage)
+    stagesCopy[stageIndex] = updatedStage
+  })
+  return stagesCopy
+}
+
+export const getAffectedDependentStages = (
+  dependentStages: string[] = [],
+  dropIndex: number,
+  pipeline: NgPipeline,
+  parallelStageIndex = -1
+): string[] => {
+  const affectedStages: Set<string> = new Set()
+  dependentStages.forEach(stageId => {
+    const { stage: currentStage, parent = null } = getStageFromPipeline(stageId, pipeline)
+    if (!currentStage) {
+      return false
+    }
+    if (parent) {
+      parent?.parallel.forEach((pStageId: StageElementWrapper, index: number) => {
+        const stageIndex = dependentStages.indexOf(pStageId?.stage?.identifier)
+        if (parallelStageIndex !== -1) {
+          stageIndex > -1 && index <= parallelStageIndex && affectedStages.add(stageId)
+        } else {
+          stageIndex > -1 && index <= dropIndex && affectedStages.add(stageId)
+        }
+      })
+      return
+    }
+    const stageIndex = pipeline.stages?.indexOf(currentStage || {})
+
+    if (stageIndex !== undefined && stageIndex > -1) {
+      return stageIndex <= dropIndex && affectedStages.add(stageId)
+    }
+    return
+  })
+  return [...affectedStages]
+}
+
+export const resetStageServiceSpec = (stage: StageElementWrapper): StageElementWrapper =>
+  produce(stage, draft => {
+    ;(draft.stage as any).spec.serviceConfig = {
+      serviceRef: '',
+      serviceDefinition: {
+        type: 'Kubernetes',
+        spec: {
+          artifacts: {
+            sidecars: []
+          },
+          manifests: [],
+
+          artifactOverrideSets: [],
+          manifestOverrideSets: []
+        }
+      }
+    }
+  })

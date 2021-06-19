@@ -360,3 +360,4 @@ account:
     description: to add and manage your subscriptions
 valuePlaceholder: Enter Value(s)
 seconds: Seconds
+move: Move

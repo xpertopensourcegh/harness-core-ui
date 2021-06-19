@@ -191,6 +191,7 @@ export interface StringsMap {
   'common.manage': string
   'common.member': string
   'common.moreRefineSearch': string
+  'common.move': string
   'common.namespace': string
   'common.new': string
   'common.newLines': string
@@ -1444,6 +1445,9 @@ export interface StringsMap {
   'pipeline.manifestType.selectManifestStore': string
   'pipeline.manifestType.specifyManifestRepoType': string
   'pipeline.manifestType.specifyManifestStore': string
+  'pipeline.moveStage.ahead': string
+  'pipeline.moveStage.behind': string
+  'pipeline.moveStage.title': string
   'pipeline.noBuildsText': string
   'pipeline.noDeploymentText': string
   'pipeline.noPipelineText': string

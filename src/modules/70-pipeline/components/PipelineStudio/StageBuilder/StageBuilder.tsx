@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout } from '@wings-software/uicore'
+import { Intent, Layout } from '@wings-software/uicore'
 import cx from 'classnames'
 import { debounce, isEmpty, isNil } from 'lodash-es'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
@@ -37,7 +37,12 @@ import {
   StageState,
   resetDiagram,
   removeNodeFromPipeline,
-  mayBeStripCIProps
+  mayBeStripCIProps,
+  getStageIndexFromPipeline,
+  getDependantStages,
+  resetServiceSelectionForStages,
+  getAffectedDependentStages,
+  getStageIndexByIdentifier
 } from './StageBuilderUtil'
 import { useStageBuilderCanvasState } from './useStageBuilderCanvasState'
 import { StageList } from './views/StageList'
@@ -50,6 +55,22 @@ declare global {
   interface WindowEventMap {
     CLOSE_CREATE_STAGE_POPOVER: CustomEvent<string>
   }
+}
+
+enum MoveDirection {
+  AHEAD,
+  BEHIND
+}
+interface MoveStageDetailsType {
+  direction: MoveDirection
+  event?: any
+  dependentStages?: string[]
+  currentStage?: unknown
+  isLastAddLink?: boolean
+}
+const DEFAULT_MOVE_STAGE_DETAILS: MoveStageDetailsType = {
+  direction: MoveDirection.AHEAD,
+  event: undefined
 }
 const initializeStageStateMap = (pipeline: NgPipeline, mapState: StageStateMap): void => {
   /* istanbul ignore else */ if (pipeline?.stages) {
@@ -322,9 +343,39 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
     }
   }, [isInitialized, pipeline, isSplitViewOpen])
 
+  // updates stages when stage is dragged to add stage link
+  const updateStageOnAddLink = (event: any, dropNode: StageElementWrapper, current: any): void => {
+    // Check Drop Node and Current node should not be same
+    if (event.node.identifier !== event.entity.getIdentifier()) {
+      const isRemove = removeNodeFromPipeline(getStageFromPipeline(event.node.identifier), pipeline, stageMap, false)
+      if (isRemove && dropNode) {
+        if (!current.parent && current.stage) {
+          const index = pipeline.stages?.indexOf(current.stage) ?? -1
+          if (index > -1) {
+            // Remove current Stage also and make it parallel
+            pipeline?.stages?.splice(index, 1)
+            // Now make a parallel stage and update at the same place
+            addStage(
+              {
+                parallel: [current.stage, dropNode]
+              },
+              false,
+              event,
+              index,
+              false
+            )
+          }
+        } else {
+          addStage(dropNode, current?.parent?.parallel?.length > 0, event, undefined, false)
+        }
+      }
+    }
+  }
+
   React.useEffect(() => {
     setDeleteId(deleteId)
   }, [deleteId])
+
   const nodeListeners: NodeModelListener = {
     // Can not remove this Any because of React Diagram Issue
     [Event.ClickNode]: (event: any) => {
@@ -473,7 +524,7 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
     [Event.AddParallelNode]: (event: any) => {
       const eventTemp = event as DefaultNodeEvent
       eventTemp.stopPropagation()
-      dynamicPopoverHandler?.hide()
+      // dynamicPopoverHandler?.hide()
 
       updatePipelineView({
         ...pipelineView,
@@ -504,36 +555,64 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
       if (event.node?.identifier) {
         const dropNode = getStageFromPipeline(event.node.identifier).stage
         const current = getStageFromPipeline(eventTemp.entity.getIdentifier())
-        // Check Drop Node and Current node should not be same
-        if (event.node.identifier !== eventTemp.entity.getIdentifier()) {
-          const isRemove = removeNodeFromPipeline(
-            getStageFromPipeline(event.node.identifier),
+        const dependentStages = getDependantStages(pipeline, dropNode as StageElementWrapper)
+        const parentStageId = dropNode?.stage?.spec?.serviceConfig?.useFromStage?.stage
+        if (parentStageId?.length) {
+          const { stageIndex } = getStageIndexByIdentifier(pipeline, current?.stage?.stage?.identifier)
+
+          const { index: parentIndex } = getStageIndexFromPipeline(pipeline, parentStageId)
+          if (stageIndex <= parentIndex) {
+            setMoveStageDetails({
+              event,
+              direction: MoveDirection.AHEAD,
+              currentStage: current
+            })
+            confirmMoveStage()
+            return
+          }
+
+          return
+        } else if (dependentStages?.length) {
+          let finalDropIndex = -1
+          let firstDependentStageIndex
+          const {
+            stageIndex: dependentStageIndex,
+            parallelStageIndex: dependentParallelIndex = -1
+          } = getStageIndexByIdentifier(pipeline, dependentStages[0])
+
+          firstDependentStageIndex = dependentStageIndex
+
+          if (current.parent) {
+            const { stageIndex } = getStageIndexByIdentifier(pipeline, current?.stage?.stage?.identifier)
+            finalDropIndex = stageIndex
+            firstDependentStageIndex = dependentStageIndex
+          } else if (current?.stage) {
+            const { stageIndex } = getStageIndexByIdentifier(pipeline, current?.stage?.stage?.identifier)
+            finalDropIndex = stageIndex
+          }
+
+          finalDropIndex = finalDropIndex === -1 ? pipeline.stages?.length || 0 : finalDropIndex
+          const stagesTobeUpdated = getAffectedDependentStages(
+            dependentStages,
+            finalDropIndex,
             pipeline,
-            stageMap,
-            false
+            dependentParallelIndex
           )
-          if (isRemove && dropNode) {
-            if (!current.parent && current.stage) {
-              const index = pipeline.stages?.indexOf(current.stage) ?? -1
-              if (index > -1) {
-                // Remove current Stage also and make it parallel
-                pipeline?.stages?.splice(index, 1)
-                // Now make a parallel stage and update at the same place
-                addStage(
-                  {
-                    parallel: [current.stage, dropNode]
-                  },
-                  false,
-                  event,
-                  index,
-                  false
-                )
-              }
-            } else {
-              addStage(dropNode, current?.parent?.parallel?.length > 0, event, undefined, false)
-            }
+
+          if (finalDropIndex >= firstDependentStageIndex) {
+            setMoveStageDetails({
+              event,
+              direction: MoveDirection.BEHIND,
+              dependentStages: stagesTobeUpdated,
+              currentStage: current,
+              isLastAddLink: !current.parent
+            })
+
+            confirmMoveStage()
+            return
           }
         }
+        updateStageOnAddLink(event, dropNode as StageElementWrapper, current)
       }
     },
     [Event.MouseEnterNode]: (event: any) => {
@@ -565,7 +644,68 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
       eventTemp.stopPropagation()
     }
   }
+  const [moveStageDetails, setMoveStageDetails] = React.useState<MoveStageDetailsType>({
+    ...DEFAULT_MOVE_STAGE_DETAILS
+  })
 
+  const resetPipelineStages = (stages: StageElementWrapper[]): void => {
+    updatePipeline({
+      ...pipeline,
+      stages
+    }).then(() => {
+      resetMoveStageDetails()
+    })
+  }
+
+  const resetMoveStageDetails = (): void =>
+    setMoveStageDetails({
+      ...DEFAULT_MOVE_STAGE_DETAILS
+    })
+
+  const { openDialog: confirmMoveStage } = useConfirmationDialog({
+    contentText: `${getString(
+      moveStageDetails?.direction === MoveDirection.AHEAD ? 'pipeline.moveStage.ahead' : 'pipeline.moveStage.behind'
+    )} `,
+    titleText: getString('pipeline.moveStage.title'),
+    confirmButtonText: getString('common.move'),
+    cancelButtonText: getString('cancel'),
+    intent: Intent.WARNING,
+    onCloseDialog: async (isConfirmed: boolean) => {
+      if (isConfirmed) {
+        const {
+          event,
+          dependentStages = [],
+          currentStage = false,
+          isLastAddLink = false
+        }: { event?: any; dependentStages?: string[]; currentStage?: any; isLastAddLink?: boolean } = moveStageDetails
+
+        const nodeIdentifier = event?.node?.identifier
+        const dropNode = getStageFromPipeline(nodeIdentifier).stage
+
+        if (currentStage?.parent?.parallel || isLastAddLink) {
+          if (dropNode && event.node.identifier !== event?.entity.getIdentifier()) {
+            updateStageOnAddLink(event, dropNode, currentStage)
+            const updatedStages = resetServiceSelectionForStages(
+              dependentStages.length ? dependentStages : [nodeIdentifier],
+              pipeline
+            )
+
+            resetPipelineStages(updatedStages)
+          }
+        } else {
+          const isRemove = removeNodeFromPipeline(getStageFromPipeline(nodeIdentifier), pipeline, stageMap, false)
+          if (isRemove && dropNode) {
+            addStage(dropNode, !!currentStage, event as any)
+            const updatedStages = resetServiceSelectionForStages(
+              dependentStages.length ? dependentStages : [nodeIdentifier],
+              pipeline
+            )
+            resetPipelineStages(updatedStages)
+          }
+        }
+      }
+    }
+  })
   const linkListeners: LinkModelListener = {
     [Event.AddLinkClicked]: (event: any) => {
       const eventTemp = event as DefaultNodeEvent
@@ -585,10 +725,57 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
       }
     },
     [Event.DropLinkEvent]: (event: any) => {
+      // console.log(event.node.identifier === event.entity.getIdentifier())
       const eventTemp = event as DefaultLinkEvent
       eventTemp.stopPropagation()
       if (event.node?.identifier) {
         const dropNode = getStageFromPipeline(event.node.identifier).stage
+        const parentStageName = dropNode?.stage?.spec?.serviceConfig?.useFromStage?.stage
+        const dependentStages = getDependantStages(pipeline, dropNode as StageElementWrapper)
+
+        if (parentStageName?.length) {
+          const node = event.entity.getTargetPort().getNode() as DefaultNodeModel
+          const { stage } = getStageFromPipeline(node.getIdentifier())
+          const dropIndex = pipeline?.stages?.indexOf(stage!) || -1
+          const { stageIndex: parentIndex = -1 } = getStageIndexByIdentifier(pipeline, parentStageName)
+
+          if (dropIndex < parentIndex) {
+            setMoveStageDetails({
+              event,
+              direction: MoveDirection.AHEAD
+            })
+            confirmMoveStage()
+            return
+          }
+        } else if (dependentStages?.length) {
+          let dropIndex = -1
+          const node = event.entity.getSourcePort().getNode() as DefaultNodeModel
+          const { stage } = getStageFromPipeline(node.getIdentifier())
+          if (!stage) {
+            //  node on sourceport is parallel so split nodeId to get original node identifier
+            const nodeId = node.getIdentifier().split(EmptyNodeSeparator)[1]
+
+            const { stageIndex: nextStageIndex } = getStageIndexByIdentifier(pipeline, nodeId)
+            dropIndex = nextStageIndex + 1 // adding 1 as we checked source port that is prev to index where we will move this node
+          } else {
+            dropIndex = pipeline?.stages?.indexOf(stage!) || -1
+          }
+
+          const { stageIndex: firstDependentStageIndex = -1 } = getStageIndexByIdentifier(pipeline, dependentStages[0])
+
+          if (dropIndex >= firstDependentStageIndex) {
+            const stagesTobeUpdated = getAffectedDependentStages(dependentStages, dropIndex, pipeline)
+
+            setMoveStageDetails({
+              event,
+              direction: MoveDirection.BEHIND,
+              dependentStages: stagesTobeUpdated
+            })
+            confirmMoveStage()
+            return
+          }
+        }
+
         const isRemove = removeNodeFromPipeline(getStageFromPipeline(event.node.identifier), pipeline, stageMap, false)
         if (isRemove && dropNode) {
           addStage(dropNode, false, event)
@@ -652,6 +839,7 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
         render={renderPopover}
         bind={setDynamicPopoverHandler}
         placement={'right'}
+        closeOnMouseOut
       />
 
       <CanvasButtons tooltipPosition="left" engine={engine} callback={() => dynamicPopoverHandler?.hide()} />

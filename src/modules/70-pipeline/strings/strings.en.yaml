@@ -582,3 +582,7 @@ operatorPlaceholder: Select Operator
 variable:
   variableNamePlaceholder: Enter Variable Name
   typePlaceholder: Enter Type
+moveStage:
+  title: 'Move Pipeline Stage'
+  ahead: 'Moving this stage ahead of its parent stage will reset stage configuration. Do you want to continue ? '
+  behind: 'Moving this stage behind  its dependent stage will reset dependent stage configuration. Do you want to continue ? '
