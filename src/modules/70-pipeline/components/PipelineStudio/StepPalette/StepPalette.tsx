@@ -15,13 +15,13 @@ import {
   UseGetStepsProps
 } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
+import { StageType } from '@pipeline/utils/stageHelpers'
 import type { AbstractStepFactory, StepData as FactoryStepData } from '../../AbstractSteps/AbstractStepFactory'
 
 import { iconMap, iconMapByName } from './iconMap'
 // TODO: Mock API
 import featureStageSteps from './mock/featureStageSteps.json'
 import buildStageStepsWithRunTestsStep from './mock/buildStageStepsWithRunTestsStep.json'
-import { StageTypes } from '../Stages/StageTypes'
 import css from './StepPalette.module.scss'
 
 export const getAllStepsCountForPalette = (originalData: StepCategory[]): number => {
@@ -75,15 +75,15 @@ const useGetBuildSteps = (props: UseGetStepsProps) => {
 }
 
 // TODO: move to StepPaletteUtils.ts
-const dataSourceFactory = (stageType: StageTypes): any => {
+const dataSourceFactory = (stageType: StageType): any => {
   switch (stageType) {
-    case StageTypes.BUILD:
+    case StageType.BUILD:
       return useGetBuildSteps
-    case StageTypes.DEPLOY:
+    case StageType.DEPLOY:
       return useGetSteps
-    case StageTypes.APPROVAL:
+    case StageType.APPROVAL:
       return useGetSteps
-    case StageTypes.FEATURE:
+    case StageType.FEATURE:
       return useGetFeatureSteps
   }
 }
@@ -102,7 +102,7 @@ export interface StepPaletteProps {
   onClose: () => void
   stepsFactory: AbstractStepFactory
   selectedStage: any
-  stageType: StageTypes
+  stageType: StageType
   isProvisioner?: boolean
 }
 export const StepPalette: React.FC<StepPaletteProps> = ({
@@ -118,8 +118,8 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
   const [selectedCategory, setSelectedCategory] = useState(primaryTypes.SHOW_ALL)
   const { module, accountId } = useParams<{ module: string; accountId: string }>()
   let categoryForStepPalette
-  if ((selectedStage as any).stage?.type === StageTypes.APPROVAL) {
-    categoryForStepPalette = StageTypes.APPROVAL
+  if ((selectedStage as any).stage?.type === StageType.APPROVAL) {
+    categoryForStepPalette = StageType.APPROVAL
   } else if (isProvisioner) {
     categoryForStepPalette = 'Provisioner'
   } else {

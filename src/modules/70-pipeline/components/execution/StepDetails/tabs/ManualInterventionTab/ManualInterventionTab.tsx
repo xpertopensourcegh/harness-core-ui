@@ -9,7 +9,7 @@ import {
   ExecutionNode,
   HandleManualInterventionInterruptQueryParams
 } from 'services/pipeline-ng'
-import { Strategy } from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/StrategySelection/StrategyConfig'
+import type { Strategy } from '@pipeline/utils/FailureStrategyUtils'
 import { StrategyIcon } from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/StrategySelection/StrategyIcon'
 import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/components/Toaster/useToaster'
@@ -18,14 +18,11 @@ import css from './ManualInterventionTab.module.scss'
 
 export interface ManualInterventionTabProps {
   step: ExecutionNode
+  allowedStrategies: Strategy[]
 }
 
-export const STRATEGIES: Strategy[][] = chunk(
-  [Strategy.Retry, Strategy.Ignore, Strategy.MarkAsSuccess, Strategy.Abort, Strategy.StageRollback],
-  5
-)
-
 export function ManualInterventionTab(props: ManualInterventionTabProps): React.ReactElement {
+  const { allowedStrategies } = props
   const { orgIdentifier, projectIdentifier, executionIdentifier, accountId } = useParams<
     PipelineType<ExecutionPathProps>
   >()
@@ -47,6 +44,8 @@ export function ManualInterventionTab(props: ManualInterventionTabProps): React.
       headers: { 'content-type': 'application/json' }
     })
   }
+
+  const STRATEGIES: Strategy[][] = React.useMemo(() => chunk(allowedStrategies, 5), [allowedStrategies])
 
   React.useEffect(() => {
     if (error) {

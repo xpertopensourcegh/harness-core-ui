@@ -8,8 +8,17 @@ import type { StepDetailProps } from '@pipeline/factories/ExecutionStepDetailsFa
 import { StepDetailsTab } from '@pipeline/components/execution/StepDetails/tabs/StepDetailsTab/StepDetailsTab'
 import { InputOutputTab } from '@pipeline/components/execution/StepDetails/tabs/InputOutputTab/InputOutputTab'
 import { ManualInterventionTab } from '@pipeline/components/execution/StepDetails/tabs/ManualInterventionTab/ManualInterventionTab'
+import { Strategy } from '@pipeline/utils/FailureStrategyUtils'
 
 import css from './DefaultView.module.scss'
+
+const failureStrategies = [
+  // Strategy.Retry,
+  Strategy.Ignore,
+  Strategy.MarkAsSuccess,
+  Strategy.Abort,
+  Strategy.StageRollback
+]
 
 enum StepDetailTab {
   STEP_DETAILS = 'STEP_DETAILS',
@@ -27,10 +36,10 @@ export function DefaultView(props: StepDetailProps): React.ReactElement {
   const isManualInterruption = isExecutionWaitingForIntervention(step.status)
 
   React.useEffect(() => {
-    if (!manuallySelected.current && isManualInterruption) {
-      setActiveTab(StepDetailTab.MANUAL_INTERVENTION)
+    if (!manuallySelected.current) {
+      setActiveTab(isManualInterruption ? StepDetailTab.MANUAL_INTERVENTION : StepDetailTab.STEP_DETAILS)
     }
-  }, [step, isManualInterruption])
+  }, [step.identifier, isManualInterruption])
 
   return (
     <Tabs
@@ -68,7 +77,7 @@ export function DefaultView(props: StepDetailProps): React.ReactElement {
         <Tabs.Tab
           id={StepDetailTab.MANUAL_INTERVENTION}
           title={getString('pipeline.failureStrategies.strategiesLabel.ManualIntervention')}
-          panel={<ManualInterventionTab step={step} />}
+          panel={<ManualInterventionTab step={step} allowedStrategies={failureStrategies} />}
         />
       ) : null}
     </Tabs>

@@ -9,9 +9,9 @@ import {
   getScopeFromDTO,
   getScopeFromValue
 } from '@common/components/EntityReference/EntityReference'
+import type { StageType } from '@pipeline/utils/stageHelpers'
 import { EmptyStageName } from '../PipelineConstants'
 import type { PipelineContextInterface, StagesMap } from '../PipelineContext/PipelineContext'
-import type { StageTypes } from '../Stages/StageTypes'
 
 export interface StageState {
   isConfigured: boolean
@@ -35,7 +35,7 @@ export interface PopoverData {
     openSetupAfterAdd?: boolean
   ) => void
   onSubmitPrimaryData?: (values: StageElementWrapper, identifier: string) => void
-  onClickGroupStage?: (stageId: string, type: StageTypes) => void
+  onClickGroupStage?: (stageId: string, type: StageType) => void
   renderPipelineStage: PipelineContextInterface['renderPipelineStage']
   isHoverView?: boolean
 }

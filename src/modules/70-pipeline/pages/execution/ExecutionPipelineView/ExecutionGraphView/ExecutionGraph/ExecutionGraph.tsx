@@ -12,7 +12,7 @@ import { ExecutionStatus, isExecutionNotStarted, isExecutionSkipped } from '@pip
 import type { DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
 import { DynamicPopover } from '@common/exports'
 import HoverCard from '@pipeline/components/HoverCard/HoverCard'
-import { StageTypes } from '@pipeline/components/PipelineStudio/Stages/StageTypes'
+import { StageType } from '@pipeline/utils/stageHelpers'
 import {
   ExecutionPipelineNode,
   ExecutionPipelineNodeType,
@@ -27,7 +27,7 @@ import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import CDInfo from './components/CD/CDInfo/CDInfo'
 import css from './ExecutionGraph.module.scss'
 
-const barrierSupportedStageTypes = [StageTypes.DEPLOY, StageTypes.APPROVAL]
+const barrierSupportedStageTypes = [StageType.DEPLOY, StageType.APPROVAL]
 
 const processExecutionData = (
   stages?: ProcessLayoutNodeMapResponse[]
@@ -45,7 +45,7 @@ const processExecutionData = (
             status: node?.status as any,
             barrierFound: node?.barrierFound,
             type:
-              node?.nodeType === StageTypes.APPROVAL
+              node?.nodeType === StageType.APPROVAL
                 ? ExecutionPipelineNodeType.DIAMOND
                 : ExecutionPipelineNodeType.NORMAL,
             skipCondition: node?.skipInfo?.evaluatedCondition ? node.skipInfo.skipCondition : undefined,
@@ -66,7 +66,7 @@ const processExecutionData = (
           status: stage?.status as any,
           barrierFound: stage?.barrierFound,
           type:
-            stage?.nodeType === StageTypes.APPROVAL
+            stage?.nodeType === StageType.APPROVAL
               ? ExecutionPipelineNodeType.DIAMOND
               : ExecutionPipelineNodeType.NORMAL,
           skipCondition: stage?.skipInfo?.evaluatedCondition ? stage.skipInfo.skipCondition : undefined,

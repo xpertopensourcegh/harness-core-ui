@@ -2,7 +2,7 @@ import React from 'react'
 import type { UseStringsReturn } from 'framework/strings'
 import { PipelineStages, PipelineStagesProps } from '@pipeline/components/PipelineStages/PipelineStages'
 import { stagesCollection } from '@pipeline/components/PipelineStudio/Stages/StagesCollection'
-import { StageTypes } from '@pipeline/components/PipelineStudio/Stages/StageTypes'
+import { StageType } from '@pipeline/utils/stageHelpers'
 
 export const getCFPipelineStages: (
   args: Omit<PipelineStagesProps, 'children'>,
@@ -21,12 +21,12 @@ export const getCFPipelineStages: (
 ) => {
   return (
     <PipelineStages {...args}>
-      {stagesCollection.getStage(StageTypes.FEATURE, isCFEnabled, getString)}
-      {stagesCollection.getStage(StageTypes.DEPLOY, isCDEnabled, getString)}
-      {stagesCollection.getStage(StageTypes.BUILD, isCIEnabled, getString)}
-      {stagesCollection.getStage(StageTypes.PIPELINE, false, getString)}
-      {stagesCollection.getStage(StageTypes.APPROVAL, isApprovalStageEnabled, getString)}
-      {stagesCollection.getStage(StageTypes.CUSTOM, false, getString)}
+      {stagesCollection.getStage(StageType.FEATURE, isCFEnabled, getString)}
+      {stagesCollection.getStage(StageType.DEPLOY, isCDEnabled, getString)}
+      {stagesCollection.getStage(StageType.BUILD, isCIEnabled, getString)}
+      {stagesCollection.getStage(StageType.PIPELINE, false, getString)}
+      {stagesCollection.getStage(StageType.APPROVAL, isApprovalStageEnabled, getString)}
+      {stagesCollection.getStage(StageType.CUSTOM, false, getString)}
     </PipelineStages>
   )
 }

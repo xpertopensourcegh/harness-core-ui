@@ -6,11 +6,11 @@ import { flatMap, get, isEmpty } from 'lodash-es'
 
 import { String, useStrings } from 'framework/strings'
 import type { FailureStrategyConfig } from 'services/cd-ng'
+import { StageType } from '@pipeline/utils/stageHelpers'
 
 import FailureTypeMultiSelect from './FailureTypeMultiSelect'
 import {
   allowedStrategiesAsPerStep,
-  Domain,
   errorTypesOrderForCD,
   errorTypesOrderForCI
 } from './StrategySelection/StrategyConfig'
@@ -30,7 +30,7 @@ export interface FailureStrategyPanelProps {
   }>
   mode: Modes
   isReadonly: boolean
-  domain?: Domain
+  stageType?: StageType
 }
 
 export default function FailureStrategyPanel(props: FailureStrategyPanelProps): React.ReactElement {
@@ -38,7 +38,7 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
     formikProps: { values: formValues, submitForm, errors },
     mode,
     isReadonly,
-    domain = Domain.Deployment
+    stageType: domain = StageType.DEPLOY
   } = props
   const [selectedStrategyNum, setSelectedStrategyNum] = React.useState(0)
   const hasFailureStrategies = Array.isArray(formValues.failureStrategies) && formValues.failureStrategies.length > 0
@@ -47,14 +47,14 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
 
   const uids = React.useRef<string[]>([])
 
-  const isDefaultStageStrategy = mode === Modes.STAGE && domain === Domain.Deployment && selectedStrategyNum === 0
+  const isDefaultStageStrategy = mode === Modes.STAGE && domain === StageType.DEPLOY && selectedStrategyNum === 0
   const filterTypes = flatMap(
     formValues.failureStrategies || /* istanbul ignore next */ [],
     e => e.onFailure?.errors || []
   )
 
   const isAddBtnDisabled =
-    domain === Domain.CI
+    domain === StageType.BUILD
       ? filterTypes.length === errorTypesOrderForCI.length || isReadonly
       : filterTypes.length === errorTypesOrderForCD.length || isReadonly
 
@@ -162,7 +162,7 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
               name={`failureStrategies[${selectedStrategyNum}].onFailure.errors`}
               label={getString('pipeline.failureStrategies.onFailureOfType')}
               filterTypes={filterTypes}
-              minimal={domain === Domain.CI}
+              minimal={domain === StageType.BUILD}
               disabled={isReadonly}
             />
           )}

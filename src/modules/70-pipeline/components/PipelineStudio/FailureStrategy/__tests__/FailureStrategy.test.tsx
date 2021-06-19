@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import { ErrorType } from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/StrategySelection/StrategyConfig'
+import { ErrorType } from '@pipeline/utils/FailureStrategyUtils'
 import { TestWrapper } from '@common/utils/testUtils'
 import { FailureStrategyWithRef } from '../FailureStrategy'
 

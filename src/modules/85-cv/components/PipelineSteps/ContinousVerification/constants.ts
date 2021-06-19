@@ -1,8 +1,5 @@
 import type { SelectOption } from '@wings-software/uicore'
-import {
-  ErrorType,
-  Strategy
-} from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/StrategySelection/StrategyConfig'
+import { ErrorType, Strategy } from '@pipeline/utils/FailureStrategyUtils'
 
 export enum JobTypes {
   BLUE_GREEN = 'Bluegreen',

@@ -1,13 +1,13 @@
 import React from 'react'
 import type { UseStringsReturn } from 'framework/strings'
-import { StageTypes } from '@pipeline/components/PipelineStudio/Stages/StageTypes'
+import { StageType } from '@pipeline/utils/stageHelpers'
 import { stagesCollection } from '@pipeline/components/PipelineStudio/Stages/StagesCollection'
 import type { StageAttributes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { CustomStage } from './CustomStage'
 
 const getStageAttributes = (_getString: UseStringsReturn['getString']): StageAttributes => ({
   name: 'Custom',
-  type: StageTypes.CUSTOM,
+  type: StageType.CUSTOM,
   icon: 'pipeline-custom',
   iconColor: 'var(--pipeline-custom-stage-color)',
   isApproval: false,
@@ -20,10 +20,10 @@ const getStageEditorImplementation = (isEnabled: boolean, _getString: UseStrings
     name={'Custom'}
     title=""
     description=""
-    type={StageTypes.CUSTOM}
+    type={StageType.CUSTOM}
     isDisabled={!isEnabled}
     isApproval={false}
   />
 )
 
-stagesCollection.registerStageFactory(StageTypes.CUSTOM, getStageAttributes, getStageEditorImplementation)
+stagesCollection.registerStageFactory(StageType.CUSTOM, getStageAttributes, getStageEditorImplementation)

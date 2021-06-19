@@ -1,13 +1,13 @@
 import React from 'react'
 import type { UseStringsReturn } from 'framework/strings'
-import { StageTypes } from '@pipeline/components/PipelineStudio/Stages/StageTypes'
+import { StageType } from '@pipeline/utils/stageHelpers'
 import { stagesCollection } from '@pipeline/components/PipelineStudio/Stages/StagesCollection'
 import type { StageAttributes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { DeployStage } from './DeployStage'
 
 const getStageAttributes = (getString: UseStringsReturn['getString']): StageAttributes => ({
   name: getString('pipelineSteps.deploy.create.deployStageName'),
-  type: StageTypes.DEPLOY,
+  type: StageType.DEPLOY,
   icon: 'cd-main',
   iconColor: 'var(--pipeline-deploy-stage-color)',
   isApproval: false,
@@ -19,7 +19,7 @@ const getStageEditorImplementation = (isEnabled: boolean, getString: UseStringsR
     icon={'cd-main'}
     iconsStyle={{ color: 'var(--pipeline-deploy-stage-color)' }}
     name={getString('pipelineSteps.deploy.create.deployStageName')}
-    type={StageTypes.DEPLOY}
+    type={StageType.DEPLOY}
     title={getString('pipelineSteps.deploy.create.deployStageName')}
     description={getString('pipelineSteps.deploy.create.deployStageDescription')}
     isHidden={!isEnabled}
@@ -28,4 +28,4 @@ const getStageEditorImplementation = (isEnabled: boolean, getString: UseStringsR
   />
 )
 
-stagesCollection.registerStageFactory(StageTypes.DEPLOY, getStageAttributes, getStageEditorImplementation)
+stagesCollection.registerStageFactory(StageType.DEPLOY, getStageAttributes, getStageEditorImplementation)

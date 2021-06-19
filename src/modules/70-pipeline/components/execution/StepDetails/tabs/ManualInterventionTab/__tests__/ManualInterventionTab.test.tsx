@@ -1,5 +1,4 @@
 import React from 'react'
-import { flatten } from 'lodash-es'
 import { render, fireEvent, waitFor } from '@testing-library/react'
 
 import { testIds } from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/StrategySelection/StrategyConfig'
@@ -7,7 +6,8 @@ import routes from '@common/RouteDefinitions'
 import { useHandleManualInterventionInterrupt } from 'services/pipeline-ng'
 import { TestWrapper } from '@common/utils/testUtils'
 import { accountPathProps, executionPathProps, pipelineModuleParams } from '@common/utils/routeUtils'
-import { ManualInterventionTab, STRATEGIES } from '../ManualInterventionTab'
+import { Strategy } from '@pipeline/utils/FailureStrategyUtils'
+import { ManualInterventionTab } from '../ManualInterventionTab'
 import data from './data.json'
 
 const mutate = jest.fn()
@@ -34,6 +34,8 @@ const pathParams = {
   stageId: 'selectedStageId'
 }
 
+const AllStrategies = Object.values(Strategy)
+
 describe('<ManualInterventionTab /> tests', () => {
   beforeEach(() => {
     mutate.mockClear()
@@ -43,17 +45,17 @@ describe('<ManualInterventionTab /> tests', () => {
   test('snapshot test', () => {
     const { container } = render(
       <TestWrapper path={TEST_PATH} pathParams={pathParams}>
-        <ManualInterventionTab step={data as any} />
+        <ManualInterventionTab step={data as any} allowedStrategies={AllStrategies} />
       </TestWrapper>
     )
 
     expect(container).toMatchSnapshot()
   })
 
-  test.each(flatten(STRATEGIES))('interrupt %s works', async strategy => {
+  test.each(AllStrategies)('interrupt %s works', async strategy => {
     const { findByTestId } = render(
       <TestWrapper path={TEST_PATH} pathParams={pathParams}>
-        <ManualInterventionTab step={data as any} />
+        <ManualInterventionTab step={data as any} allowedStrategies={AllStrategies} />
       </TestWrapper>
     )
 
@@ -82,7 +84,7 @@ describe('<ManualInterventionTab /> tests', () => {
 
     render(
       <TestWrapper path={TEST_PATH} pathParams={pathParams}>
-        <ManualInterventionTab step={data as any} />
+        <ManualInterventionTab step={data as any} allowedStrategies={AllStrategies} />
       </TestWrapper>
     )
 

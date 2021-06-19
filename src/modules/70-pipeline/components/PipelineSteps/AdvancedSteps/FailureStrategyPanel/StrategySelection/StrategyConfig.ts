@@ -1,40 +1,13 @@
 import { mapValues } from 'lodash-es'
-import type { OnFailureConfig } from 'services/cd-ng'
+import { Strategy, ErrorType, FailureErrorType } from '@pipeline/utils/FailureStrategyUtils'
+import { StageType } from '@pipeline/utils/stageHelpers'
 import { Modes } from '../../common'
 
-export type FailureErrorType = OnFailureConfig['errors'][number]
-
-export enum Strategy {
-  Ignore = 'Ignore',
-  Abort = 'Abort',
-  StageRollback = 'StageRollback',
-  StepGroupRollback = 'StepGroupRollback',
-  Retry = 'Retry',
-  ManualIntervention = 'ManualIntervention',
-  MarkAsSuccess = 'MarkAsSuccess'
-}
-
-export const ErrorType: Record<FailureErrorType, FailureErrorType> = {
-  AllErrors: 'AllErrors',
-  Authentication: 'Authentication',
-  Connectivity: 'Connectivity',
-  Timeout: 'Timeout',
-  Authorization: 'Authorization',
-  Verification: 'Verification',
-  DelegateProvisioning: 'DelegateProvisioning',
-  Unknown: 'Unknown'
-}
-
-export enum Domain {
-  'CI' = 'CI',
-  'Deployment' = 'Deployment'
-}
-
-export const allowedStrategiesAsPerStep: (domain: Domain) => Record<Modes, Strategy[]> = (
-  domain = Domain.Deployment
+export const allowedStrategiesAsPerStep: (domain: StageType) => Record<Modes, Strategy[]> = (
+  domain = StageType.DEPLOY
 ) => {
   switch (domain) {
-    case Domain.CI:
+    case StageType.BUILD:
       return {
         [Modes.STEP]: [
           Strategy.ManualIntervention,
@@ -52,7 +25,7 @@ export const allowedStrategiesAsPerStep: (domain: Domain) => Record<Modes, Strat
         ],
         [Modes.STAGE]: [Strategy.Ignore, Strategy.Retry, Strategy.MarkAsSuccess, Strategy.Abort]
       }
-    case Domain.Deployment:
+    case StageType.DEPLOY:
     default:
       return {
         [Modes.STEP]: [

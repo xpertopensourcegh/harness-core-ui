@@ -1,13 +1,13 @@
 import React from 'react'
 import type { UseStringsReturn } from 'framework/strings'
-import { StageTypes } from '@pipeline/components/PipelineStudio/Stages/StageTypes'
+import { StageType } from '@pipeline/utils/stageHelpers'
 import { stagesCollection } from '@pipeline/components/PipelineStudio/Stages/StagesCollection'
 import type { StageAttributes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { BuildStage } from './BuildStage'
 
 const getStageAttributes = (getString: UseStringsReturn['getString']): StageAttributes => ({
   name: getString('buildText'),
-  type: StageTypes.BUILD,
+  type: StageType.BUILD,
   icon: 'ci-main',
   iconColor: 'var(--pipeline-build-stage-color)',
   isApproval: false,
@@ -18,7 +18,7 @@ const getStageEditorImplementation = (isEnabled: boolean, getString: UseStringsR
     icon={'ci-main'}
     iconsStyle={{ color: 'var(--pipeline-build-stage-color)' }}
     name={getString('buildText')}
-    type={StageTypes.BUILD}
+    type={StageType.BUILD}
     title={getString('pipelineSteps.build.create.buildStageName')}
     description={getString('ci.description')}
     isDisabled={false}
@@ -26,4 +26,4 @@ const getStageEditorImplementation = (isEnabled: boolean, getString: UseStringsR
     isApproval={false}
   />
 )
-stagesCollection.registerStageFactory(StageTypes.BUILD, getStageAttributes, getStageEditorImplementation)
+stagesCollection.registerStageFactory(StageType.BUILD, getStageAttributes, getStageEditorImplementation)

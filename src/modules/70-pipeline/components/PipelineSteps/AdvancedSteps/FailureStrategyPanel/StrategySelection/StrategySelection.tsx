@@ -10,8 +10,8 @@ import { errorCheck } from '@common/utils/formikHelpers'
 import { useStrings } from 'framework/strings'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
+import { Strategy } from '@pipeline/utils/FailureStrategyUtils'
 
-import { Strategy } from './StrategyConfig'
 import { StrategyIcon } from './StrategyIcon'
 import css from './StrategySelection.module.scss'
 

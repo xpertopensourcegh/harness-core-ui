@@ -5,8 +5,9 @@ import cx from 'classnames'
 
 import { String } from 'framework/strings'
 import type { StringKeys } from 'framework/strings'
+import { Strategy } from '@pipeline/utils/FailureStrategyUtils'
 
-import { Strategy, testIds } from './StrategyConfig'
+import { testIds } from './StrategyConfig'
 import css from './StrategySelection.module.scss'
 
 export const strategyIconMap: Record<Strategy, IconName> = {

@@ -8,6 +8,7 @@ import produce from 'immer'
 import { useStrings, UseStringsReturn } from 'framework/strings'
 import type { ExecutionElementConfig, ExecutionWrapper } from 'services/cd-ng'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
+import { StageType } from '@pipeline/utils/stageHelpers'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerData, DrawerSizes, DrawerTypes } from '../PipelineContext/PipelineActions'
 import { StepCommandsWithRef as StepCommands, StepFormikRef } from '../StepCommands/StepCommands'
@@ -21,7 +22,6 @@ import { ExecutionStrategy } from '../ExecutionStrategy/ExecutionStategy'
 import type { StepData } from '../../AbstractSteps/AbstractStepFactory'
 import { StepType } from '../../PipelineSteps/PipelineStepInterface'
 import { FlowControl } from '../FlowControl/FlowControl'
-import { StageTypes } from '../Stages/StageTypes'
 
 import css from './RightDrawer.module.scss'
 
@@ -77,7 +77,6 @@ export const RightDrawer: React.FC = (): JSX.Element => {
   const { type, data, ...restDrawerProps } = drawerData
 
   const { stage: selectedStage } = getStageFromPipeline(selectedStageId || '')
-  const domain = selectedStage?.stage?.type
   const stageType = selectedStage?.stage?.type
 
   let stepData = data?.stepConfig?.node?.type ? stepsFactory.getStepData(data?.stepConfig?.node?.type) : null
@@ -294,7 +293,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
 
     // TODO: temporary fix for FF
     // can be removed once the unified solution across modules is implemented
-    if (stageType === StageTypes.FEATURE) {
+    if (stageType === StageType.FEATURE) {
       updatePipelineView({
         ...pipelineView,
         isDrawerOpened: false,
@@ -426,14 +425,14 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           onChange={value => onSubmitStep(value, DrawerTypes.StepConfig)}
           isStepGroup={data.stepConfig.isStepGroup}
           hiddenPanels={data.stepConfig.hiddenAdvancedPanels}
-          domain={domain}
+          stageType={stageType}
         />
       )}
       {type === DrawerTypes.AddStep && selectedStageId && data?.paletteData && (
         <StepPalette
           selectedStage={selectedStage || {}}
           stepsFactory={stepsFactory}
-          stageType={stageType as StageTypes}
+          stageType={stageType as StageType}
           onSelect={async (item: StepData) => {
             const paletteData = data.paletteData
             if (paletteData?.entity) {
@@ -514,7 +513,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           onChange={onServiceDependencySubmit}
           isStepGroup={false}
           withoutTabs
-          domain={domain}
+          stageType={stageType}
         />
       )}
 
@@ -522,7 +521,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         <StepPalette
           selectedStage={selectedStage || {}}
           stepsFactory={stepsFactory}
-          stageType={stageType as StageTypes}
+          stageType={stageType as StageType}
           isProvisioner={true}
           onSelect={async (item: StepData) => {
             const paletteData = data.paletteData
@@ -605,7 +604,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           onChange={value => onSubmitStep(value, DrawerTypes.ProvisionerStepConfig)}
           isStepGroup={data.stepConfig.isStepGroup}
           hiddenPanels={data.stepConfig.hiddenAdvancedPanels}
-          domain={domain}
+          stageType={stageType}
         />
       )}
     </Drawer>

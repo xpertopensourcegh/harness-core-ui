@@ -49,10 +49,10 @@ import {
 } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
+import { StageType } from '@pipeline/utils/stageHelpers'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import { RightDrawer } from '../RightDrawer/RightDrawer'
-import { StageTypes } from '../Stages/StageTypes'
 import { EnableGitExperience } from '../EnableGitExperience/EnableGitExperience'
 import css from './RightBar.module.scss'
 
@@ -187,7 +187,7 @@ export const RightBar = (): JSX.Element => {
 
   const ciStageExists = pipelineStages?.some?.(stage => {
     if (stage?.stage?.type) {
-      return stage?.stage?.type === StageTypes.BUILD
+      return stage?.stage?.type === StageType.BUILD
     } else {
       return false
     }

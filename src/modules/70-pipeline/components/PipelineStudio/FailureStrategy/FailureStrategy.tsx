@@ -7,13 +7,10 @@ import { debounce } from 'lodash-es'
 import type { ExecutionWrapper, FailureStrategyConfig, StageElementWrapperConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import FailureStrategyPanel from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/FailureStrategyPanel'
-import {
-  Domain,
-  ErrorType,
-  Strategy
-} from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/StrategySelection/StrategyConfig'
+import { ErrorType, Strategy } from '@pipeline/utils/FailureStrategyUtils'
 import { getFailureStrategiesValidationSchema } from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/validation'
 import { Modes } from '@pipeline/components/PipelineSteps/AdvancedSteps/common'
+import { StageType } from '@pipeline/utils/stageHelpers'
 
 import type { StepCommandsRef } from '../StepCommands/StepCommands'
 
@@ -62,9 +59,9 @@ export function FailureStrategy(props: FailureStrategyProps, ref: StepCommandsRe
     }
   }))
 
-  const domain = selectedStage?.stage?.type as Domain
+  const stageType = selectedStage?.stage?.type as StageType
   const fallbackValues =
-    domain === 'CI'
+    stageType === StageType.BUILD
       ? []
       : [
           {
@@ -89,7 +86,7 @@ export function FailureStrategy(props: FailureStrategyProps, ref: StepCommandsRe
     >
       {formik => (
         <div className={Classes.DIALOG_BODY}>
-          <FailureStrategyPanel isReadonly={isReadonly} mode={Modes.STAGE} domain={domain} formikProps={formik} />
+          <FailureStrategyPanel isReadonly={isReadonly} mode={Modes.STAGE} stageType={stageType} formikProps={formik} />
         </div>
       )}
     </Formik>

@@ -1,7 +1,8 @@
 import React from 'react'
 import { render, fireEvent, act } from '@testing-library/react'
 
-import { testIds, Strategy } from '../StrategySelection/StrategyConfig'
+import { Strategy } from '@pipeline/utils/FailureStrategyUtils'
+import { testIds } from '../StrategySelection/StrategyConfig'
 import { Basic } from '../FailureStrategyPanel.stories'
 import { Modes } from '../../common'
 describe('Failure Strategy: StageRollBack', () => {

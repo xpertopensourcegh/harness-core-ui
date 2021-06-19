@@ -11,7 +11,7 @@ import { AdvancedStepsWithRef } from '@pipeline/components/PipelineSteps/Advance
 import type { ExecutionWrapper } from 'services/cd-ng'
 import type { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
-import { Domain } from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/StrategySelection/StrategyConfig'
+import { StageType } from '@pipeline/utils/stageHelpers'
 import type { StepCommandsProps } from './StepCommandTypes'
 import css from './StepCommands.module.scss'
 
@@ -48,7 +48,7 @@ export function StepCommands(
     hasStepGroupAncestor,
     withoutTabs,
     isNewStep = true,
-    domain = Domain.Deployment
+    stageType = StageType.DEPLOY
   } = props
   const { getString } = useStrings()
   const [activeTab, setActiveTab] = React.useState(StepCommandTabs.StepConfiguration)
@@ -162,7 +162,7 @@ export function StepCommands(
                 isStepGroup={isStepGroup}
                 hasStepGroupAncestor={hasStepGroupAncestor}
                 ref={advancedConfRef}
-                domain={domain}
+                stageType={stageType}
               />
             }
           />

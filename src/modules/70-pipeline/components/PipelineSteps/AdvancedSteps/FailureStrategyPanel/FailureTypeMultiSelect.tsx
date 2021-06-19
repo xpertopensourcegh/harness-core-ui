@@ -7,13 +7,9 @@ import { get } from 'lodash-es'
 import { errorCheck } from '@common/utils/formikHelpers'
 import { useStrings } from 'framework/strings'
 import type { StringKeys } from 'framework/strings'
+import { FailureErrorType, ErrorType } from '@pipeline/utils/FailureStrategyUtils'
 
-import {
-  errorTypesOrderForCI,
-  errorTypesOrderForCD,
-  FailureErrorType,
-  ErrorType
-} from './StrategySelection/StrategyConfig'
+import { errorTypesOrderForCI, errorTypesOrderForCD } from './StrategySelection/StrategyConfig'
 import css from './FailureStrategyPanel.module.scss'
 
 interface Option {

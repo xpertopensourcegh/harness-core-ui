@@ -43,7 +43,7 @@ export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: Step
     isStepGroup,
     stepsFactory,
     isReadonly,
-    domain
+    stageType
   } = props
   const { getString } = useStrings()
   const stepType = isStepGroup ? StepType.StepGroup : step.type
@@ -104,7 +104,7 @@ export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: Step
                     details={
                       <FailureStrategyPanel
                         mode={hasStepGroupAncestor || isStepGroup ? Modes.STEP_GROUP : Modes.STEP}
-                        domain={domain}
+                        stageType={stageType}
                         formikProps={formikProps}
                         isReadonly={isReadonly}
                       />

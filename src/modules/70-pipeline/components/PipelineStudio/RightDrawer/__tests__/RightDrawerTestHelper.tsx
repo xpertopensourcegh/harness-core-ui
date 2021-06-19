@@ -1,8 +1,8 @@
 import type { IconName } from '@wings-software/uicore'
 import { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
+import { StageType } from '@pipeline/utils/stageHelpers'
 import type { PipelineViewData, SelectionState } from '../../PipelineContext/PipelineActions'
 import type { PipelineContextInterface } from '../../PipelineContext/PipelineContext'
-import { StageTypes } from '../../Stages/StageTypes'
 
 class StepFactory extends AbstractStepFactory {
   protected type = 'test-factory'
@@ -15,7 +15,7 @@ const stepFactory = new StepFactory()
 const stagesMap = {
   Deployment: {
     name: 'Deploy',
-    type: StageTypes.DEPLOY,
+    type: StageType.DEPLOY,
     icon: 'pipeline-deploy',
     iconColor: 'var(--pipeline-deploy-stage-color)',
     isApproval: false,
@@ -23,7 +23,7 @@ const stagesMap = {
   },
   ci: {
     name: 'Nuild',
-    type: StageTypes.BUILD,
+    type: StageType.BUILD,
     icon: 'pipeline-build',
     iconColor: 'var(--pipeline-build-stage-color)',
     isApproval: false,
@@ -31,7 +31,7 @@ const stagesMap = {
   },
   Pipeline: {
     name: 'Pipeline',
-    type: StageTypes.PIPELINE,
+    type: StageType.PIPELINE,
     icon: 'pipeline',
     iconColor: 'var(--pipeline-blue-color)',
     isApproval: false,
@@ -39,7 +39,7 @@ const stagesMap = {
   },
   Custom: {
     name: 'Custom',
-    type: StageTypes.CUSTOM,
+    type: StageType.CUSTOM,
     icon: 'pipeline-custom',
     iconColor: 'var(--pipeline-custom-stage-color)',
     isApproval: false,
@@ -47,7 +47,7 @@ const stagesMap = {
   },
   Approval: {
     name: 'Approval',
-    type: StageTypes.APPROVAL,
+    type: StageType.APPROVAL,
     icon: 'pipeline-approval',
     iconColor: 'var(--pipeline-approval-stage-color)',
     isApproval: true,
@@ -68,7 +68,7 @@ export const getPipelineContextMock = (pipelineView: PipelineViewData, selection
             name: 'ApprovalStage',
             identifier: 'ApprovalStageId',
             description: '',
-            type: StageTypes.APPROVAL,
+            type: StageType.APPROVAL,
             spec: {}
           }
         }
@@ -85,7 +85,7 @@ export const getPipelineContextMock = (pipelineView: PipelineViewData, selection
             name: 'ApprovalStage',
             identifier: 'ApprovalStageId',
             description: '',
-            type: StageTypes.APPROVAL,
+            type: StageType.APPROVAL,
             spec: {}
           }
         }

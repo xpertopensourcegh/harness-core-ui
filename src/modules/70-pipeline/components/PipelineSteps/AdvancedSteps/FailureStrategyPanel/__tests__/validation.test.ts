@@ -2,8 +2,8 @@
 import { yupToFormErrors } from 'formik'
 import type { StringKeys } from 'framework/strings'
 
+import { Strategy, ErrorType } from '@pipeline/utils/FailureStrategyUtils'
 import { getFailureStrategiesValidationSchema } from '../validation'
-import { Strategy, ErrorType } from '../StrategySelection/StrategyConfig'
 
 function stringifyErrors(e: any): string {
   return JSON.stringify(yupToFormErrors(e), null, 2).replace(/"([^"]+)":/g, '$1:')

@@ -4,8 +4,7 @@ import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicor
 
 import type { UseStringsReturn } from 'framework/strings'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
-
-import { ErrorType, Strategy } from './StrategySelection/StrategyConfig'
+import { ErrorType, Strategy } from '@pipeline/utils/FailureStrategyUtils'
 
 const MAX_RETRIES = 10000
 

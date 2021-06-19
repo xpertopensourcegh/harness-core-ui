@@ -7,8 +7,8 @@ import * as pipelinesNgService from 'services/pipeline-ng'
 import { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { Step, StepProps } from '@pipeline/components/AbstractSteps/Step'
+import { StageType } from '@pipeline/utils/stageHelpers'
 import { StepPalette } from '../StepPalette'
-import { StageTypes } from '../../Stages/StageTypes'
 
 class StepFactory extends AbstractStepFactory {
   protected type = 'test-factory'
@@ -37,7 +37,7 @@ const getProps = () => ({
   onClose: jest.fn(),
   stepsFactory: stepFactory,
   selectedStage: {},
-  stageType: StageTypes.DEPLOY
+  stageType: StageType.DEPLOY
 })
 
 describe('Step Palette tests', () => {
