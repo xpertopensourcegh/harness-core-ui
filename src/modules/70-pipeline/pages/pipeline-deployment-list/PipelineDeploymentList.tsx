@@ -21,6 +21,8 @@ import ExecutionsPagination from './ExecutionsPagination/ExecutionsPagination'
 import { PipelineDeploymentListHeader } from './PipelineDeploymentListHeader/PipelineDeploymentListHeader'
 import { FilterContextProvider } from './FiltersContext/FiltersContext'
 import type { QueryParams, StringQueryParams, QuickStatusParam } from './types'
+import deploymentIllustrations from './images/deployments-illustrations.svg'
+import buildIllustrations from './images/builds-illustrations.svg'
 import css from './PipelineDeploymentList.module.scss'
 
 const pollingIntervalInMilliseconds = 5_000
@@ -175,7 +177,8 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
               </Layout.Vertical>
             ) : (
               <Layout.Vertical spacing="small" flex={{ justifyContent: 'center', alignItems: 'center' }} width={720}>
-                <Icon size={320} name="deployments-illustration" />
+                <img src={isCIModule ? buildIllustrations : deploymentIllustrations} className={css.image} />
+
                 <Text className={css.noDeploymentText} margin={{ top: 'medium', bottom: 'small' }}>
                   {getString(isCIModule ? 'pipeline.noBuildsText' : 'pipeline.noDeploymentText')}
                 </Text>
