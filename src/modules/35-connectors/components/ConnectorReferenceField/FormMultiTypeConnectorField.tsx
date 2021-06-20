@@ -94,7 +94,8 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
     selected: false,
     inlineModalClosed: false
   })
-  const scopeFromSelected = typeof selectedValue === 'string' ? getScopeFromValue(selectedValue || '') : selected?.scope
+  const scopeFromSelected =
+    typeof selectedValue === 'string' ? getScopeFromValue(selectedValue || '') : selectedValue?.scope
   const selectedRef =
     typeof selected === 'string' ? getIdentifierFromValue(selected || '') : selectedValue?.connector?.identifier
 
