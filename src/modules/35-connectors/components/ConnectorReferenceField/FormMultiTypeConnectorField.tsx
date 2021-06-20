@@ -99,7 +99,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
     typeof selected === 'string' ? getIdentifierFromValue(selected || '') : selectedValue?.connector?.identifier
 
   const [multiType, setMultiType] = React.useState<MultiTypeInputType>(MultiTypeInputType.FIXED)
-  const { data: connectorData, loading, refetch } = useGetConnector({
+  const { data: connectorData, loading, refetch, error } = useGetConnector({
     identifier: selectedRef as string,
     queryParams: {
       accountIdentifier,
@@ -121,13 +121,10 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
   )
 
   React.useEffect(() => {
-    if (
-      typeof selected === 'string' &&
-      multiType === MultiTypeInputType.FIXED &&
-      getMultiTypeFromValue(selected) === MultiTypeInputType.FIXED &&
-      selected.length > 0
-    ) {
-      refetch()
+    if (multiType === MultiTypeInputType.FIXED && getMultiTypeFromValue(selected) === MultiTypeInputType.FIXED) {
+      if (typeof selected === 'string' && selected.length > 0) {
+        refetch()
+      }
     } else {
       setSelectedValue(selected)
     }
@@ -135,42 +132,32 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
   }, [selected])
 
   React.useEffect(() => {
-    if (
-      typeof selected === 'string' &&
-      getMultiTypeFromValue(selected) === MultiTypeInputType.FIXED &&
-      connectorData &&
-      connectorData?.data?.connector?.name &&
-      !loading
-    ) {
-      const scope = getScopeFromValue(selected || '')
-      const value = {
-        label: connectorData?.data?.connector?.name,
-        value:
-          scope === Scope.ORG || scope === Scope.ACCOUNT
-            ? `${scope}.${connectorData?.data?.connector?.identifier}`
-            : connectorData?.data?.connector?.identifier,
-        scope: scope,
-        live: connectorData?.data?.status?.status === 'SUCCESS',
-        connector: connectorData?.data?.connector
+    if (typeof selected === 'string' && getMultiTypeFromValue(selected) === MultiTypeInputType.FIXED && !loading) {
+      if (connectorData && connectorData?.data?.connector?.name) {
+        const scope = getScopeFromValue(selected || '')
+        const value = {
+          label: connectorData?.data?.connector?.name,
+          value:
+            scope === Scope.ORG || scope === Scope.ACCOUNT
+              ? `${scope}.${connectorData?.data?.connector?.identifier}`
+              : connectorData?.data?.connector?.identifier,
+          scope: scope,
+          live: connectorData?.data?.status?.status === 'SUCCESS',
+          connector: connectorData?.data?.connector
+        }
+        if (!setRefValue) {
+          formik?.setFieldValue(name, value)
+        }
+        setSelectedValue(value)
+      } else if (error) {
+        if (!setRefValue) {
+          formik?.setFieldValue(name, '')
+        }
+        setSelectedValue('')
       }
-      if (!setRefValue) {
-        formik?.setFieldValue(name, value)
-      }
-      setSelectedValue(value)
-    } else if (getMultiTypeFromValue(selected) !== MultiTypeInputType.FIXED) {
-      setSelectedValue(selected)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    connectorData?.data?.connector?.name,
-    loading,
-    selected,
-    defaultScope,
-    connectorData,
-    connectorData?.data?.connector?.identifier,
-    connectorData?.data?.status?.status,
-    name
-  ])
+  }, [loading])
   const { getString } = useStrings()
 
   function onConnectorCreateSuccess(data?: ConnectorConfigDTO): void {
