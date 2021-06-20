@@ -1004,6 +1004,7 @@ export interface StringsMap {
   'gitsync.defaultBranch': string
   'gitsync.defaultFolder': string
   'gitsync.entitiesByRepositories': string
+  'gitsync.fetchingBranches': string
   'gitsync.folderDetails': string
   'gitsync.harnessFolderHeader': string
   'gitsync.harnessFolderText': string

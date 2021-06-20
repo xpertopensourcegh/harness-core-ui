@@ -17,7 +17,7 @@ import {
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import * as Yup from 'yup'
-import { noop, pick, debounce } from 'lodash-es'
+import { noop, pick, debounce, isEmpty } from 'lodash-es'
 import { useToaster, StringUtils } from '@common/exports'
 import {
   usePostGitSync,
@@ -73,7 +73,7 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
   const [branchSelectOptions, setBranchSelectOptions] = React.useState<SelectOption[]>([])
   const [loadingBranchList, setLoadingBranchList] = React.useState<boolean>(false)
   const { getString } = useStrings()
-  const { showSuccess, showError } = useToaster()
+  const { showSuccess } = useToaster()
   const [testStatus, setTestStatus] = useState<TestStatus>(TestStatus.NOT_INITIATED)
 
   const { mutate: createGitSyncRepo, loading: creatingGitSync } = usePostGitSync({
@@ -130,19 +130,29 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
     })
       .then(response => {
         setLoadingBranchList(false)
-        setBranchSelectOptions(
-          response.data?.length
-            ? response.data.map((branch: string) => {
-                return {
-                  label: branch || '',
-                  value: branch || ''
-                }
-              })
-            : []
-        )
+        if (response.status !== 'SUCCESS') {
+          throw response
+        } else {
+          if (!isEmpty(response.data)) {
+            setBranchSelectOptions(
+              response.data?.length
+                ? response.data.map((branch: string) => {
+                    return {
+                      label: branch || '',
+                      value: branch || ''
+                    }
+                  })
+                : []
+            )
+          } else {
+            modalErrorHandler?.hide()
+            modalErrorHandler?.showDanger(getString('common.git.noBranchesFound'))
+          }
+        }
       })
       .catch(e => {
-        showError(e.data?.message || e.message)
+        modalErrorHandler?.hide()
+        modalErrorHandler?.showDanger(e.data?.message || e.message)
       })
   }, 1000) // Fetching branches after user input of repoUrl
 
@@ -187,10 +197,12 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
 
   return (
     <Container height={'inherit'} className={css.modalContainer} margin="large">
+      <Container padding={{ top: 'small' }}>
+        <ModalErrorHandler bind={setModalErrorHandler} style={{ marginBottom: 'var(--spacing-medium)' }} />
+      </Container>
       <Text font={{ size: 'large', weight: 'semi-bold' }} color={Color.BLACK}>
         {isNewUser ? getString('gitsync.configureHarnessFolder') : getString('enableGitExperience')}
       </Text>
-      <ModalErrorHandler bind={setModalErrorHandler} style={{ marginBottom: 'var(--spacing-medium)' }} />
       <Layout.Horizontal>
         <Container width={'60%'}>
           <Formik<GitSyncFormInterface>
@@ -316,6 +328,7 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                       projectIdentifier={projectIdentifier}
                       orgIdentifier={orgIdentifier}
                       onChange={(value, scope) => {
+                        modalErrorHandler?.hide()
                         setFieldValue('gitConnector', {
                           label: value.name || '',
                           value: getConnectorIdentifierWithScope(scope, value?.identifier),
@@ -374,7 +387,7 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                         ) : null}
                       </Layout.Vertical>
                       {formValues.gitConnector?.connector?.identifier ? (
-                        <Container padding={{ bottom: 'medium' }}>
+                        <Container flex>
                           <TestConnectionWidget
                             testStatus={testStatus}
                             onTest={() => {
@@ -410,13 +423,21 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                         {getCompleteGitPath(formValues.repo, formValues.rootfolder, HARNESS_FOLDER_SUFFIX)}
                       </Text>
                     ) : null}
-                    <FormInput.Select
-                      name="branch"
-                      disabled={loadingBranchList}
-                      items={branchSelectOptions}
-                      label={getString('gitsync.selectDefaultBranch')}
-                      usePortal={true}
-                    />
+                    <Layout.Horizontal>
+                      <FormInput.Select
+                        name="branch"
+                        disabled={loadingBranchList}
+                        items={branchSelectOptions}
+                        label={getString('gitsync.selectDefaultBranch')}
+                        usePortal={true}
+                      />
+                      {loadingBranchList ? (
+                        <Layout.Horizontal spacing="small" flex padding={{ top: 'xsmall', left: 'xsmall' }}>
+                          <Icon name="steps-spinner" size={18} color={Color.PRIMARY_7} />
+                          <Text>{getString('gitsync.fetchingBranches').concat('...')}</Text>
+                        </Layout.Horizontal>
+                      ) : null}
+                    </Layout.Horizontal>
                   </Layout.Vertical>
                 </Container>
 

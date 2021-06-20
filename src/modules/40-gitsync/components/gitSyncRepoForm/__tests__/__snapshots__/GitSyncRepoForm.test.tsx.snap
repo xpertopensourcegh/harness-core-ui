@@ -473,6 +473,9 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
     class="StyledProps--font StyledProps--main modalContainer StyledProps--margin-large"
     style="height: inherit;"
   >
+    <div
+      class="StyledProps--font StyledProps--main StyledProps--padding-top-small"
+    />
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-size-large StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
     >
@@ -838,7 +841,7 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
                       </p>
                     </div>
                     <div
-                      class="StyledProps--font StyledProps--main StyledProps--padding-bottom-medium"
+                      class="StyledProps--font StyledProps--main StyledProps--flex"
                     >
                       <div
                         class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex"
@@ -912,109 +915,113 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
                     https://github.com/wings-software/sunnykesh-gitSync/src/.harness/
                   </p>
                   <div
-                    class="bp3-form-group bp3-intent-danger"
-                    data-id="branch-4"
+                    class="Layout--horizontal StyledProps--main"
                   >
-                    <label
-                      class="bp3-label"
-                      for="branch"
-                    >
-                      <span
-                        class="Tooltip--acenter"
-                        data-tooltip-id="gitSyncRepoForm_branch"
-                      >
-                        gitsync.selectDefaultBranch
-                      </span>
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
                     <div
-                      class="bp3-form-content"
+                      class="bp3-form-group bp3-intent-danger"
+                      data-id="branch-4"
                     >
+                      <label
+                        class="bp3-label"
+                        for="branch"
+                      >
+                        <span
+                          class="Tooltip--acenter"
+                          data-tooltip-id="gitSyncRepoForm_branch"
+                        >
+                          gitsync.selectDefaultBranch
+                        </span>
+                         
+                        <span
+                          class="bp3-text-muted"
+                        />
+                      </label>
                       <div
-                        class="bp3-popover-wrapper Select--main bp3-fill"
+                        class="bp3-form-content"
                       >
                         <div
-                          class="bp3-popover-target"
+                          class="bp3-popover-wrapper Select--main bp3-fill"
                         >
                           <div
-                            class="bp3-input-group bp3-intent-danger"
-                          >
-                            <input
-                              autocomplete="off"
-                              class="bp3-input"
-                              name="branch"
-                              placeholder="Search..."
-                              style="padding-right: 0px;"
-                              type="text"
-                              value="devBranch"
-                            />
-                            <span
-                              class="bp3-input-action"
-                            >
-                              <span
-                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                icon="caret-down"
-                              >
-                                <svg
-                                  data-icon="caret-down"
-                                  height="14"
-                                  viewBox="0 0 16 16"
-                                  width="14"
-                                >
-                                  <desc>
-                                    caret-down
-                                  </desc>
-                                  <path
-                                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                                    fill-rule="evenodd"
-                                  />
-                                </svg>
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-                        <div
-                          class="bp3-overlay bp3-overlay-inline"
-                        >
-                          <div
-                            class="bp3-transition-container bp3-popover-exit bp3-popover-exit-active"
-                            style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(NaNpx, NaNpx, 0);"
+                            class="bp3-popover-target"
                           >
                             <div
-                              class="bp3-popover bp3-minimal bp3-select-popover"
-                              style="transform-origin: center top;"
+                              class="bp3-input-group bp3-intent-danger"
+                            >
+                              <input
+                                autocomplete="off"
+                                class="bp3-input"
+                                name="branch"
+                                placeholder="Search..."
+                                style="padding-right: 0px;"
+                                type="text"
+                                value="devBranch"
+                              />
+                              <span
+                                class="bp3-input-action"
+                              >
+                                <span
+                                  class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                                  icon="caret-down"
+                                >
+                                  <svg
+                                    data-icon="caret-down"
+                                    height="14"
+                                    viewBox="0 0 16 16"
+                                    width="14"
+                                  >
+                                    <desc>
+                                      caret-down
+                                    </desc>
+                                    <path
+                                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </span>
+                            </div>
+                          </div>
+                          <div
+                            class="bp3-overlay bp3-overlay-inline"
+                          >
+                            <div
+                              class="bp3-transition-container bp3-popover-exit bp3-popover-exit-active"
+                              style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(NaNpx, NaNpx, 0);"
                             >
                               <div
-                                class="bp3-popover-content"
+                                class="bp3-popover bp3-minimal bp3-select-popover"
+                                style="transform-origin: center top;"
                               >
-                                <div>
-                                  <ul
-                                    class="bp3-menu"
-                                  >
-                                    <li
-                                      class="Select--menuItem"
+                                <div
+                                  class="bp3-popover-content"
+                                >
+                                  <div>
+                                    <ul
+                                      class="bp3-menu"
                                     >
-                                      master
-                                    </li>
-                                    <li
-                                      class="Select--menuItem Select--active"
-                                    >
-                                      devBranch
-                                    </li>
-                                  </ul>
+                                      <li
+                                        class="Select--menuItem"
+                                      >
+                                        master
+                                      </li>
+                                      <li
+                                        class="Select--menuItem Select--active"
+                                      >
+                                        devBranch
+                                      </li>
+                                    </ul>
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div
-                        class="bp3-form-helper-text"
-                      >
-                        validation.branchName
+                        <div
+                          class="bp3-form-helper-text"
+                        >
+                          validation.branchName
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1176,6 +1183,9 @@ exports[`Git Sync - repo tab Repo type card should be enabled only for Github 1`
     class="StyledProps--font StyledProps--main modalContainer StyledProps--margin-large"
     style="height: inherit;"
   >
+    <div
+      class="StyledProps--font StyledProps--main StyledProps--padding-top-small"
+    />
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-size-large StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
     >
@@ -1518,68 +1528,72 @@ exports[`Git Sync - repo tab Repo type card should be enabled only for Github 1`
                     </div>
                   </div>
                   <div
-                    class="bp3-form-group"
-                    data-id="branch-4"
+                    class="Layout--horizontal StyledProps--main"
                   >
-                    <label
-                      class="bp3-label"
-                      for="branch"
-                    >
-                      <span
-                        class="Tooltip--acenter"
-                        data-tooltip-id="gitSyncRepoForm_branch"
-                      >
-                        gitsync.selectDefaultBranch
-                      </span>
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
                     <div
-                      class="bp3-form-content"
+                      class="bp3-form-group"
+                      data-id="branch-4"
                     >
+                      <label
+                        class="bp3-label"
+                        for="branch"
+                      >
+                        <span
+                          class="Tooltip--acenter"
+                          data-tooltip-id="gitSyncRepoForm_branch"
+                        >
+                          gitsync.selectDefaultBranch
+                        </span>
+                         
+                        <span
+                          class="bp3-text-muted"
+                        />
+                      </label>
                       <div
-                        class="bp3-popover-wrapper Select--main bp3-fill"
+                        class="bp3-form-content"
                       >
                         <div
-                          class="bp3-popover-target"
+                          class="bp3-popover-wrapper Select--main bp3-fill"
                         >
                           <div
-                            class="bp3-input-group"
+                            class="bp3-popover-target"
                           >
-                            <input
-                              autocomplete="off"
-                              class="bp3-input"
-                              name="branch"
-                              placeholder="Search..."
-                              style="padding-right: 0px;"
-                              type="text"
-                              value=""
-                            />
-                            <span
-                              class="bp3-input-action"
+                            <div
+                              class="bp3-input-group"
                             >
+                              <input
+                                autocomplete="off"
+                                class="bp3-input"
+                                name="branch"
+                                placeholder="Search..."
+                                style="padding-right: 0px;"
+                                type="text"
+                                value=""
+                              />
                               <span
-                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                icon="caret-down"
+                                class="bp3-input-action"
                               >
-                                <svg
-                                  data-icon="caret-down"
-                                  height="14"
-                                  viewBox="0 0 16 16"
-                                  width="14"
+                                <span
+                                  class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                                  icon="caret-down"
                                 >
-                                  <desc>
-                                    caret-down
-                                  </desc>
-                                  <path
-                                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                                    fill-rule="evenodd"
-                                  />
-                                </svg>
+                                  <svg
+                                    data-icon="caret-down"
+                                    height="14"
+                                    viewBox="0 0 16 16"
+                                    width="14"
+                                  >
+                                    <desc>
+                                      caret-down
+                                    </desc>
+                                    <path
+                                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
                               </span>
-                            </span>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -1743,6 +1757,9 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
     class="StyledProps--font StyledProps--main modalContainer StyledProps--margin-large"
     style="height: inherit;"
   >
+    <div
+      class="StyledProps--font StyledProps--main StyledProps--padding-top-small"
+    />
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-size-large StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
     >
@@ -2085,68 +2102,72 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
                     </div>
                   </div>
                   <div
-                    class="bp3-form-group"
-                    data-id="branch-4"
+                    class="Layout--horizontal StyledProps--main"
                   >
-                    <label
-                      class="bp3-label"
-                      for="branch"
-                    >
-                      <span
-                        class="Tooltip--acenter"
-                        data-tooltip-id="gitSyncRepoForm_branch"
-                      >
-                        gitsync.selectDefaultBranch
-                      </span>
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
                     <div
-                      class="bp3-form-content"
+                      class="bp3-form-group"
+                      data-id="branch-4"
                     >
+                      <label
+                        class="bp3-label"
+                        for="branch"
+                      >
+                        <span
+                          class="Tooltip--acenter"
+                          data-tooltip-id="gitSyncRepoForm_branch"
+                        >
+                          gitsync.selectDefaultBranch
+                        </span>
+                         
+                        <span
+                          class="bp3-text-muted"
+                        />
+                      </label>
                       <div
-                        class="bp3-popover-wrapper Select--main bp3-fill"
+                        class="bp3-form-content"
                       >
                         <div
-                          class="bp3-popover-target"
+                          class="bp3-popover-wrapper Select--main bp3-fill"
                         >
                           <div
-                            class="bp3-input-group"
+                            class="bp3-popover-target"
                           >
-                            <input
-                              autocomplete="off"
-                              class="bp3-input"
-                              name="branch"
-                              placeholder="Search..."
-                              style="padding-right: 0px;"
-                              type="text"
-                              value=""
-                            />
-                            <span
-                              class="bp3-input-action"
+                            <div
+                              class="bp3-input-group"
                             >
+                              <input
+                                autocomplete="off"
+                                class="bp3-input"
+                                name="branch"
+                                placeholder="Search..."
+                                style="padding-right: 0px;"
+                                type="text"
+                                value=""
+                              />
                               <span
-                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                icon="caret-down"
+                                class="bp3-input-action"
                               >
-                                <svg
-                                  data-icon="caret-down"
-                                  height="14"
-                                  viewBox="0 0 16 16"
-                                  width="14"
+                                <span
+                                  class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                                  icon="caret-down"
                                 >
-                                  <desc>
-                                    caret-down
-                                  </desc>
-                                  <path
-                                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                                    fill-rule="evenodd"
-                                  />
-                                </svg>
+                                  <svg
+                                    data-icon="caret-down"
+                                    height="14"
+                                    viewBox="0 0 16 16"
+                                    width="14"
+                                  >
+                                    <desc>
+                                      caret-down
+                                    </desc>
+                                    <path
+                                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
                               </span>
-                            </span>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -2310,6 +2331,9 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
     class="StyledProps--font StyledProps--main modalContainer StyledProps--margin-large"
     style="height: inherit;"
   >
+    <div
+      class="StyledProps--font StyledProps--main StyledProps--padding-top-small"
+    />
     <p
       class="StyledProps--font StyledProps--main StyledProps--font-size-large StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
     >
@@ -2667,75 +2691,79 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
                     </div>
                   </div>
                   <div
-                    class="bp3-form-group bp3-intent-danger"
-                    data-id="branch-4"
+                    class="Layout--horizontal StyledProps--main"
                   >
-                    <label
-                      class="bp3-label"
-                      for="branch"
-                    >
-                      <span
-                        class="Tooltip--acenter"
-                        data-tooltip-id="gitSyncRepoForm_branch"
-                      >
-                        gitsync.selectDefaultBranch
-                      </span>
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
                     <div
-                      class="bp3-form-content"
+                      class="bp3-form-group bp3-intent-danger"
+                      data-id="branch-4"
                     >
+                      <label
+                        class="bp3-label"
+                        for="branch"
+                      >
+                        <span
+                          class="Tooltip--acenter"
+                          data-tooltip-id="gitSyncRepoForm_branch"
+                        >
+                          gitsync.selectDefaultBranch
+                        </span>
+                         
+                        <span
+                          class="bp3-text-muted"
+                        />
+                      </label>
                       <div
-                        class="bp3-popover-wrapper Select--main bp3-fill"
+                        class="bp3-form-content"
                       >
                         <div
-                          class="bp3-popover-target"
+                          class="bp3-popover-wrapper Select--main bp3-fill"
                         >
                           <div
-                            class="bp3-input-group bp3-intent-danger"
+                            class="bp3-popover-target"
                           >
-                            <input
-                              autocomplete="off"
-                              class="bp3-input"
-                              name="branch"
-                              placeholder="Search..."
-                              style="padding-right: 0px;"
-                              type="text"
-                              value=""
-                            />
-                            <span
-                              class="bp3-input-action"
+                            <div
+                              class="bp3-input-group bp3-intent-danger"
                             >
+                              <input
+                                autocomplete="off"
+                                class="bp3-input"
+                                name="branch"
+                                placeholder="Search..."
+                                style="padding-right: 0px;"
+                                type="text"
+                                value=""
+                              />
                               <span
-                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                icon="caret-down"
+                                class="bp3-input-action"
                               >
-                                <svg
-                                  data-icon="caret-down"
-                                  height="14"
-                                  viewBox="0 0 16 16"
-                                  width="14"
+                                <span
+                                  class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                                  icon="caret-down"
                                 >
-                                  <desc>
-                                    caret-down
-                                  </desc>
-                                  <path
-                                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                                    fill-rule="evenodd"
-                                  />
-                                </svg>
+                                  <svg
+                                    data-icon="caret-down"
+                                    height="14"
+                                    viewBox="0 0 16 16"
+                                    width="14"
+                                  >
+                                    <desc>
+                                      caret-down
+                                    </desc>
+                                    <path
+                                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
                               </span>
-                            </span>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div
-                        class="bp3-form-helper-text"
-                      >
-                        validation.branchName
+                        <div
+                          class="bp3-form-helper-text"
+                        >
+                          validation.branchName
+                        </div>
                       </div>
                     </div>
                   </div>

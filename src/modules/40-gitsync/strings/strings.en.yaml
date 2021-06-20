@@ -28,3 +28,4 @@ selectHarnessFolder: Select Harness Folder
 selectDefaultBranch: Select Default Branch
 successfullySavedConnectivityMode: Successfully saved Connectivity Mode
 pathToHarnessFolder: Path to the Harness folder
+fetchingBranches: Fetching branches

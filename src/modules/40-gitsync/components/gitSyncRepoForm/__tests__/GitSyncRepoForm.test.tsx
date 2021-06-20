@@ -12,7 +12,9 @@ jest.mock('services/cd-ng', () => ({
   usePostGitSync: jest.fn().mockImplementation(() => ({ mutate: createGitSynRepo })),
   useGetConnector: jest.fn().mockImplementation(() => ({ data: gitHubMock, refetch: getGitConnector })),
   getConnectorListPromise: jest.fn().mockImplementation(() => Promise.resolve(gitHubMock)),
-  getListOfBranchesByConnectorPromise: jest.fn().mockResolvedValue({ data: ['master', 'devBranch'] }),
+  getListOfBranchesByConnectorPromise: jest
+    .fn()
+    .mockResolvedValue({ data: ['master', 'devBranch'], status: 'SUCCESS' }),
   useGetTestGitRepoConnectionResult: jest.fn().mockImplementation(() => ({ mutate: jest.fn }))
 }))
 
