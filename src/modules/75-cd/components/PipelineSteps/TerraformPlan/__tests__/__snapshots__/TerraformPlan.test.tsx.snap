@@ -89,7 +89,7 @@ exports[`Test TerraformPlan click on add tf var file -should open the dialog 1`]
     </div>
   </div>
   <div
-    class="formGroup md"
+    class="formGroup sm"
   >
     <div
       class="bp3-form-group"
@@ -1379,7 +1379,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
     </div>
   </div>
   <div
-    class="formGroup md"
+    class="formGroup sm"
   >
     <div
       class="bp3-form-group"
@@ -2838,7 +2838,7 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
     </div>
   </div>
   <div
-    class="formGroup md"
+    class="formGroup sm"
   >
     <div
       class="bp3-form-group"
@@ -3320,7 +3320,7 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
     </div>
   </div>
   <div
-    class="formGroup md"
+    class="formGroup sm"
   >
     <div
       class="bp3-form-group"
@@ -3801,7 +3801,7 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
     </div>
   </div>
   <div
-    class="formGroup md"
+    class="formGroup sm"
   >
     <div
       class="bp3-form-group"
@@ -4284,7 +4284,7 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
     </div>
   </div>
   <div
-    class="formGroup md"
+    class="formGroup sm"
   >
     <div
       class="bp3-form-group"
@@ -5149,7 +5149,7 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
     </div>
   </div>
   <div
-    class="formGroup md"
+    class="formGroup sm"
   >
     <div
       class="bp3-form-group"

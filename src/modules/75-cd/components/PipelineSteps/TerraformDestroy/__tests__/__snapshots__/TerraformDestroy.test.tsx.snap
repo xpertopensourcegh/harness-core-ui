@@ -97,7 +97,7 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
       </div>
     </div>
     <div
-      class="formGroup md"
+      class="formGroup sm"
     >
       <div
         class="bp3-form-group"
@@ -1137,7 +1137,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
       </div>
     </div>
     <div
-      class="formGroup md"
+      class="formGroup sm"
     >
       <div
         class="bp3-form-group"
@@ -2177,7 +2177,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
       </div>
     </div>
     <div
-      class="formGroup md"
+      class="formGroup sm"
     >
       <div
         class="bp3-form-group"
@@ -2482,7 +2482,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
       </div>
     </div>
     <div
-      class="formGroup md"
+      class="formGroup sm"
     >
       <div
         class="bp3-form-group"
@@ -2785,7 +2785,7 @@ exports[`Test TerraformDestroy should render edit view as new step 1`] = `
       </div>
     </div>
     <div
-      class="formGroup md"
+      class="formGroup sm"
     >
       <div
         class="bp3-form-group"

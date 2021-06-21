@@ -97,7 +97,7 @@ exports[`Test TerraformApply expand backend Spec config 1`] = `
       </div>
     </div>
     <div
-      class="formGroup md"
+      class="formGroup sm"
     >
       <div
         class="bp3-form-group"
@@ -1084,7 +1084,7 @@ exports[`Test TerraformApply rendering more than one varfile 1`] = `
       </div>
     </div>
     <div
-      class="formGroup md"
+      class="formGroup sm"
     >
       <div
         class="bp3-form-group"
@@ -1475,7 +1475,7 @@ exports[`Test TerraformApply rendering more than one varfile 2`] = `
       </div>
     </div>
     <div
-      class="formGroup md"
+      class="formGroup sm"
     >
       <div
         class="bp3-form-group"
@@ -3048,7 +3048,7 @@ exports[`Test TerraformApply should render edit view as edit step - Inheritfromp
       </div>
     </div>
     <div
-      class="formGroup md"
+      class="formGroup sm"
     >
       <div
         class="bp3-form-group"
@@ -3353,7 +3353,7 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
       </div>
     </div>
     <div
-      class="formGroup md"
+      class="formGroup sm"
     >
       <div
         class="bp3-form-group"
@@ -3742,7 +3742,7 @@ exports[`Test TerraformApply should render edit view as new step 1`] = `
       </div>
     </div>
     <div
-      class="formGroup md"
+      class="formGroup sm"
     >
       <div
         class="bp3-form-group"
@@ -4106,7 +4106,7 @@ exports[`Test TerraformApply should submit form for inheritfromplan config 1`] =
       </div>
     </div>
     <div
-      class="formGroup md"
+      class="formGroup sm"
     >
       <div
         class="bp3-form-group"
@@ -4411,7 +4411,7 @@ exports[`Test TerraformApply should submit form for inline config 1`] = `
       </div>
     </div>
     <div
-      class="formGroup md"
+      class="formGroup sm"
     >
       <div
         class="bp3-form-group"

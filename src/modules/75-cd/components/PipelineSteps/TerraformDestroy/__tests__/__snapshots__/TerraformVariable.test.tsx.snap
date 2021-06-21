@@ -97,7 +97,7 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
       </div>
     </div>
     <div
-      class="formGroup md"
+      class="formGroup sm"
     >
       <div
         class="bp3-form-group"
