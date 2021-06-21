@@ -251,11 +251,11 @@ execution:
     noOutputText: No output found for current step
   pipelineActionMessages:
     abortedMessage: Pipeline has been aborted successfully
-    pausedMessage: Pipeline has been paused successfully
+    pausedMessage: Pipeline execution will pause once the currently running steps have completed.
     resumedMessage: Pipeline has been resumed successfully
   stageActionMessages:
     abortedMessage: Stage "{{stageName}}" has been aborted successfully
-    pausedMessage: Stage "{{stageName}}" has been paused successfully
+    pausedMessage: Stage "{{stageName}}" execution will pause once the currently running steps have completed.
     resumedMessage: Stage  "{{stageName}}" has been resumed successfully
   actions:
     resumePipeline: Resume Pipeline
