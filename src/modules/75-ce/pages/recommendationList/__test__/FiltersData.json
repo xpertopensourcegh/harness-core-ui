@@ -1,0 +1,22 @@
+{
+  "data": {
+    "recommendationFilterStats": [
+      {
+        "key": "name",
+        "values": ["name1", "name2", "name3", "name4"],
+        "__typename": "FilterStatsDTO"
+      },
+      { "key": "resourceType", "values": ["NODE_POOL", "WORKLOAD"], "__typename": "FilterStatsDTO" },
+      {
+        "key": "namespace",
+        "values": ["namespace 1", "namespace 2", "namespace 3", "namespace 4"],
+        "__typename": "FilterStatsDTO"
+      },
+      {
+        "key": "clusterName",
+        "values": ["cluster 1", "cluster 2"],
+        "__typename": "FilterStatsDTO"
+      }
+    ]
+  }
+}

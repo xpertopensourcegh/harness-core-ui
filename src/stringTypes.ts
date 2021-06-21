@@ -1942,6 +1942,14 @@ export interface StringsMap {
   'ce.recommendation.detailsPage.resourceChanges': string
   'ce.recommendation.detailsPage.timeChangeText': string
   'ce.recommendation.detailsPage.totalCost': string
+  'ce.recommendation.listPage.filterHereText': string
+  'ce.recommendation.listPage.filters.clusterName': string
+  'ce.recommendation.listPage.filters.enterCost': string
+  'ce.recommendation.listPage.filters.minCost': string
+  'ce.recommendation.listPage.filters.minSaving': string
+  'ce.recommendation.listPage.filters.name': string
+  'ce.recommendation.listPage.filters.namespace': string
+  'ce.recommendation.listPage.filters.resourceType': string
   'ce.recommendation.listPage.forecatedCostSubText': string
   'ce.recommendation.listPage.listTableHeaders.details': string
   'ce.recommendation.listPage.listTableHeaders.monthlyCost': string

@@ -7,12 +7,12 @@ export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Mayb
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
 export const RecommendationsDocument = gql`
-  query Recommendations {
-    recommendationStats {
+  query Recommendations($filters: K8sRecommendationFilterDTOInput) {
+    recommendationStatsV2(filter: $filters) {
       totalMonthlyCost
       totalMonthlySaving
     }
-    recommendations {
+    recommendationsV2(filter: $filters) {
       items {
         id
         resourceType
@@ -28,15 +28,26 @@ export function useRecommendationsQuery(options: Omit<Urql.UseQueryArgs<Recommen
   return Urql.useQuery<RecommendationsQuery>({ query: RecommendationsDocument, ...options })
 }
 export const FetchRecommendationDocument = gql`
-  query FetchRecommendation($id: String!) {
+  query FetchRecommendation($id: String!, $startTime: OffsetDateTime!, $endTime: OffsetDateTime!) {
     recommendationStats(id: $id) {
       totalMonthlyCost
       totalMonthlySaving
     }
-    recommendationDetails(id: $id, resourceType: WORKLOAD) {
+    recommendationDetails(id: $id, resourceType: WORKLOAD, startTime: $startTime, endTime: $endTime) {
       ... on WorkloadRecommendationDTO {
         containerRecommendations
         items {
+          containerRecommendation {
+            numDays
+            current {
+              CPU
+              MEMORY
+            }
+            lastDayCost {
+              cpu
+              memory
+            }
+          }
           containerName
           cpuHistogram {
             bucketWeights
@@ -69,16 +80,32 @@ export function useFetchRecommendationQuery(
 ) {
   return Urql.useQuery<FetchRecommendationQuery>({ query: FetchRecommendationDocument, ...options })
 }
-export type RecommendationsQueryVariables = Exact<{ [key: string]: never }>
+export const RecommendationFiltersDocument = gql`
+  query RecommendationFilters {
+    recommendationFilterStats(keys: ["name", "resourceType", "namespace", "clusterName"]) {
+      key
+      values
+    }
+  }
+`
+
+export function useRecommendationFiltersQuery(
+  options: Omit<Urql.UseQueryArgs<RecommendationFiltersQueryVariables>, 'query'> = {}
+) {
+  return Urql.useQuery<RecommendationFiltersQuery>({ query: RecommendationFiltersDocument, ...options })
+}
+export type RecommendationsQueryVariables = Exact<{
+  filters: Maybe<K8sRecommendationFilterDtoInput>
+}>
 
 export type RecommendationsQuery = {
   __typename?: 'Query'
-  recommendationStats: Maybe<{
+  recommendationStatsV2: Maybe<{
     __typename?: 'RecommendationOverviewStats'
     totalMonthlyCost: number
     totalMonthlySaving: number
   }>
-  recommendations: Maybe<{
+  recommendationsV2: Maybe<{
     __typename?: 'RecommendationsDTO'
     items: Maybe<
       Array<
@@ -97,6 +124,8 @@ export type RecommendationsQuery = {
 
 export type FetchRecommendationQueryVariables = Exact<{
   id: Scalars['String']
+  startTime: Scalars['OffsetDateTime']
+  endTime: Scalars['OffsetDateTime']
 }>
 
 export type FetchRecommendationQuery = {
@@ -116,6 +145,12 @@ export type FetchRecommendationQuery = {
             Maybe<{
               __typename?: 'ContainerHistogramDTO'
               containerName: Maybe<string>
+              containerRecommendation: Maybe<{
+                __typename?: 'ContainerRecommendation'
+                numDays: number
+                current: Maybe<{ __typename?: 'ResourceRequirement'; CPU: Maybe<string>; MEMORY: Maybe<string> }>
+                lastDayCost: Maybe<{ __typename?: 'Cost'; cpu: Maybe<any>; memory: Maybe<any> }>
+              }>
               cpuHistogram: Maybe<{
                 __typename?: 'HistogramExp'
                 bucketWeights: Maybe<Array<Maybe<number>>>
@@ -142,6 +177,15 @@ export type FetchRecommendationQuery = {
           >
         >
       }
+  >
+}
+
+export type RecommendationFiltersQueryVariables = Exact<{ [key: string]: never }>
+
+export type RecommendationFiltersQuery = {
+  __typename?: 'Query'
+  recommendationFilterStats: Maybe<
+    Array<Maybe<{ __typename?: 'FilterStatsDTO'; key: Maybe<string>; values: Maybe<Array<Maybe<string>>> }>>
   >
 }
 
@@ -274,6 +318,18 @@ export type Cost = {
   memory: Maybe<Scalars['BigDecimal']>
 }
 
+export type DataPoint = {
+  __typename?: 'DataPoint'
+  key: Maybe<Reference>
+  value: Maybe<Scalars['BigDecimal']>
+}
+
+export type FilterStatsDto = {
+  __typename?: 'FilterStatsDTO'
+  key: Maybe<Scalars['String']>
+  values: Maybe<Array<Maybe<Scalars['String']>>>
+}
+
 export type HistogramExp = {
   __typename?: 'HistogramExp'
   bucketWeights: Maybe<Array<Maybe<Scalars['Float']>>>
@@ -295,7 +351,89 @@ export type InstanceDataDemo = {
 
 export type NodeRecommendationDto = {
   __typename?: 'NodeRecommendationDTO'
+  currentCloudProvider: Maybe<Scalars['String']>
+  currentService: Maybe<Scalars['String']>
   id: Maybe<Scalars['String']>
+  maxCpu: Maybe<Scalars['Int']>
+  maxMemory: Maybe<Scalars['Int']>
+  sumCpu: Maybe<Scalars['Int']>
+  sumMemory: Maybe<Scalars['Int']>
+}
+
+export type PerspectiveData = {
+  __typename?: 'PerspectiveData'
+  customerViews: Maybe<Array<Maybe<QlceView>>>
+  sampleViews: Maybe<Array<Maybe<QlceView>>>
+}
+
+export type PerspectiveEntityStatsData = {
+  __typename?: 'PerspectiveEntityStatsData'
+  data: Maybe<Array<Maybe<QlceViewEntityStatsDataPoint>>>
+}
+
+export type PerspectiveFieldsData = {
+  __typename?: 'PerspectiveFieldsData'
+  fieldIdentifierData: Maybe<Array<Maybe<QlceViewFieldIdentifierData>>>
+}
+
+export type PerspectiveFilterData = {
+  __typename?: 'PerspectiveFilterData'
+  values: Maybe<Array<Maybe<Scalars['String']>>>
+}
+
+export type PerspectiveOverviewStatsData = {
+  __typename?: 'PerspectiveOverviewStatsData'
+  isAwsOrGcpOrClusterConfigured: Maybe<Scalars['Boolean']>
+  unifiedTableDataPresent: Maybe<Scalars['Boolean']>
+}
+
+export type PerspectiveTimeSeriesData = {
+  __typename?: 'PerspectiveTimeSeriesData'
+  stats: Maybe<Array<Maybe<TimeSeriesDataPoints>>>
+}
+
+export type PerspectiveTrendStats = {
+  __typename?: 'PerspectiveTrendStats'
+  cost: Maybe<StatsInfo>
+}
+
+export type QlceView = {
+  __typename?: 'QLCEView'
+  chartType: Maybe<ViewChartType>
+  createdAt: Maybe<Scalars['Long']>
+  createdBy: Maybe<Scalars['String']>
+  dataSources: Maybe<Array<Maybe<ViewFieldIdentifier>>>
+  groupBy: Maybe<QlceViewField>
+  id: Maybe<Scalars['String']>
+  lastUpdatedAt: Maybe<Scalars['Long']>
+  name: Maybe<Scalars['String']>
+  reportScheduledConfigured: Scalars['Boolean']
+  timeRange: Maybe<ViewTimeRangeType>
+  totalCost: Scalars['Float']
+  viewState: Maybe<ViewState>
+  viewType: Maybe<ViewType>
+}
+
+export type QlceViewEntityStatsDataPoint = {
+  __typename?: 'QLCEViewEntityStatsDataPoint'
+  cost: Maybe<Scalars['BigDecimal']>
+  costTrend: Maybe<Scalars['BigDecimal']>
+  name: Maybe<Scalars['String']>
+}
+
+export type QlceViewField = {
+  __typename?: 'QLCEViewField'
+  fieldId: Maybe<Scalars['String']>
+  fieldName: Maybe<Scalars['String']>
+  identifier: Maybe<ViewFieldIdentifier>
+  identifierName: Maybe<Scalars['String']>
+}
+
+export type QlceViewFieldIdentifierData = {
+  __typename?: 'QLCEViewFieldIdentifierData'
+  identifier: Maybe<ViewFieldIdentifier>
+  identifierName: Maybe<Scalars['String']>
+  values: Maybe<Array<Maybe<QlceViewField>>>
 }
 
 /** Query root */
@@ -304,12 +442,34 @@ export type Query = {
   billingData: Maybe<Array<Maybe<BillingData>>>
   billingdata: Maybe<Array<Maybe<BillingDataDemo>>>
   instancedata: Maybe<InstanceDataDemo>
+  /** Fields for perspective explorer */
+  perspectiveFields: Maybe<PerspectiveFieldsData>
+  /** Filter values for perspective */
+  perspectiveFilters: Maybe<PerspectiveFilterData>
+  /** Table for perspective */
+  perspectiveGrid: Maybe<PerspectiveEntityStatsData>
+  /** Overview stats for perspective */
+  perspectiveOverviewStats: Maybe<PerspectiveOverviewStatsData>
+  /** Table for perspective */
+  perspectiveTimeSeriesStats: Maybe<PerspectiveTimeSeriesData>
+  /** Trend stats for perspective */
+  perspectiveTrendStats: Maybe<PerspectiveTrendStats>
+  /** Fetch perspectives for account */
+  perspectives: Maybe<PerspectiveData>
   /** recommendation details/drillDown */
   recommendationDetails: Maybe<RecommendationDetails>
+  /** possible filter values for each column */
+  recommendationFilterStats: Maybe<Array<Maybe<FilterStatsDto>>>
+  /** Possible filter values for each key */
+  recommendationFilterStatsV2: Maybe<Array<Maybe<FilterStatsDto>>>
   /** top panel stats API */
   recommendationStats: Maybe<RecommendationOverviewStats>
+  /** Top panel stats API, aggregated */
+  recommendationStatsV2: Maybe<RecommendationOverviewStats>
   /** the list of all types of recommendations for overview page */
   recommendations: Maybe<RecommendationsDto>
+  /** The list of all types of recommendations for overview page */
+  recommendationsV2: Maybe<RecommendationsDto>
 }
 
 /** Query root */
@@ -330,11 +490,70 @@ export type QueryInstancedataArgs = {
 }
 
 /** Query root */
+export type QueryPerspectiveFieldsArgs = {
+  filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>>>
+}
+
+/** Query root */
+export type QueryPerspectiveFiltersArgs = {
+  aggregateFunction: Maybe<Array<Maybe<QlceViewAggregationInput>>>
+  filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>>>
+  groupBy: Maybe<Array<Maybe<QlceViewGroupByInput>>>
+  limit: Maybe<Scalars['Int']>
+  offset: Maybe<Scalars['Int']>
+  sortCriteria: Maybe<Array<Maybe<QlceViewSortCriteriaInput>>>
+}
+
+/** Query root */
+export type QueryPerspectiveGridArgs = {
+  aggregateFunction: Maybe<Array<Maybe<QlceViewAggregationInput>>>
+  filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>>>
+  groupBy: Maybe<Array<Maybe<QlceViewGroupByInput>>>
+  limit: Maybe<Scalars['Int']>
+  offset: Maybe<Scalars['Int']>
+  sortCriteria: Maybe<Array<Maybe<QlceViewSortCriteriaInput>>>
+}
+
+/** Query root */
+export type QueryPerspectiveTimeSeriesStatsArgs = {
+  aggregateFunction: Maybe<Array<Maybe<QlceViewAggregationInput>>>
+  filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>>>
+  groupBy: Maybe<Array<Maybe<QlceViewGroupByInput>>>
+  includeOthers: Scalars['Boolean']
+  limit: Maybe<Scalars['Int']>
+  offset: Maybe<Scalars['Int']>
+  sortCriteria: Maybe<Array<Maybe<QlceViewSortCriteriaInput>>>
+}
+
+/** Query root */
+export type QueryPerspectiveTrendStatsArgs = {
+  aggregateFunction: Maybe<Array<Maybe<QlceViewAggregationInput>>>
+  filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>>>
+}
+
+/** Query root */
 export type QueryRecommendationDetailsArgs = {
   endTime: Maybe<Scalars['OffsetDateTime']>
   id: Scalars['String']
   resourceType: ResourceType
   startTime: Maybe<Scalars['OffsetDateTime']>
+}
+
+/** Query root */
+export type QueryRecommendationFilterStatsArgs = {
+  clusterName: Maybe<Scalars['String']>
+  keys?: Maybe<Array<Maybe<Scalars['String']>>>
+  minCost: Maybe<Scalars['Float']>
+  minSaving: Maybe<Scalars['Float']>
+  name: Maybe<Scalars['String']>
+  namespace: Maybe<Scalars['String']>
+  resourceType: Maybe<ResourceType>
+}
+
+/** Query root */
+export type QueryRecommendationFilterStatsV2Args = {
+  filter?: Maybe<K8sRecommendationFilterDtoInput>
+  keys?: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
 /** Query root */
@@ -349,6 +568,11 @@ export type QueryRecommendationStatsArgs = {
 }
 
 /** Query root */
+export type QueryRecommendationStatsV2Args = {
+  filter?: Maybe<K8sRecommendationFilterDtoInput>
+}
+
+/** Query root */
 export type QueryRecommendationsArgs = {
   clusterName: Maybe<Scalars['String']>
   id: Maybe<Scalars['String']>
@@ -359,6 +583,11 @@ export type QueryRecommendationsArgs = {
   namespace: Maybe<Scalars['String']>
   offset?: Maybe<Scalars['Long']>
   resourceType: Maybe<ResourceType>
+}
+
+/** Query root */
+export type QueryRecommendationsV2Args = {
+  filter?: Maybe<K8sRecommendationFilterDtoInput>
 }
 
 export type RecommendationItemDto = {
@@ -391,6 +620,13 @@ export type RecommendationsDto = {
   offset: Scalars['Long']
 }
 
+export type Reference = {
+  __typename?: 'Reference'
+  id: Maybe<Scalars['String']>
+  name: Maybe<Scalars['String']>
+  type: Maybe<Scalars['String']>
+}
+
 export type ResourceRequirement = {
   __typename?: 'ResourceRequirement'
   CPU: Maybe<Scalars['String']>
@@ -398,6 +634,21 @@ export type ResourceRequirement = {
   empty: Scalars['Boolean']
   limits: Maybe<Scalars['Map_String_StringScalar']>
   requests: Maybe<Scalars['Map_String_StringScalar']>
+}
+
+export type StatsInfo = {
+  __typename?: 'StatsInfo'
+  statsDescription: Maybe<Scalars['String']>
+  statsLabel: Maybe<Scalars['String']>
+  statsTrend: Maybe<Scalars['BigDecimal']>
+  statsValue: Maybe<Scalars['String']>
+  value: Maybe<Scalars['BigDecimal']>
+}
+
+export type TimeSeriesDataPoints = {
+  __typename?: 'TimeSeriesDataPoints'
+  time: Maybe<Scalars['Long']>
+  values: Maybe<Array<Maybe<DataPoint>>>
 }
 
 export type WorkloadRecommendationDto = {
@@ -432,8 +683,43 @@ export enum FilterOperator {
   TimeBefore = 'TIME_BEFORE'
 }
 
+export enum QlceSortOrder {
+  Ascending = 'ASCENDING',
+  Descending = 'DESCENDING'
+}
+
+export enum QlceViewAggregateOperation {
+  Max = 'MAX',
+  Min = 'MIN',
+  Sum = 'SUM'
+}
+
+export enum QlceViewFilterOperator {
+  Equals = 'EQUALS',
+  In = 'IN',
+  NotIn = 'NOT_IN',
+  NotNull = 'NOT_NULL',
+  Null = 'NULL'
+}
+
+export enum QlceViewSortType {
+  Cost = 'COST',
+  Time = 'TIME'
+}
+
+export enum QlceViewTimeFilterOperator {
+  After = 'AFTER',
+  Before = 'BEFORE'
+}
+
+export enum QlceViewTimeGroupType {
+  Day = 'DAY',
+  Month = 'MONTH',
+  Week = 'WEEK'
+}
+
 export enum ResourceType {
-  Node = 'NODE',
+  NodePool = 'NODE_POOL',
   Workload = 'WORKLOAD'
 }
 
@@ -442,6 +728,40 @@ export enum SortOrder {
   Ascending = 'ASCENDING',
   Desc = 'DESC',
   Descending = 'DESCENDING'
+}
+
+export enum ViewChartType {
+  StackedLineChart = 'STACKED_LINE_CHART',
+  StackedTimeSeries = 'STACKED_TIME_SERIES'
+}
+
+export enum ViewFieldIdentifier {
+  Aws = 'AWS',
+  Azure = 'AZURE',
+  Cluster = 'CLUSTER',
+  Common = 'COMMON',
+  Custom = 'CUSTOM',
+  Gcp = 'GCP',
+  Label = 'LABEL'
+}
+
+export enum ViewState {
+  Completed = 'COMPLETED',
+  Draft = 'DRAFT'
+}
+
+export enum ViewTimeRangeType {
+  CurrentMonth = 'CURRENT_MONTH',
+  Custom = 'CUSTOM',
+  Last_30 = 'LAST_30',
+  Last_7 = 'LAST_7',
+  LastMonth = 'LAST_MONTH'
+}
+
+export enum ViewType {
+  Customer = 'CUSTOMER',
+  DefaultAzure = 'DEFAULT_AZURE',
+  Sample = 'SAMPLE'
 }
 
 export type FieldAggregationInput = {
@@ -464,6 +784,72 @@ export type GridRequestInput = {
   offset: Maybe<Scalars['Int']>
   orderBy: Maybe<Array<Maybe<SortCriteriaInput>>>
   where: Maybe<Array<Maybe<FieldFilterInput>>>
+}
+
+export type K8sRecommendationFilterDtoInput = {
+  clusterNames: Maybe<Array<Maybe<Scalars['String']>>>
+  ids: Maybe<Array<Maybe<Scalars['String']>>>
+  limit: Maybe<Scalars['Long']>
+  minCost: Maybe<Scalars['Float']>
+  minSaving: Maybe<Scalars['Float']>
+  names: Maybe<Array<Maybe<Scalars['String']>>>
+  namespaces: Maybe<Array<Maybe<Scalars['String']>>>
+  offset: Maybe<Scalars['Long']>
+  resourceTypes: Maybe<Array<Maybe<ResourceType>>>
+}
+
+export type QlceViewAggregationInput = {
+  columnName: Maybe<Scalars['String']>
+  operationType: Maybe<QlceViewAggregateOperation>
+}
+
+export type QlceViewFieldInputInput = {
+  fieldId: Maybe<Scalars['String']>
+  fieldName: Maybe<Scalars['String']>
+  identifier: Maybe<ViewFieldIdentifier>
+  identifierName: Maybe<Scalars['String']>
+}
+
+export type QlceViewFilterInput = {
+  field: Maybe<QlceViewFieldInputInput>
+  operator: Maybe<QlceViewFilterOperator>
+  values: Maybe<Array<Maybe<Scalars['String']>>>
+}
+
+export type QlceViewFilterWrapperInput = {
+  idFilter: Maybe<QlceViewFilterInput>
+  ruleFilter: Maybe<QlceViewRuleInput>
+  timeFilter: Maybe<QlceViewTimeFilterInput>
+  viewMetadataFilter: Maybe<QlceViewMetadataFilterInput>
+}
+
+export type QlceViewGroupByInput = {
+  entityGroupBy: Maybe<QlceViewFieldInputInput>
+  timeTruncGroupBy: Maybe<QlceViewTimeTruncGroupByInput>
+}
+
+export type QlceViewMetadataFilterInput = {
+  isPreview: Scalars['Boolean']
+  viewId: Maybe<Scalars['String']>
+}
+
+export type QlceViewRuleInput = {
+  conditions: Maybe<Array<Maybe<QlceViewFilterInput>>>
+}
+
+export type QlceViewSortCriteriaInput = {
+  sortOrder: Maybe<QlceSortOrder>
+  sortType: Maybe<QlceViewSortType>
+}
+
+export type QlceViewTimeFilterInput = {
+  field: Maybe<QlceViewFieldInputInput>
+  operator: Maybe<QlceViewTimeFilterOperator>
+  value: Maybe<Scalars['BigDecimal']>
+}
+
+export type QlceViewTimeTruncGroupByInput = {
+  resolution: Maybe<QlceViewTimeGroupType>
 }
 
 export type SortCriteriaInput = {

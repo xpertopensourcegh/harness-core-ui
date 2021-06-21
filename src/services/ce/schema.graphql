@@ -112,6 +112,16 @@ type Cost {
   memory: BigDecimal
 }
 
+type DataPoint {
+  key: Reference
+  value: BigDecimal
+}
+
+type FilterStatsDTO {
+  key: String
+  values: [String]
+}
+
 type HistogramExp {
   bucketWeights: [Float]
   firstBucketSize: Float!
@@ -130,7 +140,78 @@ type InstanceDataDemo {
 }
 
 type NodeRecommendationDTO {
+  currentCloudProvider: String
+  currentService: String
   id: String
+  maxCpu: Int
+  maxMemory: Int
+  sumCpu: Int
+  sumMemory: Int
+}
+
+type PerspectiveData {
+  customerViews: [QLCEView]
+  sampleViews: [QLCEView]
+}
+
+type PerspectiveEntityStatsData {
+  data: [QLCEViewEntityStatsDataPoint]
+}
+
+type PerspectiveFieldsData {
+  fieldIdentifierData: [QLCEViewFieldIdentifierData]
+}
+
+type PerspectiveFilterData {
+  values: [String]
+}
+
+type PerspectiveOverviewStatsData {
+  isAwsOrGcpOrClusterConfigured: Boolean
+  unifiedTableDataPresent: Boolean
+}
+
+type PerspectiveTimeSeriesData {
+  stats: [TimeSeriesDataPoints]
+}
+
+type PerspectiveTrendStats {
+  cost: StatsInfo
+}
+
+type QLCEView {
+  chartType: ViewChartType
+  createdAt: Long
+  createdBy: String
+  dataSources: [ViewFieldIdentifier]
+  groupBy: QLCEViewField
+  id: String
+  lastUpdatedAt: Long
+  name: String
+  reportScheduledConfigured: Boolean!
+  timeRange: ViewTimeRangeType
+  totalCost: Float!
+  viewState: ViewState
+  viewType: ViewType
+}
+
+type QLCEViewEntityStatsDataPoint {
+  cost: BigDecimal
+  costTrend: BigDecimal
+  name: String
+}
+
+type QLCEViewField {
+  fieldId: String
+  fieldName: String
+  identifier: ViewFieldIdentifier
+  identifierName: String
+}
+
+type QLCEViewFieldIdentifierData {
+  identifier: ViewFieldIdentifier
+  identifierName: String
+  values: [QLCEViewField]
 }
 
 "Query root"
@@ -138,6 +219,45 @@ type Query {
   billingData(request: GridRequestInput): [BillingData]
   billingdata(clusterid: String, endTime: OffsetTime, startTime: OffsetTime): [BillingDataDemo]
   instancedata(instanceid: String!): InstanceDataDemo
+  "Fields for perspective explorer"
+  perspectiveFields(filters: [QLCEViewFilterWrapperInput]): PerspectiveFieldsData
+  "Filter values for perspective"
+  perspectiveFilters(
+    aggregateFunction: [QLCEViewAggregationInput]
+    filters: [QLCEViewFilterWrapperInput]
+    groupBy: [QLCEViewGroupByInput]
+    limit: Int
+    offset: Int
+    sortCriteria: [QLCEViewSortCriteriaInput]
+  ): PerspectiveFilterData
+  "Table for perspective"
+  perspectiveGrid(
+    aggregateFunction: [QLCEViewAggregationInput]
+    filters: [QLCEViewFilterWrapperInput]
+    groupBy: [QLCEViewGroupByInput]
+    limit: Int
+    offset: Int
+    sortCriteria: [QLCEViewSortCriteriaInput]
+  ): PerspectiveEntityStatsData
+  "Overview stats for perspective"
+  perspectiveOverviewStats: PerspectiveOverviewStatsData
+  "Table for perspective"
+  perspectiveTimeSeriesStats(
+    aggregateFunction: [QLCEViewAggregationInput]
+    filters: [QLCEViewFilterWrapperInput]
+    groupBy: [QLCEViewGroupByInput]
+    includeOthers: Boolean!
+    limit: Int
+    offset: Int
+    sortCriteria: [QLCEViewSortCriteriaInput]
+  ): PerspectiveTimeSeriesData
+  "Trend stats for perspective"
+  perspectiveTrendStats(
+    aggregateFunction: [QLCEViewAggregationInput]
+    filters: [QLCEViewFilterWrapperInput]
+  ): PerspectiveTrendStats
+  "Fetch perspectives for account"
+  perspectives: PerspectiveData
   "recommendation details/drillDown"
   recommendationDetails(
     "defaults to Now()"
@@ -147,6 +267,18 @@ type Query {
     "defaults to Now().minusDays(7)"
     startTime: OffsetDateTime
   ): recommendationDetails
+  "possible filter values for each column"
+  recommendationFilterStats(
+    clusterName: String
+    keys: [String] = []
+    minCost: Float
+    minSaving: Float
+    name: String
+    namespace: String
+    resourceType: ResourceType
+  ): [FilterStatsDTO]
+  "Possible filter values for each key"
+  recommendationFilterStatsV2(filter: K8sRecommendationFilterDTOInput = {}, keys: [String] = []): [FilterStatsDTO]
   "top panel stats API"
   recommendationStats(
     clusterName: String
@@ -157,6 +289,8 @@ type Query {
     namespace: String
     resourceType: ResourceType
   ): RecommendationOverviewStats
+  "Top panel stats API, aggregated"
+  recommendationStatsV2(filter: K8sRecommendationFilterDTOInput = {}): RecommendationOverviewStats
   "the list of all types of recommendations for overview page"
   recommendations(
     clusterName: String
@@ -169,6 +303,8 @@ type Query {
     offset: Long = 0
     resourceType: ResourceType
   ): RecommendationsDTO
+  "The list of all types of recommendations for overview page"
+  recommendationsV2(filter: K8sRecommendationFilterDTOInput = { limit: 10, offset: 0 }): RecommendationsDTO
 }
 
 type RecommendationItemDTO {
@@ -198,12 +334,31 @@ type RecommendationsDTO {
   offset: Long!
 }
 
+type Reference {
+  id: String
+  name: String
+  type: String
+}
+
 type ResourceRequirement {
   CPU: String
   MEMORY: String
   empty: Boolean!
   limits: Map_String_StringScalar
   requests: Map_String_StringScalar
+}
+
+type StatsInfo {
+  statsDescription: String
+  statsLabel: String
+  statsTrend: BigDecimal
+  statsValue: String
+  value: BigDecimal
+}
+
+type TimeSeriesDataPoints {
+  time: Long
+  values: [DataPoint]
 }
 
 type WorkloadRecommendationDTO {
@@ -234,8 +389,43 @@ enum FilterOperator {
   TIME_BEFORE
 }
 
+enum QLCESortOrder {
+  ASCENDING
+  DESCENDING
+}
+
+enum QLCEViewAggregateOperation {
+  MAX
+  MIN
+  SUM
+}
+
+enum QLCEViewFilterOperator {
+  EQUALS
+  IN
+  NOT_IN
+  NOT_NULL
+  NULL
+}
+
+enum QLCEViewSortType {
+  COST
+  TIME
+}
+
+enum QLCEViewTimeFilterOperator {
+  AFTER
+  BEFORE
+}
+
+enum QLCEViewTimeGroupType {
+  DAY
+  MONTH
+  WEEK
+}
+
 enum ResourceType {
-  NODE
+  NODE_POOL
   WORKLOAD
 }
 
@@ -244,6 +434,40 @@ enum SortOrder {
   ASCENDING
   DESC
   DESCENDING
+}
+
+enum ViewChartType {
+  STACKED_LINE_CHART
+  STACKED_TIME_SERIES
+}
+
+enum ViewFieldIdentifier {
+  AWS
+  AZURE
+  CLUSTER
+  COMMON
+  CUSTOM
+  GCP
+  LABEL
+}
+
+enum ViewState {
+  COMPLETED
+  DRAFT
+}
+
+enum ViewTimeRangeType {
+  CURRENT_MONTH
+  CUSTOM
+  LAST_30
+  LAST_7
+  LAST_MONTH
+}
+
+enum ViewType {
+  CUSTOMER
+  DEFAULT_AZURE
+  SAMPLE
 }
 
 "Built-in java.math.BigDecimal"
@@ -290,6 +514,72 @@ input GridRequestInput {
   offset: Int
   orderBy: [SortCriteriaInput]
   where: [FieldFilterInput]
+}
+
+input K8sRecommendationFilterDTOInput {
+  clusterNames: [String]
+  ids: [String]
+  limit: Long
+  minCost: Float
+  minSaving: Float
+  names: [String]
+  namespaces: [String]
+  offset: Long
+  resourceTypes: [ResourceType]
+}
+
+input QLCEViewAggregationInput {
+  columnName: String
+  operationType: QLCEViewAggregateOperation
+}
+
+input QLCEViewFieldInputInput {
+  fieldId: String
+  fieldName: String
+  identifier: ViewFieldIdentifier
+  identifierName: String
+}
+
+input QLCEViewFilterInput {
+  field: QLCEViewFieldInputInput
+  operator: QLCEViewFilterOperator
+  values: [String]
+}
+
+input QLCEViewFilterWrapperInput {
+  idFilter: QLCEViewFilterInput
+  ruleFilter: QLCEViewRuleInput
+  timeFilter: QLCEViewTimeFilterInput
+  viewMetadataFilter: QLCEViewMetadataFilterInput
+}
+
+input QLCEViewGroupByInput {
+  entityGroupBy: QLCEViewFieldInputInput
+  timeTruncGroupBy: QLCEViewTimeTruncGroupByInput
+}
+
+input QLCEViewMetadataFilterInput {
+  isPreview: Boolean!
+  viewId: String
+}
+
+input QLCEViewRuleInput {
+  conditions: [QLCEViewFilterInput]
+}
+
+input QLCEViewSortCriteriaInput {
+  sortOrder: QLCESortOrder
+  sortType: QLCEViewSortType
+}
+
+input QLCEViewTimeFilterInput {
+  field: QLCEViewFieldInputInput
+  operator: QLCEViewTimeFilterOperator
+  value: BigDecimal
+}
+
+input QLCEViewTimeTruncGroupByInput {
+  resolution: QLCEViewTimeGroupType
 }
 
 input SortCriteriaInput {

@@ -1,7 +1,7 @@
 {
   "data": {
-    "recommendationStats": { "totalMonthlyCost": 1713.7899999999972, "totalMonthlySaving": 822.8999999999999 },
-    "recommendations": {
+    "recommendationStatsV2": { "totalMonthlyCost": 1713.7899999999972, "totalMonthlySaving": 822.8999999999999 },
+    "recommendationsV2": {
       "items": [
         {
           "id": "1",

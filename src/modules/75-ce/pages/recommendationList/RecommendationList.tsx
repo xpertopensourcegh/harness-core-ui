@@ -1,24 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Card, Text, Layout, Container, Color } from '@wings-software/uicore'
 import { useHistory, useLocation } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
-import { useQuery } from 'urql'
 
 import { useStrings } from 'framework/strings'
-import FETCH_ALL_RECOMMENDATIONS from 'queries/ce/fetch_all_recommendations.gql'
-import type { RecommendationsQuery, RecommendationItemDto } from 'services/ce/services'
+import { RecommendationItemDto, useRecommendationsQuery, K8sRecommendationFilterDtoInput } from 'services/ce/services'
 
-// import { useGraphQLQuery } from '@common/hooks/useGraphQLQuery'
 import { Page } from '@common/exports'
 import Table from '@common/components/Table/Table'
 import formatCost from '@ce/utils/formatCost'
 import RecommendationSavingsCard from '../../components/RecommendationSavingsCard/RecommendationSavingsCard'
+import RecommendationFilters from '../../components/RecommendationFilters'
 
 interface RecommendationListProps {
   data: Array<RecommendationItemDto>
+  setFilters: React.Dispatch<React.SetStateAction<Record<string, string[]>>>
+  filters: Record<string, string[]>
+  setCostFilters: React.Dispatch<React.SetStateAction<Record<string, number>>>
 }
 
-const RecommendationsList: React.FC<RecommendationListProps> = ({ data }) => {
+const RecommendationsList: React.FC<RecommendationListProps> = ({ data, filters, setFilters, setCostFilters }) => {
   const history = useHistory()
   const { pathname } = useLocation()
   const { getString } = useStrings()
@@ -52,21 +53,25 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({ data }) => {
   }
 
   const CostCell: Renderer<CellProps<RecommendationItemDto>> = cell => {
-    return <Text>{formatCost(cell.value)}</Text>
+    return cell.value ? <Text>{formatCost(cell.value)}</Text> : null
   }
 
   const SavingCell: Renderer<CellProps<RecommendationItemDto>> = cell => {
-    return (
+    return cell.value ? (
       <Text color="green500" icon="money-icon" iconProps={{ size: 28 }}>
         {formatCost(cell.value)}
       </Text>
-    )
+    ) : null
   }
 
   return data ? (
     <Card elevation={1}>
       <Layout.Vertical spacing="large">
-        <Text>{getString('ce.recommendation.listPage.recommnedationBreakdown')}</Text>
+        <Layout.Horizontal>
+          <Text style={{ flex: 1 }}>{getString('ce.recommendation.listPage.recommnedationBreakdown')}</Text>
+          <RecommendationFilters setCostFilters={setCostFilters} setFilters={setFilters} filters={filters} />
+        </Layout.Horizontal>
+
         <Table<RecommendationItemDto>
           onRowClick={row => {
             history.push(`${pathname}/${row.id}/details`)
@@ -115,19 +120,25 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({ data }) => {
 }
 
 const RecommendationList: React.FC = () => {
-  const [result] = useQuery<RecommendationsQuery>({
-    query: FETCH_ALL_RECOMMENDATIONS,
-    requestPolicy: 'network-only'
+  const [filters, setFilters] = useState<Record<string, string[]>>({})
+  const [costFilters, setCostFilters] = useState<Record<string, number>>({})
+
+  // const [offset, setOffset] = useState<number>(0)
+  // const [limit, setLimit] = useState<number>(100)
+
+  const [result] = useRecommendationsQuery({
+    requestPolicy: 'network-only',
+    variables: { filters: { ...filters, offset: 0, limit: 100, ...costFilters } as K8sRecommendationFilterDtoInput }
   })
 
   const { data, fetching } = result
 
   const { getString } = useStrings()
 
-  const totalMonthlyCost = data?.recommendationStats?.totalMonthlyCost || 0
-  const totalSavings = data?.recommendationStats?.totalMonthlySaving || 0
+  const totalMonthlyCost = data?.recommendationStatsV2?.totalMonthlyCost || 0
+  const totalSavings = data?.recommendationStatsV2?.totalMonthlySaving || 0
 
-  const recommendationItems = data?.recommendations?.items || []
+  const recommendationItems = data?.recommendationsV2?.items || []
 
   return (
     <>
@@ -149,7 +160,12 @@ const RecommendationList: React.FC = () => {
                 />
               </Layout.Horizontal>
 
-              <RecommendationsList data={recommendationItems as Array<RecommendationItemDto>} />
+              <RecommendationsList
+                setFilters={setFilters}
+                filters={filters}
+                setCostFilters={setCostFilters}
+                data={recommendationItems as Array<RecommendationItemDto>}
+              />
             </Layout.Vertical>
           ) : null}
         </Container>

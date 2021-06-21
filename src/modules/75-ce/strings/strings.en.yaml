@@ -316,6 +316,15 @@ recommendation:
     monthlyForcastedCostText: FORECASTED MONTHLY SPEND
     forecatedCostSubText: without applying recommendations
     recommnedationBreakdown: 'Recommendations Breakdown'
+    filterHereText: 'Filter here'
+    filters:
+      minSaving: Monthly savings greater than
+      minCost: Monthly cost greater than
+      clusterName: Cluster Name
+      name: '{{ $.name }}'
+      resourceType: Resource Type
+      namespace: '{{ $.common.namespace }}'
+      enterCost: Enter Cost
     listTableHeaders:
       monthlySavings: 'MONTHLY SAVINGS'
       resourceName: 'RESOURCE NAME'

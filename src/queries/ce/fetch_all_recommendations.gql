@@ -1,10 +1,10 @@
-query Recommendations {
-  recommendationStats {
+query Recommendations($filters: K8sRecommendationFilterDTOInput) {
+  recommendationStatsV2(filter: $filters) {
     totalMonthlyCost
     totalMonthlySaving
   }
 
-  recommendations {
+  recommendationsV2(filter: $filters) {
     items {
       id
       resourceType
