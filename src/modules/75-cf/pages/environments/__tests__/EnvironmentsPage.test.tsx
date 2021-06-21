@@ -142,7 +142,7 @@ describe('EnvironmentsPage', () => {
     )
 
     fireEvent.click(container.querySelector('[role="row"]:not(:first-of-type) [data-icon="Options"]') as HTMLElement)
-    fireEvent.click(document.querySelector('[icon="cross"]') as HTMLElement)
+    fireEvent.click(document.querySelector('[icon="trash"]') as HTMLElement)
 
     expect(getByText(document.body, 'confirm')).toBeDefined()
     fireEvent.click(getByText(document.body, 'confirm') as HTMLButtonElement)

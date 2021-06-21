@@ -2,8 +2,8 @@ import React, { useMemo, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import type { Column } from 'react-table'
 import { get } from 'lodash-es'
-import { Menu, Position } from '@blueprintjs/core'
-import { Button, Container, Layout, Pagination, Text } from '@wings-software/uicore'
+import { Position } from '@blueprintjs/core'
+import { Container, Layout, Pagination, Text } from '@wings-software/uicore'
 import { EnvironmentResponseDTO, useDeleteEnvironmentV2, useGetEnvironmentListForProject } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
 import { useToaster } from '@common/exports'
@@ -16,7 +16,10 @@ import { ListingPageTemplate } from '@cf/components/ListingPageTemplate/ListingP
 import EnvironmentDialog from '@cf/components/CreateEnvironmentDialog/EnvironmentDialog'
 import routes from '@common/RouteDefinitions'
 import { NoEnvironment } from '@cf/components/NoEnvironment/NoEnvironment'
-import { withTableData } from '../../utils/table-utils'
+import { withTableData } from '@cf/utils/table-utils'
+import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import css from './EnvironmentsPage.module.scss'
 
 type EnvData = { environment: EnvironmentResponseDTO }
@@ -89,7 +92,7 @@ const NameCell = withEnvironment(({ environment }) => {
   )
 })
 
-const ModilfiedByCell = withActions(({ environment, actions }) => {
+const ModifiedByCell = withActions(({ environment, actions }) => {
   const { getString } = useEnvStrings()
   const identifier = environment.identifier as string
   const deleteEnvironment = useConfirmAction({
@@ -112,17 +115,27 @@ const ModilfiedByCell = withActions(({ environment, actions }) => {
           e.stopPropagation()
         }}
       >
-        <Button
-          minimal
-          icon="Options"
-          style={{ marginLeft: 'auto' }}
-          tooltip={
-            <Menu style={{ minWidth: 'unset' }}>
-              <Menu.Item icon="edit" text={getString('edit')} onClick={() => actions.onEdit?.(identifier)} />
-              <Menu.Item icon="cross" text={getString('delete')} onClick={deleteEnvironment} />
-            </Menu>
-          }
-          tooltipProps={{ isDark: true, interactionKind: 'click', hasBackdrop: true }}
+        <RbacOptionsMenuButton
+          items={[
+            {
+              icon: 'edit',
+              text: getString('edit'),
+              onClick: () => actions.onEdit?.(identifier),
+              permission: {
+                resource: { resourceType: ResourceType.ENVIRONMENT },
+                permission: PermissionIdentifier.EDIT_ENVIRONMENT
+              }
+            },
+            {
+              icon: 'trash',
+              text: getString('delete'),
+              onClick: deleteEnvironment,
+              permission: {
+                resource: { resourceType: ResourceType.ENVIRONMENT },
+                permission: PermissionIdentifier.DELETE_ENVIRONMENT
+              }
+            }
+          ]}
         />
       </Container>
     </Layout.Horizontal>
@@ -200,7 +213,7 @@ const EnvironmentsPage: React.FC = () => {
       {
         id: 'modifiedBy',
         width: '10%',
-        Cell: ModilfiedByCell,
+        Cell: ModifiedByCell,
         actions: {
           onEdit: handleEdit,
           onDelete: handleDeleteEnv

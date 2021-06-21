@@ -3,23 +3,26 @@ import { useParams } from 'react-router-dom'
 import { Dialog, Spinner } from '@blueprintjs/core'
 import {
   Button,
-  Layout,
-  useModalHook,
-  Text,
+  ButtonProps,
+  CardSelect,
+  Collapse,
+  Color,
+  Container,
   Formik,
   FormInput,
-  Collapse,
   IconName,
-  Color,
-  CardSelect,
-  Container,
-  ButtonProps
+  Layout,
+  Text,
+  useModalHook
 } from '@wings-software/uicore'
 import { ResponseEnvironmentResponseDTO, useCreateEnvironment } from 'services/cd-ng'
 import { useToaster } from '@common/exports'
 import { useEnvStrings } from '@cf/hooks/environment'
 import { getErrorMessage } from '@cf/utils/CFUtils'
 import { EnvironmentType } from '@common/constants/EnvironmentType'
+import RbacButton from '@rbac/components/Button/Button'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import css from './EnvironmentDialog.module.scss'
 
 const collapseProps = {
@@ -203,7 +206,7 @@ const EnvironmentDialog: React.FC<EnvironmentDialogProps> = ({ disabled, onCreat
   }, [loading])
 
   return (
-    <Button
+    <RbacButton
       disabled={disabled}
       onClick={openModal}
       text={`+ ${getString('environment')}`}
@@ -213,6 +216,10 @@ const EnvironmentDialog: React.FC<EnvironmentDialogProps> = ({ disabled, onCreat
         bottom: 'small',
         left: 'huge',
         right: 'huge'
+      }}
+      permission={{
+        resource: { resourceType: ResourceType.ENVIRONMENT },
+        permission: PermissionIdentifier.EDIT_ENVIRONMENT
       }}
       {...buttonProps}
     />
