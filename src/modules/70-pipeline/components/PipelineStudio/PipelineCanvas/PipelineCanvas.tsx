@@ -30,7 +30,7 @@ import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/Sa
 import routes from '@common/RouteDefinitions'
 import type { EntityGitDetails } from 'services/pipeline-ng'
 import { useQueryParams, useUpdateQueryParams } from '@common/hooks'
-import GitFilters from '@common/components/GitFilters/GitFilters'
+import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import { TagsPopover } from '@common/components'
 import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { PipelineVariablesContextProvider } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
@@ -153,6 +153,8 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
           )
           location.reload()
         })
+      } else {
+        setSelectedBranch(branch || '')
       }
       setBlockNavigation(false)
     }
@@ -302,7 +304,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
           identifier: latestPipeline.identifier,
           gitDetails: gitDetails ?? {}
         },
-        payload: { pipeline: latestPipeline }
+        payload: { pipeline: omit(latestPipeline, 'repo', 'branch') }
       })
     } else {
       await saveAndPublishPipeline(latestPipeline)
@@ -464,6 +466,29 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     branch
   })
 
+  const onGitBranchChange = React.useMemo(
+    () => (selectedFilter: GitFilterScope) => {
+      setSelectedBranch(selectedFilter.branch as string)
+      if (isUpdated && branch !== selectedFilter.branch) {
+        setBlockNavigation(true)
+      } else if (branch !== selectedFilter.branch) {
+        history.push(
+          routes.toPipelineStudio({
+            projectIdentifier,
+            orgIdentifier,
+            pipelineIdentifier: pipelineIdentifier || '-1',
+            accountId,
+            module,
+            branch: selectedFilter.branch,
+            repoIdentifier: selectedFilter.repo
+          })
+        )
+        location.reload()
+      }
+    },
+    [repoIdentifier, branch, isUpdated, pipelineIdentifier]
+  )
+
   const RenderGitDetails: React.FC = React.useCallback(() => {
     if (gitDetails?.objectId || (pipelineIdentifier === DefaultNewPipelineId && gitDetails.repoIdentifier)) {
       return (
@@ -489,25 +514,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
               </>
             ) : (
               <GitFilters
-                onChange={filter => {
-                  setSelectedBranch(filter.branch as string)
-                  if (isUpdated && branch !== filter.branch) {
-                    setBlockNavigation(true)
-                  } else if (branch !== filter.branch) {
-                    history.push(
-                      routes.toPipelineStudio({
-                        projectIdentifier,
-                        orgIdentifier,
-                        pipelineIdentifier: pipeline?.identifier || '-1',
-                        accountId,
-                        module,
-                        branch: filter.branch,
-                        repoIdentifier: filter.repo
-                      })
-                    )
-                    location.reload()
-                  }
-                }}
+                onChange={onGitBranchChange}
                 showRepoSelector={false}
                 defaultValue={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
                 branchSelectClassName={css.branchSelector}
@@ -519,7 +526,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     } else {
       return <></>
     }
-  }, [gitDetails, pipelineIdentifier, repoIdentifier, branch])
+  }, [gitDetails, pipelineIdentifier, repoIdentifier, branch, onGitBranchChange, selectedBranch])
 
   if (isLoading) {
     return (
