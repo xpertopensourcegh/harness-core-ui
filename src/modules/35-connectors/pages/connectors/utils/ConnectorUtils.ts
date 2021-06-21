@@ -1116,6 +1116,10 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'azure-key-vault'
     case Connectors.DYNATRACE:
       return 'service-dynatrace'
+    case Connectors.CE_KUBERNETES:
+      return 'service-kubernetes'
+    case Connectors.CE_GCP:
+      return 'service-gcp'
     default:
       return 'cog'
   }
@@ -1171,6 +1175,14 @@ export const getConnectorDisplayName = (type: string) => {
       return 'Azure Key Vault'
     case Connectors.DYNATRACE:
       return 'Dynatrace'
+    case Connectors.CEAWS:
+      return 'AWS'
+    case Connectors.CE_AZURE:
+      return 'Azure'
+    case Connectors.CE_KUBERNETES:
+      return 'Kubernetes'
+    case Connectors.CE_GCP:
+      return 'GCP'
     default:
       return ''
   }

@@ -124,6 +124,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   const connectorCatalogueOrder: Array<ConnectorCatalogueItem['category']> = [
     'CLOUD_PROVIDER',
     'ARTIFACTORY',
+    'CLOUD_COST',
     'CODE_REPO',
     'TICKETING',
     'MONITORING',

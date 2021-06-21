@@ -68,7 +68,8 @@ export const Connectors: ConnectorType = {
   DATADOG: 'Datadog',
   AZURE_KEY_VAULT: 'AzureKeyVault',
   DYNATRACE: 'Dynatrace',
-  SUMOLOGIC: 'SumoLogic'
+  SUMOLOGIC: 'SumoLogic',
+  CE_GCP: 'GcpCloudCost'
 }
 
 export const ConnectorInfoText = {
