@@ -18,7 +18,8 @@ interface CreateHelmConnectorProps {
   onConnectorCreated?: (data?: ConnectorConfigDTO) => void | Promise<void>
   mock?: ResponseBoolean
   onClose: () => void
-  isEditMode?: boolean
+  isEditMode: boolean
+  setIsEditMode: (val: boolean) => void
   connectorInfo?: ConnectorInfoDTO | void
   gitDetails?: IGitContextFormProps
   context?: number
@@ -28,9 +29,9 @@ interface CreateHelmConnectorProps {
 }
 const HelmRepoConnector: React.FC<CreateHelmConnectorProps> = props => {
   const { getString } = useStrings()
-  const commonProps = pick(props, ['accountId', 'orgIdentifier', 'projectIdentifier'])
+  const commonProps = pick(props, ['accountId', 'orgIdentifier', 'projectIdentifier', 'isEditMode', 'setIsEditMode'])
 
-  const [isEditMode, setIsEditMode] = React.useState(props?.isEditMode || false)
+  // const [isEditMode, setIsEditMode] = React.useState(props?.isEditMode || true)
   return (
     <StepWizard
       icon={getConnectorIconByType(Connectors.HttpHelmRepo)}
@@ -50,14 +51,14 @@ const HelmRepoConnector: React.FC<CreateHelmConnectorProps> = props => {
         identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
         {...commonProps}
         onConnectorCreated={props.onConnectorCreated}
-        isEditMode={isEditMode}
+        isEditMode={props.isEditMode}
         connectorInfo={props.connectorInfo}
-        setIsEditMode={setIsEditMode}
+        setIsEditMode={props.setIsEditMode}
       />
       <DelegateSelectorStep
         name={getString('delegate.DelegateselectionLabel')}
-        isEditMode={isEditMode}
-        setIsEditMode={setIsEditMode}
+        isEditMode={props.isEditMode}
+        setIsEditMode={props.setIsEditMode}
         buildPayload={buildHelmPayload}
         hideModal={props.onClose}
         onConnectorCreated={props.onConnectorCreated}

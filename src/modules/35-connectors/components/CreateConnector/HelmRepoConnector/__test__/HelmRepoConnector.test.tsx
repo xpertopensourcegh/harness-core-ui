@@ -36,6 +36,7 @@ describe('Create Helm Connector  Wizard', () => {
         <HelmRepoConnector
           mock={mockResponse}
           isEditMode={false}
+          setIsEditMode={jest.fn()}
           onClose={jest.fn()}
           orgIdentifier="testOrg"
           projectIdentifier="test"
@@ -66,6 +67,7 @@ describe('Create Helm Connector  Wizard', () => {
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <HelmRepoConnector
           isEditMode={true}
+          setIsEditMode={jest.fn()}
           onClose={jest.fn()}
           connectorInfo={dockerMock}
           mock={mockResponse}
@@ -115,6 +117,7 @@ describe('Create Helm Connector  Wizard', () => {
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <HelmRepoConnector
           isEditMode={true}
+          setIsEditMode={jest.fn()}
           connectorInfo={backButtonMock}
           mock={mockResponse}
           onClose={jest.fn()}
