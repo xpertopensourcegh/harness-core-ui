@@ -10,7 +10,7 @@ import {
 } from '@wings-software/uicore'
 import { connect, FormikContext } from 'formik'
 import { FormGroup, Intent } from '@blueprintjs/core'
-import { get } from 'lodash-es'
+import { get, isEmpty } from 'lodash-es'
 import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
 import useCreateConnectorMultiTypeModal from '@connectors/modals/ConnectorModal/useCreateConnectorMultiTypeModal'
 import { ConnectorConfigDTO, ConnectorInfoDTO, ConnectorResponse, useGetConnector } from 'services/cd-ng'
@@ -106,8 +106,13 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
       accountIdentifier,
       orgIdentifier: scopeFromSelected === Scope.ORG || scopeFromSelected === Scope.PROJECT ? orgIdentifier : undefined,
       projectIdentifier: scopeFromSelected === Scope.PROJECT ? projectIdentifier : undefined,
-      branch: gitScope?.branch,
-      repoIdentifier: gitScope?.repo
+      ...(!isEmpty(gitScope?.repo) && !isEmpty(gitScope?.branch)
+        ? {
+            branch: gitScope?.branch,
+            repoIdentifier: gitScope?.repo,
+            getDefaultFromOtherRepo: true
+          }
+        : {})
     },
     lazy: true
   })
