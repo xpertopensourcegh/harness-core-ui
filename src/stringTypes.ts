@@ -2071,6 +2071,7 @@ export interface StringsMap {
   'cf.environments.apiKeys.addKeyTitle': string
   'cf.environments.apiKeys.clientType': string
   'cf.environments.apiKeys.deleteMessage': string
+  'cf.environments.apiKeys.deleteSuccess': string
   'cf.environments.apiKeys.deleteTitle': string
   'cf.environments.apiKeys.keyType': string
   'cf.environments.apiKeys.message': string

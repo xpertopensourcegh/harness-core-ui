@@ -2,21 +2,24 @@ import React from 'react'
 import { Dialog, Spinner } from '@blueprintjs/core'
 import {
   Button,
-  Layout,
-  useModalHook,
-  Formik,
-  FormInput,
+  ButtonProps,
   CardSelect,
   Container,
+  Formik,
+  FormInput,
   Label,
+  Layout,
   Text,
-  ButtonProps
+  useModalHook
 } from '@wings-software/uicore'
 import { AddAPIKeyQueryParams, ApiKey, useAddAPIKey } from 'services/cf/index'
 import { useEnvStrings } from '@cf/hooks/environment'
 import { useToaster } from '@common/exports'
 import { EnvironmentSDKKeyType, getErrorMessage } from '@cf/utils/CFUtils'
 import type { EnvironmentResponseDTO } from 'services/cd-ng'
+import RbacButton from '@rbac/components/Button/Button'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import css from './AddKeyDialog.module.scss'
 
 interface Props {
@@ -140,12 +143,16 @@ const AddKeyDialog: React.FC<Props> = ({ disabled, primary, environment, onCreat
   }, [loading, keyType])
 
   return (
-    <Button
+    <RbacButton
       disabled={disabled}
       onClick={openModal}
       text={getString('cf.environments.apiKeys.addKey')}
       minimal={!primary}
       intent="primary"
+      permission={{
+        resource: { resourceType: ResourceType.ENVIRONMENT, resourceIdentifier: environment.identifier },
+        permission: PermissionIdentifier.EDIT_ENVIRONMENT
+      }}
       {...buttonProps}
     />
   )

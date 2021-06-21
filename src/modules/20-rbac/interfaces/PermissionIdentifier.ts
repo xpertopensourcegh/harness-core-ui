@@ -53,7 +53,5 @@ export enum PermissionIdentifier {
   EDIT_FF_FEATUREFLAG = 'ff_featureflag_edit',
   TOGGLE_FF_FEATUREFLAG = 'ff_featureflag_toggle',
   DELETE_FF_TARGETGROUP = 'ff_targetgroup_delete',
-  EDIT_FF_TARGETGROUP = 'ff_targetgroup_edit',
-  CREATE_FF_ENVIRONMENT_APIKEY = 'ff_environment_apiKeyCreate',
-  DELETE_FF_ENVIRONMENT_APIKEY = 'ff_environment_apiKeyDelete'
+  EDIT_FF_TARGETGROUP = 'ff_targetgroup_edit'
 }

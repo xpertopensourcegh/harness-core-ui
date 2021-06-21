@@ -313,6 +313,7 @@ environments:
     serverType: '{{ $.cf.testTheFlag.sdkServer }}'
     deleteTitle: 'Confirm Key Delete'
     deleteMessage: 'Are you sure you want to delete Key: {{keyName}}? You cannot recover it afterwards'
+    deleteSuccess: 'Successfully deleted Key: {{keyName}}'
     keyType: 'Key Type'
     noKeysFound: 'No SDK Keys found in this environment. Click the button below to create a Key'
 auditLogs:

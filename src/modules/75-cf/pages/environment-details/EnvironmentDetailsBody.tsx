@@ -1,27 +1,31 @@
 import React, { useContext, useMemo, useRef, useState } from 'react'
-import { Tabs, Tab, Text, Container, Layout, Button, Heading, Color, Utils, Pagination } from '@wings-software/uicore'
+import { Button, Color, Container, Heading, Layout, Pagination, Tab, Tabs, Text, Utils } from '@wings-software/uicore'
 import { get } from 'lodash-es'
 import type { Column } from 'react-table'
 import type { EnvironmentResponseDTO } from 'services/cd-ng'
-import { ApiKey, useGetAllAPIKeys, useDeleteApiKey } from 'services/cf'
+import { ApiKey, useDeleteApiKey, useGetAllAPIKeys } from 'services/cf'
 import { useToaster } from '@common/exports'
 import Table from '@common/components/Table/Table'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { PageError } from '@common/components/Page/PageError'
 import { useEnvStrings } from '@cf/hooks/environment'
 import { CF_DEFAULT_PAGE_SIZE, EnvironmentSDKKeyType, getErrorMessage } from '@cf/utils/CFUtils'
-import { withTableData } from '../../utils/table-utils'
+import { withTableData } from '@cf/utils/table-utils'
+import RbacButton from '@rbac/components/Button/Button'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import AddKeyDialog from '../../components/AddKeyDialog/AddKeyDialog'
 import css from './EnvironmentDetails.module.scss'
 
 type CustomColumn<T extends Record<string, any>> = Column<T>
 
 type RowFunctions = {
+  environmentIdentifier: string
   isNew: (id: string) => boolean
-  onDelete: (id: string) => void
+  onDelete: (id: string, name: string) => void
   getSecret: (id: string, fallback: string) => string
 }
-const defaultContext = { isNew: () => false, onDelete: () => false, getSecret: () => '' }
+const defaultContext = { environmentIdentifier: '', isNew: () => false, onDelete: () => false, getSecret: () => '' }
 const RowContext = React.createContext<RowFunctions>(defaultContext)
 
 const withApiKey = withTableData<ApiKey, { apiKey: ApiKey }>(({ row }) => ({ apiKey: row.original }))
@@ -34,7 +38,7 @@ const TypeCell = withApiKey(({ apiKey }) => {
 })
 
 const ApiInfoCell = withApiKey(({ apiKey }) => {
-  const { isNew, onDelete, getSecret } = useContext(RowContext) ?? defaultContext
+  const { environmentIdentifier, isNew, onDelete, getSecret } = useContext(RowContext) ?? defaultContext
   const { getString, getEnvString } = useEnvStrings()
   const { showSuccess, showError } = useToaster()
   const textRef = useRef<HTMLDivElement>(null)
@@ -75,7 +79,7 @@ const ApiInfoCell = withApiKey(({ apiKey }) => {
         )}
       </Layout.Horizontal>
       <Container>
-        <Button
+        <RbacButton
           minimal
           icon="trash"
           iconProps={{
@@ -98,7 +102,7 @@ const ApiInfoCell = withApiKey(({ apiKey }) => {
                     intent="danger"
                     text={getString('delete')}
                     className="bp3-popover-dismiss"
-                    onClick={() => onDelete(apiKey.identifier)}
+                    onClick={() => onDelete(apiKey.identifier, apiKey.name)}
                   />
                 </Layout.Horizontal>
               </Container>
@@ -106,6 +110,10 @@ const ApiInfoCell = withApiKey(({ apiKey }) => {
           }
           tooltipProps={{
             interactionKind: 'click'
+          }}
+          permission={{
+            resource: { resourceType: ResourceType.ENVIRONMENT, resourceIdentifier: environmentIdentifier },
+            permission: PermissionIdentifier.EDIT_ENVIRONMENT
           }}
         />
       </Container>
@@ -136,9 +144,9 @@ const EnvironmentSDKKeys: React.FC<{ environment: EnvironmentResponseDTO }> = ({
   })
 
   const { mutate: deleteKey } = useDeleteApiKey({ queryParams })
-  const handleDelete = (id: string) => {
+  const handleDelete = (id: string, keyName: string) => {
     deleteKey(id)
-      .then(() => showSuccess(`Succesfuly deleted Key: ${id}`))
+      .then(() => showSuccess(getString('cf.environments.apiKeys.deleteSuccess', { keyName })))
       .then(() => refetch())
       .catch(deleteError =>
         showError(get(deleteError, 'data.error', deleteError?.message), undefined, 'cf.delete.api.key.error')
@@ -215,6 +223,7 @@ const EnvironmentSDKKeys: React.FC<{ environment: EnvironmentResponseDTO }> = ({
             <Container className={css.table}>
               <RowContext.Provider
                 value={{
+                  environmentIdentifier: environment.identifier as string,
                   isNew: (id: string) => Boolean(recents.find(r => r.identifier === id)),
                   onDelete: handleDelete,
                   getSecret: (id: string, fallback: string) =>
