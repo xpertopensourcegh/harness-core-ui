@@ -116,33 +116,35 @@ export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectPro
 
   return (
     <FormGroup label={label} labelFor={name} helperText={helperText} intent={intent} className={css.failureSelect}>
-      <MultiSelect
-        className={css.errorSelect}
-        selectedItems={selectedOptions}
-        itemListPredicate={itemListPredicate}
-        onItemSelect={handleItemSelect}
-        items={options}
-        fill
-        popoverProps={{ minimal: true }}
-        itemRenderer={itemRenderer}
-        tagRenderer={tagRenderer}
-        tagInputProps={{
-          onRemove,
-          tagProps: { className: css.tag },
-          inputProps: { name },
-          disabled: disabled || hasAllErrors
-        }}
-        itemsEqual="value"
-        resetOnSelect
-      />
-      <Checkbox
-        name={name}
-        disabled={disabled}
-        value={ErrorType.AllErrors}
-        checked={hasAllErrors}
-        label={getString(stringsMap.AllErrors)}
-        onChange={handleAllErrorsChanges}
-      />
+      <div className={css.selectWrapper}>
+        <MultiSelect
+          className={css.errorSelect}
+          selectedItems={selectedOptions}
+          itemListPredicate={itemListPredicate}
+          onItemSelect={handleItemSelect}
+          items={options}
+          fill
+          popoverProps={{ minimal: true }}
+          itemRenderer={itemRenderer}
+          tagRenderer={tagRenderer}
+          tagInputProps={{
+            onRemove,
+            tagProps: { className: css.tag },
+            inputProps: { name },
+            disabled: disabled || hasAllErrors
+          }}
+          itemsEqual="value"
+          resetOnSelect
+        />
+        <Checkbox
+          name={name}
+          disabled={disabled}
+          value={ErrorType.AllErrors}
+          checked={hasAllErrors}
+          label={getString(stringsMap.AllErrors)}
+          onChange={handleAllErrorsChanges}
+        />
+      </div>
     </FormGroup>
   )
 }

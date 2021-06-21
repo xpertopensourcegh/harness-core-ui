@@ -224,7 +224,7 @@ failureStrategies:
     retryIntervalMaxmimum: Number of retry intervals cannot be more than the retry count
     timeoutRequired: Timeout is required
     onRetryFailureRequired: Retry failure action is required
-    onTimeoutRequired: Timeout failure action is required
+    onTimeoutRequired: Post timeout action is required
 selectOrCreatePipeline:
   pipelineNameRequired: Please select a pipeline
   setupHeader: Create or Select a Pipeline

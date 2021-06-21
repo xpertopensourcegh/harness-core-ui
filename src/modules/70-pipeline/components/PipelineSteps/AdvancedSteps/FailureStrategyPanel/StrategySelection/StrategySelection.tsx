@@ -50,7 +50,8 @@ export function ManualInterventionStep(props: BaseStepProps): React.ReactElement
       />
       <FormMultiTypeDurationField
         name={`${specPath}.timeout`}
-        label="Timeout"
+        label={getString('pipelineSteps.timeoutLabel')}
+        className={css.sm}
         multiTypeDurationProps={{
           enableConfigureOptions: false,
           allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
@@ -104,6 +105,7 @@ export function RetryStep(props: BaseStepProps): React.ReactElement {
         labelFor={retryCountFieldName}
         helperText={helperText}
         intent={intent}
+        className={css.sm}
       >
         <MultiTextInput
           textProps={{
@@ -138,46 +140,45 @@ export function RetryStep(props: BaseStepProps): React.ReactElement {
             }
 
             return (
-              <div className={css.retryStepIntervals}>
-                <div>
-                  {intervals.map((_, i) => {
-                    // generated uuid if they are not present
-                    if (!uids.current[i]) {
-                      uids.current[i] = uuid()
-                    }
+              <div className={cx(css.retryStepIntervals, css.sm)}>
+                {intervals.map((_, i) => {
+                  // generated uuid if they are not present
+                  if (!uids.current[i]) {
+                    uids.current[i] = uuid()
+                  }
 
-                    const key = uids.current[i]
+                  const key = uids.current[i]
 
-                    function handleRemove(): void {
-                      uids.current.splice(i, 1)
-                      remove(i)
-                    }
+                  function handleRemove(): void {
+                    uids.current.splice(i, 1)
+                    remove(i)
+                  }
 
-                    return (
-                      <div className={css.row} key={key}>
-                        <FormMultiTypeDurationField
-                          name={`${retryIntervalsFieldName}[${i}]`}
-                          label=""
-                          skipErrorsIf={form => typeof get(form?.errors, retryIntervalsFieldName) === 'string'}
-                          multiTypeDurationProps={{
-                            enableConfigureOptions: false,
-                            allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
-                            defaultValueToReset: ''
-                          }}
-                          disabled={disabled}
-                        />
-                        <Button
-                          minimal
-                          small
-                          icon="trash"
-                          onClick={handleRemove}
-                          data-testid={`remove-retry-interval-${i}`}
-                          disabled={disabled}
-                        />
-                      </div>
-                    )
-                  })}
-                </div>
+                  return (
+                    <div className={css.row} key={key}>
+                      <FormMultiTypeDurationField
+                        name={`${retryIntervalsFieldName}[${i}]`}
+                        label=""
+                        skipErrorsIf={form => typeof get(form?.errors, retryIntervalsFieldName) === 'string'}
+                        multiTypeDurationProps={{
+                          enableConfigureOptions: false,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                          defaultValueToReset: ''
+                        }}
+                        disabled={disabled}
+                      />
+                      <Button
+                        minimal
+                        small
+                        icon="trash"
+                        className={css.removeBtn}
+                        onClick={handleRemove}
+                        data-testid={`remove-retry-interval-${i}`}
+                        disabled={disabled}
+                      />
+                    </div>
+                  )
+                })}
                 {typeof retryCountValue !== 'number' || intervals.length < retryCountValue ? (
                   <Button
                     icon="plus"
