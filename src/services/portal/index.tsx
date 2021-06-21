@@ -18962,6 +18962,8 @@ export const useGetDelegateConfigFromId = ({ delegateProfileId, ...props }: UseG
 
 export interface GetDelegatesHeartbeatDetailsQueryParams {
   accountId?: string
+  orgId?: string
+  projectId?: string
   sessionId?: string
 }
 
@@ -18991,6 +18993,8 @@ export const useGetDelegatesHeartbeatDetails = (props: UseGetDelegatesHeartbeatD
 
 export interface GetDelegatesInitializationDetailsQueryParams {
   accountId?: string
+  orgId?: string
+  projectId?: string
   sessionId?: string
 }
 
@@ -19272,6 +19276,8 @@ export const useGetDelegateSelectorsUpTheHierarchy = (props: UseGetDelegateSelec
 
 export interface GetDelegateSizesQueryParams {
   accountId?: string
+  orgId?: string
+  projectId?: string
 }
 
 export type GetDelegateSizesProps = Omit<
@@ -19356,6 +19362,8 @@ export const useGetDelegatesDownloadUrl = (props: UseGetDelegatesDownloadUrlProp
 
 export interface GenerateKubernetesYamlQueryParams {
   accountId?: string
+  orgId?: string
+  projectId?: string
   fileFormat?: string
 }
 
@@ -19407,6 +19415,8 @@ export const useGenerateKubernetesYaml = (props: UseGenerateKubernetesYamlProps)
 
 export interface DeleteDelegateGroupQueryParams {
   accountId?: string
+  orgId?: string
+  projectId?: string
   forceDelete?: boolean
 }
 
@@ -19582,6 +19592,8 @@ export const useGetDelegatesUpTheHierarchy = (props: UseGetDelegatesUpTheHierarc
 
 export interface GetDelegateGroupFromIdV2QueryParams {
   accountId?: string
+  orgId?: string
+  projectId?: string
 }
 
 export interface GetDelegateGroupFromIdV2PathParams {
@@ -19637,6 +19649,8 @@ export const useGetDelegateGroupFromIdV2 = ({ delegateGroupId, ...props }: UseGe
 
 export interface ValidateKubernetesYamlQueryParams {
   accountId?: string
+  orgId?: string
+  projectId?: string
 }
 
 export type ValidateKubernetesYamlProps = Omit<

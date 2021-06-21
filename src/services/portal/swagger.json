@@ -11581,6 +11581,18 @@
             "in": "query",
             "required": false,
             "type": "string"
+          },
+          {
+            "name": "orgId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "responses": {
@@ -11644,6 +11656,18 @@
           },
           {
             "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "orgId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
             "in": "query",
             "required": false,
             "type": "string"
@@ -11832,6 +11856,18 @@
             "type": "string"
           },
           {
+            "name": "orgId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
             "name": "sessionId",
             "in": "query",
             "required": false,
@@ -11857,6 +11893,18 @@
         "parameters": [
           {
             "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "orgId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
             "in": "query",
             "required": false,
             "type": "string"
@@ -12425,6 +12473,18 @@
             "in": "query",
             "required": false,
             "type": "string"
+          },
+          {
+            "name": "orgId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "responses": {
@@ -12446,6 +12506,18 @@
         "parameters": [
           {
             "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "orgId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
             "in": "query",
             "required": false,
             "type": "string"
@@ -12478,6 +12550,18 @@
         "parameters": [
           {
             "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "orgId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
             "in": "query",
             "required": false,
             "type": "string"

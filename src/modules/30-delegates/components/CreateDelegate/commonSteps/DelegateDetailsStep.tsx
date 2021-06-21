@@ -4,7 +4,7 @@ import { Layout, StepProps, Button, Color, Text, Container, Link } from '@wings-
 import { useStrings } from 'framework/strings'
 import { DelegateSizeDetails, useGetDelegateSizes } from 'services/portal'
 import type { DelegateInfoDTO, DelegateConfigDTO } from '@delegates/DelegateInterface'
-import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import Delegates4Ways from '../../Delegates4Ways/Delegates4Ways'
 import harnessDelegate from './images/harness-delegate.svg'
 import css from './DelegateDetailsStep.module.scss'
@@ -26,10 +26,10 @@ export interface CardData {
 
 const DelegateDetailsStep: React.FC<StepProps<DelegateInfoDTO> & DelegateDetailsStepProps> = props => {
   const { getString } = useStrings()
-  const { accountId } = useParams<AccountPathProps>()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const [selectedCard, setSelectedCard] = useState<CardData | undefined>()
   const { data: delegateSizes } = useGetDelegateSizes({
-    queryParams: { accountId }
+    queryParams: { accountId, orgId: orgIdentifier, projectId: projectIdentifier }
   })
   const delegateSizeMappings: DelegateSizeDetails[] | undefined = delegateSizes?.resource || []
   const handleOnSelect = (value: CardData): void => {

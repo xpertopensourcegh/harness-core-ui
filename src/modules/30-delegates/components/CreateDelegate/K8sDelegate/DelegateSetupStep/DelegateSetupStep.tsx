@@ -119,14 +119,14 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
   const { getString } = useStrings()
 
   const { mutate: createKubernetesYaml } = useValidateKubernetesYaml({
-    queryParams: { accountId }
+    queryParams: { accountId, projectId: projectIdentifier, orgId: orgIdentifier }
   })
 
   const { data } = useListDelegateProfilesNg({
     queryParams: { accountId, orgId: orgIdentifier, projectId: projectIdentifier }
   })
   const { data: delegateSizes } = useGetDelegateSizes({
-    queryParams: { accountId }
+    queryParams: { accountId, orgId: orgIdentifier, projectId: projectIdentifier }
   })
   const defaultProfile = getDefaultDelegateConfiguration(data)
   const delegateSizeMappings: DelegateSizeDetails[] | undefined = delegateSizes?.resource

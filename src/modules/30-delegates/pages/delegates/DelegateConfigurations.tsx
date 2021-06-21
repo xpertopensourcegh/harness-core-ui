@@ -72,7 +72,7 @@ export default function DelegateConfigurations(): JSX.Element {
     }
   })
   const { mutate: deleteDelegateProfile } = useDeleteDelegateProfileNg({
-    queryParams: { accountId: accountId }
+    queryParams: { accountId: accountId, orgId: orgIdentifier, projectId: projectIdentifier }
   })
 
   const DelegateConfigItem = ({ profile }: { profile: DelegateProfileDetails }) => {
@@ -105,7 +105,10 @@ export default function DelegateConfigurations(): JSX.Element {
       history.push(
         routes.toEditDelegateConfigsDetails({
           accountId,
-          delegateConfigId: profile.uuid as string
+          delegateConfigId: profile.uuid as string,
+          orgIdentifier,
+          projectIdentifier,
+          module
         })
       )
     }

@@ -26,7 +26,7 @@ export default function DelegateDetails(): JSX.Element {
   const { getString } = useStrings()
   const { data } = useGetDelegateGroupFromIdV2({
     delegateGroupId: delegateId,
-    queryParams: { accountId }
+    queryParams: { accountId, orgId: orgIdentifier, projectId: projectIdentifier }
   })
 
   const delegate = data?.resource

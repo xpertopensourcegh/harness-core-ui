@@ -38,7 +38,7 @@ export default function DelegateProfileDetails(): JSX.Element {
   >()
   const { data, loading, refetch, error } = useGetDelegateProfileNg({
     delegateProfileId: delegateConfigId,
-    queryParams: { accountId }
+    queryParams: { accountId, orgId: orgIdentifier, projectId: projectIdentifier }
   })
 
   const { showError, showSuccess } = useToaster()
@@ -74,7 +74,7 @@ export default function DelegateProfileDetails(): JSX.Element {
   const [formData, setFormData] = useState<DelegateProfileDetailsNg>({} as DelegateProfileDetailsNg)
 
   const { mutate: updateConfiguration } = useUpdateDelegateProfileNg({
-    queryParams: { accountId },
+    queryParams: { accountId, orgId: orgIdentifier, projectId: projectIdentifier },
     delegateProfileId: delegateConfigId
   })
 
