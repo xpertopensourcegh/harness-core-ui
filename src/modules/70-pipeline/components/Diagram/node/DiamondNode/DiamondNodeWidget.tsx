@@ -79,7 +79,12 @@ export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
         }}
       >
         <div
-          className={cx(cssDefault.defaultCard, css.diamond, { [cssDefault.selected]: props.node.isSelected() })}
+          className={cx(
+            cssDefault.defaultCard,
+            css.diamond,
+            { [cssDefault.selected]: props.node.isSelected() },
+            options.nodeClassName
+          )}
           style={{
             width: options.width,
             height: options.height,
