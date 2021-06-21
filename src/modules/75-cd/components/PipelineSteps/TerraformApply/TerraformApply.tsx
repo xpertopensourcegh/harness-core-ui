@@ -44,12 +44,21 @@ export class TerraformApply extends PipelineStep<TFFormData> {
   protected stepIcon: IconName = 'terraform-apply-new'
   protected stepName = 'Terraform Apply'
 
-  validateInputSet({ data, template, getString }: ValidateInputSetProps<TFFormData>): FormikErrors<TFFormData> {
+  validateInputSet({
+    data,
+    template,
+    getString,
+    viewType
+  }: ValidateInputSetProps<TFFormData>): FormikErrors<TFFormData> {
     const errors = {} as any
-
+    const isRequired = viewType === StepViewType.DeploymentForm
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
+      let timeoutSchema = getDurationValidationSchema({ minimum: '10s' })
+      if (isRequired) {
+        timeoutSchema = timeoutSchema.required(getString?.('validation.timeout10SecMinimum'))
+      }
       const timeout = Yup.object().shape({
-        timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
+        timeout: timeoutSchema
       })
 
       try {

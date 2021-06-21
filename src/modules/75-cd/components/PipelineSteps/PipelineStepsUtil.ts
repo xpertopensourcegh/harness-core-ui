@@ -5,23 +5,33 @@ import type { UseStringsReturn } from 'framework/strings'
 const namespaceRegex = /^[a-z0-9]([-a-z0-9]*[a-z0-9])?$/
 const releaseNameRegex = /^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$/
 
-export function getNameSpaceSchema(getString: UseStringsReturn['getString']): Yup.StringSchema<string | undefined> {
-  return Yup.string()
-    .required(getString('fieldRequired', { field: getString('common.namespace') }))
-    .test('namespace', getString('cd.namespaceValidation'), function (value) {
-      if (getMultiTypeFromValue(value) !== MultiTypeInputType.FIXED) {
-        return true
-      }
-      return namespaceRegex.test(value)
-    })
+export function getNameSpaceSchema(
+  getString: UseStringsReturn['getString'],
+  isRequired = true
+): Yup.StringSchema<string | undefined> {
+  const namespaceSchema = Yup.string().test('namespace', getString('cd.namespaceValidation'), function (value) {
+    if (getMultiTypeFromValue(value) !== MultiTypeInputType.FIXED) {
+      return true
+    }
+    return namespaceRegex.test(value)
+  })
+  if (isRequired) {
+    return namespaceSchema.required(getString('fieldRequired', { field: getString('common.namespace') }))
+  }
+  return namespaceSchema
 }
-export function getReleaseNameSchema(getString: UseStringsReturn['getString']): Yup.StringSchema<string | undefined> {
-  return Yup.string()
-    .required(getString('fieldRequired', { field: getString('common.releaseName') }))
-    .test('releaseName', getString('cd.releaseNameValidation'), function (value) {
-      if (getMultiTypeFromValue(value) !== MultiTypeInputType.FIXED) {
-        return true
-      }
-      return releaseNameRegex.test(value)
-    })
+export function getReleaseNameSchema(
+  getString: UseStringsReturn['getString'],
+  isRequired = true
+): Yup.StringSchema<string | undefined> {
+  const releaseNameSchema = Yup.string().test('releaseName', getString('cd.releaseNameValidation'), function (value) {
+    if (getMultiTypeFromValue(value) !== MultiTypeInputType.FIXED) {
+      return true
+    }
+    return releaseNameRegex.test(value)
+  })
+  if (isRequired) {
+    return releaseNameSchema.required(getString('fieldRequired', { field: getString('common.releaseName') }))
+  }
+  return releaseNameSchema
 }

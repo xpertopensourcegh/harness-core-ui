@@ -302,12 +302,17 @@ export class BarrierStep extends PipelineStep<BarrierData> {
       />
     )
   }
-  validateInputSet({ data, template, getString }: ValidateInputSetProps<BarrierData>): Record<string, any> {
+  validateInputSet({ data, template, getString, viewType }: ValidateInputSetProps<BarrierData>): Record<string, any> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = {} as any
+    const isRequired = viewType === StepViewType.DeploymentForm
     if (isEmpty(data?.timeout) && getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
+      let timeoutSchema = getDurationValidationSchema({ minimum: '10s' })
+      if (isRequired) {
+        timeoutSchema = timeoutSchema.required(getString?.('validation.timeout10SecMinimum'))
+      }
       const timeout = Yup.object().shape({
-        timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
+        timeout: timeoutSchema
       })
 
       try {

@@ -664,10 +664,17 @@ export class DeployEnvironmentStep extends Step<DeployEnvData> {
       />
     )
   }
-  validateInputSet({ data, template, getString }: ValidateInputSetProps<DeployEnvData>): FormikErrors<DeployEnvData> {
+  validateInputSet({
+    data,
+    template,
+    getString,
+    viewType
+  }: ValidateInputSetProps<DeployEnvData>): FormikErrors<DeployEnvData> {
     const errors: FormikErrors<DeployEnvData> = {}
+    const isRequired = viewType === StepViewType.DeploymentForm
     if (
       isEmpty(data?.environmentRef) &&
+      isRequired &&
       getMultiTypeFromValue(template?.environmentRef) === MultiTypeInputType.RUNTIME
     ) {
       errors.environmentRef = getString?.('pipelineSteps.environmentTab.environmentIsRequired')

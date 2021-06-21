@@ -292,17 +292,21 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
   validateInputSet({
     data,
     template,
-    getString
+    getString,
+    viewType
   }: ValidateInputSetProps<K8SDirectServiceStep>): FormikErrors<K8SDirectServiceStep> {
     const errors: FormikErrors<K8SDirectServiceStep> = {}
+    const isRequired = viewType === StepViewType.DeploymentForm
     if (
       isEmpty(data?.artifacts?.primary?.spec?.connectorRef) &&
+      isRequired &&
       getMultiTypeFromValue(template?.artifacts?.primary?.spec?.connectorRef) === MultiTypeInputType.RUNTIME
     ) {
       set(errors, 'artifacts.primary.spec.connectorRef', getString?.('fieldRequired', { field: 'ConnectorRef' }))
     }
     if (
       isEmpty(data?.artifacts?.primary?.spec?.imagePath) &&
+      isRequired &&
       getMultiTypeFromValue(template?.artifacts?.primary?.spec?.imagePath) === MultiTypeInputType.RUNTIME
     ) {
       set(errors, 'artifacts.primary.spec.imagePath', getString?.('fieldRequired', { field: 'Image Path' }))
@@ -310,12 +314,14 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
 
     if (
       !tagExists(data?.artifacts?.primary?.spec?.tag) &&
+      isRequired &&
       getMultiTypeFromValue(template?.artifacts?.primary?.spec?.tag) === MultiTypeInputType.RUNTIME
     ) {
       set(errors, 'artifacts.primary.spec.tag', getString?.('fieldRequired', { field: 'Tag' }))
     }
     if (
       isEmpty(data?.artifacts?.primary?.spec?.tagRegex) &&
+      isRequired &&
       getMultiTypeFromValue(template?.artifacts?.primary?.spec?.tagRegex) === MultiTypeInputType.RUNTIME
     ) {
       set(errors, 'artifacts.primary.spec.tagRegex', getString?.('fieldRequired', { field: 'Tag Regex' }))
@@ -324,6 +330,7 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
       const currentSidecarTemplate = get(template, `artifacts.sidecars[${index}].sidecar.spec`, '')
       if (
         isEmpty(sidecar?.sidecar?.spec?.connectorRef) &&
+        isRequired &&
         getMultiTypeFromValue(currentSidecarTemplate?.connectorRef) === MultiTypeInputType.RUNTIME
       ) {
         set(
@@ -334,6 +341,7 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
       }
       if (
         isEmpty(sidecar?.sidecar?.spec?.imagePath) &&
+        isRequired &&
         getMultiTypeFromValue(currentSidecarTemplate?.imagePath) === MultiTypeInputType.RUNTIME
       ) {
         set(
@@ -345,12 +353,14 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
 
       if (
         !tagExists(sidecar?.sidecar?.spec?.tag) &&
+        isRequired &&
         getMultiTypeFromValue(currentSidecarTemplate?.tag) === MultiTypeInputType.RUNTIME
       ) {
         set(errors, `artifacts.sidecars[${index}].sidecar.spec.tag`, getString?.('fieldRequired', { field: 'Tag' }))
       }
       if (
         isEmpty(sidecar?.sidecar?.spec?.tagRegex) &&
+        isRequired &&
         getMultiTypeFromValue(currentSidecarTemplate?.tagRegex) === MultiTypeInputType.RUNTIME
       ) {
         set(
@@ -361,6 +371,7 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
       }
       if (
         isEmpty(sidecar?.sidecar?.spec?.registryHostname) &&
+        isRequired &&
         getMultiTypeFromValue(currentSidecarTemplate?.registryHostname) === MultiTypeInputType.RUNTIME
       ) {
         set(
@@ -375,6 +386,7 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
       const currentManifestTemplate = get(template, `manifests[${index}].manifest.spec.store.spec`, '')
       if (
         isEmpty(manifest?.manifest?.spec?.store?.spec?.connectorRef) &&
+        isRequired &&
         getMultiTypeFromValue(currentManifestTemplate?.connectorRef) === MultiTypeInputType.RUNTIME
       ) {
         set(
@@ -385,6 +397,7 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
       }
       if (
         isEmpty(manifest?.manifest?.spec?.store?.spec?.branch) &&
+        isRequired &&
         getMultiTypeFromValue(currentManifestTemplate?.branch) === MultiTypeInputType.RUNTIME
       ) {
         set(
@@ -395,6 +408,7 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
       }
       if (
         isEmpty(manifest?.manifest?.spec?.store?.spec?.paths?.[0]) &&
+        isRequired &&
         getMultiTypeFromValue(currentManifestTemplate?.paths) === MultiTypeInputType.RUNTIME
       ) {
         set(

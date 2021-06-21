@@ -102,12 +102,14 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
   validateInputSet({
     data,
     template,
-    getString
+    getString,
+    viewType
   }: ValidateInputSetProps<HarnessApprovalData>): FormikErrors<HarnessApprovalData> {
     const errors: FormikErrors<HarnessApprovalData> = {}
-
+    const isRequired = viewType === StepViewType.DeploymentForm
     if (
       typeof template?.spec?.approvalMessage === 'string' &&
+      isRequired &&
       getMultiTypeFromValue(template?.spec?.approvalMessage) === MultiTypeInputType.RUNTIME &&
       isEmpty(data?.spec?.approvalMessage?.trim())
     ) {
@@ -119,6 +121,7 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
 
     if (
       typeof template?.spec?.approvers.userGroups === 'string' &&
+      isRequired &&
       getMultiTypeFromValue(template?.spec?.approvers.userGroups) === MultiTypeInputType.RUNTIME &&
       isEmpty(data?.spec?.approvers.userGroups)
     ) {
@@ -133,6 +136,7 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
 
     if (
       typeof template?.spec?.approvers.minimumCount === 'string' &&
+      isRequired &&
       getMultiTypeFromValue(template?.spec?.approvers.minimumCount) === MultiTypeInputType.RUNTIME
     ) {
       if (!data?.spec?.approvers.minimumCount) {
@@ -155,8 +159,12 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
     }
 
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
+      let timeoutSchema = getDurationValidationSchema({ minimum: '10s' })
+      if (isRequired) {
+        timeoutSchema = timeoutSchema.required(getString?.('validation.timeout10SecMinimum'))
+      }
       const timeout = Yup.object().shape({
-        timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
+        timeout: timeoutSchema
       })
 
       try {

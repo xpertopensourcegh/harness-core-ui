@@ -693,13 +693,23 @@ export class GcpInfrastructureSpec extends PipelineStep<GcpInfrastructureSpecSte
   validateInputSet({
     data,
     template,
-    getString
+    getString,
+    viewType
   }: ValidateInputSetProps<K8sGcpInfrastructure>): FormikErrors<K8sGcpInfrastructure> {
     const errors: Partial<K8sGcpInfrastructureTemplate> = {}
-    if (isEmpty(data.connectorRef) && getMultiTypeFromValue(template?.connectorRef) === MultiTypeInputType.RUNTIME) {
+    const isRequired = viewType === StepViewType.DeploymentForm
+    if (
+      isEmpty(data.connectorRef) &&
+      isRequired &&
+      getMultiTypeFromValue(template?.connectorRef) === MultiTypeInputType.RUNTIME
+    ) {
       errors.connectorRef = getString?.('fieldRequired', { field: getString('connector') })
     }
-    if (isEmpty(data.cluster) && getMultiTypeFromValue(template?.cluster) === MultiTypeInputType.RUNTIME) {
+    if (
+      isEmpty(data.cluster) &&
+      isRequired &&
+      getMultiTypeFromValue(template?.cluster) === MultiTypeInputType.RUNTIME
+    ) {
       errors.cluster = getString?.('fieldRequired', { field: getString('common.cluster') })
     }
     /* istanbul ignore else */ if (
@@ -707,7 +717,7 @@ export class GcpInfrastructureSpec extends PipelineStep<GcpInfrastructureSpecSte
       getMultiTypeFromValue(template?.namespace) === MultiTypeInputType.RUNTIME
     ) {
       const namespace = Yup.object().shape({
-        namespace: getNameSpaceSchema(getString)
+        namespace: getNameSpaceSchema(getString, isRequired)
       })
 
       try {
@@ -726,7 +736,7 @@ export class GcpInfrastructureSpec extends PipelineStep<GcpInfrastructureSpecSte
       getMultiTypeFromValue(template?.releaseName) === MultiTypeInputType.RUNTIME
     ) {
       const releaseName = Yup.object().shape({
-        releaseName: getReleaseNameSchema(getString)
+        releaseName: getReleaseNameSchema(getString, isRequired)
       })
 
       try {

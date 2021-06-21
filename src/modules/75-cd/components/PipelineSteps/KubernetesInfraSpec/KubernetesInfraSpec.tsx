@@ -428,15 +428,17 @@ export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureSte
   validateInputSet({
     data,
     template,
-    getString
+    getString,
+    viewType
   }: ValidateInputSetProps<K8SDirectInfrastructure>): FormikErrors<K8SDirectInfrastructure> {
+    const isRequired = viewType === StepViewType.DeploymentForm
     const errors: Partial<K8SDirectInfrastructureTemplate> = {}
     if (isEmpty(data.connectorRef) && getMultiTypeFromValue(template?.connectorRef) === MultiTypeInputType.RUNTIME) {
       errors.connectorRef = getString?.('fieldRequired', { field: getString('connector') })
     }
     if (getString && getMultiTypeFromValue(template?.namespace) === MultiTypeInputType.RUNTIME) {
       const namespace = Yup.object().shape({
-        namespace: getNameSpaceSchema(getString)
+        namespace: getNameSpaceSchema(getString, isRequired)
       })
 
       try {
@@ -452,7 +454,7 @@ export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureSte
     }
     if (getString && getMultiTypeFromValue(template?.releaseName) === MultiTypeInputType.RUNTIME) {
       const releaseName = Yup.object().shape({
-        releaseName: getReleaseNameSchema(getString)
+        releaseName: getReleaseNameSchema(getString, isRequired)
       })
 
       try {

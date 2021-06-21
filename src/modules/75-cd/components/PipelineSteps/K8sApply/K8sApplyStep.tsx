@@ -340,12 +340,22 @@ export class K8sApplyStep extends PipelineStep<K8sApplyData> {
       />
     )
   }
-  validateInputSet({ data, template, getString }: ValidateInputSetProps<K8sApplyData>): FormikErrors<K8sApplyData> {
+  validateInputSet({
+    data,
+    template,
+    getString,
+    viewType
+  }: ValidateInputSetProps<K8sApplyData>): FormikErrors<K8sApplyData> {
+    const isRequired = viewType === StepViewType.DeploymentForm
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = {} as any
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
+      let timeoutSchema = getDurationValidationSchema({ minimum: '10s' })
+      if (isRequired) {
+        timeoutSchema = timeoutSchema.required(getString?.('validation.timeout10SecMinimum'))
+      }
       const timeout = Yup.object().shape({
-        timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
+        timeout: timeoutSchema
       })
 
       try {

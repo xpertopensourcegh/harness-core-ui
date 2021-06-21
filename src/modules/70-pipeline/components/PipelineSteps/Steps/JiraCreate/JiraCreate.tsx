@@ -38,15 +38,21 @@ export class JiraCreate extends PipelineStep<JiraCreateData> {
     }
   }
 
-  validateInputSet({ data, template, getString }: ValidateInputSetProps<JiraCreateData>): FormikErrors<JiraCreateData> {
+  validateInputSet({
+    data,
+    template,
+    getString,
+    viewType
+  }: ValidateInputSetProps<JiraCreateData>): FormikErrors<JiraCreateData> {
     const errors: FormikErrors<JiraCreateData> = {}
-
+    const isRequired = viewType === StepViewType.DeploymentForm
     const isSummaryRuntime =
       getMultiTypeFromValue(template?.spec?.fields?.find(field => field.name === 'Summary')?.value as string) ===
       MultiTypeInputType.RUNTIME
 
     if (
       typeof template?.spec?.connectorRef === 'string' &&
+      isRequired &&
       getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME &&
       isEmpty(data?.spec?.connectorRef)
     ) {
@@ -57,6 +63,7 @@ export class JiraCreate extends PipelineStep<JiraCreateData> {
 
     if (
       typeof template?.spec?.projectKey === 'string' &&
+      isRequired &&
       getMultiTypeFromValue(template?.spec?.projectKey) === MultiTypeInputType.RUNTIME &&
       isEmpty(data?.spec?.projectKey)
     ) {
@@ -68,6 +75,7 @@ export class JiraCreate extends PipelineStep<JiraCreateData> {
 
     if (
       typeof template?.spec?.issueType === 'string' &&
+      isRequired &&
       getMultiTypeFromValue(template?.spec?.issueType) === MultiTypeInputType.RUNTIME &&
       isEmpty(data?.spec?.issueType)
     ) {
@@ -77,7 +85,7 @@ export class JiraCreate extends PipelineStep<JiraCreateData> {
       }
     }
 
-    if (isSummaryRuntime && isEmpty(data?.spec?.summary)) {
+    if (isSummaryRuntime && isEmpty(data?.spec?.summary) && isRequired) {
       errors.spec = {
         ...errors.spec,
         summary: getString?.('pipeline.jiraCreateStep.validations.summary')
@@ -85,8 +93,12 @@ export class JiraCreate extends PipelineStep<JiraCreateData> {
     }
 
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
+      let timeoutSchema = getDurationValidationSchema({ minimum: '10s' })
+      if (isRequired) {
+        timeoutSchema = timeoutSchema.required(getString?.('validation.timeout10SecMinimum'))
+      }
       const timeout = Yup.object().shape({
-        timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
+        timeout: timeoutSchema
       })
 
       try {

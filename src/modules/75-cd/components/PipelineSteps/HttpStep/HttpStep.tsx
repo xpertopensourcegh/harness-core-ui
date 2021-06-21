@@ -70,22 +70,36 @@ export class HttpStep extends PipelineStep<HttpStepData> {
   protected stepName = 'Http Step'
   protected stepIcon: IconName = 'http-step'
 
-  validateInputSet({ data, template, getString }: ValidateInputSetProps<HttpStepData>): FormikErrors<HttpStepData> {
+  validateInputSet({
+    data,
+    template,
+    getString,
+    viewType
+  }: ValidateInputSetProps<HttpStepData>): FormikErrors<HttpStepData> {
     const errors: FormikErrors<HttpStepData> = { spec: {} }
-
+    const isRequired = viewType === StepViewType.DeploymentForm
     /* istanbul ignore else */
-    if (getMultiTypeFromValue(template?.spec?.url) === MultiTypeInputType.RUNTIME && isEmpty(data?.spec?.url)) {
+    if (
+      getMultiTypeFromValue(template?.spec?.url) === MultiTypeInputType.RUNTIME &&
+      isRequired &&
+      isEmpty(data?.spec?.url)
+    ) {
       set(errors, 'spec.url', getString?.('fieldRequired', { field: 'URL' }))
     }
 
     /* istanbul ignore else */
-    if (getMultiTypeFromValue(template?.spec?.method) === MultiTypeInputType.RUNTIME && isEmpty(data?.spec?.method)) {
+    if (
+      getMultiTypeFromValue(template?.spec?.method) === MultiTypeInputType.RUNTIME &&
+      isRequired &&
+      isEmpty(data?.spec?.method)
+    ) {
       set(errors, 'spec.method', getString?.('fieldRequired', { field: 'Method' }))
     }
 
     /* istanbul ignore else */
     if (
       getMultiTypeFromValue(template?.spec?.requestBody) === MultiTypeInputType.RUNTIME &&
+      isRequired &&
       isEmpty(data?.spec?.requestBody)
     ) {
       set(errors, 'spec.requestBody', getString?.('fieldRequired', { field: 'Request Body' }))
@@ -93,8 +107,12 @@ export class HttpStep extends PipelineStep<HttpStepData> {
 
     /* istanbul ignore else */
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
+      let timeoutSchema = getDurationValidationSchema({ minimum: '10s' })
+      if (isRequired) {
+        timeoutSchema = timeoutSchema.required(getString?.('validation.timeout10SecMinimum'))
+      }
       const timeout = Yup.object().shape({
-        timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
+        timeout: timeoutSchema
       })
 
       try {

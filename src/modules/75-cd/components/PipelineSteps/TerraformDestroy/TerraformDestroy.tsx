@@ -42,12 +42,21 @@ export class TerraformDestroy extends PipelineStep<TFDestroyData> {
   }
   protected stepIcon: IconName = 'terraform-apply-new'
   protected stepName = 'Terraform Destroy'
-  validateInputSet({ data, template, getString }: ValidateInputSetProps<TFDestroyData>): FormikErrors<TFDestroyData> {
+  validateInputSet({
+    data,
+    template,
+    getString,
+    viewType
+  }: ValidateInputSetProps<TFDestroyData>): FormikErrors<TFDestroyData> {
     const errors = {} as any
-
+    const isRequired = viewType === StepViewType.DeploymentForm
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
+      let timeoutSchema = getDurationValidationSchema({ minimum: '10s' })
+      if (isRequired) {
+        timeoutSchema = timeoutSchema.required(getString?.('validation.timeout10SecMinimum'))
+      }
       const timeout = Yup.object().shape({
-        timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
+        timeout: timeoutSchema
       })
 
       try {

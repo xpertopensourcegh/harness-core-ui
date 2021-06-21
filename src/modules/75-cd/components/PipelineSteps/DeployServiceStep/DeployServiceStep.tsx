@@ -629,10 +629,16 @@ export class DeployServiceStep extends Step<DeployServiceData> {
   validateInputSet({
     data,
     template,
-    getString
+    getString,
+    viewType
   }: ValidateInputSetProps<DeployServiceData>): FormikErrors<DeployServiceData> {
     const errors = {} as any
-    if (isEmpty(data?.serviceRef) && getMultiTypeFromValue(template?.serviceRef) === MultiTypeInputType.RUNTIME) {
+    const isRequired = viewType === StepViewType.DeploymentForm
+    if (
+      isEmpty(data?.serviceRef) &&
+      isRequired &&
+      getMultiTypeFromValue(template?.serviceRef) === MultiTypeInputType.RUNTIME
+    ) {
       errors.serviceRef = getString?.('pipelineSteps.serviceTab.serviceIsRequired')
     }
     return errors

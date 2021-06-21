@@ -39,11 +39,17 @@ export class JiraUpdate extends PipelineStep<JiraUpdateData> {
     }
   }
 
-  validateInputSet({ data, template, getString }: ValidateInputSetProps<JiraUpdateData>): FormikErrors<JiraUpdateData> {
+  validateInputSet({
+    data,
+    template,
+    getString,
+    viewType
+  }: ValidateInputSetProps<JiraUpdateData>): FormikErrors<JiraUpdateData> {
     const errors: FormikErrors<JiraUpdateData> = {}
-
+    const isRequired = viewType === StepViewType.DeploymentForm
     if (
       typeof template?.spec?.connectorRef === 'string' &&
+      isRequired &&
       getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME &&
       isEmpty(data?.spec?.connectorRef)
     ) {
@@ -54,6 +60,7 @@ export class JiraUpdate extends PipelineStep<JiraUpdateData> {
 
     if (
       getMultiTypeFromValue(template?.spec?.issueKey) === MultiTypeInputType.RUNTIME &&
+      isRequired &&
       isEmpty(data?.spec?.issueKey?.trim())
     ) {
       errors.spec = {
@@ -63,8 +70,12 @@ export class JiraUpdate extends PipelineStep<JiraUpdateData> {
     }
 
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
+      let timeoutSchema = getDurationValidationSchema({ minimum: '10s' })
+      if (isRequired) {
+        timeoutSchema = timeoutSchema.required(getString?.('validation.timeout10SecMinimum'))
+      }
       const timeout = Yup.object().shape({
-        timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
+        timeout: timeoutSchema
       })
 
       try {

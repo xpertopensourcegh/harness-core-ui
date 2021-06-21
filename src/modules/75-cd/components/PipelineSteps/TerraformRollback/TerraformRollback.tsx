@@ -197,11 +197,21 @@ export class TerraformRollback extends PipelineStep<TFRollbackData> {
   protected stepIcon: IconName = 'terraform-apply-new'
   protected stepName = 'Terraform Rollback'
 
-  validateInputSet({ data, template, getString }: ValidateInputSetProps<TFRollbackData>): FormikErrors<TFRollbackData> {
+  validateInputSet({
+    data,
+    template,
+    getString,
+    viewType
+  }: ValidateInputSetProps<TFRollbackData>): FormikErrors<TFRollbackData> {
     const errors = {} as any
+    const isRequired = viewType === StepViewType.DeploymentForm
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
+      let timeoutSchema = getDurationValidationSchema({ minimum: '10s' })
+      if (isRequired) {
+        timeoutSchema = timeoutSchema.required(getString?.('validation.timeout10SecMinimum'))
+      }
       const timeout = Yup.object().shape({
-        timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
+        timeout: timeoutSchema
       })
 
       try {

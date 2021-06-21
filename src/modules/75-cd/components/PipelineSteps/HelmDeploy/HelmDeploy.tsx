@@ -198,13 +198,19 @@ export class HelmDeploy extends PipelineStep<StepElementConfig> {
   validateInputSet({
     data,
     template,
-    getString
+    getString,
+    viewType
   }: ValidateInputSetProps<StepElementConfig>): FormikErrors<StepElementConfig> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = {} as any
+    const isRequired = viewType === StepViewType.DeploymentForm
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
+      let timeoutSchema = getDurationValidationSchema({ minimum: '10s' })
+      if (isRequired) {
+        timeoutSchema = timeoutSchema.required(getString?.('validation.timeout10SecMinimum'))
+      }
       const timeout = Yup.object().shape({
-        timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
+        timeout: timeoutSchema
       })
 
       try {

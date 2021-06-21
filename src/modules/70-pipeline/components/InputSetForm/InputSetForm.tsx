@@ -40,12 +40,13 @@ import GitContextForm, { GitContextProps } from '@common/components/GitContextFo
 import VisualYamlToggle from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { changeEmptyValuesToRunTimeInput } from '@pipeline/utils/stageHelpers'
 import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
-import { clearRuntimeInput } from '../PipelineStudio/StepUtil'
+import { clearRuntimeInput, validatePipeline } from '../PipelineStudio/StepUtil'
 import { factory } from '../PipelineSteps/Steps/__tests__/StepTestUtil'
 import { getFormattedErrors } from '../RunPipelineModal/RunPipelineHelper'
 import { YamlBuilderMemo } from '../PipelineStudio/PipelineYamlView/PipelineYamlView'
 import GitPopover from '../GitPopover/GitPopover'
 import { ErrorsStrip } from '../ErrorsStrip/ErrorsStrip'
+import { StepViewType } from '../AbstractSteps/Step'
 import css from './InputSetForm.module.scss'
 export interface InputSetDTO extends Omit<InputSetResponse, 'identifier' | 'pipeline'> {
   pipeline?: NgPipeline
@@ -379,6 +380,17 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
             }
             if (isEmpty(values.identifier)) {
               errors.name = getString('common.validation.identifierIsRequired')
+            }
+            if (values.pipeline && template?.data?.inputSetTemplateYaml && pipeline?.data?.yamlPipeline) {
+              errors.pipeline = validatePipeline({
+                pipeline: values.pipeline,
+                template: parse(template.data.inputSetTemplateYaml).pipeline,
+                originalPipeline: parse(pipeline.data.yamlPipeline).pipeline,
+                getString,
+                viewType: StepViewType.InputSet
+              }) as any
+
+              if (isEmpty(errors.pipeline)) delete errors.pipeline
             }
             setFormErrors(errors)
             return errors

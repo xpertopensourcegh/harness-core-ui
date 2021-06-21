@@ -101,13 +101,18 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
   validateInputSet({
     data,
     template,
-    getString
+    getString,
+    viewType
   }: ValidateInputSetProps<ShellScriptData>): FormikErrors<ShellScriptData> {
     const errors: FormikErrors<ShellScriptData> = {}
-
+    const isRequired = viewType === StepViewType.DeploymentForm
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
+      let timeoutSchema = getDurationValidationSchema({ minimum: '10s' })
+      if (isRequired) {
+        timeoutSchema = timeoutSchema.required(getString?.('validation.timeout10SecMinimum'))
+      }
       const timeout = Yup.object().shape({
-        timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
+        timeout: timeoutSchema
       })
 
       try {
@@ -125,6 +130,7 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
     /* istanbul ignore else */
     if (
       getMultiTypeFromValue(template?.spec?.source?.spec?.script) === MultiTypeInputType.RUNTIME &&
+      isRequired &&
       isEmpty(data?.spec?.source?.spec?.script)
     ) {
       set(errors, 'spec.source.spec.script', getString?.('fieldRequired', { field: 'Script' }))
@@ -133,6 +139,7 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
     /* istanbul ignore else */
     if (
       getMultiTypeFromValue(template?.spec?.executionTarget?.host) === MultiTypeInputType.RUNTIME &&
+      isRequired &&
       isEmpty(data?.spec?.executionTarget?.host)
     ) {
       set(errors, 'spec.executionTarget.host', getString?.('fieldRequired', { field: 'Target Host' }))
@@ -141,6 +148,7 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
     /* istanbul ignore else */
     if (
       getMultiTypeFromValue(template?.spec?.executionTarget?.connectorRef) === MultiTypeInputType.RUNTIME &&
+      isRequired &&
       isEmpty(data?.spec?.executionTarget?.connectorRef)
     ) {
       set(
@@ -153,6 +161,7 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
     /* istanbul ignore else */
     if (
       getMultiTypeFromValue(template?.spec?.executionTarget?.workingDirectory) === MultiTypeInputType.RUNTIME &&
+      isRequired &&
       isEmpty(data?.spec?.executionTarget?.workingDirectory)
     ) {
       set(errors, 'spec.executionTarget.workingDirectory', getString?.('fieldRequired', { field: 'Working Directory' }))

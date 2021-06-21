@@ -85,13 +85,16 @@ export class CustomVariables extends Step<CustomVariablesData> {
   validateInputSet({
     data,
     template,
-    getString
+    getString,
+    viewType
   }: ValidateInputSetProps<CustomVariablesData>): FormikErrors<CustomVariablesData> {
     const errors: FormikErrors<CustomVariablesData> = { variables: [] }
+    const isRequired = viewType === StepViewType.DeploymentForm
     data?.variables?.forEach((variable: AllNGVariables, index: number) => {
       const currentVariableTemplate = get(template, `variables[${index}].value`, '')
 
       if (
+        isRequired &&
         ((isEmpty(variable.value) && variable.type !== 'Number') ||
           (variable.type === 'Number' && (isNil(variable.value) || isNaN(variable.value)))) &&
         getMultiTypeFromValue(currentVariableTemplate) === MultiTypeInputType.RUNTIME
