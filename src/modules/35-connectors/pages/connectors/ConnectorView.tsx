@@ -27,7 +27,7 @@ import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreate
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { PageSpinner } from '@common/components'
 import { useStrings } from 'framework/strings'
-import { Connectors, ConnectorStatus } from '@connectors/constants'
+import { ConnectorStatus } from '@connectors/constants'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacButton from '@rbac/components/Button/Button'
 import { usePermission } from '@rbac/hooks/usePermission'
@@ -88,8 +88,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const [isValidYAML] = React.useState<boolean>(true)
   const { getString } = useStrings()
-  // TODO: remove the connector condition after migrating CEAWS connector to 35-connectors module
-  const isHarnessManaged = props.response?.harnessManaged || props.response.connector?.type === Connectors.CEAWS
+  const isHarnessManaged = props.response?.harnessManaged
   const [hasConnectorChanged, setHasConnectorChanged] = useState<boolean>(false)
   const { isGitSyncEnabled } = useAppStore()
 
