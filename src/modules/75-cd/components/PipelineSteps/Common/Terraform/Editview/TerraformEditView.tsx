@@ -74,7 +74,7 @@ export default function TerraformEditView(
     identifier: IdentifierSchema(),
     timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
     spec: Yup.object().shape({
-      provisionerIdentifier: Yup.string().required(getString('pipelineSteps.provisionerIdentifierRequired')),
+      provisionerIdentifier: Yup.string().required(getString('pipelineSteps.provisionerIdentifierRequired')).nullable(),
       configuration: Yup.object().shape({
         type: Yup.string().required(getString('pipelineSteps.configurationTypeRequired'))
       })
