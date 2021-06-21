@@ -4,6 +4,7 @@ import { Layout, Button, Formik, FormikForm, FormInput, Switch, Text, Card, Acco
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { isEqual, debounce, cloneDeep } from 'lodash-es'
 import cx from 'classnames'
+import { produce } from 'immer'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
@@ -38,11 +39,9 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
 
   const {
     state: {
-      pipeline,
       selectionState: { selectedStageId }
     },
     getStageFromPipeline,
-    updatePipeline,
     updateStage,
     stepsFactory,
     isReadonly
@@ -98,43 +97,44 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
   const handleValidate = (values: any): void => {
     if (stage?.stage) {
       const prevStageData = cloneDeep(stage.stage)
-      const stageData = stage.stage
-      const spec = stage.stage.spec
+      const newStageData = produce(stage.stage, (stageData: any) => {
+        const spec = stageData.spec
 
-      stageData.identifier = values.identifier
-      stageData.name = values.name
+        stageData.identifier = values.identifier
+        stageData.name = values.name
 
-      if (values.description) {
-        stageData.description = values.description
-      } else {
-        delete stageData.description
-      }
+        if (values.description) {
+          stageData.description = values.description
+        } else {
+          delete stageData.description
+        }
 
-      spec.cloneCodebase = values.cloneCodebase
+        spec.cloneCodebase = values.cloneCodebase
 
-      if (values.sharedPaths && values.sharedPaths.length > 0) {
-        spec.sharedPaths =
-          typeof values.sharedPaths === 'string'
-            ? values.sharedPaths
-            : values.sharedPaths.map((listValue: { id: string; value: string }) => listValue.value)
-      } else {
-        delete spec.sharedPaths
-      }
+        if (values.sharedPaths && values.sharedPaths.length > 0) {
+          spec.sharedPaths =
+            typeof values.sharedPaths === 'string'
+              ? values.sharedPaths
+              : values.sharedPaths.map((listValue: { id: string; value: string }) => listValue.value)
+        } else {
+          delete spec.sharedPaths
+        }
 
-      if (values.variables && values.variables.length > 0) {
-        stageData.variables = values.variables
-      } else {
-        delete stageData.variables
-      }
+        if (values.variables && values.variables.length > 0) {
+          stageData.variables = values.variables
+        } else {
+          delete stageData.variables
+        }
 
-      if (values.skipCondition) {
-        stageData.skipCondition = values.skipCondition
-      } else {
-        delete stageData.skipCondition
-      }
+        if (values.skipCondition) {
+          stageData.skipCondition = values.skipCondition
+        } else {
+          delete stageData.skipCondition
+        }
+      })
 
-      if (!isEqual(prevStageData, stageData)) {
-        updatePipeline(pipeline)
+      if (!isEqual(prevStageData, newStageData)) {
+        updateStage((newStageData as unknown) as StageElementConfig)
       }
     }
   }

@@ -21,6 +21,7 @@ import { useParams } from 'react-router-dom'
 import { isEmpty, get, set } from 'lodash-es'
 import { Classes, Dialog, Position } from '@blueprintjs/core'
 import flatten from 'lodash-es/flatten'
+import produce from 'immer'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import {
@@ -451,42 +452,44 @@ export const RightBar = (): JSX.Element => {
               return errors
             }}
             onSubmit={(values): void => {
-              set(pipeline, 'properties.ci.codebase', {
-                connectorRef:
-                  typeof values.connectorRef === 'string' ? values.connectorRef : values.connectorRef?.value,
-                ...(values.repoName && { repoName: values.repoName }),
-                build: RUNTIME_INPUT_VALUE
+              const pipelineData = produce(pipeline, draft => {
+                set(draft, 'properties.ci.codebase', {
+                  connectorRef:
+                    typeof values.connectorRef === 'string' ? values.connectorRef : values.connectorRef?.value,
+                  ...(values.repoName && { repoName: values.repoName }),
+                  build: RUNTIME_INPUT_VALUE
+                })
+
+                // Repo level connectors should not have repoName
+                if (connectionType === 'Repo' && (draft as PipelineInfoConfig)?.properties?.ci?.codebase?.repoName) {
+                  delete (draft as PipelineInfoConfig)?.properties?.ci?.codebase?.repoName
+                }
+
+                if (get(draft, 'properties.ci.codebase.depth') !== values.depth) {
+                  const depthValue =
+                    getMultiTypeFromValue(values.depth) === MultiTypeInputType.FIXED
+                      ? values.depth
+                        ? Number.parseInt(values.depth)
+                        : undefined
+                      : values.depth
+                  set(draft, 'properties.ci.codebase.depth', depthValue)
+                }
+
+                const sslVerifyVal = values.sslVerify === undefined ? values.sslVerify : !!values.sslVerify
+                if (get(draft, 'properties.ci.codebase.sslVerify') !== sslVerifyVal) {
+                  set(draft, 'properties.ci.codebase.sslVerify', sslVerifyVal)
+                }
+
+                if (get(draft, 'properties.ci.codebase.resources.limits.memory') !== values.memoryLimit) {
+                  set(draft, 'properties.ci.codebase.resources.limits.memory', values.memoryLimit)
+                }
+
+                if (get(draft, 'properties.ci.codebase.resources.limits.cpu') !== values.cpuLimit) {
+                  set(draft, 'properties.ci.codebase.resources.limits.cpu', values.cpuLimit)
+                }
               })
 
-              // Repo level connectors should not have repoName
-              if (connectionType === 'Repo' && (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase?.repoName) {
-                delete (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase?.repoName
-              }
-
-              if (get(pipeline, 'properties.ci.codebase.depth') !== values.depth) {
-                const depthValue =
-                  getMultiTypeFromValue(values.depth) === MultiTypeInputType.FIXED
-                    ? values.depth
-                      ? Number.parseInt(values.depth)
-                      : undefined
-                    : values.depth
-                set(pipeline, 'properties.ci.codebase.depth', depthValue)
-              }
-
-              const sslVerifyVal = values.sslVerify === undefined ? values.sslVerify : !!values.sslVerify
-              if (get(pipeline, 'properties.ci.codebase.sslVerify') !== sslVerifyVal) {
-                set(pipeline, 'properties.ci.codebase.sslVerify', sslVerifyVal)
-              }
-
-              if (get(pipeline, 'properties.ci.codebase.resources.limits.memory') !== values.memoryLimit) {
-                set(pipeline, 'properties.ci.codebase.resources.limits.memory', values.memoryLimit)
-              }
-
-              if (get(pipeline, 'properties.ci.codebase.resources.limits.cpu') !== values.cpuLimit) {
-                set(pipeline, 'properties.ci.codebase.resources.limits.cpu', values.cpuLimit)
-              }
-
-              updatePipeline(pipeline)
+              updatePipeline(pipelineData)
 
               closeCodebaseDialog()
             }}

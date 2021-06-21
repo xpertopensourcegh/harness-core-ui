@@ -108,8 +108,8 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
               <String stringID="valueLabel" />
             </div>
             <PipelineCard
-              pipeline={variablesPipeline}
-              originalPipeline={originalPipeline}
+              variablePipeline={variablesPipeline}
+              pipeline={originalPipeline}
               stepsFactory={stepsFactory}
               updatePipeline={updatePipeline}
               metadataMap={metadataMap}

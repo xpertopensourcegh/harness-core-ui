@@ -1,6 +1,7 @@
 import { Card, Layout } from '@wings-software/uicore'
 import React from 'react'
 import cx from 'classnames'
+import { produce } from 'immer'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { FailureStrategyWithRef } from '@pipeline/components/PipelineStudio/FailureStrategy/FailureStrategy'
 import type { StepFormikRef } from '@pipeline/components/PipelineStudio/StepCommands/StepCommands'
@@ -16,12 +17,11 @@ const BuildAdvancedSpecifications: React.FC<AdvancedSpecifications> = ({ childre
 
   const {
     state: {
-      pipeline,
       selectionState: { selectedStageId }
     },
     isReadonly,
     getStageFromPipeline,
-    updatePipeline
+    updateStage
   } = React.useContext(PipelineContext)
   const { stage } = getStageFromPipeline(selectedStageId || '')
 
@@ -43,8 +43,10 @@ const BuildAdvancedSpecifications: React.FC<AdvancedSpecifications> = ({ childre
                     onUpdate={when => {
                       const { stage: pipelineStage } = getStageFromPipeline(selectedStageId || '')
                       if (pipelineStage && pipelineStage.stage) {
-                        pipelineStage.stage.when = when
-                        updatePipeline(pipeline)
+                        const stageData = produce(pipelineStage, draft => {
+                          draft.stage.when = when
+                        })
+                        updateStage(stageData.stage)
                       }
                     }}
                   />
@@ -65,8 +67,10 @@ const BuildAdvancedSpecifications: React.FC<AdvancedSpecifications> = ({ childre
                   onUpdate={({ failureStrategies }) => {
                     const { stage: pipelineStage } = getStageFromPipeline(selectedStageId || '')
                     if (pipelineStage && pipelineStage.stage) {
-                      pipelineStage.stage.failureStrategies = failureStrategies
-                      updatePipeline(pipeline)
+                      const stageData = produce(pipelineStage, draft => {
+                        draft.stage.failureStrategies = failureStrategies
+                      })
+                      updateStage(stageData.stage)
                     }
                   }}
                 />

@@ -5,6 +5,7 @@ import { Layout, Formik, FormikForm, FormInput, Text, Card, Accordion } from '@w
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
+import { produce } from 'immer'
 import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
 import { useStrings } from 'framework/strings'
 import { Scope } from '@common/interfaces/SecretsInterface'
@@ -104,8 +105,8 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
       selectionState: { selectedStageId }
     },
     isReadonly,
-    getStageFromPipeline,
-    updatePipeline
+    updateStage,
+    getStageFromPipeline
   } = React.useContext(PipelineContext)
 
   const { stage = {} } = getStageFromPipeline(selectedStageId || '')
@@ -191,33 +192,35 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
 
   const handleValidate = (values: any): void => {
     if (stage) {
-      if (currentMode === Modes.Propagate && values.useFromStage) {
-        stage.stage.spec.infrastructure = {
-          useFromStage: values.useFromStage
-        }
-      } else {
-        const filteredLabels = getMapValues(
-          Array.isArray(values.labels) ? values.labels.filter((val: any) => testLabelKey(val.key)) : values.labels
-        )
-        stage.stage.spec.infrastructure = {
-          type: 'KubernetesDirect',
-          spec: {
-            connectorRef: values.connectorRef.value,
-            namespace: values.namespace,
-            annotations: getMapValues(values.annotations),
-            labels: !isEmpty(filteredLabels) ? filteredLabels : undefined
+      const stageData = produce(stage, draft => {
+        if (currentMode === Modes.Propagate && values.useFromStage) {
+          draft.stage.spec.infrastructure = {
+            useFromStage: values.useFromStage
+          }
+        } else {
+          const filteredLabels = getMapValues(
+            Array.isArray(values.labels) ? values.labels.filter((val: any) => testLabelKey(val.key)) : values.labels
+          )
+          draft.stage.spec.infrastructure = {
+            type: 'KubernetesDirect',
+            spec: {
+              connectorRef: values.connectorRef.value,
+              namespace: values.namespace,
+              annotations: getMapValues(values.annotations),
+              labels: !isEmpty(filteredLabels) ? filteredLabels : undefined
+            }
+          }
+          if (
+            !values.annotations ||
+            !values.annotations.length ||
+            (values.annotations.length === 1 && !values.annotations[0].key)
+          ) {
+            delete draft.stage.spec.infrastructure.spec.annotations
           }
         }
-        if (
-          !values.annotations ||
-          !values.annotations.length ||
-          (values.annotations.length === 1 && !values.annotations[0].key)
-        ) {
-          delete stage.stage.spec.infrastructure.spec.annotations
-        }
-      }
+      })
 
-      updatePipeline(pipeline)
+      updateStage(stageData.stage)
 
       return values.labels.reduce((acc: Record<string, string>, curr: any, index: number) => {
         if (!testLabelKey(curr.key)) {
@@ -338,19 +341,19 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                           setCurrentMode(Modes.NewConfiguration)
 
                           if (currentMode === Modes.Propagate) {
-                            stage.stage.spec.infrastructure = {
-                              type: 'KubernetesDirect',
-                              spec: {
-                                connectorRef: '',
-                                namespace: '',
-                                annotations: {},
-                                labels: {}
+                            const newStageData = produce(stage, draft => {
+                              draft.stage.spec.infrastructure = {
+                                type: 'KubernetesDirect',
+                                spec: {
+                                  connectorRef: '',
+                                  namespace: '',
+                                  annotations: {},
+                                  labels: {}
+                                }
                               }
-                            }
-
+                            })
                             setFieldValue('useFromStage', undefined)
-
-                            updatePipeline(pipeline)
+                            updateStage(newStageData.stage)
                           }
                         }}
                       >

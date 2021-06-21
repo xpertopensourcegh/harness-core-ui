@@ -17,6 +17,7 @@ import type { IconName } from '@blueprintjs/core'
 import { isEmpty, set } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import type { FormikErrors } from 'formik'
+import { produce } from 'immer'
 import type { StageElementWrapper, PipelineInfoConfig } from 'services/cd-ng'
 import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
@@ -142,18 +143,19 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
     if (data) {
       // TODO: Add Codebase verification
       if (values.cloneCodebase && values.connectorRef) {
-        set(pipeline, 'properties.ci.codebase', {
-          connectorRef: typeof values.connectorRef === 'string' ? values.connectorRef : values.connectorRef.value,
-          ...(values.repoName && { repoName: values.repoName }),
-          build: RUNTIME_INPUT_VALUE
+        const pipelineData = produce(pipeline, draft => {
+          set(draft, 'properties.ci.codebase', {
+            connectorRef: typeof values.connectorRef === 'string' ? values.connectorRef : values.connectorRef?.value,
+            ...(values.repoName && { repoName: values.repoName }),
+            build: RUNTIME_INPUT_VALUE
+          })
+
+          // Repo level connectors should not have repoName
+          if (connectionType === 'Repo' && (draft as PipelineInfoConfig)?.properties?.ci?.codebase?.repoName) {
+            delete (draft as PipelineInfoConfig)?.properties?.ci?.codebase?.repoName
+          }
         })
-
-        // Repo level connectors should not have repoName
-        if (connectionType === 'Repo' && (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase?.repoName) {
-          delete (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase?.repoName
-        }
-
-        updatePipeline(pipeline)
+        updatePipeline(pipelineData)
       }
 
       data.stage.identifier = values.identifier

@@ -18,8 +18,8 @@ import type { PipelineVariablesData } from '../types'
 import css from '../PipelineVariables.module.scss'
 
 export interface PipelineCardProps {
+  variablePipeline: NgPipeline
   pipeline: NgPipeline
-  originalPipeline: NgPipeline
   stepsFactory: AbstractStepFactory
   metadataMap: PipelineVariablesData['metadataMap']
   updatePipeline(pipeline: NgPipeline): void
@@ -27,28 +27,28 @@ export interface PipelineCardProps {
 }
 
 export default function PipelineCard(props: PipelineCardProps): React.ReactElement {
-  const { pipeline, originalPipeline, metadataMap, stepsFactory, updatePipeline, readonly } = props
+  const { variablePipeline, pipeline, metadataMap, stepsFactory, updatePipeline, readonly } = props
   const { getString } = useStrings()
 
   return (
     <Card className={css.variableCard} id="Pipeline-panel">
-      <VariablesListTable data={pipeline} originalData={originalPipeline} metadataMap={metadataMap} />
+      <VariablesListTable data={variablePipeline} originalData={pipeline} metadataMap={metadataMap} />
 
       <StepWidget<CustomVariablesData, CustomVariableEditableExtraProps>
         factory={stepsFactory}
-        initialValues={{ variables: (originalPipeline.variables || []) as AllNGVariables[], canAddVariable: true }}
+        initialValues={{ variables: (pipeline.variables || []) as AllNGVariables[], canAddVariable: true }}
         type={StepType.CustomVariable}
         stepViewType={StepViewType.InputVariable}
         readonly={readonly}
         onUpdate={({ variables }: CustomVariablesData) => {
-          updatePipeline({ ...originalPipeline, variables })
+          updatePipeline({ ...pipeline, variables })
         }}
         customStepProps={{
           variableNamePrefix: 'pipeline.variables.',
           domId: 'Pipeline.Variables-panel',
           className: css.customVariables,
           heading: <b>{getString('customVariables.title')}</b>,
-          yamlProperties: (pipeline.variables as AllNGVariables[])?.map(
+          yamlProperties: (variablePipeline.variables as AllNGVariables[])?.map(
             variable => metadataMap[variable.value || '']?.yamlProperties || {}
           )
         }}
