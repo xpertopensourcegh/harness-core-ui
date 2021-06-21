@@ -1,17 +1,6 @@
 import React from 'react'
 import { cloneDeep, isEmpty, isNull, isUndefined, omit, omitBy } from 'lodash-es'
-import { Intent } from '@blueprintjs/core'
-import {
-  Button,
-  Container,
-  Formik,
-  FormikForm,
-  Layout,
-  Text,
-  NestedAccordionProvider,
-  Accordion,
-  Icon
-} from '@wings-software/uicore'
+import { Button, Container, Formik, FormikForm, Layout, Text, NestedAccordionProvider } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { parse, stringify } from 'yaml'
 import type { FormikErrors } from 'formik'
@@ -51,11 +40,12 @@ import GitContextForm, { GitContextProps } from '@common/components/GitContextFo
 import VisualYamlToggle from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { changeEmptyValuesToRunTimeInput } from '@pipeline/utils/stageHelpers'
 import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
-import { clearRuntimeInput, getErrorsList } from '../PipelineStudio/StepUtil'
+import { clearRuntimeInput } from '../PipelineStudio/StepUtil'
 import { factory } from '../PipelineSteps/Steps/__tests__/StepTestUtil'
 import { getFormattedErrors } from '../RunPipelineModal/RunPipelineHelper'
 import { YamlBuilderMemo } from '../PipelineStudio/PipelineYamlView/PipelineYamlView'
 import GitPopover from '../GitPopover/GitPopover'
+import { ErrorsStrip } from '../ErrorsStrip/ErrorsStrip'
 import css from './InputSetForm.module.scss'
 export interface InputSetDTO extends Omit<InputSetResponse, 'identifier' | 'pipeline'> {
   pipeline?: NgPipeline
@@ -375,34 +365,6 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
     [isEdit, updateInputSet, createInputSet, showSuccess, showError, isGitSyncEnabled, inputSetResponse, pipeline]
   )
 
-  const renderErrors = React.useCallback(() => {
-    const { errorStrings, errorCount } = getErrorsList(formErrors)
-    if (!errorCount) {
-      return null
-    }
-    return (
-      <div className={css.errorHeader}>
-        <Accordion>
-          <Accordion.Panel
-            id="errors"
-            summary={
-              <Layout.Horizontal spacing="small">
-                <Icon name="warning-sign" intent={Intent.DANGER} />
-                <span>{`${errorCount} problem${errorCount > 1 ? 's' : ''} with Input Set`}</span>
-              </Layout.Horizontal>
-            }
-            details={
-              <ul>
-                {errorStrings.map((errorMessage, index) => (
-                  <li key={index}>{errorMessage}</li>
-                ))}
-              </ul>
-            }
-          />
-        </Accordion>
-      </div>
-    )
-  }, [formErrors])
   const child = (
     <Container className={css.inputSetForm}>
       <Layout.Vertical spacing="medium">
@@ -431,8 +393,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                 {selectedView === SelectedView.VISUAL ? (
                   <div className={css.inputsetGrid}>
                     <div>
-                      {renderErrors()}
-
+                      <ErrorsStrip formErrors={formErrors} />
                       <FormikForm>
                         {executionView ? null : (
                           <Layout.Vertical className={css.content} padding="xlarge">
@@ -507,7 +468,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                   </div>
                 ) : (
                   <div className={css.editor}>
-                    {renderErrors()}
+                    <ErrorsStrip formErrors={formErrors} />
                     <Layout.Vertical className={css.content} padding="xlarge">
                       <YamlBuilderMemo
                         {...yamlBuilderReadOnlyModeProps}

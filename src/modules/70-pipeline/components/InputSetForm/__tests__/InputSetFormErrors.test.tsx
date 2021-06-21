@@ -122,10 +122,12 @@ describe('Input Set - error scenarios', () => {
     )
     await waitFor(() => getAllByText('tesa1'))
     fireEvent.click(getByText('save'))
-    await waitFor(() => expect(queryByText('2 problems with Input Set')).toBeTruthy())
+    await waitFor(() => {
+      expect(queryByText('common.errorCount')).toBeTruthy()
+    })
 
     act(() => {
-      fireEvent.click(getByText('2 problems with Input Set'))
+      fireEvent.mouseOver(getByText('common.seeDetails'))
     })
     expect(queryByText('field1: field1 error message (1)'))
     expect(queryByText('field2: field2 error message (3)'))
