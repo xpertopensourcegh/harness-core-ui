@@ -14,6 +14,5 @@ declare const styles: {
   readonly label: string
   readonly fetching: string
   readonly alignCenter: string
-  readonly connectorDeployment: string
 }
 export default styles

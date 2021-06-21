@@ -130,13 +130,12 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
         <ConnectorReferenceField
           name={`${prefix}spec.conectorRef`}
           label={getString('pipeline.jiraApprovalStep.connectorRef')}
-          className={css.connectorDeployment}
           selected={(initialValues?.spec?.connectorRef as string) || ''}
           placeholder={getString('pipeline.jiraApprovalStep.jiraConnectorPlaceholder')}
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
-          width={400}
+          width={360}
           disabled={isApprovalStepFieldDisabled(readonly)}
           type={'Jira'}
           onChange={(record, scope) => {

@@ -14,7 +14,6 @@ import {
   MultiTypeInputType,
   Button,
   SelectOption,
-  Layout,
   getMultiTypeFromValue
 } from '@wings-software/uicore'
 import { setFormikRef, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
@@ -188,7 +187,7 @@ const FormContent = ({
 
   return (
     <React.Fragment>
-      <div className={cx(stepCss.formGroup, stepCss.md)}>
+      <div className={cx(stepCss.formGroup, stepCss.lg)}>
         <FormInput.InputWithIdentifier
           inputLabel={getString('name')}
           isIdentifierEditable={isNewStep}
@@ -198,7 +197,6 @@ const FormContent = ({
       <div className={cx(stepCss.formGroup, stepCss.sm)}>
         <FormMultiTypeDurationField
           name="timeout"
-          className={stepCss.sm}
           label={getString('pipelineSteps.timeoutLabel')}
           disabled={isApprovalStepFieldDisabled(readonly)}
           multiTypeDurationProps={{
@@ -219,11 +217,13 @@ const FormContent = ({
           />
         )}
       </div>
-      <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+      <div className={stepCss.noLookDivider} />
+      <div className={cx(stepCss.formGroup, stepCss.lg)}>
         <FormMultiTypeConnectorField
           name="spec.connectorRef"
           label={getString('pipeline.jiraApprovalStep.connectorRef')}
           className={css.connector}
+          width={390}
           placeholder={getString('connectors.selectConnector')}
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
@@ -247,13 +247,12 @@ const FormContent = ({
             isReadonly={readonly}
           />
         )}
-      </Layout.Horizontal>
-      <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+      </div>
+      <div className={cx(stepCss.formGroup, stepCss.lg)}>
         <FormInput.MultiTextInput
           label={getString('pipeline.jiraApprovalStep.issueKey')}
           name="spec.issueKey"
           placeholder={getString('pipeline.jiraApprovalStep.issueKeyPlaceholder')}
-          className={css.md}
           disabled={isApprovalStepFieldDisabled(readonly)}
         />
         {getMultiTypeFromValue(formik.values.spec.issueKey) === MultiTypeInputType.RUNTIME && (
@@ -268,14 +267,15 @@ const FormContent = ({
             isReadonly={readonly}
           />
         )}
-      </Layout.Horizontal>
+      </div>
+      <div className={stepCss.noLookDivider} />
       <Accordion activeId="" className={stepCss.accordion}>
         <Accordion.Panel
           id="optional-config"
           summary={getString('common.optionalConfig')}
           details={
             <div>
-              <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+              <div className={cx(stepCss.formGroup, stepCss.lg)}>
                 <FormInput.MultiTypeInput
                   selectItems={statusOptions}
                   label={getString('status')}
@@ -285,7 +285,6 @@ const FormContent = ({
                       ? getString('pipeline.jiraUpdateStep.fetchingStatus')
                       : getString('pipeline.jiraUpdateStep.selectStatus')
                   }
-                  className={css.md}
                   multiTypeInputProps={{
                     expressions
                   }}
@@ -303,13 +302,12 @@ const FormContent = ({
                     isReadonly={readonly}
                   />
                 )}
-              </Layout.Horizontal>
-              <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+              </div>
+              <div className={cx(stepCss.formGroup, stepCss.lg)}>
                 <FormInput.MultiTextInput
                   label={getString('pipeline.jiraUpdateStep.transitionLabel')}
                   name="spec.transitionTo.transitionName"
                   placeholder={getString('pipeline.jiraUpdateStep.transitionPlaceholder')}
-                  className={css.md}
                   multiTextInputProps={{
                     expressions
                   }}
@@ -328,65 +326,63 @@ const FormContent = ({
                     isReadonly={readonly}
                   />
                 )}
-              </Layout.Horizontal>
-              <div>
-                <JiraFieldsRenderer
-                  selectedFields={formik.values.spec.selectedFields}
-                  readonly={readonly}
-                  onDelete={(index, selectedField) => {
-                    const selectedFieldsAfterRemoval = formik.values.spec.selectedFields?.filter(
-                      (_unused, i) => i !== index
+              </div>
+              <JiraFieldsRenderer
+                selectedFields={formik.values.spec.selectedFields}
+                readonly={readonly}
+                onDelete={(index, selectedField) => {
+                  const selectedFieldsAfterRemoval = formik.values.spec.selectedFields?.filter(
+                    (_unused, i) => i !== index
+                  )
+                  formik.setFieldValue('spec.selectedFields', selectedFieldsAfterRemoval)
+                  const customFields = formik.values.spec.fields?.filter(field => field.name !== selectedField.name)
+                  formik.setFieldValue('spec.fields', customFields)
+                }}
+              />
+
+              {!isEmpty(formik.values.spec.fields) ? (
+                <FieldArray
+                  name="spec.fields"
+                  render={({ remove }) => {
+                    return (
+                      <div>
+                        <div className={css.headerRow}>
+                          <String className={css.label} stringID="keyLabel" />
+                          <String className={css.label} stringID="valueLabel" />
+                        </div>
+                        {formik.values.spec.fields?.map((_unused: JiraCreateFieldType, i: number) => (
+                          <div className={css.headerRow} key={i}>
+                            <FormInput.Text
+                              name={`spec.fields[${i}].name`}
+                              placeholder={getString('pipeline.keyPlaceholder')}
+                              disabled={isApprovalStepFieldDisabled(readonly)}
+                            />
+                            <FormInput.MultiTextInput
+                              name={`spec.fields[${i}].value`}
+                              label=""
+                              placeholder={getString('common.valuePlaceholder')}
+                              multiTextInputProps={{
+                                allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                                expressions
+                              }}
+                              disabled={isApprovalStepFieldDisabled(readonly)}
+                            />
+                            <Button
+                              minimal
+                              icon="trash"
+                              data-testid={`remove-fieldList-${i}`}
+                              onClick={() => remove(i)}
+                              disabled={isApprovalStepFieldDisabled(readonly)}
+                            />
+                          </div>
+                        ))}
+                      </div>
                     )
-                    formik.setFieldValue('spec.selectedFields', selectedFieldsAfterRemoval)
-                    const customFields = formik.values.spec.fields?.filter(field => field.name !== selectedField.name)
-                    formik.setFieldValue('spec.fields', customFields)
                   }}
                 />
+              ) : null}
 
-                {!isEmpty(formik.values.spec.fields) ? (
-                  <FieldArray
-                    name="spec.fields"
-                    render={({ remove }) => {
-                      return (
-                        <div>
-                          <div className={css.headerRow}>
-                            <String className={css.label} stringID="keyLabel" />
-                            <String className={css.label} stringID="valueLabel" />
-                          </div>
-                          {formik.values.spec.fields?.map((_unused: JiraCreateFieldType, i: number) => (
-                            <div className={css.headerRow} key={i}>
-                              <FormInput.Text
-                                name={`spec.fields[${i}].name`}
-                                placeholder={getString('pipeline.keyPlaceholder')}
-                                disabled={isApprovalStepFieldDisabled(readonly)}
-                              />
-                              <FormInput.MultiTextInput
-                                name={`spec.fields[${i}].value`}
-                                label=""
-                                placeholder={getString('common.valuePlaceholder')}
-                                multiTextInputProps={{
-                                  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
-                                  expressions
-                                }}
-                                disabled={isApprovalStepFieldDisabled(readonly)}
-                              />
-                              <Button
-                                minimal
-                                icon="trash"
-                                data-testid={`remove-fieldList-${i}`}
-                                onClick={() => remove(i)}
-                                disabled={isApprovalStepFieldDisabled(readonly)}
-                              />
-                            </div>
-                          ))}
-                        </div>
-                      )
-                    }}
-                  />
-                ) : null}
-
-                <AddFieldsButton />
-              </div>
+              <AddFieldsButton />
             </div>
           }
         />

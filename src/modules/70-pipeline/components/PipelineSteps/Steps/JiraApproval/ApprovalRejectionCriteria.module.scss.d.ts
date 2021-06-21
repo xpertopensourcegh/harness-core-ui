@@ -14,5 +14,6 @@ declare const styles: {
   readonly conditionalContent: string
   readonly conditionalContentJexl: string
   readonly criteriaRow: string
+  readonly title: string
 }
 export default styles

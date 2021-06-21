@@ -90,14 +90,16 @@ const FormContent = ({
 
   return (
     <React.Fragment>
-      <div className={cx(stepCss.formGroup, stepCss.md)}>
+      <div className={cx(stepCss.formGroup, stepCss.lg)}>
         <FormInput.InputWithIdentifier
           inputLabel={getString('name')}
           isIdentifierEditable={isNewStep}
-          inputGroupProps={{ disabled: isApprovalStepFieldDisabled(readonly) }}
+          inputGroupProps={{
+            disabled: isApprovalStepFieldDisabled(readonly)
+          }}
         />
       </div>
-      <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+      <div className={cx(stepCss.formGroup, stepCss.sm)}>
         <FormMultiTypeDurationField
           name="timeout"
           className={stepCss.sm}
@@ -120,7 +122,9 @@ const FormContent = ({
             isReadonly={readonly}
           />
         )}
-      </Layout.Horizontal>
+      </div>
+
+      <div className={stepCss.noLookDivider} />
 
       <div className={cx(stepCss.formGroup)}>
         <FormMultiTypeTextAreaField
@@ -151,7 +155,7 @@ const FormContent = ({
         disabled={isApprovalStepFieldDisabled(readonly)}
       />
 
-      <div className={cx(stepCss.formGroup)}>
+      <div className={cx(stepCss.formGroup, stepCss.lg)}>
         <FormInput.MultiSelectTypeInput
           className={css.multiSelect}
           name="spec.approvers.userGroups"
@@ -213,7 +217,7 @@ const FormContent = ({
           />
         )}
       </div>
-      <div className={cx(stepCss.formGroup)}>
+      <div className={cx(stepCss.formGroup, stepCss.lg)}>
         <FormInput.MultiTextInput
           name="spec.approvers.minimumCount"
           label={getString('pipeline.approvalStep.minimumCount')}
@@ -244,6 +248,8 @@ const FormContent = ({
         label={getString('pipeline.approvalStep.disallowPipelineExecutor')}
         disabled={isApprovalStepFieldDisabled(readonly)}
       />
+
+      <div className={stepCss.noLookDivider} />
 
       <Accordion className={stepCss.accordion}>
         <Accordion.Panel

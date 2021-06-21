@@ -687,7 +687,7 @@ exports[`Harness Approval tests Edit stage - readonly: edit stage readonly 1`] =
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="formGroup md"
+      class="formGroup lg"
     >
       <div
         class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -777,7 +777,7 @@ exports[`Harness Approval tests Edit stage - readonly: edit stage readonly 1`] =
       </div>
     </div>
     <div
-      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+      class="formGroup sm"
     >
       <div
         class="bp3-form-group bp3-disabled sm"
@@ -835,6 +835,9 @@ exports[`Harness Approval tests Edit stage - readonly: edit stage readonly 1`] =
         </div>
       </div>
     </div>
+    <div
+      class="noLookDivider"
+    />
     <div
       class="formGroup"
     >
@@ -915,7 +918,7 @@ exports[`Harness Approval tests Edit stage - readonly: edit stage readonly 1`] =
       </div>
     </div>
     <div
-      class="formGroup"
+      class="formGroup lg"
     >
       <div
         class="bp3-form-group bp3-disabled multiSelect"
@@ -994,7 +997,7 @@ exports[`Harness Approval tests Edit stage - readonly: edit stage readonly 1`] =
       </div>
     </div>
     <div
-      class="formGroup"
+      class="formGroup lg"
     >
       <div
         class="bp3-form-group bp3-disabled"
@@ -1082,6 +1085,9 @@ exports[`Harness Approval tests Edit stage - readonly: edit stage readonly 1`] =
         </label>
       </div>
     </div>
+    <div
+      class="noLookDivider"
+    />
     <div
       class="Accordion--accordion accordion"
     >

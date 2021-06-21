@@ -9,8 +9,11 @@ declare const styles: {
   readonly formGroup: string
   readonly sm: string
   readonly md: string
+  readonly lg: string
   readonly alignStart: string
   readonly code: string
+  readonly divider: string
+  readonly noLookDivider: string
   readonly fieldsSection: string
   readonly fieldsGroup: string
   readonly withoutSpacing: string

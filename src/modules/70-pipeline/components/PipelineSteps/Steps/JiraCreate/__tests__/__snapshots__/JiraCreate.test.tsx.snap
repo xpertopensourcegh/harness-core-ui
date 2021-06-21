@@ -6,7 +6,7 @@ exports[`Jira Create tests Basic snapshot - deploymentform mode: jira-create-dep
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="bp3-form-group connectorDeployment"
+      class="bp3-form-group"
     >
       <label
         class="bp3-label"
@@ -23,7 +23,7 @@ exports[`Jira Create tests Basic snapshot - deploymentform mode: jira-create-dep
         <button
           class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
           data-testid="cr-field-spec.conectorRef"
-          style="width: 400px;"
+          style="width: 360px;"
           type="button"
         >
           <span
@@ -537,7 +537,7 @@ exports[`Jira Create tests Basic snapshot - inputset mode: input set with errors
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="bp3-form-group connectorDeployment"
+      class="bp3-form-group"
     >
       <label
         class="bp3-label"
@@ -554,7 +554,7 @@ exports[`Jira Create tests Basic snapshot - inputset mode: input set with errors
         <button
           class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
           data-testid="cr-field-spec.conectorRef"
-          style="width: 400px;"
+          style="width: 360px;"
           type="button"
         >
           <span
@@ -866,7 +866,7 @@ exports[`Jira Create tests Deploymentform readonly mode: jira-create-deploymentf
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="bp3-form-group connectorDeployment"
+      class="bp3-form-group"
     >
       <label
         class="bp3-label"
@@ -883,7 +883,7 @@ exports[`Jira Create tests Deploymentform readonly mode: jira-create-deploymentf
         <button
           class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
           data-testid="cr-field-spec.conectorRef"
-          style="width: 400px;"
+          style="width: 360px;"
           type="button"
         >
           <span
@@ -1173,7 +1173,7 @@ exports[`Jira Create tests Edit Stage - readonly view: edit-stage-readonly 1`] =
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="formGroup md"
+      class="formGroup lg"
     >
       <div
         class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -1266,7 +1266,7 @@ exports[`Jira Create tests Edit Stage - readonly view: edit-stage-readonly 1`] =
       class="formGroup sm"
     >
       <div
-        class="bp3-form-group bp3-disabled sm"
+        class="bp3-form-group bp3-disabled"
       >
         <label
           class="bp3-label"
@@ -1322,7 +1322,10 @@ exports[`Jira Create tests Edit Stage - readonly view: edit-stage-readonly 1`] =
       </div>
     </div>
     <div
-      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+      class="noLookDivider"
+    />
+    <div
+      class="formGroup lg"
     >
       <div>
         <div
@@ -1340,13 +1343,13 @@ exports[`Jira Create tests Edit Stage - readonly view: edit-stage-readonly 1`] =
           >
             <div
               class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
-              style="width: 400px;"
+              style="width: 390px;"
             >
               <button
                 class="bp3-button bp3-disabled bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                 data-testid="cr-field-spec.connectorRef"
                 disabled=""
-                style="width: 372px;"
+                style="width: 362px;"
                 tabindex="-1"
                 type="button"
               >
@@ -1455,10 +1458,10 @@ exports[`Jira Create tests Edit Stage - readonly view: edit-stage-readonly 1`] =
       </div>
     </div>
     <div
-      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+      class="formGroup lg"
     >
       <div
-        class="bp3-form-group bp3-disabled md"
+        class="bp3-form-group bp3-disabled"
       >
         <label
           class="bp3-label"
@@ -1551,10 +1554,10 @@ exports[`Jira Create tests Edit Stage - readonly view: edit-stage-readonly 1`] =
       </div>
     </div>
     <div
-      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+      class="formGroup lg"
     >
       <div
-        class="bp3-form-group bp3-disabled md"
+        class="bp3-form-group bp3-disabled"
       >
         <label
           class="bp3-label"
@@ -1647,10 +1650,10 @@ exports[`Jira Create tests Edit Stage - readonly view: edit-stage-readonly 1`] =
       </div>
     </div>
     <div
-      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+      class="formGroup lg"
     >
       <div
-        class="bp3-form-group bp3-disabled md"
+        class="bp3-form-group bp3-disabled"
       >
         <label
           class="bp3-label"
@@ -1710,6 +1713,9 @@ exports[`Jira Create tests Edit Stage - readonly view: edit-stage-readonly 1`] =
         </div>
       </div>
     </div>
+    <div
+      class="noLookDivider"
+    />
     <div
       class="Accordion--accordion accordion"
     >

@@ -13,8 +13,7 @@ import {
   Text,
   MultiTypeInputType,
   Button,
-  getMultiTypeFromValue,
-  Layout
+  getMultiTypeFromValue
 } from '@wings-software/uicore'
 import { setFormikRef, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { String, useStrings } from 'framework/strings'
@@ -273,7 +272,7 @@ const FormContent = ({
 
   return (
     <React.Fragment>
-      <div className={cx(stepCss.formGroup, stepCss.md)}>
+      <div className={cx(stepCss.formGroup, stepCss.lg)}>
         <FormInput.InputWithIdentifier
           inputLabel={getString('name')}
           isIdentifierEditable={isNewStep}
@@ -283,7 +282,6 @@ const FormContent = ({
       <div className={cx(stepCss.formGroup, stepCss.sm)}>
         <FormMultiTypeDurationField
           name="timeout"
-          className={stepCss.sm}
           label={getString('pipelineSteps.timeoutLabel')}
           disabled={isApprovalStepFieldDisabled(readonly)}
           multiTypeDurationProps={{
@@ -304,11 +302,14 @@ const FormContent = ({
           />
         )}
       </div>
-      <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+      <div className={stepCss.noLookDivider} />
+
+      <div className={cx(stepCss.formGroup, stepCss.lg)}>
         <FormMultiTypeConnectorField
           name="spec.connectorRef"
           label={getString('pipeline.jiraApprovalStep.connectorRef')}
           className={css.connector}
+          width={390}
           placeholder={getString('connectors.selectConnector')}
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
@@ -342,8 +343,8 @@ const FormContent = ({
             isReadonly={readonly}
           />
         )}
-      </Layout.Horizontal>
-      <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+      </div>
+      <div className={cx(stepCss.formGroup, stepCss.lg)}>
         <FormInput.MultiTypeInput
           selectItems={
             fetchingProjects
@@ -359,7 +360,6 @@ const FormContent = ({
               ? projectsFetchError?.message
               : getString('pipeline.jiraCreateStep.selectProject')
           }
-          className={css.md}
           disabled={isApprovalStepFieldDisabled(readonly, fetchingProjects)}
           multiTypeInputProps={{
             expressions,
@@ -384,8 +384,8 @@ const FormContent = ({
             isReadonly={readonly}
           />
         )}
-      </Layout.Horizontal>
-      <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+      </div>
+      <div className={cx(stepCss.formGroup, stepCss.lg)}>
         <FormInput.MultiTypeInput
           selectItems={
             fetchingProjectMetadata
@@ -401,7 +401,6 @@ const FormContent = ({
               ? projectMetadataFetchError?.message
               : getString('pipeline.jiraApprovalStep.issueTypePlaceholder')
           }
-          className={css.md}
           disabled={isApprovalStepFieldDisabled(readonly, fetchingProjectMetadata)}
           multiTypeInputProps={{
             expressions,
@@ -425,13 +424,12 @@ const FormContent = ({
             isReadonly={readonly}
           />
         )}
-      </Layout.Horizontal>
-      <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+      </div>
+      <div className={cx(stepCss.formGroup, stepCss.lg)}>
         <FormInput.MultiTextInput
           label={getString('summary')}
           name="spec.summary"
           placeholder={getString('pipeline.jiraCreateStep.summaryPlaceholder')}
-          className={css.md}
           multiTextInputProps={{
             expressions
           }}
@@ -449,18 +447,21 @@ const FormContent = ({
             isReadonly={readonly}
           />
         )}
-      </Layout.Horizontal>
+      </div>
+
+      <div className={stepCss.noLookDivider} />
+
       <Accordion activeId="" className={stepCss.accordion}>
         <Accordion.Panel
           id="optional-config"
           summary={getString('common.optionalConfig')}
           details={
             <div>
-              <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+              <div className={cx(stepCss.formGroup)}>
                 <FormMultiTypeTextAreaField
                   name="spec.description"
                   label={getString('description')}
-                  className={cx(css.descriptionField, css.md)}
+                  className={cx(css.descriptionField)}
                   multiTypeTextArea={{ enableConfigureOptions: false, expressions }}
                   placeholder={getString('pipeline.enterDescription')}
                   disabled={isApprovalStepFieldDisabled(readonly)}
@@ -477,7 +478,7 @@ const FormContent = ({
                     isReadonly={readonly}
                   />
                 )}
-              </Layout.Horizontal>
+              </div>
 
               {fetchingProjectMetadata ? (
                 <div className={css.fetching}>{getString('pipeline.jiraApprovalStep.fetchingFields')}</div>

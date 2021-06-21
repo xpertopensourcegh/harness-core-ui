@@ -30,6 +30,10 @@
 
 .jexlExpression {
   :global {
+    .bp3-label {
+      margin-bottom: var(--spacing-medium) !important;
+    }
+
     textarea {
       min-height: 60px;
       max-height: 120px;
@@ -80,15 +84,20 @@
 }
 
 .conditionalContent {
-  background-color: var(--grey-100);
-  padding: var(--spacing-small) var(--spacing-medium);
+  background-color: white;
+  padding: var(--spacing-medium);
 }
 
 .conditionalContentJexl {
-  background-color: var(--grey-100);
+  background-color: white;
   padding: var(--spacing-large) var(--spacing-medium);
 }
 
 .criteriaRow {
   width: 520px;
+}
+
+.title {
+  color: var(--grey-800);
+  font-weight: 600;
 }

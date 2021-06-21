@@ -2,11 +2,6 @@
   width: 75%;
 }
 
-.jiraFormGroup {
-  // Same width as the connector reference component
-  width: 500px;
-}
-
 .jiraIssueKeyField {
   width: 530px;
 }
@@ -17,17 +12,5 @@
 }
 
 .deploymentViewMedium {
-  width: 44%;
-}
-
-.connectorDeployment {
-  :global {
-    .bp3-button {
-      width: 338px !important;
-    }
-
-    .bp3-button-text {
-      width: 287px !important;
-    }
-  }
+  width: 50%;
 }

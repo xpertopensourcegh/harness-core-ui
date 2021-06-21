@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
-import { Formik, Accordion, FormInput, MultiTypeInputType, getMultiTypeFromValue, Layout } from '@wings-software/uicore'
+import { Formik, Accordion, FormInput, MultiTypeInputType, getMultiTypeFromValue } from '@wings-software/uicore'
 import { setFormikRef, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
 import {
@@ -161,17 +161,16 @@ const FormContent = ({
 
   return (
     <React.Fragment>
-      <div className={cx(stepCss.formGroup, stepCss.md)}>
+      <div className={cx(stepCss.formGroup, stepCss.lg)}>
         <FormInput.InputWithIdentifier
           inputLabel={getString('name')}
           isIdentifierEditable={isNewStep}
           inputGroupProps={{ disabled: isApprovalStepFieldDisabled(readonly) }}
         />
       </div>
-      <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+      <div className={cx(stepCss.formGroup, stepCss.sm)}>
         <FormMultiTypeDurationField
           name="timeout"
-          className={stepCss.sm}
           label={getString('pipelineSteps.timeoutLabel')}
           disabled={isApprovalStepFieldDisabled(readonly)}
           multiTypeDurationProps={{
@@ -191,13 +190,15 @@ const FormContent = ({
             isReadonly={readonly}
           />
         )}
-      </Layout.Horizontal>
+      </div>
 
-      <div className={cx(stepCss.formGroup, css.jiraFormGroup)}>
+      <div className={stepCss.noLookDivider} />
+
+      <div className={cx(stepCss.formGroup, stepCss.lg)}>
         <FormMultiTypeConnectorField
           name="spec.connectorRef"
           label={getString('pipeline.jiraApprovalStep.connectorRef')}
-          width={500}
+          width={390}
           className={css.connector}
           placeholder={getString('select')}
           accountIdentifier={accountId}
@@ -234,70 +235,73 @@ const FormContent = ({
         )}
       </div>
 
-      <FormInput.MultiTypeInput
-        tooltipProps={{
-          dataTooltipId: 'jiraApprovalProject'
-        }}
-        selectItems={
-          fetchingProjects
-            ? [{ label: getString('pipeline.jiraApprovalStep.fetchingProjectsPlaceholder'), value: '' }]
-            : projectOptions
-        }
-        label={getString('pipeline.jiraApprovalStep.project')}
-        name="spec.projectKey"
-        placeholder={
-          fetchingProjects
-            ? getString('pipeline.jiraApprovalStep.fetchingProjectsPlaceholder')
-            : projectsFetchError?.message
-            ? projectsFetchError?.message
-            : getString('select')
-        }
-        disabled={isApprovalStepFieldDisabled(readonly, fetchingProjects)}
-        isOptional={true}
-        className={css.jiraFormGroup}
-        multiTypeInputProps={{
-          allowableTypes: [MultiTypeInputType.FIXED],
-          onChange: (value: unknown) => {
-            // Clear dependent fields
-            if ((value as JiraProjectSelectOption)?.key !== projectKeyFixedValue) {
-              resetForm(formik, 'projectKey')
-              setProjectMetadata(undefined)
-            }
+      <div className={cx(stepCss.formGroup, stepCss.lg)}>
+        <FormInput.MultiTypeInput
+          tooltipProps={{
+            dataTooltipId: 'jiraApprovalProject'
+          }}
+          selectItems={
+            fetchingProjects
+              ? [{ label: getString('pipeline.jiraApprovalStep.fetchingProjectsPlaceholder'), value: '' }]
+              : projectOptions
           }
-        }}
-      />
-      <FormInput.MultiTypeInput
-        tooltipProps={{
-          dataTooltipId: 'jiraApprovalIssueType'
-        }}
-        selectItems={
-          fetchingProjectMetadata
-            ? [{ label: getString('pipeline.jiraApprovalStep.fetchingIssueTypePlaceholder'), value: '' }]
-            : setIssueTypeOptions(projectMetadata?.issuetypes)
-        }
-        label={getString('pipeline.jiraApprovalStep.issueType')}
-        name="spec.issueType"
-        isOptional={true}
-        placeholder={
-          fetchingProjectMetadata
-            ? getString('pipeline.jiraApprovalStep.fetchingIssueTypePlaceholder')
-            : projectMetadataFetchError?.message
-            ? projectMetadataFetchError?.message
-            : getString('select')
-        }
-        className={css.jiraFormGroup}
-        disabled={isApprovalStepFieldDisabled(readonly, fetchingProjectMetadata)}
-        multiTypeInputProps={{
-          allowableTypes: [MultiTypeInputType.FIXED],
-          onChange: (value: unknown) => {
-            // Clear dependent fields
-            if ((value as JiraProjectSelectOption)?.key !== issueTypeFixedValue) {
-              resetForm(formik, 'issueType')
-            }
+          label={getString('pipeline.jiraApprovalStep.project')}
+          name="spec.projectKey"
+          placeholder={
+            fetchingProjects
+              ? getString('pipeline.jiraApprovalStep.fetchingProjectsPlaceholder')
+              : projectsFetchError?.message
+              ? projectsFetchError?.message
+              : getString('select')
           }
-        }}
-      />
-      <div className={cx(stepCss.formGroup, css.jiraIssueKeyField)}>
+          disabled={isApprovalStepFieldDisabled(readonly, fetchingProjects)}
+          isOptional={true}
+          multiTypeInputProps={{
+            allowableTypes: [MultiTypeInputType.FIXED],
+            onChange: (value: unknown) => {
+              // Clear dependent fields
+              if ((value as JiraProjectSelectOption)?.key !== projectKeyFixedValue) {
+                resetForm(formik, 'projectKey')
+                setProjectMetadata(undefined)
+              }
+            }
+          }}
+        />
+      </div>
+      <div className={cx(stepCss.formGroup, stepCss.lg)}>
+        <FormInput.MultiTypeInput
+          tooltipProps={{
+            dataTooltipId: 'jiraApprovalIssueType'
+          }}
+          selectItems={
+            fetchingProjectMetadata
+              ? [{ label: getString('pipeline.jiraApprovalStep.fetchingIssueTypePlaceholder'), value: '' }]
+              : setIssueTypeOptions(projectMetadata?.issuetypes)
+          }
+          label={getString('pipeline.jiraApprovalStep.issueType')}
+          name="spec.issueType"
+          isOptional={true}
+          placeholder={
+            fetchingProjectMetadata
+              ? getString('pipeline.jiraApprovalStep.fetchingIssueTypePlaceholder')
+              : projectMetadataFetchError?.message
+              ? projectMetadataFetchError?.message
+              : getString('select')
+          }
+          disabled={isApprovalStepFieldDisabled(readonly, fetchingProjectMetadata)}
+          multiTypeInputProps={{
+            allowableTypes: [MultiTypeInputType.FIXED],
+            onChange: (value: unknown) => {
+              // Clear dependent fields
+              if ((value as JiraProjectSelectOption)?.key !== issueTypeFixedValue) {
+                resetForm(formik, 'issueType')
+              }
+            }
+          }}
+        />
+      </div>
+
+      <div className={cx(stepCss.formGroup, stepCss.lg)}>
         <FormInput.MultiTextInput
           tooltipProps={{
             dataTooltipId: 'jiraApprovalIssueKey'
@@ -324,6 +328,7 @@ const FormContent = ({
         )}
       </div>
 
+      <div className={stepCss.divider} />
       <ApprovalRejectionCriteria
         statusList={statusList}
         fieldList={fieldList}
@@ -335,6 +340,8 @@ const FormContent = ({
         formikErrors={formik.errors.spec?.approvalCriteria?.spec}
         readonly={readonly}
       />
+
+      <div className={stepCss.noLookDivider} />
 
       <Accordion className={stepCss.accordion}>
         <Accordion.Panel

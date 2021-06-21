@@ -6,7 +6,7 @@ exports[`Jira Update tests Basic snapshot - deploymentform mode: jira-update-dep
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="bp3-form-group connectorDeployment"
+      class="bp3-form-group"
     >
       <label
         class="bp3-label"
@@ -23,7 +23,7 @@ exports[`Jira Update tests Basic snapshot - deploymentform mode: jira-update-dep
         <button
           class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
           data-testid="cr-field-spec.conectorRef"
-          style="width: 400px;"
+          style="width: 360px;"
           type="button"
         >
           <span
@@ -202,6 +202,16 @@ exports[`Jira Update tests Basic snapshot - deploymentform mode: jira-update-dep
     <div
       class="bp3-form-group deploymentViewMedium"
     >
+      <label
+        class="bp3-label"
+        for="spec.transitionTo.transitionName"
+      >
+        pipeline.jiraUpdateStep.transitionLabel
+         
+        <span
+          class="bp3-text-muted"
+        />
+      </label>
       <div
         class="bp3-form-content"
       >
@@ -424,7 +434,7 @@ exports[`Jira Update tests Basic snapshot - inputset mode: input set with errors
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="bp3-form-group connectorDeployment"
+      class="bp3-form-group"
     >
       <label
         class="bp3-label"
@@ -441,7 +451,7 @@ exports[`Jira Update tests Basic snapshot - inputset mode: input set with errors
         <button
           class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
           data-testid="cr-field-spec.conectorRef"
-          style="width: 400px;"
+          style="width: 360px;"
           type="button"
         >
           <span
@@ -625,6 +635,16 @@ exports[`Jira Update tests Basic snapshot - inputset mode: input set with errors
     <div
       class="bp3-form-group deploymentViewMedium"
     >
+      <label
+        class="bp3-label"
+        for="spec.transitionTo.transitionName"
+      >
+        pipeline.jiraUpdateStep.transitionLabel
+         
+        <span
+          class="bp3-text-muted"
+        />
+      </label>
       <div
         class="bp3-form-content"
       >
@@ -675,7 +695,7 @@ exports[`Jira Update tests Edit stage - readony view: editstage-readonly 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="formGroup md"
+      class="formGroup lg"
     >
       <div
         class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -768,7 +788,7 @@ exports[`Jira Update tests Edit stage - readony view: editstage-readonly 1`] = `
       class="formGroup sm"
     >
       <div
-        class="bp3-form-group bp3-disabled sm"
+        class="bp3-form-group bp3-disabled"
       >
         <label
           class="bp3-label"
@@ -824,7 +844,10 @@ exports[`Jira Update tests Edit stage - readony view: editstage-readonly 1`] = `
       </div>
     </div>
     <div
-      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+      class="noLookDivider"
+    />
+    <div
+      class="formGroup lg"
     >
       <div>
         <div
@@ -842,13 +865,13 @@ exports[`Jira Update tests Edit stage - readony view: editstage-readonly 1`] = `
           >
             <div
               class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
-              style="width: 400px;"
+              style="width: 390px;"
             >
               <button
                 class="bp3-button bp3-disabled bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                 data-testid="cr-field-spec.connectorRef"
                 disabled=""
-                style="width: 372px;"
+                style="width: 362px;"
                 tabindex="-1"
                 type="button"
               >
@@ -957,10 +980,10 @@ exports[`Jira Update tests Edit stage - readony view: editstage-readonly 1`] = `
       </div>
     </div>
     <div
-      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+      class="formGroup lg"
     >
       <div
-        class="bp3-form-group bp3-disabled md"
+        class="bp3-form-group bp3-disabled"
       >
         <label
           class="bp3-label"
@@ -1021,6 +1044,9 @@ exports[`Jira Update tests Edit stage - readony view: editstage-readonly 1`] = `
       </div>
     </div>
     <div
+      class="noLookDivider"
+    />
+    <div
       class="Accordion--accordion accordion"
     >
       <div
@@ -1062,7 +1088,7 @@ exports[`Jira Update tests deploymentform readonly mode: jira-update-deploymentf
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="bp3-form-group connectorDeployment"
+      class="bp3-form-group"
     >
       <label
         class="bp3-label"
@@ -1079,7 +1105,7 @@ exports[`Jira Update tests deploymentform readonly mode: jira-update-deploymentf
         <button
           class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
           data-testid="cr-field-spec.conectorRef"
-          style="width: 400px;"
+          style="width: 360px;"
           type="button"
         >
           <span
@@ -1258,6 +1284,16 @@ exports[`Jira Update tests deploymentform readonly mode: jira-update-deploymentf
     <div
       class="bp3-form-group deploymentViewMedium"
     >
+      <label
+        class="bp3-label"
+        for="spec.transitionTo.transitionName"
+      >
+        pipeline.jiraUpdateStep.transitionLabel
+         
+        <span
+          class="bp3-text-muted"
+        />
+      </label>
       <div
         class="bp3-form-content"
       >

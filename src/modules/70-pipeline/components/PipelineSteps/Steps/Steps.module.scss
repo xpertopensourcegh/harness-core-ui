@@ -40,6 +40,10 @@
     width: 55%;
   }
 
+  &.lg {
+    width: 75%;
+  }
+
   &.alignStart {
     align-items: start;
   }
@@ -51,9 +55,25 @@
 
   :global {
     .bp3-label {
-      color: var(--grey-500);
+      color: var(--grey-600);
+    }
+
+    .InputWithIdentifier--txtNameContainer {
+      // Overwriting the 12px margin added by nameid field
+      margin-bottom: 0;
     }
   }
+}
+
+.divider {
+  width: 100%;
+  margin: var(--spacing-xlarge) 0;
+  border-top: 0.5px solid var(--grey-200);
+}
+
+.noLookDivider {
+  width: 100%;
+  margin: var(--spacing-xxlarge) 0;
 }
 
 .fieldsSection {

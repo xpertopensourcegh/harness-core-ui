@@ -43,14 +43,13 @@ const FormContent = (formContentProps: JiraApprovalDeploymentModeProps) => {
       {getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME ? (
         <ConnectorReferenceField
           name={`${prefix}spec.conectorRef`}
-          className={css.connectorDeployment}
           label={getString('pipeline.jiraApprovalStep.connectorRef')}
           selected={(initialValues?.spec?.connectorRef as string) || ''}
           placeholder={getString('connectors.selectConnector')}
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
-          width={400}
+          width={360}
           disabled={isApprovalStepFieldDisabled(readonly)}
           type={'Jira'}
           onChange={(record, scope) => {

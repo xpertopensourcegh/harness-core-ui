@@ -278,7 +278,9 @@ export const ApprovalRejectionCriteria: React.FC<ApprovalRejectionCriteriaProps>
   return (
     <div className={css.box}>
       <div className="ng-tooltip-native">
-        <div data-tooltip-id={tooltipId}>{title}</div>
+        <div data-tooltip-id={tooltipId} className={css.title}>
+          {title}
+        </div>
         <HarnessDocTooltip tooltipId={tooltipId} useStandAlone={true} />
       </div>
       <div className={css.tabs}>
