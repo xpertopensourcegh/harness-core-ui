@@ -28,8 +28,8 @@ const CFHomePage: React.FC = () => {
   const { currentUserInfo } = useAppStore()
   const { licenseInformation, updateLicenseStore } = useLicenseStore()
 
-  const { accounts, defaultAccountId } = currentUserInfo
-  const createdFromNG = accounts?.find(account => account.uuid === defaultAccountId)?.createdFromNG
+  const { accounts } = currentUserInfo
+  const createdFromNG = accounts?.find(account => account.uuid === accountId)?.createdFromNG
 
   const { data, error, refetch, loading } = useGetModuleLicenseByAccountAndModuleType({
     queryParams: getModuleLicenseQueryParams

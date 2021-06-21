@@ -115,7 +115,7 @@ exports[`SubscribedModules should render modules when api call returns modules 1
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--margin-right-xsmall"
                 >
-                  common.plan:
+                  common.subscriptions.overview.plan:
                 </p>
                 <p
                   class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"

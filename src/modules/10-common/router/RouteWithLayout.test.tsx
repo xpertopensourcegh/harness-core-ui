@@ -5,7 +5,11 @@ import { TestWrapper } from '@common/utils/testUtils'
 import { MinimalLayout, EmptyLayout } from '@common/layouts'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import routes from '@common/RouteDefinitions'
-import { LICENSE_STATE_NAMES, LICENSE_STATE_VALUES } from 'framework/LicenseStore/LicenseStoreContext'
+import {
+  LicenseRedirectProps,
+  LICENSE_STATE_NAMES,
+  LICENSE_STATE_VALUES
+} from 'framework/LicenseStore/LicenseStoreContext'
 import { RouteWithLayout } from './RouteWithLayout'
 
 describe('RouteWithLayout', () => {
@@ -80,9 +84,20 @@ describe('RouteWithLayout', () => {
       )
     }
 
-    const licenseRedirectData = {
+    const RedirectToSubscriptions = (): React.ReactElement => {
+      return (
+        <Redirect
+          to={routes.toSubscriptions({
+            accountId: '123'
+          })}
+        />
+      )
+    }
+
+    const licenseRedirectData: LicenseRedirectProps = {
       licenseStateName: LICENSE_STATE_NAMES.CI_LICENSE_STATE,
-      startTrialRedirect: RedirectToModuleTrialHome
+      startTrialRedirect: RedirectToModuleTrialHome,
+      expiredTrialRedirect: RedirectToSubscriptions
     }
 
     const { container, getByText, queryByText } = render(
@@ -117,9 +132,20 @@ describe('RouteWithLayout', () => {
       )
     }
 
-    const licenseRedirectData = {
+    const RedirectToSubscriptions = (): React.ReactElement => {
+      return (
+        <Redirect
+          to={routes.toSubscriptions({
+            accountId: '123'
+          })}
+        />
+      )
+    }
+
+    const licenseRedirectData: LicenseRedirectProps = {
       licenseStateName: LICENSE_STATE_NAMES.FF_LICENSE_STATE,
-      startTrialRedirect: RedirectToModuleTrialHome
+      startTrialRedirect: RedirectToModuleTrialHome,
+      expiredTrialRedirect: RedirectToSubscriptions
     }
 
     const { container, getByText, queryByText } = render(
@@ -142,16 +168,35 @@ describe('RouteWithLayout', () => {
     expect(queryByText('matched-route')).not.toBeInTheDocument()
   })
 
-  test('that the license store will render the child if the license value is expired', () => {
-    const SideNav = () => <div>sidenav</div>
-
-    const licenseRedirectData = {
-      licenseStateName: LICENSE_STATE_NAMES.FF_LICENSE_STATE,
-      // eslint-disable-next-line react/display-name
-      startTrialRedirect: () => <div />
+  test('that the license store will route to the subscriptions page if the trial is expired', () => {
+    const RedirectToModuleTrialHome = (): React.ReactElement => {
+      return (
+        <Redirect
+          to={routes.toModuleTrialHome({
+            accountId: '123',
+            module: 'cf'
+          })}
+        />
+      )
     }
 
-    const { container, getByText } = render(
+    const RedirectToSubscriptions = (): React.ReactElement => {
+      return (
+        <Redirect
+          to={routes.toSubscriptions({
+            accountId: '123'
+          })}
+        />
+      )
+    }
+
+    const licenseRedirectData: LicenseRedirectProps = {
+      licenseStateName: LICENSE_STATE_NAMES.FF_LICENSE_STATE,
+      startTrialRedirect: RedirectToModuleTrialHome,
+      expiredTrialRedirect: RedirectToSubscriptions
+    }
+
+    const { container, getByText, queryByText } = render(
       <TestWrapper
         path="/account/:accountId/projects"
         pathParams={{ accountId: 'dummy' }}
@@ -160,29 +205,26 @@ describe('RouteWithLayout', () => {
           FF_LICENSE_STATE: LICENSE_STATE_VALUES.EXPIRED
         }}
       >
-        <RouteWithLayout
-          path="/account/:accountId/projects"
-          licenseRedirectData={licenseRedirectData}
-          sidebarProps={{ navComponent: SideNav, title: 'TITLE', subtitle: 'SUBTITLE' }}
-        >
+        <RouteWithLayout path="/account/:accountId/projects" licenseRedirectData={licenseRedirectData}>
           <div>matched-route</div>
         </RouteWithLayout>
       </TestWrapper>
     )
 
     expect(container).toMatchSnapshot()
-    expect(getByText('matched-route')).toBeTruthy()
-    expect(getByText('sidenav')).toBeTruthy()
-    expect(getByText('TITLE')).toBeTruthy()
-    expect(getByText('SUBTITLE')).toBeTruthy()
+    expect(getByText('/account/123/home/setup/subscriptions')).toBeTruthy()
+    expect(queryByText('matched-route')).not.toBeInTheDocument()
   })
 
   test('that the license store will render the child if the license value is not present', () => {
     const SideNav = () => <div>sidenav</div>
 
-    const licenseRedirectData = {
+    const licenseRedirectData: LicenseRedirectProps = {
       licenseStateName: LICENSE_STATE_NAMES.FF_LICENSE_STATE,
-      startTrialRedirect: () => <div />
+      // eslint-disable-next-line react/display-name
+      startTrialRedirect: () => <div />,
+      // eslint-disable-next-line react/display-name
+      expiredTrialRedirect: () => <div />
     }
 
     const { container, getByText } = render(

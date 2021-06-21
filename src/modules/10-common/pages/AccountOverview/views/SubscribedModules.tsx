@@ -78,7 +78,9 @@ const ModuleCard: React.FC<ModuleCardProps> = ({ module }) => {
             </Layout.Vertical>
           </Layout.Horizontal>
           <Layout.Horizontal padding="xsmall" margin={{ bottom: 'large' }} border={{ color: Color.GREY_200 }}>
-            <Text font={{ size: 'xsmall' }} margin={{ right: 'xsmall' }}>{`${getString('common.plan')}:`}</Text>
+            <Text font={{ size: 'xsmall' }} margin={{ right: 'xsmall' }}>{`${getString(
+              'common.subscriptions.overview.plan'
+            )}:`}</Text>
             <Text font={{ size: 'xsmall', weight: 'bold' }} color={Color.BLACK}>
               {getPlanDescription()}
             </Text>

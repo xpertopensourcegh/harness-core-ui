@@ -23,6 +23,7 @@ import {
 import type {
   AccountPathProps,
   ExecutionPathProps,
+  Module,
   ModulePathParams,
   PipelinePathProps,
   PipelineType,
@@ -135,9 +136,25 @@ const RedirectToModuleTrialHome = (): React.ReactElement => {
   )
 }
 
+const RedirectToSubscriptions = (): React.ReactElement => {
+  const { accountId } = useParams<{
+    accountId: string
+  }>()
+
+  return (
+    <Redirect
+      to={routes.toSubscriptions({
+        accountId,
+        moduleCard: ModuleName.CF.toLowerCase() as Module
+      })}
+    />
+  )
+}
+
 const licenseRedirectData: LicenseRedirectProps = {
   licenseStateName: LICENSE_STATE_NAMES.FF_LICENSE_STATE,
-  startTrialRedirect: RedirectToModuleTrialHome
+  startTrialRedirect: RedirectToModuleTrialHome,
+  expiredTrialRedirect: RedirectToSubscriptions
 }
 
 RbacFactory.registerResourceCategory(ResourceCategory.FEATUREFLAG_FUNCTIONS, {

@@ -132,3 +132,7 @@ export interface UserGroupPathProps {
 export interface UserPathProps {
   userIdentifier: string
 }
+
+export interface ModuleCardPathParams {
+  moduleCard?: Module
+}

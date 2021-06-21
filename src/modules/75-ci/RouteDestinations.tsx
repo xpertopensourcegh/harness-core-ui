@@ -24,7 +24,8 @@ import type {
   PipelinePathProps,
   PipelineType,
   ProjectPathProps,
-  ModulePathParams
+  ModulePathParams,
+  Module
 } from '@common/interfaces/RouteInterfaces'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import DeploymentsList from '@pipeline/pages/deployments-list/DeploymentsList'
@@ -78,7 +79,7 @@ import UserGroups from '@rbac/pages/UserGroups/UserGroups'
 import BuildTests from '@pipeline/pages/execution/ExecutionTestView/BuildTests'
 import UserDetails from '@rbac/pages/UserDetails/UserDetails'
 import UserGroupDetails from '@rbac/pages/UserGroupDetails/UserGroupDetails'
-import { LICENSE_STATE_NAMES } from 'framework/LicenseStore/LicenseStoreContext'
+import { LicenseRedirectProps, LICENSE_STATE_NAMES } from 'framework/LicenseStore/LicenseStoreContext'
 import CIHomePage from './pages/home/CIHomePage'
 import CIDashboardPage from './pages/dashboard/CIDashboardPage'
 import CIPipelineStudio from './pages/pipeline-studio/CIPipelineStudio'
@@ -163,6 +164,21 @@ const RedirectToModuleTrialHome = (): React.ReactElement => {
   )
 }
 
+const RedirectToSubscriptions = (): React.ReactElement => {
+  const { accountId } = useParams<{
+    accountId: string
+  }>()
+
+  return (
+    <Redirect
+      to={routes.toSubscriptions({
+        accountId,
+        moduleCard: ModuleName.CI.toLowerCase() as Module
+      })}
+    />
+  )
+}
+
 const CISideNavProps: SidebarContext = {
   navComponent: CISideNav,
   subtitle: 'CONTINUOUS',
@@ -174,9 +190,10 @@ const pipelineModuleParams: ModulePathParams = {
   module: ':module(ci)'
 }
 
-const licenseRedirectData = {
+const licenseRedirectData: LicenseRedirectProps = {
   licenseStateName: LICENSE_STATE_NAMES.CI_LICENSE_STATE,
-  startTrialRedirect: RedirectToModuleTrialHome
+  startTrialRedirect: RedirectToModuleTrialHome,
+  expiredTrialRedirect: RedirectToSubscriptions
 }
 
 export default (

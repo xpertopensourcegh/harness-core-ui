@@ -15,7 +15,6 @@ jest.mock('@ce/modals/CETrialModal/useCETrialModal')
 const useCETrialModalMock = useCETrialModal as jest.MockedFunction<any>
 
 const currentUser = {
-  defaultAccountId: '123',
   accounts: [
     {
       uuid: '123',
@@ -45,7 +44,11 @@ describe('CEHomePage snapshot test', () => {
       }
     })
     const { container, getByText } = render(
-      <TestWrapper defaultAppStoreValues={{ currentUserInfo: currentUser }}>
+      <TestWrapper
+        path="/account/:accountId"
+        pathParams={{ accountId: '123' }}
+        defaultAppStoreValues={{ currentUserInfo: currentUser }}
+      >
         <CEHomePage />
       </TestWrapper>
     )
@@ -72,7 +75,11 @@ describe('CEHomePage snapshot test', () => {
       }
     })
     const { container, getByText } = render(
-      <TestWrapper defaultAppStoreValues={{ currentUserInfo: currentUser }}>
+      <TestWrapper
+        path="/account/:accountId"
+        pathParams={{ accountId: '123' }}
+        defaultAppStoreValues={{ currentUserInfo: currentUser }}
+      >
         <CEHomePage />
       </TestWrapper>
     )
@@ -102,7 +109,11 @@ describe('CEHomePage snapshot test', () => {
       }
     })
     const { container, getByText } = render(
-      <TestWrapper defaultAppStoreValues={{ currentUserInfo: currentUser }}>
+      <TestWrapper
+        path="/account/:accountId"
+        pathParams={{ accountId: '123' }}
+        defaultAppStoreValues={{ currentUserInfo: currentUser }}
+      >
         <CEHomePage />
       </TestWrapper>
     )
@@ -130,7 +141,11 @@ describe('CEHomePage snapshot test', () => {
       }
     })
     const { container } = render(
-      <TestWrapper defaultAppStoreValues={{ currentUserInfo: currentUser }}>
+      <TestWrapper
+        path="/account/:accountId"
+        pathParams={{ accountId: '123' }}
+        defaultAppStoreValues={{ currentUserInfo: currentUser }}
+      >
         <CEHomePage />
       </TestWrapper>
     )
@@ -158,7 +173,11 @@ describe('CEHomePage snapshot test', () => {
       }
     })
     const { container } = render(
-      <TestWrapper defaultAppStoreValues={{ currentUserInfo: currentUser }}>
+      <TestWrapper
+        path="/account/:accountId"
+        pathParams={{ accountId: '123' }}
+        defaultAppStoreValues={{ currentUserInfo: currentUser }}
+      >
         <CEHomePage />
       </TestWrapper>
     )
@@ -201,7 +220,12 @@ describe('CEHomePage snapshot test', () => {
       }
     })
     const { container, getByText } = render(
-      <TestWrapper defaultAppStoreValues={{ currentUserInfo: currentUser }} queryParams={{ trial: true }}>
+      <TestWrapper
+        path="/account/:accountId"
+        pathParams={{ accountId: '123' }}
+        defaultAppStoreValues={{ currentUserInfo: currentUser }}
+        queryParams={{ trial: true }}
+      >
         <CEHomePage />
       </TestWrapper>
     )
@@ -235,7 +259,12 @@ describe('CEHomePage snapshot test', () => {
     })
 
     render(
-      <TestWrapper defaultAppStoreValues={{ currentUserInfo: currentUser }} queryParams={{ trial: true }}>
+      <TestWrapper
+        path="/account/:accountId"
+        pathParams={{ accountId: '123' }}
+        defaultAppStoreValues={{ currentUserInfo: currentUser }}
+        queryParams={{ trial: true }}
+      >
         <CEHomePage />
       </TestWrapper>
     )
@@ -280,7 +309,6 @@ describe('CEHomePage snapshot test', () => {
     })
 
     const userCreatedFromCG = {
-      defaultAccountId: '123',
       accounts: [
         {
           uuid: '123',
@@ -290,7 +318,12 @@ describe('CEHomePage snapshot test', () => {
     }
 
     const { container, getByText } = render(
-      <TestWrapper defaultAppStoreValues={{ currentUserInfo: userCreatedFromCG }} queryParams={{ trial: true }}>
+      <TestWrapper
+        path="/account/:accountId"
+        pathParams={{ accountId: '123' }}
+        defaultAppStoreValues={{ currentUserInfo: userCreatedFromCG }}
+        queryParams={{ trial: true }}
+      >
         <CEHomePage />
       </TestWrapper>
     )

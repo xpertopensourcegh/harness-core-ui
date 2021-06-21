@@ -38,10 +38,13 @@ export function RouteWithLayout(props: React.PropsWithChildren<RouteWithLayoutPr
     return childComponent
   }
 
-  const { licenseStateName, startTrialRedirect } = licenseRedirectData
+  const {
+    licenseStateName,
+    startTrialRedirect: StartTrialRedirect,
+    expiredTrialRedirect: ExpiredTrialRedirect
+  } = licenseRedirectData
 
   const licenseValue = licenseStateName && licenseStore[licenseStateName]
-  const RedirectElement = startTrialRedirect
 
   switch (licenseValue) {
     case LICENSE_STATE_VALUES.ACTIVE:
@@ -49,10 +52,15 @@ export function RouteWithLayout(props: React.PropsWithChildren<RouteWithLayoutPr
     case LICENSE_STATE_VALUES.NOT_STARTED:
       return (
         <RouterRoute {...rest}>
-          <RedirectElement />
+          <StartTrialRedirect />
         </RouterRoute>
       )
-    case LICENSE_STATE_VALUES.EXPIRED: // This will be updated when the subscriptions page is complete
+    case LICENSE_STATE_VALUES.EXPIRED:
+      return (
+        <RouterRoute {...rest}>
+          <ExpiredTrialRedirect />
+        </RouterRoute>
+      )
     default:
       return childComponent
   }

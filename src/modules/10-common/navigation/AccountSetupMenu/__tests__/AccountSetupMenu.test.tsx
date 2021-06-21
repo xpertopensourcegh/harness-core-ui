@@ -4,8 +4,16 @@ import { TestWrapper } from '@common/utils/testUtils'
 import AccountSetupMenu from '../AccountSetupMenu'
 
 const featureFlags = {
-  NG_RBAC_ENABLED: true,
-  NG_SIGNUP: true
+  NG_RBAC_ENABLED: true
+}
+
+const currentUser = {
+  accounts: [
+    {
+      uuid: '123',
+      createdFromNG: true
+    }
+  ]
 }
 
 describe('Account Setup Menu', () => {
@@ -16,8 +24,8 @@ describe('Account Setup Menu', () => {
     const renderObj = render(
       <TestWrapper
         path="/account/:accountId"
-        pathParams={{ accountId: 'testAcc' }}
-        defaultAppStoreValues={{ featureFlags }}
+        pathParams={{ accountId: '123' }}
+        defaultAppStoreValues={{ featureFlags, currentUserInfo: currentUser }}
       >
         <AccountSetupMenu />
       </TestWrapper>
@@ -83,7 +91,7 @@ describe('Account Setup Menu', () => {
     fireEvent.mouseEnter(accountSetup)
 
     await waitFor(() => {
-      expect(getByText('common.subscriptions')).toBeTruthy
+      expect(getByText('common.subscriptions.title')).toBeTruthy
     })
 
     expect(container).toMatchSnapshot()

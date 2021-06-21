@@ -107,7 +107,7 @@ exports[`CFHomePage should render HomePageTemplate when return success with data
         >
           <a
             class="createBtn"
-            href="/account/undefined/home/projects"
+            href="/account/123/home/projects"
           >
             createProject
           </a>
@@ -168,7 +168,7 @@ exports[`CFHomePage should render HomePageTemplate when return success with data
         >
           <a
             class="createBtn"
-            href="/account/undefined/home/projects"
+            href="/account/123/home/projects"
           >
             createProject
           </a>
@@ -229,7 +229,7 @@ exports[`CFHomePage should render the home page template when the current user i
         >
           <a
             class="createBtn"
-            href="/account/undefined/home/projects"
+            href="/account/123/home/projects"
           >
             createProject
           </a>
@@ -339,7 +339,7 @@ exports[`CFHomePage should update the license store 1`] = `
         >
           <a
             class="createBtn"
-            href="/account/undefined/home/projects"
+            href="/account/123/home/projects"
           >
             createProject
           </a>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import moment from 'moment'
 import { useParams } from 'react-router-dom'
 
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
@@ -27,6 +28,7 @@ export interface LicenseStoreContextProps {
 export interface LicenseRedirectProps {
   licenseStateName: keyof Omit<LicenseStoreContextProps, 'licenseInformation' | 'updateLicenseStore'>
   startTrialRedirect: () => React.ReactElement
+  expiredTrialRedirect: () => React.ReactElement
 }
 
 type licenseStateNames = keyof Omit<LicenseStoreContextProps, 'licenseInformation' | 'updateLicenseStore'>
@@ -56,12 +58,12 @@ export function LicenseStoreProvider(props: React.PropsWithChildren<unknown>): R
     accountId: string
   }>()
 
-  const { accounts, defaultAccountId } = currentUserInfo
+  const { accounts } = currentUserInfo
 
   // Automatically set the license state to active for users that have not been created via NG
   // This will prevent existing users from experiencing issues accessing the product
   // When license information is migrated we can remove this 'createdFromNG' check
-  const createdFromNG = accounts?.find(account => account.uuid === defaultAccountId)?.createdFromNG
+  const createdFromNG = accounts?.find(account => account.uuid === accountId)?.createdFromNG
 
   const [state, setState] = useState<Omit<LicenseStoreContextProps, 'updateLicenseStore' | 'strings'>>({
     licenseInformation: {},
@@ -164,19 +166,23 @@ export function handleUpdateLicenseStore(
     | Partial<Pick<LicenseStoreContextProps, 'licenseInformation' | 'CI_LICENSE_STATE' | 'FF_LICENSE_STATE'>>
     | undefined
 
+  const days = Math.round(moment(data.expiryTime).diff(moment.now(), 'days', true))
+  const isExpired = days < 0
+  const licenseState = isExpired ? LICENSE_STATE_VALUES.EXPIRED : LICENSE_STATE_VALUES.ACTIVE
+
   if (module.toUpperCase() === ModuleName.CI) {
     newLicenseInformation[ModuleName.CI] = data
 
     licenseStoreData = {
       licenseInformation: newLicenseInformation,
-      CI_LICENSE_STATE: LICENSE_STATE_VALUES.ACTIVE
+      CI_LICENSE_STATE: licenseState
     }
   } else if (module.toUpperCase() === ModuleName.CF) {
     newLicenseInformation[ModuleName.CF] = data
 
     licenseStoreData = {
       licenseInformation: newLicenseInformation,
-      FF_LICENSE_STATE: LICENSE_STATE_VALUES.ACTIVE
+      FF_LICENSE_STATE: licenseState
     }
   }
 

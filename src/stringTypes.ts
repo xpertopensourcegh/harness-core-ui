@@ -211,7 +211,6 @@ export interface StringsMap {
   'common.performAction': string
   'common.pipeline': string
   'common.pipelineDetails': string
-  'common.plan': string
   'common.plusNumber': string
   'common.production': string
   'common.projectSetup': string
@@ -285,7 +284,23 @@ export interface StringsMap {
   'common.startTrial': string
   'common.submittingRequest': string
   'common.submittingRequestToGitViaDelegate': string
-  'common.subscriptions': string
+  'common.subscriptions.banner.enterprise': string
+  'common.subscriptions.ci.developers': string
+  'common.subscriptions.enterprisePaid': string
+  'common.subscriptions.enterpriseTrial': string
+  'common.subscriptions.expired': string
+  'common.subscriptions.expiryCountdown': string
+  'common.subscriptions.featureFlags.mau': string
+  'common.subscriptions.featureFlags.users': string
+  'common.subscriptions.noActiveSubscription': string
+  'common.subscriptions.overview.details': string
+  'common.subscriptions.overview.expiry': string
+  'common.subscriptions.overview.plan': string
+  'common.subscriptions.overview.subscribe': string
+  'common.subscriptions.tabs.billing': string
+  'common.subscriptions.tabs.overview': string
+  'common.subscriptions.tabs.plans': string
+  'common.subscriptions.title': string
   'common.successfullCreate': string
   'common.successfullUpdate': string
   'common.supportedModals': string

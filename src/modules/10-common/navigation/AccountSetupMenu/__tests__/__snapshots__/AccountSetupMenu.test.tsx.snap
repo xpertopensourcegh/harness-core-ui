@@ -69,7 +69,7 @@ exports[`Account Setup Menu it renders the dropdown with the access control link
     >
       <a
         class="link"
-        href="/account/testAcc/home/setup/"
+        href="/account/123/home/setup/"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -79,7 +79,7 @@ exports[`Account Setup Menu it renders the dropdown with the access control link
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/authentication"
+        href="/account/123/home/setup/authentication"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -89,7 +89,7 @@ exports[`Account Setup Menu it renders the dropdown with the access control link
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/connectors"
+        href="/account/123/home/setup/connectors"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -99,7 +99,7 @@ exports[`Account Setup Menu it renders the dropdown with the access control link
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/secrets"
+        href="/account/123/home/setup/secrets"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -109,7 +109,7 @@ exports[`Account Setup Menu it renders the dropdown with the access control link
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/access-control"
+        href="/account/123/home/setup/access-control"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -119,17 +119,17 @@ exports[`Account Setup Menu it renders the dropdown with the access control link
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/subscriptions"
+        href="/account/123/home/setup/subscriptions"
       >
         <p
           class="StyledProps--font StyledProps--main text"
         >
-          common.subscriptions
+          common.subscriptions.title
         </p>
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/organizations"
+        href="/account/123/home/setup/organizations"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -177,7 +177,7 @@ exports[`Account Setup Menu it renders the dropdown with the authentication link
     >
       <a
         class="link"
-        href="/account/testAcc/home/setup/"
+        href="/account/123/home/setup/"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -187,7 +187,7 @@ exports[`Account Setup Menu it renders the dropdown with the authentication link
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/authentication"
+        href="/account/123/home/setup/authentication"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -197,7 +197,7 @@ exports[`Account Setup Menu it renders the dropdown with the authentication link
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/connectors"
+        href="/account/123/home/setup/connectors"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -207,7 +207,7 @@ exports[`Account Setup Menu it renders the dropdown with the authentication link
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/secrets"
+        href="/account/123/home/setup/secrets"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -217,7 +217,7 @@ exports[`Account Setup Menu it renders the dropdown with the authentication link
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/access-control"
+        href="/account/123/home/setup/access-control"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -227,17 +227,17 @@ exports[`Account Setup Menu it renders the dropdown with the authentication link
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/subscriptions"
+        href="/account/123/home/setup/subscriptions"
       >
         <p
           class="StyledProps--font StyledProps--main text"
         >
-          common.subscriptions
+          common.subscriptions.title
         </p>
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/organizations"
+        href="/account/123/home/setup/organizations"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -285,7 +285,7 @@ exports[`Account Setup Menu it renders the dropdown with the connectors link 1`]
     >
       <a
         class="link"
-        href="/account/testAcc/home/setup/"
+        href="/account/123/home/setup/"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -295,7 +295,7 @@ exports[`Account Setup Menu it renders the dropdown with the connectors link 1`]
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/authentication"
+        href="/account/123/home/setup/authentication"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -305,7 +305,7 @@ exports[`Account Setup Menu it renders the dropdown with the connectors link 1`]
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/connectors"
+        href="/account/123/home/setup/connectors"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -315,7 +315,7 @@ exports[`Account Setup Menu it renders the dropdown with the connectors link 1`]
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/secrets"
+        href="/account/123/home/setup/secrets"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -325,7 +325,7 @@ exports[`Account Setup Menu it renders the dropdown with the connectors link 1`]
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/access-control"
+        href="/account/123/home/setup/access-control"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -335,17 +335,17 @@ exports[`Account Setup Menu it renders the dropdown with the connectors link 1`]
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/subscriptions"
+        href="/account/123/home/setup/subscriptions"
       >
         <p
           class="StyledProps--font StyledProps--main text"
         >
-          common.subscriptions
+          common.subscriptions.title
         </p>
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/organizations"
+        href="/account/123/home/setup/organizations"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -393,7 +393,7 @@ exports[`Account Setup Menu it renders the dropdown with the organizations link 
     >
       <a
         class="link"
-        href="/account/testAcc/home/setup/"
+        href="/account/123/home/setup/"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -403,7 +403,7 @@ exports[`Account Setup Menu it renders the dropdown with the organizations link 
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/authentication"
+        href="/account/123/home/setup/authentication"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -413,7 +413,7 @@ exports[`Account Setup Menu it renders the dropdown with the organizations link 
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/connectors"
+        href="/account/123/home/setup/connectors"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -423,7 +423,7 @@ exports[`Account Setup Menu it renders the dropdown with the organizations link 
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/secrets"
+        href="/account/123/home/setup/secrets"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -433,7 +433,7 @@ exports[`Account Setup Menu it renders the dropdown with the organizations link 
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/access-control"
+        href="/account/123/home/setup/access-control"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -443,17 +443,17 @@ exports[`Account Setup Menu it renders the dropdown with the organizations link 
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/subscriptions"
+        href="/account/123/home/setup/subscriptions"
       >
         <p
           class="StyledProps--font StyledProps--main text"
         >
-          common.subscriptions
+          common.subscriptions.title
         </p>
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/organizations"
+        href="/account/123/home/setup/organizations"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -501,7 +501,7 @@ exports[`Account Setup Menu it renders the dropdown with the overview link 1`] =
     >
       <a
         class="link"
-        href="/account/testAcc/home/setup/"
+        href="/account/123/home/setup/"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -511,7 +511,7 @@ exports[`Account Setup Menu it renders the dropdown with the overview link 1`] =
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/authentication"
+        href="/account/123/home/setup/authentication"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -521,7 +521,7 @@ exports[`Account Setup Menu it renders the dropdown with the overview link 1`] =
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/connectors"
+        href="/account/123/home/setup/connectors"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -531,7 +531,7 @@ exports[`Account Setup Menu it renders the dropdown with the overview link 1`] =
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/secrets"
+        href="/account/123/home/setup/secrets"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -541,7 +541,7 @@ exports[`Account Setup Menu it renders the dropdown with the overview link 1`] =
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/access-control"
+        href="/account/123/home/setup/access-control"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -551,17 +551,17 @@ exports[`Account Setup Menu it renders the dropdown with the overview link 1`] =
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/subscriptions"
+        href="/account/123/home/setup/subscriptions"
       >
         <p
           class="StyledProps--font StyledProps--main text"
         >
-          common.subscriptions
+          common.subscriptions.title
         </p>
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/organizations"
+        href="/account/123/home/setup/organizations"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -609,7 +609,7 @@ exports[`Account Setup Menu it renders the dropdown with the secrets link 1`] = 
     >
       <a
         class="link"
-        href="/account/testAcc/home/setup/"
+        href="/account/123/home/setup/"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -619,7 +619,7 @@ exports[`Account Setup Menu it renders the dropdown with the secrets link 1`] = 
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/authentication"
+        href="/account/123/home/setup/authentication"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -629,7 +629,7 @@ exports[`Account Setup Menu it renders the dropdown with the secrets link 1`] = 
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/connectors"
+        href="/account/123/home/setup/connectors"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -639,7 +639,7 @@ exports[`Account Setup Menu it renders the dropdown with the secrets link 1`] = 
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/secrets"
+        href="/account/123/home/setup/secrets"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -649,7 +649,7 @@ exports[`Account Setup Menu it renders the dropdown with the secrets link 1`] = 
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/access-control"
+        href="/account/123/home/setup/access-control"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -659,17 +659,17 @@ exports[`Account Setup Menu it renders the dropdown with the secrets link 1`] = 
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/subscriptions"
+        href="/account/123/home/setup/subscriptions"
       >
         <p
           class="StyledProps--font StyledProps--main text"
         >
-          common.subscriptions
+          common.subscriptions.title
         </p>
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/organizations"
+        href="/account/123/home/setup/organizations"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -717,7 +717,7 @@ exports[`Account Setup Menu it renders the dropdown with the subscriptions link 
     >
       <a
         class="link"
-        href="/account/testAcc/home/setup/"
+        href="/account/123/home/setup/"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -727,7 +727,7 @@ exports[`Account Setup Menu it renders the dropdown with the subscriptions link 
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/authentication"
+        href="/account/123/home/setup/authentication"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -737,7 +737,7 @@ exports[`Account Setup Menu it renders the dropdown with the subscriptions link 
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/connectors"
+        href="/account/123/home/setup/connectors"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -747,7 +747,7 @@ exports[`Account Setup Menu it renders the dropdown with the subscriptions link 
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/secrets"
+        href="/account/123/home/setup/secrets"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -757,7 +757,7 @@ exports[`Account Setup Menu it renders the dropdown with the subscriptions link 
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/access-control"
+        href="/account/123/home/setup/access-control"
       >
         <p
           class="StyledProps--font StyledProps--main text"
@@ -767,17 +767,17 @@ exports[`Account Setup Menu it renders the dropdown with the subscriptions link 
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/subscriptions"
+        href="/account/123/home/setup/subscriptions"
       >
         <p
           class="StyledProps--font StyledProps--main text"
         >
-          common.subscriptions
+          common.subscriptions.title
         </p>
       </a>
       <a
         class="link"
-        href="/account/testAcc/home/setup/organizations"
+        href="/account/123/home/setup/organizations"
       >
         <p
           class="StyledProps--font StyledProps--main text"

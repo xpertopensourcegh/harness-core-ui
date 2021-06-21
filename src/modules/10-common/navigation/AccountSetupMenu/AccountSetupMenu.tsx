@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useStrings } from 'framework/strings'
 import { SidebarLink } from '../SideNav/SideNav'
 import NavExpandable from '../NavExpandable/NavExpandable'
@@ -11,7 +12,12 @@ import NavExpandable from '../NavExpandable/NavExpandable'
 const AccountSetupMenu: React.FC = () => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
-  const { NG_RBAC_ENABLED, NG_SIGNUP, NG_SHOW_DELEGATE } = useFeatureFlags()
+  const { currentUserInfo } = useAppStore()
+  const { NG_RBAC_ENABLED, NG_SHOW_DELEGATE } = useFeatureFlags()
+  const { accounts } = currentUserInfo
+
+  const createdFromNG = accounts?.find(account => account.uuid === accountId)?.createdFromNG
+
   return (
     <NavExpandable title={getString('common.accountSetup')} route={routes.toSetup({ accountId })}>
       <Layout.Vertical spacing="small">
@@ -25,8 +31,12 @@ const AccountSetupMenu: React.FC = () => {
         {NG_RBAC_ENABLED ? (
           <SidebarLink to={routes.toAccessControl({ accountId })} label={getString('accessControl')} />
         ) : null}
-        {NG_SIGNUP && (
-          <SidebarLink exact label={getString('common.subscriptions')} to={routes.toSubscriptions({ accountId })} />
+        {createdFromNG && (
+          <SidebarLink
+            exact
+            label={getString('common.subscriptions.title')}
+            to={routes.toSubscriptions({ accountId })}
+          />
         )}
         <SidebarLink label={getString('orgsText')} to={routes.toOrganizations({ accountId })} />
       </Layout.Vertical>

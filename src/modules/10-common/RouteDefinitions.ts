@@ -28,7 +28,8 @@ import type {
   RunPipelineQueryParams,
   GitQueryParams,
   ModuleHomeParams,
-  InputSetGitQueryParams
+  InputSetGitQueryParams,
+  ModuleCardPathParams
 } from '@common/interfaces/RouteInterfaces'
 
 const CV_HOME = `/cv/home`
@@ -49,7 +50,12 @@ const routes = {
     }
   ),
   toUser: withAccountId(() => '/user'),
-  toSubscriptions: withAccountId(() => '/home/setup/subscriptions'),
+  toSubscriptions: withAccountId(({ moduleCard }: ModuleCardPathParams) => {
+    if (moduleCard) {
+      return `/home/setup/subscriptions?moduleCard=${moduleCard}`
+    }
+    return '/home/setup/subscriptions'
+  }),
   toAuthenticationSettings: withAccountId(() => '/home/setup/authentication'),
   toAccountConfiguration: withAccountId(() => '/home/setup/authentication/configuration'),
   toAccountActivityLog: withAccountId(() => '/home/setup/authentication/activity-log'),

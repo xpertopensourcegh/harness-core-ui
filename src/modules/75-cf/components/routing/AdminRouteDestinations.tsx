@@ -10,9 +10,10 @@ import ResourceGroups from '@rbac/pages/ResourceGroups/ResourceGroups'
 import Roles from '@rbac/pages/Roles/Roles'
 import RoleDetails from '@rbac/pages/RoleDetails/RoleDetails'
 import ResourceGroupDetails from '@rbac/pages/ResourceGroupDetails/ResourceGroupDetails'
-import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { Module, PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { CFSideNavProps } from '@cf/constants'
-import { LICENSE_STATE_NAMES } from 'framework/LicenseStore/LicenseStoreContext'
+import { LicenseRedirectProps, LICENSE_STATE_NAMES } from 'framework/LicenseStore/LicenseStoreContext'
+import { ModuleName } from 'framework/types/ModuleName'
 
 const RedirectToAccessControlHome = (): React.ReactElement => {
   const { accountId, projectIdentifier, orgIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
@@ -35,9 +36,25 @@ const RedirectToModuleTrialHome = (): React.ReactElement => {
   )
 }
 
-const licenseRedirectData = {
+const RedirectToSubscriptions = (): React.ReactElement => {
+  const { accountId } = useParams<{
+    accountId: string
+  }>()
+
+  return (
+    <Redirect
+      to={routes.toSubscriptions({
+        accountId,
+        moduleCard: ModuleName.CF.toLowerCase() as Module
+      })}
+    />
+  )
+}
+
+const licenseRedirectData: LicenseRedirectProps = {
   licenseStateName: LICENSE_STATE_NAMES.FF_LICENSE_STATE,
-  startTrialRedirect: RedirectToModuleTrialHome
+  startTrialRedirect: RedirectToModuleTrialHome,
+  expiredTrialRedirect: RedirectToSubscriptions
 }
 
 // eslint-disable-next-line react/display-name

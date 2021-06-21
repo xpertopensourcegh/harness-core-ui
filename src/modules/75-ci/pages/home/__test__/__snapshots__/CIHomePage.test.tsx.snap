@@ -107,7 +107,7 @@ exports[`CIHomePage should render HomePageTemplate when return success with data
         >
           <a
             class="createBtn"
-            href="/account/undefined/home/projects"
+            href="/account/123/home/projects"
           >
             createProject
           </a>
@@ -168,7 +168,7 @@ exports[`CIHomePage should render the home page template when the current user i
         >
           <a
             class="createBtn"
-            href="/account/undefined/home/projects"
+            href="/account/123/home/projects"
           >
             createProject
           </a>

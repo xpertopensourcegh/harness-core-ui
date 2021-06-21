@@ -8,7 +8,6 @@ jest.mock('services/cd-ng')
 const useGetModuleLicenseInfoMock = useGetModuleLicenseByAccountAndModuleType as jest.MockedFunction<any>
 
 const currentUser = {
-  defaultAccountId: '123',
   accounts: [
     {
       uuid: '123',
@@ -30,7 +29,11 @@ describe('CIHomePage', () => {
       }
     })
     const { container, getByText } = render(
-      <TestWrapper defaultAppStoreValues={{ currentUserInfo: currentUser }}>
+      <TestWrapper
+        path="/account/:accountId"
+        pathParams={{ accountId: '123' }}
+        defaultAppStoreValues={{ currentUserInfo: currentUser }}
+      >
         <CIHomePage />
       </TestWrapper>
     )
@@ -51,17 +54,20 @@ describe('CIHomePage', () => {
     })
 
     const userCreatedFromCG = {
-      defaultAccountId: '123',
       accounts: [
         {
           uuid: '123',
-          createdFromNG: true
+          createdFromNG: false
         }
       ]
     }
 
     const { container, getByText } = render(
-      <TestWrapper defaultAppStoreValues={{ currentUserInfo: userCreatedFromCG }}>
+      <TestWrapper
+        path="/account/:accountId"
+        pathParams={{ accountId: '123' }}
+        defaultAppStoreValues={{ currentUserInfo: userCreatedFromCG }}
+      >
         <CIHomePage />
       </TestWrapper>
     )
@@ -101,7 +107,12 @@ describe('CIHomePage', () => {
       }
     })
     const { container, getByText } = render(
-      <TestWrapper defaultAppStoreValues={{ currentUserInfo: currentUser }} queryParams={{ trial: true }}>
+      <TestWrapper
+        path="/account/:accountId"
+        pathParams={{ accountId: '123' }}
+        defaultAppStoreValues={{ currentUserInfo: currentUser }}
+        queryParams={{ trial: true }}
+      >
         <CIHomePage />
       </TestWrapper>
     )
@@ -126,6 +137,8 @@ describe('CIHomePage', () => {
     const { container, getByText } = render(
       <TestWrapper
         defaultAppStoreValues={{ currentUserInfo: currentUser }}
+        path="/account/:accountId"
+        pathParams={{ accountId: '123' }}
         queryParams={{ trial: true }}
         defaultLicenseStoreValues={{
           updateLicenseStore: updateLicenseStoreSpy

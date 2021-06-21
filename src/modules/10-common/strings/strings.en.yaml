@@ -31,7 +31,6 @@ reject: Reject
 disable: Disable
 remove: Remove
 member: Member
-subscriptions: Subscriptions
 PermissibleActions: Permissible Actions
 My: My
 ok: OK
@@ -264,6 +263,29 @@ savedSuccessfully: Saved Successfully
 submittingRequest: Submitting request and pushing changes to Git
 submittingRequestToGitViaDelegate: Submitting request and pushing changes to Git from Delegate
 local: Local
+subscriptions:
+  title: Subscriptions
+  tabs:
+    overview: Subscription Overview
+    plans: Plans
+    billing: Billing
+  overview:
+    details: Subscription Details
+    plan: Plan
+    expiry: Trial Expiry Date
+    subscribe: Subscribe
+  featureFlags:
+    users: '{{ users }} Feature Flag users'
+    mau: '{{ maus }} Monthly Active users'
+  ci:
+    developers: '{{ developers }} Developers'
+  expiryCountdown: expires in {{ days }} days
+  expired: expired {{ days }} days ago
+  banner:
+    enterprise: '{{ module }} Enterprise trial'
+  enterpriseTrial: Enterprise (14 day trial)
+  enterprisePaid: Enterprise
+  noActiveSubscription: No Active Subscription
 banners:
   email:
     description: Please check your email and follow the link to verify your email. Didn’t receive it?
@@ -350,7 +372,6 @@ headerCompanyName: Company Name
 headerAccountEdition: Account Edition
 headerDefaultAccount: Default Account
 manage: Manage
-plan: Plan
 account:
   checkLatestStatus: check latest status
   subscribedModules: Subscribed Modules

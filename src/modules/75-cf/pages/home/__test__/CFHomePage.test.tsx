@@ -8,7 +8,6 @@ jest.mock('services/cd-ng')
 const useGetModuleLicenseInfoMock = useGetModuleLicenseByAccountAndModuleType as jest.MockedFunction<any>
 
 const currentUser = {
-  defaultAccountId: '123',
   accounts: [
     {
       uuid: '123',
@@ -29,7 +28,11 @@ describe('CFHomePage', () => {
       }
     })
     const { container, getByText } = render(
-      <TestWrapper defaultAppStoreValues={{ currentUserInfo: currentUser }}>
+      <TestWrapper
+        path="/account/:accountId"
+        pathParams={{ accountId: '123' }}
+        defaultAppStoreValues={{ currentUserInfo: currentUser }}
+      >
         <CFHomePage />
       </TestWrapper>
     )
@@ -49,7 +52,6 @@ describe('CFHomePage', () => {
     })
 
     const userCreatedFromCG = {
-      defaultAccountId: '123',
       accounts: [
         {
           uuid: '123',
@@ -59,7 +61,11 @@ describe('CFHomePage', () => {
     }
 
     const { container, getByText } = render(
-      <TestWrapper defaultAppStoreValues={{ currentUserInfo: userCreatedFromCG }}>
+      <TestWrapper
+        path="/account/:accountId"
+        pathParams={{ accountId: '123' }}
+        defaultAppStoreValues={{ currentUserInfo: userCreatedFromCG }}
+      >
         <CFHomePage />
       </TestWrapper>
     )
@@ -78,7 +84,11 @@ describe('CFHomePage', () => {
       }
     })
     const { container, getByText } = render(
-      <TestWrapper defaultAppStoreValues={{ currentUserInfo: currentUser }}>
+      <TestWrapper
+        path="/account/:accountId"
+        pathParams={{ accountId: '123' }}
+        defaultAppStoreValues={{ currentUserInfo: currentUser }}
+      >
         <CFHomePage />
       </TestWrapper>
     )
@@ -98,7 +108,12 @@ describe('CFHomePage', () => {
       }
     })
     const { container, getByText } = render(
-      <TestWrapper defaultAppStoreValues={{ currentUserInfo: currentUser }} queryParams={{ trial: true }}>
+      <TestWrapper
+        path="/account/:accountId"
+        pathParams={{ accountId: '123' }}
+        defaultAppStoreValues={{ currentUserInfo: currentUser }}
+        queryParams={{ trial: true }}
+      >
         <CFHomePage />
       </TestWrapper>
     )
@@ -117,7 +132,11 @@ describe('CFHomePage', () => {
       }
     })
     const { container, getByText } = render(
-      <TestWrapper defaultAppStoreValues={{ currentUserInfo: currentUser }}>
+      <TestWrapper
+        path="/account/:accountId"
+        pathParams={{ accountId: '123' }}
+        defaultAppStoreValues={{ currentUserInfo: currentUser }}
+      >
         <CFHomePage />
       </TestWrapper>
     )
@@ -140,6 +159,8 @@ describe('CFHomePage', () => {
 
     const { container, getByText } = render(
       <TestWrapper
+        path="/account/:accountId"
+        pathParams={{ accountId: '123' }}
         defaultAppStoreValues={{ currentUserInfo: currentUser }}
         defaultLicenseStoreValues={{
           updateLicenseStore: updateLicenseStoreSpy

@@ -32,8 +32,8 @@ const CEHomePage: React.FC = () => {
     moduleType: ModuleName.CE as any
   }
 
-  const { accounts, defaultAccountId } = currentUserInfo
-  const createdFromNG = accounts?.find(account => account.uuid === defaultAccountId)?.createdFromNG
+  const { accounts } = currentUserInfo
+  const createdFromNG = accounts?.find(account => account.uuid === accountId)?.createdFromNG
 
   const { data: projectListData, loading: getProjectListLoading, error: getProjectListError } = useGetProjectList({
     queryParams: {

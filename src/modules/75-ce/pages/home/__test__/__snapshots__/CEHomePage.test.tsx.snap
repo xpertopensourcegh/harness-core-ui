@@ -265,7 +265,7 @@ exports[`CEHomePage snapshot test should render HomePageTemplate when return suc
         >
           <a
             class="createBtn"
-            href="/account/undefined/home/projects"
+            href="/account/123/home/projects"
           >
             createProject
           </a>
@@ -424,7 +424,7 @@ exports[`CEHomePage snapshot test shouldn't show the trial home pagers if the us
         >
           <a
             class="createBtn"
-            href="/account/undefined/home/projects"
+            href="/account/123/home/projects"
           >
             createProject
           </a>
