@@ -42,6 +42,7 @@ import {
   getScopeFromValue
 } from '@common/components/EntityReference/EntityReference'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import {
@@ -102,6 +103,7 @@ export const RightBar = (): JSX.Element => {
         drawerData: { type }
       }
     },
+    view,
     updatePipeline,
     updatePipelineView
   } = React.useContext(PipelineContext)
@@ -130,6 +132,8 @@ export const RightBar = (): JSX.Element => {
     memoryLimit: codebase?.resources?.limits?.memory,
     cpuLimit: codebase?.resources?.limits?.cpu
   }
+
+  const isYaml = view === SelectedView.YAML
 
   const connectorId = getIdentifierFromValue((codebase?.connectorRef as string) || '')
   const initialScope = getScopeFromValue((codebase?.connectorRef as string) || '')
@@ -328,7 +332,7 @@ export const RightBar = (): JSX.Element => {
           <EnableGitExperience />
         </Popover>
       )}
-      {isCodebaseEnabled && (
+      {isCodebaseEnabled && !isYaml && (
         <Button
           className={cx(css.iconButton)}
           text={getString('codebase')}
