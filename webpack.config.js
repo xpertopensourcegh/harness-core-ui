@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires, no-console  */
+
+const buildVersion = JSON.stringify(require('./package.json').version)
 const webpack = require('webpack')
 const path = require('path')
 const fs = require('fs')
@@ -15,8 +17,8 @@ const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
 const GenerateStringTypesPlugin = require('./scripts/webpack/GenerateStringTypesPlugin').GenerateStringTypesPlugin
 
 const DEV = process.env.NODE_ENV === 'development'
+const ON_PREM = `${process.env.ON_PREM}` === 'true'
 const CONTEXT = process.cwd()
-
 const config = {
   context: CONTEXT,
   entry: './src/framework/app/App.tsx',
@@ -186,12 +188,18 @@ const commonPlugins = [
   new HTMLWebpackPlugin({
     template: 'src/index.html',
     filename: 'index.html',
-    minify: false
+    minify: false,
+    templateParameters: {
+      __DEV__: DEV,
+      __ON_PREM__: ON_PREM
+    }
   }),
   new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
   new webpack.DefinePlugin({
     'process.env': '{}', // required for @blueprintjs/core
-    __DEV__: DEV
+    __DEV__: DEV,
+    __ON_PREM__: ON_PREM,
+    __BUGSNAG_RELEASE_VERSION__: buildVersion
   }),
   new MonacoWebpackPlugin({
     // available options are documented at https://github.com/Microsoft/monaco-editor-webpack-plugin#options

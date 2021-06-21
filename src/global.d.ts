@@ -1,5 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 declare const __DEV__: boolean
+declare const Bugsnag: any
+declare const __ON_PREM__: booelan
+declare const __BUGSNAG_RELEASE_VERSION__: string
 declare module '*.png' {
   const value: string
   export default value
@@ -37,6 +40,8 @@ declare interface Window {
   apiUrl: string
   segmentToken: string
   HARNESS_ENABLE_NG_AUTH_UI: boolean
+  bugsnagClient: any
+  bugsnagToken: string
   Harness: {
     openNgTooltipEditor: () => void
   }

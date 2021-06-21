@@ -1,6 +1,5 @@
 import React from 'react'
 import { Text, Layout, Container } from '@wings-software/uicore'
-
 import i18n from './AppErrorBoundary.i18n.json'
 
 interface AppErrorBoundaryState {
@@ -12,6 +11,9 @@ class AppErrorBoundary extends React.Component<unknown, AppErrorBoundaryState> {
 
   componentDidCatch(error: Error): boolean {
     this.setState({ error })
+    if (window?.bugsnagClient?.notify) {
+      window?.bugsnagClient?.notify(error)
+    }
     return false
   }
 

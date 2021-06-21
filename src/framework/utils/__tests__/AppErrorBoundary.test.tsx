@@ -18,4 +18,24 @@ describe('AppErrorBoundary tests', () => {
     expect(getByText(i18n.title)).toBeDefined()
     unmount()
   })
+
+  test('logging to bugsnag when its enabled', () => {
+    const Throws = (): JSX.Element => {
+      throw new Error('Error happened!')
+    }
+    let notifiedCalled = false
+    const bugSnagClient = {
+      notify: (_e: any) => {
+        notifiedCalled = true
+      }
+    }
+    window['bugsnagClient'] = bugSnagClient
+    const { unmount } = render(
+      <AppErrorBoundary>
+        <Throws />
+      </AppErrorBoundary>
+    )
+    expect(notifiedCalled).toBeTruthy()
+    unmount()
+  })
 })
