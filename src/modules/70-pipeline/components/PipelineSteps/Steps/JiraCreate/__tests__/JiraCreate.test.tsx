@@ -144,15 +144,10 @@ describe('Jira Create tests', () => {
 
     act(() => ref.current?.submitForm())
     await waitFor(() => expect(queryByText('validation.timeout10SecMinimum')).toBeTruthy())
-
-    fireEvent.click(getByText('pipeline.jiraApprovalStep.connectToJira'))
-    act(() => ref.current?.submitForm())
     await waitFor(() => {
       expect(queryByText('pipeline.jiraApprovalStep.validations.project')).toBeTruthy()
       expect(queryByText('pipeline.jiraApprovalStep.validations.issueType')).toBeTruthy()
     })
-
-    fireEvent.click(getByText('pipeline.jiraCreateStep.fields'))
     await waitFor(() => expect(queryByText('pipeline.jiraCreateStep.validations.summary')).toBeTruthy())
   })
 
@@ -179,12 +174,10 @@ describe('Jira Create tests', () => {
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
     fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'jira createe step' } })
     expect(queryByDisplayValue('1d')).toBeTruthy()
-
-    fireEvent.click(getByText('pipeline.jiraApprovalStep.connectToJira'))
     expect(queryByDisplayValue('pid1')).toBeTruthy()
     expect(queryByDisplayValue('itd1')).toBeTruthy()
 
-    fireEvent.click(getByText('pipeline.jiraCreateStep.fields'))
+    fireEvent.click(getByText('common.optionalConfig'))
     fireEvent.change(getByPlaceholderText('pipeline.jiraCreateStep.summaryPlaceholder'), {
       target: { value: 'summary' }
     })

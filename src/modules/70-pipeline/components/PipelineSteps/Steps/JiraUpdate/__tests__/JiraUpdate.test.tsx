@@ -132,9 +132,6 @@ describe('Jira Update tests', () => {
 
     act(() => ref.current?.submitForm())
     await waitFor(() => expect(queryByText('validation.timeout10SecMinimum')).toBeTruthy())
-
-    fireEvent.click(getByText('pipeline.jiraApprovalStep.connectToJira'))
-    act(() => ref.current?.submitForm())
     await waitFor(() => expect(queryByText('pipeline.jiraApprovalStep.validations.issueKey')).toBeTruthy())
   })
 
@@ -177,14 +174,10 @@ describe('Jira Update tests', () => {
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
     fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'jira update step' } })
     expect(queryByDisplayValue('1d')).toBeTruthy()
-
-    fireEvent.click(getByText('pipeline.jiraApprovalStep.connectToJira'))
     expect(queryByDisplayValue('<+issueKey>')).toBeTruthy()
 
-    fireEvent.click(getByText('pipeline.jiraUpdateStep.statusTransitionAccordion'))
+    fireEvent.click(getByText('common.optionalConfig'))
     expect(queryByDisplayValue('Done')).toBeTruthy()
-
-    fireEvent.click(getByText('pipeline.jiraCreateStep.fields'))
     expect(queryByDisplayValue('value1')).toBeTruthy()
     expect(queryByDisplayValue('2233')).toBeTruthy()
     expect(queryByDisplayValue('23-march')).toBeTruthy()

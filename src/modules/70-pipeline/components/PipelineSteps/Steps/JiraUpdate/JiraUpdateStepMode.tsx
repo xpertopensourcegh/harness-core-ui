@@ -195,7 +195,7 @@ const FormContent = ({
           inputGroupProps={{ disabled: isApprovalStepFieldDisabled(readonly) }}
         />
       </div>
-      <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+      <div className={cx(stepCss.formGroup, stepCss.sm)}>
         <FormMultiTypeDurationField
           name="timeout"
           className={stepCss.sm}
@@ -218,70 +218,61 @@ const FormContent = ({
             isReadonly={readonly}
           />
         )}
-      </Layout.Horizontal>
-      <Accordion activeId="step-1" className={stepCss.accordion}>
-        <Accordion.Panel
-          id="step-1"
-          summary={getString('pipeline.jiraApprovalStep.connectToJira')}
-          details={
-            <div>
-              <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
-                <FormMultiTypeConnectorField
-                  name="spec.connectorRef"
-                  label={getString('pipeline.jiraApprovalStep.connectorRef')}
-                  className={css.connector}
-                  placeholder={getString('connectors.selectConnector')}
-                  accountIdentifier={accountId}
-                  projectIdentifier={projectIdentifier}
-                  orgIdentifier={orgIdentifier}
-                  multiTypeProps={{ expressions }}
-                  type="Jira"
-                  enableConfigureOptions={false}
-                  selected={formik?.values?.spec.connectorRef as string}
-                  disabled={isApprovalStepFieldDisabled(readonly)}
-                  gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
-                />
-                {getMultiTypeFromValue(formik.values.spec.connectorRef) === MultiTypeInputType.RUNTIME && (
-                  <ConfigureOptions
-                    value={formik.values.spec.connectorRef as string}
-                    type="String"
-                    variableName="spec.connectorRef"
-                    showRequiredField={false}
-                    showDefaultField={false}
-                    showAdvanced={true}
-                    onChange={value => formik.setFieldValue('spec.connectorRef', value)}
-                    isReadonly={readonly}
-                  />
-                )}
-              </Layout.Horizontal>
-
-              <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
-                <FormInput.MultiTextInput
-                  label={getString('pipeline.jiraApprovalStep.issueKey')}
-                  name="spec.issueKey"
-                  placeholder={getString('pipeline.jiraApprovalStep.issueKeyPlaceholder')}
-                  className={css.md}
-                  disabled={isApprovalStepFieldDisabled(readonly)}
-                />
-                {getMultiTypeFromValue(formik.values.spec.issueKey) === MultiTypeInputType.RUNTIME && (
-                  <ConfigureOptions
-                    value={formik.values.spec.issueKey as string}
-                    type="String"
-                    variableName="spec.issueKey"
-                    showRequiredField={false}
-                    showDefaultField={false}
-                    showAdvanced={true}
-                    onChange={value => formik.setFieldValue('spec.issueKey', value)}
-                    isReadonly={readonly}
-                  />
-                )}
-              </Layout.Horizontal>
-            </div>
-          }
+      </div>
+      <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+        <FormMultiTypeConnectorField
+          name="spec.connectorRef"
+          label={getString('pipeline.jiraApprovalStep.connectorRef')}
+          className={css.connector}
+          placeholder={getString('connectors.selectConnector')}
+          accountIdentifier={accountId}
+          projectIdentifier={projectIdentifier}
+          orgIdentifier={orgIdentifier}
+          multiTypeProps={{ expressions }}
+          type="Jira"
+          enableConfigureOptions={false}
+          selected={formik?.values?.spec.connectorRef as string}
+          disabled={isApprovalStepFieldDisabled(readonly)}
+          gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
         />
+        {getMultiTypeFromValue(formik.values.spec.connectorRef) === MultiTypeInputType.RUNTIME && (
+          <ConfigureOptions
+            value={formik.values.spec.connectorRef as string}
+            type="String"
+            variableName="spec.connectorRef"
+            showRequiredField={false}
+            showDefaultField={false}
+            showAdvanced={true}
+            onChange={value => formik.setFieldValue('spec.connectorRef', value)}
+            isReadonly={readonly}
+          />
+        )}
+      </Layout.Horizontal>
+      <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+        <FormInput.MultiTextInput
+          label={getString('pipeline.jiraApprovalStep.issueKey')}
+          name="spec.issueKey"
+          placeholder={getString('pipeline.jiraApprovalStep.issueKeyPlaceholder')}
+          className={css.md}
+          disabled={isApprovalStepFieldDisabled(readonly)}
+        />
+        {getMultiTypeFromValue(formik.values.spec.issueKey) === MultiTypeInputType.RUNTIME && (
+          <ConfigureOptions
+            value={formik.values.spec.issueKey as string}
+            type="String"
+            variableName="spec.issueKey"
+            showRequiredField={false}
+            showDefaultField={false}
+            showAdvanced={true}
+            onChange={value => formik.setFieldValue('spec.issueKey', value)}
+            isReadonly={readonly}
+          />
+        )}
+      </Layout.Horizontal>
+      <Accordion activeId="" className={stepCss.accordion}>
         <Accordion.Panel
-          id="step-2"
-          summary={getString('pipeline.jiraUpdateStep.statusTransitionAccordion')}
+          id="optional-config"
+          summary={getString('common.optionalConfig')}
           details={
             <div>
               <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
@@ -313,7 +304,6 @@ const FormContent = ({
                   />
                 )}
               </Layout.Horizontal>
-
               <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
                 <FormInput.MultiTextInput
                   label={getString('pipeline.jiraUpdateStep.transitionLabel')}
@@ -323,7 +313,6 @@ const FormContent = ({
                   multiTextInputProps={{
                     expressions
                   }}
-                  isOptional={true}
                   disabled={isApprovalStepFieldDisabled(readonly)}
                 />
                 {getMultiTypeFromValue(formik.values.spec.transitionTo?.transitionName) ===
@@ -340,71 +329,64 @@ const FormContent = ({
                   />
                 )}
               </Layout.Horizontal>
-            </div>
-          }
-        />
-
-        <Accordion.Panel
-          id="step-3"
-          summary={getString('pipeline.jiraCreateStep.fields')}
-          details={
-            <div>
-              <JiraFieldsRenderer
-                selectedFields={formik.values.spec.selectedFields}
-                readonly={readonly}
-                onDelete={(index, selectedField) => {
-                  const selectedFieldsAfterRemoval = formik.values.spec.selectedFields?.filter(
-                    (_unused, i) => i !== index
-                  )
-                  formik.setFieldValue('spec.selectedFields', selectedFieldsAfterRemoval)
-                  const customFields = formik.values.spec.fields?.filter(field => field.name !== selectedField.name)
-                  formik.setFieldValue('spec.fields', customFields)
-                }}
-              />
-
-              {!isEmpty(formik.values.spec.fields) ? (
-                <FieldArray
-                  name="spec.fields"
-                  render={({ remove }) => {
-                    return (
-                      <div>
-                        <div className={css.headerRow}>
-                          <String className={css.label} stringID="keyLabel" />
-                          <String className={css.label} stringID="valueLabel" />
-                        </div>
-                        {formik.values.spec.fields?.map((_unused: JiraCreateFieldType, i: number) => (
-                          <div className={css.headerRow} key={i}>
-                            <FormInput.Text
-                              name={`spec.fields[${i}].name`}
-                              placeholder={getString('pipeline.keyPlaceholder')}
-                              disabled={isApprovalStepFieldDisabled(readonly)}
-                            />
-                            <FormInput.MultiTextInput
-                              name={`spec.fields[${i}].value`}
-                              label=""
-                              placeholder={getString('common.valuePlaceholder')}
-                              multiTextInputProps={{
-                                allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
-                                expressions
-                              }}
-                              disabled={isApprovalStepFieldDisabled(readonly)}
-                            />
-                            <Button
-                              minimal
-                              icon="trash"
-                              data-testid={`remove-fieldList-${i}`}
-                              onClick={() => remove(i)}
-                              disabled={isApprovalStepFieldDisabled(readonly)}
-                            />
-                          </div>
-                        ))}
-                      </div>
+              <div>
+                <JiraFieldsRenderer
+                  selectedFields={formik.values.spec.selectedFields}
+                  readonly={readonly}
+                  onDelete={(index, selectedField) => {
+                    const selectedFieldsAfterRemoval = formik.values.spec.selectedFields?.filter(
+                      (_unused, i) => i !== index
                     )
+                    formik.setFieldValue('spec.selectedFields', selectedFieldsAfterRemoval)
+                    const customFields = formik.values.spec.fields?.filter(field => field.name !== selectedField.name)
+                    formik.setFieldValue('spec.fields', customFields)
                   }}
                 />
-              ) : null}
 
-              <AddFieldsButton />
+                {!isEmpty(formik.values.spec.fields) ? (
+                  <FieldArray
+                    name="spec.fields"
+                    render={({ remove }) => {
+                      return (
+                        <div>
+                          <div className={css.headerRow}>
+                            <String className={css.label} stringID="keyLabel" />
+                            <String className={css.label} stringID="valueLabel" />
+                          </div>
+                          {formik.values.spec.fields?.map((_unused: JiraCreateFieldType, i: number) => (
+                            <div className={css.headerRow} key={i}>
+                              <FormInput.Text
+                                name={`spec.fields[${i}].name`}
+                                placeholder={getString('pipeline.keyPlaceholder')}
+                                disabled={isApprovalStepFieldDisabled(readonly)}
+                              />
+                              <FormInput.MultiTextInput
+                                name={`spec.fields[${i}].value`}
+                                label=""
+                                placeholder={getString('common.valuePlaceholder')}
+                                multiTextInputProps={{
+                                  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                                  expressions
+                                }}
+                                disabled={isApprovalStepFieldDisabled(readonly)}
+                              />
+                              <Button
+                                minimal
+                                icon="trash"
+                                data-testid={`remove-fieldList-${i}`}
+                                onClick={() => remove(i)}
+                                disabled={isApprovalStepFieldDisabled(readonly)}
+                              />
+                            </div>
+                          ))}
+                        </div>
+                      )
+                    }}
+                  />
+                ) : null}
+
+                <AddFieldsButton />
+              </div>
             </div>
           }
         />

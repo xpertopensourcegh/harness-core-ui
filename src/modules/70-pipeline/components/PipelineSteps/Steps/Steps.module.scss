@@ -48,6 +48,12 @@
     min-height: 200px;
     font-family: var(--font-family-mono);
   }
+
+  :global {
+    .bp3-label {
+      color: var(--grey-500);
+    }
+  }
 }
 
 .fieldsSection {

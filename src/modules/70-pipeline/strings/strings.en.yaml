@@ -104,12 +104,12 @@ jiraApprovalStep:
       in: '{{ key }} is in'
       not_in: '{{ key }} is not in'
   validations:
-    connectorRef: Jira Connector is required.
-    project: Project is required.
-    issueKey: Issue Key is required.
-    issueType: Issue Type is required.
-    approvalCriteriaCondition: At least one condition is required.
-    expression: Expression value is required.
+    connectorRef: Jira Connector is required
+    project: Project is required
+    issueKey: Issue Key is required
+    issueType: Issue Type is required
+    approvalCriteriaCondition: At least one condition is required
+    expression: Expression value is required
 jiraCreateStep:
   fields: Jira Fields
   summaryPlaceholder: Enter a Title or Summary
@@ -123,7 +123,7 @@ jiraCreateStep:
   fieldsSelectorPlaceholder: Your fields will be populated here
   selectProject: Select Project
   validations:
-    summary: Summary is required.
+    summary: Summary is required
 jiraUpdateStep:
   statusTransitionAccordion: Status and Transition (optional)
   transitionLabel: Transition Name
