@@ -3,6 +3,7 @@
 exports[`Delegate Selectors test snapshot testing 1`] = `
 <div>
   <div
+    class="wrapper"
     data-name="DelegateSelectors"
   >
     <div

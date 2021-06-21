@@ -620,6 +620,7 @@ exports[`DelegateSelectorStep should render DelegateSelectorStep component 1`] =
               class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--margin-bottom-small"
             >
               <div
+                class="wrapper"
                 data-name="DelegateSelectors"
               >
                 <div

@@ -1,3 +1,22 @@
+.wrapper {
+  position: relative;
+
+  .loader {
+    display: flex;
+    height: 35px;
+    background: var(--white);
+    align-items: center;
+    border: 1px solid var(--form-field-border);
+    border-radius: 4px;
+    padding: 0 var(--spacing-small);
+    column-gap: var(--spacing-small);
+
+    & :global(.bp3-icon) {
+      margin: 0 !important;
+    }
+  }
+}
+
 .delegatePopover {
   position: relative;
 

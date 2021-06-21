@@ -4060,6 +4060,7 @@ exports[`should render form for edit authtype clientKey 2`] = `
                   class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--margin-bottom-small"
                 >
                   <div
+                    class="wrapper"
                     data-name="DelegateSelectors"
                   >
                     <div

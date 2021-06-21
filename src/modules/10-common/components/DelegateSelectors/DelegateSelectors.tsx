@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import cx from 'classnames'
 import { SimpleTagInput, Text, Icon, Color } from '@wings-software/uicore'
 import { useToaster } from '@common/exports'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
@@ -9,7 +10,11 @@ import { useGetDelegateSelectorsUpTheHierarchy, useGetDelegateSelectors } from '
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './DelegateSelectors.module.scss'
 
-const isValidExpression = (tag: string, showError: any, errorMsg: string) => {
+const isValidExpression = (
+  tag: string,
+  showError: (message: React.ReactNode, timeout?: number, key?: string) => void,
+  errorMsg: string
+): boolean => {
   let validExpression = true
   if (tag.includes('${')) {
     validExpression = tag.includes('${') && tag.includes('}')
@@ -20,16 +25,17 @@ const isValidExpression = (tag: string, showError: any, errorMsg: string) => {
   return validExpression
 }
 
-interface DelegateSelectorsProps {
+export interface DelegateSelectorsProps
+  extends Partial<React.ComponentProps<typeof SimpleTagInput>>,
+    Partial<ProjectPathProps> {
   placeholder?: string
   pollingInterval?: number
+  wrapperClassName?: string
 }
 
-export const DelegateSelectors = (
-  props: Partial<React.ComponentProps<typeof SimpleTagInput> & DelegateSelectorsProps & ProjectPathProps>
-): JSX.Element => {
+export const DelegateSelectors = (props: DelegateSelectorsProps): React.ReactElement | null => {
   const { accountId } = useParams<AccountPathProps>()
-  const { orgIdentifier, projectIdentifier, pollingInterval = null } = props
+  const { orgIdentifier, projectIdentifier, pollingInterval = null, wrapperClassName, placeholder, ...rest } = props
 
   const { getString } = useStrings()
   const { showError } = useToaster()
@@ -60,17 +66,24 @@ export const DelegateSelectors = (
     if (pollingInterval === null) {
       return
     }
-    let id: NodeJS.Timeout
+    let id: number | null
     if (!loading) {
-      id = setTimeout(() => refetch(), pollingInterval)
+      id = window.setTimeout(() => refetch(), pollingInterval)
     }
-    return () => clearTimeout(id)
+    return () => {
+      if (id) {
+        window.clearTimeout(id)
+      }
+    }
   }, [data, loading, refetch, pollingInterval])
 
   return (
-    <div data-name="DelegateSelectors">
+    <div className={cx(css.wrapper, wrapperClassName)} data-name="DelegateSelectors">
       {loading && !data ? (
-        <Icon margin="medium" name="spinner" size={15} color={Color.BLUE_500} />
+        <div className={css.loader}>
+          <Icon margin="medium" name="spinner" size={15} color={Color.PRIMARY_8} />
+          <span>{getString('loading')}</span>
+        </div>
       ) : (
         <SimpleTagInput
           fill
@@ -81,7 +94,7 @@ export const DelegateSelectors = (
             className: css.delegatePopover
           }}
           items={data?.resource || []}
-          {...props}
+          {...rest}
           allowNewTag
           getTagProps={(value, _index, _selectedItems, createdItems, items) => {
             const _value = value as string
@@ -125,7 +138,7 @@ export const DelegateSelectors = (
             }
             return validTag && validExpression
           }}
-          placeholder={props.placeholder || getString('delegate.Delegate_Selector_placeholder')}
+          placeholder={placeholder || getString('delegate.Delegate_Selector_placeholder')}
         />
       )}
     </div>
