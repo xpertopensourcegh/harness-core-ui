@@ -155,7 +155,6 @@ export default function TerraformEditView(
                   placeholder={getString('pipelineSteps.configurationType')}
                 />
               </div>
-              <div className={cx(css.fieldBorder, css.addMarginBottom)} />
 
               <div className={cx(stepCss.formGroup, stepCss.md)}>
                 <FormInput.MultiTextInput
@@ -179,7 +178,6 @@ export default function TerraformEditView(
                 )}
               </div>
 
-              <div className={cx(css.fieldBorder, css.addMarginBottom)} />
               {formik.values?.spec?.configuration?.type === ConfigurationTypes.Inline && (
                 <>
                   <Layout.Vertical className={cx(css.addMarginBottom)}>
@@ -203,7 +201,6 @@ export default function TerraformEditView(
                       </div>
                     </div>
                   </Layout.Vertical>
-                  <div className={cx(css.fieldBorder, css.addMarginBottom)} />
                   <div className={css.addMarginTop}>
                     <Accordion className={stepCss.accordion}>
                       <Accordion.Panel
@@ -235,9 +232,7 @@ export default function TerraformEditView(
                                 )}
                               </div>
                             )}
-                            <div className={cx(css.fieldBorder, css.addMarginBottom)} />
                             <TfVarFileList formik={formik} isReadonly={props.readonly} />
-                            <div className={cx(css.fieldBorder, css.addMarginBottom)} />
                             <div
                               className={cx(
                                 stepCss.formGroup,
@@ -297,7 +292,6 @@ export default function TerraformEditView(
                                 />
                               )}
                             </div>
-                            <div className={cx(css.fieldBorder, css.addMarginBottom)} />
                             <div className={cx(stepCss.formGroup, css.addMarginTop, css.addMarginBottom)}>
                               <MultiTypeList
                                 multiTextInputProps={{ expressions }}
@@ -312,7 +306,6 @@ export default function TerraformEditView(
                                 style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-small)' }}
                               />
                             </div>
-                            <div className={cx(css.fieldBorder, css.addMarginBottom)} />
                             <div className={cx(stepCss.formGroup, css.addMarginTop, css.addMarginBottom)}>
                               <MultiTypeMap
                                 valueMultiTextInputProps={{ expressions }}

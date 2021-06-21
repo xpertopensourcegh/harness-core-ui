@@ -163,7 +163,6 @@ function TerraformPlanWidget(
                   className={css.radioBtns}
                 />
               </div>
-              <div className={cx(css.fieldBorder, css.addMarginBottom)} />
               <div className={cx(stepCss.formGroup, stepCss.md)}>
                 <FormInput.MultiTextInput
                   name="spec.provisionerIdentifier"
@@ -186,7 +185,6 @@ function TerraformPlanWidget(
                 )}
               </div>
 
-              <div className={cx(css.fieldBorder, css.addMarginBottom)} />
               <div className={cx(stepCss.formGroup, stepCss.md)}>
                 <FormMultiTypeConnectorField
                   label={
@@ -218,7 +216,6 @@ function TerraformPlanWidget(
                 />
               </div>
 
-              <div className={cx(css.fieldBorder, css.addMarginBottom)} />
               <Layout.Vertical className={cx(css.addMarginBottom)}>
                 <Label style={{ color: Color.GREY_900 }} className={css.configLabel}>
                   {getString('cd.configurationFile')}
@@ -240,7 +237,6 @@ function TerraformPlanWidget(
                   </div>
                 </div>
               </Layout.Vertical>
-              <div className={cx(css.fieldBorder, css.addMarginBottom)} />
               <div className={css.addMarginTop}>
                 <Accordion className={stepCss.accordion}>
                   <Accordion.Panel
@@ -271,9 +267,7 @@ function TerraformPlanWidget(
                             />
                           )}
                         </div>
-                        <div className={cx(css.fieldBorder, css.addMarginBottom)} />
                         <TfVarFileList formik={formik} isReadonly={props.readonly} />
-                        <div className={cx(css.fieldBorder, css.addMarginBottom)} />
                         <div
                           className={cx(stepCss.formGroup, stepCss.alignStart, css.addMarginTop, css.addMarginBottom)}
                         >
@@ -319,7 +313,6 @@ function TerraformPlanWidget(
                             />
                           )}
                         </div>
-                        <div className={cx(css.fieldBorder, css.addMarginBottom)} />
                         <div className={cx(stepCss.formGroup, css.addMarginTop, css.addMarginBottom)}>
                           <MultiTypeList
                             name="spec.configuration.targets"
@@ -334,7 +327,6 @@ function TerraformPlanWidget(
                             style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-small)' }}
                           />
                         </div>
-                        <div className={cx(css.fieldBorder, css.addMarginBottom)} />
                         <div className={cx(stepCss.formGroup, css.addMarginTop, css.addMarginBottom)}>
                           <MultiTypeMap
                             name="spec.configuration.environmentVariables"

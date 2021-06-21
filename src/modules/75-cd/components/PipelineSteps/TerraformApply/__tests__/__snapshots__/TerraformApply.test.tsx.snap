@@ -233,9 +233,6 @@ exports[`Test TerraformApply expand backend Spec config 1`] = `
       </div>
     </div>
     <div
-      class="fieldBorder addMarginBottom"
-    />
-    <div
       class="formGroup md"
     >
       <div
@@ -305,9 +302,6 @@ exports[`Test TerraformApply expand backend Spec config 1`] = `
       </div>
     </div>
     <div
-      class="fieldBorder addMarginBottom"
-    />
-    <div
       class="Layout--vertical StyledProps--main addMarginBottom"
     >
       <label
@@ -357,9 +351,6 @@ exports[`Test TerraformApply expand backend Spec config 1`] = `
         </div>
       </div>
     </div>
-    <div
-      class="fieldBorder addMarginBottom"
-    />
     <div
       class="addMarginTop"
     >
@@ -467,9 +458,6 @@ exports[`Test TerraformApply expand backend Spec config 1`] = `
                   </div>
                 </div>
                 <div
-                  class="fieldBorder addMarginBottom"
-                />
-                <div
                   class="Layout--vertical StyledProps--main"
                 >
                   <label
@@ -522,9 +510,6 @@ exports[`Test TerraformApply expand backend Spec config 1`] = `
                     </div>
                   </div>
                 </div>
-                <div
-                  class="fieldBorder addMarginBottom"
-                />
                 <div
                   class="formGroup alignStart addMarginTop addMarginBottom"
                 >
@@ -626,9 +611,6 @@ exports[`Test TerraformApply expand backend Spec config 1`] = `
                     </div>
                   </div>
                 </div>
-                <div
-                  class="fieldBorder addMarginBottom"
-                />
                 <div
                   class="formGroup addMarginTop addMarginBottom"
                 >
@@ -795,9 +777,6 @@ exports[`Test TerraformApply expand backend Spec config 1`] = `
                     </div>
                   </div>
                 </div>
-                <div
-                  class="fieldBorder addMarginBottom"
-                />
                 <div
                   class="formGroup addMarginTop addMarginBottom"
                 >
@@ -1241,9 +1220,6 @@ exports[`Test TerraformApply rendering more than one varfile 1`] = `
       </div>
     </div>
     <div
-      class="fieldBorder addMarginBottom"
-    />
-    <div
       class="formGroup md"
     >
       <div
@@ -1313,9 +1289,6 @@ exports[`Test TerraformApply rendering more than one varfile 1`] = `
       </div>
     </div>
     <div
-      class="fieldBorder addMarginBottom"
-    />
-    <div
       class="Layout--vertical StyledProps--main addMarginBottom"
     >
       <label
@@ -1365,9 +1338,6 @@ exports[`Test TerraformApply rendering more than one varfile 1`] = `
         </div>
       </div>
     </div>
-    <div
-      class="fieldBorder addMarginBottom"
-    />
     <div
       class="addMarginTop"
     >
@@ -1641,9 +1611,6 @@ exports[`Test TerraformApply rendering more than one varfile 2`] = `
       </div>
     </div>
     <div
-      class="fieldBorder addMarginBottom"
-    />
-    <div
       class="formGroup md"
     >
       <div
@@ -1713,9 +1680,6 @@ exports[`Test TerraformApply rendering more than one varfile 2`] = `
       </div>
     </div>
     <div
-      class="fieldBorder addMarginBottom"
-    />
-    <div
       class="Layout--vertical StyledProps--main addMarginBottom"
     >
       <label
@@ -1765,9 +1729,6 @@ exports[`Test TerraformApply rendering more than one varfile 2`] = `
         </div>
       </div>
     </div>
-    <div
-      class="fieldBorder addMarginBottom"
-    />
     <div
       class="addMarginTop"
     >
@@ -1874,9 +1835,6 @@ exports[`Test TerraformApply rendering more than one varfile 2`] = `
                     </div>
                   </div>
                 </div>
-                <div
-                  class="fieldBorder addMarginBottom"
-                />
                 <div
                   class="Layout--vertical StyledProps--main"
                 >
@@ -2044,9 +2002,6 @@ exports[`Test TerraformApply rendering more than one varfile 2`] = `
                   </div>
                 </div>
                 <div
-                  class="fieldBorder addMarginBottom"
-                />
-                <div
                   class="formGroup alignStart addMarginTop addMarginBottom"
                 >
                   <div
@@ -2145,9 +2100,6 @@ exports[`Test TerraformApply rendering more than one varfile 2`] = `
                     </div>
                   </div>
                 </div>
-                <div
-                  class="fieldBorder addMarginBottom"
-                />
                 <div
                   class="formGroup addMarginTop addMarginBottom"
                 >
@@ -2314,9 +2266,6 @@ exports[`Test TerraformApply rendering more than one varfile 2`] = `
                     </div>
                   </div>
                 </div>
-                <div
-                  class="fieldBorder addMarginBottom"
-                />
                 <div
                   class="formGroup addMarginTop addMarginBottom"
                 >
@@ -3235,9 +3184,6 @@ exports[`Test TerraformApply should render edit view as edit step - Inheritfromp
       </div>
     </div>
     <div
-      class="fieldBorder addMarginBottom"
-    />
-    <div
       class="formGroup md"
     >
       <div
@@ -3306,9 +3252,6 @@ exports[`Test TerraformApply should render edit view as edit step - Inheritfromp
         </div>
       </div>
     </div>
-    <div
-      class="fieldBorder addMarginBottom"
-    />
   </div>
 </div>
 `;
@@ -3546,9 +3489,6 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
       </div>
     </div>
     <div
-      class="fieldBorder addMarginBottom"
-    />
-    <div
       class="formGroup md"
     >
       <div
@@ -3618,9 +3558,6 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
       </div>
     </div>
     <div
-      class="fieldBorder addMarginBottom"
-    />
-    <div
       class="Layout--vertical StyledProps--main addMarginBottom"
     >
       <label
@@ -3670,9 +3607,6 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
         </div>
       </div>
     </div>
-    <div
-      class="fieldBorder addMarginBottom"
-    />
     <div
       class="addMarginTop"
     >
@@ -3944,9 +3878,6 @@ exports[`Test TerraformApply should render edit view as new step 1`] = `
       </div>
     </div>
     <div
-      class="fieldBorder addMarginBottom"
-    />
-    <div
       class="formGroup md"
     >
       <div
@@ -4015,9 +3946,6 @@ exports[`Test TerraformApply should render edit view as new step 1`] = `
         </div>
       </div>
     </div>
-    <div
-      class="fieldBorder addMarginBottom"
-    />
   </div>
 </div>
 `;
@@ -4314,9 +4242,6 @@ exports[`Test TerraformApply should submit form for inheritfromplan config 1`] =
       </div>
     </div>
     <div
-      class="fieldBorder addMarginBottom"
-    />
-    <div
       class="formGroup md"
     >
       <div
@@ -4385,9 +4310,6 @@ exports[`Test TerraformApply should submit form for inheritfromplan config 1`] =
         </div>
       </div>
     </div>
-    <div
-      class="fieldBorder addMarginBottom"
-    />
   </div>
 </div>
 `;
@@ -4625,9 +4547,6 @@ exports[`Test TerraformApply should submit form for inline config 1`] = `
       </div>
     </div>
     <div
-      class="fieldBorder addMarginBottom"
-    />
-    <div
       class="formGroup md"
     >
       <div
@@ -4697,9 +4616,6 @@ exports[`Test TerraformApply should submit form for inline config 1`] = `
       </div>
     </div>
     <div
-      class="fieldBorder addMarginBottom"
-    />
-    <div
       class="Layout--vertical StyledProps--main addMarginBottom"
     >
       <label
@@ -4749,9 +4665,6 @@ exports[`Test TerraformApply should submit form for inline config 1`] = `
         </div>
       </div>
     </div>
-    <div
-      class="fieldBorder addMarginBottom"
-    />
     <div
       class="addMarginTop"
     >

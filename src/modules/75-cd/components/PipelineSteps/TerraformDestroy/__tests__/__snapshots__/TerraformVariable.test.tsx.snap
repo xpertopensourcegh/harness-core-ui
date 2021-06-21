@@ -233,9 +233,6 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
       </div>
     </div>
     <div
-      class="fieldBorder addMarginBottom"
-    />
-    <div
       class="formGroup md"
     >
       <div
@@ -305,9 +302,6 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
       </div>
     </div>
     <div
-      class="fieldBorder addMarginBottom"
-    />
-    <div
       class="Layout--vertical StyledProps--main addMarginBottom"
     >
       <label
@@ -357,9 +351,6 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
         </div>
       </div>
     </div>
-    <div
-      class="fieldBorder addMarginBottom"
-    />
     <div
       class="addMarginTop"
     >
@@ -466,9 +457,6 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
                     </div>
                   </div>
                 </div>
-                <div
-                  class="fieldBorder addMarginBottom"
-                />
                 <div
                   class="Layout--vertical StyledProps--main"
                 >
@@ -703,9 +691,6 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
                   </div>
                 </div>
                 <div
-                  class="fieldBorder addMarginBottom"
-                />
-                <div
                   class="formGroup alignStart addMarginTop addMarginBottom"
                 >
                   <div
@@ -804,9 +789,6 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
                     </div>
                   </div>
                 </div>
-                <div
-                  class="fieldBorder addMarginBottom"
-                />
                 <div
                   class="formGroup addMarginTop addMarginBottom"
                 >
@@ -973,9 +955,6 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
                     </div>
                   </div>
                 </div>
-                <div
-                  class="fieldBorder addMarginBottom"
-                />
                 <div
                   class="formGroup addMarginTop addMarginBottom"
                 >
