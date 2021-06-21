@@ -139,7 +139,11 @@ const RenderTags: Renderer<CellProps<DelegateGroupDetailsCustom | DelegateInnerC
     const { tags, implicitSelectors } = row.original as DelegateInnerCustom
     delegateTags = [...(tags || []), ...Object.keys(implicitSelectors || {})]
   }
-  return <TagsViewer tags={delegateTags} />
+  return (
+    <Container className={css.tagContainer}>
+      <TagsViewer tags={delegateTags} />
+    </Container>
+  )
 }
 
 export const DelegateSelectorTable: React.FC<DelegateSelectorTableProps> = props => {
@@ -206,6 +210,7 @@ export const DelegateSelectorTable: React.FC<DelegateSelectorTableProps> = props
       background={Color.WHITE}
       height={265}
       data-name="delegateContentContainer"
+      className={css.delegateContentContainer}
     >
       {getContent()}
     </Container>

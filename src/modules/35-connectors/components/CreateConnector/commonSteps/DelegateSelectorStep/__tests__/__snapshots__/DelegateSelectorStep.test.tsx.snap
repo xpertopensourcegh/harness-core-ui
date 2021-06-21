@@ -660,7 +660,7 @@ exports[`DelegateSelectorStep should render DelegateSelectorStep component 1`] =
               </p>
             </div>
             <div
-              class="StyledProps--font StyledProps--main StyledProps--padding-left-small StyledProps--padding-right-small StyledProps--padding-top-small StyledProps--background-white"
+              class="StyledProps--font StyledProps--main delegateContentContainer StyledProps--padding-left-small StyledProps--padding-right-small StyledProps--padding-top-small StyledProps--background-white"
               data-name="delegateContentContainer"
               style="height: 265px;"
             >

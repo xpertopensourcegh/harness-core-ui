@@ -27,6 +27,10 @@
     max-width: 590px;
   }
 
+  .delegateContentContainer {
+    max-width: 810px;
+  }
+
   .table {
     background: var(--white);
     overflow: auto;
@@ -48,6 +52,9 @@
     }
     .troubleshoot {
       cursor: pointer;
+    }
+    .tagContainer {
+      word-break: break-word;
     }
   }
 }
