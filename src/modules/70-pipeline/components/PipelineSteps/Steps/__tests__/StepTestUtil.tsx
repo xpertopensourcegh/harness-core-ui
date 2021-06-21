@@ -19,7 +19,14 @@ const FormikTestWrapper: React.FC<StepWidgetProps> = props => {
     <Formik
       initialValues={props.initialValues}
       validate={values => {
-        return factory.getStep(props.type)?.validateInputSet(values, props.template, getString) || {}
+        return (
+          factory.getStep(props.type)?.validateInputSet({
+            data: values,
+            template: props.template,
+            getString,
+            viewType: StepViewType.DeploymentForm
+          }) || {}
+        )
       }}
       onSubmit={data => props.onUpdate?.(data)}
     >

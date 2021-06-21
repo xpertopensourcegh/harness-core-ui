@@ -124,18 +124,19 @@ describe('Custom Variables', () => {
   })
 
   test('validates input set correctly', () => {
-    const response = new CustomVariables().validateInputSet(
-      {
+    const response = new CustomVariables().validateInputSet({
+      data: {
         variables: [
           { name: 'myVar1', type: 'Number', value: NaN },
           { name: 'myVar1', type: 'String', value: 'myVar1Value' },
           { name: 'myVar1', type: 'Secret', value: '<+input>' }
         ]
       },
-      {
+      template: {
         variables: [{ value: '<+input>' }]
-      }
-    )
+      },
+      viewType: StepViewType.DeploymentForm
+    })
     expect(response).toMatchSnapshot()
   })
 

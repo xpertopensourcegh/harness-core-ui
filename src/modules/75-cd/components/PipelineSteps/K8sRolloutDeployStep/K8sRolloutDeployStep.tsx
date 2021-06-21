@@ -6,7 +6,7 @@ import * as Yup from 'yup'
 import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
 import { isEmpty } from 'lodash-es'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
-import { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
+import { StepViewType, StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import type { K8sRollingStepInfo, StepElementConfig } from 'services/cd-ng'
 import { FormMultiTypeCheckboxField } from '@common/components'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
@@ -14,7 +14,6 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
-import type { UseStringsReturn } from 'framework/strings'
 import {
   FormMultiTypeDurationField,
   getDurationValidationSchema
@@ -227,11 +226,11 @@ export class K8RolloutDeployStep extends PipelineStep<K8RolloutDeployData> {
       />
     )
   }
-  validateInputSet(
-    data: K8RolloutDeployData,
-    template: K8RolloutDeployData,
-    getString?: UseStringsReturn['getString']
-  ): FormikErrors<K8RolloutDeployData> {
+  validateInputSet({
+    data,
+    template,
+    getString
+  }: ValidateInputSetProps<K8RolloutDeployData>): FormikErrors<K8RolloutDeployData> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = { spec: {} } as any
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {

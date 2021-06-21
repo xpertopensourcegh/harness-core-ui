@@ -1,9 +1,8 @@
 import React from 'react'
 import type { IconName } from '@wings-software/uicore'
 import type { FormikErrors } from 'formik'
-import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
+import type { StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import type { UseStringsReturn } from 'framework/strings'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { validateInputSet } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
@@ -19,7 +18,7 @@ import type {
 import { GCRStepBaseWithRef } from './GCRStepBase'
 import { GCRStepInputSet } from './GCRStepInputSet'
 import { GCRStepVariables, GCRStepVariablesProps } from './GCRStepVariables'
-import { inputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './GCRStepFunctionConfigs'
+import { getInputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './GCRStepFunctionConfigs'
 
 export interface GCRStepSpec {
   connectorRef: string
@@ -103,13 +102,15 @@ export class GCRStep extends PipelineStep<GCRStepData> {
     return getFormValuesInCorrectFormat<T, GCRStepData>(data, transformValuesFieldsConfig)
   }
 
-  validateInputSet(
-    data: GCRStepData,
-    template?: GCRStepData,
-    getString?: UseStringsReturn['getString']
-  ): FormikErrors<GCRStepData> {
+  validateInputSet({
+    data,
+    template,
+    getString,
+    viewType
+  }: ValidateInputSetProps<GCRStepData>): FormikErrors<GCRStepData> {
+    const isRequired = viewType === StepViewType.DeploymentForm
     if (getString) {
-      return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
+      return validateInputSet(data, template, getInputSetViewValidateFieldsConfig(isRequired), { getString })
     }
 
     return {}

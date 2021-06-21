@@ -27,11 +27,10 @@ import {
   useUpsertServiceV2
 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
-import type { UseStringsReturn } from 'framework/strings'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
-import { Step, StepProps, StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { Step, StepProps, StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/exports'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
@@ -627,11 +626,11 @@ export class DeployServiceStep extends Step<DeployServiceData> {
       />
     )
   }
-  validateInputSet(
-    data: DeployServiceData,
-    template: DeployServiceData,
-    getString?: UseStringsReturn['getString']
-  ): FormikErrors<DeployServiceData> {
+  validateInputSet({
+    data,
+    template,
+    getString
+  }: ValidateInputSetProps<DeployServiceData>): FormikErrors<DeployServiceData> {
     const errors = {} as any
     if (isEmpty(data?.serviceRef) && getMultiTypeFromValue(template?.serviceRef) === MultiTypeInputType.RUNTIME) {
       errors.serviceRef = getString?.('pipelineSteps.serviceTab.serviceIsRequired')

@@ -7,7 +7,7 @@ import { IconName, getMultiTypeFromValue, MultiTypeInputType } from '@wings-soft
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import type { FormikErrors } from 'formik'
-import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import {
   ServiceSpec,
   getConnectorListV2Promise,
@@ -22,7 +22,6 @@ import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
-import type { UseStringsReturn } from 'framework/strings'
 import { getConnectorName, getConnectorValue } from '@pipeline/pages/triggers/utils/TriggersWizardPageUtils'
 import { K8sServiceSpecVariablesForm, K8sServiceSpecVariablesFormProps } from './K8sServiceSpecVariablesForm'
 import { KubernetesServiceSpecInputForm } from './K8sServiceSpecForms/KubernetesServiceSpecInputForm'
@@ -290,11 +289,11 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
     })
   }
 
-  validateInputSet(
-    data: K8SDirectServiceStep,
-    template?: ServiceSpec,
-    getString?: UseStringsReturn['getString']
-  ): FormikErrors<K8SDirectServiceStep> {
+  validateInputSet({
+    data,
+    template,
+    getString
+  }: ValidateInputSetProps<K8SDirectServiceStep>): FormikErrors<K8SDirectServiceStep> {
     const errors: FormikErrors<K8SDirectServiceStep> = {}
     if (
       isEmpty(data?.artifacts?.primary?.spec?.connectorRef) &&

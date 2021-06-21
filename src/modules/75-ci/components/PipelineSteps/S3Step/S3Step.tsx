@@ -1,9 +1,8 @@
 import React from 'react'
 import type { IconName } from '@wings-software/uicore'
 import type { FormikErrors } from 'formik'
-import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
+import type { StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import type { UseStringsReturn } from 'framework/strings'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { validateInputSet } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
@@ -12,7 +11,7 @@ import type { MultiTypeConnectorRef, Resources } from '@pipeline/components/Pipe
 import { S3StepBaseWithRef } from './S3StepBase'
 import { S3StepInputSet } from './S3StepInputSet'
 import { S3StepVariables, S3StepVariablesProps } from './S3StepVariables'
-import { inputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './S3StepFunctionConfigs'
+import { getInputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './S3StepFunctionConfigs'
 
 export interface S3StepSpec {
   connectorRef: string
@@ -83,13 +82,15 @@ export class S3Step extends PipelineStep<S3StepData> {
     return getFormValuesInCorrectFormat<T, S3StepData>(data, transformValuesFieldsConfig)
   }
 
-  validateInputSet(
-    data: S3StepData,
-    template?: S3StepData,
-    getString?: UseStringsReturn['getString']
-  ): FormikErrors<S3StepData> {
+  validateInputSet({
+    data,
+    template,
+    getString,
+    viewType
+  }: ValidateInputSetProps<S3StepData>): FormikErrors<S3StepData> {
+    const isRequired = viewType === StepViewType.DeploymentForm
     if (getString) {
-      return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
+      return validateInputSet(data, template, getInputSetViewValidateFieldsConfig(isRequired), { getString })
     }
 
     return {}

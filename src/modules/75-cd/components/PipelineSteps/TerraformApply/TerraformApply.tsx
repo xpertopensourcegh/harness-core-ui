@@ -12,9 +12,8 @@ import { PipelineStep, StepProps } from '@pipeline/components/PipelineSteps/Pipe
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
-import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 
-import type { StringKeys } from 'framework/strings'
 import TerraformInputStep from '../Common/Terraform/TerraformInputStep'
 import { TerraformVariableStep } from '../Common/Terraform/TerraformVariableView'
 import {
@@ -44,15 +43,10 @@ export class TerraformApply extends PipelineStep<TFFormData> {
   }
   protected stepIcon: IconName = 'terraform-apply-new'
   protected stepName = 'Terraform Apply'
-  /* istanbul ignore next */
-  validateInputSet(
-    data: TFFormData,
-    template?: TFFormData,
-    getString?: (key: StringKeys, vars?: Record<string, any>) => string
-  ): FormikErrors<TFFormData> {
-    /* istanbul ignore next */
+
+  validateInputSet({ data, template, getString }: ValidateInputSetProps<TFFormData>): FormikErrors<TFFormData> {
     const errors = {} as any
-    /* istanbul ignore next */
+
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
       const timeout = Yup.object().shape({
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
@@ -61,7 +55,6 @@ export class TerraformApply extends PipelineStep<TFFormData> {
       try {
         timeout.validateSync(data)
       } catch (e) {
-        /* istanbul ignore next */
         if (e instanceof Yup.ValidationError) {
           const err = yupToFormErrors(e)
 
@@ -69,11 +62,9 @@ export class TerraformApply extends PipelineStep<TFFormData> {
         }
       }
     }
-    /* istanbul ignore next */
     if (isEmpty(errors.spec)) {
       delete errors.spec
     }
-    /* istanbul ignore next */
     return errors
   }
 

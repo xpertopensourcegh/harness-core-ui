@@ -3,8 +3,7 @@ import * as Yup from 'yup'
 import { isEmpty } from 'lodash-es'
 import { FormikErrors, yupToFormErrors } from 'formik'
 import { getMultiTypeFromValue, IconName, MultiTypeInputType } from '@wings-software/uicore'
-import { StepProps, StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import type { UseStringsReturn } from 'framework/strings'
+import { StepProps, StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { PipelineStep } from '../../PipelineStep'
@@ -39,11 +38,11 @@ export class JiraApproval extends PipelineStep<JiraApprovalData> {
     }
   }
 
-  validateInputSet(
-    data: JiraApprovalData,
-    template: JiraApprovalData,
-    getString?: UseStringsReturn['getString']
-  ): FormikErrors<JiraApprovalData> {
+  validateInputSet({
+    data,
+    template,
+    getString
+  }: ValidateInputSetProps<JiraApprovalData>): FormikErrors<JiraApprovalData> {
     const errors: FormikErrors<JiraApprovalData> = {}
 
     if (
@@ -74,7 +73,9 @@ export class JiraApproval extends PipelineStep<JiraApprovalData> {
     ) {
       errors.spec = {
         ...errors.spec,
-        approvalCriteria: { spec: { expression: getString?.('pipeline.jiraApprovalStep.validations.expression') } }
+        approvalCriteria: {
+          spec: { expression: getString?.('pipeline.jiraApprovalStep.validations.expression') }
+        }
       }
     }
 

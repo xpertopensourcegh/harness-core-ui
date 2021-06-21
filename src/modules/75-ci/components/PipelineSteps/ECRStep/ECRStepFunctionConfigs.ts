@@ -149,62 +149,66 @@ export const editViewValidateFieldsConfig = [
   }
 ]
 
-export const inputSetViewValidateFieldsConfig = [
-  {
-    name: 'spec.connectorRef',
-    type: ValidationFieldTypes.Text,
-    label: 'pipelineSteps.awsConnectorLabel',
-    isRequired: true
-  },
-  {
-    name: 'spec.region',
-    type: ValidationFieldTypes.Text,
-    label: 'regionLabel',
-    isRequired: true
-  },
-  {
-    name: 'spec.account',
-    type: ValidationFieldTypes.Text,
-    label: 'common.accountId',
-    isRequired: true
-  },
-  {
-    name: 'spec.imageName',
-    type: ValidationFieldTypes.Text,
-    label: 'imageNameLabel',
-    isRequired: true
-  },
-  {
-    name: 'spec.tags',
-    type: ValidationFieldTypes.List,
-    isRequired: true
-  },
-  {
-    name: 'spec.labels',
-    type: ValidationFieldTypes.Map
-  },
-  {
-    name: 'spec.buildArgs',
-    type: ValidationFieldTypes.Map
-  },
-  {
-    name: 'spec.optimize',
-    type: ValidationFieldTypes.Boolean
-  },
-  {
-    name: 'spec.remoteCacheImage',
-    type: ValidationFieldTypes.Text
-  },
-  {
-    name: 'spec.resources.limits.memory',
-    type: ValidationFieldTypes.LimitMemory
-  },
-  {
-    name: 'spec.resources.limits.cpu',
-    type: ValidationFieldTypes.LimitCPU
-  },
-  {
-    name: 'timeout',
-    type: ValidationFieldTypes.Timeout
-  }
-]
+export function getInputSetViewValidateFieldsConfig(
+  isRequired = true
+): Array<{ name: string; type: ValidationFieldTypes; label?: string; isRequired?: boolean }> {
+  return [
+    {
+      name: 'spec.connectorRef',
+      type: ValidationFieldTypes.Text,
+      label: 'pipelineSteps.awsConnectorLabel',
+      isRequired
+    },
+    {
+      name: 'spec.region',
+      type: ValidationFieldTypes.Text,
+      label: 'regionLabel',
+      isRequired
+    },
+    {
+      name: 'spec.account',
+      type: ValidationFieldTypes.Text,
+      label: 'common.accountId',
+      isRequired
+    },
+    {
+      name: 'spec.imageName',
+      type: ValidationFieldTypes.Text,
+      label: 'imageNameLabel',
+      isRequired
+    },
+    {
+      name: 'spec.tags',
+      type: ValidationFieldTypes.List,
+      isRequired
+    },
+    {
+      name: 'spec.labels',
+      type: ValidationFieldTypes.Map
+    },
+    {
+      name: 'spec.buildArgs',
+      type: ValidationFieldTypes.Map
+    },
+    {
+      name: 'spec.optimize',
+      type: ValidationFieldTypes.Boolean
+    },
+    {
+      name: 'spec.remoteCacheImage',
+      type: ValidationFieldTypes.Text
+    },
+    {
+      name: 'spec.resources.limits.memory',
+      type: ValidationFieldTypes.LimitMemory
+    },
+    {
+      name: 'spec.resources.limits.cpu',
+      type: ValidationFieldTypes.LimitCPU
+    },
+    {
+      name: 'timeout',
+      type: ValidationFieldTypes.Timeout
+    }
+  ]
+}

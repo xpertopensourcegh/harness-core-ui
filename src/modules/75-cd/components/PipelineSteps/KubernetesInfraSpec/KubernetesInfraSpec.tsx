@@ -17,7 +17,7 @@ import { debounce, noop, isEmpty, get } from 'lodash-es'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
-import { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
+import { StepViewType, StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 
@@ -30,7 +30,6 @@ import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProp
 import { useQueryParams } from '@common/hooks'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
-import type { UseStringsReturn } from 'framework/strings'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
@@ -426,11 +425,11 @@ export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureSte
     })
   }
 
-  validateInputSet(
-    data: K8SDirectInfrastructure,
-    template?: K8SDirectInfrastructureTemplate,
-    getString?: UseStringsReturn['getString']
-  ): FormikErrors<K8SDirectInfrastructure> {
+  validateInputSet({
+    data,
+    template,
+    getString
+  }: ValidateInputSetProps<K8SDirectInfrastructure>): FormikErrors<K8SDirectInfrastructure> {
     const errors: Partial<K8SDirectInfrastructureTemplate> = {}
     if (isEmpty(data.connectorRef) && getMultiTypeFromValue(template?.connectorRef) === MultiTypeInputType.RUNTIME) {
       errors.connectorRef = getString?.('fieldRequired', { field: getString('connector') })

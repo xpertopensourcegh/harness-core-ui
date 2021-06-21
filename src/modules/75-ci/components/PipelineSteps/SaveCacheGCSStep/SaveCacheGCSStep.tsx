@@ -1,9 +1,8 @@
 import React from 'react'
 import type { IconName } from '@wings-software/uicore'
 import type { FormikErrors } from 'formik'
-import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
+import type { StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import type { UseStringsReturn } from 'framework/strings'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { validateInputSet } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
@@ -19,7 +18,7 @@ import type {
 import { SaveCacheGCSStepBaseWithRef } from './SaveCacheGCSStepBase'
 import { SaveCacheGCSStepInputSet } from './SaveCacheGCSStepInputSet'
 import { SaveCacheGCSStepVariables, SaveCacheGCSStepVariablesProps } from './SaveCacheGCSStepVariables'
-import { inputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './SaveCacheGCSStepFunctionConfigs'
+import { getInputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './SaveCacheGCSStepFunctionConfigs'
 
 export interface SaveCacheGCSStepSpec {
   connectorRef: string
@@ -89,13 +88,15 @@ export class SaveCacheGCSStep extends PipelineStep<SaveCacheGCSStepData> {
     return getFormValuesInCorrectFormat<T, SaveCacheGCSStepData>(data, transformValuesFieldsConfig)
   }
 
-  validateInputSet(
-    data: SaveCacheGCSStepData,
-    template?: SaveCacheGCSStepData,
-    getString?: UseStringsReturn['getString']
-  ): FormikErrors<SaveCacheGCSStepData> {
+  validateInputSet({
+    data,
+    template,
+    getString,
+    viewType
+  }: ValidateInputSetProps<SaveCacheGCSStepData>): FormikErrors<SaveCacheGCSStepData> {
+    const isRequired = viewType === StepViewType.DeploymentForm
     if (getString) {
-      return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
+      return validateInputSet(data, template, getInputSetViewValidateFieldsConfig(isRequired), { getString })
     }
 
     return {}

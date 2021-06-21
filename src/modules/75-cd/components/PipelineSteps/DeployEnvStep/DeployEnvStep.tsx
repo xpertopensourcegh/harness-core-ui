@@ -31,10 +31,9 @@ import {
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { NameIdDescriptionTags, PageSpinner } from '@common/components'
 import { useStrings } from 'framework/strings'
-import type { UseStringsReturn } from 'framework/strings'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
-import { Step, StepProps, StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { Step, StepProps, StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/exports'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
@@ -665,11 +664,7 @@ export class DeployEnvironmentStep extends Step<DeployEnvData> {
       />
     )
   }
-  validateInputSet(
-    data: DeployEnvData,
-    template: DeployEnvData,
-    getString?: UseStringsReturn['getString']
-  ): FormikErrors<DeployEnvData> {
+  validateInputSet({ data, template, getString }: ValidateInputSetProps<DeployEnvData>): FormikErrors<DeployEnvData> {
     const errors: FormikErrors<DeployEnvData> = {}
     if (
       isEmpty(data?.environmentRef) &&

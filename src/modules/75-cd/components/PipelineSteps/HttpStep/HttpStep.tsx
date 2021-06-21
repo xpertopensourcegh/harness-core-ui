@@ -5,8 +5,7 @@ import { yupToFormErrors, FormikErrors } from 'formik'
 import { v4 as uuid } from 'uuid'
 import { isEmpty, set } from 'lodash-es'
 
-import { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
-import type { UseStringsReturn } from 'framework/strings'
+import { StepViewType, StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import type { HttpHeaderConfig, StringNGVariable } from 'services/cd-ng'
 
@@ -71,11 +70,7 @@ export class HttpStep extends PipelineStep<HttpStepData> {
   protected stepName = 'Http Step'
   protected stepIcon: IconName = 'http-step'
 
-  validateInputSet(
-    data: HttpStepData,
-    template?: HttpStepData,
-    getString?: UseStringsReturn['getString']
-  ): FormikErrors<HttpStepData> {
+  validateInputSet({ data, template, getString }: ValidateInputSetProps<HttpStepData>): FormikErrors<HttpStepData> {
     const errors: FormikErrors<HttpStepData> = { spec: {} }
 
     /* istanbul ignore else */

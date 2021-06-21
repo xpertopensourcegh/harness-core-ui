@@ -1,9 +1,8 @@
 import React from 'react'
 import type { IconName } from '@wings-software/uicore'
 import type { FormikErrors } from 'formik'
-import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
+import type { StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import type { UseStringsReturn } from 'framework/strings'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { validateInputSet } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
@@ -17,7 +16,7 @@ import type {
 import { PluginStepBaseWithRef } from './PluginStepBase'
 import { PluginStepInputSet } from './PluginStepInputSet'
 import { PluginStepVariables, PluginStepVariablesProps } from './PluginStepVariables'
-import { inputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './PluginStepFunctionConfigs'
+import { getInputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './PluginStepFunctionConfigs'
 
 export interface PluginStepSpec {
   connectorRef: string
@@ -87,13 +86,15 @@ export class PluginStep extends PipelineStep<PluginStepData> {
     return getFormValuesInCorrectFormat<T, PluginStepData>(data, transformValuesFieldsConfig)
   }
 
-  validateInputSet(
-    data: PluginStepData,
-    template?: PluginStepData,
-    getString?: UseStringsReturn['getString']
-  ): FormikErrors<PluginStepData> {
+  validateInputSet({
+    data,
+    template,
+    getString,
+    viewType
+  }: ValidateInputSetProps<PluginStepData>): FormikErrors<PluginStepData> {
+    const isRequired = viewType === StepViewType.DeploymentForm
     if (getString) {
-      return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
+      return validateInputSet(data, template, getInputSetViewValidateFieldsConfig(isRequired), { getString })
     }
 
     return {}

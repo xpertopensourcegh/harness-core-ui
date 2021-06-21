@@ -20,6 +20,13 @@ export interface InputSetData<T> {
   readonly?: boolean
 }
 
+export interface ValidateInputSetProps<T> {
+  data: T
+  template?: T
+  getString?: UseStringsReturn['getString']
+  viewType: StepViewType
+}
+
 export type StepFormikRef<T> = Pick<FormikProps<T>, 'submitForm' | 'errors'>
 
 export type StepFormikFowardRef<T = unknown> =
@@ -62,7 +69,7 @@ export abstract class Step<T> {
     RegExp,
     (path: string, yaml: string, params: Record<string, unknown>) => Promise<CompletionItemInterface[]>
   >
-  abstract validateInputSet(data: T, template?: T, getString?: UseStringsReturn['getString']): FormikErrors<T>
+  abstract validateInputSet(args: ValidateInputSetProps<T>): FormikErrors<T>
 
   protected stepPaletteVisible?: boolean // default to true
 

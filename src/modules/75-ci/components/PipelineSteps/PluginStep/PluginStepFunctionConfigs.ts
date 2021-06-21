@@ -97,33 +97,37 @@ export const editViewValidateFieldsConfig = [
   }
 ]
 
-export const inputSetViewValidateFieldsConfig = [
-  {
-    name: 'spec.connectorRef',
-    type: ValidationFieldTypes.Text,
-    label: 'pipelineSteps.connectorLabel',
-    isRequired: true
-  },
-  {
-    name: 'spec.image',
-    type: ValidationFieldTypes.Text,
-    label: 'imageLabel',
-    isRequired: true
-  },
-  {
-    name: 'spec.settings',
-    type: ValidationFieldTypes.Map
-  },
-  {
-    name: 'spec.resources.limits.memory',
-    type: ValidationFieldTypes.LimitMemory
-  },
-  {
-    name: 'spec.resources.limits.cpu',
-    type: ValidationFieldTypes.LimitCPU
-  },
-  {
-    name: 'timeout',
-    type: ValidationFieldTypes.Timeout
-  }
-]
+export function getInputSetViewValidateFieldsConfig(
+  isRequired = true
+): Array<{ name: string; type: ValidationFieldTypes; label?: string; isRequired?: boolean }> {
+  return [
+    {
+      name: 'spec.connectorRef',
+      type: ValidationFieldTypes.Text,
+      label: 'pipelineSteps.connectorLabel',
+      isRequired
+    },
+    {
+      name: 'spec.image',
+      type: ValidationFieldTypes.Text,
+      label: 'imageLabel',
+      isRequired
+    },
+    {
+      name: 'spec.settings',
+      type: ValidationFieldTypes.Map
+    },
+    {
+      name: 'spec.resources.limits.memory',
+      type: ValidationFieldTypes.LimitMemory
+    },
+    {
+      name: 'spec.resources.limits.cpu',
+      type: ValidationFieldTypes.LimitCPU
+    },
+    {
+      name: 'timeout',
+      type: ValidationFieldTypes.Timeout
+    }
+  ]
+}

@@ -15,7 +15,7 @@ import { v4 as uuid } from 'uuid'
 import type {} from 'formik'
 import { isEmpty } from 'lodash-es'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
-import { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
+import { StepViewType, StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { StepElementConfig, K8sApplyStepInfo } from 'services/cd-ng'
@@ -25,7 +25,6 @@ import { VariablesListTable } from '@pipeline/components/VariablesListTable/Vari
 import { FormMultiTypeCheckboxField } from '@common/components'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useStrings } from 'framework/strings'
-import type { UseStringsReturn } from 'framework/strings'
 
 import {
   FormMultiTypeDurationField,
@@ -341,11 +340,7 @@ export class K8sApplyStep extends PipelineStep<K8sApplyData> {
       />
     )
   }
-  validateInputSet(
-    data: K8sApplyData,
-    template: K8sApplyData,
-    getString?: UseStringsReturn['getString']
-  ): FormikErrors<K8sApplyData> {
+  validateInputSet({ data, template, getString }: ValidateInputSetProps<K8sApplyData>): FormikErrors<K8sApplyData> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = {} as any
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {

@@ -7,7 +7,7 @@ import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
 import { isEmpty } from 'lodash-es'
 
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
-import { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
+import { StepViewType, StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { StepElementConfig, K8sBGSwapServicesStepInfo } from 'services/cd-ng'
@@ -19,7 +19,6 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 
 import { useStrings } from 'framework/strings'
-import type { UseStringsReturn } from 'framework/strings'
 
 import {
   FormMultiTypeDurationField,
@@ -211,13 +210,12 @@ export class K8sBGSwapServices extends PipelineStep<K8sBGSwapServicesData> {
   protected stepName = 'K8s Blue Green Swap Services'
 
   protected stepIcon: IconName = 'command-swap'
-  /* istanbul ignore next */
 
-  validateInputSet(
-    data: K8sBGSwapServicesData,
-    template: K8sBGSwapServicesData,
-    getString?: UseStringsReturn['getString']
-  ): FormikErrors<K8sBGSwapServicesData> {
+  validateInputSet({
+    data,
+    template,
+    getString
+  }: ValidateInputSetProps<K8sBGSwapServicesData>): FormikErrors<K8sBGSwapServicesData> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = {} as any
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {

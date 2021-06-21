@@ -1,9 +1,8 @@
 import React from 'react'
 import type { IconName } from '@wings-software/uicore'
 import type { FormikErrors } from 'formik'
-import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
+import type { StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import type { UseStringsReturn } from 'framework/strings'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { validateInputSet } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
@@ -12,7 +11,7 @@ import type { MultiTypeConnectorRef, Resources } from '@pipeline/components/Pipe
 import { GCSStepBaseWithRef } from './GCSStepBase'
 import { GCSStepInputSet } from './GCSStepInputSet'
 import { GCSStepVariables, GCSStepVariablesProps } from './GCSStepVariables'
-import { inputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './GCSStepFunctionConfigs'
+import { getInputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './GCSStepFunctionConfigs'
 
 export interface GCSStepSpec {
   connectorRef: string
@@ -80,13 +79,15 @@ export class GCSStep extends PipelineStep<GCSStepData> {
     return getFormValuesInCorrectFormat<T, GCSStepData>(data, transformValuesFieldsConfig)
   }
 
-  validateInputSet(
-    data: GCSStepData,
-    template?: GCSStepData,
-    getString?: UseStringsReturn['getString']
-  ): FormikErrors<GCSStepData> {
+  validateInputSet({
+    data,
+    template,
+    getString,
+    viewType
+  }: ValidateInputSetProps<GCSStepData>): FormikErrors<GCSStepData> {
+    const isRequired = viewType === StepViewType.DeploymentForm
     if (getString) {
-      return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
+      return validateInputSet(data, template, getInputSetViewValidateFieldsConfig(isRequired), { getString })
     }
 
     return {}

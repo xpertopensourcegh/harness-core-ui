@@ -90,35 +90,39 @@ export const editViewValidateFieldsConfig = [
   }
 ]
 
-export const inputSetViewValidateFieldsConfig = [
-  {
-    name: 'spec.connectorRef',
-    type: ValidationFieldTypes.Text,
-    label: 'pipelineSteps.gcpConnectorLabel',
-    isRequired: true
-  },
-  {
-    name: 'spec.bucket',
-    type: ValidationFieldTypes.Text,
-    label: 'pipelineSteps.bucketLabel',
-    isRequired: true
-  },
-  {
-    name: 'spec.sourcePath',
-    type: ValidationFieldTypes.Text,
-    label: 'pipelineSteps.sourcePathLabel',
-    isRequired: true
-  },
-  {
-    name: 'spec.resources.limits.memory',
-    type: ValidationFieldTypes.LimitMemory
-  },
-  {
-    name: 'spec.resources.limits.cpu',
-    type: ValidationFieldTypes.LimitCPU
-  },
-  {
-    name: 'timeout',
-    type: ValidationFieldTypes.Timeout
-  }
-]
+export function getInputSetViewValidateFieldsConfig(
+  isRequired = true
+): Array<{ name: string; type: ValidationFieldTypes; label?: string; isRequired?: boolean }> {
+  return [
+    {
+      name: 'spec.connectorRef',
+      type: ValidationFieldTypes.Text,
+      label: 'pipelineSteps.gcpConnectorLabel',
+      isRequired
+    },
+    {
+      name: 'spec.bucket',
+      type: ValidationFieldTypes.Text,
+      label: 'pipelineSteps.bucketLabel',
+      isRequired
+    },
+    {
+      name: 'spec.sourcePath',
+      type: ValidationFieldTypes.Text,
+      label: 'pipelineSteps.sourcePathLabel',
+      isRequired
+    },
+    {
+      name: 'spec.resources.limits.memory',
+      type: ValidationFieldTypes.LimitMemory
+    },
+    {
+      name: 'spec.resources.limits.cpu',
+      type: ValidationFieldTypes.LimitCPU
+    },
+    {
+      name: 'timeout',
+      type: ValidationFieldTypes.Timeout
+    }
+  ]
+}

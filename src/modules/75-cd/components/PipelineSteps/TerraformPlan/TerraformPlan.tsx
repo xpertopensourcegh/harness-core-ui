@@ -31,8 +31,12 @@ import {
   getDurationValidationSchema
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 // import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import type { StringKeys } from 'framework/strings'
-import { setFormikRef, StepFormikFowardRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import {
+  setFormikRef,
+  StepFormikFowardRef,
+  StepViewType,
+  ValidateInputSetProps
+} from '@pipeline/components/AbstractSteps/Step'
 
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 
@@ -421,11 +425,7 @@ export class TerraformPlan extends PipelineStep<TFPlanFormData> {
   }
   protected stepIcon: IconName = 'terraform-apply-new'
   protected stepName = 'Terraform Plan'
-  validateInputSet(
-    data: TFPlanFormData,
-    template?: TFPlanFormData,
-    getString?: (key: StringKeys, vars?: Record<string, any>) => string
-  ): FormikErrors<TFPlanFormData> {
+  validateInputSet({ data, template, getString }: ValidateInputSetProps<TFPlanFormData>): FormikErrors<TFPlanFormData> {
     const errors = {} as any
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
       const timeout = Yup.object().shape({

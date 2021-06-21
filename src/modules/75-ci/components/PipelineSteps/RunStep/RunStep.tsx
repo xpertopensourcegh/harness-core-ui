@@ -3,9 +3,8 @@ import type { IconName } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import get from 'lodash-es/get'
 import type { FormikErrors } from 'formik'
-import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
+import type { StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import type { UseStringsReturn } from 'framework/strings'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { validateInputSet } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
@@ -24,7 +23,7 @@ import { ModuleName } from 'framework/types/ModuleName'
 import { RunStepBaseWithRef } from './RunStepBase'
 import { RunStepInputSet } from './RunStepInputSet'
 import { RunStepVariables, RunStepVariablesProps } from './RunStepVariables'
-import { inputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './RunStepFunctionConfigs'
+import { getInputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './RunStepFunctionConfigs'
 import { getConnectorSuggestions } from '../EditorSuggestionUtils'
 
 const logger = loggerFor(ModuleName.CI)
@@ -146,13 +145,15 @@ export class RunStep extends PipelineStep<RunStepData> {
     return getFormValuesInCorrectFormat<T, RunStepData>(data, transformValuesFieldsConfig)
   }
 
-  validateInputSet(
-    data: RunStepData,
-    template?: RunStepData,
-    getString?: UseStringsReturn['getString']
-  ): FormikErrors<RunStepData> {
+  validateInputSet({
+    data,
+    template,
+    getString,
+    viewType
+  }: ValidateInputSetProps<RunStepData>): FormikErrors<RunStepData> {
+    const isRequired = viewType === StepViewType.DeploymentForm
     if (getString) {
-      return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
+      return validateInputSet(data, template, getInputSetViewValidateFieldsConfig(isRequired), { getString })
     }
 
     return {}

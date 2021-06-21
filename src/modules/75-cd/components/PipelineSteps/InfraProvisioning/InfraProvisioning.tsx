@@ -2,7 +2,6 @@ import React from 'react'
 import type { IconName } from '@wings-software/uicore'
 import type { FormikErrors } from 'formik'
 import type { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
-import type { UseStringsReturn } from 'framework/strings'
 import type { ExecutionWrapper } from 'services/cd-ng'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
@@ -56,7 +55,7 @@ export class InfraProvisioning extends PipelineStep<any> {
     super()
   }
 
-  validateInputSet(_data: any, _template?: any, _getString?: UseStringsReturn['getString']): FormikErrors<any> {
+  validateInputSet(): FormikErrors<any> {
     return {}
   }
 

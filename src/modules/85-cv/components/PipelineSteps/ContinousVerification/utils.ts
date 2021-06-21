@@ -29,15 +29,17 @@ export function checkIfRunTimeInput(field: string | SelectOption | undefined): b
  * @param data
  * @param errors
  * @param getString
+ * @param isRequired
  */
 export function validateField(
   fieldValue: string,
   fieldKey: string,
   data: ContinousVerificationData,
   errors: any,
-  getString: UseStringsReturn['getString']
+  getString: UseStringsReturn['getString'],
+  isRequired = true
 ): void {
-  if (checkIfRunTimeInput(fieldValue) && isEmpty(data?.spec?.spec && data?.spec?.spec[fieldKey])) {
+  if (checkIfRunTimeInput(fieldValue) && isRequired && isEmpty(data?.spec?.spec && data?.spec?.spec[fieldKey])) {
     set(errors, `spec.spec.${fieldKey}`, getString('fieldRequired', { field: fieldKey }))
   }
 }
@@ -50,15 +52,23 @@ export function validateField(
  * @param errors
  */
 export function validateTimeout(
-  template: ContinousVerificationData,
   getString: UseStringsReturn['getString'],
   data: ContinousVerificationData,
-  errors: any
+  errors: any,
+  template?: ContinousVerificationData,
+  isRequired = true
 ): void {
   if (checkIfRunTimeInput(template?.timeout)) {
-    const timeout = Yup.object().shape({
-      timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
-    })
+    let timeout: Yup.ObjectSchema
+    if (isRequired) {
+      timeout = Yup.object().shape({
+        timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
+      })
+    } else {
+      timeout = Yup.object().shape({
+        timeout: getDurationValidationSchema({ minimum: '10s' })
+      })
+    }
 
     try {
       timeout.validateSync(data)

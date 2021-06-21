@@ -5,11 +5,10 @@ import { isEmpty, get } from 'lodash-es'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import { FormikErrors, yupToFormErrors } from 'formik'
 import { getMultiTypeFromValue, IconName, MultiTypeInputType } from '@wings-software/uicore'
-import { StepProps, StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { StepProps, StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { getUserGroupListPromise } from 'services/cd-ng'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
-import type { UseStringsReturn } from 'framework/strings'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
@@ -20,7 +19,6 @@ import { processFormData, processForInitialValues } from './helper'
 import HarnessApprovalDeploymentMode from './HarnessApprovalDeploymentMode'
 import HarnessApprovalStepModeWithRef from './HarnessApprovalStepMode'
 import type { HarnessApprovalData, HarnessApprovalVariableListModeProps } from './types'
-
 const UserGroupRegex = /^.+step\.spec\.approvers\.userGroups$/
 const logger = loggerFor(ModuleName.CD)
 export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
@@ -101,11 +99,11 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
     })
   }
 
-  validateInputSet(
-    data: HarnessApprovalData,
-    template: HarnessApprovalData,
-    getString?: UseStringsReturn['getString']
-  ): FormikErrors<HarnessApprovalData> {
+  validateInputSet({
+    data,
+    template,
+    getString
+  }: ValidateInputSetProps<HarnessApprovalData>): FormikErrors<HarnessApprovalData> {
     const errors: FormikErrors<HarnessApprovalData> = {}
 
     if (

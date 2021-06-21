@@ -17,7 +17,7 @@ import type { IOptionProps } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import { isEmpty } from 'lodash-es'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
-import { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
+import { StepViewType, StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { StepElementConfig } from 'services/cd-ng'
@@ -27,7 +27,6 @@ import { VariablesListTable } from '@pipeline/components/VariablesListTable/Vari
 import { FormMultiTypeCheckboxField } from '@common/components'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useStrings } from 'framework/strings'
-import type { UseStringsReturn } from 'framework/strings'
 import {
   FormMultiTypeDurationField,
   getDurationValidationSchema
@@ -471,11 +470,11 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
     )
   }
 
-  validateInputSet(
-    data: K8sDeleteFormData,
-    template: K8sDeleteFormData,
-    getString?: UseStringsReturn['getString']
-  ): FormikErrors<K8sDeleteFormData> {
+  validateInputSet({
+    data,
+    template,
+    getString
+  }: ValidateInputSetProps<K8sDeleteFormData>): FormikErrors<K8sDeleteFormData> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = { spec: {} } as any
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {

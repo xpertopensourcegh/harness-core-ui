@@ -3,9 +3,8 @@ import type { IconName } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import get from 'lodash-es/get'
 import type { FormikErrors } from 'formik'
-import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
+import type { StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import type { UseStringsReturn } from 'framework/strings'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { validateInputSet } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
@@ -22,7 +21,7 @@ import { ModuleName } from 'framework/types/ModuleName'
 import { RestoreCacheS3StepBaseWithRef } from './RestoreCacheS3StepBase'
 import { RestoreCacheS3StepInputSet } from './RestoreCacheS3StepInputSet'
 import { RestoreCacheS3StepVariables, RestoreCacheS3StepVariablesProps } from './RestoreCacheS3StepVariables'
-import { inputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './RestoreCacheS3StepFunctionConfigs'
+import { getInputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './RestoreCacheS3StepFunctionConfigs'
 import { getConnectorSuggestions } from '../EditorSuggestionUtils'
 
 const logger = loggerFor(ModuleName.CI)
@@ -118,13 +117,15 @@ export class RestoreCacheS3Step extends PipelineStep<RestoreCacheS3StepData> {
     return getFormValuesInCorrectFormat<T, RestoreCacheS3StepData>(data, transformValuesFieldsConfig)
   }
 
-  validateInputSet(
-    data: RestoreCacheS3StepData,
-    template?: RestoreCacheS3StepData,
-    getString?: UseStringsReturn['getString']
-  ): FormikErrors<RestoreCacheS3StepData> {
+  validateInputSet({
+    data,
+    template,
+    getString,
+    viewType
+  }: ValidateInputSetProps<RestoreCacheS3StepData>): FormikErrors<RestoreCacheS3StepData> {
+    const isRequired = viewType === StepViewType.DeploymentForm
     if (getString) {
-      return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
+      return validateInputSet(data, template, getInputSetViewValidateFieldsConfig(isRequired), { getString })
     }
 
     return {}

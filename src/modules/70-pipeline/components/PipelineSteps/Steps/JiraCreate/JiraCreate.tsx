@@ -3,8 +3,7 @@ import * as Yup from 'yup'
 import { isEmpty } from 'lodash-es'
 import { FormikErrors, yupToFormErrors } from 'formik'
 import { getMultiTypeFromValue, IconName, MultiTypeInputType } from '@wings-software/uicore'
-import { StepProps, StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import type { UseStringsReturn } from 'framework/strings'
+import { StepProps, StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { PipelineStep } from '../../PipelineStep'
@@ -39,11 +38,7 @@ export class JiraCreate extends PipelineStep<JiraCreateData> {
     }
   }
 
-  validateInputSet(
-    data: JiraCreateData,
-    template: JiraCreateData,
-    getString?: UseStringsReturn['getString']
-  ): FormikErrors<JiraCreateData> {
+  validateInputSet({ data, template, getString }: ValidateInputSetProps<JiraCreateData>): FormikErrors<JiraCreateData> {
     const errors: FormikErrors<JiraCreateData> = {}
 
     const isSummaryRuntime =

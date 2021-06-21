@@ -1,9 +1,8 @@
 import React from 'react'
 import type { IconName } from '@wings-software/uicore'
 import type { FormikErrors } from 'formik'
-import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
+import type { StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import type { UseStringsReturn } from 'framework/strings'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { validateInputSet } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
@@ -21,7 +20,7 @@ import type {
 import { RunTestsStepBaseWithRef } from './RunTestsStepBase'
 import { RunTestsStepInputSet } from './RunTestsStepInputSet'
 import { RunTestsStepVariables, RunTestsStepVariablesProps } from './RunTestsStepVariables'
-import { inputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './RunTestsStepFunctionConfigs'
+import { getInputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './RunTestsStepFunctionConfigs'
 
 export interface RunTestsStepSpec {
   connectorRef: string
@@ -117,13 +116,15 @@ export class RunTestsStep extends PipelineStep<RunTestsStepData> {
     return getFormValuesInCorrectFormat<T, RunTestsStepData>(data, transformValuesFieldsConfig)
   }
 
-  validateInputSet(
-    data: RunTestsStepData,
-    template?: RunTestsStepData,
-    getString?: UseStringsReturn['getString']
-  ): FormikErrors<RunTestsStepData> {
+  validateInputSet({
+    data,
+    template,
+    getString,
+    viewType
+  }: ValidateInputSetProps<RunTestsStepData>): FormikErrors<RunTestsStepData> {
+    const isRequired = viewType === StepViewType.DeploymentForm
     if (getString) {
-      return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
+      return validateInputSet(data, template, getInputSetViewValidateFieldsConfig(isRequired), { getString })
     }
 
     return {}

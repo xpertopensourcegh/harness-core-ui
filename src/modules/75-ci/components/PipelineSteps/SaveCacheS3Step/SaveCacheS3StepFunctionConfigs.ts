@@ -117,47 +117,51 @@ export const editViewValidateFieldsConfig = [
   }
 ]
 
-export const inputSetViewValidateFieldsConfig = [
-  {
-    name: 'spec.connectorRef',
-    type: ValidationFieldTypes.Text,
-    label: 'pipelineSteps.awsConnectorLabel',
-    isRequired: true
-  },
-  {
-    name: 'spec.region',
-    type: ValidationFieldTypes.Text,
-    label: 'regionLabel',
-    isRequired: true
-  },
-  {
-    name: 'spec.bucket',
-    type: ValidationFieldTypes.Text,
-    label: 'pipelineSteps.bucketLabel',
-    isRequired: true
-  },
-  {
-    name: 'spec.key',
-    type: ValidationFieldTypes.Text,
-    label: 'keyLabel',
-    isRequired: true
-  },
-  {
-    name: 'spec.sourcePaths',
-    type: ValidationFieldTypes.List,
-    label: 'pipelineSteps.sourcePathsLabel',
-    isRequired: true
-  },
-  {
-    name: 'spec.resources.limits.memory',
-    type: ValidationFieldTypes.LimitMemory
-  },
-  {
-    name: 'spec.resources.limits.cpu',
-    type: ValidationFieldTypes.LimitCPU
-  },
-  {
-    name: 'timeout',
-    type: ValidationFieldTypes.Timeout
-  }
-]
+export function getInputSetViewValidateFieldsConfig(
+  isRequired = true
+): Array<{ name: string; type: ValidationFieldTypes; label?: string; isRequired?: boolean }> {
+  return [
+    {
+      name: 'spec.connectorRef',
+      type: ValidationFieldTypes.Text,
+      label: 'pipelineSteps.awsConnectorLabel',
+      isRequired
+    },
+    {
+      name: 'spec.region',
+      type: ValidationFieldTypes.Text,
+      label: 'regionLabel',
+      isRequired
+    },
+    {
+      name: 'spec.bucket',
+      type: ValidationFieldTypes.Text,
+      label: 'pipelineSteps.bucketLabel',
+      isRequired
+    },
+    {
+      name: 'spec.key',
+      type: ValidationFieldTypes.Text,
+      label: 'keyLabel',
+      isRequired
+    },
+    {
+      name: 'spec.sourcePaths',
+      type: ValidationFieldTypes.List,
+      label: 'pipelineSteps.sourcePathsLabel',
+      isRequired: true
+    },
+    {
+      name: 'spec.resources.limits.memory',
+      type: ValidationFieldTypes.LimitMemory
+    },
+    {
+      name: 'spec.resources.limits.cpu',
+      type: ValidationFieldTypes.LimitCPU
+    },
+    {
+      name: 'timeout',
+      type: ValidationFieldTypes.Timeout
+    }
+  ]
+}

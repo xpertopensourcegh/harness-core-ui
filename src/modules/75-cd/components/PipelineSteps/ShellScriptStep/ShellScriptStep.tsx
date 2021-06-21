@@ -6,10 +6,9 @@ import { FormikErrors, yupToFormErrors } from 'formik'
 import { v4 as uuid } from 'uuid'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import { parse } from 'yaml'
-import type { UseStringsReturn } from 'framework/strings'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
-import { StepProps, StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { StepProps, StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { listSecretsV2Promise, SecretResponseWrapper } from 'services/cd-ng'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { Scope } from '@common/interfaces/SecretsInterface'
@@ -99,11 +98,11 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
     )
   }
 
-  validateInputSet(
-    data: ShellScriptData,
-    template: ShellScriptData,
-    getString?: UseStringsReturn['getString']
-  ): FormikErrors<ShellScriptData> {
+  validateInputSet({
+    data,
+    template,
+    getString
+  }: ValidateInputSetProps<ShellScriptData>): FormikErrors<ShellScriptData> {
     const errors: FormikErrors<ShellScriptData> = {}
 
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {

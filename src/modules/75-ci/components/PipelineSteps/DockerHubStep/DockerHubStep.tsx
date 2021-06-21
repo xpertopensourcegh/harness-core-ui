@@ -3,9 +3,8 @@ import type { IconName } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import get from 'lodash-es/get'
 import type { FormikErrors } from 'formik'
-import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
+import type { StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import type { UseStringsReturn } from 'framework/strings'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { validateInputSet } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
@@ -24,7 +23,7 @@ import { ModuleName } from 'framework/types/ModuleName'
 import { DockerHubStepBaseWithRef } from './DockerHubStepBase'
 import { DockerHubStepInputSet } from './DockerHubStepInputSet'
 import { DockerHubStepVariables, DockerHubStepVariablesProps } from './DockerHubStepVariables'
-import { inputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './DockerHubStepFunctionConfigs'
+import { getInputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './DockerHubStepFunctionConfigs'
 import { getConnectorSuggestions } from '../EditorSuggestionUtils'
 
 const logger = loggerFor(ModuleName.CI)
@@ -129,13 +128,15 @@ export class DockerHubStep extends PipelineStep<DockerHubStepData> {
     return getFormValuesInCorrectFormat<T, DockerHubStepData>(data, transformValuesFieldsConfig)
   }
 
-  validateInputSet(
-    data: DockerHubStepData,
-    template?: DockerHubStepData,
-    getString?: UseStringsReturn['getString']
-  ): FormikErrors<DockerHubStepData> {
+  validateInputSet({
+    data,
+    template,
+    getString,
+    viewType
+  }: ValidateInputSetProps<DockerHubStepData>): FormikErrors<DockerHubStepData> {
+    const isRequired = viewType === StepViewType.DeploymentForm
     if (getString) {
-      return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
+      return validateInputSet(data, template, getInputSetViewValidateFieldsConfig(isRequired), { getString })
     }
 
     return {}

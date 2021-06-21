@@ -13,7 +13,7 @@ import cx from 'classnames'
 import * as Yup from 'yup'
 import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
 import { get, has, isEmpty } from 'lodash-es'
-import { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
+import { StepViewType, StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 
@@ -31,7 +31,6 @@ import {
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
 import { useStrings } from 'framework/strings'
-import type { UseStringsReturn } from 'framework/strings'
 import { getInstanceDropdownSchema } from '@common/components/InstanceDropdownField/InstanceDropdownField'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
@@ -340,12 +339,7 @@ export class K8sScaleStep extends PipelineStep<K8sScaleData> {
     return values
   }
 
-  /* istanbul ignore next */
-  validateInputSet(
-    data: K8sScaleData,
-    template: K8sScaleData,
-    getString?: UseStringsReturn['getString']
-  ): FormikErrors<K8sScaleData> {
+  validateInputSet({ data, template, getString }: ValidateInputSetProps<K8sScaleData>): FormikErrors<K8sScaleData> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = { spec: {} } as any
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {

@@ -19,7 +19,7 @@ import { debounce, noop, isEmpty, get, memoize, set } from 'lodash-es'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
-import { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
+import { StepViewType, StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 
@@ -156,6 +156,7 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
         }
       })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialValues.connectorRef])
 
   const itemRenderer = memoize((item: { label: string }, { handleClick }) => (
@@ -164,7 +165,7 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
     </div>
   ))
 
-  const getInitialValues = () => {
+  const getInitialValues = (): K8sGcpInfrastructureUI => {
     const values: K8sGcpInfrastructureUI = {
       ...initialValues
     }
@@ -444,6 +445,7 @@ const GcpInfrastructureSpecInputForm: React.FC<GcpInfrastructureSpecEditableProp
     } else {
       setClusterOptions([])
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialValues.connectorRef])
 
   const itemRenderer = memoize((item: { label: string }, { handleClick }) => (
@@ -688,11 +690,11 @@ export class GcpInfrastructureSpec extends PipelineStep<GcpInfrastructureSpecSte
     })
   }
 
-  validateInputSet(
-    data: K8sGcpInfrastructure,
-    template?: K8sGcpInfrastructureTemplate,
-    getString?: UseStringsReturn['getString']
-  ): FormikErrors<K8sGcpInfrastructure> {
+  validateInputSet({
+    data,
+    template,
+    getString
+  }: ValidateInputSetProps<K8sGcpInfrastructure>): FormikErrors<K8sGcpInfrastructure> {
     const errors: Partial<K8sGcpInfrastructureTemplate> = {}
     if (isEmpty(data.connectorRef) && getMultiTypeFromValue(template?.connectorRef) === MultiTypeInputType.RUNTIME) {
       errors.connectorRef = getString?.('fieldRequired', { field: getString('connector') })

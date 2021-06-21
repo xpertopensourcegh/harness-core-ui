@@ -8,14 +8,13 @@ import { FormikProps, yupToFormErrors, FormikErrors } from 'formik'
 import { PipelineStep, StepProps } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { useStrings } from 'framework/strings'
-import type { StringKeys } from 'framework/strings'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import {
   DurationInputFieldForInputSet,
   FormMultiTypeDurationField,
   getDurationValidationSchema
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
-import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
@@ -197,23 +196,17 @@ export class TerraformRollback extends PipelineStep<TFRollbackData> {
   }
   protected stepIcon: IconName = 'terraform-apply-new'
   protected stepName = 'Terraform Rollback'
-  /* istanbul ignore next */
-  validateInputSet(
-    data: TFRollbackData,
-    template?: TFRollbackData,
-    getString?: (key: StringKeys, vars?: Record<string, any>) => string
-  ): FormikErrors<TFRollbackData> {
-    /* istanbul ignore next */
+
+  validateInputSet({ data, template, getString }: ValidateInputSetProps<TFRollbackData>): FormikErrors<TFRollbackData> {
     const errors = {} as any
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
       const timeout = Yup.object().shape({
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString?.('validation.timeout10SecMinimum'))
       })
-      /* istanbul ignore next */
+
       try {
         timeout.validateSync(data)
       } catch (e) {
-        /* istanbul ignore next */
         if (e instanceof Yup.ValidationError) {
           const err = yupToFormErrors(e)
 
@@ -221,11 +214,11 @@ export class TerraformRollback extends PipelineStep<TFRollbackData> {
         }
       }
     }
-    /* istanbul ignore next */
+
     if (isEmpty(errors.spec)) {
       delete errors.spec
     }
-    /* istanbul ignore next */
+
     return errors
   }
   renderStep(props: StepProps<TFRollbackData, unknown>): JSX.Element {

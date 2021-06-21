@@ -5,11 +5,10 @@ import cx from 'classnames'
 import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
 import { isEmpty } from 'lodash-es'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
-import { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
+import { StepViewType, StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
-import type { UseStringsReturn } from 'framework/strings'
 import type { K8sRollingStepInfo, StepElementConfig } from 'services/cd-ng'
 import { FormMultiTypeCheckboxField } from '@common/components'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
@@ -212,11 +211,11 @@ export class K8sBlueGreenDeployStep extends PipelineStep<K8sBGDeployData> {
     )
   }
 
-  validateInputSet(
-    data: K8sBGDeployData,
-    template: K8sBGDeployData,
-    getString?: UseStringsReturn['getString']
-  ): FormikErrors<K8sBGDeployData> {
+  validateInputSet({
+    data,
+    template,
+    getString
+  }: ValidateInputSetProps<K8sBGDeployData>): FormikErrors<K8sBGDeployData> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = { spec: {} } as any
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {

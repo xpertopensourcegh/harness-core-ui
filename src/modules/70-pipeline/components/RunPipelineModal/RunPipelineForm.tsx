@@ -67,6 +67,7 @@ import { YamlBuilderMemo } from '../PipelineStudio/PipelineYamlView/PipelineYaml
 import type { Values } from '../PipelineStudio/StepCommands/StepCommandTypes'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { getFormattedErrors, mergeTemplateWithInputSetData } from './RunPipelineHelper'
+import { StepViewType } from '../AbstractSteps/Step'
 import css from './RunPipelineModal.module.scss'
 export const POLL_INTERVAL = 1 /* sec */ * 1000 /* ms */
 export interface RunPipelineFormProps extends PipelineType<PipelinePathProps & GitQueryParams> {
@@ -655,12 +656,13 @@ function RunPipelineFormBasic({
       pipeline &&
       runClicked
     ) {
-      errors = validatePipeline(
-        { ...clearRuntimeInput(currentPipeline.pipeline) },
-        parse(template?.data?.inputSetTemplateYaml || '')?.pipeline,
-        currentPipeline.pipeline,
-        getString
-      ) as any
+      errors = validatePipeline({
+        pipeline: { ...clearRuntimeInput(currentPipeline.pipeline) },
+        template: parse(template?.data?.inputSetTemplateYaml || '')?.pipeline,
+        originalPipeline: currentPipeline.pipeline,
+        getString,
+        viewType: StepViewType.DeploymentForm
+      }) as any
       setFormErrors(errors)
       // triggerValidation should be true every time 'currentPipeline' changes
       // and it needs to be set as false here so that we do not trigger it indefinitely
@@ -724,20 +726,20 @@ function RunPipelineFormBasic({
 
           setCurrentPipeline({ ...currentPipeline, pipeline: values as NgPipeline })
 
-          function validateErrors() {
-            const promise: Promise<FormikErrors<InputSetDTO>> = new Promise(resolve => {
+          function validateErrors(): Promise<FormikErrors<InputSetDTO>> {
+            return new Promise(resolve => {
               setTimeout(() => {
                 const validatedErrors =
-                  (validatePipeline(
-                    values as NgPipeline,
-                    parse(template?.data?.inputSetTemplateYaml || '')?.pipeline,
-                    pipeline,
-                    getString
-                  ) as any) || formErrors
+                  (validatePipeline({
+                    pipeline: values as NgPipeline,
+                    template: parse(template?.data?.inputSetTemplateYaml || '')?.pipeline,
+                    originalPipeline: pipeline,
+                    getString,
+                    viewType: StepViewType.DeploymentForm
+                  }) as any) || formErrors
                 resolve(validatedErrors)
               }, 300)
             })
-            return promise
           }
 
           errors = await validateErrors()

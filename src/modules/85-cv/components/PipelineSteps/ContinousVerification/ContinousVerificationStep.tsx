@@ -1,13 +1,12 @@
 import React from 'react'
 import type { IconName, SelectOption } from '@wings-software/uicore'
 import type { FormikErrors } from 'formik'
-import { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
+import { StepViewType, StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 
-import type { UseStringsReturn } from 'framework/strings'
 import type { ContinousVerificationData, ContinousVerificationVariableStepProps, spec } from './types'
 import { ContinousVerificationWidgetWithRef } from './components/ContinousVerificationWidget/ContinousVerificationWidget'
 import { ContinousVerificationInputSetStep } from './components/ContinousVerificationInputSetStep/ContinousVerificationInputSetStep'
@@ -65,20 +64,23 @@ export class ContinousVerificationStep extends PipelineStep<ContinousVerificatio
     )
   }
 
-  validateInputSet(
-    data: ContinousVerificationData,
-    template: ContinousVerificationData,
-    getString: UseStringsReturn['getString']
-  ): FormikErrors<ContinousVerificationData> {
+  validateInputSet({
+    data,
+    template,
+    getString,
+    viewType
+  }: ValidateInputSetProps<ContinousVerificationData>): FormikErrors<ContinousVerificationData> {
     const errors: FormikErrors<ContinousVerificationData> = {}
     const { sensitivity, duration, baseline, trafficsplit, deploymentTag } = (template?.spec?.spec as spec) || {}
-
-    validateField(sensitivity as string, 'sensitivity', data, errors, getString)
-    validateField(duration as string, 'duration', data, errors, getString)
-    validateField(baseline as string, 'baseline', data, errors, getString)
-    validateField(trafficsplit as string, 'trafficsplit', data, errors, getString)
-    validateField(deploymentTag as string, 'deploymentTag', data, errors, getString)
-    validateTimeout(template, getString, data, errors)
+    const isRequired = viewType === StepViewType.DeploymentForm
+    if (getString) {
+      validateField(sensitivity as string, 'sensitivity', data, errors, getString, isRequired)
+      validateField(duration as string, 'duration', data, errors, getString, isRequired)
+      validateField(baseline as string, 'baseline', data, errors, getString, isRequired)
+      validateField(trafficsplit as string, 'trafficsplit', data, errors, getString, isRequired)
+      validateField(deploymentTag as string, 'deploymentTag', data, errors, getString, isRequired)
+      validateTimeout(getString, data, errors, template, isRequired)
+    }
     return errors
   }
 

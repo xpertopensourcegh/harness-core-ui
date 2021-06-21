@@ -14,7 +14,7 @@ import { isEmpty } from 'lodash-es'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { parse } from 'yaml'
-import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { PipelineInfoConfig, StepElementConfig } from 'services/cd-ng'
@@ -24,7 +24,6 @@ import { VariablesListTable } from '@pipeline/components/VariablesListTable/Vari
 import { NameSchema } from '@common/utils/Validation'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useStrings } from 'framework/strings'
-import type { UseStringsReturn } from 'framework/strings'
 import {
   DurationInputFieldForInputSet,
   FormMultiTypeDurationField,
@@ -303,11 +302,7 @@ export class BarrierStep extends PipelineStep<BarrierData> {
       />
     )
   }
-  validateInputSet(
-    data: BarrierData,
-    template: BarrierData,
-    getString?: UseStringsReturn['getString']
-  ): Record<string, any> {
+  validateInputSet({ data, template, getString }: ValidateInputSetProps<BarrierData>): Record<string, any> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = {} as any
     if (isEmpty(data?.timeout) && getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {

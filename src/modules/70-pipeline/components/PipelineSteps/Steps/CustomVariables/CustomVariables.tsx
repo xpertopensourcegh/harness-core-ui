@@ -4,12 +4,10 @@ import { get, set, isEmpty, isNil, isNaN } from 'lodash-es'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import type { FormikErrors } from 'formik'
-
-import type { UseStringsReturn } from 'framework/strings'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
 import { listSecretsV2Promise, SecretResponseWrapper } from 'services/cd-ng'
-import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { Step } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
@@ -84,11 +82,11 @@ export class CustomVariables extends Step<CustomVariablesData> {
     )
   }
 
-  validateInputSet(
-    data: CustomVariablesData,
-    template?: CustomVariablesData,
-    getString?: UseStringsReturn['getString']
-  ): FormikErrors<CustomVariablesData> {
+  validateInputSet({
+    data,
+    template,
+    getString
+  }: ValidateInputSetProps<CustomVariablesData>): FormikErrors<CustomVariablesData> {
     const errors: FormikErrors<CustomVariablesData> = { variables: [] }
     data?.variables?.forEach((variable: AllNGVariables, index: number) => {
       const currentVariableTemplate = get(template, `variables[${index}].value`, '')

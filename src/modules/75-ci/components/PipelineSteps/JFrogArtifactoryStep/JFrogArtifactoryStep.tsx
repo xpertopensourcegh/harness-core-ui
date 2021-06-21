@@ -3,9 +3,8 @@ import type { IconName } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import get from 'lodash-es/get'
 import type { FormikErrors } from 'formik'
-import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
+import type { StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import type { UseStringsReturn } from 'framework/strings'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { validateInputSet } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
@@ -17,7 +16,7 @@ import { ModuleName } from 'framework/types/ModuleName'
 import { JFrogArtifactoryStepBaseWithRef } from './JFrogArtifactoryStepBase'
 import { JFrogArtifactoryStepInputSet } from './JFrogArtifactoryStepInputSet'
 import { JFrogArtifactoryStepVariables, JFrogArtifactoryStepVariablesProps } from './JFrogArtifactoryStepVariables'
-import { inputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './JFrogArtifactoryStepFunctionConfigs'
+import { getInputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './JFrogArtifactoryStepFunctionConfigs'
 import { getConnectorSuggestions } from '../EditorSuggestionUtils'
 
 const logger = loggerFor(ModuleName.CI)
@@ -111,13 +110,15 @@ export class JFrogArtifactoryStep extends PipelineStep<JFrogArtifactoryStepData>
     return getFormValuesInCorrectFormat<T, JFrogArtifactoryStepData>(data, transformValuesFieldsConfig)
   }
 
-  validateInputSet(
-    data: JFrogArtifactoryStepData,
-    template?: JFrogArtifactoryStepData,
-    getString?: UseStringsReturn['getString']
-  ): FormikErrors<JFrogArtifactoryStepData> {
+  validateInputSet({
+    data,
+    template,
+    getString,
+    viewType
+  }: ValidateInputSetProps<JFrogArtifactoryStepData>): FormikErrors<JFrogArtifactoryStepData> {
+    const isRequired = viewType === StepViewType.DeploymentForm
     if (getString) {
-      return validateInputSet(data, template, inputSetViewValidateFieldsConfig, { getString })
+      return validateInputSet(data, template, getInputSetViewValidateFieldsConfig(isRequired), { getString })
     }
 
     return {}

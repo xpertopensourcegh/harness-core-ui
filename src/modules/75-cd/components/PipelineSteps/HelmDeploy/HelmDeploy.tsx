@@ -7,7 +7,7 @@ import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
 import { isEmpty } from 'lodash-es'
 
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
-import { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
+import { StepViewType, StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import type { StepElementConfig } from 'services/cd-ng'
@@ -19,7 +19,6 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 
 import { useStrings } from 'framework/strings'
-import type { UseStringsReturn } from 'framework/strings'
 
 import {
   FormMultiTypeDurationField,
@@ -195,13 +194,12 @@ export class HelmDeploy extends PipelineStep<StepElementConfig> {
   protected stepName = 'Helm Deploy'
 
   protected stepIcon: IconName = 'command-swap'
-  /* istanbul ignore next */
 
-  validateInputSet(
-    data: StepElementConfig,
-    template: StepElementConfig,
-    getString?: UseStringsReturn['getString']
-  ): FormikErrors<StepElementConfig> {
+  validateInputSet({
+    data,
+    template,
+    getString
+  }: ValidateInputSetProps<StepElementConfig>): FormikErrors<StepElementConfig> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = {} as any
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {

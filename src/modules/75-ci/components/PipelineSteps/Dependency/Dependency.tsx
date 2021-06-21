@@ -1,9 +1,8 @@
 import React from 'react'
 import type { IconName } from '@wings-software/uicore'
 import type { FormikErrors } from 'formik'
-import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import type { StepProps } from '@pipeline/components/AbstractSteps/Step'
-import type { UseStringsReturn } from 'framework/strings'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { getFormValuesInCorrectFormat } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
@@ -19,7 +18,7 @@ import type {
 import { DependencyBaseWithRef } from './DependencyBase'
 import { DependencyInputSet } from './DependencyInputSet'
 import { DependencyVariables, DependencyVariablesProps } from './DependencyVariables'
-import { inputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './DependencyFunctionConfigs'
+import { getInputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from './DependencyFunctionConfigs'
 
 export interface DependencySpec {
   connectorRef: string
@@ -91,13 +90,15 @@ export class Dependency extends PipelineStep<DependencyData> {
     return getFormValuesInCorrectFormat<T, DependencyData>(data, transformValuesFieldsConfig)
   }
 
-  validateInputSet(
-    data: DependencyData,
-    template?: DependencyData,
-    getString?: UseStringsReturn['getString']
-  ): FormikErrors<DependencyData> {
+  validateInputSet({
+    data,
+    template,
+    getString,
+    viewType
+  }: ValidateInputSetProps<DependencyData>): FormikErrors<DependencyData> {
+    const isRequired = viewType === StepViewType.DeploymentForm
     if (getString) {
-      return validateInputSet(data, template, inputSetViewValidateFieldsConfig, {
+      return validateInputSet(data, template, getInputSetViewValidateFieldsConfig(isRequired), {
         getString,
         type: StepType.Dependency
       })

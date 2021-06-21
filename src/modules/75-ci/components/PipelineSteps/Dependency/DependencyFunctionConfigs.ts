@@ -96,37 +96,41 @@ export const editViewValidateFieldsConfig = [
   }
 ]
 
-export const inputSetViewValidateFieldsConfig = [
-  {
-    name: 'spec.connectorRef',
-    type: ValidationFieldTypes.Text,
-    label: 'pipelineSteps.connectorLabel',
-    isRequired: true
-  },
-  {
-    name: 'spec.image',
-    type: ValidationFieldTypes.Text,
-    label: 'imageLabel',
-    isRequired: true
-  },
-  {
-    name: 'spec.envVariables',
-    type: ValidationFieldTypes.Map
-  },
-  {
-    name: 'spec.entrypoint',
-    type: ValidationFieldTypes.List
-  },
-  {
-    name: 'spec.args',
-    type: ValidationFieldTypes.List
-  },
-  {
-    name: 'spec.resources.limits.memory',
-    type: ValidationFieldTypes.LimitMemory
-  },
-  {
-    name: 'spec.resources.limits.cpu',
-    type: ValidationFieldTypes.LimitCPU
-  }
-]
+export function getInputSetViewValidateFieldsConfig(
+  isRequired = true
+): Array<{ name: string; type: ValidationFieldTypes; label?: string; isRequired?: boolean }> {
+  return [
+    {
+      name: 'spec.connectorRef',
+      type: ValidationFieldTypes.Text,
+      label: 'pipelineSteps.connectorLabel',
+      isRequired
+    },
+    {
+      name: 'spec.image',
+      type: ValidationFieldTypes.Text,
+      label: 'imageLabel',
+      isRequired
+    },
+    {
+      name: 'spec.envVariables',
+      type: ValidationFieldTypes.Map
+    },
+    {
+      name: 'spec.entrypoint',
+      type: ValidationFieldTypes.List
+    },
+    {
+      name: 'spec.args',
+      type: ValidationFieldTypes.List
+    },
+    {
+      name: 'spec.resources.limits.memory',
+      type: ValidationFieldTypes.LimitMemory
+    },
+    {
+      name: 'spec.resources.limits.cpu',
+      type: ValidationFieldTypes.LimitCPU
+    }
+  ]
+}

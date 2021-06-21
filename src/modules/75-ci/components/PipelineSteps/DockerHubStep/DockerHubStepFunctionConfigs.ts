@@ -130,51 +130,55 @@ export const editViewValidateFieldsConfig = [
   }
 ]
 
-export const inputSetViewValidateFieldsConfig = [
-  {
-    name: 'spec.connectorRef',
-    type: ValidationFieldTypes.Text,
-    label: 'pipelineSteps.dockerHubConnectorLabel',
-    isRequired: true
-  },
-  {
-    name: 'spec.repo',
-    type: ValidationFieldTypes.Text,
-    label: 'dockerRegistry',
-    isRequired: true
-  },
-  {
-    name: 'spec.tags',
-    type: ValidationFieldTypes.List,
-    label: 'tagsLabel',
-    isRequired: true
-  },
-  {
-    name: 'spec.labels',
-    type: ValidationFieldTypes.Map
-  },
-  {
-    name: 'spec.buildArgs',
-    type: ValidationFieldTypes.Map
-  },
-  {
-    name: 'spec.optimize',
-    type: ValidationFieldTypes.Boolean
-  },
-  {
-    name: 'spec.remoteCacheImage',
-    type: ValidationFieldTypes.Text
-  },
-  {
-    name: 'spec.resources.limits.memory',
-    type: ValidationFieldTypes.LimitMemory
-  },
-  {
-    name: 'spec.resources.limits.cpu',
-    type: ValidationFieldTypes.LimitCPU
-  },
-  {
-    name: 'timeout',
-    type: ValidationFieldTypes.Timeout
-  }
-]
+export function getInputSetViewValidateFieldsConfig(
+  isRequired = true
+): Array<{ name: string; type: ValidationFieldTypes; label?: string; isRequired?: boolean }> {
+  return [
+    {
+      name: 'spec.connectorRef',
+      type: ValidationFieldTypes.Text,
+      label: 'pipelineSteps.dockerHubConnectorLabel',
+      isRequired
+    },
+    {
+      name: 'spec.repo',
+      type: ValidationFieldTypes.Text,
+      label: 'dockerRegistry',
+      isRequired
+    },
+    {
+      name: 'spec.tags',
+      type: ValidationFieldTypes.List,
+      label: 'tagsLabel',
+      isRequired
+    },
+    {
+      name: 'spec.labels',
+      type: ValidationFieldTypes.Map
+    },
+    {
+      name: 'spec.buildArgs',
+      type: ValidationFieldTypes.Map
+    },
+    {
+      name: 'spec.optimize',
+      type: ValidationFieldTypes.Boolean
+    },
+    {
+      name: 'spec.remoteCacheImage',
+      type: ValidationFieldTypes.Text
+    },
+    {
+      name: 'spec.resources.limits.memory',
+      type: ValidationFieldTypes.LimitMemory
+    },
+    {
+      name: 'spec.resources.limits.cpu',
+      type: ValidationFieldTypes.LimitCPU
+    },
+    {
+      name: 'timeout',
+      type: ValidationFieldTypes.Timeout
+    }
+  ]
+}
