@@ -68,6 +68,7 @@ export function SumoLogicConfigStep(props: ConnectionConfigProps): JSX.Element {
     <Container className={css.credentials}>
       <StepDetailsHeader connectorTypeLabel={getString('connectors.title.sumologic')} />
       <Formik
+        formName="crateSumoLogicConnectorsForm"
         enableReinitialize
         initialValues={{ ...initialValues }}
         validationSchema={Yup.object().shape({

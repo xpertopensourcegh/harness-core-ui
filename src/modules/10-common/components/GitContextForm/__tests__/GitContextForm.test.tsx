@@ -16,7 +16,11 @@ describe('GitContextForm test', () => {
         path="/account/:accountId/ci/orgs/:orgIdentifier/projects/:projectIdentifier/admin/resources/connectors"
         pathParams={pathParams}
       >
-        <Formik<GitContextProps> initialValues={{ repo: '', branch: '' }} onSubmit={() => undefined}>
+        <Formik<GitContextProps>
+          initialValues={{ repo: '', branch: '' }}
+          onSubmit={() => undefined}
+          formName="itContextForm"
+        >
           {formikProps => (
             <FormikForm className="wrapperForm">
               <GitContextForm

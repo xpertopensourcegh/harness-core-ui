@@ -25,7 +25,7 @@ function WrapperComponent(props: { initialValues: FormikForNameIdDescriptionTags
   const { initialValues } = props || {}
   return (
     <TestWrapper>
-      <Formik initialValues={initialValues} onSubmit={() => undefined}>
+      <Formik initialValues={initialValues} onSubmit={() => undefined} formName="TestWrapper">
         {formikProps => (
           <FormikForm>
             <NameIdDescriptionTags formikProps={formikProps} />

@@ -195,7 +195,7 @@ const Wizard: React.FC<WizardProps> = ({
       )}
       {!isYamlView && <div className={css.headerLine}></div>}
       <Layout.Horizontal spacing="large" className={css.tabsContainer}>
-        <Formik {...formikInitialProps} validateOnChange={validateOnChange}>
+        <Formik {...formikInitialProps} validateOnChange={validateOnChange} formName="wizardForm">
           {formikProps => (
             <FormikForm className={isYamlView ? css.yamlContainer : ''}>
               <NavigationCheck

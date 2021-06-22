@@ -6,7 +6,7 @@ import i18n from '../AddDescriptionAndTags.i18n'
 
 function WrapperComponent(props: { defaultOpenFields?: string[] }): JSX.Element {
   return (
-    <Formik initialValues={{}} onSubmit={() => undefined}>
+    <Formik initialValues={{}} onSubmit={() => undefined} formName="wrapperComponent">
       <FormikForm>
         <AddDescriptionAndTagsWithIdentifier identifierProps={{ inputLabel: 'name' }} {...props} />
       </FormikForm>

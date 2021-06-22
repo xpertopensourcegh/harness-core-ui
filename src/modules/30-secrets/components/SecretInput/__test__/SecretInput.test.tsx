@@ -45,7 +45,7 @@ describe('SecretInput', () => {
 
     const { container } = render(
       <TestWrapper>
-        <Formik initialValues={{}} onSubmit={noop}>
+        <Formik initialValues={{}} onSubmit={noop} formName="TestWrapper">
           {() => {
             return (
               <FormikForm>
@@ -97,7 +97,7 @@ describe('SecretInput', () => {
 
     const { container } = render(
       <TestWrapper>
-        <Formik initialValues={{ test: { name: 'test', identifier: 'test' } }} onSubmit={noop}>
+        <Formik initialValues={{ test: { name: 'test', identifier: 'test' } }} onSubmit={noop} formName="testWrapper">
           {() => {
             return (
               <FormikForm>

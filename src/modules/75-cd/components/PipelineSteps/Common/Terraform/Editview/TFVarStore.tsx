@@ -95,6 +95,7 @@ export const TFVarStore: React.FC<StepProps<any> & TFVarStoreProps> = ({ nextSte
       </Layout.Horizontal>
 
       <Formik
+        formName="tfVarStoreForm"
         initialValues={isEditMode ? initialValues : iValues}
         enableReinitialize={true}
         onSubmit={() => {

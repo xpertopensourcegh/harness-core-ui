@@ -17,6 +17,7 @@ const FormikTestWrapper: React.FC<StepWidgetProps> = props => {
   const stepRef = React.useRef(null)
   return (
     <Formik
+      formName="stepTestUtilForm"
       initialValues={props.initialValues}
       validate={values => {
         return (

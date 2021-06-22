@@ -271,7 +271,12 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                               class="bp3-label"
                               for="name"
                             >
-                              name
+                              <span
+                                class="Tooltip--acenter"
+                                data-tooltip-id="wizardForm_name"
+                              >
+                                name
+                              </span>
                                
                               <span
                                 class="bp3-text-muted"
@@ -405,7 +410,12 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             class="bp3-label"
                             for="sourceRepo"
                           >
-                            pipeline.triggers.triggerConfigurationPanel.payloadType
+                            <span
+                              class="Tooltip--acenter"
+                              data-tooltip-id="wizardForm_sourceRepo"
+                            >
+                              pipeline.triggers.triggerConfigurationPanel.payloadType
+                            </span>
                              
                             <span
                               class="bp3-text-muted"
@@ -577,7 +587,12 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                               class="bp3-label"
                               for="repoName"
                             >
-                              pipelineSteps.build.create.repositoryNameLabel
+                              <span
+                                class="Tooltip--acenter"
+                                data-tooltip-id="wizardForm_repoName"
+                              >
+                                pipelineSteps.build.create.repositoryNameLabel
+                              </span>
                                
                               <span
                                 class="bp3-text-muted"
@@ -615,7 +630,12 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             class="bp3-label"
                             for="event"
                           >
-                            pipeline.triggers.triggerConfigurationPanel.event
+                            <span
+                              class="Tooltip--acenter"
+                              data-tooltip-id="wizardForm_event"
+                            >
+                              pipeline.triggers.triggerConfigurationPanel.event
+                            </span>
                              
                             <span
                               class="bp3-text-muted"
@@ -833,7 +853,12 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                 <span
                                   class="bp3-control-indicator"
                                 />
-                                pipeline.triggers.triggerConfigurationPanel.anyActions
+                                <span
+                                  class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                                  data-tooltip-id="wizardForm_anyAction"
+                                >
+                                  pipeline.triggers.triggerConfigurationPanel.anyActions
+                                </span>
                               </label>
                             </div>
                           </div>
@@ -858,7 +883,12 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                               <span
                                 class="bp3-control-indicator"
                               />
-                              Auto-abort Previous Execution
+                              <span
+                                class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                                data-tooltip-id="wizardForm_autoAbortPreviousExecutions"
+                              >
+                                Auto-abort Previous Execution
+                              </span>
                             </label>
                           </div>
                         </div>
@@ -1194,7 +1224,12 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                               class="bp3-label"
                               for="name"
                             >
-                              name
+                              <span
+                                class="Tooltip--acenter"
+                                data-tooltip-id="wizardForm_name"
+                              >
+                                name
+                              </span>
                                
                               <span
                                 class="bp3-text-muted"
@@ -1297,7 +1332,12 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             class="bp3-label"
                             for="sourceRepo"
                           >
-                            pipeline.triggers.triggerConfigurationPanel.payloadType
+                            <span
+                              class="Tooltip--acenter"
+                              data-tooltip-id="wizardForm_sourceRepo"
+                            >
+                              pipeline.triggers.triggerConfigurationPanel.payloadType
+                            </span>
                              
                             <span
                               class="bp3-text-muted"
@@ -1491,7 +1531,12 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             class="bp3-label"
                             for="event"
                           >
-                            pipeline.triggers.triggerConfigurationPanel.event
+                            <span
+                              class="Tooltip--acenter"
+                              data-tooltip-id="wizardForm_event"
+                            >
+                              pipeline.triggers.triggerConfigurationPanel.event
+                            </span>
                              
                             <span
                               class="bp3-text-muted"
@@ -1709,7 +1754,12 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                 <span
                                   class="bp3-control-indicator"
                                 />
-                                pipeline.triggers.triggerConfigurationPanel.anyActions
+                                <span
+                                  class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                                  data-tooltip-id="wizardForm_anyAction"
+                                >
+                                  pipeline.triggers.triggerConfigurationPanel.anyActions
+                                </span>
                               </label>
                             </div>
                           </div>
@@ -1734,7 +1784,12 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                               <span
                                 class="bp3-control-indicator"
                               />
-                              Auto-abort Previous Execution
+                              <span
+                                class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                                data-tooltip-id="wizardForm_autoAbortPreviousExecutions"
+                              >
+                                Auto-abort Previous Execution
+                              </span>
                             </label>
                           </div>
                         </div>
@@ -2067,7 +2122,12 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                             class="bp3-label"
                             for="name"
                           >
-                            name
+                            <span
+                              class="Tooltip--acenter"
+                              data-tooltip-id="wizardForm_name"
+                            >
+                              name
+                            </span>
                              
                             <span
                               class="bp3-text-muted"
@@ -2509,7 +2569,12 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                             class="bp3-label"
                             for="expression"
                           >
-                            pipeline.triggers.schedulePanel.enterCustomCron
+                            <span
+                              class="Tooltip--acenter"
+                              data-tooltip-id="wizardForm_expression"
+                            >
+                              pipeline.triggers.schedulePanel.enterCustomCron
+                            </span>
                              
                             <span
                               class="bp3-text-muted"

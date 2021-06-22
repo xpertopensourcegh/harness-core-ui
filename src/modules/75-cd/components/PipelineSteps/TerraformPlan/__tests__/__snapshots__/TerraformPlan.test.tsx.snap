@@ -2600,7 +2600,12 @@ exports[`Test TerraformPlan should render edit view 1`] = `
               class="bp3-label"
               for="spec.provisionerIdentifier"
             >
-              pipelineSteps.provisionerIdentifier
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="stepTestUtilForm_spec.provisionerIdentifier"
+              >
+                pipelineSteps.provisionerIdentifier
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -4699,7 +4704,12 @@ exports[`Test TerraformPlan should render input set view 1`] = `
               class="bp3-label"
               for="test.spec.provisionerIdentifier"
             >
-              pipelineSteps.provisionerIdentifier
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="stepTestUtilForm_test.spec.provisionerIdentifier"
+              >
+                pipelineSteps.provisionerIdentifier
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -4764,7 +4774,12 @@ exports[`Test TerraformPlan should render input set view 1`] = `
               class="bp3-label"
               for="test.configuration.spec.workspace"
             >
-              pipelineSteps.workspace
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="stepTestUtilForm_test.configuration.spec.workspace"
+              >
+                pipelineSteps.workspace
+              </span>
                
               <span
                 class="bp3-text-muted"

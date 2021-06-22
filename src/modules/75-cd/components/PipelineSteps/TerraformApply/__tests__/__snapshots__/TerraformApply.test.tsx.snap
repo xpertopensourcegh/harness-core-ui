@@ -2706,7 +2706,12 @@ exports[`Test TerraformApply should be able to edit inline config 1`] = `
               class="bp3-label"
               for="spec.configuration.spec.configFiles.store.spec.gitFetchType"
             >
-              pipeline.manifestType.gitFetchTypeLabel
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="configForm_spec.configuration.spec.configFiles.store.spec.gitFetchType"
+              >
+                pipeline.manifestType.gitFetchTypeLabel
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -2772,7 +2777,12 @@ exports[`Test TerraformApply should be able to edit inline config 1`] = `
               class="bp3-label"
               for="spec.configuration.spec.configFiles.store.spec.folderPath"
             >
-              cd.folderPath
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="configForm_spec.configuration.spec.configFiles.store.spec.folderPath"
+              >
+                cd.folderPath
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -2874,7 +2884,12 @@ exports[`Test TerraformApply should render edit view 1`] = `
             class="bp3-label"
             for="test.spec.provisionerIdentifier"
           >
-            pipelineSteps.provisionerIdentifier
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="stepTestUtilForm_test.spec.provisionerIdentifier"
+            >
+              pipelineSteps.provisionerIdentifier
+            </span>
              
             <span
               class="bp3-text-muted"

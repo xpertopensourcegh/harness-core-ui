@@ -135,7 +135,12 @@ exports[`Unit tests for DefineYourMonitoringSource Ensure card renders passed in
                     class="bp3-label"
                     for="monitoringSourceName"
                   >
-                    name
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="wrapperComponentTestForm_monitoringSourceName"
+                    >
+                      name
+                    </span>
                      
                     <span
                       class="bp3-text-muted"

@@ -24,7 +24,7 @@ function WrapperComponent(props: SelectOrCreateConnectorProps): JSX.Element {
         orgIdentifier: '1234_ORG'
       }}
     >
-      <Formik initialValues={{}} onSubmit={() => undefined}>
+      <Formik initialValues={{}} onSubmit={() => undefined} formName="wrapperComponentTestForm">
         {formikProps => (
           <FormikForm className="wrapperForm">
             <SelectOrCreateConnector

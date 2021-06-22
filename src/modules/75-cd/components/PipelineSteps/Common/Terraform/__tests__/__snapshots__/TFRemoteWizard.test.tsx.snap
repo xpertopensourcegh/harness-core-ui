@@ -22,7 +22,12 @@ exports[`Terraform Remote Form tests initial rendering 1`] = `
                 class="bp3-label"
                 for="varFile.identifier"
               >
-                identifier
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="tfRemoteWizardForm_varFile.identifier"
+                >
+                  identifier
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -86,7 +91,12 @@ exports[`Terraform Remote Form tests initial rendering 1`] = `
                 class="bp3-label"
                 for="varFile.spec.store.spec.gitFetchType"
               >
-                pipeline.manifestType.gitFetchTypeLabel
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="tfRemoteWizardForm_varFile.spec.store.spec.gitFetchType"
+                >
+                  pipeline.manifestType.gitFetchTypeLabel
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -330,7 +340,12 @@ exports[`Terraform Remote Form tests should be able to load edit mode correctly 
                 class="bp3-label"
                 for="varFile.identifier"
               >
-                identifier
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="tfRemoteWizardForm_varFile.identifier"
+                >
+                  identifier
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -394,7 +409,12 @@ exports[`Terraform Remote Form tests should be able to load edit mode correctly 
                 class="bp3-label"
                 for="varFile.spec.store.spec.gitFetchType"
               >
-                pipeline.manifestType.gitFetchTypeLabel
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="tfRemoteWizardForm_varFile.spec.store.spec.gitFetchType"
+                >
+                  pipeline.manifestType.gitFetchTypeLabel
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -460,7 +480,12 @@ exports[`Terraform Remote Form tests should be able to load edit mode correctly 
                 class="bp3-label"
                 for="varFile.spec.store.spec.branch"
               >
-                pipelineSteps.deploy.inputSet.branch
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="tfRemoteWizardForm_varFile.spec.store.spec.branch"
+                >
+                  pipelineSteps.deploy.inputSet.branch
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -706,7 +731,12 @@ exports[`Terraform Remote Form tests should be able to load edit mode correctly 
                 class="bp3-label"
                 for="varFile.identifier"
               >
-                identifier
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="tfRemoteWizardForm_varFile.identifier"
+                >
+                  identifier
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -770,7 +800,12 @@ exports[`Terraform Remote Form tests should be able to load edit mode correctly 
                 class="bp3-label"
                 for="varFile.spec.store.spec.gitFetchType"
               >
-                pipeline.manifestType.gitFetchTypeLabel
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="tfRemoteWizardForm_varFile.spec.store.spec.gitFetchType"
+                >
+                  pipeline.manifestType.gitFetchTypeLabel
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -836,7 +871,12 @@ exports[`Terraform Remote Form tests should be able to load edit mode correctly 
                 class="bp3-label"
                 for="varFile.spec.store.spec.branch"
               >
-                pipelineSteps.deploy.inputSet.branch
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="tfRemoteWizardForm_varFile.spec.store.spec.branch"
+                >
+                  pipelineSteps.deploy.inputSet.branch
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -1243,7 +1283,12 @@ exports[`Terraform Remote Form tests should be able to load with commitId edit m
                 class="bp3-label"
                 for="varFile.identifier"
               >
-                identifier
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="tfRemoteWizardForm_varFile.identifier"
+                >
+                  identifier
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -1307,7 +1352,12 @@ exports[`Terraform Remote Form tests should be able to load with commitId edit m
                 class="bp3-label"
                 for="varFile.spec.store.spec.gitFetchType"
               >
-                pipeline.manifestType.gitFetchTypeLabel
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="tfRemoteWizardForm_varFile.spec.store.spec.gitFetchType"
+                >
+                  pipeline.manifestType.gitFetchTypeLabel
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -1373,7 +1423,12 @@ exports[`Terraform Remote Form tests should be able to load with commitId edit m
                 class="bp3-label"
                 for="varFile.spec.store.spec.commitId"
               >
-                pipeline.manifestType.commitId
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="tfRemoteWizardForm_varFile.spec.store.spec.commitId"
+                >
+                  pipeline.manifestType.commitId
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -1780,7 +1835,12 @@ exports[`Terraform Remote Form tests should be able to remove and add paths 1`] 
                 class="bp3-label"
                 for="varFile.identifier"
               >
-                identifier
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="tfRemoteWizardForm_varFile.identifier"
+                >
+                  identifier
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -1844,7 +1904,12 @@ exports[`Terraform Remote Form tests should be able to remove and add paths 1`] 
                 class="bp3-label"
                 for="varFile.spec.store.spec.gitFetchType"
               >
-                pipeline.manifestType.gitFetchTypeLabel
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="tfRemoteWizardForm_varFile.spec.store.spec.gitFetchType"
+                >
+                  pipeline.manifestType.gitFetchTypeLabel
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -1910,7 +1975,12 @@ exports[`Terraform Remote Form tests should be able to remove and add paths 1`] 
                 class="bp3-label"
                 for="varFile.spec.store.spec.branch"
               >
-                pipelineSteps.deploy.inputSet.branch
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="tfRemoteWizardForm_varFile.spec.store.spec.branch"
+                >
+                  pipelineSteps.deploy.inputSet.branch
+                </span>
                  
                 <span
                   class="bp3-text-muted"

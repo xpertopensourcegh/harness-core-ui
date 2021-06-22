@@ -214,7 +214,12 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
                             class="bp3-label"
                             for="name"
                           >
-                            connectors.name
+                            <span
+                              class="Tooltip--acenter"
+                              data-tooltip-id="connectorsCeAwsOverViewForm_name"
+                            >
+                              connectors.name
+                            </span>
                              
                             <span
                               class="bp3-text-muted"
@@ -245,7 +250,12 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
                           class="bp3-label"
                           for="awsAccountId"
                         >
-                          connectors.ceAws.overview.awsAccountId
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="connectorsCeAwsOverViewForm_awsAccountId"
+                          >
+                            connectors.ceAws.overview.awsAccountId
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -639,40 +649,45 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
                           class="bp3-label"
                           for="reportName"
                         >
-                          <div
-                            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="costUsageReportForm_reportName"
                           >
-                            <span
-                              class="StyledProps--font StyledProps--main StyledProps--inline"
-                            >
-                              connectors.ceAws.cur.reportName
-                            </span>
-                            <span
-                              class="bp3-popover-wrapper"
+                            <div
+                              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="StyledProps--font StyledProps--main StyledProps--inline"
+                              >
+                                connectors.ceAws.cur.reportName
+                              </span>
+                              <span
+                                class="bp3-popover-wrapper"
                               >
                                 <span
-                                  class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-primary5"
-                                  data-icon="info"
-                                  tabindex="0"
+                                  class="bp3-popover-target"
                                 >
-                                  <svg
-                                    height="12"
-                                    viewBox="0 0 12 12"
-                                    width="12"
+                                  <span
+                                    class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-primary5"
+                                    data-icon="info"
+                                    tabindex="0"
                                   >
-                                    <path
-                                      clip-rule="evenodd"
-                                      d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                                      fill-rule="evenodd"
-                                    />
-                                  </svg>
+                                    <svg
+                                      height="12"
+                                      viewBox="0 0 12 12"
+                                      width="12"
+                                    >
+                                      <path
+                                        clip-rule="evenodd"
+                                        d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+                                        fill-rule="evenodd"
+                                      />
+                                    </svg>
+                                  </span>
                                 </span>
                               </span>
-                            </span>
-                          </div>
+                            </div>
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -702,40 +717,45 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
                           class="bp3-label"
                           for="s3BucketName"
                         >
-                          <div
-                            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="costUsageReportForm_s3BucketName"
                           >
-                            <span
-                              class="StyledProps--font StyledProps--main StyledProps--inline"
-                            >
-                              connectors.ceAws.cur.bucketName
-                            </span>
-                            <span
-                              class="bp3-popover-wrapper"
+                            <div
+                              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="StyledProps--font StyledProps--main StyledProps--inline"
+                              >
+                                connectors.ceAws.cur.bucketName
+                              </span>
+                              <span
+                                class="bp3-popover-wrapper"
                               >
                                 <span
-                                  class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-primary5"
-                                  data-icon="info"
-                                  tabindex="0"
+                                  class="bp3-popover-target"
                                 >
-                                  <svg
-                                    height="12"
-                                    viewBox="0 0 12 12"
-                                    width="12"
+                                  <span
+                                    class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-primary5"
+                                    data-icon="info"
+                                    tabindex="0"
                                   >
-                                    <path
-                                      clip-rule="evenodd"
-                                      d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                                      fill-rule="evenodd"
-                                    />
-                                  </svg>
+                                    <svg
+                                      height="12"
+                                      viewBox="0 0 12 12"
+                                      width="12"
+                                    >
+                                      <path
+                                        clip-rule="evenodd"
+                                        d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+                                        fill-rule="evenodd"
+                                      />
+                                    </svg>
+                                  </span>
                                 </span>
                               </span>
-                            </span>
-                          </div>
+                            </div>
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -1648,40 +1668,45 @@ exports[`Create Secret Manager Wizard should render form 4`] = `
                           class="bp3-label"
                           for="crossAccountRoleArn"
                         >
-                          <div
-                            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="crossAccountRoleStep2Form_crossAccountRoleArn"
                           >
-                            <span
-                              class="StyledProps--font StyledProps--main StyledProps--inline"
-                            >
-                              connectors.ceAws.crossAccountRoleStep2.roleArn
-                            </span>
-                            <span
-                              class="bp3-popover-wrapper"
+                            <div
+                              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="StyledProps--font StyledProps--main StyledProps--inline"
+                              >
+                                connectors.ceAws.crossAccountRoleStep2.roleArn
+                              </span>
+                              <span
+                                class="bp3-popover-wrapper"
                               >
                                 <span
-                                  class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-primary5"
-                                  data-icon="info"
-                                  tabindex="0"
+                                  class="bp3-popover-target"
                                 >
-                                  <svg
-                                    height="12"
-                                    viewBox="0 0 12 12"
-                                    width="12"
+                                  <span
+                                    class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-primary5"
+                                    data-icon="info"
+                                    tabindex="0"
                                   >
-                                    <path
-                                      clip-rule="evenodd"
-                                      d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                                      fill-rule="evenodd"
-                                    />
-                                  </svg>
+                                    <svg
+                                      height="12"
+                                      viewBox="0 0 12 12"
+                                      width="12"
+                                    >
+                                      <path
+                                        clip-rule="evenodd"
+                                        d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+                                        fill-rule="evenodd"
+                                      />
+                                    </svg>
+                                  </span>
                                 </span>
                               </span>
-                            </span>
-                          </div>
+                            </div>
+                          </span>
                            
                           <span
                             class="bp3-text-muted"
@@ -1711,40 +1736,45 @@ exports[`Create Secret Manager Wizard should render form 4`] = `
                           class="bp3-label"
                           for="externalId"
                         >
-                          <div
-                            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="crossAccountRoleStep2Form_externalId"
                           >
-                            <span
-                              class="StyledProps--font StyledProps--main StyledProps--inline"
-                            >
-                              connectors.ceAws.crossAccountRoleStep2.extId
-                            </span>
-                            <span
-                              class="bp3-popover-wrapper"
+                            <div
+                              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
                             >
                               <span
-                                class="bp3-popover-target"
+                                class="StyledProps--font StyledProps--main StyledProps--inline"
+                              >
+                                connectors.ceAws.crossAccountRoleStep2.extId
+                              </span>
+                              <span
+                                class="bp3-popover-wrapper"
                               >
                                 <span
-                                  class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-primary5"
-                                  data-icon="info"
-                                  tabindex="0"
+                                  class="bp3-popover-target"
                                 >
-                                  <svg
-                                    height="12"
-                                    viewBox="0 0 12 12"
-                                    width="12"
+                                  <span
+                                    class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-primary5"
+                                    data-icon="info"
+                                    tabindex="0"
                                   >
-                                    <path
-                                      clip-rule="evenodd"
-                                      d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                                      fill-rule="evenodd"
-                                    />
-                                  </svg>
+                                    <svg
+                                      height="12"
+                                      viewBox="0 0 12 12"
+                                      width="12"
+                                    >
+                                      <path
+                                        clip-rule="evenodd"
+                                        d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+                                        fill-rule="evenodd"
+                                      />
+                                    </svg>
+                                  </span>
                                 </span>
                               </span>
-                            </span>
-                          </div>
+                            </div>
+                          </span>
                            
                           <span
                             class="bp3-text-muted"

@@ -21,6 +21,7 @@ function WrapperComponent(props: { initialValues: any }): JSX.Element {
   return (
     <TestWrapper>
       <Formik
+        formName="webhookConditionTestForm"
         enableReinitialize={true}
         initialValues={initialValues}
         validationSchema={getValidationSchema(

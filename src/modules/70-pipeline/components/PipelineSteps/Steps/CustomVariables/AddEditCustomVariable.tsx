@@ -47,6 +47,7 @@ export default function AddEditCustomVariable(props: AddEditCustomVariableProps)
       onClose={closeModal}
     >
       <Formik
+        formName="addEditCustomVariableForm"
         initialValues={selectedVariable?.variable}
         enableReinitialize
         validationSchema={Yup.object().shape({

@@ -193,7 +193,12 @@ exports[`TF Config Form tests edit view loads correctly 1`] = `
               class="bp3-label"
               for="spec.configuration.configFiles.store.spec.gitFetchType"
             >
-              pipeline.manifestType.gitFetchTypeLabel
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="tfPlanConfigForm_spec.configuration.configFiles.store.spec.gitFetchType"
+              >
+                pipeline.manifestType.gitFetchTypeLabel
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -259,7 +264,12 @@ exports[`TF Config Form tests edit view loads correctly 1`] = `
               class="bp3-label"
               for="spec.configuration.configFiles.store.spec.folderPath"
             >
-              cd.folderPath
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="tfPlanConfigForm_spec.configuration.configFiles.store.spec.folderPath"
+              >
+                cd.folderPath
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -537,7 +547,12 @@ exports[`TF Config Form tests initial render 1`] = `
               class="bp3-label"
               for="spec.configuration.configFiles.store.spec.gitFetchType"
             >
-              pipeline.manifestType.gitFetchTypeLabel
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="tfPlanConfigForm_spec.configuration.configFiles.store.spec.gitFetchType"
+              >
+                pipeline.manifestType.gitFetchTypeLabel
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -603,7 +618,12 @@ exports[`TF Config Form tests initial render 1`] = `
               class="bp3-label"
               for="spec.configuration.configFiles.store.spec.folderPath"
             >
-              cd.folderPath
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="tfPlanConfigForm_spec.configuration.configFiles.store.spec.folderPath"
+              >
+                cd.folderPath
+              </span>
                
               <span
                 class="bp3-text-muted"

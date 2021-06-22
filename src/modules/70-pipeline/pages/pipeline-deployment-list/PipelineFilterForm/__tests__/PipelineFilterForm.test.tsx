@@ -29,7 +29,7 @@ const TEST_PATH = routes.toPipelines({ ...accountPathProps, ...pipelinePathProps
 function WrapperComponent(): JSX.Element {
   return (
     <TestWrapper path={TEST_PATH} pathParams={params} defaultAppStoreValues={defaultAppStoreValues}>
-      <Formik initialValues={{}} onSubmit={() => undefined}>
+      <Formik initialValues={{}} onSubmit={() => undefined} formName="pipelineFilterFormTest">
         <FormikForm>
           <PipelineFilterForm<PipelineExecutionFormType>
             isCDEnabled={true}

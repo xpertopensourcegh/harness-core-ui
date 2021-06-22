@@ -54,7 +54,12 @@ exports[`Inline var file testing click submit for inline var file 1`] = `
             class="bp3-label"
             for="varFile.identifier"
           >
-            identifier
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="inlineVarFileForm_varFile.identifier"
+            >
+              identifier
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -247,7 +252,12 @@ exports[`Inline var file testing edit view for inline vars 1`] = `
             class="bp3-label"
             for="varFile.identifier"
           >
-            identifier
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="inlineVarFileForm_varFile.identifier"
+            >
+              identifier
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -440,7 +450,12 @@ exports[`Inline var file testing initial render 1`] = `
             class="bp3-label"
             for="varFile.identifier"
           >
-            identifier
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="inlineVarFileForm_varFile.identifier"
+            >
+              identifier
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -631,7 +646,12 @@ exports[`Inline var file testing when content is runtime input 1`] = `
             class="bp3-label"
             for="varFile.identifier"
           >
-            identifier
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="inlineVarFileForm_varFile.identifier"
+            >
+              identifier
+            </span>
              
             <span
               class="bp3-text-muted"

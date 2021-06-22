@@ -24,7 +24,12 @@ exports[`Test terraform input set should render edit view as new step 1`] = `
                   class="bp3-label"
                   for="spec.provisionerIdentifier"
                 >
-                  pipelineSteps.provisionerIdentifier
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="wrapperComponentTestForm_spec.provisionerIdentifier"
+                  >
+                    pipelineSteps.provisionerIdentifier
+                  </span>
                    
                   <span
                     class="bp3-text-muted"
@@ -155,7 +160,12 @@ exports[`Test terraform input set should render edit view as new step 1`] = `
                   class="bp3-label"
                   for="test.configuration.spec.workspace"
                 >
-                  pipelineSteps.workspace
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="wrapperComponentTestForm_test.configuration.spec.workspace"
+                  >
+                    pipelineSteps.workspace
+                  </span>
                    
                   <span
                     class="bp3-text-muted"

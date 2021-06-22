@@ -267,7 +267,12 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                                   class="bp3-label"
                                   for="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
                                 >
-                                  common.namespace
+                                  <span
+                                    class="Tooltip--acenter"
+                                    data-tooltip-id="wrapperComponentTestForm_pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
+                                  >
+                                    common.namespace
+                                  </span>
                                    
                                   <span
                                     class="bp3-text-muted"

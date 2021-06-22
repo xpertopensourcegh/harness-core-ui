@@ -7,7 +7,7 @@ import { DefineYourMonitoringSource, DefineYourMonitoringSourceProps } from '../
 function WrapperComponent(props: Omit<DefineYourMonitoringSourceProps, 'formikProps'>): JSX.Element {
   return (
     <TestWrapper>
-      <Formik onSubmit={() => undefined} initialValues={{}}>
+      <Formik onSubmit={() => undefined} initialValues={{}} formName="wrapperComponentTestForm">
         {formikProps => {
           return (
             <FormikForm>

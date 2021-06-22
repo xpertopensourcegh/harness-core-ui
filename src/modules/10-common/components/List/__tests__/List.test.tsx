@@ -14,7 +14,7 @@ interface TestProps {
 const TestComponent = ({ initialValues, readonly }: TestProps): React.ReactElement => (
   <TestWrapper>
     {/* eslint-disable-next-line @typescript-eslint/no-empty-function */}
-    <Formik initialValues={initialValues} onSubmit={() => {}}>
+    <Formik initialValues={initialValues} onSubmit={() => {}} formName="TestWrapper">
       <FormikForm>
         <List name="test" disabled={!!readonly} />
       </FormikForm>

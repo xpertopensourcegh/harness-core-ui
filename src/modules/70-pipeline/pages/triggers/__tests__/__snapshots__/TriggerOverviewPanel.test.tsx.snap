@@ -76,7 +76,12 @@ exports[`TriggerOverviewPanel Triggers tests Renders/snapshots Initial Render - 
                   class="bp3-label"
                   for="name"
                 >
-                  name
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="wrapperComponentForm_name"
+                  >
+                    name
+                  </span>
                    
                   <span
                     class="bp3-text-muted"

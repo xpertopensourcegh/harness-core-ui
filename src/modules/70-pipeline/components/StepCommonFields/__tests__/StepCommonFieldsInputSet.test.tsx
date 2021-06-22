@@ -15,7 +15,7 @@ interface TestProps {
 const TestComponent = ({ template, readonly }: TestProps): React.ReactElement => (
   <TestWrapper>
     {/* eslint-disable-next-line @typescript-eslint/no-empty-function */}
-    <Formik initialValues={{}} onSubmit={() => {}}>
+    <Formik initialValues={{}} onSubmit={() => {}} formName="stepCommonFiledsInputSetTestForm">
       <FormikForm>
         <StepCommonFieldsInputSet template={template} readonly={!!readonly} />
       </FormikForm>

@@ -179,7 +179,12 @@ exports[`Test Shell Script Step renders input sets 1`] = `
               class="bp3-label"
               for="spec.executionTarget.host"
             >
-              targetHost
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="stepTestUtilForm_spec.executionTarget.host"
+              >
+                targetHost
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -333,7 +338,12 @@ exports[`Test Shell Script Step renders input sets 1`] = `
               class="bp3-label"
               for="spec.executionTarget.workingDirectory"
             >
-              workingDirectory
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="stepTestUtilForm_spec.executionTarget.workingDirectory"
+              >
+                workingDirectory
+              </span>
                
               <span
                 class="bp3-text-muted"

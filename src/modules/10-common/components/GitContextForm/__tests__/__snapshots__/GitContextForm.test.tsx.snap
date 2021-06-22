@@ -25,7 +25,12 @@ exports[`GitContextForm test GitContextForm for create with deafault restriction
               class="bp3-label"
               for="repo"
             >
-              common.git.selectRepoLabel
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="itContextForm_repo"
+              >
+                common.git.selectRepoLabel
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -166,7 +171,12 @@ exports[`GitContextForm test GitContextForm for create without deafult restricti
               class="bp3-label"
               for="repo"
             >
-              common.git.selectRepoLabel
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="itContextForm_repo"
+              >
+                common.git.selectRepoLabel
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -306,7 +316,12 @@ exports[`GitContextForm test GitContextForm for edit should have repo and branch
               class="bp3-label"
               for="repo"
             >
-              common.git.selectRepoLabel
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="itContextForm_repo"
+              >
+                common.git.selectRepoLabel
+              </span>
                
               <span
                 class="bp3-text-muted"

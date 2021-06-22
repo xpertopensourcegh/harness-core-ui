@@ -11,7 +11,7 @@ describe('ConditionalExecutionPanel', () => {
   test('matches snapshot', () => {
     const { container } = render(
       <TestWrapper>
-        <Formik initialValues={{}} onSubmit={() => void 0}>
+        <Formik initialValues={{}} onSubmit={() => void 0} formName="conditionalExecutionPanelForm">
           {formikProps => {
             return <ConditionalExecutionPanel mode={Modes.STEP} isReadonly={false} formikProps={formikProps} />
           }}

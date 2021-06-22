@@ -49,6 +49,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
   return (
     <Layout.Vertical padding={'huge'}>
       <Formik<TFPlanConfig>
+        formName="tfPlanConfigForm"
         onSubmit={(values: any) => {
           props.onClick(values)
         }}

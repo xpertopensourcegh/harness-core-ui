@@ -38,7 +38,12 @@ exports[`Create datadog connector Wizard Ensure create flow works 1`] = `
                 class="bp3-label"
                 for="url"
               >
-                UrlLabel
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="createDataDogConnectorsForm_url"
+                >
+                  UrlLabel
+                </span>
                  
                 <span
                   class="bp3-text-muted"

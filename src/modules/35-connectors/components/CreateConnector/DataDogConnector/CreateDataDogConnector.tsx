@@ -42,6 +42,7 @@ export function DatadogConfigStep(props: ConnectionConfigProps): JSX.Element {
     <Container className={css.credentials}>
       <StepDetailsHeader connectorTypeLabel={getString('connectors.title.datadog')} />
       <Formik
+        formName="createDataDogConnectorsForm"
         enableReinitialize
         initialValues={{ ...initialValues }}
         validationSchema={Yup.object().shape({

@@ -357,6 +357,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
   return (
     <>
       <Formik<DeployEnvData>
+        formName="deployEnvStepForm"
         onSubmit={noop}
         validate={values => {
           if (!isEmpty(values.environment)) {

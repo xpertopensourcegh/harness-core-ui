@@ -159,7 +159,12 @@ exports[`Wizard tests Interactivity Tab Change: Show warning for each touched pa
                         class="bp3-label"
                         for="name"
                       >
-                        Name
+                        <span
+                          class="Tooltip--acenter"
+                          data-tooltip-id="wizardForm_name"
+                        >
+                          Name
+                        </span>
                          
                         <span
                           class="bp3-text-muted"
@@ -356,7 +361,12 @@ exports[`Wizard tests Renders/snapshots Initial Render - 3 panels 1`] = `
                         class="bp3-label"
                         for="name"
                       >
-                        Name
+                        <span
+                          class="Tooltip--acenter"
+                          data-tooltip-id="wizardForm_name"
+                        >
+                          Name
+                        </span>
                          
                         <span
                           class="bp3-text-muted"

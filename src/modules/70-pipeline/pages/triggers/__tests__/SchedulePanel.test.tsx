@@ -80,6 +80,7 @@ function WrapperComponent(props: { initialValues: any }): JSX.Element {
   return (
     <TestWrapper>
       <Formik
+        formName="schedulePanelTestForm"
         enableReinitialize={true}
         initialValues={initialValues}
         validationSchema={getValidationSchema(

@@ -14,7 +14,7 @@ describe('Text Reference', () => {
   test('render create mode', async () => {
     const { container } = render(
       <TestWrapper>
-        <Formik initialValues={{}} onSubmit={noop}>
+        <Formik initialValues={{}} onSubmit={noop} formName="testWrapper">
           {() => {
             return (
               <FormikForm>
@@ -32,6 +32,7 @@ describe('Text Reference', () => {
     const { container } = render(
       <TestWrapper>
         <Formik
+          formName="testWrapper"
           initialValues={{
             username: {
               value: 'test',
@@ -57,6 +58,7 @@ describe('Text Reference', () => {
     const { container } = render(
       <TestWrapper>
         <Formik
+          formName="testWrapper"
           initialValues={{
             username: {
               value: 'test',

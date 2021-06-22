@@ -47,6 +47,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
   return (
     <Layout.Vertical padding={'huge'}>
       <Formik<ConfigFileData>
+        formName="configForm"
         onSubmit={props.onClick}
         initialValues={props.data}
         validationSchema={Yup.object().shape({

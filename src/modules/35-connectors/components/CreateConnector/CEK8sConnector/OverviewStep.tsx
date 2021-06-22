@@ -153,6 +153,7 @@ const OverviewStep: React.FC<StepProps<ConnectorConfigDTO> & OverviewStepProps> 
       <div className={overviewCss.infoSection}>{getString('connectors.ceK8.infoText')}</div>
       <Container padding="small" className={css.connectorForm}>
         <Formik<DetailsForm>
+          formName="overViewStepForm"
           onSubmit={formData => {
             handleSubmit(formData)
           }}

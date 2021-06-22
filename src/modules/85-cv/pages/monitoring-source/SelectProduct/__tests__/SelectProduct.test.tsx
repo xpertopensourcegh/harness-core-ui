@@ -103,7 +103,7 @@ describe('SelectProduct', () => {
           identifier: stepData.identifier
         }}
       >
-        <Formik initialValues={{ ...stepData }} onSubmit={jest.fn()}>
+        <Formik initialValues={{ ...stepData }} onSubmit={jest.fn()} formName="wrapperComponentTestForm">
           <SelectProduct type="GoogleCloudOperations" onCompleteStep={() => noop} stepData={stepData} />
         </Formik>
       </TestWrapper>
@@ -143,7 +143,7 @@ describe('SelectProduct', () => {
           identifier: stepData.identifier
         }}
       >
-        <Formik initialValues={{ ...stepData }} onSubmit={jest.fn()}>
+        <Formik initialValues={{ ...stepData }} onSubmit={jest.fn()} formName="wrapperComponentTestForm">
           <SelectProduct type="GoogleCloudOperations" onCompleteStep={() => noop} stepData={stepData} />
         </Formik>
       </TestWrapper>

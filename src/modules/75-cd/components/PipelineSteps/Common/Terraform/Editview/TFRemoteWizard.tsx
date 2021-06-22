@@ -86,6 +86,7 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
   return (
     <Layout.Vertical padding={'huge'} className={css.tfVarStore}>
       <Formik
+        formName="tfRemoteWizardForm"
         initialValues={initialValues}
         onSubmit={values => {
           /* istanbul ignore else */

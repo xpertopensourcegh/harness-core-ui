@@ -13,7 +13,12 @@ exports[`Monitoring Sources component Verify monitoring sources select all featu
         class="bp3-label"
         for="dataSource"
       >
-        monitoringSource
+        <span
+          class="Tooltip--acenter"
+          data-tooltip-id="wrapperComponentTestForm_dataSource"
+        >
+          monitoringSource
+        </span>
          
         <span
           class="bp3-text-muted"
@@ -102,7 +107,12 @@ exports[`Monitoring Sources component with no monitoring source Verify monitorin
         class="bp3-label"
         for="dataSource"
       >
-        monitoringSource
+        <span
+          class="Tooltip--acenter"
+          data-tooltip-id="wrapperComponentTestForm_dataSource"
+        >
+          monitoringSource
+        </span>
          
         <span
           class="bp3-text-muted"

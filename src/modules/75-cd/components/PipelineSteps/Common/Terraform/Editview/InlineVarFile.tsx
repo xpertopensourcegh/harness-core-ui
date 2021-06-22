@@ -48,6 +48,7 @@ const InlineVarFile = (props: InlineVarFileProps) => {
     >
       <Layout.Vertical padding="medium">
         <Formik<InlineVar>
+          formName="inlineVarFileForm"
           initialValues={selectedVar}
           onSubmit={(values: any) => {
             /* istanbul ignore else */

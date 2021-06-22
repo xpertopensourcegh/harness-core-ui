@@ -322,6 +322,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
   return (
     <>
       <Formik<DeployServiceData>
+        formName="deployServiceStepForm"
         onSubmit={noop}
         validate={values => {
           if (!isEmpty(values.service)) {

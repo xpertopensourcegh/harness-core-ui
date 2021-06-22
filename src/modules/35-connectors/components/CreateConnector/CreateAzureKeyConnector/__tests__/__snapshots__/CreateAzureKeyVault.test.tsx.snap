@@ -641,7 +641,12 @@ exports[`Create Secret Manager Wizard should be able to render first step form 2
                     class="bp3-label"
                     for="clientId"
                   >
-                    common.clientId
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="azureKeyVaultForm_clientId"
+                    >
+                      common.clientId
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -671,7 +676,12 @@ exports[`Create Secret Manager Wizard should be able to render first step form 2
                     class="bp3-label"
                     for="tenantId"
                   >
-                    connectors.azureKeyVault.labels.tenantId
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="azureKeyVaultForm_tenantId"
+                    >
+                      connectors.azureKeyVault.labels.tenantId
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -701,7 +711,12 @@ exports[`Create Secret Manager Wizard should be able to render first step form 2
                     class="bp3-label"
                     for="subscription"
                   >
-                    connectors.azureKeyVault.labels.subscription
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="azureKeyVaultForm_subscription"
+                    >
+                      connectors.azureKeyVault.labels.subscription
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -731,7 +746,12 @@ exports[`Create Secret Manager Wizard should be able to render first step form 2
                     class="bp3-label"
                     for="secretKey"
                   >
-                    keyLabel
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="azureKeyVaultForm_secretKey"
+                    >
+                      keyLabel
+                    </span>
                      
                     <span
                       class="bp3-text-muted"
@@ -765,7 +785,12 @@ exports[`Create Secret Manager Wizard should be able to render first step form 2
                       class="bp3-label"
                       for="vaultName"
                     >
-                      connectors.azureKeyVault.labels.vaultName
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="azureKeyVaultForm_vaultName"
+                      >
+                        connectors.azureKeyVault.labels.vaultName
+                      </span>
                        
                       <span
                         class="bp3-text-muted"
@@ -850,7 +875,12 @@ exports[`Create Secret Manager Wizard should be able to render first step form 2
                       <span
                         class="bp3-control-indicator"
                       />
-                      connectors.hashiCorpVault.defaultVault
+                      <span
+                        class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                        data-tooltip-id="azureKeyVaultForm_default"
+                      >
+                        connectors.hashiCorpVault.defaultVault
+                      </span>
                     </label>
                   </div>
                 </div>

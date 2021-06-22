@@ -38,7 +38,12 @@ exports[`Create Sumo Logic connector Wizard Ensure create flow works 1`] = `
                 class="bp3-label"
                 for="url"
               >
-                connectors.sumologic.urlLabel
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="crateSumoLogicConnectorsForm_url"
+                >
+                  connectors.sumologic.urlLabel
+                </span>
                  
                 <span
                   class="bp3-text-muted"

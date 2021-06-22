@@ -164,6 +164,7 @@ const OverviewStep: React.FC<OverviewProps> = props => {
       </Heading>
       <div style={{ flex: 1 }}>
         <Formik<OverviewDetails>
+          formName="connectorsCeAwsOverViewForm"
           initialValues={getInitialValues() as OverviewDetails}
           validationSchema={Yup.object().shape({
             awsAccountId: Yup.number()

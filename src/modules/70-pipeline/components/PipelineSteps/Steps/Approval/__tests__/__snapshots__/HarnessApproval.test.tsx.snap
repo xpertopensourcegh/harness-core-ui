@@ -12,7 +12,12 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode readonly: h
         class="bp3-label"
         for="spec.approvalMessage"
       >
-        pipeline.approvalStep.message
+        <span
+          class="Tooltip--acenter"
+          data-tooltip-id="stepTestUtilForm_spec.approvalMessage"
+        >
+          pipeline.approvalStep.message
+        </span>
          
         <span
           class="bp3-text-muted"
@@ -70,7 +75,12 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode readonly: h
         class="bp3-label"
         for="spec.approvers.minimumCount"
       >
-        pipeline.approvalStep.minimumCount
+        <span
+          class="Tooltip--acenter"
+          data-tooltip-id="stepTestUtilForm_spec.approvers.minimumCount"
+        >
+          pipeline.approvalStep.minimumCount
+        </span>
          
         <span
           class="bp3-text-muted"
@@ -127,7 +137,12 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
         class="bp3-label"
         for="spec.approvalMessage"
       >
-        pipeline.approvalStep.message
+        <span
+          class="Tooltip--acenter"
+          data-tooltip-id="stepTestUtilForm_spec.approvalMessage"
+        >
+          pipeline.approvalStep.message
+        </span>
          
         <span
           class="bp3-text-muted"
@@ -185,7 +200,12 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
         class="bp3-label"
         for="spec.approvers.minimumCount"
       >
-        pipeline.approvalStep.minimumCount
+        <span
+          class="Tooltip--acenter"
+          data-tooltip-id="stepTestUtilForm_spec.approvers.minimumCount"
+        >
+          pipeline.approvalStep.minimumCount
+        </span>
          
         <span
           class="bp3-text-muted"
@@ -560,7 +580,12 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: input set with e
         class="bp3-label"
         for="spec.approvalMessage"
       >
-        pipeline.approvalStep.message
+        <span
+          class="Tooltip--acenter"
+          data-tooltip-id="stepTestUtilForm_spec.approvalMessage"
+        >
+          pipeline.approvalStep.message
+        </span>
          
         <span
           class="bp3-text-muted"
@@ -623,7 +648,12 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: input set with e
         class="bp3-label"
         for="spec.approvers.minimumCount"
       >
-        pipeline.approvalStep.minimumCount
+        <span
+          class="Tooltip--acenter"
+          data-tooltip-id="stepTestUtilForm_spec.approvers.minimumCount"
+        >
+          pipeline.approvalStep.minimumCount
+        </span>
          
         <span
           class="bp3-text-muted"

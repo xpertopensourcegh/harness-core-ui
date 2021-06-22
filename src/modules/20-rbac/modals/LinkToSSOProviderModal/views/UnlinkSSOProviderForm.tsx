@@ -66,6 +66,7 @@ const UnlinkSSOProviderForm: React.FC<UnlinkSSOProviderModalData> = props => {
           {getString('rbac.userDetails.linkToSSOProviderModal.delinkLabel')}
         </Text>
         <Formik<UnlinkSSOProviderFormData>
+          formName="UnlinkSSOProviderForm"
           initialValues={{ retainMembers: false }}
           onSubmit={() => {
             handleOnSubmit()

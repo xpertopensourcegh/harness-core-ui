@@ -51,7 +51,12 @@ exports[`Create LinkToSSOProviderModal should render UnlinkToSSOProviderModalFor
                       <span
                         class="bp3-control-indicator"
                       />
-                      rbac.userDetails.linkToSSOProviderModal.retainMembersLabel
+                      <span
+                        class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                        data-tooltip-id="UnlinkSSOProviderForm_retainMembers"
+                      >
+                        rbac.userDetails.linkToSSOProviderModal.retainMembersLabel
+                      </span>
                     </label>
                   </div>
                 </div>
@@ -174,7 +179,12 @@ exports[`Create LinkToSSOProviderModal should render the form with ssoLinked fal
                     class="bp3-label"
                     for="groupName"
                   >
-                    rbac.userDetails.linkToSSOProviderModal.groupNameLabel
+                    <span
+                      class="Tooltip--acenter"
+                      data-tooltip-id="linkToSSOProviderForm_groupName"
+                    >
+                      rbac.userDetails.linkToSSOProviderModal.groupNameLabel
+                    </span>
                      
                     <span
                       class="bp3-text-muted"

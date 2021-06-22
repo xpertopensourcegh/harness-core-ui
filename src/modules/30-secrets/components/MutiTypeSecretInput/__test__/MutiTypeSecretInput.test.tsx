@@ -32,7 +32,7 @@ describe('SecretInput', () => {
 
     const { container, getByText } = render(
       <TestWrapper>
-        <Formik initialValues={{}} onSubmit={noop}>
+        <Formik initialValues={{}} onSubmit={noop} formName="TestWrapper">
           {() => {
             return (
               <FormikForm>

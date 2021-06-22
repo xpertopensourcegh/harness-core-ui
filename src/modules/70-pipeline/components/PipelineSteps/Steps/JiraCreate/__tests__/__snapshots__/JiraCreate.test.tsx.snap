@@ -114,7 +114,12 @@ exports[`Jira Create tests Basic snapshot - deploymentform mode: jira-create-dep
         class="bp3-label"
         for="spec.projectKey"
       >
-        pipeline.jiraApprovalStep.project
+        <span
+          class="Tooltip--acenter"
+          data-tooltip-id="stepTestUtilForm_spec.projectKey"
+        >
+          pipeline.jiraApprovalStep.project
+        </span>
          
         <span
           class="bp3-text-muted"
@@ -176,7 +181,12 @@ exports[`Jira Create tests Basic snapshot - deploymentform mode: jira-create-dep
         class="bp3-label"
         for="spec.issueType"
       >
-        pipeline.jiraApprovalStep.issueType
+        <span
+          class="Tooltip--acenter"
+          data-tooltip-id="stepTestUtilForm_spec.issueType"
+        >
+          pipeline.jiraApprovalStep.issueType
+        </span>
          
         <span
           class="bp3-text-muted"
@@ -238,7 +248,12 @@ exports[`Jira Create tests Basic snapshot - deploymentform mode: jira-create-dep
         class="bp3-label"
         for="spec.summary"
       >
-        summary
+        <span
+          class="Tooltip--acenter"
+          data-tooltip-id="stepTestUtilForm_spec.summary"
+        >
+          summary
+        </span>
          
         <span
           class="bp3-text-muted"
@@ -268,7 +283,12 @@ exports[`Jira Create tests Basic snapshot - deploymentform mode: jira-create-dep
         class="bp3-label"
         for="spec.description"
       >
-        description
+        <span
+          class="Tooltip--acenter"
+          data-tooltip-id="stepTestUtilForm_spec.description"
+        >
+          description
+        </span>
          
         <span
           class="bp3-text-muted"
@@ -645,7 +665,12 @@ exports[`Jira Create tests Basic snapshot - inputset mode: input set with errors
         class="bp3-label"
         for="spec.projectKey"
       >
-        pipeline.jiraApprovalStep.project
+        <span
+          class="Tooltip--acenter"
+          data-tooltip-id="stepTestUtilForm_spec.projectKey"
+        >
+          pipeline.jiraApprovalStep.project
+        </span>
          
         <span
           class="bp3-text-muted"
@@ -712,7 +737,12 @@ exports[`Jira Create tests Basic snapshot - inputset mode: input set with errors
         class="bp3-label"
         for="spec.issueType"
       >
-        pipeline.jiraApprovalStep.issueType
+        <span
+          class="Tooltip--acenter"
+          data-tooltip-id="stepTestUtilForm_spec.issueType"
+        >
+          pipeline.jiraApprovalStep.issueType
+        </span>
          
         <span
           class="bp3-text-muted"
@@ -779,7 +809,12 @@ exports[`Jira Create tests Basic snapshot - inputset mode: input set with errors
         class="bp3-label"
         for="spec.summary"
       >
-        summary
+        <span
+          class="Tooltip--acenter"
+          data-tooltip-id="stepTestUtilForm_spec.summary"
+        >
+          summary
+        </span>
          
         <span
           class="bp3-text-muted"
@@ -814,7 +849,12 @@ exports[`Jira Create tests Basic snapshot - inputset mode: input set with errors
         class="bp3-label"
         for="spec.description"
       >
-        description
+        <span
+          class="Tooltip--acenter"
+          data-tooltip-id="stepTestUtilForm_spec.description"
+        >
+          description
+        </span>
          
         <span
           class="bp3-text-muted"
@@ -974,7 +1014,12 @@ exports[`Jira Create tests Deploymentform readonly mode: jira-create-deploymentf
         class="bp3-label"
         for="spec.projectKey"
       >
-        pipeline.jiraApprovalStep.project
+        <span
+          class="Tooltip--acenter"
+          data-tooltip-id="stepTestUtilForm_spec.projectKey"
+        >
+          pipeline.jiraApprovalStep.project
+        </span>
          
         <span
           class="bp3-text-muted"
@@ -1036,7 +1081,12 @@ exports[`Jira Create tests Deploymentform readonly mode: jira-create-deploymentf
         class="bp3-label"
         for="spec.issueType"
       >
-        pipeline.jiraApprovalStep.issueType
+        <span
+          class="Tooltip--acenter"
+          data-tooltip-id="stepTestUtilForm_spec.issueType"
+        >
+          pipeline.jiraApprovalStep.issueType
+        </span>
          
         <span
           class="bp3-text-muted"
@@ -1098,7 +1148,12 @@ exports[`Jira Create tests Deploymentform readonly mode: jira-create-deploymentf
         class="bp3-label"
         for="spec.summary"
       >
-        summary
+        <span
+          class="Tooltip--acenter"
+          data-tooltip-id="stepTestUtilForm_spec.summary"
+        >
+          summary
+        </span>
          
         <span
           class="bp3-text-muted"
@@ -1128,7 +1183,12 @@ exports[`Jira Create tests Deploymentform readonly mode: jira-create-deploymentf
         class="bp3-label"
         for="spec.description"
       >
-        description
+        <span
+          class="Tooltip--acenter"
+          data-tooltip-id="stepTestUtilForm_spec.description"
+        >
+          description
+        </span>
          
         <span
           class="bp3-text-muted"

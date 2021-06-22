@@ -221,6 +221,7 @@ const SaveAsInputSet = ({
         content={
           <div>
             <Formik<InputSetDTO & GitContextProps>
+              formName="runPipelineForm"
               onSubmit={input => {
                 handleSubmit(input, { repoIdentifier: input.repo, branch: input.branch })
               }}

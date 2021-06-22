@@ -29,7 +29,12 @@ function WrapperComponent(props: { initialValues: any }): JSX.Element {
   const { initialValues } = props
   return (
     <TestWrapper path={TEST_PATH} pathParams={params}>
-      <Formik enableReinitialize={true} initialValues={initialValues} onSubmit={jest.fn()}>
+      <Formik
+        enableReinitialize={true}
+        initialValues={initialValues}
+        onSubmit={jest.fn()}
+        formName="delegateSelectorPanelForm"
+      >
         {formikProps => {
           return (
             <FormikForm>

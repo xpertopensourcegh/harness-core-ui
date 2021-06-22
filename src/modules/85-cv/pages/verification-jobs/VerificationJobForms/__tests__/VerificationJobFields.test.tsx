@@ -61,6 +61,7 @@ describe('Monitoring Sources component', () => {
     const { container } = render(
       <TestWrapper {...testWrapperProps}>
         <Formik
+          formName="wrapperComponentTestForm"
           initialValues={{
             failureStrategies: [],
             spec: {
@@ -141,6 +142,7 @@ describe('Monitoring Sources component with no monitoring source', () => {
     const { container } = render(
       <TestWrapper {...testWrapperProps}>
         <Formik
+          formName="wrapperComponentTestForm"
           initialValues={{
             failureStrategies: [],
             spec: {

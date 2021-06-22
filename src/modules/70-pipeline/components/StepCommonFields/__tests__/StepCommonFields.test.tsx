@@ -13,7 +13,7 @@ interface TestProps {
 const TestComponent = ({ initialValues }: TestProps): React.ReactElement => (
   <TestWrapper>
     {/* eslint-disable-next-line @typescript-eslint/no-empty-function */}
-    <Formik initialValues={initialValues} onSubmit={() => {}}>
+    <Formik initialValues={initialValues} onSubmit={() => {}} formName="stepCommonFieldsForm">
       <FormikForm>
         <StepCommonFields />
       </FormikForm>

@@ -106,6 +106,7 @@ const AzureKeyVaultForm: React.FC<StepProps<StepSecretManagerProps> & CreateAzur
       </Text>
       <ModalErrorHandler bind={setModalErrorHandler} />
       <Formik<AzureKeyVaultFormData>
+        formName="azureKeyVaultForm"
         enableReinitialize
         initialValues={initialValues}
         validationSchema={Yup.object().shape({

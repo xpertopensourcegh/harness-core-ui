@@ -49,6 +49,7 @@ const AccountNameForm: React.FC<AccountNameFormProps> = ({
         name: name
       }}
       onSubmit={(value: FormValues) => handleSubmit(value)}
+      formName="accountNameForm"
       validationSchema={Yup.object().shape({
         name: NameSchema()
       })}

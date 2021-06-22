@@ -423,6 +423,7 @@ export const RightBar = (): JSX.Element => {
           onClose={closeCodebaseDialog}
         >
           <Formik
+            formName="rightBarForm"
             enableReinitialize
             initialValues={codebaseInitialValues}
             validationSchema={Yup.object().shape({

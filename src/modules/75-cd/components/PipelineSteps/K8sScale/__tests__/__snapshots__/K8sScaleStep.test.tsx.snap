@@ -15,7 +15,12 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 1`] = `
           class="bp3-label"
           for="spec.workload"
         >
-          pipelineSteps.workload
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="stepTestUtilForm_spec.workload"
+          >
+            pipelineSteps.workload
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -188,7 +193,12 @@ exports[`Test K8sBlueGreenDeployStep should render edit view 1`] = `
           <span
             class="bp3-control-indicator"
           />
-          pipelineSteps.skipSteadyStateCheck
+          <span
+            class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+            data-tooltip-id="stepTestUtilForm_spec.skipSteadyStateCheck"
+          >
+            pipelineSteps.skipSteadyStateCheck
+          </span>
         </label>
       </div>
     </div>

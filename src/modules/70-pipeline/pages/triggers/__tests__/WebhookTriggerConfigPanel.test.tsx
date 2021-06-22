@@ -35,7 +35,7 @@ const { result } = renderHook(() => useStrings(), { wrapper })
 function WrapperComponent(props: { initialValues: any; isEdit?: boolean }): JSX.Element {
   const { initialValues, isEdit = false } = props
   return (
-    <Formik initialValues={initialValues} onSubmit={() => undefined}>
+    <Formik initialValues={initialValues} onSubmit={() => undefined} formName="wrapperComponentTestForm">
       {formikProps => (
         <FormikForm>
           <TestWrapper path={TEST_PATH} pathParams={params} defaultAppStoreValues={defaultAppStoreValues}>

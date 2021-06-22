@@ -107,6 +107,7 @@ const LinkToSSOProviderForm: React.FC<LinkToSSOProviderModalData> = props => {
           <PageError message={(error.data as any)?.message || error.message} onClick={refetch as any} />
         ) : (
           <Formik<LinkToSSOProviderFormData>
+            formName="linkToSSOProviderForm"
             initialValues={{ groupName: '', sso: '' }}
             validationSchema={Yup.object().shape({
               groupName: Yup.string()

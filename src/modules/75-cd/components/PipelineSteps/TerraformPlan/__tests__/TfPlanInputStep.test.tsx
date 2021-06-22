@@ -85,7 +85,7 @@ describe('Test terraform input set', () => {
   test('should render edit view as new step', () => {
     const { container } = render(
       <TestWrapper>
-        <Formik initialValues={{}} onSubmit={() => undefined}>
+        <Formik initialValues={{}} onSubmit={() => undefined} formName="wrapperComponentTestForm">
           <FormikForm>
             <TfPlanInputStep
               initialValues={initialValues as any}

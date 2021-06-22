@@ -539,7 +539,12 @@ exports[`Http Step renders input sets 1`] = `
           class="bp3-label"
           for="spec.url"
         >
-          UrlLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="stepTestUtilForm_spec.url"
+          >
+            UrlLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -603,7 +608,12 @@ exports[`Http Step renders input sets 1`] = `
           class="bp3-label"
           for="spec.method"
         >
-          methodLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="stepTestUtilForm_spec.method"
+          >
+            methodLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -758,7 +768,12 @@ exports[`Http Step renders input sets 1`] = `
           class="bp3-label"
           for="spec.assertion"
         >
-          assertionLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="stepTestUtilForm_spec.assertion"
+          >
+            assertionLabel
+          </span>
            
           <span
             class="bp3-text-muted"

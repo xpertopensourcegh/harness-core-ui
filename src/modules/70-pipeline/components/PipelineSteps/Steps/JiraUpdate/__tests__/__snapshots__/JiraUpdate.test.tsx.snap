@@ -114,7 +114,12 @@ exports[`Jira Update tests Basic snapshot - deploymentform mode: jira-update-dep
         class="bp3-label"
         for="spec.issueKey"
       >
-        pipeline.jiraApprovalStep.issueKey
+        <span
+          class="Tooltip--acenter"
+          data-tooltip-id="stepTestUtilForm_spec.issueKey"
+        >
+          pipeline.jiraApprovalStep.issueKey
+        </span>
          
         <span
           class="bp3-text-muted"
@@ -144,7 +149,12 @@ exports[`Jira Update tests Basic snapshot - deploymentform mode: jira-update-dep
         class="bp3-label"
         for="spec.transitionTo.status"
       >
-        status
+        <span
+          class="Tooltip--acenter"
+          data-tooltip-id="stepTestUtilForm_spec.transitionTo.status"
+        >
+          status
+        </span>
          
         <span
           class="bp3-text-muted"
@@ -206,7 +216,12 @@ exports[`Jira Update tests Basic snapshot - deploymentform mode: jira-update-dep
         class="bp3-label"
         for="spec.transitionTo.transitionName"
       >
-        pipeline.jiraUpdateStep.transitionLabel
+        <span
+          class="Tooltip--acenter"
+          data-tooltip-id="stepTestUtilForm_spec.transitionTo.transitionName"
+        >
+          pipeline.jiraUpdateStep.transitionLabel
+        </span>
          
         <span
           class="bp3-text-muted"
@@ -542,7 +557,12 @@ exports[`Jira Update tests Basic snapshot - inputset mode: input set with errors
         class="bp3-label"
         for="spec.issueKey"
       >
-        pipeline.jiraApprovalStep.issueKey
+        <span
+          class="Tooltip--acenter"
+          data-tooltip-id="stepTestUtilForm_spec.issueKey"
+        >
+          pipeline.jiraApprovalStep.issueKey
+        </span>
          
         <span
           class="bp3-text-muted"
@@ -577,7 +597,12 @@ exports[`Jira Update tests Basic snapshot - inputset mode: input set with errors
         class="bp3-label"
         for="spec.transitionTo.status"
       >
-        status
+        <span
+          class="Tooltip--acenter"
+          data-tooltip-id="stepTestUtilForm_spec.transitionTo.status"
+        >
+          status
+        </span>
          
         <span
           class="bp3-text-muted"
@@ -639,7 +664,12 @@ exports[`Jira Update tests Basic snapshot - inputset mode: input set with errors
         class="bp3-label"
         for="spec.transitionTo.transitionName"
       >
-        pipeline.jiraUpdateStep.transitionLabel
+        <span
+          class="Tooltip--acenter"
+          data-tooltip-id="stepTestUtilForm_spec.transitionTo.transitionName"
+        >
+          pipeline.jiraUpdateStep.transitionLabel
+        </span>
          
         <span
           class="bp3-text-muted"
@@ -1196,7 +1226,12 @@ exports[`Jira Update tests deploymentform readonly mode: jira-update-deploymentf
         class="bp3-label"
         for="spec.issueKey"
       >
-        pipeline.jiraApprovalStep.issueKey
+        <span
+          class="Tooltip--acenter"
+          data-tooltip-id="stepTestUtilForm_spec.issueKey"
+        >
+          pipeline.jiraApprovalStep.issueKey
+        </span>
          
         <span
           class="bp3-text-muted"
@@ -1226,7 +1261,12 @@ exports[`Jira Update tests deploymentform readonly mode: jira-update-deploymentf
         class="bp3-label"
         for="spec.transitionTo.status"
       >
-        status
+        <span
+          class="Tooltip--acenter"
+          data-tooltip-id="stepTestUtilForm_spec.transitionTo.status"
+        >
+          status
+        </span>
          
         <span
           class="bp3-text-muted"
@@ -1288,7 +1328,12 @@ exports[`Jira Update tests deploymentform readonly mode: jira-update-deploymentf
         class="bp3-label"
         for="spec.transitionTo.transitionName"
       >
-        pipeline.jiraUpdateStep.transitionLabel
+        <span
+          class="Tooltip--acenter"
+          data-tooltip-id="stepTestUtilForm_spec.transitionTo.transitionName"
+        >
+          pipeline.jiraUpdateStep.transitionLabel
+        </span>
          
         <span
           class="bp3-text-muted"

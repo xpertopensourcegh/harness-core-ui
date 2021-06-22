@@ -43,7 +43,7 @@ function WrapperComponent(): JSX.Element {
         accountId: 'accountId'
       }}
     >
-      <Formik initialValues={pipelineInputInitialValues} onSubmit={() => undefined}>
+      <Formik initialValues={pipelineInputInitialValues} onSubmit={() => undefined} formName="wrapperComponentTestForm">
         {formikProps => (
           <FormikForm>
             <PipelineContext.Provider

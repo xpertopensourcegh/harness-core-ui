@@ -124,6 +124,7 @@ const ContactSalesForm = ({ onSubmit }: { onSubmit: (values: ContactSalesFormPro
 
   return (
     <Formik
+      formName="contactSalesModalForm"
       initialValues={{
         fullName: '',
         email: '',

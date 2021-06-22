@@ -26,6 +26,7 @@ export function DynatraceConfigStep(props: ConnectionConfigProps): JSX.Element {
     <Container className={css.credentials}>
       <StepDetailsHeader connectorTypeLabel={getString('connectors.dynatraceLabel')} />
       <Formik
+        formName="createDynatraceConnectorForm"
         initialValues={{ ...initialValues }}
         validationSchema={Yup.object().shape({
           url: Yup.string().trim().required(getString('connectors.dynatrace.urlValidation')),

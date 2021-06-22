@@ -49,7 +49,12 @@ exports[`Test ContinousVerificationStep Step renders inputSetView 1`] = `
             class="bp3-label"
             for="spec.spec.sensitivity"
           >
-            sensitivity
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="stepTestUtilForm_spec.spec.sensitivity"
+            >
+              sensitivity
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -112,7 +117,12 @@ exports[`Test ContinousVerificationStep Step renders inputSetView 1`] = `
             class="bp3-label"
             for="spec.spec.duration"
           >
-            duration
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="stepTestUtilForm_spec.spec.duration"
+            >
+              duration
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -175,7 +185,12 @@ exports[`Test ContinousVerificationStep Step renders inputSetView 1`] = `
             class="bp3-label"
             for="spec.spec.baseline"
           >
-            connectors.cdng.baseline
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="stepTestUtilForm_spec.spec.baseline"
+            >
+              connectors.cdng.baseline
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -238,7 +253,12 @@ exports[`Test ContinousVerificationStep Step renders inputSetView 1`] = `
             class="bp3-label"
             for="spec.spec.trafficsplit"
           >
-            connectors.cdng.trafficsplit
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="stepTestUtilForm_spec.spec.trafficsplit"
+            >
+              connectors.cdng.trafficsplit
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -301,7 +321,12 @@ exports[`Test ContinousVerificationStep Step renders inputSetView 1`] = `
             class="bp3-label"
             for="spec.spec.deploymentTag"
           >
-            connectors.cdng.deploymentTag
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="stepTestUtilForm_spec.spec.deploymentTag"
+            >
+              connectors.cdng.deploymentTag
+            </span>
              
             <span
               class="bp3-text-muted"

@@ -12,7 +12,7 @@ const accountId = '1234_accountIf'
 function WrapperComponent(props: ConnectorSecretFieldProps): JSX.Element {
   return (
     <TestWrapper>
-      <Formik initialValues={{}} onSubmit={jest.fn()}>
+      <Formik initialValues={{}} onSubmit={jest.fn()} formName="testWrapper">
         <FormikForm>
           <ConnectorSecretField {...props} />
         </FormikForm>

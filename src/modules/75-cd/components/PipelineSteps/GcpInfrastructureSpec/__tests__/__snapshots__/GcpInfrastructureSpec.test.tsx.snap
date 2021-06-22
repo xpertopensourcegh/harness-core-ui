@@ -111,7 +111,12 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view for inputse
             class="bp3-label"
             for=".cluster"
           >
-            common.cluster
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="stepTestUtilForm_.cluster"
+            >
+              common.cluster
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -208,7 +213,12 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view for inputse
             class="bp3-label"
             for=".namespace"
           >
-            common.namespace
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="stepTestUtilForm_.namespace"
+            >
+              common.namespace
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -273,7 +283,12 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view for inputse
             class="bp3-label"
             for=".releaseName"
           >
-            common.releaseName
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="stepTestUtilForm_.releaseName"
+            >
+              common.releaseName
+            </span>
              
             <span
               class="bp3-text-muted"

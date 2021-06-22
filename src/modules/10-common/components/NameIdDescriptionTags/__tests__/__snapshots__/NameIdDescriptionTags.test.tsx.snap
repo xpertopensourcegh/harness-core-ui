@@ -70,7 +70,12 @@ exports[`NameIdDescriptionTags  tests Renders/snapshots Initial Render - Name, I
                 class="bp3-label"
                 for="name"
               >
-                name
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="TestWrapper_name"
+                >
+                  name
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -234,7 +239,12 @@ exports[`NameIdDescriptionTags  tests Renders/snapshots On Edit Render - Name, I
                 class="bp3-label"
                 for="name"
               >
-                name
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="TestWrapper_name"
+                >
+                  name
+                </span>
                  
                 <span
                   class="bp3-text-muted"

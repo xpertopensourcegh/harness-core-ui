@@ -97,6 +97,7 @@ const CostUsageStep: React.FC<StepProps<CEAwsConnectorDTO>> = props => {
 
       <div style={{ flex: 1 }}>
         <Formik<AwsCurAttributes>
+          formName="costUsageReportForm"
           initialValues={{
             reportName: prevStepData?.spec?.curAttributes?.reportName || '',
             s3BucketName: prevStepData?.spec?.curAttributes?.s3BucketName || ''

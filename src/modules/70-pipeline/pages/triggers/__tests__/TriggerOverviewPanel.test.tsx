@@ -20,6 +20,7 @@ function WrapperComponent(props: { initialValues: any }): JSX.Element {
   return (
     <TestWrapper>
       <Formik
+        formName="wrapperComponentForm"
         enableReinitialize={true}
         initialValues={initialValues}
         validationSchema={getValidationSchema(

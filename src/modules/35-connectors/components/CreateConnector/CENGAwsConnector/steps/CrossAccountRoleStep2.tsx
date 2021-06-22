@@ -133,6 +133,7 @@ const CrossAccountRoleStep2: React.FC<StepProps<CEAwsConnectorDTO>> = props => {
       </Container>
       <div style={{ flex: 1 }}>
         <Formik<CrossAccountAccess>
+          formName="crossAccountRoleStep2Form"
           initialValues={{
             crossAccountRoleArn: prevStepData?.spec.crossAccountAccess.crossAccountRoleArn || '',
             externalId: prevStepData?.spec.crossAccountAccess.externalId || externalId || ''

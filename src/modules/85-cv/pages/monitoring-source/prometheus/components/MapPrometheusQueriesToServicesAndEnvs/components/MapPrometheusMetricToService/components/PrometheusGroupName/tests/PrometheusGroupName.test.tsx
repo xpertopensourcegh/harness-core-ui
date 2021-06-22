@@ -12,7 +12,7 @@ describe('Unit tests for PrometheusGroupName', () => {
 
     const { container, getByText, rerender } = render(
       <TestWrapper>
-        <Formik initialValues={{}} onSubmit={jest.fn()}>
+        <Formik initialValues={{}} onSubmit={jest.fn()} formName="wrapperComponentTestForm">
           <FormikForm>
             <PrometheusGroupName
               groupNames={[{ label: 'cv.addNew', value: '' }]}
@@ -55,7 +55,7 @@ describe('Unit tests for PrometheusGroupName', () => {
     // re rendre componnt and ensure value is selected
     rerender(
       <TestWrapper>
-        <Formik initialValues={{}} onSubmit={jest.fn()}>
+        <Formik initialValues={{}} onSubmit={jest.fn()} formName="wrapperComponentTestForm">
           <FormikForm>
             <PrometheusGroupName
               groupNames={[

@@ -129,6 +129,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
           <Container padding="xsmall" className={css.layout}>
             <div>
               <Formik
+                formName="createConnectorsFormYamlPageForm"
                 initialValues={{
                   identifier: '',
                   name: '',

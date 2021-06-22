@@ -134,6 +134,7 @@ const FlagElemTest: React.FC<StepProps<any> & FlagElemTestProps> = props => {
 
   return (
     <Formik
+      formName="flagElemTestForm"
       initialValues={{ selectedIcon: '' }}
       onSubmit={() => {
         // TODO: Uncomment when back-end for SDK is done
