@@ -4,7 +4,7 @@
 
   th,
   td {
-    padding: var(--spacing-xsmall) var(--spacing-large);
+    padding: var(--spacing-xsmall) var(--spacing-xlarge);
     font-weight: 600;
     font-size: var(--font-size-small);
     line-height: var(--font-size-small);
@@ -14,8 +14,8 @@
 
   .iconLabel {
     position: absolute;
-    left: 0;
-    top: 1px;
+    left: 9px;
+    top: 3px;
   }
 
   tr.delegateRow {

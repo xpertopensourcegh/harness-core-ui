@@ -105,7 +105,7 @@ export function StepDetails(props: StepDetailsProps): React.ReactElement {
           isExecutionCompletedWithBadState(step.status) ? (
           <tr className={css.delegateRow}>
             <th>
-              <Icon className={css.iconLabel} name="warning-sign" color={Color.ORANGE_500} />
+              <Icon className={css.iconLabel} size={12} name="warning-sign" color={Color.ORANGE_500} />
               {getString('delegate.DelegateName')}
             </th>
             <td>
