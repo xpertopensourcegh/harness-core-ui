@@ -27,7 +27,7 @@ export const EmailVerificationBanner = (): React.ReactElement => {
     }
   }
 
-  if (currentUserInfo.emailVerified) {
+  if (currentUserInfo.emailVerified === undefined || currentUserInfo.emailVerified) {
     return <></>
   }
 

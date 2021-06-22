@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Extend Trial Modal Rendering should render Extend Trial Modal 1`] = `
+<div>
+  <button
+    class="open"
+  />
+  <button
+    class="close"
+  />
+</div>
+`;

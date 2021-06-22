@@ -35,6 +35,7 @@ export const defaultAppStoreValues: Pick<
     name: 'dummyname',
     email: 'dummy@harness.io',
     admin: false,
-    twoFactorAuthenticationEnabled: false
+    twoFactorAuthenticationEnabled: false,
+    emailVerified: false
   }
 }

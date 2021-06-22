@@ -382,3 +382,16 @@ account:
 valuePlaceholder: Enter Value(s)
 seconds: Seconds
 move: Move
+extendTrial:
+  heading: Congrats, your trial is extended
+  description: We hope you are enjoying the trial experience at Harness. Your trial is extended for another 14 days.
+  expiryDate: Expiry Date
+  feedback:
+    title: Feedback
+    ifUseful: 'Did you find {{moduleDescription}} useful?'
+    answers:
+      useful: Yes, its lifesaver
+      needMore: Yes, but I still have several use-cases where I need help
+      improve: No, needs ton of improvement
+    suggestion: 'What would be helpful for you to have a seamless {{moduleDescription}} experience?'
+  doItLater: I’ll do it later

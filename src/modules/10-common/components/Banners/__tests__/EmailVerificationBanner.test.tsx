@@ -8,6 +8,10 @@ import { EmailVerificationBanner } from '../EmailVerificationBanner'
 jest.mock('services/cd-ng')
 const useResendEmailMock = useResendVerifyEmail as jest.MockedFunction<any>
 
+const currentUserInfo = {
+  emailVerified: false
+}
+
 describe('EmailVerificationBanner', () => {
   test('render', () => {
     useResendEmailMock.mockImplementation(() => {
@@ -22,7 +26,7 @@ describe('EmailVerificationBanner', () => {
       }
     })
     const { container, getByText } = render(
-      <TestWrapper>
+      <TestWrapper defaultAppStoreValues={{ currentUserInfo: currentUserInfo }}>
         <EmailVerificationBanner />
       </TestWrapper>
     )
@@ -43,7 +47,7 @@ describe('EmailVerificationBanner', () => {
       }
     })
     const { container, getByText } = render(
-      <TestWrapper>
+      <TestWrapper defaultAppStoreValues={{ currentUserInfo: currentUserInfo }}>
         <EmailVerificationBanner />
       </TestWrapper>
     )
@@ -64,13 +68,34 @@ describe('EmailVerificationBanner', () => {
       }
     })
     const { container, getByText } = render(
-      <TestWrapper>
+      <TestWrapper defaultAppStoreValues={{ currentUserInfo: currentUserInfo }}>
         <EmailVerificationBanner />
       </TestWrapper>
     )
     fireEvent.click(getByText('common.banners.email.resend'))
     await waitFor(() => expect(useResendEmailMock).toBeCalled())
     expect(getByText('email verify failed')).toBeDefined()
+    expect(container).toMatchSnapshot()
+  })
+
+  test('when currentUserInfo doesnot exist, should not display', () => {
+    useResendEmailMock.mockImplementation(() => {
+      return {
+        cancel: jest.fn(),
+        loading: false,
+        mutate: jest.fn().mockImplementation(() => {
+          return {
+            status: 'SUCCESS'
+          }
+        })
+      }
+    })
+    const { container, queryByText } = render(
+      <TestWrapper defaultAppStoreValues={{ currentUserInfo: {} }}>
+        <EmailVerificationBanner />
+      </TestWrapper>
+    )
+    expect(queryByText('common.banners.email.description')).toBeNull()
     expect(container).toMatchSnapshot()
   })
 })

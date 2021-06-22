@@ -165,3 +165,5 @@ exports[`EmailVerificationBanner render 1`] = `
   </div>
 </div>
 `;
+
+exports[`EmailVerificationBanner when currentUserInfo doesnot exist, should not display 1`] = `<div />`;

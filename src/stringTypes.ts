@@ -97,6 +97,16 @@ export interface StringsMap {
   'common.errorHandler.issueCouldBe': string
   'common.errorHandler.tryTheseSuggestions': string
   'common.execute': string
+  'common.extendTrial.description': string
+  'common.extendTrial.doItLater': string
+  'common.extendTrial.expiryDate': string
+  'common.extendTrial.feedback.answers.improve': string
+  'common.extendTrial.feedback.answers.needMore': string
+  'common.extendTrial.feedback.answers.useful': string
+  'common.extendTrial.feedback.ifUseful': string
+  'common.extendTrial.feedback.suggestion': string
+  'common.extendTrial.feedback.title': string
+  'common.extendTrial.heading': string
   'common.failureRate': string
   'common.filters.clearFilters': string
   'common.filters.noMatchingFilterData': string
