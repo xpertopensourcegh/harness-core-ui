@@ -37,6 +37,7 @@ exports[`ConfigureNotifications Email 1`] = `
               <textarea
                 autocomplete="off"
                 class="bp3-input bp3-fill"
+                maxlength="1024"
                 name="emailIds"
               >
                 test@harness.io

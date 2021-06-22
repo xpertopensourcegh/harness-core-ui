@@ -1145,6 +1145,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  1`] = `
                           <textarea
                             autocomplete="off"
                             class="bp3-input bp3-fill"
+                            maxlength="1024"
                             name="description"
                           >
                             connectorDescription

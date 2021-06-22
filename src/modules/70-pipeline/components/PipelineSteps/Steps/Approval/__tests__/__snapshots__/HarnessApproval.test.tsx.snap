@@ -29,6 +29,7 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode readonly: h
         <textarea
           autocomplete="off"
           class="bp3-input bp3-fill"
+          maxlength="1024"
           name="spec.approvalMessage"
         />
       </div>
@@ -154,6 +155,7 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
         <textarea
           autocomplete="off"
           class="bp3-input bp3-fill"
+          maxlength="1024"
           name="spec.approvalMessage"
         />
       </div>
@@ -597,6 +599,7 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: input set with e
         <textarea
           autocomplete="off"
           class="bp3-input bp3-intent-danger bp3-fill"
+          maxlength="1024"
           name="spec.approvalMessage"
         />
         <div

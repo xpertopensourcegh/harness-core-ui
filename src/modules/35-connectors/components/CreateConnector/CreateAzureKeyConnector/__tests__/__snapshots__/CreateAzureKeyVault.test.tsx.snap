@@ -1562,6 +1562,7 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
                           <textarea
                             autocomplete="off"
                             class="bp3-input bp3-fill"
+                            maxlength="1024"
                             name="description"
                           >
                             dummy connector desc
@@ -1952,6 +1953,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
                           <textarea
                             autocomplete="off"
                             class="bp3-input bp3-fill"
+                            maxlength="1024"
                             name="description"
                           >
                             dummy connector desc
@@ -2342,6 +2344,7 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
                           <textarea
                             autocomplete="off"
                             class="bp3-input bp3-fill"
+                            maxlength="1024"
                             name="description"
                           >
                             dummy connector desc

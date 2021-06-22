@@ -300,6 +300,7 @@ exports[`Jira Create tests Basic snapshot - deploymentform mode: jira-create-dep
         <textarea
           autocomplete="off"
           class="bp3-input bp3-fill"
+          maxlength="1024"
           name="spec.description"
           placeholder="pipeline.enterDescription"
         />
@@ -866,6 +867,7 @@ exports[`Jira Create tests Basic snapshot - inputset mode: input set with errors
         <textarea
           autocomplete="off"
           class="bp3-input bp3-fill"
+          maxlength="1024"
           name="spec.description"
           placeholder="pipeline.enterDescription"
         />
@@ -1200,6 +1202,7 @@ exports[`Jira Create tests Deploymentform readonly mode: jira-create-deploymentf
         <textarea
           autocomplete="off"
           class="bp3-input bp3-fill"
+          maxlength="1024"
           name="spec.description"
           placeholder="pipeline.enterDescription"
         />

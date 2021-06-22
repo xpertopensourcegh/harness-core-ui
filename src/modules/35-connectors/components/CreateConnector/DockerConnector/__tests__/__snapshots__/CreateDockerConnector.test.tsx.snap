@@ -1101,6 +1101,7 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                           <textarea
                             autocomplete="off"
                             class="bp3-input bp3-fill"
+                            maxlength="1024"
                             name="description"
                           >
                             devConnector description

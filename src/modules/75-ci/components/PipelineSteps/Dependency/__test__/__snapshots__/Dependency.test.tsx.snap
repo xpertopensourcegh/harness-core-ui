@@ -7733,6 +7733,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
             <textarea
               autocomplete="off"
               class="bp3-input bp3-fill"
+              maxlength="1024"
               name="description"
             />
           </div>

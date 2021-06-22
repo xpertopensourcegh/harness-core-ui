@@ -132,6 +132,7 @@ exports[`Test DeployService Step Should be able save even if there is 63 charact
               <textarea
                 autocomplete="off"
                 class="bp3-input bp3-fill"
+                maxlength="1024"
                 name="description"
               >
                 test
@@ -402,6 +403,7 @@ exports[`Test DeployService Step should render edit service view (service), then
               <textarea
                 autocomplete="off"
                 class="bp3-input bp3-fill"
+                maxlength="1024"
                 name="description"
               >
                 test

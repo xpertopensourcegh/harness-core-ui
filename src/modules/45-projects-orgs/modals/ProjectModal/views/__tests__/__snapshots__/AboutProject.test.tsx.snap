@@ -1003,6 +1003,7 @@ exports[`About Project test create project  2`] = `
                           <textarea
                             autocomplete="off"
                             class="bp3-input bp3-fill"
+                            maxlength="1024"
                             name="description"
                           >
                              This is new description
@@ -1723,6 +1724,7 @@ exports[`About Project test edit project  1`] = `
                           <textarea
                             autocomplete="off"
                             class="bp3-input bp3-fill"
+                            maxlength="1024"
                             name="description"
                           >
                             refetch returns new data
@@ -2102,6 +2104,7 @@ exports[`About Project test edit project  2`] = `
                           <textarea
                             autocomplete="off"
                             class="bp3-input bp3-fill"
+                            maxlength="1024"
                             name="description"
                           >
                             refetch returns new data

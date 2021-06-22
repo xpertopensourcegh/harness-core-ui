@@ -317,6 +317,7 @@ exports[`DelegateSelectorStep should open Git Sync modal on clicking Save and Co
                   <textarea
                     autocomplete="off"
                     class="bp3-input bp3-fill"
+                    maxlength="1024"
                     name="commitMsg"
                   >
                     common.gitSync.updateResource

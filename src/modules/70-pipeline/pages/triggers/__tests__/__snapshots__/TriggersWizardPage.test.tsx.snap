@@ -319,6 +319,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                               <textarea
                                 autocomplete="off"
                                 class="bp3-input bp3-fill"
+                                maxlength="1024"
                                 name="description"
                               >
                                 desc
@@ -2170,6 +2171,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                             <textarea
                               autocomplete="off"
                               class="bp3-input bp3-fill"
+                              maxlength="1024"
                               name="description"
                             >
                               desc

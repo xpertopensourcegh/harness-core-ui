@@ -135,6 +135,7 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
                 <textarea
                   autocomplete="off"
                   class="bp3-input bp3-fill"
+                  maxlength="1024"
                   name="description"
                 >
                   test

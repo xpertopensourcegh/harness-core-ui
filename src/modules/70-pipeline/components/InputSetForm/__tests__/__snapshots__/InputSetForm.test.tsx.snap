@@ -1187,6 +1187,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                       <textarea
                         autocomplete="off"
                         class="bp3-input bp3-fill"
+                        maxlength="1024"
                         name="description"
                       >
                         OverLayInput
@@ -2416,6 +2417,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                       <textarea
                         autocomplete="off"
                         class="bp3-input bp3-fill"
+                        maxlength="1024"
                         name="description"
                       >
                         OverLayInput

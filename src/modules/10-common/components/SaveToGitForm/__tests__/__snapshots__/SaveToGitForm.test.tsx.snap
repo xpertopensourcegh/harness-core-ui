@@ -342,6 +342,7 @@ exports[`Save to git form rendering form to git save form without git credential
                   <textarea
                     autocomplete="off"
                     class="bp3-input bp3-fill"
+                    maxlength="1024"
                     name="commitMsg"
                   >
                     common.gitSync.updateResource
@@ -866,6 +867,7 @@ exports[`Save to git form rendering form to save resouces 1`] = `
                   <textarea
                     autocomplete="off"
                     class="bp3-input bp3-fill"
+                    maxlength="1024"
                     name="commitMsg"
                   >
                     common.gitSync.updateResource
@@ -1388,6 +1390,7 @@ exports[`Save to git form rendering form to save resouces 2`] = `
                   <textarea
                     autocomplete="off"
                     class="bp3-input bp3-fill"
+                    maxlength="1024"
                     name="commitMsg"
                   >
                     common.gitSync.updateResource

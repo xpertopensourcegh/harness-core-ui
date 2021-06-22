@@ -208,6 +208,7 @@ exports[`EditStageView snapshot test should render properly 1`] = `
                           <textarea
                             autocomplete="off"
                             class="bp3-input bp3-fill"
+                            maxlength="1024"
                             name="description"
                           >
                             desc1

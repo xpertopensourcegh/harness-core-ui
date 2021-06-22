@@ -1038,6 +1038,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                           <textarea
                             autocomplete="off"
                             class="bp3-input bp3-fill"
+                            maxlength="1024"
                             name="description"
                           >
                             devConnector description

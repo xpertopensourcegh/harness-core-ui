@@ -2123,6 +2123,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                           <textarea
                             autocomplete="off"
                             class="bp3-input bp3-fill"
+                            maxlength="1024"
                             name="description"
                           >
                             connector before demo

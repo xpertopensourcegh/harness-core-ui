@@ -751,6 +751,7 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
                           <textarea
                             autocomplete="off"
                             class="bp3-input bp3-fill"
+                            maxlength="1024"
                             name="description"
                           >
                             asd

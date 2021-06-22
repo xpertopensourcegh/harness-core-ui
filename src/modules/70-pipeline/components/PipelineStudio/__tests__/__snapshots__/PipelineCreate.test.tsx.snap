@@ -99,6 +99,7 @@ exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
                 <textarea
                   autocomplete="off"
                   class="bp3-input bp3-fill"
+                  maxlength="1024"
                   name="description"
                 >
                   desc
@@ -650,6 +651,7 @@ exports[`PipelineCreate test initializes ok new pipeline 1`] = `
                 <textarea
                   autocomplete="off"
                   class="bp3-input bp3-fill"
+                  maxlength="1024"
                   name="description"
                 >
                   desc

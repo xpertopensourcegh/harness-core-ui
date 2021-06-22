@@ -2378,6 +2378,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 1`] =
                           <textarea
                             autocomplete="off"
                             class="bp3-input bp3-fill"
+                            maxlength="1024"
                             name="description"
                           >
                             k8 description
