@@ -102,7 +102,7 @@ export default function BaseShellScript(props: {
         />
         {getMultiTypeFromValue(formValues?.timeout) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
-            value={formValues.spec?.timeout as string}
+            value={formValues?.timeout as string}
             type="String"
             variableName="step.timeout"
             showRequiredField={false}
