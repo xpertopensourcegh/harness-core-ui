@@ -18,7 +18,7 @@ const RenderColumnDelegateName: Renderer<CellProps<DelegateSelectionLogParams>> 
           {rowdata.delegateName}
         </Text>
         <Text lineClamp={1} color={Color.GREY_400}>
-          {rowdata.delegateId}
+          {rowdata.delegateHostName}
         </Text>
       </Layout.Vertical>
     </Layout.Horizontal>
