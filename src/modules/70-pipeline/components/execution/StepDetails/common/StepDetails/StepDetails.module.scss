@@ -9,6 +9,13 @@
     font-size: var(--font-size-small);
     line-height: var(--font-size-small);
     text-align: left;
+    position: relative;
+  }
+
+  .iconLabel {
+    position: absolute;
+    left: 0;
+    top: 1px;
   }
 
   tr.delegateRow {

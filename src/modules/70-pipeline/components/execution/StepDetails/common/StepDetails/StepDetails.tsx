@@ -1,16 +1,16 @@
 import React from 'react'
-import { Text, Layout, Color } from '@wings-software/uicore'
+import { Text, Layout, Color, Icon } from '@wings-software/uicore'
 
 import { useParams, Link } from 'react-router-dom'
 import { Duration } from '@common/exports'
 import { useDelegateSelectionLogsModal } from '@common/components/DelegateSelectionLogs/DelegateSelectionLogs'
-import type { ExecutionNode } from 'services/pipeline-ng'
+import type { ExecutionNode, TaskExecutableResponse } from 'services/pipeline-ng'
 import { String, useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
-import { ExecutionStatusEnum } from '@pipeline/utils/statusHelpers'
+import { ExecutionStatusEnum, isExecutionCompletedWithBadState } from '@pipeline/utils/statusHelpers'
 import { encodeURIWithReservedChars } from './utils'
 import css from './StepDetails.module.scss'
 
@@ -29,8 +29,17 @@ export function StepDetails(props: StepDetailsProps): React.ReactElement {
   const estimatedRemainingTime = step?.progressData?.estimatedRemainingTime
   const progressPercentage = step?.progressData?.progressPercentage
   const timeout = step?.stepParameters?.timeout as any
-
+  const [taskList, setTaskList] = React.useState<Array<TaskExecutableResponse>>([])
   const { openDelegateSelectionLogsModal } = useDelegateSelectionLogsModal()
+
+  React.useEffect(() => {
+    const tasks = step.executableResponses
+      ?.map(item => item.taskChain || (item.task as TaskExecutableResponse))
+      .filter(item => item !== undefined)
+    if (tasks) {
+      setTaskList(tasks)
+    }
+  }, [step.executableResponses])
 
   return (
     <table className={css.detailsTable}>
@@ -69,7 +78,7 @@ export function StepDetails(props: StepDetailsProps): React.ReactElement {
                         vars={{ delegate: item.name, taskName: item.taskName }}
                         useRichText
                       />
-                    </Text>
+                    </Text>{' '}
                     (
                     <Text
                       font={{ size: 'small' }}
@@ -78,6 +87,41 @@ export function StepDetails(props: StepDetailsProps): React.ReactElement {
                           taskId: item.taskId as string,
                           taskName: item.taskName as string,
                           delegateName: item.name as string
+                        })
+                      }
+                      style={{ cursor: 'pointer' }}
+                      color={Color.PRIMARY_7}
+                    >
+                      {getString('common.logs.delegateSelectionLogs')}
+                    </Text>
+                    )
+                  </div>
+                ))}
+              </Layout.Vertical>
+            </td>
+          </tr>
+        ) : step.delegateInfoList?.length === 0 &&
+          taskList.length > 0 &&
+          isExecutionCompletedWithBadState(step.status) ? (
+          <tr className={css.delegateRow}>
+            <th>
+              <Icon className={css.iconLabel} name="warning-sign" color={Color.ORANGE_500} />
+              {getString('delegate.DelegateName')}
+            </th>
+            <td>
+              <Layout.Vertical spacing="xsmall">
+                {taskList.map((item, index) => (
+                  <div key={`${item.taskId}-${index}`}>
+                    <Text font={{ size: 'small', weight: 'semi-bold' }} color={Color.ORANGE_500}>
+                      {item.taskName}
+                    </Text>{' '}
+                    (
+                    <Text
+                      font={{ size: 'small' }}
+                      onClick={() =>
+                        openDelegateSelectionLogsModal({
+                          taskId: item.taskId as string,
+                          taskName: item.taskName as string
                         })
                       }
                       style={{ cursor: 'pointer' }}

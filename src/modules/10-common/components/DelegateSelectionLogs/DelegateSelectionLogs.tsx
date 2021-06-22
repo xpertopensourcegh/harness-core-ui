@@ -9,7 +9,7 @@ import css from './DelegateSelectionLogs.module.scss'
 export interface DelegateTaskData {
   taskId: string
   taskName: string
-  delegateName: string
+  delegateName?: string
 }
 
 export interface UseDelegateSelectionLogsModalReturn {

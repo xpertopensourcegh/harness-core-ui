@@ -31,11 +31,15 @@ export function DelegateSelectionLogsTask({ task }: DelegateSelectionLogsTaskPro
         <>
           <Layout.Horizontal style={{ justifyContent: 'space-between' }}>
             <Text>
-              <String
-                stringID="common.delegateForTask"
-                vars={{ delegate: task.delegateName, taskName: task.taskName }}
-                useRichText
-              />
+              {task.delegateName ? (
+                <String
+                  stringID="common.delegateForTask"
+                  vars={{ delegate: task.delegateName, taskName: task.taskName }}
+                  useRichText
+                />
+              ) : (
+                task.taskName
+              )}
             </Text>
             <Text>{getString('taskId', { id: task.taskId })}</Text>
           </Layout.Horizontal>
