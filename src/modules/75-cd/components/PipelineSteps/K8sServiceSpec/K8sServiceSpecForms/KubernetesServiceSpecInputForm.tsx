@@ -935,6 +935,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                       className={css.inputWidth}
                       name={`${path}.manifests[${index}].manifest.spec.skipResourceVersioning`}
                       label={getString('skipResourceVersion')}
+                      setToFalseWhenEmpty={true}
                     />
                   )}
                 </Layout.Vertical>

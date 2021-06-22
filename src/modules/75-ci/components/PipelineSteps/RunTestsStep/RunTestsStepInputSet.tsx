@@ -192,6 +192,7 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
             allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
           }}
           style={{ marginBottom: 'var(--spacing-small)' }}
+          setToFalseWhenEmpty={true}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.testAnnotations) === MultiTypeInputType.RUNTIME && (

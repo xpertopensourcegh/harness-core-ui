@@ -215,6 +215,7 @@ export const SaveCacheS3StepInputSet: React.FC<SaveCacheS3StepProps> = ({ templa
             disabled: readonly
           }}
           style={{ marginBottom: 'var(--spacing-small)' }}
+          setToFalseWhenEmpty={true}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.pathStyle) === MultiTypeInputType.RUNTIME && (
@@ -235,6 +236,7 @@ export const SaveCacheS3StepInputSet: React.FC<SaveCacheS3StepProps> = ({ templa
             disabled: readonly
           }}
           style={{ marginBottom: 'var(--spacing-small)' }}
+          setToFalseWhenEmpty={true}
         />
       )}
       <StepCommonFieldsInputSet path={path} readonly={readonly} template={template} />

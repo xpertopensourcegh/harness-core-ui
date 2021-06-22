@@ -148,6 +148,7 @@ const K8RolloutDeployInputStep: React.FC<K8RolloutDeployProps> = ({ inputSetData
             name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.skipDryRun`}
             label={getString('pipelineSteps.skipDryRun')}
             disabled={inputSetData?.readonly}
+            setToFalseWhenEmpty={true}
           />
         </div>
       )}

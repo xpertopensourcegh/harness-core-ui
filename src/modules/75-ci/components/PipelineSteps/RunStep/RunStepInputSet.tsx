@@ -139,6 +139,7 @@ export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readon
             expressions,
             allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
           }}
+          setToFalseWhenEmpty={true}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.reports?.spec?.paths as string) === MultiTypeInputType.RUNTIME && (

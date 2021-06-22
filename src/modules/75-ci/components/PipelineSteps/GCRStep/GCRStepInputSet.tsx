@@ -251,6 +251,7 @@ export const GCRStepInputSet: React.FC<GCRStepProps> = ({ template, path, readon
             expressions,
             allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
           }}
+          setToFalseWhenEmpty={true}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.target) === MultiTypeInputType.RUNTIME && (

@@ -187,6 +187,7 @@ const K8CanaryDeployInputStep: React.FC<K8sCanaryDeployProps> = ({ template, rea
             name={`${prefix}spec.skipDryRun`}
             label={getString('pipelineSteps.skipDryRun')}
             disabled={readonly}
+            setToFalseWhenEmpty={true}
           />
         </div>
       )}

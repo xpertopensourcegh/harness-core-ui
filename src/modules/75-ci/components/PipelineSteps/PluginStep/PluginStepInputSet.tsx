@@ -102,6 +102,7 @@ export const PluginStepInputSet: React.FC<PluginStepProps> = ({ template, path, 
             allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
           }}
           disabled={readonly}
+          setToFalseWhenEmpty={true}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.settings as string) === MultiTypeInputType.RUNTIME && (

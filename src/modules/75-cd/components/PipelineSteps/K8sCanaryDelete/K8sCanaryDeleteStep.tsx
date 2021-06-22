@@ -145,6 +145,7 @@ const K8sCanaryDeleteInputWidget: React.FC<K8sCanaryDeployProps> = ({ inputSetDa
             className={stepCss.checkbox}
             label={getString('pipelineSteps.skipDryRun')}
             disabled={inputSetData?.readonly}
+            setToFalseWhenEmpty={true}
           />
         </div>
       )}

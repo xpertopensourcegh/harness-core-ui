@@ -65,10 +65,11 @@ export interface FormMultiTypeTextboxProps extends Omit<IFormGroupProps, 'label'
   formik?: any // TODO: Remove this but not sure why FormikContext<any> was not working
   multiTypeTextbox?: Omit<MultiTypeCheckboxProps, 'onChange' | 'name'>
   onChange?: MultiTypeCheckboxProps['onChange']
+  setToFalseWhenEmpty?: boolean
 }
 
 export const FormMultiTypeCheckbox: React.FC<FormMultiTypeTextboxProps> = props => {
-  const { label, multiTypeTextbox, formik, name, onChange, ...restProps } = props
+  const { label, multiTypeTextbox, formik, name, onChange, setToFalseWhenEmpty = false, ...restProps } = props
   const hasError = errorCheck(name, formik)
 
   const {
@@ -81,6 +82,12 @@ export const FormMultiTypeCheckbox: React.FC<FormMultiTypeTextboxProps> = props 
   const { textboxProps, ...restMultiProps } = multiTypeTextbox || {}
   const value: boolean = get(formik?.values, name, false)
   const [type, setType] = React.useState<MultiTypeInputType>(getMultiTypeFromValue(value))
+
+  React.useEffect(() => {
+    if (setToFalseWhenEmpty && get(formik?.values, name) === '') {
+      formik?.setFieldValue(name, false)
+    }
+  }, [setToFalseWhenEmpty])
 
   const isFixedValue = type === MultiTypeInputType.FIXED
   return (

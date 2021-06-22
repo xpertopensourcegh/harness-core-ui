@@ -260,6 +260,7 @@ const K8sApplyInputStep: React.FC<K8sApplyProps> = ({ inputSetData, readonly }) 
             name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.skipDryRun`}
             className={stepCss.checkbox}
             label={getString('pipelineSteps.skipDryRun')}
+            setToFalseWhenEmpty={true}
           />
         </div>
       )}
@@ -273,6 +274,7 @@ const K8sApplyInputStep: React.FC<K8sApplyProps> = ({ inputSetData, readonly }) 
             name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.skipSteadyStateCheck`}
             className={stepCss.checkbox}
             label={getString('pipelineSteps.skipSteadyStateCheck')}
+            setToFalseWhenEmpty={true}
           />
         </div>
       )}

@@ -163,6 +163,7 @@ export const SaveCacheGCSStepInputSet: React.FC<SaveCacheGCSStepProps> = ({ temp
             disabled: readonly
           }}
           style={{ marginBottom: 'var(--spacing-small)' }}
+          setToFalseWhenEmpty={true}
         />
       )}
       <StepCommonFieldsInputSet path={path} readonly={readonly} template={template} />

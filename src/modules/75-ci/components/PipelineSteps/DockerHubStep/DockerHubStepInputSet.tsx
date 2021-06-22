@@ -211,6 +211,7 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
             expressions,
             allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
           }}
+          setToFalseWhenEmpty={true}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.target) === MultiTypeInputType.RUNTIME && (

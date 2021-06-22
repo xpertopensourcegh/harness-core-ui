@@ -143,6 +143,7 @@ const K8BGDeployInputStep: React.FC<K8BGDeployProps> = ({ inputSetData }) => {
             className={stepCss.checkbox}
             label={getString('pipelineSteps.skipDryRun')}
             disabled={inputSetData?.readonly}
+            setToFalseWhenEmpty={true}
           />
         </div>
       )}

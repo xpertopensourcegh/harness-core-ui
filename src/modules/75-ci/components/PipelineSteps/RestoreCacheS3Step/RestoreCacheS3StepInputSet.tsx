@@ -193,6 +193,7 @@ export const RestoreCacheS3StepInputSet: React.FC<RestoreCacheS3StepProps> = ({ 
             allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
           }}
           style={{ marginBottom: 'var(--spacing-small)' }}
+          setToFalseWhenEmpty={true}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.failIfKeyNotFound) === MultiTypeInputType.RUNTIME && (
@@ -205,6 +206,7 @@ export const RestoreCacheS3StepInputSet: React.FC<RestoreCacheS3StepProps> = ({ 
             allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
           }}
           style={{ marginBottom: 'var(--spacing-small)' }}
+          setToFalseWhenEmpty={true}
         />
       )}
       <StepCommonFieldsInputSet path={path} readonly={readonly} template={template} />

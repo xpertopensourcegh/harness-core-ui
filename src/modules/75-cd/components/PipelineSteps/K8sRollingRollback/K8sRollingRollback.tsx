@@ -148,6 +148,7 @@ const K8sRollingRollbackInputStep: React.FC<K8sRollingRollbackProps> = ({ inputS
             className={stepCss.checkbox}
             label={getString('pipelineSteps.skipDryRun')}
             disabled={inputSetData?.readonly}
+            setToFalseWhenEmpty={true}
           />
         </div>
       )}
