@@ -25,6 +25,9 @@ import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineCon
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import DeployServiceErrors from '@cd/components/PipelineStudio/DeployServiceSpecifications/DeployServiceErrors'
 import SelectDeploymentType from '@cd/components/PipelineStudio/DeployInfraSpecifications/SelectDeployementType'
+import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
+import { StageErrorContext } from '@pipeline/context/StageErrorContext'
+import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
 import css from './DeployInfraSpecifications.module.scss'
 
 // TODO: Add key once we have default value
@@ -38,6 +41,14 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
   const [selectedDeploymentType, setSelectedDeploymentType] = React.useState<string | undefined>()
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
   const { getString } = useStrings()
+  const { submitFormsForTab } = React.useContext(StageErrorContext)
+  const { errorMap } = useValidationErrors()
+
+  React.useEffect(() => {
+    if (errorMap.size > 0) {
+      submitFormsForTab(DeployTabs.INFRASTRUCTURE)
+    }
+  }, [errorMap])
 
   const {
     state: {

@@ -14,20 +14,30 @@ import { getFailureStrategiesValidationSchema } from '@pipeline/components/Pipel
 import { StepMode as Modes } from '@pipeline/utils/stepUtils'
 import { StageType } from '@pipeline/utils/stageHelpers'
 
+import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import type { StepCommandsRef } from '../StepCommands/StepCommands'
 
 export interface FailureStrategyProps {
   selectedStage?: StageElementWrapperConfig
   isReadonly: boolean
   onUpdate(data: { failureStrategies: AllFailureStrategyConfig[] }): void
+  tabName?: string
 }
 
 export function FailureStrategy(props: FailureStrategyProps, ref: StepCommandsRef): React.ReactElement {
   const { getString } = useStrings()
-  const { selectedStage, onUpdate, isReadonly } = props
+  const { selectedStage, onUpdate, isReadonly, tabName } = props
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedUpdate = React.useCallback(debounce(onUpdate, 300), [onUpdate])
   const formikRef = React.useRef<FormikProps<unknown> | null>(null)
+  const { subscribeForm, unSubscribeForm } = React.useContext(StageErrorContext)
+
+  React.useEffect(() => {
+    !!tabName && subscribeForm({ tab: tabName, form: formikRef })
+    return () => {
+      !!tabName && unSubscribeForm({ tab: tabName, form: formikRef })
+    }
+  }, [subscribeForm, unSubscribeForm, tabName])
 
   React.useImperativeHandle(ref, () => ({
     setFieldError(key: string, error: string) {
@@ -86,11 +96,20 @@ export function FailureStrategy(props: FailureStrategyProps, ref: StepCommandsRe
       onSubmit={onUpdate}
       validate={debouncedUpdate}
     >
-      {formik => (
-        <div className={Classes.DIALOG_BODY}>
-          <FailureStrategyPanel isReadonly={isReadonly} mode={Modes.STAGE} stageType={stageType} formikProps={formik} />
-        </div>
-      )}
+      {formik => {
+        !!tabName && window.dispatchEvent(new CustomEvent('UPDATE_ERRORS_STRIP', { detail: tabName }))
+        formikRef.current = formik
+        return (
+          <div className={Classes.DIALOG_BODY}>
+            <FailureStrategyPanel
+              isReadonly={isReadonly}
+              mode={Modes.STAGE}
+              stageType={stageType}
+              formikProps={formik}
+            />
+          </div>
+        )
+      }}
     </Formik>
   )
 }

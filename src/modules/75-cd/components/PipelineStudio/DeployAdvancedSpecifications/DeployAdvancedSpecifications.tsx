@@ -7,6 +7,10 @@ import { FailureStrategyWithRef } from '@pipeline/components/PipelineStudio/Fail
 import type { StepFormikRef } from '@pipeline/components/PipelineStudio/StepCommands/StepCommands'
 import ConditionalExecution from '@pipeline/components/PipelineStudio/ConditionalExecution/ConditionalExecution'
 import { useStrings } from 'framework/strings'
+import DeployServiceErrors from '@cd/components/PipelineStudio/DeployServiceSpecifications/DeployServiceErrors'
+import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
+import { StageErrorContext } from '@pipeline/context/StageErrorContext'
+import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
 import css from './DeployAdvancedSpecifications.module.scss'
 
 export interface AdvancedSpecifications {
@@ -27,60 +31,72 @@ const DeployAdvancedSpecifications: React.FC<AdvancedSpecifications> = ({ childr
 
   const formikRef = React.useRef<StepFormikRef | null>(null)
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
+  const { submitFormsForTab } = React.useContext(StageErrorContext)
+  const { errorMap } = useValidationErrors()
+
+  React.useEffect(() => {
+    if (errorMap.size > 0) {
+      submitFormsForTab(DeployTabs.ADVANCED)
+    }
+  }, [errorMap])
 
   return (
-    <div className={cx(css.stageSection, css.editStageGrid)}>
-      <div className={css.contentSection} ref={scrollRef}>
-        <div className={css.tabHeading}>{getString('pipeline.conditionalExecution.title')}</div>
-        {!!stage && (
-          <Card className={cx(css.sectionCard, css.shadow)} id="conditionalExecution">
+    <>
+      <DeployServiceErrors />
+      <div className={cx(css.stageSection, css.editStageGrid)}>
+        <div className={css.contentSection} ref={scrollRef}>
+          <div className={css.tabHeading}>{getString('pipeline.conditionalExecution.title')}</div>
+          {!!stage && (
+            <Card className={cx(css.sectionCard, css.shadow)} id="conditionalExecution">
+              <Layout.Horizontal>
+                <div className={css.stageSection}>
+                  <div className={cx(css.stageCreate, css.stageDetails)}>
+                    <ConditionalExecution
+                      isReadonly={isReadonly}
+                      selectedStage={stage}
+                      onUpdate={when => {
+                        const { stage: pipelineStage } = getStageFromPipeline(selectedStageId || '')
+                        if (pipelineStage && pipelineStage.stage) {
+                          const stageData = produce(pipelineStage, draft => {
+                            draft.stage.when = when
+                          })
+                          updateStage(stageData.stage)
+                        }
+                      }}
+                    />
+                  </div>
+                </div>
+              </Layout.Horizontal>
+            </Card>
+          )}
+          <div className={css.tabHeading}>Failure Strategy</div>
+          <Card className={cx(css.sectionCard, css.shadow)} id="failureStrategy">
             <Layout.Horizontal>
               <div className={css.stageSection}>
                 <div className={cx(css.stageCreate, css.stageDetails)}>
-                  <ConditionalExecution
-                    isReadonly={isReadonly}
+                  <FailureStrategyWithRef
                     selectedStage={stage}
-                    onUpdate={when => {
+                    isReadonly={isReadonly}
+                    ref={formikRef}
+                    onUpdate={({ failureStrategies }) => {
                       const { stage: pipelineStage } = getStageFromPipeline(selectedStageId || '')
                       if (pipelineStage && pipelineStage.stage) {
                         const stageData = produce(pipelineStage, draft => {
-                          draft.stage.when = when
+                          draft.stage.failureStrategies = failureStrategies
                         })
                         updateStage(stageData.stage)
                       }
                     }}
+                    tabName={DeployTabs.ADVANCED}
                   />
                 </div>
               </div>
             </Layout.Horizontal>
           </Card>
-        )}
-        <div className={css.tabHeading}>Failure Strategy</div>
-        <Card className={cx(css.sectionCard, css.shadow)} id="failureStrategy">
-          <Layout.Horizontal>
-            <div className={css.stageSection}>
-              <div className={cx(css.stageCreate, css.stageDetails)}>
-                <FailureStrategyWithRef
-                  selectedStage={stage}
-                  isReadonly={isReadonly}
-                  ref={formikRef}
-                  onUpdate={({ failureStrategies }) => {
-                    const { stage: pipelineStage } = getStageFromPipeline(selectedStageId || '')
-                    if (pipelineStage && pipelineStage.stage) {
-                      const stageData = produce(pipelineStage, draft => {
-                        draft.stage.failureStrategies = failureStrategies
-                      })
-                      updateStage(stageData.stage)
-                    }
-                  }}
-                />
-              </div>
-            </div>
-          </Layout.Horizontal>
-        </Card>
-        <div className={cx(css.navigationButtons)}>{children}</div>
+          <div className={cx(css.navigationButtons)}>{children}</div>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 

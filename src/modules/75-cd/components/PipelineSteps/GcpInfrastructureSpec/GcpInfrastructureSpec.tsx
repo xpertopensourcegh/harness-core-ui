@@ -193,7 +193,6 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
   return (
     <Layout.Vertical spacing="medium">
       <Formik<K8sGcpInfrastructureUI>
-        enableReinitialize
         formName="gcpInfra"
         initialValues={getInitialValues()}
         validate={value => {

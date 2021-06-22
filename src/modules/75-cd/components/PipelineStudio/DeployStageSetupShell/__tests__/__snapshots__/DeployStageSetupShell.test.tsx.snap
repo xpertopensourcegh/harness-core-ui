@@ -207,11 +207,11 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
         >
           <span
             class="title"
+            data-warning="false"
           >
             <span
               class="bp3-icon StyledProps--main hover"
               data-icon="advanced"
-              style="height: 20px;"
             >
               <svg
                 fill="currentColor"

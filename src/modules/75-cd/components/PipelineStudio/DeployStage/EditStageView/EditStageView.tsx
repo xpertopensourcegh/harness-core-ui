@@ -39,6 +39,7 @@ import { usePipelineVariables } from '@pipeline/components/PipelineVariablesCont
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
 import DeployServiceErrors from '@cd/components/PipelineStudio/DeployServiceSpecifications/DeployServiceErrors'
+import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
 import css from './EditStageView.module.scss'
 
 export interface EditStageView {
@@ -93,10 +94,16 @@ export const EditStageView: React.FC<EditStageView> = ({
   const { variablesPipeline, metadataMap } = usePipelineVariables()
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
   const allNGVariables = ((data?.stage as StageElementConfig)?.variables || []) as AllNGVariables[]
-
-  const { subscribeForm, unSubscribeForm } = React.useContext(StageErrorContext)
+  const { errorMap } = useValidationErrors()
+  const { subscribeForm, unSubscribeForm, submitFormsForTab } = React.useContext(StageErrorContext)
 
   const formikRef = React.useRef<FormikProps<unknown> | null>(null)
+
+  React.useEffect(() => {
+    if (errorMap.size > 0) {
+      submitFormsForTab(DeployTabs.OVERVIEW)
+    }
+  }, [errorMap])
 
   React.useEffect(() => {
     subscribeForm({ tab: DeployTabs.OVERVIEW, form: formikRef })

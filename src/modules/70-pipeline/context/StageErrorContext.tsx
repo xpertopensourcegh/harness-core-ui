@@ -17,6 +17,7 @@ export interface StageErrorContextInterface {
   state: DeployStageErrorState
   subscribeForm: (formData: FormProps) => void
   unSubscribeForm: (formData: FormProps) => void
+  submitFormsForTab: (tab: string) => void
   checkErrorsForTab: (tab: string) => Promise<void>
 }
 
@@ -27,6 +28,7 @@ export const StageErrorContext = React.createContext<StageErrorContextInterface>
   },
   subscribeForm: () => undefined,
   unSubscribeForm: () => undefined,
+  submitFormsForTab: () => undefined,
   checkErrorsForTab: () => new Promise<void>(() => undefined)
 })
 
@@ -61,6 +63,22 @@ export function DeployStageErrorProvider(props: DeployStageErrorProviderProps): 
       return { ...prevState }
     })
   }, [])
+  const submitFormsForTab = (tab: string) => {
+    const forms = state.forms[tab]
+    if (!forms) return
+    const promises = []
+    for (const form of forms) {
+      form.current?.submitForm()
+      promises.push(form.current?.validateForm())
+    }
+    Promise.all(promises).then(values => {
+      let errors = {}
+      values.forEach(value => {
+        errors = merge(errors, value)
+      })
+      setState({ ...state, errors })
+    })
+  }
   const checkErrorsForTab = (tab: string): Promise<void> => {
     return new Promise((resolve, reject) => {
       const forms = state.forms[tab]
@@ -84,7 +102,7 @@ export function DeployStageErrorProvider(props: DeployStageErrorProviderProps): 
     })
   }
   return (
-    <StageErrorContext.Provider value={{ state, subscribeForm, unSubscribeForm, checkErrorsForTab }}>
+    <StageErrorContext.Provider value={{ state, subscribeForm, unSubscribeForm, checkErrorsForTab, submitFormsForTab }}>
       {props.children}
     </StageErrorContext.Provider>
   )

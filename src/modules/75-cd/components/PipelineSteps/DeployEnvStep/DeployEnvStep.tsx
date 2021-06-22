@@ -370,7 +370,6 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
           ...initialValues,
           ...{ environmentRef: initialValues?.environment?.identifier || initialValues?.environmentRef }
         }}
-        enableReinitialize
         validationSchema={Yup.object().shape({
           environmentRef: Yup.string().trim().required(getString('pipelineSteps.environmentTab.environmentIsRequired'))
         })}

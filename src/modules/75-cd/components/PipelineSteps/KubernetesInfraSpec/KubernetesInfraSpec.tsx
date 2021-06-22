@@ -103,7 +103,6 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
   return (
     <Layout.Vertical spacing="medium">
       <Formik
-        enableReinitialize
         initialValues={initialValues}
         formName="k8InfraSpec"
         validate={value => {

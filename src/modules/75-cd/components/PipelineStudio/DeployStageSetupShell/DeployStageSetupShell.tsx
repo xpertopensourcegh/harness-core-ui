@@ -151,7 +151,9 @@ export default function DeployStageSetupShell(): JSX.Element {
           text={getString('done')}
           intent="primary"
           onClick={() => {
-            updatePipelineView({ ...pipelineView, isSplitViewOpen: false })
+            checkErrorsForTab(selectedTabId).then(_ => {
+              updatePipelineView({ ...pipelineView, isSplitViewOpen: false })
+            })
           }}
         />
       ) : (
@@ -174,6 +176,7 @@ export default function DeployStageSetupShell(): JSX.Element {
   const servicesHasWarning = errorKeys.some(key => stagePath && key.startsWith(`${stagePath}.stage.spec.serviceConfig`))
   const infraHasWarning = errorKeys.some(key => stagePath && key.startsWith(`${stagePath}.stage.spec.infrastructure`))
   const executionHasWarning = errorKeys.some(key => stagePath && key.startsWith(`${stagePath}.stage.spec.execution`))
+  const failureHasWarning = errorKeys.some(key => stagePath && key.startsWith(`${stagePath}.stage.failureStrategies`))
 
   return (
     <section ref={layoutRef} key={selectedStageId} className={cx(css.setupShell)}>
@@ -298,8 +301,12 @@ export default function DeployStageSetupShell(): JSX.Element {
         <Tab
           id={DeployTabs.ADVANCED}
           title={
-            <span className={css.title}>
-              <Icon name="advanced" height={20} size={20} className="hover" />
+            <span className={css.title} data-warning={failureHasWarning}>
+              <Icon
+                name={failureHasWarning ? 'warning-sign' : 'advanced'}
+                size={failureHasWarning ? 16 : 20}
+                className={failureHasWarning ? '' : 'hover'}
+              />
               Advanced
             </span>
           }

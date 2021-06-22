@@ -337,7 +337,6 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
             serviceRef: initialValues.service?.identifier || initialValues.serviceRef
           }
         }}
-        enableReinitialize
         validationSchema={Yup.object().shape({
           serviceRef: Yup.string().trim().required(getString('pipelineSteps.serviceTab.serviceIsRequired'))
         })}

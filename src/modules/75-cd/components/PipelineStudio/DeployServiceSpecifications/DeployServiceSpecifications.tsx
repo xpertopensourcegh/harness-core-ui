@@ -22,6 +22,9 @@ import DeployServiceErrors from '@cd/components/PipelineStudio/DeployServiceSpec
 import PropagateWidget, {
   setupMode
 } from '@cd/components/PipelineStudio/DeployServiceSpecifications/PropagateWidget/PropagateWidget'
+import { StageErrorContext } from '@pipeline/context/StageErrorContext'
+import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
+import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
 import css from './DeployServiceSpecifications.module.scss'
 
 export default function DeployServiceSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
@@ -108,6 +111,14 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   const [parentStage, setParentStage] = React.useState<{
     [key: string]: any
   }>({})
+  const { submitFormsForTab } = React.useContext(StageErrorContext)
+  const { errorMap } = useValidationErrors()
+
+  React.useEffect(() => {
+    if (errorMap.size > 0) {
+      submitFormsForTab(DeployTabs.SERVICE)
+    }
+  }, [errorMap])
 
   React.useEffect(() => {
     if (stages && stages.length > 0) {
