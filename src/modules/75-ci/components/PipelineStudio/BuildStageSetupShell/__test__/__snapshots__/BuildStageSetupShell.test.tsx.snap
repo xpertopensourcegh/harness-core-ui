@@ -426,7 +426,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                           >
                             <p
                               class="StyledProps--font StyledProps--main"
-                              style="display: flex; align-items: center;"
+                              style="display: flex; align-items: center; min-width: 171px;"
                             >
                               pipelineSteps.build.stageSpecifications.sharedPaths
                               <span

@@ -180,7 +180,7 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
                     >
                       <p
                         class="StyledProps--font StyledProps--main"
-                        style="display: flex; align-items: center;"
+                        style="display: flex; align-items: center; min-width: 171px;"
                       >
                         pipelineSteps.build.stageSpecifications.sharedPaths
                         <span
@@ -529,7 +529,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                     >
                       <p
                         class="StyledProps--font StyledProps--main"
-                        style="display: flex; align-items: center;"
+                        style="display: flex; align-items: center; min-width: 171px;"
                       >
                         pipelineSteps.build.stageSpecifications.sharedPaths
                         <span

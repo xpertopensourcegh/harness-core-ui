@@ -238,7 +238,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
                     multiTextInputProps={{ expressions }}
                     multiTypeFieldSelectorProps={{
                       label: (
-                        <Text style={{ display: 'flex', alignItems: 'center' }}>
+                        <Text style={{ display: 'flex', alignItems: 'center', minWidth: '171px' }}>
                           {getString('pipelineSteps.build.stageSpecifications.sharedPaths')}
                           <Button
                             icon="question"
