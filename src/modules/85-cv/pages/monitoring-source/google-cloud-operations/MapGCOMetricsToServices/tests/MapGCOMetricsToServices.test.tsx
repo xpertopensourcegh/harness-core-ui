@@ -11,6 +11,7 @@ import { buildGCOMonitoringSourceInfo, GCOProduct } from '../../GoogleCloudOpera
 import { ManualInputQueryModal, MANUAL_INPUT_QUERY } from '../../ManualInputQueryModal/ManualInputQueryModal'
 
 const MockQuery = `{}`
+const MockQueryWithGroupBy = '{"sdfsdf": "groupByFields sdfs"}'
 const MockSelectedMetricInfo = {
   query: '{"someQuery": "sdosdf"}',
   widgetName: 'widget_1',
@@ -139,6 +140,42 @@ const MockValidationResponse = {
       txnName: 'kubernetes.io/container/cpu/core_usage_time',
       metricName: 'kubernetes.io/container/cpu/core_usage_time',
       metricValue: 7.050477594430973,
+      timestamp: 1607599980000
+    }
+  ]
+}
+
+const MockValidationResponseWithMultipleTxns = {
+  metaData: {},
+  data: [
+    {
+      txnName: 'kubernetes.io/container/cpu/core_usage_time',
+      metricName: 'kubernetes.io/container/cpu/core_usage_time',
+      metricValue: 12.151677124512961,
+      timestamp: 1607599860000
+    },
+    {
+      txnName: 'kubernetes.io/container/cpu/core_usage_time',
+      metricName: 'kubernetes.io/container/cpu/core_usage_time',
+      metricValue: 12.149014549984008,
+      timestamp: 1607599920000
+    },
+    {
+      txnName: 'kubernetes.io/container/cpu/core_usage_time',
+      metricName: 'kubernetes.io/container/cpu/core_usage_time',
+      metricValue: 7.050477594430973,
+      timestamp: 1607599980000
+    },
+    {
+      txnName: 'kubernetes.io/container/cpu/core_time',
+      metricName: 'kubernetes.io/container/cpu/core_time',
+      metricValue: 12.65,
+      timestamp: 1607599920000
+    },
+    {
+      txnName: 'kubernetes.io/container/cpu/core_time',
+      metricName: 'kubernetes.io/container/cpu/core_time/s',
+      metricValue: 12.65,
       timestamp: 1607599980000
     }
   ]
@@ -442,5 +479,62 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
     }
 
     fireEvent.click(submitFormButton)
+  })
+
+  test('Ensure that when too many metrics are returned for a groupBy query, validation is displayed', async () => {
+    const getMetricPackSpy = jest.spyOn(cvService, 'useGetMetricPacks')
+    getMetricPackSpy.mockReturnValue({
+      data: { resource: [{ identifier: 'Errors' }, { identifier: 'Performance' }] }
+    } as UseGetReturn<any, any, any, any>)
+
+    const sampleDataSpy = jest.spyOn(cvService, 'useGetStackdriverSampleData')
+    const mutateMock = jest.fn().mockReturnValue(
+      Promise.resolve({
+        ...MockValidationResponseWithMultipleTxns
+      })
+    )
+
+    sampleDataSpy.mockReturnValue({ mutate: mutateMock as unknown, cancel: jest.fn() as unknown } as UseMutateReturn<
+      any,
+      any,
+      any,
+      any,
+      any
+    >)
+
+    const { container, getByText } = render(
+      <TestWrapper>
+        <MapGCOMetricsToServices
+          data={buildGCOMonitoringSourceInfo(MockParams, currentProduct)}
+          onNext={jest.fn()}
+          onPrevious={jest.fn()}
+        />
+      </TestWrapper>
+    )
+    await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
+    await setFieldValue({
+      container,
+      type: InputTypes.TEXTAREA,
+      fieldId: FieldNames.QUERY,
+      value: MockQueryWithGroupBy
+    })
+
+    // assign a query with gruopByFields and ensure validation is there
+    await waitFor(() => expect(mutateMock).toHaveBeenCalledTimes(1))
+    expect(container.querySelector('[class*="highcharts"]')).not.toBeNull()
+    await waitFor(() =>
+      expect(getByText('cv.monitoringSources.gco.mapMetricsToServicesPage.validation.tooManyMetrics')).not.toBeNull()
+    )
+
+    // remove the groupByFields value and ensure validation message disappeared
+    await setFieldValue({
+      container,
+      type: InputTypes.TEXTAREA,
+      fieldId: FieldNames.QUERY,
+      value: MockQuery
+    })
+    await waitFor(() => expect(mutateMock).toHaveBeenCalledTimes(2))
+    expect(container.querySelector('[class*="highcharts"]')).not.toBeNull()
+    await waitFor(() => expect(container.querySelector('[class*="tooManyRecords"]')).toBeNull())
   })
 })

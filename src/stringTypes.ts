@@ -2668,6 +2668,7 @@ export interface StringsMap {
   'cv.monitoringSources.gco.mapMetricsToServicesPage.validation.mainSetupValidation': string
   'cv.monitoringSources.gco.mapMetricsToServicesPage.validation.riskCategory': string
   'cv.monitoringSources.gco.mapMetricsToServicesPage.validation.tags': string
+  'cv.monitoringSources.gco.mapMetricsToServicesPage.validation.tooManyMetrics': string
   'cv.monitoringSources.gco.mapMetricsToServicesPage.validation.validJSON': string
   'cv.monitoringSources.gco.mapMetricsToServicesPage.viewQuery': string
   'cv.monitoringSources.gco.product.logs': string

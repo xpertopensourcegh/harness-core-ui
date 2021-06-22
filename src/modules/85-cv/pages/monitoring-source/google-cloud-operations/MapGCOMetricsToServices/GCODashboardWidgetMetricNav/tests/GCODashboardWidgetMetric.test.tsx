@@ -240,7 +240,7 @@ describe('unit tests for dashboard widget metric', () => {
     expect(container.querySelector(`.${Classes.TREE_NODE_SELECTED} p`)?.innerHTML).toEqual('solo-dolo')
   })
 
-  test('Ensure that when', async () => {
+  test('Ensure that when s', async () => {
     const useGetStackdriverDashboardDetailSpy = jest.spyOn(cvService, 'useGetStackdriverDashboardDetail')
     useGetStackdriverDashboardDetailSpy.mockReturnValue({
       data: { data: MockWidgetResponse },

@@ -57,25 +57,6 @@ export function ManualInputQueryModal(props: UseManualInputQueryModalProps): JSX
       title={getString('cv.monitoringSources.gco.manualInputQueryModal.modalTitle')}
     >
       <Container className={css.main}>
-        {/* <Container className={css.subtitle1Container}>
-          <Text color={Color.BLACK} inline className={css.subtitle}>
-            {getString('cv.monitoringSources.gco.manualInputQueryModal.subtitle1')}
-          </Text>
-          <Text color={Color.RED_600} inline className={css.subtitle} style={{ margin: '0 3px' }}>
-            {getString('cv.hostNamePlaceholder')}
-          </Text>
-          <Text color={Color.BLACK} inline className={css.subtitle}>
-            {getString('cv.monitoringSources.gco.manualInputQueryModal.subtitle2')}
-          </Text>
-        </Container>
-        <Container>
-          <Text color={Color.BLACK} inline className={css.subtitle}>
-            {getString('cv.monitoringSources.gco.manualInputQueryModal.subtitle3')}
-          </Text>
-          <Text color={Color.RED_600} inline className={css.subtitle}>
-            {getString('cv.monitoringSources.gco.manualInputQueryModal.exampleString')}
-          </Text>
-        </Container> */}
         <Formik
           onSubmit={values => {
             onSubmit(values)

@@ -22,6 +22,7 @@ export interface GCOMetricInfo {
   higherBaselineDeviation?: boolean
   lowerBaselineDeviation?: boolean
   isManualQuery?: boolean
+  tooManyMetrics?: boolean
 }
 
 export interface GCOMonitoringSourceInfo

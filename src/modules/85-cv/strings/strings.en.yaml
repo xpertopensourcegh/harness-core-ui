@@ -351,6 +351,7 @@ monitoringSources:
         riskCategory: Risk Category is required.
         tags: Tags are required.
         baseline: One selection is required.
+        tooManyMetrics: Too many metrics for provided query. Please fix query to return data for one metric.
       noDataForQuery: 'No data for provided query.'
     reviewPage:
       mappedMetrics: '{{metricCount}} metric(s) mapped to {{serviceCount}} service(s)'

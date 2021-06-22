@@ -16,6 +16,7 @@ declare const styles: {
   readonly validationContainer: string
   readonly query: string
   readonly chartContainer: string
+  readonly tooManyRecords: string
   readonly noDataContainer: string
   readonly sampleDataSpinner: string
   readonly metricServiceEnvContainer: string

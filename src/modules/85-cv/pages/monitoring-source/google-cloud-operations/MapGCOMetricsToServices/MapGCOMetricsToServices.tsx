@@ -66,6 +66,7 @@ interface ValidationChartProps {
   queryValue?: string
   onRetry: () => void
   sampleData?: Highcharts.Options
+  setAsTooManyMetrics?: (_: boolean) => void
 }
 
 export const FieldNames = {
@@ -89,6 +90,8 @@ const DrawerOptions = {
   canOutsideClickClose: true,
   enforceFocus: true
 }
+
+const GroupByClause = 'groupByFields'
 
 function ensureFieldsAreFilled(values: GCOMetricInfo, getString: (key: StringKeys) => string): Record<string, any> {
   const ret: any = {}
@@ -346,8 +349,16 @@ function MapMetricToServiceAndEnvironment(props: MapMetricToServiceAndEnvironmen
 }
 
 function ValidationChart(props: ValidationChartProps): JSX.Element {
-  const { loading, error, queryValue, onRetry, sampleData } = props
+  const { loading, error, queryValue, onRetry, sampleData, setAsTooManyMetrics } = props
   const { getString } = useStrings()
+  const isTooManyMetrics = Boolean(
+    sampleData?.series?.length && sampleData.series.length > 1 && queryValue?.includes(GroupByClause)
+  )
+
+  useEffect(() => {
+    setAsTooManyMetrics?.(isTooManyMetrics)
+  }, [sampleData])
+
   if (loading) {
     return <Icon name="steps-spinner" size={32} color={Color.GREY_600} className={css.sampleDataSpinner} />
   }
@@ -386,6 +397,17 @@ function ValidationChart(props: ValidationChartProps): JSX.Element {
   return (
     <Container className={css.chartContainer}>
       <HighchartsReact highcharts={Highcharts} options={sampleData} />
+      {isTooManyMetrics && (
+        <Text
+          intent="danger"
+          font={{ size: 'small' }}
+          className={css.tooManyRecords}
+          icon="warning-sign"
+          iconProps={{ intent: 'danger' }}
+        >
+          {getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validation.tooManyMetrics')}
+        </Text>
+      )}
     </Container>
   )
 }
@@ -586,6 +608,13 @@ export function MapGCOMetricsToServices(props: MapGCOMetricsToServicesProps): JS
                     error={error}
                     sampleData={sampleData}
                     queryValue={formikProps.values.query}
+                    setAsTooManyMetrics={isTooMany => {
+                      if (isTooMany) {
+                        formikProps.setFieldError('tooManyMetrics', 'invalid')
+                      } else {
+                        formikProps.setFieldError('tooManyMetrics', '')
+                      }
+                    }}
                     onRetry={async () => {
                       if (!formikProps.values.query?.length) return
                       onQueryChange(formikProps.values.query)
