@@ -102,14 +102,14 @@ export const NewEditServiceModal: React.FC<NewEditServiceModalProps> = ({
           })
           if (response.status === 'SUCCESS') {
             clear()
-            showSuccess('cd.serviceCreated')
+            showSuccess(getString('cd.serviceCreated'))
             onCreateOrUpdate(values)
           }
         } else {
           const response = await createService([{ ...values, orgIdentifier, projectIdentifier }])
           if (response.status === 'SUCCESS') {
             clear()
-            showSuccess('cd.serviceUpdated')
+            showSuccess(getString('cd.serviceUpdated'))
             onCreateOrUpdate(values)
           }
         }

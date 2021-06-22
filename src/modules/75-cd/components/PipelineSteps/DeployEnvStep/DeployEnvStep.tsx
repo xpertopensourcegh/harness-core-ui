@@ -102,14 +102,14 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
           })
           if (response.status === 'SUCCESS') {
             clear()
-            showSuccess('cd.serviceCreated')
+            showSuccess(getString('cd.environmentCreated'))
             onCreateOrUpdate(values)
           }
         } else {
           const response = await createEnvironment({ ...values, orgIdentifier, projectIdentifier })
           if (response.status === 'SUCCESS') {
             clear()
-            showSuccess('cd.serviceUpdated')
+            showSuccess(getString('cd.environmentUpdated'))
             onCreateOrUpdate(values)
           }
         }

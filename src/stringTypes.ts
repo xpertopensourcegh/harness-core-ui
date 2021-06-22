@@ -1694,6 +1694,8 @@ export interface StringsMap {
   'cd.dashboard.createProject': string
   'cd.dashboard.orSelectExisting': string
   'cd.dashboard.subHeading': string
+  'cd.environmentCreated': string
+  'cd.environmentUpdated': string
   'cd.filePath': string
   'cd.filePathPlaceholder': string
   'cd.filePathRequired': string
