@@ -193,7 +193,7 @@ export default function TerraformEditView(
                           <Text className={css.configPlaceHolder}>-{getString('cd.configFilePlaceHolder')}-</Text>
                         )}
                         {formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.folderPath && (
-                          <Text intent="primary">
+                          <Text font="normal" lineClamp={1} width={200}>
                             /{formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.folderPath}
                           </Text>
                         )}

@@ -231,7 +231,7 @@ function TerraformPlanWidget(
                       <Text className={css.configPlaceHolder}>-{getString('cd.configFilePlaceHolder')}-</Text>
                     )}
                     {formik.values?.spec?.configuration?.configFiles?.store?.spec?.folderPath && (
-                      <Text intent="primary">
+                      <Text font="normal" lineClamp={1} width={200}>
                         /{formik.values?.spec?.configuration?.configFiles?.store?.spec?.folderPath}
                       </Text>
                     )}
