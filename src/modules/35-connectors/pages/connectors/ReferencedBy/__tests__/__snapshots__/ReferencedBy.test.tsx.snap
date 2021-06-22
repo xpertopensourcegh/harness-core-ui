@@ -30,164 +30,168 @@ exports[`Referenced By render for data 1`] = `
         </div>
       </div>
       <div
-        class="row card"
-        role="row"
+        class="body"
       >
         <div
-          class="cell"
-          role="cell"
-          style="width: 33%;"
+          class="row card"
+          role="row"
         >
           <div
-            class="Layout--vertical StyledProps--main"
+            class="cell"
+            role="cell"
+            style="width: 33%;"
           >
             <div
-              class="Layout--horizontal StyledProps--main"
+              class="Layout--vertical StyledProps--main"
             >
-              <span
-                class="bp3-icon bp3-icon- StyledProps--main secretIconCss"
-                icon=""
+              <div
+                class="Layout--horizontal StyledProps--main"
               >
-                <svg
-                  data-icon=""
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
+                <span
+                  class="bp3-icon bp3-icon- StyledProps--main secretIconCss"
+                  icon=""
                 >
-                  
-                </svg>
-              </span>
+                  <svg
+                    data-icon=""
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    
+                  </svg>
+                </span>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-left-small"
+                >
+                  Sample Secret
+                </p>
+              </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-left-small"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small StyledProps--padding-left-xxlarge StyledProps--margin-left-xsmall"
               >
-                Sample Secret
+                (
+                )
               </p>
             </div>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small StyledProps--padding-left-xxlarge StyledProps--margin-left-xsmall"
-            >
-              (
-              )
-            </p>
           </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 66%;"
-        >
           <div
-            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-          >
-            dummy date
-          </div>
-        </div>
-      </div>
-      <div
-        class="row card"
-        role="row"
-      >
-        <div
-          class="cell"
-          role="cell"
-          style="width: 33%;"
-        >
-          <div
-            class="Layout--vertical StyledProps--main"
+            class="cell"
+            role="cell"
+            style="width: 66%;"
           >
             <div
-              class="Layout--horizontal StyledProps--main"
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
             >
-              <span
-                class="bp3-icon bp3-icon- StyledProps--main secretIconCss"
-                icon=""
-              >
-                <svg
-                  data-icon=""
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                >
-                  
-                </svg>
-              </span>
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-left-small"
-              >
-                Sample pipeline
-              </p>
+              dummy date
             </div>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small StyledProps--padding-left-xxlarge StyledProps--margin-left-xsmall"
-            >
-              (
-              )
-            </p>
           </div>
         </div>
         <div
-          class="cell"
-          role="cell"
-          style="width: 66%;"
+          class="row card"
+          role="row"
         >
           <div
-            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-          >
-            dummy date
-          </div>
-        </div>
-      </div>
-      <div
-        class="row card"
-        role="row"
-      >
-        <div
-          class="cell"
-          role="cell"
-          style="width: 33%;"
-        >
-          <div
-            class="Layout--vertical StyledProps--main"
+            class="cell"
+            role="cell"
+            style="width: 33%;"
           >
             <div
-              class="Layout--horizontal StyledProps--main"
+              class="Layout--vertical StyledProps--main"
             >
-              <span
-                class="bp3-icon bp3-icon- StyledProps--main secretIconCss"
-                icon=""
+              <div
+                class="Layout--horizontal StyledProps--main"
               >
-                <svg
-                  data-icon=""
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
+                <span
+                  class="bp3-icon bp3-icon- StyledProps--main secretIconCss"
+                  icon=""
                 >
-                  
-                </svg>
-              </span>
+                  <svg
+                    data-icon=""
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    
+                  </svg>
+                </span>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-left-small"
+                >
+                  Sample pipeline
+                </p>
+              </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-left-small"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small StyledProps--padding-left-xxlarge StyledProps--margin-left-xsmall"
               >
-                Sample project
+                (
+                )
               </p>
             </div>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small StyledProps--padding-left-xxlarge StyledProps--margin-left-xsmall"
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 66%;"
+          >
+            <div
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
             >
-              (
-              )
-            </p>
+              dummy date
+            </div>
           </div>
         </div>
         <div
-          class="cell"
-          role="cell"
-          style="width: 66%;"
+          class="row card"
+          role="row"
         >
           <div
-            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+            class="cell"
+            role="cell"
+            style="width: 33%;"
           >
-            dummy date
+            <div
+              class="Layout--vertical StyledProps--main"
+            >
+              <div
+                class="Layout--horizontal StyledProps--main"
+              >
+                <span
+                  class="bp3-icon bp3-icon- StyledProps--main secretIconCss"
+                  icon=""
+                >
+                  <svg
+                    data-icon=""
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    
+                  </svg>
+                </span>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--padding-left-small"
+                >
+                  Sample project
+                </p>
+              </div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small StyledProps--padding-left-xxlarge StyledProps--margin-left-xsmall"
+              >
+                (
+                )
+              </p>
+            </div>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 66%;"
+          >
+            <div
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+            >
+              dummy date
+            </div>
           </div>
         </div>
       </div>

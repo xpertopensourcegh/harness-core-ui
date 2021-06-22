@@ -124,277 +124,281 @@ exports[`Switch Account render 1`] = `
         </div>
       </div>
       <div
-        class="row card"
-        role="row"
+        class="body"
       >
         <div
-          class="cell"
-          role="cell"
-          style="width: 30%;"
+          class="row card"
+          role="row"
         >
-          <a
-            href="/account/zEaak-FLS425IEO7OLzMUg/home"
+          <div
+            class="cell"
+            role="cell"
+            style="width: 30%;"
           >
-            Harness.io
-          </a>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 30%;"
-        >
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main"
-            style="--text-line-clamp: 1;"
-          >
-            Harness.io
-          </p>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 20%;"
-        >
-          <p
-            class="StyledProps--font StyledProps--main"
-          >
-            PAID
-          </p>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 20%;"
-        >
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
-          >
-            Default
-          </p>
-        </div>
-      </div>
-      <div
-        class="row card"
-        role="row"
-      >
-        <div
-          class="cell"
-          role="cell"
-          style="width: 30%;"
-        >
-          <a
-            href="/account/XICOBc_qRa2PJmVaWOx-cQ/home"
-          >
-            AutomationOne
-          </a>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 30%;"
-        >
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main"
-            style="--text-line-clamp: 1;"
-          >
-            Automation One
-          </p>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 20%;"
-        >
-          <p
-            class="StyledProps--font StyledProps--main"
-          >
-            PAID
-          </p>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 20%;"
-        >
-          <button
-            class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color"
-            data-test-id="set-default-account-AutomationOne"
-            type="button"
-          >
-            <span
-              class="bp3-button-text"
+            <a
+              href="/account/zEaak-FLS425IEO7OLzMUg/home"
             >
-              common.setAsDefault
-            </span>
-          </button>
-        </div>
-      </div>
-      <div
-        class="row card"
-        role="row"
-      >
-        <div
-          class="cell"
-          role="cell"
-          style="width: 30%;"
-        >
-          <a
-            href="/account/px7xd_BFRCi-pfWPYXVjvw/home"
+              Harness.io
+            </a>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 30%;"
           >
-            harness-dev
-          </a>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 30%;"
-        >
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main"
-            style="--text-line-clamp: 1;"
-          >
-            harness-dev
-          </p>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 20%;"
-        >
-          <p
-            class="StyledProps--font StyledProps--main"
-          >
-            PAID
-          </p>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 20%;"
-        >
-          <button
-            class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color"
-            data-test-id="set-default-account-harness-dev"
-            type="button"
-          >
-            <span
-              class="bp3-button-text"
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main"
+              style="--text-line-clamp: 1;"
             >
-              common.setAsDefault
-            </span>
-          </button>
-        </div>
-      </div>
-      <div
-        class="row card"
-        role="row"
-      >
-        <div
-          class="cell"
-          role="cell"
-          style="width: 30%;"
-        >
-          <a
-            href="/account/nqqlJ_62S0q7wFnYSmwNpQ/home"
+              Harness.io
+            </p>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 20%;"
           >
-            abc1
-          </a>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 30%;"
-        >
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main"
-            style="--text-line-clamp: 1;"
-          >
-            abc1
-          </p>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 20%;"
-        >
-          <p
-            class="StyledProps--font StyledProps--main"
-          >
-            PAID
-          </p>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 20%;"
-        >
-          <button
-            class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color"
-            data-test-id="set-default-account-abc1"
-            type="button"
-          >
-            <span
-              class="bp3-button-text"
+            <p
+              class="StyledProps--font StyledProps--main"
             >
-              common.setAsDefault
-            </span>
-          </button>
-        </div>
-      </div>
-      <div
-        class="row card"
-        role="row"
-      >
-        <div
-          class="cell"
-          role="cell"
-          style="width: 30%;"
-        >
-          <a
-            href="/account/3P9jX4EfQ3moXBbQfORaLw/home"
+              PAID
+            </p>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 20%;"
           >
-            raj-ng-defaul-experience-1
-          </a>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 30%;"
-        >
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main"
-            style="--text-line-clamp: 1;"
-          >
-            raj-ng-defaul-experience-1
-          </p>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 20%;"
-        >
-          <p
-            class="StyledProps--font StyledProps--main"
-          >
-            PAID
-          </p>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 20%;"
-        >
-          <button
-            class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color"
-            data-test-id="set-default-account-raj-ng-defaul-experience-1"
-            type="button"
-          >
-            <span
-              class="bp3-button-text"
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
             >
-              common.setAsDefault
-            </span>
-          </button>
+              Default
+            </p>
+          </div>
+        </div>
+        <div
+          class="row card"
+          role="row"
+        >
+          <div
+            class="cell"
+            role="cell"
+            style="width: 30%;"
+          >
+            <a
+              href="/account/XICOBc_qRa2PJmVaWOx-cQ/home"
+            >
+              AutomationOne
+            </a>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 30%;"
+          >
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main"
+              style="--text-line-clamp: 1;"
+            >
+              Automation One
+            </p>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 20%;"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              PAID
+            </p>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 20%;"
+          >
+            <button
+              class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              data-test-id="set-default-account-AutomationOne"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                common.setAsDefault
+              </span>
+            </button>
+          </div>
+        </div>
+        <div
+          class="row card"
+          role="row"
+        >
+          <div
+            class="cell"
+            role="cell"
+            style="width: 30%;"
+          >
+            <a
+              href="/account/px7xd_BFRCi-pfWPYXVjvw/home"
+            >
+              harness-dev
+            </a>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 30%;"
+          >
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main"
+              style="--text-line-clamp: 1;"
+            >
+              harness-dev
+            </p>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 20%;"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              PAID
+            </p>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 20%;"
+          >
+            <button
+              class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              data-test-id="set-default-account-harness-dev"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                common.setAsDefault
+              </span>
+            </button>
+          </div>
+        </div>
+        <div
+          class="row card"
+          role="row"
+        >
+          <div
+            class="cell"
+            role="cell"
+            style="width: 30%;"
+          >
+            <a
+              href="/account/nqqlJ_62S0q7wFnYSmwNpQ/home"
+            >
+              abc1
+            </a>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 30%;"
+          >
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main"
+              style="--text-line-clamp: 1;"
+            >
+              abc1
+            </p>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 20%;"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              PAID
+            </p>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 20%;"
+          >
+            <button
+              class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              data-test-id="set-default-account-abc1"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                common.setAsDefault
+              </span>
+            </button>
+          </div>
+        </div>
+        <div
+          class="row card"
+          role="row"
+        >
+          <div
+            class="cell"
+            role="cell"
+            style="width: 30%;"
+          >
+            <a
+              href="/account/3P9jX4EfQ3moXBbQfORaLw/home"
+            >
+              raj-ng-defaul-experience-1
+            </a>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 30%;"
+          >
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main"
+              style="--text-line-clamp: 1;"
+            >
+              raj-ng-defaul-experience-1
+            </p>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 20%;"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              PAID
+            </p>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 20%;"
+          >
+            <button
+              class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              data-test-id="set-default-account-raj-ng-defaul-experience-1"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                common.setAsDefault
+              </span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

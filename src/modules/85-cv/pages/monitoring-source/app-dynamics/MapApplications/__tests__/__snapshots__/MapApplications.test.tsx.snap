@@ -254,68 +254,72 @@ exports[`MapApplications matches snapshot 1`] = `
             </div>
           </div>
           <div
-            class="row card"
-            role="row"
+            class="body"
           >
             <div
-              class="cell"
-              role="cell"
-              style="width: 5%;"
+              class="row card"
+              role="row"
             >
-              <input
-                class="select-tier"
-                type="checkbox"
+              <div
+                class="cell"
+                role="cell"
+                style="width: 5%;"
+              >
+                <input
+                  class="select-tier"
+                  type="checkbox"
+                />
+              </div>
+              <div
+                class="cell"
+                role="cell"
+                style="width: 25%;"
+              >
+                tier1
+              </div>
+              <div
+                class="cell"
+                role="cell"
+                style="width: 40%;"
+              />
+              <div
+                class="cell"
+                role="cell"
+                style="width: 30%;"
               />
             </div>
             <div
-              class="cell"
-              role="cell"
-              style="width: 25%;"
+              class="row card"
+              role="row"
             >
-              tier1
-            </div>
-            <div
-              class="cell"
-              role="cell"
-              style="width: 40%;"
-            />
-            <div
-              class="cell"
-              role="cell"
-              style="width: 30%;"
-            />
-          </div>
-          <div
-            class="row card"
-            role="row"
-          >
-            <div
-              class="cell"
-              role="cell"
-              style="width: 5%;"
-            >
-              <input
-                class="select-tier"
-                type="checkbox"
+              <div
+                class="cell"
+                role="cell"
+                style="width: 5%;"
+              >
+                <input
+                  class="select-tier"
+                  type="checkbox"
+                />
+              </div>
+              <div
+                class="cell"
+                role="cell"
+                style="width: 25%;"
+              >
+                tier2
+              </div>
+              <div
+                class="cell"
+                role="cell"
+                style="width: 40%;"
+              />
+              <div
+                class="cell"
+                role="cell"
+                style="width: 30%;"
               />
             </div>
-            <div
-              class="cell"
-              role="cell"
-              style="width: 25%;"
-            >
-              tier2
-            </div>
-            <div
-              class="cell"
-              role="cell"
-              style="width: 40%;"
-            />
-            <div
-              class="cell"
-              role="cell"
-              style="width: 30%;"
-            />
           </div>
         </div>
       </div>

@@ -82,7 +82,7 @@ describe('EnvironmentsPage', () => {
       </TestWrapper>
     )
 
-    fireEvent.click(container.querySelector('[role="row"]:not(:first-of-type)') as HTMLElement)
+    fireEvent.click(container.getElementsByClassName('row card clickable')[0] as HTMLElement)
 
     expect(getByText(container, '/account/dummy/cf/orgs/dummy/projects/dummy/environments/foobar')).toBeDefined()
   })
@@ -106,7 +106,7 @@ describe('EnvironmentsPage', () => {
       </TestWrapper>
     )
 
-    fireEvent.click(container.querySelector('[role="row"]:not(:first-of-type) [data-icon="Options"]') as HTMLElement)
+    fireEvent.click(container.querySelector('[data-icon="Options"]') as HTMLElement)
     fireEvent.click(document.querySelector('[icon="edit"]') as HTMLElement)
 
     expect(getByText(container, '/account/dummy/cf/orgs/dummy/projects/dummy/environments/foobar')).toBeDefined()

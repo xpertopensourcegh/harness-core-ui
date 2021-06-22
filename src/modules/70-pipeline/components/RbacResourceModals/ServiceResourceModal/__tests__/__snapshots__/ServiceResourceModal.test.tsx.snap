@@ -30,90 +30,94 @@ exports[`Service Resource Modal Body test initializes ok  1`] = `
         </div>
       </div>
       <div
-        class="row card clickable"
-        role="row"
+        class="body"
       >
         <div
-          class="cell"
-          role="cell"
-          style="width: 5%;"
+          class="row card clickable"
+          role="row"
         >
           <div
-            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+            class="cell"
+            role="cell"
+            style="width: 5%;"
           >
-            <label
-              class="bp3-control bp3-checkbox checkBox"
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
             >
-              <input
-                type="checkbox"
+              <label
+                class="bp3-control bp3-checkbox checkBox"
+              >
+                <input
+                  type="checkbox"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+              </label>
+            </div>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 150px;"
+          >
+            <div
+              class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+              data-testid="manager"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+              >
+                manager
+              </p>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               />
-              <span
-                class="bp3-control-indicator"
-              />
-            </label>
+            </div>
           </div>
         </div>
         <div
-          class="cell"
-          role="cell"
-          style="width: 150px;"
+          class="row card clickable"
+          role="row"
         >
           <div
-            class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
-            data-testid="manager"
+            class="cell"
+            role="cell"
+            style="width: 5%;"
           >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
             >
-              manager
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
-            />
+              <label
+                class="bp3-control bp3-checkbox checkBox"
+              >
+                <input
+                  type="checkbox"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+              </label>
+            </div>
           </div>
-        </div>
-      </div>
-      <div
-        class="row card clickable"
-        role="row"
-      >
-        <div
-          class="cell"
-          role="cell"
-          style="width: 5%;"
-        >
           <div
-            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+            class="cell"
+            role="cell"
+            style="width: 150px;"
           >
-            <label
-              class="bp3-control bp3-checkbox checkBox"
+            <div
+              class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+              data-testid="ManagerServiceLatest"
             >
-              <input
-                type="checkbox"
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+              >
+                ManagerService
+              </p>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               />
-              <span
-                class="bp3-control-indicator"
-              />
-            </label>
-          </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 150px;"
-        >
-          <div
-            class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
-            data-testid="ManagerServiceLatest"
-          >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
-            >
-              ManagerService
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
-            />
+            </div>
           </div>
         </div>
       </div>

@@ -135,6 +135,9 @@ exports[`TargetsPage TargetsPage should render data correctly 1`] = `
               CF.TARGETS.CREATEDDATE
             </div>
           </div>
+          <div
+            class="body"
+          />
         </div>
       </div>
     </div>

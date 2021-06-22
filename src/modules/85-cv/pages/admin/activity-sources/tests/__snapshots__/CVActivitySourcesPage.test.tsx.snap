@@ -137,194 +137,198 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
           </div>
         </div>
         <div
-          class="row card clickable"
-          role="row"
+          class="body"
         >
           <div
-            class="cell"
-            role="cell"
-            style="width: 25%;"
-          >
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-              style="--text-line-clamp: 1;"
-            >
-              kube_activitySource
-            </p>
-          </div>
-          <div
-            class="cell"
-            role="cell"
-            style="width: 16.5%;"
+            class="row card clickable"
+            role="row"
           >
             <div
-              class="StyledProps--font StyledProps--main"
-            />
-          </div>
-          <div
-            class="cell"
-            role="cell"
-            style="width: 16.5%;"
-          >
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-              style="--text-line-clamp: 1;"
-            >
-              0
-            </p>
-          </div>
-          <div
-            class="cell"
-            role="cell"
-            style="width: 16.5%;"
-          >
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-              style="--text-line-clamp: 1;"
-            >
-              0
-            </p>
-          </div>
-          <div
-            class="cell"
-            role="cell"
-            style="width: 25%;"
-          >
-            <div
-              class="StyledProps--font StyledProps--main StyledProps--flex"
+              class="cell"
+              role="cell"
+              style="width: 25%;"
             >
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 1;"
               >
-                Dec 1, 2020 6:07 pm
+                kube_activitySource
               </p>
-              <span
-                class="bp3-popover-wrapper bp3-dark"
+            </div>
+            <div
+              class="cell"
+              role="cell"
+              style="width: 16.5%;"
+            >
+              <div
+                class="StyledProps--font StyledProps--main"
+              />
+            </div>
+            <div
+              class="cell"
+              role="cell"
+              style="width: 16.5%;"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 1;"
               >
-                <span
-                  class="bp3-popover-target"
+                0
+              </p>
+            </div>
+            <div
+              class="cell"
+              role="cell"
+              style="width: 16.5%;"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 1;"
+              >
+                0
+              </p>
+            </div>
+            <div
+              class="cell"
+              role="cell"
+              style="width: 25%;"
+            >
+              <div
+                class="StyledProps--font StyledProps--main StyledProps--flex"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                 >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey350 Button--with-current-color Button--iconOnly Button--without-shadow"
-                    type="button"
+                  Dec 1, 2020 6:07 pm
+                </p>
+                <span
+                  class="bp3-popover-wrapper bp3-dark"
+                >
+                  <span
+                    class="bp3-popover-target"
                   >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="main-more"
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey350 Button--with-current-color Button--iconOnly Button--without-shadow"
+                      type="button"
                     >
-                      <svg
-                        height="16"
-                        viewBox="0 0 13 3"
-                        width="16"
+                      <span
+                        class="bp3-icon StyledProps--main"
+                        data-icon="main-more"
                       >
-                        <g
-                          fill="#4d5969"
+                        <svg
+                          height="16"
+                          viewBox="0 0 13 3"
+                          width="16"
                         >
-                          <path
-                            d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
-                          />
-                        </g>
-                      </svg>
-                    </span>
-                  </button>
+                          <g
+                            fill="#4d5969"
+                          >
+                            <path
+                              d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
+                            />
+                          </g>
+                        </svg>
+                      </span>
+                    </button>
+                  </span>
                 </span>
-              </span>
+              </div>
             </div>
           </div>
-        </div>
-        <div
-          class="row card clickable"
-          role="row"
-        >
           <div
-            class="cell"
-            role="cell"
-            style="width: 25%;"
-          >
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-              style="--text-line-clamp: 1;"
-            >
-              cd_1.0_source
-            </p>
-          </div>
-          <div
-            class="cell"
-            role="cell"
-            style="width: 16.5%;"
+            class="row card clickable"
+            role="row"
           >
             <div
-              class="StyledProps--font StyledProps--main"
-            />
-          </div>
-          <div
-            class="cell"
-            role="cell"
-            style="width: 16.5%;"
-          >
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-              style="--text-line-clamp: 1;"
-            >
-              0
-            </p>
-          </div>
-          <div
-            class="cell"
-            role="cell"
-            style="width: 16.5%;"
-          >
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-              style="--text-line-clamp: 1;"
-            >
-              0
-            </p>
-          </div>
-          <div
-            class="cell"
-            role="cell"
-            style="width: 25%;"
-          >
-            <div
-              class="StyledProps--font StyledProps--main StyledProps--flex"
+              class="cell"
+              role="cell"
+              style="width: 25%;"
             >
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 1;"
               >
-                Dec 2, 2020 6:06 pm
+                cd_1.0_source
               </p>
-              <span
-                class="bp3-popover-wrapper bp3-dark"
+            </div>
+            <div
+              class="cell"
+              role="cell"
+              style="width: 16.5%;"
+            >
+              <div
+                class="StyledProps--font StyledProps--main"
+              />
+            </div>
+            <div
+              class="cell"
+              role="cell"
+              style="width: 16.5%;"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 1;"
               >
-                <span
-                  class="bp3-popover-target"
+                0
+              </p>
+            </div>
+            <div
+              class="cell"
+              role="cell"
+              style="width: 16.5%;"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 1;"
+              >
+                0
+              </p>
+            </div>
+            <div
+              class="cell"
+              role="cell"
+              style="width: 25%;"
+            >
+              <div
+                class="StyledProps--font StyledProps--main StyledProps--flex"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                 >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey350 Button--with-current-color Button--iconOnly Button--without-shadow"
-                    type="button"
+                  Dec 2, 2020 6:06 pm
+                </p>
+                <span
+                  class="bp3-popover-wrapper bp3-dark"
+                >
+                  <span
+                    class="bp3-popover-target"
                   >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="main-more"
+                    <button
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey350 Button--with-current-color Button--iconOnly Button--without-shadow"
+                      type="button"
                     >
-                      <svg
-                        height="16"
-                        viewBox="0 0 13 3"
-                        width="16"
+                      <span
+                        class="bp3-icon StyledProps--main"
+                        data-icon="main-more"
                       >
-                        <g
-                          fill="#4d5969"
+                        <svg
+                          height="16"
+                          viewBox="0 0 13 3"
+                          width="16"
                         >
-                          <path
-                            d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
-                          />
-                        </g>
-                      </svg>
-                    </span>
-                  </button>
+                          <g
+                            fill="#4d5969"
+                          >
+                            <path
+                              d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
+                            />
+                          </g>
+                        </svg>
+                      </span>
+                    </button>
+                  </span>
                 </span>
-              </span>
+              </div>
             </div>
           </div>
         </div>

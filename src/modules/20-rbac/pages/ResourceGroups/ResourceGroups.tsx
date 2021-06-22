@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Layout, ExpandingSearchInput, Container } from '@wings-software/uicore'
+import { Layout, ExpandingSearchInput } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { PageHeader } from '@common/components/Page/PageHeader'
@@ -90,14 +90,12 @@ const ResourceGroups: React.FC = () => {
         }
       />
       <PageBody loading={loading} retryOnError={() => refetch()} error={(error?.data as Error)?.message}>
-        <Container padding="xlarge">
-          <ResourceGroupListView
-            data={data?.data}
-            reload={refetch}
-            openResourceGroupModal={openResourceGroupModal}
-            goToPage={(pageNumber: number) => setPage(pageNumber)}
-          />
-        </Container>
+        <ResourceGroupListView
+          data={data?.data}
+          reload={refetch}
+          openResourceGroupModal={openResourceGroupModal}
+          goToPage={(pageNumber: number) => setPage(pageNumber)}
+        />
       </PageBody>
     </>
   )

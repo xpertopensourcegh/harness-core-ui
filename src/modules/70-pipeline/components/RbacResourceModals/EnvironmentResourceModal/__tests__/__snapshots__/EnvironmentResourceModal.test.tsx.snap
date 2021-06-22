@@ -38,61 +38,65 @@ exports[`Service Resource Modal Body test initializes ok  1`] = `
         </div>
       </div>
       <div
-        class="row card clickable"
-        role="row"
+        class="body"
       >
         <div
-          class="cell"
-          role="cell"
-          style="width: 5%;"
+          class="row card clickable"
+          role="row"
         >
           <div
-            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+            class="cell"
+            role="cell"
+            style="width: 5%;"
           >
-            <label
-              class="bp3-control bp3-checkbox checkBox"
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
             >
-              <input
-                type="checkbox"
-              />
-              <span
-                class="bp3-control-indicator"
-              />
-            </label>
+              <label
+                class="bp3-control bp3-checkbox checkBox"
+              >
+                <input
+                  type="checkbox"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+              </label>
+            </div>
           </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 60%;"
-        >
           <div
-            class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
-            data-testid="stagingInfra"
+            class="cell"
+            role="cell"
+            style="width: 60%;"
           >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+            <div
+              class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+              data-testid="stagingInfra"
             >
-              stagingInfra
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
-            />
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+              >
+                stagingInfra
+              </p>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+              />
+            </div>
           </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 20%;"
-        >
           <div
-            class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+            class="cell"
+            role="cell"
+            style="width: 20%;"
           >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+            <div
+              class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
             >
-              PreProduction
-            </p>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+              >
+                PreProduction
+              </p>
+            </div>
           </div>
         </div>
       </div>

@@ -89,49 +89,53 @@ exports[`Entity Usage render for data 1`] = `
         </div>
       </div>
       <div
-        class="row card"
-        role="row"
+        class="body"
       >
         <div
-          class="cell"
-          role="cell"
-          style="width: 33%;"
+          class="row card"
+          role="row"
         >
           <div
-            class="Layout--vertical StyledProps--main"
+            class="cell"
+            role="cell"
+            style="width: 33%;"
           >
             <div
-              class="Layout--horizontal StyledProps--main"
+              class="Layout--vertical StyledProps--main"
             >
+              <div
+                class="Layout--horizontal StyledProps--main"
+              >
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main overflow StyledProps--color StyledProps--color-black"
+                  style="--text-line-clamp: 1;"
+                >
+                  Harness Docker Connector
+                </p>
+              </div>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main overflow StyledProps--color StyledProps--color-black"
+                class="StyledProps--font Text--lineclamp StyledProps--main overflow StyledProps--color StyledProps--color-grey400"
                 style="--text-line-clamp: 1;"
               >
-                Harness Docker Connector
+                Connectors
               </p>
             </div>
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main overflow StyledProps--color StyledProps--color-grey400"
-              style="--text-line-clamp: 1;"
-            >
-              Connectors
-            </p>
           </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 33%;"
-        />
-        <div
-          class="cell"
-          role="cell"
-          style="width: 34%;"
-        >
           <div
-            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+            class="cell"
+            role="cell"
+            style="width: 33%;"
+          />
+          <div
+            class="cell"
+            role="cell"
+            style="width: 34%;"
           >
-            dummy date
+            <div
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+            >
+              dummy date
+            </div>
           </div>
         </div>
       </div>

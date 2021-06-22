@@ -81,48 +81,48 @@ exports[`Resource Groups Page render data 1`] = `
     data-name="page-body"
   >
     <div
-      class="StyledProps--font StyledProps--main StyledProps--padding-xlarge"
+      class="table tablePadding"
     >
       <div
-        class="table"
+        class="header"
+        role="row"
       >
         <div
-          class="header"
-          role="row"
+          class="cell"
+          colspan="1"
+          role="columnheader"
+          style="width: 32%;"
         >
-          <div
-            class="cell"
-            colspan="1"
-            role="columnheader"
-            style="width: 32%;"
-          >
-            resourceGroup.resourceGroupColumn
-          </div>
-          <div
-            class="cell"
-            colspan="1"
-            role="columnheader"
-            style="width: 32%;"
-          >
-            resourceGroup.summary
-          </div>
-          <div
-            class="cell"
-            colspan="1"
-            role="columnheader"
-            style="width: 32%;"
-          >
-            lastUpdated
-          </div>
-          <div
-            class="cell"
-            colspan="1"
-            role="columnheader"
-            style="width: 4%;"
-          >
-            
-          </div>
+          resourceGroup.resourceGroupColumn
         </div>
+        <div
+          class="cell"
+          colspan="1"
+          role="columnheader"
+          style="width: 32%;"
+        >
+          resourceGroup.summary
+        </div>
+        <div
+          class="cell"
+          colspan="1"
+          role="columnheader"
+          style="width: 32%;"
+        >
+          lastUpdated
+        </div>
+        <div
+          class="cell"
+          colspan="1"
+          role="columnheader"
+          style="width: 4%;"
+        >
+          
+        </div>
+      </div>
+      <div
+        class="body"
+      >
         <div
           class="row card clickable"
           role="row"
@@ -963,52 +963,52 @@ exports[`Resource Groups Page render data 1`] = `
             </span>
           </div>
         </div>
-        <div
-          class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
+      >
+        <span
+          class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
         >
-          <span
-            class="StyledProps--font StyledProps--main Pagination--text StyledProps--inline"
+          Showing 
+          <strong>
+            1
+          </strong>
+           -
+           
+          <strong>
+            10
+          </strong>
+           of 
+          <strong>
+            20
+          </strong>
+        </span>
+        <div
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+        >
+          <button
+            class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            disabled=""
+            tabindex="-1"
+            type="button"
           >
-            Showing 
-            <strong>
+            <span
+              class="bp3-button-text"
+            >
               1
-            </strong>
-             -
-             
-            <strong>
-              10
-            </strong>
-             of 
-            <strong>
-              20
-            </strong>
-          </span>
-          <div
-            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+            </span>
+          </button>
+          <button
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+            type="button"
           >
-            <button
-              class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-              disabled=""
-              tabindex="-1"
-              type="button"
+            <span
+              class="bp3-button-text"
             >
-              <span
-                class="bp3-button-text"
-              >
-                1
-              </span>
-            </button>
-            <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
-              type="button"
-            >
-              <span
-                class="bp3-button-text"
-              >
-                2
-              </span>
-            </button>
-          </div>
+              2
+            </span>
+          </button>
         </div>
       </div>
     </div>

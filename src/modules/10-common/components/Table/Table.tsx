@@ -2,7 +2,6 @@ import React from 'react'
 import { useTable, Column, useSortBy, usePagination } from 'react-table'
 import cx from 'classnames'
 import { Icon, Pagination, PaginationProps } from '@wings-software/uicore'
-
 import css from './Table.module.scss'
 
 export interface TableProps<Data extends Record<string, any>> {
@@ -74,34 +73,34 @@ const Table = <Data extends Record<string, any>>(props: TableProps<Data>): React
               </div>
             )
           })}
-
-      {page.map(row => {
-        prepareRow(row)
-        return (
-          // eslint-disable-next-line react/jsx-key
-          <div
-            {...row.getRowProps()}
-            className={cx(css.row, css.card, { [css.clickable]: !!props.onRowClick })}
-            onClick={() => {
-              props.onRowClick?.(row.original, row.index)
-            }}
-          >
-            {row.cells.map((cell, index) => {
-              return (
-                // eslint-disable-next-line react/jsx-key
-                <div
-                  {...cell.getCellProps()}
-                  className={css.cell}
-                  style={{ width: headerGroups[0].headers[index].width }}
-                >
-                  {cell.render('Cell')}
-                </div>
-              )
-            })}
-          </div>
-        )
-      })}
-
+      <div className={css.body}>
+        {page.map(row => {
+          prepareRow(row)
+          return (
+            // eslint-disable-next-line react/jsx-key
+            <div
+              {...row.getRowProps()}
+              className={cx(css.row, css.card, { [css.clickable]: !!props.onRowClick })}
+              onClick={() => {
+                props.onRowClick?.(row.original, row.index)
+              }}
+            >
+              {row.cells.map((cell, index) => {
+                return (
+                  // eslint-disable-next-line react/jsx-key
+                  <div
+                    {...cell.getCellProps()}
+                    className={css.cell}
+                    style={{ width: headerGroups[0].headers[index].width }}
+                  >
+                    {cell.render('Cell')}
+                  </div>
+                )
+              })}
+            </div>
+          )
+        })}
+      </div>
       {pagination ? <Pagination {...pagination} /> : null}
     </div>
   )

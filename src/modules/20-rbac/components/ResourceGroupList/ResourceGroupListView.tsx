@@ -156,6 +156,7 @@ const ResourceGroupListView: React.FC<ResourceGroupListViewProps> = props => {
   )
   return listData.length ? (
     <Table<ResourceGroupResponse>
+      className={css.tablePadding}
       columns={columns}
       data={listData}
       onRowClick={rowDetails => {

@@ -11,3 +11,8 @@
 .selectResource {
   padding: var(--spacing-none) !important;
 }
+
+.tablePadding {
+  padding: var(--spacing-large) var(--spacing-xxlarge);
+  padding-bottom: var(--spacing-none);
+}

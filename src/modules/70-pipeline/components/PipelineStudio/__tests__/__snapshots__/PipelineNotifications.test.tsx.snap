@@ -137,6 +137,9 @@ exports[`Test PipelineNotifications should test render 1`] = `
             
           </div>
         </div>
+        <div
+          class="body"
+        />
       </div>
     </div>
   </div>

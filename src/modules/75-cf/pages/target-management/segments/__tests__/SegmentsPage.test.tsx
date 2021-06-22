@@ -337,7 +337,7 @@ describe('SegmentsPage', () => {
 
     await waitFor(() => expect(getAllByText(container, 'segment1')).toBeTruthy())
 
-    fireEvent.click(container.querySelector('[role="row"]:not(:first-of-type)') as HTMLElement)
+    fireEvent.click(container.getElementsByClassName('row card clickable')[0] as HTMLElement)
 
     expect(
       getByText(container, '/account/dummy/cf/orgs/dummy/projects/dummy/target-management/target-groups/segment1')
@@ -387,7 +387,7 @@ describe('SegmentsPage', () => {
 
     await waitFor(() => expect(getAllByText(container, 'segment1')).toBeTruthy())
 
-    fireEvent.click(container.querySelector('[role="row"]:not(:first-of-type) [data-icon="Options"]') as HTMLElement)
+    fireEvent.click(container.querySelector('[data-icon="Options"]') as HTMLElement)
     fireEvent.click(document.querySelector('[icon="edit"]') as HTMLElement)
 
     expect(
@@ -443,7 +443,7 @@ describe('SegmentsPage', () => {
 
     await waitFor(() => expect(getAllByText(container, 'segment1')).toBeTruthy())
 
-    fireEvent.click(container.querySelector('[role="row"]:not(:first-of-type) [data-icon="Options"]') as HTMLElement)
+    fireEvent.click(container.querySelector('[data-icon="Options"]') as HTMLElement)
     fireEvent.click(document.querySelector('[icon="trash"]') as HTMLElement)
 
     fireEvent.click(document.querySelector('button[class*=intent-danger]') as HTMLButtonElement)

@@ -69,6 +69,9 @@ exports[`Git Sync - EntitiesPreview render Git Sync EntitiesPreview wrapper 1`] 
           </span>
         </div>
       </div>
+      <div
+        class="body"
+      />
     </div>
     <p
       class="StyledProps--font StyledProps--main StyledProps--padding-large StyledProps--color StyledProps--color-blue500"

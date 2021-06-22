@@ -129,7 +129,7 @@ const ProjectsListPage: React.FC = () => {
   const bodyClassName = user.emailVerified ? css.noBanner : css.hasBanner
 
   return (
-    <Container className={css.projectsPage}>
+    <Container className={css.projectsPage} height="inherit">
       <EmailVerificationBanner />
       <Page.Header title={getString('projectsText')} />
       <Layout.Horizontal spacing="large" className={css.header}>

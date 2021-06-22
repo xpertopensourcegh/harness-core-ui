@@ -121,56 +121,60 @@ exports[`Unit tests for ReviewGCOQueryLogs Ensure output payload is correct whil
               </div>
             </div>
             <div
-              class="row card"
-              role="row"
+              class="body"
             >
               <div
-                class="cell"
-                role="cell"
-                style="width: 25%;"
+                class="row card"
+                role="row"
               >
-                <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                  style="--text-line-clamp: 1; width: 81%;"
+                <div
+                  class="cell"
+                  role="cell"
+                  style="width: 25%;"
                 >
-                  GCO Logs Query
-                </p>
-              </div>
-              <div
-                class="cell"
-                role="cell"
-                style="width: 25%;"
-              >
-                <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                  style="--text-line-clamp: 1; width: 81%;"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                    style="--text-line-clamp: 1; width: 81%;"
+                  >
+                    GCO Logs Query
+                  </p>
+                </div>
+                <div
+                  class="cell"
+                  role="cell"
+                  style="width: 25%;"
                 >
-                  s2
-                </p>
-              </div>
-              <div
-                class="cell"
-                role="cell"
-                style="width: 25%;"
-              >
-                <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                  style="--text-line-clamp: 1; width: 81%;"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                    style="--text-line-clamp: 1; width: 81%;"
+                  >
+                    s2
+                  </p>
+                </div>
+                <div
+                  class="cell"
+                  role="cell"
+                  style="width: 25%;"
                 >
-                  e2
-                </p>
-              </div>
-              <div
-                class="cell"
-                role="cell"
-                style="width: 25%;"
-              >
-                <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                  style="--text-line-clamp: 1; width: 81%;"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                    style="--text-line-clamp: 1; width: 81%;"
+                  >
+                    e2
+                  </p>
+                </div>
+                <div
+                  class="cell"
+                  role="cell"
+                  style="width: 25%;"
                 >
-                  test
-                </p>
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                    style="--text-line-clamp: 1; width: 81%;"
+                  >
+                    test
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -367,120 +371,124 @@ exports[`Unit tests for ReviewGCOQueryLogs Ensure output payload is correct whil
               </div>
             </div>
             <div
-              class="row card"
-              role="row"
+              class="body"
             >
               <div
-                class="cell"
-                role="cell"
-                style="width: 25%;"
+                class="row card"
+                role="row"
               >
-                <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                  style="--text-line-clamp: 1; width: 81%;"
+                <div
+                  class="cell"
+                  role="cell"
+                  style="width: 25%;"
                 >
-                  GCO Logs Query updated 61
-                </p>
-              </div>
-              <div
-                class="cell"
-                role="cell"
-                style="width: 25%;"
-              >
-                <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                  style="--text-line-clamp: 1; width: 81%;"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                    style="--text-line-clamp: 1; width: 81%;"
+                  >
+                    GCO Logs Query updated 61
+                  </p>
+                </div>
+                <div
+                  class="cell"
+                  role="cell"
+                  style="width: 25%;"
                 >
-                  s2
-                </p>
-              </div>
-              <div
-                class="cell"
-                role="cell"
-                style="width: 25%;"
-              >
-                <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                  style="--text-line-clamp: 1; width: 81%;"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                    style="--text-line-clamp: 1; width: 81%;"
+                  >
+                    s2
+                  </p>
+                </div>
+                <div
+                  class="cell"
+                  role="cell"
+                  style="width: 25%;"
                 >
-                  e2
-                </p>
-              </div>
-              <div
-                class="cell"
-                role="cell"
-                style="width: 25%;"
-              >
-                <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                  style="--text-line-clamp: 1; width: 81%;"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                    style="--text-line-clamp: 1; width: 81%;"
+                  >
+                    e2
+                  </p>
+                </div>
+                <div
+                  class="cell"
+                  role="cell"
+                  style="width: 25%;"
                 >
-                  resource.type="k8s_container"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                    style="--text-line-clamp: 1; width: 81%;"
+                  >
+                    resource.type="k8s_container"
 resource.labels.project_id="prod-setup-205416"
 resource.labels.location="us-west1"
 resource.labels.cluster_name="prod-private-uswest1-primary"
 resource.labels.namespace_name="harness"
 labels.k8s-pod/app="verification-svc"
 resource.labels.pod_name="verification-svc-5b5f4ff7cc-twt9e"
-                </p>
-              </div>
-            </div>
-            <div
-              class="row card"
-              role="row"
-            >
-              <div
-                class="cell"
-                role="cell"
-                style="width: 25%;"
-              >
-                <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                  style="--text-line-clamp: 1; width: 81%;"
-                >
-                  GCO Logs Query updated 71
-                </p>
+                  </p>
+                </div>
               </div>
               <div
-                class="cell"
-                role="cell"
-                style="width: 25%;"
+                class="row card"
+                role="row"
               >
-                <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                  style="--text-line-clamp: 1; width: 81%;"
+                <div
+                  class="cell"
+                  role="cell"
+                  style="width: 25%;"
                 >
-                  s2
-                </p>
-              </div>
-              <div
-                class="cell"
-                role="cell"
-                style="width: 25%;"
-              >
-                <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                  style="--text-line-clamp: 1; width: 81%;"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                    style="--text-line-clamp: 1; width: 81%;"
+                  >
+                    GCO Logs Query updated 71
+                  </p>
+                </div>
+                <div
+                  class="cell"
+                  role="cell"
+                  style="width: 25%;"
                 >
-                  e2
-                </p>
-              </div>
-              <div
-                class="cell"
-                role="cell"
-                style="width: 25%;"
-              >
-                <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                  style="--text-line-clamp: 1; width: 81%;"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                    style="--text-line-clamp: 1; width: 81%;"
+                  >
+                    s2
+                  </p>
+                </div>
+                <div
+                  class="cell"
+                  role="cell"
+                  style="width: 25%;"
                 >
-                  resource.type="k8s_container"
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                    style="--text-line-clamp: 1; width: 81%;"
+                  >
+                    e2
+                  </p>
+                </div>
+                <div
+                  class="cell"
+                  role="cell"
+                  style="width: 25%;"
+                >
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                    style="--text-line-clamp: 1; width: 81%;"
+                  >
+                    resource.type="k8s_container"
 resource.labels.project_id="prod-setup-205416"
 resource.labels.location="us-west1"
 resource.labels.cluster_name="prod-private-uswest1-primary"
 resource.labels.namespace_name="harness"
 labels.k8s-pod/app="verification-svc"
-                </p>
+                  </p>
+                </div>
               </div>
             </div>
           </div>

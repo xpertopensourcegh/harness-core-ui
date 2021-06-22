@@ -170,242 +170,228 @@ exports[`CVVerificationJobsPage matches snapshot 1`] = `
         </div>
       </div>
       <div
-        class="row card clickable"
-        role="row"
+        class="body"
       >
         <div
-          class="cell"
-          role="cell"
-          style="width: 15%;"
+          class="row card clickable"
+          role="row"
         >
           <div
-            class="StyledProps--font StyledProps--main tableCell"
+            class="cell"
+            role="cell"
+            style="width: 15%;"
           >
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-              style="--text-line-clamp: 1;"
+            <div
+              class="StyledProps--font StyledProps--main tableCell"
             >
-              Job1
-            </p>
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 1;"
+              >
+                Job1
+              </p>
+            </div>
           </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 5%;"
-        >
-          <span
-            class="bp3-popover-wrapper"
+          <div
+            class="cell"
+            role="cell"
+            style="width: 5%;"
           >
             <span
-              class="bp3-popover-target"
+              class="bp3-popover-wrapper"
             >
               <span
-                class="bp3-icon bp3-icon-lab-test StyledProps--main"
-                icon="lab-test"
-                tabindex="0"
+                class="bp3-popover-target"
               >
-                <svg
-                  data-icon="lab-test"
-                  height="18"
-                  viewBox="0 0 16 16"
-                  width="18"
+                <span
+                  class="bp3-icon bp3-icon-lab-test StyledProps--main"
+                  icon="lab-test"
+                  tabindex="0"
                 >
-                  <desc>
-                    lab-test
-                  </desc>
-                  <path
-                    d="M11 1a1 1 0 010 2v3l3 7v1.25a.75.75 0 01-.75.75H2.75a.75.75 0 01-.75-.75V13l3-7V3a1 1 0 110-2h6zM9 3H7v3l-1.714 4h5.428L9 6V3z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
+                  <svg
+                    data-icon="lab-test"
+                    height="18"
+                    viewBox="0 0 16 16"
+                    width="18"
+                  >
+                    <desc>
+                      lab-test
+                    </desc>
+                    <path
+                      d="M11 1a1 1 0 010 2v3l3 7v1.25a.75.75 0 01-.75.75H2.75a.75.75 0 01-.75-.75V13l3-7V3a1 1 0 110-2h6zM9 3H7v3l-1.714 4h5.428L9 6V3z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
               </span>
             </span>
-          </span>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 12%;"
-        >
-          <div
-            class="StyledProps--font StyledProps--main tableCell"
-          >
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-              style="--text-line-clamp: 1;"
-            >
-              ServiceA
-            </p>
           </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 12%;"
-        >
           <div
-            class="StyledProps--font StyledProps--main tableCell"
-          >
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-              style="--text-line-clamp: 1;"
-            >
-              Prod
-            </p>
-          </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 12%;"
-        >
-          <div
-            class="StyledProps--font StyledProps--main tableCell"
-          >
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-              style="--text-line-clamp: 1;"
-            />
-          </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 10%;"
-        >
-          <div
-            class="StyledProps--font StyledProps--main tableCell"
-          >
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-              style="--text-line-clamp: 1;"
-            >
-              30m
-            </p>
-          </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 33%;"
-        >
-          <div
-            class="StyledProps--font StyledProps--main StyledProps--flex"
+            class="cell"
+            role="cell"
+            style="width: 12%;"
           >
             <div
-              class="StyledProps--font StyledProps--main webhook"
+              class="StyledProps--font StyledProps--main tableCell"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 1;"
+              >
+                ServiceA
+              </p>
+            </div>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 12%;"
+          >
+            <div
+              class="StyledProps--font StyledProps--main tableCell"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 1;"
+              >
+                Prod
+              </p>
+            </div>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 12%;"
+          >
+            <div
+              class="StyledProps--font StyledProps--main tableCell"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 1;"
+              />
+            </div>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 10%;"
+          >
+            <div
+              class="StyledProps--font StyledProps--main tableCell"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 1;"
+              >
+                30m
+              </p>
+            </div>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 33%;"
+          >
+            <div
+              class="StyledProps--font StyledProps--main StyledProps--flex"
             >
               <div
-                class="main"
+                class="StyledProps--font StyledProps--main webhook"
               >
                 <div
-                  class="text"
-                />
-                <div
-                  class="bp3-popover-wrapper btnWrapper"
+                  class="main"
                 >
-                  <span
-                    class="bp3-popover-target"
+                  <div
+                    class="text"
+                  />
+                  <div
+                    class="bp3-popover-wrapper btnWrapper"
                   >
-                    <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-                      tabindex="0"
-                      type="button"
+                    <span
+                      class="bp3-popover-target"
                     >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="copy-alt"
+                      <button
+                        class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                        tabindex="0"
+                        type="button"
                       >
-                        <svg
-                          fill="none"
-                          height="16"
-                          viewBox="0 0 8 9"
-                          width="16"
+                        <span
+                          class="bp3-icon StyledProps--main"
+                          data-icon="copy-alt"
                         >
-                          <path
-                            clip-rule="evenodd"
-                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                            fill="currentColor"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
+                          <svg
+                            fill="none"
+                            height="16"
+                            viewBox="0 0 8 9"
+                            width="16"
+                          >
+                            <path
+                              clip-rule="evenodd"
+                              d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                              fill="currentColor"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                  </div>
                 </div>
               </div>
+              <div
+                class="context-menu-mock-edit"
+              />
+              <div
+                class="context-menu-mock-delete"
+              />
             </div>
-            <div
-              class="context-menu-mock-edit"
-            />
-            <div
-              class="context-menu-mock-delete"
-            />
           </div>
         </div>
-      </div>
-      <div
-        class="row card clickable"
-        role="row"
-      >
         <div
-          class="cell"
-          role="cell"
-          style="width: 15%;"
+          class="row card clickable"
+          role="row"
         >
           <div
-            class="StyledProps--font StyledProps--main tableCell"
+            class="cell"
+            role="cell"
+            style="width: 15%;"
           >
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-              style="--text-line-clamp: 1;"
+            <div
+              class="StyledProps--font StyledProps--main tableCell"
             >
-              MilosJob1
-            </p>
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 1;"
+              >
+                MilosJob1
+              </p>
+            </div>
           </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 5%;"
-        >
-          <span
-            class="bp3-popover-wrapper"
+          <div
+            class="cell"
+            role="cell"
+            style="width: 5%;"
           >
             <span
-              class="bp3-popover-target"
+              class="bp3-popover-wrapper"
             >
               <span
-                class="bp3-icon StyledProps--main"
-                data-icon="bluegreen"
-                tabindex="0"
+                class="bp3-popover-target"
               >
-                <svg
-                  height="18"
-                  viewBox="0 0 34 17"
-                  width="18"
+                <span
+                  class="bp3-icon StyledProps--main"
+                  data-icon="bluegreen"
+                  tabindex="0"
                 >
-                  <g
-                    fill="none"
-                    fill-rule="evenodd"
+                  <svg
+                    height="18"
+                    viewBox="0 0 34 17"
+                    width="18"
                   >
-                    <rect
-                      fill="#0E79BF"
-                      height="7"
-                      rx="1"
-                      width="7"
-                    />
-                    <rect
-                      fill="#2EADFF"
-                      height="5"
-                      rx="1"
-                      width="5"
-                      x="1"
-                      y="1"
-                    />
                     <g
-                      transform="translate(9)"
+                      fill="none"
+                      fill-rule="evenodd"
                     >
                       <rect
                         fill="#0E79BF"
@@ -421,335 +407,353 @@ exports[`CVVerificationJobsPage matches snapshot 1`] = `
                         x="1"
                         y="1"
                       />
+                      <g
+                        transform="translate(9)"
+                      >
+                        <rect
+                          fill="#0E79BF"
+                          height="7"
+                          rx="1"
+                          width="7"
+                        />
+                        <rect
+                          fill="#2EADFF"
+                          height="5"
+                          rx="1"
+                          width="5"
+                          x="1"
+                          y="1"
+                        />
+                      </g>
+                      <g
+                        transform="translate(18)"
+                      >
+                        <rect
+                          fill="#08A81E"
+                          height="7"
+                          rx="1"
+                          width="7"
+                        />
+                        <rect
+                          fill="#6DD400"
+                          height="5"
+                          rx="1"
+                          width="5"
+                          x="1"
+                          y="1"
+                        />
+                      </g>
+                      <g
+                        transform="translate(18 10)"
+                      >
+                        <rect
+                          fill="#08A81E"
+                          height="7"
+                          rx="1"
+                          width="7"
+                        />
+                        <rect
+                          fill="#6DD400"
+                          height="5"
+                          rx="1"
+                          width="5"
+                          x="1"
+                          y="1"
+                        />
+                      </g>
+                      <g
+                        transform="translate(27 10)"
+                      >
+                        <rect
+                          fill="#08A81E"
+                          height="7"
+                          rx="1"
+                          width="7"
+                        />
+                        <rect
+                          fill="#6DD400"
+                          height="5"
+                          rx="1"
+                          width="5"
+                          x="1"
+                          y="1"
+                        />
+                      </g>
+                      <g
+                        transform="translate(0 10)"
+                      >
+                        <rect
+                          fill="#0E79BF"
+                          height="7"
+                          rx="1"
+                          width="7"
+                        />
+                        <rect
+                          fill="#2EADFF"
+                          height="5"
+                          rx="1"
+                          width="5"
+                          x="1"
+                          y="1"
+                        />
+                      </g>
                     </g>
-                    <g
-                      transform="translate(18)"
-                    >
-                      <rect
-                        fill="#08A81E"
-                        height="7"
-                        rx="1"
-                        width="7"
-                      />
-                      <rect
-                        fill="#6DD400"
-                        height="5"
-                        rx="1"
-                        width="5"
-                        x="1"
-                        y="1"
-                      />
-                    </g>
-                    <g
-                      transform="translate(18 10)"
-                    >
-                      <rect
-                        fill="#08A81E"
-                        height="7"
-                        rx="1"
-                        width="7"
-                      />
-                      <rect
-                        fill="#6DD400"
-                        height="5"
-                        rx="1"
-                        width="5"
-                        x="1"
-                        y="1"
-                      />
-                    </g>
-                    <g
-                      transform="translate(27 10)"
-                    >
-                      <rect
-                        fill="#08A81E"
-                        height="7"
-                        rx="1"
-                        width="7"
-                      />
-                      <rect
-                        fill="#6DD400"
-                        height="5"
-                        rx="1"
-                        width="5"
-                        x="1"
-                        y="1"
-                      />
-                    </g>
-                    <g
-                      transform="translate(0 10)"
-                    >
-                      <rect
-                        fill="#0E79BF"
-                        height="7"
-                        rx="1"
-                        width="7"
-                      />
-                      <rect
-                        fill="#2EADFF"
-                        height="5"
-                        rx="1"
-                        width="5"
-                        x="1"
-                        y="1"
-                      />
-                    </g>
-                  </g>
-                </svg>
+                  </svg>
+                </span>
               </span>
             </span>
-          </span>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 12%;"
-        >
-          <div
-            class="StyledProps--font StyledProps--main tableCell"
-          >
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-              style="--text-line-clamp: 1;"
-            >
-              ServiceA
-            </p>
           </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 12%;"
-        >
           <div
-            class="StyledProps--font StyledProps--main tableCell"
-          >
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-              style="--text-line-clamp: 1;"
-            >
-              Prod
-            </p>
-          </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 12%;"
-        >
-          <div
-            class="StyledProps--font StyledProps--main tableCell"
-          >
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-              style="--text-line-clamp: 1;"
-            />
-          </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 10%;"
-        >
-          <div
-            class="StyledProps--font StyledProps--main tableCell"
-          >
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-              style="--text-line-clamp: 1;"
-            >
-              10m
-            </p>
-          </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 33%;"
-        >
-          <div
-            class="StyledProps--font StyledProps--main StyledProps--flex"
+            class="cell"
+            role="cell"
+            style="width: 12%;"
           >
             <div
-              class="StyledProps--font StyledProps--main webhook"
+              class="StyledProps--font StyledProps--main tableCell"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 1;"
+              >
+                ServiceA
+              </p>
+            </div>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 12%;"
+          >
+            <div
+              class="StyledProps--font StyledProps--main tableCell"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 1;"
+              >
+                Prod
+              </p>
+            </div>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 12%;"
+          >
+            <div
+              class="StyledProps--font StyledProps--main tableCell"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 1;"
+              />
+            </div>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 10%;"
+          >
+            <div
+              class="StyledProps--font StyledProps--main tableCell"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 1;"
+              >
+                10m
+              </p>
+            </div>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 33%;"
+          >
+            <div
+              class="StyledProps--font StyledProps--main StyledProps--flex"
             >
               <div
-                class="main"
+                class="StyledProps--font StyledProps--main webhook"
               >
                 <div
-                  class="text"
-                />
-                <div
-                  class="bp3-popover-wrapper btnWrapper"
+                  class="main"
                 >
-                  <span
-                    class="bp3-popover-target"
+                  <div
+                    class="text"
+                  />
+                  <div
+                    class="bp3-popover-wrapper btnWrapper"
                   >
-                    <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-                      tabindex="0"
-                      type="button"
+                    <span
+                      class="bp3-popover-target"
                     >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="copy-alt"
+                      <button
+                        class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                        tabindex="0"
+                        type="button"
                       >
-                        <svg
-                          fill="none"
-                          height="16"
-                          viewBox="0 0 8 9"
-                          width="16"
+                        <span
+                          class="bp3-icon StyledProps--main"
+                          data-icon="copy-alt"
                         >
-                          <path
-                            clip-rule="evenodd"
-                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                            fill="currentColor"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
+                          <svg
+                            fill="none"
+                            height="16"
+                            viewBox="0 0 8 9"
+                            width="16"
+                          >
+                            <path
+                              clip-rule="evenodd"
+                              d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                              fill="currentColor"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                  </div>
                 </div>
               </div>
+              <div
+                class="context-menu-mock-edit"
+              />
+              <div
+                class="context-menu-mock-delete"
+              />
             </div>
-            <div
-              class="context-menu-mock-edit"
-            />
-            <div
-              class="context-menu-mock-delete"
-            />
           </div>
         </div>
-      </div>
-      <div
-        class="row card clickable"
-        role="row"
-      >
         <div
-          class="cell"
-          role="cell"
-          style="width: 15%;"
+          class="row card clickable"
+          role="row"
         >
           <div
-            class="StyledProps--font StyledProps--main tableCell"
+            class="cell"
+            role="cell"
+            style="width: 15%;"
           >
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-              style="--text-line-clamp: 1;"
+            <div
+              class="StyledProps--font StyledProps--main tableCell"
             >
-              MilosTest_DEFAULT_HEALTH_JOB
-            </p>
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 1;"
+              >
+                MilosTest_DEFAULT_HEALTH_JOB
+              </p>
+            </div>
           </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 5%;"
-        >
-          <span
-            class="bp3-popover-wrapper"
+          <div
+            class="cell"
+            role="cell"
+            style="width: 5%;"
           >
             <span
-              class="bp3-popover-target"
+              class="bp3-popover-wrapper"
             >
               <span
-                class="bp3-icon StyledProps--main"
-                data-icon="health"
-                tabindex="0"
+                class="bp3-popover-target"
               >
-                <svg
-                  height="18"
-                  width="18"
+                <span
+                  class="bp3-icon StyledProps--main"
+                  data-icon="health"
+                  tabindex="0"
                 >
-                  <path
-                    d="M1.37 1.414C-.453 3.3-.458 6.33 1.362 8.218l7.292 7.567a.497.497 0 00.688 0c2.432-2.52 4.859-5.04 7.291-7.56 1.823-1.887 1.823-4.917 0-6.804a4.584 4.584 0 00-6.625 0L9.001 2.454l-1.006-1.04A4.52 4.52 0 004.679 0C3.476 0 2.28.47 1.369 1.414zM4.54.692c.978 0 1.96.4 2.719 1.199l1.39 1.468a.506.506 0 00.71 0l1.382-1.46C12.258.3 14.65.3 16.169 1.899c1.518 1.598 1.518 4.18 0 5.778L9 15.231 1.83 7.67C.314 6.069.312 3.49 1.83 1.89c.76-.8 1.734-1.199 2.71-1.199z"
-                    fill="#FF6687"
-                    fill-rule="nonzero"
-                    stroke="#FF5785"
-                    stroke-width="0.2"
-                  />
-                </svg>
+                  <svg
+                    height="18"
+                    width="18"
+                  >
+                    <path
+                      d="M1.37 1.414C-.453 3.3-.458 6.33 1.362 8.218l7.292 7.567a.497.497 0 00.688 0c2.432-2.52 4.859-5.04 7.291-7.56 1.823-1.887 1.823-4.917 0-6.804a4.584 4.584 0 00-6.625 0L9.001 2.454l-1.006-1.04A4.52 4.52 0 004.679 0C3.476 0 2.28.47 1.369 1.414zM4.54.692c.978 0 1.96.4 2.719 1.199l1.39 1.468a.506.506 0 00.71 0l1.382-1.46C12.258.3 14.65.3 16.169 1.899c1.518 1.598 1.518 4.18 0 5.778L9 15.231 1.83 7.67C.314 6.069.312 3.49 1.83 1.89c.76-.8 1.734-1.199 2.71-1.199z"
+                      fill="#FF6687"
+                      fill-rule="nonzero"
+                      stroke="#FF5785"
+                      stroke-width="0.2"
+                    />
+                  </svg>
+                </span>
               </span>
             </span>
-          </span>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 12%;"
-        >
-          <div
-            class="StyledProps--font StyledProps--main tableCell"
-          >
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-              style="--text-line-clamp: 1;"
-            >
-              all
-            </p>
           </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 12%;"
-        >
           <div
-            class="StyledProps--font StyledProps--main tableCell"
-          >
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-              style="--text-line-clamp: 1;"
-            >
-              all
-            </p>
-          </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 12%;"
-        >
-          <div
-            class="StyledProps--font StyledProps--main tableCell"
-          >
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-              style="--text-line-clamp: 1;"
-            >
-              all
-            </p>
-          </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 10%;"
-        >
-          <div
-            class="StyledProps--font StyledProps--main tableCell"
-          >
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-              style="--text-line-clamp: 1;"
-            >
-              15m
-            </p>
-          </div>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 33%;"
-        >
-          <div
-            class="StyledProps--font StyledProps--main StyledProps--flex"
+            class="cell"
+            role="cell"
+            style="width: 12%;"
           >
             <div
-              class="StyledProps--font StyledProps--main webhook"
+              class="StyledProps--font StyledProps--main tableCell"
             >
-              cv.admin.verificationJobs.cantBeCopied
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 1;"
+              >
+                all
+              </p>
+            </div>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 12%;"
+          >
+            <div
+              class="StyledProps--font StyledProps--main tableCell"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 1;"
+              >
+                all
+              </p>
+            </div>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 12%;"
+          >
+            <div
+              class="StyledProps--font StyledProps--main tableCell"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 1;"
+              >
+                all
+              </p>
+            </div>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 10%;"
+          >
+            <div
+              class="StyledProps--font StyledProps--main tableCell"
+            >
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                style="--text-line-clamp: 1;"
+              >
+                15m
+              </p>
+            </div>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 33%;"
+          >
+            <div
+              class="StyledProps--font StyledProps--main StyledProps--flex"
+            >
+              <div
+                class="StyledProps--font StyledProps--main webhook"
+              >
+                cv.admin.verificationJobs.cantBeCopied
+              </div>
             </div>
           </div>
         </div>

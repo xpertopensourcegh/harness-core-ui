@@ -62,78 +62,77 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ module, mock }) => {
   return (
     <>
       <Page.Header title={getString('common.secrets')} />
-      <div className={css.page}>
-        <Layout.Horizontal flex className={css.header}>
-          <Layout.Horizontal spacing="small">
-            <Popover minimal position={Position.BOTTOM_LEFT} interactionKind={PopoverInteractionKind.CLICK_TARGET_ONLY}>
-              <RbacButton
-                intent="primary"
-                text={getString('createSecretYAML.newSecret')}
-                icon="plus"
-                rightIcon="chevron-down"
-                permission={{
-                  permission: PermissionIdentifier.UPDATE_SECRET,
-                  resource: {
-                    resourceType: ResourceType.SECRET
-                  }
-                }}
-                onClick={() => {
-                  setOpenPopOver(true)
-                }}
-              />
-              {openPopOver && (
-                <Menu large>
-                  <Menu.Item
-                    text={getString('secret.labelText')}
-                    labelElement={<Icon name="text" />}
-                    onClick={/* istanbul ignore next */ () => openCreateSecretModal('SecretText')}
-                  />
-                  <Menu.Item
-                    text={getString('secret.labelFile')}
-                    labelElement={<Icon name="document" color="blue600" />}
-                    onClick={/* istanbul ignore next */ () => openCreateSecretModal('SecretFile')}
-                  />
-                  <Menu.Item
-                    text={getString('ssh.sshCredential')}
-                    labelElement={<Icon name="secret-ssh" />}
-                    onClick={/* istanbul ignore next */ () => openCreateSSHCredModal()}
-                  />
-                </Menu>
-              )}
-            </Popover>
+      <Layout.Horizontal flex className={css.header}>
+        <Layout.Horizontal spacing="small">
+          <Popover minimal position={Position.BOTTOM_LEFT} interactionKind={PopoverInteractionKind.CLICK_TARGET_ONLY}>
             <RbacButton
-              text={getString('createViaYaml')}
-              onClick={
-                /* istanbul ignore next */ () => {
-                  history.push(routes.toCreateSecretFromYaml({ accountId, orgIdentifier, projectIdentifier, module }))
-                }
-              }
+              intent="primary"
+              text={getString('createSecretYAML.newSecret')}
+              icon="plus"
+              rightIcon="chevron-down"
               permission={{
                 permission: PermissionIdentifier.UPDATE_SECRET,
                 resource: {
                   resourceType: ResourceType.SECRET
-                },
-                resourceScope: {
-                  accountIdentifier: accountId,
-                  orgIdentifier,
-                  projectIdentifier
                 }
               }}
-            />
-          </Layout.Horizontal>
-          <Layout.Horizontal spacing="small">
-            <TextInput
-              leftIcon="search"
-              placeholder="Search"
-              value={searchTerm}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setSearchTerm(e.target.value.trim())
-                setPage(0)
+              onClick={() => {
+                setOpenPopOver(true)
               }}
             />
-          </Layout.Horizontal>
+            {openPopOver && (
+              <Menu large>
+                <Menu.Item
+                  text={getString('secret.labelText')}
+                  labelElement={<Icon name="text" />}
+                  onClick={/* istanbul ignore next */ () => openCreateSecretModal('SecretText')}
+                />
+                <Menu.Item
+                  text={getString('secret.labelFile')}
+                  labelElement={<Icon name="document" color="blue600" />}
+                  onClick={/* istanbul ignore next */ () => openCreateSecretModal('SecretFile')}
+                />
+                <Menu.Item
+                  text={getString('ssh.sshCredential')}
+                  labelElement={<Icon name="secret-ssh" />}
+                  onClick={/* istanbul ignore next */ () => openCreateSSHCredModal()}
+                />
+              </Menu>
+            )}
+          </Popover>
+          <RbacButton
+            text={getString('createViaYaml')}
+            onClick={
+              /* istanbul ignore next */ () => {
+                history.push(routes.toCreateSecretFromYaml({ accountId, orgIdentifier, projectIdentifier, module }))
+              }
+            }
+            permission={{
+              permission: PermissionIdentifier.UPDATE_SECRET,
+              resource: {
+                resourceType: ResourceType.SECRET
+              },
+              resourceScope: {
+                accountIdentifier: accountId,
+                orgIdentifier,
+                projectIdentifier
+              }
+            }}
+          />
         </Layout.Horizontal>
-
+        <Layout.Horizontal spacing="small">
+          <TextInput
+            leftIcon="search"
+            placeholder="Search"
+            value={searchTerm}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setSearchTerm(e.target.value.trim())
+              setPage(0)
+            }}
+          />
+        </Layout.Horizontal>
+      </Layout.Horizontal>
+      <Page.Body>
         {loading ? (
           <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
             <PageSpinner />
@@ -156,7 +155,7 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ module, mock }) => {
             No Data
           </Container>
         )}
-      </div>
+      </Page.Body>
     </>
   )
 }

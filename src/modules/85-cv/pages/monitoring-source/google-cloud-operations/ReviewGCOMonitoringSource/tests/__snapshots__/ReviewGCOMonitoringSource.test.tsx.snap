@@ -46,126 +46,130 @@ exports[`Unit tests for ReviewMonitoringSource Ensure payload is correct while c
         </div>
       </div>
       <div
-        class="row card"
-        role="row"
+        class="body"
       >
         <div
-          class="cell"
-          role="cell"
-          style="width: 40%;"
+          class="row card"
+          role="row"
         >
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
-            style="--text-line-clamp: 1;"
+          <div
+            class="cell"
+            role="cell"
+            style="width: 40%;"
           >
-            metric_1
-          </p>
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
+              style="--text-line-clamp: 1;"
+            >
+              metric_1
+            </p>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 25%;"
+          >
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
+              style="--text-line-clamp: 1;"
+            >
+              service_1
+            </p>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 25%;"
+          >
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
+              style="--text-line-clamp: 1;"
+            >
+              env_1
+            </p>
+          </div>
         </div>
         <div
-          class="cell"
-          role="cell"
-          style="width: 25%;"
+          class="row card"
+          role="row"
         >
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
-            style="--text-line-clamp: 1;"
+          <div
+            class="cell"
+            role="cell"
+            style="width: 40%;"
           >
-            service_1
-          </p>
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
+              style="--text-line-clamp: 1;"
+            >
+              metric_2
+            </p>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 25%;"
+          >
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
+              style="--text-line-clamp: 1;"
+            >
+              service_1
+            </p>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 25%;"
+          >
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
+              style="--text-line-clamp: 1;"
+            >
+              env_1
+            </p>
+          </div>
         </div>
         <div
-          class="cell"
-          role="cell"
-          style="width: 25%;"
+          class="row card"
+          role="row"
         >
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
-            style="--text-line-clamp: 1;"
+          <div
+            class="cell"
+            role="cell"
+            style="width: 40%;"
           >
-            env_1
-          </p>
-        </div>
-      </div>
-      <div
-        class="row card"
-        role="row"
-      >
-        <div
-          class="cell"
-          role="cell"
-          style="width: 40%;"
-        >
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
-            style="--text-line-clamp: 1;"
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
+              style="--text-line-clamp: 1;"
+            >
+              metric_3
+            </p>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 25%;"
           >
-            metric_2
-          </p>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 25%;"
-        >
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
-            style="--text-line-clamp: 1;"
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
+              style="--text-line-clamp: 1;"
+            >
+              service_2
+            </p>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 25%;"
           >
-            service_1
-          </p>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 25%;"
-        >
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
-            style="--text-line-clamp: 1;"
-          >
-            env_1
-          </p>
-        </div>
-      </div>
-      <div
-        class="row card"
-        role="row"
-      >
-        <div
-          class="cell"
-          role="cell"
-          style="width: 40%;"
-        >
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
-            style="--text-line-clamp: 1;"
-          >
-            metric_3
-          </p>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 25%;"
-        >
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
-            style="--text-line-clamp: 1;"
-          >
-            service_2
-          </p>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 25%;"
-        >
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
-            style="--text-line-clamp: 1;"
-          >
-            env_1
-          </p>
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
+              style="--text-line-clamp: 1;"
+            >
+              env_1
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -281,126 +285,130 @@ exports[`Unit tests for ReviewMonitoringSource Ensure payload is correct while e
         </div>
       </div>
       <div
-        class="row card"
-        role="row"
+        class="body"
       >
         <div
-          class="cell"
-          role="cell"
-          style="width: 40%;"
+          class="row card"
+          role="row"
         >
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
-            style="--text-line-clamp: 1;"
+          <div
+            class="cell"
+            role="cell"
+            style="width: 40%;"
           >
-            metric_1
-          </p>
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
+              style="--text-line-clamp: 1;"
+            >
+              metric_1
+            </p>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 25%;"
+          >
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
+              style="--text-line-clamp: 1;"
+            >
+              service_1
+            </p>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 25%;"
+          >
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
+              style="--text-line-clamp: 1;"
+            >
+              env_1
+            </p>
+          </div>
         </div>
         <div
-          class="cell"
-          role="cell"
-          style="width: 25%;"
+          class="row card"
+          role="row"
         >
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
-            style="--text-line-clamp: 1;"
+          <div
+            class="cell"
+            role="cell"
+            style="width: 40%;"
           >
-            service_1
-          </p>
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
+              style="--text-line-clamp: 1;"
+            >
+              metric_2
+            </p>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 25%;"
+          >
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
+              style="--text-line-clamp: 1;"
+            >
+              service_1
+            </p>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 25%;"
+          >
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
+              style="--text-line-clamp: 1;"
+            >
+              env_1
+            </p>
+          </div>
         </div>
         <div
-          class="cell"
-          role="cell"
-          style="width: 25%;"
+          class="row card"
+          role="row"
         >
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
-            style="--text-line-clamp: 1;"
+          <div
+            class="cell"
+            role="cell"
+            style="width: 40%;"
           >
-            env_1
-          </p>
-        </div>
-      </div>
-      <div
-        class="row card"
-        role="row"
-      >
-        <div
-          class="cell"
-          role="cell"
-          style="width: 40%;"
-        >
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
-            style="--text-line-clamp: 1;"
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
+              style="--text-line-clamp: 1;"
+            >
+              metric_3
+            </p>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 25%;"
           >
-            metric_2
-          </p>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 25%;"
-        >
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
-            style="--text-line-clamp: 1;"
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
+              style="--text-line-clamp: 1;"
+            >
+              service_2
+            </p>
+          </div>
+          <div
+            class="cell"
+            role="cell"
+            style="width: 25%;"
           >
-            service_1
-          </p>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 25%;"
-        >
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
-            style="--text-line-clamp: 1;"
-          >
-            env_1
-          </p>
-        </div>
-      </div>
-      <div
-        class="row card"
-        role="row"
-      >
-        <div
-          class="cell"
-          role="cell"
-          style="width: 40%;"
-        >
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
-            style="--text-line-clamp: 1;"
-          >
-            metric_3
-          </p>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 25%;"
-        >
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
-            style="--text-line-clamp: 1;"
-          >
-            service_2
-          </p>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 25%;"
-        >
-          <p
-            class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
-            style="--text-line-clamp: 1;"
-          >
-            env_1
-          </p>
+            <p
+              class="StyledProps--font Text--lineclamp StyledProps--main textOverflow StyledProps--color StyledProps--color-black"
+              style="--text-line-clamp: 1;"
+            >
+              env_1
+            </p>
+          </div>
         </div>
       </div>
     </div>

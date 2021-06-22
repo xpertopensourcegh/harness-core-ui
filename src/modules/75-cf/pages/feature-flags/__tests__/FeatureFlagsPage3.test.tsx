@@ -57,7 +57,7 @@ describe('FeatureFlagsPage', () => {
       </TestWrapper>
     )
 
-    fireEvent.click(container.querySelector('[role="row"]:not(:first-of-type)') as HTMLElement)
+    fireEvent.click(container.getElementsByClassName('row card clickable')[0] as HTMLElement)
 
     expect(getByText('/account/dummy/cf/orgs/dummy/projects/dummy/feature-flags/hello_world')).toBeDefined()
   })
@@ -85,7 +85,7 @@ describe('FeatureFlagsPage', () => {
       </TestWrapper>
     )
 
-    fireEvent.click(container.querySelector('[role="row"]:not(:first-of-type) [data-icon="Options"]') as HTMLElement)
+    fireEvent.click(container.querySelector('[data-icon="Options"]') as HTMLElement)
     fireEvent.click(document.querySelector('[icon="edit"]') as HTMLElement)
 
     expect(

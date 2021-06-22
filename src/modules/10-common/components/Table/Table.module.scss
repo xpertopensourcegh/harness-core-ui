@@ -1,4 +1,6 @@
 .table {
+  height: 100%;
+
   .header {
     font-weight: bold;
     font-size: smaller;
@@ -9,6 +11,10 @@
     .cell {
       cursor: pointer;
     }
+  }
+
+  .body {
+    min-height: calc(100% - 115px);
   }
 
   .row {

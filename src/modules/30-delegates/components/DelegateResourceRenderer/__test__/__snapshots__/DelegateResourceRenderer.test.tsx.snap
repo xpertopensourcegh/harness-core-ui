@@ -4,6 +4,10 @@ exports[`Create DelegateResourceRenderer render data 1`] = `
 <div>
   <div
     class="table"
-  />
+  >
+    <div
+      class="body"
+    />
+  </div>
 </div>
 `;
