@@ -245,6 +245,14 @@ export default (
       <ConnectorDetailsPage />
     </RouteWithLayout>
 
+    <RouteWithLayout
+      sidebarProps={ProjectDetailsSideNavProps}
+      path={routes.toCreateConnectorFromYaml({ ...accountPathProps, ...projectPathProps })}
+      exact
+    >
+      <CreateConnectorFromYamlPage />
+    </RouteWithLayout>
+
     <RouteWithLayout sidebarProps={OrgsSideNavProps} path={routes.toCreateConnectorFromYaml({ ...orgPathProps })} exact>
       <CreateConnectorFromYamlPage />
     </RouteWithLayout>
