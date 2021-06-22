@@ -223,6 +223,12 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
     </div>
   ))
 
+  const resetTag = (formik: any): void => {
+    formik.values.tagType === 'value' &&
+      getMultiTypeFromValue(formik.values.tag?.value) === MultiTypeInputType.FIXED &&
+      formik.values.tag?.value?.length &&
+      formik.setFieldValue('tag', '')
+  }
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep} data-id={name}>
       <div className={css.heading}>{getString('pipeline.artifactsSelection.artifactDetails')}</div>
@@ -256,6 +262,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                   name="region"
                   selectItems={regions}
                   multiTypeInputProps={{
+                    onChange: () => resetTag(formik),
                     selectProps: {
                       defaultSelectedItem: formik.values.region,
                       items: regions
@@ -290,6 +297,7 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                   name="imagePath"
                   placeholder={getString('pipeline.artifactsSelection.existingDocker.imageNamePlaceholder')}
                   multiTextInputProps={{ expressions }}
+                  onChange={() => resetTag(formik)}
                 />
                 {getMultiTypeFromValue(formik.values.imagePath) === MultiTypeInputType.RUNTIME && (
                   <div className={css.configureOptions}>

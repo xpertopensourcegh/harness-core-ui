@@ -16,6 +16,7 @@ import { useStrings } from 'framework/strings'
 import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
+import { useQueryParams } from '@common/hooks'
 import DeployInfraSpecifications from '../DeployInfraSpecifications/DeployInfraSpecifications'
 import DeployServiceSpecifications from '../DeployServiceSpecifications/DeployServiceSpecifications'
 import DeployStageSpecifications from '../DeployStageSpecifications/DeployStageSpecifications'
@@ -57,11 +58,21 @@ export default function DeployStageSetupShell(): JSX.Element {
     getStageFromPipeline,
     updatePipelineView,
     setSelectedStepId,
-    getStagePathFromPipeline
+    getStagePathFromPipeline,
+    setSelectedSectionId
   } = React.useContext(PipelineContext)
   const [selectedTabId, setSelectedTabId] = React.useState<DeployTabs>(
     selectedStepId ? DeployTabs.EXECUTION : DeployTabs.SERVICE
   )
+  const query = useQueryParams()
+  React.useEffect(() => {
+    const sectionId = (query as any).sectionId || ''
+    if (sectionId?.length && TabsOrder.includes(sectionId)) {
+      setSelectedTabId(sectionId)
+    } else {
+      setSelectedSectionId(DeployTabs.SERVICE)
+    }
+  }, [])
 
   React.useEffect(() => {
     if (selectedStepId) {
@@ -74,6 +85,7 @@ export default function DeployStageSetupShell(): JSX.Element {
   const handleTabChange = (nextTab: DeployTabs): void => {
     checkErrorsForTab(selectedTabId).then(_ => {
       setSelectedTabId(nextTab)
+      setSelectedSectionId(nextTab)
     })
   }
 

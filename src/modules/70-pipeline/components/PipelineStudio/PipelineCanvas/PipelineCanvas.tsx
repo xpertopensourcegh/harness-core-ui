@@ -80,7 +80,8 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     setView,
     isReadonly,
     updatePipelineView,
-    setSelectedStageId
+    setSelectedStageId,
+    setSelectedSectionId
   } = React.useContext(PipelineContext)
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const { updateQueryParams } = useUpdateQueryParams<PipelineStudioQueryParams>()
@@ -457,6 +458,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       drawerData: { type: DrawerTypes.AddStep }
     })
     setSelectedStageId(undefined)
+    setSelectedSectionId(undefined)
     return true
   }
 

@@ -54,6 +54,7 @@ const getPipelineContext = (): PipelineContextInterface => ({
   stepsFactory: factory,
   setSelectedStageId: jest.fn(),
   setSelectedStepId: jest.fn(),
+  setSelectedSectionId: jest.fn(),
   getStagePathFromPipeline: jest.fn()
 })
 

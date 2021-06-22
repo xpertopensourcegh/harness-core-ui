@@ -180,6 +180,7 @@ export interface PipelineContextInterface {
   updateStage: (stage: StageElementConfig) => Promise<void>
   setSelectedStageId: (selectedStageId: string | undefined) => void
   setSelectedStepId: (selectedStepId: string | undefined) => void
+  setSelectedSectionId: (selectedSectionId: string | undefined) => void
   getStagePathFromPipeline(stageId: string, prefix?: string, pipeline?: PipelineInfoConfig): string
 }
 
@@ -516,6 +517,7 @@ export const PipelineContext = React.createContext<PipelineContextInterface>({
   deletePipelineCache: () => new Promise<void>(() => undefined),
   setSelectedStageId: (_selectedStageId: string | undefined) => undefined,
   setSelectedStepId: (_selectedStepId: string | undefined) => undefined,
+  setSelectedSectionId: (_selectedSectionId: string | undefined) => undefined,
   getStagePathFromPipeline: () => ''
 })
 
@@ -614,6 +616,9 @@ export const PipelineProvider: React.FC<{
   const setSelectedStepId = (selectedStepId: string | undefined): void => {
     queryParamStateSelection.setPipelineQuestParamState({ stepId: selectedStepId })
   }
+  const setSelectedSectionId = (selectedSectionId: string | undefined): void => {
+    queryParamStateSelection.setPipelineQuestParamState({ sectionId: selectedSectionId })
+  }
 
   const updateSelectionState = React.useCallback((data: SelectionState) => {
     dispatch(PipelineContextActions.updateSelectionState({ selectionState: data }))
@@ -622,7 +627,8 @@ export const PipelineProvider: React.FC<{
   React.useEffect(() => {
     updateSelectionState({
       selectedStageId: queryParamStateSelection.stageId as string,
-      selectedStepId: queryParamStateSelection.stepId as string
+      selectedStepId: queryParamStateSelection.stepId as string,
+      selectedSectionId: queryParamStateSelection.sectionId as string
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryParamStateSelection.stepId, queryParamStateSelection.stageId])
@@ -735,6 +741,7 @@ export const PipelineProvider: React.FC<{
         setYamlHandler,
         setSelectedStageId,
         setSelectedStepId,
+        setSelectedSectionId,
         getStagePathFromPipeline
       }}
     >

@@ -88,6 +88,7 @@ export interface PipelineViewData {
 export interface SelectionState {
   selectedStageId?: string | undefined
   selectedStepId?: string | undefined
+  selectedSectionId?: string | undefined
 }
 
 export interface PipelineReducerState {
@@ -193,7 +194,8 @@ export const initialState: PipelineReducerState = {
   isInitialized: false,
   selectionState: {
     selectedStageId: undefined,
-    selectedStepId: undefined
+    selectedStepId: undefined,
+    selectedSectionId: undefined
   }
 }
 

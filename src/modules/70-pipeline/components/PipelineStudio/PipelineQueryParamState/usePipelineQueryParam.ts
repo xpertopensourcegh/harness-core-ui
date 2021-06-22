@@ -2,10 +2,11 @@ import { useQueryParams, useUpdateQueryParams } from '@common/hooks'
 interface PipelineSelectionState {
   stageId?: string | null
   stepId?: string | null
+  sectionId?: string | null
 }
 
 export function usePipelineQuestParamState() {
-  const { stageId, stepId } = useQueryParams<PipelineSelectionState>()
+  const { stageId, stepId, sectionId } = useQueryParams<PipelineSelectionState>()
   const { updateQueryParams } = useUpdateQueryParams<PipelineSelectionState>()
 
   /**
@@ -24,8 +25,7 @@ export function usePipelineQuestParamState() {
       newState.stepId = null
     }
 
-    updateQueryParams({ stageId, stepId, ...newState }, { skipNulls: true })
+    updateQueryParams({ stageId, stepId, sectionId, ...newState }, { skipNulls: true })
   }
-
-  return { stageId, stepId, setPipelineQuestParamState: setPipelineQueryParamState }
+  return { stageId, stepId, setPipelineQuestParamState: setPipelineQueryParamState, sectionId }
 }

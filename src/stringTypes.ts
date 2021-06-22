@@ -1463,8 +1463,7 @@ export interface StringsMap {
   'pipeline.manifestType.selectManifestStore': string
   'pipeline.manifestType.specifyManifestRepoType': string
   'pipeline.manifestType.specifyManifestStore': string
-  'pipeline.moveStage.ahead': string
-  'pipeline.moveStage.behind': string
+  'pipeline.moveStage.description': string
   'pipeline.moveStage.title': string
   'pipeline.noBuildsText': string
   'pipeline.noDeploymentText': string

@@ -224,6 +224,10 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
                   multiTextInputProps={{ expressions }}
                   onChange={val => {
                     setLastImagePath(val as string)
+                    formik.values.tagType === 'value' &&
+                      getMultiTypeFromValue(formik.values.tag?.value) === MultiTypeInputType.FIXED &&
+                      formik.values.tag?.value?.length &&
+                      formik.setFieldValue('tag', '')
                   }}
                 />
                 {getMultiTypeFromValue(formik.values.imagePath) === MultiTypeInputType.RUNTIME && (

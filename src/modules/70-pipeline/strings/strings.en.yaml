@@ -587,5 +587,4 @@ variable:
   typePlaceholder: Enter Type
 moveStage:
   title: 'Move Pipeline Stage'
-  ahead: 'Moving this stage ahead of its parent stage will reset stage configuration. Do you want to continue ? '
-  behind: 'Moving this stage behind  its dependent stage will reset dependent stage configuration. Do you want to continue ? '
+  description: 'Propagation is set up between this stage and another stage. Moving the parent/child stage out of sequence resets any propagated settings to their defaults. Do you want to continue?'

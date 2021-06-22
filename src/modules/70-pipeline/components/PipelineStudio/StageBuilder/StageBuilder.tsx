@@ -16,7 +16,7 @@ import HoverCard from '@pipeline/components/HoverCard/HoverCard'
 import { StepMode as Modes } from '@pipeline/utils/stepUtils'
 import { PipelineOrStageStatus } from '@pipeline/components/PipelineSteps/AdvancedSteps/ConditionalExecutionPanel/ConditionalExecutionPanelUtils'
 import ConditionalExecutionTooltip from '@pipeline/pages/execution/ExecutionPipelineView/ExecutionGraphView/common/components/ConditionalExecutionToolTip/ConditionalExecutionTooltip'
-import { useGlobalEventListener } from '@common/hooks'
+import { useGlobalEventListener, useUpdateQueryParams } from '@common/hooks'
 import {
   CanvasWidget,
   createEngine,
@@ -176,7 +176,8 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
     updatePipelineView,
     renderPipelineStage,
     getStageFromPipeline,
-    setSelectedStageId
+    setSelectedStageId,
+    setSelectedSectionId
   } = React.useContext(PipelineContext)
 
   const { getString } = useStrings()
@@ -212,7 +213,7 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
   })
 
   const canvasRef = React.useRef<HTMLDivElement | null>(null)
-
+  const { updateQueryParams } = useUpdateQueryParams()
   const [stageMap, setStageMap] = React.useState(new Map<string, StageState>())
   const { errorMap } = useValidationErrors()
 
@@ -390,6 +391,7 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
             splitViewData: {}
           })*/
           setSelectedStageId(undefined)
+          setSelectedSectionId(undefined)
           dynamicPopoverHandler?.show(
             `[data-nodeid="${eventTemp.entity.getID()}"]`,
             {
@@ -461,6 +463,7 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
                 splitViewData: {}
               })*/
               setSelectedStageId(undefined)
+              setSelectedSectionId(undefined)
             } else {
               /*updatePipelineView({
                 ...pipelineView,
@@ -532,6 +535,7 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
         splitViewData: {}
       })
       setSelectedStageId(undefined)
+      setSelectedSectionId(undefined)
 
       if (eventTemp.entity) {
         dynamicPopoverHandler?.show(
@@ -663,9 +667,7 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
     })
 
   const { openDialog: confirmMoveStage } = useConfirmationDialog({
-    contentText: `${getString(
-      moveStageDetails?.direction === MoveDirection.AHEAD ? 'pipeline.moveStage.ahead' : 'pipeline.moveStage.behind'
-    )} `,
+    contentText: getString('pipeline.moveStage.description'),
     titleText: getString('pipeline.moveStage.title'),
     confirmButtonText: getString('common.move'),
     cancelButtonText: getString('cancel'),
@@ -826,9 +828,11 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
         if (div === canvasRef.current?.children[0]) {
           dynamicPopoverHandler?.hide()
         }
+
         if (isSplitViewOpen) {
+          updateQueryParams({ stageId: undefined as any, sectionId: undefined as any })
           //updatePipelineView({ ...pipelineView, isSplitViewOpen: false, splitViewData: {} })
-          setSelectedStageId(undefined)
+          // setSelectedStageId(undefined)
         }
       }}
     >
@@ -840,7 +844,6 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
         bind={setDynamicPopoverHandler}
         placement={'right'}
       />
-
       <CanvasButtons tooltipPosition="left" engine={engine} callback={() => dynamicPopoverHandler?.hide()} />
     </div>
   )
