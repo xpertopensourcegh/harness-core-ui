@@ -92,6 +92,7 @@ export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
             ...options.customNodeStyle
           }}
         >
+          <div className="execution-running-animation" />
           {options.icon && <Icon size={28} name={options.icon} style={options.iconStyle} />}
           {options.isInComplete && (
             <Icon className={css.inComplete} size={12} name={'warning-sign'} color="orange500" />

@@ -21,20 +21,27 @@
 
   .running-node {
     position: relative;
-    overflow: hidden;
 
-    &::before {
-      content: '';
+    :global(.execution-running-animation) {
       display: block;
-      width: 200%;
-      height: 200%;
+      width: 100%;
+      overflow: hidden;
+      height: 100%;
       position: absolute;
-      background-image: var(--execution-pipeline-selected-running-bg) !important;
-      animation: shine 2s infinite;
-      will-change: transform;
+      &::before {
+        content: ' ';
+        display: block;
+        width: 200%;
+        height: 200%;
+        background-image: var(--execution-pipeline-selected-running-bg) !important;
+        animation: shine 2s infinite;
+        will-change: transform;
+      }
     }
-    &.selected::before {
-      background-image: var(--execution-pipeline-selected-running-bg-selected) !important;
+    &.selected :global(.execution-running-animation) {
+      &::before {
+        background-image: var(--execution-pipeline-selected-running-bg-selected) !important;
+      }
     }
   }
 

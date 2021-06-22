@@ -192,6 +192,7 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
           setDragging(false)
         }}
       >
+        <div className="execution-running-animation" />
         {/* Only add the icon style if the stage is not skipped.
         Otherwise, the deployment icon becomes transparent and we do not see it when the stage is skipped. */}
         {options.icon && (
