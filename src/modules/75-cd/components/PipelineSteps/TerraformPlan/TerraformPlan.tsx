@@ -149,6 +149,7 @@ function TerraformPlanWidget(
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => {
+                      /* istanbul ignore next */
                       setFieldValue('timeout', value)
                     }}
                     isReadonly={readonly}
@@ -251,6 +252,7 @@ function TerraformPlanWidget(
                             name="spec.configuration.workspace"
                             label={getString('pipelineSteps.workspace')}
                             multiTextInputProps={{ expressions }}
+                            isOptional={true}
                           />
                           {getMultiTypeFromValue(formik.values.spec?.configuration?.workspace) ===
                             MultiTypeInputType.RUNTIME && (
@@ -275,7 +277,12 @@ function TerraformPlanWidget(
                         >
                           <MultiTypeFieldSelector
                             name="spec.configuration.backendConfig.spec.content"
-                            label={<Text style={{ color: 'rgb(11, 11, 13)' }}>{getString('cd.backEndConfig')}</Text>}
+                            label={
+                              <Text style={{ color: 'rgb(11, 11, 13)' }}>
+                                {' '}
+                                {getString('optionalField', { name: getString('cd.backEndConfig') })}
+                              </Text>
+                            }
                             defaultValueToReset=""
                             allowedTypes={[
                               MultiTypeInputType.EXPRESSION,
@@ -322,7 +329,7 @@ function TerraformPlanWidget(
                             multiTypeFieldSelectorProps={{
                               label: (
                                 <Text style={{ display: 'flex', alignItems: 'center', color: 'rgb(11, 11, 13)' }}>
-                                  {getString('pipeline.targets.title')}
+                                  {getString('optionalField', { name: getString('pipeline.targets.title') })}
                                 </Text>
                               )
                             }}
@@ -336,7 +343,7 @@ function TerraformPlanWidget(
                             multiTypeFieldSelectorProps={{
                               label: (
                                 <Text style={{ display: 'flex', alignItems: 'center', color: 'rgb(11, 11, 13)' }}>
-                                  {getString('environmentVariables')}
+                                  {getString('optionalField', { name: getString('environmentVariables') })}
                                   <Button
                                     icon="question"
                                     minimal
@@ -419,23 +426,28 @@ export class TerraformPlan extends PipelineStep<TFPlanFormData> {
   }
   protected stepIcon: IconName = 'terraform-apply-new'
   protected stepName = 'Terraform Plan'
+  /* istanbul ignore next */
   validateInputSet({
     data,
     template,
     getString,
     viewType
   }: ValidateInputSetProps<TFPlanFormData>): FormikErrors<TFPlanFormData> {
+    /* istanbul ignore next */
     const errors = {} as any
+    /* istanbul ignore next */
     const isRequired = viewType === StepViewType.DeploymentForm
+    /* istanbul ignore next */
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
       let timeoutSchema = getDurationValidationSchema({ minimum: '10s' })
+      /* istanbul ignore next */
       if (isRequired) {
         timeoutSchema = timeoutSchema.required(getString?.('validation.timeout10SecMinimum'))
       }
       const timeout = Yup.object().shape({
         timeout: timeoutSchema
       })
-
+      /* istanbul ignore next */
       try {
         timeout.validateSync(data)
       } catch (e) {

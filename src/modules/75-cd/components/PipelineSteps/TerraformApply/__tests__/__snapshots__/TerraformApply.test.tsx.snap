@@ -402,7 +402,7 @@ exports[`Test TerraformApply expand backend Spec config 1`] = `
                         class="Tooltip--acenter"
                         data-tooltip-id="terraformEdit_spec.configuration.spec.workspace"
                       >
-                        pipelineSteps.workspace
+                        pipelineSteps.workspace (optional)
                       </span>
                        
                       <span
@@ -463,7 +463,7 @@ exports[`Test TerraformApply expand backend Spec config 1`] = `
                   <label
                     class="Label--main tfVarLabel"
                   >
-                    cd.terraformVarFiles
+                    optionalField
                   </label>
                   <div
                     class="formGroup tfVarMargin"
@@ -527,7 +527,7 @@ exports[`Test TerraformApply expand backend Spec config 1`] = `
                           class="StyledProps--font StyledProps--main"
                           style="color: rgb(11, 11, 13);"
                         >
-                          cd.backEndConfig
+                          optionalField
                         </p>
                         <div
                           class="bp3-popover-wrapper typeSelectorWrapper"
@@ -632,7 +632,7 @@ exports[`Test TerraformApply expand backend Spec config 1`] = `
                             class="StyledProps--font StyledProps--main"
                             style="display: flex; align-items: center; color: rgb(11, 11, 13);"
                           >
-                            pipeline.targets.title
+                            optionalField
                           </p>
                           <div
                             class="bp3-popover-wrapper typeSelectorWrapper"
@@ -798,7 +798,7 @@ exports[`Test TerraformApply expand backend Spec config 1`] = `
                             class="StyledProps--font StyledProps--main"
                             style="display: flex; align-items: center; color: rgb(11, 11, 13);"
                           >
-                            environmentVariables
+                            optionalField
                             <span
                               class="bp3-popover-wrapper"
                             >
@@ -1780,7 +1780,7 @@ exports[`Test TerraformApply rendering more than one varfile 2`] = `
                         class="Tooltip--acenter"
                         data-tooltip-id="terraformEdit_spec.configuration.spec.workspace"
                       >
-                        pipelineSteps.workspace
+                        pipelineSteps.workspace (optional)
                       </span>
                        
                       <span
@@ -1841,7 +1841,7 @@ exports[`Test TerraformApply rendering more than one varfile 2`] = `
                   <label
                     class="Label--main tfVarLabel"
                   >
-                    cd.terraformVarFiles
+                    optionalField
                   </label>
                   <div
                     class="formGroup tfVarMargin"
@@ -2018,7 +2018,7 @@ exports[`Test TerraformApply rendering more than one varfile 2`] = `
                           class="StyledProps--font StyledProps--main"
                           style="color: rgb(11, 11, 13);"
                         >
-                          cd.backEndConfig
+                          optionalField
                         </p>
                         <div
                           class="bp3-popover-wrapper typeSelectorWrapper"
@@ -2121,7 +2121,7 @@ exports[`Test TerraformApply rendering more than one varfile 2`] = `
                             class="StyledProps--font StyledProps--main"
                             style="display: flex; align-items: center; color: rgb(11, 11, 13);"
                           >
-                            pipeline.targets.title
+                            optionalField
                           </p>
                           <div
                             class="bp3-popover-wrapper typeSelectorWrapper"
@@ -2287,7 +2287,7 @@ exports[`Test TerraformApply rendering more than one varfile 2`] = `
                             class="StyledProps--font StyledProps--main"
                             style="display: flex; align-items: center; color: rgb(11, 11, 13);"
                           >
-                            environmentVariables
+                            optionalField
                             <span
                               class="bp3-popover-wrapper"
                             >

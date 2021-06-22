@@ -50,7 +50,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
   const remoteRender = (varFile: TerraformVarFileWrapper, index: number) => {
     const remoteVar = varFile?.varFile as any
     return (
-      <div className={css.configField}>
+      <div className={css.configField} data-name={`edit-remote-${index}`}>
         <Layout.Horizontal>
           {varFile?.varFile?.type === getString('remote') && <Icon name="remote" className={css.iconPosition} />}
           <Text className={css.branch}>{remoteVar?.identifier}</Text>
@@ -71,7 +71,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
   const inlineRender = (varFile: TerraformVarFileWrapper, index: number) => {
     const inlineVar = varFile?.varFile as any
     return (
-      <div className={css.configField}>
+      <div className={css.configField} data-name={`edit-inline-${index}`}>
         <Layout.Horizontal>
           {inlineVar?.type === getString('inline') && <Icon name="Inline" className={css.iconPosition} />}
           <Text className={css.branch}>{inlineVar?.identifier}</Text>
@@ -105,20 +105,20 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
       <Text color={Color.WHITE}>{getString('pipelineSteps.remoteFile')}</Text>
     </Layout.Vertical>
   )
-
+  /* istanbul ignore next */
   const onDragStart = React.useCallback((event: React.DragEvent<HTMLDivElement>, index: number) => {
     event.dataTransfer.setData('data', index.toString())
     event.currentTarget.classList.add(css.dragging)
   }, [])
-
+  /* istanbul ignore next */
   const onDragEnd = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.currentTarget.classList.remove(css.dragging)
   }, [])
-
+  /* istanbul ignore next */
   const onDragLeave = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.currentTarget.classList.remove(css.dragOver)
   }, [])
-
+  /* istanbul ignore next */
   const onDragOver = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
     /* istanbul ignore else */
     if (event.preventDefault) {
@@ -127,7 +127,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
     event.currentTarget.classList.add(css.dragOver)
     event.dataTransfer.dropEffect = 'move'
   }, [])
-
+  /* istanbul ignore next */
   const onDrop = React.useCallback(
     (event: React.DragEvent<HTMLDivElement>, arrayHelpers: FieldArrayRenderProps, droppedIndex: number) => {
       /* istanbul ignore else */
@@ -160,7 +160,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
   return (
     <Layout.Vertical>
       <Label style={{ color: Color.GREY_900 }} className={css.tfVarLabel}>
-        {getString('cd.terraformVarFiles')}
+        {getString('optionalField', { name: getString('cd.terraformVarFiles') })}
       </Label>
       <div className={cx(stepCss.formGroup, css.tfVarMargin)}>
         <FieldArray

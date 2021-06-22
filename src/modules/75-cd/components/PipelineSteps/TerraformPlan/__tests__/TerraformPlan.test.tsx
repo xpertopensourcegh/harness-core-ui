@@ -440,7 +440,7 @@ describe('Test TerraformPlan', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('renders more than one var file', () => {
+  test('renders more than one var file', async () => {
     const { container, getByText } = render(
       <TestStepWidget
         initialValues={{
@@ -477,12 +477,10 @@ describe('Test TerraformPlan', () => {
       />
     )
     fireEvent.click(getByText('common.optionalConfig'))
-    fireEvent.click(getByText('cd.terraformVarFiles'))
-
     expect(container).toMatchSnapshot()
   })
 
-  test('click on add tf var file -should open the dialog', () => {
+  test('click on add tf var file -should open the dialog', async () => {
     const { container, getByText } = render(
       <TestStepWidget
         initialValues={{
@@ -519,9 +517,14 @@ describe('Test TerraformPlan', () => {
       />
     )
     fireEvent.click(getByText('common.optionalConfig'))
-    fireEvent.click(getByText('cd.terraformVarFiles'))
-    fireEvent.click(getByText('pipelineSteps.addTerraformVarFile'))
-    expect(container).toMatchSnapshot()
+
+    await act(() => {
+      fireEvent.click(getByText('pipelineSteps.addTerraformVarFile'))
+      expect(container).toMatchSnapshot()
+
+      fireEvent.click(container.querySelector('[data-name=edit-inline-0] .bp3-icon-edit')!)
+      expect(container).toMatchSnapshot()
+    })
   })
 
   test('should render input set view', () => {

@@ -3,16 +3,18 @@ import {
   Formik,
   FormInput,
   getMultiTypeFromValue,
+  Icon,
   Layout,
   MultiTypeInputType,
   SelectOption,
-  StepProps
+  StepProps,
+  Text
 } from '@wings-software/uicore'
 import React from 'react'
 import cx from 'classnames'
 import * as Yup from 'yup'
 import { v4 as uuid } from 'uuid'
-import { FieldArray, Form } from 'formik'
+import { FieldArray, FieldArrayRenderProps, Form } from 'formik'
 
 import { useStrings } from 'framework/strings'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
@@ -82,6 +84,48 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
     { label: getString('gitFetchTypes.fromBranch'), value: getString('pipelineSteps.deploy.inputSet.branch') },
     { label: getString('gitFetchTypes.fromCommit'), value: getString('pipelineSteps.commitIdValue') }
   ]
+  /* istanbul ignore next */
+  const onDragStart = React.useCallback((event: React.DragEvent<HTMLDivElement>, index: number) => {
+    event.dataTransfer.setData('data', index.toString())
+    event.currentTarget.classList.add(css.dragging)
+  }, [])
+  /* istanbul ignore next */
+  const onDragEnd = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
+    /* istanbul ignore next */
+    event.currentTarget.classList.remove(css.dragging)
+  }, [])
+  /* istanbul ignore next */
+  const onDragLeave = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
+    event.currentTarget.classList.remove(css.dragOver)
+  }, [])
+
+  const onDragOver = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
+    /* istanbul ignore else */
+    if (event.preventDefault) {
+      event.preventDefault()
+    }
+    /* istanbul ignore next */
+    event.currentTarget.classList.add(css.dragOver)
+    event.dataTransfer.dropEffect = 'move'
+  }, [])
+
+  const onDrop = React.useCallback(
+    (event: React.DragEvent<HTMLDivElement>, arrayHelpers: FieldArrayRenderProps, droppedIndex: number) => {
+      /* istanbul ignore else */
+      if (event.preventDefault) {
+        event.preventDefault()
+      }
+      const data = event.dataTransfer.getData('data')
+      /* istanbul ignore else */
+      if (data) {
+        const index = parseInt(data, 10)
+        /* istanbul ignore next */
+        arrayHelpers.swap(index, droppedIndex)
+      }
+      event.currentTarget.classList.remove(css.dragOver)
+    },
+    []
+  )
 
   return (
     <Layout.Vertical padding={'huge'} className={css.tfVarStore}>
@@ -94,13 +138,14 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
             ...values,
             connectorRef: prevStepData?.varFile?.spec?.store?.spec?.connectorRef
           }
-
+          /* istanbul ignore else */
           const data = {
             varFile: {
               type: payload.varFile.type,
               identifier: payload.varFile.identifier,
               spec: {
                 store: {
+                  /* istanbul ignore else */
                   type: payload.connectorRef?.connector?.type,
                   spec: {
                     ...payload.varFile.spec?.store?.spec,
@@ -161,11 +206,7 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
             <Form>
               <div className={css.tfRemoteForm}>
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormInput.MultiTextInput
-                    name="varFile.identifier"
-                    label={getString('identifier')}
-                    multiTextInputProps={{ expressions }}
-                  />
+                  <FormInput.Text name="varFile.identifier" label={getString('identifier')} />
                 </div>
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormInput.Select
@@ -232,31 +273,48 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
                   >
                     <FieldArray
                       name="varFile.spec.store.spec.paths"
-                      render={({ push, remove }) => {
+                      render={arrayHelpers => {
                         return (
                           <div>
                             {(formik.values?.varFile?.spec?.store?.spec?.paths || []).map(
-                              (path: PathInterface, i: number) => (
+                              (path: PathInterface, index: number) => (
                                 <Layout.Horizontal
-                                  key={`${path}-${i}`}
+                                  key={`${path}-${index}`}
                                   flex={{ distribution: 'space-between' }}
                                   style={{ alignItems: 'end' }}
                                 >
-                                  <FormInput.MultiTextInput
-                                    name={`varFile.spec.store.spec.paths[${i}].path`}
-                                    label=""
-                                    multiTextInputProps={{
-                                      expressions,
-                                      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                                  <Layout.Horizontal
+                                    spacing="medium"
+                                    style={{ alignItems: 'baseline' }}
+                                    className={css.tfContainer}
+                                    key={`${path}-${index}`}
+                                    draggable={true}
+                                    onDragEnd={onDragEnd}
+                                    onDragOver={onDragOver}
+                                    onDragLeave={onDragLeave}
+                                    onDragStart={event => {
+                                      onDragStart(event, index)
                                     }}
-                                    style={{ width: 370 }}
-                                  />
-                                  <Button
-                                    minimal
-                                    icon="trash"
-                                    data-testid={`remove-header-${i}`}
-                                    onClick={() => remove(i)}
-                                  />
+                                    onDrop={event => onDrop(event, arrayHelpers, index)}
+                                  >
+                                    <Icon name="drag-handle-vertical" className={css.drag} />
+                                    <Text width={12}>{`${index + 1}.`}</Text>
+                                    <FormInput.MultiTextInput
+                                      name={`varFile.spec.store.spec.paths[${index}].path`}
+                                      label=""
+                                      multiTextInputProps={{
+                                        expressions,
+                                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                                      }}
+                                      style={{ width: 320 }}
+                                    />
+                                    <Button
+                                      minimal
+                                      icon="trash"
+                                      data-testid={`remove-header-${index}`}
+                                      onClick={() => arrayHelpers.remove(index)}
+                                    />
+                                  </Layout.Horizontal>
                                 </Layout.Horizontal>
                               )
                             )}
@@ -265,7 +323,7 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
                               minimal
                               intent="primary"
                               data-testid="add-header"
-                              onClick={() => push({ path: '' })}
+                              onClick={() => arrayHelpers.push({ path: '' })}
                             >
                               {getString('cd.addTFVarFileLabel')}
                             </Button>

@@ -4,6 +4,9 @@ declare const styles: {
   readonly tfContainer: string
   readonly path: string
   readonly branch: string
+  readonly drag: string
+  readonly dragging: string
+  readonly dragOver: string
   readonly dialog: string
   readonly pathRow: string
   readonly label: string
@@ -28,9 +31,6 @@ declare const styles: {
   readonly crossIcon: string
   readonly configPlaceHolder: string
   readonly addTfVarFile: string
-  readonly dragging: string
-  readonly dragOver: string
-  readonly drag: string
   readonly iconPosition: string
   readonly configFile: string
   readonly configLabel: string
