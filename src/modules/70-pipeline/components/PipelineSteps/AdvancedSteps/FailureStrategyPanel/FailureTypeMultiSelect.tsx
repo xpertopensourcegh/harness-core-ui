@@ -8,8 +8,9 @@ import { errorCheck } from '@common/utils/formikHelpers'
 import { useStrings } from 'framework/strings'
 import type { StringKeys } from 'framework/strings'
 import { FailureErrorType, ErrorType } from '@pipeline/utils/FailureStrategyUtils'
+import type { StageType } from '@pipeline/utils/stageHelpers'
 
-import { errorTypesOrderForCI, errorTypesOrderForCD } from './StrategySelection/StrategyConfig'
+import { errorTypesForStages } from './StrategySelection/StrategyConfig'
 import css from './FailureStrategyPanel.module.scss'
 
 interface Option {
@@ -43,16 +44,17 @@ export interface FailureTypeMultiSelectProps {
   label: string
   name: string
   filterTypes?: FailureErrorType[]
-  minimal?: boolean
+  stageType: StageType
   disabled?: boolean
 }
 
 export interface ConnectedFailureTypeMultiSelectProps extends FailureTypeMultiSelectProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formik: FormikContext<any>
 }
 
 export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectProps): React.ReactElement {
-  const { name, label, formik, minimal, filterTypes, disabled } = props
+  const { name, label, formik, stageType, filterTypes, disabled } = props
   const { getString } = useStrings()
 
   const hasError = errorCheck(name, formik)
@@ -67,11 +69,12 @@ export function FailureTypeMultiSelect(props: ConnectedFailureTypeMultiSelectPro
 
   const options: Option[] = (() => {
     const filterTypesSet = new Set(filterTypes || /* istanbul ignore next */ [])
+    const errorTypes = errorTypesForStages[stageType]
 
-    selectedValuesSet.forEach(val => filterTypesSet.delete(val))
-
-    const errorTypes = minimal ? errorTypesOrderForCI : errorTypesOrderForCD
-    return errorTypes.filter(e => !filterTypesSet.has(e)).map(e => ({ value: e, label: getString(stringsMap[e]) }))
+    // remove already selected values and "AllErrors" from options
+    return errorTypes
+      .filter(e => !filterTypesSet.has(e) && e !== ErrorType.AllErrors)
+      .map(e => ({ value: e, label: getString(stringsMap[e]) }))
   })()
 
   function handleItemSelect(item: Option): void {

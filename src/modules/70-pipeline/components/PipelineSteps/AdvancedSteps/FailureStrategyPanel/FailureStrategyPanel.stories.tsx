@@ -3,11 +3,14 @@ import type { Meta, Story } from '@storybook/react'
 import { Formik } from 'formik'
 import yaml from 'yaml'
 import { Card, H3 } from '@blueprintjs/core'
+import { identity } from 'lodash-es'
+import * as Yup from 'yup'
 
 import { TestWrapper } from '@common/utils/testUtils'
 import { StageType } from '@pipeline/utils/stageHelpers'
 import type { StepMode as Modes } from '@pipeline/utils/stepUtils'
-import FailureStrategyPanel from './FailureStrategyPanel'
+import FailureStrategyPanel, { AllFailureStrategyConfig } from './FailureStrategyPanel'
+import { getFailureStrategiesValidationSchema } from './validation'
 
 export default {
   title: 'Pipelines / Pipeline Steps / Failure Strategies',
@@ -16,7 +19,7 @@ export default {
 
 interface BasicArgs {
   data: {
-    failureStrategies: any[]
+    failureStrategies: AllFailureStrategyConfig[]
   }
   mode: Modes
   stageType?: StageType
@@ -25,7 +28,13 @@ interface BasicArgs {
 export const Basic: Story<BasicArgs> = args => {
   return (
     <TestWrapper>
-      <Formik initialValues={args.data} onSubmit={() => void 0}>
+      <Formik
+        initialValues={args.data}
+        validationSchema={Yup.object().shape({
+          failureStrategies: getFailureStrategiesValidationSchema(identity).required()
+        })}
+        onSubmit={() => void 0}
+      >
         {formik => {
           return (
             <div style={{ display: 'grid', gridTemplateColumns: '480px 1fr', columnGap: '20px' }}>

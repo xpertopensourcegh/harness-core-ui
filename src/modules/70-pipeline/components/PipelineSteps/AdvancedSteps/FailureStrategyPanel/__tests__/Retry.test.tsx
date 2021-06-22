@@ -8,7 +8,9 @@ import { Basic } from '../FailureStrategyPanel.stories'
 
 describe('Failure Strategy: Retry', () => {
   test('strategy works with simple fallback', async () => {
-    const { container, findByTestId } = render(<Basic data={{ failureStrategies: [{}] }} mode={Modes.STEP} />)
+    const { container, findByTestId } = render(
+      <Basic data={{ failureStrategies: [{ onFailure: { errors: [], action: {} as any } }] }} mode={Modes.STEP} />
+    )
 
     const selection = await findByTestId(testIds.Retry)
 
@@ -63,23 +65,24 @@ describe('Failure Strategy: Retry', () => {
     const code = await findByTestId('code-output')
 
     expect(code).toMatchInlineSnapshot(`
-        <pre
-          data-testid="code-output"
-        >
-          failureStrategies:
-          - onFailure:
-              action:
-                type: Retry
-                spec:
-                  retryCount: 3
-                  retryIntervals:
-                    - 1m
-                  onRetryFailure:
-                    action:
-                      type: Abort
+      <pre
+        data-testid="code-output"
+      >
+        failureStrategies:
+        - onFailure:
+            errors: []
+            action:
+              type: Retry
+              spec:
+                retryCount: 3
+                retryIntervals:
+                  - 1m
+                onRetryFailure:
+                  action:
+                    type: Abort
 
-        </pre>
-      `)
+      </pre>
+    `)
   })
 
   test('deselection works', async () => {
@@ -87,7 +90,15 @@ describe('Failure Strategy: Retry', () => {
       <Basic
         data={{
           failureStrategies: [
-            { onFailure: { action: { type: Strategy.Retry, spec: { retryCount: 3, retryIntervals: ['1m', '2m'] } } } }
+            {
+              onFailure: {
+                errors: [],
+                action: {
+                  type: Strategy.Retry,
+                  spec: { retryCount: 3, retryIntervals: ['1m', '2m'], onRetryFailure: {} }
+                }
+              }
+            }
           ]
         }}
         mode={Modes.STEP_GROUP}
@@ -109,6 +120,7 @@ describe('Failure Strategy: Retry', () => {
       >
         failureStrategies:
         - onFailure:
+            errors: []
             action: {}
 
       </pre>
@@ -117,7 +129,10 @@ describe('Failure Strategy: Retry', () => {
 
   test('deselection works', async () => {
     const { findByTestId } = render(
-      <Basic data={{ failureStrategies: [{ onFailure: { action: { type: 'Retry' } } }] }} mode={Modes.STEP_GROUP} />
+      <Basic
+        data={{ failureStrategies: [{ onFailure: { errors: [], action: { type: 'Retry' } as any } }] }}
+        mode={Modes.STEP_GROUP}
+      />
     )
 
     const selection = await findByTestId(testIds.Retry)
@@ -135,6 +150,7 @@ describe('Failure Strategy: Retry', () => {
       >
         failureStrategies:
         - onFailure:
+            errors: []
             action: {}
 
       </pre>
@@ -142,7 +158,9 @@ describe('Failure Strategy: Retry', () => {
   })
 
   test('"Retry" is not shown in "ManualIntervention" fallback step', async () => {
-    const { findByTestId, findAllByTestId } = render(<Basic data={{ failureStrategies: [{}] }} mode={Modes.STEP} />)
+    const { findByTestId, findAllByTestId } = render(
+      <Basic data={{ failureStrategies: [{ onFailure: { errors: [], action: {} as any } }] }} mode={Modes.STEP} />
+    )
 
     const selection = await findByTestId(testIds.Retry)
 

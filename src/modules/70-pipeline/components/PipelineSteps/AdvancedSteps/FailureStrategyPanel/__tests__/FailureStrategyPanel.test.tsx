@@ -1,8 +1,9 @@
 import React from 'react'
-import { act, fireEvent, queryAllByAttribute, queryByAttribute, render, waitFor } from '@testing-library/react'
+import { act, fireEvent, queryAllByAttribute, render, waitFor } from '@testing-library/react'
 
 import { StageType } from '@pipeline/utils/stageHelpers'
 import { StepMode as Modes } from '@pipeline/utils/stepUtils'
+import { ErrorType, Strategy } from '@pipeline/utils/FailureStrategyUtils'
 import { Basic } from '../FailureStrategyPanel.stories'
 
 describe('<FailureStrategyPanel /> tests', () => {
@@ -47,41 +48,21 @@ describe('<FailureStrategyPanel /> tests', () => {
     `)
   })
 
-  test('CD: adding all error types disable Add button and prevents new strategy addition', async () => {
-    const { findByTestId } = render(
+  test('removing a strategy works', async () => {
+    const { findByTestId, getByTestId } = render(
       <Basic
         data={{
           failureStrategies: [
             {
               onFailure: {
-                errors: ['Unknown'],
-                action: {
-                  type: 'StageRollback'
-                }
+                errors: [ErrorType.Authentication],
+                action: { type: Strategy.Abort }
               }
             },
             {
               onFailure: {
-                errors: [
-                  'Authentication',
-                  'Authorization',
-                  'Connectivity',
-                  'Timeout',
-                  'Verification',
-                  'DelegateProvisioning'
-                ],
-                action: {
-                  type: 'Retry',
-                  spec: {
-                    retryCount: 2,
-                    retryIntervals: ['1d'],
-                    onRetryFailure: {
-                      action: {
-                        type: 'MarkAsSuccess'
-                      }
-                    }
-                  }
-                }
+                errors: [ErrorType.Authorization],
+                action: { type: Strategy.Abort }
               }
             }
           ]
@@ -89,49 +70,6 @@ describe('<FailureStrategyPanel /> tests', () => {
         mode={Modes.STEP}
       />
     )
-
-    const add = await findByTestId('add-failure-strategy')
-
-    expect(add.getAttribute('class')).toContain('bp3-disabled')
-  })
-
-  test('CI: adding Unknown and Timeout error types disable Add button and prevents new strategy addition', async () => {
-    const { findByTestId } = render(
-      <Basic
-        data={{
-          failureStrategies: [
-            {},
-            {
-              onFailure: {
-                errors: ['Unknown', 'Timeout'],
-                action: {
-                  type: 'Retry',
-                  spec: {
-                    retryCount: 2,
-                    retryIntervals: ['1d'],
-                    onRetryFailure: {
-                      action: {
-                        type: 'MarkAsSuccess'
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          ]
-        }}
-        mode={Modes.STAGE}
-        stageType={StageType.BUILD}
-      />
-    )
-
-    const add = await findByTestId('add-failure-strategy')
-
-    expect(add.getAttribute('class')).toContain('bp3-disabled')
-  })
-
-  test('removing a strategy works', async () => {
-    const { findByTestId, getByTestId } = render(<Basic data={{ failureStrategies: [{}, {}] }} mode={Modes.STEP} />)
 
     const step2 = await findByTestId('failure-strategy-step-1')
 
@@ -159,31 +97,22 @@ describe('<FailureStrategyPanel /> tests', () => {
         data-testid="code-output"
       >
         failureStrategies:
-        - {}
+        - onFailure:
+            errors:
+              - Authentication
+            action:
+              type: Abort
 
       </pre>
     `)
   })
 
-  test('in stage mode cannot edit first error type', () => {
-    const { container } = render(<Basic data={{ failureStrategies: [{}] }} mode={Modes.STAGE} />)
-
-    expect(queryByAttribute('name', container, 'failureStrategies[0].onFailure.errors')).toBeNull()
-    expect(container).toMatchSnapshot()
-  })
-
-  test('stage mode of CI domain can edit first error type', () => {
-    const { container } = render(
-      <Basic data={{ failureStrategies: [{}] }} mode={Modes.STAGE} stageType={StageType.BUILD} />
-    )
-
-    expect(queryAllByAttribute('name', container, 'failureStrategies[0].onFailure.errors').length).toBe(2)
-    expect(container).toMatchSnapshot()
-  })
-
   test('shows error for unsupported strategy', async () => {
     const { findByTestId } = render(
-      <Basic data={{ failureStrategies: [{ onFailure: { action: { type: 'UNKNOWN' } } }] }} mode={Modes.STAGE} />
+      <Basic
+        data={{ failureStrategies: [{ onFailure: { errors: [], action: { type: 'UNKNOWN' as any } } }] }}
+        mode={Modes.STAGE}
+      />
     )
 
     const panel = await findByTestId('failure-strategy-panel')
@@ -236,15 +165,18 @@ describe('<FailureStrategyPanel /> tests', () => {
     const { container, findByTestId } = render(
       <Basic
         data={{
-          failureStrategies: [
-            {
-              onFailure: { errors: [] }
-            }
-          ]
+          failureStrategies: []
         }}
         mode={Modes.STEP}
       />
     )
+
+    const add = await findByTestId('add-failure-strategy')
+
+    await act(() => {
+      fireEvent.click(add)
+      return Promise.resolve()
+    })
 
     await waitFor(() => findByTestId('failure-strategy-step-0'))
     const errorTypeFields = queryAllByAttribute('name', container, 'failureStrategies[0].onFailure.errors')!
@@ -256,8 +188,7 @@ describe('<FailureStrategyPanel /> tests', () => {
         data-testid="code-output"
       >
         failureStrategies:
-        - onFailure:
-            errors: []
+        - onFailure: {}
 
       </pre>
     `)
@@ -288,7 +219,10 @@ describe('<FailureStrategyPanel /> tests', () => {
         data={{
           failureStrategies: [
             {
-              onFailure: { errors: ['Authentication', 'Authorization'] }
+              onFailure: {
+                errors: [ErrorType.Authentication, ErrorType.Authorization],
+                action: { type: Strategy.Abort }
+              }
             }
           ]
         }}
@@ -307,6 +241,8 @@ describe('<FailureStrategyPanel /> tests', () => {
             errors:
               - Authentication
               - Authorization
+            action:
+              type: Abort
 
       </pre>
     `)
@@ -324,8 +260,45 @@ describe('<FailureStrategyPanel /> tests', () => {
         - onFailure:
             errors:
               - Authentication
+            action:
+              type: Abort
 
       </pre>
     `)
+  })
+
+  test('"Add" button is disabled, if the tab has errors', async () => {
+    const { findByTestId, findByText } = render(<Basic data={{ failureStrategies: [{} as any] }} mode={Modes.STAGE} />)
+
+    await waitFor(() => findByTestId('failure-strategy-step-0'))
+
+    const add = await findByTestId('add-failure-strategy')
+
+    await act(() => {
+      fireEvent.click(add)
+      return Promise.resolve()
+    })
+
+    await findByText('pipeline.failureStrategies.validation.errorsRequired')
+    expect(add.classList.contains('bp3-disabled')).toBe(true)
+    expect(add.hasAttribute('disabled')).toBe(true)
+  })
+
+  test('"Add" button is disabled, when all possible errors are selected', async () => {
+    const { findByTestId } = render(
+      <Basic
+        data={{
+          failureStrategies: Object.values(ErrorType).map(err => ({
+            onFailure: { errors: [err], action: { type: Strategy.Abort } }
+          }))
+        }}
+        mode={Modes.STAGE}
+      />
+    )
+
+    const add = await findByTestId('add-failure-strategy')
+
+    expect(add.classList.contains('bp3-disabled')).toBe(true)
+    expect(add.hasAttribute('disabled')).toBe(true)
   })
 })

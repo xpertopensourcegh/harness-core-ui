@@ -1306,7 +1306,7 @@ export interface StringsMap {
   'pipeline.executionStatus.Unknown': string
   'pipeline.executionStatus.Waiting': string
   'pipeline.executionTarget': string
-  'pipeline.failureStrategies.defaultStageText': string
+  'pipeline.failureStrategies.addedAllStrategies': string
   'pipeline.failureStrategies.errorTypeLabels.AllErrors': string
   'pipeline.failureStrategies.errorTypeLabels.Authentication': string
   'pipeline.failureStrategies.errorTypeLabels.Authorization': string
@@ -1330,6 +1330,7 @@ export interface StringsMap {
   'pipeline.failureStrategies.strategiesLabel.Retry': string
   'pipeline.failureStrategies.strategiesLabel.StageRollback': string
   'pipeline.failureStrategies.strategiesLabel.StepGroupRollback': string
+  'pipeline.failureStrategies.tabHasErrors': string
   'pipeline.failureStrategies.title': string
   'pipeline.failureStrategies.validation.actionRequired': string
   'pipeline.failureStrategies.validation.errorsMinimum': string

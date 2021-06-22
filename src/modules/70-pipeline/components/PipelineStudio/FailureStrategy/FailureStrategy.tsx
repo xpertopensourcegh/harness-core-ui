@@ -4,9 +4,11 @@ import { Formik, FormikProps } from 'formik'
 import * as Yup from 'yup'
 import { debounce } from 'lodash-es'
 
-import type { ExecutionWrapper, FailureStrategyConfig, StageElementWrapperConfig } from 'services/cd-ng'
+import type { ExecutionWrapper, StageElementWrapperConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
-import FailureStrategyPanel from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/FailureStrategyPanel'
+import FailureStrategyPanel, {
+  AllFailureStrategyConfig
+} from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/FailureStrategyPanel'
 import { ErrorType, Strategy } from '@pipeline/utils/FailureStrategyUtils'
 import { getFailureStrategiesValidationSchema } from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/validation'
 import { StepMode as Modes } from '@pipeline/utils/stepUtils'
@@ -17,7 +19,7 @@ import type { StepCommandsRef } from '../StepCommands/StepCommands'
 export interface FailureStrategyProps {
   selectedStage?: StageElementWrapperConfig
   isReadonly: boolean
-  onUpdate(data: { failureStrategies: FailureStrategyConfig[] }): void
+  onUpdate(data: { failureStrategies: AllFailureStrategyConfig[] }): void
 }
 
 export function FailureStrategy(props: FailureStrategyProps, ref: StepCommandsRef): React.ReactElement {
@@ -60,7 +62,7 @@ export function FailureStrategy(props: FailureStrategyProps, ref: StepCommandsRe
   }))
 
   const stageType = selectedStage?.stage?.type as StageType
-  const fallbackValues =
+  const fallbackValues: AllFailureStrategyConfig[] =
     stageType === StageType.BUILD
       ? []
       : [
@@ -76,7 +78,7 @@ export function FailureStrategy(props: FailureStrategyProps, ref: StepCommandsRe
   return (
     <Formik
       initialValues={{
-        failureStrategies: selectedStage?.stage?.failureStrategies || fallbackValues
+        failureStrategies: (selectedStage?.stage?.failureStrategies as AllFailureStrategyConfig[]) || fallbackValues
       }}
       validationSchema={Yup.object().shape({
         failureStrategies: getFailureStrategiesValidationSchema(getString).required().min(1)

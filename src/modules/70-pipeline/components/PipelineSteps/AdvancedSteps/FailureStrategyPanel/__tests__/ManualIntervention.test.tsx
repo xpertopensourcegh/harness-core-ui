@@ -8,7 +8,9 @@ import { Basic } from '../FailureStrategyPanel.stories'
 
 describe('Failure Strategy: ManualIntervention', () => {
   test('strategy works with simple fallback', async () => {
-    const { container, findByTestId } = render(<Basic data={{ failureStrategies: [{}] }} mode={Modes.STEP} />)
+    const { container, findByTestId } = render(
+      <Basic data={{ failureStrategies: [{ onFailure: { errors: [], action: {} as any } }] }} mode={Modes.STEP} />
+    )
 
     const selection = await findByTestId(testIds.ManualIntervention)
 
@@ -33,27 +35,37 @@ describe('Failure Strategy: ManualIntervention', () => {
     const code = await findByTestId('code-output')
 
     expect(code).toMatchInlineSnapshot(`
-        <pre
-          data-testid="code-output"
-        >
-          failureStrategies:
-          - onFailure:
-              action:
-                type: ManualIntervention
-                spec:
-                  timeout: 1d
-                  onTimeout:
-                    action:
-                      type: Abort
+      <pre
+        data-testid="code-output"
+      >
+        failureStrategies:
+        - onFailure:
+            errors: []
+            action:
+              type: ManualIntervention
+              spec:
+                timeout: 1d
+                onTimeout:
+                  action:
+                    type: Abort
 
-        </pre>
-      `)
+      </pre>
+    `)
   })
 
   test('deselection works', async () => {
     const { findByTestId } = render(
       <Basic
-        data={{ failureStrategies: [{ onFailure: { action: { type: Strategy.ManualIntervention } } }] }}
+        data={{
+          failureStrategies: [
+            {
+              onFailure: {
+                errors: [],
+                action: { type: Strategy.ManualIntervention, spec: { onTimeout: {}, timeout: '1d' } }
+              }
+            }
+          ]
+        }}
         mode={Modes.STEP_GROUP}
       />
     )
@@ -73,6 +85,7 @@ describe('Failure Strategy: ManualIntervention', () => {
       >
         failureStrategies:
         - onFailure:
+            errors: []
             action: {}
 
       </pre>
@@ -80,7 +93,9 @@ describe('Failure Strategy: ManualIntervention', () => {
   })
 
   test('"ManualIntervention" is not shown in "Retry" fallback step', async () => {
-    const { findByTestId, findAllByTestId } = render(<Basic data={{ failureStrategies: [{}] }} mode={Modes.STEP} />)
+    const { findByTestId, findAllByTestId } = render(
+      <Basic data={{ failureStrategies: [{ onFailure: { errors: [], action: {} as any } }] }} mode={Modes.STEP} />
+    )
 
     const selection = await findByTestId(testIds.ManualIntervention)
 

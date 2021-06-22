@@ -186,8 +186,8 @@ failureStrategies:
   title: Failure Strategy
   helpText: |
     Define one or more failure strategies to control the behavior of your pipeline when your step execution encounters an error.
-  defaultStageText: |
-    On all errors other than those specified in failure strategies defined here, perform action:
+  addedAllStrategies: You have added all possible failure strategies. There are no more options to add.
+  tabHasErrors: The current settings have errors. Please review the error messages displayed and resolve the issues.
   onFailureOfType: On failure of type
   fieldLabels:
     retryCountLabel: Retry count

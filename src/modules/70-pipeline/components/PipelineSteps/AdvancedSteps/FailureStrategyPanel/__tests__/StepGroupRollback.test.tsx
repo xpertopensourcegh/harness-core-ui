@@ -7,7 +7,9 @@ import { testIds } from '../StrategySelection/StrategyConfig'
 import { Basic } from '../FailureStrategyPanel.stories'
 describe('Failure Strategy: StepGroupRollback', () => {
   test('selection works', async () => {
-    const { findByTestId } = render(<Basic data={{ failureStrategies: [{}] }} mode={Modes.STEP_GROUP} />)
+    const { findByTestId } = render(
+      <Basic data={{ failureStrategies: [{ onFailure: { errors: [], action: {} as any } }] }} mode={Modes.STEP_GROUP} />
+    )
 
     const selection = await findByTestId(testIds.StepGroupRollback)
 
@@ -27,6 +29,7 @@ describe('Failure Strategy: StepGroupRollback', () => {
       >
         failureStrategies:
         - onFailure:
+            errors: []
             action:
               type: StepGroupRollback
 
@@ -37,7 +40,7 @@ describe('Failure Strategy: StepGroupRollback', () => {
   test('deselection works', async () => {
     const { findByTestId } = render(
       <Basic
-        data={{ failureStrategies: [{ onFailure: { action: { type: Strategy.StepGroupRollback } } }] }}
+        data={{ failureStrategies: [{ onFailure: { errors: [], action: { type: Strategy.StepGroupRollback } } }] }}
         mode={Modes.STEP_GROUP}
       />
     )
@@ -57,6 +60,7 @@ describe('Failure Strategy: StepGroupRollback', () => {
       >
         failureStrategies:
         - onFailure:
+            errors: []
             action: {}
 
       </pre>

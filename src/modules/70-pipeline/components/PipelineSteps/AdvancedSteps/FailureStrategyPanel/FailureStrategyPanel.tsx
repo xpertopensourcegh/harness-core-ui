@@ -2,21 +2,40 @@ import React from 'react'
 import { Button } from '@wings-software/uicore'
 import { FieldArray, FormikProps } from 'formik'
 import { v4 as uuid } from 'uuid'
-import { flatMap, get, isEmpty } from 'lodash-es'
+import { flatMap, get, isEmpty, uniq } from 'lodash-es'
 
 import { String, useStrings } from 'framework/strings'
-import type { FailureStrategyConfig } from 'services/cd-ng'
+import type {
+  RetryFailureActionConfig,
+  IgnoreFailureActionConfig,
+  ManualInterventionFailureActionConfig,
+  AbortFailureActionConfig,
+  StepGroupFailureActionConfig,
+  MarkAsSuccessFailureActionConfig,
+  StageRollbackFailureActionConfig,
+  FailureStrategyConfig,
+  OnFailureConfig
+} from 'services/cd-ng'
 import { StageType } from '@pipeline/utils/stageHelpers'
 import { StepMode as Modes } from '@pipeline/utils/stepUtils'
 
 import FailureTypeMultiSelect from './FailureTypeMultiSelect'
-import {
-  allowedStrategiesAsPerStep,
-  errorTypesOrderForCD,
-  errorTypesOrderForCI
-} from './StrategySelection/StrategyConfig'
+import { allowedStrategiesAsPerStep, errorTypesForStages } from './StrategySelection/StrategyConfig'
 import StrategySelection from './StrategySelection/StrategySelection'
 import css from './FailureStrategyPanel.module.scss'
+
+export type AllActions =
+  | RetryFailureActionConfig
+  | IgnoreFailureActionConfig
+  | ManualInterventionFailureActionConfig
+  | AbortFailureActionConfig
+  | StepGroupFailureActionConfig
+  | MarkAsSuccessFailureActionConfig
+  | StageRollbackFailureActionConfig
+
+export interface AllFailureStrategyConfig extends FailureStrategyConfig {
+  onFailure: OnFailureConfig & { action: AllActions }
+}
 
 /**
  * https://harness.atlassian.net/wiki/spaces/CDNG/pages/865403111/Failure+Strategy+-+CD+Next+Gen
@@ -26,7 +45,7 @@ import css from './FailureStrategyPanel.module.scss'
 
 export interface FailureStrategyPanelProps {
   formikProps: FormikProps<{
-    failureStrategies?: FailureStrategyConfig[]
+    failureStrategies?: AllFailureStrategyConfig[]
   }>
   mode: Modes
   isReadonly: boolean
@@ -38,7 +57,7 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
     formikProps: { values: formValues, submitForm, errors },
     mode,
     isReadonly,
-    stageType: domain = StageType.DEPLOY
+    stageType = StageType.DEPLOY
   } = props
   const [selectedStrategyNum, setSelectedStrategyNum] = React.useState(0)
   const hasFailureStrategies = Array.isArray(formValues.failureStrategies) && formValues.failureStrategies.length > 0
@@ -47,16 +66,15 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
 
   const uids = React.useRef<string[]>([])
 
-  const isDefaultStageStrategy = mode === Modes.STAGE && domain === StageType.DEPLOY && selectedStrategyNum === 0
-  const filterTypes = flatMap(
-    formValues.failureStrategies || /* istanbul ignore next */ [],
-    e => e.onFailure?.errors || []
+  const isDefaultStageStrategy = mode === Modes.STAGE && stageType === StageType.DEPLOY && selectedStrategyNum === 0
+  const filterTypes = uniq(
+    flatMap(formValues.failureStrategies || /* istanbul ignore next */ [], e => e.onFailure?.errors || [])
   )
 
-  const isAddBtnDisabled =
-    domain === StageType.BUILD
-      ? filterTypes.length === errorTypesOrderForCI.length || isReadonly
-      : filterTypes.length === errorTypesOrderForCD.length || isReadonly
+  const currentTabHasErrors = !isEmpty(get(errors, `failureStrategies[${selectedStrategyNum}]`))
+  const addedAllStratgies = filterTypes.length === errorTypesForStages[stageType].length
+
+  const isAddBtnDisabled = addedAllStratgies || isReadonly || currentTabHasErrors
 
   async function handleTabChange(n: number): Promise<void> {
     await submitForm()
@@ -81,9 +99,16 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
       <div className={css.header}>
         <FieldArray name="failureStrategies">
           {({ push, remove }) => {
-            function handleAdd(): void {
-              uids.current.push(uuid())
-              push({ onFailure: {} })
+            async function handleAdd(): Promise<void> {
+              await submitForm()
+
+              // only allow add if current tab has no errors
+              /* istanbul ignore else */
+              if (isEmpty(get(errors, `failureStrategies[${selectedStrategyNum}]`))) {
+                uids.current.push(uuid())
+                push({ onFailure: {} })
+                setSelectedStrategyNum(n => n + 1)
+              }
             }
 
             function handleRemove(): void {
@@ -129,6 +154,13 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
                     data-testid="add-failure-strategy"
                     onClick={handleAdd}
                     disabled={isAddBtnDisabled}
+                    tooltip={
+                      currentTabHasErrors
+                        ? getString('pipeline.failureStrategies.tabHasErrors')
+                        : addedAllStratgies
+                        ? getString('pipeline.failureStrategies.addedAllStrategies')
+                        : undefined
+                    }
                   >
                     <String stringID="add" />
                   </Button>
@@ -151,26 +183,17 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
       </div>
       {hasFailureStrategies ? (
         <React.Fragment>
-          {isDefaultStageStrategy ? (
-            <String
-              tagName="div"
-              className={css.defaultStageText}
-              stringID="pipeline.failureStrategies.defaultStageText"
-            />
-          ) : (
-            <FailureTypeMultiSelect
-              name={`failureStrategies[${selectedStrategyNum}].onFailure.errors`}
-              label={getString('pipeline.failureStrategies.onFailureOfType')}
-              filterTypes={filterTypes}
-              minimal={domain === StageType.BUILD}
-              disabled={isReadonly}
-            />
-          )}
-
+          <FailureTypeMultiSelect
+            name={`failureStrategies[${selectedStrategyNum}].onFailure.errors`}
+            label={getString('pipeline.failureStrategies.onFailureOfType')}
+            filterTypes={filterTypes}
+            stageType={stageType}
+            disabled={isReadonly}
+          />
           <StrategySelection
             name={`failureStrategies[${selectedStrategyNum}].onFailure.action`}
             label={getString('pipeline.failureStrategies.performAction')}
-            allowedStrategies={allowedStrategiesAsPerStep(domain)[mode]}
+            allowedStrategies={allowedStrategiesAsPerStep(stageType)[mode]}
             disabled={isReadonly}
           />
         </React.Fragment>

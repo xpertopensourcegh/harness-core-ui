@@ -8,7 +8,6 @@ declare const styles: {
   readonly stepList: string
   readonly stepListItem: string
   readonly stepListBtn: string
-  readonly defaultStageText: string
   readonly failureSelect: string
   readonly selectWrapper: string
   readonly errorSelect: string

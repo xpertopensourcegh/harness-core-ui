@@ -7,7 +7,9 @@ import { testIds } from '../StrategySelection/StrategyConfig'
 import { Basic } from '../FailureStrategyPanel.stories'
 describe('Failure Strategy: MarkAsSuccess', () => {
   test('selection works', async () => {
-    const { findByTestId } = render(<Basic data={{ failureStrategies: [{}] }} mode={Modes.STEP} />)
+    const { findByTestId } = render(
+      <Basic data={{ failureStrategies: [{ onFailure: { errors: [], action: {} as any } }] }} mode={Modes.STEP} />
+    )
 
     const selection = await findByTestId(testIds.MarkAsSuccess)
 
@@ -27,6 +29,7 @@ describe('Failure Strategy: MarkAsSuccess', () => {
       >
         failureStrategies:
         - onFailure:
+            errors: []
             action:
               type: MarkAsSuccess
 
@@ -37,7 +40,7 @@ describe('Failure Strategy: MarkAsSuccess', () => {
   test('deselection works', async () => {
     const { findByTestId } = render(
       <Basic
-        data={{ failureStrategies: [{ onFailure: { action: { type: Strategy.MarkAsSuccess } } }] }}
+        data={{ failureStrategies: [{ onFailure: { errors: [], action: { type: Strategy.MarkAsSuccess } } }] }}
         mode={Modes.STEP_GROUP}
       />
     )
@@ -57,6 +60,7 @@ describe('Failure Strategy: MarkAsSuccess', () => {
       >
         failureStrategies:
         - onFailure:
+            errors: []
             action: {}
 
       </pre>

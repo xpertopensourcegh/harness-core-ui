@@ -57,16 +57,32 @@ export const allowedStrategiesAsPerStep: (domain: StageType) => Record<Modes, St
   }
 }
 
-export const errorTypesOrderForCD: FailureErrorType[] = [
-  ErrorType.Authentication,
-  ErrorType.Authorization,
-  ErrorType.Connectivity,
-  ErrorType.DelegateProvisioning,
-  ErrorType.Timeout,
-  ErrorType.Unknown,
-  ErrorType.Verification
-]
-export const errorTypesOrderForCI: FailureErrorType[] = [ErrorType.Timeout, ErrorType.Unknown]
+export const errorTypesForStages: Record<StageType, FailureErrorType[]> = {
+  [StageType.DEPLOY]: [
+    ErrorType.Authentication,
+    ErrorType.Authorization,
+    ErrorType.Connectivity,
+    ErrorType.DelegateProvisioning,
+    ErrorType.Timeout,
+    ErrorType.Unknown,
+    ErrorType.Verification,
+    ErrorType.AllErrors
+  ],
+  [StageType.BUILD]: [ErrorType.Timeout, ErrorType.Unknown, ErrorType.AllErrors],
+  [StageType.APPROVAL]: [
+    ErrorType.Authentication,
+    ErrorType.Authorization,
+    ErrorType.Connectivity,
+    ErrorType.DelegateProvisioning,
+    ErrorType.Timeout,
+    ErrorType.Unknown,
+    ErrorType.Verification,
+    ErrorType.AllErrors
+  ],
+  [StageType.FEATURE]: [],
+  [StageType.PIPELINE]: [],
+  [StageType.CUSTOM]: []
+}
 
 export const testIds: Record<Strategy, string> = mapValues(
   Strategy,
