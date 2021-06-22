@@ -11,17 +11,15 @@ import { useToaster } from '@common/components'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import HarnessAccount from '@auth-settings/pages/Configuration/AccountAndOAuth/HarnessAccount/HarnessAccount'
 import PublicOAuthProviders from '@auth-settings/pages/Configuration/AccountAndOAuth/OAuthProviders/PublicOAuthProviders'
-import type { PermissionRequest } from '@auth-settings/pages/Configuration/Configuration'
 import cssConfiguration from '@auth-settings/pages/Configuration/Configuration.module.scss'
 
 interface Props {
   authSettings: AuthenticationSettingsResponse
   refetchAuthSettings: () => void
-  permissionRequest: PermissionRequest
   canEdit: boolean
 }
 
-const AccountAndOAuth: React.FC<Props> = ({ authSettings, refetchAuthSettings, permissionRequest, canEdit }) => {
+const AccountAndOAuth: React.FC<Props> = ({ authSettings, refetchAuthSettings, canEdit }) => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
   const { showSuccess, showError } = useToaster()
@@ -108,7 +106,6 @@ const AccountAndOAuth: React.FC<Props> = ({ authSettings, refetchAuthSettings, p
             refetchAuthSettings={refetchAuthSettings}
             submitUserPasswordUpdate={submitUserPasswordUpdate}
             updatingAuthMechanism={updatingAuthMechanism}
-            permissionRequest={permissionRequest}
             canEdit={canEdit}
           />
           <PublicOAuthProviders

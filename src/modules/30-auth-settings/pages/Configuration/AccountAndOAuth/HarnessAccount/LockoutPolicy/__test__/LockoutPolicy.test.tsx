@@ -3,7 +3,7 @@ import { render, act, fireEvent, waitFor, queryByText, queryAllByText } from '@t
 import { TestWrapper, findDialogContainer } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps } from '@common/utils/routeUtils'
-import { mockResponse, loginSettings, permissionRequest } from '@auth-settings/pages/Configuration/__test__/mock'
+import { mockResponse, loginSettings } from '@auth-settings/pages/Configuration/__test__/mock'
 import LockoutPolicy from '../LockoutPolicy'
 
 jest.mock('services/cd-ng', () => ({
@@ -32,12 +32,7 @@ describe('LockoutPolicy', () => {
         path={routes.toAuthenticationSettings({ ...accountPathProps })}
         pathParams={{ accountId: 'testAcc' }}
       >
-        <LockoutPolicy
-          loginSettings={loginSettings}
-          refetchAuthSettings={refetchAuthSettings}
-          permissionRequest={permissionRequest}
-          canEdit
-        />
+        <LockoutPolicy loginSettings={loginSettings} refetchAuthSettings={refetchAuthSettings} canEdit />
       </TestWrapper>
     )
 
@@ -65,12 +60,7 @@ describe('LockoutPolicy', () => {
           path={routes.toAuthenticationSettings({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
         >
-          <LockoutPolicy
-            loginSettings={disabledLockoutPolicy}
-            refetchAuthSettings={refetchAuthSettings}
-            permissionRequest={permissionRequest}
-            canEdit
-          />
+          <LockoutPolicy loginSettings={disabledLockoutPolicy} refetchAuthSettings={refetchAuthSettings} canEdit />
         </TestWrapper>
       )
 
@@ -96,12 +86,7 @@ describe('LockoutPolicy', () => {
           path={routes.toAuthenticationSettings({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
         >
-          <LockoutPolicy
-            loginSettings={disabledLockoutPolicy}
-            refetchAuthSettings={refetchAuthSettings}
-            permissionRequest={permissionRequest}
-            canEdit
-          />
+          <LockoutPolicy loginSettings={disabledLockoutPolicy} refetchAuthSettings={refetchAuthSettings} canEdit />
         </TestWrapper>
       )
 
@@ -130,12 +115,7 @@ describe('LockoutPolicy', () => {
           path={routes.toAuthenticationSettings({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
         >
-          <LockoutPolicy
-            loginSettings={loginSettings}
-            refetchAuthSettings={refetchAuthSettings}
-            permissionRequest={permissionRequest}
-            canEdit
-          />
+          <LockoutPolicy loginSettings={loginSettings} refetchAuthSettings={refetchAuthSettings} canEdit />
         </TestWrapper>
       )
 

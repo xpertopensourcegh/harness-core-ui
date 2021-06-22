@@ -5,5 +5,6 @@ declare const styles: {
   readonly height60: string
   readonly collapseClassName: string
   readonly collapseBottomPadding: string
+  readonly callout: string
 }
 export default styles

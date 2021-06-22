@@ -4,7 +4,7 @@ import { TestWrapper, findDialogContainer } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps } from '@common/utils/routeUtils'
 import { AuthenticationMechanisms } from '@auth-settings/constants/utils'
-import { authSettings, mockResponse, permissionRequest } from '@auth-settings/pages/Configuration/__test__/mock'
+import { authSettings, mockResponse } from '@auth-settings/pages/Configuration/__test__/mock'
 import AccountAndOAuth from '../AccountAndOAuth'
 
 const refetchAuthSettings = jest.fn()
@@ -35,12 +35,7 @@ describe('AccountAndOAuth', () => {
         path={routes.toAuthenticationSettings({ ...accountPathProps })}
         pathParams={{ accountId: 'testAcc' }}
       >
-        <AccountAndOAuth
-          authSettings={disabledAccountAndOauth}
-          refetchAuthSettings={refetchAuthSettings}
-          permissionRequest={permissionRequest}
-          canEdit
-        />
+        <AccountAndOAuth authSettings={disabledAccountAndOauth} refetchAuthSettings={refetchAuthSettings} canEdit />
       </TestWrapper>
     )
     container = renderObj.container

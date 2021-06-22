@@ -2,7 +2,7 @@ import React from 'react'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { Radio, Container, Collapse, Color, Card, Text, Button, Popover } from '@wings-software/uicore'
-import { Menu } from '@blueprintjs/core'
+import { Menu, MenuItem } from '@blueprintjs/core'
 import { useToaster } from '@common/components'
 import { useStrings } from 'framework/strings'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
@@ -217,13 +217,10 @@ const SAMLProvider: React.FC<Props> = ({ authSettings, refetchAuthSettings, perm
                 position="left-top"
                 content={
                   <Menu>
-                    <RbacMenuItem
+                    <MenuItem
                       text={getString('edit')}
                       onClick={() => openSAMlProvider(samlSettings)}
-                      permission={{
-                        ...permissionRequest,
-                        permission: PermissionIdentifier.EDIT_AUTHSETTING
-                      }}
+                      disabled={!canEdit}
                     />
                     <RbacMenuItem
                       text={getString('delete')}

@@ -9,7 +9,6 @@ import PasswordStrength from '@auth-settings/pages/Configuration/AccountAndOAuth
 import PasswordExpire from '@auth-settings/pages/Configuration/AccountAndOAuth/HarnessAccount/PasswordExpire/PasswordExpire'
 import LockoutPolicy from '@auth-settings/pages/Configuration/AccountAndOAuth/HarnessAccount/LockoutPolicy/LockoutPolicy'
 import TwoFactorAuthentication from '@auth-settings/pages/Configuration/AccountAndOAuth/HarnessAccount/TwoFactorAuthentication/TwoFactorAuthentication'
-import type { PermissionRequest } from '@auth-settings/pages/Configuration/Configuration'
 import cssConfiguration from '@auth-settings/pages/Configuration/Configuration.module.scss'
 
 interface Props {
@@ -20,7 +19,6 @@ interface Props {
     message: string
   ) => Promise<void>
   updatingAuthMechanism: boolean
-  permissionRequest: PermissionRequest
   canEdit: boolean
 }
 
@@ -29,7 +27,6 @@ const HarnessAccount: React.FC<Props> = ({
   refetchAuthSettings,
   submitUserPasswordUpdate,
   updatingAuthMechanism,
-  permissionRequest,
   canEdit
 }) => {
   const { getString } = useStrings()
@@ -102,24 +99,9 @@ const HarnessAccount: React.FC<Props> = ({
     >
       {loginSettings && (
         <Layout.Vertical spacing="medium">
-          <PasswordStrength
-            loginSettings={loginSettings}
-            refetchAuthSettings={refetchAuthSettings}
-            permissionRequest={permissionRequest}
-            canEdit={canEdit}
-          />
-          <PasswordExpire
-            loginSettings={loginSettings}
-            refetchAuthSettings={refetchAuthSettings}
-            permissionRequest={permissionRequest}
-            canEdit={canEdit}
-          />
-          <LockoutPolicy
-            loginSettings={loginSettings}
-            refetchAuthSettings={refetchAuthSettings}
-            permissionRequest={permissionRequest}
-            canEdit={canEdit}
-          />
+          <PasswordStrength loginSettings={loginSettings} refetchAuthSettings={refetchAuthSettings} canEdit={canEdit} />
+          <PasswordExpire loginSettings={loginSettings} refetchAuthSettings={refetchAuthSettings} canEdit={canEdit} />
+          <LockoutPolicy loginSettings={loginSettings} refetchAuthSettings={refetchAuthSettings} canEdit={canEdit} />
           <TwoFactorAuthentication
             twoFactorEnabled={!!authSettings.twoFactorEnabled}
             onSuccess={refetchAuthSettings}

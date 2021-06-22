@@ -1,7 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
-import { Layout, Text, Color, Container, Switch, Collapse } from '@wings-software/uicore'
+import { Layout, Text, Color, Container, Switch, Collapse, Button } from '@wings-software/uicore'
 import { useLockoutPolicyModal } from '@auth-settings/modals/LockoutPolicy/useLockoutPolicy'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { useToaster } from '@common/components'
@@ -9,20 +9,16 @@ import type { LoginSettings } from 'services/cd-ng'
 import { usePutLoginSettings } from 'services/cd-ng'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
-import RbacButton from '@rbac/components/Button/Button'
-import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import type { PermissionRequest } from '@auth-settings/pages/Configuration/Configuration'
 import cssConfiguration from '@auth-settings/pages/Configuration/Configuration.module.scss'
 import cssHarnessAccount from '@auth-settings/pages/Configuration/AccountAndOAuth/HarnessAccount/HarnessAccount.module.scss'
 
 interface Props {
   loginSettings: LoginSettings
   refetchAuthSettings: () => void
-  permissionRequest: PermissionRequest
   canEdit: boolean
 }
 
-const LockoutPolicy: React.FC<Props> = ({ loginSettings, refetchAuthSettings, permissionRequest, canEdit }) => {
+const LockoutPolicy: React.FC<Props> = ({ loginSettings, refetchAuthSettings, canEdit }) => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
   const { showSuccess, showError } = useToaster()
@@ -135,16 +131,13 @@ const LockoutPolicy: React.FC<Props> = ({ loginSettings, refetchAuthSettings, pe
         className={cssHarnessAccount.passwordChecksDiv}
       >
         <div className={cssHarnessAccount.editIcon}>
-          <RbacButton
+          <Button
             minimal
             intent="primary"
             icon="edit"
             onClick={() => openLockoutPolicyModal(true)}
             data-testid="update-lockout-policy"
-            permission={{
-              ...permissionRequest,
-              permission: PermissionIdentifier.EDIT_AUTHSETTING
-            }}
+            disabled={!canEdit}
           />
         </div>
         {list.map(({ label, value }) => (

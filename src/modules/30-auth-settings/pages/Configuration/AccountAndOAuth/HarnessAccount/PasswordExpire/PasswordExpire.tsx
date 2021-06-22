@@ -1,7 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
-import { Layout, Text, Color, Container, Switch, Collapse } from '@wings-software/uicore'
+import { Layout, Text, Color, Container, Switch, Collapse, Button } from '@wings-software/uicore'
 import type { LoginSettings } from 'services/cd-ng'
 import { usePasswordExpirationModal } from '@auth-settings/modals/PasswordExpiration/usePasswordExpiration'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
@@ -9,20 +9,16 @@ import { usePutLoginSettings } from 'services/cd-ng'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/components'
-import RbacButton from '@rbac/components/Button/Button'
-import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import type { PermissionRequest } from '@auth-settings/pages/Configuration/Configuration'
 import cssConfiguration from '@auth-settings/pages/Configuration/Configuration.module.scss'
 import cssHarnessAccount from '@auth-settings/pages/Configuration/AccountAndOAuth/HarnessAccount/HarnessAccount.module.scss'
 
 interface Props {
   loginSettings: LoginSettings
   refetchAuthSettings: () => void
-  permissionRequest: PermissionRequest
   canEdit: boolean
 }
 
-const PasswordExpire: React.FC<Props> = ({ loginSettings, refetchAuthSettings, permissionRequest, canEdit }) => {
+const PasswordExpire: React.FC<Props> = ({ loginSettings, refetchAuthSettings, canEdit }) => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
   const { showSuccess, showError } = useToaster()
@@ -122,16 +118,13 @@ const PasswordExpire: React.FC<Props> = ({ loginSettings, refetchAuthSettings, p
         className={cssHarnessAccount.passwordChecksDiv}
       >
         <div className={cssHarnessAccount.editIcon}>
-          <RbacButton
+          <Button
             minimal
             intent="primary"
             icon="edit"
             onClick={() => openPasswordExpirationModal(true)}
             data-testid="update-password-expire-settings"
-            permission={{
-              ...permissionRequest,
-              permission: PermissionIdentifier.EDIT_AUTHSETTING
-            }}
+            disabled={!canEdit}
           />
         </div>
         <Text margin={{ bottom: 'xsmall' }} color={Color.BLACK}>

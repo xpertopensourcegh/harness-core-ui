@@ -3,7 +3,7 @@ import { render, act, fireEvent, waitFor, queryByText, queryAllByText } from '@t
 import { TestWrapper, findDialogContainer } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps } from '@common/utils/routeUtils'
-import { mockResponse, permissionRequest } from '@auth-settings/pages/Configuration/__test__/mock'
+import { mockResponse } from '@auth-settings/pages/Configuration/__test__/mock'
 import RestrictEmailDomains from '../RestrictEmailDomains'
 
 jest.mock('services/cd-ng', () => ({
@@ -25,7 +25,6 @@ describe('RestrictEmailDomains', () => {
         <RestrictEmailDomains
           whitelistedDomains={whitelistedDomains}
           refetchAuthSettings={refetchAuthSettings}
-          permissionRequest={permissionRequest}
           canEdit
         />
       </TestWrapper>
@@ -58,7 +57,6 @@ describe('RestrictEmailDomains', () => {
           <RestrictEmailDomains
             whitelistedDomains={whitelistedDomains}
             refetchAuthSettings={refetchAuthSettings}
-            permissionRequest={permissionRequest}
             canEdit
           />
         </TestWrapper>

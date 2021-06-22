@@ -1,7 +1,9 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { useGetAuthenticationSettings } from 'services/cd-ng'
+import { Callout } from '@blueprintjs/core'
 import { Page } from '@common/exports'
+import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
+import { useGetAuthenticationSettings } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import AccountAndOAuth from '@auth-settings/pages/Configuration/AccountAndOAuth/AccountAndOAuth'
@@ -10,6 +12,7 @@ import RestrictEmailDomains from '@auth-settings/pages/Configuration/RestrictEma
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import css from './Configuration.module.scss'
 
 export interface PermissionRequest {
   resourceScope: {
@@ -67,12 +70,16 @@ const Configuration: React.FC = () => {
       >
         {data?.resource && (
           <React.Fragment>
-            <AccountAndOAuth
-              authSettings={data.resource}
-              refetchAuthSettings={refetchAuthSettings}
-              permissionRequest={permissionRequest}
-              canEdit={canEdit}
-            />
+            {!canEdit && (
+              <Callout icon={null} className={css.callout}>
+                <RBACTooltip
+                  permission={PermissionIdentifier.EDIT_AUTHSETTING}
+                  resourceType={permissionRequest.resource.resourceType}
+                  resourceScope={permissionRequest.resourceScope}
+                />
+              </Callout>
+            )}
+            <AccountAndOAuth authSettings={data.resource} refetchAuthSettings={refetchAuthSettings} canEdit={canEdit} />
             <SAMLProvider
               authSettings={data.resource}
               refetchAuthSettings={refetchAuthSettings}
@@ -82,7 +89,6 @@ const Configuration: React.FC = () => {
             <RestrictEmailDomains
               whitelistedDomains={data.resource.whitelistedDomains || []}
               refetchAuthSettings={refetchAuthSettings}
-              permissionRequest={permissionRequest}
               canEdit={canEdit}
             />
           </React.Fragment>

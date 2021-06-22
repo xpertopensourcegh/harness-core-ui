@@ -3,10 +3,10 @@
 exports[`RBACTooltip RBACTooltip component - Org scope 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main StyledProps--padding-small"
+    class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-small"
   >
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800"
     >
       rbac.youAreNotAuthorizedTo 
       <span
@@ -21,12 +21,12 @@ exports[`RBACTooltip RBACTooltip component - Org scope 1`] = `
       </span>
     </p>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey800"
     >
       rbac.youAreMissingTheFollowingPermission
     </p>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey800"
     >
       "
       core_organization_create
@@ -47,10 +47,10 @@ exports[`RBACTooltip RBACTooltip component - Org scope 1`] = `
 exports[`RBACTooltip RBACTooltip component - Project scope 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main StyledProps--padding-small"
+    class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-small"
   >
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800"
     >
       rbac.youAreNotAuthorizedTo 
       <span
@@ -65,12 +65,12 @@ exports[`RBACTooltip RBACTooltip component - Project scope 1`] = `
       </span>
     </p>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey800"
     >
       rbac.youAreMissingTheFollowingPermission
     </p>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey800"
     >
       "
       core_project_create
@@ -91,10 +91,10 @@ exports[`RBACTooltip RBACTooltip component - Project scope 1`] = `
 exports[`RBACTooltip RBACTooltip component 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main StyledProps--padding-small"
+    class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-small"
   >
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800"
     >
       rbac.youAreNotAuthorizedTo 
       <span
@@ -109,12 +109,12 @@ exports[`RBACTooltip RBACTooltip component 1`] = `
       </span>
     </p>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey800"
     >
       rbac.youAreMissingTheFollowingPermission
     </p>
     <p
-      class="StyledProps--font StyledProps--main"
+      class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey800"
     >
       "
       core_project_create

@@ -4,7 +4,7 @@ import { TestWrapper, findDialogContainer } from '@common/utils/testUtils'
 import { AuthenticationMechanisms } from '@auth-settings/constants/utils'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps } from '@common/utils/routeUtils'
-import { mockResponse, authSettings, permissionRequest } from '@auth-settings/pages/Configuration/__test__/mock'
+import { mockResponse, authSettings } from '@auth-settings/pages/Configuration/__test__/mock'
 import HarnessAccount from '../HarnessAccount'
 
 jest.mock('services/cd-ng', () => ({
@@ -47,7 +47,6 @@ describe('HarnessAccount', () => {
           refetchAuthSettings={refetchAuthSettings}
           submitUserPasswordUpdate={submitUserPasswordUpdate}
           updatingAuthMechanism={updatingAuthMechanism}
-          permissionRequest={permissionRequest}
           canEdit
         />
       </TestWrapper>
@@ -82,7 +81,6 @@ describe('HarnessAccount', () => {
             refetchAuthSettings={refetchAuthSettings}
             submitUserPasswordUpdate={submitUserPasswordUpdate}
             updatingAuthMechanism={updatingAuthMechanism}
-            permissionRequest={permissionRequest}
             canEdit
           />
         </TestWrapper>
@@ -106,7 +104,6 @@ describe('HarnessAccount', () => {
             refetchAuthSettings={refetchAuthSettings}
             submitUserPasswordUpdate={submitUserPasswordUpdate}
             updatingAuthMechanism={updatingAuthMechanism}
-            permissionRequest={permissionRequest}
             canEdit
           />
         </TestWrapper>

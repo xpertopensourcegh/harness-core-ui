@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Container, Card, Switch, Text, Color } from '@wings-software/uicore'
+import { Container, Card, Switch, Text, Color, Button } from '@wings-software/uicore'
 import { TagInput } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
@@ -8,24 +8,15 @@ import { useToaster } from '@common/components'
 import { useUpdateWhitelistedDomains } from 'services/cd-ng'
 import { useRestrictEmailDomains } from '@auth-settings/modals/RestrictEmailDomains/useRestrictEmailDomains'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
-import RbacButton from '@rbac/components/Button/Button'
-import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import type { PermissionRequest } from '@auth-settings/pages/Configuration/Configuration'
 import css from './RestrictEmailDomains.module.scss'
 
 interface Props {
   whitelistedDomains: string[]
   refetchAuthSettings: () => void
-  permissionRequest: PermissionRequest
   canEdit: boolean
 }
 
-const RestrictEmailDomains: React.FC<Props> = ({
-  whitelistedDomains,
-  refetchAuthSettings,
-  canEdit,
-  permissionRequest
-}) => {
+const RestrictEmailDomains: React.FC<Props> = ({ whitelistedDomains, refetchAuthSettings, canEdit }) => {
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
   const { accountId } = useParams<AccountPathProps>()
@@ -101,17 +92,13 @@ const RestrictEmailDomains: React.FC<Props> = ({
             disabled
             values={whitelistedDomains}
             rightElement={
-              <RbacButton
+              <Button
                 minimal
                 intent="primary"
                 icon="edit"
                 onClick={openRestrictEmailDomainsModal}
                 disabled={!canEdit}
                 data-testid="update-restrict-email-domains"
-                permission={{
-                  ...permissionRequest,
-                  permission: PermissionIdentifier.EDIT_AUTHSETTING
-                }}
               />
             }
             className={css.input}

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Container, Text } from '@wings-software/uicore'
+import { Color, Layout, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { ResourceType } from '@rbac/interfaces/ResourceType'
@@ -59,16 +59,18 @@ const RBACTooltip: React.FC<Props> = ({ permission, resourceType, resourceScope 
   }
 
   return (
-    <Container padding="small">
-      <Text>
+    <Layout.Vertical padding="small" spacing="small">
+      <Text font={{ size: 'small', weight: 'semi-bold' }} color={Color.GREY_800}>
         {`${getString('rbac.youAreNotAuthorizedTo')} `}
         <span className={css.textToLowercase}>{resourceTypeHandler?.permissionLabels?.[permission] || permission}</span>
         <span className={css.textToLowercase}>
           {` ${resourceTypeHandler?.label && getString(resourceTypeHandler?.label)}.`}
         </span>
       </Text>
-      <Text>{getString('rbac.youAreMissingTheFollowingPermission')}</Text>
-      <Text>
+      <Text font={{ size: 'small' }} color={Color.GREY_800}>
+        {getString('rbac.youAreMissingTheFollowingPermission')}
+      </Text>
+      <Text font={{ size: 'small' }} color={Color.GREY_800}>
         {'"'}
         {resourceTypeHandler?.permissionLabels?.[permission] || permission}
         <span className={css.textToLowercase}>
@@ -77,7 +79,7 @@ const RBACTooltip: React.FC<Props> = ({ permission, resourceType, resourceScope 
         {'"'}
         <span>{` ${getString('rbac.in')} ${getScopeSuffix()}`}</span>
       </Text>
-    </Container>
+    </Layout.Vertical>
   )
 }
 

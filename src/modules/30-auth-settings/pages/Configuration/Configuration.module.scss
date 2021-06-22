@@ -23,3 +23,9 @@
 .collapseBottomPadding {
   padding-bottom: var(--spacing-large) !important;
 }
+
+.callout {
+  padding: 8px;
+  background-color: var(--yellow-100);
+  border-bottom: 1px solid var(--grey-200);
+}
