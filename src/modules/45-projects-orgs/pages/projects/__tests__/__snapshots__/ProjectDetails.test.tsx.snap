@@ -891,7 +891,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                 class="Layout--horizontal StyledProps--main"
               >
                 <div
-                  class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--border StyledProps--border-right StyledProps--border-color-grey300"
+                  class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--border StyledProps--border-right StyledProps--border-color-white"
                   style="width: 30%;"
                 >
                   <div
@@ -980,128 +980,9 @@ exports[`Project Details render with modules and edit menu 1`] = `
                   </div>
                 </div>
                 <div
-                  class="StyledProps--font StyledProps--main StyledProps--border StyledProps--border-right StyledProps--border-color-grey300"
+                  class="StyledProps--font StyledProps--main StyledProps--border StyledProps--border-right StyledProps--border-color-white"
                   style="width: 40%;"
-                >
-                  <div
-                    class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
-                  >
-                    <div
-                      class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
-                    >
-                      <div
-                        class="StyledProps--font StyledProps--main SparkChart--main"
-                        role="spark-chart"
-                      >
-                        <div
-                          class="container vertical rounded"
-                        >
-                          <div
-                            class="progress-bar activitychart"
-                            role="spark"
-                          >
-                            <div
-                              class="progress-track"
-                            >
-                              <div
-                                class="progress-fill"
-                                style="height: 40%;"
-                              />
-                            </div>
-                          </div>
-                          <div
-                            class="progress-bar activitychart"
-                            role="spark"
-                          >
-                            <div
-                              class="progress-track"
-                            >
-                              <div
-                                class="progress-fill"
-                                style="height: 60%;"
-                              />
-                            </div>
-                          </div>
-                          <div
-                            class="progress-bar activitychart"
-                            role="spark"
-                          >
-                            <div
-                              class="progress-track"
-                            >
-                              <div
-                                class="progress-fill"
-                                style="height: 80%;"
-                              />
-                            </div>
-                          </div>
-                          <div
-                            class="progress-bar activitychart"
-                            role="spark"
-                          >
-                            <div
-                              class="progress-track"
-                            >
-                              <div
-                                class="progress-fill"
-                                style="height: 100%;"
-                              />
-                            </div>
-                          </div>
-                          <div
-                            class="progress-bar activitychart"
-                            role="spark"
-                          >
-                            <div
-                              class="progress-track"
-                            >
-                              <div
-                                class="progress-fill"
-                                style="height: 80%;"
-                              />
-                            </div>
-                          </div>
-                          <div
-                            class="progress-bar activitychart"
-                            role="spark"
-                          >
-                            <div
-                              class="progress-track"
-                            >
-                              <div
-                                class="progress-fill"
-                                style="height: 60%;"
-                              />
-                            </div>
-                          </div>
-                          <div
-                            class="progress-bar activitychart"
-                            role="spark"
-                          >
-                            <div
-                              class="progress-track"
-                            >
-                              <div
-                                class="progress-fill"
-                                style="height: 40%;"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <p
-                        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-medium"
-                      >
-                        projectsOrgs.placeholder
-                      </p>
-                    </div>
-                    <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-xsmall"
-                    >
-                      PROJECTCARD.CIRENDERERTEXT
-                    </p>
-                  </div>
-                </div>
+                />
                 <div
                   class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
                   style="width: 30%;"

@@ -22,7 +22,8 @@ interface ModuleListCardProps {
 const ModuleListCard: React.FC<ModuleListCardProps> = ({ module, projectIdentifier, orgIdentifier, accountId }) => {
   const { getString } = useStrings()
   const history = useHistory()
-
+  // currently hiding chart for CI
+  const enableActivityChart = module !== ModuleName.CI
   const getModuleLinks = (): React.ReactElement => {
     switch (module) {
       case ModuleName.CD:
@@ -148,7 +149,11 @@ const ModuleListCard: React.FC<ModuleListCardProps> = ({ module, projectIdentifi
     <>
       <Card className={css.card}>
         <Layout.Horizontal>
-          <Container width="30%" flex border={{ right: true, color: Color.GREY_300 }}>
+          <Container
+            width="30%"
+            flex
+            border={{ right: true, color: enableActivityChart ? Color.GREY_300 : Color.WHITE }}
+          >
             <Layout.Horizontal flex spacing="large">
               <Icon name={getModuleIcon(module)} size={70}></Icon>
               <div>
@@ -165,22 +170,24 @@ const ModuleListCard: React.FC<ModuleListCardProps> = ({ module, projectIdentifi
               </div>
             </Layout.Horizontal>
           </Container>
-          <Container width="40%" border={{ right: true, color: Color.GREY_300 }}>
-            <Layout.Vertical flex={{ align: 'center-center' }}>
-              <Layout.Horizontal flex={{ align: 'center-center' }} spacing="xxlarge">
-                <SparkChart data={[2, 3, 4, 5, 4, 3, 2]} className={css.activitychart} />
-                <Text color={Color.GREY_400} font={{ size: 'medium' }}>
-                  {getString('projectsOrgs.placeholder')}
+          <Container width="40%" border={{ right: true, color: enableActivityChart ? Color.GREY_300 : Color.WHITE }}>
+            {enableActivityChart ? (
+              <Layout.Vertical flex={{ align: 'center-center' }}>
+                <Layout.Horizontal flex={{ align: 'center-center' }} spacing="xxlarge">
+                  <SparkChart data={[2, 3, 4, 5, 4, 3, 2]} className={css.activitychart} />
+                  <Text color={Color.GREY_400} font={{ size: 'medium' }}>
+                    {getString('projectsOrgs.placeholder')}
+                  </Text>
+                </Layout.Horizontal>
+                <Text color={Color.GREY_400} font={{ size: 'xsmall' }}>
+                  {getString(
+                    `projectCard.${module
+                      .toString()
+                      .toLowerCase()}RendererText` as StringKeys /* TODO: fix this by using a map */
+                  ).toUpperCase()}
                 </Text>
-              </Layout.Horizontal>
-              <Text color={Color.GREY_400} font={{ size: 'xsmall' }}>
-                {getString(
-                  `projectCard.${module
-                    .toString()
-                    .toLowerCase()}RendererText` as StringKeys /* TODO: fix this by using a map */
-                ).toUpperCase()}
-              </Text>
-            </Layout.Vertical>
+              </Layout.Vertical>
+            ) : null}
           </Container>
           <Container width="30%" flex={{ align: 'center-center' }}>
             {getModuleLinks()}
