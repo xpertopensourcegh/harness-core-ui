@@ -90,3 +90,4 @@ in: '{{ $.common.in }}'
 project: project
 org: organization
 account: account
+accountScope: Account scope

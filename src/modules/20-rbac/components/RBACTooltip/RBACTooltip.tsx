@@ -44,15 +44,16 @@ const RBACTooltip: React.FC<Props> = ({ permission, resourceType, resourceScope 
   }
 
   const getScopeSuffix = (): string => {
+    const currentScopeLabel = getString(`rbac.${currentScope}` as keyof StringsMap)
     switch (currentScope) {
       case Scope.PROJECT: {
-        return getProjectScopeSuffix()
+        return `${currentScopeLabel} "${getProjectScopeSuffix()}"`
       }
       case Scope.ORG: {
-        return resourceScope?.orgIdentifier || orgIdentifier
+        return `${currentScopeLabel} "${resourceScope?.orgIdentifier || orgIdentifier}"`
       }
       case Scope.ACCOUNT: {
-        return resourceScope?.accountIdentifier || accountId
+        return getString('rbac.accountScope')
       }
     }
   }
@@ -74,9 +75,7 @@ const RBACTooltip: React.FC<Props> = ({ permission, resourceType, resourceScope 
           {` ${resourceTypeHandler?.label && getString(resourceTypeHandler?.label)}`}
         </span>
         {'"'}
-        <span>{` ${getString('rbac.in')} ${getString(`rbac.${currentScope}` as keyof StringsMap)} `}</span>
-        {/* TODO: Need to replace account and org ids with names*/}
-        {`"${getScopeSuffix()}"`}
+        <span>{` ${getString('rbac.in')} ${getScopeSuffix()}`}</span>
       </Text>
     </Container>
   )

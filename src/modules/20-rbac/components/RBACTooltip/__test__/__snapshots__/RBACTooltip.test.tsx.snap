@@ -1,5 +1,93 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`RBACTooltip RBACTooltip component - Org scope 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main StyledProps--padding-small"
+  >
+    <p
+      class="StyledProps--font StyledProps--main"
+    >
+      rbac.youAreNotAuthorizedTo 
+      <span
+        class="textToLowercase"
+      >
+        core_organization_create
+      </span>
+      <span
+        class="textToLowercase"
+      >
+         orgsText.
+      </span>
+    </p>
+    <p
+      class="StyledProps--font StyledProps--main"
+    >
+      rbac.youAreMissingTheFollowingPermission
+    </p>
+    <p
+      class="StyledProps--font StyledProps--main"
+    >
+      "
+      core_organization_create
+      <span
+        class="textToLowercase"
+      >
+         orgsText
+      </span>
+      "
+      <span>
+         rbac.in rbac.org "organization_123"
+      </span>
+    </p>
+  </div>
+</div>
+`;
+
+exports[`RBACTooltip RBACTooltip component - Project scope 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main StyledProps--padding-small"
+  >
+    <p
+      class="StyledProps--font StyledProps--main"
+    >
+      rbac.youAreNotAuthorizedTo 
+      <span
+        class="textToLowercase"
+      >
+        core_project_create
+      </span>
+      <span
+        class="textToLowercase"
+      >
+         projectsText.
+      </span>
+    </p>
+    <p
+      class="StyledProps--font StyledProps--main"
+    >
+      rbac.youAreMissingTheFollowingPermission
+    </p>
+    <p
+      class="StyledProps--font StyledProps--main"
+    >
+      "
+      core_project_create
+      <span
+        class="textToLowercase"
+      >
+         projectsText
+      </span>
+      "
+      <span>
+         rbac.in rbac.project "project_123"
+      </span>
+    </p>
+  </div>
+</div>
+`;
+
 exports[`RBACTooltip RBACTooltip component 1`] = `
 <div>
   <div
@@ -17,7 +105,7 @@ exports[`RBACTooltip RBACTooltip component 1`] = `
       <span
         class="textToLowercase"
       >
-         undefined.
+         projectsText.
       </span>
     </p>
     <p
@@ -33,13 +121,12 @@ exports[`RBACTooltip RBACTooltip component 1`] = `
       <span
         class="textToLowercase"
       >
-         undefined
+         projectsText
       </span>
       "
       <span>
-         rbac.in rbac.account 
+         rbac.in rbac.accountScope
       </span>
-      "dummy"
     </p>
   </div>
 </div>

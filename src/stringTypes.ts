@@ -376,6 +376,7 @@ export interface StringsMap {
   'notifications.validationTo': string
   'notifications.validationWebhook': string
   'rbac.account': string
+  'rbac.accountScope': string
   'rbac.activeUsers': string
   'rbac.addRole': string
   'rbac.addUser': string
