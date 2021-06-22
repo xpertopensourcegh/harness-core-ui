@@ -156,8 +156,24 @@ export default (
     </RouteWithLayout>
 
     <RouteWithLayout
+      sidebarProps={OrgsSideNavProps}
+      path={routes.toDelegatesDetails({ ...orgPathProps, ...delegatePathProps })}
+      exact
+    >
+      <DelegateDetails />
+    </RouteWithLayout>
+
+    <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
       path={routes.toDelegates({ ...accountPathProps, ...projectPathProps })}
+      exact
+    >
+      <DelegatesPage />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={OrgsSideNavProps}
+      path={routes.toDelegates({ ...accountPathProps, ...orgPathProps })}
       exact
     >
       <DelegatesPage />
@@ -168,6 +184,42 @@ export default (
       path={routes.toDelegateConfigsDetails({
         ...accountPathProps,
         ...projectPathProps,
+        ...delegateConfigProps
+      })}
+      exact
+    >
+      <DelegateProfileDetails />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={OrgsSideNavProps}
+      path={routes.toDelegateConfigsDetails({
+        ...accountPathProps,
+        ...orgPathProps,
+        ...delegateConfigProps
+      })}
+      exact
+    >
+      <DelegateProfileDetails />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={ProjectDetailsSideNavProps}
+      path={routes.toEditDelegateConfigsDetails({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...delegateConfigProps
+      })}
+      exact
+    >
+      <DelegateProfileDetails />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={OrgsSideNavProps}
+      path={routes.toEditDelegateConfigsDetails({
+        ...accountPathProps,
+        ...orgPathProps,
         ...delegateConfigProps
       })}
       exact

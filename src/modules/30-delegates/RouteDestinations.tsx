@@ -2,13 +2,7 @@ import React from 'react'
 
 import { RouteWithLayout } from '@common/router'
 import routes from '@common/RouteDefinitions'
-import {
-  accountPathProps,
-  orgPathProps,
-  delegateConfigProps,
-  delegatePathProps,
-  projectPathProps
-} from '@common/utils/routeUtils'
+import { accountPathProps, delegateConfigProps, delegatePathProps } from '@common/utils/routeUtils'
 
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
@@ -58,35 +52,19 @@ RbacFactory.registerResourceTypeHandler(ResourceType.DELEGATECONFIGURATION, {
 
 export default (
   <>
-    <RouteWithLayout
-      sidebarProps={HomeSideNavProps}
-      path={[
-        routes.toDelegates({ ...accountPathProps }),
-        routes.toDelegates({ ...accountPathProps, ...orgPathProps }),
-        routes.toDelegates({ ...accountPathProps, ...projectPathProps })
-      ]}
-      exact
-    >
+    <RouteWithLayout sidebarProps={HomeSideNavProps} path={[routes.toDelegates({ ...accountPathProps })]} exact>
       <DelegatesPage />
     </RouteWithLayout>
 
     <RouteWithLayout
       sidebarProps={HomeSideNavProps}
-      path={[
-        routes.toDelegatesDetails({ ...accountPathProps, ...delegatePathProps }),
-        routes.toDelegatesDetails({ ...orgPathProps, ...delegatePathProps }),
-        routes.toDelegatesDetails({ ...projectPathProps, ...delegatePathProps })
-      ]}
+      path={[routes.toDelegatesDetails({ ...accountPathProps, ...delegatePathProps })]}
     >
       <DelegateDetails />
     </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={HomeSideNavProps}
-      path={[
-        routes.toDelegateConfigsDetails({ ...accountPathProps, ...delegateConfigProps }),
-        routes.toDelegateConfigsDetails({ ...orgPathProps, ...delegateConfigProps }),
-        routes.toDelegateConfigsDetails({ ...projectPathProps, ...delegateConfigProps })
-      ]}
+      path={[routes.toDelegateConfigsDetails({ ...accountPathProps, ...delegateConfigProps })]}
     >
       <DelegateProfileDetails />
     </RouteWithLayout>
