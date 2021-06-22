@@ -10,7 +10,9 @@ import {
   parseStringToTime,
   timeToDisplayText,
   getMultiTypeFromValue,
-  MultiTypeInputType
+  MultiTypeInputType,
+  DataTooltipInterface,
+  HarnessDocTooltip
 } from '@wings-software/uicore'
 import { get } from 'lodash-es'
 import * as Yup from 'yup'
@@ -112,6 +114,7 @@ export interface FormMultiTypeDurationProps extends Omit<IFormGroupProps, 'label
   skipErrorsIf?(formik?: FormikContext<unknown>): boolean
   multiTypeDurationProps?: Omit<MultiTypeDurationProps, 'name' | 'onChange' | 'value'>
   onChange?: MultiTypeDurationProps['onChange']
+  tooltipProps?: DataTooltipInterface
 }
 
 export function FormMultiTypeDuration(props: FormMultiTypeDurationProps): React.ReactElement {
@@ -123,6 +126,7 @@ export function FormMultiTypeDuration(props: FormMultiTypeDurationProps): React.
     intent = hasError ? Intent.DANGER : Intent.NONE,
     helperText = hasError ? get(formik?.errors, name) : null,
     disabled,
+    tooltipProps,
     ...rest
   } = restProps
 
@@ -165,7 +169,14 @@ export function FormMultiTypeDuration(props: FormMultiTypeDurationProps): React.
   }
 
   return (
-    <FormGroup {...rest} labelFor={name} helperText={helperText} intent={intent} disabled={disabled} label={label}>
+    <FormGroup
+      {...rest}
+      labelFor={name}
+      helperText={helperText}
+      intent={intent}
+      disabled={disabled}
+      label={label ? <HarnessDocTooltip tooltipId={tooltipProps?.dataTooltipId} labelText={label} /> : label}
+    >
       <MultiTypeDuration {...customProps} value={value} onChange={handleChange} disabled={disabled} />
     </FormGroup>
   )

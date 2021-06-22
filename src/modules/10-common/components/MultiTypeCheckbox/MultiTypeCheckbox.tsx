@@ -2,9 +2,11 @@ import React from 'react'
 import { FormGroup, ICheckboxProps, IFormGroupProps, Intent } from '@blueprintjs/core'
 import {
   Checkbox,
+  DataTooltipInterface,
   ExpressionAndRuntimeType,
   ExpressionAndRuntimeTypeProps,
   getMultiTypeFromValue,
+  HarnessDocTooltip,
   MultiTypeInputType,
   MultiTypeInputValue
 } from '@wings-software/uicore'
@@ -66,6 +68,7 @@ export interface FormMultiTypeTextboxProps extends Omit<IFormGroupProps, 'label'
   multiTypeTextbox?: Omit<MultiTypeCheckboxProps, 'onChange' | 'name'>
   onChange?: MultiTypeCheckboxProps['onChange']
   setToFalseWhenEmpty?: boolean
+  tooltipProps?: DataTooltipInterface
 }
 
 export const FormMultiTypeCheckbox: React.FC<FormMultiTypeTextboxProps> = props => {
@@ -76,6 +79,7 @@ export const FormMultiTypeCheckbox: React.FC<FormMultiTypeTextboxProps> = props 
     intent = hasError ? Intent.DANGER : Intent.NONE,
     helperText = hasError ? get(formik?.errors, name) : null,
     disabled,
+    tooltipProps,
     ...rest
   } = restProps
 
@@ -90,10 +94,17 @@ export const FormMultiTypeCheckbox: React.FC<FormMultiTypeTextboxProps> = props 
   }, [setToFalseWhenEmpty])
 
   const isFixedValue = type === MultiTypeInputType.FIXED
+  const labelToBePassed = !isFixedValue ? label : undefined
   return (
     <FormGroup
       {...rest}
-      label={!isFixedValue ? label : undefined}
+      label={
+        labelToBePassed ? (
+          <HarnessDocTooltip tooltipId={tooltipProps?.dataTooltipId} labelText={labelToBePassed} />
+        ) : (
+          labelToBePassed
+        )
+      }
       labelFor={name}
       helperText={helperText}
       intent={intent}

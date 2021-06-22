@@ -1,7 +1,14 @@
 import React from 'react'
 import type { IFormGroupProps } from '@blueprintjs/core'
 import { connect, FormikContext } from 'formik'
-import { FormInput, getMultiTypeFromValue, MultiTypeInputType, MultiTextInputProps } from '@wings-software/uicore'
+import {
+  FormInput,
+  getMultiTypeFromValue,
+  MultiTypeInputType,
+  MultiTextInputProps,
+  DataTooltipInterface,
+  HarnessDocTooltip
+} from '@wings-software/uicore'
 import { get } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import { ConfigureOptions, ConfigureOptionsProps } from '@common/components/ConfigureOptions/ConfigureOptions'
@@ -30,6 +37,7 @@ export interface MultiTypeTextProps {
   enableConfigureOptions?: boolean
   configureOptionsProps?: MultiTypeTextConfigureOptionsProps
   style?: React.CSSProperties
+  tooltipProps?: DataTooltipInterface
 }
 
 export function MultiTypeText(props: MultiTypeTextProps): React.ReactElement {
@@ -41,7 +49,8 @@ export function MultiTypeText(props: MultiTypeTextProps): React.ReactElement {
     multiTextInputProps,
     enableConfigureOptions = true,
     configureOptionsProps,
-    style
+    style,
+    tooltipProps
   } = props
 
   const value = get(formik?.values, name, '')
@@ -50,7 +59,7 @@ export function MultiTypeText(props: MultiTypeTextProps): React.ReactElement {
 
   return (
     <div className={className} style={style}>
-      {label}
+      {label ? <HarnessDocTooltip tooltipId={tooltipProps?.dataTooltipId} labelText={label} /> : label}
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <FormInput.MultiTextInput
           name={name}

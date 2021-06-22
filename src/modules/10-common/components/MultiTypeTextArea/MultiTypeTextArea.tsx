@@ -6,7 +6,9 @@ import {
   MultiTypeInputValue,
   FixedTypeComponentProps,
   getMultiTypeFromValue,
-  MultiTypeInputType
+  MultiTypeInputType,
+  DataTooltipInterface,
+  HarnessDocTooltip
 } from '@wings-software/uicore'
 import { connect } from 'formik'
 import { get } from 'lodash-es'
@@ -98,10 +100,21 @@ export interface FormMultiTypeTextAreaProps extends Omit<IFormGroupProps, 'label
   multiTypeTextArea?: Omit<MultiTypeTextAreaProps, 'name' | 'onChange'>
   onChange?: MultiTypeTextAreaProps['onChange']
   isOptional?: boolean
+  tooltipProps?: DataTooltipInterface
 }
 
 export const FormMultiTypeTextArea: React.FC<FormMultiTypeTextAreaProps> = props => {
-  const { label, multiTypeTextArea, placeholder, formik, name, onChange, isOptional = false, ...restProps } = props
+  const {
+    label,
+    multiTypeTextArea,
+    placeholder,
+    formik,
+    name,
+    onChange,
+    isOptional = false,
+    tooltipProps,
+    ...restProps
+  } = props
   const hasError = errorCheck(name, formik)
 
   const {
@@ -131,7 +144,13 @@ export const FormMultiTypeTextArea: React.FC<FormMultiTypeTextAreaProps> = props
       helperText={helperText}
       intent={intent}
       disabled={disabled}
-      label={labelToPass}
+      label={
+        labelToPass ? (
+          <HarnessDocTooltip tooltipId={tooltipProps?.dataTooltipId} labelText={labelToPass} />
+        ) : (
+          labelToPass
+        )
+      }
     >
       <MultiTypeTextArea
         value={value}
