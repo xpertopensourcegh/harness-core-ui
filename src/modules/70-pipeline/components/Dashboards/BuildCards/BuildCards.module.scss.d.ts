@@ -5,12 +5,13 @@ declare const styles: {
   readonly titleAndMessage: string
   readonly title: string
   readonly leftBorder: string
+  readonly branchAndCommitWrap: string
   readonly linkWrap: string
   readonly activeBuildCard: string
   readonly buildIcon: string
   readonly statusLabel: string
   readonly statusLabelIcon: string
-  readonly pendingApprovalLabel: string
+  readonly pendingLabel: string
   readonly runningLabel: string
   readonly times: string
   readonly timeIcon: string

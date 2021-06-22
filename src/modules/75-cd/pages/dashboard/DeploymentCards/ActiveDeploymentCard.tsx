@@ -1,7 +1,6 @@
 import React from 'react'
 import { Icon, Color } from '@wings-software/uicore'
 import ActiveBuildCard from '@pipeline/components/Dashboards/BuildCards/ActiveBuildCard'
-import { mapActiveCardStatus } from '@pipeline/components/Dashboards/shared'
 import styles from '../CDDashboardPage.module.scss'
 
 export interface ActiveDeploymentCardProps {
@@ -21,7 +20,7 @@ export default function ActiveDeploymentCard({ name, status, serviceInfoList }: 
           {`${s.serviceName}${s.servicetag ? ' (' + s.serviceTag + ')' : ''}`}
         </span>
       ))}
-      status={mapActiveCardStatus(status)}
+      status={status}
     />
   )
 }

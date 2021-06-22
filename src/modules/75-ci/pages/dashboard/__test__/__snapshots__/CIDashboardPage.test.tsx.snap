@@ -145,7 +145,7 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
                 <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  -22.22%
+                  22.22%
                 </p>
                 <span
                   class="bp3-icon StyledProps--main"
@@ -521,7 +521,7 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
               class="StyledProps--font StyledProps--main titleAndMessage"
             >
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main title StyledProps--margin-bottom-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font Text--lineclamp StyledProps--main title StyledProps--margin-bottom-small StyledProps--color StyledProps--color-black"
                 style="--text-line-clamp: 1;"
               >
                 Go Demo2
@@ -562,7 +562,7 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
                 10m
               </div>
               <div
-                class="StyledProps--font StyledProps--main"
+                class="StyledProps--font StyledProps--main branchAndCommitWrap"
               >
                 <div
                   class="linkWrap"
@@ -629,7 +629,7 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
               class="StyledProps--font StyledProps--main titleAndMessage"
             >
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main title StyledProps--margin-bottom-xsmall StyledProps--color StyledProps--color-black"
+                class="StyledProps--font Text--lineclamp StyledProps--main title StyledProps--margin-bottom-small StyledProps--color StyledProps--color-black"
                 style="--text-line-clamp: 1;"
               >
                 Go Demo2
@@ -670,7 +670,7 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
                 10m
               </div>
               <div
-                class="StyledProps--font StyledProps--main"
+                class="StyledProps--font StyledProps--main branchAndCommitWrap"
               >
                 <div
                   class="linkWrap"
@@ -829,7 +829,7 @@ exports[`CIDashboardPage snapshot test should render properly 1`] = `
                     />
                   </svg>
                 </span>
-                RUNNING
+                pipeline.executionStatus.Running
               </div>
             </div>
           </div>

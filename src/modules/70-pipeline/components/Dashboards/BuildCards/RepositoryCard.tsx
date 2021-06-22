@@ -5,7 +5,8 @@ import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import merge from 'lodash-es/merge'
 import type { RepositoryBuildInfo } from 'services/ci'
-import { diffStartAndEndTime, roundNumber, mapCardStatus } from '../shared'
+import { ExecutionStatusEnum } from '@pipeline/utils/statusHelpers'
+import { diffStartAndEndTime, roundNumber, FailedStatus, mapToExecutionStatus } from '../shared'
 import styles from './BuildCards.module.scss'
 
 export interface RepositoryCardProps {
@@ -130,15 +131,13 @@ export default function RepositoryCard({
 }
 
 function mapStatusToColor(status?: string) {
-  switch (mapCardStatus(status)) {
-    case 'SUCCESS':
-      return 'var(--ci-color-green-400)'
-    case 'FAILED':
-      return 'var(--ci-color-red-400)'
-    case 'ACTIVE':
-    case 'PENDING':
-    default:
-      return 'var(--ci-color-orange-500)'
+  const mappedStatus = mapToExecutionStatus(status)
+  if (mappedStatus === ExecutionStatusEnum.Success) {
+    return 'var(--ci-color-green-400)'
+  } else if (Object.prototype.hasOwnProperty.call(FailedStatus, mappedStatus!)) {
+    return 'var(--ci-color-red-400)'
+  } else {
+    'var(--ci-color-orange-500)'
   }
 }
 

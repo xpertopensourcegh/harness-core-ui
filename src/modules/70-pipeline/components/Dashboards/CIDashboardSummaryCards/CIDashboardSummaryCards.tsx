@@ -108,7 +108,7 @@ export function SummaryCard({
   if (typeof rate !== 'undefined') {
     isIncrease = rate > 0
     isDecrease = rate < 0
-    rateFormatted = `${roundNumber(rate!)}%`
+    rateFormatted = `${Math.abs(roundNumber(rate!)!)}%`
   } else if (typeof rateDuration === 'number') {
     isIncrease = rateDuration > 0
     isDecrease = rateDuration < 0

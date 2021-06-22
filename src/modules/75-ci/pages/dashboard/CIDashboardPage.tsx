@@ -16,7 +16,7 @@ import ActiveBuildCard from '@pipeline/components/Dashboards/BuildCards/ActiveBu
 import BuildExecutionsChart from '@pipeline/components/Dashboards/BuildExecutionsChart/BuildExecutionsChart'
 import RepositoryCard from '@pipeline/components/Dashboards/BuildCards/RepositoryCard'
 import RangeSelector from '@pipeline/components/Dashboards/RangeSelector'
-import { mapActiveCardStatus } from '@pipeline/components/Dashboards/shared'
+import { ActiveStatus, FailedStatus } from '@pipeline/components/Dashboards/shared'
 import styles from './CIDashboardPage.module.scss'
 
 export const CIDashboardPage: React.FC = () => {
@@ -114,7 +114,7 @@ export const CIDashboardPage: React.FC = () => {
             onShowAll={() =>
               history.push(
                 routes.toDeployments({ projectIdentifier, orgIdentifier, accountId, module: 'ci' }) +
-                  `?filters=${JSON.stringify({ status: ['Aborted', 'Expired', 'Failed'] })}`
+                  `?filters=${JSON.stringify({ status: Object.keys(FailedStatus) })}`
               )
             }
           >
@@ -141,17 +141,12 @@ export const CIDashboardPage: React.FC = () => {
             onShowAll={() =>
               history.push(
                 routes.toDeployments({ projectIdentifier, orgIdentifier, accountId, module: 'ci' }) +
-                  `?filters=${JSON.stringify({ status: ['Runnint', 'Waiting'] })}`
+                  `?filters=${JSON.stringify({ status: Object.keys(ActiveStatus) })}`
               )
             }
           >
             {data?.data?.active?.map((build, index) => (
-              <ActiveBuildCard
-                key={index}
-                title={build.piplineName!}
-                message={build.commit!}
-                status={mapActiveCardStatus(build.status)}
-              />
+              <ActiveBuildCard key={index} title={build.piplineName!} message={build.commit!} status={build.status} />
             ))}
           </CardRailView>
         </Container>

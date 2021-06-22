@@ -1,5 +1,6 @@
 import React from 'react'
 import moment from 'moment'
+import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 
 export function roundNumber(value?: number, precision = 2) {
   if (typeof value !== 'number') {
@@ -83,44 +84,68 @@ export function diffStartAndEndTime(startTime?: number, endTime?: number): strin
   }
 }
 
-export type NarrowedCardStatus = 'PENDING' | 'ACTIVE' | 'FAILED' | 'SUCCESS'
-
-export function mapCardStatus(status?: string): NarrowedCardStatus | undefined {
-  switch (status) {
-    case 'INTERVENTIONWAITING':
-    case 'APPROVALWAITING':
-    case 'WAITING':
-    case 'RESOURCEWAITING':
-    case 'NOTSTARTED':
-    case 'QUEUED':
-    case 'SKIPPED':
-      return 'PENDING'
-    case 'RUNNING':
-    case 'ASYNCWAITING':
-    case 'TASKWAITING':
-    case 'TIMEDWAITING':
-    case 'PAUSED':
-    case 'PAUSING':
-    case 'DISCONTINUING':
-    case 'SUSPENDED':
-      return 'ACTIVE'
-    case 'FAILED':
-    case 'ABORTED':
-    case 'EXPIRED':
-    case 'IGNOREFAILED':
-    case 'ERRORED':
-    case 'APPROVALREJECTED':
-      return 'FAILED'
-    case 'SUCCESS':
-      return 'SUCCESS'
-  }
+export const FailedStatus: Partial<Record<ExecutionStatus, ExecutionStatus>> = {
+  Failed: 'Failed',
+  Aborted: 'Aborted',
+  Expired: 'Expired',
+  IgnoreFailed: 'IgnoreFailed',
+  Errored: 'Errored'
 }
 
-export function mapActiveCardStatus(status?: string): 'RUNNING' | 'PENDING' | undefined {
-  const narrowedStatus = mapCardStatus(status)
-  if (narrowedStatus === 'ACTIVE') {
-    return 'RUNNING'
-  } else if (narrowedStatus === 'PENDING') {
-    return 'PENDING'
+export const ActiveStatus: Partial<Record<ExecutionStatus, ExecutionStatus>> = {
+  Running: 'Running',
+  AsyncWaiting: 'AsyncWaiting',
+  TaskWaiting: 'TaskWaiting',
+  TimedWaiting: 'TimedWaiting',
+  Paused: 'Paused',
+  InterventionWaiting: 'InterventionWaiting',
+  ApprovalWaiting: 'ApprovalWaiting',
+  ResourceWaiting: 'ResourceWaiting'
+}
+
+export function mapToExecutionStatus(status?: string): ExecutionStatus | undefined {
+  switch (status) {
+    case 'INTERVENTIONWAITING':
+      return 'InterventionWaiting'
+    case 'APPROVALWAITING':
+      return 'ApprovalWaiting'
+    case 'RESOURCEWAITING':
+      return 'ResourceWaiting'
+    case 'NOTSTARTED':
+      return 'NotStarted'
+    case 'QUEUED':
+      return 'Queued'
+    case 'SKIPPED':
+      return 'Skipped'
+    case 'RUNNING':
+      return 'Running'
+    case 'ASYNCWAITING':
+      return 'AsyncWaiting'
+    case 'TASKWAITING':
+      return 'TaskWaiting'
+    case 'TIMEDWAITING':
+      return 'TimedWaiting'
+    case 'PAUSED':
+      return 'Paused'
+    case 'PAUSING':
+      return 'Pausing'
+    case 'DISCONTINUING':
+      return 'Discontinuing'
+    case 'SUSPENDED':
+      return 'Suspended'
+    case 'FAILED':
+      return 'Failed'
+    case 'ABORTED':
+      return 'Aborted'
+    case 'EXPIRED':
+      return 'Expired'
+    case 'IGNOREFAILED':
+      return 'IgnoreFailed'
+    case 'ERRORED':
+      return 'Errored'
+    case 'APPROVALREJECTED':
+      return 'ApprovalRejected'
+    case 'SUCCESS':
+      return 'Success'
   }
 }

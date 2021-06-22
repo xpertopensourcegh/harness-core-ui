@@ -33,7 +33,7 @@ export default function FailedBuildCard({
     <Container className={styles.failedBuildCard}>
       {username && <Avatar name={username} src={avatarUrl} />}
       <Container className={styles.titleAndMessage}>
-        <Text className={styles.title} margin={{ bottom: 'xsmall' }} color={Color.BLACK} lineClamp={1}>
+        <Text className={styles.title} margin={{ bottom: 'small' }} color={Color.BLACK} lineClamp={1}>
           {title}
         </Text>
         <Text style={{ fontSize: 'var(--ci-font-size-small)' }} color={Color.BLACK} lineClamp={1}>
@@ -53,7 +53,7 @@ export default function FailedBuildCard({
             </>
           )}
         </Container>
-        <Container>
+        <Container className={styles.branchAndCommitWrap}>
           {branchName && (
             <div className={styles.linkWrap}>
               <Icon size={10} name="git-branch" />

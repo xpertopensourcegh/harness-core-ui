@@ -89,7 +89,7 @@ exports[`PipelineSummaryCards shows data correctly 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              -20%
+              20%
             </p>
             <span
               class="bp3-icon StyledProps--main"

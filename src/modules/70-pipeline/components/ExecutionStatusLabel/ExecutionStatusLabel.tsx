@@ -7,7 +7,7 @@ import type { StringKeys } from 'framework/strings'
 
 import css from './ExecutionStatusLabel.module.scss'
 
-const stringsMap: Record<ExecutionStatus, StringKeys> = {
+export const stringsMap: Record<ExecutionStatus, StringKeys> = {
   Aborted: 'pipeline.executionStatus.Aborted',
   Discontinuing: 'pipeline.executionStatus.Aborted',
   Running: 'pipeline.executionStatus.Running',
@@ -23,7 +23,7 @@ const stringsMap: Record<ExecutionStatus, StringKeys> = {
   ResourceWaiting: 'pipeline.executionStatus.Waiting',
   Skipped: 'pipeline.executionStatus.Skipped',
   Success: 'pipeline.executionStatus.Success',
-  IgnoreFailed: 'pipeline.executionStatus.Success',
+  IgnoreFailed: 'pipeline.executionStatus.Failed',
   Suspended: 'pipeline.executionStatus.Suspended',
   Pausing: 'pipeline.executionStatus.Pausing',
   ApprovalRejected: 'pipeline.executionStatus.ApprovalRejected',

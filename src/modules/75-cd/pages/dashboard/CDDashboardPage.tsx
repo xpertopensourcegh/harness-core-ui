@@ -9,6 +9,7 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import CardRailView from '@pipeline/components/Dashboards/CardRailView/CardRailView'
 import { useGetWorkloads, useGetDeployments } from 'services/cd-ng'
+import { ActiveStatus, FailedStatus } from '@pipeline/components/Dashboards/shared'
 import DeploymentsHealthCards from './DeploymentsHealthCards'
 import DeploymentExecutionsChart from './DeploymentExecutionsChart'
 import WorkloadCard from './DeploymentCards/WorkloadCard'
@@ -92,7 +93,7 @@ export const CDDashboardPage: React.FC = () => {
             onShowAll={() =>
               history.push(
                 routes.toDeployments({ projectIdentifier, orgIdentifier, accountId, module: 'cd' }) +
-                  `?filters=${JSON.stringify({ status: ['Aborted', 'Expired', 'Failed'] })}`
+                  `?filters=${JSON.stringify({ status: Object.keys(FailedStatus) })}`
               )
             }
           >
@@ -113,7 +114,7 @@ export const CDDashboardPage: React.FC = () => {
             onShowAll={() =>
               history.push(
                 routes.toDeployments({ projectIdentifier, orgIdentifier, accountId, module: 'cd' }) +
-                  `?filters=${JSON.stringify({ status: ['Runnint', 'Waiting'] })}`
+                  `?filters=${JSON.stringify({ status: Object.keys(ActiveStatus) })}`
               )
             }
           >

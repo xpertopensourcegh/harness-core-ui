@@ -91,7 +91,7 @@ exports[`CIDashboardSummaryCards matches snapshot 1`] = `
             <p
               class="StyledProps--font StyledProps--main"
             >
-              -22.22%
+              22.22%
             </p>
             <span
               class="bp3-icon StyledProps--main"

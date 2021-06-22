@@ -41,13 +41,13 @@ exports[`ActiveBuildCard matches snapshot when status=PENDING 1`] = `
       class="StyledProps--font StyledProps--main"
     >
       <div
-        class="statusLabel pendingApprovalLabel"
+        class="statusLabel pendingLabel"
       >
         <img
           alt=""
           src="test-file-stub"
         />
-        PENDING APPROVAL
+        pipeline.executionStatus.Running
       </div>
     </div>
   </div>
@@ -117,7 +117,7 @@ exports[`ActiveBuildCard matches snapshot when status=RUNNING 1`] = `
             />
           </svg>
         </span>
-        RUNNING
+        pipeline.executionStatus.Running
       </div>
     </div>
   </div>

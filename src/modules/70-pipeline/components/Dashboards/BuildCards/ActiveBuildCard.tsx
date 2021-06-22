@@ -1,30 +1,22 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Container, Text, Icon, Color } from '@wings-software/uicore'
 import classnames from 'classnames'
-import pendingApprovalSvg from './PendingApproval.svg'
+import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
+import { useStrings } from 'framework/strings'
+import { stringsMap } from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
+import pendingIcon from './PendingApproval.svg'
+import { mapToExecutionStatus } from '../shared'
 import styles from './BuildCards.module.scss'
 export interface ActiveBuildCardProps {
   title: string
   message: string
   icon?: React.ReactNode
-  status?: 'PENDING' | 'RUNNING'
+  status?: string
 }
 
-const PendingApprovalLabel = () => (
-  <div className={classnames(styles.statusLabel, styles.pendingApprovalLabel)}>
-    <img src={pendingApprovalSvg} alt="" />
-    PENDING APPROVAL
-  </div>
-)
-
-const RunningLabel = () => (
-  <div className={classnames(styles.statusLabel, styles.runningLabel)}>
-    <Icon size={10} style={{ color: 'var(--ci-color-blue-400)' }} name="spinner" />
-    RUNNING
-  </div>
-)
-
 export default function ActiveBuildCard({ title, message, icon, status }: ActiveBuildCardProps) {
+  const { getString } = useStrings()
+  const executionStatus = useMemo(() => mapToExecutionStatus(status), [status])
   return (
     <Container className={styles.activeBuildCard}>
       {icon || <Icon name="ci-active-build" className={styles.buildIcon} />}
@@ -37,8 +29,21 @@ export default function ActiveBuildCard({ title, message, icon, status }: Active
         </Text>
       </Container>
       <Container>
-        {status === 'PENDING' && <PendingApprovalLabel />}
-        {status === 'RUNNING' && <RunningLabel />}
+        {status && (
+          <div
+            className={classnames(styles.statusLabel, {
+              [styles.runningLabel]: status === 'RUNNING',
+              [styles.pendingLabel]: status !== 'RUNNING'
+            })}
+          >
+            {status === 'RUNNING' ? (
+              <Icon size={10} style={{ color: 'var(--ci-color-blue-400)' }} name="spinner" />
+            ) : (
+              <img src={pendingIcon} alt="" />
+            )}
+            {getString(stringsMap[executionStatus as ExecutionStatus] || 'pipeline.executionStatus.Unknown')}
+          </div>
+        )}
       </Container>
     </Container>
   )
