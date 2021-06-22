@@ -345,19 +345,25 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
       }
       /* istanbul ignore else */
       if (response) {
-        if (response.data?.errorResponse) {
-          clear()
-          showError(getString('inputSets.overlayInputSetSavedError'), undefined, 'pipeline.overlayinputset.error')
-        } else {
-          clear()
-          showSuccess(getString('inputSets.overlayInputSetSaved'))
+        // This is done because when git sync is enabled, errors are displayed in a modal
+        if (!isGitSyncEnabled) {
+          if (response.data?.errorResponse) {
+            clear()
+            showError(getString('inputSets.overlayInputSetSavedError'), undefined, 'pipeline.overlayinputset.error')
+          } else {
+            clear()
+            showSuccess(getString('inputSets.overlayInputSetSaved'))
+          }
         }
       }
       if (!isGitSyncEnabled) {
         closeForm()
       }
     } catch (e) {
-      showError(e?.data?.message || e?.message || getString('commonError'), undefined, 'pipeline.common.error')
+      // This is done because when git sync is enabled, errors are displayed in a modal
+      if (!isGitSyncEnabled) {
+        showError(e?.data?.message || e?.message || getString('commonError'), undefined, 'pipeline.common.error')
+      }
       throw e
     }
     return {

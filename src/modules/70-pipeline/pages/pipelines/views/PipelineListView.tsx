@@ -1,5 +1,6 @@
 import React from 'react'
 import type { CellProps, Column, Renderer } from 'react-table'
+import { pick } from 'lodash-es'
 import { Button, Color, Layout, Popover, Text, SparkChart, Icon } from '@wings-software/uicore'
 import { Classes, Menu, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
@@ -16,6 +17,7 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { getIconsForPipeline, getStatusColor } from '../PipelineListUtils'
+import { DeleteConfirmDialogContent } from './PipelineCard/PipelineCard'
 import css from '../PipelinesPage.module.scss'
 
 interface PipelineListViewProps {
@@ -43,19 +45,43 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
   const data = row.original
   const [menuOpen, setMenuOpen] = React.useState(false)
   const { showSuccess, showError } = useToaster()
+  const { getString } = useStrings()
   const { projectIdentifier, orgIdentifier, accountId } = useParams<{
     projectIdentifier: string
     orgIdentifier: string
     accountId: string
   }>()
+
+  const [commitMsg, setCommitMsg] = React.useState<string>(
+    `${getString('pipeline-list.confirmDeleteTitle')} ${data.name}`
+  )
+
+  const gitParams = data.gitDetails?.objectId
+    ? {
+        ...pick(data.gitDetails, ['branch', 'repoIdentifier', 'filePath', 'rootFolder']),
+        commitMsg,
+        lastObjectId: data.gitDetails?.objectId
+      }
+    : {}
+
   const { mutate: deletePipeline } = useSoftDeletePipeline({
-    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      ...gitParams
+    }
   })
 
-  const { getString } = useStrings()
-
   const { openDialog: confirmDelete } = useConfirmationDialog({
-    contentText: getString('pipeline-list.confirmDelete', { name: data.name }),
+    contentText: (
+      <DeleteConfirmDialogContent
+        pipelineName={data?.name}
+        gitDetails={data.gitDetails}
+        commitMsg={commitMsg}
+        onCommitMsgChange={setCommitMsg}
+      />
+    ),
     titleText: getString('pipeline-list.confirmDeleteTitle'),
     confirmButtonText: getString('delete'),
     cancelButtonText: getString('cancel'),

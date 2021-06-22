@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, Formik, FormikForm, Button } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { omit, pick } from 'lodash-es'
+import { omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 
 import { useStrings } from 'framework/strings'
@@ -12,7 +12,7 @@ import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { NameIdDescriptionTags } from '@common/components'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
-import GitContextForm from '@common/components/GitContextForm/GitContextForm'
+import GitContextForm, { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import type { EntityGitDetails } from 'services/pipeline-ng'
 
 import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
@@ -27,12 +27,14 @@ export interface PipelineCreateProps {
   afterSave?: (values: NgPipeline, gitDetails?: EntityGitDetails) => void
   initialValues?: NgPipelineWithGitDetails
   closeModal?: () => void
+  gitDetails?: IGitContextFormProps
 }
 
 export default function CreatePipelines({
   afterSave,
   initialValues = { identifier: '', name: '', description: '', tags: {}, repo: '', branch: '' },
-  closeModal
+  closeModal,
+  gitDetails
 }: PipelineCreateProps): JSX.Element {
   const { getString } = useStrings()
   const { pipelineIdentifier } = useParams<{ pipelineIdentifier: string }>()
@@ -59,11 +61,11 @@ export default function CreatePipelines({
       })}
       onSubmit={values => {
         logger.info(JSON.stringify(values))
-        const gitDetails =
+        const formGitDetails =
           values.repo && values.repo.trim().length > 0
             ? { repoIdentifier: values.repo, branch: values.branch }
             : undefined
-        afterSave && afterSave(omit(values, 'repo', 'branch'), gitDetails)
+        afterSave && afterSave(omit(values, 'repo', 'branch'), formGitDetails)
       }}
     >
       {formikProps => (
@@ -76,10 +78,7 @@ export default function CreatePipelines({
           />
           {isGitSyncEnabled && (
             <GitSyncStoreProvider>
-              <GitContextForm
-                formikProps={formikProps}
-                gitDetails={{ ...pick(initialValues, ['repo', 'branch']), getDefaultFromOtherRepo: false }}
-              />
+              <GitContextForm formikProps={formikProps} gitDetails={gitDetails} />
             </GitSyncStoreProvider>
           )}
           <Container padding={{ top: 'xlarge' }}>

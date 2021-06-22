@@ -33,6 +33,7 @@ import { useQueryParams, useUpdateQueryParams } from '@common/hooks'
 import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import { TagsPopover } from '@common/components'
 import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
+import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import { PipelineVariablesContextProvider } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import CreatePipelines from '../CreateModal/PipelineCreate'
@@ -240,7 +241,10 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     } else {
       clear()
       setSchemaErrorView(true)
-      showError(response?.message || getString('errorWhileSaving'), undefined, 'pipeline.save.pipeline.error')
+      // This is done because when git sync is enabled, errors are displayed in a modal
+      if (!isGitSyncEnabled) {
+        showError(response?.message || getString('errorWhileSaving'), undefined, 'pipeline.save.pipeline.error')
+      }
       throw response
     }
     return { status: response?.status }
@@ -351,6 +355,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
             afterSave={onSubmit}
             initialValues={merge(pipeline, { repo: gitDetails.repoIdentifier || '', branch: gitDetails.branch || '' })}
             closeModal={onCloseCreate}
+            gitDetails={gitDetails as IGitContextFormProps}
           />
         </Dialog>
       )
@@ -397,7 +402,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   }, [pipeline?.name])
 
   const onCloseCreate = React.useCallback(() => {
-    if (pipeline?.identifier === DefaultNewPipelineId || getOtherModal) {
+    if (pipelineIdentifier === DefaultNewPipelineId || getOtherModal) {
       if (getOtherModal) {
         deletePipelineCache()
       }

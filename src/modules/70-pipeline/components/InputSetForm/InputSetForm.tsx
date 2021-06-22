@@ -310,22 +310,26 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
           const errors = getFormattedErrors(response.data.inputSetErrorWrapper?.uuidToErrorResponseMap)
           if (Object.keys(errors).length) {
             setFormErrors(errors)
-          } else {
+            // This is done because when git sync is enabled, errors are displayed in a modal
+          } else if (!isGitSyncEnabled) {
             showError(getString('inputSets.inputSetSavedError'), undefined, 'pipeline.create.inputset')
           }
         } else {
-          showSuccess(getString('inputSets.inputSetSaved'))
           if (!isGitSyncEnabled) {
+            showSuccess(getString('inputSets.inputSetSaved'))
             history.goBack()
           }
         }
       }
     } catch (e) {
-      showError(
-        e?.data?.message || e?.message || getString('commonError'),
-        undefined,
-        'pipeline.update.create.inputset'
-      )
+      // This is done because when git sync is enabled, errors are displayed in a modal
+      if (!isGitSyncEnabled) {
+        showError(
+          e?.data?.message || e?.message || getString('commonError'),
+          undefined,
+          'pipeline.update.create.inputset'
+        )
+      }
       throw e
     }
     return {

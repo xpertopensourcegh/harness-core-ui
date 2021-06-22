@@ -1,14 +1,14 @@
 import React from 'react'
 import { Card, Text, Color, Container, Layout, SparkChart, CardBody, Icon, Button } from '@wings-software/uicore'
-import { Classes, Intent, Menu, Position } from '@blueprintjs/core'
+import { Classes, Intent, Menu, Position, TextArea } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-import { isEmpty } from 'lodash-es'
+import { isEmpty, pick } from 'lodash-es'
 import { useHistory } from 'react-router-dom'
 import cx from 'classnames'
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
-import { PMSPipelineSummaryResponse, useSoftDeletePipeline } from 'services/pipeline-ng'
+import { EntityGitDetails, PMSPipelineSummaryResponse, useSoftDeletePipeline } from 'services/pipeline-ng'
 import { String, useStrings } from 'framework/strings'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
 import { TagsPopover } from '@common/components'
@@ -31,6 +31,41 @@ export interface PipelineCardProps {
   refetchPipeline: () => void
 }
 
+interface DeleteConfirmDialogContentProps {
+  gitDetails?: EntityGitDetails
+  pipelineName?: string
+  commitMsg: string
+  onCommitMsgChange: (commitMsg: string) => void
+}
+
+export const DeleteConfirmDialogContent: React.FC<DeleteConfirmDialogContentProps> = ({
+  gitDetails = {},
+  pipelineName = '',
+  commitMsg,
+  onCommitMsgChange
+}): JSX.Element => {
+  const { getString } = useStrings()
+
+  return (
+    <div className={'pipelineDeleteDialog'}>
+      <Text margin={{ bottom: 'medium' }} title={pipelineName}>{`${getString(
+        'pipeline-list.confirmDelete'
+      )} ${pipelineName}?`}</Text>
+      {gitDetails?.objectId && (
+        <>
+          <Text>{getString('common.git.commitMessage')}</Text>
+          <TextArea
+            value={commitMsg}
+            onInput={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
+              onCommitMsgChange(event.target.value)
+            }}
+          />
+        </>
+      )}
+    </div>
+  )
+}
+
 interface ContextMenuProps {
   pipeline: PMSPipelineSummaryResponse
   goToPipelineStudio: (pipeline?: PMSPipelineSummaryResponse) => void
@@ -39,6 +74,7 @@ interface ContextMenuProps {
   projectIdentifier: string
   orgIdentifier: string
   accountIdentifier: string
+  isGitSyncEnabled: boolean
 }
 
 const ContextMenu: React.FC<ContextMenuProps> = ({
@@ -51,13 +87,38 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
   accountIdentifier
 }): JSX.Element => {
   const { showSuccess, showError } = useToaster()
+  const { getString } = useStrings()
+
+  const [commitMsg, setCommitMsg] = React.useState<string>(
+    `${getString('pipeline-list.confirmDeleteTitle')} ${pipeline.name}`
+  )
+
+  const gitParams = pipeline.gitDetails?.objectId
+    ? {
+        ...pick(pipeline.gitDetails, ['branch', 'repoIdentifier', 'filePath', 'rootFolder']),
+        commitMsg,
+        lastObjectId: pipeline.gitDetails?.objectId
+      }
+    : {}
+
   const { mutate: deletePipeline } = useSoftDeletePipeline({
-    queryParams: { accountIdentifier, orgIdentifier, projectIdentifier }
+    queryParams: {
+      accountIdentifier,
+      orgIdentifier,
+      projectIdentifier,
+      ...gitParams
+    }
   })
 
-  const { getString } = useStrings()
   const { openDialog: confirmDelete } = useConfirmationDialog({
-    contentText: getString('pipeline-list.confirmDelete', { name: pipeline.name }),
+    contentText: (
+      <DeleteConfirmDialogContent
+        pipelineName={pipeline?.name}
+        gitDetails={pipeline.gitDetails}
+        commitMsg={commitMsg}
+        onCommitMsgChange={setCommitMsg}
+      />
+    ),
     titleText: getString('pipeline-list.confirmDeleteTitle'),
     confirmButtonText: getString('delete'),
     cancelButtonText: getString('cancel'),
@@ -212,6 +273,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
                 projectIdentifier={projectIdentifier}
                 accountIdentifier={accountId}
                 orgIdentifier={orgIdentifier}
+                isGitSyncEnabled
               />
             }
             menuPopoverProps={{

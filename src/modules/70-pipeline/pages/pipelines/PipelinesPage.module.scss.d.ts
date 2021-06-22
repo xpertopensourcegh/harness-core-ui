@@ -38,5 +38,6 @@ declare const styles: {
   readonly image: string
   readonly noPipelineText: string
   readonly aboutPipeline: string
+  readonly confirmText: string
 }
 export default styles

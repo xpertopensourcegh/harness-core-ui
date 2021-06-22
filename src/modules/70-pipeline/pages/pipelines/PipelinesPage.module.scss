@@ -215,3 +215,20 @@ $header-height: 80px;
     color: var(--grey-600) !important;
   }
 }
+
+:global {
+  .pipelineDeleteDialog {
+    textarea {
+      margin-top: 5px;
+      max-height: 200px;
+      width: 100%;
+      resize: vertical;
+    }
+  }
+}
+
+.confirmText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
