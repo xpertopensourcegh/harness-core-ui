@@ -124,7 +124,7 @@ export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props =
         {getMultiTypeFromValue((template?.properties?.ci?.codebase?.build as unknown) as string) ===
           MultiTypeInputType.RUNTIME && (
           <>
-            <div className={css.header}>{getString('ciCodebase')}</div>
+            <div className={css.subheading}>{getString('ciCodebase')}</div>
             <CICodebaseInputSetForm path={path} readonly={readonly} />
           </>
         )}
