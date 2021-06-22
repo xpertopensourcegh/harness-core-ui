@@ -9,7 +9,8 @@ import { ModuleName } from 'framework/types/ModuleName'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
-import ProjectSetupMenu from '@common/navigation/ProjectSetupMenu/ProjectSetupMenu'
+import NavExpandable from '@common/navigation/NavExpandable/NavExpandable'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import css from './SideNav.module.scss'
 
 export default function CFSideNav(): React.ReactElement {
@@ -19,6 +20,7 @@ export default function CFSideNav(): React.ReactElement {
   const history = useHistory()
   const { updateAppStore } = useAppStore()
   const { withActiveEnvironment } = useActiveEnvironment()
+  const { NG_RBAC_ENABLED } = useFeatureFlags()
 
   return (
     <Layout.Vertical spacing="small">
@@ -51,7 +53,17 @@ export default function CFSideNav(): React.ReactElement {
             label={getString('cf.shared.getStarted')}
             to={withActiveEnvironment(routes.toCFOnboarding(params))}
           />
-          <ProjectSetupMenu module="cf" />
+
+          {NG_RBAC_ENABLED && (
+            <NavExpandable title={getString('common.projectSetup')} route={routes.toSetup(params)}>
+              <Layout.Vertical spacing="small">
+                <SidebarLink
+                  to={routes.toAccessControl({ ...params, module: 'cf' })}
+                  label={getString('accessControl')}
+                />
+              </Layout.Vertical>
+            </NavExpandable>
+          )}
         </React.Fragment>
       ) : null}
     </Layout.Vertical>
