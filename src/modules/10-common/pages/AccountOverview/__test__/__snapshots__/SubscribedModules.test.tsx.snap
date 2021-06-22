@@ -17,7 +17,7 @@ exports[`SubscribedModules should render link to subscriptions page only when no
         class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
       >
         <a
-          href=""
+          href="/account/undefined/home/setup/subscriptions"
         >
           common.account.visitSubscriptions.link
         </a>
@@ -128,16 +128,12 @@ exports[`SubscribedModules should render modules when api call returns modules 1
           <div
             class="StyledProps--font StyledProps--main StyledProps--border StyledProps--border-top StyledProps--padding-top-large StyledProps--padding-bottom-large StyledProps--padding-left-large"
           >
-            <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main manageBtn StyledProps--font StyledProps--font-size-xsmall Button--with-current-color"
-              type="button"
+            <a
+              class="manageBtn"
+              href="/account/undefined/home/setup/subscriptions?moduleCard=CI"
             >
-              <span
-                class="bp3-button-text"
-              >
-                common.manage
-              </span>
-            </button>
+              common.manage
+            </a>
           </div>
         </div>
       </div>
