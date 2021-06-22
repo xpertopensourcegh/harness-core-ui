@@ -22,6 +22,7 @@ import {
   validateTheIdentifierIsUniquePromise,
   Failure
 } from 'services/cd-ng'
+import { GitAuthTypes } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { String, useStrings } from 'framework/strings'
 import { GitUrlType, GitConnectionType } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -217,6 +218,12 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
                     name="connectionType"
                     radioGroup={{ inline: true }}
                     items={connectionTypeOptions}
+                    onChange={val => {
+                      // initialize authType for only 1 option
+                      if (val.currentTarget.value === GitConnectionType.HTTP && props.type === Connectors.BITBUCKET) {
+                        formikProps.setFieldValue('authType', GitAuthTypes.USER_PASSWORD)
+                      }
+                    }}
                   />
                   <FormInput.Text
                     className={css.formElm}
