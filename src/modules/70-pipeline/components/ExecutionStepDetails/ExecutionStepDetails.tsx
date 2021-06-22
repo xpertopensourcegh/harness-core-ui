@@ -40,8 +40,8 @@ export default function ExecutionStepDetails(): React.ReactElement {
     },
     /**
      * Do not fetch data:
-     * 2. No retry step
-     * 3. Already have data for it
+     * 1. No retry step
+     * 2. Already have data for it
      */
     lazy: !retryStep || has(allNodeMap, retryStep)
   })

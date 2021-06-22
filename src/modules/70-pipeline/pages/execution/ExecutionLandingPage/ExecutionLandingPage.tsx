@@ -132,7 +132,6 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
     const nodeMap = { ...data?.data?.executionGraph?.nodeMap }
     // NOTE: add dependencies from "liteEngineTask" (ci stage)
     addServiceDependenciesFromLiteTaskEngine(nodeMap)
-    setAllNodeMap(nodeMap)
     setAllNodeMap(oldNodeMap => ({ ...oldNodeMap, ...nodeMap }))
   }, [data?.data?.executionGraph?.nodeMap])
 
