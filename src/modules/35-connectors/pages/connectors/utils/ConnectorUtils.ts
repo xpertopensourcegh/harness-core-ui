@@ -295,7 +295,10 @@ export const setupGitFormData = async (connectorInfo: ConnectorInfoDTO, accountI
   }
 
   const formData = {
-    sshKey: await setSecretField(connectorInfo?.spec?.sshKeyRef, scopeQueryParams),
+    sshKey: await setSecretField(
+      connectorInfo?.spec?.sshKeyRef || connectorInfo?.spec?.spec?.sshKeyRef, // for git, sshKeyRef looks to be nested in spec twice
+      scopeQueryParams
+    ),
     username:
       connectorInfo?.spec?.spec?.username || connectorInfo?.spec?.spec?.usernameRef
         ? {
