@@ -40,12 +40,12 @@ const StepSuccessVerification: React.FC<StepProps<StepK8Data> & StepSuccessVerif
             </Heading>
           </Layout.Horizontal>
           <Layout.Horizontal className={css.descriptionVerificationWrapper}>
-            <Text lineClamp={2} font="normal" width={407}>
+            <Text lineClamp={2} font="normal" width={408}>
               {getString('delegate.successVerification.description1')}
             </Text>
           </Layout.Horizontal>
           <Layout.Horizontal>
-            <Text lineClamp={2} font={{ weight: 'bold', size: 'normal' }} width={407}>
+            <Text lineClamp={2} font={{ weight: 'bold', size: 'normal' }} width={408}>
               {getString('delegate.successVerification.description2')}
             </Text>
           </Layout.Horizontal>

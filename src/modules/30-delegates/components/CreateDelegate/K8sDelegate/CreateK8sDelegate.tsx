@@ -1,4 +1,5 @@
 import React from 'react'
+import { useStrings } from 'framework/strings'
 import { WizardWithProgress } from '@common/components/WizardWithProgress/WizardWithProgress'
 import { Status } from '@common/components/WizardWithProgress/WizardHelper'
 
@@ -18,15 +19,16 @@ interface CreateK8sDelegateProps {
 }
 
 const CreateK8sDelegate: React.FC<CreateK8sDelegateProps> = props => {
+  const { getString } = useStrings()
   const panels = [
     {
-      tabTitle: 'Delegate Setup',
+      tabTitle: getString('delegates.delSetup'),
       id: 'delegateSetup',
       status: Status.INPROGRESS
     },
-    { tabTitle: 'Review Script', id: 'reviewScript', status: Status.TODO },
+    { tabTitle: getString('delegates.reviewYAML'), id: 'reviewScript', status: Status.TODO },
     {
-      tabTitle: 'Verification ',
+      tabTitle: getString('delegates.verification'),
       id: 'verifications',
       status: Status.TODO
     }

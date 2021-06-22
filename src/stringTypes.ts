@@ -563,6 +563,7 @@ export interface StringsMap {
   'authSettings.usePublicOAuth': string
   'authSettings.whitelistedDomainsDisabled': string
   'authSettings.yourAccountWillBeLockedOut': string
+  'delegates.delSetup': string
   'delegates.delegateInstances': string
   'delegates.delegateNameRegexIssue': string
   'delegates.delegateNamespaceRequired': string
@@ -587,9 +588,11 @@ export interface StringsMap {
   'delegates.newDelegateConfigWizard.successMessage': string
   'delegates.permissionRequired': string
   'delegates.replicaText': string
+  'delegates.reviewYAML': string
   'delegates.searchDelegateName': string
   'delegates.totalMemUnit': string
   'delegates.usedBy': string
+  'delegates.verification': string
   'secrets.blank': string
   'secrets.confirmDelete': string
   'secrets.confirmDeleteTitle': string

@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { act, fireEvent, render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import CreateK8sDelegate from '../CreateK8sDelegate'
 import DelegateSizesmock from './DelegateSizesmock.json'
@@ -25,14 +25,27 @@ jest.mock('services/cd-ng', () => ({
     return { data: {}, refetch: jest.fn(), error: null, loading: false }
   })
 }))
+const onBack = jest.fn()
 describe('Create K8s Delegate', () => {
   test('render data', () => {
-    const onBack = jest.fn()
     const { container } = render(
       <TestWrapper>
         <CreateK8sDelegate onBack={onBack} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
+  })
+  test('test back btn', () => {
+    const { container } = render(
+      <TestWrapper>
+        <CreateK8sDelegate onBack={onBack} />
+      </TestWrapper>
+    )
+    const buttons = container.getElementsByTagName('button')
+    const backBtn = buttons[0]
+    act(() => {
+      fireEvent.click(backBtn!)
+    })
+    expect(onBack).toBeCalled()
   })
 })

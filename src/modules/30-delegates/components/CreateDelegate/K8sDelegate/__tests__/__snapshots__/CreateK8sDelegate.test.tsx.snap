@@ -30,7 +30,7 @@ exports[`Create K8s Delegate render data 1`] = `
         <p
           class="StyledProps--font StyledProps--main headerTitle inprogress  StyledProps--font-size-normal StyledProps--font-align-center"
         >
-          Delegate Setup
+          delegates.delSetup
         </p>
       </div>
       <div
@@ -52,7 +52,7 @@ exports[`Create K8s Delegate render data 1`] = `
         <p
           class="StyledProps--font StyledProps--main headerTitle   StyledProps--font-size-normal StyledProps--font-align-center"
         >
-          Review Script
+          delegates.reviewYAML
         </p>
       </div>
       <div
@@ -71,7 +71,7 @@ exports[`Create K8s Delegate render data 1`] = `
         <p
           class="StyledProps--font StyledProps--main headerTitle lastElementHeader  StyledProps--font-size-normal StyledProps--font-align-center"
         >
-          Verification 
+          delegates.verification
         </p>
       </div>
       <div
