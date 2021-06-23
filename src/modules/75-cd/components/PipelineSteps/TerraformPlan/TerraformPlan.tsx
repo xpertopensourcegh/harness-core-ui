@@ -338,6 +338,7 @@ function TerraformPlanWidget(
                             name="spec.configuration.environmentVariables"
                             valueMultiTextInputProps={{ expressions }}
                             multiTypeFieldSelectorProps={{
+                              disableTypeSelection: true,
                               label: (
                                 <Text style={{ display: 'flex', alignItems: 'center', color: 'rgb(11, 11, 13)' }}>
                                   {getString('optionalField', { name: getString('environmentVariables') })}

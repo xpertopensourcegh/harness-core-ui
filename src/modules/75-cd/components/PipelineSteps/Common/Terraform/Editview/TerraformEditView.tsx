@@ -312,7 +312,6 @@ export default function TerraformEditView(
                                 name="spec.configuration.spec.environmentVariables"
                                 multiTypeFieldSelectorProps={{
                                   disableTypeSelection: true,
-
                                   label: (
                                     <Text style={{ display: 'flex', alignItems: 'center', color: 'rgb(11, 11, 13)' }}>
                                       {getString('optionalField', { name: getString('environmentVariables') })}
