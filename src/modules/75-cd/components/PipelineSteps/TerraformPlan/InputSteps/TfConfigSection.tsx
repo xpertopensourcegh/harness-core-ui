@@ -91,22 +91,6 @@ export default function ConfigSection(props: TerraformPlanProps): React.ReactEle
         </div>
       )}
 
-      {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.configFiles?.store?.spec?.commitId) ===
-        MultiTypeInputType.RUNTIME && (
-        <div className={cx(stepCss.formGroup, stepCss.md)}>
-          <FormInput.MultiTextInput
-            label=""
-            name={`${path}.spec.configuration.spec.configFiles.store.spec.commitId`}
-            placeholder={getString('pipeline.manifestType.commitPlaceholder')}
-            disabled={readonly}
-            multiTextInputProps={{
-              expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-            }}
-          />
-        </div>
-      )}
-
       {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.configFiles?.store?.spec?.folderPath) ===
         MultiTypeInputType.RUNTIME && (
         <div className={cx(stepCss.formGroup, stepCss.md)}>

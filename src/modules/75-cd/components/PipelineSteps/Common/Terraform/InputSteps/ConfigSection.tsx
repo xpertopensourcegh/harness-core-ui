@@ -1,4 +1,6 @@
 import React from 'react'
+import cx from 'classnames'
+
 import { useParams } from 'react-router-dom'
 import { getMultiTypeFromValue, MultiTypeInputType, FormInput } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
@@ -18,6 +20,7 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 import { useQueryParams } from '@common/hooks'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import type { Connector, TerraformProps } from '../TerraformInterfaces'
+import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export default function ConfigSection(props: TerraformProps): React.ReactElement {
   const { getString } = useStrings()
@@ -79,89 +82,85 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
     <>
       {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.spec?.workspace) ===
         MultiTypeInputType.RUNTIME && (
-        <FormInput.MultiTextInput
-          name={`${path}.spec.configuration.spec.workspace`}
-          label={getString('pipelineSteps.workspace')}
-          disabled={readonly}
-          multiTextInputProps={{
-            expressions,
-            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-          }}
-        />
+        <div className={cx(stepCss.formGroup, stepCss.md)}>
+          <FormInput.MultiTextInput
+            name={`${path}.spec.configuration.spec.workspace`}
+            label={getString('pipelineSteps.workspace')}
+            disabled={readonly}
+            multiTextInputProps={{
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            }}
+          />
+        </div>
       )}
       {getMultiTypeFromValue(
         inputSetData?.template?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
       ) === MultiTypeInputType.RUNTIME && (
-        <ConnectorReferenceField
-          accountIdentifier={accountId}
-          selected={connectorSelected}
-          projectIdentifier={projectIdentifier}
-          orgIdentifier={orgIdentifier}
-          width={400}
-          type={['Git', 'Github', 'Gitlab', 'Bitbucket']}
-          name={`${path}.configuration.spec.configFiles.store.spec.connectorRef`}
-          label={getString('connectors.title.gitConnector')}
-          placeholder={getString('select')}
-          disabled={readonly || loading}
-          gitScope={gitScope}
-        />
+        <div className={cx(stepCss.formGroup, stepCss.md)}>
+          <ConnectorReferenceField
+            accountIdentifier={accountId}
+            selected={connectorSelected}
+            projectIdentifier={projectIdentifier}
+            orgIdentifier={orgIdentifier}
+            width={400}
+            type={['Git', 'Github', 'Gitlab', 'Bitbucket']}
+            name={`${path}.configuration.spec.configFiles.store.spec.connectorRef`}
+            label={getString('connectors.title.gitConnector')}
+            placeholder={getString('select')}
+            disabled={readonly || loading}
+            gitScope={gitScope}
+          />
+        </div>
       )}
 
       {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.spec?.configFiles?.store?.spec?.branch) ===
         MultiTypeInputType.RUNTIME && (
-        <FormInput.MultiTextInput
-          label={''}
-          name={`${path}.configuration.spec.configFiles.store.spec.branch`}
-          placeholder={getString('pipeline.manifestType.branchPlaceholder')}
-          disabled={readonly}
-          multiTextInputProps={{
-            expressions,
-            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-          }}
-        />
+        <div className={cx(stepCss.formGroup, stepCss.md)}>
+          <FormInput.MultiTextInput
+            label={''}
+            name={`${path}.configuration.spec.configFiles.store.spec.branch`}
+            placeholder={getString('pipeline.manifestType.branchPlaceholder')}
+            disabled={readonly}
+            multiTextInputProps={{
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            }}
+          />
+        </div>
       )}
 
       {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.spec?.configFiles?.store?.spec?.commitId) ===
         MultiTypeInputType.RUNTIME && (
-        <FormInput.MultiTextInput
-          label=""
-          name={`${path}.configuration.spec.configFiles.store.spec.commitId`}
-          placeholder={getString('pipeline.manifestType.commitPlaceholder')}
-          disabled={readonly}
-          multiTextInputProps={{
-            expressions,
-            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-          }}
-        />
-      )}
-
-      {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.spec?.configFiles?.store?.spec?.commitId) ===
-        MultiTypeInputType.RUNTIME && (
-        <FormInput.MultiTextInput
-          label=""
-          name={`${path}.configuration.spec.configFiles.store.spec.commitId`}
-          placeholder={getString('pipeline.manifestType.commitPlaceholder')}
-          disabled={readonly}
-          multiTextInputProps={{
-            expressions,
-            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-          }}
-        />
+        <div className={cx(stepCss.formGroup, stepCss.md)}>
+          <FormInput.MultiTextInput
+            label=""
+            name={`${path}.configuration.spec.configFiles.store.spec.commitId`}
+            placeholder={getString('pipeline.manifestType.commitPlaceholder')}
+            disabled={readonly}
+            multiTextInputProps={{
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            }}
+          />
+        </div>
       )}
 
       {getMultiTypeFromValue(
         inputSetData?.template?.spec?.configuration?.spec?.configFiles?.store?.spec?.folderPath
       ) === MultiTypeInputType.RUNTIME && (
-        <FormInput.MultiTextInput
-          label=""
-          name={`${path}.configuration.spec.configFiles.store.spec.folderPath`}
-          placeholder={getString('pipeline.manifestType.pathPlaceholder')}
-          disabled={readonly}
-          multiTextInputProps={{
-            expressions,
-            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-          }}
-        />
+        <div className={cx(stepCss.formGroup, stepCss.md)}>
+          <FormInput.MultiTextInput
+            label=""
+            name={`${path}.configuration.spec.configFiles.store.spec.folderPath`}
+            placeholder={getString('pipeline.manifestType.pathPlaceholder')}
+            disabled={readonly}
+            multiTextInputProps={{
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            }}
+          />
+        </div>
       )}
     </>
   )
