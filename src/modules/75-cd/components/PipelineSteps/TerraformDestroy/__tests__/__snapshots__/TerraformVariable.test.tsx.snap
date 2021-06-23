@@ -312,21 +312,13 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
       <div
         class="configFile addMarginBottom"
       >
-        <label
-          class="Label--main configFileLabel"
-          style="color: rgb(0, 0, 0);"
-        >
-          secret.labelFile
-        </label>
         <div
           class="configField"
         >
           <p
             class="StyledProps--font StyledProps--main configPlaceHolder"
           >
-            -
             cd.configFilePlaceHolder
-            -
           </p>
           <span
             class="bp3-icon bp3-icon-edit StyledProps--main"

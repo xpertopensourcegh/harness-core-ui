@@ -219,17 +219,14 @@ function TerraformPlanWidget(
                 />
               </div>
 
-              <Layout.Vertical className={cx(css.addMarginBottom)}>
+              <Layout.Vertical className={cx(css.addMarginBottom, css.addMarginTop)}>
                 <Label style={{ color: Color.GREY_900 }} className={css.configLabel}>
                   {getString('cd.configurationFile')}
                 </Label>
                 <div className={cx(css.configFile, css.addMarginBottom)}>
-                  <Label style={{ color: '#000000' }} className={css.configFileLabel}>
-                    {getString('secret.labelFile')}
-                  </Label>
                   <div className={css.configField}>
                     {!formik.values?.spec?.configuration?.configFiles?.store?.spec?.folderPath && (
-                      <Text className={css.configPlaceHolder}>-{getString('cd.configFilePlaceHolder')}-</Text>
+                      <Text className={css.configPlaceHolder}>{getString('cd.configFilePlaceHolder')}</Text>
                     )}
                     {formik.values?.spec?.configuration?.configFiles?.store?.spec?.folderPath && (
                       <Text font="normal" lineClamp={1} width={200}>

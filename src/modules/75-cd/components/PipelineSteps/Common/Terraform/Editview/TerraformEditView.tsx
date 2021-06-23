@@ -185,12 +185,9 @@ export default function TerraformEditView(
                       {getString('cd.configurationFile')}
                     </Label>
                     <div className={cx(css.configFile, css.addMarginBottom)}>
-                      <Label style={{ color: '#000000' }} className={css.configFileLabel}>
-                        {getString('secret.labelFile')}
-                      </Label>
                       <div className={css.configField}>
                         {!formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.folderPath && (
-                          <Text className={css.configPlaceHolder}>-{getString('cd.configFilePlaceHolder')}-</Text>
+                          <Text className={css.configPlaceHolder}>{getString('cd.configFilePlaceHolder')}</Text>
                         )}
                         {formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.folderPath && (
                           <Text font="normal" lineClamp={1} width={200}>

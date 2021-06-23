@@ -312,21 +312,13 @@ exports[`Test TerraformApply expand backend Spec config 1`] = `
       <div
         class="configFile addMarginBottom"
       >
-        <label
-          class="Label--main configFileLabel"
-          style="color: rgb(0, 0, 0);"
-        >
-          secret.labelFile
-        </label>
         <div
           class="configField"
         >
           <p
             class="StyledProps--font StyledProps--main configPlaceHolder"
           >
-            -
             cd.configFilePlaceHolder
-            -
           </p>
           <span
             class="bp3-icon bp3-icon-edit StyledProps--main"
@@ -1299,21 +1291,13 @@ exports[`Test TerraformApply rendering more than one varfile 1`] = `
       <div
         class="configFile addMarginBottom"
       >
-        <label
-          class="Label--main configFileLabel"
-          style="color: rgb(0, 0, 0);"
-        >
-          secret.labelFile
-        </label>
         <div
           class="configField"
         >
           <p
             class="StyledProps--font StyledProps--main configPlaceHolder"
           >
-            -
             cd.configFilePlaceHolder
-            -
           </p>
           <span
             class="bp3-icon bp3-icon-edit StyledProps--main"
@@ -1690,21 +1674,13 @@ exports[`Test TerraformApply rendering more than one varfile 2`] = `
       <div
         class="configFile addMarginBottom"
       >
-        <label
-          class="Label--main configFileLabel"
-          style="color: rgb(0, 0, 0);"
-        >
-          secret.labelFile
-        </label>
         <div
           class="configField"
         >
           <p
             class="StyledProps--font StyledProps--main configPlaceHolder"
           >
-            -
             cd.configFilePlaceHolder
-            -
           </p>
           <span
             class="bp3-icon bp3-icon-edit StyledProps--main"
@@ -3583,21 +3559,13 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
       <div
         class="configFile addMarginBottom"
       >
-        <label
-          class="Label--main configFileLabel"
-          style="color: rgb(0, 0, 0);"
-        >
-          secret.labelFile
-        </label>
         <div
           class="configField"
         >
           <p
             class="StyledProps--font StyledProps--main configPlaceHolder"
           >
-            -
             cd.configFilePlaceHolder
-            -
           </p>
           <span
             class="bp3-icon bp3-icon-edit StyledProps--main"
@@ -4641,21 +4609,13 @@ exports[`Test TerraformApply should submit form for inline config 1`] = `
       <div
         class="configFile addMarginBottom"
       >
-        <label
-          class="Label--main configFileLabel"
-          style="color: rgb(0, 0, 0);"
-        >
-          secret.labelFile
-        </label>
         <div
           class="configField"
         >
           <p
             class="StyledProps--font StyledProps--main configPlaceHolder"
           >
-            -
             cd.configFilePlaceHolder
-            -
           </p>
           <span
             class="bp3-icon bp3-icon-edit StyledProps--main"
