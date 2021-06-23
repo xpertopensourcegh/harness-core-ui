@@ -71,7 +71,7 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
               class="Tooltip--acenter"
               data-tooltip-id="terraformEdit_name"
             >
-              cd.stepName
+              name
             </span>
              
             <span

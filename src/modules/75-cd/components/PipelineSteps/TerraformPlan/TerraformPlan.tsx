@@ -131,7 +131,7 @@ function TerraformPlanWidget(
           <>
             <>
               <div className={cx(stepCss.formGroup, stepCss.md)}>
-                <FormInput.InputWithIdentifier inputLabel={getString('cd.stepName')} isIdentifierEditable={isNewStep} />
+                <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
               </div>
 
               <div className={cx(stepCss.formGroup, stepCss.sm)}>

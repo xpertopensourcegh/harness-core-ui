@@ -71,7 +71,7 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
               class="Tooltip--acenter"
               data-tooltip-id="terraformEdit_name"
             >
-              cd.stepName
+              name
             </span>
              
             <span
@@ -1103,7 +1103,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
               class="Tooltip--acenter"
               data-tooltip-id="terraformEdit_name"
             >
-              cd.stepName
+              name
             </span>
              
             <span
@@ -2135,7 +2135,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
               class="Tooltip--acenter"
               data-tooltip-id="terraformEdit_name"
             >
-              cd.stepName
+              name
             </span>
              
             <span
@@ -2440,7 +2440,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
               class="Tooltip--acenter"
               data-tooltip-id="terraformEdit_name"
             >
-              cd.stepName
+              name
             </span>
              
             <span
@@ -2743,7 +2743,7 @@ exports[`Test TerraformDestroy should render edit view as new step 1`] = `
               class="Tooltip--acenter"
               data-tooltip-id="terraformEdit_name"
             >
-              cd.stepName
+              name
             </span>
              
             <span

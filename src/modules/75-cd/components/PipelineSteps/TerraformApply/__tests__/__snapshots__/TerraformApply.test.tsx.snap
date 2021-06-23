@@ -71,7 +71,7 @@ exports[`Test TerraformApply expand backend Spec config 1`] = `
               class="Tooltip--acenter"
               data-tooltip-id="terraformEdit_name"
             >
-              cd.stepName
+              name
             </span>
              
             <span
@@ -1050,7 +1050,7 @@ exports[`Test TerraformApply rendering more than one varfile 1`] = `
               class="Tooltip--acenter"
               data-tooltip-id="terraformEdit_name"
             >
-              cd.stepName
+              name
             </span>
              
             <span
@@ -1433,7 +1433,7 @@ exports[`Test TerraformApply rendering more than one varfile 2`] = `
               class="Tooltip--acenter"
               data-tooltip-id="terraformEdit_name"
             >
-              cd.stepName
+              name
             </span>
              
             <span
@@ -3017,7 +3017,7 @@ exports[`Test TerraformApply should render edit view as edit step - Inheritfromp
               class="Tooltip--acenter"
               data-tooltip-id="terraformEdit_name"
             >
-              cd.stepName
+              name
             </span>
              
             <span
@@ -3322,7 +3322,7 @@ exports[`Test TerraformApply should render edit view as inline 1`] = `
               class="Tooltip--acenter"
               data-tooltip-id="terraformEdit_name"
             >
-              cd.stepName
+              name
             </span>
              
             <span
@@ -3703,7 +3703,7 @@ exports[`Test TerraformApply should render edit view as new step 1`] = `
               class="Tooltip--acenter"
               data-tooltip-id="terraformEdit_name"
             >
-              cd.stepName
+              name
             </span>
              
             <span
@@ -4067,7 +4067,7 @@ exports[`Test TerraformApply should submit form for inheritfromplan config 1`] =
               class="Tooltip--acenter"
               data-tooltip-id="terraformEdit_name"
             >
-              cd.stepName
+              name
             </span>
              
             <span
@@ -4372,7 +4372,7 @@ exports[`Test TerraformApply should submit form for inline config 1`] = `
               class="Tooltip--acenter"
               data-tooltip-id="terraformEdit_name"
             >
-              cd.stepName
+              name
             </span>
              
             <span
