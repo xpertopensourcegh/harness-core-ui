@@ -133,7 +133,7 @@ jira:
   jiraUrl: 'Jira URL'
 k8:
   delegateOutClusterInfo: 'Specify master URL and credentials'
-  delegateInClusterInfo: 'Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates'
+  delegateInClusterInfo: 'Use the credentials of a specific Harness Delegate (IAM role, service account, etc)'
   masterUrlLabel: 'Master URL'
   serviceAccountToken: 'Service Account Token'
   serviceAccountKey: 'Service Account Key'
