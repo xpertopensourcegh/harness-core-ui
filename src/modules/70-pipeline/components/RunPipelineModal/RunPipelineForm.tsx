@@ -326,6 +326,8 @@ function RunPipelineFormBasic({
   const [currentPipeline, setCurrentPipeline] = React.useState<{ pipeline?: NgPipeline } | undefined>(
     inputSetYAML ? parse(inputSetYAML) : undefined
   )
+  // Set executionPipelineParsed one time and use it to display the variables in execution view
+  const executionPipelineParsed = inputSetYAML ? parse(inputSetYAML) : undefined
   const [gitFilter, setGitFilter] = React.useState<GitFilterScope | null>({
     repo: inputSetRepoIdentifier || '',
     branch: inputSetBranch || '',
@@ -465,7 +467,7 @@ function RunPipelineFormBasic({
               const inputSetPortion = parse(data.data.pipelineYaml) as {
                 pipeline: NgPipeline
               }
-              const toBeUpdated = mergeTemplateWithInputSetData(parsedTemplate, inputSetPortion)
+              const toBeUpdated = mergeTemplateWithInputSetData(parsedTemplate, inputSetPortion, pipeline)
               setCurrentPipeline(toBeUpdated)
             }
           } catch (e) {
@@ -491,7 +493,7 @@ function RunPipelineFormBasic({
               const inputSetPortion = pick(parse(data.data.inputSetYaml)?.inputSet, 'pipeline') as {
                 pipeline: NgPipeline
               }
-              const toBeUpdated = mergeTemplateWithInputSetData(parsedTemplate, inputSetPortion)
+              const toBeUpdated = mergeTemplateWithInputSetData(parsedTemplate, inputSetPortion, pipeline)
               setCurrentPipeline(toBeUpdated)
             }
           }
@@ -695,10 +697,26 @@ function RunPipelineFormBasic({
         />
       )
     }
-    if (pipeline && template?.data?.inputSetTemplateYaml) {
+    if (currentPipeline?.pipeline && pipeline && template?.data?.inputSetTemplateYaml) {
+      /*
+      Fix for CDNG-10221
+      If one or more input sets are selected, supply the variables from currentPipeline
+      We're updating currentPipeline with variables inside mergeTemplateWithInputSetData function
+      */
+      /*
+      If input sets are not selected, supply the variables from 'pipeline' which is the original pipeline object.
+      This will populate the variables with default values instead of ""
+
+      If we're in the executionView, always supply from executionPipelineParsed which we set once on mount of this modal
+      */
+      const variables = executionView
+        ? executionPipelineParsed?.pipeline?.variables
+        : isEmpty(selectedInputSets)
+        ? pipeline.variables
+        : currentPipeline.pipeline.variables
       return (
         <PipelineInputSetForm
-          originalPipeline={pipeline}
+          originalPipeline={{ ...pipeline, variables }}
           template={parse(template.data.inputSetTemplateYaml).pipeline}
           readonly={executionView}
           path=""
@@ -747,7 +765,9 @@ function RunPipelineFormBasic({
 
           errors = await validateErrors()
 
-          if (typeof errors !== undefined) setFormErrors(errors)
+          if (typeof errors !== undefined && runClicked) {
+            setFormErrors(errors)
+          }
           return errors
         }}
       >

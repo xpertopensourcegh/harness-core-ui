@@ -1,7 +1,8 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 import { Text, FormInput, MultiTypeInputType, getMultiTypeFromValue, SelectOption } from '@wings-software/uicore'
 import cx from 'classnames'
-import { cloneDeep } from 'lodash-es'
+import { cloneDeep, get } from 'lodash-es'
 import { connect } from 'formik'
 import { String } from 'framework/strings'
 import type { AllNGVariables } from '@pipeline/utils/types'
@@ -9,7 +10,6 @@ import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
 import type { InputSetData } from '@pipeline/components/AbstractSteps/Step'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
-import { useQueryParams } from '@common/hooks'
 import { VariableType } from './CustomVariableUtils'
 import css from './CustomVariables.module.scss'
 export interface CustomVariablesData {
@@ -45,11 +45,11 @@ function CustomVariableInputSetBasic(props: CustomVariableInputSetProps): React.
   const basePath = path?.length ? `${path}.` : ''
   const { expressions } = useVariablesExpression()
 
-  const { executionId } = useQueryParams<Record<string, string>>()
+  const { executionIdentifier } = useParams<Record<string, string>>()
 
   React.useEffect(() => {
-    if (!executionId) {
-      const providedValues = formik.values
+    if (!executionIdentifier) {
+      const providedValues = get(formik.values, basePath)
       let updatedVariables: AllNGVariables[] = cloneDeep(initialValues.variables) || []
       updatedVariables = updatedVariables.map((variable: AllNGVariables, index: number) => {
         const { default: defaultValue = '', ...restVar } = variable
