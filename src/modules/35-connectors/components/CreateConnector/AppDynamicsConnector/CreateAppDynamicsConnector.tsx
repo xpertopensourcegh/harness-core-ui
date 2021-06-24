@@ -135,7 +135,6 @@ function AppDynamicsConfigStep(props: ConnectionConfigProps): JSX.Element {
         {formikProps => (
           <FormikForm className={styles.connectionForm}>
             <Layout.Vertical spacing="large" className={styles.appDContainer}>
-              <Text font="medium">{getString('connectors.appD.connectionDetailsHeader')}</Text>
               <FormInput.Text label={getString('connectors.appD.controllerURL')} name="url" />
               <FormInput.Text label={getString('connectors.appD.accountName')} name="accountName" />
               <UsernamePasswordAndApiClientOption
