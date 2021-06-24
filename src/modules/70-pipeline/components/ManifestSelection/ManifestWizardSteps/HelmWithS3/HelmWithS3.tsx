@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Form } from 'formik'
 import * as Yup from 'yup'
@@ -60,7 +60,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
   isReadonly = false
 }) => {
   const { getString } = useStrings()
-  const [regions, setRegions] = React.useState<SelectOption[]>([])
+  const [regions, setRegions] = useState<SelectOption[]>([])
 
   /* Code related to region */
   const { accountId } = useParams<AccountPathProps>()
@@ -82,6 +82,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
   /* Code related to region */
 
   const isActiveAdvancedStep: boolean = initialValues?.spec?.skipResourceVersioning || initialValues?.spec?.commandFlags
+  const [selectedHelmVersion, setHelmVersion] = React.useState(initialValues?.spec?.helmVersion ?? 'V2')
 
   const getInitialValues = (): HelmWithS3DataType => {
     const specValues = get(initialValues, 'spec.store.spec', null)
@@ -356,7 +357,19 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
                 </div>
 
                 <div className={helmcss.halfWidth}>
-                  <FormInput.Select name="helmVersion" label={getString('helmVersion')} items={helmVersions} />
+                  <FormInput.Select
+                    name="helmVersion"
+                    label={getString('helmVersion')}
+                    items={helmVersions}
+                    onChange={value => {
+                      if (value !== selectedHelmVersion) {
+                        formik.setFieldValue('commandFlags', [
+                          { commandType: undefined, flag: undefined, id: uuid('', nameSpace()) }
+                        ] as any)
+                        setHelmVersion(value)
+                      }
+                    }}
+                  />
                 </div>
               </Layout.Horizontal>
 

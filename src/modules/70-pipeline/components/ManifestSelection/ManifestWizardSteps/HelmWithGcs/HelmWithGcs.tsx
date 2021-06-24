@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Text,
   Accordion,
@@ -57,6 +57,7 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
 }) => {
   const { getString } = useStrings()
   const isActiveAdvancedStep: boolean = initialValues?.spec?.skipResourceVersioning || initialValues?.spec?.commandFlags
+  const [selectedHelmVersion, setHelmVersion] = useState(initialValues?.spec?.helmVersion ?? 'V2')
 
   const getInitialValues = (): HelmWithGcsDataType => {
     const specValues = get(initialValues, 'spec.store.spec', null)
@@ -283,7 +284,19 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
                 </div>
 
                 <div className={helmcss.halfWidth}>
-                  <FormInput.Select name="helmVersion" label={getString('helmVersion')} items={helmVersions} />
+                  <FormInput.Select
+                    name="helmVersion"
+                    label={getString('helmVersion')}
+                    items={helmVersions}
+                    onChange={value => {
+                      if (value !== selectedHelmVersion) {
+                        formik.setFieldValue('commandFlags', [
+                          { commandType: undefined, flag: undefined, id: uuid('', nameSpace()) }
+                        ] as any)
+                        setHelmVersion(value)
+                      }
+                    }}
+                  />
                 </div>
               </Layout.Horizontal>
 

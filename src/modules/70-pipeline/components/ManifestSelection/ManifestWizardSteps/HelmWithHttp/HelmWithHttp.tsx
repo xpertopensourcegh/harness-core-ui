@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Text,
   Accordion,
@@ -58,6 +58,8 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
 }) => {
   const { getString } = useStrings()
   const isActiveAdvancedStep: boolean = initialValues?.spec?.skipResourceVersioning || initialValues?.spec?.commandFlags
+
+  const [selectedHelmVersion, setHelmVersion] = useState(initialValues?.spec?.helmVersion ?? 'V2')
 
   const getInitialValues = (): HelmWithHTTPDataType => {
     const specValues = get(initialValues, 'spec.store.spec', null)
@@ -224,7 +226,19 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
                 </div>
 
                 <div className={helmcss.halfWidth}>
-                  <FormInput.Select name="helmVersion" label={getString('helmVersion')} items={helmVersions} />
+                  <FormInput.Select
+                    name="helmVersion"
+                    label={getString('helmVersion')}
+                    items={helmVersions}
+                    onChange={value => {
+                      if (value?.value !== selectedHelmVersion) {
+                        formik.setFieldValue('commandFlags', [
+                          { commandType: undefined, flag: undefined, id: uuid('', nameSpace()) }
+                        ] as any)
+                        setHelmVersion(value)
+                      }
+                    }}
+                  />
                 </div>
               </Layout.Horizontal>
 
