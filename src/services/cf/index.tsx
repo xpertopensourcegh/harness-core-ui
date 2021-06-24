@@ -4,51 +4,14 @@ import React from 'react'
 import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, UseMutateProps } from 'restful-react'
 
 import { getConfig } from '../config'
-export type Status = 'SUCCESS' | 'FAILURE' | 'ERROR'
-
-/**
- * A name and value pair.
- */
-export interface Tag {
-  name: string
-  value?: string
-}
-
-export interface Project {
-  name: string
-  description?: string
-  identifier: string
-  tags?: Tag[]
-}
-
-export interface Projects {
-  pageCount?: number
-  itemCount?: number
-  pageSize?: number
-  pageIndex?: number
-  projects?: Project[]
-}
-
-export interface Error {
-  code: string
-  message: string
-}
-
-export interface Pagination {
-  version?: number
-  pageCount: number
-  itemCount: number
-  pageSize: number
-  pageIndex: number
-}
-
+export const SPEC_VERSION = '1.0.0'
 export interface ApiKey {
-  name: string
   /**
    * The Key will be shown only on create. On subsequemt GET calls, only the masked APIKeys will be returned
    */
   apiKey: string
   identifier: string
+  name: string
   type: 'Server' | 'Client'
 }
 
@@ -56,64 +19,31 @@ export type ApiKeys = Pagination & {
   apiKeys?: ApiKey[]
 }
 
-export interface Environment {
-  name: string
-  description?: string
-  identifier: string
+export interface AuditTrail {
+  action: string
+  actor: string
+  comment: string
+  enviroment?: string
+  executedOn: number
+  instructionSet: { [key: string]: any }[]
+  objectAfter: string
+  objectBefore: string
+  objectIdentifier: string
+  objectType: string
   project: string
-  apiKeys: ApiKeys
-  tags?: Tag[]
+  status: string
 }
 
-export interface Environments {
-  environments?: Environment[]
-}
-
-export interface Prerequisite {
-  feature: string
-  variations: string[]
-}
-
-export interface Variation {
-  identifier: string
-  value: string
-  name?: string
-  description?: string
-}
-
-export interface Results {
-  variationIdentifier: string
-  variationName: string
-  count: number
-}
-
-export interface FeatureStatus {
-  status: 'active' | 'inactive' | 'never-requested'
-  lastAccess: number
-}
-
-export interface TargetMap {
-  identifier?: string
-  name: string
-}
-
-export interface VariationMap {
-  variation: string
-  targets?: TargetMap[]
-  targetSegments?: string[]
+export type AuditTrails = Pagination & {
+  auditTrails?: AuditTrail[]
 }
 
 export interface Clause {
-  id: string
   attribute: string
+  id: string
+  negate: boolean
   op: string
   values: string[]
-  negate: boolean
-}
-
-export interface WeightedVariation {
-  variation: string
-  weight: number
 }
 
 export interface Distribution {
@@ -121,53 +51,105 @@ export interface Distribution {
   variations: WeightedVariation[]
 }
 
-export interface Serve {
-  distribution?: Distribution
-  variation?: string
+export interface Environment {
+  apiKeys: ApiKeys
+  description?: string
+  identifier: string
+  name: string
+  project: string
+  tags?: Tag[]
 }
 
-export interface ServingRule {
-  ruleId: string
-  priority: number
-  clauses: Clause[]
-  serve: Serve
+export interface Environments {
+  environments?: Environment[]
+}
+
+export interface Error {
+  code: string
+  message: string
+}
+
+export interface Feature {
+  archived: boolean
+  createdAt: number
+  defaultOffVariation: string
+  defaultOnVariation: string
+  description?: string
+  envProperties?: {
+    defaultServe: Serve
+    environment: string
+    modifiedAt: number
+    offVariation: string
+    rules?: ServingRule[]
+    state: FeatureState
+    variationMap?: VariationMap[]
+    version?: number
+  }
+  evaluation?: string
+  evaluationIdentifier?: string
+  identifier: string
+  kind: 'boolean' | 'int' | 'string' | 'json'
+  modifiedAt: number
+  name: string
+  owner?: string[]
+  permanent: boolean
+  prerequisites?: Prerequisite[]
+  project: string
+  results?: Results[]
+  status?: FeatureStatus
+  tags?: Tag[]
+  variations: Variation[]
+}
+
+export interface FeatureEvaluation {
+  count?: number
+  date?: number
+  variationIdentifier?: string
+  variationName?: string
+}
+
+export interface FeatureEvaluations {
+  evaluations?: FeatureEvaluation[]
 }
 
 export type FeatureState = 'on' | 'off'
 
-export interface Feature {
-  project: string
-  identifier: string
-  prerequisites?: Prerequisite[]
-  name: string
-  description?: string
-  owner?: string[]
-  kind: 'boolean' | 'int' | 'string' | 'json'
-  archived: boolean
-  variations: Variation[]
-  defaultOnVariation: string
-  defaultOffVariation: string
-  permanent: boolean
-  results?: Results[]
-  status?: FeatureStatus
-  envProperties?: {
-    environment: string
-    variationMap?: VariationMap[]
-    rules?: ServingRule[]
-    state: FeatureState
-    defaultServe: Serve
-    offVariation: string
-    modifiedAt: number
-    version?: number
-  }
-  createdAt: number
-  modifiedAt: number
-  tags?: Tag[]
-  evaluation?: string
+export interface FeatureStatus {
+  lastAccess: number
+  status: 'active' | 'inactive' | 'never-requested'
 }
 
 export type Features = Pagination & {
   features?: Feature[]
+}
+
+export interface FlagBasicInfo {
+  identifier: string
+  name: string
+}
+
+export type FlagBasicInfos = Pagination & {
+  featureFlags?: FlagBasicInfo[]
+}
+
+/**
+ * A pair of object id and object body
+ */
+export interface ObjectSnapshot {
+  id: string
+  value?: { [key: string]: any }
+}
+
+export interface ObjectSnapshots {
+  objectsnapshots?: ObjectSnapshot[]
+}
+
+export interface Pagination {
+  itemCount: number
+  pageCount: number
+  pageIndex: number
+  pageSize: number
+  version?: number
 }
 
 export type PatchInstruction = {
@@ -187,54 +169,114 @@ export interface PatchOperation {
   instructions: PatchInstruction
 }
 
-export interface FeatureEvaluation {
-  date?: number
-  variationIdentifier?: string
-  variationName?: string
-  count?: number
+export interface Prerequisite {
+  feature: string
+  variations: string[]
 }
 
-export interface FeatureEvaluations {
-  evaluations?: FeatureEvaluation[]
-}
-
-export interface Target {
+export interface Project {
+  description?: string
   identifier: string
-  account: string
-  org: string
-  environment: string
-  project: string
   name: string
-  anonymous?: boolean
-  attributes?: { [key: string]: any }
-  createdAt?: number
-  segments?: Segment[]
+  tags?: Tag[]
+}
+
+export interface Projects {
+  itemCount?: number
+  pageCount?: number
+  pageIndex?: number
+  pageSize?: number
+  projects?: Project[]
+}
+
+export interface Results {
+  count: number
+  variationIdentifier: string
+  variationName: string
 }
 
 export interface Segment {
+  createdAt?: number
+  environment?: string
+  excluded?: Target[]
   /**
    * Unique identifier for the segment.
    */
   identifier: string
+  included?: Target[]
+  modifiedAt?: number
   /**
    * Name of the segment.
    */
   name: string
-  environment?: string
-  tags?: Tag[]
-  included?: Target[]
-  excluded?: Target[]
   /**
    * An array of rules that can cause a user to be included in this segment.
    */
   rules?: Clause[]
-  createdAt?: number
-  modifiedAt?: number
+  tags?: Tag[]
   version?: number
 }
 
-export type Targets = Pagination & {
-  targets?: Target[]
+export interface SegmentFlag {
+  description?: string
+  environment: string
+  identifier: string
+  name: string
+  project: string
+  type: 'DIRECT' | 'CONDITION'
+  variation: string
+}
+
+export type Segments = Pagination & {
+  segments?: Segment[]
+}
+
+export interface Serve {
+  distribution?: Distribution
+  variation?: string
+}
+
+export interface ServingRule {
+  clauses: Clause[]
+  priority: number
+  ruleId: string
+  serve: Serve
+}
+
+export type Status = 'SUCCESS' | 'FAILURE' | 'ERROR'
+
+/**
+ * A name and value pair.
+ */
+export interface Tag {
+  name: string
+  value?: string
+}
+
+export interface Target {
+  account: string
+  anonymous?: boolean
+  attributes?: { [key: string]: any }
+  createdAt?: number
+  environment: string
+  identifier: string
+  name: string
+  org: string
+  project: string
+  segments?: Segment[]
+}
+
+export interface TargetAndSegment {
+  identifier?: string
+  name?: string
+  type: 'target' | 'segment'
+}
+
+export interface TargetDetail {
+  excludedSegments?: TargetDetailSegment[]
+  identifier?: string
+  includedSegments?: TargetDetailSegment[]
+  ruleSegments?: TargetDetailSegment[]
 }
 
 export interface TargetDetailSegment {
@@ -242,176 +284,135 @@ export interface TargetDetailSegment {
   name?: string
 }
 
-export interface TargetDetail {
+export interface TargetMap {
   identifier?: string
-  includedSegments?: TargetDetailSegment[]
-  excludedSegments?: TargetDetailSegment[]
-  ruleSegments?: TargetDetailSegment[]
-}
-
-export type Segments = Pagination & {
-  segments?: Segment[]
-}
-
-export interface SegmentFlag {
-  identifier: string
-  type: 'DIRECT' | 'CONDITION'
-  project: string
-  environment: string
-  name: string
-  description?: string
-  variation: string
-}
-
-export interface FlagBasicInfo {
-  identifier: string
   name: string
 }
 
-export type FlagBasicInfos = Pagination & {
-  featureFlags?: FlagBasicInfo[]
-}
-
-export interface AuditTrail {
-  objectIdentifier: string
-  objectType: string
-  project: string
-  enviroment?: string
-  status: string
-  instructionSet: { [key: string]: any }[]
-  action: string
-  actor: string
-  comment: string
-  executedOn: number
-  objectBefore: string
-  objectAfter: string
-}
-
-export type AuditTrails = Pagination & {
-  auditTrails?: AuditTrail[]
-}
-
-/**
- * A pair of object id and object body
- */
-export interface ObjectSnapshot {
-  id: string
-  value?: { [key: string]: any }
-}
-
-export interface ObjectSnapshots {
-  objectsnapshots?: ObjectSnapshot[]
-}
-
-export interface TargetAndSegment {
-  name?: string
-  identifier?: string
-  type: 'target' | 'segment'
+export type Targets = Pagination & {
+  targets?: Target[]
 }
 
 export type TargetsAndSegments = Pagination & {
   entities?: TargetAndSegment[]
 }
 
-export interface ProjectRequestRequestBody {
-  identifier: string
-  name: string
+export type TargetsAndSegmentsInfo = {
+  entities?: TargetAndSegment[]
+}
+
+export interface Variation {
   description?: string
-  tags?: Tag[]
+  identifier: string
+  name?: string
+  value: string
+}
+
+export interface VariationMap {
+  targetSegments?: string[]
+  targets?: TargetMap[]
+  variation: string
+}
+
+export interface WeightedVariation {
+  variation: string
+  weight: number
 }
 
 export type APIKeyRequestRequestBody = {
+  description?: string
+  expiredAt?: number
   identifier: string
   name: string
-  description?: string
   type: 'Server' | 'Client'
-  expiredAt?: number
 }
 
 export interface APIKeyUpdateRequestRequestBody {
-  name?: string
   description?: string
   expiredAt?: number
+  name?: string
 }
 
 export interface EnvironmentRequestRequestBody {
+  description?: string
   identifier: string
   name: string
-  description?: string
   project: string
   tags?: Tag[]
 }
 
 export type FeatureFlagRequestRequestBody = {
-  project: string
-  prerequisites?: Prerequisite[]
-  name: string
+  archived?: boolean
+  defaultOffVariation: string
+  defaultOnVariation: string
   description?: string
   identifier: string
-  owner?: string
   kind: 'boolean' | 'int' | 'string' | 'json'
-  archived?: boolean
-  variations: Variation[]
-  tags?: Tag[]
-  defaultOnVariation: string
-  defaultOffVariation: string
+  name: string
+  owner?: string
   permanent: boolean
+  prerequisites?: Prerequisite[]
+  project: string
+  tags?: Tag[]
+  variations: Variation[]
 }
 
 export type FeaturePatchRequestRequestBody = PatchOperation
 
-export type TargetRequestRequestBody = Target
-
-export type TargetPatchRequestRequestBody = PatchOperation
-
-export interface SegmentRequestRequestBody {
-  identifier?: string
-  /**
-   * Name of the target segment.
-   */
+export interface ProjectRequestRequestBody {
+  description?: string
+  identifier: string
   name: string
-  environment: string
-  project: string
   tags?: Tag[]
-  included?: string[]
-  excluded?: string[]
-  /**
-   * An array of rules that can cause a user to be included in this segment.
-   */
-  rules?: Clause[]
 }
 
 export type SegmentPatchRequestRequestBody = PatchOperation
 
+export interface SegmentRequestRequestBody {
+  environment: string
+  excluded?: string[]
+  identifier?: string
+  included?: string[]
+  /**
+   * Name of the target segment.
+   */
+  name: string
+  project: string
+  /**
+   * An array of rules that can cause a user to be included in this segment.
+   */
+  rules?: Clause[]
+  tags?: Tag[]
+}
+
+export type TargetPatchRequestRequestBody = PatchOperation
+
+export type TargetRequestRequestBody = Target
+
+/**
+ * Created
+ */
+export type APIKeyResponseResponse = ApiKey
+
 /**
  * OK
  */
-export interface ProjectsResponseResponse {
-  status?: Status
-  data?: Projects
-  metaData?: { [key: string]: any }
+export type APIKeysResponseResponse = ApiKeys
+
+/**
+ * OK
+ */
+export interface AuditTrailResponseResponse {
   correlationId?: string
+  data?: AuditTrails
+  metaData?: { [key: string]: any }
+  status?: Status
 }
 
 /**
- * Unauthenticated
+ * OK
  */
-export type UnauthenticatedResponse = Error
-
-/**
- * Unauthorized
- */
-export type UnauthorizedResponse = Error
-
-/**
- * The specified resource was not found
- */
-export type NotFoundResponse = Error
-
-/**
- * Internal server error
- */
-export type InternalServerErrorResponse = Error
+export type AvailableFlagResponseResponse = FlagBasicInfos
 
 /**
  * Bad request
@@ -426,52 +427,22 @@ export type ConflictResponse = Error
 /**
  * OK
  */
-export interface ProjectResponseResponse {
-  status?: Status
-  data?: Project
-  metaData?: { [key: string]: any }
+export interface EnvironmentResponseResponse {
   correlationId?: string
+  data?: Environment
+  metaData?: { [key: string]: any }
+  status?: Status
 }
-
-/**
- * OK
- */
-export type APIKeysResponseResponse = ApiKeys
-
-/**
- * Created
- */
-export type APIKeyResponseResponse = ApiKey
 
 /**
  * OK
  */
 export interface EnvironmentsResponseResponse {
-  status: Status
+  correlationId: string
   data: Environments
   metaData?: { [key: string]: any }
-  correlationId: string
+  status: Status
 }
-
-/**
- * OK
- */
-export interface EnvironmentResponseResponse {
-  status?: Status
-  data?: Environment
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-/**
- * OK
- */
-export type FeaturesResponseResponse = Features
-
-/**
- * OK
- */
-export type FeatureResponseResponse = Feature
 
 /**
  * OK
@@ -481,17 +452,62 @@ export type FeatureEvaluationsResponseResponse = FeatureEvaluations
 /**
  * OK
  */
-export type TargetsResponseResponse = Targets
+export type FeatureResponseResponse = Feature
 
 /**
  * OK
  */
-export type TargetResponseResponse = Target
+export type FeaturesResponseResponse = Features
+
+/**
+ * Internal server error
+ */
+export type InternalServerErrorResponse = Error
+
+/**
+ * The specified resource was not found
+ */
+export type NotFoundResponse = Error
 
 /**
  * OK
  */
-export type TargetDetailResponseResponse = TargetDetail
+export interface ObjectSnapshotResponseResponse {
+  correlationId?: string
+  data?: ObjectSnapshots
+  metaData?: { [key: string]: any }
+  status?: Status
+}
+
+/**
+ * OK
+ */
+export interface ProjectResponseResponse {
+  correlationId?: string
+  data?: Project
+  metaData?: { [key: string]: any }
+  status?: Status
+}
+
+/**
+ * OK
+ */
+export interface ProjectsResponseResponse {
+  correlationId?: string
+  data?: Projects
+  metaData?: { [key: string]: any }
+  status?: Status
+}
+
+/**
+ * OK
+ */
+export type SegmentFlagsResponseResponse = SegmentFlag[]
+
+/**
+ * OK
+ */
+export type SegmentResponseResponse = Segment
 
 /**
  * OK
@@ -506,44 +522,39 @@ export type TargetAttributesResponse = string[]
 /**
  * OK
  */
-export type SegmentResponseResponse = Segment
+export type TargetDetailResponseResponse = TargetDetail
 
 /**
  * OK
  */
-export type SegmentFlagsResponseResponse = SegmentFlag[]
-
-/**
- * OK
- */
-export type AvailableFlagResponseResponse = FlagBasicInfos
-
-/**
- * OK
- */
-export interface AuditTrailResponseResponse {
-  status?: Status
-  data?: AuditTrails
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-/**
- * OK
- */
-export interface ObjectSnapshotResponseResponse {
-  status?: Status
-  data?: ObjectSnapshots
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
+export type TargetResponseResponse = Target
 
 /**
  * OK
  */
 export type TargetSegmentResponseResponse = TargetsAndSegments
 
-export interface CreateProjectQueryParams {
+/**
+ * OK
+ */
+export type TargetSegmentsInfoResponseResponse = TargetsAndSegmentsInfo
+
+/**
+ * OK
+ */
+export type TargetsResponseResponse = Targets
+
+/**
+ * Unauthenticated
+ */
+export type UnauthenticatedResponse = Error
+
+/**
+ * Unauthorized
+ */
+export type UnauthorizedResponse = Error
+
+export interface GetAllAPIKeysQueryParams {
   /**
    * Account
    */
@@ -552,89 +563,14 @@ export interface CreateProjectQueryParams {
    * Organization Identifier
    */
   org: string
-}
-
-export type CreateProjectProps = Omit<
-  MutateProps<
-    void,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    CreateProjectQueryParams,
-    ProjectRequestRequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Create Project.
- *
- * Used to create a project.
- */
-export const CreateProject = (props: CreateProjectProps) => (
-  <Mutate<
-    void,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    CreateProjectQueryParams,
-    ProjectRequestRequestBody,
-    void
-  >
-    verb="POST"
-    path="/admin/projects"
-    base={getConfig('cf')}
-    {...props}
-  />
-)
-
-export type UseCreateProjectProps = Omit<
-  UseMutateProps<
-    void,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    CreateProjectQueryParams,
-    ProjectRequestRequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Create Project.
- *
- * Used to create a project.
- */
-export const useCreateProject = (props: UseCreateProjectProps) =>
-  useMutate<
-    void,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    CreateProjectQueryParams,
-    ProjectRequestRequestBody,
-    void
-  >('POST', `/admin/projects`, { base: getConfig('cf'), ...props })
-
-export interface GetAllProjectsQueryParams {
   /**
-   * Account
+   * Project
    */
-  accountIdentifier: string
+  project: string
   /**
-   * Organization Identifier
+   * Environment
    */
-  org: string
+  environment: string
   /**
    * PageNumber
    */
@@ -643,304 +579,58 @@ export interface GetAllProjectsQueryParams {
    * PageSize
    */
   pageSize?: number
-  /**
-   * SortOrder
-   */
-  sortOrder?: 'ASCENDING' | 'DESCENDING'
-  /**
-   * SortByField
-   */
-  sortByField?: 'name' | 'identifier' | 'archived' | 'kind' | 'modifiedAt'
 }
 
-export type GetAllProjectsProps = Omit<
+export type GetAllAPIKeysProps = Omit<
   GetProps<
-    ProjectsResponseResponse,
+    APIKeysResponseResponse,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetAllProjectsQueryParams,
+    GetAllAPIKeysQueryParams,
     void
   >,
   'path'
 >
 
 /**
- * Get all projects
+ * Get all APiKeys for an environment
  *
- * Get all projects
+ * Get all the apiKeys for an environment
  */
-export const GetAllProjects = (props: GetAllProjectsProps) => (
+export const GetAllAPIKeys = (props: GetAllAPIKeysProps) => (
   <Get<
-    ProjectsResponseResponse,
+    APIKeysResponseResponse,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetAllProjectsQueryParams,
+    GetAllAPIKeysQueryParams,
     void
   >
-    path="/admin/projects"
+    path={`/admin/apikey`}
     base={getConfig('cf')}
     {...props}
   />
 )
 
-export type UseGetAllProjectsProps = Omit<
+export type UseGetAllAPIKeysProps = Omit<
   UseGetProps<
-    ProjectsResponseResponse,
+    APIKeysResponseResponse,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetAllProjectsQueryParams,
+    GetAllAPIKeysQueryParams,
     void
   >,
   'path'
 >
 
 /**
- * Get all projects
+ * Get all APiKeys for an environment
  *
- * Get all projects
+ * Get all the apiKeys for an environment
  */
-export const useGetAllProjects = (props: UseGetAllProjectsProps) =>
+export const useGetAllAPIKeys = (props: UseGetAllAPIKeysProps) =>
   useGet<
-    ProjectsResponseResponse,
+    APIKeysResponseResponse,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetAllProjectsQueryParams,
+    GetAllAPIKeysQueryParams,
     void
-  >(`/admin/projects`, { base: getConfig('cf'), ...props })
-
-export interface GetProjectQueryParams {
-  /**
-   * Account
-   */
-  accountIdentifier: string
-  /**
-   * Organization Identifier
-   */
-  org: string
-}
-
-export interface GetProjectPathParams {
-  /**
-   * Unique identifier for the object in the API.
-   */
-  identifier: string
-}
-
-export type GetProjectProps = Omit<
-  GetProps<
-    ProjectResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetProjectQueryParams,
-    GetProjectPathParams
-  >,
-  'path'
-> &
-  GetProjectPathParams
-
-/**
- * Get Project by an key.
- *
- * Used to retrieve project by the projectKey.
- */
-export const GetProject = ({ identifier, ...props }: GetProjectProps) => (
-  <Get<
-    ProjectResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetProjectQueryParams,
-    GetProjectPathParams
-  >
-    path="/admin/projects/${identifier}"
-    base={getConfig('cf')}
-    {...props}
-  />
-)
-
-export type UseGetProjectProps = Omit<
-  UseGetProps<
-    ProjectResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetProjectQueryParams,
-    GetProjectPathParams
-  >,
-  'path'
-> &
-  GetProjectPathParams
-
-/**
- * Get Project by an key.
- *
- * Used to retrieve project by the projectKey.
- */
-export const useGetProject = ({ identifier, ...props }: UseGetProjectProps) =>
-  useGet<
-    ProjectResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetProjectQueryParams,
-    GetProjectPathParams
-  >((paramsInPath: GetProjectPathParams) => `/admin/projects/${paramsInPath.identifier}`, {
-    base: getConfig('cf'),
-    pathParams: { identifier },
-    ...props
-  })
-
-export interface ModifyProjectQueryParams {
-  /**
-   * Account
-   */
-  accountIdentifier: string
-  /**
-   * Organization Identifier
-   */
-  org: string
-}
-
-export interface ModifyProjectPathParams {
-  /**
-   * Unique identifier for the object in the API.
-   */
-  identifier: string
-}
-
-export type ModifyProjectProps = Omit<
-  MutateProps<
-    void,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    ModifyProjectQueryParams,
-    ProjectRequestRequestBody,
-    ModifyProjectPathParams
-  >,
-  'path' | 'verb'
-> &
-  ModifyProjectPathParams
-
-/**
- * Modify a Project.
- *
- * Used to modify a project.
- */
-export const ModifyProject = ({ identifier, ...props }: ModifyProjectProps) => (
-  <Mutate<
-    void,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    ModifyProjectQueryParams,
-    ProjectRequestRequestBody,
-    ModifyProjectPathParams
-  >
-    verb="PUT"
-    path="/admin/projects/${identifier}"
-    base={getConfig('cf')}
-    {...props}
-  />
-)
-
-export type UseModifyProjectProps = Omit<
-  UseMutateProps<
-    void,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    ModifyProjectQueryParams,
-    ProjectRequestRequestBody,
-    ModifyProjectPathParams
-  >,
-  'path' | 'verb'
-> &
-  ModifyProjectPathParams
-
-/**
- * Modify a Project.
- *
- * Used to modify a project.
- */
-export const useModifyProject = ({ identifier, ...props }: UseModifyProjectProps) =>
-  useMutate<
-    void,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    ModifyProjectQueryParams,
-    ProjectRequestRequestBody,
-    ModifyProjectPathParams
-  >('PUT', (paramsInPath: ModifyProjectPathParams) => `/admin/projects/${paramsInPath.identifier}`, {
-    base: getConfig('cf'),
-    pathParams: { identifier },
-    ...props
-  })
-
-export interface DeleteProjectQueryParams {
-  /**
-   * Account
-   */
-  accountIdentifier: string
-  /**
-   * Organization Identifier
-   */
-  org: string
-}
-
-export type DeleteProjectProps = Omit<
-  MutateProps<
-    void,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    DeleteProjectQueryParams,
-    string,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Delete Project
- *
- * Used to delete project
- */
-export const DeleteProject = (props: DeleteProjectProps) => (
-  <Mutate<
-    void,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    DeleteProjectQueryParams,
-    string,
-    void
-  >
-    verb="DELETE"
-    path="/admin/projects"
-    base={getConfig('cf')}
-    {...props}
-  />
-)
-
-export type UseDeleteProjectProps = Omit<
-  UseMutateProps<
-    void,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    DeleteProjectQueryParams,
-    string,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Delete Project
- *
- * Used to delete project
- */
-export const useDeleteProject = (props: UseDeleteProjectProps) =>
-  useMutate<
-    void,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    DeleteProjectQueryParams,
-    string,
-    void
-  >('DELETE', `/admin/projects`, { base: getConfig('cf'), ...props })
+  >(`/admin/apikey`, { base: getConfig('cf'), ...props })
 
 export interface AddAPIKeyQueryParams {
   /**
@@ -994,7 +684,7 @@ export const AddAPIKey = (props: AddAPIKeyProps) => (
     void
   >
     verb="POST"
-    path="/admin/apikey"
+    path={`/admin/apikey`}
     base={getConfig('cf')}
     {...props}
   />
@@ -1032,84 +722,6 @@ export const useAddAPIKey = (props: UseAddAPIKeyProps) =>
     APIKeyRequestRequestBody,
     void
   >('POST', `/admin/apikey`, { base: getConfig('cf'), ...props })
-
-export interface GetAllAPIKeysQueryParams {
-  /**
-   * Account
-   */
-  accountIdentifier: string
-  /**
-   * Organization Identifier
-   */
-  org: string
-  /**
-   * Project
-   */
-  project: string
-  /**
-   * Environment
-   */
-  environment: string
-  /**
-   * PageNumber
-   */
-  pageNumber?: number
-  /**
-   * PageSize
-   */
-  pageSize?: number
-}
-
-export type GetAllAPIKeysProps = Omit<
-  GetProps<
-    APIKeysResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetAllAPIKeysQueryParams,
-    void
-  >,
-  'path'
->
-
-/**
- * Get all APiKeys for an environment
- *
- * Get all the apiKeys for an environment
- */
-export const GetAllAPIKeys = (props: GetAllAPIKeysProps) => (
-  <Get<
-    APIKeysResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetAllAPIKeysQueryParams,
-    void
-  >
-    path="/admin/apikey"
-    base={getConfig('cf')}
-    {...props}
-  />
-)
-
-export type UseGetAllAPIKeysProps = Omit<
-  UseGetProps<
-    APIKeysResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetAllAPIKeysQueryParams,
-    void
-  >,
-  'path'
->
-
-/**
- * Get all APiKeys for an environment
- *
- * Get all the apiKeys for an environment
- */
-export const useGetAllAPIKeys = (props: UseGetAllAPIKeysProps) =>
-  useGet<
-    APIKeysResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetAllAPIKeysQueryParams,
-    void
-  >(`/admin/apikey`, { base: getConfig('cf'), ...props })
 
 export interface DeleteApiKeyQueryParams {
   /**
@@ -1155,7 +767,7 @@ export const DeleteApiKey = (props: DeleteApiKeyProps) => (
     void
   >
     verb="DELETE"
-    path="/admin/apikey"
+    path={`/admin/apikey`}
     base={getConfig('cf')}
     {...props}
   />
@@ -1185,6 +797,89 @@ export const useDeleteApiKey = (props: UseDeleteApiKeyProps) =>
     string,
     void
   >('DELETE', `/admin/apikey`, { base: getConfig('cf'), ...props })
+
+export interface GetAPIKeyQueryParams {
+  /**
+   * Project
+   */
+  project: string
+  /**
+   * Environment
+   */
+  environment: string
+  /**
+   * Account
+   */
+  accountIdentifier: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+}
+
+export interface GetAPIKeyPathParams {
+  /**
+   * Unique identifier for the object in the API.
+   */
+  identifier: string
+}
+
+export type GetAPIKeyProps = Omit<
+  GetProps<
+    APIKeyResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetAPIKeyQueryParams,
+    GetAPIKeyPathParams
+  >,
+  'path'
+> &
+  GetAPIKeyPathParams
+
+/**
+ * Get all APiKeys for an environment
+ *
+ * Get all the apiKeys for an environment
+ */
+export const GetAPIKey = ({ identifier, ...props }: GetAPIKeyProps) => (
+  <Get<
+    APIKeyResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetAPIKeyQueryParams,
+    GetAPIKeyPathParams
+  >
+    path={`/admin/apikey/${identifier}`}
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseGetAPIKeyProps = Omit<
+  UseGetProps<
+    APIKeyResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetAPIKeyQueryParams,
+    GetAPIKeyPathParams
+  >,
+  'path'
+> &
+  GetAPIKeyPathParams
+
+/**
+ * Get all APiKeys for an environment
+ *
+ * Get all the apiKeys for an environment
+ */
+export const useGetAPIKey = ({ identifier, ...props }: UseGetAPIKeyProps) =>
+  useGet<
+    APIKeyResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetAPIKeyQueryParams,
+    GetAPIKeyPathParams
+  >((paramsInPath: GetAPIKeyPathParams) => `/admin/apikey/${paramsInPath.identifier}`, {
+    base: getConfig('cf'),
+    pathParams: { identifier },
+    ...props
+  })
 
 export interface UpdateAPIKeyQueryParams {
   /**
@@ -1246,7 +941,7 @@ export const UpdateAPIKey = ({ identifier, ...props }: UpdateAPIKeyProps) => (
     UpdateAPIKeyPathParams
   >
     verb="PUT"
-    path="/admin/apikey/${identifier}"
+    path={`/admin/apikey/${identifier}`}
     base={getConfig('cf')}
     {...props}
   />
@@ -1290,171 +985,115 @@ export const useUpdateAPIKey = ({ identifier, ...props }: UseUpdateAPIKeyProps) 
     ...props
   })
 
-export interface GetAPIKeyQueryParams {
-  /**
-   * Project
-   */
-  project: string
+export interface GetAuditByParamsQueryParams {
   /**
    * Environment
    */
-  environment: string
+  environment?: string
+  /**
+   * Project
+   */
+  project?: string
+  /**
+   * Object Type (FeatureActivation Or Segment)
+   */
+  objectType: 'FeatureActivation' | 'Segment'
+  /**
+   * Organization Identifier
+   */
+  org: string
   /**
    * Account
    */
   accountIdentifier: string
   /**
-   * Organization Identifier
+   * Start Time
    */
-  org: string
-}
-
-export interface GetAPIKeyPathParams {
+  startTime?: number
   /**
-   * Unique identifier for the object in the API.
+   * End Time
    */
-  identifier: string
+  endTime?: number
+  /**
+   * PageNumber
+   */
+  pageNumber?: number
+  /**
+   * PageSize
+   */
+  pageSize?: number
+  /**
+   * Actor
+   */
+  actor?: string
+  /**
+   * Action
+   */
+  action?: ('FeatureActivationCreated' | 'SegmentCreated' | 'FeatureActivationPatched')[]
+  /**
+   * Identifier of the entity
+   */
+  identifier?: string
+  /**
+   * SortOrder
+   */
+  sortOrder?: 'ASC' | 'DESC'
+  /**
+   * SortByField
+   */
+  sortByField?: 'executed_on' | 'actor' | 'action'
 }
 
-export type GetAPIKeyProps = Omit<
+export type GetAuditByParamsProps = Omit<
   GetProps<
-    APIKeyResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetAPIKeyQueryParams,
-    GetAPIKeyPathParams
+    AuditTrailResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | InternalServerErrorResponse,
+    GetAuditByParamsQueryParams,
+    void
   >,
   'path'
-> &
-  GetAPIKeyPathParams
+>
 
 /**
- * Get all APiKeys for an environment
+ * Retrieve Audit
  *
- * Get all the apiKeys for an environment
+ * Used to retrieve audit details based on environment, project, object type, organization, account and timestamp
  */
-export const GetAPIKey = ({ identifier, ...props }: GetAPIKeyProps) => (
+export const GetAuditByParams = (props: GetAuditByParamsProps) => (
   <Get<
-    APIKeyResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetAPIKeyQueryParams,
-    GetAPIKeyPathParams
+    AuditTrailResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | InternalServerErrorResponse,
+    GetAuditByParamsQueryParams,
+    void
   >
-    path="/admin/apikey/${identifier}"
+    path={`/admin/audit`}
     base={getConfig('cf')}
     {...props}
   />
 )
 
-export type UseGetAPIKeyProps = Omit<
+export type UseGetAuditByParamsProps = Omit<
   UseGetProps<
-    APIKeyResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetAPIKeyQueryParams,
-    GetAPIKeyPathParams
+    AuditTrailResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | InternalServerErrorResponse,
+    GetAuditByParamsQueryParams,
+    void
   >,
   'path'
-> &
-  GetAPIKeyPathParams
+>
 
 /**
- * Get all APiKeys for an environment
+ * Retrieve Audit
  *
- * Get all the apiKeys for an environment
+ * Used to retrieve audit details based on environment, project, object type, organization, account and timestamp
  */
-export const useGetAPIKey = ({ identifier, ...props }: UseGetAPIKeyProps) =>
+export const useGetAuditByParams = (props: UseGetAuditByParamsProps) =>
   useGet<
-    APIKeyResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetAPIKeyQueryParams,
-    GetAPIKeyPathParams
-  >((paramsInPath: GetAPIKeyPathParams) => `/admin/apikey/${paramsInPath.identifier}`, {
-    base: getConfig('cf'),
-    pathParams: { identifier },
-    ...props
-  })
-
-export interface CreateEnvironmentQueryParams {
-  /**
-   * Account
-   */
-  accountIdentifier: string
-  /**
-   * Organization Identifier
-   */
-  org: string
-}
-
-export type CreateEnvironmentProps = Omit<
-  MutateProps<
-    void,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    CreateEnvironmentQueryParams,
-    EnvironmentRequestRequestBody,
+    AuditTrailResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | InternalServerErrorResponse,
+    GetAuditByParamsQueryParams,
     void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Create Environment.
- *
- * Used to create an environment.
- */
-export const CreateEnvironment = (props: CreateEnvironmentProps) => (
-  <Mutate<
-    void,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    CreateEnvironmentQueryParams,
-    EnvironmentRequestRequestBody,
-    void
-  >
-    verb="POST"
-    path="/admin/environments"
-    base={getConfig('cf')}
-    {...props}
-  />
-)
-
-export type UseCreateEnvironmentProps = Omit<
-  UseMutateProps<
-    void,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    CreateEnvironmentQueryParams,
-    EnvironmentRequestRequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Create Environment.
- *
- * Used to create an environment.
- */
-export const useCreateEnvironment = (props: UseCreateEnvironmentProps) =>
-  useMutate<
-    void,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    CreateEnvironmentQueryParams,
-    EnvironmentRequestRequestBody,
-    void
-  >('POST', `/admin/environments`, { base: getConfig('cf'), ...props })
+  >(`/admin/audit`, { base: getConfig('cf'), ...props })
 
 export interface GetAllEnvironmentsQueryParams {
   /**
@@ -1509,7 +1148,7 @@ export const GetAllEnvironments = (props: GetAllEnvironmentsProps) => (
     GetAllEnvironmentsQueryParams,
     void
   >
-    path="/admin/environments"
+    path={`/admin/environments`}
     base={getConfig('cf')}
     {...props}
   />
@@ -1537,6 +1176,160 @@ export const useGetAllEnvironments = (props: UseGetAllEnvironmentsProps) =>
     GetAllEnvironmentsQueryParams,
     void
   >(`/admin/environments`, { base: getConfig('cf'), ...props })
+
+export interface CreateEnvironmentQueryParams {
+  /**
+   * Account
+   */
+  accountIdentifier: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+}
+
+export type CreateEnvironmentProps = Omit<
+  MutateProps<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    CreateEnvironmentQueryParams,
+    EnvironmentRequestRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Create Environment.
+ *
+ * Used to create an environment.
+ */
+export const CreateEnvironment = (props: CreateEnvironmentProps) => (
+  <Mutate<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    CreateEnvironmentQueryParams,
+    EnvironmentRequestRequestBody,
+    void
+  >
+    verb="POST"
+    path={`/admin/environments`}
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseCreateEnvironmentProps = Omit<
+  UseMutateProps<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    CreateEnvironmentQueryParams,
+    EnvironmentRequestRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Create Environment.
+ *
+ * Used to create an environment.
+ */
+export const useCreateEnvironment = (props: UseCreateEnvironmentProps) =>
+  useMutate<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    CreateEnvironmentQueryParams,
+    EnvironmentRequestRequestBody,
+    void
+  >('POST', `/admin/environments`, { base: getConfig('cf'), ...props })
+
+export interface DeleteEnvironmentQueryParams {
+  /**
+   * Project
+   */
+  project: string
+  /**
+   * Account
+   */
+  accountIdentifier: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+}
+
+export type DeleteEnvironmentProps = Omit<
+  MutateProps<
+    void,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    DeleteEnvironmentQueryParams,
+    string,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Delete Environment
+ *
+ * Used to delete an Environment
+ */
+export const DeleteEnvironment = (props: DeleteEnvironmentProps) => (
+  <Mutate<
+    void,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    DeleteEnvironmentQueryParams,
+    string,
+    void
+  >
+    verb="DELETE"
+    path={`/admin/environments`}
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseDeleteEnvironmentProps = Omit<
+  UseMutateProps<
+    void,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    DeleteEnvironmentQueryParams,
+    string,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Delete Environment
+ *
+ * Used to delete an Environment
+ */
+export const useDeleteEnvironment = (props: UseDeleteEnvironmentProps) =>
+  useMutate<
+    void,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    DeleteEnvironmentQueryParams,
+    string,
+    void
+  >('DELETE', `/admin/environments`, { base: getConfig('cf'), ...props })
 
 export interface GetEnvironmentQueryParams {
   /**
@@ -1583,7 +1376,7 @@ export const GetEnvironment = ({ identifier, ...props }: GetEnvironmentProps) =>
     GetEnvironmentQueryParams,
     GetEnvironmentPathParams
   >
-    path="/admin/environments/${identifier}"
+    path={`/admin/environments/${identifier}`}
     base={getConfig('cf')}
     {...props}
   />
@@ -1673,7 +1466,7 @@ export const ModifyEnvironment = ({ identifier, ...props }: ModifyEnvironmentPro
     ModifyEnvironmentPathParams
   >
     verb="PUT"
-    path="/admin/environments/${identifier}"
+    path={`/admin/environments/${identifier}`}
     base={getConfig('cf')}
     {...props}
   />
@@ -1717,11 +1510,7 @@ export const useModifyEnvironment = ({ identifier, ...props }: UseModifyEnvironm
     ...props
   })
 
-export interface DeleteEnvironmentQueryParams {
-  /**
-   * Project
-   */
-  project: string
+export interface GetAllFeaturesQueryParams {
   /**
    * Account
    */
@@ -1730,63 +1519,106 @@ export interface DeleteEnvironmentQueryParams {
    * Organization Identifier
    */
   org: string
+  /**
+   * Project
+   */
+  project: string
+  /**
+   * Environment
+   */
+  environment?: string
+  /**
+   * PageNumber
+   */
+  pageNumber?: number
+  /**
+   * PageSize
+   */
+  pageSize?: number
+  /**
+   * SortOrder
+   */
+  sortOrder?: 'ASCENDING' | 'DESCENDING'
+  /**
+   * SortByField
+   */
+  sortByField?: 'name' | 'identifier' | 'archived' | 'kind' | 'modifiedAt'
+  /**
+   * Name of the field
+   */
+  name?: string
+  /**
+   * Identifier of the field
+   */
+  identifier?: string
+  /**
+   * Status of the feature flag
+   */
+  archived?: boolean
+  /**
+   * Kind of the feature flag
+   */
+  kind?: 'json' | 'string' | 'int' | 'boolean'
+  /**
+   * Identifier of a target
+   */
+  targetIdentifier?: string
+  /**
+   * Parameter to indicate if metrics data is requested in response
+   */
+  metrics?: boolean
 }
 
-export type DeleteEnvironmentProps = Omit<
-  MutateProps<
-    void,
+export type GetAllFeaturesProps = Omit<
+  GetProps<
+    FeaturesResponseResponse,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    DeleteEnvironmentQueryParams,
-    string,
+    GetAllFeaturesQueryParams,
     void
   >,
-  'path' | 'verb'
+  'path'
 >
 
 /**
- * Delete Environment
+ * Retrieve all feature activations.
  *
- * Used to delete an Environment
+ * Used to retrieve all feature activations for certain account id.
  */
-export const DeleteEnvironment = (props: DeleteEnvironmentProps) => (
-  <Mutate<
-    void,
+export const GetAllFeatures = (props: GetAllFeaturesProps) => (
+  <Get<
+    FeaturesResponseResponse,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    DeleteEnvironmentQueryParams,
-    string,
+    GetAllFeaturesQueryParams,
     void
   >
-    verb="DELETE"
-    path="/admin/environments"
+    path={`/admin/features`}
     base={getConfig('cf')}
     {...props}
   />
 )
 
-export type UseDeleteEnvironmentProps = Omit<
-  UseMutateProps<
-    void,
+export type UseGetAllFeaturesProps = Omit<
+  UseGetProps<
+    FeaturesResponseResponse,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    DeleteEnvironmentQueryParams,
-    string,
+    GetAllFeaturesQueryParams,
     void
   >,
-  'path' | 'verb'
+  'path'
 >
 
 /**
- * Delete Environment
+ * Retrieve all feature activations.
  *
- * Used to delete an Environment
+ * Used to retrieve all feature activations for certain account id.
  */
-export const useDeleteEnvironment = (props: UseDeleteEnvironmentProps) =>
-  useMutate<
-    void,
+export const useGetAllFeatures = (props: UseGetAllFeaturesProps) =>
+  useGet<
+    FeaturesResponseResponse,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    DeleteEnvironmentQueryParams,
-    string,
+    GetAllFeaturesQueryParams,
     void
-  >('DELETE', `/admin/environments`, { base: getConfig('cf'), ...props })
+  >(`/admin/features`, { base: getConfig('cf'), ...props })
 
 export interface CreateFeatureFlagQueryParams {
   /**
@@ -1832,7 +1664,7 @@ export const CreateFeatureFlag = (props: CreateFeatureFlagProps) => (
     void
   >
     verb="POST"
-    path="/admin/features"
+    path={`/admin/features`}
     base={getConfig('cf')}
     {...props}
   />
@@ -1871,7 +1703,7 @@ export const useCreateFeatureFlag = (props: UseCreateFeatureFlagProps) =>
     void
   >('POST', `/admin/features`, { base: getConfig('cf'), ...props })
 
-export interface GetAllFeaturesQueryParams {
+export interface DeleteFeatureFlagQueryParams {
   /**
    * Account
    */
@@ -1884,98 +1716,63 @@ export interface GetAllFeaturesQueryParams {
    * Project
    */
   project: string
-  /**
-   * Environment
-   */
-  environment?: string
-  /**
-   * PageNumber
-   */
-  pageNumber?: number
-  /**
-   * PageSize
-   */
-  pageSize?: number
-  /**
-   * SortOrder
-   */
-  sortOrder?: 'ASCENDING' | 'DESCENDING'
-  /**
-   * SortByField
-   */
-  sortByField?: 'name' | 'identifier' | 'archived' | 'kind' | 'modifiedAt'
-  /**
-   * Name of the feature flag
-   */
-  name?: string
-  /**
-   * Identifier of the feature flag
-   */
-  identifier?: string
-  /**
-   * Status of the feature flag
-   */
-  archived?: boolean
-  /**
-   * Kind of the feature flag
-   */
-  kind?: 'json' | 'string' | 'int' | 'boolean'
-  /**
-   * Identifier of a target
-   */
-  targetIdentifier?: string
 }
 
-export type GetAllFeaturesProps = Omit<
-  GetProps<
-    FeaturesResponseResponse,
+export type DeleteFeatureFlagProps = Omit<
+  MutateProps<
+    void,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetAllFeaturesQueryParams,
+    DeleteFeatureFlagQueryParams,
+    string,
     void
   >,
-  'path'
+  'path' | 'verb'
 >
 
 /**
- * Retrieve all feature activations.
+ * Delete a feature
  *
- * Used to retrieve all feature activations for certain account id.
+ * Delete feature with certain identifier and account id.
  */
-export const GetAllFeatures = (props: GetAllFeaturesProps) => (
-  <Get<
-    FeaturesResponseResponse,
+export const DeleteFeatureFlag = (props: DeleteFeatureFlagProps) => (
+  <Mutate<
+    void,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetAllFeaturesQueryParams,
+    DeleteFeatureFlagQueryParams,
+    string,
     void
   >
-    path="/admin/features"
+    verb="DELETE"
+    path={`/admin/features`}
     base={getConfig('cf')}
     {...props}
   />
 )
 
-export type UseGetAllFeaturesProps = Omit<
-  UseGetProps<
-    FeaturesResponseResponse,
+export type UseDeleteFeatureFlagProps = Omit<
+  UseMutateProps<
+    void,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetAllFeaturesQueryParams,
+    DeleteFeatureFlagQueryParams,
+    string,
     void
   >,
-  'path'
+  'path' | 'verb'
 >
 
 /**
- * Retrieve all feature activations.
+ * Delete a feature
  *
- * Used to retrieve all feature activations for certain account id.
+ * Delete feature with certain identifier and account id.
  */
-export const useGetAllFeatures = (props: UseGetAllFeaturesProps) =>
-  useGet<
-    FeaturesResponseResponse,
+export const useDeleteFeatureFlag = (props: UseDeleteFeatureFlagProps) =>
+  useMutate<
+    void,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetAllFeaturesQueryParams,
+    DeleteFeatureFlagQueryParams,
+    string,
     void
-  >(`/admin/features`, { base: getConfig('cf'), ...props })
+  >('DELETE', `/admin/features`, { base: getConfig('cf'), ...props })
 
 export interface GetFeatureFlagQueryParams {
   /**
@@ -2026,7 +1823,7 @@ export const GetFeatureFlag = ({ identifier, ...props }: GetFeatureFlagProps) =>
     GetFeatureFlagQueryParams,
     GetFeatureFlagPathParams
   >
-    path="/admin/features/${identifier}"
+    path={`/admin/features/${identifier}`}
     base={getConfig('cf')}
     {...props}
   />
@@ -2122,7 +1919,7 @@ export const PatchFeature = ({ identifier, ...props }: PatchFeatureProps) => (
     PatchFeaturePathParams
   >
     verb="PATCH"
-    path="/admin/features/${identifier}"
+    path={`/admin/features/${identifier}`}
     base={getConfig('cf')}
     {...props}
   />
@@ -2167,77 +1964,6 @@ export const usePatchFeature = ({ identifier, ...props }: UsePatchFeatureProps) 
     pathParams: { identifier },
     ...props
   })
-
-export interface DeleteFeatureFlagQueryParams {
-  /**
-   * Account
-   */
-  accountIdentifier: string
-  /**
-   * Organization Identifier
-   */
-  org: string
-  /**
-   * Project
-   */
-  project: string
-}
-
-export type DeleteFeatureFlagProps = Omit<
-  MutateProps<
-    void,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    DeleteFeatureFlagQueryParams,
-    string,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Delete a feature
- *
- * Delete feature with certain identifier and account id.
- */
-export const DeleteFeatureFlag = (props: DeleteFeatureFlagProps) => (
-  <Mutate<
-    void,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    DeleteFeatureFlagQueryParams,
-    string,
-    void
-  >
-    verb="DELETE"
-    path="/admin/features"
-    base={getConfig('cf')}
-    {...props}
-  />
-)
-
-export type UseDeleteFeatureFlagProps = Omit<
-  UseMutateProps<
-    void,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    DeleteFeatureFlagQueryParams,
-    string,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Delete a feature
- *
- * Delete feature with certain identifier and account id.
- */
-export const useDeleteFeatureFlag = (props: UseDeleteFeatureFlagProps) =>
-  useMutate<
-    void,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    DeleteFeatureFlagQueryParams,
-    string,
-    void
-  >('DELETE', `/admin/features`, { base: getConfig('cf'), ...props })
 
 export interface GetFeatureEvaluationsQueryParams {
   /**
@@ -2296,7 +2022,7 @@ export const GetFeatureEvaluations = ({ identifier, ...props }: GetFeatureEvalua
     GetFeatureEvaluationsQueryParams,
     GetFeatureEvaluationsPathParams
   >
-    path="/admin/features/${identifier}/evaluations"
+    path={`/admin/features/${identifier}/evaluations`}
     base={getConfig('cf')}
     {...props}
   />
@@ -2330,358 +2056,71 @@ export const useGetFeatureEvaluations = ({ identifier, ...props }: UseGetFeature
     ...props
   })
 
-export interface CreateTargetQueryParams {
+export interface GetOSByIdPathParams {
   /**
-   * Account
+   * Unique identifiers for the object in the API.
    */
-  accountIdentifier: string
-  /**
-   * Organization Identifier
-   */
-  org: string
+  identifiers: string[]
 }
 
-export type CreateTargetProps = Omit<
-  MutateProps<
-    void,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    CreateTargetQueryParams,
-    TargetRequestRequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Create target.
- *
- * Used to create target.
- */
-export const CreateTarget = (props: CreateTargetProps) => (
-  <Mutate<
-    void,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    CreateTargetQueryParams,
-    TargetRequestRequestBody,
-    void
-  >
-    verb="POST"
-    path="/admin/targets"
-    base={getConfig('cf')}
-    {...props}
-  />
-)
-
-export type UseCreateTargetProps = Omit<
-  UseMutateProps<
-    void,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    CreateTargetQueryParams,
-    TargetRequestRequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Create target.
- *
- * Used to create target.
- */
-export const useCreateTarget = (props: UseCreateTargetProps) =>
-  useMutate<
-    void,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    CreateTargetQueryParams,
-    TargetRequestRequestBody,
-    void
-  >('POST', `/admin/targets`, { base: getConfig('cf'), ...props })
-
-export interface GetAllTargetsQueryParams {
-  /**
-   * Account
-   */
-  accountIdentifier: string
-  /**
-   * Organization Identifier
-   */
-  org: string
-  /**
-   * Project
-   */
-  project: string
-  /**
-   * Environment
-   */
-  environment: string
-  /**
-   * PageNumber
-   */
-  pageNumber?: number
-  /**
-   * PageSize
-   */
-  pageSize?: number
-  /**
-   * SortOrder
-   */
-  sortOrder?: 'ASC' | 'DESC'
-  /**
-   * SortByField
-   */
-  sortByField?: 'createdAt' | 'name' | 'identifier'
-  /**
-   * Name of the target
-   */
-  targetName?: string
-  /**
-   * Identifier of the target
-   */
-  targetIdentifier?: string
-}
-
-export type GetAllTargetsProps = Omit<
+export type GetOSByIdProps = Omit<
   GetProps<
-    TargetsResponseResponse,
+    ObjectSnapshotResponseResponse | void,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetAllTargetsQueryParams,
-    void
+    void,
+    GetOSByIdPathParams
   >,
   'path'
->
+> &
+  GetOSByIdPathParams
 
 /**
- * Retrieve all targets.
+ * Retrieve Object Snapshot
  *
- * Used to retrieve all targets for certain account id.
+ * Used to retrieve the json body of the object from the object snapshot table
  */
-export const GetAllTargets = (props: GetAllTargetsProps) => (
+export const GetOSById = ({ identifiers, ...props }: GetOSByIdProps) => (
   <Get<
-    TargetsResponseResponse,
+    ObjectSnapshotResponseResponse | void,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetAllTargetsQueryParams,
-    void
+    void,
+    GetOSByIdPathParams
   >
-    path="/admin/targets"
+    path={`/admin/objects/${identifiers}`}
     base={getConfig('cf')}
     {...props}
   />
 )
 
-export type UseGetAllTargetsProps = Omit<
+export type UseGetOSByIdProps = Omit<
   UseGetProps<
-    TargetsResponseResponse,
+    ObjectSnapshotResponseResponse | void,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetAllTargetsQueryParams,
-    void
+    void,
+    GetOSByIdPathParams
   >,
   'path'
->
+> &
+  GetOSByIdPathParams
 
 /**
- * Retrieve all targets.
+ * Retrieve Object Snapshot
  *
- * Used to retrieve all targets for certain account id.
+ * Used to retrieve the json body of the object from the object snapshot table
  */
-export const useGetAllTargets = (props: UseGetAllTargetsProps) =>
+export const useGetOSById = ({ identifiers, ...props }: UseGetOSByIdProps) =>
   useGet<
-    TargetsResponseResponse,
+    ObjectSnapshotResponseResponse | void,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetAllTargetsQueryParams,
-    void
-  >(`/admin/targets`, { base: getConfig('cf'), ...props })
-
-export interface UploadTargetsQueryParams {
-  /**
-   * Account
-   */
-  accountIdentifier: string
-  /**
-   * Organization Identifier
-   */
-  org: string
-  /**
-   * Project
-   */
-  project: string
-  /**
-   * Environment
-   */
-  environment: string
-}
-
-export type UploadTargetsProps = Omit<
-  MutateProps<
     void,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    UploadTargetsQueryParams,
-    void,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Upload targets
- *
- * Add targets by uploading a CSV file.
- */
-export const UploadTargets = (props: UploadTargetsProps) => (
-  <Mutate<
-    void,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    UploadTargetsQueryParams,
-    void,
-    void
-  >
-    verb="POST"
-    path="/admin/targets/upload"
-    base={getConfig('cf')}
-    {...props}
-  />
-)
-
-export type UseUploadTargetsProps = Omit<
-  UseMutateProps<
-    void,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    UploadTargetsQueryParams,
-    void,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Upload targets
- *
- * Add targets by uploading a CSV file.
- */
-export const useUploadTargets = (props: UseUploadTargetsProps) =>
-  useMutate<
-    void,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    UploadTargetsQueryParams,
-    void,
-    void
-  >('POST', `/admin/targets/upload`, { base: getConfig('cf'), ...props })
-
-export interface GetTargetQueryParams {
-  /**
-   * Account
-   */
-  accountIdentifier: string
-  /**
-   * Organization Identifier
-   */
-  org: string
-  /**
-   * Project
-   */
-  project: string
-  /**
-   * Environment
-   */
-  environment: string
-}
-
-export interface GetTargetPathParams {
-  /**
-   * Unique identifier for the object in the API.
-   */
-  identifier: string
-}
-
-export type GetTargetProps = Omit<
-  GetProps<
-    TargetResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetTargetQueryParams,
-    GetTargetPathParams
-  >,
-  'path'
-> &
-  GetTargetPathParams
-
-/**
- * Retrieve target.
- *
- * Used to retrieve certain target for certain id and account id.
- */
-export const GetTarget = ({ identifier, ...props }: GetTargetProps) => (
-  <Get<
-    TargetResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetTargetQueryParams,
-    GetTargetPathParams
-  >
-    path="/admin/targets/${identifier}"
-    base={getConfig('cf')}
-    {...props}
-  />
-)
-
-export type UseGetTargetProps = Omit<
-  UseGetProps<
-    TargetResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetTargetQueryParams,
-    GetTargetPathParams
-  >,
-  'path'
-> &
-  GetTargetPathParams
-
-/**
- * Retrieve target.
- *
- * Used to retrieve certain target for certain id and account id.
- */
-export const useGetTarget = ({ identifier, ...props }: UseGetTargetProps) =>
-  useGet<
-    TargetResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetTargetQueryParams,
-    GetTargetPathParams
-  >((paramsInPath: GetTargetPathParams) => `/admin/targets/${paramsInPath.identifier}`, {
+    GetOSByIdPathParams
+  >((paramsInPath: GetOSByIdPathParams) => `/admin/objects/${paramsInPath.identifiers}`, {
     base: getConfig('cf'),
-    pathParams: { identifier },
+    pathParams: { identifiers },
     ...props
   })
 
-export interface ModifyTargetQueryParams {
+export interface GetAllProjectsQueryParams {
   /**
    * Account
    */
@@ -2690,388 +2129,6 @@ export interface ModifyTargetQueryParams {
    * Organization Identifier
    */
   org: string
-  /**
-   * Project
-   */
-  project: string
-  /**
-   * Environment
-   */
-  environment: string
-}
-
-export interface ModifyTargetPathParams {
-  /**
-   * Unique identifier for the object in the API.
-   */
-  identifier: string
-}
-
-export type ModifyTargetProps = Omit<
-  MutateProps<
-    TargetResponseResponse,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | NotFoundResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    ModifyTargetQueryParams,
-    TargetRequestRequestBody,
-    ModifyTargetPathParams
-  >,
-  'path' | 'verb'
-> &
-  ModifyTargetPathParams
-
-/**
- * Modify target
- *
- * Used to modify target with certain id and account id.
- */
-export const ModifyTarget = ({ identifier, ...props }: ModifyTargetProps) => (
-  <Mutate<
-    TargetResponseResponse,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | NotFoundResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    ModifyTargetQueryParams,
-    TargetRequestRequestBody,
-    ModifyTargetPathParams
-  >
-    verb="PUT"
-    path="/admin/targets/${identifier}"
-    base={getConfig('cf')}
-    {...props}
-  />
-)
-
-export type UseModifyTargetProps = Omit<
-  UseMutateProps<
-    TargetResponseResponse,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | NotFoundResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    ModifyTargetQueryParams,
-    TargetRequestRequestBody,
-    ModifyTargetPathParams
-  >,
-  'path' | 'verb'
-> &
-  ModifyTargetPathParams
-
-/**
- * Modify target
- *
- * Used to modify target with certain id and account id.
- */
-export const useModifyTarget = ({ identifier, ...props }: UseModifyTargetProps) =>
-  useMutate<
-    TargetResponseResponse,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | NotFoundResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    ModifyTargetQueryParams,
-    TargetRequestRequestBody,
-    ModifyTargetPathParams
-  >('PUT', (paramsInPath: ModifyTargetPathParams) => `/admin/targets/${paramsInPath.identifier}`, {
-    base: getConfig('cf'),
-    pathParams: { identifier },
-    ...props
-  })
-
-export interface DeleteTargetQueryParams {
-  /**
-   * Account
-   */
-  accountIdentifier: string
-  /**
-   * Organization Identifier
-   */
-  org: string
-  /**
-   * Project
-   */
-  project: string
-  /**
-   * Environment
-   */
-  environment: string
-}
-
-export type DeleteTargetProps = Omit<
-  MutateProps<
-    void,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    DeleteTargetQueryParams,
-    string,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Delete target.
- *
- * Used to delete target with certain id and account id.
- */
-export const DeleteTarget = (props: DeleteTargetProps) => (
-  <Mutate<
-    void,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    DeleteTargetQueryParams,
-    string,
-    void
-  >
-    verb="DELETE"
-    path="/admin/targets"
-    base={getConfig('cf')}
-    {...props}
-  />
-)
-
-export type UseDeleteTargetProps = Omit<
-  UseMutateProps<
-    void,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    DeleteTargetQueryParams,
-    string,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Delete target.
- *
- * Used to delete target with certain id and account id.
- */
-export const useDeleteTarget = (props: UseDeleteTargetProps) =>
-  useMutate<
-    void,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    DeleteTargetQueryParams,
-    string,
-    void
-  >('DELETE', `/admin/targets`, { base: getConfig('cf'), ...props })
-
-export interface PatchTargetQueryParams {
-  /**
-   * Account
-   */
-  accountIdentifier: string
-  /**
-   * Organization Identifier
-   */
-  org: string
-  /**
-   * Project
-   */
-  project: string
-  /**
-   * Environment
-   */
-  environment: string
-}
-
-export interface PatchTargetPathParams {
-  /**
-   * Unique identifier for the object in the API.
-   */
-  identifier: string
-}
-
-export type PatchTargetProps = Omit<
-  MutateProps<
-    TargetResponseResponse,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | NotFoundResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    PatchTargetQueryParams,
-    TargetPatchRequestRequestBody,
-    PatchTargetPathParams
-  >,
-  'path' | 'verb'
-> &
-  PatchTargetPathParams
-
-/**
- * Patch target.
- *
- * Used to modify target with certain id and account id.
- */
-export const PatchTarget = ({ identifier, ...props }: PatchTargetProps) => (
-  <Mutate<
-    TargetResponseResponse,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | NotFoundResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    PatchTargetQueryParams,
-    TargetPatchRequestRequestBody,
-    PatchTargetPathParams
-  >
-    verb="PATCH"
-    path="/admin/targets/${identifier}"
-    base={getConfig('cf')}
-    {...props}
-  />
-)
-
-export type UsePatchTargetProps = Omit<
-  UseMutateProps<
-    TargetResponseResponse,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | NotFoundResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    PatchTargetQueryParams,
-    TargetPatchRequestRequestBody,
-    PatchTargetPathParams
-  >,
-  'path' | 'verb'
-> &
-  PatchTargetPathParams
-
-/**
- * Patch target.
- *
- * Used to modify target with certain id and account id.
- */
-export const usePatchTarget = ({ identifier, ...props }: UsePatchTargetProps) =>
-  useMutate<
-    TargetResponseResponse,
-    | BadRequestResponse
-    | UnauthenticatedResponse
-    | UnauthorizedResponse
-    | NotFoundResponse
-    | ConflictResponse
-    | InternalServerErrorResponse,
-    PatchTargetQueryParams,
-    TargetPatchRequestRequestBody,
-    PatchTargetPathParams
-  >('PATCH', (paramsInPath: PatchTargetPathParams) => `/admin/targets/${paramsInPath.identifier}`, {
-    base: getConfig('cf'),
-    pathParams: { identifier },
-    ...props
-  })
-
-export interface GetTargetSegmentsQueryParams {
-  /**
-   * Account
-   */
-  accountIdentifier: string
-  /**
-   * Organization Identifier
-   */
-  org: string
-  /**
-   * Project
-   */
-  project: string
-  /**
-   * Environment
-   */
-  environment: string
-}
-
-export interface GetTargetSegmentsPathParams {
-  /**
-   * Unique identifier for the object in the API.
-   */
-  identifier: string
-}
-
-export type GetTargetSegmentsProps = Omit<
-  GetProps<
-    TargetDetailResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetTargetSegmentsQueryParams,
-    GetTargetSegmentsPathParams
-  >,
-  'path'
-> &
-  GetTargetSegmentsPathParams
-
-/**
- * Retrieve the segmenets that the specified target belongs to.
- *
- * Used to retrieve certain segments for a certian target
- */
-export const GetTargetSegments = ({ identifier, ...props }: GetTargetSegmentsProps) => (
-  <Get<
-    TargetDetailResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetTargetSegmentsQueryParams,
-    GetTargetSegmentsPathParams
-  >
-    path="/admin/targets/${identifier}/segments"
-    base={getConfig('cf')}
-    {...props}
-  />
-)
-
-export type UseGetTargetSegmentsProps = Omit<
-  UseGetProps<
-    TargetDetailResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetTargetSegmentsQueryParams,
-    GetTargetSegmentsPathParams
-  >,
-  'path'
-> &
-  GetTargetSegmentsPathParams
-
-/**
- * Retrieve the segmenets that the specified target belongs to.
- *
- * Used to retrieve certain segments for a certian target
- */
-export const useGetTargetSegments = ({ identifier, ...props }: UseGetTargetSegmentsProps) =>
-  useGet<
-    TargetDetailResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetTargetSegmentsQueryParams,
-    GetTargetSegmentsPathParams
-  >((paramsInPath: GetTargetSegmentsPathParams) => `/admin/targets/${paramsInPath.identifier}/segments`, {
-    base: getConfig('cf'),
-    pathParams: { identifier },
-    ...props
-  })
-
-export interface GetTargetAvailableSegmentsQueryParams {
-  /**
-   * Account
-   */
-  accountIdentifier: string
-  /**
-   * Organization Identifier
-   */
-  org: string
-  /**
-   * Project
-   */
-  project: string
-  /**
-   * Environment
-   */
-  environment: string
   /**
    * PageNumber
    */
@@ -3087,82 +2144,382 @@ export interface GetTargetAvailableSegmentsQueryParams {
   /**
    * SortByField
    */
-  sortByField?: 'name'
-  /**
-   * Name of the segment
-   */
-  segmentName?: string
+  sortByField?: 'name' | 'identifier' | 'archived' | 'kind' | 'modifiedAt'
 }
 
-export interface GetTargetAvailableSegmentsPathParams {
+export type GetAllProjectsProps = Omit<
+  GetProps<
+    ProjectsResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetAllProjectsQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * Get all projects
+ *
+ * Get all projects
+ */
+export const GetAllProjects = (props: GetAllProjectsProps) => (
+  <Get<
+    ProjectsResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetAllProjectsQueryParams,
+    void
+  >
+    path={`/admin/projects`}
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseGetAllProjectsProps = Omit<
+  UseGetProps<
+    ProjectsResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetAllProjectsQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * Get all projects
+ *
+ * Get all projects
+ */
+export const useGetAllProjects = (props: UseGetAllProjectsProps) =>
+  useGet<
+    ProjectsResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetAllProjectsQueryParams,
+    void
+  >(`/admin/projects`, { base: getConfig('cf'), ...props })
+
+export interface CreateProjectQueryParams {
+  /**
+   * Account
+   */
+  accountIdentifier: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+}
+
+export type CreateProjectProps = Omit<
+  MutateProps<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    CreateProjectQueryParams,
+    ProjectRequestRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Create Project.
+ *
+ * Used to create a project.
+ */
+export const CreateProject = (props: CreateProjectProps) => (
+  <Mutate<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    CreateProjectQueryParams,
+    ProjectRequestRequestBody,
+    void
+  >
+    verb="POST"
+    path={`/admin/projects`}
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseCreateProjectProps = Omit<
+  UseMutateProps<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    CreateProjectQueryParams,
+    ProjectRequestRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Create Project.
+ *
+ * Used to create a project.
+ */
+export const useCreateProject = (props: UseCreateProjectProps) =>
+  useMutate<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    CreateProjectQueryParams,
+    ProjectRequestRequestBody,
+    void
+  >('POST', `/admin/projects`, { base: getConfig('cf'), ...props })
+
+export interface DeleteProjectQueryParams {
+  /**
+   * Account
+   */
+  accountIdentifier: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+}
+
+export type DeleteProjectProps = Omit<
+  MutateProps<
+    void,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    DeleteProjectQueryParams,
+    string,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Delete Project
+ *
+ * Used to delete project
+ */
+export const DeleteProject = (props: DeleteProjectProps) => (
+  <Mutate<
+    void,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    DeleteProjectQueryParams,
+    string,
+    void
+  >
+    verb="DELETE"
+    path={`/admin/projects`}
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseDeleteProjectProps = Omit<
+  UseMutateProps<
+    void,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    DeleteProjectQueryParams,
+    string,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Delete Project
+ *
+ * Used to delete project
+ */
+export const useDeleteProject = (props: UseDeleteProjectProps) =>
+  useMutate<
+    void,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    DeleteProjectQueryParams,
+    string,
+    void
+  >('DELETE', `/admin/projects`, { base: getConfig('cf'), ...props })
+
+export interface GetProjectQueryParams {
+  /**
+   * Account
+   */
+  accountIdentifier: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+}
+
+export interface GetProjectPathParams {
   /**
    * Unique identifier for the object in the API.
    */
   identifier: string
 }
 
-export type GetTargetAvailableSegmentsProps = Omit<
+export type GetProjectProps = Omit<
   GetProps<
-    SegmentsResponseResponse,
+    ProjectResponseResponse,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetTargetAvailableSegmentsQueryParams,
-    GetTargetAvailableSegmentsPathParams
+    GetProjectQueryParams,
+    GetProjectPathParams
   >,
   'path'
 > &
-  GetTargetAvailableSegmentsPathParams
+  GetProjectPathParams
 
 /**
- * Retrieve the available segments that the target can be included in or excluded from.
+ * Get Project by an key.
  *
- * This returns the segments that the target can be added to. This list will exclude any segments that the |
- *   target currently belongs to.
- *
+ * Used to retrieve project by the projectKey.
  */
-export const GetTargetAvailableSegments = ({ identifier, ...props }: GetTargetAvailableSegmentsProps) => (
+export const GetProject = ({ identifier, ...props }: GetProjectProps) => (
   <Get<
-    SegmentsResponseResponse,
+    ProjectResponseResponse,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetTargetAvailableSegmentsQueryParams,
-    GetTargetAvailableSegmentsPathParams
+    GetProjectQueryParams,
+    GetProjectPathParams
   >
-    path="/admin/targets/${identifier}/available_segments"
+    path={`/admin/projects/${identifier}`}
     base={getConfig('cf')}
     {...props}
   />
 )
 
-export type UseGetTargetAvailableSegmentsProps = Omit<
+export type UseGetProjectProps = Omit<
   UseGetProps<
-    SegmentsResponseResponse,
+    ProjectResponseResponse,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetTargetAvailableSegmentsQueryParams,
-    GetTargetAvailableSegmentsPathParams
+    GetProjectQueryParams,
+    GetProjectPathParams
   >,
   'path'
 > &
-  GetTargetAvailableSegmentsPathParams
+  GetProjectPathParams
 
 /**
- * Retrieve the available segments that the target can be included in or excluded from.
+ * Get Project by an key.
  *
- * This returns the segments that the target can be added to. This list will exclude any segments that the |
- *   target currently belongs to.
- *
+ * Used to retrieve project by the projectKey.
  */
-export const useGetTargetAvailableSegments = ({ identifier, ...props }: UseGetTargetAvailableSegmentsProps) =>
+export const useGetProject = ({ identifier, ...props }: UseGetProjectProps) =>
   useGet<
-    SegmentsResponseResponse,
+    ProjectResponseResponse,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetTargetAvailableSegmentsQueryParams,
-    GetTargetAvailableSegmentsPathParams
-  >(
-    (paramsInPath: GetTargetAvailableSegmentsPathParams) =>
-      `/admin/targets/${paramsInPath.identifier}/available_segments`,
-    { base: getConfig('cf'), pathParams: { identifier }, ...props }
-  )
+    GetProjectQueryParams,
+    GetProjectPathParams
+  >((paramsInPath: GetProjectPathParams) => `/admin/projects/${paramsInPath.identifier}`, {
+    base: getConfig('cf'),
+    pathParams: { identifier },
+    ...props
+  })
 
-export interface GetAllTargetAttributesQueryParams {
+export interface ModifyProjectQueryParams {
+  /**
+   * Account
+   */
+  accountIdentifier: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+}
+
+export interface ModifyProjectPathParams {
+  /**
+   * Unique identifier for the object in the API.
+   */
+  identifier: string
+}
+
+export type ModifyProjectProps = Omit<
+  MutateProps<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    ModifyProjectQueryParams,
+    ProjectRequestRequestBody,
+    ModifyProjectPathParams
+  >,
+  'path' | 'verb'
+> &
+  ModifyProjectPathParams
+
+/**
+ * Modify a Project.
+ *
+ * Used to modify a project.
+ */
+export const ModifyProject = ({ identifier, ...props }: ModifyProjectProps) => (
+  <Mutate<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    ModifyProjectQueryParams,
+    ProjectRequestRequestBody,
+    ModifyProjectPathParams
+  >
+    verb="PUT"
+    path={`/admin/projects/${identifier}`}
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseModifyProjectProps = Omit<
+  UseMutateProps<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    ModifyProjectQueryParams,
+    ProjectRequestRequestBody,
+    ModifyProjectPathParams
+  >,
+  'path' | 'verb'
+> &
+  ModifyProjectPathParams
+
+/**
+ * Modify a Project.
+ *
+ * Used to modify a project.
+ */
+export const useModifyProject = ({ identifier, ...props }: UseModifyProjectProps) =>
+  useMutate<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    ModifyProjectQueryParams,
+    ProjectRequestRequestBody,
+    ModifyProjectPathParams
+  >('PUT', (paramsInPath: ModifyProjectPathParams) => `/admin/projects/${paramsInPath.identifier}`, {
+    base: getConfig('cf'),
+    pathParams: { identifier },
+    ...props
+  })
+
+export interface GetAllSegmentsQueryParams {
   /**
    * Account
    */
@@ -3172,65 +2529,89 @@ export interface GetAllTargetAttributesQueryParams {
    */
   org: string
   /**
+   * Environment
+   */
+  environment: string
+  /**
    * Project
    */
   project: string
   /**
-   * Environment
+   * PageNumber
    */
-  environment: string
+  pageNumber?: number
+  /**
+   * PageSize
+   */
+  pageSize?: number
+  /**
+   * SortOrder
+   */
+  sortOrder?: 'ASCENDING' | 'DESCENDING'
+  /**
+   * SortByField
+   */
+  sortByField?: 'name' | 'identifier' | 'archived' | 'kind' | 'modifiedAt'
+  /**
+   * Name of the field
+   */
+  name?: string
+  /**
+   * Identifier of the field
+   */
+  identifier?: string
 }
 
-export type GetAllTargetAttributesProps = Omit<
+export type GetAllSegmentsProps = Omit<
   GetProps<
-    TargetAttributesResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetAllTargetAttributesQueryParams,
+    SegmentsResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | InternalServerErrorResponse,
+    GetAllSegmentsQueryParams,
     void
   >,
   'path'
 >
 
 /**
- * Retrieve all target attributes for the environment
+ * Retrieve all segments.
  *
- * Used to retrieve all attribute key names for all targets within the specified environment
+ * Used to retrieve all segments for certain account id.
  */
-export const GetAllTargetAttributes = (props: GetAllTargetAttributesProps) => (
+export const GetAllSegments = (props: GetAllSegmentsProps) => (
   <Get<
-    TargetAttributesResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetAllTargetAttributesQueryParams,
+    SegmentsResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | InternalServerErrorResponse,
+    GetAllSegmentsQueryParams,
     void
   >
-    path="/admin/targets/attributes"
+    path={`/admin/segments`}
     base={getConfig('cf')}
     {...props}
   />
 )
 
-export type UseGetAllTargetAttributesProps = Omit<
+export type UseGetAllSegmentsProps = Omit<
   UseGetProps<
-    TargetAttributesResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetAllTargetAttributesQueryParams,
+    SegmentsResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | InternalServerErrorResponse,
+    GetAllSegmentsQueryParams,
     void
   >,
   'path'
 >
 
 /**
- * Retrieve all target attributes for the environment
+ * Retrieve all segments.
  *
- * Used to retrieve all attribute key names for all targets within the specified environment
+ * Used to retrieve all segments for certain account id.
  */
-export const useGetAllTargetAttributes = (props: UseGetAllTargetAttributesProps) =>
+export const useGetAllSegments = (props: UseGetAllSegmentsProps) =>
   useGet<
-    TargetAttributesResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetAllTargetAttributesQueryParams,
+    SegmentsResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | InternalServerErrorResponse,
+    GetAllSegmentsQueryParams,
     void
-  >(`/admin/targets/attributes`, { base: getConfig('cf'), ...props })
+  >(`/admin/segments`, { base: getConfig('cf'), ...props })
 
 export interface CreateSegmentQueryParams {
   /**
@@ -3276,7 +2657,7 @@ export const CreateSegment = (props: CreateSegmentProps) => (
     void
   >
     verb="POST"
-    path="/admin/segments"
+    path={`/admin/segments`}
     base={getConfig('cf')}
     {...props}
   />
@@ -3315,7 +2696,7 @@ export const useCreateSegment = (props: UseCreateSegmentProps) =>
     void
   >('POST', `/admin/segments`, { base: getConfig('cf'), ...props })
 
-export interface GetAllSegmentsQueryParams {
+export interface DeleteSegmentQueryParams {
   /**
    * Account
    */
@@ -3325,81 +2706,70 @@ export interface GetAllSegmentsQueryParams {
    */
   org: string
   /**
-   * Environment
-   */
-  environment: string
-  /**
    * Project
    */
   project: string
   /**
-   * PageNumber
+   * Environment
    */
-  pageNumber?: number
-  /**
-   * PageSize
-   */
-  pageSize?: number
-  /**
-   * SortOrder
-   */
-  sortOrder?: 'ASCENDING' | 'DESCENDING'
-  /**
-   * SortByField
-   */
-  sortByField?: 'name' | 'identifier' | 'archived' | 'kind' | 'modifiedAt'
+  environment: string
 }
 
-export type GetAllSegmentsProps = Omit<
-  GetProps<
-    SegmentsResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | InternalServerErrorResponse,
-    GetAllSegmentsQueryParams,
+export type DeleteSegmentProps = Omit<
+  MutateProps<
+    void,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    DeleteSegmentQueryParams,
+    string,
     void
   >,
-  'path'
+  'path' | 'verb'
 >
 
 /**
- * Retrieve all segments.
+ * Delete segment.
  *
- * Used to retrieve all segments for certain account id.
+ * Used to delete segment with certain id and account id.
  */
-export const GetAllSegments = (props: GetAllSegmentsProps) => (
-  <Get<
-    SegmentsResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | InternalServerErrorResponse,
-    GetAllSegmentsQueryParams,
+export const DeleteSegment = (props: DeleteSegmentProps) => (
+  <Mutate<
+    void,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    DeleteSegmentQueryParams,
+    string,
     void
   >
-    path="/admin/segments"
+    verb="DELETE"
+    path={`/admin/segments`}
     base={getConfig('cf')}
     {...props}
   />
 )
 
-export type UseGetAllSegmentsProps = Omit<
-  UseGetProps<
-    SegmentsResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | InternalServerErrorResponse,
-    GetAllSegmentsQueryParams,
+export type UseDeleteSegmentProps = Omit<
+  UseMutateProps<
+    void,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    DeleteSegmentQueryParams,
+    string,
     void
   >,
-  'path'
+  'path' | 'verb'
 >
 
 /**
- * Retrieve all segments.
+ * Delete segment.
  *
- * Used to retrieve all segments for certain account id.
+ * Used to delete segment with certain id and account id.
  */
-export const useGetAllSegments = (props: UseGetAllSegmentsProps) =>
-  useGet<
-    SegmentsResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | InternalServerErrorResponse,
-    GetAllSegmentsQueryParams,
+export const useDeleteSegment = (props: UseDeleteSegmentProps) =>
+  useMutate<
+    void,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    DeleteSegmentQueryParams,
+    string,
     void
-  >(`/admin/segments`, { base: getConfig('cf'), ...props })
+  >('DELETE', `/admin/segments`, { base: getConfig('cf'), ...props })
 
 export interface GetSegmentQueryParams {
   /**
@@ -3450,7 +2820,7 @@ export const GetSegment = ({ identifier, ...props }: GetSegmentProps) => (
     GetSegmentQueryParams,
     GetSegmentPathParams
   >
-    path="/admin/segments/${identifier}"
+    path={`/admin/segments/${identifier}`}
     base={getConfig('cf')}
     {...props}
   />
@@ -3546,7 +2916,7 @@ export const PatchSegment = ({ identifier, ...props }: PatchSegmentProps) => (
     PatchSegmentPathParams
   >
     verb="PATCH"
-    path="/admin/segments/${identifier}"
+    path={`/admin/segments/${identifier}`}
     base={getConfig('cf')}
     {...props}
   />
@@ -3587,164 +2957,6 @@ export const usePatchSegment = ({ identifier, ...props }: UsePatchSegmentProps) 
     SegmentPatchRequestRequestBody,
     PatchSegmentPathParams
   >('PATCH', (paramsInPath: PatchSegmentPathParams) => `/admin/segments/${paramsInPath.identifier}`, {
-    base: getConfig('cf'),
-    pathParams: { identifier },
-    ...props
-  })
-
-export interface DeleteSegmentQueryParams {
-  /**
-   * Account
-   */
-  accountIdentifier: string
-  /**
-   * Organization Identifier
-   */
-  org: string
-  /**
-   * Project
-   */
-  project: string
-  /**
-   * Environment
-   */
-  environment: string
-}
-
-export type DeleteSegmentProps = Omit<
-  MutateProps<
-    void,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    DeleteSegmentQueryParams,
-    string,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Delete segment.
- *
- * Used to delete segment with certain id and account id.
- */
-export const DeleteSegment = (props: DeleteSegmentProps) => (
-  <Mutate<
-    void,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    DeleteSegmentQueryParams,
-    string,
-    void
-  >
-    verb="DELETE"
-    path="/admin/segments"
-    base={getConfig('cf')}
-    {...props}
-  />
-)
-
-export type UseDeleteSegmentProps = Omit<
-  UseMutateProps<
-    void,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    DeleteSegmentQueryParams,
-    string,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Delete segment.
- *
- * Used to delete segment with certain id and account id.
- */
-export const useDeleteSegment = (props: UseDeleteSegmentProps) =>
-  useMutate<
-    void,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    DeleteSegmentQueryParams,
-    string,
-    void
-  >('DELETE', `/admin/segments`, { base: getConfig('cf'), ...props })
-
-export interface GetSegmentFlagsQueryParams {
-  /**
-   * Account
-   */
-  accountIdentifier: string
-  /**
-   * Organization Identifier
-   */
-  org: string
-  /**
-   * Project
-   */
-  project: string
-  /**
-   * Environment
-   */
-  environment: string
-}
-
-export interface GetSegmentFlagsPathParams {
-  /**
-   * Unique identifier for the object in the API.
-   */
-  identifier: string
-}
-
-export type GetSegmentFlagsProps = Omit<
-  GetProps<
-    SegmentFlagsResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetSegmentFlagsQueryParams,
-    GetSegmentFlagsPathParams
-  >,
-  'path'
-> &
-  GetSegmentFlagsPathParams
-
-/**
- * Retrieve segment flags.
- *
- * Used to retrieve certain segment flags for certain id and account id.
- */
-export const GetSegmentFlags = ({ identifier, ...props }: GetSegmentFlagsProps) => (
-  <Get<
-    SegmentFlagsResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetSegmentFlagsQueryParams,
-    GetSegmentFlagsPathParams
-  >
-    path="/admin/segments/${identifier}/flags"
-    base={getConfig('cf')}
-    {...props}
-  />
-)
-
-export type UseGetSegmentFlagsProps = Omit<
-  UseGetProps<
-    SegmentFlagsResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetSegmentFlagsQueryParams,
-    GetSegmentFlagsPathParams
-  >,
-  'path'
-> &
-  GetSegmentFlagsPathParams
-
-/**
- * Retrieve segment flags.
- *
- * Used to retrieve certain segment flags for certain id and account id.
- */
-export const useGetSegmentFlags = ({ identifier, ...props }: UseGetSegmentFlagsProps) =>
-  useGet<
-    SegmentFlagsResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    GetSegmentFlagsQueryParams,
-    GetSegmentFlagsPathParams
-  >((paramsInPath: GetSegmentFlagsPathParams) => `/admin/segments/${paramsInPath.identifier}/flags`, {
     base: getConfig('cf'),
     pathParams: { identifier },
     ...props
@@ -3821,7 +3033,7 @@ export const GetAvailableFlagsForSegment = ({ identifier, ...props }: GetAvailab
     GetAvailableFlagsForSegmentQueryParams,
     GetAvailableFlagsForSegmentPathParams
   >
-    path="/admin/segments/${identifier}/available_flags"
+    path={`/admin/segments/${identifier}/available_flags`}
     base={getConfig('cf')}
     {...props}
   />
@@ -3857,35 +3069,106 @@ export const useGetAvailableFlagsForSegment = ({ identifier, ...props }: UseGetA
     { base: getConfig('cf'), pathParams: { identifier }, ...props }
   )
 
-export interface GetAuditByParamsQueryParams {
-  /**
-   * Environment
-   */
-  environment?: string
-  /**
-   * Project
-   */
-  project?: string
-  /**
-   * Object Type (FeatureActivation Or Segment)
-   */
-  objectType: 'FeatureActivation' | 'Segment'
-  /**
-   * Organization Identifier
-   */
-  org: string
+export interface GetSegmentFlagsQueryParams {
   /**
    * Account
    */
   accountIdentifier: string
   /**
-   * Start Time
+   * Organization Identifier
    */
-  startTime?: number
+  org: string
   /**
-   * End Time
+   * Project
    */
-  endTime?: number
+  project: string
+  /**
+   * Environment
+   */
+  environment: string
+}
+
+export interface GetSegmentFlagsPathParams {
+  /**
+   * Unique identifier for the object in the API.
+   */
+  identifier: string
+}
+
+export type GetSegmentFlagsProps = Omit<
+  GetProps<
+    SegmentFlagsResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetSegmentFlagsQueryParams,
+    GetSegmentFlagsPathParams
+  >,
+  'path'
+> &
+  GetSegmentFlagsPathParams
+
+/**
+ * Retrieve segment flags.
+ *
+ * Used to retrieve certain segment flags for certain id and account id.
+ */
+export const GetSegmentFlags = ({ identifier, ...props }: GetSegmentFlagsProps) => (
+  <Get<
+    SegmentFlagsResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetSegmentFlagsQueryParams,
+    GetSegmentFlagsPathParams
+  >
+    path={`/admin/segments/${identifier}/flags`}
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseGetSegmentFlagsProps = Omit<
+  UseGetProps<
+    SegmentFlagsResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetSegmentFlagsQueryParams,
+    GetSegmentFlagsPathParams
+  >,
+  'path'
+> &
+  GetSegmentFlagsPathParams
+
+/**
+ * Retrieve segment flags.
+ *
+ * Used to retrieve certain segment flags for certain id and account id.
+ */
+export const useGetSegmentFlags = ({ identifier, ...props }: UseGetSegmentFlagsProps) =>
+  useGet<
+    SegmentFlagsResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetSegmentFlagsQueryParams,
+    GetSegmentFlagsPathParams
+  >((paramsInPath: GetSegmentFlagsPathParams) => `/admin/segments/${paramsInPath.identifier}/flags`, {
+    base: getConfig('cf'),
+    pathParams: { identifier },
+    ...props
+  })
+
+export interface GetAllTargetsQueryParams {
+  /**
+   * Account
+   */
+  accountIdentifier: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+  /**
+   * Project
+   */
+  project: string
+  /**
+   * Environment
+   */
+  environment: string
   /**
    * PageNumber
    */
@@ -3895,141 +3178,234 @@ export interface GetAuditByParamsQueryParams {
    */
   pageSize?: number
   /**
-   * Actor
-   */
-  actor?: string
-  /**
-   * Action
-   */
-  action?: ('FeatureActivationCreated' | 'SegmentCreated' | 'FeatureActivationPatched')[]
-  /**
-   * Identifier of the entity
-   */
-  identifier?: string
-  /**
    * SortOrder
    */
   sortOrder?: 'ASC' | 'DESC'
   /**
    * SortByField
    */
-  sortByField?: 'executed_on' | 'actor' | 'action'
-}
-
-export type GetAuditByParamsProps = Omit<
-  GetProps<
-    AuditTrailResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | InternalServerErrorResponse,
-    GetAuditByParamsQueryParams,
-    void
-  >,
-  'path'
->
-
-/**
- * Retrieve Audit
- *
- * Used to retrieve audit details based on environment, project, object type, organization, account and timestamp
- */
-export const GetAuditByParams = (props: GetAuditByParamsProps) => (
-  <Get<
-    AuditTrailResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | InternalServerErrorResponse,
-    GetAuditByParamsQueryParams,
-    void
-  >
-    path="/admin/audit"
-    base={getConfig('cf')}
-    {...props}
-  />
-)
-
-export type UseGetAuditByParamsProps = Omit<
-  UseGetProps<
-    AuditTrailResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | InternalServerErrorResponse,
-    GetAuditByParamsQueryParams,
-    void
-  >,
-  'path'
->
-
-/**
- * Retrieve Audit
- *
- * Used to retrieve audit details based on environment, project, object type, organization, account and timestamp
- */
-export const useGetAuditByParams = (props: UseGetAuditByParamsProps) =>
-  useGet<
-    AuditTrailResponseResponse,
-    UnauthenticatedResponse | UnauthorizedResponse | InternalServerErrorResponse,
-    GetAuditByParamsQueryParams,
-    void
-  >(`/admin/audit`, { base: getConfig('cf'), ...props })
-
-export interface GetOSByIdPathParams {
+  sortByField?: 'createdAt' | 'name' | 'identifier'
   /**
-   * Unique identifiers for the object in the API.
+   * Name of the target
    */
-  identifiers: string[]
+  targetName?: string
+  /**
+   * Identifier of the target
+   */
+  targetIdentifier?: string
 }
 
-export type GetOSByIdProps = Omit<
+export type GetAllTargetsProps = Omit<
   GetProps<
-    ObjectSnapshotResponseResponse | void,
+    TargetsResponseResponse,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    void,
-    GetOSByIdPathParams
+    GetAllTargetsQueryParams,
+    void
   >,
   'path'
-> &
-  GetOSByIdPathParams
+>
 
 /**
- * Retrieve Object Snapshot
+ * Retrieve all targets.
  *
- * Used to retrieve the json body of the object from the object snapshot table
+ * Used to retrieve all targets for certain account id.
  */
-export const GetOSById = ({ identifiers, ...props }: GetOSByIdProps) => (
+export const GetAllTargets = (props: GetAllTargetsProps) => (
   <Get<
-    ObjectSnapshotResponseResponse | void,
+    TargetsResponseResponse,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    void,
-    GetOSByIdPathParams
+    GetAllTargetsQueryParams,
+    void
   >
-    path="/admin/objects/${identifiers}"
+    path={`/admin/targets`}
     base={getConfig('cf')}
     {...props}
   />
 )
 
-export type UseGetOSByIdProps = Omit<
+export type UseGetAllTargetsProps = Omit<
   UseGetProps<
-    ObjectSnapshotResponseResponse | void,
+    TargetsResponseResponse,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
-    void,
-    GetOSByIdPathParams
+    GetAllTargetsQueryParams,
+    void
   >,
   'path'
-> &
-  GetOSByIdPathParams
+>
 
 /**
- * Retrieve Object Snapshot
+ * Retrieve all targets.
  *
- * Used to retrieve the json body of the object from the object snapshot table
+ * Used to retrieve all targets for certain account id.
  */
-export const useGetOSById = ({ identifiers, ...props }: UseGetOSByIdProps) =>
+export const useGetAllTargets = (props: UseGetAllTargetsProps) =>
   useGet<
-    ObjectSnapshotResponseResponse | void,
+    TargetsResponseResponse,
     UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetAllTargetsQueryParams,
+    void
+  >(`/admin/targets`, { base: getConfig('cf'), ...props })
+
+export interface CreateTargetQueryParams {
+  /**
+   * Account
+   */
+  accountIdentifier: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+}
+
+export type CreateTargetProps = Omit<
+  MutateProps<
     void,
-    GetOSByIdPathParams
-  >((paramsInPath: GetOSByIdPathParams) => `/admin/objects/${paramsInPath.identifiers}`, {
-    base: getConfig('cf'),
-    pathParams: { identifiers },
-    ...props
-  })
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    CreateTargetQueryParams,
+    TargetRequestRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Create target.
+ *
+ * Used to create target.
+ */
+export const CreateTarget = (props: CreateTargetProps) => (
+  <Mutate<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    CreateTargetQueryParams,
+    TargetRequestRequestBody,
+    void
+  >
+    verb="POST"
+    path={`/admin/targets`}
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseCreateTargetProps = Omit<
+  UseMutateProps<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    CreateTargetQueryParams,
+    TargetRequestRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Create target.
+ *
+ * Used to create target.
+ */
+export const useCreateTarget = (props: UseCreateTargetProps) =>
+  useMutate<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    CreateTargetQueryParams,
+    TargetRequestRequestBody,
+    void
+  >('POST', `/admin/targets`, { base: getConfig('cf'), ...props })
+
+export interface GetTargetsAndSegmentsInfoQueryParams {
+  /**
+   * Account
+   */
+  accountIdentifier: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+  /**
+   * Project
+   */
+  project: string
+  /**
+   * Environment
+   */
+  environment: string
+  /**
+   * Comma separated identifiers for multiple targets
+   */
+  targets?: string
+  /**
+   * Comma separated identifiers for multiple Target Groups
+   */
+  targetGroups?: string
+}
+
+export type GetTargetsAndSegmentsInfoProps = Omit<
+  GetProps<
+    TargetSegmentsInfoResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetTargetsAndSegmentsInfoQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * Get the name of specified targets and segments
+ *
+ * Get the names of the specified targets and segments
+ */
+export const GetTargetsAndSegmentsInfo = (props: GetTargetsAndSegmentsInfoProps) => (
+  <Get<
+    TargetSegmentsInfoResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetTargetsAndSegmentsInfoQueryParams,
+    void
+  >
+    path={`/admin/targets-segments-info/`}
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseGetTargetsAndSegmentsInfoProps = Omit<
+  UseGetProps<
+    TargetSegmentsInfoResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetTargetsAndSegmentsInfoQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * Get the name of specified targets and segments
+ *
+ * Get the names of the specified targets and segments
+ */
+export const useGetTargetsAndSegmentsInfo = (props: UseGetTargetsAndSegmentsInfoProps) =>
+  useGet<
+    TargetSegmentsInfoResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetTargetsAndSegmentsInfoQueryParams,
+    void
+  >(`/admin/targets-segments-info/`, { base: getConfig('cf'), ...props })
 
 export interface GetTargetsAndSegmentsQueryParams {
   /**
@@ -4096,7 +3472,7 @@ export const GetTargetsAndSegments = (props: GetTargetsAndSegmentsProps) => (
     GetTargetsAndSegmentsQueryParams,
     void
   >
-    path="/admin/targets-segments/"
+    path={`/admin/targets-segments/`}
     base={getConfig('cf')}
     {...props}
   />
@@ -4124,3 +3500,728 @@ export const useGetTargetsAndSegments = (props: UseGetTargetsAndSegmentsProps) =
     GetTargetsAndSegmentsQueryParams,
     void
   >(`/admin/targets-segments/`, { base: getConfig('cf'), ...props })
+
+export interface GetAllTargetAttributesQueryParams {
+  /**
+   * Account
+   */
+  accountIdentifier: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+  /**
+   * Project
+   */
+  project: string
+  /**
+   * Environment
+   */
+  environment: string
+}
+
+export type GetAllTargetAttributesProps = Omit<
+  GetProps<
+    TargetAttributesResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetAllTargetAttributesQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * Retrieve all target attributes for the environment
+ *
+ * Used to retrieve all attribute key names for all targets within the specified environment
+ */
+export const GetAllTargetAttributes = (props: GetAllTargetAttributesProps) => (
+  <Get<
+    TargetAttributesResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetAllTargetAttributesQueryParams,
+    void
+  >
+    path={`/admin/targets/attributes`}
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseGetAllTargetAttributesProps = Omit<
+  UseGetProps<
+    TargetAttributesResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetAllTargetAttributesQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * Retrieve all target attributes for the environment
+ *
+ * Used to retrieve all attribute key names for all targets within the specified environment
+ */
+export const useGetAllTargetAttributes = (props: UseGetAllTargetAttributesProps) =>
+  useGet<
+    TargetAttributesResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetAllTargetAttributesQueryParams,
+    void
+  >(`/admin/targets/attributes`, { base: getConfig('cf'), ...props })
+
+export interface UploadTargetsQueryParams {
+  /**
+   * Account
+   */
+  accountIdentifier: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+  /**
+   * Project
+   */
+  project: string
+  /**
+   * Environment
+   */
+  environment: string
+}
+
+export type UploadTargetsProps = Omit<
+  MutateProps<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    UploadTargetsQueryParams,
+    void,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Upload targets
+ *
+ * Add targets by uploading a CSV file.
+ */
+export const UploadTargets = (props: UploadTargetsProps) => (
+  <Mutate<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    UploadTargetsQueryParams,
+    void,
+    void
+  >
+    verb="POST"
+    path={`/admin/targets/upload`}
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseUploadTargetsProps = Omit<
+  UseMutateProps<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    UploadTargetsQueryParams,
+    void,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Upload targets
+ *
+ * Add targets by uploading a CSV file.
+ */
+export const useUploadTargets = (props: UseUploadTargetsProps) =>
+  useMutate<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    UploadTargetsQueryParams,
+    void,
+    void
+  >('POST', `/admin/targets/upload`, { base: getConfig('cf'), ...props })
+
+export interface DeleteTargetQueryParams {
+  /**
+   * Account
+   */
+  accountIdentifier: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+  /**
+   * Project
+   */
+  project: string
+  /**
+   * Environment
+   */
+  environment: string
+}
+
+export type DeleteTargetProps = Omit<
+  MutateProps<
+    void,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    DeleteTargetQueryParams,
+    string,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Delete target.
+ *
+ * Used to delete target with certain id and account id.
+ */
+export const DeleteTarget = (props: DeleteTargetProps) => (
+  <Mutate<
+    void,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    DeleteTargetQueryParams,
+    string,
+    void
+  >
+    verb="DELETE"
+    path={`/admin/targets`}
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseDeleteTargetProps = Omit<
+  UseMutateProps<
+    void,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    DeleteTargetQueryParams,
+    string,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Delete target.
+ *
+ * Used to delete target with certain id and account id.
+ */
+export const useDeleteTarget = (props: UseDeleteTargetProps) =>
+  useMutate<
+    void,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    DeleteTargetQueryParams,
+    string,
+    void
+  >('DELETE', `/admin/targets`, { base: getConfig('cf'), ...props })
+
+export interface GetTargetQueryParams {
+  /**
+   * Account
+   */
+  accountIdentifier: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+  /**
+   * Project
+   */
+  project: string
+  /**
+   * Environment
+   */
+  environment: string
+}
+
+export interface GetTargetPathParams {
+  /**
+   * Unique identifier for the object in the API.
+   */
+  identifier: string
+}
+
+export type GetTargetProps = Omit<
+  GetProps<
+    TargetResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetTargetQueryParams,
+    GetTargetPathParams
+  >,
+  'path'
+> &
+  GetTargetPathParams
+
+/**
+ * Retrieve target.
+ *
+ * Used to retrieve certain target for certain id and account id.
+ */
+export const GetTarget = ({ identifier, ...props }: GetTargetProps) => (
+  <Get<
+    TargetResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetTargetQueryParams,
+    GetTargetPathParams
+  >
+    path={`/admin/targets/${identifier}`}
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseGetTargetProps = Omit<
+  UseGetProps<
+    TargetResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetTargetQueryParams,
+    GetTargetPathParams
+  >,
+  'path'
+> &
+  GetTargetPathParams
+
+/**
+ * Retrieve target.
+ *
+ * Used to retrieve certain target for certain id and account id.
+ */
+export const useGetTarget = ({ identifier, ...props }: UseGetTargetProps) =>
+  useGet<
+    TargetResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetTargetQueryParams,
+    GetTargetPathParams
+  >((paramsInPath: GetTargetPathParams) => `/admin/targets/${paramsInPath.identifier}`, {
+    base: getConfig('cf'),
+    pathParams: { identifier },
+    ...props
+  })
+
+export interface PatchTargetQueryParams {
+  /**
+   * Account
+   */
+  accountIdentifier: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+  /**
+   * Project
+   */
+  project: string
+  /**
+   * Environment
+   */
+  environment: string
+}
+
+export interface PatchTargetPathParams {
+  /**
+   * Unique identifier for the object in the API.
+   */
+  identifier: string
+}
+
+export type PatchTargetProps = Omit<
+  MutateProps<
+    TargetResponseResponse,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | NotFoundResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    PatchTargetQueryParams,
+    TargetPatchRequestRequestBody,
+    PatchTargetPathParams
+  >,
+  'path' | 'verb'
+> &
+  PatchTargetPathParams
+
+/**
+ * Patch target.
+ *
+ * Used to modify target with certain id and account id.
+ */
+export const PatchTarget = ({ identifier, ...props }: PatchTargetProps) => (
+  <Mutate<
+    TargetResponseResponse,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | NotFoundResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    PatchTargetQueryParams,
+    TargetPatchRequestRequestBody,
+    PatchTargetPathParams
+  >
+    verb="PATCH"
+    path={`/admin/targets/${identifier}`}
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UsePatchTargetProps = Omit<
+  UseMutateProps<
+    TargetResponseResponse,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | NotFoundResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    PatchTargetQueryParams,
+    TargetPatchRequestRequestBody,
+    PatchTargetPathParams
+  >,
+  'path' | 'verb'
+> &
+  PatchTargetPathParams
+
+/**
+ * Patch target.
+ *
+ * Used to modify target with certain id and account id.
+ */
+export const usePatchTarget = ({ identifier, ...props }: UsePatchTargetProps) =>
+  useMutate<
+    TargetResponseResponse,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | NotFoundResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    PatchTargetQueryParams,
+    TargetPatchRequestRequestBody,
+    PatchTargetPathParams
+  >('PATCH', (paramsInPath: PatchTargetPathParams) => `/admin/targets/${paramsInPath.identifier}`, {
+    base: getConfig('cf'),
+    pathParams: { identifier },
+    ...props
+  })
+
+export interface ModifyTargetQueryParams {
+  /**
+   * Account
+   */
+  accountIdentifier: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+  /**
+   * Project
+   */
+  project: string
+  /**
+   * Environment
+   */
+  environment: string
+}
+
+export interface ModifyTargetPathParams {
+  /**
+   * Unique identifier for the object in the API.
+   */
+  identifier: string
+}
+
+export type ModifyTargetProps = Omit<
+  MutateProps<
+    TargetResponseResponse,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | NotFoundResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    ModifyTargetQueryParams,
+    TargetRequestRequestBody,
+    ModifyTargetPathParams
+  >,
+  'path' | 'verb'
+> &
+  ModifyTargetPathParams
+
+/**
+ * Modify target
+ *
+ * Used to modify target with certain id and account id.
+ */
+export const ModifyTarget = ({ identifier, ...props }: ModifyTargetProps) => (
+  <Mutate<
+    TargetResponseResponse,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | NotFoundResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    ModifyTargetQueryParams,
+    TargetRequestRequestBody,
+    ModifyTargetPathParams
+  >
+    verb="PUT"
+    path={`/admin/targets/${identifier}`}
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseModifyTargetProps = Omit<
+  UseMutateProps<
+    TargetResponseResponse,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | NotFoundResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    ModifyTargetQueryParams,
+    TargetRequestRequestBody,
+    ModifyTargetPathParams
+  >,
+  'path' | 'verb'
+> &
+  ModifyTargetPathParams
+
+/**
+ * Modify target
+ *
+ * Used to modify target with certain id and account id.
+ */
+export const useModifyTarget = ({ identifier, ...props }: UseModifyTargetProps) =>
+  useMutate<
+    TargetResponseResponse,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | NotFoundResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    ModifyTargetQueryParams,
+    TargetRequestRequestBody,
+    ModifyTargetPathParams
+  >('PUT', (paramsInPath: ModifyTargetPathParams) => `/admin/targets/${paramsInPath.identifier}`, {
+    base: getConfig('cf'),
+    pathParams: { identifier },
+    ...props
+  })
+
+export interface GetTargetAvailableSegmentsQueryParams {
+  /**
+   * Account
+   */
+  accountIdentifier: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+  /**
+   * Project
+   */
+  project: string
+  /**
+   * Environment
+   */
+  environment: string
+  /**
+   * PageNumber
+   */
+  pageNumber?: number
+  /**
+   * PageSize
+   */
+  pageSize?: number
+  /**
+   * SortOrder
+   */
+  sortOrder?: 'ASCENDING' | 'DESCENDING'
+  /**
+   * SortByField
+   */
+  sortByField?: 'name'
+  /**
+   * Name of the segment
+   */
+  segmentName?: string
+}
+
+export interface GetTargetAvailableSegmentsPathParams {
+  /**
+   * Unique identifier for the object in the API.
+   */
+  identifier: string
+}
+
+export type GetTargetAvailableSegmentsProps = Omit<
+  GetProps<
+    SegmentsResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetTargetAvailableSegmentsQueryParams,
+    GetTargetAvailableSegmentsPathParams
+  >,
+  'path'
+> &
+  GetTargetAvailableSegmentsPathParams
+
+/**
+ * Retrieve the available segments that the target can be included in or excluded from.
+ *
+ * This returns the segments that the target can be added to. This list will exclude any segments that the |
+ *   target currently belongs to.
+ *
+ */
+export const GetTargetAvailableSegments = ({ identifier, ...props }: GetTargetAvailableSegmentsProps) => (
+  <Get<
+    SegmentsResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetTargetAvailableSegmentsQueryParams,
+    GetTargetAvailableSegmentsPathParams
+  >
+    path={`/admin/targets/${identifier}/available_segments`}
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseGetTargetAvailableSegmentsProps = Omit<
+  UseGetProps<
+    SegmentsResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetTargetAvailableSegmentsQueryParams,
+    GetTargetAvailableSegmentsPathParams
+  >,
+  'path'
+> &
+  GetTargetAvailableSegmentsPathParams
+
+/**
+ * Retrieve the available segments that the target can be included in or excluded from.
+ *
+ * This returns the segments that the target can be added to. This list will exclude any segments that the |
+ *   target currently belongs to.
+ *
+ */
+export const useGetTargetAvailableSegments = ({ identifier, ...props }: UseGetTargetAvailableSegmentsProps) =>
+  useGet<
+    SegmentsResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetTargetAvailableSegmentsQueryParams,
+    GetTargetAvailableSegmentsPathParams
+  >(
+    (paramsInPath: GetTargetAvailableSegmentsPathParams) =>
+      `/admin/targets/${paramsInPath.identifier}/available_segments`,
+    { base: getConfig('cf'), pathParams: { identifier }, ...props }
+  )
+
+export interface GetTargetSegmentsQueryParams {
+  /**
+   * Account
+   */
+  accountIdentifier: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+  /**
+   * Project
+   */
+  project: string
+  /**
+   * Environment
+   */
+  environment: string
+}
+
+export interface GetTargetSegmentsPathParams {
+  /**
+   * Unique identifier for the object in the API.
+   */
+  identifier: string
+}
+
+export type GetTargetSegmentsProps = Omit<
+  GetProps<
+    TargetDetailResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetTargetSegmentsQueryParams,
+    GetTargetSegmentsPathParams
+  >,
+  'path'
+> &
+  GetTargetSegmentsPathParams
+
+/**
+ * Retrieve the segmenets that the specified target belongs to.
+ *
+ * Used to retrieve certain segments for a certian target
+ */
+export const GetTargetSegments = ({ identifier, ...props }: GetTargetSegmentsProps) => (
+  <Get<
+    TargetDetailResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetTargetSegmentsQueryParams,
+    GetTargetSegmentsPathParams
+  >
+    path={`/admin/targets/${identifier}/segments`}
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseGetTargetSegmentsProps = Omit<
+  UseGetProps<
+    TargetDetailResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetTargetSegmentsQueryParams,
+    GetTargetSegmentsPathParams
+  >,
+  'path'
+> &
+  GetTargetSegmentsPathParams
+
+/**
+ * Retrieve the segmenets that the specified target belongs to.
+ *
+ * Used to retrieve certain segments for a certian target
+ */
+export const useGetTargetSegments = ({ identifier, ...props }: UseGetTargetSegmentsProps) =>
+  useGet<
+    TargetDetailResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetTargetSegmentsQueryParams,
+    GetTargetSegmentsPathParams
+  >((paramsInPath: GetTargetSegmentsPathParams) => `/admin/targets/${paramsInPath.identifier}/segments`, {
+    base: getConfig('cf'),
+    pathParams: { identifier },
+    ...props
+  })

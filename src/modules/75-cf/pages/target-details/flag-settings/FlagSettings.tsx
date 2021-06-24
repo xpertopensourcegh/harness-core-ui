@@ -268,7 +268,7 @@ const FlagSettingsRow: React.FC<{
         <Container width={CellWidth.VARIATION} style={{ alignSelf: 'center' }}>
           <VariationSelect
             variations={feature.variations}
-            selectedIdentifier={feature.evaluation as string}
+            selectedIdentifier={feature.evaluationIdentifier as string}
             onChange={async variation => {
               try {
                 await _useServeFlagVariationToTargets(feature, variation.identifier, [target.identifier])
