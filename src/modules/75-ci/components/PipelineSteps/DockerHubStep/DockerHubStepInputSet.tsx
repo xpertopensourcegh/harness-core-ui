@@ -239,17 +239,17 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
-      {getMultiTypeFromValue(template?.spec?.remoteCacheImage) === MultiTypeInputType.RUNTIME && (
+      {getMultiTypeFromValue(template?.spec?.remoteCacheRepo) === MultiTypeInputType.RUNTIME && (
         <MultiTypeTextField
           className={css.removeBpLabelMargin}
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.remoteCacheImage`}
+          name={`${isEmpty(path) ? '' : `${path}.`}spec.remoteCacheRepo`}
           label={
             <Text style={{ display: 'flex', alignItems: 'center' }}>
               {getString('ci.remoteCacheImage.label')}
               <Button
                 icon="question"
                 minimal
-                tooltip={getString('ci.remoteCacheImage.ecrInfo')}
+                tooltip={getString('ci.remoteCacheImage.dockerInfo')}
                 iconProps={{ size: 14 }}
               />
             </Text>

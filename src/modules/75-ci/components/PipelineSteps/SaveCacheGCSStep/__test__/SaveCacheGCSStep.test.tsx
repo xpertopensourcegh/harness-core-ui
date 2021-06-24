@@ -20,7 +20,7 @@ const fixedValues = {
     bucket: 'Bucket',
     key: 'Key',
     sourcePaths: ['some/path'],
-    archiveFormat: 'tar',
+    archiveFormat: 'Tar',
     override: true,
     resources: {
       limits: {
@@ -205,7 +205,7 @@ describe('Save Cache GCS Step', () => {
               bucket: 'Bucket',
               key: 'Key',
               sourcePaths: ['some/path'],
-              archiveFormat: 'tar',
+              archiveFormat: 'Tar',
               override: true,
               resources: {
                 limits: {

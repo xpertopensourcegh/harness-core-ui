@@ -11,6 +11,7 @@ import {
 import { useParams } from 'react-router-dom'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox/MultiTypeCheckbox'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
@@ -164,6 +165,18 @@ export const DependencyBase = (
               <Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'small' }}>
                 {getString('pipelineSteps.optionalConfiguration')}
               </Text>
+              <FormMultiTypeCheckboxField
+                name="spec.privileged"
+                className={css.checkboxField}
+                label={getString('ci.privileged')}
+                multiTypeTextbox={{
+                  children: (
+                    <Button icon="question" minimal tooltip={getString('ci.privilegedInfo')} iconProps={{ size: 14 }} />
+                  ),
+                  expressions
+                }}
+                disabled={readonly}
+              />
               <MultiTypeMap
                 name="spec.envVariables"
                 valueMultiTextInputProps={{ expressions }}

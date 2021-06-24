@@ -23,6 +23,10 @@ export const transformValuesFieldsConfig = [
     type: TransformValuesTypes.Text
   },
   {
+    name: 'spec.privileged',
+    type: TransformValuesTypes.Boolean
+  },
+  {
     name: 'spec.envVariables',
     type: TransformValuesTypes.Map
   },
@@ -75,6 +79,10 @@ export const editViewValidateFieldsConfig = [
     isRequired: true
   },
   {
+    name: 'spec.privileged',
+    type: ValidationFieldTypes.Boolean
+  },
+  {
     name: 'spec.envVariables',
     type: ValidationFieldTypes.Map
   },
@@ -111,6 +119,10 @@ export function getInputSetViewValidateFieldsConfig(
       type: ValidationFieldTypes.Text,
       label: 'imageLabel',
       isRequired
+    },
+    {
+      name: 'spec.privileged',
+      type: ValidationFieldTypes.Boolean
     },
     {
       name: 'spec.envVariables',

@@ -76,8 +76,7 @@ export const editViewValidateFieldsConfig = [
   },
   {
     name: 'spec.privileged',
-    type: ValidationFieldTypes.Boolean,
-    label: 'ci.privileged'
+    type: ValidationFieldTypes.Boolean
   },
   {
     name: 'spec.settings',
@@ -112,6 +111,10 @@ export function getInputSetViewValidateFieldsConfig(
       type: ValidationFieldTypes.Text,
       label: 'imageLabel',
       isRequired
+    },
+    {
+      name: 'spec.privileged',
+      type: ValidationFieldTypes.Boolean
     },
     {
       name: 'spec.settings',

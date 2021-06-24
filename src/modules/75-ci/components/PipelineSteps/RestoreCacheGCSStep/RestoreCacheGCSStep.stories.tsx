@@ -58,7 +58,7 @@ RestoreCacheGCSStep.args = {
       connectorRef: 'account.connectorRef',
       bucket: 'Bucket',
       key: 'Key',
-      archiveFormat: 'tar',
+      archiveFormat: 'Tar',
       failIfKeyNotFound: true,
       resources: {
         limits: {

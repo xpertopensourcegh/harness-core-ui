@@ -727,7 +727,7 @@ exports[`Save Cache GCS Step Edit View edit mode works 1`] = `
                             placeholder="Search..."
                             style="padding-right: 0px;"
                             type="text"
-                            value="tar"
+                            value="Tar"
                           />
                           <span
                             class="bp3-input-action"
@@ -3051,7 +3051,7 @@ exports[`Save Cache GCS Step Edit View should render properly 1`] = `
                             placeholder="Search..."
                             style="padding-right: 0px;"
                             type="text"
-                            value="tar"
+                            value="Tar"
                           />
                           <span
                             class="bp3-input-action"
@@ -4907,7 +4907,7 @@ exports[`Save Cache GCS Step InputVariable View should render properly 1`] = `
       class="StyledProps--font Text--lineclamp StyledProps--main"
       style="--text-line-clamp: 1;"
     >
-      tar
+      Tar
     </p>
     <div
       class="main"

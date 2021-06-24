@@ -4,6 +4,7 @@ import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import Map from '@common/components/Map/Map'
+import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox/MultiTypeCheckbox'
 import List from '@common/components/List/List'
 import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
 import StepCommonFieldsInputSet from '@pipeline/components/StepCommonFields/StepCommonFieldsInputSet'
@@ -64,6 +65,20 @@ export const DependencyInputSet: React.FC<DependencyProps> = ({ template, path, 
           }
           disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
+        />
+      )}
+      {getMultiTypeFromValue(template?.spec?.privileged) === MultiTypeInputType.RUNTIME && (
+        <FormMultiTypeCheckboxField
+          name={`${isEmpty(path) ? '' : `${path}.`}spec.privileged`}
+          label={getString('ci.privileged')}
+          multiTypeTextbox={{
+            children: (
+              <Button icon="question" minimal tooltip={getString('ci.privilegedInfo')} iconProps={{ size: 14 }} />
+            ),
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+          }}
+          disabled={readonly}
+          setToFalseWhenEmpty={true}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.envVariables as string) === MultiTypeInputType.RUNTIME && (

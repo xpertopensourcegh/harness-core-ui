@@ -60,7 +60,7 @@ RestoreCacheS3Step.args = {
       region: 'us-east-1',
       key: 'Key',
       endpoint: 'Endpoint',
-      archiveFormat: 'tar',
+      archiveFormat: 'Tar',
       pathStyle: true,
       failIfKeyNotFound: true,
       resources: {

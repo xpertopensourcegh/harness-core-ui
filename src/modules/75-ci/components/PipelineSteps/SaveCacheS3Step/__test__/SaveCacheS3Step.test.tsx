@@ -22,7 +22,7 @@ const fixedValues = {
     key: 'Key',
     sourcePaths: ['some/path'],
     endpoint: 'Endpoint',
-    archiveFormat: 'tar',
+    archiveFormat: 'Tar',
     override: true,
     pathStyle: true,
     resources: {
@@ -212,7 +212,7 @@ describe('Save Cache S3 Step', () => {
               key: 'Key',
               sourcePaths: ['some/path'],
               endpoint: 'Endpoint',
-              archiveFormat: 'tar',
+              archiveFormat: 'Tar',
               override: true,
               pathStyle: true,
               resources: {

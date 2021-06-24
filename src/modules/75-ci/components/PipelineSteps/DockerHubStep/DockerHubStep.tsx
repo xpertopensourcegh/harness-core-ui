@@ -38,7 +38,7 @@ export interface DockerHubStepSpec {
   buildArgs?: MultiTypeMapType
   optimize: boolean
   target?: string
-  remoteCacheImage?: string
+  remoteCacheRepo?: string
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // pull?: MultiTypePullOption
   resources?: Resources
@@ -100,7 +100,7 @@ export class DockerHubStep extends PipelineStep<DockerHubStepData> {
       repo: '',
       tags: [],
       optimize: true,
-      remoteCacheImage: ''
+      remoteCacheRepo: ''
     }
   }
 

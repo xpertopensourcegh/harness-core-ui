@@ -66,6 +66,7 @@ describe('Dependency', () => {
         spec: {
           connectorRef: RUNTIME_INPUT_VALUE,
           image: RUNTIME_INPUT_VALUE,
+          privileged: RUNTIME_INPUT_VALUE,
           envVariables: RUNTIME_INPUT_VALUE,
           entrypoint: RUNTIME_INPUT_VALUE,
           args: RUNTIME_INPUT_VALUE,
@@ -108,6 +109,7 @@ describe('Dependency', () => {
         spec: {
           connectorRef: 'account.connectorRef',
           image: 'image',
+          privileged: false,
           envVariables: {
             key1: 'value1',
             key2: 'value2',
@@ -150,6 +152,7 @@ describe('Dependency', () => {
         spec: {
           connectorRef: 'account.connectorRef',
           image: 'image',
+          privileged: false,
           envVariables: {
             key1: 'value1',
             key2: 'value2',
@@ -191,6 +194,7 @@ describe('Dependency', () => {
         spec: {
           connectorRef: 'account.connectorRef',
           image: 'image',
+          privileged: false,
           envVariables: {
             key1: 'value1',
             key2: 'value2',
@@ -243,6 +247,7 @@ describe('Dependency', () => {
         spec: {
           connectorRef: RUNTIME_INPUT_VALUE,
           image: RUNTIME_INPUT_VALUE,
+          privileged: RUNTIME_INPUT_VALUE,
           envVariables: RUNTIME_INPUT_VALUE,
           entrypoint: RUNTIME_INPUT_VALUE,
           args: RUNTIME_INPUT_VALUE,
@@ -265,6 +270,7 @@ describe('Dependency', () => {
         spec: {
           connectorRef: RUNTIME_INPUT_VALUE,
           image: RUNTIME_INPUT_VALUE,
+          privileged: RUNTIME_INPUT_VALUE,
           envVariables: RUNTIME_INPUT_VALUE,
           entrypoint: RUNTIME_INPUT_VALUE,
           args: RUNTIME_INPUT_VALUE,
@@ -309,6 +315,7 @@ describe('Dependency', () => {
         spec: {
           connectorRef: 'account.connectorRef',
           image: 'image',
+          privileged: false,
           envVariables: {
             key1: 'value1',
             key2: 'value2',
@@ -356,6 +363,7 @@ describe('Dependency', () => {
             spec: {
               connectorRef: 'account.connectorRef',
               image: 'image',
+              privileged: false,
               envVariables: {
                 key1: 'value1',
                 key2: 'value2',
@@ -398,6 +406,12 @@ describe('Dependency', () => {
                 yamlProperties: {
                   fqn: 'pipeline.stages.qaStage.execution.steps.dependency.spec.image',
                   localName: 'step.dependency.spec.image'
+                }
+              },
+              'step-privileged': {
+                yamlProperties: {
+                  fqn: 'pipeline.stages.qaStage.execution.steps.dependency.spec.privileged',
+                  localName: 'step.dependency.spec.privileged'
                 }
               },
               'step-envVariables': {
@@ -446,6 +460,7 @@ describe('Dependency', () => {
               spec: {
                 connectorRef: 'step-connectorRef',
                 image: 'step-image',
+                privileged: 'step-privileged',
                 envVariables: 'step-envVariables',
                 entrypoint: 'step-entrypoint',
                 args: 'step-args',

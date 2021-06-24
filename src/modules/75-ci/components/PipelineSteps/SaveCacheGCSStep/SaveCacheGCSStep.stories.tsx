@@ -59,7 +59,7 @@ SaveCacheGCSStep.args = {
       bucket: 'Bucket',
       key: 'Key',
       sourcePaths: ['some/path'],
-      archiveFormat: 'tar',
+      archiveFormat: 'Tar',
       override: true,
       resources: {
         limits: {

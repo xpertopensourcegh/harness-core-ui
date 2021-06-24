@@ -28,8 +28,8 @@ export const SaveCacheGCSStepInputSet: React.FC<SaveCacheGCSStepProps> = ({ temp
   >()
 
   const archiveFormatOptions = [
-    { label: 'tar', value: 'tar' },
-    { label: 'gzip', value: 'gzip' }
+    { label: 'Tar', value: 'Tar' },
+    { label: 'Gzip', value: 'Gzip' }
   ]
 
   return (

@@ -19,7 +19,7 @@ const fixedValues = {
     connectorRef: 'account.connectorRef',
     bucket: 'Bucket',
     key: 'Key',
-    archiveFormat: 'tar',
+    archiveFormat: 'Tar',
     failIfKeyNotFound: true,
     resources: {
       limits: {
@@ -202,7 +202,7 @@ describe('Restore Cache GCS Step', () => {
               connectorRef: 'account.connectorRef',
               bucket: 'Bucket',
               key: 'Key',
-              archiveFormat: 'tar',
+              archiveFormat: 'Tar',
               failIfKeyNotFound: true,
               resources: {
                 limits: {

@@ -73,7 +73,7 @@ describe('DockerHub Step', () => {
           buildArgs: RUNTIME_INPUT_VALUE,
           optimize: RUNTIME_INPUT_VALUE,
           target: RUNTIME_INPUT_VALUE,
-          remoteCacheImage: RUNTIME_INPUT_VALUE,
+          remoteCacheRepo: RUNTIME_INPUT_VALUE,
           // TODO: Right now we do not support Image Pull Policy but will do in the future
           // pull: RUNTIME_INPUT_VALUE,
           resources: {
@@ -125,7 +125,7 @@ describe('DockerHub Step', () => {
           },
           optimize: true,
           target: 'Target',
-          remoteCacheImage: 'myImage-cache',
+          remoteCacheRepo: 'myImage-cache',
           // TODO: Right now we do not support Image Pull Policy but will do in the future
           // pull: 'always',
           resources: {
@@ -178,7 +178,7 @@ describe('DockerHub Step', () => {
           buildArgs: RUNTIME_INPUT_VALUE,
           optimize: RUNTIME_INPUT_VALUE,
           target: RUNTIME_INPUT_VALUE,
-          remoteCacheImage: RUNTIME_INPUT_VALUE,
+          remoteCacheRepo: RUNTIME_INPUT_VALUE,
           // TODO: Right now we do not support Image Pull Policy but will do in the future
           // pull: RUNTIME_INPUT_VALUE,
           resources: {
@@ -205,7 +205,7 @@ describe('DockerHub Step', () => {
           buildArgs: RUNTIME_INPUT_VALUE,
           optimize: RUNTIME_INPUT_VALUE,
           target: RUNTIME_INPUT_VALUE,
-          remoteCacheImage: RUNTIME_INPUT_VALUE,
+          remoteCacheRepo: RUNTIME_INPUT_VALUE,
           // TODO: Right now we do not support Image Pull Policy but will do in the future
           // pull: RUNTIME_INPUT_VALUE,
           resources: {
@@ -262,7 +262,7 @@ describe('DockerHub Step', () => {
           },
           optimize: true,
           target: 'Target',
-          remoteCacheImage: 'myImage-cache',
+          remoteCacheRepo: 'myImage-cache',
           // TODO: Right now we do not support Image Pull Policy but will do in the future
           // pull: 'always',
           resources: {
@@ -318,7 +318,7 @@ describe('DockerHub Step', () => {
               },
               optimize: true,
               target: 'Target',
-              remoteCacheImage: 'myImage-cache',
+              remoteCacheRepo: 'myImage-cache',
               // TODO: Right now we do not support Image Pull Policy but will do in the future
               // pull: 'always',
               resources: {
@@ -398,10 +398,10 @@ describe('DockerHub Step', () => {
                   localName: 'step.dockerHub.spec.target'
                 }
               },
-              'step-remoteCacheImage': {
+              'step-remoteCacheRepo': {
                 yamlProperties: {
-                  fqn: 'pipeline.stages.qaStage.execution.steps.dockerHub.spec.remoteCacheImage',
-                  localName: 'step.dockerHub.spec.remoteCacheImage'
+                  fqn: 'pipeline.stages.qaStage.execution.steps.dockerHub.spec.remoteCacheRepo',
+                  localName: 'step.dockerHub.spec.remoteCacheRepo'
                 }
               },
               // TODO: Right now we do not support Image Pull Policy but will do in the future
@@ -439,7 +439,7 @@ describe('DockerHub Step', () => {
                 buildArgs: 'step-buildArgs',
                 optimize: 'step-optimize',
                 target: 'step-target',
-                remoteCacheImage: 'step-remoteCacheImage',
+                remoteCacheRepo: 'step-remoteCacheRepo',
                 // TODO: Right now we do not support Image Pull Policy but will do in the future
                 // pull: 'step-pull',
                 resources: {

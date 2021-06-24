@@ -173,7 +173,7 @@ languageLabel: Language
 languageInfo: The programming language of the source code to build
 reset: Reset
 archiveFormat: Archive Format
-archiveFormatInfo: Select archive format. Default is tar
+archiveFormatInfo: Select archive format. Default is Tar
 failIfKeyNotFound: Fail If Key Doesn’t exist
 override: Override Cache
 pathStyle: Path Style

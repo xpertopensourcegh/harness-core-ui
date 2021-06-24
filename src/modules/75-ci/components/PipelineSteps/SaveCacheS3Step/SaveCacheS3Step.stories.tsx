@@ -61,7 +61,7 @@ SaveCacheS3Step.args = {
       key: 'Key',
       sourcePaths: ['some/path'],
       endpoint: 'Endpoint',
-      archiveFormat: 'tar',
+      archiveFormat: 'Tar',
       override: true,
       pathStyle: true,
       resources: {

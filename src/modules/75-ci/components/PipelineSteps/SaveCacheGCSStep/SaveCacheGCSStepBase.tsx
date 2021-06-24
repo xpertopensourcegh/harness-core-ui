@@ -56,8 +56,8 @@ export const SaveCacheGCSStepBase = (
   const { stage: currentStage } = getStageFromPipeline(selectedStageId || '')
 
   const archiveFormatOptions = [
-    { label: 'tar', value: 'tar' },
-    { label: 'gzip', value: 'gzip' }
+    { label: 'Tar', value: 'Tar' },
+    { label: 'Gzip', value: 'Gzip' }
   ]
 
   return (

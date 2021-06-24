@@ -47,7 +47,7 @@ export const transformValuesFieldsConfig = [
     type: TransformValuesTypes.Text
   },
   {
-    name: 'spec.remoteCacheImage',
+    name: 'spec.remoteCacheRepo',
     type: TransformValuesTypes.Text
   },
   // TODO: Right now we do not support Image Pull Policy but will do in the future
@@ -113,7 +113,7 @@ export const editViewValidateFieldsConfig = [
     type: ValidationFieldTypes.Boolean
   },
   {
-    name: 'spec.remoteCacheImage',
+    name: 'spec.remoteCacheRepo',
     type: ValidationFieldTypes.Text
   },
   {
@@ -165,7 +165,7 @@ export function getInputSetViewValidateFieldsConfig(
       type: ValidationFieldTypes.Boolean
     },
     {
-      name: 'spec.remoteCacheImage',
+      name: 'spec.remoteCacheRepo',
       type: ValidationFieldTypes.Text
     },
     {

@@ -23,6 +23,7 @@ import { getInputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from
 export interface DependencySpec {
   connectorRef: string
   image: string
+  privileged?: boolean
   envVariables?: MultiTypeMapType
   entrypoint?: MultiTypeListType
   args?: MultiTypeListType

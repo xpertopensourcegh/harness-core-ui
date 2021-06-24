@@ -21,7 +21,7 @@ const fixedValues = {
     region: 'us-east-1',
     key: 'Key',
     endpoint: 'Endpoint',
-    archiveFormat: 'tar',
+    archiveFormat: 'Tar',
     pathStyle: true,
     failIfKeyNotFound: true,
     resources: {
@@ -210,7 +210,7 @@ describe('Restore Cache S3 Step', () => {
               region: 'us-east-1',
               key: 'Key',
               endpoint: 'Endpoint',
-              archiveFormat: 'tar',
+              archiveFormat: 'Tar',
               pathStyle: true,
               failIfKeyNotFound: true,
               resources: {

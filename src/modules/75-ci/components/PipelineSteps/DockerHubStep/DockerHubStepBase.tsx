@@ -266,7 +266,7 @@ export const DockerHubStepBase = (
                 }}
               />
               <MultiTypeTextField
-                name="spec.remoteCacheImage"
+                name="spec.remoteCacheRepo"
                 label={
                   <Text margin={{ top: 'small' }}>
                     {getString('ci.remoteCacheImage.label')}
