@@ -967,7 +967,7 @@ exports[`Saved Connector Details render for Inline K8s schema 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-small"
         >
-          delegate.delegateTags
+          connectors.delegate.delegateSelectors
         </p>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
@@ -975,7 +975,7 @@ exports[`Saved Connector Details render for Inline K8s schema 1`] = `
           <span
             class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
           >
-            primary
+            primary, secondary
           </span>
         </div>
       </div>

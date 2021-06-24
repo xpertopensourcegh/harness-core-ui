@@ -315,6 +315,7 @@ delegate:
   delegateselectionPlaceholder: Select or Enter Delegate Selectors
   noMatchingDelegatesActive: None of the matching delegates are in active state.
   couldNotFetch: Failed to update the delegate list, Will try again in {{pollingInterval}}
+  delegateSelectors: Delegate Selectors
 ceK8:
   infoText: 'If you have previously created a connector to the preferred cluster for any of the other modules, you may reference the same connector here and create a connector for Cloud cost management. If this is the first time creating a connector to this cluster, you may proceed without referencing.'
   selectConnectorLabel: 'Reference an existing connector'

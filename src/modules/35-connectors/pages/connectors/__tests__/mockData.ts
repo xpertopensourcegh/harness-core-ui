@@ -263,7 +263,6 @@ export const ManualK8s = {
 }
 
 export const K8WithInheritFromDelegate = {
-  status: 'SUCCESS',
   data: {
     connector: {
       name: 'k8 With Tags',
@@ -273,7 +272,7 @@ export const K8WithInheritFromDelegate = {
       projectIdentifier: undefined,
       tags: { connectot: 'dx' },
       type: 'K8sCluster',
-      spec: { credential: { type: 'InheritFromDelegate', spec: { delegateSelectors: ['primary'] } } }
+      spec: { delegateSelectors: ['primary', 'secondary'], credential: { type: 'InheritFromDelegate' } }
     },
     createdAt: 1612855114667,
     lastModifiedAt: 1613484012059,

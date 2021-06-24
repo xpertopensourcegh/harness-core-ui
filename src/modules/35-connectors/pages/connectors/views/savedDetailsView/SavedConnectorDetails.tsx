@@ -83,13 +83,6 @@ const getKubernetesSchema = (connector: ConnectorInfoDTO): Array<ActivityDetails
       value: connector?.spec?.credential?.type
     },
     {
-      label: 'delegate.delegateTags',
-      value:
-        connector.spec.credential.spec?.delegateSelectors?.length > 0
-          ? connector.spec.credential.spec?.delegateSelectors.join(', ')
-          : ''
-    },
-    {
       label: 'connectors.k8.masterUrlLabel',
       value: connector?.spec?.credential?.spec?.masterUrl
     },
@@ -365,11 +358,6 @@ const getAwsKmsSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowI
       value: data.credential?.spec?.assumeStsRoleDuration
     },
     {
-      label: 'delegate.delegateTags',
-      value:
-        data.credential?.spec?.delegateSelectors?.length > 0 ? data.credential?.spec?.delegateSelectors.join(', ') : ''
-    },
-    {
       label: 'connectors.hashiCorpVault.default',
       value: data.default
     }
@@ -409,13 +397,6 @@ const getGCPSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInte
       value: connector?.spec?.credential?.type
     },
     {
-      label: 'delegate.delegateTags',
-      value:
-        connector.spec.credential.spec?.delegateSelectors?.length > 0
-          ? connector.spec.credential.spec?.delegateSelectors.join(', ')
-          : ''
-    },
-    {
       label: 'encryptedKeyLabel',
       value: connector?.spec?.credential?.spec?.secretKeyRef
     }
@@ -427,13 +408,6 @@ const getAWSSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInte
     {
       label: 'credType',
       value: connector?.spec?.credential?.type
-    },
-    {
-      label: 'delegate.delegateTags',
-      value:
-        connector.spec.credential.spec?.delegateSelectors?.length > 0
-          ? connector.spec.credential.spec?.delegateSelectors.join(', ')
-          : ''
     },
     {
       label: 'password',
@@ -575,6 +549,18 @@ const getSchemaByType = (connector: ConnectorInfoDTO, type: string): Array<Activ
   }
 }
 
+const getCommonCredentialsDetailsSchema = (connector: ConnectorInfoDTO) => {
+  const delegateSelectors = connector.spec?.delegateSelectors
+  return delegateSelectors && delegateSelectors.length
+    ? [
+        {
+          label: 'connectors.delegate.delegateSelectors',
+          value: connector.spec?.delegateSelectors.join(', ')
+        }
+      ]
+    : []
+}
+
 const getSchema = (props: SavedConnectorDetailsProps): Array<ActivityDetailsRowInterface> => {
   const { connector } = props
   return [
@@ -711,12 +697,16 @@ export const RenderDetailsSection: React.FC<RenderDetailsSectionProps> = props =
 const SavedConnectorDetails: React.FC<SavedConnectorDetailsProps> = props => {
   const { getString } = useStrings()
   const connectorDetailsSchema = getSchema(props)
-  const credenatislsDetailsSchema = getSchemaByType(props.connector, props.connector?.type)
+  const credenatialsDetailsSchema = getSchemaByType(props.connector, props.connector?.type)
+  const commonCredentialsDetailsSchema = getCommonCredentialsDetailsSchema(props.connector)
 
   return (
     <Layout.Horizontal className={css.detailsSectionContainer}>
       <RenderDetailsSection title={getString('overview')} data={connectorDetailsSchema} />
-      <RenderDetailsSection title={getString('credentials')} data={credenatislsDetailsSchema} />
+      <RenderDetailsSection
+        title={getString('credentials')}
+        data={[...credenatialsDetailsSchema, ...commonCredentialsDetailsSchema]}
+      />
     </Layout.Horizontal>
   )
 }

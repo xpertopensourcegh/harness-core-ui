@@ -878,6 +878,7 @@ export interface StringsMap {
   'connectors.delegate.couldNotFetch': string
   'connectors.delegate.delegateSelectorAny': string
   'connectors.delegate.delegateSelectorSelective': string
+  'connectors.delegate.delegateSelectors': string
   'connectors.delegate.delegateselectionPlaceholder': string
   'connectors.delegate.hearbeat': string
   'connectors.delegate.matchesSelectors': string
