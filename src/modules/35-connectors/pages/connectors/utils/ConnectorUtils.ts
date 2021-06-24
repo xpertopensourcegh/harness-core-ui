@@ -172,6 +172,7 @@ export const buildGithubPayload = (formData: FormData) => {
       ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
       type: formData.urlType,
       url: formData.url,
+      ...(formData.validationRepo ? { validationRepo: formData.validationRepo } : {}),
       authentication: {
         type: formData.connectionType,
         spec:
@@ -216,6 +217,7 @@ export const buildGitlabPayload = (formData: FormData) => {
       ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
       type: formData.urlType,
       url: formData.url,
+      ...(formData.validationRepo ? { validationRepo: formData.validationRepo } : {}),
       authentication: {
         type: formData.connectionType,
         spec:
@@ -260,6 +262,7 @@ export const buildBitbucketPayload = (formData: FormData) => {
       ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
       type: formData.urlType,
       url: formData.url,
+      ...(formData.validationRepo ? { validationRepo: formData.validationRepo } : {}),
       authentication: {
         type: formData.connectionType,
         spec:
@@ -793,6 +796,7 @@ export const buildGitPayload = (formData: FormData) => {
       connectionType: formData.urlType,
       url: formData.url,
       type: formData.connectionType,
+      ...(formData.validationRepo ? { validationRepo: formData.validationRepo } : {}),
       spec:
         formData.connectionType === GitConnectionType.SSH
           ? { sshKeyRef: formData.sshKey.referenceString }

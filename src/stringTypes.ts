@@ -146,6 +146,8 @@ export interface StringsMap {
   'common.git.saveResourceLabel': string
   'common.git.selectRepoLabel': string
   'common.git.startPRLabel': string
+  'common.git.testRepository': string
+  'common.git.testRepositoryDescription': string
   'common.git.urlType': string
   'common.git.validation.branchRequired': string
   'common.git.validation.commitMessage': string
@@ -337,6 +339,7 @@ export interface StringsMap {
   'common.validation.nameIsRequired': string
   'common.validation.namePatternIsNotValid': string
   'common.validation.repositoryName': string
+  'common.validation.testRepoIsRequired': string
   'common.validation.typeIsRequired': string
   'common.validation.urlIsRequired': string
   'common.validation.valueIsRequired': string

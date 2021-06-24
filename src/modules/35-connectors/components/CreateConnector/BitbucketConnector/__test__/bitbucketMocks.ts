@@ -18,7 +18,8 @@ export const usernamePassword: ConnectorInfoDTO = {
         spec: { username: 'dev', usernameRef: undefined, passwordRef: 'account.githubPassword' }
       }
     },
-    type: 'Account'
+    type: 'Account',
+    validationRepo: 'test'
   }
 }
 
@@ -40,7 +41,8 @@ export const backButtonMock: ConnectorInfoDTO = {
       }
     },
     apiAccess: null,
-    type: 'Account'
+    type: 'Account',
+    validationRepo: 'test'
   }
 }
 
@@ -66,7 +68,8 @@ export const usernameTokenWithAPIAccess: ConnectorInfoDTO = {
       type: 'UsernamePassword',
       spec: { username: 'dev', usernameRef: undefined, tokenRef: 'account.githubPassword' }
     },
-    type: 'Account'
+    type: 'Account',
+    validationRepo: 'test'
   }
 }
 

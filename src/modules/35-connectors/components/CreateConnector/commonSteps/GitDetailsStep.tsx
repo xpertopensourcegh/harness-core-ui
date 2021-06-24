@@ -9,7 +9,8 @@ import {
   FormikForm,
   Container,
   FormInput,
-  Text
+  Text,
+  Icon
 } from '@wings-software/uicore'
 import { useParams } from 'react-router'
 import * as Yup from 'yup'
@@ -43,6 +44,7 @@ interface DetailsStepInterface {
   urlType: string
   connectionType: string
   url: string
+  validationRepo?: string
 }
 
 const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsStepProps> = props => {
@@ -167,6 +169,7 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
         urlType:
           props.type === Connectors.GIT ? props.connectorInfo?.spec?.connectionType : props.connectorInfo?.spec?.type,
         url: props.connectorInfo?.spec?.url,
+        validationRepo: props.connectorInfo?.spec?.validationRepo,
         connectionType:
           props.type === Connectors.GIT
             ? props.connectorInfo?.spec?.type
@@ -193,7 +196,11 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
           }}
           formName="gitDetailsStepForm"
           validationSchema={Yup.object().shape({
-            url: Yup.string().trim().required(getString('common.validation.urlIsRequired'))
+            url: Yup.string().trim().required(getString('common.validation.urlIsRequired')),
+            validationRepo: Yup.string().when('urlType', {
+              is: 'Account',
+              then: Yup.string().required(getString('common.validation.testRepoIsRequired'))
+            })
           })}
           initialValues={{
             ...getInitialValues(),
@@ -231,6 +238,19 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
                     label={getUrlLabel(props.type, formikProps.values.urlType)}
                     placeholder={getUrlLabelPlaceholder(props.type, formikProps.values.connectionType)}
                   />
+                  {formikProps.values.urlType === 'Account' && (
+                    <Container className={css.formElm}>
+                      <Container className={css.infoGroup}>
+                        <Icon name="info" size={10} margin={{ right: 'small' }} />
+                        <Text font={{ size: 'xsmall' }}>{getString('common.git.testRepositoryDescription')}</Text>
+                      </Container>
+                      <FormInput.Text
+                        name="validationRepo"
+                        label={getString('common.git.testRepository')}
+                        placeholder={getString('common.git.selectRepoLabel')}
+                      />
+                    </Container>
+                  )}
                 </Container>
                 <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
                   <Button

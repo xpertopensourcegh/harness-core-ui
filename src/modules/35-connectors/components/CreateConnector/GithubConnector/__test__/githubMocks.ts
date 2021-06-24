@@ -18,7 +18,8 @@ export const usernamePassword: ConnectorInfoDTO = {
       }
     },
     apiAccess: null,
-    type: 'Account'
+    type: 'Account',
+    validationRepo: 'test'
   }
 }
 
@@ -40,7 +41,8 @@ export const backButtonMock: ConnectorInfoDTO = {
       }
     },
     apiAccess: null,
-    type: 'Account'
+    type: 'Account',
+    validationRepo: 'test'
   }
 }
 
@@ -66,7 +68,8 @@ export const usernameTokenWithAPIAccessGithubApp: ConnectorInfoDTO = {
       type: 'GithubApp',
       spec: { installationId: '1234', applicationId: '1234', privateKeyRef: 'account.githubPassword' }
     },
-    type: 'Account'
+    type: 'Account',
+    validationRepo: 'test'
   }
 }
 
@@ -92,7 +95,8 @@ export const usernameTokenWithAPIAccessToken: ConnectorInfoDTO = {
       type: 'Token',
       spec: { tokenRef: 'account.githubPassword' }
     },
-    type: 'Account'
+    type: 'Account',
+    validationRepo: 'test'
   }
 }
 

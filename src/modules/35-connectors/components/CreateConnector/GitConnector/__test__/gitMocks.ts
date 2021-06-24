@@ -13,6 +13,7 @@ export const usernamePassword: ConnectorInfoDTO = {
     url: 'http://www.github.com/',
     type: 'Http',
     connectionType: 'Account',
+    validationRepo: 'test',
     spec: { username: 'dev', usernameRef: undefined, passwordRef: 'account.connectorPass' }
   }
 }
@@ -30,6 +31,7 @@ export const backButtonMock: ConnectorInfoDTO = {
     branchName: 'master',
     type: 'Http',
     connectionType: 'Account',
+    validationRepo: 'test',
     spec: { username: 'dev', passwordRef: 'account.connectorPass' },
     gitSync: { enabled: false, customCommitAttributes: null, syncEnabled: false }
   }

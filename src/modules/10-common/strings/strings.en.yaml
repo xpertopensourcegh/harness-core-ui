@@ -74,6 +74,7 @@ validation:
   formatMustBeAlphanumeric: Identifier can only contain alphanumerics, _ and $
   identifierIsRequired: Identifier is required
   urlIsRequired: URL is required
+  testRepoIsRequired: Test Repository is required
   email:
     required: Email is required
     format: Please input valid email address
@@ -192,6 +193,7 @@ git:
   branchName: 'Branch name'
   urlType: 'URL Type'
   connectionType: 'Connection Type'
+  testRepository: 'Test Repository'
   gitAccountUrl: 'Git Account URL'
   gitHubAccountUrl: 'GitHub Account URL'
   gitLabAccountUrl: 'GitLab Account URL'
@@ -208,6 +210,7 @@ git:
   bitbucketPlaceholderSSH: 'git@bitbucket.com:account/'
   enableAPIAccess: 'Enable API access'
   APIAccessDescriptipn: 'API Access is required for using “Git Experience”, for creation of Git based triggers, Webhooks management and updating Git statuses'
+  testRepositoryDescription: Please provide a Repository name to test the credentials. The Connector will still be created at the Account level.
   APIAuthentication: 'API Authentication'
   gitHubApp: 'GitHub App'
   installationId: 'GitHub Installation ID'

@@ -18,7 +18,8 @@ export const usernamePassword: ConnectorInfoDTO = {
         spec: { username: 'dev', usernameRef: undefined, passwordRef: 'account.gitlabPassword' }
       }
     },
-    type: 'Account'
+    type: 'Account',
+    validationRepo: 'test'
   }
 }
 
@@ -40,7 +41,8 @@ export const backButtonMock: ConnectorInfoDTO = {
       }
     },
     apiAccess: null,
-    type: 'Account'
+    type: 'Account',
+    validationRepo: 'test'
   }
 }
 
@@ -57,7 +59,8 @@ export const sshAuthWithAPIAccessToken: ConnectorInfoDTO = {
     url: 'https://gitlab.com/dev',
     authentication: { type: 'Ssh', spec: { sshKeyRef: 'account.gitlabPassword' } },
     apiAccess: { type: 'Token', spec: { tokenRef: 'account.gitlabPassword' } },
-    type: 'Account'
+    type: 'Account',
+    validationRepo: 'test'
   }
 }
 
