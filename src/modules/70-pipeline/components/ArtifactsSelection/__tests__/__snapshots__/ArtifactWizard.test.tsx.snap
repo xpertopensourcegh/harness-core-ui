@@ -516,7 +516,7 @@ exports[`Artifact ConnectorRefSteps tests new connector view works correctly 1`]
                       class="StyledProps--font StyledProps--main"
                       style="margin-bottom: 8px;"
                     >
-                      DockerRegistry connector
+                      Docker Registry connector
                     </p>
                   </div>
                   <div
@@ -542,7 +542,7 @@ exports[`Artifact ConnectorRefSteps tests new connector view works correctly 1`]
                             <span
                               class="placeholder"
                             >
-                              select DockerRegistry connector
+                              select Docker Registry connector
                             </span>
                           </span>
                           <span
@@ -623,7 +623,7 @@ exports[`Artifact ConnectorRefSteps tests new connector view works correctly 1`]
                   <span
                     class="bp3-button-text"
                   >
-                    newLabel DockerRegistry connector
+                    newLabel Docker Registry connector
                   </span>
                 </button>
               </div>

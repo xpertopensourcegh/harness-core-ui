@@ -35,7 +35,7 @@ export const ArtifactToConnectorMap: Record<string, ConnectorInfoDTO['type']> = 
 }
 
 export const ArtifactConnectorLabelMap: Record<string, string> = {
-  DockerRegistry: 'DockerRegistry',
+  DockerRegistry: 'Docker Registry',
   Gcr: 'GCP',
   Ecr: 'AWS'
 }

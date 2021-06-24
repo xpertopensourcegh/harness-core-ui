@@ -119,7 +119,7 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
                     <ConfigureOptions
                       value={(formik.values.connectorId as unknown) as string}
                       type={connectorType}
-                      variableName="connectorId"
+                      variableName="connectorRef"
                       showRequiredField={false}
                       showDefaultField={false}
                       showAdvanced={true}
