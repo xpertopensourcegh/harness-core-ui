@@ -115,7 +115,7 @@ exports[`FeatureFlagsDetailPage FeatureFlagsDetailPage should render data correc
               class="StyledProps--font StyledProps--main"
               style="font-weight: 500; line-height: 14px; font-size: 10px; color: rgb(85, 87, 112); letter-spacing: 0.2px;"
             >
-              cf.featureFlags.createdDate
+              cf.featureFlags.modifiedDate
             </p>
           </div>
           <div

@@ -20,6 +20,7 @@ import { Dialog, Intent } from '@blueprintjs/core'
 import { useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
+import type { StringKeys } from 'framework/strings'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
 import {
   DeleteFeatureFlagQueryParams,
@@ -316,7 +317,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
       }
     }
   })
-  const renderTime = (time: number, style?: React.CSSProperties): React.ReactNode => (
+  const renderTime = (time: number, langString: StringKeys, style?: React.CSSProperties): React.ReactNode => (
     <Text
       style={{
         fontWeight: 500,
@@ -327,7 +328,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
         ...style
       }}
     >
-      {getString('cf.featureFlags.createdDate', {
+      {getString(langString, {
         date: moment(time).format('MMMM D, YYYY hh:mm A')
       })}
     </Text>
@@ -412,8 +413,8 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
         )}
 
         <Layout.Vertical margin={{ top: 'medium', bottom: 'xlarge' }}>
-          {renderTime(featureFlag.createdAt)}
-          {renderTime(featureFlag.modifiedAt, { paddingTop: 'var(--spacing-xsmall)' })}
+          {renderTime(featureFlag.createdAt, 'cf.featureFlags.createdDate')}
+          {renderTime(featureFlag.modifiedAt, 'cf.featureFlags.modifiedDate', { paddingTop: 'var(--spacing-xsmall)' })}
         </Layout.Vertical>
 
         <VariationsList
