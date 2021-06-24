@@ -6,7 +6,7 @@ import { Card, Container, Text, Icon, Avatar, Color } from '@wings-software/uico
 import { useToaster } from '@common/exports'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import { getShortCommitId, getTimeAgo } from '@ci/services/CIUtils'
-import type { CIBuildCommit } from 'services/ci'
+import type { CIBuildCommit, CIBuildResponseDTO } from 'services/ci'
 import { useStrings } from 'framework/strings'
 import css from './BuildCommits.module.scss'
 
@@ -38,14 +38,12 @@ const BuildCommits: React.FC = () => {
       : showError(getString('ci.clipboardCopyFail'), undefined, 'ci.copy.commit.error')
   }
   const commitsGroupedByTimestamp: CommitsGroupedByTimestamp[] = []
-  const buildCommits = get(
+  const ciData = get(
     context,
-    'pipelineExecutionDetail.pipelineExecutionSummary.moduleInfo.ci.ciExecutionInfoDTO.branch.commits'
-  )
-  const commitAuthor = get(
-    context,
-    'pipelineExecutionDetail.pipelineExecutionSummary.moduleInfo.ci.ciExecutionInfoDTO.author'
-  )
+    'pipelineExecutionDetail.pipelineExecutionSummary.moduleInfo.ci.ciExecutionInfoDTO'
+  ) as CIBuildResponseDTO
+  const buildCommits = ciData?.branch?.commits?.length ? ciData.branch.commits : ciData?.pullRequest?.commits
+  const commitAuthor = ciData?.author
   buildCommits?.forEach((commit: CIBuildCommit) => {
     const index = commitsGroupedByTimestamp.findIndex(({ timeStamp: timestamp2 }) =>
       moment(commit.timeStamp).isSame(timestamp2, 'day')
@@ -71,7 +69,7 @@ const BuildCommits: React.FC = () => {
             const [title, description] = message.split('\n\n')
             // we should use only first part of a name
             // in order to show a single letter
-            const firstName = (ownerName || commitAuthor.name)?.split(' ')[0]
+            const firstName = (ownerName || commitAuthor!.name)?.split(' ')[0]
             return (
               <Card className={css.commit} key={id}>
                 <div>
@@ -90,11 +88,11 @@ const BuildCommits: React.FC = () => {
                     name={firstName}
                     size={'xsmall'}
                     backgroundColor={AVATAR_COLORS[index % AVATAR_COLORS.length]}
-                    src={commitAuthor.avatar}
+                    src={commitAuthor!.avatar}
                     hoverCard={false}
                   />
                   <Text className={css.committed} font="xsmall" margin={{ right: 'xlarge' }}>
-                    {ownerId || commitAuthor.id} {getString('ci.committed')} {getTimeAgo(commitTimestamp)}
+                    {ownerId || commitAuthor!.id} {getString('ci.committed')} {getTimeAgo(commitTimestamp)}
                   </Text>
                   <button className={css.hash} onClick={() => copy2Clipboard(id)}>
                     <Text
