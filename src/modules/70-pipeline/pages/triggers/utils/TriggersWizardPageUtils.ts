@@ -12,7 +12,7 @@ import type { StringKeys } from 'framework/strings'
 import { isCronValid } from '../views/subviews/ScheduleUtils'
 import type { AddConditionInterface } from '../views/AddConditionsSection'
 
-const CUSTOM = 'Custom'
+export const CUSTOM = 'Custom'
 export const AWS_CODECOMMIT = 'AWS_CODECOMMIT'
 export const AwsCodeCommit = 'AwsCodeCommit'
 

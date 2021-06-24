@@ -51,7 +51,8 @@ import {
   isPipelineWithCiCodebase,
   ciCodebaseBuild,
   getConnectorName,
-  getConnectorValue
+  getConnectorValue,
+  CUSTOM
 } from './utils/TriggersWizardPageUtils'
 import {
   WebhookTriggerConfigPanel,
@@ -773,6 +774,9 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
 
       if (isPipelineWithCiCodebase(newPipeline)) {
         newPipeline.properties.ci.codebase.build = ciCodebaseBuild
+        if (sourceRepoOnNew === CUSTOM) {
+          newPipeline.properties.ci.codebase.build.spec.branch = ''
+        }
       }
 
       return {

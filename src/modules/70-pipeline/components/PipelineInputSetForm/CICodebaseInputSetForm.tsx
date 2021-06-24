@@ -4,7 +4,7 @@ import { FormInput, Color, Text, MultiTypeInputType } from '@wings-software/uico
 import { connect, FormikContext } from 'formik'
 import { useStrings } from 'framework/strings'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
-import { TriggerTypes } from '../../pages/triggers/utils/TriggersWizardPageUtils'
+import { TriggerTypes, CUSTOM } from '../../pages/triggers/utils/TriggersWizardPageUtils'
 import css from './CICodebaseInputSetForm.module.scss'
 
 export interface CICodebaseInputSetFormProps {
@@ -18,7 +18,8 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
     | 'branch'
     | 'tag'
   const { getString } = useStrings()
-  const disableOnWebhookTrigger = formik?.values?.triggerType === TriggerTypes.WEBHOOK
+  const disableOnWebhookTrigger =
+    formik?.values?.triggerType === TriggerTypes.WEBHOOK && formik.values.sourceRepo !== CUSTOM
   const radioGroupItems = [
     {
       label: getString('gitBranch'),
