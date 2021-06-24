@@ -43,9 +43,10 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
     }
     try {
       const updated = await updateInvite(dataToSubmit, { pathParams: { inviteId: user.id } })
-      if (updated) reload()
+      /* istanbul ignore else */ if (updated) reload()
       showSuccess(getString('projectsOrgs.projectInviteSuccess'))
     } catch (err) {
+      /* istanbul ignore next */
       showError(err.data?.message || err.message)
     }
   }
@@ -53,9 +54,10 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
   const handleDelete = async (): Promise<void> => {
     try {
       const deleted = await deleteInvite(user.id, { headers: { 'content-type': 'application/json' } })
-      if (deleted) reload()
+      /* istanbul ignore else */ if (deleted) reload()
       showSuccess(getString('projectsOrgs.projectDeleteSuccess'))
     } catch (err) {
+      /* istanbul ignore next */
       showError(err.data?.message || err.message)
     }
   }
@@ -64,7 +66,7 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
       {user?.inviteType == InviteType.ADMIN_INITIATED ? (
         <Layout.Horizontal>
           <Layout.Horizontal spacing="medium" className={cx(css.align, css.pendingUser)} width="60%">
-            <Avatar name={user.name} email={user.email} size="normal" />
+            <Avatar name={user.name || user.email} email={user.email} size="normal" />
             <Layout.Vertical padding={{ left: 'small' }}>
               <Layout.Horizontal spacing="small">
                 <Text font={{ weight: 'bold' }} color={Color.BLACK} className={css.name} lineClamp={1}>
