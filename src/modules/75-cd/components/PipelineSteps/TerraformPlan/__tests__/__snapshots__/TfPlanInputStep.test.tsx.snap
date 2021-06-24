@@ -226,7 +226,21 @@ exports[`Test terraform input set should render edit view as new step 1`] = `
                 class="bp3-form-group"
                 data-id="test.spec.configuration.configFiles.store.spec.branch-3"
               >
-                
+                <label
+                  class="bp3-label"
+                  for="test.spec.configuration.configFiles.store.spec.branch"
+                >
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="wrapperComponentTestForm_test.spec.configuration.configFiles.store.spec.branch"
+                  >
+                    pipelineSteps.deploy.inputSet.branch
+                  </span>
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
                 <div
                   class="bp3-form-content"
                 >
@@ -283,7 +297,21 @@ exports[`Test terraform input set should render edit view as new step 1`] = `
                 class="bp3-form-group"
                 data-id="test.spec.configuration.spec.configFiles.store.spec.folderPath-4"
               >
-                
+                <label
+                  class="bp3-label"
+                  for="test.spec.configuration.spec.configFiles.store.spec.folderPath"
+                >
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="wrapperComponentTestForm_test.spec.configuration.spec.configFiles.store.spec.folderPath"
+                  >
+                    cd.folderPath
+                  </span>
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
                 <div
                   class="bp3-form-content"
                 >

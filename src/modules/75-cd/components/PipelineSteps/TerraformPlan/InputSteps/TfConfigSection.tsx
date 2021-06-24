@@ -49,7 +49,7 @@ export default function ConfigSection(props: TerraformPlanProps): React.ReactEle
             projectIdentifier={projectIdentifier}
             orgIdentifier={orgIdentifier}
             width={400}
-            type={[Connectors.GIT, Connectors.Github, Connectors.Gitlab, Connectors.Bitbucket]}
+            type={[Connectors.GIT, Connectors.GITHUB, Connectors.GITLAB, Connectors.BITBUCKET]}
             name={`${path}.spec.configuration.configFiles.store.spec.connectorRef`}
             label={getString('connector')}
             placeholder={getString('select')}
@@ -63,7 +63,7 @@ export default function ConfigSection(props: TerraformPlanProps): React.ReactEle
         MultiTypeInputType.RUNTIME && (
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormInput.MultiTextInput
-            label=""
+            label={getString('pipelineSteps.deploy.inputSet.branch')}
             name={`${path}.spec.configuration.configFiles.store.spec.branch`}
             placeholder={getString('pipeline.manifestType.branchPlaceholder')}
             disabled={readonly}
@@ -79,7 +79,7 @@ export default function ConfigSection(props: TerraformPlanProps): React.ReactEle
         MultiTypeInputType.RUNTIME && (
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormInput.MultiTextInput
-            label=""
+            label={getString('pipeline.manifestType.commitId')}
             name={`${path}.spec.configuration.spec.configFiles.store.spec.commitId`}
             placeholder={getString('pipeline.manifestType.commitPlaceholder')}
             disabled={readonly}
@@ -95,7 +95,7 @@ export default function ConfigSection(props: TerraformPlanProps): React.ReactEle
         MultiTypeInputType.RUNTIME && (
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormInput.MultiTextInput
-            label=""
+            label={getString('cd.folderPath')}
             name={`${path}.spec.configuration.spec.configFiles.store.spec.folderPath`}
             placeholder={getString('pipeline.manifestType.pathPlaceholder')}
             disabled={readonly}

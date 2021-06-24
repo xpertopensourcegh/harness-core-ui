@@ -19,6 +19,7 @@ import { Scope } from '@common/interfaces/SecretsInterface'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { useQueryParams } from '@common/hooks'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
+import { Connectors } from '@connectors/constants'
 import type { Connector, TerraformProps } from '../TerraformInterfaces'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
@@ -104,9 +105,9 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
             projectIdentifier={projectIdentifier}
             orgIdentifier={orgIdentifier}
             width={400}
-            type={['Git', 'Github', 'Gitlab', 'Bitbucket']}
+            type={[Connectors.GIT, Connectors.GITHUB, Connectors.GITLAB, Connectors.BITBUCKET]}
             name={`${path}.configuration.spec.configFiles.store.spec.connectorRef`}
-            label={getString('connectors.title.gitConnector')}
+            label={getString('connector')}
             placeholder={getString('select')}
             disabled={readonly || loading}
             gitScope={gitScope}
@@ -118,7 +119,7 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
         MultiTypeInputType.RUNTIME && (
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormInput.MultiTextInput
-            label={''}
+            label={getString('pipelineSteps.deploy.inputSet.branch')}
             name={`${path}.configuration.spec.configFiles.store.spec.branch`}
             placeholder={getString('pipeline.manifestType.branchPlaceholder')}
             disabled={readonly}
@@ -134,7 +135,7 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
         MultiTypeInputType.RUNTIME && (
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormInput.MultiTextInput
-            label=""
+            label={getString('pipeline.manifestType.commitId')}
             name={`${path}.configuration.spec.configFiles.store.spec.commitId`}
             placeholder={getString('pipeline.manifestType.commitPlaceholder')}
             disabled={readonly}
@@ -151,7 +152,7 @@ export default function ConfigSection(props: TerraformProps): React.ReactElement
       ) === MultiTypeInputType.RUNTIME && (
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormInput.MultiTextInput
-            label=""
+            label={getString('cd.folderPath')}
             name={`${path}.configuration.spec.configFiles.store.spec.folderPath`}
             placeholder={getString('pipeline.manifestType.pathPlaceholder')}
             disabled={readonly}
