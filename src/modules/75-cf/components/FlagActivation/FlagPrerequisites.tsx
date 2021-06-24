@@ -15,13 +15,14 @@ import {
 import { FieldArray } from 'formik'
 import cx from 'classnames'
 import type { IconName } from '@blueprintjs/core'
-import { Dialog, Menu } from '@blueprintjs/core'
+import { Dialog } from '@blueprintjs/core'
 import { useToaster } from '@common/exports'
 import { useStrings } from 'framework/strings'
 import RbacButton from '@rbac/components/Button/Button'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { PermissionsRequest } from '@rbac/hooks/usePermission'
+import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
 import {
   Feature,
   PatchFeatureQueryParams,
@@ -139,14 +140,14 @@ export const FlagPrerequisites: React.FC<FlagPrerequisitesProps> = props => {
       const initialPrerequisites = featureFlag.prerequisites || []
       const removedPrerequisites = initialPrerequisites.filter(pr => !prerequisites.find(p => pr.feature === p.feature))
       const newPrerequisites = prerequisites.filter(p => !initialPrerequisites.find(pr => pr.feature === p.feature))
-      const updatedPrequisites = prerequisites.filter(p =>
+      const updatedPrerequisites = prerequisites.filter(p =>
         initialPrerequisites.find(pr => pr.feature === p.feature && !isEqual(pr.variations, p.variations))
       )
 
       const instructions = [
         ...removedPrerequisites.map(p => patch.creators.removePrerequisite(p.feature)),
         ...newPrerequisites.map(patch.creators.addPrerequisite),
-        ...updatedPrequisites.map(patch.creators.updatePrequisite)
+        ...updatedPrerequisites.map(patch.creators.updatePrequisite)
       ]
 
       patch.feature.addAllInstructions(instructions)
@@ -313,28 +314,23 @@ export const FlagPrerequisites: React.FC<FlagPrerequisitesProps> = props => {
               <Layout.Horizontal key={i} flex padding="medium">
                 <Text>{elem.feature}</Text>
                 <Text>{elem.variations[0]}</Text>
-                <RbacButton
-                  minimal
-                  icon="Options"
-                  style={{ marginLeft: 'auto' }}
-                  tooltip={
-                    <Menu style={{ minWidth: 'unset' }}>
-                      <Menu.Item
-                        icon="edit"
-                        text={getString('edit')}
-                        onClick={handlePrerequisiteInteraction('edit', elem)}
-                        disabled={featureFlag.archived}
-                      />
-                      <Menu.Item
-                        icon="cross"
-                        text={getString('delete')}
-                        onClick={handlePrerequisiteInteraction('delete', elem)}
-                        disabled={featureFlag.archived}
-                      />
-                    </Menu>
-                  }
-                  tooltipProps={{ isDark: true, interactionKind: 'click' }}
-                  permission={rbacPermission}
+                <RbacOptionsMenuButton
+                  items={[
+                    {
+                      icon: 'edit',
+                      text: getString('edit'),
+                      onClick: handlePrerequisiteInteraction('edit', elem),
+                      disabled: featureFlag.archived,
+                      permission: rbacPermission
+                    },
+                    {
+                      icon: 'cross',
+                      text: getString('delete'),
+                      onClick: handlePrerequisiteInteraction('delete', elem),
+                      disabled: featureFlag.archived,
+                      permission: rbacPermission
+                    }
+                  ]}
                 />
               </Layout.Horizontal>
             ))}
