@@ -4,8 +4,13 @@ import { ResizeSensor } from '@blueprintjs/core'
 import cx from 'classnames'
 import { throttle } from 'lodash-es'
 
+import { useStrings } from 'framework/strings'
 import type { PipelineExecutionSummary } from 'services/pipeline-ng'
-import { isExecutionRunning, isExecutionCompletedWithBadState } from '@pipeline/utils/statusHelpers'
+import {
+  isExecutionRunning,
+  isExecutionCompletedWithBadState,
+  isExecutionIgnoreFailed
+} from '@pipeline/utils/statusHelpers'
 import { processLayoutNodeMap, ExecutionStatusIconMap as IconMap } from '@pipeline/utils/executionUtils'
 import type { ProjectPathProps, ModulePathParams } from '@common/interfaces/RouteInterfaces'
 
@@ -35,6 +40,7 @@ export default function MiniExecutionGraph(props: MiniExecutionGraphProps): Reac
   const elements = React.useMemo(() => processLayoutNodeMap(pipelineExecution), [pipelineExecution])
   const graphRef = React.useRef<HTMLDivElement | null>(null)
   const wrapperRef = React.useRef<HTMLDivElement | null>(null)
+  const { getString } = useStrings()
 
   React.useLayoutEffect(() => {
     hideShowButtons()
@@ -183,6 +189,14 @@ export default function MiniExecutionGraph(props: MiniExecutionGraphProps): Reac
             <Text lineClamp={1} className={cx(css.stepCount, css.errorMsg)}>
               {executionErrorInfo.message}
             </Text>
+          ) : null}
+          {isExecutionIgnoreFailed(status) ? (
+            <Text
+              icon="warning-sign"
+              className={css.ignoreWarning}
+              iconProps={{ size: 16 }}
+              tooltip={getString('pipeline.execution.ignoreFailedWarningText')}
+            />
           ) : null}
         </div>
       </div>

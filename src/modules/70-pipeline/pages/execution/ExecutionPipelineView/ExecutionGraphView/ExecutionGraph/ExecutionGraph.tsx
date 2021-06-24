@@ -8,7 +8,13 @@ import {
   processLayoutNodeMap,
   ProcessLayoutNodeMapResponse
 } from '@pipeline/utils/executionUtils'
-import { ExecutionStatus, isExecutionNotStarted, isExecutionSkipped } from '@pipeline/utils/statusHelpers'
+import {
+  ExecutionStatus,
+  isExecutionIgnoreFailed,
+  isExecutionNotStarted,
+  isExecutionSkipped
+} from '@pipeline/utils/statusHelpers'
+import { useStrings } from 'framework/strings'
 import type { DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
 import { DynamicPopover } from '@common/exports'
 import HoverCard from '@pipeline/components/HoverCard/HoverCard'
@@ -86,6 +92,7 @@ export interface ExecutionGraphProps {
 
 export default function ExecutionGraph(props: ExecutionGraphProps): React.ReactElement {
   const { executionIdentifier } = useParams<ExecutionPathProps>()
+  const { getString } = useStrings()
   const [dynamicPopoverHandler, setDynamicPopoverHandler] = React.useState<
     DynamicPopoverHandlerBinding<unknown> | undefined
   >()
@@ -158,10 +165,16 @@ export default function ExecutionGraph(props: ExecutionGraphProps): React.ReactE
 
   return (
     <div className={css.main}>
+      {isExecutionIgnoreFailed(pipelineExecutionDetail?.pipelineExecutionSummary?.status) ? (
+        <Layout.Horizontal spacing="medium" background={Color.GREY_200} className={css.executionError}>
+          <Icon name="warning-sign" intent={Intent.WARNING} />
+          <Text lineClamp={1}>{getString('pipeline.execution.ignoreFailedWarningText')}</Text>
+        </Layout.Horizontal>
+      ) : null}
       {!isEmpty(pipelineExecutionDetail?.pipelineExecutionSummary?.executionErrorInfo?.message) ? (
         <Layout.Horizontal spacing="medium" background={Color.RED_100} className={css.executionError}>
           <Icon name="warning-sign" intent={Intent.DANGER} />
-          <Text intent="danger" font={{ weight: 'semi-bold' }} lineClamp={1}>
+          <Text color={Color.GREY_900} lineClamp={1}>
             {pipelineExecutionDetail?.pipelineExecutionSummary?.executionErrorInfo?.message}
           </Text>
         </Layout.Horizontal>

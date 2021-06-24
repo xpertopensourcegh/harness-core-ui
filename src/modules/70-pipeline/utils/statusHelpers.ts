@@ -56,6 +56,10 @@ export function isExecutionRunning(status?: string): boolean {
   )
 }
 
+export function isExecutionIgnoreFailed(status?: string): boolean {
+  return changeCase(status) === ExecutionStatusEnum.IgnoreFailed
+}
+
 export function isExecutionFailed(status?: string): boolean {
   const st = changeCase(status)
   return st === ExecutionStatusEnum.Failed || st === ExecutionStatusEnum.Errored

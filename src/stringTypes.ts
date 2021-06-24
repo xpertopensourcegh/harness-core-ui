@@ -1356,6 +1356,7 @@ export interface StringsMap {
   'pipeline.execution.actions.resumePipeline': string
   'pipeline.execution.actions.resumeStage': string
   'pipeline.execution.currentExecution': string
+  'pipeline.execution.ignoreFailedWarningText': string
   'pipeline.execution.iotab.noInputText': string
   'pipeline.execution.iotab.noOutputText': string
   'pipeline.execution.layouts.bottom': string

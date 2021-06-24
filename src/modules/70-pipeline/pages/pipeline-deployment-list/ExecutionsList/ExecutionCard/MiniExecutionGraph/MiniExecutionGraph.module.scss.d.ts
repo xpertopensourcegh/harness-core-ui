@@ -11,6 +11,7 @@ declare const styles: {
   readonly stepCount: string
   readonly runningAnimation: string
   readonly errorMsg: string
+  readonly ignoreWarning: string
   readonly stage: string
   readonly icon: string
   readonly ignorefailed: string

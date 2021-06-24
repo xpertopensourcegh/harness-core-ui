@@ -102,6 +102,10 @@ $node-width: 40px;
   & :global(.bp3-popover-target > p) {
     height: 100%;
   }
+
+  & .ignoreWarning {
+    --intent-color: var(--warning);
+  }
 }
 
 .stageWrapper {

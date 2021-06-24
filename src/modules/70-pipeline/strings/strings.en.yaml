@@ -248,6 +248,7 @@ execution:
   retryStepCount: 'Retry #{{ num }}'
   currentExecution: Current Execution
   timePrefix: 'Execution Time: '
+  ignoreFailedWarningText: A failed step was ignored because the step’s Failure Strategy is Ignore Failure. The step’s failure did not impact the Pipeline’s success.
   iotab:
     noInputText: No input found for current step
     noOutputText: No output found for current step
