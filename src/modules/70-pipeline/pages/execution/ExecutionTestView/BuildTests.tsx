@@ -185,9 +185,11 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
       }
     },
     debounce: 500,
-    mock: {
-      data: reportSummaryMock
-    }
+    mock: reportSummaryMock
+      ? {
+          data: reportSummaryMock
+        }
+      : undefined
   })
 
   const {
@@ -204,9 +206,11 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
       }
     },
     debounce: 500,
-    mock: {
-      data: testOverviewMock
-    }
+    mock: testOverviewMock
+      ? {
+          data: testOverviewMock
+        }
+      : undefined
   })
 
   const reportSummaryHasTests = (reportSummaryData?.total_tests || 0) > 0
@@ -324,9 +328,8 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
       (isNull(testOverviewData) && isNull(reportSummaryData)) ||
       testOverviewLoading ||
       reportSummaryLoading ||
-      isNull(reportInfoData) ||
+      (isNull(testInfoData) && isNull(reportInfoData)) ||
       reportInfoLoading ||
-      isNull(testInfoData) ||
       testInfoLoading
     ) {
       return <PageSpinner />
