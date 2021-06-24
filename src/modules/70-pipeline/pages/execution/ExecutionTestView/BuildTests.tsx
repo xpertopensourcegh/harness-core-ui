@@ -360,8 +360,8 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
         {getString('pipeline.testsReports.testExecutions')}
       </Text>
       {selectItems && selectValue && (
-        <div style={{ width: 'auto' }}>
-          <Select value={selectValue} items={selectItems} onChange={value => setSelectValue(value as any)} />
+        <div style={{ width: '375px' }}>
+          <Select fill value={selectValue} items={selectItems} onChange={value => setSelectValue(value as any)} />
         </div>
       )}
     </Container>
