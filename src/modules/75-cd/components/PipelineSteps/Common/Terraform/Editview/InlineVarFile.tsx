@@ -7,7 +7,8 @@ import {
   Formik,
   MultiTypeInputType,
   ExpressionInput,
-  getMultiTypeFromValue
+  getMultiTypeFromValue,
+  FormikForm
 } from '@wings-software/uicore'
 import cx from 'classnames'
 
@@ -51,15 +52,15 @@ const InlineVarFile = (props: InlineVarFileProps) => {
           formName="inlineVarFileForm"
           initialValues={selectedVar}
           onSubmit={(values: any) => {
-            /* istanbul ignore else */
+            /* istanbul ignore next */
             if (!isEditMode) {
-              /* istanbul ignore else */
+              /* istanbul ignore next */
               arrayHelpers && arrayHelpers.push(values)
             } else {
-              /* istanbul ignore else */
+              /* istanbul ignore next */
               arrayHelpers && arrayHelpers.replace(selectedVarIndex, values)
             }
-            /* istanbul ignore else */
+            /* istanbul ignore next */
             onSubmit()
           }}
           validationSchema={Yup.object().shape({
@@ -73,7 +74,7 @@ const InlineVarFile = (props: InlineVarFileProps) => {
         >
           {formikProps => {
             return (
-              <>
+              <FormikForm>
                 <div className={stepCss.formGroup}>
                   <FormInput.Text name="varFile.identifier" label={getString('identifier')} />
                 </div>
@@ -85,6 +86,7 @@ const InlineVarFile = (props: InlineVarFileProps) => {
                     allowedTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]}
                     formik={formikProps}
                     expressionRender={() => {
+                      /* istanbul ignore next */
                       return (
                         <ExpressionInput
                           value={formikProps.values?.varFile?.spec?.content}
@@ -120,7 +122,7 @@ const InlineVarFile = (props: InlineVarFileProps) => {
                     {getString('submit')}
                   </Button>
                 </Layout.Horizontal>
-              </>
+              </FormikForm>
             )
           }}
         </Formik>
