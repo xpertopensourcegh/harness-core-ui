@@ -55,8 +55,10 @@ usersPage:
   validation:
     resourceGroup: Resource Group is Required
     role: Role is Required
-  roleAssignSuccess: Role Assignments updated succesfully
-  invitationSuccess: Invitation sent succesfully
+  roleAssignSuccess: Role Assignments updated successfully
+  invitationSuccess: Invitation sent successfully
+  userAlreadyInvited: User already invited
+  userAlreadyAdded: User already added
   resendInviteSuccess: Invitation has been resent to the user '{{name}}'
   invitationError: Could not Invite this user
   deleteConfirmation: Are you sure you want to delete the User '{{name}}'?

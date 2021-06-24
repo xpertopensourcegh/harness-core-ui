@@ -29,7 +29,8 @@ import {
   useGetInvites,
   CreateInvite,
   useSendInvite,
-  Organization
+  Organization,
+  ResponseListInviteOperationResponse
 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { regexEmail } from '@common/utils/StringUtils'
@@ -42,6 +43,7 @@ import { useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { UserItemRenderer } from '@rbac/utils/utils'
+import { handleInvitationResponse } from '@rbac/utils/utils'
 import InviteListRenderer from './InviteListRenderer'
 import css from './Steps.module.scss'
 
@@ -166,10 +168,16 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
     }
 
     try {
-      await sendInvite(dataToSubmit)
-      reloadInvites()
+      const response = await sendInvite(dataToSubmit)
+      handleInvitationResponse({
+        responseType: response.data?.[0] as Pick<ResponseListInviteOperationResponse, 'data'>,
+        getString,
+        showSuccess,
+        modalErrorHandler,
+        onSubmit: reloadInvites
+      })
     } catch (e) {
-      modalErrorHandler?.show(e.data)
+      modalErrorHandler?.showDanger(e.data?.message || e.message)
     }
   }
 

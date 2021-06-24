@@ -21,11 +21,12 @@ import {
   useGetCurrentGenUsers,
   useSendInvite,
   CreateInvite,
-  RoleAssignmentMetadataDTO
+  RoleAssignmentMetadataDTO,
+  ResponseListInviteOperationResponse
 } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { EmailSchema } from '@common/utils/Validation'
-import { UserItemRenderer } from '@rbac/utils/utils'
+import { UserItemRenderer, handleInvitationResponse } from '@rbac/utils/utils'
 import RoleAssignmentForm, { InviteType } from './RoleAssignmentForm'
 
 interface UserRoleAssignmentData {
@@ -148,14 +149,16 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
 
       try {
         const response = await sendInvitation(dataToSubmit)
-        /* istanbul ignore else */ if (response.data?.[0] === 'USER_INVITED_SUCCESSFULLY') {
-          showSuccess(getString('rbac.usersPage.invitationSuccess'))
-          onSubmit?.()
-        } /* istanbul ignore next */ else
-          modalErrorHandler?.showDanger(response.data?.[0] || getString('rbac.usersPage.invitationError'))
+        handleInvitationResponse({
+          responseType: response.data?.[0] as Pick<ResponseListInviteOperationResponse, 'data'>,
+          getString,
+          showSuccess,
+          modalErrorHandler,
+          onSubmit
+        })
       } catch (e) {
         /* istanbul ignore next */
-        modalErrorHandler?.showDanger(e.data.message)
+        modalErrorHandler?.showDanger(e.data?.message || e.message)
       }
     } else {
       /* istanbul ignore next */

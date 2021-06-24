@@ -1,7 +1,17 @@
+import React, { ReactNode } from 'react'
 import { Menu } from '@blueprintjs/core'
 import type { ItemRenderer } from '@blueprintjs/select'
-import { IconName, Layout, MultiSelectOption, Text, Avatar, Color } from '@wings-software/uicore'
-import React from 'react'
+import {
+  IconName,
+  Layout,
+  MultiSelectOption,
+  Text,
+  Avatar,
+  Color,
+  ModalErrorHandlerBinding
+} from '@wings-software/uicore'
+import type { StringsMap } from 'stringTypes'
+import type { ResponseListInviteOperationResponse } from 'services/cd-ng'
 
 export interface UserItem extends MultiSelectOption {
   email?: string
@@ -44,3 +54,32 @@ export const UserItemRenderer: ItemRenderer<UserItem> = (item, { handleClick }) 
     onClick={handleClick}
   />
 )
+
+interface HandleInvitationResponse {
+  responseType: Pick<ResponseListInviteOperationResponse, 'data'>
+  getString: (key: keyof StringsMap, vars?: Record<string, any> | undefined) => string
+  showSuccess: (message: string | ReactNode, timeout?: number, key?: string) => void
+  modalErrorHandler?: ModalErrorHandlerBinding
+  onSubmit?: () => void
+}
+
+export const handleInvitationResponse = ({
+  responseType,
+  getString,
+  showSuccess,
+  modalErrorHandler,
+  onSubmit
+}: HandleInvitationResponse): void => {
+  switch (responseType) {
+    case 'USER_INVITED_SUCCESSFULLY': {
+      onSubmit?.()
+      return showSuccess(getString('rbac.usersPage.invitationSuccess'))
+    }
+    case 'USER_ALREADY_ADDED':
+      return showSuccess(getString('rbac.usersPage.userAlreadyAdded'))
+    case 'USER_ALREADY_INVITED':
+      return showSuccess(getString('rbac.usersPage.userAlreadyInvited'))
+    default:
+      return modalErrorHandler?.showDanger(getString('rbac.usersPage.invitationError'))
+  }
+}
