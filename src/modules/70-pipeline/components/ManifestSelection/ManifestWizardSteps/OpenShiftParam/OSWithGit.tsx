@@ -28,6 +28,7 @@ import {
   gitFetchTypeList,
   GitFetchTypes,
   GitRepoName,
+  ManifestDataType,
   ManifestIdentifierValidation,
   ManifestStoreMap
 } from '../../Manifesthelper'
@@ -126,7 +127,7 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
     const manifestObj: ManifestConfigWrapper = {
       manifest: {
         identifier: formData.identifier,
-        type: 'OpenshiftParam',
+        type: ManifestDataType.OpenshiftParam,
         spec: {
           store: {
             type: formData?.store,
