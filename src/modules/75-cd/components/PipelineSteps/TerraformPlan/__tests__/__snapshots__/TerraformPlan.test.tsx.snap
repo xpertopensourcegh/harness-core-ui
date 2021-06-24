@@ -2071,6 +2071,7 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
             class="bp3-control bp3-radio bp3-inline Radio--radio"
           >
             <input
+              checked=""
               name="spec.configuration.command"
               type="radio"
               value="Apply"
@@ -2544,6 +2545,7 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
             class="bp3-control bp3-radio bp3-inline Radio--radio"
           >
             <input
+              checked=""
               name="spec.configuration.command"
               type="radio"
               value="Apply"

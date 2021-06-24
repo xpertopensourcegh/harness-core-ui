@@ -6,7 +6,7 @@ import { StringKeys, useStrings } from 'framework/strings'
 import { IdentifierSchemaWithOutName } from '@common/utils/Validation'
 import type { HelmVersionOptions, ManifestStores, ManifestTypes } from './ManifestInterface'
 
-export const ManifestDataType: { [key: string]: ManifestTypes } = {
+export const ManifestDataType: Record<ManifestTypes, ManifestTypes> = {
   K8sManifest: 'K8sManifest',
   Values: 'Values',
   HelmChart: 'HelmChart',

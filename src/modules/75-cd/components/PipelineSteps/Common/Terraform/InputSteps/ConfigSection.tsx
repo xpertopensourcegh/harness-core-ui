@@ -20,10 +20,12 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 import { useQueryParams } from '@common/hooks'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { Connectors } from '@connectors/constants'
-import type { Connector, TerraformProps } from '../TerraformInterfaces'
+import type { Connector, TerraformData, TerraformProps } from '../TerraformInterfaces'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-export default function ConfigSection(props: TerraformProps): React.ReactElement {
+export default function ConfigSection<T extends TerraformData = TerraformData>(
+  props: TerraformProps<T>
+): React.ReactElement {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
 
