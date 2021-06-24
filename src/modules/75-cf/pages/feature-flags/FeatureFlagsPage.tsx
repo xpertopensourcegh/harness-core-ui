@@ -426,6 +426,7 @@ const FeatureFlagsPage: React.FC = () => {
   )
   const { data, loading: flagsLoading, error: flagsError, refetch } = useGetAllFeatures({
     lazy: true,
+    debounce: true,
     queryParams
   })
   const {
