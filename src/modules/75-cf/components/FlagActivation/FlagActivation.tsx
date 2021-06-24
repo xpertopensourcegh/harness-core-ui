@@ -34,7 +34,6 @@ import { extraOperatorReference } from '@cf/constants'
 import { useToaster } from '@common/exports'
 import { useQueryParams } from '@common/hooks'
 import { useEnvironmentSelectV2 } from '@cf/hooks/useEnvironmentSelectV2'
-import type { EnvironmentResponseDTO } from 'services/cd-ng'
 import { FFDetailPageTab, getErrorMessage, rewriteCurrentLocationWithActiveEnvironment } from '@cf/utils/CFUtils'
 import routes from '@common/RouteDefinitions'
 import { PageError } from '@common/components/Page/PageError'
@@ -86,14 +85,13 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
   const { showError } = useToaster()
   const [editing, setEditing] = useState(false)
   const [loadingFlags, setLoadingFlags] = useState(false)
-  const urlQuery: Record<string, string> = useQueryParams()
   const { orgIdentifier, accountId } = useParams<Record<string, string>>()
-  const [activeEnvironment, setActiveEnvironment] = useState<EnvironmentResponseDTO>()
+  const { activeEnvironment, withActiveEnvironment } = useActiveEnvironment()
   const { mutate: patchFeature } = usePatchFeature({
     identifier: flagData.identifier as string,
     queryParams: {
       project: project as string,
-      environment: activeEnvironment?.identifier as string,
+      environment: activeEnvironment,
       account: accountId,
       accountIdentifier: accountId,
       org: orgIdentifier
@@ -106,9 +104,8 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
     refetch: refetchEnvironments,
     environments
   } = useEnvironmentSelectV2({
-    selectedEnvironmentIdentifier: urlQuery.activeEnvironment || activeEnvironment?.identifier,
+    selectedEnvironmentIdentifier: activeEnvironment,
     onChange: (_value, _environment, _userEvent) => {
-      setActiveEnvironment(_environment)
       rewriteCurrentLocationWithActiveEnvironment(_environment)
 
       if (_userEvent) {
@@ -386,7 +383,6 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
   const [newEnvironmentCreateLoading, setNewEnvironmentCreateLoading] = useState(false)
   const { getString } = useStrings()
   const history = useHistory()
-  const { withActiveEnvironment } = useActiveEnvironment()
   const pathParams = useParams<ProjectPathProps & FeatureFlagPathProps>()
 
   useEffect(() => {
@@ -493,7 +489,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                             targetData={flagData}
                             isBooleanTypeFlag={isBooleanFlag}
                             projectIdentifier={project}
-                            environmentIdentifier={activeEnvironment?.identifier as string}
+                            environmentIdentifier={activeEnvironment}
                             setEditing={setEditing}
                             feature={flagData}
                             org={orgIdentifier}
