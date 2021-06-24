@@ -205,10 +205,6 @@ const commonPlugins = [
     // available options are documented at https://github.com/Microsoft/monaco-editor-webpack-plugin#options
     languages: ['yaml', 'shell', 'powershell']
   }),
-  new CircularDependencyPlugin({
-    exclude: /node_modules/,
-    failOnError: true
-  }),
   new GenerateStringTypesPlugin()
 ]
 
@@ -228,6 +224,10 @@ const prodOnlyPlugins = [
       gitBranch: process.env.GIT_BRANCH
     },
     filename: 'static/version.json'
+  }),
+  new CircularDependencyPlugin({
+    exclude: /node_modules/,
+    failOnError: true
   })
 ]
 
