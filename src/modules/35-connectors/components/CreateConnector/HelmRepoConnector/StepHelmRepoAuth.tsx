@@ -14,7 +14,7 @@ import {
   SelectOption
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { setupDockerFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import { setupHelmFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
 import type { ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
 
@@ -81,7 +81,7 @@ const StepHelmAuthentication: React.FC<StepProps<StepHelmRepoAuthenticationProps
     if (loadingConnectorSecrets) {
       if (props.isEditMode) {
         if (props.connectorInfo) {
-          setupDockerFormData(props.connectorInfo, accountId).then(data => {
+          setupHelmFormData(props.connectorInfo, accountId).then(data => {
             setInitialValues(data as HelmFormInterface)
             setLoadingConnectorSecrets(false)
           })
@@ -102,8 +102,7 @@ const StepHelmAuthentication: React.FC<StepProps<StepHelmRepoAuthenticationProps
       <Formik
         initialValues={{
           ...initialValues,
-          ...prevStepData,
-          helmRepoUrl: prevStepData?.spec?.helmRepoUrl
+          ...prevStepData
         }}
         formName="helmRepoAuthForm"
         validationSchema={Yup.object().shape({

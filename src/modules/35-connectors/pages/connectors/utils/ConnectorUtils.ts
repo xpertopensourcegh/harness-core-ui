@@ -508,6 +508,33 @@ export const setupDockerFormData = async (connectorInfo: ConnectorInfoDTO, accou
   return formData
 }
 
+export const setupHelmFormData = async (connectorInfo: ConnectorInfoDTO, accountId: string): Promise<FormData> => {
+  const scopeQueryParams: GetSecretV2QueryParams = {
+    accountIdentifier: accountId,
+    projectIdentifier: connectorInfo.projectIdentifier,
+    orgIdentifier: connectorInfo.orgIdentifier
+  }
+
+  const formData = {
+    helmRepoUrl: connectorInfo.spec.helmRepoUrl,
+    authType: connectorInfo.spec.auth.type,
+    username:
+      connectorInfo.spec.auth.type === AuthTypes.USER_PASSWORD &&
+      (connectorInfo.spec.auth.spec.username || connectorInfo.spec.auth.spec.usernameRef)
+        ? {
+            value: connectorInfo.spec.auth.spec.username || connectorInfo.spec.auth.spec.usernameRef,
+            type: connectorInfo.spec.auth.spec.usernameRef ? ValueType.ENCRYPTED : ValueType.TEXT
+          }
+        : undefined,
+
+    password:
+      connectorInfo.spec.auth.type === AuthTypes.USER_PASSWORD
+        ? await setSecretField(connectorInfo.spec.auth.spec.passwordRef, scopeQueryParams)
+        : undefined
+  }
+  return formData
+}
+
 export const setupNexusFormData = async (connectorInfo: ConnectorInfoDTO, accountId: string): Promise<FormData> => {
   const scopeQueryParams: GetSecretV2QueryParams = {
     accountIdentifier: accountId,
