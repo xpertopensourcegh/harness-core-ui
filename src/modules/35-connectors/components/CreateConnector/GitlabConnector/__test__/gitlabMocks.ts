@@ -56,7 +56,7 @@ export const sshAuthWithAPIAccessToken: ConnectorInfoDTO = {
   type: 'Gitlab',
   spec: {
     delegateSelectors: ['dummyDelegateSelector'],
-    url: 'https://gitlab.com/dev',
+    url: 'git@github.com/account',
     authentication: { type: 'Ssh', spec: { sshKeyRef: 'account.gitlabPassword' } },
     apiAccess: { type: 'Token', spec: { tokenRef: 'account.gitlabPassword' } },
     type: 'Account',

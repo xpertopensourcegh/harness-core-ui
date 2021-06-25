@@ -1469,7 +1469,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                           name="url"
                           placeholder="common.git.bitbucketPlaceholderSSH"
                           type="text"
-                          value="githubTestUrl"
+                          value="git@github.com/account"
                         />
                       </div>
                     </div>
@@ -1891,7 +1891,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                           name="url"
                           placeholder="common.git.bitbucketPlaceholderSSH"
                           type="text"
-                          value="githubTestUrl"
+                          value="git@github.com/account"
                         />
                       </div>
                     </div>

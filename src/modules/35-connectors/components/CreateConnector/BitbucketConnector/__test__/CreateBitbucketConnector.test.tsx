@@ -122,7 +122,7 @@ describe('Create Bitbucketconnector Wizard', () => {
         container,
         type: InputTypes.TEXTFIELD,
         fieldId: 'url',
-        value: 'githubTestUrl'
+        value: 'git@github.com/account'
       }
     ])
 

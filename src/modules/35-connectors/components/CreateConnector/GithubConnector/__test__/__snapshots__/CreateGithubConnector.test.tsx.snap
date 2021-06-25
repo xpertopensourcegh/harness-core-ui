@@ -1461,7 +1461,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
                           name="url"
                           placeholder="common.git.gitHubUrlPlaceholderSSH"
                           type="text"
-                          value="githubTestUrl"
+                          value="git@github.com/account"
                         />
                       </div>
                     </div>
@@ -1881,7 +1881,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 2`]
                           name="url"
                           placeholder="common.git.gitHubUrlPlaceholderSSH"
                           type="text"
-                          value="githubTestUrl"
+                          value="git@github.com/account"
                         />
                       </div>
                     </div>

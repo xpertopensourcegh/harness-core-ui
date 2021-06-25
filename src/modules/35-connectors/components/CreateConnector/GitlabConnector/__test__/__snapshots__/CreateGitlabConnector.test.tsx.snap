@@ -1561,7 +1561,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                           name="url"
                           placeholder="common.git.gitLabUrlPlaceholderSSH"
                           type="text"
-                          value="githubTestUrl"
+                          value="git@github.com/account"
                         />
                       </div>
                     </div>
@@ -2006,7 +2006,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
                           name="url"
                           placeholder="common.git.gitLabUrlPlaceholderSSH"
                           type="text"
-                          value="githubTestUrl"
+                          value="git@github.com/account"
                         />
                       </div>
                     </div>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { noop } from 'lodash-es'
-import { render, fireEvent, queryByText, queryByAttribute } from '@testing-library/react'
+import { render, fireEvent, queryByText, queryByAttribute, waitFor } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
 import { TestWrapper } from '@common/utils/testUtils'
 import { InputTypes, fillAtForm, clickSubmit } from '@common/utils/JestFormHelper'
@@ -126,7 +126,7 @@ describe('Create Github connector Wizard', () => {
         container,
         type: InputTypes.TEXTFIELD,
         fieldId: 'url',
-        value: 'githubTestUrl'
+        value: 'git@github.com/account'
       }
     ])
 
@@ -252,5 +252,41 @@ describe('Create Github connector Wizard', () => {
     ),
     backButtonSelector: '[data-name="commonGitBackButton"]',
     mock: backButtonMock
+  })
+
+  test('Invalid http url for creating Github step two', async () => {
+    const { container } = render(
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+        <CreateGithubConnector {...commonProps} isEditMode={false} connectorInfo={undefined} mock={mockResponse} />
+      </TestWrapper>
+    )
+
+    // fill step 1
+    const nameInput = queryByAttribute('name', container, 'name')
+    expect(nameInput).toBeTruthy()
+    if (nameInput) fireEvent.change(nameInput, { target: { value: 'dummy name' } })
+    await act(async () => {
+      clickSubmit(container)
+    })
+
+    fillAtForm([
+      {
+        container,
+        type: InputTypes.RADIOS,
+        fieldId: 'connectionType',
+        value: GitConnectionType.HTTP
+      },
+      {
+        container,
+        type: InputTypes.TEXTFIELD,
+        fieldId: 'url',
+        value: 'git@github.com/account' // should be http
+      }
+    ])
+
+    await act(async () => {
+      clickSubmit(container)
+    })
+    await waitFor(() => expect(() => queryByText(document.body, 'validation.urlIsNotValid')).toBeDefined())
   })
 })
