@@ -1,10 +1,9 @@
 import React from 'react'
 import { Heading, Layout, Text, Container, Button, Color, Icon } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
-import type { MutateMethod } from 'restful-react'
 import { useToaster } from '@common/components'
 import { useLicenseStore, handleUpdateLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
-import { useStartTrialLicense, ResponseModuleLicenseDTO, StartTrialRequestDTO } from 'services/cd-ng'
+import { useStartTrialLicense, ResponseModuleLicenseDTO, StartTrialDTO } from 'services/cd-ng'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { Category, TrialActions } from '@common/constants/TrackingConstants'
@@ -30,7 +29,7 @@ interface StartTrialProps {
     onClick?: () => void
   }
   shouldShowStartTrialModal?: boolean
-  startTrial: MutateMethod<ResponseModuleLicenseDTO, void, StartTrialRequestDTO, void>
+  startTrial: () => Promise<ResponseModuleLicenseDTO>
   module: Module
   loading: boolean
 }
@@ -110,7 +109,7 @@ export const StartTrialTemplate: React.FC<StartTrialTemplateProps> = ({
     accountId: string
   }>()
 
-  const startTrialRequestBody: StartTrialRequestDTO = {
+  const startTrialRequestBody: StartTrialDTO = {
     moduleType: module.toUpperCase() as any
   }
 
@@ -119,6 +118,10 @@ export const StartTrialTemplate: React.FC<StartTrialTemplateProps> = ({
       accountIdentifier: accountId
     }
   })
+
+  function handleStartTrial(): Promise<ResponseModuleLicenseDTO> {
+    return startTrial(startTrialRequestBody)
+  }
 
   return (
     <Container
@@ -138,12 +141,7 @@ export const StartTrialTemplate: React.FC<StartTrialTemplateProps> = ({
           </Heading>
         </Layout.Horizontal>
 
-        <StartTrialComponent
-          {...startTrialProps}
-          startTrial={() => startTrial(startTrialRequestBody)}
-          module={module}
-          loading={loading}
-        />
+        <StartTrialComponent {...startTrialProps} startTrial={handleStartTrial} module={module} loading={loading} />
       </Layout.Vertical>
     </Container>
   )

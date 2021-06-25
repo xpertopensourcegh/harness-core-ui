@@ -6,7 +6,7 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 
-import { AccountLicensesDTO, ModuleLicenseDTO, useGetAccountLicenses } from 'services/cd-ng'
+import { AccountLicenseDTO, ModuleLicenseDTO, useGetAccountLicenses } from 'services/cd-ng'
 import { ModuleName } from 'framework/types/ModuleName'
 
 export enum LICENSE_STATE_VALUES {
@@ -18,7 +18,7 @@ export enum LICENSE_STATE_VALUES {
 
 // Only keep GA modules for now
 export interface LicenseStoreContextProps {
-  readonly licenseInformation: AccountLicensesDTO['moduleLicenses'] | Record<string, undefined>
+  readonly licenseInformation: AccountLicenseDTO['moduleLicenses'] | Record<string, undefined>
   readonly CI_LICENSE_STATE: LICENSE_STATE_VALUES
   readonly FF_LICENSE_STATE: LICENSE_STATE_VALUES
 
