@@ -6,6 +6,7 @@ declare const styles: {
   readonly errorMessage: string
   readonly summary: string
   readonly error: string
+  readonly isWarning: string
   readonly header: string
   readonly rhs: string
   readonly hasErrorMessage: string

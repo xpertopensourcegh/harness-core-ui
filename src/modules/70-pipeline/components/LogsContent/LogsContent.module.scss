@@ -27,7 +27,7 @@
       color: var(--red-500);
       display: flex;
       align-items: center;
-      column-gap: var(--spacing-xsmall);
+      column-gap: var(--spacing-small);
       --intent-color: var(--red-500);
 
       :global {
@@ -35,6 +35,13 @@
         .bp3-popover-wrapper {
           display: block;
         }
+      }
+    }
+
+    &.isWarning {
+      .error {
+        color: var(--yellow-500);
+        --intent-color: var(--yellow-500);
       }
     }
   }

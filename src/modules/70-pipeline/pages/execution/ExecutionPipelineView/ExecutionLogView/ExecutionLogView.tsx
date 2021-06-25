@@ -7,7 +7,7 @@ import { processExecutionData } from '@pipeline/utils/executionUtils'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import { StageSelection, StageSelectOption } from '@pipeline/components/StageSelection/StageSelection'
 import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
-import { isExecutionNotStarted } from '@pipeline/utils/statusHelpers'
+import { isExecutionNotStarted, isExecutionSkipped } from '@pipeline/utils/statusHelpers'
 import { LogsContent } from '@pipeline/components/LogsContent/LogsContent'
 
 import { StepsTree } from './StepsTree/StepsTree'
@@ -36,7 +36,9 @@ export default function ExecutionLogView(): React.ReactElement {
   }, [pipelineStagesMap])
 
   const selectedStep = allNodeMap[selectedStepId]
-  const errorMessage = get(selectedStep, 'failureInfo.message') || get(selectedStep, 'failureInfo.errorMessage')
+  const errorMessage =
+    get(selectedStep, 'failureInfo.message') || get(selectedStep, 'executableResponses[0].skipTask.message')
+  const isSkipped = isExecutionSkipped(selectedStep?.status)
 
   function handleStageChange(item: StageSelectOption): void {
     updateQueryParams({ stage: item.value as string })
@@ -63,7 +65,7 @@ export default function ExecutionLogView(): React.ReactElement {
         </div>
       </div>
       <div className={css.logViewer}>
-        <LogsContent mode="console-view" errorMessage={errorMessage} />
+        <LogsContent mode="console-view" errorMessage={errorMessage} isWarning={isSkipped} />
       </div>
     </Container>
   )

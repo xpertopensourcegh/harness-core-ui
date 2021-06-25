@@ -19,10 +19,11 @@ export interface LogsContentProps {
   mode: 'step-details' | 'console-view'
   toConsoleView?: string
   errorMessage?: string
+  isWarning?: boolean
 }
 
 export function LogsContent(props: LogsContentProps): React.ReactElement {
-  const { mode, toConsoleView = '', errorMessage } = props
+  const { mode, toConsoleView = '', errorMessage, isWarning } = props
   const {
     pipelineStagesMap,
     selectedStageId,
@@ -103,10 +104,10 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
         )}
       </pre>
       {mode === 'console-view' && errorMessage ? (
-        <div className={css.errorMessage}>
+        <div className={cx(css.errorMessage, { [css.isWarning]: isWarning })}>
           <String className={css.summary} tagName="div" stringID="summary" />
           <div className={css.error}>
-            <Icon name="circle-cross" />
+            <Icon name={isWarning ? 'warning-sign' : 'circle-cross'} />
             <Text lineClamp={1}>{errorMessage}</Text>
           </div>
         </div>

@@ -634,7 +634,7 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                               </div>
                               <a
                                 class="toConsoleView"
-                                href="/?&view=log"
+                                href="/?view=log"
                               >
                                 <span>
                                   consoleView

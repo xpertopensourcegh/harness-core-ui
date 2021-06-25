@@ -280,7 +280,7 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
                 </div>
                 <a
                   class="toConsoleView"
-                  href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?&view=log"
+                  href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=log"
                 >
                   <span>
                     consoleView
@@ -619,7 +619,7 @@ exports[`<ExecutionStepDetails /> tests retried steps does not fetches data for 
                 </div>
                 <a
                   class="toConsoleView"
-                  href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?&view=log"
+                  href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=log"
                 >
                   <span>
                     consoleView
@@ -958,7 +958,7 @@ exports[`<ExecutionStepDetails /> tests retried steps fetches data for retry ste
                 </div>
                 <a
                   class="toConsoleView"
-                  href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?&view=log"
+                  href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=log"
                 >
                   <span>
                     consoleView
@@ -1495,7 +1495,7 @@ exports[`<ExecutionStepDetails /> tests retried steps shows step selection 1`] =
                 </div>
                 <a
                   class="toConsoleView"
-                  href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?&view=log"
+                  href="/account/TEST_ACCOUNT_ID/cd/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions/TEST_EXECUTION/pipeline?view=log"
                 >
                   <span>
                     consoleView
