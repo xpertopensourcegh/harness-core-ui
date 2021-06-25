@@ -4,11 +4,6 @@ import { TestWrapper } from '@common/utils/testUtils'
 import CITrialHomePage from '../CITrialHomePage'
 
 jest.mock('services/cd-ng', () => ({
-  useGetModuleLicenseInfo: jest.fn().mockImplementation(() => {
-    return {
-      data: null
-    }
-  }),
   useStartTrialLicense: jest.fn().mockImplementation(() => {
     return {
       cancel: jest.fn(),

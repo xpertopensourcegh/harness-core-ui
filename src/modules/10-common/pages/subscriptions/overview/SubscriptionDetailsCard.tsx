@@ -1,14 +1,23 @@
 import React from 'react'
 
+import moment from 'moment'
 import { useParams, useHistory } from 'react-router-dom'
 import { Button, Card, Color, Heading, Icon, Layout, Text } from '@wings-software/uicore'
+import type { StringsMap } from 'stringTypes'
 import { useStrings } from 'framework/strings'
 import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
 import { useContactSalesModal, ContactSalesFormProps } from '@common/modals/ContactSales/useContactSalesModal'
-import type { ModuleName } from 'framework/types/ModuleName'
-import type { ModuleLicenseDTO } from 'services/cd-ng'
+import { useLicenseStore, handleUpdateLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { useExtendTrialLicense, StartTrialDTO } from 'services/cd-ng'
+import { useToaster } from '@common/components'
+import { ModuleName } from 'framework/types/ModuleName'
+import type { ModuleLicenseDTO, CFModuleLicenseDTO, CIModuleLicenseDTO } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
-
+import {
+  useExtendTrialOrFeedbackModal,
+  FORM_TYPE,
+  FeedbackFormValues
+} from '@common/modals/ExtendTrial/useExtendTrialOrFeedbackModal'
 import { Editions, ModuleLicenseType } from '@common/constants/SubscriptionTypes'
 import type { TrialInformation } from '../SubscriptionsPage'
 import css from './SubscriptionDetailsCard.module.scss'
@@ -18,19 +27,46 @@ interface SubscriptionDetailsCardProps {
   licenseData?: ModuleLicenseDTO
   module: ModuleName
   trialInformation: TrialInformation
+  refetchGetLicense?: () => void
 }
 
 const SubscriptionDetailsCard: React.FC<SubscriptionDetailsCardProps> = props => {
-  const { accountName, module, licenseData, trialInformation } = props
+  const { accountName, module, licenseData, trialInformation, refetchGetLicense } = props
   const { days, expiryDate, isExpired, expiredDays } = trialInformation
 
   const history = useHistory()
   const { getString } = useStrings()
+  const { showError } = useToaster()
+  const { licenseInformation, updateLicenseStore } = useLicenseStore()
   const { accountId } = useParams<AccountPathProps>()
   const { openContactSalesModal } = useContactSalesModal({
     onSubmit: (_values: ContactSalesFormProps) => {
       // TO-DO: call the API
     }
+  })
+
+  const { mutate: extendTrial, loading } = useExtendTrialLicense({
+    queryParams: {
+      accountIdentifier: accountId
+    }
+  })
+
+  const { openExtendTrialOrFeedbackModal } = useExtendTrialOrFeedbackModal({
+    onSubmit: (_values: FeedbackFormValues) => {
+      // TO-DO: call the feed back api
+      if (isExpired) {
+        refetchGetLicense?.()
+      }
+    },
+    onCloseModal: () => {
+      if (isExpired) {
+        refetchGetLicense?.()
+      }
+    },
+    module,
+    expiryDateStr: moment(expiryDate).format('MMMM D YYYY'),
+    formType: isExpired ? FORM_TYPE.EXTEND_TRIAL : FORM_TYPE.FEEDBACK,
+    moduleDescription: getString(`${module.toLowerCase()}.continuous` as keyof StringsMap)
   })
 
   function getExpiryCountdownMessage(): React.ReactElement | undefined {
@@ -54,50 +90,52 @@ const SubscriptionDetailsCard: React.FC<SubscriptionDetailsCardProps> = props =>
   }
 
   // Add this when the api is fixed
-  // function insertLicenseCountElements(fields: React.ReactElement[]): void {
-  //   const moduleType = licenseData?.moduleType
+  function insertLicenseCountElements(fields: React.ReactElement[]): void {
+    const moduleType = licenseData?.moduleType
 
-  //   switch (moduleType) {
-  //     case ModuleName.CF:
-  //       {
-  //         const featureFlagUsers = licenseData?.numberOfUsers
-  //         const monthlyActiveUsers = licenseData?.numberOfClientMAUs
+    switch (moduleType) {
+      case ModuleName.CF:
+        {
+          const cfModuleLicenseDTO = licenseData as CFModuleLicenseDTO
+          const featureFlagUsers = cfModuleLicenseDTO?.numberOfUsers
+          const monthlyActiveUsers = cfModuleLicenseDTO?.numberOfClientMAUs
 
-  //         fields.push(
-  //           <React.Fragment key="licenseCount">
-  //             <Text color={Color.GREY_600}>{getString('common.account.licenseCount')}</Text>
-  //             <Layout.Vertical spacing="medium">
-  //               <Text color={Color.BLACK} font={{ weight: 'semi-bold' }} margin={{ bottom: 5 }}>
-  //                 {getString('common.subscriptions.featureFlags.users', { users: featureFlagUsers })}
-  //               </Text>
-  //               <Text color={Color.BLACK} font={{ weight: 'semi-bold' }}>
-  //                 {getString('common.subscriptions.featureFlags.mau', { maus: monthlyActiveUsers })}
-  //               </Text>
-  //             </Layout.Vertical>
-  //           </React.Fragment>
-  //         )
-  //       }
-  //       break
-  //     case ModuleName.CI:
-  //       {
-  //         const committers = licenseData?.numberOfCommitters
+          fields.push(
+            <React.Fragment key="licenseCount">
+              <Text color={Color.GREY_600}>{getString('common.account.licenseCount')}</Text>
+              <Layout.Vertical spacing="medium">
+                <Text color={Color.BLACK} font={{ weight: 'semi-bold' }} margin={{ bottom: 5 }}>
+                  {getString('common.subscriptions.featureFlags.users', { users: featureFlagUsers })}
+                </Text>
+                <Text color={Color.BLACK} font={{ weight: 'semi-bold' }}>
+                  {getString('common.subscriptions.featureFlags.mau', { maus: monthlyActiveUsers })}
+                </Text>
+              </Layout.Vertical>
+            </React.Fragment>
+          )
+        }
+        break
+      case ModuleName.CI:
+        {
+          const ciModuleLicenseDTO = licenseData as CIModuleLicenseDTO
+          const committers = ciModuleLicenseDTO?.numberOfCommitters
 
-  //         fields.push(
-  //           <React.Fragment key="licenseCount">
-  //             <Text color={Color.GREY_600}>{getString('common.account.licenseCount')}</Text>
-  //             <Layout.Vertical spacing="medium">
-  //               <Text color={Color.BLACK} font={{ weight: 'semi-bold' }} margin={{ bottom: 5 }}>
-  //                 {getString('common.subscriptions.ci.developers', { developers: committers })}
-  //               </Text>
-  //             </Layout.Vertical>
-  //           </React.Fragment>
-  //         )
-  //       }
-  //       break
-  //     default:
-  //       break
-  //   }
-  // }
+          fields.push(
+            <React.Fragment key="licenseCount">
+              <Text color={Color.GREY_600}>{getString('common.account.licenseCount')}</Text>
+              <Layout.Vertical spacing="medium">
+                <Text color={Color.BLACK} font={{ weight: 'semi-bold' }} margin={{ bottom: 5 }}>
+                  {getString('common.subscriptions.ci.developers', { developers: committers })}
+                </Text>
+              </Layout.Vertical>
+            </React.Fragment>
+          )
+        }
+        break
+      default:
+        break
+    }
+  }
 
   function insertPlanElements(fields: React.ReactElement[]): void {
     const expiryMessage = isExpired ? getExpiredMessage() : getExpiryCountdownMessage()
@@ -148,7 +186,7 @@ const SubscriptionDetailsCard: React.FC<SubscriptionDetailsCardProps> = props =>
       case Editions.ENTERPRISE:
         {
           insertPlanElements(fields)
-          // insertLicenseCountElements(fields)
+          insertLicenseCountElements(fields)
           insertExpiryDate(fields)
         }
         break
@@ -179,6 +217,16 @@ const SubscriptionDetailsCard: React.FC<SubscriptionDetailsCardProps> = props =>
     )
   }
 
+  const handleExtendTrial = async (): Promise<void> => {
+    try {
+      const data = await extendTrial({ moduleType: module as StartTrialDTO['moduleType'] })
+      handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, module as any, data?.data)
+      openExtendTrialOrFeedbackModal()
+    } catch (error) {
+      showError(error.data?.message)
+    }
+  }
+
   const subscribeButton = (
     <Button onClick={handleSubscribeClick} intent="primary">
       {getString('common.subscriptions.overview.subscribe')}
@@ -192,14 +240,16 @@ const SubscriptionDetailsCard: React.FC<SubscriptionDetailsCardProps> = props =>
   )
 
   const extendTrialButton = (
-    <Button onClick={() => void 0}>{getString('common.banners.trial.expired.extendTrial')}</Button>
+    <Button disabled={loading} onClick={handleExtendTrial}>
+      {getString('common.banners.trial.expired.extendTrial')}
+    </Button>
   )
 
   const buttons = (
     <React.Fragment>
       {!licenseData && subscribeButton}
       {licenseData?.licenseType !== ModuleLicenseType.PAID && contactSalesButton}
-      {licenseData?.licenseType !== ModuleLicenseType.PAID && isExpired && extendTrialButton}
+      {licenseData?.licenseType !== ModuleLicenseType.PAID && isExpired && expiredDays < 15 && extendTrialButton}
     </React.Fragment>
   )
 

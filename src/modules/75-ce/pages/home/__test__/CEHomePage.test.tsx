@@ -1,15 +1,21 @@
 import React from 'react'
 import { render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { useGetModuleLicenseByAccountAndModuleType, useStartTrialLicense } from 'services/cd-ng'
+import { useGetLicensesAndSummary, useStartTrialLicense, useExtendTrialLicense } from 'services/cd-ng'
 import { useGetProjectList } from 'services/cd-ng'
 import useCETrialModal from '@ce/modals/CETrialModal/useCETrialModal'
 import CEHomePage from '../CEHomePage'
 
 jest.mock('services/cd-ng')
-const useGetModuleLicenseInfoMock = useGetModuleLicenseByAccountAndModuleType as jest.MockedFunction<any>
+const useGetModuleLicenseInfoMock = useGetLicensesAndSummary as jest.MockedFunction<any>
 const useStartTrialMock = useStartTrialLicense as jest.MockedFunction<any>
 const useGetProjectListMock = useGetProjectList as jest.MockedFunction<any>
+const useExtendTrialLicenseMock = useExtendTrialLicense as jest.MockedFunction<any>
+useExtendTrialLicenseMock.mockImplementation(() => {
+  return {
+    mutate: jest.fn()
+  }
+})
 
 jest.mock('@ce/modals/CETrialModal/useCETrialModal')
 const useCETrialModalMock = useCETrialModal as jest.MockedFunction<any>

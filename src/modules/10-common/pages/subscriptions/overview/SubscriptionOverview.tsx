@@ -12,10 +12,11 @@ interface SubscriptionOverviewProps {
   licenseData?: ModuleLicenseDTO
   module: ModuleName
   trialInformation: TrialInformation
+  refetchGetLicense?: () => void
 }
 
 const SubscriptionOverview: React.FC<SubscriptionOverviewProps> = props => {
-  const { accountName, licenseData, module, trialInformation } = props
+  const { accountName, licenseData, module, trialInformation, refetchGetLicense } = props
 
   // Although this component currently contains 'almost' nothing
   // it will be useful to leave this here for other components in the future
@@ -26,6 +27,7 @@ const SubscriptionOverview: React.FC<SubscriptionOverviewProps> = props => {
         module={module}
         licenseData={licenseData}
         trialInformation={trialInformation}
+        refetchGetLicense={refetchGetLicense}
       />
     </Layout.Vertical>
   )

@@ -50,7 +50,7 @@ const ModuleCard: React.FC<ModuleCardProps> = ({ module }) => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
   const getPlanDescription = (): string => {
-    const days = Math.round(moment(module.expiryTime).diff(moment(module.startTime), 'days', true)).toString()
+    const days = Math.round(moment(module.expiryTime).diff(moment(module.createdAt), 'days', true)).toString()
     return capitalize(module.edition)
       .concat('(')
       .concat(days)
@@ -130,30 +130,34 @@ const SubscribedModules: React.FC = () => {
   }
 
   const modules: {
-    [key: string]: ModuleLicenseDTO
-  } = accountLicenses?.data?.moduleLicenses || {}
+    [key: string]: ModuleLicenseDTO[]
+  } = accountLicenses?.data?.allModuleLicenses || {}
+
+  const subscribedModules =
+    Object.values(modules).length > 0 ? (
+      Object.values(modules).map(moduleLicenses => {
+        if (moduleLicenses.length > 0) {
+          const latestModuleLicense = moduleLicenses[moduleLicenses.length - 1]
+          return (
+            <div key={latestModuleLicense.moduleType}>
+              <ModuleCard module={latestModuleLicense} />
+            </div>
+          )
+        }
+      })
+    ) : (
+      <Layout.Horizontal spacing="xsmall">
+        <Link to={routes.toSubscriptions({ accountId })}>{getString('common.account.visitSubscriptions.link')}</Link>
+        <Text>{getString('common.account.visitSubscriptions.description')}</Text>
+      </Layout.Horizontal>
+    )
 
   return (
     <Container margin="xlarge" padding="xlarge" className={css.container} background="white">
       <Text color={Color.BLACK} font={{ weight: 'semi-bold', size: 'medium' }} margin={{ bottom: 'xlarge' }}>
         {getString('common.account.subscribedModules')}
       </Text>
-      <Layout.Horizontal spacing="large">
-        {Object.values(modules).length > 0 ? (
-          Object.values(modules).map(module => (
-            <div key={module.moduleType}>
-              <ModuleCard module={module} />
-            </div>
-          ))
-        ) : (
-          <Layout.Horizontal spacing="xsmall">
-            <Link to={routes.toSubscriptions({ accountId })}>
-              {getString('common.account.visitSubscriptions.link')}
-            </Link>
-            <Text>{getString('common.account.visitSubscriptions.description')}</Text>
-          </Layout.Horizontal>
-        )}
-      </Layout.Horizontal>
+      <Layout.Horizontal spacing="large">{subscribedModules}</Layout.Horizontal>
     </Container>
   )
 }

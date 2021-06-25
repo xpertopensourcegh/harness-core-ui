@@ -3,6 +3,8 @@ import { useModalHook, Container, Layout, Button } from '@wings-software/uicore'
 import { Dialog, Classes } from '@blueprintjs/core'
 import cx from 'classnames'
 import { FeedBackForm, ExtendTrialForm } from './ExtendTrialOrFeedbackForm'
+import cfExtendTrialImg from './images/cf-extend-trial.svg'
+import ciExtendTrialImg from './images/ci-extend-trial.svg'
 import css from './useExtendTrialOrFeedbackModal.module.scss'
 
 export interface FeedbackFormValues {
@@ -18,8 +20,9 @@ export const enum FORM_TYPE {
 interface UseExtendTrialOrFeedbackModalProps {
   onCloseModal?: () => void
   onSubmit: (values: FeedbackFormValues) => void
+  module: string
   moduleDescription: string
-  bgImg: string
+  bgImg?: string
   expiryDateStr: string
   formType: FORM_TYPE
 }
@@ -29,13 +32,23 @@ interface UseExtendTrialOrFeedbackModalReturn {
   closeExtendTrialOrFeedbackModal: () => void
 }
 
+const getBgImg = (module: string): string => {
+  switch (module) {
+    case 'CI':
+      return ciExtendTrialImg
+    case 'CF':
+      return cfExtendTrialImg
+  }
+  return ''
+}
+
 const ExtendTrialOrFeedbackDialog: React.FC<UseExtendTrialOrFeedbackModalProps> = ({
-  bgImg,
   expiryDateStr,
   onCloseModal,
   onSubmit,
   moduleDescription,
-  formType
+  formType,
+  module
 }) => {
   return (
     <Layout.Horizontal>
@@ -43,7 +56,7 @@ const ExtendTrialOrFeedbackDialog: React.FC<UseExtendTrialOrFeedbackModalProps> 
         width="45%"
         className={css.left}
         style={{
-          background: `transparent url(${bgImg}) no-repeat`
+          background: `transparent url(${getBgImg(module)}) no-repeat`
         }}
       />
       <Container className={css.right} width="55%">

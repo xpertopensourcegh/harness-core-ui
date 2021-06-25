@@ -2,14 +2,20 @@ import React from 'react'
 import moment from 'moment'
 import { act, fireEvent, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { useGetAccountNG, useGetModuleLicenseByAccountAndModuleType } from 'services/cd-ng'
+import { useGetAccountNG, useGetModuleLicensesByAccountAndModuleType, useExtendTrialLicense } from 'services/cd-ng'
 import { Editions } from '@common/constants/SubscriptionTypes'
 import { ModuleName } from 'framework/types/ModuleName'
 import SubscriptionsPage from '../SubscriptionsPage'
 
 jest.mock('services/cd-ng')
-const useGetModuleLicenseInfoMock = useGetModuleLicenseByAccountAndModuleType as jest.MockedFunction<any>
+const useGetModuleLicenseInfoMock = useGetModuleLicensesByAccountAndModuleType as jest.MockedFunction<any>
 const useGetAccountMock = useGetAccountNG as jest.MockedFunction<any>
+const useExtendTrialLicenseMock = useExtendTrialLicense as jest.MockedFunction<any>
+useExtendTrialLicenseMock.mockImplementation(() => {
+  return {
+    mutate: jest.fn()
+  }
+})
 
 moment.now = jest.fn(() => 1482363367071)
 
@@ -26,9 +32,11 @@ describe('Subscriptions Page', () => {
     useGetModuleLicenseInfoMock.mockImplementation(() => {
       return {
         data: {
-          data: {
-            edition: Editions.ENTERPRISE
-          },
+          data: [
+            {
+              edition: Editions.ENTERPRISE
+            }
+          ],
           status: 'SUCCESS'
         },
         refetch: jest.fn()
@@ -63,9 +71,11 @@ describe('Subscriptions Page', () => {
     useGetModuleLicenseInfoMock.mockImplementation(() => {
       return {
         data: {
-          data: {
-            edition: Editions.ENTERPRISE
-          },
+          data: [
+            {
+              edition: Editions.ENTERPRISE
+            }
+          ],
           status: 'SUCCESS'
         },
         refetch: jest.fn()
@@ -100,7 +110,7 @@ describe('Subscriptions Page', () => {
     useGetModuleLicenseInfoMock.mockImplementation(() => {
       return {
         data: {
-          data: {},
+          data: [],
           status: 'SUCCESS'
         },
         refetch: jest.fn()
@@ -136,7 +146,7 @@ describe('Subscriptions Page', () => {
     useGetModuleLicenseInfoMock.mockImplementation(() => {
       return {
         data: {
-          data: {},
+          data: [],
           status: 'SUCCESS'
         },
         error: {
@@ -172,10 +182,12 @@ describe('Subscriptions Page', () => {
     useGetModuleLicenseInfoMock.mockImplementation(() => {
       return {
         data: {
-          data: {
-            edition: Editions.ENTERPRISE,
-            expiryTime: 0
-          },
+          data: [
+            {
+              edition: Editions.ENTERPRISE,
+              expiryTime: 0
+            }
+          ],
           status: 'SUCCESS'
         },
         refetch: jest.fn()
@@ -209,9 +221,11 @@ describe('Subscriptions Page', () => {
   test('it renders trial not started information', () => {
     useGetModuleLicenseInfoMock.mockImplementation(() => {
       return {
-        data: {
-          status: 'SUCCESS'
-        },
+        data: [
+          {
+            status: 'SUCCESS'
+          }
+        ],
         refetch: jest.fn()
       }
     })
@@ -243,7 +257,7 @@ describe('Subscriptions Page', () => {
     useGetModuleLicenseInfoMock.mockImplementation(() => {
       return {
         data: {
-          data: {},
+          data: [],
           status: 'SUCCESS'
         },
         refetch: jest.fn()
@@ -279,7 +293,7 @@ describe('Subscriptions Page', () => {
     useGetModuleLicenseInfoMock.mockImplementation(() => {
       return {
         data: {
-          data: {},
+          data: [],
           status: 'SUCCESS'
         },
         loading: true,
@@ -315,6 +329,7 @@ describe('Subscriptions Page', () => {
     useGetModuleLicenseInfoMock.mockImplementation(() => {
       return {
         data: {
+          data: [],
           status: 'SUCCESS'
         },
         refetch: jest.fn()
@@ -350,9 +365,11 @@ describe('Subscriptions Page', () => {
     useGetModuleLicenseInfoMock.mockImplementation(() => {
       return {
         data: {
-          data: {
-            edition: Editions.ENTERPRISE
-          },
+          data: [
+            {
+              edition: Editions.ENTERPRISE
+            }
+          ],
           status: 'SUCCESS'
         },
         refetch: jest.fn()

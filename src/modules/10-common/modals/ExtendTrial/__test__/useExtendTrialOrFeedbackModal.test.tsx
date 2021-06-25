@@ -9,7 +9,7 @@ const TestComponent = (): React.ReactElement => {
     onSubmit: jest.fn(),
     onCloseModal,
     moduleDescription: 'Continuous Delivery',
-    bgImg: '',
+    module: 'cd',
     expiryDateStr: 'June 30 2021',
     formType: FORM_TYPE.EXTEND_TRIAL
   })

@@ -17,7 +17,6 @@
 
 .extendTrial {
   margin-top: 2px !important;
-  &:hover {
-    cursor: pointer;
-  }
+  background: none !important;
+  box-shadow: none !important;
 }

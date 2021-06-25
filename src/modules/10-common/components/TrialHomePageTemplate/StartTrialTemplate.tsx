@@ -3,7 +3,7 @@ import { Heading, Layout, Text, Container, Button, Color } from '@wings-software
 import { useParams, useHistory } from 'react-router-dom'
 import { useToaster } from '@common/components'
 import { useLicenseStore, handleUpdateLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
-import { useStartTrialLicense, ResponseModuleLicenseDTO, StartTrialDTO } from 'services/cd-ng'
+import { useStartTrialLicense, ResponseModuleLicenseDTO, StartTrialDTORequestBody } from 'services/cd-ng'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { Category, TrialActions } from '@common/constants/TrackingConstants'
@@ -100,7 +100,7 @@ export const StartTrialTemplate: React.FC<StartTrialTemplateProps> = ({
     accountId: string
   }>()
 
-  const startTrialRequestBody: StartTrialDTO = {
+  const startTrialRequestBody: StartTrialDTORequestBody = {
     moduleType: module.toUpperCase() as any
   }
 

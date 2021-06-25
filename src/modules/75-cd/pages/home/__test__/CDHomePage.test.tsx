@@ -1,7 +1,12 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { useGetModuleLicenseByAccountAndModuleType, useStartTrialLicense, useGetProjectList } from 'services/cd-ng'
+import {
+  useGetLicensesAndSummary,
+  useStartTrialLicense,
+  useGetProjectList,
+  useExtendTrialLicense
+} from 'services/cd-ng'
 import CDHomePage from '../CDHomePage'
 
 const projects = [
@@ -34,11 +39,17 @@ const projects = [
 ]
 
 jest.mock('services/cd-ng')
-const useGetModuleLicenseInfoMock = useGetModuleLicenseByAccountAndModuleType as jest.MockedFunction<any>
+const useGetModuleLicenseInfoMock = useGetLicensesAndSummary as jest.MockedFunction<any>
 const useStartTrialMock = useStartTrialLicense as jest.MockedFunction<any>
 const useGetProjectListMock = useGetProjectList as jest.MockedFunction<any>
 useGetProjectListMock.mockImplementation(() => {
   return { data: { data: { content: projects } }, refetch: jest.fn(), error: null }
+})
+const useExtendTrialLicenseMock = useExtendTrialLicense as jest.MockedFunction<any>
+useExtendTrialLicenseMock.mockImplementation(() => {
+  return {
+    mutate: jest.fn()
+  }
 })
 
 const currentUser = {

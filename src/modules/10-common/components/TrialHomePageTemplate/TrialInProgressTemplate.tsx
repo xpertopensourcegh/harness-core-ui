@@ -13,6 +13,7 @@ interface TrialBannerProps {
   expiryTime?: number
   licenseType?: string
   module: ModuleName
+  refetch?: () => void
 }
 interface TrialInProgressTemplateProps {
   title: string

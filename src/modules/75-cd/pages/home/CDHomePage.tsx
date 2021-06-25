@@ -3,8 +3,9 @@ import { useParams, useHistory } from 'react-router-dom'
 import { ModuleName } from 'framework/types/ModuleName'
 import { HomePageTemplate } from '@common/components/HomePageTemplate/HomePageTemplate'
 import { useStrings } from 'framework/strings'
-import { useGetModuleLicenseByAccountAndModuleType, useGetProjectList } from 'services/cd-ng'
+import { useGetLicensesAndSummary, useGetProjectList } from 'services/cd-ng'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { TrialInProgressTemplate } from '@common/components/TrialHomePageTemplate/TrialInProgressTemplate'
 import { useQueryParams } from '@common/hooks'
 import { PageError } from '@common/components/Page/PageError'
@@ -20,21 +21,18 @@ import bgImageURL from './images/cd.svg'
 export const CDHomePage: React.FC = () => {
   const { getString } = useStrings()
 
-  const { accountId } = useParams<{ accountId: string }>()
+  const { accountId } = useParams<AccountPathProps>()
 
-  const moduleLicenseQueryParams = {
-    accountIdentifier: accountId,
-    moduleType: ModuleName.CD as any
-  }
-
-  const { data, error, refetch, loading } = useGetModuleLicenseByAccountAndModuleType({
-    queryParams: moduleLicenseQueryParams
+  const { data, error, refetch, loading } = useGetLicensesAndSummary({
+    queryParams: { moduleType: ModuleName.CD as any },
+    accountIdentifier: accountId
   })
 
   const trialBannerProps = {
-    expiryTime: data?.data?.expiryTime,
+    expiryTime: data?.data?.maxExpiryTime,
     licenseType: data?.data?.licenseType,
-    module: ModuleName.CD
+    module: ModuleName.CD,
+    refetch
   }
 
   const pushToPipelineStudio = (pipelinId: string, projectData?: Project, search?: string): void => {

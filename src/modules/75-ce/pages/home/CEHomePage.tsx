@@ -3,9 +3,10 @@ import { useParams, useHistory } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import useCETrialModal from '@ce/modals/CETrialModal/useCETrialModal'
 import { HomePageTemplate } from '@common/components/HomePageTemplate/HomePageTemplate'
-import { useGetModuleLicenseByAccountAndModuleType } from 'services/cd-ng'
+import { useGetLicensesAndSummary } from 'services/cd-ng'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import { TrialInProgressTemplate } from '@common/components/TrialHomePageTemplate/TrialInProgressTemplate'
 import { useQueryParams } from '@common/hooks'
@@ -21,16 +22,9 @@ const CEHomePage: React.FC = () => {
   const { getString } = useStrings()
   const { currentUserInfo, selectedProject, updateAppStore } = useAppStore()
 
-  const { accountId } = useParams<{
-    accountId: string
-  }>()
+  const { accountId } = useParams<AccountPathProps>()
 
   const { trial } = useQueryParams<{ trial?: boolean }>()
-
-  const getModuleLicenseQueryParams = {
-    accountIdentifier: accountId,
-    moduleType: ModuleName.CE as any
-  }
 
   const { accounts } = currentUserInfo
   const createdFromNG = accounts?.find(account => account.uuid === accountId)?.createdFromNG
@@ -42,8 +36,9 @@ const CEHomePage: React.FC = () => {
     debounce: 300
   })
 
-  const { data, error, refetch, loading } = useGetModuleLicenseByAccountAndModuleType({
-    queryParams: getModuleLicenseQueryParams
+  const { data, error, refetch, loading } = useGetLicensesAndSummary({
+    queryParams: { moduleType: ModuleName.CE as any },
+    accountIdentifier: accountId
   })
 
   useEffect(() => {
@@ -112,9 +107,10 @@ const CEHomePage: React.FC = () => {
   const history = useHistory()
 
   const trialBannerProps = {
-    expiryTime: data?.data?.expiryTime,
+    expiryTime: data?.data?.maxExpiryTime,
     licenseType: data?.data?.licenseType,
-    module: ModuleName.CE
+    module: ModuleName.CE,
+    refetch
   }
 
   if (loading || getProjectListLoading) {

@@ -1,11 +1,17 @@
 import React from 'react'
 import { render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { useGetModuleLicenseByAccountAndModuleType } from 'services/cd-ng'
+import { useGetLicensesAndSummary, useExtendTrialLicense } from 'services/cd-ng'
 import CFHomePage from '../CFHomePage'
 
 jest.mock('services/cd-ng')
-const useGetModuleLicenseInfoMock = useGetModuleLicenseByAccountAndModuleType as jest.MockedFunction<any>
+const useGetModuleLicenseInfoMock = useGetLicensesAndSummary as jest.MockedFunction<any>
+const useExtendTrialLicenseMock = useExtendTrialLicense as jest.MockedFunction<any>
+useExtendTrialLicenseMock.mockImplementation(() => {
+  return {
+    mutate: jest.fn()
+  }
+})
 
 const currentUser = {
   accounts: [

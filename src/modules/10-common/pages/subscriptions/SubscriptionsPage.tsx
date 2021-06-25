@@ -14,8 +14,8 @@ import type { StringsMap } from 'stringTypes'
 import { ModuleName } from 'framework/types/ModuleName'
 import {
   useGetAccountNG,
-  useGetModuleLicenseByAccountAndModuleType,
-  GetModuleLicenseByAccountAndModuleTypeQueryParams
+  useGetModuleLicensesByAccountAndModuleType,
+  GetModuleLicensesByAccountAndModuleTypeQueryParams
 } from 'services/cd-ng'
 
 import { useLicenseStore, handleUpdateLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
@@ -129,9 +129,8 @@ const SubscriptionsPage: React.FC = () => {
     refetch: refetchGetAccount
   } = useGetAccountNG({ accountIdentifier: accountId })
 
-  const getModuleLicenseQueryParams: GetModuleLicenseByAccountAndModuleTypeQueryParams = {
-    accountIdentifier: accountId,
-    moduleType: selectedModuleCard.module as GetModuleLicenseByAccountAndModuleTypeQueryParams['moduleType']
+  const getModuleLicenseQueryParams: GetModuleLicensesByAccountAndModuleTypeQueryParams = {
+    moduleType: selectedModuleCard.module as GetModuleLicensesByAccountAndModuleTypeQueryParams['moduleType']
   }
 
   const {
@@ -139,16 +138,20 @@ const SubscriptionsPage: React.FC = () => {
     error: licenseError,
     loading: isGetLicenseLoading,
     refetch: refetchGetLicense
-  } = useGetModuleLicenseByAccountAndModuleType({
-    queryParams: getModuleLicenseQueryParams
+  } = useGetModuleLicensesByAccountAndModuleType({
+    queryParams: getModuleLicenseQueryParams,
+    accountIdentifier: accountId
   })
+
+  const latestModuleLicense =
+    licenseData?.data && licenseData.data.length > 0 ? licenseData?.data?.[licenseData?.data?.length - 1] : undefined
 
   useEffect(() => {
     handleUpdateLicenseStore(
       { ...licenseInformation },
       updateLicenseStore,
       selectedModuleCard.module.toString() as Module,
-      licenseData?.data
+      latestModuleLicense
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [licenseData])
@@ -193,7 +196,7 @@ const SubscriptionsPage: React.FC = () => {
     return cards
   }
 
-  const expiryTime = licenseData?.data?.expiryTime
+  const expiryTime = latestModuleLicense?.expiryTime
   const time = moment(expiryTime)
   const days = Math.round(time.diff(moment.now(), 'days', true))
   const expiryDate = time.format('DD MMM YYYY')
@@ -208,7 +211,7 @@ const SubscriptionsPage: React.FC = () => {
   }
 
   function getBanner(): React.ReactElement | null {
-    if (!isExpired && licenseData?.data?.licenseType !== 'TRIAL' && expiredDays > 14) {
+    if (!isExpired && latestModuleLicense?.licenseType !== 'TRIAL' && expiredDays > 14) {
       return null
     }
 
@@ -273,8 +276,9 @@ const SubscriptionsPage: React.FC = () => {
           <SubscriptionOverview
             accountName={accountData?.data?.name}
             module={selectedModuleCard.module}
-            licenseData={licenseData?.data}
+            licenseData={latestModuleLicense}
             trialInformation={trialInformation}
+            refetchGetLicense={refetchGetLicense}
           />
         )
     }
@@ -287,7 +291,7 @@ const SubscriptionsPage: React.FC = () => {
       </Container>
     ) : (
       <React.Fragment>
-        {licenseData?.data && getBanner()}
+        {licenseData?.data && licenseData.data.length > 0 && getBanner()}
         <Layout.Horizontal className={css.subscriptionTabButtons} spacing="medium">
           {getSubscriptionTabButtons()}
         </Layout.Horizontal>

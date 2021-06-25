@@ -117,10 +117,17 @@ export function LicenseStoreProvider(props: React.PropsWithChildren<unknown>): R
   }, [])
 
   useEffect(() => {
-    const licenses = data?.data?.moduleLicenses
+    const allLicenses = data?.data?.allModuleLicenses || {}
+    const licenses: { [key: string]: ModuleLicenseDTO } = {}
+    Object.keys(allLicenses).forEach((key: string) => {
+      const moduleLicenses = allLicenses[key]
+      if (moduleLicenses.length > 0) {
+        licenses[key] = moduleLicenses[moduleLicenses.length - 1]
+      }
+    })
 
     // Only update the store if the user has been created via NG
-    if (licenses) {
+    if (Object.keys(licenses).length > 0) {
       const CIModuleLicenseData = licenses['CI']
       const FFModuleLicenseData = licenses['CF']
 
@@ -135,7 +142,7 @@ export function LicenseStoreProvider(props: React.PropsWithChildren<unknown>): R
       }))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data?.data?.moduleLicenses, shouldLicensesBeDisabled])
+  }, [data?.data?.allModuleLicenses, shouldLicensesBeDisabled])
 
   useEffect(() => {
     const INTERVAL_ID = setInterval(() => {

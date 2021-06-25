@@ -299,6 +299,7 @@ banners:
   trial:
     success: Email verification success!
     description: Your Enterprise {{ module }} trial expires in {{ days }} days. Contact Sales to continue using {{ moduleDescription }}
+    provideFeedback: Provide Feedback
     expired:
       description: Your trial expired {{ expiredDays }} days ago. Contact Sales or extend trial to continue using {{ moduleDescription }}
       extendTrial: Extend Trial

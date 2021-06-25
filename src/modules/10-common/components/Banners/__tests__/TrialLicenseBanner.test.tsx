@@ -6,13 +6,19 @@ import type { ModuleName } from 'framework/types/ModuleName'
 
 import { TrialLicenseBanner } from '../TrialLicenseBanner'
 
+jest.mock('services/cd-ng', () => {
+  return {
+    useExtendTrialLicense: jest.fn
+  }
+})
+
 const props = {
   module: 'ci' as ModuleName,
   licenseType: 'TRIAL',
   expiryTime: moment.now() + 24 * 60 * 60 * 1000
 }
 describe('TrialLicenseBanner', () => {
-  test('should render banner if api call returns TRIAL', () => {
+  test('should render banner and provide feedback button if api call returns TRIAL and not expired', () => {
     const { container, getByText, queryByText } = render(
       <TestWrapper>
         <TrialLicenseBanner {...props} />
@@ -20,6 +26,7 @@ describe('TrialLicenseBanner', () => {
     )
     expect(getByText('common.banners.trial.description')).toBeDefined()
     expect(queryByText('common.banners.trial.expired.extendTrial')).toBeNull()
+    expect(getByText('common.banners.trial.provideFeedback'))
     expect(container).toMatchSnapshot()
   })
 
@@ -37,7 +44,7 @@ describe('TrialLicenseBanner', () => {
     expect(container).toMatchSnapshot()
   })
 
-  test('should render expired banner if it is expired', () => {
+  test('should render expired banner and extend trial button if it is expired less than or equal to 14 days', () => {
     const newProps = {
       module: 'ci' as ModuleName,
       licenseType: 'TRIAL',
@@ -51,6 +58,24 @@ describe('TrialLicenseBanner', () => {
     )
     expect(queryByText('common.banners.trial.description')).toBeNull()
     expect(getByText('common.banners.trial.expired.extendTrial')).toBeDefined()
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should render expired banner BUT NO extend trial button if it is expired more than 14 days', () => {
+    const newProps = {
+      module: 'ci' as ModuleName,
+      licenseType: 'TRIAL',
+      expiryTime: moment.now() - 24 * 60 * 60 * 1000 * 15
+    }
+
+    const { container, queryByText } = render(
+      <TestWrapper>
+        <TrialLicenseBanner {...newProps} />
+      </TestWrapper>
+    )
+    expect(queryByText('common.banners.expired.description')).toBeNull()
+    expect(queryByText('common.banners.trial.description')).toBeNull()
+    expect(queryByText('common.banners.trial.expired.extendTrial')).toBeNull()
     expect(container).toMatchSnapshot()
   })
 })
