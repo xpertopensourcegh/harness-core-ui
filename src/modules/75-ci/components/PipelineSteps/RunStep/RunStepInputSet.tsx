@@ -110,6 +110,7 @@ export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readon
           expressionRender={() => {
             return (
               <ShellScriptMonacoField
+                title={getString('commandLabel')}
                 name={`${isEmpty(path) ? '' : `${path}.`}spec.command`}
                 scriptType="Bash"
                 expressions={expressions}
@@ -121,6 +122,7 @@ export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readon
           disableTypeSelection={readonly}
         >
           <ShellScriptMonacoField
+            title={getString('commandLabel')}
             name={`${isEmpty(path) ? '' : `${path}.`}spec.command`}
             scriptType="Bash"
             disabled={readonly}

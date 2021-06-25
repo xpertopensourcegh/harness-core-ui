@@ -230,6 +230,7 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
           expressionRender={() => {
             return (
               <ShellScriptMonacoField
+                title={getString('preCommandLabel')}
                 name={`${isEmpty(path) ? '' : `${path}.`}spec.preCommand`}
                 scriptType="Bash"
                 expressions={expressions}
@@ -241,6 +242,7 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
           disableTypeSelection={readonly}
         >
           <ShellScriptMonacoField
+            title={getString('preCommandLabel')}
             name={`${isEmpty(path) ? '' : `${path}.`}spec.preCommand`}
             scriptType="Bash"
             expressions={expressions}
@@ -262,6 +264,7 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
           expressionRender={() => {
             return (
               <ShellScriptMonacoField
+                title={getString('postCommandLabel')}
                 name={`${isEmpty(path) ? '' : `${path}.`}spec.postCommand`}
                 scriptType="Bash"
                 expressions={expressions}
@@ -273,6 +276,7 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
           disableTypeSelection={readonly}
         >
           <ShellScriptMonacoField
+            title={getString('postCommandLabel')}
             name={`${isEmpty(path) ? '' : `${path}.`}spec.postCommand`}
             scriptType="Bash"
             expressions={expressions}
