@@ -108,7 +108,7 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
       ) : (
         <Layout.Horizontal>
           <Layout.Horizontal spacing="medium" className={css.align} width="60%">
-            <Avatar name={user.name} email={user.email} size="normal" />
+            <Avatar name={user.name || user.email} email={user.email} size="normal" />
             <Layout.Vertical padding={{ left: 'small' }}>
               <Layout.Horizontal spacing="small">
                 <Text font={{ weight: 'bold' }} color={Color.BLACK} className={css.name} lineClamp={1}>

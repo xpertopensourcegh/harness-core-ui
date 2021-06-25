@@ -131,7 +131,7 @@ export default function L1Nav(): React.ReactElement {
       <ul className={css.navList}>
         <li className={css.navItem}>
           <Link className={cx(css.navLink, css.userLink)} activeClassName={css.active} to={paths.toUser(params)}>
-            <Avatar name={user.name} email={user.email} size="small" hoverCard={false} />
+            <Avatar name={user.name || user.email} email={user.email} size="small" hoverCard={false} />
           </Link>
         </li>
       </ul>

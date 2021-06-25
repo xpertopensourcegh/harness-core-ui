@@ -44,7 +44,7 @@ const RenderColumnUser: Renderer<CellProps<UserAggregate>> = ({ row }) => {
       flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
       padding={{ right: 'small' }}
     >
-      <Avatar name={data.user.name} email={data.user?.email} hoverCard={false} />
+      <Avatar name={data.user.name || data.user?.email} email={data.user?.email} hoverCard={false} />
       <Text lineClamp={1}>{data.user?.name}</Text>
     </Layout.Horizontal>
   )

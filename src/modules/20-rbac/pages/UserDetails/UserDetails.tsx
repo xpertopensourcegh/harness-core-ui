@@ -67,7 +67,7 @@ const UserDetails: React.FC = () => {
               ]}
             />
             <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }} spacing="medium">
-              <Avatar name={user.name} email={user.email} size="large" hoverCard={false} />
+              <Avatar name={user.name || user.email} email={user.email} size="large" hoverCard={false} />
               <Layout.Vertical padding={{ left: 'medium' }} spacing="xsmall">
                 <Text color={Color.BLACK} font="medium">
                   {user.name}
