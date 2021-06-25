@@ -284,6 +284,8 @@ export const onSubmitTerraformData = (values: any): TFFormData => {
           content: values?.spec?.configuration?.spec?.backendConfig?.spec?.content
         }
       }
+    } else {
+      delete values?.spec?.configuration?.spec?.backendConfig
     }
 
     if (envMap.length) {
@@ -298,7 +300,10 @@ export const onSubmitTerraformData = (values: any): TFFormData => {
 
     if (values?.spec?.configuration?.spec?.varFiles?.length) {
       configObject['varFiles'] = values?.spec?.configuration?.spec?.varFiles
+    } else {
+      delete values?.spec?.configuration?.spec?.varFiles
     }
+
     if (
       connectorValue ||
       getMultiTypeFromValue(values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef) ===
@@ -324,7 +329,6 @@ export const onSubmitTerraformData = (values: any): TFFormData => {
     return {
       ...values,
       spec: {
-        ...values.spec,
         provisionerIdentifier: values.spec?.provisionerIdentifier,
         configuration: {
           type: values?.spec?.configuration?.type,

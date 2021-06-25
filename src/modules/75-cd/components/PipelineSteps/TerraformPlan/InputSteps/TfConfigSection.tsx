@@ -30,7 +30,7 @@ export default function ConfigSection(props: TerraformPlanProps): React.ReactEle
       {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.workspace) === MultiTypeInputType.RUNTIME && (
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormInput.MultiTextInput
-            name={`${path}.configuration.spec.workspace`}
+            name={`${path}.spec.configuration.workspace`}
             label={getString('pipelineSteps.workspace')}
             disabled={readonly}
             multiTextInputProps={{
@@ -80,7 +80,7 @@ export default function ConfigSection(props: TerraformPlanProps): React.ReactEle
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormInput.MultiTextInput
             label={getString('pipeline.manifestType.commitId')}
-            name={`${path}.spec.configuration.spec.configFiles.store.spec.commitId`}
+            name={`${path}.spec.configuration.configFiles.store.spec.commitId`}
             placeholder={getString('pipeline.manifestType.commitPlaceholder')}
             disabled={readonly}
             multiTextInputProps={{
@@ -96,7 +96,7 @@ export default function ConfigSection(props: TerraformPlanProps): React.ReactEle
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormInput.MultiTextInput
             label={getString('cd.folderPath')}
-            name={`${path}.spec.configuration.spec.configFiles.store.spec.folderPath`}
+            name={`${path}.spec.configuration.configFiles.store.spec.folderPath`}
             placeholder={getString('pipeline.manifestType.pathPlaceholder')}
             disabled={readonly}
             multiTextInputProps={{

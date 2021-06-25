@@ -43,6 +43,7 @@ addInline: Add Inline
 addRemote: Add Remote
 tfVarStore: Terraform Var Store
 varFileDetails: Var File Details
+varFile: Var File
 backEndConfig: Backend Configuration
 gitFetchTypeRequired: Git Fetch Type Required
 contentRequired: Content is required

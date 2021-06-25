@@ -2,25 +2,18 @@ import React from 'react'
 import cx from 'classnames'
 
 import { useParams } from 'react-router-dom'
+import { get } from 'lodash-es'
+
 import { getMultiTypeFromValue, MultiTypeInputType, FormInput } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import {
-  ConnectorReferenceField,
-  ConnectorReferenceFieldProps
-} from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 
-import {
-  getIdentifierFromValue,
-  getScopeFromDTO,
-  getScopeFromValue
-} from '@common/components/EntityReference/EntityReference'
-import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
-import { Scope } from '@common/interfaces/SecretsInterface'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { useQueryParams } from '@common/hooks'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { Connectors } from '@connectors/constants'
-import type { Connector, TerraformData, TerraformProps } from '../TerraformInterfaces'
+import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
+
+import type { TerraformData, TerraformProps } from '../TerraformInterfaces'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export default function ConfigSection<T extends TerraformData = TerraformData>(
@@ -29,7 +22,7 @@ export default function ConfigSection<T extends TerraformData = TerraformData>(
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
 
-  const { inputSetData, readonly, initialValues, gitScope, path } = props
+  const { inputSetData, readonly, initialValues, path } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
     orgIdentifier: string
@@ -38,49 +31,6 @@ export default function ConfigSection<T extends TerraformData = TerraformData>(
 
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
 
-  const connectorValue = initialValues?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef as Connector
-  const connectorRef = getIdentifierFromValue(connectorValue?.value || '')
-  const initialScope = getScopeFromValue(connectorValue?.value || '')
-
-  const { data: connector, loading, refetch } = useGetConnector({
-    identifier: connectorRef,
-    queryParams: {
-      accountIdentifier: accountId,
-      orgIdentifier: initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
-      projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined,
-      ...(repoIdentifier && branch ? { repoIdentifier, branch, getDefaultFromOtherRepo: true } : {})
-    },
-    lazy: true,
-    debounce: 300
-  })
-
-  React.useEffect(() => {
-    if (
-      getMultiTypeFromValue(
-        inputSetData?.template?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
-      ) === MultiTypeInputType.RUNTIME &&
-      getMultiTypeFromValue(connectorValue?.value) !== MultiTypeInputType.RUNTIME
-    ) {
-      refetch()
-    }
-  }, [initialValues?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef])
-
-  let connectorSelected: ConnectorReferenceFieldProps['selected'] = undefined
-  if (
-    connector?.data?.connector &&
-    getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef) ===
-      MultiTypeInputType.RUNTIME &&
-    getMultiTypeFromValue(connectorValue.value) === MultiTypeInputType.FIXED
-  ) {
-    const scope = getScopeFromDTO<ConnectorInfoDTO>(connector?.data?.connector)
-    connectorSelected = {
-      label: connector?.data?.connector.name || '',
-      value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${connector?.data?.connector.identifier}`,
-      scope: scope,
-      live: connector?.data?.status?.status === 'SUCCESS',
-      connector: connector?.data?.connector
-    }
-  }
   return (
     <>
       {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.spec?.workspace) ===
@@ -101,18 +51,18 @@ export default function ConfigSection<T extends TerraformData = TerraformData>(
         inputSetData?.template?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
       ) === MultiTypeInputType.RUNTIME && (
         <div className={cx(stepCss.formGroup, stepCss.md)}>
-          <ConnectorReferenceField
+          <FormConnectorReferenceField
             accountIdentifier={accountId}
-            selected={connectorSelected}
+            selected={get(initialValues, 'spec.configuration.spec.configFiles.store.spec.connectorRef', '')}
             projectIdentifier={projectIdentifier}
             orgIdentifier={orgIdentifier}
             width={400}
             type={[Connectors.GIT, Connectors.GITHUB, Connectors.GITLAB, Connectors.BITBUCKET]}
-            name={`${path}.configuration.spec.configFiles.store.spec.connectorRef`}
+            name={`${path}.spec.configuration.spec.configFiles.store.spec.connectorRef`}
             label={getString('connector')}
             placeholder={getString('select')}
-            disabled={readonly || loading}
-            gitScope={gitScope}
+            disabled={readonly}
+            gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
           />
         </div>
       )}
@@ -122,7 +72,7 @@ export default function ConfigSection<T extends TerraformData = TerraformData>(
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormInput.MultiTextInput
             label={getString('pipelineSteps.deploy.inputSet.branch')}
-            name={`${path}.configuration.spec.configFiles.store.spec.branch`}
+            name={`${path}.spec.configuration.spec.configFiles.store.spec.branch`}
             placeholder={getString('pipeline.manifestType.branchPlaceholder')}
             disabled={readonly}
             multiTextInputProps={{
@@ -138,7 +88,7 @@ export default function ConfigSection<T extends TerraformData = TerraformData>(
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormInput.MultiTextInput
             label={getString('pipeline.manifestType.commitId')}
-            name={`${path}.configuration.spec.configFiles.store.spec.commitId`}
+            name={`${path}.spec.configuration.spec.configFiles.store.spec.commitId`}
             placeholder={getString('pipeline.manifestType.commitPlaceholder')}
             disabled={readonly}
             multiTextInputProps={{
@@ -155,7 +105,7 @@ export default function ConfigSection<T extends TerraformData = TerraformData>(
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormInput.MultiTextInput
             label={getString('cd.folderPath')}
-            name={`${path}.configuration.spec.configFiles.store.spec.folderPath`}
+            name={`${path}.spec.configuration.spec.configFiles.store.spec.folderPath`}
             placeholder={getString('pipeline.manifestType.pathPlaceholder')}
             disabled={readonly}
             multiTextInputProps={{

@@ -1828,6 +1828,7 @@ export interface StringsMap {
   'cd.steps.kubernetesGcpStep.stepName': string
   'cd.terraformVarFiles': string
   'cd.tfVarStore': string
+  'cd.varFile': string
   'cd.varFileDetails': string
   'ce.ceTrialHomePage.startTrial.description': string
   'ce.co.accessPoint.ap': string
