@@ -298,6 +298,7 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
                   (
                   common.ID
                   : 
+                  sidecarId
                   )
                 </p>
               </p>

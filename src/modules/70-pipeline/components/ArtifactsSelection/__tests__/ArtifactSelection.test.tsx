@@ -189,6 +189,7 @@ describe('ArtifactsSelection tests', () => {
         {
           sidecar: {
             type: 'DockerRegistry' as 'DockerRegistry' | 'Gcr' | 'Ecr',
+            identifier: 'sidecarId',
             spec: {
               connectorRef: 'connectorRef',
               imagePath: '<+input>',
