@@ -1451,6 +1451,8 @@ export interface StringsMap {
   'pipeline.filters.pipelineNamePlaceholder': string
   'pipeline.filters.servicePlaceholder': string
   'pipeline.gitDetails': string
+  'pipeline.gitExperience.noPipelineFound': string
+  'pipeline.gitExperience.selectDiffBranch': string
   'pipeline.gitExperience.selectRepoBranch': string
   'pipeline.gitExperience.skipNow': string
   'pipeline.imagePathLabel': string

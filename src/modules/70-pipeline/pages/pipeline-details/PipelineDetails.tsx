@@ -1,11 +1,13 @@
 import React from 'react'
-import { Layout, TabNavigation } from '@wings-software/uicore'
-import { useParams, useRouteMatch } from 'react-router-dom'
+import { isEmpty } from 'lodash-es'
+import { Layout, TabNavigation, Text } from '@wings-software/uicore'
+import { useHistory, useParams, useRouteMatch } from 'react-router-dom'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { useGlobalEventListener, useQueryParams } from '@common/hooks'
 import { useGetPipelineSummary } from 'services/pipeline-ng'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { GitQueryParams, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
@@ -13,6 +15,7 @@ import { DefaultNewPipelineId } from '@pipeline/components/PipelineStudio/Pipeli
 import GitPopover from '@pipeline/components/GitPopover/GitPopover'
 import { String } from 'framework/strings'
 import GenericErrorHandler from '@common/pages/GenericErrorHandler/GenericErrorHandler'
+import noPipelineFoundImage from './images/no-pipeline-found.svg'
 import css from './PipelineDetails.module.scss'
 
 // add custom event to the global scope
@@ -22,11 +25,77 @@ declare global {
   }
 }
 
+const NoPipelineFound: React.FC = () => {
+  const { getString } = useStrings()
+  const history = useHistory()
+  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier, module } = useParams<
+    PipelineType<{
+      orgIdentifier: string
+      projectIdentifier: string
+      pipelineIdentifier: string
+      accountId: string
+    }> &
+      GitQueryParams
+  >()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
+
+  const onGitBranchChange = React.useMemo(
+    () => (selectedFilter: GitFilterScope) => {
+      if (branch !== selectedFilter.branch) {
+        history.push(
+          routes.toPipelineStudio({
+            projectIdentifier,
+            orgIdentifier,
+            pipelineIdentifier: pipelineIdentifier || '-1',
+            accountId,
+            module,
+            branch: selectedFilter.branch,
+            repoIdentifier: selectedFilter.repo
+          })
+        )
+        location.reload()
+      }
+    },
+    [repoIdentifier, branch, pipelineIdentifier]
+  )
+
+  return (
+    <div className={css.noPipelineFoundContainer}>
+      {/* @TODO: Have a working solution for this */}
+      {/* <Button
+        className={css.backButton}
+        onClick={() => {
+          history.goBack()
+          location.reload()
+        }}
+        text={'< ' + getString('back')}
+      /> */}
+      <Layout.Vertical spacing="small" flex={{ justifyContent: 'center', alignItems: 'center' }}>
+        <img src={noPipelineFoundImage} className={css.noPipelineFoundImage} />
+
+        <Text className={css.noPipelineFound} margin={{ top: 'medium', bottom: 'small' }}>
+          {getString('pipeline.gitExperience.noPipelineFound')}
+        </Text>
+        <Text className={css.selectDiffBranch} margin={{ top: 'xsmall', bottom: 'xlarge' }}>
+          {getString('pipeline.gitExperience.selectDiffBranch')}
+        </Text>
+        <GitFilters
+          onChange={onGitBranchChange}
+          showRepoSelector={false}
+          defaultValue={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
+          branchSelectClassName={css.branchSelector}
+        />
+      </Layout.Vertical>
+    </div>
+  )
+}
+
 export default function PipelineDetails({ children }: React.PropsWithChildren<unknown>): React.ReactElement {
   const { selectedProject } = useAppStore()
   const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module } = useParams<
     PipelineType<PipelinePathProps>
   >()
+  const { isGitSyncEnabled } = useAppStore()
   const { branch, repoIdentifier } = useQueryParams<GitQueryParams>()
   const { data: pipeline, refetch, error } = useGetPipelineSummary({
     pipelineIdentifier,
@@ -90,8 +159,12 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
     })
   ) || { isExact: false }
 
-  if (error?.data) {
+  if (error?.data && !isGitSyncEnabled) {
     return <GenericErrorHandler errStatusCode={error?.status} errorMessage={(error?.data as Error)?.message} />
+  }
+
+  if (error?.data && isEmpty(pipeline) && isGitSyncEnabled) {
+    return <NoPipelineFound />
   }
 
   return (
