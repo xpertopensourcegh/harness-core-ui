@@ -129,11 +129,11 @@ export const DockerHubStepBase = (
                 name="spec.repo"
                 label={
                   <Text margin={{ top: 'small' }}>
-                    {getString('dockerRegistry')}
+                    {getString('connectors.docker.dockerRepository')}
                     <Button
                       icon="question"
                       minimal
-                      tooltip={getString('pipelineSteps.dockerRegistryInfo')}
+                      tooltip={getString('connectors.docker.dockerRepositoryInfo')}
                       iconProps={{ size: 14 }}
                     />
                   </Text>
@@ -269,7 +269,7 @@ export const DockerHubStepBase = (
                 name="spec.remoteCacheRepo"
                 label={
                   <Text margin={{ top: 'small' }}>
-                    {getString('ci.remoteCacheImage.label')}
+                    {getString('ci.remoteCacheRepository.label')}
                     <Button
                       icon="question"
                       minimal

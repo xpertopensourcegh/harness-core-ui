@@ -899,6 +899,8 @@ export interface StringsMap {
   'connectors.docker.dockerHub': string
   'connectors.docker.dockerProvideType': string
   'connectors.docker.dockerRegistryURL': string
+  'connectors.docker.dockerRepository': string
+  'connectors.docker.dockerRepositoryInfo': string
   'connectors.docker.harbour': string
   'connectors.docker.other': string
   'connectors.docker.quay': string
@@ -2551,6 +2553,7 @@ export interface StringsMap {
   'ci.remoteCacheImage.gcrInfo': string
   'ci.remoteCacheImage.label': string
   'ci.remoteCacheImage.placeholder': string
+  'ci.remoteCacheRepository.label': string
   'ci.save': string
   'ci.secrets': string
   'ci.templates': string

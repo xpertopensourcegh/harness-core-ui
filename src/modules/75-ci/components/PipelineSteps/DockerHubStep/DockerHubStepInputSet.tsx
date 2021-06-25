@@ -246,7 +246,7 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
           name={`${isEmpty(path) ? '' : `${path}.`}spec.remoteCacheRepo`}
           label={
             <Text style={{ display: 'flex', alignItems: 'center' }}>
-              {getString('ci.remoteCacheImage.label')}
+              {getString('ci.remoteCacheRepository.label')}
               <Button
                 icon="question"
                 minimal
