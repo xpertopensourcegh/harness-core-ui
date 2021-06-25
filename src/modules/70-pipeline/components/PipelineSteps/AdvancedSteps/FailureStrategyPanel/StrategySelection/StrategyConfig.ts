@@ -1,4 +1,3 @@
-import { mapValues } from 'lodash-es'
 import { Strategy, ErrorType, FailureErrorType } from '@pipeline/utils/FailureStrategyUtils'
 import { StageType } from '@pipeline/utils/stageHelpers'
 import { StepMode as Modes } from '@pipeline/utils/stepUtils'
@@ -83,8 +82,3 @@ export const errorTypesForStages: Record<StageType, FailureErrorType[]> = {
   [StageType.PIPELINE]: [],
   [StageType.CUSTOM]: []
 }
-
-export const testIds: Record<Strategy, string> = mapValues(
-  Strategy,
-  (_, key) => `failure-strategy-${key.toLowerCase()}`
-)

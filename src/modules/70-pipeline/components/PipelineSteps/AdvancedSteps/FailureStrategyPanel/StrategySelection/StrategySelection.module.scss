@@ -1,117 +1,7 @@
 $step-width: 140px;
 
-.stepsList {
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-  display: grid;
-  grid-template-columns: repeat(4, $step-width);
-
-  li {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-.strategyIcon {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: var(--font-size-small);
-  height: 100px;
-  cursor: pointer;
-  padding: 0 var(--spacing-small);
-  width: $step-width;
-
-  .icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: var(--spacing-small) auto;
-    width: 48px;
-    height: 48px;
-    box-shadow: var(--card-shadow);
-    border-radius: 5px;
-    --intent-color: var(--primary-7);
-    position: relative;
-    overflow: hidden;
-    background: var(--white);
-  }
-
-  .icon-text {
-    color: var(--grey-500);
-  }
-
-  &:hover {
-    .icon {
-      box-shadow: var(--card-hover-shadow);
-    }
-  }
-
-  .checkMark {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 0;
-    height: 0;
-    border: 9px solid;
-    border-color: var(--primary-7) var(--primary-7) transparent transparent;
-
-    &::before,
-    &::after {
-      content: '';
-      position: absolute;
-      display: inline-block;
-      height: 1px;
-      background-color: var(--white);
-      top: 0;
-      right: 0;
-    }
-
-    &::before {
-      width: 4px;
-      transform: translate(3px, -1px) rotate(45deg);
-      transform-origin: right center;
-    }
-
-    &::after {
-      width: 6px;
-      transform: translate(8px, -1px) rotate(-45deg);
-      transform-origin: left center;
-    }
-  }
-
-  & input[type='checkbox'] {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 0;
-    height: 0;
-    overflow: hidden;
-    opacity: 0;
-  }
-
-  &.disabled {
-    cursor: not-allowed;
-    .icon {
-      --intent-color: var(--primary-3);
-    }
-
-    .checkMark {
-      opacity: 0.8;
-    }
-  }
-}
-
 .step {
   position: relative;
-
-  & > .strategyIcon {
-    margin-bottom: var(--spacing-3);
-  }
 
   .sm {
     width: 35%;
@@ -139,5 +29,12 @@ $step-width: 140px;
         top: 0;
       }
     }
+  }
+}
+
+.thumbnail {
+  cursor: pointer;
+  :global(.bp3-icon) {
+    --intent-color: var(--primary-7);
   }
 }

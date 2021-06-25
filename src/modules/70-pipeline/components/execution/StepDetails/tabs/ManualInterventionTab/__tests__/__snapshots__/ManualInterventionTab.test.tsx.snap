@@ -14,10 +14,11 @@ exports[`<ManualInterventionTab /> tests snapshot test 1`] = `
       class="actionRow"
     >
       <label
-        class="strategyIcon"
+        class="Thumbnail--squareCardContainer thumbnail"
       >
         <div
-          class="icon"
+          class="bp3-card bp3-interactive bp3-elevation-0 Card--card Thumbnail--squareCard Card--interactive"
+          tabindex="0"
         >
           <span
             class="bp3-icon bp3-icon-delete StyledProps--main"
@@ -25,9 +26,9 @@ exports[`<ManualInterventionTab /> tests snapshot test 1`] = `
           >
             <svg
               data-icon="delete"
-              height="22"
+              height="26"
               viewBox="0 0 20 20"
-              width="22"
+              width="26"
             >
               <desc>
                 delete
@@ -39,23 +40,24 @@ exports[`<ManualInterventionTab /> tests snapshot test 1`] = `
             </svg>
           </span>
         </div>
-        <span
-          class="iconText"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey600"
+          style="text-align: center;"
         >
           pipeline.failureStrategies.strategiesLabel.Ignore
-        </span>
+        </p>
         <input
-          data-testid="failure-strategy-ignore"
           name="Ignore"
           type="checkbox"
           value="Ignore"
         />
       </label>
       <label
-        class="strategyIcon"
+        class="Thumbnail--squareCardContainer thumbnail"
       >
         <div
-          class="icon"
+          class="bp3-card bp3-interactive bp3-elevation-0 Card--card Thumbnail--squareCard Card--interactive"
+          tabindex="0"
         >
           <span
             class="bp3-icon bp3-icon-ban-circle StyledProps--main"
@@ -63,9 +65,9 @@ exports[`<ManualInterventionTab /> tests snapshot test 1`] = `
           >
             <svg
               data-icon="ban-circle"
-              height="22"
+              height="26"
               viewBox="0 0 20 20"
-              width="22"
+              width="26"
             >
               <desc>
                 ban-circle
@@ -77,23 +79,24 @@ exports[`<ManualInterventionTab /> tests snapshot test 1`] = `
             </svg>
           </span>
         </div>
-        <span
-          class="iconText"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey600"
+          style="text-align: center;"
         >
           pipeline.failureStrategies.strategiesLabel.Abort
-        </span>
+        </p>
         <input
-          data-testid="failure-strategy-abort"
           name="Abort"
           type="checkbox"
           value="Abort"
         />
       </label>
       <label
-        class="strategyIcon"
+        class="Thumbnail--squareCardContainer thumbnail"
       >
         <div
-          class="icon"
+          class="bp3-card bp3-interactive bp3-elevation-0 Card--card Thumbnail--squareCard Card--interactive"
+          tabindex="0"
         >
           <span
             class="bp3-icon bp3-icon-repeat StyledProps--main"
@@ -101,9 +104,9 @@ exports[`<ManualInterventionTab /> tests snapshot test 1`] = `
           >
             <svg
               data-icon="repeat"
-              height="22"
+              height="26"
               viewBox="0 0 20 20"
-              width="22"
+              width="26"
             >
               <desc>
                 repeat
@@ -115,23 +118,24 @@ exports[`<ManualInterventionTab /> tests snapshot test 1`] = `
             </svg>
           </span>
         </div>
-        <span
-          class="iconText"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey600"
+          style="text-align: center;"
         >
           pipeline.failureStrategies.strategiesLabel.StageRollback
-        </span>
+        </p>
         <input
-          data-testid="failure-strategy-stagerollback"
           name="StageRollback"
           type="checkbox"
           value="StageRollback"
         />
       </label>
       <label
-        class="strategyIcon"
+        class="Thumbnail--squareCardContainer thumbnail"
       >
         <div
-          class="icon"
+          class="bp3-card bp3-interactive bp3-elevation-0 Card--card Thumbnail--squareCard Card--interactive"
+          tabindex="0"
         >
           <span
             class="bp3-icon bp3-icon-repeat StyledProps--main"
@@ -139,9 +143,9 @@ exports[`<ManualInterventionTab /> tests snapshot test 1`] = `
           >
             <svg
               data-icon="repeat"
-              height="22"
+              height="26"
               viewBox="0 0 20 20"
-              width="22"
+              width="26"
             >
               <desc>
                 repeat
@@ -153,23 +157,24 @@ exports[`<ManualInterventionTab /> tests snapshot test 1`] = `
             </svg>
           </span>
         </div>
-        <span
-          class="iconText"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey600"
+          style="text-align: center;"
         >
           pipeline.failureStrategies.strategiesLabel.StepGroupRollback
-        </span>
+        </p>
         <input
-          data-testid="failure-strategy-stepgrouprollback"
           name="StepGroupRollback"
           type="checkbox"
           value="StepGroupRollback"
         />
       </label>
       <label
-        class="strategyIcon"
+        class="Thumbnail--squareCardContainer thumbnail"
       >
         <div
-          class="icon"
+          class="bp3-card bp3-interactive bp3-elevation-0 Card--card Thumbnail--squareCard Card--interactive"
+          tabindex="0"
         >
           <span
             class="bp3-icon bp3-icon-refresh StyledProps--main"
@@ -177,9 +182,9 @@ exports[`<ManualInterventionTab /> tests snapshot test 1`] = `
           >
             <svg
               data-icon="refresh"
-              height="22"
+              height="26"
               viewBox="0 0 20 20"
-              width="22"
+              width="26"
             >
               <desc>
                 refresh
@@ -191,13 +196,13 @@ exports[`<ManualInterventionTab /> tests snapshot test 1`] = `
             </svg>
           </span>
         </div>
-        <span
-          class="iconText"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey600"
+          style="text-align: center;"
         >
           pipeline.failureStrategies.strategiesLabel.Retry
-        </span>
+        </p>
         <input
-          data-testid="failure-strategy-retry"
           name="Retry"
           type="checkbox"
           value="Retry"
@@ -208,10 +213,11 @@ exports[`<ManualInterventionTab /> tests snapshot test 1`] = `
       class="actionRow"
     >
       <label
-        class="strategyIcon"
+        class="Thumbnail--squareCardContainer thumbnail"
       >
         <div
-          class="icon"
+          class="bp3-card bp3-interactive bp3-elevation-0 Card--card Thumbnail--squareCard Card--interactive"
+          tabindex="0"
         >
           <span
             class="bp3-icon bp3-icon-hand-up StyledProps--main"
@@ -219,9 +225,9 @@ exports[`<ManualInterventionTab /> tests snapshot test 1`] = `
           >
             <svg
               data-icon="hand-up"
-              height="22"
+              height="26"
               viewBox="0 0 20 20"
-              width="22"
+              width="26"
             >
               <desc>
                 hand-up
@@ -233,23 +239,24 @@ exports[`<ManualInterventionTab /> tests snapshot test 1`] = `
             </svg>
           </span>
         </div>
-        <span
-          class="iconText"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey600"
+          style="text-align: center;"
         >
           pipeline.failureStrategies.strategiesLabel.ManualIntervention
-        </span>
+        </p>
         <input
-          data-testid="failure-strategy-manualintervention"
           name="ManualIntervention"
           type="checkbox"
           value="ManualIntervention"
         />
       </label>
       <label
-        class="strategyIcon"
+        class="Thumbnail--squareCardContainer thumbnail"
       >
         <div
-          class="icon"
+          class="bp3-card bp3-interactive bp3-elevation-0 Card--card Thumbnail--squareCard Card--interactive"
+          tabindex="0"
         >
           <span
             class="bp3-icon bp3-icon-tick StyledProps--main"
@@ -257,9 +264,9 @@ exports[`<ManualInterventionTab /> tests snapshot test 1`] = `
           >
             <svg
               data-icon="tick"
-              height="22"
+              height="26"
               viewBox="0 0 20 20"
-              width="22"
+              width="26"
             >
               <desc>
                 tick
@@ -271,13 +278,13 @@ exports[`<ManualInterventionTab /> tests snapshot test 1`] = `
             </svg>
           </span>
         </div>
-        <span
-          class="iconText"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey600"
+          style="text-align: center;"
         >
           pipeline.failureStrategies.strategiesLabel.MarkAsSuccess
-        </span>
+        </p>
         <input
-          data-testid="failure-strategy-markassuccess"
           name="MarkAsSuccess"
           type="checkbox"
           value="MarkAsSuccess"

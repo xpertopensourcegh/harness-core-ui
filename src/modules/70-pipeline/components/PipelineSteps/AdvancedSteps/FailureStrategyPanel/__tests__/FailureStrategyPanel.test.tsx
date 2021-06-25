@@ -1,6 +1,7 @@
 import React from 'react'
 import { act, fireEvent, queryAllByAttribute, render, waitFor } from '@testing-library/react'
-import { times } from 'lodash-es'
+import { get, times } from 'lodash-es'
+import yaml from 'yaml'
 
 import { StepMode as Modes } from '@pipeline/utils/stepUtils'
 import { ErrorType, Strategy } from '@pipeline/utils/FailureStrategyUtils'
@@ -31,17 +32,16 @@ describe('<FailureStrategyPanel /> tests', () => {
     expect(panel).toMatchSnapshot()
 
     const code = await findByTestId('code-output')
-    expect(code).toMatchInlineSnapshot(`
-      <pre
-        data-testid="code-output"
-      >
-        failureStrategies:
+    expect(code.innerHTML).toMatchInlineSnapshot(`
+      "failureStrategies:
         - onFailure:
             errors: []
             action: {}
-
-      </pre>
+      "
     `)
+
+    const data = yaml.parse(code.innerHTML)
+    expect(get(data, 'failureStrategies.length')).toBe(1)
   })
 
   test('removing a strategy works', async () => {
@@ -88,31 +88,18 @@ describe('<FailureStrategyPanel /> tests', () => {
 
     const code = await findByTestId('code-output')
 
-    expect(code).toMatchInlineSnapshot(`
-      <pre
-        data-testid="code-output"
-      >
-        failureStrategies:
+    expect(code.innerHTML).toMatchInlineSnapshot(`
+      "failureStrategies:
         - onFailure:
             errors:
               - Authentication
             action:
               type: Abort
-
-      </pre>
+      "
     `)
-  })
 
-  test('shows error for unsupported strategy', async () => {
-    const { findByTestId } = render(
-      <Basic
-        data={{ failureStrategies: [{ onFailure: { errors: [], action: { type: 'UNKNOWN' as any } } }] }}
-        mode={Modes.STAGE}
-      />
-    )
-
-    const panel = await findByTestId('failure-strategy-panel')
-    expect(panel).toMatchSnapshot()
+    const data = yaml.parse(code.innerHTML)
+    expect(get(data, 'failureStrategies.length')).toBe(1)
   })
 
   test('error type selection does not show already selected error types', async () => {
@@ -146,17 +133,13 @@ describe('<FailureStrategyPanel /> tests', () => {
 
     const code = await findByTestId('code-output')
 
-    expect(code).toMatchInlineSnapshot(`
-      <pre
-        data-testid="code-output"
-      >
-        failureStrategies:
+    expect(code.innerHTML).toMatchInlineSnapshot(`
+      "failureStrategies:
         - onFailure:
             errors:
               - Authentication
             action: {}
-
-      </pre>
+      "
     `)
   })
 
@@ -180,18 +163,14 @@ describe('<FailureStrategyPanel /> tests', () => {
     await waitFor(() => findByTestId('failure-strategy-step-0'))
     const errorTypeFields = queryAllByAttribute('name', container, 'failureStrategies[0].onFailure.errors')!
 
-    const code1 = await findByTestId('code-output')
+    const code = await findByTestId('code-output')
 
-    expect(code1).toMatchInlineSnapshot(`
-      <pre
-        data-testid="code-output"
-      >
-        failureStrategies:
+    expect(code.innerHTML).toMatchInlineSnapshot(`
+      "failureStrategies:
         - onFailure:
             errors: []
             action: {}
-
-      </pre>
+      "
     `)
 
     await act(() => {
@@ -199,19 +178,13 @@ describe('<FailureStrategyPanel /> tests', () => {
       return Promise.resolve()
     })
 
-    const code2 = await findByTestId('code-output')
-
-    expect(code2).toMatchInlineSnapshot(`
-      <pre
-        data-testid="code-output"
-      >
-        failureStrategies:
+    expect(code.innerHTML).toMatchInlineSnapshot(`
+      "failureStrategies:
         - onFailure:
             errors:
               - AllErrors
             action: {}
-
-      </pre>
+      "
     `)
 
     const panel = await findByTestId('failure-strategy-panel')
@@ -235,21 +208,17 @@ describe('<FailureStrategyPanel /> tests', () => {
       />
     )
 
-    const code1 = await findByTestId('code-output')
+    const code = await findByTestId('code-output')
 
-    expect(code1).toMatchInlineSnapshot(`
-      <pre
-        data-testid="code-output"
-      >
-        failureStrategies:
+    expect(code.innerHTML).toMatchInlineSnapshot(`
+      "failureStrategies:
         - onFailure:
             errors:
               - Authentication
               - Authorization
             action:
               type: Abort
-
-      </pre>
+      "
     `)
     const removeTags = queryAllByAttribute('class', container, 'bp3-tag-remove')
 
@@ -258,21 +227,18 @@ describe('<FailureStrategyPanel /> tests', () => {
       return Promise.resolve()
     })
 
-    const code2 = await findByTestId('code-output')
-
-    expect(code2).toMatchInlineSnapshot(`
-      <pre
-        data-testid="code-output"
-      >
-        failureStrategies:
+    expect(code.innerHTML).toMatchInlineSnapshot(`
+      "failureStrategies:
         - onFailure:
             errors:
               - Authentication
             action:
               type: Abort
-
-      </pre>
+      "
     `)
+
+    const data = yaml.parse(code.innerHTML)
+    expect(get(data, 'failureStrategies[0].onFailure.errors')).not.toContain(ErrorType.Authorization)
   })
 
   test('"Add" button is disabled, if the tab has errors', async () => {
@@ -383,5 +349,80 @@ describe('<FailureStrategyPanel /> tests', () => {
 
     const panel = await findByTestId(`failure-strategy-step-${NUM}`)
     expect(panel.dataset.selected).toBe('true')
+  })
+
+  test('chaning strategy correctly updates YAML', async () => {
+    const { container, findByTestId, findAllByTestId } = render(
+      <Basic
+        data={{
+          failureStrategies: [
+            {
+              onFailure: {
+                errors: [ErrorType.AllErrors],
+                action: {
+                  type: Strategy.ManualIntervention,
+                  spec: {
+                    timeout: '1d',
+                    onTimeout: {
+                      action: {
+                        type: Strategy.Abort
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }}
+        mode={Modes.STEP}
+      />
+    )
+
+    const queryFieldAndStrategy = (name: string, strategy: Strategy): HTMLElement | null =>
+      container.querySelector(`input[name="${name}"][value=${strategy}]`)
+
+    await waitFor(() => findByTestId('failure-strategy-step-0'))
+
+    const code = await findByTestId('code-output')
+
+    expect(code.innerHTML).toMatchInlineSnapshot(`
+      "failureStrategies:
+        - onFailure:
+            errors:
+              - AllErrors
+            action:
+              type: ManualIntervention
+              spec:
+                timeout: 1d
+                onTimeout:
+                  action:
+                    type: Abort
+      "
+    `)
+
+    const change = await findAllByTestId('thumbnail-select-change')
+
+    act(() => {
+      fireEvent.click(change[0])
+    })
+
+    const retry = queryFieldAndStrategy('failureStrategies[0].onFailure.action.type', Strategy.Retry)!
+
+    act(() => {
+      fireEvent.click(retry)
+    })
+
+    expect(code.innerHTML).toMatchInlineSnapshot(`
+      "failureStrategies:
+        - onFailure:
+            errors:
+              - AllErrors
+            action:
+              type: Retry
+      "
+    `)
+
+    const data = yaml.parse(code.innerHTML)
+    expect(get(data, 'failureStrategies[0].onFailure.action.spec')).toBeUndefined()
   })
 })

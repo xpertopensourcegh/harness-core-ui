@@ -1,7 +1,6 @@
 import React from 'react'
-import { render, fireEvent, waitFor } from '@testing-library/react'
+import { render, fireEvent, waitFor, queryByAttribute } from '@testing-library/react'
 
-import { testIds } from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/StrategySelection/StrategyConfig'
 import routes from '@common/RouteDefinitions'
 import { useHandleManualInterventionInterrupt } from 'services/pipeline-ng'
 import { TestWrapper } from '@common/utils/testUtils'
@@ -53,13 +52,13 @@ describe('<ManualInterventionTab /> tests', () => {
   })
 
   test.each(AllStrategies)('interrupt %s works', async strategy => {
-    const { findByTestId } = render(
+    const { container } = render(
       <TestWrapper path={TEST_PATH} pathParams={pathParams}>
         <ManualInterventionTab step={data as any} allowedStrategies={AllStrategies} />
       </TestWrapper>
     )
 
-    const btn = await findByTestId(testIds[strategy])
+    const btn = queryByAttribute('value', container, strategy)!
 
     fireEvent.click(btn)
 

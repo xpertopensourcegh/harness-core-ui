@@ -5,5 +5,6 @@ declare const styles: {
   readonly title: string
   readonly loading: string
   readonly actionRow: string
+  readonly thumbnail: string
 }
 export default styles

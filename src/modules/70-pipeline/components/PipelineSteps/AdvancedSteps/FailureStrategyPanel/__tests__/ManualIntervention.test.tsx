@@ -1,9 +1,14 @@
 import React from 'react'
-import { render, fireEvent, act, queryByAttribute } from '@testing-library/react'
+import {
+  render,
+  fireEvent,
+  act,
+  queryByAttribute as queryByAttributeGlobal,
+  queryAllByAttribute as queryAllByAttributeGlobal
+} from '@testing-library/react'
 
 import { Strategy } from '@pipeline/utils/FailureStrategyUtils'
 import { StepMode as Modes } from '@pipeline/utils/stepUtils'
-import { testIds } from '../StrategySelection/StrategyConfig'
 import { Basic } from '../FailureStrategyPanel.stories'
 
 describe('Failure Strategy: ManualIntervention', () => {
@@ -12,20 +17,28 @@ describe('Failure Strategy: ManualIntervention', () => {
       <Basic data={{ failureStrategies: [{ onFailure: { errors: [], action: {} as any } }] }} mode={Modes.STEP} />
     )
 
-    const selection = await findByTestId(testIds.ManualIntervention)
+    const queryByAttribute = (name: string, id: string): HTMLElement | null =>
+      queryByAttributeGlobal(name, container, id)
+    const queryFieldAndStrategy = (name: string, strategy: Strategy): HTMLElement | null =>
+      container.querySelector(`input[name="${name}"][value=${strategy}]`)
+
+    const selection = queryFieldAndStrategy('failureStrategies[0].onFailure.action.type', Strategy.ManualIntervention)!
 
     await act(() => {
       fireEvent.click(selection)
       return Promise.resolve()
     })
 
-    fireEvent.change(queryByAttribute('name', container, 'failureStrategies[0].onFailure.action.spec.timeout')!, {
+    fireEvent.change(queryByAttribute('name', 'failureStrategies[0].onFailure.action.spec.timeout')!, {
       target: {
         value: '1d'
       }
     })
 
-    const selection2 = await findByTestId(testIds.Abort)
+    const selection2 = queryFieldAndStrategy(
+      'failureStrategies[0].onFailure.action.spec.onTimeout.action.type',
+      Strategy.Abort
+    )!
 
     fireEvent.click(selection2)
 
@@ -34,11 +47,8 @@ describe('Failure Strategy: ManualIntervention', () => {
 
     const code = await findByTestId('code-output')
 
-    expect(code).toMatchInlineSnapshot(`
-      <pre
-        data-testid="code-output"
-      >
-        failureStrategies:
+    expect(code.innerHTML).toMatchInlineSnapshot(`
+      "failureStrategies:
         - onFailure:
             errors: []
             action:
@@ -48,72 +58,43 @@ describe('Failure Strategy: ManualIntervention', () => {
                 onTimeout:
                   action:
                     type: Abort
-
-      </pre>
-    `)
-  })
-
-  test('deselection works', async () => {
-    const { findByTestId } = render(
-      <Basic
-        data={{
-          failureStrategies: [
-            {
-              onFailure: {
-                errors: [],
-                action: { type: Strategy.ManualIntervention, spec: { onTimeout: {}, timeout: '1d' } }
-              }
-            }
-          ]
-        }}
-        mode={Modes.STEP_GROUP}
-      />
-    )
-
-    const selection = await findByTestId(testIds.ManualIntervention)
-
-    await act(() => {
-      fireEvent.click(selection)
-      return Promise.resolve()
-    })
-
-    const code = await findByTestId('code-output')
-
-    expect(code).toMatchInlineSnapshot(`
-      <pre
-        data-testid="code-output"
-      >
-        failureStrategies:
-        - onFailure:
-            errors: []
-            action: {}
-
-      </pre>
+      "
     `)
   })
 
   // eslint-disable-next-line jest/no-disabled-tests
   test.skip('"ManualIntervention" is not shown in "Retry" fallback step', async () => {
-    const { findByTestId, findAllByTestId } = render(
+    const { container } = render(
       <Basic data={{ failureStrategies: [{ onFailure: { errors: [], action: {} as any } }] }} mode={Modes.STEP} />
     )
 
-    const selection = await findByTestId(testIds.ManualIntervention)
+    const queryFieldAndStrategy = (name: string, strategy: Strategy): HTMLElement | null =>
+      container.querySelector(`input[name="${name}"][value=${strategy}]`)
+
+    const selection = queryFieldAndStrategy('failureStrategies[0].onFailure.action.type', Strategy.ManualIntervention)!
 
     await act(() => {
       fireEvent.click(selection)
       return Promise.resolve()
     })
 
-    const selection2 = await findByTestId(testIds.Retry)
+    const selection2 = queryFieldAndStrategy(
+      'failureStrategies[0].onFailure.action.spec.onTimeout.action.type',
+      Strategy.ManualIntervention
+    )!
 
     await act(() => {
       fireEvent.click(selection2)
       return Promise.resolve()
     })
 
-    const selection3 = await findAllByTestId(testIds.ManualIntervention)
+    expect(
+      queryFieldAndStrategy(
+        'failureStrategies[0].onFailure.action.spec.onTimeout.action.spec.onRetryFailure.action.type',
+        Strategy.ManualIntervention
+      )
+    ).toBeNull()
 
-    expect(selection3.length).toBe(1)
+    expect(queryAllByAttributeGlobal('value', container, Strategy.ManualIntervention).length).toBe(1)
   })
 })

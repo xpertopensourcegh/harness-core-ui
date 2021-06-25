@@ -1,16 +1,16 @@
 import React from 'react'
 import { chunk } from 'lodash-es'
 import { useParams } from 'react-router-dom'
+import { Thumbnail } from '@wings-software/uicore'
 import cx from 'classnames'
 
-import { String } from 'framework/strings'
+import { String, useStrings } from 'framework/strings'
 import {
   useHandleManualInterventionInterrupt,
   ExecutionNode,
   HandleManualInterventionInterruptQueryParams
 } from 'services/pipeline-ng'
-import type { Strategy } from '@pipeline/utils/FailureStrategyUtils'
-import { StrategyIcon } from '@pipeline/components/PipelineSteps/AdvancedSteps/FailureStrategyPanel/StrategySelection/StrategyIcon'
+import { Strategy, strategyIconMap, stringsMap } from '@pipeline/utils/FailureStrategyUtils'
 import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/components/Toaster/useToaster'
 
@@ -31,6 +31,7 @@ export function ManualInterventionTab(props: ManualInterventionTabProps): React.
     nodeExecutionId: step.uuid || /* istanbul ignore next */ ''
   })
   const { showError } = useToaster()
+  const { getString } = useStrings()
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
     const interruptType = e.target.value as HandleManualInterventionInterruptQueryParams['interruptType']
@@ -61,7 +62,15 @@ export function ManualInterventionTab(props: ManualInterventionTabProps): React.
         return (
           <div key={i} className={css.actionRow}>
             {layer.map((strategy, j) => (
-              <StrategyIcon key={j} strategy={strategy} name={strategy} onChange={handleChange} />
+              <Thumbnail
+                key={j}
+                label={getString(stringsMap[strategy])}
+                icon={strategyIconMap[strategy]}
+                value={strategy}
+                name={strategy}
+                onClick={handleChange}
+                className={css.thumbnail}
+              />
             ))}
           </div>
         )

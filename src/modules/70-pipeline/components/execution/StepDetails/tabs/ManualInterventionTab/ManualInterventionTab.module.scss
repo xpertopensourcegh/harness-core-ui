@@ -13,9 +13,17 @@
   .action-row {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    align-items: center;
+    place-items: center;
     margin: var(--spacing-medium);
     padding: var(--spacing-medium) 0;
+
+    .thumbnail {
+      cursor: pointer;
+
+      :global(.bp3-icon) {
+        --intent-color: var(--primary-7);
+      }
+    }
 
     &:not(:last-child) {
       border-bottom: 1px solid var(--grey-200);
