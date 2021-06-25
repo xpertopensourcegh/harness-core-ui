@@ -45,16 +45,25 @@ export function useVariablesExpression(): { expressions: string[] } {
 
   useEffect(() => {
     if (!initLoading && metadataMap) {
-      setExpressions(
-        sortedUniq(
-          sortBy(
-            map(metadataMap, (item, index) =>
-              localStageKeys.indexOf(index) > -1 ? item.yamlProperties?.localName || '' : item.yamlProperties?.fqn || ''
-            ).filter(p => p),
-            identity
-          )
+      const expression = sortedUniq(
+        sortBy(
+          map(metadataMap, (item, index) =>
+            localStageKeys.indexOf(index) > -1 ? item.yamlProperties?.localName || '' : item.yamlProperties?.fqn || ''
+          ).filter(p => p),
+          identity
         )
       )
+      const outputExpression = sortedUniq(
+        sortBy(
+          map(metadataMap, (item, index) =>
+            localStageKeys.indexOf(index) > -1
+              ? item.yamlOutputProperties?.localName || ''
+              : item.yamlOutputProperties?.fqn || ''
+          ).filter(p => p),
+          identity
+        )
+      )
+      setExpressions([...expression, ...outputExpression])
     }
   }, [initLoading, metadataMap, localStageKeys])
 
