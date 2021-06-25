@@ -700,7 +700,7 @@ export default (
       exact
       licenseRedirectData={licenseRedirectData}
       sidebarProps={CISideNavProps}
-      path={[routes.toRoleDetails({ ...projectPathProps, ...rolePathProps })]}
+      path={[routes.toRoleDetails({ ...projectPathProps, ...pipelineModuleParams, ...rolePathProps })]}
     >
       <RoleDetails />
     </RouteWithLayout>
