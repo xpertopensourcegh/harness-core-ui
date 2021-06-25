@@ -1,11 +1,12 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { useGetAccountLicenses } from 'services/cd-ng'
+import { useGetAccountLicenses, useUpdateAccountDefaultExperienceNG } from 'services/cd-ng'
 import { PurposePage } from '../PurposePage'
 
 jest.mock('services/cd-ng')
 const useGetAccountLicenseInfoMock = useGetAccountLicenses as jest.MockedFunction<any>
+const useUpdateAccountDefaultExperienceNGMock = useUpdateAccountDefaultExperienceNG as jest.MockedFunction<any>
 
 const featureFlags = {
   CDNG_ENABLED: true,
@@ -17,6 +18,12 @@ const featureFlags = {
 
 describe('PurposePage', () => {
   test('should render module description and continue button when select module', async () => {
+    useUpdateAccountDefaultExperienceNGMock.mockImplementation(() => {
+      return {
+        mutate: () => void 0
+      }
+    })
+
     useGetAccountLicenseInfoMock.mockImplementation(() => {
       return {
         data: {
@@ -51,24 +58,5 @@ describe('PurposePage', () => {
     )
     fireEvent.click(getByText('common.purpose.ci.integration'))
     await waitFor(() => expect(container).toMatchSnapshot())
-  })
-
-  test('should display error page when api call fails', async () => {
-    useGetAccountLicenseInfoMock.mockImplementation(() => {
-      return {
-        error: {
-          data: {
-            message: 'call failed'
-          }
-        },
-        refetch: jest.fn()
-      }
-    })
-    const { getByText } = render(
-      <TestWrapper defaultAppStoreValues={{ featureFlags }}>
-        <PurposePage />
-      </TestWrapper>
-    )
-    expect(getByText('call failed')).toBeDefined()
   })
 })

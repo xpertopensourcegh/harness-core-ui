@@ -435,7 +435,7 @@ exports[`ModuleInfoCards Test Rendering should render footer when it is cd modul
       </div>
     </div>
     <div
-      class="bp3-card bp3-elevation-0 Card--card card infoCard selected cd"
+      class="bp3-card bp3-elevation-0 Card--card card infoCard selected cd Card--disabled"
     >
       <div
         class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-bottom-large"
@@ -484,12 +484,6 @@ exports[`ModuleInfoCards Test Rendering should render footer when it is cd modul
               class="StyledProps--font StyledProps--main title StyledProps--font-xsmall StyledProps--color StyledProps--color-black"
             >
               common.purpose.cd.newGen.title
-            </p>
-            <p
-              class="StyledProps--font StyledProps--main new StyledProps--background-red500 StyledProps--color StyledProps--color-white StyledProps--border StyledProps--font-align-center StyledProps--font-size-xsmall StyledProps--font-weight-light"
-              style="width: 35px; height: 15px;"
-            >
-              common.new
             </p>
           </div>
         </div>
@@ -962,57 +956,6 @@ exports[`ModuleInfoCards Test Rendering that the module info cards get selected 
     class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
   >
     <div
-      class="bp3-card bp3-elevation-0 Card--card card infoCard"
-    >
-      <div
-        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-bottom-large"
-      >
-        <span
-          class="bp3-icon StyledProps--main"
-          data-icon="ce-optimization"
-        >
-          <svg
-            fill="none"
-            height="40"
-            width="40"
-          >
-            <path
-              d="M31.217 12.9l-3.772-.466a9.684 9.684 0 00-1.055-2.362l2.312-2.805a.417.417 0 00-.042-.58l-2.686-2.492a.5.5 0 00-.624-.038l-3.024 2.145a11.331 11.331 0 00-2.545-.98l-.503-3.499a.465.465 0 00-.471-.383h-3.8a.464.464 0 00-.47.383l-.503 3.5c-.9.226-1.754.558-2.545.979L8.465 4.156a.501.501 0 00-.624.039L5.155 6.687a.417.417 0 00-.042.58l2.313 2.805a9.679 9.679 0 00-1.056 2.361l-3.772.467a.454.454 0 00-.412.437v3.525c0 .22.176.408.412.437l3.771.466a9.678 9.678 0 001.056 2.362l-2.312 2.806a.417.417 0 00.041.579l2.687 2.492c.092.086.213.13.336.13.101 0 .203-.03.288-.091l3.024-2.146c.791.42 1.645.752 2.545.98l.503 3.499c.031.22.233.383.47.383h3.8c.238 0 .44-.163.47-.383l.503-3.499a11.33 11.33 0 002.546-.98l3.023 2.146c.086.061.188.09.289.09a.494.494 0 00.336-.128l2.686-2.493a.417.417 0 00.042-.579l-2.312-2.805a9.682 9.682 0 001.055-2.362l3.772-.467a.454.454 0 00.412-.437v-3.525a.453.453 0 00-.412-.437zm-14.31 6.165c-2.36 0-4.274-1.775-4.274-3.965s1.914-3.966 4.274-3.966c2.361 0 4.274 1.775 4.274 3.966 0 2.19-1.913 3.965-4.274 3.965z"
-              fill="#0278D5"
-              opacity="0.3"
-            />
-            <path
-              d="M1.71 20.136l5.428 5.035 8.684-8.057 4.342 4.029L39.703 1"
-              stroke="#0278D5"
-              stroke-linecap="round"
-              stroke-width="2"
-            />
-          </svg>
-        </span>
-        <div>
-          <div
-            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-          >
-            <p
-              class="StyledProps--font StyledProps--main title StyledProps--font-xsmall StyledProps--color StyledProps--color-black"
-            >
-              common.ce.cost
-            </p>
-          </div>
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
-          >
-            common.ce.optimization
-          </p>
-        </div>
-      </div>
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
-      >
-        common.purpose.ce.optimizationCard.description
-      </p>
-    </div>
-    <div
       class="bp3-card bp3-elevation-0 Card--card card infoCard selected"
     >
       <div
@@ -1076,22 +1019,8 @@ exports[`ModuleInfoCards Test Rendering that the module info cards get selected 
         common.purpose.ce.visibilityCard.description
       </p>
     </div>
-  </div>
-</div>
-`;
-
-exports[`ModuleInfoCards Test Rendering that the module info cards render 1`] = `
-<div>
-  <h1
-    class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--padding-top-xlarge"
-  >
-    common.purpose.infoCardIntent
-  </h1>
-  <div
-    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-  >
     <div
-      class="bp3-card bp3-elevation-0 Card--card card infoCard"
+      class="bp3-card bp3-elevation-0 Card--card card infoCard Card--disabled"
     >
       <div
         class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-bottom-large"
@@ -1141,6 +1070,20 @@ exports[`ModuleInfoCards Test Rendering that the module info cards render 1`] = 
         common.purpose.ce.optimizationCard.description
       </p>
     </div>
+  </div>
+</div>
+`;
+
+exports[`ModuleInfoCards Test Rendering that the module info cards render 1`] = `
+<div>
+  <h1
+    class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--padding-top-xlarge"
+  >
+    common.purpose.infoCardIntent
+  </h1>
+  <div
+    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+  >
     <div
       class="bp3-card bp3-elevation-0 Card--card card infoCard"
     >
@@ -1203,6 +1146,57 @@ exports[`ModuleInfoCards Test Rendering that the module info cards render 1`] = 
         class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
       >
         common.purpose.ce.visibilityCard.description
+      </p>
+    </div>
+    <div
+      class="bp3-card bp3-elevation-0 Card--card card infoCard Card--disabled"
+    >
+      <div
+        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-bottom-large"
+      >
+        <span
+          class="bp3-icon StyledProps--main"
+          data-icon="ce-optimization"
+        >
+          <svg
+            fill="none"
+            height="40"
+            width="40"
+          >
+            <path
+              d="M31.217 12.9l-3.772-.466a9.684 9.684 0 00-1.055-2.362l2.312-2.805a.417.417 0 00-.042-.58l-2.686-2.492a.5.5 0 00-.624-.038l-3.024 2.145a11.331 11.331 0 00-2.545-.98l-.503-3.499a.465.465 0 00-.471-.383h-3.8a.464.464 0 00-.47.383l-.503 3.5c-.9.226-1.754.558-2.545.979L8.465 4.156a.501.501 0 00-.624.039L5.155 6.687a.417.417 0 00-.042.58l2.313 2.805a9.679 9.679 0 00-1.056 2.361l-3.772.467a.454.454 0 00-.412.437v3.525c0 .22.176.408.412.437l3.771.466a9.678 9.678 0 001.056 2.362l-2.312 2.806a.417.417 0 00.041.579l2.687 2.492c.092.086.213.13.336.13.101 0 .203-.03.288-.091l3.024-2.146c.791.42 1.645.752 2.545.98l.503 3.499c.031.22.233.383.47.383h3.8c.238 0 .44-.163.47-.383l.503-3.499a11.33 11.33 0 002.546-.98l3.023 2.146c.086.061.188.09.289.09a.494.494 0 00.336-.128l2.686-2.493a.417.417 0 00.042-.579l-2.312-2.805a9.682 9.682 0 001.055-2.362l3.772-.467a.454.454 0 00.412-.437v-3.525a.453.453 0 00-.412-.437zm-14.31 6.165c-2.36 0-4.274-1.775-4.274-3.965s1.914-3.966 4.274-3.966c2.361 0 4.274 1.775 4.274 3.966 0 2.19-1.913 3.965-4.274 3.965z"
+              fill="#0278D5"
+              opacity="0.3"
+            />
+            <path
+              d="M1.71 20.136l5.428 5.035 8.684-8.057 4.342 4.029L39.703 1"
+              stroke="#0278D5"
+              stroke-linecap="round"
+              stroke-width="2"
+            />
+          </svg>
+        </span>
+        <div>
+          <div
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main title StyledProps--font-xsmall StyledProps--color StyledProps--color-black"
+            >
+              common.ce.cost
+            </p>
+          </div>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
+          >
+            common.ce.optimization
+          </p>
+        </div>
+      </div>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--padding-bottom-small"
+      >
+        common.purpose.ce.optimizationCard.description
       </p>
     </div>
   </div>

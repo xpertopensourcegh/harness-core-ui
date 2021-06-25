@@ -3,15 +3,14 @@ import { Color, HarnessIcons, Container, Text, Icon, IconName, Card, Layout, Hea
 import { Link, useParams } from 'react-router-dom'
 import cx from 'classnames'
 import { String, useStrings } from 'framework/strings'
-import { useGetAccountLicenses } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
-import { PageError } from '@common/components/Page/PageError'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { Category, PageNames, PurposeActions } from '@common/constants/TrackingConstants'
 import type { StringsMap } from 'stringTypes'
 import type { Module } from '@common/interfaces/RouteInterfaces'
+import { useUpdateAccountDefaultExperienceNG } from 'services/cd-ng'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { Versions } from '@common/constants/Utils'
 import ModuleInfoCards, { ModuleInfoCard, getInfoCardsProps } from '../../components/ModuleInfoCards/ModuleInfoCards'
 import css from './PurposePage.module.scss'
 
@@ -21,7 +20,6 @@ interface PurposeType {
   icon: IconName
   description: string
   module: Module
-  startTrial?: boolean
 }
 
 const PurposeList: React.FC = () => {
@@ -30,8 +28,11 @@ const PurposeList: React.FC = () => {
   }>()
   const [selected, setSelected] = useState<Module>()
   const [selectedInfoCard, setSelectedInfoCard] = useState<ModuleInfoCard>()
+  const { mutate: updateDefaultExperience } = useUpdateAccountDefaultExperienceNG({
+    accountIdentifier: accountId
+  })
 
-  const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
+  const { CVNG_ENABLED, CING_ENABLED, CFNG_ENABLED } = useFeatureFlags()
 
   useEffect(() => {
     if (selected) {
@@ -48,7 +49,7 @@ const PurposeList: React.FC = () => {
   const { trackEvent } = useTelemetry()
 
   const CDNG_OPTIONS: PurposeType = {
-    enabled: CDNG_ENABLED,
+    enabled: true,
     title: getString('common.purpose.cd.delivery'),
     icon: 'cd-main',
     description: getString('common.purpose.cd.subtitle'),
@@ -71,7 +72,7 @@ const PurposeList: React.FC = () => {
   }
 
   const CENG_OPTIONS: PurposeType = {
-    enabled: CENG_ENABLED,
+    enabled: true, // Continous efficiency is enabled in CG
     title: getString('common.purpose.ce.efficiency'),
     icon: 'ce-main',
     description: getString('common.purpose.ce.subtitle'),
@@ -86,23 +87,28 @@ const PurposeList: React.FC = () => {
     module: 'cf'
   }
 
-  const getModuleProps = (module: Module, startTrial: boolean): PurposeType | undefined => {
+  const getModuleProps = (module: Module): PurposeType | undefined => {
     switch (module) {
       case 'cd':
-        return { ...CDNG_OPTIONS, startTrial }
+        return { ...CDNG_OPTIONS }
       case 'cv':
-        return { ...CVNG_OPTIONS, startTrial }
+        return { ...CVNG_OPTIONS }
       case 'ce':
-        return { ...CENG_OPTIONS, startTrial }
+        return { ...CENG_OPTIONS }
       case 'cf':
-        return { ...CFNG_OPTIONS, startTrial }
+        return { ...CFNG_OPTIONS }
       case 'ci':
-        return { ...CING_OPTIONS, startTrial }
+        return { ...CING_OPTIONS }
     }
-    return undefined
   }
 
   const getModuleLink = (module: Module): React.ReactElement => {
+    async function handleUpdateDefaultExperience(): Promise<void> {
+      await updateDefaultExperience({
+        defaultExperience: !selectedInfoCard || selectedInfoCard?.isNgRoute ? Versions.NG : Versions.CG
+      })
+    }
+
     if (!selectedInfoCard || selectedInfoCard?.isNgRoute) {
       return (
         <Link
@@ -115,6 +121,7 @@ const PurposeList: React.FC = () => {
             color: Color.WHITE
           }}
           onClick={() => {
+            handleUpdateDefaultExperience()
             trackEvent(PurposeActions.ModuleContinue, { category: Category.SIGNUP, module: module })
           }}
           to={routes.toModuleHome({ accountId, module, source: 'purpose' })}
@@ -134,6 +141,7 @@ const PurposeList: React.FC = () => {
           textAlign: 'center',
           color: Color.WHITE
         }}
+        onClick={handleUpdateDefaultExperience}
         href={selectedInfoCard.route?.()}
       >
         {getString('continue')}
@@ -167,24 +175,12 @@ const PurposeList: React.FC = () => {
     )
   }
 
-  const { error, data, refetch, loading } = useGetAccountLicenses({
-    queryParams: {
-      accountIdentifier: accountId
-    }
-  })
-
   const getOptions = (): PurposeType[] => {
     const options: PurposeType[] = []
     ;[CDNG_OPTIONS, CING_OPTIONS, CVNG_OPTIONS, CFNG_OPTIONS, CENG_OPTIONS].forEach(option => {
       if (option.enabled) {
-        let startTrial = true
         const { module } = option
-        const moduleLicense = data?.data?.moduleLicenses?.[module]
-        if (moduleLicense) {
-          const { licenseType } = moduleLicense
-          startTrial = !licenseType || licenseType === 'TRIAL'
-        }
-        const moduleProps = getModuleProps(module, startTrial)
+        const moduleProps = getModuleProps(module)
         if (moduleProps) {
           options.push(moduleProps)
         }
@@ -197,14 +193,6 @@ const PurposeList: React.FC = () => {
   const handleModuleSelection = (module: Module): void => {
     setSelected(module)
     setSelectedInfoCard(undefined)
-  }
-
-  if (loading) {
-    return <PageSpinner />
-  }
-
-  if (error) {
-    return <PageError message={(error.data as Error)?.message || error.message} onClick={() => refetch()} />
   }
 
   return (
@@ -230,22 +218,6 @@ const PurposeList: React.FC = () => {
                 <Text font="small" padding={{ bottom: 'small' }} style={{ minHeight: 70 }}>
                   {option.description}
                 </Text>
-
-                {option.startTrial ? (
-                  <Text
-                    width={100}
-                    color={Color.WHITE}
-                    font={{ size: 'xsmall', weight: 'semi-bold', align: 'center' }}
-                    border={{ radius: 4 }}
-                    height={25}
-                    background={Color.PURPLE_500}
-                    padding={'xsmall'}
-                    icon={selected === option.module ? ('tick' as IconName) : ('' as IconName)}
-                    iconProps={{ size: 10, padding: 'xsmall', color: Color.WHITE }}
-                  >
-                    {getString('common.purpose.startATrial')}
-                  </Text>
-                ) : null}
 
                 <Text font="small" style={{ marginTop: 10 }}>
                   {getString('common.purpose.setup')}

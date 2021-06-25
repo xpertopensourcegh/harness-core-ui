@@ -34,6 +34,7 @@ export interface ModuleInfoCard {
   isNgRoute?: boolean
   isNew?: boolean
   footer?: FooterProps
+  disabled?: boolean
 }
 
 const INFO_CARD_STYLES: { [key: string]: string } = {
@@ -44,18 +45,20 @@ export const getInfoCardsProps = (accountId: string): InfoCards => {
   return {
     ce: [
       {
-        icon: 'ce-optimization' as IconName,
-        title: 'common.ce.cost',
-        subtitle: 'common.ce.optimization',
-        description: 'common.purpose.ce.optimizationCard.description',
-        isNgRoute: true
-      },
-      {
         icon: 'ce-visibility',
         title: 'common.ce.cost',
         subtitle: 'common.ce.visibility',
         description: 'common.purpose.ce.visibilityCard.description',
-        route: () => `${window.location.href.split('/ng/')[0]}/#/account/${accountId}/continuous-efficiency/settings`
+        route: () =>
+          `${window.location.href.split('/ng/')[0]}/#/account/${accountId}/continuous-efficiency/settings?source=signup`
+      },
+      {
+        icon: 'ce-optimization' as IconName,
+        title: 'common.ce.cost',
+        subtitle: 'common.ce.optimization',
+        description: 'common.purpose.ce.optimizationCard.description',
+        isNgRoute: true,
+        disabled: true
       }
     ],
     cd: [
@@ -104,8 +107,8 @@ export const getInfoCardsProps = (accountId: string): InfoCards => {
         iconClassName: css.cdMain,
         title: 'common.purpose.cd.newGen.title',
         description: 'common.purpose.cd.newGen.description',
-        isNew: true,
         isNgRoute: true,
+        disabled: true,
         footer: {
           title: 'common.purpose.cd.supportedStack',
           icons: [
@@ -181,9 +184,16 @@ const ModuleInfoCards: React.FC<ModuleInfoCardsProps> = props => {
   const getModuleInfoCards = (infoCard: ModuleInfoCard, infoCardStyle: string): React.ReactElement => {
     const cardKey = getCardKey({ key1: infoCard.title, key2: infoCard.subtitle })
 
+    function handleCardClick(): void {
+      if (!infoCard.disabled) {
+        setSelectedInfoCard(infoCard)
+      }
+    }
+
     return (
       <Card
         key={cardKey}
+        disabled={infoCard.disabled}
         className={cx(
           css.card,
           css.infoCard,
@@ -192,7 +202,7 @@ const ModuleInfoCards: React.FC<ModuleInfoCardsProps> = props => {
             : '',
           infoCardStyle
         )}
-        onClick={() => setSelectedInfoCard(infoCard)}
+        onClick={handleCardClick}
       >
         <Layout.Horizontal spacing="small" padding={{ bottom: 'large' }}>
           <Icon className={infoCard.iconClassName} name={infoCard.icon} size={40} />
