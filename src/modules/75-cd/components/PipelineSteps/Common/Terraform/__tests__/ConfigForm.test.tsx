@@ -2,7 +2,7 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 
-import TFPlanConfigForm from '../TfPlanConfigForm'
+import TFPlanConfigForm from '../Editview/ConfigForm'
 
 const props = {
   onClick: jest.fn(),
@@ -61,46 +61,19 @@ describe('TF Config Form tests', () => {
   test('edit view loads correctly', async () => {
     const editProps = {
       onClick: () => jest.fn(),
+
       data: {
         spec: {
           configuration: {
-            configFiles: {
-              store: {
-                spec: {
-                  connectorRef: 'Git5',
-                  gitFetchType: 'pipelineSteps.deploy.inputSet.branch',
-                  branch: 'test-branch',
-                  folderPath: 'test-folder'
-                }
-              }
-            }
-          }
-        }
-      },
-      onHide: () => jest.fn()
-    }
-
-    const { container } = render(
-      <TestWrapper>
-        <TFPlanConfigForm {...editProps} />
-      </TestWrapper>
-    )
-    expect(container).toMatchSnapshot()
-  })
-
-  test('edit view loads correctly -with commitId', async () => {
-    const editProps = {
-      onClick: () => jest.fn(),
-      data: {
-        spec: {
-          configuration: {
-            configFiles: {
-              store: {
-                spec: {
-                  connectorRef: 'Git5',
-                  gitFetchType: 'pipelineSteps.commitIdValue',
-                  commitId: 'test-commit',
-                  folderPath: 'test-folder'
+            spec: {
+              configFiles: {
+                store: {
+                  spec: {
+                    connectorRef: 'Git5',
+                    gitFetchType: 'pipelineSteps.deploy.inputSet.branch',
+                    branch: 'test-branch',
+                    folderPath: 'test-folder'
+                  }
                 }
               }
             }

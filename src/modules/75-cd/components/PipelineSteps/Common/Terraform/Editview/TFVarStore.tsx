@@ -68,11 +68,13 @@ export const TFVarStore: React.FC<StepProps<any> & TFVarStoreProps> = ({ nextSte
     }
   }
   React.useEffect(() => {
+    /* istanbul ignore next */
     setSelectedType(initialValues?.varFile?.spec?.store?.type)
   }, [isEditMode])
+
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" className={css.tfVarStore}>
-      <Heading level={2} style={{ color: Color.BLACK, fontSize: 24 }} margin={{ bottom: 'large' }}>
+      <Heading level={2} style={{ color: Color.GREY_800, fontSize: 24 }} margin={{ bottom: 'large' }}>
         {getString('cd.specifyTfVarStore')}
       </Heading>
 
@@ -99,6 +101,7 @@ export const TFVarStore: React.FC<StepProps<any> & TFVarStoreProps> = ({ nextSte
         initialValues={isEditMode ? initialValues : iValues}
         enableReinitialize={true}
         onSubmit={() => {
+          /* istanbul ignore next */
           setSelectedType('')
         }}
         validationSchema={Yup.object().shape({
@@ -111,60 +114,60 @@ export const TFVarStore: React.FC<StepProps<any> & TFVarStoreProps> = ({ nextSte
           })
         })}
       >
-        {formik => (
-          <Form>
-            <div className={css.formContainerStepOne}>
-              {selectedType && (
-                <FormMultiTypeConnectorField
-                  label={
-                    <Text style={{ display: 'flex', alignItems: 'center' }}>
-                      {getString('connectors.title.gitConnector')}
-                      <Button
-                        icon="question"
-                        minimal
-                        tooltip={getString('connectors.title.gitConnector')}
-                        iconProps={{ size: 14 }}
-                      />
-                    </Text>
-                  }
-                  type={TFConnectorMap[selectedType]}
-                  width={
-                    getMultiTypeFromValue(formik.values?.varFile?.store?.spec?.connectorRef) ===
-                    MultiTypeInputType.RUNTIME
-                      ? 200
-                      : 260
-                  }
-                  name="varFile.spec.store.spec.connectorRef"
-                  placeholder={getString('select')}
-                  accountIdentifier={accountId}
-                  projectIdentifier={projectIdentifier}
-                  orgIdentifier={orgIdentifier}
-                  style={{ marginBottom: 10 }}
-                  multiTypeProps={{ expressions }}
-                />
-              )}
-            </div>
+        {formik => {
+          return (
+            <Form>
+              <div className={css.formContainerStepOne}>
+                {selectedType && (
+                  <FormMultiTypeConnectorField
+                    label={
+                      <Text style={{ display: 'flex', alignItems: 'center' }}>
+                        {selectedType} {getString('connector')}
+                        <Button
+                          icon="question"
+                          minimal
+                          tooltip={getString('connectors.title.gitConnector')}
+                          iconProps={{ size: 14 }}
+                        />
+                      </Text>
+                    }
+                    type={TFConnectorMap[selectedType]}
+                    width={400}
+                    name="varFile.spec.store.spec.connectorRef"
+                    placeholder={`${getString('select')} ${selectedType} ${getString('connector')}`}
+                    accountIdentifier={accountId}
+                    projectIdentifier={projectIdentifier}
+                    orgIdentifier={orgIdentifier}
+                    style={{ marginBottom: 10 }}
+                    multiTypeProps={{ expressions }}
+                  />
+                )}
+              </div>
 
-            <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>
-              <Button
-                intent="primary"
-                type="submit"
-                text={getString('continue')}
-                rightIcon="chevron-right"
-                onClick={() => {
-                  nextStep?.(formik.values)
-                }}
-                className={css.saveBtn}
-                disabled={
-                  !selectedType ||
-                  (getMultiTypeFromValue(formik.values.varFile?.spec?.store?.spec?.connectorRef) ===
-                    MultiTypeInputType.FIXED &&
-                    !(formik.values.varFile?.spec?.store?.spec?.connectorRef as ConnectorSelectedValue)?.connector)
-                }
-              />
-            </Layout.Horizontal>
-          </Form>
-        )}
+              <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>
+                <Button
+                  intent="primary"
+                  type="submit"
+                  text={getString('continue')}
+                  rightIcon="chevron-right"
+                  /* istanbul ignore next */
+                  onClick={() => {
+                    /* istanbul ignore next */
+                    nextStep?.(formik.values)
+                  }}
+                  className={css.saveBtn}
+                  disabled={
+                    /* istanbul ignore next */
+                    !selectedType ||
+                    (getMultiTypeFromValue(formik.values.varFile?.spec?.store?.spec?.connectorRef) ===
+                      MultiTypeInputType.FIXED &&
+                      !(formik.values.varFile?.spec?.store?.spec?.connectorRef as ConnectorSelectedValue)?.connector)
+                  }
+                />
+              </Layout.Horizontal>
+            </Form>
+          )
+        }}
       </Formik>
     </Layout.Vertical>
   )

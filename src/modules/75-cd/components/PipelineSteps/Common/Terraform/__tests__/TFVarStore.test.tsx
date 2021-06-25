@@ -35,6 +35,36 @@ describe('Terraform Var Store tests', () => {
     act(() => {
       fireEvent.click(storeCard!)
     })
+
+    expect(container).toMatchSnapshot()
+  })
+
+  test('on edit mode for tf var store ', async () => {
+    const defaultProps = {
+      name: 'Terraform Var store',
+      initialValues: {
+        varFile: {
+          type: 'Remote',
+          spec: {
+            store: {
+              type: 'Git'
+            }
+          }
+        }
+      },
+      isEditMode: true
+    }
+    const { container } = render(
+      <TestWrapper>
+        <TFVarStore {...defaultProps} />
+      </TestWrapper>
+    )
+
+    const storeCard = queryByAttribute('data-testid', container, 'varStore-Git')
+    act(() => {
+      fireEvent.click(storeCard!)
+    })
+
     expect(container).toMatchSnapshot()
   })
 })

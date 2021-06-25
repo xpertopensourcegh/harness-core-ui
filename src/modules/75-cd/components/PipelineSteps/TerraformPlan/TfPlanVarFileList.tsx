@@ -62,9 +62,13 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
         <Icon
           name="edit"
           onClick={() => {
+            /* istanbul ignore next */
             setShowRemoteWizard(true)
+            /* istanbul ignore next */
             setSelectedVar(varFile)
+            /* istanbul ignore next */
             setSelectedVarIndex(index)
+            /* istanbul ignore next */
             setIsEditMode(true)
           }}
         />
@@ -83,9 +87,13 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
         <Icon
           name="edit"
           onClick={() => {
+            /* istanbul ignore next */
             setShowTfModal(true)
+            /* istanbul ignore next */
             setIsEditMode(true)
+            /* istanbul ignore next */
             setSelectedVarIndex(index)
+            /* istanbul ignore next */
             setSelectedVar(varFile)
           }}
         />
@@ -105,7 +113,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
 
   const getTitle = () => (
     <Layout.Vertical flex style={{ justifyContent: 'center', alignItems: 'center' }}>
-      <Icon name="remote" />
+      <Icon name="remotefile" className={css.remoteIcon} size={50} />
       <Text color={Color.WHITE}>{getString('pipelineSteps.remoteFile')}</Text>
     </Layout.Vertical>
   )
@@ -148,13 +156,13 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
     },
     []
   )
-
+  /* istanbul ignore next */
   const onCloseOfRemoteWizard = () => {
     setShowRemoteWizard(false)
     setIsEditMode(false)
     setSelectedVar(remoteInitialValues)
   }
-
+  /* istanbul ignore next */
   const onCloseOfInlineVarForm = () => {
     setShowTfModal(false)
     setIsEditMode(false)
@@ -187,9 +195,11 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                         key={varFile?.varFile?.spec?.type}
                         draggable={true}
                         onDragEnd={onDragEnd}
+                        /* istanbul ignore next */
                         onDragOver={onDragOver}
                         onDragLeave={onDragLeave}
                         onDragStart={event => {
+                          /* istanbul ignore next */
                           onDragStart(event, i)
                         }}
                         onDrop={event => onDrop(event, arrayHelpers, i)}
@@ -210,6 +220,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                     </Layout.Horizontal>
                   )
                 })}
+                {/* istanbul ignore next */}
                 <Popover
                   interactionKind={PopoverInteractionKind.CLICK}
                   boundary="viewport"
@@ -218,7 +229,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                     <Menu className={css.tfMenu}>
                       <MenuItem
                         text={<Text intent="primary">{getString('cd.addInline')} </Text>}
-                        icon={<Icon name="Inline" />}
+                        icon={<Icon name="Inline" className={css.iconMargin} />}
                         onClick={() => {
                           setShowTfModal(true)
                         }}
@@ -226,7 +237,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
 
                       <MenuItem
                         text={<Text intent="primary">{getString('cd.addRemote')}</Text>}
-                        icon={<Icon name="remote" />}
+                        icon={<Icon name="Inline" className={css.iconMargin} />}
                         onClick={() => setShowRemoteWizard(true)}
                       />
                     </Menu>
@@ -242,6 +253,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                     {getString('pipelineSteps.addTerraformVarFile')}
                   </Button>
                 </Popover>
+                {/* istanbul ignore next */}
                 {showRemoteWizard && (
                   <Dialog
                     {...DIALOG_PROPS}
@@ -286,6 +298,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                     />
                   </Dialog>
                 )}
+                {/* istanbul ignore next */}
                 {showTfModal && (
                   <InlineVarFile
                     arrayHelpers={arrayHelpers}

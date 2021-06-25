@@ -34,11 +34,6 @@ interface ConfigFormProps {
   isReadonly?: boolean
 }
 
-const gitFetchTypes: SelectOption[] = [
-  { label: 'Latest from branch', value: 'Branch' },
-  { label: 'Specific Commit ID', value: 'Commit' }
-]
-
 export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
@@ -47,11 +42,16 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
     orgIdentifier: string
     accountId: string
   }>()
+  const gitFetchTypes: SelectOption[] = [
+    { label: getString('gitFetchTypes.fromBranch'), value: getString('pipelineSteps.deploy.inputSet.branch') },
+    { label: getString('gitFetchTypes.fromCommit'), value: getString('pipelineSteps.commitIdValue') }
+  ]
   return (
     <Layout.Vertical>
       <Formik<TFPlanConfig>
         formName="tfPlanConfigForm"
         onSubmit={(values: any) => {
+          /*istanbul ignore next*/
           props.onClick(values)
         }}
         initialValues={props.data}

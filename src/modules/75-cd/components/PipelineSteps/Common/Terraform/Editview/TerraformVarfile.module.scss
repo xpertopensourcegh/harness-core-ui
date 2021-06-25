@@ -181,8 +181,7 @@
 
 .addTfVarFile {
   position: relative;
-  left: 20px;
-  top: 5px;
+  right: 22px;
 }
 .dragging {
   background-color: var(--yellow-450) !important;
@@ -243,4 +242,11 @@
     resize: none;
     height: 160px;
   }
+}
+
+.iconMargin {
+  margin-right: var(--spacing-small) !important;
+}
+.remoteIcon {
+  color: #000000 !important;
 }

@@ -1,5 +1,6 @@
 import {
   Button,
+  Color,
   Formik,
   FormInput,
   getMultiTypeFromValue,
@@ -71,7 +72,7 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
                 gitFetchType: '',
                 branch: '',
                 commitId: '',
-                paths: []
+                paths: [{ id: uuid(), path: '' }]
               }
             }
           }
@@ -100,52 +101,57 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
   }, [])
 
   const onDragOver = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
-    /* istanbul ignore else */
+    /* istanbul ignore next */
     if (event.preventDefault) {
       event.preventDefault()
     }
     /* istanbul ignore next */
     event.currentTarget.classList.add(css.dragOver)
+    /* istanbul ignore next */
     event.dataTransfer.dropEffect = 'move'
   }, [])
 
   const onDrop = React.useCallback(
     (event: React.DragEvent<HTMLDivElement>, arrayHelpers: FieldArrayRenderProps, droppedIndex: number) => {
-      /* istanbul ignore else */
+      /* istanbul ignore next */
       if (event.preventDefault) {
         event.preventDefault()
       }
       const data = event.dataTransfer.getData('data')
-      /* istanbul ignore else */
+      /* istanbul ignore next */
       if (data) {
         const index = parseInt(data, 10)
         /* istanbul ignore next */
         arrayHelpers.swap(index, droppedIndex)
       }
+      /* istanbul ignore next */
       event.currentTarget.classList.remove(css.dragOver)
     },
     []
   )
 
   return (
-    <Layout.Vertical padding={'huge'} className={css.tfVarStore}>
+    <Layout.Vertical spacing="xxlarge" padding="small" className={css.tfVarStore}>
+      <Text font="large" color={Color.GREY_800}>
+        {getString('cd.varFileDetails')}
+      </Text>
       <Formik
         formName="tfRemoteWizardForm"
         initialValues={initialValues}
         onSubmit={values => {
-          /* istanbul ignore else */
+          /* istanbul ignore next */
           const payload = {
             ...values,
             connectorRef: prevStepData?.varFile?.spec?.store?.spec?.connectorRef
           }
-          /* istanbul ignore else */
+          /* istanbul ignore next */
           const data = {
             varFile: {
               type: payload.varFile.type,
               identifier: payload.varFile.identifier,
               spec: {
                 store: {
-                  /* istanbul ignore else */
+                  /* istanbul ignore next */
                   type: payload.connectorRef?.connector?.type,
                   spec: {
                     ...payload.varFile.spec?.store?.spec,
@@ -292,9 +298,12 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
                                     onDragEnd={onDragEnd}
                                     onDragOver={onDragOver}
                                     onDragLeave={onDragLeave}
+                                    /* istanbul ignore next */
                                     onDragStart={event => {
+                                      /* istanbul ignore next */
                                       onDragStart(event, index)
                                     }}
+                                    /* istanbul ignore next */
                                     onDrop={event => onDrop(event, arrayHelpers, index)}
                                   >
                                     <Icon name="drag-handle-vertical" className={css.drag} />
