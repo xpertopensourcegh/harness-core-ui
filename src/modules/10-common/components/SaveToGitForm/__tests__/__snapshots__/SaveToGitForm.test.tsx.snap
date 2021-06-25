@@ -41,6 +41,7 @@ exports[`Save to git form rendering form to git save form without git credential
         </p>
         <a
           href="/account/dummy/user/profile"
+          target="_blank"
         >
           <span
             class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-top-xsmall StyledProps--font-size-small StyledProps--font-weight-bold StyledProps--color StyledProps--color-primary7"

@@ -257,7 +257,7 @@ const SaveToGitForm: React.FC<ModalConfigureProps & SaveToGitFormProps> = props 
             <Text font={{ size: 'small' }} color={Color.BLACK}>
               {getString('common.git.noUserLabel')}
             </Text>
-            <Link to={paths.toUserProfile({ accountId })}>
+            <Link to={paths.toUserProfile({ accountId })} target="_blank" onClick={() => props.onClose?.()}>
               <Text inline margin={{ top: 'xsmall' }} font={{ size: 'small', weight: 'bold' }} color={Color.PRIMARY_7}>
                 {getString('common.git.addUserCredentialLabel')}
               </Text>
