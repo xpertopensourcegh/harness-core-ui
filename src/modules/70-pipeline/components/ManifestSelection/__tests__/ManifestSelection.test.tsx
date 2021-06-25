@@ -57,7 +57,9 @@ describe('ManifestSelection tests', () => {
       findByText(portal as HTMLElement, 'pipeline.manifestType.manifestRepoType')
     )
     expect(manifestLabel).toBeDefined()
-    const manifestTypes = await waitFor(() => findAllByText(portal as HTMLElement, 'K8s Manifest'))
+    const manifestTypes = await waitFor(() =>
+      findAllByText(portal as HTMLElement, 'pipeline.manifestTypeLabels.K8sManifest')
+    )
     expect(manifestTypes).toBeDefined()
     fireEvent.click(manifestTypes[0])
     const continueButton = await findByText(portal as HTMLElement, 'continue')

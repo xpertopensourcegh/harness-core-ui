@@ -63,9 +63,9 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
   const { getString } = useStrings()
 
   const [selectedManifest, setSelectedManifest] = React.useState(prevStepData?.store || initialValues.store)
-  const newConnectorLabel = `${getString('newLabel')} ${ManifestToConnectorLabelMap[selectedManifest]} ${getString(
-    'connector'
-  )}`
+  const newConnectorLabel = `${getString('newLabel')} ${
+    !!selectedManifest && getString(ManifestToConnectorLabelMap[selectedManifest as ManifestStores])
+  } ${getString('connector')}`
 
   const [canCreate] = usePermission({
     resource: {
@@ -159,13 +159,15 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                     name="connectorRef"
                     disabled={selectedManifest === ''}
                     label={
-                      <Text style={{ marginBottom: '5px' }}>{`${
-                        ManifestToConnectorLabelMap[selectedManifest]
-                      } ${getString('connector')}`}</Text>
+                      <Text style={{ marginBottom: '5px' }}>
+                        {`${getString(ManifestToConnectorLabelMap[selectedManifest as ManifestStores])} ${getString(
+                          'connector'
+                        )}`}
+                      </Text>
                     }
-                    placeholder={`${getString('select')} ${ManifestToConnectorLabelMap[selectedManifest]} ${getString(
-                      'connector'
-                    )}`}
+                    placeholder={`${getString('select')} ${getString(
+                      ManifestToConnectorLabelMap[selectedManifest as ManifestStores]
+                    )} ${getString('connector')}`}
                     accountIdentifier={accountId}
                     projectIdentifier={projectIdentifier}
                     orgIdentifier={orgIdentifier}

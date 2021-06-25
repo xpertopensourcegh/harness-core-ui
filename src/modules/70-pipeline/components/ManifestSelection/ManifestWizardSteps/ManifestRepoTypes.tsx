@@ -47,7 +47,7 @@ export const ManifestRepoTypes: React.FC<StepProps<ConnectorConfigDTO> & Manifes
                 <Icon name={manifestTypeIcons[item]} size={26} />
               </Card>
               <Text className={css.sqaureCardTitle} color={Color.BLACK_100}>
-                {manifestTypeLabels[item]}
+                {getString(manifestTypeLabels[item])}
               </Text>
             </div>
           ))}

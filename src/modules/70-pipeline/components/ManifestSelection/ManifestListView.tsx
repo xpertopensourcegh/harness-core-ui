@@ -224,8 +224,6 @@ const ManifestListView = ({
   }
 
   const handleSubmit = (manifestObj: ManifestConfigWrapper): void => {
-    set(manifestObj, 'manifest.type', selectedManifest)
-
     if (isPropagating) {
       if (listOfManifests?.length > 0) {
         listOfManifests.splice(manifestIndex, 1, manifestObj)
@@ -285,11 +283,12 @@ const ManifestListView = ({
       isReadonly: isReadonly
     }
   }
-
   const getLabels = (): ConnectorRefLabelType => {
     return {
       firstStepName: getString('pipeline.manifestType.specifyManifestRepoType'),
-      secondStepName: `${getString('common.specify')} ${manifestTypeLabels[selectedManifest]} ${getString('store')}`
+      secondStepName: `${getString('common.specify')} ${getString(manifestTypeLabels[selectedManifest])} ${getString(
+        'store'
+      )}`
     }
   }
 
@@ -655,7 +654,7 @@ const ManifestListView = ({
                       {manifest?.identifier}
                     </Text>
                   </div>
-                  <div>{manifestTypeLabels[manifest?.type as ManifestTypes]}</div>
+                  <div>{getString(manifestTypeLabels[manifest?.type as ManifestTypes])}</div>
                   <div className={css.connectorNameField}>
                     <Icon
                       padding={{ right: 'small' }}

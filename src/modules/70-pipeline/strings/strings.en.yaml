@@ -184,6 +184,16 @@ manifestType:
     chartNamePlaceHolder: 'Enter Chart Name'
     chartVersionPlaceHolder: 'Enter Chart Version'
     chartVersionRequired: 'Chart Version is required'
+manifestTypeLabels:
+  K8sManifest: K8s Manifest
+  ValuesYaml: Values YAML
+  HelmChartLabel: Helm Chart
+  KustomizeLabel: Kustomize
+  OpenshiftTemplate: Openshift Template
+  OpenshiftParam: Openshift Param
+manifestToConnectorLabelMap:
+  AWSLabel: AWS
+  GCPLabel: GCP
 failureStrategies:
   selectStrategy: '{{ $.common.selectStrategy }}'
   performAction: '{{ $.common.performAction }}'

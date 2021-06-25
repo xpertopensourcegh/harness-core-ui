@@ -59,7 +59,7 @@ export const ManifestWizard: React.FC<ManifestWizardStepsProps> = ({
   }
 
   const renderSubtitle = (): JSX.Element => {
-    const stringId = manifestTypeLabels[selectedManifest]
+    const stringId = getString(manifestTypeLabels[selectedManifest])
     return (
       <div className={css.subtitle} style={{ display: 'flex' }}>
         <Icon {...iconsProps} size={26} />

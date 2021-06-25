@@ -125,9 +125,9 @@ describe('ManifestSelection tests', () => {
     )
     const manifestLabel = await findByText(container, 'Specify Manifest Type')
     expect(manifestLabel).toBeDefined()
-    const K8smanifestType = await findAllByText(container, 'K8s Manifest')
+    const K8smanifestType = await findAllByText(container, 'pipeline.manifestTypeLabels.K8sManifest')
     expect(K8smanifestType).toBeDefined()
-    const HelmmanifestType = await findByText(container, 'Helm Chart')
+    const HelmmanifestType = await findByText(container, 'pipeline.manifestTypeLabels.HelmChartLabel')
     expect(HelmmanifestType).toBeDefined()
     fireEvent.click(HelmmanifestType)
 
@@ -143,7 +143,7 @@ describe('ManifestSelection tests', () => {
     const gitconnectorCard = container.getElementsByClassName('squareCard')[0]
     fireEvent.click(gitconnectorCard)
 
-    const newConnectorLabel = await findByText(container, 'newLabel Git connector')
+    const newConnectorLabel = await findByText(container, 'newLabel pipeline.manifestType.gitConnectorLabel connector')
     expect(newConnectorLabel).toBeDefined()
     const newConnectorBtn = container.getElementsByClassName('addNewManifest')[0]
     expect(newConnectorBtn).toBeDefined()

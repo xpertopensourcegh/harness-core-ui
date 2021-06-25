@@ -50,7 +50,7 @@ exports[`ManifestSelection tests can change artifact input type  without crashin
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
               style="align-self: center;"
             >
-              K8s Manifest
+              pipeline.manifestTypeLabels.K8sManifest
             </p>
           </div>
         </p>
@@ -181,7 +181,7 @@ exports[`ManifestSelection tests last step data with proper initial values 1`] =
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
               style="align-self: center;"
             >
-              K8s Manifest
+              pipeline.manifestTypeLabels.K8sManifest
             </p>
           </div>
         </p>
@@ -268,7 +268,7 @@ exports[`ManifestSelection tests last step data with proper initial values 1`] =
               <p
                 class="StyledProps--font StyledProps--main sqaureCardTitle StyledProps--color StyledProps--color-black100"
               >
-                K8s Manifest
+                pipeline.manifestTypeLabels.K8sManifest
               </p>
             </div>
             <div
@@ -296,7 +296,7 @@ exports[`ManifestSelection tests last step data with proper initial values 1`] =
               <p
                 class="StyledProps--font StyledProps--main sqaureCardTitle StyledProps--color StyledProps--color-black100"
               >
-                Values YAML
+                pipeline.manifestTypeLabels.ValuesYaml
               </p>
             </div>
             <div
@@ -327,7 +327,7 @@ exports[`ManifestSelection tests last step data with proper initial values 1`] =
               <p
                 class="StyledProps--font StyledProps--main sqaureCardTitle StyledProps--color StyledProps--color-black100"
               >
-                Helm Chart
+                pipeline.manifestTypeLabels.HelmChartLabel
               </p>
             </div>
           </div>
@@ -421,7 +421,7 @@ exports[`ManifestSelection tests last step data without initial values 1`] = `
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
               style="align-self: center;"
             >
-              K8s Manifest
+              pipeline.manifestTypeLabels.K8sManifest
             </p>
           </div>
         </p>
@@ -508,7 +508,7 @@ exports[`ManifestSelection tests last step data without initial values 1`] = `
               <p
                 class="StyledProps--font StyledProps--main sqaureCardTitle StyledProps--color StyledProps--color-black100"
               >
-                K8s Manifest
+                pipeline.manifestTypeLabels.K8sManifest
               </p>
             </div>
             <div
@@ -536,7 +536,7 @@ exports[`ManifestSelection tests last step data without initial values 1`] = `
               <p
                 class="StyledProps--font StyledProps--main sqaureCardTitle StyledProps--color StyledProps--color-black100"
               >
-                Values YAML
+                pipeline.manifestTypeLabels.ValuesYaml
               </p>
             </div>
             <div
@@ -567,7 +567,7 @@ exports[`ManifestSelection tests last step data without initial values 1`] = `
               <p
                 class="StyledProps--font StyledProps--main sqaureCardTitle StyledProps--color StyledProps--color-black100"
               >
-                Helm Chart
+                pipeline.manifestTypeLabels.HelmChartLabel
               </p>
             </div>
           </div>
@@ -679,7 +679,7 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
               style="align-self: center;"
             >
-              K8s Manifest
+              pipeline.manifestTypeLabels.K8sManifest
             </p>
           </div>
         </p>
@@ -940,7 +940,7 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
                       class="StyledProps--font StyledProps--main"
                       style="margin-bottom: 5px;"
                     >
-                      Git connector
+                      pipeline.manifestType.gitConnectorLabel connector
                     </p>
                   </div>
                   <div
@@ -966,7 +966,7 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
                             <span
                               class="placeholder"
                             >
-                              select Git connector
+                              select pipeline.manifestType.gitConnectorLabel connector
                             </span>
                           </span>
                           <span
@@ -1047,7 +1047,7 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
                   <span
                     class="bp3-button-text"
                   >
-                    newLabel Git connector
+                    newLabel pipeline.manifestType.gitConnectorLabel connector
                   </span>
                 </button>
               </div>
@@ -1174,7 +1174,7 @@ exports[`ManifestSelection tests renders correctly with differnet manifest types
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
               style="align-self: center;"
             >
-              K8s Manifest
+              pipeline.manifestTypeLabels.K8sManifest
             </p>
           </div>
         </p>
@@ -1246,7 +1246,7 @@ exports[`ManifestSelection tests renders correctly with differnet manifest types
               <p
                 class="StyledProps--font StyledProps--main sqaureCardTitle StyledProps--color StyledProps--color-black100"
               >
-                K8s Manifest
+                pipeline.manifestTypeLabels.K8sManifest
               </p>
             </div>
             <div
@@ -1274,7 +1274,7 @@ exports[`ManifestSelection tests renders correctly with differnet manifest types
               <p
                 class="StyledProps--font StyledProps--main sqaureCardTitle StyledProps--color StyledProps--color-black100"
               >
-                Values YAML
+                pipeline.manifestTypeLabels.ValuesYaml
               </p>
             </div>
             <div
@@ -1305,7 +1305,7 @@ exports[`ManifestSelection tests renders correctly with differnet manifest types
               <p
                 class="StyledProps--font StyledProps--main sqaureCardTitle StyledProps--color StyledProps--color-black100"
               >
-                Helm Chart
+                pipeline.manifestTypeLabels.HelmChartLabel
               </p>
             </div>
           </div>
@@ -1399,7 +1399,7 @@ exports[`ManifestSelection tests renders without crashing 1`] = `
               class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white"
               style="align-self: center;"
             >
-              K8s Manifest
+              pipeline.manifestTypeLabels.K8sManifest
             </p>
           </div>
         </p>

@@ -34,13 +34,13 @@ export const manifestTypeIcons: Record<ManifestTypes, IconName> = {
   OpenshiftParam: 'openshift-params'
 }
 
-export const manifestTypeLabels: Record<ManifestTypes, string> = {
-  K8sManifest: 'K8s Manifest',
-  Values: 'Values YAML',
-  HelmChart: 'Helm Chart',
-  Kustomize: 'Kustomize',
-  OpenshiftTemplate: 'Openshift Template',
-  OpenshiftParam: 'Openshift Param'
+export const manifestTypeLabels: Record<ManifestTypes, StringKeys> = {
+  K8sManifest: 'pipeline.manifestTypeLabels.K8sManifest',
+  Values: 'pipeline.manifestTypeLabels.ValuesYaml',
+  HelmChart: 'pipeline.manifestTypeLabels.HelmChartLabel',
+  Kustomize: 'pipeline.manifestTypeLabels.KustomizeLabel',
+  OpenshiftTemplate: 'pipeline.manifestTypeLabels.OpenshiftTemplate',
+  OpenshiftParam: 'pipeline.manifestTypeLabels.OpenshiftParam'
 }
 
 export const helmVersions: Array<{ label: string; value: HelmVersionOptions }> = [
@@ -78,14 +78,14 @@ export const ManifestToConnectorMap: Record<ManifestStores | string, ConnectorIn
   Gcs: Connectors.GCP
 }
 
-export const ManifestToConnectorLabelMap: Record<ManifestStores | string, string> = {
-  Git: 'Git',
-  Github: 'GitHub',
-  GitLab: 'GitLab',
-  Bitbucket: 'Bitbucket',
-  Http: 'Http Helm Repo',
-  S3: 'AWS',
-  Gcs: 'GCP'
+export const ManifestToConnectorLabelMap: Record<ManifestStores, StringKeys> = {
+  Git: 'pipeline.manifestType.gitConnectorLabel',
+  Github: 'common.repo_provider.githubLabel',
+  GitLab: 'common.repo_provider.gitlabLabel',
+  Bitbucket: 'pipeline.manifestType.bitBucketLabel',
+  Http: 'connectors.title.helmConnector',
+  S3: 'pipeline.manifestToConnectorLabelMap.AWSLabel',
+  Gcs: 'pipeline.manifestToConnectorLabelMap.GCPLabel'
 }
 
 export enum GitRepoName {

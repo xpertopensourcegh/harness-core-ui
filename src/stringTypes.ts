@@ -1528,6 +1528,8 @@ export interface StringsMap {
   'pipeline.keyPlaceholder': string
   'pipeline.lastSevenDays': string
   'pipeline.logs.sectionName': string
+  'pipeline.manifestToConnectorLabelMap.AWSLabel': string
+  'pipeline.manifestToConnectorLabelMap.GCPLabel': string
   'pipeline.manifestType.bitBucketLabel': string
   'pipeline.manifestType.branchPlaceholder': string
   'pipeline.manifestType.bucketName': string
@@ -1573,6 +1575,12 @@ export interface StringsMap {
   'pipeline.manifestType.selectManifestStore': string
   'pipeline.manifestType.specifyManifestRepoType': string
   'pipeline.manifestType.specifyManifestStore': string
+  'pipeline.manifestTypeLabels.HelmChartLabel': string
+  'pipeline.manifestTypeLabels.K8sManifest': string
+  'pipeline.manifestTypeLabels.KustomizeLabel': string
+  'pipeline.manifestTypeLabels.OpenshiftParam': string
+  'pipeline.manifestTypeLabels.OpenshiftTemplate': string
+  'pipeline.manifestTypeLabels.ValuesYaml': string
   'pipeline.moveStage.description': string
   'pipeline.moveStage.title': string
   'pipeline.noBuildsText': string
