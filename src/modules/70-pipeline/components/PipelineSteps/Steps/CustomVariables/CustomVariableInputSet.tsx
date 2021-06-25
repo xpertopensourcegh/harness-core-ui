@@ -10,6 +10,7 @@ import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
 import type { InputSetData } from '@pipeline/components/AbstractSteps/Step'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { useQueryParams } from '@common/hooks'
 import { VariableType } from './CustomVariableUtils'
 import css from './CustomVariables.module.scss'
 export interface CustomVariablesData {
@@ -45,10 +46,11 @@ function CustomVariableInputSetBasic(props: CustomVariableInputSetProps): React.
   const basePath = path?.length ? `${path}.` : ''
   const { expressions } = useVariablesExpression()
 
-  const { executionIdentifier } = useParams<Record<string, string>>()
+  const { executionId } = useQueryParams<Record<string, string>>()
+  const { executionIdentifier, triggerIdentifier } = useParams<Record<string, string>>()
 
   React.useEffect(() => {
-    if (!executionIdentifier) {
+    if (!executionIdentifier && !executionId && triggerIdentifier === 'new') {
       const providedValues = get(formik.values, basePath)
       let updatedVariables: AllNGVariables[] = cloneDeep(initialValues.variables) || []
       updatedVariables = updatedVariables.map((variable: AllNGVariables, index: number) => {
