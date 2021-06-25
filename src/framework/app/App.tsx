@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
-import { HashRouter, Route, Switch } from 'react-router-dom'
+import { HashRouter, Route, Switch, useHistory } from 'react-router-dom'
 import { useParams } from 'react-router'
 import { RestfulProvider } from 'restful-react'
 import { FocusStyleManager } from '@blueprintjs/core'
@@ -26,6 +26,8 @@ import { useRefreshToken } from 'services/portal'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 
 import './App.scss'
+import routes from '@common/RouteDefinitions'
+import { returnUrlParams } from '@common/utils/routeUtils'
 
 FocusStyleManager.onlyShowFocusOnTabs()
 
@@ -45,6 +47,7 @@ function AppWithAuthentication(props: AppProps): React.ReactElement {
   // always use accountId from URL, and not from local storage
   // if user lands on /, they'll first get redirected to a path with accountId
   const { accountId } = useParams<AccountPathProps>()
+  const history = useHistory()
 
   const getRequestOptions = React.useCallback((): Partial<RequestInit> => {
     const headers: RequestInit['headers'] = {}
@@ -69,9 +72,9 @@ function AppWithAuthentication(props: AppProps): React.ReactElement {
 
   useEffect(() => {
     if (!token) {
-      window.location.href = getLoginPageURL()
+      history.push({ pathname: routes.toRedirect(), search: returnUrlParams(getLoginPageURL()) })
     }
-  }, [token])
+  }, [history, token])
 
   useEffect(() => {
     if (refreshTokenResponse?.resource) {
@@ -101,7 +104,7 @@ function AppWithAuthentication(props: AppProps): React.ReactElement {
       onResponse={response => {
         if (!response.ok && response.status === 401) {
           AppStorage.clear()
-          window.location.href = getLoginPageURL()
+          history.push({ pathname: routes.toRedirect(), search: returnUrlParams(getLoginPageURL()) })
           return
         }
 

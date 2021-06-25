@@ -60,6 +60,7 @@ const routes = {
   toAccountConfiguration: withAccountId(() => '/home/setup/authentication/configuration'),
   toAccountActivityLog: withAccountId(() => '/home/setup/authentication/activity-log'),
   toLogin: (): string => '/login',
+  toRedirect: (): string => `/redirect`,
   toSignup: (): string => '/signup',
   toPurpose: withAccountId(() => '/purpose'),
   //user profile

@@ -1,18 +1,21 @@
 import React from 'react'
-import { Route, Switch, Redirect } from 'react-router-dom'
+import { Route, Switch, Redirect, useHistory } from 'react-router-dom'
 import NotFoundPage from '@common/pages/404/NotFoundPage'
 import routes from '@common/RouteDefinitions'
 import SessionToken from 'framework/utils/SessionToken'
 import LoginPage from '@common/pages/login/LoginPage'
 import SignupPage from '@common/pages/signup/SignupPage'
 import { getLoginPageURL } from 'framework/utils/SessionUtils'
+import RedirectPage from '@common/pages/redirect/Redirect'
+import { returnUrlParams } from '@common/utils/routeUtils'
 
 const RedirectToHome: React.FC = () => {
+  const history = useHistory()
   const accountId = SessionToken.accountId()
   if (accountId) {
     return <Redirect to={routes.toHome({ accountId })} />
   } else {
-    window.location.href = getLoginPageURL(false)
+    history.push({ pathname: routes.toRedirect(), search: returnUrlParams(getLoginPageURL(false)) })
     return null
   }
 }
@@ -33,6 +36,9 @@ const RouteDestinationsWithoutAuth: React.FC = () => {
           <SignupPage />
         </Route>
       ) : null}
+      <Route path={routes.toRedirect()}>
+        <RedirectPage />
+      </Route>
       <Route path="*">
         <NotFoundPage />
       </Route>

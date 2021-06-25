@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { Layout, Text } from '@wings-software/uicore'
 import { get } from 'lodash-es'
 
@@ -11,10 +11,12 @@ import { useLogout1 } from 'services/portal'
 import AppStorage from 'framework/utils/AppStorage'
 import { useToaster } from '@common/exports'
 import { getLoginPageURL } from 'framework/utils/SessionUtils'
+import { returnUrlParams } from '@common/utils/routeUtils'
 import css from './UserNav.module.scss'
 
 export default function UserNav(): React.ReactElement {
   const { accountId } = useParams<AccountPathProps>()
+  const history = useHistory()
   const { mutate: logout } = useLogout1({
     userId: AppStorage.get('uuid'),
     requestOptions: { headers: { 'content-type': 'application/json' } }
@@ -26,7 +28,7 @@ export default function UserNav(): React.ReactElement {
     try {
       await logout()
       AppStorage.clear()
-      window.location.href = getLoginPageURL(false)
+      history.push({ pathname: routes.toRedirect(), search: returnUrlParams(getLoginPageURL(false)) })
       return
     } catch (err) {
       showError(get(err, 'responseMessages[0].message', getString('somethingWentWrong')))

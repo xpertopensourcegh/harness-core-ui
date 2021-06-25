@@ -167,3 +167,19 @@ export const getScopeBasedRoute = ({
   }
   return `/home/setup/${path}`
 }
+export const returnUrlParams = (url: string): string => `?returnUrl=${url}`
+export const validateReturnUrl = (url: string): boolean => {
+  if (url && typeof url === 'string') {
+    if (url.startsWith('/')) {
+      return true
+    } else {
+      try {
+        const validUrl = new URL(url)
+        return window.location.hostname === validUrl.hostname
+      } catch (_e) {
+        return false
+      }
+    }
+  }
+  return false
+}
