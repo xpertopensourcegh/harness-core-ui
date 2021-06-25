@@ -350,8 +350,8 @@ exports[`Resource Groups Page render data 1`] = `
                 class="Layout--horizontal StyledProps--main resourceFields"
               >
                 <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
-                  style="--text-line-clamp: 1; display: flex; align-items: center;"
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold"
+                  style="display: flex; align-items: center;"
                 >
                   <span
                     class="bp3-icon bp3-icon-settings StyledProps--main StyledProps--padding-right-medium"
@@ -387,8 +387,7 @@ exports[`Resource Groups Page render data 1`] = `
                   resourceGroup.all
                 </label>
                 <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main limitAccessCell StyledProps--color StyledProps--color-grey400"
-                  style="--text-line-clamp: 1;"
+                  class="StyledProps--font StyledProps--main limitAccessCell StyledProps--color StyledProps--color-grey400"
                 >
                   resourceGroup.limitAccess
                 </p>

@@ -40,7 +40,6 @@ const ResourcesCard: React.FC<ResourcesCardProps> = ({
           <Text
             color={Color.BLACK}
             font={{ weight: 'semi-bold' }}
-            lineClamp={1}
             icon={icon}
             iconProps={{ size: 20, padding: { right: 'medium' } }}
           >
@@ -54,7 +53,7 @@ const ResourcesCard: React.FC<ResourcesCardProps> = ({
           />
           {addResourceModalBody && (
             <>
-              <Text lineClamp={1} color={Color.GREY_400} className={css.limitAccessCell}>
+              <Text color={Color.GREY_400} className={css.limitAccessCell}>
                 {getString('resourceGroup.limitAccess', { name: getString(label) })}
               </Text>
               <Button
