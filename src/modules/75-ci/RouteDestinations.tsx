@@ -65,7 +65,6 @@ import CreateSecretFromYamlPage from '@secrets/pages/createSecretFromYaml/Create
 
 import './components/PipelineSteps'
 import './components/PipelineStudio/BuildStage'
-import SessionToken from 'framework/utils/SessionToken'
 import GitSyncPage from '@gitsync/pages/GitSyncPage'
 import GitSyncRepoTab from '@gitsync/pages/repos/GitSyncRepoTab'
 import GitSyncEntityTab from '@gitsync/pages/entities/GitSyncEntityTab'
@@ -138,8 +137,7 @@ const RedirectToPipelineDetailHome = (): React.ReactElement => {
 }
 
 const RedirectToGitSyncHome = (): React.ReactElement => {
-  const accountId = SessionToken.accountId()
-  const { projectIdentifier, orgIdentifier, module } = useParams<ProjectPathProps & ModulePathParams>()
+  const { accountId, projectIdentifier, orgIdentifier, module } = useParams<ProjectPathProps & ModulePathParams>()
 
   return <Redirect to={routes.toGitSyncReposAdmin({ projectIdentifier, accountId, orgIdentifier, module })} />
 }

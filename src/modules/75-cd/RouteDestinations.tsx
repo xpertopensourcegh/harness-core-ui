@@ -77,8 +77,6 @@ import Roles from '@rbac/pages/Roles/Roles'
 import RoleDetails from '@rbac/pages/RoleDetails/RoleDetails'
 import ResourceGroupDetails from '@rbac/pages/ResourceGroupDetails/ResourceGroupDetails'
 import UserGroups from '@rbac/pages/UserGroups/UserGroups'
-
-import SessionToken from 'framework/utils/SessionToken'
 import GitSyncPage from '@gitsync/pages/GitSyncPage'
 import GitSyncRepoTab from '@gitsync/pages/repos/GitSyncRepoTab'
 import GitSyncEntityTab from '@gitsync/pages/entities/GitSyncEntityTab'
@@ -94,8 +92,9 @@ const RedirectToAccessControlHome = (): React.ReactElement => {
 }
 
 const RedirectToGitSyncHome = (): React.ReactElement => {
-  const accountId = SessionToken.accountId()
-  const { projectIdentifier, orgIdentifier, module } = useParams<PipelineType<ProjectPathProps & ModulePathParams>>()
+  const { accountId, projectIdentifier, orgIdentifier, module } = useParams<
+    PipelineType<ProjectPathProps & ModulePathParams>
+  >()
 
   return <Redirect to={routes.toGitSyncReposAdmin({ projectIdentifier, accountId, orgIdentifier, module })} />
 }
