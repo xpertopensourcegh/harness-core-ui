@@ -1,5 +1,14 @@
 import React from 'react'
-import { Label, FormInput, getMultiTypeFromValue, MultiTypeInputType, Icon, Layout } from '@wings-software/uicore'
+import {
+  Label,
+  FormInput,
+  getMultiTypeFromValue,
+  MultiTypeInputType,
+  Icon,
+  Layout,
+  Text,
+  Button
+} from '@wings-software/uicore'
 import { connect } from 'formik'
 import { get, set, isEmpty, pickBy, identity } from 'lodash-es'
 import cx from 'classnames'
@@ -367,7 +376,17 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
           <div className={css.nestedAccordions}>
             {(deploymentStageTemplate.infrastructure as any)?.spec?.namespace && (
               /* istanbul ignore next */ <FormInput.MultiTextInput
-                label={getString('pipelineSteps.build.infraSpecifications.namespace')}
+                label={
+                  <Text flex font="small" margin={{ bottom: 'xsmall' }}>
+                    {getString('pipelineSteps.build.infraSpecifications.namespace')}
+                    <Button
+                      icon="question"
+                      minimal
+                      tooltip={getString('pipeline.namespaceTooltip')}
+                      iconProps={{ size: 14 }}
+                    />
+                  </Text>
+                }
                 name={`${isEmpty(path) ? '' : `${path}.`}infrastructure.spec.namespace`}
                 multiTextInputProps={{
                   expressions,

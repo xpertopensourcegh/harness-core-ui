@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import * as yup from 'yup'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
-import { Layout, Formik, FormikForm, FormInput, Text, Card, Accordion } from '@wings-software/uicore'
+import { Layout, Formik, FormikForm, FormInput, Text, Card, Accordion, Button } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
@@ -387,6 +387,12 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                         />
                         <Text font="small" margin={{ bottom: 'xsmall' }}>
                           {getString('pipelineSteps.build.infraSpecifications.namespace')}
+                          <Button
+                            icon="question"
+                            minimal
+                            tooltip={getString('pipeline.namespaceTooltip')}
+                            iconProps={{ size: 14 }}
+                          />
                         </Text>
                         <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                           <FormInput.MultiTextInput
@@ -455,6 +461,12 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                       />
                       <Text margin={{ bottom: 'xsmall' }}>
                         {getString('pipelineSteps.build.infraSpecifications.namespace')}
+                        <Button
+                          icon="question"
+                          minimal
+                          tooltip={getString('pipeline.namespaceTooltip')}
+                          iconProps={{ size: 14 }}
+                        />
                       </Text>
                       <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                         <MultiTypeTextField
