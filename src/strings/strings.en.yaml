@@ -368,7 +368,7 @@ imagePlaceholder: maven:3.6.3-jdk-8
 pluginImagePlaceholder: plugins/slack
 pluginImageInfo: The name of the Plugin Docker image. The image name should include the tag and will default to the latest tag if unspecified. You can use any docker image from any docker registry, including docker images from private registries
 dependencyImagePlaceholder: mysql:5
-imageInfo: 'The name and tag of the Docker image to run commands on. Include the image name and tag. Harness will default to the latest tag if unspecified. You can use any Docker image from any public or private Docker registry.'
+imageInfo: 'The name and tag of a Docker image to use in this stage. For example, a database container or a container to run integration tests on. Include the image name and tag. Harness will default to the latest tag if unspecified. You can use any Docker image from any public or private Docker registry.'
 imageNameLabel: Image Name
 imageNameInfo: The name of the image that will be pushed to the target container registry.
 encryptedKeyLabel: Encrypted Key
