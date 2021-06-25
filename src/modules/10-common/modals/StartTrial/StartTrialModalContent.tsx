@@ -41,7 +41,9 @@ const StartTrialModalContent: React.FC<StartTrialModalContentProps> = props => {
       if (selectedInfoCard?.route) {
         return getString('common.launchFirstGen' as keyof StringsMap, { module: module.toUpperCase() })
       }
-      return getString('common.startTrial' as keyof StringsMap, { module: module.toUpperCase() })
+      return getString('common.startTrial' as keyof StringsMap, {
+        module: module === 'cf' ? 'FF' : module.toUpperCase()
+      })
     }
 
     return (

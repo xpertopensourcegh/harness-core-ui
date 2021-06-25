@@ -67,8 +67,8 @@ const MODULE_SELECT_CARDS: ModuleSelectCard[] = [
   {
     icon: 'cf-main',
     module: ModuleName.CF,
-    title: 'common.purpose.continuous',
-    titleDescriptor: 'common.purpose.cf.features'
+    title: 'common.purpose.cf.feature',
+    titleDescriptor: 'common.purpose.cf.flags'
   }
 ]
 
@@ -179,7 +179,7 @@ const SubscriptionsPage: React.FC = () => {
             <Icon className={css.moduleIcons} name={cardData.icon} size={28} />
             <Layout.Vertical>
               <Text color={Color.BLACK} font={{ size: 'xsmall' }}>
-                {getString(cardData.title)}
+                {getString(cardData.title).toUpperCase()}
               </Text>
               <Text color={Color.BLACK} font={{ size: 'medium' }}>
                 {getString(cardData.titleDescriptor)}
@@ -213,7 +213,7 @@ const SubscriptionsPage: React.FC = () => {
     }
 
     const moduleEnterpriseMessage = getString('common.subscriptions.banner.enterprise', {
-      module: selectedModuleCard.module.toString()
+      module: selectedModuleCard.module === 'CF' ? 'FF' : selectedModuleCard.module.toString()
     })
     const expiryMessage = isExpired
       ? getString('common.subscriptions.expired', {

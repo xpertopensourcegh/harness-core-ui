@@ -148,6 +148,8 @@ purpose:
       <br><br>You can access this module via your free trial. Benefits include: Your software delivery pipeline can now include build stages, Test intelligence - faster and more reliable build processes'
   cf:
     features: Features
+    feature: Feature
+    flags: Flags
     subtitle: Decouple feature releases from deployments and roll out features safely and quickly.
     description: '{{$.common.purpose.cf.subtitle}}'
     continuous: Feature Flags

@@ -290,12 +290,12 @@ exports[`PurposePage should render module description and continue button when s
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-xsmall"
                     >
-                      common.purpose.continuous
+                      COMMON.PURPOSE.CF.FEATURE
                     </p>
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-large StyledProps--color StyledProps--color-black"
                     >
-                      common.purpose.cf.features
+                      common.purpose.cf.flags
                     </p>
                   </div>
                 </div>

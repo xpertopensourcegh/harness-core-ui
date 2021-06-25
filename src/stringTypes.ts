@@ -246,7 +246,9 @@ export interface StringsMap {
   'common.purpose.ce.visibilityCard.description': string
   'common.purpose.cf.continuous': string
   'common.purpose.cf.description': string
+  'common.purpose.cf.feature': string
   'common.purpose.cf.features': string
+  'common.purpose.cf.flags': string
   'common.purpose.cf.subtitle': string
   'common.purpose.ci.continuous': string
   'common.purpose.ci.description': string

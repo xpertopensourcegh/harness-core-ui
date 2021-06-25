@@ -3,7 +3,7 @@ import moment from 'moment'
 import cx from 'classnames'
 import { Text, Layout, Button, Color } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import type { ModuleName } from 'framework/types/ModuleName'
+import { ModuleName } from 'framework/types/ModuleName'
 import type { StringsMap } from 'stringTypes'
 import { useContactSalesModal, ContactSalesFormProps } from '@common/modals/ContactSales/useContactSalesModal'
 import { Page } from '../Page/Page'
@@ -28,6 +28,8 @@ export const TrialLicenseBanner = (trialBannerProps: TrialBannerProps): React.Re
   const expiredDays = Math.abs(days)
   const expiredClassName = isExpired ? css.expired : css.notExpired
 
+  const descriptionModule = module === ModuleName.CF ? 'FF' : module
+
   const alertMsg = isExpired ? (
     <Text font={{ weight: 'semi-bold' }} icon="info" iconProps={{ size: 18, color: Color.RED_500 }}>
       {getString('common.banners.trial.expired.description', {
@@ -38,7 +40,7 @@ export const TrialLicenseBanner = (trialBannerProps: TrialBannerProps): React.Re
   ) : (
     <Text font={{ weight: 'semi-bold' }} icon="info" iconProps={{ size: 18, color: Color.ORANGE_500 }}>
       {getString('common.banners.trial.description', {
-        module,
+        descriptionModule,
         days,
         moduleDescription
       })}

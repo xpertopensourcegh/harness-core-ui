@@ -81,7 +81,7 @@ const PurposeList: React.FC = () => {
 
   const CFNG_OPTIONS: PurposeType = {
     enabled: CFNG_ENABLED,
-    title: getString('common.purpose.cf.features'),
+    title: getString('common.purpose.cf.flags'),
     icon: 'cf-main',
     description: getString('common.purpose.cf.subtitle'),
     module: 'cf'
@@ -200,30 +200,36 @@ const PurposeList: React.FC = () => {
       <Layout.Horizontal padding={{ top: 'large' }}>
         <Container width="40%">
           <div style={{ borderRight: 'inset', marginLeft: -15 }}>
-            {getOptions().map(option => (
-              <Card
-                key={option.title}
-                className={cx(css.card, selected === option.module ? css.selected : '')}
-                onClick={() => handleModuleSelection(option.module)}
-              >
-                <Layout.Horizontal spacing="small">
-                  <Icon name={option.icon} size={25} />
-                  <div>
-                    <Text font="xsmall">{getString('common.purpose.continuous')}</Text>
-                    <Text font={{ size: 'medium' }} padding={{ bottom: 'large' }} color={Color.BLACK}>
-                      {option.title}
-                    </Text>
-                  </div>
-                </Layout.Horizontal>
-                <Text font="small" padding={{ bottom: 'small' }} style={{ minHeight: 70 }}>
-                  {option.description}
-                </Text>
+            {getOptions().map(option => {
+              const cardTitle =
+                option.module === 'cf'
+                  ? getString('common.purpose.cf.feature').toUpperCase()
+                  : getString('common.purpose.continuous')
+              return (
+                <Card
+                  key={option.title}
+                  className={cx(css.card, selected === option.module ? css.selected : '')}
+                  onClick={() => handleModuleSelection(option.module)}
+                >
+                  <Layout.Horizontal spacing="small">
+                    <Icon name={option.icon} size={25} />
+                    <div>
+                      <Text font="xsmall">{cardTitle}</Text>
+                      <Text font={{ size: 'medium' }} padding={{ bottom: 'large' }} color={Color.BLACK}>
+                        {option.title}
+                      </Text>
+                    </div>
+                  </Layout.Horizontal>
+                  <Text font="small" padding={{ bottom: 'small' }} style={{ minHeight: 70 }}>
+                    {option.description}
+                  </Text>
 
-                <Text font="small" style={{ marginTop: 10 }}>
-                  {getString('common.purpose.setup')}
-                </Text>
-              </Card>
-            ))}
+                  <Text font="small" style={{ marginTop: 10 }}>
+                    {getString('common.purpose.setup')}
+                  </Text>
+                </Card>
+              )
+            })}
           </div>
         </Container>
         <Container width={700} padding={{ left: 'huge', top: 'medium' }}>

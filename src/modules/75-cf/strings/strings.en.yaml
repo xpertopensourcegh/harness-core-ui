@@ -13,7 +13,7 @@ shared:
   prerequisites: Prerequisites
   selectEnvironment: Select environment
   evaluations: Evaluations
-  flags: Flags
+  flags: '{{$.common.purpose.cf.flags}}'
   rules: Rules
   archived: archived
   selected: '{{ counter }} selected'
@@ -1110,4 +1110,4 @@ cfTrialHomePage:
   startTrial:
     description: Take your feature release processes to the next level using our Harness Feature Flags.
     startBtn:
-      description: Start 14 day CF Enterprise trial
+      description: Start 14 day FF Enterprise trial
