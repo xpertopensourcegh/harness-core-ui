@@ -5,7 +5,7 @@ import { Layout, Text } from '@wings-software/uicore'
 
 import routes from '@common/RouteDefinitions'
 import { useGetExecutionDetail } from 'services/pipeline-ng'
-import type { ExecutionNode } from 'services/pipeline-ng'
+import type { ExecutionNode, ExecutionNodeAdjacencyList } from 'services/pipeline-ng'
 import { Duration } from '@common/components/Duration/Duration'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
@@ -13,7 +13,12 @@ import { String, useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
 import ExecutionActions from '@pipeline/components/ExecutionActions/ExecutionActions'
-import { ExecutionStatus, isExecutionComplete } from '@pipeline/utils/statusHelpers'
+import {
+  ExecutionStatus,
+  isExecutionComplete,
+  isExecutionRunning,
+  ExecutionStatusEnum
+} from '@pipeline/utils/statusHelpers'
 import {
   getPipelineStagesMap,
   getActiveStageForPipeline,
@@ -41,9 +46,18 @@ import css from './ExecutionLandingPage.module.scss'
 export const POLL_INTERVAL = 2 /* sec */ * 1000 /* ms */
 
 /** Add dependency services to nodeMap */
-const addServiceDependenciesFromLiteTaskEngine = (nodeMap: { [key: string]: ExecutionNode }): void => {
+const addServiceDependenciesFromLiteTaskEngine = (
+  nodeMap: { [key: string]: ExecutionNode },
+  adjacencyMap?: { [key: string]: ExecutionNodeAdjacencyList }
+): void => {
   const liteEngineTask = Object.values(nodeMap).find(item => item.stepType === LITE_ENGINE_TASK)
   if (liteEngineTask) {
+    const parentNodeId =
+      Object.entries(adjacencyMap || {}).find(([_, val]) => {
+        return (val?.children?.indexOf(liteEngineTask.uuid!) ?? -1) >= 0
+      })?.[0] || ''
+    const parentNode: ExecutionNode | undefined = nodeMap[parentNodeId]
+
     // NOTE: liteEngineTask contains information about dependency services
     const serviceDependencyList: ExecutionNode[] =
       // Array check is required for legacy support
@@ -62,6 +76,10 @@ const addServiceDependenciesFromLiteTaskEngine = (nodeMap: { [key: string]: Exec
             } as any
           }
         ]
+        if (parentNode && isExecutionRunning(parentNode.status)) {
+          // If execution is still running, we should be getting logs as stream, not blob
+          service.status = ExecutionStatusEnum.Running
+        }
         nodeMap[service.identifier] = service
       }
     })
@@ -131,13 +149,13 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
   useDeepCompareEffect(() => {
     const nodeMap = { ...data?.data?.executionGraph?.nodeMap }
     // NOTE: add dependencies from "liteEngineTask" (ci stage)
-    addServiceDependenciesFromLiteTaskEngine(nodeMap)
+    addServiceDependenciesFromLiteTaskEngine(nodeMap, data?.data?.executionGraph?.nodeAdjacencyListMap)
     setAllNodeMap(oldNodeMap => {
       const interruptHistories = pickBy(oldNodeMap, val => get(val, '__isInterruptNode'))
 
       return { ...interruptHistories, ...nodeMap }
     })
-  }, [data?.data?.executionGraph?.nodeMap])
+  }, [data?.data?.executionGraph?.nodeMap, data?.data?.executionGraph?.nodeAdjacencyListMap])
 
   // setup polling
   React.useEffect(() => {

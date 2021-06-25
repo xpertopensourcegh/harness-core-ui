@@ -122,7 +122,7 @@
 
 .repositoryCard {
   @include card-mixin(4px);
-  @include border-mixin(6px, 4px, var(--ci-color-green-400));
+  @include border-mixin(6px, 4px, var(--grey-300));
   padding: var(--spacing-medium) var(--spacing-large) var(--spacing-small) !important;
   .mainContent {
     display: flex;
