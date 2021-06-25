@@ -98,7 +98,7 @@ export const clientKeyMock: ConnectorInfoDTO = {
             clientCertRef: 'account.b13',
             clientKeyRef: 'account.k8serviceToken',
             clientKeyPassphraseRef: 'account.k8serviceToken',
-            clientKeyAlgo: null
+            clientKeyAlgo: 'somevalue'
           }
         }
       }

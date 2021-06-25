@@ -228,4 +228,45 @@ describe('Stepk8ClusterDetails', () => {
     await waitFor(() => expect(getByText('details')).not.toBeNull())
     expect(container).toMatchSnapshot()
   })
+
+  test('render edit mode and validate that empty client key algo cannot be submitted', async () => {
+    const { getByText, queryByText } = render(
+      <TestWrapper>
+        <Stepk8ClusterDetails
+          {...commonProps}
+          name="connectorname"
+          isEditMode={true}
+          connectorInfo={
+            {
+              name: 'dmhgjdgj',
+              identifier: 'dmhgjdgj',
+              description: '',
+              orgIdentifier: null,
+              projectIdentifier: null,
+              tags: {},
+              type: 'K8sCluster',
+              spec: {
+                credential: {
+                  type: 'ManualConfig',
+                  spec: {
+                    masterUrl: 'nmbshg',
+                    auth: {
+                      type: 'ClientKeyCert',
+                      spec: {
+                        clientKeyAlgo: ''
+                      }
+                    }
+                  }
+                }
+              }
+            } as any
+          }
+        />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(getByText('details')).not.toBeNull())
+    fireEvent.click(getByText('continue'))
+    await waitFor(() => expect(queryByText('connectors.k8.validation.clientKeyAlgo')).toBeTruthy())
+  })
 })

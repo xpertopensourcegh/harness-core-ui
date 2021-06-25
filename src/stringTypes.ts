@@ -934,6 +934,7 @@ export interface StringsMap {
   'connectors.k8.clientCertificate': string
   'connectors.k8.clientKey': string
   'connectors.k8.clientKeyAlgorithm': string
+  'connectors.k8.clientKeyAlgorithmPlaceholder': string
   'connectors.k8.clientKeyCACertificate': string
   'connectors.k8.clientKeyPassphrase': string
   'connectors.k8.clientSecretOptional': string
@@ -944,6 +945,7 @@ export interface StringsMap {
   'connectors.k8.serviceAccountKey': string
   'connectors.k8.serviceAccountToken': string
   'connectors.k8.skipDefaultValidation': string
+  'connectors.k8.validation.clientKeyAlgo': string
   'connectors.loginToMasterAccount': string
   'connectors.name': string
   'connectors.name_labels.AWS': string

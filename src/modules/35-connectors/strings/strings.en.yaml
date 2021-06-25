@@ -148,13 +148,16 @@ k8:
   clientKey: 'Client Key'
   clientKeyPassphrase: 'Client Key Passphrase (optional)'
   clientCertificate: 'Client Certificate'
-  clientKeyAlgorithm: 'Client Key Algorithm (optional)'
+  clientKeyAlgorithm: 'Client Key Algorithm'
+  clientKeyAlgorithmPlaceholder: Select or Enter a Client Key Algorithm
   clientKeyCACertificate: 'CA Certificate (optional)'
   placeholder:
     masterUrl: '/URL'
   authLabels:
     OIDC: 'OpenID Connect'
     clientKeyCertificate: 'Client Key Certificate'
+  validation:
+    clientKeyAlgo: Client Key Algorithm is required
 hashiCorpVault:
   appRoleId: 'App Role ID'
   baseSecretPath: 'Base Secret Path (optional)'

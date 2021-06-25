@@ -9,7 +9,8 @@ import {
   FormInput,
   Formik,
   FormikForm as Form,
-  Button
+  Button,
+  SelectOption
 } from '@wings-software/uicore'
 import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
@@ -93,6 +94,22 @@ interface AuthOptionInterface {
   value: string
 }
 
+enum CLIENT_KEY_ALGO {
+  RSA = 'RSA',
+  EC = 'EC'
+}
+
+const CLIENT_KEY_ALGO_OPTIONS: SelectOption[] = [
+  {
+    label: CLIENT_KEY_ALGO.RSA,
+    value: CLIENT_KEY_ALGO.RSA
+  },
+  {
+    label: CLIENT_KEY_ALGO.EC,
+    value: CLIENT_KEY_ALGO.EC
+  }
+]
+
 const RenderK8AuthForm: React.FC<FormikProps<KubeFormInterface> & { isEditMode: boolean }> = props => {
   const { getString } = useStrings()
 
@@ -158,7 +175,24 @@ const RenderK8AuthForm: React.FC<FormikProps<KubeFormInterface> & { isEditMode: 
 
             <Container className={css.formFieldWidth} margin={{ left: 'xxlarge' }}>
               <SecretInput name={'clientKeyPassphrase'} label={getString('connectors.k8.clientKeyPassphrase')} />
-              <FormInput.Text name="clientKeyAlgo" label={getString('connectors.k8.clientKeyAlgorithm')} />
+              <FormInput.Select
+                items={CLIENT_KEY_ALGO_OPTIONS}
+                name="clientKeyAlgo"
+                label={getString('connectors.k8.clientKeyAlgorithm')}
+                value={
+                  // If we pass the value as undefined, formik will kick in and value will be updated as per uicore logic
+                  // If we've added a custom value, then just add it as a label value pair
+                  CLIENT_KEY_ALGO_OPTIONS.find(opt => opt.value === props.values.clientKeyAlgo)
+                    ? undefined
+                    : { label: props.values.clientKeyAlgo, value: props.values.clientKeyAlgo }
+                }
+                selectProps={{
+                  allowCreatingNewItems: true,
+                  inputProps: {
+                    placeholder: getString('connectors.k8.clientKeyAlgorithmPlaceholder')
+                  }
+                }}
+              />
             </Container>
           </Container>
           <Container className={css.formFieldWidth}>
@@ -267,7 +301,13 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
       is: authType => authType === AuthTypes.CLIENT_KEY_CERT,
       then: Yup.object().required(getString('validation.clientCertificate')),
       otherwise: Yup.object().nullable()
-    })
+    }),
+    clientKeyAlgo: Yup.string()
+      .nullable()
+      .when('authType', {
+        is: authType => authType === AuthTypes.CLIENT_KEY_CERT,
+        then: Yup.string().required(getString('connectors.k8.validation.clientKeyAlgo'))
+      })
   })
 
   const [initialValues, setInitialValues] = useState(defaultInitialFormData)

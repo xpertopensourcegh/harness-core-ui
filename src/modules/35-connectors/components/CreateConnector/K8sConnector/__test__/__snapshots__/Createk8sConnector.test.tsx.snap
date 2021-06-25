@@ -3664,15 +3664,48 @@ exports[`should render form for edit authtype clientKey 1`] = `
                         class="bp3-form-content"
                       >
                         <div
-                          class="bp3-input-group"
+                          class="bp3-popover-wrapper Select--main bp3-fill"
                         >
-                          <input
-                            autocomplete="off"
-                            class="bp3-input"
-                            name="clientKeyAlgo"
-                            type="text"
-                            value=""
-                          />
+                          <div
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="bp3-input-group"
+                            >
+                              <input
+                                autocomplete="off"
+                                class="bp3-input"
+                                name="clientKeyAlgo"
+                                placeholder="connectors.k8.clientKeyAlgorithmPlaceholder"
+                                style="padding-right: 0px;"
+                                type="text"
+                                value="somevalue"
+                              />
+                              <span
+                                class="bp3-input-action"
+                              >
+                                <span
+                                  class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                                  icon="caret-down"
+                                >
+                                  <svg
+                                    data-icon="caret-down"
+                                    height="14"
+                                    viewBox="0 0 16 16"
+                                    width="14"
+                                  >
+                                    <desc>
+                                      caret-down
+                                    </desc>
+                                    <path
+                                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                      fill-rule="evenodd"
+                                    />
+                                  </svg>
+                                </span>
+                              </span>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
