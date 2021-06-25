@@ -179,8 +179,8 @@ manifestType:
   kustomizeFolderPath: Kustomize Folder Path
   repoNamePlaceholder: Enter Repository Name
   http:
-    chartName: 'Helm Chart Name'
-    chartVersion: 'Helm Chart Version'
+    chartName: 'Chart Name'
+    chartVersion: 'Chart Version'
     chartNameRequired: 'Chart Name is required'
     chartNamePlaceHolder: 'Enter Chart Name'
     chartVersionPlaceHolder: 'Enter Chart Version'
