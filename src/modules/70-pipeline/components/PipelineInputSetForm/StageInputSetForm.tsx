@@ -25,6 +25,49 @@ import { StepWidget } from '../AbstractSteps/StepWidget'
 import { StepViewType } from '../AbstractSteps/Step'
 import { useVariablesExpression } from '../PipelineStudio/PiplineHooks/useVariablesExpression'
 import css from './PipelineInputSetForm.module.scss'
+
+function ServiceDependencyForm({
+  template,
+  allValues,
+  values,
+  onUpdate,
+  readonly,
+  path
+}: {
+  template?: any
+  allValues?: any
+  values?: any
+  onUpdate: (data: any) => void
+  readonly?: boolean
+  path: string
+}): JSX.Element {
+  const { getString } = useStrings()
+  return (
+    <Layout.Vertical spacing="medium" padding={{ top: 'medium' }}>
+      <Label>
+        <Icon
+          padding={{ right: 'small' }}
+          name={factory.getStepIcon(allValues.type || /* istanbul ignore next */ '')}
+        />
+        {getString('pipeline.serviceDependencyText')}: {getString('pipeline.stepLabel', allValues)}
+      </Label>
+      <div>
+        <StepWidget<ExecutionWrapper>
+          factory={factory}
+          readonly={readonly}
+          path={path}
+          template={template}
+          initialValues={values || {}}
+          allValues={allValues || {}}
+          type={(allValues?.type as StepType) || ''}
+          onUpdate={onUpdate}
+          stepViewType={StepViewType.InputSet}
+        />
+      </div>
+    </Layout.Vertical>
+  )
+}
+
 function StepForm({
   template,
   allValues,
@@ -260,6 +303,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const isPropagating = deploymentStage?.serviceConfig?.useFromStage
+
   return (
     <>
       {deploymentStageTemplate.serviceConfig && (
@@ -446,6 +490,48 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
           <div className={css.inputheader}>{getString('variablesText')}</div>
 
           <div className={css.nestedAccordions}>WIP</div>
+        </div>
+      )}
+      {(deploymentStageTemplate as any).serviceDependencies && (
+        <div id={`Stage.${stageIdentifier}.ServiceDependencies`} className={cx(css.accordionSummary)}>
+          <div className={css.inputheader}>{getString('pipeline.serviceDependenciesText')}</div>
+
+          <div className={css.nestedAccordions}>
+            {(deploymentStageTemplate as any).serviceDependencies &&
+              (deploymentStageTemplate as any).serviceDependencies.map(({ identifier }: any, index: number) => (
+                <ServiceDependencyForm
+                  template={(deploymentStageTemplate as any).serviceDependencies[index]}
+                  path={`${path}.serviceDependencies[${index}]`}
+                  allValues={(deploymentStage as any)?.serviceDependencies?.[index]}
+                  values={deploymentStageInputSet?.serviceDependencies?.[index]}
+                  readonly={readonly}
+                  key={identifier}
+                  onUpdate={data => {
+                    const originalServiceDependency = (deploymentStage as any)?.serviceDependencies?.[index]
+                    let initialValues = deploymentStageInputSet?.serviceDependencies?.[index]
+
+                    if (initialValues) {
+                      if (!initialValues) {
+                        initialValues = {
+                          identifier: originalServiceDependency.identifier || '',
+                          name: originalServiceDependency.name || '',
+                          type: originalServiceDependency.type || ''
+                        }
+                      }
+
+                      initialValues = {
+                        ...data,
+                        identifier: originalServiceDependency.identifier || '',
+                        name: originalServiceDependency.name || '',
+                        type: originalServiceDependency.type || ''
+                      }
+
+                      formik?.setValues(set(formik?.values, `${path}.serviceDependencies[${index}]`, initialValues))
+                    }
+                  }}
+                />
+              ))}
+          </div>
         </div>
       )}
       {deploymentStageTemplate.execution && (

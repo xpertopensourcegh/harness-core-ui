@@ -3,6 +3,8 @@ verificationResult: 'Verification result:'
 estimatedTimeRemaining: 'Estimated time remaining:'
 progressPercentage: 'Progress percentage:'
 discard: Discard
+serviceDependencyText: Service Dependency
+serviceDependenciesText: Service Dependencies
 stepLabel: '{{name}} (ID: {{identifier}})'
 enableVerificationOptions: Enable verification options
 closeStepConfig: Step Config

@@ -1601,6 +1601,8 @@ export interface StringsMap {
   'pipeline.selectOrCreatePipeline.selectAPipeline': string
   'pipeline.selectOrCreatePipeline.setupHeader': string
   'pipeline.selectStagePlaceholder': string
+  'pipeline.serviceDependenciesText': string
+  'pipeline.serviceDependencyText': string
   'pipeline.sslVerify': string
   'pipeline.startTime': string
   'pipeline.stepConfigHasChanges': string
