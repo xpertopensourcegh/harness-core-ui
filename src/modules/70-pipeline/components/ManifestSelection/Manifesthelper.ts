@@ -83,7 +83,7 @@ export const ManifestToConnectorLabelMap: Record<ManifestStores | string, string
   Github: 'GitHub',
   GitLab: 'GitLab',
   Bitbucket: 'Bitbucket',
-  Http: 'HttpHelmRepo',
+  Http: 'Http Helm Repo',
   S3: 'AWS',
   Gcs: 'GCP'
 }
