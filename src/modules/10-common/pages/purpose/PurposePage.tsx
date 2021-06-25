@@ -10,7 +10,7 @@ import type { StringsMap } from 'stringTypes'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import { useUpdateAccountDefaultExperienceNG } from 'services/cd-ng'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
-import { Versions } from '@common/constants/Utils'
+import { Experiences } from '@common/constants/Utils'
 import ModuleInfoCards, { ModuleInfoCard, getInfoCardsProps } from '../../components/ModuleInfoCards/ModuleInfoCards'
 import css from './PurposePage.module.scss'
 
@@ -105,7 +105,7 @@ const PurposeList: React.FC = () => {
   const getModuleLink = (module: Module): React.ReactElement => {
     async function handleUpdateDefaultExperience(): Promise<void> {
       await updateDefaultExperience({
-        defaultExperience: !selectedInfoCard || selectedInfoCard?.isNgRoute ? Versions.NG : Versions.CG
+        defaultExperience: !selectedInfoCard || selectedInfoCard?.isNgRoute ? Experiences.NG : Experiences.CG
       })
     }
 

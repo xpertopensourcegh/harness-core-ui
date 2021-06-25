@@ -7,6 +7,7 @@ import { useToaster } from '@common/components'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useUpdateAccountNameNG } from 'services/cd-ng'
 import { NameSchema } from '@common/utils/Validation'
+import css from '../AccountOverview.module.scss'
 
 interface FormValues {
   name: string
@@ -57,7 +58,7 @@ const AccountNameForm: React.FC<AccountNameFormProps> = ({
       {() => (
         <FormikForm>
           <Layout.Horizontal spacing="medium">
-            <FormInput.Text name="name" />
+            <FormInput.Text name="name" className={css.nameInput} />
             <Button intent="primary" text={getString('save')} type="submit" disabled={updatingAcctName} />
             <Button
               text={getString('cancel')}

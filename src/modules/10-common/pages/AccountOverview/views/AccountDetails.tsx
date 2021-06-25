@@ -7,9 +7,9 @@ import type { StringsMap } from 'stringTypes'
 import { PageError } from '@common/components/Page/PageError'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import { useDefaultVersionModal } from '@common/modals/DefaultVersion/DefaultVersion'
+import { useDefaultExperienceModal } from '@common/modals/DefaultVersion/DefaultExperience'
 import { useGetAccountNG } from 'services/cd-ng'
-import type { Versions } from '@common/constants/Utils'
+import type { Experiences } from '@common/constants/Utils'
 import useSwitchAccountModal from '@common/modals/SwitchAccount/useSwitchAccountModal'
 import AccountNameForm from './AccountNameForm'
 import css from '../AccountOverview.module.scss'
@@ -25,7 +25,7 @@ const AccountDetails: React.FC = () => {
   const { data, loading, refetch: refetchAcct, error } = useGetAccountNG({ accountIdentifier: accountId })
   const [updateAccountName, setUpdateAccountName] = React.useState(false)
 
-  const { openDefaultVersionModal } = useDefaultVersionModal({ refetchAcct })
+  const { openDefaultExperienceModal } = useDefaultExperienceModal({ refetchAcct })
   const { openSwitchAccountModal } = useSwitchAccountModal({})
 
   const accountData = data?.data
@@ -90,20 +90,17 @@ const AccountDetails: React.FC = () => {
         <Text padding={{ right: 'small' }} color={Color.GREY_800}>
           {accountData?.cluster}
         </Text>
-        <a target="_blank" href="https://status.harness.io/" rel="noreferrer">
-          {getString('common.account.checkLatestStatus')}
-        </a>
       </Layout.Horizontal>
 
       <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
-        <Text className={css.minWidth}>{getString('common.defaultVersion')}</Text>
+        <Text className={css.minWidth}>{getString('common.defaultExperience')}</Text>
         <Text color={Color.GREY_800}>{defaultExperienceStr}</Text>
         <Button
           minimal
           intent="primary"
           padding="none"
           text={getString('change')}
-          onClick={() => openDefaultVersionModal(accountData?.defaultExperience as Versions)}
+          onClick={() => openDefaultExperienceModal(accountData?.defaultExperience as Experiences)}
         />
       </Layout.Horizontal>
     </Container>

@@ -7,5 +7,6 @@ declare const styles: {
   readonly zeroPadding: string
   readonly subscribedModules: string
   readonly manageBtn: string
+  readonly nameInput: string
 }
 export default styles

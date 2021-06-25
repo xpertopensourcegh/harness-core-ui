@@ -85,7 +85,7 @@ export interface StringsMap {
   'common.datePickerShortcuts.LastWeek': string
   'common.datePickerShortcuts.Today': string
   'common.datePickerShortcuts.Yesterday': string
-  'common.defaultVersion': string
+  'common.defaultExperience': string
   'common.delegateForTask': string
   'common.disable': string
   'common.duplicateId': string
@@ -290,7 +290,7 @@ export interface StringsMap {
   'common.seeDetails': string
   'common.seeWhatChanged': string
   'common.selectBranch': string
-  'common.selectDefaultVersion': string
+  'common.selectDefaultExperience': string
   'common.selectStrategy': string
   'common.selectVersion': string
   'common.setAsDefault': string

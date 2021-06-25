@@ -50,7 +50,7 @@ export const PASSWORD_CHECKS_RGX = ({
   )
 }
 
-export enum Versions {
+export enum Experiences {
   CG = 'CG',
   NG = 'NG'
 }

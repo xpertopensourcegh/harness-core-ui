@@ -11,15 +11,15 @@ import {
   CardSelect,
   CardSelectType
 } from '@wings-software/uicore'
-import { Versions } from '@common/constants/Utils'
+import { Experiences } from '@common/constants/Utils'
 import { useStrings } from 'framework/strings'
 import type { StringsMap } from 'stringTypes'
-import css from '../DefaultVersion.module.scss'
+import css from '../DefaultExperience.module.scss'
 
 interface Props {
   onSubmit?: () => void
-  currentVersion: Versions
-  setCurrentVersion: (currentVersion: Versions) => void
+  currentExperience: Experiences
+  setCurrentExperience: (currentExperience: Experiences) => void
   loading: boolean
 }
 
@@ -32,7 +32,7 @@ enum Modules {
 }
 
 interface Data {
-  type: Versions
+  type: Experiences
   title: string
   description: string
   modules: {
@@ -43,7 +43,7 @@ interface Data {
 
 const data: Data[] = [
   {
-    type: Versions.CG,
+    type: Experiences.CG,
     title: 'common.harnessFirstGeneration',
     description: 'common.harnessFirstGenerationDescription',
     modules: [
@@ -58,24 +58,12 @@ const data: Data[] = [
     ]
   },
   {
-    type: Versions.NG,
+    type: Experiences.NG,
     title: 'common.harnessNextGeneration',
     description: 'common.harnessNextGenerationDescription',
     modules: [
       {
-        name: Modules.CD,
-        size: 30
-      },
-      {
         name: Modules.CI,
-        size: 25
-      },
-      {
-        name: Modules.CV,
-        size: 25
-      },
-      {
-        name: Modules.CE,
         size: 25
       },
       {
@@ -86,15 +74,15 @@ const data: Data[] = [
   }
 ]
 
-const DefaultVersionForm: React.FC<Props> = ({ onSubmit, currentVersion, setCurrentVersion, loading }) => {
+const DefaultExperienceForm: React.FC<Props> = ({ onSubmit, currentExperience, setCurrentExperience, loading }) => {
   const { getString } = useStrings()
   return (
     <Layout.Vertical padding={{ left: 'huge', right: 'huge' }}>
       <Heading level={1} color={Color.GREY_800} font={{ weight: 'bold' }} margin={{ bottom: 'medium' }}>
-        {getString('common.defaultVersion')}
+        {getString('common.defaultExperience')}
       </Heading>
       <Text color={Color.GREY_700} font={{ size: 'normal' }} margin={{ bottom: 'xxxlarge' }}>
-        {getString('common.selectDefaultVersion')}
+        {getString('common.selectDefaultExperience')}
       </Text>
       <CardSelect
         data={data}
@@ -107,7 +95,7 @@ const DefaultVersionForm: React.FC<Props> = ({ onSubmit, currentVersion, setCurr
               <Heading level={2} color={Color.GREY_900} font={{ weight: 'bold' }} margin={{ bottom: 'medium' }}>
                 {getString(item.title as keyof StringsMap)}
               </Heading>
-              {item.type === Versions.NG && (
+              {item.type === Experiences.NG && (
                 <Tag round className={css.tag}>
                   {getString('common.new')}
                 </Tag>
@@ -126,8 +114,8 @@ const DefaultVersionForm: React.FC<Props> = ({ onSubmit, currentVersion, setCurr
             </Layout.Horizontal>
           </Container>
         )}
-        onChange={card => setCurrentVersion(card.type)}
-        selected={data.find(item => item.type === currentVersion)}
+        onChange={card => setCurrentExperience(card.type)}
+        selected={data.find(item => item.type === currentExperience)}
       />
       <Container padding={{ top: 'huge', bottom: 'xxlarge' }}>
         <Button text={getString('save')} intent="primary" onClick={onSubmit} disabled={loading} />
@@ -136,4 +124,4 @@ const DefaultVersionForm: React.FC<Props> = ({ onSubmit, currentVersion, setCurr
   )
 }
 
-export default DefaultVersionForm
+export default DefaultExperienceForm

@@ -5,24 +5,24 @@ import { Dialog, Classes } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { useToaster } from '@common/components'
 import { useStrings } from 'framework/strings'
-import { Versions } from '@common/constants/Utils'
+import { Experiences } from '@common/constants/Utils'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useUpdateAccountDefaultExperienceNG } from 'services/cd-ng'
-import DefaultVersionForm from './views/DefaultVersionForm'
-import css from './DefaultVersion.module.scss'
+import DefaultExperienceForm from './views/DefaultExperienceForm'
+import css from './DefaultExperience.module.scss'
 
 interface Props {
   refetchAcct: () => void
-  defaultVersion?: Versions
+  defaultExperience?: Experiences
 }
 
 interface ModalReturn {
-  openDefaultVersionModal: (_currentVersion: Versions) => void
-  closeDefaultVersionModal: () => void
+  openDefaultExperienceModal: (_currentExperience: Experiences) => void
+  closeDefaultExperienceModal: () => void
 }
 
-export const useDefaultVersionModal = ({ defaultVersion, refetchAcct }: Props): ModalReturn => {
-  const [currentVersion, setCurrentVersion] = React.useState<Versions>(defaultVersion || Versions.NG)
+export const useDefaultExperienceModal = ({ defaultExperience, refetchAcct }: Props): ModalReturn => {
+  const [currentExperience, setCurrentExperience] = React.useState<Experiences>(defaultExperience || Experiences.NG)
   const { accountId } = useParams<AccountPathProps>()
   const { mutate: updateDefaultExperience, loading } = useUpdateAccountDefaultExperienceNG({
     accountIdentifier: accountId
@@ -33,7 +33,7 @@ export const useDefaultVersionModal = ({ defaultVersion, refetchAcct }: Props): 
   const handleSubmit = async (): Promise<void> => {
     try {
       await updateDefaultExperience({
-        defaultExperience: currentVersion
+        defaultExperience: currentExperience
       })
       refetchAcct()
     } catch (error) {
@@ -45,27 +45,27 @@ export const useDefaultVersionModal = ({ defaultVersion, refetchAcct }: Props): 
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog isOpen title="" onClose={hideModal} className={cx(css.dialog, Classes.DIALOG)}>
-        <DefaultVersionForm
+        <DefaultExperienceForm
           onSubmit={handleSubmit}
           loading={loading}
-          currentVersion={currentVersion}
-          setCurrentVersion={setCurrentVersion}
+          currentExperience={currentExperience}
+          setCurrentExperience={setCurrentExperience}
         />
       </Dialog>
     ),
-    [currentVersion, loading]
+    [currentExperience, loading]
   )
 
   const open = React.useCallback(
-    (_currentVersion: Versions) => {
-      setCurrentVersion(_currentVersion)
+    (_currentExperience: Experiences) => {
+      setCurrentExperience(_currentExperience)
       showModal()
     },
     [showModal]
   )
 
   return {
-    openDefaultVersionModal: open,
-    closeDefaultVersionModal: hideModal
+    openDefaultExperienceModal: open,
+    closeDefaultExperienceModal: hideModal
   }
 }

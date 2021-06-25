@@ -104,13 +104,6 @@ exports[`Account Overview Page Rendering should render properly 1`] = `
         >
           free
         </p>
-        <a
-          href="https://status.harness.io/"
-          rel="noreferrer"
-          target="_blank"
-        >
-          common.account.checkLatestStatus
-        </a>
       </div>
       <div
         class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
@@ -118,7 +111,7 @@ exports[`Account Overview Page Rendering should render properly 1`] = `
         <p
           class="StyledProps--font StyledProps--main minWidth"
         >
-          common.defaultVersion
+          common.defaultExperience
         </p>
         <p
           class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
