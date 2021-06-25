@@ -579,6 +579,8 @@ export interface StringsMap {
   'authSettings.whitelistedDomainsDisabled': string
   'authSettings.yourAccountWillBeLockedOut': string
   'delegates.delSetup': string
+  'delegates.delegateDeleted': string
+  'delegates.delegateForceDeleted': string
   'delegates.delegateInstances': string
   'delegates.delegateNameRegexIssue': string
   'delegates.delegateNamespaceRequired': string
@@ -591,6 +593,7 @@ export interface StringsMap {
   'delegates.delegatePermissions.title': string
   'delegates.delegateSizeUpTo': string
   'delegates.downloadYAMLFile': string
+  'delegates.forceDelete': string
   'delegates.lastUpdated': string
   'delegates.newDelegateConfigWizard.matchAllEnvs': string
   'delegates.newDelegateConfigWizard.nonprodEnv': string
@@ -602,6 +605,8 @@ export interface StringsMap {
   'delegates.newDelegateConfigWizard.specifyEnvs': string
   'delegates.newDelegateConfigWizard.successMessage': string
   'delegates.permissionRequired': string
+  'delegates.questionDeleteDelegate': string
+  'delegates.questionForceDeleteDelegate': string
   'delegates.replicaText': string
   'delegates.reviewYAML': string
   'delegates.searchDelegateName': string
@@ -4046,10 +4051,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'delegate.productionWorkloads': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.questionDeleteDelegate': string
   /**
    * @deprecated migrate this string to module level file
    */

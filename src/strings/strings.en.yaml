@@ -853,7 +853,6 @@ delegate:
   Init_Script: 'Initialization Script'
   instancesCount: '({{count}} of {{total}} instances)'
   deleteDelegate: 'Delete Delegate'
-  questionDeleteDelegate: 'Are you sure you want to delete this Delegate?'
   deleteDelegateConfiguration: 'Delete Delegate Configuration'
   deleteDelegateConfigurationQuestion: 'Are you sure you want to delete the configuration '
   deleteDelegateConfigurationSuccess: 'Delegate Configuration {{ profileName }} deleted'

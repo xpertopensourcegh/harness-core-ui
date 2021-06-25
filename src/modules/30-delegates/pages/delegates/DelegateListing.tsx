@@ -167,8 +167,11 @@ const RenderColumnMenu: Renderer<CellProps<Required<DelegateGroupDetails>>> = ({
   const { mutate: deleteDelegate } = useDeleteDelegateGroup({
     queryParams: { accountId: accountId }
   })
+  const { mutate: forceDeleteDelegate } = useDeleteDelegateGroup({
+    queryParams: { accountId: accountId, forceDelete: true }
+  })
   const { openDialog } = useConfirmationDialog({
-    contentText: `${getString('delegate.questionDeleteDelegate')} ${row.original.groupName}`,
+    contentText: getString('delegates.questionDeleteDelegate', { name: row.original.groupName }),
     titleText: getString('delegate.deleteDelegate'),
     confirmButtonText: getString('delete'),
     cancelButtonText: getString('cancel'),
@@ -178,7 +181,7 @@ const RenderColumnMenu: Renderer<CellProps<Required<DelegateGroupDetails>>> = ({
           const deleted = await deleteDelegate(groupId)
 
           if (deleted) {
-            showSuccess(`Delegate ${row.original.groupName} deleted`)
+            showSuccess(getString('delegates.delegateDeleted', { name: row.original.groupName }))
           }
         } catch (error) {
           showError(error.message)
@@ -190,6 +193,32 @@ const RenderColumnMenu: Renderer<CellProps<Required<DelegateGroupDetails>>> = ({
     e.stopPropagation()
     setMenuOpen(false)
     openDialog()
+  }
+
+  const forceDeleteDialog = useConfirmationDialog({
+    contentText: `${getString('delegates.questionForceDeleteDelegate')} ${row.original.groupName}`,
+    titleText: getString('delegate.deleteDelegate'),
+    confirmButtonText: getString('delete'),
+    cancelButtonText: getString('cancel'),
+    onCloseDialog: async (isConfirmed: boolean) => {
+      if (isConfirmed) {
+        try {
+          const deleted = await forceDeleteDelegate(groupId)
+
+          if (deleted) {
+            showSuccess(getString('delegates.delegateForceDeleted', { name: row.original.groupName }))
+          }
+        } catch (error) {
+          showError(error.message)
+        }
+      }
+    }
+  })
+
+  const handleForceDelete = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+    e.stopPropagation()
+    setMenuOpen(false)
+    forceDeleteDialog.openDialog()
   }
 
   return (
@@ -243,6 +272,23 @@ const RenderColumnMenu: Renderer<CellProps<Required<DelegateGroupDetails>>> = ({
             icon="trash"
             text={getString('delete')}
             onClick={handleDelete}
+          />
+          <RbacMenuItem
+            permission={{
+              resourceScope: {
+                accountIdentifier: accountId,
+                orgIdentifier,
+                projectIdentifier
+              },
+              resource: {
+                resourceType: ResourceType.DELEGATE,
+                resourceIdentifier: groupId
+              },
+              permission: PermissionIdentifier.DELETE_DELEGATE
+            }}
+            icon="trash"
+            text={getString('delegates.forceDelete')}
+            onClick={handleForceDelete}
           />
         </Menu>
       </Popover>
