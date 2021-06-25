@@ -3,18 +3,18 @@
 exports[`CVHomePage snapshot test should render properly 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="StyledProps--font StyledProps--main pageBody body hasNoBanner"
     data-name="page-body"
   >
     <div
-      class="StyledProps--font StyledProps--main body"
+      class="StyledProps--font StyledProps--main container"
       style="--image-url: url(test-file-stub);"
     >
       <div
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
       >
         <h1
-          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color"
+          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black100"
         >
           cv.continuous
         </h1>

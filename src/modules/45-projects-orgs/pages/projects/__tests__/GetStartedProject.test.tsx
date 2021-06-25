@@ -25,7 +25,8 @@ jest.mock('services/cd-ng', () => ({
   useGetCurrentGenUsers: () => jest.fn(),
   useGetInvites: () => jest.fn(),
   useSendInvite: () => jest.fn(),
-  useGetRoles: () => jest.fn()
+  useGetRoles: () => jest.fn(),
+  useResendVerifyEmail: () => jest.fn()
 }))
 
 describe('Get Started Project test', () => {

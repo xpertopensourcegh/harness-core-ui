@@ -3,19 +3,18 @@
 exports[`CFHomePage should move to trial in progress page when query param trial is true 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="StyledProps--font StyledProps--main pageBody body hasNoBanner"
     data-name="page-body"
   >
     <div
-      class="StyledProps--font StyledProps--main body"
+      class="StyledProps--font StyledProps--main container"
       style="--image-url: url(test-file-stub);"
     >
       <div
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
       >
         <div
-          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-          style="align-items: center;"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main content"
         >
           <h1
             class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black100"
@@ -23,8 +22,7 @@ exports[`CFHomePage should move to trial in progress page when query param trial
             cf.continuous
           </h1>
           <p
-            class="StyledProps--font StyledProps--main StyledProps--border StyledProps--color StyledProps--color-white StyledProps--background-orange500 StyledProps--font-align-center"
-            style="width: 120px; height: 18px;"
+            class="StyledProps--font StyledProps--main StyledProps--padding-xsmall StyledProps--border StyledProps--color StyledProps--color-white StyledProps--background-orange500 StyledProps--font-align-center"
           >
             common.trialInProgress
           </p>
@@ -33,8 +31,8 @@ exports[`CFHomePage should move to trial in progress page when query param trial
           class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
         >
           <p
-            class="StyledProps--font StyledProps--main StyledProps--padding-bottom-xxlarge"
-            style="line-height: 2; width: 500px;"
+            class="StyledProps--font StyledProps--main description StyledProps--padding-bottom-xxlarge"
+            style="width: 500px;"
           >
             common.trialInProgressDescription
           </p>
@@ -53,7 +51,7 @@ exports[`CFHomePage should move to trial in progress page when query param trial
               </span>
             </button>
             <p
-              class="StyledProps--font StyledProps--main StyledProps--font-size-normal StyledProps--color StyledProps--color-black StyledProps--padding-small"
+              class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black StyledProps--padding-small"
             >
               orSelectExisting
             </p>
@@ -68,18 +66,18 @@ exports[`CFHomePage should move to trial in progress page when query param trial
 exports[`CFHomePage should render HomePageTemplate when return success with data 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="StyledProps--font StyledProps--main pageBody body hasNoBanner"
     data-name="page-body"
   >
     <div
-      class="StyledProps--font StyledProps--main body"
+      class="StyledProps--font StyledProps--main container"
       style="--image-url: url(test-file-stub);"
     >
       <div
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
       >
         <h1
-          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color"
+          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black100"
         >
           cf.continuous
         </h1>
@@ -129,18 +127,18 @@ exports[`CFHomePage should render HomePageTemplate when return success with data
 exports[`CFHomePage should render HomePageTemplate when return success with data 2`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="StyledProps--font StyledProps--main pageBody body hasNoBanner"
     data-name="page-body"
   >
     <div
-      class="StyledProps--font StyledProps--main body"
+      class="StyledProps--font StyledProps--main container"
       style="--image-url: url(test-file-stub);"
     >
       <div
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
       >
         <h1
-          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color"
+          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black100"
         >
           cf.continuous
         </h1>
@@ -190,18 +188,18 @@ exports[`CFHomePage should render HomePageTemplate when return success with data
 exports[`CFHomePage should render the home page template when the current user is not created from NG 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="StyledProps--font StyledProps--main pageBody body hasNoBanner"
     data-name="page-body"
   >
     <div
-      class="StyledProps--font StyledProps--main body"
+      class="StyledProps--font StyledProps--main container"
       style="--image-url: url(test-file-stub);"
     >
       <div
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
       >
         <h1
-          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color"
+          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black100"
         >
           cf.continuous
         </h1>
@@ -300,18 +298,18 @@ exports[`CFHomePage should return error page if call fails 1`] = `
 exports[`CFHomePage should update the license store 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="StyledProps--font StyledProps--main pageBody body hasNoBanner"
     data-name="page-body"
   >
     <div
-      class="StyledProps--font StyledProps--main body"
+      class="StyledProps--font StyledProps--main container"
       style="--image-url: url(test-file-stub);"
     >
       <div
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
       >
         <h1
-          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color"
+          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black100"
         >
           cf.continuous
         </h1>

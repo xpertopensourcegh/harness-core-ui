@@ -1,7 +1,7 @@
 import React from 'react'
 import { StartTrialTemplate } from '@common/components/TrialHomePageTemplate/StartTrialTemplate'
 import { useStrings } from 'framework/strings'
-import bgImageURL from './cf-homepage-bg.svg'
+import bgImageURL from './ff.svg'
 
 const CFTrialHomePage: React.FC = () => {
   const { getString } = useStrings()

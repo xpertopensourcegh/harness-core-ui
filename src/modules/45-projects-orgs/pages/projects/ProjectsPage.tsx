@@ -126,7 +126,7 @@ const ProjectsListPage: React.FC = () => {
     openCollaboratorModal({ projectIdentifier: project.identifier, orgIdentifier: project.orgIdentifier || 'default' })
   }
 
-  const bodyClassName = user.emailVerified ? css.noBanner : css.hasBanner
+  const bodyClassName = user.emailVerified === undefined || user.emailVerified ? css.noBanner : css.hasBanner
 
   return (
     <Container className={css.projectsPage} height="inherit">

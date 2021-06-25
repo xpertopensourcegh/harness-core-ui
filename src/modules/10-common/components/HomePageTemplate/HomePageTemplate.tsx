@@ -1,5 +1,6 @@
-import React, { CSSProperties } from 'react'
+import React, { CSSProperties, useState } from 'react'
 import { Heading, Layout, Text, Link as ExternalLink, FlexExpander, Container, Color } from '@wings-software/uicore'
+import cx from 'classnames'
 import { Link, useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
@@ -33,14 +34,17 @@ export const HomePageTemplate: React.FC<HomePageTemplate> = ({
   const { accountId } = useParams<{
     accountId: string
   }>()
+
+  const [hasBanner, setHasBanner] = useState<boolean>(true)
   const { getString } = useStrings()
+  const bannerClassName = hasBanner ? css.hasBanner : css.hasNoBanner
   return (
     <>
-      <TrialLicenseBanner {...trialBannerProps} />
-      <Page.Body>
-        <Container className={css.body} style={{ '--image-url': `url(${bgImageUrl})` } as CSSProperties}>
+      <TrialLicenseBanner {...trialBannerProps} setHasBanner={setHasBanner} />
+      <Page.Body className={cx(css.body, bannerClassName)}>
+        <Container className={css.container} style={{ '--image-url': `url(${bgImageUrl})` } as CSSProperties}>
           <Layout.Vertical spacing="medium">
-            <Heading font={{ weight: 'bold', size: 'large' }} color={'var(--primary-10)'}>
+            <Heading font={{ weight: 'bold', size: 'large' }} color={Color.BLACK_100}>
               {title}
             </Heading>
             <Text color={'var(--grey-500)'}>{subTitle}</Text>

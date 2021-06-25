@@ -1,5 +1,6 @@
-import React, { CSSProperties } from 'react'
+import React, { CSSProperties, useState } from 'react'
 import { Button, Color, Container, Heading, Layout, Text } from '@wings-software/uicore'
+import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import type { ModuleName } from 'framework/types/ModuleName'
 import { useTelemetry } from '@common/hooks/useTelemetry'
@@ -34,18 +35,12 @@ const TrialInProgressComponent: React.FC<TrialInProgressProps> = trialInProgress
   const { getString } = useStrings()
   return (
     <Layout.Vertical spacing="small">
-      <Text
-        padding={{ bottom: 'xxlarge' }}
-        width={500}
-        style={{
-          lineHeight: 2
-        }}
-      >
+      <Text className={css.description} padding={{ bottom: 'xxlarge' }} width={500}>
         {description}
       </Text>
       <Layout.Horizontal spacing="small">
         <Button width={200} height={45} intent="primary" text={startBtn.description} onClick={startBtn.onClick} />
-        <Text font={{ size: 'normal' }} color={Color.BLACK} padding={'small'}>
+        <Text font={{ size: 'medium' }} color={Color.BLACK} padding={'small'}>
           {getString('orSelectExisting')}
         </Text>
       </Layout.Horizontal>
@@ -67,20 +62,22 @@ export const TrialInProgressTemplate: React.FC<TrialInProgressTemplateProps> = (
     properties: { module: trialBannerProps.module }
   })
 
+  const [hasBanner, setHasBanner] = useState<boolean>(true)
+  const bannerClassName = hasBanner ? css.hasBanner : css.hasNoBanner
+
   return (
     <>
-      <TrialLicenseBanner {...trialBannerProps} />
-      <Page.Body>
-        <Container style={{ '--image-url': `url(${bgImageUrl})` } as CSSProperties} className={css.body}>
+      <TrialLicenseBanner {...trialBannerProps} setHasBanner={setHasBanner} />
+      <Page.Body className={cx(css.body, bannerClassName)}>
+        <Container style={{ '--image-url': `url(${bgImageUrl})` } as CSSProperties} className={css.container}>
           <Layout.Vertical spacing="medium">
-            <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
+            <Layout.Horizontal spacing="small" className={css.content}>
               <Heading font={{ weight: 'bold', size: 'large' }} color={Color.BLACK_100}>
                 {title}
               </Heading>
 
               <Text
-                width={120}
-                height={18}
+                padding={'xsmall'}
                 border={{ radius: 3 }}
                 color={Color.WHITE}
                 background={Color.ORANGE_500}

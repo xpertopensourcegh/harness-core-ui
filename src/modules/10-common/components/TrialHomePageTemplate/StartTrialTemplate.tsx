@@ -1,5 +1,5 @@
-import React from 'react'
-import { Heading, Layout, Text, Container, Button, Color, Icon } from '@wings-software/uicore'
+import React, { CSSProperties } from 'react'
+import { Heading, Layout, Text, Container, Button, Color } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import { useToaster } from '@common/components'
 import { useLicenseStore, handleUpdateLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
@@ -9,6 +9,7 @@ import { useTelemetry } from '@common/hooks/useTelemetry'
 import { Category, TrialActions } from '@common/constants/TrackingConstants'
 import routes from '@common/RouteDefinitions'
 import useStartTrialModal from '@common/modals/StartTrial/StartTrialModal'
+import css from './StartTrialTemplate.module.scss'
 
 interface StartTrialTemplateProps {
   title: string
@@ -71,30 +72,20 @@ const StartTrialComponent: React.FC<StartTrialProps> = startTrialProps => {
   const { trackEvent } = useTelemetry()
   return (
     <Layout.Vertical spacing="small">
-      <Text
-        padding={{ bottom: 'xxlarge' }}
-        style={{
-          width: 500,
-          lineHeight: 2
-        }}
-      >
+      <Text padding={{ bottom: 'xxlarge' }} width={500}>
         {description}
       </Text>
-      <a style={{ width: '25%' }} href={learnMore.url} rel="noreferrer" target="_blank">
+      <a className={css.learnMore} href={learnMore.url} rel="noreferrer" target="_blank">
         {learnMore.description}
       </a>
-      <Layout.Horizontal spacing="large" style={{ alignItems: 'center' }}>
-        <Button
-          style={{
-            width: 300,
-            height: 45
-          }}
-          intent="primary"
-          text={startBtn.description}
-          onClick={startBtn.onClick ? startBtn.onClick : handleStartButtonClick}
-        />
-        {loading && <Icon name="steps-spinner" size={20} color={Color.BLUE_600} style={{ marginBottom: 7 }} />}
-      </Layout.Horizontal>
+      <Button
+        width={300}
+        height={45}
+        intent="primary"
+        text={startBtn.description}
+        onClick={startBtn.onClick ? startBtn.onClick : handleStartButtonClick}
+        disabled={loading}
+      />
     </Layout.Vertical>
   )
 }
@@ -124,22 +115,11 @@ export const StartTrialTemplate: React.FC<StartTrialTemplateProps> = ({
   }
 
   return (
-    <Container
-      height="calc(100% - 160px)"
-      style={{
-        margin: '80px',
-        background: `transparent url(${bgImageUrl}) no-repeat`,
-        position: 'relative',
-        backgroundSize: 'contain',
-        backgroundPositionY: 'center'
-      }}
-    >
+    <Container className={css.body} style={{ '--image-url': `url(${bgImageUrl})` } as CSSProperties}>
       <Layout.Vertical spacing="medium">
-        <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
-          <Heading font={{ weight: 'bold' }} style={{ fontSize: '30px' }} color={Color.BLACK_100}>
-            {title}
-          </Heading>
-        </Layout.Horizontal>
+        <Heading font={{ weight: 'bold', size: 'large' }} color={Color.BLACK_100}>
+          {title}
+        </Heading>
 
         <StartTrialComponent {...startTrialProps} startTrial={handleStartTrial} module={module} loading={loading} />
       </Layout.Vertical>

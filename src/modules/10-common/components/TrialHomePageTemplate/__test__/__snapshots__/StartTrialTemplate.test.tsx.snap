@@ -3,56 +3,45 @@
 exports[`StartTrialTemplate snapshot test should call prop onClick when there is such prop 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main"
-    style="margin: 80px; background: transparent url() no-repeat; position: relative; background-size: contain; background-position-y: center; height: calc(100% - 160px);"
+    class="StyledProps--font StyledProps--main body"
+    style="--image-url: url();"
   >
     <div
       class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
     >
-      <div
-        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-        style="align-items: center;"
+      <h1
+        class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black100"
       >
-        <h1
-          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-black100"
-          style="font-size: 30px;"
-        >
-          Continuous Integration
-        </h1>
-      </div>
+        Continuous Integration
+      </h1>
       <div
         class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
       >
         <p
           class="StyledProps--font StyledProps--main StyledProps--padding-bottom-xxlarge"
-          style="width: 500px; line-height: 2;"
+          style="width: 500px;"
         >
           continue
         </p>
         <a
+          class="learnMore"
           href=""
           rel="noreferrer"
-          style="width: 25%;"
           target="_blank"
         >
           learn more description
         </a>
-        <div
-          class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
-          style="align-items: center;"
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          style="width: 300px; height: 45px;"
+          type="button"
         >
-          <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-            style="width: 300px; height: 45px;"
-            type="button"
+          <span
+            class="bp3-button-text"
           >
-            <span
-              class="bp3-button-text"
-            >
-              Continue
-            </span>
-          </button>
-        </div>
+            Continue
+          </span>
+        </button>
       </div>
     </div>
   </div>
@@ -77,56 +66,45 @@ exports[`StartTrialTemplate snapshot test should call start trial api when click
 exports[`StartTrialTemplate snapshot test should call the start button click handler if it exists 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main"
-    style="margin: 80px; background: transparent url() no-repeat; position: relative; background-size: contain; background-position-y: center; height: calc(100% - 160px);"
+    class="StyledProps--font StyledProps--main body"
+    style="--image-url: url();"
   >
     <div
       class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
     >
-      <div
-        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-        style="align-items: center;"
+      <h1
+        class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black100"
       >
-        <h1
-          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-black100"
-          style="font-size: 30px;"
-        >
-          Continuous Integration
-        </h1>
-      </div>
+        Continuous Integration
+      </h1>
       <div
         class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
       >
         <p
           class="StyledProps--font StyledProps--main StyledProps--padding-bottom-xxlarge"
-          style="width: 500px; line-height: 2;"
+          style="width: 500px;"
         >
           start trial description
         </p>
         <a
+          class="learnMore"
           href=""
           rel="noreferrer"
-          style="width: 25%;"
           target="_blank"
         >
           learn more description
         </a>
-        <div
-          class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
-          style="align-items: center;"
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          style="width: 300px; height: 45px;"
+          type="button"
         >
-          <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-            style="width: 300px; height: 45px;"
-            type="button"
+          <span
+            class="bp3-button-text"
           >
-            <span
-              class="bp3-button-text"
-            >
-              Start A Trial
-            </span>
-          </button>
-        </div>
+            Start A Trial
+          </span>
+        </button>
       </div>
     </div>
   </div>
@@ -136,56 +114,45 @@ exports[`StartTrialTemplate snapshot test should call the start button click han
 exports[`StartTrialTemplate snapshot test should display error msg when api call fails 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main"
-    style="margin: 80px; background: transparent url() no-repeat; position: relative; background-size: contain; background-position-y: center; height: calc(100% - 160px);"
+    class="StyledProps--font StyledProps--main body"
+    style="--image-url: url();"
   >
     <div
       class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
     >
-      <div
-        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-        style="align-items: center;"
+      <h1
+        class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black100"
       >
-        <h1
-          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-black100"
-          style="font-size: 30px;"
-        >
-          Continuous Integration
-        </h1>
-      </div>
+        Continuous Integration
+      </h1>
       <div
         class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
       >
         <p
           class="StyledProps--font StyledProps--main StyledProps--padding-bottom-xxlarge"
-          style="width: 500px; line-height: 2;"
+          style="width: 500px;"
         >
           start trial description
         </p>
         <a
+          class="learnMore"
           href=""
           rel="noreferrer"
-          style="width: 25%;"
           target="_blank"
         >
           learn more description
         </a>
-        <div
-          class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
-          style="align-items: center;"
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          style="width: 300px; height: 45px;"
+          type="button"
         >
-          <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-            style="width: 300px; height: 45px;"
-            type="button"
+          <span
+            class="bp3-button-text"
           >
-            <span
-              class="bp3-button-text"
-            >
-              Start A Trial
-            </span>
-          </button>
-        </div>
+            Start A Trial
+          </span>
+        </button>
       </div>
     </div>
   </div>
@@ -195,56 +162,45 @@ exports[`StartTrialTemplate snapshot test should display error msg when api call
 exports[`StartTrialTemplate snapshot test should open the modal when a button is clicked and shouldShowStartTrialModal is true 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main"
-    style="margin: 80px; background: transparent url() no-repeat; position: relative; background-size: contain; background-position-y: center; height: calc(100% - 160px);"
+    class="StyledProps--font StyledProps--main body"
+    style="--image-url: url();"
   >
     <div
       class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
     >
-      <div
-        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-        style="align-items: center;"
+      <h1
+        class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black100"
       >
-        <h1
-          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-black100"
-          style="font-size: 30px;"
-        >
-          Continuous Integration
-        </h1>
-      </div>
+        Continuous Integration
+      </h1>
       <div
         class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
       >
         <p
           class="StyledProps--font StyledProps--main StyledProps--padding-bottom-xxlarge"
-          style="width: 500px; line-height: 2;"
+          style="width: 500px;"
         >
           start trial description
         </p>
         <a
+          class="learnMore"
           href=""
           rel="noreferrer"
-          style="width: 25%;"
           target="_blank"
         >
           learn more description
         </a>
-        <div
-          class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
-          style="align-items: center;"
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          style="width: 300px; height: 45px;"
+          type="button"
         >
-          <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-            style="width: 300px; height: 45px;"
-            type="button"
+          <span
+            class="bp3-button-text"
           >
-            <span
-              class="bp3-button-text"
-            >
-              Start A Trial
-            </span>
-          </button>
-        </div>
+            Start A Trial
+          </span>
+        </button>
       </div>
     </div>
   </div>
@@ -254,56 +210,45 @@ exports[`StartTrialTemplate snapshot test should open the modal when a button is
 exports[`StartTrialTemplate snapshot test should render start a trial by default 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main"
-    style="margin: 80px; background: transparent url() no-repeat; position: relative; background-size: contain; background-position-y: center; height: calc(100% - 160px);"
+    class="StyledProps--font StyledProps--main body"
+    style="--image-url: url();"
   >
     <div
       class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
     >
-      <div
-        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-        style="align-items: center;"
+      <h1
+        class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black100"
       >
-        <h1
-          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-black100"
-          style="font-size: 30px;"
-        >
-          Continuous Integration
-        </h1>
-      </div>
+        Continuous Integration
+      </h1>
       <div
         class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
       >
         <p
           class="StyledProps--font StyledProps--main StyledProps--padding-bottom-xxlarge"
-          style="width: 500px; line-height: 2;"
+          style="width: 500px;"
         >
           start trial description
         </p>
         <a
+          class="learnMore"
           href=""
           rel="noreferrer"
-          style="width: 25%;"
           target="_blank"
         >
           learn more description
         </a>
-        <div
-          class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
-          style="align-items: center;"
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          style="width: 300px; height: 45px;"
+          type="button"
         >
-          <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-            style="width: 300px; height: 45px;"
-            type="button"
+          <span
+            class="bp3-button-text"
           >
-            <span
-              class="bp3-button-text"
-            >
-              Start A Trial
-            </span>
-          </button>
-        </div>
+            Start A Trial
+          </span>
+        </button>
       </div>
     </div>
   </div>

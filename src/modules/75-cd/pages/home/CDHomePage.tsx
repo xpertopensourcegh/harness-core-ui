@@ -15,7 +15,7 @@ import { useGetPipelineList, PagePMSPipelineSummaryResponse } from 'services/pip
 import { TrialType, useCDTrialModal, UseCDTrialModalProps } from '@cd/modals/CDTrial/useCDTrialModal'
 import routes from '@common/RouteDefinitions'
 import CDTrialHomePage from './CDTrialHomePage'
-import bgImageURL from './images/homeIllustration.svg'
+import bgImageURL from './images/cd.svg'
 
 export const CDHomePage: React.FC = () => {
   const { getString } = useStrings()

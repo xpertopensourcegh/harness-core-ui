@@ -3,9 +3,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: calc(100vh - 64px); // 64px is to  delete standard page header height
+  height: calc(100vh - var(--page-header-height, 64px));
 }
 
 .image {
-  width: 50%;
+  width: 130%;
+}
+
+.hasBanner {
+  --page-header-height: 114px !important;
 }

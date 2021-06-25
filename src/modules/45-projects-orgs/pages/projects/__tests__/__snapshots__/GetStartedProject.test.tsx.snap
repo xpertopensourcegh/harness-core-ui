@@ -13,7 +13,8 @@ exports[`Get Started Project test Add a new Project  1`] = `
     </h2>
   </div>
   <div
-    class="getStartedMainContainer"
+    class="StyledProps--font StyledProps--main pageBody getStartedMainContainer"
+    data-name="page-body"
   >
     <div
       class="Layout--vertical Layout--layout-spacing-xxxlarge StyledProps--main StyledProps--flex"

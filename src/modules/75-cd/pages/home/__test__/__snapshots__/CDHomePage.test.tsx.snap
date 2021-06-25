@@ -3,19 +3,18 @@
 exports[`CDHomePage snapshot test should move to trial in progress page when query param trial is true 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="StyledProps--font StyledProps--main pageBody body hasNoBanner"
     data-name="page-body"
   >
     <div
-      class="StyledProps--font StyledProps--main body"
+      class="StyledProps--font StyledProps--main container"
       style="--image-url: url(test-file-stub);"
     >
       <div
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
       >
         <div
-          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-          style="align-items: center;"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main content"
         >
           <h1
             class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black100"
@@ -23,8 +22,7 @@ exports[`CDHomePage snapshot test should move to trial in progress page when que
             cd.continuous
           </h1>
           <p
-            class="StyledProps--font StyledProps--main StyledProps--border StyledProps--color StyledProps--color-white StyledProps--background-orange500 StyledProps--font-align-center"
-            style="width: 120px; height: 18px;"
+            class="StyledProps--font StyledProps--main StyledProps--padding-xsmall StyledProps--border StyledProps--color StyledProps--color-white StyledProps--background-orange500 StyledProps--font-align-center"
           >
             common.trialInProgress
           </p>
@@ -33,8 +31,8 @@ exports[`CDHomePage snapshot test should move to trial in progress page when que
           class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
         >
           <p
-            class="StyledProps--font StyledProps--main StyledProps--padding-bottom-xxlarge"
-            style="line-height: 2; width: 500px;"
+            class="StyledProps--font StyledProps--main description StyledProps--padding-bottom-xxlarge"
+            style="width: 500px;"
           >
             common.trialInProgressDescription
           </p>
@@ -53,7 +51,7 @@ exports[`CDHomePage snapshot test should move to trial in progress page when que
               </span>
             </button>
             <p
-              class="StyledProps--font StyledProps--main StyledProps--font-size-normal StyledProps--color StyledProps--color-black StyledProps--padding-small"
+              class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black StyledProps--padding-small"
             >
               orSelectExisting
             </p>
@@ -68,18 +66,18 @@ exports[`CDHomePage snapshot test should move to trial in progress page when que
 exports[`CDHomePage snapshot test should pop up select pipeline CD Trial modal if query param modal is true and there is selected project 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="StyledProps--font StyledProps--main pageBody body hasNoBanner"
     data-name="page-body"
   >
     <div
-      class="StyledProps--font StyledProps--main body"
+      class="StyledProps--font StyledProps--main container"
       style="--image-url: url(test-file-stub);"
     >
       <div
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
       >
         <h1
-          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color"
+          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black100"
         >
           cd.continuous
         </h1>
@@ -129,18 +127,18 @@ exports[`CDHomePage snapshot test should pop up select pipeline CD Trial modal i
 exports[`CDHomePage snapshot test should pop up select project CD Trial modal if query param modal is true and there is NOT selected project 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="StyledProps--font StyledProps--main pageBody body hasNoBanner"
     data-name="page-body"
   >
     <div
-      class="StyledProps--font StyledProps--main body"
+      class="StyledProps--font StyledProps--main container"
       style="--image-url: url(test-file-stub);"
     >
       <div
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
       >
         <h1
-          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color"
+          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black100"
         >
           cd.continuous
         </h1>
@@ -190,18 +188,18 @@ exports[`CDHomePage snapshot test should pop up select project CD Trial modal if
 exports[`CDHomePage snapshot test should render HomePageTemplate when return success with data 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main pageBody"
+    class="StyledProps--font StyledProps--main pageBody body hasNoBanner"
     data-name="page-body"
   >
     <div
-      class="StyledProps--font StyledProps--main body"
+      class="StyledProps--font StyledProps--main container"
       style="--image-url: url(test-file-stub);"
     >
       <div
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
       >
         <h1
-          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color"
+          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black100"
         >
           cd.continuous
         </h1>
@@ -251,56 +249,45 @@ exports[`CDHomePage snapshot test should render HomePageTemplate when return suc
 exports[`CDHomePage snapshot test should render Trial Home page when return success with NO data 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main"
-    style="margin: 80px; background: transparent url(test-file-stub) no-repeat; position: relative; background-size: contain; background-position-y: center; height: calc(100% - 160px);"
+    class="StyledProps--font StyledProps--main body"
+    style="--image-url: url(test-file-stub);"
   >
     <div
       class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
     >
-      <div
-        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-        style="align-items: center;"
+      <h1
+        class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black100"
       >
-        <h1
-          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-black100"
-          style="font-size: 30px;"
-        >
-          cd.continuous
-        </h1>
-      </div>
+        cd.continuous
+      </h1>
       <div
         class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
       >
         <p
           class="StyledProps--font StyledProps--main StyledProps--padding-bottom-xxlarge"
-          style="width: 500px; line-height: 2;"
+          style="width: 500px;"
         >
           cd.cdTrialHomePage.startTrial.description
         </p>
         <a
+          class="learnMore"
           href="https://ngdocs.harness.io/category/c9j6jejsws-cd-quickstarts"
           rel="noreferrer"
-          style="width: 25%;"
           target="_blank"
         >
           cd.learnMore
         </a>
-        <div
-          class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
-          style="align-items: center;"
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          style="width: 300px; height: 45px;"
+          type="button"
         >
-          <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-            style="width: 300px; height: 45px;"
-            type="button"
+          <span
+            class="bp3-button-text"
           >
-            <span
-              class="bp3-button-text"
-            >
-              getStarted
-            </span>
-          </button>
-        </div>
+            getStarted
+          </span>
+        </button>
       </div>
     </div>
   </div>

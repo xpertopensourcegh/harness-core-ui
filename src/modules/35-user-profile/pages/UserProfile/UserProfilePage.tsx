@@ -41,7 +41,7 @@ const UserProfilePage: React.FC = () => {
   const passwordStrengthPolicy = userPasswordSettings?.loginSettings?.passwordStrengthPolicy
 
   const { openPasswordModal } = useChangePassword()
-  const className = user.emailVerified ? css.noBanner : css.hasBanner
+  const className = user.emailVerified === undefined || user.emailVerified ? css.noBanner : css.hasBanner
 
   return (
     <>

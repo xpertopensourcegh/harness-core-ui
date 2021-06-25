@@ -14,7 +14,7 @@ import type { Module } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 import { useQueryParams } from '@common/hooks'
 import { useGetModuleLicenseByAccountAndModuleType } from 'services/cd-ng'
-import bgImageURL from './images/homeIllustration.svg'
+import bgImageURL from './images/ci.svg'
 
 const CIHomePage: React.FC = () => {
   const { getString } = useStrings()

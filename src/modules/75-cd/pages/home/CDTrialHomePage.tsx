@@ -9,7 +9,7 @@ import { useQueryParams } from '@common/hooks'
 import { useStartTrialLicense } from 'services/cd-ng'
 import { useToaster } from '@common/components'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
-import bgImageURL from './images/homeIllustration.svg'
+import bgImageURL from './images/cd.svg'
 
 const CDTrialHomePage: React.FC = () => {
   const { getString } = useStrings()

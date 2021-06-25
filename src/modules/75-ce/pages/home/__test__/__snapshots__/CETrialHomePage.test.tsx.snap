@@ -3,56 +3,45 @@
 exports[`CETrialHomePage snapshot test it should render properly 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main"
-    style="margin: 80px; background: transparent url(test-file-stub) no-repeat; position: relative; background-size: contain; background-position-y: center; height: calc(100% - 160px);"
+    class="StyledProps--font StyledProps--main body"
+    style="--image-url: url(test-file-stub);"
   >
     <div
       class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
     >
-      <div
-        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-        style="align-items: center;"
+      <h1
+        class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black100"
       >
-        <h1
-          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-black100"
-          style="font-size: 30px;"
-        >
-          ce.continuous
-        </h1>
-      </div>
+        ce.continuous
+      </h1>
       <div
         class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
       >
         <p
           class="StyledProps--font StyledProps--main StyledProps--padding-bottom-xxlarge"
-          style="width: 500px; line-height: 2;"
+          style="width: 500px;"
         >
           ce.ceTrialHomePage.startTrial.description
         </p>
         <a
+          class="learnMore"
           href="https://ngdocs.harness.io/article/34bzscs2y9-ce-placeholder"
           rel="noreferrer"
-          style="width: 25%;"
           target="_blank"
         >
           ce.learnMore
         </a>
-        <div
-          class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
-          style="align-items: center;"
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          style="width: 300px; height: 45px;"
+          type="button"
         >
-          <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-            style="width: 300px; height: 45px;"
-            type="button"
+          <span
+            class="bp3-button-text"
           >
-            <span
-              class="bp3-button-text"
-            >
-              getStarted
-            </span>
-          </button>
-        </div>
+            getStarted
+          </span>
+        </button>
       </div>
     </div>
   </div>
@@ -62,56 +51,45 @@ exports[`CETrialHomePage snapshot test it should render properly 1`] = `
 exports[`CETrialHomePage snapshot test it should show a loading spinner 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main"
-    style="margin: 80px; background: transparent url(test-file-stub) no-repeat; position: relative; background-size: contain; background-position-y: center; height: calc(100% - 160px);"
+    class="StyledProps--font StyledProps--main body"
+    style="--image-url: url(test-file-stub);"
   >
     <div
       class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
     >
-      <div
-        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-        style="align-items: center;"
+      <h1
+        class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black100"
       >
-        <h1
-          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-black100"
-          style="font-size: 30px;"
-        >
-          ce.continuous
-        </h1>
-      </div>
+        ce.continuous
+      </h1>
       <div
         class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
       >
         <p
           class="StyledProps--font StyledProps--main StyledProps--padding-bottom-xxlarge"
-          style="width: 500px; line-height: 2;"
+          style="width: 500px;"
         >
           ce.ceTrialHomePage.startTrial.description
         </p>
         <a
+          class="learnMore"
           href="https://ngdocs.harness.io/article/34bzscs2y9-ce-placeholder"
           rel="noreferrer"
-          style="width: 25%;"
           target="_blank"
         >
           ce.learnMore
         </a>
-        <div
-          class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
-          style="align-items: center;"
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          style="width: 300px; height: 45px;"
+          type="button"
         >
-          <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-            style="width: 300px; height: 45px;"
-            type="button"
+          <span
+            class="bp3-button-text"
           >
-            <span
-              class="bp3-button-text"
-            >
-              getStarted
-            </span>
-          </button>
-        </div>
+            getStarted
+          </span>
+        </button>
       </div>
     </div>
   </div>

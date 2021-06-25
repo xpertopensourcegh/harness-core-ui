@@ -13,12 +13,13 @@ interface TrialBannerProps {
   expiryTime?: number
   licenseType?: string
   module: ModuleName
+  setHasBanner?: (value: boolean) => void
 }
 
 export const TrialLicenseBanner = (trialBannerProps: TrialBannerProps): React.ReactElement => {
   const { getString } = useStrings()
   const [display, setDisplay] = useState(true)
-  const { module, expiryTime, licenseType } = trialBannerProps
+  const { module, expiryTime, licenseType, setHasBanner } = trialBannerProps
   const moduleName = module.toString().toLowerCase()
   const moduleDescription = getString(`${moduleName}.continuous` as keyof StringsMap)
 
@@ -51,6 +52,7 @@ export const TrialLicenseBanner = (trialBannerProps: TrialBannerProps): React.Re
   })
 
   if (licenseType !== 'TRIAL' || !display) {
+    setHasBanner?.(false)
     return <></>
   }
 
@@ -83,7 +85,9 @@ export const TrialLicenseBanner = (trialBannerProps: TrialBannerProps): React.Re
           minimal
           icon="cross"
           iconProps={{ size: 18 }}
-          onClick={() => setDisplay(false)}
+          onClick={() => {
+            setDisplay(false), setHasBanner?.(false)
+          }}
         />
       }
     />

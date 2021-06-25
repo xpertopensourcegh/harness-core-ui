@@ -4,7 +4,7 @@ import { StartTrialTemplate } from '@common/components/TrialHomePageTemplate/Sta
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { PageNames } from '@ci/constants/TrackingConstants'
 import { Category } from '@common/constants/TrackingConstants'
-import bgImageURL from './images/homeIllustration.svg'
+import bgImageURL from './images/ci.svg'
 
 const CITrialHomePage: React.FC = () => {
   const { getString } = useStrings()
