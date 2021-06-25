@@ -28,7 +28,9 @@ const StepSuccessVerification: React.FC<StepProps<StepK8Data> & StepSuccessVerif
   // const onVerify = () => {}
 
   const onClickBack = (): void => {
-    previousStep?.()
+    if (previousStep) {
+      previousStep(props?.prevStepData)
+    }
   }
   return (
     <>
