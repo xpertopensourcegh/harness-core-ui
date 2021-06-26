@@ -69,7 +69,7 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
           spec: {
             store: {
               spec: {
-                gitFetchType: '',
+                gitFetchType: 'Branch',
                 branch: '',
                 commitId: '',
                 paths: [{ id: uuid(), path: '' }]
@@ -341,6 +341,19 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
                       }}
                     />
                   </MultiTypeFieldSelector>
+                  {getMultiTypeFromValue(formik.values?.varFile?.spec?.store?.spec?.paths) ===
+                    MultiTypeInputType.RUNTIME && (
+                    <ConfigureOptions
+                      value={formik.values?.varFile?.spec?.store?.spec?.paths}
+                      type={getString('list')}
+                      variableName={'varFile.spec.store.spec.paths'}
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={val => formik?.setFieldValue('varFile.spec.store.spec.paths', val)}
+                      isReadonly={isReadonly}
+                    />
+                  )}
                 </div>
               </div>
 

@@ -41,7 +41,19 @@ export class TerraformApply extends PipelineStep<TFFormData> {
     name: '',
     type: StepType.TerraformApply,
     spec: {
-      configuration: { type: ConfigurationTypes.Inline },
+      configuration: {
+        type: ConfigurationTypes.Inline,
+        spec: {
+          configFiles: {
+            store: {
+              type: 'Git',
+              spec: {
+                gitFetchType: 'Branch'
+              }
+            }
+          }
+        }
+      },
       provisionerIdentifier: ''
     }
   }

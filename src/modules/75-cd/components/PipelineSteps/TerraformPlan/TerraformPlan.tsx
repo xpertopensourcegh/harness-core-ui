@@ -201,12 +201,7 @@ function TerraformPlanWidget(
                     </Text>
                   }
                   category={'SECRET_MANAGER'}
-                  width={
-                    getMultiTypeFromValue(formik.values?.spec?.configuration?.secretManagerRef) ===
-                    MultiTypeInputType.RUNTIME
-                      ? 200
-                      : 260
-                  }
+                  width={280}
                   name="spec.configuration.secretManagerRef"
                   placeholder={getString('select')}
                   accountIdentifier={accountId}
@@ -414,7 +409,14 @@ export class TerraformPlan extends PipelineStep<TFPlanFormData> {
     spec: {
       configuration: {
         command: 'Apply',
-        configFiles: {},
+        configFiles: {
+          store: {
+            type: 'Git',
+            spec: {
+              gitFetchType: 'Branch'
+            }
+          }
+        },
         secretManagerRef: ''
       },
       provisionerIdentifier: ''

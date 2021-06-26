@@ -326,12 +326,12 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
           >
             <div
               class="Layout--horizontal StyledProps--main MultiTypeInput--main"
-              style="width: 260px;"
+              style="width: 280px;"
             >
               <button
                 class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                 data-testid="cr-field-spec.configuration.secretManagerRef"
-                style="width: 232px;"
+                style="width: 252px;"
                 type="button"
               >
                 <span
@@ -1746,12 +1746,12 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
           >
             <div
               class="Layout--horizontal StyledProps--main MultiTypeInput--main"
-              style="width: 260px;"
+              style="width: 280px;"
             >
               <button
                 class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                 data-testid="cr-field-spec.configuration.secretManagerRef"
-                style="width: 232px;"
+                style="width: 252px;"
                 type="button"
               >
                 <span
@@ -2220,12 +2220,12 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
           >
             <div
               class="Layout--horizontal StyledProps--main MultiTypeInput--main"
-              style="width: 260px;"
+              style="width: 280px;"
             >
               <button
                 class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                 data-testid="cr-field-spec.configuration.secretManagerRef"
-                style="width: 232px;"
+                style="width: 252px;"
                 type="button"
               >
                 <span
@@ -2694,12 +2694,12 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
           >
             <div
               class="Layout--horizontal StyledProps--main MultiTypeInput--main"
-              style="width: 260px;"
+              style="width: 280px;"
             >
               <button
                 class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                 data-testid="cr-field-spec.configuration.secretManagerRef"
-                style="width: 232px;"
+                style="width: 252px;"
                 type="button"
               >
                 <span
@@ -3170,12 +3170,12 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
           >
             <div
               class="Layout--horizontal StyledProps--main MultiTypeInput--main"
-              style="width: 260px;"
+              style="width: 280px;"
             >
               <button
                 class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                 data-testid="cr-field-spec.configuration.secretManagerRef"
-                style="width: 232px;"
+                style="width: 252px;"
                 type="button"
               >
                 <span
@@ -3399,6 +3399,11 @@ exports[`Test TerraformPlan should render input set view 1`] = `
             </div>
           </div>
         </div>
+        <label
+          class="Label--main"
+        >
+          cd.configurationFile
+        </label>
         <div
           class="formGroup md"
         >
@@ -4065,12 +4070,12 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
           >
             <div
               class="Layout--horizontal StyledProps--main MultiTypeInput--main"
-              style="width: 260px;"
+              style="width: 280px;"
             >
               <button
                 class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                 data-testid="cr-field-spec.configuration.secretManagerRef"
-                style="width: 232px;"
+                style="width: 252px;"
                 type="button"
               >
                 <span

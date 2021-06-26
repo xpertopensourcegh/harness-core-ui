@@ -149,6 +149,11 @@ exports[`Test terraform input set should render edit view as new step 1`] = `
                 </div>
               </div>
             </div>
+            <label
+              class="Label--main"
+            >
+              cd.configurationFile
+            </label>
             <div
               class="formGroup md"
             >

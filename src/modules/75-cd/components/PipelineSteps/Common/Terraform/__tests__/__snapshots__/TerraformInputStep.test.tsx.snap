@@ -88,11 +88,11 @@ exports[`Test terraform input set should render edit view as new step 1`] = `
             >
               <div
                 class="bp3-form-group"
-                data-id="test.timeout-1"
+                data-id="timeout-1"
               >
                 <label
                   class="bp3-label"
-                  for="test.timeout"
+                  for="timeout"
                 >
                   pipelineSteps.timeoutLabel
                    
@@ -112,7 +112,7 @@ exports[`Test terraform input set should render edit view as new step 1`] = `
                     >
                       <input
                         class="bp3-input"
-                        name="test.timeout"
+                        name="timeout"
                         placeholder="Enter w/d/h/m/s/ms"
                         type="text"
                         value=""
@@ -149,6 +149,11 @@ exports[`Test terraform input set should render edit view as new step 1`] = `
                 </div>
               </div>
             </div>
+            <label
+              class="Label--main"
+            >
+              cd.configurationFile
+            </label>
             <div
               class="formGroup md"
             >

@@ -253,6 +253,7 @@ export default function TerraformEditView(
                                   MultiTypeInputType.FIXED,
                                   MultiTypeInputType.RUNTIME
                                 ]}
+                                skipRenderValueInExpressionLabel
                                 expressionRender={() => {
                                   return (
                                     <ExpressionInput

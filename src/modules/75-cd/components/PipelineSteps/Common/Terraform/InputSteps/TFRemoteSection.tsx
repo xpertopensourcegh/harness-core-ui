@@ -38,7 +38,7 @@ export default function TFRemoteSection<T extends TerraformData = TerraformData>
 
   return (
     <>
-      <Container flex width={100}>
+      <Container flex width={120}>
         <Text font={{ weight: 'bold' }}>{getString('cd.varFile')}:</Text>
         {remoteVar?.varFile?.identifier}
       </Container>
@@ -93,7 +93,6 @@ export default function TFRemoteSection<T extends TerraformData = TerraformData>
           name={`${path}.spec.configuration.spec.varFiles[${index}].varFile.spec.store.spec.paths`}
           disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
-          expressions={expressions}
         />
       )}
     </>

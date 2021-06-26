@@ -66,7 +66,7 @@ export default function TFRemoteSection(
       {getMultiTypeFromValue(remoteVar.varFile?.spec?.store?.spec?.branch) === MultiTypeInputType.RUNTIME && (
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormInput.MultiTextInput
-            name={`${path}.spec.configuration.varFiles[${index}].varFile.store.spec.branch`}
+            name={`${path}.spec.configuration.varFiles[${index}].varFile.spec.store.spec.branch`}
             label={getString('pipelineSteps.deploy.inputSet.branch')}
             multiTextInputProps={{
               expressions,
@@ -78,7 +78,7 @@ export default function TFRemoteSection(
       {getMultiTypeFromValue(remoteVar.varFile?.spec?.store?.spec?.commitId) === MultiTypeInputType.RUNTIME && (
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormInput.MultiTextInput
-            name={`${path}.spec.configuration.varFiles[${index}].varFile.store.spec.commitId`}
+            name={`${path}.spec.configuration.varFiles[${index}].varFile.spec.store.spec.commitId`}
             label={getString('pipeline.manifestType.commitId')}
             multiTextInputProps={{
               expressions,
@@ -90,7 +90,7 @@ export default function TFRemoteSection(
       {getMultiTypeFromValue(remoteVar.varFile?.spec?.store?.spec?.paths) === MultiTypeInputType.RUNTIME && (
         <List
           label={getString('filePaths')}
-          name={`${path}.spec.configuration.varFiles[${index}].varFile.store.spec.paths`}
+          name={`${path}.spec.configuration.varFiles[${index}].varFile.spec.store.spec.paths`}
           disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />

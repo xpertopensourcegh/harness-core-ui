@@ -219,11 +219,13 @@
 }
 
 .tfVarLabel {
-  font-weight: 500 !important;
-  font-size: 12px !important;
+  font-weight: 400 !important;
+  font-size: 14px !important;
   line-height: 16px !important;
-  color: #000000 !important;
-  margin-top: 10px !important;
+  color: var(--grey-600) !important;
+  font-family: 'sans-serif', 'inter' !important;
+  margin-top: var(--spacing-medium) !important;
+  margin-bottom: var(--spacing-small) !important;
 }
 
 .tfVarMargin {

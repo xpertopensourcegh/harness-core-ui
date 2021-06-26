@@ -1,7 +1,15 @@
 import React from 'react'
 import cx from 'classnames'
 
-import { getMultiTypeFromValue, MultiTypeInputType, FormInput, FormikForm, Text } from '@wings-software/uicore'
+import {
+  getMultiTypeFromValue,
+  MultiTypeInputType,
+  FormInput,
+  FormikForm,
+  Text,
+  Color,
+  Label
+} from '@wings-software/uicore'
 
 import { get, isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
@@ -72,24 +80,42 @@ export default function TfPlanInputStep(props: TerraformPlanProps): React.ReactE
             orgIdentifier={orgIdentifier}
             width={400}
             category={'SECRET_MANAGER'}
-            name="spec.configuration.secretManagerRef"
+            name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.configuration.secretManagerRef`}
             placeholder={getString('select')}
             disabled={readonly}
             gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
           />
         </div>
       )}
+      {inputSetData?.template?.spec?.configuration?.configFiles?.store?.spec?.connectorRef && (
+        <Label style={{ color: Color.GREY_900 }}>{getString('cd.configurationFile')}</Label>
+      )}
       <ConfigInputs {...props} />
       {inputSetData?.template?.spec?.configuration?.varFiles?.length && <TfVarFiles {...props} />}
+      {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.backendConfig?.spec?.content) ===
+        MultiTypeInputType.RUNTIME && (
+        <div className={cx(stepCss.formGroup, stepCss.md)}>
+          <FormInput.MultiTextInput
+            name={`${
+              isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`
+            }spec.configuration.backendConfig.spec.content`}
+            label={getString('cd.backEndConfig')}
+            disabled={readonly}
+            multiTextInputProps={{
+              expressions,
+              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+            }}
+          />
+        </div>
+      )}
       {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.targets as string) ===
         MultiTypeInputType.RUNTIME && (
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <List
-            name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.targets`}
+            name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.configuration.targets`}
             label={<Text style={{ display: 'flex', alignItems: 'center' }}>{getString('pipeline.targets.title')}</Text>}
             disabled={readonly}
             style={{ marginBottom: 'var(--spacing-small)' }}
-            expressions={expressions}
           />
         </div>
       )}

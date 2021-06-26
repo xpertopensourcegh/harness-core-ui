@@ -1,5 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
+import { isEmpty } from 'lodash-es'
 
 import {
   getMultiTypeFromValue,
@@ -7,11 +8,11 @@ import {
   FormInput,
   FormikForm,
   Text,
-  Button,
-  Container
+  Container,
+  Color,
+  Label
 } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import Map from '@common/components/Map/Map'
 import List from '@common/components/List/List'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
@@ -48,7 +49,7 @@ export default function TerraformInputStep<T extends TerraformData = TerraformDa
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormMultiTypeDurationField
             label={getString('pipelineSteps.timeoutLabel')}
-            name={`${path}.timeout`}
+            name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}timeout`}
             disabled={readonly}
             multiTypeDurationProps={{
               enableConfigureOptions: false,
@@ -59,9 +60,12 @@ export default function TerraformInputStep<T extends TerraformData = TerraformDa
           />
         </div>
       )}
+      {inputSetData?.template?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef && (
+        <Label style={{ color: Color.GREY_900 }}>{getString('cd.configurationFile')}</Label>
+      )}
       <ConfigInputs {...props} />
       {inputSetData?.template?.spec?.configuration?.spec?.varFiles?.length && (
-        <label> {getString('cd.terraformVarFiles')}</label>
+        <Label style={{ color: Color.GREY_900 }}>{getString('cd.terraformVarFiles')}</Label>
       )}
       {inputSetData?.template?.spec?.configuration?.spec?.varFiles?.map((varFile: any, index) => {
         if (varFile?.varFile?.type === TerraformStoreTypes.Inline) {
@@ -93,33 +97,16 @@ export default function TerraformInputStep<T extends TerraformData = TerraformDa
 
       {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.spec?.backendConfig?.spec?.content) ===
         MultiTypeInputType.RUNTIME && (
-        <FormInput.TextArea name={`${path}.varFile.spec.content`} label={getString('cd.backEndConfig')} />
+        <FormInput.TextArea
+          name={`${path}.spec.configuration.spec.backendConfig.spec.content`}
+          label={getString('cd.backEndConfig')}
+        />
       )}
       {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.spec?.targets as string) ===
         MultiTypeInputType.RUNTIME && (
         <List
-          name={`${path}.spec.targets`}
+          name={`${path}.spec.configuration.spec.targets`}
           label={<Text style={{ display: 'flex', alignItems: 'center' }}>{getString('pipeline.targets.title')}</Text>}
-          disabled={readonly}
-          style={{ marginBottom: 'var(--spacing-small)' }}
-          expressions={expressions}
-        />
-      )}
-      {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.spec?.environmentVariables as string) ===
-        MultiTypeInputType.RUNTIME && (
-        <Map
-          name={`${path}.spec.environmentVariables`}
-          label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
-              {getString('environmentVariables')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('environmentVariablesInfo')}
-                iconProps={{ size: 14 }}
-              />
-            </Text>
-          }
           disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
