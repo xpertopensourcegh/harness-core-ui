@@ -289,6 +289,7 @@ const OpenShiftParamWithGit: React.FC<StepProps<ConnectorConfigDTO> & OpenshiftT
 
               <MultiTypeList
                 name="paths"
+                multiTextInputProps={{ expressions }}
                 multiTypeFieldSelectorProps={{
                   label: (
                     <Text style={{ display: 'flex', alignItems: 'center' }}>{getString('pipelineSteps.paths')}</Text>
