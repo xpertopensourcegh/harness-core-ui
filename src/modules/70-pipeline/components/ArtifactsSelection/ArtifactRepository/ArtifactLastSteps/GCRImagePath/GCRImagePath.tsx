@@ -23,6 +23,7 @@ import { useStrings } from 'framework/strings'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
+import { EXPRESSION_STRING } from '@pipeline/utils/constants'
 import { ImagePathProps, ImagePathTypes, TagTypes } from '../../../ArtifactInterface'
 import { ArtifactIdentifierValidation, tagOptions } from '../../../ArtifactHelper'
 import css from '../../GCRArtifact.module.scss'
@@ -331,7 +332,15 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                         itemRenderer: itemRenderer,
                         allowCreatingNewItems: true
                       },
-                      onFocus: () => fetchTags(formik.values.imagePath, formik.values?.registryHostname)
+                      onFocus: (e: any) => {
+                        if (
+                          e?.target?.type !== 'text' ||
+                          (e?.target?.type === 'text' && e?.target?.placeholder === EXPRESSION_STRING)
+                        ) {
+                          return
+                        }
+                        fetchTags(formik.values.imagePath, formik.values?.registryHostname)
+                      }
                     }}
                     label={getString('tagLabel')}
                     name="tag"

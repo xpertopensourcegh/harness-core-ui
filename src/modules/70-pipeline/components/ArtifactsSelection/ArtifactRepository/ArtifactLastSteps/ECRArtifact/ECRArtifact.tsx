@@ -24,6 +24,7 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 import { useQueryParams } from '@common/hooks'
+import { EXPRESSION_STRING } from '@pipeline/utils/constants'
 import { ImagePathProps, ImagePathTypes, TagTypes } from '../../../ArtifactInterface'
 import { ArtifactIdentifierValidation, tagOptions } from '../../../ArtifactHelper'
 import css from '../../ArtifactConnector.module.scss'
@@ -346,7 +347,15 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                         itemRenderer: itemRenderer,
                         allowCreatingNewItems: true
                       },
-                      onFocus: () => fetchTags(formik.values.imagePath, formik.values?.region)
+                      onFocus: (e: any) => {
+                        if (
+                          e?.target?.type !== 'text' ||
+                          (e?.target?.type === 'text' && e?.target?.placeholder === EXPRESSION_STRING)
+                        ) {
+                          return
+                        }
+                        fetchTags(formik.values.imagePath, formik.values?.region)
+                      }
                     }}
                     label={getString('tagLabel')}
                     name="tag"

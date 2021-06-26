@@ -50,7 +50,7 @@ function CustomVariableInputSetBasic(props: CustomVariableInputSetProps): React.
   const { executionIdentifier, triggerIdentifier } = useParams<Record<string, string>>()
 
   React.useEffect(() => {
-    if (!executionIdentifier && !executionId && triggerIdentifier === 'new') {
+    if ((!executionIdentifier && !executionId) || triggerIdentifier === 'new') {
       const providedValues = get(formik.values, basePath)
       let updatedVariables: AllNGVariables[] = cloneDeep(initialValues.variables) || []
       updatedVariables = updatedVariables.map((variable: AllNGVariables, index: number) => {

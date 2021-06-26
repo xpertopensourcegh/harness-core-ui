@@ -18,6 +18,7 @@ export interface ListProps {
   formik?: FormikContext<any>
   expressions?: string[]
   enableExpressions?: boolean
+  isNameOfArrayType?: boolean
 }
 
 const generateNewValue: () => { id: string; value: string } = () => ({
@@ -26,7 +27,7 @@ const generateNewValue: () => { id: string; value: string } = () => ({
 })
 
 export const List = (props: ListProps): React.ReactElement => {
-  const { name, label, placeholder, disabled, style, formik, expressions } = props
+  const { name, label, placeholder, disabled, style, formik, expressions, isNameOfArrayType } = props
   const { getString } = useStrings()
   const [value, setValue] = React.useState<ListUIType>(() => {
     const initialValueInCorrectFormat = [
@@ -126,7 +127,7 @@ export const List = (props: ListProps): React.ReactElement => {
                   <FormInput.MultiTextInput
                     label={''}
                     placeholder={placeholder}
-                    name={`${name}-${index}`}
+                    name={isNameOfArrayType ? `${name}[${index}]` : `${name}-${index}`}
                     multiTextInputProps={{
                       expressions,
                       allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]

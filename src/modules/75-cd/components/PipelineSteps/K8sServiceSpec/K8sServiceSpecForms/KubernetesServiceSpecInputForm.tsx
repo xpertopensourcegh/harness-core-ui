@@ -55,8 +55,10 @@ import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorRef
 import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox/MultiTypeCheckbox'
 import { gcrUrlList } from '@pipeline/components/ArtifactsSelection/ArtifactRepository/ArtifactLastSteps/GCRImagePath/GCRImagePath'
 import type { Scope } from '@common/interfaces/SecretsInterface'
+import { EXPRESSION_STRING } from '@pipeline/utils/constants'
 import type { KubernetesServiceInputFormProps, LastQueryData } from '../K8sServiceSpecInterface'
 import { clearRuntimeInputValue, getNonRuntimeFields, getStagePathByIdentifier } from '../K8sServiceSpecHelper'
+import ExperimentalInput from './ExperimentalInput'
 import css from '../K8sServiceSpec.module.scss'
 
 const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormProps> = ({
@@ -427,7 +429,8 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                   />
                 )}
                 {getMultiTypeFromValue(artifacts?.primary?.spec?.region) === MultiTypeInputType.RUNTIME && (
-                  <FormInput.MultiTypeInput
+                  <ExperimentalInput
+                    formik={formik}
                     multiTypeInputProps={{
                       onChange: () => resetTags(`${path}.artifacts.primary.spec.tag`),
                       selectProps: {
@@ -461,7 +464,8 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
 
                 {getMultiTypeFromValue(get(template, `artifacts.primary.spec.registryHostname`, '')) ===
                   MultiTypeInputType.RUNTIME && (
-                  <FormInput.MultiTypeInput
+                  <ExperimentalInput
+                    formik={formik}
                     disabled={readonly}
                     selectItems={gcrUrlList}
                     useValue
@@ -477,7 +481,8 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                 )}
 
                 {getMultiTypeFromValue(template?.artifacts?.primary?.spec?.tag) === MultiTypeInputType.RUNTIME && (
-                  <FormInput.MultiTypeInput
+                  <ExperimentalInput
+                    formik={formik}
                     disabled={readonly || isTagSelectionDisabled(artifacts?.primary?.type)}
                     selectItems={
                       dockerLoading || gcrLoading || ecrLoading
@@ -486,8 +491,11 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                     }
                     useValue
                     multiTypeInputProps={{
-                      onFocus: e => {
-                        if (!(e.target as any)?.type) {
+                      onFocus: (e: any) => {
+                        if (
+                          e?.target?.type !== 'text' ||
+                          (e?.target?.type === 'text' && e?.target?.placeholder === EXPRESSION_STRING)
+                        ) {
                           return
                         }
                         const imagePath =
@@ -619,7 +627,8 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                     )}
                     {getMultiTypeFromValue(artifacts?.sidecars?.[index]?.sidecar?.spec?.region) ===
                       MultiTypeInputType.RUNTIME && (
-                      <FormInput.MultiTypeInput
+                      <ExperimentalInput
+                        formik={formik}
                         useValue
                         multiTypeInputProps={{
                           onChange: () => resetTags(`${path}.artifacts.sidecars.[${index}].sidecar.spec.tag`),
@@ -651,7 +660,8 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                       />
                     )}
                     {getMultiTypeFromValue(registryHostname) === MultiTypeInputType.RUNTIME && (
-                      <FormInput.MultiTypeInput
+                      <ExperimentalInput
+                        formik={formik}
                         disabled={readonly}
                         selectItems={gcrUrlList}
                         useValue
@@ -668,7 +678,8 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
 
                     {getMultiTypeFromValue(template?.artifacts?.sidecars?.[index]?.sidecar?.spec?.tag) ===
                       MultiTypeInputType.RUNTIME && (
-                      <FormInput.MultiTypeInput
+                      <ExperimentalInput
+                        formik={formik}
                         useValue
                         disabled={
                           readonly || isTagSelectionDisabled(artifacts?.sidecars?.[index]?.sidecar?.type, index)
@@ -679,32 +690,41 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                             : getSelectItems(`sidecars[${index}]`)
                         }
                         multiTypeInputProps={{
-                          onFocus: e => {
-                            if (!(e.target as any)?.type) {
+                          onFocus: (e: any) => {
+                            if (
+                              e?.target?.type !== 'text' ||
+                              (e?.target?.type === 'text' && e?.target?.placeholder === EXPRESSION_STRING)
+                            ) {
                               return
                             }
+                            const sidecarIndex =
+                              initialValues?.artifacts?.sidecars?.findIndex(
+                                sidecar => sidecar.sidecar?.identifier === identifier
+                              ) || -1
                             const imagePathCurrent =
-                              getMultiTypeFromValue(artifacts?.sidecars?.[index]?.sidecar?.spec?.imagePath) !==
+                              getMultiTypeFromValue(artifacts?.sidecars?.[sidecarIndex]?.sidecar?.spec?.imagePath) !==
                               MultiTypeInputType.RUNTIME
-                                ? artifacts?.sidecars?.[index]?.sidecar?.spec?.imagePath
+                                ? artifacts?.sidecars?.[sidecarIndex]?.sidecar?.spec?.imagePath
                                 : currentSidecarSpec?.imagePath
                             const connectorRefCurrent =
-                              getMultiTypeFromValue(artifacts?.sidecars?.[index]?.sidecar?.spec?.connectorRef) !==
-                              MultiTypeInputType.RUNTIME
-                                ? artifacts?.sidecars?.[index]?.sidecar?.spec?.connectorRef
+                              getMultiTypeFromValue(
+                                artifacts?.sidecars?.[sidecarIndex]?.sidecar?.spec?.connectorRef
+                              ) !== MultiTypeInputType.RUNTIME
+                                ? artifacts?.sidecars?.[sidecarIndex]?.sidecar?.spec?.connectorRef
                                 : currentSidecarSpec?.connectorRef
                             const regionCurrent =
-                              getMultiTypeFromValue(artifacts?.sidecars?.[index]?.sidecar?.spec?.region) !==
+                              getMultiTypeFromValue(artifacts?.sidecars?.[sidecarIndex]?.sidecar?.spec?.region) !==
                               MultiTypeInputType.RUNTIME
-                                ? artifacts?.sidecars?.[index]?.sidecar?.spec?.region
+                                ? artifacts?.sidecars?.[sidecarIndex]?.sidecar?.spec?.region
                                 : currentSidecarSpec?.region
                             const registryHostnameCurrent =
-                              getMultiTypeFromValue(artifacts?.sidecars?.[index]?.sidecar?.spec?.registryHostname) !==
-                              MultiTypeInputType.RUNTIME
-                                ? artifacts?.sidecars?.[index]?.sidecar?.spec?.registryHostname
+                              getMultiTypeFromValue(
+                                artifacts?.sidecars?.[sidecarIndex]?.sidecar?.spec?.registryHostname
+                              ) !== MultiTypeInputType.RUNTIME
+                                ? artifacts?.sidecars?.[sidecarIndex]?.sidecar?.spec?.registryHostname
                                 : currentSidecarSpec?.registryHostname
-                            const tagsPath = `sidecars[${index}]`
-                            !isTagSelectionDisabled(artifacts?.sidecars?.[index]?.sidecar?.type, index) &&
+                            const tagsPath = `sidecars[${sidecarIndex}]`
+                            !isTagSelectionDisabled(artifacts?.sidecars?.[sidecarIndex]?.sidecar?.type, sidecarIndex) &&
                               fetchTags({
                                 path: tagsPath,
                                 imagePath: imagePathCurrent,
@@ -847,6 +867,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                       disabled={readonly}
                       style={{ marginBottom: 'var(--spacing-small)' }}
                       expressions={expressions}
+                      isNameOfArrayType
                     />
                   )}
                   {getMultiTypeFromValue(repoName) === MultiTypeInputType.RUNTIME && showRepoName && (
@@ -875,7 +896,8 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                   )}
 
                   {getMultiTypeFromValue(region) === MultiTypeInputType.RUNTIME && (
-                    <FormInput.MultiTypeInput
+                    <ExperimentalInput
+                      formik={formik}
                       multiTypeInputProps={{
                         selectProps: {
                           usePortal: true,

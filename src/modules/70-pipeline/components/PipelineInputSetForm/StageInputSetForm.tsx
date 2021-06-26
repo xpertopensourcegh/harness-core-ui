@@ -322,7 +322,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
             {deploymentStage?.serviceConfig?.serviceRef && (
               /* istanbul ignore next */ <StepWidget<ServiceConfig>
                 factory={factory}
-                initialValues={deploymentStageInputSet?.serviceConfig || {}}
+                initialValues={deploymentStage?.serviceConfig || {}}
                 template={deploymentStageTemplate?.serviceConfig || {}}
                 type={StepType.DeployService}
                 stepViewType={StepViewType.InputSet}

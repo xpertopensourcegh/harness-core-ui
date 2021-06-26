@@ -22,6 +22,7 @@ import { useStrings } from 'framework/strings'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
+import { EXPRESSION_STRING } from '@pipeline/utils/constants'
 import { ImagePathProps, ImagePathTypes, TagTypes } from '../../../ArtifactInterface'
 import { ArtifactIdentifierValidation, tagOptions } from '../../../ArtifactHelper'
 import css from '../../ArtifactConnector.module.scss'
@@ -278,7 +279,15 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
                         itemRenderer: itemRenderer,
                         allowCreatingNewItems: true
                       },
-                      onFocus: () => fetchTags(formik.values.imagePath)
+                      onFocus: (e: any) => {
+                        if (
+                          e?.target?.type !== 'text' ||
+                          (e?.target?.type === 'text' && e?.target?.placeholder === EXPRESSION_STRING)
+                        ) {
+                          return
+                        }
+                        fetchTags(formik.values.imagePath)
+                      }
                     }}
                     label={getString('tagLabel')}
                     name="tag"
