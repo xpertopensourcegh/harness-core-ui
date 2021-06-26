@@ -35,7 +35,8 @@ import {
   useCreateInputSetForPipeline,
   ResponseInputSetResponse,
   CreateInputSetForPipelineQueryParams,
-  EntityGitDetails
+  EntityGitDetails,
+  useRePostPipelineExecuteWithInputSetYaml
 } from 'services/pipeline-ng'
 import { NameSchema } from '@common/utils/Validation'
 import { useToaster } from '@common/exports'
@@ -59,6 +60,7 @@ import { useSaveToGitDialog, UseSaveSuccessResponse } from '@common/modals/SaveT
 import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { clearNullUndefined } from '@pipeline/pages/triggers/utils/TriggersWizardPageUtils'
 import { ErrorsStrip } from '@pipeline/components/ErrorsStrip/ErrorsStrip'
+import { useQueryParams } from '@common/hooks'
 import type { InputSetDTO } from '../InputSetForm/InputSetForm'
 import { InputSetSelector, InputSetSelectorProps } from '../InputSetSelector/InputSetSelector'
 import { clearRuntimeInput, validatePipeline, getErrorsList } from '../PipelineStudio/StepUtil'
@@ -415,6 +417,26 @@ function RunPipelineFormBasic({
     }
   })
 
+  const { executionId } = useQueryParams<{ executionId?: string }>()
+
+  const { mutate: reRunPipeline, loading: reRunLoading } = useRePostPipelineExecuteWithInputSetYaml({
+    queryParams: {
+      accountIdentifier: accountId,
+      projectIdentifier,
+      orgIdentifier,
+      moduleType: module,
+      repoIdentifier,
+      branch
+    },
+    identifier: pipelineIdentifier,
+    originalExecutionId: executionId || '',
+    requestOptions: {
+      headers: {
+        'content-type': 'application/yaml'
+      }
+    }
+  })
+
   const {
     refetch: getInputSetsList,
     data: inputSetResponse,
@@ -567,9 +589,13 @@ function RunPipelineFormBasic({
       }
 
       try {
-        const response = await runPipeline(
-          !isEmpty(valuesPipelineRef.current) ? (stringify({ pipeline: valuesPipelineRef.current }) as any) : ''
-        )
+        const response = isEmpty(executionId)
+          ? await runPipeline(
+              !isEmpty(valuesPipelineRef.current) ? (stringify({ pipeline: valuesPipelineRef.current }) as any) : ''
+            )
+          : await reRunPipeline(
+              !isEmpty(valuesPipelineRef.current) ? (stringify({ pipeline: valuesPipelineRef.current }) as any) : ''
+            )
         const data = response.data
         if (response.status === 'SUCCESS') {
           if (response.data) {
@@ -682,7 +708,7 @@ function RunPipelineFormBasic({
     existingProvide
   ])
 
-  if (loadingPipeline || loadingTemplate || runLoading || inputSetLoading) {
+  if (loadingPipeline || loadingTemplate || runLoading || inputSetLoading || reRunLoading) {
     return <PageSpinner />
   }
 

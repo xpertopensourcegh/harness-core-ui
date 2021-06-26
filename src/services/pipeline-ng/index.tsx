@@ -352,50 +352,6 @@ export interface ChildrenExecutableResponseOrBuilder {
   unknownFields?: UnknownFieldSet
 }
 
-export interface Commit {
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  author?: Signature
-  authorOrBuilder?: SignatureOrBuilder
-  committer?: Signature
-  committerOrBuilder?: SignatureOrBuilder
-  defaultInstanceForType?: Commit
-  descriptorForType?: Descriptor
-  initializationErrorString?: string
-  initialized?: boolean
-  link?: string
-  linkBytes?: ByteString
-  message?: string
-  messageBytes?: ByteString
-  parserForType?: ParserCommit
-  serializedSize?: number
-  sha?: string
-  shaBytes?: ByteString
-  unknownFields?: UnknownFieldSet
-}
-
-export interface CommitOrBuilder {
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  author?: Signature
-  authorOrBuilder?: SignatureOrBuilder
-  committer?: Signature
-  committerOrBuilder?: SignatureOrBuilder
-  defaultInstanceForType?: Message
-  descriptorForType?: Descriptor
-  initializationErrorString?: string
-  initialized?: boolean
-  link?: string
-  linkBytes?: ByteString
-  message?: string
-  messageBytes?: ByteString
-  sha?: string
-  shaBytes?: ByteString
-  unknownFields?: UnknownFieldSet
-}
-
 export interface ConditionDTO {
   key: string
   operator: 'equals' | 'not equals' | 'in' | 'not in'
@@ -981,8 +937,6 @@ export interface ExecutionMetadata {
   serializedSize?: number
   triggerInfo?: ExecutionTriggerInfo
   triggerInfoOrBuilder?: ExecutionTriggerInfoOrBuilder
-  triggerPayload?: TriggerPayload
-  triggerPayloadOrBuilder?: TriggerPayloadOrBuilder
   unknownFields?: UnknownFieldSet
 }
 
@@ -1868,13 +1822,15 @@ export interface IssuedBy {
   initialized?: boolean
   issueTime?: Timestamp
   issueTimeOrBuilder?: TimestampOrBuilder
-  issuerCase?: 'MANUALISSUER' | 'ADVISERISSUER' | 'TIMEOUTISSUER' | 'ISSUER_NOT_SET'
+  issuerCase?: 'MANUALISSUER' | 'ADVISERISSUER' | 'TIMEOUTISSUER' | 'TRIGGERISSUER' | 'ISSUER_NOT_SET'
   manualIssuer?: ManualIssuer
   manualIssuerOrBuilder?: ManualIssuerOrBuilder
   parserForType?: ParserIssuedBy
   serializedSize?: number
   timeoutIssuer?: TimeoutIssuer
   timeoutIssuerOrBuilder?: TimeoutIssuerOrBuilder
+  triggerIssuer?: TriggerIssuer
+  triggerIssuerOrBuilder?: TriggerIssuerOrBuilder
   unknownFields?: UnknownFieldSet
 }
 
@@ -1890,11 +1846,13 @@ export interface IssuedByOrBuilder {
   initialized?: boolean
   issueTime?: Timestamp
   issueTimeOrBuilder?: TimestampOrBuilder
-  issuerCase?: 'MANUALISSUER' | 'ADVISERISSUER' | 'TIMEOUTISSUER' | 'ISSUER_NOT_SET'
+  issuerCase?: 'MANUALISSUER' | 'ADVISERISSUER' | 'TIMEOUTISSUER' | 'TRIGGERISSUER' | 'ISSUER_NOT_SET'
   manualIssuer?: ManualIssuer
   manualIssuerOrBuilder?: ManualIssuerOrBuilder
   timeoutIssuer?: TimeoutIssuer
   timeoutIssuerOrBuilder?: TimeoutIssuerOrBuilder
+  triggerIssuer?: TriggerIssuer
+  triggerIssuerOrBuilder?: TriggerIssuerOrBuilder
   unknownFields?: UnknownFieldSet
 }
 
@@ -1936,38 +1894,6 @@ export interface JsonNode {
   short?: boolean
   textual?: boolean
   valueNode?: boolean
-}
-
-export interface Label {
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  color?: string
-  colorBytes?: ByteString
-  defaultInstanceForType?: Label
-  descriptorForType?: Descriptor
-  initializationErrorString?: string
-  initialized?: boolean
-  name?: string
-  nameBytes?: ByteString
-  parserForType?: ParserLabel
-  serializedSize?: number
-  unknownFields?: UnknownFieldSet
-}
-
-export interface LabelOrBuilder {
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  color?: string
-  colorBytes?: ByteString
-  defaultInstanceForType?: Message
-  descriptorForType?: Descriptor
-  initializationErrorString?: string
-  initialized?: boolean
-  name?: string
-  nameBytes?: ByteString
-  unknownFields?: UnknownFieldSet
 }
 
 export interface LastTriggerExecutionDetails {
@@ -2388,40 +2314,6 @@ export interface Pageable {
   unpaged?: boolean
 }
 
-export interface ParsedPayload {
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  defaultInstanceForType?: ParsedPayload
-  descriptorForType?: Descriptor
-  initializationErrorString?: string
-  initialized?: boolean
-  parserForType?: ParserParsedPayload
-  payloadCase?: 'PR' | 'PUSH' | 'PAYLOAD_NOT_SET'
-  pr?: PullRequestHook
-  prOrBuilder?: PullRequestHookOrBuilder
-  push?: PushHook
-  pushOrBuilder?: PushHookOrBuilder
-  serializedSize?: number
-  unknownFields?: UnknownFieldSet
-}
-
-export interface ParsedPayloadOrBuilder {
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  defaultInstanceForType?: Message
-  descriptorForType?: Descriptor
-  initializationErrorString?: string
-  initialized?: boolean
-  payloadCase?: 'PR' | 'PUSH' | 'PAYLOAD_NOT_SET'
-  pr?: PullRequestHook
-  prOrBuilder?: PullRequestHookOrBuilder
-  push?: PushHook
-  pushOrBuilder?: PushHookOrBuilder
-  unknownFields?: UnknownFieldSet
-}
-
 export interface Parser {
   [key: string]: any
 }
@@ -2447,10 +2339,6 @@ export interface ParserChildExecutableResponse {
 }
 
 export interface ParserChildrenExecutableResponse {
-  [key: string]: any
-}
-
-export interface ParserCommit {
   [key: string]: any
 }
 
@@ -2502,10 +2390,6 @@ export interface ParserIssuedBy {
   [key: string]: any
 }
 
-export interface ParserLabel {
-  [key: string]: any
-}
-
 export interface ParserManualIssuer {
   [key: string]: any
 }
@@ -2538,43 +2422,11 @@ export interface ParserOneofOptions {
   [key: string]: any
 }
 
-export interface ParserParsedPayload {
-  [key: string]: any
-}
-
-export interface ParserPerm {
-  [key: string]: any
-}
-
-export interface ParserPullRequest {
-  [key: string]: any
-}
-
-export interface ParserPullRequestHook {
-  [key: string]: any
-}
-
-export interface ParserPushHook {
-  [key: string]: any
-}
-
-export interface ParserReference {
-  [key: string]: any
-}
-
-export interface ParserRepository {
-  [key: string]: any
-}
-
 export interface ParserRetryInterruptConfig {
   [key: string]: any
 }
 
 export interface ParserServiceOptions {
-  [key: string]: any
-}
-
-export interface ParserSignature {
   [key: string]: any
 }
 
@@ -2606,7 +2458,7 @@ export interface ParserTimestamp {
   [key: string]: any
 }
 
-export interface ParserTriggerPayload {
+export interface ParserTriggerIssuer {
   [key: string]: any
 }
 
@@ -2622,46 +2474,12 @@ export interface ParserUnitProgress {
   [key: string]: any
 }
 
-export interface ParserUser {
-  [key: string]: any
-}
-
 export interface ParserYamlOutputProperties {
   [key: string]: any
 }
 
 export interface ParserYamlProperties {
   [key: string]: any
-}
-
-export interface Perm {
-  admin?: boolean
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  defaultInstanceForType?: Perm
-  descriptorForType?: Descriptor
-  initializationErrorString?: string
-  initialized?: boolean
-  parserForType?: ParserPerm
-  pull?: boolean
-  push?: boolean
-  serializedSize?: number
-  unknownFields?: UnknownFieldSet
-}
-
-export interface PermOrBuilder {
-  admin?: boolean
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  defaultInstanceForType?: Message
-  descriptorForType?: Descriptor
-  initializationErrorString?: string
-  initialized?: boolean
-  pull?: boolean
-  push?: boolean
-  unknownFields?: UnknownFieldSet
 }
 
 export interface PipelineCountInfo {
@@ -2913,324 +2731,6 @@ export interface PreFlightResolution {
 export interface Principal {
   identifier: string
   type: 'USER' | 'SYSTEM' | 'API_KEY'
-}
-
-export interface PullRequest {
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  author?: User
-  authorOrBuilder?: UserOrBuilder
-  base?: Reference
-  baseOrBuilder?: ReferenceOrBuilder
-  body?: string
-  bodyBytes?: ByteString
-  closed?: boolean
-  commitsCount?: number
-  commitsList?: Commit[]
-  commitsOrBuilderList?: CommitOrBuilder[]
-  created?: Timestamp
-  createdOrBuilder?: TimestampOrBuilder
-  defaultInstanceForType?: PullRequest
-  descriptorForType?: Descriptor
-  fork?: string
-  forkBytes?: ByteString
-  head?: Reference
-  headOrBuilder?: ReferenceOrBuilder
-  initializationErrorString?: string
-  initialized?: boolean
-  labelsCount?: number
-  labelsList?: Label[]
-  labelsOrBuilderList?: LabelOrBuilder[]
-  link?: string
-  linkBytes?: ByteString
-  merged?: boolean
-  number?: number
-  parserForType?: ParserPullRequest
-  ref?: string
-  refBytes?: ByteString
-  serializedSize?: number
-  sha?: string
-  shaBytes?: ByteString
-  source?: string
-  sourceBytes?: ByteString
-  target?: string
-  targetBytes?: ByteString
-  title?: string
-  titleBytes?: ByteString
-  unknownFields?: UnknownFieldSet
-  updated?: Timestamp
-  updatedOrBuilder?: TimestampOrBuilder
-}
-
-export interface PullRequestHook {
-  action?:
-    | 'UNKNOWN'
-    | 'CREATE'
-    | 'UPDATE'
-    | 'DELETE'
-    | 'OPEN'
-    | 'REOPEN'
-    | 'CLOSE'
-    | 'LABEL'
-    | 'UNLABEL'
-    | 'SYNC'
-    | 'MERGE'
-    | 'UNRECOGNIZED'
-  actionValue?: number
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  defaultInstanceForType?: PullRequestHook
-  descriptorForType?: Descriptor
-  initializationErrorString?: string
-  initialized?: boolean
-  parserForType?: ParserPullRequestHook
-  pr?: PullRequest
-  prOrBuilder?: PullRequestOrBuilder
-  repo?: Repository
-  repoOrBuilder?: RepositoryOrBuilder
-  sender?: User
-  senderOrBuilder?: UserOrBuilder
-  serializedSize?: number
-  unknownFields?: UnknownFieldSet
-}
-
-export interface PullRequestHookOrBuilder {
-  action?:
-    | 'UNKNOWN'
-    | 'CREATE'
-    | 'UPDATE'
-    | 'DELETE'
-    | 'OPEN'
-    | 'REOPEN'
-    | 'CLOSE'
-    | 'LABEL'
-    | 'UNLABEL'
-    | 'SYNC'
-    | 'MERGE'
-    | 'UNRECOGNIZED'
-  actionValue?: number
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  defaultInstanceForType?: Message
-  descriptorForType?: Descriptor
-  initializationErrorString?: string
-  initialized?: boolean
-  pr?: PullRequest
-  prOrBuilder?: PullRequestOrBuilder
-  repo?: Repository
-  repoOrBuilder?: RepositoryOrBuilder
-  sender?: User
-  senderOrBuilder?: UserOrBuilder
-  unknownFields?: UnknownFieldSet
-}
-
-export interface PullRequestOrBuilder {
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  author?: User
-  authorOrBuilder?: UserOrBuilder
-  base?: Reference
-  baseOrBuilder?: ReferenceOrBuilder
-  body?: string
-  bodyBytes?: ByteString
-  closed?: boolean
-  commitsCount?: number
-  commitsList?: Commit[]
-  commitsOrBuilderList?: CommitOrBuilder[]
-  created?: Timestamp
-  createdOrBuilder?: TimestampOrBuilder
-  defaultInstanceForType?: Message
-  descriptorForType?: Descriptor
-  fork?: string
-  forkBytes?: ByteString
-  head?: Reference
-  headOrBuilder?: ReferenceOrBuilder
-  initializationErrorString?: string
-  initialized?: boolean
-  labelsCount?: number
-  labelsList?: Label[]
-  labelsOrBuilderList?: LabelOrBuilder[]
-  link?: string
-  linkBytes?: ByteString
-  merged?: boolean
-  number?: number
-  ref?: string
-  refBytes?: ByteString
-  sha?: string
-  shaBytes?: ByteString
-  source?: string
-  sourceBytes?: ByteString
-  target?: string
-  targetBytes?: ByteString
-  title?: string
-  titleBytes?: ByteString
-  unknownFields?: UnknownFieldSet
-  updated?: Timestamp
-  updatedOrBuilder?: TimestampOrBuilder
-}
-
-export interface PushHook {
-  after?: string
-  afterBytes?: ByteString
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  baseRef?: string
-  baseRefBytes?: ByteString
-  before?: string
-  beforeBytes?: ByteString
-  commit?: Commit
-  commitOrBuilder?: CommitOrBuilder
-  commitsCount?: number
-  commitsList?: Commit[]
-  commitsOrBuilderList?: CommitOrBuilder[]
-  defaultInstanceForType?: PushHook
-  descriptorForType?: Descriptor
-  initializationErrorString?: string
-  initialized?: boolean
-  parserForType?: ParserPushHook
-  ref?: string
-  refBytes?: ByteString
-  repo?: Repository
-  repoOrBuilder?: RepositoryOrBuilder
-  sender?: User
-  senderOrBuilder?: UserOrBuilder
-  serializedSize?: number
-  unknownFields?: UnknownFieldSet
-}
-
-export interface PushHookOrBuilder {
-  after?: string
-  afterBytes?: ByteString
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  baseRef?: string
-  baseRefBytes?: ByteString
-  before?: string
-  beforeBytes?: ByteString
-  commit?: Commit
-  commitOrBuilder?: CommitOrBuilder
-  commitsCount?: number
-  commitsList?: Commit[]
-  commitsOrBuilderList?: CommitOrBuilder[]
-  defaultInstanceForType?: Message
-  descriptorForType?: Descriptor
-  initializationErrorString?: string
-  initialized?: boolean
-  ref?: string
-  refBytes?: ByteString
-  repo?: Repository
-  repoOrBuilder?: RepositoryOrBuilder
-  sender?: User
-  senderOrBuilder?: UserOrBuilder
-  unknownFields?: UnknownFieldSet
-}
-
-export interface Reference {
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  defaultInstanceForType?: Reference
-  descriptorForType?: Descriptor
-  initializationErrorString?: string
-  initialized?: boolean
-  name?: string
-  nameBytes?: ByteString
-  parserForType?: ParserReference
-  path?: string
-  pathBytes?: ByteString
-  serializedSize?: number
-  sha?: string
-  shaBytes?: ByteString
-  unknownFields?: UnknownFieldSet
-}
-
-export interface ReferenceOrBuilder {
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  defaultInstanceForType?: Message
-  descriptorForType?: Descriptor
-  initializationErrorString?: string
-  initialized?: boolean
-  name?: string
-  nameBytes?: ByteString
-  path?: string
-  pathBytes?: ByteString
-  sha?: string
-  shaBytes?: ByteString
-  unknownFields?: UnknownFieldSet
-}
-
-export interface Repository {
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  branch?: string
-  branchBytes?: ByteString
-  clone?: string
-  cloneBytes?: ByteString
-  cloneSsh?: string
-  cloneSshBytes?: ByteString
-  created?: Timestamp
-  createdOrBuilder?: TimestampOrBuilder
-  defaultInstanceForType?: Repository
-  descriptorForType?: Descriptor
-  id?: string
-  idBytes?: ByteString
-  initializationErrorString?: string
-  initialized?: boolean
-  link?: string
-  linkBytes?: ByteString
-  name?: string
-  nameBytes?: ByteString
-  namespace?: string
-  namespaceBytes?: ByteString
-  parserForType?: ParserRepository
-  perm?: Perm
-  permOrBuilder?: PermOrBuilder
-  private?: boolean
-  serializedSize?: number
-  unknownFields?: UnknownFieldSet
-  updated?: Timestamp
-  updatedOrBuilder?: TimestampOrBuilder
-}
-
-export interface RepositoryOrBuilder {
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  branch?: string
-  branchBytes?: ByteString
-  clone?: string
-  cloneBytes?: ByteString
-  cloneSsh?: string
-  cloneSshBytes?: ByteString
-  created?: Timestamp
-  createdOrBuilder?: TimestampOrBuilder
-  defaultInstanceForType?: Message
-  descriptorForType?: Descriptor
-  id?: string
-  idBytes?: ByteString
-  initializationErrorString?: string
-  initialized?: boolean
-  link?: string
-  linkBytes?: ByteString
-  name?: string
-  nameBytes?: ByteString
-  namespace?: string
-  namespaceBytes?: ByteString
-  perm?: Perm
-  permOrBuilder?: PermOrBuilder
-  private?: boolean
-  unknownFields?: UnknownFieldSet
-  updated?: Timestamp
-  updatedOrBuilder?: TimestampOrBuilder
 }
 
 export interface ResourceConstraintExecutionInfo {
@@ -4000,50 +3500,6 @@ export interface ServiceOptions {
   unknownFields?: UnknownFieldSet
 }
 
-export interface Signature {
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  avatar?: string
-  avatarBytes?: ByteString
-  date?: Timestamp
-  dateOrBuilder?: TimestampOrBuilder
-  defaultInstanceForType?: Signature
-  descriptorForType?: Descriptor
-  email?: string
-  emailBytes?: ByteString
-  initializationErrorString?: string
-  initialized?: boolean
-  login?: string
-  loginBytes?: ByteString
-  name?: string
-  nameBytes?: ByteString
-  parserForType?: ParserSignature
-  serializedSize?: number
-  unknownFields?: UnknownFieldSet
-}
-
-export interface SignatureOrBuilder {
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  avatar?: string
-  avatarBytes?: ByteString
-  date?: Timestamp
-  dateOrBuilder?: TimestampOrBuilder
-  defaultInstanceForType?: Message
-  descriptorForType?: Descriptor
-  email?: string
-  emailBytes?: ByteString
-  initializationErrorString?: string
-  initialized?: boolean
-  login?: string
-  loginBytes?: ByteString
-  name?: string
-  nameBytes?: ByteString
-  unknownFields?: UnknownFieldSet
-}
-
 export interface SkipInfo {
   allFields?: {
     [key: string]: { [key: string]: any }
@@ -4321,53 +3777,33 @@ export interface TriggerEventDataCondition {
   value?: string
 }
 
-export interface TriggerPayload {
+export interface TriggerIssuer {
+  abortPrevConcurrentExecution?: boolean
   allFields?: {
     [key: string]: { [key: string]: any }
   }
-  defaultInstanceForType?: TriggerPayload
+  defaultInstanceForType?: TriggerIssuer
   descriptorForType?: Descriptor
-  headers?: {
-    [key: string]: string
-  }
-  headersCount?: number
-  headersMap?: {
-    [key: string]: string
-  }
   initializationErrorString?: string
   initialized?: boolean
-  parsedPayload?: ParsedPayload
-  parsedPayloadOrBuilder?: ParsedPayloadOrBuilder
-  parserForType?: ParserTriggerPayload
+  parserForType?: ParserTriggerIssuer
   serializedSize?: number
-  sourceType?: 'CUSTOM_REPO' | 'GITHUB_REPO' | 'GITLAB_REPO' | 'BITBUCKET_REPO' | 'AWS_CODECOMMIT_REPO' | 'UNRECOGNIZED'
-  sourceTypeValue?: number
-  type?: 'CUSTOM' | 'GIT' | 'SCHEDULED' | 'WEBHOOK' | 'UNRECOGNIZED'
-  typeValue?: number
+  triggerRef?: string
+  triggerRefBytes?: ByteString
   unknownFields?: UnknownFieldSet
 }
 
-export interface TriggerPayloadOrBuilder {
+export interface TriggerIssuerOrBuilder {
+  abortPrevConcurrentExecution?: boolean
   allFields?: {
     [key: string]: { [key: string]: any }
   }
   defaultInstanceForType?: Message
   descriptorForType?: Descriptor
-  headers?: {
-    [key: string]: string
-  }
-  headersCount?: number
-  headersMap?: {
-    [key: string]: string
-  }
   initializationErrorString?: string
   initialized?: boolean
-  parsedPayload?: ParsedPayload
-  parsedPayloadOrBuilder?: ParsedPayloadOrBuilder
-  sourceType?: 'CUSTOM_REPO' | 'GITHUB_REPO' | 'GITLAB_REPO' | 'BITBUCKET_REPO' | 'AWS_CODECOMMIT_REPO' | 'UNRECOGNIZED'
-  sourceTypeValue?: number
-  type?: 'CUSTOM' | 'GIT' | 'SCHEDULED' | 'WEBHOOK' | 'UNRECOGNIZED'
-  typeValue?: number
+  triggerRef?: string
+  triggerRefBytes?: ByteString
   unknownFields?: UnknownFieldSet
 }
 
@@ -4488,54 +3924,6 @@ export interface UnknownFieldSet {
   parserForType?: Parser
   serializedSize?: number
   serializedSizeAsMessageSet?: number
-}
-
-export interface User {
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  avatar?: string
-  avatarBytes?: ByteString
-  created?: Timestamp
-  createdOrBuilder?: TimestampOrBuilder
-  defaultInstanceForType?: User
-  descriptorForType?: Descriptor
-  email?: string
-  emailBytes?: ByteString
-  initializationErrorString?: string
-  initialized?: boolean
-  login?: string
-  loginBytes?: ByteString
-  name?: string
-  nameBytes?: ByteString
-  parserForType?: ParserUser
-  serializedSize?: number
-  unknownFields?: UnknownFieldSet
-  updated?: Timestamp
-  updatedOrBuilder?: TimestampOrBuilder
-}
-
-export interface UserOrBuilder {
-  allFields?: {
-    [key: string]: { [key: string]: any }
-  }
-  avatar?: string
-  avatarBytes?: ByteString
-  created?: Timestamp
-  createdOrBuilder?: TimestampOrBuilder
-  defaultInstanceForType?: Message
-  descriptorForType?: Descriptor
-  email?: string
-  emailBytes?: ByteString
-  initializationErrorString?: string
-  initialized?: boolean
-  login?: string
-  loginBytes?: ByteString
-  name?: string
-  nameBytes?: ByteString
-  unknownFields?: UnknownFieldSet
-  updated?: Timestamp
-  updatedOrBuilder?: TimestampOrBuilder
 }
 
 export interface ValidationError {
@@ -6746,6 +6134,228 @@ export const startPreflightCheckPromise = (
     'POST',
     getConfig('pipeline/api'),
     `/pipeline/execute/preflightCheck`,
+    props,
+    signal
+  )
+
+export interface RePostPipelineExecuteWithInputSetYamlQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  moduleType: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
+  useFQNIfError?: boolean
+}
+
+export interface RePostPipelineExecuteWithInputSetYamlPathParams {
+  originalExecutionId: string
+  identifier: string
+}
+
+export type RePostPipelineExecuteWithInputSetYamlProps = Omit<
+  MutateProps<
+    ResponsePlanExecutionResponseDto,
+    unknown,
+    RePostPipelineExecuteWithInputSetYamlQueryParams,
+    void,
+    RePostPipelineExecuteWithInputSetYamlPathParams
+  >,
+  'path' | 'verb'
+> &
+  RePostPipelineExecuteWithInputSetYamlPathParams
+
+/**
+ * Re Execute a pipeline with inputSet pipeline yaml
+ */
+export const RePostPipelineExecuteWithInputSetYaml = ({
+  originalExecutionId,
+  identifier,
+  ...props
+}: RePostPipelineExecuteWithInputSetYamlProps) => (
+  <Mutate<
+    ResponsePlanExecutionResponseDto,
+    unknown,
+    RePostPipelineExecuteWithInputSetYamlQueryParams,
+    void,
+    RePostPipelineExecuteWithInputSetYamlPathParams
+  >
+    verb="POST"
+    path={`/pipeline/execute/rerun/${originalExecutionId}/${identifier}`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseRePostPipelineExecuteWithInputSetYamlProps = Omit<
+  UseMutateProps<
+    ResponsePlanExecutionResponseDto,
+    unknown,
+    RePostPipelineExecuteWithInputSetYamlQueryParams,
+    void,
+    RePostPipelineExecuteWithInputSetYamlPathParams
+  >,
+  'path' | 'verb'
+> &
+  RePostPipelineExecuteWithInputSetYamlPathParams
+
+/**
+ * Re Execute a pipeline with inputSet pipeline yaml
+ */
+export const useRePostPipelineExecuteWithInputSetYaml = ({
+  originalExecutionId,
+  identifier,
+  ...props
+}: UseRePostPipelineExecuteWithInputSetYamlProps) =>
+  useMutate<
+    ResponsePlanExecutionResponseDto,
+    unknown,
+    RePostPipelineExecuteWithInputSetYamlQueryParams,
+    void,
+    RePostPipelineExecuteWithInputSetYamlPathParams
+  >(
+    'POST',
+    (paramsInPath: RePostPipelineExecuteWithInputSetYamlPathParams) =>
+      `/pipeline/execute/rerun/${paramsInPath.originalExecutionId}/${paramsInPath.identifier}`,
+    { base: getConfig('pipeline/api'), pathParams: { originalExecutionId, identifier }, ...props }
+  )
+
+/**
+ * Re Execute a pipeline with inputSet pipeline yaml
+ */
+export const rePostPipelineExecuteWithInputSetYamlPromise = (
+  {
+    originalExecutionId,
+    identifier,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponsePlanExecutionResponseDto,
+    unknown,
+    RePostPipelineExecuteWithInputSetYamlQueryParams,
+    void,
+    RePostPipelineExecuteWithInputSetYamlPathParams
+  > & { originalExecutionId: string; identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponsePlanExecutionResponseDto,
+    unknown,
+    RePostPipelineExecuteWithInputSetYamlQueryParams,
+    void,
+    RePostPipelineExecuteWithInputSetYamlPathParams
+  >('POST', getConfig('pipeline/api'), `/pipeline/execute/rerun/${originalExecutionId}/${identifier}`, props, signal)
+
+export interface RePostPipelineExecuteWithInputSetListQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  moduleType: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
+  useFQNIfError?: boolean
+}
+
+export interface RePostPipelineExecuteWithInputSetListPathParams {
+  originalExecutionId: string
+  identifier: string
+}
+
+export type RePostPipelineExecuteWithInputSetListProps = Omit<
+  MutateProps<
+    ResponsePlanExecutionResponseDto,
+    unknown,
+    RePostPipelineExecuteWithInputSetListQueryParams,
+    MergeInputSetRequestRequestBody,
+    RePostPipelineExecuteWithInputSetListPathParams
+  >,
+  'path' | 'verb'
+> &
+  RePostPipelineExecuteWithInputSetListPathParams
+
+/**
+ * Execute a pipeline with input set references list
+ */
+export const RePostPipelineExecuteWithInputSetList = ({
+  originalExecutionId,
+  identifier,
+  ...props
+}: RePostPipelineExecuteWithInputSetListProps) => (
+  <Mutate<
+    ResponsePlanExecutionResponseDto,
+    unknown,
+    RePostPipelineExecuteWithInputSetListQueryParams,
+    MergeInputSetRequestRequestBody,
+    RePostPipelineExecuteWithInputSetListPathParams
+  >
+    verb="POST"
+    path={`/pipeline/execute/rerun/${originalExecutionId}/${identifier}/inputSetList`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseRePostPipelineExecuteWithInputSetListProps = Omit<
+  UseMutateProps<
+    ResponsePlanExecutionResponseDto,
+    unknown,
+    RePostPipelineExecuteWithInputSetListQueryParams,
+    MergeInputSetRequestRequestBody,
+    RePostPipelineExecuteWithInputSetListPathParams
+  >,
+  'path' | 'verb'
+> &
+  RePostPipelineExecuteWithInputSetListPathParams
+
+/**
+ * Execute a pipeline with input set references list
+ */
+export const useRePostPipelineExecuteWithInputSetList = ({
+  originalExecutionId,
+  identifier,
+  ...props
+}: UseRePostPipelineExecuteWithInputSetListProps) =>
+  useMutate<
+    ResponsePlanExecutionResponseDto,
+    unknown,
+    RePostPipelineExecuteWithInputSetListQueryParams,
+    MergeInputSetRequestRequestBody,
+    RePostPipelineExecuteWithInputSetListPathParams
+  >(
+    'POST',
+    (paramsInPath: RePostPipelineExecuteWithInputSetListPathParams) =>
+      `/pipeline/execute/rerun/${paramsInPath.originalExecutionId}/${paramsInPath.identifier}/inputSetList`,
+    { base: getConfig('pipeline/api'), pathParams: { originalExecutionId, identifier }, ...props }
+  )
+
+/**
+ * Execute a pipeline with input set references list
+ */
+export const rePostPipelineExecuteWithInputSetListPromise = (
+  {
+    originalExecutionId,
+    identifier,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponsePlanExecutionResponseDto,
+    unknown,
+    RePostPipelineExecuteWithInputSetListQueryParams,
+    MergeInputSetRequestRequestBody,
+    RePostPipelineExecuteWithInputSetListPathParams
+  > & { originalExecutionId: string; identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponsePlanExecutionResponseDto,
+    unknown,
+    RePostPipelineExecuteWithInputSetListQueryParams,
+    MergeInputSetRequestRequestBody,
+    RePostPipelineExecuteWithInputSetListPathParams
+  >(
+    'POST',
+    getConfig('pipeline/api'),
+    `/pipeline/execute/rerun/${originalExecutionId}/${identifier}/inputSetList`,
     props,
     signal
   )

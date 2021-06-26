@@ -18,6 +18,7 @@ jest.mock('services/pipeline-ng', () => ({
   useGetTemplateFromPipeline: jest.fn(() => ({ data: null })),
   useGetPipeline: jest.fn(() => ({ data: null })),
   usePostPipelineExecuteWithInputSetYaml: jest.fn(() => ({ data: null })),
+  useRePostPipelineExecuteWithInputSetYaml: jest.fn(() => ({ data: null })),
   useGetMergeInputSetFromPipelineTemplateWithListInput: jest.fn(() => ({ data: null })),
   useGetInputSetsListForPipeline: jest.fn(() => ({ data: null, refetch: jest.fn() })),
   useGetYamlSchema: jest.fn(() => ({ data: null })),
