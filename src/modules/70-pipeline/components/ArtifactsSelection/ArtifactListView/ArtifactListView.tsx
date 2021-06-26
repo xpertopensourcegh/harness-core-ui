@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Text, Icon, Color } from '@wings-software/uicore'
+import { Layout, Text, Icon, Color, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import cx from 'classnames'
 import { String, useStrings } from 'framework/strings'
 import { getConnectorNameFromValue, getStatus } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
@@ -59,7 +59,9 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
                   <Text className={css.connectorName} lineClamp={1}>
                     {primaryConnectorName ?? primaryArtifact.spec?.connectorRef}
                   </Text>
-                  <Icon name="full-circle" size={12} color={primaryConnectorColor} />
+                  {getMultiTypeFromValue(primaryArtifact.spec?.connectorRef) === MultiTypeInputType.FIXED && (
+                    <Icon name="full-circle" size={12} color={primaryConnectorColor} />
+                  )}
                 </div>
 
                 <div>
@@ -116,7 +118,9 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
                       <Text className={css.connectorName} lineClamp={1}>
                         {sidecarConnectorName ?? sidecar?.spec?.connectorRef}
                       </Text>
-                      <Icon name="full-circle" size={12} color={sideCarConnectionColor} />
+                      {getMultiTypeFromValue(sidecar?.spec?.connectorRef) === MultiTypeInputType.FIXED && (
+                        <Icon name="full-circle" size={12} color={sideCarConnectionColor} />
+                      )}
                     </div>
 
                     <div className={css.locationField}>

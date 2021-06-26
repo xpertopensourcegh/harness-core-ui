@@ -30,6 +30,7 @@ import StepAWSAuthentication from '@connectors/components/CreateConnector/AWSCon
 import { buildAWSPayload, buildDockerPayload, buildGcpPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import DelegateSelectorStep from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 import { useQueryParams } from '@common/hooks'
+import type { Scope } from '@common/interfaces/SecretsInterface'
 import { getStageIndexFromPipeline, getFlattenedStages } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 
 import ConnectorRefSteps from './ConnectorRefSteps/ConnectorRefSteps'
@@ -233,36 +234,39 @@ export default function ArtifactsSelection({
     queryParams: defaultQueryParams
   })
 
-  const connectorScopeIdentifierList = primaryArtifact
-    ? [
-        {
-          scope: getScopeFromValue(primaryArtifact?.spec?.connectorRef),
-          identifier: getIdentifierFromValue(primaryArtifact?.spec?.connectorRef)
-        }
-      ]
-    : []
+  const getPrimaryConnectorList = (): Array<{ scope: Scope; identifier: string }> => {
+    return primaryArtifact?.type
+      ? [
+          {
+            scope: getScopeFromValue(primaryArtifact?.spec?.connectorRef),
+            identifier: getIdentifierFromValue(primaryArtifact?.spec?.connectorRef)
+          }
+        ]
+      : []
+  }
 
-  const getConnectorList = () => {
-    return sideCarArtifact && sideCarArtifact.length
-      ? sideCarArtifact &&
-          sideCarArtifact.map((data: SidecarArtifactWrapper) => ({
-            scope: getScopeFromValue(data?.sidecar?.spec?.connectorRef),
-            identifier: getIdentifierFromValue(data?.sidecar?.spec?.connectorRef)
-          }))
+  const getSidecarConnectorList = (): Array<{ scope: Scope; identifier: string }> => {
+    return sideCarArtifact?.length
+      ? sideCarArtifact.map((data: SidecarArtifactWrapper) => ({
+          scope: getScopeFromValue(data?.sidecar?.spec?.connectorRef),
+          identifier: getIdentifierFromValue(data?.sidecar?.spec?.connectorRef)
+        }))
       : []
   }
 
   const refetchConnectorList = async (): Promise<void> => {
-    const connectorList = getConnectorList()
-    const arr = connectorScopeIdentifierList.concat(...connectorList)
-    const connectorIdentifiers = arr.map(item => item.identifier)
-    const { data: connectorResponse } = await fetchConnectors({ filterType: 'Connector', connectorIdentifiers })
-    setFetchedConnectorResponse(connectorResponse)
+    const primaryConnectorList = getPrimaryConnectorList()
+    const sidecarConnectorList = getSidecarConnectorList()
+    const connectorIdentifiers = [...primaryConnectorList, ...sidecarConnectorList].map(item => item.identifier)
+    if (connectorIdentifiers.length) {
+      const { data: connectorResponse } = await fetchConnectors({ filterType: 'Connector', connectorIdentifiers })
+      setFetchedConnectorResponse(connectorResponse)
+    }
   }
 
   useEffect(() => {
     refetchConnectorList()
-  }, [stage])
+  }, [stage, primaryArtifact, sideCarArtifact])
 
   const addArtifact = (artifactObj: any): void => {
     artifactObj = {

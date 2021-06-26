@@ -1423,25 +1423,6 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
               >
                 
               </p>
-              <span
-                class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--color"
-                icon="full-circle"
-              >
-                <svg
-                  data-icon="full-circle"
-                  height="12"
-                  viewBox="0 0 16 16"
-                  width="12"
-                >
-                  <desc>
-                    full-circle
-                  </desc>
-                  <path
-                    d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
             </div>
             <div>
               <p
