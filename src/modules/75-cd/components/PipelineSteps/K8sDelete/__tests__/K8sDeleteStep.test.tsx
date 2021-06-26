@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, act } from '@testing-library/react'
+import { render, act, fireEvent, waitFor } from '@testing-library/react'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StepViewType, StepFormikRef } from '@pipeline/components/AbstractSteps/Step'
 
@@ -92,6 +92,35 @@ describe('Test K8sDeleteStep', () => {
       />
     )
     expect(container).toMatchSnapshot()
+  })
+
+  test('validate input set in deployment form - only timeout is runtime', async () => {
+    const { container, getByText } = render(
+      <TestStepWidget
+        initialValues={{
+          type: 'K8sDelete',
+          name: 'Test A',
+          identifier: 'Test_A',
+          timeout: '',
+          spec: {}
+        }}
+        template={{
+          timeout: '<+input>'
+        }}
+        inputSetData={{
+          path: '/abc',
+          template: {
+            timeout: '<+input>',
+            spec: {}
+          }
+        }}
+        type={StepType.K8sDelete}
+        stepViewType={StepViewType.DeploymentForm}
+      />
+    )
+    fireEvent.click(getByText('Submit'))
+    await waitFor(() => getByText('Errors'))
+    expect(container).toMatchSnapshot('K8 delete step error in deploymentform if timeout not present')
   })
 
   test('form produces correct data for fixed inputs', async () => {

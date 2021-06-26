@@ -478,7 +478,7 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
   }: ValidateInputSetProps<K8sDeleteFormData>): FormikErrors<K8sDeleteFormData> {
     const isRequired = viewType === StepViewType.DeploymentForm
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const errors = { spec: {} } as any
+    const errors: FormikErrors<K8sDeleteFormData> = {}
     if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
       let timeoutSchema = getDurationValidationSchema({ minimum: '10s' })
       if (isRequired) {
@@ -493,7 +493,6 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
         /* istanbul ignore else */
         if (e instanceof Yup.ValidationError) {
           const err = yupToFormErrors(e)
-
           Object.assign(errors, err)
         }
       }
