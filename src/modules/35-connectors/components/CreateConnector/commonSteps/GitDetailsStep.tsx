@@ -210,10 +210,12 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
                 return false
               }
             }),
-            validationRepo: Yup.string().when('urlType', {
-              is: 'Account',
-              then: Yup.string().required(getString('common.validation.testRepoIsRequired'))
-            })
+            validationRepo: Yup.string()
+              .nullable()
+              .when('urlType', {
+                is: 'Account',
+                then: Yup.string().required(getString('common.validation.testRepoIsRequired'))
+              })
           })}
           initialValues={{
             ...getInitialValues(),
