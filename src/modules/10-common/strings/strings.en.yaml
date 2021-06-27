@@ -99,7 +99,6 @@ startTrial: 'Start 14 day {{module}} Enterprise trial'
 new: new
 purpose:
   welcome: 'Welcome, let’s get you started!'
-  infoCardIntent: 'How would you like to get started?'
   howToProceed: 'How would you like to proceed?'
   continuous: CONTINUOUS
   moduleSuccess: Module Added Successfully

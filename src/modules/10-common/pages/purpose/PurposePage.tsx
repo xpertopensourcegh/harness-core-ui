@@ -196,51 +196,51 @@ const PurposeList: React.FC = () => {
   }
 
   return (
-    <Layout.Vertical spacing="large">
-      <Layout.Horizontal padding={{ top: 'large' }}>
-        <Container width="40%">
-          <div style={{ borderRight: 'inset', marginLeft: -15 }}>
-            {getOptions().map(option => {
-              const cardTitle =
-                option.module === 'cf'
-                  ? getString('common.purpose.cf.feature').toUpperCase()
-                  : getString('common.purpose.continuous')
-              return (
-                <Card
-                  key={option.title}
-                  className={cx(css.card, selected === option.module ? css.selected : '')}
-                  onClick={() => handleModuleSelection(option.module)}
-                >
-                  <Layout.Horizontal spacing="small">
-                    <Icon name={option.icon} size={25} />
-                    <div>
-                      <Text font="xsmall">{cardTitle}</Text>
-                      <Text font={{ size: 'medium' }} padding={{ bottom: 'large' }} color={Color.BLACK}>
-                        {option.title}
-                      </Text>
-                    </div>
-                  </Layout.Horizontal>
-                  <Text font="small" padding={{ bottom: 'small' }} style={{ minHeight: 70 }}>
-                    {option.description}
-                  </Text>
+    <div className={css.purposeListGrid}>
+      <Container>
+        <div style={{ borderRight: 'inset', marginLeft: -15 }}>
+          {getOptions().map(option => {
+            const cardTitle =
+              option.module === 'cf'
+                ? getString('common.purpose.cf.feature').toUpperCase()
+                : getString('common.purpose.continuous')
+            return (
+              <Card
+                key={option.title}
+                className={cx(css.card, selected === option.module ? css.selected : '')}
+                onClick={() => handleModuleSelection(option.module)}
+              >
+                <Layout.Horizontal spacing="small">
+                  <Icon name={option.icon} size={25} />
+                  <div>
+                    <Text font="xsmall" margin={{ bottom: '0' }}>
+                      {cardTitle}
+                    </Text>
+                    <Text font={{ size: 'medium' }} padding={{ bottom: 'large' }} color={Color.BLACK}>
+                      {option.title}
+                    </Text>
+                  </div>
+                </Layout.Horizontal>
+                <Text font="small" padding={{ bottom: 'small' }} style={{ minHeight: 70 }}>
+                  {option.description}
+                </Text>
 
-                  <Text font="small" style={{ marginTop: 10 }}>
-                    {getString('common.purpose.setup')}
-                  </Text>
-                </Card>
-              )
-            })}
-          </div>
-        </Container>
-        <Container width={700} padding={{ left: 'huge', top: 'medium' }}>
-          {selected ? (
-            getModuleInfo(selected)
-          ) : (
-            <Text font={{ size: 'medium', weight: 'semi-bold' }}>{getString('common.purpose.selectAModule')}</Text>
-          )}
-        </Container>
-      </Layout.Horizontal>
-    </Layout.Vertical>
+                <Text font="small" style={{ marginTop: 10 }}>
+                  {getString('common.purpose.setup')}
+                </Text>
+              </Card>
+            )
+          })}
+        </div>
+      </Container>
+      <Container padding={{ left: 'huge', top: 'medium' }}>
+        {selected ? (
+          getModuleInfo(selected)
+        ) : (
+          <Text font={{ size: 'medium', weight: 'semi-bold' }}>{getString('common.purpose.selectAModule')}</Text>
+        )}
+      </Container>
+    </div>
   )
 }
 
@@ -252,8 +252,8 @@ export const PurposePage: React.FC = () => {
   useTelemetry({ pageName: PageNames.Purpose, category: Category.SIGNUP })
 
   return (
-    <Container margin={{ left: 'xxxlarge' }} flex={{ alignItems: 'start' }}>
-      <Layout.Vertical padding={'xxlarge'}>
+    <Container className={css.purposePageContainer} padding="xxxlarge" flex={{ alignItems: 'start' }} height="100%">
+      <Layout.Vertical padding="xxlarge" spacing="large" width="100%" height="100%">
         <HarnessLogo height={30} style={{ alignSelf: 'start' }} />
         <Heading color={Color.BLACK} font={{ size: 'large', weight: 'bold' }} padding={{ top: 'xxlarge' }}>
           {getString('common.purpose.welcome')}

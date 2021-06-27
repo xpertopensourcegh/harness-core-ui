@@ -65,7 +65,7 @@ exports[`open and close Start Trial Modal Rendering should open and close the st
     <h1
       class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--padding-top-xlarge"
     >
-      common.purpose.infoCardIntent
+      common.purpose.howToProceed
     </h1>
     <div
       class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"

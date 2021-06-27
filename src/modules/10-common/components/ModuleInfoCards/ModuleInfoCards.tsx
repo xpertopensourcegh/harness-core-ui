@@ -251,12 +251,10 @@ const ModuleInfoCards: React.FC<ModuleInfoCardsProps> = props => {
     return <></>
   }
 
-  const header = module === 'cd' ? 'common.purpose.howToProceed' : 'common.purpose.infoCardIntent'
-
   return (
     <>
       <Heading color={Color.BLACK} font={{ size: 'medium', weight: 'bold' }} padding={{ top: 'xlarge' }}>
-        {getString(header as keyof StringsMap)}
+        {getString('common.purpose.howToProceed')}
       </Heading>
       <Layout.Horizontal spacing="small" style={{ ...style }}>
         {infoCards}

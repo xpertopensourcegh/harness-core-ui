@@ -261,7 +261,6 @@ export interface StringsMap {
   'common.purpose.cv.subtitle': string
   'common.purpose.cv.verification': string
   'common.purpose.howToProceed': string
-  'common.purpose.infoCardIntent': string
   'common.purpose.moduleSuccess': string
   'common.purpose.selectAModule': string
   'common.purpose.setup': string

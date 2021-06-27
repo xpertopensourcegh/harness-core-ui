@@ -8,14 +8,26 @@
   box-shadow: 1px 1px 15px 3px rgba(0, 0, 0, 0.1);
   border: 1px solid transparent !important;
   margin: var(--spacing-medium);
-
-  &.infoCard {
-    width: 240px;
-    height: 210px;
-  }
 }
 
 .selected {
   box-shadow: 0 0 5px 0px var(--blue-400) !important;
   border: 1px solid var(--blue-400) !important;
+}
+
+.purposePageContainer {
+  width: 1920px;
+  margin: 0 auto !important;
+
+  .purposeListGrid {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+  }
+}
+
+@media (max-width: 1920px) {
+  .purposePageContainer {
+    width: auto;
+  }
 }

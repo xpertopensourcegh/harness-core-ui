@@ -63,7 +63,7 @@ exports[`StartTrialModalContent Rendering test that adding a source query param 
     <h1
       class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--padding-top-xlarge"
     >
-      common.purpose.infoCardIntent
+      common.purpose.howToProceed
     </h1>
     <div
       class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -302,7 +302,7 @@ exports[`StartTrialModalContent Rendering test that the warning container render
     <h1
       class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--padding-top-xlarge"
     >
-      common.purpose.infoCardIntent
+      common.purpose.howToProceed
     </h1>
     <div
       class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
@@ -541,7 +541,7 @@ exports[`StartTrialModalContent Rendering that the content renders 1`] = `
     <h1
       class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--padding-top-xlarge"
     >
-      common.purpose.infoCardIntent
+      common.purpose.howToProceed
     </h1>
     <div
       class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"

@@ -19,7 +19,7 @@ describe('ModuleInfoCards Test', () => {
           <ModuleInfoCards {...props} />
         </TestWrapper>
       )
-      expect(getByText('common.purpose.infoCardIntent')).toBeDefined()
+      expect(getByText('common.purpose.howToProceed')).toBeDefined()
       expect(container).toMatchSnapshot()
     })
 
@@ -41,7 +41,7 @@ describe('ModuleInfoCards Test', () => {
           <ModuleInfoCards {...props} />
         </TestWrapper>
       )
-      expect(getByText('common.purpose.infoCardIntent')).toBeDefined()
+      expect(getByText('common.purpose.howToProceed')).toBeDefined()
 
       expect(container).toMatchSnapshot()
     })
@@ -66,7 +66,7 @@ describe('ModuleInfoCards Test', () => {
           <ModuleInfoCards {...props} />
         </TestWrapper>
       )
-      expect(getByText('common.purpose.infoCardIntent')).toBeDefined()
+      expect(getByText('common.purpose.howToProceed')).toBeDefined()
 
       fireEvent.click(getByText('common.ce.visibility'))
 
