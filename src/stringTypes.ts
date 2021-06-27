@@ -55,6 +55,7 @@ export interface StringsMap {
   'common.banners.trial.contactSalesForm.roleItems.softwareDeveloper': string
   'common.banners.trial.contactSalesForm.roleItems.vp': string
   'common.banners.trial.contactSalesForm.roleValidation': string
+  'common.banners.trial.contactSalesForm.success': string
   'common.banners.trial.description': string
   'common.banners.trial.expired.description': string
   'common.banners.trial.expired.extendTrial': string

@@ -304,6 +304,7 @@ banners:
       extendTrial: Extend Trial
     contactSales: Contact Sales
     contactSalesForm:
+      success: Thank you for contacting us. We'll get back to you as soon as possible
       description: Let’s connect you with our Sales team
       fullName: Full Name
       email: Business Email Address

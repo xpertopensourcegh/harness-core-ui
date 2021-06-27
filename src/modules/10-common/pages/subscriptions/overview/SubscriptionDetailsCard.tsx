@@ -6,7 +6,7 @@ import { Button, Card, Color, Heading, Icon, Layout, Text } from '@wings-softwar
 import type { StringsMap } from 'stringTypes'
 import { useStrings } from 'framework/strings'
 import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
-import { useContactSalesModal, ContactSalesFormProps } from '@common/modals/ContactSales/useContactSalesModal'
+import { useContactSalesMktoModal } from '@common/modals/ContactSales/useContactSalesMktoModal'
 import { useLicenseStore, handleUpdateLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import { useExtendTrialLicense, StartTrialDTO } from 'services/cd-ng'
 import { useToaster } from '@common/components'
@@ -39,11 +39,7 @@ const SubscriptionDetailsCard: React.FC<SubscriptionDetailsCardProps> = props =>
   const { showError } = useToaster()
   const { licenseInformation, updateLicenseStore } = useLicenseStore()
   const { accountId } = useParams<AccountPathProps>()
-  const { openContactSalesModal } = useContactSalesModal({
-    onSubmit: (_values: ContactSalesFormProps) => {
-      // TO-DO: call the API
-    }
-  })
+  const openMarketoContactSales = useContactSalesMktoModal({})
 
   const { mutate: extendTrial, loading } = useExtendTrialLicense({
     queryParams: {
@@ -234,7 +230,7 @@ const SubscriptionDetailsCard: React.FC<SubscriptionDetailsCardProps> = props =>
   )
 
   const contactSalesButton = (
-    <Button intent="primary" onClick={openContactSalesModal}>
+    <Button intent="primary" onClick={openMarketoContactSales}>
       {getString('common.banners.trial.contactSales')}
     </Button>
   )

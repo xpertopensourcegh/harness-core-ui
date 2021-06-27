@@ -8,6 +8,7 @@ import { ModuleName } from 'framework/types/ModuleName'
 import type { StringsMap } from 'stringTypes'
 import { useToaster } from '@common/components'
 import { useExtendTrialLicense, StartTrialDTO } from 'services/cd-ng'
+import { useContactSalesMktoModal } from '@common/modals/ContactSales/useContactSalesMktoModal'
 import { useLicenseStore, handleUpdateLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import {
@@ -15,7 +16,6 @@ import {
   FORM_TYPE,
   FeedbackFormValues
 } from '@common/modals/ExtendTrial/useExtendTrialOrFeedbackModal'
-import { useContactSalesModal, ContactSalesFormProps } from '@common/modals/ContactSales/useContactSalesModal'
 import { Page } from '../Page/Page'
 import css from './TrialLicenseBanner.module.scss'
 
@@ -49,6 +49,8 @@ export const TrialLicenseBanner = (trialBannerProps: TrialBannerProps): React.Re
     }
   })
 
+  const openMarketoContactSales = useContactSalesMktoModal({})
+
   const alertMsg = isExpired ? (
     <Text font={{ weight: 'semi-bold' }} icon="info" iconProps={{ size: 18, color: Color.RED_500 }}>
       {getString('common.banners.trial.expired.description', {
@@ -65,13 +67,6 @@ export const TrialLicenseBanner = (trialBannerProps: TrialBannerProps): React.Re
       })}
     </Text>
   )
-
-  const { openContactSalesModal } = useContactSalesModal({
-    onSubmit: (_values: ContactSalesFormProps) => {
-      // TO-DO: call the API
-    }
-  })
-
   const { openExtendTrialOrFeedbackModal } = useExtendTrialOrFeedbackModal({
     onSubmit: (_values: FeedbackFormValues) => {
       // TO-DO: call the feed back api
@@ -150,7 +145,7 @@ export const TrialLicenseBanner = (trialBannerProps: TrialBannerProps): React.Re
             border={{ color: Color.PRIMARY_7 }}
             padding="xsmall"
             text={getString('common.banners.trial.contactSales')}
-            onClick={openContactSalesModal}
+            onClick={openMarketoContactSales}
           />
           {getExtendOrFeedBackBtn()}
         </Layout.Horizontal>

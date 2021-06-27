@@ -1,10 +1,12 @@
-import React, { CSSProperties, useState } from 'react'
+import React, { CSSProperties, useState, useEffect } from 'react'
 import { Heading, Layout, Text, Link as ExternalLink, FlexExpander, Container, Color } from '@wings-software/uicore'
 import cx from 'classnames'
 import { Link, useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import type { ModuleName } from 'framework/types/ModuleName'
+import { useQueryParams } from '@common/hooks'
+import { useToaster } from '@common/exports'
 import { TrialLicenseBanner } from '@common/components/Banners/TrialLicenseBanner'
 import { Page } from '../Page/Page'
 import css from './HomePageTemplate.module.scss'
@@ -39,6 +41,19 @@ export const HomePageTemplate: React.FC<HomePageTemplate> = ({
   const [hasBanner, setHasBanner] = useState<boolean>(true)
   const { getString } = useStrings()
   const bannerClassName = hasBanner ? css.hasBanner : css.hasNoBanner
+  const { showSuccess } = useToaster()
+  const { contactSales } = useQueryParams<{ contactSales?: string }>()
+
+  useEffect(
+    () => {
+      if (contactSales === 'success') {
+        showSuccess(getString('common.banners.trial.contactSalesForm.success'))
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [contactSales]
+  )
+
   return (
     <>
       <TrialLicenseBanner {...trialBannerProps} setHasBanner={setHasBanner} />

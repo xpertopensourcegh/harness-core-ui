@@ -45,6 +45,7 @@ declare interface Window {
   Harness: {
     openNgTooltipEditor: () => void
   }
+  MktoForms2: any
 }
 
 declare const monaco: any

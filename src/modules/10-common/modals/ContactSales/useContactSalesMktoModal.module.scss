@@ -1,0 +1,90 @@
+.title {
+  font-size: var(--font-size-large) !important;
+  margin-bottom: var(--spacing-small) !important;
+}
+.subTitle {
+  color: var(--grey-400);
+  margin-bottom: var(--spacing-large) !important;
+}
+.mktoModalContent {
+  height: auto;
+  width: 390px;
+  border-radius: 11px;
+  padding: 30px 25px 25px 25px !important;
+  justify-content: center;
+
+  :global {
+    .mktoForm {
+      width: 300px !important;
+    }
+    .mktoModalClose {
+      position: absolute !important;
+      right: var(--spacing-large) !important;
+      top: var(--spacing-large) !important;
+      height: 25px;
+      width: 25px;
+      background: none !important;
+      color: var(--grey-400) !important;
+      border: none !important;
+    }
+    .mktoModalMain {
+      width: 100% !important;
+      padding: 20px !important;
+    }
+    .mktoFormRow {
+      display: flex !important;
+      width: 300px !important;
+    }
+    .mktoButton {
+      border-radius: 4px;
+      border: none !important;
+      background-color: var(--primary-7) !important;
+      background-image: none !important;
+      margin-top: 10px !important;
+    }
+    .mktoButtonWrap {
+      margin-left: 0px !important;
+    }
+    .mktoAsterix {
+      display: none !important;
+    }
+    .mktoFieldWrap {
+      float: unset !important;
+    }
+    .mktoGutter {
+      float: unset !important;
+      width: 0px !important;
+      height: 0.2em !important;
+    }
+    .mktoLabel {
+      float: unset !important;
+      color: var(--grey-400);
+      font-weight: normal !important;
+    }
+    .mktoFormCol {
+      width: 200px;
+    }
+    .mktoOffset {
+      width: 0px !important;
+      height: 0.2em !important;
+      float: unset !important;
+    }
+    select,
+    input {
+      height: 30px !important;
+      border: solid 1px var(--grey-250) !important;
+      border-radius: 5px;
+    }
+
+    strong {
+      font-weight: normal !important;
+    }
+    .mktoError {
+      right: unset !important;
+    }
+  }
+}
+.formPhone {
+  margin-top: 15px !important;
+  width: 200px !important;
+}

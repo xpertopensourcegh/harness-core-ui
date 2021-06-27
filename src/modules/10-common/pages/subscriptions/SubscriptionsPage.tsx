@@ -11,6 +11,7 @@ import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerS
 import { PageError } from '@common/components/Page/PageError'
 import { useStrings } from 'framework/strings'
 import type { StringsMap } from 'stringTypes'
+import { useToaster } from '@common/exports'
 import { ModuleName } from 'framework/types/ModuleName'
 import {
   useGetAccountNG,
@@ -74,6 +75,7 @@ const MODULE_SELECT_CARDS: ModuleSelectCard[] = [
 
 const SubscriptionsPage: React.FC = () => {
   const { getString } = useStrings()
+  const { showSuccess } = useToaster()
   const { accountId } = useParams<AccountPathProps>()
   const { moduleCard } = useQueryParams<{ moduleCard?: ModuleName }>()
   const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
@@ -146,6 +148,8 @@ const SubscriptionsPage: React.FC = () => {
   const latestModuleLicense =
     licenseData?.data && licenseData.data.length > 0 ? licenseData?.data?.[licenseData?.data?.length - 1] : undefined
 
+  const { contactSales } = useQueryParams<{ contactSales?: string }>()
+
   useEffect(() => {
     handleUpdateLicenseStore(
       { ...licenseInformation },
@@ -155,6 +159,16 @@ const SubscriptionsPage: React.FC = () => {
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [licenseData])
+
+  useEffect(
+    () => {
+      if (contactSales === 'success') {
+        showSuccess(getString('common.banners.trial.contactSalesForm.success'))
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [contactSales]
+  )
 
   if (accountError || licenseError) {
     const message =
