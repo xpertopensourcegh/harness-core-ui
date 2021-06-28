@@ -382,8 +382,9 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
   })
 
   const handleSubmit = React.useCallback(
-    async (inputSetObj: OverlayInputSetDTO, gitDetails?: EntityGitDetails) => {
-      setSavedInputSetObj(omit(inputSetObj, 'repo', 'branch'))
+    async (inputSetObjWithGitInfo: OverlayInputSetDTO, gitDetails?: EntityGitDetails) => {
+      const inputSetObj = omit(inputSetObjWithGitInfo, 'repo', 'branch')
+      setSavedInputSetObj(inputSetObj)
       setInitialGitDetails(gitDetails as EntityGitDetails)
       if (inputSetObj) {
         delete inputSetObj.pipeline
@@ -396,10 +397,10 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
               identifier: inputSetObj.identifier as string,
               gitDetails: isEdit ? overlayInputSetResponse?.data?.gitDetails : gitDetails
             },
-            payload: { overlayInputSet: omit(inputSetObj, 'repo', 'branch') }
+            payload: { overlayInputSet: inputSetObj }
           })
         } else {
-          createUpdateOverlayInputSet(omit(inputSetObj, 'repo', 'branch'))
+          createUpdateOverlayInputSet(inputSetObj)
         }
       }
     },

@@ -55,6 +55,10 @@ interface SavePipelineObj {
   pipeline: PipelineInfoConfig | NgPipeline
 }
 
+interface PipelineWithGitContextFormProps extends PipelineInfoConfig {
+  repo?: string
+  branch?: string
+}
 export interface PipelineCanvasProps {
   toPipelineStudio: PathFn<PipelineType<PipelinePathProps> & PipelineStudioQueryParams>
   toPipelineDetail: PathFn<PipelineType<PipelinePathProps>>
@@ -451,7 +455,9 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       pipeline.description = data.description
       pipeline.identifier = data.identifier
       pipeline.tags = data.tags ?? {}
-      updatePipeline(omit(pipeline, 'repo', 'branch'))
+      delete (pipeline as PipelineWithGitContextFormProps).repo
+      delete (pipeline as PipelineWithGitContextFormProps).branch
+      updatePipeline(pipeline)
       if (updatedGitDetails) {
         if (gitDetails?.objectId) {
           updatedGitDetails = { ...gitDetails, ...updatedGitDetails }

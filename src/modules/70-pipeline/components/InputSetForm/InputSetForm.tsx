@@ -349,8 +349,9 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
   })
 
   const handleSubmit = React.useCallback(
-    async (inputSetObj: InputSetDTO, gitDetails?: EntityGitDetails) => {
-      setSavedInputSetObj(omit(inputSetObj, 'repo', 'branch'))
+    async (inputSetObjWithGitInfo: InputSetDTO, gitDetails?: EntityGitDetails) => {
+      const inputSetObj = omit(inputSetObjWithGitInfo, 'repo', 'branch')
+      setSavedInputSetObj(inputSetObj)
       setInitialGitDetails(gitDetails as EntityGitDetails)
       if (inputSetObj) {
         if (isGitSyncEnabled) {
@@ -362,10 +363,10 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
               identifier: inputSetObj.identifier as string,
               gitDetails: isEdit ? inputSetResponse?.data?.gitDetails : gitDetails
             },
-            payload: { inputSet: omit(inputSetObj, 'repo', 'branch') }
+            payload: { inputSet: inputSetObj }
           })
         } else {
-          createUpdateInputSet(omit(inputSetObj, 'repo', 'branch'))
+          createUpdateInputSet(inputSetObj)
         }
       }
     },
