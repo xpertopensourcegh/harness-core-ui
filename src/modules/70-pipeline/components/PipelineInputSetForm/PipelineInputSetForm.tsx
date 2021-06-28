@@ -1,8 +1,8 @@
 import React from 'react'
 import { Layout, getMultiTypeFromValue, MultiTypeInputType, Text, Icon, Color, IconName } from '@wings-software/uicore'
-import { isEmpty } from 'lodash-es'
+import { isEmpty, get } from 'lodash-es'
 import cx from 'classnames'
-import type { DeploymentStageConfig, PipelineInfoConfig, StageElementWrapperConfig } from 'services/cd-ng'
+import type { DeploymentStageConfig, NgPipeline, PipelineInfoConfig, StageElementWrapperConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import type { AllNGVariables } from '@pipeline/utils/types'
 
@@ -22,7 +22,7 @@ import { PipelineVariablesContextProvider } from '../PipelineVariablesContext/Pi
 import css from './PipelineInputSetForm.module.scss'
 
 export interface PipelineInputSetFormProps {
-  originalPipeline: PipelineInfoConfig
+  originalPipeline: NgPipeline
   template: PipelineInfoConfig
   path?: string
   readonly?: boolean
@@ -99,6 +99,11 @@ function StageForm({
 export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props => {
   const { originalPipeline, template, path = '', readonly } = props
   const { getString } = useStrings()
+
+  const isCloneCodebaseEnabledAtLeastAtOneStage = originalPipeline?.stages?.some(stage =>
+    get(stage, 'stage.spec.cloneCodebase')
+  )
+
   return (
     <PipelineVariablesContextProvider pipeline={originalPipeline}>
       <Layout.Vertical spacing="medium" padding="xlarge" className={css.container}>
@@ -121,13 +126,14 @@ export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props =
             />
           </>
         )}
-        {getMultiTypeFromValue((template?.properties?.ci?.codebase?.build as unknown) as string) ===
-          MultiTypeInputType.RUNTIME && (
-          <>
-            <div className={css.subheading}>{getString('ciCodebase')}</div>
-            <CICodebaseInputSetForm path={path} readonly={readonly} />
-          </>
-        )}
+        {isCloneCodebaseEnabledAtLeastAtOneStage &&
+          getMultiTypeFromValue((template?.properties?.ci?.codebase?.build as unknown) as string) ===
+            MultiTypeInputType.RUNTIME && (
+            <>
+              <div className={css.subheading}>{getString('ciCodebase')}</div>
+              <CICodebaseInputSetForm path={path} readonly={readonly} />
+            </>
+          )}
         <>
           {template?.stages?.map((stageObj, index) => {
             const pathPrefix = !isEmpty(path) ? `${path}.` : ''
