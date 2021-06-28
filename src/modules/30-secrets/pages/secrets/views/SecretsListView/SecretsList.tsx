@@ -122,7 +122,7 @@ const RenderColumnAction: Renderer<CellProps<SecretResponseWrapper>> = ({ row, c
   }
 
   const { openDialog } = useConfirmationDialog({
-    contentText: <String stringID="secrets.confirmDeleteTitle" vars={{ name: data.name }} />,
+    contentText: <String stringID="secrets.confirmDelete" vars={{ name: data.name }} />,
     titleText: <String stringID="secrets.confirmDeleteTitle" />,
     confirmButtonText: <String stringID="delete" />,
     cancelButtonText: <String stringID="cancel" />,
