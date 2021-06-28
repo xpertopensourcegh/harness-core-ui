@@ -1,5 +1,5 @@
 import { pick } from 'lodash-es'
-import type { IconName } from '@wings-software/uicore'
+import type { IconName, StepProps } from '@wings-software/uicore'
 import { Connectors, EntityTypes } from '@connectors/constants'
 import type {
   ConnectorInfoDTO,
@@ -1401,4 +1401,12 @@ export const getInvocationPathsForSecrets = (type: ConnectorInfoDTO['type'] | 'U
 export const removeErrorCode = (errors: ErrorDetail[] = []) => {
   errors.forEach(item => delete item.code)
   return errors
+}
+
+export const saveCurrentStepData = <T>(getCurrentStepData: StepProps<T>['getCurrentStepData'], values: T): void => {
+  if (getCurrentStepData) {
+    getCurrentStepData.current = () => {
+      return values
+    }
+  }
 }

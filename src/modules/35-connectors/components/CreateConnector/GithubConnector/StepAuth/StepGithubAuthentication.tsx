@@ -13,7 +13,11 @@ import {
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
-import { setupGithubFormData, GitConnectionType } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import {
+  setupGithubFormData,
+  GitConnectionType,
+  saveCurrentStepData
+} from '@connectors/pages/connectors/utils/ConnectorUtils'
 import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
 import type { ConnectorConfigDTO, ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
 
@@ -263,53 +267,59 @@ const StepGithubAuthentication: React.FC<
         })}
         onSubmit={handleSubmit}
       >
-        {formikProps => (
-          <Form>
-            <Container className={css.stepFormWrapper}>
-              {formikProps.values.connectionType === GitConnectionType.SSH ? (
-                <Container width={'52%'}>
-                  <Text font={{ weight: 'bold' }} className={css.authTitle}>
-                    {getString('authentication')}
-                  </Text>
-                  <SecretInput name="sshKey" type="SSHKey" label={getString('SSH_KEY')} />
-                </Container>
-              ) : (
-                <Container width={'52%'}>
-                  <Container className={css.authHeaderRow}>
-                    <Text className={css.authTitle} inline>
+        {formikProps => {
+          saveCurrentStepData<ConnectorInfoDTO>(
+            props.getCurrentStepData,
+            (formikProps.values as unknown) as ConnectorInfoDTO
+          )
+          return (
+            <Form>
+              <Container className={css.stepFormWrapper}>
+                {formikProps.values.connectionType === GitConnectionType.SSH ? (
+                  <Container width={'52%'}>
+                    <Text font={{ weight: 'bold' }} className={css.authTitle}>
                       {getString('authentication')}
                     </Text>
-                    <FormInput.Select
-                      name="authType"
-                      items={authOptions}
-                      disabled={false}
-                      className={commonStyles.authTypeSelect}
-                    />
+                    <SecretInput name="sshKey" type="SSHKey" label={getString('SSH_KEY')} />
                   </Container>
+                ) : (
+                  <Container width={'52%'}>
+                    <Container className={css.authHeaderRow}>
+                      <Text className={css.authTitle} inline>
+                        {getString('authentication')}
+                      </Text>
+                      <FormInput.Select
+                        name="authType"
+                        items={authOptions}
+                        disabled={false}
+                        className={commonStyles.authTypeSelect}
+                      />
+                    </Container>
 
-                  <RenderGithubAuthForm {...formikProps} />
-                </Container>
-              )}
+                    <RenderGithubAuthForm {...formikProps} />
+                  </Container>
+                )}
 
-              <FormInput.CheckBox
-                name="enableAPIAccess"
-                label={getString('common.git.enableAPIAccess')}
-                padding={{ left: 'xxlarge' }}
-              />
-              {formikProps.values.enableAPIAccess ? <RenderAPIAccessFormWrapper {...formikProps} /> : null}
-            </Container>
+                <FormInput.CheckBox
+                  name="enableAPIAccess"
+                  label={getString('common.git.enableAPIAccess')}
+                  padding={{ left: 'xxlarge' }}
+                />
+                {formikProps.values.enableAPIAccess ? <RenderAPIAccessFormWrapper {...formikProps} /> : null}
+              </Container>
 
-            <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
-              <Button
-                text={getString('back')}
-                icon="chevron-left"
-                onClick={() => props?.previousStep?.(props?.prevStepData)}
-                data-name="githubBackButton"
-              />
-              <Button type="submit" intent="primary" text={getString('continue')} rightIcon="chevron-right" />
-            </Layout.Horizontal>
-          </Form>
-        )}
+              <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
+                <Button
+                  text={getString('back')}
+                  icon="chevron-left"
+                  onClick={() => props?.previousStep?.(props?.prevStepData)}
+                  data-name="githubBackButton"
+                />
+                <Button type="submit" intent="primary" text={getString('continue')} rightIcon="chevron-right" />
+              </Layout.Horizontal>
+            </Form>
+          )
+        }}
       </Formik>
     </Layout.Vertical>
   )
