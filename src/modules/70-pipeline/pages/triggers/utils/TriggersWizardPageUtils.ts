@@ -607,13 +607,13 @@ export const getEventAndActions = ({
 
 export const mockOperators = [
   { label: '', value: '' },
-  { label: 'equals', value: 'Equals' },
-  { label: 'not equals', value: 'NotEquals' },
-  { label: 'in', value: 'In' },
-  { label: 'not in', value: 'NotIn' },
-  { label: 'starts with', value: 'StartsWith' },
-  { label: 'ends with', value: 'EndsWith' },
-  { label: 'regex', value: 'Regex' }
+  { label: 'Equals', value: 'Equals' },
+  { label: 'Not Equals', value: 'NotEquals' },
+  { label: 'In', value: 'In' },
+  { label: 'Not In', value: 'NotIn' },
+  { label: 'Starts With', value: 'StartsWith' },
+  { label: 'Ends With', value: 'EndsWith' },
+  { label: 'Regex', value: 'Regex' }
 ]
 
 export const inNotInArr = ['In', 'NotIn']
