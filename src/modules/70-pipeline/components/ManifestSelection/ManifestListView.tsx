@@ -1,5 +1,16 @@
-import React, { useCallback, useMemo, useState } from 'react'
-import { Layout, Text, Icon, Color, useModalHook, StepWizard, StepProps, Button } from '@wings-software/uicore'
+import React, { useCallback, useState } from 'react'
+import {
+  Layout,
+  Text,
+  Icon,
+  Color,
+  useModalHook,
+  StepWizard,
+  StepProps,
+  Button,
+  MultiTypeInputType,
+  getMultiTypeFromValue
+} from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
@@ -41,12 +52,7 @@ import GcpAuthentication from '@connectors/components/CreateConnector/GcpConnect
 import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 import { ManifestWizard } from './ManifestWizard/ManifestWizard'
-import {
-  getStageIndexFromPipeline,
-  getFlattenedStages,
-  getStatus,
-  getConnectorNameFromValue
-} from '../PipelineStudio/StageBuilder/StageBuilderUtil'
+import { getStatus, getConnectorNameFromValue } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 import {
   ManifestIconByType,
   ManifestDataType,
@@ -90,16 +96,15 @@ const manifestStoreTypes: Array<ManifestStores> = [
 ]
 
 const ManifestListView = ({
-  pipeline,
   updateStage,
   identifierName,
   isForOverrideSets,
   stage,
-  isForPredefinedSets,
   isPropagating,
   overrideSetIdentifier,
   connectors,
   refetchConnectors,
+  listOfManifests,
   isReadonly
 }: ManifestListViewProps): JSX.Element => {
   const [selectedManifest, setSelectedManifest] = useState(allowedManifestTypes[0])
@@ -121,60 +126,7 @@ const ManifestListView = ({
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const { getString } = useStrings()
-
-  let listOfManifests = useMemo(() => {
-    if (overrideSetIdentifier && overrideSetIdentifier.length) {
-      const parentStageName = stage?.stage?.spec?.serviceConfig?.useFromStage?.stage
-      const { index } = getStageIndexFromPipeline(pipeline, parentStageName)
-      const { stages } = getFlattenedStages(pipeline)
-      const overrideSets = get(
-        stages[index],
-        'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets',
-        []
-      )
-
-      const selectedOverrideSet = overrideSets.find(
-        ({ overrideSet }: { overrideSet: { identifier: string } }) => overrideSet.identifier === overrideSetIdentifier
-      )
-
-      return get(selectedOverrideSet, 'overrideSet.manifests', [])
-    }
-    if (isPropagating) {
-      return get(stage, 'stage.spec.serviceConfig.stageOverrides.manifests', [])
-    }
-    if (!get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets')) {
-      set(stage as any, 'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets', [])
-    }
-    if (!get(stage, 'stage.spec.serviceConfig.stageOverrides.manifests')) {
-      // set(stage as {}, 'stage.spec.serviceConfig.stageOverrides.manifests', [])
-    }
-    if (!get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests')) {
-      set(stage as any, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', [])
-    }
-    return !isForOverrideSets
-      ? !isForPredefinedSets
-        ? get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', [])
-        : get(stage, 'stage.spec.serviceConfig.stageOverrides.manifests', [])
-      : get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets', [])
-  }, [
-    overrideSetIdentifier,
-    isPropagating,
-    stage,
-    isForOverrideSets,
-    isForPredefinedSets,
-    stage?.stage?.spec?.serviceConfig?.useFromStage?.stage,
-    pipeline
-  ])
-
-  if (isForOverrideSets) {
-    listOfManifests = listOfManifests
-      .map((overrideSets: { overrideSet: { identifier: string; manifests: [any] } }) => {
-        if (overrideSets?.overrideSet?.identifier === identifierName) {
-          return overrideSets.overrideSet.manifests
-        }
-      })
-      .filter((x: { overrideSet: { identifier: string; manifests: [any] } }) => x !== undefined)[0]
-  }
+  const { expressions } = useVariablesExpression()
 
   const removeManifestConfig = (index: number): void => {
     listOfManifests.splice(index, 1)
@@ -230,27 +182,30 @@ const ManifestListView = ({
       } else {
         listOfManifests.push(manifestObj)
       }
-      hideConnectorModal()
-      return
-    }
-    if (!isForOverrideSets) {
-      if (listOfManifests?.length > 0) {
-        listOfManifests.splice(manifestIndex, 1, manifestObj)
-      } else {
-        listOfManifests.push(manifestObj)
-      }
     } else {
-      listOfManifests.map((overrideSets: { overrideSet: { identifier: string; manifests: [any] } }) => {
-        if (overrideSets.overrideSet.identifier === identifierName) {
-          overrideSets.overrideSet.manifests.push(manifestObj)
+      if (!isForOverrideSets) {
+        if (listOfManifests?.length > 0) {
+          listOfManifests.splice(manifestIndex, 1, manifestObj)
+        } else {
+          listOfManifests.push(manifestObj)
         }
-      })
+      } else {
+        listOfManifests.map(overrideSets => {
+          if (overrideSets.overrideSet.identifier === identifierName) {
+            overrideSets.overrideSet.manifests.push(manifestObj)
+          }
+        })
+      }
     }
+
+    const path = isPropagating
+      ? 'stage.spec.serviceConfig.stageOverrides.manifests'
+      : 'stage.spec.serviceConfig.serviceDefinition.spec.manifests'
 
     if (stage) {
       updateStage(
         produce(stage, draft => {
-          set(draft, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', listOfManifests)
+          set(draft, path, listOfManifests)
         }).stage as StageElementConfig
       )
     }
@@ -270,7 +225,7 @@ const ManifestListView = ({
     setManifestStore(store || '')
   }
 
-  const lastStepProps = (): ManifestLastStepProps => {
+  const lastStepProps = useCallback((): ManifestLastStepProps => {
     return {
       key: getString('pipeline.manifestType.manifestDetails'),
       name: getString('pipeline.manifestType.manifestDetails'),
@@ -279,10 +234,11 @@ const ManifestListView = ({
       initialValues: getLastStepInitialData(),
       handleSubmit: handleSubmit,
       selectedManifest,
-      manifestIdsList: listOfManifests.map((item: ManifestConfigWrapper) => item.manifest?.identifier),
+      manifestIdsList: listOfManifests.map((item: ManifestConfigWrapper) => item.manifest?.identifier as string),
       isReadonly: isReadonly
     }
-  }
+  }, [selectedManifest, manifestStore, getLastStepInitialData])
+
   const getLabels = (): ConnectorRefLabelType => {
     return {
       firstStepName: getString('pipeline.manifestType.specifyManifestRepoType'),
@@ -319,7 +275,7 @@ const ManifestListView = ({
     return () => ({})
   }
 
-  const getLastSteps = (): Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> => {
+  const getLastSteps = useCallback((): Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> => {
     const arr: Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> = []
     let manifestDetailStep = null
 
@@ -374,7 +330,7 @@ const ManifestListView = ({
 
     arr.push(manifestDetailStep)
     return arr
-  }
+  }, [manifestStore, selectedManifest, lastStepProps])
 
   const getNewConnectorSteps = useCallback((): JSX.Element => {
     const buildPayload = getBuildPayload(ManifestToConnectorMap[manifestStore])
@@ -587,8 +543,6 @@ const ManifestListView = ({
     }
   }, [connectorView, manifestStore, isEditMode])
 
-  const { expressions } = useVariablesExpression()
-
   const [showConnectorModal, hideConnectorModal] = useModalHook(() => {
     const onClose = (): void => {
       setConnectorView(false)
@@ -664,7 +618,9 @@ const ManifestListView = ({
                     <Text className={css.connectorName} lineClamp={1}>
                       {connectorName ?? manifest?.spec?.store.spec.connectorRef}
                     </Text>
-                    <Icon name="full-circle" size={12} color={color} />
+                    {getMultiTypeFromValue(manifest?.spec?.store.spec.connectorRef) === MultiTypeInputType.FIXED && (
+                      <Icon name="full-circle" size={12} color={color} />
+                    )}
                   </div>
 
                   {!!manifest?.spec?.store.spec.paths?.length && (

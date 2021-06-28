@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import {
   Accordion,
   Layout,
@@ -62,20 +62,20 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
 }) => {
   const { getString } = useStrings()
 
-  const onDragStart = React.useCallback((event: React.DragEvent<HTMLDivElement>, index: number) => {
+  const onDragStart = useCallback((event: React.DragEvent<HTMLDivElement>, index: number) => {
     event.dataTransfer.setData('data', index.toString())
     event.currentTarget.classList.add(css.dragging)
   }, [])
 
-  const onDragEnd = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
+  const onDragEnd = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.currentTarget.classList.remove(css.dragging)
   }, [])
 
-  const onDragLeave = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
+  const onDragLeave = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.currentTarget.classList.remove(css.dragOver)
   }, [])
 
-  const onDragOver = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
+  const onDragOver = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     /* istanbul ignore else */
     if (event.preventDefault) {
       event.preventDefault()
@@ -84,7 +84,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
     event.dataTransfer.dropEffect = 'move'
   }, [])
 
-  const onDrop = React.useCallback(
+  const onDrop = useCallback(
     (event: React.DragEvent<HTMLDivElement>, arrayHelpers: FieldArrayRenderProps, droppedIndex: number) => {
       /* istanbul ignore else */
       if (event.preventDefault) {
@@ -144,7 +144,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
     return repoName
   }
 
-  const getInitialValues = (): ManifestDetailDataType => {
+  const getInitialValues = useCallback((): ManifestDetailDataType => {
     const specValues = get(initialValues, 'spec.store.spec', null)
 
     if (specValues) {
@@ -169,7 +169,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
       skipResourceVersioning: false,
       repoName: getRepoName()
     }
-  }
+  }, [])
 
   const submitFormData = (formData: ManifestDetailDataType & { store?: string; connectorRef?: string }): void => {
     const manifestObj: ManifestConfigWrapper = {

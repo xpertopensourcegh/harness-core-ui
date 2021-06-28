@@ -38,6 +38,7 @@ export interface ManifestListViewProps {
   overrideSetIdentifier?: string
   connectors: PageConnectorResponse | undefined
   refetchConnectors: () => void
+  listOfManifests: Array<any>
   isReadonly: boolean
 }
 

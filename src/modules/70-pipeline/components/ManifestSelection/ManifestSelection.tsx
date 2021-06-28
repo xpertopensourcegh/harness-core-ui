@@ -1,18 +1,19 @@
-import React from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { Layout, Text } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
-import { get } from 'lodash-es'
+import { get, set } from 'lodash-es'
 import { useGetConnectorListV2, PageConnectorResponse } from 'services/cd-ng'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 
-// import { PredefinedOverrideSets } from '@pipeline/components/PredefinedOverrideSets/PredefinedOverrideSets'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 
 import { useStrings } from 'framework/strings'
+import type { Scope } from '@common/interfaces/SecretsInterface'
 import type { ManifestSelectionProps } from './ManifestInterface'
 import ManifestListView from './ManifestListView'
+import { getFlattenedStages, getStageIndexFromPipeline } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 
 export default function ManifestSelection({
   isForOverrideSets = false,
@@ -32,28 +33,6 @@ export default function ManifestSelection({
   } = React.useContext(PipelineContext)
 
   const { stage } = getStageFromPipeline(selectedStageId || '')
-  const getManifestList = React.useCallback(() => {
-    if (isPropagating) {
-      return get(stage, 'stage.spec.service.stageOverrides.manifests', [])
-    }
-    return !isForOverrideSets
-      ? !isForPredefinedSets
-        ? get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', [])
-        : get(stage, 'stage.spec.service.stageOverrides.manifests', [])
-      : get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets', [])
-  }, [stage])
-
-  let listOfManifests = getManifestList()
-  if (isForOverrideSets) {
-    listOfManifests = listOfManifests
-      .map((overrideSets: { overrideSet: { identifier: string; manifests: [Record<string, any>] } }) => {
-        if (overrideSets.overrideSet.identifier === identifierName) {
-          return overrideSets.overrideSet.manifests
-        }
-      })
-      .filter((x: { overrideSet: { identifier: string; manifests: [Record<string, any>] } }) => x !== undefined)[0]
-  }
-
   const [fetchedConnectorResponse, setFetchedConnectorResponse] = React.useState<PageConnectorResponse | undefined>()
 
   const { accountId, orgIdentifier, projectIdentifier } = useParams<
@@ -76,32 +55,59 @@ export default function ManifestSelection({
     queryParams: defaultQueryParams
   })
 
-  const getConnectorList = () => {
-    return listOfManifests
-      ? listOfManifests &&
-          listOfManifests.map(
-            (data: {
-              manifest: {
-                identifier: string
-                type: string
-                spec: {
-                  store: {
-                    type: string
-                    spec: {
-                      connectorRef: string
-                      gitFetchType: string
-                      branch: string
-                      commitId: string
-                      paths: string[]
-                    }
-                  }
-                }
-              }
-            }) => ({
-              scope: getScopeFromValue(data?.manifest?.spec?.store?.spec?.connectorRef),
-              identifier: getIdentifierFromValue(data?.manifest?.spec?.store?.spec?.connectorRef)
-            })
-          )
+  useEffect(() => {
+    if (!get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets')) {
+      set(stage as any, 'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets', [])
+    }
+    if (!get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests')) {
+      set(stage as any, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', [])
+    }
+  }, [])
+
+  const listOfManifests = useMemo(() => {
+    if (overrideSetIdentifier?.length) {
+      const parentStageName = stage?.stage?.spec?.serviceConfig?.useFromStage?.stage
+      const { index } = getStageIndexFromPipeline(pipeline, parentStageName)
+      const { stages } = getFlattenedStages(pipeline)
+      const overrideSets = get(
+        stages[index],
+        'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets',
+        []
+      )
+      const selectedOverrideSet = overrideSets.find(
+        ({ overrideSet }: { overrideSet: { identifier: string } }) => overrideSet.identifier === overrideSetIdentifier
+      )
+      return get(selectedOverrideSet, 'overrideSet.manifests', [])
+    }
+
+    if (isPropagating) {
+      return get(stage, 'stage.spec.serviceConfig.stageOverrides.manifests', [])
+    }
+
+    if (isForOverrideSets) {
+      const listValue = get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets', [])
+      return listValue
+        .map((overrideSets: { overrideSet: { identifier: string; manifests: [any] } }) => {
+          if (overrideSets?.overrideSet?.identifier === identifierName) {
+            return overrideSets.overrideSet.manifests
+          }
+        })
+        .filter((x: { overrideSet: { identifier: string; manifests: [any] } }) => x !== undefined)[0]
+    } else {
+      if (isForPredefinedSets) {
+        return get(stage, 'stage.spec.serviceConfig.stageOverrides.manifests', [])
+      } else {
+        return get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', [])
+      }
+    }
+  }, [overrideSetIdentifier, isPropagating, stage, isForOverrideSets, isForPredefinedSets, pipeline])
+
+  const getConnectorList = (): Array<{ scope: Scope; identifier: string }> => {
+    return listOfManifests?.length
+      ? listOfManifests.map((data: any) => ({
+          scope: getScopeFromValue(data?.manifest?.spec?.store?.spec?.connectorRef),
+          identifier: getIdentifierFromValue(data?.manifest?.spec?.store?.spec?.connectorRef)
+        }))
       : []
   }
 
@@ -114,7 +120,7 @@ export default function ManifestSelection({
 
   const { getString } = useStrings()
 
-  React.useEffect(() => {
+  useEffect(() => {
     refetchConnectorList()
   }, [stage])
 
@@ -136,6 +142,7 @@ export default function ManifestSelection({
         overrideSetIdentifier={overrideSetIdentifier}
         connectors={fetchedConnectorResponse}
         refetchConnectors={refetchConnectorList}
+        listOfManifests={listOfManifests}
         isReadonly={isReadonly}
       />
     </Layout.Vertical>

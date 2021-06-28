@@ -78,7 +78,8 @@ describe('ManifestSelection tests', () => {
       overrideSetIdentifier: '',
       connectors: undefined,
       refetchConnectors: jest.fn(),
-      isReadonly: false
+      isReadonly: false,
+      listOfManifests: []
     }
     const { container } = render(
       <TestWrapper>
@@ -100,7 +101,8 @@ describe('ManifestSelection tests', () => {
       overrideSetIdentifier: '',
       connectors: connectorsData.data as any,
       refetchConnectors: jest.fn(),
-      isReadonly: false
+      isReadonly: false,
+      listOfManifests: []
     }
     const { container } = render(
       <TestWrapper>
@@ -122,7 +124,8 @@ describe('ManifestSelection tests', () => {
       overrideSetIdentifier: 'overrideSetIdentifier',
       connectors: connectorsData.data as any,
       refetchConnectors: jest.fn(),
-      isReadonly: false
+      isReadonly: false,
+      listOfManifests: []
     }
     const { container } = render(
       <TestWrapper>
@@ -144,7 +147,27 @@ describe('ManifestSelection tests', () => {
       overrideSetIdentifier: '',
       connectors: connectorsData.data as any,
       refetchConnectors: jest.fn(),
-      isReadonly: false
+      isReadonly: false,
+      listOfManifests: [
+        {
+          manifest: {
+            identifier: 'idtest',
+            type: 'K8sManifest',
+            spec: {
+              store: {
+                type: 'Git',
+                spec: {
+                  connectorRef: 'account.Rohan_Github_ALL_HANDS',
+                  gitFetchType: 'Branch',
+                  paths: ['path'],
+                  branch: 'master'
+                }
+              },
+              skipResourceVersioning: false
+            }
+          }
+        }
+      ]
     }
     const { container } = render(
       <TestWrapper>
@@ -171,7 +194,28 @@ describe('ManifestSelection tests', () => {
       overrideSetIdentifier: '',
       connectors: connectorsData.data as any,
       refetchConnectors: jest.fn(),
-      isReadonly: false
+      isReadonly: false,
+      listOfManifests: [
+        {
+          manifest: {
+            identifier: 'id77',
+            type: 'Kustomize',
+            spec: {
+              store: {
+                type: 'Bitbucket',
+                spec: {
+                  connectorRef: 'account.Testbitbucke',
+                  gitFetchType: 'Branch',
+                  folderPath: 'test',
+                  branch: 'master'
+                }
+              },
+              pluginPath: 'path',
+              skipResourceVersioning: false
+            }
+          }
+        }
+      ]
     }
     const { container } = render(
       <TestWrapper>
