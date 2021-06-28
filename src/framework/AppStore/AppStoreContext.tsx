@@ -61,13 +61,6 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
 
   const { data: userInfo, loading: userInfoLoading } = useGetCurrentUserInfo({})
 
-  React.useEffect(() => {
-    setState(prevState => ({
-      ...prevState,
-      selectedProject: project?.data?.project
-    }))
-  }, [project?.data?.project])
-
   // update feature flags in context
   useEffect(() => {
     // TODO: Handle better if fetching feature flags fails
@@ -92,7 +85,8 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [featureFlags])
 
-  React.useEffect(() => {
+  // update gitSyncEnabled when selectedProject changes
+  useEffect(() => {
     if (projectIdentifier && state.featureFlags['GIT_SYNC_NG']) {
       isGitSyncEnabledPromise({
         queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
@@ -111,11 +105,29 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.selectedProject, state.featureFlags['GIT_SYNC_NG'], projectIdentifier, orgIdentifier])
 
-  React.useEffect(() => {
+  // set selectedProject when projectDetails are fetched
+  useEffect(() => {
+    setState(prevState => ({
+      ...prevState,
+      selectedProject: project?.data?.project
+    }))
+  }, [project?.data?.project])
+
+  // update selectedProject when projectIdentifier in URL changes
+  useEffect(() => {
     if (projectIdentifier && orgIdentifier) {
       refetch()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectIdentifier, orgIdentifier])
+
+  // clear selectedProject when accountId changes
+  useEffect(() => {
+    setState(prevState => ({
+      ...prevState,
+      selectedProject: undefined
+    }))
+  }, [accountId])
 
   React.useEffect(() => {
     if (userInfo?.data) {
