@@ -748,6 +748,8 @@ exports[`Create Azure connector Wizard should render create new billing exports 
             <dd>
               <a
                 href="https://docs.harness.io/article/7idbmchsim-set-up-cost-visibility-for-azure#set-up-cost-visibility-for-azure"
+                rel="noreferrer"
+                target="_blank"
               >
                 - 
                 connectors.ceAzure.billing.extension.docs
@@ -756,6 +758,8 @@ exports[`Create Azure connector Wizard should render create new billing exports 
             <dd>
               <a
                 href="https://docs.harness.io/article/7idbmchsim-set-up-cost-visibility-for-azure#step_2_enable_billing_export_for_azure_subscription"
+                rel="noreferrer"
+                target="_blank"
               >
                 - 
                 connectors.ceAzure.billing.extension.createExport
@@ -2514,7 +2518,7 @@ exports[`Create Azure connector Wizard should render overview step 1`] = `
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            Connector_name
+                            ID
                             :
                           </p>
                           <span
@@ -2932,7 +2936,7 @@ exports[`Create Azure connector Wizard should throw an error when connectors alr
                           <p
                             class="StyledProps--font StyledProps--main"
                           >
-                            Connector_name
+                            ID
                             :
                           </p>
                           <span
