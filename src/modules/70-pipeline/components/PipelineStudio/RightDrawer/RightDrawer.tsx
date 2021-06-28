@@ -239,10 +239,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           node.failureStrategies = item.failureStrategies
         }
         if (item.delegateSelectors && item.tab === TabTypes.Advanced) {
-          node.spec = {
-            ...(node.spec ? node.spec : {}),
-            delegateSelectors: item.delegateSelectors
-          }
+          set(node, 'spec.delegateSelectors', item.delegateSelectors)
         }
 
         // Delete values if they were already added and now removed
@@ -269,8 +266,14 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           const stageData = produce(selectedStage, draft => {
             updateStepWithinStage(draft.stage.spec.execution, processingNodeIdentifier, processNode)
           })
+          // update view data before updating pipeline because its async
+          updatePipelineView(
+            produce(pipelineView, draft => {
+              set(draft, 'drawerData.data.stepConfig.node', processNode)
+            })
+          )
           await updateStage(stageData.stage)
-          data.stepConfig.node = processNode
+
           data?.stepConfig?.onUpdate?.(processNode)
         } else if (
           drawerType === DrawerTypes.ProvisionerStepConfig &&
