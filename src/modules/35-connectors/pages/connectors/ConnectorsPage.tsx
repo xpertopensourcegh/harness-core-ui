@@ -10,7 +10,7 @@ import {
 } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import type { GetDataError } from 'restful-react'
-import { debounce, noop, pick } from 'lodash-es'
+import { debounce, pick } from 'lodash-es'
 import type { FormikErrors } from 'formik'
 import {
   useGetConnectorListV2,
@@ -349,7 +349,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
 
   const { openConnectorModal } = useCreateConnectorModal({
     onSuccess: refetchAllConnectorsWithStats,
-    onClose: noop
+    onClose: refetchAllConnectorsWithStats
   })
 
   const rerouteBasedOnContext = (): void => {
