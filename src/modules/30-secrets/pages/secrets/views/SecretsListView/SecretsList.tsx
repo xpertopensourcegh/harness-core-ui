@@ -133,7 +133,7 @@ const RenderColumnAction: Renderer<CellProps<SecretResponseWrapper>> = ({ row, c
           showSuccess(`Secret ${data.name} deleted`)
           ;(column as any).refreshSecrets?.()
         } catch (err) {
-          showError(err.message)
+          showError(err.data?.message || err.message)
         }
       }
     }
