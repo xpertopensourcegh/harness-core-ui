@@ -272,15 +272,9 @@ const RenderWebhookIcon = ({
   }
 
   if (webhookSourceRepo?.toLowerCase() === GitSourceProviders.CUSTOM.value.toLowerCase()) {
-    const curlCommand = `curl -X POST 
-    ${
+    const curlCommand = `curl -X POST ${
       (webhookSecret && `-H 'X-Harness-Webhook-Token: ${webhookSecret}'`) || ''
-    } -H 'content-type: application/json' -H 'X-HARNESS-TRIGGER-ID: ${triggerIdentifier}'
-     --url ${webhookUrl}
-      -d '{
-        "object_kind": "merge_request",
-        ...
-        }'`
+    } -H 'content-type: application/json' -H 'X-HARNESS-TRIGGER-ID: ${triggerIdentifier}' --url ${webhookUrl} -d '{"sample_key": "sample_value"}'`
 
     return (
       <Popover
