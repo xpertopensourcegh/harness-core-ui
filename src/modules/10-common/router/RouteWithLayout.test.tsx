@@ -100,7 +100,7 @@ describe('RouteWithLayout', () => {
       expiredTrialRedirect: RedirectToSubscriptions
     }
 
-    const { container, getByText } = render(
+    const { container, getByText, queryByText } = render(
       <TestWrapper
         path="/account/:accountId/projects"
         pathParams={{ accountId: 'dummy' }}
@@ -116,8 +116,8 @@ describe('RouteWithLayout', () => {
     )
 
     expect(container).toMatchSnapshot()
-    // expect(getByText('/account/123/ci/home/trial')).toBeTruthy()
-    expect(getByText('matched-route')).toBeTruthy()
+    expect(getByText('/account/123/ci/home/trial')).toBeTruthy()
+    expect(queryByText('matched-route')).not.toBeInTheDocument()
   })
 
   test('that the license store will route to the CF trial page if the license has not started', () => {
@@ -148,7 +148,7 @@ describe('RouteWithLayout', () => {
       expiredTrialRedirect: RedirectToSubscriptions
     }
 
-    const { container, getByText } = render(
+    const { container, getByText, queryByText } = render(
       <TestWrapper
         path="/account/:accountId/projects"
         pathParams={{ accountId: 'dummy' }}
@@ -164,8 +164,8 @@ describe('RouteWithLayout', () => {
     )
 
     expect(container).toMatchSnapshot()
-    // expect(getByText('/account/123/cf/home/trial')).toBeTruthy()
-    expect(getByText('matched-route')).toBeTruthy()
+    expect(getByText('/account/123/cf/home/trial')).toBeTruthy()
+    expect(queryByText('matched-route')).not.toBeInTheDocument()
   })
 
   test('that the license store will route to the subscriptions page if the trial is expired', () => {

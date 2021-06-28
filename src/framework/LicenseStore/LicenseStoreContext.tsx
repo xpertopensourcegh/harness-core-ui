@@ -99,7 +99,7 @@ export function LicenseStoreProvider(props: React.PropsWithChildren<unknown>): R
 
   function getLicenseState(expiryTime?: number): LICENSE_STATE_VALUES {
     if (!expiryTime) {
-      return LICENSE_STATE_VALUES.ACTIVE
+      return LICENSE_STATE_VALUES.NOT_STARTED
     }
 
     const days = Math.round(moment(expiryTime).diff(moment.now(), 'days', true))
