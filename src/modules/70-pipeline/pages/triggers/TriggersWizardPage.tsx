@@ -317,7 +317,6 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         ((changedFilesOperator && changedFilesValue?.trim()) ||
           (persistIncomplete && (changedFilesOperator || changedFilesValue?.trim()))) &&
         !payloadConditions.some(pc => pc.key === PayloadConditionTypes.CHANGED_FILES) &&
-        event !== eventTypes.PUSH &&
         event !== eventTypes.TAG
       ) {
         payloadConditions.unshift({
