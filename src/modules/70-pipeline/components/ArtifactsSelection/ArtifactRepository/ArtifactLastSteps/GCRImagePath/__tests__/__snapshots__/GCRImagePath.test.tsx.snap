@@ -4,7 +4,6 @@ exports[`GCR Image Path Artifact tests renders correctly in edit case 1`] = `
 <div>
   <div
     class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
-    data-id="Artifact details"
   >
     <div
       class="heading"
@@ -439,7 +438,6 @@ exports[`GCR Image Path Artifact tests renders while adding step first time 1`] 
 <div>
   <div
     class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
-    data-id="Artifact details"
   >
     <div
       class="heading"
@@ -874,7 +872,6 @@ exports[`GCR Image Path Artifact tests renders without crashing 1`] = `
 <div>
   <div
     class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
-    data-id="Artifact details"
   >
     <div
       class="heading"

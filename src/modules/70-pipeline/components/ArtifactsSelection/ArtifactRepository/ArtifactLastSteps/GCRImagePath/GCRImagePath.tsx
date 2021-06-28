@@ -41,7 +41,6 @@ export enum RegistryHostNames {
 export const gcrUrlList: SelectOption[] = Object.values(RegistryHostNames).map(item => ({ label: item, value: item }))
 
 export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
-  name,
   context,
   expressions,
   handleSubmit,
@@ -218,7 +217,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
       formik.setFieldValue('tag', '')
   }
   return (
-    <Layout.Vertical spacing="xxlarge" className={css.firstep} data-id={name}>
+    <Layout.Vertical spacing="xxlarge" className={css.firstep}>
       <div className={css.heading}>{getString('pipeline.artifactsSelection.artifactDetails')}</div>
       <Formik
         initialValues={getInitialValues()}

@@ -28,7 +28,6 @@ import { ArtifactIdentifierValidation, tagOptions } from '../../../ArtifactHelpe
 import css from '../../ArtifactConnector.module.scss'
 
 export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
-  name,
   context,
   handleSubmit,
   expressions,
@@ -190,7 +189,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
     </div>
   ))
   return (
-    <Layout.Vertical spacing="xxlarge" className={css.firstep} data-id={name}>
+    <Layout.Vertical spacing="xxlarge" className={css.firstep}>
       <div className={css.heading}>{getString('pipeline.artifactsSelection.artifactDetails')}</div>
       <Formik
         initialValues={getInitialValues()}

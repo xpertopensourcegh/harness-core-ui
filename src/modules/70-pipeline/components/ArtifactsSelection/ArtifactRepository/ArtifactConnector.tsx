@@ -28,7 +28,6 @@ import type { ArtifactType, InitialArtifactDataType } from '../ArtifactInterface
 import css from './ArtifactConnector.module.scss'
 interface ArtifactConnectorProps {
   handleViewChange: () => void
-  name?: string
   expressions: string[]
   stepName: string
   isReadonly: boolean
@@ -44,7 +43,6 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
     nextStep,
     initialValues,
     stepName,
-    name,
     expressions,
     selectedArtifact,
     isReadonly
@@ -83,7 +81,7 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
   }, [initialValues, prevStepData?.connectorId])
 
   return (
-    <Layout.Vertical spacing="xxlarge" className={css.firstep} data-id={name}>
+    <Layout.Vertical spacing="xxlarge" className={css.firstep}>
       <div className={css.heading}>{stepName}</div>
       <Formik
         initialValues={getInitialValues()}

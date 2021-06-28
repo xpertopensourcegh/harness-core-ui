@@ -490,7 +490,6 @@ exports[`Artifact ConnectorRefSteps tests new connector view works correctly 1`]
        
       <div
         class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep"
-        data-id="connectors.artifactRepository"
       >
         <div
           class="heading"
