@@ -55,7 +55,6 @@ export const TrialModalTemplate: React.FC<TrialModalTemplateProps> = ({
             padding={{ left: 'xxxlarge' }}
             font={{ size: 'normal' }}
             width={380}
-            inline
             margin={{ left: 30 }}
             style={{ lineHeight: 2 }}
           >

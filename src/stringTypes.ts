@@ -59,6 +59,7 @@ export interface StringsMap {
   'common.banners.trial.description': string
   'common.banners.trial.expired.description': string
   'common.banners.trial.expired.extendTrial': string
+  'common.banners.trial.feedbackSuccess': string
   'common.banners.trial.provideFeedback': string
   'common.banners.trial.success': string
   'common.blank': string

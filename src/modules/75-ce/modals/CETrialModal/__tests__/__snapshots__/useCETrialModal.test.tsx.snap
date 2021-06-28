@@ -67,12 +67,12 @@ exports[`open and close the CE Trial Modal Rendering should open  the start tria
         class="StyledProps--font StyledProps--main StyledProps--padding-right-xxxlarge"
         style="background: transparent url(test-file-stub) no-repeat; background-size: stretch; background-position-x: 15%; background-position-y: center; width: 57%;"
       >
-        <span
-          class="StyledProps--font StyledProps--main StyledProps--padding-left-xxxlarge StyledProps--font-size-normal StyledProps--inline"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--padding-left-xxxlarge StyledProps--font-size-normal"
           style="line-height: 2; width: 380px;"
         >
           common.purpose.ce.descriptionOnly
-        </span>
+        </p>
       </div>
       <div
         style="border-left-width: 1px; border-left-style: solid; height: 425px;"

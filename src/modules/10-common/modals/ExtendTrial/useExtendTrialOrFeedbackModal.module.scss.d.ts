@@ -10,5 +10,6 @@ declare const styles: {
   readonly tag: string
   readonly suggestion: string
   readonly experience: string
+  readonly extendTrial: string
 }
 export default styles

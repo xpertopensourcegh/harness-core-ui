@@ -25,6 +25,7 @@ interface UseExtendTrialOrFeedbackModalProps {
   bgImg?: string
   expiryDateStr: string
   formType: FORM_TYPE
+  loading: boolean
 }
 
 interface UseExtendTrialOrFeedbackModalReturn {
@@ -48,7 +49,8 @@ const ExtendTrialOrFeedbackDialog: React.FC<UseExtendTrialOrFeedbackModalProps> 
   onSubmit,
   moduleDescription,
   formType,
-  module
+  module,
+  loading
 }) => {
   return (
     <Layout.Horizontal>
@@ -68,6 +70,7 @@ const ExtendTrialOrFeedbackDialog: React.FC<UseExtendTrialOrFeedbackModalProps> 
               onCloseModal?.()
             }}
             onSubmit={onSubmit}
+            loading={loading}
           />
         ) : (
           <FeedBackForm
@@ -76,6 +79,7 @@ const ExtendTrialOrFeedbackDialog: React.FC<UseExtendTrialOrFeedbackModalProps> 
               onCloseModal?.()
             }}
             onSubmit={onSubmit}
+            loading={loading}
           />
         )}
       </Container>
@@ -89,6 +93,7 @@ export const useExtendTrialOrFeedbackModal = (
   const onCloseModal = (): void => {
     props.onCloseModal?.(), hideModal()
   }
+
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog isOpen={true} onClose={onCloseModal} className={cx(css.dialog, Classes.DIALOG, css.feedback)}>

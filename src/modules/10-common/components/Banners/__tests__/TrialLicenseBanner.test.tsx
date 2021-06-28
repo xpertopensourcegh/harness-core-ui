@@ -8,7 +8,8 @@ import { TrialLicenseBanner } from '../TrialLicenseBanner'
 
 jest.mock('services/cd-ng', () => {
   return {
-    useExtendTrialLicense: jest.fn
+    useExtendTrialLicense: jest.fn,
+    useSaveFeedback: jest.fn
   }
 })
 

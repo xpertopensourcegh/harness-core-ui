@@ -58,7 +58,11 @@ const CITrial: React.FC<CITrialModalData> = ({ isSelect, onSubmit, closeModal })
       closeModal={closeModal}
     />
   ) : (
-    <CreatePipelineForm handleSubmit={onSubmit as handleCreateSubmit} closeModal={closeModal} />
+    <CreatePipelineForm
+      handleSubmit={onSubmit as handleCreateSubmit}
+      closeModal={closeModal}
+      learnMoreUrl="https://ngdocs.harness.io/category/zgffarnh1m-ci-category"
+    />
   )
 
   return (

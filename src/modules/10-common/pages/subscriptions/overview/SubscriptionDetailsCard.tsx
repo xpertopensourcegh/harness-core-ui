@@ -5,10 +5,11 @@ import { useParams, useHistory } from 'react-router-dom'
 import { Button, Card, Color, Heading, Icon, Layout, Text } from '@wings-software/uicore'
 import type { StringsMap } from 'stringTypes'
 import { useStrings } from 'framework/strings'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
 import { useContactSalesMktoModal } from '@common/modals/ContactSales/useContactSalesMktoModal'
 import { useLicenseStore, handleUpdateLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
-import { useExtendTrialLicense, StartTrialDTO } from 'services/cd-ng'
+import { useExtendTrialLicense, StartTrialDTO, FeedbackFormDTO, useSaveFeedback } from 'services/cd-ng'
 import { useToaster } from '@common/components'
 import { ModuleName } from 'framework/types/ModuleName'
 import type { ModuleLicenseDTO, CFModuleLicenseDTO, CIModuleLicenseDTO } from 'services/cd-ng'
@@ -36,7 +37,8 @@ const SubscriptionDetailsCard: React.FC<SubscriptionDetailsCardProps> = props =>
 
   const history = useHistory()
   const { getString } = useStrings()
-  const { showError } = useToaster()
+  const { showError, showSuccess } = useToaster()
+  const { currentUserInfo } = useAppStore()
   const { licenseInformation, updateLicenseStore } = useLicenseStore()
   const { accountId } = useParams<AccountPathProps>()
   const openMarketoContactSales = useContactSalesMktoModal({})
@@ -47,13 +49,35 @@ const SubscriptionDetailsCard: React.FC<SubscriptionDetailsCardProps> = props =>
     }
   })
 
-  const { openExtendTrialOrFeedbackModal } = useExtendTrialOrFeedbackModal({
-    onSubmit: (_values: FeedbackFormValues) => {
-      // TO-DO: call the feed back api
-      if (isExpired) {
-        refetchGetLicense?.()
-      }
-    },
+  const { mutate: saveFeedback, loading: sendingFeedback } = useSaveFeedback({
+    queryParams: {
+      accountIdentifier: accountId
+    }
+  })
+
+  const handleFeedbackSubmit = async (values: FeedbackFormValues): Promise<void> => {
+    try {
+      await saveFeedback({
+        accountId,
+        moduleType: module as FeedbackFormDTO['moduleType'],
+        email: currentUserInfo.email,
+        score: Number(values.experience),
+        suggestion: values.suggestion
+      }).then(() => {
+        if (isExpired) {
+          refetchGetLicense?.()
+        } else {
+          closeExtendTrialOrFeedbackModal()
+        }
+      })
+      showSuccess(getString('common.banners.trial.feedbackSuccess'))
+    } catch (error) {
+      showError(error.data?.message || error.message)
+    }
+  }
+
+  const { openExtendTrialOrFeedbackModal, closeExtendTrialOrFeedbackModal } = useExtendTrialOrFeedbackModal({
+    onSubmit: handleFeedbackSubmit,
     onCloseModal: () => {
       if (isExpired) {
         refetchGetLicense?.()
@@ -62,7 +86,8 @@ const SubscriptionDetailsCard: React.FC<SubscriptionDetailsCardProps> = props =>
     module,
     expiryDateStr: moment(expiryDate).format('MMMM D YYYY'),
     formType: isExpired ? FORM_TYPE.EXTEND_TRIAL : FORM_TYPE.FEEDBACK,
-    moduleDescription: getString(`${module.toLowerCase()}.continuous` as keyof StringsMap)
+    moduleDescription: getString(`${module.toLowerCase()}.continuous` as keyof StringsMap),
+    loading: sendingFeedback
   })
 
   function getExpiryCountdownMessage(): React.ReactElement | undefined {
@@ -85,7 +110,6 @@ const SubscriptionDetailsCard: React.FC<SubscriptionDetailsCardProps> = props =>
     )
   }
 
-  // Add this when the api is fixed
   function insertLicenseCountElements(fields: React.ReactElement[]): void {
     const moduleType = licenseData?.moduleType
 

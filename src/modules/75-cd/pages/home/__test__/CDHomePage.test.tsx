@@ -5,7 +5,8 @@ import {
   useGetLicensesAndSummary,
   useStartTrialLicense,
   useGetProjectList,
-  useExtendTrialLicense
+  useExtendTrialLicense,
+  useSaveFeedback
 } from 'services/cd-ng'
 import CDHomePage from '../CDHomePage'
 
@@ -47,6 +48,12 @@ useGetProjectListMock.mockImplementation(() => {
 })
 const useExtendTrialLicenseMock = useExtendTrialLicense as jest.MockedFunction<any>
 useExtendTrialLicenseMock.mockImplementation(() => {
+  return {
+    mutate: jest.fn()
+  }
+})
+const useSaveFeedbackMock = useSaveFeedback as jest.MockedFunction<any>
+useSaveFeedbackMock.mockImplementation(() => {
   return {
     mutate: jest.fn()
   }

@@ -63,12 +63,12 @@ exports[`Rendering should render 1`] = `
         class="StyledProps--font StyledProps--main StyledProps--padding-right-xxxlarge"
         style="background: transparent url() no-repeat; background-size: stretch; background-position-x: 15%; background-position-y: center; width: 57%;"
       >
-        <span
-          class="StyledProps--font StyledProps--main StyledProps--padding-left-xxxlarge StyledProps--font-size-normal StyledProps--inline"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--padding-left-xxxlarge StyledProps--font-size-normal"
           style="line-height: 2; width: 380px;"
         >
           Continuous Delivery description
-        </span>
+        </p>
       </div>
       <div
         style="border-left-width: 1px; border-left-style: solid; height: 425px;"

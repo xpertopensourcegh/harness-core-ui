@@ -11,7 +11,8 @@ const TestComponent = (): React.ReactElement => {
     moduleDescription: 'Continuous Delivery',
     module: 'cd',
     expiryDateStr: 'June 30 2021',
-    formType: FORM_TYPE.EXTEND_TRIAL
+    formType: FORM_TYPE.EXTEND_TRIAL,
+    loading: false
   })
   return (
     <>

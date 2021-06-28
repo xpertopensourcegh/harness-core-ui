@@ -23,6 +23,7 @@ interface FeedBackFormProps {
   moduleDescription: string
   onCloseModal: () => void
   onSubmit: (values: FeedbackFormValues) => void
+  loading: boolean
 }
 
 interface ExtendTrialFormProps {
@@ -30,12 +31,13 @@ interface ExtendTrialFormProps {
   moduleDescription: string
   onCloseModal: () => void
   onSubmit: (values: FeedbackFormValues) => void
+  loading: boolean
 }
 
 const enum EXPERIENCE {
-  USEFUL = 'useful',
-  NEEDMORE = 'need_more',
-  IMPROVE = 'improve'
+  USEFUL = '10',
+  NEEDMORE = '5',
+  IMPROVE = '0'
 }
 
 const Feedback = ({ moduleDescription }: { moduleDescription: string }): React.ReactElement => {
@@ -70,11 +72,19 @@ const Feedback = ({ moduleDescription }: { moduleDescription: string }): React.R
   )
 }
 
-const Footer = ({ onCloseModal }: { onCloseModal: () => void }): React.ReactElement => {
+const Footer = ({
+  onCloseModal,
+  loading,
+  hasInput
+}: {
+  onCloseModal: () => void
+  loading: boolean
+  hasInput: boolean
+}): React.ReactElement => {
   const { getString } = useStrings()
   return (
     <Layout.Horizontal spacing="medium">
-      <Button intent="primary" text={getString('submit')} type="submit" />
+      <Button intent="primary" text={getString('submit')} type="submit" disabled={loading || !hasInput} />
       <Button
         intent="none"
         text={getString('common.extendTrial.doItLater')}
@@ -85,7 +95,7 @@ const Footer = ({ onCloseModal }: { onCloseModal: () => void }): React.ReactElem
   )
 }
 
-export const FeedBackForm: React.FC<FeedBackFormProps> = ({ onCloseModal, onSubmit, moduleDescription }) => {
+export const FeedBackForm: React.FC<FeedBackFormProps> = ({ onCloseModal, onSubmit, moduleDescription, loading }) => {
   const { getString } = useStrings()
   return (
     <Formik
@@ -96,13 +106,18 @@ export const FeedBackForm: React.FC<FeedBackFormProps> = ({ onCloseModal, onSubm
       onSubmit={onSubmit}
       formName="feedbackForm"
     >
-      <FormikForm>
-        <Heading color={Color.BLACK} font={{ size: 'large', weight: 'bold' }} padding={{ bottom: 'large' }}>
-          {`${moduleDescription} ${getString('common.extendTrial.feedback.title')}`}
-        </Heading>
-        <Feedback moduleDescription={moduleDescription} />
-        <Footer onCloseModal={onCloseModal} />
-      </FormikForm>
+      {formikProps => {
+        const hasInput = formikProps.values.experience.trim() !== '' || formikProps.values.suggestion.trim() !== ''
+        return (
+          <FormikForm>
+            <Heading color={Color.BLACK} font={{ size: 'large', weight: 'bold' }} padding={{ bottom: 'large' }}>
+              {`${moduleDescription} ${getString('common.extendTrial.feedback.title')}`}
+            </Heading>
+            <Feedback moduleDescription={moduleDescription} />
+            <Footer onCloseModal={onCloseModal} loading={loading} hasInput={hasInput} />
+          </FormikForm>
+        )
+      }}
     </Formik>
   )
 }
@@ -111,7 +126,8 @@ export const ExtendTrialForm: React.FC<ExtendTrialFormProps> = ({
   expiryDateStr,
   onCloseModal,
   onSubmit,
-  moduleDescription
+  moduleDescription,
+  loading
 }) => {
   const { getString } = useStrings()
   return (
@@ -121,25 +137,31 @@ export const ExtendTrialForm: React.FC<ExtendTrialFormProps> = ({
         suggestion: ''
       }}
       onSubmit={onSubmit}
+      enableReinitialize={true}
       formName="extendTrialForm"
     >
-      <FormikForm>
-        <Heading color={Color.BLACK} font={{ size: 'large', weight: 'bold' }} padding={{ bottom: 'large' }}>
-          {getString('common.extendTrial.heading')}
-        </Heading>
-        <Tag round className={css.tag}>
-          {getString('common.trialInProgress')}
-        </Tag>
-        <Text padding={{ top: 'small', bottom: 'large' }} className={css.description}>
-          {getString('common.extendTrial.description')}
-        </Text>
-        <Layout.Horizontal padding={{ bottom: 'large' }}>
-          <Text padding={{ right: 'small' }}>{`${getString('common.extendTrial.expiryDate')}:`}</Text>
-          <Text color={Color.BLACK}>{expiryDateStr}</Text>
-        </Layout.Horizontal>
-        <Feedback moduleDescription={moduleDescription} />
-        <Footer onCloseModal={onCloseModal} />
-      </FormikForm>
+      {formikProps => {
+        const hasInput = formikProps.values.experience.trim() !== '' || formikProps.values.suggestion.trim() !== ''
+        return (
+          <FormikForm className={css.extendTrial}>
+            <Heading color={Color.BLACK} font={{ size: 'large', weight: 'bold' }} padding={{ bottom: 'large' }}>
+              {getString('common.extendTrial.heading')}
+            </Heading>
+            <Tag round className={css.tag}>
+              {getString('common.trialInProgress')}
+            </Tag>
+            <Text padding={{ top: 'small', bottom: 'large' }} className={css.description}>
+              {getString('common.extendTrial.description')}
+            </Text>
+            <Layout.Horizontal padding={{ bottom: 'large' }}>
+              <Text padding={{ right: 'small' }}>{`${getString('common.extendTrial.expiryDate')}:`}</Text>
+              <Text color={Color.BLACK}>{expiryDateStr}</Text>
+            </Layout.Horizontal>
+            <Feedback moduleDescription={moduleDescription} />
+            <Footer onCloseModal={onCloseModal} loading={loading} hasInput={hasInput} />
+          </FormikForm>
+        )
+      }}
     </Formik>
   )
 }

@@ -39,14 +39,22 @@
 }
 
 .suggestion {
-  :global(.bp3-form-content) {
-    width: 80%;
-  }
-  :global(.bp3-label) {
-    width: 90%;
-    line-height: 1.5 !important;
-    color: var(--black) !important;
-    padding-bottom: small !important;
+  :global {
+    .bp3-form-content {
+      :global {
+        textarea {
+          max-width: 80%;
+          min-width: 80%;
+          max-height: 170px;
+        }
+      }
+    }
+    .bp3-label {
+      width: 90%;
+      line-height: 1.5 !important;
+      color: var(--black) !important;
+      padding-bottom: small !important;
+    }
   }
 }
 
@@ -56,5 +64,11 @@
   }
   :global(.bp3-control) {
     color: var(--grey) !important;
+  }
+}
+
+.extendTrial {
+  :global(textarea) {
+    max-height: 56px !important;
   }
 }

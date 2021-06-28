@@ -7,8 +7,9 @@ import { useStrings } from 'framework/strings'
 import { ModuleName } from 'framework/types/ModuleName'
 import type { StringsMap } from 'stringTypes'
 import { useToaster } from '@common/components'
-import { useExtendTrialLicense, StartTrialDTO } from 'services/cd-ng'
 import { useContactSalesMktoModal } from '@common/modals/ContactSales/useContactSalesMktoModal'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { useExtendTrialLicense, StartTrialDTO, useSaveFeedback, FeedbackFormDTO } from 'services/cd-ng'
 import { useLicenseStore, handleUpdateLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import {
@@ -29,9 +30,10 @@ interface TrialBannerProps {
 
 export const TrialLicenseBanner = (trialBannerProps: TrialBannerProps): React.ReactElement => {
   const { getString } = useStrings()
+  const { currentUserInfo } = useAppStore()
   const { accountId } = useParams<AccountPathProps>()
   const { licenseInformation, updateLicenseStore } = useLicenseStore()
-  const { showError } = useToaster()
+  const { showError, showSuccess } = useToaster()
   const [display, setDisplay] = useState(true)
   const { module, expiryTime, licenseType, setHasBanner, refetch } = trialBannerProps
   const moduleName = module.toString().toLowerCase()
@@ -67,13 +69,35 @@ export const TrialLicenseBanner = (trialBannerProps: TrialBannerProps): React.Re
       })}
     </Text>
   )
-  const { openExtendTrialOrFeedbackModal } = useExtendTrialOrFeedbackModal({
-    onSubmit: (_values: FeedbackFormValues) => {
-      // TO-DO: call the feed back api
-      if (isExpired) {
-        refetch?.()
-      }
-    },
+  const { mutate: saveFeedback, loading: sendingFeedback } = useSaveFeedback({
+    queryParams: {
+      accountIdentifier: accountId
+    }
+  })
+
+  const handleFeedbackSubmit = async (values: FeedbackFormValues): Promise<void> => {
+    try {
+      await saveFeedback({
+        accountId,
+        moduleType: module as FeedbackFormDTO['moduleType'],
+        email: currentUserInfo.email,
+        score: Number(values.experience),
+        suggestion: values.suggestion
+      }).then(() => {
+        if (isExpired) {
+          refetch?.()
+        } else {
+          closeExtendTrialOrFeedbackModal()
+        }
+      })
+      showSuccess(getString('common.banners.trial.feedbackSuccess'))
+    } catch (error) {
+      showError(error.data?.message || error.message)
+    }
+  }
+
+  const { openExtendTrialOrFeedbackModal, closeExtendTrialOrFeedbackModal } = useExtendTrialOrFeedbackModal({
+    onSubmit: handleFeedbackSubmit,
     onCloseModal: () => {
       if (isExpired) {
         refetch?.()
@@ -82,7 +106,8 @@ export const TrialLicenseBanner = (trialBannerProps: TrialBannerProps): React.Re
     module,
     expiryDateStr: moment(expiryTime).format('MMMM D YYYY'),
     formType: isExpired ? FORM_TYPE.EXTEND_TRIAL : FORM_TYPE.FEEDBACK,
-    moduleDescription
+    moduleDescription,
+    loading: sendingFeedback
   })
 
   const handleExtendTrial = async (): Promise<void> => {
@@ -91,7 +116,7 @@ export const TrialLicenseBanner = (trialBannerProps: TrialBannerProps): React.Re
       handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, module as any, data?.data)
       openExtendTrialOrFeedbackModal()
     } catch (error) {
-      showError(error.data?.message)
+      showError(error.data?.message || error.message)
     }
   }
 

@@ -299,6 +299,7 @@ banners:
     success: Email verification success!
     description: Your Enterprise {{ module }} trial expires in {{ days }} days. Contact Sales to continue using {{ moduleDescription }}
     provideFeedback: Provide Feedback
+    feedbackSuccess: Thanks for sending feedback!
     expired:
       description: Your trial expired {{ expiredDays }} days ago. Contact Sales or extend trial to continue using {{ moduleDescription }}
       extendTrial: Extend Trial
@@ -396,7 +397,7 @@ extendTrial:
     title: Feedback
     ifUseful: 'Did you find {{moduleDescription}} useful?'
     answers:
-      useful: Yes, its lifesaver
+      useful: Yes, it's a lifesaver
       needMore: Yes, but I still have several use-cases where I need help
       improve: No, needs ton of improvement
     suggestion: 'What would be helpful for you to have a seamless {{moduleDescription}} experience?'

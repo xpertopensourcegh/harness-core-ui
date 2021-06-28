@@ -2,7 +2,7 @@ import React from 'react'
 import { render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { useGetLicensesAndSummary, useStartTrialLicense, useExtendTrialLicense } from 'services/cd-ng'
-import { useGetProjectList } from 'services/cd-ng'
+import { useGetProjectList, useSaveFeedback } from 'services/cd-ng'
 import useCETrialModal from '@ce/modals/CETrialModal/useCETrialModal'
 import CEHomePage from '../CEHomePage'
 
@@ -12,6 +12,12 @@ const useStartTrialMock = useStartTrialLicense as jest.MockedFunction<any>
 const useGetProjectListMock = useGetProjectList as jest.MockedFunction<any>
 const useExtendTrialLicenseMock = useExtendTrialLicense as jest.MockedFunction<any>
 useExtendTrialLicenseMock.mockImplementation(() => {
+  return {
+    mutate: jest.fn()
+  }
+})
+const useSaveFeedbackMock = useSaveFeedback as jest.MockedFunction<any>
+useSaveFeedbackMock.mockImplementation(() => {
   return {
     mutate: jest.fn()
   }

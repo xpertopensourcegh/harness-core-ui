@@ -2,7 +2,12 @@ import React from 'react'
 import moment from 'moment'
 import { act, fireEvent, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { useGetAccountNG, useGetModuleLicensesByAccountAndModuleType, useExtendTrialLicense } from 'services/cd-ng'
+import {
+  useGetAccountNG,
+  useGetModuleLicensesByAccountAndModuleType,
+  useExtendTrialLicense,
+  useSaveFeedback
+} from 'services/cd-ng'
 import { Editions } from '@common/constants/SubscriptionTypes'
 import { ModuleName } from 'framework/types/ModuleName'
 import SubscriptionsPage from '../SubscriptionsPage'
@@ -12,6 +17,12 @@ const useGetModuleLicenseInfoMock = useGetModuleLicensesByAccountAndModuleType a
 const useGetAccountMock = useGetAccountNG as jest.MockedFunction<any>
 const useExtendTrialLicenseMock = useExtendTrialLicense as jest.MockedFunction<any>
 useExtendTrialLicenseMock.mockImplementation(() => {
+  return {
+    mutate: jest.fn()
+  }
+})
+const useSaveFeedbackMock = useSaveFeedback as jest.MockedFunction<any>
+useSaveFeedbackMock.mockImplementation(() => {
   return {
     mutate: jest.fn()
   }
