@@ -1834,7 +1834,7 @@ export interface StringsMap {
   'cd.learnMore': string
   'cd.namespaceValidation': string
   'cd.pathCannotBeEmpty': string
-  'cd.pipelineSteps.serviceTab.deploymentType': string
+  'cd.pipelineSteps.infraTab.deploymentType': string
   'cd.pipelineSteps.serviceTab.overrideChanges': string
   'cd.pipelineSteps.serviceTab.propateStage': string
   'cd.releaseNameValidation': string

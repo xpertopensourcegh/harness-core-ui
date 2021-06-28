@@ -54,6 +54,7 @@ terraformVarFiles: 'Terraform Var Files'
 secretManagerRequired: 'Secret Manager is required.'
 pipelineSteps:
   serviceTab:
-    deploymentType: Deployment type is not selected
     propateStage: Stage is required
     overrideChanges: Override artifacts, manifests, service variables for this stage
+  infraTab:
+    deploymentType: Infrastructure type selection is required

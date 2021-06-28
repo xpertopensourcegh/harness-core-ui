@@ -86,7 +86,7 @@ export default function SelectDeploymentType(props: SelectDeploymentTypeProps): 
       initialValues={{ deploymentType: selectedDeploymentType }}
       enableReinitialize
       validationSchema={Yup.object().shape({
-        deploymentType: Yup.string().required(getString('cd.pipelineSteps.serviceTab.deploymentType'))
+        deploymentType: Yup.string().required(getString('cd.pipelineSteps.infraTab.deploymentType'))
       })}
     >
       {formik => {
