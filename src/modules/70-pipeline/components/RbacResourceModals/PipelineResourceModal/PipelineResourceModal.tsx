@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { Color, Container, Layout, Text, Icon } from '@wings-software/uicore'
 import type { CellProps, Renderer } from 'react-table'
+import { Position } from '@blueprintjs/core'
 import ResourceHandlerTable, {
   ResourceHandlerTableData
 } from '@rbac/components/ResourceHandlerTable/ResourceHandlerTable'
-import { PageSpinner } from '@common/components'
+import { PageSpinner, TagsPopover } from '@common/components'
 import type { RbacResourceModalProps } from '@rbac/factories/RbacFactory'
 import { useStrings } from 'framework/strings'
 import { PagePMSPipelineSummaryResponse, PMSPipelineSummaryResponse, useGetPipelineList } from 'services/pipeline-ng'
@@ -16,25 +17,41 @@ interface PipelineDTO extends PMSPipelineSummaryResponse {
   status?: string
 }
 
-const RenderColumnPipeline: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
+export const RenderColumnPipeline: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
   const rowdata = row.original
+  const { getString } = useStrings()
 
   return (
-    <Layout.Vertical spacing="small" data-testid={rowdata.identifier}>
-      <Text color={Color.GREY_800} iconProps={{ size: 18 }}>
-        {rowdata.name}
+    <Layout.Vertical spacing="xsmall" data-testid={rowdata.identifier}>
+      <Layout.Horizontal spacing="medium">
+        <Text
+          color={Color.GREY_800}
+          tooltipProps={{ position: Position.BOTTOM }}
+          tooltip={
+            <Layout.Vertical spacing="medium" padding="medium" style={{ maxWidth: 400 }}>
+              <Text>{getString('nameLabel', { name: rowdata.name })}</Text>
+              <Text>{getString('idLabel', { id: rowdata.identifier })}</Text>
+              <Text>{getString('descriptionLabel', { description: rowdata.description })}</Text>
+            </Layout.Vertical>
+          }
+        >
+          {rowdata.name}
+        </Text>
+        {rowdata.tags && Object.keys(rowdata.tags).length ? <TagsPopover tags={rowdata.tags} /> : null}
+      </Layout.Horizontal>
+      <Text tooltipProps={{ position: Position.BOTTOM }} color={Color.GREY_400}>
+        {getString('idLabel', { id: rowdata.identifier })}
       </Text>
-      <Text color={Color.GREY_400}>{rowdata.description}</Text>
     </Layout.Vertical>
   )
 }
 
-const RenderLastRunDate: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
+export const RenderLastRunDate: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
   const rowdata = row.original
   const { getString } = useStrings()
   return (
     <Layout.Vertical spacing="xsmall">
-      <Text color={Color.GREY_400}>Last run:</Text>
+      <Text color={Color.GREY_800}>Last run:</Text>
       <Text color={Color.GREY_400}>
         {rowdata.executionSummaryInfo?.lastExecutionTs
           ? formatDatetoLocale(rowdata.executionSummaryInfo?.lastExecutionTs)
@@ -91,7 +108,7 @@ const PipelineResourceModal: React.FC<RbacResourceModalProps> = ({
             id: 'name',
             accessor: 'name' as any,
             Cell: RenderColumnPipeline,
-            width: '60%',
+            width: '40%',
             disableSortBy: true
           },
           {
@@ -99,7 +116,7 @@ const PipelineResourceModal: React.FC<RbacResourceModalProps> = ({
             id: 'details',
             accessor: 'executionSummaryInfo',
             Cell: RenderLastRunDate,
-            width: '20%',
+            width: '55%',
             disableSortBy: true
           }
         ]}

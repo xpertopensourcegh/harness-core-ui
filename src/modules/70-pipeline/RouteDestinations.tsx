@@ -15,6 +15,7 @@ import EnvironmentResourceModal from '@pipeline/components/RbacResourceModals/En
 import { HarnessApprovalView } from '@pipeline/components/execution/StepDetails/views/HarnessApprovalView/HarnessApprovalView'
 import { JiraApprovalView } from '@pipeline/components/execution/StepDetails/views/JiraApprovalView/JiraApprovalView'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import PipelineResourceRenderer from './components/RbacResourceModals/PipelineResourceRenderer/PipelineResourceRenderer'
 
 /**
  * Register RBAC resources
@@ -29,7 +30,9 @@ RbacFactory.registerResourceTypeHandler(ResourceType.PIPELINE, {
     [PermissionIdentifier.EXECUTE_PIPELINE]: <String stringID="rbac.permissionLabels.execute" />
   },
   // eslint-disable-next-line react/display-name
-  addResourceModalBody: props => <PipelineResourceModal {...props} />
+  addResourceModalBody: props => <PipelineResourceModal {...props} />,
+  // eslint-disable-next-line react/display-name
+  staticResourceRenderer: props => <PipelineResourceRenderer {...props} />
 })
 
 RbacFactory.registerResourceTypeHandler(ResourceType.SERVICE, {

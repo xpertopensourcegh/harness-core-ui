@@ -24,7 +24,7 @@ exports[`PipelineModal List View render list view 1`] = `
           class="cell"
           colspan="1"
           role="columnheader"
-          style="width: 60%;"
+          style="width: 40%;"
         >
           common.pipeline
         </div>
@@ -32,7 +32,7 @@ exports[`PipelineModal List View render list view 1`] = `
           class="cell"
           colspan="1"
           role="columnheader"
-          style="width: 20%;"
+          style="width: 55%;"
         >
           lastExecutionTs
         </div>
@@ -67,34 +67,47 @@ exports[`PipelineModal List View render list view 1`] = `
           <div
             class="cell"
             role="cell"
-            style="width: 60%;"
+            style="width: 40%;"
           >
             <div
-              class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+              class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
               data-testid="shell"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+              <div
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
               >
-                shell
-              </p>
+                <span
+                  class="bp3-popover-wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+                      tabindex="0"
+                    >
+                      shell
+                    </p>
+                  </span>
+                </span>
+              </div>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               >
-                
+                idLabel
               </p>
             </div>
           </div>
           <div
             class="cell"
             role="cell"
-            style="width: 20%;"
+            style="width: 55%;"
           >
             <div
               class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
             >
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
               >
                 Last run:
               </p>
@@ -133,34 +146,47 @@ exports[`PipelineModal List View render list view 1`] = `
           <div
             class="cell"
             role="cell"
-            style="width: 60%;"
+            style="width: 40%;"
           >
             <div
-              class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+              class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
               data-testid="new_pipeline"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+              <div
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
               >
-                new pipeline
-              </p>
+                <span
+                  class="bp3-popover-wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+                      tabindex="0"
+                    >
+                      new pipeline
+                    </p>
+                  </span>
+                </span>
+              </div>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               >
-                
+                idLabel
               </p>
             </div>
           </div>
           <div
             class="cell"
             role="cell"
-            style="width: 20%;"
+            style="width: 55%;"
           >
             <div
               class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
             >
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
               >
                 Last run:
               </p>
@@ -199,34 +225,47 @@ exports[`PipelineModal List View render list view 1`] = `
           <div
             class="cell"
             role="cell"
-            style="width: 60%;"
+            style="width: 40%;"
           >
             <div
-              class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+              class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
               data-testid="pipetagfix"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+              <div
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
               >
-                pipe-tag-fix
-              </p>
+                <span
+                  class="bp3-popover-wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+                      tabindex="0"
+                    >
+                      pipe-tag-fix
+                    </p>
+                  </span>
+                </span>
+              </div>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               >
-                
+                idLabel
               </p>
             </div>
           </div>
           <div
             class="cell"
             role="cell"
-            style="width: 20%;"
+            style="width: 55%;"
           >
             <div
               class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
             >
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
               >
                 Last run:
               </p>
@@ -265,34 +304,47 @@ exports[`PipelineModal List View render list view 1`] = `
           <div
             class="cell"
             role="cell"
-            style="width: 60%;"
+            style="width: 40%;"
           >
             <div
-              class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+              class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
               data-testid="httpPipeline"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+              <div
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
               >
-                http pipeline
-              </p>
+                <span
+                  class="bp3-popover-wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+                      tabindex="0"
+                    >
+                      http pipeline
+                    </p>
+                  </span>
+                </span>
+              </div>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
               >
-                this is http pipeline pipeline
+                idLabel
               </p>
             </div>
           </div>
           <div
             class="cell"
             role="cell"
-            style="width: 20%;"
+            style="width: 55%;"
           >
             <div
               class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
             >
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
               >
                 Last run:
               </p>
