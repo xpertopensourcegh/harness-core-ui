@@ -100,7 +100,7 @@ const RenderHeartbeat: Renderer<CellProps<DelegateGroupDetailsCustom | DelegateI
           color={Color.PRIMARY_6}
           className={css.troubleshoot}
           onClick={() => onClick?.()}
-        >{`(${getString('delegate.delegateNotInstalled.tabs.commonProblems.troubleshoot')})`}</Text>
+        >{`(${getString('delegates.delegateNotInstalled.tabs.commonProblems.troubleshoot')})`}</Text>
       </Layout.Vertical>
     )
   }

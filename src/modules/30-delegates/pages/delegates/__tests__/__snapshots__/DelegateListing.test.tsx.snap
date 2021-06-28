@@ -320,31 +320,35 @@ exports[`Delegates Listing With Groups render data 1`] = `
               role="cell"
               style="width: calc(15% - 20px);"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Layout--vertical StyledProps--main"
               >
-                <span
-                  class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green600"
-                  icon="full-circle"
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
                 >
-                  <svg
-                    data-icon="full-circle"
-                    height="6"
-                    viewBox="0 0 16 16"
-                    width="6"
+                  <span
+                    class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green600"
+                    icon="full-circle"
                   >
-                    <desc>
-                      full-circle
-                    </desc>
-                    <path
-                      d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-                connected
-              </p>
+                    <svg
+                      data-icon="full-circle"
+                      height="6"
+                      viewBox="0 0 16 16"
+                      width="6"
+                    >
+                      <desc>
+                        full-circle
+                      </desc>
+                      <path
+                        d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  connected
+                </p>
+              </div>
             </div>
             <div
               class="cell"
@@ -744,31 +748,35 @@ exports[`Delegates Listing test actions render data and click delete 1`] = `
               role="cell"
               style="width: calc(15% - 20px);"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Layout--vertical StyledProps--main"
               >
-                <span
-                  class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green600"
-                  icon="full-circle"
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
                 >
-                  <svg
-                    data-icon="full-circle"
-                    height="6"
-                    viewBox="0 0 16 16"
-                    width="6"
+                  <span
+                    class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green600"
+                    icon="full-circle"
                   >
-                    <desc>
-                      full-circle
-                    </desc>
-                    <path
-                      d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-                connected
-              </p>
+                    <svg
+                      data-icon="full-circle"
+                      height="6"
+                      viewBox="0 0 16 16"
+                      width="6"
+                    >
+                      <desc>
+                        full-circle
+                      </desc>
+                      <path
+                        d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  connected
+                </p>
+              </div>
             </div>
             <div
               class="cell"
@@ -1140,31 +1148,35 @@ exports[`Delegates Listing without tags render data 1`] = `
               role="cell"
               style="width: calc(15% - 20px);"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Layout--vertical StyledProps--main"
               >
-                <span
-                  class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green600"
-                  icon="full-circle"
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
                 >
-                  <svg
-                    data-icon="full-circle"
-                    height="6"
-                    viewBox="0 0 16 16"
-                    width="6"
+                  <span
+                    class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green600"
+                    icon="full-circle"
                   >
-                    <desc>
-                      full-circle
-                    </desc>
-                    <path
-                      d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-                connected
-              </p>
+                    <svg
+                      data-icon="full-circle"
+                      height="6"
+                      viewBox="0 0 16 16"
+                      width="6"
+                    >
+                      <desc>
+                        full-circle
+                      </desc>
+                      <path
+                        d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  connected
+                </p>
+              </div>
             </div>
             <div
               class="cell"
@@ -1536,31 +1548,35 @@ exports[`Feature flag enabled render delegates list and check for activity colum
               role="cell"
               style="width: calc(15% - 20px);"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Layout--vertical StyledProps--main"
               >
-                <span
-                  class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green600"
-                  icon="full-circle"
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
                 >
-                  <svg
-                    data-icon="full-circle"
-                    height="6"
-                    viewBox="0 0 16 16"
-                    width="6"
+                  <span
+                    class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green600"
+                    icon="full-circle"
                   >
-                    <desc>
-                      full-circle
-                    </desc>
-                    <path
-                      d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-                connected
-              </p>
+                    <svg
+                      data-icon="full-circle"
+                      height="6"
+                      viewBox="0 0 16 16"
+                      width="6"
+                    >
+                      <desc>
+                        full-circle
+                      </desc>
+                      <path
+                        d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  connected
+                </p>
+              </div>
             </div>
             <div
               class="cell"

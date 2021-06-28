@@ -588,6 +588,40 @@ export interface StringsMap {
   'delegates.delegateInstances': string
   'delegates.delegateNameRegexIssue': string
   'delegates.delegateNamespaceRequired': string
+  'delegates.delegateNotInstalled.CPUorMemError': string
+  'delegates.delegateNotInstalled.applicationError': string
+  'delegates.delegateNotInstalled.checkCanClusterConnectToRegistry': string
+  'delegates.delegateNotInstalled.checkClusterConfig': string
+  'delegates.delegateNotInstalled.checkClusterConfig2': string
+  'delegates.delegateNotInstalled.checkClusterPermission': string
+  'delegates.delegateNotInstalled.checkClusterPermission2': string
+  'delegates.delegateNotInstalled.checkFirewallPorts': string
+  'delegates.delegateNotInstalled.checkProxy': string
+  'delegates.delegateNotInstalled.contactHarness': string
+  'delegates.delegateNotInstalled.crashloopError': string
+  'delegates.delegateNotInstalled.curlHarnessIO': string
+  'delegates.delegateNotInstalled.curlHarnessIO2': string
+  'delegates.delegateNotInstalled.curlHarnessIO3': string
+  'delegates.delegateNotInstalled.doYouHaveProxy': string
+  'delegates.delegateNotInstalled.eventErrorBlock': string
+  'delegates.delegateNotInstalled.goodToGo': string
+  'delegates.delegateNotInstalled.harnessErrorValidation': string
+  'delegates.delegateNotInstalled.permissionError': string
+  'delegates.delegateNotInstalled.podComeUp': string
+  'delegates.delegateNotInstalled.podCommand': string
+  'delegates.delegateNotInstalled.pullError': string
+  'delegates.delegateNotInstalled.statusOfCluster': string
+  'delegates.delegateNotInstalled.tabs.commonProblems.checkEndPoint': string
+  'delegates.delegateNotInstalled.tabs.commonProblems.checkTheDelegateLogs': string
+  'delegates.delegateNotInstalled.tabs.commonProblems.description1': string
+  'delegates.delegateNotInstalled.tabs.commonProblems.description2': string
+  'delegates.delegateNotInstalled.tabs.commonProblems.hereIsWhatYouCanDo': string
+  'delegates.delegateNotInstalled.tabs.commonProblems.title': string
+  'delegates.delegateNotInstalled.tabs.commonProblems.troubleshoot': string
+  'delegates.delegateNotInstalled.tabs.troubleshooting': string
+  'delegates.delegateNotInstalled.title': string
+  'delegates.delegateNotInstalled.verifyField2': string
+  'delegates.delegateNotInstalled.verifyField3': string
   'delegates.delegatePermissions.clusterReadContent': string
   'delegates.delegatePermissions.clusterReadTitle': string
   'delegates.delegatePermissions.clusterWriteContent': string
@@ -598,6 +632,7 @@ export interface StringsMap {
   'delegates.delegateSizeUpTo': string
   'delegates.downloadYAMLFile': string
   'delegates.forceDelete': string
+  'delegates.harnessDocs': string
   'delegates.lastUpdated': string
   'delegates.newDelegateConfigWizard.matchAllEnvs': string
   'delegates.newDelegateConfigWizard.nonprodEnv': string
@@ -608,6 +643,7 @@ export interface StringsMap {
   'delegates.newDelegateConfigWizard.specEnvNotPossible': string
   'delegates.newDelegateConfigWizard.specifyEnvs': string
   'delegates.newDelegateConfigWizard.successMessage': string
+  'delegates.openTroubleshooter': string
   'delegates.permissionRequired': string
   'delegates.questionDeleteDelegate': string
   'delegates.questionForceDeleteDelegate': string
@@ -615,6 +651,7 @@ export interface StringsMap {
   'delegates.reviewYAML': string
   'delegates.searchDelegateName': string
   'delegates.totalMemUnit': string
+  'delegates.troubleshootOption': string
   'delegates.usedBy': string
   'delegates.verification': string
   'secrets.blank': string
@@ -3834,86 +3871,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'delegate.delegateNameRequired': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.delegateNotInstalled.contactHarness': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.delegateNotInstalled.crashloopError': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.delegateNotInstalled.eventErrorBlock': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.delegateNotInstalled.harnessErrorValidation': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.delegateNotInstalled.permissionError': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.delegateNotInstalled.podComeUp': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.delegateNotInstalled.podCommand': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.delegateNotInstalled.pullError': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.delegateNotInstalled.statusOfCluster': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.delegateNotInstalled.tabs.commonProblems.checkEndPoint': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.delegateNotInstalled.tabs.commonProblems.checkTheDelegateLogs': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.delegateNotInstalled.tabs.commonProblems.description1': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.delegateNotInstalled.tabs.commonProblems.description2': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.delegateNotInstalled.tabs.commonProblems.hereIsWhatYouCanDo': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.delegateNotInstalled.tabs.commonProblems.title': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.delegateNotInstalled.tabs.commonProblems.troubleshoot': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.delegateNotInstalled.tabs.troubleshooting': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.delegateNotInstalled.title': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.delegateNotInstalled.verifyField2': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.delegateNotInstalled.verifyField3': string
   /**
    * @deprecated migrate this string to module level file
    */

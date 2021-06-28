@@ -40,7 +40,7 @@ exports[`Create Common Problems Tab render data 1`] = `
             />
           </svg>
         </span>
-        delegate.delegateNotInstalled.tabs.commonProblems.hereIsWhatYouCanDo
+        delegates.delegateNotInstalled.tabs.commonProblems.hereIsWhatYouCanDo
       </p>
       <button
         class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
@@ -61,20 +61,18 @@ exports[`Create Common Problems Tab render data 1`] = `
         class="Layout--horizontal StyledProps--main StyledProps--flex"
       >
         <p
-          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100 StyledProps--font-weight-bold"
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100"
         >
-          delegate.delegateNotInstalled.statusOfCluster
+          delegates.delegateNotInstalled.statusOfCluster
         </p>
-        <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-          type="button"
+        <a
+          href="https://ngdocs.harness.io/"
+          rel="noreferrer"
+          style="text-align: end; font-size: 13px;"
+          target="_blank"
         >
-          <span
-            class="bp3-button-text"
-          >
-            delegate.delegateNotInstalled.tabs.commonProblems.troubleshoot
-          </span>
-        </button>
+          delegates.delegateNotInstalled.tabs.commonProblems.troubleshoot
+        </a>
       </div>
       <div
         class="StyledProps--font StyledProps--main podCmndField StyledProps--intent-primary StyledProps--padding-small StyledProps--font-align-center StyledProps--flex"
@@ -82,7 +80,7 @@ exports[`Create Common Problems Tab render data 1`] = `
         <p
           class="StyledProps--font StyledProps--main"
         >
-          delegate.delegateNotInstalled.podCommand
+          delegates.delegateNotInstalled.podCommand
         </p>
         <span
           class="bp3-popover-wrapper"
@@ -123,7 +121,7 @@ exports[`Create Common Problems Tab render data 1`] = `
       <p
         class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100"
       >
-        delegate.delegateNotInstalled.podComeUp
+        delegates.delegateNotInstalled.podComeUp
       </p>
       <div
         class="StyledProps--font StyledProps--main"
@@ -194,7 +192,7 @@ exports[`Create Common Problems Tab show event error btn 1`] = `
             />
           </svg>
         </span>
-        delegate.delegateNotInstalled.tabs.commonProblems.hereIsWhatYouCanDo
+        delegates.delegateNotInstalled.tabs.commonProblems.hereIsWhatYouCanDo
       </p>
       <button
         class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
@@ -215,20 +213,18 @@ exports[`Create Common Problems Tab show event error btn 1`] = `
         class="Layout--horizontal StyledProps--main StyledProps--flex"
       >
         <p
-          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100 StyledProps--font-weight-bold"
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100"
         >
-          delegate.delegateNotInstalled.statusOfCluster
+          delegates.delegateNotInstalled.statusOfCluster
         </p>
-        <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-          type="button"
+        <a
+          href="https://ngdocs.harness.io/"
+          rel="noreferrer"
+          style="text-align: end; font-size: 13px;"
+          target="_blank"
         >
-          <span
-            class="bp3-button-text"
-          >
-            delegate.delegateNotInstalled.tabs.commonProblems.troubleshoot
-          </span>
-        </button>
+          delegates.delegateNotInstalled.tabs.commonProblems.troubleshoot
+        </a>
       </div>
       <div
         class="StyledProps--font StyledProps--main podCmndField StyledProps--intent-primary StyledProps--padding-small StyledProps--font-align-center StyledProps--flex"
@@ -236,7 +232,7 @@ exports[`Create Common Problems Tab show event error btn 1`] = `
         <p
           class="StyledProps--font StyledProps--main"
         >
-          delegate.delegateNotInstalled.podCommand
+          delegates.delegateNotInstalled.podCommand
         </p>
         <span
           class="bp3-popover-wrapper"
@@ -276,9 +272,9 @@ exports[`Create Common Problems Tab show event error btn 1`] = `
       style="width: 511px;"
     >
       <p
-        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100 StyledProps--font-weight-bold"
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100"
       >
-        delegate.delegateNotInstalled.eventErrorBlock
+        delegates.delegateNotInstalled.eventErrorBlock
       </p>
     </div>
     <div
@@ -291,10 +287,10 @@ exports[`Create Common Problems Tab show event error btn 1`] = `
         <span
           class="bp3-button-text"
         >
-          delegate.delegateNotInstalled.permissionError
+          delegates.delegateNotInstalled.permissionError
         </span>
         <span
-          class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--color"
+          class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--color StyledProps--color-orange400"
           icon="warning-sign"
         >
           <svg
@@ -320,10 +316,10 @@ exports[`Create Common Problems Tab show event error btn 1`] = `
         <span
           class="bp3-button-text"
         >
-          delegate.delegateNotInstalled.crashloopError
+          delegates.delegateNotInstalled.crashloopError
         </span>
         <span
-          class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--color"
+          class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--color StyledProps--color-orange400"
           icon="warning-sign"
         >
           <svg
@@ -349,10 +345,10 @@ exports[`Create Common Problems Tab show event error btn 1`] = `
         <span
           class="bp3-button-text"
         >
-          delegate.delegateNotInstalled.pullError
+          delegates.delegateNotInstalled.pullError
         </span>
         <span
-          class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--color"
+          class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--color StyledProps--color-orange400"
           icon="warning-sign"
         >
           <svg

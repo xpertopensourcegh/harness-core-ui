@@ -13,7 +13,7 @@ import {
   FlexExpander,
   ExpandingSearchInput
 } from '@wings-software/uicore'
-import { Menu, Classes, Position } from '@blueprintjs/core'
+import { Menu, MenuItem, Classes, Position, Dialog } from '@blueprintjs/core'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { PageError } from '@common/components/Page/PageError'
 import { useStrings } from 'framework/strings'
@@ -27,6 +27,7 @@ import {
 } from 'services/portal'
 import { useConfirmationDialog } from '@common/exports'
 import useCreateDelegateModal from '@delegates/modals/DelegateModal/useCreateDelegateModal'
+import DelegateInstallationError from '@delegates/components/CreateDelegate/K8sDelegate/DelegateInstallationError/DelegateInstallationError'
 import routes from '@common/RouteDefinitions'
 import { Page } from '@common/exports'
 import Table from '@common/components/Table/Table'
@@ -44,8 +45,14 @@ import css from './DelegatesPage.module.scss'
 
 const POLLING_INTERVAL = 10000
 
-const RenderConnectivityColumn: Renderer<CellProps<DelegateGroupDetails>> = ({ row }) => {
+type cellWithModalControl = {
+  cell: CellProps<DelegateGroupDetails>
+  setOpenTroubleshoter: (flag: boolean) => void
+}
+
+const RenderConnectivityColumn = ({ cell, setOpenTroubleshoter }: cellWithModalControl) => {
   const { getString } = useStrings()
+  const { row } = cell
   const delegate = row.original
   //const isApprovalRequired = delegate.status === DelegateStatus.WAITING_FOR_APPROVAL
   const isConnected = delegate.activelyConnected
@@ -57,9 +64,23 @@ const RenderConnectivityColumn: Renderer<CellProps<DelegateGroupDetails>> = ({ r
   const color: Color = /*isApprovalRequired ? Color.YELLOW_500 :*/ isConnected ? Color.GREEN_600 : Color.GREY_400
 
   return (
-    <Text icon="full-circle" iconProps={{ size: 6, color }}>
-      {text}
-    </Text>
+    <Layout.Vertical>
+      <Text icon="full-circle" iconProps={{ size: 6, color }}>
+        {text}
+      </Text>
+      {!isConnected && (
+        <Text
+          color={Color.BLUE_400}
+          onClick={e => {
+            e.preventDefault()
+            e.stopPropagation()
+            setOpenTroubleshoter(true)
+          }}
+        >
+          {getString('delegates.troubleshootOption')}
+        </Text>
+      )}
+    </Layout.Vertical>
   )
 }
 
@@ -158,7 +179,8 @@ const RenderActivityColumn: Renderer<CellProps<DelegateGroupDetails>> = ({ row }
   )
 }
 
-const RenderColumnMenu: Renderer<CellProps<Required<DelegateGroupDetails>>> = ({ row }) => {
+const RenderColumnMenu = ({ cell, setOpenTroubleshoter }: cellWithModalControl) => {
+  const { row } = cell
   const groupId = row.original.groupId
   const { getString } = useStrings()
   const [menuOpen, setMenuOpen] = useState(false)
@@ -178,10 +200,11 @@ const RenderColumnMenu: Renderer<CellProps<Required<DelegateGroupDetails>>> = ({
     onCloseDialog: async (isConfirmed: boolean) => {
       if (isConfirmed) {
         try {
-          const deleted = await deleteDelegate(groupId)
-
-          if (deleted) {
-            showSuccess(getString('delegates.delegateDeleted', { name: row.original.groupName }))
+          if (groupId) {
+            const deleted = await deleteDelegate(groupId)
+            if (deleted) {
+              showSuccess(getString('delegates.delegateDeleted', { name: row.original.groupName }))
+            }
           }
         } catch (error) {
           showError(error.message)
@@ -203,10 +226,12 @@ const RenderColumnMenu: Renderer<CellProps<Required<DelegateGroupDetails>>> = ({
     onCloseDialog: async (isConfirmed: boolean) => {
       if (isConfirmed) {
         try {
-          const deleted = await forceDeleteDelegate(groupId)
+          if (groupId) {
+            const deleted = await forceDeleteDelegate(groupId)
 
-          if (deleted) {
-            showSuccess(getString('delegates.delegateForceDeleted', { name: row.original.groupName }))
+            if (deleted) {
+              showSuccess(getString('delegates.delegateForceDeleted', { name: row.original.groupName }))
+            }
           }
         } catch (error) {
           showError(error.message)
@@ -290,6 +315,14 @@ const RenderColumnMenu: Renderer<CellProps<Required<DelegateGroupDetails>>> = ({
             text={getString('delegates.forceDelete')}
             onClick={handleForceDelete}
           />
+          <MenuItem
+            text={getString('delegates.openTroubleshooter')}
+            onClick={(e: React.MouseEvent) => {
+              e.stopPropagation()
+              setOpenTroubleshoter(true)
+            }}
+            icon="book"
+          />
         </Menu>
       </Popover>
     </Layout.Horizontal>
@@ -308,6 +341,7 @@ export const DelegateListing: React.FC = () => {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier, module } = useParams<Record<string, string>>()
   const [searchParam, setSearchParam] = useState('')
+  const [troubleshoterOpen, setOpenTroubleshoter] = useState(false)
   const { DELEGATE_INSIGHTS_ENABLED } = useFeatureFlags()
   const history = useHistory()
 
@@ -385,7 +419,7 @@ export const DelegateListing: React.FC = () => {
         accessor: (row: DelegateGroupDetails) => row.activelyConnected,
         id: 'connectivity',
         width: 'calc(15% - 20px)',
-        Cell: RenderConnectivityColumn
+        Cell: (cell: CellProps<DelegateGroupDetails>) => RenderConnectivityColumn({ cell, setOpenTroubleshoter })
       },
       {
         Header: '',
@@ -393,7 +427,7 @@ export const DelegateListing: React.FC = () => {
         accessor: (row: DelegateGroupDetails) => row,
         disableSortBy: true,
         id: 'action',
-        Cell: RenderColumnMenu
+        Cell: (cell: CellProps<DelegateGroupDetails>) => RenderColumnMenu({ cell, setOpenTroubleshoter })
       }
     ]
     if (DELEGATE_INSIGHTS_ENABLED) {
@@ -470,6 +504,13 @@ export const DelegateListing: React.FC = () => {
 
   return (
     <Container>
+      <Dialog
+        isOpen={troubleshoterOpen}
+        style={{ width: '680px', height: '100%' }}
+        onClose={() => setOpenTroubleshoter(false)}
+      >
+        <DelegateInstallationError />
+      </Dialog>
       <Layout.Horizontal className={css.header}>
         <RbacButton
           intent="primary"

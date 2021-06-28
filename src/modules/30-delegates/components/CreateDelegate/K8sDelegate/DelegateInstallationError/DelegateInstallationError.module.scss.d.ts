@@ -9,5 +9,6 @@ declare const styles: {
   readonly btnContainer: string
   readonly error: string
   readonly addSpacing: string
+  readonly harnessSupportContainer: string
 }
 export default styles

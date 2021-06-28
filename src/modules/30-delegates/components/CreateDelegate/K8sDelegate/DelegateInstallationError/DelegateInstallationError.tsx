@@ -9,21 +9,26 @@ import css from './DelegateInstallationError.module.scss'
 const DelegateInstallationError: React.FC<StepProps<null>> = () => {
   const { getString } = useStrings()
   return (
-    <Layout.Vertical padding="large">
+    <Layout.Vertical
+      padding="large"
+      onClick={e => {
+        e.stopPropagation()
+      }}
+    >
       <Layout.Horizontal spacing="small">
         <Icon name="warning-sign" size={16} className={css.notInstalled} />
-        <Text>{getString('delegate.delegateNotInstalled.title')}</Text>
+        <Text>{getString('delegates.delegateNotInstalled.title')}</Text>
       </Layout.Horizontal>
       <Layout.Horizontal spacing="small">
         <Tabs id="delegateNotInstalledTabs">
           <Tab
             id="tabId1"
-            title={<Text>{getString('delegate.delegateNotInstalled.tabs.commonProblems.title')}</Text>}
+            title={<Text>{getString('delegates.delegateNotInstalled.tabs.commonProblems.title')}</Text>}
             panel={<CommonProblems />}
           />
           <Tab
             id="tabId2"
-            title={<Text>{getString('delegate.delegateNotInstalled.tabs.troubleshooting')}</Text>}
+            title={<Text>{getString('delegates.delegateNotInstalled.tabs.troubleshooting')}</Text>}
             panel={<TroubleShooting />}
           />
         </Tabs>
