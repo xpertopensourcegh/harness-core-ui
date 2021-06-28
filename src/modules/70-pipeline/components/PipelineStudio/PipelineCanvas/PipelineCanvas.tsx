@@ -34,7 +34,6 @@ import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFil
 import { TagsPopover } from '@common/components'
 import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
-import { validateJSONWithSchema } from '@common/utils/YamlUtils'
 import { PipelineVariablesContextProvider } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import CreatePipelines from '../CreateModal/PipelineCreate'
@@ -42,7 +41,6 @@ import { DefaultNewPipelineId, DrawerTypes } from '../PipelineContext/PipelineAc
 import { RightBar } from '../RightBar/RightBar'
 import PipelineYamlView from '../PipelineYamlView/PipelineYamlView'
 import StageBuilder from '../StageBuilder/StageBuilder'
-import { usePipelineSchema } from '../PipelineSchema/PipelineSchemaContext'
 import css from './PipelineCanvas.module.scss'
 
 interface OtherModalProps {
@@ -102,7 +100,6 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   // const { stage: selectedStage } = getStageFromPipeline(pipeline, selectedStageId || '')
 
   const { getString } = useStrings()
-  const { pipelineSchema } = usePipelineSchema()
 
   const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier, module } = useParams<
     PipelineType<{
@@ -312,12 +309,13 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         return
       }
       // When git sync enabled, do not irritate user by taking all git info then at the end showing BE errors related to schema
-      const error = await validateJSONWithSchema({ pipeline: latestPipeline }, pipelineSchema?.data as any)
-      if (error.size > 0) {
-        clear()
-        showError(error)
-        return
-      }
+      // @TODO: uncomment this once this jira is resolved - https://harness.atlassian.net/browse/CDNG-10332
+      // const error = await validateJSONWithSchema({ pipeline: latestPipeline }, pipelineSchema?.data as any)
+      // if (error.size > 0) {
+      //   clear()
+      //   showError(error)
+      //   return
+      // }
       if (isYaml && yamlHandler && !isValidYaml()) {
         return
       }
