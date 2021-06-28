@@ -250,14 +250,12 @@ const RenderWebhookIcon = ({
   webhookSourceRepo,
   webhookSecret,
   webhookUrl,
-  triggerIdentifier,
   column
 }: {
   type?: string
   webhookSourceRepo?: string
   webhookSecret?: string
   webhookUrl?: string
-  triggerIdentifier?: string
   column: {
     accountId: string
     orgIdentifier: string
@@ -274,7 +272,7 @@ const RenderWebhookIcon = ({
   if (webhookSourceRepo?.toLowerCase() === GitSourceProviders.CUSTOM.value.toLowerCase()) {
     const curlCommand = `curl -X POST ${
       (webhookSecret && `-H 'X-Harness-Webhook-Token: ${webhookSecret}'`) || ''
-    } -H 'content-type: application/json' -H 'X-HARNESS-TRIGGER-ID: ${triggerIdentifier}' --url ${webhookUrl} -d '{"sample_key": "sample_value"}'`
+    } -H 'content-type: application/json' --url ${webhookUrl} -d '{"sample_key": "sample_value"}'`
 
     return (
       <Popover
@@ -359,7 +357,6 @@ const RenderColumnWebhook: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
         webhookSourceRepo: data?.webhookDetails?.webhookSourceRepo,
         webhookUrl: data?.webhookUrl,
         webhookSecret: data?.webhookDetails?.webhookSecret,
-        triggerIdentifier: data?.identifier,
         column
       })}
     </div>
