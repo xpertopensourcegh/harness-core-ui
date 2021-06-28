@@ -53,11 +53,15 @@ function CustomVariableInputSetBasic(props: CustomVariableInputSetProps): React.
     if ((!executionIdentifier && !executionId) || triggerIdentifier === 'new') {
       const providedValues = get(formik.values, basePath)
       let updatedVariables: AllNGVariables[] = cloneDeep(initialValues.variables) || []
-      updatedVariables = updatedVariables.map((variable: AllNGVariables, index: number) => {
-        const { default: defaultValue = '', ...restVar } = variable
-        restVar.value = providedValues?.variables?.[index]?.value || defaultValue
-        return restVar
-      })
+      updatedVariables =
+        template?.variables?.map((templateVariable: AllNGVariables, index: number) => {
+          const pipelineVariable = updatedVariables.find(
+            (variable: AllNGVariables) => variable.name === templateVariable.name
+          ) as AllNGVariables
+          const { default: defaultValue = '', ...restVar } = pipelineVariable || {}
+          restVar.value = providedValues?.variables?.[index]?.value || defaultValue
+          return restVar
+        }) || []
       formik.setFieldValue(`${basePath}variables`, updatedVariables)
     }
   }, [])

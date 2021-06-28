@@ -107,7 +107,7 @@ export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props =
   return (
     <PipelineVariablesContextProvider pipeline={originalPipeline}>
       <Layout.Vertical spacing="medium" padding="xlarge" className={css.container}>
-        {(originalPipeline as any)?.variables?.length > 0 && (
+        {(template as any)?.variables?.length > 0 && (
           <>
             <div className={css.subheading}>{getString('customVariables.pipelineVariablesTitle')}</div>
             <StepWidget<CustomVariablesData, CustomVariableInputSetExtraProps>

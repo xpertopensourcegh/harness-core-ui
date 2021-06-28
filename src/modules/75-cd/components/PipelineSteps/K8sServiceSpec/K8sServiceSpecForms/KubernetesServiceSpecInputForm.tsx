@@ -966,7 +966,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
           )}
         </div>
       )}
-      {!!initialValues?.variables?.length && (
+      {!!template?.variables?.length && (
         <div id={`Stage.${stageIdentifier}.Service.Variables`} className={cx(css.nopadLeft, css.accordionSummary)}>
           <div className={css.subheading}>{getString('variablesText')}</div>
 
