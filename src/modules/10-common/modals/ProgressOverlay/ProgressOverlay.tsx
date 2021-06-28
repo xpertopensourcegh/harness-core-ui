@@ -8,6 +8,9 @@ import css from './ProgressOverlay.module.scss'
 
 export type StepStatus = ResponseBoolean['status'] | 'IN_PROGRESS' | 'ABORTED'
 
+const SHORT_DURATION = 1000
+const LONG_DURATION = 3000
+
 export interface Stage {
   status: StepStatus
   intermediateLabel: string
@@ -124,7 +127,7 @@ export const ProgressOverlay: React.FC<ProgressOverlay> = ({
     }
 
     if (shouldClose) {
-      id = setTimeout(() => onClose(), 3000)
+      id = setTimeout(() => onClose(), !isUndefined(secondStage) ? LONG_DURATION : SHORT_DURATION)
     }
     return () => {
       clearTimeout(id)

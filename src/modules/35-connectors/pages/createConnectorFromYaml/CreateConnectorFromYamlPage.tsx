@@ -55,8 +55,8 @@ const CreateConnectorFromYamlPage: React.FC = () => {
     setHasConnectorChanged(isEditorDirty)
   }
 
-  const rerouteBasedOnContext = (connectorId: string): void => {
-    history.push(routes.toConnectorDetails({ connectorId, accountId, orgIdentifier, projectIdentifier, module }))
+  const rerouteBasedOnContext = (): void => {
+    history.push(routes.toConnectors({ accountId, orgIdentifier, projectIdentifier, module }))
   }
 
   const { openSaveToGitDialog } = useSaveToGitDialog({
@@ -75,11 +75,13 @@ const CreateConnectorFromYamlPage: React.FC = () => {
       }
     }
     setConnectorNameBeingCreated(connectorJSON?.connector?.name)
-    const queryParams = gitData ? { accountIdentifier: accountId, ...gitData } : {}
+    const queryParams = gitData
+      ? { accountIdentifier: accountId, ...gitData, baseBranch: gitResourceDetails.gitDetails?.branch }
+      : {}
     const response = await createConnector(connectorJSON, { queryParams })
     return {
       status: response.status,
-      nextCallback: rerouteBasedOnContext.bind(undefined, response?.data?.connector?.identifier || '')
+      nextCallback: rerouteBasedOnContext
     }
   }
 
