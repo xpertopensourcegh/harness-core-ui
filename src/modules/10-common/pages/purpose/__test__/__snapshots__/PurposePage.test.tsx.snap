@@ -45,7 +45,7 @@ exports[`PurposePage should render module description and continue button when s
                 class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
               >
                 <span
-                  class="bp3-icon StyledProps--main"
+                  class="bp3-icon StyledProps--main icon"
                   data-icon="cd-main"
                 >
                   <svg
@@ -113,7 +113,7 @@ exports[`PurposePage should render module description and continue button when s
                 class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
               >
                 <span
-                  class="bp3-icon StyledProps--main"
+                  class="bp3-icon StyledProps--main icon"
                   data-icon="ci-main"
                 >
                   <svg
@@ -181,7 +181,7 @@ exports[`PurposePage should render module description and continue button when s
                 class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
               >
                 <span
-                  class="bp3-icon StyledProps--main"
+                  class="bp3-icon StyledProps--main icon"
                   data-icon="cv-main"
                 >
                   <svg
@@ -249,7 +249,7 @@ exports[`PurposePage should render module description and continue button when s
                 class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
               >
                 <span
-                  class="bp3-icon StyledProps--main"
+                  class="bp3-icon StyledProps--main icon"
                   data-icon="cf-main"
                 >
                   <svg
@@ -317,7 +317,7 @@ exports[`PurposePage should render module description and continue button when s
                 class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
               >
                 <span
-                  class="bp3-icon StyledProps--main"
+                  class="bp3-icon StyledProps--main icon"
                   data-icon="ce-main"
                 >
                   <svg
@@ -356,12 +356,12 @@ exports[`PurposePage should render module description and continue button when s
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-xsmall"
                   >
-                    common.purpose.continuous
+                    COMMON.PURPOSE.CE.CLOUDCOST
                   </p>
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-bottom-large StyledProps--color StyledProps--color-black"
                   >
-                    common.purpose.ce.efficiency
+                    common.purpose.ce.management
                   </p>
                 </div>
               </div>

@@ -49,7 +49,7 @@ const PurposeList: React.FC = () => {
   const { trackEvent } = useTelemetry()
 
   const CDNG_OPTIONS: PurposeType = {
-    enabled: true,
+    enabled: true, // Continous delivery is enabled in CG
     title: getString('common.purpose.cd.delivery'),
     icon: 'cd-main',
     description: getString('common.purpose.cd.subtitle'),
@@ -73,7 +73,7 @@ const PurposeList: React.FC = () => {
 
   const CENG_OPTIONS: PurposeType = {
     enabled: true, // Continous efficiency is enabled in CG
-    title: getString('common.purpose.ce.efficiency'),
+    title: getString('common.purpose.ce.management'),
     icon: 'ce-main',
     description: getString('common.purpose.ce.subtitle'),
     module: 'ce'
@@ -200,10 +200,19 @@ const PurposeList: React.FC = () => {
       <Container>
         <div style={{ borderRight: 'inset', marginLeft: -15 }}>
           {getOptions().map(option => {
-            const cardTitle =
-              option.module === 'cf'
-                ? getString('common.purpose.cf.feature').toUpperCase()
-                : getString('common.purpose.continuous')
+            let cardTitle
+            switch (option.module) {
+              case 'cf':
+                cardTitle = getString('common.purpose.cf.feature').toUpperCase()
+                break
+              case 'ce':
+                cardTitle = getString('common.purpose.ce.cloudCost').toUpperCase()
+                break
+              default:
+                cardTitle = getString('common.purpose.continuous')
+                break
+            }
+
             return (
               <Card
                 key={option.title}
@@ -211,7 +220,7 @@ const PurposeList: React.FC = () => {
                 onClick={() => handleModuleSelection(option.module)}
               >
                 <Layout.Horizontal spacing="small">
-                  <Icon name={option.icon} size={25} />
+                  <Icon name={option.icon} size={25} className={css.icon} />
                   <div>
                     <Text font="xsmall" margin={{ bottom: '0' }}>
                       {cardTitle}

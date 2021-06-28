@@ -139,6 +139,8 @@ purpose:
       description: Detection of orphaned resources, recommendations to save costs, Scaling/tearing down, turning off in non-work hours, reserving instances.
     visibilityCard:
       description: Cost insights, anomaly detection, Service insights,Creating budgets and perspectives and alerts, utilised/wasted resources in Clusters.
+    cloudCost: Cloud Cost
+    management: Management
     efficiency: Efficiency
     subtitle: Spot and quickly debug inefficiencies and optimize them to reduce costs.
     continuous: Continuous Efficiency

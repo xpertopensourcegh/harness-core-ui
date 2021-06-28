@@ -240,10 +240,12 @@ export interface StringsMap {
   'common.purpose.cd.newGen.title': string
   'common.purpose.cd.subtitle': string
   'common.purpose.cd.supportedStack': string
+  'common.purpose.ce.cloudCost': string
   'common.purpose.ce.continuous': string
   'common.purpose.ce.description': string
   'common.purpose.ce.descriptionOnly': string
   'common.purpose.ce.efficiency': string
+  'common.purpose.ce.management': string
   'common.purpose.ce.optimizationCard.description': string
   'common.purpose.ce.subtitle': string
   'common.purpose.ce.visibilityCard.description': string
