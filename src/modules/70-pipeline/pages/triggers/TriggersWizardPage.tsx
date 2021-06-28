@@ -542,20 +542,21 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
 
         // connectorRef in Visual UI is an object (with the label), but in YAML is a string
         if (triggerValues?.connectorRef && typeof triggerValues.connectorRef === 'string') {
-          const connectorRefWithLabel: ConnectorRefInterface = {
+          const connectorRefWithBlankLabel: ConnectorRefInterface = {
             value: triggerValues.connectorRef,
             identifier: triggerValues.connectorRef
           }
 
           if (triggerYaml && connectorData?.data?.connector?.name) {
-            // add back in label from connectorData
             const { connector } = connectorData.data
 
-            connectorRefWithLabel.connector = connector
-            connectorRefWithLabel.label = connector.name
+            connectorRefWithBlankLabel.connector = connector
+            connectorRefWithBlankLabel.connector.identifier = triggerValues.connectorRef
+
+            connectorRefWithBlankLabel.label = '' // will fetch details on useEffect
           }
 
-          triggerValues.connectorRef = connectorRefWithLabel
+          triggerValues.connectorRef = connectorRefWithBlankLabel
 
           const connectorParams: GetConnectorQueryParams = {
             accountIdentifier: accountId
@@ -856,7 +857,9 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
 
   const { data: connectorData, refetch: getConnectorDetails } = useGetConnector({
     identifier: getIdentifierFromValue(
-      onEditInitialValues?.connectorRef?.identifier || initialValues?.connectorRef?.identifier || ''
+      wizardKey < 1 // wizardKey >1 means we've reset initialValues cause of Yaml Switching (onEdit or new) and should use those formik values instead
+        ? onEditInitialValues?.connectorRef?.identifier || ''
+        : initialValues?.connectorRef?.identifier || ''
     ),
     queryParams: connectorScopeParams,
     lazy: true
@@ -868,7 +871,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     } else if (
       initialValues?.connectorRef?.value &&
       (!initialValues.connectorRef.label ||
-        initialValues?.connectorRef?.identifier !== connectorData?.data?.connector?.identifier)
+        (connectorData?.data?.connector?.identifier &&
+          !initialValues?.connectorRef?.identifier?.includes(connectorData?.data?.connector?.identifier)))
     ) {
       // need to get label due to switching from yaml to visual
       getConnectorDetails()
@@ -876,7 +880,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   }, [onEditInitialValues?.connectorRef?.identifier, connectorScopeParams, initialValues?.connectorRef])
 
   useEffect(() => {
-    if (connectorData?.data?.connector?.name && onEditInitialValues?.connectorRef?.identifier) {
+    if (connectorData?.data?.connector?.name && onEditInitialValues?.connectorRef?.identifier && wizardKey < 1) {
       // Assigns label on Visual mode for onEdit
       const { connector, status } = connectorData.data
       const connectorRef: ConnectorRefInterface = {
@@ -888,7 +892,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       if (onEditInitialValues?.connectorRef?.identifier) {
         setOnEditInitialValues({ ...onEditInitialValues, connectorRef })
       }
-    } else if (wizardKey > 0 && connectorData?.data?.connector?.name && initialValues?.connectorRef?.identifier) {
+    } else if (connectorData?.data?.connector?.name && initialValues?.connectorRef?.identifier) {
       // means we switched from yaml to visual and need to get the label
       const { connector, status } = connectorData.data
       const connectorRef: ConnectorRefInterface = {
