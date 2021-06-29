@@ -234,14 +234,16 @@ const EnvironmentsPage: React.FC = () => {
             <EnvironmentDialog
               disabled={loading}
               onCreate={response => {
-                history.push(
-                  routes.toCFEnvironmentDetails({
-                    environmentIdentifier: response?.data?.identifier as string,
-                    projectIdentifier,
-                    orgIdentifier,
-                    accountId
-                  })
-                )
+                setTimeout(() => {
+                  history.push(
+                    routes.toCFEnvironmentDetails({
+                      environmentIdentifier: response?.data?.identifier as string,
+                      projectIdentifier,
+                      orgIdentifier,
+                      accountId
+                    })
+                  )
+                }, 1000)
               }}
             />
           </Layout.Horizontal>
@@ -262,14 +264,16 @@ const EnvironmentsPage: React.FC = () => {
             <Container flex={{ align: 'center-center' }} height="100%">
               <NoEnvironment
                 onCreated={response =>
-                  history.push(
-                    routes.toCFEnvironmentDetails({
-                      environmentIdentifier: response?.data?.identifier as string,
-                      projectIdentifier,
-                      orgIdentifier,
-                      accountId
-                    })
-                  )
+                  setTimeout(() => {
+                    history.push(
+                      routes.toCFEnvironmentDetails({
+                        environmentIdentifier: response?.data?.identifier as string,
+                        projectIdentifier,
+                        orgIdentifier,
+                        accountId
+                      })
+                    )
+                  }, 1000)
                 }
               />
             </Container>

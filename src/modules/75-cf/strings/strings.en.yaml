@@ -401,7 +401,7 @@ onboarding:
   title: Feature Flags Quick Guide
   subTitle: Everything you need to know in less than 15 minutes.
   upAndRunning: Get a flag up and running in 3 steps
-  tryItOut: Try it Out
+  tryItOut: '{{ $.getStarted }}'
   createAFlag: '1. Create a Flag'
   setUpApp: '2. Set Up Your Application'
   testYourFlag: '3. Test Your Flag'
