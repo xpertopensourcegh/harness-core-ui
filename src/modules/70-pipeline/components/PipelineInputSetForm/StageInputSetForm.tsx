@@ -336,8 +336,8 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 factory={factory}
                 initialValues={
                   isPropagating && deploymentStageInputSet
-                    ? (deploymentStage?.serviceConfig?.stageOverrides as StageOverridesConfig)
-                    : deploymentStage?.serviceConfig?.serviceDefinition?.spec || {}
+                    ? (deploymentStageInputSet?.serviceConfig?.stageOverrides as StageOverridesConfig)
+                    : deploymentStageInputSet?.serviceConfig?.serviceDefinition?.spec || {}
                 }
                 template={
                   isPropagating && deploymentStageTemplate

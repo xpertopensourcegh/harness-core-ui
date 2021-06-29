@@ -700,7 +700,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                             const sidecarIndex =
                               initialValues?.artifacts?.sidecars?.findIndex(
                                 sidecar => sidecar.sidecar?.identifier === identifier
-                              ) || -1
+                              ) ?? -1
                             const imagePathCurrent =
                               getMultiTypeFromValue(artifacts?.sidecars?.[sidecarIndex]?.sidecar?.spec?.imagePath) !==
                               MultiTypeInputType.RUNTIME
