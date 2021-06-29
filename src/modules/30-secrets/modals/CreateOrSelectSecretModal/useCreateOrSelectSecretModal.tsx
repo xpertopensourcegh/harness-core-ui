@@ -9,7 +9,7 @@ import type { SecretResponseWrapper, ResponsePageSecretResponseWrapper } from 's
 import css from './useCreateOrSelectSecretModal.module.scss'
 
 export interface UseCreateOrSelectSecretModalProps {
-  type: SecretResponseWrapper['secret']['type']
+  type?: SecretResponseWrapper['secret']['type']
   onSuccess?: (secret: SecretReference) => void
   secretsListMockData?: ResponsePageSecretResponseWrapper
 }

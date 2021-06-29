@@ -22,7 +22,7 @@ export interface SecretReference {
 }
 
 export interface CreateOrSelectSecretProps {
-  type: SecretResponseWrapper['secret']['type']
+  type?: SecretResponseWrapper['secret']['type']
   onSuccess: (secret: SecretReference) => void
   secretsListMockData?: ResponsePageSecretResponseWrapper
 }
@@ -33,7 +33,7 @@ const CreateOrSelectSecret: React.FC<CreateOrSelectSecretProps> = ({ type, onSuc
   return (
     <section className={css.main}>
       <Tabs id={'CreateOrSelect'}>
-        {type === 'SecretFile' || type === 'SecretText' ? (
+        {type !== 'SSHKey' ? (
           <Tab
             id={'create'}
             title={<Text padding={'medium'}>{getString('secrets.titleCreate')}</Text>}
