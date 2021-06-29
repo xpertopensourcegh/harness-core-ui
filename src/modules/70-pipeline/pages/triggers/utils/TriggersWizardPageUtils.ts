@@ -210,6 +210,11 @@ const isRowUnfilled = (payloadCondition: AddConditionInterface): boolean => {
   return truthyValuesLength > 0 && truthyValuesLength < 3
 }
 
+export const isRowFilled = (payloadCondition: AddConditionInterface): boolean => {
+  const truthyValuesLength = Object.values(payloadCondition).filter(val => val?.trim?.())?.length
+  return truthyValuesLength === 3
+}
+
 const isIdentifierIllegal = (identifier: string): boolean =>
   regexIdentifier.test(identifier) && illegalIdentifiers.includes(identifier)
 

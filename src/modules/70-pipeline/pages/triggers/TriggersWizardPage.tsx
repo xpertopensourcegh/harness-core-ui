@@ -52,6 +52,7 @@ import {
   ciCodebaseBuild,
   getConnectorName,
   getConnectorValue,
+  isRowFilled,
   CUSTOM
 } from './utils/TriggersWizardPageUtils'
 import {
@@ -365,13 +366,13 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         inputYaml: stringifyPipelineRuntimeInput
       }
       if (triggerYaml.source?.spec?.spec) {
-        if (!isEmpty(payloadConditions)) {
-          triggerYaml.source.spec.spec.spec.payloadConditions = payloadConditions
-        }
+        triggerYaml.source.spec.spec.spec.payloadConditions = persistIncomplete
+          ? payloadConditions
+          : payloadConditions.filter(payloadCondition => isRowFilled(payloadCondition))
 
-        if (!isEmpty(headerConditions)) {
-          triggerYaml.source.spec.spec.spec.headerConditions = headerConditions
-        }
+        triggerYaml.source.spec.spec.spec.headerConditions = persistIncomplete
+          ? headerConditions
+          : headerConditions.filter(headerCondition => isRowFilled(headerCondition))
 
         if (jexlCondition) {
           triggerYaml.source.spec.spec.spec.jexlCondition = jexlCondition
@@ -413,12 +414,16 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         triggerYaml.source.spec.spec = { authToken: { type: 'inline', spec: { value: secureToken } } }
       }
 
-      if (!isEmpty(payloadConditions) && triggerYaml.source?.spec) {
-        triggerYaml.source.spec.spec.payloadConditions = payloadConditions
+      if (triggerYaml.source?.spec) {
+        triggerYaml.source.spec.spec.payloadConditions = persistIncomplete
+          ? payloadConditions
+          : payloadConditions.filter(payloadCondition => isRowFilled(payloadCondition))
       }
 
-      if (!isEmpty(headerConditions) && triggerYaml.source?.spec) {
-        triggerYaml.source.spec.spec.headerConditions = headerConditions
+      if (triggerYaml.source?.spec) {
+        triggerYaml.source.spec.spec.headerConditions = persistIncomplete
+          ? headerConditions
+          : headerConditions.filter(headerCondition => isRowFilled(headerCondition))
       }
 
       if (jexlCondition && triggerYaml.source?.spec) {
