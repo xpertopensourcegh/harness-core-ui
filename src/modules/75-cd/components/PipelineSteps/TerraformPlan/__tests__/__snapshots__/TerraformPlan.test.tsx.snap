@@ -866,7 +866,13 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                           </svg>
                         </span>
                       </button>
-                      <textarea />
+                      <div
+                        class="main"
+                      >
+                        <textarea
+                          name="spec.configuration.backendConfig.spec.content"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
