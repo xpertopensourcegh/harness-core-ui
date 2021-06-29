@@ -397,8 +397,8 @@ onboarding:
   waitForConnect: Waiting for SDK...{{ message }}
   allSet: Congratulations! You’re all set!
   tryTarget: Try out our robust <a href='{{ link }}'>targeting rules for this flag</a> for more granular rollouts.
-  backToStart: Back to Start Guide
-  title: Feature Flags Quick Guide
+  backToStart: Back to Quick Start Guide
+  title: Feature Flags Quick Start Guide
   subTitle: Everything you need to know in less than 15 minutes.
   upAndRunning: Get a flag up and running in 3 steps
   tryItOut: '{{ $.getStarted }}'
