@@ -679,6 +679,7 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
                               autocomplete="off"
                               class="bp3-input"
                               name="name"
+                              placeholder="common.namePlaceholder"
                               type="text"
                               value="repoName"
                             />
@@ -1387,6 +1388,7 @@ exports[`Git Sync - repo tab Repo type card should be enabled only for Github 1`
                               autocomplete="off"
                               class="bp3-input"
                               name="name"
+                              placeholder="common.namePlaceholder"
                               type="text"
                               value=""
                             />
@@ -1961,6 +1963,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
                               autocomplete="off"
                               class="bp3-input"
                               name="name"
+                              placeholder="common.namePlaceholder"
                               type="text"
                               value=""
                             />
@@ -2535,6 +2538,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
                               autocomplete="off"
                               class="bp3-input"
                               name="name"
+                              placeholder="common.namePlaceholder"
                               type="text"
                               value=""
                             />

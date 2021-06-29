@@ -267,6 +267,7 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
                               autocomplete="off"
                               class="bp3-input"
                               name="name"
+                              placeholder="common.namePlaceholder"
                               type="text"
                               value="dummy name"
                             />
@@ -1011,6 +1012,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                               autocomplete="off"
                               class="bp3-input"
                               name="name"
+                              placeholder="common.namePlaceholder"
                               type="text"
                               value="dummy name"
                             />
@@ -1040,6 +1042,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                             class="bp3-input bp3-fill"
                             maxlength="1024"
                             name="description"
+                            placeholder="common.descriptionPlaceholder"
                           >
                             devConnector description
                           </textarea>

@@ -389,6 +389,8 @@ account:
     link: Visit Subscriptions
     description: to add and manage your subscriptions
 valuePlaceholder: Enter Value(s)
+namePlaceholder: Enter Name
+descriptionPlaceholder: Enter Description
 seconds: Seconds
 move: Move
 extendTrial:

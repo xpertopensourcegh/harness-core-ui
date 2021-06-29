@@ -97,6 +97,7 @@ exports[`TriggerOverviewPanel Triggers tests Renders/snapshots Initial Render - 
                       autocomplete="off"
                       class="bp3-input"
                       name="name"
+                      placeholder="common.namePlaceholder"
                       type="text"
                       value=""
                     />

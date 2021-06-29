@@ -138,6 +138,7 @@ exports[`EditStageView snapshot test should render properly 1`] = `
                       autocomplete="off"
                       class="bp3-input"
                       name="name"
+                      placeholder="pipeline.aboutYourStage.stageNamePlaceholder"
                       type="text"
                       value="name1"
                     />
@@ -410,6 +411,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                       autocomplete="off"
                       class="bp3-input"
                       name="name"
+                      placeholder="pipeline.aboutYourStage.stageNamePlaceholder"
                       type="text"
                       value=""
                     />
@@ -676,6 +678,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                       autocomplete="off"
                       class="bp3-input"
                       name="repoName"
+                      placeholder="pipeline.manifestType.repoNamePlaceholder"
                       type="text"
                       value=""
                     />

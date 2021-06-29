@@ -210,6 +210,7 @@ exports[`Test GitSyncRepoFormStep Should not allow saving form if folder name is
                               autocomplete="off"
                               class="bp3-input"
                               name="name"
+                              placeholder="common.namePlaceholder"
                               type="text"
                               value=""
                             />
@@ -784,6 +785,7 @@ exports[`Test GitSyncRepoFormStep Should not allow saving form if folder name is
                               autocomplete="off"
                               class="bp3-input"
                               name="name"
+                              placeholder="common.namePlaceholder"
                               type="text"
                               value=""
                             />

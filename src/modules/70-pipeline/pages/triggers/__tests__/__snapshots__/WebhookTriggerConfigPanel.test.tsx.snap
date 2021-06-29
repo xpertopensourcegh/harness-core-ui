@@ -100,6 +100,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                         autocomplete="off"
                         class="bp3-input"
                         name="name"
+                        placeholder="common.namePlaceholder"
                         type="text"
                         value=""
                       />
@@ -356,6 +357,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                         autocomplete="off"
                         class="bp3-input"
                         name="name"
+                        placeholder="common.namePlaceholder"
                         type="text"
                         value=""
                       />
@@ -599,7 +601,7 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                           autocomplete="off"
                           class="bp3-input"
                           name="event"
-                          placeholder="Search..."
+                          placeholder="pipeline.triggers.triggerConfigurationPanel.eventPlaceholder"
                           style="padding-right: 0px;"
                           type="text"
                           value=""

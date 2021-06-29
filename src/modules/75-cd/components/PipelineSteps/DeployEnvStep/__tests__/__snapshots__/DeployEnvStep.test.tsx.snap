@@ -137,6 +137,7 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
                   class="bp3-input bp3-fill"
                   maxlength="1024"
                   name="description"
+                  placeholder="common.descriptionPlaceholder"
                 >
                   test
                 </textarea>

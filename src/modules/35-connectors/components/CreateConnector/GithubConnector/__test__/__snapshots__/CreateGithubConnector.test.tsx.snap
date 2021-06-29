@@ -221,6 +221,7 @@ exports[`Create Github connector Wizard Creating Github step one 1`] = `
                               autocomplete="off"
                               class="bp3-input"
                               name="name"
+                              placeholder="common.namePlaceholder"
                               type="text"
                               value=""
                             />
@@ -2234,6 +2235,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                               autocomplete="off"
                               class="bp3-input"
                               name="name"
+                              placeholder="common.namePlaceholder"
                               type="text"
                               value="GithubWorking1"
                             />
@@ -2263,6 +2265,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                             class="bp3-input bp3-fill"
                             maxlength="1024"
                             name="description"
+                            placeholder="common.descriptionPlaceholder"
                           >
                             connector before demo
                           </textarea>

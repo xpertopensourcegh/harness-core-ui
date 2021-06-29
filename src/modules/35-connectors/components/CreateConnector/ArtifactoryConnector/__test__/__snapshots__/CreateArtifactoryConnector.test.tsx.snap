@@ -716,6 +716,7 @@ exports[`Create Artifactory connector Wizard Should render form 1`] = `
                               autocomplete="off"
                               class="bp3-input"
                               name="name"
+                              placeholder="common.namePlaceholder"
                               type="text"
                               value="dummy name"
                             />

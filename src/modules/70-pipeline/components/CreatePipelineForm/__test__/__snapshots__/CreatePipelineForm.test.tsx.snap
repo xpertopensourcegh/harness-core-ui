@@ -103,6 +103,7 @@ exports[`CreatePipelineForm Rendering should closeModal when click Setup Later 1
                     autocomplete="off"
                     class="bp3-input"
                     name="name"
+                    placeholder="common.namePlaceholder"
                     type="text"
                     value=""
                   />
@@ -335,6 +336,7 @@ exports[`CreatePipelineForm Rendering should render CreatePipelineForm 1`] = `
                     autocomplete="off"
                     class="bp3-input"
                     name="name"
+                    placeholder="common.namePlaceholder"
                     type="text"
                     value=""
                   />
@@ -567,6 +569,7 @@ exports[`CreatePipelineForm Rendering should validate inputs 1`] = `
                     autocomplete="off"
                     class="bp3-input"
                     name="name"
+                    placeholder="common.namePlaceholder"
                     type="text"
                     value=""
                   />

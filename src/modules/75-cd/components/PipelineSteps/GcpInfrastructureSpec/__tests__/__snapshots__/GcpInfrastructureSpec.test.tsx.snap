@@ -46,7 +46,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view for inputse
                     <span
                       class="placeholder"
                     >
-                      cd.steps.common.selectConnectorPlaceholder
+                      connectors.selectConnector
                     </span>
                   </span>
                   <span
@@ -237,7 +237,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view for inputse
                   autocomplete="off"
                   class="bp3-input"
                   name=".namespace"
-                  placeholder="cd.steps.common.namespacePlaceholder"
+                  placeholder="pipeline.infraSpecifications.namespacePlaceholder"
                   type="text"
                   value=""
                 />
@@ -660,7 +660,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with empty 
                       autocomplete="off"
                       class="bp3-input"
                       name="namespace"
-                      placeholder="cd.steps.common.namespacePlaceholder"
+                      placeholder="pipeline.infraSpecifications.namespacePlaceholder"
                       type="text"
                       value=""
                     />
@@ -1565,7 +1565,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with values
                       autocomplete="off"
                       class="bp3-input"
                       name="namespace"
-                      placeholder="cd.steps.common.namespacePlaceholder"
+                      placeholder="pipeline.infraSpecifications.namespacePlaceholder"
                       type="text"
                       value="namespace"
                     />

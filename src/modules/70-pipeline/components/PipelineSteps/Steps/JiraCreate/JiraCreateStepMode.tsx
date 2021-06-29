@@ -463,7 +463,7 @@ const FormContent = ({
                   label={getString('description')}
                   className={cx(css.descriptionField)}
                   multiTypeTextArea={{ enableConfigureOptions: false, expressions }}
-                  placeholder={getString('pipeline.enterDescription')}
+                  placeholder={getString('common.descriptionPlaceholder')}
                   disabled={isApprovalStepFieldDisabled(readonly)}
                 />
                 {getMultiTypeFromValue(formik.values.spec.description) === MultiTypeInputType.RUNTIME && (

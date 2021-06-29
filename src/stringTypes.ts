@@ -90,6 +90,7 @@ export interface StringsMap {
   'common.datePickerShortcuts.Yesterday': string
   'common.defaultExperience': string
   'common.delegateForTask': string
+  'common.descriptionPlaceholder': string
   'common.disable': string
   'common.duplicateId': string
   'common.durationPrefix': string
@@ -207,6 +208,7 @@ export interface StringsMap {
   'common.member': string
   'common.moreRefineSearch': string
   'common.move': string
+  'common.namePlaceholder': string
   'common.namespace': string
   'common.new': string
   'common.newLines': string
@@ -1306,6 +1308,7 @@ export interface StringsMap {
   'projectsOrgs.viewProjects': string
   'projectsOrgs.welcome': string
   'projectsOrgs.welcomeSecondLine': string
+  'pipeline.aboutYourStage.stageNamePlaceholder': string
   'pipeline.addStage.description': string
   'pipeline.addStage.title': string
   'pipeline.and': string
@@ -1396,7 +1399,6 @@ export interface StringsMap {
   'pipeline.discard': string
   'pipeline.duration': string
   'pipeline.enableVerificationOptions': string
-  'pipeline.enterDescription': string
   'pipeline.estimatedTimeRemaining': string
   'pipeline.execution.actions.abortPipeline': string
   'pipeline.execution.actions.abortStage': string
@@ -1506,6 +1508,7 @@ export interface StringsMap {
   'pipeline.gitExperience.selectRepoBranch': string
   'pipeline.gitExperience.skipNow': string
   'pipeline.imagePathLabel': string
+  'pipeline.infraSpecifications.namespacePlaceholder': string
   'pipeline.infrastructureKey': string
   'pipeline.inputSets.aboutInputSets': string
   'pipeline.inputSets.applyInputSet': string
@@ -1737,6 +1740,7 @@ export interface StringsMap {
   'pipeline.triggers.conditionsPanel.jexlCondition': string
   'pipeline.triggers.conditionsPanel.jexlConditionPlaceholder': string
   'pipeline.triggers.conditionsPanel.matchesValue': string
+  'pipeline.triggers.conditionsPanel.matchesValuePlaceholder': string
   'pipeline.triggers.conditionsPanel.operator': string
   'pipeline.triggers.conditionsPanel.payloadConditions': string
   'pipeline.triggers.conditionsPanel.sourceBranch': string
@@ -1821,10 +1825,9 @@ export interface StringsMap {
   'pipeline.triggers.triggerConfigurationPanel.autoAbortPR': string
   'pipeline.triggers.triggerConfigurationPanel.autoAbortPush': string
   'pipeline.triggers.triggerConfigurationPanel.event': string
+  'pipeline.triggers.triggerConfigurationPanel.eventPlaceholder': string
   'pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook': string
   'pipeline.triggers.triggerConfigurationPanel.payloadType': string
-  'pipeline.triggers.triggerConfigurationPanel.recurrenceLabel': string
-  'pipeline.triggers.triggerConfigurationPanel.selectTimezonePlaceholder': string
   'pipeline.triggers.triggerConfigurationPanel.title': string
   'pipeline.triggers.triggerConfigurationPanel.triggerName': string
   'pipeline.triggers.triggerLabel': string
@@ -1886,9 +1889,7 @@ export interface StringsMap {
   'cd.stepName': string
   'cd.steps.common.clusterDetails': string
   'cd.steps.common.infrastructureKeyPlaceholder': string
-  'cd.steps.common.namespacePlaceholder': string
   'cd.steps.common.releaseNamePlaceholder': string
-  'cd.steps.common.selectConnectorPlaceholder': string
   'cd.steps.common.selectOrEnterClusterPlaceholder': string
   'cd.steps.kubernetesGcpStep.stepName': string
   'cd.terraformVarFiles': string
@@ -5460,15 +5461,15 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
+  'pipelineSteps.build.infraSpecifications.kubernetesClusterPlaceholder': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
   'pipelineSteps.build.infraSpecifications.namespace': string
   /**
    * @deprecated migrate this string to module level file
    */
   'pipelineSteps.build.infraSpecifications.newConfiguration': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.build.infraSpecifications.newConfigurationConnectorLabel': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -5497,10 +5498,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'pipelineSteps.build.stageSpecifications.sharedPathsInfo': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.build.stageSpecifications.stageNamePlaceholder': string
   /**
    * @deprecated migrate this string to module level file
    */

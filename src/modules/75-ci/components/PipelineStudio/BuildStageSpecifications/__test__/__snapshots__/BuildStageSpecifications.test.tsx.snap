@@ -87,7 +87,7 @@ exports[`BuildStageSpecifications tests clicking on description shows correspond
                           autocomplete="off"
                           class="bp3-input"
                           name="name"
-                          placeholder="pipelineSteps.build.stageSpecifications.stageNamePlaceholder"
+                          placeholder="pipeline.aboutYourStage.stageNamePlaceholder"
                           type="text"
                           value="BuildStage"
                         />
@@ -443,7 +443,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                           autocomplete="off"
                           class="bp3-input"
                           name="name"
-                          placeholder="pipelineSteps.build.stageSpecifications.stageNamePlaceholder"
+                          placeholder="pipeline.aboutYourStage.stageNamePlaceholder"
                           type="text"
                           value="BuildStage"
                         />

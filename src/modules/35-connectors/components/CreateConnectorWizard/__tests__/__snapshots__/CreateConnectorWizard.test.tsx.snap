@@ -213,6 +213,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Artifacto
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="name"
+                                placeholder="common.namePlaceholder"
                                 type="text"
                                 value=""
                               />
@@ -556,6 +557,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for BITBUCKET
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="name"
+                                placeholder="common.namePlaceholder"
                                 type="text"
                                 value=""
                               />
@@ -888,6 +890,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for DOCKER 1`
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="name"
+                                placeholder="common.namePlaceholder"
                                 type="text"
                                 value=""
                               />
@@ -1273,6 +1276,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for GCP 1`] =
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="name"
+                                placeholder="common.namePlaceholder"
                                 type="text"
                                 value=""
                               />
@@ -1615,6 +1619,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Git 1`] =
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="name"
+                                placeholder="common.namePlaceholder"
                                 type="text"
                                 value=""
                               />
@@ -1956,6 +1961,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Github 1`
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="name"
+                                placeholder="common.namePlaceholder"
                                 type="text"
                                 value=""
                               />
@@ -2322,6 +2328,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Gitlab 1`
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="name"
+                                placeholder="common.namePlaceholder"
                                 type="text"
                                 value=""
                               />
@@ -2665,6 +2672,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for Nexus 1`]
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="name"
+                                placeholder="common.namePlaceholder"
                                 type="text"
                                 value=""
                               />
@@ -2978,6 +2986,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for VAULT 1`]
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="name"
+                                placeholder="common.namePlaceholder"
                                 type="text"
                                 value=""
                               />
@@ -3315,6 +3324,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard for k8 1`] = 
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="name"
+                                placeholder="common.namePlaceholder"
                                 type="text"
                                 value=""
                               />

@@ -223,6 +223,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                               autocomplete="off"
                               class="bp3-input"
                               name="name"
+                              placeholder="common.namePlaceholder"
                               type="text"
                               value=""
                             />

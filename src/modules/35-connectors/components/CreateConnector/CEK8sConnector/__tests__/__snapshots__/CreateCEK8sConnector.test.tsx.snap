@@ -207,6 +207,7 @@ exports[`Create CE K8s Connector Wizard Step One 1`] = `
                               autocomplete="off"
                               class="bp3-input"
                               name="name"
+                              placeholder="common.namePlaceholder"
                               type="text"
                               value=""
                             />
@@ -610,6 +611,7 @@ exports[`Create CE K8s Connector Wizard Step one and step two 1`] = `
                               autocomplete="off"
                               class="bp3-input"
                               name="name"
+                              placeholder="common.namePlaceholder"
                               type="text"
                               value="dummy name"
                             />

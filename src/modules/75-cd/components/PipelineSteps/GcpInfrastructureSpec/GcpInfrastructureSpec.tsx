@@ -220,7 +220,7 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                 <FormMultiTypeConnectorField
                   name="connectorRef"
                   label={getString('connector')}
-                  placeholder={getString('cd.steps.common.selectConnectorPlaceholder')}
+                  placeholder={getString('connectors.selectConnector')}
                   disabled={readonly}
                   accountIdentifier={accountId}
                   tooltipProps={{
@@ -327,7 +327,7 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                   }}
                   className={css.inputWidth}
                   label={getString('common.namespace')}
-                  placeholder={getString('cd.steps.common.namespacePlaceholder')}
+                  placeholder={getString('pipeline.infraSpecifications.namespacePlaceholder')}
                   multiTextInputProps={{ expressions, textProps: { disabled: readonly } }}
                   disabled={readonly}
                 />
@@ -467,7 +467,7 @@ const GcpInfrastructureSpecInputForm: React.FC<GcpInfrastructureSpecEditableProp
             name={`${path}.connectorRef`}
             label={getString('connector')}
             enableConfigureOptions={false}
-            placeholder={getString('cd.steps.common.selectConnectorPlaceholder')}
+            placeholder={getString('connectors.selectConnector')}
             disabled={readonly}
             multiTypeProps={{ allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED], expressions }}
             type={'Gcp'}
@@ -531,7 +531,7 @@ const GcpInfrastructureSpecInputForm: React.FC<GcpInfrastructureSpecEditableProp
               allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
               expressions
             }}
-            placeholder={getString('cd.steps.common.namespacePlaceholder')}
+            placeholder={getString('pipeline.infraSpecifications.namespacePlaceholder')}
           />
         </div>
       )}

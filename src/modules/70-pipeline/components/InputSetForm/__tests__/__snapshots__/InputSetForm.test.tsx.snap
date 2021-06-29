@@ -600,7 +600,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                                   <span
                                                     class="placeholder"
                                                   >
-                                                    cd.steps.common.selectConnectorPlaceholder
+                                                    connectors.selectConnector
                                                   </span>
                                                 </span>
                                                 <span
@@ -691,7 +691,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                               autocomplete="off"
                                               class="bp3-input"
                                               name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
-                                              placeholder="cd.steps.common.namespacePlaceholder"
+                                              placeholder="pipeline.infraSpecifications.namespacePlaceholder"
                                               type="text"
                                               value=""
                                             />
@@ -1189,6 +1189,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                         class="bp3-input bp3-fill"
                         maxlength="1024"
                         name="description"
+                        placeholder="common.descriptionPlaceholder"
                       >
                         OverLayInput
                       </textarea>
@@ -1957,7 +1958,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                                   <span
                                                     class="placeholder"
                                                   >
-                                                    cd.steps.common.selectConnectorPlaceholder
+                                                    connectors.selectConnector
                                                   </span>
                                                 </span>
                                                 <span
@@ -2048,7 +2049,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                               autocomplete="off"
                                               class="bp3-input"
                                               name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
-                                              placeholder="cd.steps.common.namespacePlaceholder"
+                                              placeholder="pipeline.infraSpecifications.namespacePlaceholder"
                                               type="text"
                                               value=""
                                             />
@@ -2419,6 +2420,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                         class="bp3-input bp3-fill"
                         maxlength="1024"
                         name="description"
+                        placeholder="common.descriptionPlaceholder"
                       >
                         OverLayInput
                       </textarea>

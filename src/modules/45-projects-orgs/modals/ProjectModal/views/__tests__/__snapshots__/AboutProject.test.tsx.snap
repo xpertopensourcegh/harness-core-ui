@@ -930,6 +930,7 @@ exports[`About Project test create project  2`] = `
                         class="bp3-input bp3-fill"
                         maxlength="1024"
                         name="description"
+                        placeholder="common.descriptionPlaceholder"
                       >
                          This is new description
                       </textarea>
@@ -1567,6 +1568,7 @@ exports[`About Project test edit project  1`] = `
                         class="bp3-input bp3-fill"
                         maxlength="1024"
                         name="description"
+                        placeholder="common.descriptionPlaceholder"
                       >
                         refetch returns new data
                       </textarea>
@@ -1887,6 +1889,7 @@ exports[`About Project test edit project  2`] = `
                         class="bp3-input bp3-fill"
                         maxlength="1024"
                         name="description"
+                        placeholder="common.descriptionPlaceholder"
                       >
                         refetch returns new data
                       </textarea>

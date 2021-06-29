@@ -208,7 +208,10 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
               </Text>
               <FormInput.InputWithIdentifier
                 inputLabel={getString('stageNameLabel')}
-                inputGroupProps={{ disabled: isReadonly }}
+                inputGroupProps={{
+                  disabled: isReadonly,
+                  placeholder: getString('pipeline.aboutYourStage.stageNamePlaceholder')
+                }}
               />
               <div className={css.collapseDiv}>
                 <Collapse
@@ -253,7 +256,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                     type={['Git', 'Github', 'Gitlab', 'Bitbucket', 'Codecommit']}
                     selected={formikProps.values.connectorRef}
                     label={getString('connector')}
-                    placeholder={loading ? getString('loading') : getString('select')}
+                    placeholder={loading ? getString('loading') : getString('connectors.selectConnector')}
                     disabled={loading || isReadonly}
                     accountIdentifier={accountId}
                     projectIdentifier={projectIdentifier}
@@ -287,6 +290,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                         name="repoName"
                         style={{ flexGrow: 1 }}
                         disabled={isReadonly}
+                        placeholder={getString('pipeline.manifestType.repoNamePlaceholder')}
                       />
                       {connectorUrl.length > 0 ? (
                         <Text className={css.predefinedValue} width={380} lineClamp={1}>

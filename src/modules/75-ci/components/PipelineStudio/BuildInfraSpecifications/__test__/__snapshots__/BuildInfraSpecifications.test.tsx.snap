@@ -281,7 +281,7 @@ exports[`BuildInfraSpecifications snapshot test can add new label 1`] = `
                   <label
                     class="bp3-label"
                   >
-                    pipelineSteps.build.infraSpecifications.newConfigurationConnectorLabel
+                    connectors.title.k8sCluster
                      
                     <span
                       class="bp3-text-muted"
@@ -440,6 +440,7 @@ exports[`BuildInfraSpecifications snapshot test can add new label 1`] = `
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="namespace"
+                                placeholder="pipeline.infraSpecifications.namespacePlaceholder"
                                 type="text"
                                 value=""
                               />
@@ -999,7 +1000,7 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                   <label
                     class="bp3-label"
                   >
-                    pipelineSteps.build.infraSpecifications.newConfigurationConnectorLabel
+                    connectors.title.k8sCluster
                      
                     <span
                       class="bp3-text-muted"
@@ -1020,7 +1021,7 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                         <span
                           class="placeholder"
                         >
-                          select
+                          pipelineSteps.build.infraSpecifications.kubernetesClusterPlaceholder
                         </span>
                       </span>
                       <span
@@ -1108,6 +1109,7 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="namespace"
+                                placeholder="pipeline.infraSpecifications.namespacePlaceholder"
                                 type="text"
                                 value=""
                               />

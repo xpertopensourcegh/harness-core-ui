@@ -1067,7 +1067,6 @@ pipelineSteps:
       buildStageName: Build / Test
 
     stageSpecifications:
-      stageNamePlaceholder: 'Enter your stage name'
       variableNamePlaceholder: 'Enter Variable name'
       sharedPaths: 'Shared Paths'
       sharedPathsInfo: 'By default, all of a stage’s steps use the same workspace to share data. If you need to share additional paths between steps, add Shared Paths.'
@@ -1080,7 +1079,7 @@ pipelineSteps:
       whereToRun: Where do you want the builds to run?
       propagate: 'Propagate from an existing stage'
       newConfiguration: 'New Configuration'
-      newConfigurationConnectorLabel: 'Select a Kubernetes Cluster'
+      kubernetesClusterPlaceholder: 'Select Kubernetes Cluster'
       namespace: '{{$.common.namespace}}'
   deploy:
     errors:

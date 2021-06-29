@@ -220,7 +220,7 @@ const FormContent = (formContentProps: JiraCreateDeploymentModeFormContentInterf
           className={css.deploymentViewMedium}
           name={`${prefix}spec.description`}
           disabled={isApprovalStepFieldDisabled(readonly)}
-          placeholder={getString('pipeline.enterDescription')}
+          placeholder={getString('common.descriptionPlaceholder')}
         />
       ) : null}
     </React.Fragment>

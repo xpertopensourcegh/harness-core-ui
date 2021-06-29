@@ -8,10 +8,8 @@ dashboard:
 steps:
   common:
     clusterDetails: Cluster Details
-    selectConnectorPlaceholder: Select Connector
     selectOrEnterClusterPlaceholder: Select or add cluster
     releaseNamePlaceholder: Enter Release Name
-    namespacePlaceholder: Enter Namespace
     infrastructureKeyPlaceholder: Enter Infrastructure Key
   kubernetesGcpStep:
     stepName: Specify your GCP Connector

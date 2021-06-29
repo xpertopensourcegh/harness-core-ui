@@ -222,6 +222,7 @@ exports[`Create Git connector Wizard Creating Git step one 1`] = `
                               autocomplete="off"
                               class="bp3-input"
                               name="name"
+                              placeholder="common.namePlaceholder"
                               type="text"
                               value=""
                             />
@@ -1393,6 +1394,7 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
                               autocomplete="off"
                               class="bp3-input"
                               name="name"
+                              placeholder="common.namePlaceholder"
                               type="text"
                               value="dumyGit"
                             />

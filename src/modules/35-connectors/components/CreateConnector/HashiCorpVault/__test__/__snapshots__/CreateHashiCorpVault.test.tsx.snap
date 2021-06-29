@@ -193,6 +193,7 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
                               autocomplete="off"
                               class="bp3-input"
                               name="name"
+                              placeholder="common.namePlaceholder"
                               type="text"
                               value=""
                             />
@@ -724,6 +725,7 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
                               autocomplete="off"
                               class="bp3-input"
                               name="name"
+                              placeholder="common.namePlaceholder"
                               type="text"
                               value="sm14"
                             />
@@ -753,6 +755,7 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
                             class="bp3-input bp3-fill"
                             maxlength="1024"
                             name="description"
+                            placeholder="common.descriptionPlaceholder"
                           >
                             asd
                           </textarea>

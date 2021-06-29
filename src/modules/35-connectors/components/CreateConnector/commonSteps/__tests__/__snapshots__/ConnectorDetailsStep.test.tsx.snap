@@ -106,6 +106,7 @@ exports[`Connector details step Test for  create  connector step one required fe
                           autocomplete="off"
                           class="bp3-input"
                           name="name"
+                          placeholder="common.namePlaceholder"
                           type="text"
                           value=""
                         />
@@ -333,6 +334,7 @@ exports[`Connector details step Test for going to next step 1`] = `
                           autocomplete="off"
                           class="bp3-input"
                           name="name"
+                          placeholder="common.namePlaceholder"
                           type="text"
                           value="dummy name"
                         />

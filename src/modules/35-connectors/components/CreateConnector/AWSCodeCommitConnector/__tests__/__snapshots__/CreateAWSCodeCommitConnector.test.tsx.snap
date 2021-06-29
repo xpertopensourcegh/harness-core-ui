@@ -242,6 +242,7 @@ exports[`CreateAWSCodeCommitConnector matches snapshot and goes through steps co
                               autocomplete="off"
                               class="bp3-input"
                               name="name"
+                              placeholder="common.namePlaceholder"
                               type="text"
                               value=""
                             />

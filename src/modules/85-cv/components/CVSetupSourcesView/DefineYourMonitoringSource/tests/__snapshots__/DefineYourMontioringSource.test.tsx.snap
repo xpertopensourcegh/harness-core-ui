@@ -156,6 +156,7 @@ exports[`Unit tests for DefineYourMonitoringSource Ensure card renders passed in
                         autocomplete="off"
                         class="bp3-input"
                         name="monitoringSourceName"
+                        placeholder="common.namePlaceholder"
                         type="text"
                         value=""
                       />

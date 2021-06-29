@@ -48,7 +48,11 @@ export const ConditionRow = ({
         onChange={() => {
           formikProps.setFieldTouched(operatorKey, true)
         }}
-        placeholder={inNotInArr.includes(operatorValue) ? inNotInPlaceholder : ''}
+        placeholder={
+          inNotInArr.includes(operatorValue)
+            ? inNotInPlaceholder
+            : getString('pipeline.triggers.conditionsPanel.matchesValuePlaceholder')
+        }
       />
     </div>
   )

@@ -365,7 +365,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                           {getString('pipelineSteps.build.infraSpecifications.newConfiguration')}
                         </Text>
                         <Text font="small" margin={{ bottom: 'xsmall' }}>
-                          {getString('pipelineSteps.build.infraSpecifications.newConfigurationConnectorLabel')}
+                          {getString('connectors.title.k8sCluster')}
                         </Text>
                         <ConnectorReferenceField
                           width={300}
@@ -399,6 +399,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                           <FormInput.MultiTextInput
                             label=""
                             name={'namespace'}
+                            placeholder={getString('pipeline.infraSpecifications.namespacePlaceholder')}
                             style={{ width: 300 }}
                             multiTextInputProps={{ disabled: isReadonly }}
                           />
@@ -445,8 +446,12 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                         width={300}
                         name="connectorRef"
                         selected={formValues.connectorRef as ConnectorReferenceFieldProps['selected']}
-                        label={getString('pipelineSteps.build.infraSpecifications.newConfigurationConnectorLabel')}
-                        placeholder={loading ? getString('loading') : getString('select')}
+                        label={getString('connectors.title.k8sCluster')}
+                        placeholder={
+                          loading
+                            ? getString('loading')
+                            : getString('pipelineSteps.build.infraSpecifications.kubernetesClusterPlaceholder')
+                        }
                         disabled={loading || isReadonly}
                         accountIdentifier={accountId}
                         projectIdentifier={projectIdentifier}
@@ -476,7 +481,8 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                           style={{ width: 300 }}
                           multiTextInputProps={{
                             multiTextInputProps: { expressions },
-                            disabled: isReadonly
+                            disabled: isReadonly,
+                            placeholder: getString('pipeline.infraSpecifications.namespacePlaceholder')
                           }}
                         />
                       </div>

@@ -48,7 +48,7 @@ connectorAlreadyExist: Connector already exists for the cloud account
 loginToMasterAccount: and login to your master account
 roleARN: Create Cross Account Role
 ifReq: if required.
-selectConnector: Select connector
+selectConnector: Select Connector
 apiKey: API Key
 title:
   k8sCluster: 'Kubernetes Cluster'

@@ -246,6 +246,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one 1`] = `
                               autocomplete="off"
                               class="bp3-input"
                               name="name"
+                              placeholder="common.namePlaceholder"
                               type="text"
                               value=""
                             />

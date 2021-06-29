@@ -339,7 +339,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="name"
-                                placeholder="pipelineSteps.build.stageSpecifications.stageNamePlaceholder"
+                                placeholder="pipeline.aboutYourStage.stageNamePlaceholder"
                                 type="text"
                                 value="Deploy"
                               />

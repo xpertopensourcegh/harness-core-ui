@@ -100,7 +100,9 @@ describe('WebhookPipelineInputPanel Triggers tests', () => {
         .mockReturnValue(GetInputSetsResponse as UseGetReturn<any, any, any, any>)
       const { container } = render(<WrapperComponent />)
       await waitFor(() => expect(result.current.getString('pipeline.triggers.pipelineInputLabel')).toBeTruthy())
-      await waitFor(() => queryByAttribute('placeholder', container, 'cd.steps.common.namespacePlaceholder'))
+      await waitFor(() =>
+        queryByAttribute('placeholder', container, 'pipeline.infraSpecifications.namespacePlaceholder')
+      )
       expect(container).toMatchSnapshot()
     })
 
@@ -118,7 +120,9 @@ describe('WebhookPipelineInputPanel Triggers tests', () => {
         .mockReturnValue(GetInputSetsResponse as UseGetReturn<any, any, any, any>)
       const { container } = render(<WrapperComponent />)
       await waitFor(() => expect(result.current.getString('pipeline.triggers.pipelineInputLabel')).toBeTruthy())
-      await waitFor(() => queryByAttribute('placeholder', container, 'cd.steps.common.namespacePlaceholder'))
+      await waitFor(() =>
+        queryByAttribute('placeholder', container, 'pipeline.infraSpecifications.namespacePlaceholder')
+      )
       expect(container).toMatchSnapshot()
     })
   })
