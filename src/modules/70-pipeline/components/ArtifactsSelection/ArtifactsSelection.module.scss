@@ -21,10 +21,6 @@
     color: var(--primary-7) !important;
   }
   .actionGrid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    align-items: center;
-    justify-items: center;
     .cloneIcon {
       -webkit-transform: scaleX(-1) !important;
       transform: scaleX(-1) !important;
@@ -95,7 +91,7 @@
 }
 .artifactList {
   display: grid;
-  grid-template-columns: 230px 300px repeat(3, 1fr);
+  grid-template-columns: 230px 300px minmax(10px, 1fr) 100px;
   padding-left: var(--spacing-small);
   &.list-header {
     border-bottom: solid 1px #d9dae5;
