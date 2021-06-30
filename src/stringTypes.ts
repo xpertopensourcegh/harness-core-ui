@@ -583,6 +583,7 @@ export interface StringsMap {
   'authSettings.twoFAEnforcementDisabled': string
   'authSettings.twoFAEnforcementEnabled': string
   'authSettings.typeAndPressEnterToAddADomain': string
+  'authSettings.updating': string
   'authSettings.uploadIdentityProvider': string
   'authSettings.useHarnessUsernameAndPassword': string
   'authSettings.usePublicOAuth': string

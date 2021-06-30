@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import { useParams } from 'react-router-dom'
 import { Collapse, Text, Container, Card, Color, Switch } from '@wings-software/uicore'
 import { useToaster } from '@common/components'
@@ -16,9 +16,10 @@ interface Props {
   authSettings: AuthenticationSettingsResponse
   refetchAuthSettings: () => void
   canEdit: boolean
+  setUpdating: Dispatch<SetStateAction<boolean>>
 }
 
-const PublicOAuthProviders: React.FC<Props> = ({ authSettings, refetchAuthSettings, canEdit }) => {
+const PublicOAuthProviders: React.FC<Props> = ({ authSettings, refetchAuthSettings, canEdit, setUpdating }) => {
   const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
   const { showError, showSuccess, showWarning } = useToaster()
@@ -45,6 +46,10 @@ const PublicOAuthProviders: React.FC<Props> = ({ authSettings, refetchAuthSettin
   })
 
   const { mutate: updateAuthMechanism, loading: updatingAuthMechanism } = useUpdateAuthMechanism({})
+
+  React.useEffect(() => {
+    setUpdating(updatingOauthProviders || deletingOauthProviders || updatingAuthMechanism)
+  }, [updatingOauthProviders, deletingOauthProviders, updatingAuthMechanism, setUpdating])
 
   const { openDialog: confirmOAuthDisable } = useConfirmationDialog({
     titleText: getString('authSettings.disableOAuthLogin'),

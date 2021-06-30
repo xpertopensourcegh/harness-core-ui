@@ -105,3 +105,4 @@ disableTwoFAEnforcement: Disable Two Factor Authentication enforcement
 sureToDisableTwoFAEnforcement: Are you sure you want to disable Two Factor Authentication enforcement?
 twoFAEnforcementDisabled: Two Factor Authentication enforcement has been disabled successfully
 authenticationSettings: Authentication Settings
+updating: Updating, please wait...
