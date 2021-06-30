@@ -1,5 +1,5 @@
 import React from 'react'
-import { isNull, isUndefined, omit, omitBy } from 'lodash-es'
+import { isEmpty, isNull, isUndefined, omit, omitBy } from 'lodash-es'
 import { Classes, Dialog, IDialogProps } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import { Button, Color, Formik, FormikForm, FormInput, Icon, Layout, SelectOption, Text } from '@wings-software/uicore'
@@ -354,6 +354,21 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
             clear()
             showSuccess(getString('inputSets.overlayInputSetSaved'))
           }
+        } else {
+          if (response.data?.errorResponse && !isEmpty(response?.data?.invalidInputSetReferences)) {
+            throw {
+              data: {
+                errors: Object.keys(response?.data?.invalidInputSetReferences ?? {}).map((key: string) => {
+                  return {
+                    fieldId: key,
+                    error:
+                      response?.data?.invalidInputSetReferences?.[key] ??
+                      getString('inputSets.overlayInputSetSavedError')
+                  }
+                })
+              }
+            }
+          }
         }
       }
       if (!isGitSyncEnabled) {
@@ -566,9 +581,9 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
                                 isEdit
                                   ? { ...overlayInputSetResponse?.data?.gitDetails, getDefaultFromOtherRepo: false }
                                   : {
-                                      repoIdentifier: selectedRepo,
-                                      branch: selectedBranch,
-                                      getDefaultFromOtherRepo: false
+                                      repoIdentifier,
+                                      branch,
+                                      getDefaultFromOtherRepo: true
                                     }
                               }
                               onRepoChange={onRepoChange}

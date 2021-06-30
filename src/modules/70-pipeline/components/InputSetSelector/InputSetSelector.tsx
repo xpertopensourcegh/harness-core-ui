@@ -19,7 +19,7 @@ import { EntityGitDetails, InputSetSummaryResponse, useGetInputSetsListForPipeli
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useToaster } from '@common/exports'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
-import type { GitFilterScope } from '@common/components/GitFilters/GitFilters'
+import { useQueryParams } from '@common/hooks'
 import { useStrings } from 'framework/strings'
 import css from './InputSetSelector.module.scss'
 
@@ -33,7 +33,6 @@ export interface InputSetSelectorProps {
   pipelineIdentifier: string
   onChange?: (value?: InputSetValue[]) => void
   width?: number
-  gitFilter?: GitFilterScope
   selectedValueClass?: string
 }
 
@@ -196,7 +195,6 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
   value,
   onChange,
   pipelineIdentifier,
-  gitFilter = {},
   selectedValueClass
 }): JSX.Element => {
   const [searchParam, setSearchParam] = React.useState('')
@@ -208,17 +206,17 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
     orgIdentifier: string
     accountId: string
   }>()
-
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const { data: inputSetResponse, refetch, error } = useGetInputSetsListForPipeline({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
       pipelineIdentifier,
-      ...(!isEmpty(gitFilter.repo)
+      ...(!isEmpty(repoIdentifier) && !isEmpty(branch)
         ? {
-            repoIdentifier: gitFilter.repo,
-            branch: gitFilter.branch,
+            repoIdentifier,
+            branch,
             getDefaultFromOtherRepo: true
           }
         : {})
