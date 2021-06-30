@@ -138,9 +138,11 @@ const VerifyOutOfClusterDelegate: React.FC<
   const { prevStepData, nextStep, isLastStep = false, connectorInfo } = props
   const branch = props.isStep ? prevStepData?.branch : props.gitDetails?.branch
   const repoIdentifier = props.isStep ? prevStepData?.repo : props.gitDetails?.repoIdentifier
-  const { accountId, projectIdentifier: projectIdentifierFromUrl, orgIdentifier: orgIdentifierFromUrl } = useParams<
-    ProjectPathProps
-  >()
+  const {
+    accountId,
+    projectIdentifier: projectIdentifierFromUrl,
+    orgIdentifier: orgIdentifierFromUrl
+  } = useParams<ProjectPathProps>()
   const projectIdentifier = connectorInfo ? connectorInfo.projectIdentifier : projectIdentifierFromUrl
   const orgIdentifier = connectorInfo ? connectorInfo.orgIdentifier : orgIdentifierFromUrl
 
