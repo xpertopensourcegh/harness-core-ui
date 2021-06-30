@@ -304,8 +304,8 @@ export const RightDrawer: React.FC = (): JSX.Element => {
   }
 
   const onServiceDependencySubmit = async (item: ExecutionWrapper): Promise<void> => {
-    if (data?.stepConfig?.addOrEdit === 'add' && selectedStageId) {
-      const { stage: pipelineStage } = cloneDeep(getStageFromPipeline(selectedStageId))
+    const { stage: pipelineStage } = (selectedStageId && cloneDeep(getStageFromPipeline(selectedStageId))) || {}
+    if (data?.stepConfig?.addOrEdit === 'add' && pipelineStage) {
       const newServiceData = {
         identifier: item.identifier,
         name: item.name,
@@ -313,19 +313,21 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         ...(item.description && { description: item.description }),
         spec: item.spec
       }
-      addService(pipelineStage?.stage.spec.serviceDependencies, newServiceData)
-      await updateStage(pipelineStage?.stage)
+      if (!pipelineStage.stage.spec.serviceDependencies?.length) {
+        pipelineStage.stage.spec.serviceDependencies = []
+      }
+      addService(pipelineStage.stage.spec.serviceDependencies, newServiceData)
+      await updateStage(pipelineStage.stage)
       updatePipelineView({
         ...pipelineView,
         isDrawerOpened: false,
         drawerData: { type: DrawerTypes.ConfigureService }
       })
       data.stepConfig?.onUpdate?.(newServiceData)
-    } else if (data?.stepConfig?.addOrEdit === 'edit' && selectedStageId) {
-      const { stage: pipelineStage } = cloneDeep(getStageFromPipeline(selectedStageId))
+    } else if (data?.stepConfig?.addOrEdit === 'edit' && pipelineStage) {
       const node = data?.stepConfig?.node
       if (node) {
-        const serviceDependency = pipelineStage?.stage.spec.serviceDependencies.find(
+        const serviceDependency = pipelineStage.stage.spec.serviceDependencies.find(
           // NOTE: "node.identifier" is used as item.identifier may contain changed identifier
           (dep: ExecutionWrapper) => dep.identifier === node.identifier
         )
@@ -337,7 +339,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         // Delete values if they were already added and now removed
         if (node.description && !item.description) delete node.description
 
-        await updateStage(pipelineStage?.stage)
+        await updateStage(pipelineStage.stage)
       }
       updatePipelineView({
         ...pipelineView,
@@ -443,6 +445,9 @@ export const RightDrawer: React.FC = (): JSX.Element => {
                   identifier: generateRandomString(item.name),
                   spec: {}
                 }
+              }
+              if (pipelineStage && !pipelineStage.stage.spec) {
+                pipelineStage.stage.spec = {}
               }
               if (pipelineStage && isNil(pipelineStage.stage.spec.execution)) {
                 if (paletteData.isRollback) {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { cloneDeep, isEqual, set } from 'lodash-es'
+import { cloneDeep, isEqual } from 'lodash-es'
 import { Tabs, Tab, Icon, Button, Layout, Color } from '@wings-software/uicore'
 import type { HarnessIconName } from '@wings-software/uicore/dist/icons/HarnessIcons'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
@@ -117,25 +117,6 @@ export default function BuildStageSetupShell(): JSX.Element {
       }
     }
   }, [selectedTabId])
-
-  React.useEffect(() => {
-    const { stage: data } = cloneDeep(getStageFromPipeline(selectedStageId))
-    if (data) {
-      let shouldUpdate = false
-      if (!data?.stage?.spec?.execution?.steps) {
-        set(data, 'stage.spec.execution.steps', [])
-        shouldUpdate = true
-      }
-      if (!data?.stage?.spec?.serviceDependencies) {
-        set(data, 'stage.spec.serviceDependencies', [])
-        shouldUpdate = true
-      }
-
-      if (shouldUpdate) {
-        updateStage(data.stage)
-      }
-    }
-  }, [pipeline, selectedStageId])
 
   const executionRef = React.useRef<ExecutionGraphRefObj | null>(null)
   const selectedStage = getStageFromPipeline(selectedStageId).stage
