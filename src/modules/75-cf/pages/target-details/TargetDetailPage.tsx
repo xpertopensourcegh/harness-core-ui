@@ -148,10 +148,11 @@ export const TargetDetailPage: React.FC = () => {
       breadcrumbs={breadcrumbs}
       title={target?.name}
       titleIcon={<Avatar name={target?.name} size="medium" {...DISABLE_AVATAR_PROPS} className={css.avatar} />}
-      subTittle={getString('cf.targetDetail.createdOnDate', {
+      subTitle={getString('cf.targetDetail.createdOnDate', {
         date: formatDate(target?.createdAt as number),
         time: formatTime(target?.createdAt as number)
       })}
+      identifier={target?.identifier}
       headerExtras={
         <>
           <Container style={{ position: 'absolute', top: '15px', right: '25px' }}>

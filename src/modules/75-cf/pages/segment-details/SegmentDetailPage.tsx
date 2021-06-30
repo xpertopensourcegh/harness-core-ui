@@ -148,10 +148,11 @@ export const SegmentDetailPage: React.FC = () => {
       breadcrumbs={breadcrumbs}
       title={segment?.name}
       titleIcon={<Avatar name={segment?.name} size="medium" {...DISABLE_AVATAR_PROPS} className={css.avatar} />}
-      subTittle={getString('cf.targetDetail.createdOnDate', {
+      subTitle={getString('cf.targetDetail.createdOnDate', {
         date: formatDate(segment?.createdAt as number),
         time: formatTime(segment?.createdAt as number)
       })}
+      identifier={segment?.identifier}
       headerExtras={
         <>
           <Container style={{ position: 'absolute', top: '15px', right: '25px' }}>
