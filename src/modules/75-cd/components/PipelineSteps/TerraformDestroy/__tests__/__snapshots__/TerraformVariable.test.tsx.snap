@@ -683,13 +683,6 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
                   </div>
                 </div>
                 <div
-                  class="main"
-                >
-                  <textarea
-                    name="condition"
-                  />
-                </div>
-                <div
                   class="formGroup alignStart addMarginTop addMarginBottom"
                 >
                   <div

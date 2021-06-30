@@ -503,13 +503,6 @@ exports[`Test TerraformApply expand backend Spec config 1`] = `
                   </div>
                 </div>
                 <div
-                  class="main"
-                >
-                  <textarea
-                    name="condition"
-                  />
-                </div>
-                <div
                   class="formGroup alignStart addMarginTop addMarginBottom"
                 >
                   <div
@@ -1987,13 +1980,6 @@ exports[`Test TerraformApply rendering more than one varfile 2`] = `
                       </span>
                     </div>
                   </div>
-                </div>
-                <div
-                  class="main"
-                >
-                  <textarea
-                    name="condition"
-                  />
                 </div>
                 <div
                   class="formGroup alignStart addMarginTop addMarginBottom"

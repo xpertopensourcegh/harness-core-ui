@@ -558,13 +558,6 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
                   </div>
                 </div>
                 <div
-                  class="main"
-                >
-                  <textarea
-                    name="condition"
-                  />
-                </div>
-                <div
                   class="formGroup alignStart addMarginTop addMarginBottom"
                 >
                   <div
@@ -1599,13 +1592,6 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
                       </span>
                     </div>
                   </div>
-                </div>
-                <div
-                  class="main"
-                >
-                  <textarea
-                    name="condition"
-                  />
                 </div>
                 <div
                   class="formGroup alignStart addMarginTop addMarginBottom"
