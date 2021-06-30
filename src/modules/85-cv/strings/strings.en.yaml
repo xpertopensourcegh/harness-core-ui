@@ -7,6 +7,7 @@ statusCode: Status Code
 failures: Failures
 startedOn: Started On
 initiated: Initiated
+outOf: Out Of
 verifications: Verifications
 verificationStatus: Verification Status
 preProductionTests: Pre Production Tests
@@ -528,3 +529,6 @@ cvTrialHomePage:
     description: Take your software build processes to the next level using our Harness Continuous Verification.
     startBtn:
       description: Start 14 day CV Enterprise trial
+verifyExecution:
+  metricsInViolation: Metrics in violation
+  logClustersInViolation: Log Clusters in violation

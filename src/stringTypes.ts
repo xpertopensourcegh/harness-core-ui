@@ -2990,6 +2990,7 @@ export interface StringsMap {
   'cv.onboarding.verificationJobs.keepGoing': string
   'cv.onboarding.verificationJobs.setupInfo': string
   'cv.onboarding.verificationJobs.subHeading': string
+  'cv.outOf': string
   'cv.overall': string
   'cv.overviewPage.recentChangeVerifications': string
   'cv.perHeatMapCell': string
@@ -3065,6 +3066,8 @@ export interface StringsMap {
   'cv.verificationJobs.validation.type': string
   'cv.verificationStatus': string
   'cv.verifications': string
+  'cv.verifyExecution.logClustersInViolation': string
+  'cv.verifyExecution.metricsInViolation': string
   /**
    * @deprecated migrate this string to module level file
    */
