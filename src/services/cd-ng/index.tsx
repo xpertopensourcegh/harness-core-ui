@@ -2632,10 +2632,13 @@ export interface InstanceSelectionWrapper {
 }
 
 export interface Invite {
+  accountIdentifier: string
   approved?: boolean
   email: string
   id: string
   inviteType: 'USER_INITIATED_INVITE' | 'ADMIN_INITIATED_INVITE'
+  projectIdentifier?: string
+  orgIdentifier?: string
   name: string
   roleBindings: RoleBinding[]
 }
