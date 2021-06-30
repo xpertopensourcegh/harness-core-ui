@@ -220,6 +220,7 @@ exports[`MostActiveServicesWidget render 1`] = `
                       height="6"
                       viewBox="0 0 14 9"
                       width="6"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
@@ -256,6 +257,7 @@ exports[`MostActiveServicesWidget render 1`] = `
                       height="6"
                       viewBox="0 0 14 9"
                       width="6"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
@@ -292,6 +294,7 @@ exports[`MostActiveServicesWidget render 1`] = `
                       height="6"
                       viewBox="0 0 14 9"
                       width="6"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
@@ -328,6 +331,7 @@ exports[`MostActiveServicesWidget render 1`] = `
                       height="6"
                       viewBox="0 0 14 9"
                       width="6"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
@@ -364,6 +368,7 @@ exports[`MostActiveServicesWidget render 1`] = `
                       height="6"
                       viewBox="0 0 14 9"
                       width="6"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"

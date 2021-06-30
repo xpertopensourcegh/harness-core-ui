@@ -28,6 +28,7 @@ exports[`EditStageView snapshot test should render properly 1`] = `
                   height="16"
                   viewBox="0 0 20 20"
                   width="16"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     clip-rule="evenodd"
@@ -243,6 +244,7 @@ exports[`EditStageView snapshot test should render properly 1`] = `
                   height="10"
                   viewBox="0 0 12 12"
                   width="10"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     clip-rule="evenodd"
@@ -303,6 +305,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                   height="16"
                   viewBox="0 0 20 20"
                   width="16"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     clip-rule="evenodd"
@@ -498,6 +501,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                   height="10"
                   viewBox="0 0 12 12"
                   width="10"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     clip-rule="evenodd"

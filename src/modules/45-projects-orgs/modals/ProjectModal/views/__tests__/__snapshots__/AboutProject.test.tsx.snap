@@ -470,6 +470,7 @@ exports[`About Project test create project  1`] = `
                       height="20"
                       viewBox="0 0 26 21"
                       width="20"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
@@ -506,6 +507,7 @@ exports[`About Project test create project  1`] = `
                       height="20"
                       viewBox="0 0 24 24"
                       width="20"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
@@ -542,6 +544,7 @@ exports[`About Project test create project  1`] = `
                       height="20"
                       viewBox="0 0 24 24"
                       width="20"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
@@ -578,6 +581,7 @@ exports[`About Project test create project  1`] = `
                       height="20"
                       viewBox="0 0 20 21"
                       width="20"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
@@ -614,6 +618,7 @@ exports[`About Project test create project  1`] = `
                       height="20"
                       viewBox="0 0 20 20"
                       width="20"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
@@ -1127,6 +1132,7 @@ exports[`About Project test create project  2`] = `
                       height="20"
                       viewBox="0 0 26 21"
                       width="20"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
@@ -1163,6 +1169,7 @@ exports[`About Project test create project  2`] = `
                       height="20"
                       viewBox="0 0 24 24"
                       width="20"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
@@ -1199,6 +1206,7 @@ exports[`About Project test create project  2`] = `
                       height="20"
                       viewBox="0 0 24 24"
                       width="20"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
@@ -1235,6 +1243,7 @@ exports[`About Project test create project  2`] = `
                       height="20"
                       viewBox="0 0 20 21"
                       width="20"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
@@ -1271,6 +1280,7 @@ exports[`About Project test create project  2`] = `
                       height="20"
                       viewBox="0 0 20 20"
                       width="20"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"

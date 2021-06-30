@@ -19,6 +19,7 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
             height="37"
             viewBox="0 0 14 12"
             width="37"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <mask
               height="8.5"
@@ -403,6 +404,7 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
             height="37"
             viewBox="0 0 14 12"
             width="37"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <mask
               height="8.5"
@@ -606,6 +608,7 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
                           height="16"
                           viewBox="0 0 14 14"
                           width="16"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
                             d="M4 0h6c2.2 0 4 1.8 4 4v6c0 2.2-1.8 4-4 4H4c-2.2 0-4-1.8-4-4V4c0-2.2 1.8-4 4-4z"
@@ -666,6 +669,7 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
                             <svg
                               height="24"
                               width="24"
+                              xmlns="http://www.w3.org/2000/svg"
                             >
                               <g
                                 fill="none"
@@ -785,6 +789,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
             height="37"
             viewBox="0 0 14 12"
             width="37"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <mask
               height="8.5"
@@ -1146,6 +1151,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
             height="37"
             viewBox="0 0 14 12"
             width="37"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <mask
               height="8.5"
@@ -1349,6 +1355,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                           height="16"
                           viewBox="0 0 14 14"
                           width="16"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
                             d="M4 0h6c2.2 0 4 1.8 4 4v6c0 2.2-1.8 4-4 4H4c-2.2 0-4-1.8-4-4V4c0-2.2 1.8-4 4-4z"
@@ -1409,6 +1416,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                             <svg
                               height="24"
                               width="24"
+                              xmlns="http://www.w3.org/2000/svg"
                             >
                               <g
                                 fill="none"

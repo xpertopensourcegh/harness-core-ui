@@ -21,6 +21,7 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
             style="border-radius: 8px;"
             viewBox="0 0 28 28"
             width="37"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M28 0H0v28h28V0z"
@@ -358,6 +359,7 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
             style="border-radius: 8px;"
             viewBox="0 0 28 28"
             width="37"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M28 0H0v28h28V0z"
@@ -697,6 +699,7 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
             style="border-radius: 8px;"
             viewBox="0 0 28 28"
             width="37"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M28 0H0v28h28V0z"

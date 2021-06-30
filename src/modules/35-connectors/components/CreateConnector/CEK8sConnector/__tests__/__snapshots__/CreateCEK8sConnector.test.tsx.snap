@@ -19,6 +19,7 @@ exports[`Create CE K8s Connector Wizard Step One 1`] = `
             height="40"
             viewBox="0 0 32 30"
             width="40"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <g
               fill="none"
@@ -421,6 +422,7 @@ exports[`Create CE K8s Connector Wizard Step one and step two 1`] = `
             height="40"
             viewBox="0 0 32 30"
             width="40"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <g
               fill="none"
@@ -849,6 +851,7 @@ exports[`Create CE K8s Connector Wizard Step one and step two 2`] = `
             height="40"
             viewBox="0 0 32 30"
             width="40"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <g
               fill="none"
@@ -1050,6 +1053,7 @@ exports[`Create CE K8s Connector Wizard Step one and step two 3`] = `
             height="40"
             viewBox="0 0 32 30"
             width="40"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <g
               fill="none"
@@ -1238,6 +1242,7 @@ exports[`Create CE K8s Connector Wizard Step one and step two 3`] = `
                   width="16"
                   x="0"
                   xml:space="preserve"
+                  xmlns="http://www.w3.org/2000/svg"
                   y="0"
                 >
                   <style>

@@ -50,6 +50,7 @@ exports[`Testing COGatewayAccess DNS checkbox checks succesfully 1`] = `
               height="16"
               viewBox="0 0 12 12"
               width="16"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
                 clip-rule="evenodd"
@@ -167,6 +168,7 @@ exports[`Testing COGatewayAccess DNS checkbox checks succesfully 1`] = `
                               height="16"
                               viewBox="0 0 12 12"
                               width="16"
+                              xmlns="http://www.w3.org/2000/svg"
                             >
                               <path
                                 clip-rule="evenodd"
@@ -409,6 +411,7 @@ exports[`Testing COGatewayAccess SSH checkbox checks succesfully and download os
               height="16"
               viewBox="0 0 12 12"
               width="16"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
                 clip-rule="evenodd"
@@ -637,6 +640,7 @@ exports[`Testing COGatewayAccess renders without crashing 1`] = `
               height="16"
               viewBox="0 0 12 12"
               width="16"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
                 clip-rule="evenodd"

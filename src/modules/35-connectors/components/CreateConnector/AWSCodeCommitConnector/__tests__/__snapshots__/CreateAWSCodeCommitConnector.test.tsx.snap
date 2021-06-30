@@ -19,6 +19,7 @@ exports[`CreateAWSCodeCommitConnector matches snapshot and goes through steps co
             height="37"
             viewBox="0 0 12 14"
             width="37"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M1.9 11.8L.3 11V2.9l1.6-.8z"

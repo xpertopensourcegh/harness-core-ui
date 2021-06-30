@@ -19,6 +19,7 @@ exports[`Create Secret Manager Wizard should be able to render first step form 1
             height="37"
             viewBox="0 0 18 18"
             width="37"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <defs>
               <radialgradient
@@ -428,6 +429,7 @@ exports[`Create Secret Manager Wizard should be able to render first step form 2
             height="37"
             viewBox="0 0 18 18"
             width="37"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <defs>
               <radialgradient
@@ -957,6 +959,7 @@ exports[`Create Secret Manager Wizard should be able to render first step form 3
             height="37"
             viewBox="0 0 18 18"
             width="37"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <defs>
               <radialgradient
@@ -1282,6 +1285,7 @@ exports[`Create Secret Manager Wizard should render form in edit 1`] = `
             height="37"
             viewBox="0 0 18 18"
             width="37"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <defs>
               <radialgradient
@@ -1670,6 +1674,7 @@ exports[`Create Secret Manager Wizard should render form in edit 2`] = `
             height="37"
             viewBox="0 0 18 18"
             width="37"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <defs>
               <radialgradient
@@ -2063,6 +2068,7 @@ exports[`Create Secret Manager Wizard should render form in edit 3`] = `
             height="37"
             viewBox="0 0 18 18"
             width="37"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <defs>
               <radialgradient

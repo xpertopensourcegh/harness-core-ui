@@ -380,6 +380,7 @@ exports[`Save to git form rendering form to git save form without git credential
                         height="16"
                         viewBox="0 0 16 9"
                         width="16"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           clip-rule="evenodd"
@@ -506,6 +507,7 @@ exports[`Save to git form rendering form to git save form without git credential
                         height="16"
                         viewBox="0 0 13 16"
                         width="16"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M10.406.003a2.399 2.399 0 00-.8 4.658v.94a.8.8 0 01-.8.8H4.001a2.413 2.413 0 00-.8.14V4.66A2.399 2.399 0 002.402 0a2.399 2.399 0 00-.8 4.661v6.678a2.399 2.399 0 00.8 4.661 2.399 2.399 0 00.8-4.661v-2.54a.8.8 0 01.8-.799h4.803a2.4 2.4 0 002.402-2.4v-.939a2.399 2.399 0 00-.8-4.658z"
@@ -905,6 +907,7 @@ exports[`Save to git form rendering form to save resouces 1`] = `
                         height="16"
                         viewBox="0 0 16 9"
                         width="16"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           clip-rule="evenodd"
@@ -1031,6 +1034,7 @@ exports[`Save to git form rendering form to save resouces 1`] = `
                         height="16"
                         viewBox="0 0 13 16"
                         width="16"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M10.406.003a2.399 2.399 0 00-.8 4.658v.94a.8.8 0 01-.8.8H4.001a2.413 2.413 0 00-.8.14V4.66A2.399 2.399 0 002.402 0a2.399 2.399 0 00-.8 4.661v6.678a2.399 2.399 0 00.8 4.661 2.399 2.399 0 00.8-4.661v-2.54a.8.8 0 01.8-.799h4.803a2.4 2.4 0 002.402-2.4v-.939a2.399 2.399 0 00-.8-4.658z"
@@ -1428,6 +1432,7 @@ exports[`Save to git form rendering form to save resouces 2`] = `
                         height="16"
                         viewBox="0 0 16 9"
                         width="16"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           clip-rule="evenodd"
@@ -1554,6 +1559,7 @@ exports[`Save to git form rendering form to save resouces 2`] = `
                         height="16"
                         viewBox="0 0 13 16"
                         width="16"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M10.406.003a2.399 2.399 0 00-.8 4.658v.94a.8.8 0 01-.8.8H4.001a2.413 2.413 0 00-.8.14V4.66A2.399 2.399 0 002.402 0a2.399 2.399 0 00-.8 4.661v6.678a2.399 2.399 0 00.8 4.661 2.399 2.399 0 00.8-4.661v-2.54a.8.8 0 01.8-.799h4.803a2.4 2.4 0 002.402-2.4v-.939a2.399 2.399 0 00-.8-4.658z"

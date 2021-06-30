@@ -30,6 +30,8 @@ exports[`<CDPipelineDeploymentList /> tests snapshot test 1`] = `
               height="16"
               viewBox="0 0 16 16"
               width="16"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
             >
               <defs>
                 <path
@@ -215,6 +217,7 @@ exports[`<CDPipelineDeploymentList /> tests snapshot test 1`] = `
                 height="22"
                 viewBox="0 0 24 24"
                 width="22"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <mask
                   fill="#fff"
@@ -296,6 +299,7 @@ exports[`<CDPipelineDeploymentList /> tests snapshot test 1`] = `
                             height="13"
                             viewBox="0 0 13 13"
                             width="13"
+                            xmlns="http://www.w3.org/2000/svg"
                           >
                             <path
                               clip-rule="evenodd"
@@ -400,6 +404,7 @@ exports[`<CDPipelineDeploymentList /> tests snapshot test 1`] = `
                         height="10"
                         viewBox="0 0 13 13"
                         width="10"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           clip-rule="evenodd"
