@@ -118,7 +118,7 @@ export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
             />
           )}
           {options.skipCondition && (
-            <div className={css.сonditional}>
+            <div className={css.conditional}>
               <Text
                 tooltip={`Skip condition:\n${options.skipCondition}`}
                 tooltipProps={{
@@ -130,7 +130,7 @@ export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
             </div>
           )}
           {options.conditionalExecutionEnabled && (
-            <div className={css.сonditional}>
+            <div className={css.conditional}>
               <Text
                 tooltip={getString('pipeline.conditionalExecution.title')}
                 tooltipProps={{
