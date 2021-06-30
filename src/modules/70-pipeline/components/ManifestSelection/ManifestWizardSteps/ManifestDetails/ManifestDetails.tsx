@@ -23,7 +23,7 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import { FormMultiTypeCheckboxField } from '@common/components'
 
-import { String, useStrings } from 'framework/strings'
+import { useStrings } from 'framework/strings'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import { getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
@@ -36,6 +36,7 @@ import {
   ManifestIdentifierValidation,
   ManifestStoreMap
 } from '../../Manifesthelper'
+import GitRepositoryName from '../GitRepositoryName/GitRepositoryName'
 import css from '../ManifestWizardSteps.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
@@ -280,42 +281,13 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                 </div>
 
                 {!!(connectionType === GitRepoName.Account && accountUrl) && (
-                  <div className={css.repoName}>
-                    <div
-                      className={cx(css.halfWidth, {
-                        [css.runtimeInput]:
-                          getMultiTypeFromValue(formik.values?.repoName) === MultiTypeInputType.RUNTIME
-                      })}
-                    >
-                      <FormInput.MultiTextInput
-                        multiTextInputProps={{ expressions }}
-                        label={getString('pipelineSteps.build.create.repositoryNameLabel')}
-                        placeholder={getString('pipeline.manifestType.repoNamePlaceholder')}
-                        name="repoName"
-                        className={css.reponameField}
-                      />
-                      {getMultiTypeFromValue(formik.values?.repoName) === MultiTypeInputType.RUNTIME && (
-                        <ConfigureOptions
-                          value={formik.values?.repoName as string}
-                          type="String"
-                          variableName="repoName"
-                          showRequiredField={false}
-                          showDefaultField={false}
-                          showAdvanced={true}
-                          style={{ marginTop: 10 }}
-                          onChange={value => formik.setFieldValue('repoName', value)}
-                          isReadonly={isReadonly}
-                        />
-                      )}
-                    </div>
-
-                    {getMultiTypeFromValue(formik.values?.repoName) === MultiTypeInputType.FIXED && (
-                      <>
-                        <String stringID="common.git.gitAccountUrl" className={css.accountUrl} />:
-                        <span className={css.repoNameUrl}>{`${accountUrl}`}</span>
-                      </>
-                    )}
-                  </div>
+                  <GitRepositoryName
+                    accountUrl={accountUrl}
+                    expressions={expressions}
+                    fieldValue={formik.values?.repoName}
+                    changeFieldValue={(value: string) => formik.setFieldValue('repoName', value)}
+                    isReadonly={isReadonly}
+                  />
                 )}
                 <Layout.Horizontal flex spacing="huge" margin={{ top: 'small', bottom: 'small' }}>
                   <div className={css.halfWidth}>

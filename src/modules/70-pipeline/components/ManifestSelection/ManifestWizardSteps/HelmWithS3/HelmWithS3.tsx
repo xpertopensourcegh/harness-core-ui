@@ -173,7 +173,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
           commandFlags: Yup.array().of(
             Yup.object().shape({
               flag: Yup.string().when('commandType', {
-                is: val => val?.length,
+                is: val => val?.value !== undefined,
                 then: Yup.string().required(getString('pipeline.manifestType.commandFlagRequired'))
               })
             })

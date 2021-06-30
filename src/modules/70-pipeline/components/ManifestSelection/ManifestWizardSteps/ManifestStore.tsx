@@ -62,7 +62,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const { getString } = useStrings()
 
-  const [selectedManifest, setSelectedManifest] = React.useState(prevStepData?.store || initialValues.store)
+  const [selectedManifest, setSelectedManifest] = React.useState(prevStepData?.store ?? initialValues.store)
   const newConnectorLabel = `${getString('newLabel')} ${
     !!selectedManifest && getString(ManifestToConnectorLabelMap[selectedManifest as ManifestStores])
   } ${getString('connector')}`

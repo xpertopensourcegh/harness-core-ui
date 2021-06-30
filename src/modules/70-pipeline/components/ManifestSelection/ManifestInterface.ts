@@ -45,6 +45,7 @@ export interface ManifestListViewProps {
 export interface ManifestStepInitData {
   connectorRef: string | undefined | ConnectorSelectedValue
   store: ConnectorInfoDTO['type'] | string
+  selectedManifest: ManifestTypes
 }
 export interface ManifestDetailDataType {
   identifier: string

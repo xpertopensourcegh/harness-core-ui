@@ -39,7 +39,8 @@ describe('ManifestSelection tests', () => {
       connectorRef: 'connectorRef',
       gitFetchType: 'Branch',
       paths: ['temp'],
-      store: 'Git'
+      store: 'Git',
+      selectedManifest: 'K8sManifest'
     }
     const { container } = render(
       <TestWrapper>
