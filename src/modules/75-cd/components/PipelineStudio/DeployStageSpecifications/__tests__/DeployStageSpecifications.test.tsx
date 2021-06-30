@@ -16,6 +16,13 @@ jest.mock('@wings-software/monaco-yaml/lib/esm/languageservice/yamlLanguageServi
   getLanguageService: jest.fn()
 }))
 
+const intersectionObserverMock = () => ({
+  observe: () => null,
+  unobserve: () => null
+})
+
+window.IntersectionObserver = jest.fn().mockImplementation(intersectionObserverMock)
+
 factory.registerStep(new CustomVariables())
 
 const getPipelineContext = (): PipelineContextInterface => ({

@@ -75,6 +75,13 @@ jest.mock('services/pipeline-ng', () => ({
   useGetSchemaYaml: jest.fn(() => ({}))
 }))
 
+const intersectionObserverMock = () => ({
+  observe: () => null,
+  unobserve: () => null
+})
+
+window.IntersectionObserver = jest.fn().mockImplementation(intersectionObserverMock)
+
 const TEST_INPUT_SET_PATH = routes.toInputSetList({
   ...accountPathProps,
   ...pipelinePathProps,
