@@ -266,7 +266,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
 
     if (isYaml && yamlHandler) {
       try {
-        latestPipeline = parse(yamlHandler.getLatestYaml()).pipeline as NgPipeline
+        latestPipeline = payload?.pipeline || (parse(yamlHandler.getLatestYaml()).pipeline as NgPipeline)
       } /* istanbul ignore next */ catch (err) {
         showError(err.message || err, undefined, 'pipeline.save.gitinfo.error')
       }
