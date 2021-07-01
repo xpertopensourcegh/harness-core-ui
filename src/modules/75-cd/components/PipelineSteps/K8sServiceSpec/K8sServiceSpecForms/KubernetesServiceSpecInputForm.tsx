@@ -856,21 +856,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                       name={`${path}.manifests[${index}].manifest.spec.store.spec.branch`}
                     />
                   )}
-                  {getMultiTypeFromValue(paths) === MultiTypeInputType.RUNTIME && (
-                    <List
-                      label={
-                        manifestType === ManifestDataType.K8sManifest
-                          ? getString('fileFolderPathText')
-                          : getString('common.git.filePath')
-                      }
-                      name={`${path}.manifests[${index}].manifest.spec.store.spec.paths`}
-                      placeholder={getString('pipeline.manifestType.pathPlaceholder')}
-                      disabled={readonly}
-                      style={{ marginBottom: 'var(--spacing-small)' }}
-                      expressions={expressions}
-                      isNameOfArrayType
-                    />
-                  )}
+
                   {getMultiTypeFromValue(repoName) === MultiTypeInputType.RUNTIME && showRepoName && (
                     <FormInput.MultiTextInput
                       disabled={readonly}
@@ -891,7 +877,6 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                         allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                       }}
                       label={getString('pipelineSteps.commitIdValue')}
-                      className={css.inputWidth}
                       name={`${path}.manifests[${index}].manifest.spec.store.spec.commitId`}
                     />
                   )}
@@ -970,6 +955,21 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                       name={`${path}.manifests[${index}].manifest.spec.skipResourceVersioning`}
                       label={getString('skipResourceVersion')}
                       setToFalseWhenEmpty={true}
+                    />
+                  )}
+                  {getMultiTypeFromValue(paths) === MultiTypeInputType.RUNTIME && (
+                    <List
+                      label={
+                        manifestType === ManifestDataType.K8sManifest
+                          ? getString('fileFolderPathText')
+                          : getString('common.git.filePath')
+                      }
+                      name={`${path}.manifests[${index}].manifest.spec.store.spec.paths`}
+                      placeholder={getString('pipeline.manifestType.pathPlaceholder')}
+                      disabled={readonly}
+                      style={{ marginBottom: 'var(--spacing-small)' }}
+                      expressions={expressions}
+                      isNameOfArrayType
                     />
                   )}
                 </Layout.Vertical>
