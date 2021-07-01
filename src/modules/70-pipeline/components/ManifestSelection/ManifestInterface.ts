@@ -133,5 +133,5 @@ export interface OpenShiftParamDataType {
   commitId?: string | undefined
   repoName?: string
   gitFetchType?: 'Branch' | 'Commit'
-  paths: string[]
+  paths: string[] | any
 }
