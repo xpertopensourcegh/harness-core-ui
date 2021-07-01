@@ -1881,6 +1881,7 @@ export interface StringsMap {
   'cd.namespaceValidation': string
   'cd.pathCannotBeEmpty': string
   'cd.pipelineSteps.infraTab.deploymentType': string
+  'cd.pipelineSteps.serviceTab.deploymentTypeRequired': string
   'cd.pipelineSteps.serviceTab.overrideChanges': string
   'cd.pipelineSteps.serviceTab.propateStage': string
   'cd.releaseNameValidation': string
