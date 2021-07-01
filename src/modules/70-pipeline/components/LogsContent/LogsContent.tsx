@@ -89,13 +89,21 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
     }
   })
 
+  function handleSearchChange(term: string): void {
+    if (term) {
+      actions.search(term)
+    } else {
+      actions.resetSearch()
+    }
+  }
+
   return (
     <div className={cx(css.main, { [css.hasErrorMessage]: !!errorMessage })} data-mode={mode}>
       <div className={css.header}>
         <String tagName="div" stringID={mode === 'console-view' ? 'execution.consoleLogs' : 'execution.stepLogs'} />
         <div className={css.rhs} onKeyDown={handleKeyDown}>
           <ExpandingSearchInput
-            onChange={actions.search}
+            onChange={handleSearchChange}
             ref={searchRef}
             showPrevNextButtons
             flip
