@@ -852,7 +852,6 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                       }}
                       label={getString('pipelineSteps.deploy.inputSet.branch')}
                       disabled={readonly}
-                      className={css.inputWidth}
                       name={`${path}.manifests[${index}].manifest.spec.store.spec.branch`}
                     />
                   )}
@@ -923,6 +922,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                       name={`${path}.manifests[${index}].manifest.spec.store.spec.folderPath`}
                     />
                   )}
+
                   {getMultiTypeFromValue(chartName) === MultiTypeInputType.RUNTIME && (
                     <FormInput.MultiTextInput
                       multiTextInputProps={{
@@ -951,27 +951,41 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                         expressions,
                         allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                       }}
-                      className={css.inputWidth}
                       name={`${path}.manifests[${index}].manifest.spec.skipResourceVersioning`}
                       label={getString('skipResourceVersion')}
                       setToFalseWhenEmpty={true}
                     />
                   )}
-                  {getMultiTypeFromValue(paths) === MultiTypeInputType.RUNTIME && (
-                    <List
-                      label={
-                        manifestType === ManifestDataType.K8sManifest
-                          ? getString('fileFolderPathText')
-                          : getString('common.git.filePath')
-                      }
-                      name={`${path}.manifests[${index}].manifest.spec.store.spec.paths`}
-                      placeholder={getString('pipeline.manifestType.pathPlaceholder')}
-                      disabled={readonly}
-                      style={{ marginBottom: 'var(--spacing-small)' }}
-                      expressions={expressions}
-                      isNameOfArrayType
-                    />
-                  )}
+
+                  {getMultiTypeFromValue(paths) === MultiTypeInputType.RUNTIME &&
+                    manifestType !== ManifestDataType.OpenshiftTemplate && (
+                      <List
+                        label={
+                          manifestType === ManifestDataType.K8sManifest
+                            ? getString('fileFolderPathText')
+                            : getString('common.git.filePath')
+                        }
+                        name={`${path}.manifests[${index}].manifest.spec.store.spec.paths`}
+                        placeholder={getString('pipeline.manifestType.pathPlaceholder')}
+                        disabled={readonly}
+                        style={{ marginBottom: 'var(--spacing-small)' }}
+                        expressions={expressions}
+                        isNameOfArrayType
+                      />
+                    )}
+                  {getMultiTypeFromValue(paths) === MultiTypeInputType.RUNTIME &&
+                    manifestType === ManifestDataType.OpenshiftTemplate && (
+                      <FormInput.MultiTextInput
+                        multiTextInputProps={{
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        }}
+                        label={getString('pipeline.manifestType.osTemplatePath')}
+                        placeholder={getString('pipeline.manifestType.osTemplatePathPlaceHolder')}
+                        disabled={readonly}
+                        name={`${path}.manifests[${index}].manifest.spec.store.spec.path`}
+                      />
+                    )}
                 </Layout.Vertical>
               )
             }

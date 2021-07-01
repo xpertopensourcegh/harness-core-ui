@@ -313,7 +313,7 @@ exports[`Open shift template with git tests expand advanced section 1`] = `
                       style="height: 90px;"
                     >
                       <div
-                        class="bp3-form-group checkbox halfWidth"
+                        class="bp3-form-group halfWidth"
                       >
                         <div
                           class="bp3-form-content"

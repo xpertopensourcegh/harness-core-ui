@@ -108,9 +108,13 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
         identifier: initialValues.identifier,
         paths: specValues.paths,
         repoName: getRepoName(),
-        path: specValues.paths[0],
+        path:
+          getMultiTypeFromValue(specValues?.paths) === MultiTypeInputType.RUNTIME
+            ? specValues.paths
+            : specValues.paths[0],
         skipResourceVersioning: initialValues?.spec?.skipResourceVersioning
       }
+
       return values
     }
     return {
@@ -135,14 +139,14 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
             spec: {
               connectorRef: formData?.connectorRef,
               gitFetchType: formData?.gitFetchType,
-              paths: [formData?.path]
+              paths:
+                getMultiTypeFromValue(formData?.path) === MultiTypeInputType.RUNTIME ? formData?.path : [formData?.path]
             }
           },
           skipResourceVersioning: formData?.skipResourceVersioning
         }
       }
     }
-
     if (connectionType === GitRepoName.Account) {
       set(manifestObj, 'manifest.spec.store.spec.repoName', formData?.repoName)
     }
@@ -330,7 +334,10 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                         name="skipResourceVersioning"
                         label={getString('skipResourceVersion')}
                         multiTypeTextbox={{ expressions }}
-                        className={cx(templateCss.checkbox, templateCss.halfWidth)}
+                        className={cx(templateCss.halfWidth, {
+                          [templateCss.checkbox]:
+                            getMultiTypeFromValue(formik.values?.skipResourceVersioning) === MultiTypeInputType.RUNTIME
+                        })}
                       />
                       {getMultiTypeFromValue(formik.values?.skipResourceVersioning) === MultiTypeInputType.RUNTIME && (
                         <ConfigureOptions
@@ -342,7 +349,11 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                           showAdvanced={true}
                           onChange={value => formik.setFieldValue('skipResourceVersioning', value)}
                           style={{ alignSelf: 'center' }}
-                          className={css.addmarginTop}
+                          className={cx(css.addmarginTop, {
+                            [templateCss.skipConfigureBtn]:
+                              getMultiTypeFromValue(formik.values?.skipResourceVersioning) ===
+                              MultiTypeInputType.RUNTIME
+                          })}
                           isReadonly={isReadonly}
                         />
                       )}
@@ -353,7 +364,10 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                             {getString('pipeline.manifestType.helmSkipResourceVersion')}{' '}
                           </div>
                         }
-                        className={helmcss.skipversionTooltip}
+                        className={cx(helmcss.skipversionTooltip, {
+                          [templateCss.tooltipPositioning]:
+                            getMultiTypeFromValue(formik.values?.skipResourceVersioning) === MultiTypeInputType.RUNTIME
+                        })}
                       >
                         <Icon name="info-sign" color={Color.PRIMARY_4} size={16} />
                       </Tooltip>
