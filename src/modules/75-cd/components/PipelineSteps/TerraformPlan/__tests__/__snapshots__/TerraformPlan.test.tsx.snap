@@ -3770,14 +3770,6 @@ exports[`Test TerraformPlan should render input set view 1`] = `
 
 exports[`Test TerraformPlan should render variable view 1`] = `
 <div>
-  <p
-    class="StyledProps--font StyledProps--main stepTitle"
-  >
-    pipelineSteps.configFiles
-  </p>
-  <div
-    class="variablesListTable"
-  />
   <div
     class="variablesListTable"
   />
@@ -3798,18 +3790,11 @@ exports[`Test TerraformPlan should render variable view 1`] = `
   <p
     class="StyledProps--font StyledProps--main stepTitle"
   >
-    pipelineSteps.backendConfig
-  </p>
-  <p
-    class="StyledProps--font StyledProps--main stepTitle"
-  >
-    pipeline.targets.title
-  </p>
-  <p
-    class="StyledProps--font StyledProps--main stepTitle"
-  >
     environmentVariables
   </p>
+  <div
+    class="variablesListTable"
+  />
 </div>
 `;
 
