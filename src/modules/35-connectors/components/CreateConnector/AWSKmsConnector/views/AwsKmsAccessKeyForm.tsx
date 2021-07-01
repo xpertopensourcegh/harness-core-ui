@@ -5,6 +5,8 @@ import { useStrings } from 'framework/strings'
 import { useListAwsRegions } from 'services/portal'
 import { useToaster } from '@common/exports'
 import { AwsKmsConfigFormData, CredTypeValues } from '@connectors/interfaces/ConnectorInterface'
+import SecretInput from '@secrets/components/SecretInput/SecretInput'
+
 interface AwsKmsAccessKeyFormProps {
   formik: FormikProps<AwsKmsConfigFormData>
   accountId: string
@@ -39,16 +41,19 @@ const AwsKmsAccessKeyForm: React.FC<AwsKmsAccessKeyFormProps> = ({ formik, accou
       </Text>
       {formik.values?.credType === CredTypeValues.ManualConfig && (
         <>
-          <FormInput.Text name="accessKey" label={getString('connectors.awsKms.accessKeyLabel')} />
-          <FormInput.Text
-            inputGroup={{ type: 'password' }}
+          <SecretInput
+            name="accessKey"
+            label={getString('connectors.awsKms.accessKeyLabel')}
+            connectorTypeContext={'AwsKms'}
+          />
+          <SecretInput
             name="secretKey"
             label={getString('connectors.awsKms.secretKeyLabel')}
+            connectorTypeContext={'AwsKms'}
           />
         </>
       )}
-
-      <FormInput.Text name="awsArn" label={getString('connectors.awsKms.arnLabel')} />
+      <SecretInput name="awsArn" label={getString('connectors.awsKms.arnLabel')} connectorTypeContext={'AwsKms'} />
       {loading ? (
         <Icon margin="medium" name="spinner" size={15} color={Color.BLUE_500} />
       ) : (

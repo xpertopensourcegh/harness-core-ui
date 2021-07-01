@@ -7,7 +7,8 @@ import {
   listSecretsV2Promise,
   SecretDTOV2,
   SecretTextSpecDTO,
-  ResponsePageSecretResponseWrapper
+  ResponsePageSecretResponseWrapper,
+  ConnectorInfoDTO
 } from 'services/cd-ng'
 import { EntityReference } from '@common/exports'
 import type { EntityReferenceResponse } from '@common/components/EntityReference/EntityReference'
@@ -27,6 +28,7 @@ export interface SecretReferenceProps {
   defaultScope?: Scope
   type?: ListSecretsV2QueryParams['type']
   mock?: ResponsePageSecretResponseWrapper
+  connectorTypeContext?: ConnectorInfoDTO['type']
 }
 
 const fetchRecords = (
@@ -37,15 +39,23 @@ const fetchRecords = (
   accountIdentifier: string,
   projectIdentifier?: string,
   orgIdentifier?: string,
-  mock?: ResponsePageSecretResponseWrapper
+  mock?: ResponsePageSecretResponseWrapper,
+  connectorTypeContext?: ConnectorInfoDTO['type']
 ): void => {
+  const secretManagerTypes: ConnectorInfoDTO['type'][] = ['AwsKms', 'AzureKeyVault', 'Vault']
+  let sourceCategory: ListSecretsV2QueryParams['source_category'] | undefined
+  if (connectorTypeContext && secretManagerTypes.includes(connectorTypeContext)) {
+    sourceCategory = 'SECRET_MANAGER'
+  }
+
   listSecretsV2Promise({
     queryParams: {
       accountIdentifier,
       type,
       searchTerm: search?.trim(),
       projectIdentifier: scope === Scope.PROJECT ? projectIdentifier : undefined,
-      orgIdentifier: scope === Scope.PROJECT || scope === Scope.ORG ? orgIdentifier : undefined
+      orgIdentifier: scope === Scope.PROJECT || scope === Scope.ORG ? orgIdentifier : undefined,
+      source_category: sourceCategory
     },
     mock
   })
@@ -71,7 +81,7 @@ const fetchRecords = (
 }
 
 const SecretReference: React.FC<SecretReferenceProps> = props => {
-  const { defaultScope, accountIdentifier, projectIdentifier, orgIdentifier, type, mock } = props
+  const { defaultScope, accountIdentifier, projectIdentifier, orgIdentifier, type, mock, connectorTypeContext } = props
   const { getString } = useStrings()
 
   const secretTypeOptions: SelectOption[] = [
@@ -108,7 +118,17 @@ const SecretReference: React.FC<SecretReferenceProps> = props => {
       recordClassName={css.listItem}
       fetchRecords={(scope, search = '', done) => {
         const selectedType = type || (secretType?.value as SecretDTOV2['type'])
-        fetchRecords(scope, search, done, selectedType, accountIdentifier, projectIdentifier, orgIdentifier, mock)
+        fetchRecords(
+          scope,
+          search,
+          done,
+          selectedType,
+          accountIdentifier,
+          projectIdentifier,
+          orgIdentifier,
+          mock,
+          connectorTypeContext
+        )
       }}
       projectIdentifier={projectIdentifier}
       orgIdentifier={orgIdentifier}

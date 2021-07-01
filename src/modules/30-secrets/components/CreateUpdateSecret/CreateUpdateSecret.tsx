@@ -26,7 +26,8 @@ import {
   VaultConnectorDTO,
   useGetConnector,
   useGetSecretV2,
-  ResponseSecretResponseWrapper
+  ResponseSecretResponseWrapper,
+  ListSecretsV2QueryParams
 } from 'services/cd-ng'
 import type { SecretTextSpecDTO, SecretFileSpecDTO } from 'services/cd-ng'
 import { useToaster } from '@common/exports'
@@ -51,12 +52,13 @@ interface CreateUpdateSecretProps {
   type?: SecretResponseWrapper['secret']['type']
   onChange?: (data: SecretDTOV2) => void
   onSuccess?: (data: SecretFormData) => void
+  connectorTypeContext?: ConnectorInfoDTO['type']
 }
 
 const LocalFormFieldsSMList = ['Local', 'GcpKms', 'AwsKms']
 const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
   const { getString } = useStrings()
-  const { onSuccess } = props
+  const { onSuccess, connectorTypeContext } = props
   const propsSecret = props.secret
   const { accountId: accountIdentifier, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { showSuccess } = useToaster()
@@ -89,6 +91,12 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
     }
   }, [propsSecret?.identifier])
 
+  const secretManagerTypes: ConnectorInfoDTO['type'][] = ['AwsKms', 'AzureKeyVault', 'Vault']
+  let sourceCategory: ListSecretsV2QueryParams['source_category'] | undefined
+  if (connectorTypeContext && secretManagerTypes.includes(connectorTypeContext)) {
+    sourceCategory = 'SECRET_MANAGER'
+  }
+
   const {
     data: secretManagersApiResponse,
     loading: loadingSecretsManagers,
@@ -98,7 +106,8 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
       accountIdentifier,
       orgIdentifier,
       projectIdentifier,
-      category: 'SECRET_MANAGER'
+      category: 'SECRET_MANAGER',
+      source_category: sourceCategory
     },
     lazy: true
   })

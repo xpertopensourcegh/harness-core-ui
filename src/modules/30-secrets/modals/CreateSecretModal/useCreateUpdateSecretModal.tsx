@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useModalHook, Button, Text, Color } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 
-import type { SecretDTOV2 } from 'services/cd-ng'
+import type { SecretDTOV2, ConnectorInfoDTO } from 'services/cd-ng'
 
 import CreateUpdateSecret, {
   SecretIdentifiers,
@@ -16,6 +16,7 @@ type SecretType = SecretDTOV2['type']
 
 export interface UseCreateSecretModalProps {
   onSuccess?: ((data: SecretFormData) => void) | (() => void)
+  connectorTypeContext?: ConnectorInfoDTO['type']
 }
 
 export interface UseCreateSecretModalReturn {
@@ -49,7 +50,12 @@ const useCreateUpdateSecretModal = (props: UseCreateSecretModalProps): UseCreate
             ? getString('secret.titleCreateText')
             : getString('secret.titleCreateFile')}
         </Text>
-        <CreateUpdateSecret secret={secret} type={type} onSuccess={handleSuccess} />
+        <CreateUpdateSecret
+          secret={secret}
+          type={type}
+          onSuccess={handleSuccess}
+          connectorTypeContext={props.connectorTypeContext}
+        />
         <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} className={css.crossIcon} />
       </Dialog>
     ),

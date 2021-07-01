@@ -39,6 +39,7 @@ interface ConnectorDetailsStepProps extends StepProps<ConnectorInfoDTO> {
   connectorInfo?: ConnectorInfoDTO | void
   gitDetails?: IGitContextFormProps
   mock?: ResponseBoolean
+  disableGitSync?: boolean
 }
 
 type Params = {
@@ -48,9 +49,11 @@ type Params = {
 }
 
 const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsStepProps> = props => {
-  const { prevStepData, nextStep } = props
+  const { prevStepData, nextStep, disableGitSync } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams<Params>()
-  const { isGitSyncEnabled } = useAppStore()
+  const { isGitSyncEnabled: gitSyncAppStoreEnabled } = useAppStore()
+  const isGitSyncEnabled = gitSyncAppStoreEnabled && !disableGitSync
+
   const mounted = useRef(false)
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const [loading, setLoading] = useState(false)

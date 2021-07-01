@@ -9,7 +9,7 @@ import useCreateOrSelectSecretModal from '@secrets/modals/CreateOrSelectSecretMo
 import useCreateUpdateSecretModal from '@secrets/modals/CreateSecretModal/useCreateUpdateSecretModal'
 import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
 import type { SecretIdentifiers } from '@secrets/components/CreateUpdateSecret/CreateUpdateSecret'
-import type { SecretResponseWrapper, ResponsePageSecretResponseWrapper } from 'services/cd-ng'
+import type { SecretResponseWrapper, ResponsePageSecretResponseWrapper, ConnectorInfoDTO } from 'services/cd-ng'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
@@ -24,6 +24,11 @@ export interface SecretInputProps {
   type?: SecretResponseWrapper['secret']['type']
   onSuccess?: (secret: SecretReference) => void
   secretsListMockData?: ResponsePageSecretResponseWrapper
+  /**
+   * Used when opening Create/Select/Update Secret modal from the Create Connector modal context
+   * to be added as a source_category query param to get a filtered list of secrets/connectors from the BE
+   */
+  connectorTypeContext?: ConnectorInfoDTO['type']
 }
 
 interface FormikSecretInput extends SecretInputProps {
@@ -33,7 +38,16 @@ interface FormikSecretInput extends SecretInputProps {
 const SecretInput: React.FC<FormikSecretInput> = props => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
-  const { formik, label, name, onSuccess, type = 'SecretText', secretsListMockData, placeholder } = props
+  const {
+    formik,
+    label,
+    name,
+    onSuccess,
+    type = 'SecretText',
+    secretsListMockData,
+    placeholder,
+    connectorTypeContext
+  } = props
   const secretReference = formik.values[name]
 
   const { openCreateOrSelectSecretModal } = useCreateOrSelectSecretModal(
@@ -44,7 +58,8 @@ const SecretInput: React.FC<FormikSecretInput> = props => {
         /* istanbul ignore next */
         onSuccess?.(secret)
       },
-      secretsListMockData
+      secretsListMockData,
+      connectorTypeContext: connectorTypeContext
     },
     [name, onSuccess]
   )
@@ -56,7 +71,8 @@ const SecretInput: React.FC<FormikSecretInput> = props => {
       }
       formik.setFieldValue(name, secret)
       onSuccess?.(secret)
-    }
+    },
+    connectorTypeContext: connectorTypeContext
   })
 
   const errorCheck = (): boolean =>
