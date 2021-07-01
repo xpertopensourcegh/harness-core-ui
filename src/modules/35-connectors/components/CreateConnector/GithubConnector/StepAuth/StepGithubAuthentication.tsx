@@ -13,7 +13,11 @@ import {
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
-import { setupGithubFormData, GitConnectionType } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import {
+  setupGithubFormData,
+  GitConnectionType,
+  saveCurrentStepData
+} from '@connectors/pages/connectors/utils/ConnectorUtils'
 import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
 import type { ConnectorConfigDTO, ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
 
@@ -264,10 +268,10 @@ const StepGithubAuthentication: React.FC<
         onSubmit={handleSubmit}
       >
         {formikProps => {
-          // saveCurrentStepData<ConnectorInfoDTO>(
-          //   props.getCurrentStepData,
-          //   (formikProps.values as unknown) as ConnectorInfoDTO
-          // )
+          saveCurrentStepData<ConnectorInfoDTO>(
+            props.getCurrentStepData,
+            (formikProps.values as unknown) as ConnectorInfoDTO
+          )
           return (
             <Form>
               <Container className={css.stepFormWrapper}>
