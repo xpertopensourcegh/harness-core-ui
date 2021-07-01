@@ -13,7 +13,5 @@ declare const styles: {
   readonly checkbox: string
   readonly tooltip: string
   readonly tooltipContent: string
-  readonly tooltipPositioning: string
-  readonly skipConfigureBtn: string
 }
 export default styles

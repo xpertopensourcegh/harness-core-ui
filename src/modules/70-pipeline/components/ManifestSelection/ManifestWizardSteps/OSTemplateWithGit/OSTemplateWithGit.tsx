@@ -337,10 +337,7 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                         name="skipResourceVersioning"
                         label={getString('skipResourceVersion')}
                         multiTypeTextbox={{ expressions }}
-                        className={cx(templateCss.halfWidth, {
-                          [templateCss.checkbox]:
-                            getMultiTypeFromValue(formik.values?.skipResourceVersioning) === MultiTypeInputType.RUNTIME
-                        })}
+                        className={cx(templateCss.halfWidth, templateCss.checkbox)}
                       />
                       {getMultiTypeFromValue(formik.values?.skipResourceVersioning) === MultiTypeInputType.RUNTIME && (
                         <ConfigureOptions
@@ -352,11 +349,7 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                           showAdvanced={true}
                           onChange={value => formik.setFieldValue('skipResourceVersioning', value)}
                           style={{ alignSelf: 'center' }}
-                          className={cx(css.addmarginTop, {
-                            [templateCss.skipConfigureBtn]:
-                              getMultiTypeFromValue(formik.values?.skipResourceVersioning) ===
-                              MultiTypeInputType.RUNTIME
-                          })}
+                          className={css.addmarginTop}
                           isReadonly={isReadonly}
                         />
                       )}
@@ -367,10 +360,7 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
                             {getString('pipeline.manifestType.helmSkipResourceVersion')}{' '}
                           </div>
                         }
-                        className={cx(helmcss.skipversionTooltip, {
-                          [templateCss.tooltipPositioning]:
-                            getMultiTypeFromValue(formik.values?.skipResourceVersioning) === MultiTypeInputType.RUNTIME
-                        })}
+                        className={cx(helmcss.skipversionTooltip)}
                       >
                         <Icon name="info-sign" color={Color.PRIMARY_4} size={16} />
                       </Tooltip>
