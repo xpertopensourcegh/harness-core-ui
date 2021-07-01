@@ -17,9 +17,9 @@ import {
 import { useStrings } from 'framework/strings'
 import type { UseStringsReturn } from 'framework/strings'
 import VerificationStatusCard from '@cv/pages/dashboard/deployment-drilldown/VerificationStatusCard'
+import { DeploymentProgressAndNodes } from '@pipeline/components/ExecutionVerification/components/DeploymentProgressAndNodes/DeploymentProgressAndNodes'
 import { VerificationActivityRiskCardWithApi } from '../VerificationActivityRiskCard/VerificationActivityRiskCard'
 import type { EventData } from '../ActivitiesTimelineView/ActivitiesTimelineView'
-import { DeploymentProgressAndNodes } from '../DeploymentProgressAndNodes/DeploymentProgressAndNodes'
 import css from './EventDetailsForChange.module.scss'
 
 type SummaryCardInfo = {

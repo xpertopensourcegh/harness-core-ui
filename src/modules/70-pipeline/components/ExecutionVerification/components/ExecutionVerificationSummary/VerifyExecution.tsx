@@ -19,7 +19,7 @@ export function VerifyExecution(props: VerifyExecutionProps): JSX.Element {
     <Container className={css.main}>
       <Container className={css.verifyHeader}>
         <Container>
-          <Text font={{ size: 'small' }}>{`${getString('cv.startedOn')}: ${moment(step.startTs).format(
+          <Text font={{ size: 'small' }}>{`${getString('pipeline.startedOn')}: ${moment(step.startTs).format(
             'MMM DD, YYYY h:m a'
           )}`}</Text>
           <Text font={{ size: 'small' }}>{getString('pipeline.duration')}</Text>

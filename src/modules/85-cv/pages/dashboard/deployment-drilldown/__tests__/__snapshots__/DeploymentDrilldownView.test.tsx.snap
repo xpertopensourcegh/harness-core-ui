@@ -278,9 +278,9 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
             </div>
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--margin-top-xsmall StyledProps--margin-bottom-xsmall"
-              data-name="cv.startedOn"
+              data-name="pipeline.startedOn"
             >
-              cv.startedOn
+              pipeline.startedOn
               : 
               Nov 9, 2020 8:54 PM
             </p>

@@ -27,7 +27,7 @@ function SummaryText(props: SummaryTextProps): JSX.Element {
           {numerator}
         </Text>
         <Text color={Color.BLACK} className={css.outOf}>
-          {getString('cv.outOf').toLocaleUpperCase()}
+          {getString('pipeline.outOf').toLocaleUpperCase()}
         </Text>
         <Text font={{ size: 'large', weight: 'bold' }}>{denominator}</Text>
       </Container>
@@ -47,12 +47,12 @@ export function SummaryOfDeployedNodes(props: SummaryOfDeployedNodesProps): JSX.
         <SummaryText
           numerator={metricsInViolation}
           denominator={totalMetrics}
-          titleText={getString('cv.verifyExecution.metricsInViolation')}
+          titleText={getString('pipeline.verification.metricsInViolation')}
         />
         <SummaryText
           numerator={logClustersInViolation}
           denominator={totalLogClusters}
-          titleText={getString('cv.verifyExecution.logClustersInViolation')}
+          titleText={getString('pipeline.verification.logClustersInViolation')}
         />
       </Container>
     </Container>

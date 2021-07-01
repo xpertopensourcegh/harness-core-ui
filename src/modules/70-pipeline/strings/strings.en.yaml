@@ -26,6 +26,8 @@ runAPipeline: Run a Pipeline
 regionPlaceholder: Select Region
 repositoryUrlPlaceholder: Enter Repository URL
 lastSevenDays: In Last 7 days
+startedOn: Started On
+outOf: Out Of
 approvalStage:
   settingUpStage: Getting stage data
 filters:
@@ -610,3 +612,9 @@ variable:
 moveStage:
   title: 'Move Pipeline Stage'
   description: 'Propagation is set up between this stage and another stage. Moving the parent/child stage out of sequence resets any propagated settings to their defaults. Do you want to continue?'
+verification:
+  currentTest: Current test
+  testsRan: Tests ran
+  baselineTest: Baseline test
+  metricsInViolation: Metrics in violation
+  logClustersInViolation: Log Clusters in violation

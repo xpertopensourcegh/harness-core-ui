@@ -28,7 +28,7 @@ exports[`Unit tests for SummaryOfDeployedNodes Ensure content is rendered correc
           <p
             class="StyledProps--font StyledProps--main outOf StyledProps--color StyledProps--color-black"
           >
-            CV.OUTOF
+            PIPELINE.OUTOF
           </p>
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-large StyledProps--font-weight-bold"
@@ -39,7 +39,7 @@ exports[`Unit tests for SummaryOfDeployedNodes Ensure content is rendered correc
         <p
           class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
         >
-          cv.verifyExecution.metricsInViolation
+          pipeline.verification.metricsInViolation
         </p>
       </div>
       <div
@@ -56,7 +56,7 @@ exports[`Unit tests for SummaryOfDeployedNodes Ensure content is rendered correc
           <p
             class="StyledProps--font StyledProps--main outOf StyledProps--color StyledProps--color-black"
           >
-            CV.OUTOF
+            PIPELINE.OUTOF
           </p>
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-large StyledProps--font-weight-bold"
@@ -67,7 +67,7 @@ exports[`Unit tests for SummaryOfDeployedNodes Ensure content is rendered correc
         <p
           class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
         >
-          cv.verifyExecution.logClustersInViolation
+          pipeline.verification.logClustersInViolation
         </p>
       </div>
     </div>

@@ -1648,6 +1648,7 @@ export interface StringsMap {
   'pipeline.noPipelineText': string
   'pipeline.onlyPositiveInteger': string
   'pipeline.operatorPlaceholder': string
+  'pipeline.outOf': string
   'pipeline.overrideSets.configure': string
   'pipeline.overrideSets.createOverrideSet': string
   'pipeline.overrideSets.createOverrideSetPlus': string
@@ -1675,6 +1676,7 @@ export interface StringsMap {
   'pipeline.serviceDependencyText': string
   'pipeline.sslVerify': string
   'pipeline.startTime': string
+  'pipeline.startedOn': string
   'pipeline.stepConfigHasChanges': string
   'pipeline.stepDetails': string
   'pipeline.stepLabel': string
@@ -1855,6 +1857,11 @@ export interface StringsMap {
   'pipeline.uniqueIdentifier': string
   'pipeline.variable.typePlaceholder': string
   'pipeline.variable.variableNamePlaceholder': string
+  'pipeline.verification.baselineTest': string
+  'pipeline.verification.currentTest': string
+  'pipeline.verification.logClustersInViolation': string
+  'pipeline.verification.metricsInViolation': string
+  'pipeline.verification.testsRan': string
   'pipeline.verificationResult': string
   'cd.addInline': string
   'cd.addRemote': string
@@ -2783,7 +2790,6 @@ export interface StringsMap {
   'cv.analysisScreens.totalClusters': string
   'cv.anomalous': string
   'cv.anomalousMetrics': string
-  'cv.baselineTest': string
   'cv.changeTimeline': string
   'cv.changesPage.changeSourceDetails': string
   'cv.changesPage.changeSummary': string
@@ -2793,7 +2799,6 @@ export interface StringsMap {
   'cv.continuous': string
   'cv.copyURL': string
   'cv.currentProductionRisk': string
-  'cv.currentTest': string
   'cv.cvTrialHomePage.startTrial.description': string
   'cv.cvTrialHomePage.startTrial.startBtn.description': string
   'cv.dashboard.createProject': string
@@ -3036,7 +3041,6 @@ export interface StringsMap {
   'cv.onboarding.verificationJobs.keepGoing': string
   'cv.onboarding.verificationJobs.setupInfo': string
   'cv.onboarding.verificationJobs.subHeading': string
-  'cv.outOf': string
   'cv.overall': string
   'cv.overviewPage.recentChangeVerifications': string
   'cv.perHeatMapCell': string
@@ -3074,9 +3078,7 @@ export interface StringsMap {
   'cv.share': string
   'cv.showLess': string
   'cv.showMore': string
-  'cv.startedOn': string
   'cv.statusCode': string
-  'cv.testsRan': string
   'cv.thirdPartyCalls.modalTitle': string
   'cv.thirdPartyCalls.noCallsWereMade': string
   'cv.thirdPartyCalls.requestMade': string
@@ -3112,8 +3114,6 @@ export interface StringsMap {
   'cv.verificationJobs.validation.type': string
   'cv.verificationStatus': string
   'cv.verifications': string
-  'cv.verifyExecution.logClustersInViolation': string
-  'cv.verifyExecution.metricsInViolation': string
   /**
    * @deprecated migrate this string to module level file
    */

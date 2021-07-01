@@ -1,7 +1,10 @@
 import React from 'react'
 import { Container, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import { DeploymentNodes, DeploymentNodesProps } from '@cv/components/DeploymentNodes/DeploymentNodes'
+import {
+  DeploymentNodes,
+  DeploymentNodesProps
+} from '@pipeline/components/ExecutionVerification/components/DeploymentProgressAndNodes/components/DeploymentNodes/DeploymentNodes'
 import css from './PrimaryAndCanaryNodes.module.scss'
 
 interface PrimaryAndCanaryNodesProps {

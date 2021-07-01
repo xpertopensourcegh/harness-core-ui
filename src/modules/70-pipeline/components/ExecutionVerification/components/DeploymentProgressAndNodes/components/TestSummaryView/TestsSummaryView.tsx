@@ -28,22 +28,23 @@ export default function TestsSummaryView({
     <Container className={styles.testsSummaryView}>
       <Container className={styles.baselineTest}>
         <Text font={primaryFontProps} className={styles.mainLabel}>
-          {getString('cv.baselineTest')}
+          {getString('pipeline.verification.baselineTest')}
         </Text>
         <Text font={secondaryFontProps}>{baselineTestName || 'none'}</Text>
         <Text font={secondaryFontProps}>
-          {getString('cv.testsRan')}:{' '}
+          {getString('pipeline.verification.testsRan')}:
           {(baselineTestDate && moment(baselineTestDate).format(defaultDateFormat)) || 'none'}
         </Text>
       </Container>
       <Container className={styles.separator} />
       <Container>
         <Text font={primaryFontProps} className={styles.mainLabel}>
-          {getString('cv.currentTest')}
+          {getString('pipeline.verification.currentTest')}
         </Text>
         <Text font={secondaryFontProps}>{currentTestName || 'none'}</Text>
         <Text font={secondaryFontProps}>
-          {getString('cv.testsRan')}: {(currentTestDate && moment(currentTestDate).format(defaultDateFormat)) || 'none'}
+          {getString('pipeline.verification.testsRan')}:{' '}
+          {(currentTestDate && moment(currentTestDate).format(defaultDateFormat)) || 'none'}
         </Text>
       </Container>
     </Container>

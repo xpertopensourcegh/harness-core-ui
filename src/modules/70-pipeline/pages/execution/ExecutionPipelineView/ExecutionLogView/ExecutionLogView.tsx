@@ -10,6 +10,8 @@ import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
 import { isExecutionNotStarted, isExecutionSkipped } from '@pipeline/utils/statusHelpers'
 import { LogsContent } from '@pipeline/components/LogsContent/LogsContent'
 
+// import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+// import { ExecutionVerificationView } from '../../../../components/ExecutionVerification/ExecutionVerificationView'
 import { StepsTree } from './StepsTree/StepsTree'
 import css from './ExecutionLogView.module.scss'
 
@@ -48,6 +50,13 @@ export default function ExecutionLogView(): React.ReactElement {
     updateQueryParams({ step: stepId, stage: selectedStageId })
   }
 
+  function logViewerView() {
+    // if (selectedStep?.stepType === StepType.Verify) {
+    //   return <ExecutionVerificationView />
+    // }
+    return <LogsContent mode="console-view" errorMessage={errorMessage} isWarning={isSkipped} />
+  }
+
   return (
     <Container className={css.logsContainer}>
       <div className={css.stepsContainer}>
@@ -64,9 +73,7 @@ export default function ExecutionLogView(): React.ReactElement {
           <StepsTree nodes={tree} selectedStepId={selectedStepId} onStepSelect={handleStepSelect} isRoot />
         </div>
       </div>
-      <div className={css.logViewer}>
-        <LogsContent mode="console-view" errorMessage={errorMessage} isWarning={isSkipped} />
-      </div>
+      <div className={css.logViewer}>{logViewerView()}</div>
     </Container>
   )
 }

@@ -11,7 +11,7 @@ import type { UseStringsReturn } from 'framework/strings'
 import { MetricCategoriesWithRiskScore } from '@cv/components/MetricCategoriesWithRiskScore/MetricCategoriesWithRiskScore'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import CVProgressBar from '@cv/components/CVProgressBar/CVProgressBar'
+import CVProgressBar from '@pipeline/components/ExecutionVerification/components/DeploymentProgressAndNodes/components/CVProgressBar/CVProgressBar'
 import { useGetRecentActivityVerificationResults, ActivityVerificationResultDTO, CategoryRisk } from 'services/cv'
 import ActivityType from '../ActivityType/ActivityType'
 import css from './RecentActivityChanges.module.scss'
@@ -219,7 +219,7 @@ function ActivityVerificationProgressWithRisk(props: ActivityVerificationProgres
       </Text>
       <CVProgressBar value={progressPercentage} riskScore={overallRisk} />
       {activityStartTime && (
-        <Text style={{ fontSize: 12 }}>{`${getString('cv.startedOn')} ${new Date(
+        <Text style={{ fontSize: 12 }}>{`${getString('pipeline.startedOn')} ${new Date(
           activityStartTime
         ).toLocaleString()}`}</Text>
       )}

@@ -15,7 +15,7 @@ describe('Unit tests for SummaryOfDeployedNodes', () => {
         />
       </TestWrapper>
     )
-    await waitFor(() => expect(getByText('cv.verifyExecution.metricsInViolation')).not.toBeNull())
+    await waitFor(() => expect(getByText('pipeline.verification.metricsInViolation')).not.toBeNull())
     expect(container).toMatchSnapshot()
   })
 })

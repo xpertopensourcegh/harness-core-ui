@@ -5,9 +5,7 @@ response: Response
 responseBody: Response Body
 statusCode: Status Code
 failures: Failures
-startedOn: Started On
 initiated: Initiated
-outOf: Out Of
 verifications: Verifications
 verificationStatus: Verification Status
 preProductionTests: Pre Production Tests
@@ -16,10 +14,7 @@ logCluster: Log Cluster
 logsCluster: Logs Cluster
 showMore: Show More
 showLess: Show Less
-baselineTest: Baseline test
-testsRan: Tests ran
 queries: Queries
-currentTest: Current test
 timeline: Timeline
 changeTimeline: Change Timeline
 selectedTimeInterval: Selected time interval
@@ -529,6 +524,3 @@ cvTrialHomePage:
     description: Take your software build processes to the next level using our Harness Continuous Verification.
     startBtn:
       description: Start 14 day CV Enterprise trial
-verifyExecution:
-  metricsInViolation: Metrics in violation
-  logClustersInViolation: Log Clusters in violation

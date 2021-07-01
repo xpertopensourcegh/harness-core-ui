@@ -3,10 +3,12 @@ import { Container, Text } from '@wings-software/uicore'
 import moment from 'moment'
 import cx from 'classnames'
 import type { DeploymentVerificationJobInstanceSummary } from 'services/cv'
-import TestsSummaryView from '@cv/pages/dashboard/deployment-drilldown/TestsSummaryView'
-import BlueGreenVerificationChart, { NodeData } from '@cv/pages/services/BlueGreenVerificationChart'
 import { useStrings } from 'framework/strings'
-import CVProgressBar from '../CVProgressBar/CVProgressBar'
+import TestsSummaryView from './components/TestSummaryView/TestsSummaryView'
+import CVProgressBar from './components/CVProgressBar/CVProgressBar'
+import BlueGreenVerificationChart, {
+  NodeData
+} from './components/BlueGreenVerificationChart/BlueGreenVerificationChart'
 import css from './DeploymentProgressAndNodes.module.scss'
 
 export interface DeploymentProgressAndNodesProps {
@@ -62,10 +64,10 @@ export function DeploymentProgressAndNodes(props: DeploymentProgressAndNodesProp
         <>
           <Text
             font={{ size: 'small' }}
-            data-name={getString('cv.startedOn')}
+            data-name={getString('pipeline.startedOn')}
             margin={{ top: 'xsmall', bottom: 'xsmall' }}
           >
-            {getString('cv.startedOn')}: {moment(deploymentSummary.startTime).format('MMM D, YYYY h:mm A')}
+            {getString('pipeline.startedOn')}: {moment(deploymentSummary.startTime).format('MMM D, YYYY h:mm A')}
           </Text>
           <Text font={{ size: 'small' }} data-name={getString('duration')}>
             {getString('duration')}: {moment.duration(deploymentSummary.durationMs, 'ms').humanize()}
