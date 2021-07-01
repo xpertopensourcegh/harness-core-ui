@@ -36,6 +36,8 @@ import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlTog
 import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import { validateJSONWithSchema } from '@common/utils/YamlUtils'
 import { PipelineVariablesContextProvider } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
+import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
+import { getRepoDetailsByIndentifier } from '@gitsync/common/gitSyncUtils'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import CreatePipelines from '../CreateModal/PipelineCreate'
 import { DefaultNewPipelineId, DrawerTypes } from '../PipelineContext/PipelineActions'
@@ -107,7 +109,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
 
   const { getString } = useStrings()
   const { pipelineSchema } = usePipelineSchema()
-
+  const { gitSyncRepos, loadingRepos } = useGitSyncStore()
   const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier, module } = useParams<
     PipelineType<{
       orgIdentifier: string
@@ -529,10 +531,10 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         <Layout.Horizontal border={{ left: true, color: Color.GREY_300 }} spacing="medium" className={css.gitDetails}>
           <Layout.Horizontal spacing="small" className={css.repoDetails}>
             <Icon name="repository" margin={{ left: 'medium' }}></Icon>
-            {pipelineIdentifier === DefaultNewPipelineId ? (
-              <Text>{`${gitDetails?.repoIdentifier}`}</Text>
+            {pipelineIdentifier === DefaultNewPipelineId && !loadingRepos ? (
+              <Text>{getRepoDetailsByIndentifier(gitDetails?.repoIdentifier, gitSyncRepos)?.name || ''}</Text>
             ) : (
-              <Text lineClamp={1} width="200px">{`${gitDetails?.rootFolder}${gitDetails?.filePath}`}</Text>
+              <Text lineClamp={1} width="200px">{`${gitDetails?.rootFolder || ''}${gitDetails?.filePath || ''}`}</Text>
             )}
           </Layout.Horizontal>
 
