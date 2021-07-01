@@ -37,6 +37,10 @@ interface SecretDetailsProps {
   refetch?: () => void
 }
 
+const yamlSanityConfig = {
+  removeEmptyString: false
+}
+
 const SecretDetails: React.FC<SecretDetailsProps> = props => {
   const { accountId, projectIdentifier, orgIdentifier, secretId } = useParams<
     ProjectPathProps & SecretsPathProps & ModulePathParams
@@ -221,6 +225,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
                 schema={secretSchema?.data}
                 isReadOnlyMode={false}
                 snippets={snippetData?.data?.yamlSnippets}
+                yamlSanityConfig={yamlSanityConfig}
               />
             )}
             {!edit && (
@@ -231,6 +236,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
                 isReadOnlyMode={true}
                 showSnippetSection={false}
                 onEnableEditMode={() => setEdit(true)}
+                yamlSanityConfig={yamlSanityConfig}
               />
             )}
             {edit && (
