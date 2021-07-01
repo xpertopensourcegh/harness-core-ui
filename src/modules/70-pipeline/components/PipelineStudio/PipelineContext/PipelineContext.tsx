@@ -105,7 +105,8 @@ export const savePipeline = (
       JSON.stringify({
         pipeline: { ...pipeline, ...pick(params, 'projectIdentifier', 'orgIdentifier') }
       })
-    )
+    ),
+    { version: '1.1' }
   )
   return isEdit
     ? putPipelinePromise({
