@@ -146,6 +146,7 @@ export interface StringsMap {
   'common.git.newBranchCommitLabel': string
   'common.git.noBranchesFound': string
   'common.git.noUserLabel': string
+  'common.git.onlyDefaultBranchFound': string
   'common.git.privateKey': string
   'common.git.saveResourceLabel': string
   'common.git.selectRepoLabel': string

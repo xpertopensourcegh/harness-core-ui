@@ -233,6 +233,7 @@ git:
   newBranchCommitLabel: Commit to a new branch
   startPRLabel: Start a pull request to merge
   noBranchesFound: No branches found for configured git repository
+  onlyDefaultBranchFound: Cannot find additional branches to raise a pull request.
   validation:
     filePath: '{{$.common.git.filePath}} is required'
     commitMessage: '{{$.common.git.commitMessage}} is required'
