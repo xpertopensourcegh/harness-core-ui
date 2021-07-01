@@ -793,6 +793,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                   spec: {
                     skipResourceVersioning = '',
                     chartName = '',
+                    chartVersion = '',
                     store: {
                       spec: {
                         branch = '',
@@ -946,6 +947,17 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                       disabled={readonly}
                       label={getString('pipeline.manifestType.http.chartName')}
                       name={`${path}.manifests[${index}].manifest.spec.chartName`}
+                    />
+                  )}
+                  {getMultiTypeFromValue(chartVersion) === MultiTypeInputType.RUNTIME && (
+                    <FormInput.MultiTextInput
+                      multiTextInputProps={{
+                        expressions,
+                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                      }}
+                      disabled={readonly}
+                      label={getString('pipeline.manifestType.http.chartVersion')}
+                      name={`${path}.manifests[${index}].manifest.spec.chartVersion`}
                     />
                   )}
                   {getMultiTypeFromValue(skipResourceVersioning) === MultiTypeInputType.RUNTIME && (
