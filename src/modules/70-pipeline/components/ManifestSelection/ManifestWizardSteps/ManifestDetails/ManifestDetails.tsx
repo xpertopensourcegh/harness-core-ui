@@ -455,9 +455,9 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                       summary={getString('advancedTitle')}
                       details={
                         <Layout.Horizontal
-                          height={90}
                           width={'50%'}
-                          flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}
+                          flex={{ justifyContent: 'flex-start', alignItems: 'center' }}
+                          margin={{ bottom: 'huge' }}
                         >
                           <FormMultiTypeCheckboxField
                             name="skipResourceVersioning"

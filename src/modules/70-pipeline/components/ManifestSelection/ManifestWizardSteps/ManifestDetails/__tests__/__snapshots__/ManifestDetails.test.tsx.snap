@@ -413,8 +413,8 @@ exports[`Manifest Details tests expand advanced section - when type is k8smanife
                     data-testid="advancedTitle-details"
                   >
                     <div
-                      class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-flex-start"
-                      style="width: 50%; height: 90px;"
+                      class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-center StyledProps--margin-bottom-huge"
+                      style="width: 50%;"
                     >
                       <div
                         class="bp3-form-group checkbox"
