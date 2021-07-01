@@ -107,8 +107,8 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
         formName="k8InfraSpec"
         validate={value => {
           const data: Partial<K8SDirectInfrastructure> = {
-            namespace: value.namespace,
-            releaseName: value.releaseName,
+            namespace: value.namespace === '' ? undefined : value.namespace,
+            releaseName: value.releaseName === '' ? undefined : value.releaseName,
             connectorRef: undefined,
             allowSimultaneousDeployments: value.allowSimultaneousDeployments,
             infrastructureKey: value.infrastructureKey

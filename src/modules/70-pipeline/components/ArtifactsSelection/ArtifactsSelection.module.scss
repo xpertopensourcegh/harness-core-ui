@@ -21,6 +21,8 @@
     color: var(--primary-7) !important;
   }
   .actionGrid {
+    align-items: center;
+    justify-content: flex-end;
     .cloneIcon {
       -webkit-transform: scaleX(-1) !important;
       transform: scaleX(-1) !important;

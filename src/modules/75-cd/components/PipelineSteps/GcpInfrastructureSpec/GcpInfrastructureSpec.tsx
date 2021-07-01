@@ -197,15 +197,16 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
         initialValues={getInitialValues()}
         validate={value => {
           const data: Partial<K8sGcpInfrastructure> = {
-            namespace: value.namespace,
-            releaseName: value.releaseName,
+            namespace: value.namespace === '' ? undefined : value.namespace,
+            releaseName: value.releaseName === '' ? undefined : value.releaseName,
             connectorRef: undefined,
-            cluster: getClusterValue(value.cluster),
+            cluster: getClusterValue(value.cluster) === '' ? undefined : getClusterValue(value.cluster),
             allowSimultaneousDeployments: value.allowSimultaneousDeployments
           }
           /* istanbul ignore else */ if (value.connectorRef) {
             data.connectorRef = (value.connectorRef as any)?.value || /* istanbul ignore next */ value.connectorRef
           }
+
           delayedOnUpdate(data)
         }}
         validationSchema={getValidationSchema(getString)}

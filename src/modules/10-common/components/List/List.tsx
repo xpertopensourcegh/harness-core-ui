@@ -50,7 +50,20 @@ export const List = (props: ListProps): React.ReactElement => {
   const hasSubmitted = get(formik, 'submitCount', 0) > 0
 
   const addValue: () => void = () => {
-    setValue(currentValue => currentValue.concat(generateNewValue()))
+    setValue(currentValue => {
+      if (expressions?.length) {
+        const updatedValue = currentValue.map((listItem: { id: string; value: string }, listItemIndex: number) => {
+          const currentItemFormikValue = get(formik?.values, `${name}[${listItemIndex}]`, '')
+          return {
+            ...listItem,
+            value: currentItemFormikValue
+          }
+        })
+
+        return [...updatedValue, generateNewValue()]
+      }
+      return currentValue.concat(generateNewValue())
+    })
   }
 
   const removeValue: (id: string) => () => void = id => () => {
