@@ -27,6 +27,19 @@ export const RecommendationsDocument = gql`
 export function useRecommendationsQuery(options: Omit<Urql.UseQueryArgs<RecommendationsQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<RecommendationsQuery>({ query: RecommendationsDocument, ...options })
 }
+export const FetchPerspectiveFiltersValueDocument = gql`
+  query FetchPerspectiveFiltersValue($filters: [QLCEViewFilterWrapperInput], $offset: Int, $limit: Int) {
+    perspectiveFilters(filters: $filters, offset: $offset, limit: $limit) {
+      values
+    }
+  }
+`
+
+export function useFetchPerspectiveFiltersValueQuery(
+  options: Omit<Urql.UseQueryArgs<FetchPerspectiveFiltersValueQueryVariables>, 'query'> = {}
+) {
+  return Urql.useQuery<FetchPerspectiveFiltersValueQuery>({ query: FetchPerspectiveFiltersValueDocument, ...options })
+}
 export const FetchPerspectiveDetailsSummaryDocument = gql`
   query FetchPerspectiveDetailsSummary($filters: [QLCEViewFilterWrapperInput]) {
     perspectiveTrendStats(
@@ -157,6 +170,26 @@ export function useRecommendationFiltersQuery(
 ) {
   return Urql.useQuery<RecommendationFiltersQuery>({ query: RecommendationFiltersDocument, ...options })
 }
+export const FetchViewFieldsDocument = gql`
+  query FetchViewFields($filters: [QLCEViewFilterWrapperInput]) {
+    perspectiveFields(filters: $filters) {
+      fieldIdentifierData {
+        identifier
+        identifierName
+        values {
+          fieldId
+          fieldName
+          identifier
+          identifierName
+        }
+      }
+    }
+  }
+`
+
+export function useFetchViewFieldsQuery(options: Omit<Urql.UseQueryArgs<FetchViewFieldsQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<FetchViewFieldsQuery>({ query: FetchViewFieldsDocument, ...options })
+}
 export type RecommendationsQueryVariables = Exact<{
   filters: Maybe<K8sRecommendationFilterDtoInput>
 }>
@@ -183,6 +216,17 @@ export type RecommendationsQuery = {
       >
     >
   }>
+}
+
+export type FetchPerspectiveFiltersValueQueryVariables = Exact<{
+  filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>> | Maybe<QlceViewFilterWrapperInput>>
+  offset: Maybe<Scalars['Int']>
+  limit: Maybe<Scalars['Int']>
+}>
+
+export type FetchPerspectiveFiltersValueQuery = {
+  __typename?: 'Query'
+  perspectiveFilters: Maybe<{ __typename?: 'PerspectiveFilterData'; values: Maybe<Array<Maybe<string>>> }>
 }
 
 export type FetchPerspectiveDetailsSummaryQueryVariables = Exact<{
@@ -297,6 +341,35 @@ export type RecommendationFiltersQuery = {
   recommendationFilterStats: Maybe<
     Array<Maybe<{ __typename?: 'FilterStatsDTO'; key: Maybe<string>; values: Maybe<Array<Maybe<string>>> }>>
   >
+}
+
+export type FetchViewFieldsQueryVariables = Exact<{
+  filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>> | Maybe<QlceViewFilterWrapperInput>>
+}>
+
+export type FetchViewFieldsQuery = {
+  __typename?: 'Query'
+  perspectiveFields: Maybe<{
+    __typename?: 'PerspectiveFieldsData'
+    fieldIdentifierData: Maybe<
+      Array<
+        Maybe<{
+          __typename?: 'QLCEViewFieldIdentifierData'
+          identifier: ViewFieldIdentifier
+          identifierName: string
+          values: Array<
+            Maybe<{
+              __typename?: 'QLCEViewField'
+              fieldId: string
+              fieldName: string
+              identifier: Maybe<ViewFieldIdentifier>
+              identifierName: Maybe<string>
+            }>
+          >
+        }>
+      >
+    >
+  }>
 }
 
 /** All built-in and custom scalars, mapped to their actual values */

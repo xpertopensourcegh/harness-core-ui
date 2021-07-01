@@ -2112,6 +2112,31 @@ export interface StringsMap {
   'ce.dashboardPage.welcome': string
   'ce.homepage.slogan': string
   'ce.learnMore': string
+  'ce.perspectives.createPerspective.createCustomField': string
+  'ce.perspectives.createPerspective.filters.addRuleText': string
+  'ce.perspectives.createPerspective.filters.operator': string
+  'ce.perspectives.createPerspective.filters.rulesText1': string
+  'ce.perspectives.createPerspective.filters.rulesText2': string
+  'ce.perspectives.createPerspective.filters.rulesTitle': string
+  'ce.perspectives.createPerspective.filters.searchText': string
+  'ce.perspectives.createPerspective.filters.selectOperator': string
+  'ce.perspectives.createPerspective.filters.selectValues': string
+  'ce.perspectives.createPerspective.filters.selectValuesText': string
+  'ce.perspectives.createPerspective.learnMoreCustomField': string
+  'ce.perspectives.createPerspective.name': string
+  'ce.perspectives.createPerspective.nameLabel': string
+  'ce.perspectives.createPerspective.nextButton': string
+  'ce.perspectives.createPerspective.operatorLabels.in': string
+  'ce.perspectives.createPerspective.operatorLabels.notIn': string
+  'ce.perspectives.createPerspective.operatorLabels.opNotNull': string
+  'ce.perspectives.createPerspective.operatorLabels.opNull': string
+  'ce.perspectives.createPerspective.prevButton': string
+  'ce.perspectives.createPerspective.preview.groupBy': string
+  'ce.perspectives.createPerspective.preview.title': string
+  'ce.perspectives.createPerspective.proTipText': string
+  'ce.perspectives.createPerspective.title': string
+  'ce.perspectives.createPerspective.validationErrors.nameError': string
+  'ce.perspectives.createPerspective.validationErrors.ruleError': string
   'ce.perspectives.timeAggregation.daily': string
   'ce.perspectives.timeAggregation.monthly': string
   'ce.perspectives.timeRange.calendarMonths': string

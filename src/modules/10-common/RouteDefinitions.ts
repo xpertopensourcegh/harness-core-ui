@@ -1020,6 +1020,9 @@ const routes = {
     ({ perspectiveId, perspectiveName }: AccountPathProps & { perspectiveId: string; perspectiveName: string }) =>
       `/ce/perspective/${perspectiveId}/name/${perspectiveName}`
   ),
+  toCECreatePerspective: withAccountId(
+    ({ perspectiveId }: AccountPathProps & { perspectiveId: string }) => `/ce/perspective/${perspectiveId}/create`
+  ),
   toCEBudgets: withAccountId(() => '/ce/budgets'),
   /********************************************************************************************************************/
   toCustomDasboard: withAccountId(() => '/home/dashboards'),

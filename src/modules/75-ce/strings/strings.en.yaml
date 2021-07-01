@@ -387,3 +387,34 @@ perspectives:
   timeAggregation:
     daily: '{{$.pipeline.triggers.schedulePanel.dailyTabTitle}}'
     monthly: '{{$.pipeline.triggers.schedulePanel.monthlyTabTitle}}'
+  createPerspective:
+    title: 'Perspective Builder'
+    nameLabel: 'Enter a name for the view*'
+    name: 'Perspective name'
+    proTipText: 'Pro tip: Create custom fields for advanced filtering. Apart from the given fields, you can
+      create your own custom fields'
+    createCustomField: 'Create a custom field'
+    learnMoreCustomField: 'Learn more about custom fields'
+    nextButton: '{{$.next}}'
+    prevButton: '{{$.previous}}'
+    validationErrors:
+      nameError: '{{$.common.validation.nameIsRequired}}'
+      ruleError: 'values length should be greater than 1'
+    filters:
+      operator: '{{$.pipeline.triggers.conditionsPanel.operator}}'
+      searchText: 'Search Here'
+      selectValues: 'Select Values'
+      rulesTitle: 'Rules for Perspective'
+      rulesText1: 'Data that matches ANY of the rules will be added to the perspective.'
+      rulesText2: 'But it has to match ALL of the conditions within a rule.'
+      addRuleText: 'Add rule'
+      selectOperator: 'SELECT OPERATOR'
+      selectValuesText: 'SELECT VALUES'
+    preview:
+      groupBy: 'Group By'
+      title: '{{$.executionStrategy.preview}}'
+    operatorLabels:
+      in: 'IN'
+      notIn: 'NOT IN'
+      opNull: 'NULL'
+      opNotNull: 'NOT NULL'
