@@ -98,6 +98,8 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   const {
     pipeline,
     isUpdated,
+    pipelineView: { isYamlEditable },
+    pipelineView,
     isLoading,
     isInitialized,
     originalPipeline,
@@ -481,13 +483,14 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
 
   function handleViewChange(newView: SelectedView): boolean {
     if (newView === view) return false
-    if (newView === SelectedView.VISUAL && yamlHandler) {
+    if (newView === SelectedView.VISUAL && yamlHandler && isYamlEditable) {
       if (!isValidYaml()) return false
     }
     setView(newView)
     updatePipelineView({
       splitViewData: {},
       isDrawerOpened: false,
+      isYamlEditable: false,
       isSplitViewOpen: false,
       drawerData: { type: DrawerTypes.AddStep }
     })
@@ -668,7 +671,10 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                 {pipelineIdentifier !== DefaultNewPipelineId && !isReadonly && (
                   <Button
                     disabled={!isUpdated}
-                    onClick={() => fetchPipeline({ forceFetch: true, forceUpdate: true })}
+                    onClick={() => {
+                      updatePipelineView({ ...pipelineView, isYamlEditable: false })
+                      fetchPipeline({ forceFetch: true, forceUpdate: true })
+                    }}
                     className={css.discardBtn}
                     text={getString('pipeline.discard')}
                   />

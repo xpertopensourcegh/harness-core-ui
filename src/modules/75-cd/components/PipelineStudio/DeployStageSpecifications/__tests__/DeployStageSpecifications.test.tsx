@@ -32,6 +32,7 @@ const getPipelineContext = (): PipelineContextInterface => ({
     pipelineView: {
       isSplitViewOpen: true,
       isDrawerOpened: false,
+      isYamlEditable: false,
       drawerData: { type: DrawerTypes.AddStep },
       splitViewData: {}
     },

@@ -96,6 +96,7 @@ export interface StringsMap {
   'common.durationPrefix': string
   'common.editVariable': string
   'common.editVariableType': string
+  'common.editYaml': string
   'common.enableGitSyncPipeline': string
   'common.errorCount': string
   'common.errorHandler.issueCouldBe': string
@@ -273,6 +274,7 @@ export interface StringsMap {
   'common.purpose.setup': string
   'common.purpose.startATrial': string
   'common.purpose.welcome': string
+  'common.readOnly': string
   'common.readonlyPermissions': string
   'common.references': string
   'common.refresh': string

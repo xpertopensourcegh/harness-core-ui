@@ -20,6 +20,8 @@ headers: Headers
 durationPrefix: 'Duration: '
 pipelineDetails: Pipeline Details
 accountName: Account Name
+readOnly: Read Only
+editYaml: Edit Yaml
 provisioner: Provisioner
 comments: Comments
 updating: 'Updating {{entity}} {{name}}'

@@ -167,7 +167,7 @@ hashiCorpVault:
   engineName: 'Secret Engine Name'
   engineVersion: 'Secret Engine Version'
   renewal: 'Renewal Interval (minutes)'
-  readOnly: 'Read Only'
+  readOnly: '{{$.common.readOnly}}'
   readOnlyVault: 'Read-only Vault'
   default: 'Default'
   defaultVault: 'Use as Default Secrets Manager'
