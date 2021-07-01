@@ -47,3 +47,9 @@ export enum ASRuleTabs {
   SETUP_ACCESS = 'setupAccess',
   REVIEW = 'review'
 }
+
+export enum CCM_CHART_TYPES {
+  COLUMN = 'column',
+  AREA = 'area',
+  LINE = 'line'
+}

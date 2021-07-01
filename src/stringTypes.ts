@@ -2112,6 +2112,23 @@ export interface StringsMap {
   'ce.dashboardPage.welcome': string
   'ce.homepage.slogan': string
   'ce.learnMore': string
+  'ce.perspectives.timeAggregation.daily': string
+  'ce.perspectives.timeAggregation.monthly': string
+  'ce.perspectives.timeRange.calendarMonths': string
+  'ce.perspectives.timeRange.recommended': string
+  'ce.perspectives.timeRange.relativeDates': string
+  'ce.perspectives.timeRange.selectCustomRange': string
+  'ce.perspectives.timeRangeConstants.last12Months': string
+  'ce.perspectives.timeRangeConstants.last30Days': string
+  'ce.perspectives.timeRangeConstants.last3Months': string
+  'ce.perspectives.timeRangeConstants.last6Months': string
+  'ce.perspectives.timeRangeConstants.last7Days': string
+  'ce.perspectives.timeRangeConstants.lastMonth': string
+  'ce.perspectives.timeRangeConstants.lastQuarter': string
+  'ce.perspectives.timeRangeConstants.lastYear': string
+  'ce.perspectives.timeRangeConstants.thisMonth': string
+  'ce.perspectives.timeRangeConstants.thisQuarter': string
+  'ce.perspectives.timeRangeConstants.thisYear': string
   'ce.recommendation.detailsPage.costOptimized': string
   'ce.recommendation.detailsPage.costOptimizedCaps': string
   'ce.recommendation.detailsPage.costOptimizedDetails': string
