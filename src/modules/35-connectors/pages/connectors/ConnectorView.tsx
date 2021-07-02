@@ -173,7 +173,8 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
       const response = await updateConnector(connectorJSONEq, {
         queryParams: {
           ...queryParams,
-          lastObjectId: objectId ?? props.response?.gitDetails?.objectId
+          lastObjectId: objectId ?? props.response?.gitDetails?.objectId,
+          baseBranch: props.response?.gitDetails?.branch
         }
       })
       if (response.status === 'SUCCESS' && response?.data?.connector) {
