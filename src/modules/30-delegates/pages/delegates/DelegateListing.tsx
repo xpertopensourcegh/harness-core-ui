@@ -512,7 +512,7 @@ export const DelegateListing: React.FC = () => {
       <Layout.Horizontal className={css.header}>
         <RbacButton
           intent="primary"
-          text={getString('delegate.NEW_DELEGATE')}
+          text={getString('delegate.DelegateName')}
           icon="plus"
           permission={permissionRequestNewDelegate}
           onClick={() => openDelegateModal()}

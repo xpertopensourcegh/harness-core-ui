@@ -635,7 +635,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
           <Layout.Horizontal spacing="small">
             <RbacButton
               intent="primary"
-              text={getString('newConnector')}
+              text={getString('connector')}
               icon="plus"
               permission={{
                 permission: PermissionIdentifier.UPDATE_CONNECTOR,

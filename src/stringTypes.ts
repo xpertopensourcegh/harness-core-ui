@@ -444,6 +444,7 @@ export interface StringsMap {
   'rbac.roleAssignment.deleteSuccess': string
   'rbac.roleAssignment.userPlaceHolder': string
   'rbac.roleBinding': string
+  'rbac.user': string
   'rbac.userDetails.linkToSSOProviderModal.btnDisabledTooltipText': string
   'rbac.userDetails.linkToSSOProviderModal.delinkLabel': string
   'rbac.userDetails.linkToSSOProviderModal.delinkText': string

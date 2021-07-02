@@ -124,7 +124,7 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
   useDocumentTitle([connectorName || connectorData?.data?.connector?.name || '', getString('connectorsLabel')])
 
   const categories: Categories = {
-    connection: getString('connection'),
+    connection: getString('overview'),
     refrencedBy: getString('refrencedBy'),
     activityHistory: getString('activityHistoryLabel')
   }

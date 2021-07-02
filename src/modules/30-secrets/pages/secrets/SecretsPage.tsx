@@ -72,7 +72,7 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ module, mock }) => {
           <Popover minimal position={Position.BOTTOM_LEFT} interactionKind={PopoverInteractionKind.CLICK_TARGET_ONLY}>
             <RbacButton
               intent="primary"
-              text={getString('createSecretYAML.newSecret')}
+              text={getString('secretType')}
               icon="plus"
               rightIcon="chevron-down"
               permission={{

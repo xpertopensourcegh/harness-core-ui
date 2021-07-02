@@ -93,3 +93,4 @@ project: project
 org: organization
 account: account
 accountScope: Account scope
+user: User

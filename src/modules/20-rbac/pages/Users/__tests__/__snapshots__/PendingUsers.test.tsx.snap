@@ -34,7 +34,7 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
         <span
           class="bp3-button-text"
         >
-          newUser
+          rbac.user
         </span>
       </button>
     </div>
