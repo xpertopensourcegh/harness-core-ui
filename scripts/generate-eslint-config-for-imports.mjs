@@ -30,7 +30,7 @@ for (const { dirName, moduleName } of flattenedLayers) {
             {
               name: 'yaml',
               importNames: ['stringify'],
-              message: 'Please use yamlStringify from @common/utils/YamlUtils instead of this'
+              message: 'Please use yamlStringify from @common/utils/YamlHelperMethods instead of this'
             }
           ]
         }
