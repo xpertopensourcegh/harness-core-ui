@@ -37,7 +37,7 @@ const GroupByView: React.FC<GroupByViewProps> = ({ groupBy, setGroupBy, chartTyp
   const [labelResult] = useFetchPerspectiveFiltersValueQuery({
     variables: {
       filters: [
-        ({
+        {
           idFilter: {
             field: {
               fieldId: 'labels.key',
@@ -47,7 +47,7 @@ const GroupByView: React.FC<GroupByViewProps> = ({ groupBy, setGroupBy, chartTyp
             operator: 'IN',
             values: []
           }
-        } as unknown) as QlceViewFilterWrapperInput
+        } as unknown as QlceViewFilterWrapperInput
       ],
       offset: 0,
       limit: 100

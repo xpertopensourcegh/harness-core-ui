@@ -42,12 +42,8 @@ export function DeploymentProgressAndNodes(props: DeploymentProgressAndNodesProp
   }, [deploymentSummary])
   const baselineSummaryData = useMemo(() => {
     if (deploymentSummary && deploymentSummary.additionalInfo && deploymentSummary.additionalInfo.type === 'TEST') {
-      const {
-        baselineDeploymentTag,
-        baselineStartTime,
-        currentDeploymentTag,
-        currentStartTime
-      } = deploymentSummary.additionalInfo as any
+      const { baselineDeploymentTag, baselineStartTime, currentDeploymentTag, currentStartTime } =
+        deploymentSummary.additionalInfo as any
       return {
         baselineTestName: baselineDeploymentTag,
         baselineTestDate: baselineStartTime,

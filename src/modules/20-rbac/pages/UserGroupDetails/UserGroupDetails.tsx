@@ -24,9 +24,8 @@ import css from './UserGroupDetails.module.scss'
 
 const UserGroupDetails: React.FC = () => {
   const { getString } = useStrings()
-  const { accountId, orgIdentifier, projectIdentifier, module, userGroupIdentifier } = useParams<
-    PipelineType<ProjectPathProps & { userGroupIdentifier: string }>
-  >()
+  const { accountId, orgIdentifier, projectIdentifier, module, userGroupIdentifier } =
+    useParams<PipelineType<ProjectPathProps & { userGroupIdentifier: string }>>()
 
   const { data, loading, error, refetch } = useGetUserGroupAggregate({
     identifier: userGroupIdentifier,

@@ -92,12 +92,15 @@ const NoPipelineFound: React.FC = () => {
 
 export default function PipelineDetails({ children }: React.PropsWithChildren<unknown>): React.ReactElement {
   const { selectedProject } = useAppStore()
-  const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module } = useParams<
-    PipelineType<PipelinePathProps>
-  >()
+  const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module } =
+    useParams<PipelineType<PipelinePathProps>>()
   const { isGitSyncEnabled } = useAppStore()
   const { branch, repoIdentifier } = useQueryParams<GitQueryParams>()
-  const { data: pipeline, refetch, error } = useGetPipelineSummary({
+  const {
+    data: pipeline,
+    refetch,
+    error
+  } = useGetPipelineSummary({
     pipelineIdentifier,
     queryParams: {
       accountIdentifier: accountId,

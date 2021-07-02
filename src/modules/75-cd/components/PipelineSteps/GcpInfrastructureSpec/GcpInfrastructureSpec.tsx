@@ -62,21 +62,19 @@ type K8sGcpInfrastructureTemplate = { [key in keyof K8sGcpInfrastructure]: strin
 function getValidationSchema(getString: UseStringsReturn['getString']): Yup.ObjectSchema {
   return Yup.object().shape({
     connectorRef: Yup.string().required(getString?.('fieldRequired', { field: getString('connector') })),
-    cluster: Yup.lazy(
-      (value): Yup.Schema<unknown> => {
-        /* istanbul ignore else */ if (typeof value === 'string') {
-          return Yup.string().required(getString('common.cluster'))
-        }
-        return Yup.object().test({
-          test(valueObj: SelectOption): boolean | Yup.ValidationError {
-            if (isEmpty(valueObj) || isEmpty(valueObj.value)) {
-              return this.createError({ message: getString('fieldRequired', { field: getString('common.cluster') }) })
-            }
-            return true
-          }
-        })
+    cluster: Yup.lazy((value): Yup.Schema<unknown> => {
+      /* istanbul ignore else */ if (typeof value === 'string') {
+        return Yup.string().required(getString('common.cluster'))
       }
-    ),
+      return Yup.object().test({
+        test(valueObj: SelectOption): boolean | Yup.ValidationError {
+          if (isEmpty(valueObj) || isEmpty(valueObj.value)) {
+            return this.createError({ message: getString('fieldRequired', { field: getString('common.cluster') }) })
+          }
+          return true
+        }
+      })
+    }),
 
     namespace: getNameSpaceSchema(getString),
     releaseName: getReleaseNameSchema(getString)
@@ -236,7 +234,7 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                   type={'Gcp'}
                   onChange={(value: any, _valueType, type) => {
                     if (type === MultiTypeInputType.FIXED && value.record) {
-                      const { record, scope } = (value as unknown) as { record: ConnectorReferenceDTO; scope: Scope }
+                      const { record, scope } = value as unknown as { record: ConnectorReferenceDTO; scope: Scope }
                       const connectorRef =
                         scope === Scope.ORG || scope === Scope.ACCOUNT
                           ? `${scope}.${record.identifier}`
@@ -474,7 +472,7 @@ const GcpInfrastructureSpecInputForm: React.FC<GcpInfrastructureSpecEditableProp
             type={'Gcp'}
             setRefValue
             onChange={(selected, _typeValue, type) => {
-              const item = (selected as unknown) as { record?: ConnectorReferenceDTO; scope: Scope }
+              const item = selected as unknown as { record?: ConnectorReferenceDTO; scope: Scope }
               if (type === MultiTypeInputType.FIXED) {
                 const connectorRefValue =
                   item.scope === Scope.ORG || item.scope === Scope.ACCOUNT

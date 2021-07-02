@@ -24,14 +24,12 @@ const TwoFactorAuthentication: React.FC<Props> = ({ twoFactorEnabled, onSuccess,
   const { currentUserInfo } = useAppStore()
   const { showSuccess, showError } = useToaster()
 
-  const {
-    mutate: updateTwoFactorAuthentication,
-    loading: updatingTwoFactorAuthentication
-  } = useSetTwoFactorAuthAtAccountLevel({
-    queryParams: {
-      accountIdentifier: accountId
-    }
-  })
+  const { mutate: updateTwoFactorAuthentication, loading: updatingTwoFactorAuthentication } =
+    useSetTwoFactorAuthAtAccountLevel({
+      queryParams: {
+        accountIdentifier: accountId
+      }
+    })
 
   React.useEffect(() => {
     setUpdating(updatingTwoFactorAuthentication)

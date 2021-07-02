@@ -16,18 +16,14 @@ import { StepsTree } from './StepsTree/StepsTree'
 import css from './ExecutionLogView.module.scss'
 
 export default function ExecutionLogView(): React.ReactElement {
-  const {
-    pipelineStagesMap,
-    allNodeMap,
-    pipelineExecutionDetail,
-    selectedStageId,
-    selectedStepId
-  } = useExecutionContext()
+  const { pipelineStagesMap, allNodeMap, pipelineExecutionDetail, selectedStageId, selectedStepId } =
+    useExecutionContext()
   const { updateQueryParams } = useUpdateQueryParams<ExecutionPageQueryParams>()
 
-  const tree = React.useMemo(() => processExecutionData(pipelineExecutionDetail?.executionGraph), [
-    pipelineExecutionDetail?.executionGraph
-  ])
+  const tree = React.useMemo(
+    () => processExecutionData(pipelineExecutionDetail?.executionGraph),
+    [pipelineExecutionDetail?.executionGraph]
+  )
   const selectOptions: StageSelectOption[] = React.useMemo(() => {
     return [...pipelineStagesMap.entries()].map(([identifier, stage]) => ({
       label: stage.nodeIdentifier || '',

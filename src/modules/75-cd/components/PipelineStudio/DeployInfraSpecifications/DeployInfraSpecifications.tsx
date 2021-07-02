@@ -35,10 +35,8 @@ const DEFAULT_INFRA_KEY = ''
 
 export default function DeployInfraSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
   const isProvisionerEnabled = useFeatureFlag('NG_PROVISIONERS')
-  const [
-    initialInfrastructureDefinitionValues,
-    setInitialInfrastructureDefinitionValues
-  ] = React.useState<Infrastructure>({})
+  const [initialInfrastructureDefinitionValues, setInitialInfrastructureDefinitionValues] =
+    React.useState<Infrastructure>({})
   const [selectedDeploymentType, setSelectedDeploymentType] = React.useState<string | undefined>()
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
   const { getString } = useStrings()

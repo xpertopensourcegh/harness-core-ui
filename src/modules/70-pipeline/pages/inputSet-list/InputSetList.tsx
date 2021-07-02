@@ -30,7 +30,12 @@ const InputSetList: React.FC = (): JSX.Element => {
     PipelineType<PipelinePathProps> & { accountId: string }
   >()
 
-  const { data: inputSet, loading, refetch, error } = useGetInputSetsListForPipeline({
+  const {
+    data: inputSet,
+    loading,
+    refetch,
+    error
+  } = useGetInputSetsListForPipeline({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,

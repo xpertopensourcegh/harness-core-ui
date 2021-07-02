@@ -207,7 +207,11 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
     }
   }, [props.response])
 
-  const { data: connectorSchema, loading: isFetchingSchema, refetch } = useGetYamlSchema({
+  const {
+    data: connectorSchema,
+    loading: isFetchingSchema,
+    refetch
+  } = useGetYamlSchema({
     queryParams: {
       entityType: 'Connectors',
       projectIdentifier,

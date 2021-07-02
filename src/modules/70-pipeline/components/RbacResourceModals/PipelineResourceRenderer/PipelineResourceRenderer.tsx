@@ -24,7 +24,11 @@ const PipelineResourceRenderer: React.FC<RbacResourceRendererProps> = ({
   const { isGitSyncEnabled } = useAppStore()
   const [pipelineData, setData] = React.useState<PagePMSPipelineSummaryResponse | undefined>()
 
-  const { loading, mutate: reloadPipelines, cancel } = useGetPipelineList({
+  const {
+    loading,
+    mutate: reloadPipelines,
+    cancel
+  } = useGetPipelineList({
     queryParams: {
       accountIdentifier,
       projectIdentifier,

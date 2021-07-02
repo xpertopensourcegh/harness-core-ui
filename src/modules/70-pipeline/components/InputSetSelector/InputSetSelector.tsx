@@ -207,7 +207,11 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
     accountId: string
   }>()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
-  const { data: inputSetResponse, refetch, error } = useGetInputSetsListForPipeline({
+  const {
+    data: inputSetResponse,
+    refetch,
+    error
+  } = useGetInputSetsListForPipeline({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,

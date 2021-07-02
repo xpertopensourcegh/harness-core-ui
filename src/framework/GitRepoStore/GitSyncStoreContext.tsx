@@ -32,7 +32,11 @@ export const GitSyncStoreProvider: React.FC = props => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
 
   //Note: right now we support git-sync only at project level
-  const { data: dataAllGitSync, loading: loadingRepos, refetch } = useListGitSync({
+  const {
+    data: dataAllGitSync,
+    loading: loadingRepos,
+    refetch
+  } = useListGitSync({
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
     lazy: true
   })
@@ -81,12 +85,13 @@ export const GitSyncStoreProvider: React.FC = props => {
   }, [projectIdentifier])
 
   const updateStore = useCallback(
-    () => (data: Partial<Pick<GitSyncStoreProps, 'gitSyncRepos'>>): void => {
-      setStoreData(prevState => ({
-        ...prevState,
-        gitSyncRepos: data.gitSyncRepos || prevState.gitSyncRepos
-      }))
-    },
+    () =>
+      (data: Partial<Pick<GitSyncStoreProps, 'gitSyncRepos'>>): void => {
+        setStoreData(prevState => ({
+          ...prevState,
+          gitSyncRepos: data.gitSyncRepos || prevState.gitSyncRepos
+        }))
+      },
     []
   )
 

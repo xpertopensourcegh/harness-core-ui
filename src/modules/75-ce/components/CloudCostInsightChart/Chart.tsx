@@ -126,7 +126,7 @@ const GetChart: React.FC<GetChartProps> = ({
           xAxis: xAxisOptions
         }}
       />
-      {chartObj ? <ChartLegend chartRefObj={(chartObj as unknown) as Highcharts.Chart} /> : <Icon name="spinner" />}
+      {chartObj ? <ChartLegend chartRefObj={chartObj as unknown as Highcharts.Chart} /> : <Icon name="spinner" />}
     </article>
   )
 }

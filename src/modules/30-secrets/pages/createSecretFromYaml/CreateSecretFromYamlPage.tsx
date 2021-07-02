@@ -79,12 +79,16 @@ const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<Respo
       arrayFormat: 'repeat'
     }
   })
-  const { data: snippet, refetch, cancel, loading: isFetchingSnippet, error: errorFetchingSnippet } = useGetYamlSnippet(
-    {
-      identifier: '',
-      lazy: true
-    }
-  )
+  const {
+    data: snippet,
+    refetch,
+    cancel,
+    loading: isFetchingSnippet,
+    error: errorFetchingSnippet
+  } = useGetYamlSnippet({
+    identifier: '',
+    lazy: true
+  })
 
   React.useEffect(() => {
     let snippetStr = ''

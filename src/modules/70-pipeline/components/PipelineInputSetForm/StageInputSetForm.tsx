@@ -182,7 +182,7 @@ function ExecutionWrapperInputSetForm(props: {
             />
           ) : null
         } else if (item.parallel) {
-          return ((item.parallel as unknown) as StepElement[]).map((nodep: ExecutionWrapper, indexp) => {
+          return (item.parallel as unknown as StepElement[]).map((nodep: ExecutionWrapper, indexp) => {
             if (nodep.step) {
               const originalStep = getStepFromStage(nodep.step?.identifier || '', allValues)
               const initialValues = getStepFromStage(nodep.step?.identifier || '', values)

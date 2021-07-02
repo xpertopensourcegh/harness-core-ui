@@ -652,9 +652,11 @@ export function getExecutionPipelineNodeType(stepType?: string): ExecutionPipeli
   return ExecutionPipelineNodeType.NORMAL
 }
 
-export function getIconDataBasedOnType(
-  nodeData?: ExecutionNode
-): { icon: IconName; iconSize: number; iconStyle?: { marginBottom: string } } {
+export function getIconDataBasedOnType(nodeData?: ExecutionNode): {
+  icon: IconName
+  iconSize: number
+  iconStyle?: { marginBottom: string }
+} {
   if (nodeData) {
     if (nodeData.stepType === StepType.Barrier) {
       return nodeData.status === 'Success'

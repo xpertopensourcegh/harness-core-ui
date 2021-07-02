@@ -213,7 +213,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         onEditInitialValues.pipeline || {}
       )
       const newPipeline = clearRuntimeInput(newOnEditPipeline)
-      setOnEditInitialValues({ ...onEditInitialValues, pipeline: (newPipeline as unknown) as NgPipeline })
+      setOnEditInitialValues({ ...onEditInitialValues, pipeline: newPipeline as unknown as NgPipeline })
       setCurrentPipeline({ pipeline: newPipeline }) // will reset initialValues
       setMergedPipelineKey(1)
     } else if (template?.data?.inputSetTemplateYaml) {
@@ -353,7 +353,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       }
 
       // actions will be required thru validation
-      const actionsValues = ((actions as unknown) as SelectOption[])?.map(action => action.value)
+      const actionsValues = (actions as unknown as SelectOption[])?.map(action => action.value)
       const triggerYaml: NGTriggerConfigV2 = {
         name,
         identifier,
@@ -364,7 +364,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         projectIdentifier,
         pipelineIdentifier,
         source: {
-          type: (formikValueTriggerType as unknown) as NGTriggerSourceV2['type'],
+          type: formikValueTriggerType as unknown as NGTriggerSourceV2['type'],
           spec: {
             type: formikValueSourceRepo, // Github
             spec: {
@@ -412,7 +412,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         projectIdentifier,
         pipelineIdentifier,
         source: {
-          type: (formikValueTriggerType as unknown) as NGTriggerSourceV2['type'],
+          type: formikValueTriggerType as unknown as NGTriggerSourceV2['type'],
           spec: {
             type: formikValueSourceRepo, // Custom
             spec: {
@@ -531,7 +531,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           tags,
           pipeline: pipelineJson,
           sourceRepo,
-          triggerType: (TriggerTypes.WEBHOOK as unknown) as NGTriggerSourceV2['type'],
+          triggerType: TriggerTypes.WEBHOOK as unknown as NGTriggerSourceV2['type'],
           event,
           autoAbortPreviousExecutions,
           connectorRef,
@@ -625,7 +625,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           tags,
           pipeline: pipelineJson,
           sourceRepo,
-          triggerType: (TriggerTypes.WEBHOOK as unknown) as NGTriggerSourceV2['type'],
+          triggerType: TriggerTypes.WEBHOOK as unknown as NGTriggerSourceV2['type'],
           secureToken: authToken?.spec?.value,
           headerConditions,
           payloadConditions,
@@ -682,7 +682,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         description,
         tags,
         pipeline: pipelineJson,
-        triggerType: (TriggerTypes.SCHEDULE as unknown) as NGTriggerSourceV2['type'],
+        triggerType: TriggerTypes.SCHEDULE as unknown as NGTriggerSourceV2['type'],
         expression,
         ...newExpressionBreakdown,
         selectedScheduleTab: scheduleTabsId.CUSTOM // only show CUSTOM on edit
@@ -721,7 +721,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       projectIdentifier,
       pipelineIdentifier,
       source: {
-        type: (formikValueTriggerType as unknown) as NGTriggerSourceV2['type'],
+        type: formikValueTriggerType as unknown as NGTriggerSourceV2['type'],
         spec: {
           type: scheduledTypes.CRON,
           spec: {
@@ -1029,7 +1029,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           initialValues,
           onSubmit: (val: FlatValidWebhookFormikValuesInterface) => handleWebhookSubmit(val),
           validationSchema: getValidationSchema(
-            (TriggerTypes.WEBHOOK as unknown) as NGTriggerSourceV2['type'],
+            TriggerTypes.WEBHOOK as unknown as NGTriggerSourceV2['type'],
             getString
           ),
           enableReinitialize: true
@@ -1074,7 +1074,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           initialValues,
           onSubmit: (val: FlatValidScheduleFormikValuesInterface) => handleScheduleSubmit(val),
           validationSchema: getValidationSchema(
-            (TriggerTypes.SCHEDULE as unknown) as NGTriggerSourceV2['type'],
+            TriggerTypes.SCHEDULE as unknown as NGTriggerSourceV2['type'],
             getString
           ),
           enableReinitialize: true

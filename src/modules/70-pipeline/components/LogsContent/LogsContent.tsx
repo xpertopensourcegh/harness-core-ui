@@ -23,14 +23,8 @@ export interface LogsContentProps {
 
 export function LogsContent(props: LogsContentProps): React.ReactElement {
   const { mode, toConsoleView = '', errorMessage, isWarning } = props
-  const {
-    pipelineStagesMap,
-    selectedStageId,
-    allNodeMap,
-    selectedStepId,
-    pipelineExecutionDetail,
-    queryParams
-  } = useExecutionContext()
+  const { pipelineStagesMap, selectedStageId, allNodeMap, selectedStepId, pipelineExecutionDetail, queryParams } =
+    useExecutionContext()
   const { state, actions } = useLogsContent()
   const { getString } = useStrings()
   const { linesWithResults, currentIndex } = state.searchData

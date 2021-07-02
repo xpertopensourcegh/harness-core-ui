@@ -167,7 +167,7 @@ describe('ManifestSelection tests', () => {
       name: 'Manifest Details',
       expressions: [''],
       stepName: 'Manifest Details Step',
-      initialValues: (null as unknown) as ManifestConfig,
+      initialValues: null as unknown as ManifestConfig,
       handleSubmit: jest.fn(),
       selectedManifest: 'K8sManifest',
       manifestIdsList: []

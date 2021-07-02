@@ -67,7 +67,7 @@ export const FlowControl: React.FC = (): JSX.Element => {
   } = React.useContext(PipelineContext)
   const [barriers, updateBarriers] = React.useState<Barrier[]>(pipeline?.flowControl?.barriers || [])
   const { data, loading: loadingSetupInfo } = useMutateAsGet(useGetBarriersSetupInfoList, {
-    body: (yamlStringify({ pipeline: originalPipeline }) as unknown) as void,
+    body: yamlStringify({ pipeline: originalPipeline }) as unknown as void,
     requestOptions: {
       headers: {
         'content-type': 'application/yaml'

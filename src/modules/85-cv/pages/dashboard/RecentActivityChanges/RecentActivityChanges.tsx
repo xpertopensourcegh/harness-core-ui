@@ -230,7 +230,12 @@ function ActivityVerificationProgressWithRisk(props: ActivityVerificationProgres
 export default function RecentActivityChanges(): JSX.Element {
   const history = useHistory()
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
-  const { loading, error, data, refetch: refetchActivities } = useGetRecentActivityVerificationResults({
+  const {
+    loading,
+    error,
+    data,
+    refetch: refetchActivities
+  } = useGetRecentActivityVerificationResults({
     queryParams: {
       accountId,
       projectIdentifier,

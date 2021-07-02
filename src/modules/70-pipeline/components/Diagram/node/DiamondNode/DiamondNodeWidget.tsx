@@ -58,8 +58,8 @@ export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
           onClickNode(e, props.node)
         }
       }}
-      onMouseEnter={event => onMouseEnterNode((event as unknown) as MouseEvent, props.node)}
-      onMouseLeave={event => onMouseLeaveNode((event as unknown) as MouseEvent, props.node)}
+      onMouseEnter={event => onMouseEnterNode(event as unknown as MouseEvent, props.node)}
+      onMouseLeave={event => onMouseLeaveNode(event as unknown as MouseEvent, props.node)}
     >
       <div
         draggable={options.draggable}

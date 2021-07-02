@@ -92,9 +92,8 @@ const RedirectToAccessControlHome = (): React.ReactElement => {
 }
 
 const RedirectToGitSyncHome = (): React.ReactElement => {
-  const { accountId, projectIdentifier, orgIdentifier, module } = useParams<
-    PipelineType<ProjectPathProps & ModulePathParams>
-  >()
+  const { accountId, projectIdentifier, orgIdentifier, module } =
+    useParams<PipelineType<ProjectPathProps & ModulePathParams>>()
 
   return <Redirect to={routes.toGitSyncReposAdmin({ projectIdentifier, accountId, orgIdentifier, module })} />
 }

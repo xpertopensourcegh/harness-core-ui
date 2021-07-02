@@ -200,7 +200,7 @@ describe('VerificationInstancePostDeploymentView', () => {
       <TestWrapper>
         <VerificationInstancePostDeploymentView
           selectedActivityId="1234_activity_id"
-          activityStartTime={(undefined as unknown) as number}
+          activityStartTime={undefined as unknown as number}
           durationMs={15}
           environmentIdentifier="1234_envIdentifier"
         />

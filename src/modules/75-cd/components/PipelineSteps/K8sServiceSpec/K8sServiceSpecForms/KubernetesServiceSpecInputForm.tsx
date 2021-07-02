@@ -128,7 +128,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
     refetch: refetchDockerBuildData,
     error: dockerError
   } = useMutateAsGet(useGetBuildDetailsForDockerWithYaml, {
-    body: (yamlStringify({ ...yamlData }) as unknown) as void,
+    body: yamlStringify({ ...yamlData }) as unknown as void,
     requestOptions: {
       headers: {
         'content-type': 'application/json'
@@ -148,55 +148,59 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
     lazy: true
   })
 
-  const { data: gcrdata, loading: gcrLoading, refetch: refetchGcrBuildData, error: gcrError } = useMutateAsGet(
-    useGetBuildDetailsForGcrWithYaml,
-    {
-      body: (yamlStringify({ ...yamlData }) as unknown) as void,
-      requestOptions: {
-        headers: {
-          'content-type': 'application/json'
-        }
-      },
-      queryParams: {
-        imagePath: lastQueryData.imagePath || '',
-        connectorRef: lastQueryData.connectorRef || '',
-        pipelineIdentifier,
-        fqnPath: getFqnPath(),
-        registryHostname: lastQueryData.registryHostname || '',
-        accountIdentifier: accountId,
-        orgIdentifier,
-        projectIdentifier,
-        repoIdentifier,
-        branch: branchParam
-      },
-      lazy: true
-    }
-  )
+  const {
+    data: gcrdata,
+    loading: gcrLoading,
+    refetch: refetchGcrBuildData,
+    error: gcrError
+  } = useMutateAsGet(useGetBuildDetailsForGcrWithYaml, {
+    body: yamlStringify({ ...yamlData }) as unknown as void,
+    requestOptions: {
+      headers: {
+        'content-type': 'application/json'
+      }
+    },
+    queryParams: {
+      imagePath: lastQueryData.imagePath || '',
+      connectorRef: lastQueryData.connectorRef || '',
+      pipelineIdentifier,
+      fqnPath: getFqnPath(),
+      registryHostname: lastQueryData.registryHostname || '',
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      repoIdentifier,
+      branch: branchParam
+    },
+    lazy: true
+  })
 
-  const { data: ecrdata, loading: ecrLoading, refetch: refetchEcrBuildData, error: ecrError } = useMutateAsGet(
-    useGetBuildDetailsForEcrWithYaml,
-    {
-      body: (yamlStringify({ ...yamlData }) as unknown) as void,
-      requestOptions: {
-        headers: {
-          'content-type': 'application/json'
-        }
-      },
-      queryParams: {
-        imagePath: lastQueryData.imagePath || '',
-        connectorRef: lastQueryData.connectorRef || '',
-        pipelineIdentifier,
-        fqnPath: getFqnPath(),
-        region: lastQueryData.region || '',
-        accountIdentifier: accountId,
-        orgIdentifier,
-        projectIdentifier,
-        repoIdentifier,
-        branch: branchParam
-      },
-      lazy: true
-    }
-  )
+  const {
+    data: ecrdata,
+    loading: ecrLoading,
+    refetch: refetchEcrBuildData,
+    error: ecrError
+  } = useMutateAsGet(useGetBuildDetailsForEcrWithYaml, {
+    body: yamlStringify({ ...yamlData }) as unknown as void,
+    requestOptions: {
+      headers: {
+        'content-type': 'application/json'
+      }
+    },
+    queryParams: {
+      imagePath: lastQueryData.imagePath || '',
+      connectorRef: lastQueryData.connectorRef || '',
+      pipelineIdentifier,
+      fqnPath: getFqnPath(),
+      region: lastQueryData.region || '',
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      repoIdentifier,
+      branch: branchParam
+    },
+    lazy: true
+  })
 
   const { data: regionData } = useListAwsRegions({
     queryParams: {
@@ -833,7 +837,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                       orgIdentifier={orgIdentifier}
                       type={ManifestToConnectorMap[type as ManifestStores]}
                       onChange={(selected, _itemType, multiType) => {
-                        const item = (selected as unknown) as { record?: GitConfigDTO; scope: Scope }
+                        const item = selected as unknown as { record?: GitConfigDTO; scope: Scope }
                         if (multiType === MultiTypeInputType.FIXED) {
                           if (item.record?.spec?.connectionType === GitRepoName.Repo) {
                             setShowRepoName(false)
@@ -1000,7 +1004,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
 
           <div className={css.nestedAccordions}>
             <StepWidget<CustomVariablesData, CustomVariableInputSetExtraProps>
-              factory={(factory as unknown) as AbstractStepFactory}
+              factory={factory as unknown as AbstractStepFactory}
               initialValues={{
                 variables: (initialValues.variables || []) as AllNGVariables[],
                 canAddVariable: true

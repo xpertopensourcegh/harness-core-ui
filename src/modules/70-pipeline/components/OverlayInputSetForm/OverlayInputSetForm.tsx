@@ -214,7 +214,12 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
     lazy: true
   })
 
-  const { data: pipeline, loading: loadingPipeline, refetch: refetchPipeline, error: errorPipeline } = useGetPipeline({
+  const {
+    data: pipeline,
+    loading: loadingPipeline,
+    refetch: refetchPipeline,
+    error: errorPipeline
+  } = useGetPipeline({
     pipelineIdentifier,
     lazy: true,
     queryParams: {

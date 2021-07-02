@@ -173,7 +173,7 @@ describe('TriggersWizardPage Triggers tests', () => {
         .mockReturnValue(GetTemplateFromPipelineResponse as UseGetReturn<any, any, any, any>)
       jest
         .spyOn(pipelineNg, 'useGetTrigger')
-        .mockReturnValue((GetTriggerScheduleResponse as unknown) as UseGetReturn<any, any, any, any>)
+        .mockReturnValue(GetTriggerScheduleResponse as unknown as UseGetReturn<any, any, any, any>)
       jest.spyOn(pipelineNg, 'useGetMergeInputSetFromPipelineTemplateWithListInput').mockReturnValue({
         mutate: jest.fn().mockReturnValue(GetMergeInputSetFromPipelineTemplateWithListInputResponse) as unknown
       } as UseMutateReturn<any, any, any, any, any>)
@@ -435,7 +435,7 @@ describe('TriggersWizardPage Triggers tests', () => {
         .mockReturnValue(GetTemplateFromPipelineResponse as UseGetReturn<any, any, any, any>)
       jest
         .spyOn(pipelineNg, 'useGetTrigger')
-        .mockReturnValue((GetTriggerScheduleResponse as unknown) as UseGetReturn<any, any, any, any>)
+        .mockReturnValue(GetTriggerScheduleResponse as unknown as UseGetReturn<any, any, any, any>)
       jest.spyOn(pipelineNg, 'useGetMergeInputSetFromPipelineTemplateWithListInput').mockReturnValue({
         mutate: jest.fn().mockReturnValue(GetMergeInputSetFromPipelineTemplateWithListInputResponse) as unknown
       } as UseMutateReturn<any, any, any, any, any>)
@@ -512,7 +512,7 @@ describe('TriggersWizardPage Triggers tests', () => {
         .mockReturnValue(GetTemplateFromPipelineResponse as UseGetReturn<any, any, any, any>)
       jest
         .spyOn(pipelineNg, 'useGetTrigger')
-        .mockReturnValue((GetTriggerCronResponse as unknown) as UseGetReturn<any, any, any, any>)
+        .mockReturnValue(GetTriggerCronResponse as unknown as UseGetReturn<any, any, any, any>)
       jest.spyOn(pipelineNg, 'useGetMergeInputSetFromPipelineTemplateWithListInput').mockReturnValue({
         mutate: jest.fn().mockReturnValue(GetMergeInputSetFromPipelineTemplateWithListInputResponse) as unknown
       } as UseMutateReturn<any, any, any, any, any>)

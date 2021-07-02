@@ -40,7 +40,8 @@ export const getGraphQLAPIConfig: (accountId: string) => GetGraphQLAPIConfigRetu
     }
   }
 }
-export const VALID_DOMAIN_REGEX = /((https?):\/\/)?(www.)?[a-z0-9-]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#-]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/
+export const VALID_DOMAIN_REGEX =
+  /((https?):\/\/)?(www.)?[a-z0-9-]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#-]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/
 
 export enum ASRuleTabs {
   CONFIGURATION = 'configuration',

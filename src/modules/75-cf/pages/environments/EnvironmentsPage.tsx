@@ -159,7 +159,12 @@ const EnvironmentsPage: React.FC = () => {
       page
     }
   }, [accountId, orgIdentifier, projectIdentifier, page])
-  const { data: envData, loading, error, refetch } = useGetEnvironmentListForProject({
+  const {
+    data: envData,
+    loading,
+    error,
+    refetch
+  } = useGetEnvironmentListForProject({
     queryParams
   })
   const { mutate: deleteEnvironment } = useDeleteEnvironmentV2({

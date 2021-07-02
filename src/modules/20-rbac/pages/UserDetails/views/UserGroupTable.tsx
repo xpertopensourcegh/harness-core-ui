@@ -93,11 +93,14 @@ const ResourceGroupColumnMenu: Renderer<CellProps<UserGroupDTO>> = ({ row, colum
 }
 
 const UserGroupTable: React.FC = () => {
-  const { accountId, orgIdentifier, projectIdentifier, userIdentifier } = useParams<
-    PipelineType<ProjectPathProps & UserPathProps>
-  >()
+  const { accountId, orgIdentifier, projectIdentifier, userIdentifier } =
+    useParams<PipelineType<ProjectPathProps & UserPathProps>>()
   const { getString } = useStrings()
-  const { data: userGroupData, loading, refetch } = useMutateAsGet(useGetBatchUserGroupList, {
+  const {
+    data: userGroupData,
+    loading,
+    refetch
+  } = useMutateAsGet(useGetBatchUserGroupList, {
     body: {
       accountIdentifier: accountId,
       orgIdentifier,

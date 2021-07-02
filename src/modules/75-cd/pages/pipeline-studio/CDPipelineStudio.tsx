@@ -21,9 +21,8 @@ import { useQueryParams } from '@common/hooks'
 import css from './CDPipelineStudio.module.scss'
 
 const CDPipelineStudio: React.FC = (): JSX.Element => {
-  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier, module } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps>
-  >()
+  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier, module } =
+    useParams<PipelineType<PipelinePathProps & AccountPathProps>>()
 
   const { branch, repoIdentifier } = useQueryParams<GitQueryParams>()
 

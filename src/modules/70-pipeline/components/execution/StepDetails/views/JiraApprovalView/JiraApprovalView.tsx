@@ -34,7 +34,12 @@ export function JiraApprovalView(props: JiraApprovalViewProps): React.ReactEleme
   const approvalInstanceId = get(step, 'executableResponses[0].async.callbackIds[0]') || ''
   const isWaiting = isExecutionWaiting(step.status)
   const { getString } = useStrings()
-  const { data, loading: loadingApprovalData, error, refetch } = useGetApprovalInstance({
+  const {
+    data,
+    loading: loadingApprovalData,
+    error,
+    refetch
+  } = useGetApprovalInstance({
     approvalInstanceId,
     mock
   })

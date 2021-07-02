@@ -61,7 +61,11 @@ export default function TriggersDetailPage(): JSX.Element {
     }>
   >()
 
-  const { data: triggerResponse, refetch: refetchTrigger, loading: loadingTrigger } = useGetTriggerDetails({
+  const {
+    data: triggerResponse,
+    refetch: refetchTrigger,
+    loading: loadingTrigger
+  } = useGetTriggerDetails({
     triggerIdentifier,
     queryParams: {
       accountIdentifier: accountId,

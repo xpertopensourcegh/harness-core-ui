@@ -67,7 +67,12 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
   const [type, setType] = useState<SecretResponseWrapper['secret']['type']>(secretTypeFromProps || 'SecretText')
   const [secret, setSecret] = useState<SecretDTOV2>()
 
-  const { loading: loadingSecret, data: secretResponse, refetch, error: getSecretError } = useGetSecretV2({
+  const {
+    loading: loadingSecret,
+    data: secretResponse,
+    refetch,
+    error: getSecretError
+  } = useGetSecretV2({
     identifier: propsSecret?.identifier || '',
     queryParams: {
       accountIdentifier,
@@ -112,7 +117,11 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
     lazy: true
   })
 
-  const { data: connectorDetails, loading: loadingConnectorDetails, refetch: getConnectorDetails } = useGetConnector({
+  const {
+    data: connectorDetails,
+    loading: loadingConnectorDetails,
+    refetch: getConnectorDetails
+  } = useGetConnector({
     identifier:
       (secret?.spec as SecretTextSpecDTO)?.secretManagerIdentifier ||
       (secretResponse?.data?.secret?.spec as SecretTextSpecDTO)?.secretManagerIdentifier,

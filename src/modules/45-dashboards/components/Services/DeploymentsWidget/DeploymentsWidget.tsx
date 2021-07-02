@@ -31,9 +31,8 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
   const { timeRange, setTimeRange } = useContext(DeploymentsTimeRangeContext)
   const TIME_RANGE_OPTIONS: Record<TIME_RANGE_ENUMS, string> = useMemo(useTimeRangeOptions, [])
   const getTickerTextComponent = useMemo(
-    () => (value: number) => (
-      <Text color={value < 0 ? Color.RED_500 : Color.GREEN_500} font={{ size: 'small' }}>{`${Math.abs(value)}%`}</Text>
-    ),
+    () => (value: number) =>
+      <Text color={value < 0 ? Color.RED_500 : Color.GREEN_500} font={{ size: 'small' }}>{`${Math.abs(value)}%`}</Text>,
     []
   )
   const customChartOptions: Highcharts.Options = {

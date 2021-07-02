@@ -36,7 +36,11 @@ export const CIDashboardPage: React.FC = () => {
     }
   })
 
-  const { data: repositoriesData, loading: loadingRepositories, error: repoError } = useGetRepositoryBuild({
+  const {
+    data: repositoriesData,
+    loading: loadingRepositories,
+    error: repoError
+  } = useGetRepositoryBuild({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,

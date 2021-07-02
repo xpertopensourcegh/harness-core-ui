@@ -90,7 +90,12 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
       sortBy
     ]
   )
-  const { data: executionSummary, error, loading, refetch: fetchExecutionSummary } = useTestSuiteSummary({
+  const {
+    data: executionSummary,
+    error,
+    loading,
+    refetch: fetchExecutionSummary
+  } = useTestSuiteSummary({
     queryParams,
     lazy: true,
     requestOptions: {

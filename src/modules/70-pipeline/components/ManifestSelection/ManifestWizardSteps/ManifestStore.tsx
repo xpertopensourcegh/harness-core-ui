@@ -181,7 +181,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                   {getMultiTypeFromValue(formik.values.connectorRef) === MultiTypeInputType.RUNTIME ? (
                     <div className={css.configureOptions}>
                       <ConfigureOptions
-                        value={(formik.values.connectorRef as unknown) as string}
+                        value={formik.values.connectorRef as unknown as string}
                         type={ManifestToConnectorMap[selectedManifest]}
                         variableName="connectorRef"
                         showRequiredField={false}

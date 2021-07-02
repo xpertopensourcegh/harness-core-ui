@@ -43,7 +43,7 @@ export function PipelineVariablesContextProvider(
   const { accountId, orgIdentifier, projectIdentifier } = useParams<PipelinePathProps>()
 
   const { data, error, initLoading, loading } = useMutateAsGet(useCreateVariables, {
-    body: (yamlStringify({ pipeline: originalPipeline }) as unknown) as void,
+    body: yamlStringify({ pipeline: originalPipeline }) as unknown as void,
     requestOptions: {
       headers: {
         'content-type': 'application/yaml'

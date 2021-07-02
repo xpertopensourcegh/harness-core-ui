@@ -56,8 +56,8 @@ export default function ExecutionMetadata(): React.ReactElement {
 
   const ciBuildData = pipelineExecutionSummary?.moduleInfo?.ci?.ciExecutionInfoDTO as CIBuildResponseDTO
   // getting branch name (used if ciExecutionInfoDTO object in not present)
-  const ciRepoName = (pipelineExecutionSummary?.moduleInfo?.ci?.repoName as unknown) as string
-  const ciBranchName = (pipelineExecutionSummary?.moduleInfo?.ci?.branch as unknown) as string
+  const ciRepoName = pipelineExecutionSummary?.moduleInfo?.ci?.repoName as unknown as string
+  const ciBranchName = pipelineExecutionSummary?.moduleInfo?.ci?.branch as unknown as string
 
   // CI entries
   const ciEntries: { label?: string; value: JSX.Element }[] = []
@@ -181,8 +181,8 @@ export default function ExecutionMetadata(): React.ReactElement {
                         <td>
                           {service.artifacts?.primary
                             ? getString('artifactDisplay', {
-                                image: ((service.artifacts.primary as unknown) as any).imagePath,
-                                tag: ((service.artifacts.primary as unknown) as any).tag
+                                image: (service.artifacts.primary as unknown as any).imagePath,
+                                tag: (service.artifacts.primary as unknown as any).tag
                               })
                             : '-'}
                         </td>
@@ -191,8 +191,8 @@ export default function ExecutionMetadata(): React.ReactElement {
                             ? service.artifacts.sidecars
                                 .map(artifact =>
                                   getString('artifactDisplay', {
-                                    image: ((artifact as unknown) as any).imagePath,
-                                    tag: ((artifact as unknown) as any).tag
+                                    image: (artifact as unknown as any).imagePath,
+                                    tag: (artifact as unknown as any).tag
                                   })
                                 )
                                 .join(', ')

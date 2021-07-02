@@ -156,7 +156,7 @@ const ManifestListView = ({
   const getLastStepInitialData = (): ManifestConfig => {
     const initValues = get(listOfManifests[manifestIndex], 'manifest', null)
     if (initValues?.type && initValues?.type !== selectedManifest) {
-      return (null as unknown) as ManifestConfig
+      return null as unknown as ManifestConfig
     }
     return initValues
   }

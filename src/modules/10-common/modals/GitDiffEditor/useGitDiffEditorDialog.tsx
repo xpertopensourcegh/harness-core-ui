@@ -64,7 +64,12 @@ export function useGitDiffEditorDialog<T>(props: UseGitDiffEditorDialogProps<T>)
     projectIdentifier,
     orgIdentifier
   }
-  const { data, loading, refetch: fetchRemoteFileContent, error } = useGetFileContent({
+  const {
+    data,
+    loading,
+    refetch: fetchRemoteFileContent,
+    error
+  } = useGetFileContent({
     queryParams: {
       ...commonParams,
       yamlGitConfigIdentifier: '',

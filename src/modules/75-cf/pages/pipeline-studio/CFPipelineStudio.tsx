@@ -19,9 +19,8 @@ import { getCFPipelineStages } from '../../components/PipelineStudio/CFPipelineS
 import css from './CFPipelineStudio.module.scss'
 
 const CIPipelineStudio: React.FC = (): JSX.Element => {
-  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier, module } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps>
-  >()
+  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier, module } =
+    useParams<PipelineType<PipelinePathProps & AccountPathProps>>()
   const { branch, repoIdentifier } = useQueryParams<GitQueryParams>()
   const { getString } = useStrings()
   const { selectedProject } = useAppStore()

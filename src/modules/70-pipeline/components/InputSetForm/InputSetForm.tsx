@@ -113,7 +113,11 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
   const [initialGitDetails, setInitialGitDetails] = React.useState<EntityGitDetails>({ repoIdentifier, branch })
   const { isGitSyncEnabled } = React.useContext(AppStoreContext)
   const history = useHistory()
-  const { refetch: refetchTemplate, data: template, loading: loadingTemplate } = useGetTemplateFromPipeline({
+  const {
+    refetch: refetchTemplate,
+    data: template,
+    loading: loadingTemplate
+  } = useGetTemplateFromPipeline({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,
@@ -149,7 +153,11 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
   const [formErrors, setFormErrors] = React.useState<Record<string, any>>({})
   const { showSuccess, showError } = useToaster()
 
-  const { data: inputSetResponse, refetch, loading: loadingInputSet } = useGetInputSetForPipeline({
+  const {
+    data: inputSetResponse,
+    refetch,
+    loading: loadingInputSet
+  } = useGetInputSetForPipeline({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,
@@ -201,7 +209,11 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
 
-  const { data: pipeline, loading: loadingPipeline, refetch: refetchPipeline } = useGetPipeline({
+  const {
+    data: pipeline,
+    loading: loadingPipeline,
+    refetch: refetchPipeline
+  } = useGetPipeline({
     pipelineIdentifier,
     lazy: true,
     queryParams: {

@@ -18,7 +18,11 @@ const AwsKmsAccessKeyForm: React.FC<AwsKmsAccessKeyFormProps> = ({ formik, accou
   const [regions, setRegions] = React.useState<SelectOption[]>([])
 
   const { showError } = useToaster()
-  const { data: regionData, loading, error } = useListAwsRegions({
+  const {
+    data: regionData,
+    loading,
+    error
+  } = useListAwsRegions({
     queryParams: {
       accountId
     }

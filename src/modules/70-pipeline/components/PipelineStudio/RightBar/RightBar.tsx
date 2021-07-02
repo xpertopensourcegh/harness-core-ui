@@ -138,7 +138,11 @@ export const RightBar = (): JSX.Element => {
   const connectorId = getIdentifierFromValue((codebase?.connectorRef as string) || '')
   const initialScope = getScopeFromValue((codebase?.connectorRef as string) || '')
 
-  const { data: connector, loading, refetch } = useGetConnector({
+  const {
+    data: connector,
+    loading,
+    refetch
+  } = useGetConnector({
     identifier: connectorId,
     queryParams: {
       accountIdentifier: accountId,

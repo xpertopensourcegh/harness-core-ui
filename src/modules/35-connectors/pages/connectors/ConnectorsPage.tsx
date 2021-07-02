@@ -408,7 +408,11 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     )
   }
 
-  const { loading: isFetchingFilters, data: fetchedFilterResponse, refetch: refetchFilterList } = useGetFilterList({
+  const {
+    loading: isFetchingFilters,
+    data: fetchedFilterResponse,
+    refetch: refetchFilterList
+  } = useGetFilterList({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,

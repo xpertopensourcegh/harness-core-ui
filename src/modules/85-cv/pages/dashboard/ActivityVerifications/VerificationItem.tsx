@@ -27,7 +27,11 @@ export default function VerificationItem({
 }): React.ReactElement {
   const { serviceName, tag, serviceIdentifier } = item
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
-  const { data: tooltipData, loading, refetch: loadPopoverSummary } = useGetVerificationsPopoverSummary({
+  const {
+    data: tooltipData,
+    loading,
+    refetch: loadPopoverSummary
+  } = useGetVerificationsPopoverSummary({
     deploymentTag: encodeURIComponent(tag as string),
     lazy: true
   })

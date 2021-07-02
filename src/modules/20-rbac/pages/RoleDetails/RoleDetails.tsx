@@ -32,13 +32,11 @@ import { usePermission } from '@rbac/hooks/usePermission'
 import css from './RoleDetails.module.scss'
 
 const RoleDetails: React.FC = () => {
-  const { accountId, projectIdentifier, orgIdentifier, roleIdentifier, module } = useParams<
-    PipelineType<ProjectPathProps & RolePathProps>
-  >()
+  const { accountId, projectIdentifier, orgIdentifier, roleIdentifier, module } =
+    useParams<PipelineType<ProjectPathProps & RolePathProps>>()
   const [resource, setResource] = useState<ResourceType>()
-  const [resourceCategoryMap, setResourceCategoryMap] = useState<
-    Map<ResourceType | ResourceCategory, ResourceType[] | undefined>
-  >()
+  const [resourceCategoryMap, setResourceCategoryMap] =
+    useState<Map<ResourceType | ResourceCategory, ResourceType[] | undefined>>()
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
   const [permissions, setPermissions] = useState<string[]>([])

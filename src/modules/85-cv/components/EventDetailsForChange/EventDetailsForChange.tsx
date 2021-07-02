@@ -186,9 +186,12 @@ function KubernetesEventsList(props: EventsListProps): JSX.Element {
 
 function KubernetesContent(props: KubernetesContentProps): JSX.Element {
   const { selectedActivityId, displayJSON, onViewJSONClick } = props
-  const { projectIdentifier, orgIdentifier, accountId, activityId: routeActivityId } = useParams<
-    ProjectPathProps & { activityId?: string }
-  >()
+  const {
+    projectIdentifier,
+    orgIdentifier,
+    accountId,
+    activityId: routeActivityId
+  } = useParams<ProjectPathProps & { activityId?: string }>()
   const { loading, data, error, refetch } = useGetEventDetails({
     queryParams: { projectIdentifier, orgIdentifier, accountId, activityId: selectedActivityId }
   })

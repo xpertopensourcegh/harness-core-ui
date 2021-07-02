@@ -190,7 +190,12 @@ const COGatewayList: React.FC = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false)
   const [tableData, setTableData] = useState<Service[]>([])
 
-  const { data: servicesData, error, loading, refetch: refetchServices } = useGetServices({
+  const {
+    data: servicesData,
+    error,
+    loading,
+    refetch: refetchServices
+  } = useGetServices({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
@@ -288,7 +293,11 @@ const COGatewayList: React.FC = () => {
       debounce: 300
     })
 
-    const { data: resources, loading: resourcesLoading, error: resourcesError } = useAllServiceResources({
+    const {
+      data: resources,
+      loading: resourcesLoading,
+      error: resourcesError
+    } = useAllServiceResources({
       org_id: orgIdentifier, // eslint-disable-line
       project_id: projectIdentifier, // eslint-disable-line
       service_id: tableProps.row.original.id as number, // eslint-disable-line

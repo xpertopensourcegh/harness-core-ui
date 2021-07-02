@@ -56,7 +56,11 @@ const EntitiesListing: React.FC<EntitiesListingProps> = props => {
   const { getString } = useStrings()
   const [page, setPage] = useState(0)
 
-  const { loading: loadingEntityList, data: dataAllEntities, refetch } = useListGitSyncEntitiesByType({
+  const {
+    loading: loadingEntityList,
+    data: dataAllEntities,
+    refetch
+  } = useListGitSyncEntitiesByType({
     entityType: props.entityType,
     queryParams: {
       accountIdentifier: accountId,

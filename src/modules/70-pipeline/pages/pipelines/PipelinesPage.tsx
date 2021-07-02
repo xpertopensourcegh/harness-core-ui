@@ -315,7 +315,11 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
     identifier: StringUtils.getIdentifierFromName(UNSAVED_FILTER)
   }
 
-  const { data: servicesResponse, loading: isFetchingServices, refetch: fetchServices } = useGetServiceListForProject({
+  const {
+    data: servicesResponse,
+    loading: isFetchingServices,
+    refetch: fetchServices
+  } = useGetServiceListForProject({
     queryParams: { accountId, orgIdentifier, projectIdentifier },
     lazy: true
   })
@@ -356,8 +360,12 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
       }
     }
 
-    const { name: pipelineName, pipelineTags: _pipelineTags, moduleProperties, description } =
-      (appliedFilter?.filterProperties as PipelineFilterProperties) || {}
+    const {
+      name: pipelineName,
+      pipelineTags: _pipelineTags,
+      moduleProperties,
+      description
+    } = (appliedFilter?.filterProperties as PipelineFilterProperties) || {}
     const { name = '', filterVisibility, identifier = '' } = appliedFilter || {}
     const { ci, cd } = moduleProperties || {}
     const { branch, tag, ciExecutionInfoDTO, repoName } = ci || {}

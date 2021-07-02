@@ -62,7 +62,12 @@ export const EventSummary: React.FC<EventSummaryProps> = ({ data, flagData, onCl
   const [showDiff, toggleShowDiff] = useToggle(false)
   const { objectBefore, objectAfter } = data
   const isNewObject = objectBefore === ADIT_LOG_EMPTY_ENTRY_ID
-  const { data: diffData, loading, error, refetch } = useGetOSById({
+  const {
+    data: diffData,
+    loading,
+    error,
+    refetch
+  } = useGetOSById({
     identifiers: isNewObject ? [objectAfter] : [objectBefore, objectAfter],
     lazy: !showDiff
   })
@@ -163,9 +168,11 @@ export const EventSummary: React.FC<EventSummaryProps> = ({ data, flagData, onCl
                     options={DIFF_VIEWER_OPTIONS}
                     editorDidMount={editor => {
                       setTimeout(() => {
-                        ;((editor as unknown) as {
-                          setSelection: (param: Record<string, number>) => void
-                        }).setSelection({
+                        ;(
+                          editor as unknown as {
+                            setSelection: (param: Record<string, number>) => void
+                          }
+                        ).setSelection({
                           startLineNumber: 0,
                           startColumn: 0,
                           endLineNumber: 0,

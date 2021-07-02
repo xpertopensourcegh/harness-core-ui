@@ -21,8 +21,8 @@ export function ServicePopoverCard(props: ServicePopoveCardProps): React.ReactEl
           stringID="artifactDisplay"
           useRichText
           vars={{
-            image: ((service.artifacts.primary as unknown) as any).imagePath,
-            tag: ((service.artifacts.primary as unknown) as any).tag
+            image: (service.artifacts.primary as unknown as any).imagePath,
+            tag: (service.artifacts.primary as unknown as any).tag
           }}
         />
       ) : (
@@ -38,8 +38,8 @@ export function ServicePopoverCard(props: ServicePopoveCardProps): React.ReactEl
               stringID="artifactDisplay"
               useRichText
               vars={{
-                image: ((artifact as unknown) as any).imagePath,
-                tag: ((artifact as unknown) as any).tag
+                image: (artifact as unknown as any).imagePath,
+                tag: (artifact as unknown as any).tag
               }}
             />
           ))}

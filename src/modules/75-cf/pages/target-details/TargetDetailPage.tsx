@@ -33,7 +33,12 @@ export const TargetDetailPage: React.FC = () => {
   const { showError, clear } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier, targetIdentifier } = useParams<Record<string, string>>()
   const { activeEnvironment, withActiveEnvironment } = useActiveEnvironment()
-  const { data: target, loading, refetch, error } = useGetTarget({
+  const {
+    data: target,
+    loading,
+    refetch,
+    error
+  } = useGetTarget({
     identifier: targetIdentifier,
     queryParams: {
       account: accountId,

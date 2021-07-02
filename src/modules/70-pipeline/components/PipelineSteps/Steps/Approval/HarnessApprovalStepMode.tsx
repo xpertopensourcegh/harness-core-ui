@@ -330,11 +330,14 @@ function HarnessApprovalStepMode(
 ) {
   const { onUpdate, isNewStep = true, readonly } = props
   const { getString } = useStrings()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps>
-  >()
+  const { accountId, projectIdentifier, orgIdentifier } =
+    useParams<PipelineType<PipelinePathProps & AccountPathProps>>()
 
-  const { data: userGroupsResponse, loading: fetchingUserGroups, error: userGroupsFetchError } = useGetUserGroupList({
+  const {
+    data: userGroupsResponse,
+    loading: fetchingUserGroups,
+    error: userGroupsFetchError
+  } = useGetUserGroupList({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,

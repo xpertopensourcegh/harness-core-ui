@@ -44,7 +44,12 @@ export function HarnessApprovalView(props: HarnessApprovalViewProps): React.Reac
   // hence we can save one additional call to the server
   const [approvalData, setApprovalData] = React.useState<ApprovalData>(null)
 
-  const { data, refetch, loading: loadingApprovalData, error } = useGetApprovalInstance({
+  const {
+    data,
+    refetch,
+    loading: loadingApprovalData,
+    error
+  } = useGetApprovalInstance({
     approvalInstanceId,
     mock
   })

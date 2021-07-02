@@ -226,7 +226,7 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
           {(formikProps: FormikProps<DetailsStepInterface>) => {
             saveCurrentStepData<ConnectorInfoDTO>(
               props.getCurrentStepData,
-              (formikProps.values as unknown) as ConnectorInfoDTO
+              formikProps.values as unknown as ConnectorInfoDTO
             )
             return (
               <FormikForm>

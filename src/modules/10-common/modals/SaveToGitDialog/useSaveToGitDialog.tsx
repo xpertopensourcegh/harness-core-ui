@@ -69,9 +69,8 @@ export function useSaveToGitDialog<T = Record<string, string>>(
 
   /* Progress dialog states */
   const [prCreateStatus, setPRCreateStatus] = useState<StepStatus>()
-  const [prMetaData, setPRMetaData] = useState<
-    Pick<SaveToGitFormInterface, 'branch' | 'targetBranch' | 'isNewBranch'>
-  >()
+  const [prMetaData, setPRMetaData] =
+    useState<Pick<SaveToGitFormInterface, 'branch' | 'targetBranch' | 'isNewBranch'>>()
   const [nextCallback, setNextCallback] = useState<UseSaveSuccessResponse['nextCallback']>()
   /* TODO Don't see proper types for this new errors format, replace Record<string, any> with more stricter type when available */
   const [error, setError] = useState<Record<string, any>>({})

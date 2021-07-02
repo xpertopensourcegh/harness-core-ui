@@ -33,7 +33,7 @@ const Filters: React.FC<FiltersProps> = ({ index, formikProps, removePill, field
       name={`viewRules[${index}].conditions`}
       render={arrayHelpers => {
         const viewRules = formikProps?.values?.viewRules
-        const filters = (((viewRules && viewRules[index].conditions) || []) as unknown) as PillData[]
+        const filters = ((viewRules && viewRules[index].conditions) || []) as unknown as PillData[]
         return (
           <section className={cx(css.filterContainer)}>
             {filters.map((data, innerIndex) => {

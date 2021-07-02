@@ -38,8 +38,8 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
   const HAS_CI = pipelineExecution?.modules?.includes('ci') || !isEmpty(pipelineExecution?.moduleInfo?.ci)
 
   // TODO: remove type cast
-  const ciBuildData = (pipelineExecution?.moduleInfo?.ci?.ciExecutionInfoDTO as unknown) as CIBuildResponseDTO
-  const ciBranchName = (pipelineExecution?.moduleInfo?.ci?.branch as unknown) as string
+  const ciBuildData = pipelineExecution?.moduleInfo?.ci?.ciExecutionInfoDTO as unknown as CIBuildResponseDTO
+  const ciBranchName = pipelineExecution?.moduleInfo?.ci?.branch as unknown as string
 
   const getCommits = (build: CIBuildResponseDTO): CIBuildCommit[] => {
     switch (build.event) {

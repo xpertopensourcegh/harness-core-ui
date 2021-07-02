@@ -88,12 +88,12 @@ const TickerCard: React.FC<{ item: ChangeValue & { name: string } }> = props => 
   )
 }
 
-const getRenderTickerCard: (
-  tickerCardKey: keyof ServiceListItem
-) => Renderer<CellProps<ServiceListItem>> = tickerCardKey => ({ row }) => {
-  const value = row.original[tickerCardKey] as ChangeValue
-  return <TickerCard item={{ ...value, name: tickerCardKey }} />
-}
+const getRenderTickerCard: (tickerCardKey: keyof ServiceListItem) => Renderer<CellProps<ServiceListItem>> =
+  tickerCardKey =>
+  ({ row }) => {
+    const value = row.original[tickerCardKey] as ChangeValue
+    return <TickerCard item={{ ...value, name: tickerCardKey }} />
+  }
 
 const RenderServiceInstances: Renderer<CellProps<ServiceListItem>> = ({ row }) => {
   const { serviceInstances } = row.original
@@ -154,10 +154,10 @@ const RenderLastDeployment: Renderer<CellProps<ServiceListItem>> = ({ row }) => 
           <Text font={{ weight: 'semi-bold' }} color={Color.GREY_700} margin={{ right: 'xsmall' }}>
             {name}
           </Text>
-          <Text
-            font={{ size: 'small' }}
-            color={Color.GREY_500}
-          >{`(${getString('dashboards.serviceDashboard.executionId', { id })})`}</Text>
+          <Text font={{ size: 'small' }} color={Color.GREY_500}>{`(${getString(
+            'dashboards.serviceDashboard.executionId',
+            { id }
+          )})`}</Text>
         </Layout.Horizontal>
         <Text font={{ size: 'small' }} color={Color.GREY_500}>
           {timestamp}
@@ -205,11 +205,12 @@ export const ServicesList: React.FC<ServicesListProps> = props => {
   const { total, data, totalItems, totalPages } = props
   const { getString } = useStrings()
   const ServiceListHeaderCustomPrimary = useMemo(
-    () => () => (
-      <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.GREY_700}>
-        {getString('dashboards.serviceDashboard.totalServices', { total })}
-      </Text>
-    ),
+    () => () =>
+      (
+        <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.GREY_700}>
+          {getString('dashboards.serviceDashboard.totalServices', { total })}
+        </Text>
+      ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [total]
   )

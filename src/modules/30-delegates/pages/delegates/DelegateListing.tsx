@@ -58,9 +58,7 @@ const RenderConnectivityColumn = ({ cell, setOpenTroubleshoter }: cellWithModalC
   const isConnected = delegate.activelyConnected
   const text = /*isApprovalRequired
     ? getString('delegate.pendingApproval')
-    :*/ isConnected
-    ? getString('connected')
-    : getString('delegate.notConnected')
+    :*/ isConnected ? getString('connected') : getString('delegate.notConnected')
   const color: Color = /*isApprovalRequired ? Color.YELLOW_500 :*/ isConnected ? Color.GREEN_600 : Color.GREY_400
 
   return (
