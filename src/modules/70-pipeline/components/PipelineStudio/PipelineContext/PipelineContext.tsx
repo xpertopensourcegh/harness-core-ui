@@ -396,7 +396,10 @@ interface UpdatePipelineArgs {
   gitDetails: EntityGitDetails
 }
 
-const _updatePipeline = async (args: UpdatePipelineArgs, pipeline: PipelineInfoConfig): Promise<void> => {
+const _updatePipeline = async (
+  args: UpdatePipelineArgs,
+  pipelineArg: PipelineInfoConfig | ((p: PipelineInfoConfig) => PipelineInfoConfig)
+): Promise<void> => {
   const { dispatch, queryParams, identifier, originalPipeline, gitDetails } = args
   const id = getId(
     queryParams.accountIdentifier,
@@ -407,16 +410,22 @@ const _updatePipeline = async (args: UpdatePipelineArgs, pipeline: PipelineInfoC
     gitDetails.branch || ''
   )
   if (IdbPipeline) {
+    let pipeline = pipelineArg
+
+    if (typeof pipelineArg === 'function') {
+      const dbPipeline = await IdbPipeline.get(IdbPipelineStoreName, id)
+      pipeline = pipelineArg(dbPipeline.pipeline)
+    }
     const isUpdated = !isEqual(omit(originalPipeline, 'repo', 'branch'), pipeline)
     const payload: PipelinePayload = {
       [KeyPath]: id,
-      pipeline,
+      pipeline: pipeline as PipelineInfoConfig,
       originalPipeline,
       isUpdated,
       gitDetails
     }
     await IdbPipeline.put(IdbPipelineStoreName, payload)
-    dispatch(PipelineContextActions.success({ error: '', pipeline, isUpdated }))
+    dispatch(PipelineContextActions.success({ error: '', pipeline: pipeline as PipelineInfoConfig, isUpdated }))
   }
 }
 
@@ -673,12 +682,12 @@ export const PipelineProvider: React.FC<{
         })
       }
 
-      return updatePipeline({
-        ...state.pipeline,
-        stages: _updateStages(state.pipeline.stages || [])
-      })
+      return updatePipeline(originalPipeline => ({
+        ...originalPipeline,
+        stages: _updateStages(originalPipeline.stages || [])
+      }))
     },
-    [state.pipeline, updatePipeline]
+    [updatePipeline]
   )
 
   useGlobalEventListener('focus', () => {
