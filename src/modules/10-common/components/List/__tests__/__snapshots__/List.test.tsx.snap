@@ -11,6 +11,9 @@ exports[`<List /> tests Readonly mode works 1`] = `
       <div>
         <div>
           <div
+            class=""
+          />
+          <div
             class="bp3-card bp3-elevation-0 Card--card"
             style="width: 100%;"
           >
@@ -55,6 +58,9 @@ exports[`<List /> tests Should render properly 1`] = `
     >
       <div>
         <div>
+          <div
+            class=""
+          />
           <div
             class="bp3-card bp3-elevation-0 Card--card"
             style="width: 100%;"

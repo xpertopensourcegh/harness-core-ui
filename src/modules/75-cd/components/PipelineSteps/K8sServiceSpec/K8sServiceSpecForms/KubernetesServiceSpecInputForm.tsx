@@ -818,180 +818,206 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
               index: number
             ) => {
               return (
-                <Layout.Vertical key={identifier} className={css.inputWidth}>
+                <Layout.Vertical key={identifier} className={cx(css.inputWidth, css.layoutVerticalSpacing)}>
                   <Text className={css.inputheader}>{identifier}</Text>
                   {getMultiTypeFromValue(connectorRef) === MultiTypeInputType.RUNTIME && (
-                    <FormMultiTypeConnectorField
-                      disabled={readonly}
-                      name={`${path}.manifests[${index}].manifest.spec.store.spec.connectorRef`}
-                      selected={get(initialValues, `manifests[${index}].manifest.spec.store.spec.connectorRef`, '')}
-                      label={getString('pipeline.manifestType.selectManifestStore')}
-                      placeholder={''}
-                      setRefValue
-                      multiTypeProps={{
-                        allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
-                        expressions
-                      }}
-                      accountIdentifier={accountId}
-                      projectIdentifier={projectIdentifier}
-                      orgIdentifier={orgIdentifier}
-                      type={ManifestToConnectorMap[type as ManifestStores]}
-                      onChange={(selected, _itemType, multiType) => {
-                        const item = selected as unknown as { record?: GitConfigDTO; scope: Scope }
-                        if (multiType === MultiTypeInputType.FIXED) {
-                          if (item.record?.spec?.connectionType === GitRepoName.Repo) {
-                            setShowRepoName(false)
-                          } else {
-                            setShowRepoName(true)
+                    <div className={css.verticalSpacingInput}>
+                      <FormMultiTypeConnectorField
+                        disabled={readonly}
+                        name={`${path}.manifests[${index}].manifest.spec.store.spec.connectorRef`}
+                        selected={get(initialValues, `manifests[${index}].manifest.spec.store.spec.connectorRef`, '')}
+                        label={getString('connector')}
+                        placeholder={''}
+                        setRefValue
+                        multiTypeProps={{
+                          allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+                          expressions
+                        }}
+                        width={432}
+                        accountIdentifier={accountId}
+                        projectIdentifier={projectIdentifier}
+                        orgIdentifier={orgIdentifier}
+                        type={ManifestToConnectorMap[type as ManifestStores]}
+                        onChange={(selected, _itemType, multiType) => {
+                          const item = selected as unknown as { record?: GitConfigDTO; scope: Scope }
+                          if (multiType === MultiTypeInputType.FIXED) {
+                            if (item.record?.spec?.connectionType === GitRepoName.Repo) {
+                              setShowRepoName(false)
+                            } else {
+                              setShowRepoName(true)
+                            }
                           }
-                        }
-                      }}
-                      gitScope={{ repo: repoIdentifier || '', branch: branchParam }}
-                    />
+                        }}
+                        gitScope={{ repo: repoIdentifier || '', branch: branchParam }}
+                      />
+                    </div>
+                  )}
+                  {getMultiTypeFromValue(repoName) === MultiTypeInputType.RUNTIME && showRepoName && (
+                    <div className={css.verticalSpacingInput}>
+                      <FormInput.MultiTextInput
+                        disabled={readonly}
+                        multiTextInputProps={{
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        }}
+                        label={getString('pipelineSteps.build.create.repositoryNameLabel')}
+                        className={css.inputWidth}
+                        name={`${path}.manifests[${index}].manifest.spec.store.spec.repoName`}
+                      />
+                    </div>
                   )}
                   {getMultiTypeFromValue(branch) === MultiTypeInputType.RUNTIME && (
-                    <FormInput.MultiTextInput
-                      multiTextInputProps={{
-                        expressions,
-                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                      }}
-                      label={getString('pipelineSteps.deploy.inputSet.branch')}
-                      disabled={readonly}
-                      name={`${path}.manifests[${index}].manifest.spec.store.spec.branch`}
-                    />
-                  )}
-
-                  {getMultiTypeFromValue(repoName) === MultiTypeInputType.RUNTIME && showRepoName && (
-                    <FormInput.MultiTextInput
-                      disabled={readonly}
-                      multiTextInputProps={{
-                        expressions,
-                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                      }}
-                      label={getString('pipelineSteps.build.create.repositoryNameLabel')}
-                      className={css.inputWidth}
-                      name={`${path}.manifests[${index}].manifest.spec.store.spec.repoName`}
-                    />
-                  )}
-                  {getMultiTypeFromValue(commitId) === MultiTypeInputType.RUNTIME && (
-                    <FormInput.MultiTextInput
-                      disabled={readonly}
-                      multiTextInputProps={{
-                        expressions,
-                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                      }}
-                      label={getString('pipelineSteps.commitIdValue')}
-                      name={`${path}.manifests[${index}].manifest.spec.store.spec.commitId`}
-                    />
-                  )}
-
-                  {getMultiTypeFromValue(region) === MultiTypeInputType.RUNTIME && (
-                    <ExperimentalInput
-                      formik={formik}
-                      multiTypeInputProps={{
-                        selectProps: {
-                          usePortal: true,
-                          addClearBtn: true && !readonly,
-                          items: regions
-                        },
-                        expressions,
-                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                      }}
-                      useValue
-                      disabled={readonly}
-                      selectItems={regions}
-                      label={getString('regionLabel')}
-                      name={`${path}.manifests[${index}].manifest.spec.store.spec.region`}
-                    />
-                  )}
-
-                  {getMultiTypeFromValue(bucketName) === MultiTypeInputType.RUNTIME && (
-                    <FormInput.MultiTextInput
-                      multiTextInputProps={{
-                        expressions,
-                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                      }}
-                      disabled={readonly}
-                      label={getString('pipeline.manifestType.bucketName')}
-                      name={`${path}.manifests[${index}].manifest.spec.store.spec.bucketName`}
-                    />
-                  )}
-                  {getMultiTypeFromValue(folderPath) === MultiTypeInputType.RUNTIME && (
-                    <FormInput.MultiTextInput
-                      multiTextInputProps={{
-                        expressions,
-                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                      }}
-                      disabled={readonly}
-                      label={getString('chartPath')}
-                      name={`${path}.manifests[${index}].manifest.spec.store.spec.folderPath`}
-                    />
-                  )}
-
-                  {getMultiTypeFromValue(chartName) === MultiTypeInputType.RUNTIME && (
-                    <FormInput.MultiTextInput
-                      multiTextInputProps={{
-                        expressions,
-                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                      }}
-                      disabled={readonly}
-                      label={getString('pipeline.manifestType.http.chartName')}
-                      name={`${path}.manifests[${index}].manifest.spec.chartName`}
-                    />
-                  )}
-                  {getMultiTypeFromValue(chartVersion) === MultiTypeInputType.RUNTIME && (
-                    <FormInput.MultiTextInput
-                      multiTextInputProps={{
-                        expressions,
-                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                      }}
-                      disabled={readonly}
-                      label={getString('pipeline.manifestType.http.chartVersion')}
-                      name={`${path}.manifests[${index}].manifest.spec.chartVersion`}
-                    />
-                  )}
-                  {getMultiTypeFromValue(skipResourceVersioning) === MultiTypeInputType.RUNTIME && (
-                    <FormMultiTypeCheckboxField
-                      multiTypeTextbox={{
-                        expressions,
-                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                      }}
-                      name={`${path}.manifests[${index}].manifest.spec.skipResourceVersioning`}
-                      label={getString('skipResourceVersion')}
-                      setToFalseWhenEmpty={true}
-                    />
-                  )}
-
-                  {getMultiTypeFromValue(paths) === MultiTypeInputType.RUNTIME &&
-                    manifestType !== ManifestDataType.OpenshiftTemplate && (
-                      <List
-                        label={
-                          manifestType === ManifestDataType.K8sManifest
-                            ? getString('fileFolderPathText')
-                            : getString('common.git.filePath')
-                        }
-                        name={`${path}.manifests[${index}].manifest.spec.store.spec.paths`}
-                        placeholder={getString('pipeline.manifestType.pathPlaceholder')}
-                        disabled={readonly}
-                        style={{ marginBottom: 'var(--spacing-small)' }}
-                        expressions={expressions}
-                        isNameOfArrayType
-                      />
-                    )}
-
-                  {getMultiTypeFromValue(paths) === MultiTypeInputType.RUNTIME &&
-                    manifestType === ManifestDataType.OpenshiftTemplate && (
+                    <div className={css.verticalSpacingInput}>
                       <FormInput.MultiTextInput
                         multiTextInputProps={{
                           expressions,
                           allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                         }}
-                        label={getString('pipeline.manifestType.osTemplatePath')}
-                        placeholder={getString('pipeline.manifestType.osTemplatePathPlaceHolder')}
+                        label={getString('pipelineSteps.deploy.inputSet.branch')}
                         disabled={readonly}
-                        name={`${path}.manifests[${index}].manifest.spec.store.spec.path`}
+                        name={`${path}.manifests[${index}].manifest.spec.store.spec.branch`}
                       />
+                    </div>
+                  )}
+
+                  {getMultiTypeFromValue(commitId) === MultiTypeInputType.RUNTIME && (
+                    <div className={css.verticalSpacingInput}>
+                      <FormInput.MultiTextInput
+                        disabled={readonly}
+                        multiTextInputProps={{
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        }}
+                        label={getString('pipelineSteps.commitIdValue')}
+                        name={`${path}.manifests[${index}].manifest.spec.store.spec.commitId`}
+                      />
+                    </div>
+                  )}
+
+                  {getMultiTypeFromValue(region) === MultiTypeInputType.RUNTIME && (
+                    <div className={css.verticalSpacingInput}>
+                      <ExperimentalInput
+                        formik={formik}
+                        multiTypeInputProps={{
+                          selectProps: {
+                            usePortal: true,
+                            addClearBtn: true && !readonly,
+                            items: regions
+                          },
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        }}
+                        useValue
+                        disabled={readonly}
+                        selectItems={regions}
+                        label={getString('regionLabel')}
+                        name={`${path}.manifests[${index}].manifest.spec.store.spec.region`}
+                      />
+                    </div>
+                  )}
+
+                  {getMultiTypeFromValue(bucketName) === MultiTypeInputType.RUNTIME && (
+                    <div className={css.verticalSpacingInput}>
+                      <FormInput.MultiTextInput
+                        multiTextInputProps={{
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        }}
+                        disabled={readonly}
+                        label={getString('pipeline.manifestType.bucketName')}
+                        name={`${path}.manifests[${index}].manifest.spec.store.spec.bucketName`}
+                      />
+                    </div>
+                  )}
+                  {getMultiTypeFromValue(folderPath) === MultiTypeInputType.RUNTIME && (
+                    <div className={css.verticalSpacingInput}>
+                      <FormInput.MultiTextInput
+                        multiTextInputProps={{
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        }}
+                        disabled={readonly}
+                        label={getString('chartPath')}
+                        name={`${path}.manifests[${index}].manifest.spec.store.spec.folderPath`}
+                      />
+                    </div>
+                  )}
+
+                  {getMultiTypeFromValue(chartName) === MultiTypeInputType.RUNTIME && (
+                    <div className={css.verticalSpacingInput}>
+                      <FormInput.MultiTextInput
+                        multiTextInputProps={{
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        }}
+                        disabled={readonly}
+                        label={getString('pipeline.manifestType.http.chartName')}
+                        name={`${path}.manifests[${index}].manifest.spec.chartName`}
+                      />
+                    </div>
+                  )}
+                  {getMultiTypeFromValue(chartVersion) === MultiTypeInputType.RUNTIME && (
+                    <div className={css.verticalSpacingInput}>
+                      <FormInput.MultiTextInput
+                        multiTextInputProps={{
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        }}
+                        disabled={readonly}
+                        label={getString('pipeline.manifestType.http.chartVersion')}
+                        name={`${path}.manifests[${index}].manifest.spec.chartVersion`}
+                      />
+                    </div>
+                  )}
+
+                  {getMultiTypeFromValue(paths) === MultiTypeInputType.RUNTIME &&
+                    manifestType !== ManifestDataType.OpenshiftTemplate && (
+                      <div className={css.verticalSpacingInput}>
+                        <List
+                          labelClassName={css.listLabel}
+                          label={
+                            manifestType === ManifestDataType.K8sManifest
+                              ? getString('fileFolderPathText')
+                              : getString('common.git.filePath')
+                          }
+                          name={`${path}.manifests[${index}].manifest.spec.store.spec.paths`}
+                          placeholder={getString('pipeline.manifestType.pathPlaceholder')}
+                          disabled={readonly}
+                          style={{ marginBottom: 'var(--spacing-small)' }}
+                          expressions={expressions}
+                          isNameOfArrayType
+                        />
+                      </div>
                     )}
+
+                  {getMultiTypeFromValue(paths) === MultiTypeInputType.RUNTIME &&
+                    manifestType === ManifestDataType.OpenshiftTemplate && (
+                      <div className={css.verticalSpacingInput}>
+                        <FormInput.MultiTextInput
+                          multiTextInputProps={{
+                            expressions,
+                            allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                          }}
+                          label={getString('pipeline.manifestType.osTemplatePath')}
+                          placeholder={getString('pipeline.manifestType.osTemplatePathPlaceHolder')}
+                          disabled={readonly}
+                          name={`${path}.manifests[${index}].manifest.spec.store.spec.path`}
+                        />
+                      </div>
+                    )}
+                  {getMultiTypeFromValue(skipResourceVersioning) === MultiTypeInputType.RUNTIME && (
+                    <div className={css.verticalSpacingInput}>
+                      <FormMultiTypeCheckboxField
+                        multiTypeTextbox={{
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        }}
+                        name={`${path}.manifests[${index}].manifest.spec.skipResourceVersioning`}
+                        label={getString('skipResourceVersion')}
+                        setToFalseWhenEmpty={true}
+                      />
+                    </div>
+                  )}
                 </Layout.Vertical>
               )
             }
